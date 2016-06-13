@@ -27,8 +27,9 @@
         width: 65%;
         .title-section{
           h6.title{
-            display: inline;
+            display: inline-block;
             width: 88%;
+            color:$blue-400;
           }
           .publish-icon{
             display: inline-block;

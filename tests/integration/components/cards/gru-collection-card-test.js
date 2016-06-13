@@ -36,14 +36,14 @@ test('Collection Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-heading h6.title"), "Missing Title");
   T.exists(assert, $collectionCard.find(".panel-heading .image img"), "Missing Collection Image");
   T.exists(assert, $collectionCard.find(".panel-heading .question-resources"), "Missing Question and Resource Label");
-  T.exists(assert, $collectionCard.find(".panel-heading .course"), "Missing Course Label");
+  T.exists(assert, $collectionCard.find(".panel-body .course"), "Missing Course Label");
   T.exists(assert, $collectionCard.find(".panel-body .gru-taxonomy-tag-list"), "Missing Standards");
   T.exists(assert, $collectionCard.find(".panel-body .remixed-by"), "Missing Remixed By section");
   T.exists(assert, $collectionCard.find(".panel-body .remixed-by img"), "Missing Remixed By image");
   T.exists(assert, $collectionCard.find(".panel-body .description"), "Missing Collection Description");
-  T.exists(assert, $collectionCard.find(".panel-body .remix-btn"), "Missing Remixed Button");
-  T.notExists(assert, $collectionCard.find(".panel-body .edit-btn"), "Edit Button should not be visible");
-  T.exists(assert, $collectionCard.find(".panel-body .visibility .pull-right"), "Missing visibility icon");
+  T.exists(assert, $collectionCard.find(".panel-footer .remix-btn"), "Missing Remixed Button");
+  T.notExists(assert, $collectionCard.find(".panel-footer .edit-btn"), "Edit Button should not be visible");
+  T.exists(assert, $collectionCard.find(".panel-footer .visibility .pull-right"), "Missing visibility icon");
 });
 
 test('Assessment Card Layout', function(assert) {
@@ -74,13 +74,13 @@ test('Assessment Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-heading h6.title"), "Missing Title");
   T.exists(assert, $collectionCard.find(".panel-heading .image img"), "Missing Collection Image");
   T.exists(assert, $collectionCard.find(".panel-heading .question-resources"), "Missing Question and Resource Label");
-  T.exists(assert, $collectionCard.find(".panel-heading .course"), "Missing Course Label");
+  T.exists(assert, $collectionCard.find(".panel-body .course"), "Missing Course Label");
   T.exists(assert, $collectionCard.find(".panel-body .gru-taxonomy-tag-list"), "Missing Standards");
   T.exists(assert, $collectionCard.find(".panel-body .author"), "Missing Remixed By section");
   T.exists(assert, $collectionCard.find(".panel-body .author img"), "Missing Remixed By image");
   T.exists(assert, $collectionCard.find(".panel-body .description"), "Missing Collection Description");
-  T.exists(assert, $collectionCard.find(".panel-body .remix-btn"), "Missing Remixed Button");
-  T.notExists(assert, $collectionCard.find(".panel-body .edit-btn"), "Edit Button should not be visible");
+  T.exists(assert, $collectionCard.find(".panel-footer .remix-btn"), "Missing Remixed Button");
+  T.notExists(assert, $collectionCard.find(".panel-footer .edit-btn"), "Edit Button should not be visible");
 });
 
 test('Collection card trying buttons', function(assert) {
@@ -114,10 +114,10 @@ test('Collection card trying buttons', function(assert) {
   this.render(hbs`{{cards/gru-collection-card collection=collection editEnabled=true onEditCollection="editCollection" remixEnabled=false}}`);
   var $component = this.$(); //component dom element
   const $collectionCard = $component.find(".gru-collection-card");
-  T.notExists(assert, $collectionCard.find(".panel-body .remix-btn"), "Remixed Button should not fixed");
-  T.exists(assert, $collectionCard.find(".panel-body .edit-btn"), "Edit Button should not visible");
+  T.notExists(assert, $collectionCard.find(".panel-footer .remix-btn"), "Remixed Button should not fixed");
+  T.exists(assert, $collectionCard.find(".panel-footer .edit-btn"), "Edit Button should be visible");
 
-  $collectionCard.find(".panel-body .edit-btn").click();
+  $collectionCard.find(".panel-footer .edit-btn").click();
 
 });
 
@@ -138,10 +138,9 @@ test('Collection Small Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-heading .image img"), "Missing Collection Image");
   T.exists(assert, $collectionCard.find(".panel-heading .question-resources"), "Missing Question and Resource Label");
   T.notExists(assert, $collectionCard.find(".panel-heading .course"), "Course Label shouldn't appear");
-  T.notExists(assert, $collectionCard.find(".panel-body .standards"), "Standards shouldn't appear");
   T.notExists(assert, $collectionCard.find(".panel-body .author"), "Remixed By section shouldn't appear");
   T.notExists(assert, $collectionCard.find(".panel-body .author img"), "Remixed By image shouldn't appear");
   T.notExists(assert, $collectionCard.find(".panel-body .description"), "Collection Description shouldn't appear");
-  T.notExists(assert, $collectionCard.find(".panel-body .remix-btn"), "Remixed Button shouldn't appear");
-  T.notExists(assert, $collectionCard.find(".panel-body .edit-btn"), "Edit Button should not be visible");
+  T.notExists(assert, $collectionCard.find(".panel-footer .remix-btn"), "Remixed Button shouldn't appear");
+  T.notExists(assert, $collectionCard.find(".panel-footer .edit-btn"), "Edit Button should not be visible");
 });
