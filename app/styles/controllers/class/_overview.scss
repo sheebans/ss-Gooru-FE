@@ -160,19 +160,26 @@
           padding-left: 14%;
 
           > .panel {
-
             > button.on-air {
               display: none;
               position: absolute;
               top: 9px;
-              left: -110px;
-              width: 102px;
-              padding: 8px;
-              line-height: 1;
-              @include text-overflow();
 
+              display: inline-block;
+              margin: 0 5px 0 15px;
+              width: $on-air-icon;
+              height: $on-air-icon;
+              vertical-align: middle;
+              background-image: url('gooru/images/on-air-icon.svg');
+              background-size: $on-air-icon $on-air-icon;
+              @include text-hide();
+              cursor: pointer;
               @media (min-width: $screen-sm) {
+                left: -85px;
                 display: inline-block;
+              }
+              @media (min-width: $screen-md) {
+                left: -116px;
               }
             }
 

@@ -66,6 +66,9 @@
           color: #fff;
           display: inline-block;
         }
+        i {
+          font-size: $font-size-h2;
+        }
       }
       &.completion {
         div{
