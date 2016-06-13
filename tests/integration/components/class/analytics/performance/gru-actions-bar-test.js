@@ -10,7 +10,7 @@ moduleForComponent('class/analytics/performance/gru-actions-bar', 'Integration |
 });
 
 test('Class Performance Actions Bar with student mode', function(assert) {
-  assert.expect(12);
+  assert.expect(10);
 
   const collectionLevel = false;
 
@@ -24,9 +24,9 @@ test('Class Performance Actions Bar with student mode', function(assert) {
   var $component = this.$(); //component dom element
   const $actions = $component.find(".gru-actions-bar");
   T.exists(assert, $actions, "Missing actions bar section");
-  T.exists(assert, $actions.find(".share"), "Missing share button");
+  //T.exists(assert, $actions.find(".share"), "Missing share button");
   T.notExists(assert, $actions.find(".edit"), "Edit button shouldn't be visible for student mode");
-  T.exists(assert, $actions.find(".download"), "Missing download button");
+  //T.exists(assert, $actions.find(".download"), "Missing download button");
   T.exists(assert, $actions.find(".full-screen"), "Missing full-screen button");
 
   //drop down menu list
@@ -44,7 +44,7 @@ test('Class Performance Actions Bar with student mode', function(assert) {
 
 
 test('Class Performance Actions Bar with teacher mode', function(assert) {
-  assert.expect(12);
+  assert.expect(11);
 
   const collectionLevel = false;
 
@@ -61,7 +61,7 @@ test('Class Performance Actions Bar with teacher mode', function(assert) {
   T.exists(assert, $actions, "Missing actions bar section");
   T.exists(assert, $actions.find(".edit"), "Missing edit button");
   T.notExists(assert, $actions.find(".share"), "Share button shouldn't be visible for student mode");
-  T.exists(assert, $actions.find(".download"), "Missing download button");
+  //T.exists(assert, $actions.find(".download"), "Missing download button");
   T.exists(assert, $actions.find(".full-screen"), "Missing full-screen button");
   T.notExists(assert, $actions.find(".on-air"), "On-air button should not be visible");
 

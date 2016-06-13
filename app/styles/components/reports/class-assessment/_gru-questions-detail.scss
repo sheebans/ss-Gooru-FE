@@ -1,6 +1,6 @@
 .reports.class-assessment.gru-questions-detail {
-  height: 400px;
   padding: 12px;
+  height: 100%;
 
   .navigation {
     height: auto;
@@ -36,11 +36,13 @@
   }
   .body{
     width: 100%;
+    height: 100%;
     margin: 0 auto;
     display: flex;
     padding: 0 5%;
     .panel {
       border-radius: 4px;
+      height: 100%;
       .panel-heading {
         padding: 5px 30px;
         font-size: $font-size-h6;
@@ -49,6 +51,7 @@
       }
       .panel-body {
         padding: 15px 35px;
+        height: 100%;
         h3 {
           margin: 5px 0 20px;
         }
@@ -56,15 +59,21 @@
     }
     .question-info {
       width: 50%;
+      height: 100%;
       .narration {
         .panel-body {
           padding:15px 35px;
         }
       }
       &.anonymous {
-        font-size: $font-size-h3;
+        font-size: $font-size-anonymous;
+        line-height: 42px;
+      }
+      .gru-question-information {
+        height: 100%;
       }
     }
+
     .question-metrics {
       width: 50%;
       padding: 0 0 0 20px;
