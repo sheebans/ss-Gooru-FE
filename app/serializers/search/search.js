@@ -6,7 +6,8 @@ import AssessmentModel from 'gooru-web/models/content/assessment';
 import CollectionModel from 'gooru-web/models/content/collection';
 import CourseModel from 'gooru-web/models/content/course';
 import ProfileModel from 'gooru-web/models/profile/profile';
-import { DEFAULT_IMAGES } from 'gooru-web/config/config';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from 'gooru-web/config/config';
 
 /**
  * Serializer to support Search functionality
@@ -227,23 +228,51 @@ export default Ember.Object.extend({
     });
   },
 
-
+  /**
+   * Normalizes standars
+   * @param payload
+   * @returns {TaxonomyDataTag[]}
+   */
   normalizeStandards(payload) {
-    let standards = [];
-    if (payload.taxonomyDataSet) {
-      let taxonomy = JSON.parse(payload.taxonomyDataSet);
-      let taxonomyCurriculum = taxonomy.curriculum;
-      for (var i = 0; i < taxonomyCurriculum.curriculumCode.length; i++) {
-        let standardCode = taxonomyCurriculum.curriculumCode[i];
-        let standardDesc = taxonomyCurriculum.curriculumDesc[i];
-        let standard = Ember.Object.create({
-          code: standardCode,
-          description: standardDesc
+    let taxonomy = payload.taxonomySet || payload.taxonomyDataSet || {};
+    if (!payload.taxonomySet && payload.taxonomyDataSet) {
+      taxonomy = JSON.parse(payload.taxonomyDataSet);
+    }
+
+    const toTaxonomyTags = function (taxonomies, titles, frameworks, level) {
+      let standards = [];
+      const firstFramework = frameworks.length > 0 ? frameworks[0] : null;
+      for (var i = 0; i < taxonomies.length; i++) {
+        let code = taxonomies[i];
+        let title = titles.length > i ? titles[i] : null;
+        let framework = frameworks.length > i ? frameworks[i] : firstFramework;
+        let standard = TaxonomyTagData.create({
+          id: code, //not provided at search, using code
+          code: code,
+          title: title,
+          parentTitle: null, //TODO not provided
+          description: title, //TODO not provided
+          frameworkCode: framework,
+          taxonomyLevel: level
         });
         standards.push(standard);
       }
-    }
-    return standards;
+      return Ember.A(standards);
+    };
+
+    let curriculum = taxonomy.curriculum || {};
+
+    let frameworks = curriculum.curriculumName || [];
+    let taxonomies = curriculum.curriculumCode || [];
+    let titles = curriculum.curriculumDesc || [];
+    let standards = toTaxonomyTags(taxonomies, titles, frameworks, TAXONOMY_LEVELS.STANDARD);
+
+    taxonomies = curriculum.learningTarget || [];
+    titles = curriculum.learningTargetDesc || [];
+    let micro = toTaxonomyTags(taxonomies, titles, frameworks, TAXONOMY_LEVELS.MICRO);
+    standards.pushObjects(micro.toArray());
+
+    return standards.toArray();
   },
 
   /**
