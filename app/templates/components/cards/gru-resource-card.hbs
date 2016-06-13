@@ -22,11 +22,9 @@
   </div>
   <div class="panel-body">
 
-    <div class="standards">
-      {{#if resource.standards }}
-        {{collection-results-standards collection=resource standards=resource.standards}}
-      {{/if}}
-    </div>
+    {{#if tags.length}}
+      {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2}}
+    {{/if}}
 
     <div class="publisher">
         <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">

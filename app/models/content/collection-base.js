@@ -87,7 +87,7 @@ export default (function() {
     /**
      * @property {Boolean} isPublished
      */
-    isPublished: Ember.computed.equal("publishedStatus", "published"),
+    isPublished: Ember.computed.equal("publishStatus", "published"),
 
     /**
      * @property {Boolean} isVisibleOnProfile

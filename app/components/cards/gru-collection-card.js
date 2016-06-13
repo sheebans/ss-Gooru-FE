@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 /**
  * Collection and Assessment card
  *
@@ -44,7 +45,7 @@ export default Ember.Component.extend(ModalMixin,{
   },
   // -------------------------------------------------------------------------
   // Events
-  
+
   didRender(){
     $('[data-toggle="tooltip"]').tooltip();
   },
@@ -128,15 +129,16 @@ export default Ember.Component.extend(ModalMixin,{
 
   isSmall: false,
 
-   /**
-    * @property {TaxonomyTag[]} List of taxonomy tags
-    */
-   tags: Ember.computed('collection.standards.[]', function() {
-     return TaxonomyTag.getTaxonomyTags(this.get("collection.standards"));
-  }),
   /**
-   * Indicates if the collection or assessment is showing on search
-   * @property {boolean}
+   * @property {TaxonomyTag[]} List of taxonomy tags
    */
-  isSearchResult: false,
+  tags: Ember.computed('collection.standards.[]', function() {
+    var standards = this.get('collection.standards');
+    standards = standards.filter(function(standard) {
+      // Filter out learning targets (they're too long for the card)
+      return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+    });
+    return TaxonomyTag.getTaxonomyTags(standards);
+  })
+
 });

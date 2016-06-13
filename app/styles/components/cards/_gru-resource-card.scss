@@ -101,24 +101,7 @@
     .panel-body {
       padding: 5px 15px 0 15px;
       height: 128px;
-      .standards {
-        height: 25px;
-        overflow: hidden;
-        width: 100%;
-        .uc-search-standard {
-          display: inline-block;
-          float: left;
-          width: 43%;
-          .truncate {
-            width: 98%;
-            @include text-overflow();
-            text-overflow: ellipsis;
-          }
-          .label {
-            padding: 0;
-          }
-        }
-      }
+
       .publisher {
         margin: 3px 0 3px 2px;
         width: 100%;

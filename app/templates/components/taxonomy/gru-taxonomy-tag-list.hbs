@@ -2,12 +2,12 @@
   {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
 {{/each}}
 {{#if nonVisibleTags}}
-  <div class="non-visible-tags">
+  <button class="non-visible-tags">
     {{nonVisibleTags}}+
     {{#tooltip-on-element event='click' side="right" class="taxonomy gru-taxonomy-tag-list tags-tooltip"}}
       {{#each tags as |taxonomyTag|}}
         {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
       {{/each}}
     {{/tooltip-on-element}}
-  </div>
+  </button>
 {{/if}}
