@@ -6,6 +6,23 @@
   <div class="course-content">
     {{#each courses as |course|}}
       {{cards.gru-course-card course=course isEditEnabled=isMyProfile isOwner=isMyProfile onEditCourse="editCourse" onRemixCourse="remixCourse"}}
+    {{else}}
+
+      <div class="panel add-content panel-default">
+        <div class="panel-body">
+          {{gru-icon name='explore'}}
+
+          {{#if isMyProfile}}
+            <p>{{{t "common.add-content-prompt" type=(t "common.a-course")}}}</p>
+            <button class="btn btn-success" {{action "showModal" "content.modals.gru-course-new"}}>
+              {{t "common.add"}} {{t "common.course"}}
+            </button>
+          {{else}}
+            <p>{{{t "common.no-content-to-display" type=(t "common.courses")}}}</p>
+          {{/if}}
+        </div>
+      </div>
+
     {{/each}}
   </div>
   {{#if showMoreResultsButton}}

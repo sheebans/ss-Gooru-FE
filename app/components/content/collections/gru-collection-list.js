@@ -35,6 +35,16 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
   actions:{
     /**
+    * Cancel reorder collection items
+    */
+    cancelSort:function(){
+      var component = this;
+      const sortable = component.$('.sortable');
+      component.set('isSorting',false);
+      sortable.sortable('disable');
+    },
+
+    /**
      * Remove collection item
      */
     removeCollectionItem: function (builderItem) {
@@ -57,15 +67,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       const sortable = component.$('.sortable');
       sortable.sortable();
       sortable.sortable('enable');
-    },
-    /**
-     * Cancel reorder collection items
-     */
-    cancelSort:function(){
-      var component = this;
-      const sortable = component.$('.sortable');
-      component.set('isSorting',false);
-      sortable.sortable('disable');
     },
 
     /**
@@ -120,6 +121,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     const sortable = component.$('.sortable');
     sortable.sortable();
     sortable.off('sortupdate');
+  },
+  /**
+   * WillDestroyElement ember event
+   */
+  didRender(){
+    $('[data-toggle="tooltip"]').tooltip();
   },
 
   // -------------------------------------------------------------------------

@@ -26,11 +26,7 @@
 </li>
 <li class="score {{if scoreSelected 'selected'}}">
   {{#if performance.hasStarted}}
-    {{#if performance.score}}
         <span class="score-box" style="background-color: {{ gradeColor performance.score }}">{{performance.score}}%</span>
-    {{else}}
-        <span class="score-box" style="background-color: #959A9E">--%</span>
-    {{/if}}
   {{else}}
       <span class="score-box" style="background-color: #959A9E">--%</span>
   {{/if}}

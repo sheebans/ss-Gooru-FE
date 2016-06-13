@@ -91,6 +91,19 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       }
     },
 
+    /**
+    * Route to edit with correct query params.
+    */
+    edit: function(item) {
+      var route = item.get('format') ==='question' ? "content.questions.edit" : "content.resources.edit";
+      this.get('router').transitionTo(route, item.get("id"), {
+        queryParams: {
+          collectionId: this.get('collection.id'),
+          isCollection: this.get('isCollection')
+        }
+      });
+    },
+
     copy: function(builderItem) {
       var model = {
         content: this.get('model'),
