@@ -37,7 +37,7 @@ test('Collection Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-heading .image img"), "Missing Collection Image");
   T.exists(assert, $collectionCard.find(".panel-heading .question-resources"), "Missing Question and Resource Label");
   T.exists(assert, $collectionCard.find(".panel-heading .course"), "Missing Course Label");
-  T.exists(assert, $collectionCard.find(".panel-body .standards"), "Missing Standards");
+  T.exists(assert, $collectionCard.find(".panel-body .gru-taxonomy-tag-list"), "Missing Standards");
   T.exists(assert, $collectionCard.find(".panel-body .remixed-by"), "Missing Remixed By section");
   T.exists(assert, $collectionCard.find(".panel-body .remixed-by img"), "Missing Remixed By image");
   T.exists(assert, $collectionCard.find(".panel-body .description"), "Missing Collection Description");
@@ -75,7 +75,7 @@ test('Assessment Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-heading .image img"), "Missing Collection Image");
   T.exists(assert, $collectionCard.find(".panel-heading .question-resources"), "Missing Question and Resource Label");
   T.exists(assert, $collectionCard.find(".panel-heading .course"), "Missing Course Label");
-  T.exists(assert, $collectionCard.find(".panel-body .standards"), "Missing Standards");
+  T.exists(assert, $collectionCard.find(".panel-body .gru-taxonomy-tag-list"), "Missing Standards");
   T.exists(assert, $collectionCard.find(".panel-body .author"), "Missing Remixed By section");
   T.exists(assert, $collectionCard.find(".panel-body .author img"), "Missing Remixed By image");
   T.exists(assert, $collectionCard.find(".panel-body .description"), "Missing Collection Description");
