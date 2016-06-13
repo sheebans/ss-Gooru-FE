@@ -7,7 +7,7 @@
             <div class="title-section">
                 <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
                 {{#if collection.isPublished}}
-                    <div class="publish-icon"></div>
+                    <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="bottom"></div>
                 {{/if}}
             </div>
             <span class="question-resources">
@@ -35,7 +35,7 @@
                     {{t (if collection.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
                   </span>
                   <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
-                  <span>{{collection.owner.displayName}}</span>
+                  <span class="owner">{{collection.owner.displayName}}</span>
                 {{/link-to}}
               {{else}}
                 {{#if collection.owner}}
@@ -44,7 +44,7 @@
                       {{t (if collection.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
                     </span>
                     <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
-                    <span>{{collection.owner.displayName}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
+                    <span class="owner">{{collection.owner.displayName}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
                   {{/link-to}}
                 {{/if}}
               {{/if}}

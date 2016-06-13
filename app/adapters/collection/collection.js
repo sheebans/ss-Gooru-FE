@@ -1,4 +1,4 @@
-import ApplicationAdapter from '../application';
+ import ApplicationAdapter from '../application';
 
 export default ApplicationAdapter.extend({
 

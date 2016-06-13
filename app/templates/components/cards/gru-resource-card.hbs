@@ -4,9 +4,12 @@
       {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
         <i class="{{resource.format}}-icon"></i>
       {{/link-to}}
-        <div class="collection-info">
-          <div>
+        <div class="resource-info">
+          <div class="title-section">
             {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+            {{#if resource.isPublished}}
+                <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="bottom"></div>
+            {{/if}}
           </div>
           {{#if isQuestion}}
             <div class="question-type">

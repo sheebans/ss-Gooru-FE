@@ -136,7 +136,7 @@ const ResourceModel = Ember.Object.extend(Validations,{
   /**
    * @property {Boolean} isPublic
    */
-  isPublic: Ember.computed.equal("publishedStatus", "published"),
+  isPublished: Ember.computed.equal("publishStatus", "published"),
 
   /**
    * @property {TaxonomyTagData[]} an array with Taxonomy data
