@@ -12,6 +12,7 @@
   {{class.analytics.performance.student.gru-unit-performance
     unit=unit
     selectedOption=selectedOption
+    selectedFilterBy=selectedFilterBy
     localIndex=index
     classModel=classModel
     userId=userId
@@ -22,5 +23,5 @@
     selectedLessonId=selectedLessonId
   }}
 {{else}}
-  <span class="no-content">{{t "common.no-content"}}</span>
+  {{three-bounce-spinner}}
 {{/each}}
