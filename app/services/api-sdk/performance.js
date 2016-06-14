@@ -147,6 +147,7 @@ export default Ember.Service.extend({
     const store = this.get('store');
     let modelName = null;
     let record = this.getPerformanceRecord(type, object);
+
     if(type === 'unit') {
       modelName = "performance/unit-performance";
     }
@@ -158,10 +159,12 @@ export default Ember.Service.extend({
     }
 
     const found = store.recordIsLoaded(modelName, id);
-    const newRecord = (found) ?
-      store.recordForId(modelName, id) :
-      store.createRecord(modelName, record);
+    if (found) {
+      const foundRecord = store.recordForId(modelName, id);
+      store.unloadRecord(foundRecord);
+    }
 
+    let newRecord = store.createRecord(modelName, record);
     if (type === 'collection') {
       newRecord.set("collectionType", object.get("collectionType"));
     }
