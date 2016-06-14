@@ -9,6 +9,10 @@
     width: 460px;
   }
 
+  .tooltip-inner {
+    white-space: nowrap;
+  }
+
   .panel {
     height: 280px;
   }
@@ -19,6 +23,7 @@
     .course-image {
       display: block;
       height: 80px;
+      overflow: hidden;
       width: 80px;
     }
 
@@ -31,6 +36,7 @@
     .course-title {
       color: $blue-300;
       font-size: $font-size-h6;
+      height: 45px;
       margin: 0;
       width: calc(100% - 25px);
     }
@@ -50,33 +56,44 @@
         border-left: 2px solid $gray-base;
         margin-right: 5px;
       }
-
-
     }
 
     .remixed-users {
       @include flexbox;
       @include align-items(center);
+      margin-top: -3px;
       overflow: hidden;
-
-
     }
 
     .icon {
+      background: url('gooru/badge-01.png');
+      height: 20px;
       position: absolute;
       right: 0;
       top: -5px;
+      width: 18px;
     }
+
+
   }
 
   .gru-user-teaser {
+    @include flexbox;
+    @include align-items(center);
+
     span {
+      height: 25px;
+
       a {
         display: inline-block;
         max-width: 70px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+
+      .avatar {
+        margin: 0 5px;
       }
     }
   }
@@ -95,7 +112,6 @@
       position: absolute;
       top: 0;
       width: calc(100% + 30px);
-
     }
 
     .taxonomy-standards {
