@@ -30,7 +30,6 @@ test('it renders correctly when the total value is zero', function (assert) {
 
   const $component = this.$('.charts.gru-completion-chart');
   const $bar = $component.find('.gru-x-bar-chart');
-  assert.equal($bar.find('.segment').length, 1, "Bar chart");
-  assert.equal($bar.find('.segment:nth-child(1)').attr("style"), "background-color: " + ANONYMOUS_COLOR + "; width: 0%;", "Segment");
-  assert.equal($component.find('span').text(), '0/0', 'Text label');
+  assert.equal($bar.length, 0, "Bar chart should not be visible");
+  assert.equal($component.find('.no-info').length, 1, "No info panel should be visible");
 });
