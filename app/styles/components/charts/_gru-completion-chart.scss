@@ -19,5 +19,10 @@
     width: 100%;
     text-align: center;
     line-height: $height;
+
+    &.no-info {
+      background-color: $dark-100;
+      border-radius: 4px;
+    }
   }
 }

@@ -90,6 +90,12 @@ export default Ember.Component.extend({
   selectedOption: null,
 
   /**
+   * The selected filter by from the drop down
+   * @property {String}
+   */
+  selectedFilterBy: null,
+
+  /**
    * Collection that contains the lesson performance models for this unit
    *
    * @property {Ember.Array}
@@ -194,18 +200,21 @@ export default Ember.Component.extend({
 
   loadData: function(classId, courseId, unitId, userId) {
     const component = this;
+    const filterBy = component.get('selectedFilterBy');
     return component.get('unitService').fetchById(courseId, unitId)
       .then(function(unit) {
         const lessons = unit.get('children');
-        return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons)
+        return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons, {collectionType: filterBy})
           .then(function(lessonPerformances) {
             const promises = lessonPerformances.map(function(lessonPerformance) {
               //TODO this should be loaded at the gru-lesson-performance only when the lesson is expanded
               const lessonId = lessonPerformance.get('id');
               return component.get('lessonService').fetchById(courseId, unitId, lessonId)
                 .then(function(lesson) {
-                  const collections = lesson.get('children');
-                  return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections)
+                  const collections = lesson.get('children').filter(function(collection) {
+                    return (filterBy === 'both') || (collection.get('format') === filterBy);
+                  });
+                  return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections, {collectionType: filterBy})
                     .then(function(collectionPerformances) {
                       lessonPerformance.set('collections', collectionPerformances);
                     });

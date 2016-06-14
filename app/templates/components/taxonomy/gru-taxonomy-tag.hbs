@@ -1,7 +1,7 @@
 {{#if model.isReadonly}}
   <div>
-    <b>{{model.data.label}}</b>
-    <span>{{model.data.caption}}</span>
+    <b class="truncate">{{model.data.label}}</b>
+    <span class="truncate">{{model.data.caption}}</span>
   </div>
 {{else}}
   <button class="toggle" {{action 'toggleState'}}>
