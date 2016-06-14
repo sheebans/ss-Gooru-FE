@@ -119,36 +119,42 @@ export default Ember.Controller.extend({
           assessmentResult.set("submittedAt", toLocal(session.eventTime));
         }
 
-        controller.get('analyticsService')
-          .getStandardsSummary(context.get('sessionId'))
-          .then(function(standardsSummary) {
-            assessmentResult.set('mastery', standardsSummary);
-            let standardsIds = standardsSummary.map(function(standardSummary) { return standardSummary.get('id') });
-            controller.get('taxonomyService')
-              .fetchCodesByIds(standardsIds)
-              .then(function(taxonomyStandards) {
-                standardsSummary.forEach(function(standardSummary) {
-                  const taxonomyStandard = taxonomyStandards.findBy('id', standardSummary.get('id'));
-                  if (taxonomyStandard) {
-                    standardSummary.set('description', taxonomyStandard.title);
-                  }
-                  controller.get('searchService')
-                    .searchResources('*', {
-                      courseId: controller.get('courseId'),
-                      taxonomies: [standardSummary.get('id')],
-                      publishStatus: 'unpublished'  // TODO this parameter needs to be removed once we go to Production
-                    })
-                    .then(function(resources) {
-                      const suggestedResources = resources.map(function(resource) {
-                      return {
-                        resource: resource.toPlayerResource()
-                      };
-                    });
-                    standardSummary.set('suggestedResources', suggestedResources);
-                  });
-                });
+        if (session && context.get("isInContext")) {
+          controller.get('analyticsService')
+            .getStandardsSummary(context.get('sessionId'))
+            .then(function (standardsSummary) {
+              assessmentResult.set('mastery', standardsSummary);
+              let standardsIds = standardsSummary.map(function (standardSummary) {
+                return standardSummary.get('id')
               });
-          });
+              if (standardsIds.length){ //if it has standards
+                controller.get('taxonomyService')
+                  .fetchCodesByIds(standardsIds)
+                  .then(function (taxonomyStandards) {
+                    standardsSummary.forEach(function (standardSummary) {
+                      const taxonomyStandard = taxonomyStandards.findBy('id', standardSummary.get('id'));
+                      if (taxonomyStandard) {
+                        standardSummary.set('description', taxonomyStandard.title);
+                      }
+                      controller.get('searchService')
+                        .searchResources('*', {
+                          courseId: controller.get('courseId'),
+                          taxonomies: [standardSummary.get('id')],
+                          publishStatus: 'unpublished'  // TODO this parameter needs to be removed once we go to Production
+                        })
+                        .then(function (resources) {
+                          const suggestedResources = resources.map(function (resource) {
+                            return {
+                              resource: resource.toPlayerResource()
+                            };
+                          });
+                          standardSummary.set('suggestedResources', suggestedResources);
+                        });
+                    });
+                  });
+              }
+            });
+        }
         controller.set("assessmentResult", assessmentResult);
     });
   },
@@ -158,7 +164,13 @@ export default Ember.Controller.extend({
     this.set("completedSessions", []);
     this.set("context", null);
     this.set("lesson", null);
-    this.set("type", null);
+    this.set("type", undefined);
+    this.set("classId", undefined);
+    this.set("courseId", undefined);
+    this.set("unitId", undefined);
+    this.set("lessonId", undefined);
+    this.set("collectionId", undefined);
+    this.set("userId", undefined);
   }
 
 });
