@@ -44,6 +44,11 @@
             {{truncate text=(noTags text=course.description) type='medium-large'}}
           {{/if}}
         </div>
+
+        {{#if tags.length}}
+          {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true}}
+        {{/if}}
+
         {{#if isEyeVisible}}
           <div class="visibility">
             {{#unless course.isVisibleOnProfile }}

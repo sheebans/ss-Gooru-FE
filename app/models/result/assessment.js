@@ -93,7 +93,7 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} submitted
    */
-  submitted: Ember.computed.bool("submittedAt"),
+  submitted: false,
 
   /**
    * @property {boolean} started

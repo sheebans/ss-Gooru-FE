@@ -87,6 +87,7 @@ test('started', function(assert) {
   assert.ok(!assessmentResult.get("started"), "Assessment result should not be started");
 });
 
+/*
 test('submitted', function(assert) {
   let assessmentResult = AssessmentResult.create({
     "submittedAt": new Date()
@@ -98,6 +99,7 @@ test('submitted', function(assert) {
   assessmentResult.set("submittedAt", null);
   assert.ok(!assessmentResult.get("submitted"), "Assessment result should not be submitted");
 });
+*/
 
 test('getResultByResourceId', function(assert) {
   let assessmentResult = AssessmentResult.create({

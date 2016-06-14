@@ -36,6 +36,7 @@ export default Ember.Object.extend({
       data: {
         q: term,
         'flt.collectionType': 'collection',
+        'flt.publishStatus': 'published',
         start: page + 1,
         length: pageSize
       }
@@ -70,6 +71,7 @@ export default Ember.Object.extend({
       data: {
         q: term,
         'flt.collectionType': 'assessment',
+        'flt.publishStatus': 'published',
         start: page + 1, //page starts at one
         length: pageSize
       }
@@ -103,7 +105,8 @@ export default Ember.Object.extend({
         "q": term,
         "start": page + 1,
         "length": pageSize,
-        "flt.contentFormat": "resource"
+        "flt.contentFormat": "resource",
+        'flt.publishStatus': 'published',
       }
     };
     const formats = params.formats;
@@ -149,7 +152,8 @@ export default Ember.Object.extend({
         "q": term,
         "start": page + 1,
         "length": pageSize,
-        "flt.resourceFormat": "question"
+        "flt.resourceFormat": "question",
+        'flt.publishStatus': 'published',
       }
     };
     const types = params.types;

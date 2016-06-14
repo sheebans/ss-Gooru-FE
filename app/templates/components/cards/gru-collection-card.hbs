@@ -4,7 +4,12 @@
             <a {{action "openContentPlayer" collection}}><img class="img-responsive" src="{{collection.thumbnailUrl}}"></a>
         </div>
         <div class="collection-info">
-            <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
+            <div class="title-section">
+                <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
+                {{#if collection.isPublished}}
+                    <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
+                {{/if}}
+            </div>
             <span class="question-resources">
               {{#if hasResources}}
                   <span class="bar">| </span><p>{{t "cards.gru-course-card.resource" count=collection.resourceCount}}</p>
@@ -13,26 +18,16 @@
                   <span class="bar">| </span><p>{{t "cards.gru-course-card.question" count=collection.questionCount}}</p>
               {{/if}}
             </span>
-          {{#unless isSmall}}
-            <div class="course">
-              {{#if collection.course }}
-                {{gru-icon name="chrome_reader_mode"}}
-                <p>{{t "cards.gru-course-card.in"}}
-                {{#link-to "content.courses.play" collection.courseId class="pointer"}}
-                  {{truncate text=collection.course type='collection-card-courses'}}
-                {{/link-to}}
-                </p>
-              {{/if}}
-            </div>
-          {{/unless}}
         </div>
     </div>
   {{#unless isSmall}}
     <div class="panel-body">
         <div class="collection-details">
-            <div class="standards">
-                {{collection-results-standards collection=collection standards=collection.standards}}
-            </div>
+
+            {{#if tags.length}}
+              {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true}}
+            {{/if}}
+
             <div class="{{if isAssessment 'author' 'remixed-by'}}">
               {{#if isAssessment}}
                 {{#link-to 'profile.content.courses' collection.owner.id class="pointer" tagName="div"}}
@@ -40,7 +35,7 @@
                     {{t (if collection.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
                   </span>
                   <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
-                  <span>{{collection.owner.displayName}}</span>
+                  <span class="owner">{{collection.owner.displayName}}</span>
                 {{/link-to}}
               {{else}}
                 {{#if collection.owner}}
@@ -49,28 +44,42 @@
                       {{t (if collection.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
                     </span>
                     <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
-                    <span>{{collection.owner.displayName}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
+                    <span class="owner">{{collection.owner.displayName}}</span> {{#if collection.remixCount}}+{{collection.remixCount}}{{/if}}
                   {{/link-to}}
                 {{/if}}
               {{/if}}
             </div>
+              <div class="course">
+                {{#if collection.course }}
+                  {{gru-icon name="chrome_reader_mode"}}
+                    <p>{{t "cards.gru-course-card.in"}}
+                      {{#link-to "content.courses.play" collection.courseId class="pointer"}}
+                        {{truncate text=collection.course type='collection-card-courses'}}
+                      {{/link-to}}
+                    </p>
+                {{/if}}
+              </div>
             <div class="description">
                 <p class="truncate">{{ collection.learningObjectives }}</p>
             </div>
-            <div class="buttons">
+        </div>
+    </div>
+      <div class="panel-footer">
+          <div class="buttons">
             {{#if remixEnabled }}
                 <button class="remix-btn btn btn-success btn-sm " {{action "remixCollection"}}>{{t "common.remix"}}</button>
             {{/if}}
             {{#if editEnabled }}
                 <button class="edit-btn btn btn-success btn-sm" {{action "editCollection"}}>{{t "common.edit"}}</button>
             {{/if}}
-            </div>
-            <div class="visibility">
+          </div>
+        {{#unless isSearchResult}}
+            <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
               {{#unless collection.isVisibleOnProfile }}
                 {{gru-icon name="visibility_off" class='pull-right'}}
               {{/unless}}
             </div>
-        </div>
-    </div>
+        {{/unless}}
+      </div>
   {{/unless}}
 </div>

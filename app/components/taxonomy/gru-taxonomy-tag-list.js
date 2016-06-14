@@ -11,6 +11,8 @@ export default Ember.Component.extend({
 
   classNames: ['taxonomy', 'gru-taxonomy-tag-list'],
 
+  classNameBindings: ['isInCard:in-card'],
+
   // --------------------------------------------
   // Actions
   actions: {
@@ -24,6 +26,11 @@ export default Ember.Component.extend({
 
   // --------------------------------------------
   // Properties
+  /**
+   * @property {boolean} Is the taxonomy tag list contained within a content card
+   */
+  isInCard: false,
+
   /**
    * @property {TaxonomyTag[]} taxonomy tag
    */
