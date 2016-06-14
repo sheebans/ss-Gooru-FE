@@ -1,10 +1,17 @@
 <div class="controller sign-in row">
   <div class="sign-in-wrapper col-md-12 col-sm-12 col-xs-12">
     <div class="sign-in-header">
-      <h3>{{t "login.title"}}</h3>
-      <div class="description" alt="{{t "login.description"}}"
-           title="{{t "login.description"}}">{{t "login.description"}}
-      </div>
+      {{#if sessionEnds}}
+        <h3>{{t "login.title-session-ends"}}</h3>
+        <div class="description" alt="{{t "login.description-session-ends"}}"
+             title="{{t "login.description-session-ends"}}">{{t "login.description-session-ends"}}
+        </div>
+      {{else}}
+        <h3>{{t "login.title"}}</h3>
+        <div class="description" alt="{{t "login.description"}}"
+             title="{{t "login.description"}}">{{t "login.description"}}
+        </div>
+      {{/if}}
       <a href="{{unbound googleSignInUrl}}">
         <div class="google-button">
           <div class="google-button-content-wrapper">

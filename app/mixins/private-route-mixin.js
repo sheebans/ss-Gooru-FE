@@ -26,7 +26,8 @@ export default Ember.Mixin.create({
             return Ember.RSVP.resolve(mixin._super(...arguments));
           },
           function() {
-            mixin.transitionTo('sign-in');
+            const queryParams = { queryParams: { sessionEnds: 'true' } };
+            mixin.transitionTo('sign-in', queryParams);
           });
     }
   }
