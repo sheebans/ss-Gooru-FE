@@ -24,13 +24,14 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
   },
 
-  model: function() {
+  model: function(params) {
     const classModel = this.modelFor('class').class;
     const units = this.modelFor('class').units;
     const userId = this.get('session.userId');
     const classId= classModel.get('id');
     const courseId = classModel.get('courseId');
-    const unitPerformances = this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units);
+    const collectionType = params.filterBy ? {collectionType: params.filterBy} : {collectionType: 'assessment'};
+    const unitPerformances = this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units, collectionType);
 
     return Ember.RSVP.hash({
       userId:userId,
@@ -49,6 +50,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     controller.set('performances', model.unitPerformances);
     controller.set('userId', model.userId);
     controller.set('classModel', model.classModel);
+    controller.set('units', model.units);
     controller.get('classController').selectMenuItem('analytics.performance');
   },
 

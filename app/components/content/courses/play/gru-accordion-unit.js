@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BuilderItem from 'gooru-web/models/content/builder/item';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 /**
  * Course content viewer: Accordion Unit
@@ -75,6 +76,14 @@ export default Ember.Component.extend(BuilderMixin, {
    * @prop {Content/Unit} unit
    */
   unit: Ember.computed.alias('model.data'),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('unit.taxonomy.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get("unit.taxonomy"), false);
+  }),
+
 
   // -------------------------------------------------------------------------
   // Methods
