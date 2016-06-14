@@ -6,7 +6,7 @@ import AssessmentModel from 'gooru-web/models/content/assessment';
 import CollectionModel from 'gooru-web/models/content/collection';
 import CourseModel from 'gooru-web/models/content/course';
 import ProfileModel from 'gooru-web/models/profile/profile';
-import { DEFAULT_IMAGES } from 'gooru-web/config/config';
+import { DEFAULT_IMAGES } from "gooru-web/config/config";
 
 /**
  * Serializer to support Search functionality
@@ -16,6 +16,7 @@ import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 export default Ember.Object.extend({
 
   session: Ember.inject.service('session'),
+
 
   /**
    * Normalize the Search collections response

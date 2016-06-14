@@ -17,7 +17,11 @@
 
     &.affix {
       background-color: $dark-400;
-      top: 63px;
+      left: 0;
+      top: 55px;
+      @media(min-width: $screen-md-min) {
+        top: 63px;
+      }
 
     }
   }
@@ -97,10 +101,17 @@
     }
   }
 
+  .content-container {
+    width: 95%;
+    @media(min-width: $screen-sm-min) {
+      width: 75%;
+    }
+  }
+
   .subject-container {
     display: inline-block;
     margin-bottom: 20px;
-    width: 75%;
+    width: 100%;
 
     &:nth-of-type(1) {
       padding-top: 50px;
@@ -114,10 +125,16 @@
 
     }
 
+
+
     .course-container {
       @include flexbox;
       @include flex-wrap(wrap);
-      @include justify-content(space-between);
+      @include justify-content(center);
+
+      @media(min-width: $screen-md-min) {
+        @include justify-content(space-between);
+      }
 
       >* {
         margin-bottom: 10px;
