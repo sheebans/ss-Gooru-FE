@@ -19,31 +19,28 @@
        background: $white;
      }
 
-     .letter-container{
-       width: 3.5em;
+     .letter-container {
+       margin: 0 20px 0 0;
+       min-width: 4em;
+       text-align: center;
+       @include align-self(center);
        border-right: 1px solid $gray-light;
-       margin: 1% 0;
+
        h3 {
-         display: inline-block;
-         margin: 50% 0px;
-         padding: 0px 18px 0px 18px;
-         font-weight: bold;
+         padding: 0;
        }
      }
 
-     .text-area-container{
-       margin-left: 10px;
-       width: 86%;
-       min-height: 4.9em;
+     .text-area-container {
+       @include flex();
+       width: auto;
        margin-top: 5px;
-       .gru-textarea{
-         .form-group{
-           margin-bottom: 0;
-           textarea{
-             height: 4em;
-             outline: none;
-             resize: none;
-           }
+
+       .form-group {
+         min-height: 78px;
+         margin-bottom: 0;
+         textarea {
+           height: 3.2em;
          }
        }
        p{

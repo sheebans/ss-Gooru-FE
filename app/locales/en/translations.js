@@ -289,7 +289,7 @@ export default {
       "HS_IMG": "Multiple Select - Image ",
       "HT_TO": "Drag and Drop Order",
       "HT_RO": "Drag and Drop Order",
-      "HT_HL": "Hot Text Highlight"
+      "HT_HL": "Highlight Text"
     },
     "reaction": "Reaction",
     "remaining": "{{number}} Left",
