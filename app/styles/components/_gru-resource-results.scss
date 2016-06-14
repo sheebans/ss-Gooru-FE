@@ -1,26 +1,4 @@
 .resource-results {
-  .tooltip {
-    background-color: $white;
-    color: $gray;
-    opacity: 1;
-    border-radius: 3px;
-    border: solid 1px $gray-lighter;
-    max-width: 250px;
-    .tooltip-arrow {
-      border-width: 0 10px 8px;
-      top: -7px;
-      border-bottom-color: $white;
-      background-color: transparent;
-    }
-    .tooltip-inner {
-      color: $gray;
-      background: $white;
-      border: solid 1px #fff;
-      max-width: 250px;
-      padding: 2px 5px;
-      text-align: left;
-    }
-  }
   .search-results {
     height: 35px;
   }

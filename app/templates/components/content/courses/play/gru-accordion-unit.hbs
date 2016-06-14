@@ -32,11 +32,13 @@
         </div>
       {{/if}}
 
-      {{!-- TODO: list domains
-      <div class="data-row domain">
-        <span>{{t "common.domain"}}</span>
+
+      <div class="tags">
+        <label>
+          <span>{{t 'common.domains'}}</span>
+        </label>
+        {{taxonomy.gru-taxonomy-tag-list tags=tags}}
       </div>
-      --}}
     </div>
 
     <ol class="accordion-unit" role="tablist" aria-multiselectable="true">
