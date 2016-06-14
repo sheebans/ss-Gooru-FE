@@ -1,3 +1,4 @@
+{{!--
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="interaction-zone">
@@ -37,12 +38,7 @@
               {{subjects}}
             </p>
         </div>
-        {{#if users}}
-          <div class="remixed-users">
-            <span class="remixed">{{t "common.remixed-by"}}</span>
-            <span class="users-teaser">{{gru-user-teaser users=users}}</span>
-          </div>
-        {{/if}}
+
         <div class="description">
           {{#if course.description}}
             {{truncate text=(noTags text=course.description) type='medium-large'}}
@@ -55,6 +51,73 @@
             {{/unless}}
           </div>
         {{/if}}
+    </div>
+  </div>
+</div>
+--}}
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="card-header">
+      <div class="image-container">
+        {{#link-to "content.courses.play" course.id class="course-image"}}
+          <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
+        {{/link-to}}
+      </div>
+      <div class="header-content">
+        <div class="">
+          {{#link-to "content.courses.play" course.id class="course-title ellipsis truncate" tagName="h3"}}
+            {{course.title}}
+          {{/link-to}}
+          {{#if course.isPublished}}
+              <span class="icon">{{gru-icon name="public"}}</span>
+          {{/if}}
+        </div>
+        <p class="subject truncate">
+          <span class="bars"></span><span class="total-units">{{course.unitCount}} {{t "cards.gru-course-card.units"}}</span>
+          {{#if subjects}}
+            <span class="bars"></span>{{subjects}}
+          {{/if}}
+        </p>
+        {{#if users}}
+          <div class="remixed-users">
+            <span class="remixed">{{t "common.remixed-by"}}</span>
+            <span class="users-teaser">{{gru-user-teaser users=users}}</span>
+          </div>
+        {{/if}}
+
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="taxonomy-standards">
+
+      </div>
+      <div class="course-description">
+        {{#if course.description}}
+          {{truncate text=(noTags text=course.description) type='medium-large'}}
+        {{/if}}
+      </div>
+      <div class="actions">
+        {{#if isOwner}}
+          {{#if isEditEnabled}}
+            <div class="edit-button">
+                <button class="btn btn-block btn-success" {{action 'editCourse'}}>{{t "common.edit"}}</button>
+            </div>
+          {{/if}}
+        {{else}}
+          {{#if (and course.isPublished isRemixEnabled)}}
+            <div class="remix-button">
+                <button class="btn btn-block btn-success" {{action 'remixCourse'}}>{{t "common.remix"}}</button>
+            </div>
+          {{/if}}
+        {{/if}}
+      </div>
+      {{#if isEyeVisible}}
+        <div class="visibility">
+          {{#unless course.isVisibleOnProfile }}
+            {{gru-icon name="visibility_off"}}
+          {{/unless}}
+        </div>
+      {{/if}}
     </div>
   </div>
 </div>

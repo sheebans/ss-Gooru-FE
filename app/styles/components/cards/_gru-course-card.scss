@@ -1,4 +1,4 @@
-.gru-course-card {
+/*.gru-course-card {
   display: inline-block;
   float: left;
   height: 183px;
@@ -159,6 +159,72 @@
       .subject {
         display: inline-block;
       }
+    }
+  }
+}
+*/
+.gru-course-card {
+  @include flexbox;
+  @include flex-direction(column);
+  max-width: 300px;
+
+  .card-header {
+    @include flexbox;
+
+    .course-image {
+      display: block;
+      height: 80px;
+      width: 80px;
+    }
+
+    .header-content {
+      margin-left: 15px;
+      width: calc(100% - 80px);
+    }
+
+    .course-title {
+      color: $blue-300;
+      font-size: $font-size-h6;
+      margin: 0;
+    }
+
+    .subject {
+      margin: 0;
+
+      >* {
+        &::before {
+          background-color: $gray-base;
+          content: '';
+          width: 5px;
+        }
+      }
+
+      .bars {
+        border-left: 2px solid $gray-base;
+        margin-right: 5px;
+      }
+
+
+    }
+
+    .remixed-users {
+      @include flexbox;
+      @include align-items(center);
+    }
+  }
+
+  .card-content {
+    margin-top: 10px;
+    position: relative;
+
+    &::before {
+      background-color: $light-100;
+      content: '';
+      height: 1px;
+      left: -15px;
+      position: absolute;
+      width: calc(100% + 30px);
+
     }
   }
 }
