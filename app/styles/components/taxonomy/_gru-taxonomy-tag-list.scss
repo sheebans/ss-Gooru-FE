@@ -11,4 +11,21 @@
       outline: 0 none;
     }
   }
+
+  .popover {
+
+    &.in-card {
+      background-color: $gray-lighter;
+      min-width: 210px;
+
+      .arrow:after {
+        border-top-color: $gray-lighter;
+        border-bottom-color: $gray-lighter;
+      }
+    }
+  }
+
+  .all-tags {
+    display: none;
+  }
 }

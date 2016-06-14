@@ -15,3 +15,9 @@
     --}}
   </button>
 {{/if}}
+
+<div class="all-tags">
+  {{#each tags as |taxonomyTag|}}
+    {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
+  {{/each}}
+</div>

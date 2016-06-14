@@ -24,6 +24,23 @@ export default Ember.Component.extend({
   },
 
 
+  // -------------------------------------------------------------------------
+  // Events
+  setup: Ember.on('didInsertElement', function() {
+    if (this.get('nonVisibleTags')) {
+      this.setupTooltip();
+    }
+  }),
+
+  cleanUp: Ember.on('willDestroyElement', function() {
+    // Handler bound to the anchor if using a modal or tooltip to display more users
+    const $anchor = this.$('button.non-visible-tags');
+    $anchor.off('click');
+
+    // In case a popover was open, it will need to be destroyed
+    $anchor.popover('destroy');
+  }),
+
   // --------------------------------------------
   // Properties
   /**
@@ -72,7 +89,37 @@ export default Ember.Component.extend({
   /**
    * @property {string}
    */
-  onRemove: null
+  onRemove: null,
 
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  setupTooltip: function() {
+    var component = this;
+    var $anchor = this.$('button.non-visible-tags');
+    var placement = this.get('isInCard') ? 'auto bottom' : 'auto right';
+
+    $anchor.addClass('clickable');
+    $anchor.attr('data-html', 'true');
+    $anchor.popover({
+      placement: placement,
+      content: function() {
+        return component.$('.all-tags').html();
+      },
+      trigger: 'manual'
+    });
+
+    $anchor.click(function() {
+      var $this = $(this);
+      if (!$this.hasClass('list-open')) {
+        // Close all tag-list popovers by simulating a click on them
+        $('.non-visible-tags.list-open').click();
+        $this.addClass('list-open').popover('show');
+      } else {
+        $this.removeClass('list-open').popover('hide');
+      }
+    });
+  }
 
 });
