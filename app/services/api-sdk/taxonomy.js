@@ -95,6 +95,24 @@ export default Ember.Service.extend({
           reject(error);
         });
     });
+  },
+
+  /**
+   * Fetches the Taxonomy Codes by IDs
+   *
+   * @param codesIds - the list of codes IDs
+   * @returns {Promise}
+   */
+  fetchCodesByIds: function(codesIds) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('taxonomyAdapter').fetchCodesByIds(codesIds)
+        .then(function(response) {
+          resolve(service.get('taxonomySerializer').normalizeFetchCodes(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
   }
 
 });

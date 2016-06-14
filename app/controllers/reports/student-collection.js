@@ -27,6 +27,11 @@ export default Ember.Controller.extend({
    */
   searchService: Ember.inject.service("api-sdk/search"),
 
+  /**
+   * @property {Ember.Service} Service to get the Taxonomy data
+   */
+  taxonomyService: Ember.inject.service("api-sdk/taxonomy"),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -109,28 +114,40 @@ export default Ember.Controller.extend({
       .findAssessmentResultByCollectionAndStudent(context)
       .then(function(assessmentResult) {
         assessmentResult.merge(controller.get("collection"));
-        assessmentResult.set("totalAttempts", controller.get("completedSessions.length")); //TODO this is comming wrong from BE
+        assessmentResult.set("totalAttempts", controller.get("completedSessions.length")); //TODO this is coming wrong from BE
         if (session && session.eventTime){
           assessmentResult.set("submittedAt", toLocal(session.eventTime));
         }
 
-        controller.get('analyticsService').getStandardsSummary(context.get('sessionId'))
+        controller.get('analyticsService')
+          .getStandardsSummary(context.get('sessionId'))
           .then(function(standardsSummary) {
             assessmentResult.set('mastery', standardsSummary);
-            standardsSummary.forEach(function(standardSummary) {
-              controller.get('searchService').searchResources('*', {
-                courseId: controller.get('courseId'),
-                taxonomies: [standardSummary.get('id')],
-                publishStatus: 'unpublished'  // TODO this parameter needs to be removed once we go to Production
-              }).then(function(resources) {
-                const suggestedResources = resources.map(function(resource) {
-                  return {
-                    resource: resource.toPlayerResource()
-                  };
+            let standardsIds = standardsSummary.map(function(standardSummary) { return standardSummary.get('id') });
+            controller.get('taxonomyService')
+              .fetchCodesByIds(standardsIds)
+              .then(function(taxonomyStandards) {
+                standardsSummary.forEach(function(standardSummary) {
+                  const taxonomyStandard = taxonomyStandards.findBy('id', standardSummary.get('id'));
+                  if (taxonomyStandard) {
+                    standardSummary.set('description', taxonomyStandard.title);
+                  }
+                  controller.get('searchService')
+                    .searchResources('*', {
+                      courseId: controller.get('courseId'),
+                      taxonomies: [standardSummary.get('id')],
+                      publishStatus: 'unpublished'  // TODO this parameter needs to be removed once we go to Production
+                    })
+                    .then(function(resources) {
+                      const suggestedResources = resources.map(function(resource) {
+                      return {
+                        resource: resource.toPlayerResource()
+                      };
+                    });
+                    standardSummary.set('suggestedResources', suggestedResources);
+                  });
                 });
-                standardSummary.set('suggestedResources', suggestedResources);
               });
-            });
           });
         controller.set("assessmentResult", assessmentResult);
     });
