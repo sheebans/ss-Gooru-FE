@@ -146,7 +146,12 @@ const ResourceModel = Ember.Object.extend(Validations,{
   /**
    * @property {JSONObject}
    */
-  metadata: null,
+  info: null,
+
+  /**
+   * @property {string}
+   */
+  publisher: null,
 
   /**
    * Sequence number, when is part of a collection
@@ -278,11 +283,11 @@ const ResourceModel = Ember.Object.extend(Validations,{
     properties = this.getProperties(properties);
 
     let standards = this.get('standards');
-    let metadata = this.get('metadata');
+    let info = this.get('info');
 
-    // Copy standards and metadata values
+    // Copy standards and info values
     properties.standards = standards.slice(0);
-    properties.metadata = JSON.parse(JSON.stringify(metadata));
+    properties.info = JSON.parse(JSON.stringify(info));
 
     return ResourceModel.create(Ember.getOwner(this).ownerInjection(), properties);
   },
