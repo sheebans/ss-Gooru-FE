@@ -74,22 +74,22 @@
               <span>{{t "common.publisher"}}</span>
               {{#if isEditing}}
                 <div class="form-group inline">
-                  {{#if tempResource.metadata.amIThePublisher}}
+                  {{#if tempResource.info.amIThePublisher}}
                     {{validation.gru-input model=session valuePath='userData.username' maxLength=50 disabled=true}}
                   {{else}}
-                    {{validation.gru-input model=tempResource valuePath='metadata.publisher' maxLength=50}}
+                    {{validation.gru-input model=tempResource valuePath='publisher' maxLength=50}}
                   {{/if}}
                 </div>
                 <div class="checkbox-inline">
-                  {{input id="im-publisher" type="checkbox" checked=tempResource.metadata.amIThePublisher}}
+                  {{input id="im-publisher" type="checkbox" checked=tempResource.info.amIThePublisher}}
                   <label for="im-publisher">{{t "content.resources.edit.information.im-publisher"}}</label>
                 </div>
               {{else}}
-                {{#if resource.metadata.amIThePublisher}}
+                {{#if resource.info.amIThePublisher}}
                   <b>{{session.userData.username}}</b>
                 {{else}}
-                  {{#if resource.metadata.publisher}}
-                    <b>{{resource.metadata.publisher}}</b>
+                  {{#if resource.publisher}}
+                    <b>{{resource.publisher}}</b>
                   {{else}}
                     <b>{{t 'common.not-provided'}}</b>
                   {{/if}}
