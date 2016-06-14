@@ -62,7 +62,7 @@ export default Ember.Object.extend({
     } else {
       serializedResource.info = {
         'am_i_the_publisher': false,
-        'publisher': resourceModel.get('publisher')?resourceModel.get('publisher'):[]
+        'publisher': resourceModel.get('publisher')?[resourceModel.get('publisher')]:[]
       };
     }
     return serializedResource;
@@ -78,6 +78,7 @@ export default Ember.Object.extend({
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
     const standards = resourceData.taxonomy || {};
     const basePath = serializer.get('session.cdnUrls.content');
+
     const resource = ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: resourceData.id,
       title: resourceData.title,
@@ -91,7 +92,7 @@ export default Ember.Object.extend({
       info: {
         amIThePublisher: resourceData.info && resourceData.info['am_i_the_publisher'] ? resourceData.info['am_i_the_publisher'] : false,
       },
-      publisher: resourceData.info && resourceData.info.publisher[0] ? resourceData.info.publisher[0] : '',
+      publisher: resourceData.info.publisher && resourceData.info.publisher.length>0 ? resourceData.info.publisher[0] : '',
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
       displayGuide: resourceData['display_guide']
