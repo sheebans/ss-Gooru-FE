@@ -92,7 +92,7 @@ export default Ember.Object.extend({
       info: {
         amIThePublisher: resourceData.info && resourceData.info['am_i_the_publisher'] ? resourceData.info['am_i_the_publisher'] : false,
       },
-      publisher: resourceData.info.publisher && resourceData.info.publisher.length>0 ? resourceData.info.publisher[0] : '',
+      publisher: resourceData.info && resourceData.info.publisher && resourceData.info.publisher.length>0 ? resourceData.info.publisher[0] : '',
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
       displayGuide: resourceData['display_guide']
