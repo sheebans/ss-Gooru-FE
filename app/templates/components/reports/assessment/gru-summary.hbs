@@ -34,9 +34,11 @@
         </span>
       </span>
       {{/if}}
-      <span class="date">
+      {{#if assessmentResult.submittedAt}}
+        <span class="date">
         {{gru-icon name='event'}}<span>{{formatDate assessmentResult.submittedAt 'h:mm a MMM. Do, YYYY'}}</span>
       </span>
+      {{/if}}
       <span class="time">
         {{gru-icon name='av_timer'}}<span>{{formatTime assessmentResult.totalTimeSpent}}</span>
       </span>
