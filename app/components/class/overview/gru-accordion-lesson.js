@@ -116,6 +116,10 @@ export default Ember.Component.extend(AccordionMixin, {
     Ember.run.scheduleOnce('afterRender', this, this.parsedLocationChanged);
   }),
 
+  didRender: function(){
+    this.$('[data-toggle="tooltip"]').tooltip();
+  },
+
   removeSubscriptions: Ember.on('willDestroyElement', function() {
     this.$().off('hide.bs.collapse');
     this.$().off('show.bs.collapse');

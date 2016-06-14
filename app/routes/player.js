@@ -23,6 +23,10 @@ export default Ember.Route.extend({
      * When closing the player
      */
     closePlayer: function(){
+      const $appContainer = Ember.$( ".app-container" );
+      if ($appContainer.hasClass( "navigator-on" )){
+        $appContainer.removeClass( "navigator-on" );
+      }
       var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
       this.transitionTo(route);
     },

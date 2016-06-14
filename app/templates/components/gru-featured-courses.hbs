@@ -11,14 +11,15 @@
       {{/each}}
      </ul>
   </nav>
-
-  {{#each formattedContent as |content index|}}
-    <div id="featured-subject-{{index}}" class="subject-container">
-      <p class="subject-title">{{content.subject}}</p>
-      <div class="course-container">
-        {{#each content.courses as |course index|}}
-          {{cards.gru-course-card course=course isEyeVisible=false}}
-        {{/each}}
+  <div class="content-container">
+    {{#each formattedContent as |content index|}}
+      <div id="featured-subject-{{index}}" class="subject-container">
+        <p class="subject-title">{{content.subject}}</p>
+        <div class="course-container">
+          {{#each content.courses as |course index|}}
+            {{cards.gru-course-card course=course isEyeVisible=false onRemixCourse="onRemixCourse"}}
+          {{/each}}
+        </div>
       </div>
-    </div>
-  {{/each}}
+    {{/each}}
+  </div>
