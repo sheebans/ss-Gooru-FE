@@ -45,7 +45,7 @@ test('Class Navigation', function(assert) {
   T.exists(assert, $classMenu, "Missing class menu");
   T.exists(assert, $classMenu.find(".overview"), "Missing overview item in the class menu");
   T.exists(assert, $classMenu.find(".analytics"), "Missing analytics item in the class menu");
-  T.exists(assert, $classMenu.find(".teams"), "Missing teams item in the class menu");
+  //T.exists(assert, $classMenu.find(".teams"), "Missing teams item in the class menu");
   T.exists(assert, $classMenu.find(".info"), "Missing info item in the class menu");
 
   //$menu item Selected
