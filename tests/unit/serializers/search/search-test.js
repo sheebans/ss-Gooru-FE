@@ -53,7 +53,6 @@ test('normalizeCollection', function(assert) {
   assert.equal(collection.get("resourceCount"), 5, 'Wrong resource count');
   assert.equal(collection.get("questionCount"), 3, 'Wrong question count');
   assert.equal(collection.get("remixCount"), 2, 'Wrong remix count');
-  // TODO assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
   assert.equal(collection.get("owner.id"), 12, 'Wrong owner id');
   assert.equal(collection.get("owner.firstName"), "Chad", 'Wrong owner first name');
   assert.equal(collection.get("owner.lastName"), "Barris", 'Wrong owner last name');
@@ -115,7 +114,6 @@ test('normalizeAssessment', function(assert) {
   assert.equal(assessment.get("resourceCount"), 5, 'Wrong resource count');
   assert.equal(assessment.get("questionCount"), 3, 'Wrong question count');
   assert.equal(assessment.get("remixCount"), 2, 'Wrong remix count');
-  // TODO assert.deepEqual(collection.get("standards")[0].get("code"), "K12.MA", 'Wrong standards');
   assert.equal(assessment.get("owner.id"), 12, 'Wrong owner id');
   assert.equal(assessment.get("owner.firstName"), "Chad", 'Wrong owner first name');
   assert.equal(assessment.get("owner.lastName"), "Barris", 'Wrong owner last name');
@@ -237,7 +235,6 @@ test('normalizeQuestion', function(assert) {
   assert.equal(question.get("thumbnailUrl"), 'f000/2628/3363/6397.svg', 'Wrong thumbnailUrl');
   assert.equal(question.get("type"), 'MC', 'Wrong type');
   assert.equal(question.get("owner.id"), "ee410cef-2a44-46ef-878d-172511e54e07", 'Wrong owner id');
-  //TODO assert.equal(question.get("standards"), 'unpublished', 'Wrong publish status');
 });
 
 test('normalizeResource', function(assert) {
@@ -275,7 +272,6 @@ test('normalizeResource', function(assert) {
   assert.equal(resource.get("format"), 'text', 'Wrong format');
   //TODO assert.equal(resource.get("publisher"), 'text', 'Wrong format');
   //TODO assert.equal(question.get("thumbnailUrl"), 'f000/2628/3363/6397.svg', 'Wrong thumbnailUrl');
-  //TODO assert.equal(question.get("standards"), 'unpublished', 'Wrong publish status');
   assert.equal(resource.get("url"), "https://docs.google.com/file/d/0B9aKdxaTnscydmJGa2pXbEx6Wmc", 'Wrong url');
   assert.equal(resource.get("owner.id"), "9eb1a416-c225-4a01-9ec3-5371b2274ccb", 'Wrong owner id');
   assert.equal(resource.get("creator.id"), "aaaa-c225-4a01-9ec3-5371b2274ccb", 'Wrong creator id');
@@ -382,3 +378,44 @@ test('normalizeCourse', function(assert) {
   assert.equal(course.get("thumbnailUrl"), 'content-url/thumbnail-url', 'Wrong thumbnail');
   assert.equal(course.get("owner.id"), "owner-id", 'Wrong owner id');
 });
+
+
+test('normalizeStandards with object', function(assert) {
+  const serializer = this.subject();
+  const taxonomySet = {
+    "taxonomySet": {
+      "subject": ["Math"],
+      "domain": ["Congruence", "Modeling with Geometry", "Similarity, Right Triangles, & Trigonometry"],
+      "course": ["High School: Geometry"],
+      "curriculum": {
+        "curriculumName": ["CCSS"],
+        "curriculumCode": ["HSG-CO.12", "HSG-MG.1", "HSG-MG.3", "HSG-SRT.11"],
+        "curriculumDesc": ["HSG-CO.12-DESC", "HSG-MG.1-DESC", "HSG-MG.3-DESC", "HSG-SRT.11-DESC"],
+        "learningTarget": ["MICRO-1", "MICRO-2"],
+        "learningTargetDesc": ["MICRO-1-DESC", "MICRO-2-DESC"]
+      }
+    }
+  };
+  const standards = serializer.normalizeStandards(taxonomySet);
+  assert.equal(standards.length, 6, 'Wrong standards');
+
+  const standard = standards[0];
+  assert.equal(standard.get("id"), "HSG-CO.12", 'Wrong standard id');
+  assert.equal(standard.get("code"), "HSG-CO.12", 'Wrong standard code');
+  assert.equal(standard.get("title"), "HSG-CO.12-DESC", 'Wrong standard title');
+  assert.equal(standard.get("description"), "HSG-CO.12-DESC", 'Wrong standard description');
+  assert.equal(standard.get("frameworkCode"), "CCSS", 'Wrong standard framework');
+  assert.equal(standard.get("parentTitle"), null, 'Wrong standard parent title');
+  assert.equal(standard.get("taxonomyLevel"), "standard", 'Wrong standard level');
+
+  const micro = standards[4];
+  assert.equal(micro.get("id"), "MICRO-1", 'Wrong micro standard id');
+  assert.equal(micro.get("code"), "MICRO-1", 'Wrong micro standard code');
+  assert.equal(micro.get("title"), "MICRO-1-DESC", 'Wrong micro standard title');
+  assert.equal(micro.get("description"), "MICRO-1-DESC", 'Wrong micro standard description');
+  assert.equal(micro.get("frameworkCode"), "CCSS", 'Wrong standard framework');
+  assert.equal(micro.get("parentTitle"), null, 'Wrong standard parent title');
+  assert.equal(micro.get("taxonomyLevel"), "micro-standard", 'Wrong standard level');
+});
+
+

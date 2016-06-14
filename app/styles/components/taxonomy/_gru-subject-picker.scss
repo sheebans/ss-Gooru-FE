@@ -13,7 +13,9 @@
       a {
         .gru-icon {
           font-size: $font-size-large;
-          vertical-align: middle;
+          vertical-align: text-top;
+          height: auto;
+          width: auto;
         }
         &:hover {
           background-color: $sky-100;

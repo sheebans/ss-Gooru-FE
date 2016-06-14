@@ -33,7 +33,7 @@ test('it renders all tags correctly', function(assert) {
 
   const $tooltip = $(".tags-tooltip"); //the tooltip is injected out of the element
   assert.ok(!$tooltip.length, 'All tags tooltip should not be visible');
-  assert.equal($component.find('.gru-taxonomy-tag').length, 4, 'Should tags should be visible');
+  assert.equal($component.find('> .gru-taxonomy-tag').length, 4, 'Should tags should be visible');
 });
 
 test('it renders max allowed tags correctly', function(assert) {
@@ -59,8 +59,13 @@ test('it renders max allowed tags correctly', function(assert) {
   const $component = this.$('.taxonomy.gru-taxonomy-tag-list');
   assert.ok($component.length, 'Missing Component');
   assert.ok($component.find(".non-visible-tags").length, 'Non visible tags component should be visible');
-  const $tooltip = $(".tags-tooltip"); //the tooltip is injected out of the element
-  assert.ok($tooltip.length, 'All tags tooltip should be visible');
-  assert.equal($tooltip.find('.gru-taxonomy-tag').length, 4, '4 tags should be visible at the all section');
-  assert.equal($component.find('.gru-taxonomy-tag').length, 2, 'Two tags should be visible at the component');
+  assert.ok(!$component.find(".popover").length, 'Tooltip is not be visible');
+
+  $component.find(".non-visible-tags").click();
+  assert.ok($component.find(".popover").length, 'Tooltip is visible');
+  assert.equal($component.find('> .gru-taxonomy-tag').length, 2, 'Tags visible without the tooltip');
+  assert.equal($component.find(".popover .gru-taxonomy-tag").length, 4, 'Tags visible in the tooltip');
+
+  $component.find(".non-visible-tags").click();
+  assert.ok(!$component.find(".popover").length, 'Tooltip should not be visible');
 });
