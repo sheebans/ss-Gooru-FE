@@ -1,7 +1,7 @@
 .cards.gru-resource-card {
-  $line-height: 1.8;
+  $line-height: 1.2;
   width: 220px;
-  height: 250px;
+  height: 270px;
   .panel {
     border-radius: 6px;
     .panel-heading {
@@ -9,11 +9,16 @@
       border-bottom: 1px solid $gray-lighter;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
+      height: 80px;
 
       .header {
         width: 100%;
         > *{
           display: inline-block;
+        }
+        .image {
+          display: inline-block;
+          vertical-align: top;
         }
         a{
           > i {
@@ -22,7 +27,7 @@
             width: 28px;
             margin: 0 auto;
             vertical-align: top;
-            margin: 10px 0 0 0;
+            margin: 5px 0 0 0;
             &.video-icon {
               background: url("gooru/images/video-resource-green.svg");
               -webkit-background-size: 31px 30px;
@@ -78,16 +83,15 @@
         }
       }
       .resource-info{
-        margin-left: 16px;
-        width: 136px;
-        $lines-to-show: 1;
+        margin-left: 5px;
+        width: 78%;
+        line-height: $line-height;
+        $lines-to-show: 2;
         > *{
           display: block;
         }
         h6 {
           margin: 5px 0 5px 0;
-          color: $gray-dark;
-          height: 20px;
           cursor: pointer;
           @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
@@ -98,7 +102,7 @@
         }
         .title-section{
           h6.title{
-            display: inline;
+            display: inline-block;
             width: 88%;
             color:$blue-400;
           }
@@ -117,7 +121,7 @@
       }
     }
     .panel-body {
-      padding: 5px 15px 0 15px;
+      padding: 12px 15px 0 15px;
       height: 128px;
 
       .publisher {
@@ -132,8 +136,9 @@
           display: inline-block;
         }
         .publisher-name{
-          a{
+          > a {
             margin-left: 5px;
+            color:$blue-400;
           }
         }
       }
@@ -147,6 +152,7 @@
     }
     .panel-footer {
       background-color: $white;
+      padding: 12px 15px;
     }
   }
 }

@@ -62,11 +62,6 @@
         p{
           display: inline;
         }
-        div{
-          > *{
-            padding-left: 0;
-          }
-        }
       }
     }
     .panel-body{
@@ -77,6 +72,11 @@
       height: 160px;
       .collection-details {
         height: inherit;
+        .gru-taxonomy-tag-list {
+          gru-taxonomy-tag {
+            max-width: 225px;
+          }
+        }
         .author{
           margin: 10px 0 10px 0;
         }
