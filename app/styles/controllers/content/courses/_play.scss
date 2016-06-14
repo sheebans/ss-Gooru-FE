@@ -264,12 +264,18 @@
           margin-bottom: 10px;
           border-bottom: 1px solid $white;
 
-          span, p {
-            color: $white;
-          }
-          p {
-            font-size: 15px;
-            margin-bottom: 0;
+          .big-ideas,
+          .essential-questions {
+            line-height: 1.4;
+
+            span, p {
+              color: $white;
+            }
+            p {
+              margin-top: 5px;
+              font-size: $font-size-base;
+              margin-bottom: 0;
+            }
           }
         }
 
