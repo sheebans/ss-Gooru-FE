@@ -11,7 +11,7 @@ moduleForComponent('class/gru-class-navigation', 'Integration | Component | clas
 });
 
 test('Class Navigation', function(assert) {
-  assert.expect(12);
+  assert.expect(11);
 
   const classMock = Ember.Object.create({
     id: '1',
