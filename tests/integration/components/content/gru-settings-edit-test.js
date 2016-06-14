@@ -18,8 +18,8 @@ test('Layout of settings component', function (assert) {
   assert.ok($settingsComponent.find('.panel-body .setting.publish-to i.visibility').length, "Visibility icon");
   assert.ok($settingsComponent.find('.panel-body .setting.publish-to i.visibility + span').length, "Visibility label");
   assert.ok($settingsComponent.find('.panel-body .gru-switch .toggle').length, "Profile toggle button");
-  assert.ok($settingsComponent.find('.panel-body .setting.request-to i.public').length, "Public icon");
-  assert.ok($settingsComponent.find('.panel-body .setting.request-to i.public + span').length, "Public label");
+  //assert.ok($settingsComponent.find('.panel-body .setting.request-to i.public').length, "Public icon");
+  //assert.ok($settingsComponent.find('.panel-body .setting.request-to i.public + span').length, "Public label");
 });
 
 test('External action gets called on switch change', function(assert) {

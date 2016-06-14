@@ -1,4 +1,4 @@
-<header>
+<header xmlns="http://www.w3.org/1999/html">
 {{#if allowBack}}
   {{#link-to 'content.courses.edit' course.id class="back-to"}}
       <div>
@@ -67,40 +67,43 @@
           }}
         {{/if}}
         <div class="subject">
-          <span class="label">{{t "common.standards"}}</span>
-          {{#if isEditing}}
-            <button type="button" class="btn btn-primary"
-              {{action 'openTaxonomyModal'}}
-                    disabled={{standardDisabled}}>
-              {{gru-icon name="open_in_new"}} {{t "common.select"}}
-            </button>
-            <div class="tags">
-                {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
-            </div>
-          {{else}}
-            <div class="tags">
-              {{#if tags.length}}
-                {{taxonomy.gru-taxonomy-tag-list tags=tags}}
-              {{else}}
-                {{t "common.not-specified"}}
-              {{/if}}
-            </div>
-          {{/if}}
+          <label>
+            <span>{{t "common.standards"}}</span>
+            {{#if isEditing}}
+              <button type="button" class="btn btn-primary"
+                {{action 'openTaxonomyModal'}}
+                      disabled={{standardDisabled}}>
+                {{gru-icon name="open_in_new"}} {{t "common.select"}}
+              </button>
+              <div class="tags">
+                  {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
+              </div>
+            {{else}}
+              <div class="tags">
+                {{#if tags.length}}
+                  {{taxonomy.gru-taxonomy-tag-list tags=tags}}
+                {{else}}
+                  {{t "common.not-specified"}}
+                {{/if}}
+              </div>
+            {{/if}}
+          </label>
         </div>
 
-        {{content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
+        {{!content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
 
-        <div class="century-skill">
-          <span class="label">21st Century Skills</span>
-          {{#if isEditing}}
-            <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
-          {{else}}
-            <div class="skills">
-              <span>Not specified</span>
-            </div>
-          {{/if}}
+        <div class="century-skill out-of-scope">
+          <label>
+            <span>21st Century Skills</span>
+            {{#if isEditing}}
+              <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+            {{else}}
+              <div class="skills">
+                <span>Not specified</span>
+              </div>
+            {{/if}}
+          </label>
         </div>
-
       </div>
     </div>
   </div>

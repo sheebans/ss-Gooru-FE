@@ -267,6 +267,7 @@ export default {
     "profile": "Profile",
     "publish-to": " Make this visible to others on my profile library",
     "published-by": "Published by",
+    "published-tooltip":"Published Content",
     "publisher": "Publisher",
     "question": "Question",
     "questions": "Questions",
@@ -392,6 +393,7 @@ export default {
     "upload-thumbnail": "Upload Thumbnail",
     "use-case": "Use Case",
     "verified": "Verified",
+    "visibility-tooltip":"Not visible to others",
     "warnings": {
       "on-air-connection-lost": "The Go Live feature has lost connection and is retrying automatically. It's tempting, but please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
@@ -993,10 +995,10 @@ export default {
     "attempts": "Attempt"
   },
   "gru-performance-summary": {
-    "name": "Name",
+    "title": "Title",
     "scores": "Scores",
     "completion": "Completion",
-    "time-spent": "Time Spent",
+    "time-spent": "Total Time",
     "reaction": "Reaction",
     "attempts": "Attempts",
     "redo": "Redo",
