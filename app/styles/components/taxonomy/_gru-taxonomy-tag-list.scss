@@ -13,14 +13,25 @@
   }
 
   .popover {
+    max-width: 300px;
+    background-color: $dark-200;
 
-    &.in-card {
+    .arrow:after {
+      border-left-color: $dark-200;
+      border-right-color: $dark-200;
+    }
+  }
+
+  &.in-card {
+    .popover {
       background-color: $gray-lighter;
       min-width: 210px;
 
       .arrow:after {
         border-top-color: $gray-lighter;
         border-bottom-color: $gray-lighter;
+        border-left-color: transparent;
+        border-right-color: transparent;
       }
     }
   }

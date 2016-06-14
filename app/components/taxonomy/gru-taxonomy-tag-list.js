@@ -33,7 +33,6 @@ export default Ember.Component.extend({
   }),
 
   cleanUp: Ember.on('willDestroyElement', function() {
-    // Handler bound to the anchor if using a modal or tooltip to display more users
     const $anchor = this.$('button.non-visible-tags');
     $anchor.off('click');
 
@@ -43,6 +42,12 @@ export default Ember.Component.extend({
 
   // --------------------------------------------
   // Properties
+
+  /**
+   * @property {boolean} Should the taxonomy tags in the list display a tooltip with more details
+   */
+  hasTooltips: true,
+
   /**
    * @property {boolean} Is the taxonomy tag list contained within a content card
    */
