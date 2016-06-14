@@ -5,7 +5,6 @@ export default ApplicationAdapter.extend({
   /**
    * @property {string} End-point URI
    */
-  //namespace: '/mocked-api/insights-api-v1/rest/v2',
   namespace: '/api/nucleus-insights/v2',
 
   /**

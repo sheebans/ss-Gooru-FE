@@ -18,6 +18,8 @@ export default Ember.Controller.extend({
 
   classController: Ember.inject.controller('class'),
 
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions:{
@@ -25,8 +27,9 @@ export default Ember.Controller.extend({
     * Triggered when a filter option is selected
     * @param {string} option
     */
-    selectFilterBy: function(option){
+    selectFilterBy: function(option) {
       this.set("filterBy", option);
+      this.set('selectedFilterBy', option);
     },
 
     optionsChange:function(options){
@@ -127,6 +130,18 @@ export default Ember.Controller.extend({
   filterBy: 'assessment',
 
   /**
+   * The selected filter by from the drop down
+   * @property {String}
+   */
+  selectedFilterBy: 'assessment',
+
+  /**
+   * The units of the selected class
+   * @property {Object[]}
+   */
+  units: [],
+
+  /**
    * If analytics is fullscreen
    * @property {Boolean}
    */
@@ -136,10 +151,25 @@ export default Ember.Controller.extend({
    * Boolean that determines whether the route model has not finished loading.
    * @property {Boolean}
    */
-  currentlyLoading:null
+  currentlyLoading: null,
+
   // -------------------------------------------------------------------------
   // Observers
 
+  selectedFilterByObserver: Ember.observer('selectedFilterBy', function() {
+    const controller = this;
+    controller.set('performances', []);
+    const filterBy = controller.get('selectedFilterBy');
+    const units = controller.get('units');
+    const userId = controller.get('userId');
+    const classModel = controller.get('classModel');
+    const classId= classModel.get('id');
+    const courseId = classModel.get('courseId');
+    controller.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units, {collectionType: filterBy})
+      .then(function(unitPerformances) {
+        controller.set('performances', unitPerformances);
+      });
+  })
 
   // -------------------------------------------------------------------------
   // Methods
