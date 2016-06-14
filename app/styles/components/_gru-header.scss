@@ -287,6 +287,19 @@
           padding-right: 5px;
         }
 
+        a.profile-more {
+          height: 30px;
+          @include flexbox;
+          @include justify-content(center);
+          @include align-items(center);
+          padding:0;
+          &:hover {
+            border-radius: 5px;
+            background-color: $gray-lighter;
+            color: $gray;
+          }
+        }
+
         .profile {
           height: 39px;
           @include flexbox;
@@ -308,18 +321,6 @@
             text-overflow: ellipsis;
             display: block;
             color:rgba(0,0,0,0.3);
-
-          }
-        }
-
-        .settings {
-          padding: 0;
-          .icon {
-            background: url("gooru/settings.png") no-repeat;
-            width: 30px;
-            height: 30px;
-            display: block;
-            margin-top: 10px;
           }
         }
       }
