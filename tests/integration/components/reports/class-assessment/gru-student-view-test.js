@@ -76,18 +76,10 @@ test('Layout', function (assert) {
   const $component = this.$();
   T.exists(assert, $component.find(".sort-section"), "Sort section missing");
   const $avrgSortBtn =$component.find(".sort-section button.sort-average");
+  const $alphabeticalSortBtn =$component.find(".sort-section button.sort-alphabetical");
   T.exists(assert, $avrgSortBtn, "Missing sort by average");
-  T.exists(assert, $component.find(".sort-section button.sort-alphabetical"), "Missing sort alphabetically");
+  T.exists(assert, $alphabeticalSortBtn, "Missing sort alphabetically");
   assert.equal($component.find(".gru-student-performance-box").length, 3, "It should displayed 3 boxes");
-
-  let $firstStudentPerformanceBox = $component.find(".gru-student-performance-box:first-child");
-
-  assert.equal(T.text($firstStudentPerformanceBox.find(".panel-heading")), "Andres Charpentier Zuñiga (67%)", "It should say Andres Charpentier Zuñiga");
-
-  let $lastStudentPerformanceBox = $component.find(".gru-student-performance-box:last-child");
-  assert.equal(T.text($lastStudentPerformanceBox.find(".panel-heading")), "Lorena Prendas Chavarria (100%)", "It should say Lorena Prendas Chavarria");
-
-  $avrgSortBtn.click();
 
 
   $firstStudentPerformanceBox = $component.find(".gru-student-performance-box:first-child");
@@ -98,5 +90,14 @@ test('Layout', function (assert) {
   $lastStudentPerformanceBox = $component.find(".gru-student-performance-box:last-child");
 
   assert.equal(T.text($lastStudentPerformanceBox.find(".panel-heading")), "David Zumbado Alfaro (33%)", "It should say David Zumbado Alfaro (33%)");
+
+  $alphabeticalSortBtn.click();
+
+  let $firstStudentPerformanceBox = $component.find(".gru-student-performance-box:first-child");
+
+  assert.equal(T.text($firstStudentPerformanceBox.find(".panel-heading")), "Andres Charpentier Zuñiga (67%)", "It should say Andres Charpentier Zuñiga");
+
+  let $lastStudentPerformanceBox = $component.find(".gru-student-performance-box:last-child");
+  assert.equal(T.text($lastStudentPerformanceBox.find(".panel-heading")), "Lorena Prendas Chavarria (100%)", "It should say Lorena Prendas Chavarria");
 
 });
