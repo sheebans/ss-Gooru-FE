@@ -30,12 +30,16 @@
   </div>
   <div class="content tab-content">
     <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
-      {{#each activeClasses as |class|}}
+      {{#if totalJoinedClasses}}
+        {{#each activeClasses as |class|}}
           {{cards.gru-class-card
           class=class
           profile=profile
           classStudentCount=myClasses.memberCount}}
-      {{/each}}
+        {{/each}}
+        {{else}}
+        {{partial 'partials/no-classes-found'}}
+      {{/if}}
     </div>
     <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">
       {{#each archivedClasses as |class|}}

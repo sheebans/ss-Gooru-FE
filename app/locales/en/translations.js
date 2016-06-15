@@ -1081,6 +1081,30 @@ export default {
   "gru-emotion-picker": {
     "react-to-resource": "React to this resource"
   },
+  "home":{
+    "no-classes-found":{
+      "create-class":{
+        "title":"Start teaching with a Gooru classroom.",
+        "description":"Prompt to create a class goes here.",
+        "button-text":"Create Classroom"
+      },
+      "join-class":{
+        "title":"Join a classroom to start learning.",
+        "description":"Prompt to create a class goes here.",
+        "button-text":"Enter Classroom Code"
+      },
+      "featured-courses":{
+        "title":"Feeling lucky?",
+        "description":"Browse curated math,science,social studies, and science courses.",
+        "button-text":"Featured Courses"
+      },
+      "teacher-toolkit":{
+        "title":"Teacher Toolkit",
+        "description":"Browse curated math,science,social studies, and science courses.",
+        "button-text":"Teacher Toolkit"
+      }
+    }
+  },
   "taxonomy": {
     "gru-taxonomy-selector": {
       "add-secondary": "Add secondary",
