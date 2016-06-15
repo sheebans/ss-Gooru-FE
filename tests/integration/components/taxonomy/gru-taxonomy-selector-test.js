@@ -229,7 +229,7 @@ test('View mode with selection', function(assert) {
 
   const $component = this.$('.gru-taxonomy-selector');
   assert.equal($component.find(".categories .category").length, 1, "There should be category displayed");
-  assert.equal($component.find(".subject .tags .gru-taxonomy-tag").length, 1, "There should be 1 tags displayed");
+  assert.equal($component.find(".subject .tags .gru-taxonomy-tag-list > .gru-taxonomy-tag").length, 1, "Number of tags rendered");
 });
 
 /* TODO: DQ to fix this test

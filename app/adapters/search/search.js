@@ -36,6 +36,7 @@ export default Ember.Object.extend({
       data: {
         q: term,
         'flt.collectionType': 'collection',
+        'flt.publishStatus': 'published',
         start: page + 1,
         length: pageSize
       }
@@ -70,6 +71,7 @@ export default Ember.Object.extend({
       data: {
         q: term,
         'flt.collectionType': 'assessment',
+        'flt.publishStatus': 'published',
         start: page + 1, //page starts at one
         length: pageSize
       }
@@ -92,7 +94,6 @@ export default Ember.Object.extend({
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
-
     const page = params.page || 0;
     const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     let options = {
@@ -104,7 +105,8 @@ export default Ember.Object.extend({
         "q": term,
         "start": page + 1,
         "length": pageSize,
-        "flt.contentFormat": "resource"
+        "flt.contentFormat": "resource",
+        'flt.publishStatus': 'published',
       }
     };
     const formats = params.formats;
@@ -112,10 +114,17 @@ export default Ember.Object.extend({
       const filters = ResourceModel.serializeAllResourceFormat(formats);
       options.data['flt.resourceFormat'] = filters.join(',');
     }
-
     const taxonomies = params.taxonomies;
     if (Ember.isArray(taxonomies) && taxonomies.length > 0) {
       options.data['flt.standard'] = taxonomies.join(',');
+    }
+    const courseId = params.courseId;
+    if (courseId) {
+      options.data['flt.courseId'] = courseId;
+    }
+    const publishStatus = params.publishStatus;
+    if (publishStatus) {
+      options.data['flt.publishStatus'] = publishStatus;
     }
     return Ember.$.ajax(url, options);
   },
@@ -143,7 +152,8 @@ export default Ember.Object.extend({
         "q": term,
         "start": page + 1,
         "length": pageSize,
-        "flt.resourceFormat": "question"
+        "flt.resourceFormat": "question",
+        'flt.publishStatus': 'published',
       }
     };
     const types = params.types;

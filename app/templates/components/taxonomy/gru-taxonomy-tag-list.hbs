@@ -1,13 +1,18 @@
 {{#each visibleTags as |taxonomyTag|}}
-  {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
+  {{taxonomy.gru-taxonomy-tag model=taxonomyTag hasTooltip=hasTooltips onRemove=(action 'removeTag' taxonomyTag)}}
 {{/each}}
 {{#if nonVisibleTags}}
-  <div class="non-visible-tags">
-    {{nonVisibleTags}}+
-    {{#tooltip-on-element event='click' side="right" class="taxonomy gru-taxonomy-tag-list tags-tooltip"}}
-      {{#each tags as |taxonomyTag|}}
-        {{taxonomy.gru-taxonomy-tag model=taxonomyTag onRemove=(action 'removeTag' taxonomyTag)}}
-      {{/each}}
-    {{/tooltip-on-element}}
-  </div>
+  <button class="non-visible-tags">
+    <span>{{nonVisibleTags}}+</span>
+  </button>
 {{/if}}
+
+<div class="all-tags">
+  {{#each tags as |taxonomyTag|}}
+    {{taxonomy.gru-taxonomy-tag
+      model=taxonomyTag
+      hasTooltip=false
+      onRemove=(action 'removeTag' taxonomyTag)
+    }}
+  {{/each}}
+</div>

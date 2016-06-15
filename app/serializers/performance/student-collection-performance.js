@@ -26,7 +26,7 @@ export default AnalyticsSerializer.extend({
         totalAttempts: collection.attempts,
         resourceResults: serializer.normalizeResourceResults(resources),
         startedAt: payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime()), /* TODO this should come from server */
-        submittedAt: payload.endTime ? toLocal(payload.endTime) : null
+        submittedAt: collection.eventTime ? toLocal(collection.eventTime) : null
       });
     }
 

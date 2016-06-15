@@ -4,6 +4,11 @@ export default {
    * COMMON: Translations used globally in the app or shared between components
    */
   "common": {
+    "a-collection": "a collection",
+    "a-course": "a course",
+    "a-question": "a question",
+    "a-resource": "a resource",
+    "an-assessment": "an assessment",
     "about": "About",
     "about-you": "About You",
     "add": "Add",
@@ -11,6 +16,7 @@ export default {
     "add-collaborator": "Add Collaborator",
     "add-collection": "Add New Collection",
     "add-collection-item": "Add Resource or Question",
+    "add-content-prompt": "You haven't created <span>{{type}}</span> yet. Go on, be bold.",
     "add-course": "Add New Course",
     "add-domains-to-unit": "Add Domains to Unit",
     "add-from-url": "Add from URL",
@@ -75,7 +81,7 @@ export default {
     "collectionInitial": "C",
     "completed": "Completed",
     "content": "Content",
-    "content-publishing": "Content Publishing",
+    "content-publishing": "Content Visibility",
     "contentUnavailable": "Content not available",
     "copy": "Copy",
     "copy-to": "Copy To",
@@ -87,6 +93,7 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
+    "create-class": "+ Create classroom",
     "created-by": "Created by",
     "delete": "Delete",
     "delete-instructions": {
@@ -186,7 +193,7 @@ export default {
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
     "false": "False",
-    "featured-courses": "Featured Courses",
+    "featured-courses": "Featured&nbsp;Courses",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
@@ -235,13 +242,16 @@ export default {
     "next": "Next",
     "no": "No",
     "no-content": "No content available",
+    "no-content-to-display": "No <span>{{type}}</span> to display.",
+    "no-followers": "You don't have followers yet.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
     "notStarted": "Not started",
     "not-added": "Not Added",
+    "not-following": "You're not following anyone.",
     "not-provided": "Not provided",
     "not-specified": "Not specified",
-    "nothing-to-display-message": "Nothing to display.",
+    "nothing-to-display": "Nothing to display.",
     "number": "No.",
     "numberStudents": {
       one: "{{count}} Student",
@@ -256,8 +266,9 @@ export default {
     "please_contact": "Please contact",
     "preview": "Preview",
     "profile": "Profile",
-    "publish-to": " Publish to my profile",
+    "publish-to": " Make this visible to others on my profile library",
     "published-by": "Published by",
+    "published-tooltip":"Published Content",
     "publisher": "Publisher",
     "question": "Question",
     "questions": "Questions",
@@ -278,7 +289,7 @@ export default {
       "HS_IMG": "Multiple Select - Image ",
       "HT_TO": "Drag and Drop Order",
       "HT_RO": "Drag and Drop Order",
-      "HT_HL": "Hot Text Highlight"
+      "HT_HL": "Highlight Text"
     },
     "reaction": "Reaction",
     "remaining": "{{number}} Left",
@@ -361,6 +372,7 @@ export default {
     "submit-all": "Submit all",
     "swap": "Re-order",
     "suggested-resources": "Suggested Resources",
+    "support": "Support",
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
@@ -383,6 +395,7 @@ export default {
     "upload-thumbnail": "Upload Thumbnail",
     "use-case": "Use Case",
     "verified": "Verified",
+    "visibility-tooltip":"Not visible to others",
     "warnings": {
       "on-air-connection-lost": "The Go Live feature has lost connection and is retrying automatically. It's tempting, but please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
@@ -765,6 +778,8 @@ export default {
   "login": {
     "title": "Welcome Back!",
     "description": "Learning is just around the corner.",
+    "title-session-ends": "Your session expired.",
+    "description-session-ends": "Please sign in.",
     "gooruAccountTitle": "Log in to your Gooru account",
     "googleButton": "Sign in with Google",
     "or": "Or",
@@ -984,10 +999,10 @@ export default {
     "attempts": "Attempt"
   },
   "gru-performance-summary": {
-    "name": "Name",
+    "title": "Title",
     "scores": "Scores",
     "completion": "Completion",
-    "time-spent": "Time Spent",
+    "time-spent": "Total Time",
     "reaction": "Reaction",
     "attempts": "Attempts",
     "redo": "Redo",

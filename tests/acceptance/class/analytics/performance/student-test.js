@@ -26,8 +26,8 @@ test('Layout', function(assert) {
     const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
     T.exists(assert, $performanceContainer, "Missing performance container");
 
-    T.exists(assert, $performanceContainer.find(".navigation .performance"), "Missing performance navigation tab");
-    T.exists(assert, $performanceContainer.find(".navigation .mastery"), "Missing mastery navigation tab");
+    //T.exists(assert, $performanceContainer.find(".navigation .performance"), "Missing performance navigation tab");
+    //T.exists(assert, $performanceContainer.find(".navigation .mastery"), "Missing mastery navigation tab");
     T.exists(assert, $performanceContainer.find(".student-actions"), "Missing performance actions");
     T.exists(assert, $performanceContainer.find(".student-actions .gru-actions-bar"), "Missing performance actions component");
     T.exists(assert, $performanceContainer.find(".performance-content"), "Missing performance content");

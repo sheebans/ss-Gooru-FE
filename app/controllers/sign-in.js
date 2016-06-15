@@ -7,6 +7,8 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  queryParams: ['sessionEnds'],
+
   /**
    * @property {Service} Session
    */
@@ -44,30 +46,32 @@ export default Ember.Controller.extend({
         positionClass: 'toast-top-full-width sign-in'
       });
 
-      if(controller.get('didValidate') === false) {
-        var username = Ember.$('.gru-input-mixed-validation.username input').val();
-        var password = Ember.$('.gru-input.password input').val();
-        user.set('username',username);
-        user.set('usernameAsync',username);
-        user.set('password',password);
-      }
-
-      user.validate().then(function ({ model, validations }) {
-        if (validations.get('isValid')) {
-          controller.get("sessionService")
-            .signInWithUser(user, true)
-            .then(function() {
-              if(controller.get('session.isAnonymous')){
-                controller.get("notifications").error(errorMessage);
-              } else {
-                controller.set('didValidate', true);
-                // Trigger action in parent
-                controller.send('signIn');
-              }
-            });
-        } else {
-          controller.set('submitFlag', true);
+      // TODO needs to be revisited, this is a quick fix
+      controller.get('sessionService').authorize().then(function(){
+        if(controller.get('didValidate') === false) {
+          var username = Ember.$('.gru-input-mixed-validation.username input').val();
+          var password = Ember.$('.gru-input.password input').val();
+          user.set('username',username);
+          user.set('usernameAsync',username);
+          user.set('password',password);
         }
+        user.validate().then(function ({ model, validations }) {
+          if (validations.get('isValid')) {
+            controller.get("sessionService")
+              .signInWithUser(user, true)
+              .then(function() {
+                if(controller.get('session.isAnonymous')){
+                  controller.get("notifications").error(errorMessage);
+                } else {
+                  controller.set('didValidate', true);
+                  // Trigger action in parent
+                  controller.send('signIn');
+                }
+              });
+          } else {
+            controller.set('submitFlag', true);
+          }
+        });
       });
     }
   },
@@ -110,7 +114,12 @@ export default Ember.Controller.extend({
   /**
    * @param {Boolean } didValidate - value used to check if input has been validated or not
    */
-  didValidate: false
+  didValidate: false,
 
+  /**
+   * Query param
+   * @property {Boolean} sessionEnds
+   */
+  sessionEnds: false
 
 });

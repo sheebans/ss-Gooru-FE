@@ -136,7 +136,7 @@ const ResourceModel = Ember.Object.extend(Validations,{
   /**
    * @property {Boolean} isPublic
    */
-  isPublic: Ember.computed.equal("publishedStatus", "published"),
+  isPublished: Ember.computed.equal("publishStatus", "published"),
 
   /**
    * @property {TaxonomyTagData[]} an array with Taxonomy data
@@ -146,7 +146,12 @@ const ResourceModel = Ember.Object.extend(Validations,{
   /**
    * @property {JSONObject}
    */
-  metadata: null,
+  info: null,
+
+  /**
+   * @property {string}
+   */
+  publisher: null,
 
   /**
    * Sequence number, when is part of a collection
@@ -278,11 +283,11 @@ const ResourceModel = Ember.Object.extend(Validations,{
     properties = this.getProperties(properties);
 
     let standards = this.get('standards');
-    let metadata = this.get('metadata');
+    let info = this.get('info');
 
-    // Copy standards and metadata values
+    // Copy standards and info values
     properties.standards = standards.slice(0);
-    properties.metadata = JSON.parse(JSON.stringify(metadata));
+    properties.info = JSON.parse(JSON.stringify(info));
 
     return ResourceModel.create(Ember.getOwner(this).ownerInjection(), properties);
   },
@@ -318,7 +323,8 @@ const ResourceModel = Ember.Object.extend(Validations,{
       url: model.get("url"),
       displayGuide: model.get("displayGuide"),
       narration: model.get("narration"), //TODO missing
-      options: null //TODO missing
+      options: null, //TODO missing
+      taxonomy: model.get('standards')
     });
   },
 

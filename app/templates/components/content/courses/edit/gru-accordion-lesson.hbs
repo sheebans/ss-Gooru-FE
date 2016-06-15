@@ -20,8 +20,12 @@
 
 <div class="panel panel-default view {{if model.isExpanded 'expanded' 'collapsed'}}">
   <div class="panel-heading">
-    <h3><a href="#" {{action 'toggle'}}>{{t "common.lesson"}} {{plus-one index}}</a></h3>
-    <strong><a href="#" {{action 'toggle'}}>{{lesson.title}}</a></strong>
+    <a href="#" {{action 'toggle'}}>
+      <div class="title">
+        <h3>{{t "common.lesson"}} {{plus-one index}}</h3>
+        <strong>{{lesson.title}}</strong>
+      </div>
+    </a>
 
     <div class="detail">
     {{#unless isSorting}}

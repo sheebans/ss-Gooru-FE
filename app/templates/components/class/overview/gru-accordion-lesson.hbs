@@ -51,9 +51,10 @@
 
             {{#if item.isAssessment}}
               {{#unless item.isExternalAssessment}}
-              <button {{action "setOnAir" item.id}} class="btn btn-success on-air">
-                {{t "common.launch-on-air"}}
-              </button>
+              <button {{action "setOnAir" item.id}}
+                  data-toggle="tooltip" data-html="true" data-placement="bottom"
+                  title="{{t "common.launch-on-air"}}"
+                  class="on-air">{{t "common.launch-on-air"}}</button>
               {{/unless}}
             {{/if}}
 
@@ -73,7 +74,7 @@
                 <span class="score" style="background-color: {{ gradeColor (if item.performance.hasStarted item.performance.score 'NA') }}">
                   {{if item.performance.hasStarted item.performance.score '--'}}%
                 </span>
-                <i class="on-air">On Air</i>
+                <i class="on-air">{{t 'common.launch-on-air'}}</i>
               {{ else }}
                 {{gru-icon name='apps'}}
               {{/if}}
@@ -89,8 +90,8 @@
             {{gru-user-icons
               class="visible-xs"
               showOnlyNumbers=true
-              membersCount=item.membersCount
-              users=item.users
+              membersCount=item.members.length
+              users=item.members
               viewThreshold=2
               viewMoreIn='modal'}}
 

@@ -66,8 +66,16 @@
       position: relative;
       border-bottom: 1px solid $gray-light;
 
-      h3 > a, strong > a {
+      a {
         color: $text-color;
+      }
+
+      .title {
+        display: inline-block;
+        width: 53%;
+        @media (max-width: $screen-xs-max) {
+          width: 50%;
+        }
       }
 
       h3 {
@@ -77,6 +85,7 @@
         font-weight: bold;
         border-right: 1px solid $gray-light;
         line-height: 2.5;
+        color: $text-color;
       }
 
       strong {
@@ -420,6 +429,9 @@
   #information {
     .description,
     .use-case {
+      textarea {
+        line-height: $font-size-large;
+      }
       > label {
         display: block;
         width: 100%;

@@ -10,15 +10,13 @@
       border-top-right-radius: 6px;
       padding: 10px 15px 0;
 
-      .truncate {
-        @include text-overflow;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 90%;
-      }
-
       .image {
         display: inline-block;
+        img {
+          border-radius: 4px;
+          height: 74px;
+          width: 74px;
+        }
       }
 
       .collection-info {
@@ -27,6 +25,29 @@
         vertical-align: top;
         margin-left: 15px;
         width: 65%;
+        .title-section{
+          h6.title{
+            display: inline-block;
+            width: 88%;
+            color:$blue-400;
+          }
+          $line-height: 1.3;
+          $lines-to-show: 2;
+          .truncate{
+            @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+          }
+          .publish-icon{
+            display: inline-block;
+            float:right;
+            vertical-align: top;
+            margin-top: 5px;
+            background: url("gooru/badge-01.png");
+            -webkit-background-size: 17px 17px;
+            background-size: 17px 17px;
+            height: 17px;
+            width: 17px;
+          }
+        }
         .question-resources {
           display: block;
           height: 16px;
@@ -41,60 +62,22 @@
         p{
           display: inline;
         }
-        .course{
-          height: 50px;
-          i{
-            color:$gray-light;
-            vertical-align: middle;
-          }
-          p,a{
-            margin-left: 4px;
-            vertical-align: bottom;
-          }
-        }
-        div{
-          > *{
-            padding-left: 0;
-          }
-        }
       }
     }
     .panel-body{
       display: table;
-      padding: 5px 15px 15px;
+      padding: 15px 15px 5px 15px;
       position: relative;
       width: 100%;
-
+      height: 160px;
       .collection-details {
         height: inherit;
-
-        .standards {
-          height: 20px;
-
-          .collection-results-standards {
-            .uc-search-standard {
-              display: inline-block;
-              float: left;
-              margin: 0 1px;
-              width: 44%;
-
-              .truncate {
-                @include text-overflow;
-                text-overflow: ellipsis;
-                width: 99%;
-              }
-              .label{
-                padding: 0;
-              }
-            }
-            a{
-              margin-left: 5px;
-            }
+        .gru-taxonomy-tag-list {
+          .gru-taxonomy-tag {
+            max-width: 225px;
           }
-
         }
         .author,.remixed-by{
-          margin: 10px 0 10px 0;
           img{
             width: 30px;
             height: 30px;
@@ -108,35 +91,48 @@
             cursor: pointer;
           }
           span.title {
-            margin:10px 5px 10px 0;
+            margin:2px 5px 10px 0;
             cursor: auto;
+          }
+          .owner{
+            color:$blue-400;
+          }
+        }
+        .course{
+          height: 36px;
+          i{
+            color:$gray-light;
+            vertical-align: middle;
+          }
+          p,a{
+            margin-left: 4px;
+            vertical-align: bottom;
+          }
+          p{
+            display: inline;
           }
         }
         .description{
-          height: 88px;
+          height: 51px;
           $line-height: 1.3;
           $lines-to-show: 3;
           p.truncate {
             @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
           }
         }
-        .buttons{
-          width: 100%;
-        }
-        .visibility {
-          width: 100%;
-          height: 24px;
-        }
+
       }
     }
-  }
-
-  .panel-heading {
-    .image {
-      img {
-        border-radius: 4px;
-        height: 74px;
-        width: 74px;
+    .panel-footer{
+      background-color: $white;
+      padding: 10px 15px 10px 15px;
+      .buttons{
+        display: inline-block;
+      }
+      .visibility {
+        display: inline-block;
+        float: right;
+        height: 24px;
       }
     }
   }

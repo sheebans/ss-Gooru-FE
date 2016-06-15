@@ -239,14 +239,15 @@ export default Ember.Controller.extend(SessionMixin, {
   /**
    * Finishes a resource result or submits a question result
    * @param {ResourceResult} resourceResult
+   * @param {Date} submittedAt
    * @returns {Promise.<boolean>}
    */
-  finishResourceResult: function(resourceResult){
+  finishResourceResult: function(resourceResult, submittedAt = new Date()){
     let controller = this;
     let context = this.get("context");
 
     //setting submitted at, timeSpent is calculated
-    resourceResult.set("submittedAt", new Date());
+    resourceResult.set("submittedAt", submittedAt);
     context.set("eventType", "stop");
     context.set("isStudent", controller.get("isStudent"));
     return controller.saveResourceResult(resourceResult, context);
@@ -297,11 +298,11 @@ export default Ember.Controller.extend(SessionMixin, {
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
-
-    return controller.submitPendingQuestionResults().then(function(){
+    let submittedAt = new Date();
+    return controller.submitPendingQuestionResults(submittedAt).then(function(){
       context.set("eventType", "stop");
       context.set("isStudent", controller.get("isStudent"));
-      assessmentResult.set("submittedAt", new Date());
+      assessmentResult.set("submittedAt", submittedAt);
       return controller.saveCollectionResult(assessmentResult, context).then(function() {
         if (!controller.get("session.isAnonymous")) {
           controller.send("navigateToReport");
@@ -347,7 +348,7 @@ export default Ember.Controller.extend(SessionMixin, {
    * Submits pending question results
    * @returns {Promise}
    */
-  submitPendingQuestionResults: function(){
+  submitPendingQuestionResults: function(submittedAt){
     let controller = this;
     let pendingQuestionResults = this.get("assessmentResult.pendingQuestionResults");
     let promises = pendingQuestionResults.map(function(questionResult){
@@ -364,6 +365,11 @@ export default Ember.Controller.extend(SessionMixin, {
     resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
 
     eventsService.saveReaction(resourceResult, context);
+  },
+
+  resetValues: function(){
+    this.set("resourceId", null);
+    this.set("role", null);
   }
 
 });

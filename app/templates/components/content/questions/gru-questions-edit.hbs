@@ -56,7 +56,7 @@
             {{{question.text}}}
           </div>
         {{else}}
-          <p class="text-empty">{{t 'common.nothing-to-display-message'}}</p>
+          <p class="text-empty">{{t 'common.nothing-to-display'}}</p>
         {{/if}}
       {{/if}}
     </div>
@@ -88,7 +88,7 @@
       {{/if}}
     </div>
     {{#if isBuilderEditing}}
-      <div class="panel-footer">
+      <div class="panel-footer out-of-scope">
         <button class="add-hint btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-hint"}}</button>
         <button class="add-explanation btn btn-sm btn-primary">{{t "content.questions.edit.builder.add-explanation"}}</button>
       </div>

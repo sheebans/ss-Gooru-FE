@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import Env from 'gooru-web/config/environment';
-import { NETWORK_TYPE } from 'gooru-web/config/config';
+import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 
 moduleFor('serializer:profile/profile', 'Unit | Serializer | profile/profile');
@@ -149,7 +149,8 @@ test('normalizeCreateProfile', function(assert) {
     user: {
       username: "username",
       gooruUId: "user_id",
-      isNew: true
+      isNew: true,
+      avatarUrl: DEFAULT_IMAGES.USER_PROFILE
     },
     isAnonymous: false
   };
@@ -177,26 +178,6 @@ test('normalizeOwners', function(assert) {
   const owners = serializer.normalizeOwners(ownersData);
   assert.equal(owners.length, 2, 'Wrong owners length');
 });
-
-test('normalizeStandards', function(assert) {
-  const serializer = this.subject();
-  const standardsData = {
-    "12": {
-      code: "a",
-      title: "title a"
-    },
-    "13": {
-      code: "b",
-      title: "title b"
-    },
-  };
-
-  const standards = serializer.normalizeStandards(standardsData);
-  assert.equal(standards.length, 2, 'Wrong standards length');
-  assert.equal(standards[0].get("code"), "a", 'Wrong code');
-  assert.equal(standards[0].get("key"), "12", 'Wrong key');
-});
-
 
 test('normalizeQuestion', function(assert) {
   const serializer = this.subject();

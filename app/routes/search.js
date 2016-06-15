@@ -1,10 +1,11 @@
 import Ember from 'ember';
 import {K12_CATEGORY} from 'gooru-web/config/config';
+import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 
 /**
  * @typedef {object} SearchCollectionsController
  */
-export default Ember.Route.extend({
+export default Ember.Route.extend(PublicRouteMixin, {
 
   queryParams: {
     term: {

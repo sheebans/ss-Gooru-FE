@@ -29,7 +29,7 @@ test('it renders for assessment', function (assert) {
         },
         correct: false,
         timeSpent: 20000,
-        reaction: 2,
+        reaction: 2
       }),
       QuestionResult.create({
         id: 603,

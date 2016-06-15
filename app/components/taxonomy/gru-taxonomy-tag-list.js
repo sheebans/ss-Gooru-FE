@@ -11,6 +11,8 @@ export default Ember.Component.extend({
 
   classNames: ['taxonomy', 'gru-taxonomy-tag-list'],
 
+  classNameBindings: ['isInCard:in-card'],
+
   // --------------------------------------------
   // Actions
   actions: {
@@ -22,8 +24,35 @@ export default Ember.Component.extend({
   },
 
 
+  // -------------------------------------------------------------------------
+  // Events
+  setup: Ember.on('didInsertElement', function() {
+    if (this.get('nonVisibleTags')) {
+      this.setupTooltip();
+    }
+  }),
+
+  cleanUp: Ember.on('willDestroyElement', function() {
+    const $anchor = this.$('button.non-visible-tags');
+    $anchor.off('click');
+
+    // In case a popover was open, it will need to be destroyed
+    $anchor.popover('destroy');
+  }),
+
   // --------------------------------------------
   // Properties
+
+  /**
+   * @property {boolean} Should the taxonomy tags in the list display a tooltip with more details
+   */
+  hasTooltips: true,
+
+  /**
+   * @property {boolean} Is the taxonomy tag list contained within a content card
+   */
+  isInCard: false,
+
   /**
    * @property {TaxonomyTag[]} taxonomy tag
    */
@@ -65,7 +94,37 @@ export default Ember.Component.extend({
   /**
    * @property {string}
    */
-  onRemove: null
+  onRemove: null,
 
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  setupTooltip: function() {
+    var component = this;
+    var $anchor = this.$('button.non-visible-tags');
+    var placement = this.get('isInCard') ? 'auto bottom' : 'auto right';
+
+    $anchor.addClass('clickable');
+    $anchor.attr('data-html', 'true');
+    $anchor.popover({
+      placement: placement,
+      content: function() {
+        return component.$('.all-tags').html();
+      },
+      trigger: 'manual'
+    });
+
+    $anchor.click(function() {
+      var $this = $(this);
+      if (!$this.hasClass('list-open')) {
+        // Close all tag-list popovers by simulating a click on them
+        $('.non-visible-tags.list-open').click();
+        $this.addClass('list-open').popover('show');
+      } else {
+        $this.removeClass('list-open').popover('hide');
+      }
+    });
+  }
 
 });

@@ -1,4 +1,7 @@
+import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+
 /**
  * Course card
  *
@@ -6,9 +9,6 @@ import ModalMixin from 'gooru-web/mixins/modal';
  * @module
  * @see controllers/profile/about.js
  */
-
-import Ember from 'ember';
-
 export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
@@ -35,7 +35,6 @@ export default Ember.Component.extend(ModalMixin, {
      *Action triggered when select remix the course
      */
     remixCourse:function(){
-
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
@@ -109,8 +108,20 @@ export default Ember.Component.extend(ModalMixin, {
     return subjects.substr(0, subjects.length-1);
     */
     return "";
-  })
+  }),
 
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('course.taxonomy.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get('course.taxonomy'));
+  }),
 
+  /*
+  * Events
+  */
+  didRender(){
+    $('[data-toggle="tooltip"]').tooltip();
+  },
 
 });

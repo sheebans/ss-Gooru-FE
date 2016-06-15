@@ -85,6 +85,12 @@ export default Ember.Component.extend({
   selectedOption: null,
 
   /**
+   * The selected filter by from the drop down
+   * @property {String}
+   */
+  selectedFilterBy: null,
+
+  /**
    * Collection that contains the unit performance models for this unit, class, course and student
    *
    * @property {Ember.Array}

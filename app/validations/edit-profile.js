@@ -15,7 +15,7 @@ export default buildValidations({
         descriptionKey: 'common.errors.username-length'
       }),
       validator('format', {
-        regex: /^\w+$/,
+        regex: /^[a-z0-9]+$/i,
         message: '{{description}}',
         descriptionKey: 'common.errors.special-characters'
       })

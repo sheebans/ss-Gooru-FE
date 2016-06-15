@@ -56,8 +56,8 @@ export default Ember.Component.extend({
   /**
    * @property {[]}
    */
-  resourceLinks: Ember.computed("assessmentResult.resourceResults", function(){
-    return this.getResourceLinks(this.get('assessmentResult.resourceResults'));
+  resourceLinks: Ember.computed("assessmentResult.sortedResourceResults", function(){
+    return this.getResourceLinks(this.get('assessmentResult.sortedResourceResults'));
   }),
 
   /**

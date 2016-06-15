@@ -93,7 +93,7 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} submitted
    */
-  submitted: Ember.computed.bool("submittedAt"),
+  submitted: false,
 
   /**
    * @property {boolean} started
@@ -105,7 +105,7 @@ export default Ember.Object.extend({
    * @property {Resource} lastVisitedResource
    */
   lastVisitedResource: function() {
-    const resourceResults = this.get("resourceResults");
+    const resourceResults = this.get("sortedResourceResults");
     let result = resourceResults
       .filterBy("started", true)
       .get("lastObject");
@@ -130,7 +130,7 @@ export default Ember.Object.extend({
    * @prop {number}
    */
   correctPercentage:Ember.computed('questionResults.[]',function(){
-    return correctPercentage(this.get('questionResults'));
+    return correctPercentage(this.get('questionResults'), true);
   }),
 
   /**
@@ -179,7 +179,7 @@ export default Ember.Object.extend({
           let result = (resource.get("isQuestion")) ?
             QuestionResult.create({resourceId: resourceId, resource: resource}) :
             ResourceResult.create({resourceId: resourceId, resource: resource});
-          resourceResults.addObject(result);
+          resourceResults.pushObject(result);
         }
         else {
           found.set("resource", resource);
