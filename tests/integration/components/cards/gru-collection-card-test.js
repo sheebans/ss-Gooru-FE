@@ -72,7 +72,7 @@ test('Collection Card Published', function(assert) {
 
   this.set('collection', collection);
   this.set('isPublished', true);
-  this.render(hbs`{{cards/gru-collection-card collection=collection isSearchResult=false isPublished=isPublished}}`);
+  this.render(hbs`{{cards/gru-collection-card collection=collection publishVisible=false isPublished=isPublished}}`);
   var $component = this.$(); //component dom element
   const $collectionCard = $component.find(".gru-collection-card");
   T.exists(assert, $collectionCard.find(".publish-icon"), "Missing publish icon");
