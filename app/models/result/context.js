@@ -74,7 +74,12 @@ export default Ember.Object.extend({
    * Indicates if the event type is start
    * @property {boolean}
    */
-  isStartEvent: Ember.computed.equal("eventType", "start")
+  isStartEvent: Ember.computed.equal("eventType", "start"),
+
+  /**
+   * @property  {boolean}
+   */
+  isInContext: Ember.computed.bool("lessonId")
 
 });
 
