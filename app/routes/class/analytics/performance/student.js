@@ -30,7 +30,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     const userId = this.get('session.userId');
     const classId= classModel.get('id');
     const courseId = classModel.get('courseId');
-    const collectionType = params.filterBy ? {collectionType: params.filterBy} : {collectionType: 'assessment'};
+    const collectionType = params.filterBy ? {collectionType: params.filterBy} : {collectionType: 'both'};
     const unitPerformances = this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units, collectionType);
 
     return Ember.RSVP.hash({

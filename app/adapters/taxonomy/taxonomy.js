@@ -95,6 +95,27 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Fetches the Taxonomy Codes by a provided list of IDs
+   *
+   * @param codesIds - the list of codes IDs
+   * @returns {Promise}
+   */
+  fetchCodesByIds: function(codesIds) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/codes`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders(),
+      data: {
+        idList: codesIds.join(',')
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

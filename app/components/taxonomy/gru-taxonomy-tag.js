@@ -37,8 +37,33 @@ export default Ember.Component.extend({
     }
   },
 
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  setup: Ember.on('didInsertElement', function() {
+    if (this.get('hasTooltip')) {
+      this.setupTooltip();
+    }
+  }),
+
+  cleanUp: Ember.on('willDestroyElement', function() {
+    const $anchor = this.$('> .content');
+    $anchor.off('click');
+    $anchor.off('mouseenter');
+    $anchor.off('mouseleave');
+
+    // In case a popover was open, it will need to be destroyed
+    $anchor.popover('destroy');
+  }),
+
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @property {boolean} hasTooltip - Should a tooltip be displayed showing more details for the taxonomy tag?
+   */
+  hasTooltip: false,
 
   /**
    * @property {TaxonomyItem} model - Taxonomy tag model
@@ -53,6 +78,47 @@ export default Ember.Component.extend({
   /**
    * @property {Function} onSelect - Event handler called when the tag is selected
    */
-  onSelect: null
+  onSelect: null,
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  setupTooltip: function() {
+    var component = this;
+    var $anchor = this.$('> .content');
+    var isMobile = window.matchMedia("only screen and (max-width: 768px)");
+
+    $anchor.attr('data-html', 'true');
+    $anchor.popover({
+      placement: 'auto bottom',
+      content: function() {
+        return component.$('.tag-tooltip').html();
+      },
+      trigger: 'manual'
+    });
+
+    if (isMobile.matches) {
+      $anchor.on('click', function() {
+        var $this = $(this);
+        if (!$this.hasClass('list-open')) {
+
+          // Close all tag tooltips by simulating a click on them
+          $('.gru-taxonomy-tag > .content.list-open').click();
+          $this.addClass('list-open').popover('show');
+        } else {
+          $this.removeClass('list-open').popover('hide');
+        }
+      });
+    } else {
+      $anchor.on('mouseenter', function() {
+        $(this).popover('show');
+      });
+
+      $anchor.on('mouseleave', function() {
+        $(this).popover('hide');
+      });
+    }
+  }
 
 });

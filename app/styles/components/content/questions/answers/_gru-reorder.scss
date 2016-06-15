@@ -6,28 +6,6 @@
     padding: 10px 20px 10px 0;
     min-height: 78px;
 
-    .letter-container {
-      margin: 0 20px 0 0;
-      min-width: 4em;
-      text-align: center;
-      @include align-self(center);
-
-      h3 {
-        padding: 0;
-      }
-    }
-
-    .text-area-container {
-      @include flex();
-      width: auto;
-
-      .form-group textarea {
-        height: auto !important;
-        line-height: 1.4 !important;
-        min-height: 4.2em;
-      }
-    }
-
     .answer-text {
       @include align-self(center);
     }

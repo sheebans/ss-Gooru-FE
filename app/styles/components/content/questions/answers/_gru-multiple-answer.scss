@@ -28,29 +28,32 @@
       > div, button {
         display: inline-block;
       }
-      .letter-container{
-        padding: 10px 0;
-        margin-right: 10px;
+      .letter-container {
+        margin: 0 20px 0 0;
+        min-width: 4em;
+        text-align: center;
+        @include align-self(center);
+        border-right: 1px solid $gray-light;
+
         h3 {
-          display: inline-block;
-          margin: 0;
-          padding: 0px 18px;
-          border-right: 1px solid $light-300;
-          font-weight: normal;
-          font-size: $font-size-h5;
-          line-height: 1.5;
+          padding: 0;
         }
       }
+
       .text-area-container {
-        width: 86%;
+        @include flex();
+        width: auto;
         margin-top: 5px;
-        .gru-textarea {
-          .form-group {
-            margin-bottom: 0;
-            textarea {
-              height: 2em;
-            }
+
+        .form-group {
+          min-height: 78px;
+          margin-bottom: 0;
+          textarea {
+            height: 3.2em;
           }
+        }
+        p{
+          margin: 10px 0 10px 10px;
         }
       }
       .delete {

@@ -74,7 +74,7 @@
                 <span class="score" style="background-color: {{ gradeColor (if item.performance.hasStarted item.performance.score 'NA') }}">
                   {{if item.performance.hasStarted item.performance.score '--'}}%
                 </span>
-                <i class="on-air">On Air</i>
+                <i class="on-air">{{t 'common.launch-on-air'}}</i>
               {{ else }}
                 {{gru-icon name='apps'}}
               {{/if}}

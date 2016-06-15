@@ -187,7 +187,7 @@ export function getReactionIcon(reactionValue) {
  */
 export function getGradeColor(grade) {
   var bracket = GRADING_SCALE.length - 1;
-  var color = '#999999';  // Default color
+  var color = '#949A9F';  // Default color - $dark-100
 
   if (isNumeric(grade)) {
 

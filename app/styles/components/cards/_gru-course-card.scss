@@ -25,6 +25,10 @@
       height: 80px;
       overflow: hidden;
       width: 80px;
+      @media(min-width: $screen-md-min) {
+        height: 100px;
+        width: 100px;
+      }
     }
 
     .header-content {
@@ -121,6 +125,9 @@
     .course-description {
       height: 75px;
       margin-top: 5px;
+      @media(min-width: $screen-md-min) {
+        height: 65px;
+      }
     }
 
     .actions {

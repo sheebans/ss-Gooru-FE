@@ -7,6 +7,8 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  queryParams: ['sessionEnds'],
+
   /**
    * @property {Service} Session
    */
@@ -112,7 +114,12 @@ export default Ember.Controller.extend({
   /**
    * @param {Boolean } didValidate - value used to check if input has been validated or not
    */
-  didValidate: false
+  didValidate: false,
 
+  /**
+   * Query param
+   * @property {Boolean} sessionEnds
+   */
+  sessionEnds: false
 
 });
