@@ -50,21 +50,15 @@ export default Ember.Object.extend({
       narration: resourceModel.get('narration'),
       'content_subformat': ResourceModel.serializeResourceFormat(resourceModel.get("format")),
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(resourceModel.get('standards')),
-      'visible_on_profile': resourceModel.get('isVisibleOnProfile')//,
+      'visible_on_profile': resourceModel.get('isVisibleOnProfile'),//,
       //"depth_of_knowledge": null, // Not required at the moment
       //"thumbnail": null // Not required at the moment
+      'info': resourceModel.get("info") || {} //passing all info because we need to keep other fields inside of info
     };
-    if (resourceModel.get('info.amIThePublisher')) {
-      serializedResource.info = {
-        'am_i_the_publisher': true,
-        'publisher': []
-      };
-    } else {
-      serializedResource.info = {
-        'am_i_the_publisher': false,
-        'publisher': resourceModel.get('publisher')?[resourceModel.get('publisher')]:[]
-      };
-    }
+
+    //one publisher for now
+    serializedResource.info['copyright_owner'] = (resourceModel.get("publisher")) ? [resourceModel.get("publisher")] : undefined;
+    serializedResource.info['is_copyright_owner'] = resourceModel.get("amIThePublisher");
     return serializedResource;
   },
 
@@ -79,6 +73,7 @@ export default Ember.Object.extend({
     const standards = resourceData.taxonomy || {};
     const basePath = serializer.get('session.cdnUrls.content');
 
+    const info = resourceData.info || {};
     const resource = ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: resourceData.id,
       title: resourceData.title,
@@ -89,10 +84,9 @@ export default Ember.Object.extend({
       publishStatus: resourceData.publish_status,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
       owner: resourceData.creator_id,
-      info: {
-        amIThePublisher: resourceData.info && resourceData.info['am_i_the_publisher'] ? resourceData.info['am_i_the_publisher'] : false,
-      },
-      publisher: resourceData.info && resourceData.info.publisher && resourceData.info.publisher.length>0 ? resourceData.info.publisher[0] : '',
+      info: info,
+      amIThePublisher: info['is_copyright_owner'] || false,
+      publisher: info["copyright_owner"] && info["copyright_owner"].length > 0 ? info["copyright_owner"][0] : null,
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
       displayGuide: resourceData['display_guide']
