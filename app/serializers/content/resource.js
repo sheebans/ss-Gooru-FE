@@ -53,11 +53,11 @@ export default Ember.Object.extend({
       'visible_on_profile': resourceModel.get('isVisibleOnProfile'),//,
       //"depth_of_knowledge": null, // Not required at the moment
       //"thumbnail": null // Not required at the moment
-      'info': resourceModel.get("info") || {}
+      'info': resourceModel.get("info") || {} //passing all info because we need to keep other fields inside of info
     };
 
     //one publisher for now
-    serializedResource.info['copyright_onwer'] = (resourceModel.get("publisher")) ? [resourceModel.get("publisher")] : undefined;
+    serializedResource.info['copyright_owner'] = (resourceModel.get("publisher")) ? [resourceModel.get("publisher")] : undefined;
     serializedResource.info['is_copyright_owner'] = resourceModel.get("amIThePublisher");
     return serializedResource;
   },
@@ -86,7 +86,7 @@ export default Ember.Object.extend({
       owner: resourceData.creator_id,
       info: info,
       amIThePublisher: info['is_copyright_owner'] || false,
-      publisher: info["copyright_onwer"] && info["copyright_onwer"].length > 0 ? info["copyright_onwer"][0] : null,
+      publisher: info["copyright_owner"] && info["copyright_owner"].length > 0 ? info["copyright_owner"][0] : null,
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
       displayGuide: resourceData['display_guide']

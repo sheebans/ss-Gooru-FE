@@ -30,7 +30,7 @@ test('serializeUpdateResource', function(assert) {
   assert.equal(serializedResource.description, 'A description', 'Wrong resource url');
   assert.equal(serializedResource['content_subformat'], 'video_resource', 'Wrong resource content_subformat');
   assert.equal(serializedResource['taxonomy'], null, 'Wrong resource taxonomy');
-  assert.deepEqual(serializedResource['info']['copyright_onwer'], ['myself'], 'Wrong copyright_owner');
+  assert.deepEqual(serializedResource['info']['copyright_owner'], ['myself'], 'Wrong copyright_owner');
   assert.equal(serializedResource['info']['is_copyright_owner'], true, 'Wrong is_copyright_owner');
 
 });
@@ -54,7 +54,7 @@ test('normalizeReadResource', function(assert) {
       'is_frame_breaker': 1
     },
     "info": {
-      "copyright_onwer": ["myself"],
+      "copyright_owner": ["myself"],
       "is_copyright_owner": true
     }
   };
