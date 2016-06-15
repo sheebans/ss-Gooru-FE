@@ -6,9 +6,11 @@
         <div class="collection-info">
             <div class="title-section">
                 <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
-                {{#if collection.isPublished}}
+            {{#unless isSearchResult}}
+              {{#if collection.isPublished}}
                     <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
                 {{/if}}
+            {{/unless}}
             </div>
             <span class="question-resources">
               {{#if hasResources}}
