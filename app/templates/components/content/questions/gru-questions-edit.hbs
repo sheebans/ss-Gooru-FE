@@ -48,7 +48,7 @@
     <div class="panel-body">
       {{#if isBuilderEditing}}
         {{validation.gru-textarea rawTextareaValue=tempQuestion.text model=tempQuestion valuePath='text' rows=10 maxLength=5000}}
-        <button class="add-image btn btn-sm btn-primary">{{t "common.add-question-image"}}</button>
+        <button class="add-image btn btn-sm btn-primary out-of-scope">{{t "common.add-question-image"}}</button>
       {{else}}
         {{#if question.text}}
           {{textarea class="text-question" value=question.text class="form-control" rows="10" readonly=true}}

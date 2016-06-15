@@ -55,7 +55,7 @@ test('Course Card Layout', function(assert) {
   T.exists(assert, $courseCard.find(".course-title"), "Missing course card title");
   T.exists(assert, $courseCard.find(".total-units"), "Missing total units");
   T.exists(assert, $courseCard.find(".subject"), "Missing subject");
-  T.exists(assert, $courseCard.find(".icon .public"), "Missing public icon");
+  T.exists(assert, $courseCard.find(".icon.public"), "Missing public icon");
   T.exists(assert, $courseCard.find(".remixed"), "Missing Remixed By");
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
   T.exists(assert, $courseCard.find(".remix-button  button"), "Missing remix button");
@@ -151,7 +151,7 @@ test('Course Card Layout Owner and Public', function(assert) {
   T.exists(assert, $courseCard.find(".course-title"), "Missing course card title");
   T.exists(assert, $courseCard.find(".total-units"), "Missing total units");
   T.exists(assert, $courseCard.find(".subject"), "Missing subject");
-  T.exists(assert, $courseCard.find(".icon .public"), "Missing public icon");
+  T.exists(assert, $courseCard.find(".icon.public"), "Missing public icon");
   T.exists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");
   T.exists(assert, $courseCard.find(".remixed"), "Missing Remixed By");
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
