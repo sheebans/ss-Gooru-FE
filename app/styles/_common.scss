@@ -390,3 +390,13 @@ label {
 .out-of-scope {
   display: none !important;
 }
+
+.gru-math-expression {
+  .source {
+    display: none;
+  }
+}
+
+.katex {
+  font-size: 1.5em !important;
+}

@@ -1,0 +1,99 @@
+.gru-rich-text-editor {
+  .btn-toolbar {
+    position: relative;
+    .btn-group {
+      .btn {
+        border-right: 1px solid $white;
+        font-weight: bold;
+        font-size: $font-size-base;
+        min-width: 35px;
+        @include border-bottom-radius(0);
+        padding: 4px 7px;
+        &:last-of-type {
+          border-right: 0;
+        }
+        &.wysihtml5-command-active,
+        &.active {
+          background-color: $blue-600;
+        }
+        .gru-icon {
+          font-size: $font-size-large;
+        }
+      }
+    }
+    .expressions-panel {
+      clear: both;
+      display: none;
+      background-color: $white;
+      margin-left: 5px;
+      border: 2px solid $blue-600;
+      @include clearfix();
+      &.show {
+        display: block;
+      }
+      .equation-wrapper {
+        padding: 10px;
+        text-align: center;
+        .math-field {
+          padding: 5px;
+          text-align: left;
+          border-color: $gray-lighter;
+          outline: none;
+          .mq-empty {
+            background: $sky-100;
+          }
+        }
+      }
+      .nav {
+        white-space: nowrap;
+        font-size: $font-size-small;
+        border-bottom: 1px solid $gray-lighter;
+        border-top: 1px solid $gray-lighter;
+        li {
+          &.active {
+            a {
+              background-color: $gray-lighter;
+            }
+          }
+          a {
+            padding: 4px 10px;
+            @include box-shadow(none);
+            @include border-bottom-radius(0);
+            @include border-top-radius(0);
+          }
+        }
+      }
+      .tab-pane {
+        padding: 10px;
+        a {
+          display: inline-block;
+          padding: 10px;
+          margin: 3px;
+          border: 1px solid $gray-lighter;
+          line-height: 1;
+        }
+      }
+      .actions {
+        text-align: right;
+        padding: 5px;
+        .btn {
+          float: none;
+        }
+      }
+    }
+  }
+  .wysihtml5-editor {
+    min-height: 250px;
+    border: 1px solid $gray-lighter;
+    padding: 10px;
+    outline: none;
+    &:focus {
+      box-shadow: inset 0 -2px 0 $blue-400;
+    }
+    .gru-math-expression {
+      .katex {
+        cursor: pointer;
+      }
+    }
+  }
+}

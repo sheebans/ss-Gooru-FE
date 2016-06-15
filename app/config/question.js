@@ -165,3 +165,24 @@ export function getQuestionApiType(questionType){
   return getQuestionConfig(questionType, 'apiType');
 }
 
+// LaTeX expressions used in rich text editor
+export const LATEX_EXPRESSIONS = {
+  fraction: "\\frac{}{}",
+  sqrt: "\\sqrt{}",
+  sqrtn: "\\sqrt[{}]{}",
+  overline: "\\overline{}",
+  angles: "\\langle{}",
+  sum: "\\sum{}",
+  sin: "\\sin\\left({}\\right)",
+  cos: "\\cos\\left({}\\right)",
+  tan: "\\tan\\left({}\\right)",
+  in: "\\in",
+  notin: "\\notin",
+  exists: "\\exists",
+  nexists: "\\nexists",
+  ge: "\\ge",
+  gt: "\\gt",
+  lambda: "\\Lambda",
+  omega: "\\Omega",
+  alpha: "\\alpha"
+};

@@ -1109,5 +1109,27 @@ export default {
     "email-address": "Email Address",
     "gender": "Gender",
     "birthday": "Birthday"
+  },
+
+  "gru-rich-text-editor": {
+    "bold": "Bold",
+    "expression": "Expression",
+    "italic": "Italic",
+    "subscript": "Subscript",
+    "superscript": "Superscript",
+    "underline": "Underline",
+    "expressions-panel": {
+      "tabs": {
+        "calculus": "Calculus",
+        "greek-letters": "Greek Letters",
+        "layout": "Layout",
+        "relation": "Relation",
+        "set-theory": "Set Theory",
+        "symbols": "Symbols",
+        "trigonometry": "Trigonometry"
+      },
+      "insert-expression": "Insert Expression",
+      "update-expression": "Update Expression"
+    }
   }
 };
