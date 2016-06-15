@@ -144,7 +144,8 @@ const ResourceModel = Ember.Object.extend(Validations,{
   standards: [],
 
   /**
-   * @property {JSONObject}
+   * Some metadata properties
+   * @property {{}}
    */
   info: null,
 
@@ -154,13 +155,18 @@ const ResourceModel = Ember.Object.extend(Validations,{
   publisher: null,
 
   /**
+   * @property {boolean}
+   */
+  amIThePublisher: false,
+
+  /**
    * Sequence number, when is part of a collection
    * @property {number}
    */
   order: null,
 
   /**
-   * @property {JSONObject}
+   * @property {{}}
    */
   displayGuide: null,
 
