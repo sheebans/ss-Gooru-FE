@@ -392,11 +392,42 @@ label {
 }
 
 .gru-math-expression {
+  display: inline!important;
   .source {
-    display: none;
+    display: none!important;
   }
 }
 
 .katex {
   font-size: 1.5em !important;
+  display: inline!important;
+  margin-bottom: 0!important;
+  word-wrap: normal!important;
+  span {
+    display: inline!important;
+    margin-bottom: 0!important;
+    word-wrap: normal!important;
+  }
+  .base,
+  .strut,
+  .mspace,
+  .katex-html,
+  .vlist,
+  .vlist>span>span,
+  .rule,
+  .fontsize-ensurer,
+  .sizing,
+  .mtable .vertical-separator,
+  .mtable .arraycolsep {
+    display: inline-block!important;
+  }
+  .vlist>span {
+    display: block!important;
+  }
+  .vlist .baseline-fix {
+    display: inline-table!important;
+  }
+  .mtable .vertical-separator {
+    margin: 0 -.025em!important;
+  }
 }
