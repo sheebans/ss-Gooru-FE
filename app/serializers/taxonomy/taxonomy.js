@@ -176,7 +176,7 @@ export default Ember.Object.extend({
    * @param level taxonomy level
    * @returns {TaxonomyTagData[]} a TaxonomyTagData array
    */
-  normalizeTaxonomy: function(taxonomyPayload, level) {
+  normalizeTaxonomyObject: function(taxonomyPayload, level) {
     var taxonomyData = [];
     if (taxonomyPayload) {
       for (var key in taxonomyPayload) {

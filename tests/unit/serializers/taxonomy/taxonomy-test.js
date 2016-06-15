@@ -190,7 +190,7 @@ test('serializeTaxonomy', function(assert) {
   assert.equal(taxonomyFramework['framework_code'], 'TEKS', 'Wrong framework framework_code');
 });
 
-test('normalizeTaxonomy', function(assert) {
+test('normalizeTaxonomyObject', function(assert) {
   const serializer = this.subject();
   const taxonomyJSON = {
     'GDF.K12.VPA': {
@@ -208,7 +208,7 @@ test('normalizeTaxonomy', function(assert) {
       'framework_code': 'TEKS'
     }
   };
-  const normalizedTaxonomy = serializer.normalizeTaxonomy(taxonomyJSON);
+  const normalizedTaxonomy = serializer.normalizeTaxonomyObject(taxonomyJSON);
   assert.equal(normalizedTaxonomy.length, 2, 'Wrong taxonomy elements');
   const taxonomySubject = normalizedTaxonomy.objectAt(0);
   assert.equal(taxonomySubject.get('code'), 'GDF.K12.VPA', 'Wrong subject code');

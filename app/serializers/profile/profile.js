@@ -211,7 +211,7 @@ export default Ember.Object.extend({
       url: resourceData.url,
       format: format,
       publishStatus: resourceData.publish_status,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },
@@ -235,7 +235,7 @@ export default Ember.Object.extend({
       format: questionData.content_format,
       type:format,
       publishStatus: questionData.publish_status,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },
@@ -250,7 +250,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const ownerId = collectionData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
-    const standards = serializer.get('taxonomySerializer').normalizeTaxonomy(collectionData.taxonomy || []);
+    const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(collectionData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = collectionData.thumbnail ?
       basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
@@ -282,7 +282,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const ownerId = assessmentData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
-    const standards = serializer.get('taxonomySerializer').normalizeTaxonomy(assessmentData.taxonomy || []);
+    const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = assessmentData.thumbnail ?
       basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
