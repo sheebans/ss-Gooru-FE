@@ -14,8 +14,6 @@
 
     b, span {
       display: block;
-      max-width: inherit;
-      @include text-overflow;
     }
     b {
       color: $gray;
@@ -52,6 +50,33 @@
         font-size: 13px;
         vertical-align: top;
         color: $gray;
+      }
+    }
+  }
+
+  .tag-tooltip {
+    display: none;
+  }
+
+  &.read-only {
+    .popover.fade {
+      background-color: $white;
+
+      .arrow:after {
+        border-top-color: $white;
+        border-bottom-color: $white;
+        border-left-color: transparent;
+        border-right-color: transparent;
+      }
+
+      .popover-content {
+        padding: 5px 10px 10px;
+
+        span {
+          color: $gray;
+          text-transform: none;
+          font-size: $font-size-base;
+        }
       }
     }
   }

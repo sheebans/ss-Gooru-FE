@@ -289,7 +289,7 @@ export default {
       "HS_IMG": "Multiple Select - Image ",
       "HT_TO": "Drag and Drop Order",
       "HT_RO": "Drag and Drop Order",
-      "HT_HL": "Hot Text Highlight"
+      "HT_HL": "Highlight Text"
     },
     "reaction": "Reaction",
     "remaining": "{{number}} Left",
@@ -778,6 +778,8 @@ export default {
   "login": {
     "title": "Welcome Back!",
     "description": "Learning is just around the corner.",
+    "title-session-ends": "Your session expired.",
+    "description-session-ends": "Please sign in.",
     "gooruAccountTitle": "Log in to your Gooru account",
     "googleButton": "Sign in with Google",
     "or": "Or",
