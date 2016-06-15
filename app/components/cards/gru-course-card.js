@@ -115,6 +115,13 @@ export default Ember.Component.extend(ModalMixin, {
    */
   tags: Ember.computed('course.taxonomy.[]', function() {
     return TaxonomyTag.getTaxonomyTags(this.get('course.taxonomy'));
-  })
+  }),
+
+  /*
+  * Events
+  */
+  didRender(){
+    $('[data-toggle="tooltip"]').tooltip();
+  },
 
 });

@@ -110,7 +110,7 @@ test('Navigate to course player by clicking course title', function(assert) {
   andThen(function() {
 
     assert.equal(currentURL(), '/pochita/content/courses');
-    var $courseTitle = find('.gru-course-card:first-of-type .card-info .course-title');
+    var $courseTitle = find('.gru-course-card:first-of-type .card-header .course-title');
     click($courseTitle);
     andThen(function() {
      assert.equal(currentRouteName(), 'content.courses.play');
@@ -123,7 +123,7 @@ test('Navigate to course player by clicking course image', function(assert) {
   andThen(function() {
 
     assert.equal(currentURL(), '/pochita/content/courses');
-    var $courseTitle = find('.gru-course-card:first-of-type .interaction-zone .course-image');
+    var $courseTitle = find('.gru-course-card:first-of-type .card-header .course-image');
     click($courseTitle);
     andThen(function() {
       assert.equal(currentRouteName(), 'content.courses.play');
