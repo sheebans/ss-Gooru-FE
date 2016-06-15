@@ -84,13 +84,13 @@ export default Ember.Component.extend({
    */
   setLayoutFilter: function() {
     return Ember.A([ Ember.Object.create({
-      'view': VIEW_LAYOUT_PICKER_OPTIONS.LIST,
-      'isActive': true,
-      'icon': 'view_list'
-    }),Ember.Object.create({
       'view': VIEW_LAYOUT_PICKER_OPTIONS.THUMBNAILS,
-      'isActive': false,
+      'isActive': true,
       'icon': 'view_module'
+    }),Ember.Object.create({
+      'view': VIEW_LAYOUT_PICKER_OPTIONS.LIST,
+      'isActive': false,
+      'icon': 'view_list'
     })])
   },
   /**
