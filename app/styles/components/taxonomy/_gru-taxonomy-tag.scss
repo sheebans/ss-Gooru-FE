@@ -14,8 +14,6 @@
 
     b, span {
       display: block;
-      max-width: inherit;
-      @include text-overflow;
     }
     b {
       color: $gray;
