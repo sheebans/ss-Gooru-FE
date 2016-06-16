@@ -99,12 +99,7 @@ export default Ember.Object.extend(Validations, {
   }),
 
   isRemixed: Ember.computed('owner','originalCreatorId', function() {
-
-    if (this.get('originalCreatorId') !==null && this.get('owner.id')!==this.get('originalCreatorId')){
-      return true;
-    }else {
-      return false;
-    }
+    return this.get('originalCreatorId') !==null && this.get('owner.id')!==this.get('originalCreatorId');
   }),
 
   /**
@@ -187,8 +182,6 @@ export default Ember.Object.extend(Validations, {
       });
     });
   },
-
-
 
   isOwner: function(id) {
     const owner = this.get("owner");
