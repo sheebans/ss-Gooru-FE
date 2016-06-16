@@ -1084,12 +1084,12 @@ export default {
   "home":{
     "no-classes-found":{
       "create-class":{
-        "title":"Teach with a Gooru classroom.",
+        "title":"Teach with a Gooru classroom",
         "description":"Created a classroom, assign content, and invite students.",
         "button-text":"Create Classroom"
       },
       "join-class":{
-        "title":"Learn with a Gooru classroom.",
+        "title":"Learn with a Gooru classroom",
         "description":"Join your teacher’s classroom to start learning.",
         "button-text":"Enter Classroom Code"
       },
