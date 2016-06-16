@@ -19,7 +19,7 @@
       <div class="publisher">
         <span>{{t 'common.published-by'}}</span>
         <img src="{{ resource.owner.avatarUrl }}" alt="Publisher">
-          {{#link-to 'profile.content.courses' resource.owner.id class="pointer" tagName="span"}}
+          {{#link-to 'profile.content.courses' resource.owner.id class="pointer owner" tagName="span"}}
             {{resource.owner.displayName}}
           {{/link-to}}
       </div>
