@@ -98,6 +98,15 @@ export default Ember.Object.extend(Validations, {
     return this.getTaxonomyTags(false);
   }),
 
+  isRemixed: Ember.computed('owner','originalCreatorId', function() {
+
+    if (this.get('originalCreatorId') !==null && this.get('owner.id')!==this.get('originalCreatorId')){
+      return true;
+    }else {
+      return false;
+    }
+  }),
+
   /**
    * @property {TaxonomyTagData[]} Course taxonomy array
    */
@@ -178,6 +187,8 @@ export default Ember.Object.extend(Validations, {
       });
     });
   },
+
+
 
   isOwner: function(id) {
     const owner = this.get("owner");

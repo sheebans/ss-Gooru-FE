@@ -18,6 +18,10 @@ test('Course Card Layout', function(assert) {
     'imageUrl': '/assets/gooru/profile.png',
     'isPublished':true,
     'isVisibleOnProfile':false,
+    'originalCreatorId':'some-id',
+    'owner': Ember.Object.create({
+      id:'some-id'
+    }),
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -35,7 +39,7 @@ test('Course Card Layout', function(assert) {
       'avatarUrl': '/assets/gooru/profile.png',
       'username': 'username-2'
     }),Ember.Object.create({
-      'email': 'user_1@test.com',
+      'email': 'user_3@test.com',
       'firstName': 'firstname-3',
       'fullName': 'lastname-3 firstname-3',
       'id': 'id-1',
@@ -56,11 +60,13 @@ test('Course Card Layout', function(assert) {
   T.exists(assert, $courseCard.find(".total-units"), "Missing total units");
   T.exists(assert, $courseCard.find(".subject"), "Missing subject");
   T.exists(assert, $courseCard.find(".icon.public"), "Missing public icon");
-  T.exists(assert, $courseCard.find(".remixed"), "Missing Remixed By");
+  T.exists(assert, $courseCard.find(".created"), "Missing Created By");
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
   T.exists(assert, $courseCard.find(".remix-button  button"), "Missing remix button");
   T.exists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");
 });
+
+
 test('Course Card Private', function(assert) {
   var course = Ember.Object.create({
     'title': 'Water cycle',
@@ -114,6 +120,11 @@ test('Course Card Layout Owner and Public', function(assert) {
     'imageUrl': '/assets/gooru/profile.png',
     'isPublished':true,
     'isVisibleOnProfile':false,
+    'originalCreatorId':'some-id',
+    'owner': Ember.Object.create({
+      'id':'some-other-id'
+    }),
+    'isRemixed': true,
     'remixedBy':  Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
@@ -194,7 +205,7 @@ test('Course Card Layout Owner and Private', function(assert) {
   });
 
   this.set('course', course);
-  assert.expect(9);
+  assert.expect(8);
   this.render(hbs`{{cards/gru-course-card course=course isOwner=true isEditEnabled=true}}`);
 
   var $component = this.$(); //component dom element
@@ -204,7 +215,6 @@ test('Course Card Layout Owner and Private', function(assert) {
   T.exists(assert, $courseCard.find(".total-units"), "Missing total units");
   T.exists(assert, $courseCard.find(".subject"), "Missing subject");
   T.notExists(assert, $courseCard.find(".icon .public"), "Missing public icon");
-  T.exists(assert, $courseCard.find(".remixed"), "Missing Remixed By");
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
   T.exists(assert, $courseCard.find(".edit-button  button"), "Missing edit button");
   T.notExists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");

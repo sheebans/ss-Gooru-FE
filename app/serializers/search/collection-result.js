@@ -26,6 +26,7 @@ export default DS.JSONAPISerializer.extend({
 });
 
 function normalizeCollections(searchResults, relationshipItems, collectionModel) {
+  console.log('asdfasdfasfd');
   for(var i = 0; i < searchResults.length; i++) {
     var result = searchResults[i];
     var collectionRelationship = {
