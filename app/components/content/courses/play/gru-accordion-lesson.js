@@ -111,6 +111,19 @@ export default Ember.Component.extend(BuilderMixin, {
     } else {
       return Ember.RSVP.resolve(true);
     }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function(){
+    const component = this;
+    if (component.get('index') === 0) {
+      component.send('toggle');
+    }
   }
 
 });
