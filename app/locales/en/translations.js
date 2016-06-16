@@ -289,7 +289,7 @@ export default {
       "HS_IMG": "Multiple Select - Image ",
       "HT_TO": "Drag and Drop Order",
       "HT_RO": "Drag and Drop Order",
-      "HT_HL": "Hot Text Highlight"
+      "HT_HL": "Highlight Text"
     },
     "reaction": "Reaction",
     "remaining": "{{number}} Left",
@@ -1084,23 +1084,23 @@ export default {
   "home":{
     "no-classes-found":{
       "create-class":{
-        "title":"Start teaching with a Gooru classroom.",
-        "description":"Prompt to create a class goes here.",
+        "title":"Teach with a Gooru classroom.",
+        "description":"Created a classroom, assign content, and invite students.",
         "button-text":"Create Classroom"
       },
       "join-class":{
-        "title":"Join a classroom to start learning.",
-        "description":"Prompt to create a class goes here.",
+        "title":"Learn with a Gooru classroom.",
+        "description":"Join your teacher’s classroom to start learning.",
         "button-text":"Enter Classroom Code"
       },
       "featured-courses":{
-        "title":"Feeling lucky?",
-        "description":"Browse curated math,science,social studies, and science courses.",
+        "title":"Featured Courses",
+        "description":"Browse curated math, science, social studies, and ELA courses.",
         "button-text":"Featured Courses"
       },
       "teacher-toolkit":{
         "title":"Teacher Toolkit",
-        "description":"Browse curated math,science,social studies, and science courses.",
+        "description":"This toolkit has resources to help you get started.",
         "button-text":"Teacher Toolkit"
       }
     }
