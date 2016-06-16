@@ -26,7 +26,7 @@ export function getSubjects(courses) {
   // Create an additional bucket for courses that don't have taxonomy data
   orderedSubjects.unshift(Ember.Object.create({
     subject: '',
-    subjectSequence: null,
+    subjectSequence: 0,
     taxonomySubject: null
   }));
 
