@@ -28,7 +28,9 @@ export default Ember.Component.extend({
         if (component.get('cursorPosition')) {
           component.get('cursorPosition').collapseToEnd();
         }
-        component.get('editor').composer.commands.exec("insertHTML", html);
+        if (component.get('editor').composer) {
+          component.get('editor').composer.commands.exec("insertHTML", html);
+        }
         component.makeExpressionsReadOnly();
       }
     },
@@ -56,6 +58,7 @@ export default Ember.Component.extend({
   // Events
 
   didInsertElement() {
+    debugger;
     var component = this;
     var editorElement = component.$('.editor-box');
     var mathFieldSpan = component.$('.math-field')[0];
@@ -72,15 +75,19 @@ export default Ember.Component.extend({
     });
     // Save caret position on editor blur
     editor.on('blur:composer', function() {
-      component.set('cursorPosition', rangy.getSelection());
-      component.set('content', editorElement.html());
+      if (rangy) {
+        component.set('cursorPosition', rangy.getSelection());
+        component.set('content', editorElement.html());
+      }
     });
 
     // Workaround to prevent editor cleanup, which would delete math expressions
     setTimeout(function() {
-      editor.focus();
-      editor.composer.commands.exec("insertHTML", component.get('content'));
-      editorElement.blur();
+      if (editor.composer && editor.composer.commands) {
+        editor.focus();
+        editor.composer.commands.exec("insertHTML", component.get('content'));
+        editorElement.blur();
+      }
     }, 100);
 
     component.set('editor', editor);

@@ -122,11 +122,15 @@ module.exports = function(defaults) {
     development: 'bower_components/clipboard/dist/clipboard.js',
     production:  'bower_components/clipboard/dist/clipboard.min.js'
   });
-  app.import({
-    development: 'bower_components/wysihtml/dist/wysihtml-toolbar.js',
-    production:  'bower_components/wysihtml/dist/wysihtml-toolbar.min.js'
-  });
-  app.import('bower_components/wysihtml/parser_rules/advanced_and_extended.js');
+  if (EmberApp.env() === 'test') {
+    app.import('vendor/wysihtml-dummy.js');
+  } else {
+    app.import({
+      development: 'bower_components/wysihtml/dist/wysihtml-toolbar.js',
+      production:  'bower_components/wysihtml/dist/wysihtml-toolbar.min.js'
+    });
+    app.import('bower_components/wysihtml/parser_rules/advanced_and_extended.js');
+  }
   app.import('bower_components/KaTeX/dist/katex.min.css');
   app.import('bower_components/KaTeX/dist/katex.min.js');
   app.import({

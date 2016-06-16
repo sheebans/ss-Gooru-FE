@@ -2,7 +2,10 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('gru-rich-text-editor', 'Integration | Component | gru rich text editor', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale","en");
+  }
 });
 
 test('it renders', function(assert) {
@@ -11,14 +14,5 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{gru-rich-text-editor}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#gru-rich-text-editor}}
-      template block text
-    {{/gru-rich-text-editor}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.notEqual(this.$().text().trim(), '');
 });
