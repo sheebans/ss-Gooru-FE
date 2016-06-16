@@ -103,7 +103,7 @@ export default Ember.Component.extend({
     component.$().on('click', '.katex', function(e) {
       e.preventDefault();
       var sourceLatex = $(this).siblings('.source').text();
-      if (sourceLatex && sourceLatex != "") {
+      if (sourceLatex && sourceLatex !== "") {
         component.set('editingExpression', $(this).closest('.gru-math-expression'));
         component.set('showExpressionsPanel', true);
         Ember.run.later(function() {
@@ -130,7 +130,7 @@ export default Ember.Component.extend({
    * @property {boolean} Indicates it the user is editing an existing expression
    */
   isEditingExpression: Ember.computed('editingExpression', function() {
-    return this.get('editingExpression') != null;
+    return this.get('editingExpression') !== null;
   }),
 
   /**
