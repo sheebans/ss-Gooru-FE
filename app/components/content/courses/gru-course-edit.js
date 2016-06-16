@@ -14,6 +14,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
   notifications: Ember.inject.service(),
 
   /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
+  /**
    * @requires service:api-sdk/course
    */
   courseService: Ember.inject.service("api-sdk/course"),

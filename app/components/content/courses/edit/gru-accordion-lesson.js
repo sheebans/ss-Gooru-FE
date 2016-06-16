@@ -233,7 +233,8 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
   /**
    * DidInsertElement ember event
    */
-  didInsertElement: function(){
+  didInsertElement: function() {
+    this._super(...arguments);
     var component = this;
 
     const sortable = component.$('.sortable');
