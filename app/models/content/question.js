@@ -98,9 +98,9 @@ const Question = Ember.Object.extend(Validations, {
   publishStatus: null,
 
   /**
-   * @property {Boolean} isPublic
+   * @property {Boolean} isPublished
    */
-  isPublic: Ember.computed.equal("publishedStatus", "published"),
+  isPublished: Ember.computed.equal("publishStatus", "published"),
 
   /**
    * @property { Content/User }

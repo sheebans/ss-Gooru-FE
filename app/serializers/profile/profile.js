@@ -211,7 +211,7 @@ export default Ember.Object.extend({
       url: resourceData.url,
       format: format,
       publishStatus: resourceData.publish_status,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },
@@ -235,7 +235,7 @@ export default Ember.Object.extend({
       format: questionData.content_format,
       type:format,
       publishStatus: questionData.publish_status,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },
@@ -250,7 +250,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const ownerId = collectionData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
-    const standards = serializer.get('taxonomySerializer').normalizeTaxonomy(collectionData.taxonomy || []);
+    const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(collectionData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = collectionData.thumbnail ?
       basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
@@ -262,6 +262,7 @@ export default Ember.Object.extend({
       thumbnailUrl: thumbnailUrl,
       publishStatus: collectionData.publish_status,
       learningObjectives: collectionData.learning_objective,
+      originalCreatorId: collectionData.original_creator_id,
       resourceCount: collectionData.resource_count,
       questionCount: collectionData.question_count,
       remixCount: collectionData.remix_count, //TODO missing on API
@@ -282,7 +283,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const ownerId = assessmentData.owner_id;
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
-    const standards = serializer.get('taxonomySerializer').normalizeTaxonomy(assessmentData.taxonomy || []);
+    const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = assessmentData.thumbnail ?
       basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
@@ -293,6 +294,7 @@ export default Ember.Object.extend({
       thumbnailUrl: thumbnailUrl,
       standards: standards,
       publishStatus: assessmentData.publish_status,
+      originalCreatorId: assessmentData.original_creator_id,
       learningObjectives: assessmentData.learning_objective,
       questionCount: assessmentData.question_count,
       remixCount: assessmentData.remix_count, //TODO missing on API

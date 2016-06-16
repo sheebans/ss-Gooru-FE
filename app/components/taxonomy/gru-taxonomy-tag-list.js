@@ -103,7 +103,7 @@ export default Ember.Component.extend({
   setupTooltip: function() {
     var component = this;
     var $anchor = this.$('button.non-visible-tags');
-    var placement = this.get('isInCard') ? 'auto bottom' : 'auto right';
+    var placement = this.get('isInCard') ? 'bottom' : 'auto right';
 
     $anchor.addClass('clickable');
     $anchor.attr('data-html', 'true');

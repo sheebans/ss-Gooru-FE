@@ -98,6 +98,10 @@ export default Ember.Object.extend(Validations, {
     return this.getTaxonomyTags(false);
   }),
 
+  isRemixed: Ember.computed('owner','originalCreatorId', function() {
+    return this.get('originalCreatorId') !==null && this.get('owner.id')!==this.get('originalCreatorId');
+  }),
+
   /**
    * @property {TaxonomyTagData[]} Course taxonomy array
    */

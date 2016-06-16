@@ -111,8 +111,8 @@ test('Default Layout', function (assert) {
 
   const $viewContainer = $component.find('.view-container');
   T.exists(assert, $viewContainer, "Missing view container");
-  assert.ok($viewContainer.hasClass("table-view"), "Table view should be selected by default");
-  assert.ok(!$viewContainer.hasClass("student-view"), "Student view should be selected");
+  assert.ok(!$viewContainer.hasClass("table-view"), "Table view should not be selected by default");
+  assert.ok($viewContainer.hasClass("student-view"), "Student view should be selected by default");
 
   T.exists(assert, $viewContainer.find(".gru-view-layout-picker"), "Missing gru view layout picker");
   T.exists(assert, $viewContainer.find(".gru-table-view"), "Missing table view");

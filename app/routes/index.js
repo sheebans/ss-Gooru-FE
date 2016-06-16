@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Env from '../config/environment';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 
 /**
@@ -12,6 +13,20 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   queryParams: {
     access_token : {}
+  },
+
+  beforeModel(transition) {
+    const route = this;
+    return this._super(...arguments).then(function(){
+      let anonymous = route.get("session.isAnonymous");
+      let isProd = Env.environment === 'production';
+      let url = route.get("router.url");
+      let googleSignIn = url.indexOf("access_token") > 0; //if it has the access_token parameter
+      if (anonymous && !googleSignIn && isProd) {
+        transition.abort();
+        window.location = Env.marketingSiteUrl; //this is not an ember route, see nginx.conf
+      }
+    });
   },
 
   model(params) {

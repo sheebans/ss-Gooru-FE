@@ -8,6 +8,7 @@ import CourseModel from 'gooru-web/models/content/course';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from 'gooru-web/config/config';
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 /**
  * Serializer to support Search functionality
@@ -18,6 +19,15 @@ export default Ember.Object.extend({
 
   session: Ember.inject.service('session'),
 
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Normalize the Search collections response
@@ -46,13 +56,16 @@ export default Ember.Object.extend({
     const thumbnailUrl = collectionData.thumbnail ? basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
     const userThumbnailUrl = collectionData.userProfileImage ? userBasePath + collectionData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
     const creatorThumbnailUrl = collectionData.creatorProfileImage ? userBasePath + collectionData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const taxonomyInfo = collectionData.taxonomySet &&
+                          collectionData.taxonomySet.curriculum &&
+                            collectionData.taxonomySet.curriculum.curriculumInfo || [];
 
     const course = collectionData.course || {};
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: collectionData.id,
       title: collectionData.title,
       thumbnailUrl: thumbnailUrl,
-      standards: serializer.normalizeStandards(collectionData),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo),
       publishStatus: collectionData.publishStatus,
       learningObjectives: collectionData.languageObjective,
       resourceCount: collectionData.resourceCount || 0,
@@ -90,13 +103,16 @@ export default Ember.Object.extend({
     const thumbnailUrl = assessmentData.thumbnail ? basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
     const ownerThumbnailUrl = assessmentData.userProfileImage ? userBasePath + assessmentData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
     const creatorThumbnailUrl = assessmentData.creatorProfileImage ? userBasePath + assessmentData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const taxonomyInfo = assessmentData.taxonomySet &&
+                          assessmentData.taxonomySet.curriculum &&
+                            assessmentData.taxonomySet.curriculum.curriculumInfo || [];
 
     const course = assessmentData.course || {};
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
       thumbnailUrl: thumbnailUrl,
-      standards: serializer.normalizeStandards(assessmentData),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo),
       publishStatus: assessmentData.publishStatus,
       learningObjectives: assessmentData.languageObjective,
       resourceCount: assessmentData.resourceCount ? Number(assessmentData.resourceCount) : 0,
@@ -176,6 +192,10 @@ export default Ember.Object.extend({
     const serializer = this;
     const format = result.resourceFormat.value; //value should be 'question'
     const type = QuestionModel.normalizeQuestionType(result.typeName);
+    const taxonomyInfo = result.taxonomySet &&
+                          result.taxonomySet.curriculum &&
+                            result.taxonomySet.curriculum.curriculumInfo || [];
+
     return QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.gooruOid,
       title: result.title,
@@ -185,7 +205,7 @@ export default Ember.Object.extend({
       thumbnailUrl: result.thumbnail,
       type: type,
       owner: result.user ? serializer.normalizeOwner(result.user) : null,
-      standards: serializer.normalizeStandards(result)
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo)
     });
   },
 
@@ -197,6 +217,10 @@ export default Ember.Object.extend({
   normalizeResource: function(result){
     const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(result.contentSubFormat);
+    const taxonomyInfo = result.taxonomySet &&
+                          result.taxonomySet.curriculum &&
+                            result.taxonomySet.curriculum.curriculumInfo || [];
+
     return ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.gooruOid,
       title: result.title,
@@ -205,7 +229,7 @@ export default Ember.Object.extend({
       url: result.url,
       creator: result.creator ? serializer.normalizeOwner(result.creator) : null,
       owner: result.user ? serializer.normalizeOwner(result.user) : null,
-      standards: serializer.normalizeStandards(result),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo),
       publishStatus: result.publishStatus
     });
   },
@@ -227,53 +251,6 @@ export default Ember.Object.extend({
       username: ownerData.usernameDisplay,
       avatarUrl: thumbnailUrl
     });
-  },
-
-  /**
-   * Normalizes standars
-   * @param payload
-   * @returns {TaxonomyDataTag[]}
-   */
-  normalizeStandards(payload) {
-    let taxonomy = payload.taxonomySet || payload.taxonomyDataSet || {};
-    if (!payload.taxonomySet && payload.taxonomyDataSet) {
-      taxonomy = JSON.parse(payload.taxonomyDataSet);
-    }
-
-    const toTaxonomyTags = function (taxonomies, titles, frameworks, level) {
-      let standards = [];
-      const firstFramework = frameworks.length > 0 ? frameworks[0] : null;
-      for (var i = 0; i < taxonomies.length; i++) {
-        let code = taxonomies[i];
-        let title = titles.length > i ? titles[i] : null;
-        let framework = frameworks.length > i ? frameworks[i] : firstFramework;
-        let standard = TaxonomyTagData.create({
-          id: code, //not provided at search, using code
-          code: code,
-          title: title,
-          parentTitle: null, //TODO not provided
-          description: title, //TODO not provided
-          frameworkCode: framework,
-          taxonomyLevel: level
-        });
-        standards.push(standard);
-      }
-      return Ember.A(standards);
-    };
-
-    let curriculum = taxonomy.curriculum || {};
-
-    let frameworks = curriculum.curriculumName || [];
-    let taxonomies = curriculum.curriculumCode || [];
-    let titles = curriculum.curriculumDesc || [];
-    let standards = toTaxonomyTags(taxonomies, titles, frameworks, TAXONOMY_LEVELS.STANDARD);
-
-    taxonomies = curriculum.learningTarget || [];
-    titles = curriculum.learningTargetDesc || [];
-    let micro = toTaxonomyTags(taxonomies, titles, frameworks, TAXONOMY_LEVELS.MICRO);
-    standards.pushObjects(micro.toArray());
-
-    return standards.toArray();
   },
 
   /**
@@ -300,17 +277,22 @@ export default Ember.Object.extend({
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : DEFAULT_IMAGES.COURSE;
+    const taxonomyInfo = result.taxonomy &&
+                          result.taxonomy.curriculum &&
+                            result.taxonomy.curriculum.curriculumInfo || [];
+
     return CourseModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.id,
       title: result.title,
       description: result.description,
       thumbnailUrl: thumbnailUrl,
       subject: result.subjectBucket,
+      subjectName: result.taxonomy && result.taxonomy.subject ? result.taxonomy.subject[0] : null,
       subjectSequence: result.subjectSequence,
       isVisibleOnProfile: result.visibleOnProfile,
       isPublished: result.publishStatus === 'published',
       unitCount: result.unitCount,
-      taxonomy: result.taxonomy && result.taxonomy.subject ? result.taxonomy.subject.slice(0) : null,
+      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo),
       owner: result.owner ? serializer.normalizeOwner(result.owner) : null,
       sequence: result.sequence
     });

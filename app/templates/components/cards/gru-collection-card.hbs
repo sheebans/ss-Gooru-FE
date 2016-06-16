@@ -5,10 +5,12 @@
         </div>
         <div class="collection-info">
             <div class="title-section">
-                <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
+              <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
+              {{#unless publishVisible}}
                 {{#if collection.isPublished}}
-                    <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
+                  <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
                 {{/if}}
+              {{/unless}}
             </div>
             <span class="question-resources">
               {{#if hasResources}}
@@ -73,7 +75,7 @@
                 <button class="edit-btn btn btn-success btn-sm" {{action "editCollection"}}>{{t "common.edit"}}</button>
             {{/if}}
           </div>
-        {{#unless isSearchResult}}
+        {{#unless publishVisible}}
             <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
               {{#unless collection.isVisibleOnProfile }}
                 {{gru-icon name="visibility_off" class='pull-right'}}
