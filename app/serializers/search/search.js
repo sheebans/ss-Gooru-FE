@@ -277,7 +277,9 @@ export default Ember.Object.extend({
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : DEFAULT_IMAGES.COURSE;
-    const taxonomyInfo = result.taxonomySet.curriculum.curriculumInfo;
+    const taxonomyInfo = result.taxonomySet &&
+                          result.taxonomySet.curriculum &&
+                            result.taxonomySet.curriculum.curriculumInfo || [];
 
     return CourseModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.id,
