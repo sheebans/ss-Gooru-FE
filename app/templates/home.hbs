@@ -30,7 +30,7 @@
   </div>
   <div class="content tab-content">
     <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
-      {{#if totalJoinedClasses}}
+      {{#if hasClasses}}
         {{#each activeClasses as |class|}}
           {{cards.gru-class-card
           class=class
