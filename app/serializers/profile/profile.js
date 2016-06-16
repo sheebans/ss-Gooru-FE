@@ -262,6 +262,7 @@ export default Ember.Object.extend({
       thumbnailUrl: thumbnailUrl,
       publishStatus: collectionData.publish_status,
       learningObjectives: collectionData.learning_objective,
+      originalCreatorId: collectionData.original_creator_id,
       resourceCount: collectionData.resource_count,
       questionCount: collectionData.question_count,
       remixCount: collectionData.remix_count, //TODO missing on API
@@ -293,6 +294,7 @@ export default Ember.Object.extend({
       thumbnailUrl: thumbnailUrl,
       standards: standards,
       publishStatus: assessmentData.publish_status,
+      originalCreatorId: assessmentData.original_creator_id,
       learningObjectives: assessmentData.learning_objective,
       questionCount: assessmentData.question_count,
       remixCount: assessmentData.remix_count, //TODO missing on API
