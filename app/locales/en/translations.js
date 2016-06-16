@@ -212,7 +212,7 @@ export default {
     "last-name": "Last Name",
     "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
-    "launch-on-air": "Go Live!",
+    "launch-on-air": "Go Live",
     "learning-objectives": "Learning Objectives",
     "learning-target": "Micro-standard",
     "learning-target-mobile": "Micro-standard in Standard",
@@ -361,7 +361,7 @@ export default {
     "signUp": "Sign Up",
     "sortAlphabetical": "Sort Alphabetically",
     "sortAverage": "Sort by Average",
-    "state": "State",
+    "state": "State or Territory",
     "standard": "Standard",
     "standards": "Standards",
     "study": "Study",
@@ -757,7 +757,7 @@ export default {
     "email": "Email",
     "password": "Password",
     "rePassword": "Confirm Password",
-    "state": "State",
+    "state": "State or Territory",
     "district": "District or Charter Organization",
     "error-username-taken": "Aww, this username is taken. Try another.",
     "error-email-taken": "This email is taken. Try another.",
@@ -1087,7 +1087,7 @@ export default {
     "gru-taxonomy-selector": {
       "add-secondary": "Add secondary",
       "choose-subject": "Choose Subject",
-      "primary-subject-and-course": "Primary Subject and Course"
+      "primary-subject-and-course": "Standards Framework and Course"
     }
   },
   "validations": {
