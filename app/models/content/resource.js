@@ -2,68 +2,12 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 import PlayerResource from 'gooru-web/models/resource/resource';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
-
-const Validations = buildValidations({
-  description: {
-    validators: [
-      validator('length', {
-        max: 500,
-        message: '{{description}}',
-        descriptionKey: 'common.errors.resource-description-length'
-      })
-    ]
-  },
-  format: {
-    validators: [
-      validator('presence', {
-        presence: true,
-        message: '{{description}}',
-        descriptionKey: 'common.errors.resource-missing-type'
-      })
-    ]
-  },
-  title: {
-    validators: [
-      validator('presence', {
-        presence: true,
-        message: '{{description}}',
-        descriptionKey: 'common.errors.resource-missing-title'
-      }),
-      validator('length', {
-        max: 50,
-        message: '{{description}}',
-        descriptionKey: 'common.errors.resource-title-length'
-      })
-    ]
-  },
-  url: {
-    validators: [
-      validator('presence', {
-        presence: true,
-        message: '{{description}}',
-        descriptionKey: 'common.errors.resource-missing-url'
-      }),
-      validator('format', {
-        type: 'url',
-        message: '{{description}}',
-        descriptionKey: 'common.errors.resource-invalid-url'
-      }),
-      validator('host', {
-        message: '{{description}}',
-        descriptionKey: 'common.errors.resource-same-host-url',
-        location: window.location.hostname
-      })
-    ]
-  }
-});
-
 /**
  * Resource model
  *
  * @typedef {Object} Resource
  */
-const ResourceModel = Ember.Object.extend(Validations,{
-
+const ResourceModel = Ember.Object.extend({
 
   /**
    * @property {Number} id
@@ -273,10 +217,31 @@ const ResourceModel = Ember.Object.extend(Validations,{
    * @return {Resourse}
    */
   copy: function() {
+    var properties = this.getProperties(this.modelProperties());
+    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+  },
 
+  /**
+   * Copy a list of property values from another model to override the current ones
+   *
+   * @function
+   * @param {Collection|Assessment} model
+   * @param {String[]} propertyList
+   * @return {null}
+   */
+  merge: function(model, propertyList = []) {
+    var properties = model.getProperties(propertyList);
+    this.setProperties(properties);
+  },
+  /**
+   * Return a list of properties
+   *
+   * @function
+   * @return {Array}
+   */
+  modelProperties: function() {
     var properties = [];
-    var enumerableKeys = Object.keys(this);
-
+    const enumerableKeys = Object.keys(this);
     for (let i = 0; i < enumerableKeys.length; i++) {
       let key = enumerableKeys[i];
       let value = Ember.typeOf(this.get(key));
@@ -284,31 +249,7 @@ const ResourceModel = Ember.Object.extend(Validations,{
         properties.push(key);
       }
     }
-
-    // Copy the resource data
-    properties = this.getProperties(properties);
-
-    let standards = this.get('standards');
-    let info = this.get('info');
-
-    // Copy standards and info values
-    properties.standards = standards.slice(0);
-    properties.info = JSON.parse(JSON.stringify(info));
-
-    return ResourceModel.create(Ember.getOwner(this).ownerInjection(), properties);
-  },
-
-  /**
-   * Copy a list of property values from another model to override the current ones
-   *
-   * @function
-   * @param {Resource} model
-   * @param {String[]} propertyList
-   * @return {null}
-   */
-  merge: function(model, propertyList = []) {
-    var properties = model.getProperties(propertyList);
-    this.setProperties(properties);
+    return properties;
   },
 
   /**
