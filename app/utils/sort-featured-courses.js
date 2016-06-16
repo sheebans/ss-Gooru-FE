@@ -14,14 +14,23 @@ export function getSubjects(courses) {
     course => Ember.Object.create({
       subject: course.subject,
       subjectSequence: course.subjectSequence,
-      taxonomySubject: course.taxonomy[0]
+      taxonomySubject: course.subjectName
     })
   ).filter(
     (elem, pos, list) => list.reduce(
-      (result, e, i) => result < 0 && e.subject === elem.subject ? i : result , -1
+      (result, e, i) => result < 0 && e.taxonomySubject && e.subject === elem.subject ? i : result , -1
     ) === pos
   );
-  return result.sort((a,b) => a.subjectSequence-b.subjectSequence);
+  let orderedSubjects = result.sort((a,b) => a.subjectSequence-b.subjectSequence);
+
+  // Create an additional bucket for courses that don't have taxonomy data
+  orderedSubjects.unshift(Ember.Object.create({
+    subject: '',
+    subjectSequence: null,
+    taxonomySubject: null
+  }));
+
+  return orderedSubjects;
 }
 
 /**
@@ -32,7 +41,7 @@ export function getSubjects(courses) {
 export function sortFeaturedCourses(courses) {
   let result = getSubjects(courses).map(
     subjectBucket => courses.filter(
-      course => course.subject===subjectBucket.subject
+      course => course.subjectName === subjectBucket.taxonomySubject
     )
   );
   return result.map(
