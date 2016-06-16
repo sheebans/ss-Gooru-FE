@@ -1,5 +1,19 @@
 /*jshint node:true*/
+var mergeTrees = require('broccoli-merge-trees');
+var pickFiles = require('broccoli-static-compiler');
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+
+var mathquillFonts = pickFiles('vendor/mathquill/font', {
+  srcDir: '/',
+  files: ['**/**'],
+  destDir: '/assets/font'
+});
+
+var katexFonts = pickFiles('bower_components/KaTeX/dist/fonts', {
+  srcDir: '/',
+  files: ['**/**'],
+  destDir: '/assets/fonts'
+});
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
@@ -108,6 +122,21 @@ module.exports = function(defaults) {
     development: 'bower_components/clipboard/dist/clipboard.js',
     production:  'bower_components/clipboard/dist/clipboard.min.js'
   });
-
-  return app.toTree();
+  if (EmberApp.env() === 'test') {
+    app.import('vendor/wysihtml-dummy.js');
+  } else {
+    app.import({
+      development: 'bower_components/wysihtml/dist/wysihtml-toolbar.js',
+      production:  'bower_components/wysihtml/dist/wysihtml-toolbar.min.js'
+    });
+    app.import('bower_components/wysihtml/parser_rules/advanced_and_extended.js');
+  }
+  app.import('bower_components/KaTeX/dist/katex.min.css');
+  app.import('bower_components/KaTeX/dist/katex.min.js');
+  app.import({
+    development: 'vendor/mathquill/mathquill.js',
+    production:  'vendor/mathquill/mathquill.min.js'
+  });
+  app.import('vendor/mathquill/mathquill.css');
+  return mergeTrees([app.toTree(), mathquillFonts, katexFonts]);
 };
