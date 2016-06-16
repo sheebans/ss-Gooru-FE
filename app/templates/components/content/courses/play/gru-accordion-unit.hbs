@@ -32,13 +32,14 @@
         </div>
       {{/if}}
 
-
+      {{#if tags.length}}
       <div class="tags">
         <label>
           <span>{{t 'common.domains'}}</span>
         </label>
         {{taxonomy.gru-taxonomy-tag-list tags=tags}}
       </div>
+      {{/if}}
     </div>
 
     <ol class="accordion-unit" role="tablist" aria-multiselectable="true">

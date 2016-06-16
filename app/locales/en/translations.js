@@ -212,7 +212,7 @@ export default {
     "last-name": "Last Name",
     "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
-    "launch-on-air": "Go Live!",
+    "launch-on-air": "Go Live",
     "learning-objectives": "Learning Objectives",
     "learning-target": "Micro-standard",
     "learning-target-mobile": "Micro-standard in Standard",
@@ -242,7 +242,11 @@ export default {
     "next": "Next",
     "no": "No",
     "no-content": "No content available",
-    "no-content-to-display": "No <span>{{type}}</span> to display.",
+    "no-assessments-to-display": "No <span>assessments</span> to display.",
+    "no-collections-to-display": "No <span>collections</span> to display.",
+    "no-courses-to-display": "No <span>courses</span> to display.",
+    "no-questions-to-display": "No <span>questions</span> to display.",
+    "no-resources-to-display": "No <span>resources</span> to display.",
     "no-followers": "You don't have followers yet.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
@@ -361,7 +365,7 @@ export default {
     "signUp": "Sign Up",
     "sortAlphabetical": "Sort Alphabetically",
     "sortAverage": "Sort by Average",
-    "state": "State",
+    "state": "State or Territory",
     "standard": "Standard",
     "standards": "Standards",
     "study": "Study",
@@ -757,7 +761,7 @@ export default {
     "email": "Email",
     "password": "Password",
     "rePassword": "Confirm Password",
-    "state": "State",
+    "state": "State or Territory",
     "district": "District or Charter Organization",
     "error-username-taken": "Aww, this username is taken. Try another.",
     "error-email-taken": "This email is taken. Try another.",
@@ -1087,7 +1091,7 @@ export default {
     "gru-taxonomy-selector": {
       "add-secondary": "Add secondary",
       "choose-subject": "Choose Subject",
-      "primary-subject-and-course": "Primary Subject and Course"
+      "primary-subject-and-course": "Standards Framework and Course"
     }
   },
   "validations": {
