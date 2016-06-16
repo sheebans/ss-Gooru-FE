@@ -18,8 +18,10 @@ test('Youtube player layout', function (assert) {
       "order": 2,
       "resourceType": "video/youtube",
       "resourceFormat": "video",
-      "start":"00:03:10",
-      "stop":"00:03:20",
+      "displayGuide": {
+        "start_time": "00:03:10",
+        "end_time": "00:03:20"
+      },
       "url": "https://www.youtube.com/watch?v=aBSH3IoFZsc"
     });
 

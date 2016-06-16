@@ -47,23 +47,26 @@ export default Ember.Component.extend({
         "?start="+this.get('start') +
         "&end="+this.get('stop') +
         "&rel=0";
-
   }),
 
   /**
    * @property {string}Begin playing the video at the given number of seconds from the start of the video
    */
-  start: Ember.computed("resource.start", function(){
+  start: Ember.computed("resource.displayGuide.start_time", function(){
     const component = this;
-    return component.get("resource.start") ? component.convertToSeconds(this.get("resource.start")) : 0;
+    return component.get("resource.displayGuide.start_time") ?
+      component.convertToSeconds(this.get("resource.displayGuide.start_time")) : null;
   }),
 
   /**
    * @property {string}The time, measured in seconds from the start of the video, when the player should stop playing the video
    */
-  stop: Ember.computed("resource.stop", function(){
+  stop: Ember.computed("resource.displayGuide.end_time", function(){
     const component = this;
-    return component.get("resource.stop") ? component.convertToSeconds(this.get("resource.stop")) : null;
+    console.log($('.ytp-time-duration'));
+    return component.get("resource.displayGuide.end_time") ?
+      component.convertToSeconds(this.get("resource.displayGuide.end_time")) :
+      0;
   }),
   // -------------------------------------------------------------------------
   // Observers
