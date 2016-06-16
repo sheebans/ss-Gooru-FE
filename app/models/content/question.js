@@ -13,15 +13,6 @@ const Validations = buildValidations({
         descriptionKey: 'common.errors.add-question-title'
       })
     ]
-  },
-  text: {
-    validators: [
-      validator('length', {
-        max: 5000,
-        message: '{{description}}',
-        descriptionKey: 'common.warnings.character-limit'
-      })
-    ]
   }
 });
 

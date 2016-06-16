@@ -594,15 +594,15 @@ export default {
         "T/F": "Select the correct answer."
       },
       "question-instructions": {
-        "FIB": "As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image. Character Limit: 5000.",
-        "HS_TXT": "Write your question. Character limit: 5000.",
-        "HS_IMG": "Write your question. Character limit: 5000.",
-        "HT_RO": "Write your question. Character limit: 5000.",
-        "HT_HL": "Write your question prompt. Character limit: 5000.",
-        "MC": "Write your question. Character limit: 5000.",
-        "MA": "Write your question. Character limit: 5000.",
-        "OE": "Write your question. Character limit: 5000.",
-        "T/F": "Write your question. Character limit: 5000."
+        "FIB": "As you write the question, use brackets for your fill-in-the-blank answers. For example: “The big bad [wolf] blew down the [house].” You can also add an image.",
+        "HS_TXT": "Write your question.",
+        "HS_IMG": "Write your question.",
+        "HT_RO": "Write your question.",
+        "HT_HL": "Write your question prompt.",
+        "MC": "Write your question.",
+        "MA": "Write your question.",
+        "OE": "Write your question.",
+        "T/F": "Write your question."
       }
     }
   },

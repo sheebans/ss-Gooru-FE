@@ -81,7 +81,7 @@ export default Ember.Component.extend({
     });
 
     // Workaround to prevent editor cleanup, which would delete math expressions
-    setTimeout(function() {
+    Ember.run.later(function() {
       if (editor.composer && editor.composer.commands) {
         editor.focus();
         editor.composer.commands.exec("insertHTML", component.get('content'));
