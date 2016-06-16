@@ -17,7 +17,7 @@ test('searchCollections', function(assert) {
       assert.equal(request.queryParams['flt.collectionType'], 'collection', 'Wrong collection type');
       assert.deepEqual(request.queryParams['flt.standard'], 'a,b', 'Wrong standards');
       assert.equal(request.queryParams['start'], 3, 'Wrong default start');
-      assert.equal(request.queryParams['length'], 20, 'Wrong default length');
+      assert.equal(request.queryParams['length'], 50, 'Wrong default length');
 
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
