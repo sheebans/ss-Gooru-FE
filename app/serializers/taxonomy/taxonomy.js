@@ -172,16 +172,42 @@ export default Ember.Object.extend({
   /**
    * Normalize the core element taxonomy data into a TaxonomyTagData object
    *
-   * @param taxonomyPayload the taxonomy data in JSON format
+   * @param taxonomyArray - array of taxonomy objects
+   * @returns {TaxonomyTagData[]} a TaxonomyTagData array
+   */
+  normalizeTaxonomyArray: function(taxonomyArray) {
+    var taxonomyData = [];
+
+    if (taxonomyArray && taxonomyArray.length) {
+      taxonomyArray.forEach(function(taxonomyObject) {
+        let isMicroStandard = TaxonomyTagData.isMicroStandardId(taxonomyObject.internalCode);
+
+        taxonomyData.push(TaxonomyTagData.create({
+          id: taxonomyObject.internalCode,
+          code: taxonomyObject.code,
+          title: taxonomyObject.title,
+          parentTitle: taxonomyObject.parentTitle,
+          frameworkCode: taxonomyObject.frameworkCode,
+          taxonomyLevel: isMicroStandard ? TAXONOMY_LEVELS.MICRO : TAXONOMY_LEVELS.STANDARD
+        }));
+      });
+    }
+    return Ember.A(taxonomyData);
+  },
+
+  /**
+   * Normalize the core element taxonomy data into a TaxonomyTagData object
+   *
+   * @param taxonomyObject - object of taxonomy objects
    * @param level taxonomy level
    * @returns {TaxonomyTagData[]} a TaxonomyTagData array
    */
-  normalizeTaxonomy: function(taxonomyPayload, level) {
+  normalizeTaxonomyObject: function(taxonomyObject, level) {
     var taxonomyData = [];
-    if (taxonomyPayload) {
-      for (var key in taxonomyPayload) {
-        if (taxonomyPayload.hasOwnProperty(key)) {
-          let taxonomy = taxonomyPayload[key];
+    if (taxonomyObject) {
+      for (var key in taxonomyObject) {
+        if (taxonomyObject.hasOwnProperty(key)) {
+          let taxonomy = taxonomyObject[key];
           let isMicroStandard = (level) ? false : TaxonomyTagData.isMicroStandardId(key);
           taxonomyData.push(TaxonomyTagData.create({
             id: key,

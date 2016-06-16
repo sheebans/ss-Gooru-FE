@@ -190,7 +190,7 @@ test('serializeTaxonomy', function(assert) {
   assert.equal(taxonomyFramework['framework_code'], 'TEKS', 'Wrong framework framework_code');
 });
 
-test('normalizeTaxonomy', function(assert) {
+test('normalizeTaxonomyObject', function(assert) {
   const serializer = this.subject();
   const taxonomyJSON = {
     'GDF.K12.VPA': {
@@ -208,7 +208,7 @@ test('normalizeTaxonomy', function(assert) {
       'framework_code': 'TEKS'
     }
   };
-  const normalizedTaxonomy = serializer.normalizeTaxonomy(taxonomyJSON);
+  const normalizedTaxonomy = serializer.normalizeTaxonomyObject(taxonomyJSON);
   assert.equal(normalizedTaxonomy.length, 2, 'Wrong taxonomy elements');
   const taxonomySubject = normalizedTaxonomy.objectAt(0);
   assert.equal(taxonomySubject.get('code'), 'GDF.K12.VPA', 'Wrong subject code');
@@ -221,4 +221,36 @@ test('normalizeTaxonomy', function(assert) {
   assert.equal(taxonomyFramework.get('frameworkCode'), 'TEKS', 'Wrong framework frameworkCode');
 });
 
+test('normalizeTaxonomyArray', function(assert) {
+  const serializer = this.subject();
+  const taxonomyJSON = [
+    {
+      internalCode: 'GDF.K12.VPA',
+      code: 'GDF.K12.VPA',
+      title: 'Visual & Performing Arts',
+      parentTitle: '',
+      description: '',
+      frameworkCode: 'GDF'
+    },
+    {
+      internalCode: 'TEKS.K12.FA',
+      code: 'TEKS.K12.FA',
+      title: 'Texas Essential Knowledge and Skills',
+      parentTitle: 'Visual & Performing Arts',
+      description: '',
+      frameworkCode: 'TEKS'
+    }
+  ];
 
+  const normalizedTaxonomy = serializer.normalizeTaxonomyArray(taxonomyJSON);
+  assert.equal(normalizedTaxonomy.length, 2, 'Wrong taxonomy elements');
+  const taxonomyDataA = normalizedTaxonomy.objectAt(0);
+  assert.equal(taxonomyDataA.get('code'), 'GDF.K12.VPA', 'Wrong subject code');
+  assert.equal(taxonomyDataA.get('title'), 'Visual & Performing Arts', 'Wrong subject title');
+  assert.equal(taxonomyDataA.get('frameworkCode'), 'GDF', 'Wrong subject frameworkCode');
+  const taxonomyDataB = normalizedTaxonomy.objectAt(1);
+  assert.equal(taxonomyDataB.get('code'), 'TEKS.K12.FA', 'Wrong framework code');
+  assert.equal(taxonomyDataB.get('title'), 'Texas Essential Knowledge and Skills', 'Wrong framework title');
+  assert.equal(taxonomyDataB.get('parentTitle'), 'Visual & Performing Arts', 'Wrong framework parentTitle');
+  assert.equal(taxonomyDataB.get('frameworkCode'), 'TEKS', 'Wrong framework frameworkCode');
+});
