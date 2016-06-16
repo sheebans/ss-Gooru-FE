@@ -1101,7 +1101,7 @@ export default {
       },
       "featured-courses":{
         "title":"Featured Courses",
-        "description":"Browse curated math, science, social studies, and ELA courses.",
+        "description":"Browse math, science, social studies, and ELA courses.",
         "button-text":"Featured Courses"
       },
       "teacher-toolkit":{
