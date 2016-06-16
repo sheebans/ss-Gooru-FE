@@ -148,7 +148,13 @@ export default (function() {
      * When the owner and the creator are the same
      * @property {boolean}
      */
-    sameOwnerAndCreator: Ember.computed.equal("owner.id", "creator.id"),
+    sameOwnerAndCreator: Ember.computed("owner.id", "originalCreatorId", function(){
+      if( !this.get('originalCreatorId')){
+        return true
+      }else if(this.get('owner.id') === this.get('originalCreatorId')){
+        return true;
+      }
+    }),
 
     /**
      * @property {string} assessment|collection

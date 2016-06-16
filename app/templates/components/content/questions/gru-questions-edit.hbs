@@ -47,11 +47,14 @@
     </div>
     <div class="panel-body">
       {{#if isBuilderEditing}}
-        {{validation.gru-textarea rawTextareaValue=tempQuestion.text model=tempQuestion valuePath='text' rows=10 maxLength=5000}}
+        {{gru-rich-text-editor content=tempQuestion.text}}
+        {{!validation.gru-textarea rawTextareaValue=tempQuestion.text model=tempQuestion valuePath='text' rows=10 maxLength=5000}}
         <button class="add-image btn btn-sm btn-primary out-of-scope">{{t "common.add-question-image"}}</button>
       {{else}}
         {{#if question.text}}
-          {{textarea class="text-question" value=question.text class="form-control" rows="10" readonly=true}}
+          <div>
+            {{{question.text}}}
+          </div>
         {{else}}
           <p class="text-empty">{{t 'common.nothing-to-display'}}</p>
         {{/if}}
