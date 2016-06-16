@@ -1,13 +1,10 @@
 import Ember from 'ember';
-import { sortFeaturedCourses } from 'gooru-web/utils/sort-featured-courses';
-//import Course from 'gooru-web/models/content/course';
+import { sortCoursesBySubject } from 'gooru-web/utils/sort-featured-courses';
 
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
-
 
   /**
    * @property {Service} I18N service
@@ -62,13 +59,6 @@ export default Ember.Component.extend({
       }
   },
 
-  // -------------------------------------------------------------------------
-  // Events
-
-  init() {
-    this._super(...arguments);
-  },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -91,8 +81,7 @@ export default Ember.Component.extend({
    hasSelectedCourse: Ember.computed.notEmpty('selectedCourse'),
 
    orderedCourses: Ember.computed( 'model.courses', function(){
-     return sortFeaturedCourses(this.get('model.courses'));
-   }),
+     return sortCoursesBySubject(this.get('model.courses'));
+   })
 
-  //Methods
 });

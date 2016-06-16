@@ -277,9 +277,9 @@ export default Ember.Object.extend({
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : DEFAULT_IMAGES.COURSE;
-    const taxonomyInfo = result.taxonomySet &&
-                          result.taxonomySet.curriculum &&
-                            result.taxonomySet.curriculum.curriculumInfo || [];
+    const taxonomyInfo = result.taxonomy &&
+                          result.taxonomy.curriculum &&
+                            result.taxonomy.curriculum.curriculumInfo || [];
 
     return CourseModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.id,
@@ -287,6 +287,7 @@ export default Ember.Object.extend({
       description: result.description,
       thumbnailUrl: thumbnailUrl,
       subject: result.subjectBucket,
+      subjectName: result.taxonomy && result.taxonomy.subject ? result.taxonomy.subject[0] : null,
       subjectSequence: result.subjectSequence,
       isVisibleOnProfile: result.visibleOnProfile,
       isPublished: result.publishStatus === 'published',

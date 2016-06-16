@@ -209,7 +209,7 @@ test('searchFeaturedCourses', function(assert) {
     this.get('/gooru-search/rest/v2/search/course', function(request) {
       assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
       assert.equal(request.queryParams['start'], 1, 'Wrong default start');
-      assert.equal(request.queryParams['length'], 20, 'Wrong default length');
+      assert.equal(request.queryParams['length'], 50, 'Wrong default length');
       assert.equal(request.queryParams['flt.courseType'], 'featured', 'Wrong course type filter');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
