@@ -76,7 +76,7 @@ export default Ember.Object.extend({
       lessonCount: payload['lesson_summary'] && Ember.isArray(payload['lesson_summary']) ? payload['lesson_summary'].length : (payload['lesson_count'] ? payload['lesson_count'] : 0),
       sequence: payload.sequence_id,
       title: payload.title,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy, TAXONOMY_LEVELS.DOMAIN)
+      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy, TAXONOMY_LEVELS.DOMAIN)
     });
   },
 
