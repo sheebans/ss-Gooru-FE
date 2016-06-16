@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Env from 'gooru-web/config/environment';
 
 export default Ember.Controller.extend({
 
@@ -80,6 +81,14 @@ export default Ember.Controller.extend({
    */
   totalTeachingClasses: Ember.computed('myClasses', function() {
     return this.getActiveClasses(this.get('myClasses.ownerList')) + this.getActiveClasses(this.get('myClasses.collaboratorList'));
+  }),
+
+  /**
+   * Toolkit site url
+   * @property {string}
+   */
+  toolkitSiteUrl: Ember.computed(function(){
+    return Env.toolkitSiteUrl;
   }),
 
 
