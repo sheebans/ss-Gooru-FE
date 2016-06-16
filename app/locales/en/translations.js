@@ -193,7 +193,7 @@ export default {
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
     "false": "False",
-    "featured-courses": "Featured&nbsp;Courses",
+    "featured-courses": "Featured&ensp;Courses",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
@@ -212,7 +212,7 @@ export default {
     "last-name": "Last Name",
     "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
-    "launch-on-air": "Go live",
+    "launch-on-air": "Go Live!",
     "learning-objectives": "Learning Objectives",
     "learning-target": "Micro-standard",
     "learning-target-mobile": "Micro-standard in Standard",
@@ -225,7 +225,7 @@ export default {
     "libraries": "Libraries",
     "license": "License",
     "loading": "Loading ...",
-    "login": "Log in",
+    "login": "Log In",
     "logout": "Logout",
     "mastery": "Mastery",
     "menu": "Menu",
@@ -268,7 +268,7 @@ export default {
     "profile": "Profile",
     "publish-to": " Make this visible to others on my profile library",
     "published-by": "Published by",
-    "published-tooltip":"Published Content",
+    "published-tooltip": "Badged Content",
     "publisher": "Publisher",
     "question": "Question",
     "questions": "Questions",
@@ -289,7 +289,7 @@ export default {
       "HS_IMG": "Multiple Select - Image ",
       "HT_TO": "Drag and Drop Order",
       "HT_RO": "Drag and Drop Order",
-      "HT_HL": "Highlight Text"
+      "HT_HL": "Hot Text Highlight"
     },
     "reaction": "Reaction",
     "remaining": "{{number}} Left",
@@ -318,7 +318,7 @@ export default {
     "remixed-by": "Remixed by",
     "remove": "Remove",
     "report-in-progress": "Report in progress",
-    "request-to": "Request to be searchable and featured in Gooru",
+    "request-to": "Request to be reviewed for a badge",
     "request-report": "Request Report",
     "resource": "Resource",
     "resources": "Resources",
@@ -397,7 +397,7 @@ export default {
     "verified": "Verified",
     "visibility-tooltip":"Not visible to others",
     "warnings": {
-      "on-air-connection-lost": "The Go Live feature has lost connection and is retrying automatically. It's tempting, but please don't refresh your screen!",
+      "on-air-connection-lost": "The Go Live dashboard has lost connection and is retrying automatically. It's tempting, but please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
     },
     "word": "Word",
@@ -507,18 +507,18 @@ export default {
       }
     },
     "quick-start": {
-      "title": "How do you want to add a course?",
+      "title": "Assign content to this classroom.",
       "new-course": "Quickstart a New Course",
-      "new-course-desc": "Jumpstart to add a collection or assessment",
+      "new-course-desc": "Start by creating a collection or assessment",
       "new-collection": "New Collection",
       "new-assessment": "New Assessment",
       "remix-a-sample": "Remix a Sample",
-      "add-existing-course": "Add from an Existing Course",
+      "add-existing-course": "Add a Course from your Library",
       "existing-course-desc": "The quickest way to start a classroom",
       "choose-course": "Choose Course",
-      "remix-from-course": "Remix from Featured Course",
-      "featured-course": "View Featured Course",
-      "remix-desc": "Customize your course based on featured courses"
+      "remix-from-course": "Remix a Featured Course",
+      "featured-course": "View Featured Courses",
+      "remix-desc": "Copy and customize a featured course for your students."
     }
   },
   "classes": {
@@ -637,8 +637,8 @@ export default {
     "create-class": "Create Classroom",
     "join-class": "Join Classroom",
     "joined-classes": {
-      'one': "You're currently in 1 classroom",
-      "other": "You're currently in {{count}} classrooms"
+      'one': "You're currently enrolled in 1 classroom",
+      "other": "You're currently enrolled in {{count}} classrooms"
     },
     "teaching-classes": {
       'one': " and teaching 1 classroom",
@@ -1095,7 +1095,7 @@ export default {
   },
   "featured": {
     "featured-title": "Featured Courses",
-    "featured-description": "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
+    "featured-description": "Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
   },
 
   "taxonomy.modals": {

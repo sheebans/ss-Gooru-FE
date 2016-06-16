@@ -14,7 +14,6 @@ test('serializeCreateResource', function(assert) {
   const serializedResource = serializer.serializeCreateResource(resourceObject);
   assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
   assert.equal(serializedResource.url, 'any', 'Wrong resource url');
-  assert.equal(serializedResource['content_subformat'], 'video_resource', 'Wrong resource content_subformat');
 });
 
 test('serializeUpdateResource', function(assert) {
@@ -22,13 +21,18 @@ test('serializeUpdateResource', function(assert) {
   const resourceObject = ResourceModel.create({
     title: 'resource-title',
     description: 'A description',
-    format: 'video'
+    format: 'video',
+    publisher: "myself",
+    amIThePublisher: true
   });
   const serializedResource = serializer.serializeUpdateResource(resourceObject);
   assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
   assert.equal(serializedResource.description, 'A description', 'Wrong resource url');
   assert.equal(serializedResource['content_subformat'], 'video_resource', 'Wrong resource content_subformat');
   assert.equal(serializedResource['taxonomy'], null, 'Wrong resource taxonomy');
+  assert.deepEqual(serializedResource['info']['copyright_owner'], ['myself'], 'Wrong copyright_owner');
+  assert.equal(serializedResource['info']['is_copyright_owner'], true, 'Wrong is_copyright_owner');
+
 });
 
 test('normalizeReadResource', function(assert) {
@@ -48,6 +52,10 @@ test('normalizeReadResource', function(assert) {
     display_guide: {
       'is_broken': 1,
       'is_frame_breaker': 1
+    },
+    "info": {
+      "copyright_owner": ["myself"],
+      "is_copyright_owner": true
     }
   };
 
@@ -61,8 +69,8 @@ test('normalizeReadResource', function(assert) {
   assert.equal(resource.get("publishStatus"), "published", 'Wrong publishStatus');
   assert.equal(resource.get("standards.length"), 0, 'Wrong standards');
   assert.equal(resource.get("owner"), "anyID", 'Wrong owner');
-  assert.equal(resource.get("info.amIThePublisher"), false, 'Wrong amIThePublisher');
-  assert.equal(resource.get("info.publisher"), null, 'Wrong publisher');
+  assert.equal(resource.get("amIThePublisher"), true, 'Wrong amIThePublisher');
+  assert.equal(resource.get("publisher"), "myself", 'Wrong publisher');
   assert.equal(resource.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
   assert.equal(resource.get("displayGuide.is_frame_breaker"), 1, 'Url is going to be broke in a frame');
   assert.equal(resource.get("order"), 3, 'Wrong order');

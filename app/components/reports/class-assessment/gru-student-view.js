@@ -110,14 +110,14 @@ export default Ember.Component.extend({
    *
    * @property {Boolean}
    */
-  sortAlphabetically:true,
+  sortAlphabetically: false,
 
   /**
    * Array containing the criteria that controls the sorting, default is sort alphabetically, default is defined by property '@sortAlphabetically'
    *
    * @property {Array}
    */
-  studentPerformanceListSorting: ['student.fullName'],
+  studentPerformanceListSorting: ['score:desc','student.fullName'],
   /**
    * Property containing t he sorted list
    *

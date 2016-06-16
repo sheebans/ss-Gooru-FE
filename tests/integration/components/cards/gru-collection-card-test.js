@@ -26,7 +26,7 @@ test('Collection Card Layout', function(assert) {
     }),
     course: "Any course title",
     remixedBy:["James","Andrea","Patric"],
-    isVisibleOnProfile:false
+    isVisibleOnProfile:false,
   });
 
   this.set('collection', collection);
@@ -36,6 +36,7 @@ test('Collection Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-heading h6.title"), "Missing Title");
   T.exists(assert, $collectionCard.find(".panel-heading .image img"), "Missing Collection Image");
   T.exists(assert, $collectionCard.find(".panel-heading .question-resources"), "Missing Question and Resource Label");
+  T.notExists(assert, $collectionCard.find(".publish-icon"), "Publish Icon should no appear");
   T.exists(assert, $collectionCard.find(".panel-body .course"), "Missing Course Label");
   T.exists(assert, $collectionCard.find(".panel-body .gru-taxonomy-tag-list"), "Missing Standards");
   T.exists(assert, $collectionCard.find(".panel-body .remixed-by"), "Missing Remixed By section");
@@ -44,6 +45,37 @@ test('Collection Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-footer .remix-btn"), "Missing Remixed Button");
   T.notExists(assert, $collectionCard.find(".panel-footer .edit-btn"), "Edit Button should not be visible");
   T.exists(assert, $collectionCard.find(".panel-footer .visibility .pull-right"), "Missing visibility icon");
+});
+
+test('Collection Card Published', function(assert) {
+  var collection = Ember.Object.create({
+    title: "Collection Title",
+    questionCount:4,
+    isAssessment:false,
+    standards:Ember.A([Ember.Object.create({
+      description:"Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
+      code:"CCSS.Math.Content.7.RP.A.3"
+    }),Ember.Object.create({
+      description:"Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
+      code:"CCSS.Math.Content.5.NBT.A.2"
+    })]),
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
+    course: "Any course title",
+    remixedBy:["James","Andrea","Patric"],
+    isVisibleOnProfile:true,
+    isPublished:"published"
+  });
+
+  this.set('collection', collection);
+  this.set('isPublished', true);
+  this.render(hbs`{{cards/gru-collection-card collection=collection publishVisible=false isPublished=isPublished}}`);
+  var $component = this.$(); //component dom element
+  const $collectionCard = $component.find(".gru-collection-card");
+  T.exists(assert, $collectionCard.find(".publish-icon"), "Missing publish icon");
 });
 
 test('Assessment Card Layout', function(assert) {
