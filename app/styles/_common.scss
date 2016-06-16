@@ -223,6 +223,9 @@ span.validation.warning {
         > span {
           color: $white;
         }
+        .tag-label, .tag-caption {
+          @include text-overflow;
+        }
       }
     }
   }
