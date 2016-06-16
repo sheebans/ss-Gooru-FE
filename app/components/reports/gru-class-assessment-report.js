@@ -25,7 +25,7 @@ export default Ember.Component.extend(ModalMixin, {
      * @returns {undefined}
      */
     changeView: function (layout) {
-      const thumbnails = layout === VIEW_LAYOUT_PICKER_OPTIONS.THUMBNAILS;
+      const thumbnails = layout === VIEW_LAYOUT_PICKER_OPTIONS.LIST;
       this.set('isTableView', !thumbnails);
     },
 

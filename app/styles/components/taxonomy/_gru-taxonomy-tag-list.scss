@@ -24,14 +24,18 @@
 
   &.in-card {
     .popover {
-      background-color: $gray-lighter;
-      min-width: 210px;
+      background-color: $light-100;
+      z-index: $zindex-navbar-fixed - 1;
 
       .arrow:after {
-        border-top-color: $gray-lighter;
-        border-bottom-color: $gray-lighter;
+        border-top-color: $light-100;
+        border-bottom-color: $light-100;
         border-left-color: transparent;
         border-right-color: transparent;
+      }
+
+      .gru-taxonomy-tag {
+        display: block;
       }
     }
   }

@@ -110,7 +110,7 @@ export default Ember.Object.extend({
       text: questionData.description,
       publishStatus: questionData.publish_status,
       owner: questionData.creator_id,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomy(standards),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       hints: null, //TODO
       explanation: null, //TODO
       isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,

@@ -107,7 +107,7 @@ export default Ember.Object.extend({
       isVisibleOnProfile: payload['visible_on_profile'],
       owner: owner ? serializer.get("profileSerializer").normalizeReadProfile(owner): null,
       subject: payload.subject_bucket,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomy(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
+      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
       thumbnailUrl: thumbnailUrl,
       title: payload.title,
       unitCount: payload.unit_count ? payload.unit_count : 0,

@@ -193,7 +193,7 @@ export default {
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
     "false": "False",
-    "featured-courses": "Featured&nbsp;Courses",
+    "featured-courses": "Featured&ensp;Courses",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
@@ -212,7 +212,7 @@ export default {
     "last-name": "Last Name",
     "last-updated": "Last Updated",
     "launch-anonymous": "Launch Anonymous",
-    "launch-on-air": "Go live",
+    "launch-on-air": "Go Live",
     "learning-objectives": "Learning Objectives",
     "learning-target": "Micro-standard",
     "learning-target-mobile": "Micro-standard in Standard",
@@ -225,7 +225,7 @@ export default {
     "libraries": "Libraries",
     "license": "License",
     "loading": "Loading ...",
-    "login": "Log in",
+    "login": "Log In",
     "logout": "Logout",
     "mastery": "Mastery",
     "menu": "Menu",
@@ -242,7 +242,11 @@ export default {
     "next": "Next",
     "no": "No",
     "no-content": "No content available",
-    "no-content-to-display": "No <span>{{type}}</span> to display.",
+    "no-assessments-to-display": "No <span>assessments</span> to display.",
+    "no-collections-to-display": "No <span>collections</span> to display.",
+    "no-courses-to-display": "No <span>courses</span> to display.",
+    "no-questions-to-display": "No <span>questions</span> to display.",
+    "no-resources-to-display": "No <span>resources</span> to display.",
     "no-followers": "You don't have followers yet.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
@@ -268,7 +272,7 @@ export default {
     "profile": "Profile",
     "publish-to": " Make this visible to others on my profile library",
     "published-by": "Published by",
-    "published-tooltip":"Published Content",
+    "published-tooltip": "Badged Content",
     "publisher": "Publisher",
     "question": "Question",
     "questions": "Questions",
@@ -318,7 +322,7 @@ export default {
     "remixed-by": "Remixed by",
     "remove": "Remove",
     "report-in-progress": "Report in progress",
-    "request-to": "Request to be searchable and featured in Gooru",
+    "request-to": "Request to be reviewed for a badge",
     "request-report": "Request Report",
     "resource": "Resource",
     "resources": "Resources",
@@ -361,7 +365,7 @@ export default {
     "signUp": "Sign Up",
     "sortAlphabetical": "Sort Alphabetically",
     "sortAverage": "Sort by Average",
-    "state": "State",
+    "state": "State or Territory",
     "standard": "Standard",
     "standards": "Standards",
     "study": "Study",
@@ -397,7 +401,7 @@ export default {
     "verified": "Verified",
     "visibility-tooltip":"Not visible to others",
     "warnings": {
-      "on-air-connection-lost": "The Go Live feature has lost connection and is retrying automatically. It's tempting, but please don't refresh your screen!",
+      "on-air-connection-lost": "The Go Live dashboard has lost connection and is retrying automatically. It's tempting, but please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
     },
     "word": "Word",
@@ -507,18 +511,18 @@ export default {
       }
     },
     "quick-start": {
-      "title": "How do you want to add a course?",
+      "title": "Assign content to this classroom.",
       "new-course": "Quickstart a New Course",
-      "new-course-desc": "Jumpstart to add a collection or assessment",
+      "new-course-desc": "Start by creating a collection or assessment",
       "new-collection": "New Collection",
       "new-assessment": "New Assessment",
       "remix-a-sample": "Remix a Sample",
-      "add-existing-course": "Add from an Existing Course",
+      "add-existing-course": "Add a Course from your Library",
       "existing-course-desc": "The quickest way to start a classroom",
       "choose-course": "Choose Course",
-      "remix-from-course": "Remix from Featured Course",
-      "featured-course": "View Featured Course",
-      "remix-desc": "Customize your course based on featured courses"
+      "remix-from-course": "Remix a Featured Course",
+      "featured-course": "View Featured Courses",
+      "remix-desc": "Copy and customize a featured course for your students."
     }
   },
   "classes": {
@@ -637,8 +641,8 @@ export default {
     "create-class": "Create Classroom",
     "join-class": "Join Classroom",
     "joined-classes": {
-      'one': "You're currently in 1 classroom",
-      "other": "You're currently in {{count}} classrooms"
+      'one': "You're currently enrolled in 1 classroom",
+      "other": "You're currently enrolled in {{count}} classrooms"
     },
     "teaching-classes": {
       'one': " and teaching 1 classroom",
@@ -757,7 +761,7 @@ export default {
     "email": "Email",
     "password": "Password",
     "rePassword": "Confirm Password",
-    "state": "State",
+    "state": "State or Territory",
     "district": "District or Charter Organization",
     "error-username-taken": "Aww, this username is taken. Try another.",
     "error-email-taken": "This email is taken. Try another.",
@@ -1083,11 +1087,35 @@ export default {
   "gru-emotion-picker": {
     "react-to-resource": "React to this resource"
   },
+  "home":{
+    "no-classes-found":{
+      "create-class":{
+        "title":"Teach with a Gooru classroom",
+        "description":"Created a classroom, assign content, and invite students.",
+        "button-text":"Create Classroom"
+      },
+      "join-class":{
+        "title":"Learn with a Gooru classroom",
+        "description":"Join your teacher’s classroom to start learning.",
+        "button-text":"Enter Classroom Code"
+      },
+      "featured-courses":{
+        "title":"Featured Courses",
+        "description":"Browse math, science, social studies, and ELA courses.",
+        "button-text":"Featured Courses"
+      },
+      "teacher-toolkit":{
+        "title":"Teacher Toolkit",
+        "description":"This toolkit has resources to help you get started.",
+        "button-text":"Teacher Toolkit"
+      }
+    }
+  },
   "taxonomy": {
     "gru-taxonomy-selector": {
       "add-secondary": "Add secondary",
       "choose-subject": "Choose Subject",
-      "primary-subject-and-course": "Primary Subject and Course"
+      "primary-subject-and-course": "Standards Framework and Course"
     }
   },
   "validations": {
@@ -1095,7 +1123,7 @@ export default {
   },
   "featured": {
     "featured-title": "Featured Courses",
-    "featured-description": "Welcome to the Gooru courses! These featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
+    "featured-description": "Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
   },
 
   "taxonomy.modals": {

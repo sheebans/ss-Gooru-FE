@@ -6,7 +6,7 @@
     onSelectQuestion=(action 'viewQuestionDetail')
 }}
 
-<div class="view-container {{if isTableView 'table-view' 'student-view'}}">
+<div class="view-container {{if isTableView 'student-view' 'table-view'}}">
 
   {{gru-view-layout-picker onViewLayoutChange='changeView'}}
 
