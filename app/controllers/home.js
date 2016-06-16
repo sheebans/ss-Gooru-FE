@@ -83,7 +83,7 @@ export default Ember.Controller.extend({
     return this.getActiveClasses(this.get('myClasses.ownerList')) + this.getActiveClasses(this.get('myClasses.collaboratorList'));
   }),
 
-  hasClasses:Ember.computed('','',function(){
+  hasClasses:Ember.computed('totalJoinedClasses','totalTeachingClasses',function(){
     return this.get('totalJoinedClasses') + this.get('totalTeachingClasses') > 0;
   }),
 
