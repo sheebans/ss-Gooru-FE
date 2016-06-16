@@ -58,7 +58,6 @@ export default Ember.Component.extend({
   // Events
 
   didInsertElement() {
-    debugger;
     var component = this;
     var editorElement = component.$('.editor-box');
     var mathFieldSpan = component.$('.math-field')[0];
