@@ -6,9 +6,13 @@ export function initialize(application) {
 
   Ember.$(document).ajaxError(function(event, jqXHR) {
     if(jqXHR.status === 401) {
-      sessionService.invalidate();
-      const queryParams = { queryParams: { sessionEnds: 'true' } };
-      applicationRoute.transitionTo('sign-in', queryParams);
+      if(sessionService.session.isAnonymous) {
+        sessionService.invalidate();
+      } else {
+        const queryParams = { queryParams: { sessionEnds: 'true' } };
+        applicationRoute.transitionTo('sign-in', queryParams);
+        toastr.clear();
+      }
     }
   });
 }
