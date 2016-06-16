@@ -24,14 +24,6 @@ export default Ember.Route.extend(PublicRouteMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
-  beforeModel: function(transition) {
-    this._super(...arguments);
-    const marketing = this.handleMarketingSiteIfNecessary();
-    if (marketing){
-      transition.abort();
-    }
-  },
-
   model: function(params) {
     const route = this;
     const currentSession = route.get("session.data.authenticated");
@@ -126,23 +118,6 @@ export default Ember.Route.extend(PublicRouteMixin, {
         route.transitionTo.apply(route, routeParams);
       }
     }
-  },
-
-  /**
-   * Handles a marketing site request when necessary
-   */
-  handleMarketingSiteIfNecessary: function() {
-    const route = this;
-    const anonymous = route.get("session.isAnonymous");
-    const url = route.get("router.url");
-    const isIndex = url === "/" || url.indexOf("/index") > 0;
-    const isProd = Env.environment === 'production';
-    const googleSignIn = url.indexOf("access_token") > 0; //if it has the access_token parameter
-    if (anonymous && isIndex && !googleSignIn && isProd) {
-      window.location = Env.marketingSiteUrl; //this is not an ember route, see nginx.conf
-      return true;
-    }
-    return false;
   },
 
   // -------------------------------------------------------------------------
