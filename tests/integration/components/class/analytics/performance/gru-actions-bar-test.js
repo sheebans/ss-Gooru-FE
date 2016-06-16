@@ -10,8 +10,6 @@ moduleForComponent('class/analytics/performance/gru-actions-bar', 'Integration |
 });
 
 test('Class Performance Actions Bar with student mode', function(assert) {
-  assert.expect(10);
-
   const collectionLevel = false;
 
   this.on('selectFilterBy', function(item) {
@@ -33,19 +31,17 @@ test('Class Performance Actions Bar with student mode', function(assert) {
   const $dropMenu = $actions.find(".drop-menu");
   T.exists(assert, $dropMenu, "Missing view drop down menu");
   T.exists(assert, $dropMenu.find(".assessment"), "Missing assessment item in the view drop down menu");
-  T.exists(assert, $dropMenu.find(".collection"), "Missing collection item in the view drop down menu");
-  T.exists(assert, $dropMenu.find(".both"), "Missing both item in the view drop down menu");
+  //T.exists(assert, $dropMenu.find(".collection"), "Missing collection item in the view drop down menu");
+  //T.exists(assert, $dropMenu.find(".both"), "Missing both item in the view drop down menu");
 
   //drop down menu item Selected
-  T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
+  //T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
   T.exists(assert, $dropMenu.find(".selected-filter i"), 'Missing icon');
   assert.equal(T.text($dropMenu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
 });
 
 
 test('Class Performance Actions Bar with teacher mode', function(assert) {
-  assert.expect(11);
-
   const collectionLevel = false;
 
   this.on('selectFilterBy', function(item) {
@@ -69,13 +65,13 @@ test('Class Performance Actions Bar with teacher mode', function(assert) {
   const $dropMenu = $actions.find(".drop-menu");
   T.exists(assert, $dropMenu, "Missing view drop down menu");
   T.exists(assert, $dropMenu.find(".assessment"), "Missing assessment item in the view drop down menu");
-  T.exists(assert, $dropMenu.find(".collection"), "Missing collection item in the view drop down menu");
-  T.exists(assert, $dropMenu.find(".both"), "Missing both item in the view drop down menu");
+  //T.exists(assert, $dropMenu.find(".collection"), "Missing collection item in the view drop down menu");
+  //T.exists(assert, $dropMenu.find(".both"), "Missing both item in the view drop down menu");
 
 
   //drop down menu item Selected
-  T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
-  assert.equal(T.text($dropMenu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
+  //T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
+  //assert.equal(T.text($dropMenu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
 });
 
 

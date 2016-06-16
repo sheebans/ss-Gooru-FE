@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+import { createDataMatrix } from 'gooru-web/utils/performance-data';
+
 /**
  * Teacher Analytics Performance Controller - Course Level
  *
@@ -24,6 +26,11 @@ export default Ember.Controller.extend({
    * @type CollectionService
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
+
+  /**
+   * @type {PerformanceService}
+   */
+  performanceService: Ember.inject.service('api-sdk/performance'),
 
 
   // -------------------------------------------------------------------------
@@ -104,6 +111,27 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Observers
 
+  filterByObserver: Ember.observer('filterBy', function() {
+    const controller = this;
+    controller.set('performanceDataMatrix', []);
+    controller.set('collections', []);
+    const filterBy = controller.get('filterBy');
+    const classId = controller.get('class.id');
+    const courseId = controller.get('class.courseId');
+    const members = controller.get('class.members');
+    const unitId = controller.get('unit.id');
+    const lessonId = controller.get('lesson.id');
+    const collections = controller.get('lesson.children');
+    controller.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy})
+      .then(function(classPerformanceData) {
+        const filteredCollections = collections.filter(function(collection) {
+          return (filterBy === 'both') || (collection.get('format') === filterBy);
+        });
+        controller.set('collections', filteredCollections);
+        const performanceData = createDataMatrix(filteredCollections, classPerformanceData);
+        controller.set('performanceDataMatrix', performanceData);
+      });
+  })
 
   // -------------------------------------------------------------------------
   // Methods

@@ -30,7 +30,7 @@ export default Ember.Route.extend({
      */
     navigateToLessons: function (lessonId) {
 
-      const unitId = this.get("controller.unitId").get('id');
+      const unitId = this.get("controller.unit").get('id');
 
       this.transitionTo('class.analytics.performance.teacher.lesson', unitId, lessonId);
     }
@@ -46,14 +46,15 @@ export default Ember.Route.extend({
   model: function(params) {
     const route = this;
     const unitId = params.unitId;
-    const classModel = this.modelFor('class').class;
+    const filterBy = route.paramsFor('class.analytics.performance.teacher').filterBy;
+    const classModel = route.modelFor('class').class;
     const classId = classModel.get('id');
     const courseId = classModel.get('courseId');
     const members = classModel.get('members');
 
     return this.get('unitService').fetchById(courseId, unitId)
       .then(function(unit) {
-        const classPerformanceData = route.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members);
+        const classPerformanceData = route.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy});
         return Ember.RSVP.hash({
           unit: unit,
           lessons: unit.get('children'),
@@ -72,7 +73,7 @@ export default Ember.Route.extend({
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('lessons', model.lessons);
-    controller.set('unitId', model.unit);
+    controller.set('unit', model.unit);
 
     //updating the unit in the teacher controller
     controller.set("teacherController.unit", model.unit);

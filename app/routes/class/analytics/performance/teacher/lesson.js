@@ -54,6 +54,7 @@ export default Ember.Route.extend({
 
   model: function(params) {
     const route = this;
+    const filterBy = route.paramsFor('class.analytics.performance.teacher').filterBy;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
     const classModel = route.modelFor('class').class;
@@ -65,11 +66,14 @@ export default Ember.Route.extend({
       .then(function(unit) {
         return route.get('lessonService').fetchById(courseId, unitId, lessonId)
           .then(function (lesson) {
-            const classPerformanceData = route.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members);
+            const filteredCollections = lesson.get('children').filter(function(collection) {
+              return (filterBy === 'both') || (collection.get('format') === filterBy);
+            });
+            const classPerformanceData = route.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy});
             return Ember.RSVP.hash({
               unit: unit,
               lesson: lesson,
-              collections: lesson.get('children'),
+              collections: filteredCollections,
               classPerformanceData: classPerformanceData,
             });
           });

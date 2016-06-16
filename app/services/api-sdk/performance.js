@@ -43,7 +43,8 @@ export default Ember.Service.extend({
    */
   findStudentPerformanceByCourse: function(userId, classId, courseId, units, options = {collectionType: 'assessment'}) {
     const service = this;
-    return this.get('store').queryRecord('performance/unit-performance', {
+    service.get('store').unloadAll('performance/unit-performance');
+    return service.get('store').queryRecord('performance/unit-performance', {
       userUid: userId,
       collectionType: options.collectionType,
       classId: classId,
@@ -65,7 +66,8 @@ export default Ember.Service.extend({
    */
   findStudentPerformanceByUnit: function (userId, classId, courseId, unitId, lessons, options = {collectionType: 'assessment'}) {
     const service = this;
-    return this.get('store').queryRecord('performance/lesson-performance', {
+    service.get('store').unloadAll('performance/lesson-performance');
+    return service.get('store').queryRecord('performance/lesson-performance', {
       userUid: userId,
       collectionType: options.collectionType,
       classId: classId,
@@ -89,7 +91,8 @@ export default Ember.Service.extend({
    */
   findStudentPerformanceByLesson: function (userId, classId, courseId, unitId, lessonId, collections, options = {collectionType: 'assessment'}) {
     const service = this;
-    return this.get('store').queryRecord('performance/collection-performance', {
+    service.get('store').unloadAll('performance/collection-performance');
+    return service.get('store').queryRecord('performance/collection-performance', {
       userUid: userId,
       collectionType: options.collectionType,
       classId: classId,
@@ -201,7 +204,9 @@ export default Ember.Service.extend({
    */
   findClassPerformance: function (classId, courseId, students, options = {collectionType: 'assessment'}) {
     const service = this;
-    return this.get('store').queryRecord('performance/class-unit-performance', {
+    service.get('store').unloadAll('performance/student-performance');
+    service.get('store').unloadAll('performance/class-unit-performance');
+    return service.get('store').queryRecord('performance/class-unit-performance', {
       collectionType: options.collectionType,
       classId: classId,
       courseId: courseId
@@ -221,7 +226,9 @@ export default Ember.Service.extend({
    */
   findClassPerformanceByUnit: function (classId, courseId, unitId, students, options = {collectionType: 'assessment'}) {
     const service = this;
-    return this.get('store').queryRecord('performance/class-lesson-performance', {
+    service.get('store').unloadAll('performance/student-performance');
+    service.get('store').unloadAll('performance/class-lesson-performance');
+    return service.get('store').queryRecord('performance/class-lesson-performance', {
       collectionType: options.collectionType,
       classId: classId,
       courseId: courseId,
@@ -242,6 +249,8 @@ export default Ember.Service.extend({
    */
   findCourseMapPerformanceByUnit: function(classId, courseId, unitId, options = { collectionType: 'assessment' }) {
     const service = this;
+    service.get('store').unloadAll('performance/student-performance');
+    service.get('store').unloadAll('performance/class-lesson-performance');
     return service.get('store').queryRecord('performance/class-lesson-performance', {
       collectionType: options.collectionType,
       classId: classId,
@@ -264,7 +273,9 @@ export default Ember.Service.extend({
    */
   findClassPerformanceByUnitAndLesson: function (classId, courseId, unitId, lessonId, students, options = {collectionType: 'assessment'}) {
     const service = this;
-    return this.get('store').queryRecord('performance/class-collection-performance', {
+    service.get('store').unloadAll('performance/student-performance');
+    service.get('store').unloadAll('performance/class-collection-performance');
+    return service.get('store').queryRecord('performance/class-collection-performance', {
       collectionType: options.collectionType,
       classId: classId,
       courseId: courseId,
@@ -286,6 +297,8 @@ export default Ember.Service.extend({
    */
   findCourseMapPerformanceByUnitAndLesson: function(classId, courseId, unitId, lessonId, options = { collectionType: 'assessment' }) {
     const service = this;
+    service.get('store').unloadAll('performance/student-performance');
+    service.get('store').unloadAll('performance/class-collection-performance');
     return service.get('store').queryRecord('performance/class-collection-performance', {
       collectionType: options.collectionType,
       classId: classId,

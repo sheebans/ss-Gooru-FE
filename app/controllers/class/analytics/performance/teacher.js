@@ -157,9 +157,9 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showFilters: Ember.computed.not('collectionLevel'),
+
   // -------------------------------------------------------------------------
   // Observers
-
 
   // -------------------------------------------------------------------------
   // Methods

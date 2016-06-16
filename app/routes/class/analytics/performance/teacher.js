@@ -37,14 +37,6 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  beforeModel: function() {
-    // TODO: authenticate session with ember-simple-auth, if not send to log in
-  },
-
-  model: function() {
-
-  },
-
   /**
    * Set all controller properties from the model
    * @param controller

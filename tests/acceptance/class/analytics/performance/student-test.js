@@ -54,6 +54,8 @@ test('Navigating from class navigation', function(assert) {
   });
 });
 
+// TODO Uncomment this test once Collection option is available again in Performance action bar
+/*
 test('When view by collection option is selected', function(assert) {
   visit('/class/class-for-pochita-as-student/analytics/performance/student');
 
@@ -70,6 +72,7 @@ test('When view by collection option is selected', function(assert) {
     });
   });
 });
+*/
 
 test('When filtering by collection is  pre-selected', function(assert) {
   visit('/class/class-for-pochita-as-student/analytics/performance/student?filterBy=collection');

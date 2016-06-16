@@ -43,12 +43,14 @@ export default Ember.Route.extend({
   },
 
   model: function() {
-    const classModel = this.modelFor('class').class;
-    const units = this.modelFor('class').units;
+    const route = this;
+    const filterBy = route.paramsFor('class.analytics.performance.teacher').filterBy;
+    const classModel = route.modelFor('class').class;
+    const units = route.modelFor('class').units;
     const classId = classModel.get('id');
     const courseId = classModel.get('courseId');
     const members = classModel.get('members');
-    const classPerformanceData = this.get('performanceService').findClassPerformance(classId, courseId, members);
+    const classPerformanceData = route.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy});
 
     return Ember.RSVP.hash({
       units: units,
