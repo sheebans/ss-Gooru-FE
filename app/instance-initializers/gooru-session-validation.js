@@ -11,7 +11,6 @@ export function initialize(application) {
       } else {
         const queryParams = { queryParams: { sessionEnds: 'true' } };
         applicationRoute.transitionTo('sign-in', queryParams);
-        toastr.clear();
       }
     }
   });
