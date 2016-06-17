@@ -125,9 +125,7 @@
       .name {
         display: block;
         @media (max-width: $screen-xs-max) {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          @include text-overflow;
           max-width: 115px;
         }
       }
