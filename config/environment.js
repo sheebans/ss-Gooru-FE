@@ -20,7 +20,8 @@ module.exports = function (environment) {
 
     marketingSiteUrl: "/welcome",
     supportSiteUrl: "http://support.gooru.org",
-    toolkitSiteUrl:"http://about.gooru.org/toolkit"
+    toolkitSiteUrl:"http://about.gooru.org/toolkit",
+    termsConditionsUrl:"http://about.gooru.org/terms-and-conditions"
   };
 
 
