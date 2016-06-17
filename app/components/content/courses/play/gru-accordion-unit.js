@@ -95,9 +95,9 @@ export default Ember.Component.extend(BuilderMixin, {
    * @returns {undefined}
    */
   loadData: function () {
-    if (!this.get('isLoaded')) {
+    let unitId = this.get('unit.id');
+    if (!this.get('isLoaded') && unitId) {
       let courseId = this.get('course.id');
-      let unitId = this.get('unit.id');
 
       return this.get('unitService')
         .fetchById(courseId, unitId)
