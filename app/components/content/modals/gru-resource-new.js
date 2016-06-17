@@ -119,8 +119,8 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var newResourceProfile = Resource.extend(createResourceValidations);
-    var resource = newResourceProfile.create(Ember.getOwner(this).ownerInjection(), {url: null,title:null,format:"webpage"});
+    var newResource = Resource.extend(createResourceValidations);
+    var resource = newResource.create(Ember.getOwner(this).ownerInjection(), {url: null,title:null,format:"webpage"});
     this.set('resource', resource);
   },
 

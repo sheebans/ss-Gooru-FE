@@ -4,6 +4,8 @@ import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
 import Collection from 'gooru-web/models/content/collection';
+import EditResourceValidations from 'gooru-web/validations/edit-resource';
+import CreateResourceValidations from 'gooru-web/validations/create-resource';
 
 const taxonomyServiceStub = Ember.Service.extend({
 
@@ -38,8 +40,10 @@ moduleForComponent('gru-resource-edit', 'Integration | Component | content/resou
 });
 
 test('it has header and main sections', function (assert) {
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Resource Title"
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Resource Title",
+    url: "http://example.com/image.png"
   });
 
   this.set('resource', resource);
@@ -68,8 +72,10 @@ test('Header when comes from content builder', function (assert) {
     title: "Collection Title",
     id:"123445566"
   });
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Resource Title"
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Resource Title",
+    url: "http://example.com/image.png"
   });
 
   this.set('resource', resource);
@@ -86,7 +92,8 @@ test('Header when comes from content builder', function (assert) {
 });
 
 test('Layout of preview section for youtube video', function (assert) {
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: "Youtube Video",
     format: "video",
     url: "https://www.youtube.com/watch?v=hFAOXdXZ5TM"
@@ -103,7 +110,8 @@ test('Layout of preview section for youtube video', function (assert) {
 });
 
 test('Layout of preview section for vimeo video', function (assert) {
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: "Vimeo Video",
     format: "video",
     url: "https://vimeo.com/channels/staffpicks/107094723"
@@ -120,7 +128,8 @@ test('Layout of preview section for vimeo video', function (assert) {
 });
 
 test('Layout of preview section for image', function (assert) {
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: "Image",
     format: "image",
     url: "http://example.com/image.png"
@@ -137,7 +146,8 @@ test('Layout of preview section for image', function (assert) {
 });
 
 test('Layout of preview section for audio resource', function (assert) {
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: "Audio",
     format: "audio",
     url: "http://example.com/test.mp3"
@@ -154,7 +164,8 @@ test('Layout of preview section for audio resource', function (assert) {
 });
 
 test('Layout of preview section for webpage', function (assert) {
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: "Webpage",
     format: "webpage",
     url: "http://example.com/sample.html"
@@ -171,7 +182,8 @@ test('Layout of preview section for webpage', function (assert) {
 });
 
 test('Layout of preview section for interactive', function (assert) {
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: "Interactive",
     format: "interactive",
     url: "http://example.com/sample.swf"
@@ -188,7 +200,8 @@ test('Layout of preview section for interactive', function (assert) {
 });
 
 test('Layout of preview section for text', function (assert) {
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: "Text resource",
     format: "text",
     url: "http://example.com/sample.pdf"
@@ -205,8 +218,11 @@ test('Layout of preview section for text', function (assert) {
 });
 
 test('Layout of the information section', function (assert) {
-  var resource = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Resource Title",
+  var ResourceValidation = Resource.extend(EditResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Resource for testing',
+    format: 'video',
+    url: '//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf',
     subject: 'CCSS.K12.Math',
     category: 'k_12'
   });
@@ -225,8 +241,11 @@ test('Layout of the information section', function (assert) {
 });
 
 test('Layout of the information section on edit mode', function (assert) {
-  var resource = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
-    title: "Resource Title",
+  var ResourceValidation = Resource.extend(EditResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Resource for testing',
+    format: 'video',
+    url: '//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf',
     subject: 'CCSS.K12.Math',
     category: 'k_12'
   });
@@ -247,7 +266,8 @@ test('Layout of the information section on edit mode', function (assert) {
 test('Update Resource Information', function (assert) {
   assert.expect(1);
   var newTitle ='Edited resource for testing';
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(EditResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Resource for testing',
     format: 'video',
     url: 'http://example.com',
@@ -270,10 +290,39 @@ test('Update Resource Information', function (assert) {
   });
 });
 
+test('Edit resource with incorrect URL', function (assert) {
+  assert.expect(1);
+  var newTitle ='Edited resource for testing';
+  var ResourceValidation = Resource.extend(EditResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Resource for testing',
+    format: 'video',
+    url: '//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf',
+    subject: 'CCSS.K12.Math',
+    category: 'k_12'
+  });
+  this.set('resource', resource);
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
+
+  const $component = this.$('.gru-resource-edit');
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val(newTitle);
+  $titleField.find("input").trigger('blur');
+
+  const $save =  $component.find("#information .actions .save");
+  $save.click();
+  return wait().then(function () {
+    assert.equal($component.find(".title label b").text(), newTitle, "The resource title should be updated");
+  });
+});
+
 test('Validate if the resource title field is left blank', function (assert) {
   assert.expect(3);
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
+    url:"http://example.com",
     subject: 'CCSS.K12.Math',
     category: 'k_12'
   });
@@ -301,8 +350,10 @@ test('Validate if the resource title field is left blank', function (assert) {
 
 test('Validate if the Resource Title field has only whitespaces', function (assert) {
   assert.expect(3);
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
+    url: "http://example.com/image.png",
     subject: 'CCSS.K12.Math',
     category: 'k_12'
   });
@@ -331,8 +382,10 @@ test('Validate if the Resource Title field has only whitespaces', function (asse
 });
 
 test('Validate the character limit in the Resource title field', function (assert) {
-  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
+    url:"",
     subject: 'CCSS.K12.Math',
     category: 'k_12'
   });
@@ -347,6 +400,7 @@ test('Validate the character limit in the Resource title field', function (asser
 test('Validate that settings component is present', function (assert) {
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
     title: "Resource Title",
+    url: "http://example.com/image.png",
     subject: 'CCSS.K12.Math',
     category: 'k_12'
   });

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
 import PlayerResource from 'gooru-web/models/resource/resource';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import EditResourceValidations from 'gooru-web/validations/edit-resource';
 /**
  * Resource model
  *
@@ -217,15 +218,26 @@ const ResourceModel = Ember.Object.extend({
    * @return {Resourse}
    */
   copy: function() {
+
     var properties = this.getProperties(this.modelProperties());
-    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+
+    let standards = this.get('standards');
+    let info = this.get('info');
+
+    // Copy standards and info values
+    properties.standards = standards.slice(0);
+    properties.info = JSON.parse(JSON.stringify(info));
+
+    var ResourceValidation = ResourceModel.extend(EditResourceValidations);
+
+    return ResourceValidation.create(Ember.getOwner(this).ownerInjection(), properties);
   },
 
   /**
    * Copy a list of property values from another model to override the current ones
    *
    * @function
-   * @param {Collection|Assessment} model
+   * @param {Resource} model
    * @param {String[]} propertyList
    * @return {null}
    */

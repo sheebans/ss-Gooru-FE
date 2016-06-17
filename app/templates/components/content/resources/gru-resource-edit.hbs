@@ -33,7 +33,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <p>{{t "common.resource-url"}}*</p>
-        <p>{{resource.url}}</p>
+        <p>{{clean-file-name resource.url}}</p>
       </div>
     </div>
     <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
