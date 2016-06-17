@@ -96,6 +96,11 @@
           }
           .owner{
             color:$blue-400;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            vertical-align: middle;
           }
         }
         .course{

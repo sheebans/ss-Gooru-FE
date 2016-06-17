@@ -188,7 +188,7 @@ export default {
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required": "Please enter the unit title.",
       "user-email-presence": "Please enter a valid email.",
-      "username-length": "Username must be between 4 and 10 characters."
+      "username-length": "Username must be between 4 and 16 characters."
     },
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",

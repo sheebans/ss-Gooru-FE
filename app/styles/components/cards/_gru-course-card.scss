@@ -91,14 +91,17 @@
 
       a {
         display: inline-block;
-        max-width: 70px;
+        max-width: 75px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        @media(min-width: $screen-md-min) {
+          max-width: 95px;
+        }
       }
 
       .avatar {
-        margin: 0 5px;
+        margin: 0 5px 0 0;
       }
     }
   }

@@ -3,7 +3,7 @@
 {{/link-to}}
 {{#link-to "profile.content.courses" user.id tagName="span" class="user-name"}}
   {{#if user.firstName}}
-    <span class="display-name">{{truncate text=user.firstName maxLength=10}} {{truncate text=user.lastName maxLength=10}}</span>
+    <span class="display-name">{{truncate text=user.firstName maxLength=10}} <br> {{truncate text=user.lastName maxLength=10}}</span>
   {{else}}
     <span class="display-name">{{user.username}}</span>
   {{/if}}
