@@ -114,7 +114,7 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     ENV.googleAnalytics = {
-      webPropertyId: 'UA-5033010-34',
+      webPropertyId: 'UA-79540131-1',
       tracker: "analytics.js",
       globalVariable: "hewlettOERTracker",
       cookieName: "hewlettOERCookie"
