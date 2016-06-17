@@ -326,6 +326,15 @@ export function cleanFilename(url) {
   var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
   return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
 }
+/**
+ * Returns filename with extension from url
+ * @param {String} file complete url
+ */
+export function getFileNameFromUrl(url) {
+  const regex = /\.\w+$/;
+  var match = regex.exec(url);
+  return match;
+}
 
 /**
  * Returns filename from url

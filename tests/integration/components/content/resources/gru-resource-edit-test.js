@@ -385,7 +385,7 @@ test('Validate the character limit in the Resource title field', function (asser
   var ResourceValidation = Resource.extend(CreateResourceValidations);
   var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
-    url:"",
+    url: "http://example.com/image.png",
     subject: 'CCSS.K12.Math',
     category: 'k_12'
   });
