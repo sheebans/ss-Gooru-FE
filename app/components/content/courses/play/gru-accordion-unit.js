@@ -95,9 +95,9 @@ export default Ember.Component.extend(BuilderMixin, {
    * @returns {undefined}
    */
   loadData: function () {
-    let unitId = this.get('unit.id');
-    if (!this.get('isLoaded') && unitId) {
+    if (!this.get('isLoaded')) {
       let courseId = this.get('course.id');
+      let unitId = this.get('unit.id');
 
       return this.get('unitService')
         .fetchById(courseId, unitId)
@@ -132,7 +132,10 @@ export default Ember.Component.extend(BuilderMixin, {
    */
   didInsertElement: function(){
     const component = this;
-    if (component.get('index') === 0) {
+    const unitId = this.get('unit.id');
+    const isEdit = unitId;
+
+    if (component.get('index') === 0 && isEdit) {
       component.send('toggle');
     }
   }
