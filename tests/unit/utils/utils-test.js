@@ -14,7 +14,8 @@ import {
   getLetter,
   numberSort,
   generateUUID,
-  cleanFilename
+  cleanFilename,
+  getFileNameFromInvalidUrl,
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -196,4 +197,9 @@ test('Clean filename', function (assert) {
   assert.equal(cleanFilename(`http:${url}`), id, 'Wrong filename with complete url.');
   assert.equal(cleanFilename(id), id, 'Wrong filename without complete url.');
   assert.equal(cleanFilename(null), '', 'Wrong filename without complete url.');
+});
+
+test('Get File Name from Invalid URL', function (assert) {
+  var url = "//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf";
+  assert.equal(getFileNameFromInvalidUrl(url), "FromAtoZinc.pdf", 'Wrong filename.');
 });

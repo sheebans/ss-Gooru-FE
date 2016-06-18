@@ -20,7 +20,8 @@ module.exports = function (environment) {
 
     marketingSiteUrl: "/welcome",
     supportSiteUrl: "http://support.gooru.org",
-    toolkitSiteUrl:"http://about.gooru.org/toolkit"
+    toolkitSiteUrl:"http://about.gooru.org/toolkit",
+    termsConditionsUrl:"http://about.gooru.org/terms-and-conditions"
   };
 
 
@@ -114,7 +115,7 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     ENV.googleAnalytics = {
-      webPropertyId: 'UA-5033010-34',
+      webPropertyId: 'UA-79540131-1',
       tracker: "analytics.js",
       globalVariable: "hewlettOERTracker",
       cookieName: "hewlettOERCookie"

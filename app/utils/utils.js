@@ -326,6 +326,22 @@ export function cleanFilename(url) {
   var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
   return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
 }
+/**
+ * Returns filename with extension from a invalid url
+ * @param {String} file complete url
+ */
+export function getFileNameFromInvalidUrl(url) {
+  const regex = /\w+(?:\.\w+)*$/;
+  const validURL=/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+  var match;
+  if((validURL).exec(url)){
+    match = url;
+  }else{
+    match = regex.exec(url);
+  }
+
+  return match;
+}
 
 /**
  * Returns filename from url
