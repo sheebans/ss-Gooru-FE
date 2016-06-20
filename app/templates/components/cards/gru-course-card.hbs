@@ -16,7 +16,7 @@
             {{#if course.unitCount}}
               <span class="bars"></span><span class="total-units">{{t "cards.gru-course-card.units" count=course.unitCount}}</span>
             {{else}}
-                <span class="bars"></span><span class="total-units">{{t "cards.gru-course-card.units.other"}}</span>
+                <span class="bars"></span><span class="total-units">{{t "cards.gru-course-card.units.other" count=0}}</span>
             {{/if}}
           {{#if subjects}}
             <span class="bars"></span>{{subjects}}

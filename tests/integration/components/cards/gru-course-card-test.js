@@ -268,7 +268,7 @@ test('Click Edit', function(assert) {
   $editButton.click();
 
 });
-test('Course Card Unit Count whit total 1', function(assert) {
+test('Course Card Unit Count with total 1', function(assert) {
   var course = Ember.Object.create({
     'id': "1",
     'title': 'Water cycle',
@@ -325,6 +325,6 @@ test('Course Card Unit Count zero', function(assert) {
   this.render(hbs`{{cards/gru-course-card course=course isOwner=true}}`);
   var $component = this.$(); //component dom element
   var $unit =$component.find(".total-units");
-  assert.equal(T.text($unit),"Units");
+  assert.equal(T.text($unit),"0 Units");
 
 });
