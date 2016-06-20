@@ -55,7 +55,7 @@ export default Ember.Object.extend({
     return {
       title: courseModel.get('title'),
       description: courseModel.get('description'),
-      thumbnail: cleanFilename(courseModel.get('thumbnailUrl')),
+      thumbnail: cleanFilename(courseModel.get('thumbnailUrl'), this.get('session.cdnUrls')),
       'visible_on_profile': courseModel.get('isVisibleOnProfile'),
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(courseModel.get('taxonomy')),
       'subject_bucket': courseModel.get('subject'),

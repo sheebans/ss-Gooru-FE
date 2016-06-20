@@ -4,7 +4,7 @@ import {
   EMOTION_VALUES,
   GRADING_SCALE } from 'gooru-web/config/config';
 import { DEFAULT_IMAGES } from "gooru-web/config/config";
-/*
+/**
  * Function for sorting strings alphabetically in ascending order
  * @param {string} a
  * @param {string} b
@@ -311,9 +311,10 @@ export function toTimestamp(date){
 export function toLocal(timestamp){
   return moment.utc(timestamp).toDate();
 }
-/*
+/**
  * Replace / to _
- * */
+ *
+ */
 export function normalizeQuestionTypes(questionType) {
   return questionType.replace('/', '_');
 }
@@ -322,8 +323,12 @@ export function normalizeQuestionTypes(questionType) {
  * Returns filename from url
  * @param {String} file complete url
  */
-export function cleanFilename(url) {
+export function cleanFilename(url, cdnUrls) {
   var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
+  if(cdnUrls) {
+    url = url.replace(cdnUrls.content, '');
+    url = url.replace(cdnUrls.user, '');
+  }
   return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
 }
 /**

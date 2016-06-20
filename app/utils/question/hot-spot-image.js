@@ -1,5 +1,7 @@
 import MultipleAnswerUtil from './multiple-answer';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
+import { cleanFilename } from 'gooru-web/utils/utils';
+
 /**
  * It contains convenience methods for grading and retrieving useful information
  * for HS Image
@@ -30,6 +32,8 @@ import AnswerObject from 'gooru-web/utils/question/answer-object';
  * @typedef {Object} HotSpotImageUtil
  */
 export default MultipleAnswerUtil.extend({
+
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -84,7 +88,7 @@ export default MultipleAnswerUtil.extend({
       let answerId = answer.get("id");
       let selected = userAnswer.contains(answerId);
       let answerObject = AnswerObject.create({
-        "text": answer.get("text"),
+        "text": cleanFilename(answer.get("text"), util.get('session.cdnUrls')),
         "order": answer.get("order"),
         "answerId": answerId,
         "skip": !selected
@@ -112,8 +116,5 @@ export default MultipleAnswerUtil.extend({
       return answerObject.get("answerId");
     });
   }
-
-
-
 
 });
