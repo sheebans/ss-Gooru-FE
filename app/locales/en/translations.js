@@ -218,6 +218,7 @@ export default {
     "learning-target-mobile": "Micro-standard in Standard",
     "lesson": "Lesson",
     "lessonInitial": "L",
+    "lesson-title": "Lesson Title",
     "lessonObj": {
       one: "Lesson",
       other: "Lessons"
