@@ -22,10 +22,8 @@
     </button>
     <ul class="dropdown-menu">
       <li class="dropdown-menu-item assessment {{if isFilterByAssessment 'selected' }}"><a {{action 'filter' 'assessment'}}>{{t "class.analytics.performance.actions.assessment"}}</a></li>
-      <!-- TODO Uncomment these options once Backend Team fixes some issues with collections report data.
       <li class="dropdown-menu-item collection {{if isFilterByCollection 'selected' }}"><a {{action 'filter' 'collection'}}>{{t "class.analytics.performance.actions.collection"}}</a></li>
       <li class="dropdown-menu-item both {{if isFilterByBoth 'selected' }}"><a {{action 'filter' 'both'}}>{{t "class.analytics.performance.actions.both"}}</a></li>
-      -->
     </ul>
   {{/if}}
 </div>

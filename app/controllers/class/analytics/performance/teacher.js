@@ -117,7 +117,7 @@ export default Ember.Controller.extend({
    * The filterBy selected
    * @property {String}
    */
-  filterBy: 'assessment',
+  filterBy: 'both',
 
   /**
    * List of selected options from the data picker.

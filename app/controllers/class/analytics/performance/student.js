@@ -127,13 +127,13 @@ export default Ember.Controller.extend({
    * The filterBy selected
    * @property {String}
    */
-  filterBy: 'assessment',
+  filterBy: 'both',
 
   /**
    * The selected filter by from the drop down
    * @property {String}
    */
-  selectedFilterBy: 'assessment',
+  selectedFilterBy: 'both',
 
   /**
    * The units of the selected class
