@@ -29,12 +29,11 @@ export default Ember.Object.extend({
 
   /**
    * @property {string} code - The profile code
-   * //TODO this should come from BE
    */
-  code: Ember.computed("username", function(){
-    const username = this.get("username");
-    if (username) {
-      return username;
+  code: Ember.computed("studentId", function(){
+    const studentId = this.get("studentId");
+    if (studentId) {
+      return studentId;
     }
     else {
       const uuid = this.get("id").split("-");
