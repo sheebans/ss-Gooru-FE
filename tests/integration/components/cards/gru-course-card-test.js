@@ -268,3 +268,63 @@ test('Click Edit', function(assert) {
   $editButton.click();
 
 });
+test('Course Card Unit Count whit total 1', function(assert) {
+  var course = Ember.Object.create({
+    'id': "1",
+    'title': 'Water cycle',
+    'unitCount': 1,
+    'subjects': ['Science'],
+    'imageUrl': '/assets/gooru/profile.png',
+    'isPublished':true,
+    'isVisibleOnProfile':false
+  });
+
+  this.set('course', course);
+  assert.expect(1);
+
+  this.render(hbs`{{cards/gru-course-card course=course isOwner=true}}`);
+  var $component = this.$(); //component dom element
+  var $unit =$component.find(".total-units");
+  assert.equal(T.text($unit),"1 Unit");
+
+});
+test('Course Card Unit Count more than one', function(assert) {
+  var course = Ember.Object.create({
+    'id': "1",
+    'title': 'Water cycle',
+    'unitCount': 2,
+    'subjects': ['Science'],
+    'imageUrl': '/assets/gooru/profile.png',
+    'isPublished':true,
+    'isVisibleOnProfile':false
+  });
+
+  this.set('course', course);
+  assert.expect(1);
+
+  this.render(hbs`{{cards/gru-course-card course=course isOwner=true}}`);
+  var $component = this.$(); //component dom element
+  var $unit =$component.find(".total-units");
+  assert.equal(T.text($unit),"2 Units");
+
+});
+test('Course Card Unit Count zero', function(assert) {
+  var course = Ember.Object.create({
+    'id': "1",
+    'title': 'Water cycle',
+    'unitCount':null,
+    'subjects': ['Science'],
+    'imageUrl': '/assets/gooru/profile.png',
+    'isPublished':true,
+    'isVisibleOnProfile':false
+  });
+
+  this.set('course', course);
+  assert.expect(1);
+
+  this.render(hbs`{{cards/gru-course-card course=course isOwner=true}}`);
+  var $component = this.$(); //component dom element
+  var $unit =$component.find(".total-units");
+  assert.equal(T.text($unit),"Units");
+
+});
