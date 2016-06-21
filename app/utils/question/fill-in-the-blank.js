@@ -44,7 +44,7 @@ export default QuestionUtil.extend({
   isAnswerChoiceCorrect: function (answerChoice, index) {
     let correctAnswer = this.getCorrectAnswer();
     let regex = new RegExp(`^${answerChoice}$`, 'i');
-    return correctAnswer[index] && correctAnswer[index].match(regex);
+    return correctAnswer[index] && regex.test(correctAnswer[index]);
   },
 
   /**
