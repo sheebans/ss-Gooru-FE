@@ -121,7 +121,11 @@ export default Ember.Component.extend(BuilderMixin, {
    */
   didInsertElement: function(){
     const component = this;
-    if (component.get('index') === 0) {
+    let unitId = this.get('unitId');
+    let lessonId = this.get('lesson.id');
+    const isEdit = unitId && lessonId;
+
+    if (component.get('index') === 0 && isEdit) {
       component.send('toggle');
     }
   }

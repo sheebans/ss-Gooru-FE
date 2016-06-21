@@ -5,11 +5,7 @@
     <strong><a href="#" {{action 'toggle'}}>{{unit.title}}</a></strong>
 
     <div class="detail">
-      {{#if isLoaded}}
-        <span><b>{{totalSavedItems}}</b> {{t "common.lessonObj" count=totalSavedItems}}</span>
-      {{else}}
-        <span><b>{{unit.lessonCount}}</b> {{t "common.lessonObj" count=unit.lessonCount}}</span>
-      {{/if}}
+      <span><b>{{unit.lessonCount}}</b> {{t "common.lessonObj" count=unit.lessonCount}}</span>
     </div>
   </div>
   <div class="panel-body">
