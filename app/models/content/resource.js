@@ -203,7 +203,7 @@ const ResourceModel = Ember.Object.extend(Validations,{
     let resourceUrl = this.get('url');
     let youtubePattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     let vimeoPattern = /(http|https)?:\/\/(www\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|)(\d+)(?:|\/\?)/;
-    let pdfPattern = /.*.pdf/;
+    let pdfPattern = /.*\.pdf/;
     let resourceType = 'resource/url'; // Default type
     if (resourceUrl) {
       switch (format) {
