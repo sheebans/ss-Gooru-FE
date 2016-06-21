@@ -203,6 +203,7 @@ const ResourceModel = Ember.Object.extend(Validations,{
     let resourceUrl = this.get('url');
     let youtubePattern = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     let vimeoPattern = /(http|https)?:\/\/(www\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|)(\d+)(?:|\/\?)/;
+    let pdfPattern = /.*.pdf/;
     let resourceType = 'resource/url'; // Default type
     if (resourceUrl) {
       switch (format) {
@@ -212,7 +213,7 @@ const ResourceModel = Ember.Object.extend(Validations,{
           resourceType = 'resource/url'; // Default type
           break;
         case 'image':
-          resourceType = 'image';
+          resourceType = pdfPattern.test(resourceUrl) ? 'handouts' : 'image';
           break;
         case 'text':
           resourceType = 'handouts';
