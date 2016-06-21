@@ -1048,6 +1048,7 @@ export default {
       }
     },
     "gru-course-card": {
+      "in": "in",
       "units": {
         one: "{{count}} Unit",
         other: "{{count}} Units"
