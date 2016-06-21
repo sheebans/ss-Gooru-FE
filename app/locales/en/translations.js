@@ -624,6 +624,15 @@ export default {
     "remove-error": "Oops! Unable to remove {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “remove” below and click “remove”."
   },
+  "content.modals.remove-student": {
+    "title":"Remove student and delete their data",
+    "legend": "You are about to remove {{studentName}} from this classroom and delete all of their data.",
+    "data-inaccessible":"All their data will be deleted and not accessible by you or them",
+    "classroom-access":"They will not have access to the classroom or content",
+    "data-lost":"If they re-join the class, all past data will be lost",
+    "remove-error": "Oops! Unable to remove this student right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
+  },
   "content.resources": {
     "edit": {
       "best-practices": "<p>Resources are multimedia content in a variety of formats such as videos, interactives, websites, images, Google docs, and more. Get creative and use your own resources or get “resourceful” and search our ample supply in Gooru.</p><p>Use a variety of resource types to engage your students and include narration so you can help guide your students through the resource.</p><p>We recommend tagging each question to standards, micro-standards and 21st century skills. You can see how your students are interacting with resources through the teacher dashboard.</p>",

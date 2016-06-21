@@ -83,7 +83,7 @@
                     <ul class="students">
                       {{#each class.members as |member|}}
                           <li class="profile-card">
-                            {{cards.gru-user-card user=member}}
+                            {{cards.gru-user-card user=member isStudent=isStudent isStudentCard=true}}
                           </li>
                       {{/each}}
                     </ul>

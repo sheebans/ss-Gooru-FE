@@ -22,5 +22,15 @@
   }
   .display-name{
     width: 120px;
+    height: 46px;
+  }
+  .remove{
+    display: block;
+    height: 30px;
+    background-color: $dark-300;
+    color: $white;
+    line-height:21px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
   }
 }
