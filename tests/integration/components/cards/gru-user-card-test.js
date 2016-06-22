@@ -11,7 +11,7 @@ moduleForComponent('cards/gru-user-card', 'Integration | Component | cards/gru u
 });
 
 test('Profile Card Layout', function(assert) {
-  assert.expect(4);
+  assert.expect(5);
   const user = Ember.Object.create(
     {
       "id": 10,
