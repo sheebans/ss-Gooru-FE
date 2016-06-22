@@ -212,7 +212,7 @@ export default Ember.Component.extend({
               return component.get('lessonService').fetchById(courseId, unitId, lessonId)
                 .then(function(lesson) {
                   const collections = lesson.get('children').filter(function(collection) {
-                    return (filterBy === 'both') || (collection.get('format') === filterBy);
+                    return (filterBy === 'both') || (collection.get('format').indexOf(filterBy) !== -1)
                   });
                   return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections, {collectionType: filterBy})
                     .then(function(collectionPerformances) {
