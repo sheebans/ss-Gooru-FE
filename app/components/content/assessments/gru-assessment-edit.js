@@ -50,7 +50,7 @@ export default CollectionEdit.extend({
             editedAssessment.set('thumbnailUrl', imageId);
             component.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
               .then(function () {
-                assessment.merge(editedAssessment, ['title', 'learningObjectives', 'isVisibleOnProfile', 'thumbnailUrl', 'standards']);
+                assessment.merge(editedAssessment, ['title', 'learningObjectives', 'isVisibleOnProfile', 'thumbnailUrl', 'standards', 'audience', 'depthOfknowledge']);
                 component.set('isEditing', false);
               })
               .catch(function (error) {

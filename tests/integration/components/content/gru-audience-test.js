@@ -36,7 +36,8 @@ moduleForComponent('content/gru-audience', 'Integration | Component | content/gr
 });
 
 test('Audience layout, no audiences selected - read only', function (assert) {
-  var selectedAudiences = {};
+  var selectedAudiences = [];
+
   this.set('selectedAudiences', selectedAudiences);
 
   this.render(hbs`
@@ -45,14 +46,12 @@ test('Audience layout, no audiences selected - read only', function (assert) {
 
   const $component = this.$(".content.gru-audience");
   assert.ok($component.length, 'Component found');
-  assert.ok($component.find('> span').text(), this.get('i18n').t('common.audience').string, 'Label');
+  assert.ok($component.find('> label span').text(), this.get('i18n').t('common.audience').string, 'Label');
   assert.ok($component.find('> div span').text(), this.get('i18n').t('common.not-specified').string, 'No selected audiences should be visible');
 });
 
 test('Audience layout, audiences selected - read only', function (assert) {
-  var selectedAudiences = Ember.Object.create({
-    audience: [4]
-  });
+  var selectedAudiences = [4];
 
   this.set('selectedAudiences', selectedAudiences);
 
@@ -68,12 +67,8 @@ test('Audience layout, audiences selected - read only', function (assert) {
 });
 
 test('Audience layout - edit', function (assert) {
-  var initialAudiences = Ember.Object.create({
-    audience: [1,4]
-  });
-  var selectedAudiences = Ember.Object.create({
-    audience: [1,4]
-  });
+  var initialAudiences = [1,4];
+  var selectedAudiences = [1,4];
 
   this.set('initialAudiences', initialAudiences);
   this.set('selectedAudiences', selectedAudiences);
@@ -105,12 +100,8 @@ test('Audience layout - edit', function (assert) {
 
 test('Audience edit, remove audience', function (assert) {
 
-  var initialAudiences = Ember.Object.create({
-    audience: [1,4]
-  });
-  var selectedAudiences = Ember.Object.create({
-    audience: [1,4]
-  });
+  var initialAudiences = [1,4];
+  var selectedAudiences = [1,4];
 
   this.set('initialAudiences', initialAudiences);
   this.set('selectedAudiences', selectedAudiences);
@@ -140,12 +131,8 @@ test('Audience edit, remove audience', function (assert) {
 });
 
 test('Audience edit, add audience -returning to edit mode will discard any changes', function (assert) {
-  var initialAudiences = Ember.Object.create({
-    audience: [1]
-  });
-  var selectedAudiences = Ember.Object.create({
-    audience: [1]
-  });
+  var initialAudiences = [1];
+  var selectedAudiences = [1];
 
   this.set('initialAudiences', initialAudiences);
   this.set('selectedAudiences', selectedAudiences);

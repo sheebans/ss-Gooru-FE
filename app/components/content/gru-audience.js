@@ -45,7 +45,7 @@ export default Ember.Component.extend({
     component.get("lookupService").readAudiences()
       .then(function(audiences) {
         component.set('audiences', audiences);
-        component.set('editAudiences', component.getOptionsArray(audiences, component.get('srcSelectedAudiences.audience')));
+        component.set('editAudiences', component.getOptionsArray(audiences, component.get('srcSelectedAudiences')));
       });
   },
 
@@ -82,7 +82,7 @@ export default Ember.Component.extend({
    * @type {Ember.A}
    */
   srcAudiences: Ember.computed('srcSelectedAudiences', 'audiences', function () {
-    return this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences.audience'));
+    return this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences'));
   }),
 
   /**
@@ -106,15 +106,13 @@ export default Ember.Component.extend({
     var selectedAudiences = this.get('editAudiences').filterBy('checked').map(function (audience) {
       return (audience.get('checked')===true)? audience.get('id') : null;
     });
-    var audience = Ember.Object.create({
-      'audience': selectedAudiences
-    });
-    this.set('editSelectedAudiences', audience);
+
+    this.set('editSelectedAudiences', selectedAudiences);
   }),
 
   resetSelectedAudiences: Ember.observer('isEditing', function () {
     if (this.get('isEditing')) {
-      this.set('editAudiences', this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences.audience')));
+      this.set('editAudiences', this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences')));
     }
   }),
 
@@ -129,6 +127,7 @@ export default Ember.Component.extend({
    * @param {Number[]} selectedOptions - Array of values
    */
   getOptionsArray: function(allOptions, selectedOptions) {
+    console.log('selectedOptions ', selectedOptions);
     return allOptions.slice(0).map(function (object) {
       object.checked = selectedOptions && selectedOptions.indexOf(object.id) > -1;
       return Ember.Object.create(object);

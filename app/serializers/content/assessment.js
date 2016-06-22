@@ -55,12 +55,18 @@ export default Ember.Object.extend({
 
   serializeAssessment: function(assessmentModel) {
     const thumbnail = cleanFilename(assessmentModel.get("thumbnailUrl"));
-    return {
+    let serializedAssessment = {
       title: assessmentModel.get('title'),
       learning_objective: assessmentModel.get("learningObjectives"),
       visible_on_profile: assessmentModel.get('isVisibleOnProfile'),
-      thumbnail: !Ember.isEmpty(thumbnail) ? thumbnail : null
+      thumbnail: !Ember.isEmpty(thumbnail) ? thumbnail : null,
+      'metadata': assessmentModel.get('metadata') || {}
     };
+
+    serializedAssessment.metadata['audience']= (assessmentModel.get("audience")) ? assessmentModel.get("audience") : [];
+    serializedAssessment.metadata['depth_of_knowledge']= (assessmentModel.get("depthOfknowledge")) ? assessmentModel.get("depthOfknowledge") : [];
+    return serializedAssessment;
+
   },
 
   /**
@@ -73,6 +79,7 @@ export default Ember.Object.extend({
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = assessmentData.thumbnail ?
     basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
+    const metadata = assessmentData.metadata || {};
 
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
@@ -85,7 +92,10 @@ export default Ember.Object.extend({
       thumbnailUrl: thumbnailUrl,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy),
       format: assessmentData.format,
-      url: assessmentData.url
+      url: assessmentData.url,
+      metadata: metadata,
+      audience: metadata["audience"] && metadata["audience"].length > 0 ? metadata["audience"] : [],
+      depthOfknowledge: metadata["depth_of_knowledge"] && metadata["depth_of_knowledge"].length > 0 ? metadata["depth_of_knowledge"] : [],
     });
   },
 
