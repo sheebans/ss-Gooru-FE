@@ -66,8 +66,15 @@
     .remixed-users {
       @include flexbox;
       @include align-items(center);
-      margin-top: -3px;
       overflow: hidden;
+      @media(min-width: $screen-xs-max) {
+        margin-top: -3px;
+      }
+      .created {
+        @media(max-width: $screen-xs-max) {
+          display: none;
+        }
+      }
     }
 
     .icon {
@@ -91,10 +98,16 @@
 
       a {
         display: inline-block;
-        max-width: 75px;
+        max-width: 150px;
         @include text-overflow;
+        @media(min-width: $screen-xs-max) {
+          max-width: 78px;
+        }
         @media(min-width: $screen-md-min) {
-          max-width: 95px;
+          max-width: 100px;
+        }
+        @media(min-width: $screen-lg-min) {
+          max-width: 200px;
         }
       }
 
