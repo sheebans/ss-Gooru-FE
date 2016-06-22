@@ -17,11 +17,15 @@
                 </div>
             </div>
             <div class="publisher">
-                <span>{{t 'common.published-by'}}</span>
-                    <img src="{{ question.owner.avatarUrl }}" alt="Publisher">
-                  {{#link-to 'profile.content.courses' question.owner.id class="pointer" tagName="span"}}
-                    {{question.owner.displayName}}
-                  {{/link-to}}
+              {{#if question.owner}}
+                <span>
+                  {{t (if question.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
+                </span>
+                <img class="img-responsive" src="{{question.owner.avatarUrl}}">
+                {{#link-to 'profile.content.courses' question.owner.id class="pointer" tagName="div"}}
+                  <span class="owner">{{question.owner.displayName}}</span>
+                {{/link-to}}
+              {{/if}}
             </div>
         </div>
     </div>
