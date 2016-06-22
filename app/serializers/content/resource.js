@@ -53,7 +53,6 @@ export default Ember.Object.extend({
       'visible_on_profile': resourceModel.get('isVisibleOnProfile'),//,
       //"depth_of_knowledge": null, // Not required at the moment
       //"thumbnail": null // Not required at the moment
-      info: resourceModel.get('info') || {}, //passing all info because we need to keep other fields inside of info
       //one publisher for now
       'copyright_owner': resourceModel.get('publisher') ? [resourceModel.get('publisher')] : undefined,
       'is_copyright_owner': resourceModel.get('amIThePublisher')
