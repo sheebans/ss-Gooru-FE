@@ -212,7 +212,7 @@ export default Ember.Component.extend({
               return component.get('lessonService').fetchById(courseId, unitId, lessonId)
                 .then(function(lesson) {
                   const collections = lesson.get('children').filter(function(collection) {
-                    return (filterBy === 'both') || (collection.get('format').indexOf(filterBy) !== -1)
+                    return component.isCollectionFilterable(collection, filterBy);
                   });
                   return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections, {collectionType: filterBy})
                     .then(function(collectionPerformances) {
@@ -270,6 +270,18 @@ export default Ember.Component.extend({
    */
   isSelected: function(){
     return this.get("selectedUnitId") === this.get("unit.id");
+  },
+
+  /**
+   * Verifies is the collection is filterable according to the filterBy param value.
+   * When the filterBy is an 'assessment' we verify if collection format is 'assessment' or 'assessment-external'.
+   *
+   * @param collection the collection
+   * @param filterBy the filter by option
+   * @returns {boolean} Returns true is the collection is filterable.
+   */
+  isCollectionFilterable: function(collection, filterBy) {
+    return (filterBy === 'both') || (collection.get('format').indexOf(filterBy) !== -1);
   }
 
 });
