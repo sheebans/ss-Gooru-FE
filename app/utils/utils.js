@@ -324,10 +324,12 @@ export function normalizeQuestionTypes(questionType) {
  * @param {String} file complete url
  */
 export function cleanFilename(url, cdnUrls) {
-  var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
-  if(cdnUrls) {
-    url = url.replace(cdnUrls.content, '');
-    url = url.replace(cdnUrls.user, '');
+  if (url) {
+    var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
+    if (cdnUrls) {
+      url = url.replace(cdnUrls.content, '');
+      url = url.replace(cdnUrls.user, '');
+    }
   }
   return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
 }
