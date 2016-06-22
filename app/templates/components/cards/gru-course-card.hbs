@@ -25,9 +25,9 @@
         {{#if users}}
           <div class="remixed-users">
             {{#if course.isRemixed}}
-              <span class="remixed">{{t "common.remixed-by"}}</span>
+              <span class="remixed">{{t "common.remixed-by"}}&nbsp;</span>
             {{else}}
-              <span class="created">{{t "common.created-by"}}</span>
+              <span class="created">{{t "common.created-by"}}&nbsp;</span>
             {{/if}}
             <span class="users-teaser truncate ellipsis">{{gru-user-teaser users=users}}</span>
           </div>
