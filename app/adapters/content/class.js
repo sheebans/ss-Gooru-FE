@@ -75,6 +75,27 @@ export default Ember.Object.extend({
     };
     return Ember.$.ajax(url, options);
   },
+  /**
+   * Remove Student from a specific class
+   *
+   * @param classId class id to be sent
+   * @param userId user id to be deleted
+   * @returns {Promise}
+   */
+  removeStudentFromClass: function(classId,userId) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${classId}/members/${userId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
 
   /**
    * Join class

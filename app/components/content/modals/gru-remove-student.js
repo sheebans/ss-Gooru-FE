@@ -51,6 +51,7 @@ export default Ember.Component.extend({
       model.deleteMethod()
         .then(function () {
             model.callback.success();
+            component.triggerAction({ action: 'closeModal' });
         })
         .catch(function (error) {
           var message = component.get('i18n').t('content.modals.remove-student.delete-error',

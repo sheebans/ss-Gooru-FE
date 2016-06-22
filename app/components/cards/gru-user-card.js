@@ -3,6 +3,12 @@ import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @requires service:api-sdk/class
+   */
+  classService: Ember.inject.service("api-sdk/class"),
+  // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['gru-user-card'],
@@ -14,15 +20,14 @@ export default Ember.Component.extend(ModalMixin,{
      */
     removeStudent: function () {
       let component = this;
-      const myId = this.get("session.userId");
       var model = {
         content: component.get('user'),
-        //deleteMethod: function () {
-        //  return component.get('classService').deleteClass(controller.get('class.id'));
-        //}.bind(component),
+        deleteMethod: function () {
+          return component.get('classService').removeStudentFromClass(component.get('classId'),component.get('user.id'));
+        }.bind(component),
         callback:{
           success:function(){
-            controller.send('updateUserClasses');
+            component.sendAction('onRemoveStudent',component.get('user'));
           }
         }
       };
@@ -49,6 +54,7 @@ export default Ember.Component.extend(ModalMixin,{
    */
   "isStudent":false,
 
+  "classId":null,
   /**
    * Indicate if is a student card on a teacher view
    * @see controllers/info.js

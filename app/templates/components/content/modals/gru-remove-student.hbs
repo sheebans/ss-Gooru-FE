@@ -2,7 +2,7 @@
     <h4 class="modal-title">{{t "content.modals.remove-student.title"}}</h4>
 </div>
 <div class="modal-body">
-    <form {{action "deleteContent" model on="submit"}}>
+    <form {{action "removeStudent" model on="submit"}}>
         <p class="legend">{{t "content.modals.remove-student.legend" studentName=model.content.fullName}}</p>
         <div class="delete-info">
             <ul>

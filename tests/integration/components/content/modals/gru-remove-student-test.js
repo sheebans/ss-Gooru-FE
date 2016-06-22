@@ -57,3 +57,38 @@ test('it enables the delete button under the appropriate conditions', function(a
   const $component = this.$(".gru-remove-student");
   assert.equal($component.find('.actions .delete').prop('disabled'),false, 'Delete Button Should be enabled');
 });
+
+test('it calls a  remove method and then a callback (if provided) after clicking on the remove button from resource', function(assert) {
+  assert.expect(3);
+
+  const model = {
+    deleteMethod: function() {
+      assert.ok(true, 'Remove method invoked');
+      return Ember.RSVP.resolve(true);
+    },
+    callback: {
+      success: function() {
+        assert.ok(true, 'Success callback run');
+      }
+    }
+  };
+
+  const validator = Ember.Object.create({
+    confirm:"delete",
+    check1:true,
+    check2:true,
+    check3:true
+  });
+
+  this.set('model', model);
+  this.set('validator', validator);
+
+  this.actions.closeModal = function() {
+    assert.ok(true, 'Close modal action triggered');
+  };
+
+  this.render(hbs`{{content/modals/gru-remove-student model=model validator=validator}}`);
+  const $component = this.$(".gru-remove-student");
+  $component.find('.actions .delete').click();
+
+});
