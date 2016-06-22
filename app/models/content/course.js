@@ -141,8 +141,8 @@ export default Ember.Object.extend(Validations, {
     // Copy the course data
     properties = this.getProperties(properties);
 
-    let audience = this.get('audience');
-    let taxonomy = this.get('taxonomy');
+    var audience = this.get('audience');
+    var taxonomy = this.get('taxonomy');
 
     // Copy the audience and taxonomy values
     properties.audience = audience.slice(0);

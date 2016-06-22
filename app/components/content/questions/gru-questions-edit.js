@@ -328,6 +328,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
   },
 
   updateQuestion:function(editedQuestion,component){
+    let question = component.get('question');
 
     editedQuestion.validate().then(function ({ model, validations }) {
 
@@ -348,6 +349,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
             component.set('question', editedQuestion);
             component.set('isEditing', false);
             component.set('isBuilderEditing', false);
+            question.merge(editedQuestion, ['title','standards','audience', 'depthOfknowledge']);
           }.bind(this))
           .catch(function (error) {
             var message = component.get('i18n').t('common.errors.question-not-updated').string;

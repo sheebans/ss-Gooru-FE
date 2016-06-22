@@ -104,6 +104,16 @@ const Question = Ember.Object.extend(Validations, {
   standards: [],
 
   /**
+   * @property {Number[]} Array with the audience ids
+   */
+  audience: [],
+
+  /**
+   * @property {Number[]} Array with the depthOfknowledge ids
+   */
+  depthOfknowledge: [],
+
+  /**
    * @property {Boolean} isVisibleOnProfile - Indicates if the Question is visible on Profile. By default it is true
    */
   isVisibleOnProfile: true,
@@ -228,10 +238,14 @@ const Question = Ember.Object.extend(Validations, {
       return answer.copy();
     });
     properties.answers = answersForEditing;
-    let standards = this.get('standards');
+    var standards = this.get('standards');
+    var audience = this.get('audience');
+    var depthOfknowledge = this.get('depthOfknowledge');
 
     // Copy standards and metadata values
     properties.standards = standards.slice(0);
+    properties.audience = audience.slice(0);
+    properties.depthOfknowledge = depthOfknowledge.slice(0);
 
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);
