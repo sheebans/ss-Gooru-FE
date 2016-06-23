@@ -37,7 +37,7 @@ export default Ember.Controller.extend({
               // Trigger action in route
               controller.send('infoClassTransition');
             });
-          controller.get('class').merge(editedClass, ['title', 'greeting']);
+          controller.get('class').merge(editedClass, ['title', 'greeting', 'minScore']);
         }
         this.set('didValidate', true);
       }.bind(this));

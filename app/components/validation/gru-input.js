@@ -59,6 +59,7 @@ export default Ember.Component.extend({
     var valuePath = this.get('valuePath');
     defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
     var value = this.removeTags(this.get(`model.${valuePath}`));
+    console.log(value);
     this.set('rawInputValue', value);
     defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
   },

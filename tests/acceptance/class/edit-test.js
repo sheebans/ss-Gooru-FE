@@ -24,17 +24,20 @@ test('Teacher Layout', function(assert) {
     const $editContainer = find(".controller.class .controller.edit");
     T.exists(assert, $editContainer, "Missing edit container");
 
-    const $editDescription =$editContainer.find(".class-edit h3");
+    const $editDescription = $editContainer.find(".class-edit h3");
     T.exists(assert, $editDescription, "Edit Description should be visible");
 
-    const $editButtons =$editContainer.find(".edit-btns");
+    const $editButtons = $editContainer.find(".edit-btns");
     T.exists(assert, $editButtons.find("div.edit-save-section.show"), "Cancel and Save buttons should be visible");
     T.exists(assert, $editButtons.find(".cancel"), "Missing Cancel Link");
     T.exists(assert, $editButtons.find(".save-btn"), "Missing Save Button");
 
-    const $editPanel =$editContainer.find(".panel");
+    const $editPanel = $editContainer.find(".basic-info .panel");
     T.exists(assert, $editPanel.find(".gru-input.title"), "Missing name field");
     T.exists(assert, $editPanel.find(".gru-textarea.greeting"), "Missing greeting textarea");
+
+    const $courseMapPanel = $editContainer.find(".course-map .panel");
+    T.exists(assert, $courseMapPanel.find(".gru-input-number.minScore"), "Missing min score field");
   });
 });
 

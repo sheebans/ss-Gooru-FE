@@ -1,4 +1,14 @@
 .controller.class .controller.edit {
+  .basic-info {
+    h4 {
+      margin: 60px 60px 0;
+    }
+  }
+  .course-map {
+    h4 {
+      margin: 0 60px;
+    }
+  }
   .description-legend {
     font-size: $font-size-large!important;
   }
@@ -42,7 +52,7 @@
     }
   }
   .panel {
-    margin: 30px 60px;
+    margin: 10px 60px 30px;
     .panel-body {
       padding: 30px;
       label {

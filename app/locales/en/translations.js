@@ -476,10 +476,13 @@ export default {
       "delete": "Delete Classroom"
     },
     "edit": {
-      "edit-class": "Edit Classroom Information",
+      "basic-info": "Basic Information",
       "class-name": "Classroom Name",
       "class-greetings": "Classroom Announcements",
-      "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc."
+      "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc.",
+      "class-minscore": "Assessment Minimum Score for Trophies (0-100%)",
+      "course-map": "Course Map",
+      "edit-class": "Edit Classroom Settings"
     },
     "overview": {
       "title": "Course Map",

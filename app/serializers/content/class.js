@@ -43,7 +43,8 @@ export default Ember.Object.extend({
   serializeClass: function(classModel) {
     return {
       title: classModel.get('title'),
-      class_sharing: classModel.get('classSharing')
+      class_sharing: classModel.get('classSharing'),
+      min_score: classModel.get('minScore') || -1
     };
   },
 
@@ -72,7 +73,7 @@ export default Ember.Object.extend({
       grade:[], // TODO We need to get the grade values, we have just the IDs.
       classSharing: payload['class_sharing'],
       coverImage: payload['cover_image'],
-      minScore: payload['min_score'],
+      minScore: payload['min_score'] === -1 ? null : payload['min_score'],
       startDate: payload['created_at'],
       endDate: payload['end_date'],
       creatorSystem: '',
