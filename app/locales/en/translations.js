@@ -477,6 +477,7 @@ export default {
       "delete": "Delete Classroom"
     },
     "edit": {
+      "assigned-course": "Assigned course",
       "basic-info": "Basic Information",
       "class-name": "Classroom Name",
       "class-greetings": "Classroom Announcements",

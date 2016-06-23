@@ -119,7 +119,7 @@ test('normalizeCourse', function (assert) {
   assert.equal(normalizedCourse.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
   assert.equal(normalizedCourse.get("subject"), 'subject_bucket_value', 'Wrong subject');
   assert.equal(normalizedCourse.get("taxonomy.length"), 0, 'Wrong taxonomy');
-  assert.equal(normalizedCourse.get("unitCount"), 0, 'Wrong unitCount');
+  assert.equal(normalizedCourse.get("unitCount"), 2, 'Wrong unitCount');
   assert.equal(normalizedCourse.get("children.length"), 2, 'Wrong children length');
   assert.equal(normalizedCourse.get("children")[0].get("id"), 'unit-id-1', 'Wrong first children id');
   assert.equal(normalizedCourse.get("thumbnailUrl"), contentCdnUrl + 'thumbnail.png', 'Wrong thumbnailUrl');
@@ -201,4 +201,3 @@ test('serializeReorderCourse', function(assert) {
   assert.equal(data.order[0].id, "a", 'Wrong id');
   assert.equal(data.order[0].sequence_id, 1, 'Wrong sequence id');
 });
-

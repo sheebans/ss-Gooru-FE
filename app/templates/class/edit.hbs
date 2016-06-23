@@ -15,7 +15,7 @@
           </div>
         </div>
       </div>
-      <div class="row basic-info">
+      <div class="row basic-info edit-panel">
         <div class="header">
           <h4>{{t "class.edit.basic-info"}}</h4>
         </div>
@@ -40,7 +40,7 @@
           </div>
         </div>
       </div>
-      <div class="row course-map">
+      <div class="row course-map edit-panel">
         <div class="header">
           <h4>{{t "class.edit.course-map"}}</h4>
         </div>
@@ -54,6 +54,14 @@
                 </label>
               </div>
             </div>
+            {{#if tempClass.courseId}}
+              <div class="row">
+                <div class="col-xs-12 col-sm-5 course">
+                  <span>{{t 'class.edit.assigned-course'}}</span>
+                  {{cards.gru-course-card course=course isEditEnabled=isMyProfile isOwner=isMyProfile onEditCourse="editCourse" onRemixCourse="remixCourse" isSmall=true}}
+                </div>
+              </div>
+            {{/if}}
           </div>
         </div>
       </div>

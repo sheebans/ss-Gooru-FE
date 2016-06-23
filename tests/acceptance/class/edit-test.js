@@ -38,6 +38,7 @@ test('Teacher Layout', function(assert) {
 
     const $courseMapPanel = $editContainer.find(".course-map .panel");
     T.exists(assert, $courseMapPanel.find(".gru-input-number.minScore"), "Missing min score field");
+    T.exists(assert, $courseMapPanel.find(".gru-course-card"), "Missing course card");
   });
 });
 

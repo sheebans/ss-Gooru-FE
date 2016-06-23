@@ -110,7 +110,7 @@ export default Ember.Object.extend({
       taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
       thumbnailUrl: thumbnailUrl,
       title: payload.title,
-      unitCount: payload.unit_count ? payload.unit_count : 0,
+      unitCount: payload.unit_count ? payload.unit_count : payload.unit_summary ? payload.unit_summary.length : 0,
       metadata: payload.metadata,
       useCase: payload.use_case
       // TODO More properties will be added here...
