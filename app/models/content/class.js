@@ -11,7 +11,19 @@ const Validations = buildValidations({
       })
     ]
   },
-  classSharing: validator('presence', true)
+  classSharing: validator('presence', true),
+  minScore: {
+    validators: [
+      validator('number', {
+        allowBlank: true,
+        integer: true,
+        gte: 0,
+        lte: 100,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.class-min-score'
+      })
+    ]
+  }
 });
 
 /**

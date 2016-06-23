@@ -19,17 +19,11 @@ export default GruInput.extend({
   // Actions
   actions:{
     inputValueChange: function() {
-      this.set('rawInputValue', +this.get('rawInputValue'));
+      this.set('rawInputValue', this.get('rawInputValue') ? +this.get('rawInputValue') : null);
       this.set('value', this.get('rawInputValue'));
       this.set('isTyping', false);
       if (this.get("onFocusOut")){
         this.sendAction("onFocusOut");
-      }
-    },
-    inputTyping: function() {
-      this.set('isTyping', true);
-      if (this.get("onTyping")){
-        this.sendAction("onTyping");
       }
     }
   },

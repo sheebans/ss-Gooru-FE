@@ -134,6 +134,7 @@ export default {
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
+      "class-min-score": "The minimum score should be a number between 0 and 100",
       "class-not-created": "Oops! Unable to create classroom right now. Please try again shortly.",
       "class-title-presence": "Please give your classroom a name.",
       "collection-not-added-to": "Oops! Unable to add collection to lesson right now. Please try again shortly.",
