@@ -9,7 +9,7 @@
       font-size: 1.7rem;
       font-weight: normal;
       margin-bottom: 15px;
-      padding: 0 20px;
+      padding: 0 10px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -63,7 +63,7 @@
   }
 
   @media (max-width: $screen-sm-max) {
-    margin: 0 65px;
+    margin: 0 5px;
     position: relative;
     > .avatar {
       height: 100%;
@@ -74,6 +74,8 @@
         display: inline-block;
         vertical-align: middle;
         margin: 0;
+        padding: 0;
+        width: 95%;
         line-height: 60px;
       }
       .img-wrapper {
@@ -92,13 +94,13 @@
   }
 
   @media (max-width: $screen-xs-max) {
-    margin: 0 20px;
     > .avatar {
       max-width: 55%;
-      left: 50%;
+      left: 43%;
       @include translate(-50%, 0);
       > strong {
-        padding: 0 1rem;
+        padding: 0;
+        width:100%;
       }
       .img-wrapper {
         margin-left: -3.5rem;

@@ -59,7 +59,7 @@ export default Ember.Object.extend({
 
   serializeCollection: function(collectionModel) {
     const serializer = this;
-    const thumbnail = cleanFilename(collectionModel.thumbnailUrl);
+    const thumbnail = cleanFilename(collectionModel.thumbnailUrl, this.get('session.cdnUrls'));
     return {
       title: collectionModel.get('title'),
       'learning_objective': collectionModel.get('learningObjectives'),

@@ -173,9 +173,10 @@ export default Ember.Object.extend({
    * Normalize the core element taxonomy data into a TaxonomyTagData object
    *
    * @param taxonomyArray - array of taxonomy objects
+   * @param {string} level
    * @returns {TaxonomyTagData[]} a TaxonomyTagData array
    */
-  normalizeTaxonomyArray: function(taxonomyArray) {
+  normalizeTaxonomyArray: function(taxonomyArray, level) {
     var taxonomyData = [];
 
     if (taxonomyArray && taxonomyArray.length) {
@@ -188,7 +189,7 @@ export default Ember.Object.extend({
           title: taxonomyObject.title,
           parentTitle: taxonomyObject.parentTitle,
           frameworkCode: taxonomyObject.frameworkCode,
-          taxonomyLevel: isMicroStandard ? TAXONOMY_LEVELS.MICRO : TAXONOMY_LEVELS.STANDARD
+          taxonomyLevel: (level) ? level : isMicroStandard ? TAXONOMY_LEVELS.MICRO : TAXONOMY_LEVELS.STANDARD
         }));
       });
     }

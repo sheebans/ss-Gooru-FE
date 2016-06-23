@@ -33,8 +33,27 @@ const unitServiceStub = Ember.Service.extend({
       return Ember.RSVP.reject('Fetch failed');
     }
   }
+});
+
+const lessonServiceStub = Ember.Service.extend({
+
+  fetchById(courseId, unitId, lessonId) {
+    if (courseId && unitId && lessonId) {
+      let lesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
+        id: '123',
+        sequence: 1,
+        taxonomy: [],
+        title: 'Sample Lesson Name',
+        children: []
+      });
+      return Ember.RSVP.resolve(lesson);
+    } else {
+      return Ember.RSVP.reject('Fetch failed');
+    }
+  }
 
 });
+
 
 moduleForComponent('content/courses/play/gru-accordion-unit', 'Integration | Component | content/courses/play/gru accordion unit', {
   integration: true,
@@ -43,7 +62,7 @@ moduleForComponent('content/courses/play/gru-accordion-unit', 'Integration | Com
     this.inject.service('i18n');
 
     this.register('service:api-sdk/unit', unitServiceStub);
-    this.inject.service('api-sdk/unit');
+    this.register('service:api-sdk/lesson', lessonServiceStub);
   }
 });
 
@@ -75,8 +94,39 @@ test('it renders the unit correctly, if the unit has no lessons', function (asse
   assert.equal($lessonList.find('li.lesson').length, 0, 'No lessons by default');
 });
 
-// TODO Fix this test
-/*
+
+
+test('first unit should be expanded', function (assert) {
+
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123'
+    }),
+    isEditing: false,
+    isExpanded: false
+  });
+
+  this.on('externalAction', function () {
+    assert.ok(true);
+  });
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unit', unit);
+  this.render(hbs`
+    {{content/courses/play/gru-accordion-unit
+      course=course
+      model=unit
+      index=0
+      onExpandUnit=(action 'externalAction') }}
+    `);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
+  assert.ok($container.length, 'Container');
+  assert.ok($container.hasClass('expanded'), 'Container is not expanded');
+});
+
 test('it expands/collapses the unit', function (assert) {
 
   const unit = BuilderItem.create({
@@ -105,11 +155,7 @@ test('it expands/collapses the unit', function (assert) {
 
   const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
   assert.ok($container.length, 'Container');
-  assert.ok($container.hasClass('collapsed'), 'Container collapsed');
-
-
-  $container.find('> .panel-heading > h3 > a').click();
-  assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header prefix');
+  assert.ok($container.hasClass('expanded'), 'Container is not expanded');
 
 
   $container.find('> .panel-heading > h3 > a').click();
@@ -123,45 +169,3 @@ test('it expands/collapses the unit', function (assert) {
   $container.find('> .panel-heading > strong > a').click();
   assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header title');
 });
-*/
-
-// TODO Fix this test
-/*
-test('it loads lessons and renders them after clicking on the unit name', function (assert) {
-  const unit = BuilderItem.create({
-    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
-      id: '123',
-      lessonCount: 2
-    }),
-    isEditing: false,
-    isExpanded: false
-  });
-
-  //onExpandUnit action must be defined
-  this.on('externalAction', function () {});
-
-  this.set('course', Course.create({
-    id: 'course-id-123'
-  }));
-  this.set('unit', unit);
-  this.set('isLoaded', true);  // Binding to check on the state
-  this.render(hbs`
-    {{content/courses/play/gru-accordion-unit
-      course=course
-      model=unit
-      isLoaded=isLoaded
-      index=1
-      onExpandUnit=(action 'externalAction') }}
-    `);
-
-  const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
-  assert.ok($container.hasClass('collapsed'), 'Container collapsed');
-  assert.ok(!this.get('isLoaded'), 'Data not loaded');
-
-  $container.find('> .panel-heading > strong > a').click();
-  assert.ok($container.hasClass('expanded'), 'Container expanded');
-  assert.equal($container.find('.panel-heading .detail > span').text(), '2 ' + this.get('i18n').t('common.lessonObj', { count: 2}).string, 'Lesson text');
-  assert.equal($container.find('.accordion-unit > li.gru-accordion-lesson').length, 2, 'Number of lessons loaded');
-  assert.ok(this.get('isLoaded'), 'Data was loaded');
-});
-*/

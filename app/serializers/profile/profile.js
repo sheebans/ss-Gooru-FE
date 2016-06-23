@@ -65,7 +65,7 @@ export default Ember.Object.extend({
       'country_id': profile.get('countryId'),
       'state_id': profile.get('stateId'),
       'school_district_id': profile.get('schoolDistrictId'),
-      'thumbnail_path': cleanFilename(profile.get('avatarUrl'))
+      'thumbnail_path': cleanFilename(profile.get('avatarUrl'), this.get('session.cdnUrls'))
     };
 
     if(profile.get('state') && profile.get('state')!==''){
