@@ -40,7 +40,7 @@ export default GruInput.extend({
   didRender: function() {
     this._super(...arguments);
     const component = this;
-    // only accept numbers and no bigger than 100
+    // only accept numbers that are not smaller than min and no bigger than max
     component.$('input[type=number]').keypress(function(event){
       var key = window.event ? event.keyCode : event.which;
       var tempValue = +(this.value + String.fromCharCode(key));
