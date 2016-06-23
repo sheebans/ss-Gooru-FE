@@ -184,5 +184,6 @@ export const LATEX_EXPRESSIONS = {
   gt: "\\gt",
   lambda: "\\Lambda",
   omega: "\\Omega",
-  alpha: "\\alpha"
+  alpha: "\\alpha",
+  infinity: "\\infty"
 };
