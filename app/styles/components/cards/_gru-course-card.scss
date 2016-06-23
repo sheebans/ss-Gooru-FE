@@ -70,7 +70,8 @@
       @media(min-width: $screen-xs-max) {
         margin-top: -3px;
       }
-      .created {
+      .created,
+      .remixed {
         @media(max-width: $screen-xs-max) {
           display: none;
         }
