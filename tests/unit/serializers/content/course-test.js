@@ -14,7 +14,9 @@ test('serializeCreateCourse', function(assert) {
     taxonomy: [],
     subject: 'course-subject',
     useCase: "use-case",
-    metadata: {},
+    "metadata": {
+      "audience": [1]
+    }
   });
   const expected = {
     title: course.title,
@@ -41,7 +43,7 @@ test('serializeUpdateCourse', function (assert) {
     taxonomy: [],
     subject: 'course-subject',
     useCase: "use-case",
-    metadata: {},
+    audience: [1]
   });
   const expectedSerializedCourse = {
     title: courseModel.title,
@@ -51,7 +53,9 @@ test('serializeUpdateCourse', function (assert) {
     taxonomy: null,
     'subject_bucket': courseModel.subject,
     use_case: courseModel.useCase,
-    metadata: courseModel.metadata
+    "metadata": {
+      "audience": courseModel.audience
+    }
   };
   const serializedCourse = serializer.serializeUpdateCourse(courseModel);
   assert.deepEqual(serializedCourse, expectedSerializedCourse, 'Wrong serialized Course');
@@ -81,7 +85,9 @@ test('normalizeCourse', function (assert) {
     "original_course_id": null,
     "publish_status": "unpublished",
     "publish_date": null,
-    "metadata": {},
+    "metadata": {
+      "audience": [1]
+    },
     "thumbnail": "thumbnail.png",
     "taxonomy": {},
     "collaborator": [
@@ -123,6 +129,7 @@ test('normalizeCourse', function (assert) {
   assert.equal(normalizedCourse.get("children.length"), 2, 'Wrong children length');
   assert.equal(normalizedCourse.get("children")[0].get("id"), 'unit-id-1', 'Wrong first children id');
   assert.equal(normalizedCourse.get("thumbnailUrl"), contentCdnUrl + 'thumbnail.png', 'Wrong thumbnailUrl');
+  assert.equal(normalizedCourse.get("audience"), 1, 'Wrong audience');
 });
 
 test('normalizeGetCourses', function(assert) {
@@ -156,7 +163,9 @@ test('normalizeGetCourses', function(assert) {
           "school_district_id": null
         },
         "use_case": "course use case",
-        "metadata": {},
+        "metadata": {
+          "audience": [1]
+        }
       },
       {
         "id": "3fc882b2-dd9e-4957-9498-386984f156f7",
@@ -179,7 +188,9 @@ test('normalizeGetCourses', function(assert) {
           "school_district_id": null
         },
         "use_case": "course use case",
-        "metadata": {},
+        "metadata": {
+          "audience": [1]
+        }
       }
     ],
     "filters": {
