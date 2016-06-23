@@ -93,6 +93,8 @@ Router.map(function() {
 
   this.route('account-settings', { path: '/account-settings/:userId' });
 
+  this.route('integration', { path: '/integration/:appType'});
+  
   this.route('profile', { path: '/:userId' }, function() {
     this.route('about');
     this.route('edit');
