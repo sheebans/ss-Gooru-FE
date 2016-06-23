@@ -54,7 +54,7 @@ export default Ember.Object.extend({
   },
 
   serializeAssessment: function(assessmentModel) {
-    const thumbnail = cleanFilename(assessmentModel.get("thumbnailUrl"));
+    const thumbnail = cleanFilename(assessmentModel.get("thumbnailUrl"), this.get('session.cdnUrls'));
     return {
       title: assessmentModel.get('title'),
       learning_objective: assessmentModel.get("learningObjectives"),

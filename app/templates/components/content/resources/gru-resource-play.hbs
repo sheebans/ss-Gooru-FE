@@ -17,13 +17,13 @@
         </div>
       </div>
       <div class="publisher">
-        {{#if question.owner}}
+        {{#if resource.owner}}
           <span>
-            {{t (if question.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
+            {{t (if resource.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
           </span>
           <img class="img-responsive" src="{{question.owner.avatarUrl}}">
-          {{#link-to 'profile.content.courses' question.owner.id class="pointer" tagName="div"}}
-            <span class="owner">{{question.owner.displayName}}</span>
+          {{#link-to 'profile.content.courses' resource.owner.id class="pointer" tagName="div"}}
+            <span class="owner">{{resource.owner.displayName}}</span>
           {{/link-to}}
         {{/if}}
       </div>

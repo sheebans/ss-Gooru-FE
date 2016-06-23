@@ -80,6 +80,19 @@ export default Ember.Service.extend({
         .then(resolve, reject);
     });
   },
+  /**
+   * Remove Student From Class
+   * @param classId
+   * @param userId the user id to delete
+   * @returns {Promise}
+   */
+  removeStudentFromClass:function(classId,userId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').removeStudentFromClass(classId,userId)
+        .then(resolve, reject);
+    });
+  },
 
   /**
    * Join class

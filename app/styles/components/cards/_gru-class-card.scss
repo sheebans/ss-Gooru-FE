@@ -114,14 +114,20 @@
     .collaborators {
       color: $gray;
       margin-bottom: 15px;
+      text-align: center;
 
       .collaborator-avatar {
         @include border-top-radius(50%);
         @include border-bottom-radius(50%);
-        height: 1.4rem;
-        margin-right: 5px;
-        vertical-align: middle;
-        width: 1.4rem;
+        height: 30px;
+        width: 30px;
+      }
+      .name {
+        display: block;
+        @media (max-width: $screen-xs-max) {
+          @include text-overflow;
+          max-width: 115px;
+        }
       }
     }
 

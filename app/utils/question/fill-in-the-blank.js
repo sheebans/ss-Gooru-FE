@@ -43,8 +43,8 @@ export default QuestionUtil.extend({
    */
   isAnswerChoiceCorrect: function (answerChoice, index) {
     let correctAnswer = this.getCorrectAnswer();
-    return correctAnswer.contains(answerChoice) &&
-      correctAnswer.indexOf(answerChoice) === index;
+    let regex = new RegExp(`^${answerChoice}$`, 'i');
+    return correctAnswer[index] && regex.test(correctAnswer[index]);
   },
 
   /**

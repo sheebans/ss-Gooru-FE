@@ -20,7 +20,7 @@ const UserValidations = buildValidations({
       validator('presence', true),
       validator('length', {
         min: 4,
-        max: 20
+        max: 16
       }),
       validator('format', {
         regex: /^\w+$/,

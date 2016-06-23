@@ -256,6 +256,14 @@
                   @include text-hide();
                 }
               }
+
+              > a.score {
+                padding: 0;
+
+                > button {
+                  border: 0 none;
+                }
+              }
             }
 
             .panel-title {
@@ -280,7 +288,8 @@
         }
       }
 
-      .gru-accordion-lesson .panel-heading .score {
+      .gru-accordion-lesson .panel-heading .score,
+      .gru-accordion-lesson .panel-heading a.score > button {
         padding: 0.5em 0.8em;
         border-radius: 5px;
         color: $white;

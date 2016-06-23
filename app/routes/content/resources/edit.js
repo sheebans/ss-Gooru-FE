@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import EditResourceValidations from 'gooru-web/validations/edit-resource';
+import Resource from 'gooru-web/models/content/resource';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
@@ -38,13 +40,20 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // Methods
 
   model: function (params) {
-    var resource = this.get('resourceService').readResource(params.resourceId);
+    let route = this;
+    var resource = route.get('resourceService').readResource(params.resourceId).then(function(resource){
+      var EditResourceValidation = Resource.extend(EditResourceValidations);
+      var editResource = EditResourceValidation.create(Ember.getOwner(route).ownerInjection());
+      editResource.merge(resource, resource.modelProperties());
+      return editResource;
+    });
+
     var isEditing = params.editing;
 
     var collection = null;
 
     if(params.collectionId){
-      collection = this.get('collectionService').readCollection(params.collectionId);
+      collection = route.get('collectionService').readCollection(params.collectionId);
     }
     return Ember.RSVP.hash({
       resource: resource,

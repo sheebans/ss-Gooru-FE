@@ -30,7 +30,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     const userId = this.get('session.userId');
     const classId= classModel.get('id');
     const courseId = classModel.get('courseId');
-    const collectionType = params.filterBy ? {collectionType: params.filterBy} : {collectionType: 'both'};
+    // TODO This need to be reverted once we have the Collection Type dropdown with Collection and Both options enabled.
+    const collectionType = params.filterBy ? {collectionType: params.filterBy} : {collectionType: 'assessment'};
     const unitPerformances = this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units, collectionType);
 
     return Ember.RSVP.hash({

@@ -27,11 +27,11 @@
             <span class="btn btn-default btn-small">+{{remainingStandards}}</span>
           {{/if}}
         {{else}}
-          <span>{{t "common.add-standard"}}</span>
+          <span class="out-of-scope">{{t "common.add-standard"}}</span>
         {{/if}}
 
         <div class="actions">
-          <button class="btn add-item no-bgd" title="{{t 'common.add'}} "{{action 'add'}}>{{gru-icon name="add"}}</button>
+          <button class="btn add-item no-bgd out-of-scope" title="{{t 'common.add'}} "{{action 'add'}}>{{gru-icon name="add"}}</button>
           <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
             <div class="item-actions">
               {{partial 'content/partials/item-actions'}}

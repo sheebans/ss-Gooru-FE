@@ -96,6 +96,9 @@
           }
           .owner{
             color:$blue-400;
+            max-width: 160px;
+            @include text-overflow;
+            vertical-align: middle;
           }
         }
         .course{
