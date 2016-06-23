@@ -52,16 +52,19 @@ export default Ember.Object.extend({
 
   serializeCourse: function(courseModel) {
     const serializer = this;
-    return {
+    let serializedCourse = {
       title: courseModel.get('title'),
       description: courseModel.get('description'),
       thumbnail: cleanFilename(courseModel.get('thumbnailUrl')),
       'visible_on_profile': courseModel.get('isVisibleOnProfile'),
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(courseModel.get('taxonomy')),
       'subject_bucket': courseModel.get('subject'),
-      'metadata': courseModel.get('metadata'),
+      'metadata': courseModel.get('metadata') || {},
       'use_case': courseModel.get('useCase')
     };
+
+    serializedCourse.metadata['audience']= (courseModel.get("audience")) ? courseModel.get("audience") : [];
+    return serializedCourse;
   },
 
   /**
@@ -94,6 +97,7 @@ export default Ember.Object.extend({
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = payload.thumbnail ? basePath + payload.thumbnail : DEFAULT_IMAGES.COURSE;
     const owner = owners ? owners.findBy("id", payload.owner_id) : null;
+    const metadata = payload.metadata || {};
 
     return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: payload.id,
@@ -111,7 +115,8 @@ export default Ember.Object.extend({
       thumbnailUrl: thumbnailUrl,
       title: payload.title,
       unitCount: payload.unit_count ? payload.unit_count : 0,
-      metadata: payload.metadata,
+      metadata: metadata,
+      audience: metadata["audience"] && metadata["audience"].length > 0 ? metadata["audience"] : [],
       useCase: payload.use_case
       // TODO More properties will be added here...
     });

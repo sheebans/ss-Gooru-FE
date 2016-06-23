@@ -127,7 +127,6 @@ export default Ember.Component.extend({
    * @param {Number[]} selectedOptions - Array of values
    */
   getOptionsArray: function(allOptions, selectedOptions) {
-    console.log('selectedOptions ', selectedOptions);
     return allOptions.slice(0).map(function (object) {
       object.checked = selectedOptions && selectedOptions.indexOf(object.id) > -1;
       return Ember.Object.create(object);

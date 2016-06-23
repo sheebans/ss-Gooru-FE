@@ -11,7 +11,9 @@ test('serializeCreateQuestion', function(assert) {
     title: 'question-title',
     description: 'question-desc',
     narration: 'question-narration',
-    type: 'MA'
+    type: 'MA',
+    audience: [1],
+    depthOfknowledge: [4]
   });
   const response = serializer.serializeCreateQuestion(questionObject);
   assert.equal(response["title"], "question-title", "Wrong title");
@@ -19,6 +21,8 @@ test('serializeCreateQuestion', function(assert) {
   assert.equal(response["narration"], "question-narration", "Wrong narration");
   assert.equal(response["content_subformat"], "multiple_answer_question", "Wrong sub format");
   assert.equal(response["visible_on_profile"], true, "Wrong visible on profile");
+  assert.equal(response['metadata']['audience'][0], 1, 'Wrong audience');
+  assert.equal(response['metadata']['depth_of_knowledge'][0], 4, 'Wrong depth_of_knowledge');
 });
 
 test('serializeUpdateQuestion', function(assert) {
@@ -31,6 +35,8 @@ test('serializeUpdateQuestion', function(assert) {
     isVisibleOnProfile: false,
     questionType: 'word',
     standards: [],
+    audience: [1],
+    depthOfknowledge: [4],
     answers: Ember.A([
       AnswerModel.create({
         sequence: 1,
@@ -60,6 +66,9 @@ test('serializeUpdateQuestion', function(assert) {
   assert.equal(response['visible_on_profile'], false, 'Wrong visible_on_profile');
   assert.equal(response.answer.length, 3, 'Wrong answer array length');
   assert.equal(response.taxonomy, null, 'Wrong taxonomy object');
+  assert.equal(response['metadata']['audience'][0], 1, 'Wrong audience');
+  assert.equal(response['metadata']['depth_of_knowledge'][0], 4, 'Wrong depth_of_knowledge');
+
 });
 
 test('serializeAnswer', function(assert) {
@@ -129,7 +138,11 @@ test('normalizeReadQuestion', function(assert) {
         'answer_text': 'Answer #3 text',
         'answer_type': 'text'
       }
-    ]
+    ],
+    "metadata": {
+      "audience": [1],
+      "depth_of_knowledge": [4]
+    }
   };
 
   const question = serializer.normalizeReadQuestion(questionData);
@@ -144,6 +157,8 @@ test('normalizeReadQuestion', function(assert) {
   assert.equal(question.get('thumbnail'), "http://test-bucket01.s3.amazonaws.com/image.png", 'Wrong thumbnail');
   assert.equal(question.get('answers').length, 3, 'Wrong answers array length');
   assert.equal(question.get('order'), 3, 'Wrong order');
+  assert.equal(question.get("audience"), 1, 'Wrong audience');
+  assert.equal(question.get("depthOfknowledge"), 4, 'Wrong depthOfknowledge');
 });
 
 test('normalizeAnswer', function(assert) {
