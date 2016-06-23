@@ -49,11 +49,9 @@ export default Ember.Component.extend({
      * @return {Promise}
      */
     updatePath: function(item) {
-      /* TODO: Revisit this functionality
       this.get('shortcutTags').forEach(function(taxonomyTag) {
         taxonomyTag.set('isActive', false);
       });
-      */
       return this.updateSelectedPath(item);
     },
 
@@ -62,14 +60,15 @@ export default Ember.Component.extend({
      * @function actions:openShortcut
      * @param {TaxonomyTag} taxonomyTag
      */
-    /* TODO: Revisit this functionality
     openShortcut: function(taxonomyTag) {
+      taxonomyTag.set('isActive', true);
+      /* TODO: Revisit this functionality
       var path = taxonomyTag.get('taxonomyItem').getPath();
       taxonomyTag.set('isActive', true);
 
       return this.updateSelectedPath(path);
+      */
     },
-    */
 
     /**
      * Remove a tag from the selected tag list
@@ -120,18 +119,19 @@ export default Ember.Component.extend({
     this._super( ...arguments );
 
     var selected = this.get('selected');
-    var selectedTags = selected.map(function(tagData) {
-      return TaxonomyTag.create({
-        isActive: true,
-        isReadonly: true,
-        isRemovable: true,
-        data: tagData
-      });
+    var shortcuts = this.get('shortcuts');
+    var browseItems;
+
+    var selectedTags = this.getTaxonomyTags(selected, {
+      isActive: true,
+      isReadonly: true,
+      isRemovable: true
     });
 
-    this.set('selectedTags', Ember.A(selectedTags));
+    var shortcutTags = this.getTaxonomyTags(shortcuts);
 
-    //var shortcutTags, selectedPath;
+    this.set('selectedTags', selectedTags);
+    this.set('shortcutTags', shortcutTags);
 
     Ember.Logger.assert(this.get('subject.courses'), 'Courses not found for subject');
 
@@ -140,8 +140,11 @@ export default Ember.Component.extend({
 
       // Load data for selected items
       this.get('onInit')(selected).then(function() {
+        let taxonomyItems = this.get('taxonomyItems');
+        let maxLevels = this.get('maxLevels');
 
-        component.initBrowseItems();
+        browseItems = component.getBrowseItems(taxonomyItems, maxLevels);
+        this.set('browseItems', browseItems);
 
         Ember.run.scheduleOnce('afterRender', component, function() {
           var browseItems = component.get('browseItems');
@@ -173,16 +176,12 @@ export default Ember.Component.extend({
 
       });
     } else {
-      this.initBrowseItems();
-    }
+      let taxonomyItems = this.get('taxonomyItems');
+      let maxLevels = this.get('maxLevels');
 
-    /* TODO: Revisit this functionality
-    shortcutTags = this.get('shortcuts').map(function(taxonomyItem) {
-      return TaxonomyTag.create({
-        taxonomyItem: taxonomyItem
-      });
-    });
-    */
+      browseItems = this.getBrowseItems(taxonomyItems, maxLevels);
+      this.set('browseItems', browseItems);
+    }
 
     /* TODO: Revisit this functionality
     this.set('shortcutTags', shortcutTags);
@@ -256,17 +255,7 @@ export default Ember.Component.extend({
   /**
    * @property {TaxonomyTagData[]} shortcuts - List of references to a set of taxonomy tag data.
    */
-  /* TODO: Revisit this functionality
   shortcuts: [],
-  */
-
-  /**
-   * @property {TaxonomyTag[]} shortcutTags - List of taxonomy tags to use as shortcuts in the
-   * browse item tree (@see shortcuts).
-   */
-  /* TODO: Revisit this functionality
-  shortcutTags: [],
-  */
 
   /**
    * @property {String} shortcutText - Intro text for shortcuts.
@@ -314,13 +303,38 @@ export default Ember.Component.extend({
     }.bind(this));
   },
 
-  initBrowseItems: function() {
-    var maxLevels = this.get('maxLevels');
-    var browseItems = this.get('taxonomyItems').map(function(taxonomyItem) {
+  /**
+   * Get an array of browse items from a list of taxonomy items
+   *
+   * @param TaxonomyItems[]
+   * @param maxLevels
+   * @returns {BrowseItems[]}
+   */
+  getBrowseItems: function(taxonomyItems, maxLevels) {
+    return taxonomyItems.map(function(taxonomyItem) {
       return BrowseItem.createFromTaxonomyItem(taxonomyItem, maxLevels);
     });
+  },
 
-    this.set('browseItems', browseItems);
+  /**
+   * Get a list of taxonomy tags from a list of taxonomy tag data and a configuration object
+   *
+   * @param {TaxonomyTagData[]} tagData
+   * @param {Object} config
+   * @returns {TaxonomyTag[]}
+   */
+  getTaxonomyTags: function(tagData, config = {}) {
+    var tags = [];
+
+    if (tagData && tagData.length) {
+      tags = tagData.map(function(data) {
+        let props = {};
+        $.extend(props, config, { data: data });
+
+        return TaxonomyTag.create(props);
+      });
+    }
+    return Ember.A(tags);
   }
 
 });

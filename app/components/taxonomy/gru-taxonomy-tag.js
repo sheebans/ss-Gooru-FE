@@ -23,9 +23,8 @@ export default Ember.Component.extend({
 
   actions: {
 
-    toggleState: function() {
+    selectTag: function() {
       if (this.get('onSelect')){
-        this.toggleProperty('model.isActive');
         this.get('onSelect')(this.get('model'));
       }
     },

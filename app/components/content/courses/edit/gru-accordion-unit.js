@@ -115,10 +115,11 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
       var subject = this.get('course.mainSubject');
       var subjectDomains = TaxonomyTagData.filterBySubject(subject, domains);
       var notInSubjectDomains = TaxonomyTagData.filterByNotInSubject(subject, domains);
+      var shortcuts = TaxonomyTagData.filterBySubject(subject, this.get('course.taxonomy'));
 
       var model = {
         selected: subjectDomains,
-        shortcuts: null,  // TODO: TBD
+        shortcuts: shortcuts,
         subject: subject,
         callback: {
           success: function(selectedTags) {
