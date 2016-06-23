@@ -92,39 +92,6 @@ export default Ember.Service.extend({
    * Gets the Taxonomy Domains for a Course from the cached taxonomy. If the domains are not available then fetch
    * them from the Taxonomy API.
    *
-   * @param {TaxonomyItem} course - The taxonomy course
-   * @returns {Promise}
-   */
-  getDomains(subject, course) {
-    const service = this;
-    const apiTaxonomyService = service.get('apiTaxonomyService');
-    return new Ember.RSVP.Promise(function(resolve) {
-      if (subject && course) {
-        if (course.get('children') && course.get('children.length') > 0) {
-          resolve(course.get('children'));
-        } else {
-          apiTaxonomyService.fetchDomains(subject.get('frameworkId'), subject.get('id'), course.get('id'))
-            .then(function (domains) {
-              course.set('children', domains);
-              domains.forEach(function(domain) {
-                domain.setProperties({
-                  parent: course,
-                  level: 2
-                });
-              });
-              resolve(domains);
-            });
-        }
-      } else {
-        resolve(null);
-      }
-    });
-  },
-
-  /**
-   * Gets the Taxonomy Domains for a Course from the cached taxonomy. If the domains are not available then fetch
-   * them from the Taxonomy API.
-   *
    * @param {TaxonomyRoot} subject - The subject
    * @param {String} courseId - ID of course for which to find the domains
    * @returns {Promise}
@@ -152,36 +119,6 @@ export default Ember.Service.extend({
 
       } else {
         resolve(course.get('children'));
-      }
-    });
-  },
-
-  /**
-   * Gets the Taxonomy Codes for a Domain from the cached taxonomy. If the codes are not available then fetch
-   * them from the Taxonomy API.
-   *
-   * @param subject
-   * @param course
-   * @param domain
-   * @returns {Ember.RSVP.Promise}
-   */
-  getCodes: function(subject, course, domain) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve) {
-      if (subject && course && domain) {
-        if (domain.get('children') && domain.get('children.length') > 0) {
-          resolve(domain.get('children'));
-        } else {
-          const apiTaxonomyService = service.get('apiTaxonomyService');
-          apiTaxonomyService.fetchCodes(subject.get('frameworkId'), subject.get('id'), course.get('id'), domain.get('id'))
-            .then(function (codes) {
-              const organizedCodes = service.organizeCodes(codes);
-              domain.set('children', organizedCodes);
-              resolve(organizedCodes);
-            });
-        }
-      } else {
-        resolve([]);
       }
     });
   },
@@ -267,22 +204,6 @@ export default Ember.Service.extend({
           });
         }
       }
-    }
-    return result;
-  },
-
-  findCourse: function(subject, courseId) {
-    var result = null;
-    if (subject) {
-      result = subject.get('courses').findBy('id', courseId);
-    }
-    return result;
-  },
-
-  findDomain: function(course, domainId) {
-    var result = null;
-    if (course) {
-      result = course.get('children').findBy('id', domainId);
     }
     return result;
   },
