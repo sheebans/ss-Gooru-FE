@@ -2,6 +2,9 @@
   .btn-toolbar {
     position: relative;
       .btn.btn-math {
+        margin-left: 8px;
+        color:$white;
+        background-color: $blue-300;
         border-right: 1px solid $white;
         font-weight: bold;
         font-size: $font-size-base;
@@ -50,7 +53,7 @@
           }
           .actions {
             text-align: right;
-            padding: 5px;
+            padding: 15px 5px 5px 5px;
             display: block;
             .btn {
               float: none;
