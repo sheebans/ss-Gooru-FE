@@ -113,8 +113,11 @@ export default Ember.Object.extend({
       let children = this.get('children');
       if (children.length) {
         for (let i = children.length - 1; i >= 0; --i) {
-          result = children[i].findItem(itemId);
-          if (result) { break; }
+          let item = children[i].isSimilar(itemId);
+          if (item) {
+            result = item.findItem(itemId);
+            if (result) { break; }
+          }
         }
       }
     }
@@ -122,6 +125,17 @@ export default Ember.Object.extend({
     return result;
   },
 
+  /**
+   * @function Is
+   */
+  isSimilar: function(itemId) {
+    var result = null;
+
+    if (this.get('id').indexOf(itemId) > -1) {
+      result = this;
+    }
+    return result;
+  },
 
   /**
    * @function Destroy an item and all its descendents.
