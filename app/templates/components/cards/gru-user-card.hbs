@@ -8,4 +8,9 @@
     <span class="display-name">{{user.username}}</span>
   {{/if}}
 {{/link-to}}
+{{#if isTeacherAndStudentCard}}
+<span class="remove" {{action 'removeStudent'}}>
+    {{t 'common.remove'}}
+</span>
+{{/if}}
 
