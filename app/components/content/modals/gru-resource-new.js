@@ -189,7 +189,6 @@ export default Ember.Component.extend({
       existingResource = resource;
       return profileService.readUserProfile(resource.get('owner'));
     }).then(function(owner) {
-      console.log(existingResource);
       existingResource.set('owner', owner);
       component.set("existingResource", existingResource);
     });
