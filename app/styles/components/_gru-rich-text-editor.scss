@@ -31,53 +31,65 @@
       &.show {
         display: block;
       }
-      .equation-wrapper {
-        padding: 10px;
-        text-align: center;
-        .math-field {
-          padding: 5px;
-          text-align: left;
-          border-color: $gray-lighter;
-          outline: none;
-          .mq-empty {
-            background: $sky-100;
-          }
-        }
-      }
-      .nav {
-        white-space: nowrap;
-        font-size: $font-size-small;
-        border-bottom: 1px solid $gray-lighter;
-        border-top: 1px solid $gray-lighter;
-        li {
-          &.active {
-            a {
-              background-color: $gray-lighter;
+      .equation-editor{
+        @include flexbox;
+        .equation-wrapper {
+          display: inline-block;
+          width: 38%;
+          padding: 10px;
+          text-align: center;
+          .math-field {
+            width: 100%;
+            height: 56px;
+            padding: 5px;
+            text-align: left;
+            border-color: $gray-lighter;
+            outline: none;
+            .mq-empty {
+              background: $sky-100;
             }
           }
-          a {
-            padding: 4px 10px;
-            @include box-shadow(none);
-            @include border-bottom-radius(0);
-            @include border-top-radius(0);
+          .actions {
+            text-align: right;
+            padding: 5px;
+            display: block;
+            .btn {
+              float: none;
+            }
           }
         }
-      }
-      .tab-pane {
-        padding: 10px;
-        a {
-          display: inline-block;
-          padding: 10px;
-          margin: 3px;
-          border: 1px solid $gray-lighter;
-          line-height: 1;
+        .nav {
+          white-space: nowrap;
+          font-size: $font-size-small;
+          border-bottom: 1px solid $gray-lighter;
+          border-top: 1px solid $gray-lighter;
+          li {
+            &.active {
+              a {
+                background-color: $gray-lighter;
+              }
+            }
+            a {
+              padding: 4px 10px;
+              @include box-shadow(none);
+              @include border-bottom-radius(0);
+              @include border-top-radius(0);
+            }
+          }
         }
-      }
-      .actions {
-        text-align: right;
-        padding: 5px;
-        .btn {
-          float: none;
+        .tab-content{
+          display: inline-block;
+          width: 62%;
+          .tab-pane {
+            padding: 10px;
+            a {
+              display: inline-block;
+              padding: 5px;
+              margin: 3px;
+              border: 1px solid $gray-lighter;
+              line-height: 1;
+            }
+          }
         }
       }
     }

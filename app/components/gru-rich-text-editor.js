@@ -17,6 +17,9 @@ export default Ember.Component.extend({
 
   actions: {
     toggleExpressionsPanel() {
+      if(this.get('showExpressionsPanel')){
+        this.cancelExpression();
+      }
       this.toggleProperty('showExpressionsPanel');
     },
     insertExpression() {
@@ -46,11 +49,6 @@ export default Ember.Component.extend({
           component.makeExpressionsReadOnly();
         }
       }
-    },
-    cancelExpression() {
-      this.set('showExpressionsPanel', false);
-      this.get('mathField').latex(""); // Clear math field
-      this.set('editingExpression', null);
     }
   },
 
@@ -65,7 +63,7 @@ export default Ember.Component.extend({
     var MQ = MathQuill.getInterface(2);
     component.set('mathField', MQ.MathField(mathFieldSpan));
     component.set('MQ', MQ);
-    
+
     // Initialize RTE
     var editor = new wysihtml5.Editor("wysihtml-editor", {
       toolbar: "wysihtml-toolbar",
@@ -122,7 +120,7 @@ export default Ember.Component.extend({
   showExpressionsPanel: false,
 
   /**
-   * @property {DOMElement} Reference to the DOM element of the editing expression 
+   * @property {DOMElement} Reference to the DOM element of the editing expression
    */
   editingExpression: null,
 
@@ -182,5 +180,12 @@ export default Ember.Component.extend({
    */
   makeExpressionsReadOnly() {
     this.$('.katex').attr('contenteditable', false);
+  },
+  /**
+   * Cancel expression panel
+   */
+  cancelExpression() {
+    this.get('mathField').latex(""); // Clear math field
+    this.set('editingExpression', null);
   }
 });

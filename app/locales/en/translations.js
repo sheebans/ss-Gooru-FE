@@ -1175,8 +1175,8 @@ export default {
         "symbols": "Symbols",
         "trigonometry": "Trigonometry"
       },
-      "insert-expression": "Insert Expression",
-      "update-expression": "Update Expression"
+      "insert-expression": "Insert",
+      "update-expression": "Update"
     }
   }
 };
