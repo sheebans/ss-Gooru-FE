@@ -292,7 +292,7 @@ export default Ember.Object.extend({
       isVisibleOnProfile: result.visibleOnProfile,
       isPublished: result.publishStatus === 'published',
       unitCount: result.unitCount,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo),
+      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo, TAXONOMY_LEVELS.COURSE),
       owner: result.owner ? serializer.normalizeOwner(result.owner) : null,
       sequence: result.sequence
     });

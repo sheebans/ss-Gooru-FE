@@ -14,7 +14,8 @@ import {
   getLetter,
   numberSort,
   generateUUID,
-  cleanFilename
+  cleanFilename,
+  getFileNameFromInvalidUrl,
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -191,9 +192,15 @@ test('Check Uuid format', function (assert) {
 
 test('Clean filename', function (assert) {
   var id = generateUUID() + '.png';
-  var url = `//test-bucket01.s3.amazonaws.com/${id}`;
-  assert.equal(cleanFilename(url), id, 'Wrong filename with complete url.');
-  assert.equal(cleanFilename(`http:${url}`), id, 'Wrong filename with complete url.');
+  var url = `//test-bucket01.s3.amazonaws.com/test/${id}`;
+  assert.equal(cleanFilename(url), `test/${id}`, 'Wrong filename with complete url.');
+  assert.equal(cleanFilename(`http:${url}`), `test/${id}`, 'Wrong filename with complete url.');
   assert.equal(cleanFilename(id), id, 'Wrong filename without complete url.');
   assert.equal(cleanFilename(null), '', 'Wrong filename without complete url.');
+  assert.equal(cleanFilename(url, {content: '//test-bucket01.s3.amazonaws.com/test/'}), id, 'Wrong filename with cdn urls.');
+});
+
+test('Get File Name from Invalid URL', function (assert) {
+  var url = "//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf";
+  assert.equal(getFileNameFromInvalidUrl(url), "FromAtoZinc.pdf", 'Wrong filename.');
 });

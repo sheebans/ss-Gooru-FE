@@ -189,7 +189,7 @@ export default {
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required": "Please enter the unit title.",
       "user-email-presence": "Please enter a valid email.",
-      "username-length": "Username must be between 4 and 10 characters."
+      "username-length": "Username must be between 4 and 16 characters."
     },
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
@@ -219,6 +219,7 @@ export default {
     "learning-target-mobile": "Micro-standard in Standard",
     "lesson": "Lesson",
     "lessonInitial": "L",
+    "lesson-title": "Lesson Title",
     "lessonObj": {
       one: "Lesson",
       other: "Lessons"
@@ -1048,8 +1049,11 @@ export default {
       }
     },
     "gru-course-card": {
-      "units": "Units",
       "in": "in",
+      "units": {
+        one: "{{count}} Unit",
+        other: "{{count}} Units"
+      },
       "resource": {
         one: "{{count}} Resource",
         other: "{{count}} Resources"
@@ -1124,7 +1128,7 @@ export default {
   },
   "featured": {
     "featured-title": "Featured Courses",
-    "featured-description": "Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
+    "featured-description": "Catch a sneak peek of one or more units of study in many featured courses! Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! All course content will be available in August 2016. Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
   },
 
   "taxonomy.modals": {

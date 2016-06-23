@@ -90,7 +90,8 @@ export default Ember.Object.extend({
     var serializedAnswer = {
       'sequence': sequenceNumber,
       'is_correct': answerModel.get('isCorrect') ? 1 : 0,
-      'answer_text': isHotSpotImage ? cleanFilename(answerModel.get('text')) : answerModel.get('text'),
+      'answer_text': isHotSpotImage ? cleanFilename(answerModel.get('text'), this.get('session.cdnUrls')) :
+        answerModel.get('text'),
       'answer_type': answerModel.get('type')
     };
     if (answerModel.get('highlightType')) {
