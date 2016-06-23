@@ -3,6 +3,8 @@ import QuestionResult from 'gooru-web/models/result/question';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Component.extend({
+
+  session: Ember.inject.service('session'),
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -61,6 +63,14 @@ export default Ember.Component.extend({
    */
   tags: Ember.computed('question.standards.[]', function() {
     return TaxonomyTag.getTaxonomyTags(this.get("question.standards"), false);
+  }),
+
+
+  /**
+   * @property {Boolean} Whether or not the currently logged in user is the creator/owner of the question
+   */
+  isCreator: Ember.computed('question.owner', function(){
+    return this.get('question.owner.id') === this.get('session.userId') ? true : false;
   })
 
 });

@@ -89,6 +89,13 @@ export default Ember.Component.extend({
     return TaxonomyTag.getTaxonomyTags(this.get("resource.standards"), false);
   }),
 
+  /**
+   * @property {Boolean} Whether or not the currently logged in user is the creator/owner of the resource
+   */
+  isCreator: Ember.computed('resource.owner', function(){
+    return this.get('resource.owner.id') === this.get('session.userId') ? true : false;
+  }),
+
 
   // -------------------------------------------------------------------------
   // Methods
