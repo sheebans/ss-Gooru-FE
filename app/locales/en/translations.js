@@ -1185,7 +1185,8 @@ export default {
         "trigonometry": "Trigonometry"
       },
       "insert-expression": "Insert",
-      "update-expression": "Update"
+      "update-expression": "Update",
+      "select-expression": "Select Expression"
     }
   }
 };
