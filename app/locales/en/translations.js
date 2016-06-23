@@ -100,6 +100,7 @@ export default {
       "links-inaccessible": "All share links will be inaccessible",
       "content-inaccessible": "All content will be inaccessible to the classrooms tied to it"
     },
+    "depth-of-knowledge": "Depth of Knowledge",
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -629,6 +630,15 @@ export default {
     "legend": "You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
     "remove-error": "Oops! Unable to remove {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “remove” below and click “remove”."
+  },
+  "content.modals.remove-student": {
+    "title":"Remove student and delete their data",
+    "legend": "You are about to remove {{studentName}} from this classroom and delete all of their data.",
+    "data-inaccessible":"All their data will be deleted and not accessible by you or them",
+    "classroom-access":"They will not have access to the classroom or content",
+    "data-lost":"If they re-join the class, all past data will be lost",
+    "remove-error": "Oops! Unable to remove this student right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
   },
   "content.resources": {
     "edit": {
