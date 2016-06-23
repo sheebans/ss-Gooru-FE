@@ -1,0 +1,17 @@
+.controller.content-questions {
+  padding: 20px 20px;
+  .questions {
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include justify-content(center);
+    .card {
+      margin-top: 15px;
+      margin-right: 15px;
+      float: left;
+    }
+  }
+
+  .show-more-results {
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,30 @@
+<div class="controller overview">
+  <div class="fixed">
+    <div class="overview-header">
+      <div>
+        <h3>{{t 'common.course-map'}}</h3>
+      </div>
+      {{#if classController.isStudent}}
+        <button {{action "updateLocation" userLocation}} class="btn btn-info locate">
+          <span>{{gru-icon name='near_me'}}{{t "class.overview.locate"}}</span>
+        </button>
+      {{else}}
+        <button {{action "editContent" course.id}} class="btn btn-default edit-content">
+          {{t "class.overview.editContent"}}
+        </button>
+      {{/if}}
+    </div>
+  </div>
+
+  {{class.overview.gru-accordion-course
+    currentClass=class
+    classMembers=classMembers
+    onSelectResource="playResource"
+    onLocationUpdate=(action 'updateLocation')
+    onLaunchOnAir="launchOnAir"
+    userLocation=userLocation
+    location=openingLocation
+    units=units
+    isTeacher=classController.isTeacher}}
+
+</div>

@@ -1,0 +1,46 @@
+.content.modals.gru-resource-new{
+  .header-add-url {
+    width: 100%;
+    float: left;
+    margin-bottom: 12px;
+  }
+  span.title{
+    font-size: $font-size-large;
+  }
+  .icon{
+    margin-right:5px;
+    color: $light-300;
+    i{
+      vertical-align: bottom;
+    }
+  }
+  .url-label,.title-label, .type{
+    margin-left: 10px;
+    .gru-input {
+      width: 100%;
+    }
+  }
+  .validation.error {
+    position: relative;
+    top: -15px;
+  }
+  .lead {
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .actions.resource-new{
+    margin-top: 10px;
+  }
+  .panel.active{
+    opacity:0.6;
+  }
+  .existing-resource-message{
+    height: 285px;
+    border: 1px solid $light-200;
+    border-radius: 6px;
+    background-color: $light-100;
+    .gru-resource-card{
+      margin: 14px auto;
+    }
+  }
+}

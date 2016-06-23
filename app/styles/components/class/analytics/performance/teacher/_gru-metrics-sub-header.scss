@@ -1,0 +1,15 @@
+.gru-metrics-table{
+  .sub-header{
+    a{
+      cursor: pointer;
+      color:$white;
+      opacity: 0.6;
+      &:hover,
+      &:visited {
+        text-decoration: none;
+        color:$white;
+        opacity: 0.6;
+      }
+    }
+  }
+}

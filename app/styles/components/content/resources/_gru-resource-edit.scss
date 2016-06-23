@@ -1,0 +1,12 @@
+.content.resources.edit {
+  .panel-body {
+    .form-field {
+      &.title {
+        padding-left: 0;
+      }
+    }
+  }
+  .tags {
+    margin: 10px 0px;
+  }
+}

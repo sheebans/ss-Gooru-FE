@@ -1,0 +1,64 @@
+{
+  "id": "d4521a45-dcd1-4540-bba1-64af8fd2d6ec",
+  "title": "Assessment Title",
+  "owner_id": "74e5f5f1-a5b4-43e9-b9a7-00e095233419",
+  "creator_id": "74e5f5f1-a5b4-43e9-b9a7-00e095233419",
+  "original_creator_id": null,
+  "original_collection_id": null,
+  "publish_date": null,
+  "thumbnail": null,
+  "learning_objective": null,
+  "audience": null,
+  "metadata": null,
+  "taxonomy": null,
+  "orientation": "student",
+  "setting": null,
+  "grading": "system",
+  "visible_on_profile": true,
+  "question": [{
+    "id": "9ddc7da1-bcb1-4ba6-9bfd-b703999f6ec1",
+    "title": "title",
+    "creator_id": "74e5f5f1-a5b4-43e9-b9a7-00e095233419",
+    "original_creator_id": null,
+    "publish_date": null,
+    "short_title": "short title",
+    "content_subformat": "multiple_answer_question",
+    "answer": [{
+      "answer1": "none",
+      "isCorrect": false
+    }, {
+      "answer2": "all",
+      "isCorrect ": true
+    }],
+    "metadata": null,
+    "taxonomy": null,
+    "depth_of_knowledge": null,
+    "hint_explanation_detail": null,
+    "thumbnail": null,
+    "sequence_id": 1,
+    "visible_on_profile": true
+  }, {
+    "id": "c641be79-6f63-4f2a-ae3c-0984c9434cf3",
+    "title": "title",
+    "creator_id": "74e5f5f1-a5b4-43e9-b9a7-00e095233419",
+    "original_creator_id": null,
+    "publish_date": null,
+    "short_title": "short title",
+    "content_subformat": "multiple_answer_question",
+    "answer": [{
+      "answer1": "none",
+      "isCorrect": false
+    }, {
+      "answer2": "all",
+      "isCorrect ": true
+    }],
+    "metadata": null,
+    "taxonomy": null,
+    "depth_of_knowledge": null,
+    "hint_explanation_detail": null,
+    "thumbnail": null,
+    "sequence_id": 2,
+    "visible_on_profile": true
+  }],
+  "collaborator": []
+}

@@ -1,0 +1,53 @@
+<div class="content-navigation">
+    <div class="category-menu">
+        <ul class="nav nav-tabs category-options">
+          {{#link-to "profile.content.courses" tagName="li" class='courses'}}
+              <a href='{{view.href}}' class="btn btn-category">
+                {{gru-icon name='chrome_reader_mode'}}
+                  <span>{{t "common.courses"}}</span>
+              </a>
+          {{/link-to}}
+          {{#link-to "profile.content.collections" tagName="li" class='collections'}}
+              <a href='{{view.href}}' class="btn btn-category">
+                  <i class="icon"></i>
+                  <span>{{t "common.collections"}}</span>
+              </a>
+          {{/link-to}}
+          {{#link-to "profile.content.assessments" tagName="li" class='assessments'}}
+              <a href='{{view.href}}' class="btn btn-category">
+                  <i class="icon"></i>
+                  <span>{{t "common.assessments"}}</span>
+              </a>
+          {{/link-to}}
+          {{#link-to "profile.content.resources" tagName="li" class='resources'}}
+              <a href='{{view.href}}' class="btn btn-category">
+                  <i class="icon"></i>
+                  <span>{{t "common.resources"}}</span>
+              </a>
+          {{/link-to}}
+          {{#link-to "profile.content.questions" tagName="li" class='questions'}}
+              <a href='{{view.href}}' class="btn btn-category">
+                {{gru-icon name='help_outline '}}
+                  <span>{{t "common.questions"}}</span>
+              </a>
+          {{/link-to}}
+        </ul>
+
+    </div>
+    {{#if isMyProfile}}
+      <div class="btn-group hidden-xs">
+        <a href="#" class="btn btn-success" data-toggle="dropdown"><span class="hidden-sm">{{t "common.add"}}</span>{{gru-icon name="add" class="visible-sm-inline symbol"}}</a>
+        <a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><a class="course" href="#" {{action "showModal" "content.modals.gru-course-new"}}><i></i>{{t "common.course"}}</a></li>
+          <li><a class="collection" href="#" {{action "showModal" "content.modals.gru-collection-new"}}><i></i>{{t "common.collection"}}</a></li>
+          <li><a class="assessment" href="#" {{action "showModal" "content.modals.gru-assessment-new"}}><i></i>{{t "common.assessment"}}</a></li>
+          <li><a class="resource" href="#" {{action "showModal" "content.modals.gru-resource-new"}}><i></i>{{t "common.resource"}}</a></li>
+          <li><a class="question" href="#" {{action "showModal" "content.modals.gru-question-new"}}><i></i>{{t "common.question"}}</a></li>
+        </ul>
+      </div>
+    {{/if}}
+</div>
+<div class="content_outlet">
+  {{outlet}}
+</div>

@@ -1,0 +1,93 @@
+.content-navigation {
+  @include flexbox;
+  @include align-items(center);
+  @include justify-content(space-between);
+  background-color: $dark-400;
+  height: 50px;
+  width: 100%;
+
+  .category-menu {
+    width: 100%;
+    @media (min-width: $screen-sm-min) {
+      margin-left: 0;
+      width: auto;
+
+      ul {
+        margin-left: 0;
+
+        li {
+
+          &:first-of-type {
+            margin-left: 10px;
+          }
+
+          &:last-of-type {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+    @media (min-width: $screen-md-min) {
+      margin-left: 20px;
+    }
+  }
+  .btn-group {
+    margin-right: 10px;
+    @media (min-width: $screen-md-min) {
+      margin-right: 30px;
+    }
+    .btn {
+      font-size: $font-size-base;
+      .symbol {
+        font-size: $font-size-base * 1.6;
+        line-height: $font-size-base;
+        margin: 0 -8px;
+      }
+    }
+    .dropdown-toggle {
+      background-color: $green-300;
+    }
+    .dropdown-menu {
+      padding: 0;
+      min-width: 150px;
+
+      li {
+        text-align: center;
+        border-bottom: 1px solid $light-200;
+        &:last-child {
+          border-bottom: 0;
+        }
+        a {
+          text-align: left;
+          padding: 10px;
+
+          i {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+            margin-right: 12px;
+            background-repeat: no-repeat;
+            background-position: center center;
+          }
+
+          &.course i { background-image: url("gooru/images/add_course.svg"); }
+          &.collection i { background-image: url("gooru/images/add_collection.svg"); }
+          &.assessment i { background-image: url("gooru/images/add_assessment.svg"); }
+          &.resource i { background-image: url("gooru/images/add_resource.svg"); }
+          &.question {
+            padding: 7px 10px 7px 8px;
+
+            i {
+              background-image: url("gooru/images/add_question.svg");
+              margin-right: 9px;
+              width: 30px;
+              height: 30px;
+              @include scale(0.8);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.app-container {
+  height:100vh;
+  padding-top: 55px;
+  @media (min-width: $screen-md) {
+    padding-top: 63px;
+  }
+  > .controller {
+    min-height:100%;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    -webkit-align-content: flex-start;
+    align-content: flex-start;
+
+    display: flex;
+
+    @media (min-width: $screen-md) {
+      -webkit-flex-direction: row;
+      flex-direction: row;
+    }
+    > * {
+      width:100%;
+    }
+    > .navigation {
+      @media (min-width: $screen-md) {
+        width: 20%;
+      }
+      background: $blue-500; /* Old browsers */
+      background: -moz-linear-gradient(left, $blue-500 0%, $blue-400 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(left, $blue-500 0%,$blue-400 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(-90deg, $blue-500 0%, $blue-400 100%);
+      box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.50);
+      * {
+        background-color:transparent;
+      }
+    }
+    > .content {
+      @media (min-width: $screen-md) {
+        width: 80%;
+      }
+      &.full-screen {
+        width: 100%;
+      }
+    }
+  }
+}

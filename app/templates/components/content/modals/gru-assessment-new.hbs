@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{t "common.add-assessment"}}</h4>
+</div>
+<div class="modal-body">
+    <form {{action "create" on="submit"}}>
+        <label>
+            <span class="required">{{t 'common.assessment-title'}}</span>
+          {{validation.gru-input model=assessment valuePath='title' maxLength=50}}
+        </label>
+        <div class="actions">
+            <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+                <span aria-hidden="true">{{t 'common.cancel'}}</span>
+            </button>
+            <button type="submit" class="btn btn-primary add">{{t 'common.add'}}</button>
+        </div>
+    </form>
+</div>

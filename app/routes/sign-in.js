@@ -1,28 +1,18 @@
-import Ember from 'ember';
+import Ember from "ember";
+import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(PublicRouteMixin, {
 
-  model: function() {
-    return this.store.createRecord('sign-in');
-  },
+  // -------------------------------------------------------------------------
+  // Methods
 
-  actions: {
-
-    signIn: function() {
-      var self = this;
-      this.controller.get('model').save().then(
-        function() {
-          //var session = self.store.peekRecord('session', model.id);
-          self.transitionTo('index');
-          //self.transitionTo('index', session);
-        });
-    },
-
-    // clear a potentially stale error message from previous login attempts
-    setupController: function(controller, model) {
-      controller.set('errorMessage', null);
-    }
+  /**
+   * Set all controller properties used in the template
+   * @param controller
+   * @param model
+   */
+  setupController: function(controller) {
+    controller.resetProperties();
   }
-
 
 });

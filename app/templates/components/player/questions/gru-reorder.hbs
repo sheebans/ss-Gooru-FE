@@ -1,0 +1,15 @@
+
+<p class="instructions">
+  {{t "player.gru-reorder.instructions"}}
+</p>
+
+<div class="answer-choices">
+    <ul class="sortable {{if readOnly 'disabled'}} {{if areAnswersShuffled 'show' 'hidden'}}">
+      {{#each answers as |answer|}}
+        <li data-id="{{answer.id}}">
+          {{gru-icon name='menu'}}
+          <div>{{{answer.text}}}</div>
+        </li>
+      {{/each}}
+    </ul>
+</div>

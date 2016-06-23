@@ -1,0 +1,83 @@
+<div id="wysihtml-toolbar" class="btn-toolbar" role="toolbar">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-primary" data-wysihtml5-command="bold" title="{{t 'gru-rich-text-editor.bold'}}">
+      <strong>B</strong>
+    </button>
+    <button type="button" class="btn btn-primary" data-wysihtml5-command="italic" title="{{t 'gru-rich-text-editor.italic'}}">
+      <i>I</i>
+    </button>
+    <button type="button" class="btn btn-primary" data-wysihtml5-command="underline" title="{{t 'gru-rich-text-editor.underline'}}">
+      <u>U</u>
+    </button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-primary" data-wysihtml5-command="superscript" title="{{t 'gru-rich-text-editor.superscript'}}">
+      x<sup>2</sup>
+    </button>
+    <button type="button" class="btn btn-primary" data-wysihtml5-command="subscript" title="{{t 'gru-rich-text-editor.subscript'}}">
+      x<sub>2</sub>
+    </button>
+  </div>
+  <div class="btn-group out-of-scope" role="group">
+    <button type="button" class="btn btn-primary add-function {{if showExpressionsPanel 'active'}}" title="{{t 'gru-rich-text-editor.expression'}}" {{action 'toggleExpressionsPanel'}}>
+      {{gru-icon name="functions"}}
+    </button>
+  </div>
+  <div class="expressions-panel {{if showExpressionsPanel 'show'}}">
+    <div class="equation-wrapper">
+      <span class="math-field"></span>
+    </div>
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#layout" aria-controls="layout" role="tab" data-toggle="tab">{{t 'gru-rich-text-editor.expressions-panel.tabs.layout'}}</a></li>
+      <li role="presentation"><a href="#calculus" aria-controls="calculus" role="tab" data-toggle="tab">{{t 'gru-rich-text-editor.expressions-panel.tabs.calculus'}}</a></li>
+      <li role="presentation"><a href="#trigonometry" aria-controls="trigonometry" role="tab" data-toggle="tab">{{t 'gru-rich-text-editor.expressions-panel.tabs.trigonometry'}}</a></li>
+      <li role="presentation"><a href="#set-theory" aria-controls="set-theory" role="tab" data-toggle="tab">{{t 'gru-rich-text-editor.expressions-panel.tabs.set-theory'}}</a></li>
+      <li role="presentation"><a href="#symbols" aria-controls="symbols" role="tab" data-toggle="tab">{{t 'gru-rich-text-editor.expressions-panel.tabs.symbols'}}</a></li>
+      <li role="presentation"><a href="#relation" aria-controls="relation" role="tab" data-toggle="tab">{{t 'gru-rich-text-editor.expressions-panel.tabs.relation'}}</a></li>
+      <li role="presentation"><a href="#greek-letters" aria-controls="greek-letters" role="tab" data-toggle="tab">{{t 'gru-rich-text-editor.expressions-panel.tabs.greek-letters'}}</a></li>
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active" id="layout">
+        <a href="#" data-expression="fraction">fraction</a>
+        <a href="#" data-expression="sqrt">square root</a>
+        <a href="#" data-expression="sqrtn">square root with magnitude</a>
+        <a href="#" data-expression="overline">overline</a>
+        <a href="#" data-expression="angles">angles</a>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="calculus">
+        <a href="#" data-expression="sum">sum</a>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="trigonometry">
+        <a href="#" data-expression="sin">sin()</a>
+        <a href="#" data-expression="cos">cos()</a>
+        <a href="#" data-expression="tan">tan()</a>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="set-theory">
+        <a href="#" data-expression="in">in</a>
+        <a href="#" data-expression="notin">notin</a>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="symbols">
+        <a href="#" data-expression="exists">exists</a>
+        <a href="#" data-expression="nexists">nexists</a>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="relation">
+        <a href="#" data-expression="ge">greater or equal</a>
+        <a href="#" data-expression="gt">greater than</a>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="greek-letters">
+        <a href="#" data-expression="lambda">lambda</a>
+        <a href="#" data-expression="omega">omega</a>
+        <a href="#" data-expression="alpha">alpha</a>
+      </div>
+    </div>
+    <div class="actions">
+      {{#if isEditingExpression}}
+        <button class="btn btn-primary" {{action 'updateExpression'}}>{{t 'gru-rich-text-editor.expressions-panel.update-expression'}}</button>
+      {{else}}
+        <button class="btn btn-primary" {{action 'insertExpression'}}>{{t 'gru-rich-text-editor.expressions-panel.insert-expression'}}</button>
+      {{/if}}
+      <button class="btn btn-default" {{action 'cancelExpression'}}>{{t 'common.close'}}</button>
+    </div>
+  </div>
+</div>
+<div id="wysihtml-editor" class="editor-box"></div>

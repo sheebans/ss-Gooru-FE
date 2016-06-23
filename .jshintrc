@@ -2,9 +2,15 @@
   "predef": [
     "document",
     "window",
-    "-Promise"
+    "-Promise",
+    "SockJS",
+    "Stomp",
+    "Switchery",
+    "moment",
+    "Clipboard"
   ],
   "browser": true,
+  "jquery": true,
   "boss": true,
   "curly": true,
   "debug": false,
@@ -21,7 +27,6 @@
   "nomen": false,
   "onevar": false,
   "plusplus": false,
-  "regexp": false,
   "undef": true,
   "sub": true,
   "strict": false,

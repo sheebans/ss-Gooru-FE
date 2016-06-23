@@ -1,0 +1,67 @@
+import Ember from 'ember';
+
+export function initialize(app) {
+
+  var historyCache = Ember.Object.extend({
+    /**
+     * @property {*} the last route
+     */
+    lastRoute: Ember.Object.create({
+      url: null,
+      name: null
+    })
+  });
+
+  Ember.Route.reopen({
+
+    /**
+     * This event handlers sets an specific class to the body everytime a route is activated
+     */
+    addRouteSpecificClass: function() {
+      const route = this;
+      const currentRouteName = route.routeName;
+      Ember.$('body').attr('class', currentRouteName.replace(/\./g, '_'));
+    }.on('activate'),
+
+    /**
+     * When leaving a route this handler save the previous route so it can be accessed from history
+     */
+    saveLastRoute: function() {
+      const route = this;
+      const currentRouteName = route.routeName;
+      const currentRouteUrl = route.router.get("url");
+
+      const lastRoute = this.get("history.lastRoute");
+
+      const savedRouteName = lastRoute.get('name');
+      const parentRouteIdx = savedRouteName && savedRouteName.indexOf(currentRouteName);
+
+      if (!currentRouteName.match(/\.loading/) &&
+        (!savedRouteName || parentRouteIdx === -1)) {
+        // On deactivate, save the "child-most" route
+        // For example: on deactive save the route "search.collection", but "search" (the parent route)
+        // will not be saved
+        lastRoute.set('name', currentRouteName);
+        lastRoute.set('url', currentRouteUrl);
+        this.get('history').set('lastRoute', lastRoute);
+      }
+    }.on('deactivate'),
+
+    /**
+     * Resetting the scroll to the top of the page when browsing to a new page
+     */
+    restoreScroll: function() {
+      window.scrollTo(0,0);
+    }.on('activate')
+
+  });
+
+  // History cache is available to all routes
+  app.register('history:main', historyCache);
+  app.inject('route', 'history', 'history:main');
+}
+
+export default {
+  name: 'route',
+  initialize: initialize
+};

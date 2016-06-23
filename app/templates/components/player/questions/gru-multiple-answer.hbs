@@ -1,0 +1,45 @@
+
+<p class="instructions">
+  {{t "gru-multiple-answer.instructions"}}
+</p>
+
+<div class="answer-choices">
+  <form class="form-horizontal">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>{{t "common.yes"}}</th>
+        <th>{{t "common.no"}}</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each answers as |answer index|}}
+        <tr>
+          <td>
+              {{radio-button
+                disabled=readOnly
+              value=(concat "yes|" answer.id)
+              groupValue=answer.groupValue
+              changed="selectAnswerChoice"
+              name=(concat "answer-choice-radio-" answer.id)}}
+          </td>
+          <td>
+            {{radio-button
+            disabled=readOnly
+            value=(concat "no|" answer.id)
+            groupValue=answer.groupValue
+            changed="selectAnswerChoice"
+            name=(concat "answer-choice-radio-" answer.id)}}
+          </td>
+          <td class="answer-text">
+              <span>({{answer-letter index}})</span>{{{answer.text}}}
+          </td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </form>
+</div>
+
+

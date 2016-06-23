@@ -1,4 +1,4 @@
-import DS from 'ember-data';
+import DS from "ember-data";
 
 export default DS.JSONAPISerializer.extend({
 
@@ -10,7 +10,7 @@ export default DS.JSONAPISerializer.extend({
     var sessionModel =  {
       data: {
         id: payload.gooruUId,
-        type: 'session',
+        type: "session",
         attributes: {
           gooruUId: payload.gooruUId,
           token: payload.token,

@@ -1,0 +1,57 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="header">
+      <div class="image">
+        {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
+          <i class="{{resource.format}}-icon"></i>
+        {{/link-to}}
+      </div>
+      <div class="resource-info">
+        <div class="title-section">
+          {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+          {{#unless publishVisible}}
+            {{#if resource.isPublished}}
+              <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
+            {{/if}}
+          {{/unless}}
+        </div>
+        {{#if isQuestion}}
+          <div class="question-type">
+            <span>{{t (concat "common.question-type." resource.type)}}</span>
+          </div>
+        {{else}}
+        <div class="resource-type">
+          <span>{{t (concat "common.resource-format." resource.format)}}</span>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    {{#if tags.length}}
+      {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true}}
+    {{/if}}
+    <div class="publisher">
+      <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
+      <span class="publisher-name">{{#link-to 'profile.content.courses' resource.owner.id class="pointer"}}
+        {{resource.owner.displayName}}
+      {{/link-to}}</span>
+    </div>
+    <div class="description">
+      <p class="truncate">{{{if resource.isFIB resource.fibText resource.description }}}</p>
+    </div>
+  </div>
+  <div class="panel-footer">
+    {{#if editEnabled }}
+      <button class="edit-btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
+    {{/if}}
+    {{#if isQuestion}}
+      {{#if remixEnabled}}
+        <button class="copy-btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
+      {{/if}}
+    {{/if}}
+    {{#if addEnabled}}
+      <button class="add-to-btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+    {{/if}}
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.questions.answers.gru-reorder {
+
+  @extend .questions.answers.gru-multiple-choice;
+
+  .panel div.answer-content {
+    min-height: 78px;
+
+    .answer-text {
+      @include align-self(center);
+    }
+    .text-area-container{
+      textarea{
+        padding-top:10px
+      }
+    }
+  }
+}

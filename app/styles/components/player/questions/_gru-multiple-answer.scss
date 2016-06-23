@@ -1,0 +1,14 @@
+.gru-multiple-answer {
+  .answer-choices {
+    .answer-text {
+      > * {
+        display: inline;
+        margin-right:0.5em;
+      }
+    }
+    .table>thead>tr>th {
+      border-bottom: 1px solid $table-border-color;
+    }
+  }
+}
+

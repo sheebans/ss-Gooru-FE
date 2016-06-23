@@ -1,0 +1,24 @@
+<div class="header">
+    <h2>{{t "common.settings"}}</h2>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h3>{{t "common.content-publishing"}}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="setting publish-to">
+        {{gru-icon name="visibility"}}
+        <span>{{t "common.publish-to"}}</span>
+            {{gru-switch switchOptions=switchOptions onOptionSwitch='switchPublishToProfile' isChecked=isChecked}}
+        </div>
+      <div class="setting request-to out-of-scope">
+        {{gru-icon name="public"}}
+        <span>{{t "common.request-to"}}</span>
+            {{#if wasRequestSent}}
+                <button class="request btn {{if isRequestApproved 'btn-success btn-approved' 'btn-primary btn-pending'}}">{{if isRequestApproved (t "common.approved") (t "common.pending")}}</button>
+              {{else}}
+                <button class="request btn btn-primary btn-send-request" {{action 'sendRequest'}}>{{t "common.send-request"}}</button>
+            {{/if}}
+        </div>
+    </div>
+</div>

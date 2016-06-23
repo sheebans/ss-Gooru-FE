@@ -1,0 +1,12 @@
+{{ search.gru-resource-options
+selectedOptionTypes=selectedOptionTypes
+onSelectedOption="selectMenuOption"}}
+
+<div class="content">
+  {{gru-resource-results
+  term=term
+  resourceResults=resourceResults}}
+</div>
+{{#if showMoreResultsButton}}
+  <span class="show-more-results" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</span>
+{{/if}}

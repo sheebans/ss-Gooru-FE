@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{t "common.add-standards"}}</h4>
+</div>
+<div class="modal-body">
+
+  {{taxonomy.gru-taxonomy-picker
+    browseSelectorText=(t "taxonomy.modals.gru-standard-picker.browseSelectorText")
+    panelHeaders=panelHeaders
+    selected=model.selected
+    selectedTextKey="taxonomy.modals.gru-standard-picker.selectedText"
+    shortcuts=model.shortcuts
+    shortcutText=(t "taxonomy.modals.gru-standard-picker.shortcutText")
+    subject=model.subject
+    onSave=(action 'updateSelectedTags')
+    onInit=(action 'loadSelected')
+    onUpdatePath=(action 'loadTaxonomyData')}}
+
+</div>

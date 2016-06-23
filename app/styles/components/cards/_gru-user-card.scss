@@ -1,0 +1,26 @@
+.gru-user-card {
+  display: table;
+  > span {
+    display: table-row;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    img.avatar {
+      width: $user-card-avatar-width;
+      height: $user-card-avatar-height;
+      border-radius: 60px;
+      margin: 10px;
+      display: inline-block;
+    }
+    &.user-name {
+      span {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+  .display-name{
+    width: 120px;
+  }
+}
