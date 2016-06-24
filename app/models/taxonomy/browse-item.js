@@ -69,6 +69,26 @@ var BrowseItem = TaxonomyItem.extend({
   // Methods
 
   /**
+   * Transform a list of taxonomy items to browse items and attach them as children
+   * if the item doesn't already have children
+   *
+   * @param {TaxonomyItems} taxonomyItems
+   */
+  addChildren: function(taxonomyItems) {
+    if (!this.get('children').length) {
+      let browseItems = [];
+
+      taxonomyItems.forEach(function(taxonomyItem) {
+        var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
+        browseItem.set('parent', this);
+        browseItems.push(browseItem);
+      }.bind(this));
+
+      this.set('children', browseItems);
+    }
+  },
+
+  /**
    * @function Decrease the counter 'totalChildrenSelected' in all of this node's ancestors
    */
   decreaseSelected: function() {
