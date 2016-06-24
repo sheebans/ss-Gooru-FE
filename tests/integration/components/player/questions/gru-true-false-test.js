@@ -119,3 +119,32 @@ test('True or false question layout - with user answer', function (assert) {
   assert.equal($component.find(".answer-choices .radio").length, 2, "Missing answer choices");
   assert.ok($component.find(".answer-choices .radio:eq(1) input:checked").length, "Answer choice 2 should be selected");
 });
+
+test('True or false question layout - False as correct answer', function (assert) {
+
+  assert.expect(2);
+
+  let question = Ember.Object.create({ //true false
+    "id": "569906aa3ec3bb39969acbe6",
+    questionType: 'T/F',
+    text: 'True False Question',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({id: "1", isCorrect: false, text: "True"}),
+      Ember.Object.create({id: "2", isCorrect: true, text: "False"}),
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 2,
+    "hasAnswers": true
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{player/questions/gru-true-false question=question}}`);
+
+  var $component = this.$(); //component dom element
+  assert.equal($component.find(".answer-choices .radio:eq(0) input[type=radio]").val(), "1", "Incorrect id for true value");
+  assert.equal($component.find(".answer-choices .radio:eq(1) input[type=radio]").val(), "2", "Incorrect id for false value");
+});
