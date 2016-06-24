@@ -63,7 +63,6 @@ export default Ember.Component.extend({
    */
   stop: Ember.computed("resource.displayGuide.end_time", function(){
     const component = this;
-    console.log($('.ytp-time-duration'));
     return component.get("resource.displayGuide.end_time") ?
       component.convertToSeconds(this.get("resource.displayGuide.end_time")) :
       0;
