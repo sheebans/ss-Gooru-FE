@@ -295,7 +295,7 @@ export default Ember.Service.extend({
           parent = TaxonomyItem.create({
             id: `empty-${parentId}`,
             level: BASE_LEVEL + (levelOffset - 1),    // Level for fake parent
-            parent: grandparent                            // Save reference to standard
+            parent: grandparent                       // Save reference to standard
           });
           grandparent.set('children', [parent].concat(grandparent.get('children')));
         } else {
@@ -359,7 +359,7 @@ export default Ember.Service.extend({
     const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL');  // standards base level
 
     var defaultCategory = TaxonomyItem.create({
-      id: 'defaultCategory',
+      id: 'empty-category',
       level: BASE_LEVEL,
       children: standards
     });

@@ -131,8 +131,13 @@ export default Ember.Object.extend({
    */
   isSimilar: function(itemId) {
     var result = null;
+    var myId = this.get('id');
 
-    if (itemId.indexOf(this.get('id')) > -1) {
+    // Be mindful of fake parents (@see services/taxonomy#attachChildren or
+    // @see services/taxonomy#attachStandardsWithoutCategory). Allow these
+    // to be considered as similar so it's possible to continue searching
+    // within these.
+    if (itemId.indexOf(myId) > -1 || myId.indexOf('empty-') > -1) {
       result = this;
     }
     return result;
