@@ -126,12 +126,13 @@ export default Ember.Object.extend({
   },
 
   /**
-   * @function Is
+   * @function Is the item's ID contained within another item ID?
+   * @param {String} itemId - Item ID to test for
    */
   isSimilar: function(itemId) {
     var result = null;
 
-    if (this.get('id').indexOf(itemId) > -1) {
+    if (itemId.indexOf(this.get('id')) > -1) {
       result = this;
     }
     return result;
