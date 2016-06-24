@@ -82,7 +82,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const collection = model.collection;
     const courseId = model.courseId;
 
-    if (collection && courseId) {
+    if (collection && courseId && courseId !== 'null') {
       collection.set('courseId', courseId);
     }
 
