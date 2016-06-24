@@ -69,19 +69,15 @@ var BrowseItem = TaxonomyItem.extend({
   // Methods
 
   /**
-   * Transform a list of taxonomy items to browse items and attach them as children
-   * if the item doesn't already have children
+   * Attach a list of browse items as children of another browse item, if it
+   * doesn't already have children
    *
-   * @param {TaxonomyItems} taxonomyItems
+   * @param {BrowseItems} browseItems
    */
-  addChildren: function(taxonomyItems) {
+  addChildren: function(browseItems) {
     if (!this.get('children').length) {
-      let browseItems = [];
-
-      taxonomyItems.forEach(function(taxonomyItem) {
-        var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
+      browseItems.forEach(function(browseItem) {
         browseItem.set('parent', this);
-        browseItems.push(browseItem);
       }.bind(this));
 
       this.set('children', browseItems);
