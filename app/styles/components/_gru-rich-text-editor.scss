@@ -86,14 +86,18 @@
           .tab-pane {
             border-left: 1px solid $white;
             margin: 10px;
-            padding: 9px;
+            padding: 0 9px 9px 9px 9px;
             a {
               display: inline-block;
-              padding: 5px;
               margin: 3px;
-              border: 1px solid $gray-lighter;
               line-height: 1;
             }
+          }
+          .fraction{
+            background: url("gooru/images/math-icons/fraction.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
           }
         }
       }
