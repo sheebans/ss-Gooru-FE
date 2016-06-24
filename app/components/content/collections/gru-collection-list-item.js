@@ -99,6 +99,7 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       this.get('router').transitionTo(route, item.get("id"), {
         queryParams: {
           collectionId: this.get('collection.id'),
+          courseId: this.get('collection.courseId'),
           isCollection: this.get('isCollection')
         }
       });

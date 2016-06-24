@@ -1,6 +1,6 @@
 <header>
   {{#if collection}}
-    {{#link-to  (if isCollection 'content.collections.edit' 'content.assessments.edit') collection.id class="back-to"}}
+    {{#link-to  (if isCollection 'content.collections.edit' 'content.assessments.edit') collection.id (query-params courseId=collection.courseId allowBackToCourse=true) class="back-to"}}
         <div class="{{if isCollection 'return-collection' 'return-assessment'}}">
           {{gru-icon name="keyboard_arrow_left"}}{{t (if isCollection 'common.collection' 'common.assessment')}}: {{collection.title}}
         </div>

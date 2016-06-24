@@ -51,6 +51,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   setupController(controller, model) {
     var collection = model.assessment;
+    var course = model.course;
+
+    if (collection && course) {
+      collection.set('courseId', course.get('id'));
+    }
+
     // Since assessment is a collection with only questions, we'll reuse the same components
     // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
     // and that is why the property 'collection' is being reused here, too.

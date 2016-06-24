@@ -151,21 +151,22 @@ export default Ember.Component.extend({
 
     const collectionId = component.get('model.id');
     const isCollection = component.get('model.isCollection');
+    const courseId = component.get('model.courseId');
+
     if (collectionId){
       const queryParams = {
         queryParams: {
           collectionId: collectionId,
+          courseId: courseId,
           isCollection: isCollection,
           editing: true
         }
       };
       component.get('router').transitionTo('content.questions.edit', questionId, queryParams);
-    }
-    else{
+    } else {
       const queryParams = { queryParams: { editing: true } };
       component.get('router').transitionTo('content.questions.edit', questionId, queryParams);
     }
-
   },
 
 

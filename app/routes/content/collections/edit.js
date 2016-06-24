@@ -52,6 +52,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   setupController(controller, model) {
     var collection = model.collection;
+    var course = model.course;
+
+    if (collection && course) {
+      collection.set('courseId', course.get('id'));
+    }
 
     controller.set('collection', collection);
     controller.set('course', model.course);
