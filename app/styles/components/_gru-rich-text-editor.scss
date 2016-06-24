@@ -36,7 +36,7 @@
         .equation-wrapper {
           display: inline-block;
           width: 38%;
-          padding: 10px;
+          padding: 20px 10px 10px 10px;
           text-align: center;
           background-color: $blue-100;
           .math-field {
@@ -86,18 +86,64 @@
           .tab-pane {
             border-left: 1px solid $white;
             margin: 10px;
-            padding: 0 9px 9px 9px 9px;
-            a {
-              display: inline-block;
-              margin: 3px;
-              line-height: 1;
+            div{
+              margin: 0 10px 0 10px;
+              height: 46px;
+              a {
+                display: inline-block;
+                line-height: 1;
+              }
             }
           }
           .fraction{
             background: url("gooru/images/math-icons/fraction.svg");
-            background-size: 50px 50px;
-            height: 50px;
-            width: 50px;
+            background-size: 46px 46px;
+            height: 46px;
+            width: 30px;
+          }
+          .sqrt{
+            background: url("gooru/images/math-icons/square-root.svg");
+            background-size: 46px 46px;
+            height: 46px;
+            width: 36px;
+          }
+          .sqrtn{
+            background: url("gooru/images/math-icons/square-root-magnitude.svg");
+            background-size: 46px 46px;
+            height: 46px;
+            width: 40px;
+          }
+          .overline{
+            //CHANGE TO CORRECT ICON
+            background: url("gooru/images/math-icons/over-doble-arrow.svg");
+            background-size: 46px 46px;
+            height: 46px;
+            width: 30px;
+          }
+          .sum{
+            background: url("gooru/images/math-icons/sum-sub-super.svg");
+            background-size: 46px 46px;
+            height: 46px;
+            width: 28px;
+          }
+          .greather-equal{
+            background: url("gooru/images/math-icons/greater-equal-than.svg");
+            background-size: 45px 45px;
+            height: 46px;
+            width: 30px;
+          }
+          .greather{
+            //CHANGE TO CORRECT ICON
+            background: url("gooru/images/math-icons/greater-equal-than.svg");
+            background-size: 45px 45px;
+            height: 46px;
+            width: 30px;
+          }
+          .infinity{
+            background: url("gooru/images/math-icons/infinity.svg");
+            background-size: 46px 46px;
+            height: 46px;
+            width: 30px;
           }
         }
       }
@@ -116,5 +162,8 @@
         cursor: pointer;
       }
     }
+  }
+  .border-bottom{
+    border-bottom: 1px solid $white;
   }
 }
