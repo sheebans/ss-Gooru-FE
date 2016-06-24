@@ -8,12 +8,12 @@ test('serializeCreateClass', function(assert) {
   const classObject = ClassModel.create({
     title: 'class-title',
     classSharing: 'open',
-    minScore: null
+    minScore: 0
   });
   const expected = {
     title: 'class-title',
     class_sharing: 'open',
-    min_score: -1
+    min_score: 0
   };
   const response = serializer.serializeCreateClass(classObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -87,7 +87,6 @@ test('normalizeClasses', function(assert) {
       "class_sharing": "open",
       "cover_image": "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
       "code": "ALU3LCB",
-      "min_score": -1,
       "end_date": "2016-12-31",
       "course_id": 'course-id',
       "collaborator": [
@@ -122,7 +121,7 @@ test('normalizeReadClassInfo', function(assert) {
     "class_sharing": "open",
     "cover_image": 'image-name',
     "code": "ABC123",
-    "min_score": 10,
+    "min_score": null,
     "end_date": "2016-01-01",
     "course_id": "d44d3928-2623-4925-9d38-e933650a7573",
     "collaborator": ['1', '2'],
@@ -143,7 +142,7 @@ test('normalizeReadClassInfo', function(assert) {
   assert.equal(normalizedClassInfo.get("grade.length"), 0, 'Wrong grade length');
   assert.equal(normalizedClassInfo.get("classSharing"), "open", 'Wrong classSharing');
   assert.equal(normalizedClassInfo.get("coverImage"), "image-name", 'Wrong coverImage');
-  assert.equal(normalizedClassInfo.get("minScore"), 10, 'Wrong minScore');
+  assert.equal(normalizedClassInfo.get("minScore"), null, 'Wrong minScore');
   assert.equal(normalizedClassInfo.get("startDate"), '2016-01-01', 'Wrong startDate');
   assert.equal(normalizedClassInfo.get("endDate"), '2016-01-01', 'Wrong endDate');
   assert.equal(normalizedClassInfo.get("creatorSystem"), '', 'Wrong creator system');
