@@ -16,40 +16,6 @@ The feature development occurs during sprints, at the sprint planning the storie
     * `git flow feature finish BRANCH_NAME`
 * Once your changes are merged to develop a QA (Edify QA environment) deployment will occur, verify that your changes are deployed correctly and move the ticket to QA
 
-
-## Release fix development
-Once the release branch has been created, the build will be deployed to the staging server (Nucleus QA Environment), if any issue is reported from that environment during the release validation period it will be treated as a release fix. Release fixes are tagged with the **Release** label, developers will take one release fix at the time
-
-* Move the ticket (having the Release label) to the in progress column
-* Create a release fix branch (using the latest of the release candidate branch)
-    * `git checkout RELEASE_CANDIDATE_BRANCH`   
-    * `git pull origin RELEASE_CANDIDATE_BRANCH`
-    * `git checkout -b BRANCH_NAME`
-* When changes are ready, publish them for peer review 
-    * `git push origin BRANCH_NAME`
-* Once changes are approved and the branch build is passing merge the changes back to the release candidate branch
-    * `git checkout RELEASE_CANDIDATE_BRANCH`
-    * `git merge BRANCH_NAME`
-    * `git push origin RELEASE_CANDIDATE_BRANCH`
-* The release fixes **are not merged to develop**, they will get there once the release is finished 
-* Once your changes are merged to the release candidate branch a Staging deployment will occur, verify that your changes are deployed correctly and move the ticket to QA
-
-## Hotfix development
-Once the release candidate is deployed to production, if any issue is reported from that environment it will be treated as a hotfix (if approved by Product Owner/PM/Tech Lead/QA). Hot fixes are tagged with the **Hot-Fix** label, developers will take one hot fix at the time
-
-* Move the ticket (having the Hot-Fix label) to the in progress column
-* Create a hotfix branch (using the latest of the master branch)
-    * `git checkout master`   
-    * `git pull origin master`
-    * `git flow hotfix start BRANCH_NAME`
-* When changes are ready, **add a change log** for this fix and publish them for peer review 
-    * `git flow hotfix publish BRANCH_NAME`
-* Once changes are approved and the branch build is passing, it will be deployed to the staging server (Nucleus QA) for validation.
-* Once **QA sign off the changes** the hotfix branch can be merged back to master
-    * `git flow hotfix finish BRANCH_NAME`
-* Make sure you changes are **also merged back to develop** 
-* The production deployment will be coordinated by the tech lead
-
 ## Doing a release candidate
 Once the sprint is **Done** the tech lead will create a release candidate branch so QA can start the validation period before going to production. These are the steps for doing a release branch
 
@@ -69,3 +35,36 @@ Once the sprint is **Done** the tech lead will create a release candidate branch
 * Make sure the **release branch is also merged back to develop**
 * Once changes are in master the tech lead will coordinate the production deployment
 * Once it is deploy to prod the release candidate ticket is closed
+
+## Release fix development
+Once the release branch has been created, the build will be deployed to the staging server (Nucleus QA Environment), if any issue is reported from that environment during the release validation period it will be treated as a release fix. Release fixes are tagged with the **Release** label, developers will take one release fix at the time
+
+* Move the ticket (having the Release label) to the in progress column
+* Create a release fix branch (using the latest of the release candidate branch)
+    * `git checkout release/RELEASE_CANDIDATE_BRANCH`   
+    * `git pull origin release/RELEASE_CANDIDATE_BRANCH`
+    * `git checkout -b BRANCH_NAME`
+* When changes are ready, publish them for peer review 
+    * `git push origin BRANCH_NAME`
+* Once changes are approved and the branch build is passing merge the changes back to the release candidate branch
+    * `git checkout release/RELEASE_CANDIDATE_BRANCH`
+    * `git merge BRANCH_NAME`
+    * `git push origin release/RELEASE_CANDIDATE_BRANCH`
+* The release fixes **are not merged to develop**, they will get there once the release is finished 
+* Once your changes are merged to the release candidate branch a Staging deployment will occur, verify that your changes are deployed correctly and move the ticket to QA
+
+## Hotfix development
+Once the release candidate is deployed to production, if any issue is reported from that environment it will be treated as a hotfix (if approved by Product Owner/PM/Tech Lead/QA). Hot fixes are tagged with the **Hot-Fix** label, developers will take one hot fix at the time
+
+* Move the ticket (having the Hot-Fix label) to the in progress column
+* Create a hotfix branch (using the latest of the master branch)
+    * `git checkout master`   
+    * `git pull origin master`
+    * `git flow hotfix start BRANCH_NAME`
+* When changes are ready, **add a change log** for this fix and publish them for peer review 
+    * `git flow hotfix publish BRANCH_NAME`
+* Once changes are approved and the branch build is passing, it will be deployed to the staging server (Nucleus QA) for validation.
+* Once **QA sign off the changes** the hotfix branch can be merged back to master
+    * `git flow hotfix finish BRANCH_NAME`
+* Make sure you changes are **also merged back to develop** 
+* The production deployment will be coordinated by the tech lead
