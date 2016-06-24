@@ -54,8 +54,8 @@ export default Ember.Component.extend({
 
         this.resetShortcuts();
         taxonomyTag.set('isActive', true);
-        this.findItem(itemId, browseItems).then(function(item) {
-          this.updateSelectedPath(item);
+        this.findItem(itemId, browseItems).then(function(browseItem) {
+          this.updateSelectedPath(browseItem);
         }.bind(this));
       }
     },
@@ -87,19 +87,15 @@ export default Ember.Component.extend({
      * @param {TaxonomyTag} taxonomyTag
      */
     uncheckItem: function(taxonomyTag) {
-      var path = taxonomyTag.get('data.ancestorsPath');
+      var id = taxonomyTag.get('data.id');
       var browseItems = this.get('browseItems');
-      var browseItem = null;
 
-      for (let i = browseItems.length - 1; i >= 0; --i) {
-        browseItem = browseItems[i].find(path);
-        if (browseItem) { break; }
-      }
+      this.findItem(id, browseItems).then(function(browseItem) {
+        Ember.Logger.assert(browseItem, 'Unable to find browse item to deselect');
 
-      browseItem = browseItem.findItem(taxonomyTag.get('data.id'));
-      Ember.Logger.assert(browseItem, 'Unable to find browse item to deselect');
-      this.get('selectedTags').removeObject(taxonomyTag);
-      browseItem.set('isSelected', false);
+        this.get('selectedTags').removeObject(taxonomyTag);
+        browseItem.set('isSelected', false);
+      }.bind(this));
     },
 
     /**
@@ -142,40 +138,35 @@ export default Ember.Component.extend({
 
       // Load data for selected items
       this.get('onInit')(selected).then(function() {
-        let taxonomyItems = this.get('taxonomyItems');
-        let maxLevels = this.get('maxLevels');
+        let taxonomyItems = component.get('taxonomyItems');
+        let maxLevels = component.get('maxLevels');
 
         browseItems = component.getBrowseItems(taxonomyItems, maxLevels);
-        this.set('browseItems', browseItems);
+        component.set('browseItems', browseItems);
 
         Ember.run.scheduleOnce('afterRender', component, function() {
-          var browseItems = component.get('browseItems');
-
-          Ember.beginPropertyChanges();
-          selected.forEach(function(tagData, index) {
-            var browseItem = null;
-            var path = tagData.get('ancestorsPath');
-
-            if (index === 0) {
-              // Set an initial default path to refresh the browse selector.
-              // The initial default path will be that of the first selected tag.
-              component.set('selectedPath', path);
-            }
-
-            for (let i = browseItems.length - 1; i >= 0; --i) {
-              browseItem = browseItems[i].find(path);
-              if (browseItem) { break; }
-            }
-
-            browseItem = browseItem.findItem(tagData.get('id'));
-            Ember.Logger.assert(browseItem, 'Unable to find browse item to mark as selected');
-
-            // Mark the corresponding browse items as selected
-            browseItem.set('isSelected', true);
+          let promises = selected.map(function(tagData, index) {
+            return component.findItem(tagData.get('id'), browseItems);
           });
-          Ember.endPropertyChanges();
-        });
 
+          Ember.RSVP.all(promises).then(function(browseItems) {
+            Ember.beginPropertyChanges();
+            browseItems.forEach(function(browseItem, index) {
+              Ember.Logger.assert(browseItem, 'Unable to find browse item to mark as selected');
+
+              if (index === 0) {
+                // Set an initial default path to refresh the browse selector.
+                // The initial default path will be that of the first selected tag.
+                let path = browseItem.getPath();
+                component.set('selectedPath', path.splice(0, path.length - 1));
+              }
+
+              // Mark the browse item as selected
+              browseItem.set('isSelected', true);
+            });
+            Ember.endPropertyChanges();
+          });
+        });
       });
     } else {
       let taxonomyItems = this.get('taxonomyItems');
@@ -268,42 +259,47 @@ export default Ember.Component.extend({
   // Methods
 
   /**
-   * Find the item with a specific ID from a list of taxonomy items
+   * Find the item with a specific ID from a list of browse items
    *
    * @param {String} itemId
-   * @param {TaxonomyItems} taxonomyItems
-   * @return {Promise.<TaxonomyItem>}
+   * @param {BrowseItems} browseItems
+   * @return {Promise.<BrowseItem>}
    */
-  findItem: function(itemId, taxonomyItems) {
+  findItem: function(itemId, browseItems) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      var item = null;
-      var filteredList = taxonomyItems.filter(function(taxonomyItem) {
-        return taxonomyItem.isSimilar(itemId);
-      });
-
-      item = filteredList.find(function(taxonomyItem) {
-        return taxonomyItem.get('id') === itemId;
-      });
-
-      if (!item) {
-        let promises = [];
-        filteredList.forEach(function(taxonomyItem) {
-          let promise = this.get('onSearchPath')(taxonomyItem.get('path'))
-                            .then(function(children) {
-                              return this.findItem(itemId, children);
-                            }.bind(this));
-
-          promises.push(promise);
-          Ember.RSVP.all(promises).then(function(values) {
-            var result = values.find(function(value) {
-              return !!value;
-            });
-            resolve(result);
-          });
-        }.bind(this));
+      if (!browseItems.length) {
+        resolve(null);
       }
-      resolve(item);
-    });
+      let item = null;
+      let filteredList = browseItems.filter(function(browseItem) {
+        return browseItem.isSimilar(itemId);
+      });
+
+      item = filteredList.find(function(browseItem) {
+        return browseItem.get('id') === itemId;
+      });
+
+      if (!item && filteredList.length) {
+        let promises = filteredList.map(function(browseItem) {
+          // Make sure to load the children before continuing
+          return this.get('onSearchPath')(browseItem.getPath())
+                     .then(function(childrenTaxonomyItems) {
+                        browseItem.addChildren(childrenTaxonomyItems);
+                        return this.findItem(itemId, browseItem.get('children'));
+                     }.bind(this));
+          }.bind(this));
+
+        Ember.RSVP.all(promises).then(function(values) {
+          // One of the resolved values should have a match
+          var result = values.find(function(value) {
+            return !!value;
+          });
+          resolve(result);
+        });
+      } else {
+        resolve(item);
+      }
+    }.bind(this));
   },
 
   /**
@@ -353,25 +349,14 @@ export default Ember.Component.extend({
    * Run external action to ensure data has been loaded then update the selected path
    *
    * @function updateSelectedPath
-   * @return { Promise | undefined }
+   * @param {BrowseItem} item
+   * @return { Promise.<undefined> }
    */
   updateSelectedPath: function(item) {
     var path = item.getPath();
 
     return this.get('onSearchPath')(path).then(function(taxonomyItems) {
-      if (!item.get('children').length) {
-        // Add children to the parent browse item
-        let browseItems = [];
-
-        taxonomyItems.forEach(function(taxonomyItem) {
-          var browseItem = BrowseItem.createFromTaxonomyItem(taxonomyItem);
-          browseItem.set('parent', item);
-          browseItems.push(browseItem);
-        });
-
-        item.set('children', browseItems);
-      }
-
+      item.addChildren(taxonomyItems);
       this.set('selectedPath', path);
     }.bind(this));
   }
