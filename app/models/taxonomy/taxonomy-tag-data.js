@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import { TAXONOMY_LEVELS } from 'gooru-web/config/config';
-import { getTaxonomyAncestors } from 'gooru-web/utils/utils';
 
 /**
  * Taxonomy Tag Data
@@ -74,22 +73,7 @@ var TaxonomyTagData = Ember.Object.extend({
   /**
    * @property {String} taxonomyLevel
    */
-  taxonomyLevel: TAXONOMY_LEVELS.STANDARD,
-
-  /**
-   * @property {String[]} Path useful to find taxonomy items @see TaxonomyItem#find
-   */
-  ancestorsPath: Ember.computed('taxonomyLevel', function() {
-    var level = this.get('taxonomyLevel');
-    var ancestors = getTaxonomyAncestors(this.get('id'));
-
-    if (level === TAXONOMY_LEVELS.MICRO || level === TAXONOMY_LEVELS.STANDARD) {
-      return [ancestors.courseId, ancestors.domainId];
-    } else {
-      // Assume it's at a domain level
-      return [ancestors.courseId];
-    }
-  })
+  taxonomyLevel: TAXONOMY_LEVELS.STANDARD
 
 });
 
