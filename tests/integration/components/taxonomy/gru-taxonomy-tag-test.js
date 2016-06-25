@@ -47,7 +47,7 @@ test('it renders a taxonomy tag correctly', function(assert) {
   assert.ok($component.find('button.remove').length, 'Removable');
 });
 
-test('if it is not read-only, it toggles its state and calls an external action when the tag is clicked', function(assert) {
+test('if it is not read-only, it calls an external action when the tag is clicked', function(assert) {
   assert.expect(4);
 
   var taxonomyTag = TaxonomyTag.create({
@@ -69,13 +69,7 @@ test('if it is not read-only, it toggles its state and calls an external action 
   this.render(hbs`{{taxonomy/gru-taxonomy-tag model=taxonomyTag onSelect=(action 'externalAction')}}`);
 
   const $component = this.$('.taxonomy.gru-taxonomy-tag');
-
-  assert.notOk($component.hasClass('active'), 'Active class');
-
-  // Toggle tag's state
   $component.find('button.toggle').click();
-
-  assert.ok($component.hasClass('active'), 'Active class -after toggle');
 });
 
 test('it calls an external action when its remove button is clicked', function(assert) {
