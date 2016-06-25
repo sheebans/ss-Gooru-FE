@@ -48,7 +48,7 @@ test('it renders a taxonomy tag correctly', function(assert) {
 });
 
 test('if it is not read-only, it calls an external action when the tag is clicked', function(assert) {
-  assert.expect(4);
+  assert.expect(2);
 
   var taxonomyTag = TaxonomyTag.create({
     isActive: false,
