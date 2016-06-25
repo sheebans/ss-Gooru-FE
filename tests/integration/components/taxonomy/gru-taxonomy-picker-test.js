@@ -1,172 +1,260 @@
 import { moduleForComponent, test } from 'ember-qunit';
-//import hbs from 'htmlbars-inline-precompile';
-//import { generateTaxonomyTestTree } from 'gooru-web/utils/taxonomy';
+import { generateTaxonomyTestTree } from 'gooru-web/utils/taxonomy';
+import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
+import Ember from 'ember';
+import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
+import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 moduleForComponent('taxonomy/gru-taxonomy-picker', 'Integration | Component | taxonomy/gru taxonomy picker', {
   integration: true
 });
 
-test('it renders', function(assert) {
-  assert.expect(0);
-});
-
-/*
- TODO for David to check
 test('it renders a shortcut list of taxonomy tags, a browse selector and a list of selected taxonomy tags', function(assert) {
 
-  var shortcuts = [];
-  var selected = [];
-  var taxonomyItems = generateTaxonomyTestTree(3);
-  var root = taxonomyItems[0];
+  var subject = TaxonomyRoot.create({
+    courses: generateTaxonomyTestTree(1, null, 3)
+  });
+  var parent1Id = '0-100';
+  var parent2Id = '0-102';
+  var child1Id = '0-100-200';
+  var child2Id = '0-102-220';
 
-  shortcuts.push(root.find(['100', '200']));
-  shortcuts.push(root.find(['100', '201']));
+  var shortcuts = [
+    TaxonomyTagData.create({ id: parent1Id }),
+    TaxonomyTagData.create({ id: parent2Id })
+  ];
 
-  selected.push(root.find(['100', '200', '301']));
-  selected.push(root.find(['100', '200', '302']));
-  selected.push(root.find(['100', '201', '310']));
+  var selected = [
+    TaxonomyTagData.create({ id: child1Id }),
+    TaxonomyTagData.create({ id: child2Id })
+  ];
 
-  this.set('taxonomyItems', taxonomyItems);
+  this.on('loadData', function(path) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+
+      if (path[0] === parent1Id) {
+
+        assert.deepEqual(path, [parent1Id], 'Load data for first course');
+        let taxonomyItem = TaxonomyItem.create({
+          id: child1Id,
+          level: 2
+        });
+        resolve([taxonomyItem]);
+
+      } else if (path[0] === parent2Id) {
+
+        assert.deepEqual(path, [parent2Id], 'Load data for third course');
+        let taxonomyItem = TaxonomyItem.create({
+          id: child2Id,
+          level: 2
+        });
+        resolve([taxonomyItem]);
+
+      } else {
+        assert.notOk('true', 'Load data');
+        reject();
+      }
+    });
+  });
+
+  this.set('subject', subject);
   this.set('shortcuts', shortcuts);
   this.set('selected', selected);
-  this.set('panelHeaders', ['Level 1', 'Level 2', 'Level 3']);
+  this.set('panelHeaders', ['Level 1', 'Level 2']);
 
   this.render(hbs`{{
     taxonomy/gru-taxonomy-picker
-      taxonomyItems=taxonomyItems
-      shortcuts=shortcuts
+      browseSelectorText="Taxonomy Picker Title"
+      maxLevels=2
+      onSearchPath=(action 'loadData')
+      panelHeaders=panelHeaders
       selected=selected
-      panelHeaders=panelHeaders }}`);
+      selectedTextKey="Text for Selected Tags"
+      shortcuts=shortcuts
+      shortcutText="Text for Shortcut Tags"
+      subject=subject }}`);
 
   const $component = this.$('.taxonomy.gru-taxonomy-picker');
   assert.ok($component.length, 'Component');
-
-  assert.equal($component.find('.shortcut-list li').length, 2, 'Number of shortcut tags');
+  assert.equal($component.find('.shortcut-list .gru-taxonomy-tag').length, 2, 'Number of shortcut tags');
   assert.ok($component.find('.taxonomy.gru-browse-selector').length, 'Browse selector');
-  assert.equal($component.find('.selected-list li').length, 3, 'Number of selected tags');
+
+  return wait().then(function () {
+    assert.equal($component.find('.selected-list .gru-taxonomy-tag').length, 2, 'Number of selected tags');
+  });
 });
 
-test('it opens the browse selector to the location of the first shortcut tag by default', function(assert) {
+test('it opens the browse selector to the location of the first selected tag by default', function(assert) {
 
-  var taxonomyItems = generateTaxonomyTestTree(3);
-  var root = taxonomyItems[0];
+  var subject = TaxonomyRoot.create({
+    courses: generateTaxonomyTestTree(1, null, 3)
+  });
+  var parent1Id = '0-100';
+  var parent2Id = '0-102';
+  var childA = '0-100-200';
+  var childB = '0-102-220';
 
-  var shortcuts = [
-    root.find(['100', '201']),
-    root.find(['100', '200'])
+  var shortcuts = [];
+  var selected = [
+    TaxonomyTagData.create({ id: childB }),
+    TaxonomyTagData.create({ id: childA })
   ];
 
-  this.set('taxonomyItems', taxonomyItems);
+  this.on('loadData', function(path) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+
+      if (path[0] === parent1Id) {
+
+        assert.deepEqual(path, [parent1Id], 'Load data for first course');
+        let taxonomyItem = TaxonomyItem.create({
+          id: childA,
+          title: 'Item : 2 : 0 : 0',
+          level: 2
+        });
+        resolve([taxonomyItem]);
+
+      } else if (path[0] === parent2Id) {
+
+        assert.deepEqual(path, [parent2Id], 'Load data for third course');
+        let taxonomyItem = TaxonomyItem.create({
+          id: childB,
+          title: 'Item : 2 : 2 : 0',
+          level: 2
+        });
+        resolve([taxonomyItem]);
+
+      } else {
+        assert.notOk('true', 'Load data');
+        reject();
+      }
+    });
+  });
+
+  this.set('subject', subject);
   this.set('shortcuts', shortcuts);
-  this.set('panelHeaders', ['Level 1', 'Level 2', 'Level 3']);
+  this.set('selected', selected);
+  this.set('panelHeaders', ['Level 1', 'Level 2']);
 
   this.render(hbs`{{
     taxonomy/gru-taxonomy-picker
-      taxonomyItems=taxonomyItems
+      browseSelectorText="Taxonomy Picker Title"
+      maxLevels=2
+      onSearchPath=(action 'loadData')
+      panelHeaders=panelHeaders
+      selected=selected
+      selectedTextKey="Text for Selected Tags"
       shortcuts=shortcuts
-      panelHeaders=panelHeaders }}`);
+      shortcutText="Text for Shortcut Tags"
+      subject=subject }}`);
 
   const $component = this.$('.taxonomy.gru-taxonomy-picker');
-  assert.equal($component.find('.shortcut-list li').length, 2, 'Number of shortcut tags');
-  assert.ok($component.find('.shortcut-list li:eq(0) .gru-taxonomy-tag').hasClass('active'), 'First shortcut tag is active');
-  assert.notOk($component.find('.shortcut-list li:eq(1) .gru-taxonomy-tag').hasClass('active'), 'Second shortcut tag is not active');
+  assert.equal($component.find('.selected-list .gru-taxonomy-tag').length, 2, 'Number of selected tags');
 
-  var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li').length, 3, 'Number of items in the last panel');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > div > strong').text(), 'Item : 3 : 1 : 0', 'First item -last panel');
+  return wait().then(function () {
+    var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
+    assert.equal($browseSelector.find('ul.browse-panel.level-2 > li').length, 1, 'Number of items in the last panel');
+    assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > label > div > strong').text(), 'Item : 2 : 2 : 0', 'First item -last panel');
+  });
 });
 
 test('it opens the browse selector to a specific location after clicking on a shortcut tag', function(assert) {
 
-  var taxonomyItems = generateTaxonomyTestTree(3, null, 2);
-  var root1 = taxonomyItems[0];
-  var root2 = taxonomyItems[1];
+  var subject = TaxonomyRoot.create({
+    courses: generateTaxonomyTestTree(1, null, 3)
+  });
+  var parent1Id = '0-100';
+  var parent2Id = '0-102';
+  var childA = '0-100-200';
+  var childB = '0-102-220';
 
   var shortcuts = [
-    root1.find(['100', '200']),
-    root2.find(['101']),
-    root1.find(['100', '201']),
-    root2.find(['101', '212'])
+    TaxonomyTagData.create({ id: parent1Id }),
+    TaxonomyTagData.create({ id: parent2Id })
   ];
 
-  this.set('taxonomyItems', taxonomyItems);
+  var selected = [];
+
+  this.on('loadData', function(path) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+
+      if (path[0] === parent1Id) {
+
+        assert.deepEqual(path, [parent1Id], 'Load data for first course');
+        let taxonomyItem = TaxonomyItem.create({
+          id: childA,
+          title: 'Item : 2 : 0 : 0',
+          level: 2
+        });
+        resolve([taxonomyItem]);
+
+      } else if (path[0] === parent2Id) {
+
+        assert.deepEqual(path, [parent2Id], 'Load data for third course');
+        let taxonomyItem = TaxonomyItem.create({
+          id: childB,
+          title: 'Item : 2 : 2 : 0',
+          level: 2
+        });
+        resolve([taxonomyItem]);
+
+      } else {
+        assert.notOk('true', 'Load data');
+        reject();
+      }
+    });
+  });
+
+  this.set('subject', subject);
   this.set('shortcuts', shortcuts);
-  this.set('panelHeaders', ['Level 1', 'Level 2', 'Level 3']);
+  this.set('selected', selected);
+  this.set('panelHeaders', ['Level 1', 'Level 2']);
 
   this.render(hbs`{{
     taxonomy/gru-taxonomy-picker
-      taxonomyItems=taxonomyItems
+      browseSelectorText="Taxonomy Picker Title"
+      maxLevels=2
+      onSearchPath=(action 'loadData')
+      panelHeaders=panelHeaders
+      selected=selected
+      selectedTextKey="Text for Selected Tags"
       shortcuts=shortcuts
-      panelHeaders=panelHeaders }}`);
+      shortcutText="Text for Shortcut Tags"
+      subject=subject }}`);
 
   const $component = this.$('.taxonomy.gru-taxonomy-picker');
-  var $shortcutTags = $component.find('.shortcut-list');
+  assert.ok($component.length, 'Component');
+
   var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
+  var $shortcutTags = $component.find('.shortcut-list');
 
-  assert.equal($component.find('.shortcut-list li').length, 4, 'Number of shortcut tags');
-  assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > a').text(), 'Item : 2 : 0 : 0', 'First item -second panel');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > div > strong').text(), 'Item : 3 : 0 : 0', 'First item -last panel');
+  assert.equal($browseSelector.find('ul.browse-panel.level-2 > li').length, 0, 'Number of items in the last panel');
+  assert.equal($shortcutTags.find('li .gru-taxonomy-tag.active').length, 0, 'No shortcuts active by default');
 
-  // Click on shortcut #2
-  $shortcutTags.find('li:eq(1) .gru-taxonomy-tag .toggle').click();
-  assert.equal($shortcutTags.find('li .gru-taxonomy-tag.active').length, 1, 'One shortcut active at a time');
-  assert.ok($shortcutTags.find('li:eq(1) .gru-taxonomy-tag').hasClass('active'), 'Active class on selected shortcut');
+  // Click on shortcut #1
+  $shortcutTags.find('li:eq(0) .gru-taxonomy-tag .toggle').click();
 
-  assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > a').text(), 'Item : 2 : 1 : 0', 'First item -second panel, shortcut #2 clicked');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li').length, 0, 'No items -last panel, shortcut #2 clicked');
+  return wait().then(function () {
+    assert.equal($shortcutTags.find('li .gru-taxonomy-tag.active').length, 1, 'One shortcut active at a time');
+    assert.ok($shortcutTags.find('li:eq(0) .gru-taxonomy-tag').hasClass('active'), 'Active class on selected shortcut');
+    assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > label > div > strong').text(), 'Item : 2 : 0 : 0', 'Last panel item -first shortcut');
 
-  // Click on shortcut #3
-  $shortcutTags.find('li:eq(2) .gru-taxonomy-tag .toggle').click();
-  assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > a').text(), 'Item : 2 : 0 : 0', 'First item -second panel, shortcut #3 clicked');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > div > strong').text(), 'Item : 3 : 1 : 0', 'First item -last panel, shortcut #3 clicked');
+    // Click on shortcut #2
+    $shortcutTags.find('li:eq(1) .gru-taxonomy-tag .toggle').click();
+    return wait().then(function () {
+      assert.equal($shortcutTags.find('li .gru-taxonomy-tag.active').length, 1, 'One shortcut active at a time');
+      assert.ok($shortcutTags.find('li:eq(1) .gru-taxonomy-tag').hasClass('active'), 'Active class on selected shortcut');
+      assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > label > div > strong').text(), 'Item : 2 : 2 : 0', 'Last panel item -second shortcut');
 
-  // Click on shortcut #4
-  $shortcutTags.find('li:eq(3) .gru-taxonomy-tag .toggle').click();
-  assert.equal($browseSelector.find('ul.browse-panel.level-2 > li:first-child > a').text(), 'Item : 2 : 1 : 0', 'First item -second panel, shortcut #4 clicked');
-  assert.equal($browseSelector.find('ul.browse-panel.level-3 > li:first-child > label > div > strong').text(), 'Item : 3 : 2 : 0', 'First item -last panel, shortcut #4 clicked');
+      // Click on item in the browse selector
+      $browseSelector.find('ul.browse-panel.level-1 > li:first-child > a').click();
+      assert.equal($shortcutTags.find('li .gru-taxonomy-tag.active').length, 0, 'No shortcuts active');
+    });
+  });
 });
 
-test('it clears any active shortcuts after clicking on a browse selector item', function(assert) {
-
-  var taxonomyItems = generateTaxonomyTestTree(3);
-  var root = taxonomyItems[0];
-
-  var shortcuts = [
-    root.find(['100', '200']),
-    root.find(['100', '201'])
-  ];
-
-  this.set('taxonomyItems', taxonomyItems);
-  this.set('shortcuts', shortcuts);
-  this.set('panelHeaders', ['Level 1', 'Level 2', 'Level 3']);
-
-  this.render(hbs`{{
-    taxonomy/gru-taxonomy-picker
-      taxonomyItems=taxonomyItems
-      shortcuts=shortcuts
-      panelHeaders=panelHeaders }}`);
-
-  const $component = this.$('.taxonomy.gru-taxonomy-picker');
-  var $shortcutTags = $component.find('.shortcut-list');
-  var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
-
-  assert.equal($component.find('.shortcut-list li').length, 2, 'Number of shortcut tags');
-  assert.equal($shortcutTags.find('li .gru-taxonomy-tag.active').length, 1, 'Number of active shortcuts by default');
-
-  // Click on item in the browse selector
-  $browseSelector.find('ul.browse-panel.level-2 > li:first-child > a').click();
-  assert.equal($shortcutTags.find('li .gru-taxonomy-tag.active').length, 0, 'No shortcuts active');
-
-  // Click on second shortcut
-  $shortcutTags.find('li:eq(1) .gru-taxonomy-tag .toggle').click();
-  assert.equal($shortcutTags.find('li .gru-taxonomy-tag.active').length, 1, 'Number of active shortcuts');
-  assert.ok($shortcutTags.find('li:eq(1) .gru-taxonomy-tag').hasClass('active'), 'Second shortcut is active');
-
-  // Click on item in the browse selector
-  $browseSelector.find('ul.browse-panel.level-2 > li:first-child > a').click();
-  assert.equal($shortcutTags.find('li .gru-taxonomy-tag.active').length, 0, 'No shortcuts active');
-});
-
+/*
 test('it adds/removes a tag from the selected tags after it has been checked/unchecked in the browse selector', function(assert) {
 
   var taxonomyItems = generateTaxonomyTestTree(3);
