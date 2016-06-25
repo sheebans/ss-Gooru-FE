@@ -175,6 +175,12 @@ We have setup Bamboo as continuous integration server
 * when publishing a feature branch a bamboo build is triggered
 * when a feature is finished and changes are merge to develop, another build is performed and the app is deployed
 
+### Release candidate
+
+*Changelog*
+1. Run the command `changelog.sh RELEASE_BRANCH`
+2. Add the output to the CHANGELOG.md file
+
 ### Deploying
 
 *QA deployment*

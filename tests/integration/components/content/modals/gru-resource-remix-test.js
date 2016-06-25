@@ -4,7 +4,7 @@ import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import DS from 'ember-data';
 import ResourceModel from 'gooru-web/models/content/resource';
-
+import createResourceValidations from 'gooru-web/validations/create-resource';
 const resourceServiceStub = Ember.Service.extend({
 
   updateResource(resourceId, resource) {
@@ -40,9 +40,9 @@ moduleForComponent('content/modals/resource-remix', 'Integration | Component | c
 });
 
 test('it renders', function (assert) {
-
+  var newResource = ResourceModel.extend(createResourceValidations);
   this.set('resource', {
-    content: ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: newResource.create(Ember.getOwner(this).ownerInjection(), {
       id: 'resource-id',
       title: 'resource-title',
       standards: [],
@@ -73,9 +73,9 @@ test('it renders', function (assert) {
 
 test('it shows an error message if the resource title field is left blank', function (assert) {
   assert.expect(3);
-
+  var newResource = ResourceModel.extend(createResourceValidations);
   this.set('resource', {
-    content: ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: newResource.create(Ember.getOwner(this).ownerInjection(), {
       id: 'resource-id',
       title: 'resource-title',
       standards: [],
@@ -144,9 +144,9 @@ test('it shows toast and transitions after copying a resource', function (assert
       };
     }
   });
-
+  var newResource = ResourceModel.extend(createResourceValidations);
   this.set('resource', {
-    content: ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: newResource.create(Ember.getOwner(this).ownerInjection(), {
       id: 'resource-id',
       title: 'resource-title',
       standards: [],
@@ -213,9 +213,9 @@ test('it shows toast and transitions after copying a resource with parent collec
       assert.equal(resourceid, 12345, "Resource id in add resource");
     }
   });
-
+  var newResource = ResourceModel.extend(createResourceValidations);
   this.set('resource', {
-    content: ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: newResource.create(Ember.getOwner(this).ownerInjection(), {
       id: 'resource-id',
       title: 'resource-title',
       standards: [],
@@ -256,9 +256,9 @@ test('it displays a notification if the resource cannot be created', function (a
     }
   }));
   this.inject.service('notifications');
-
+  var newResource = ResourceModel.extend(createResourceValidations);
   this.set('resource', {
-    content: ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: newResource.create(Ember.getOwner(this).ownerInjection(), {
       id: 'resource-id',
       title: 'resource-title',
       standards: [],
@@ -282,9 +282,9 @@ test('it displays a notification if the resource cannot be created', function (a
 
 test('Validate if the resource Title field has only whitespaces', function (assert) {
   assert.expect(3);
-
+  var newResource = ResourceModel.extend(createResourceValidations);
   this.set('resource', {
-    content: ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: newResource.create(Ember.getOwner(this).ownerInjection(), {
       id: 'resource-id',
       title: 'resource-title',
       standards: [],
@@ -321,8 +321,9 @@ test('Validate if the resource Title field has only whitespaces', function (asse
 });
 
 test('Validate the character limit in the resource title field', function (assert) {
+  var newResource = ResourceModel.extend(createResourceValidations);
   this.set('resource', {
-    content: ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: newResource.create(Ember.getOwner(this).ownerInjection(), {
       id: 'resource-id',
       title: 'resource-title',
       standards: [],

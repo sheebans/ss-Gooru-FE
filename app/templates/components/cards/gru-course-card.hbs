@@ -8,12 +8,16 @@
       </div>
       <div class="header-content">
         <div class="">
-          {{#link-to "content.courses.play" course.id class="course-title" tagName="h3"}}
+          {{#link-to "content.courses.play" course.id class="course-title pointer" tagName="h3"}}
             {{course.title}}
           {{/link-to}}
         </div>
         <p class="subject truncate">
-          <span class="bars"></span><span class="total-units">{{course.unitCount}} {{t "cards.gru-course-card.units"}}</span>
+            {{#if course.unitCount}}
+              <span class="bars"></span><span class="total-units">{{t "cards.gru-course-card.units" count=course.unitCount}}</span>
+            {{else}}
+                <span class="bars"></span><span class="total-units">{{t "cards.gru-course-card.units" count=0}}</span>
+            {{/if}}
           {{#if subjects}}
             <span class="bars"></span>{{subjects}}
           {{/if}}
@@ -21,9 +25,9 @@
         {{#if users}}
           <div class="remixed-users">
             {{#if course.isRemixed}}
-              <span class="remixed">{{t "common.remixed-by"}}</span>
+              <span class="remixed">{{t "common.remixed-by"}}&nbsp;</span>
             {{else}}
-              <span class="created">{{t "common.created-by"}}</span>              
+              <span class="created">{{t "common.created-by"}}&nbsp;</span>
             {{/if}}
             <span class="users-teaser truncate ellipsis">{{gru-user-teaser users=users}}</span>
           </div>

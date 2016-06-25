@@ -139,6 +139,15 @@ export default Ember.Controller.extend({
    * @property {Boolean}
    */
   submitFlag: true,
+
+  /**
+   * terms and conditions url
+   * @property {string}
+   */
+  termsConditionsUrl: Ember.computed(function(){
+    return Env.termsConditionsUrl;
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
 
