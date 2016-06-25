@@ -1,8 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-//import wait from 'ember-test-helpers/wait';
-//import Ember from 'ember';
-//import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
+import wait from 'ember-test-helpers/wait';
+import Ember from 'ember';
+import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
 import { generateBrowseTestTree } from 'gooru-web/utils/taxonomy';
 
 moduleForComponent('taxonomy/gru-browse-selector', 'Integration | Component | taxonomy/gru browse selector', {
@@ -65,8 +65,6 @@ test("it can populate the browse panels per a specific item path", function(asse
   });
 });
 
-/*
-TODO for David to check
 test("it calls an external action when clicking an item that is not in the last browse panel", function(assert) {
 
   var data = generateBrowseTestTree(3);
@@ -78,7 +76,6 @@ test("it calls an external action when clicking an item that is not in the last 
 
   this.on('externalAction', function(itemPath) {
     assert.ok('true', 'External action called');
-    assert.deepEqual(itemPath, ['0-100', '0-100-201'], 'Item path')
   });
 
   this.render(hbs`
@@ -103,10 +100,7 @@ test("it calls an external action when clicking an item that is not in the last 
   // Click on the second item in the second panel
   $component.find('> ol > li:eq(1) a:eq(1)').click();
 });
-*/
 
-/*
- TODO for David to check
 test("it loads sub-level items async", function(assert) {
 
   const rootItem = BrowseItem.create({
@@ -138,13 +132,13 @@ test("it loads sub-level items async", function(assert) {
   this.set('headers', headers);
   this.set('selectedPath', []);
 
-  this.on('externalAction', function(itemPath) {
+  this.on('externalAction', function(item) {
     // Load child into rootItem asynchronously
     fetchChildrenFor(rootItem).then(function(childrenList) {
       rootItem.set('children', childrenList);
 
       // Update the selected path after the data has been fetched
-      component.set('selectedPath', itemPath);
+      component.set('selectedPath', item.getPath());
     });
   });
 
@@ -169,7 +163,6 @@ test("it loads sub-level items async", function(assert) {
     assert.equal($component.find('> ol > li:eq(1) > ul > li').length, 1, 'Number of items in level 2 -after clicking on root item');
   });
 });
-*/
 
 test("it keeps track of checked items", function(assert) {
   //assert.expect(15);
