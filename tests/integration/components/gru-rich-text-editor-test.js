@@ -102,19 +102,6 @@ test('Select overline', function(assert) {
   });
 });
 
-test('Select overline', function(assert) {
-
-  this.set('showExpressionsPanel',true);
-
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
-  const $component = this.$();
-  $component.find(".tab-content .overline").click();
-  return wait().then(function () {
-    T.exists(assert,$component.find(".math-field .mq-overline"),"Overline missing");
-  });
-});
-
-
 test('Select sum', function(assert) {
 
   this.set('showExpressionsPanel',true);
