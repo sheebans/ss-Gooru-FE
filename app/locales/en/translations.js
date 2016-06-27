@@ -100,6 +100,7 @@ export default {
       "links-inaccessible": "All share links will be inaccessible",
       "content-inaccessible": "All content will be inaccessible to the classrooms tied to it"
     },
+    "depth-of-knowledge": "Depth of Knowledge",
     "description": "Description",
     "district": "District",
     "domain": "Domain",

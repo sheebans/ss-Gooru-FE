@@ -100,6 +100,11 @@ export default (function() {
     audience: [],
 
     /**
+     * @property {Number[]} Array with the depthOfknowledge ids
+     */
+    depthOfknowledge: [],
+
+    /**
      * @property {TaxonomyTagData[]} standards - The collection standards information
      */
     standards: [],
@@ -199,10 +204,12 @@ export default (function() {
       properties = this.getProperties(properties);
 
       var audience = this.get('audience');
+      var depthOfknowledge = this.get('depthOfknowledge');
       var standards = this.get("standards");
 
-      // Copy the audience values
+      // Copy array values
       properties.audience = audience.slice(0);
+      properties.depthOfknowledge = depthOfknowledge.slice(0);
       properties.standards = standards.slice(0);
 
       properties.children = this.get('children');

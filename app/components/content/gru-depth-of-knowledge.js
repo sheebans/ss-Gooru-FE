@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 /**
- * Audience component
+ * Depth of Knowledge component
  *
- * Component responsible for show the audience
+ * Component responsible for show the  Depth of Knowledge
  *
  * @module
  * @augments ember/Component
@@ -14,27 +14,17 @@ export default Ember.Component.extend({
   // Dependencies
 
   /**
-   * @property {Ember.Service} Service to do retrieve audiences
+   * @property {Ember.Service} Service to do retrieve depth of knowledge
    */
   lookupService: Ember.inject.service('api-sdk/lookup'),
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'gru-audience'],
+  classNames: ['content', 'gru-depth-of-knowledge'],
 
   // -------------------------------------------------------------------------
   // Actions
-
-  actions: {
-
-    /**
-     * Remove audience from active audience
-     */
-    removeAudience: function (audience) {
-      audience.set('checked', false);
-    }
-  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -42,20 +32,11 @@ export default Ember.Component.extend({
     var component = this;
     component._super( ...arguments );
 
-    component.get("lookupService").readAudiences()
-      .then(function(audiences) {
-        component.set('audiences', audiences);
-        component.set('editAudiences', component.getOptionsArray(audiences, component.get('srcSelectedAudiences')));
+    component.get("lookupService").readDepthOfKnowledgeItems()
+      .then(function(knowledge) {
+        component.set('knowledge', knowledge);
+        component.set('editKnowledge', component.getOptionsArray(knowledge, component.get('srcSelectedKnowledge')));
       });
-  },
-
-  /**
-   * Overwrites didUpdate hook
-   */
-  didUpdate: function() {
-    this.$('.dropdown-menu.audience li label').on('click', function (e) {
-      e.stopPropagation();
-    });
   },
 
 
@@ -65,15 +46,15 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A}
    */
-  editAudiences: null,
+  editKnowledge: null,
 
   /**
-   * @type {Ember.A} editSelectedAudiences - Editable list of audiences selected for the course
+   * @type {Ember.A} editSelectedKnowledge - Editable list of knowledge selected for the assessment
    */
-  editSelectedAudiences: null,
+  editSelectedKnowledge: null,
 
   /**
-   * Is the course being edited or not?
+   * Is the assessment being edited or not?
    * @property {Boolean}
    */
   isEditing: null,
@@ -81,19 +62,19 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A}
    */
-  srcAudiences: Ember.computed('srcSelectedAudiences', 'audiences', function () {
-    return this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences'));
+  srcKnowledge: Ember.computed('srcSelectedKnowledge', 'knowledge', function () {
+    return this.getOptionsArray(this.get('knowledge'), this.get('srcSelectedKnowledge'));
   }),
 
   /**
-   * @type {Ember.A} srcSelectedAudiences - Initial list of audiences selected for the course
+   * @type {Ember.A} srcSelectedKnowledge - Initial list of knowledge selected for the assessment
    */
-  srcSelectedAudiences: null,
+  srcSelectedKnowledge: null,
 
   /**
-   * @type {Ember.A} audiences - List of audiences for the course
+   * @type {Ember.A} knowledge - List of knowledge for the assessment
    */
-  audiences: Ember.A(),
+  knowledge: Ember.A(),
 
 
   // -------------------------------------------------------------------------
@@ -102,17 +83,16 @@ export default Ember.Component.extend({
   /**
    * Observes if the selection has changed
    */
-  updateSelectedAudiences: Ember.observer('editAudiences.@each.checked', function () {
-    var selectedAudiences = this.get('editAudiences').filterBy('checked').map(function (audience) {
-      return (audience.get('checked')===true)? audience.get('id') : null;
+  updateSelectedKnowledge: Ember.observer('editKnowledge.@each.checked', function () {
+    var selectedKnowledge = this.get('editKnowledge').filterBy('checked').map(function (knowledge) {
+      return (knowledge.get('checked')===true)? knowledge.get('id') : null;
     });
-
-    this.set('editSelectedAudiences', selectedAudiences);
+    this.set('editSelectedKnowledge', selectedKnowledge);
   }),
 
-  resetSelectedAudiences: Ember.observer('isEditing', function () {
+  resetSelectedKnowledge: Ember.observer('isEditing', function () {
     if (this.get('isEditing')) {
-      this.set('editAudiences', this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences')));
+      this.set('editKnowledge', this.getOptionsArray(this.get('knowledge'), this.get('srcSelectedKnowledge')));
     }
   }),
 

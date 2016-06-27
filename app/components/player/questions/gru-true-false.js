@@ -48,7 +48,7 @@ export default QuestionComponent.extend({
    */
   trueAnswerId: Ember.computed("question.answers", function(){
     let answers = this.get("question.answers");
-    let found = answers.filterBy("isCorrect", true);
+    let found = answers.filterBy("text", "True");
     return found ? found.get("firstObject.id") : "true"; //TODO, is this a data problem?
   }),
 
@@ -57,7 +57,7 @@ export default QuestionComponent.extend({
    */
   falseAnswerId: Ember.computed("question.answers", function(){
     let answers = this.get("question.answers");
-    let found = answers.filterBy("isCorrect", false);
+    let found = answers.filterBy("text", "False");
     return found ? found.get("firstObject.id") : "true"; //TODO, is this a data problem?
   })
 
