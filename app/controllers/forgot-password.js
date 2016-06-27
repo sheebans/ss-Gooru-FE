@@ -30,6 +30,7 @@ export default Ember.Controller.extend({
     resetPassword: function() {
       const controller = this;
       const user = controller.get('user');
+      const errorMessage = controller.get('i18n').t('forgot-password.error-email-not-exists').string;
 
       if(controller.get('didValidate') === false) {
         var email = Ember.$('.gru-input.email input').val();
@@ -43,6 +44,9 @@ export default Ember.Controller.extend({
             .then(function() {
               controller.set('didValidate', true);
               controller.set('showSecondStep', true);
+            }, function(error) {
+              controller.set('emailError', error.email_id || errorMessage);
+              controller.keydownEvents();
             });
         }
       });

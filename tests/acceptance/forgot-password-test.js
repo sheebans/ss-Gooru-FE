@@ -36,7 +36,7 @@ test('Layout', function(assert) {
     const $forgotPasswordBody = $modal.find(".modal-body");
     var $forgotPasswordForm = $forgotPasswordBody.find(".forgot-password-form form");
     T.exists(assert, $forgotPasswordForm, "Missing sign up form");
-    T.exists(assert, $forgotPasswordForm.find(".gru-input-mixed-validation.email"), "Missing email field");
+    T.exists(assert, $forgotPasswordForm.find(".gru-input.email"), "Missing email field");
     T.exists(assert, $forgotPasswordForm.find(".footer-description"), "Missing footer-description div");
     T.exists(assert, $forgotPasswordForm.find("div.submit-button button"), "Missing submit button");
   });
@@ -50,7 +50,7 @@ test('it shows an error message if the email field is left blank', function (ass
 
 
     const $forgotPasswordContainer = find(".forgot-password");
-    const $emailField = $forgotPasswordContainer.find(".gru-input-mixed-validation.email");
+    const $emailField = $forgotPasswordContainer.find(".gru-input.email");
 
     assert.ok(!$emailField.find(".error-messages .error").length, 'Email error message not visible');
 
@@ -78,15 +78,15 @@ test('it shows an error message if the email is wrong', function (assert) {
     assert.equal(currentURL(), '/forgot-password');
 
     const $forgotPasswordContainer = find(".forgot-password");
-    const $emailField = $forgotPasswordContainer.find(".gru-input-mixed-validation.email");
+    const $emailField = $forgotPasswordContainer.find(".gru-input.email");
 
-    assert.ok(!$emailField.find(".error-messages .error").length, 'Email error message not visible');
+    assert.ok(!$forgotPasswordContainer.find(".validation.error.email-error").length, 'Email error message not visible');
 
-    $emailField.find("input").val('test@gooru');
+    $emailField.find("input").val('fail@gooru.org');
     $forgotPasswordContainer.find("div.submit-button button").click();
 
     return wait().then(function () {
-      assert.ok($emailField.find(".error-messages .error").length, 'Email error message should be visible');
+      assert.ok($forgotPasswordContainer.find(".validation.error.email-error").length, 'Email error message should be visible');
     });
   });
 });

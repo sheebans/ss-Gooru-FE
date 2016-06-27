@@ -376,7 +376,7 @@ export default Ember.Service.extend({
         .then(function() {
           resolve();
         }, function(error) {
-          reject(error);
+          reject(error && error.responseText ? JSON.parse(error.responseText) : error);
         });
     });
   },

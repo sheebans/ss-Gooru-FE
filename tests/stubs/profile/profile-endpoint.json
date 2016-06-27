@@ -135,6 +135,39 @@
     }
   },
   {
+    "description": "API 3.0 Endpoint to initiate forgot password by email",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users/password-reset$",
+      "method": "POST",
+      "post": "{\"email_id\": \"test@gooru.org\"}",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  },
+  {
+    "description": "API 3.0 Endpoint to initiate forgot password by email fail",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/users/password-reset$",
+      "method": "POST",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  },
+  {
     "description": "API 3.0 Endpoint to get user by username",
     "request": {
       "url": "^/api/nucleus-auth/v1/users",
