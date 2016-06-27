@@ -61,7 +61,7 @@ export default Ember.Service.extend({
       }).then(function(response) {
         resolve(service.get('authenticationSerializer').normalizeAvatarUrl(response, authData));
       }, function(error) {
-        reject(error);
+        reject(error && error.responseText ? JSON.parse(error.responseText) : error);
       });
     });
   },

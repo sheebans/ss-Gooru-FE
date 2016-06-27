@@ -48,7 +48,7 @@ export default Ember.Service.extend({
       }).then(function(response) {
         resolve(service.get('profileSerializer').normalizeCreateProfile(response));
       }, function(error) {
-        reject(error);
+        reject(error && error.responseText ? JSON.parse(error.responseText) : error);
       });
     });
   },
@@ -68,7 +68,7 @@ export default Ember.Service.extend({
       }).then(function() {
         resolve();
       }, function(error) {
-        reject(error);
+        reject(error && error.responseText ? JSON.parse(error.responseText) : error);
       });
     });
   },

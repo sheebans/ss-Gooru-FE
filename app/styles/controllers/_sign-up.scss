@@ -110,6 +110,10 @@
             label {
               width: 100%;
             }
+            .validation.error {
+              position: relative;
+              top: -15px;
+            }
             span.required {
               display: block;
               &:after {
