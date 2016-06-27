@@ -81,14 +81,14 @@
         }
         .tab-content{
           display: inline-block;
-          width: 62%;
+          width: 65%;
           background-color: $blue-100;
           .tab-pane {
             border-left: 1px solid $white;
-            margin: 10px;
+            margin: 10px 0px;
             div{
-              margin: 0 10px 0 10px;
-              height: 46px;
+              height: 50px;
+              margin:0 5px;
               a {
                 display: inline-block;
                 line-height: 1;
@@ -97,51 +97,141 @@
           }
           .fraction{
             background: url("gooru/images/math-icons/fraction.svg");
-            background-size: 46px 46px;
-            height: 46px;
-            width: 30px;
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
           }
           .sqrt{
             background: url("gooru/images/math-icons/square-root.svg");
-            background-size: 46px 46px;
-            height: 46px;
-            width: 36px;
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
           }
           .sqrtn{
             background: url("gooru/images/math-icons/square-root-magnitude.svg");
-            background-size: 46px 46px;
-            height: 46px;
-            width: 40px;
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
+          }
+          .subscript{
+            background: url("gooru/images/math-icons/sub-script.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
+          }
+          .superscript{
+            background: url("gooru/images/math-icons/super-script.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
+          }
+          .over-left-arrow{
+            background: url("gooru/images/math-icons/over-left-arrow.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
+          }
+          .over-right-arrow{
+            background: url("gooru/images/math-icons/over-right-arrow.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
+          }
+          .over-left-right-arrow{
+            background: url("gooru/images/math-icons/over-doble-arrow.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
           }
           .overline{
             background: url("gooru/images/math-icons/overline.svg");
-            background-size: 46px 46px;
-            height: 46px;
-            width: 30px;
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
           }
           .sum{
             background: url("gooru/images/math-icons/sum-sub-super.svg");
-            background-size: 46px 46px;
-            height: 46px;
-            width: 35px;
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
+          }
+          .plus{
+            background: url("gooru/images/math-icons/plus.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
+          }
+          .minus{
+            background: url("gooru/images/math-icons/minus.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
+          }
+          .div{
+            background: url("gooru/images/math-icons/div.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
+          }
+          .cdot{
+            background: url("gooru/images/math-icons/cdot.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
+          }
+          .not-equal{
+            background: url("gooru/images/math-icons/not-equal.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
           }
           .greater-equal{
             background: url("gooru/images/math-icons/greater-equal-than.svg");
             background-size: 45px 45px;
-            height: 46px;
-            width: 30px;
+            height: 45px;
+            width: 40px;
+          }
+          .less-equal{
+            background: url("gooru/images/math-icons/less-equal-than.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
           }
           .greater{
             background: url("gooru/images/math-icons/greater-than.svg");
-            background-size: 46px 45px;
-            height: 46px;
-            width: 30px;
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
+          }
+          .less{
+            background: url("gooru/images/math-icons/less-than.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
+          }
+          .sim{
+            background: url("gooru/images/math-icons/sim.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
+          }
+          .approx{
+            background: url("gooru/images/math-icons/approx.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
+          }
+          .alpha{
+            background: url("gooru/images/math-icons/alpha.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 40px;
           }
           .infinity{
             background: url("gooru/images/math-icons/infinity.svg");
-            background-size: 46px 46px;
-            height: 46px;
-            width: 30px;
+            background-size: 50px 50px;
+            height: 50px;
+            width: 50px;
           }
         }
       }
@@ -153,7 +243,7 @@
     padding: 10px;
     outline: none;
     &:focus {
-      box-shadow: inset 0 -2px 0 $blue-400;
+      box-shadow: inset 0 -2px 0 $blue-500;
     }
     .gru-math-expression {
       .katex {

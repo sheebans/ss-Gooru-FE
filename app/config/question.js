@@ -185,5 +185,20 @@ export const LATEX_EXPRESSIONS = {
   lambda: "\\Lambda",
   omega: "\\Omega",
   alpha: "\\alpha",
-  infinity: "\\infty"
+  infinity: "\\infty",
+  subscript:"{}_{}",
+  superscript:"{}^{}",
+  "over-left-arrow":"\\overleftarrow{}",
+  "over-right-arrow":"\\overrightarrow{}",
+  "over-left-right-arrow":"\\overleftrightarrow{}",
+  div:"\\div",
+  plus:"\\+",
+  minus:"\\-",
+  cdot:"\\cdot",
+  "not-equal":"\\neq",
+  lt:"\\lt",
+  le:"\\le",
+  sim:"\\sim",
+  approx:"\\approx",
+  alpha:"\\alpha"
 };
