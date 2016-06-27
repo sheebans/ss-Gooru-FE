@@ -118,9 +118,7 @@ const Class = Ember.Object.extend(Validations, {
   /**
    * @property {Number} Computed property that counts the number of members in the class
    */
-  countMembers: Ember.computed('members', function() {
-    return this.get('members.length');
-  }),
+  countMembers: Ember.computed.alias('members.length'),
 
   /**
    * @property {Number} Computed property that counts the number of teachers in the class
