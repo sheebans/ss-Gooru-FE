@@ -36,6 +36,7 @@ export default Ember.Component.extend({
         }
         component.makeExpressionsReadOnly();
       }
+      this.toggleProperty('showExpressionsPanel');
     },
     updateExpression() {
       var component = this;

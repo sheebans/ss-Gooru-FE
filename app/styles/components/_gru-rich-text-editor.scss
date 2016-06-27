@@ -114,8 +114,7 @@
             width: 40px;
           }
           .overline{
-            //CHANGE TO CORRECT ICON
-            background: url("gooru/images/math-icons/over-doble-arrow.svg");
+            background: url("gooru/images/math-icons/overline.svg");
             background-size: 46px 46px;
             height: 46px;
             width: 30px;
@@ -124,18 +123,17 @@
             background: url("gooru/images/math-icons/sum-sub-super.svg");
             background-size: 46px 46px;
             height: 46px;
-            width: 28px;
+            width: 35px;
           }
-          .greather-equal{
+          .greater-equal{
             background: url("gooru/images/math-icons/greater-equal-than.svg");
             background-size: 45px 45px;
             height: 46px;
             width: 30px;
           }
-          .greather{
-            //CHANGE TO CORRECT ICON
-            background: url("gooru/images/math-icons/greater-equal-than.svg");
-            background-size: 45px 45px;
+          .greater{
+            background: url("gooru/images/math-icons/greater-than.svg");
+            background-size: 46px 45px;
             height: 46px;
             width: 30px;
           }
