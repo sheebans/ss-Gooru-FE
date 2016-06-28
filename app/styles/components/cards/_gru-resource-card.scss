@@ -136,6 +136,11 @@
           display: inline-block;
         }
         .publisher-name{
+          max-width: 165px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          vertical-align: middle;
           > a {
             margin-left: 5px;
             color:$blue-400;

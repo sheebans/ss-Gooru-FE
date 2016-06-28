@@ -4,7 +4,7 @@ import {
   EMOTION_VALUES,
   GRADING_SCALE } from 'gooru-web/config/config';
 import { DEFAULT_IMAGES } from "gooru-web/config/config";
-/*
+/**
  * Function for sorting strings alphabetically in ascending order
  * @param {string} a
  * @param {string} b
@@ -311,9 +311,10 @@ export function toTimestamp(date){
 export function toLocal(timestamp){
   return moment.utc(timestamp).toDate();
 }
-/*
+/**
  * Replace / to _
- * */
+ *
+ */
 export function normalizeQuestionTypes(questionType) {
   return questionType.replace('/', '_');
 }
@@ -322,9 +323,31 @@ export function normalizeQuestionTypes(questionType) {
  * Returns filename from url
  * @param {String} file complete url
  */
-export function cleanFilename(url) {
-  var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
+export function cleanFilename(url, cdnUrls) {
+  if (url) {
+    var defaultImages = Ember.$.map(DEFAULT_IMAGES, value => value);
+    if (cdnUrls) {
+      url = url.replace(cdnUrls.content, '');
+      url = url.replace(cdnUrls.user, '');
+    }
+  }
   return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
+}
+/**
+ * Returns filename with extension from a invalid url
+ * @param {String} file complete url
+ */
+export function getFileNameFromInvalidUrl(url) {
+  const regex = /\w+(?:\.\w+)*$/;
+  const validURL=/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+  var match;
+  if((validURL).exec(url)){
+    match = url;
+  }else{
+    match = regex.exec(url);
+  }
+
+  return match;
 }
 
 /**

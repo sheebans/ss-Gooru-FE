@@ -175,13 +175,25 @@ We have setup Bamboo as continuous integration server
 * when publishing a feature branch a bamboo build is triggered
 * when a feature is finished and changes are merge to develop, another build is performed and the app is deployed
 
+### Generate change log
+
+*Changelog*
+1. Run the command `changelog.sh RELEASE_BRANCH`
+2. Add the output to the CHANGELOG.md file
+
 ### Deploying
 
 *QA deployment*
 At this point develop branch is deployed by Bamboo to the configured QA servers
 
+*Staging deployment*
+Release candidates, hot fixes and master build are send to a S3 bucket configured by Gooru Netops, from there
+they deploy the package to the staging environment (Nucleus QA)
+
 *Production deployment*
-TBD
+The production package is archived at [Edify Artifactory](edify.artifactoryonline.com/edify/webapp/#/artifacts/browse/tree/General/gooruweb-releases-local), 
+it is also sent to Gooru Netops, they deploy it to production environment
+
 
 ### Design Color Palette
 ![Color Palette](color-palette.png)

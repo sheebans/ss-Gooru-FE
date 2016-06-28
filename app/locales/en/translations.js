@@ -100,6 +100,7 @@ export default {
       "links-inaccessible": "All share links will be inaccessible",
       "content-inaccessible": "All content will be inaccessible to the classrooms tied to it"
     },
+    "depth-of-knowledge": "Depth of Knowledge",
     "description": "Description",
     "district": "District",
     "domain": "Domain",
@@ -188,7 +189,7 @@ export default {
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required": "Please enter the unit title.",
       "user-email-presence": "Please enter a valid email.",
-      "username-length": "Username must be between 4 and 10 characters."
+      "username-length": "Username must be between 4 and 16 characters."
     },
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
@@ -218,6 +219,7 @@ export default {
     "learning-target-mobile": "Micro-standard in Standard",
     "lesson": "Lesson",
     "lessonInitial": "L",
+    "lesson-title": "Lesson Title",
     "lessonObj": {
       one: "Lesson",
       other: "Lessons"
@@ -623,6 +625,15 @@ export default {
     "legend": "You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
     "remove-error": "Oops! Unable to remove {{type}} right now. Please try again shortly.",
     "confirmation": "Are you sure you want to continue? Please type “remove” below and click “remove”."
+  },
+  "content.modals.remove-student": {
+    "title":"Remove student and delete their data",
+    "legend": "You are about to remove {{studentName}} from this classroom and delete all of their data.",
+    "data-inaccessible":"All their data will be deleted and not accessible by you or them",
+    "classroom-access":"They will not have access to the classroom or content",
+    "data-lost":"If they re-join the class, all past data will be lost",
+    "remove-error": "Oops! Unable to remove this student right now. Please try again shortly.",
+    "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
   },
   "content.resources": {
     "edit": {
@@ -1047,8 +1058,11 @@ export default {
       }
     },
     "gru-course-card": {
-      "units": "Units",
       "in": "in",
+      "units": {
+        one: "{{count}} Unit",
+        other: "{{count}} Units"
+      },
       "resource": {
         one: "{{count}} Resource",
         other: "{{count}} Resources"
@@ -1123,7 +1137,7 @@ export default {
   },
   "featured": {
     "featured-title": "Featured Courses",
-    "featured-description": "Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
+    "featured-description": "Catch a sneak peek of one or more units of study in many featured courses! Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! All course content will be available in August 2016. Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
   },
 
   "taxonomy.modals": {
@@ -1171,8 +1185,9 @@ export default {
         "symbols": "Symbols",
         "trigonometry": "Trigonometry"
       },
-      "insert-expression": "Insert Expression",
-      "update-expression": "Update Expression"
+      "insert-expression": "Insert",
+      "update-expression": "Update",
+      "select-expression": "Select Expression"
     }
   }
 };

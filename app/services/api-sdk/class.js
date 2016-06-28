@@ -60,8 +60,6 @@ export default Ember.Service.extend({
       }).then(function () {
         resolve(classModel);
       }, function(error) {
-        //TODO: we have to remove this
-        console.log(error);
         reject(error);
       });
     });
@@ -77,6 +75,19 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classAdapter').deleteClass(classId)
+        .then(resolve, reject);
+    });
+  },
+  /**
+   * Remove Student From Class
+   * @param classId
+   * @param userId the user id to delete
+   * @returns {Promise}
+   */
+  removeStudentFromClass:function(classId,userId){
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').removeStudentFromClass(classId,userId)
         .then(resolve, reject);
     });
   },

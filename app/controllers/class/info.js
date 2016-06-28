@@ -42,6 +42,12 @@ export default Ember.Controller.extend(ModalMixin,{
       this.actions.showModal.call(controller,
         'content.modals.gru-delete-class',
         model, null, null, null, false);
+    },
+    /**
+     * Remove student
+     */
+    removeStudent:function(student){
+      this.get('class.members').removeObject(student);
     }
   },
 

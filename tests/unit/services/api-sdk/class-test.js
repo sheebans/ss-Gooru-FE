@@ -91,6 +91,28 @@ test('deleteClass', function(assert) {
     });
 });
 
+test('removeStudentFromClass', function(assert) {
+  const expectedClassId = 'class-id';
+  const expectedUserId = 'user-id';
+  const service = this.subject();
+
+  assert.expect(2);
+
+  service.set('classAdapter', Ember.Object.create({
+    removeStudentFromClass: function(classId,userId) {
+      assert.equal(classId, expectedClassId, 'Wrong class id');
+      assert.equal(userId, expectedUserId, 'Wrong user id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.removeStudentFromClass('class-id','user-id')
+    .then(function() {
+      done();
+    });
+});
+
 test('joinClass successful', function(assert) {
   const service = this.subject();
   assert.expect(1);
