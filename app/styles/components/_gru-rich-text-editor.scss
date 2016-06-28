@@ -87,7 +87,7 @@
             border-left: 1px solid $white;
             margin: 10px 0px;
             div{
-              height: 50px;
+              min-height: 50px;
               margin:0 5px;
               a {
                 display: inline-block;
@@ -227,11 +227,77 @@
             height: 45px;
             width: 40px;
           }
+          .pmatrix{
+            background: url("gooru/images/math-icons/pmatrix.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
+          .Bmatrix{
+            background: url("gooru/images/math-icons/Bmatrix.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
+          .vmatrix{
+            background: url("gooru/images/math-icons/vmatrix.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
+          .angle{
+            background: url("gooru/images/math-icons/angle.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
+          .measuredangle{
+            background: url("gooru/images/math-icons/measured-angle.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
+          .sphericalangle{
+            background: url("gooru/images/math-icons/spherical-angle.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
           .infinity{
             background: url("gooru/images/math-icons/infinity.svg");
             background-size: 50px 50px;
             height: 50px;
-            width: 50px;
+            width: 40px;
+          }
+          .bot{
+            background: url("gooru/images/math-icons/bot.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
+          .parallel{
+            background: url("gooru/images/math-icons/parallel.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
+          .sigma{
+            background: url("gooru/images/math-icons/sigma.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
+          .theta{
+            background: url("gooru/images/math-icons/theta.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
+          }
+          .pi{
+            background: url("gooru/images/math-icons/pi.svg");
+            background-size: 50px 50px;
+            height: 50px;
+            width: 40px;
           }
         }
       }

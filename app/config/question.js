@@ -184,7 +184,6 @@ export const LATEX_EXPRESSIONS = {
   gt: "\\gt",
   lambda: "\\Lambda",
   omega: "\\Omega",
-  alpha: "\\alpha",
   infinity: "\\infty",
   subscript:"{}_{}",
   superscript:"{}^{}",
@@ -200,5 +199,16 @@ export const LATEX_EXPRESSIONS = {
   le:"\\le",
   sim:"\\sim",
   approx:"\\approx",
-  alpha:"\\alpha"
+  alpha:"\\alpha",
+  pmatrix:"\\left({}\\right)",
+  Bmatrix:"\\left\\{{} \\right\\}",
+  vmatrix:"\\left|{} \\right|",
+  angle:"\\angle",
+  measuredangle:"\\measuredangle",
+  sphericalangle:"\\sphericalangle",
+  bot:"\\bot",
+  parallel:"\\parallel",
+  sigma:"\\Sigma",
+  theta:"\\Theta",
+  pi:"\\pi"
 };
