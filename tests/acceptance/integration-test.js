@@ -21,21 +21,12 @@ test('teams route to info', function(assert) {
   });
 });
 
-/*
-
-test('teams route to info on invalid classId', function(assert) {
-  visit('/integration/teams?token=any-token&classId=invalid-class-id&page=info');
-  andThen(function() {
-    assert.expect(1);
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/info');
-  });
-});
 
 test('teams route to incorrect page', function(assert) {
   visit('/integration/teams?token=any-token&classId=class-for-pochita-as-teacher&page=unexistant-page');
   andThen(function() {
     assert.expect(1);
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/info');
+    assert.equal(currentURL(), '/integration/class-for-pochita-as-teacher');
   });
 });
 
@@ -64,11 +55,11 @@ test('teams route to data analytics page in a student class', function(assert) {
   });
 });
 
-test('teams route to overview/course-map', function(assert) {
-  visit('/integration/teams?token=any&classId=class-for-pochita-as-teacher&page=course-map');
+test('teams route to overview', function(assert) {
+  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-student&page=course-map');
+
   andThen(function() {
     assert.expect(1);
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/overview');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=7fa6b7d9-7e9b-4465-a38d-3e25fe95f14f%2B3b7ecb54-6fc3-4381-a41d-760516dead16%2B19130c91-6c42-46f5-91da-11238b08c08f');
   });
 });
-*/

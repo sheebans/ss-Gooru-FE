@@ -44,7 +44,7 @@
   {
     "description": "API 3.0 Endpoint to return current user Profile info",
     "request": {
-      "url": "^/api/nucleus/v1/profiles/pochita/demographics",
+      "url": "^/api/nucleus/v1/profiles/id-for-pochita/demographics",
       "method": "GET",
       "headers": {
         "authorization": "Token (.+)"

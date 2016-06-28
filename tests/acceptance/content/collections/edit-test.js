@@ -10,7 +10,7 @@ moduleForAcceptance('Acceptance | Edit Collection', {
       isAnonymous: false,
       token: 'profile-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
@@ -108,7 +108,7 @@ test('Delete Collection', function (assert) {
               var $deleteButton = $deleteContentModal.find("button.delete");
               click($deleteButton);
               andThen(function () {
-                assert.equal(currentURL(), '/pochita/content/courses');
+                assert.equal(currentURL(), '/id-for-pochita/content/courses');
               });
             });
           });

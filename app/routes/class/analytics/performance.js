@@ -46,7 +46,7 @@ export default Ember.Route.extend({
     } else {
       route.transitionTo('class.analytics.performance.student', {
         queryParams: route.paramsFor('class.analytics.performance.student')
-      });      
+      });
     }
   }
 });
