@@ -284,6 +284,10 @@ export default Ember.Component.extend({
    */
   taxonomyItems: Ember.computed.alias('subject.courses'),
 
+  /**
+   * @property {Boolean} fromSearch - show if the modal call was from search or not.
+   */
+  fromSearch: false,
 
   // -------------------------------------------------------------------------
   // Methods

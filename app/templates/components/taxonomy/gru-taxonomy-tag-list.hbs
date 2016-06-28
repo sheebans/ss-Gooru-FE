@@ -11,7 +11,7 @@
   {{#each tags as |taxonomyTag|}}
     {{taxonomy.gru-taxonomy-tag
       model=taxonomyTag
-      hasTooltip=false
+      hasTooltip=isInSearch
       onRemove=(action 'removeTag' taxonomyTag)
     }}
   {{/each}}

@@ -9,9 +9,6 @@ export default Ember.Controller.extend(ModalMixin, {
   queryParams: ['term', 'taxonomies'],
 
   // -------------------------------------------------------------------------
-  // Actions
-
-  // -------------------------------------------------------------------------
   // Events
 
   // -------------------------------------------------------------------------
@@ -78,6 +75,12 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   taxonomies: Ember.A([]),
 
+  /**
+   * @property {selectedTags[]} selected tags
+   */
+  selectedTags: Ember.A([]),
+
+
   // -------------------------------------------------------------------------
   // Methods
   openTaxonomyModal: function(subject){
@@ -88,6 +91,7 @@ export default Ember.Controller.extend(ModalMixin, {
     var model = {
       selected: subjectStandards,
       subject: subject,
+      fromSearch: true,
       callback: {
         success: function(selectedTags) {
           var dataTags = selectedTags.map(function(taxonomyTag) {
@@ -99,12 +103,11 @@ export default Ember.Controller.extend(ModalMixin, {
           component.set('taxonomies', standards.map(function(taxonomyTagData) {
             return taxonomyTagData.get("id");
           }));
-        }
+          component.set('selectedTags',selectedTags);
+         }
       }
     };
 
     this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
   }
-
-
 });

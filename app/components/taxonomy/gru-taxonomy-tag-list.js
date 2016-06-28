@@ -54,6 +54,11 @@ export default Ember.Component.extend({
   isInCard: false,
 
   /**
+   * @property {boolean} Is the taxonomy tag list called from search
+   */
+  isInSearch: false,
+
+  /**
    * @property {TaxonomyTag[]} taxonomy tag
    */
   tags: null,

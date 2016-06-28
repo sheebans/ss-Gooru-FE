@@ -53,14 +53,42 @@ export default Ember.Controller.extend({
         .then(function(resourceResults){
           controller.set("resourceResults", resourceResults);
         });
-
-
     },
 
     showMoreResults: function(){
       this.showMoreResults();
-    }
+    },
 
+    /**
+     * Remove a tag from the selected tag list
+     * the browse selector.
+     * @function actions:removeTag
+     * @param {TaxonomyTag} taxonomyTag
+     */
+    removeTag: function (taxonomyTag) {
+
+      this.get('selectedTags').removeObject(taxonomyTag);
+
+      //var path = taxonomyTag.get('data.ancestorsPath');
+      //var browseItems = this.get('browseItems');
+      //var browseItem = null;
+      //
+      //console.log('path', path);
+      //console.log('browseItems', browseItems);
+
+      //for (let i = browseItems.length - 1; i >= 0; --i) {
+      //  browseItem = browseItems[i].find(path);
+      //  if (browseItem) {
+      //    break;
+      //  }
+      //}
+      //
+      //browseItem = browseItem.findItem(taxonomyTag.get('data.id'));
+      //Ember.Logger.assert(browseItem, 'Unable to find browse item to deselect');
+
+
+      //browseItem.set('isSelected', false);
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -107,6 +135,11 @@ export default Ember.Controller.extend({
     return this.get("resourceResults.length") &&
       (this.get("resourceResults.length") % this.get("pagination.pageSize") === 0);
   }),
+
+  /**
+   * @property {selectedTags[]} selected tags
+   */
+  selectedTags: Ember.computed.alias("searchController.selectedTags"),
 
   // -------------------------------------------------------------------------
   // Methods
