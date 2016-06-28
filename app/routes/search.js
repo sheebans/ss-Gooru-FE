@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {K12_CATEGORY} from 'gooru-web/config/config';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 /**
  * @typedef {object} SearchCollectionsController
