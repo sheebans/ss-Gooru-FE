@@ -17,7 +17,7 @@ const Validations = buildValidations({
       validator('number', {
         allowBlank: true,
         integer: true,
-        gte: 0,
+        gte: 1,
         lte: 100,
         message: '{{description}}',
         descriptionKey: 'common.errors.class-min-score'

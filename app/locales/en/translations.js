@@ -135,7 +135,7 @@ export default {
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
-      "class-min-score": "The minimum score should be a number between 0 and 100",
+      "class-min-score": "The minimum score should be a number between 1 and 100",
       "class-not-created": "Oops! Unable to create classroom right now. Please try again shortly.",
       "class-title-presence": "Please give your classroom a name.",
       "collection-not-added-to": "Oops! Unable to add collection to lesson right now. Please try again shortly.",
@@ -483,7 +483,7 @@ export default {
       "class-name": "Classroom Name",
       "class-greetings": "Classroom Announcements",
       "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc.",
-      "class-minscore": "Assessment Minimum Score for Trophies (0-100%)",
+      "class-minscore": "Assessment Minimum Score for Trophies (1-100%)",
       "course-map": "Course Map",
       "edit-class": "Edit Classroom Settings"
     },

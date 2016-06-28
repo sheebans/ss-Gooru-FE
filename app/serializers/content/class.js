@@ -73,7 +73,7 @@ export default Ember.Object.extend({
       grade:[], // TODO We need to get the grade values, we have just the IDs.
       classSharing: payload['class_sharing'],
       coverImage: payload['cover_image'],
-      minScore: payload['min_score'],
+      minScore: payload['min_score'] === 0 ? null : payload['min_score'],
       startDate: payload['created_at'],
       endDate: payload['end_date'],
       creatorSystem: '',

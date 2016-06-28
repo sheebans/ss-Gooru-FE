@@ -14,7 +14,7 @@ test('number input invalid', function(assert) {
   this.set('model', ClassModel.create(Ember.getOwner(this).ownerInjection(), {
     minScore: null
   }));
-  this.render(hbs`{{validation.gru-input-number model=model valuePath='minScore' min=0 max=100 step=1}}`); // render the component
+  this.render(hbs`{{validation.gru-input-number model=model valuePath='minScore' min=1 max=100 step=1}}`); // render the component
   var $component = this.$(); // component dom element
   var $input = $component.find("input[type=number]");
 
@@ -25,18 +25,18 @@ test('number input invalid', function(assert) {
   $input.blur();
 
   return wait().then(function () {
-    assert.ok($component.find(".error-messages .error").length, 'Title error message was hidden');
+    assert.ok($component.find(".error-messages .error").length, 'Input error message was hidden');
 
     $input.val('10');
     $input.blur();
     return wait().then(function () {
-      assert.ok(!$component.find(".error-messages .error").length, 'Title error message was not hidden');
+      assert.ok(!$component.find(".error-messages .error").length, 'Input error message was not hidden');
 
       $input.val('11e20');
       $input.blur();
 
       return wait().then(function () {
-        assert.ok($component.find(".error-messages .error").length, 'Title error message was hidden');
+        assert.ok($component.find(".error-messages .error").length, 'Input error message was hidden');
       });
     });
   });
@@ -48,7 +48,7 @@ test('number input range', function(assert) {
   this.set('model', ClassModel.create(Ember.getOwner(this).ownerInjection(), {
     minScore: null
   }));
-  this.render(hbs`{{validation.gru-input-number model=model valuePath='minScore' min=0 max=100 step=1}}`); // render the component
+  this.render(hbs`{{validation.gru-input-number model=model valuePath='minScore' min=1 max=100 step=1}}`); // render the component
   var $component = this.$(); // component dom element
   var $input = $component.find("input[type=number]");
 
@@ -57,29 +57,29 @@ test('number input range', function(assert) {
   $input.blur();
 
   return wait().then(function () {
-    assert.ok(!$component.find(".error-messages .error").length, 'Title error message was not hidden');
+    assert.ok(!$component.find(".error-messages .error").length, 'Input error message was not hidden');
 
     $input.val('101');
     $input.blur();
     return wait().then(function () {
-      assert.ok($component.find(".error-messages .error").length, 'Title error message was hidden');
+      assert.ok($component.find(".error-messages .error").length, 'Input error message was hidden');
 
-      $input.val('0');
+      $input.val('1');
       $input.blur();
 
       return wait().then(function () {
-        assert.ok(!$component.find(".error-messages .error").length, 'Title error message was not hidden');
+        assert.ok(!$component.find(".error-messages .error").length, 'Input error message was not hidden');
 
         $input.val('-1');
         $input.blur();
 
         return wait().then(function () {
           assert.ok($component.find(".error-messages .error").length, 'Title error message was hidden');
-          $input.val('0');
+          $input.val('50');
           $input.blur();
 
           return wait().then(function () {
-            assert.ok(!$component.find(".error-messages .error").length, 'Title error message was not hidden');
+            assert.ok(!$component.find(".error-messages .error").length, 'Input error message was not hidden');
           });
         });
       });

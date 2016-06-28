@@ -8,7 +8,7 @@ test('serializeCreateClass', function(assert) {
   const classObject = ClassModel.create({
     title: 'class-title',
     classSharing: 'open',
-    minScore: 0
+    minScore: null
   });
   const expected = {
     title: 'class-title',
@@ -121,7 +121,7 @@ test('normalizeReadClassInfo', function(assert) {
     "class_sharing": "open",
     "cover_image": 'image-name',
     "code": "ABC123",
-    "min_score": null,
+    "min_score": 0,
     "end_date": "2016-01-01",
     "course_id": "d44d3928-2623-4925-9d38-e933650a7573",
     "collaborator": ['1', '2'],
