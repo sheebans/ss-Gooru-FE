@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
   sessionService: Ember.inject.service("api-sdk/session"),
 
   /**
-   * @property {Service} Session service
+   * @property {Service} Profile service
    */
   profileService: Ember.inject.service("api-sdk/profile"),
 
@@ -22,6 +22,11 @@ export default Ember.Controller.extend({
    * @property {Service} I18N service
    */
   i18n: Ember.inject.service(),
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -60,10 +65,15 @@ export default Ember.Controller.extend({
                 controller.send('signUp');
               });
             }, function(error) {
-              if(error) {
+              if(error && (error.email_id || error.username)) {
                 controller.set('emailError', error.email_id);
                 controller.set('usernameError', error.username);
                 controller.keydownEvents();
+              } else {
+                // Unexpected error
+                var message = controller.get('i18n').t('common.errors.sign-up-error').string;
+                controller.get('notifications').error(message);
+                Ember.Logger.error(error);
               }
             });
         }

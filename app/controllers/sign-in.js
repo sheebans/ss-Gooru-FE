@@ -62,10 +62,8 @@ export default Ember.Controller.extend({
                 controller.set('didValidate', true);
                 // Trigger action in parent
                 controller.send('signIn');
-              }, function(error) {
-                console.log(error);
-                console.log(error.message);
-                controller.get("notifications").error(error.message || errorMessage);
+              }, function() {
+                controller.get("notifications").warning(errorMessage);
                 // Authenticate as anonymous if it fails to mantain session
                 controller.get('session').authenticateAsAnonymous();
               });

@@ -8,6 +8,7 @@ moduleForAcceptance('Acceptance | forgot-password', {
     authenticateSession(this.application, {
       isAnonymous: true,
       token: 'forgot-password-token',
+      'token-api3': 'forgot-password-token',
       user: {
         gooruUId: 'session-id'
       }
@@ -74,19 +75,27 @@ test('it shows an error message if the email field is left blank', function (ass
 test('it shows an error message if the email is wrong', function (assert) {
   visit('/forgot-password');
 
+  authenticateSession(this.application, {
+    isAnonymous: true,
+    'token-api3': 'fail-token',
+    user: {
+      gooruUId: 'session-id'
+    }
+  });
+
   andThen(function() {
     assert.equal(currentURL(), '/forgot-password');
 
     const $forgotPasswordContainer = find(".forgot-password");
     const $emailField = $forgotPasswordContainer.find(".gru-input.email");
 
-    assert.ok(!$forgotPasswordContainer.find(".validation.error.email-error").length, 'Email error message not visible');
+    assert.ok(!find(".validation.error.email-error").length, 'Email error message not visible');
 
-    $emailField.find("input").val('fail@gooru.org');
+    $emailField.find("input").val('test@gooru.org');
     $forgotPasswordContainer.find("div.submit-button button").click();
 
     return wait().then(function () {
-      assert.ok($forgotPasswordContainer.find(".validation.error.email-error").length, 'Email error message should be visible');
+      assert.ok(find(".validation.error.email-error").length, 'Email error message should be visible');
     });
   });
 });

@@ -60,9 +60,7 @@ export default Ember.Service.extend({
         return service.get('profileAdapter').readUserProfile(authData.user.gooruUId);
       }).then(function(response) {
         resolve(service.get('authenticationSerializer').normalizeAvatarUrl(response, authData));
-      }, function(error) {
-        reject(error && error.responseText ? JSON.parse(error.responseText) : error);
-      });
+      }, reject);
     });
   },
 
