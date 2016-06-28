@@ -39,6 +39,6 @@
     <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.cancel'}}">
       <span aria-hidden="true">{{t 'common.cancel'}}</span>
     </button>
-    <button type="submit" class="btn btn-primary save" disabled={{if selectedTags.length null true}}>{{if fromSearch (t "common.search") (t "common.add") }}</button>
+    <button type="submit" class="btn btn-primary save" {{!if selectedTags.length null true}}>{{if fromSearch (t "common.search") (t "common.add") }}</button>
   </div>
 </form>

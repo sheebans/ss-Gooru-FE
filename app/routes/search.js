@@ -23,6 +23,11 @@ export default Ember.Route.extend(PublicRouteMixin, {
   },
 
   /**
+   * @property {Ember.Service} Service for the Taxonomies back-end endpoints
+   */
+  taxonomySdkService: Ember.inject.service('api-sdk/taxonomy'),
+
+  /**
    * @requires service:taxonomy
    */
   taxonomyService: Ember.inject.service("taxonomy"),
@@ -32,10 +37,32 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
-  model: function() {
+  model: function(params) {
+    var taxonomiesIds = params.taxonomies;
+    var selectedTags = Ember.A([]);
+    if(taxonomiesIds.length>0){
+      this.get('taxonomySdkService').fetchCodesByIds(taxonomiesIds)
+        .then(function(taxonomyArray) {
+          taxonomyArray.map(function(taxonomyItem) {
+            var newSelectedTag = TaxonomyTag.create({
+              isActive: true,
+              isReadonly: true,
+              isRemovable: true,
+              data: {
+                id: taxonomyItem.id,
+                label: taxonomyItem.code,
+                caption: taxonomyItem.code,
+                title: taxonomyItem.title
+              }
+            });
+            selectedTags.pushObject(newSelectedTag);
+          });
+         });
+    }
     var subjects = this.get('taxonomyService').getSubjects(K12_CATEGORY.value);
     return Ember.RSVP.hash({
-      subjects: subjects
+      subjects: subjects,
+      selectedTags: selectedTags
     });
   },
   /**
@@ -45,6 +72,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   setupController: function(controller, model) {
     controller.set("subjects", model.subjects);
+    controller.set("selectedTags", model.selectedTags);
   },
 
   // -------------------------------------------------------------------------

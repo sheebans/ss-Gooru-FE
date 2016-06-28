@@ -15,8 +15,10 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   searchController: Ember.inject.controller('search'),
   appController: Ember.inject.controller('application'),
+
   /**
    * @property {Ember.Service} Service to do the search
    */
@@ -67,27 +69,15 @@ export default Ember.Controller.extend({
      */
     removeTag: function (taxonomyTag) {
 
-      this.get('selectedTags').removeObject(taxonomyTag);
+      var selectedTags = this.get('selectedTags');
 
-      //var path = taxonomyTag.get('data.ancestorsPath');
-      //var browseItems = this.get('browseItems');
-      //var browseItem = null;
-      //
-      //console.log('path', path);
-      //console.log('browseItems', browseItems);
+      selectedTags.removeObject(taxonomyTag);
 
-      //for (let i = browseItems.length - 1; i >= 0; --i) {
-      //  browseItem = browseItems[i].find(path);
-      //  if (browseItem) {
-      //    break;
-      //  }
-      //}
-      //
-      //browseItem = browseItem.findItem(taxonomyTag.get('data.id'));
-      //Ember.Logger.assert(browseItem, 'Unable to find browse item to deselect');
+      var taxonomyMap =  selectedTags.map(function(taxonomyTagData) {
+        return taxonomyTagData.get("data.id");
+      });
 
-
-      //browseItem.set('isSelected', false);
+      this.set('taxonomies', taxonomyMap);
     }
   },
 
