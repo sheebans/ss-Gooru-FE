@@ -20,7 +20,7 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  beforeModel: function() {
+  redirect: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
     /*
      It is necessary to pass the query params again on the transitionTo so it doesn't fail at refresh
@@ -33,14 +33,20 @@ export default Ember.Route.extend({
        at _emberRuntimeSystemObject.default.extend.actions.finalizeQueryParamChange (ember.debug.js:25264)
        at Object.triggerEvent (ember.debug.js:27476)
 
+    Why are we transitioning in the beforeModel hook and not the redirect hook which was created specifically for this purpose?
+    https://guides.emberjs.com/v2.6.0/routing/redirection/
      */
 
     const route = this;
     const classModel = this.modelFor('class').class;
-    if (!classModel.isTeacher(route.get('session.userId'))){
+    if (classModel.isTeacher(route.get('session.userId'))){
+      route.transitionTo('class.analytics.performance.teacher', {
+        queryParams: route.paramsFor('class.analytics.performance.teacher')
+      });
+    } else {
       route.transitionTo('class.analytics.performance.student', {
         queryParams: route.paramsFor('class.analytics.performance.student')
-      });
+      });      
     }
   }
 });
