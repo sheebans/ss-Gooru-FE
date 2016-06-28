@@ -2,6 +2,7 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
+import {KEY_CODES} from "gooru-web/config/config";
 
 moduleForAcceptance('Acceptance | class/info', {
   beforeEach: function() {
@@ -72,5 +73,45 @@ test('Teacher Layout', function(assert) {
     T.exists(assert, $infoButtons.find("div.edit-actions-section.show"), "Edit and Action buttons should be visible");
     T.exists(assert, $infoButtons.find(".edit-btn"), "Missing Edit Button");
     T.exists(assert, $infoButtons.find(".info-actions.dropdown"), "Missing Info Actions dropdown");
+  });
+});
+test('Remove student', function(assert) {
+  visit('/class/class-for-pochita-as-teacher/info');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/info');
+
+    const $infoContainer = find(".controller.class .controller.info");
+    const $student =$infoContainer.find(".students-section ul.students li:nth-child(1)");
+    const $removeButton =$student.find(".remove");
+    click($removeButton);
+    andThen(function () {
+      var $deleteContentModal = find(".gru-modal .gru-remove-student");
+      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+      click($check1);
+      andThen(function () {
+        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+        click($check2);
+        andThen(function () {
+          var $check3 = $deleteContentModal.find("ul li:eq(2) input");
+          click($check3);
+          andThen(function () {
+            var $input = $deleteContentModal.find(".delete-input");
+            $input.val('delete');
+            $input.blur();
+            keyEvent($input, 'keyup', KEY_CODES.ENTER);
+            andThen(function () {
+              var $deleteButton = $deleteContentModal.find("button.delete");
+              click($deleteButton);
+              andThen(function () {
+                assert.equal(T.text($infoContainer.find('.students-section h5')), 'Students (0)');
+                const $navigation = find(".controller.class .navigation .gru-class-navigation");
+                assert.equal(T.text($navigation.find('.members p')), '0 Students');
+              });
+            });
+          });
+        });
+      });
+    });
   });
 });

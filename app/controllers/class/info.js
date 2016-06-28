@@ -62,7 +62,7 @@ export default Ember.Controller.extend(ModalMixin,{
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class'),
+  "class": Ember.computed.alias('classController.class'),
 
   /**
    * @property {User[]} class students
