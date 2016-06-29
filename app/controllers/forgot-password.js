@@ -30,11 +30,11 @@ export default Ember.Controller.extend({
     resetPassword: function() {
       const controller = this;
       const user = controller.get('user');
+      const errorMessage = controller.get('i18n').t('forgot-password.error-email-not-exists').string;
 
       if(controller.get('didValidate') === false) {
-        var email = Ember.$('.gru-input-mixed-validation.email input').val();
+        var email = Ember.$('.gru-input.email input').val();
         user.set('email',email);
-        user.set('emailAsync',email);
       }
 
       user.validate().then(function ({ model, validations }) {
@@ -44,9 +44,10 @@ export default Ember.Controller.extend({
             .then(function() {
               controller.set('didValidate', true);
               controller.set('showSecondStep', true);
+            }, function(error) {
+              controller.set('emailError', error.email_id || errorMessage);
+              controller.keydownEvents();
             });
-        } else {
-          controller.set('submitFlag', true);
         }
       });
     }
@@ -61,28 +62,38 @@ export default Ember.Controller.extend({
 
   resetProperties(){
     var controller = this;
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {email: null, emailAsync: null});
+    var user = User.create(Ember.getOwner(this).ownerInjection(), {email: null});
 
     controller.set('user', user);
     controller.set("showSecondStep", false);
     controller.set('didValidate', false);
-    controller.set('submitFlag', true);
+    controller.set('emailError', false);
   },
 
+  /**
+   * Add keydown events to clear errors on username and email
+   */
+  keydownEvents: function() {
+    const controller = this;
+    var $email = Ember.$('.email input');
+    $email.unbind('keydown');
+    $email.on('keydown', function() {
+      controller.set('emailError', false);
+    });
+  },
 
   // -------------------------------------------------------------------------
   // Properties
 
   /**
+   * @type {String} Error with email field
+   */
+  emailError: false,
+
+  /**
    * @type {User} user
    */
   user: null,
-
-  /**
-   * Submit has been performed
-   * @property {Boolean}
-   */
-  submitFlag: true,
 
   /**
    * @param {Boolean } didValidate - value used to check if input has been validated or not
