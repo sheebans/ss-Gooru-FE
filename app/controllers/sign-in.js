@@ -49,10 +49,9 @@ export default Ember.Controller.extend({
       // TODO needs to be revisited, this is a quick fix
       controller.get('sessionService').authorize().then(function(){
         if(controller.get('didValidate') === false) {
-          var username = Ember.$('.gru-input-mixed-validation.username input').val();
+          var username = Ember.$('.gru-input.username input').val();
           var password = Ember.$('.gru-input.password input').val();
           user.set('username',username);
-          user.set('usernameAsync',username);
           user.set('password',password);
         }
         user.validate().then(function ({ model, validations }) {
@@ -60,16 +59,14 @@ export default Ember.Controller.extend({
             controller.get("sessionService")
               .signInWithUser(user, true)
               .then(function() {
-                if(controller.get('session.isAnonymous')){
-                  controller.get("notifications").error(errorMessage);
-                } else {
-                  controller.set('didValidate', true);
-                  // Trigger action in parent
-                  controller.send('signIn');
-                }
+                controller.set('didValidate', true);
+                // Trigger action in parent
+                controller.send('signIn');
+              }, function() {
+                controller.get("notifications").warning(errorMessage);
+                // Authenticate as anonymous if it fails to mantain session
+                controller.get('session').authenticateAsAnonymous();
               });
-          } else {
-            controller.set('submitFlag', true);
           }
         });
       });
@@ -85,13 +82,12 @@ export default Ember.Controller.extend({
 
   resetProperties(){
     var controller = this;
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, usernameAsync: null, password: null});
+    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, password: null});
 
     controller.set('user', user);
     const url = `${window.location.protocol}//${window.location.host}${Env['google-sign-in'].url}`;
     controller.set('googleSignInUrl', url);
     controller.set('didValidate', false);
-    controller.set('submitFlag', true);
   },
 
 
@@ -104,12 +100,6 @@ export default Ember.Controller.extend({
   user: null,
 
   target: null,
-
-  /**
-   * Submit has been performed
-   * @property {Boolean}
-   */
-  submitFlag: true,
 
   /**
    * @param {Boolean } didValidate - value used to check if input has been validated or not

@@ -179,6 +179,7 @@ export default {
       "select-correct-answer": "Please select the correct answer.",
       "sign-in-credentials-not-valid": "Uh oh! Something's not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign in with Google to access your account.",
+      "sign-up-error": "Oops! Unable to sign up right now. Please try again shortly.",
       "sign-up-first-name": "Please enter your first name.",
       "sign-up-last-name": "Please enter your last name.",
       "sign-up-name-length": "Last name must have at least 2 letters.",
