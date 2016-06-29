@@ -17,8 +17,8 @@
                       <div class="col-xs-12 col-sm-6">
                           <h6><span class="required"><label for="username">{{t "sign-up.username"}}</label></span></h6>
                         {{validation.gru-input id="username" model=tempProfile valuePath='username' maxLength=20}}
-                        {{#if existingUsername}}
-                            <span class="validation error existing-user-error">{{t 'sign-up.error-username-taken'}}</span>
+                        {{#if usernameError}}
+                            <span class="validation error existing-user-error">{{usernameError}}</span>
                         {{/if}}
                       </div>
                   </div>

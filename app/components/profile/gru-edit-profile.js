@@ -95,35 +95,32 @@ export default Ember.Component.extend({
 
           if (validations.get('isValid')) {
             let checkUsername = Ember.RSVP.resolve();
-            if(editedProfile.get('username') !== profile.get('username')) {
-              checkUsername= component.get('profileService').checkUsernameAvailability(editedProfile.get('username'));
-            } else {
+            if(editedProfile.get('username') === profile.get('username')) {
               editedProfile.set('username', null);
             }
             let imageIdPromise = new Ember.RSVP.resolve(editedProfile.get('avatarUrl'));
             if(editedProfile.get('avatarUrl') && editedProfile.get('avatarUrl') !== profile.get('avatarUrl')) {
               imageIdPromise =  component.get('mediaService').uploadUserFile(editedProfile.get('avatarUrl'));
             }
-            checkUsername.then(function() {
-                imageIdPromise.then(function(imageId) {
-                  editedProfile.set('avatarUrl', imageId);
-                  if(otherSchoolDistrict && otherSchoolDistrict!== ''){
-                    editedProfile.set('schoolDistrictId', '');
-                    editedProfile.set('schoolDistrict', otherSchoolDistrict);
-                  }
-                  return component.saveProfile(editedProfile);
-                }).then(function() {
-                  component.get('profile').merge(editedProfile, ['username','firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country', 'studentId', 'avatarUrl']);
-                  component.get('router').transitionTo('profile.about', editedProfile.get('id'));
-                }, function(error) {
-                  var message = component.get('i18n').t('common.errors.profile-not-updated').string;
-                  component.get('notifications').error(message);
-                  Ember.Logger.error(error);
-                });
-              },function() {
-                component.set('existingUsername', true);
+            imageIdPromise.then(function(imageId) {
+              editedProfile.set('avatarUrl', imageId);
+              if(otherSchoolDistrict && otherSchoolDistrict!== ''){
+                editedProfile.set('schoolDistrictId', '');
+                editedProfile.set('schoolDistrict', otherSchoolDistrict);
               }
-            );
+              return component.saveProfile(editedProfile);
+            }).then(function() {
+              component.get('profile').merge(editedProfile, ['username','firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country', 'studentId', 'avatarUrl']);
+              component.get('router').transitionTo('profile.about', editedProfile.get('id'));
+            }, function(error) {
+              if(error.username) {
+                component.set('usernameError', error ? error.username : false);
+              } else {
+                var message = component.get('i18n').t('common.errors.profile-not-updated').string;
+                component.get('notifications').error(message);
+                Ember.Logger.error(error);
+              }
+            });
           }
         });
       }
@@ -190,7 +187,7 @@ export default Ember.Component.extend({
     const component = this;
     var $username = component.$('#username input');
     $username.on("keydown", function () {
-      component.set('existingUsername',false);
+      component.set('usernameError',false);
     });
   },
   // -------------------------------------------------------------------------
@@ -306,9 +303,9 @@ export default Ember.Component.extend({
   showDistrictErrorMessage: false,
 
   /**
-   * @type {String} existingUsername
+   * @type {String} usernameError
    */
-  existingUsername: false,
+  usernameError: false,
 
 // -------------------------------------------------------------------------
   // Methods

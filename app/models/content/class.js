@@ -11,7 +11,19 @@ const Validations = buildValidations({
       })
     ]
   },
-  classSharing: validator('presence', true)
+  classSharing: validator('presence', true),
+  minScore: {
+    validators: [
+      validator('number', {
+        allowBlank: true,
+        integer: true,
+        gte: 1,
+        lte: 100,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.class-min-score'
+      })
+    ]
+  }
 });
 
 /**
@@ -118,9 +130,7 @@ const Class = Ember.Object.extend(Validations, {
   /**
    * @property {Number} Computed property that counts the number of members in the class
    */
-  countMembers: Ember.computed('members', function() {
-    return this.get('members.length');
-  }),
+  countMembers: Ember.computed.alias('members.length'),
 
   /**
    * @property {Number} Computed property that counts the number of teachers in the class
