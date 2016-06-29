@@ -2,6 +2,7 @@ import Ember from 'ember';
 import {K12_CATEGORY} from 'gooru-web/config/config';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 /**
  * @typedef {object} SearchCollectionsController
@@ -24,57 +25,33 @@ export default Ember.Route.extend(PublicRouteMixin, {
   },
 
   /**
-   * @property {Ember.Service} Service for the Taxonomies back-end endpoints
+   * @requires service:api-sdk/search
    */
-  taxonomySdkService: Ember.inject.service('api-sdk/taxonomy'),
+  searchService: Ember.inject.service('api-sdk/search'),
 
   /**
    * @requires service:taxonomy
    */
-  taxonomyService: Ember.inject.service("taxonomy"),
+  taxonomyService: Ember.inject.service('taxonomy'),
 
   /**
-   * @property {Ember.Service} Service to do the search
+   * @requires service:api-sdk/taxonomy
    */
-  searchService: Ember.inject.service('api-sdk/search'),
+  taxonomySdkService: Ember.inject.service('api-sdk/taxonomy'),
+
 
   model: function(params) {
-    console.log('Refreshing....');
-    const taxonomies = params.taxonomies;
+    const taxonomyIds = params.taxonomies;
     const subjects = this.get('taxonomyService').getSubjects(K12_CATEGORY.value);
-    var standards = [];
+    var taxonomyCodes = [];
 
-    if (taxonomies.length > 0) {
-      standards = this.get('taxonomySdkService').fetchCodesByIds(taxonomies)
+    if (taxonomyIds.length > 0) {
+      taxonomyCodes = this.get('taxonomySdkService').fetchCodesByIds(taxonomyIds)
     }
-
-    /*
-    var taxonomiesIds = params.taxonomies;
-    var selectedTags = Ember.A([]);
-    if(taxonomiesIds.length>0){
-      this.get('taxonomySdkService').fetchCodesByIds(taxonomiesIds)
-        .then(function(taxonomyArray) {
-          taxonomyArray.map(function(taxonomyItem) {
-            var newSelectedTag = TaxonomyTag.create({
-              isActive: true,
-              isReadonly: true,
-              isRemovable: true,
-              data: {
-                id: taxonomyItem.id,
-                label: taxonomyItem.code,
-                caption: taxonomyItem.code,
-                title: taxonomyItem.title
-              }
-            });
-            selectedTags.pushObject(newSelectedTag);
-          });
-         });
-    }
-    */
 
     return Ember.RSVP.hash({
       subjects: subjects,
-      //selectedTags: selectedTags
+      taxonomyCodes: taxonomyCodes
     });
   },
   /**
@@ -83,9 +60,27 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    console.log('refreshingController...');
-    controller.set("subjects", model.subjects);
-    //controller.set("selectedTags", model.selectedTags);
+    const route = this;
+    controller.set('subjects', model.subjects);
+    var selectedTags = controller.get('selectedTags');
+    if (!selectedTags.length) {
+      selectedTags = model.taxonomyCodes.map(function(taxonomyCode) {
+        const framework = route.extractFramework(model.subjects, taxonomyCode.id);
+        return TaxonomyTag.create({
+          isActive: true,
+          isReadonly: true,
+          isRemovable: true,
+          data: TaxonomyTagData.create({
+            id: taxonomyCode.id,
+            code: taxonomyCode.code,
+            frameworkCode: framework ? framework.get('frameworkId') : '',
+            parentTitle: framework ? framework.get('subjectTitle') : '',
+            title: taxonomyCode.title
+          })
+        });
+      });
+      controller.set("selectedTags", selectedTags);
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -103,5 +98,20 @@ export default Ember.Route.extend(PublicRouteMixin, {
         this.transitionTo('player', collection.get("id"));
       }
     }
+  },
+
+  extractFramework: function(subjects, codeId) {
+    const frameworkId = codeId.split('-')[0];
+    var framework = undefined;
+    subjects.forEach(function(subject) {
+      if (!framework) {
+        const frameworks = subject.get('frameworks');
+        if (frameworks.length) {
+          framework = frameworks.findBy('id', frameworkId);
+        }
+      }
+    });
+    return framework ? framework : null;
   }
+
 });
