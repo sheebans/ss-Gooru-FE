@@ -17,7 +17,9 @@ export default Ember.Object.extend({
    */
   postAuthentication: function(data) {
     const adapter = this;
-    const url = this.get('namespace');
+    const namespace = this.get('namespace');
+    const hostname = window.location.hostname;
+    const url = `https://${hostname}${namespace}`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',

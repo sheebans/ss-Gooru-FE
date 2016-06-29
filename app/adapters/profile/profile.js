@@ -22,7 +22,9 @@ export default Ember.Object.extend({
    */
   createProfile: function(data) {
     const adapter = this;
-    const url = this.get('usersNamespace');
+    const namespace = this.get('usersNamespace');
+    const hostname = window.location.hostname;
+    const url = `https://${hostname}${namespace}`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
