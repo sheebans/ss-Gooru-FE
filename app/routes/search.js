@@ -39,6 +39,16 @@ export default Ember.Route.extend(PublicRouteMixin, {
   searchService: Ember.inject.service('api-sdk/search'),
 
   model: function(params) {
+    console.log('Refreshing....');
+    const taxonomies = params.taxonomies;
+    const subjects = this.get('taxonomyService').getSubjects(K12_CATEGORY.value);
+    var standards = [];
+
+    if (taxonomies.length > 0) {
+      standards = this.get('taxonomySdkService').fetchCodesByIds(taxonomies)
+    }
+
+    /*
     var taxonomiesIds = params.taxonomies;
     var selectedTags = Ember.A([]);
     if(taxonomiesIds.length>0){
@@ -60,10 +70,11 @@ export default Ember.Route.extend(PublicRouteMixin, {
           });
          });
     }
-    var subjects = this.get('taxonomyService').getSubjects(K12_CATEGORY.value);
+    */
+
     return Ember.RSVP.hash({
       subjects: subjects,
-      selectedTags: selectedTags
+      //selectedTags: selectedTags
     });
   },
   /**
@@ -72,8 +83,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
+    console.log('refreshingController...');
     controller.set("subjects", model.subjects);
-    controller.set("selectedTags", model.selectedTags);
+    //controller.set("selectedTags", model.selectedTags);
   },
 
   // -------------------------------------------------------------------------
