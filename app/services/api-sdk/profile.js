@@ -433,22 +433,27 @@ export default Ember.Service.extend({
 
   readMultipleProfiles: function(profileIds,max) {
     const service = this;
-
-    var i,j,temparray,chunk = max;
+    var chunk=(profileIds.length > max) ? max : profileIds.length ;
     const promises = [];
     var usersProfile = Ember.A([]);
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      for (i=0,j=profileIds.length; i<j; i+=chunk) {
-        temparray = profileIds.slice(i,i+chunk);
-        const promise = service.get('profileAdapter').readMultipleProfiles(temparray)
-          .then(function(response) {
-             usersProfile.addObjects(response);
-          });
+      for (let i=0, j=profileIds.length; i<j; i+=chunk) {
+        let temparray = profileIds.slice(i,i+chunk);
+        const promise = service.get('profileAdapter').readMultipleProfiles(temparray);
         promises.push(promise);
       }
-      Ember.RSVP.all(promises).then(function() {
-        resolve(service.get('profileSerializer').normalizeReadMultipleProfiles(usersProfile));
+
+      Ember.RSVP.all(promises).then(function(values) {
+
+        values.forEach(function(value) {
+          usersProfile.addObjects(service.get('profileSerializer').normalizeReadMultipleProfiles(value));
+        });
+
+        let profiles = usersProfile;
+        resolve(profiles);
+      }, function(error) {
+          reject(error);
       });
     });
   }
