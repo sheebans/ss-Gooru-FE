@@ -22,12 +22,6 @@ export default buildValidations({
     ]
   },
 
-  usernameAsync: {
-    validators: [
-      validator('username')
-    ]
-  },
-
   firstName: {
     validators: [
       validator('presence', {
@@ -111,11 +105,5 @@ export default buildValidations({
       message: '{{description}}',
       descriptionKey: 'common.errors.sign-up-valid-email'
     })
-  ],
-
-  emailAsync: {
-    validators: [
-      validator('email')
-    ]
-  }
+  ]
 });
