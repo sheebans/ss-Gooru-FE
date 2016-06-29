@@ -239,7 +239,7 @@ export default Ember.Component.extend(AccordionMixin, {
               lessonItems.forEach(function(lessonItem) {
                 const peer = lessonPeers.findBy('id', lessonItem.get('id'));
                 if (peer) {
-                  component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
+                  component.get('profileService').readMultipleProfiles(peer.get('peerIds'),5)
                     .then(function (profiles) {
                       lessonItem.set('members', profiles);
                     });

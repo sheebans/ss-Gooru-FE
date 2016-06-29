@@ -431,15 +431,25 @@ export default Ember.Service.extend({
     });
   },
 
-  readMultipleProfiles: function(profileIds) {
+  readMultipleProfiles: function(profileIds,max) {
     const service = this;
+
+    var i,j,temparray,chunk = max;
+    const promises = [];
+    var usersProfile = Ember.A([]);
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readMultipleProfiles(profileIds)
-        .then(function(response) {
-          resolve(service.get('profileSerializer').normalizeReadMultipleProfiles(response));
-        }, function(error) {
-          reject(error);
-        });
+      for (i=0,j=profileIds.length; i<j; i+=chunk) {
+        temparray = profileIds.slice(i,i+chunk);
+        const promise = service.get('profileAdapter').readMultipleProfiles(temparray)
+          .then(function(response) {
+             usersProfile.addObjects(response);
+          });
+        promises.push(promise);
+      }
+      Ember.RSVP.all(promises).then(function() {
+        resolve(service.get('profileSerializer').normalizeReadMultipleProfiles(usersProfile));
+      });
     });
   }
 
