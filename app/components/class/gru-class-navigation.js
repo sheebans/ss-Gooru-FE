@@ -1,4 +1,5 @@
 import Ember from "ember";
+import Env from '../../config/environment';
 
 /**
  * Class navigation
@@ -14,6 +15,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @requires service:session
+   */
+  session: Ember.inject.service("session"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -60,6 +65,14 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {Class} class
+   */
+  teamsURLs: Env['teamsHosts'],
+
+  teamsURL: Ember.computed('teamsURLs', function(){
+    return `https://`+this.get(`teamsURLs.${window.location.host}`)+`/integration/gooru?token=${this.get('session.token')}&classId=${this.get('class.id')}`;
+  }),
   /**
    * @property {Class} class
    */
