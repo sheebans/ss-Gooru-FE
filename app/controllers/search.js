@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import ModalMixin from 'gooru-web/mixins/modal';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
@@ -84,8 +85,10 @@ export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Methods
   openTaxonomyModal: function(subject){
-    var component = this;
-    var standards = component.get("selectedStandards");
+    var controller = this;
+    var standards = controller.get("selectedTags").map(function(selectedTag) {
+      return selectedTag.get('data');
+    });
     var subjectStandards = TaxonomyTagData.filterBySubject(subject, standards);
     var notInSubjectStandards = TaxonomyTagData.filterByNotInSubject(subject, standards);
     var model = {
@@ -99,15 +102,31 @@ export default Ember.Controller.extend(ModalMixin, {
           });
           const standards = Ember.A(dataTags);
           standards.pushObjects(notInSubjectStandards.toArray());
-          component.set('selectedStandards', standards);
-          component.set('taxonomies', standards.map(function(taxonomyTagData) {
-            return taxonomyTagData.get("id");
-          }));
-          component.set('selectedTags',selectedTags);
+
+          var taxonomies = Ember.A([]);
+          var selectTaxonomyTags = Ember.A([]);
+
+          standards.forEach(function(taxonomyTagData) {
+            taxonomies.push(taxonomyTagData.get("id"));
+            selectTaxonomyTags.push(controller.createTaxonomyTag(taxonomyTagData));
+          });
+
+          controller.set('taxonomies', taxonomies);
+          controller.set('selectedTags', selectTaxonomyTags);
          }
       }
     };
 
     this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
+  },
+
+  createTaxonomyTag: function(dataTag) {
+    return TaxonomyTag.create({
+      isActive: true,
+      isReadonly: true,
+      isRemovable: true,
+      data: dataTag
+    });
   }
+
 });
