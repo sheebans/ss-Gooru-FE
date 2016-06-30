@@ -71,7 +71,6 @@ export default Ember.Component.extend({
   teamsURLs: Env['teamsHosts'],
 
   teamsURL: Ember.computed('teamsURLs', function(){
-    console.log(window.location);
     return `${window.location.protocol}//`+this.get(`teamsURLs.${window.location.hostname}`)+`/integration/gooru?token=${this.get('session.token-api3')}&classId=${this.get('class.id')}`;
   }),
   /**
