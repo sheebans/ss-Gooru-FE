@@ -61,11 +61,10 @@ module.exports = function (environment) {
   };
 
   ENV['teamsHosts'] = {
-    'gooru.org' : 'teams.gooru.org',
-    'qa.gooruweb.edify.cr' : 'teams.gooru.org',
-    'localhost:4200' : 'teams.gooru.org',
-    'localhost:7357' : 'teams.gooru.org',
-    'nucleus' : 'teams.gooru.org'
+    'gooru.org' : 'teams.gooru.org', //production
+    'qa.gooruweb.edify.cr' : 'teams.gooru.org', // QA
+    'localhost' : 'teams.gooru.org', // development
+    'nucleus' : 'teams.gooru.org' // nucleus
   };
 
   ENV['simple-auth-custom'] = {

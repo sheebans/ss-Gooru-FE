@@ -13,7 +13,7 @@ test('resourceComponentSelected for non valid resource type', function (assert) 
       id: "any-id"
     }),
     session: Ember.Object.create({
-      token:'any-token'
+      'token-api3' :'any-token'
     })
   });
 
