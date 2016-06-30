@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | profile content questions', {
       isAnonymous: false,
       token: 'resources-content-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/pochita/content/questions');
+  visit('/id-for-pochita/content/questions');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/content/questions');
+    assert.equal(currentURL(), '/id-for-pochita/content/questions');
 
     const $contentCourseContainer = find(".controller.content-questions");
     T.exists(assert, $contentCourseContainer, "Missing content questions container");

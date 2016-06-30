@@ -10,7 +10,7 @@ moduleForAcceptance('Acceptance | account-settings', {
       isAnonymous: false,
       token: 'account-settings-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }

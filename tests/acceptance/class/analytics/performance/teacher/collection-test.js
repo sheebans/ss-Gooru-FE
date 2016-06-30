@@ -10,7 +10,7 @@ moduleForAcceptance('Acceptance | class/analytics/performance/teacher/collection
       token: 'class-analytics-performance-teacher-lesson-token',
       user: {
         /* using a pochita, @see classes/class-for-pochita-as-teacher-200-response.js */
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }

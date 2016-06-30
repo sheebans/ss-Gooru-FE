@@ -1,12 +1,12 @@
 {
   "aboutMe": "I'm a teacher",
   "dateOfBirth": 649728000000,
-  "profileId": "pochita",
+  "profileId": "id-for-pochita",
   "user": {
     "username": "pochita",
     "firstName": "Niña",
     "lastName": "Pochita",
-    "gooruUId": "pochita",
+    "gooruUId": "id-for-pochita",
     "meta": {
       "taxonomyPreference": {
         "codeId": [
