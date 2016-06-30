@@ -17,5 +17,5 @@ test('resourceComponentSelected for non valid resource type', function (assert) 
     })
   });
 
-  assert.equal(component.get('teamsURL'),'https://teams.gooru.org/integration/gooru?token=any-token&classId=any-id', 'Incorect URL');
+  assert.equal(component.get('teamsURL'),'http://teams.gooru.org/integration/gooru?token=any-token&classId=any-id', 'Incorect URL');
 });
