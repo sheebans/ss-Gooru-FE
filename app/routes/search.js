@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import {K12_CATEGORY} from 'gooru-web/config/config';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
-import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 /**
@@ -66,18 +65,13 @@ export default Ember.Route.extend(PublicRouteMixin, {
     if (!selectedTags.length) {
       selectedTags = model.taxonomyCodes.map(function(taxonomyCode) {
         const framework = route.extractFramework(model.subjects, taxonomyCode.id);
-        return TaxonomyTag.create({
-          isActive: true,
-          isReadonly: true,
-          isRemovable: true,
-          data: TaxonomyTagData.create({
-            id: taxonomyCode.id,
-            code: taxonomyCode.code,
-            frameworkCode: framework ? framework.get('frameworkId') : '',
-            parentTitle: framework ? framework.get('subjectTitle') : '',
-            title: taxonomyCode.title
-          })
-        });
+        return controller.createTaxonomyTag(TaxonomyTagData.create({
+          id: taxonomyCode.id,
+          code: taxonomyCode.code,
+          frameworkCode: framework ? framework.get('frameworkId') : '',
+          parentTitle: framework ? framework.get('subjectTitle') : '',
+          title: taxonomyCode.title
+        }));
       });
       controller.set("selectedTags", selectedTags);
     }
