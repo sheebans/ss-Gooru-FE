@@ -87,6 +87,6 @@ export default GruInput.extend({
   /**
    * @param {String} oldValue - before the value has changed / before the input event
    */
-  oldValue: 1
+  oldValue: null
 
 });
