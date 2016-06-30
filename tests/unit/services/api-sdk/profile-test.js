@@ -95,7 +95,30 @@ test('readUserProfile', function(assert) {
       done();
     });
 });
+test('readMultipleProfiles', function(assert) {
+  const service = this.subject();
+  assert.expect(6);
 
+  service.set('profileAdapter', Ember.Object.create({
+    readMultipleProfiles: function(userIds,max) {
+      assert.ok(true, "readUserProfile() function was called" );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadMultipleProfiles: function(profilePayload) {
+      assert.deepEqual({}, profilePayload, 'Wrong profile payload');
+      return ["user-1","user-2","user-3","user-4","user-5"];
+    }
+  }));
+
+  var done = assert.async();
+  service.readMultipleProfiles(["user-1","user-2","user-3","user-4","user-5"],2)
+    .then(function() {
+      done();
+    });
+});
 test('readUserProfileByUsername', function(assert) {
   const service = this.subject();
   assert.expect(2);
