@@ -45,37 +45,43 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // Methods
 
   model: function (params) {
-    var question = this.get('questionService').readQuestion(params.questionId);
-    var collection = null;
-    var isCollection = false;
-    var isEditing = params.editing;
+    const route = this;
+    const questionId = params.questionId;
+    const collectionId = params.collectionId;
+    const isCollection = params.isCollection === 'true';
+    const isEditing = params.editing;
 
-    if(params.collectionId){
-      if(params.isCollection==="true"){
-        isCollection = true;
-        collection = this.get('collectionService').readCollection(params.collectionId);
-      }else{
-        collection = this.get('assessmentService').readAssessment(params.collectionId);
+    var question = null;
+    var collection = null;
+
+    if (questionId) {
+      question = route.get('questionService').readQuestion(questionId);
+    }
+
+    if (collectionId) {
+      if (isCollection) {
+        collection = route.get('collectionService').readCollection(collectionId);
+      } else {
+        collection = route.get('assessmentService').readAssessment(collectionId);
       }
     }
 
     return Ember.RSVP.hash({
       question: question,
-      collection:collection,
-      isCollection:isCollection,
+      collection: collection,
+      isCollection: isCollection,
       isEditing: !!isEditing
     });
   },
 
   setupController(controller, model) {
-    var question = model.question;
-
-    controller.set('question', question);
+    controller.set('question', model.question);
     controller.set('collection', model.collection);
     controller.set('isCollection', model.isCollection);
     controller.set('isEditing', model.isEditing);
-    if(model.isEditing) {
-      controller.set('tempQuestion', question.copy());
+
+    if (model.isEditing) {
+      controller.set('tempQuestion', model.question.copy());
     }
   }
 });

@@ -5,16 +5,18 @@ import Resource from 'gooru-web/models/content/resource';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    collectionId:{},
-    editing:{}
+    collectionId: {},
+    editing: {}
   },
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @requires service:api-sdk/resource
    */
   resourceService: Ember.inject.service("api-sdk/resource"),
+
   /**
    * @requires service:api-sdk/collection
    */
@@ -40,7 +42,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // Methods
 
   model: function (params) {
-    let route = this;
+    const route = this;
+
     var resource = route.get('resourceService').readResource(params.resourceId).then(function(resource){
       var EditResourceValidation = Resource.extend(EditResourceValidations);
       var editResource = EditResourceValidation.create(Ember.getOwner(route).ownerInjection());
@@ -49,27 +52,26 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     });
 
     var isEditing = params.editing;
-
     var collection = null;
 
-    if(params.collectionId){
+    if (params.collectionId) {
       collection = route.get('collectionService').readCollection(params.collectionId);
     }
+
     return Ember.RSVP.hash({
       resource: resource,
-      collection:collection,
+      collection: collection,
       isEditing: !!isEditing
     });
   },
 
   setupController(controller, model) {
-    var resource = model.resource;
-
-    controller.set('resource', resource);
+    controller.set('resource', model.resource);
     controller.set('collection', model.collection);
     controller.set('isEditing', model.isEditing);
-    if(model.isEditing) {
-      controller.set('tempResource', resource.copy());
+
+    if (model.isEditing) {
+      controller.set('tempResource', model.resource.copy());
     }
   }
 });
