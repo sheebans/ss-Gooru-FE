@@ -59,8 +59,26 @@ export default Ember.Controller.extend({
 
     showMoreResults: function(){
       this.showMoreResults();
-    }
+    },
 
+    /**
+     * Remove a tag from the selected tag list
+     * the browse selector.
+     * @function actions:removeTag
+     * @param {TaxonomyTag} taxonomyTag
+     */
+    removeTag: function (taxonomyTag) {
+
+      var selectedTags = this.get('selectedTags');
+
+      selectedTags.removeObject(taxonomyTag);
+
+      var taxonomyMap =  selectedTags.map(function(taxonomyTagData) {
+        return taxonomyTagData.get("data.id");
+      });
+
+      this.set('taxonomies', taxonomyMap);
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -107,6 +125,11 @@ export default Ember.Controller.extend({
     return this.get("questionResults.length") &&
       (this.get("questionResults.length") % this.get("pagination.pageSize") === 0);
   }),
+
+  /**
+   * @property {selectedTags[]} selected tags
+   */
+  selectedTags: Ember.computed.alias("searchController.selectedTags"),
 
   // -------------------------------------------------------------------------
   // Methods
