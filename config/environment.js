@@ -91,6 +91,7 @@ module.exports = function (environment) {
   ENV.secureProtocol = 'https';
 
   if (environment === 'development') {
+    ENV.secureProtocol = 'http';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
