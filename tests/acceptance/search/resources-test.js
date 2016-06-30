@@ -2,6 +2,7 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import T from 'gooru-web/tests/helpers/assert';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 moduleForAcceptance('Acceptance | search/resources', {
   beforeEach: function() {
@@ -16,11 +17,12 @@ moduleForAcceptance('Acceptance | search/resources', {
 });
 
 test('Layout', function(assert) {
-  assert.expect(4); //making sure all asserts are called
+  assert.expect(5); //making sure all asserts are called
   visit('/search/resources?term=any');
   andThen(function() {
     assert.equal(currentURL(), '/search/resources?term=any');
     T.exists(assert, find(".gru-resource-options"), "Missing gru-resource-options menu");
+    T.exists(assert, find(".gru-taxonomy-tag-list"), "Missing gru-taxonomy-tag-list");
     T.exists(assert, find(".gru-resource-results"), "Missing gru-resource-results");
     assert.equal(find(".gru-header .search-input").val(), "any", "Wrong input value");
   });
@@ -61,5 +63,16 @@ test('Changing term should filter the current result without changing the root u
   });
 });
 
+//test('Apply taxonomy filter', function(assert) {
+//  assert.expect(2); //making sure all asserts are called
+//
+//  visit('/search/resources?taxonomies[]=TEKS.K12.SC-K-SIR-01&term=any');
+//  andThen(function() {
+//    assert.equal(currentURL(), '/search/resources?taxonomies[]=TEKS.K12.SC-K-SIR-01&term=any');
+//
+//    assert.equal(find(".gru-taxonomy-tag-list > .gru-taxonomy-tag").length, 1, "Number of tags rendered");
+//
+//  });
+//});
 
 

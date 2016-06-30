@@ -16,10 +16,11 @@ moduleForAcceptance('Acceptance | search/assessments', {
 });
 
 test('Layout', function(assert) {
-  assert.expect(3); //making sure all asserts are called
+  assert.expect(4); //making sure all asserts are called
   visit('/search/assessments?term=any');
   andThen(function() {
     assert.equal(currentURL(), '/search/assessments?term=any');
+    T.exists(assert, find(".gru-taxonomy-tag-list"), "Missing gru-taxonomy-tag-list");
     T.exists(assert, find(".collection-results"), "Missing collection-results");
     assert.equal(find(".gru-header .search-input").val(), "any", "Wrong input value");
   });
