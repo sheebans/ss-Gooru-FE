@@ -33,13 +33,7 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
     edit: function(item) {
       const component = this;
       var route = item.get('isCollection') ? "content.collections.edit" : "content.assessments.edit";
-      var queryParams = {
-        queryParams: {
-          courseId: component.get('course.id'),
-          allowBackToCourse: true
-        }
-      };
-      component.get('router').transitionTo(route, item.get("id"), queryParams);
+      component.get('router').transitionTo(route, item.get("id"));
     },
     /**
      * Delete selected unit

@@ -96,20 +96,14 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     */
     edit: function(item) {
       const component = this;
-      var route = item.get('format') ==='question' ? "content.questions.edit" : "content.resources.edit";
-      var queryParams = {
+      const route = item.get('format') ==='question' ? "content.questions.edit" : "content.resources.edit";
+      const queryParams = {
         queryParams: {
           collectionId: component.get('collection.id'),
           isCollection: component.get('isCollection')
         }
       };
-
-      const courseId = component.get('collection.courseId');
-      if (courseId) {
-        queryParams.queryParams.courseId = courseId;
-      }
-
-      this.get('router').transitionTo(route, item.get("id"), queryParams);
+      component.get('router').transitionTo(route, item.get("id"), queryParams);
     },
 
     copy: function(builderItem) {

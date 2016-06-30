@@ -4,8 +4,6 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 export default Ember.Route.extend(PrivateRouteMixin, {
 
   queryParams: {
-    courseId:{},
-    allowBackToCourse:{},
     editing:{}
   },
 
@@ -22,48 +20,38 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  resetController(controller, isExiting) {
-    if (isExiting) {
-      controller.set('courseId', undefined);
-      controller.set('allowBackToCourse', undefined);
-    }
-  },
+
 
   // -------------------------------------------------------------------------
   // Methods
 
   model: function (params) {
-    var collection = this.get('collectionService').readCollection(params.collectionId);
-    var course = null;
-    var isEditing = params.editing;
+    const route = this;
+    return route.get('collectionService').readCollection(params.collectionId)
+      .then(function(collection) {
+        const courseId = collection.get('courseId');
+        const isEditing = params.editing;
+        var course = null;
 
-    if(params.courseId && params.courseId !== "null"){
-      course = this.get('courseService').fetchById(params.courseId);
-    }
-    var allowBackToCourse = params.allowBackToCourse && params.allowBackToCourse === 'true';
+        if (courseId) {
+          course = route.get('courseService').fetchById(courseId);
+        }
 
-    return Ember.RSVP.hash({
-      collection: collection,
-      course:course,
-      allowBackToCourse:allowBackToCourse,
-      isEditing: !!isEditing
-    });
+        return Ember.RSVP.hash({
+          collection: collection,
+          course: course,
+          isEditing: !!isEditing
+        });
+      });
   },
 
   setupController(controller, model) {
-    var collection = model.collection;
-    var course = model.course;
-
-    if (collection && course) {
-      collection.set('courseId', course.get('id'));
-    }
-
-    controller.set('collection', collection);
+    controller.set('collection',  model.collection);
     controller.set('course', model.course);
-    controller.set('allowBackToCourse',model.allowBackToCourse);
     controller.set('isEditing', model.isEditing);
-    if(model.isEditing) {
-      controller.set('tempCollection', collection.copy());
+
+    if (model.isEditing) {
+      controller.set('tempCollection', model.collection.copy());
     }
   }
 });

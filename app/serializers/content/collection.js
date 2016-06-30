@@ -90,7 +90,8 @@ export default Ember.Object.extend({
       resourceCount: payload['resource_count'] ? payload['resource_count'] : 0,
       sequence: payload['sequence_id'],
       thumbnailUrl: thumbnailUrl,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy)
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy),
+      courseId: payload['course_id']
       // TODO Add more required properties here...
     });
   },
