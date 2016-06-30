@@ -5,9 +5,8 @@ import Resource from 'gooru-web/models/content/resource';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    collectionId:{},
-    courseId: {},
-    editing:{}
+    collectionId: {},
+    editing: {}
   },
 
   // -------------------------------------------------------------------------
@@ -62,27 +61,17 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     return Ember.RSVP.hash({
       resource: resource,
       collection: collection,
-      courseId: params.courseId,
       isEditing: !!isEditing
     });
   },
 
   setupController(controller, model) {
-    var resource = model.resource;
-    var collection = model.collection;
-    var isEditing = model.isEditing;
-    const courseId = model.courseId;
+    controller.set('resource', model.resource);
+    controller.set('collection', model.collection);
+    controller.set('isEditing', model.isEditing);
 
-    if (collection && courseId && courseId !== 'null') {
-      collection.set('courseId', courseId);
-    }
-
-    controller.set('resource', resource);
-    controller.set('collection', collection);
-    controller.set('isEditing', isEditing);
-
-    if (isEditing) {
-      controller.set('tempResource', resource.copy());
+    if (model.isEditing) {
+      controller.set('tempResource', model.resource.copy());
     }
   }
 });

@@ -4,7 +4,6 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
     collectionId:{},
-    courseId: {},
     isCollection:{},
     editing:{}
   },
@@ -36,7 +35,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   resetController(controller, isExiting) {
     if (isExiting) {
       controller.set('collectionId', undefined);
-      controller.set('courseId', undefined);
       controller.set('isCollection', undefined);
     }
   },
@@ -71,27 +69,19 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     return Ember.RSVP.hash({
       question: question,
       collection: collection,
-      courseId: params.courseId,
       isCollection: isCollection,
       isEditing: !!isEditing
     });
   },
 
   setupController(controller, model) {
-    const question = model.question;
-    const collection = model.collection;
-    const courseId = model.courseId;
-
-    if (collection && courseId && courseId !== 'null') {
-      collection.set('courseId', courseId);
-    }
-
-    controller.set('question', question);
-    controller.set('collection', collection);
+    controller.set('question', model.question);
+    controller.set('collection', model.collection);
     controller.set('isCollection', model.isCollection);
     controller.set('isEditing', model.isEditing);
-    if(model.isEditing) {
-      controller.set('tempQuestion', question.copy());
+
+    if (model.isEditing) {
+      controller.set('tempQuestion', model.question.copy());
     }
   }
 });
