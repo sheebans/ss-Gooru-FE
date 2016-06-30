@@ -254,135 +254,295 @@ test('it opens the browse selector to a specific location after clicking on a sh
   });
 });
 
-/*
 test('it adds/removes a tag from the selected tags after it has been checked/unchecked in the browse selector', function(assert) {
 
-  var taxonomyItems = generateTaxonomyTestTree(3);
-  var root = taxonomyItems[0];
+  var subject = TaxonomyRoot.create({
+    courses: generateTaxonomyTestTree(1, null, 3)
+  });
+  var parent1Id = '0-100';
+  var parent2Id = '0-102';
+  var child1A = '0-100-200';
+  var child1B = '0-100-201';
+  var child2A = '0-102-220';
+  var child2B = '0-102-221';
 
-  var shortcuts = [
-    root.find(['100', '200']),
-    root.find(['100', '201'])
-  ];
-
-  this.set('taxonomyItems', taxonomyItems);
-  this.set('shortcuts', shortcuts);
-  this.set('panelHeaders', ['Level 1', 'Level 2', 'Level 3']);
-
-  this.render(hbs`{{
-    taxonomy/gru-taxonomy-picker
-      taxonomyItems=taxonomyItems
-      shortcuts=shortcuts
-      panelHeaders=panelHeaders }}`);
-
-  const $component = this.$('.taxonomy.gru-taxonomy-picker');
-  var $shortcutTags = $component.find('.shortcut-list');
-  var $selectedTags = $component.find('.selected-list');
-  var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
-
-  assert.equal($selectedTags.find('li').length, 0, 'Number of selected tags');
-
-  // Check items
-  $browseSelector.find('ul.level-3 > li:eq(0) > label > input').click();
-  $browseSelector.find('ul.level-3 > li:eq(2) > label > input').click();
-  assert.equal($selectedTags.find('li').length, 2, 'Number of selected tags -2 checked');
-
-  // Uncheck item
-  $browseSelector.find('ul.level-3 > li:eq(0) > label > input').click();
-  assert.equal($selectedTags.find('li').length, 1, 'Number of selected tags -1 checked');
-
-  // Check item from another level (second selected tag)
-  $shortcutTags.find('li:eq(1) .gru-taxonomy-tag .toggle').click();
-  $browseSelector.find('ul.level-3 > li:eq(1) > label > input').click();
-  assert.equal($selectedTags.find('li').length, 2, 'Number of selected tags -2 checked (mixed)');
-  assert.equal($selectedTags.find('li:eq(0) .gru-taxonomy-tag > span').text(), 'Item : 3 : 0 : 2', 'First selected tag text');
-  assert.equal($selectedTags.find('li:eq(1) .gru-taxonomy-tag > span').text(), 'Item : 3 : 1 : 1', 'Second selected tag text');
-});
-
-test('it unchecks a tag in the browse selector after its tags are removed from the selected tags', function(assert) {
-
-  var taxonomyItems = generateTaxonomyTestTree(3);
-  var root = taxonomyItems[0];
-
-  var shortcuts = [
-    root.find(['100', '200']),
-    root.find(['100', '201'])
-  ];
-
-  var selected = [
-    root.find(['100', '200', '301']),
-    root.find(['100', '200', '302']),
-    root.find(['100', '201', '310'])
-  ];
-
-  this.set('taxonomyItems', taxonomyItems);
-  this.set('shortcuts', shortcuts);
-  this.set('selected', selected);
-  this.set('panelHeaders', ['Level 1', 'Level 2', 'Level 3']);
-
-  this.render(hbs`{{
-    taxonomy/gru-taxonomy-picker
-      taxonomyItems=taxonomyItems
-      shortcuts=shortcuts
-      selected=selected
-      panelHeaders=panelHeaders }}`);
-
-  const $component = this.$('.taxonomy.gru-taxonomy-picker');
-  var $shortcutTags = $component.find('.shortcut-list');
-  var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
-  var $selectedTags = $component.find('.selected-list');
-
-  assert.equal($selectedTags.find('li').length, 3, 'Number of selected tags');
-  assert.equal($selectedTags.find('li:eq(0) .gru-taxonomy-tag > span').text(), 'Item : 3 : 0 : 1', 'First selected tag text');
-  assert.equal($selectedTags.find('li:eq(1) .gru-taxonomy-tag > span').text(), 'Item : 3 : 0 : 2', 'Second selected tag text');
-  assert.equal($selectedTags.find('li:eq(2) .gru-taxonomy-tag > span').text(), 'Item : 3 : 1 : 0', 'Third selected tag text');
-  assert.equal($browseSelector.find('ul.level-3 > li > label > input[type="checkbox"]:checked').length, 2, 'Items checked for sub-level 1');
-
-  // Remove all selected tags
-  $selectedTags.find('li:eq(0) .gru-taxonomy-tag > button.remove').click();
-  assert.equal($browseSelector.find('ul.level-3 > li > label > input[type="checkbox"]:checked').length, 1, 'Items checked for sub-level 1 -one unchecked');
-
-  $selectedTags.find('li:eq(0) .gru-taxonomy-tag > button.remove').click();
-  assert.equal($browseSelector.find('ul.level-3 > li > label > input[type="checkbox"]:checked').length, 0, 'Items checked for sub-level 1 -two unchecked');
-
-  $shortcutTags.find('li:eq(1) .gru-taxonomy-tag .toggle').click();
-  assert.equal($browseSelector.find('ul.level-3 > li > label > input[type="checkbox"]:checked').length, 1, 'Items checked for sub-level 2');
-
-  $selectedTags.find('li:eq(0) .gru-taxonomy-tag > button.remove').click();
-  assert.equal($browseSelector.find('ul.level-3 > li > label > input[type="checkbox"]:checked').length, 0, 'Items checked for sub-level 2 -one unchecked');
-  assert.equal($selectedTags.find('li').length, 0, 'Number of selected tags -after removing them');
-});
-
-test('it calls an external action when the save button is clicked', function(assert) {
+  var shortcuts = [];
   var selected = [];
-  var taxonomyItems = generateTaxonomyTestTree(2);
-  var root = taxonomyItems[0];
 
-  selected.push(root.find(['100', '200']));
-  selected.push(root.find(['100', '201']));
+  this.on('loadData', function(path) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
 
-  this.set('taxonomyItems', taxonomyItems);
+      if (path[0] === parent1Id) {
+
+        assert.deepEqual(path, [parent1Id], 'Load data for first course');
+        let taxonomyItems = [
+          TaxonomyItem.create({
+            id: child1A,
+            title: 'Item : 2 : 0 : 0',
+            level: 2
+          }),
+          TaxonomyItem.create({
+            id: child1B,
+            title: 'Item : 2 : 0 : 1',
+            level: 2
+          })
+        ];
+        resolve(taxonomyItems);
+
+      } else if (path[0] === parent2Id) {
+
+        assert.deepEqual(path, [parent2Id], 'Load data for third course');
+        let taxonomyItems = [
+          TaxonomyItem.create({
+            id: child2A,
+            title: 'Item : 2 : 2 : 0',
+            level: 2
+          }),
+          TaxonomyItem.create({
+            id: child2B,
+            title: 'Item : 2 : 2 : 1',
+            level: 2
+          })
+        ];
+        resolve(taxonomyItems);
+
+      } else {
+        assert.notOk('true', 'Load data');
+        reject();
+      }
+    });
+  });
+
+  this.set('subject', subject);
+  this.set('shortcuts', shortcuts);
   this.set('selected', selected);
   this.set('panelHeaders', ['Level 1', 'Level 2']);
 
-  this.on('externalAction', function(selectedTags) {
-    assert.ok(true, 'External action called');
-    assert.ok(selected, selectedTags, 'External action receives list of selected tags as parameter');
-  });
-
   this.render(hbs`{{
     taxonomy/gru-taxonomy-picker
-      taxonomyItems=taxonomyItems
-      selected=selected
+      browseSelectorText="Taxonomy Picker Title"
+      maxLevels=2
+      onSearchPath=(action 'loadData')
       panelHeaders=panelHeaders
-      onSave=(action 'externalAction')}}`);
+      selected=selected
+      selectedTextKey="Text for Selected Tags"
+      shortcuts=shortcuts
+      shortcutText="Text for Shortcut Tags"
+      subject=subject }}`);
 
   const $component = this.$('.taxonomy.gru-taxonomy-picker');
   assert.ok($component.length, 'Component');
 
+  var $selectedTags = $component.find('.selected-list');
+  var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
+
+  assert.equal($selectedTags.find('.gru-taxonomy-tag').length, 0, 'Number of selected tags');
+
+  $browseSelector.find('ul.level-1 > li:eq(0) > a').click();
+
+  return wait().then(function () {
+    assert.equal($browseSelector.find('ul.level-2 > li').length, 2, 'Loaded tags in the last panel -first course');
+
+    // Check both items in the last panel
+    $browseSelector.find('ul.level-2 > li:eq(0) > label > input').click();
+    $browseSelector.find('ul.level-2 > li:eq(1) > label > input').click();
+
+    return wait().then(function () {
+      assert.equal($selectedTags.find('.gru-taxonomy-tag').length, 2, 'Number of selected tags -2 checked');
+
+      // Uncheck item
+      $browseSelector.find('ul.level-2 > li:eq(0) > label > input').click();
+
+      return wait().then(function () {
+        assert.equal($selectedTags.find('.gru-taxonomy-tag').length, 1, 'Number of selected tags -1 checked');
+
+        // Click last item in the first panel
+        $browseSelector.find('ul.level-1 > li:eq(2) > a').click();
+
+        return wait().then(function () {
+          assert.equal($browseSelector.find('ul.level-2 > li').length, 2, 'Loaded tags in the last panel -third course');
+
+          $browseSelector.find('ul.level-2 > li:eq(1) > label > input').click();
+
+          return wait().then(function () {
+            assert.equal($selectedTags.find('.gru-taxonomy-tag').length, 2, 'Number of selected tags -2 checked (mixed)');
+            assert.equal($selectedTags.find('.gru-taxonomy-tag:eq(0) .content .tag-label').text(), 'Item : 2 : 0 : 1', 'First selected tag text');
+            assert.equal($selectedTags.find('.gru-taxonomy-tag:eq(1) .content .tag-label').text(), 'Item : 2 : 2 : 1', 'Second selected tag text');
+          });
+        });
+      });
+    });
+  });
+});
+
+test('it unchecks a tag in the browse selector after its tags are removed from the selected tags', function(assert) {
+
+  var subject = TaxonomyRoot.create({
+    courses: generateTaxonomyTestTree(1, null, 3)
+  });
+  var parent1Id = '0-100';
+  var parent2Id = '0-102';
+  var childA = '0-100-200';
+  var childB = '0-102-220';
+
+  var shortcuts = [];
+  var selected = [
+    TaxonomyTagData.create({ id: childA }),
+    TaxonomyTagData.create({ id: childB })
+  ];
+
+  this.on('loadData', function(path) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+
+      if (path[0] === parent1Id) {
+
+        assert.deepEqual(path, [parent1Id], 'Load data for first course');
+        let taxonomyItem = TaxonomyItem.create({
+          id: childA,
+          level: 2
+        });
+        resolve([taxonomyItem]);
+
+      } else if (path[0] === parent2Id) {
+
+        assert.deepEqual(path, [parent2Id], 'Load data for third course');
+        let taxonomyItem = TaxonomyItem.create({
+          id: childB,
+          level: 2
+        });
+        resolve([taxonomyItem]);
+
+      } else {
+        assert.notOk('true', 'Load data');
+        reject();
+      }
+    });
+  });
+
+  this.set('subject', subject);
+  this.set('shortcuts', shortcuts);
+  this.set('selected', selected);
+  this.set('panelHeaders', ['Level 1', 'Level 2']);
+
+  this.render(hbs`{{
+    taxonomy/gru-taxonomy-picker
+      browseSelectorText="Taxonomy Picker Title"
+      maxLevels=2
+      onSearchPath=(action 'loadData')
+      panelHeaders=panelHeaders
+      selected=selected
+      selectedTextKey="Text for Selected Tags"
+      shortcuts=shortcuts
+      shortcutText="Text for Shortcut Tags"
+      subject=subject }}`);
+
+  const $component = this.$('.taxonomy.gru-taxonomy-picker');
+  assert.ok($component.length, 'Component');
+
+  var $selectedTags = $component.find('.selected-list');
+  var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
+
+  return wait().then(function () {
+    assert.equal($browseSelector.find('ul.level-2 > li > label > input[type="checkbox"]:checked').length, 1, 'Items checked -first course');
+    assert.equal($component.find('.selected-list .gru-taxonomy-tag').length, 2, 'Number of selected tags');
+
+    $selectedTags.find('.gru-taxonomy-tag:eq(0) > button.remove').click();
+
+    return wait().then(function () {
+      assert.equal($browseSelector.find('ul.level-2 > li > label > input[type="checkbox"]:checked').length, 0, 'Items checked after tag removal -first course');
+      assert.equal($component.find('.selected-list .gru-taxonomy-tag').length, 1, 'Number of selected tags');
+
+      // Click last item in the first panel
+      $browseSelector.find('ul.level-1 > li:eq(2) > a').click();
+      assert.equal($browseSelector.find('ul.level-2 > li > label > input[type="checkbox"]:checked').length, 1, 'Items checked -third course');
+
+      $selectedTags.find('.gru-taxonomy-tag:eq(0) > button.remove').click();
+
+      return wait().then(function () {
+        assert.equal($browseSelector.find('ul.level-2 > li > label > input[type="checkbox"]:checked').length, 0, 'Items checked after tag removal -third course');
+        assert.equal($component.find('.selected-list .gru-taxonomy-tag').length, 0, 'Number of selected tags');
+      });
+    });
+  });
+});
+
+test('it calls an external action when the save button is clicked', function(assert) {
+
+  var subject = TaxonomyRoot.create({
+    courses: generateTaxonomyTestTree(1, null, 3)
+  });
+  var parent1Id = '0-100';
+  var child1A = '0-100-200';
+  var child1B = '0-100-201';
+
+  var shortcuts = [];
+  var selected = [];
+
+  this.on('saveAction', function(selectedTags) {
+    assert.ok(true, 'Save action called');
+    assert.equal(selectedTags.length, 2, 'Selected tags');
+  });
+
+  this.on('loadData', function(path) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+
+      if (path[0] === parent1Id) {
+
+        assert.deepEqual(path, [parent1Id], 'Load data for first course');
+        let taxonomyItems = [
+          TaxonomyItem.create({
+            id: child1A,
+            title: 'Item : 2 : 0 : 0',
+            level: 2
+          }),
+          TaxonomyItem.create({
+            id: child1B,
+            title: 'Item : 2 : 0 : 1',
+            level: 2
+          })
+        ];
+        resolve(taxonomyItems);
+
+      } else {
+        assert.notOk('true', 'Load data');
+        reject();
+      }
+    });
+  });
+
+  this.set('subject', subject);
+  this.set('shortcuts', shortcuts);
+  this.set('selected', selected);
+  this.set('panelHeaders', ['Level 1', 'Level 2']);
+
+  this.render(hbs`{{
+    taxonomy/gru-taxonomy-picker
+      browseSelectorText="Taxonomy Picker Title"
+      maxLevels=2
+      onSave=(action 'saveAction')
+      onSearchPath=(action 'loadData')
+      panelHeaders=panelHeaders
+      selected=selected
+      selectedTextKey="Text for Selected Tags"
+      shortcuts=shortcuts
+      shortcutText="Text for Shortcut Tags"
+      subject=subject }}`);
+
+  const $component = this.$('.taxonomy.gru-taxonomy-picker');
+  assert.ok($component.length, 'Component');
+
+  var $browseSelector = $component.find('.taxonomy.gru-browse-selector');
+
+  $browseSelector.find('ul.level-1 > li:eq(0) > a').click();
+
+  // Select items
+  $browseSelector.find('ul.level-2 > li:eq(0) > label > input').click();
+  $browseSelector.find('ul.level-2 > li:eq(1) > label > input').click();
+
   assert.ok($component.find('.actions .cancel').length, 'Cancel button');
   assert.ok($component.find('.actions .save').length, 'Save button');
 
-  $component.find('.actions .save').click();
+  return wait().then(function () {
+    $component.find('.actions .save').click();
+  });
 });
-*/
