@@ -1,6 +1,5 @@
 <form {{action "saveSelectedTags" selectedTags on="submit"}}>
 
-  {{!-- TODO: Revisit this functionality
   {{#if shortcutTags.length}}
     <div class="shortcut-list">
       <span>{{shortcutText}}</span>
@@ -8,13 +7,12 @@
       <ul>
         {{#each shortcutTags as |tag|}}
           <li>
-            {{taxonomy.gru-taxonomy-tag model=tag onSelect=(action 'openShortcut' tag) }}
+            {{taxonomy.gru-taxonomy-tag model=tag onSelect=(action 'openShortcut') }}
           </li>
         {{/each}}
       </ul>
     </div>
   {{/if}}
-  --}}
 
   <div class="browse-selector">
     <span>{{browseSelectorText}}</span>
@@ -39,6 +37,6 @@
     <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.cancel'}}">
       <span aria-hidden="true">{{t 'common.cancel'}}</span>
     </button>
-    <button type="submit" class="btn btn-primary save" disabled={{if selectedTags.length null true}}>{{t 'common.add'}}</button>
+    <button type="submit" class="btn btn-primary save">{{t 'common.add'}}</button>
   </div>
 </form>

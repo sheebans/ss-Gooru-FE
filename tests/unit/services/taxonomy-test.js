@@ -181,6 +181,7 @@ test('getCourses when taxonomy courses exist for subject', function(assert) {
     });
 });
 
+/*
 test('getDomains when taxonomy domains does not exist for course', function(assert) {
   const test = this;
   const service = this.subject();
@@ -256,6 +257,8 @@ test('getDomains when taxonomy domains exist for course', function(assert) {
       done();
     });
 });
+*/
+
 /*
 
  TODO for David to CHECK
