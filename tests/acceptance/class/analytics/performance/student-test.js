@@ -11,7 +11,7 @@ moduleForAcceptance('Acceptance | class/analytics/performance/student', {
       token: 'class-analytics-performance-student-token',
       user: {
         /* Using pochita, but as a student in classes */
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }

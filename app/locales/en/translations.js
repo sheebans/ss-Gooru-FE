@@ -135,6 +135,7 @@ export default {
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
+      "class-min-score": "The minimum score should be a number between 1 and 100",
       "class-not-created": "Oops! Unable to create classroom right now. Please try again shortly.",
       "class-title-presence": "Please give your classroom a name.",
       "collection-not-added-to": "Oops! Unable to add collection to lesson right now. Please try again shortly.",
@@ -178,6 +179,7 @@ export default {
       "select-correct-answer": "Please select the correct answer.",
       "sign-in-credentials-not-valid": "Uh oh! Something's not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please sign in with Google to access your account.",
+      "sign-up-error": "Oops! Unable to sign up right now. Please try again shortly.",
       "sign-up-first-name": "Please enter your first name.",
       "sign-up-last-name": "Please enter your last name.",
       "sign-up-name-length": "Last name must have at least 2 letters.",
@@ -478,10 +480,14 @@ export default {
       "delete": "Delete Classroom"
     },
     "edit": {
-      "edit-class": "Edit Classroom Information",
+      "assigned-course": "Assigned course",
+      "basic-info": "Basic Information",
       "class-name": "Classroom Name",
       "class-greetings": "Classroom Announcements",
-      "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc."
+      "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc.",
+      "class-minscore": "Assessment Minimum Score for Trophies (1-100%)",
+      "course-map": "Course Map",
+      "edit-class": "Edit Classroom Settings"
     },
     "overview": {
       "title": "Course Map",
@@ -1186,8 +1192,9 @@ export default {
         "symbols": "Symbols",
         "trigonometry": "Trigonometry"
       },
-      "insert-expression": "Insert Expression",
-      "update-expression": "Update Expression"
+      "insert-expression": "Insert",
+      "update-expression": "Update",
+      "select-expression": "Select Expression"
     }
   }
 };

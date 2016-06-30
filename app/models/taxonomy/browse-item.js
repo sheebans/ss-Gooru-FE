@@ -69,6 +69,22 @@ var BrowseItem = TaxonomyItem.extend({
   // Methods
 
   /**
+   * Attach a list of browse items as children of another browse item, if it
+   * doesn't already have children
+   *
+   * @param {BrowseItems} browseItems
+   */
+  addChildren: function(browseItems) {
+    if (!this.get('children').length) {
+      browseItems.forEach(function(browseItem) {
+        browseItem.set('parent', this);
+      }.bind(this));
+
+      this.set('children', browseItems);
+    }
+  },
+
+  /**
    * @function Decrease the counter 'totalChildrenSelected' in all of this node's ancestors
    */
   decreaseSelected: function() {

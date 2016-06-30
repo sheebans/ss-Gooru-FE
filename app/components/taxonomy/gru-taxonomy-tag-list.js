@@ -106,30 +106,33 @@ export default Ember.Component.extend({
   // Methods
 
   setupTooltip: function() {
-    var component = this;
     var $anchor = this.$('button.non-visible-tags');
-    var placement = (this.get('isInCard') || this.get('isInSearch')) ? 'bottom' : 'auto right';
 
-    $anchor.addClass('clickable');
-    $anchor.attr('data-html', 'true');
-    $anchor.popover({
-      placement: placement,
-      content: function() {
-        return component.$('.all-tags').html();
-      },
-      trigger: 'manual'
-    });
+    if ($anchor.length) {
+      let component = this;
+      let placement = (this.get('isInCard') || this.get('isInSearch')) ? 'bottom' : 'auto right';
 
-    $anchor.click(function() {
-      var $this = $(this);
-      if (!$this.hasClass('list-open')) {
-        // Close all tag-list popovers by simulating a click on them
-        $('.non-visible-tags.list-open').click();
-        $this.addClass('list-open').popover('show');
-      } else {
-        $this.removeClass('list-open').popover('hide');
-      }
-    });
+      $anchor.addClass('clickable');
+      $anchor.attr('data-html', 'true');
+      $anchor.popover({
+        placement: placement,
+        content: function() {
+          return component.$('.all-tags').html();
+        },
+        trigger: 'manual'
+      });
+
+      $anchor.click(function() {
+        var $this = $(this);
+        if (!$this.hasClass('list-open')) {
+          // Close all tag-list popovers by simulating a click on them
+          $('.non-visible-tags.list-open').click();
+          $this.addClass('list-open').popover('show');
+        } else {
+          $this.removeClass('list-open').popover('hide');
+        }
+      });
+    }
   }
 
 });

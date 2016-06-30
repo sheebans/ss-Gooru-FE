@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
   sessionService: Ember.inject.service("api-sdk/session"),
 
   /**
-   * @property {Service} Session service
+   * @property {Service} Profile service
    */
   profileService: Ember.inject.service("api-sdk/profile"),
 
@@ -22,6 +22,11 @@ export default Ember.Controller.extend({
    * @property {Service} I18N service
    */
   i18n: Ember.inject.service(),
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -34,18 +39,16 @@ export default Ember.Controller.extend({
       const birthDayDate = controller.validDateSelectPicker();
 
       if(controller.get('didValidate') === false) {
-        var username = Ember.$('.gru-input-mixed-validation.username input').val();
-        var email = Ember.$('.gru-input-mixed-validation.email input').val();
+        var username = Ember.$('.gru-input.username input').val();
+        var email = Ember.$('.gru-input.email input').val();
         var password = Ember.$('.gru-input.password input').val();
         var rePassword = Ember.$('.gru-input.rePassword input').val();
         var firstName = Ember.$('.gru-input.firstName input').val();
         var lastName = Ember.$('.gru-input.lastName input').val();
         profile.set('username', username);
-        profile.set('usernameAsync', username);
         profile.set('password', password);
         profile.set('rePassword', rePassword);
         profile.set('email', email);
-        profile.set('emailAsync', email);
         profile.set('firstName', firstName);
         profile.set('lastName', lastName);
       }
@@ -53,17 +56,26 @@ export default Ember.Controller.extend({
       profile.validate().then(function ({model, validations}) {
         if (validations.get('isValid') && birthDayDate !== '') {
           profile.set('dateOfBirth', birthDayDate);
-          controller.get("profileService").createProfile(profile)
+          controller.get('profileService').createProfile(profile)
             .then(function (profile) {
-              controller.get("sessionService")
+              controller.get('sessionService')
                 .signUp(profile).then(function () {
                 controller.set('didValidate', true);
                 // Trigger action in parent
                 controller.send('signUp');
               });
+            }, function(error) {
+              if(error && (error.email_id || error.username)) {
+                controller.set('emailError', error.email_id);
+                controller.set('usernameError', error.username);
+                controller.keydownEvents();
+              } else {
+                // Unexpected error
+                var message = controller.get('i18n').t('common.errors.sign-up-error').string;
+                controller.get('notifications').error(message);
+                Ember.Logger.error(error);
+              }
             });
-        } else {
-          controller.set('submitFlag', true);
         }
         controller.set('dateValidated', true);
       });
@@ -96,6 +108,16 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @type {String} Error with email field
+   */
+  emailError: false,
+
+  /**
+   * @type {String} Error with username field
+   */
+  usernameError: false,
 
   /**
    * @type {Profile} profile
@@ -135,12 +157,6 @@ export default Ember.Controller.extend({
   dateValidated: false,
 
   /**
-   * Submit has been performed
-   * @property {Boolean}
-   */
-  submitFlag: true,
-
-  /**
    * terms and conditions url
    * @property {string}
    */
@@ -160,19 +176,18 @@ export default Ember.Controller.extend({
     var signUpProfile = Profile.extend(signUpValidations);
     var profile = signUpProfile.create(Ember.getOwner(this).ownerInjection(), {
       username: null,
-      usernameAsync: null,
       password: null,
       firstName: null,
       lastName: null,
-      email: null,
-      emailAsync: null
+      email: null
     });
 
     controller.set('profile', profile);
     const url = `${window.location.protocol}//${window.location.host}${Env['google-sign-in'].url}`;
     controller.set('googleSignUpUrl', url);
     controller.set('didValidate', false);
-    controller.set('submitFlag', true);
+    controller.set('emailError', false);
+    controller.set('usernameError', false);
   },
 
   /**
@@ -235,5 +250,21 @@ export default Ember.Controller.extend({
       age--;
     }
     return age;
+  },
+
+  /**
+   * Add keydown events to clear errors on username and email
+   */
+  keydownEvents: function() {
+    const controller = this;
+    var $username = Ember.$('.username input');
+    var $email = Ember.$('.email input');
+    $username.on('keydown', function() {
+      controller.set('usernameError', false);
+    });
+    $email.unbind('keydown');
+    $email.on('keydown', function() {
+      controller.set('emailError', false);
+    });
   }
 });

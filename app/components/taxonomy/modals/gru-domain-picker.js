@@ -36,31 +36,6 @@ export default Ember.Component.extend({
 
   actions: {
 
-    loadSelected(selected) {
-      if (selected.length) {
-        let coursesToLoad = [], promises;
-        let subject = this.get('model.subject');
-        let taxonomyService = this.get('taxonomyService');
-
-        selected.forEach(function(tagData) {
-          var path = tagData.get('ancestorsPath');
-
-          // Create non-duplicated lists of domains to load
-          if (coursesToLoad.indexOf(path[0]) === -1) {
-            coursesToLoad.push(path[0]);
-          }
-        });
-
-        promises = coursesToLoad.map(function(courseId) {
-          return taxonomyService.getCourseDomains(subject, courseId);
-        });
-
-        return Ember.RSVP.all(promises);
-      } else {
-        return Ember.RSVP.resolve(false);
-      }
-    },
-
     loadTaxonomyData(path) {
       return new Ember.RSVP.Promise(function(resolve) {
         var subject = this.get('model.subject');

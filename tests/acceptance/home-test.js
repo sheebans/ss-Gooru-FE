@@ -9,7 +9,7 @@ moduleForAcceptance('Acceptance | home', {
       isAnonymous: false,
       'token-api3': 'user-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }

@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | profile content courses', {
       isAnonymous: false,
       token: 'course-content-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/pochita/content/courses');
+  visit('/id-for-pochita/content/courses');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/content/courses');
+    assert.equal(currentURL(), '/id-for-pochita/content/courses');
 
     const $contentCourseContainer = find(".controller.profile-courses");
     T.exists(assert, $contentCourseContainer, "Missing content courses container");

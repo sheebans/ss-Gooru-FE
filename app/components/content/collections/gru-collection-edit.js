@@ -179,8 +179,8 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   /**
    * Indicate if the button "Back to course" is available.
    */
-  allowBack: Ember.computed('course','allowBackToCourse',function(){
-    return this.get('course') && this.get('allowBackToCourse');
+  allowBack: Ember.computed('collection', function() {
+    return this.get('collection.courseId');
   }),
 
   /**

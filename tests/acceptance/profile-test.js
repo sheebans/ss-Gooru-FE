@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | profile', {
       isAnonymous: false,
       token: 'profile-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/pochita');
+  visit('/id-for-pochita');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/content/courses');
+    assert.equal(currentURL(), '/id-for-pochita/content/courses');
 
     const $profileContainer = find(".controller.profile");
     T.exists(assert, $profileContainer, "Missing profile container");
@@ -31,53 +31,53 @@ test('Layout', function(assert) {
 });
 
 test('menu option \'about\' is selected when navigating directly to profile.about', function (assert) {
-  visit('/pochita/about');
+  visit('/id-for-pochita/about');
 
   andThen(function () {
     var $menu = find('.controller.profile > .navigation .profile-menu');
 
-    assert.equal(currentURL(), '/pochita/about');
+    assert.equal(currentURL(), '/id-for-pochita/about');
     assert.ok($menu.find('.about').hasClass('selected'), 'Menu option \'about\' should be selected');
   });
 });
 
 test('menu option \'content/courses \' is selected when navigating directly to profile.content', function (assert) {
-  visit('/pochita/content/courses');
+  visit('/id-for-pochita/content/courses');
 
   andThen(function () {
     var $menu = find('.controller.profile > .navigation .profile-menu');
 
-    assert.equal(currentURL(), '/pochita/content/courses');
+    assert.equal(currentURL(), '/id-for-pochita/content/courses');
     assert.ok($menu.find('.content').hasClass('selected'), 'Menu option \'content\' should be selected');
   });
 });
 
 test('menu option \'network\' is selected when navigating directly to profile.network', function (assert) {
-  visit('/pochita/network');
+  visit('/id-for-pochita/network');
 
   andThen(function () {
     var $menu = find('.controller.profile > .navigation .profile-menu');
 
-    assert.equal(currentURL(), '/pochita/network');
+    assert.equal(currentURL(), '/id-for-pochita/network');
     assert.ok($menu.find('.network').hasClass('selected'), 'Menu option \'network\' should be selected');
   });
 });
 
 test('menu option selection updates when navigating between sections', function (assert) {
-  visit('/pochita/about');
+  visit('/id-for-pochita/about');
 
   andThen(function () {
-    assert.equal(currentURL(), '/pochita/about');
+    assert.equal(currentURL(), '/id-for-pochita/about');
 
     andThen(function () {
       var $menu = find('.controller.profile > .navigation .profile-menu');
 
-      assert.equal(currentURL(), '/pochita/about');
+      assert.equal(currentURL(), '/id-for-pochita/about');
       assert.ok($menu.find('.about').hasClass('selected'), 'Menu option \'about\' should be selected');
 
       click($menu.find('.network'));
       andThen(function () {
-        assert.equal(currentURL(), '/pochita/network/following');
+        assert.equal(currentURL(), '/id-for-pochita/network/following');
         assert.ok(!$menu.find('.about').hasClass('selected'), 'Menu option \'about\' should no longer be selected');
         assert.ok($menu.find('.network').hasClass('selected'), 'Menu option \'network\' should now be selected');
       });

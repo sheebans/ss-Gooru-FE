@@ -176,6 +176,22 @@
       "body": "File not found!",
       "file": "class-info-api3-200-response.json"
     }
+  },
+  {
+    "description": "Delete member",
+    "request": {
+      "url": "/api/nucleus/v1/classes/(.+)/members/other-student-id",
+      "method": "DELETE",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
   }
 
 ]
