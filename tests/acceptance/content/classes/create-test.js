@@ -8,7 +8,7 @@ moduleForAcceptance('Acceptance | Content Classes Create Class', {
       isAnonymous: false,
       token: 'profile-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }

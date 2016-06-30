@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | profile content collections', {
       isAnonymous: false,
       token: 'collections-content-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/pochita/content/collections');
+  visit('/id-for-pochita/content/collections');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/content/collections');
+    assert.equal(currentURL(), '/id-for-pochita/content/collections');
 
     const $contentCourseContainer = find(".controller.content-collections");
     T.exists(assert, $contentCourseContainer, "Missing content collections container");

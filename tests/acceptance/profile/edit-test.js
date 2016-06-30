@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | profile edit', {
       isAnonymous: false,
       'token-api3': 'edit-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/pochita/edit');
+  visit('/id-for-pochita/edit');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/edit');
+    assert.equal(currentURL(), '/id-for-pochita/edit');
 
     const $editContainer = find(".controller.about.edit");
     T.exists(assert, $editContainer, "Missing edit container");
@@ -44,17 +44,17 @@ test('Layout', function(assert) {
 });
 
 test('no menu option is selected when entering to edit mode', function (assert) {
-  visit('/pochita/edit');
+  visit('/id-for-pochita/edit');
 
   andThen(function () {
       var $menu = find('.controller.profile > .navigation .profile-menu');
-      assert.equal(currentURL(), '/pochita/edit');
+      assert.equal(currentURL(), '/id-for-pochita/edit');
       assert.notOk(!!$menu.find('.selected').length, 'A menu option is selected');
   });
 });
 
 test('Validate Student ID field Special Characters', function (assert) {
-  visit('/pochita/edit');
+  visit('/id-for-pochita/edit');
 
   andThen(function () {
     const $studentId = find("#studentId");
@@ -68,7 +68,7 @@ test('Validate Student ID field Special Characters', function (assert) {
 });
 
 test('Validate Username field Special Characters', function (assert) {
-  visit('/pochita/edit');
+  visit('/id-for-pochita/edit');
 
   andThen(function () {
     const $studentId = find("#username");
@@ -81,7 +81,7 @@ test('Validate Username field Special Characters', function (assert) {
   });
 });
 test('Validate Username field Blank Spaces', function (assert) {
-  visit('/pochita/edit');
+  visit('/id-for-pochita/edit');
 
   andThen(function () {
     const $studentId = find("#username");
@@ -95,7 +95,7 @@ test('Validate Username field Blank Spaces', function (assert) {
 });
 
 test('Validate Username field Minimum Chars', function (assert) {
-  visit('/pochita/edit');
+  visit('/id-for-pochita/edit');
 
   andThen(function () {
     const $studentId = find("#username");
@@ -136,18 +136,18 @@ test('it shows an error message if the username exists', function (assert) {
 });
 
 //test('menu option \'about\' is selected when cancelling the edit', function (assert) {
-//  visit('/pochita/edit');
+//  visit('/id-for-pochita/edit');
 //
 //  andThen(function () {
 //
 //    const $editContainer = find(".controller.about.edit");
 //    const $cancelButton = $editContainer.find('.btn-info.cancel');
-//    assert.equal(currentURL(), '/pochita/edit');
+//    assert.equal(currentURL(), '/id-for-pochita/edit');
 //
 //    click($cancelButton);
 //    return wait().then(function () {
 //      var $menu = find('.controller.profile .navigation .profile-menu');
-//      assert.equal(currentURL(), '/pochita/about');
+//      assert.equal(currentURL(), '/id-for-pochita/about');
 //      assert.ok($menu.find('.about').hasClass('selected'), 'Menu option \'about\' should be selected');
 //    });
 //  });
