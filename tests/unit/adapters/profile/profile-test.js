@@ -15,7 +15,7 @@ test('createProfile', function(assert) {
     body: {}
   };
   const routes = function() {
-    this.post('/api/nucleus-auth/v1/users', function() {
+    this.post(`http://${window.location.hostname}:8882/api/nucleus-auth/v1/users`, function() {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };

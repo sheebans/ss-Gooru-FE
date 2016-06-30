@@ -19,7 +19,9 @@ export default Ember.Object.extend({
     const adapter = this;
     const namespace = this.get('namespace');
     const hostname = window.location.hostname;
-    const url = `https://${hostname}${namespace}`;
+    const port = Env.securePort ? `:${Env.securePort}` : '';
+    const protocol = `${Env.secureProtocol}://`;
+    const url = `${protocol}${hostname}${port}${namespace}`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
