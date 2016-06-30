@@ -60,6 +60,13 @@ module.exports = function (environment) {
     eventAPIKey: '33b9ad34-1a0c-43ba-bb9c-4784abe07110'
   };
 
+  ENV['teamsHosts'] = {
+    'gooru.org' : 'teams.gooru.org', //production
+    'qa.gooruweb.edify.cr' : 'teams.gooru.org', // QA
+    'localhost' : 'teams.gooru.org', // development
+    'nucleus' : 'teams.gooru.org' // nucleus
+  };
+
   ENV['simple-auth-custom'] = {
     apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT',
     serverTokenEndpoint: '/gooruapi/rest/v2/account/login',
