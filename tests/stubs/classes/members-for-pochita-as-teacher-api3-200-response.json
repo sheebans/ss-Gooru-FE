@@ -1,6 +1,6 @@
 {
   "owner": [
-    "pochita"
+    "id-for-pochita"
   ],
   "collaborator": [
     "e568193d-603a-4c3a-a5d2-320579d32f3f"
@@ -11,7 +11,7 @@
   "invitees": [],
   "details": [
     {
-      "id": "pochita",
+      "id": "id-for-pochita",
       "firstname": "Niña",
       "lastname": "Pochita",
       "thumbnail_path": null

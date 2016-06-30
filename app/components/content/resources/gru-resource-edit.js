@@ -25,6 +25,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
    */
   profileService: Ember.inject.service("api-sdk/profile"),
 
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -121,8 +126,18 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
 
     openTaxonomyModal: function(){
       this.openTaxonomyModal();
-    }
+    },
 
+    setPublisher: function(checked) {
+      var tempResource = this.get('tempResource');
+      if(checked){
+        tempResource.set('publisher', this.get("session.userData.username"));
+        tempResource.set('amIThePublisher', true);
+      } else {
+        tempResource.set('publisher', '');
+        tempResource.set('amIThePublisher', false);
+      }
+    }
   },
 
   // -------------------------------------------------------------------------

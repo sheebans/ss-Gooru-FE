@@ -35,6 +35,11 @@
       margin-left: 15px;
       position: relative;
       width: calc(100% - 80px);
+      .truncate{
+        $line-height: 1.1;
+        $lines-to-show: 2;
+        @include ellipsis($font-size: $font-size-large, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+      }
     }
 
     .course-title {

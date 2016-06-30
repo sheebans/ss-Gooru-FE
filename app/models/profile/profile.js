@@ -42,11 +42,6 @@ export default Ember.Object.extend({
   }),
 
   /**
-   * @property {string} usernameAsync - Used to validate on submit
-   */
-  usernameAsync: null,
-
-  /**
    * @property {string} password  - The profile password
    */
   password: null,
@@ -55,12 +50,6 @@ export default Ember.Object.extend({
    * @property {string} email - The profile email
    */
   email: null,
-
-  /**
-   * @property {string} emailAsync - Used to validate on submit
-   */
-  emailAsync: null,
-
   /**
    * @property {string} gender - Profile gender
    */

@@ -411,3 +411,68 @@ test('Validate that settings component is present', function (assert) {
   var $settingsSection = this.$("#settings");
   assert.ok($settingsSection.length, "Section component exists");
 });
+
+test('Validate if the I am the publisher checkbox is checked', function (assert) {
+  assert.expect(2);
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: null,
+    url: "http://example.com/image.png",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12',
+    amIThePublisher: false
+  });
+
+  var session= Ember.Object.create({
+    isAnonymous: false,
+    userData: {username: 'jperez'}
+  });
+
+  this.set('resource', resource);
+  this.set('session', session);
+
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource session=session}}`);
+
+  const $component = this.$('.gru-resource-edit');
+  const $imPublisher = $component.find('.checkbox-inline input[type="checkbox"]:checked');
+
+  assert.equal($imPublisher.length, 0, 'imPublisher checkbox should not be checked');
+
+  $component.find(".checkbox-inline input").click();
+
+  return wait().then(function () {
+
+    const $publisherField = $component.find(".gru-input.publisher input");
+    assert.equal($publisherField.val(), session.userData.username, "The publisher field should be the user logged");
+
+  });
+});
+
+test('Validate if the I am the publisher checkbox is unchecked', function (assert) {
+  assert.expect(2);
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: null,
+    url: "http://example.com/image.png",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12',
+    amIThePublisher: 'true'
+  });
+  this.set('resource', resource);
+
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
+
+  const $component = this.$('.gru-resource-edit');
+  const $imPublisher = $component.find('.checkbox-inline input[type="checkbox"]:checked');
+
+  assert.equal($imPublisher.length, 1, 'imPublisher checkbox should be checked');
+
+  $component.find(".checkbox-inline input").click();
+
+  return wait().then(function () {
+
+    const $publisherField = $component.find(".gru-input.publisher");
+    assert.equal($publisherField.val(), '', "The publisher field should be blank");
+
+  });
+});
