@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | profile about', {
       isAnonymous: false,
       'token-api3': 'about-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/pochita/about');
+  visit('/id-for-pochita/about');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/about');
+    assert.equal(currentURL(), '/id-for-pochita/about');
 
     const $aboutContainer = find(".controller.about");
     T.exists(assert, $aboutContainer, "Missing about container");

@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | profile content resources', {
       isAnonymous: false,
       token: 'resources-content-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/pochita/content/resources');
+  visit('/id-for-pochita/content/resources');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/content/resources');
+    assert.equal(currentURL(), '/id-for-pochita/content/resources');
 
     const $contentCourseContainer = find(".controller.content-resources");
     T.exists(assert, $contentCourseContainer, "Missing content resources container");
