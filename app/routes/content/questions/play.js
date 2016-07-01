@@ -30,13 +30,13 @@ export default Ember.Route.extend({
         return Ember.RSVP.resolve(question);
       });
     });
-
     return Ember.RSVP.hash({
       question: question
     });
   },
 
   setupController(controller, model) {
+    console.log(model);
     controller.set('question', model.question);
   }
 

@@ -119,4 +119,3 @@ export default Ember.Object.extend({
     return resource;
   }
 });
-

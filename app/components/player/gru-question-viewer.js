@@ -20,7 +20,7 @@ export default Ember.Component.extend({
    */
   i18n: Ember.inject.service(),
 
-
+  session: Ember.inject.service("session"),
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -200,9 +200,14 @@ export default Ember.Component.extend({
       hintsToDisplay: Ember.A(),
       isExplanationShown: false
     });
-  }.observes("question")
+  }.observes("question"),
 
   // -------------------------------------------------------------------------
   // Methods
+
+  didInsertElement: function() {
+    console.log(this.get('session.userId'));
+      console.log(this.get('question'));
+  },
 
 });
