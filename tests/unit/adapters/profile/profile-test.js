@@ -323,7 +323,6 @@ test('resetPassword', function(assert) {
     'token-api3': 'token-api-3'
   }));
   const routes = function() {
-    console.log(`${Env.secureProtocol}://${window.location.hostname}:${Env.securePort}/api/nucleus-auth/v1/users/user-id/password`);
     this.put(`${Env.secureProtocol}://${window.location.hostname}:${Env.securePort}/api/nucleus-auth/v1/users/user-id/password`, function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
       assert.equal(password, requestBodyJson['new_password']);
