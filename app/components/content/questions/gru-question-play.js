@@ -33,7 +33,6 @@ export default Ember.Component.extend({
   didInsertElement: function () {
     this._super(...arguments);
     this.set('fixed-header', true);
-    console.log(this.get('question'),'sdfdsa');
   },
   // -------------------------------------------------------------------------
   // Properties
