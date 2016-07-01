@@ -54,6 +54,11 @@ export default Ember.Component.extend({
   isInCard: false,
 
   /**
+   * @property {boolean} Is the taxonomy tag list called from search
+   */
+  isInSearch: false,
+
+  /**
    * @property {TaxonomyTag[]} taxonomy tag
    */
   tags: null,
@@ -105,7 +110,7 @@ export default Ember.Component.extend({
 
     if ($anchor.length) {
       let component = this;
-      let placement = this.get('isInCard') ? 'bottom' : 'auto right';
+      let placement = (this.get('isInCard') || this.get('isInSearch')) ? 'bottom' : 'auto right';
 
       $anchor.addClass('clickable');
       $anchor.attr('data-html', 'true');
