@@ -80,6 +80,10 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Observers
 
+  resetUserSelection: Ember.observer('question', function() {
+    this.set('userSelection', Ember.A());
+  }),
+
 
   // -------------------------------------------------------------------------
   // Methods
