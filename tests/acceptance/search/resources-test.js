@@ -63,16 +63,14 @@ test('Changing term should filter the current result without changing the root u
   });
 });
 
-//test('Apply taxonomy filter', function(assert) {
-//  assert.expect(2); //making sure all asserts are called
-//
-//  visit('/search/resources?taxonomies[]=TEKS.K12.SC-K-SIR-01&term=any');
-//  andThen(function() {
-//    assert.equal(currentURL(), '/search/resources?taxonomies[]=TEKS.K12.SC-K-SIR-01&term=any');
-//
-//    assert.equal(find(".gru-taxonomy-tag-list > .gru-taxonomy-tag").length, 1, "Number of tags rendered");
-//
-//  });
-//});
+test('Apply taxonomy filter', function(assert) {
+  visit('/search/resources?taxonomies=["TEKS.K12.SC-K-SIR-01"]&term=any');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/search/resources?taxonomies=%5B%22TEKS.K12.SC-K-SIR-01%22%5D&term=any');
+
+    assert.equal(find(".gru-taxonomy-tag-list > .gru-taxonomy-tag").length, 1, "Number of tags rendered");
+  });
+});
 
 
