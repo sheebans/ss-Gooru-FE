@@ -115,13 +115,6 @@ const ResourceModel = Ember.Object.extend({
    */
   displayGuide: null,
 
-  /**
-   * Indicate if a resource is link out
-   * @property {boolean}
-   */
-  isLinkOut: Ember.computed('displayGuide',function(){
-    return this.get('displayGuide.is_frame_breaker');
-  }),
 
   /**
    * @property {String} category - Category the course belongs to
