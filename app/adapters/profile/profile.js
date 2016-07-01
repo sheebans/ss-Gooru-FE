@@ -282,7 +282,10 @@ export default Ember.Object.extend({
   resetPassword: function (userId, password, token) {
     const adapter = this;
     const namespace = adapter.get('usersNamespace');
-    const url = `${namespace}/${userId}/password`;
+    const hostname = window.location.hostname;
+    const port = Env.securePort ? `:${Env.securePort}` : '';
+    const protocol = `${Env.secureProtocol}://`;
+    const url = `${protocol}${hostname}${port}${namespace}/${userId}/password`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',
