@@ -52,7 +52,9 @@ export default GruInput.extend({
     const component = this;
     // only accept numbers
     component.$('input[type=number]').keypress(function(event) {
-      return (event.keyCode >= 48 && event.keyCode <= 57);
+      // 0 means key without character input, 8 is backspace, 48-57 are numbers
+      let keyCode = (typeof event.which === "number") ? event.which : event.keyCode;
+      return keyCode === 0 || keyCode === 8 || (keyCode >= 48 && keyCode <= 57);
     });
     // check that it is between min and max
     component.$('input[type=number]').on('input', function(event) {
