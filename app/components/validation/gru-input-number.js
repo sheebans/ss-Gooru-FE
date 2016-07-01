@@ -25,6 +25,11 @@ export default GruInput.extend({
       if (this.get("onFocusOut")){
         this.sendAction("onFocusOut");
       }
+    },
+
+    inputTyping: function() {
+      this._super(...arguments);
+      this.set('oldValue', this.get('rawInputValue'));
     }
   },
 
@@ -37,15 +42,27 @@ export default GruInput.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  init() {
+    this._super(...arguments);
+    this.set('oldValue', this.get('rawInputValue'));
+  },
+
   didRender: function() {
     this._super(...arguments);
     const component = this;
-    // only accept numbers that are not smaller than min and no bigger than max
-    component.$('input[type=number]').keypress(function(event){
-      var key = window.event ? event.keyCode : event.which;
-      var tempValue = +(this.value + String.fromCharCode(key));
-      return event.keyCode === 8 || event.keyCode === 46 || event.keyCode === 37 || event.keyCode === 39 ||
-        (tempValue >= component.get('min') && tempValue <= component.get('max'));
+    // only accept numbers
+    component.$('input[type=number]').keypress(function(event) {
+      return (event.keyCode >= 48 && event.keyCode <= 57);
+    });
+    // check that it is between min and max
+    component.$('input[type=number]').on('input', function(event) {
+      // accept the empty value
+      if(this.value) {
+        var tempValue = +this.value;
+        if(tempValue < component.get('min') || tempValue > component.get('max')) {
+          this.value = component.get('oldValue');
+        }
+      }
     });
   },
 
@@ -66,5 +83,10 @@ export default GruInput.extend({
    * @param {Number} step - step between values when using the picker
    */
   step: 1,
+
+  /**
+   * @param {String} oldValue - before the value has changed / before the input event
+   */
+  oldValue: null
 
 });

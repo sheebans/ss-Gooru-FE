@@ -88,7 +88,10 @@ module.exports = function (environment) {
     url: '/api/nucleus-auth-idp/v1/google'
   };
 
+  ENV.secureProtocol = 'https';
+
   if (environment === 'development') {
+    ENV.secureProtocol = 'http';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -103,13 +106,15 @@ module.exports = function (environment) {
         "http://dev-content-gooru-org.s3-us-west-1.amazonaws.com http://dev-user-gooru-org.s3-us-west-1.amazonaws.com",
       'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
       'media-src': "'self'"
-    }
+    };
   }
 
   if (environment === 'test') {
     // Testem prefers this...
     ENV.baseURL = '/';
     ENV.locationType = 'none';
+    ENV.secureProtocol = 'http';
+    ENV.securePort = 8882;
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
