@@ -1,85 +1,21 @@
-import Ember from 'ember';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import BaseController from 'gooru-web/controllers/search/base-controller';
 
 /**
  * Questions search controller
  *
- * Controller responsible for filtering and searching questions
- *
- * @module
- * @augments ember/Controller
  */
-export default Ember.Controller.extend({
+export default BaseController.extend({
 
-  queryParams: ['selectedOptionTypes'],
   // -------------------------------------------------------------------------
   // Dependencies
-  searchController: Ember.inject.controller('search'),
-  appController: Ember.inject.controller('application'),
-
-  /**
-   * @property {Ember.Service} Service to do the search
-   */
-  searchService: Ember.inject.service('api-sdk/search'),
-
 
   // -------------------------------------------------------------------------
   // Attributes
 
+  questionResults: Ember.computed.alias('searchResults'),
 
   // -------------------------------------------------------------------------
   // Actions
-
-  actions: {
-    /**
-     * Action triggered to selectMenuOption
-     */
-    selectMenuOption: function (option) {
-      var controller = this;
-      var searchService = controller.get('searchService');
-      var selectedOptionTypes = controller.get('selectedOptionTypes');
-      var term = controller.get('term');
-
-
-      if(selectedOptionTypes.contains(option)){
-        selectedOptionTypes.removeObject(option);
-      }
-      else {
-        selectedOptionTypes.pushObject(option);
-      }
-
-      controller.resetPagination();
-
-      const params = controller.getSearchParams();
-      searchService.searchQuestions(term, params)
-        .then(function(questionResults){
-          controller.set("questionResults", questionResults);
-        });
-    },
-
-    showMoreResults: function(){
-      this.showMoreResults();
-    },
-
-    /**
-     * Remove a tag from the selected tag list
-     * the browse selector.
-     * @function actions:removeTag
-     * @param {TaxonomyTag} taxonomyTag
-     */
-    removeTag: function (taxonomyTag) {
-
-      var selectedTags = this.get('selectedTags');
-
-      selectedTags.removeObject(taxonomyTag);
-
-      var taxonomyMap =  selectedTags.map(function(taxonomyTagData) {
-        return taxonomyTagData.get("data.id");
-      });
-
-      this.set('taxonomies', taxonomyMap);
-    }
-  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -87,93 +23,11 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Properties
 
-  /**
-   * Types of question selected
-   *  @property {array} selectedOptionTypes
-   *
-   */
-  selectedOptionTypes: Ember.A([]),
-
-  /**
-   * These are the question search results
-   * @property {Question[]}
-   */
-  questionResults: null,
-
-  /**
-   * @property {string} term filter
-   */
-  term: Ember.computed.alias("searchController.term"),
-
-  /**
-   * @property {string[]} standards
-   */
-  taxonomies: Ember.computed.alias("searchController.taxonomies"),
-
-  /**
-   * @property {*}
-   */
-  pagination: {
-    page: 0,
-    pageSize: DEFAULT_PAGE_SIZE
-  },
-
-  /**
-   * @property {boolean}
-   */
-  showMoreResultsButton: Ember.computed("questionResults.[]", function(){
-    return this.get("questionResults.length") &&
-      (this.get("questionResults.length") % this.get("pagination.pageSize") === 0);
-  }),
-
-  /**
-   * @property {selectedTags[]} selected tags
-   */
-  selectedTags: Ember.computed.alias("searchController.selectedTags"),
-
   // -------------------------------------------------------------------------
   // Methods
 
-  showMoreResults: function(){
-    const controller = this;
-    const pagination = this.get("pagination");
-    pagination.page = pagination.page + 1;
-
-    const params = controller.getSearchParams();
-    this.get('searchService').searchQuestions(controller.get("term"), params)
-      .then(function(questions){
-        controller.get("questionResults").pushObjects(questions.toArray());
-      });
-  },
-
-  getSearchParams: function(){
-    const controller = this;
-    const pagination = controller.get("pagination");
-    return {
-      types: controller.get("selectedOptionTypes"),
-      page: pagination.page,
-      pageSize: pagination.pageSize,
-      taxonomies: controller.get("taxonomies")
-    };
-  },
-
-  resetValues: function(){
-    this.resetPagination();
-  },
-
-  /**
-   * Resets the pagination values
-   */
-  resetPagination: function () {
-    this.set("pagination", {
-      page: 0,
-      pageSize: DEFAULT_PAGE_SIZE
-    });
-  },
-  setInvalidSearchTerm : function(value){
-    this.get('appController').setInvalidSearchTerm(value);
+  doSearch: function(term, params, callback) {
+    this.get('searchService').searchQuestions(term, params).then(callback);
   }
-
-
 
 });
