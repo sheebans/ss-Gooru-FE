@@ -10,8 +10,7 @@
     {{#each tags as |taxonomyTag|}}
       {{taxonomy.gru-taxonomy-tag
       model=taxonomyTag
-      hasTooltip=isInSearch
-      isInSearch=isInSearch
+      hasTooltip=false
       onRemove=(action 'removeTag' taxonomyTag)
       }}
     {{/each}}
