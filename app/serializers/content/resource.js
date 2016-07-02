@@ -87,7 +87,7 @@ export default Ember.Object.extend({
       publisher: resourceData["copyright_owner"] && resourceData["copyright_owner"].length > 0 ? resourceData["copyright_owner"][0] : null,
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
-      displayGuide: resourceData['display_guide'].is_frame_breaker
+      displayGuide: resourceData['display_guide'] !== null ? resourceData['display_guide'] : false
     });
 
     //is full path if it has protocol
@@ -101,7 +101,7 @@ export default Ember.Object.extend({
     }
 
     if (resource.get("isUrlResource")) {
-      if(resource.get("displayGuide") && (resource.get("displayGuide.is_broken") ===1 || resource.get("displayGuide.is_frame_breaker") ===1)) {
+      if(resource.get("displayGuide") && (resource.get("displayGuide.is_broken")|| resource.get("displayGuide.is_frame_breaker"))) {
         var url = resource.get("url");
         var pattern = /^((http|https|ftp):\/\/)/;
 
