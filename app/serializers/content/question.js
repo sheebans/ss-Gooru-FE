@@ -71,6 +71,7 @@ export default Ember.Object.extend({
       answer: questionModel.get('answers').map(function(answer, index) {
         return serializer.serializerAnswer(answer, index + 1, isHotSpotImage);
       }),
+      thumbnail: cleanFilename(questionModel.get('thumbnail'), this.get('session.cdnUrls')),
       'metadata': questionModel.get('metadata') || {}
     };
 
