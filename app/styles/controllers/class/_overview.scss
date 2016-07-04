@@ -24,6 +24,18 @@
         display: inline-block;
         padding: 15px 0;
       }
+      .trophy {
+        float: right;
+        .icon {
+          background: url("gooru/images/trophy.svg");
+          background-size: 24px 24px;
+          height: 24px;
+          width: 24px;
+          //temp
+          background-color: black;
+          display: block;
+        }
+      }
     }
 
     .locate,
