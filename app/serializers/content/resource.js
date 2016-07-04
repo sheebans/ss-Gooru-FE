@@ -56,7 +56,7 @@ export default Ember.Object.extend({
       //one publisher for now
       'copyright_owner': resourceModel.get('publisher') ? [resourceModel.get('publisher')] : [''] ,
       'is_copyright_owner': resourceModel.get('amIThePublisher'),
-      'display_guide' : {"is_broken": false, "is_frame_breaker": resourceModel.get('displayGuide')}
+      'display_guide' : resourceModel.get('displayGuide') ? {"is_broken": 1, "is_frame_breaker": 0} : {"is_broken": 0, "is_frame_breaker": 0}
     };
     return serializedResource;
   },
@@ -87,7 +87,7 @@ export default Ember.Object.extend({
       publisher: resourceData["copyright_owner"] && resourceData["copyright_owner"].length > 0 ? resourceData["copyright_owner"][0] : null,
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
-      displayGuide: resourceData['display_guide'] !== null ? resourceData['display_guide'] : false
+      displayGuide: resourceData['display_guide'] !== null  && (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1) ? true: false
     });
 
     //is full path if it has protocol

@@ -140,7 +140,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
     },
     linkSwitch:function(){
       var tempResource = this.get('tempResource');
-      tempResource.set('displayGuide', !this.get('tempResource.displayGuide'));
+      tempResource.set('displayGuide', this.get('tempResource.displayGuide'));
     }
   },
 

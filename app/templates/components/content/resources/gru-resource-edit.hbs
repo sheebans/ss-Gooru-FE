@@ -123,13 +123,19 @@
             </label>
           </div>
             <div class="col-sm-6 form-field link-out">
+            <label>
+                <span>{{t "common.link-out"}}</span>
               {{#if isEditing}}
-                <label>
-                    <span>{{t "common.link-out"}}</span>
-                    {{gru-switch switchOptions=switchOptions onOptionSwitch='linkSwitch' isChecked=resource.displayGuide}}
+                    {{gru-switch switchOptions=switchOptions onOptionSwitch='linkSwitch' isChecked=tempResource.displayGuide}}
                     <span>{{t "common.link-out-message"}}</span>
-                </label>
+                {{else}}
+                  {{#if resource.displayGuide}}
+                      <span>ON</span>
+                    {{else}}
+                      <span>OFF</span>
+                  {{/if}}
               {{/if}}
+            </label>
             </div>
         </div>
         <div class="row">

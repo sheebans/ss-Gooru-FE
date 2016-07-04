@@ -225,12 +225,10 @@ const ResourceModel = Ember.Object.extend({
 
     let standards = this.get('standards');
     let info = this.get('info');
-    let displayGuide = this.get('displayGuide');
 
     // Copy standards and info values
     properties.standards = standards.slice(0);
     properties.info = JSON.parse(JSON.stringify(info));
-    properties.displayGuide = JSON.parse(JSON.stringify(displayGuide));
 
     var ResourceValidation = ResourceModel.extend(EditResourceValidations);
 
