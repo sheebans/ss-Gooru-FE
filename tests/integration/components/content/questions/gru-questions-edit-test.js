@@ -1013,13 +1013,16 @@ test('Update answer and cancel - Hot Text Highlight', function (assert) {
 });
 
 test('Layout edit question image', function (assert) {
-  const newText = 'Answer text';
-
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     text: "",
     type: QUESTION_TYPES.hotTextHighlight,
-    answers: Ember.A(),
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "",
+      'isCorrect': true,
+      'type': 'text',
+      'highlightType': 'word'
+    })]),
     standards: []
   });
   this.set('question', question);
@@ -1040,13 +1043,16 @@ test('Layout edit question image', function (assert) {
 });
 
 test('Layout view question image', function (assert) {
-  const newText = 'Answer text';
-
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     text: "",
     type: QUESTION_TYPES.hotTextHighlight,
-    answers: Ember.A(),
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "",
+      'isCorrect': true,
+      'type': 'text',
+      'highlightType': 'word'
+    })]),
     thumbnail: 'image-id',
     standards: []
   });

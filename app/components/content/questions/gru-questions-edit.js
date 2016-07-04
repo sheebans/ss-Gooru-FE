@@ -94,6 +94,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     cancelBuilderEdit: function(){
       this.set('isBuilderEditing', false);
       this.set('tempQuestion', null);
+      this.set('editImagePicker', false);
     },
     /**
      * Save Content
