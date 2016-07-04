@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForAdapter from 'gooru-web/tests/helpers/module-for-adapter';
+import Env from 'gooru-web/config/environment';
 
 moduleForAdapter('adapter:profile/profile', 'Unit | Adapter | profile/profile', {
   // needs: []
@@ -15,7 +16,7 @@ test('createProfile', function(assert) {
     body: {}
   };
   const routes = function() {
-    this.post('/api/nucleus-auth/v1/users', function() {
+    this.post(`${Env.secureProtocol}://${window.location.hostname}:${Env.securePort}/api/nucleus-auth/v1/users`, function() {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -322,7 +323,7 @@ test('resetPassword', function(assert) {
     'token-api3': 'token-api-3'
   }));
   const routes = function() {
-    this.put('/api/nucleus-auth/v1/users/user-id/password', function(request) {
+    this.put(`${Env.secureProtocol}://${window.location.hostname}:${Env.securePort}/api/nucleus-auth/v1/users/user-id/password`, function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
       assert.equal(password, requestBodyJson['new_password']);
       assert.equal(token, requestBodyJson['token']);

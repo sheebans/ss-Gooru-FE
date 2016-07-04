@@ -94,10 +94,22 @@ const Question = Ember.Object.extend(Validations, {
   isPublished: Ember.computed.equal("publishStatus", "published"),
 
   /**
-   * @property { Content/User }
+   * @property { Content/User } Owner of the question
    */
   owner: null,
 
+  /**
+   * @property { Content/User } Original creator of the question
+   */
+  creator: null,
+
+  sameOwnerAndCreator: Ember.computed("owner.id", "creator", function(){
+    if( !this.get('creator')){
+      return true
+    }else if(this.get('owner.id') === this.get('creator')){
+      return true;
+    }
+  }),
   /**
    * @property {TaxonomyTagData[]} an array with Taxonomy data
    */

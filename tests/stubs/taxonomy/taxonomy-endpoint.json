@@ -61,5 +61,26 @@
       "body": "File not found!",
       "file": "taxonomy-subjects-professional-learning-200-response.json"
     }
+  },
+  {
+    "description": "Fetch Taxonomy Codes by a IDs",
+    "request": {
+      "url": "^/api/nucleus/v1/taxonomy/codes",
+      "query": {
+        "idList": "(.+)"
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "taxonomy-codes-200-response.json"
+    }
   }
 ]

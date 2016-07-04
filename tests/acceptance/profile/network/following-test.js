@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | profile network following', {
       isAnonymous: false,
       token: 'followers-network-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/pochita/network/following');
+  visit('/id-for-pochita/network/following');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/network/following');
+    assert.equal(currentURL(), '/id-for-pochita/network/following');
 
     const $contentCourseContainer = find(".controller.network-followings");
     T.exists(assert, $contentCourseContainer, "Missing network followings container");

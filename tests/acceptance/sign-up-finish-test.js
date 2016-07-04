@@ -9,7 +9,7 @@ moduleForAcceptance('Acceptance | sign-up-finish', {
       isAnonymous: false,
       token: 'sign-up-token',
       user: {
-        gooruUId: 'pochita',
+        gooruUId: 'id-for-pochita',
         isNew: true
       }
     });
@@ -67,4 +67,3 @@ test('it shows error messages if the all fields are left blank', function (asser
     });
   });
 });
-

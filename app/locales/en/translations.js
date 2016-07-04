@@ -135,6 +135,7 @@ export default {
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
+      "class-min-score": "The minimum score should be a number between 1 and 100",
       "class-not-created": "Oops! Unable to create classroom right now. Please try again shortly.",
       "class-title-presence": "Please give your classroom a name.",
       "collection-not-added-to": "Oops! Unable to add collection to lesson right now. Please try again shortly.",
@@ -359,6 +360,7 @@ export default {
     "search-placeholder": "Search...",
     "search-error-message": "Search terms need to be at least 3 letters.",
     "search-400-error-message": "Please enter a valid search term",
+    "search-standards": "Search Standards",
     "select-question-type": "Select Question Type",
     "select-resource-type": "Select Resource Type",
     "send-request": "Send Request",
@@ -478,10 +480,14 @@ export default {
       "delete": "Delete Classroom"
     },
     "edit": {
-      "edit-class": "Edit Classroom Information",
+      "assigned-course": "Assigned course",
+      "basic-info": "Basic Information",
       "class-name": "Classroom Name",
       "class-greetings": "Classroom Announcements",
-      "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc."
+      "class-greetings-placeholder": "Greet your students, motivate them, or make an announcement, etc.",
+      "class-minscore": "Assessment Minimum Score for Trophies (1-100%)",
+      "course-map": "Course Map",
+      "edit-class": "Edit Classroom Settings"
     },
     "overview": {
       "title": "Course Map",

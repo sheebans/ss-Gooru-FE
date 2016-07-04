@@ -54,7 +54,7 @@ export default Ember.Object.extend({
       //"depth_of_knowledge": null, // Not required at the moment
       //"thumbnail": null // Not required at the moment
       //one publisher for now
-      'copyright_owner': resourceModel.get('publisher') ? [resourceModel.get('publisher')] : undefined,
+      'copyright_owner': resourceModel.get('publisher') ? [resourceModel.get('publisher')] : [''] ,
       'is_copyright_owner': resourceModel.get('amIThePublisher')
     };
     return serializedResource;
@@ -119,4 +119,3 @@ export default Ember.Object.extend({
     return resource;
   }
 });
-

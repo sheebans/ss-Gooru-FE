@@ -7,11 +7,13 @@ test('serializeCreateClass', function(assert) {
   const serializer = this.subject();
   const classObject = ClassModel.create({
     title: 'class-title',
-    classSharing: 'open'
+    classSharing: 'open',
+    minScore: null
   });
   const expected = {
     title: 'class-title',
-    class_sharing: 'open'
+    class_sharing: 'open',
+    min_score: 0
   };
   const response = serializer.serializeCreateClass(classObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -22,12 +24,14 @@ test('serializeUpdateClass', function(assert) {
   const classObject = ClassModel.create({
     title: 'class-title',
     classSharing: 'open',
-    greeting: 'class-greeting'
+    greeting: 'class-greeting',
+    minScore: 90
   });
   const expected = {
     title: 'class-title',
     class_sharing: 'open',
-    greeting: 'class-greeting'
+    greeting: 'class-greeting',
+    min_score: 90
   };
   const response = serializer.serializeUpdateClass(classObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -83,7 +87,6 @@ test('normalizeClasses', function(assert) {
       "class_sharing": "open",
       "cover_image": "e264cdc8-19d1-4285-88f5-5b359daf33da.png",
       "code": "ALU3LCB",
-      "min_score": 75,
       "end_date": "2016-12-31",
       "course_id": 'course-id',
       "collaborator": [
@@ -101,6 +104,8 @@ test('normalizeClasses', function(assert) {
   assert.equal(normalizedClasses.get("collaboratorList.length"), 1, 'Wrong collaboratorList');
   assert.equal(normalizedClasses.get("memberCount")['d8b6eb04-5466-4e29-92f5-06584b6b6ef5'], 1, 'Wrong memberCount');
   assert.equal(normalizedClasses.get("classes.length"), 2, 'Wrong classes');
+  assert.equal(normalizedClasses.get("classes")[0].get('minScore'), 75, 'Wrong min score');
+  assert.equal(normalizedClasses.get("classes")[1].get('minScore'), null, 'Wrong min score');
 });
 
 test('normalizeReadClassInfo', function(assert) {
@@ -116,7 +121,7 @@ test('normalizeReadClassInfo', function(assert) {
     "class_sharing": "open",
     "cover_image": 'image-name',
     "code": "ABC123",
-    "min_score": 10,
+    "min_score": 0,
     "end_date": "2016-01-01",
     "course_id": "d44d3928-2623-4925-9d38-e933650a7573",
     "collaborator": ['1', '2'],
@@ -137,7 +142,7 @@ test('normalizeReadClassInfo', function(assert) {
   assert.equal(normalizedClassInfo.get("grade.length"), 0, 'Wrong grade length');
   assert.equal(normalizedClassInfo.get("classSharing"), "open", 'Wrong classSharing');
   assert.equal(normalizedClassInfo.get("coverImage"), "image-name", 'Wrong coverImage');
-  assert.equal(normalizedClassInfo.get("minScore"), 10, 'Wrong minScore');
+  assert.equal(normalizedClassInfo.get("minScore"), null, 'Wrong minScore');
   assert.equal(normalizedClassInfo.get("startDate"), '2016-01-01', 'Wrong startDate');
   assert.equal(normalizedClassInfo.get("endDate"), '2016-01-01', 'Wrong endDate');
   assert.equal(normalizedClassInfo.get("creatorSystem"), '', 'Wrong creator system');

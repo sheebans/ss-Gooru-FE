@@ -9,17 +9,17 @@ moduleForAcceptance('Acceptance | profile content', {
       isAnonymous: false,
       'token-api3': 'content-token',
       user: {
-        gooruUId: 'pochita'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
 });
 
 test('Layout', function(assert) {
-  visit('/pochita/content/');
+  visit('/id-for-pochita/content/');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/content/');
+    assert.equal(currentURL(), '/id-for-pochita/content/');
 
     const $contentContainer = find(".controller.profile .content");
     T.exists(assert, $contentContainer, "Missing content container");
@@ -47,7 +47,7 @@ test('\'Add\' button not present in others profile', function(assert) {
 });
 
 test('Modal for creating a course', function (assert) {
-  visit('/pochita/content/');
+  visit('/id-for-pochita/content/');
   andThen(function () {
 
     const $btnGroup = find(".controller.profile .content .content-navigation .btn-group");
@@ -70,10 +70,10 @@ test('Modal for creating a course', function (assert) {
 });
 
 test('Navigation links', function(assert) {
-  visit('/pochita/content/');
+  visit('/id-for-pochita/content/');
 
   andThen(function() {
-    assert.equal(currentURL(), '/pochita/content/');
+    assert.equal(currentURL(), '/id-for-pochita/content/');
 
     const $contentNavContainer = find(".controller.profile .content .content-navigation");
     T.exists(assert, $contentNavContainer.find("li.courses"), "Missing courses link");
@@ -84,19 +84,19 @@ test('Navigation links', function(assert) {
 
     click($contentNavContainer.find("li.courses"));
     andThen(function(){
-      assert.equal(currentURL(), '/pochita/content/courses');
+      assert.equal(currentURL(), '/id-for-pochita/content/courses');
       click($contentNavContainer.find("li.collections"));
       andThen(function(){
-        assert.equal(currentURL(), '/pochita/content/collections');
+        assert.equal(currentURL(), '/id-for-pochita/content/collections');
         click($contentNavContainer.find("li.assessments"));
         andThen(function(){
-          assert.equal(currentURL(), '/pochita/content/assessments');
+          assert.equal(currentURL(), '/id-for-pochita/content/assessments');
           click($contentNavContainer.find("li.resources"));
           andThen(function(){
-            assert.equal(currentURL(), '/pochita/content/resources');
+            assert.equal(currentURL(), '/id-for-pochita/content/resources');
             click($contentNavContainer.find("li.questions"));
             andThen(function(){
-              assert.equal(currentURL(), '/pochita/content/questions');
+              assert.equal(currentURL(), '/id-for-pochita/content/questions');
             });
           });
         });
@@ -106,10 +106,10 @@ test('Navigation links', function(assert) {
 });
 
 test('Navigate to course player by clicking course title', function(assert) {
-  visit('/pochita/content/courses');
+  visit('/id-for-pochita/content/courses');
   andThen(function() {
 
-    assert.equal(currentURL(), '/pochita/content/courses');
+    assert.equal(currentURL(), '/id-for-pochita/content/courses');
     var $courseTitle = find('.gru-course-card:first-of-type .card-header .course-title');
     click($courseTitle);
     andThen(function() {
@@ -119,10 +119,10 @@ test('Navigate to course player by clicking course title', function(assert) {
 });
 
 test('Navigate to course player by clicking course image', function(assert) {
-  visit('/pochita/content/courses');
+  visit('/id-for-pochita/content/courses');
   andThen(function() {
 
-    assert.equal(currentURL(), '/pochita/content/courses');
+    assert.equal(currentURL(), '/id-for-pochita/content/courses');
     var $courseTitle = find('.gru-course-card:first-of-type .card-header .course-image');
     click($courseTitle);
     andThen(function() {

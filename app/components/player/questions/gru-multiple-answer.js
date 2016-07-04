@@ -50,14 +50,14 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  init() {
+    this._super( ...arguments );
+    this.set('userSelection', Ember.A());
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * @property { { id: number, selection: boolean }[] } userSelection
-   */
-  userSelection: Ember.A([]),
-
   /**
    * Convenient structure to render options
    * @property {[]}
@@ -79,6 +79,10 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Observers
+
+  resetUserSelection: Ember.observer('question', function() {
+    this.set('userSelection', Ember.A());
+  }),
 
 
   // -------------------------------------------------------------------------

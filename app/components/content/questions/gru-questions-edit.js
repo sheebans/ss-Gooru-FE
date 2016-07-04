@@ -363,13 +363,14 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
   },
 
   defineFIBAnswers: function(question) {
+    const component = this;
     let answers = Ember.A([]);
     const questionText = question.get('text');
     const regExp = /(\[[^\[\]]+\])+/gi;
     const matchedAnswers = questionText.match(regExp);
     if (matchedAnswers) {
       answers = matchedAnswers.map(function(answer, index) {
-        return Answer.create({
+        return Answer.create(Ember.getOwner(component).ownerInjection(), {
           sequence: index + 1,
           text: answer.substring(1, answer.length - 1),
           isCorrect: true,

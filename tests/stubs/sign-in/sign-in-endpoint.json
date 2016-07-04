@@ -76,6 +76,23 @@
     }
   },
   {
+    "description": "API 3.0 Sign in support for user with invalid token",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/token$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token invalid-token"
+      }
+    },
+    "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body":{}
+    }
+  },
+  {
     "description": "API 3.0 Sign in support for user with token",
     "request": {
       "url": "^/api/nucleus-auth/v1/token$",

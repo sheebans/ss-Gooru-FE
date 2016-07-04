@@ -156,7 +156,7 @@ export default Ember.Object.extend({
         'flt.publishStatus': 'published',
       }
     };
-    const types = params.types;
+    const types = params.formats;
     if (Ember.isArray(types) && types.length > 0) {
       const formatFilters = QuestionModel.serializeAllQuestionType(types);
       options.data['flt.questionType'] = formatFilters.join(',');

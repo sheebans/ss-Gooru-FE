@@ -29,10 +29,12 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     var classModel = model.class;
+    var courseModel = model.course;
 
     controller.get('classController').selectMenuItem('info');
 
     controller.set("class", classModel);
+    controller.set("course", courseModel);
     controller.set("tempClass", classModel.copy());
     controller.resetProperties();
   }

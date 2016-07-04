@@ -15,7 +15,10 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row basic-info edit-panel">
+        <div class="header">
+          <h4>{{t "class.edit.basic-info"}}</h4>
+        </div>
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="row">
@@ -34,6 +37,31 @@
                 </label>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="row course-map edit-panel">
+        <div class="header">
+          <h4>{{t "class.edit.course-map"}}</h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-12 col-sm-5">
+                <label>
+                  <span>{{t 'class.edit.class-minscore'}}</span>
+                  {{validation.gru-input-number model=tempClass valuePath='minScore' min=1 max=100 step=1}}
+                </label>
+              </div>
+            </div>
+            {{#if tempClass.courseId}}
+              <div class="row">
+                <div class="col-xs-12 col-sm-5 course">
+                  <span>{{t 'class.edit.assigned-course'}}</span>
+                  {{cards.gru-course-card course=course isEditEnabled=isMyProfile isOwner=isMyProfile onEditCourse="editCourse" onRemixCourse="remixCourse" isSmall=true}}
+                </div>
+              </div>
+            {{/if}}
           </div>
         </div>
       </div>
