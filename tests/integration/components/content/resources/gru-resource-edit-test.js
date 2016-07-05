@@ -293,7 +293,7 @@ test('Update Resource Information', function (assert) {
     $save.click();
     return wait().then(function () {
       assert.equal($component.find(".title label b").text(), newTitle, "The resource title should be updated");
-      assert.equal($component.find(".link-out label b").text(), 'On', "The link out should be true");
+      assert.equal($component.find(".link-out label b").text(), 'ON', "The link out should be true");
     });
   });
 });
