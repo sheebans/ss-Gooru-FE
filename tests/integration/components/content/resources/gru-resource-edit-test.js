@@ -247,7 +247,8 @@ test('Layout of the information section on edit mode', function (assert) {
     format: 'video',
     url: '//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf',
     subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    category: 'k_12',
+    displayGuide:true
   });
 
   this.set('resource', resource);
@@ -261,6 +262,7 @@ test('Layout of the information section on edit mode', function (assert) {
   assert.ok($informationSection.find('.panel-body .type .btn-group .dropdown-toggle').length, "Missing type dropdown");
   assert.ok($informationSection.find('.panel-body .license label select').length, "Missing license select");
   assert.ok($informationSection.find('.panel-body .description label textarea').length, "Missing description textarea");
+  assert.ok($informationSection.find('.panel-body .link-out label .gru-switch').length, "Missing link out switch");
 });
 
 test('Update Resource Information', function (assert) {

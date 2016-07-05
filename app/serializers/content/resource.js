@@ -87,7 +87,7 @@ export default Ember.Object.extend({
       publisher: resourceData["copyright_owner"] && resourceData["copyright_owner"].length > 0 ? resourceData["copyright_owner"][0] : null,
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
-      displayGuide:typeof  resourceData['display_guide'] !== 'undefined'  && (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1) ? true: false
+      displayGuide:resourceData['display_guide'] !== null && typeof  resourceData['display_guide'] !== 'undefined'  && (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1) ? true: false
     });
 
     //is full path if it has protocol
