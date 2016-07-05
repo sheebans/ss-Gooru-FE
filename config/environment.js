@@ -62,9 +62,9 @@ module.exports = function (environment) {
 
   ENV['teamsHosts'] = {
     'gooru.org' : 'teams.gooru.org', //production
-    'qa.gooruweb.edify.cr' : 'teams.gooru.org', // QA
-    'localhost' : 'teams.gooru.org', // development
-    'nucleus' : 'teams.gooru.org' // nucleus
+    'qa.gooruweb.edify.cr' : 'teams-qa.gooru.org', // QA
+    'localhost' : 'teams-qa.gooru.org', // development
+    'nucleus' : 'teams-qa.gooru.org' // nucleus
   };
 
   ENV['simple-auth-custom'] = {
