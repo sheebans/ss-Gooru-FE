@@ -36,7 +36,6 @@ export default Ember.Object.extend({
     var serializedQuestion = {
       'title': questionModel.get('title'),
       'description': questionModel.get('description'),
-      'narration': questionModel.get('narration'),
       'content_subformat': format,
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
       'metadata': questionModel.get('metadata') || {}
@@ -63,16 +62,28 @@ export default Ember.Object.extend({
     const isHotSpotImage = questionModel.get('isHotSpotImage');
     let serializedQuestion = {
       title: questionModel.get('title'),
-      description: questionModel.get('text'),
-      narration: questionModel.get('narration'),
       //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(questionModel.get('standards')),
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
-      answer: questionModel.get('answers').map(function(answer, index) {
-        return serializer.serializerAnswer(answer, index + 1, isHotSpotImage);
-      }),
       'metadata': questionModel.get('metadata') || {}
     };
+
+    let narration = questionModel.get('narration');
+    if(narration) {
+      serializedQuestion.narration = narration;
+    }
+
+    let description = questionModel.get('text');
+    if(description) {
+      serializedQuestion.description = description;
+    }
+
+    let answers = questionModel.get('answers');
+    if (answers && answers.length) {
+      serializedQuestion.answer = answers.map(function(answer, index) {
+        return serializer.serializerAnswer(answer, index + 1, isHotSpotImage);
+      });
+    }
 
     serializedQuestion.metadata['audience']= (questionModel.get("audience")) ? questionModel.get("audience") : [];
     serializedQuestion.metadata['depth_of_knowledge']= (questionModel.get("depthOfknowledge")) ? questionModel.get("depthOfknowledge") : [];
