@@ -266,7 +266,7 @@ test('Layout of the information section on edit mode', function (assert) {
 });
 
 test('Update Resource Information', function (assert) {
-  assert.expect(1);
+  assert.expect(2);
   var newTitle ='Edited resource for testing';
   var ResourceValidation = Resource.extend(EditResourceValidations);
   var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
