@@ -268,6 +268,8 @@ export default {
       other: "{{count}} Students"
     },
     "of": "of",
+    "off":"OFF",
+    "on":"ON",
     "other": "Other",
     "password": "Password",
     "pending": "Pending",

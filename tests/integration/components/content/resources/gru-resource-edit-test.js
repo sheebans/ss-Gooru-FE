@@ -272,7 +272,8 @@ test('Update Resource Information', function (assert) {
     format: 'video',
     url: 'http://example.com',
     subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    category: 'k_12',
+    displayGuide:true
   });
   this.set('resource', resource);
   this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
@@ -283,10 +284,15 @@ test('Update Resource Information', function (assert) {
   $titleField.find("input").val(newTitle);
   $titleField.find("input").trigger('blur');
 
-  const $save =  $component.find("#information .actions .save");
-  $save.click();
+  var $linkOutCheck = $component.find(".link-out .gru-switch .switch a");
+  $linkOutCheck.click();
   return wait().then(function () {
-    assert.equal($component.find(".title label b").text(), newTitle, "The resource title should be updated");
+    const $save =  $component.find("#information .actions .save");
+    $save.click();
+    return wait().then(function () {
+      assert.equal($component.find(".title label b").text(), newTitle, "The resource title should be updated");
+      assert.equal($component.find(".link-out label b").text(), 'On', "The link out should be true");
+    });
   });
 });
 
