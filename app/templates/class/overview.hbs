@@ -8,10 +8,12 @@
         <button {{action "updateLocation" userLocation}} class="btn btn-info locate">
           <span>{{gru-icon name='near_me'}}{{t "class.overview.locate"}}</span>
         </button>
-        <div class="trophy">
-          <span class="icon"></span>
-          <span class="percentage"></span>
-        </div>
+        {{#if class.minScore}}
+          <div class="trophy">
+            <span class="icon"></span>
+            <span class="percentage">&lt;{{{class.minScore}}}</span>
+          </div>
+        {{/if}}
       {{else}}
         <button {{action "editContent" course.id}} class="btn btn-default edit-content">
           {{t "class.overview.editContent"}}
