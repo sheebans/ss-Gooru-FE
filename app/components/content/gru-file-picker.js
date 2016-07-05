@@ -39,20 +39,6 @@ export default Ember.Component.extend({
      */
     resetFileSelection() {
       this.set('isFileInputEmpty', true);
-    },
-
-    /**
-     * @function actions:resetPicker
-     */
-    resetPicker() {
-      // Reset the input element in the file picker
-      // http://stackoverflow.com/questions/1043957/clearing-input-type-file-using-jquery/13351234#13351234
-      var $fileInput = this.$('input[type="file"]');
-      $fileInput.wrap('<form>').closest('form').get(0).reset();
-      $fileInput.unwrap();
-
-      // Prompt the file picker to reset the image preview
-      this.set('isFileInputEmpty', true);
     }
   },
 
@@ -92,6 +78,21 @@ export default Ember.Component.extend({
    * List of valid file extensions. Image file extensions are set by default.
    * @prop {String}
    */
-  validFileExtensions: ".jpg,.jpeg,.gif,.png"
+  validFileExtensions: ".jpg,.jpeg,.gif,.png",
+
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  resetPicker: Ember.observer('validFileExtensions', function() {
+    // Reset the input element in the file picker
+    // http://stackoverflow.com/questions/1043957/clearing-input-type-file-using-jquery/13351234#13351234
+    var $fileInput = this.$('input[type="file"]');
+    $fileInput.wrap('<form>').closest('form').get(0).reset();
+    $fileInput.unwrap();
+
+    // Prompt the file picker to reset the image preview
+    this.set('isFileInputEmpty', true);
+  })
 
 });
