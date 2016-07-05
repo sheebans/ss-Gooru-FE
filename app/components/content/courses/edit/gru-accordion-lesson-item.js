@@ -25,6 +25,11 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
 
+  /**
+   * @requires service:api-sdk/lesson
+   */
+  lessonService: Ember.inject.service("api-sdk/lesson"),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -35,6 +40,41 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       var route = item.get('isCollection') ? "content.collections.edit" : "content.assessments.edit";
       component.get('router').transitionTo(route, item.get("id"));
     },
+
+    /**
+     * Remove selected item
+     *
+     */
+    removeItem: function (builderItem) {
+      let component = this;
+      var model =  {
+        content: this.get('model'),
+        index:this.get('index'),
+        parentName:this.get('lessonTitle'),
+        callback:{
+          success:function(){
+            component.get('onRemoveLessonItem')(builderItem);
+          }
+        }
+      };
+      var lessonItem =null;
+      lessonItem = {
+        removeMethod: function () {
+          return this.get('lessonService').disassociateAssessmentOrCollectionToLesson(
+            this.get('courseId'),
+            this.get('unitId'),
+            this.get('lessonId'),
+            this.get('model.id'),
+            builderItem.get('isCollection'));
+        }.bind(this),
+        type: builderItem.get('isCollection') ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT
+      };
+
+      this.actions.showModal.call(this,
+        'content.modals.gru-remove-content',
+        $.extend(model, lessonItem), null, null, null, false);
+    },
+
     /**
      * Delete selected unit
      *
@@ -104,11 +144,14 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
   },
   didRender(){
     $('[data-toggle="tooltip"]').tooltip();
+    console.log(this.get('model'),this);
   },
 
   // -------------------------------------------------------------------------
   // Properties
-
+  isCollectionOrAssessment: Ember.computed('model.format',function(){
+    return (this.get('model.format')==='collection' || this.get('model.format')==='assessment') ? true : false;
+  }),
   /**
    * @prop {String} course - Course this lesson item belongs to
    */

@@ -67,6 +67,7 @@ export default Ember.Component.extend({
           }
         })
         .catch(function (error) {
+          console.log(component, "ASDFASFASDFASDFAFD");
           var message = component.get('i18n').t('content.modals.remove-content.remove-error',
             { type: component.get('i18n').t('common.' + model.type).string.toLowerCase() }).string;
           component.get('notifications').error(message);
