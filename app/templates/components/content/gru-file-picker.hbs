@@ -1,0 +1,25 @@
+<div>
+  <input type="text" readonly value="{{if isFileLoaded fileSelected.name ''}}">
+
+  {{#file-picker
+  accept=validFileExtensions
+  preview=false
+  dropzone=false
+  fileLoaded=(action 'prepareForSubmission')
+  readAs="readAsFile"
+  errors=filePickerErrors
+  onRemoveFile=(action 'resetFileSelection') }}
+
+    <div class="upload btn btn-default">
+      {{fa-icon icon="fa-upload"}}
+        {{t "common.upload"}}
+    </div>
+
+  {{/file-picker}}
+</div>
+
+<div class="validation">
+  {{#each filePickerErrors as |error|}}
+    <span class="error">{{error}}</span>
+  {{/each}}
+</div>
