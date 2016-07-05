@@ -275,7 +275,7 @@ test('Update Resource Information', function (assert) {
     url: 'http://example.com',
     subject: 'CCSS.K12.Math',
     category: 'k_12',
-    displayGuide:true
+    displayGuide:false
   });
   this.set('resource', resource);
   this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
