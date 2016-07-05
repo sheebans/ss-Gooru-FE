@@ -150,6 +150,7 @@ export default {
       "highlight-text-not-selected": "Please indicate the correct answer.",
       "highlight-text-wrong-format": "Incorrect question format.",
       "hotspot-text-max-choices": "You have reached the limit of answer choices.",
+      "file-max-size": "Only files of size smaller than 5MB are supported",
       "lesson-not-copied": "Oops! Unable to copy lesson right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
@@ -925,9 +926,6 @@ export default {
 
   "gru-image-picker": {
     "chooseFile": "Choose a file ...",
-    "errors": {
-      "maxSize": "Only files of size smaller than 5MB are supported"
-    },
     "instruction": "Upload an image from a file on your computer.",
     "restriction": "The image must be a JPG, GIF or PNG file smaller than 5 MB.",
     "submit": "Use Image"
