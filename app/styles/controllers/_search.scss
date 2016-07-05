@@ -41,6 +41,9 @@
           border: 0 none;
           margin: 0 20px 0 0;
           overflow: visible;
+          .popover {
+            min-width: 280px;
+          }
         }
       }
     }
