@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
-import {RESOURCE_TYPES} from 'gooru-web/config/config';
+import { RESOURCE_TYPES, UPLOADABLE_TYPES } from 'gooru-web/config/config';
 import createResourceValidations from 'gooru-web/validations/create-resource';
 
 export default Ember.Component.extend({
@@ -109,8 +109,22 @@ export default Ember.Component.extend({
         });
     },
 
+    switchView: function() {
+      this.toggleProperty('isResourceUpload');
+      if (this.get('isResourceUpload')) {
+        this.actions.selectUploadType.call(this, UPLOADABLE_TYPES[0]);
+      } else {
+        this.actions.selectType.call(this, RESOURCE_TYPES[0]);
+      }
+    },
+
     selectType:function(type){
       this.set('resource.format',type);
+    },
+
+    selectUploadType: function(uploadType) {
+      this.set('resource.format', uploadType.value);
+      this.set('resource.extensions', uploadType.validExtensions);
     }
   },
 
@@ -134,6 +148,11 @@ export default Ember.Component.extend({
   'component-class': null,
 
   /**
+   * @type {String} selectedType
+   */
+  isResourceUpload: false,
+
+  /**
    * @type {Resource} resource
    */
   resource: null,
@@ -150,9 +169,14 @@ export default Ember.Component.extend({
   existingResource: null,
 
   /**
-   * @type {Array{}} resourceTypes
+   * @type {String[]} resourceTypes
    */
-  resourceTypes:RESOURCE_TYPES,
+  resourceTypes: RESOURCE_TYPES,
+
+  /**
+   * @type {String[]} uploadableTypes
+   */
+  uploadableTypes: UPLOADABLE_TYPES,
 
   //
   // Methods
