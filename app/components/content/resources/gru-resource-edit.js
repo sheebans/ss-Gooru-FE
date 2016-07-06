@@ -137,6 +137,10 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
         tempResource.set('publisher', '');
         tempResource.set('amIThePublisher', false);
       }
+    },
+    linkSwitch:function(){
+      var tempResource = this.get('tempResource');
+      tempResource.set('displayGuide', this.get('tempResource.displayGuide'));
     }
   },
 
@@ -198,6 +202,18 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
   editableTags: Ember.computed('tempResource.standards.[]', function() {
     return TaxonomyTag.getTaxonomyTags(this.get("tempResource.standards"), false, true);
   }),
+
+  /**
+   * Toggle Options
+   * @property {Ember.Array}
+   */
+  switchOptions: Ember.A([Ember.Object.create({
+    'label': "On",
+    'value': true
+  }),Ember.Object.create({
+    'label': "Off",
+    'value': false
+  })]),
 
   // ----------------------------
   // Methods

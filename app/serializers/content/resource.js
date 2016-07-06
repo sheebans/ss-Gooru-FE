@@ -55,7 +55,8 @@ export default Ember.Object.extend({
       //"thumbnail": null // Not required at the moment
       //one publisher for now
       'copyright_owner': resourceModel.get('publisher') ? [resourceModel.get('publisher')] : [''] ,
-      'is_copyright_owner': resourceModel.get('amIThePublisher')
+      'is_copyright_owner': resourceModel.get('amIThePublisher'),
+      'display_guide' : resourceModel.get('displayGuide') ? {"is_broken": 0, "is_frame_breaker": 1} : {"is_broken": 0, "is_frame_breaker": 0}
     };
     return serializedResource;
   },
@@ -86,7 +87,7 @@ export default Ember.Object.extend({
       publisher: resourceData["copyright_owner"] && resourceData["copyright_owner"].length > 0 ? resourceData["copyright_owner"][0] : null,
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
-      displayGuide: resourceData['display_guide']
+      displayGuide:resourceData['display_guide']&& (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1) ? true: false
     });
 
     //is full path if it has protocol
@@ -100,7 +101,7 @@ export default Ember.Object.extend({
     }
 
     if (resource.get("isUrlResource")) {
-      if(resource.get("displayGuide") && (resource.get("displayGuide.is_broken") ===1 || resource.get("displayGuide.is_frame_breaker") ===1)) {
+      if(resource.get("displayGuide") && (resource.get("displayGuide.is_broken")|| resource.get("displayGuide.is_frame_breaker"))) {
         var url = resource.get("url");
         var pattern = /^((http|https|ftp):\/\/)/;
 
