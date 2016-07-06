@@ -56,7 +56,7 @@ export default Ember.Object.extend({
       //one publisher for now
       'copyright_owner': resourceModel.get('publisher') ? [resourceModel.get('publisher')] : [''] ,
       'is_copyright_owner': resourceModel.get('amIThePublisher'),
-      'display_guide' : resourceModel.get('displayGuide') ? {"is_broken": 1, "is_frame_breaker": 0} : {"is_broken": 0, "is_frame_breaker": 0}
+      'display_guide' : resourceModel.get('displayGuide') ? {"is_broken": 0, "is_frame_breaker": 1} : {"is_broken": 0, "is_frame_breaker": 0}
     };
     return serializedResource;
   },
