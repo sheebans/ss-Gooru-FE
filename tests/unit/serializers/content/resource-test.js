@@ -33,7 +33,7 @@ test('serializeUpdateResource', function(assert) {
   assert.equal(serializedResource['taxonomy'], null, 'Wrong resource taxonomy');
   assert.deepEqual(serializedResource['copyright_owner'], ['myself'], 'Wrong copyright_owner');
   assert.equal(serializedResource['is_copyright_owner'], true, 'Wrong is_copyright_owner');
-  assert.equal(JSON.stringify(serializedResource['display_guide']), JSON.stringify({"is_broken": 1, "is_frame_breaker": 0}), 'Wrong display_guide');
+  assert.equal(JSON.stringify(serializedResource['display_guide']), JSON.stringify({"is_broken": 0, "is_frame_breaker": 1}), 'Wrong display_guide');
 
 });
 
