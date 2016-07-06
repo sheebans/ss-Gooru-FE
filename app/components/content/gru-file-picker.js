@@ -30,15 +30,16 @@ export default Ember.Component.extend({
      * @function actions:enableButtons
      */
     prepareForSubmission(file) {
-      this.set('isFileInputEmpty', false);
-      this.set('fileSelected', file);
+      this.set('selectedFile', file);
+      this.get('onSelectFile')(file);
     },
 
     /**
      * @function actions:disableButtons
      */
     resetFileSelection() {
-      this.set('isFileInputEmpty', true);
+      this.set('selectedFile', null);
+      this.get('onSelectFile')(null);
     }
   },
 
@@ -51,22 +52,16 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * Image for submission
+   * Selected file
    * @prop {Object}
    */
-  fileSelected: null,
+  selectedFile: null,
 
   /**
    * Has a file been selected and loaded into the file picker?
    * @prop {Bool}
    */
-  isFileLoaded: Ember.computed.not('isFileInputEmpty'),
-
-  /**
-   * Has the file picker's input field been reset?
-   * @prop {Bool}
-   */
-  isFileInputEmpty: true,
+  isFileLoaded: Ember.computed.notEmpty('selectedFile'),
 
   /**
    * List of error messages to present to the user for conditions that the loaded image does not meet
@@ -85,14 +80,17 @@ export default Ember.Component.extend({
   // Observers
 
   resetPicker: Ember.observer('validFileExtensions', function() {
+
+    this.actions.resetFileSelection.call(this);
+
     // Reset the input element in the file picker
     // http://stackoverflow.com/questions/1043957/clearing-input-type-file-using-jquery/13351234#13351234
     var $fileInput = this.$('input[type="file"]');
     $fileInput.wrap('<form>').closest('form').get(0).reset();
     $fileInput.unwrap();
 
-    // Prompt the file picker to reset the image preview
-    this.set('isFileInputEmpty', true);
+    // Clear any previous errors
+    this.get('filePickerErrors').clear();
   })
 
 });
