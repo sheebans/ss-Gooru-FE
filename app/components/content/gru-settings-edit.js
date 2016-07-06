@@ -9,16 +9,16 @@ export default Ember.Component.extend({
   tagName: 'section',
 
   actions: {
-    switchPublishToProfile: function(isChecked) {
-      this.sendAction('action', isChecked);
+    switchPublishToProfile: function() {
+      this.sendAction('action');
     }
   },
 
   /**
-   * Indicates if the switch in settings must be checked
-   * @property {Boolean}
+   * Model to change settings to
+   * @property {Object}
    */
-  isChecked: false,
+  model: null,
 
   /**
    * Request pending approval
@@ -36,7 +36,7 @@ export default Ember.Component.extend({
    * Toggle Options
    * @property {Ember.Array}
    */
-  switchOptions: Ember.A([Ember.Object.create({
+  publishedOptions: Ember.A([Ember.Object.create({
     'label': "On",
     'value': true
   }),Ember.Object.create({

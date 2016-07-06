@@ -9,15 +9,15 @@
       <div class="setting publish-to">
         {{gru-icon name="visibility"}}
         <span>{{t "common.publish-to"}}</span>
-            {{gru-switch switchOptions=switchOptions onOptionSwitch='switchPublishToProfile' isChecked=isChecked}}
+            {{gru-switch switchOptions=publishedOptions onOptionSwitch='switchPublishToProfile' isChecked=model.isVisibleOnProfile}}
         </div>
       <div class="setting request-to out-of-scope">
         {{gru-icon name="public"}}
         <span>{{t "common.request-to"}}</span>
             {{#if wasRequestSent}}
-                <button class="request btn {{if isRequestApproved 'btn-success btn-approved' 'btn-primary btn-pending'}}">{{if isRequestApproved (t "common.approved") (t "common.pending")}}</button>
-              {{else}}
-                <button class="request btn btn-primary btn-send-request" {{action 'sendRequest'}}>{{t "common.send-request"}}</button>
+              <button class="request btn {{if isRequestApproved 'btn-success btn-approved' 'btn-primary btn-pending'}}">{{if isRequestApproved (t "common.approved") (t "common.pending")}}</button>
+            {{else}}
+              <button class="request btn btn-primary btn-send-request" {{action 'sendRequest'}}>{{t "common.send-request"}}</button>
             {{/if}}
         </div>
     </div>

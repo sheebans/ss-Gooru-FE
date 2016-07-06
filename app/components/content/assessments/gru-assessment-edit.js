@@ -67,10 +67,9 @@ export default CollectionEdit.extend({
     /**
      * Save setting for visibility of collection in profile
      */
-    publishToProfile: function(isChecked) {
+    publishToProfile: function() {
       var assessmentForEditing = this.get('collection').copy();
       this.set('tempCollection', assessmentForEditing);
-      this.set('tempCollection.isVisibleOnProfile', isChecked);
       this.actions.updateContent.call(this);
     },
     /**

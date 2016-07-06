@@ -67,10 +67,9 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
     /**
      * Save settings profile visibility option
      */
-    publishToProfile: function(isChecked) {
+    publishToProfile: function() {
       var resourceForEditing = this.get('resource').copy();
       this.set('tempResource', resourceForEditing);
-      this.set('tempResource.isVisibleOnProfile', isChecked);
       this.saveContent();
     },
     /**
