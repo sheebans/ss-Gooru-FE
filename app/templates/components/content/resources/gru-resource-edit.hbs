@@ -122,6 +122,21 @@
               {{/if}}
             </label>
           </div>
+            <div class="col-sm-6 form-field link-out">
+            <label>
+                <span>{{t "common.link-out"}}</span>
+              {{#if isEditing}}
+                    {{gru-switch switchOptions=switchOptions onOptionSwitch='linkSwitch' isChecked=tempResource.displayGuide}}
+                    <span>{{t "common.link-out-message"}}</span>
+                {{else}}
+                  {{#if resource.displayGuide}}
+                      <b>{{t "common.on"}}</b>
+                    {{else}}
+                      <b>{{t "common.off"}}</b>
+                  {{/if}}
+              {{/if}}
+            </label>
+            </div>
         </div>
         <div class="row">
           <div class="col-sm-6 form-field license out-of-scope">

@@ -79,8 +79,12 @@
                       model.id
                       item.id
                       class="score" }}
-                    <button style="background-color: {{gradeColor item.performance.score}}">
+                    <button style="background-color: {{gradeColor item.performance.score}}" class="{{if item.performance.hasTrophy 'trophy'}}">
+                    {{#if item.performance.hasTrophy }}
+                      <span class="icon"></span>
+                    {{else}}
                       {{item.performance.score}}%
+                    {{/if}}
                     </button>
                   {{/link-to}}
                 {{else}}

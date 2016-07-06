@@ -228,6 +228,8 @@ export default {
     },
     "libraries": "Libraries",
     "license": "License",
+    "link-out":"Link-out",
+    "link-out-message":"*If your resource is not rendering in the preview above, it may need a “link-out” and cannot be viewed within the Gooru player.",
     "loading": "Loading ...",
     "login": "Log In",
     "logout": "Logout",
@@ -266,6 +268,8 @@ export default {
       other: "{{count}} Students"
     },
     "of": "of",
+    "off":"OFF",
+    "on":"ON",
     "other": "Other",
     "password": "Password",
     "pending": "Pending",
