@@ -1,6 +1,34 @@
 <div class="header">
     <h2>{{t "common.settings"}}</h2>
 </div>
+{{#if model.isAssessment}}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3>{{t "gru-settings-edit.navigation-scoring"}}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="setting bidirectional">
+        {{gru-icon name="visibility"}}
+        <span>{{t "gru-settings-edit.bidirectional"}}</span>
+        {{gru-switch switchOptions=switchOptions onOptionSwitch='onSwitchChange' isChecked=model.bidirectional}}
+      </div>
+      <div class="setting feedback">
+        {{gru-icon name="visibility"}}
+        <span>{{t "gru-settings-edit.feedback"}}</span>
+        {{#each-in feedbackItems as |key value|}}
+          {{
+            validation.gru-radio
+            model=model
+            valuePath='open'
+            name="feedback"
+            translationPath=(concat "gru-settings-edit.feedback-" value)
+            onCheck="onSwitchChange"
+          }}
+        {{/each-in}}
+      </div>
+    </div>
+  </div>
+{{/if}}
 <div class="panel panel-default">
     <div class="panel-heading">
       <h3>{{t "common.content-publishing"}}</h3>
@@ -9,7 +37,7 @@
       <div class="setting publish-to">
         {{gru-icon name="visibility"}}
         <span>{{t "common.publish-to"}}</span>
-            {{gru-switch switchOptions=publishedOptions onOptionSwitch='switchPublishToProfile' isChecked=model.isVisibleOnProfile}}
+            {{gru-switch switchOptions=switchOptions onOptionSwitch='onSwitchChange' isChecked=model.isVisibleOnProfile}}
         </div>
       <div class="setting request-to out-of-scope">
         {{gru-icon name="public"}}

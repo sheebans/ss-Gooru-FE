@@ -10,7 +10,8 @@ moduleForComponent('content/gru-settings-edit', 'Integration | Component | gru s
 });
 
 test('Layout of settings component', function (assert) {
-  this.render(hbs`{{content/gru-settings-edit id="settings" isChecked=false}}`);
+  this.set('model', { isVisibleOnProfile: false})
+  this.render(hbs`{{content/gru-settings-edit id="settings" model=model}}`);
 
   var $settingsComponent = this.$();
   assert.ok($settingsComponent.find('.header h2').length, "Section title");
@@ -28,7 +29,8 @@ test('External action gets called on switch change', function(assert) {
     assert.ok(true);
   });
 
-  this.render(hbs`{{content/gru-settings-edit id="settings" action='externalAction' isChecked=false}}`);
+  this.set('model', { isVisibleOnProfile: false})
+  this.render(hbs`{{content/gru-settings-edit id="settings" action='externalAction' model=model}}`);
 
   var $toggle = this.$().find('.panel-body .gru-switch .toggle');
   assert.ok($toggle.hasClass('off'), 'Toggle off by default');

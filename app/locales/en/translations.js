@@ -1196,5 +1196,15 @@ export default {
       "update-expression": "Update",
       "select-expression": "Select Expression"
     }
+  },
+
+  "gru-settings-edit": {
+    "backwards": "Students can navigate backwards and change responses",
+    "feedback": "Students see if they are correct/incorrect",
+    "feedback-immediate": "Per question & at the end",
+    "feedback-never": "Never",
+    "feedback-summary": "At the end",
+    "navigation-scoring": "Navigation and Scoring"
+
   }
 };

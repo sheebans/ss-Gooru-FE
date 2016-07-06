@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -9,22 +10,27 @@ export default Ember.Component.extend({
   tagName: 'section',
 
   actions: {
-    switchPublishToProfile: function() {
+    onSwitchChange: function() {
       this.sendAction('action');
     }
   },
+
+  /**
+   * Options for feedback
+   * @property {Map}
+   */
+  feedbackItems: ASSESSMENT_SHOW_VALUES,
+  /**
+   * Request pending approval
+   * @property {Boolean}
+   */
+  isRequestApproved: false,
 
   /**
    * Model to change settings to
    * @property {Object}
    */
   model: null,
-
-  /**
-   * Request pending approval
-   * @property {Boolean}
-   */
-  isRequestApproved: false,
 
   /**
    * Has the request to make the item searchable been sent?
@@ -36,7 +42,7 @@ export default Ember.Component.extend({
    * Toggle Options
    * @property {Ember.Array}
    */
-  publishedOptions: Ember.A([Ember.Object.create({
+  switchOptions: Ember.A([Ember.Object.create({
     'label': "On",
     'value': true
   }),Ember.Object.create({
