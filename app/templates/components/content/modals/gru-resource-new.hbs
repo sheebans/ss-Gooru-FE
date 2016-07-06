@@ -9,7 +9,7 @@
         <span class="title">{{t 'common.upload-file'}}</span>
         <button {{action 'switchView'}}>{{t 'common.add-url'}}</button>
       </div>
-      <label class="url-label">
+      <label class="filename-label">
         <span class="required">{{t 'common.file-name'}}</span>
         {{content.gru-file-picker validFileExtensions=resource.extensions selectedFile=resource.file}}
       </label>
