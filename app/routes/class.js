@@ -86,7 +86,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    console.log("class", model.class);
     controller.set("class", model.class);
     controller.set("course", model.course);
     controller.set("units", model.units);
