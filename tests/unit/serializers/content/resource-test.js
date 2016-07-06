@@ -23,7 +23,8 @@ test('serializeUpdateResource', function(assert) {
     description: 'A description',
     format: 'video',
     publisher: "myself",
-    amIThePublisher: true
+    amIThePublisher: true,
+    displayGuide:true
   });
   const serializedResource = serializer.serializeUpdateResource(resourceObject);
   assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
@@ -32,6 +33,7 @@ test('serializeUpdateResource', function(assert) {
   assert.equal(serializedResource['taxonomy'], null, 'Wrong resource taxonomy');
   assert.deepEqual(serializedResource['copyright_owner'], ['myself'], 'Wrong copyright_owner');
   assert.equal(serializedResource['is_copyright_owner'], true, 'Wrong is_copyright_owner');
+  assert.equal(JSON.stringify(serializedResource['display_guide']), JSON.stringify({"is_broken": 0, "is_frame_breaker": 1}), 'Wrong display_guide');
 
 });
 
@@ -54,7 +56,7 @@ test('normalizeReadResource', function(assert) {
       'is_frame_breaker': 1
     },
     "copyright_owner": ["myself"],
-    "is_copyright_owner": true
+    "is_copyright_owner": true,
   };
 
   const resource = serializer.normalizeReadResource(resourceData);
@@ -70,7 +72,7 @@ test('normalizeReadResource', function(assert) {
   assert.equal(resource.get("amIThePublisher"), true, 'Wrong amIThePublisher');
   assert.equal(resource.get("publisher"), "myself", 'Wrong publisher');
   assert.equal(resource.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
-  assert.equal(resource.get("displayGuide.is_frame_breaker"), 1, 'Url is going to be broke in a frame');
+  assert.equal(resource.get("displayGuide"), true, 'Url is going to be broke in a frame');
   assert.equal(resource.get("order"), 3, 'Wrong order');
 });
 
