@@ -48,6 +48,8 @@ export default Ember.Component.extend({
           let html = katex.renderToString(latex);
           source.text(latex);
           component.get('editingExpression').find('.katex').replaceWith(html);
+          var editorElement = component.$('.editor-box');
+          component.set('content', editorElement.html());
           component.makeExpressionsReadOnly();
         }
       }
