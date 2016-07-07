@@ -266,7 +266,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
    * After adding a collection/assessment
    */
   onAddItem: function(builderItem) {
-    console.log(builderItem, 'builderItem en el add');
     this.get('items').addObject(builderItem);
   },
 
