@@ -73,10 +73,6 @@ module.exports = function (environment) {
     anonymousEndpoint: '/gooruapi/rest/v2/account/loginas/anonymous'
   };
 
-  ENV['real-time'] = {
-    webSocketUrl: '/ws/realtime'
-  };
-
   ENV['API-3.0'] = {
     clientKey : "c2hlZWJhbkBnb29ydWxlYXJuaW5nLm9yZw==",
     clientId: "ba956a97-ae15-11e5-a302-f8a963065976",
@@ -88,10 +84,23 @@ module.exports = function (environment) {
     url: '/api/nucleus-auth-idp/v1/google'
   };
 
-  ENV.secureProtocol = 'https';
+  ENV['gooru-endpoints'] = {
+    protocol: 'http://',
+    secureProtocol: 'https://',
+    hostname: 'nucleus-qa.gooru.org',
+    port: undefined,          // Uses the default value 80
+    securePort: undefined     // Uses the default value 443
+  };
+
+  ENV['real-time'] = {
+    webSocketUrl: '/ws/realtime',
+    webServiceUrl: '/nucleus/realtime',
+    protocol: 'http://',
+    hostname: 'goorurt.qa.gooruweb.edify.cr',
+    port: 81
+  };
 
   if (environment === 'development') {
-    ENV.secureProtocol = 'http';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -113,8 +122,6 @@ module.exports = function (environment) {
     // Testem prefers this...
     ENV.baseURL = '/';
     ENV.locationType = 'none';
-    ENV.secureProtocol = 'http';
-    ENV.securePort = 8882;
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
@@ -123,6 +130,22 @@ module.exports = function (environment) {
     ENV['ember-simple-auth'].store = 'session-store:ephemeral';
 
     ENV.APP.rootElement = '#ember-testing';
+
+    ENV['gooru-endpoints'] = {
+      protocol: 'http://',
+      secureProtocol: 'http://',
+      hostname: 'localhost',
+      port: 7357,
+      securePort: 7357
+    };
+
+    ENV['real-time'] = {
+      webSocketUrl: '/ws/realtime',
+      webServiceUrl: '/nucleus/realtime',
+      protocol: 'http://',
+      hostname: 'localhost',
+      port: 7357
+    };
   }
 
   if (environment === 'production') {

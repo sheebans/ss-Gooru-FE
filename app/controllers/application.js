@@ -39,10 +39,6 @@ export default Ember.Controller.extend({
 
   }),
 
-  setupAjaxRequests: Ember.on('init', function () {
-    Ember.$.ajaxSetup({cache: false});
-  }),
-
   // -------------------------------------------------------------------------
   // Attributes
 
