@@ -1205,6 +1205,5 @@ export default {
     "feedback-never": "Never",
     "feedback-summary": "At the end",
     "navigation-scoring": "Navigation and Scoring"
-
   }
 };

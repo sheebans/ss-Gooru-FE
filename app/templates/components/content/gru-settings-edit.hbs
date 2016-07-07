@@ -8,23 +8,30 @@
     </div>
     <div class="panel-body">
       <div class="setting bidirectional">
-        {{gru-icon name="visibility"}}
-        <span>{{t "gru-settings-edit.bidirectional"}}</span>
-        {{gru-switch switchOptions=switchOptions onOptionSwitch='onSwitchChange' isChecked=model.bidirectional}}
+        <div class="setting-label">
+          {{gru-icon name="swap_horizontal"}}
+          <span>{{t "gru-settings-edit.backwards"}}</span>
+        </div>
+        {{gru-switch switchOptions=backwardsOptions onOptionSwitch='onSwitchChange' isChecked=model.bidirectional}}
       </div>
       <div class="setting feedback">
-        {{gru-icon name="visibility"}}
-        <span>{{t "gru-settings-edit.feedback"}}</span>
-        {{#each-in feedbackItems as |key value|}}
-          {{
-            validation.gru-radio
-            model=model
-            valuePath='open'
-            name="feedback"
-            translationPath=(concat "gru-settings-edit.feedback-" value)
-            onCheck="onSwitchChange"
-          }}
-        {{/each-in}}
+        <div class="setting-label">
+          {{gru-icon name="check_circle"}}
+          <span>{{t "gru-settings-edit.feedback"}}</span>
+        </div>
+        <div class="feedback-options">
+          {{#each-in feedbackItems as |key value|}}
+            {{
+              validation.gru-radio
+              model=model
+              groupValue=model.showFeedback
+              valuePath=value
+              name='showFeedback'
+              translationPath=(concat 'gru-settings-edit.feedback-' value)
+              onChange=(action 'onSwitchChange')
+            }}
+          {{/each-in}}
+        </div>
       </div>
     </div>
   </div>
@@ -35,18 +42,22 @@
     </div>
     <div class="panel-body">
       <div class="setting publish-to">
-        {{gru-icon name="visibility"}}
-        <span>{{t "common.publish-to"}}</span>
-            {{gru-switch switchOptions=switchOptions onOptionSwitch='onSwitchChange' isChecked=model.isVisibleOnProfile}}
+        <div class="setting-label">
+          {{gru-icon name="visibility"}}
+          <span>{{t "common.publish-to"}}</span>
         </div>
+        {{gru-switch switchOptions=publishedOptions onOptionSwitch='onSwitchChange' isChecked=model.isVisibleOnProfile}}
+      </div>
       <div class="setting request-to out-of-scope">
-        {{gru-icon name="public"}}
-        <span>{{t "common.request-to"}}</span>
-            {{#if wasRequestSent}}
-              <button class="request btn {{if isRequestApproved 'btn-success btn-approved' 'btn-primary btn-pending'}}">{{if isRequestApproved (t "common.approved") (t "common.pending")}}</button>
-            {{else}}
-              <button class="request btn btn-primary btn-send-request" {{action 'sendRequest'}}>{{t "common.send-request"}}</button>
-            {{/if}}
+        <div class="setting-label">
+          {{gru-icon name="public"}}
+          <span>{{t "common.request-to"}}</span>
         </div>
+        {{#if wasRequestSent}}
+          <button class="request btn {{if isRequestApproved 'btn-success btn-approved' 'btn-primary btn-pending'}}">{{if isRequestApproved (t "common.approved") (t "common.pending")}}</button>
+        {{else}}
+          <button class="request btn btn-primary btn-send-request" {{action 'sendRequest'}}>{{t "common.send-request"}}</button>
+        {{/if}}
+      </div>
     </div>
 </div>

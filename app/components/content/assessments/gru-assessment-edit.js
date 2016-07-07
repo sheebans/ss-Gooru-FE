@@ -68,10 +68,9 @@ export default CollectionEdit.extend({
      * Save setting for visibility of collection in profile
      */
     publishToProfile: function() {
-      var assessmentForEditing = this.get('collection').copy();
-      this.set('tempCollection', assessmentForEditing);
       this.actions.updateContent.call(this);
     },
+
     /**
      * Delete assessment
      */
@@ -97,5 +96,10 @@ export default CollectionEdit.extend({
         'content.modals.gru-delete-content',
         model, null, null, null, false);
     }
+  },
+
+  init: function(){
+    this._super(...arguments);
+    this.set('tempCollection', this.get('collection').copy());
   }
 });

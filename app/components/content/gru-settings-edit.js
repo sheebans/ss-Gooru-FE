@@ -39,10 +39,22 @@ export default Ember.Component.extend({
   wasRequestSent: false,
 
   /**
-   * Toggle Options
+   * Toggle Backwards Options
    * @property {Ember.Array}
    */
-  switchOptions: Ember.A([Ember.Object.create({
+  backwardsOptions: Ember.A([Ember.Object.create({
+    'label': "On",
+    'value': true
+  }),Ember.Object.create({
+    'label': "Off",
+    'value': false
+  })]),
+
+  /**
+   * Toggle Published Options
+   * @property {Ember.Array}
+   */
+  publishedOptions: Ember.A([Ember.Object.create({
     'label': "On",
     'value': true
   }),Ember.Object.create({
