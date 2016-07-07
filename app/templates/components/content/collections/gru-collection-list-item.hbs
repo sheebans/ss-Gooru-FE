@@ -14,17 +14,23 @@
         </div>
       </div>
     {{else}}
-      {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="title"}}
-        <i class="{{model.format}}-icon"></i>
-        <div>
-          <strong>{{{model.title}}}</strong>
-          {{#if (eq model.format 'question')}}
+      {{#if (eq model.format 'question')}}
+        <a class="title" {{action 'editQuestion'}}>
+          <i class="{{model.format}}-icon"></i>
+          <div>
+            <strong>{{{model.title}}}</strong>
             <span>{{t "common.question"}} | {{t (concat "common.question-type." model.type)}}</span>
-          {{else}}
+          </div>
+        </a>
+      {{else}}
+        {{#link-to 'content.resources.edit' model.id (query-params collectionId=collection.id isCollection=isCollection) class="title"}}
+          <i class="{{model.format}}-icon"></i>
+          <div>
+            <strong>{{{model.title}}}</strong>
             <span>{{t "common.resource"}} | {{t (concat "common.resource-format." model.format)}}</span>
-          {{/if}}
-        </div>
-      {{/link-to}}
+          </div>
+        {{/link-to}}
+      {{/if}}
     {{/if}}
 
     <div class="detail {{if model.isExpanded 'hidden' 'visible'}}">
@@ -40,11 +46,15 @@
         {{/if}}
 
         <div class="actions">
-          <button class="btn add-item no-bgd out-of-scope" title="{{t 'common.add'}} "{{action 'add'}}>{{gru-icon name="add"}}</button>
-          <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
+          <button class="btn add-item no-bgd out-of-scope" title="{{t 'common.add'}}" {{action 'add'}}>{{gru-icon name="add"}}</button>
+          <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}}" {{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
             <div class="item-actions">
               {{partial 'content/partials/item-actions'}}
-              <button class="btn edit-item no-bgd" title="{{t 'common.edit'}}" {{action 'editQuestion'}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
+              {{#if (eq model.format 'question')}}
+                <button class="btn edit-item no-bgd" title="{{t 'common.edit'}}" {{action 'editQuestion'}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
+              {{else}}
+                <button class="btn edit-item no-bgd" title="{{t 'common.edit'}}" {{action 'edit' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
+              {{/if}}
             </div>
         </div>
     </div>
@@ -66,10 +76,25 @@
 
   <div class="panel-body">
     {{#if editQuestionInline}}
-      <div class="content">
-        <label>
-          <span>content</span>
-        </label>
+      <div class="question">
+        <h3>{{t "common.question"}}</h3>
+        {{gru-rich-text-editor content=tempModel.text}}
+        <button class="add-image btn btn-sm btn-primary out-of-scope">{{t "common.add-question-image"}}</button>
+      </div>
+      <div class="answers">
+        <div class="{{unless model.isHotTextHighlight 'border-bottom'}}">
+          <h3>{{t "content.questions.edit.builder.answer"}}</h3>
+          {{#unless model.isHotTextHighlight}}
+            <span class="instructions">{{t (concat 'content.questions.edit.builder.answer-instructions.' model.type)}}</span>
+          {{/unless}}
+        </div>
+        {{component (questionConfig model.type 'component.builder_answer') answers=tempModel.answers editMode=true}}
+      </div>
+      <div class="actions">
+        <div class="item-actions no-border">
+          <button class="cancel btn btn-info" {{action 'cancel'}}>{{t "common.cancel"}}</button>
+          <button class="save btn btn-success" {{action 'updateItem' model}}>{{t "common.save"}}</button>
+        </div>
       </div>
     {{else}}
       <div class="narration">

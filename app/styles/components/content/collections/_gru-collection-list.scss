@@ -15,12 +15,44 @@
       > .panel {
         > .panel-heading {
           padding: 12px 10px 10px 25px;
+          h3 {
+            display: inline-block;
+            margin: 0;
+            padding: 0 10px 0 10px;
+            font-weight: bold;
+            line-height: 2.5;
+            vertical-align: top;
+          }
         }
         > .panel-body {
           .narration {
             label {
               width: 100%;
             }
+          }
+
+          div.border-bottom {
+            padding-bottom: 15px;
+            border-bottom: 1px solid $gray-lighter;
+            margin-bottom: 10px;
+            margin-top: 15px;
+          }
+
+          .answers {
+            .questions.answers {
+              padding: 10px 0;
+              .panel {
+                border-radius: 6px;
+                margin-bottom: 30px;
+                textarea {
+                  line-height: 1;
+                }
+              }
+            }
+          }
+          .actions {
+            float: right;
+            clear: both;
           }
         }
         &.expanded {
@@ -32,15 +64,6 @@
 
       > .panel.collapsed > .panel-body {
         display: none;
-      }
-
-      h3 {
-        display: inline-block;
-        margin: 0;
-        padding: 0 10px 0 10px;
-        font-weight: bold;
-        line-height: 2.5;
-        vertical-align: top;
       }
 
       .title {
