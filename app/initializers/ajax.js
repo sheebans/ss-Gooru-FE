@@ -19,13 +19,14 @@ export default {
       beforeSend: function(jqXHR, settings) {
         const url = settings.url;
         if (url.startsWith('/')) {
-          if (url.startsWith(RealTimeConfig.webServiceUrl) || url.startsWith(RealTimeConfig.webSocketUrl) ){
+          if (url.startsWith(RealTimeConfig.webServiceUrl) || url.startsWith(RealTimeConfig.webSocketUrl)) {
             settings.url = `${RealTimeConfig.protocol}${RealTimeConfig.hostname}:${RealTimeConfig.port}${url}`;
           } else {
-            settings.url = `${EndPointsConfig.protocol}${EndPointsConfig.hostname}:${EndPointsConfig.port}${url}`;
+            const protocol = EndPointsConfig.protocol;
+            const hostname = EndPointsConfig.hostname;
+            const port = EndPointsConfig.port ? `:${EndPointsConfig.port}` : '';
+            settings.url = `${protocol}${hostname}${port}${url}`;
           }
-        } else {
-          settings.url = url.replace('localhost', EndPointsConfig.hostname);
         }
       }
     });

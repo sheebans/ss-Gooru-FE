@@ -35,7 +35,10 @@ export default DS.RESTAdapter.extend(SessionMixin, {
    * @returns {*}
    */
   ajax: function(url, method, hash) {
-    return this._super(`${EndPointsConfig.protocol}${EndPointsConfig.hostname}:${EndPointsConfig.port}${url}`, method, hash);
+    const protocol = EndPointsConfig.protocol;
+    const hostname = EndPointsConfig.hostname;
+    const port = EndPointsConfig.port ? `:${EndPointsConfig.port}` : '';
+    return this._super(`${protocol}${hostname}${port}${url}`, method, hash);
   }
 
 });

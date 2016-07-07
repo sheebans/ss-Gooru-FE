@@ -84,12 +84,12 @@ module.exports = function (environment) {
     url: '/api/nucleus-auth-idp/v1/google'
   };
 
-  ENV.secureProtocol = 'https';
-
   ENV['gooru-endpoints'] = {
     protocol: 'http://',
+    secureProtocol: 'https://',
     hostname: 'nucleus-qa.gooru.org',
-    port: 80
+    port: undefined,          // Uses the default value 80
+    securePort: undefined     // Uses the default value 443
   };
 
   ENV['real-time'] = {
@@ -101,7 +101,6 @@ module.exports = function (environment) {
   };
 
   if (environment === 'development') {
-    //ENV.secureProtocol = 'http';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -123,8 +122,6 @@ module.exports = function (environment) {
     // Testem prefers this...
     ENV.baseURL = '/';
     ENV.locationType = 'none';
-    ENV.secureProtocol = 'http';
-    ENV.securePort = 7357;
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
@@ -136,8 +133,10 @@ module.exports = function (environment) {
 
     ENV['gooru-endpoints'] = {
       protocol: 'http://',
+      secureProtocol: 'http://',
       hostname: 'localhost',
-      port: 7357
+      port: 7357,
+      securePort: 7357
     };
 
     ENV['real-time'] = {
