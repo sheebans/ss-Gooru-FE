@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {K12_CATEGORY} from 'gooru-web/config/config';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 /**
  * @typedef {object} SearchCollectionsController
@@ -23,19 +24,33 @@ export default Ember.Route.extend(PublicRouteMixin, {
   },
 
   /**
-   * @requires service:taxonomy
-   */
-  taxonomyService: Ember.inject.service("taxonomy"),
-
-  /**
-   * @property {Ember.Service} Service to do the search
+   * @requires service:api-sdk/search
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
-  model: function() {
-    var subjects = this.get('taxonomyService').getSubjects(K12_CATEGORY.value);
+  /**
+   * @requires service:taxonomy
+   */
+  taxonomyService: Ember.inject.service('taxonomy'),
+
+  /**
+   * @requires service:api-sdk/taxonomy
+   */
+  taxonomySdkService: Ember.inject.service('api-sdk/taxonomy'),
+
+
+  model: function(params) {
+    const taxonomyIds = params.taxonomies;
+    const subjects = this.get('taxonomyService').getSubjects(K12_CATEGORY.value);
+    var taxonomyCodes = [];
+
+    if (taxonomyIds.length > 0) {
+      taxonomyCodes = this.get('taxonomySdkService').fetchCodesByIds(taxonomyIds)
+    }
+
     return Ember.RSVP.hash({
-      subjects: subjects
+      subjects: subjects,
+      taxonomyCodes: taxonomyCodes
     });
   },
   /**
@@ -44,7 +59,22 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("subjects", model.subjects);
+    const route = this;
+    controller.set('subjects', model.subjects);
+    var selectedTags = controller.get('selectedTags');
+    if (!selectedTags.length) {
+      selectedTags = model.taxonomyCodes.map(function(taxonomyCode) {
+        const framework = route.extractFramework(model.subjects, taxonomyCode.id);
+        return controller.createTaxonomyTag(TaxonomyTagData.create({
+          id: taxonomyCode.id,
+          code: taxonomyCode.code,
+          frameworkCode: framework ? framework.get('frameworkId') : '',
+          parentTitle: framework ? framework.get('subjectTitle') : '',
+          title: taxonomyCode.title
+        }));
+      });
+      controller.set("selectedTags", selectedTags);
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -62,5 +92,20 @@ export default Ember.Route.extend(PublicRouteMixin, {
         this.transitionTo('player', collection.get("id"));
       }
     }
+  },
+
+  extractFramework: function(subjects, codeId) {
+    const frameworkId = codeId.split('-')[0];
+    var framework = undefined;
+    subjects.forEach(function(subject) {
+      if (!framework) {
+        const frameworks = subject.get('frameworks');
+        if (frameworks.length) {
+          framework = frameworks.findBy('id', frameworkId);
+        }
+      }
+    });
+    return framework ? framework : null;
   }
+
 });

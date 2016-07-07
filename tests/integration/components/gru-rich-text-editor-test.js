@@ -114,29 +114,29 @@ test('Select superscript', function(assert) {
   });
 });
 
-test('Select over left arrow', function(assert) {
-
-  this.set('showExpressionsPanel',true);
-
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
-  const $component = this.$();
-  $component.find(".tab-content .over-left-arrow").click();
-  return wait().then(function () {
-    T.exists(assert,$component.find(".math-field .mq-root-block .mq-overarrow.mq-arrow-left"),"Over arrow left missing");
-  });
-});
-
-test('Select over right arrow', function(assert) {
-
-  this.set('showExpressionsPanel',true);
-
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
-  const $component = this.$();
-  $component.find(".tab-content .over-right-arrow").click();
-  return wait().then(function () {
-    T.exists(assert,$component.find(".math-field .mq-root-block .mq-overarrow.mq-arrow-right"),"Over arrow right missing");
-  });
-});
+//test('Select over left arrow', function(assert) {
+//
+//  this.set('showExpressionsPanel',true);
+//
+//  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+//  const $component = this.$();
+//  $component.find(".tab-content .over-left-arrow").click();
+//  return wait().then(function () {
+//    T.exists(assert,$component.find(".math-field .mq-root-block .mq-overarrow.mq-arrow-left"),"Over arrow left missing");
+//  });
+//});
+//
+//test('Select over right arrow', function(assert) {
+//
+//  this.set('showExpressionsPanel',true);
+//
+//  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+//  const $component = this.$();
+//  $component.find(".tab-content .over-right-arrow").click();
+//  return wait().then(function () {
+//    T.exists(assert,$component.find(".math-field .mq-root-block .mq-overarrow.mq-arrow-right"),"Over arrow right missing");
+//  });
+//});
 
 test('Select overline', function(assert) {
 

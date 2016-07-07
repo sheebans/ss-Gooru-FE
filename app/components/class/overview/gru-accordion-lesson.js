@@ -222,6 +222,7 @@ export default Ember.Component.extend(AccordionMixin, {
     const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
     const courseId = component.get('currentClass.courseId');
+    const classMinScore = component.get('currentClass.minScore');
     const unitId = component.get('unitId');
     const lessonId = component.get('model.id');
     const classMembers = component.get('classMembers');
@@ -253,6 +254,9 @@ export default Ember.Component.extend(AccordionMixin, {
                   }));
                 } else {
                   const collectionPerformanceData = performance.findBy('id', lessonItem.get('id'));
+                  const score = collectionPerformanceData.get('score');
+                  let hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore) ? true : false;
+                  collectionPerformanceData.set('hasTrophy', hasTrophy);
                   lessonItem.set('performance', collectionPerformanceData);
                 }
               });

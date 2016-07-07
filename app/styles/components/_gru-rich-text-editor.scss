@@ -125,18 +125,18 @@
             height: 50px;
             width: 50px;
           }
-          .over-left-arrow{
-            background: url("gooru/images/math-icons/over-left-arrow.svg");
-            background-size: 50px 50px;
-            height: 50px;
-            width: 50px;
-          }
-          .over-right-arrow{
-            background: url("gooru/images/math-icons/over-right-arrow.svg");
-            background-size: 50px 50px;
-            height: 50px;
-            width: 50px;
-          }
+          //.over-left-arrow{
+          //  background: url("gooru/images/math-icons/over-left-arrow.svg");
+          //  background-size: 50px 50px;
+          //  height: 50px;
+          //  width: 50px;
+          //}
+          //.over-right-arrow{
+          //  background: url("gooru/images/math-icons/over-right-arrow.svg");
+          //  background-size: 50px 50px;
+          //  height: 50px;
+          //  width: 50px;
+          //}
           .overline{
             background: url("gooru/images/math-icons/overline.svg");
             background-size: 50px 50px;
@@ -167,11 +167,17 @@
             height: 45px;
             width: 40px;
           }
+          .mult{
+            background: url("gooru/images/math-icons/mult.svg");
+            background-size: 45px 45px;
+            height: 45px;
+            width: 30px;
+          }
           .cdot{
             background: url("gooru/images/math-icons/cdot.svg");
             background-size: 45px 45px;
             height: 45px;
-            width: 40px;
+            width: 30px;
           }
           .not-equal{
             background: url("gooru/images/math-icons/not-equal.svg");
@@ -213,13 +219,13 @@
             background: url("gooru/images/math-icons/approx.svg");
             background-size: 45px 45px;
             height: 45px;
-            width: 40px;
+            width: 30px;
           }
           .alpha{
             background: url("gooru/images/math-icons/alpha.svg");
             background-size: 45px 45px;
             height: 45px;
-            width: 40px;
+            width: 30px;
           }
           .pmatrix{
             background: url("gooru/images/math-icons/pmatrix.svg");
