@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-file-picker'],
+  classNames: ['content', 'gru-file-picker'],
 
   // -------------------------------------------------------------------------
   // Actions
