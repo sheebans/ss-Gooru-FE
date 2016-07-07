@@ -144,13 +144,13 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
   },
   didRender(){
     $('[data-toggle="tooltip"]').tooltip();
-    console.log(this.get('model'),this);
+
   },
 
   // -------------------------------------------------------------------------
   // Properties
-  isCollectionOrAssessment: Ember.computed('model.format',function(){
-    return (this.get('model.format')==='collection' || this.get('model.format')==='assessment') ? true : false;
+  isCollectionOrAssessment: Ember.computed('model.collectionType',function(){
+    return (this.get('model.collectionType')==='collection' || this.get('model.collectionType')==='assessment') ? true : false;
   }),
   /**
    * @prop {String} course - Course this lesson item belongs to

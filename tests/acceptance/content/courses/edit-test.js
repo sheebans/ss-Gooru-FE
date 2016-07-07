@@ -15,6 +15,22 @@ moduleForAcceptance('Acceptance | Edit Course', {
     });
   }
 });
+test('Remove Collection from Lesson', function (assert) {
+  visit('/content/courses/edit/course-123');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
+    var $container = find(".controller.content.courses.edit .accordeon-lesson");
+    var $removeItemBtn = $container.find("li:first-child button.remove-item");
+    click($removeItemBtn);
+    andThen(function () {
+      find(".remove-info li input").prop('checked',true);
+      find(".remove-input").val('remove');
+
+      assert.equal($container.find('li').length,1,'Wrong ammount of items');
+    });
+  });
+});
 
 // TODO: Fix test per changes in 1149
 /*test('Edit course information', function (assert) {
