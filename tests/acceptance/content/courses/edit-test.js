@@ -20,14 +20,26 @@ test('Remove Collection from Lesson', function (assert) {
 
   andThen(function () {
     assert.equal(currentURL(), '/content/courses/edit/course-123');
-    var $container = find(".controller.content.courses.edit .accordeon-lesson");
-    var $removeItemBtn = $container.find("li:first-child button.remove-item");
+    var $removeItemBtn = find(".controller.content.courses.edit .accordion-lesson li:first-child button.remove-item");
     click($removeItemBtn);
     andThen(function () {
-      find(".remove-info li input").prop('checked',true);
-      find(".remove-input").val('remove');
+      var $removeContentModal = find(".gru-modal .gru-remove-content");
+      var $check1 = $removeContentModal.find("ul li:eq(0) input");
+      click($check1);
+      andThen(function () {
+        var $check2 = $removeContentModal.find("ul li:eq(1) input");
+        click($check2);
+        andThen(function () {
 
-      assert.equal($container.find('li').length,1,'Wrong ammount of items');
+          var $input = $removeContentModal.find(".remove-input");
+          $input.val('delete');
+          $input.blur();
+          keyEvent($input, 'keyup', KEY_CODES.ENTER);
+          andThen(function () {
+
+          });
+        });
+      });
     });
   });
 });
