@@ -6,17 +6,26 @@
       </span>
     {{/if}}
     <h3>{{plus-one index}}</h3>
-    {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="title"}}
-      <i class="{{model.format}}-icon"></i>
-      <div>
-        <strong>{{{model.title}}}</strong>
-        {{#if (eq model.format 'question')}}
-          <span>{{t "common.question"}} | {{t (concat "common.question-type." model.type)}}</span>
-        {{else}}
-          <span>{{t "common.resource"}} | {{t (concat "common.resource-format." model.format)}}</span>
-        {{/if}}
+    {{#if editQuestionInline}}
+      <div class="edit-title">
+        <i class="{{model.format}}-icon"></i>
+        <div>
+          {{validation.gru-input model=tempModel valuePath='title' maxLength=50}}
+        </div>
       </div>
-    {{/link-to}}
+    {{else}}
+      {{#link-to (if (eq model.format 'question') 'content.questions.edit' 'content.resources.edit') model.id (query-params collectionId=collection.id isCollection=isCollection) class="title"}}
+        <i class="{{model.format}}-icon"></i>
+        <div>
+          <strong>{{{model.title}}}</strong>
+          {{#if (eq model.format 'question')}}
+            <span>{{t "common.question"}} | {{t (concat "common.question-type." model.type)}}</span>
+          {{else}}
+            <span>{{t "common.resource"}} | {{t (concat "common.resource-format." model.format)}}</span>
+          {{/if}}
+        </div>
+      {{/link-to}}
+    {{/if}}
 
     <div class="detail {{if model.isExpanded 'hidden' 'visible'}}">
         {{#if model.standards.length}}
@@ -35,14 +44,19 @@
           <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
             <div class="item-actions">
               {{partial 'content/partials/item-actions'}}
-              <button class="btn edit-item no-bgd" title="{{t 'common.edit'}}" {{action 'edit' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
+              <button class="btn edit-item no-bgd" title="{{t 'common.edit'}}" {{action 'editQuestion'}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
             </div>
         </div>
     </div>
     <div class="detail {{if model.isExpanded 'visible' 'hidden'}}">
       <div class="actions">
-        <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'cancel'}}>{{gru-icon name="mode_comment"}}</button>
+        {{#unless editQuestionInline}}
+          <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'cancel'}}>{{gru-icon name="mode_comment"}}</button>
+        {{/unless}}
         <div class="item-actions no-border">
+          {{#if editQuestionInline}}
+            <button class="more-details btn btn-default" {{action 'edit' model}}>{{t "common.more-details"}}</button>
+          {{/if}}
           <button class="cancel btn btn-info" {{action 'cancel'}}>{{t "common.cancel"}}</button>
           <button class="save btn btn-success" {{action 'updateItem' model}}>{{t "common.save"}}</button>
         </div>
@@ -51,11 +65,19 @@
   </div>
 
   <div class="panel-body">
-    <div class="narration">
-      <label>
-        <span>{{t "common.narration"}}</span>
-        {{validation.gru-textarea rawTextareaValue=tempModel.narration model=tempModel valuePath='narration' maxLength=500 rows=2}}
-      </label>
-    </div>
+    {{#if editQuestionInline}}
+      <div class="content">
+        <label>
+          <span>content</span>
+        </label>
+      </div>
+    {{else}}
+      <div class="narration">
+        <label>
+          <span>{{t "common.narration"}}</span>
+          {{validation.gru-textarea rawTextareaValue=tempModel.narration model=tempModel valuePath='narration' maxLength=500 rows=2}}
+        </label>
+      </div>
+    {{/if}}
   </div>
 </div>

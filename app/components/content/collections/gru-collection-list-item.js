@@ -127,6 +127,14 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       this.set('model.isExpanded', true);
     },
 
+    editQuestion: function () {
+      var modelForEditing = this.get('model').copy();
+
+      this.set('tempModel', modelForEditing);
+      this.set('model.isExpanded', true);
+      this.set('editQuestionInline', true);
+    },
+
     updateItem: function (builderItem) {
       let component = this;
       var editedModel = this.get('tempModel');
@@ -135,8 +143,10 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       if(builderItem.get('format')==='question'){
         component.get('questionService').updateQuestion(editedModel.id, editedModel)
           .then(function () {
-            model.merge(editedModel, ['narration']);
+            console.log('editedModel', editedModel);
+            model.merge(editedModel, ['title', 'narration']);
             component.set('model.isExpanded', false);
+            this.set('editQuestionInline', false);
           }.bind(this))
           .catch(function (error) {
             var message = component.get('i18n').t('common.errors.question-not-updated').string;
@@ -159,6 +169,7 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
     cancel: function (){
       this.set('model.isExpanded', false);
+      this.set('editQuestionInline', false);
     }
   },
   // -------------------------------------------------------------------------
@@ -205,5 +216,10 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * Copy of the resource/question model used for editing.
    * @property {Resource/Question }
    */
-  tempModel: null
+  tempModel: null,
+
+  /**
+   * @property {Boolean} editQuestionInline
+   */
+  editQuestionInline: false
 });
