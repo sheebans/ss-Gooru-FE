@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
 import { RESOURCE_TYPES, UPLOADABLE_TYPES } from 'gooru-web/config/config';
-import createResourceValidations from 'gooru-web/validations/create-resource';
+import ResourceValidations from 'gooru-web/validations/resource';
 
 export default Ember.Component.extend({
 
@@ -11,6 +11,11 @@ export default Ember.Component.extend({
    * @property {ResourceService} Resource service API SDK
    */
   resourceService: Ember.inject.service("api-sdk/resource"),
+
+  /**
+   * @property {MediaService} Media service API SDK
+   */
+  mediaService: Ember.inject.service("api-sdk/media"),
 
   /**
    * @property {CollectionService} Collection service API SDK
@@ -42,18 +47,21 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
   actions: {
     createResource: function (type) {
       const component = this;
       const resource = this.get('resource');
-      resource.validate().then(function ({ model, validations }) {
-        if (validations.get('isValid')) {
-          var resourceService = component.get('resourceService');
-          let resourceId;
-          component.$('.resource-new button.add-btn').prop('disabled', true);
-          resourceService.createResource(resource)
-            .then(function (newResource) {
+
+      if (this.get('isResourceUpload') && !this.get('resource.file')) {
+        this.set('emptyFileError', this.get('i18n').t('common.errors.file-upload-missing', { extensions: this.get('resource.extensions') }));
+      } else {
+        resource.validate().then(function ({ model, validations }) {
+          if (validations.get('isValid')) {
+
+            let resourceId;
+            component.$('.resource-new button.add-btn').prop('disabled', true);
+            component.createResource(resource)
+              .then(function (newResource) {
                 resourceId = newResource.get('id');
                 if(component.get('model')) {
                   return component.get('resourceService').copyResource(resourceId)
@@ -65,30 +73,31 @@ export default Ember.Component.extend({
                 } else {
                   return Ember.RSVP.resolve(true);
                 }
-            })
-            .then(function() {
-                if(type === "edit") {
-                  component.onNewResource(resourceId);
-                } else {
-                  component.get('router').router.refresh();
-                  component.triggerAction({ action: 'closeModal' });
+              })
+              .then(function() {
+                  if(type === "edit") {
+                    component.onNewResource(resourceId);
+                  } else {
+                    component.get('router').router.refresh();
+                    component.triggerAction({ action: 'closeModal' });
+                  }
+                  component.$('.resource-new button.add-btn').prop('disabled', false);
+                },
+                function (data) {
+                  if (data.resourceId) { //already exists
+                    component.displayExistingResource(data.resourceId);
+                  }
+                  else {
+                    const message = component.get('i18n').t('common.errors.resource-not-created').string;
+                    component.get('notifications').error(message);
+                  }
+                  component.$('.resource-new button.add-btn').prop('disabled', false);
                 }
-                component.$('.resource-new button.add-btn').prop('disabled', false);
-              },
-              function (data) {
-                if (data.resourceId) { //already exists
-                  component.displayExistingResource(data.resourceId);
-                }
-                else {
-                  const message = component.get('i18n').t('common.errors.resource-not-created').string;
-                  component.get('notifications').error(message);
-                }
-                component.$('.resource-new button.add-btn').prop('disabled', false);
-              }
-            );
-        }
-        component.set('didValidate', true);
-      });
+              );
+          }
+          component.set('didValidate', true);
+        });
+      }
     },
 
     addTo: function() {
@@ -110,15 +119,25 @@ export default Ember.Component.extend({
     },
 
     switchView: function() {
+      var resource;
       this.toggleProperty('isResourceUpload');
+
       if (this.get('isResourceUpload')) {
+        resource = this.get('uploadResource');
+        this.set('resource', resource);
         this.actions.selectUploadType.call(this, UPLOADABLE_TYPES[0]);
       } else {
+        resource = this.get('urlResource');
+        this.set('resource', resource);
         this.actions.selectType.call(this, RESOURCE_TYPES[0]);
       }
     },
 
-    selectType:function(type){
+    selectFile: function(file) {
+      this.set('resource.file', file);
+    },
+
+    selectType: function(type){
       this.set('resource.format',type);
     },
 
@@ -133,19 +152,38 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var newResource = Resource.extend(createResourceValidations);
-    var resource = newResource.create(Ember.getOwner(this).ownerInjection(), {url: null,title:null,format:"webpage"});
-    this.set('resource', resource);
-  },
 
+    var resourceValidations = new ResourceValidations();
+
+    var urlResourceFactory = Resource.extend(resourceValidations.getAllValidations());
+    var urlResource = urlResourceFactory.create(Ember.getOwner(this).ownerInjection(), { url: null, title:null, format:RESOURCE_TYPES[0] });
+
+    var uploadResourceFactory = Resource.extend(resourceValidations.getValidationsFor(['description', 'format', 'title']));
+    var uploadResource = uploadResourceFactory.create(Ember.getOwner(this).ownerInjection(), { title:null, format: UPLOADABLE_TYPES[0].value });
+
+    this.set('urlResource', urlResource);
+    this.set('uploadResource', uploadResource);
+
+    if (this.get('isResourceUpload')) {
+      this.set('resource', uploadResource);
+    } else {
+      this.set('resource', urlResource);
+    }
+  },
 
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @type {?String} specific class
    */
   'component-class': null,
+
+  /**
+   * @type {String} emptyFileError
+   */
+  emptyFileError: null,
 
   /**
    * @type {String} selectedType
@@ -162,7 +200,6 @@ export default Ember.Component.extend({
    */
   selectedType: Ember.computed.alias('resource.format'),
 
-
   /**
    * @type {Resource} resource
    */
@@ -178,8 +215,44 @@ export default Ember.Component.extend({
    */
   uploadableTypes: UPLOADABLE_TYPES,
 
-  //
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  clearEmptyFileError: Ember.observer('resource.file', 'selectedType', function() {
+    if (this.get('emptyFileError')) {
+      this.set('emptyFileError', null);
+    }
+  }),
+
+
+  // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Create a resource (url/upload)
+   * @param {Resource}
+   * @return {Promise.<Resource>}
+   */
+  createResource: function(resource) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      var resourceService = this.get('resourceService');
+
+      if (this.get('isResourceUpload')) {
+        this.get('mediaService').uploadContentFile(resource.file).then(function(filename) {
+          resource.set('url', filename);
+          resourceService.createResource(resource).then(function(newResource) {
+            resolve(newResource);
+          });
+        });
+      } else {
+        resourceService.createResource(resource).then(function(newResource) {
+          resolve(newResource);
+        });
+      }
+    }.bind(this));
+  },
+
   /**
    * After a resource is saved
    * @param {Resource} newResource
