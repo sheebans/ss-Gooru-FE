@@ -3,14 +3,16 @@
 }
 .setting {
   @include flexbox;
-  .setting-label {
+  .gru-icon {
+    margin-right: 10px;
+  }
+  >span {
     @include flex-shrink(0);
     width: 45%;
   }
   .feedback-options {
     @include flexbox;
     @include flex-shrink(0);
-    width: 55%;
     padding-left: 5px;
     .gru-radio {
       @include flex-shrink(0);
@@ -19,8 +21,5 @@
         margin-right: 20px;
       }
     }
-  }
-  .gru-icon {
-    margin-right: 10px;
   }
 }

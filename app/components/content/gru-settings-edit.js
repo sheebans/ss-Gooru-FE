@@ -10,7 +10,13 @@ export default Ember.Component.extend({
   tagName: 'section',
 
   actions: {
-    onSwitchChange: function() {
+    onBackwardsChange: function(isChecked) {
+      if(isChecked){
+        this.set('model.showFeedback', ASSESSMENT_SHOW_VALUES.SUMMARY);
+      }
+      this.sendAction('action');
+    },
+    onGenericChange: function() {
       this.sendAction('action');
     }
   },
