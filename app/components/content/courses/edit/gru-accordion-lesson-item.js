@@ -72,7 +72,7 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
 
       this.actions.showModal.call(this,
         'content.modals.gru-remove-content',
-        $.extend(model, lessonItem), null, null, null, false);
+        $.extend(model, lessonItem));
     },
 
     /**
@@ -109,7 +109,7 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       }
       this.actions.showModal.call(this,
         'content.modals.gru-delete-content',
-        $.extend(model, lessonItem), null, null, null, false);
+        $.extend(model, lessonItem));
     },
 
     copy: function() {
