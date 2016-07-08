@@ -1046,13 +1046,13 @@ test('Insert equation', function (assert) {
               let $insert = $component.find('.equation-editor .actions button');
               $insert.click();
               return wait().then(function () {
-               assert.equal((T.text($component.find('.gru-math-expression:nth-child(1) .source')),'+', 'Missing plus and this function should be the first expression');
-                assert.equal((T.text($component.find('.gru-math-expression:nth-child(2) .source')),'\times', 'Missing mult and should be the second function');
+               assert.equal(T.text($component.find('.gru-math-expression:nth-child(1) .source')),'+', 'Missing plus and this function should be the first expression');
+                assert.equal(T.text($component.find('.gru-math-expression:nth-child(2) .source')),'\times', 'Missing mult and should be the second function');
                 const $save = $component.find("#builder .actions .save");
                 $save.click();
                  return wait().then(function () {
-                   assert.equal((T.text($component.find('.gru-math-expression:nth-child(1) .source')),'+', 'Missing plus and this function should be the first expression');
-                   assert.equal((T.text($component.find('.gru-math-expression:nth-child(2) .source')),'\times', 'Missing mult and should be the second function');
+                   assert.equal(T.text($component.find('.gru-math-expression:nth-child(1) .source')),'+', 'Missing plus and this function should be the first expression');
+                   assert.equal(T.text($component.find('.gru-math-expression:nth-child(2) .source')),'\times', 'Missing mult and should be the second function');
                  });
                 });
               });
