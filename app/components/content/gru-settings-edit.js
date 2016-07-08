@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
+import { ASSESSMENT_SHOW_VALUES, MAX_ATTEMPTS } from "gooru-web/config/config";
 
 export default Ember.Component.extend({
 
@@ -51,7 +51,7 @@ export default Ember.Component.extend({
       id: -1,
       name: this.get('i18n').t('gru-settings-edit.attempts-unlimited')
     }];
-    for (let i=1; i<11; i+=1) {
+    for (let i=1; i<=MAX_ATTEMPTS; i+=1) {
       options.push({
         id: i, name: i
       });

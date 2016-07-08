@@ -136,3 +136,5 @@ export const ASSESSMENT_SHOW_VALUES = {
   SUMMARY: 'summary',
   NEVER: 'never'
 };
+
+export const MAX_ATTEMPTS = 10;
