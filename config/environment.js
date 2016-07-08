@@ -97,7 +97,7 @@ module.exports = function (environment) {
     webServiceUrl: '/nucleus/realtime',
     protocol: 'http://',
     hostname: 'goorurt.qa.gooruweb.edify.cr',
-    port: 81
+    port: 80
   };
 
   if (environment === 'development') {
