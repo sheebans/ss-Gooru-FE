@@ -19,6 +19,7 @@ export default {
     "add-content-prompt": "You haven't created <span>{{type}}</span> yet. Go on, be bold.",
     "add-course": "Add New Course",
     "add-domains-to-unit": "Add Domains to Unit",
+    "add-url": "Add URL",
     "add-from-url": "Add from URL",
     "add-lessons": "Add Lessons",
     "add-new-lesson": "Add New Lesson",
@@ -150,6 +151,8 @@ export default {
       "highlight-text-not-selected": "Please indicate the correct answer.",
       "highlight-text-wrong-format": "Incorrect question format.",
       "hotspot-text-max-choices": "You have reached the limit of answer choices.",
+      "file-max-size": "Only files of size smaller than 5MB are supported",
+      "file-upload-missing": "Please select a file with any of the following extensions: {{extensions}}",
       "lesson-not-copied": "Oops! Unable to copy lesson right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
@@ -197,6 +200,7 @@ export default {
     "explanation": "Explanation",
     "false": "False",
     "featured-courses": "Featured&ensp;Courses",
+    "file-name": "File name",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
@@ -405,6 +409,8 @@ export default {
     "untitled-lesson": "Untitled Lesson",
     "untitled-unit": "Untitled Unit",
     "update-thumbnail": "Update Thumbnail",
+    "upload": "Upload",
+    "upload-file": "Upload File",
     "upload-thumbnail": "Upload Thumbnail",
     "use-case": "Use Case",
     "verified": "Verified",
@@ -930,9 +936,6 @@ export default {
 
   "gru-image-picker": {
     "chooseFile": "Choose a file ...",
-    "errors": {
-      "maxSize": "Only files of size smaller than 5MB are supported"
-    },
     "instruction": "Upload an image from a file on your computer.",
     "restriction": "The image must be a JPG, GIF or PNG file smaller than 5 MB.",
     "submit": "Use Image"
