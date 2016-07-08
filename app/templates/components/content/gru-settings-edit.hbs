@@ -45,6 +45,7 @@
           <div class="setting attempts">
             {{gru-icon name="check_circle"}}
             <span>{{t "gru-settings-edit.attempts"}}</span>
+            {{validation.gru-select options=attemptsOptions optionSelected=model.attempts title=(t "common.select") search="true" onOptionSelect="onAttemptsChange"}}
           </div>
       </div>
   </div>

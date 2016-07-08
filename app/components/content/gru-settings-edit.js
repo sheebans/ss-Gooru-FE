@@ -2,6 +2,14 @@ import Ember from 'ember';
 import { ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
 
 export default Ember.Component.extend({
+
+  // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -17,7 +25,15 @@ export default Ember.Component.extend({
       this.sendAction('action');
     },
 
-    onAnswerKeyChange: function() {
+    onAnswerKeyChange: function(isChecked) {
+      if(isChecked) {
+        this.set('model.attempts', 1);
+      }
+      this.sendAction('action');
+    },
+
+    onAttemptsChange: function(newValue) {
+      this.set('model.attempts', +newValue);
       this.sendAction('action');
     },
 
@@ -25,6 +41,23 @@ export default Ember.Component.extend({
       this.sendAction('action');
     }
   },
+
+  /**
+   * Options for attempts
+   * @property {Array}
+   */
+  attemptsOptions: Ember.computed(function() {
+    let options = [{
+      id: -1,
+      name: this.get('i18n').t('gru-settings-edit.attempts-unlimited')
+    }];
+    for (let i=1; i<11; i+=1) {
+      options.push({
+        id: i, name: i
+      });
+    }
+    return options;
+  }),
 
   /**
    * Options for feedback

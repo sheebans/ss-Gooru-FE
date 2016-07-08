@@ -1202,6 +1202,7 @@ export default {
     "answerkey-attempts": "Answer Key and Attempts",
     "answer-key": "Students can see the answer key at the end",
     "attempts": "Attempts",
+    "attempts-unlimited": "Unlimited",
     "backwards": "Students can navigate backwards and change responses",
     "feedback": "Students see if they are correct/incorrect",
     "feedback-immediate": "Per question & at the end",

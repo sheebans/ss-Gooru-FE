@@ -36,6 +36,8 @@ test('Layout of settings component for assessment', function (assert) {
   assert.ok($settingsComponent.find('.panel-body .publish-to .gru-switch .toggle').length, "Profile toggle button");
   assert.ok($settingsComponent.find('.panel-body .bidirectional .gru-switch .toggle').length, "Backwards toggle button");
   assert.equal($settingsComponent.find('.panel-body .feedback .gru-radio').length, 3, "Feedback radio buttons");
+  assert.ok($settingsComponent.find('.panel-body .answer-key .gru-switch .toggle').length, "Answer key toggle button");
+  assert.ok($settingsComponent.find('.panel-body .attempts .gru-select').length, "Attempts dropdown");
   //assert.ok($settingsComponent.find('.panel-body .setting.request-to i.public').length, "Public icon");
   //assert.ok($settingsComponent.find('.panel-body .setting.request-to i.public + span').length, "Public label");
 });
@@ -74,6 +76,24 @@ test('External action gets called on backwards switch change', function(assert) 
   });
   assert.notOk($toggle.hasClass('off'), 'Toggle on after clicked');
   assert.equal(this.get('model.showFeedback'), ASSESSMENT_SHOW_VALUES.SUMMARY, "Feedback value");
+});
+
+test('External action gets called on answer key switch change', function(assert) {
+  assert.expect(4);
+  this.on('externalAction', function () {
+    assert.ok(true);
+  });
+
+  this.set('model', { isAssessment: true, showKey: false, attempts: -1})
+  this.render(hbs`{{content/gru-settings-edit id="settings" action='externalAction' model=model}}`);
+
+  var $toggle = this.$().find('.panel-body .answer-key .gru-switch .toggle');
+  assert.ok($toggle.hasClass('off'), 'Toggle off by default');
+  Ember.run(() => {
+    $toggle.click();
+  });
+  assert.notOk($toggle.hasClass('off'), 'Toggle on after clicked');
+  assert.equal(this.get('model.attempts'), 1, "Attempts value");
 });
 
 

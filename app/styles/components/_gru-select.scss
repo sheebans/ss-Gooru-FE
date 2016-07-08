@@ -20,10 +20,6 @@
       }
     }
   }
-  .dropdown-menu {
-    top:100%;
-    position: relative;
-  }
   &.open > .btn-default.dropdown-toggle{
     box-shadow: none;
     background-color: $white!important;
