@@ -17,6 +17,13 @@ export default PlayerController.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Should resource navigation in the player be disabled?
+   * @property {Lesson}
+   */
+  isNavigationDisabled: false,
+
   /**
    * The lesson for this collection
    * @property {Lesson}
