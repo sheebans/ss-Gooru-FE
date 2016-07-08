@@ -1,17 +1,32 @@
-.content.modals.gru-resource-new{
-  .header-add-url {
-    width: 100%;
-    float: left;
-    margin-bottom: 12px;
+.content.modals.gru-resource-new {
+
+  .modal-body { padding-top: 15px; }
+
+  .header {
+    margin-bottom: 10px;
+
+    button {
+      float: right;
+      border: 0 none;
+      background-color: transparent;
+      color: $blue-300;
+      font-size: larger;
+      padding: 0;
+
+      &:hover {
+        color: $blue-500;
+      }
+    }
   }
-  span.title{
+
+  span.title {
     font-size: $font-size-large;
   }
   .icon{
-    margin-right:5px;
+    margin-right: 5px;
     color: $light-300;
-    i{
-      vertical-align: bottom;
+    i {
+      vertical-align: -6px;
     }
   }
   .url-label,.title-label, .type{
@@ -20,6 +35,41 @@
       width: 100%;
     }
   }
+
+  .filename-label {
+    margin-left: 10px;
+    margin-bottom: 15px;
+
+    .gru-file-picker {
+      > div {
+        @include flexbox();
+
+        input {
+          width: 80%;
+          border-bottom: 1px solid #ddd;
+        }
+        .file-picker {
+          @include flex();
+
+          .upload.btn {
+            margin-left: 5px;
+
+            .fa-upload {
+              font-size: $font-size-large;
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+
+      & + .validation {
+        .error {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
   .validation.error {
     position: relative;
     top: -15px;
