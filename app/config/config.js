@@ -141,3 +141,11 @@ export const CODE_TYPES = {
 };
 
 export const GOORU_DEFAULT_STANDARD = "GDF";
+
+export const ASSESSMENT_SHOW_VALUES = {
+  IMMEDIATE: 'immediate',
+  SUMMARY: 'summary',
+  NEVER: 'never'
+};
+
+export const MAX_ATTEMPTS = 10;

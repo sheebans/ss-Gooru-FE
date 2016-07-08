@@ -97,10 +97,9 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     /**
      * Save Content
      */
-    optionSwitch:function(isChecked){
+    publishToProfile: function(){
       var questionForEditing = this.get('question').copy();
       this.set('tempQuestion', questionForEditing);
-      this.set('tempQuestion.isVisibleOnProfile', isChecked);
       this.saveNewContent();
     },
     /**
