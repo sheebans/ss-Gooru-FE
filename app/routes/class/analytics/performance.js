@@ -20,7 +20,7 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  beforeModel: function() {
+  redirect: function() {
     // TODO: authenticate session with ember-simple-auth, if not send to log in
     /*
      It is necessary to pass the query params again on the transitionTo so it doesn't fail at refresh
@@ -40,6 +40,7 @@ export default Ember.Route.extend({
     const route = this;
     const classModel = this.modelFor('class').class;
     if (classModel.isTeacher(route.get('session.userId'))){
+      // TODO We need to find a better solution for this. We have to comment this code because it is breaking the Teacher Analytics view.
       //route.transitionTo('class.analytics.performance.teacher.course', {
       //  queryParams: route.paramsFor('class.analytics.performance.teacher.course')
       //});
