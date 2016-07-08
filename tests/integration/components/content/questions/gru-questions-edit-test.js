@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import { QUESTION_TYPES } from 'gooru-web/config/question';
-
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Question from 'gooru-web/models/content/question';
