@@ -44,7 +44,8 @@ test('it renders', function (assert) {
   this.set('question', {
     content: QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'question-id',
-      title: 'question-title'
+      title: 'question-title',
+      text: "question-description"
     })
   });
 
@@ -74,7 +75,8 @@ test('it shows an error message if the question title field is left blank', func
   this.set('question', {
     content: QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'question-id',
-      title: 'question-title'
+      title: 'question-title',
+      text: "question-description"
     })
   });
 
@@ -142,7 +144,8 @@ test('it shows toast and transitions after copying a question', function (assert
   this.set('question', {
     content: QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'question-id',
-      title: 'question-title'
+      title: 'question-title',
+      text: "question-description"
     })
   });
 
@@ -208,7 +211,8 @@ test('it shows toast and transitions after copying a question with parent collec
   this.set('question', {
     content: QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'question-id',
-      title: 'question-title'
+      title: 'question-title',
+      text: "question-description"
     }),
     collectionId: 'collection-id',
     isCollection: true
@@ -248,7 +252,8 @@ test('it displays a notification if the question cannot be created', function (a
   this.set('question', {
     content: QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'question-id',
-      title: 'question-title'
+      title: 'question-title',
+      text: "question-description"
     })
   });
 
@@ -271,7 +276,8 @@ test('Validate if the question Title field has only whitespaces', function (asse
   this.set('question', {
     content: QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'question-id',
-      title: 'question-title'
+      title: 'question-title',
+      text: "question-description"
     })
   });
 
@@ -306,7 +312,8 @@ test('Validate the character limit in the question title field', function (asser
   this.set('question', {
     content: QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'question-id',
-      title: 'question-title'
+      title: 'question-title',
+      text: "question-description"
     })
   });
   this.render(hbs`{{content/modals/gru-question-remix model=question}}`);

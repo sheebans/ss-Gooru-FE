@@ -38,16 +38,14 @@ export default Ember.Object.extend({
       'description': questionModel.get('description'),
       'content_subformat': format,
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
-      'metadata': questionModel.get('metadata') || {}
+      'metadata': questionModel.get('metadata') || {},
+      'answer': answers && answers.length ?
+        answers.map(function(answer, index) {
+          return serializer.serializerAnswer(answer, index + 1);
+        }) : null
     };
-    if (answers.length) {
-      serializedQuestion.answer = answers.map(function(answer, index) {
-        return serializer.serializerAnswer(answer, index + 1);
-      });
-    }
-    serializedQuestion.metadata['audience']= (questionModel.get("audience")) ? questionModel.get("audience") : [];
-    serializedQuestion.metadata['depth_of_knowledge']= (questionModel.get("depthOfknowledge")) ? questionModel.get("depthOfknowledge") : [];
-
+    serializedQuestion.metadata['audience'] = (questionModel.get("audience")) ? questionModel.get("audience") : [];
+    serializedQuestion.metadata['depth_of_knowledge'] = (questionModel.get("depthOfknowledge")) ? questionModel.get("depthOfknowledge") : [];
     return serializedQuestion;
   },
 
@@ -60,12 +58,17 @@ export default Ember.Object.extend({
   serializeUpdateQuestion: function(questionModel) {
     const serializer = this;
     const isHotSpotImage = questionModel.get('isHotSpotImage');
+    let answers = questionModel.get('answers');
     let serializedQuestion = {
       title: questionModel.get('title'),
       //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(questionModel.get('standards')),
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
-      'metadata': questionModel.get('metadata') || {}
+      'metadata': questionModel.get('metadata') || {},
+      'answer': answers && answers.length ?
+        answers.map(function(answer, index) {
+          return serializer.serializerAnswer(answer, index + 1);
+        }) : null
     };
 
     let narration = questionModel.get('narration');
@@ -78,15 +81,8 @@ export default Ember.Object.extend({
       serializedQuestion.description = description;
     }
 
-    let answers = questionModel.get('answers');
-    if (answers && answers.length) {
-      serializedQuestion.answer = answers.map(function(answer, index) {
-        return serializer.serializerAnswer(answer, index + 1, isHotSpotImage);
-      });
-    }
-
-    serializedQuestion.metadata['audience']= (questionModel.get("audience")) ? questionModel.get("audience") : [];
-    serializedQuestion.metadata['depth_of_knowledge']= (questionModel.get("depthOfknowledge")) ? questionModel.get("depthOfknowledge") : [];
+    serializedQuestion.metadata['audience'] = (questionModel.get("audience")) ? questionModel.get("audience") : [];
+    serializedQuestion.metadata['depth_of_knowledge'] = (questionModel.get("depthOfknowledge")) ? questionModel.get("depthOfknowledge") : [];
     return serializedQuestion;
   },
 
