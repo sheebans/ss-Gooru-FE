@@ -48,6 +48,13 @@
     <div class="panel-body">
       {{#if isBuilderEditing}}
         {{gru-rich-text-editor content=tempQuestion.text}}
+        <div class="validation">
+          {{#if descriptionError}}
+            <span class="error">
+              {{descriptionError}}
+            </span>
+          {{/if}}
+        </div>
         <button class="add-image btn btn-sm btn-primary out-of-scope">{{t "common.add-question-image"}}</button>
       {{else}}
         {{#if question.text}}

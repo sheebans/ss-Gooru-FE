@@ -145,6 +145,7 @@ test('Update Question Information', function (assert) {
   var newTitle ='Question for testing gooru';
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
+    text: "Question description",
     standards: []
   });
   this.set('question',question);
@@ -573,7 +574,7 @@ test('Update answer text - (drag/drop) Reorder', function (assert) {
 
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text: "",
+    text: "Question description",
     type: QUESTION_TYPES.hotTextReorder,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option Text",
@@ -672,7 +673,7 @@ test('Update answer text - Open Ended', function (assert) {
 
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text: "",
+    text: "Question description",
     type: QUESTION_TYPES.openEnded,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Answer text",
@@ -857,7 +858,7 @@ test('Delete answer HS-Image ', function (assert) {
   assert.expect(3);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text:"",
+    text: "Question description",
     type: QUESTION_TYPES.hotSpotImage,
     answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Answer text",
@@ -938,7 +939,7 @@ test('Update answer text - Hot Text Highlight', function (assert) {
 
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text: "",
+    text: "Question description",
     type: QUESTION_TYPES.hotTextHighlight,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Answer [text]",
@@ -979,7 +980,7 @@ test('Update answer and cancel - Hot Text Highlight', function (assert) {
 
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text: "",
+    text: "Question description",
     type: QUESTION_TYPES.hotTextHighlight,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "",
