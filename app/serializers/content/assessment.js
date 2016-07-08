@@ -67,7 +67,7 @@ export default Ember.Object.extend({
       setting: {
         bidirectional_play: assessmentModel.get('bidirectional') || false,
         show_feedback: assessmentModel.get('showFeedback') || ASSESSMENT_SHOW_VALUES.SUMMARY,
-        show_key: assessmentModel.get('showKey') || ASSESSMENT_SHOW_VALUES.NEVER,
+        show_key: assessmentModel.get('showKey') ? ASSESSMENT_SHOW_VALUES.SUMMARY : ASSESSMENT_SHOW_VALUES.NEVER,
         attempts_allowed: assessmentModel.get('attempts') || -1
       }
     };
@@ -110,7 +110,7 @@ export default Ember.Object.extend({
       attempts: settings.attempts_allowed || -1,
       bidirectional: settings.bidirectional_play || false,
       showFeedback: settings.show_feedback || ASSESSMENT_SHOW_VALUES.SUMMARY,
-      showKey: settings.show_key || ASSESSMENT_SHOW_VALUES.NEVER
+      showKey: settings.show_key === ASSESSMENT_SHOW_VALUES.SUMMARY
     });
   },
 

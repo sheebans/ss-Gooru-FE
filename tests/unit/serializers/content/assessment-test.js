@@ -16,7 +16,7 @@ test('serializeCreateAssessment', function(assert) {
     attempts: 1,
     bidirectional: true,
     showFeedback: 'summary',
-    showKey: 'summary'
+    showKey: true
   });
   const response = serializer.serializeCreateAssessment(assessmentObject);
   assert.equal(response.title, 'assessment-title', "Wrong title");
@@ -96,7 +96,7 @@ test('normalizeReadAssessment', function(assert) {
   assert.equal(assessment.get("attempts"), 1, 'Wrong attemps');
   assert.equal(assessment.get("bidirectional"), true, 'Wrong bidirectional');
   assert.equal(assessment.get("showFeedback"), ASSESSMENT_SHOW_VALUES.SUMMARY, 'Wrong show feedback');
-  assert.equal(assessment.get("showKey"), ASSESSMENT_SHOW_VALUES.SUMMARY, 'Wrong show key');
+  assert.equal(assessment.get("showKey"), true, 'Wrong show key');
 });
 
 test('normalizeReadAssessment with nulls', function(assert) {
@@ -134,7 +134,7 @@ test('normalizeReadAssessment with nulls', function(assert) {
   assert.equal(assessment.get("attempts"), -1, 'Wrong attempts');
   assert.equal(assessment.get("bidirectional"), false, 'Wrong bidirectional');
   assert.equal(assessment.get("showFeedback"), ASSESSMENT_SHOW_VALUES.SUMMARY, 'Wrong show feedback');
-  assert.equal(assessment.get("showKey"), ASSESSMENT_SHOW_VALUES.NEVER, 'Wrong show key');
+  assert.equal(assessment.get("showKey"), false, 'Wrong show key');
 });
 
 test('serializeReorderAssessment', function(assert) {

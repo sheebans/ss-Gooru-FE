@@ -3,33 +3,50 @@
 </div>
 {{#if model.isAssessment}}
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3>{{t "gru-settings-edit.navigation-scoring"}}</h3>
-    </div>
-    <div class="panel-body">
-      <div class="setting bidirectional">
-        {{gru-icon name="swap_horizontal"}}
-        <span>{{t "gru-settings-edit.backwards"}}</span>
-        {{gru-switch switchOptions=backwardsOptions onOptionSwitch='onBackwardsChange' isChecked=model.bidirectional}}
+      <div class="panel-heading">
+          <h3>{{t "gru-settings-edit.navigation-scoring"}}</h3>
       </div>
-      <div class="setting feedback">
-        {{gru-icon name="check_circle"}}
-        <span>{{t "gru-settings-edit.feedback"}}</span>
-        <div class="feedback-options">
-          {{#each-in feedbackItems as |key value|}}
-            {{
-              validation.gru-radio
-              model=model
-              groupValue=model.showFeedback
-              valuePath=value
-              name='showFeedback'
-              translationPath=(concat 'gru-settings-edit.feedback-' value)
-              onChange=(action 'onGenericChange')
-            }}
-          {{/each-in}}
-        </div>
+      <div class="panel-body">
+          <div class="setting bidirectional">
+            {{gru-icon name="swap_horizontal"}}
+              <span>{{t "gru-settings-edit.backwards"}}</span>
+            {{gru-switch switchOptions=switchOptions onOptionSwitch='onBackwardsChange' isChecked=model.bidirectional}}
+          </div>
+          <div class="setting feedback">
+            {{gru-icon name="check_circle"}}
+              <span>{{t "gru-settings-edit.feedback"}}</span>
+              <div class="feedback-options">
+                {{#each-in feedbackItems as |key value|}}
+                  {{
+                  validation.gru-radio
+                  model=model
+                  groupValue=model.showFeedback
+                  valuePath=value
+                  name='showFeedback'
+                  translationPath=(concat 'gru-settings-edit.feedback-' value)
+                  onChange=(action 'onGenericChange')
+                  }}
+                {{/each-in}}
+              </div>
+          </div>
       </div>
-    </div>
+  </div>
+
+  <div class="panel panel-default">
+      <div class="panel-heading">
+          <h3>{{t "gru-settings-edit.answerkey-attempts"}}</h3>
+      </div>
+      <div class="panel-body">
+          <div class="setting answer-key">
+            {{gru-icon name="swap_horizontal"}}
+            <span>{{t "gru-settings-edit.answer-key"}}</span>
+            {{gru-switch switchOptions=switchOptions onOptionSwitch='onAnswerKeyChange' isChecked=model.showKey}}
+          </div>
+          <div class="setting attempts">
+            {{gru-icon name="check_circle"}}
+            <span>{{t "gru-settings-edit.attempts"}}</span>
+          </div>
+      </div>
   </div>
 {{/if}}
 <div class="panel panel-default">
@@ -40,7 +57,7 @@
       <div class="setting publish-to">
         {{gru-icon name="visibility"}}
         <span>{{t "common.publish-to"}}</span>
-        {{gru-switch switchOptions=publishedOptions onOptionSwitch='onGenericChange' isChecked=model.isVisibleOnProfile}}
+        {{gru-switch switchOptions=switchOptions onOptionSwitch='onGenericChange' isChecked=model.isVisibleOnProfile}}
       </div>
       <div class="setting request-to out-of-scope">
         {{gru-icon name="public"}}

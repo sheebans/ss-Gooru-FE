@@ -16,6 +16,11 @@ export default Ember.Component.extend({
       }
       this.sendAction('action');
     },
+
+    onAnswerKeyChange: function() {
+      this.sendAction('action');
+    },
+
     onGenericChange: function() {
       this.sendAction('action');
     }
@@ -45,22 +50,10 @@ export default Ember.Component.extend({
   wasRequestSent: false,
 
   /**
-   * Toggle Backwards Options
+   * Toggle Options
    * @property {Ember.Array}
    */
-  backwardsOptions: Ember.A([Ember.Object.create({
-    'label': "On",
-    'value': true
-  }),Ember.Object.create({
-    'label': "Off",
-    'value': false
-  })]),
-
-  /**
-   * Toggle Published Options
-   * @property {Ember.Array}
-   */
-  publishedOptions: Ember.A([Ember.Object.create({
+  switchOptions: Ember.A([Ember.Object.create({
     'label': "On",
     'value': true
   }),Ember.Object.create({
