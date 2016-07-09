@@ -51,12 +51,13 @@ test('New Resource Layout', function(assert) {
   this.render(hbs`{{content/modals/gru-resource-new}}`);
 
   const $component = this.$(".gru-resource-new");
-  assert.ok($component, 'Missing Component');
+  assert.ok($component.length, 'Missing Component');
   assert.ok($component.find('h4.modal-title'), 'Missing Title');
   assert.ok($component.find('.icon .link'), 'Missing link icon');
   assert.equal($component.find('h4.modal-title').text(), this.get('i18n').t('common.add-new-resource').string, 'Incorrect Title');
   assert.ok($component.find('label.url-label span').length, 'Missing URL label');
-  assert.equal($component.find('.header-add-url span.title').text(), this.get('i18n').t('common.add-from-url').string, 'Incorrect Add URL Label');
+  assert.equal($component.find('.header span.title').text(), this.get('i18n').t('common.add-from-url').string, 'Incorrect Add URL Label');
+  assert.equal($component.find('.header button').text(), this.get('i18n').t('common.upload-file').string, 'Upload link');
   assert.equal($component.find('label.url-label span').text(), this.get('i18n').t('common.enter-url').string, 'Incorrect Enter URL Label');
   assert.ok($component.find('label.url-label input').length, 'Missing Title Input');
   assert.ok($component.find('label.title-label span').length, 'Missing Title label');
@@ -95,7 +96,7 @@ test('Validate if the resource URL is left blank', function (assert) {
   assert.ok(!$titleField.find(".error-messages .error").length, 'URL error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
+  $component.find(".actions button.add-btn").click();
 
   return wait().then(function () {
 
@@ -121,20 +122,21 @@ test('Validate if the resource URL field has only whitespaces', function (assert
   assert.ok(!$titleField.find(".error-messages .error").length, 'URL error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
+  $component.find(".actions button.add-btn").click();
 
   return wait().then(function () {
 
     assert.ok($titleField.find(".error-messages .error").length, 'URL error should be visible');
     // Fill in the input field
     $titleField.find("input").val(' ');
-    $component.find(".actions button[type='submit']").click();
+    $component.find(".actions button.add-btn").click();
 
     return wait().then(function () {
       assert.ok($titleField.find(".error-messages .error").length, 'URL error message should be visible');
     });
   });
 });
+
 test('Validate invalid URL', function (assert) {
   assert.expect(3);
 
@@ -146,20 +148,21 @@ test('Validate invalid URL', function (assert) {
   assert.ok(!$titleField.find(".error-messages .error").length, 'URL error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
+  $component.find(".actions button.add-btn").click();
 
   return wait().then(function () {
 
     assert.ok($titleField.find(".error-messages .error").length, 'URL error should be visible');
     // Fill in the input field
     $titleField.find("input").val('kkkk');
-    $component.find(".actions button[type='submit']").click();
+    $component.find(".actions button.add-btn").click();
 
     return wait().then(function () {
       assert.ok($titleField.find(".error-messages .error").length, 'URL error message should be visible');
     });
   });
 });
+
 test('Validate if the resource Title is left blank', function (assert) {
   assert.expect(3);
 
@@ -171,7 +174,7 @@ test('Validate if the resource Title is left blank', function (assert) {
   assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
+  $component.find(".actions button.add-btn").click();
 
   return wait().then(function () {
 
@@ -197,14 +200,14 @@ test('Validate if the resource Title field has only whitespaces', function (asse
   assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
+  $component.find(".actions button.add-btn").click();
 
   return wait().then(function () {
 
     assert.ok($titleField.find(".error-messages .error").length, 'Title error should be visible');
     // Fill in the input field
     $titleField.find("input").val(' ');
-    $component.find(".actions button[type='submit']").click();
+    $component.find(".actions button.add-btn").click();
 
     return wait().then(function () {
       assert.ok($titleField.find(".error-messages .error").length, 'Title error message should be visible');
@@ -262,4 +265,20 @@ test('it creates a resource and assigns it to an existing collection using more 
       assert.equal(transition.resource, 'resource-id', 'Correct resource ID');
     });
   });
+});
+
+test('it toggles views between a URL and an upload resource', function (assert) {
+  this.render(hbs`{{content/modals/gru-resource-new}}`);
+
+  const $component = this.$(".gru-resource-new");
+
+  assert.equal($component.find('.header button').text(), this.get('i18n').t('common.upload-file').string, 'Upload link');
+  $component.find('.header button').click();
+
+  assert.equal($component.find('.header span.title').text(), this.get('i18n').t('common.upload-file').string, 'Incorrect Add URL Label');
+  assert.equal($component.find('.header button').text(), this.get('i18n').t('common.add-url').string, 'URL link');
+  assert.ok($component.find('label.filename-label .gru-file-picker').length, 'Resource file picker');
+  assert.ok($component.find('label.title-label span').length, 'Resource title label');
+  assert.equal($component.find('label.title-label span').text(), this.get('i18n').t('common.resource-title').string, 'Resource title label text');
+  assert.ok($component.find('label.title-label input').length, 'Missing Title Input');
 });
