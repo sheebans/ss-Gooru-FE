@@ -58,6 +58,11 @@
         &.expanded {
           > .panel-heading {
             border-bottom: 1px solid $gray-lighter;
+            i {
+              display: inline-block;
+              margin: 12px 0;
+              vertical-align: top;
+            }
           }
         }
       }
@@ -66,7 +71,8 @@
         display: none;
       }
 
-      .title {
+      .title,
+      .edit-title {
 
         > i {
           display: inline-block;
@@ -158,32 +164,27 @@
 
       .edit-title {
         display: inline-block;
-        width: 55%;
-        .question-icon {
-          background: url("gooru/images/question-resource-green.svg");
-          -webkit-background-size: 30px 30px;
-          background-size: 30px 30px;
-          height: 30px;
-          width: 30px;
-          display: inline-block;
-          margin: -12px 0;
+        width: 50%;
+        @media (min-width: $screen-lg) {
+          width: 55%;
         }
-        > div {
+        .input {
           border-left: 1px solid $gray-light;
           display: inline-block;
           margin-left: 10px;
           line-height: 1.4;
-          width: 75%;
-        }
-        .gru-input {
-          display: inline-block;
-          width: 100%;
-          max-width: 100%;
-          .form-group {
+          width: 85%;
+          max-width: 85%;
+          .gru-input {
+            display: inline-block;
             width: 100%;
             max-width: 100%;
-            border: 0;
-            margin-bottom: 10px;
+            .form-group {
+              width: 100%;
+              max-width: 100%;
+              border: 0;
+              margin-bottom: 10px;
+            }
           }
         }
       }
@@ -246,6 +247,10 @@
           button.more-details {
             border: 2px solid $light-500;
             padding: 4px 7px;
+            i {
+              font-size: $font-size-h4;
+              margin: 0 5px 0 0;
+            }
           }
         }
       }
