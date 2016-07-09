@@ -17,10 +17,8 @@ const Validations = buildValidations({
 
   description: {
     validators: [
-      validator('presence', {
-        presence: true,
-        message: '{{description}}',
-        descriptionKey: 'common.errors.add-question-description'
+      validator('presence-html', {
+        messageKey: 'common.errors.add-question-description'
       })
     ]
   }
