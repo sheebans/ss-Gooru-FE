@@ -22,7 +22,13 @@ export default PlayerController.extend({
    * Should resource navigation in the player be disabled?
    * @property {Lesson}
    */
-  isNavigationDisabled: false,
+  isNavigationDisabled: Ember.computed('collection.bidirectional', function() {
+    var isDisabled = false;
+    if (this.get('collection.isAssessment')) {
+      isDisabled = !this.get('collection.bidirectional');
+    }
+    return isDisabled;
+  }),
 
   /**
    * The lesson for this collection
