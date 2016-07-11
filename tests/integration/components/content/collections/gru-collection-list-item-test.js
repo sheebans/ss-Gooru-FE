@@ -89,12 +89,15 @@ test('it renders questions correctly', function (assert) {
   const $actions = $container.find('> .detail > .actions');
   assert.ok($actions.length, 'Actions container');
 
+  console.log($actions.find('button:eq(3)').html);
+
   assert.ok($actions.find('button:eq(0)').hasClass('add-item'), 'First action button');
   assert.ok($actions.find('button:eq(1)').hasClass('narration'), 'Second action button');
   assert.ok($actions.find('button:eq(2)').hasClass('delete-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(3)').hasClass('move-item'), 'Fourth action button');
-  assert.ok($actions.find('button:eq(4)').hasClass('copy-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(5)').hasClass('edit-item'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(3)').hasClass('copy-to'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(4)').hasClass('move-item'), 'Five action button');
+  assert.ok($actions.find('button:eq(5)').hasClass('copy-item'), 'Six action button');
+  assert.ok($actions.find('button:eq(6)').hasClass('edit-item'), 'Seven action button');
 
   Object.keys(QUESTION_CONFIG).forEach(function(question_type) {
     // Check subtitle specific to each question type
