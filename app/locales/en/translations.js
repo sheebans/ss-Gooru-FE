@@ -1195,7 +1195,7 @@ export default {
       },
       "insert-expression": "Insert",
       "update-expression": "Update",
-      "select-expression": "Select Expression"
+      "create-expression": "Create Expression"
     }
   }
 };
