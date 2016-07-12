@@ -39,9 +39,9 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * @property {boolean} areAnswerLinksHidden - Should answer links be hidden?
+   * @property {boolean} areQuestionLinksHidden - Should answer links be hidden?
    */
-  areAnswerLinksHidden: false,
+  areQuestionLinksHidden: false,
 
   /**
    * @property {AssessmentResult} assessment
