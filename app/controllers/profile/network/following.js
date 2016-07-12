@@ -27,6 +27,17 @@ export default Ember.Controller.extend({
           user.set('followers', user.get('followers') - 1);
           user.set('isFollowing', false);
         });
+    },
+    followUser: function (user) {
+      var controller = this;
+      var userId = user.id;
+      var countFollowings = controller.get('countFollowings');
+
+      controller.get('profileService').followUserProfile(userId)
+        .then(function () {
+          user.set('followers', user.get('followers') + 1);
+          user.set('isFollowing', true);
+        });
     }
   },
   // -------------------------------------------------------------------------

@@ -30,7 +30,7 @@ export default Ember.Component.extend({
     setFollow:function(){
       var component = this;
       var user = component.get('user');
-
+      component.set('isFollowing', true);
       component.sendAction("onFollowUser", user);
     }
   },
@@ -49,6 +49,11 @@ export default Ember.Component.extend({
   /**
    * @property {Number} counter of user followers
    */
-  countFollowers: Ember.computed.alias("user.followers")
+  countFollowers: Ember.computed.alias("user.followers"),
+
+  isFollowing: Ember.computed('user',function(){
+    let user = this.get('user');
+    return this.get('myFollowings').findBy('id',user.id);
+  })
 
 });

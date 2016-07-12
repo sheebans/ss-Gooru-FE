@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="follow-btn">
-          {{#if user.isFollowing}}
+          {{#if isFollowing}}
             <button class="btn btn-sm btn-unfollow" {{action 'unFollow'}}>
               <span class="unfollow">{{t "common.unfollow"}}</span>
               <span class="following">{{t "common.following"}}</span>
