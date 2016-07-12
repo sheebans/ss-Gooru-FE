@@ -81,9 +81,19 @@
   .actions.resource-new{
     margin-top: 10px;
   }
-  .panel.active{
-    opacity:0.6;
+
+  .resource-types > .panel {
+
+    &.disabled {
+      opacity: 0.25;
+      cursor: default !important;
+    }
+
+    &.active {
+      opacity:0.6;
+    }
   }
+
   .existing-resource-message{
     height: 285px;
     border: 1px solid $light-200;

@@ -144,8 +144,10 @@ export default Ember.Component.extend({
     },
 
     selectUploadType: function(uploadType) {
-      this.set('resource.format', uploadType.value);
-      this.set('resource.extensions', uploadType.validExtensions);
+      if (!uploadType.disabled) {
+        this.set('resource.format', uploadType.value);
+        this.set('resource.extensions', uploadType.validExtensions);
+      }
     }
   },
 
