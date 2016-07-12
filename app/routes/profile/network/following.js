@@ -27,7 +27,7 @@ export default Ember.Route.extend({
     if(profile.get("id")!= this.get('session.userId')){
       myFollowings = this.get("profileService").readFollowing(this.get('session.userId'));
     }
-    //followers
+    //followings
     var followings = this.get("profileService").readFollowing(profile.get("id"));
 
     return Ember.RSVP.hash({
