@@ -47,7 +47,9 @@
       </span>
     </div>
     <div class="bubbles">
-      {{gru-bubbles bubbleOptions=resourceLinks onBubbleSelect='bubbleSelect'}}
+      {{#if (not areAnswerLinksHidden)}}
+        {{gru-bubbles bubbleOptions=resourceLinks onBubbleSelect='bubbleSelect'}}
+      {{/if}}
     </div>
   </div>
 </div>
