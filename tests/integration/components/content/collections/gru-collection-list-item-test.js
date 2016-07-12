@@ -136,3 +136,79 @@ test('it expands/collapses the narration panel', function (assert) {
   assert.ok($panel.hasClass('collapsed'), 'Narration Panel collapsed after clicking narration button');
 
 });
+
+test('it expands/collapses the edit question inline panel', function (assert) {
+
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'question'
+  });
+
+  this.set('question', question);
+  this.set('index', 0);
+  this.render(hbs`{{content/collections/gru-collection-list-item model=question index=index}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  assert.ok($panel.length, 'Panel');
+  assert.ok($panel.hasClass('collapsed'), 'Panel collapsed');
+
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+
+  assert.ok($panel.hasClass('expanded'), 'Edit Question Panel expanded after clicking edit button');
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  assert.ok($panelBody.length, 'panel body');
+
+  assert.ok($panelBody.find('.question h3').length, "Missing Question label");
+  assert.ok($panelBody.find('.question textarea').length, "Missing text area");
+  assert.ok($panelBody.find('.question .add-image').length, "Missing add image button");
+  assert.ok($panelBody.find('.answers h3').length, "Missing Answer label");
+  assert.ok($panelBody.find('.answers .instructions').length, "Missing Answer Instructions");
+
+  const $actions = $panelBody.find('.actions');
+  assert.ok($actions.length, 'Actions container');
+
+  assert.ok($actions.find('button:eq(0)').hasClass('cancel'), 'First action button');
+  assert.ok($actions.find('button:eq(1)').hasClass('save'), 'Second action button');
+
+  $panel.find('.detail .actions .cancel').click();
+  assert.ok($panel.hasClass('collapsed'), 'Edit Question Panel collapsed after clicking cancel button');
+
+});
+
+test('it expands/collapses the edit resource inline panel', function (assert) {
+
+  const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'resource'
+  });
+
+  this.set('resource', resource);
+  this.set('index', 0);
+  this.render(hbs`{{content/collections/gru-collection-list-item model=resource index=index}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  assert.ok($panel.length, 'Panel');
+  assert.ok($panel.hasClass('collapsed'), 'Panel collapsed');
+
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+
+  assert.ok($panel.hasClass('expanded'), 'Edit Resource Panel expanded after clicking edit button');
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  assert.ok($panelBody.length, 'panel body');
+
+  assert.ok($panelBody.find('.narration .gru-textarea').length, 'Narration Field');
+
+  const $actions = $panelBody.find('.actions');
+  assert.ok($actions.length, 'Actions container');
+
+  assert.ok($actions.find('button:eq(0)').hasClass('cancel'), 'First action button');
+  assert.ok($actions.find('button:eq(1)').hasClass('save'), 'Second action button');
+
+  $panel.find('.detail .actions .cancel').click();
+  assert.ok($panel.hasClass('collapsed'), 'Edit Resource Panel collapsed after clicking cancel button');
+
+});

@@ -61,9 +61,9 @@ module.exports = function (environment) {
   };
 
   ENV['teamsHosts'] = {
-    'localhost' : 'teams.gooru.org',            // Development
-    'qa.gooruweb.edify.cr' : 'teams.gooru.org', // Edify-QA
-    'nucleus-qa.gooru.org' : 'teams.gooru.org', // Nucleus-QA
+    'localhost' : 'teams-qa.gooru.org',            // Development
+    'qa.gooruweb.edify.cr' : 'teams-qa.gooru.org', // Edify-QA
+    'nucleus-qa.gooru.org' : 'teams-qa.gooru.org', // Nucleus-QA
     'www.gooru.org' : 'teams.gooru.org'         // Production
   };
 
