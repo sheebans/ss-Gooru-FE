@@ -223,6 +223,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
   correctAnswerNotSelected: false,
 
   /**
+   * @property {String} Error message to display below the description
+   */
+  descriptionError: null,
+
+  /**
    * @property {Boolean} Indicates if a Hot spot answer has images
    */
   hasNoImages: false,
@@ -331,7 +336,6 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     let question = component.get('question');
 
     editedQuestion.validate().then(function ({ model, validations }) {
-
       if (validations.get('isValid')) {
         var defaultTitle= component.get('i18n').t('common.new-question').string;
         var defaultText= component.get('i18n').t('common.new-question-text').string;
@@ -350,13 +354,16 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
             component.set('isEditing', false);
             component.set('isBuilderEditing', false);
             question.merge(editedQuestion, ['title','standards','audience', 'depthOfknowledge']);
-          }.bind(this))
+          })
           .catch(function (error) {
             var message = component.get('i18n').t('common.errors.question-not-updated').string;
             component.get('notifications').error(message);
             Ember.Logger.error(error);
-          }.bind(component));
+          });
       }
+      // Add the description message to the equation editor
+      component.set('descriptionError', model.get('validations.attrs.description.messages')[0]);
+
       component.set('didValidate', true);
     });
   },

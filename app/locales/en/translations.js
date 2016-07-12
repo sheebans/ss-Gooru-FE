@@ -129,6 +129,7 @@ export default {
       "add-username": "Please enter a username.",
       "add-course-title": "Please enter the course title.",
       "add-question-answer-text": "Please enter the answer choice text.",
+      "add-question-description": "Please enter the question.",
       "add-question-title": "Please enter the question title.",
       "assessment-title-presence": "Please enter the assessment title.",
       "can-not-join-class": "Oops! Unable to join classroom. Please try again shortly.",
@@ -1201,7 +1202,7 @@ export default {
       },
       "insert-expression": "Insert",
       "update-expression": "Update",
-      "select-expression": "Select Expression"
+      "create-expression": "Create Expression"
     }
   },
 

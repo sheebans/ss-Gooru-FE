@@ -60,6 +60,15 @@ export default Ember.Object.extend(Validations, CollectionBase, {
   /**
    * @property {string}
    */
-  showKey: null
+  showKey: null,
+
+  toPlayerCollection: function() {
+    var collection = this._super(...arguments);
+    collection.set('attempts', this.attempts);
+    collection.set('bidirectional', this.bidirectional);
+    collection.set('showFeedback', this.showFeedback);
+    collection.set('showKey', this.showKey);
+    return collection;
+  }
 
 });

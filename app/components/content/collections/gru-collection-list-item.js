@@ -38,6 +38,11 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
   questionService: Ember.inject.service("api-sdk/question"),
 
   /**
+   * @property {Service} profile service
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
    * @requires service:notifications
    */
   notifications: Ember.inject.service(),
@@ -46,6 +51,11 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * @requires service:i18n
    */
   i18n: Ember.inject.service(),
+
+  /**
+   * @property {Service} session
+   */
+  session: Ember.inject.service('session'),
 
 
   // -------------------------------------------------------------------------
@@ -88,6 +98,25 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
         this.actions.showModal.call(this,
           'content.modals.gru-remove-content',
           $.extend(model, collectionItem), null, null, null, false);
+      }
+    },
+    copyTo:function(builderItem){
+      const component = this;
+      if (component.get('session.isAnonymous')) {
+        component.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        let assessmentsPromise = Ember.RSVP.resolve(null);
+        if(builderItem.format === "question") {
+          assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
+        }
+        assessmentsPromise.then(function(assessments) {
+          return component.get('profileService').readCollections(component.get('session.userId'))
+            .then(function(collections) {
+              return { content: builderItem, collections, assessments };
+            });
+        }).then(
+            model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
+        );
       }
     },
 

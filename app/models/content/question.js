@@ -13,6 +13,14 @@ const Validations = buildValidations({
         descriptionKey: 'common.errors.add-question-title'
       })
     ]
+  },
+
+  description: {
+    validators: [
+      validator('presence-html', {
+        messageKey: 'common.errors.add-question-description'
+      })
+    ]
   }
 });
 
