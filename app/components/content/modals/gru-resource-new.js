@@ -163,7 +163,7 @@ export default Ember.Component.extend({
     var urlResource = urlResourceFactory.create(Ember.getOwner(this).ownerInjection(), { url: null, title:null, format:RESOURCE_TYPES[0] });
 
     var uploadResourceFactory = Resource.extend(resourceValidations.getValidationsFor(['description', 'format', 'title']));
-    var uploadResource = uploadResourceFactory.create(Ember.getOwner(this).ownerInjection(), { title:null, format: UPLOADABLE_TYPES[0].value });
+    var uploadResource = uploadResourceFactory.create(Ember.getOwner(this).ownerInjection(), { title:null, format: UPLOADABLE_TYPES[5].value });
 
     this.set('urlResource', urlResource);
     this.set('uploadResource', uploadResource);
