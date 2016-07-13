@@ -148,3 +148,36 @@ test('User Network Card Layout - Followers Filter - Follow implementation', func
 
   $followButton.click();
 });
+test('User Network Card Layout - When the user on the session its the same than the user in the card', function(assert) {
+  var user =Ember.Object.create(
+    {
+      displayName:"Pochita",
+      schoolDistrict:"District Name",
+      followers:115,
+      followings:200,
+      isFollowing: false,
+      id:1234
+    });
+  var myFollowings=Ember.A([
+    Ember.Object.create({
+      fullNameInformal:"Lisa Keller",
+      districtName:"District Name",
+      totalFollowers:115,
+      totalFollowing:200,
+      isFollowing: true,
+      id:12344799
+    }),
+  ]);
+
+  this.set('user', user);
+
+  this.set('myFollowings', myFollowings);
+  this.set('isMyProfile', true);
+
+  this.render(hbs`{{cards/gru-user-network-card user=user myFollowings=myFollowings isMyProfile=isMyProfile}}`);
+  var $component = this.$();
+  const $userNetworkCard = $component.find(".gru-user-network-card");
+  var $followButton = $userNetworkCard.find(".panel-footer .follow-btn button.btn-follow");
+  T.notExists(assert, $followButton, "Missing Follow Button");
+
+});
