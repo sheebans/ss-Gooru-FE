@@ -8,7 +8,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-
+  session: Ember.inject.service("session"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -50,10 +50,24 @@ export default Ember.Component.extend({
    * @property {Number} counter of user followers
    */
   countFollowers: Ember.computed.alias("user.followers"),
+  /**
+   * @property {Array} list of followings
+   */
+  myFollowings:null,
 
+  /**
+   * @property {Boolean} check if the session user follow the user in the card
+   */
   isFollowing: Ember.computed('user',function(){
     let user = this.get('user');
     return this.get('myFollowings').findBy('id',user.id);
-  })
-
+  }),
+  /**
+   * @property {Boolean} check if the session user is the same user in the card
+   */
+  isMyProfile:Ember.computed('user',function(){
+      let user = this.get('user');
+      return user.id === this.get('session.userId')
+    }
+  )
 });
