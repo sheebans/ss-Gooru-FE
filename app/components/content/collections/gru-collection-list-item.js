@@ -57,7 +57,21 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    */
   session: Ember.inject.service('session'),
 
+  // -------------------------------------------------------------------------
+  // Events
 
+  /**
+   * Overwrites didInsertElement hook.
+   */
+  didInsertElement: function() {
+    this._super(...arguments);
+    const component = this;
+
+
+    component.$('.actions .item-actions button').on('touchstart', function (e) {
+        component.$('.actions .item-actions button').tooltip('destroy');
+    });
+  },
   // -------------------------------------------------------------------------
   // Actions
 
