@@ -56,6 +56,10 @@ test('normalizeReadAssessment', function(assert) {
     'visible_on_profile': true,
     thumbnail: 'image-id.png',
     taxonomy: {},
+    setting: {
+      'attempts_allowed': 5,
+      'bidirectional_play': false
+    },
     format: 'assessment-external',
     url: "any",
     "metadata": {
@@ -74,6 +78,8 @@ test('normalizeReadAssessment', function(assert) {
   assert.equal(assessment.get('url'), 'any', 'Wrong url');
   assert.equal(assessment.get("audience"), 1, 'Wrong audience');
   assert.equal(assessment.get("depthOfknowledge"), 4, 'Wrong depthOfknowledge');
+  assert.equal(assessment.get("setting.attempts_allowed"), 5, 'Wrong attempts allowed');
+  assert.equal(assessment.get("setting.bidirectional_play"), false, 'Wrong direction setting');
 });
 
 test('serializeReorderAssessment', function(assert) {

@@ -14,7 +14,6 @@ export default PlayerController.extend({
   // Dependencies
   realTimeService: Ember.inject.service("api-sdk/real-time"),
 
-
   // -------------------------------------------------------------------------
   // Properties
   /**

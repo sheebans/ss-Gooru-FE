@@ -96,6 +96,11 @@ export default Ember.Object.extend({
   standards: Ember.A(),
 
   /**
+   * @property {Array} List of settings associated to the assessment
+   */
+  setting: Ember.A(),
+
+  /**
    * @property {boolean} hasResources
    */
   hasResources: Ember.computed.bool("resources.length"),
@@ -174,5 +179,3 @@ export default Ember.Object.extend({
   }
 
 });
-
-

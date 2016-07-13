@@ -80,7 +80,6 @@ export default Ember.Object.extend({
     const thumbnailUrl = assessmentData.thumbnail ?
     basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
     const metadata = assessmentData.metadata || {};
-
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
@@ -91,6 +90,7 @@ export default Ember.Object.extend({
       sequence: assessmentData.sequence_id,
       thumbnailUrl: thumbnailUrl,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy),
+      setting: assessmentData.setting,
       format: assessmentData.format,
       url: assessmentData.url,
       metadata: metadata,
@@ -126,4 +126,3 @@ export default Ember.Object.extend({
 
 
 });
-

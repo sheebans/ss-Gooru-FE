@@ -53,7 +53,12 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     // Call parent method
     controller.set("onAir", true); //TODO check for onAir
     controller.set("lesson", model.lesson);
-
+    if (model.collection.collectionType == "collection"){
+      controller.set('showContent',true);
+    }else {
+      controller.set('assessmentSetting', model.collection.setting);
+      controller.set('assessmentTitle', model.collection.title);
+    }
     this._super(...arguments);
 
   },

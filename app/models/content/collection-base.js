@@ -239,6 +239,7 @@ export default (function() {
         remixes: model.get("remixCount"),
         views: null, //TODO missing
         imageUrl: model.get("thumbnailUrl"),
+        setting: model.get('setting'),
         url: null, //TODO missing
         author: model.get("owner.displayName"),
         authorId: model.get("owner.id"),

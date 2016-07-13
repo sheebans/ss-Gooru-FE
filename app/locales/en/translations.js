@@ -685,6 +685,20 @@ export default {
     "add-to-assessment": "Add to assessment or collection",
     "add-to-assessment-lead": "Choose an assessment you want to add {{contentTitle}} to"
   },
+  "gru-assessment-confirmation":{
+    "title": "You are about to start an assessment...",
+    "description": "In this assessment, {{model.title}}",
+    "setting-forward": "You can navigate forward only",
+    "setting-forward-backward": "You can navigate forward and backwards to answer questions",
+    "unlimited-attempts-left": 'You have unlimited attempts',
+    "attempts-left": {
+      'one':"You have 1 attempt left",
+      'other':"You have {{count}} attempts"
+    },
+    "unlimited-attempts":"You have unlimited attempts",
+    "cancel": "Cancel",
+    "start": "Start!"
+  },
   "gru-quick-course-search": {
     "add-from-course": "Add from Existing Course",
     "view-featured-courses": "View Featured Courses",
