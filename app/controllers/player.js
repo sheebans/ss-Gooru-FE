@@ -328,7 +328,7 @@ export default Ember.Controller.extend(SessionMixin, {
       context.set("isStudent", controller.get("isStudent"));
       return controller.saveCollectionResult(assessmentResult, context);
     }
-    this.set('showContent',true);
+    controller.set('showContent',true);
     return promise;
   },
 
