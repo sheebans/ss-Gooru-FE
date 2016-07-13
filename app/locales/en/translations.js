@@ -1057,7 +1057,8 @@ export default {
   "gru-assessment-report": {
     "gru-summary": {
       "total-time-spent": "Total Time Spent"
-    }
+    },
+    "hidden-report": "Your teacher has selected to hide your summary report for this assessment."
   },
   "cards": {
     "gru-class-card": {

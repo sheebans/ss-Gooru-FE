@@ -16,6 +16,27 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   session: Ember.inject.service("session"),
 
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment result
+   */
+  userSessionService: Ember.inject.service("api-sdk/user-session"),
+
+  /**
+   * @property {AssessmentService} Service to retrieve an assessment
+   */
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
+
+  /**
+   * @property {CollectionService} Service to retrieve a collection
+   */
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
+   * @property {LessonService} Service to retrieve a lesson
+   */
+  lessonService: Ember.inject.service("api-sdk/lesson"),
+
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -39,29 +60,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       }
     }
   },
-
-  // -------------------------------------------------------------------------
-  // Properties
-  /**
-   * @property {Ember.Service} Service to retrieve an assessment result
-   */
-  userSessionService: Ember.inject.service("api-sdk/user-session"),
-
-  /**
-   * @property {AssessmentService} Service to retrieve an assessment
-   */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
-
-  /**
-   * @property {CollectionService} Service to retrieve a collection
-   */
-  collectionService: Ember.inject.service("api-sdk/collection"),
-
-  /**
-   * @property {LessonService} Service to retrieve a lesson
-   */
-  lessonService: Ember.inject.service("api-sdk/lesson"),
-
 
   // -------------------------------------------------------------------------
   // Methods
