@@ -191,7 +191,6 @@ export default Ember.Route.extend({
     controller.set("saveEnabled", hasUserSession);
     controller.set("context", model.context);
     controller.set("assessmentResult", assessmentResult);
-    // Everything the startAssessment method needs to function should be provided to the method, not assume that the context in which the function is being ran from has these properties required for the method to function
 
     controller.set("showReport", assessmentResult.get("submitted"));
 

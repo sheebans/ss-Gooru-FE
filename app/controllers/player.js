@@ -322,7 +322,7 @@ export default Ember.Controller.extend(SessionMixin, {
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
 
-    if (!assessmentResult || !assessmentResult.get("started")){
+    if (!assessmentResult.get("started")){
       assessmentResult.set("startedAt", new Date());
       context.set("eventType", "start");
       context.set("isStudent", controller.get("isStudent"));

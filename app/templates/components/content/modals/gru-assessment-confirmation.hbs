@@ -4,7 +4,7 @@
 <div class="modal-body">
   <span class="lead description">{{t 'gru-assessment-confirmation.description'}} {{model.title}}</span>
   <div class="setting info">
-    {{#if model.setting.bidirectional_play}}
+    {{#if model.bidirectional}}
       {{gru-icon name='swap_horiz'}}
       <p class="lead">
         {{t "gru-assessment-confirmation.setting-forward-backward"}}
@@ -22,7 +22,7 @@
       {{#if unlimited}}
         {{t "gru-assessment-confirmation.unlimited-attempts-left"}}
       {{else}}
-        {{t "gru-assessment-confirmation.attempts-left" count=model.setting.attempts_allowed}}
+        {{t "gru-assessment-confirmation.attempts-left" count=model.attempts}}
       {{/if}}
     </p>
   </div>

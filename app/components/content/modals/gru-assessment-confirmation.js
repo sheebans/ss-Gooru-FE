@@ -26,7 +26,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    this.set('unlimited', this.get('model.setting.attempts_allowed')==-1 ? true : false);
+    this.set('unlimited', this.get('model.attempts')==-1 ? true : false);
 
   },
 

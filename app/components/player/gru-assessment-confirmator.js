@@ -21,13 +21,14 @@ export default Ember.Component.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Properties
-  settings: null,
+  direction: null,
 
   attempts:null,
   didInsertElement() {
     this._super(...arguments);
     var model = {
-      setting: this.get('setting'),
+      direction: this.get('direction'),
+      attempts: this.get('attempts'),
       title: this.get('title'),
       onStart: function() {
         return this.sendAction('onStart');
