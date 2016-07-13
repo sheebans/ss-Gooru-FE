@@ -136,7 +136,12 @@ export default Ember.Component.extend({
     },
 
     selectFile: function(file) {
-      this.set('resource.file', file);
+      if (file) {
+        let uploadType = this.inferUploadType(file.name, UPLOADABLE_TYPES);
+
+        this.set('resource.file', file);
+        this.actions.selectUploadType.call(this, uploadType);
+      }
     },
 
     selectType: function(type){
@@ -144,7 +149,7 @@ export default Ember.Component.extend({
     },
 
     selectUploadType: function(uploadType) {
-      if (!uploadType.disabled) {
+      if (uploadType && !uploadType.disabled) {
         this.set('resource.format', uploadType.value);
         this.set('resource.extensions', uploadType.validExtensions);
       }
@@ -232,6 +237,20 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
+  inferUploadType: function(filename, uploadTypes) {
+    var extension = filename.substr(filename.lastIndexOf('.'));
+    var selectedType = null;
+
+    for (let i = uploadTypes.length - 1; i >= 0; i--) {
+      let type = uploadTypes[i];
+      if (type.validExtensions.indexOf(extension) >= 0) {
+        selectedType = type;
+        break;
+      }
+    }
+    return selectedType
+  },
 
   /**
    * Create a resource (url/upload)
