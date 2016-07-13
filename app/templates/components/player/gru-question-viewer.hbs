@@ -54,15 +54,19 @@
           {{component (questionConfig question.questionType 'component.player')
           userAnswer=questionResult.userAnswer
           question=question
-          readOnly=submitted
+          readOnly=isInputDisabled
           onAnswerChanged="changeAnswer"
           onAnswerCleared="clearAnswer"
           onAnswerCompleted="completeAnswer"}}
-            <div class="actions">
-                <button type="submit" class="save btn btn-success" disabled="{{if isSubmitDisabled true null}}">{{t buttonTextKey}}</button>
+          <div class="actions">
+            <button type="submit" class="save btn btn-success" disabled="{{if isSubmitDisabled true null}}">{{t buttonTextKey}}</button>
+          </div>
+          {{#if showFeedback}}
+            <div class="feedback">
+              {{t isCorrectMessageKey}}
             </div>
+          {{/if}}
         </form>
       </div>
     </div>
 </div>
-
