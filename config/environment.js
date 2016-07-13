@@ -61,9 +61,9 @@ module.exports = function (environment) {
   };
 
   ENV['teamsHosts'] = {
-    'localhost' : 'teams.gooru.org',            // Development
-    'qa.gooruweb.edify.cr' : 'teams.gooru.org', // Edify-QA
-    'nucleus-qa.gooru.org' : 'teams.gooru.org', // Nucleus-QA
+    'localhost' : 'teams-qa.gooru.org',            // Development
+    'qa.gooruweb.edify.cr' : 'teams-qa.gooru.org', // Edify-QA
+    'nucleus-qa.gooru.org' : 'teams-qa.gooru.org', // Nucleus-QA
     'www.gooru.org' : 'teams.gooru.org'         // Production
   };
 
@@ -110,7 +110,7 @@ module.exports = function (environment) {
       'default-src': "'none'",
       'script-src': "'self'",
       'font-src': "'self' https://fonts.gstatic.com",
-      'connect-src': "'self' http://localhost:4200 ws://localhost:4200 http://localhost:8882 http://qa.gooru.org",
+      'connect-src': "'self' http://localhost:4200 ws://localhost:4200 http://localhost:8882 http://qa.gooru.org http://nucleus-qa.gooru.org",
       'img-src': "'self' data: http://qacdn.gooru.org http://profile-images.goorulearning.org.s3.amazonaws.com " +
         "http://dev-content-gooru-org.s3-us-west-1.amazonaws.com http://dev-user-gooru-org.s3-us-west-1.amazonaws.com",
       'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",

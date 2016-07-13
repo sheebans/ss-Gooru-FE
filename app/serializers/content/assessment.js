@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { cleanFilename } from 'gooru-web/utils/utils';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
-import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import { DEFAULT_IMAGES, ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 /**
@@ -60,7 +60,16 @@ export default Ember.Object.extend({
       learning_objective: assessmentModel.get("learningObjectives"),
       visible_on_profile: assessmentModel.get('isVisibleOnProfile'),
       thumbnail: !Ember.isEmpty(thumbnail) ? thumbnail : null,
-      'metadata': assessmentModel.get('metadata') || {}
+      'metadata': assessmentModel.get('metadata') || {
+        audience: [],
+        depth_of_knowledge: []
+      },
+      setting: {
+        bidirectional_play: assessmentModel.get('bidirectional') || false,
+        show_feedback: assessmentModel.get('showFeedback') || ASSESSMENT_SHOW_VALUES.SUMMARY,
+        show_key: assessmentModel.get('showKey') ? ASSESSMENT_SHOW_VALUES.SUMMARY : ASSESSMENT_SHOW_VALUES.NEVER,
+        attempts_allowed: assessmentModel.get('attempts') || -1
+      }
     };
 
     serializedAssessment.metadata['audience']= (assessmentModel.get("audience")) ? assessmentModel.get("audience") : [];
@@ -80,6 +89,8 @@ export default Ember.Object.extend({
     const thumbnailUrl = assessmentData.thumbnail ?
     basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
     const metadata = assessmentData.metadata || {};
+    const settings = assessmentData.setting || {};
+
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
@@ -96,7 +107,11 @@ export default Ember.Object.extend({
       metadata: metadata,
       audience: metadata["audience"] && metadata["audience"].length > 0 ? metadata["audience"] : [],
       depthOfknowledge: metadata["depth_of_knowledge"] && metadata["depth_of_knowledge"].length > 0 ? metadata["depth_of_knowledge"] : [],
-      courseId: assessmentData['course_id']
+      courseId: assessmentData['course_id'],
+      attempts: settings.attempts_allowed || -1,
+      bidirectional: settings.bidirectional_play || false,
+      showFeedback: settings.show_feedback || ASSESSMENT_SHOW_VALUES.SUMMARY,
+      showKey: settings.show_key === ASSESSMENT_SHOW_VALUES.SUMMARY
     });
   },
 

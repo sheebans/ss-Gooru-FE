@@ -40,9 +40,10 @@ export default Ember.Route.extend({
     const route = this;
     const classModel = this.modelFor('class').class;
     if (classModel.isTeacher(route.get('session.userId'))){
-      route.transitionTo('class.analytics.performance.teacher', {
-        queryParams: route.paramsFor('class.analytics.performance.teacher')
-      });
+      // TODO We need to find a better solution for this. We have to comment this code because it is breaking the Teacher Analytics view.
+      //route.transitionTo('class.analytics.performance.teacher.course', {
+      //  queryParams: route.paramsFor('class.analytics.performance.teacher.course')
+      //});
     } else {
       route.transitionTo('class.analytics.performance.student', {
         queryParams: route.paramsFor('class.analytics.performance.student')

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+ import Ember from 'ember';
 import SessionMixin from '../mixins/session';
 import {generateUUID} from 'gooru-web/utils/utils';
 /**
@@ -202,8 +202,7 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   isNotIframeUrl: Ember.computed("resource", function(){
     const resource = this.get("resource");
-
-    return (resource && resource.displayGuide && (resource.displayGuide.is_broken ===1 || resource.displayGuide.is_frame_breaker ===1));
+    return (resource && resource.displayGuide);
   }),
 
   // -------------------------------------------------------------------------
