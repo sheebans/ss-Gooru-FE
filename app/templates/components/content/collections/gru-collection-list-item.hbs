@@ -71,8 +71,18 @@
     {{#if isEditingInline}}
       {{#if (eq model.format 'question')}}
         <div class="question">
-          <h3>{{t "common.question"}}</h3>
+          <div class="border-bottom">
+            <h3>{{t "common.question"}}</h3>
+            <span class="instructions">{{t (concat 'content.questions.edit.builder.question-instructions.' model.type)}}</span>
+          </div>
           {{gru-rich-text-editor content=tempModel.text}}
+          <div class="validation">
+            {{#if descriptionError}}
+              <span class="error">
+                {{descriptionError}}
+              </span>
+            {{/if}}
+          </div>
           <button class="add-image btn btn-sm btn-primary out-of-scope">{{t "common.add-question-image"}}</button>
         </div>
         <div class="answers">

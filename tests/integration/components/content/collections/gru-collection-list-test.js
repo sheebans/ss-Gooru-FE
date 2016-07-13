@@ -88,7 +88,7 @@ test('it renders correctly when there are questions and resources', function (as
 
   this.set('model', model);
   this.set('items', model.get('children'));
-  this.render(hbs`{{content/collections/gru-collection-list model=model items=items isSorting=true}}`);
+  this.render(hbs`{{content/collections/gru-collection-list model=model items=items isSorting=true editingContent=null}}`);
 
   const $component = this.$('.content.collections.gru-collection-list');
   assert.ok($component.length, 'Component');
@@ -123,7 +123,7 @@ test('Check reorder options', function (assert) {
 
   this.set('model', model);
   this.set('items', model.get('children'));
-  this.render(hbs`{{content/collections/gru-collection-list model=model items=items isSorting=true}}`);
+  this.render(hbs`{{content/collections/gru-collection-list model=model items=items isSorting=true editingContent=null}}`);
 
   const $component = this.$('.content.collections.gru-collection-list');
   assert.notOk($component.find('button.sort-items').length, 'Sort button should be hidden');
