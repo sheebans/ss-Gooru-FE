@@ -14,7 +14,7 @@
     @include flexbox;
     @include flex-wrap(wrap);
     @include justify-content(space-between);
-    width: calc(60% - 10px);
+    @include flex-grow(1);
     padding: 5px;
     .gru-radio {
       @include flex-shrink(0);
