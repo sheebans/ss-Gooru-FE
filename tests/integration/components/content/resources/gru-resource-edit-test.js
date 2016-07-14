@@ -222,6 +222,33 @@ test('Layout of preview section for text', function (assert) {
   assert.ok($settingsSection.find('.panel.preview .panel-body .gru-pdf-resource iframe').length, "PDF resource iframe");
 });
 
+test('Layout of preview section for a link out resource', function (assert) {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Text resource",
+    format: "text",
+    url: "http://example.com/sample.pdf",
+    displayGuide:true
+  });
+
+  this.set('resource', resource);
+  this.render(hbs`{{content/resources/gru-resource-edit resource=resource}}`);
+
+  var $container = this.$("article.content.resources.gru-resource-edit");
+  assert.ok($container.length, "Component");
+
+  const $section = $container.find('> section');
+  assert.ok($section.length, "Missing content section");
+
+  const $panel = $container.find('.not-iframe');
+  assert.ok($panel.length, "Missing not-iframe panel");
+
+  assert.ok($panel.find('.panel-header').length, "panel-header of not-iframe panel");
+  assert.ok($panel.find('.panel-body').length, "panel-body of not-iframe panel");
+  assert.ok($panel.find('.panel-body a').length, "view-resource-button");
+  assert.ok($panel.find('.panel-footer').length, "panel-footer of not-iframe panel");
+});
+
 test('Layout of the information section', function (assert) {
   var ResourceValidation = Resource.extend(EditResourceValidations);
   var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
