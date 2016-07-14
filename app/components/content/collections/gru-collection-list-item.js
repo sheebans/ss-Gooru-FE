@@ -66,10 +66,11 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
   didInsertElement: function() {
     this._super(...arguments);
     const component = this;
-    
-    component.$('.actions .item-actions button').on('touchstart', function (e) {
-        component.$('.actions .item-actions button').tooltip('destroy');
-    });
+
+    var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+    if (isTouch) {
+      component.$('.actions .item-actions button').tooltip('disable');
+    }
   },
   // -------------------------------------------------------------------------
   // Actions
