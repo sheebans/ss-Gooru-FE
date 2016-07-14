@@ -34,8 +34,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       .then(function(collection) {
         const courseId = collection.get('courseId');
         const isEditing = params.editing;
-        const editingContent = params.editingContent ? params.editingContent : null;
+        var editingContent = (params.editingContent && params.editingContent !=='null') ? params.editingContent : undefined;
         var course = null;
+
+        params.editingContent = editingContent;
 
         if (courseId) {
           course = route.get('courseService').fetchById(courseId);
@@ -45,7 +47,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           collection: collection,
           course: course,
           isEditing: !!isEditing,
-          editingContent: editingContent
+          editingContent: params.editingContent
         });
       });
   },

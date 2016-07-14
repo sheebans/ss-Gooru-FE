@@ -76,20 +76,25 @@ export default Ember.Component.extend({
                   }
                 })
                 .then(function() {
-                  component.onNewResource(resourceId, type);
-                  component.$('.resource-new button.add-btn').prop('disabled', false);
-                },
-                function (data) {
-                  if (data.resourceId) { //already exists
-                    component.displayExistingResource(data.resourceId);
+                    if(type === "edit") {
+                      component.onNewResource(resourceId);
+                    } else {
+                      component.get('router').router.refresh();
+                      component.triggerAction({ action: 'closeModal' });
+                    }
+                    component.$('.resource-new button.add-btn').prop('disabled', false);
+                  },
+                  function (data) {
+                    if (data.resourceId) { //already exists
+                      component.displayExistingResource(data.resourceId);
+                    }
+                    else {
+                      const message = component.get('i18n').t('common.errors.resource-not-created').string;
+                      component.get('notifications').error(message);
+                    }
+                    component.$('.resource-new button.add-btn').prop('disabled', false);
                   }
-                  else {
-                    const message = component.get('i18n').t('common.errors.resource-not-created').string;
-                    component.get('notifications').error(message);
-                  }
-                  component.$('.resource-new button.add-btn').prop('disabled', false);
-                }
-              );
+                );
             })
           }
           component.set('didValidate', true);
@@ -250,30 +255,18 @@ export default Ember.Component.extend({
    * After a resource is saved
    * @param {Resource} newResource
    */
-  onNewResource: function(newResourceId, type){
+  onNewResource: function(newResourceId){
     const component = this;
     component.triggerAction({ action: 'closeModal' });
 
     const collectionId = this.get("model.id");
-
-    if (type ==='edit') {
-      if (collectionId){
-        const queryParams = { queryParams: { collectionId: collectionId, editing: true } };
-        component.get('router').transitionTo('content.resources.edit', newResourceId, queryParams);
-      }
-      else{
-        const queryParams = { queryParams: { editing: true } };
-        component.get('router').transitionTo('content.resources.edit', newResourceId, queryParams);
-      }
+    if (collectionId){
+      const queryParams = { queryParams: { collectionId: collectionId, editing: true } };
+      component.get('router').transitionTo('content.resources.edit', newResourceId, queryParams);
     }
-    else {
-      if (collectionId){
-        const queryParams = { queryParams: { editingContent: newResourceId }};
-        component.get('router').transitionTo('content.collections.edit', collectionId, queryParams);
-      }
-      else{
-        component.get('router').router.refresh();
-      }
+    else{
+      const queryParams = { queryParams: { editing: true } };
+      component.get('router').transitionTo('content.resources.edit', newResourceId, queryParams);
     }
   },
 

@@ -155,7 +155,8 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     },
 
     editNarration: function () {
-      this.set('model.isExpanded', true);
+      this.set('isPanelExpanded', true);
+      this.set('isEditingNarration', true);
     },
 
     editInline: function () {
@@ -176,9 +177,12 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
               .then(function () {
                 component.set('model', editedModel);
                 model.merge(editedModel, ['title','narration']);
-                component.set('model.isExpanded', false);
-                component.set('isEditingInline', false);
-              }.bind(this))
+                component.setProperties({
+                  'isPanelExpanded': false,
+                  'isEditingInline': false,
+                  'isEditingNarration': false
+                });
+               }.bind(this))
               .catch(function (error) {
                 var message = component.get('i18n').t('common.errors.question-not-updated').string;
                 component.get('notifications').error(message);
@@ -190,8 +194,11 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     },
 
     cancel: function (){
-      this.set('model.isExpanded', false);
-      this.set('isEditingInline', false);
+      this.setProperties({
+        'isPanelExpanded': false,
+        'isEditingInline': false,
+        'isEditingNarration': false
+      });
     }
   },
 
@@ -203,13 +210,22 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
   didInsertElement: function(){
     var component = this;
 
-    this.set('tempModel', component.get('model').copy());
+    component.setProperties({
+      'isPanelExpanded': false,
+      'isEditingInline': false,
+      'isEditingNarration': false
+    });
 
-    const editingContent = component.get('editingContent');
-    const modelId = component.get('model.id');
+    if (component.get('model')){
 
-    if(editingContent===modelId){
-      component.showInlinePanel();
+      this.set('tempModel', component.get('model').copy());
+
+      const editingContent = component.get('editingContent');
+      const modelId = component.get('model.id');
+
+      if(editingContent && modelId && (editingContent===modelId)){
+        component.showInlinePanel();
+      }
     }
   },
 
@@ -263,6 +279,16 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * @property {Boolean} isEditingInline
    */
   isEditingInline: false,
+
+  /**
+   * @property {Boolean} isEditingNarration
+   */
+  isEditingNarration: false,
+
+  /**
+   * @property {Boolean} isPanelExpanded
+   */
+  isPanelExpanded: false,
 
   /**
    * @property {String} Error message to display below the description
@@ -343,12 +369,16 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
         }
         component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
           .then(function () {
-            Ember.run( function() {
-              component.set('model', editedQuestion);
-              component.set('model.isExpanded', false);
-              component.set('editingContent', null);
-              component.set('isEditingInline', false);
+            component.setProperties({
+              'model': editedQuestion,
+              'isPanelExpanded': false,
+              'isEditingInline': false,
+              'isEditingNarration': false
             });
+
+            if(component.get('editingContent')){
+              component.set('editingContent', null);
+            }
 
             question.merge(editedQuestion, ['title','narration']);
           })
@@ -457,7 +487,9 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * show Inline Edit Panel
    */
   showInlinePanel: function () {
-    this.set('model.isExpanded', true);
-    this.set('isEditingInline', true);
+    this.setProperties({
+      'isPanelExpanded': true,
+      'isEditingInline': true
+    });
   }
 });

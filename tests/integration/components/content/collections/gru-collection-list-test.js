@@ -15,7 +15,7 @@ moduleForComponent('content/collections/gru-collection-list', 'Integration | Com
 
 test('it renders correctly when there are no questions or resources', function (assert) {
 
-  var model = Collection.create({
+  var model = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: "Sample Collection Title"
   });
 
@@ -66,19 +66,19 @@ test('it renders correctly when there are no questions or resources', function (
 
 test('it renders correctly when there are questions and resources', function (assert) {
 
-  var model = Collection.create({
+  var model = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: "Sample Collection Title",
     children: Ember.A([
-      Resource.create({
+      Resource.create(Ember.getOwner(this).ownerInjection(), {
         format: 'text',
         title: 'Resource Title'
       }),
-      Question.create({
+      Question.create(Ember.getOwner(this).ownerInjection(),{
         format: 'question',
         type: 'MC',
         title: 'Question Title A'
       }),
-      Question.create({
+      Question.create(Ember.getOwner(this).ownerInjection(),{
         format: 'question',
         type: 'MA',
         title: 'Question Title B'
@@ -88,7 +88,8 @@ test('it renders correctly when there are questions and resources', function (as
 
   this.set('model', model);
   this.set('items', model.get('children'));
-  this.render(hbs`{{content/collections/gru-collection-list model=model items=items isSorting=true editingContent=null}}`);
+
+  this.render(hbs`{{content/collections/gru-collection-list model=model items=items isSorting=true}}`);
 
   const $component = this.$('.content.collections.gru-collection-list');
   assert.ok($component.length, 'Component');
@@ -101,19 +102,19 @@ test('it renders correctly when there are questions and resources', function (as
 
 test('Check reorder options', function (assert) {
 
-  var model = Collection.create({
+  var model = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: "Sample Collection Title",
     children: Ember.A([
-      Resource.create({
+      Resource.create(Ember.getOwner(this).ownerInjection(),{
         format: 'text',
         title: 'Resource Title'
       }),
-      Question.create({
+      Question.create(Ember.getOwner(this).ownerInjection(),{
         format: 'question',
         type: 'MC',
         title: 'Question Title A'
       }),
-      Question.create({
+      Question.create(Ember.getOwner(this).ownerInjection(),{
         format: 'question',
         type: 'MA',
         title: 'Question Title B'

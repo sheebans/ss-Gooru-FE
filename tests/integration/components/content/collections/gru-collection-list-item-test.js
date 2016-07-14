@@ -16,7 +16,7 @@ moduleForComponent('content/collections/gru-collection-list-item', 'Integration 
 
 test('it renders resources correctly', function (assert) {
 
-  const resource = Resource.create({
+  const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Resource Title'
   });
 
@@ -66,7 +66,7 @@ test('it renders resources correctly', function (assert) {
 
 test('it renders questions correctly', function (assert) {
 
-  const question = Question.create({
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question Title',
     format: 'question'
   });
@@ -180,7 +180,7 @@ test('it expands/collapses the edit question inline panel', function (assert) {
 test('it expands/collapses the edit resource inline panel', function (assert) {
 
   const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Question Title',
+    title: 'Resource Title',
     format: 'resource'
   });
 
@@ -195,6 +195,43 @@ test('it expands/collapses the edit resource inline panel', function (assert) {
   $panel.find('.detail.visible .actions button.edit-item i').click();
 
   assert.ok($panel.hasClass('expanded'), 'Edit Resource Panel expanded after clicking edit button');
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  assert.ok($panelBody.length, 'panel body');
+
+  assert.ok($panelBody.find('.narration .gru-textarea').length, 'Narration Field');
+
+  const $actions = $panelBody.find('.actions');
+  assert.ok($actions.length, 'Actions container');
+
+  assert.ok($actions.find('button:eq(0)').hasClass('cancel'), 'First action button');
+  assert.ok($actions.find('button:eq(1)').hasClass('save'), 'Second action button');
+
+  $panel.find('.detail .actions .cancel').click();
+  assert.ok($panel.hasClass('collapsed'), 'Edit Resource Panel collapsed after clicking cancel button');
+
+});
+
+test('show the edit inline panel when a content is added from the content builder', function (assert) {
+
+  const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'e7460e72-7708-4892-afcc-63756ffa410f',
+    title: 'Resource Title',
+    format: 'resource'
+  });
+
+  var editingContent = 'e7460e72-7708-4892-afcc-63756ffa410f';
+  this.set('resource', resource);
+  this.set('index', 0);
+
+  this.set('editingContent', editingContent);
+
+  this.render(hbs`{{content/collections/gru-collection-list-item model=resource index=index editingContent=editingContent}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  assert.ok($panel.length, 'Panel');
+  assert.ok($panel.hasClass('expanded'), 'Edit Resource Panel expanded');
 
   const $panelBody = $panel.find('> .panel-body');
 
