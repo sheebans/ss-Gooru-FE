@@ -21,9 +21,15 @@ export default Ember.Component.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {bool} Boolean used to determine whether you can navigate both ways on an assessment or only forward
+   */
   bidirectional: null,
-
+  /**
+   * @property {number} Ammount of attempts left on the assessment
+   */
   attempts:null,
+
   didInsertElement() {
     this._super(...arguments);
     var model = {
@@ -38,6 +44,7 @@ export default Ember.Component.extend(ModalMixin,{
       }.bind(this),
 
     };
+    
     this.actions.showModal.call(this,
       'content.modals.gru-assessment-confirmation',
       model);
