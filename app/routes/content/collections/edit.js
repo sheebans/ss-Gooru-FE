@@ -4,7 +4,10 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 export default Ember.Route.extend(PrivateRouteMixin, {
 
   queryParams: {
-    editing:{}
+    editing:{},
+    editingContent:{
+      refreshModel: true
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -31,7 +34,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       .then(function(collection) {
         const courseId = collection.get('courseId');
         const isEditing = params.editing;
+        var editingContent = (params.editingContent && params.editingContent !=='null') ? params.editingContent : undefined;
         var course = null;
+
+        params.editingContent = editingContent;
 
         if (courseId) {
           course = route.get('courseService').fetchById(courseId);
@@ -40,7 +46,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         return Ember.RSVP.hash({
           collection: collection,
           course: course,
-          isEditing: !!isEditing
+          isEditing: !!isEditing,
+          editingContent: params.editingContent
         });
       });
   },
@@ -49,6 +56,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('collection',  model.collection);
     controller.set('course', model.course);
     controller.set('isEditing', model.isEditing);
+    controller.set('editingContent', model.editingContent);
 
     if (model.isEditing) {
       controller.set('tempCollection', model.collection.copy());
