@@ -69,8 +69,7 @@ export default Ember.Component.extend({
    */
   isNotIframeUrl: Ember.computed("resource", function(){
     const resource = this.get("resource");
-
-    return (resource && resource.displayGuide && (resource.displayGuide.is_broken ===1 || resource.displayGuide.is_frame_breaker ===1));
+    return (resource && resource.displayGuide);
   }),
 
   // -------------------------------------------------------------------------

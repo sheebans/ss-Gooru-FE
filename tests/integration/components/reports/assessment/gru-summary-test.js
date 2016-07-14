@@ -62,8 +62,13 @@ test('it renders for assessment', function (assert) {
 
   assessmentResult.merge(collection);
   this.set('assessmentResult', assessmentResult);
+  this.set('areQuestionLinksHidden', false);
 
-  this.render(hbs`{{reports/assessment/gru-summary assessmentResult=assessmentResult}}`);
+  this.render(hbs`
+    {{reports/assessment/gru-summary
+      assessmentResult=assessmentResult
+      areQuestionLinksHidden=areQuestionLinksHidden
+    }}`);
 
   var $component = this.$('.reports.assessment.gru-summary');  //component dom element
   assert.ok($component.length, "Component does not have the component classes");
@@ -106,9 +111,12 @@ test('it renders for assessment', function (assert) {
   $overviewSection = $overviewContainer.find('.information .reaction');
   assert.ok($overviewSection.find('.emotion').hasClass('emotion-2'), "Emotion icon should have the class 'emotion-2'");
 
-  // Reaction
+  // Links to questions
   var $questionLinks = $overviewContainer.find('.gru-bubbles');
   assert.equal($questionLinks.find('li').length, 3, "Incorrect number of question links");
+
+  this.set('areQuestionLinksHidden', true);
+  assert.notOk($overviewContainer.find('.gru-bubbles').length, 'Question links hidden');
 });
 
 

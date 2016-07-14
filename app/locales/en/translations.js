@@ -19,6 +19,7 @@ export default {
     "add-content-prompt": "You haven't created <span>{{type}}</span> yet. Go on, be bold.",
     "add-course": "Add New Course",
     "add-domains-to-unit": "Add Domains to Unit",
+    "add-url": "Add URL",
     "add-from-url": "Add from URL",
     "add-lessons": "Add Lessons",
     "add-new-lesson": "Add New Lesson",
@@ -128,6 +129,7 @@ export default {
       "add-username": "Please enter a username.",
       "add-course-title": "Please enter the course title.",
       "add-question-answer-text": "Please enter the answer choice text.",
+      "add-question-description": "Please enter the question.",
       "add-question-title": "Please enter the question title.",
       "assessment-title-presence": "Please enter the assessment title.",
       "can-not-join-class": "Oops! Unable to join classroom. Please try again shortly.",
@@ -150,6 +152,8 @@ export default {
       "highlight-text-not-selected": "Please indicate the correct answer.",
       "highlight-text-wrong-format": "Incorrect question format.",
       "hotspot-text-max-choices": "You have reached the limit of answer choices.",
+      "file-max-size": "Only files of size smaller than 5MB are supported",
+      "file-upload-missing": "Please select a file with any of the following extensions: {{extensions}}",
       "lesson-not-copied": "Oops! Unable to copy lesson right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
@@ -197,6 +201,7 @@ export default {
     "explanation": "Explanation",
     "false": "False",
     "featured-courses": "Featured&ensp;Courses",
+    "file-name": "File name",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
@@ -228,6 +233,8 @@ export default {
     },
     "libraries": "Libraries",
     "license": "License",
+    "link-out":"Link-out",
+    "link-out-message":"*If your resource is not rendering in the preview above, it may need a “link-out” and cannot be viewed within the Gooru player.",
     "loading": "Loading ...",
     "login": "Log In",
     "logout": "Logout",
@@ -266,6 +273,8 @@ export default {
       other: "{{count}} Students"
     },
     "of": "of",
+    "off":"OFF",
+    "on":"ON",
     "other": "Other",
     "password": "Password",
     "pending": "Pending",
@@ -401,6 +410,8 @@ export default {
     "untitled-lesson": "Untitled Lesson",
     "untitled-unit": "Untitled Unit",
     "update-thumbnail": "Update Thumbnail",
+    "upload": "Upload",
+    "upload-file": "Upload File",
     "upload-thumbnail": "Upload Thumbnail",
     "use-case": "Use Case",
     "verified": "Verified",
@@ -926,9 +937,6 @@ export default {
 
   "gru-image-picker": {
     "chooseFile": "Choose a file ...",
-    "errors": {
-      "maxSize": "Only files of size smaller than 5MB are supported"
-    },
     "instruction": "Upload an image from a file on your computer.",
     "restriction": "The image must be a JPG, GIF or PNG file smaller than 5 MB.",
     "submit": "Use Image"
@@ -1049,7 +1057,8 @@ export default {
   "gru-assessment-report": {
     "gru-summary": {
       "total-time-spent": "Total Time Spent"
-    }
+    },
+    "hidden-report": "Your teacher has selected to hide your summary report for this assessment."
   },
   "cards": {
     "gru-class-card": {
@@ -1194,7 +1203,20 @@ export default {
       },
       "insert-expression": "Insert",
       "update-expression": "Update",
-      "select-expression": "Select Expression"
+      "create-expression": "Create Expression"
     }
+  },
+
+  "gru-settings-edit": {
+    "answerkey-attempts": "Answer Key and Attempts",
+    "answer-key": "Students can see the answer key at the end",
+    "attempts": "Attempts",
+    "attempts-unlimited": "Unlimited",
+    "backwards": "Students can navigate backwards and change responses",
+    "feedback": "Students see if they are correct/incorrect",
+    "feedback-immediate": "Per question & at the end",
+    "feedback-never": "Never",
+    "feedback-summary": "At the end",
+    "navigation-scoring": "Navigation and Scoring"
   }
 };

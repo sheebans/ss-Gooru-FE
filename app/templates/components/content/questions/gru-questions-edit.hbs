@@ -14,7 +14,7 @@
       {{#gru-share-pop-over tagName="button" type="question"}}
         {{gru-icon name="insert_link"}}
       {{/gru-share-pop-over}}
-      <button class="btn btn-default add"title="{{t 'common.add-to'}}" {{action "addToCollection"}}>{{t "content.questions.edit.add-to"}}</button>
+      <button class="btn btn-default copy" title="{{t 'common.copy-to'}}" {{action "addToCollection"}}>{{t "common.copy-to"}}</button>
       {{#link-to 'content.questions.play' question.id class="btn btn-default preview" tagName="button"}}{{t "common.preview"}}{{/link-to}}
   </div>
 
@@ -48,10 +48,17 @@
     <div class="panel-body">
       {{#if isBuilderEditing}}
         {{gru-rich-text-editor content=tempQuestion.text}}
+        <div class="validation">
+          {{#if descriptionError}}
+            <span class="error">
+              {{descriptionError}}
+            </span>
+          {{/if}}
+        </div>
         {{#if showImagePicker}}
           {{content.gru-image isEditing=true srcImage=question.thumbnail editImage=tempQuestion.thumbnail}}
         {{else}}
-          <button class="add-image btn btn-sm btn-primary" {{action "toggleImagePicker"}}>{{t "common.add-question-image"}}</button>
+            <button class="add-image btn btn-sm btn-primary" {{action "toggleImagePicker"}}>{{t "common.add-question-image"}}</button>
         {{/if}}
       {{else}}
         {{#if question.text}}
@@ -205,6 +212,4 @@
     </div>
 </section>
 
-<section id="settings">
-  {{partial 'content/partials/settings'}}
-</section>
+{{content.gru-settings-edit id="settings" action='publishToProfile' model=question}}

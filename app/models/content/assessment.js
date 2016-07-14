@@ -40,6 +40,35 @@ export default Ember.Object.extend(Validations, CollectionBase, {
   /**
    * @property {boolean}
    */
-  isExternalAssessment: Ember.computed.equal("format", CONTENT_TYPES.EXTERNAL_ASSESSMENT)
+  isExternalAssessment: Ember.computed.equal("format", CONTENT_TYPES.EXTERNAL_ASSESSMENT),
+
+  /**
+   * @property {integer}
+   */
+  attempts: -1,
+
+  /**
+   * @property {boolean}
+   */
+  bidirectional: false,
+
+  /**
+   * @property {string}
+   */
+  showFeedback: null,
+
+  /**
+   * @property {string}
+   */
+  showKey: null,
+
+  toPlayerCollection: function() {
+    var collection = this._super(...arguments);
+    collection.set('attempts', this.attempts);
+    collection.set('bidirectional', this.bidirectional);
+    collection.set('showFeedback', this.showFeedback);
+    collection.set('showKey', this.showKey);
+    return collection;
+  }
 
 });

@@ -106,6 +106,7 @@ test('Layout when navigator is closed', function(assert) {
 
 });
 
+/* TODO: Remove due to conflicts when there's an input in a question?
 test('Player Navigator keyup on left', function(assert) {
 
   assert.expect(2);
@@ -178,8 +179,132 @@ test('Player Navigator keyup on left', function(assert) {
   $navigator.trigger(e);
 
 });
+*/
 
+test('it allows navigation between resource links -by default', function(assert) {
 
+  assert.expect(3);
+  var selectCtr = 0;
+
+  const resourceMockA = Ember.Object.create({
+    id: '1',
+    title: 'Resource #1'
+  });
+
+  const resourceMockB = Ember.Object.create({
+    id: '2',
+    title: 'Resource #2'
+  });
+
+  const collectionMock = Ember.Object.create({
+    id: 'collection-id',
+    resources: Ember.A([
+      resourceMockA,
+      resourceMockB
+    ]),
+    getResourceById: function(id){
+      if (id === '1') {
+        return resourceMockA;
+      } else {
+        return resourceMockB;
+      }
+    }
+  });
+
+  this.on('externalAction', function(item) {
+    if (selectCtr === 0) {
+      assert.equal(item.get("id"), '2', "Resource item selected");
+    } else {
+      assert.equal(item.get("id"), '1', "Resource item selected");
+    }
+    ++selectCtr;
+  });
+
+  const resourceResults = Ember.A([
+    QuestionResult.create({ resource: resourceMockA }),
+    QuestionResult.create({ resource: resourceMockB })
+  ]);
+
+  this.set('resourceResults', resourceResults);
+  this.set('collection', collectionMock);
+
+  this.render(hbs`
+    {{player.gru-navigator
+      resourceResults=resourceResults
+      onItemSelected='externalAction'
+      collection=collection
+      selectedResourceId='1'}}`);
+
+  const $component = this.$('.gru-navigator');
+  assert.ok($component.find(".list-group-item:eq(0).selected").length, 'First item selected');
+
+  // Click on the second resource
+  $component.find(".list-group-item:eq(1)").click();
+
+  // Click on the first resource
+  $component.find(".list-group-item:eq(0)").click();
+});
+
+test('resource link navigation is disabled', function(assert) {
+
+  assert.expect(0);
+
+  const resourceMockA = Ember.Object.create({
+    id: '1',
+    title: 'Resource #1'
+  });
+
+  const resourceMockB = Ember.Object.create({
+    id: '2',
+    title: 'Resource #2'
+  });
+
+  const collectionMock = Ember.Object.create({
+    id: 'collection-id',
+    resources: Ember.A([
+      resourceMockA,
+      resourceMockB
+    ]),
+    getResourceById: function(id){
+      if (id === '1') {
+        return resourceMockA;
+      } else {
+        return resourceMockB;
+      }
+    }
+  });
+
+  this.on('externalAction', function(item) {
+    assert.notOk(true, "Resource item selected");
+  });
+
+  const resourceResults = Ember.A([
+    QuestionResult.create({ resource: resourceMockA }),
+    QuestionResult.create({ resource: resourceMockB })
+  ]);
+
+  this.set('resourceResults', resourceResults);
+  this.set('collection', collectionMock);
+
+  this.render(hbs`
+    {{player.gru-navigator
+      isNavigationDisabled=true
+      resourceResults=resourceResults
+      onItemSelected='externalAction'
+      collection=collection
+      selectedResourceId='1'}}`);
+
+  const $component = this.$('.gru-navigator');
+
+  // Click on the second resource
+  $component.find(".list-group-item:eq(1)").click();
+
+  // Click on the first resource
+  $component.find(".list-group-item:eq(0)").click();
+
+});
+
+/* TODO: Remove due to conflicts when there's an input in a question?
 test('Player Navigator keyup on right', function(assert) {
 
   assert.expect(2);
@@ -250,8 +375,9 @@ test('Player Navigator keyup on right', function(assert) {
   e.which = 39; //Right arrow Character
   $navigator.trigger(e);
 
-
 });
+*/
+
 test('Close player', function(assert) {
   assert.expect(1);
 
@@ -283,4 +409,3 @@ test('See usage report', function(assert) {
   assert.ok($seeReportButton.length, "Missing button");
   $seeReportButton.click();
 });
-

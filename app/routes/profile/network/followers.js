@@ -9,6 +9,11 @@ export default Ember.Route.extend({
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
+  /**
+   * @requires service:session
+   */
+  session: Ember.inject.service("session"),
+
 
   // -------------------------------------------------------------------------
   // Actions
@@ -19,12 +24,20 @@ export default Ember.Route.extend({
   model: function (){
     const profile = this.modelFor("profile").profile;
 
+    var myFollowings = this.get("profileService").readFollowing(this.get('session.userId'));
+
     //followers
-    return this.get("profileService").readFollowers(profile.get("id"));
+    var followers =this.get("profileService").readFollowers(profile.get("id"));
+
+    return Ember.RSVP.hash({
+      followers: followers,
+      myFollowings: myFollowings
+    });
   },
 
   setupController: function (controller , model) {
-    controller.set("followers", model);
+    controller.set("followers", model.followers);
+    controller.set("myFollowings", model.myFollowings);
   }
 
 

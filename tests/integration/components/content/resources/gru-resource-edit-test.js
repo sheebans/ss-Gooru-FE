@@ -56,6 +56,11 @@ test('it has header and main sections', function (assert) {
   assert.ok($header.length, "Header");
   assert.ok($header.find('> .actions').length, "Header actions");
   assert.equal($header.find('> .actions > button').length, 4, "Number of header actions");
+  assert.ok($container.find('.actions button.delete').length, "Missing Delete Button");
+  assert.ok($container.find('.actions button.gru-share-pop-over').length, "Missing Share Button");
+  assert.ok($container.find('.actions button.copy').length, "Missing Copy To Button");
+  assert.ok($container.find('.actions button.preview').length, "Missing preview Button");
+
   assert.ok($header.find('> nav').length, "Header navigation");
   assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
   assert.notOk($header.find('.back-to').length, "Should not have the option Back to Collection");
@@ -217,6 +222,33 @@ test('Layout of preview section for text', function (assert) {
   assert.ok($settingsSection.find('.panel.preview .panel-body .gru-pdf-resource iframe').length, "PDF resource iframe");
 });
 
+test('Layout of preview section for a link out resource', function (assert) {
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Text resource",
+    format: "text",
+    url: "http://example.com/sample.pdf",
+    displayGuide:true
+  });
+
+  this.set('resource', resource);
+  this.render(hbs`{{content/resources/gru-resource-edit resource=resource}}`);
+
+  var $container = this.$("article.content.resources.gru-resource-edit");
+  assert.ok($container.length, "Component");
+
+  const $section = $container.find('> section');
+  assert.ok($section.length, "Missing content section");
+
+  const $panel = $container.find('.not-iframe');
+  assert.ok($panel.length, "Missing not-iframe panel");
+
+  assert.ok($panel.find('.panel-header').length, "panel-header of not-iframe panel");
+  assert.ok($panel.find('.panel-body').length, "panel-body of not-iframe panel");
+  assert.ok($panel.find('.panel-body a').length, "view-resource-button");
+  assert.ok($panel.find('.panel-footer').length, "panel-footer of not-iframe panel");
+});
+
 test('Layout of the information section', function (assert) {
   var ResourceValidation = Resource.extend(EditResourceValidations);
   var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
@@ -247,7 +279,8 @@ test('Layout of the information section on edit mode', function (assert) {
     format: 'video',
     url: '//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf',
     subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    category: 'k_12',
+    displayGuide:true
   });
 
   this.set('resource', resource);
@@ -261,10 +294,11 @@ test('Layout of the information section on edit mode', function (assert) {
   assert.ok($informationSection.find('.panel-body .type .btn-group .dropdown-toggle').length, "Missing type dropdown");
   assert.ok($informationSection.find('.panel-body .license label select').length, "Missing license select");
   assert.ok($informationSection.find('.panel-body .description label textarea').length, "Missing description textarea");
+  assert.ok($informationSection.find('.panel-body .link-out label .gru-switch').length, "Missing link out switch");
 });
 
 test('Update Resource Information', function (assert) {
-  assert.expect(1);
+  assert.expect(2);
   var newTitle ='Edited resource for testing';
   var ResourceValidation = Resource.extend(EditResourceValidations);
   var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
@@ -272,7 +306,8 @@ test('Update Resource Information', function (assert) {
     format: 'video',
     url: 'http://example.com',
     subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    category: 'k_12',
+    displayGuide:false
   });
   this.set('resource', resource);
   this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
@@ -283,10 +318,15 @@ test('Update Resource Information', function (assert) {
   $titleField.find("input").val(newTitle);
   $titleField.find("input").trigger('blur');
 
-  const $save =  $component.find("#information .actions .save");
-  $save.click();
+  var $linkOutCheck = $component.find(".link-out .gru-switch .switch a");
+  $linkOutCheck.click();
   return wait().then(function () {
-    assert.equal($component.find(".title label b").text(), newTitle, "The resource title should be updated");
+    const $save =  $component.find("#information .actions .save");
+    $save.click();
+    return wait().then(function () {
+      assert.equal($component.find(".title label b").text(), newTitle, "The resource title should be updated");
+      assert.equal($component.find(".link-out label b").text(), 'ON', "The link out should be true");
+    });
   });
 });
 

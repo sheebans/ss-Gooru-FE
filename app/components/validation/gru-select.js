@@ -29,16 +29,23 @@ export default Ember.Component.extend({
    * DidInsertElement ember event
    */
   didInsertElement: function(){
-    this.set('showMessage', false);
-    this.$('.selectpicker').selectpicker();
-    this.$('.selectpicker').on('loaded.bs.select', function () {
-       this.$('.selectpicker').on('change', function(e) {
+    const component = this;
+    let selectpicker = component.$('.selectpicker');
+    component.set('showMessage', false);
+    selectpicker.selectpicker();
+    selectpicker.on('loaded.bs.select', function () {
+      // Update model when the user selects
+      selectpicker.on('change', function(e) {
         e.stopPropagation();
-        var optionSelected = this.$('.selectpicker option:selected').val();
-        this.set('optionSelected', optionSelected);
-        this.sendAction("onOptionSelect", optionSelected);
-      }.bind(this));
-    }.bind(this));
+        var optionSelected = selectpicker.find('option:selected').val();
+        component.set('optionSelected', optionSelected);
+        component.sendAction("onOptionSelect", optionSelected);
+      });
+      // Change value shown in UI when model changes
+      component.addObserver('optionSelected', function(){
+        selectpicker.selectpicker('val', component.get('optionSelected'));
+      });
+    });
   },
 
   // -------------------------------------------------------------------------

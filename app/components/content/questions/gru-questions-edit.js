@@ -99,10 +99,9 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     /**
      * Save Content
      */
-    optionSwitch:function(isChecked){
+    publishToProfile: function(){
       var questionForEditing = this.get('question').copy();
       this.set('tempQuestion', questionForEditing);
-      this.set('tempQuestion.isVisibleOnProfile', isChecked);
       this.saveNewContent();
     },
     /**
@@ -228,6 +227,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
   correctAnswerNotSelected: false,
 
   /**
+   * @property {String} Error message to display below the description
+   */
+  descriptionError: null,
+
+  /**
    * @property {Boolean} Indicates if a Hot spot answer has images
    */
   hasNoImages: false,
@@ -348,7 +352,6 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     let question = component.get('question');
 
     editedQuestion.validate().then(function ({ model, validations }) {
-
       if (validations.get('isValid')) {
         let imageIdPromise = new Ember.RSVP.resolve(editedQuestion.get('thumbnail'));
         if(editedQuestion.get('thumbnail') && editedQuestion.get('thumbnail') !== question.get('thumbnail')) {
@@ -365,7 +368,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
 
           editedQuestion.set('title', newTitle);
         }
-        imageIdPromise.then(function(imageId){
+        imageIdPromise.then(function(imageId) {
           editedQuestion.set('thumbnail', imageId);
           component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
             .then(function () {
@@ -380,8 +383,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
               component.get('notifications').error(message);
               Ember.Logger.error(error);
             });
-        })
+        });
       }
+      // Add the description message to the equation editor
+      component.set('descriptionError', model.get('validations.attrs.description.messages')[0]);
+
       component.set('didValidate', true);
     });
   },

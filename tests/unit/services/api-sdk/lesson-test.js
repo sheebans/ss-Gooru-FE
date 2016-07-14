@@ -176,6 +176,32 @@ test('Delete Lesson', function(assert) {
     });
 });
 
+test('Dissassociate collection from Lesson', function(assert) {
+  const expectedCourseId = 'course-id';
+  const expectedUnitId = 'unit-id';
+  const expectedLessonId = 'lesson-id';
+  const expectedCollectionId = 'collection-id';
+  const service = this.subject();
+
+  assert.expect(4);
+
+  service.set('adapter', Ember.Object.create({
+    disassociateAssessmentOrCollectionToLesson: function(params) {
+      assert.equal(params.courseId, expectedCourseId, 'Wrong course id');
+      assert.equal(params.unitId, expectedUnitId, 'Wrong unit id');
+      assert.equal(params.lessonId, expectedLessonId, 'Wrong lesson id');
+      assert.equal(params.collectionId, expectedCollectionId, 'Wrong collection id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.disassociateAssessmentOrCollectionToLesson('course-id', 'unit-id', 'lesson-id','collection-id')
+    .then(function() {
+      done();
+    });
+});
+
 test('Copy Lesson', function(assert) {
   const service = this.subject();
 
@@ -223,4 +249,3 @@ test('reorderLesson', function(assert) {
   var done = assert.async();
   service.reorderLesson('course-id', expectedUnitId, 'lesson-id', ["a", "b"]).then(function() { done(); });
 });
-

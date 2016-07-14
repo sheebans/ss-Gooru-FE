@@ -9,6 +9,8 @@ export default Ember.Controller.extend({
 
   profileService: Ember.inject.service('api-sdk/profile'),
 
+  session: Ember.inject.service("session"),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -21,11 +23,27 @@ export default Ember.Controller.extend({
 
       controller.get('profileService').unfollowUserProfile(userId)
         .then(function () {
-          controller.get('followings').removeObject(user);
-          controller.set('countFollowings', countFollowings-1);
-          controller.set('isFollowing', false);
+          if(controller.get('profileController.profile.id') === controller.get('session.userId') ){
+            controller.get('followings').removeObject(user);
+            controller.set('countFollowings', countFollowings-1);
+            controller.set('isFollowing', false);
+          }
           user.set('followers', user.get('followers') - 1);
           user.set('isFollowing', false);
+        });
+    },
+    followUser: function (user) {
+      var controller = this;
+      var userId = user.id;
+      var countFollowings = controller.get('countFollowings');
+
+      controller.get('profileService').followUserProfile(userId)
+        .then(function () {
+           if(controller.get('profileController.profile.id') === controller.get('session.userId') ){
+            controller.set('countFollowings', countFollowings+1);
+           }
+          user.set('followers', user.get('followers') + 1);
+          user.set('isFollowing', true);
         });
     }
   },

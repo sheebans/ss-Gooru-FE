@@ -14,7 +14,7 @@
   <p class="collection-type">{{#if collection.isAssessment}}{{t 'common.assessment'}}{{else}}{{t 'common.collection'}}{{/if}}:</p>
   <p class="collection-title">{{collection.title}}</p>
 </div>
-<ul class="list-group resources">
+<ul class="list-group resources {{if isNavigationDisabled 'disabled' }}">
   {{#each resourceItems as |item|}}
       <li class="list-group-item {{if item.started 'started'}} {{if item.selected 'selected'}}"
         {{action 'selectItem' item}}>
