@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
+  classNameBindings: ['isAnswerKeyHidden:key-hidden', 'showPerformance:performance-view'],
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -11,7 +14,9 @@ export default Ember.Component.extend({
      * @function actions:selectPerformanceOption
      */
     selectPerformanceOption:function(showPerformance) {
-      this.set('showPerformance', showPerformance);
+      if (!this.get('isAnswerKeyHidden')) {
+        this.set('showPerformance', showPerformance);
+      }
     }
   },
   // -------------------------------------------------------------------------
@@ -29,6 +34,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
+   */
+  isAnswerKeyHidden: false,
 
   /**
    * List of questions to be displayed by the component
