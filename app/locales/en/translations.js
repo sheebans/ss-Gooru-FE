@@ -261,6 +261,7 @@ export default {
     "no-followers": "You don't have followers yet.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
+    "no-more-attempts": "No more attempts",
     "notStarted": "Not started",
     "not-added": "Not Added",
     "not-following": "You're not following anyone.",

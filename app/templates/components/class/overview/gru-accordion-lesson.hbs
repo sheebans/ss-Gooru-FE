@@ -98,7 +98,9 @@
             </div>
 
             <span class="panel-title">
-              <a class="title" {{action "selectResource" item}}>
+              <a class="title" {{action "selectResource" item}}
+                 data-toggle="tooltip" data-html="true" data-placement="top"
+                 title="{{t "common.no-more-attempts"}}">
                   {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
               </a>
             </span>
