@@ -1,5 +1,5 @@
 import Ember from "ember";
-import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
+import { ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'gooru-web/config/config';
 
 /**
  * Player question viewer
@@ -102,9 +102,23 @@ export default Ember.Component.extend({
   actualHint: 0,
 
   /**
+   * Hits available for a question
+   * @property {number} availableHints
+   */
+  availableHints: Ember.computed('actualHint', 'question', function() {
+    return this.get('question.hints.length') - this.get('actualHint');
+  }),
+
+  /**
    * @property {boolean} indicates when the answer is completed
    */
   answerCompleted: false,
+
+  /**
+   * Default button text key
+   * @property {string}
+   */
+  buttonTextKey: 'common.save',
 
   /**
    * The collection
@@ -113,14 +127,18 @@ export default Ember.Component.extend({
   collection: null,
 
   /**
-   * Hits available for a question
-   * @property {number} availableHints
+   * Indicates when the question has explanation
+   * @property {boolean}
    */
-  availableHints: Ember.computed('actualHint', 'question', function() {
-    return this.get('question.hints.length') - this.get('actualHint');
-  }),
-
   doesNotHaveExplanation: Ember.computed.not('question.explanation'),
+
+  /**
+   * Unicode value depending on the correctness of the question
+   * @property {boolean}
+   */
+  feedbackUnicode: Ember.computed('questionResult.correct', function() {
+    return this.get('questionResult.correct') ? FEEDBACK_EMOTION_VALUES.CORRECT : FEEDBACK_EMOTION_VALUES.INCORRECT;
+  }),
 
   /**
    * Indicates when the player has context
@@ -214,12 +232,6 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   submitted: false,
-
-  /**
-   * Default button text key
-   * @property {string}
-   */
-  buttonTextKey: 'common.save',
 
   // -------------------------------------------------------------------------
   // Observers
