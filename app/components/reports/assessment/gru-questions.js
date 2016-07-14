@@ -2,8 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-  classNameBindings: ['isAnswerKeyHidden:key-hidden', 'showPerformance:performance-view'],
-
   // -------------------------------------------------------------------------
   // Actions
 
@@ -31,6 +29,8 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['reports', 'assessment', 'gru-questions'],
+
+  classNameBindings: ['isAnswerKeyHidden:key-hidden', 'showPerformance:performance-view'],
 
   // -------------------------------------------------------------------------
   // Properties

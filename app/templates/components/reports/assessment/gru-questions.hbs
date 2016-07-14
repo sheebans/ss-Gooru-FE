@@ -28,11 +28,11 @@
     <th class="header reaction {{if showPerformance 'visible' 'hide'}}">
       {{t "common.reaction"}}
     </th>
-    {{#if isAnswerKeyHidden}}
+    {{#unless isAnswerKeyHidden}}
       <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
         {{t "common.correct-answer"}}
       </th>
-    {{/if}}
+    {{/unless}}
   </tr>
   </thead>
   <tbody>
@@ -60,11 +60,11 @@
       <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
         {{reactionIcon result.reaction}}
       </td>
-      {{#if isAnswerKeyHidden}}
+      {{#unless isAnswerKeyHidden}}
         <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
           {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
         </td>
-      {{/if}}
+      {{/unless}}
     </tr>
   {{/each}}
   </tbody>
