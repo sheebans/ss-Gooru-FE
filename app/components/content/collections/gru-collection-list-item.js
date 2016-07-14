@@ -155,8 +155,14 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     },
 
     editNarration: function () {
-      this.set('isPanelExpanded', true);
-      this.set('isEditingNarration', true);
+
+      var modelForEditing = this.get('model').copy();
+
+      this.setProperties({
+        'tempModel': modelForEditing,
+        'isPanelExpanded': true,
+        'isEditingNarration': true
+      });
     },
 
     editInline: function () {
@@ -217,8 +223,6 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     });
 
     if (component.get('model')){
-
-      this.set('tempModel', component.get('model').copy());
 
       const editingContent = component.get('editingContent');
       const modelId = component.get('model.id');
@@ -487,7 +491,11 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * show Inline Edit Panel
    */
   showInlinePanel: function () {
+
+    var modelForEditing = this.get('model').copy();
+
     this.setProperties({
+      'tempModel': modelForEditing,
       'isPanelExpanded': true,
       'isEditingInline': true
     });
