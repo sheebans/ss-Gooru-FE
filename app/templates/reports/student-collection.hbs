@@ -10,7 +10,9 @@
     </div>
     <div class="col-sm-12">
       {{#if assessmentResult}}
-        {{reports.gru-assessment-report assessmentResult=assessmentResult
+        {{reports.gru-assessment-report
+          areAnswersHidden=areAnswersHidden
+          assessmentResult=assessmentResult
           onSelectAttempt='selectAttempt'
         }}
       {{/if}}

@@ -15,7 +15,7 @@
       x<sub>2</sub>
     </button>
     <button type="button" class="btn  btn-math add-function {{if showExpressionsPanel 'active'}}" title="{{t 'gru-rich-text-editor.expression'}}" {{action 'toggleExpressionsPanel'}}>
-      {{t 'gru-rich-text-editor.expressions-panel.select-expression'}}
+      {{t 'gru-rich-text-editor.expressions-panel.create-expression'}}
     </button>
   <div class="expressions-panel {{if showExpressionsPanel 'show'}}">
     <div class="equation-editor">
@@ -37,8 +37,8 @@
                     <a href="#" class="sqrt" data-expression="sqrt"></a>
                     <a href="#" class="subscript" data-expression="subscript"></a>
                     <a href="#" class="superscript" data-expression="superscript"></a>
-                    <a href="#" class="over-left-arrow" data-expression="over-left-arrow"></a>
-                    <a href="#" class="over-right-arrow" data-expression="over-right-arrow"></a>
+                    <!--<a href="#" class="over-left-arrow" data-expression="over-left-arrow"></a>-->
+                    <!--<a href="#" class="over-right-arrow" data-expression="over-right-arrow"></a>-->
                     <a href="#" class="overline" data-expression="overline"></a>
                     <a href="#" class="sum" data-expression="sum"></a>
                 </div>
@@ -46,6 +46,7 @@
                    <a href="#" class="plus" data-expression="plus"></a>
                    <a href="#" class="minus" data-expression="minus"></a>
                    <a href="#" class="div" data-expression="div"></a>
+                   <a href="#" class="mult" data-expression="mult"></a>
                    <a href="#" class="cdot" data-expression="cdot"></a>
                    <a href="#" class="not-equal" data-expression="not-equal"></a>
                    <a href="#" class="less" data-expression="lt"></a>

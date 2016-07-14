@@ -38,6 +38,11 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
   questionService: Ember.inject.service("api-sdk/question"),
 
   /**
+   * @property {Service} profile service
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
    * @requires service:notifications
    */
   notifications: Ember.inject.service(),
@@ -46,6 +51,11 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * @requires service:i18n
    */
   i18n: Ember.inject.service(),
+
+  /**
+   * @property {Service} session
+   */
+  session: Ember.inject.service('session'),
 
 
   // -------------------------------------------------------------------------
@@ -90,6 +100,25 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
           $.extend(model, collectionItem), null, null, null, false);
       }
     },
+    copyTo:function(builderItem){
+      const component = this;
+      if (component.get('session.isAnonymous')) {
+        component.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        let assessmentsPromise = Ember.RSVP.resolve(null);
+        if(builderItem.format === "question") {
+          assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
+        }
+        assessmentsPromise.then(function(assessments) {
+          return component.get('profileService').readCollections(component.get('session.userId'))
+            .then(function(collections) {
+              return { content: builderItem, collections, assessments };
+            });
+        }).then(
+            model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
+        );
+      }
+    },
 
     /**
     * Route to edit with correct query params.
@@ -127,38 +156,54 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       this.set('model.isExpanded', true);
     },
 
+    editInline: function () {
+      var modelForEditing = this.get('model').copy();
+
+      this.set('tempModel', modelForEditing);
+      this.set('model.isExpanded', true);
+      this.set('isEditingInline', true);
+    },
+
     updateItem: function (builderItem) {
       let component = this;
       var editedModel = this.get('tempModel');
       let model = component.get('model');
 
-      if(builderItem.get('format')==='question'){
-        component.get('questionService').updateQuestion(editedModel.id, editedModel)
-          .then(function () {
-            model.merge(editedModel, ['narration']);
-            component.set('model.isExpanded', false);
-          }.bind(this))
-          .catch(function (error) {
-            var message = component.get('i18n').t('common.errors.question-not-updated').string;
-            component.get('notifications').error(message);
-            Ember.Logger.error(error);
-          }.bind(component));
-      }else{
-        component.get('resourceService').updateResource(editedModel.id, editedModel)
-          .then(function () {
-            model.merge(editedModel, ['narration']);
-            component.set('model.isExpanded', false);
-          }.bind(this))
-          .catch(function (error) {
-            var message = component.get('i18n').t('common.errors.question-not-updated').string;
-            component.get('notifications').error(message);
-            Ember.Logger.error(error);
-          }.bind(component));
-      }
+      editedModel.validate().then(function({model, validations}) {
+        if (validations.get('isValid')) {
+          if(builderItem.get('format')==='question'){
+            component.get('questionService').updateQuestion(editedModel.id, editedModel)
+              .then(function () {
+                component.set('model', editedModel);
+                model.merge(editedModel, ['title', 'narration']);
+                component.set('model.isExpanded', false);
+              }.bind(this))
+              .catch(function (error) {
+                var message = component.get('i18n').t('common.errors.question-not-updated').string;
+                component.get('notifications').error(message);
+                Ember.Logger.error(error);
+              }.bind(component));
+          }else{
+            component.get('resourceService').updateResource(editedModel.id, editedModel)
+              .then(function () {
+                component.set('model', editedModel);
+                model.merge(editedModel, ['title','narration']);
+                component.set('model.isExpanded', false);
+              }.bind(this))
+              .catch(function (error) {
+                var message = component.get('i18n').t('common.errors.question-not-updated').string;
+                component.get('notifications').error(message);
+                Ember.Logger.error(error);
+              }.bind(component));
+          }
+          component.set('isEditingInline', false);
+        }
+      });
     },
 
     cancel: function (){
       this.set('model.isExpanded', false);
+      this.set('isEditingInline', false);
     }
   },
   // -------------------------------------------------------------------------
@@ -205,5 +250,10 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * Copy of the resource/question model used for editing.
    * @property {Resource/Question }
    */
-  tempModel: null
+  tempModel: null,
+
+  /**
+   * @property {Boolean} isEditingInline
+   */
+  isEditingInline: false
 });

@@ -6,6 +6,17 @@ export const RESOURCE_COMPONENT_MAP = {
   'vimeo/video'   : 'player.resources.gru-vimeo-resource'
 };
 
+export const UPLOADABLE_TYPES = [
+  {
+    value: "text",
+    validExtensions: ".pdf"
+  },
+  {
+    value: "image",
+    validExtensions: ".jpg,.jpeg,.gif,.png"
+  }
+];
+
 export const RESOURCE_TYPES = [
     "webpage",
     "video",
@@ -130,3 +141,11 @@ export const CODE_TYPES = {
 };
 
 export const GOORU_DEFAULT_STANDARD = "GDF";
+
+export const ASSESSMENT_SHOW_VALUES = {
+  IMMEDIATE: 'immediate',
+  SUMMARY: 'summary',
+  NEVER: 'never'
+};
+
+export const MAX_ATTEMPTS = 10;

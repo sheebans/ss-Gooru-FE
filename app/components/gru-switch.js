@@ -44,11 +44,11 @@ export default Ember.Component.extend({
    * Overwrites didInsertElement hook.
    */
   didInsertElement: function() {
-    $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
+    this.$('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
     if(this.get('isChecked')){
-      $('input[type=checkbox][data-toggle^=toggle]').prop('checked', true).change();
+      this.$('input[type=checkbox][data-toggle^=toggle]').prop('checked', true).change();
     }else{
-      $('input[type=checkbox][data-toggle^=toggle]').prop('checked', false).change();
+      this.$('input[type=checkbox][data-toggle^=toggle]').prop('checked', false).change();
     }
   },
 // -------------------------------------------------------------------------

@@ -13,7 +13,7 @@
     {{#gru-share-pop-over tagName="button" type="resource"}}
       {{gru-icon name="insert_link"}}
     {{/gru-share-pop-over}}
-    <button class="btn btn-default" title="{{t 'common.add-to'}}" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+    <button class="btn btn-default copy" title="{{t 'common.copy-to'}}" {{action "addToCollection"}}>{{t "common.copy-to"}}</button>
     {{#link-to 'content.resources.play' resource.id class="btn btn-default preview" tagName="button"}}{{t "common.preview"}}{{/link-to}}
   </div>
 
@@ -122,6 +122,21 @@
               {{/if}}
             </label>
           </div>
+            <div class="col-sm-6 form-field link-out">
+            <label>
+                <span>{{t "common.link-out"}}</span>
+              {{#if isEditing}}
+                    {{gru-switch switchOptions=switchOptions onOptionSwitch='linkSwitch' isChecked=tempResource.displayGuide}}
+                    <span>{{t "common.link-out-message"}}</span>
+                {{else}}
+                  {{#if resource.displayGuide}}
+                      <b>{{t "common.on"}}</b>
+                    {{else}}
+                      <b>{{t "common.off"}}</b>
+                  {{/if}}
+              {{/if}}
+            </label>
+            </div>
         </div>
         <div class="row">
           <div class="col-sm-6 form-field license out-of-scope">
@@ -201,4 +216,4 @@
   </div>
 </section>
 
-{{content.gru-settings-edit id="settings" action='publishToProfile' isChecked=resource.isVisibleOnProfile}}
+{{content.gru-settings-edit id="settings" action='publishToProfile' model=resource}}

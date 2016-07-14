@@ -192,6 +192,7 @@ export const LATEX_EXPRESSIONS = {
   div:"\\div",
   plus:"\\+",
   minus:"\\-",
+  mult:"\\times",
   cdot:"\\cdot",
   "not-equal":"\\neq",
   lt:"\\lt",

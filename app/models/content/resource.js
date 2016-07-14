@@ -115,6 +115,7 @@ const ResourceModel = Ember.Object.extend({
    */
   displayGuide: null,
 
+
   /**
    * @property {String} category - Category the course belongs to
    */
@@ -216,7 +217,7 @@ const ResourceModel = Ember.Object.extend({
    * Return a copy of the resource
    *
    * @function
-   * @return {Resourse}
+   * @return {Resource}
    */
   copy: function() {
 

@@ -90,7 +90,7 @@ export default Ember.Component.extend({
 
     $anchor.attr('data-html', 'true');
     $anchor.popover({
-      placement: 'auto bottom',
+      placement: 'bottom',
       content: function() {
         return component.$('.tag-tooltip').html();
       },

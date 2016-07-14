@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import Env from 'gooru-web/config/environment';
 
+const EndPointsConfig = Env['gooru-endpoints'] || {};
+
 /**
  * Adapter for the Authentication (Login) with API 3.0
  *
@@ -17,10 +19,10 @@ export default Ember.Object.extend({
    */
   postAuthentication: function(data) {
     const adapter = this;
+    const protocol = EndPointsConfig.secureProtocol;
+    const hostname = EndPointsConfig.hostname;
+    const port = EndPointsConfig.securePort ? `:${EndPointsConfig.securePort}` : '';
     const namespace = this.get('namespace');
-    const hostname = window.location.hostname;
-    const port = Env.securePort ? `:${Env.securePort}` : '';
-    const protocol = `${Env.secureProtocol}://`;
     const url = `${protocol}${hostname}${port}${namespace}`;
     const options = {
       type: 'POST',

@@ -4,6 +4,7 @@ import Env from '../config/environment';
 import SessionMixin from '../mixins/session';
 
 const Config = Env['simple-auth-custom'] || {};
+const EndPointsConfig = Env['gooru-endpoints'] || {};
 
 export default DS.RESTAdapter.extend(SessionMixin, {
 
@@ -34,10 +35,10 @@ export default DS.RESTAdapter.extend(SessionMixin, {
    * @returns {*}
    */
   ajax: function(url, method, hash) {
-    hash = hash || {};
-    hash.crossDomain = true;
-    hash.xhrFields = {withCredentials: false};
-    return this._super(url, method, hash);
+    const protocol = EndPointsConfig.protocol;
+    const hostname = EndPointsConfig.hostname;
+    const port = EndPointsConfig.port ? `:${EndPointsConfig.port}` : '';
+    return this._super(`${protocol}${hostname}${port}${url}`, method, hash);
   }
 
 });
