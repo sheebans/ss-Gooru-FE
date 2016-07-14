@@ -56,6 +56,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     if (model.collection.collectionType == "collection"){
       controller.set('showContent',true);
     }else {
+      console.log(model.collection);
       controller.set('assessmentDirection', model.collection.bidirectional);
       controller.set('assessmentAttempts', model.collection.attempts);
       controller.set('assessmentTitle', model.collection.title);

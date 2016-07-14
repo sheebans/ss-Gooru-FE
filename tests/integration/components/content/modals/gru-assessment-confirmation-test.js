@@ -10,10 +10,8 @@ test('Layout and forward only with limited attempts', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
   this.set('model', {
-    setting: {
-      bidirectional_play:false,
-      attempts_allowed:5
-    },
+    bidirectional:false,
+    attempts:5,
     title: 'any-title'
   });
 
@@ -45,10 +43,8 @@ test('Layout and forward only with limited attempts', function(assert) {
 
 test('Navigate both ways with unlimited attempts', function(assert) {
   this.set('model', {
-    setting: {
-      bidirectional_play:true,
-      attempts_allowed:-1
-    },
+    bidirectional:true,
+    attempts:-1,
     title: 'any-title',
   });
 

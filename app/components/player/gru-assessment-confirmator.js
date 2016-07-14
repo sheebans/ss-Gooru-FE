@@ -21,13 +21,13 @@ export default Ember.Component.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Properties
-  direction: null,
+  bidirectional: null,
 
   attempts:null,
   didInsertElement() {
     this._super(...arguments);
     var model = {
-      direction: this.get('direction'),
+      bidirectional: this.get('bidirectional'),
       attempts: this.get('attempts'),
       title: this.get('title'),
       onStart: function() {
