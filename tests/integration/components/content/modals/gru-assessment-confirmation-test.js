@@ -2,7 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 
-moduleForComponent('content/modals/gru-add-to-lesson', 'Integration | Component | content/modals/gru assessment confirmation', {
+moduleForComponent('content/modals/gru-assessment-confirmation', 'Integration | Component | content/modals/gru assessment confirmation', {
   integration: true
 });
 

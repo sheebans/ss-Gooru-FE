@@ -101,7 +101,6 @@ export default Ember.Object.extend({
       sequence: assessmentData.sequence_id,
       thumbnailUrl: thumbnailUrl,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy),
-      setting: assessmentData.setting,
       format: assessmentData.format,
       url: assessmentData.url,
       metadata: metadata,
