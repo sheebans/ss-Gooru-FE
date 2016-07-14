@@ -1,6 +1,18 @@
 .content.modals.gru-resource-new {
 
-  .modal-body { padding-top: 15px; }
+  .modal-body {
+    padding-top: 15px;
+
+    form .resource-types > .panel {
+      &.disabled {
+        opacity: 0.25;
+        cursor: default;
+      }
+      &.active {
+        opacity:0.6;
+      }
+    }
+  }
 
   .header {
     margin-bottom: 10px;
@@ -80,18 +92,6 @@
   }
   .actions.resource-new{
     margin-top: 10px;
-  }
-
-  .resource-types > .panel {
-
-    &.disabled {
-      opacity: 0.25;
-      cursor: default !important;
-    }
-
-    &.active {
-      opacity:0.6;
-    }
   }
 
   .existing-resource-message{

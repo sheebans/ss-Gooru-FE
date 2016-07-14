@@ -238,6 +238,12 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
 
+  /**
+   * Determine the upload type object (see gooru-web/config/config#UPLOAD_TYPES) based on a file name extension.
+   * @param {String} filename -Complete file name (including the extension)
+   * @param {Object[]} uploadTypes
+   * @return {Object}
+   */
   inferUploadType: function(filename, uploadTypes) {
     var extension = filename.substr(filename.lastIndexOf('.'));
     var selectedType = null;
