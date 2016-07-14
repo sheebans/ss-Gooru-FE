@@ -38,12 +38,36 @@
     </div>
     <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
       <div class="panel-body">
-        {{#if resourceComponent}}
-        {{component resourceComponent resource=resource}}
+        {{#if isNotIframeUrl}}
+            <div class="panel panel-default not-iframe">
+              <div class="panel-header">
+                <p class="title">
+                  {{t 'player.gru-viewer.not-iframe-url.header_1'}}<br>
+                  {{t 'player.gru-viewer.not-iframe-url.header_2'}}
+                </p>
+              </div>
+            <div class="panel-body">
+                <a href="{{{resource.url}}}" class="btn btn-primary view-resource-button" target="_blank">{{t "player.gru-viewer.not-iframe-url.view-resource"}}</a>
+            </div>
+            <div class="panel-footer">
+                <p class="title">
+                  {{t 'player.gru-viewer.not-iframe-url.footer_1'}}
+                </p>
+                <p class="description">
+                  {{t 'player.gru-viewer.not-iframe-url.footer_2'}}<br>
+                  {{t 'player.gru-viewer.not-iframe-url.footer_3'}}<br>
+                  {{t 'player.gru-viewer.not-iframe-url.footer_4'}}
+                </p>
+            </div>
+        </div>
         {{else}}
-          <h2 class="resource-message">
-            {{t "content.resources.edit.not-implemented"}}
-          </h2>
+          {{#if resourceComponent}}
+            {{component resourceComponent resource=resource}}
+          {{else}}
+            <h2 class="resource-message">
+              {{t "content.resources.edit.not-implemented"}}
+            </h2>
+          {{/if}}
         {{/if}}
       </div>
     </div>
