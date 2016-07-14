@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AddToModal from 'gooru-web/components/content/modals/gru-add-to';
+import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 export default AddToModal.extend({
 
@@ -26,6 +27,16 @@ export default AddToModal.extend({
    */
   questionService: Ember.inject.service('api-sdk/question'),
 
+  /**
+   * @property {Service} session
+   */
+  session: Ember.inject.service('session'),
+
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -46,8 +57,17 @@ export default AddToModal.extend({
       this.set("selectedCollection", null);
       $('.gru-add-to .selected').removeClass('selected');
       this.set('showCollections', showCollections);
+    },
+    /**
+     * Show more collection/Assessments results
+     */
+    showMoreResults: function(){
+      this.showMoreResults();
     }
   },
+
+  // -------------------------------------------------------------------------
+  //  Methods
 
   copyContent: function() {
     var contentId = this.get('content.id');
@@ -99,6 +119,28 @@ export default AddToModal.extend({
     Ember.Logger.error(error);
     this.$('.modal-footer button.add-to').prop('disabled', false);
   },
+  showMoreResults: function(){
+    const component = this;
+    if(this.get('showCollections')){
+      const pagination = this.get("paginationCollections");
+      pagination.page = pagination.page + 1;
+
+      component.get('profileService')
+        .readCollections(component.get('session.userId'), pagination)
+        .then(function(collections){
+          component.get("collections").pushObjects(collections.toArray());
+        });
+    }else{
+      const pagination = this.get("paginationAssessments");
+      pagination.page = pagination.page + 1;
+
+      component.get('profileService')
+        .readAssessments(component.get('session.userId'), pagination)
+        .then(function(assessments){
+          component.get("assessments").pushObjects(assessments.toArray());
+        });
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -138,5 +180,27 @@ export default AddToModal.extend({
     */
    collectionsList: Ember.computed('showCollections', function() {
      return this.get('showCollections') ? this.get('collections') : this.get('assessments');
-   })
+   }),
+  /**
+   * @property {boolean}
+   */
+  showMoreResultsButton: Ember.computed("collections.[]","assessments.[]", function(){
+    return this.get('showCollections') ? this.get("collections.length") &&
+      (this.get("collections.length") % this.get("paginationCollections.pageSize") === 0):this.get("assessments.length") &&
+    (this.get("assessments.length") % this.get("paginationAssessments.pageSize") === 0);
+  }),
+  /**
+   * @property {*}
+   */
+  paginationCollections: {
+    page: 0,
+    pageSize: DEFAULT_PAGE_SIZE
+  },
+  /**
+   * @property {*}
+   */
+  paginationAssessments: {
+    page: 0,
+    pageSize: DEFAULT_PAGE_SIZE
+  }
 });

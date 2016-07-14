@@ -123,6 +123,16 @@
       overflow-y: scroll;
       padding: 0;
 
+      .show-more-results{
+          width: 50%;
+          text-align: center;
+          padding: 20px;
+          border: 2px dashed #ccc;
+          margin: 0 auto;
+          border-radius: 5px 5px;
+          cursor: pointer;
+          margin-bottom: 20px;
+      }
       >* {
         @include flex-shrink(0);
         border: 1px transparent;
