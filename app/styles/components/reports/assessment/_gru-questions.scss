@@ -111,4 +111,11 @@
       list-style:none;
     }
   }
+
+  &.key-hidden.performance-view {
+    .assessment.questions > ul > li > span.incorrect {
+      // Mark incorrect (user) answers as correct if the answer key is hidden
+      color: $green-400;
+    }
+  }
 }

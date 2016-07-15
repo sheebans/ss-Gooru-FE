@@ -8,12 +8,32 @@ export const RESOURCE_COMPONENT_MAP = {
 
 export const UPLOADABLE_TYPES = [
   {
-    value: "text",
-    validExtensions: ".pdf"
+    value: "webpage",
+    validExtensions: ".html",
+    disabled: true
+  },
+  {
+    value: "video",
+    validExtensions: ".mng, .avi, .mov, .qt, .wmv",
+    disabled: true
+  },
+  {
+    value: "interactive",
+    validExtensions: ".html",
+    disabled: true
+  },
+  {
+    value: "audio",
+    validExtensions: ".mp3",
+    disabled: true
   },
   {
     value: "image",
     validExtensions: ".jpg,.jpeg,.gif,.png"
+  },
+  {
+    value: "text",
+    validExtensions: ".pdf"
   }
 ];
 

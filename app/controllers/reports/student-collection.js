@@ -58,6 +58,13 @@ export default Ember.Controller.extend({
   }),
 
   /**
+   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
+   */
+  isAnswerKeyHidden: Ember.computed('collection.isAssessment', 'collection.showKey', function() {
+    return (this.get('collection.isAssessment') && !this.get('collection.showKey'));
+  }),
+
+  /**
    * @property {Collection}
    */
   collection: null,
