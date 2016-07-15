@@ -3,12 +3,23 @@
 }
 .setting {
   @include flexbox;
+  @include align-items(center);
   .gru-icon {
     margin-right: 10px;
   }
-  >span {
-    @include flex-shrink(0);
-    width: 40%;
+  &:not(.attempts, .publish-to) {
+    >span {
+      @include flex-shrink(0);
+      width: 40%;
+    }
+  }
+  &.attempts, &.publish-to {
+    >span {
+      padding-right: 10px;
+    }
+    .gru-select .form-group {
+      margin-bottom: 0;
+    }
   }
   .feedback-options {
     @include flexbox;
