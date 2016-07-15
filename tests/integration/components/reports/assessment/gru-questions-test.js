@@ -133,11 +133,9 @@ test('Buttons Options', function (assert) {
   T.exists(assert, $component.find('table tbody td.question-reaction.visible'), 'Reaction column should be visible');
 
   this.set('isAnswerKeyHidden', true);
-  assert.ok($component.find('.btn-group button.correct-answer').hasClass('disabled'), 'Correct answer button disabled');
+  assert.notOk($component.find('.btn-group button.correct-answer').length, 'Correct answer button not present');
+  assert.notOk($component.find('.btn-group button.performance').length, 'Performance button not present');
   assert.notOk($component.find('table thead th.header.correct-answer').length, 'Correct answer header not present');
   assert.notOk($component.find('table tbody td.correct-answer').length, 'Correct answer column not present');
-
-
-
 });
 
