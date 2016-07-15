@@ -182,7 +182,7 @@ export default AddToModal.extend({
      return this.get('showCollections') ? this.get('collections') : this.get('assessments');
    }),
   /**
-   * @property {boolean}
+   * @property {boolean} showMoreResultsButton
    */
   showMoreResultsButton: Ember.computed("collections.[]","assessments.[]", function(){
     return this.get('showCollections') ? this.get("collections.length") &&
