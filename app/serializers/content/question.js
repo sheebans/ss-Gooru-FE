@@ -68,10 +68,13 @@ export default Ember.Object.extend({
       'answer': answers && answers.length ?
         answers.map(function(answer, index) {
           return serializer.serializerAnswer(answer, index + 1);
-        }) : null,
-      thumbnail: cleanFilename(questionModel.get('thumbnail'), this.get('session.cdnUrls'))
+        }) : null
     };
 
+    let thumbnail = questionModel.get('thumbnail');
+    if(thumbnail) {
+      serializedQuestion.thumbnail = cleanFilename(thumbnail, this.get('session.cdnUrls'));
+    }
     let narration = questionModel.get('narration');
     if(narration) {
       serializedQuestion.narration = narration;
