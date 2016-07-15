@@ -2,7 +2,9 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import QuestionResult from 'gooru-web/models/result/question';
+import Assessment from 'gooru-web/models/content/assessment';
 import T from 'gooru-web/tests/helpers/assert';
+import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 moduleForComponent('player/gru-question-viewer', 'Integration | Component | player/gru question viewer', {
   integration: true,
@@ -12,6 +14,7 @@ moduleForComponent('player/gru-question-viewer', 'Integration | Component | play
   }
 
 });
+
 
 test('Layout', function (assert) {
 
@@ -102,24 +105,24 @@ test('Submit button should become enabled and call action on submit', function (
 test('Clicking on the "Hints" button should display a certain number of hints and then become disabled', function(assert) {
 
   const question = Ember.Object.create({
-      "id": 10,
-      "order": 2,
-      "text": "Dummy question text",
-      "questionType": 'OE',
-      "hasMedia": false,
-      "hints": [
-        {
-          hintId: 790,
-          hintText: "Hints text 1",
-          sequence: 1
-        },
-        {
-          hintId: 791,
-          hintText: "Hints text 2",
-          sequence: 2
-        }
-      ]
-    });
+    "id": 10,
+    "order": 2,
+    "text": "Dummy question text",
+    "questionType": 'OE',
+    "hasMedia": false,
+    "hints": [
+      {
+        hintId: 790,
+        hintText: "Hints text 1",
+        sequence: 1
+      },
+      {
+        hintId: 791,
+        hintText: "Hints text 2",
+        sequence: 2
+      }
+    ]
+  });
   const questionResult = QuestionResult.create();
 
   this.set('questionResult', questionResult);
@@ -225,3 +228,80 @@ test('Submit button disabled when submitted', function (assert) {
   assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
 });
 
+test('Show feedback layout', function (assert) {
+  assert.expect(4);
+
+  const question = Ember.Object.create(
+    {
+      "id": 10,
+      "order": 2,
+      "text": "Dummy question text",
+      "mediaUrl": "test.jpg",
+      "questionType": 'OE',
+      "hasMedia": true
+    });
+
+  const assessment = Assessment.create({
+    showFeedback: ASSESSMENT_SHOW_VALUES.IMMEDIATE
+  });
+
+  const questionResult = QuestionResult.create();
+
+  this.on("mySubmitQuestion", function(question, questionResult){
+    assert.equal(question.get("id"), 10, "Wrong id");
+    assert.equal(questionResult.get("correct"), true, "Answer should be correct");
+    assert.equal(questionResult.get("userAnswer"), "test", "Wrong id");
+  });
+
+  this.set('assessment', assessment);
+  this.set('questionResult', questionResult);
+  this.set('question', question);
+
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
+      collection=assessment onSubmitQuestion="mySubmitQuestion" hasContext=true}}`);
+
+  var $component = this.$(); //component dom element
+  var $answerPanel = $component.find(".answers-panel");
+  const $saveButton = $answerPanel.find(".actions button.save");
+  assert.equal(T.text($saveButton), this.i18n.t('common.save').toString(), 'Wrong button text');
+
+  var $openEndedComponent = $answerPanel.find(".gru-open-ended");
+  $openEndedComponent.find("textarea").val("test");
+  $openEndedComponent.find("textarea").change()
+  $answerPanel.find(".actions button.save").click();
+});
+
+test('Show feedback when submitted layout', function (assert) {
+  assert.expect(2);
+
+  const question = Ember.Object.create(
+    {
+      "id": 10,
+      "order": 2,
+      "text": "Dummy question text",
+      "mediaUrl": "test.jpg",
+      "questionType": 'OE',
+      "hasMedia": true
+    });
+
+  const assessment = Assessment.create({
+    showFeedback: ASSESSMENT_SHOW_VALUES.IMMEDIATE
+  });
+
+  const questionResult = QuestionResult.create({
+    submittedAnswer: true
+  });
+
+  this.set('assessment', assessment);
+  this.set('questionResult', questionResult);
+  this.set('question', question);
+
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
+      collection=assessment onSubmitQuestion="mySubmitQuestion" hasContext=true}}`);
+
+  var $component = this.$(); //component dom element
+  var $answerPanel = $component.find(".answers-panel");
+  assert.notOk($answerPanel.find(".actions button.save").attr("disabled"), "Button should be enabled");
+
+  assert.ok($answerPanel.find(".feedback").length, "Feedback should be shown");
+});

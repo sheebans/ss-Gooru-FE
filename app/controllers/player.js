@@ -115,6 +115,12 @@ export default Ember.Controller.extend(SessionMixin, {
   // Properties
 
   /**
+   * Indicates when the player has context
+   * @property {boolean}
+   */
+  hasContext: false,
+
+  /**
    * Indicates the user's role, could be 'student', 'teacher' or null
    * @property {string}
    */

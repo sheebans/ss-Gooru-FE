@@ -15,7 +15,49 @@ export default PlayerController.extend({
   realTimeService: Ember.inject.service("api-sdk/real-time"),
 
   // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+
+    /**
+     * Handle onSubmitQuestion event from gru-question-viewer
+     * @see components/player/gru-question-viewer.js
+     * @param {Resource} question
+     * @param {QuestionResult} questionResult
+     * @param {Ember.RSVP.defer} resolved when all actions are done
+     * @param {boolean} continue to next resource
+     */
+    submitQuestion: function (question, questionResult) {
+      const controller = this;
+      let showFeedback = controller.get('collection.showFeedback');
+      if(!showFeedback) {
+        controller._super(...arguments);
+      }
+      if(questionResult.get('submittedAnswer')) {
+        const next = controller.get('collection').nextResource(question);
+        if (next) {
+          Ember.$(window).scrollTop(0);
+          controller.moveToResource(next);
+        } else {
+          controller.finishCollection();
+        }
+      } else {
+        controller.finishResourceResult(questionResult).then(function(){
+          questionResult.set('submittedAnswer', true);
+        });
+      }
+    }
+  },
+
+
+
+  // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates when the player has context
+   * @property {boolean}
+   */
+  hasContext: true,
 
   /**
    * Should resource navigation in the player be disabled?

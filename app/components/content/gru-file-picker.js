@@ -80,15 +80,6 @@ export default Ember.Component.extend({
   // Observers
 
   resetPicker: Ember.observer('validFileExtensions', function() {
-
-    this.actions.resetFileSelection.call(this);
-
-    // Reset the input element in the file picker
-    // http://stackoverflow.com/questions/1043957/clearing-input-type-file-using-jquery/13351234#13351234
-    var $fileInput = this.$('input[type="file"]');
-    $fileInput.wrap('<form>').closest('form').get(0).reset();
-    $fileInput.unwrap();
-
     // Clear any previous errors
     this.get('filePickerErrors').clear();
   })

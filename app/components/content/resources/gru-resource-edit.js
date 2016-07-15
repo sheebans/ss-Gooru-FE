@@ -213,6 +213,14 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
     'label': "Off",
     'value': false
   })]),
+  /**
+   * Indicates if the current resource type is resource
+   * @property {boolean}
+   */
+  isNotIframeUrl: Ember.computed("resource", function(){
+    const resource = this.get("resource");
+    return (resource && resource.displayGuide);
+  }),
 
   // ----------------------------
   // Methods

@@ -68,7 +68,6 @@ export default Ember.Object.extend({
     let submittedAt = resourceResult.get('submittedAt');
     let startTime = toTimestamp(startedAt);
     let endTime = !submittedAt ? startTime: toTimestamp(submittedAt);
-
     let serialized = {
       "eventId": context.get('resourceEventId'),
       "eventName": "collection.resource.play",

@@ -80,6 +80,11 @@ export default Ember.Component.extend({
   areAnswersHidden: false,
 
   /**
+   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
+   */
+  isAnswerKeyHidden: false,
+
+  /**
    * @property {string} on select attempt action name
    */
   onSelectAttempt: null,
