@@ -37,7 +37,8 @@ export default GruHSTextComponent.extend({
    * @prop {String} instructions - Question instructions
    */
   instructions: Ember.computed(function() {
-    return this.get('i18n').t('gru-hs-image.instructions');
+    var action = this.get('i18n').t(this.get('instructionsActionTextKey')).string;
+    return this.get('i18n').t('gru-hs-image.instructions', {action});
   }),
 
   /*
