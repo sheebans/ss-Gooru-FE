@@ -34,8 +34,7 @@ export default Ember.Component.extend(ModalMixin,{
     this._super(...arguments);
     var model = {
       bidirectional: this.get('bidirectional'),
-      attemptsLeft: this.get('attemptsLeft'),
-      attemptsSetting: this.get('attemptsSetting'),
+      attempts: this.get('attempts'),
       title: this.get('title'),
       onStart: function() {
         return this.sendAction('onStart');
