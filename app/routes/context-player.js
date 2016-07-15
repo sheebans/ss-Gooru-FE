@@ -57,8 +57,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       controller.set('showContent',true);
     }else {
       controller.set('isAssessment', true);
-    //  controller.set('assessmentAttempts', model.collection.attempts);
-      //controller.set('assessmentTitle', model.collection.title);
     }
     this._super(...arguments);
 
