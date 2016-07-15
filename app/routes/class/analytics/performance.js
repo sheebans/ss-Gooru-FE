@@ -33,15 +33,15 @@ export default Ember.Route.extend({
        at _emberRuntimeSystemObject.default.extend.actions.finalizeQueryParamChange (ember.debug.js:25264)
        at Object.triggerEvent (ember.debug.js:27476)
 
-    Why are we transitioning in the beforeModel hook and not the redirect hook which was created specifically for this purpose?
+    Why were we transitioning in the beforeModel hook and not the redirect hook which was created specifically for this purpose?
     https://guides.emberjs.com/v2.6.0/routing/redirection/
      */
 
     const route = this;
     const classModel = this.modelFor('class').class;
     if (classModel.isTeacher(route.get('session.userId'))){
-      route.transitionTo('class.analytics.performance.teacher', {
-        queryParams: route.paramsFor('class.analytics.performance.teacher')
+      route.transitionTo('class.analytics.performance.teacher.course', {
+        queryParams: route.paramsFor('class.analytics.performance.teacher.course')
       });
     } else {
       route.transitionTo('class.analytics.performance.student', {
