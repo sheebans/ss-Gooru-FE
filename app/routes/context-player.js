@@ -55,8 +55,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     controller.set("lesson", model.lesson);
     if (model.collection.collectionType === "collection"){
       controller.set('showContent',true);
-    }else {
-      controller.set('isAssessment',true);
     }
     this._super(...arguments);
 
@@ -84,6 +82,10 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       unitId: unitId,
       lessonId: lessonId
     });
+  },
+
+  deactivate: function(controller){
+    this.get('controller').set('showContent',false)
   }
 
 });
