@@ -4,7 +4,7 @@
   </div>
   <div class="btn-group" role="group">
     <button type="button" {{action 'selectPerformanceOption' true}} class="performance btn {{if showPerformance 'btn-primary' 'btn-info'}}">{{t "common.performance"}}</button>
-    <button type="button" {{action 'selectPerformanceOption' false}} class="correct-answer btn {{unless showPerformance 'btn-primary' 'btn-info' }}">{{t "common.show-correct-answer"}}</button>
+    <button type="button" {{action 'selectPerformanceOption' false}} class="correct-answer btn {{unless showPerformance 'btn-primary' 'btn-info' }} {{if isAnswerKeyHidden 'disabled'}}">{{t "common.show-correct-answer"}}</button>
   </div>
 </div>
 <table class="hidden-xs">
@@ -28,9 +28,11 @@
     <th class="header reaction {{if showPerformance 'visible' 'hide'}}">
       {{t "common.reaction"}}
     </th>
-    <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-      {{t "common.correct-answer"}}
-    </th>
+    {{#unless isAnswerKeyHidden}}
+      <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
+        {{t "common.correct-answer"}}
+      </th>
+    {{/unless}}
   </tr>
   </thead>
   <tbody>
@@ -58,9 +60,11 @@
       <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
         {{reactionIcon result.reaction}}
       </td>
-      <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-        {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
-      </td>
+      {{#unless isAnswerKeyHidden}}
+        <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
+          {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
+        </td>
+      {{/unless}}
     </tr>
   {{/each}}
   </tbody>

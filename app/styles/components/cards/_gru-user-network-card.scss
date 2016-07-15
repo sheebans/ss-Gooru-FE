@@ -49,10 +49,16 @@
       .count{
         font-weight: bold;
       }
+    }
+    .panel-footer{
+      padding:0;
+      height: 43px;
+      background-color: $white;
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
       .follow-btn{
-        color:$white;
+        padding-top: 15px;
         button{
-          margin-top: 15px;
           width: 100%;
           border-top-left-radius: 0;
           border-top-right-radius: 0;

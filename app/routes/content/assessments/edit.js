@@ -3,7 +3,10 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    editing:{}
+    editing:{},
+    editingContent:{
+      refreshModel: true
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -30,6 +33,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       .then(function(assessment) {
         const courseId = assessment.get('courseId');
         const isEditing = params.editing;
+        const editingContent = params.editingContent ? params.editingContent : null;
         var course = null;
 
         if (courseId) {
@@ -39,7 +43,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         return Ember.RSVP.hash({
           assessment: assessment,
           course: course,
-          isEditing: !!isEditing
+          isEditing: !!isEditing,
+          editingContent: editingContent
         });
       });
   },
@@ -51,6 +56,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('collection', model.assessment);
     controller.set('course', model.course);
     controller.set('isEditing', model.isEditing);
+    controller.set('editingContent', model.editingContent);
     controller.set('isAssessment', true);
 
     if(model.isEditing) {
