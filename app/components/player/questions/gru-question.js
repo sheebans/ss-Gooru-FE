@@ -30,6 +30,12 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * Text for action in instructions
+   * @property {string}
+   */
+  instructionsActionTextKey: 'common.save',
+
+  /**
    * @property {String|Function} onAnswerCompleted - event handler for when the question answer is completed
    */
   onAnswerCompleted: null,
