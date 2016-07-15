@@ -56,7 +56,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     if (model.collection.collectionType == "collection"){
       controller.set('showContent',true);
     }else {
-      controller.set('isAssessment', true);
+      controller.set('isAssessment',true);
     }
     this._super(...arguments);
 

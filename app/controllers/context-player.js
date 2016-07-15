@@ -28,6 +28,7 @@ export default PlayerController.extend({
     }
     return isDisabled;
   }),
+  isAssessment: false,
 
   /**
    * The lesson for this collection
