@@ -34,7 +34,8 @@ export default Ember.Component.extend(ModalMixin,{
     this._super(...arguments);
     var model = {
       bidirectional: this.get('bidirectional'),
-      attempts: this.get('attempts'),
+      attemptsLeft: this.get('attemptsLeft'),
+      attemptsSetting: this.get('attemptsSetting'),
       title: this.get('title'),
       onStart: function() {
         return this.sendAction('onStart');
@@ -44,7 +45,7 @@ export default Ember.Component.extend(ModalMixin,{
       }.bind(this),
 
     };
-    
+
     this.actions.showModal.call(this,
       'content.modals.gru-assessment-confirmation',
       model);
