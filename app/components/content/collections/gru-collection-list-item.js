@@ -16,16 +16,6 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
 
   // -------------------------------------------------------------------------
-  // Attributes
-
-  classNames: ['content', 'collections', 'gru-collection-list-item'],
-
-  tagName: 'li',
-
-  attributeBindings: ['data-id'],
-
-  'data-id':Ember.computed.alias('model.id'),
-  // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @requires service:api-sdk/resource
@@ -62,21 +52,7 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    */
   session: Ember.inject.service('session'),
 
-  // -------------------------------------------------------------------------
-  // Events
 
-  /**
-   * Overwrites didInsertElement hook.
-   */
-  didInsertElement: function() {
-    this._super(...arguments);
-    const component = this;
-
-    var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
-    if (isTouch) {
-      component.$('.actions .item-actions button').tooltip('disable');
-    }
-  },
   // -------------------------------------------------------------------------
   // Actions
 
@@ -222,13 +198,33 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     }
   },
 
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  classNames: ['content', 'collections', 'gru-collection-list-item'],
+
+  tagName: 'li',
+
+  attributeBindings: ['data-id'],
+
+  'data-id':Ember.computed.alias('model.id'),
+
+
   // -------------------------------------------------------------------------
   // Events
+
   /**
    * DidInsertElement ember event
    */
-  didInsertElement: function(){
-    var component = this;
+  didInsertElement: function() {
+    this._super(...arguments);
+    const component = this;
+    var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+
+    if (isTouch) {
+      component.$('.actions .item-actions button').tooltip('disable');
+    }
 
     component.setProperties({
       'isPanelExpanded': false,
@@ -246,6 +242,7 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       }
     }
   },
+
 
   // -------------------------------------------------------------------------
   // Properties
