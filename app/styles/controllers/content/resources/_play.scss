@@ -208,6 +208,7 @@
         @extend .embed-responsive-16by9;
       }
       .gru-url-resource,
+      .gru-image-resource,
       .gru-pdf-resource {
         min-height: 370px;
         iframe {}

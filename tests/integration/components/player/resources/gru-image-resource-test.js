@@ -26,6 +26,6 @@ test('True or false question layout', function (assert) {
   this.render(hbs`{{player/resources/gru-image-resource resource=resource}}`);
 
   var $component = this.$(); //component dom element
-  T.exists(assert, $component.find("img"), "Missing image element");
-  assert.equal($component.find("img").attr("src"), "test/images/icon.png", "Wrong url");
+  T.exists(assert, $component.find("iframe"), "Missing image element");
+  assert.equal($component.find("iframe").attr("src"), "test/images/icon.png", "Wrong url");
 });
