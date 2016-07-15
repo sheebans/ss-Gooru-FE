@@ -87,9 +87,10 @@ export default Ember.Object.extend({
       publisher: resourceData["copyright_owner"] && resourceData["copyright_owner"].length > 0 ? resourceData["copyright_owner"][0] : null,
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
-      displayGuide:resourceData['display_guide']&& (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1) ? true: false
+      displayGuide:resourceData['display_guide']&& (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1)
     });
-
+    resource.set('displayGuide', resource.get("displayGuide") || this.checkURLProtocol(resource.url));
+    
     //is full path if it has protocol
     const isFullPath = resourceData.url ? /^(?:[a-z]+:)?\/\//.exec(resourceData.url) : false;
 
@@ -101,7 +102,7 @@ export default Ember.Object.extend({
     }
 
     if (resource.get("isUrlResource")) {
-      if(resource.get("displayGuide") && (resource.get("displayGuide.is_broken")|| resource.get("displayGuide.is_frame_breaker"))) {
+      if(resource.get("displayGuide")) {
         var url = resource.get("url");
         var pattern = /^((http|https|ftp):\/\/)/;
 
@@ -118,5 +119,8 @@ export default Ember.Object.extend({
       }
     }
     return resource;
+  },
+  checkURLProtocol: function(url){
+    return (window.location.protocol === 'https'  && /^((http):\/\/)/.test(url));
   }
 });
