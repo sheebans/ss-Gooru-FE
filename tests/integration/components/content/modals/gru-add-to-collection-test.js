@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceModel from 'gooru-web/models/content/resource';
 import Ember from 'ember';
+import wait from 'ember-test-helpers/wait';
 
 const profileServiceStub = Ember.Service.extend({
 
@@ -11,37 +12,31 @@ const profileServiceStub = Ember.Service.extend({
       if (!userId) {
         reject({status: 500});
       } else {
-        resolve({
-          "collections": [{
-            "id": "GDF.K12.CS",
-            "title": "Computer Science",
-          }]
-        });
-      }
-    });
-  },
-  readAssessments(userId,pagination) {
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      if (!userId) {
-        reject({status: 500});
-      } else {
-        resolve({
-          "assessments": [{
-            "id": "GDF.K12.CS",
-            "title": "Computer Science",
-          }]
-        });
+        resolve(
+           Ember.A([
+            {
+              id: 'some-id',
+              title: 'some-title'
+            },
+           {
+             id: 'some-id-2',
+             title: 'some-title-2'
+            }]));
       }
     });
   }
-
+});
+const sessionServiceStub = Ember.Service.extend({
+  userId:'12345'
 });
 
 moduleForComponent('content/modals/gru-add-to-collection', 'Integration | Component | content/modals/gru add to collection', {
   integration: true,
   beforeEach: function () {
-    this.register('service:profile', profileServiceStub);
-    this.inject.service('profile');
+    this.register('service:api-sdk/profile', profileServiceStub);
+    this.inject.service('api-sdk/profile');
+    this.register('service:session', sessionServiceStub);
+    this.inject.service('session');
   }
 });
 
@@ -89,19 +84,33 @@ test('Layout', function(assert) {
 
 test('Show more result', function(assert) {
   var collections = Ember.A([]);
+  var assessments = Ember.A([]);
 
-  for (i = 0; i <= 40; i++) {
+  for (i = 0; i <= 19; i++) {
     collections.pushObject(CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'some-id',
       title: 'some-title'
     }));
   }
-  this.set('model', collections);
+
+  var content = {content:null, collections, assessments};
+  this.set('model', content);
 
   this.render(hbs`{{content/modals/gru-add-to-collection model=model}}`);
 
   const $component = this.$('.content.modals.gru-add-to');
-  assert.ok($component.length, 'Component classes');
+  assert.ok($component.length, 'Component');
 
+  const $body = $component.find('.modal-body');
+  assert.ok($body.length, 'Body');
 
+  const $showMoreResultButton = $component.find('.show-more-results');
+  assert.ok($showMoreResultButton);
+
+  assert.equal($body.find('.collection').length,20, 'Number of cards');
+
+  $showMoreResultButton.click();
+  return wait().then(function () {
+    assert.equal($body.find('.collection').length, 22, 'Number of cards');
+  });
 });

@@ -121,8 +121,8 @@ export default AddToModal.extend({
   },
   showMoreResults: function(){
     const component = this;
-    if(this.get('showCollections')){
-      const pagination = this.get("paginationCollections");
+    if(component.get('showCollections')){
+      const pagination = component.get("paginationCollections");
       pagination.page = pagination.page + 1;
 
       component.get('profileService')
