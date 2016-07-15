@@ -48,7 +48,7 @@ export default Ember.Service.extend({
       }).then(function(response) {
         resolve(service.get('profileSerializer').normalizeCreateProfile(response));
       }, function(error) {
-        reject(error);
+        reject(error && error.responseText ? JSON.parse(error.responseText) : error);
       });
     });
   },
@@ -68,7 +68,7 @@ export default Ember.Service.extend({
       }).then(function() {
         resolve();
       }, function(error) {
-        reject(error);
+        reject(error && error.responseText ? JSON.parse(error.responseText) : error);
       });
     });
   },
@@ -376,7 +376,7 @@ export default Ember.Service.extend({
         .then(function() {
           resolve();
         }, function(error) {
-          reject(error);
+          reject(error && error.responseText ? JSON.parse(error.responseText) : error);
         });
     });
   },
@@ -431,15 +431,29 @@ export default Ember.Service.extend({
     });
   },
 
-  readMultipleProfiles: function(profileIds) {
+  readMultipleProfiles: function(profileIds,max) {
     const service = this;
+    var chunk=(profileIds.length > max) ? max : profileIds.length ;
+    const promises = [];
+    var usersProfile = Ember.A([]);
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readMultipleProfiles(profileIds)
-        .then(function(response) {
-          resolve(service.get('profileSerializer').normalizeReadMultipleProfiles(response));
-        }, function(error) {
-          reject(error);
+      
+      for (let i=0, j=profileIds.length; i<j; i+=chunk) {
+        let temparray = profileIds.slice(i,i+chunk);
+        const promise = service.get('profileAdapter').readMultipleProfiles(temparray);
+        promises.push(promise);
+      }
+      Ember.RSVP.all(promises).then(function(values) {
+        values.forEach(function(value) {
+          usersProfile.addObjects(service.get('profileSerializer').normalizeReadMultipleProfiles(value));
         });
+
+        resolve(usersProfile);
+
+      }, function(error) {
+          reject(error);
+      });
     });
   }
 

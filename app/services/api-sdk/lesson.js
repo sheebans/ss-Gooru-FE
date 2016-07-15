@@ -164,6 +164,25 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
+   * Disassociates a Collection/Assesment with a lesson
+   *
+   * @param lessonId the lesson id
+   * @param collectionId the collection/assesment id
+   * @returns {Promise}
+   */
+  disassociateAssessmentOrCollectionToLesson: function(courseId,unitId, lessonId, collectionId, isCollection) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').disassociateAssessmentOrCollectionToLesson({
+        courseId,
+        unitId,
+        lessonId,
+        collectionId,
+        type: isCollection ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT
+      }).then(resolve, reject);
+    });
+  },
+  /**
    * Delete lesson
    *
    * @param courseId - course the unit belongs to

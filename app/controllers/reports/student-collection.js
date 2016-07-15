@@ -1,5 +1,7 @@
 import Ember from "ember";
 import { toLocal } from 'gooru-web/utils/utils';
+import { ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
+
 /**
  *
  * Controls the access to the analytics data for a
@@ -47,6 +49,21 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @property {boolean} areAnswersHidden - Should answer results be hidden?
+   */
+  areAnswersHidden: Ember.computed('collection.isAssessment', 'collection.showFeedback', function() {
+    return (this.get('collection.isAssessment') && this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.NEVER)
+  }),
+
+  /**
+   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
+   */
+  isAnswerKeyHidden: Ember.computed('collection.isAssessment', 'collection.showKey', function() {
+    return (this.get('collection.isAssessment') && !this.get('collection.showKey'));
+  }),
+
   /**
    * @property {Collection}
    */

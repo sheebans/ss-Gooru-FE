@@ -10,7 +10,6 @@ test('serializeCreateQuestion', function(assert) {
   const questionObject = QuestionModel.create({
     title: 'question-title',
     description: 'question-desc',
-    narration: 'question-narration',
     type: 'MA',
     audience: [1],
     depthOfknowledge: [4]
@@ -18,9 +17,34 @@ test('serializeCreateQuestion', function(assert) {
   const response = serializer.serializeCreateQuestion(questionObject);
   assert.equal(response["title"], "question-title", "Wrong title");
   assert.equal(response["description"], "question-desc", "Wrong description");
-  assert.equal(response["narration"], "question-narration", "Wrong narration");
   assert.equal(response["content_subformat"], "multiple_answer_question", "Wrong sub format");
   assert.equal(response["visible_on_profile"], true, "Wrong visible on profile");
+  assert.equal(response['metadata']['audience'][0], 1, 'Wrong audience');
+  assert.equal(response['metadata']['depth_of_knowledge'][0], 4, 'Wrong depth_of_knowledge');
+});
+
+test('serializeUpdateQuestion null values', function(assert) {
+  const serializer = this.subject();
+  const question = QuestionModel.create({
+    title: 'Question title',
+    //type: 'MA',
+    text: null,
+    narration: null,
+    isVisibleOnProfile: false,
+    questionType: 'word',
+    standards: [],
+    audience: [1],
+    depthOfknowledge: [4],
+    answers: null
+  });
+  const response = serializer.serializeUpdateQuestion(question);
+
+  assert.equal(response.title, 'Question title', 'Wrong title');
+  assert.notOk(response.description, 'Wrong description');
+  assert.notOk(response.narration, 'Wrong narration');
+  assert.equal(response['visible_on_profile'], false, 'Wrong visible_on_profile');
+  assert.notOk(response.answer, 'Wrong answer');
+  assert.equal(response.taxonomy, null, 'Wrong taxonomy object');
   assert.equal(response['metadata']['audience'][0], 1, 'Wrong audience');
   assert.equal(response['metadata']['depth_of_knowledge'][0], 4, 'Wrong depth_of_knowledge');
 });

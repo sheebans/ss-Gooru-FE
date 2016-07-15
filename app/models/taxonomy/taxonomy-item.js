@@ -113,8 +113,11 @@ export default Ember.Object.extend({
       let children = this.get('children');
       if (children.length) {
         for (let i = children.length - 1; i >= 0; --i) {
-          result = children[i].findItem(itemId);
-          if (result) { break; }
+          let item = children[i].isSimilar(itemId);
+          if (item) {
+            result = item.findItem(itemId);
+            if (result) { break; }
+          }
         }
       }
     }
@@ -122,6 +125,23 @@ export default Ember.Object.extend({
     return result;
   },
 
+  /**
+   * @function Is the item's ID contained within another item ID?
+   * @param {String} itemId - Item ID to test for
+   */
+  isSimilar: function(itemId) {
+    var result = null;
+    var myId = this.get('id');
+
+    // Be mindful of fake parents (@see services/taxonomy#attachChildren or
+    // @see services/taxonomy#attachStandardsWithoutCategory). Allow these
+    // to be considered as similar so it's possible to continue searching
+    // within these.
+    if (itemId.indexOf(myId) > -1 || myId.indexOf('empty-') > -1) {
+      result = this;
+    }
+    return result;
+  },
 
   /**
    * @function Destroy an item and all its descendents.

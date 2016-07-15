@@ -20,10 +20,6 @@
       }
     }
   }
-  .dropdown-menu {
-    top:100%;
-    position: relative;
-  }
   &.open > .btn-default.dropdown-toggle{
     box-shadow: none;
     background-color: $white!important;
@@ -60,6 +56,7 @@
   .dropdown-menu.inner {
     max-height: 300px!important;
     position: relative;
+    padding-bottom: 5px;
     width: 100%;
   }
 }

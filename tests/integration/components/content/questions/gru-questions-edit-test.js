@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import { QUESTION_TYPES } from 'gooru-web/config/question';
-
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Question from 'gooru-web/models/content/question';
@@ -65,23 +64,25 @@ test('it has header and main sections', function (assert) {
   var $container = this.$("article.content.questions.gru-questions-edit");
   assert.ok($container.length, "Component");
 
-  const $header = $container.find('> header');
-  assert.ok($header.length, "Header");
-  assert.ok($header.find('> .actions').length, "Header actions");
-  assert.equal($header.find('> .actions > button').length, 4, "Number of header actions");
-  assert.ok($container.find('.actions button.delete').length, "Missing Delete Button");
-  assert.ok($container.find('.actions button.gru-share-pop-over').length, "Missing Share Button");
-  assert.ok($container.find('.actions button.add').length, "Missing Add Button");
-  assert.ok($container.find('.actions button.preview').length, "Missing preview Button");
+  return wait().then(function () {
+    const $header = $container.find('> header');
+    assert.ok($header.length, "Header");
+    assert.ok($header.find('> .actions').length, "Header actions");
+    assert.equal($header.find('> .actions > button').length, 4, "Number of header actions");
+    assert.ok($container.find('.actions button.delete').length, "Missing Delete Button");
+    assert.ok($container.find('.actions button.gru-share-pop-over').length, "Missing Share Button");
+    assert.ok($container.find('.actions button.copy').length, "Missing Copy To Button");
+    assert.ok($container.find('.actions button.preview').length, "Missing preview Button");
 
-  assert.ok($header.find('> nav').length, "Header navigation");
-  assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
-  assert.notOk($header.find('.back-to').length, "Should not have the option Back to Assessment");
+    assert.ok($header.find('> nav').length, "Header navigation");
+    assert.equal($header.find('> nav > a').length, 3, "Number of header navigation links");
+    assert.notOk($header.find('.back-to').length, "Should not have the option Back to Assessment");
 
-  assert.equal($container.find('> section').length, 3, "Number of edit sections");
-  assert.ok($container.find('> section#information').length, "Information section");
-  assert.ok($container.find('> section#builder').length, "Builder section");
-  assert.ok($container.find('> section#settings').length, "Settings section");
+    assert.equal($container.find('> section').length, 3, "Number of edit sections");
+    assert.ok($container.find('> section#information').length, "Information section");
+    assert.ok($container.find('> section#builder').length, "Builder section");
+    assert.ok($container.find('> section#settings').length, "Settings section");
+  });
 });
 
 test('Header return to an assessment', function (assert) {
@@ -104,10 +105,13 @@ test('Header return to an assessment', function (assert) {
   var $container = this.$("article.content.questions.gru-questions-edit");
   assert.ok($container.length, "Component");
 
-  const $header = $container.find('> header');
-  assert.ok($header.length, "Header");
-  assert.ok($header.find('.back-to .return-assessment').length, "Should have the option Back to Assessment");
+  return wait().then(function () {
+    const $header = $container.find('> header');
+    assert.ok($header.length, "Header");
+    assert.ok($header.find('.back-to .return-assessment').length, "Should have the option Back to Assessment");
+  });
 });
+
 test('Header return to an assessment', function (assert) {
 
 
@@ -128,9 +132,11 @@ test('Header return to an assessment', function (assert) {
   var $container = this.$("article.content.questions.gru-questions-edit");
   assert.ok($container.length, "Component");
 
-  const $header = $container.find('> header');
-  assert.ok($header.length, "Header");
-  assert.ok($header.find('.back-to .return-collection').length, "Should have the option Back to Assessment");
+  return wait().then(function () {
+    const $header = $container.find('> header');
+    assert.ok($header.length, "Header");
+    assert.ok($header.find('.back-to .return-collection').length, "Should have the option Back to Assessment");
+  });
 });
 
 test('Update Question Information', function (assert) {
@@ -138,6 +144,7 @@ test('Update Question Information', function (assert) {
   var newTitle ='Question for testing gooru';
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
+    text: "Question description",
     standards: []
   });
   this.set('question',question);
@@ -167,10 +174,12 @@ test('Layout of the information section', function (assert) {
   this.set('question', question);
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
 
-  var $settingsSection = this.$("#information");
-  assert.ok($settingsSection.find('.header h2').length, "Information title missing");
-  assert.ok($settingsSection.find('.panel-body .title label b').length, "Missing title label");
-  assert.ok($settingsSection.find('.panel-body .question-types').length, "Missing question types");
+  return wait().then(function () {
+    var $settingsSection = this.$("#information");
+    assert.ok($settingsSection.find('.header h2').length, "Information title missing");
+    assert.ok($settingsSection.find('.panel-body .title label b').length, "Missing title label");
+    assert.ok($settingsSection.find('.panel-body .question-types').length, "Missing question types");
+  });
 });
 
 test('Layout of the information section editing mode', function (assert) {
@@ -182,10 +191,12 @@ test('Layout of the information section editing mode', function (assert) {
   this.set('question', question);
   this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
 
-  var $settingsSection = this.$("#information");
-  assert.ok($settingsSection.find('.header h2').length, "Information title missing");
-  assert.ok($settingsSection.find('.panel-body .title label .gru-input').length, "Missing title input");
- // assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");;
+  return wait().then(function () {
+    var $settingsSection = this.$("#information");
+    assert.ok($settingsSection.find('.header h2').length, "Information title missing");
+    assert.ok($settingsSection.find('.panel-body .title label .gru-input').length, "Missing title input");
+    // assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");
+  });
 });
 
 test('Validate if the question title field is left blank', function (assert) {
@@ -209,7 +220,6 @@ test('Validate if the question title field is left blank', function (assert) {
     $titleField.find("input").val('Question Name');
 
     $titleField.find("input").trigger('blur');
-
 
     return wait().then(function () {
       assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message was hidden');
@@ -256,8 +266,10 @@ test('Validate the character limit in the Question title field', function (asser
 
   this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
 
-  const maxLenValue = this.$('.gru-questions-edit .gru-input.title input').prop('maxlength');
-  assert.equal(maxLenValue, 50, "Input max length");
+  return wait().then(function () {
+    const maxLenValue = this.$('.gru-questions-edit .gru-input.title input').prop('maxlength');
+    assert.equal(maxLenValue, 50, "Input max length");
+  });
 });
 
 test('Layout of the builder section', function (assert) {
@@ -269,11 +281,13 @@ test('Layout of the builder section', function (assert) {
   this.set('question', question);
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
 
-  var $builderSection = this.$("#builder");
-  assert.ok($builderSection.find('.header h2').length, "Builder title missing");
-  assert.ok($builderSection.find('.panel-heading h3').length, "Missing Question label");
-  assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
-  assert.ok($builderSection.find('.panel-body .text-empty').length, "Missing text empty message");
+  return wait().then(function () {
+    var $builderSection = this.$("#builder");
+    assert.ok($builderSection.find('.header h2').length, "Builder title missing");
+    assert.ok($builderSection.find('.panel-heading h3').length, "Missing Question label");
+    assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
+    assert.ok($builderSection.find('.panel-body .text-empty').length, "Missing text empty message");
+  });
 });
 
 test('Builder Edit', function (assert) {
@@ -559,7 +573,7 @@ test('Update answer text - (drag/drop) Reorder', function (assert) {
 
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text: "",
+    text: "Question description",
     type: QUESTION_TYPES.hotTextReorder,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option Text",
@@ -658,7 +672,7 @@ test('Update answer text - Open Ended', function (assert) {
 
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text: "",
+    text: "Question description",
     type: QUESTION_TYPES.openEnded,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Answer text",
@@ -843,7 +857,7 @@ test('Delete answer HS-Image ', function (assert) {
   assert.expect(3);
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text:"",
+    text: "Question description",
     type: QUESTION_TYPES.hotSpotImage,
     answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Answer text",
@@ -924,7 +938,7 @@ test('Update answer text - Hot Text Highlight', function (assert) {
 
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text: "",
+    text: "Question description",
     type: QUESTION_TYPES.hotTextHighlight,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Answer [text]",
@@ -965,7 +979,7 @@ test('Update answer and cancel - Hot Text Highlight', function (assert) {
 
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text: "",
+    text: "Question description",
     type: QUESTION_TYPES.hotTextHighlight,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "",

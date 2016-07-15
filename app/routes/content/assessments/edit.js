@@ -3,9 +3,10 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    courseId:{},
-    allowBackToCourse:{},
-    editing:{}
+    editing:{},
+    editingContent:{
+      refreshModel: true
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -21,47 +22,45 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  resetController(controller, isExiting) {
-    if (isExiting) {
-      controller.set('courseId', undefined);
-      controller.set('allowBackToCourse', undefined);
-    }
-  },
+
 
   // -------------------------------------------------------------------------
   // Methods
 
   model: function (params) {
-    var assessment = this.get('assessmentService').readAssessment(params.assessmentId);
-    var course = null;
-    var isEditing = params.editing;
+    const route = this;
+    return route.get('assessmentService').readAssessment(params.assessmentId)
+      .then(function(assessment) {
+        const courseId = assessment.get('courseId');
+        const isEditing = params.editing;
+        const editingContent = params.editingContent ? params.editingContent : null;
+        var course = null;
 
-    if(params.courseId && params.courseId !== "null"){
-      course = this.get('courseService').fetchById(params.courseId);
-    }
-    var allowBackToCourse = params.allowBackToCourse && params.allowBackToCourse === 'true';
+        if (courseId) {
+          course = route.get('courseService').fetchById(courseId);
+        }
 
-    return Ember.RSVP.hash({
-      assessment: assessment,
-      course:course,
-      allowBackToCourse:allowBackToCourse,
-      isEditing: !!isEditing
-    });
+        return Ember.RSVP.hash({
+          assessment: assessment,
+          course: course,
+          isEditing: !!isEditing,
+          editingContent: editingContent
+        });
+      });
   },
 
   setupController(controller, model) {
-    var collection = model.assessment;
     // Since assessment is a collection with only questions, we'll reuse the same components
     // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
     // and that is why the property 'collection' is being reused here, too.
     controller.set('collection', model.assessment);
-    controller.set('collection.course', model.courseName);
-    controller.set('isAssessment',true);
     controller.set('course', model.course);
-    controller.set('allowBackToCourse',model.allowBackToCourse);
     controller.set('isEditing', model.isEditing);
+    controller.set('editingContent', model.editingContent);
+    controller.set('isAssessment', true);
+
     if(model.isEditing) {
-      controller.set('tempCollection', collection.copy());
+      controller.set('tempCollection', model.assessment.copy());
     }
   }
 });

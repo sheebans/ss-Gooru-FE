@@ -60,14 +60,17 @@ module.exports = function (environment) {
     eventAPIKey: '33b9ad34-1a0c-43ba-bb9c-4784abe07110'
   };
 
+  ENV['teamsHosts'] = {
+    'localhost' : 'teams-qa.gooru.org',            // Development
+    'qa.gooruweb.edify.cr' : 'teams-qa.gooru.org', // Edify-QA
+    'nucleus-qa.gooru.org' : 'teams-qa.gooru.org', // Nucleus-QA
+    'www.gooru.org' : 'teams.gooru.org'         // Production
+  };
+
   ENV['simple-auth-custom'] = {
     apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT',
     serverTokenEndpoint: '/gooruapi/rest/v2/account/login',
     anonymousEndpoint: '/gooruapi/rest/v2/account/loginas/anonymous'
-  };
-
-  ENV['real-time'] = {
-    webSocketUrl: '/ws/realtime'
   };
 
   ENV['API-3.0'] = {
@@ -81,6 +84,22 @@ module.exports = function (environment) {
     url: '/api/nucleus-auth-idp/v1/google'
   };
 
+  ENV['gooru-endpoints'] = {
+    protocol: 'http://',
+    secureProtocol: 'https://',
+    hostname: 'nucleus-qa.gooru.org',
+    port: undefined,          // Uses the default value 80
+    securePort: undefined     // Uses the default value 443
+  };
+
+  ENV['real-time'] = {
+    webSocketUrl: '/ws/realtime',
+    webServiceUrl: '/nucleus/realtime',
+    protocol: 'http://',
+    hostname: 'goorurt.qa.gooruweb.edify.cr',
+    port: 80
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -91,12 +110,12 @@ module.exports = function (environment) {
       'default-src': "'none'",
       'script-src': "'self'",
       'font-src': "'self' https://fonts.gstatic.com",
-      'connect-src': "'self' http://localhost:4200 ws://localhost:4200 http://localhost:8882 http://qa.gooru.org",
+      'connect-src': "'self' http://localhost:4200 ws://localhost:4200 http://localhost:8882 http://qa.gooru.org http://nucleus-qa.gooru.org",
       'img-src': "'self' data: http://qacdn.gooru.org http://profile-images.goorulearning.org.s3.amazonaws.com " +
         "http://dev-content-gooru-org.s3-us-west-1.amazonaws.com http://dev-user-gooru-org.s3-us-west-1.amazonaws.com",
       'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
       'media-src': "'self'"
-    }
+    };
   }
 
   if (environment === 'test') {
@@ -111,6 +130,22 @@ module.exports = function (environment) {
     ENV['ember-simple-auth'].store = 'session-store:ephemeral';
 
     ENV.APP.rootElement = '#ember-testing';
+
+    ENV['gooru-endpoints'] = {
+      protocol: 'http://',
+      secureProtocol: 'http://',
+      hostname: 'localhost',
+      port: 7357,
+      securePort: 7357
+    };
+
+    ENV['real-time'] = {
+      webSocketUrl: '/ws/realtime',
+      webServiceUrl: '/nucleus/realtime',
+      protocol: 'http://',
+      hostname: 'localhost',
+      port: 7357
+    };
   }
 
   if (environment === 'production') {

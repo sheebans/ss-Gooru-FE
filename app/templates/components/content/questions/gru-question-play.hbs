@@ -19,7 +19,11 @@
             <div class="publisher">
               {{#if question.owner}}
                 <span>
-                  {{t (if isCreator "common.created-by" "common.remixed-by")}}
+                  {{#if question.sameOwnerAndCreator}}
+                    {{t "common.created-by"}}
+                  {{else}}
+                    {{t "common.remixed-by"}}
+                  {{/if}}
                 </span>
                 <img class="img-responsive" src="{{question.owner.avatarUrl}}">
                 {{#link-to 'profile.content.courses' question.owner.id class="pointer" tagName="div"}}

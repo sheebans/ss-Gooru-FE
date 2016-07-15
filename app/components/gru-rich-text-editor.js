@@ -28,14 +28,18 @@ export default Ember.Component.extend({
         let latex = component.get('mathField').latex();
         let html = "<span class='gru-math-expression'><span class='source' hidden>" + latex + "</span>" + katex.renderToString(latex) + "</span>";
         component.get('editor').focus();
-        if (component.get('cursorPosition')) {
-          component.get('cursorPosition').collapseToEnd();
+        if (component.get('cursor')) {
+          component.get('editor').composer.selection.setBookmark(component.get('cursor'));
         }
         if (component.get('editor').composer) {
           component.get('editor').composer.commands.exec("insertHTML", html);
+          var editorElement = component.$('.editor-box');
+          component.set('content', editorElement.html());
+          component.makeExpressionsReadOnly();
+          component.setCursor();
         }
-        component.makeExpressionsReadOnly();
       }
+      this.cancelExpression();
       this.toggleProperty('showExpressionsPanel');
     },
     updateExpression() {
@@ -47,7 +51,12 @@ export default Ember.Component.extend({
           let html = katex.renderToString(latex);
           source.text(latex);
           component.get('editingExpression').find('.katex').replaceWith(html);
+          var editorElement = component.$('.editor-box');
+          component.set('content', editorElement.html());
           component.makeExpressionsReadOnly();
+          component.setCursor();
+          this.cancelExpression();
+          this.toggleProperty('showExpressionsPanel');
         }
       }
     }
@@ -71,20 +80,14 @@ export default Ember.Component.extend({
       cleanUp: false,
       parserRules: wysihtml5ParserRules
     });
-    // Save caret position on editor blur
-    editor.on('blur:composer', function() {
-      if (rangy) {
-        component.set('cursorPosition', rangy.getSelection());
-        component.set('content', editorElement.html());
-      }
-    });
 
     // Workaround to prevent editor cleanup, which would delete math expressions
     Ember.run.later(function() {
       if (editor.composer && editor.composer.commands) {
         editor.focus();
         editor.composer.commands.exec("insertHTML", component.get('content'));
-        editorElement.blur();
+        component.makeExpressionsReadOnly();
+        component.setCursor();
       }
     }, 100);
 
@@ -98,6 +101,19 @@ export default Ember.Component.extend({
         component.get('mathField').write(LATEX_EXPRESSIONS[expression]).focus();
       }
     });
+   // Save cursor position
+    component.$().on('click', '#wysihtml-editor', function(e) {
+      e.preventDefault();
+      component.setCursor();
+    });
+
+    component.$().on('keyup', '.editor-box', function(e) {
+      e.preventDefault();
+      var editorElement = component.$('.editor-box');
+      component.set('content', editorElement.html());
+      component.setCursor();
+    });
+
     // Go to edit mode of existing expression
     component.$().on('click', '.katex', function(e) {
       e.preventDefault();
@@ -143,11 +159,6 @@ export default Ember.Component.extend({
   mathField: null,
 
   /**
-   * @property {RangySelection} Caret position in the editor
-   */
-  cursorPosition: null,
-
-  /**
    * @property {Object} wysihtml5 editor instance
    */
   editor: null,
@@ -157,6 +168,11 @@ export default Ember.Component.extend({
    */
   content: null,
 
+  /**
+   * @property {WrappedRange} Cursor position on wysihtml5 editor
+   */
+  cursor: null,
+
   restoreMathAndSelection: Ember.observer('showExpressionsPanel', function() {
     var component = this;
     Ember.run.later(function() {
@@ -165,9 +181,8 @@ export default Ember.Component.extend({
           component.get('mathField').focus();
         }
       } else {
-        component.get('editor').focus();
-        if (component.get('cursorPosition')) {
-          component.get('cursorPosition').collapseToEnd();
+        if (component.get('cursor')) {
+          component.setCursor();
         }
       }
     }, 100);
@@ -188,5 +203,11 @@ export default Ember.Component.extend({
   cancelExpression() {
     this.get('mathField').latex(""); // Clear math field
     this.set('editingExpression', null);
+  },
+  setCursor(){
+    var component = this;
+    component.set('cursor',component.get('editor').composer.selection.getBookmark());
+    component.get('editor').composer.selection.setBookmark(component.get('cursor'));
+    component.get('editor').focus();
   }
 });

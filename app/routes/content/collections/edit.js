@@ -4,9 +4,10 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 export default Ember.Route.extend(PrivateRouteMixin, {
 
   queryParams: {
-    courseId:{},
-    allowBackToCourse:{},
-    editing:{}
+    editing:{},
+    editingContent:{
+      refreshModel: true
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -22,43 +23,43 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  resetController(controller, isExiting) {
-    if (isExiting) {
-      controller.set('courseId', undefined);
-      controller.set('allowBackToCourse', undefined);
-    }
-  },
+
 
   // -------------------------------------------------------------------------
   // Methods
 
   model: function (params) {
-    var collection = this.get('collectionService').readCollection(params.collectionId);
-    var course = null;
-    var isEditing = params.editing;
+    const route = this;
+    return route.get('collectionService').readCollection(params.collectionId)
+      .then(function(collection) {
+        const courseId = collection.get('courseId');
+        const isEditing = params.editing;
+        var editingContent = (params.editingContent && params.editingContent !=='null') ? params.editingContent : undefined;
+        var course = null;
 
-    if(params.courseId && params.courseId !== "null"){
-      course = this.get('courseService').fetchById(params.courseId);
-    }
-    var allowBackToCourse = params.allowBackToCourse && params.allowBackToCourse === 'true';
+        params.editingContent = editingContent;
 
-    return Ember.RSVP.hash({
-      collection: collection,
-      course:course,
-      allowBackToCourse:allowBackToCourse,
-      isEditing: !!isEditing
-    });
+        if (courseId) {
+          course = route.get('courseService').fetchById(courseId);
+        }
+
+        return Ember.RSVP.hash({
+          collection: collection,
+          course: course,
+          isEditing: !!isEditing,
+          editingContent: params.editingContent
+        });
+      });
   },
 
   setupController(controller, model) {
-    var collection = model.collection;
-
-    controller.set('collection', collection);
+    controller.set('collection',  model.collection);
     controller.set('course', model.course);
-    controller.set('allowBackToCourse',model.allowBackToCourse);
     controller.set('isEditing', model.isEditing);
-    if(model.isEditing) {
-      controller.set('tempCollection', collection.copy());
+    controller.set('editingContent', model.editingContent);
+
+    if (model.isEditing) {
+      controller.set('tempCollection', model.collection.copy());
     }
   }
 });

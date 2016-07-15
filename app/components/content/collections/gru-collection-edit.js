@@ -93,7 +93,6 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     publishToProfile: function(isChecked) {
       var collectionForEditing = this.get('collection').copy();
       this.set('tempCollection', collectionForEditing);
-      this.set('tempCollection.isVisibleOnProfile', isChecked);
       this.actions.updateContent.call(this);
     },
     /**
@@ -179,8 +178,8 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   /**
    * Indicate if the button "Back to course" is available.
    */
-  allowBack: Ember.computed('course','allowBackToCourse',function(){
-    return this.get('course') && this.get('allowBackToCourse');
+  allowBack: Ember.computed('collection', function() {
+    return this.get('collection.courseId');
   }),
 
   /**

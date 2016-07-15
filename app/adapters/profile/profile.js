@@ -1,5 +1,8 @@
 import Ember from 'ember';
 import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import Env from 'gooru-web/config/environment';
+
+const EndPointsConfig = Env['gooru-endpoints'] || {};
 
 /**
  * Adapter to support the Profile CRUD operations in the API 3.0
@@ -22,7 +25,11 @@ export default Ember.Object.extend({
    */
   createProfile: function(data) {
     const adapter = this;
-    const url = this.get('usersNamespace');
+    const protocol = EndPointsConfig.secureProtocol;
+    const hostname = EndPointsConfig.hostname;
+    const port = EndPointsConfig.securePort ? `:${EndPointsConfig.securePort}` : '';
+    const namespace = this.get('usersNamespace');
+    const url = `${protocol}${hostname}${port}${namespace}`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -276,8 +283,11 @@ export default Ember.Object.extend({
    */
   resetPassword: function (userId, password, token) {
     const adapter = this;
+    const protocol = EndPointsConfig.secureProtocol;
+    const hostname = EndPointsConfig.hostname;
+    const port = EndPointsConfig.securePort ? `:${EndPointsConfig.securePort}` : '';
     const namespace = adapter.get('usersNamespace');
-    const url = `${namespace}/${userId}/password`;
+    const url = `${protocol}${hostname}${port}${namespace}/${userId}/password`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',

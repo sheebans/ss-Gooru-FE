@@ -36,19 +36,16 @@ export default Ember.Object.extend({
     var serializedQuestion = {
       'title': questionModel.get('title'),
       'description': questionModel.get('description'),
-      'narration': questionModel.get('narration'),
       'content_subformat': format,
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
-      'metadata': questionModel.get('metadata') || {}
+      'metadata': questionModel.get('metadata') || {},
+      'answer': answers && answers.length ?
+        answers.map(function(answer, index) {
+          return serializer.serializerAnswer(answer, index + 1);
+        }) : null
     };
-    if (answers.length) {
-      serializedQuestion.answer = answers.map(function(answer, index) {
-        return serializer.serializerAnswer(answer, index + 1);
-      });
-    }
-    serializedQuestion.metadata['audience']= (questionModel.get("audience")) ? questionModel.get("audience") : [];
-    serializedQuestion.metadata['depth_of_knowledge']= (questionModel.get("depthOfknowledge")) ? questionModel.get("depthOfknowledge") : [];
-
+    serializedQuestion.metadata['audience'] = (questionModel.get("audience")) ? questionModel.get("audience") : [];
+    serializedQuestion.metadata['depth_of_knowledge'] = (questionModel.get("depthOfknowledge")) ? questionModel.get("depthOfknowledge") : [];
     return serializedQuestion;
   },
 
@@ -61,21 +58,31 @@ export default Ember.Object.extend({
   serializeUpdateQuestion: function(questionModel) {
     const serializer = this;
     const isHotSpotImage = questionModel.get('isHotSpotImage');
+    let answers = questionModel.get('answers');
     let serializedQuestion = {
       title: questionModel.get('title'),
-      description: questionModel.get('text'),
-      narration: questionModel.get('narration'),
       //'content_subformat': QuestionModel.serializeQuestionType(questionModel.get("type")), // This is not supported on the back end yet
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(questionModel.get('standards')),
       'visible_on_profile': questionModel.get('isVisibleOnProfile'),
-      answer: questionModel.get('answers').map(function(answer, index) {
-        return serializer.serializerAnswer(answer, index + 1, isHotSpotImage);
-      }),
-      'metadata': questionModel.get('metadata') || {}
+      'metadata': questionModel.get('metadata') || {},
+      'answer': answers && answers.length ?
+        answers.map(function(answer, index) {
+          return serializer.serializerAnswer(answer, index + 1);
+        }) : null
     };
 
-    serializedQuestion.metadata['audience']= (questionModel.get("audience")) ? questionModel.get("audience") : [];
-    serializedQuestion.metadata['depth_of_knowledge']= (questionModel.get("depthOfknowledge")) ? questionModel.get("depthOfknowledge") : [];
+    let narration = questionModel.get('narration');
+    if(narration) {
+      serializedQuestion.narration = narration;
+    }
+
+    let description = questionModel.get('text');
+    if(description) {
+      serializedQuestion.description = description;
+    }
+
+    serializedQuestion.metadata['audience'] = (questionModel.get("audience")) ? questionModel.get("audience") : [];
+    serializedQuestion.metadata['depth_of_knowledge'] = (questionModel.get("depthOfknowledge")) ? questionModel.get("depthOfknowledge") : [];
     return serializedQuestion;
   },
 
@@ -112,7 +119,6 @@ export default Ember.Object.extend({
     const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
     const standards = questionData.taxonomy || {};
     const metadata = questionData.metadata || {};
-
     const question = QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: questionData.id,
       title: questionData.title,
@@ -122,6 +128,7 @@ export default Ember.Object.extend({
       text: questionData.description,
       publishStatus: questionData.publish_status,
       owner: questionData.creator_id,
+      creator: questionData.original_creator_id,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       hints: null, //TODO
       explanation: null, //TODO

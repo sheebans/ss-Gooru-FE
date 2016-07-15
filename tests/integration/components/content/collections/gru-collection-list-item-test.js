@@ -16,7 +16,7 @@ moduleForComponent('content/collections/gru-collection-list-item', 'Integration 
 
 test('it renders resources correctly', function (assert) {
 
-  const resource = Resource.create({
+  const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Resource Title'
   });
 
@@ -42,9 +42,10 @@ test('it renders resources correctly', function (assert) {
   assert.ok($actions.find('button:eq(0)').hasClass('add-item'), 'First action button');
   assert.ok($actions.find('button:eq(1)').hasClass('narration'), 'Second action button');
   assert.ok($actions.find('button:eq(2)').hasClass('delete-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(3)').hasClass('move-item'), 'Fourth action button');
-  assert.ok($actions.find('button:eq(4)').hasClass('copy-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(5)').hasClass('edit-item'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(3)').hasClass('copy-to'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(4)').hasClass('move-item'), 'Fifth action button');
+  assert.ok($actions.find('button:eq(5)').hasClass('copy-item'), 'Sixth action button');
+  assert.ok($actions.find('button:eq(6)').hasClass('edit-item'), 'Seventh action button');
 
   RESOURCE_TYPES.forEach(function(type_string) {
 
@@ -65,7 +66,7 @@ test('it renders resources correctly', function (assert) {
 
 test('it renders questions correctly', function (assert) {
 
-  const question = Question.create({
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question Title',
     format: 'question'
   });
@@ -91,9 +92,10 @@ test('it renders questions correctly', function (assert) {
   assert.ok($actions.find('button:eq(0)').hasClass('add-item'), 'First action button');
   assert.ok($actions.find('button:eq(1)').hasClass('narration'), 'Second action button');
   assert.ok($actions.find('button:eq(2)').hasClass('delete-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(3)').hasClass('move-item'), 'Fourth action button');
-  assert.ok($actions.find('button:eq(4)').hasClass('copy-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(5)').hasClass('edit-item'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(3)').hasClass('copy-to'), 'Fourth action button');
+  assert.ok($actions.find('button:eq(4)').hasClass('move-item'), 'Fifth action button');
+  assert.ok($actions.find('button:eq(5)').hasClass('copy-item'), 'Sixth action button');
+  assert.ok($actions.find('button:eq(6)').hasClass('edit-item'), 'Seventh action button');
 
   Object.keys(QUESTION_CONFIG).forEach(function(question_type) {
     // Check subtitle specific to each question type
@@ -132,5 +134,118 @@ test('it expands/collapses the narration panel', function (assert) {
 
   $panel.find('.detail .actions .narration').click();
   assert.ok($panel.hasClass('collapsed'), 'Narration Panel collapsed after clicking narration button');
+
+});
+
+test('it expands/collapses the edit question inline panel', function (assert) {
+
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'question'
+  });
+
+  this.set('question', question);
+  this.set('index', 0);
+  this.render(hbs`{{content/collections/gru-collection-list-item model=question index=index}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  assert.ok($panel.length, 'Panel');
+  assert.ok($panel.hasClass('collapsed'), 'Panel collapsed');
+
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+
+  assert.ok($panel.hasClass('expanded'), 'Edit Question Panel expanded after clicking edit button');
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  assert.ok($panelBody.length, 'panel body');
+
+  assert.ok($panelBody.find('.question h3').length, "Missing Question label");
+  assert.ok($panelBody.find('.question textarea').length, "Missing text area");
+  assert.ok($panelBody.find('.question .add-image').length, "Missing add image button");
+  assert.ok($panelBody.find('.answers h3').length, "Missing Answer label");
+  assert.ok($panelBody.find('.answers .instructions').length, "Missing Answer Instructions");
+
+  const $actions = $panelBody.find('.actions');
+  assert.ok($actions.length, 'Actions container');
+
+  assert.ok($actions.find('button:eq(0)').hasClass('cancel'), 'First action button');
+  assert.ok($actions.find('button:eq(1)').hasClass('save'), 'Second action button');
+
+  $panel.find('.detail .actions .cancel').click();
+  assert.ok($panel.hasClass('collapsed'), 'Edit Question Panel collapsed after clicking cancel button');
+
+});
+
+test('it expands/collapses the edit resource inline panel', function (assert) {
+
+  const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Resource Title',
+    format: 'resource'
+  });
+
+  this.set('resource', resource);
+  this.set('index', 0);
+  this.render(hbs`{{content/collections/gru-collection-list-item model=resource index=index}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  assert.ok($panel.length, 'Panel');
+  assert.ok($panel.hasClass('collapsed'), 'Panel collapsed');
+
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+
+  assert.ok($panel.hasClass('expanded'), 'Edit Resource Panel expanded after clicking edit button');
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  assert.ok($panelBody.length, 'panel body');
+
+  assert.ok($panelBody.find('.narration .gru-textarea').length, 'Narration Field');
+
+  const $actions = $panelBody.find('.actions');
+  assert.ok($actions.length, 'Actions container');
+
+  assert.ok($actions.find('button:eq(0)').hasClass('cancel'), 'First action button');
+  assert.ok($actions.find('button:eq(1)').hasClass('save'), 'Second action button');
+
+  $panel.find('.detail .actions .cancel').click();
+  assert.ok($panel.hasClass('collapsed'), 'Edit Resource Panel collapsed after clicking cancel button');
+
+});
+
+test('show the edit inline panel when a content is added from the content builder', function (assert) {
+
+  const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'e7460e72-7708-4892-afcc-63756ffa410f',
+    title: 'Resource Title',
+    format: 'resource'
+  });
+
+  var editingContent = 'e7460e72-7708-4892-afcc-63756ffa410f';
+  this.set('resource', resource);
+  this.set('index', 0);
+
+  this.set('editingContent', editingContent);
+
+  this.render(hbs`{{content/collections/gru-collection-list-item model=resource index=index editingContent=editingContent}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  assert.ok($panel.length, 'Panel');
+  assert.ok($panel.hasClass('expanded'), 'Edit Resource Panel expanded');
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  assert.ok($panelBody.length, 'panel body');
+
+  assert.ok($panelBody.find('.narration .gru-textarea').length, 'Narration Field');
+
+  const $actions = $panelBody.find('.actions');
+  assert.ok($actions.length, 'Actions container');
+
+  assert.ok($actions.find('button:eq(0)').hasClass('cancel'), 'First action button');
+  assert.ok($actions.find('button:eq(1)').hasClass('save'), 'Second action button');
+
+  $panel.find('.detail .actions .cancel').click();
+  assert.ok($panel.hasClass('collapsed'), 'Edit Resource Panel collapsed after clicking cancel button');
 
 });

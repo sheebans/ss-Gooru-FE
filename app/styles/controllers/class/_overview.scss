@@ -24,6 +24,31 @@
         display: inline-block;
         padding: 15px 0;
       }
+      .title {
+        width: 65%;
+        @media (min-width: $screen-sm-max) {
+          width: 70%;
+        }
+        @media (min-width: $screen-lg-min) {
+          width: 75%;
+        }
+      }
+      .trophy {
+        height: 65px;
+        @include inline-flex;
+        vertical-align: middle;
+        .icon {
+          background: url("gooru/images/gray-trophy.svg");
+          background-size: 24px 24px;
+          height: 24px;
+          width: 24px;
+          display: inline-block;
+          margin: 0 5px 0 0;
+        }
+        @media (max-width: $screen-xs-max) {
+          display: none;
+        }
+      }
     }
 
     .locate,
@@ -262,6 +287,14 @@
 
                 > button {
                   border: 0 none;
+
+                  .icon {
+                    background: url("gooru/images/trophy.svg");
+                    background-size: 24px 24px;
+                    height: 24px;
+                    width: 24px;
+                    display: block;
+                  }
                 }
               }
             }

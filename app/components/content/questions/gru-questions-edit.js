@@ -97,10 +97,9 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     /**
      * Save Content
      */
-    optionSwitch:function(isChecked){
+    publishToProfile: function(){
       var questionForEditing = this.get('question').copy();
       this.set('tempQuestion', questionForEditing);
-      this.set('tempQuestion.isVisibleOnProfile', isChecked);
       this.saveNewContent();
     },
     /**
@@ -224,6 +223,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
   correctAnswerNotSelected: false,
 
   /**
+   * @property {String} Error message to display below the description
+   */
+  descriptionError: null,
+
+  /**
    * @property {Boolean} Indicates if a Hot spot answer has images
    */
   hasNoImages: false,
@@ -332,7 +336,6 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     let question = component.get('question');
 
     editedQuestion.validate().then(function ({ model, validations }) {
-
       if (validations.get('isValid')) {
         var defaultTitle= component.get('i18n').t('common.new-question').string;
         var defaultText= component.get('i18n').t('common.new-question-text').string;
@@ -351,25 +354,29 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
             component.set('isEditing', false);
             component.set('isBuilderEditing', false);
             question.merge(editedQuestion, ['title','standards','audience', 'depthOfknowledge']);
-          }.bind(this))
+          })
           .catch(function (error) {
             var message = component.get('i18n').t('common.errors.question-not-updated').string;
             component.get('notifications').error(message);
             Ember.Logger.error(error);
-          }.bind(component));
+          });
       }
+      // Add the description message to the equation editor
+      component.set('descriptionError', model.get('validations.attrs.description.messages')[0]);
+
       component.set('didValidate', true);
     });
   },
 
   defineFIBAnswers: function(question) {
+    const component = this;
     let answers = Ember.A([]);
     const questionText = question.get('text');
     const regExp = /(\[[^\[\]]+\])+/gi;
     const matchedAnswers = questionText.match(regExp);
     if (matchedAnswers) {
       answers = matchedAnswers.map(function(answer, index) {
-        return Answer.create({
+        return Answer.create(Ember.getOwner(component).ownerInjection(), {
           sequence: index + 1,
           text: answer.substring(1, answer.length - 1),
           isCorrect: true,

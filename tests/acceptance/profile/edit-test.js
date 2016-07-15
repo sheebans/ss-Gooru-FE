@@ -108,6 +108,32 @@ test('Validate Username field Minimum Chars', function (assert) {
   });
 });
 
+test('it shows an error message if the username exists', function (assert) {
+  visit('/pochita/edit');
+
+  authenticateSession(this.application, {
+    isAnonymous: false,
+    'token-api3': 'fail-token',
+    user: {
+      gooruUId: 'pochita'
+    }
+  });
+
+  andThen(function() {
+    const $studentId = find('#username');
+    const $editContainer = find(".controller.about.edit");
+    assert.ok(!find('.validation.error.existing-user-error').length, 'Username error message not visible');
+    $studentId.find('input').val('abc');
+    $editContainer.find(".selectpicker").val('27945fac-d478-11e4-bfe7-22000abfab1d').change();
+
+      $editContainer.find(".save").click();
+
+      return wait().then(function () {
+        assert.ok(find('.validation.error.existing-user-error').length, 'Username error message should be visible');
+      });
+
+  });
+});
 
 //test('menu option \'about\' is selected when cancelling the edit', function (assert) {
 //  visit('/id-for-pochita/edit');

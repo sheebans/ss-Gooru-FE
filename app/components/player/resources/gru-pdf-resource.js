@@ -40,7 +40,8 @@ export default Ember.Component.extend({
    */
   resourceHeight: Ember.computed("calculatedResourceContentHeight", function(){
     var height = this.get('calculatedResourceContentHeight');
-    return new Ember.Handlebars.SafeString("height: " + height + "px");
+    const heightString = height > 0 ? `${height}px` : '100%';
+    return new Ember.Handlebars.SafeString(`height: ${heightString}`);
   })
 
 

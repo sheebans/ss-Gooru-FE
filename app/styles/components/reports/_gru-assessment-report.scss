@@ -12,4 +12,17 @@
   @media (min-width: $screen-md-min) {
     padding: 40px 50px;
   }
+
+  .hidden-report {
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    height: 200px;
+
+    span {
+      @include flex();
+      text-align: center;
+      font-size: $font-size-large;
+    }
+  }
 }

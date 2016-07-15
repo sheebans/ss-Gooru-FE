@@ -41,16 +41,8 @@ export default NewCollectionModal.extend({
 
   closeModal: function(assessmentId) {
     this.triggerAction({ action: 'closeModal' });
-
-    const courseId = this.get("model.courseId");
-    if (courseId){
-      const queryParams = { queryParams: { courseId: courseId, allowBackToCourse:true, editing: true } };
-      this.get('router').transitionTo('content.assessments.edit', assessmentId, queryParams);
-    }
-    else{
-      const queryParams = { queryParams: { editing: true } };
-      this.get('router').transitionTo('content.assessments.edit', assessmentId, queryParams);
-    }
+    const queryParams = { queryParams: { editing: true } };
+    this.get('router').transitionTo('content.assessments.edit', assessmentId, queryParams);
   },
 
   showErrorMessage: function(error) {

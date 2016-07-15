@@ -333,6 +333,7 @@ export function cleanFilename(url, cdnUrls) {
   }
   return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
 }
+
 /**
  * Returns filename with extension from a invalid url
  * @param {String} file complete url
@@ -348,17 +349,4 @@ export function getFileNameFromInvalidUrl(url) {
   }
 
   return match;
-}
-
-/**
- * Returns filename from url
- * @param {String} file complete url
- */
-export function getTaxonomyAncestors(taxonomyId) {
-  var segments = taxonomyId.split('-');
-  return {
-    subjectId: segments[0],
-    courseId: segments[1] ? segments[0] + '-' + segments[1] : null,
-    domainId: segments[2] ? segments[0] + '-' + segments[1] + '-' + segments[2] : null
-  };
 }
