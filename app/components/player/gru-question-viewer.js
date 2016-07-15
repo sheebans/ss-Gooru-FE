@@ -1,4 +1,5 @@
 import Ember from "ember";
+import { ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'gooru-web/config/config';
 
 /**
  * Player question viewer
@@ -47,9 +48,9 @@ export default Ember.Component.extend({
      * When the question is submitted
      */
     submitQuestion: function () {
-      if (!this.get("submitted")){
-        let questionResult = this.get("questionResult");
-        this.sendAction("onSubmitQuestion", this.get("question"), questionResult);
+      if (!this.get('submitted')) {
+        let questionResult = this.get('questionResult');
+        this.sendAction('onSubmitQuestion', this.get('question'), questionResult);
       }
     },
     /**
@@ -91,11 +92,6 @@ export default Ember.Component.extend({
     }
   },
 
-
-  // -------------------------------------------------------------------------
-  // Events
-
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -106,9 +102,23 @@ export default Ember.Component.extend({
   actualHint: 0,
 
   /**
+   * Hits available for a question
+   * @property {number} availableHints
+   */
+  availableHints: Ember.computed('actualHint', 'question', function() {
+    return this.get('question.hints.length') - this.get('actualHint');
+  }),
+
+  /**
    * @property {boolean} indicates when the answer is completed
    */
   answerCompleted: false,
+
+  /**
+   * Default button text key
+   * @property {string}
+   */
+  buttonTextKey: 'common.save',
 
   /**
    * The collection
@@ -117,20 +127,38 @@ export default Ember.Component.extend({
   collection: null,
 
   /**
-   * Hits available for a question
-   * @property {number} availableHints
+   * Indicates when the question has explanation
+   * @property {boolean}
    */
-  availableHints: Ember.computed('actualHint', 'question', function() {
-    return this.get('question.hints.length') - this.get('actualHint');
+  doesNotHaveExplanation: Ember.computed.not('question.explanation'),
+
+  /**
+   * Unicode value depending on the correctness of the question
+   * @property {boolean}
+   */
+  feedbackUnicode: Ember.computed('questionResult.correct', function() {
+    return this.get('questionResult.correct') ? FEEDBACK_EMOTION_VALUES.CORRECT : FEEDBACK_EMOTION_VALUES.INCORRECT;
   }),
 
-  doesNotHaveExplanation: Ember.computed.not('question.explanation'),
+  /**
+   * Indicates when the player has context
+   * @property {boolean}
+   */
+  hasContext: false,
 
   /**
    * Hints to display
    * @property {Array} hintsToDisplay
    */
   hintsToDisplay: Ember.A(),
+
+  /**
+   * Key to show the correct/incorrect message
+   * @property {String} isCorrectMessageKey
+   */
+  isCorrectMessageKey: Ember.computed('questionResult.correct', function() {
+    return this.get('questionResult.correct') ? "common.answer-correct" : "common.answer-incorrect";
+  }),
 
   /**
    * Is the explanation shown?
@@ -144,6 +172,16 @@ export default Ember.Component.extend({
    */
   isExplanationButtonDisabled: Ember.computed.or('isExplanationShown', 'doesNotHaveExplanation'),
 
+
+  /**
+   * @property {boolean} indicates when the inputs are enabled
+   */
+  isInputDisabled: Ember.computed("questionResult.submittedAnswer", "collection.showFeedback", function(){
+    let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+    let hasContext = this.get('hasContext');
+    return (hasContext && showFeedback && this.get("questionResult.submittedAnswer")) || this.get('submitted');
+  }),
+
   /**
    * Is the hints button disabled?
    * @property {boolean} disableHint
@@ -153,8 +191,13 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} indicates when the submit functionality is enabled
    */
-  isSubmitDisabled: Ember.computed("answerCompleted", "submitted", function(){
-    return this.get("submitted") || !this.get("answerCompleted");
+  isSubmitDisabled: Ember.computed("answerCompleted", "submitted", "questionResult.submittedAnswer", "collection.showFeedback", function() {
+    let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+    let hasContext = this.get('hasContext');
+    if(!hasContext || !showFeedback || !this.get("questionResult.submittedAnswer")) {
+      return this.get("submitted") || !this.get("answerCompleted");
+    }
+    return false;
   }),
 
   /**
@@ -175,16 +218,20 @@ export default Ember.Component.extend({
   questionResult: null,
 
   /**
+   * Indicates if feedback should be shown
+   * @property {boolean}
+   */
+  showFeedback: Ember.computed('hasContext', 'collection.showFeedback', 'questionResult.submittedAnswer', function() {
+    let feedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+    let hasContext = this.get('hasContext');
+    return hasContext && feedback && this.get("questionResult.submittedAnswer");
+  }),
+
+  /**
    * Indicates when the collection is already submitted
    * @property {boolean}
    */
   submitted: false,
-
-  /**
-   * Default button text key
-   * @property {string}
-   */
-  buttonTextKey: 'common.save',
 
   // -------------------------------------------------------------------------
   // Observers

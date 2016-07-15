@@ -8,12 +8,32 @@ export const RESOURCE_COMPONENT_MAP = {
 
 export const UPLOADABLE_TYPES = [
   {
-    value: "text",
-    validExtensions: ".pdf"
+    value: "webpage",
+    validExtensions: ".html",
+    disabled: true
+  },
+  {
+    value: "video",
+    validExtensions: ".mng, .avi, .mov, .qt, .wmv",
+    disabled: true
+  },
+  {
+    value: "interactive",
+    validExtensions: ".html",
+    disabled: true
+  },
+  {
+    value: "audio",
+    validExtensions: ".mp3",
+    disabled: true
   },
   {
     value: "image",
     validExtensions: ".jpg,.jpeg,.gif,.png"
+  },
+  {
+    value: "text",
+    validExtensions: ".pdf"
   }
 ];
 
@@ -74,6 +94,12 @@ export const EMOTION_VALUES = [
   {value: 2, unicode: '1f641'},
   {value: 1, unicode: '1f625'}
 ];
+
+// unicode values for the correct and incorrect svg files
+export const FEEDBACK_EMOTION_VALUES = {
+  CORRECT: '1f44d',
+  INCORRECT: '1f44e'
+};
 
 export const SCORES = {
   REGULAR: 60,
