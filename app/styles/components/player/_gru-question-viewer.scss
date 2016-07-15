@@ -68,6 +68,34 @@
     }
   }
 
+  .feedback {
+    font-size: 1.5em;
+    font-weight: 100;
+    margin: 30px auto 0;
+    text-align: center;
+  }
+  .feedback-content {
+    display: inline-block;
+    @media (min-width: $screen-sm) {
+      float: left;
+    }
+    svg {
+      height: inherit;
+      width: inherit;
+    }
+    .feedback-emotion {
+      height: 50px;
+      width: 50px;
+      float:left;
+    }
+    .correct {
+      margin-top: -14px;
+    }
+    .incorrect {
+      margin-top: 4px;
+    }
+  }
+
   .question-information {
     margin-top: 24px;
 
