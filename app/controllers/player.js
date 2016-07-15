@@ -25,7 +25,7 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   eventsService: Ember.inject.service("api-sdk/events"),
 
-  performanceService: Ember.inject.service('api-sdk/performance'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -328,22 +328,6 @@ export default Ember.Controller.extend(SessionMixin, {
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
-    let temp =  Ember.A([
-      Ember.Object.create({
-        'id': controller.get('collection.id')
-      })
-    ]);
-    console.log(controller.get('collection'),'collection');
-    let collections = [controller.get("collection")];
-    console.log(context.userId,'context user id');
-    console.log(context.classId,'context class id');
-    console.log(context.courseId,'context course id');
-    console.log(context.unitId,'context unit id');
-    console.log(context.lessonId,'context lesson id');
-    console.log(temp,'weird object');
-    console.log(this.get('performanceService').findStudentPerformanceByLesson(context.userId, context.classId, context.courseId, context.unitId, context.lessonId, temp, {collectionType: 'assessment'}).then(function(result){
-      return result;
-    }));
 
     if (! assessmentResult.get("started") ){
       assessmentResult.set("startedAt", new Date());

@@ -23,7 +23,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    * @type LessonService
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
-
+  performanceService: Ember.inject.service('api-sdk/performance'),
   // -------------------------------------------------------------------------
   // Methods
 
@@ -37,25 +37,33 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   playerModel: function(params, context, collection){
     const route = this;
     return this._super(params, context, collection).then(function(model){
+      const classId = context.get("classId");
       const courseId = context.get("courseId");
       const unitId = context.get("unitId");
       const lessonId = context.get("lessonId");
+      const userId = context.get('userId');
       return route.get('lessonService').fetchById(courseId, unitId, lessonId)
         .then(function(lesson){
           model.lesson = lesson;
-          return model;
+          return route.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, [collection], {collectionType: 'assessment'})
+          .then(function(result){
+            model.assessmentAttemptsLeft = collection.attempts - result.get(0).get('attempts');
+            return model;
+          });
       });
     });
   },
 
 
   setupController(controller, model) {
-    // Call parent method
     controller.set("onAir", true); //TODO check for onAir
     controller.set("lesson", model.lesson);
-    if (model.collection.collectionType === "collection"){
+    if (model.collection.isAssessment){
+      controller.set('assessmentAttemptsLeft',model.assessmentAttemptsLeft);
+    }else{
       controller.set('showContent',true);
     }
+    // Call parent method
     this._super(...arguments);
 
   },

@@ -2,7 +2,7 @@
   {{#if collection.isAssessment}}
     {{player.gru-assessment-confirmator
       bidirectional=collection.bidirectional
-      attempts=collection.attempts
+      attempts=assessmentAttemptsLeft
       title=collection.title
       onStart='startAssessment'
       onCancel='closePlayer'}}
