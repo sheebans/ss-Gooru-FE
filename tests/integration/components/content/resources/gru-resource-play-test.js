@@ -86,7 +86,7 @@ test('Layout for image', function (assert) {
   assert.ok($section.length, "Missing content section");
 
   assert.ok($section.find('.gru-image-resource').length, "Image component");
-  assert.ok($section.find('.gru-image-resource img').length, "Image tag");
+  assert.ok($section.find('.gru-image-resource iframe').length, "Image tag");
 });
 
 test('Layout of preview section for audio resource', function (assert) {

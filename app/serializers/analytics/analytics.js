@@ -66,7 +66,7 @@ export default Ember.Object.extend({
         startedAt: startedAt,
         submittedAt: submittedAt
       });
-      questionResult.submittedAnswer = !!questionResult.userAnswer;
+      questionResult.submittedAnswer = !!questionResult.timeSpent;
       return questionResult;
     } else {
       return ResourceResult.create({

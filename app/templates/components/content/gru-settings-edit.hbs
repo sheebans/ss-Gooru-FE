@@ -38,12 +38,12 @@
       </div>
       <div class="panel-body">
           <div class="setting answer-key">
-            {{gru-icon name="swap_horizontal"}}
+            {{gru-icon name="spellcheck"}}
             <span>{{t "gru-settings-edit.answer-key"}}</span>
             {{gru-switch switchOptions=switchOptions onOptionSwitch='onAnswerKeyChange' isChecked=model.showKey}}
           </div>
           <div class="setting attempts">
-            {{gru-icon name="check_circle"}}
+            {{gru-icon name="history"}}
             <span>{{t "gru-settings-edit.attempts"}}</span>
             {{validation.gru-select options=attemptsOptions optionSelected=model.attempts title=(t "common.select") search="true" onOptionSelect="onAttemptsChange"}}
           </div>

@@ -945,17 +945,17 @@ export default {
     "submit": "Use Image"
   },
   "gru-fib": {
-    "instructions": "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
+    "instructions": "Please type your answer(s) in the blank(s) provided, and click \"{{action}}\"."
   },
 
   "gru-hs-image": {
-    "instructions": "Please select the correct image(s), and click \"Submit\"."
+    "instructions": "Please select the correct image(s), and click \"{{action}}\"."
   },
   "gru-hs-text": {
-    "instructions": "Please select the correct answer(s), and click \"Submit\"."
+    "instructions": "Please select the correct answer(s), and click \"{{action}}\"."
   },
   "gru-hot-text": {
-    "instructions": "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"{{action}}\"."
   },
   "gru-login-prompt": {
     "title": "Welcome to Gooru!",
@@ -966,14 +966,14 @@ export default {
     "sign-in": "Sign in"
   },
   "gru-multiple-answer": {
-    "instructions": "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"{{action}}\"."
   },
   "gru-multiple-choice": {
-    "instructions": "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"{{action}}\"."
   },
 
   "gru-open-ended": {
-    "instructions": "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
+    "instructions": "Please type your answer in the field below, and click the \"{{action}}\" button to save your response when you're done.",
     "characterLimit": "Character Limit"
   },
 
@@ -982,13 +982,13 @@ export default {
     "question": "Question"
   },
   "gru-true-false": {
-    "instructions": "Please select the correct answer, and click \"Submit\".",
+    "instructions": "Please select the correct answer, and click \"{{action}}\".",
     "true": "True",
     "false": "False"
   },
 
-  "player.gru-reorder": {
-    "instructions": "Please reorder the answers in correct order, and click \"Submit\"."
+  "gru-reorder": {
+    "instructions": "Please reorder the answers in correct order, and click \"{{action}}\"."
   },
 
   "player": {

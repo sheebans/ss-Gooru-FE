@@ -138,6 +138,28 @@ export default Ember.Component.extend({
     return i18nKey;
   }),
 
+  /**
+   * The text for the action in the instructions
+   * @property {string}
+   */
+  instructionsActionTextKey: Ember.computed('collection', 'resource.id', 'resourceResult.submittedAnswer', function() {
+    let i18nKey = 'common.save-next';
+    let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+    if(!this.get('hasContext') || !showFeedback) {
+      if (this.get('collection').isLastResource(this.get('resource'))) {
+        return (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
+      }
+    } else {
+      i18nKey = 'common.submit';
+    }
+    return i18nKey;
+  }),
+
+
+  /**
+   * @property {boolean}
+   */
+  isNotIframeUrl: null,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -146,7 +168,10 @@ export default Ember.Component.extend({
    * of the narration -if there is one)
    */
   calculateResourceContentHeight: function() {
-    if (this.get('resource.isUrlResource') || this.get("resource.isPDFResource") && this.get("isNotIframeUrl")===false) {
+    if (this.get('resource.isUrlResource') ||
+        this.get("resource.isPDFResource") ||
+        this.get("resource.isImageResource") &&
+        this.get("isNotIframeUrl")===false) {
       var narrationHeight = this.$(".narration").innerHeight();
       var contentHeight = this.$('.content').height();
 

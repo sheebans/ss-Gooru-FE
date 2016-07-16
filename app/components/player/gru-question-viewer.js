@@ -153,6 +153,12 @@ export default Ember.Component.extend({
   hintsToDisplay: Ember.A(),
 
   /**
+   * Default instructions action text key
+   * @property {string}
+   */
+  instructionsActionTextKey: 'common.save',
+
+  /**
    * Key to show the correct/incorrect message
    * @property {String} isCorrectMessageKey
    */

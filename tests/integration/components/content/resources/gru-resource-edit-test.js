@@ -147,7 +147,7 @@ test('Layout of preview section for image', function (assert) {
   assert.ok($settingsSection.find('.header h2').length, "Section title");
   assert.ok($settingsSection.find('.panel.preview').length, "Preview panel");
   assert.ok($settingsSection.find('.panel.preview .panel-body .gru-image-resource').length, "Image component");
-  assert.ok($settingsSection.find('.panel.preview .panel-body .gru-image-resource img').length, "Image tag");
+  assert.ok($settingsSection.find('.panel.preview .panel-body .gru-image-resource iframe').length, "Image tag");
 });
 
 test('Layout of preview section for audio resource', function (assert) {
