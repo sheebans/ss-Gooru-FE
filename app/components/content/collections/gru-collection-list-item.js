@@ -166,24 +166,24 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
       editedModel.validate().then(function({model, validations}) {
         if (validations.get('isValid')) {
-          if(builderItem.get('format')==='question'){
+          if(builderItem.get('format') === 'question') {
             component.saveQuestion();
           }else{
             component.get('resourceService').updateResource(editedModel.id, editedModel)
-              .then(function () {
+              .then(function() {
                 component.set('model', editedModel);
                 model.merge(editedModel, ['title','narration']);
                 component.setProperties({
                   'isPanelExpanded': false,
                   'isEditingInline': false,
-                  'isEditingNarration': false
+                  'isEditingNarration': false,
+                  'editImagePicker': false
                 });
-               }.bind(this))
-              .catch(function (error) {
+               }).catch(function(error) {
                 var message = component.get('i18n').t('common.errors.question-not-updated').string;
                 component.get('notifications').error(message);
                 Ember.Logger.error(error);
-              }.bind(component));
+              });
           }
         }
       });
@@ -193,8 +193,13 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       this.setProperties({
         'isPanelExpanded': false,
         'isEditingInline': false,
-        'isEditingNarration': false
+        'isEditingNarration': false,
+        'editImagePicker': false
       });
+    },
+
+    toggleImagePicker: function() {
+      this.set('editImagePicker', true);
     }
   },
 
@@ -246,6 +251,18 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * If the user wants to edit the image
+   * @property {Boolean}
+   */
+  editImagePicker: false,
+
+  /**
+   * If the image picker should be shown
+   * @property {Boolean}
+   */
+  showImagePicker: Ember.computed.or('editImagePicker', 'model.thumbnail'),
 
   /**
    * @property {Number} remainingStandards - number of standards not displayed
@@ -371,8 +388,12 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
     editedQuestion.validate().then(function ({ model, validations }) {
       if (validations.get('isValid')) {
-        var defaultTitle= component.get('i18n').t('common.new-question').string;
-        var defaultText= component.get('i18n').t('common.new-question-text').string;
+        let imageIdPromise = new Ember.RSVP.resolve(editedQuestion.get('thumbnail'));
+        if(editedQuestion.get('thumbnail') && editedQuestion.get('thumbnail') !== question.get('thumbnail')) {
+          imageIdPromise = component.get('mediaService').uploadContentFile(editedQuestion.get('thumbnail'));
+        }
+        var defaultTitle = component.get('i18n').t('common.new-question').string;
+        var defaultText = component.get('i18n').t('common.new-question-text').string;
         var editedQuestionTitle = editedQuestion.title;
         var editedQuestionText = editedQuestion.text;
 
@@ -382,25 +403,28 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
           editedQuestion.set('title', newTitle);
         }
-        component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
-          .then(function () {
-            component.setProperties({
-              'model': editedQuestion,
-              'isPanelExpanded': false,
-              'isEditingInline': false,
-              'isEditingNarration': false
+        imageIdPromise.then(function(imageId) {
+          editedQuestion.set('thumbnail', imageId);
+          component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
+            .then(function() {
+              component.setProperties({
+                'model': editedQuestion,
+                'isPanelExpanded': false,
+                'isEditingInline': false,
+                'isEditingNarration': false,
+                'editImagePicker': false
+              });
+
+              if(component.get('editingContent')){
+                component.set('editingContent', null);
+              }
+
+              question.merge(editedQuestion, ['title', 'narration', 'thumbnail']);
+            }).catch(function (error) {
+              var message = component.get('i18n').t('common.errors.question-not-updated').string;
+              component.get('notifications').error(message);
+              Ember.Logger.error(error);
             });
-
-            if(component.get('editingContent')){
-              component.set('editingContent', null);
-            }
-
-            question.merge(editedQuestion, ['title','narration']);
-          })
-          .catch(function (error) {
-            var message = component.get('i18n').t('common.errors.question-not-updated').string;
-            component.get('notifications').error(message);
-            Ember.Logger.error(error);
           });
       }
       // Add the description message to the equation editor
@@ -508,7 +532,8 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
     this.setProperties({
       'tempModel': modelForEditing,
       'isPanelExpanded': true,
-      'isEditingInline': true
+      'isEditingInline': true,
+      'editImagePicker': false
     });
   }
 });
