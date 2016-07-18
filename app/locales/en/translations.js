@@ -41,6 +41,7 @@ export default {
     "answer": "Your Answer",
     "answer-correct": "You are correct!",
     "answer-incorrect": "You are incorrect...",
+    "answer-key-was-hidden": "Note: Your teacher has hidden the answer key.",
     "approved": "Approved",
     "assessment": "Assessment",
     "assessment-external": "Assessment-External",

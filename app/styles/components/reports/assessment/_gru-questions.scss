@@ -2,6 +2,7 @@
   margin-top: 20px;
   .questions-header {
     margin: 30px 0;
+
     .title {
       float: left;
       margin: 0 20px 10px 0;
@@ -9,6 +10,7 @@
         margin-top: 0;
       }
     }
+
     .btn-group {
       button {
         margin: 0 2px 0 0;
@@ -113,6 +115,25 @@
   }
 
   &.key-hidden.performance-view {
+
+    .questions-header {
+
+      > em {
+        display: block;
+        font-style: normal;
+        color: $light-500;
+      }
+
+      .title {
+        float: none;
+        margin-bottom: 0;
+
+        h4 {
+          margin-bottom: 5px;
+        }
+      }
+    }
+
     .assessment.questions > ul > li > span.incorrect {
       // Mark incorrect (user) answers as correct if the answer key is hidden
       color: $green-400;
