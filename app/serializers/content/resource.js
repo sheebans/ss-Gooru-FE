@@ -90,7 +90,7 @@ export default Ember.Object.extend({
       displayGuide:resourceData['display_guide']&& (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1)
     });
     resource.set('displayGuide', resource.get("displayGuide") || this.checkURLProtocol(resource.url));
-    
+
     //is full path if it has protocol
     const isFullPath = resourceData.url ? /^(?:[a-z]+:)?\/\//.exec(resourceData.url) : false;
 
@@ -121,6 +121,6 @@ export default Ember.Object.extend({
     return resource;
   },
   checkURLProtocol: function(url){
-    return (window.location.protocol === 'https'  && /^((http):\/\/)/.test(url));
+    return (window.location.protocol === 'https:'  && /^((http):\/\/)/.test(url));
   }
 });
