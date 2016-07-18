@@ -55,7 +55,11 @@
             </span>
           {{/if}}
         </div>
-        <button class="add-image btn btn-sm btn-primary out-of-scope">{{t "common.add-question-image"}}</button>
+        {{#if showImagePicker}}
+          {{content.gru-image isEditing=true srcImage=question.thumbnail editImage=tempQuestion.thumbnail}}
+        {{else}}
+            <button class="add-image btn btn-sm btn-primary" {{action "toggleImagePicker"}}>{{t "common.add-question-image"}}</button>
+        {{/if}}
       {{else}}
         {{#if question.text}}
           <div>
@@ -63,6 +67,9 @@
           </div>
         {{else}}
           <p class="text-empty">{{t 'common.nothing-to-display'}}</p>
+        {{/if}}
+        {{#if showImagePicker}}
+          {{content.gru-image isEditing=false srcImage=question.thumbnail editImage=tempQuestion.thumbnail}}
         {{/if}}
       {{/if}}
     </div>
