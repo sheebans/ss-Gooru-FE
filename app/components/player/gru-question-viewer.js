@@ -185,7 +185,7 @@ export default Ember.Component.extend({
   isInputDisabled: Ember.computed("questionResult.submittedAnswer", "collection.showFeedback", function(){
     let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
     let hasContext = this.get('hasContext');
-    return (hasContext && showFeedback && this.get("questionResult.submittedAnswer")) || this.get('submitted');
+    return (hasContext && showFeedback && this.get('isStudent') && this.get("questionResult.submittedAnswer")) || this.get('submitted');
   }),
 
   /**
@@ -195,16 +195,28 @@ export default Ember.Component.extend({
   isHintButtonDisabled: Ember.computed.not('availableHints'),
 
   /**
+   * Indicates if the student is playing the collection
+   * @property {boolean}
+   */
+  isStudent: Ember.computed.equal("role", "student"),
+
+  /**
    * @property {boolean} indicates when the submit functionality is enabled
    */
   isSubmitDisabled: Ember.computed("answerCompleted", "submitted", "questionResult.submittedAnswer", "collection.showFeedback", function() {
     let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
     let hasContext = this.get('hasContext');
-    if(!hasContext || !showFeedback || !this.get("questionResult.submittedAnswer")) {
+    if(!hasContext || !showFeedback || this.get('isTeacher') || !this.get("questionResult.submittedAnswer")) {
       return this.get("submitted") || !this.get("answerCompleted");
     }
     return false;
   }),
+
+  /**
+   * Indicates if the teacher is playing this collection
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed.not("isStudent"),
 
   /**
    * @property {string} on submit question action
@@ -230,7 +242,7 @@ export default Ember.Component.extend({
   showFeedback: Ember.computed('hasContext', 'collection.showFeedback', 'questionResult.submittedAnswer', function() {
     let feedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
     let hasContext = this.get('hasContext');
-    return hasContext && feedback && this.get("questionResult.submittedAnswer");
+    return hasContext && feedback && this.get('isStudent') && this.get("questionResult.submittedAnswer");
   }),
 
   /**
@@ -238,6 +250,12 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   submitted: false,
+
+  /**
+   * Indicates the user's role, could be 'student', 'teacher' or null
+   * @property {string}
+   */
+  role: null,
 
   // -------------------------------------------------------------------------
   // Observers

@@ -125,9 +125,11 @@ export default Ember.Component.extend({
       this.toggleProperty('isResourceUpload');
 
       if (this.get('isResourceUpload')) {
+        // Default upload type will be text (@see config/config.js#UPLOADABLE_TYPES)
+        let defaultUploadType = UPLOADABLE_TYPES[5];
         resource = this.get('uploadResource');
         this.set('resource', resource);
-        this.actions.selectUploadType.call(this, UPLOADABLE_TYPES[0]);
+        this.actions.selectUploadType.call(this, defaultUploadType);
       } else {
         resource = this.get('urlResource');
         this.set('resource', resource);
@@ -136,10 +138,10 @@ export default Ember.Component.extend({
     },
 
     selectFile: function(file) {
+      this.set('resource.file', file);
+
       if (file) {
         let uploadType = this.inferUploadType(file.name, UPLOADABLE_TYPES);
-
-        this.set('resource.file', file);
         this.actions.selectUploadType.call(this, uploadType);
       }
     },
@@ -168,7 +170,7 @@ export default Ember.Component.extend({
     var urlResource = urlResourceFactory.create(Ember.getOwner(this).ownerInjection(), { url: null, title:null, format:RESOURCE_TYPES[0] });
 
     var uploadResourceFactory = Resource.extend(resourceValidations.getValidationsFor(['description', 'format', 'title']));
-    var uploadResource = uploadResourceFactory.create(Ember.getOwner(this).ownerInjection(), { title:null, format: UPLOADABLE_TYPES[5].value });
+    var uploadResource = uploadResourceFactory.create(Ember.getOwner(this).ownerInjection(), { title:null });
 
     this.set('urlResource', urlResource);
     this.set('uploadResource', uploadResource);

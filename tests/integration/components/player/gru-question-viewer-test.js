@@ -256,9 +256,10 @@ test('Show feedback layout', function (assert) {
   this.set('assessment', assessment);
   this.set('questionResult', questionResult);
   this.set('question', question);
+  this.set('role', 'student');
 
   this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
-      collection=assessment onSubmitQuestion="mySubmitQuestion" hasContext=true}}`);
+      collection=assessment onSubmitQuestion="mySubmitQuestion" hasContext=true role=role}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
@@ -295,9 +296,10 @@ test('Show feedback when submitted layout', function (assert) {
   this.set('assessment', assessment);
   this.set('questionResult', questionResult);
   this.set('question', question);
+  this.set('role', 'student');
 
   this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
-      collection=assessment onSubmitQuestion="mySubmitQuestion" hasContext=true}}`);
+      collection=assessment onSubmitQuestion="mySubmitQuestion" hasContext=true role=role}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
