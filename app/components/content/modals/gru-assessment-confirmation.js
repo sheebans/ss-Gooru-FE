@@ -26,7 +26,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    this.set('unlimited', this.get('model.attempts')==-1 ? true : false);
+    //this.set('unlimited', this.get('model.attempts')==-1 ? true : false);
 
   },
 
@@ -35,5 +35,9 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
+  /**
+   * @property {boolean} flag for disabling button
+   */
+  noAttempts: Ember.computed.equal('model.attempts', 0),
+  unlimited: Ember.computed.equal('model.attempts', -1)
 });

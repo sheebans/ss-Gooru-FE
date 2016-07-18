@@ -30,6 +30,6 @@
     <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'gru-assessment-confirmation.cancel'}}" {{action 'cancel'}}>
         <span aria-hidden="true">{{t 'gru-assessment-confirmation.cancel'}}</span>
     </button>
-    <button type="button" class="btn btn-primary start" {{action 'start'}}>{{t 'gru-assessment-confirmation.start'}}</button>
+    <button type="button" class="btn btn-primary start" {{action 'start'}} disabled={{noAttempts}}>{{t 'gru-assessment-confirmation.start'}}</button>
   </div>
 </div>
