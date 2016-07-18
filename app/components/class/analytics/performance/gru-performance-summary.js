@@ -72,16 +72,21 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  didRender: function(){
+    this.$('[data-toggle="tooltip"]').tooltip();
+  },
+
   didInsertElement:function(){
     var component = this;
     var isAssessment = this.get('performance.isAssessment');
+    var performanceId = this.get('performance.id');
     var attempts = this.get('performance.attempts');
 
     if(isAssessment) {
-      component.get('assessmentService').readAssessment(this.get('performance.id')).then(function (result) {
-        if(result.get('attempts')){
-          var attemptsSetting = result.get('attempts');
-          component.set('noMoreAttempts',isAssessment && attemptsSetting > 0 && attempts && attempts > attemptsSetting);
+      component.get('assessmentService').readAssessment(performanceId).then(function (performanceData) {
+        var attemptsSetting = performanceData.get('attempts');
+        if(attemptsSetting){
+          component.set('noMoreAttempts', isAssessment && attemptsSetting > 0 && attempts && attempts >= attemptsSetting);
         }
       });
     }
