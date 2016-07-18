@@ -47,7 +47,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     var resource = route.get('resourceService').readResource(params.resourceId).then(function(resource){
       var EditResourceValidation = Resource.extend(EditResourceValidations);
       var editResource = EditResourceValidation.create(Ember.getOwner(route).ownerInjection());
-      editResource.merge(resource, resource.modelProperties());
+      // standards and info are not coming inside modelProperties
+      var properties = resource.modelProperties().concat(['standards', 'info']);
+      editResource.merge(resource, properties);
       return editResource;
     });
 
