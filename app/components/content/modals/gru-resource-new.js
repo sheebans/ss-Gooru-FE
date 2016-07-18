@@ -125,9 +125,11 @@ export default Ember.Component.extend({
       this.toggleProperty('isResourceUpload');
 
       if (this.get('isResourceUpload')) {
+        // Default upload type will be text (@see config/config.js#UPLOADABLE_TYPES)
+        let defaultUploadType = UPLOADABLE_TYPES[5];
         resource = this.get('uploadResource');
         this.set('resource', resource);
-        this.actions.selectUploadType.call(this, UPLOADABLE_TYPES[5]);
+        this.actions.selectUploadType.call(this, defaultUploadType);
       } else {
         resource = this.get('urlResource');
         this.set('resource', resource);
