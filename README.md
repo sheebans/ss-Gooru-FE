@@ -7,7 +7,7 @@ Gooru Web is the front-end of the Gooru application. Gooru’s free solution ena
  
 ## Prerequisites
 
-You can use the vagrant configuration (suggested) or install the following things properly on your computer.
+See [Environment Setup](./docs/environment-setup.md)
 
 * [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
@@ -16,7 +16,6 @@ You can use the vagrant configuration (suggested) or install the following thing
 * [PhantomJS](http://phantomjs.org/)
 * [Grunt-CLI](https://github.com/gruntjs/grunt-cli)
 * [Stubby](https://github.com/mrak/stubby4node)
-* [Vagrant](https://www.vagrantup.com/)
 
 
 ## High Level Architecture
@@ -61,31 +60,16 @@ See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
 
 ## Installation
 
-* `git clone https://github.com/Gooru/Gooru-FE.git` this repository
-* change into the new directory
-* Install dependencies `npm install` and `bower install`
-* Or use vagrant instance `vagrant up` 
-
-
+* `git clone https://github.com/Gooru/Gooru-FE.git` this repository 
+* Install dependencies `npm install` and `bower install` 
 
 ## Running / Development
 
-### Development environment
-* Install [Vagrant](http://www.vagrantup.com/downloads)
-* Install [vagrant-fsnotify](http://www.rubydoc.info/gems/vagrant-fsnotify#Installation) 
-* `vagrant up` to setup your vagrant instance
-* `vagrant ssh` to ssh to the vagrant instance
-* `cd /vagrant` to access the project folder
+### Development Process
+* See [Development Process](./docs/development-process.md)
 
-Useful commands [Vagrant CLI](https://docs.vagrantup.com/v2/cli/index.html)
-* `vagrant provision` to install tools on vm
-* `vagrant halt` stops vm
-* `vagrant destroy` destroys the vm 
-
-
-### Installing dependencies
-* `npm install`
-* `bower install`
+### Environment Setup
+* See [Environment Setup](./docs/environment-setup.md)
 
 ### Generating SVG sprite sheets
 It's required to run a grunt task that builds the SVG Sprite Sheets that the application requires prior to the build process. In order to build them just run the grunt task `grunt generateSVG`
@@ -94,10 +78,6 @@ It's required to run a grunt task that builds the SVG Sprite Sheets that the app
 ### Running the app with ember
 * `grunt generateSVG && ember server --proxy http://localhost:8882` to run it using the stubby server
 * Visit your app at [http://localhost:4200](http://localhost:4200). 
-* Or visit your app at [http://192.168.33.10:4200/](http://192.168.33.10:4200/) when using vagrant
-
-* `vagrant fsnotify` this is necessary so file changes (at host) are notified (to guest) while running the app
-* Executing `grunt notify` from vagrant can be also used to notify the watcher for changes 
 
 ### Running the app with grunt tasks
 * `grunt run:stubby` to run it using the stubby server, this task starts up stubby server and proxy ember to it

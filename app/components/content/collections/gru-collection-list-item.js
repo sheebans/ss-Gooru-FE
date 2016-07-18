@@ -2,6 +2,7 @@ import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
 import {CONTENT_TYPES} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
+import Answer from 'gooru-web/models/content/answer';
 
 /**
  * Collection List

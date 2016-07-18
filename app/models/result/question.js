@@ -39,6 +39,11 @@ export default ResourceResult.extend({
   userAnswer: null,
 
   /**
+   * @property {boolean} - answer has been submitted
+   */
+  submittedAnswer: null,
+
+  /**
    * Applies only to question type resources. Core API will provide correct answer.
    * FE needs to capture user chosen values and compare with core API responses and then send status.
    *
@@ -112,4 +117,3 @@ export default ResourceResult.extend({
   }
 
 });
-

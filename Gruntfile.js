@@ -99,11 +99,6 @@ module.exports = function (grunt) {
     grunt.task.run(tasks);
   });
 
-  grunt.registerTask('notify', function (target) {
-    //touches any file to notify the watcher rebuild the application
-    grunt.task.run(['exec:run:touch -m app/app.js']);
-  });
-
   grunt.registerTask('generateSVG', ['svgstore']);
 
   // Wrapper for ember build, this runs generateSVG before the build

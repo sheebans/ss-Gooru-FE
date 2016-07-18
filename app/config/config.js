@@ -95,6 +95,12 @@ export const EMOTION_VALUES = [
   {value: 1, unicode: '1f625'}
 ];
 
+// unicode values for the correct and incorrect svg files
+export const FEEDBACK_EMOTION_VALUES = {
+  CORRECT: '1f44d',
+  INCORRECT: '1f44e'
+};
+
 export const SCORES = {
   REGULAR: 60,
   GOOD: 70,

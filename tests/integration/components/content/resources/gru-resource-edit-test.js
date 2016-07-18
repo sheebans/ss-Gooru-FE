@@ -147,7 +147,7 @@ test('Layout of preview section for image', function (assert) {
   assert.ok($settingsSection.find('.header h2').length, "Section title");
   assert.ok($settingsSection.find('.panel.preview').length, "Preview panel");
   assert.ok($settingsSection.find('.panel.preview .panel-body .gru-image-resource').length, "Image component");
-  assert.ok($settingsSection.find('.panel.preview .panel-body .gru-image-resource img').length, "Image tag");
+  assert.ok($settingsSection.find('.panel.preview .panel-body .gru-image-resource iframe').length, "Image tag");
 });
 
 test('Layout of preview section for audio resource', function (assert) {
@@ -256,7 +256,14 @@ test('Layout of the information section', function (assert) {
     format: 'video',
     url: '//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf',
     subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    category: 'k_12',
+    standards: [{
+      id: "NGSS.K12.SC-K.2-ED-02",
+      code: "K-2-ETS1-2",
+      parentTitle: "Science",
+      description: "",
+      frameworkCode: "NGSS"
+    }]
   });
 
   this.set('resource', resource);
@@ -270,6 +277,8 @@ test('Layout of the information section', function (assert) {
   assert.ok($informationSection.find('.panel-body .type label b').length, "Missing type label");
   assert.ok($informationSection.find('.panel-body .license label b').length, "Missing license label");
   assert.ok($informationSection.find('.panel-body .description label b').length, "Missing description label");
+  assert.ok($informationSection.find('.panel-body .gru-taxonomy-tag-list').length, "Missing taxonomy content");
+  assert.equal($informationSection.find('.panel-body .gru-taxonomy-tag').length, 1, "Missing taxonomy tag");
 });
 
 test('Layout of the information section on edit mode', function (assert) {
