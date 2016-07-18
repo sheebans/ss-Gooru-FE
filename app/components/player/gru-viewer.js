@@ -1,5 +1,5 @@
 import Ember from "ember";
-import { RESOURCE_COMPONENT_MAP } from "../../config/config";
+import { ASSESSMENT_SHOW_VALUES, RESOURCE_COMPONENT_MAP } from 'gooru-web/config/config';
 /**
  * Player viewer
  *
@@ -31,8 +31,9 @@ export default Ember.Component.extend({
      * @returns {boolean}
      */
     submitQuestion: function (question, questionResult) {
-      this.$('.content').scrollTop(0);
-      this.sendAction("onSubmitQuestion", question, questionResult);
+      const component = this;
+      component.$('.content').scrollTop(0);
+      component.sendAction("onSubmitQuestion", question, questionResult);
     }
   },
 
@@ -48,6 +49,19 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates if the student is playing the collection
+   * @property {boolean}
+   */
+  isStudent: Ember.computed.equal("role", "student"),
+
+  /**
+   * Indicates if the teacher is playing this collection
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed.not("isStudent"),
+
   /**
    * The resource playing
    * @property {Resource} resource
@@ -60,6 +74,11 @@ export default Ember.Component.extend({
    */
   resourceResult: null,
 
+  /**
+   * Indicates the user's role, could be 'student', 'teacher' or null
+   * @property {string}
+   */
+  role: null,
 
   /**
    * The collection playing
@@ -72,12 +91,18 @@ export default Ember.Component.extend({
    */
   onSubmitQuestion: "submitQuestion",
 
-  /* Calculated height designated for the content area of a resource
-  * @see components/player/resources/gru-url-resource.js
-  * The height of the content area needs to be calculated because the height of the narration varies and may cause a scroll bar to appear
-  * @property {Number}
-  */
+  /** Calculated height designated for the content area of a resource
+   * @see components/player/resources/gru-url-resource.js
+   * The height of the content area needs to be calculated because the height of the narration varies and may cause a scroll bar to appear
+   * @property {Number}
+   */
   calculatedResourceContentHeight: 0,
+
+  /**
+   * Indicates when the player has context
+   * @property {boolean}
+   */
+  hasContext: false,
 
   /**
    * Indicates when the collection is already submitted
@@ -105,7 +130,7 @@ export default Ember.Component.extend({
   /**
    * Observes for the resource change
    */
-  resourceObserver: function(){
+  resourceObserver: function() {
     this.calculateResourceContentHeight();
   }.observes("resource.id"),
 
@@ -113,14 +138,46 @@ export default Ember.Component.extend({
    * The text for the submit button
    * @property {string}
    */
-  buttonTextKey: Ember.computed('collection','resource.id',function(){
-    let i18nKey = "common.save-next";
-    if (this.get('collection').isLastResource(this.get('resource'))){
-      i18nKey = (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
+  buttonTextKey: Ember.computed('collection', 'resource.id', 'resourceResult.submittedAnswer', function() {
+    let i18nKey = 'common.save-next';
+    let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+    if(!this.get('hasContext') || !showFeedback || this.get('isTeacher')) {
+      if (this.get('collection').isLastResource(this.get('resource'))) {
+        i18nKey = (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
+      }
+    } else {
+      if(this.get('resourceResult.submittedAnswer')) {
+        i18nKey = this.get('collection').isLastResource(this.get('resource')) ?
+          'common.finish' : 'common.next';
+      } else {
+        i18nKey = 'common.submit';
+      }
     }
     return i18nKey;
   }),
 
+  /**
+   * The text for the action in the instructions
+   * @property {string}
+   */
+  instructionsActionTextKey: Ember.computed('collection', 'resource.id', 'resourceResult.submittedAnswer', function() {
+    let i18nKey = 'common.save-next';
+    let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+    if(!this.get('hasContext') || !showFeedback) {
+      if (this.get('collection').isLastResource(this.get('resource'))) {
+        return (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
+      }
+    } else {
+      i18nKey = 'common.submit';
+    }
+    return i18nKey;
+  }),
+
+
+  /**
+   * @property {boolean}
+   */
+  isNotIframeUrl: null,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -129,7 +186,10 @@ export default Ember.Component.extend({
    * of the narration -if there is one)
    */
   calculateResourceContentHeight: function() {
-    if (this.get('resource.isUrlResource') || this.get("resource.isPDFResource") && this.get("isNotIframeUrl")===false) {
+    if (this.get('resource.isUrlResource') ||
+        this.get("resource.isPDFResource") ||
+        this.get("resource.isImageResource") &&
+        this.get("isNotIframeUrl")===false) {
       var narrationHeight = this.$(".narration").innerHeight();
       var contentHeight = this.$('.content').height();
 

@@ -1,14 +1,9 @@
 import Ember from 'ember';
-import Env from '../config/environment';
+import Env from 'gooru-web/config/environment';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
-const EndPointsConfig = Env['gooru-endpoints'] || {};
 const RealTimeConfig = Env['real-time'] || {};
 
-/**
- * Make ember-18n service available to all components, models and controllers
- *
- * @module
- */
 export default {
   name: 'ajax',
 
@@ -22,10 +17,8 @@ export default {
           if (url.startsWith(RealTimeConfig.webServiceUrl) || url.startsWith(RealTimeConfig.webSocketUrl)) {
             settings.url = `${RealTimeConfig.protocol}${RealTimeConfig.hostname}:${RealTimeConfig.port}${url}`;
           } else {
-            const protocol = EndPointsConfig.protocol;
-            const hostname = EndPointsConfig.hostname;
-            const port = EndPointsConfig.port ? `:${EndPointsConfig.port}` : '';
-            settings.url = `${protocol}${hostname}${port}${url}`;
+            const endpointUrl = EndPointsConfig.getEndpointUrl();
+            settings.url = `${endpointUrl}${url}`;
           }
         }
       }

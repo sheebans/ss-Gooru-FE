@@ -48,7 +48,7 @@ export default Ember.Object.extend({
       let startedAt = payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime());
       let submittedAt = payload.endTime ? toLocal(payload.endTime) : startedAt;
 
-      return QuestionResult.create({
+      let questionResult = QuestionResult.create({
         //Commons fields for real time and student collection performance
         resourceId: payload.gooruOId,
         reaction: payload.reaction,
@@ -66,6 +66,8 @@ export default Ember.Object.extend({
         startedAt: startedAt,
         submittedAt: submittedAt
       });
+      questionResult.submittedAnswer = !!questionResult.timeSpent;
+      return questionResult;
     } else {
       return ResourceResult.create({
         //Commons fields for real time and student collection performance

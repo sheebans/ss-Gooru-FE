@@ -20,7 +20,9 @@
   {{/if}}
 
   {{#if orderedQuestions.length}}
-    {{reports.assessment.gru-questions results=orderedQuestions}}
+    {{reports.assessment.gru-questions
+      isAnswerKeyHidden=isAnswerKeyHidden
+      results=orderedQuestions}}
   {{/if}}
 
 {{/if}}

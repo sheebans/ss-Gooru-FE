@@ -1011,3 +1011,60 @@ test('Update answer and cancel - Hot Text Highlight', function (assert) {
     });
   });
 });
+
+test('Layout edit question image', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextHighlight,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "",
+      'isCorrect': true,
+      'type': 'text',
+      'highlightType': 'word'
+    })]),
+    standards: []
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    var $addImage = $component.find(".add-image button");
+    assert.ok($addImage, 'Add image button');
+    $addImage.click();
+    return wait().then(function () {
+      var $image = $component.find('.gru-image');
+      assert.ok($image, 'Image picker');
+    });
+  });
+});
+
+test('Layout view question image', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextHighlight,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "",
+      'isCorrect': true,
+      'type': 'text',
+      'highlightType': 'word'
+    })]),
+    thumbnail: 'image-id',
+    standards: []
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  return wait().then(function () {
+    var $addImage = $component.find(".add-image button");
+    assert.notOk($addImage.length, 'Add image button');
+    var $image = $component.find('.gru-image');
+    assert.ok($image, 'Image shoudl be shown');
+  });
+});

@@ -1,4 +1,4 @@
-<div class="panel panel-default {{if model.isExpanded 'expanded' 'collapsed'}}">
+<div class="panel panel-default {{if isPanelExpanded 'expanded' 'collapsed'}}">
   <div class="panel-heading">
     {{#if isSorting}}
       <span class="drag-icon">
@@ -27,7 +27,7 @@
       </a>
     {{/if}}
 
-    <div class="detail {{if model.isExpanded 'hidden' 'visible'}}">
+    <div class="detail {{if isPanelExpanded 'hidden' 'visible'}}">
         {{#if model.standards.length}}
           {{#each visibleStandardsList as |standard|}}
             <span class="btn btn-primary btn-small">{{standard.code}}</span>
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="detail {{if model.isExpanded 'visible' 'hidden'}}">
+    <div class="detail {{if isPanelExpanded 'visible' 'hidden'}}">
       <div class="actions">
         {{#unless isEditingInline}}
           <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'cancel'}}>{{gru-icon name="mode_comment"}}</button>
@@ -71,9 +71,23 @@
     {{#if isEditingInline}}
       {{#if (eq model.format 'question')}}
         <div class="question">
-          <h3>{{t "common.question"}}</h3>
+          <div class="border-bottom">
+            <h3>{{t "common.question"}}</h3>
+            <span class="instructions">{{t (concat 'content.questions.edit.builder.question-instructions.' model.type)}}</span>
+          </div>
           {{gru-rich-text-editor content=tempModel.text}}
-          <button class="add-image btn btn-sm btn-primary out-of-scope">{{t "common.add-question-image"}}</button>
+          <div class="validation">
+            {{#if descriptionError}}
+              <span class="error">
+                {{descriptionError}}
+              </span>
+            {{/if}}
+          </div>
+          {{#if showImagePicker}}
+            {{content.gru-image isEditing=true srcImage=model.thumbnail editImage=tempModel.thumbnail}}
+          {{else}}
+              <button class="add-image btn btn-sm btn-primary" {{action "toggleImagePicker"}}>{{t "common.add-question-image"}}</button>
+          {{/if}}
         </div>
         <div class="answers">
           <div class="{{unless model.isHotTextHighlight 'border-bottom'}}">
@@ -98,7 +112,8 @@
           <button class="save btn btn-success" {{action 'updateItem' model}}>{{t "common.save"}}</button>
         </div>
       </div>
-    {{else}}
+    {{/if}}
+    {{#if isEditingNarration}}
       <div class="narration">
         <label>
           <span>{{t "common.narration"}}</span>

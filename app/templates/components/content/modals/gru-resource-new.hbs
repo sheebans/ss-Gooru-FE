@@ -29,7 +29,7 @@
       <div class="resource-types text-center">
         {{#each uploadableTypes as |uploadableType|}}
           <div
-              class="panel panel-default {{concat 'resource-type-' uploadableType.value}} {{set-if-equal 'active' uploadableType.value selectedType}}" {{action 'selectUploadType' uploadableType}}>
+              class="panel panel-default {{if uploadableType.disabled 'disabled'}} {{concat 'resource-type-' uploadableType.value}} {{set-if-equal 'active' uploadableType.value selectedType}}" {{action 'selectUploadType' uploadableType}}>
             <div class="panel-body">
               <i class="resource-type-icon"></i>
             </div>

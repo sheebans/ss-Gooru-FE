@@ -125,9 +125,11 @@ export default Ember.Component.extend({
       this.toggleProperty('isResourceUpload');
 
       if (this.get('isResourceUpload')) {
+        // Default upload type will be text (@see config/config.js#UPLOADABLE_TYPES)
+        let defaultUploadType = UPLOADABLE_TYPES[5];
         resource = this.get('uploadResource');
         this.set('resource', resource);
-        this.actions.selectUploadType.call(this, UPLOADABLE_TYPES[0]);
+        this.actions.selectUploadType.call(this, defaultUploadType);
       } else {
         resource = this.get('urlResource');
         this.set('resource', resource);
@@ -137,6 +139,11 @@ export default Ember.Component.extend({
 
     selectFile: function(file) {
       this.set('resource.file', file);
+
+      if (file) {
+        let uploadType = this.inferUploadType(file.name, UPLOADABLE_TYPES);
+        this.actions.selectUploadType.call(this, uploadType);
+      }
     },
 
     selectType: function(type){
@@ -144,8 +151,10 @@ export default Ember.Component.extend({
     },
 
     selectUploadType: function(uploadType) {
-      this.set('resource.format', uploadType.value);
-      this.set('resource.extensions', uploadType.validExtensions);
+      if (uploadType && !uploadType.disabled) {
+        this.set('resource.format', uploadType.value);
+        this.set('resource.extensions', uploadType.validExtensions);
+      }
     }
   },
 
@@ -161,7 +170,7 @@ export default Ember.Component.extend({
     var urlResource = urlResourceFactory.create(Ember.getOwner(this).ownerInjection(), { url: null, title:null, format:RESOURCE_TYPES[0] });
 
     var uploadResourceFactory = Resource.extend(resourceValidations.getValidationsFor(['description', 'format', 'title']));
-    var uploadResource = uploadResourceFactory.create(Ember.getOwner(this).ownerInjection(), { title:null, format: UPLOADABLE_TYPES[0].value });
+    var uploadResource = uploadResourceFactory.create(Ember.getOwner(this).ownerInjection(), { title:null });
 
     this.set('urlResource', urlResource);
     this.set('uploadResource', uploadResource);
@@ -230,6 +239,26 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Determine the upload type object (see gooru-web/config/config#UPLOAD_TYPES) based on a file name extension.
+   * @param {String} filename -Complete file name (including the extension)
+   * @param {Object[]} uploadTypes
+   * @return {Object}
+   */
+  inferUploadType: function(filename, uploadTypes) {
+    var extension = filename.substr(filename.lastIndexOf('.'));
+    var selectedType = null;
+
+    for (let i = uploadTypes.length - 1; i >= 0; i--) {
+      let type = uploadTypes[i];
+      if (type.validExtensions.indexOf(extension) >= 0) {
+        selectedType = type;
+        break;
+      }
+    }
+    return selectedType
+  },
 
   /**
    * Create a resource (url/upload)

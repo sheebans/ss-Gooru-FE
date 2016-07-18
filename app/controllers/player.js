@@ -25,6 +25,7 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   eventsService: Ember.inject.service("api-sdk/events"),
 
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -113,6 +114,12 @@ export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates when the player has context
+   * @property {boolean}
+   */
+  hasContext: false,
 
   /**
    * Indicates the user's role, could be 'student', 'teacher' or null
@@ -322,12 +329,13 @@ export default Ember.Controller.extend(SessionMixin, {
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
 
-    if (!assessmentResult.get("started")){
+    if (! assessmentResult.get("started") ){
       assessmentResult.set("startedAt", new Date());
       context.set("eventType", "start");
       context.set("isStudent", controller.get("isStudent"));
       return controller.saveCollectionResult(assessmentResult, context);
     }
+    controller.set('showContent',true);
     return promise;
   },
 

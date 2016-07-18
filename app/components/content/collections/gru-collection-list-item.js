@@ -2,6 +2,7 @@ import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
 import {CONTENT_TYPES} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
+import Answer from 'gooru-web/models/content/answer';
 
 /**
  * Collection List
@@ -16,16 +17,6 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
 
   // -------------------------------------------------------------------------
-  // Attributes
-
-  classNames: ['content', 'collections', 'gru-collection-list-item'],
-
-  tagName: 'li',
-
-  attributeBindings: ['data-id'],
-
-  'data-id':Ember.computed.alias('model.id'),
-  // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @requires service:api-sdk/resource
@@ -36,6 +27,11 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
    * @requires service:api-sdk/question
    */
   questionService: Ember.inject.service("api-sdk/question"),
+
+  /**
+   * @requires service:api-sdk/media
+   */
+  mediaService: Ember.inject.service("api-sdk/media"),
 
   /**
    * @property {Service} profile service
@@ -149,19 +145,19 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
       }
     },
 
-    editNarration: function (/*builderItem*/) {
+    editNarration: function () {
+
       var modelForEditing = this.get('model').copy();
 
-      this.set('tempModel', modelForEditing);
-      this.set('model.isExpanded', true);
+      this.setProperties({
+        'tempModel': modelForEditing,
+        'isPanelExpanded': true,
+        'isEditingNarration': true
+      });
     },
 
     editInline: function () {
-      var modelForEditing = this.get('model').copy();
-
-      this.set('tempModel', modelForEditing);
-      this.set('model.isExpanded', true);
-      this.set('isEditingInline', true);
+      this.showInlinePanel();
     },
 
     updateItem: function (builderItem) {
@@ -171,43 +167,103 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
 
       editedModel.validate().then(function({model, validations}) {
         if (validations.get('isValid')) {
-          if(builderItem.get('format')==='question'){
-            component.get('questionService').updateQuestion(editedModel.id, editedModel)
-              .then(function () {
-                component.set('model', editedModel);
-                model.merge(editedModel, ['title', 'narration']);
-                component.set('model.isExpanded', false);
-              }.bind(this))
-              .catch(function (error) {
-                var message = component.get('i18n').t('common.errors.question-not-updated').string;
-                component.get('notifications').error(message);
-                Ember.Logger.error(error);
-              }.bind(component));
+          if(builderItem.get('format') === 'question') {
+            component.saveQuestion();
           }else{
             component.get('resourceService').updateResource(editedModel.id, editedModel)
-              .then(function () {
+              .then(function() {
                 component.set('model', editedModel);
                 model.merge(editedModel, ['title','narration']);
-                component.set('model.isExpanded', false);
-              }.bind(this))
-              .catch(function (error) {
+                component.setProperties({
+                  'isPanelExpanded': false,
+                  'isEditingInline': false,
+                  'isEditingNarration': false,
+                  'editImagePicker': false
+                });
+               }).catch(function(error) {
                 var message = component.get('i18n').t('common.errors.question-not-updated').string;
                 component.get('notifications').error(message);
                 Ember.Logger.error(error);
-              }.bind(component));
+              });
           }
-          component.set('isEditingInline', false);
         }
       });
     },
 
     cancel: function (){
-      this.set('model.isExpanded', false);
-      this.set('isEditingInline', false);
+      this.setProperties({
+        'isPanelExpanded': false,
+        'isEditingInline': false,
+        'isEditingNarration': false,
+        'editImagePicker': false
+      });
+    },
+
+    toggleImagePicker: function() {
+      this.set('editImagePicker', true);
     }
   },
+
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  classNames: ['content', 'collections', 'gru-collection-list-item'],
+
+  tagName: 'li',
+
+  attributeBindings: ['data-id'],
+
+  'data-id':Ember.computed.alias('model.id'),
+
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    this._super(...arguments);
+    const component = this;
+    var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+
+    if (isTouch) {
+      component.$('.actions .item-actions button').tooltip('disable');
+    }
+
+    component.setProperties({
+      'isPanelExpanded': false,
+      'isEditingInline': false,
+      'isEditingNarration': false
+    });
+
+    if (component.get('model')){
+
+      const editingContent = component.get('editingContent');
+      const modelId = component.get('model.id');
+
+      if(editingContent && modelId && (editingContent===modelId)){
+        component.showInlinePanel();
+      }
+    }
+  },
+
+
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * If the user wants to edit the image
+   * @property {Boolean}
+   */
+  editImagePicker: false,
+
+  /**
+   * If the image picker should be shown
+   * @property {Boolean}
+   */
+  showImagePicker: Ember.computed.or('editImagePicker', 'model.thumbnail'),
 
   /**
    * @property {Number} remainingStandards - number of standards not displayed
@@ -255,5 +311,230 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
   /**
    * @property {Boolean} isEditingInline
    */
-  isEditingInline: false
+  isEditingInline: false,
+
+  /**
+   * @property {Boolean} isEditingNarration
+   */
+  isEditingNarration: false,
+
+  /**
+   * @property {Boolean} isPanelExpanded
+   */
+  isPanelExpanded: false,
+
+  /**
+   * @property {String} Error message to display below the description
+   */
+  descriptionError: null,
+
+  /**
+   * @property {Boolean} Indicates if a Hot spot answer has images
+   */
+  hasNoImages: false,
+
+  /**
+   * @property {Boolean} Indicates if a correct answer is required
+   */
+  correctAnswerNotSelected: false,
+
+  // ----------------------------
+  // Methods
+
+  /**
+   * Save question content
+   */
+  saveQuestion: function() {
+    const component = this;
+    var editedQuestion = this.get('tempModel');
+    var promiseArray = [];
+    var answersPromise = null;
+    if (editedQuestion.get('isFIB')) {
+      editedQuestion.set('answers', component.defineFIBAnswers(editedQuestion));
+      component.updateQuestion(editedQuestion, component);
+    } else if (editedQuestion.get('isOpenEnded')) {
+      component.updateQuestion(editedQuestion, component);
+    } else {
+      if (editedQuestion.get('answers')) {
+        if (editedQuestion.get('isHotSpotImage')) {
+          this.hasImages(editedQuestion.get('answers'));
+          promiseArray = editedQuestion.get('answers').map(
+            component.getAnswerSaveImagePromise.bind(component)
+          );
+          answersPromise = Ember.RSVP.Promise.all(promiseArray).then(function (values) {
+            for (var i = 0; i < editedQuestion.get('answers').length; i++) {
+              editedQuestion.get('answers')[i].set('text', values[i]);
+            }
+            return Ember.RSVP.Promise.all(
+              editedQuestion.get('answers').map(component.getAnswerValidatePromise)
+            );
+          });
+        } else {
+          promiseArray = editedQuestion.get('answers').map(component.getAnswerValidatePromise);
+          answersPromise = Ember.RSVP.Promise.all(promiseArray);
+        }
+        answersPromise.then(function(values) {
+          if (component.validateAnswers.call(component, values, editedQuestion)) {
+            component.updateQuestion(editedQuestion,component);
+          }
+        });
+      } else {
+        component.updateQuestion(editedQuestion,component);
+      }
+    }
+  },
+
+  updateQuestion:function(editedQuestion,component){
+    let question = component.get('model');
+
+    editedQuestion.validate().then(function ({ model, validations }) {
+      if (validations.get('isValid')) {
+        let imageIdPromise = new Ember.RSVP.resolve(editedQuestion.get('thumbnail'));
+        if(editedQuestion.get('thumbnail') && editedQuestion.get('thumbnail') !== question.get('thumbnail')) {
+          imageIdPromise = component.get('mediaService').uploadContentFile(editedQuestion.get('thumbnail'));
+        }
+        var defaultTitle = component.get('i18n').t('common.new-question').string;
+        var defaultText = component.get('i18n').t('common.new-question-text').string;
+        var editedQuestionTitle = editedQuestion.title;
+        var editedQuestionText = editedQuestion.text;
+
+        if (editedQuestionTitle === defaultTitle && editedQuestionText !== defaultText && editedQuestionText !== '') {
+          editedQuestionText = $.trim(editedQuestionText);
+          var newTitle = editedQuestionText.substr(0, 50);
+
+          editedQuestion.set('title', newTitle);
+        }
+        imageIdPromise.then(function(imageId) {
+          editedQuestion.set('thumbnail', imageId);
+          component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
+            .then(function() {
+              component.setProperties({
+                'model': editedQuestion,
+                'isPanelExpanded': false,
+                'isEditingInline': false,
+                'isEditingNarration': false,
+                'editImagePicker': false
+              });
+
+              if(component.get('editingContent')){
+                component.set('editingContent', null);
+              }
+
+              question.merge(editedQuestion, ['title', 'narration', 'thumbnail']);
+            }).catch(function (error) {
+              var message = component.get('i18n').t('common.errors.question-not-updated').string;
+              component.get('notifications').error(message);
+              Ember.Logger.error(error);
+            });
+          });
+      }
+      // Add the description message to the equation editor
+      component.set('descriptionError', model.get('validations.attrs.description.messages')[0]);
+
+      component.set('didValidate', true);
+    });
+  },
+
+  defineFIBAnswers: function(question) {
+    const component = this;
+    let answers = Ember.A([]);
+    const questionText = question.get('text');
+    const regExp = /(\[[^\[\]]+\])+/gi;
+    const matchedAnswers = questionText.match(regExp);
+    if (matchedAnswers) {
+      answers = matchedAnswers.map(function(answer, index) {
+        return Answer.create(Ember.getOwner(component).ownerInjection(), {
+          sequence: index + 1,
+          text: answer.substring(1, answer.length - 1),
+          isCorrect: true,
+          type: 'text'
+        });
+      });
+    }
+    return answers;
+  },
+
+  /**
+   * Check that validate promises are not returning false
+   */
+  validateAnswers: function(promiseValues, question) {
+    var valid = true;
+    promiseValues.find(function (promise) {
+      if (promise === false) {
+        valid = false;
+      }
+    });
+    return valid && this.isCorrectAnswerSelected(question);
+  },
+
+  /**
+   * Check if an answer is selected as correct
+   */
+  isCorrectAnswerSelected: function(question) {
+    if(question.get('answers').length > 0){
+      let correctAnswers = question.get('answers').filter(function(answer) {
+        return answer.get('isCorrect');
+      });
+      if (correctAnswers.length > 0) {
+        this.set('correctAnswerNotSelected', false);
+      } else {
+        this.set('correctAnswerNotSelected', true);
+        return false;
+      }
+    }
+    return true;
+  },
+
+  /**
+   * Returns upload image promises
+   */
+  getAnswerSaveImagePromise: function(answer) {
+    if (answer.get('text') && typeof (answer.get('text').name) === 'string') {
+      return this.get('mediaService').uploadContentFile(answer.get('text'));
+    } else {
+      return answer.get('text');
+    }
+  },
+
+  /**
+   * Returns validate image promises
+   */
+  getAnswerValidatePromise: function(answer) {
+    return answer.validate().then(function ({ model, validations }) {
+      return validations.get('isValid');
+    });
+  },
+
+  /**
+   * Check if an hs-answer has image
+   */
+  hasImages: function(answers) {
+    if(answers.length > 0){
+      let answerImages = answers.filter(function(answer) {
+        return answer.get('text')===null;
+      });
+      if (answerImages.length > 0) {
+        this.set('hasNoImages', true);
+      } else {
+        this.set('hasNoImages', false);
+        return false;
+      }
+    }
+    return true;
+  },
+
+  /**
+   * show Inline Edit Panel
+   */
+  showInlinePanel: function () {
+
+    var modelForEditing = this.get('model').copy();
+
+    this.setProperties({
+      'tempModel': modelForEditing,
+      'isPanelExpanded': true,
+      'isEditingInline': true,
+      'editImagePicker': false
+    });
+  }
 });

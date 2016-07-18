@@ -39,6 +39,9 @@ export default {
     "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer": "Your Answer",
+    "answer-correct": "You are correct!",
+    "answer-incorrect": "You are incorrect...",
+    "answer-key-was-hidden": "Note: Your teacher has hidden the answer key.",
     "approved": "Approved",
     "assessment": "Assessment",
     "assessment-external": "Assessment-External",
@@ -202,6 +205,7 @@ export default {
     "false": "False",
     "featured-courses": "Featured&ensp;Courses",
     "file-name": "File name",
+    "finish": "Finish",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
@@ -692,6 +696,20 @@ export default {
     "add-to-assessment": "Add to assessment or collection",
     "add-to-assessment-lead": "Choose an assessment you want to add {{contentTitle}} to"
   },
+  "gru-assessment-confirmation":{
+    "title": "You are about to start an assessment...",
+    "description": "In this assessment, {{model.title}}",
+    "setting-forward": "You can navigate forward only",
+    "setting-forward-backward": "You can navigate forward and backwards to answer questions",
+    "unlimited-attempts-left": 'You have unlimited attempts',
+    "attempts-left": {
+      'one':"You have 1 attempt left",
+      'other':"You have {{count}} attempts"
+    },
+    "unlimited-attempts":"You have unlimited attempts",
+    "cancel": "Cancel",
+    "start": "Start!"
+  },
   "gru-quick-course-search": {
     "add-from-course": "Add from Existing Course",
     "view-featured-courses": "View Featured Courses",
@@ -942,17 +960,17 @@ export default {
     "submit": "Use Image"
   },
   "gru-fib": {
-    "instructions": "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
+    "instructions": "Please type your answer(s) in the blank(s) provided, and click \"{{action}}\"."
   },
 
   "gru-hs-image": {
-    "instructions": "Please select the correct image(s), and click \"Submit\"."
+    "instructions": "Please select the correct image(s), and click \"{{action}}\"."
   },
   "gru-hs-text": {
-    "instructions": "Please select the correct answer(s), and click \"Submit\"."
+    "instructions": "Please select the correct answer(s), and click \"{{action}}\"."
   },
   "gru-hot-text": {
-    "instructions": "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"{{action}}\"."
   },
   "gru-login-prompt": {
     "title": "Welcome to Gooru!",
@@ -963,14 +981,14 @@ export default {
     "sign-in": "Sign in"
   },
   "gru-multiple-answer": {
-    "instructions": "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"{{action}}\"."
   },
   "gru-multiple-choice": {
-    "instructions": "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"{{action}}\"."
   },
 
   "gru-open-ended": {
-    "instructions": "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
+    "instructions": "Please type your answer in the field below, and click the \"{{action}}\" button to save your response when you're done.",
     "characterLimit": "Character Limit"
   },
 
@@ -979,13 +997,13 @@ export default {
     "question": "Question"
   },
   "gru-true-false": {
-    "instructions": "Please select the correct answer, and click \"Submit\".",
+    "instructions": "Please select the correct answer, and click \"{{action}}\".",
     "true": "True",
     "false": "False"
   },
 
-  "player.gru-reorder": {
-    "instructions": "Please reorder the answers in correct order, and click \"Submit\"."
+  "gru-reorder": {
+    "instructions": "Please reorder the answers in correct order, and click \"{{action}}\"."
   },
 
   "player": {

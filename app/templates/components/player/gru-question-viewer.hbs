@@ -53,16 +53,30 @@
         <form {{action "submitQuestion" on="submit"}}>
           {{component (questionConfig question.questionType 'component.player')
           userAnswer=questionResult.userAnswer
+          instructionsActionTextKey=instructionsActionTextKey
           question=question
-          readOnly=submitted
+          readOnly=isInputDisabled
           onAnswerChanged="changeAnswer"
           onAnswerCleared="clearAnswer"
           onAnswerCompleted="completeAnswer"}}
-            <div class="actions">
-                <button type="submit" class="save btn btn-success" disabled="{{if isSubmitDisabled true null}}">{{t buttonTextKey}}</button>
-            </div>
+          {{#if showFeedback}}
+              <div class="feedback">
+                <div class="feedback-content">
+                  <div class="feedback-emotion {{if questionResult.correct "correct" "incorrect"}}">
+                    <svg>
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#{{feedbackUnicode}}"></use>
+                    </svg>
+                  </div>
+                  <span class="feedback-text">
+                    {{t isCorrectMessageKey}}
+                  </span>
+                </div>
+              </div>
+          {{/if}}
+          <div class="actions">
+            <button type="submit" class="save btn btn-success" disabled="{{if isSubmitDisabled true null}}">{{t buttonTextKey}}</button>
+          </div>
         </form>
       </div>
     </div>
 </div>
-
