@@ -266,6 +266,7 @@ export default Ember.Component.extend(AccordionMixin, {
                   console.log('f ',lessonItem.get('format'));
                   if(lessonItem.get('format')==='assessment') {
                     component.get('assessmentService').readAssessment(lessonItem.get('id')).then(function (result) {
+                      console.log('title',result.get('title'));
                       console.log('result',result.get('attempts'));
                     });
                   }
