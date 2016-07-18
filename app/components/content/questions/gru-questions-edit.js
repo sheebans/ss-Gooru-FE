@@ -376,7 +376,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
               component.set('isEditing', false);
               component.set('isBuilderEditing', false);
               component.set('editImagePicker', false);
-              question.merge(editedQuestion, ['title','standards','audience', 'depthOfknowledge']);
+              question.merge(editedQuestion, ['title', 'standards', 'audience', 'depthOfknowledge', 'thumbnail']);
             })
             .catch(function (error) {
               var message = component.get('i18n').t('common.errors.question-not-updated').string;
