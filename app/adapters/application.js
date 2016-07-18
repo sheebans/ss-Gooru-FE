@@ -2,9 +2,9 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import Env from '../config/environment';
 import SessionMixin from '../mixins/session';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 const Config = Env['simple-auth-custom'] || {};
-const EndPointsConfig = Env['gooru-endpoints'] || {};
 
 export default DS.RESTAdapter.extend(SessionMixin, {
 
@@ -35,10 +35,8 @@ export default DS.RESTAdapter.extend(SessionMixin, {
    * @returns {*}
    */
   ajax: function(url, method, hash) {
-    const protocol = EndPointsConfig.protocol;
-    const hostname = EndPointsConfig.hostname;
-    const port = EndPointsConfig.port ? `:${EndPointsConfig.port}` : '';
-    return this._super(`${protocol}${hostname}${port}${url}`, method, hash);
+    const endpointUrl = EndPointsConfig.getEndpointUrl();
+    return this._super(`${endpointUrl}${url}`, method, hash);
   }
 
 });
