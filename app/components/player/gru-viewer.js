@@ -49,6 +49,19 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates if the student is playing the collection
+   * @property {boolean}
+   */
+  isStudent: Ember.computed.equal("role", "student"),
+
+  /**
+   * Indicates if the teacher is playing this collection
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed.not("isStudent"),
+
   /**
    * The resource playing
    * @property {Resource} resource
@@ -61,6 +74,11 @@ export default Ember.Component.extend({
    */
   resourceResult: null,
 
+  /**
+   * Indicates the user's role, could be 'student', 'teacher' or null
+   * @property {string}
+   */
+  role: null,
 
   /**
    * The collection playing
@@ -123,7 +141,7 @@ export default Ember.Component.extend({
   buttonTextKey: Ember.computed('collection', 'resource.id', 'resourceResult.submittedAnswer', function() {
     let i18nKey = 'common.save-next';
     let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
-    if(!this.get('hasContext') || !showFeedback) {
+    if(!this.get('hasContext') || !showFeedback || this.get('isTeacher')) {
       if (this.get('collection').isLastResource(this.get('resource'))) {
         i18nKey = (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
       }

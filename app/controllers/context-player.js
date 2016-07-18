@@ -29,7 +29,8 @@ export default PlayerController.extend({
     submitQuestion: function (question, questionResult) {
       const controller = this;
       let showFeedback = controller.get('collection.showFeedback');
-      if(!showFeedback) {
+      let isTeacher = controller.get('isTeacher');
+      if(!showFeedback || isTeacher) {
         controller._super(...arguments);
       }
       if(questionResult.get('submittedAnswer')) {
