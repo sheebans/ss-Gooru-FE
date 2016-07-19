@@ -1,15 +1,30 @@
 .content.modals.gru-resource-new {
+  $active-border: #0e1290;
 
   .modal-body {
     padding-top: 15px;
 
     form .resource-types > .panel {
-      &.disabled {
-        opacity: 0.25;
-        cursor: default;
+      height: auto;
+
+      .panel-body {
+        padding: 7px 12px;
+        border-color: $blue-400;
+        border-style: solid;
+        border-width: 4px 4px 0 4px;
       }
+      .panel-footer {
+        padding: 2px 12px;
+        border-color: $blue-500;
+        border-style: solid;
+        border-width: 0px 4px 4px 4px;
+      }
+
       &.active {
-        opacity:0.6;
+        opacity:0.7;
+
+        .panel-body { border-color: $blue-600; }
+        .panel-footer { border-color: $blue-600; }
       }
     }
   }

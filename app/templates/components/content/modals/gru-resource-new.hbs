@@ -11,7 +11,7 @@
       </div>
       <label class="filename-label">
         <span class="required">{{t 'common.file-name'}}</span>
-        {{content.gru-file-picker validFileExtensions=resource.extensions onSelectFile=(action 'selectFile')}}
+        {{content.gru-file-picker validMimeType=resource.mimeType onSelectFile=(action 'selectFile')}}
         {{#if emptyFileError}}
           <div class="validation">
             <span class="error">{{emptyFileError}}</span>
