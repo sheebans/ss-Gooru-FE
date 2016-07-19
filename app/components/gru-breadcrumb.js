@@ -29,6 +29,7 @@ export default Ember.Component.extend({
      * selectItem selects breadcrumb item
      */
     selectItem: function(item){
+      console.log('item',item);
       this.sendAction("onSelectedItem", item);
     }
   },
