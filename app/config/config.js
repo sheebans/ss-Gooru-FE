@@ -29,11 +29,13 @@ export const UPLOADABLE_TYPES = [
   },
   {
     value: "image",
-    validExtensions: ".jpg,.jpeg,.gif,.png"
+    validExtensions: ".jpg, .jpeg, .gif, .png",
+    validType: "image/*"
   },
   {
     value: "text",
-    validExtensions: ".pdf"
+    validExtensions: ".pdf",
+    validType: "application/pdf"
   }
 ];
 

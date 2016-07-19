@@ -154,6 +154,7 @@ export default Ember.Component.extend({
       if (uploadType && !uploadType.disabled) {
         this.set('resource.format', uploadType.value);
         this.set('resource.extensions', uploadType.validExtensions);
+        this.set('resource.mimeType', uploadType.validType);
       }
     }
   },
