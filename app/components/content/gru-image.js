@@ -18,7 +18,7 @@ export default GruImagePicker.extend({
 
   classNames: ['content', 'gru-image'],
 
-  classNameBindings: ['isEditing:is-editing:is-viewing', 'srcImage:has-src-image', 'editImage:has-edit-image'],
+  classNameBindings: ['isEditing:is-editing:is-viewing', 'srcImage:has-src-image', 'editImage:has-edit-image', 'hasErrors:picker-error'],
 
 
   // -------------------------------------------------------------------------
@@ -48,6 +48,11 @@ export default GruImagePicker.extend({
    * @type {string} editImage - Edited image url
    */
   editImage: Ember.computed.alias('image'),
+
+  /**
+   * @type {boolean} hasErrors - if the picker has any errors
+   */
+  hasErrors: Ember.computed.notEmpty('filePickerErrors'),
 
   /**
    * @type {string} srcImage - Initial image url
