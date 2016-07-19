@@ -60,5 +60,6 @@
     "sequence_id": 2,
     "visible_on_profile": true
   }],
-  "collaborator": []
+  "collaborator": [],
+  attempts: 1
 }

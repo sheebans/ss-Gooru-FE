@@ -129,7 +129,7 @@ export default Ember.Component.extend({
    * Indicates if attemps is selected
    * @property {boolean} attempsSelected
    */
-  attemptsSelected: Ember.computed.equal('selectedOption', 'attempts'),
+  attemptsSelected: Ember.computed.equal('selectedOption', 'attempts')
 
   // -------------------------------------------------------------------------
   // Observers
