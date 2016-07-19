@@ -7,7 +7,8 @@ const EndPointsEnv = Env['gooru-endpoints'] || {};
 export function getEndpointUrl() {
   const protocol = `${window.location.protocol}//`;
   const hostname = EndPointsEnv.hostname;
-  const port = EndPointsEnv.port ? `:${EndPointsEnv.port}` : '';
+  var port = (protocol === 'http://') ? EndPointsEnv.port : EndPointsEnv.securePort;
+  port = port ? `:${port}` : '';
   return `${protocol}${hostname}${port}`;
 }
 
