@@ -92,9 +92,9 @@ module.exports = function (grunt) {
 
     var tasks = ['generateSVG', 'stubby:test'];
     if (target === 'nginx') {
+      tasks = ['generateSVG'];
       tasks.push('exec:nginx-stop-server');
       tasks.push('exec:nginx-start-server');
-      tasks = ['generateSVG'];
     }
     tasks.push(serverExecTask);
     grunt.task.run(tasks);
