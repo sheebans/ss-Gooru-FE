@@ -1,6 +1,15 @@
 /* jshint node: true */
 
 module.exports = function (environment) {
+
+  const RealTimeDefault = {
+    webSocketUrl: '/ws/realtime',
+    webServiceUrl: '/nucleus/realtime',
+    protocol: 'http://',
+    hostname: 'goorurt.qa.gooruweb.edify.cr',
+    port: 80
+  };
+
   var ENV = {
     modulePrefix: 'gooru-web',
     environment: environment,
@@ -93,11 +102,14 @@ module.exports = function (environment) {
   };
 
   ENV['real-time'] = {
-    webSocketUrl: '/ws/realtime',
-    webServiceUrl: '/nucleus/realtime',
-    protocol: 'http://',
-    hostname: 'goorurt.qa.gooruweb.edify.cr',
-    port: 80
+    'local': RealTimeDefault,
+    'edify-qa': RealTimeDefault,
+    'nucleus-qa': RealTimeDefault.extend({
+      hostname: 'goorurt.qa.gooruweb.edify.cr',
+    }),
+    'production': RealTimeDefault.extend({
+      hostname: 'goorurt.qa.gooruweb.edify.cr',
+    })
   };
 
   if (environment === 'development') {
