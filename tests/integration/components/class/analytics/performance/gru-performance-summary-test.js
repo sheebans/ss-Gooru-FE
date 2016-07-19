@@ -7,7 +7,7 @@ import wait from 'ember-test-helpers/wait';
 
 const assessmentServiceStub = Ember.Service.extend({
 
-  readAssessment(assessmentId) {
+  readAssessment() {
     var promiseResponse;
     var response = [
       AssessmentModel.create({id: 'd4521a45-dcd1-4540-bba1-64af8fd2d6ec', attempts: 1}),
@@ -25,7 +25,7 @@ const assessmentServiceStub = Ember.Service.extend({
   }
 });
 
-moduleForComponent('class/analytics/performance/gru-performance-summary', 'Integration | Component | class/analytics/performance/gru performance summary', {
+moduleForComponent('class/analytics/performance/gru-performance-summary', 'Integration | Component | class/analytics/performance/gru-performance-summary', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
