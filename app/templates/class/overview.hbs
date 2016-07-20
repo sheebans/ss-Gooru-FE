@@ -3,7 +3,9 @@
     <div class="overview-header">
       <div class="title">
         <h3>{{t 'common.course-map'}}</h3>
-        <button {{action "startTour" course.id}} class="btn btn-default start-tour">
+        <button {{action "showModal" "content.modals.gru-tour" 'overview'}}
+         class="btn btn-default start-tour">
+          {{gru-icon name='live_help'}}
           {{t "common.start-tour"}}
         </button>
       </div>

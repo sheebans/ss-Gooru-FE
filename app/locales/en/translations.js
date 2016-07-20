@@ -1237,5 +1237,14 @@ export default {
     "feedback-never": "Never",
     "feedback-summary": "At the end",
     "navigation-scoring": "Navigation and Scoring"
+  },
+
+  "gru-tour": {
+    "overview": {
+      "stepOne":{
+        "title": "Assign Content via Course Map",
+        "description": "The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+      }
+    }
   }
 };
