@@ -26,7 +26,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    //this.set('unlimited', this.get('model.attempts')==-1 ? true : false);
+    this.set('unlimited', this.get('model.attempts')==-1 ? true : false);
 
   },
 
@@ -38,6 +38,19 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} flag for disabling button
    */
-  noAttempts: Ember.computed.equal('model.attempts', 0),
-  unlimited: Ember.computed.equal('model.attempts', -1)
+  noAttempts: Ember.computed.lte('model.attempts', 0),
+
+  unlimited: Ember.computed.equal('model.attempts', -1),
+  disableStart: Ember.computed('unlimited', 'noAttempts', function(){
+    if(this.get('unlimited')){
+      return false;
+    }else if (this.get('noAttempts')) {
+      return true;
+    }
+  }),
+  formattedResults: Ember.computed('model.attempts','noAttempts', function(){
+    if(this.get('noAttempts')){
+      return 0;
+    }else return this.get('model.attempts');
+  })
 });

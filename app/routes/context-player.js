@@ -60,6 +60,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     controller.set("lesson", model.lesson);
     if (model.collection.isAssessment){
       controller.set('assessmentAttemptsLeft',model.assessmentAttemptsLeft);
+      controller.set('showContent',false);
     }else{
       controller.set('showContent',true);
     }
