@@ -24,12 +24,6 @@ export default Ember.Component.extend({
     }
   },
 
-  init() {
-    this._super(...arguments);
-    this.set('unlimited', this.get('model.attempts')==-1 ? true : false);
-
-  },
-
   // -------------------------------------------------------------------------
   // Events
 
