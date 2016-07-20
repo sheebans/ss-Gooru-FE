@@ -43,7 +43,7 @@ export default Ember.Component.extend({
    * @property {boolean} flag for determining button behaviour
    */
   disableStart: Ember.computed('unlimited', 'noAttempts', function(){
-    return this.get('unlimited') ? !this.get('unlimited') : this.get('noAttempts');
+    return !this.get('unlimited') && this.get('noAttempts');
   }),
 
   /**
