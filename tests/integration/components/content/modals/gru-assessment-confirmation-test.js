@@ -65,12 +65,12 @@ test('Navigate both ways with unlimited attempts', function(assert) {
 test('Negative ammount of attempts', function(assert) {
   this.set('model', {
     bidirectional:true,
-    attempts:-15,
+    attempts:0,
     title: 'any-title',
   });
 
   this.render(hbs`{{content/modals/gru-assessment-confirmation model=model}}`);
   const $body = this.$('.content.modals.gru-assessment-confirmation .modal-body');
   assert.equal($body.find('.attempts p').text().trim(), "You have 0 attempts", 'Wrong attempts description');
-  assert.equal($body.find('.actions .start').is('[disabled=disabled]'), true, "Button should be disabled");
+  assert.equal($body.find('.actions .start').prop('disabled'), true, "Button should be disabled");
 });

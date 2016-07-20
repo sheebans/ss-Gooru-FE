@@ -50,14 +50,14 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
             if(collection.attempts === -1){
               model.assessmentAttemptsLeft = collection.attempts;
             }else {
-              let attemptsLeft =collection.attempts - result.get(0).get('attempts');
-              if (attemptsLeft>0) {
+              let attemptsLeft = collection.attempts - result.get(0).get('attempts');
+              if (attemptsLeft > 0) {
                 model.assessmentAttemptsLeft = attemptsLeft;
               }else {
                 model.assessmentAttemptsLeft = 0;
               }
             }
-            model.assessmentAttemptsLeft = collection.attempts === -1 ? collection.attempts :  collection.attempts - result.get(0).get('attempts');
+            console.log(model.assessmentAttemptsLeft);
             return model;
           });
       });
