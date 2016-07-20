@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import PlayerController from 'gooru-web/controllers/player';
 import {truncate} from 'gooru-web/utils/utils';
+import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 /**
  * Context Player Controller
@@ -28,7 +29,7 @@ export default PlayerController.extend({
      */
     submitQuestion: function (question, questionResult) {
       const controller = this;
-      let showFeedback = controller.get('collection.showFeedback');
+      let showFeedback = controller.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
       let isTeacher = controller.get('isTeacher');
       if(!showFeedback || isTeacher) {
         controller._super(...arguments);
