@@ -24,7 +24,7 @@
                     <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
             </div>
         {{else}}
-            <button class="btn btn-info collection-study-button" {{action "selectResource" performance}}>
+            <button class="btn btn-info collection-study-button {{if noMoreAttempts "disabled"}}" {{action "selectResource" performance}}>
                 <span>{{gru-icon name='near_me'}}{{t "gru-performance-summary.study"}}</span></button>
         {{/if}}
       </div>
