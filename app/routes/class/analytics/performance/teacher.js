@@ -28,8 +28,12 @@ export default Ember.Route.extend({
       if (type === 'course') {
         this.transitionTo(breadcrumbLink);
       }
-      else {
+      else if (type === 'unit') {
         this.transitionTo(breadcrumbLink, itemId);
+      }
+      else {
+        const unitId = this.get("controller.unit").get('id');
+        this.transitionTo(breadcrumbLink, unitId , itemId);
       }
     }
   },
