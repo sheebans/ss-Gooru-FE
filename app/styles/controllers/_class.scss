@@ -1,10 +1,11 @@
-.controller.class{
-  .content{
-    height: 100%;
-    margin-left: -1px;
-    @media (max-width: $screen-xs-max) { /* only for phone */
-      padding: 0;
+.controller {
+  &.class {
+    .content {
+      height: 100%;
+      margin-left: -1px;
+      @media (max-width: $screen-xs-max) {
+        padding: 0;
+      }
     }
-
   }
 }

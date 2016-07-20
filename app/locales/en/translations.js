@@ -395,6 +395,7 @@ export default {
     "swap": "Re-order",
     "suggested-resources": "Suggested Resources",
     "support": "Support",
+    "start-tour": "Take a tour",
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",

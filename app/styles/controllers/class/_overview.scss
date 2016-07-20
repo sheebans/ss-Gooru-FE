@@ -25,12 +25,9 @@
         padding: 15px 0;
       }
       .title {
-        width: 65%;
-        @media (min-width: $screen-sm-max) {
-          width: 70%;
-        }
-        @media (min-width: $screen-lg-min) {
-          width: 75%;
+        h3 {
+          display: inline-block;
+          padding: 0 25px;
         }
       }
       .trophy {
@@ -76,10 +73,10 @@
     }
 
     .panel {
-      border: 0 none;
-      box-shadow: none;
-      border-radius: 0;
       background-color: transparent;
+      border: 0 none;
+      border-radius: 0;
+      box-shadow: none;
 
       & + .panel {
         margin-top: 10px;
@@ -111,6 +108,8 @@
         margin-top: 8px;
       }
     }
+
+    //This should NOT be here, if specificity was required for this element, it should have been added to this components stylesheet, I know we are not doing Object Oriented CSS, but lets at least stay true to the modularity concept that comes with components
 
     .gru-accordion-unit {
       padding: 40px 0 0 0;
@@ -320,6 +319,7 @@
           }
         }
       }
+
 
       .gru-accordion-lesson .panel-heading .score,
       .gru-accordion-lesson .panel-heading a.score > button {
