@@ -62,7 +62,7 @@ test('Navigate both ways with unlimited attempts', function(assert) {
 
 
 
-test('Navigate both ways with unlimited attempts', function(assert) {
+test('Negative ammount of attempts', function(assert) {
   this.set('model', {
     bidirectional:true,
     attempts:-15,
