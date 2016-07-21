@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AddToModal from 'gooru-web/components/content/modals/gru-add-to';
+import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 export default AddToModal.extend({
 
@@ -20,7 +21,15 @@ export default AddToModal.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
 
+    /**
+     * Show more collection/Assessments results
+     */
+    showMoreResults: function(){
+      this.showMoreResults();
+    }
+  },
   copyContent: function() {
     return Ember.RSVP.resolve();
   },
@@ -65,15 +74,37 @@ export default AddToModal.extend({
     this.$('.modal-footer button.add-to').prop('disabled', false);
   },
 
-  init() {
-    this._super(...arguments);
-    this.set('onAdd', this.get('model.onAdd'));
-    this.set('isCollection', this.get('model.isCollection'));
+  showMoreResults: function(){
+    const component = this;
+    if(component.get('isCollection')){
+      const pagination = component.get("pagination");
+      pagination.page = pagination.page + 1;
+
+      component.get('profileService')
+        .readCollections(component.get('session.userId'), pagination)
+        .then(function(collections){
+          component.get("collections").pushObjects(collections.toArray());
+        });
+    }else{
+      const pagination = this.get("pagination");
+      pagination.page = pagination.page + 1;
+
+      component.get('profileService').readAssessments(
+        component.get('session.userId'), pagination, { 'filterBy': 'notInCourse' })
+        .then(function(assessments){
+          component.get("assessments").pushObjects(assessments.toArray());
+        });
+    }
   },
 
   // -------------------------------------------------------------------------
   // Events
 
+  init() {
+    this._super(...arguments);
+    this.set('onAdd', this.get('model.onAdd'));
+    this.set('isCollection', this.get('model.isCollection'));
+  },
   // -------------------------------------------------------------------------
   // Properties
 
@@ -86,4 +117,19 @@ export default AddToModal.extend({
    * @type {Function} callback when the add is finished
    */
   onAdd: null,
+
+  /**
+   * @property {boolean} showMoreResultsButton
+   */
+  showMoreResultsButton: Ember.computed("collections.[]", function(){
+      return this.get("collections.length") &&
+      (this.get("collections.length") % this.get("pagination.pageSize") === 0);
+  }),
+  /**
+   * @property {*}
+   */
+  pagination: {
+    page: 0,
+    pageSize: DEFAULT_PAGE_SIZE
+  }
 });
