@@ -1,6 +1,23 @@
 /* jshint node: true */
 
 module.exports = function (environment) {
+
+  const GooruEndpointDefault = {
+    protocol: 'http://',
+    secureProtocol: 'https://',
+    hostname: 'nucleus-qa.gooru.org',
+    port: undefined,          // Uses the default value 80
+    securePort: undefined     // Uses the default value 443
+  };
+
+  const RealTimeDefault = {
+    webSocketUrl: '/ws/realtime',
+    webServiceUrl: '/nucleus/realtime',
+    protocol: 'http://',
+    hostname: 'goorurt.qa.gooruweb.edify.cr',
+    port: 80
+  };
+
   var ENV = {
     modulePrefix: 'gooru-web',
     environment: environment,
@@ -84,20 +101,31 @@ module.exports = function (environment) {
     url: '/api/nucleus-auth-idp/v1/google'
   };
 
+  ENV['environment-map'] = {
+    'localhost': 'local',
+    'qa.gooruweb.edify.cr': 'edify-qa',
+    'nucleus-qa.gooru.org': 'nucleus-qa',
+    'www.gooru.org': 'prod'
+  };
+
   ENV['gooru-endpoints'] = {
-    protocol: 'http://',
-    secureProtocol: 'https://',
-    hostname: 'nucleus-qa.gooru.org',
-    port: undefined,          // Uses the default value 80
-    securePort: undefined     // Uses the default value 443
+    'local': GooruEndpointDefault,
+    'edify-qa': GooruEndpointDefault,
+    'nucleus-qa': GooruEndpointDefault,
+    'prod': RealTimeDefault.extend({
+      hostname: 'www.gooru.org'
+    })
   };
 
   ENV['real-time'] = {
-    webSocketUrl: '/ws/realtime',
-    webServiceUrl: '/nucleus/realtime',
-    protocol: 'http://',
-    hostname: 'goorurt.qa.gooruweb.edify.cr',
-    port: 80
+    'local': RealTimeDefault,
+    'edify-qa': RealTimeDefault,
+    'nucleus-qa': RealTimeDefault.extend({
+      hostname: 'goorurt.nucleus-qa.gooru.org'  // TODO Ask for the correct here
+    }),
+    'prod': RealTimeDefault.extend({
+      hostname: 'goorurt.gooru.org'   // TODO Ask for the correct here
+    })
   };
 
   if (environment === 'development') {
