@@ -89,18 +89,29 @@ export default Ember.Component.extend({
       }
     }
   },
-
+  // -------------------------------------------------------------------------
+  // Events
+  /**
+   * Listen to enter in order to submit the question when the user press enter
+   */
   listenToEnter: Ember.on('didInsertElement', function() {
     let component = this;
     $(document).on('keyup', function(e) {
       if (e.which === KEY_CODES.ENTER) {
         if(!component.get('isSubmitDisabled')){
-          if(component.get('question.questionType')!=='OE'){
+          if(!component.get('question.isOpenEnded')){
             component.submitQuestion();
           }
         }
       }
     })
+  }),
+
+  /**
+   * Removed keyup handler when the component will destroy
+   */
+  disableListenToEnter: Ember.on('willDestroyElement',function(){
+    $(document).off('keyup');
   }),
 
   // -------------------------------------------------------------------------
