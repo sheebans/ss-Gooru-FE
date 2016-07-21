@@ -57,7 +57,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
                 model.assessmentAttemptsLeft = 0;
               }
             }
-            console.log(model.assessmentAttemptsLeft);
             return model;
           });
       });
