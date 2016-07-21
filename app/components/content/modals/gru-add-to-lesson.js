@@ -12,6 +12,16 @@ export default AddToModal.extend({
    */
   lessonService: Ember.inject.service("api-sdk/lesson"),
 
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
+   * @property {Service} session
+   */
+  session: Ember.inject.service('session'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -81,7 +91,9 @@ export default AddToModal.extend({
       pagination.page = pagination.page + 1;
 
       component.get('profileService')
-        .readCollections(component.get('session.userId'), pagination)
+        .readCollections(
+        component.get('session.userId'), pagination, { 'filterBy': 'notInCourse' }
+      )
         .then(function(collections){
           component.get("collections").pushObjects(collections.toArray());
         });
@@ -92,7 +104,7 @@ export default AddToModal.extend({
       component.get('profileService').readAssessments(
         component.get('session.userId'), pagination, { 'filterBy': 'notInCourse' })
         .then(function(assessments){
-          component.get("assessments").pushObjects(assessments.toArray());
+          component.get("collections").pushObjects(assessments.toArray());
         });
     }
   },
