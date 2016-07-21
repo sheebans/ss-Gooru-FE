@@ -3,7 +3,6 @@
 </p>
 
 <div class="answer-choices">
-  <form class="form-horizontal">
     {{#each question.answers as |answer index|}}
       <div class="radio {{if readOnly 'disabled'}}">
         {{#radio-button
@@ -16,5 +15,4 @@
         {{/radio-button}}
       </div>
     {{/each}}
-  </form>
 </div>

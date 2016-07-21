@@ -1,4 +1,5 @@
 import Ember from "ember";
+import {KEY_CODES} from "gooru-web/config/config";
 import { ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'gooru-web/config/config';
 
 /**
@@ -48,10 +49,7 @@ export default Ember.Component.extend({
      * When the question is submitted
      */
     submitQuestion: function () {
-      if (!this.get('submitted')) {
-        let questionResult = this.get('questionResult');
-        this.sendAction('onSubmitQuestion', this.get('question'), questionResult);
-      }
+      this.submitQuestion();
     },
     /**
      * When the question answer has been changed
@@ -91,6 +89,30 @@ export default Ember.Component.extend({
       }
     }
   },
+  // -------------------------------------------------------------------------
+  // Events
+  /**
+   * Listen to enter in order to submit the question when the user press enter
+   */
+  listenToEnter: Ember.on('didInsertElement', function() {
+    let component = this;
+    $(document).on('keyup', function(e) {
+      if (e.which === KEY_CODES.ENTER) {
+        if(!component.get('isSubmitDisabled')){
+          if(!component.get('question.isOpenEnded')){
+            component.submitQuestion();
+          }
+        }
+      }
+    })
+  }),
+
+  /**
+   * Removed keyup handler when the component will destroy
+   */
+  disableListenToEnter: Ember.on('willDestroyElement',function(){
+    $(document).off('keyup');
+  }),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -270,9 +292,15 @@ export default Ember.Component.extend({
       hintsToDisplay: Ember.A(),
       isExplanationShown: false
     });
-  }.observes("question")
+  }.observes("question"),
 
   // -------------------------------------------------------------------------
   // Methods
 
+  submitQuestion: function(){
+    if (!this.get('submitted')) {
+      let questionResult = this.get('questionResult');
+      this.sendAction('onSubmitQuestion', this.get('question'), questionResult);
+    }
+  }
 });
