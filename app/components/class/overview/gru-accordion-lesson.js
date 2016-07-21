@@ -76,11 +76,11 @@ export default Ember.Component.extend(AccordionMixin, {
      * @returns {undefined}
      */
     selectLesson: function (lessonId) {
-      this.loadData();
-
       if (!isUpdatingLocation) {
         let updateValue = this.get('isExpanded') ? '' : lessonId;
         this.get('onSelectLesson')(updateValue);
+      } else if(!this.get('isExpanded')) {
+        this.loadData();
       }
     },
 
