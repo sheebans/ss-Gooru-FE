@@ -1244,7 +1244,23 @@ export default {
       "stepOne":{
         "title": "Assign Content via Course Map",
         "description": "The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+      },
+      "stepTwo":{
+        "title":"Give students a Class Code",
+        "description":"The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+      },
+      "stepThree":{
+        "title": "Monitor student and class data",
+        "description": "The course map provides your student 24/7 access to all of their Gooru activities, assessments and collections."
+      },
+      "stepFour":{
+        "title" : "Make announcements, manage roster",
+        "description" : "The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+      },
+      "stepFive":{
+        "title": "Lorem ipsum dolor sit amet",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
       }
-    }
+    },
   }
 };

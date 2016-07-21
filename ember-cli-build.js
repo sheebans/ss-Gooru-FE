@@ -99,6 +99,7 @@ module.exports = function(defaults) {
     development: 'bower_components/bootstrap-toggle/css/bootstrap2-toggle.css',
     production:  'bower_components/bootstrap-toggle/css/bootstrap2-toggle.min.css'
   });
+
   app.import({
     development: 'bower_components/bootstrap-toggle/js/bootstrap2-toggle.js',
     production:  'bower_components/bootstrap-toggle/js/bootstrap2-toggle.min.js'
@@ -118,10 +119,22 @@ module.exports = function(defaults) {
     development: 'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js',
     production:  'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js'
   });
+
   app.import({
     development: 'bower_components/clipboard/dist/clipboard.js',
     production:  'bower_components/clipboard/dist/clipboard.min.js'
   });
+
+  app.import({
+    development: 'bower_components/intro.js/intro.js',
+    production:  'bower_components/intro.js/minified/intro.min.js'
+  });
+
+  app.import({
+    development: 'bower_components/intro.js/introjs.css',
+    production:  'bower_components/intro.js/minified/introjs.min.css'
+  });
+
   if (EmberApp.env() === 'test') {
     app.import('vendor/wysihtml-dummy.js');
   } else {

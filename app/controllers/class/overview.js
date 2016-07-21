@@ -1,11 +1,13 @@
 import Ember from "ember";
-import ModalMixin from 'gooru-web/mixins/modal';
 /**
  * Class Overview controller
  *
  * Controller responsible of the logic for the class overview page
  */
-export default Ember.Controller.extend(ModalMixin,{
+
+
+
+export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -17,6 +19,18 @@ export default Ember.Controller.extend(ModalMixin,{
 
   queryParams: ['location'],
 
+  tourSteps: Ember.computed(function(){
+    return [
+      {
+        element: $('.controller.overview .overview-header .title h3'),
+        intro: 'Step 1!'
+      },
+      {
+        element: $('.controller.overview .overview-header .title'),
+        intro: 'Step2!'
+      }
+    ];
+  }),
   /**
    * Combination of unit, lesson and resource (collection or assessment)
    * separated by a plus sign
@@ -31,7 +45,9 @@ export default Ember.Controller.extend(ModalMixin,{
   // Actions
 
   actions: {
-
+    test: function(){
+      //console.log(introJS());
+    },
     /**
      * Update 'location' (bound query param)
      *

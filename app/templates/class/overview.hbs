@@ -3,11 +3,7 @@
     <div class="overview-header">
       <div class="title">
         <h3>{{t 'common.course-map'}}</h3>
-        <button {{action "showModal" "content.modals.gru-tour" 'overview'}}
-         class="btn btn-default start-tour">
-          {{gru-icon name='live_help'}}
-          {{t "common.start-tour"}}
-        </button>
+        {{gru-tour steps=tourSteps}}
       </div>
       {{#if classController.isStudent}}
         {{#if class.minScore}}
@@ -27,7 +23,6 @@
       {{/if}}
     </div>
   </div>
-
   {{class.overview.gru-accordion-course
     currentClass=class
     classMembers=classMembers
