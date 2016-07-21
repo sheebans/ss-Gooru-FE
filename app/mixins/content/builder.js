@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import BuilderItem from 'gooru-web/models/content/builder/item';
 
 /**
  * Properties/functionality in common for content creation
@@ -12,38 +13,30 @@ export default Ember.Mixin.create({
   actions: {
 
     /**
-     * Reorder lesson items
+     * Reorder child items
      */
-    sortLessonItems:function() {
+    sortItems:function() {
       this.loadData();
       this.set('model.isExpanded', true);
-      this.set('isSorting',true);
-      this.$('.sortable').sortable('enable');
+      this.set('model.isSorting', true);
+      this.$('> .panel > .panel-body > .sortable').sortable('enable');
     },
 
     /**
-     * Cancel reorder lesson items
+     * Cancel sorting of child items
      */
     cancelSort:function() {
-      this.$('.sortable').sortable('disable');
-      this.set('isSorting', false);
+      this.$('> .panel > .panel-body > .sortable').sortable('disable');
+      this.set('model.isSorting', false);
     },
 
     /**
-     * Save reorder lesson items
+     * Save sorting of child items
      */
-    saveReorder:function() {
-      var courseId = this.get('course.id');
-      var unitId = this.get('unitId');
-      var lessonId = this.get('lesson.id');
-      var orderList = this.get('orderList');
-
-      this.get('lessonService').reorderLesson(courseId, unitId, lessonId, orderList)
-        .then(function(){
-          this.$('.sortable').sortable('disable');
-          this.set('isSorting', false);
-          this.refreshList(orderList);
-        }.bind(this));
+    finishSort:function() {
+      this.$('> .panel > .panel-body > .sortable').sortable('disable');
+      this.set('model.isSorting', false);
+      this.refreshList();
     }
   },
 
@@ -55,10 +48,10 @@ export default Ember.Mixin.create({
     this._super(...arguments);
     var component = this;
 
-    this.$('.sortable').sortable({
+    this.$('> .panel > .panel-body > .sortable').sortable({
       disabled: true,
       update: function() {
-        const $items = component.$('.sortable').find('li');
+        const $items = component.$('> .panel > .panel-body > .sortable').find('> li');
         const orderList = $items.map(function(idx, item) {
           // Note: all child elements must have a data-id attribute for the .sortable plugin to work
           return $(item).data('id');
@@ -69,7 +62,7 @@ export default Ember.Mixin.create({
   }),
 
   destroySortable: Ember.on('willDestroyElement', function(){
-    var $sortable = this.$('.sortable');
+    var $sortable = this.$('> .panel > .panel-body > .sortable');
 
     // Test if the element had a sortable widget instantiated
     if ($sortable.hasClass('ui-sortable')) {
@@ -123,7 +116,7 @@ export default Ember.Mixin.create({
   }),
 
   /**
-   * @property {Boolean} Are the child items of this item currently being sorted?
+   * @property {Boolean} Is this item currently being reordered among its siblings?
    */
   isSorting: false,
 
@@ -139,11 +132,20 @@ export default Ember.Mixin.create({
   /**
    * Refresh the item list after save reorder
    */
-  refreshList: function(list) {
+  refreshList: function() {
+    var orderList = this.get('orderList');
     var items = this.get('items');
-    var sortedItems = items.map(function(item, index, items) {
-      return items.findBy('id', list[index]);
-    });
+    var filterFunc = function(item, index, items) {
+      return items.findBy('id', orderList[index]);
+    };
+
+    if (items.length && items[0] instanceof BuilderItem) {
+      filterFunc = function(item, index, items) {
+        return items.findBy('data.id', orderList[index]);
+      };
+    }
+
+    var sortedItems = items.map(filterFunc);
     items.clear();
     items.addObjects(sortedItems);
   }

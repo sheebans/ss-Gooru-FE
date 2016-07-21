@@ -6,6 +6,10 @@
     > li {
       padding: 10px 0;
     }
+
+    &.sortable.sorting > li .panel {
+      cursor: move;
+    }
   }
 
   .accordion-course {
@@ -41,20 +45,6 @@
               display: inline;
             }
           }
-        }
-      }
-
-      .drag-options{
-        display: inline-block;
-        .cancel.btn-info{
-          padding: 10px 15px;
-          font-size: 12px;
-          background-color: $brand-info;
-        }
-        .save.btn-success{
-          padding: 10px 15px;
-          font-size: 12px;
-          background-color: $brand-success;
         }
       }
     }
@@ -105,6 +95,7 @@
     }
 
     .gru-accordion {
+
       &.view {
         > .edit {
           display: none;
@@ -114,6 +105,12 @@
           .panel-heading {
             padding-right: 10px;
             margin-bottom: 0;
+
+            .drag-icon {
+              color:$light-500;
+              display: inline-block;
+              vertical-align: middle;
+            }
 
             .detail {
               float: right;
@@ -146,6 +143,21 @@
                   border-left: 1px solid $gray-light;
                   margin-left: 5px;
                   padding-left: 10px;
+                }
+
+                .drag-options{
+                  display: inline-block;
+
+                  .cancel.btn-info{
+                    padding: 10px 15px;
+                    font-size: 12px;
+                    background-color: $brand-info;
+                  }
+                  .save.btn-success{
+                    padding: 10px 15px;
+                    font-size: 12px;
+                    background-color: $brand-success;
+                  }
                 }
               }
             }
@@ -339,6 +351,8 @@
               border-bottom-right-radius: 3px;
               padding-bottom: 8px;
 
+              .drag-icon { vertical-align: text-bottom; }
+
               > h3 {
                 border-right: 0 none;
                 padding-right: 10px;
@@ -381,13 +395,6 @@
                   }
                 }
               }
-
-              .drag-icon{
-                i{
-                  vertical-align: super;
-                }
-                color:$light-500;
-              }
             }
 
             &.ui-sortable-helper {
@@ -402,14 +409,6 @@
             button {
               font-size: $font-size-base;
               padding: 5px 10px;
-            }
-          }
-
-          &.sortable.sorting {
-            list-style: none;
-            padding: 0;
-            li .panel{
-              cursor: move;
             }
           }
         }

@@ -166,8 +166,32 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
               onAdd: component.get('onAddItem').bind(component)
             }, null, "add-to");
       });
+    },
+
+    sortLessons: function() {
+      this.actions.sortItems.call(this);
+    },
+
+    saveLessonsOrder: function() {
+      var courseId = this.get('course.id');
+      var unitId = this.get('unitId');
+      var lessonId = this.get('lesson.id');
+      var orderList = this.get('orderList');
+
+      this.get('lessonService').reorderLesson(courseId, unitId, lessonId, orderList)
+        .then(function(){
+          this.actions.finishSort.call(this);
+        }.bind(this));
     }
+
   },
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  attributeBindings: ['data-id'],
+
+  'data-id': Ember.computed.alias('lesson.id'),
 
   // -------------------------------------------------------------------------
   // Events
