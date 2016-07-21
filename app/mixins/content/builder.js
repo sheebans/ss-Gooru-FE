@@ -16,17 +16,16 @@ export default Ember.Mixin.create({
      * Reorder child items
      */
     sortItems:function() {
-      this.loadData();
       this.set('model.isExpanded', true);
       this.set('model.isSorting', true);
-      this.$('> .panel > .panel-body > .sortable').sortable('enable');
+      this.$('> .panel > .panel-body > .sortable, > .sortable').sortable('enable');
     },
 
     /**
      * Cancel sorting of child items
      */
     cancelSort:function() {
-      this.$('> .panel > .panel-body > .sortable').sortable('disable');
+      this.$('> .panel > .panel-body > .sortable, > .sortable').sortable('disable');
       this.set('model.isSorting', false);
     },
 
@@ -34,7 +33,7 @@ export default Ember.Mixin.create({
      * Save sorting of child items
      */
     finishSort:function() {
-      this.$('> .panel > .panel-body > .sortable').sortable('disable');
+      this.$('> .panel > .panel-body > .sortable, > .sortable').sortable('disable');
       this.set('model.isSorting', false);
       this.refreshList();
     }
@@ -48,21 +47,21 @@ export default Ember.Mixin.create({
     this._super(...arguments);
     var component = this;
 
-    this.$('> .panel > .panel-body > .sortable').sortable({
+    this.$('> .panel > .panel-body > .sortable, > .sortable').sortable({
       disabled: true,
       update: function() {
-        const $items = component.$('> .panel > .panel-body > .sortable').find('> li');
+        const $items = component.$('> .panel > .panel-body > .sortable, > .sortable').find('> li');
         const orderList = $items.map(function(idx, item) {
           // Note: all child elements must have a data-id attribute for the .sortable plugin to work
           return $(item).data('id');
         }).toArray();
-        component.set('orderList',orderList);
+        component.set('orderList', orderList);
       }
     });
   }),
 
   destroySortable: Ember.on('willDestroyElement', function(){
-    var $sortable = this.$('> .panel > .panel-body > .sortable');
+    var $sortable = this.$('> .panel > .panel-body > .sortable, > .sortable');
 
     // Test if the element had a sortable widget instantiated
     if ($sortable.hasClass('ui-sortable')) {

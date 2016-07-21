@@ -13,7 +13,7 @@ import Answer from 'gooru-web/models/content/answer';
  * @augments content/courses/gru-accordion-course
  *
  */
-export default Ember.Component.extend(BuilderMixin,ModalMixin, {
+export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
 
   // -------------------------------------------------------------------------
@@ -296,11 +296,6 @@ export default Ember.Component.extend(BuilderMixin,ModalMixin, {
   * @property {Boolean} isCollection - is this a listing for a collection or for an assessment
   */
   isCollection:null,
-
-  /**
-   * @property {Boolean} isSorting
-   */
-  isSorting: null,
 
   /**
    * Copy of the resource/question model used for editing.
