@@ -307,3 +307,67 @@ test('Show feedback when submitted layout', function (assert) {
 
   assert.ok($answerPanel.find(".feedback").length, "Feedback should be shown");
 });
+
+test('Question Viewer Submit by Enter', function (assert) {
+
+  const question = Ember.Object.create(
+    {
+      "id": 10,
+      "order": 2,
+      "text": "Dummy question text",
+      "mediaUrl": "test.jpg",
+      "questionType": 'MC',
+      "hasMedia": true
+    });
+
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
+  this.set('question', question);
+
+  this.on("mySubmitQuestion", function (question) {
+    assert.equal(question.get("id"), 10, "Wrong id");
+  });
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
+      onSubmitQuestion="mySubmitQuestion" isSubmitDisabled=false}}`);
+
+  var $component = this.$(); //component dom element
+
+  var e = $.Event("keyup");
+  e.which = 13; //ENTER
+  $component.find(".gru-question-viewer").trigger(e);
+});
+
+test('Open ended question try submit by enter', function (assert) {
+
+  const question = Ember.Object.create(
+    {
+      "id": 10,
+      "order": 2,
+      "text": "Dummy question text",
+      "mediaUrl": "test.jpg",
+      "questionType": 'OE',
+      "isOpenEnded": true,
+      "hasMedia": true
+    });
+
+  const questionResult = QuestionResult.create();
+
+  this.set('questionResult', questionResult);
+  this.set('question', question);
+
+  this.on("mySubmitQuestion", function(){
+   assert.ok(false, '');
+  });
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
+      onSubmitQuestion="mySubmitQuestion" isSubmitDisabled=false}}`);
+
+  var $component = this.$(); //component dom element
+
+  var e = $.Event("keyup");
+  e.which = 13; //ENTER
+  $component.find(".gru-question-viewer").trigger(e);
+
+  assert.ok(true);
+});
+
