@@ -2,6 +2,14 @@
 
 module.exports = function (environment) {
 
+  const extend = function(objectA, objectB) {
+    var objectC = {};
+    for(var key in objectA) {
+      objectC[key] = objectB.hasOwnProperty(key) ? objectB[key] : objectA[key];
+    }
+    return objectC;
+  };
+
   const GooruEndpointDefault = {
     protocol: 'http://',
     secureProtocol: 'https://',
@@ -11,11 +19,15 @@ module.exports = function (environment) {
   };
 
   const RealTimeDefault = {
-    webSocketUrl: '/ws/realtime',
-    webServiceUrl: '/nucleus/realtime',
-    protocol: 'http://',
-    hostname: 'goorurt.qa.gooruweb.edify.cr',
-    port: 80
+    webServiceProtocol: 'http://',
+    webServiceHostname: 'goorurt.qa.gooruweb.edify.cr',
+    webServicePort: undefined,  // Uses the default value 80
+    webServiceUri: '/nucleus/realtime',
+
+    webSocketProtocol: 'http://',
+    webSocketHostname: 'goorurt.qa.gooruweb.edify.cr',
+    webSocketPort: undefined,   // Uses the default value 80
+    webSocketUri: '/ws/realtime'
   };
 
   var ENV = {
@@ -112,7 +124,7 @@ module.exports = function (environment) {
     'local': GooruEndpointDefault,
     'edify-qa': GooruEndpointDefault,
     'nucleus-qa': GooruEndpointDefault,
-    'prod': RealTimeDefault.extend({
+    'prod': extend(GooruEndpointDefault, {
       hostname: 'www.gooru.org'
     })
   };
@@ -120,11 +132,13 @@ module.exports = function (environment) {
   ENV['real-time'] = {
     'local': RealTimeDefault,
     'edify-qa': RealTimeDefault,
-    'nucleus-qa': RealTimeDefault.extend({
-      hostname: 'goorurt.nucleus-qa.gooru.org'  // TODO Ask for the correct here
+    'nucleus-qa': extend(RealTimeDefault, {
+      webSocketHostname: 'rt.nucleus-qa.gooru.org',
+      webServiceHostname: 'nucleus-qa.gooru.org'
     }),
-    'prod': RealTimeDefault.extend({
-      hostname: 'goorurt.gooru.org'   // TODO Ask for the correct here
+    'prod': extend(RealTimeDefault, {
+      webSocketHostname: 'rt.gooru.org',
+      webServiceHostname: 'www.gooru.org'
     })
   };
 
@@ -159,21 +173,19 @@ module.exports = function (environment) {
 
     ENV.APP.rootElement = '#ember-testing';
 
-    ENV['gooru-endpoints'] = {
-      protocol: 'http://',
+    ENV['gooru-endpoints']['local'] = extend(GooruEndpointDefault, {
       secureProtocol: 'http://',
       hostname: 'localhost',
       port: 7357,
       securePort: 7357
-    };
+    });
 
-    ENV['real-time'] = {
-      webSocketUrl: '/ws/realtime',
-      webServiceUrl: '/nucleus/realtime',
-      protocol: 'http://',
-      hostname: 'localhost',
-      port: 7357
-    };
+    ENV['real-time']['local'] = extend(RealTimeDefault, {
+      webSocketHostname: 'localhost',
+      webSocketPort: 7357,
+      webServiceHostname: 'localhost',
+      webServicePort: 7357
+    });
   }
 
   if (environment === 'production') {
