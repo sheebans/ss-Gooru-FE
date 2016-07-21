@@ -47,7 +47,16 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
           model.lesson = lesson;
           return route.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, [collection], {collectionType: 'assessment'})
           .then(function(result){
-            model.assessmentAttemptsLeft = collection.attempts === -1 ? collection.attempts :  collection.attempts - result.get(0).get('attempts');
+            if(collection.attempts === -1){
+              model.assessmentAttemptsLeft = collection.attempts;
+            }else {
+              let attemptsLeft = collection.attempts - result.get(0).get('attempts');
+              if (attemptsLeft > 0) {
+                model.assessmentAttemptsLeft = attemptsLeft;
+              }else {
+                model.assessmentAttemptsLeft = 0;
+              }
+            }
             return model;
           });
       });
@@ -60,6 +69,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     controller.set("lesson", model.lesson);
     if (model.collection.isAssessment){
       controller.set('assessmentAttemptsLeft',model.assessmentAttemptsLeft);
+      controller.set('showContent',false);
     }else{
       controller.set('showContent',true);
     }
