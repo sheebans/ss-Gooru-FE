@@ -20,12 +20,22 @@
             <div class="btn-group">
                 <button class="btn btn-info collection-view-report-button" {{action "viewReport" performance}}>
                     <span>{{gru-icon name="equalizer"}}{{t "gru-performance-summary.view-report"}}</span></button>
-                <button class="btn btn-info collection-redo-button {{if noMoreAttempts "disabled"}}" {{action "selectResource" performance}}>
+                {{#if noMoreAttempts}}
+                  <button class="btn btn-info collection-redo-button disabled">
                     <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
+                {{else}}
+                  <button class="btn btn-info collection-redo-button" {{action "selectResource" performance}}>
+                    <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
+                {{/if}}
             </div>
         {{else}}
-            <button class="btn btn-info collection-study-button {{if noMoreAttempts "disabled"}}" {{action "selectResource" performance}}>
+          {{#if noMoreAttempts}}
+            <button class="btn btn-info collection-study-button disabled">
                 <span>{{gru-icon name='near_me'}}{{t "gru-performance-summary.study"}}</span></button>
+          {{else}}
+            <button class="btn btn-info collection-study-button" {{action "selectResource" performance}}>
+              <span>{{gru-icon name='near_me'}}{{t "gru-performance-summary.study"}}</span></button>
+          {{/if}}
         {{/if}}
       </div>
   {{/if}}
