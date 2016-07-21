@@ -419,6 +419,7 @@ export default {
     "upload-file": "Upload File",
     "upload-thumbnail": "Upload Thumbnail",
     "use-case": "Use Case",
+    "valid-extensions": "Valid file extensions are: {{extensions}}",
     "verified": "Verified",
     "visibility-tooltip":"Not visible to others",
     "warnings": {

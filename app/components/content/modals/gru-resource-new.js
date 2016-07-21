@@ -188,6 +188,16 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * @type {String} list of all valid extension per gooru-web/config/config#UPLOAD_TYPES
+   */
+  allValidExtensions: Ember.computed(function() {
+    var extensions = UPLOADABLE_TYPES.map(function(typeObject) {
+      return typeObject.validExtensions;
+    });
+    return extensions.join(' ');
+  }),
+
+  /**
    * @type {?String} specific class
    */
   'component-class': null,
@@ -242,7 +252,7 @@ export default Ember.Component.extend({
   // Methods
 
   /**
-   * Determine the upload type object (see gooru-web/config/config#UPLOAD_TYPES) based on a file name extension.
+   * Determine the upload type object (@see gooru-web/config/config#UPLOAD_TYPES) based on a file name extension.
    * @param {String} filename -Complete file name (including the extension)
    * @param {Object[]} uploadTypes
    * @return {Object}
