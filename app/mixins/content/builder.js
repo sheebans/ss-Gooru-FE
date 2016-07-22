@@ -28,7 +28,7 @@ export default Ember.Mixin.create({
     cancelSort:function() {
       var $sortable = this.$(this.get('sortableSelector'));
       this.set('model.isSorting', false);
-      $sortable.removeClass('sorting').sortable('disable');
+      $sortable.removeClass('sorting').sortable('cancel').sortable('disable');
     },
 
     /**
