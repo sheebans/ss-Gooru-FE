@@ -125,7 +125,7 @@ export default Ember.Component.extend(BuilderMixin, {
     let lessonId = this.get('lesson.id');
     const isEdit = unitId && lessonId;
 
-    if (component.get('index') === 0 && isEdit) {
+    if (component.get('index') === 0 && isEdit && !this.get('isSorting')) {
       component.send('toggle');
     }
   }
