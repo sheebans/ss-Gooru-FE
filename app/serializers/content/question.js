@@ -148,6 +148,12 @@ export default Ember.Object.extend({
       });
     }
     question.set("answers", answers);
+
+    if (question.get("isLegacyFIB")){
+      //this logic support old FIB question format, it is necessary only for the editor
+      question.updateLegacyFIBText();
+    }
+
     return question;
   },
 
