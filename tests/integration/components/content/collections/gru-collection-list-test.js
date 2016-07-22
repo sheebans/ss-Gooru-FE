@@ -119,12 +119,13 @@ test('Check reorder options', function (assert) {
         type: 'MA',
         title: 'Question Title B'
       })
-    ])
+    ]),
+    isSorting: true
   });
 
   this.set('model', model);
   this.set('items', model.get('children'));
-  this.render(hbs`{{content/collections/gru-collection-list model=model items=items isSorting=true editingContent=null}}`);
+  this.render(hbs`{{content/collections/gru-collection-list model=model items=items editingContent=null}}`);
 
   const $component = this.$('.content.collections.gru-collection-list');
   assert.notOk($component.find('button.sort-items').length, 'Sort button should be hidden');

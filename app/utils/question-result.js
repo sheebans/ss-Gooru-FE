@@ -98,10 +98,10 @@ export function stats(questionResults){
     total: total,
     totalCorrect: correct,
     correctPercentage: completed ? roundFloat(correct / completed * 100) : null,
-    correctPercentageFromTotal: roundFloat(correct / total * 100), //percentage including not started
+    correctPercentageFromTotal: roundFloat(correct / total * 100, 1), //percentage including not started
     totalIncorrect: incorrect,
     incorrectPercentage: completed ? roundFloat(incorrect / completed * 100) : null,
-    incorrectPercentageFromTotal: roundFloat(incorrect / total * 100), //percentage including not started
+    incorrectPercentageFromTotal: roundFloat(incorrect / total * 100, 1), //percentage including not started
     totalSkipped: skipped,
     skippedPercentage: roundFloat(skipped / total * 100),
     totalNotStarted: notStarted,

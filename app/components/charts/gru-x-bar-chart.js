@@ -37,7 +37,7 @@ export default Ember.Component.extend({
 
   isFull: Ember.computed("data.[]", function(){
     var sum = this.get("data").reduce(function (previousValue, value) {
-      return previousValue + parseInt(value.percentage);
+      return previousValue + value.percentage;
     }, 0);
     return (sum >= 100);
   }),

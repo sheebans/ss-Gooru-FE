@@ -30,46 +30,32 @@
         </ul>
       </div>
       {{#if (gt items.length 1)}}
-        {{#unless isSorting}}
-          <button class="btn btn-primary sort-items" {{action 'reOrderElements'}}>{{gru-icon name="swap_vert"}}</button>
+        {{#unless model.isSorting}}
+          <button class="btn btn-primary sort-items" {{action 'sortItems'}}>{{gru-icon name="swap_vert"}}</button>
         {{/unless}}
       {{/if}}
     </div>
-    {{#if isSorting}}
+    {{#if model.isSorting}}
         <div class="drag-options">
             <button class="cancel btn btn-info"  {{action 'cancelSort'}}>{{t "common.cancel"}}</button>
-            <button class="save btn btn-success" {{action 'saveReorder'}}>{{t "common.save"}}</button>
+            <button class="save btn btn-success" {{action 'saveCollectionItemsOrder'}}>{{t "common.save"}}</button>
         </div>
     {{/if}}
   </div>
 </div>
 
-<ol class="collection-list sortable {{if isSorting 'sorting'}}" role="tablist" aria-multiselectable="true">
-  {{#if isSorting }}
-    {{#each items as |item index|}}
-      {{content.collections.gru-collection-list-item
-        model=item
-        index=index
-        collection=model
-        isSorting=true
-        isCollection=isCollection
-        editingContent=editingContent
-        onRemoveCollectionItem=(action 'removeCollectionItem')
-        onRemixCollectionItem=(action 'remixCollectionItem')}}
-    {{/each}}
-  {{else}}
-    {{#each items as |item index|}}
-      {{content.collections.gru-collection-list-item
-      model=item
-      index=index
-      collection=model
-      isSorting=false
-      isCollection=isCollection
-      editingContent=editingContent
-      onRemoveCollectionItem=(action 'removeCollectionItem')
-      onRemixCollectionItem=(action 'remixCollectionItem')}}
-    {{/each}}
-  {{/if}}
+<ol class="collection-list sortable" role="tablist" aria-multiselectable="true">
+  {{#each items as |item index|}}
+    {{content.collections.gru-collection-list-item
+    model=item
+    index=index
+    collection=model
+    isSorting=model.isSorting
+    isCollection=isCollection
+    editingContent=editingContent
+    onRemoveCollectionItem=(action 'removeCollectionItem')
+    onRemixCollectionItem=(action 'remixCollectionItem')}}
+  {{/each}}
 </ol>
 
 <div class="add-resource-question">
