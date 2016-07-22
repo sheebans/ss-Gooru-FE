@@ -19,18 +19,7 @@ export default Ember.Controller.extend({
 
   queryParams: ['location'],
 
-  tourSteps: Ember.computed(function(){
-    return [
-      {
-        element: $('.controller.overview .overview-header .title h3'),
-        intro: 'Step 1!'
-      },
-      {
-        element: $('.controller.overview .overview-header .title'),
-        intro: 'Step2!'
-      }
-    ];
-  }),
+  tourSteps: Ember.A([]),
   /**
    * Combination of unit, lesson and resource (collection or assessment)
    * separated by a plus sign
@@ -95,12 +84,13 @@ export default Ember.Controller.extend({
     } else {
       return this.get('location') ? this.get('location') : '';
     }
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
 
   // -------------------------------------------------------------------------
   // Methods
+  
 
 });

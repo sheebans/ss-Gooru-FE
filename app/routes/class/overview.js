@@ -89,13 +89,25 @@ export default Ember.Route.extend({
       userLocation = route.get('analyticsService').getUserCurrentLocation(currentClass.get('id'), userId);
     }
 
+    const tourSteps = Ember.A([
+      {
+        elementSelector: '#step1',
+        intro: 'Step 1!'
+      },
+      {
+        elementSelector: '#step1',
+        intro: 'Step2!'
+      }
+    ]);
+
     return Ember.RSVP.hash({
       userLocation: userLocation,
       course: course,
       units: units,
       isTeacher: isTeacher,
       currentClass: currentClass,
-      classMembers: classMembers
+      classMembers: classMembers,
+      tourSteps: tourSteps
     });
   },
 
@@ -114,6 +126,7 @@ export default Ember.Route.extend({
     controller.set('units', model.units);
     controller.set('course', model.course);
     controller.set('classMembers', model.classMembers);
+    controller.set('tourSteps', model.tourSteps);
     controller.get('classController').selectMenuItem('overview');
   }
 

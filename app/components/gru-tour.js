@@ -40,7 +40,6 @@ export default Ember.Component.extend({
 
   actions: {
     test() {
-      console.log(this);
       let intro = this.get('introJS');
       let options = this.get('introJSOptions');
       intro.setOptions(options);
@@ -55,6 +54,9 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     this.set("introJS",introJS());
+  },
+  didRender(){
+
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -83,28 +85,36 @@ export default Ember.Component.extend({
     function(){
       var camelize = Ember.String.camelize;
       var underscore = Ember.String.underscore;
+      let options = {};
 
-      var options = {};
       INTRO_JS_OPTIONS.map(function(option){
-        var value = this.get(option);
-        options[option]=value;
+        let normalizedName = camelize(underscore(option));
+        let value = this.get(`${normalizedName}`);
+        if (value !== null && value !== undefined) {
+         options[normalizedName] = value;
+        }
       },this);
 
-      /*Ember.EnumerableUtils.forEach(INTRO_JS_OPTIONS, function(option){
-        var normalizedName = camelize(underscore(option));
-
-        var value = this.get(option);
-
-        if (value !== null && value !== undefined) {
-          options[normalizedName] = value;
-        }
-      }, this);*/
-
-      options.steps = this.get('steps');
+      //options.steps = this.get('steps');
+      let array = Ember.A([]);
+      this.get('steps').map(function(step){
+        console.log(document.querySelector('#step1'));
+        array.push(Ember.Object.create({
+          element:document.querySelector('#step1'),
+          intro:step.intro
+        }));
+        console.log(array);
+        options.steps = array;
+      })
 
       return options;
     }
   ),
+  tooltipPosition: 'auto',
+  positionPrecedence:  ['right', 'left', 'bottom', 'top'],
+  showBullets: false,
+  showProgress: false,
+  showStepNumbers: false,
 
   startTour: function(){
     let intro = this.get('introJS');
