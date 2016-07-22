@@ -67,11 +67,10 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   setupController(controller, model) {
     controller.set("onAir", true); //TODO check for onAir
     controller.set("lesson", model.lesson);
-    if (model.collection.isAssessment){
+    controller.set('showContent',true);
+    if (model.collection.isAssessment === true){
       controller.set('assessmentAttemptsLeft',model.assessmentAttemptsLeft);
       controller.set('showContent',false);
-    }else{
-      controller.set('showContent',true);
     }
     // Call parent method
     this._super(...arguments);
