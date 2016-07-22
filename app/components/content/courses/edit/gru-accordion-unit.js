@@ -230,6 +230,13 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
     }
   },
 
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  attributeBindings: ['data-id'],
+
+  'data-id': Ember.computed.alias('unit.id'),
+
 
   // -------------------------------------------------------------------------
   // Properties
