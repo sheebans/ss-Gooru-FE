@@ -1,5 +1,17 @@
 .controller.content.courses.edit {
 
+  .gru-accordion-course {
+    > .header > .detail > .drag-options {
+      display: inline-block;
+
+      button{
+        font-size: 12px;
+        padding-top: 8px;
+        padding-bottom:8px;
+      }
+    }
+  }
+
   .accordion-course,
   .accordion-unit,
   .accordion-lesson {
