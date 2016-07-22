@@ -168,20 +168,25 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       });
     },
 
-    sortLessons: function() {
+    sortLessonItems: function() {
+      this.loadData();
       this.actions.sortItems.call(this);
     },
 
-    saveLessonsOrder: function() {
+    saveLessonItemsOrder: function() {
       var courseId = this.get('course.id');
       var unitId = this.get('unitId');
       var lessonId = this.get('lesson.id');
       var orderList = this.get('orderList');
 
-      this.get('lessonService').reorderLesson(courseId, unitId, lessonId, orderList)
-        .then(function(){
-          this.actions.finishSort.call(this);
-        }.bind(this));
+      if (orderList && orderList.length > 1) {
+        this.get('lessonService').reorderLesson(courseId, unitId, lessonId, orderList)
+          .then(function () {
+            this.actions.finishSort.call(this);
+          }.bind(this));
+      } else {
+        this.actions.finishSort.call(this);
+      }
     }
 
   },
