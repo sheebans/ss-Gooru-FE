@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { GRADING_SCALE } from 'gooru-web/config/config';
+import {roundFloat} from 'gooru-web/utils/math';
 
 /**
  * Questions summary component
@@ -120,11 +121,11 @@ export default Ember.Component.extend({
           data: [
             {
               color: failColor,
-              percentage: Math.round(dataObj.incorrect / dataObj.total * 100)
+              percentage: roundFloat(dataObj.incorrect / dataObj.total * 100, 1)
             },
             {
               color: correctColor,
-              percentage: Math.round(dataObj.correct / dataObj.total * 100)
+              percentage: roundFloat(dataObj.correct / dataObj.total * 100, 1)
             }
           ],
           completed: dataObj.correct + dataObj.incorrect,

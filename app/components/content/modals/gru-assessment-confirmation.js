@@ -24,20 +24,25 @@ export default Ember.Component.extend({
     }
   },
 
-  init() {
-    this._super(...arguments);
-    //this.set('unlimited', this.get('model.attempts')==-1 ? true : false);
-
-  },
-
   // -------------------------------------------------------------------------
   // Events
 
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {boolean} flag for disabling button
+   * @property {boolean} flag for determining button and the formatted result behaviour
    */
   noAttempts: Ember.computed.equal('model.attempts', 0),
-  unlimited: Ember.computed.equal('model.attempts', -1)
+
+  /**
+   * @property {boolean} flag for determining unlimited behaviour
+   */
+  unlimited: Ember.computed.equal('model.attempts', -1),
+
+  /**
+   * @property {boolean} flag for determining button behaviour
+   */
+  disableStart: Ember.computed('unlimited', 'noAttempts', function(){
+    return !this.get('unlimited') && this.get('noAttempts');
+  })
 });

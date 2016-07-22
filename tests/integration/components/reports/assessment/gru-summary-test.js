@@ -78,7 +78,7 @@ test('it renders for assessment', function (assert) {
 
   var $percentage = $gradeContainer.find('.percentage');
   assert.ok($percentage.length, "Percentage container is missing");
-  assert.equal($percentage.text().trim(), "67%", "Incorrect percentage text");
+  assert.equal($percentage.text().trim(), "66.7%", "Incorrect percentage text");
 
   var $attempts = $gradeContainer.find('.attempts');
   var $fractional = $attempts.find('.fractional');
