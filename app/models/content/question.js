@@ -205,8 +205,7 @@ const Question = Ember.Object.extend(Validations, {
   isLegacyFIB: Ember.computed("isFIB", "text", function () {
     const regExp = /(_______)+/gi;
     const questionText = this.get("text");
-    const matchedAnswers = questionText.match(regExp);
-    return this.get("isFIB") && matchedAnswers;
+    return questionText && this.get("isFIB") && questionText.match(regExp);
   }),
 
   /**
