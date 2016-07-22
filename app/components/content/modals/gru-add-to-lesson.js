@@ -108,27 +108,18 @@ export default AddToModal.extend({
         });
     }
   },
-
-  // -------------------------------------------------------------------------
-  // Events
-
-  init() {
-    this._super(...arguments);
-    this.set('onAdd', this.get('model.onAdd'));
-    this.set('isCollection', this.get('model.isCollection'));
-  },
   // -------------------------------------------------------------------------
   // Properties
 
   /**
    * @type {Boolean} if it is showing collections
    */
-  isCollection: true,
+  isCollection: Ember.computed.alias('model.isCollection'),
 
   /**
    * @type {Function} callback when the add is finished
    */
-  onAdd: null,
+  onAdd: Ember.computed.alias('model.onAdd'),
 
   /**
    * @property {boolean} showMoreResultsButton

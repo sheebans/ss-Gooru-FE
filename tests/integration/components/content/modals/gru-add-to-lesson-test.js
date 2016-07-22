@@ -5,6 +5,8 @@ import AssessmentModel from 'gooru-web/models/content/assessment';
 import LessonModel from 'gooru-web/models/content/lesson';
 import Ember from 'ember';
 import wait from 'ember-test-helpers/wait';
+import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+
 
 const profileServiceStub = Ember.Service.extend({
 
@@ -104,7 +106,7 @@ test('Layout', function(assert) {
 test('Show more result Collections', function(assert) {
   var collections = Ember.A([]);
 
-  for (i = 0; i <= 19; i++) {
+  for (i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
     collections.pushObject(CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'some-id',
       title: 'some-title'
@@ -125,17 +127,17 @@ test('Show more result Collections', function(assert) {
   const $showMoreResultButton = $component.find('.show-more-results');
   assert.ok($showMoreResultButton);
 
-  assert.equal($body.find('.collection').length,20, 'Number of cards');
+  assert.equal($body.find('.collection').length,DEFAULT_PAGE_SIZE, 'Number of cards');
 
   $showMoreResultButton.click();
   return wait().then(function () {
-    assert.equal($body.find('.collection').length, 22, 'Number of cards');
+    assert.equal($body.find('.collection').length, DEFAULT_PAGE_SIZE + 2, 'Number of cards');
   });
 });
 test('Show more result Assessments', function(assert) {
   var assessments = Ember.A([]);
 
-  for (i = 0; i <= 19; i++) {
+  for (i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
     assessments.pushObject(AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'some-id',
       title: 'some-title'
@@ -156,10 +158,10 @@ test('Show more result Assessments', function(assert) {
   const $showMoreResultButton = $component.find('.show-more-results');
   assert.ok($showMoreResultButton);
 
-  assert.equal($body.find('.collection').length,20, 'Number of cards');
+  assert.equal($body.find('.collection').length,DEFAULT_PAGE_SIZE, 'Number of cards');
 
   $showMoreResultButton.click();
   return wait().then(function () {
-    assert.equal($body.find('.collection').length, 22, 'Number of cards');
+    assert.equal($body.find('.collection').length, DEFAULT_PAGE_SIZE + 2, 'Number of cards');
   });
 });
