@@ -38,10 +38,10 @@
 
      {{#if model.isSorting}}
         <div class="actions">
-          <button class="btn sort-items" {{action 'sortLessons'}} title="{{t 'common.swap'}}">{{gru-icon name="swap_vert"}}</button>
+          <button class="btn sort-items" {{action 'sortLessonItems'}} title="{{t 'common.swap'}}">{{gru-icon name="swap_vert"}}</button>
           <div class="drag-options">
             <button class="cancel btn btn-info"  {{action 'cancelSort'}}>{{t "common.cancel"}}</button>
-            <button class="save btn btn-success" {{action 'saveLessonsOrder'}}>{{t "common.save"}}</button>
+            <button class="save btn btn-success" {{action 'saveLessonItemsOrder'}}>{{t "common.save"}}</button>
           </div>
         </div>
 
@@ -69,7 +69,7 @@
              <li><a href="#" {{action "showModal" "content.modals.gru-assessment-new" newCollectionModel}}>{{t "common.new-assessment"}}</a></li>
            </ul>
          </div>
-         <button class="btn sort-items" {{action 'sortLessons'}} title="{{t 'common.swap'}}">{{gru-icon name="swap_vert"}}</button>
+         <button class="btn sort-items" {{action 'sortLessonItems'}} title="{{t 'common.swap'}}">{{gru-icon name="swap_vert"}}</button>
          <div class="item-actions">
            {{partial 'content/partials/item-actions'}}
            <button class="btn edit-item" title="{{t 'common.edit'}}" {{action 'edit' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
@@ -81,7 +81,7 @@
   </div>
   <div class="panel-body">
 
-    <ol class="accordion-lesson sortable {{if model.isSorting 'sorting'}}" role="tablist" aria-multiselectable="true">
+    <ol class="accordion-lesson sortable" role="tablist" aria-multiselectable="true">
 
         {{#each items as |item index|}}
           {{content.courses.edit.gru-accordion-lesson-item
