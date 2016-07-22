@@ -12,6 +12,10 @@
     }
     .question-container {
       border-bottom: 1px solid $gray-lighter;
+      .question-text img {
+        max-height: 100px;
+        margin: 5px 0;
+      }
     }
   }
   .show-performance {
