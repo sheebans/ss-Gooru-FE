@@ -323,11 +323,12 @@ export default Ember.Controller.extend(SessionMixin, {
   /**
    * Starts the assessment
    */
-  startAssessment: function(){
+startAssessment: function(){
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
+    controller.set('showContent',true);
 
     if (! assessmentResult.get("started") ){
       assessmentResult.set("startedAt", new Date());
@@ -335,7 +336,7 @@ export default Ember.Controller.extend(SessionMixin, {
       context.set("isStudent", controller.get("isStudent"));
       return controller.saveCollectionResult(assessmentResult, context);
     }
-    controller.set('showContent',true);
+
     return promise;
   },
 
