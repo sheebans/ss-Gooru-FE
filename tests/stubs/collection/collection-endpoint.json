@@ -1,8 +1,8 @@
 [
   {
-    "description": "Gets collection with a specific ID",
+    "description": "Gets a collection with all resource types",
     "request": {
-      "url": "^/api/nucleus/v1/collections/(.+)$",
+      "url": "^/api/nucleus/v1/collections/(76cb53df-1f6a-41f2-a31d-c75876c6bcf9|aa403746-9344-489b-b405-8989d2737532)$",
       "method": "GET",
       "headers": {
         "Authorization": "Token (.+)"
@@ -14,10 +14,9 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "get-collection-response.json"
+      "file": "all-resource-types-collection-200-response.json"
     }
   },
-
   {
     "description": "Create a collection",
     "request": {
