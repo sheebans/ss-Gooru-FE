@@ -34,35 +34,34 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    * @param {Collection} collection
    * @returns {Promise.<*>}
    */
-  playerModel: function(params, context, collection){
+  playerModel: function(params, context, collection) {
     const route = this;
-    return this._super(params, context, collection).then(function(model){
-      const classId = context.get("classId");
-      const courseId = context.get("courseId");
-      const unitId = context.get("unitId");
-      const lessonId = context.get("lessonId");
+    return this._super(params, context, collection).then(function(model) {
+      const classId = context.get('classId');
+      const courseId = context.get('courseId');
+      const unitId = context.get('unitId');
+      const lessonId = context.get('lessonId');
       const userId = context.get('userId');
       return route.get('lessonService').fetchById(courseId, unitId, lessonId)
-        .then(function(lesson){
+        .then(function(lesson) {
           model.lesson = lesson;
-          return route.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, [collection], {collectionType: 'assessment'})
-          .then(function(result){
-            if(collection.attempts === -1){
-               model.assessmentAttemptsLeft = collection.attempts;
-             }else {
-               let attemptsLeft = collection.attempts - result.get(0).get('attempts');
-               if (attemptsLeft > 0) {
-                 model.assessmentAttemptsLeft = attemptsLeft;
-               }else {
-                 model.assessmentAttemptsLeft = 0;
-               }
-             }
+          const maxAttempts = collection.attempts;
+          if (maxAttempts === -1) {   // Unlimited attempts
+            model.assessmentAttemptsLeft = maxAttempts;
             return model;
-          });
+          } else {
+            return route.get('performanceService')
+              .findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, [collection])
+              .then(function(result) {
+                const currentAttempts = result[0].get('attempts');
+                const attemptsLeft = maxAttempts - currentAttempts;
+                model.assessmentAttemptsLeft = (attemptsLeft > 0) ? attemptsLeft : 0;
+                return model;
+              });
+          }
       });
     });
   },
-
 
   setupController(controller, model) {
     controller.set("onAir", true); //TODO check for onAir
