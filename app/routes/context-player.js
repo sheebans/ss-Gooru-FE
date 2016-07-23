@@ -45,8 +45,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       return route.get('lessonService').fetchById(courseId, unitId, lessonId)
         .then(function(lesson) {
           model.lesson = lesson;
-          const maxAttempts = collection.attempts;
-          if (maxAttempts === -1) {   // Unlimited attempts
+          const maxAttempts = collection.get('attempts');
+          if (collection.get('hasUnlimitedAttempts')) {
             model.assessmentAttemptsLeft = maxAttempts;
             return model;
           } else {
@@ -64,17 +64,15 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   },
 
   setupController(controller, model) {
-    controller.set("onAir", true); //TODO check for onAir
-    controller.set("lesson", model.lesson);
-    controller.set('showContent',true);
-    let collection = model.collection;
-    if (collection.get('isAssessment') === true){
-      controller.set('assessmentAttemptsLeft',model.assessmentAttemptsLeft);
-      controller.set('showContent',false);
+    const collection = model.collection;
+    controller.set('onAir', true); //TODO check for onAir
+    controller.set('lesson', model.lesson);
+    controller.set('showContent', collection.get('isCollection'));
+    if (collection.get('isAssessment')) {
+      controller.set('assessmentAttemptsLeft', model.assessmentAttemptsLeft);
     }
     // Call parent method
     this._super(...arguments);
-
   },
 
   /**
