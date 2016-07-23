@@ -74,37 +74,37 @@ test('Theme support - Having translations and styles url', function(assert) {
 });
 
 test('Legacy uri collection-play with no content id', function (assert) {
-  visit("/#collection-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9");
+  visit("/#collection-play&id=all-question-types-collection-id");
   andThen(function() {
-    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=9ddc7da1-bcb1-4ba6-9bfd-b703999f6ec1');
+    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
   });
 });
 
 test('Legacy uri collection-play with content id', function (assert) {
-  visit("/#collection-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
+  visit("/#collection-play&id=all-question-types-collection-id&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
   andThen(function() {
-    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
   });
 });
 
 test('Legacy uri assessment-play with no content id', function (assert) {
-  visit("/#assessment-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9");
+  visit("/#assessment-play&id=all-question-types-collection-id");
   andThen(function() {
-    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=9ddc7da1-bcb1-4ba6-9bfd-b703999f6ec1');
+    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
   });
 });
 
 test('Legacy uri assessment-play with content id', function (assert) {
-  visit("/#assessment-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
+  visit("/#assessment-play&id=all-question-types-collection-id&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
   andThen(function() {
-    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
   });
 });
 
 test('Legacy uri resource-play', function (assert) {
-  visit("/#resource-play&id=76cb53df-1f6a-41f2-a31d-c75876c6bcf9");
+  visit("/#resource-play&id=all-question-types-collection-id");
   andThen(function() {
-    assert.equal(currentURL(), '/content/resources/play/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+    assert.equal(currentURL(), '/content/resources/play/all-question-types-collection-id');
   });
 });
 

@@ -17,7 +17,7 @@ moduleForAcceptance('Acceptance | player', {
 
 test('Layout', function (assert) {
   assert.expect(4);
-  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+  visit('/player/all-question-types-collection-id');
 
   andThen(function () {
     const $playerContainer = find(".controller.player");
@@ -31,36 +31,36 @@ test('Layout', function (assert) {
 
 test('Collection - Navigate to all resources types', function (assert) {
   assert.expect(12);
-  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9'); //visit all resource types collection
+  visit('/player/all-question-types-collection-id'); //visit all resource types collection
 
   andThen(function () {
     const $playerContainer = find(".controller.player");
 
     //last visited resource is displayed
-    assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
+    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
     T.exists(assert, $playerContainer.find('.gru-viewer .gru-image-resource'), "Missing image resource component");
 
     click($playerContainer.find(".gru-navigator .list-group-item:eq(1)")); // navigating to url resource, website
     andThen(function () {
-      assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=82cda6e6-d34e-4e14-bd72-f4cd0868cb6b');
+      assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=82cda6e6-d34e-4e14-bd72-f4cd0868cb6b');
       T.exists(assert, $playerContainer.find('.gru-viewer .gru-url-resource'), "Missing url resource component");
 
       click($playerContainer.find(".gru-navigator .list-group-item:eq(2)")); // navigating to youtube resource, video
       andThen(function () {
-        assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=eba8e0ee-9c96-4e81-9338-7153125fde1a');
+        assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=eba8e0ee-9c96-4e81-9338-7153125fde1a');
         T.exists(assert, $playerContainer.find('.gru-viewer .gru-youtube-resource'), "Missing youtube resource component");
         click($playerContainer.find(".gru-navigator .list-group-item:eq(3)")); // navigating to url resource, interactive
         andThen(function () {
-          assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=42749b05-18b5-4691-a980-1ec4e62b6b82');
+          assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=42749b05-18b5-4691-a980-1ec4e62b6b82');
           T.exists(assert, $playerContainer.find('.gru-viewer .gru-url-resource'), "Missing url resource component");
           click($playerContainer.find(".gru-navigator .list-group-item:eq(4)")); // navigating to url resource, audio
           andThen(function () {
-            assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=8f77623a-f5ed-4d62-9085-bdd6d456ab94');
+            assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=8f77623a-f5ed-4d62-9085-bdd6d456ab94');
             T.exists(assert, $playerContainer.find('.gru-viewer .gru-url-resource'), "Missing url resource component");
 
             click($playerContainer.find(".gru-navigator .list-group-item:eq(5)")); // navigating to youtube resource
             andThen(function () {
-              assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=88d65c77-a721-4bdd-ae53-56a12517b049');
+              assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=88d65c77-a721-4bdd-ae53-56a12517b049');
               T.exists(assert, $playerContainer.find('.gru-viewer .gru-pdf-resource'), "Missing pdf resource component");
             });
           });
@@ -73,48 +73,48 @@ test('Collection - Navigate to all resources types', function (assert) {
 
 test('Assessment - Navigate to all question types', function (assert) {
   assert.expect(16);
-  visit('/player/522f6827-f7dd-486f-8631-eba497e2d425'); //visit all question types collection
+  visit('/player/all-resource-types-assessment-id'); //visit all question types collection
 
   andThen(function () {
     const $playerContainer = find(".controller.player");
 
     //checking that the last visited resource is displayed
-    assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=d675611c-12a1-11e6-aba0-0935596035e8');
+    assert.equal(currentURL(), '/player/all-resource-types-assessment-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8');
     T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-multiple-choice'), "Missing multiple choice component");
 
     click($playerContainer.find(".gru-navigator .list-group-item:eq(1)")); // navigating to multiple answer question
     andThen(function () {
-      assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=dc66d543-12a1-11e6-aba0-0935596035e8');
+      assert.equal(currentURL(), '/player/all-resource-types-assessment-id?resourceId=dc66d543-12a1-11e6-aba0-0935596035e8');
       T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-multiple-answer'), "Missing multiple answer component");
 
       click($playerContainer.find(".gru-navigator .list-group-item:eq(2)")); // navigating to true/false question
       andThen(function () {
-        assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=fd01639f-12a1-11e6-aba0-0935596035e8');
+        assert.equal(currentURL(), '/player/all-resource-types-assessment-id?resourceId=fd01639f-12a1-11e6-aba0-0935596035e8');
         T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-true-false'), "Missing true/false component");
 
         click($playerContainer.find(".gru-navigator .list-group-item:eq(3)")); // navigating to fib question
         andThen(function () {
-          assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=f77ede06-12a1-11e6-aba0-0935596035e8');
+          assert.equal(currentURL(), '/player/all-resource-types-assessment-id?resourceId=f77ede06-12a1-11e6-aba0-0935596035e8');
           T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-fib'), "Missing fib component");
 
           click($playerContainer.find(".gru-navigator .list-group-item:eq(4)")); // navigating to reorder question
           andThen(function () {
-            assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=f0d555af-1390-11e6-bd2c-c13107c2c772');
+            assert.equal(currentURL(), '/player/all-resource-types-assessment-id?resourceId=f0d555af-1390-11e6-bd2c-c13107c2c772');
             T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-reorder'), "Missing reorder component");
 
             click($playerContainer.find(".gru-navigator .list-group-item:eq(5)")); // navigating to hot text highlight question
             andThen(function () {
-              assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=f0457189-1390-11e6-bd2c-c13107c2c772');
+              assert.equal(currentURL(), '/player/all-resource-types-assessment-id?resourceId=f0457189-1390-11e6-bd2c-c13107c2c772');
               T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-hot-text-highlight'), "Missing hot text highlight component");
 
               click($playerContainer.find(".gru-navigator .list-group-item:eq(6)")); // navigating to hot spot image question
               andThen(function () {
-                assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=f06f40ba-1390-11e6-bd2c-c13107c2c772');
+                assert.equal(currentURL(), '/player/all-resource-types-assessment-id?resourceId=f06f40ba-1390-11e6-bd2c-c13107c2c772');
                 T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-hs-image'), "Missing hot spot image component");
 
                 click($playerContainer.find(".gru-navigator .list-group-item:eq(7)")); // navigating to hot spot text question
                 andThen(function () {
-                  assert.equal(currentURL(), '/player/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=efbf5176-1390-11e6-bd2c-c13107c2c772');
+                  assert.equal(currentURL(), '/player/all-resource-types-assessment-id?resourceId=efbf5176-1390-11e6-bd2c-c13107c2c772');
                   T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-hs-text'), "Missing hot spot text component");
                 });
               });
@@ -128,7 +128,7 @@ test('Assessment - Navigate to all question types', function (assert) {
 
 
 test('closePlayer: If navigating directly to the player, closing the player should return the user to the home page', function(assert) {
-  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+  visit('/player/all-question-types-collection-id');
   andThen(function() {
 
     const playerCloseButton = $('.gru-navigator .navigator-header div:first-child');
@@ -171,7 +171,7 @@ test('closePlayer: Return to search after closing the player', function(assert) 
 
 test('finish collection', function (assert) {
   assert.expect(5);
-  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+  visit('/player/all-question-types-collection-id');
   andThen(function () {
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer, "Missing player");
@@ -189,21 +189,21 @@ test('finish collection', function (assert) {
 
 /*test('selectNavigatorItem: When moving to another resource', function (assert) {
   assert.expect(2);
-  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+  visit('/player/all-question-types-collection-id');
   andThen(function () {
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer, "Missing player");
     click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
     andThen(function () {
       //it navigates to specific resource
-      assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=c058d02d-c5bf-44e2-af70-62ea1c9dfed1');
+      assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c058d02d-c5bf-44e2-af70-62ea1c9dfed1');
     });
   });
 });
 
 test('selectNavigatorItem & closeNavigator: When moving to another resource the navigator should be closed', function (assert) {
   assert.expect(7);
-  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+  visit('/player/all-question-types-collection-id');
   andThen(function () {
     const $playerContainer = find(".controller.player");
     const $appContainer = find(".app-container");
@@ -221,7 +221,7 @@ test('selectNavigatorItem & closeNavigator: When moving to another resource the 
       click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
       andThen(function () {
         //it navigates to specific resource
-        assert.equal(currentURL(), '/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9?resourceId=c058d02d-c5bf-44e2-af70-62ea1c9dfed1');
+        assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c058d02d-c5bf-44e2-af70-62ea1c9dfed1');
         andThen(function () {
           assert.ok(!$appContainer.hasClass("navigator-on"), "Shouldn't have navigator-on class");
         });
@@ -232,7 +232,7 @@ test('selectNavigatorItem & closeNavigator: When moving to another resource the 
 
 test('openNavigator & closeNavigator: When opening and closing the navigator', function (assert) {
   assert.expect(6);
-  visit('/player/76cb53df-1f6a-41f2-a31d-c75876c6bcf9');
+  visit('/player/all-question-types-collection-id');
   andThen(function () {
     const $appContainer = find(".app-container"),
       $playerContainer = find(".controller.player");
