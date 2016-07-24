@@ -169,16 +169,18 @@ test('closePlayer: Return to search after closing the player', function(assert) 
 });
 
 
-test('finish collection', function (assert) {
-  assert.expect(5);
+test('Collection - see usage report', function (assert) {
+  assert.expect(7);
   visit('/player/all-question-types-collection-id');
   andThen(function () {
+    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3', 'Wrong landing url');
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer, "Missing player");
 
-    var $navigation = $playerContainer.find(".gru-navigation");
-    click($navigation.find(".finish-collection"));
+    var $navigation = $playerContainer.find(".gru-navigator");
+    click($navigation.find(".see-usage-report"));
     andThen(function () {
+      assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3', 'When anonymous should remain in the same page');
       T.notExists(assert, $playerContainer.find(".gru-navigation"), "Navigation should not be visible");
       T.notExists(assert, $playerContainer.find(".gru-navigator"), "Navigator should not be visible");
       T.exists(assert, $playerContainer.find(".gru-assessment-report"), "Navigation assessment report should be visible");
@@ -187,7 +189,7 @@ test('finish collection', function (assert) {
   });
 });
 
-/*test('selectNavigatorItem: When moving to another resource', function (assert) {
+test('selectNavigatorItem: When moving to another resource', function (assert) {
   assert.expect(2);
   visit('/player/all-question-types-collection-id');
   andThen(function () {
@@ -196,7 +198,7 @@ test('finish collection', function (assert) {
     click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
     andThen(function () {
       //it navigates to specific resource
-      assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c058d02d-c5bf-44e2-af70-62ea1c9dfed1');
+      assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=42749b05-18b5-4691-a980-1ec4e62b6b82');
     });
   });
 });
@@ -221,7 +223,7 @@ test('selectNavigatorItem & closeNavigator: When moving to another resource the 
       click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
       andThen(function () {
         //it navigates to specific resource
-        assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c058d02d-c5bf-44e2-af70-62ea1c9dfed1');
+        assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=42749b05-18b5-4691-a980-1ec4e62b6b82');
         andThen(function () {
           assert.ok(!$appContainer.hasClass("navigator-on"), "Shouldn't have navigator-on class");
         });
@@ -253,5 +255,5 @@ test('openNavigator & closeNavigator: When opening and closing the navigator', f
       });
     });
   });
-});*/
+});
 
