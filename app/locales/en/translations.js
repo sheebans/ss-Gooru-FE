@@ -61,6 +61,7 @@ export default {
     "back": "Back",
     "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
+    "beta": "Beta",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
     "builder": "Editor",
