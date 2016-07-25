@@ -171,7 +171,6 @@ export default Ember.Route.extend({
    */
   setupController(controller, model) {
     let collection = model.collection;
-    let hasResources = collection.get("hasResources");
     let assessmentResult = model.assessmentResult;
     let hasUserSession = !this.get('session.isAnonymous');
 
@@ -193,19 +192,10 @@ export default Ember.Route.extend({
     controller.set("assessmentResult", assessmentResult);
 
     controller.set("showReport", assessmentResult.get("submitted"));
-
-
-    let resource = null;
-    if (hasResources){
-      resource = assessmentResult.get("lastVisitedResource");
-      if (model.resourceId) {
-        resource = collection.getResourceById(model.resourceId);
-      }
-    }
-
     controller.set("collection", collection);
-    if (resource) {
-      controller.moveToResource(resource);
+
+    if (controller.get("startAutomatically")){
+      controller.startAssessment();
     }
   },
 
