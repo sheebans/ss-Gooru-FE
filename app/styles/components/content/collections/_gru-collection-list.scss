@@ -55,6 +55,10 @@
           }
 
           .answers {
+            .missing-correct-answer,.missing-images {
+              color: $brand-danger;
+            }
+
             .questions.answers {
               padding: 10px 0;
               .panel {

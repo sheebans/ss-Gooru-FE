@@ -96,6 +96,11 @@
               <span class="instructions">{{t (concat 'content.questions.edit.builder.answer-instructions.' model.type)}}</span>
             {{/unless}}
           </div>
+          {{#if correctAnswerNotSelected}}
+            <div class="missing-correct-answer">
+              <p><small>{{t "common.errors.select-correct-answer"}}</small></p>
+            </div>
+          {{/if}}
           {{component (questionConfig model.type 'component.builder_answer') answers=tempModel.answers editMode=true}}
         </div>
       {{else}}
