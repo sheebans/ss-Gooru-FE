@@ -55,7 +55,8 @@
           }
 
           .answers {
-            .missing-correct-answer,.missing-images {
+            .missing-correct-answer,
+            .missing-images {
               color: $brand-danger;
             }
 
