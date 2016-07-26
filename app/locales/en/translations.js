@@ -1242,25 +1242,30 @@ export default {
   "gru-tour": {
     "overview": {
       "stepOne":{
-        "title": "Assign Content via Course Map",
-        "description": "The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+        "title": "Course Map",
+        "description": "Once you have created content and assigned it to a course, a course map will appear in the classroom you have created. The course map provides your students access to all assessments and collections you assign to them."
       },
       "stepTwo":{
-        "title":"Give students a Class Code",
-        "description":"The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+        "title":"Class Code",
+        "description":"Each classroom you create has a unique class code. You will give this code to students when you are ready for them to join your classroom and access your content."
       },
       "stepThree":{
         "title": "Monitor student and class data",
-        "description": "The course map provides your student 24/7 access to all of their Gooru activities, assessments and collections."
+        "description": "Clicking on data allows you to see class and individual student data once students access the content you have assigned to them."
       },
       "stepFour":{
-        "title" : "Make announcements, manage roster",
-        "description" : "The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+        "title" : "Classroom Information",
+        "description" : "Here you can edit your classroom name, post announcements for your students, see the names of students enrolled in your class, and delete your classroom."
       },
       "stepFive":{
-        "title": "Lorem ipsum dolor sit amet",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        "title": "Editing Your Course Content",
+        "description": "When you are in a classroom, click here to edit any of the course content assigned to your students."
+      },
+      "stepSix":{
+        "title": "Monitor Progress in Real-time!",
+        "description": 'Use the real-time dashboard to monitor class progress on an assessment in real-time.<br><br>Click on the "Go Live" icon found to the left of every assessment to launch a real-time assessment for students. <br><br><i class="real-time-icon">'
       }
-    },
+
+    }
   }
 };

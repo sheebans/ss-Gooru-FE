@@ -2,8 +2,8 @@
   <div class="fixed">
     <div class="overview-header">
       <div class="title">
-        <h3 id="step1">{{t 'common.course-map'}}</h3>
-        {{gru-tour steps=tourSteps}}
+        <h3>{{t 'common.course-map'}}</h3>
+        {{gru-tour steps=tourSteps containerClass='overview'}}
       </div>
       {{#if classController.isStudent}}
         {{#if class.minScore}}

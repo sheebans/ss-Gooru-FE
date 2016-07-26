@@ -34,9 +34,6 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-    test: function(){
-      //console.log(introJS());
-    },
     /**
      * Update 'location' (bound query param)
      *
@@ -91,6 +88,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-  
+
 
 });

@@ -7,6 +7,8 @@ export default Ember.Route.extend({
 
   session: Ember.inject.service("session"),
 
+  i18n: Ember.inject.service(),
+
   /**
    * @requires service:api-sdk/analytics
    */
@@ -91,12 +93,34 @@ export default Ember.Route.extend({
 
     const tourSteps = Ember.A([
       {
-        elementSelector: '#step1',
-        intro: 'Step 1!'
+        elementSelector: '.overview .overview-header .title h3',
+        title: route.get('i18n').t('gru-tour.overview.stepOne.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepOne.description')
       },
       {
-        elementSelector: '#step1',
-        intro: 'Step2!'
+        elementSelector: '.gru-class-navigation .class-info .code',
+        title: route.get('i18n').t('gru-tour.overview.stepTwo.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepTwo.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .class-menu .analytics.performance',
+        title: route.get('i18n').t('gru-tour.overview.stepThree.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepThree.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .class-menu .info',
+        title: route.get('i18n').t('gru-tour.overview.stepFour.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepFour.description')
+      },
+      {
+        elementSelector: '.overview .overview-header .edit-content',
+        title: route.get('i18n').t('gru-tour.overview.stepFive.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepFive.description')
+      },
+      {
+        title: route.get('i18n').t('gru-tour.overview.stepSix.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepSix.description'),
+        image: 'overview-tour-image'
       }
     ]);
 

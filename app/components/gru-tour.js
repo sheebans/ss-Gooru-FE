@@ -1,24 +1,26 @@
 import Ember from 'ember';
+import hbs from 'htmlbars-inline-precompile';
+
 var introJS = window.introJs;
 const INTRO_JS_OPTIONS = Ember.A([
-  'next-label',
-  'prev-label',
-  'skip-label',
-  'done-label',
-  'tooltip-position',
-  'tooltip-class',
-  'highlightClass',
-  'exit-on-esc',
-  'exit-on-overlay-click',
-  'show-step-numbers',
-  'show-step-numbers',
-  'keyboard-navigation',
-  'show-buttons',
-  'show-bullets',
-  'show-progress',
-  'scroll-to-element',
-  'overlay-opacity',
-  'disable-interaction'
+  "nextLabel",
+  "prevLabel",
+  "skipLabel",
+  "doneLabel",
+  "tooltipPosition",
+  "tooltipClass",
+  "highlightClass",
+  "exitOnEsc",
+  "exitOnOverlayClick",
+  "showStepNumbers",
+  "showStepNumbers",
+  "keyboardNavigation",
+  "showButtons",
+  "showBullets",
+  "showProgress",
+  "scrollToElement",
+  "overlayOpacity",
+  "disableInteraction"
 ]);
 
 export default Ember.Component.extend({
@@ -39,12 +41,14 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    test() {
+    startTour: function(){
       let intro = this.get('introJS');
       let options = this.get('introJSOptions');
       intro.setOptions(options);
       intro.start();
-    },
+      $('.introjs-prevbutton').text(this.get('i18n').t('common.back').string);
+      $('.introjs-nextbutton').text(this.get('i18n').t('common.next').string);
+    }
 
   },
 
@@ -55,73 +59,84 @@ export default Ember.Component.extend({
     this._super(...arguments);
     this.set("introJS",introJS());
   },
-  didRender(){
-
-  },
   // -------------------------------------------------------------------------
   // Properties
 
   introJSOptions: Ember.computed(
-    'next-label',
-    'prev-label',
-    'skip-label',
-    'done-label',
-    'tooltip-position',
-    'tooltip-class',
-    'highlightClass',
-    'exit-on-esc',
-    'exit-on-overlay-click',
-    'show-step-numbers',
-    'show-step-numbers',
-    'keyboard-navigation',
-    'show-buttons',
-    'show-bullets',
-    'show-progress',
-    'scroll-to-element',
-    'overlay-opacity',
-    'disable-interaction',
+    "nextLabel",
+    "prevLabel",
+    "skipLabel",
+    "doneLabel",
+    "tooltipPosition",
+    "tooltipClass",
+    "highlightClass",
+    "exitOnEsc",
+    "exitOnOverlayClick",
+    "showStepNumbers",
+    "showStepNumbers",
+    "keyboardNavigation",
+    "showButtons",
+    "showBullets",
+    "showProgress",
+    "scrollToElement",
+    "overlayOpacity",
+    "disableInteraction",
     'steps',
 
     function(){
-      var camelize = Ember.String.camelize;
-      var underscore = Ember.String.underscore;
+      let component = this;
       let options = {};
-
       INTRO_JS_OPTIONS.map(function(option){
-        let normalizedName = camelize(underscore(option));
-        let value = this.get(`${normalizedName}`);
+        let value = this.get(`${option}`);
         if (value !== null && value !== undefined) {
-         options[normalizedName] = value;
+         options[option] = value;
         }
-      },this);
+      },component);
 
-      //options.steps = this.get('steps');
       let array = Ember.A([]);
-      this.get('steps').map(function(step){
-        console.log(document.querySelector('#step1'));
+      component.get('steps').forEach(function(step, index){
+        index++;
         array.push(Ember.Object.create({
-          element:document.querySelector('#step1'),
-          intro:step.intro
+          element:document.querySelector(step.elementSelector),
+          intro:component.get('constructModal')(
+            step.title,
+            step.description,
+            step.image,
+            `${component.get('containerClass')} step-${index}`)
         }));
-        console.log(array);
         options.steps = array;
-      })
-
+      }, component)
       return options;
     }
   ),
   tooltipPosition: 'auto',
-  positionPrecedence:  ['right', 'left', 'bottom', 'top'],
+  positionPrecedence:  ['right', 'bottom', 'left', 'top'],
   showBullets: false,
   showProgress: false,
   showStepNumbers: false,
+  disableInteraction: true,
+  scrollToElement: true,
 
-  startTour: function(){
+
+  nextStep: function() {
     let intro = this.get('introJS');
-    let options = this.get('introJSOptions');
-    intro.setOptions(options);
-    intro.start();
+    intro.nextStep();
+  },
+
+  constructModal: function(title, description, image, containerClass){
+    let template =
+    `<div class="tour-header-${containerClass}">
+        <h2>${title}</h2>
+        <i onclick="introJs().exit()" class="material-icons">clear</i>
+      </div>
+      <div class="tour-description-${containerClass}">`;
+    if (image !==undefined) {
+      template +=
+        `<img class=${image}>`;
+    }
+    template +=
+      `<p>${description}</p>
+      </div>`;
+    return template;
   }
-
-
 });
