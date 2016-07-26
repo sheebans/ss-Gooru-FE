@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Ember from "ember";
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('/class/analytics/performance/teacher/gru-metrics-table', 'Integration | Component | /class/analytics/performance/teacher/gru-metrics-table', {
   integration: true,
@@ -105,4 +106,269 @@ test('Metrics Table Layout', function(assert) {
 
 });
 
+//test('Sort by student name', function(assert) {
+//
+//  const headersMock = Ember.A([Ember.Object.create({
+//    id: '82168746-a4af-48aa-9975-01f6434cd806',
+//    title: 'Unit A1'
+//  })]);
+//
+//  const metrics = Ember.A([Ember.Object.create({
+//    'value': 'student',
+//    'sorted':false,
+//    'isAsc':false,
+//    'visible': true,
+//    'index': -1
+//  })]),
+//
+//  const classPerformanceDataMock = Ember.A([
+//    Ember.Object.create({
+//      performanceData: Ember.Object.create({
+//        score: 44,
+//        completionDone: 15,
+//        completionTotal: 50,
+//        timeSpent: "20m 45s"
+//
+//      })
+//    }),
+//    Ember.Object.create({
+//      user: 'Jeffrey Bermudez',
+//      performanceData: Ember.A([
+//        Ember.Object.create({
+//          id: '82168746-a4af-48aa-9975-01f6434cd806',
+//          score: 19,
+//          completionDone: 12,
+//          completionTotal: 20,
+//          timeSpent: "1h 41m",
+//          studyTime: 6062473.5
+//        })
+//      ])
+//    }),
+//    Ember.Object.create({
+//      user: 'Benjamin Ajoy',
+//      performanceData: Ember.A([
+//        Ember.Object.create({
+//          score: 100,
+//          completionDone: 2,
+//          completionTotal: 15,
+//          timeSpent: "1m 45s",
+//          studyTime: 105003
+//        })
+//      ])
+//    }),
+//    Ember.Object.create({
+//      user: 'Ana Castro',
+//      performanceData: Ember.A([
+//        Ember.Object.create({
+//          id: '82168746-a4af-48aa-9975-01f6434cd806',
+//          score: 0,
+//          completionDone: 0,
+//          completionTotal: 0,
+//          timeSpent: "",
+//          studyTime: 0
+//        })
+//      ])
+//    })
+//  ]);
+//
+//  var sortCriteria = {
+//    metricsIndex: -1,
+//    order: 1
+//  };
+//
+//  this.set('headers', headersMock);
+//  this.set('performanceDataMatrix', classPerformanceDataMock);
+//  this.set('metrics', metrics);
+//  this.set('headerType', 'unit');
+//  this.set('sortCriteria', sortCriteria);
+//
+//  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix metrics=metrics headerType=headerType sortCriteria=sortCriteria}}`);
+//
+//  const $component = this.$(); //component dom element
+//  const $metricsTable = $component.find(".gru-metrics-table");
+//  const $thead = $metricsTable.find("thead");
+//  const $subHeader = $thead.find(".gru-metrics-sub-header");
+//  const $tbody = $metricsTable.find("tbody");
+//
+//  $subHeader.find("a.student").click(); //ascending student sort
+//
+//  return wait().then(function () {
+//    assert.equal(T.text($tbody.find("tr:first-child th.header span")), 'Ana Castro', 'First user should be Ana Castro');
+//  });
+//
+//  $subHeader.find("a.student").click(); //descending student sort
+//
+//  return wait().then(function () {
+//   assert.equal(T.text($tbody.find("tr:first-child th.header span")), 'Jeffrey Bermudez', 'First user should be Jeffrey Bermudez');
+// });
+//});
 
+test('Sort by score Metric', function(assert) {
+
+  const headersMock = Ember.A([Ember.Object.create({
+    id: '82168746-a4af-48aa-9975-01f6434cd806',
+    title: 'Unit A1'
+  })]);
+
+  const dataPickerOptionsMock= Ember.A(["score","completion"]);
+
+  const classPerformanceDataMock = Ember.A([
+    Ember.Object.create({
+      performanceData: Ember.Object.create({
+        score : 44,
+        completionDone: 15,
+        completionTotal: 50,
+        timeSpent: "20m 45s"
+
+      })
+    }),
+    Ember.Object.create({
+      user: 'Jeffrey Bermudez',
+      performanceData:  Ember.A([
+        Ember.Object.create({
+          id: '82168746-a4af-48aa-9975-01f6434cd806',
+          score : 19,
+          completionDone: 12,
+          completionTotal: 20,
+          timeSpent: "1h 41m",
+          studyTime: 6062473.5
+        })
+      ])
+    }),
+    Ember.Object.create({
+      user: 'Jennifer Ajoy',
+      performanceData:  Ember.A([
+        Ember.Object.create({
+          score : 100,
+          completionDone: 2,
+          completionTotal: 15,
+          timeSpent: "1m 45s",
+          studyTime: 105003
+        })
+      ])
+    }),
+    Ember.Object.create({
+      user: 'Ana Castro',
+      performanceData:  Ember.A([
+        Ember.Object.create({
+          id: '82168746-a4af-48aa-9975-01f6434cd806',
+          score : 0,
+          completionDone: 0,
+          completionTotal: 0,
+          timeSpent: "",
+          studyTime: 0
+        })
+      ])
+    })
+  ]);
+
+  this.set('headers', headersMock);
+  this.set('performanceDataMatrix', classPerformanceDataMock);
+  this.set('selectedOptions', dataPickerOptionsMock);
+  this.set('headerType', 'unit');
+
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix dataPickerOptions=selectedOptions headerType=headerType}}`);
+
+  const $component = this.$(); //component dom element
+  const $metricsTable = $component.find(".gru-metrics-table");
+  const $thead = $metricsTable.find("thead");
+  const $subHeader = $thead.find(".gru-metrics-sub-header");
+  const $tbody = $metricsTable.find("tbody");
+
+  $subHeader.find("a.score").click(); //select score ascending sort
+
+  return wait().then(function () {
+    assert.equal(T.text($tbody.find("tr:first-child th.header span")), 'Jennifer Ajoy', 'First user should be Jennifer Ajoy');
+  });
+
+  $subHeader.find("a.score").click(); //select score descending sort
+
+  return wait().then(function () {
+    assert.equal(T.text($tbody.find("tr:first-child th.header span")), 'Ana Castro', 'First user should be Ana Castro');
+  });
+});
+
+test('Sort by Completion Metric', function(assert) {
+
+  const headersMock = Ember.A([Ember.Object.create({
+    id: '82168746-a4af-48aa-9975-01f6434cd806',
+    title: 'Unit A1'
+  })]);
+
+  const dataPickerOptionsMock= Ember.A(["score","completion"]);
+
+  const classPerformanceDataMock = Ember.A([
+    Ember.Object.create({
+      performanceData: Ember.Object.create({
+        score : 44,
+        completionDone: 15,
+        completionTotal: 50,
+        timeSpent: "20m 45s"
+
+      })
+    }),
+    Ember.Object.create({
+      user: 'Jeffrey Bermudez',
+      performanceData:  Ember.A([
+        Ember.Object.create({
+          id: '82168746-a4af-48aa-9975-01f6434cd806',
+          score : 19,
+          completionDone: 12,
+          completionTotal: 20,
+          timeSpent: "1h 41m",
+          studyTime: 6062473.5
+        })
+      ])
+    }),
+    Ember.Object.create({
+      user: 'Jennifer Ajoy',
+      performanceData:  Ember.A([
+        Ember.Object.create({
+          score : 100,
+          completionDone: 2,
+          completionTotal: 15,
+          timeSpent: "1m 45s",
+          studyTime: 105003
+        })
+      ])
+    }),
+    Ember.Object.create({
+      user: 'Ana Castro',
+      performanceData:  Ember.A([
+        Ember.Object.create({
+          id: '82168746-a4af-48aa-9975-01f6434cd806',
+          score : 0,
+          completionDone: 0,
+          completionTotal: 0,
+          timeSpent: "",
+          studyTime: 0
+        })
+      ])
+    })
+  ]);
+
+  this.set('headers', headersMock);
+  this.set('performanceDataMatrix', classPerformanceDataMock);
+  this.set('selectedOptions', dataPickerOptionsMock);
+  this.set('headerType', 'unit');
+
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix dataPickerOptions=selectedOptions headerType=headerType}}`);
+
+  const $component = this.$(); //component dom element
+  const $metricsTable = $component.find(".gru-metrics-table");
+  const $thead = $metricsTable.find("thead");
+  const $subHeader = $thead.find(".gru-metrics-sub-header");
+  const $tbody = $metricsTable.find("tbody");
+
+  $subHeader.find("a.completion").click(); //select completion ascending sort
+
+  return wait().then(function () {
+    assert.equal(T.text($tbody.find("tr:first-child th.header span")), 'Jeffrey Bermudez', 'First user should be Jennifer Ajoy');
+  });
+
+  $subHeader.find("a.completion").click(); //select completion descending sort
+
+  return wait().then(function () {
+    assert.equal(T.text($tbody.find("tr:first-child th.header span")), 'Ana Castro', 'First user should be Ana Castro');
+  });
+});

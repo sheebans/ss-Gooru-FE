@@ -29,7 +29,7 @@ export default Ember.Component.extend({
           metricsIndex: metricsIndex
         };
 
-        this.set('sortByMetric', metric);
+        this.set('sortByMetric', metric.get('value'));
 
         if (sortCriteria.metricsIndex === metricsIndex) {
           // Reverse the sort order if the same column has been selected
@@ -107,7 +107,6 @@ export default Ember.Component.extend({
     const sortCriteria = this.get('sortCriteria');
 
     if (sortCriteria) {
-
       let metricsIndex = sortCriteria.metricsIndex;
       let sortedData = performanceData;
 
@@ -117,19 +116,18 @@ export default Ember.Component.extend({
           return alphabeticalStringSort(a.user, b.user) * sortCriteria.order;
         });
       } else if (metricsIndex >= 0) {
-        let sortByMetric = this.get('sortByMetric').value;
+        let sortByMetric = this.get('sortByMetric');
         sortedData.sort(function (a, b) {
           if (sortByMetric === 'score') {
             return numberSort(a.performanceData[0].score, b.performanceData[0].score) * sortCriteria.order;
           } else if (sortByMetric === 'completion') {
-            return numberSort(a.performanceData[0].completion, b.performanceData[0].completion) * sortCriteria.order;
+            return numberSort(a.performanceData[0].completionDone, b.performanceData[0].completionDone) * sortCriteria.order;
           } else {
             return numberSort(a.performanceData[0].studyTime, b.performanceData[0].studyTime) * sortCriteria.order;
           }
         });
       }
       return sortedData;
-
     } else {
       return performanceData;
     }
@@ -173,7 +171,6 @@ export default Ember.Component.extend({
    * @return {Object}
    */
   initSortCriteria: function () {
-    console.log('sort');
     return {
       metricsIndex: -1,
       order: this.get('defaultSortOrder')
