@@ -64,10 +64,12 @@ function createUserAverageObject(studentPerformance) {
   const timeSpent = studentPerformance.get('averageTimeSpent');
   return Ember.Object.create({
     score: roundFloat(score),
+    studyTime: timeSpent,
     timeSpent: formatTime(roundFloat(timeSpent)),
     hasStarted: score > 0 || timeSpent > 0,
     completionDone: studentPerformance.get('sumCompletionDone'),
-    completionTotal: studentPerformance.get('sumCompletionTotal')
+    completionTotal: studentPerformance.get('sumCompletionTotal'),
+    completion: studentPerformance.get('sumCompletionDone')/studentPerformance.get('sumCompletionTotal')
   });
 }
 

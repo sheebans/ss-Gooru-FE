@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { courseSectionsPrefix, alphabeticalStringSort, numberSort } from 'gooru-web/utils/utils';
 
 /**
  * Teacher Metrics Table
@@ -21,8 +22,24 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
     actions:{
-      sortChange:function(option){
-        console.log(option);
+      sortChange:function(metric){
+        var metricsIndex = metric.get('index');
+        var sortCriteria = this.get('sortCriteria');
+        var newSortCriteria = {
+          metricsIndex: metricsIndex
+        };
+
+        this.set('sortByMetric', metric);
+
+        if (sortCriteria.metricsIndex === metricsIndex) {
+          // Reverse the sort order if the same column has been selected
+          newSortCriteria.order = sortCriteria.order * -1;
+          this.set('sortCriteria', newSortCriteria);
+
+        } else {
+          newSortCriteria.order = this.get('defaultSortOrder');
+          this.set('sortCriteria', newSortCriteria);
+        }
       },
 
       /**
@@ -35,8 +52,22 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  didInsertElement() {
+    this._super(...arguments);
+
+    Ember.run.scheduleOnce('afterRender', this, function () {
+      this.set('sortCriteria', this.initSortCriteria());
+    });
+  },
+
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @prop { Object } sortCriteria - Object with information on how the data should be sorted
+   * - metricsIndex: {number} - Index of metrics option
+   * - order: {number} - Ascending or descending order
+   */
+  sortCriteria: null,
 
   /**
    * The header titles
@@ -71,9 +102,37 @@ export default Ember.Component.extend({
    * The user performanceData
    * @property {performanceData[]}
    */
-  performanceData: Ember.computed('performanceDataMatrix.length', function() {
+  performanceData: Ember.computed('performanceDataMatrix.length','sortCriteria', function() {
     const performanceData = this.get('performanceDataMatrix').slice(1);
-    return performanceData;
+    const sortCriteria = this.get('sortCriteria');
+
+    if (sortCriteria) {
+
+      let metricsIndex = sortCriteria.metricsIndex;
+      let sortedData = performanceData;
+
+      //alphabeticalStringSort
+      if (metricsIndex === -1) {
+        sortedData.sort(function (a, b) {
+          return alphabeticalStringSort(a.user, b.user) * sortCriteria.order;
+        });
+      } else if (metricsIndex >= 0) {
+        let sortByMetric = this.get('sortByMetric').value;
+        sortedData.sort(function (a, b) {
+          if (sortByMetric === 'score') {
+            return numberSort(a.performanceData[0].score, b.performanceData[0].score) * sortCriteria.order;
+          } else if (sortByMetric === 'completion') {
+            return numberSort(a.performanceData[0].completion, b.performanceData[0].completion) * sortCriteria.order;
+          } else {
+            return numberSort(a.performanceData[0].studyTime, b.performanceData[0].studyTime) * sortCriteria.order;
+          }
+        });
+      }
+      return sortedData;
+
+    } else {
+      return performanceData;
+    }
   }),
 
   /**
@@ -86,17 +145,38 @@ export default Ember.Component.extend({
     'value': 'student',
     'sorted':false,
     'isAsc':false,
-    'visible': true
+    'visible': true,
+    'index': -1
   })]),
 
   /**
    * List of selected options from the data picker.
    * @property {Array}
    */
-  dataPickerOptions: Ember.A(["score"])
+  dataPickerOptions: Ember.A(["score"]),
+
+  /*
+   * @prop { Number } defaultSortOrder - Default sort order for values in columns (1 = ascending; -1 = descending)
+   */
+  defaultSortOrder: 1,
+
+  /**
+   * metric sent by the sort function
+   */
+  sortByMetric: null,
 
   // -------------------------------------------------------------------------
-
   // Methods
 
+  /**
+   * Initialize the table's sort criteria
+   * @return {Object}
+   */
+  initSortCriteria: function () {
+    console.log('sort');
+    return {
+      metricsIndex: -1,
+      order: this.get('defaultSortOrder')
+    };
+  }
 });
