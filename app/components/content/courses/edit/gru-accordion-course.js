@@ -14,6 +14,13 @@ import PlayerAccordionCourse from 'gooru-web/components/content/courses/play/gru
  */
 export default PlayerAccordionCourse.extend({
 
+  // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @requires service:api-sdk/unit
+   */
+  courseService: Ember.inject.service("api-sdk/course"),
+
 
   // -------------------------------------------------------------------------
   // Actions
@@ -49,9 +56,35 @@ export default PlayerAccordionCourse.extend({
       });
       this.actions.closeAllUnits.apply(this);
       this.get('items').pushObject(builderItem);
+    },
+
+    sortUnits: function() {
+      var items = this.get('items');
+      items.forEach(function(item) {
+        item.set('isExpanded', false);
+      });
+      this.actions.sortItems.call(this);
+    },
+
+    saveUnitsOrder: function() {
+      var courseId = this.get('model.id');
+      var orderList = this.get('orderList');
+
+      if (orderList && orderList.length > 1) {
+        this.get('courseService').reorderCourse(courseId, orderList)
+          .then(function(){
+            this.actions.finishSort.call(this);
+          }.bind(this));
+      } else {
+        this.actions.finishSort.call(this);
+      }
     }
 
   },
+
+  // -------------------------------------------------------------------------
+  // Events
+
   didRender(){
     $('[data-toggle="tooltip"]').tooltip();
   }

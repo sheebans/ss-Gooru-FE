@@ -168,6 +168,11 @@
             font-weight: normal;
             font-size: 16px;
             @include text-overflow();
+
+            > * {
+              margin: 0;
+              padding: 0;
+            }
           }
 
           > span {
@@ -328,15 +333,10 @@
         padding-bottom:8px;
       }
   }
-  .sortable.sorting {
-    list-style: none;
-    padding: 0;
-    li{
-      cursor: move;
-    }
-  }
+  .sortable.sorting > li { cursor: move; }
 
   .ui-sortable-helper {
-    background-color: $gray-lighter;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }

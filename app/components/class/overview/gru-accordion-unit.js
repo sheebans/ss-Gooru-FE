@@ -79,11 +79,11 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     selectUnit: function(unitId) {
       const courseId = this.get('currentClass.courseId');
-      this.loadData(courseId, unitId);
-
       if (!isUpdatingLocation) {
         let newLocation = this.get('isExpanded') ? '' : unitId;
         this.get('onLocationUpdate')(newLocation);
+      } else if(!this.get('isExpanded')) {
+        this.loadData(courseId, unitId);
       }
     },
 

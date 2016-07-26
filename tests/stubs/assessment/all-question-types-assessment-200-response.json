@@ -26,8 +26,11 @@
     "contributes_to_mastery": true,
     "contributes_to_performance": true
   },
-  "grading": null,
+  "grading": "system",
   "visible_on_profile": true,
+  "course_id": null,
+  "unit_id": null,
+  "lesson_id": null,
   "question": [
     {
       "id": "d675611c-12a1-11e6-aba0-0935596035e8",
@@ -58,6 +61,7 @@
       ],
       "metadata": null,
       "taxonomy": null,
+      "narration": "Sobre los colores",
       "hint_explanation_detail": {
         "hint": [
           {
@@ -111,6 +115,7 @@
       ],
       "metadata": null,
       "taxonomy": null,
+      "narration": null,
       "hint_explanation_detail": null,
       "thumbnail": null,
       "sequence_id": 2,
@@ -140,6 +145,7 @@
       ],
       "metadata": null,
       "taxonomy": null,
+      "narration": null,
       "hint_explanation_detail": null,
       "thumbnail": null,
       "sequence_id": 3,
@@ -169,6 +175,7 @@
       ],
       "metadata": null,
       "taxonomy": null,
+      "narration": null,
       "hint_explanation_detail": null,
       "thumbnail": null,
       "sequence_id": 4,
@@ -210,6 +217,7 @@
       ],
       "metadata": null,
       "taxonomy": null,
+      "narration": null,
       "hint_explanation_detail": {
         "hint": []
       },
@@ -235,6 +243,7 @@
       ],
       "metadata": null,
       "taxonomy": null,
+      "narration": null,
       "hint_explanation_detail": {
         "hint": []
       },
@@ -254,24 +263,25 @@
         {
           "sequence": 1,
           "is_correct": true,
-          "answer_text": "9f2b2f70-545f-43f2-a67d-27efe7ed6a57.png",
+          "answer_text": "f000/2441/3259/9f2b2f70-545f-43f2-a67d-27efe7ed6a57.png",
           "answer_type": "image"
         },
         {
           "sequence": 2,
           "is_correct": true,
-          "answer_text": "b7d104b8-16fb-4d1b-a189-7c7b6816c897.png",
+          "answer_text": "f000/2441/3259/b7d104b8-16fb-4d1b-a189-7c7b6816c897.png",
           "answer_type": "image"
         },
         {
           "sequence": 3,
           "is_correct": false,
-          "answer_text": "331bbc3f-eeb8-4c4d-867f-73e121ac39ad.png",
+          "answer_text": "f000/2441/3259/331bbc3f-eeb8-4c4d-867f-73e121ac39ad.png",
           "answer_type": "image"
         }
       ],
       "metadata": null,
       "taxonomy": null,
+      "narration": null,
       "hint_explanation_detail": {
         "hint": []
       },
@@ -315,6 +325,7 @@
       ],
       "metadata": null,
       "taxonomy": null,
+      "narration": null,
       "hint_explanation_detail": {
         "hint": []
       },

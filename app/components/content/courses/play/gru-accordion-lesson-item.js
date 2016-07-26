@@ -19,10 +19,6 @@ export default Ember.Component.extend({
 
   tagName: 'li',
 
-  attributeBindings: ['data-id'],
-
-  'data-id':Ember.computed.alias('model.id'),
-
 
   // -------------------------------------------------------------------------
   // Properties

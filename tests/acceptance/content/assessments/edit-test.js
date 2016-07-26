@@ -66,10 +66,11 @@ moduleForAcceptance('Acceptance | Edit Assessment', {
 });*/
 
 test('Click share button and check clipboard functionality', function (assert) {
-  visit('/content/assessments/edit/123');
+  visit('/content/assessments/edit/all-resource-types-assessment-id');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/assessments/edit/123');
+    //editing all-resource-types-assessment-id assessment, see assessment-endpoint.json
+    assert.equal(currentURL(), '/content/assessments/edit/all-resource-types-assessment-id');
     var $shareButton = find(".gru-share-pop-over");
 
     click($shareButton);
@@ -84,9 +85,9 @@ test('Click share button and check clipboard functionality', function (assert) {
   });
 });
 test('Delete Assessment', function (assert) {
-  visit('/content/assessments/edit/50484e74-ad95-44d5-981a-c18411260233');
+  visit('/content/assessments/edit/all-resource-types-assessment-id');
   andThen(function () {
-    assert.equal(currentURL(), '/content/assessments/edit/50484e74-ad95-44d5-981a-c18411260233');
+    assert.equal(currentURL(), '/content/assessments/edit/all-resource-types-assessment-id');
     var $deleteButton = find("header .actions .delete");
     click($deleteButton);
     andThen(function () {
