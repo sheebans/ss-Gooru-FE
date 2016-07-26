@@ -336,7 +336,7 @@ test('Builder Edit for FIB', function (assert) {
   $edit.click();
   return wait().then(function () {
     var $builderSection = $component.find("#builder");
-    assert.ok($builderSection.find('.question-answer').length, "Answers section should not be visible for FIB");
+    assert.ok(!$builderSection.find('.question-answer').length, "Answers section should not be visible for FIB");
   });
 });
 
