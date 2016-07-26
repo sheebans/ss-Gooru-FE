@@ -2,14 +2,14 @@
   {
     "collectionType": "assessment",
     "title": "Creating properties assessment",
-    "gooruOid": "522f6827-f7dd-486f-8631-eba497e2d425",
+    "gooruOid": "all-resource-types-assessment-id",
     "collectionId": 24413362,
     "visibility": true
   },
   {
     "collectionType": "collection",
     "title": "Properties resource collection",
-    "gooruOid": "76cb53df-1f6a-41f2-a31d-c75876c6bcf9",
+    "gooruOid": "all-question-types-collection-id",
     "collectionId": 24413363,
     "visibility": true
   },

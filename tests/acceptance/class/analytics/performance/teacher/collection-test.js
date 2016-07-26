@@ -22,10 +22,10 @@ test('Layout', function(assert) {
   assert.ok(true, 'This is a temporal assert!!');
 
   /*
-  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/collection/522f6827-f7dd-486f-8631-eba497e2d425');
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/collection/all-resource-types-assessment-id');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/collection/522f6827-f7dd-486f-8631-eba497e2d425');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/lesson/d0b56322-d3ca-40f5-85b3-2f38ef910ac1/collection/all-resource-types-assessment-id');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-collection");
     T.exists(assert, $performanceContainer.find(".gru-class-assessment-report"), "Missing class report");

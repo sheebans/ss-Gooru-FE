@@ -100,7 +100,7 @@ test('Clicking on a collection in the accordions should open the player with sai
           var pathName = currentURL().split('?')[0];
 
           assert.equal(currentRouteName(), 'context-player');
-          assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/76cb53df-1f6a-41f2-a31d-c75876c6bcf9', 'Incorrect path name');
+          assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/all-question-types-collection-id', 'Incorrect path name');
         });
       });
     });
@@ -137,8 +137,8 @@ test('Clicking on an assessment in the accordions should open the player with sa
           //var pathName = currentURL().split('?')[0];
         //
           assert.equal(currentRouteName(), 'context-player');
-        //  //assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/522f6827-f7dd-486f-8631-eba497e2d425', 'Incorrect path name');
-        //  assert.equal(pathName, '/player/class/class-for-pochita-as-stfudent/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/dfc99db4-d331-4733-ac06-35358cee5c64/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/522f6827-f7dd-486f-8631-eba497e2d425?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68', 'Incorrect path name');
+        //  //assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/all-resource-types-assessment-id', 'Incorrect path name');
+        //  assert.equal(pathName, '/player/class/class-for-pochita-as-stfudent/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/dfc99db4-d331-4733-ac06-35358cee5c64/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/all-resource-types-assessment-id?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68', 'Incorrect path name');
         });
       });
     });
