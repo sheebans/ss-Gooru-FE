@@ -22,6 +22,5 @@ test('generateTemplate', function(assert) {
       <div class="tour-description-test-class"><img class=some-image-class><p>some-description</p>
       </div>`;
 
-  console.log(result.trim());
-  assert.equal(result.trim(), template.trim(), 'wrong template');
+  assert.equal(result, template, 'wrong template');
 });
