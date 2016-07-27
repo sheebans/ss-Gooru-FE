@@ -41,7 +41,7 @@ export default Ember.Object.extend({
       'metadata': questionModel.get('metadata') || {},
       'answer': answers && answers.length ?
         answers.map(function(answer, index) {
-          return serializer.serializerAnswer(answer, index + 1);
+          return serializer.serializerAnswer(answer, index + 1, questionModel.get("isHotSpotImage"));
         }) : null
     };
     serializedQuestion.metadata['audience'] = (questionModel.get("audience")) ? questionModel.get("audience") : [];
@@ -67,7 +67,7 @@ export default Ember.Object.extend({
       'metadata': questionModel.get('metadata') || {},
       'answer': answers && answers.length ?
         answers.map(function(answer, index) {
-          return serializer.serializerAnswer(answer, index + 1);
+          return serializer.serializerAnswer(answer, index + 1, questionModel.get("isHotSpotImage"));
         }) : null
     };
 

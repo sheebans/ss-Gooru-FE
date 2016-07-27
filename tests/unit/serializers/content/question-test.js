@@ -49,6 +49,37 @@ test('serializeUpdateQuestion null values', function(assert) {
   assert.equal(response['metadata']['depth_of_knowledge'][0], 4, 'Wrong depth_of_knowledge');
 });
 
+test('serializeUpdateQuestion for hot spot image', function(assert) {
+  assert.expect(3);
+  const serializer = this.subject();
+  const question = QuestionModel.create({
+    title: 'Question title',
+    questionType: 'HS_IMG',
+    text: 'This is the question text?',
+    narration: 'This is the question narration',
+    isVisibleOnProfile: false,
+    standards: [],
+    audience: [1],
+    depthOfknowledge: [4],
+    answers: Ember.A([
+      AnswerModel.create({
+        sequence: 1,
+        isCorrect: false,
+        text: 'Answer #1 text',
+        type: 'text'
+      })
+    ])
+  });
+
+  serializer.serializerAnswer = function(answer, index, isHotSpotImage){
+    assert.equal(answer.get("sequence"), 1, "Wrong sequence");
+    assert.equal(index, 1, "Wrong index");
+    assert.equal(isHotSpotImage, true, "Wrong isHotSpotImage");
+  };
+  serializer.serializeUpdateQuestion(question);
+});
+
+
 test('serializeUpdateQuestion', function(assert) {
   const serializer = this.subject();
   const question = QuestionModel.create({
