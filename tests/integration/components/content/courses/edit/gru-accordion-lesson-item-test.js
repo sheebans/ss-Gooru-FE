@@ -24,24 +24,20 @@ test('it renders a lesson item correctly -collection', function (assert) {
 
   this.set('lessonItem', lessonItem);
   this.set('index', 3);
-  this.set('isSorting', false);
+
   this.render(hbs`
     {{content/courses/edit/gru-accordion-lesson-item
       model=lessonItem
-      index=index
-      isSorting=isSorting}}
-    `);
+      index=index }}`);
 
   const $component = this.$('.content.courses.gru-accordion-lesson-item.view');
   assert.ok($component.length, 'Component');
 
   const $heading = $component.find('.view .panel-heading');
   assert.equal($heading.find('h3').text(), (this.get('index') + 1).toString(), 'Header prefix');
-  assert.notOk($heading.find('.drag-icon .drag_handle').length, 'Drag icon should be hidden');
 
   const $titleContainer = $heading.find('> a.title');
   assert.ok($titleContainer.length, 'Title link');
-
 
   assert.ok($titleContainer.find('> img').length, 'Thumbnail element');
   assert.equal($titleContainer.find('> img').prop('src'), window.location.origin + '/' + lessonItem.get('thumbnailUrl'), 'Thumbnail image');
@@ -68,9 +64,6 @@ test('it renders a lesson item correctly -collection', function (assert) {
   assert.ok($heading.find('.actions button:eq(2)').hasClass('move-item'), 'Third button is for moving');
   assert.ok($heading.find('.actions button:eq(3)').hasClass('copy-item'), 'Fourth button is for copying');
   assert.ok($heading.find('.actions button:eq(4)').hasClass('edit-item'), 'Fifth button is for editing');
-
-  this.set('isSorting', true);
-  assert.ok($heading.find('.drag-icon .drag_handle').length, 'Drag icon should be appear');
 });
 
 test('it renders an assessment detail correctly', function (assert) {

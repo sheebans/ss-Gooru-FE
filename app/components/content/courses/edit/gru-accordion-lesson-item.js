@@ -13,6 +13,7 @@ import Ember from 'ember';
  * @augments Ember/Component
  */
 export default PlayerAccordionLessonItem.extend(ModalMixin,{
+
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -142,13 +143,23 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       }
     }
   },
+
   didRender(){
     $('[data-toggle="tooltip"]').tooltip();
-
   },
+
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  attributeBindings: ['data-id'],
+
+  'data-id': Ember.computed.alias('model.id'),
+
 
   // -------------------------------------------------------------------------
   // Properties
+
   isCollectionOrAssessment: Ember.computed('model.collectionType',function(){
     return (this.get('model.collectionType')==='collection' || this.get('model.collectionType')==='assessment') ? true : false;
   }),

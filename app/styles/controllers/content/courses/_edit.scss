@@ -1,10 +1,26 @@
 .controller.content.courses.edit {
 
+  .gru-accordion-course {
+    > .header > .detail > .drag-options {
+      display: inline-block;
+
+      button{
+        font-size: 12px;
+        padding-top: 8px;
+        padding-bottom:8px;
+      }
+    }
+  }
+
   .accordion-course,
   .accordion-unit,
   .accordion-lesson {
     > li {
       padding: 10px 0;
+    }
+
+    &.sortable.sorting > li .panel {
+      cursor: move;
     }
   }
 
@@ -41,23 +57,6 @@
               display: inline;
             }
           }
-        }
-      }
-
-      .ui-sortable-helper {
-        background-color: $gray-lighter;
-      }
-      .drag-options{
-        display: inline-block;
-        .cancel.btn-info{
-          padding: 10px 15px;
-          font-size: 12px;
-          background-color: $brand-info;
-        }
-        .save.btn-success{
-          padding: 10px 15px;
-          font-size: 12px;
-          background-color: $brand-success;
         }
       }
     }
@@ -108,6 +107,7 @@
     }
 
     .gru-accordion {
+
       &.view {
         > .edit {
           display: none;
@@ -117,6 +117,12 @@
           .panel-heading {
             padding-right: 10px;
             margin-bottom: 0;
+
+            .drag-icon {
+              color:$light-500;
+              display: inline-block;
+              vertical-align: middle;
+            }
 
             .detail {
               float: right;
@@ -149,6 +155,21 @@
                   border-left: 1px solid $gray-light;
                   margin-left: 5px;
                   padding-left: 10px;
+                }
+
+                .drag-options{
+                  display: inline-block;
+
+                  .cancel.btn-info{
+                    padding: 10px 15px;
+                    font-size: 12px;
+                    background-color: $brand-info;
+                  }
+                  .save.btn-success{
+                    padding: 10px 15px;
+                    font-size: 12px;
+                    background-color: $brand-success;
+                  }
                 }
               }
             }
@@ -334,62 +355,64 @@
 
         .accordion-lesson {
 
-          > li.gru-accordion-lesson-item .panel-heading {
-            border-bottom: 0 none;
-            border-bottom-left-radius: 3px;
-            border-bottom-right-radius: 3px;
-            padding-bottom: 8px;
+          > li.gru-accordion-lesson-item {
 
-            > h3 {
-              border-right: 0 none;
-              padding-right: 10px;
-              margin-bottom: 0;
-              vertical-align: top;
-            }
+            .panel-heading {
+              border-bottom: 0 none;
+              border-bottom-left-radius: 3px;
+              border-bottom-right-radius: 3px;
+              padding-bottom: 8px;
 
-            > .title {
-              > img, > .image-placeholder {
-                display: inline-block;
-                width: 50px;
-                height: 40px;
+              .drag-icon { vertical-align: text-bottom; }
+
+              > h3 {
+                border-right: 0 none;
+                padding-right: 10px;
+                margin-bottom: 0;
                 vertical-align: top;
               }
 
-              > .image-placeholder {
-                border-radius: 3px;
-                background-color: $gray-lighter;
-              }
-
-              > div {
-                border-left: 1px solid $gray-light;
-                display: inline-block;
-                margin-left: 10px;
-                line-height: 1.4;
-                max-width: 40%;
-
-                > strong {
-                  color: $text-color;
-                  display: block;
-                  line-height: 1.2;
-                  margin-bottom: 5px;
-                  @include text-overflow();
+              > .title {
+                > img, > .image-placeholder {
+                  display: inline-block;
+                  width: 50px;
+                  height: 40px;
+                  vertical-align: top;
                 }
 
-                > span {
-                  color: $gray-light;
-                  margin-left: 15px;
-                  text-transform: capitalize;
+                > .image-placeholder {
+                  border-radius: 3px;
+                  background-color: $gray-lighter;
+                }
+
+                > div {
+                  border-left: 1px solid $gray-light;
+                  display: inline-block;
+                  margin-left: 10px;
+                  line-height: 1.4;
+                  max-width: 40%;
+
+                  > strong {
+                    color: $text-color;
+                    display: block;
+                    line-height: 1.2;
+                    margin-bottom: 5px;
+                    @include text-overflow();
+                  }
+
+                  > span {
+                    color: $gray-light;
+                    margin-left: 15px;
+                    text-transform: capitalize;
+                  }
                 }
               }
             }
 
-            .drag-icon{
-              i{
-                vertical-align: super;
-              }
-              color:$light-500;
+            &.ui-sortable-helper {
+              padding-top: 0;
+              padding-bottom: 0;
             }
-
           }
 
           + div {
@@ -399,16 +422,6 @@
               font-size: $font-size-base;
               padding: 5px 10px;
             }
-          }
-          &.sortable.sorting {
-            list-style: none;
-            padding: 0;
-            li .panel{
-              cursor: move;
-            }
-          }
-          .ui-sortable-helper {
-            background-color: $gray-lighter;
           }
         }
       }

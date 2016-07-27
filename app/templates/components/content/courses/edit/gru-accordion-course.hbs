@@ -12,15 +12,21 @@
       <button class="btn btn-primary add-unit" {{action 'addUnit'}}>{{gru-icon name="add"}}</button>
 
       {{#if (gt totalSavedItems 1)}}
-        {{#unless isEditingItem}}
-          <button class="btn btn-primary sort-units out-of-scope">{{gru-icon name="swap_vert"}}</button>
+        {{#unless model.isSorting}}
+          <button class="btn btn-primary sort-items" {{action 'sortUnits'}}>{{gru-icon name="swap_vert"}}</button>
         {{/unless}}
       {{/if}}
     </div>
+    {{#if model.isSorting}}
+      <div class="drag-options">
+        <button class="cancel btn btn-info"  {{action 'cancelSort'}}>{{t "common.cancel"}}</button>
+        <button class="save btn btn-success" {{action 'saveUnitsOrder'}}>{{t "common.save"}}</button>
+      </div>
+    {{/if}}
   </div>
 </div>
 
-<ol class="accordion-course" role="tablist" aria-multiselectable="true">
+<ol class="accordion-course sortable" role="tablist" aria-multiselectable="true">
 
   {{#each items as |item index|}}
 
@@ -28,6 +34,7 @@
     course=model
     model=item
     index=index
+    isSorting=model.isSorting
     totalItems=items.length
     onCancelAddUnit=(action 'cancelAddUnit')
     onExpandUnit=(action 'closeAllUnits')

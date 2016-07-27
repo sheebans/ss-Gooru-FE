@@ -1,10 +1,7 @@
-import { moduleForComponent } from 'ember-qunit';
-
-// TODO: Uncomment per changes in 1149
-//import { moduleForComponent, test } from 'ember-qunit';
-//import hbs from 'htmlbars-inline-precompile';
-//import BuilderItem from 'gooru-web/models/content/builder/item';
-//import Course from 'gooru-web/models/content/course';
+import { moduleForComponent, test } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+import BuilderItem from 'gooru-web/models/content/builder/item';
+import Course from 'gooru-web/models/content/course';
 import Lesson from 'gooru-web/models/content/lesson';
 import LessonItem from 'gooru-web/models/content/lessonItem';
 import Ember from 'ember';
@@ -73,8 +70,6 @@ moduleForComponent('content/courses/edit/gru-accordion-lesson', 'Integration | C
   }
 });
 
-// TODO: Fix test per changes in 1149
-/*
 test('it renders a form for creating a new lesson', function (assert) {
 
   const lesson = BuilderItem.create({
@@ -98,9 +93,6 @@ test('it renders a form for creating a new lesson', function (assert) {
   assert.equal($heading.find('.actions button').length, 2, 'Unit header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('cancel'), 'First button is cancel');
   assert.ok($heading.find('.actions button:eq(1)').hasClass('save'), 'Second button is save');
-
-  const $panelBody = $component.find('.edit .panel-body');
-  assert.ok($panelBody.find('> .data-row.standards').length, 'Standards');
 });
 
 test('it can create a new lesson in a valid state', function (assert) {
@@ -281,9 +273,6 @@ test('it renders a form when editing an existing lesson', function (assert) {
   assert.equal($heading.find('.actions button').length, 2, 'Lesson header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('cancel'), 'First button is cancel');
   assert.ok($heading.find('.actions button:eq(1)').hasClass('save'), 'Second button is save');
-
-  const $panelBody = $component.find('.edit .panel-body');
-  assert.ok($panelBody.find('> .data-row.standards').length, 'Standards');
 });
 
 test('it triggers an external event when clicking cancel on a new unsaved lesson', function (assert) {
@@ -346,10 +335,10 @@ test('it renders the lesson correctly, if the lesson has no collections/assessme
   assert.ok(!$addDropdown.hasClass('open'), 'Add dropdown is closed');
 
   assert.ok($heading.find('.actions button:eq(1)').hasClass('sort-items'), 'Second button is for reordering the lessons');
-  assert.ok($heading.find('.actions button:eq(2)').hasClass('edit-item'), 'Third button is for editing the lesson');
-  assert.ok($heading.find('.actions button:eq(3)').hasClass('copy-item'), 'Fourth button is for copying the lesson');
-  assert.ok($heading.find('.actions button:eq(4)').hasClass('move-item'), 'Fifth button is for moving the lesson');
-  assert.ok($heading.find('.actions button:eq(5)').hasClass('delete-item'), 'Sixth button is for deleting the lesson');
+  assert.ok($heading.find('.actions button:eq(2)').hasClass('delete-item'), 'Third button is for deleting the lesson');
+  //assert.ok($heading.find('.actions button:eq(3)').hasClass('move-item'), 'Fourth button is for moving the lesson');
+  assert.ok($heading.find('.actions button:eq(4)').hasClass('copy-item'), 'Fifth button is for copying the lesson');
+  assert.ok($heading.find('.actions button:eq(5)').hasClass('edit-item'), 'Sixth button is for editing the lesson');
 
   const $lessonList = $component.find('.view .panel-body ol.accordion-lesson');
   assert.ok($lessonList.length, 'Lesson items list');
@@ -386,20 +375,15 @@ test('it expands/collapses the lesson -view mode', function (assert) {
   assert.ok($container.length, 'Container');
   assert.ok($container.hasClass('collapsed'), 'Container collapsed');
 
-  $container.find('.panel-heading > h3 > a').click();
+  $container.find('> .panel-heading > a').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header prefix');
 
-  $container.find('.panel-heading > h3 > a').click();
+  $container.find('> .panel-heading > a').click();
   assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header prefix');
-
-  $container.find('.panel-heading > strong > a').click();
-  assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header title');
-
-  $container.find('.panel-heading > strong > a').click();
-  assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header title');
 });
 
 test('it loads lesson items and renders them after clicking on the lesson name', function (assert) {
+
   const lesson = BuilderItem.create({
     data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
       id: '123',
@@ -428,9 +412,60 @@ test('it loads lesson items and renders them after clicking on the lesson name',
   assert.ok($container.hasClass('collapsed'), 'Container collapsed');
   assert.ok(!this.get('isLoaded'), 'Data not loaded');
 
-  $container.find('> .panel-heading > strong > a').click();
+  $container.find('> .panel-heading > a').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded');
   assert.equal($container.find('.accordion-lesson > li.gru-accordion-lesson-item').length, 2, 'Number of lesson items loaded');
   assert.ok(this.get('isLoaded'), 'Data was loaded');
 });
-*/
+
+test('it offers the ability to reorder the lesson items', function (assert) {
+
+  const lesson = BuilderItem.create({
+    data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123',
+      isSorting: false,
+      assessmentCount: 1,
+      collectionCount: 1
+    }),
+    isEditing: false,
+    isExpanded: false
+  });
+
+  //onExpandUnit action must be defined
+  this.on('externalAction', function () {});
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unitId', 'unit-id-123');
+  this.set('lesson', lesson);
+
+  this.render(hbs`
+    {{content/courses/edit/gru-accordion-lesson
+      course=course
+      unitId=unitId
+      model=lesson }}`);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-lesson > .view');
+  const $heading = $container.find('> .panel-heading');
+  const $accordion = $container.find('> .panel-body > .accordion-lesson');
+
+  assert.ok($container.length, 'Container');
+  assert.ok($container.hasClass('collapsed'), 'Container collapsed');
+  assert.ok($accordion.hasClass('sortable'), 'Class to enable reordering');
+  assert.ok($accordion.hasClass('ui-sortable'), 'Reordering capability installed');
+  assert.notOk($accordion.hasClass('sorting'), 'Class when reordering is active is not present');
+
+  $heading.find('> .detail > .actions > .sort-items').click();
+
+  assert.ok($container.hasClass('expanded'), 'Container expanded after clicking the sort button');
+  assert.ok($accordion.hasClass('sorting'), 'Class when reordering is active is present');
+  assert.equal($accordion.find('> li.gru-accordion-lesson-item').length, 2, 'Number of lessons loaded');
+  assert.equal($accordion.find('> li.gru-accordion-lesson-item > .panel > .panel-heading > .drag-icon').length, 2, 'Lesson items have drag handles');
+
+  // Check action buttons changed
+  assert.equal($heading.find('.actions button').length, 3, 'Action buttons when reordering');
+  assert.ok($heading.find('.actions button:eq(0)').hasClass('sort-items'), 'First button is for sorting the lessons in the unit');
+  assert.ok($heading.find('.actions button:eq(1)').hasClass('cancel'), 'Second button is to cancel reordering');
+  assert.ok($heading.find('.actions button:eq(2)').hasClass('save'), 'Third button is to save the new order of lessons');
+});

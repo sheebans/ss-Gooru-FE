@@ -395,6 +395,7 @@ export default {
     "swap": "Re-order",
     "suggested-resources": "Suggested Resources",
     "support": "Support",
+    "start-tour": "Take a tour",
     "teach": "Teach",
     "teacher": "Teacher",
     "timeSpent": "Time Spent",
@@ -1236,5 +1237,35 @@ export default {
     "feedback-never": "Never",
     "feedback-summary": "At the end",
     "navigation-scoring": "Navigation and Scoring"
+  },
+
+  "gru-tour": {
+    "overview": {
+      "stepOne":{
+        "title": "Course Map",
+        "description": "Once you have created content and assigned it to a course, a course map will appear in the classroom you have created. The course map provides your students access to all assessments and collections you assign to them."
+      },
+      "stepTwo":{
+        "title":"Class Code",
+        "description":"Each classroom you create has a unique class code. You will give this code to students when you are ready for them to join your classroom and access your content."
+      },
+      "stepThree":{
+        "title": "Monitor student and class data",
+        "description": "Clicking on data allows you to see class and individual student data once students access the content you have assigned to them."
+      },
+      "stepFour":{
+        "title" : "Classroom Information",
+        "description" : "Here you can edit your classroom name, post announcements for your students, see the names of students enrolled in your class, and delete your classroom."
+      },
+      "stepFive":{
+        "title": "Editing Your Course Content",
+        "description": "When you are in a classroom, click here to edit any of the course content assigned to your students."
+      },
+      "stepSix":{
+        "title": "Monitor Progress in Real-time!",
+        "description": 'Use the real-time dashboard to monitor class progress on an assessment in real-time.<br><br>Click on the "Go Live" icon found to the left of every assessment to launch a real-time assessment for students. <br><br><i class="real-time-icon">'
+      }
+
+    }
   }
 };

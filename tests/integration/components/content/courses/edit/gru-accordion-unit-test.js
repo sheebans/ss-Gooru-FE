@@ -1,11 +1,9 @@
-import { moduleForComponent } from 'ember-qunit';
-
-// TODO: Uncomment per changes in 1149
-//import { moduleForComponent, test } from 'ember-qunit';
-//import hbs from 'htmlbars-inline-precompile';
-//import BuilderItem from 'gooru-web/models/content/builder/item';
-//import Course from 'gooru-web/models/content/course';
+import { moduleForComponent, test } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+import BuilderItem from 'gooru-web/models/content/builder/item';
+import Course from 'gooru-web/models/content/course';
 import Lesson from 'gooru-web/models/content/lesson';
+import LessonItem from 'gooru-web/models/content/lessonItem';
 import Unit from 'gooru-web/models/content/unit';
 import Ember from 'ember';
 
@@ -57,7 +55,37 @@ const unitServiceStub = Ember.Service.extend({
       }
     });
   }
+});
 
+const lessonServiceStub = Ember.Service.extend({
+
+  fetchById(courseId, unitId, lessonId) {
+    if (courseId && unitId && lessonId) {
+      let lesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
+        id: '123',
+        sequence: 1,
+        taxonomy: [],
+        title: 'Sample Lesson Name',
+        children: [
+          LessonItem.create({
+            id: 'collection-123',
+            format: 'collection',
+            sequence: 1,
+            title: 'Collection Title'
+          }),
+          LessonItem.create({
+            id: 'assessment-456',
+            format: 'assessment',
+            sequence: 2,
+            title: 'Assessment Title'
+          })
+        ]
+      });
+      return Ember.RSVP.resolve(lesson);
+    } else {
+      return Ember.RSVP.reject('Fetch failed');
+    }
+  }
 });
 
 moduleForComponent('content/courses/edit/gru-accordion-unit', 'Integration | Component | content/courses/edit/gru accordion unit', {
@@ -68,12 +96,15 @@ moduleForComponent('content/courses/edit/gru-accordion-unit', 'Integration | Com
 
     this.register('service:api-sdk/unit', unitServiceStub);
     this.inject.service('api-sdk/unit');
+
+    this.register('service:api-sdk/lesson', lessonServiceStub);
+    this.inject.service('api-sdk/lesson');
   }
 });
 
-// TODO: Fix test per changes in 1149
-/*
 test('it renders a form for a new unit', function (assert) {
+
+  var owner = Ember.getOwner(this);
 
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
@@ -157,6 +188,9 @@ test('it can create a new unit', function (assert) {
   assert.equal(unit.get('isEditing'), false, 'Unit is no longer editable');
 });
 
+/*
+// TODO: Fix test per changes in 1149
+
 test('it can edit an existing unit', function (assert) {
 
   const title = 'Unit Title Updated';
@@ -210,8 +244,8 @@ test('it can edit an existing unit', function (assert) {
   const $heading = $component.find('> .view > .panel-heading');
   assert.equal($heading.find('strong').text(), title, 'Unit title updated');
   assert.equal(unit.get('isEditing'), false, 'Unit is no longer editable');
-
 });
+*/
 
 test('it shows an error message if it fails to create a new unit', function (assert) {
   assert.expect(2);
@@ -333,11 +367,11 @@ test('it renders the unit correctly, if the unit has no lessons -view mode', fun
   assert.equal($heading.find('.detail > span').text(), this.get('i18n').t('common.add-lessons').string, 'Lesson text');
   assert.equal($heading.find('.actions button').length, 6, 'Unit header action buttons');
   assert.ok($heading.find('.actions button:eq(0)').hasClass('add-item'), 'First button is for adding a lesson');
-  assert.ok($heading.find('.actions button:eq(1)').hasClass('sort-items'), 'Second button is for reordering the lessons');
-  assert.ok($heading.find('.actions button:eq(2)').hasClass('edit-item'), 'Third button is for editing the unit');
-  assert.ok($heading.find('.actions button:eq(3)').hasClass('copy-item'), 'Fourth button is for copying the unit');
-  assert.ok($heading.find('.actions button:eq(4)').hasClass('move-item'), 'Fifth button is for moving the unit');
-  assert.ok($heading.find('.actions button:eq(5)').hasClass('delete-item'), 'Sixth button is for deleting the unit');
+  assert.ok($heading.find('.actions button:eq(1)').hasClass('sort-items'), 'Second button is for sorting the lessons in the unit');
+  assert.ok($heading.find('.actions button:eq(2)').hasClass('delete-item'), 'Third button is for deleting the unit');
+  assert.ok($heading.find('.actions button:eq(3)').hasClass('move-item'), 'Fourth button is for moving the unit');
+  assert.ok($heading.find('.actions button:eq(4)').hasClass('copy-item'), 'Fifth button is for copying the unit');
+  assert.ok($heading.find('.actions button:eq(5)').hasClass('edit-item'), 'Sixth button is for editing the unit');
 
   const $lessonList = $component.find('.view .panel-body ol.accordion-unit');
   assert.ok($lessonList.length, 'Lesson list');
@@ -375,21 +409,11 @@ test('it expands/collapses the unit -view mode', function (assert) {
   assert.ok($container.hasClass('collapsed'), 'Container collapsed');
 
 
-  $container.find('> .panel-heading > h3 > a').click();
+  $container.find('> .panel-heading > a').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header prefix');
 
-
-  $container.find('> .panel-heading > h3 > a').click();
+  $container.find('> .panel-heading > a').click();
   assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header prefix');
-
-
-  $container.find('> .panel-heading > strong > a').click();
-  assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header title');
-
-
-  $container.find('> .panel-heading > strong > a').click();
-  assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header title');
-
 
   $container.find('> .panel-heading .actions .add-item').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded after clicking the add button');
@@ -400,6 +424,7 @@ test('it expands/collapses the unit -view mode', function (assert) {
 });
 
 test('it loads lessons and renders them after clicking on the unit name', function (assert) {
+
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
       id: '123',
@@ -417,6 +442,7 @@ test('it loads lessons and renders them after clicking on the unit name', functi
   }));
   this.set('unit', unit);
   this.set('isLoaded', false);  // Binding to check on the state
+
   this.render(hbs`
     {{content/courses/edit/gru-accordion-unit
       course=course
@@ -426,12 +452,61 @@ test('it loads lessons and renders them after clicking on the unit name', functi
     `);
 
   const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
-  assert.ok($container.hasClass('collapsed'), 'Container collapsed');
+  assert.ok($container.length, 'Container');
   assert.ok(!this.get('isLoaded'), 'Data not loaded');
 
-  $container.find('> .panel-heading > strong > a').click();
-  assert.ok($container.hasClass('expanded'), 'Container expanded');
+  $container.find('> .panel-heading > a').click();
   assert.equal($container.find('.accordion-unit > li.gru-accordion-lesson').length, 2, 'Number of lessons loaded');
   assert.ok(this.get('isLoaded'), 'Data was loaded');
 });
-*/
+
+test('it offers the ability to reorder the lessons', function (assert) {
+
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123',
+      isSorting: false,
+      lessonCount: 2
+    }),
+    isEditing: false,
+    isExpanded: false
+  });
+
+  //onExpandUnit action must be defined
+  this.on('externalAction', function () {});
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unit', unit);
+
+  this.render(hbs`
+    {{content/courses/edit/gru-accordion-unit
+      course=course
+      model=unit
+      onExpandUnit=(action 'externalAction') }}
+    `);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
+  const $heading = $container.find('> .panel-heading');
+  const $accordion = $container.find('> .panel-body > .accordion-unit');
+
+  assert.ok($container.length, 'Container');
+  assert.ok($container.hasClass('collapsed'), 'Container collapsed');
+  assert.ok($accordion.hasClass('sortable'), 'Class to enable reordering');
+  assert.ok($accordion.hasClass('ui-sortable'), 'Reordering capability installed');
+  assert.notOk($accordion.hasClass('sorting'), 'Class when reordering is active is not present');
+
+  $heading.find('> .detail > .actions > .sort-items').click();
+
+  assert.ok($container.hasClass('expanded'), 'Container expanded after clicking the sort button');
+  assert.ok($accordion.hasClass('sorting'), 'Class when reordering is active is present');
+  assert.equal($accordion.find('> li.gru-accordion-lesson').length, 2, 'Number of lessons loaded');
+  assert.equal($accordion.find('> li.gru-accordion-lesson > .panel > .panel-heading > .drag-icon').length, 2, 'Lessons have drag handles');
+
+  // Check action buttons changed
+  assert.equal($heading.find('.actions button').length, 3, 'Action buttons when reordering');
+  assert.ok($heading.find('.actions button:eq(0)').hasClass('sort-items'), 'First button is for sorting the lessons in the unit');
+  assert.ok($heading.find('.actions button:eq(1)').hasClass('cancel'), 'Second button is to cancel reordering');
+  assert.ok($heading.find('.actions button:eq(2)').hasClass('save'), 'Third button is to save the new order of lessons');
+});

@@ -23,11 +23,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
   lessonService: Ember.inject.service("api-sdk/lesson"),
 
   /**
-   * @requires service:api-sdk/taxonomy
-   */
-  taxonomyService: Ember.inject.service("taxonomy"),
-
-  /**
    * @property {Service} session
    */
   session: Ember.inject.service('session'),
@@ -115,9 +110,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
           },
         }
       };
-      this.actions.showModal.call(this,
-        'content.modals.gru-delete-content',
-        model, null, null, null, false);
+      this.actions.showModal.call(this, 'content.modals.gru-delete-content', model);
     },
 
     copy: function() {
@@ -128,43 +121,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
         onRemixSuccess: this.get('onRemixLesson')
       };
       this.send('showModal', 'content.modals.gru-lesson-remix', model);
-    },
-    /**
-     * Reorder lesson items
-     */
-    sortLessonItems:function(){
-      var component = this;
-      component.loadData();
-      component.set('model.isExpanded', true);
-      component.set('isSorting',true);
-
-      const sortable = component.$('.sortable');
-      sortable.sortable();
-      sortable.sortable('enable');
-    },
-
-    /**
-     * Cancel reorder lesson items
-     */
-    cancelSort:function(){
-      var component = this;
-      const sortable = component.$('.sortable');
-      component.set('isSorting',false);
-      sortable.sortable('disable');
-    },
-    /**
-     * Save reorder lesson items
-     */
-    saveReorder:function(){
-      var component = this;
-      const sortable = component.$('.sortable');
-
-      component.get('lessonService').reorderLesson(component.get('course.id'),component.get('unitId'),component.get('lesson.id'),component.get('orderList'))
-        .then(function(){
-          component.set('isSorting',false);
-          sortable.sortable('disable');
-          component.refreshList(component.get('orderList'));
-        });
     },
 
     /**
@@ -205,8 +161,37 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
               onAdd: component.get('onAddItem').bind(component)
             }, null, "add-to");
       });
+    },
+
+    sortLessonItems: function() {
+      this.loadData();
+      this.actions.sortItems.call(this);
+    },
+
+    saveLessonItemsOrder: function() {
+      var courseId = this.get('course.id');
+      var unitId = this.get('unitId');
+      var lessonId = this.get('lesson.id');
+      var orderList = this.get('orderList');
+
+      if (orderList && orderList.length > 1) {
+        this.get('lessonService').reorderLesson(courseId, unitId, lessonId, orderList)
+          .then(function () {
+            this.actions.finishSort.call(this);
+          }.bind(this));
+      } else {
+        this.actions.finishSort.call(this);
+      }
     }
+
   },
+
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  attributeBindings: ['data-id'],
+
+  'data-id': Ember.computed.alias('lesson.id'),
 
   // -------------------------------------------------------------------------
   // Events
@@ -230,34 +215,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     }
   },
 
-  /**
-   * DidInsertElement ember event
-   */
-  didInsertElement: function() {
-    this._super(...arguments);
-    var component = this;
-
-    const sortable = component.$('.sortable');
-    sortable.sortable();
-    sortable.sortable('disable');
-
-    sortable.on('sortupdate', function() {
-      const $items = component.$('.sortable').find('li');
-      const orderList = $items.map(function(idx, item) {
-        return $(item).data('id');
-      }).toArray();
-      component.set('orderList',orderList);
-    });
-  },
-  /**
-   * WillDestroyElement ember event
-   */
-  willDestroyElement:function(){
-    var component = this;
-    const sortable = component.$('.sortable');
-    sortable.sortable();
-    sortable.off('sortupdate');
-  },
   didRender(){
     $('[data-toggle="tooltip"]').tooltip();
   },
@@ -280,34 +237,6 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
   /**
    * @prop {Content/Lesson} tempLesson - Temporary lesson model used for editing
    */
-  tempLesson: null,
+  tempLesson: null
 
-  /**
-   * @property {Boolean} isSorting
-   */
-  isSorting:false,
-
-  /**
-   * @property {Array[]} orderList
-   */
-  orderList: null,
-
-  // -------------------------------------------------------------------------
-  // Methods
-
-  /**
-   * Refresh the item list after save reorder
-   */
-  refreshList:function(list){
-    var items = this.get('items');
-    var newItemList = Ember.A();
-    list.forEach(function(item){
-      let newItem = items.findBy('id',item);
-      if(newItem){
-        newItemList.addObject(newItem);
-      }
-    });
-    items.clear();
-    items.addObjects(newItemList);
-  }
 });

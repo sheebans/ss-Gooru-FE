@@ -65,10 +65,10 @@ moduleForAcceptance('Acceptance | Edit Collection', {
 });*/
 
 test('Click share button and check clipboard functionality', function (assert) {
-  visit('/content/collections/edit/123');
+  visit('/content/collections/edit/all-question-types-collection-id');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/collections/edit/123');
+    assert.equal(currentURL(), '/content/collections/edit/all-question-types-collection-id');
     var $shareButton = find(".gru-share-pop-over");
 
     click($shareButton);
@@ -84,9 +84,9 @@ test('Click share button and check clipboard functionality', function (assert) {
 });
 
 test('Delete Collection', function (assert) {
-  visit('/content/collections/edit/123');
+  visit('/content/collections/edit/all-question-types-collection-id');
   andThen(function () {
-    assert.equal(currentURL(), '/content/collections/edit/123');
+    assert.equal(currentURL(), '/content/collections/edit/all-question-types-collection-id');
     var $deleteButton = find("header .actions .delete");
     click($deleteButton);
     andThen(function () {

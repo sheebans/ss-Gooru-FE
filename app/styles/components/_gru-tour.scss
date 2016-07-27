@@ -1,0 +1,62 @@
+.introjs-tooltip {
+  max-width: 650px;
+  min-width: 500px;
+  padding: 10px 25px;
+}
+
+.introjs-skipbutton {
+  display: none;
+}
+
+.introjs-prevbutton {
+  @extend .btn-default;
+}
+
+.introjs-nextbutton {
+  @extend .btn-primary;
+}
+
+.introjs-button {
+  @extend .btn;
+  text-shadow: none;
+}
+
+.introjs-tooltiptext {
+  .tour-header-overview {
+    h2 {
+      display: inline-block;
+      font-size: $font-size-h4;
+    }
+
+    i {
+      cursor: pointer;
+      float: right;
+      font-size: $font-size-h2;
+    }
+  }
+
+  .tour-description-overview {
+    @include flexbox;
+
+    p {
+      min-width: 185px;
+
+      .real-time-icon {
+        background-image: url('gooru/images/on-air-icon.svg');
+        display: block;
+        height: 42px;
+        margin: 0 auto;
+        width: 42px;
+      }
+    }
+
+    .overview-tour-image {
+      @include flex-shrink(0);
+      background-image: url('gooru/go-live-tooltip.png');
+      height: 300px;
+      margin-right: 20px;
+      width: 380px;
+
+    }
+  }
+}
