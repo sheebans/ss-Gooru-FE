@@ -90,11 +90,12 @@ module.exports = function (environment) {
   };
 
   ENV['teamsHosts'] = {
-    'localhost': 'teams-qa.gooru.org',             // Development
-    'qa.gooruweb.edify.cr': 'teams-qa.gooru.org',  // Edify-QA
-    'nucleus-qa.gooru.org': 'teams-qa.gooru.org',  // Nucleus-QA
-    'parallel.gooru.org': 'teams.gooru.org',       // Parallel
-    'www.gooru.org': 'teams.gooru.org'             // Production
+    'localhost': 'teams-qa.gooru.org',                  // Development
+    'qa.gooruweb.edify.cr': 'teams-qa.gooru.org',       // Edify-QA
+    'nucleus-qa.gooru.org': 'teams-qa.gooru.org',       // Nucleus-QA
+    'nucleus-qa-prl.gooru.org': 'teams-qa.gooru.org',   // Parallel-QA
+    'parallel.gooru.org': 'teams.gooru.org',            // Parallel
+    'www.gooru.org': 'teams.gooru.org'                  // Production
   };
 
   ENV['simple-auth-custom'] = {
@@ -118,6 +119,7 @@ module.exports = function (environment) {
     'localhost': 'local',
     'qa.gooruweb.edify.cr': 'edify-qa',
     'nucleus-qa.gooru.org': 'nucleus-qa',
+    'nucleus-qa-prl.gooru.org': 'parallel-qa',
     'parallel.gooru.org': 'parallel',
     'www.gooru.org': 'prod'
   };
@@ -126,6 +128,9 @@ module.exports = function (environment) {
     'local': GooruEndpointDefault,
     'edify-qa': GooruEndpointDefault,
     'nucleus-qa': GooruEndpointDefault,
+    'parallel-qa': extend(GooruEndpointDefault, {
+      hostname: 'nucleus-qa-prl.gooru.org'
+    }),
     'parallel': extend(GooruEndpointDefault, {
       hostname: 'parallel.gooru.org'
     }),
@@ -140,6 +145,10 @@ module.exports = function (environment) {
     'nucleus-qa': extend(RealTimeDefault, {
       webSocketHostname: 'rt.nucleus-qa.gooru.org',
       webServiceHostname: 'nucleus-qa.gooru.org'
+    }),
+    'parallel-qa': extend(RealTimeDefault, {
+      webSocketHostname: 'rt.nucleus-qa.gooru.org',
+      webServiceHostname: 'nucleus-qa-prl.gooru.org'
     }),
     'parallel': extend(RealTimeDefault, {
       webSocketHostname: 'rt.parallel.gooru.org',
