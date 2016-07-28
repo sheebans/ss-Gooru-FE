@@ -171,7 +171,7 @@ export default Ember.Component.extend({
     if(currentStepIndex == this.get('steps').length-1){
       nextElement.hide();
       skipElement.show();
-    } else {
+    } else if(currentStepIndex == this.get('steps').length-2 || currentStepIndex==0){
       skipElement.hide();
       nextElement.show();
     }
