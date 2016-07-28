@@ -1,6 +1,44 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [release-3.1.0] - July 28, 2016
+https://collaborate.gooru.org/jira/browse/GG-1412
+https://collaborate.gooru.org/jira/browse/GG-1438
+https://collaborate.gooru.org/jira/browse/GG-1439
+https://collaborate.gooru.org/jira/browse/GG-1446
+https://collaborate.gooru.org/jira/browse/GG-1499
+https://collaborate.gooru.org/jira/browse/GG-1501
+https://collaborate.gooru.org/jira/browse/GG-1502
+https://collaborate.gooru.org/jira/browse/GG-1503
+https://collaborate.gooru.org/jira/browse/GG-1504
+https://collaborate.gooru.org/jira/browse/GG-1505
+https://collaborate.gooru.org/jira/browse/GG-1506
+https://collaborate.gooru.org/jira/browse/GG-1510
+https://collaborate.gooru.org/jira/browse/GG-1511
+https://collaborate.gooru.org/jira/browse/GG-1513
+https://collaborate.gooru.org/jira/browse/GG-1521
+https://collaborate.gooru.org/jira/browse/GG-1522
+https://collaborate.gooru.org/jira/browse/GG-1546
+https://collaborate.gooru.org/jira/browse/GG-1548
+https://collaborate.gooru.org/jira/browse/GG-1549
+https://collaborate.gooru.org/jira/browse/GG-1550
+https://collaborate.gooru.org/jira/browse/GG-1579
+https://collaborate.gooru.org/jira/browse/GG-1584
+https://collaborate.gooru.org/jira/browse/GG-1604
+https://collaborate.gooru.org/jira/browse/GG-1609
+https://collaborate.gooru.org/jira/browse/GG-1611
+https://collaborate.gooru.org/jira/browse/GG-1614
+https://collaborate.gooru.org/jira/browse/GG-1634
+https://collaborate.gooru.org/jira/browse/GG-1636
+https://collaborate.gooru.org/jira/browse/GG-1640
+https://collaborate.gooru.org/jira/browse/GG-1646
+https://collaborate.gooru.org/jira/browse/GG-1648
+https://collaborate.gooru.org/jira/browse/GG-1657
+https://collaborate.gooru.org/jira/browse/GG-1661
+https://collaborate.gooru.org/jira/browse/GG-1675
+https://collaborate.gooru.org/jira/browse/GG-1691
+https://collaborate.gooru.org/jira/browse/GG-934
+
 ## [release-3.0.4] - July 15, 2016
 https://collaborate.gooru.org/jira/browse/GG-1614
 
