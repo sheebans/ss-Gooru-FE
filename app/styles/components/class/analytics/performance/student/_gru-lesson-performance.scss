@@ -138,6 +138,10 @@
                 @include align-items(flex-start);
                 .section-title {
                   padding: 5px;
+                  &.disabled {
+                    font-style: italic;
+                    color: $dark-100;
+                  }
                 }
               }
               >span{

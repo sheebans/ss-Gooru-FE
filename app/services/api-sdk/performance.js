@@ -87,7 +87,8 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<CollectionPerformance[]>}
    */
-  findStudentPerformanceByLesson: function (userId, classId, courseId, unitId, lessonId, collections, options = {collectionType: 'assessment'}) {
+  findStudentPerformanceByLesson: function (userId, classId, courseId, unitId, lessonId, collections,
+                                            options = { collectionType: 'assessment' }) {
     const service = this;
     return service.get('store').queryRecord('performance/collection-performance', {
       userUid: userId,
@@ -185,7 +186,8 @@ export default Ember.Service.extend({
       type: type,
       completionTotal: 0,
       completionDone: 0,
-      url: object.get("url")
+      url: object.get("url"),
+      attempts: 0
     };
   },
 
