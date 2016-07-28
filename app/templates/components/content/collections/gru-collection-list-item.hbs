@@ -29,7 +29,7 @@
       </a>
     {{/if}}
 
-    <div class="detail {{if isPanelExpanded 'hidden' 'visible'}}">
+    <div class="detail {{if isPanelExpanded 'hidden' 'visible'}} collapsed">
         {{#if model.standards.length}}
           {{#each visibleStandardsList as |standard|}}
             <span class="btn btn-primary btn-small">{{standard.code}}</span>
@@ -43,7 +43,9 @@
 
         <div class="actions">
           <button class="btn add-item no-bgd out-of-scope" title="{{t 'common.add'}}" {{action 'add'}}>{{gru-icon name="add"}}</button>
+          {{#unless (eq model.format 'question')}}
           <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}}" {{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
+          {{/unless}}
             <div class="item-actions">
               <button title="{{t 'common.delete'}}" class="btn no-bgd delete-item" {{action 'deleteItem' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="delete"}}</button>
               <button title="{{t 'common.copy-to'}}" class="btn no-bgd copy-to" {{action 'copyTo' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="call_split"}}</button>
@@ -53,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="detail {{if isPanelExpanded 'visible' 'hidden'}}">
+    <div class="detail {{if isPanelExpanded 'visible' 'hidden'}} expanded">
       <div class="actions">
         {{#unless isEditingInline}}
           <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}} "{{action 'cancel'}}>{{gru-icon name="mode_comment"}}</button>
@@ -91,15 +93,22 @@
               <button class="add-image btn btn-sm btn-primary" {{action "toggleImagePicker"}}>{{t "common.add-question-image"}}</button>
           {{/if}}
         </div>
-        <div class="answers">
-          <div class="{{unless model.isHotTextHighlight 'border-bottom'}}">
-            <h3>{{t "content.questions.edit.builder.answer"}}</h3>
-            {{#unless model.isHotTextHighlight}}
-              <span class="instructions">{{t (concat 'content.questions.edit.builder.answer-instructions.' model.type)}}</span>
-            {{/unless}}
+        {{#unless model.isFIB}}
+          <div class="answers">
+            <div class="{{unless model.isHotTextHighlight 'border-bottom'}}">
+              <h3>{{t "content.questions.edit.builder.answer"}}</h3>
+              {{#unless model.isHotTextHighlight}}
+                <span class="instructions">{{t (concat 'content.questions.edit.builder.answer-instructions.' model.type)}}</span>
+              {{/unless}}
+            </div>
+            {{#if correctAnswerNotSelected}}
+              <div class="missing-correct-answer">
+                <p><small>{{t "common.errors.select-correct-answer"}}</small></p>
+              </div>
+            {{/if}}
+            {{component (questionConfig model.type 'component.builder_answer') answers=tempModel.answers editMode=true}}
           </div>
-          {{component (questionConfig model.type 'component.builder_answer') answers=tempModel.answers editMode=true}}
-        </div>
+        {{/unless}}
       {{else}}
         <div class="narration">
           <label>

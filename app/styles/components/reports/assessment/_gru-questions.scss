@@ -65,6 +65,10 @@
     th.correct-answer {
       width: 36%;
     }
+    .question-text img {
+      max-height: 100px;
+      margin: 5px 0;
+    }
     .question-score span{
       .mdi {
         font-size: $font-size-h3;

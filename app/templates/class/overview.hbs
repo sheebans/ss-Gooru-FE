@@ -3,23 +3,29 @@
     <div class="overview-header">
       <div class="title">
         <h3>{{t 'common.course-map'}}</h3>
-        {{gru-tour steps=tourSteps containerClass='overview'}}
+        {{#if classController.isTeacher}}
+          {{gru-tour steps=tourSteps containerClass='overview'}}
+        {{/if}}
       </div>
       {{#if classController.isStudent}}
-        {{#if class.minScore}}
-          <div class="trophy">
-            <span class="icon"></span>
-            <span class="percentage"> &gt; {{{class.minScore}}}%</span>
-          </div>
-        {{/if}}
-        <button {{action "updateLocation" userLocation}} class="btn btn-info locate">
-          <span>{{gru-icon name='near_me'}}{{t "class.overview.locate"}}</span>
-        </button>
-
+        <div>
+          {{#if class.minScore}}
+            <div class="trophy">
+              <span class="icon"></span>
+              <span class="percentage"> &gt; {{{class.minScore}}}%</span>
+            </div>
+          {{/if}}
+          <button {{action "updateLocation" userLocation}} class="btn btn-info locate">
+            <span>{{gru-icon name='near_me'}}{{t "class.overview.locate"}}</span>
+          </button>
+        </div>
       {{else}}
+      <div>
         <button {{action "editContent" course.id}} class="btn btn-default edit-content">
           {{t "class.overview.editContent"}}
         </button>
+      </div>
+
       {{/if}}
     </div>
   </div>

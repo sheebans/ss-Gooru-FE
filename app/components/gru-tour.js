@@ -33,7 +33,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'modals', 'gru-tour'],
+  classNames: ['gru-tour'],
 
   classNameBindings: ['component-class'],
 
@@ -45,7 +45,10 @@ export default Ember.Component.extend({
       let intro = this.get('introJS');
       let options = this.get('introJSOptions');
       intro.setOptions(options);
+      this.registerCallbacksWithIntroJS();
+      this._setCurrentStep(0);
       intro.start();
+      $('.introjs-skipbutton').hide();
       $('.introjs-prevbutton').text(this.get('i18n').t('common.back').string);
       $('.introjs-nextbutton').text(this.get('i18n').t('common.next').string);
     }
@@ -104,8 +107,8 @@ export default Ember.Component.extend({
             step.image,
             `${component.get('containerClass')} step-${index}`)
         }));
-        options.steps = array;
-      }, component)
+      })
+      options.steps = array;
       return options;
     }
   ),
@@ -116,12 +119,6 @@ export default Ember.Component.extend({
   showStepNumbers: false,
   disableInteraction: true,
   scrollToElement: true,
-
-
-  nextStep: function() {
-    let intro = this.get('introJS');
-    intro.nextStep();
-  },
 
   constructModal: function(title, description, image, containerClass){
     let template =
@@ -138,5 +135,66 @@ export default Ember.Component.extend({
       `<p>${description}</p>
       </div>`;
     return template;
-  }
+  },
+  registerCallbacksWithIntroJS: function(){
+    var intro = this.get('introJS');
+
+    intro.onbeforechange(Ember.run.bind(this, function(elementOfNewStep){
+
+      var prevStep = this.get('currentStep');
+      this._setCurrentStep(this.get('introJS._currentStep'));
+      var nextStep = this.get('currentStep');
+      this.sendAction('on-before-change', prevStep, nextStep, this, elementOfNewStep);
+
+    }));
+
+    intro.onchange(Ember.run.bind(this, function(targetElement){
+      this.sendAction('on-change', this.get('currentStep'), this, targetElement);
+    }));
+
+    intro.onafterchange(Ember.run.bind(this, this._onAfterChange));
+
+    intro.oncomplete(Ember.run.bind(this, function(){
+      this.sendAction('on-complete', this.get('currentStep'));
+    }));
+
+    intro.onexit(Ember.run.bind(this, this._onExit));
+  },
+
+  _setIntroJS: function(introJS){
+    this.set('introJS', introJS);
+  },
+
+  _onAfterChange: function(targetElement){
+    let currentStepIndex = this.get('steps').indexOf(this.get('currentStep'));
+    let nextElement = $('.introjs-nextbutton');
+    let skipElement = $('.introjs-skipbutton');
+    if(currentStepIndex == this.get('steps').length-1){
+      nextElement.hide();
+      skipElement.show();
+    } else if(currentStepIndex == this.get('steps').length-2){
+      skipElement.hide();
+      nextElement.show();
+    }
+    this.sendAction('on-after-change', this.get('currentStep'), this, targetElement);
+  },
+
+  _onExit: function(){
+    this.sendAction('on-exit', this.get('currentStep'), this);
+  },
+
+  exitIntroJS: Ember.on('willDestroyElement', function(){
+    var intro = this.get('introJS');
+    if (intro) {
+      intro.exit();
+    }
+  }),
+
+  _setCurrentStep: function(step){
+    var stepObject = Ember.A(this.get('steps')).objectAt(step);
+    this.set('currentStep', stepObject);
+  },
+  _getStepIndex: function(step){
+    return this.get('steps').indexOf(step);
+  }.bind(this)
 });

@@ -76,16 +76,16 @@ export default Ember.Component.extend({
   filePickerErrors: null,
 
   /**
-   * List of valid file extensions. Image file extensions are set by default.
+   * List of valid file extensions.
    * @prop {String}
    */
-  validFileExtensions: ".jpg,.jpeg,.gif,.png",
+  validMimeType: "",
 
 
   // -------------------------------------------------------------------------
   // Observers
 
-  resetPicker: Ember.observer('validFileExtensions', function() {
+  resetPicker: Ember.observer('validMimeType', function() {
     // Clear any previous errors
     this.get('filePickerErrors').clear();
   })

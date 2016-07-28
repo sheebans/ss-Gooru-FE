@@ -21,6 +21,14 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  didInsertElement() {
+    this._super(...arguments);
+
+    Ember.run.scheduleOnce('afterRender', this, function () {
+      this.resetSortByMetrics();
+    });
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -39,17 +47,20 @@ export default Ember.Component.extend({
     'value': 'score',
     'sorted':false,
     'isAsc':false,
-    'visible': true
+    'visible': true,
+    'index':0
   }),Ember.Object.create({
     'value': 'completion',
     'sorted':false,
     'isAsc':false,
-    'visible': false
+    'visible': false,
+    'index':1
   }),Ember.Object.create({
     'value': 'study-time',
     'sorted':false,
     'isAsc':false,
-    'visible': false
+    'visible': false,
+    'index':2
   })]),
 
   /**
@@ -88,8 +99,8 @@ export default Ember.Component.extend({
   }),
 
   // -------------------------------------------------------------------------
-
   // Methods
+
   /**
    * Sort by specific metric
    * @metric {Ember Object}
@@ -116,5 +127,14 @@ export default Ember.Component.extend({
    */
   changeTypeSort(metric){
     metric.set("isAsc",!metric.get("isAsc"));
+  },
+
+  resetSortByMetrics(){
+    var component =this;
+    var metrics = component.get("metrics");
+    metrics.forEach(function(option){
+      option.set("isAsc", null);
+      option.set("sorted", false);
+    });
   }
 });

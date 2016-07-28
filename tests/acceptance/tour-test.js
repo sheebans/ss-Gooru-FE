@@ -16,7 +16,7 @@ moduleForAcceptance('Acceptance | gru-tour', {
 });
 
 test('Layout', function(assert) {
-  visit('/class/class-for-pochita/overview?location=');
+  visit('/class/class-for-pochita-as-teacher/overview?location=');
   andThen(function() {
 
     const $component = find('.gru-tour button');
