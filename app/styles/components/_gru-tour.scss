@@ -4,22 +4,37 @@
   padding: 10px 25px;
 }
 
-.introjs-skipbutton {
-  display: none;
+.introjs-tooltipbuttons {
+  @include flexbox;
+  @include justify-content(flex-end);
+
+  .introjs-prevbutton {
+    @extend .btn-default;
+    @include order(1);
+  }
+
+  .introjs-nextbutton {
+    @extend .btn-primary;
+    @include order(2);
+    margin-left: 10px;
+  }
+
+  .introjs-skipbutton {
+    @extend .btn-primary;
+    @include order(3);
+    margin-left: 10px;
+  }
+
+  .introjs-button {
+    @extend .btn;
+    text-shadow: none;
+
+    &.hidden {
+      display: none;
+    }
+  }
 }
 
-.introjs-prevbutton {
-  @extend .btn-default;
-}
-
-.introjs-nextbutton {
-  @extend .btn-primary;
-}
-
-.introjs-button {
-  @extend .btn;
-  text-shadow: none;
-}
 
 .introjs-tooltiptext {
   .tour-header-overview {
@@ -59,4 +74,9 @@
 
     }
   }
+}
+
+.gru-tour {
+  @include align-self(flex-end);
+  margin-bottom: 15px;
 }

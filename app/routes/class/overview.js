@@ -22,7 +22,6 @@ export default Ember.Route.extend({
   // Actions
 
   actions: {
-
     /**
      * Launch an assessment on-air
      *

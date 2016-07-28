@@ -19,8 +19,7 @@
 
   .locate,
   .edit-content {
-    float: right;
-    margin-top: 44px;
+    margin-left: 15px;
 
     .gru-icon {
       display: none;
@@ -34,11 +33,15 @@
   }
 
   .overview-header {
+    @include flexbox;
+    @include justify-content(space-between);
     border-bottom: 1px solid $gray-light;
 
-    div {
-      display: inline-block;
-      padding: 15px 0;
+    >div {
+      @include flexbox;
+      @include align-items(center);
+
+
     }
 
     .title {
@@ -56,8 +59,6 @@
 
     .trophy {
       @include inline-flex;
-      height: 65px;
-      vertical-align: middle;
 
       .icon {
         background: url('gooru/images/gray-trophy.svg');
