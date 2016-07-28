@@ -31,6 +31,11 @@ export default Ember.Route.extend({
       this.transitionTo(route);
     },
 
+    startAssessment: function(){
+      const controller = this.get("controller");
+      controller.startAssessment();
+    },
+
     /**
      * Navigates to the assessment report
      */
@@ -101,6 +106,7 @@ export default Ember.Route.extend({
       assessment: route.get('assessmentService').readAssessment(collectionId),
       collection: route.get('collectionService').readCollection(collectionId)
     }).then(function(hash){
+
       const collectionFound = hash.assessment.state === 'rejected';
       let collection = collectionFound ? hash.collection.value : hash.assessment.value;
 
@@ -165,7 +171,6 @@ export default Ember.Route.extend({
    */
   setupController(controller, model) {
     let collection = model.collection;
-    let hasResources = collection.get("hasResources");
     let assessmentResult = model.assessmentResult;
     let hasUserSession = !this.get('session.isAnonymous');
 
@@ -185,21 +190,12 @@ export default Ember.Route.extend({
     controller.set("saveEnabled", hasUserSession);
     controller.set("context", model.context);
     controller.set("assessmentResult", assessmentResult);
+
     controller.set("showReport", assessmentResult.get("submitted"));
-
-    controller.startAssessment();
-
-    let resource = null;
-    if (hasResources){
-      resource = assessmentResult.get("lastVisitedResource");
-      if (model.resourceId) {
-        resource = collection.getResourceById(model.resourceId);
-      }
-    }
-
     controller.set("collection", collection);
-    if (resource) {
-      controller.moveToResource(resource);
+
+    if (controller.get("startAutomatically")){
+      controller.startAssessment();
     }
   },
 

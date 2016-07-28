@@ -69,8 +69,7 @@ export default Ember.Component.extend({
    */
   isNotIframeUrl: Ember.computed("resource", function(){
     const resource = this.get("resource");
-
-    return (resource && resource.displayGuide && (resource.displayGuide.is_broken ===1 || resource.displayGuide.is_frame_breaker ===1));
+    return (resource && resource.displayGuide);
   }),
 
   // -------------------------------------------------------------------------
@@ -104,7 +103,9 @@ export default Ember.Component.extend({
    * of the narration -if there is one)
    */
   calculateResourceContentHeight: function() {
-    if (this.get("resource.isUrlResource") || this.get("resource.isPDFResource")) {
+    if (this.get('resource.isUrlResource') ||
+      this.get("resource.isPDFResource") ||
+      this.get("resource.isImageResource")){
       let $component = this.$();
       let $header = $component.find('header');
       this.set('calculatedResourceContentHeight', $component.outerHeight(true) - $header.outerHeight(true) - 20);

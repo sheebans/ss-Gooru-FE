@@ -1,4 +1,4 @@
-import Ember from 'ember';
+ import Ember from 'ember';
 import SessionMixin from '../mixins/session';
 import {generateUUID} from 'gooru-web/utils/utils';
 /**
@@ -24,6 +24,7 @@ export default Ember.Controller.extend(SessionMixin, {
    * @dependency {Ember.Service} Service to rate a resource
    */
   eventsService: Ember.inject.service("api-sdk/events"),
+
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -115,6 +116,12 @@ export default Ember.Controller.extend(SessionMixin, {
   // Properties
 
   /**
+   * Indicates when the player has context
+   * @property {boolean}
+   */
+  hasContext: false,
+
+  /**
    * Indicates the user's role, could be 'student', 'teacher' or null
    * @property {string}
    */
@@ -202,8 +209,17 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   isNotIframeUrl: Ember.computed("resource", function(){
     const resource = this.get("resource");
+    return (resource && resource.displayGuide);
+  }),
 
-    return (resource && resource.displayGuide && (resource.displayGuide.is_broken ===1 || resource.displayGuide.is_frame_breaker ===1));
+  /**
+   * Indicates if the collection should start automatically
+   * @property {boolean}
+   */
+  startAutomatically: Ember.computed("collection", function(){
+    const isCollection = this.get("collection.isCollection");
+    const hasNoContext = !this.get("hasContext");
+    return isCollection || hasNoContext;
   }),
 
   // -------------------------------------------------------------------------
@@ -315,21 +331,37 @@ export default Ember.Controller.extend(SessionMixin, {
   },
 
   /**
-   * Starts the assessment
+   * Starts the assessment or collection
    */
   startAssessment: function(){
     let controller = this;
+    let collection = controller.get("collection");
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
+    controller.set('showContent',true);
 
-    if (!assessmentResult.get("started")){
+    if (! assessmentResult.get("started") ){
       assessmentResult.set("startedAt", new Date());
       context.set("eventType", "start");
       context.set("isStudent", controller.get("isStudent"));
-      return controller.saveCollectionResult(assessmentResult, context);
+      promise = controller.saveCollectionResult(assessmentResult, context);
     }
-    return promise;
+
+    return promise.then(function(){
+      let resource = null;
+      let hasResources = collection.get("hasResources");
+      if (hasResources){
+        resource = assessmentResult.get("lastVisitedResource");
+        if (controller.get("resourceId")) { //if has a resource id as query param
+          resource = collection.getResourceById(controller.get("resourceId"));
+        }
+      }
+
+      if (resource) {
+        controller.moveToResource(resource);
+      }
+    });
   },
 
   /**

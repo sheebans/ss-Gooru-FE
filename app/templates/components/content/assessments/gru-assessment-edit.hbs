@@ -114,7 +114,9 @@
 <section id="builder">
   {{content.collections.gru-collection-list
     model=collection
-    items=collection.children }}
+    items=collection.children
+    editingContent=editingContent
+  }}
 </section>
 
-{{content.gru-settings-edit id="settings" action='publishToProfile' isChecked=collection.isVisibleOnProfile}}
+{{content.gru-settings-edit id="settings" action='publishToProfile' model=tempCollection}}

@@ -6,6 +6,19 @@ export const RESOURCE_COMPONENT_MAP = {
   'vimeo/video'   : 'player.resources.gru-vimeo-resource'
 };
 
+export const UPLOADABLE_TYPES = [
+  {
+    value: "image",
+    validExtensions: ".jpg, .jpeg, .gif, .png",
+    validType: "image/*"
+  },
+  {
+    value: "text",
+    validExtensions: ".pdf",
+    validType: "application/pdf"
+  }
+];
+
 export const RESOURCE_TYPES = [
     "webpage",
     "video",
@@ -63,6 +76,12 @@ export const EMOTION_VALUES = [
   {value: 2, unicode: '1f641'},
   {value: 1, unicode: '1f625'}
 ];
+
+// unicode values for the correct and incorrect svg files
+export const FEEDBACK_EMOTION_VALUES = {
+  CORRECT: '1f44d',
+  INCORRECT: '1f44e'
+};
 
 export const SCORES = {
   REGULAR: 60,
@@ -130,3 +149,11 @@ export const CODE_TYPES = {
 };
 
 export const GOORU_DEFAULT_STANDARD = "GDF";
+
+export const ASSESSMENT_SHOW_VALUES = {
+  IMMEDIATE: 'immediate',
+  SUMMARY: 'summary',
+  NEVER: 'never'
+};
+
+export const MAX_ATTEMPTS = 10;

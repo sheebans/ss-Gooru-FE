@@ -19,6 +19,7 @@ export default {
     "add-content-prompt": "You haven't created <span>{{type}}</span> yet. Go on, be bold.",
     "add-course": "Add New Course",
     "add-domains-to-unit": "Add Domains to Unit",
+    "add-url": "Add URL",
     "add-from-url": "Add from URL",
     "add-lessons": "Add Lessons",
     "add-new-lesson": "Add New Lesson",
@@ -38,6 +39,9 @@ export default {
     "add-units": "Add Units",
     "anonymous_mode": "Anonymous Mode",
     "answer": "Your Answer",
+    "answer-correct": "You are correct!",
+    "answer-incorrect": "You are incorrect...",
+    "answer-key-was-hidden": "Note: Your teacher has hidden the answer key.",
     "approved": "Approved",
     "assessment": "Assessment",
     "assessment-external": "Assessment-External",
@@ -57,6 +61,7 @@ export default {
     "back": "Back",
     "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
+    "beta": "Beta",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
     "builder": "Editor",
@@ -151,6 +156,8 @@ export default {
       "highlight-text-not-selected": "Please indicate the correct answer.",
       "highlight-text-wrong-format": "Incorrect question format.",
       "hotspot-text-max-choices": "You have reached the limit of answer choices.",
+      "file-max-size": "Only files of size smaller than 5MB are supported",
+      "file-upload-missing": "Please select a file with any of the following extensions: {{extensions}}",
       "lesson-not-copied": "Oops! Unable to copy lesson right now. Please try again shortly.",
       "lesson-not-created": "Oops! Unable to create lesson right now. Please try again shortly.",
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
@@ -198,6 +205,8 @@ export default {
     "explanation": "Explanation",
     "false": "False",
     "featured-courses": "Featured&ensp;Courses",
+    "file-name": "File name",
+    "finish": "Finish",
     "first-name": "First Name",
     "follow": "Follow",
     "followers": "Followers",
@@ -229,6 +238,8 @@ export default {
     },
     "libraries": "Libraries",
     "license": "License",
+    "link-out":"Link-out",
+    "link-out-message":"*If your resource is not rendering in the preview above, it may need a “link-out” and cannot be viewed within the Gooru player.",
     "loading": "Loading ...",
     "login": "Log In",
     "logout": "Logout",
@@ -255,6 +266,7 @@ export default {
     "no-followers": "You don't have followers yet.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
+    "no-more-attempts": "No more attempts",
     "notStarted": "Not started",
     "not-added": "Not Added",
     "not-following": "You're not following anyone.",
@@ -267,6 +279,8 @@ export default {
       other: "{{count}} Students"
     },
     "of": "of",
+    "off":"OFF",
+    "on":"ON",
     "other": "Other",
     "password": "Password",
     "pending": "Pending",
@@ -402,8 +416,11 @@ export default {
     "untitled-lesson": "Untitled Lesson",
     "untitled-unit": "Untitled Unit",
     "update-thumbnail": "Update Thumbnail",
+    "upload": "Upload",
+    "upload-file": "Upload File",
     "upload-thumbnail": "Upload Thumbnail",
     "use-case": "Use Case",
+    "valid-extensions": "Valid file extensions are: {{extensions}}",
     "verified": "Verified",
     "visibility-tooltip":"Not visible to others",
     "warnings": {
@@ -682,6 +699,20 @@ export default {
     "add-to-assessment": "Add to assessment or collection",
     "add-to-assessment-lead": "Choose an assessment you want to add {{contentTitle}} to"
   },
+  "gru-assessment-confirmation":{
+    "title": "You are about to start an assessment...",
+    "description": "In this assessment, {{model.title}}",
+    "setting-forward": "You can navigate forward only",
+    "setting-forward-backward": "You can navigate forward and backwards to answer questions",
+    "unlimited-attempts-left": 'You have unlimited attempts',
+    "attempts-left": {
+      'one':"You have 1 attempt left",
+      'other':"You have {{count}} attempts"
+    },
+    "unlimited-attempts":"You have unlimited attempts",
+    "cancel": "Cancel",
+    "start": "Start!"
+  },
   "gru-quick-course-search": {
     "add-from-course": "Add from Existing Course",
     "view-featured-courses": "View Featured Courses",
@@ -927,25 +958,22 @@ export default {
 
   "gru-image-picker": {
     "chooseFile": "Choose a file ...",
-    "errors": {
-      "maxSize": "Only files of size smaller than 5MB are supported"
-    },
     "instruction": "Upload an image from a file on your computer.",
     "restriction": "The image must be a JPG, GIF or PNG file smaller than 5 MB.",
     "submit": "Use Image"
   },
   "gru-fib": {
-    "instructions": "Please type your answer(s) in the blank(s) provided, and click \"Save and Next\"."
+    "instructions": "Please type your answer(s) in the blank(s) provided, and click \"{{action}}\"."
   },
 
   "gru-hs-image": {
-    "instructions": "Please select the correct image(s), and click \"Submit\"."
+    "instructions": "Please select the correct image(s), and click \"{{action}}\"."
   },
   "gru-hs-text": {
-    "instructions": "Please select the correct answer(s), and click \"Submit\"."
+    "instructions": "Please select the correct answer(s), and click \"{{action}}\"."
   },
   "gru-hot-text": {
-    "instructions": "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"{{action}}\"."
   },
   "gru-login-prompt": {
     "title": "Welcome to Gooru!",
@@ -956,14 +984,14 @@ export default {
     "sign-in": "Sign in"
   },
   "gru-multiple-answer": {
-    "instructions": "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"{{action}}\"."
   },
   "gru-multiple-choice": {
-    "instructions": "Please select the correct answer, and click \"Submit\"."
+    "instructions": "Please select the correct answer, and click \"{{action}}\"."
   },
 
   "gru-open-ended": {
-    "instructions": "Please type your answer in the field below, and click the \"Submit\" button to save your response when you're done.",
+    "instructions": "Please type your answer in the field below, and click the \"{{action}}\" button to save your response when you're done.",
     "characterLimit": "Character Limit"
   },
 
@@ -972,13 +1000,13 @@ export default {
     "question": "Question"
   },
   "gru-true-false": {
-    "instructions": "Please select the correct answer, and click \"Submit\".",
+    "instructions": "Please select the correct answer, and click \"{{action}}\".",
     "true": "True",
     "false": "False"
   },
 
-  "player.gru-reorder": {
-    "instructions": "Please reorder the answers in correct order, and click \"Submit\"."
+  "gru-reorder": {
+    "instructions": "Please reorder the answers in correct order, and click \"{{action}}\"."
   },
 
   "player": {
@@ -1050,7 +1078,8 @@ export default {
   "gru-assessment-report": {
     "gru-summary": {
       "total-time-spent": "Total Time Spent"
-    }
+    },
+    "hidden-report": "Your teacher has selected to hide your summary report for this assessment."
   },
   "cards": {
     "gru-class-card": {
@@ -1197,5 +1226,18 @@ export default {
       "update-expression": "Update",
       "create-expression": "Create Expression"
     }
+  },
+
+  "gru-settings-edit": {
+    "answerkey-attempts": "Answer Key and Attempts",
+    "answer-key": "Students can see the answer key at the end",
+    "attempts": "Attempts",
+    "attempts-unlimited": "Unlimited",
+    "backwards": "Students can navigate backwards and change responses",
+    "feedback": "Students see if they are correct/incorrect",
+    "feedback-immediate": "Per question & at the end",
+    "feedback-never": "Never",
+    "feedback-summary": "At the end",
+    "navigation-scoring": "Navigation and Scoring"
   }
 };

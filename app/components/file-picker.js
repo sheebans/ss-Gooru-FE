@@ -19,6 +19,15 @@ export default FilePicker.extend({
 
 
   // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * Default handler when a file is removed
+   * @type {Function}
+   */
+  onRemoveFile: function() {},
+
+  // -------------------------------------------------------------------------
   // Methods
 
   /*
@@ -33,7 +42,7 @@ export default FilePicker.extend({
     this.get('errors').clear();
 
     if (file.size > FILE_MAX_SIZE) {
-      let errorMessage = this.get('i18n').t('gru-image-picker.errors.maxSize').string;
+      let errorMessage = this.get('i18n').t('common.errors.file-max-size').string;
       this.get('errors').addObject(errorMessage);
       valid = false;
     }
@@ -41,7 +50,7 @@ export default FilePicker.extend({
     if (!valid) {
       // Remove the image preview and run the handler for removing the image
       this.clearPreview();
-      this.get('onRemoveImage')();
+      this.get('onRemoveFile')();
     }
 
     return valid;
@@ -62,7 +71,7 @@ export default FilePicker.extend({
       // so preview will be cleared along with any error messages there might have been
       this.clearPreview();
       this.get('errors').clear();
-      this.get('onRemoveImage')();
+      this.get('onRemoveFile')();
     }
   }
 

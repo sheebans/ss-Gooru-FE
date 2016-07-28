@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import PlayerController from 'gooru-web/controllers/player';
 import {truncate} from 'gooru-web/utils/utils';
+import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 /**
  * Context Player Controller
@@ -14,9 +15,65 @@ export default PlayerController.extend({
   // Dependencies
   realTimeService: Ember.inject.service("api-sdk/real-time"),
 
+  // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+
+    /**
+     * Handle onSubmitQuestion event from gru-question-viewer
+     * @see components/player/gru-question-viewer.js
+     * @param {Resource} question
+     * @param {QuestionResult} questionResult
+     * @param {Ember.RSVP.defer} resolved when all actions are done
+     * @param {boolean} continue to next resource
+     */
+    submitQuestion: function (question, questionResult) {
+      const controller = this;
+      let showFeedback = controller.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+      let isTeacher = controller.get('isTeacher');
+      if(!showFeedback || isTeacher) {
+        controller._super(...arguments);
+      }
+      if(questionResult.get('submittedAnswer')) {
+        const next = controller.get('collection').nextResource(question);
+        if (next) {
+          Ember.$(window).scrollTop(0);
+          controller.moveToResource(next);
+        } else {
+          controller.finishCollection();
+        }
+      } else {
+        controller.finishResourceResult(questionResult).then(function(){
+          questionResult.set('submittedAnswer', true);
+        });
+      }
+    }
+  },
+
+
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates when the player has context
+   * @property {boolean}
+   */
+  hasContext: true,
+
+  /**
+   * Should resource navigation in the player be disabled?
+   * @property {Lesson}
+   */
+  isNavigationDisabled: Ember.computed('collection.bidirectional', function() {
+    var isDisabled = false;
+    if (this.get('collection.isAssessment')) {
+      isDisabled = !this.get('collection.bidirectional');
+    }
+    return isDisabled;
+  }),
+  isAssessment: false,
+
   /**
    * The lesson for this collection
    * @property {Lesson}

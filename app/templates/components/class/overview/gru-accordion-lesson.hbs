@@ -51,10 +51,15 @@
 
             {{#if item.isAssessment}}
               {{#unless item.isExternalAssessment}}
-              <button {{action "setOnAir" item.id}}
+                {{#if item.performance.noMoreAttempts}}
+                   <button {{action "setOnAir" item.id}}
                   data-toggle="tooltip" data-html="true" data-placement="bottom"
                   title="{{t "common.launch-on-air"}}"
                   class="on-air">{{t "common.launch-on-air"}}</button>
+                {{else}}
+                  <button {{action "setOnAir" item.id}}
+                    class="on-air">{{t "common.launch-on-air"}}</button>
+                {{/if}}
               {{/unless}}
             {{/if}}
 
@@ -79,8 +84,12 @@
                       model.id
                       item.id
                       class="score" }}
-                    <button style="background-color: {{gradeColor item.performance.score}}">
+                    <button style="background-color: {{gradeColor item.performance.score}}" class="{{if item.performance.hasTrophy 'trophy'}}">
+                    {{#if item.performance.hasTrophy }}
+                      <span class="icon"></span>
+                    {{else}}
                       {{item.performance.score}}%
+                    {{/if}}
                     </button>
                   {{/link-to}}
                 {{else}}
@@ -94,9 +103,17 @@
             </div>
 
             <span class="panel-title">
-              <a class="title" {{action "selectResource" item}}>
-                  {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
-              </a>
+               {{#if item.performance.noMoreAttempts}}
+                 <a class="title disabled"
+                    data-toggle="tooltip" data-html="true" data-placement="top"
+                    title="{{t "common.no-more-attempts"}}">
+                     {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
+                 </a>
+              {{else}}
+                 <a class="title" {{action "selectResource" item}}>
+                     {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
+                 </a>
+              {{/if}}
             </span>
 
             {{!-- Show only for xs --}}

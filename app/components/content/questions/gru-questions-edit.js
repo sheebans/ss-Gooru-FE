@@ -86,6 +86,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
       var questionForEditing = this.get('question').copy();
       this.set('tempQuestion', questionForEditing);
       this.set('isBuilderEditing', true);
+      this.set('editImagePicker', false);
     },
     /**
      * Disable edit content builder
@@ -93,14 +94,14 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     cancelBuilderEdit: function(){
       this.set('isBuilderEditing', false);
       this.set('tempQuestion', null);
+      this.set('editImagePicker', false);
     },
     /**
      * Save Content
      */
-    optionSwitch:function(isChecked){
+    publishToProfile: function(){
       var questionForEditing = this.get('question').copy();
       this.set('tempQuestion', questionForEditing);
-      this.set('tempQuestion.isVisibleOnProfile', isChecked);
       this.saveNewContent();
     },
     /**
@@ -159,9 +160,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
 
     openTaxonomyModal: function(){
       this.openTaxonomyModal();
+    },
+
+    toggleImagePicker: function() {
+      this.set('editImagePicker', true);
     }
-
-
   },
 
   // -------------------------------------------------------------------------
@@ -198,7 +201,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    * Toggle Options
    * @property {Ember.Array}
    */
-  switchOptions:Ember.A([Ember.Object.create({
+  switchOptions: Ember.A([Ember.Object.create({
     'label': "On",
     'value': true
   }),Ember.Object.create({
@@ -248,6 +251,18 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    * @property {boolean}
    */
   standardDisabled: Ember.computed.not("selectedSubject"),
+
+  /**
+   * If the user wants to edit the image
+   * @property {Boolean}
+   */
+  editImagePicker: false,
+
+  /**
+   * If the image picker should be shown
+   * @property {Boolean}
+   */
+  showImagePicker: Ember.computed.or('editImagePicker', 'question.thumbnail'),
 
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
@@ -333,11 +348,15 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     }
   },
 
-  updateQuestion:function(editedQuestion,component){
+  updateQuestion:function(editedQuestion, component){
     let question = component.get('question');
 
     editedQuestion.validate().then(function ({ model, validations }) {
       if (validations.get('isValid')) {
+        let imageIdPromise = new Ember.RSVP.resolve(editedQuestion.get('thumbnail'));
+        if(editedQuestion.get('thumbnail') && editedQuestion.get('thumbnail') !== question.get('thumbnail')) {
+          imageIdPromise = component.get('mediaService').uploadContentFile(editedQuestion.get('thumbnail'));
+        }
         var defaultTitle= component.get('i18n').t('common.new-question').string;
         var defaultText= component.get('i18n').t('common.new-question-text').string;
         var editedQuestionTitle = editedQuestion.title;
@@ -349,18 +368,22 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
 
           editedQuestion.set('title', newTitle);
         }
-        component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
-          .then(function () {
-            component.set('question', editedQuestion);
-            component.set('isEditing', false);
-            component.set('isBuilderEditing', false);
-            question.merge(editedQuestion, ['title','standards','audience', 'depthOfknowledge']);
-          })
-          .catch(function (error) {
-            var message = component.get('i18n').t('common.errors.question-not-updated').string;
-            component.get('notifications').error(message);
-            Ember.Logger.error(error);
-          });
+        imageIdPromise.then(function(imageId) {
+          editedQuestion.set('thumbnail', imageId);
+          component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
+            .then(function () {
+              component.set('question', editedQuestion);
+              component.set('isEditing', false);
+              component.set('isBuilderEditing', false);
+              component.set('editImagePicker', false);
+              question.merge(editedQuestion, ['title', 'standards', 'audience', 'depthOfknowledge', 'thumbnail']);
+            })
+            .catch(function (error) {
+              var message = component.get('i18n').t('common.errors.question-not-updated').string;
+              component.get('notifications').error(message);
+              Ember.Logger.error(error);
+            });
+        });
       }
       // Add the description message to the equation editor
       component.set('descriptionError', model.get('validations.attrs.description.messages')[0]);

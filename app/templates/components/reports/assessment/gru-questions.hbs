@@ -2,10 +2,14 @@
   <div class="title">
       <h4>{{t "common.questions"}}</h4>
   </div>
-  <div class="btn-group" role="group">
-    <button type="button" {{action 'selectPerformanceOption' true}} class="performance btn {{if showPerformance 'btn-primary' 'btn-info'}}">{{t "common.performance"}}</button>
-    <button type="button" {{action 'selectPerformanceOption' false}} class="correct-answer btn {{unless showPerformance 'btn-primary' 'btn-info' }}">{{t "common.show-correct-answer"}}</button>
-  </div>
+  {{#if isAnswerKeyHidden}}
+    <em>{{t "common.answer-key-was-hidden"}}</em>
+  {{else}}
+    <div class="btn-group" role="group">
+      <button type="button" {{action 'selectPerformanceOption' true}} class="performance btn {{if showPerformance 'btn-primary' 'btn-info'}}">{{t "common.performance"}}</button>
+      <button type="button" {{action 'selectPerformanceOption' false}} class="correct-answer btn {{unless showPerformance 'btn-primary' 'btn-info' }}">{{t "common.show-correct-answer"}}</button>
+    </div>
+  {{/if}}
 </div>
 <table class="hidden-xs">
   <thead>
@@ -28,9 +32,11 @@
     <th class="header reaction {{if showPerformance 'visible' 'hide'}}">
       {{t "common.reaction"}}
     </th>
-    <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-      {{t "common.correct-answer"}}
-    </th>
+    {{#unless isAnswerKeyHidden}}
+      <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
+        {{t "common.correct-answer"}}
+      </th>
+    {{/unless}}
   </tr>
   </thead>
   <tbody>
@@ -41,6 +47,9 @@
       </td>
       <td class="question-text top-left">
         {{{if result.question.isFIB result.question.fibText result.question.text}}}
+        {{#if result.question.hasMedia}}
+          <img class="img-responsive" src="{{result.question.mediaUrl}}"/>
+        {{/if}}
       </td>
       <td class="question-answer top-left">
         {{#if result.answered}}
@@ -58,9 +67,11 @@
       <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
         {{reactionIcon result.reaction}}
       </td>
-      <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-        {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
-      </td>
+      {{#unless isAnswerKeyHidden}}
+        <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
+          {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
+        </td>
+      {{/unless}}
     </tr>
   {{/each}}
   </tbody>
@@ -78,4 +89,3 @@
     {{/each}}
   </ul>
 </div>
-

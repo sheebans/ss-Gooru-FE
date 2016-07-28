@@ -15,6 +15,38 @@ moduleForAcceptance('Acceptance | Edit Course', {
     });
   }
 });
+test('Remove Collection from Lesson', function (assert) {
+  visit('/content/courses/edit/course-123');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/content/courses/edit/course-123');
+    var $itemContainer = find(".controller.content.courses.edit .accordion-lesson");
+    var $removeItemBtn = $itemContainer.find("li:first-child button.remove-item");
+    click($removeItemBtn);
+    andThen(function () {
+      var $removeContentModal = find(".gru-modal .gru-remove-content");
+      var $check1 = $removeContentModal.find("ul li:eq(0) input");
+      click($check1);
+      andThen(function () {
+        var $check2 = $removeContentModal.find("ul li:eq(1) input");
+        click($check2);
+        andThen(function () {
+          var $input = $removeContentModal.find(".remove-input");
+          $input.val('remove');
+          $input.blur();
+          keyEvent($input, 'keyup', KEY_CODES.ENTER);
+          var $removeBtn = $removeContentModal.find(".remove button.remove");
+          andThen(function () {
+            click($removeBtn);
+            andThen(function () {
+              assert.equal($itemContainer.find("li").length, 1, "Didnt remove Collection from lesson");
+            });
+          });
+        });
+      });
+    });
+  });
+});
 
 // TODO: Fix test per changes in 1149
 /*test('Edit course information', function (assert) {

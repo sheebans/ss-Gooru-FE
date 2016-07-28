@@ -1,6 +1,7 @@
 import Ember from "ember";
 import Env from 'gooru-web/config/environment';
 import { REAL_TIME_CLIENT } from 'gooru-web/config/config';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 /**
  *
@@ -110,7 +111,7 @@ export default Ember.Controller.extend({
   connectWithWebSocket: function (classId, collectionId, reportData) {
 
     // Create a new web socket connection
-    let url = location.host + Env['real-time'].webSocketUrl;
+    let url = EndPointsConfig.getRealTimeWebSocketUrl();
     let socket = new SockJS(url);
     let webSocketClient = Stomp.over(socket);
     webSocketClient.heartbeat.outgoing = REAL_TIME_CLIENT.OUTGOING_HEARTBEAT;

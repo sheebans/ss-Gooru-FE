@@ -9,7 +9,7 @@ module.exports = function (grunt) {
       },
       "ember-server-stubby": 'ember server --proxy http://localhost:8882',
       "ember-server-qa": 'ember server --proxy http://qa.gooru.org',
-      "ember-server-nginx": 'ember server --proxy http://localhost:80',
+      "ember-server-nginx": 'ember server',
       "nginx-start-server": 'sudo nginx -p ./ -c ./nginx.conf',
       'nginx-stop-server': 'sudo nginx -s stop',
 
@@ -91,17 +91,13 @@ module.exports = function (grunt) {
     var serverExecTask = 'exec:ember-server-' + (target);
 
     var tasks = ['generateSVG', 'stubby:test'];
-    if (target === 'nginx'){
+    if (target === 'nginx') {
+      tasks = ['generateSVG'];
       tasks.push('exec:nginx-stop-server');
       tasks.push('exec:nginx-start-server');
     }
     tasks.push(serverExecTask);
     grunt.task.run(tasks);
-  });
-
-  grunt.registerTask('notify', function (target) {
-    //touches any file to notify the watcher rebuild the application
-    grunt.task.run(['exec:run:touch -m app/app.js']);
   });
 
   grunt.registerTask('generateSVG', ['svgstore']);

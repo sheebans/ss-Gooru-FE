@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -11,7 +12,9 @@ export default Ember.Component.extend({
      * @function actions:selectPerformanceOption
      */
     selectPerformanceOption:function(showPerformance) {
-      this.set('showPerformance', showPerformance);
+      if (!this.get('isAnswerKeyHidden')) {
+        this.set('showPerformance', showPerformance);
+      }
     }
   },
   // -------------------------------------------------------------------------
@@ -27,8 +30,15 @@ export default Ember.Component.extend({
 
   classNames: ['reports', 'assessment', 'gru-questions'],
 
+  classNameBindings: ['isAnswerKeyHidden:key-hidden', 'showPerformance:performance-view'],
+
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
+   */
+  isAnswerKeyHidden: false,
 
   /**
    * List of questions to be displayed by the component

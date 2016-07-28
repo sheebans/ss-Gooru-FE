@@ -71,7 +71,7 @@ test('it has header and main sections', function (assert) {
     assert.equal($header.find('> .actions > button').length, 4, "Number of header actions");
     assert.ok($container.find('.actions button.delete').length, "Missing Delete Button");
     assert.ok($container.find('.actions button.gru-share-pop-over').length, "Missing Share Button");
-    assert.ok($container.find('.actions button.add').length, "Missing Add Button");
+    assert.ok($container.find('.actions button.copy').length, "Missing Copy To Button");
     assert.ok($container.find('.actions button.preview').length, "Missing preview Button");
 
     assert.ok($header.find('> nav').length, "Header navigation");
@@ -321,93 +321,112 @@ test('Builder Edit', function (assert) {
   });
 });
 
-/*
-TODO: Disabled for GG-1133, fix it later
-test('Validate the character limit in text field', function (assert) {
+test('Builder Edit for FIB', function (assert) {
   assert.expect(1);
-  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: "",
-    text:"",
-    standards: []
-  });
-  this.set('question',question);
-
-  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
-
-  const $component = this.$('.gru-questions-edit');
-  const $rteField = $component.find(".editor-box");
-  var newText ="";
-  var i = 0;
-  for (i = 0; i <=5000 ; i++) {
-      newText+="a";
-  }
-  $rteField.html(newText);
-  $rteField.trigger('blur');
-
-  return wait().then(function () {
-    assert.ok($rteField.find(".warning").length, 'Question text error message should be visible');
-  });
-
-});
-*/
-
-/*
-TODO: Disabled for GG-1133, fix it later
-test('Update Question Builder', function (assert) {
-  assert.expect(1);
-  var newText ='Lorem ipsum dolor sit amet';
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
-    text:"",
-    type:'MC',
+    questionType:"FIB",
     standards: []
   });
   this.set('question',question);
 
-  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
-
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
   const $component = this.$('.gru-questions-edit');
-  const $textField = $component.find(".gru-textarea.text");
-  $textField.find("textarea").val(newText);
-  $textField.find("textarea").change();
-
-  const $save =  $component.find("#builder .actions .save");
-  $save.click();
+  const $edit =  $component.find("#builder .actions .edit");
+  $edit.click();
   return wait().then(function () {
-    const $textFieldRead = $component.find("#builder .panel-body textarea");
-    $textFieldRead.blur();
-    assert.equal($textFieldRead.val(),newText, "The question text should be updated");
+    var $builderSection = $component.find("#builder");
+    assert.ok(!$builderSection.find('.question-answer').length, "Answers section should not be visible for FIB");
   });
 });
-*/
 
 /*
-TODO: Disabled for GG-1133, fix it later
-test('Validate update of default Title if the Question Text is updated', function (assert) {
-  assert.expect(1);
-  var newText ='Lorem ipsum dolor sit amet';
-  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'New Question',
-    text:"",
-    type:'MC',
-    standards: []
-  });
-  this.set('question',question);
+ TODO: Disabled for GG-1133, fix it later
+ test('Validate the character limit in text field', function (assert) {
+ assert.expect(1);
+ var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+ title: "",
+ text:"",
+ standards: []
+ });
+ this.set('question',question);
 
-  this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
+ this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
 
-  const $component = this.$('.gru-questions-edit');
-  const $textField = $component.find(".gru-textarea.text");
-  $textField.find("textarea").val(newText);
-  $textField.find("textarea").change();
+ const $component = this.$('.gru-questions-edit');
+ const $rteField = $component.find(".editor-box");
+ var newText ="";
+ var i = 0;
+ for (i = 0; i <=5000 ; i++) {
+ newText+="a";
+ }
+ $rteField.html(newText);
+ $rteField.trigger('blur');
 
-  const $save =  $component.find("#builder .actions .save");
-  $save.click();
-  return wait().then(function () {
-    assert.equal($component.find(".title label b").text(),newText , "The question title should be updated");
-  });
-});
-*/
+ return wait().then(function () {
+ assert.ok($rteField.find(".warning").length, 'Question text error message should be visible');
+ });
+
+ });
+ */
+
+/*
+ TODO: Disabled for GG-1133, fix it later
+ test('Update Question Builder', function (assert) {
+ assert.expect(1);
+ var newText ='Lorem ipsum dolor sit amet';
+ var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+ title: 'Question for testing',
+ text:"",
+ type:'MC',
+ standards: []
+ });
+ this.set('question',question);
+
+ this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
+
+ const $component = this.$('.gru-questions-edit');
+ const $textField = $component.find(".gru-textarea.text");
+ $textField.find("textarea").val(newText);
+ $textField.find("textarea").change();
+
+ const $save =  $component.find("#builder .actions .save");
+ $save.click();
+ return wait().then(function () {
+ const $textFieldRead = $component.find("#builder .panel-body textarea");
+ $textFieldRead.blur();
+ assert.equal($textFieldRead.val(),newText, "The question text should be updated");
+ });
+ });
+ */
+
+/*
+ TODO: Disabled for GG-1133, fix it later
+ test('Validate update of default Title if the Question Text is updated', function (assert) {
+ assert.expect(1);
+ var newText ='Lorem ipsum dolor sit amet';
+ var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+ title: 'New Question',
+ text:"",
+ type:'MC',
+ standards: []
+ });
+ this.set('question',question);
+
+ this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
+
+ const $component = this.$('.gru-questions-edit');
+ const $textField = $component.find(".gru-textarea.text");
+ $textField.find("textarea").val(newText);
+ $textField.find("textarea").change();
+
+ const $save =  $component.find("#builder .actions .save");
+ $save.click();
+ return wait().then(function () {
+ assert.equal($component.find(".title label b").text(),newText , "The question title should be updated");
+ });
+ });
+ */
 
 test('Update Question Save Answers', function (assert) {
   assert.expect(2);
@@ -1009,5 +1028,62 @@ test('Update answer and cancel - Hot Text Highlight', function (assert) {
       $answer = $component.find('.gru-hot-text-highlight');
       assert.equal($answer.find('.answer-text textarea').val(), '', 'Answer text after cancel');
     });
+  });
+});
+
+test('Layout edit question image', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextHighlight,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "",
+      'isCorrect': true,
+      'type': 'text',
+      'highlightType': 'word'
+    })]),
+    standards: []
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit = $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    var $addImage = $component.find(".add-image button");
+    assert.ok($addImage, 'Add image button');
+    $addImage.click();
+    return wait().then(function () {
+      var $image = $component.find('.gru-image');
+      assert.ok($image, 'Image picker');
+    });
+  });
+});
+
+test('Layout view question image', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.hotTextHighlight,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "",
+      'isCorrect': true,
+      'type': 'text',
+      'highlightType': 'word'
+    })]),
+    thumbnail: 'image-id',
+    standards: []
+  });
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+
+  return wait().then(function () {
+    var $addImage = $component.find(".add-image button");
+    assert.notOk($addImage.length, 'Add image button');
+    var $image = $component.find('.gru-image');
+    assert.ok($image, 'Image shoudl be shown');
   });
 });

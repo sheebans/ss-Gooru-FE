@@ -70,11 +70,16 @@ export default Ember.Component.extend({
 
      If a mousedown event occurs, Ember will look at the target of the event and start walking up the DOM node tree, finding corresponding views and invoking their mouseDown method as it goes.
      */
+
+    /* TODO: Remove due to conflicts when there's an input in a question?
     this.$(document).on('keyup', { _self: this }, this.navigateOnKeyUp);
+    */
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
+    /* TODO: Remove due to conflicts when there's an input in a question?
     this.$(document).off('keyup');
+     */
   }),
 
   // -------------------------------------------------------------------------
@@ -83,6 +88,12 @@ export default Ember.Component.extend({
    * @property {Collection} collection
    */
   collection: null,
+
+  /**
+   * Should resource links in the navigator be disabled?
+   * @property {Lesson}
+   */
+  isNavigationDisabled: false,
 
   /**
    * @property {String|Function} onItemSelected - event handler for when an item is selected
@@ -145,16 +156,19 @@ export default Ember.Component.extend({
 
   // Methods
 
-
+  /* TODO: Remove due to conflicts when there's an input in a question?
   navigateTo: function(directionMethod) {
     const collection = this.get("collection");
     const resource = collection.getResourceById(this.get('selectedResourceId'));
     this.selectItem(collection[directionMethod](resource));
   },
+  */
+
   /**
    * Triggered when a key is released from press
    * @param {Event object} event
    */
+  /* TODO: Remove due to conflicts when there's an input in a question?
   navigateOnKeyUp: function(e) {
     if (e.which === KEY_CODES.RIGHT || e.which === KEY_CODES.LEFT){
       e.preventDefault();
@@ -166,13 +180,14 @@ export default Ember.Component.extend({
       return false;
     }
   },
+  */
 
   /**
    * Triggered when a resource item is selected
    * @param {Resource} resource
    */
   selectItem: function(resource) {
-    if (resource){
+    if (resource && !this.get('isNavigationDisabled')) {
       if (this.get("onItemSelected")){
         this.sendAction("onItemSelected", resource);
       }

@@ -114,6 +114,35 @@ export default Ember.Object.extend({
     return this.get("isAssessment") && this.get("format") === "assessment-external";
   }),
 
+  /**
+   * Number of attempts for an assessment
+   * @property {integer}
+   */
+  attempts: -1,
+
+  /**
+   * Indicates if the number of attempts for an assessment is unlimited
+   * @property {boolean}
+   */
+  hasUnlimitedAttempts: Ember.computed.equal("attempts", -1),
+
+  /**
+   * Is bidirectional navigation enabled for collection/assessment
+   * @property {boolean}
+   */
+  bidirectional: true,
+
+  /**
+   * When should feedback be shown for a question in an assessment
+   * @property {string}
+   */
+  showFeedback: null,
+
+  /**
+   * When should the answer key be shown for a question in an assessment
+   * @property {string}
+   */
+  showKey: null,
 
   /**
    * Gets the next resource based on the resource provided
@@ -174,5 +203,3 @@ export default Ember.Object.extend({
   }
 
 });
-
-

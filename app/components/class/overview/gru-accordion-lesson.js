@@ -55,6 +55,11 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
+  /**
+   * @requires service:api-sdk/assessment
+   */
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -222,6 +227,7 @@ export default Ember.Component.extend(AccordionMixin, {
     const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
     const courseId = component.get('currentClass.courseId');
+    const classMinScore = component.get('currentClass.minScore');
     const unitId = component.get('unitId');
     const lessonId = component.get('model.id');
     const classMembers = component.get('classMembers');
@@ -253,7 +259,22 @@ export default Ember.Component.extend(AccordionMixin, {
                   }));
                 } else {
                   const collectionPerformanceData = performance.findBy('id', lessonItem.get('id'));
+                  const score = collectionPerformanceData.get('score');
+                  let hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore) ? true : false;
+                  collectionPerformanceData.set('hasTrophy', hasTrophy);
                   lessonItem.set('performance', collectionPerformanceData);
+                  const performancePromiseData = component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, [lessonItem], {collectionType: 'assessment'});
+                  performancePromiseData.then(function(performanceData) {
+                    var attempts = performanceData.get(0).get('attempts');
+                    if(lessonItem.get('format')==='assessment') {
+                      component.get('assessmentService').readAssessment(lessonItem.get('id')).then(function (performanceData) {
+                        var attemptsSetting = performanceData.get('attempts');
+                        if(attemptsSetting){
+                          collectionPerformanceData.set('noMoreAttempts', attemptsSetting > 0 && attempts && attempts >= attemptsSetting);
+                        }
+                      });
+                    }
+                  });
                 }
               });
               component.set('items', lessonItems);

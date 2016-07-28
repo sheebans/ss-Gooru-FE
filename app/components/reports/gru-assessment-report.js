@@ -75,6 +75,16 @@ export default Ember.Component.extend({
   assessmentResult: null,
 
   /**
+   * @property {boolean} areAnswersHidden - Should answer results be hidden?
+   */
+  areAnswersHidden: false,
+
+  /**
+   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
+   */
+  isAnswerKeyHidden: false,
+
+  /**
    * @property {string} on select attempt action name
    */
   onSelectAttempt: null,
