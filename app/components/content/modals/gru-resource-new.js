@@ -126,7 +126,7 @@ export default Ember.Component.extend({
 
       if (this.get('isResourceUpload')) {
         // Default upload type will be text (@see config/config.js#UPLOADABLE_TYPES)
-        let defaultUploadType = UPLOADABLE_TYPES[5];
+        let defaultUploadType = UPLOADABLE_TYPES[1];
         resource = this.get('uploadResource');
         this.set('resource', resource);
         this.actions.selectUploadType.call(this, defaultUploadType);
@@ -151,9 +151,10 @@ export default Ember.Component.extend({
     },
 
     selectUploadType: function(uploadType) {
-      if (uploadType && !uploadType.disabled) {
+      if (uploadType) {
         this.set('resource.format', uploadType.value);
         this.set('resource.extensions', uploadType.validExtensions);
+        this.set('resource.mimeType', uploadType.validType);
       }
     }
   },
@@ -185,6 +186,16 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @type {String} list of all valid extension per gooru-web/config/config#UPLOAD_TYPES
+   */
+  allValidExtensions: Ember.computed(function() {
+    var extensions = UPLOADABLE_TYPES.map(function(typeObject) {
+      return typeObject.validExtensions;
+    });
+    return extensions.join(' ');
+  }),
 
   /**
    * @type {?String} specific class
@@ -241,7 +252,7 @@ export default Ember.Component.extend({
   // Methods
 
   /**
-   * Determine the upload type object (see gooru-web/config/config#UPLOAD_TYPES) based on a file name extension.
+   * Determine the upload type object (@see gooru-web/config/config#UPLOAD_TYPES) based on a file name extension.
    * @param {String} filename -Complete file name (including the extension)
    * @param {Object[]} uploadTypes
    * @return {Object}

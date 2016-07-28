@@ -212,6 +212,16 @@ export default Ember.Controller.extend(SessionMixin, {
     return (resource && resource.displayGuide);
   }),
 
+  /**
+   * Indicates if the collection should start automatically
+   * @property {boolean}
+   */
+  startAutomatically: Ember.computed("collection", function(){
+    const isCollection = this.get("collection.isCollection");
+    const hasNoContext = !this.get("hasContext");
+    return isCollection || hasNoContext;
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -321,21 +331,37 @@ export default Ember.Controller.extend(SessionMixin, {
   },
 
   /**
-   * Starts the assessment
+   * Starts the assessment or collection
    */
   startAssessment: function(){
     let controller = this;
+    let collection = controller.get("collection");
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
     controller.set('showContent',true);
+
     if (! assessmentResult.get("started") ){
       assessmentResult.set("startedAt", new Date());
       context.set("eventType", "start");
       context.set("isStudent", controller.get("isStudent"));
-      return controller.saveCollectionResult(assessmentResult, context);
-    }    
-    return promise;
+      promise = controller.saveCollectionResult(assessmentResult, context);
+    }
+
+    return promise.then(function(){
+      let resource = null;
+      let hasResources = collection.get("hasResources");
+      if (hasResources){
+        resource = assessmentResult.get("lastVisitedResource");
+        if (controller.get("resourceId")) { //if has a resource id as query param
+          resource = collection.getResourceById(controller.get("resourceId"));
+        }
+      }
+
+      if (resource) {
+        controller.moveToResource(resource);
+      }
+    });
   },
 
   /**

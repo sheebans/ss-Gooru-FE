@@ -1,12 +1,37 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
+import AssessmentModel from 'gooru-web/models/content/assessment';
 import Ember from 'ember';
+import wait from 'ember-test-helpers/wait';
 
-moduleForComponent('class/analytics/performance/gru-performance-summary', 'Integration | Component | class/analytics/performance/gru performance summary', {
+const assessmentServiceStub = Ember.Service.extend({
+
+  readAssessment() {
+    var promiseResponse;
+    var response = [
+      AssessmentModel.create({id: 'd4521a45-dcd1-4540-bba1-64af8fd2d6ec', attempts: 1}),
+    ];
+
+    promiseResponse = new Ember.RSVP.Promise(function (resolve) {
+      Ember.run.next(this, function () {
+        resolve(response);
+      });
+    });
+
+    return DS.PromiseArray.create({
+      promise: promiseResponse
+    });
+  }
+});
+
+moduleForComponent('class/analytics/performance/gru-performance-summary', 'Integration | Component | class/analytics/performance/gru-performance-summary', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
+
+    this.register('service:api-sdk/assessment', assessmentServiceStub);
+    this.inject.service('api-sdk/assessment');
   }
 });
 
@@ -116,6 +141,37 @@ test('Test for performance summary on selected reaction', function(assert) {
   const $reactionSummary = $component.find(".reaction.selected");
   T.exists(assert, $reactionSummary, 'Missing Reaction summary ');
 
+
+});
+
+test('Test for no more attempts on assessment', function(assert) {
+  const collection = Ember.Object.create(
+    {
+      title: "Assessment",
+      id: "d4521a45-dcd1-4540-bba1-64af8fd2d6ec",
+      attempts: 2,
+      isAssessment:true,
+      isCollectionOrAssessment:true,
+      isCompleted:true
+    });
+
+  this.set('collection', collection);
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=collection noMoreAttempts=true}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceSummary = $component.find(".gru-performance-summary");
+
+  T.exists(assert, $performanceSummary, 'Missing performance summary');
+
+  return wait().then(function () {
+    const $disableTitle = $performanceSummary.find(".title .section-title.disabled");
+    T.exists(assert, $disableTitle, 'Missing disable section-title');
+
+    const $redoButton = $performanceSummary.find(".title .collection-redo-button");
+    assert.ok($redoButton.hasClass("disabled"), "Missing disable redo btn");
+  });
 
 });
 

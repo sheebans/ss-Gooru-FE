@@ -61,6 +61,7 @@ export default {
     "back": "Back",
     "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
+    "beta": "Beta",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
     "builder": "Editor",
@@ -265,6 +266,7 @@ export default {
     "no-followers": "You don't have followers yet.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
+    "no-more-attempts": "No more attempts",
     "notStarted": "Not started",
     "not-added": "Not Added",
     "not-following": "You're not following anyone.",
@@ -419,6 +421,7 @@ export default {
     "upload-file": "Upload File",
     "upload-thumbnail": "Upload Thumbnail",
     "use-case": "Use Case",
+    "valid-extensions": "Valid file extensions are: {{extensions}}",
     "verified": "Verified",
     "visibility-tooltip":"Not visible to others",
     "warnings": {
