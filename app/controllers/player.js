@@ -211,6 +211,21 @@ export default Ember.Controller.extend(SessionMixin, {
     const resource = this.get("resource");
     return (resource && resource.displayGuide);
   }),
+  /**
+   * Return the list of resources available to show on the player
+   * @property {boolean}
+   */
+  resourcesPlayer: Ember.computed("collection.resources","assessmentResult.sortedResourceResults", function(){
+    var availableResources = this.get('collection.resources').mapBy('id');
+    var assessmentAvailableResources = Ember.A([]);
+    this.get('assessmentResult.sortedResourceResults').map(function(item){
+       if(availableResources.contains(item.resourceId)){
+         assessmentAvailableResources.addObject(item);
+       }
+    });
+    return assessmentAvailableResources;
+  }),
+
 
   // -------------------------------------------------------------------------
   // Observers
@@ -334,7 +349,7 @@ export default Ember.Controller.extend(SessionMixin, {
       context.set("eventType", "start");
       context.set("isStudent", controller.get("isStudent"));
       return controller.saveCollectionResult(assessmentResult, context);
-    }    
+    }
     return promise;
   },
 
