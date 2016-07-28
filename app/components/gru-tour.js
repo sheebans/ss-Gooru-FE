@@ -48,6 +48,7 @@ export default Ember.Component.extend({
       this.registerCallbacksWithIntroJS();
       this._setCurrentStep(0);
       intro.start();
+      $('.introjs-skipbutton').hide();
       $('.introjs-prevbutton').text(this.get('i18n').t('common.back').string);
       $('.introjs-nextbutton').text(this.get('i18n').t('common.next').string);
     }
@@ -171,7 +172,7 @@ export default Ember.Component.extend({
     if(currentStepIndex == this.get('steps').length-1){
       nextElement.hide();
       skipElement.show();
-    } else if(currentStepIndex == this.get('steps').length-2 || currentStepIndex==0){
+    } else if(currentStepIndex == this.get('steps').length-2){
       skipElement.hide();
       nextElement.show();
     }
