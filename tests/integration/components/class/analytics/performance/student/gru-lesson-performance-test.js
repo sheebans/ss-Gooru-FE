@@ -29,7 +29,7 @@ test('Test for started lesson performance', function(assert) {
       isUnitOrLesson: true,
       collections:Ember.A([
         Ember.Object.create({
-          id:'first-collection-id',
+          id:'all-resource-types-assessment-id',
           title: "Indian History Collection",
           type: "collection",
           score:75,
@@ -43,7 +43,7 @@ test('Test for started lesson performance', function(assert) {
           isCollectionOrAssessment: true
         }),
         Ember.Object.create({
-          id:'second-collection-id',
+          id:'all-resource-types-assessment-id',
           title: "Indian History Assessment",
           type: "assessment",
           score:75,
@@ -123,7 +123,7 @@ test('Test for not started lesson performance', function(assert) {
       hasStarted: false,
       collections:Ember.A([
         Ember.Object.create({
-          id:'first-collection-id',
+          id:'all-resource-types-assessment-id',
           title: "First Collection",
           type: "collection",
           score:75,
@@ -137,7 +137,7 @@ test('Test for not started lesson performance', function(assert) {
           isCollectionOrAssessment: true
         }),
         Ember.Object.create({
-          id:'second-collection-id',
+          id:'all-resource-types-assessment-id',
           title: "First Assessment",
           type: "assessment",
           score:75,
@@ -151,7 +151,7 @@ test('Test for not started lesson performance', function(assert) {
           isCollectionOrAssessment: true
         }),
         Ember.Object.create({
-          id:'third-collection-id',
+          id:'all-resource-types-assessment-id',
           title: "Second Assessment",
           type: "assessment",
           score:75,
