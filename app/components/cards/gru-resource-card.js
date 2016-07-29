@@ -132,6 +132,12 @@ export default Ember.Component.extend(ModalMixin,{
       return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
     });
     return TaxonomyTag.getTaxonomyTags(standards);
+  }),
+  /**
+   * Show the publisher if the resource has publisher and is publish
+   * @property {boolean}
+   */
+  showPublisher:Ember.computed('resource', function(){
+    return this.get('resource').isPublished && this.get('resource').publisher != null;
   })
-
 });

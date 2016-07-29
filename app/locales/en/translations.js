@@ -87,6 +87,7 @@ export default {
     "content": "Content",
     "content-publishing": "Content Visibility",
     "contentUnavailable": "Content not available",
+    "contributed-by":"Contributed by",
     "copy": "Copy",
     "copy-to": "Copy To",
     "correct": "Correct",

@@ -230,7 +230,8 @@ export default Ember.Object.extend({
       creator: result.creator ? serializer.normalizeOwner(result.creator) : null,
       owner: result.user ? serializer.normalizeOwner(result.user) : null,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo),
-      publishStatus: result.publishStatus
+      publishStatus: result.publishStatus,
+      publisher:result.publisher ? result.publisher[0] : null
     });
   },
 
