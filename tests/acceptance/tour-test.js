@@ -26,7 +26,7 @@ test('Course Map Layout', function(assert) {
       const $tooltip = $('.introjs-tooltip');
       assert.ok($tooltip.length, 'Tooltip was not opened');
       assert.ok($tooltip.find('.tour-header.overview').hasClass('step-1'), "Does not have correct step class");
-      assert.equal($tooltip.find('.tour-header-overview.step-1 h2').text(), 'Course Map', 'Incorrect title for step 1');
+      assert.equal($tooltip.find('.tour-header.overview.step-1 h2').text(), 'Course Map', 'Incorrect title for step 1');
       assert.equal($tooltip.find('.tour-description-overview.step-1 p').text(), 'Once you have created content and assigned it to a course, a course map will appear in the classroom you have created. The course map provides your students access to all assessments and collections you assign to them.', 'Incorrect description for step 1');
       assert.ok($tooltip.find('.introjs-prevbutton').hasClass('introjs-disabled'), "disabled class missing");
     });

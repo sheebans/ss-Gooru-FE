@@ -15,7 +15,7 @@ test('generateTemplate', function(assert) {
   const result = component.constructModal(title, description, image, containerClass);
 
   let template =
-  `<div class="tour-header-test-class">
+  `<div class="tour-header test-class">
         <h2>some-title</h2>
         <i class="material-icons exit-button">clear</i>
       </div>
