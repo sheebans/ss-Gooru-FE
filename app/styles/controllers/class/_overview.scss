@@ -40,8 +40,6 @@
     >div {
       @include flexbox;
       @include align-items(center);
-
-
     }
 
     .title {
@@ -54,6 +52,10 @@
       i {
         color: $gray-light;
         font-size: $font-size-lead;
+      }
+
+      div {
+        margin-bottom: 15px; 
       }
     }
 

@@ -51,6 +51,7 @@ export default Ember.Component.extend({
       component._setCurrentStep(0);
       intro.start();
       $('.introjs-skipbutton').hide();
+      $('.introjs-prevbutton').hide();
 
     }
 
@@ -180,10 +181,19 @@ export default Ember.Component.extend({
     currentStepIndex++;
     let nextElement = $('.introjs-nextbutton');
     let skipElement = $('.introjs-skipbutton');
-    if(currentStepIndex == component.get('steps').length){
+    let prevElement = $('.introjs-prevbutton');
+
+    if(currentStepIndex === 1){
+      prevElement.hide();
+    }else{
+      prevElement.show();
+    }
+
+    if(currentStepIndex === component.get('steps').length){
       nextElement.hide();
       skipElement.show();
-    } else if(currentStepIndex == component.get('steps').length-1){
+      prevElement.show();
+    } else if(currentStepIndex === component.get('steps').length-1){
       skipElement.hide();
       nextElement.show();
     }
