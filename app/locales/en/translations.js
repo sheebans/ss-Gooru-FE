@@ -1271,12 +1271,35 @@ export default {
     },
     "quick-start": {
       "stepOne":{
-        "title": "Introducing Gooru Classrooms",
-        "description": "The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+        "title": "Navigating Your Classrooms",
+        "description": 'This is a view of a newly created classroom. To get back to a classroom at any time, click on "Classrooms" and user the drop down menu to select the classroom you wish to enter.'
       },
       "stepTwo":{
-        "title":"Getting started? Create an assessment",
-        "description":"The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+        "title":"Getting started? Create an assessment!",
+        "description":"We suggest creating an assessment as a way to get started with Gooru and assess current levels of student understanding in your class"
+      }
+    },
+    "home":{
+      "stepOne":{
+        "title": "Your Homepage",
+        "description": "Welcome to your Gooru homepage! Herre you can find a list of the classrooms you create in Gooru. Classrooms allow you to share content directly with students. You can alwyas come back to your homepage by clicking on the Gooru icon."
+      },
+      "stepTwo":{
+        "title": "Classes you Teach or Join",
+        "description": 'Any classrooms you teach or join this school year will appear here under Active Classrooms.'
+      },
+
+      "stepThree":{
+        "title": "Previous Classes",
+        "description": "Any classrooms you created or joined in past school years can be found in Archived Classrooms. Content used in these classrooms can be found in your User Profile, and it can be re-assigned to new clasrooms for this school year."
+      },
+      "stepFour":{
+        "title": "Create a Classroom",
+        "description": "Click here to create a new classroom from this page. Once you have content to share with students, you will assign to them via a classroom."
+      },
+      "stepFive":{
+        "title": "User Profile",
+        "description": "This is your User Profile. Click on your profile at any time to access content you create or remix in Gooru."
       }
     }
   }
