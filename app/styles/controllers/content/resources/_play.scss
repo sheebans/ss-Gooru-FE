@@ -168,11 +168,11 @@
               min-width: 125px;
               max-width: 115px;
 
-              span.owner {
+              span.owner, span.publisher-name {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                max-width: 115px;
+                max-width: 120px;
               }
 
               img {

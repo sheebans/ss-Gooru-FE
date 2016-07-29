@@ -9,7 +9,12 @@ moduleForComponent('content/resources/gru-resource-play', 'Integration | Compone
 
 test('Layout', function(assert) {
   var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Resource Title'
+    title: 'Resource Title',
+    format:"video",
+    description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    owner:Ember.Object.create({
+      firstName:"Publisher"
+    })
   });
 
   this.set('resource', resource);
@@ -25,7 +30,7 @@ test('Layout', function(assert) {
   assert.ok($header.find('h1').text(), 'Resource Title', "Missing title");
   assert.ok($header.find('.details .format').length, "Missing format");
   assert.ok($header.find('.details .tags').length, "Missing tags");
-  assert.ok($header.find('.publisher').length, "Missing publisher");
+  assert.ok($header.find('.publisher .owner').length, "Missing owner");
   assert.ok($section.length, "Missing content section");
 });
 
@@ -192,4 +197,27 @@ test('Layout when a resource url cannot be showed in an iframe', function (asser
   assert.ok($panel.find('.panel-body').length, "panel-body of not-iframe panel");
   assert.ok($panel.find('.panel-body a').length, "view-resource-button");
   assert.ok($panel.find('.panel-footer').length, "panel-footer of not-iframe panel");
+});
+
+test('Layout with publisher', function(assert) {
+  var resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Resource Title",
+    format:"video",
+    description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    owner:Ember.Object.create({
+      firstName:"Publisher"
+    }),
+    isPublished:true,
+    publisher:"Publisher name"
+  });
+
+  this.set('resource', resource);
+
+  this.render(hbs`{{content/resources/gru-resource-play resource=resource}}`);
+
+  var $container = this.$("article.content.resources.gru-resource-play");
+  assert.ok($container.length, "Component");
+
+  const $header = $container.find('> header');
+  assert.ok($header.find('.publisher .publisher-name').length, "Missing publisher");
 });
