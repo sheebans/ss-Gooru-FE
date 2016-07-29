@@ -157,7 +157,6 @@ export default Ember.Component.extend({
     }));
 
     intro.onchange(Ember.run.bind(component, function(targetElement){
-
       component.sendAction('on-change', component.get('currentStep'), component, targetElement);
     }));
 
@@ -177,21 +176,21 @@ export default Ember.Component.extend({
   _onAfterChange: function(targetElement){
     let component = this;
     let intro = component.get('introJS');
-    let currentStepIndex = component.get('steps').indexOf(this.get('currentStep'));
+    let currentStepIndex = component.get('steps').indexOf(component.get('currentStep'));
     currentStepIndex++;
     let nextElement = $('.introjs-nextbutton');
     let skipElement = $('.introjs-skipbutton');
-    if(currentStepIndex == this.get('steps').length){
+    if(currentStepIndex == component.get('steps').length){
       nextElement.hide();
       skipElement.show();
-    } else if(currentStepIndex == this.get('steps').length-1){
+    } else if(currentStepIndex == component.get('steps').length-1){
       skipElement.hide();
       nextElement.show();
     }
     $(`.introjs-tooltip`).on('click','.exit-button', function(){
       intro.exit();
     });
-    this.sendAction('on-after-change', this.get('currentStep'), this, targetElement);
+    component.sendAction('on-after-change', component.get('currentStep'), component, targetElement);
   },
 
   _onExit: function(){
