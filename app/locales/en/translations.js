@@ -1271,12 +1271,12 @@ export default {
     },
     "quick-start": {
       "stepOne":{
-        "title": "Introducing Gooru Classrooms",
-        "description": "The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+        "title": "Navigating Your Classroom",
+        "description": 'This is a view of a newly created classroom. To get back to a classroom at any time, click on "Classrooms" and use the drop down menu to select the classroom you wish to enter.'
       },
       "stepTwo":{
-        "title":"Getting started? Create an assessment",
-        "description":"The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+        "title":"Getting started? Create an assessment!",
+        "description":'We suggest creating an assessment as a way to get started with Gooru and to assess current levels of student understanding in your class.'
       }
     }
   }
