@@ -4,6 +4,11 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @requires service:api-sdk/assessment
+   */
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
+
   // -------------------------------------------------------------------------
   // Attributes
   /**
@@ -67,8 +72,35 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  didRender: function(){
+    this.$('[data-toggle="tooltip"]').tooltip();
+  },
+
+  didInsertElement:function(){
+    var component = this;
+    var isAssessment = this.get('performance.isAssessment');
+    var performanceId = this.get('performance.id');
+    var attempts = this.get('performance.attempts');
+
+    if(isAssessment) {
+      component.get('assessmentService').readAssessment(performanceId).then(function (performanceData) {
+        var attemptsSetting = performanceData.get('attempts');
+        if(attemptsSetting){
+          component.set('noMoreAttempts', isAssessment && attemptsSetting > 0 && attempts && attempts >= attemptsSetting);
+        }
+      });
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates if it exceeds the number of Attempts
+   * @property {boolean} noMoreAttempts
+   */
+  noMoreAttempts: false,
+
   /**
    * Indicates if score is selected
    * @property {boolean} scoreSelected
@@ -97,7 +129,7 @@ export default Ember.Component.extend({
    * Indicates if attemps is selected
    * @property {boolean} attempsSelected
    */
-  attemptsSelected: Ember.computed.equal('selectedOption', 'attempts'),
+  attemptsSelected: Ember.computed.equal('selectedOption', 'attempts')
 
   // -------------------------------------------------------------------------
   // Observers

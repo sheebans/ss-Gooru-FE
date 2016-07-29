@@ -17,7 +17,8 @@ moduleForComponent('content/collections/gru-collection-list-item', 'Integration 
 test('it renders resources correctly', function (assert) {
 
   const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Resource Title'
+    title: 'Resource Title',
+    format: 'interactive'
   });
 
   this.set('resource', resource);
@@ -86,16 +87,16 @@ test('it renders questions correctly', function (assert) {
   //TODO: check when there are standards
   assert.ok($container.find('> .detail > span').text(), this.get('i18n').t('common.add-standard').string, 'No standards text');
 
-  const $actions = $container.find('> .detail > .actions');
+  const $actions = $container.find('> .detail.collapsed > .actions');
   assert.ok($actions.length, 'Actions container');
 
-  assert.ok($actions.find('button:eq(0)').hasClass('add-item'), 'First action button');
-  assert.ok($actions.find('button:eq(1)').hasClass('narration'), 'Second action button');
-  assert.ok($actions.find('button:eq(2)').hasClass('delete-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(3)').hasClass('copy-to'), 'Fourth action button');
-  assert.ok($actions.find('button:eq(4)').hasClass('move-item'), 'Fifth action button');
-  assert.ok($actions.find('button:eq(5)').hasClass('copy-item'), 'Sixth action button');
-  assert.ok($actions.find('button:eq(6)').hasClass('edit-item'), 'Seventh action button');
+  assert.ok($actions.find('button.add-item').length, 'Missing add button');
+  assert.ok(!$actions.find('button.narration').length, 'Narration button should not be visible for questions');
+  assert.ok($actions.find('button.delete-item').length, 'Missing delete button');
+  assert.ok($actions.find('button.copy-to').length, 'Missing copy button');
+  assert.ok($actions.find('button.move-item').length, 'Missing move button');
+  assert.ok($actions.find('button.copy-item').length, 'Missing copy button');
+  assert.ok($actions.find('button.edit-item').length, 'Missing edit button');
 
   Object.keys(QUESTION_CONFIG).forEach(function(question_type) {
     // Check subtitle specific to each question type
@@ -112,8 +113,8 @@ test('it renders questions correctly', function (assert) {
 test('it expands/collapses the narration panel', function (assert) {
 
   const question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Question Title',
-    format: 'question'
+    title: 'Resource Title',
+    format: 'interactive'
   });
 
   this.set('question', question);
@@ -175,6 +176,25 @@ test('it expands/collapses the edit question inline panel', function (assert) {
   $panel.find('.detail .actions .cancel').click();
   assert.ok($panel.hasClass('collapsed'), 'Edit Question Panel collapsed after clicking cancel button');
 
+});
+
+test('Question inline panel for FIB has no answers', function (assert) {
+
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'question',
+    questionType: 'FIB'
+  });
+
+  this.set('question', question);
+  this.set('index', 0);
+  this.render(hbs`{{content/collections/gru-collection-list-item model=question index=index}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+  const $panelBody = $panel.find('> .panel-body');
+  assert.ok($panelBody.length, 'panel body');
+  assert.ok(!$panelBody.find('.answers').length, "Answers section should not be visible");
 });
 
 test('it expands/collapses the edit resource inline panel', function (assert) {

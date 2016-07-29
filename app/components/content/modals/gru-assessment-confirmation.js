@@ -24,6 +24,7 @@ export default Ember.Component.extend({
     }
   },
 
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -33,16 +34,15 @@ export default Ember.Component.extend({
    * @property {boolean} flag for determining button and the formatted result behaviour
    */
   noAttempts: Ember.computed.equal('model.attempts', 0),
-
   /**
    * @property {boolean} flag for determining unlimited behaviour
    */
-  unlimited: Ember.computed.equal('model.attempts', -1),
+   unlimited: Ember.computed.equal('model.attempts', -1),
 
-  /**
-   * @property {boolean} flag for determining button behaviour
-   */
-  disableStart: Ember.computed('unlimited', 'noAttempts', function(){
-    return !this.get('unlimited') && this.get('noAttempts');
-  })
+   /**
+    * @property {boolean} flag for determining button behaviour
+    */
+   disableStart: Ember.computed('unlimited', 'noAttempts', function(){
+     return !this.get('unlimited') && this.get('noAttempts');
+   })
 });

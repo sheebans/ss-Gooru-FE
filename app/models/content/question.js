@@ -78,10 +78,10 @@ const Question = Ember.Object.extend(Validations, {
   description: Ember.computed.alias("text"),
 
   /**
-   * Returns the FIB text
+   * Returns the FIB text without the correct answer
    * @property {string}
    */
-  fibText: Ember.computed("text", function(){
+  fibText: Ember.computed("text", function () {
     const regExp = /(\[[^\[\]]+\])+/gi;
     return this.get("text") ? this.get("text").replace(regExp, "_______") : null;
   }),
@@ -111,10 +111,10 @@ const Question = Ember.Object.extend(Validations, {
    */
   creator: null,
 
-  sameOwnerAndCreator: Ember.computed("owner.id", "creator", function(){
-    if( !this.get('creator')){
+  sameOwnerAndCreator: Ember.computed("owner.id", "creator", function () {
+    if (!this.get('creator')) {
       return true
-    }else if(this.get('owner.id') === this.get('creator')){
+    } else if (this.get('owner.id') === this.get('creator')) {
       return true;
     }
   }),
@@ -146,7 +146,7 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property {String} category - Category the course belongs to
    */
-  category: Ember.computed('subject', function() {
+  category: Ember.computed('subject', function () {
     var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
     if (this.get('subject')) {
       let keys = this.get('subject').split('.');
@@ -199,6 +199,16 @@ const Question = Ember.Object.extend(Validations, {
   isFIB: Ember.computed.equal('questionType', QUESTION_TYPES.fib),
 
   /**
+   * Indicates when it is a legacy FIB question
+   * @property {boolean}
+   */
+  isLegacyFIB: Ember.computed("isFIB", "text", function () {
+    const regExp = /(_______)+/gi;
+    const questionText = this.get("text");
+    return questionText && this.get("isFIB") && questionText.match(regExp);
+  }),
+
+  /**
    * @property {boolean} indicates if the question is hot spot text type
    * @see components/player/gru-hot-spot-text.js
    */
@@ -238,7 +248,7 @@ const Question = Ember.Object.extend(Validations, {
    * @function
    * @return {Question}
    */
-  copy: function() {
+  copy: function () {
 
     var properties = [];
     var enumerableKeys = Object.keys(this);
@@ -254,7 +264,7 @@ const Question = Ember.Object.extend(Validations, {
     // Copy the question data
     properties = this.getProperties(properties);
 
-    var answersForEditing = this.get('answers').map(function(answer) {
+    var answersForEditing = this.get('answers').map(function (answer) {
       return answer.copy();
     });
     properties.answers = answersForEditing;
@@ -279,7 +289,7 @@ const Question = Ember.Object.extend(Validations, {
    * @param {String[]} propertyList
    * @return {null}
    */
-  merge: function(model, propertyList = []) {
+  merge: function (model, propertyList = []) {
     var properties = model.getProperties(propertyList);
     this.setProperties(properties);
   },
@@ -288,7 +298,7 @@ const Question = Ember.Object.extend(Validations, {
    * Returns a player resource
    * @return {Resource}
    */
-  toPlayerResource: function(){
+  toPlayerResource: function () {
     const model = this;
     return PlayerResource.create({
       id: model.get("id"),
@@ -300,7 +310,7 @@ const Question = Ember.Object.extend(Validations, {
       mediaUrl: model.get("thumbnail"),
       hints: null, //TODO
       explanation: null, //TODO
-      answers: model.get("answers").map(function(answer){
+      answers: model.get("answers").map(function (answer) {
         return answer.toPlayerAnswer();
       }),
       taxonomy: model.get('standards')
@@ -313,12 +323,26 @@ const Question = Ember.Object.extend(Validations, {
    * @function
    * @param {TaxonomyRoot} taxonomySubject
    */
-  setTaxonomySubject: function(taxonomySubject) {
+  setTaxonomySubject: function (taxonomySubject) {
     if (!(this.get('isDestroyed') || this.get('isDestroying'))) {
       this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
     }
-  }
+  },
 
+  /**
+   * Updates the question from legacy FIB format to new format
+   */
+  updateLegacyFIBText: function () {
+    let text = this.get("text");
+    if (text) {
+      const answers = this.get("answers") || [];
+      answers.forEach(function (answer) {
+        let newFormat = `[${answer.text}]`;
+        text = text.replace(/_______/, newFormat);
+      });
+      this.set("text", text);
+    }
+  }
 });
 
 Question.reopenClass({

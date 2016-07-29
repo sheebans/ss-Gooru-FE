@@ -1,6 +1,35 @@
 /* jshint node: true */
 
 module.exports = function (environment) {
+
+  const extend = function(objectA, objectB) {
+    var objectC = {};
+    for(var key in objectA) {
+      objectC[key] = objectB.hasOwnProperty(key) ? objectB[key] : objectA[key];
+    }
+    return objectC;
+  };
+
+  const GooruEndpointDefault = {
+    protocol: 'http://',
+    secureProtocol: 'https://',
+    hostname: 'nucleus-qa.gooru.org',
+    port: undefined,          // Uses the default value 80
+    securePort: undefined     // Uses the default value 443
+  };
+
+  const RealTimeDefault = {
+    webServiceProtocol: 'http://',
+    webServiceHostname: 'goorurt.qa.gooruweb.edify.cr',
+    webServicePort: undefined,  // Uses the default value 80
+    webServiceUri: '/nucleus/realtime',
+
+    webSocketProtocol: 'http://',
+    webSocketHostname: 'goorurt.qa.gooruweb.edify.cr',
+    webSocketPort: undefined,   // Uses the default value 80
+    webSocketUri: '/ws/realtime'
+  };
+
   var ENV = {
     modulePrefix: 'gooru-web',
     environment: environment,
@@ -61,10 +90,12 @@ module.exports = function (environment) {
   };
 
   ENV['teamsHosts'] = {
-    'localhost' : 'teams-qa.gooru.org',            // Development
-    'qa.gooruweb.edify.cr' : 'teams-qa.gooru.org', // Edify-QA
-    'nucleus-qa.gooru.org' : 'teams-qa.gooru.org', // Nucleus-QA
-    'www.gooru.org' : 'teams.gooru.org'         // Production
+    'localhost': 'teams-qa.gooru.org',                  // Development
+    'qa.gooruweb.edify.cr': 'teams-qa.gooru.org',       // Edify-QA
+    'nucleus-qa.gooru.org': 'teams-qa.gooru.org',       // Nucleus-QA
+    'nucleus-qa-prl.gooru.org': 'teams-qa.gooru.org',   // Parallel-QA
+    'parallel.gooru.org': 'teams.gooru.org',            // Parallel
+    'www.gooru.org': 'teams.gooru.org'                  // Production
   };
 
   ENV['simple-auth-custom'] = {
@@ -84,20 +115,49 @@ module.exports = function (environment) {
     url: '/api/nucleus-auth-idp/v1/google'
   };
 
+  ENV['environment-map'] = {
+    'localhost': 'local',
+    'qa.gooruweb.edify.cr': 'edify-qa',
+    'nucleus-qa.gooru.org': 'nucleus-qa',
+    'nucleus-qa-prl.gooru.org': 'parallel-qa',
+    'parallel.gooru.org': 'parallel',
+    'www.gooru.org': 'prod'
+  };
+
   ENV['gooru-endpoints'] = {
-    protocol: 'http://',
-    secureProtocol: 'https://',
-    hostname: 'nucleus-qa.gooru.org',
-    port: undefined,          // Uses the default value 80
-    securePort: undefined     // Uses the default value 443
+    'local': GooruEndpointDefault,
+    'edify-qa': GooruEndpointDefault,
+    'nucleus-qa': GooruEndpointDefault,
+    'parallel-qa': extend(GooruEndpointDefault, {
+      hostname: 'nucleus-qa-prl.gooru.org'
+    }),
+    'parallel': extend(GooruEndpointDefault, {
+      hostname: 'parallel.gooru.org'
+    }),
+    'prod': extend(GooruEndpointDefault, {
+      hostname: 'www.gooru.org'
+    })
   };
 
   ENV['real-time'] = {
-    webSocketUrl: '/ws/realtime',
-    webServiceUrl: '/nucleus/realtime',
-    protocol: 'http://',
-    hostname: 'goorurt.qa.gooruweb.edify.cr',
-    port: 80
+    'local': RealTimeDefault,
+    'edify-qa': RealTimeDefault,
+    'nucleus-qa': extend(RealTimeDefault, {
+      webSocketHostname: 'rt.nucleus-qa.gooru.org',
+      webServiceHostname: 'nucleus-qa.gooru.org'
+    }),
+    'parallel-qa': extend(RealTimeDefault, {
+      webSocketHostname: 'rt.nucleus-qa.gooru.org',
+      webServiceHostname: 'nucleus-qa-prl.gooru.org'
+    }),
+    'parallel': extend(RealTimeDefault, {
+      webSocketHostname: 'rt.parallel.gooru.org',
+      webServiceHostname: 'parallel.gooru.org'
+    }),
+    'prod': extend(RealTimeDefault, {
+      webSocketHostname: 'rt.gooru.org',
+      webServiceHostname: 'www.gooru.org'
+    })
   };
 
   if (environment === 'development') {
@@ -131,21 +191,19 @@ module.exports = function (environment) {
 
     ENV.APP.rootElement = '#ember-testing';
 
-    ENV['gooru-endpoints'] = {
-      protocol: 'http://',
+    ENV['gooru-endpoints']['local'] = extend(GooruEndpointDefault, {
       secureProtocol: 'http://',
       hostname: 'localhost',
       port: 7357,
       securePort: 7357
-    };
+    });
 
-    ENV['real-time'] = {
-      webSocketUrl: '/ws/realtime',
-      webServiceUrl: '/nucleus/realtime',
-      protocol: 'http://',
-      hostname: 'localhost',
-      port: 7357
-    };
+    ENV['real-time']['local'] = extend(RealTimeDefault, {
+      webSocketHostname: 'localhost',
+      webSocketPort: 7357,
+      webServiceHostname: 'localhost',
+      webServicePort: 7357
+    });
   }
 
   if (environment === 'production') {

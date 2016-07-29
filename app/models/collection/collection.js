@@ -121,6 +121,12 @@ export default Ember.Object.extend({
   attempts: -1,
 
   /**
+   * Indicates if the number of attempts for an assessment is unlimited
+   * @property {boolean}
+   */
+  hasUnlimitedAttempts: Ember.computed.equal("attempts", -1),
+
+  /**
    * Is bidirectional navigation enabled for collection/assessment
    * @property {boolean}
    */
