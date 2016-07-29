@@ -1265,7 +1265,16 @@ export default {
         "title": "Monitor Progress in Real-time!",
         "description": 'Use the real-time dashboard to monitor class progress on an assessment in real-time.<br><br>Click on the "Go Live" icon found to the left of every assessment to launch a real-time assessment for students. <br><br><i class="real-time-icon">'
       }
-
+    },
+    "quick-start": {
+      "stepOne":{
+        "title": "Introducing Gooru Classrooms",
+        "description": "The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+      },
+      "stepTwo":{
+        "title":"Getting started? Create an assessment",
+        "description":"The course map provides your student with 24/7 access to all of their Gooru activities, assessments and collections."
+      }
     }
   }
 };
