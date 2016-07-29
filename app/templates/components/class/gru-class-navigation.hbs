@@ -18,8 +18,8 @@
                     <li class="class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}>
                         <h6>{{t "class.gru-class-navigation.analytics"}}</h6>{{gru-icon name='graphic_eq'}}
                     </li>
-                    <li class="class-menu-item teams out-of-scope" {{action 'selectItem' 'teams'}}>
-                        <h6>{{t "class.gru-class-navigation.teams"}}</h6>{{gru-icon name='group'}}
+                    <li class="class-menu-item teams" {{action 'selectItem' 'teams'}}>
+                        <h6>{{t "class.gru-class-navigation.teams"}} <sup>{{t "common.beta"}}</sup></h6>{{gru-icon name='group'}}
                     </li>
                     <li class="class-menu-item info" {{action 'selectItem' 'info'}}>
                         <h6>{{t "class.gru-class-navigation.information"}}</h6>{{gru-icon name='info'}}
@@ -40,7 +40,8 @@
 </div>
 <div class="md-design hidden-xs hidden-sm">
   <div class="class-info">
-    <h4>{{class.title}}</h4>
+    <div class="class-name">
+      <h4>{{class.title}}</h4></div>
     <div class="code">{{class.code}}</div>
     <div class="active-dates out-of-scope">
         <ul>
@@ -61,8 +62,8 @@
     <ul class="list-group">
       <li class="list-group-item class-menu-item overview" {{action 'selectItem' 'overview'}}><h6>{{t "class.gru-class-navigation.overview"}}</h6>{{gru-icon name='dashboard'}}</li>
       <li class="list-group-item class-menu-item analytics performance" {{action 'selectItem' 'analytics.performance'}}><h6>{{t "class.gru-class-navigation.analytics"}}</h6>{{gru-icon name='graphic_eq'}}</li>
-      <li class="list-group-item class-menu-item teams out-of-scope"><h6>
-        <a target="_blank" href="{{teamsURL}}">{{t "class.gru-class-navigation.teams"}}</a>
+      <li class="list-group-item class-menu-item teams"><h6>
+        <a target="_blank" href="{{teamsURL}}">{{t "class.gru-class-navigation.teams"}} <sup>{{t "common.beta"}}</sup></a>
       </h6>{{gru-icon name='group'}}</li>
       <li class="list-group-item class-menu-item info" {{action 'selectItem' 'info'}}><h6>{{t "class.gru-class-navigation.information"}}</h6>{{gru-icon name='info'}}</li>
     </ul>

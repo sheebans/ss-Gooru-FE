@@ -74,6 +74,7 @@
       {{/if}}
     </div>
   </div>
+  {{#unless question.isFIB}}
   <div class="panel panel-default question-answer">
     <div class="panel-heading">
       <div class="{{unless question.isHotTextHighlight 'border-bottom'}}">
@@ -107,6 +108,7 @@
       </div>
     {{/if}}
   </div>
+  {{/unless}}
   {{#if isBuilderEditing}}
     <div class="footer">
       <div class="actions">

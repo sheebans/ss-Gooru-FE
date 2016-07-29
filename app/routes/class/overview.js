@@ -7,6 +7,8 @@ export default Ember.Route.extend({
 
   session: Ember.inject.service("session"),
 
+  i18n: Ember.inject.service(),
+
   /**
    * @requires service:api-sdk/analytics
    */
@@ -20,7 +22,6 @@ export default Ember.Route.extend({
   // Actions
 
   actions: {
-
     /**
      * Launch an assessment on-air
      *
@@ -89,13 +90,47 @@ export default Ember.Route.extend({
       userLocation = route.get('analyticsService').getUserCurrentLocation(currentClass.get('id'), userId);
     }
 
+    const tourSteps = Ember.A([
+      {
+        elementSelector: '.overview .overview-header .title h3',
+        title: route.get('i18n').t('gru-tour.overview.stepOne.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepOne.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .class-info .code',
+        title: route.get('i18n').t('gru-tour.overview.stepTwo.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepTwo.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .class-menu .analytics.performance',
+        title: route.get('i18n').t('gru-tour.overview.stepThree.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepThree.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .class-menu .info',
+        title: route.get('i18n').t('gru-tour.overview.stepFour.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepFour.description')
+      },
+      {
+        elementSelector: '.overview .overview-header .edit-content',
+        title: route.get('i18n').t('gru-tour.overview.stepFive.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepFive.description')
+      },
+      {
+        title: route.get('i18n').t('gru-tour.overview.stepSix.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepSix.description'),
+        image: 'overview-tour-image'
+      }
+    ]);
+
     return Ember.RSVP.hash({
       userLocation: userLocation,
       course: course,
       units: units,
       isTeacher: isTeacher,
       currentClass: currentClass,
-      classMembers: classMembers
+      classMembers: classMembers,
+      tourSteps: tourSteps
     });
   },
 
@@ -114,6 +149,7 @@ export default Ember.Route.extend({
     controller.set('units', model.units);
     controller.set('course', model.course);
     controller.set('classMembers', model.classMembers);
+    controller.set('tourSteps', model.tourSteps);
     controller.get('classController').selectMenuItem('overview');
   }
 

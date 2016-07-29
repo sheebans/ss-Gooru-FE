@@ -1,10 +1,12 @@
 import Ember from "ember";
-
 /**
  * Class Overview controller
  *
  * Controller responsible of the logic for the class overview page
  */
+
+
+
 export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
@@ -17,6 +19,7 @@ export default Ember.Controller.extend({
 
   queryParams: ['location'],
 
+  tourSteps: Ember.A([]),
   /**
    * Combination of unit, lesson and resource (collection or assessment)
    * separated by a plus sign
@@ -31,7 +34,6 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-
     /**
      * Update 'location' (bound query param)
      *
@@ -79,12 +81,13 @@ export default Ember.Controller.extend({
     } else {
       return this.get('location') ? this.get('location') : '';
     }
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
 
   // -------------------------------------------------------------------------
   // Methods
+
 
 });
