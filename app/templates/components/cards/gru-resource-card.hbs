@@ -33,10 +33,10 @@
     {{/if}}
     <div class="publisher">
         {{#if showPublisher}}
-          <b>{{resource.publisher}}</b>
+          <b class="publisher-name">{{resource.publisher}}</b>
           {{else}}
             <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
-            <span class="publisher-name">{{#link-to 'profile.content.courses' resource.owner.id class="pointer"}}
+            <span class="owner">{{#link-to 'profile.content.courses' resource.owner.id class="pointer"}}
             {{resource.owner.displayName}}{{/link-to}}</span>
         {{/if}}
     </div>
