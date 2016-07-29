@@ -183,17 +183,17 @@ export default Ember.Component.extend({
     let skipElement = $('.introjs-skipbutton');
     let prevElement = $('.introjs-prevbutton');
 
-    if(currentStepIndex ==1){
+    if(currentStepIndex === 1){
       prevElement.hide();
     }else{
       prevElement.show();
     }
 
-    if(currentStepIndex == component.get('steps').length){
+    if(currentStepIndex === component.get('steps').length){
       nextElement.hide();
       skipElement.show();
       prevElement.show();
-    } else if(currentStepIndex == component.get('steps').length-1){
+    } else if(currentStepIndex === component.get('steps').length-1){
       skipElement.hide();
       nextElement.show();
     }
