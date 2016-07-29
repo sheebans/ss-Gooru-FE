@@ -42,15 +42,16 @@ export default Ember.Component.extend({
 
   actions: {
     startTour: function(){
-      let intro = this.get('introJS');
-      let options = this.get('introJSOptions');
+      let component = this;
+      let intro = component.get('introJS');
+      let options = component.get('introJSOptions');
+
       intro.setOptions(options);
-      this.registerCallbacksWithIntroJS();
-      this._setCurrentStep(0);
+      component.registerCallbacksWithIntroJS();
+      component._setCurrentStep(0);
       intro.start();
       $('.introjs-skipbutton').hide();
-      $('.introjs-prevbutton').text(this.get('i18n').t('common.back').string);
-      $('.introjs-nextbutton').text(this.get('i18n').t('common.next').string);
+
     }
 
   },
@@ -119,12 +120,18 @@ export default Ember.Component.extend({
   showStepNumbers: false,
   disableInteraction: true,
   scrollToElement: true,
-
+  exitOnEsc: true,
+  prevLabel:Ember.computed('i18n', function(){
+    return this.get('i18n').t('common.back').string;
+  }),
+  nextLabel:Ember.computed('i18n', function(){
+    return this.get('i18n').t('common.next').string;
+  }),
   constructModal: function(title, description, image, containerClass){
     let template =
-    `<div class="tour-header-${containerClass}">
+    `<div class="tour-header ${containerClass}">
         <h2>${title}</h2>
-        <i onclick="introJs().exit()" class="material-icons">clear</i>
+        <i class="material-icons exit-button">clear</i>
       </div>
       <div class="tour-description-${containerClass}">`;
     if (image !==undefined) {
@@ -137,28 +144,29 @@ export default Ember.Component.extend({
     return template;
   },
   registerCallbacksWithIntroJS: function(){
-    var intro = this.get('introJS');
+    let component = this;
+    let intro = component.get('introJS');
 
-    intro.onbeforechange(Ember.run.bind(this, function(elementOfNewStep){
+    intro.onbeforechange(Ember.run.bind(component, function(elementOfNewStep){
 
-      var prevStep = this.get('currentStep');
-      this._setCurrentStep(this.get('introJS._currentStep'));
-      var nextStep = this.get('currentStep');
-      this.sendAction('on-before-change', prevStep, nextStep, this, elementOfNewStep);
+      var prevStep = component.get('currentStep');
+      component._setCurrentStep(component.get('introJS._currentStep'));
+      var nextStep = component.get('currentStep');
+      component.sendAction('on-before-change', prevStep, nextStep, component, elementOfNewStep);
 
     }));
 
-    intro.onchange(Ember.run.bind(this, function(targetElement){
-      this.sendAction('on-change', this.get('currentStep'), this, targetElement);
+    intro.onchange(Ember.run.bind(component, function(targetElement){
+      component.sendAction('on-change', component.get('currentStep'), component, targetElement);
     }));
 
-    intro.onafterchange(Ember.run.bind(this, this._onAfterChange));
+    intro.onafterchange(Ember.run.bind(component, component._onAfterChange));
 
-    intro.oncomplete(Ember.run.bind(this, function(){
-      this.sendAction('on-complete', this.get('currentStep'));
+    intro.oncomplete(Ember.run.bind(component, function(){
+      component.sendAction('on-complete', component.get('currentStep'));
     }));
 
-    intro.onexit(Ember.run.bind(this, this._onExit));
+    intro.onexit(Ember.run.bind(component, component._onExit));
   },
 
   _setIntroJS: function(introJS){
@@ -166,17 +174,23 @@ export default Ember.Component.extend({
   },
 
   _onAfterChange: function(targetElement){
-    let currentStepIndex = this.get('steps').indexOf(this.get('currentStep'));
+    let component = this;
+    let intro = component.get('introJS');
+    let currentStepIndex = component.get('steps').indexOf(component.get('currentStep'));
+    currentStepIndex++;
     let nextElement = $('.introjs-nextbutton');
     let skipElement = $('.introjs-skipbutton');
-    if(currentStepIndex == this.get('steps').length-1){
+    if(currentStepIndex == component.get('steps').length){
       nextElement.hide();
       skipElement.show();
-    } else if(currentStepIndex == this.get('steps').length-2){
+    } else if(currentStepIndex == component.get('steps').length-1){
       skipElement.hide();
       nextElement.show();
     }
-    this.sendAction('on-after-change', this.get('currentStep'), this, targetElement);
+    $(`.introjs-tooltip`).on('click','.exit-button', function(){
+      intro.exit();
+    });
+    component.sendAction('on-after-change', component.get('currentStep'), component, targetElement);
   },
 
   _onExit: function(){
