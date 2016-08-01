@@ -48,7 +48,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
     Ember.$(document).ajaxError(function(event, jqXHR, settings) {
       if(jqXHR.status !== 401) {
-        route.trackEndPointError(event, jqXHR, settings);
+      route.trackEndPointError(event, jqXHR, settings);
       }
     });
 
@@ -209,6 +209,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
     route.get("errorService").createError(model);
   },
 
+  deactivate: function () {
+    Ember.$(document).off("ajaxError");
+  },
 
 
 // -------------------------------------------------------------------------
