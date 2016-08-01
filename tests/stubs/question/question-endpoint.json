@@ -49,5 +49,21 @@
       "body": "File not found!",
       "file": "fetch-question-200-response.json"
     }
+  },
+  {
+    "description": "Save a question",
+    "request": {
+      "url": "^/api/nucleus/v1/questions",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+  }
   }
 ]
