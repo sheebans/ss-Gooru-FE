@@ -39,6 +39,9 @@ https://collaborate.gooru.org/jira/browse/GG-1675
 https://collaborate.gooru.org/jira/browse/GG-1691
 https://collaborate.gooru.org/jira/browse/GG-934
 
+## [release-3.0.4] - July 15, 2016
+https://collaborate.gooru.org/jira/browse/GG-1614
+
 ## [release-3.0.3] - July 11, 2016
 https://collaborate.gooru.org/jira/browse/GG-1156
 https://collaborate.gooru.org/jira/browse/GG-1182
