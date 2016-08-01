@@ -71,7 +71,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         description: route.get('i18n').t('gru-tour.home.stepFour.description')
       },
       {
-        elementSelector: '.gru-header .profile',
+        elementSelector: '.gru-header .profile-link .profile',
         title: route.get('i18n').t('gru-tour.home.stepFive.title'),
         description: route.get('i18n').t('gru-tour.home.stepFive.description')
       }
