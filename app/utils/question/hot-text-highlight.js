@@ -200,11 +200,11 @@ export default QuestionUtil.extend({
    * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
-    if (!answerObjects || !answerObjects.length) return null; //when the user didn't respond
-
-    return answerObjects.map(function (answerObject) {
-      return { index: (answerObject.get("order") - 1), text: answerObject.get("text") };
-    });
+    return (!answerObjects || !answerObjects.length) ?
+      null : //if not respond is provided
+      answerObjects.map(function (answerObject) {
+        return {index: (answerObject.get("order") - 1), text: answerObject.get("text")};
+      });
   }
 
 });

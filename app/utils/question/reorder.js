@@ -107,12 +107,12 @@ export default QuestionUtil.extend({
    * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
-    if (!answerObjects || !answerObjects.length) return null; //when the user didn't respond
-
     answerObjects = answerObjects.sortBy("order");
-    return answerObjects.map(function (answerObject) {
-      return answerObject.get("answerId");
-    });
+    return (!answerObjects || !answerObjects.length) ?
+      null : //if not respond is provided
+      answerObjects.map(function (answerObject) {
+        return answerObject.get("answerId");
+      });
   }
 
 });
