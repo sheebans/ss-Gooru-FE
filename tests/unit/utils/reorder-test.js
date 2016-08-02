@@ -168,3 +168,19 @@ test('Reorder - toUserAnswer', function (assert) {
   assert.deepEqual(userAnswer, [3, 1, 2], "Wrong user answer ids");
 });
 
+test('Reorder - toUserAnswer when no respond is provided', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, text: 'optionA'}),
+    Ember.Object.create({id: 2, text: 'optionB'}),
+    Ember.Object.create({id: 3, text: 'optionC'})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = ReorderUtil.create({question: question});
+
+  let answerObjects = Ember.A([]);
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+  assert.equal(userAnswer, null, "Wrong user answer ids");
+});
+

@@ -165,3 +165,18 @@ test('Multiple Answer - toUserAnswer', function (assert) {
   let userAnswer = questionUtil.toUserAnswer(answerObjects);
   assert.deepEqual(userAnswer, [{id: 2, selection: false}, {id: 1, selection: false}, {id: 3, selection: true}], "Wrong user answer");
 });
+
+test('Multiple Answer - toUserAnswer when the user didn\'t respond', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, isCorrect: false}),
+    Ember.Object.create({id: 2, isCorrect: true}),
+    Ember.Object.create({id: 3, isCorrect: true})
+  ]);
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = MultipleAnswerUtil.create({question: question});
+
+  let answerObjects = Ember.A([]);
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+  assert.equal(userAnswer, null, "Wrong user answer");
+});

@@ -108,6 +108,8 @@ export default MultipleAnswerUtil.extend({
    * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
+    if (!answerObjects || !answerObjects.length) return null; //when the user didn't respond
+
     return answerObjects.filterBy("skip", false).map(function (answerObject) {
       return answerObject.get("answerId");
     });
