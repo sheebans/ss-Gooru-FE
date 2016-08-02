@@ -95,6 +95,14 @@ export default Ember.Component.extend({
     return this.get('resource.owner.id') === this.get('session.userId') ? true : false;
   }),
 
+  /**
+   * Show the publisher if the resource has publisher and is publish
+   * @property {boolean}
+   */
+  showPublisher:Ember.computed('resource', function(){
+    return this.get('resource').isPublished && this.get('resource').publisher != null;
+  }),
+
 
   // -------------------------------------------------------------------------
   // Methods

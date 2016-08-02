@@ -32,10 +32,13 @@
       {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true}}
     {{/if}}
     <div class="publisher">
-      <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
-      <span class="publisher-name">{{#link-to 'profile.content.courses' resource.owner.id class="pointer"}}
-        {{resource.owner.displayName}}
-      {{/link-to}}</span>
+        {{#if showPublisher}}
+          <b class="publisher-name">{{resource.publisher}}</b>
+          {{else}}
+            <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
+            <span class="owner">{{#link-to 'profile.content.courses' resource.owner.id class="pointer"}}
+            {{resource.owner.displayName}}{{/link-to}}</span>
+        {{/if}}
     </div>
     <div class="description">
       <p class="truncate">{{{if resource.isFIB resource.fibText resource.description }}}</p>

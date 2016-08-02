@@ -5,6 +5,8 @@ import Question from 'gooru-web/models/content/question';
 import Resource from 'gooru-web/models/content/resource';
 import { RESOURCE_TYPES } from 'gooru-web/config/config';
 import { QUESTION_CONFIG } from 'gooru-web/config/question';
+import wait from 'ember-test-helpers/wait';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent('content/collections/gru-collection-list-item', 'Integration | Component | content/collections/gru collection list item', {
   integration: true,
@@ -268,4 +270,33 @@ test('show the edit inline panel when a content is added from the content builde
   $panel.find('.detail .actions .cancel').click();
   assert.ok($panel.hasClass('collapsed'), 'Edit Resource Panel collapsed after clicking cancel button');
 
+});
+test('Save on edit inline panel with description empty', function (assert) {
+
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'e7460e72-7708-4892-afcc-63756ffa410f',
+    title: 'Question Title',
+    format: 'question'
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{content/collections/gru-collection-list-item model=question}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  assert.ok($panel.length, 'Panel');
+
+  const $actions= $panel.find('.actions .item-actions');
+
+  $actions.find('.edit-item').click();
+
+  return wait().then(function () {
+    assert.ok($panel.find('.question').length,'Missing question section');
+    const $saveButton= $panel.find('.detail .actions .item-actions .save');
+    assert.ok($saveButton.length, 'Panel');
+    $saveButton.click();
+    return wait().then(function () {
+      T.exists(assert, $panel.find(".question .validation .error"), "error message should be visible");
+    });
+  });
 });

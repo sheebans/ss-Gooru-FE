@@ -134,7 +134,6 @@ export default Ember.Mixin.create({
     return items.filterBy('isNew', false).length;
   }),
 
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -144,19 +143,24 @@ export default Ember.Mixin.create({
   refreshList: function() {
     var orderList = this.get('orderList');
     var items = this.get('items');
-    var filterFunc = function(item, index, items) {
-      return items.findBy('id', orderList[index]);
-    };
 
-    if (items.length && items[0] instanceof BuilderItem) {
-      filterFunc = function(item, index, items) {
-        return items.findBy('data.id', orderList[index]);
-      };
+    if (orderList){
+      let filterFunc;
+
+      if (items.length && items[0] instanceof BuilderItem) {
+        filterFunc = function(item, index, items) {
+          return items.findBy('data.id', orderList[index]);
+        };
+      }
+      else {
+        filterFunc = function(item, index, items) {
+          return items.findBy('id', orderList[index]);
+        };
+      }
+
+      let sortedItems = items.map(filterFunc);
+      items.clear();
+      items.addObjects(sortedItems);
     }
-
-    var sortedItems = items.map(filterFunc);
-    items.clear();
-    items.addObjects(sortedItems);
   }
-
 });

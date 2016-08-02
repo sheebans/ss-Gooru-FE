@@ -15,9 +15,9 @@ test('generateTemplate', function(assert) {
   const result = component.constructModal(title, description, image, containerClass);
 
   let template =
-  `<div class="tour-header-test-class">
+  `<div class="tour-header test-class">
         <h2>some-title</h2>
-        <i onclick="introJs().exit()" class="material-icons">clear</i>
+        <i class="material-icons exit-button">clear</i>
       </div>
       <div class="tour-description-test-class"><img class=some-image-class><p>some-description</p>
       </div>`;
