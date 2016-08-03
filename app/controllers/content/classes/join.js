@@ -45,16 +45,14 @@ export default Ember.Controller.extend({
           }
 
         }, function (error) {
+          controller.set('isLoading', false);
           if (error.code === 'restricted') {
-            controller.set('isLoading', false);
             controller.set("allowedCode", null);
           }
           else if (error.code === 'not-found') {
-            controller.set('isLoading', false);
             controller.set("validCode", null);
           }
           else {
-            controller.set('isLoading', false);
             let message = controller.get('i18n').t('common.errors.can-not-join-class').string;
             controller.get('notifications').error(message);
           }
@@ -83,7 +81,7 @@ export default Ember.Controller.extend({
   notMember: true,
 
   /**
-   * Indicate if it's waiting for deleteMethod callback
+   * Indicate if it's waiting for join class callback
    */
   isLoading:false
 

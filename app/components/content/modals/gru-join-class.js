@@ -129,7 +129,7 @@ export default Ember.Component.extend(Validations,{
   notMember: true,
 
   /**
-   * Indicate if it's waiting for deleteMethod callback
+   * Indicate if it's waiting for join class callback
    */
   isLoading: null,
 
