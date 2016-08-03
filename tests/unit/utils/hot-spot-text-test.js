@@ -172,3 +172,19 @@ test('Hot Spot Text - toUserAnswer', function (assert) {
   let userAnswer = questionUtil.toUserAnswer(answerObjects);
   assert.deepEqual(userAnswer, [2,1,3], "Wrong user answer");
 });
+
+test('Hot Spot Text - toUserAnswer when no respond is provided', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, isCorrect: false, text: "text1", order: 1}),
+    Ember.Object.create({id: 2, isCorrect: true, text: "text2", order: 2}),
+    Ember.Object.create({id: 3, isCorrect: true, text: "text3", order: 3}),
+    Ember.Object.create({id: 3, isCorrect: true, text: "text4", order: 4})
+  ]);
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = HotSpotTextUtil.create({question: question});
+
+  let answerObjects = Ember.A([]);
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+  assert.equal(userAnswer, null, "Wrong user answer");
+});

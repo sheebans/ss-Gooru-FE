@@ -105,9 +105,11 @@ export default QuestionUtil.extend({
    */
   toUserAnswer: function (answerObjects) {
     answerObjects = answerObjects.sortBy("order");
-    return answerObjects.map(function (answerObject) {
-      return answerObject.get("text");
-    });
+    return (!answerObjects || !answerObjects.length) ?
+      null : //if not respond is provided
+      answerObjects.map(function (answerObject) {
+        return answerObject.get("text");
+      });
   }
 
 });
