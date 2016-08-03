@@ -118,3 +118,30 @@ test('Delete Assessment', function (assert) {
     });
   });
 });
+test('Add new question', function (assert) {
+  visit('/content/assessments/edit/all-resource-types-assessment-id');
+  andThen(function () {
+    assert.equal(currentURL(), '/content/assessments/edit/all-resource-types-assessment-id');
+    var $settings = find("#settings");
+    assert.ok($settings.length,'Missing settings section');
+    var $addNewQuestionButton= find('#builder .gru-collection-list .add-resource-question .add-new-question');
+    assert.ok($addNewQuestionButton.length, 'Missing add new question button');
+    click($addNewQuestionButton);
+    andThen(function () {
+      var $newQuestionModal = find('.modal .gru-question-new');
+      assert.ok($newQuestionModal.length, 'Missing question new modal');
+      var $trueFalseType = $newQuestionModal.find('.question-type-T_F');
+      assert.ok($trueFalseType.length, 'Missing true false question type');
+      click($trueFalseType);
+      andThen(function () {
+        var $create = $newQuestionModal.find('.actions.question-new .add');
+        assert.ok($create.length, 'Missing create button');
+        click($create);
+        andThen(function () {
+          var $assessmentSettings = find('.assessment-settings');
+          assert.ok($assessmentSettings.length,'Missing assessment settings');
+        });
+      });
+    });
+  });
+});
