@@ -52,6 +52,7 @@ export default Ember.Component.extend(Validations,{
       const component = this;
       component.validate().then(function ({validations }) {
         if (validations.get('isValid')) {
+          component.set('isLoading', true);
           component.sendAction("onJoinClass", component.get("code"));
         }
         component.set('didValidate', true);
@@ -125,7 +126,12 @@ export default Ember.Component.extend(Validations,{
    * Indicates if user is not a member of this class
    * @property {boolean}
    */
-  notMember: true
+  notMember: true,
+
+  /**
+   * Indicate if it's waiting for deleteMethod callback
+   */
+  isLoading: null,
 
 
 });

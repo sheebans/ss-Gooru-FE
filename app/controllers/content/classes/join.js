@@ -39,18 +39,22 @@ export default Ember.Controller.extend({
           if (!classId){ //no class is provided when is already joined to that class
             controller.set("notMember", null);
           } else {
+            controller.set('isLoading', false);
             controller.send('updateUserClasses'); // Triggers the refresh of user classes in top header
             controller.transitionToRoute('class.overview', classId);
           }
 
         }, function (error) {
           if (error.code === 'restricted') {
+            controller.set('isLoading', false);
             controller.set("allowedCode", null);
           }
           else if (error.code === 'not-found') {
+            controller.set('isLoading', false);
             controller.set("validCode", null);
           }
           else {
+            controller.set('isLoading', false);
             let message = controller.get('i18n').t('common.errors.can-not-join-class').string;
             controller.get('notifications').error(message);
           }
@@ -76,10 +80,11 @@ export default Ember.Controller.extend({
    * Indicates if user is not a member of this class
    * @property {boolean}
    */
-  notMember: true
+  notMember: true,
 
-
-
-
+  /**
+   * Indicate if it's waiting for deleteMethod callback
+   */
+  isLoading:false
 
 });
