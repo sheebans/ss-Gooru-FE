@@ -67,23 +67,5 @@
         "Content-Type": "application/json"
       }
     }
-  },
-  {
-    "description": "Get any assessment",
-    "request": {
-      "url": "^/api/nucleus/v1/assessments/(.+)$",
-      "method": "GET",
-      "headers": {
-        "authorization": "Token (.+)"
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": "File not found!",
-      "file": "all-question-types-assessment-200-response.json"
-    }
   }
 ]

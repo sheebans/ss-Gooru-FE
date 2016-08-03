@@ -62,7 +62,8 @@
     "response": {
       "status": 201,
       "headers": {
-        "Content-Type": "application/json"
+        "Content-Type": "text/plain",
+        "Location": "all-resource-types-assessment-id"
       }
   }
   }
