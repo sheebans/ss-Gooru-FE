@@ -197,3 +197,19 @@ test('FIB - toUserAnswer', function (assert) {
   assert.deepEqual(userAnswer, ["optionA", "optionB", "optionC"], "Wrong user answer");
 });
 
+test('FIB - toUserAnswer when no respond is provided', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, text: 'optionA'}),
+    Ember.Object.create({id: 2, text: 'optionB'}),
+    Ember.Object.create({id: 3, text: 'optionC'})
+  ]);
+
+  let question = Ember.Object.create({answers: answers});
+  let questionUtil = FillInTheBlankUtil.create({question: question});
+
+  let answerObjects = Ember.A([]);
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+  assert.equal(userAnswer, null, "Wrong user answer");
+});
+

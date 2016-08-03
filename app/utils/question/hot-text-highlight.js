@@ -200,9 +200,11 @@ export default QuestionUtil.extend({
    * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
-    return answerObjects.map(function (answerObject) {
-      return { index: (answerObject.get("order") - 1), text: answerObject.get("text") };
-    });
+    return (!answerObjects || !answerObjects.length) ?
+      null : //if not respond is provided
+      answerObjects.map(function (answerObject) {
+        return {index: (answerObject.get("order") - 1), text: answerObject.get("text")};
+      });
   }
 
 });
