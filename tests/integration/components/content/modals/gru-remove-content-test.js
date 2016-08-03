@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('content/modals/gru-remove-content', 'Integration | Component | content/modals/gru remove content', {
   integration: true,
@@ -118,5 +119,46 @@ test('it calls a generic delete method and then redirects (if a route is provide
   const $component = this.$(".gru-remove-content");
   $component.find('.actions .remove').click();
 
+});
+
+test('show spinner button component while the server response, after clicking on the remove button from resource', function(assert) {
+  assert.expect(5);
+
+  var isLoading = false;
+
+  const model = {
+    removeMethod: function() {
+      assert.ok(true, 'Remove method invoked');
+      return Ember.RSVP.resolve(true);
+    },
+    callback: {
+      success: function() {
+        assert.ok(true, 'Success callback run');
+      }
+    },
+    type:CONTENT_TYPES.RESOURCE
+  };
+
+  const validator = Ember.Object.create({
+    confirm:"remove",
+    check1:true,
+    check2:true
+  });
+
+  this.set('model', model);
+  this.set('validator', validator);
+  this.set('isLoading', isLoading);
+
+  this.render(hbs`{{content/modals/gru-remove-content model=model validator=validator isLoading=isLoading}}`);
+  const $component = this.$(".gru-remove-content");
+
+  assert.ok($component.find('.actions> button.remove').length, 'Remove Button should be visible');
+
+  $component.find('.actions> button.remove').click();
+
+  return wait().then(function () {
+    assert.ok($component.find('.actions> .gru-spinner-button').length, 'Missing gru-spinner-button component ');
+    assert.ok(!$component.find('.actions> button.remove').length, 'Remove Button should not be visible');
+  });
 });
 

@@ -3,6 +3,7 @@ import GruTheme from '../utils/gru-theme';
 import Env from '../config/environment';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 import GooruLegacyUrl from 'gooru-web/utils/gooru-legacy-url';
+import Error from 'gooru-web/models/error';
 
 /**
  * @typedef {object} ApplicationRoute
@@ -21,8 +22,37 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   session: Ember.inject.service(),
 
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/log
+   */
+  errorService: Ember.inject.service("api-sdk/error"),
+
+
   // -------------------------------------------------------------------------
   // Methods
+
+  setupGlobalErrorHandling: Ember.on('init', function () {
+    const route = this;
+
+    // Ultimately all server and javascript errors will be caught by this handler
+    Ember.onerror = function (error) {
+      const errorMessage = route.get('i18n').t('common.unexpectedError').string;
+      route.get('notifications').error(errorMessage);
+      route.trackAppError(error);
+    };
+
+    Ember.$(document).ajaxError(function(event, jqXHR, settings) {
+      if(jqXHR.status !== 401) {
+      route.trackEndPointError(event, jqXHR, settings);
+      }
+    });
+
+  }),
 
   model: function(params) {
     const route = this;
@@ -120,7 +150,71 @@ export default Ember.Route.extend(PublicRouteMixin, {
     }
   },
 
-  // -------------------------------------------------------------------------
+  /**
+   * Tracks end point errors
+   * @param event
+   * @param jqXHR
+   * @param settings
+     */
+  trackEndPointError : function(event, jqXHR, settings){
+    const route = this;
+
+    // do not track errors at the user-error api, this to prevent a loop
+    if (settings.url.indexOf('api/nucleus-utils/v1/user-error') >=0 ) return;
+
+    const targetElement = event.currentTarget && event.currentTarget.activeElement ?
+      event.currentTarget.activeElement : false;
+    const model = Error.create({
+      "type": "url",
+      "timestamp": new Date().getTime(),
+      "userId": (route.get("session.isAnonymous") ? "anonymous" : route.get("session.userId")),
+      "details": {
+        "route": route.get("router.url"),
+        "userAgent": navigator.userAgent,
+        "element-selector": (targetElement ? targetElement.className: null),
+        "endpoint": {
+          "url": settings.url,
+          "response": jqXHR.responseText,
+          "status": jqXHR.status,
+          "headers": settings.headers,
+          "responseHeaders": jqXHR.getAllResponseHeaders(),
+          "method": settings.type,
+          "data": settings.data
+        }
+      },
+      "description": "Endpoint error"
+    });
+
+    route.get("errorService").createError(model);
+  },
+
+  /**
+   * Tracks application/js errors
+   * @param error
+   */
+  trackAppError : function(error){
+    const route = this;
+    const model = Error.create({
+      "type": "page",
+      "timestamp": new Date().getTime(),
+      "userId": (route.get("session.isAnonymous") ? "anonymous" : route.get("session.userId")),
+      "details": {
+        "route": route.get("router.url"),
+        "userAgent": navigator.userAgent,
+        "stack": error.stack
+      },
+      "description": error.toString()
+    });
+
+    route.get("errorService").createError(model);
+  },
+
+  deactivate: function () {
+    Ember.$(document).off("ajaxError");
+  },
+
+
+// -------------------------------------------------------------------------
   // Actions - only transition actions should be placed at the route
   actions: {
     /**

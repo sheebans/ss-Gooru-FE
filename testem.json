@@ -24,19 +24,13 @@
     "/mocked-api": {
       "target": "http://localhost:8882"
     },
-    "/api/nucleus-insights/v2": {
-      "target": "http://localhost:8882"
-    },
     "/nucleus/realtime": {
       "target": "http://localhost:8882"
     },
     "/ws/realtime": {
       "target": "http://localhost:8882"
     },
-    "/api/nucleus-auth/v1": {
-      "target": "http://localhost:8882"
-    },
-    "/api/nucleus/v1": {
+    "/api": {
       "target": "http://localhost:8882"
     }
   }
