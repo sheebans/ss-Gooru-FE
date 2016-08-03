@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [release-3.1.1] - August 1, 2016
+https://collaborate.gooru.org/jira/browse/GG-1724
+
 ## [release-3.1.0] - July 28, 2016
 https://collaborate.gooru.org/jira/browse/GG-1412
 https://collaborate.gooru.org/jira/browse/GG-1438
@@ -38,6 +41,9 @@ https://collaborate.gooru.org/jira/browse/GG-1661
 https://collaborate.gooru.org/jira/browse/GG-1675
 https://collaborate.gooru.org/jira/browse/GG-1691
 https://collaborate.gooru.org/jira/browse/GG-934
+
+## [release-3.0.4] - July 15, 2016
+https://collaborate.gooru.org/jira/browse/GG-1614
 
 ## [release-3.0.3] - July 11, 2016
 https://collaborate.gooru.org/jira/browse/GG-1156

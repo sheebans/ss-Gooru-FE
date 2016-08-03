@@ -121,7 +121,8 @@ module.exports = function (environment) {
     'nucleus-qa.gooru.org': 'nucleus-qa',
     'nucleus-qa-prl.gooru.org': 'parallel-qa',
     'parallel.gooru.org': 'parallel',
-    'www.gooru.org': 'prod'
+    'www.gooru.org': 'prod',
+    'gooru.org': 'prod'
   };
 
   ENV['gooru-endpoints'] = {

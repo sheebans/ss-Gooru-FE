@@ -11,33 +11,10 @@ export default Ember.Controller.extend({
   session: Ember.inject.service("session"),
 
   /**
-   * @requires service:notifications
-   */
-  notifications: Ember.inject.service(),
-
-  /**
-   * @requires service:api-sdk/log
-   */
-  logService: Ember.inject.service("api-sdk/log"),
-
-  /**
    * This dependency is here so that the header search input is linked to the controller
    * @property {SearchController}
    */
   searchController: Ember.inject.controller('search'),
-
-
-  setupGlobalErrorHandling: Ember.on('init', function () {
-    const controller = this;
-
-    // Ultimately all server and javascript errors will be caught by this handler
-    Ember.onerror = function (error) {
-      const errorMessage = controller.get('i18n').t('common.unexpectedError').string;
-      controller.get('notifications').error(errorMessage);
-      controller.get('logService').logError(error);
-    };
-
-  }),
 
   // -------------------------------------------------------------------------
   // Attributes
