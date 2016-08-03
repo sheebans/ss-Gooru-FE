@@ -100,7 +100,7 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   showPublisher:Ember.computed('resource', function(){
-    return this.get('resource').isPublished && this.get('resource').publisher !== null;
+    return this.get('resource').isPublished && this.get('resource').publisher;
   }),
 
 

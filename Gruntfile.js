@@ -60,7 +60,7 @@ module.exports = function (grunt) {
         configFile: '.eslintrc',
         quiet: grunt.option('quiet')
   		},
-      target: ['app', 'tests']
+      target: ['app', 'config', 'tests']
   	}
   });
 
