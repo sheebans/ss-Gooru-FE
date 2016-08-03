@@ -19,7 +19,11 @@
     </div>
     <div class="modal-footer">
       {{#link-to 'home' class="not-now-button back-cta"}}{{t 'content.classes.join.not-now'}}{{/link-to}}
-      <a class="btn btn-success join-class-btn" {{action "joinClass"}}>{{t 'content.classes.join.join-class'}} {{gru-icon name= "keyboard_arrow_right" class=""}}</a>
+    {{#if isLoading}}
+      {{gru-spinner-button classes='btn btn-success join-class-btn' text=(t 'common.loading')}}
+    {{else}}
+      <button class="btn btn-success join-class-btn" {{action "joinClass"}}>{{t 'content.classes.join.join-class'}} {{gru-icon name= "keyboard_arrow_right" class=""}}</button>
+    {{/if}}
     </div>
   </div>
 </div>

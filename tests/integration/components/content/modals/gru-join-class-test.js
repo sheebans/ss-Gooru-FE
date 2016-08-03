@@ -27,9 +27,10 @@ test('Layout', function (assert) {
   const $footer = $component.find('.modal-footer');
 
 
-  assert.equal($footer.find('a').length, 2, 'Number of action buttons');
+  assert.equal($footer.find('a').length, 1, 'Number of action link');
+  assert.equal($footer.find('button').length, 1, 'Number of button');
   assert.ok($footer.find('a.back-cta').length, 'Not now button');
-  assert.ok($footer.find('a.btn').length, 'Join class button');
+  assert.ok($footer.find('.join-class-btn').length, 'Join class button');
 });
 
 
@@ -43,7 +44,7 @@ test('it shows an error message if the class code field is left blank and you bl
 
   assert.ok(!$codeField.find(".error-messages .error").length, 'Username error message should not be visible');
   // Try submitting without filling in data
-  $component.find("a.join-class-btn").click();
+  $component.find(".join-class-btn").click();
 
   return wait().then(function () {
 
@@ -74,7 +75,7 @@ test('onJoinClass event', function (assert) {
 
   $codeField.find("input").val("any");
   $codeField.find("input").blur();
-  $component.find("a.join-class-btn").click();
+  $component.find(".join-class-btn").click();
 });
 
 test('it shows an error message if the class code is invalid', function (assert) {
@@ -89,7 +90,7 @@ test('it shows an error message if the class code is invalid', function (assert)
   $codeField.find("input").val('Class code');
 
   // Try submitting without filling in data
-  $component.find("a.join-class-btn").click();
+  $component.find(".join-class-btn").click();
 
   return wait().then(function () {
     assert.ok($codeField.find(".error-messages .error").length, 'Invalid code message should appear');
@@ -97,3 +98,53 @@ test('it shows an error message if the class code is invalid', function (assert)
 
 });
 
+test('show spinner button component while the server response, after clicking on join button', function (assert) {
+
+  assert.expect(2);
+
+  this.on("joinClass", function(code){
+    assert.equal(code, "any","The event should be thrown");
+  });
+  this.set('isLoading', false);
+
+  this.render(hbs`{{content/modals/gru-join-class onJoinClass='joinClass' isLoading=isLoading}}`);
+
+  const $component = this.$('.content.modal.gru-join-class');
+
+  const $codeField = $component.find(".gru-input.code");
+
+  $codeField.find("input").val("any");
+  $codeField.find("input").blur();
+  $component.find(".join-class-btn").click();
+
+  return wait().then(function () {
+    assert.ok($component.find(".gru-spinner-button").length, 'Spinner button should appear');
+  });
+});
+
+test('Disable spinner button after showing an error', function (assert) {
+
+  assert.expect(2);
+
+  this.on("joinClass", function(code){
+    assert.equal(code, "any","The event should be thrown");
+  });
+  this.set('isLoading', false);
+
+  this.render(hbs`{{content/modals/gru-join-class validCode=null isLoading=isLoading}}`);
+
+  const $component = this.$('.content.modal.gru-join-class');
+
+  const $codeField = $component.find(".gru-input.code");
+
+  // Fill in the input field
+  $codeField.find("input").val('Class code');
+
+  // Try submitting without filling in data
+  $component.find(".join-class-btn").click();
+
+  return wait().then(function () {
+    assert.ok($codeField.find(".error-messages .error").length, 'Invalid code message should appear');
+    assert.notOk($component.find(".gru-spinner-button").length, 'Spinner button should not appear');
+  });
+});
