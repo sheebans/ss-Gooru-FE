@@ -52,11 +52,7 @@ export default DS.Model.extend({
    */
   calculateAverage: function(fieldName) {
     const counter = this.get('performanceData.length');
-    if (counter > 0) {
-      return this.calculateSum(fieldName) / counter;
-    } else {
-      return 0;
-    }
+    return (counter > 0) ? this.calculateSum(fieldName) / counter : -1;
   },
 
   /**

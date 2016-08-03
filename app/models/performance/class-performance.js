@@ -90,9 +90,9 @@ export default DS.Model.extend({
     if (studentPerformanceData.get('length') > 0) {
       studentPerformanceData.forEach(function (studentPerformanceItem) {
         var performanceData = studentPerformanceItem.get('performanceData').findBy('realId', itemId);
-        if (performanceData) {
-          counter++;
+        if (performanceData && performanceData.get(fieldName) >= 0) {
           sumValue += performanceData.get(fieldName);
+          counter += 1;
         }
       });
     }
@@ -126,12 +126,11 @@ export default DS.Model.extend({
    * @returns {Number} the average value
    */
   calculateClassAverage: function(fieldName) {
-    const counter = this.get('studentPerformanceData.length');
-    if (counter > 0) {
-      return Utils.roundFloat(this.calculateClassSum(fieldName) / counter);
-    } else {
-      return 0;
-    }
+    const validPerformanceData = this.get('studentPerformanceData').filter(function(performance) {
+      return (performance.get(fieldName) >= 0);
+    });
+    const counter = validPerformanceData.length;
+    return (counter > 0) ? Utils.roundFloat(this.calculateClassSum(fieldName) / counter) : 0;
   },
 
   /**
@@ -144,7 +143,10 @@ export default DS.Model.extend({
     const studentPerformanceData = this.get('studentPerformanceData');
     if (studentPerformanceData.get('length') > 0) {
       studentPerformanceData.forEach(function(studentPerformanceItem) {
-        sumValue += studentPerformanceItem.get(fieldName);
+        const fieldValue = studentPerformanceItem.get(fieldName);
+        if (fieldValue >= 0) {
+          sumValue += fieldValue;
+        }
       });
     }
     return sumValue;
