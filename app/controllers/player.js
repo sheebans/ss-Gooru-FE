@@ -401,6 +401,8 @@ export default Ember.Controller.extend(SessionMixin, {
 
   resetValues: function(){
     this.set("resourceId", null);
+    this.set("resource", null);
+    this.set("resourceResult", null);
     this.set("role", null);
   }
 
