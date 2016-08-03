@@ -89,7 +89,8 @@ export default Ember.Object.extend({
       else {
         count = answerDistribution.get("count");
       }
-      answerDistribution.set("count", ++count);
+      count += 1;
+      answerDistribution.set("count", count);
       answerDistribution.set("percentage", Math.round(count / total * 100));
     });
     return distribution;

@@ -191,7 +191,7 @@ test('it triggers event when clicking on questions', function (assert) {
     } else {
       assert.equal(itemId, '56a1204886b2e565e1b2c230', 'Second click: last question selected');
     }
-    numClicks++;
+    numClicks += 1;
   });
 
   this.set("assessment", assessment);

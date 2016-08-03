@@ -93,7 +93,7 @@ test('normalizeUnit', function (assert) {
         collectionCount: 0,
         id: payload.lesson_summary[0].lesson_id,
         sequence: payload.lesson_summary[0].sequence_id,
-        title: payload.lesson_summary[0].title,
+        title: payload.lesson_summary[0].title
       }),
       Lesson.create(Ember.getOwner(this).ownerInjection(), {
         assessmentCount: 2,

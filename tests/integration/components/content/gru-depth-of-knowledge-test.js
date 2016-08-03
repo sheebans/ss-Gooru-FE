@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import DS from 'ember-data';
 import Ember from 'ember';
 import KnowledgeModel from 'gooru-web/models/depth-of-knowledge';
 import wait from 'ember-test-helpers/wait';
@@ -101,7 +102,6 @@ test('Depth of knowledge edit, add knowledge -returning to edit mode will discar
   `);
 
   const $component = this.$(".content.gru-depth-of-knowledge");
-  const test = this;
   return wait().then(function(){
 
     var $knowledgeList = $component.find('ul');

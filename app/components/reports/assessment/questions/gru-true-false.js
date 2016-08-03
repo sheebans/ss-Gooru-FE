@@ -13,7 +13,7 @@ export default MultipleChoiceComponent.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'assessment', 'questions', 'gru-true-false'],
+  classNames: ['reports', 'assessment', 'questions', 'gru-true-false']
 
   // -------------------------------------------------------------------------
   // Properties

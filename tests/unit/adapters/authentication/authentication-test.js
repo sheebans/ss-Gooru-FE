@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import Pretender from 'pretender';
-import Env from 'gooru-web/config/environment';
 import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 

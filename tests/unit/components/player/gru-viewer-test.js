@@ -10,7 +10,7 @@ test('resourceComponentSelected for non valid resource type', function (assert) 
 
   var component = this.subject({
     resource: Ember.Object.create({
-      resourceType: "any-non-valid-value",
+      resourceType: "any-non-valid-value"
     })
   });
 
@@ -22,7 +22,7 @@ test('resourceComponentSelected for image resource type', function (assert) {
 
   var component = this.subject({
     resource: Ember.Object.create({
-      isImageResource: true,
+      isImageResource: true
     })
   });
 

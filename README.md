@@ -133,6 +133,10 @@ You can also execute the test using grunt tasks
 ### Running a single test file/module with stubby
  * `grunt stubby:server &` to start up the stubby server at background, you need to stop the process manually when done
  * `ember test --m 'your module here'` to run your test file/module
+ 
+ ## Running linter
+ * `grunt eslint` to run eslint in all javascript files
+ * `grunt eslint --quiet` to hide warnings
 
 ### Code Coverage
 More than 80% of coverage is mandatory for this project 

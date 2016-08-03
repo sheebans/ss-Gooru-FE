@@ -34,7 +34,7 @@ export default Ember.Component.extend({
       createClass: function () {
         const component = this;
         const newClass = this.get('newClass');
-        newClass.validate().then(function ({ model, validations }) {
+        newClass.validate().then(function ({ validations }) {
           if (validations.get('isValid')) {
             component.get('classService')
                 .createClass(newClass)

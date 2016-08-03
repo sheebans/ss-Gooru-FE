@@ -20,7 +20,7 @@ test('Bubbles Layout', function(assert) {
   }), Ember.Object.create({
     'label': "2",
     'status': 'incorrect',
-    'value': 'some-value-2',
+    'value': 'some-value-2'
   }), Ember.Object.create({
     'label': "3",
     'status': 'incorrect',
@@ -54,7 +54,7 @@ test('Select bubble', function(assert) {
   }), Ember.Object.create({
     'label': "2",
     'status': "incorrect",
-    'value': 'some-value-2',
+    'value': 'some-value-2'
   }), Ember.Object.create({
     'label': "3",
     'status': "incorrect",

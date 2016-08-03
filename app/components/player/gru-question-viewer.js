@@ -1,6 +1,5 @@
 import Ember from "ember";
-import {KEY_CODES} from "gooru-web/config/config";
-import { ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'gooru-web/config/config';
+import { KEY_CODES, ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'gooru-web/config/config';
 
 /**
  * Player question viewer
@@ -38,7 +37,8 @@ export default Ember.Component.extend({
       var actualHint = this.get('actualHint');
 
       this.get('hintsToDisplay').pushObject(this.get('question.hints').objectAt(actualHint));
-      this.set('actualHint', ++actualHint);
+      actualHint += 1;
+      this.set('actualHint', actualHint);
     },
 
     showExplanation: function(){
@@ -104,7 +104,7 @@ export default Ember.Component.extend({
           }
         }
       }
-    })
+    });
   }),
 
   /**

@@ -79,7 +79,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           deleteMethod: function () {
             return this.get('questionService').deleteQuestion(this.get('model.id'));
           }.bind(this),
-          type: CONTENT_TYPES.QUESTION,
+          type: CONTENT_TYPES.QUESTION
         };
         this.actions.showModal.call(this,
           'content.modals.gru-delete-content',
@@ -89,7 +89,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           removeMethod: function () {
             return this.get('resourceService').deleteResource(this.get('model.id'));
           }.bind(this),
-          type: CONTENT_TYPES.RESOURCE,
+          type: CONTENT_TYPES.RESOURCE
         };
         this.actions.showModal.call(this,
           'content.modals.gru-remove-content',
@@ -163,7 +163,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     updateItem: function (builderItem) {
       let component = this;
       var editedModel = this.get('tempModel');
-      let model = component.get('model');
 
       editedModel.validate().then(function({model, validations}) {
         if (validations.get('isValid')) {
@@ -373,7 +372,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           answersPromise = Ember.RSVP.Promise.all(promiseArray);
         }
         answersPromise.then(function(values) {
-          if (component.validateAnswers.call(component, values, editedQuestion)) {
+          if (component.validateAnswers(values, editedQuestion)) {
             component.updateQuestion(editedQuestion,component);
           }
         });
@@ -499,7 +498,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    * Returns validate image promises
    */
   getAnswerValidatePromise: function(answer) {
-    return answer.validate().then(function ({ model, validations }) {
+    return answer.validate().then(function ({ validations }) {
       return validations.get('isValid');
     });
   },

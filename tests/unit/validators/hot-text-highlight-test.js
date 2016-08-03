@@ -9,7 +9,7 @@ moduleFor('validator:hot-text-highlight', 'Unit | Validator | hot-text-highlight
 test('check if brackets are balanced using bracketsAreBalanced()', function(assert) {
   var validator = this.subject();
   const correctlyBalanced = "The quick brown fox [jumps] over the lazy dog";
-  const incorrectlyBalanced = "The quick brown fox [jumps[ over the lazy dog";
+  const incorrectlyBalanced = "The quick brown fox [jumps[ over] t]he] ]lazy dog";
 
   assert.ok(validator.bracketsAreBalanced(correctlyBalanced), "String is not bracket balanced");
   assert.notOk(validator.bracketsAreBalanced(incorrectlyBalanced), "String is bracket balanced");
@@ -20,7 +20,7 @@ test('check if selections are valid using validateSelections()', function(assert
   var answerText = "The [quick] brown fox [jumps] over the lazy dog";
 
   assert.ok(validator.validateSelections(answerText, 'word'), "Answer is valid with words");
-  
+
   answerText = "The [quick] brown fox []jumps over the lazy dog";
   assert.notOk(validator.validateSelections(answerText, 'word'), "Answer is invalid due to empty selection");
 

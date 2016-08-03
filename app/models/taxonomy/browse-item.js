@@ -92,7 +92,8 @@ var BrowseItem = TaxonomyItem.extend({
 
     if (parent) {
       let childrenSelected = parent.get('totalChildrenSelected');
-      parent.set('totalChildrenSelected', --childrenSelected);
+      childrenSelected -= 1;
+      parent.set('totalChildrenSelected', childrenSelected);
       parent.decreaseSelected();
     }
   },
@@ -105,7 +106,8 @@ var BrowseItem = TaxonomyItem.extend({
 
     if (parent) {
       let childrenSelected = parent.get('totalChildrenSelected');
-      parent.set('totalChildrenSelected', ++childrenSelected);
+      childrenSelected += 1;
+      parent.set('totalChildrenSelected', childrenSelected);
       parent.increaseSelected();
     }
   }

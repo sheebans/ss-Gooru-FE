@@ -24,7 +24,7 @@ export default Ember.Route.extend({
   model: function (){
     const profile = this.modelFor("profile").profile;
     var myFollowings;
-    if(profile.get("id")!= this.get('session.userId')){
+    if(profile.get("id") !== this.get('session.userId')){
       myFollowings = this.get("profileService").readFollowing(this.get('session.userId'));
     }
     //followings

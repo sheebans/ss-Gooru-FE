@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { courseSectionsPrefix, alphabeticalStringSort, numberSort } from 'gooru-web/utils/utils';
+import { alphabeticalStringSort, numberSort } from 'gooru-web/utils/utils';
 
 /**
  * Teacher Metrics Table

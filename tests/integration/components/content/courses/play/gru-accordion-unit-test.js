@@ -78,7 +78,9 @@ test('it renders the unit correctly, if the unit has no lessons', function (asse
 
   this.set('index', 0);
   this.set('unit', unit);
-  this.set('onExpandUnit', function() {});
+  this.set('onExpandUnit', function() {
+    assert.ok(true, 'Called onExpandUnit');
+  });
   this.render(hbs`{{content/courses/play/gru-accordion-unit model=unit index=index onExpandUnit=onExpandUnit}}`);
 
   const $component = this.$('.content.courses.gru-accordion.gru-accordion-unit.view');

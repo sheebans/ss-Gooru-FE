@@ -1,5 +1,4 @@
 import Ember from "ember";
-import {KEY_CODES} from "../../config/config";
 
 /**
  * Player navigator

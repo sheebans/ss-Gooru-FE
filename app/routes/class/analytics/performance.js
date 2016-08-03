@@ -42,7 +42,7 @@ export default Ember.Route.extend({
 
     if (classModel.isTeacher(route.get('session.userId'))){
       const integrationModel = route.modelFor('integration');
-      if (integrationModel && integrationModel.appType == 'teams'){
+      if (integrationModel && integrationModel.appType === 'teams'){
         route.transitionTo('class.analytics.performance.teacher.course', {
           queryParams: route.paramsFor('class.analytics.performance.teacher.course')
         });

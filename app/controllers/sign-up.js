@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
         profile.set('lastName', lastName);
       }
 
-      profile.validate().then(function ({model, validations}) {
+      profile.validate().then(function ({ validations }) {
         if (validations.get('isValid') && birthDayDate !== '') {
           profile.set('dateOfBirth', birthDayDate);
           controller.get('profileService').createProfile(profile)
@@ -245,9 +245,8 @@ export default Ember.Controller.extend({
     var birthDate = new Date(dateOfBirth);
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
-    {
-      age--;
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age -= 1;
     }
     return age;
   },

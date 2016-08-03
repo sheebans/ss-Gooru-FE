@@ -260,7 +260,7 @@ export default Ember.Component.extend(AccordionMixin, {
                 } else {
                   const collectionPerformanceData = performance.findBy('id', lessonItem.get('id'));
                   const score = collectionPerformanceData.get('score');
-                  let hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore) ? true : false;
+                  let hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
                   collectionPerformanceData.set('hasTrophy', hasTrophy);
                   lessonItem.set('performance', collectionPerformanceData);
                   const performancePromiseData = component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, [lessonItem], {collectionType: 'assessment'});

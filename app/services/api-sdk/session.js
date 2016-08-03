@@ -55,9 +55,11 @@ export default Ember.Service.extend({
    */
   authorize: function() {
     const service = this;
-    return new Ember.RSVP.Promise(function(resolve) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('session').authorize('authorizer:auth-api-3', function(err) {
-        if(err) return reject(err);
+        if(err) {
+          return reject(err);
+        }
         resolve();
       });
     });

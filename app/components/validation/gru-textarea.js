@@ -167,6 +167,6 @@ export default Ember.Component.extend({
    */
   removeWhiteSpaces:function(value){
     return $.trim(value);
-  },
+  }
 
 });

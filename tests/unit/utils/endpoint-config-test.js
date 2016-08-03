@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 import { module, test } from 'qunit';
 

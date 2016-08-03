@@ -122,6 +122,6 @@ export default Ember.Component.extend(ModalMixin, {
   */
   didRender(){
     $('[data-toggle="tooltip"]').tooltip();
-  },
+  }
 
 });

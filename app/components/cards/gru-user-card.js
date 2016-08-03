@@ -24,7 +24,7 @@ export default Ember.Component.extend(ModalMixin,{
         content: component.get('user'),
         deleteMethod: function () {
           return component.get('classService').removeStudentFromClass(component.get('classId'),component.get('user.id'));
-        }.bind(component),
+        },
         callback:{
           success:function(){
             component.sendAction('onRemoveStudent',component.get('user'));
@@ -35,7 +35,7 @@ export default Ember.Component.extend(ModalMixin,{
       this.actions.showModal.call(this,
         'content.modals.gru-remove-student',
         model, null, null, null, false);
-    },
+    }
   },
   // -------------------------------------------------------------------------
   // Properties

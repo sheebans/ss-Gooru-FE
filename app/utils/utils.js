@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import { isNumeric } from './math';
 import {
+  DEFAULT_IMAGES,
   EMOTION_VALUES,
   GRADING_SCALE } from 'gooru-web/config/config';
-import { DEFAULT_IMAGES } from "gooru-web/config/config";
 /**
  * Function for sorting strings alphabetically in ascending order
  * @param {string} a
@@ -40,13 +40,14 @@ export function checkStandards(standards, checkableStandards, codes) {
  * @param {service} i18n
  */
 export function courseSectionsPrefix(index, type, i18n,longName) {
-  var prefixIndex = ++index;
+  index += 1;
+  var prefixIndex = index;
   var letter;
   var sectionPrefix;
   if(longName){
     const i18nKey = `common.${type}`;
     letter = i18n.t(i18nKey);
-    sectionPrefix =`${letter}`+' '+`${prefixIndex}`;
+    sectionPrefix =`${letter} ${prefixIndex}`;
   }else{
     const i18nKey = `common.${type}Initial`;
     letter = i18n.t(i18nKey);

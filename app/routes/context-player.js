@@ -99,7 +99,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     });
   },
 
-  deactivate: function(controller){
+  deactivate: function(){
     this.get('controller').set('showContent',false);
     // Call parent method
     this._super(...arguments);

@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['charts','gru-bubble-chart'],
+  classNames: ['charts','gru-bubble-chart']
 
   // -------------------------------------------------------------------------
   // Actions

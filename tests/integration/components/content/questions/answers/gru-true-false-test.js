@@ -39,7 +39,7 @@ test('Load a list of answers', function(assert) {
   const question = Question.create({
     answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "True",
-      'isCorrect': false,
+      'isCorrect': false
     }), Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "False",
       'isCorrect': true
@@ -59,7 +59,7 @@ test('Correct answer', function(assert) {
   const question = Question.create({
     answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "True",
-      'isCorrect': true,
+      'isCorrect': true
     }), Answer.create(Ember.getOwner(this).ownerInjection(),{
       'text': "False",
       'isCorrect': false

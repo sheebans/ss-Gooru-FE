@@ -54,7 +54,7 @@ export default Ember.Controller.extend({
    * @property {boolean} areAnswersHidden - Should answer results be hidden?
    */
   areAnswersHidden: Ember.computed('collection.isAssessment', 'collection.showFeedback', function() {
-    return (this.get('collection.isAssessment') && this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.NEVER)
+    return (this.get('collection.isAssessment') && this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.NEVER);
   }),
 
   /**
@@ -142,7 +142,7 @@ export default Ember.Controller.extend({
             .then(function (standardsSummary) {
               assessmentResult.set('mastery', standardsSummary);
               let standardsIds = standardsSummary.map(function (standardSummary) {
-                return standardSummary.get('id')
+                return standardSummary.get('id');
               });
               if (standardsIds.length){ //if it has standards
                 controller.get('taxonomyService')

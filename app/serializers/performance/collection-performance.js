@@ -8,7 +8,7 @@ import PerformanceSerializer from './performance';
 export default PerformanceSerializer.extend({
 
   isCollection: function(payload) {
-    return payload.collectionId ? true : false;
+    return !!payload.collectionId;
   },
 
   getModelId: function(payload) {

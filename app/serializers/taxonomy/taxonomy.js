@@ -237,7 +237,7 @@ export default Ember.Object.extend({
       taxonomyResult = {};
       taxonomyData.forEach(function(taxonomy) {
         const taxonomyKey = taxonomy.get('id');
-        taxonomyResult[taxonomyKey] = taxonomy.get('code')
+        taxonomyResult[taxonomyKey] = taxonomy.get('code');
       });
     }
     return taxonomyResult;

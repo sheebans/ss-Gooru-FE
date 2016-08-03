@@ -79,7 +79,7 @@ test('Layout', function(assert) {
         explanation: 'Sample explanation text',
         answers:  Ember.A([
           Ember.Object.create({ id: "1", isCorrect: true,text:"True" }),
-          Ember.Object.create({ id: "2", isCorrect: false,text:"False" }),
+          Ember.Object.create({ id: "2", isCorrect: false,text:"False" })
         ]),
         "resourceType": "assessment-question",
         "resourceFormat": "question",
@@ -222,7 +222,7 @@ test('Layout Anonymous', function(assert) {
         explanation: 'Sample explanation text',
         answers:  Ember.A([
           Ember.Object.create({ id: "1", isCorrect: true,text:"True" }),
-          Ember.Object.create({ id: "2", isCorrect: false,text:"False" }),
+          Ember.Object.create({ id: "2", isCorrect: false,text:"False" })
         ]),
         "resourceType": "assessment-question",
         "resourceFormat": "question",
@@ -292,7 +292,7 @@ test('Layout Anonymous and Show Results', function(assert) {
     questionType: 'MC',
     text: 'Sample Question MC',
     answers:  Ember.A([
-      Ember.Object.create({ id: 1, isCorrect: false,text:"Answer 1" }),
+      Ember.Object.create({ id: 1, isCorrect: false,text:"Answer 1" })
     ]),
     order: 1,
     "resourceFormat": "question",
@@ -327,7 +327,7 @@ test('Layout Anonymous and Show Results', function(assert) {
         explanation: 'Sample explanation text',
         answers:  Ember.A([
           Ember.Object.create({ id: "1", isCorrect: true,text:"True" }),
-          Ember.Object.create({ id: "2", isCorrect: false,text:"False" }),
+          Ember.Object.create({ id: "2", isCorrect: false,text:"False" })
         ]),
         "resourceType": "assessment-question",
         "resourceFormat": "question",

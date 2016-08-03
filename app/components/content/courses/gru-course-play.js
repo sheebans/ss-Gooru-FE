@@ -88,7 +88,7 @@ export default Ember.Component.extend(ModalMixin, {
     return TaxonomyTag.getTaxonomyTags(this.get("course.taxonomy"), false);
   }),
 
-  isOwner: null,
+  isOwner: null
 
 
 });

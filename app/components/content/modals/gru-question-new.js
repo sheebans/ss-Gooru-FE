@@ -50,7 +50,7 @@ export default Ember.Component.extend({
       const question = component.get('question');
       question.set("title", component.get('i18n').t('common.new-question').string); //Default title
       question.set("description", component.get('i18n').t('common.new-question-text').string); //TODO temporal fix
-      question.validate().then(function ({ model, validations }) {
+      question.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
           let questionId;
           component.get('questionService')

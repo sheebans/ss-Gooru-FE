@@ -74,7 +74,7 @@ test("it calls an external action when clicking an item that is not in the last 
   this.set('headers', headers);
   this.set('selectedPath', ['0-100', '0-100-200']);  // IDs of the selected nodes
 
-  this.on('externalAction', function(itemPath) {
+  this.on('externalAction', function() {
     assert.ok('true', 'External action called');
   });
 

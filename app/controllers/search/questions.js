@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import BaseController from 'gooru-web/controllers/search/base-controller';
 
 /**
