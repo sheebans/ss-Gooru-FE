@@ -2,7 +2,7 @@
     <h4 class="modal-title">{{t "common.remove"}} {{t (concat 'common.' model.type)}}</h4>
 </div>
 <div class="modal-body">
-    <form {{action "removeContent" model on="submit"}}>
+    <form>
         <p class="legend">{{{t "content.modals.remove-content.legend" title=model.content.title parentName=model.parentName}}}
         </p>
         <div class="remove-info">
@@ -24,11 +24,14 @@
         <p class="confirmation">{{t "content.modals.remove-content.confirmation"}}</p>
       {{input type="text" class="remove-input" value=validator.confirm}}
         <div class="actions remove">
-            <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
-                <span aria-hidden="true">{{t 'common.cancel'}}</span>
-            </button>
-            <button type="submit" class="btn btn-warning remove" disabled={{isDisabled}}>{{t 'common.remove'}}</button>
+          <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+              <span aria-hidden="true">{{t 'common.cancel'}}</span>
+          </button>
+          {{#if isLoading}}
+            {{gru-spinner-button classes='btn btn-warning remove' text=(t 'common.loading')}}
+          {{else}}
+            <button class="btn btn-warning remove" {{action "removeContent" model}} disabled={{isDisabled}}>{{t 'common.remove'}}</button>
+          {{/if}}
         </div>
-
     </form>
 </div>
