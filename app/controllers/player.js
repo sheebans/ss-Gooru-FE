@@ -217,11 +217,8 @@ export default Ember.Controller.extend(SessionMixin, {
    */
   resourcesPlayer: Ember.computed("collection.resources","assessmentResult.sortedResourceResults", function(){
     var availableResources = this.get('collection.resources').mapBy('id');
-    var assessmentAvailableResources = Ember.A([]);
-    this.get('assessmentResult.sortedResourceResults').map(function(item){
-       if(availableResources.contains(item.resourceId)){
-         assessmentAvailableResources.addObject(item);
-       }
+    var assessmentAvailableResources = this.get('assessmentResult.sortedResourceResults').filter(function(item){
+       return availableResources.contains(item.resourceId);
     });
     return assessmentAvailableResources;
   }),
