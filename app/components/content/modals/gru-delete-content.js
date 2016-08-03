@@ -54,6 +54,8 @@ export default Ember.Component.extend({
     deleteContent: function (model) {
       let component = this;
 
+      component.set('isLoading', true);
+
       // This deleteMethod will be a wrapper around the actual delete method that is particular to
       // each question type.
       model.deleteMethod()
@@ -61,6 +63,7 @@ export default Ember.Component.extend({
           if (model.callback) {
             model.callback.success();
           }
+          component.set('isLoading', false);
           component.triggerAction({ action: 'closeModal' });
 
           if (model.redirect) {
@@ -95,6 +98,11 @@ export default Ember.Component.extend({
    * @property {model}
    */
   validator: null,
+
+  /**
+   * Indicate if it's waiting for deleteMethod callback
+   */
+  isLoading: false,
 
   /**
    * Indicate if delete button is disabled
