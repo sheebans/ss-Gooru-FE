@@ -52,6 +52,9 @@ export default Ember.Component.extend({
      */
     removeContent: function (model) {
       let component = this;
+
+      component.set('isLoading', true);
+
       // This removeMethod will be a wrapper around the actual remove method that is particular to
       // each content type.
       model.removeMethod()
@@ -59,6 +62,7 @@ export default Ember.Component.extend({
           if (model.callback) {
             model.callback.success();
           }
+          component.set('isLoading', false);
           component.triggerAction({ action: 'closeModal' });
           if (model.redirect) {
             component.get('router').transitionTo(model.redirect.route, model.redirect.params.id);
@@ -92,6 +96,11 @@ export default Ember.Component.extend({
    * @property {model}
    */
   validator: null,
+
+  /**
+   * Indicate if it's waiting for removeMethod callback
+   */
+  isLoading: false,
 
   /**
    * Indicate if delete button is disabled

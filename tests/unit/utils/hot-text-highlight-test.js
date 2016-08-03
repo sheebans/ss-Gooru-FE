@@ -369,3 +369,20 @@ test('Hot Text Highlight - toUserAnswer', function (assert) {
 
   assert.deepEqual(userAnswer, answer, "Wrong user answer");
 });
+
+test('Hot Text Highlight - toUserAnswer when no respond is provided', function (assert) {
+  let question = Ember.Object.create({
+    answers: Ember.A([Ember.Object.create({text: "Many [correct] items in this sentence [another.]"})]),
+    hasAnswers: true,
+    isHotTextHighlightWord: true
+  });
+  let questionUtil = HotTextHighlightUtil.create({question: question});
+
+  let answerObjects = Ember.A([]);
+
+  let userAnswer = questionUtil.toUserAnswer(answerObjects);
+
+  let answer = [ {index: 6, text: "another."}, {index: 1, text: "correct"}, {index: 3, text: "item"} ];
+
+  assert.equal(userAnswer, null, "Wrong user answer");
+});

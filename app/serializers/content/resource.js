@@ -84,7 +84,7 @@ export default Ember.Object.extend({
       owner: resourceData.creator_id,
       info: info,
       amIThePublisher: resourceData['is_copyright_owner'] || false,
-      publisher: resourceData["copyright_owner"] && resourceData["copyright_owner"].length > 0 ? resourceData["copyright_owner"][0] : null,
+      publisher: info.publisher ? info.publisher[0] : null,
       isVisibleOnProfile: typeof resourceData['visible_on_profile'] !== 'undefined' ? resourceData['visible_on_profile'] : true,
       order: resourceData.sequence_id,
       displayGuide:resourceData['display_guide']&& (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1)

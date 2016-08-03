@@ -20,7 +20,18 @@
 
     h4 {
       color: $white;
-      margin: 40px 0 10px;
+      display: inline-block;
+      margin: 40px 0 0 -10px;
+      padding: 12px 30px 12px 10px;
+
+      &.active-for-tour {
+        @include box-shadow(0 0 0 3px $white);
+        background-color: $blue-500;
+        border-radius: 2px;
+        box-shadow: 0 0 0 3px $white;
+        position: relative;
+        z-index: 9999999;
+      }
     }
 
     p {

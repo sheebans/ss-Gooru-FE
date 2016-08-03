@@ -16,6 +16,15 @@
         width: 90%;
       }
     }
+
+    .title {
+      >* {
+        display: inline-block;
+        &:last-child {
+          margin-left: 25px; 
+        }
+      }
+    }
   }
 }
 

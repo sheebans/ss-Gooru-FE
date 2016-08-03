@@ -27,6 +27,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   session: Ember.inject.service("session"),
 
+
+  /**
+   * @type {I18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
   // -------------------------------------------------------------------------
   // Actions
 
@@ -44,12 +49,41 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     let profilePromise = route.get('profileService').readUserProfile(myId);
     const classesStatus = this.get("classService").getReportClassesStatusFromStore(myId);
 
+    const tourSteps = Ember.A([
+      {
+        elementSelector: '.gru-header .home-link',
+        title: route.get('i18n').t('gru-tour.home.stepOne.title'),
+        description: route.get('i18n').t('gru-tour.home.stepOne.description')
+      },
+      {
+        elementSelector: '.home-navigator .active-classes a',
+        title: route.get('i18n').t('gru-tour.home.stepTwo.title'),
+        description: route.get('i18n').t('gru-tour.home.stepTwo.description')
+      },
+      {
+        elementSelector: '.home-navigator .archived-classes a',
+        title: route.get('i18n').t('gru-tour.home.stepThree.title'),
+        description: route.get('i18n').t('gru-tour.home.stepThree.description')
+      },
+      {
+        elementSelector: '.home-navigator .actions .create-class-cta',
+        title: route.get('i18n').t('gru-tour.home.stepFour.title'),
+        description: route.get('i18n').t('gru-tour.home.stepFour.description')
+      },
+      {
+        elementSelector: '.gru-header .profile-link .profile',
+        title: route.get('i18n').t('gru-tour.home.stepFive.title'),
+        description: route.get('i18n').t('gru-tour.home.stepFive.description')
+      }
+    ]);
+
     return profilePromise.then(function(profile){
       let myClasses = route.get('classService').findMyClasses(profile);
       return Ember.RSVP.hash({
         myClasses: myClasses,
         classesStatus: classesStatus,
-        profile: profile
+        profile: profile,
+        tourSteps:tourSteps
       });
     });
   },
@@ -84,6 +118,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   setupController: function(controller, model) {
     controller.set('myClasses', model.myClasses);
     controller.set('profile', model.profile);
+    controller.set('steps', model.tourSteps);
   }
 
 });

@@ -108,9 +108,11 @@ export default MultipleAnswerUtil.extend({
    * @see '# Answer Object' section at class comment
    */
   toUserAnswer: function (answerObjects) {
-    return answerObjects.filterBy("skip", false).map(function (answerObject) {
-      return answerObject.get("answerId");
-    });
+    return (!answerObjects || !answerObjects.length) ?
+      null : //if not respond is provided
+      answerObjects.filterBy("skip", false).map(function (answerObject) {
+        return answerObject.get("answerId");
+      });
   }
 
 

@@ -1,7 +1,10 @@
 <div class="controller home row">
   <iframe id="download_iframe" style="display:none;"></iframe>
   <div class="greetings">
-    <span>Hi {{profile.firstName}}!</span>
+    <div class="title">
+        <span>Hi {{profile.firstName}}!</span>
+        {{gru-tour steps=steps containerClass='home-tour'}}
+    </div>
     <p>
       {{t 'user.joined-classes' count=totalJoinedClasses}}{{t 'user.teaching-classes' count=totalTeachingClasses}}.
     </p>

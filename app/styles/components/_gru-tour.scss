@@ -37,7 +37,7 @@
 
 
 .introjs-tooltiptext {
-  .tour-header-overview {
+  .tour-header {
     h2 {
       display: inline-block;
       font-size: $font-size-h4;
@@ -45,8 +45,9 @@
 
     i {
       cursor: pointer;
-      float: right;
       font-size: $font-size-h2;
+      position: absolute;
+      right: 0;
     }
   }
 
@@ -78,5 +79,4 @@
 
 .gru-tour {
   @include align-self(flex-end);
-  margin-bottom: 15px;
 }
