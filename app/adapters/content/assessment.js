@@ -13,7 +13,7 @@ export default Ember.Object.extend({
 
   copierNamespace: '/api/nucleus/v1/copier/assessments',
 
-  externalNamespace: '/api/nucleus/v1/assessments-external/',
+  externalNamespace: '/api/nucleus/v1/assessments-external',
   /**
    * Posts a new assessment
    *

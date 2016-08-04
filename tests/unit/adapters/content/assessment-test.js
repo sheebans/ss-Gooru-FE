@@ -102,6 +102,23 @@ test('deleteAssessment', function(assert) {
     });
 });
 
+
+test('deleteExternalAssessment', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.delete('/api/nucleus/v1/assessments-external/assessment-id', function() {
+      return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    }, false);
+  });
+  adapter.deleteExternalAssessment('assessment-id')
+    .then(function() {
+      assert.ok(true);
+    });
+});
+
 test('copyAssessment', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -140,4 +157,3 @@ test('reorderAssessment', function(assert) {
       assert.ok(false, 'Reorder Assessment failed');
     });
 });
-
