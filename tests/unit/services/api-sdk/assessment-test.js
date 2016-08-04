@@ -104,24 +104,45 @@ test('addQuestion', function(assert) {
 });
 
 test('deleteAssessment', function(assert) {
-  const expectedAssessmentId = 'assessment-id';
+  const expectedAssessment = Ember.Object.create({
+    id:'assessment-id',
+    format:'assessment'
+  });
+
+  const secondExpectedAssessment = Ember.Object.create({
+    id:'second-assessment-id',
+    format:'external-assessment'
+  });
   const service = this.subject();
 
-  assert.expect(1);
+  assert.expect(2);
 
   service.set('assessmentAdapter', Ember.Object.create({
     deleteAssessment: function(assessmentId) {
-      assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+      assert.equal(assessmentId, expectedAssessment.id, 'Wrong assessment');
+      return Ember.RSVP.resolve();
+    },
+    deleteExternalAssessment: function(assessmentId) {
+      assert.equal(assessmentId, secondExpectedAssessment.id, 'Wrong assessment');
       return Ember.RSVP.resolve();
     }
   }));
 
   var done = assert.async();
-  service.deleteAssessment('assessment-id')
-    .then(function() {
+
+  service.deleteAssessment(Ember.Object.create({
+    id:'assessment-id',
+    format:'assessment'
+  })).then(function() {
+    service.deleteAssessment(Ember.Object.create({
+      id:'second-assessment-id',
+      format:'external-assessment'
+    })).then(function() {
       done();
     });
+  });
 });
+
 
 test('copyAssessment', function(assert) {
   const service = this.subject();
@@ -168,4 +189,3 @@ test('reorderAssessment', function(assert) {
   var done = assert.async();
   service.reorderAssessment(expectedAssessmentId, ["a", "b"]).then(function() { done(); });
 });
-

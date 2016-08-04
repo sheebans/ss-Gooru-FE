@@ -103,7 +103,7 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       }else{
         lessonItem = {
           deleteMethod: function () {
-            return this.get('assessmentService').deleteAssessment(this.get('model.id'));
+            return this.get('assessmentService').deleteAssessment(this.get('model'));
           }.bind(this),
           type: CONTENT_TYPES.ASSESSMENT
         };

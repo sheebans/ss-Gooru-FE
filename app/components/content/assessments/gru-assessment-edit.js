@@ -81,7 +81,7 @@ export default CollectionEdit.extend({
         isHeaderDelete:true,
         parentName:this.get('course.title'),
         deleteMethod: function () {
-          return this.get('assessmentService').deleteAssessment(this.get('collection.id'));
+          return this.get('assessmentService').deleteAssessment(this.get('collection'));
         }.bind(this),
         type: CONTENT_TYPES.ASSESSMENT,
         redirect: {
