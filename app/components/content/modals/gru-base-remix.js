@@ -64,6 +64,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
   beforeCopy: function(){
+    Ember.Logger.warn('This function can be overwrite');
   },
 
   afterCopy: function (contentModel) {

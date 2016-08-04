@@ -55,6 +55,6 @@ export default RemixBaseModal.extend({
   afterCopy: function (contentModel) {
     const component = this;
     component.notifyCopy(contentModel);
-  },
+  }
 
 });
