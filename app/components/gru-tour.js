@@ -32,7 +32,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-tour'],
+  classNames: ['gru-tour','hidden-xs','hidden-sm'],
 
   classNameBindings: ['component-class'],
 
