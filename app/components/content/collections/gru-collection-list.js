@@ -54,16 +54,22 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     saveCollectionItemsOrder: function(){
       var component = this;
-      if(this.get('isCollection')){
-        component.get('collectionService').reorderCollection(component.get('model.id'),component.get('orderList'))
-          .then(function(){
-            component.actions.finishSort.call(component);
-          });
-      } else {
-        component.get('assessmentService').reorderAssessment(component.get('model.id'),component.get('orderList'))
-        .then(function(){
-          component.actions.finishSort.call(component);
-        });
+      const orderList = component.get('orderList');
+      if (orderList){
+        if(this.get('isCollection')){
+          component.get('collectionService').reorderCollection(component.get('model.id'),component.get('orderList'))
+            .then(function(){
+              component.actions.finishSort.call(component);
+            });
+        } else {
+          component.get('assessmentService').reorderAssessment(component.get('model.id'),component.get('orderList'))
+            .then(function(){
+              component.actions.finishSort.call(component);
+            });
+        }
+      }
+      else {
+        component.actions.finishSort.call(component);
       }
     }
   },
