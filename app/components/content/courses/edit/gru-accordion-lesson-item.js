@@ -82,8 +82,6 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
      */
     deleteItem: function (builderItem) {
       let component = this;
-      console.log(builderItem);
-      console.log(component.get('model'),'asdf');
       var model =  {
         content: this.get('model'),
         index:this.get('index'),
