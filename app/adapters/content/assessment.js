@@ -13,6 +13,7 @@ export default Ember.Object.extend({
 
   copierNamespace: '/api/nucleus/v1/copier/assessments',
 
+  externalNamespace: '/api/nucleus/v1/assessments-external',
   /**
    * Posts a new assessment
    *
@@ -82,6 +83,27 @@ export default Ember.Object.extend({
   deleteAssessment: function(assessmentId) {
     const adapter = this;
     const namespace = this.get('namespace');
+    const url = `${namespace}/${assessmentId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Deletes an assessment by id
+   *
+   * @param assessmentId assessment id to be sent
+   * @returns {Promise}
+   */
+  deleteExternalAssessment: function(assessmentId) {
+    const adapter = this;
+    const namespace = this.get('externalNamespace');
     const url = `${namespace}/${assessmentId}`;
     const options = {
       type: 'DELETE',
