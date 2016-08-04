@@ -40,24 +40,20 @@ export default BaseValidator.extend({
    * @returns {Boolean} String is bracket balanced
    */
   bracketsAreBalanced(string) {
-    const brackets = "[]";
-    var stack = [];
-    var i, character, bracePosition;
-
-    for (i = 0; character = string[i]; i++) {
-      bracePosition = brackets.indexOf(character);
-      if (bracePosition === -1) {
-        continue;
+    var count = 0, temp;
+    for (var i=0; i<string.length; i++){
+      temp = string[i];
+      if(temp === '[') {
+        count += 1;
       }
-      if (bracePosition % 2 === 0) {
-        stack.push(bracePosition + 1);
-      } else {
-        if (stack.pop() !== bracePosition) {
+      if(temp === ']') {
+        count -= 1;
+        if(count < 0) {
           return false;
         }
       }
     }
-    return stack.length === 0;
+    return count === 0;
   },
 
   /**

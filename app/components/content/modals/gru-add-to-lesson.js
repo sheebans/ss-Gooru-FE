@@ -66,7 +66,7 @@ export default AddToModal.extend({
     var successMsg = this.get('i18n').t('common.add-to-lesson-success', {
       collectionTitle: this.get('selectedCollection.title'),
       collectionType: this.get('i18n').t(`common.${this.get('collectionType').toLowerCase()}`),
-      lessonTitle: this.get('content.title'),
+      lessonTitle: this.get('content.title')
     });
     var edit = this.get('i18n').t('common.edit');
     this.get('notifications').success(`${successMsg} <a class="btn btn-success" href="${contentEditUrl}">${edit}</a>`);

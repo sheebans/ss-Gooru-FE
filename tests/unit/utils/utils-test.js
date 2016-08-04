@@ -15,7 +15,7 @@ import {
   numberSort,
   generateUUID,
   cleanFilename,
-  getFileNameFromInvalidUrl,
+  getFileNameFromInvalidUrl
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';

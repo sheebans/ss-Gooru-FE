@@ -1,5 +1,4 @@
 import { moduleForComponent, test } from 'ember-qunit';
-import Question from 'gooru-web/models/content/question';
 
 moduleForComponent('gru-tour', 'Unit | Component | gru-tour', {
   integration: false

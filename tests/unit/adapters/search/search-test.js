@@ -40,7 +40,9 @@ test('searchCollections 400', function(assert) {
     }, false);
   });
   adapter.searchCollections('@@@', { page: 2 })
-    .then(function(){}, function(response){
+    .then(function() {
+      assert.ok(false, 'Called resolve function');
+    }, function(response) {
       assert.equal(response.status, 400, "Wrong error code");
     });
 });
@@ -77,7 +79,9 @@ test('searchAssessments 400', function(assert) {
     }, false);
   });
   adapter.searchAssessments('@@@', { page: 2 })
-  .then(function(){}, function(response){
+  .then(function() {
+    assert.ok(false, 'Called resolve function');
+  }, function(response) {
     assert.equal(response.status, 400, "Wrong error code");
   });
 });
@@ -115,7 +119,9 @@ test('searchResources for all resource types 404', function(assert) {
     }, false);
   });
   adapter.searchResources('@@@', [], { page: 2 })
-    .then(function(){}, function(response){
+    .then(function() {
+      assert.ok(false, 'Called resolve function');
+    }, function(response) {
       assert.equal(response.status, 400, "Wrong error code");
     });
 });
@@ -172,7 +178,9 @@ test('searchQuestions for all types 404', function(assert) {
     }, false);
   });
   adapter.searchQuestions('@@@', [], { page: 2 })
-    .then(function(){}, function(response){
+    .then(function() {
+      assert.ok(false, 'Called resolve function');
+    }, function(response) {
       assert.equal(response.status, 400, "Wrong error code");
     });
 });

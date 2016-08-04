@@ -21,5 +21,5 @@ export default Ember.Object.extend({
       "api_response": error.get("details.endpoint.response"),
       "message": error.get("description")
     };
-  },
+  }
 });

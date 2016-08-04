@@ -8,7 +8,7 @@ import ClassPerformanceSerializer from './class-performance';
 export default ClassPerformanceSerializer.extend({
 
   isCollection: function(payload) {
-    return payload.collectionId ? true : false;
+    return !!payload.collectionId;
   },
 
   getModelId: function(payload) {

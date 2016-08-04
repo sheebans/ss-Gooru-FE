@@ -107,7 +107,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
         callback:{
           success:function(){
             component.get('onDeleteLesson')(builderItem);
-          },
+          }
         }
       };
       this.actions.showModal.call(this, 'content.modals.gru-delete-content', model);

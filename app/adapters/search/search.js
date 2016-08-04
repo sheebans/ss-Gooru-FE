@@ -106,7 +106,7 @@ export default Ember.Object.extend({
         "start": page + 1,
         "length": pageSize,
         "flt.contentFormat": "resource",
-        'flt.publishStatus': 'published',
+        'flt.publishStatus': 'published'
       }
     };
     const formats = params.formats;
@@ -153,7 +153,7 @@ export default Ember.Object.extend({
         "start": page + 1,
         "length": pageSize,
         "flt.resourceFormat": "question",
-        'flt.publishStatus': 'published',
+        'flt.publishStatus': 'published'
       }
     };
     const types = params.formats;

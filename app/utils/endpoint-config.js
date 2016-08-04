@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import Env from 'gooru-web/config/environment';
 
 const EnvironmentMap = Env['environment-map'] || {};

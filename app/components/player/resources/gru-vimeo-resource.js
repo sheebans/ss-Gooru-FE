@@ -57,9 +57,9 @@ export default Ember.Component.extend({
 
     var match = regex.exec(text);
     var id ="";
-    if (match != null) {
+    if (match !== null) {
      id = match[0];
     }
     return id;
-  },
+  }
 });

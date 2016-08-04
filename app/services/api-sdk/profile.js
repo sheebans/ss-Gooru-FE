@@ -438,7 +438,7 @@ export default Ember.Service.extend({
     var usersProfile = Ember.A([]);
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      
+
       for (let i=0, j=profileIds.length; i<j; i+=chunk) {
         let temparray = profileIds.slice(i,i+chunk);
         const promise = service.get('profileAdapter').readMultipleProfiles(temparray);

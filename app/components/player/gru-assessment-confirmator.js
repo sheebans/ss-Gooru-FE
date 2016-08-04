@@ -41,7 +41,7 @@ export default Ember.Component.extend(ModalMixin,{
       }.bind(this),
       onCancel: function() {
         return this.sendAction('onCancel');
-      }.bind(this),
+      }.bind(this)
 
     };
 

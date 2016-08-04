@@ -391,7 +391,7 @@ export default Ember.Controller.extend(SessionMixin, {
    * Submits pending question results
    * @returns {Promise}
    */
-  submitPendingQuestionResults: function(submittedAt){
+  submitPendingQuestionResults: function(){
     let controller = this;
     let pendingQuestionResults = this.get("assessmentResult.pendingQuestionResults");
     let promises = pendingQuestionResults.map(function(questionResult){
@@ -412,6 +412,8 @@ export default Ember.Controller.extend(SessionMixin, {
 
   resetValues: function(){
     this.set("resourceId", null);
+    this.set("resource", null);
+    this.set("resourceResult", null);
     this.set("role", null);
   }
 

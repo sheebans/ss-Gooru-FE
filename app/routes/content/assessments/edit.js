@@ -59,7 +59,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('editingContent', model.editingContent);
     controller.set('isAssessment', true);
 
-    if(model.isEditing) {
+    if(model.isEditing || model.editingContent ) {
       controller.set('tempCollection', model.assessment.copy());
     }
   }

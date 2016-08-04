@@ -43,7 +43,7 @@ export default Ember.Component.extend(QuestionMixin, {
         correct: userAnswerCorrect
       };
     });
-  }),
+  })
 
   // -------------------------------------------------------------------------
   // Observers

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import hbs from 'htmlbars-inline-precompile';
 
 var introJS = window.introJs;
 const INTRO_JS_OPTIONS = Ember.A([
@@ -100,7 +99,7 @@ export default Ember.Component.extend({
 
       let array = Ember.A([]);
       component.get('steps').forEach(function(step, index){
-        index++;
+        index += 1;
         array.push(Ember.Object.create({
           element:document.querySelector(step.elementSelector),
           intro:component.get('constructModal')(
@@ -109,7 +108,7 @@ export default Ember.Component.extend({
             step.image,
             `${component.get('containerClass')} step-${index}`)
         }));
-      })
+      });
       options.steps = array;
       return options;
     }
@@ -178,7 +177,7 @@ export default Ember.Component.extend({
     let component = this;
     let intro = component.get('introJS');
     let currentStepIndex = component.get('steps').indexOf(component.get('currentStep'));
-    currentStepIndex++;
+    currentStepIndex += 1;
     let nextElement = $('.introjs-nextbutton');
     let skipElement = $('.introjs-skipbutton');
     let prevElement = $('.introjs-prevbutton');

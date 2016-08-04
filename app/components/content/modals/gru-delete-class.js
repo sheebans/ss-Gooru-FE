@@ -48,11 +48,14 @@ export default Ember.Component.extend({
     deleteContent: function (model) {
       let component = this;
 
+      component.set('isLoading', true);
+
       model.deleteMethod()
         .then(function () {
           if (model.callback) {
             model.callback.success();
           }
+          component.set('isLoading', false);
           component.triggerAction({ action: 'closeModal' });
           component.get('router').transitionTo('home');
         })
@@ -87,5 +90,10 @@ export default Ember.Component.extend({
     var areChecked = this.get('validator.check1') && this.get('validator.check2') && this.get('validator.check3');
     const isConfirm = this.get('validator.confirm').toUpperCase() === "DELETE";
     return !(areChecked && isConfirm);
-  })
+  }),
+
+  /**
+   * Indicate if it's waiting for deleteMethod callback
+   */
+  isLoading: false
 });

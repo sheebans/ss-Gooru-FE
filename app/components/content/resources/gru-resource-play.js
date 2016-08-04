@@ -92,7 +92,7 @@ export default Ember.Component.extend({
    * @property {Boolean} Whether or not the currently logged in user is the creator/owner of the resource
    */
   isCreator: Ember.computed('resource.owner', function(){
-    return this.get('resource.owner.id') === this.get('session.userId') ? true : false;
+    return this.get('resource.owner.id') === this.get('session.userId');
   }),
 
   /**
@@ -100,7 +100,7 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   showPublisher:Ember.computed('resource', function(){
-    return this.get('resource').isPublished && this.get('resource').publisher != null;
+    return this.get('resource').isPublished && this.get('resource').publisher;
   }),
 
 

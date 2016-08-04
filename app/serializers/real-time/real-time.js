@@ -11,8 +11,8 @@ export default AnalyticsSerializer.extend({
     const serializer = this;
     return UserResourcesResult.create({
       user: payload.userId,
-      isAttemptStarted: (payload.event.isNewAttempt ? true : false),
-      isAttemptFinished: (payload.event.isCompleteAttempt ? true : false),
+      isAttemptStarted: (!!payload.event.isNewAttempt),
+      isAttemptFinished: (!!payload.event.isCompleteAttempt),
       resourceResults: serializer.normalizeRealTimeEventContent(payload.event)
     });
   },

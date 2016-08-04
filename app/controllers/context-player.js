@@ -129,7 +129,6 @@ export default PlayerController.extend({
     const promise = this._super(assessmentResult, context);
     const onAir = controller.get("onAir");
     return promise.then(function(){
-      let notifyPromise = null;
       if (onAir){
         const classId = context.get("classId");
         const collectionId = context.get("collectionId");
@@ -137,13 +136,12 @@ export default PlayerController.extend({
         const realTimeService = controller.get('realTimeService');
 
         if (context.get("isStartEvent")) {
-          notifyPromise = realTimeService.notifyAttemptStarted(classId, collectionId, userId);
+          realTimeService.notifyAttemptStarted(classId, collectionId, userId);
         }
         else if (context.get("isStopEvent")) {
-          notifyPromise = realTimeService.notifyAttemptFinished(classId, collectionId, userId);
+          realTimeService.notifyAttemptFinished(classId, collectionId, userId);
         }
       }
-      //return notifyPromise;
       return Ember.RSVP.resolve(true); //not waiting for the real time events
     });
   }

@@ -90,7 +90,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     /**
      * Save setting for visibility of collection in profile
      */
-    publishToProfile: function(isChecked) {
+    publishToProfile: function() {
       var collectionForEditing = this.get('collection').copy();
       this.set('tempCollection', collectionForEditing);
       this.actions.updateContent.call(this);

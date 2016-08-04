@@ -54,7 +54,7 @@ export default Ember.Controller.extend({
           user.set('username',username);
           user.set('password',password);
         }
-        user.validate().then(function ({ model, validations }) {
+        user.validate().then(function ({ validations }) {
           if (validations.get('isValid')) {
             controller.get("sessionService")
               .signInWithUser(user, true)

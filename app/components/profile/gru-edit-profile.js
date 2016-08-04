@@ -1,6 +1,5 @@
 import Ember from 'ember';
-import { COUNTRY_CODES } from "gooru-web/config/config";
-import { DEFAULT_IMAGES } from 'gooru-web/config/config';
+import { COUNTRY_CODES, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
 
@@ -94,7 +93,6 @@ export default Ember.Component.extend({
         editedProfile.validate().then(function ({ validations }) {
 
           if (validations.get('isValid')) {
-            let checkUsername = Ember.RSVP.resolve();
             if(editedProfile.get('username') === profile.get('username')) {
               editedProfile.set('username', null);
             }

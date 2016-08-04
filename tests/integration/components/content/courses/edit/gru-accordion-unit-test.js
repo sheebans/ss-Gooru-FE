@@ -104,8 +104,6 @@ moduleForComponent('content/courses/edit/gru-accordion-unit', 'Integration | Com
 
 test('it renders a form for a new unit', function (assert) {
 
-  var owner = Ember.getOwner(this);
-
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
       id: ''
@@ -435,7 +433,9 @@ test('it loads lessons and renders them after clicking on the unit name', functi
   });
 
   //onExpandUnit action must be defined
-  this.on('externalAction', function () {});
+  this.on('externalAction', function () {
+    assert.ok(true, "called externalAction");
+  });
 
   this.set('course', Course.create({
     id: 'course-id-123'
@@ -473,7 +473,9 @@ test('it offers the ability to reorder the lessons', function (assert) {
   });
 
   //onExpandUnit action must be defined
-  this.on('externalAction', function () {});
+  this.on('externalAction', function () {
+    assert.ok(true, "called externalAction");
+  });
 
   this.set('course', Course.create({
     id: 'course-id-123'

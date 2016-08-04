@@ -57,7 +57,7 @@ export default GruInput.extend({
       return keyCode === 0 || keyCode === 8 || (keyCode >= 48 && keyCode <= 57);
     });
     // check that it is between min and max
-    component.$('input[type=number]').on('input', function(event) {
+    component.$('input[type=number]').on('input', function() {
       // accept the empty value
       if(this.value) {
         var tempValue = +this.value;

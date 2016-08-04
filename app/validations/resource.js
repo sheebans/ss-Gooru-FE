@@ -80,4 +80,4 @@ export default class {
   getAllValidations() {
     return buildValidations(this.validations);
   }
-};
+}

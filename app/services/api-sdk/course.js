@@ -125,7 +125,7 @@ export default Ember.Service.extend(StoreMixin, {
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('adapter').reorderCourse(courseId, serializedData).then(resolve, reject);
     });
-  },
+  }
 
 
 });

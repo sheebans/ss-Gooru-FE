@@ -1026,7 +1026,7 @@ export default {
         "footer_1": "Why am I seeing this blank page?",
         "footer_2": "Resources added in Gooru come from thousands of different publishers who",
         "footer_3": "create and share their content. Resources have variety of settings, including",
-        "footer_4": "requirements that take you to another page to view the content.",
+        "footer_4": "requirements that take you to another page to view the content."
       }
     }
   },

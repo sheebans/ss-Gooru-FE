@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 import AudienceModel from 'gooru-web/models/audience';
 import wait from 'ember-test-helpers/wait';
+import DS from 'ember-data';
 
 const lookupServiceStub = Ember.Service.extend({
 
@@ -143,7 +144,6 @@ test('Audience edit, add audience -returning to edit mode will discard any chang
   `);
 
   const $component = this.$(".content.gru-audience");
-  const test = this;
   return wait().then(function(){
     assert.equal($component.find('.dropdown > .btn-audience').length, 1, 'Audiences selected');
     const $dropDown = $component.find('.dropdown > button.dropdown-toggle');

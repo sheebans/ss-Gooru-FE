@@ -12,6 +12,6 @@ export default DS.Model.extend({
   /**
    * @property {Array} code
    */
-  code: DS.attr(),
+  code: DS.attr()
 
 });

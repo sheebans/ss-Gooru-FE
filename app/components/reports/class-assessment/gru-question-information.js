@@ -40,6 +40,6 @@ export default Ember.Component.extend({
    * Indicates if the report is displayed in anonymous mode
    * @property {boolean} anonymous
    */
-  anonymous: null,
+  anonymous: null
 
 });

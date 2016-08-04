@@ -55,7 +55,7 @@ test('Switch', function(assert) {
     } else {
       assert.equal(false, option);
     }
-    counter++;
+    counter += 1;
   });
   $switchComponent.find("a").click();
   $switchComponent.find("a").click();

@@ -136,7 +136,6 @@ export default Ember.Object.extend({
     const unitId = params.unitId;
     const lessonId = params.lessonId;
     const collectionId = params.collectionId;
-    const type = params.type;
     const namespace = this.get('namespace');
     const url = `${namespace}/${courseId}/units/${unitId}/lessons/${lessonId}/collections/${collectionId}`;
     const options = {

@@ -34,7 +34,7 @@ export default Ember.Component.extend(QuestionMixin, {
     });
 
     return items;
-  }),
+  })
 
   // -------------------------------------------------------------------------
   // Methods

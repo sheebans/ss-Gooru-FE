@@ -39,9 +39,6 @@ export default Ember.Component.extend({
       *@TODO: get the correct information from the Course Searches from taxonomy so we can *normalize it accordingly so it can be copied.
       */
       course.taxonomy=[];
-      var remixModel = {
-        content: course
-      };
       this.sendAction("onRemixCourse", course);
     }
   },
