@@ -56,7 +56,7 @@ export default Ember.Component.extend(Validations,{
           component.sendAction("onJoinClass", component.get("code"));
         }
         component.set('didValidate', true);
-      }.bind(component));
+      });
     },
 
     onCodeFocusOut: function (){

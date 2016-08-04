@@ -2,13 +2,12 @@ import Ember from 'ember';
 import { initialize } from '../../../initializers/route';
 import { module, test } from 'qunit';
 
-var registry, application;
+var application;
 
 module('Unit | Initializer | route', {
   beforeEach: function() {
     Ember.run(function() {
       application = Ember.Application.create();
-      registry = application.registry;
       application.deferReadiness();
     });
   }

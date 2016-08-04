@@ -54,12 +54,20 @@ module.exports = function (grunt) {
           'public/assets/emoji-one/emoji.svg': ['vendor/emoji-one/*.svg'],
         }
       }
-    }
+    },
+    eslint: {
+      options: {
+        configFile: '.eslintrc',
+        quiet: grunt.option('quiet')
+  		},
+      target: ['app', 'config', 'tests']
+  	}
   });
 
   grunt.loadNpmTasks('grunt-stubby');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-svgstore');
+  grunt.loadNpmTasks('grunt-eslint');
 
 
   grunt.registerTask('test', function (target) {

@@ -1,5 +1,3 @@
-import Ember from "ember";
-import Question from 'gooru-web/models/content/question';
 import Answer from 'gooru-web/models/content/answer';
 import {QUESTION_TYPES} from 'gooru-web/config/question';
 import { moduleFor, test } from 'ember-qunit';

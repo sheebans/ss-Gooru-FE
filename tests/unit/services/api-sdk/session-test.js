@@ -96,7 +96,9 @@ test('updateUserData', function (assert) {
     userData: {},
     data: {},
     store: {
-      persist: function() {}
+      persist: function() {
+        assert.ok(true);
+      }
     }
   }));
   const expectedData = {
@@ -109,20 +111,6 @@ test('updateUserData', function (assert) {
 
 test('authorize', function (assert) {
   const service = this.subject();
-  const response = {};
-  const user = {
-    username: 'username',
-    password: 'password'
-  };
-  const expectedData = {
-    isAnonymous: false,
-    hasAccessToken: false,
-    hasUserData: true,
-    user: {
-      username: 'username',
-      password: 'password'
-    }
-  };
 
   service.set('session', Ember.Object.create({
     authorize: function(useApi3, block) {

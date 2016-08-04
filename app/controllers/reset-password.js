@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
         profile.set('rePassword', confirmPassword);
       }
 
-      profile.validate().then(function ({ model, validations }) {
+      profile.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
           controller.get("profileService")
             .resetPassword(userId, profile.get('password'), token)

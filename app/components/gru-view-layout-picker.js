@@ -91,7 +91,7 @@ export default Ember.Component.extend({
       'view': VIEW_LAYOUT_PICKER_OPTIONS.LIST,
       'isActive': false,
       'icon': 'view_list'
-    })])
+    })]);
   },
   /**
    * Set a new visualization

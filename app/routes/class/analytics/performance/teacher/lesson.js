@@ -74,7 +74,7 @@ export default Ember.Route.extend({
               unit: unit,
               lesson: lesson,
               collections: filteredCollections,
-              classPerformanceData: classPerformanceData,
+              classPerformanceData: classPerformanceData
             });
           });
       });

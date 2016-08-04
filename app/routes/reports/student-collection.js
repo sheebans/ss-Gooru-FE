@@ -50,7 +50,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           {
             queryParams: {
               unitId: context.get("unitId"),
-              lessonId: context.get("lessonId"),
+              lessonId: context.get("lessonId")
             }
           });
       }

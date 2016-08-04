@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('content/modals/gru-assessment-confirmation', 'Integration | Component | content/modals/gru assessment confirmation', {
   integration: true
@@ -45,7 +44,7 @@ test('Navigate both ways with unlimited attempts', function(assert) {
   this.set('model', {
     bidirectional:true,
     attempts:-1,
-    title: 'any-title',
+    title: 'any-title'
   });
 
   this.render(hbs`{{content/modals/gru-assessment-confirmation model=model}}`);
@@ -64,7 +63,7 @@ test('Negative ammount of attempts', function(assert) {
   this.set('model', {
     bidirectional:true,
     attempts:0,
-    title: 'any-title',
+    title: 'any-title'
   });
 
   this.render(hbs`{{content/modals/gru-assessment-confirmation model=model}}`);

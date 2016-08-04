@@ -46,7 +46,7 @@ export default Ember.Component.extend({
   /**
    * @type {?String} specific class
    */
-  'component-class': null,
+  'component-class': null
 
   //Methods
 

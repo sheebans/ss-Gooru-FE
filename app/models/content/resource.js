@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { validator, buildValidations } from 'ember-cp-validations';
 import PlayerResource from 'gooru-web/models/resource/resource';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import EditResourceValidations from 'gooru-web/validations/edit-resource';

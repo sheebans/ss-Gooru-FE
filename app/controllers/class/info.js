@@ -31,7 +31,7 @@ export default Ember.Controller.extend(ModalMixin,{
         content: controller.get('class'),
         deleteMethod: function () {
           return controller.get('classService').deleteClass(controller.get('class.id'));
-        }.bind(controller),
+        },
         callback:{
           success:function(){
             controller.send('updateUserClasses');

@@ -55,7 +55,7 @@ export default Ember.Controller.extend(ModalMixin,{
       'courses': this.get('featuredCourses'),
       'areFeatured':true
     });
-  }),
+  })
 
   // -------------------------------------------------------------------------
   // Observers

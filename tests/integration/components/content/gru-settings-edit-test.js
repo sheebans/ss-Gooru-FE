@@ -11,7 +11,7 @@ moduleForComponent('content/gru-settings-edit', 'Integration | Component | gru s
 });
 
 test('Layout of settings component', function (assert) {
-  this.set('model', { isVisibleOnProfile: false})
+  this.set('model', { isVisibleOnProfile: false});
   this.render(hbs`{{content/gru-settings-edit id="settings" model=model}}`);
 
   var $settingsComponent = this.$();
@@ -25,7 +25,7 @@ test('Layout of settings component', function (assert) {
 });
 
 test('Layout of settings component for assessment', function (assert) {
-  this.set('model', { isAssessment: true, isVisibleOnProfile: true})
+  this.set('model', { isAssessment: true, isVisibleOnProfile: true});
   this.render(hbs`{{content/gru-settings-edit id="settings" model=model}}`);
 
   var $settingsComponent = this.$();
@@ -49,7 +49,7 @@ test('External action gets called on visibility switch change', function(assert)
     assert.ok(true);
   });
 
-  this.set('model', { isVisibleOnProfile: false})
+  this.set('model', { isVisibleOnProfile: false});
   this.render(hbs`{{content/gru-settings-edit id="settings" action='externalAction' model=model}}`);
 
   var $toggle = this.$().find('.panel-body .publish-to .gru-switch .toggle');
@@ -66,7 +66,7 @@ test('External action gets called on backwards switch change', function(assert) 
     assert.ok(true);
   });
 
-  this.set('model', { isAssessment: true, bidirectional: false, showFeedback: ASSESSMENT_SHOW_VALUES.NEVER})
+  this.set('model', { isAssessment: true, bidirectional: false, showFeedback: ASSESSMENT_SHOW_VALUES.NEVER});
   this.render(hbs`{{content/gru-settings-edit id="settings" action='externalAction' model=model}}`);
 
   var $toggle = this.$().find('.panel-body .bidirectional .gru-switch .toggle');
@@ -84,7 +84,7 @@ test('External action gets called on answer key switch change', function(assert)
     assert.ok(true);
   });
 
-  this.set('model', { isAssessment: true, showKey: false, attempts: -1})
+  this.set('model', { isAssessment: true, showKey: false, attempts: -1});
   this.render(hbs`{{content/gru-settings-edit id="settings" action='externalAction' model=model}}`);
 
   var $toggle = this.$().find('.panel-body .answer-key .gru-switch .toggle');
@@ -103,7 +103,7 @@ test('External action gets called on feedback change', function(assert) {
     assert.ok(true);
   });
 
-  this.set('model', { isAssessment: true, showFeedback: ASSESSMENT_SHOW_VALUES.NEVER })
+  this.set('model', { isAssessment: true, showFeedback: ASSESSMENT_SHOW_VALUES.NEVER });
   this.render(hbs`{{content/gru-settings-edit id="settings" action='externalAction' model=model}}`);
 
   var $summary = this.$().find(`.panel-body .feedback .gru-radio input[value="${ASSESSMENT_SHOW_VALUES.SUMMARY}"]`);

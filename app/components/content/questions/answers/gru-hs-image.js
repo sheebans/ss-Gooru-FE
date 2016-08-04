@@ -28,7 +28,7 @@ export default Ember.Component.extend({
     //Select correct answer
     setCorrect:function(answer){
       Ember.set(answer,'isCorrect',true);
-    },
+    }
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -53,6 +53,6 @@ export default Ember.Component.extend({
    */
   hasLimitAnswers: Ember.computed('answers.[]', function () {
     return (this.get('answers').length >= this.get('maxAnswers'));
-  }),
+  })
 
 });

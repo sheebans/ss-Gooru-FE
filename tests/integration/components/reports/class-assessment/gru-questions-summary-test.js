@@ -221,7 +221,7 @@ test('it calls an external action when any of the questions is clicked', functio
   this.on('externalAction', function (itemId) {
     if (numClicks === 1) {
       assert.equal(itemId, '3', 'First click: correct item id is sent');
-      numClicks++;
+      numClicks += 1;
     } else {
       assert.equal(itemId, '1', 'Second click: correct item id is sent');
     }

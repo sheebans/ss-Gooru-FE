@@ -25,7 +25,7 @@ export default FilePicker.extend({
    * Default handler when a file is removed
    * @type {Function}
    */
-  onRemoveFile: function() {},
+  onRemoveFile: null,
 
   // -------------------------------------------------------------------------
   // Methods

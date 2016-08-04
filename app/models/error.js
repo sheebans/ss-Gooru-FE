@@ -36,6 +36,6 @@ export default Ember.Object.extend({
   /**
    * @property {string}
    */
-  type: null,
+  type: null
 
 });

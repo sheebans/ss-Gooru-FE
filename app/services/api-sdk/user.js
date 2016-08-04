@@ -29,7 +29,7 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {*}
    */
   checkUsernameAvailability: function(username){
-  	return this.get('store').queryRecord('user/availability', {
+    return this.get('store').queryRecord('user/availability', {
       keyword: username,
       isUsername: true
     });

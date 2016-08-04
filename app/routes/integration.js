@@ -15,7 +15,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     });
 
   },
-  redirect(model, transition) {
+  redirect(model) {
     let route = this;
     if (model.appType=== 'teams') {
       let authPromise = this.get('authSvc').checkToken(model.token).then(

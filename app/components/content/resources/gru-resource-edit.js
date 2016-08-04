@@ -255,7 +255,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
   saveContent: function () {
     const component = this;
     var editedResource = component.get('tempResource');
-    editedResource.validate().then(function({model, validations}) {
+    editedResource.validate().then(function({ validations }) {
       if (validations.get('isValid')) {
         component.get('resourceService').updateResource(component.get('resource.id'), editedResource)
           .then(function () {

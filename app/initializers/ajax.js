@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Env from 'gooru-web/config/environment';
 import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 export default {

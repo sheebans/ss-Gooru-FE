@@ -37,7 +37,7 @@ export default Ember.Controller.extend({
         user.set('email',email);
       }
 
-      user.validate().then(function ({ model, validations }) {
+      user.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
           controller.get("profileService")
             .forgotPassword(user.get('email'))

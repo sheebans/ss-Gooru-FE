@@ -105,7 +105,7 @@ export default Ember.Controller.extend({
             return item.get("id");
           });
 
-          controller.transitionToRoute('/search/collections' + '?gradeIds=' + selectedGrades + '&subjectIds=' + selectedSubjects);
+          controller.transitionToRoute('/search/collections?gradeIds=' + selectedGrades + '&subjectIds=' + selectedSubjects);
         }
       }
     }

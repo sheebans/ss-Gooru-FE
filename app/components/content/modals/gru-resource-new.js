@@ -55,7 +55,7 @@ export default Ember.Component.extend({
       if (this.get('isResourceUpload') && !this.get('resource.file')) {
         this.set('emptyFileError', this.get('i18n').t('common.errors.file-upload-missing', { extensions: this.get('resource.extensions') }));
       } else {
-        resource.validate().then(function ({ model, validations }) {
+        resource.validate().then(function ({ validations }) {
           if (validations.get('isValid')) {
 
             let resourceId;
@@ -95,7 +95,7 @@ export default Ember.Component.extend({
                     component.$('.resource-new button.add-btn').prop('disabled', false);
                   }
                 );
-            })
+            });
           }
           component.set('didValidate', true);
         });
@@ -268,7 +268,7 @@ export default Ember.Component.extend({
         break;
       }
     }
-    return selectedType
+    return selectedType;
   },
 
   /**
@@ -277,7 +277,7 @@ export default Ember.Component.extend({
    * @return {Promise.<Resource>}
    */
   handleResourceUpload: function(resource) {
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
 
       if (this.get('isResourceUpload')) {
         this.get('mediaService').uploadContentFile(resource.file).then(function(filename) {

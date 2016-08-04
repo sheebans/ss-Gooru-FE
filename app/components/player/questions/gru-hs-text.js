@@ -126,5 +126,5 @@ export default QuestionComponent.extend({
   setAnswers: function(){
     let userAnswer = this.get("userAnswer");
     this.set('selectedAnswers', userAnswer ? userAnswer : []);
-  },
+  }
 });

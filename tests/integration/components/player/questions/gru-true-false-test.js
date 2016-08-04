@@ -22,7 +22,7 @@ test('True or false question layout', function (assert) {
     explanation: 'Sample explanation text',
     answers: Ember.A([
       Ember.Object.create({id: "1", isCorrect: true, text: "True"}),
-      Ember.Object.create({id: "2", isCorrect: false, text: "False"}),
+      Ember.Object.create({id: "2", isCorrect: false, text: "False"})
     ]),
     "resourceType": "assessment-question",
     "resourceFormat": "question",
@@ -73,7 +73,7 @@ test('True or false question layout - read only', function (assert) {
     explanation: 'Sample explanation text',
     answers: Ember.A([
       Ember.Object.create({id: "1", isCorrect: true, text: "True"}),
-      Ember.Object.create({id: "2", isCorrect: false, text: "False"}),
+      Ember.Object.create({id: "2", isCorrect: false, text: "False"})
     ]),
     "resourceType": "assessment-question",
     "resourceFormat": "question",
@@ -103,7 +103,7 @@ test('True or false question layout - with user answer', function (assert) {
     explanation: 'Sample explanation text',
     answers: Ember.A([
       Ember.Object.create({id: "1", isCorrect: true, text: "True"}),
-      Ember.Object.create({id: "2", isCorrect: false, text: "False"}),
+      Ember.Object.create({id: "2", isCorrect: false, text: "False"})
     ]),
     "resourceType": "assessment-question",
     "resourceFormat": "question",
@@ -132,7 +132,7 @@ test('True or false question layout - False as correct answer', function (assert
     explanation: 'Sample explanation text',
     answers: Ember.A([
       Ember.Object.create({id: "1", isCorrect: false, text: "True"}),
-      Ember.Object.create({id: "2", isCorrect: true, text: "False"}),
+      Ember.Object.create({id: "2", isCorrect: true, text: "False"})
     ]),
     "resourceType": "assessment-question",
     "resourceFormat": "question",

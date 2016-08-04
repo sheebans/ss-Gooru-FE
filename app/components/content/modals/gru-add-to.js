@@ -99,5 +99,5 @@ export default Ember.Component.extend({
     return this.get('selectedCollection.isCollection') ?
       this.get('i18n').t('common.collection').string :
       this.get('i18n').t('common.assessment').string;
-  }),
+  })
 });

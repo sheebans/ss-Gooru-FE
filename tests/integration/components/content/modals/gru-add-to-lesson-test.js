@@ -10,7 +10,7 @@ import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 const profileServiceStub = Ember.Service.extend({
 
-  readCollections(userId,pagination,filter) {
+  readCollections(userId) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
       if (!userId) {
         reject({status: 500});
@@ -28,7 +28,7 @@ const profileServiceStub = Ember.Service.extend({
       }
     });
   },
-  readAssessments(userId,pagination,filter) {
+  readAssessments(userId) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
       if (!userId) {
         reject({status: 500});
@@ -106,7 +106,7 @@ test('Layout', function(assert) {
 test('Show more result Collections', function(assert) {
   var collections = Ember.A([]);
 
-  for (i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
+  for (var i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
     collections.pushObject(CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'some-id',
       title: 'some-title'
@@ -137,7 +137,7 @@ test('Show more result Collections', function(assert) {
 test('Show more result Assessments', function(assert) {
   var assessments = Ember.A([]);
 
-  for (i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
+  for (var i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
     assessments.pushObject(AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'some-id',
       title: 'some-title'

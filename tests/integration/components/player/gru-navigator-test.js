@@ -217,7 +217,7 @@ test('it allows navigation between resource links -by default', function(assert)
     } else {
       assert.equal(item.get("id"), '1', "Resource item selected");
     }
-    ++selectCtr;
+    selectCtr += 1;
   });
 
   const resourceResults = Ember.A([
@@ -274,7 +274,7 @@ test('resource link navigation is disabled', function(assert) {
     }
   });
 
-  this.on('externalAction', function(item) {
+  this.on('externalAction', function() {
     assert.notOk(true, "Resource item selected");
   });
 

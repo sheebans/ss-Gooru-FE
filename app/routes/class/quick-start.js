@@ -9,14 +9,14 @@ export default Ember.Route.extend({
   i18n: Ember.inject.service(),
   profileService: Ember.inject.service('api-sdk/profile'),
   actions: {
-    setupTour: function(step, introJSComponent, currentElement){
+    setupTour: function(step){
       if(this.currentModel.tourSteps.indexOf(step)===0){
         $('.gru-class-navigation .class-info h4').addClass('active-for-tour');
       }else{
         $('.gru-class-navigation .class-info h4').removeClass('active-for-tour');
       }
     },
-    closeTour: function(step, introJSComponent){
+    closeTour: function(){
       if($('.gru-class-navigation .class-info h4').hasClass('active-for-tour')){
         $('.gru-class-navigation .class-info h4').removeClass('active-for-tour');
       }

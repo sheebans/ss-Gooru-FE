@@ -91,7 +91,7 @@ export default DS.Model.extend({
       studentPerformanceData.forEach(function (studentPerformanceItem) {
         var performanceData = studentPerformanceItem.get('performanceData').findBy('realId', itemId);
         if (performanceData) {
-          counter++;
+          counter += 1;
           sumValue += performanceData.get(fieldName);
         }
       });

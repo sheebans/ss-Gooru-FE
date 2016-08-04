@@ -70,7 +70,7 @@ export default Ember.Component.extend({
    * @property {Boolean} Whether or not the currently logged in user is the creator/owner of the question
    */
   isCreator: Ember.computed('question.owner', function(){
-    return this.get('question.owner.id') === this.get('session.userId') ? true : false;
+    return this.get('question.owner.id') === this.get('session.userId');
   })
 
 });

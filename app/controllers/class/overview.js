@@ -81,7 +81,7 @@ export default Ember.Controller.extend({
     } else {
       return this.get('location') ? this.get('location') : '';
     }
-  }),
+  })
 
   // -------------------------------------------------------------------------
   // Observers
