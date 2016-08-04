@@ -82,6 +82,8 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
      */
     deleteItem: function (builderItem) {
       let component = this;
+      console.log(builderItem);
+      console.log(component.get('model'),'asdf');
       var model =  {
         content: this.get('model'),
         index:this.get('index'),
@@ -103,7 +105,7 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       }else{
         lessonItem = {
           deleteMethod: function () {
-            return this.get('assessmentService').deleteAssessment(this.get('model.id'));
+            return this.get('assessmentService').deleteAssessment(this.get('model'));
           }.bind(this),
           type: CONTENT_TYPES.ASSESSMENT
         };
