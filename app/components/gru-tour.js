@@ -197,6 +197,7 @@ export default Ember.Component.extend({
       nextElement.show();
     }
     $(`.introjs-tooltip`).on('click','.exit-button', function(){
+      component._onExit();
       intro.exit();
     });
     component.sendAction('on-after-change', component.get('currentStep'), component, targetElement);
