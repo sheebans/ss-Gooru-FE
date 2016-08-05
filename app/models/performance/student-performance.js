@@ -51,12 +51,12 @@ export default DS.Model.extend({
    * @returns {number} the average value
    */
   calculateAverage: function(fieldName) {
-    const counter = this.get('performanceData.length');
+    var avgValue = -1;
+    const counter = this.get('performanceData').length;
     if (counter > 0) {
-      return this.calculateSum(fieldName) / counter;
-    } else {
-      return 0;
+      avgValue = this.calculateSum(fieldName) / counter;
     }
+    return avgValue;
   },
 
   /**
@@ -67,9 +67,9 @@ export default DS.Model.extend({
   calculateSum: function(fieldName) {
     var sumValue = 0;
     const performanceData = this.get('performanceData');
-    if (performanceData.get('length') > 0) {
-      performanceData.forEach(function (performanceItem) {
-        sumValue += performanceItem.get(fieldName);
+    if (performanceData.length > 0) {
+      performanceData.forEach(function(performance) {
+        sumValue += performance.get(fieldName);
       });
     }
     return sumValue;
