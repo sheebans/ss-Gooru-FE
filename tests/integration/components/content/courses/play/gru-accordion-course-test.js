@@ -1,8 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import BuilderItem from 'gooru-web/models/content/builder/item';
-import Unit from 'gooru-web/models/content/unit';
-import Ember from 'ember';
 
 moduleForComponent('content/courses/play/gru-accordion-course', 'Integration | Component | content/courses/play/gru accordion course', {
   integration: true,

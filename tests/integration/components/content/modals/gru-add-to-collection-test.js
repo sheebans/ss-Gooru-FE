@@ -8,7 +8,7 @@ import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 const profileServiceStub = Ember.Service.extend({
 
-  readCollections(userId,pagination) {
+  readCollections(userId) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
       if (!userId) {
         reject({status: 500});
@@ -87,7 +87,7 @@ test('Show more result', function(assert) {
   var collections = Ember.A([]);
   var assessments = Ember.A([]);
 
-  for (i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
+  for (var i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
     collections.pushObject(CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'some-id',
       title: 'some-title'

@@ -268,7 +268,7 @@ test('Show feedback layout', function (assert) {
 
   var $openEndedComponent = $answerPanel.find(".gru-open-ended");
   $openEndedComponent.find("textarea").val("test");
-  $openEndedComponent.find("textarea").change()
+  $openEndedComponent.find("textarea").change();
   $answerPanel.find(".actions button.save").click();
 });
 

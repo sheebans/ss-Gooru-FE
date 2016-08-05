@@ -432,7 +432,9 @@ test('it offers the ability to reorder the lesson items', function (assert) {
   });
 
   //onExpandUnit action must be defined
-  this.on('externalAction', function () {});
+  this.on('externalAction', function () {
+    assert.ok(true, "called externalAction");
+  });
 
   this.set('course', Course.create({
     id: 'course-id-123'

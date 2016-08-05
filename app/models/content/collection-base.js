@@ -155,7 +155,7 @@ export default (function() {
      */
     sameOwnerAndCreator: Ember.computed("owner.id", "originalCreatorId", function(){
       if( !this.get('originalCreatorId')){
-        return true
+        return true;
       }else if(this.get('owner.id') === this.get('originalCreatorId')){
         return true;
       }

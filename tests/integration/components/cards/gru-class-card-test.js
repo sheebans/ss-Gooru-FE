@@ -36,7 +36,7 @@ var mockClass = Ember.Object.create({
 
 var mockProfile = Ember.Object.create({
   id: 'test-profile',
-  displayName: "test",
+  displayName: "test"
 });
 
 var classStudentCount = Ember.Object.create({

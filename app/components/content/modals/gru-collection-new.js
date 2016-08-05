@@ -60,7 +60,7 @@ export default Ember.Component.extend({
       create: function () {
         const component = this;
         const modelValue = component.get('model');
-        component.get('validate').call(component).then(function ({ value, validations }) {
+        component.get('validate').call(component).then(function ({ validations }) {
           if (validations.get('isValid')) {
             component.$('.actions button.add').prop('disabled', true);
             let assessmentOrCollectionId;

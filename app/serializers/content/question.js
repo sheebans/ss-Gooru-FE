@@ -57,7 +57,6 @@ export default Ember.Object.extend({
    */
   serializeUpdateQuestion: function(questionModel) {
     const serializer = this;
-    const isHotSpotImage = questionModel.get('isHotSpotImage');
     let answers = questionModel.get('answers');
     let serializedQuestion = {
       title: questionModel.get('title'),

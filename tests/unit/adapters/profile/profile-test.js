@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForAdapter from 'gooru-web/tests/helpers/module-for-adapter';
-import Env from 'gooru-web/config/environment';
 import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 moduleForAdapter('adapter:profile/profile', 'Unit | Adapter | profile/profile', {

@@ -97,12 +97,20 @@ export default Ember.Service.extend({
    * @param assessmentId The assessment id to delete
    * @returns {Ember.RSVP.Promise}
    */
-  deleteAssessment: function (assessmentId) {
+  deleteAssessment: function (assessment) {
     const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('assessmentAdapter').deleteAssessment(assessmentId)
-        .then(resolve, reject);
-    });
+
+    if(assessment.format==='external-assessment'){
+      return new Ember.RSVP.Promise(function(resolve, reject) {
+        service.get('assessmentAdapter').deleteExternalAssessment(assessment.id)
+          .then(resolve, reject);
+      });
+    }else{
+      return new Ember.RSVP.Promise(function(resolve, reject) {
+        service.get('assessmentAdapter').deleteAssessment(assessment.id)
+          .then(resolve, reject);
+      });
+    }
   },
 
   /**

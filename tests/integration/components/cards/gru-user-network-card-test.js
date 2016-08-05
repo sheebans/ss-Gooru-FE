@@ -23,7 +23,7 @@ test('User Network Card Layout', function(assert) {
       totalFollowing:200,
       isFollowing: false,
       id:12344799
-    }),
+    })
   ]);
   this.set('user', user);
   this.set('myFollowings', myFollowings);
@@ -58,7 +58,7 @@ test('User Network Card Layout - if isFollowing', function(assert) {
       totalFollowing:200,
       isFollowing: true,
       id:12344799
-    }),
+    })
   ]);
 
   this.set('user', user);
@@ -90,7 +90,7 @@ test('User Network Card Layout - Following Filter - unFollow implementation', fu
       totalFollowing:200,
       isFollowing: true,
       id:12344799
-    }),
+    })
   ]);
 
   this.on('unFollowUser', function(){
@@ -128,7 +128,7 @@ test('User Network Card Layout - Followers Filter - Follow implementation', func
       totalFollowing:200,
       isFollowing: true,
       id:12344799
-    }),
+    })
   ]);
 
   this.on('followUser', function(){
@@ -166,7 +166,7 @@ test('User Network Card Layout - When the user on the session its the same than 
       totalFollowing:200,
       isFollowing: true,
       id:12344799
-    }),
+    })
   ]);
 
   this.set('user', user);

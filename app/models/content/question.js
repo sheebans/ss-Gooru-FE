@@ -113,7 +113,7 @@ const Question = Ember.Object.extend(Validations, {
 
   sameOwnerAndCreator: Ember.computed("owner.id", "creator", function () {
     if (!this.get('creator')) {
-      return true
+      return true;
     } else if (this.get('owner.id') === this.get('creator')) {
       return true;
     }

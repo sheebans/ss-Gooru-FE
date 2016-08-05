@@ -382,7 +382,5 @@ test('Hot Text Highlight - toUserAnswer when no respond is provided', function (
 
   let userAnswer = questionUtil.toUserAnswer(answerObjects);
 
-  let answer = [ {index: 6, text: "another."}, {index: 1, text: "correct"}, {index: 3, text: "item"} ];
-
   assert.equal(userAnswer, null, "Wrong user answer");
 });

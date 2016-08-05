@@ -103,9 +103,9 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
       }else{
         lessonItem = {
           deleteMethod: function () {
-            return this.get('assessmentService').deleteAssessment(this.get('model.id'));
+            return this.get('assessmentService').deleteAssessment(this.get('model'));
           }.bind(this),
-          type: CONTENT_TYPES.ASSESSMENT,
+          type: CONTENT_TYPES.ASSESSMENT
         };
       }
       this.actions.showModal.call(this,
@@ -161,7 +161,7 @@ export default PlayerAccordionLessonItem.extend(ModalMixin,{
   // Properties
 
   isCollectionOrAssessment: Ember.computed('model.collectionType',function(){
-    return (this.get('model.collectionType')==='collection' || this.get('model.collectionType')==='assessment') ? true : false;
+    return (this.get('model.collectionType')==='collection' || this.get('model.collectionType')==='assessment');
   }),
   /**
    * @prop {String} course - Course this lesson item belongs to

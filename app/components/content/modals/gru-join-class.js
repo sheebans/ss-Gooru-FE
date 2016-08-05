@@ -56,7 +56,7 @@ export default Ember.Component.extend(Validations,{
           component.sendAction("onJoinClass", component.get("code"));
         }
         component.set('didValidate', true);
-      }.bind(component));
+      });
     },
 
     onCodeFocusOut: function (){
@@ -131,7 +131,7 @@ export default Ember.Component.extend(Validations,{
   /**
    * Indicate if it's waiting for join class callback
    */
-  isLoading: null,
+  isLoading: null
 
 
 });

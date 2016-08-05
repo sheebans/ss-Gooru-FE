@@ -475,7 +475,7 @@ test('Change answer text and cancel edit-Multiple Choice', function (assert) {
     type: QUESTION_TYPES.multipleChoice,
     answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option A",
-      'isCorrect': true,
+      'isCorrect': true
     }), Answer.create(Ember.getOwner(this).ownerInjection(), {
       'text': "Option B",
       'isCorrect': false

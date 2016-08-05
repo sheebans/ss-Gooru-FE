@@ -59,7 +59,7 @@ test('normalizeReadResource', function(assert) {
       'is_frame_breaker': 1
     },
     "copyright_owner": ["myself"],
-    "is_copyright_owner": true,
+    "is_copyright_owner": true
   };
 
   const resource = serializer.normalizeReadResource(resourceData);

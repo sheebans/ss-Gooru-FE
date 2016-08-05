@@ -28,6 +28,6 @@ export default Ember.Component.extend({
    *
    * @property {Boolean}
    */
-  showPerformance: true,
+  showPerformance: true
 
 });

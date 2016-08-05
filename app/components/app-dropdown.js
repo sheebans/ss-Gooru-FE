@@ -100,7 +100,8 @@ export default Ember.Component.extend({
       },
 
       "hide.bs.dropdown":  function() {
-        return count-- < 0;
+        count -= 1;
+        return count < 0;
       }
     });
   },

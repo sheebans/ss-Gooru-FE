@@ -67,7 +67,6 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     var component = this;
-    var editorElement = component.$('.editor-box');
     var mathFieldSpan = component.$('.math-field')[0];
     // Initialize Mathquill
     var MQ = MathQuill.getInterface(2);

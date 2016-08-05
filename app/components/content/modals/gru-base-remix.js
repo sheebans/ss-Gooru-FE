@@ -30,7 +30,7 @@ export default Ember.Component.extend({
     remix: function () {
       const component = this;
       const contentModel = this.get('contentModel');
-      contentModel.validate().then(function ({ model, validations }) {
+      contentModel.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
           component.get('copyContent').call(component, contentModel)
             .then(function(contentId) {

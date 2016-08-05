@@ -56,7 +56,7 @@ export default Ember.Component.extend(QuestionMixin, {
         "class": elementClass
       };
     });
-  }),
+  })
 
   // -------------------------------------------------------------------------
   // Observers

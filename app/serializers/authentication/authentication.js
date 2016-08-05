@@ -25,7 +25,7 @@ export default Ember.Object.extend({
         username: payload.username,
         gooruUId: payload['user_id'],
         avatarUrl: null,
-        isNew: payload.user_category ? false : true
+        isNew: !payload.user_category
       },
       cdnUrls: {
         user: payload.cdn_urls.user_cdn_url,
@@ -46,6 +46,6 @@ export default Ember.Object.extend({
     session.user.avatarUrl = payload['thumbnail_path'] ?
       basePath + payload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
     return session;
-  },
+  }
 
 });

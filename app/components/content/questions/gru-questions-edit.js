@@ -338,7 +338,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
           answersPromise = Ember.RSVP.Promise.all(promiseArray);
         }
         answersPromise.then(function(values) {
-          if (component.validateAnswers.call(component, values, editedQuestion)) {
+          if (component.validateAnswers(values, editedQuestion)) {
             component.updateQuestion(editedQuestion,component);
           }
         });
@@ -457,7 +457,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    * Returns validate image promises
    */
   getAnswerValidatePromise: function(answer) {
-    return answer.validate().then(function ({ model, validations }) {
+    return answer.validate().then(function ({ validations }) {
       return validations.get('isValid');
     });
   },

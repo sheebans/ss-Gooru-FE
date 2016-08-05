@@ -45,7 +45,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     var taxonomyCodes = [];
 
     if (taxonomyIds.length > 0) {
-      taxonomyCodes = this.get('taxonomySdkService').fetchCodesByIds(taxonomyIds)
+      taxonomyCodes = this.get('taxonomySdkService').fetchCodesByIds(taxonomyIds);
     }
 
     return Ember.RSVP.hash({

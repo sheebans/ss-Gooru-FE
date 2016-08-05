@@ -135,7 +135,7 @@ test('it renders for collection', function (assert) {
           order: 1
         },
         timeSpent: 20000,
-        reaction: 2,
+        reaction: 2
       }),
       ResourceResult.create({
         id: 603,

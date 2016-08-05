@@ -101,19 +101,26 @@ export default QuestionComponent.extend({
    * Take the list of items and shuffle all his members
    */
     shuffle: function(){
-    const component = this;
-    const $items = component.$('.sortable') ;
-    return $items.each(function(){
-      var items = $items.children().clone(true);
-      return (items.length) ? $(this).html(component.disorder(items)) : $items;
+      const component = this;
+      const $items = component.$('.sortable') ;
+      return $items.each(function(){
+        var items = $items.children().clone(true);
+        return (items.length) ? $(this).html(component.disorder(items)) : $items;
 
-    });
+      });
     },
   /**
    * Disorder elements
    */
     disorder: function(list){
-    for(var j, x, i = list.length; i; j = parseInt(Math.random() * i), x = list[--i], list[i] = list[j], list[j] = x){}
-    return list;
-   }
+      var j, x, i = list.length;
+      while(i) {
+        j = parseInt(Math.random() * i);
+        i -= 1;
+        x = list[i];
+        list[i] = list[j];
+        list[j] = x;
+      }
+      return list;
+    }
 });

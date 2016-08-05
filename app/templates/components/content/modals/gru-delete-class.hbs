@@ -2,7 +2,7 @@
     <h4 class="modal-title">{{t "common.delete"}} {{t 'common.class'}}</h4>
 </div>
 <div class="modal-body">
-    <form {{action "deleteContent" model on="submit"}}>
+    <form>
         <p class="legend">{{t "content.modals.delete-class.legend"}}
             <b>
               {{model.content.title}}
@@ -36,7 +36,11 @@
             <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
                 <span aria-hidden="true">{{t 'common.cancel'}}</span>
             </button>
-            <button type="submit" class="btn btn-danger delete" disabled={{isDisabled}}>{{t 'common.delete'}}</button>
+          {{#if isLoading}}
+            {{gru-spinner-button classes='btn btn-danger delete' text=(t 'common.loading')}}
+          {{else}}
+            <button {{action "deleteContent" model}} class="btn btn-danger delete" disabled={{isDisabled}}>{{t 'common.delete'}}</button>
+          {{/if}}
         </div>
 
     </form>

@@ -41,7 +41,7 @@ export default Ember.Component.extend({
     createCourse: function () {
       const component = this;
       const course = this.get('course');
-      course.validate().then(function ({ model, validations }) {
+      course.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
 
           this.get("courseService")

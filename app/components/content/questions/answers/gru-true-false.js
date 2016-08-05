@@ -24,7 +24,7 @@ export default Ember.Component.extend({
         Ember.set(correctAnswer,'isCorrect',false);
       }
       Ember.set(answer,'isCorrect',true);
-    },
+    }
   },
   // -------------------------------------------------------------------------
   // Events
@@ -50,7 +50,7 @@ export default Ember.Component.extend({
   /**
    * True/False Question Answers
    * */
-  answers:null,
+  answers:null
 
 
 });

@@ -100,7 +100,7 @@ test('readMultipleProfiles', function(assert) {
   assert.expect(6);
 
   service.set('profileAdapter', Ember.Object.create({
-    readMultipleProfiles: function(userIds,max) {
+    readMultipleProfiles: function() {
       assert.ok(true, "readUserProfile() function was called" );
       return Ember.RSVP.resolve({});
     }

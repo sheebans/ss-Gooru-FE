@@ -211,6 +211,17 @@ export default Ember.Controller.extend(SessionMixin, {
     const resource = this.get("resource");
     return (resource && resource.displayGuide);
   }),
+  /**
+   * Return the list of resources available to show on the player
+   * @property {boolean}
+   */
+  resourcesPlayer: Ember.computed("collection.resources","assessmentResult.sortedResourceResults", function(){
+    var availableResources = this.get('collection.resources').mapBy('id');
+    var assessmentAvailableResources = this.get('assessmentResult.sortedResourceResults').filter(function(item){
+       return availableResources.contains(item.resourceId);
+    });
+    return assessmentAvailableResources;
+  }),
 
   /**
    * Indicates if the collection should start automatically
@@ -380,7 +391,7 @@ export default Ember.Controller.extend(SessionMixin, {
    * Submits pending question results
    * @returns {Promise}
    */
-  submitPendingQuestionResults: function(submittedAt){
+  submitPendingQuestionResults: function(){
     let controller = this;
     let pendingQuestionResults = this.get("assessmentResult.pendingQuestionResults");
     let promises = pendingQuestionResults.map(function(questionResult){

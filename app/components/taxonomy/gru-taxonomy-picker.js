@@ -260,10 +260,10 @@ export default Ember.Component.extend({
    *
    * @param {String} itemId
    * @param {BrowseItems} browseItems
-   * @return {Promise.<BrowseItem>}
+   * @return {Ember.RSVP.Promise}
    */
   findBrowseItem: function(itemId, browseItems) {
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
       if (!browseItems.length) {
         resolve(null);
       }

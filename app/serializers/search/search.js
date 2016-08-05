@@ -6,7 +6,6 @@ import AssessmentModel from 'gooru-web/models/content/assessment';
 import CollectionModel from 'gooru-web/models/content/collection';
 import CourseModel from 'gooru-web/models/content/course';
 import ProfileModel from 'gooru-web/models/profile/profile';
-import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from 'gooru-web/config/config';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 

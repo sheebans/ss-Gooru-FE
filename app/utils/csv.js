@@ -22,7 +22,7 @@ export function download(fileName, data){
   const csv = PapaParse.unparse(data);
   var ua = window.navigator.userAgent;
   const isInternetExplorer = (ua.indexOf("MSIE ") > 0 ||
-    !!navigator.userAgent.match(/Trident.*rv\:11\./)); // If Internet Explorer, return true
+    !!navigator.userAgent.match(/Trident.*rv:11\./)); // If Internet Explorer, return true
 
 
   if(isInternetExplorer){
