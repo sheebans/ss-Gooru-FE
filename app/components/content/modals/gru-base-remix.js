@@ -32,23 +32,14 @@ export default Ember.Component.extend({
       const contentModel = this.get('contentModel');
       contentModel.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
+          component.beforeCopy();
           component.get('copyContent').call(component, contentModel)
             .then(function(contentId) {
               contentModel.set('id', contentId);
               return component.get('updateContent').call(component, contentModel);
             })
             .then(function() {
-              component.triggerAction({
-                action: 'closeModal'
-              });
-              component.get('notifications').setOptions({
-                positionClass: 'toast-top-full-width',
-                toastClass: 'gooru-toast'
-              });
-              if(component.get('onRemix')) {
-                component.get('onRemix')(contentModel);
-              }
-              component.get('showSuccessNotification').call(component, contentModel);
+              component.afterCopy(contentModel);
             },
               component.get('showFailureNotification').bind(component)
             );
@@ -59,6 +50,8 @@ export default Ember.Component.extend({
 
   },
 
+
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -67,6 +60,38 @@ export default Ember.Component.extend({
     this.set('contentModel', this.get('model.content').copy());
     this.set('onRemix', this.get('model.onRemixSuccess'));
   },
+
+  // -------------------------------------------------------------------------
+  // Methods
+  beforeCopy: function(){
+    Ember.Logger.warn('This function can be overwrite');
+  },
+
+  afterCopy: function (contentModel) {
+    const component = this;
+    component.closeModal();
+    component.notifyCopy(contentModel);
+  },
+
+  closeModal: function () {
+    const component = this;
+    component.triggerAction({
+      action: component.get('onCloseModal')
+    });
+  },
+
+  notifyCopy: function(contentModel) {
+    const component = this;
+    component.get('notifications').setOptions({
+      positionClass: 'toast-top-full-width',
+      toastClass: 'gooru-toast'
+    });
+    if(component.get('onRemix')) {
+      component.get('onRemix')(contentModel);
+    }
+    component.get('showSuccessNotification').call(component, contentModel);
+  },
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -93,6 +118,8 @@ export default Ember.Component.extend({
    * @type {Ember.Component}
    * @private
    */
-  target: null
+  target: null,
+
+  onCloseModal: 'closeModal'
 
 });

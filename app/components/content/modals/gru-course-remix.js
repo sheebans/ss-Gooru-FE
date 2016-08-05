@@ -38,6 +38,23 @@ export default RemixBaseModal.extend({
   showFailureNotification: function() {
     const message = this.get('i18n').t('common.errors.course-not-copied').string;
     this.get('notifications').error(message);
+  },
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Overwrite beforeCopy
+   */
+  beforeCopy: function(){
+    const component = this;
+    component.closeModal();
+  },
+  /**
+   * Overwrite afterCopy
+   */
+  afterCopy: function (contentModel) {
+    const component = this;
+    component.notifyCopy(contentModel);
   }
 
 });

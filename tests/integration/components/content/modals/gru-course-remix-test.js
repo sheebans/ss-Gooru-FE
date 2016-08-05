@@ -59,6 +59,8 @@ test('it renders', function (assert) {
 
   const $body = $component.find('.modal-body');
   assert.ok($body.find('p.lead').length, 'Lead message');
+  assert.ok($body.find('.warning .warning-icon').length, 'Missing warning icon');
+  assert.ok($body.find('.warning p').length, 'Missing warning message');
   assert.ok($body.length, 'Form');
   assert.equal($body.find('form span.required').length, 1, 'Number of required fields');
   assert.ok($body.find('form .gru-input.title').length, 'Course title field');
@@ -165,7 +167,7 @@ test('it shows toast and transitions after copying a course', function (assert) 
 });
 
 test('it displays a notification if the course cannot be created', function (assert) {
-  assert.expect(1);
+  assert.expect(2);
 
   const context = this;
 
@@ -184,7 +186,11 @@ test('it displays a notification if the course cannot be created', function (ass
     })
   });
 
-  this.render(hbs`{{content/modals/gru-course-remix model=course}}`);
+  this.on("myCloseModal", function(){
+    assert.ok(true, "this should be called once");
+  });
+
+  this.render(hbs`{{content/modals/gru-course-remix model=course onCloseModal='myCloseModal'}}`);
 
   const $component = this.$('.content.modals.gru-course-remix');
   const $titleField = $component.find(".gru-input.title");
