@@ -221,6 +221,9 @@ test('FIB - getCorrectAnswers', function (assert) {
   answers = FillInTheBlankUtil.getCorrectAnswers("[red] and [white] and sqrt[2] and [blue]");
   assert.deepEqual(answers, ["[red]", "[white]", "[blue]"], "Wrong answers at the start, middle and end of the text");
 
+  answers = FillInTheBlankUtil.getCorrectAnswers("[red][white]sqrt[2][blue]");
+  assert.deepEqual(answers, ["[red]", "[white]", "[blue]"], "Wrong answers when all together");
+
   answers = FillInTheBlankUtil.getCorrectAnswers("With no answers sqrt[2]");
   assert.deepEqual(answers, [], "Wrong answers when non were provided");
 
