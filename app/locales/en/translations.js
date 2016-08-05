@@ -1288,7 +1288,7 @@ export default {
         "description": "Welcome to your Gooru homepage! Here you can find a list of the classrooms you create in Gooru. Classrooms allow you to share content directly with students. You can always come back to your homepage by clicking on the Gooru icon."
       },
       "stepTwo":{
-        "title": "Classes you Teach or Join",
+        "title": "Classes You Teach or Join",
         "description": 'Any classrooms you teach or join this school year will appear here under Active Classrooms.'
       },
       "stepThree":{
@@ -1297,11 +1297,11 @@ export default {
       },
       "stepFour":{
         "title": "Create a Classroom",
-        "description": "Click here to create a new classroom from this page. Once you have content to share with students, you will assign to them via a classroom."
+        "description": "Click here to create a new classroom. Once you have content to share with students, you will assign it to them via a classroom."
       },
       "stepFive":{
-        "title": "User Profile",
-        "description": "This is your User Profile. Click on your profile at any time to access content you create or remix in Gooru."
+        "title": "Your Profile",
+        "description": "This is your Profile. Click on your profile at any time to access content you create or remix in Gooru."
       }
     }
   }
