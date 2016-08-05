@@ -26,7 +26,7 @@ import QuestionUtil from './question';
  *
  * @typedef {Object} FillInTheBlankUtil
  */
-export default QuestionUtil.extend({
+const FillInTheBlankUtil = QuestionUtil.extend({
 
   // -------------------------------------------------------------------------
   // Observers
@@ -113,3 +113,66 @@ export default QuestionUtil.extend({
   }
 
 });
+
+FillInTheBlankUtil.reopenClass({
+
+  /**
+   * Regular expression used to parse the question text,
+   * it ignores sqrt math expression
+   */
+  FIB_REGEX : {
+    //this regex looks for all text in [], it has 2 groups, the first one to get the 4 letters before if any,
+    // the second one the word in [], @see getCorrectAnswers
+    global: /(.{4})?(\[[^\[\]]+\])/gi  /* negative look behind is not supported in js :( /(?<!sqrt)(\[[^\[\]]+\])+/gi */
+  },
+
+  /**
+   * Regular expression to math legacy fib question
+   */
+  LEGACY_REGEX: {
+    text: '_______',
+    single: /(_______)/,
+    global: /(_______)+/gi
+  },
+
+  /**
+   * Gets the correct answers from a text
+   * @param text
+   * @returns {String[]}
+     */
+  getCorrectAnswers: function (text) {
+    const regExp = FillInTheBlankUtil.FIB_REGEX.global;
+    let matches = regExp.exec(text);
+    let answers = [];
+    while (matches) {
+      let include =
+        matches[1] === undefined || //when it is at the beginning of the line there is no group 1
+        (matches[1] !== 'sqrt'); //check it is not a sqrt expression, i.e sqrt[2]
+      if (include){
+        answers.push(matches[2]); // return second group
+      }
+
+      matches = regExp.exec(text);
+    }
+
+    return answers;
+  },
+
+  /**
+   * Convert a text into a fill in the blank display format
+   * @param text
+   * @returns {*}
+     */
+  toFibText: function (text){
+    if (text) {
+      const answers = FillInTheBlankUtil.getCorrectAnswers(text);
+      answers.forEach(function(answer){
+        text = text.replace(answer, FillInTheBlankUtil.LEGACY_REGEX.text);
+      });
+    }
+    return text;
+  }
+
+});
+
+export default FillInTheBlankUtil;

@@ -13,6 +13,13 @@ test('fibText having correct answer', function (assert) {
   assert.equal(model.get("fibText"), "The ball is _______ and _______", "Wrong FIB text");
 });
 
+test('fibText having sqrt math expression', function (assert) {
+  var model = this.subject({
+    text: "The ball is [red] and [white] and sqrt[2]"
+  });
+  assert.equal(model.get("fibText"), "The ball is _______ and _______ and sqrt[2]", "Wrong FIB text");
+});
+
 test('fibText having no correct answers', function (assert) {
   var model = this.subject({
     text: "The ball is red and white"
