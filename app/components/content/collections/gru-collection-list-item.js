@@ -439,7 +439,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     const component = this;
     let answers = Ember.A([]);
     const questionText = question.get('text');
-    const matchedAnswers = FillInTheBlank.getCorrectAnswers(text);
+    const matchedAnswers = FillInTheBlank.getCorrectAnswers(questionText);
     answers = matchedAnswers.map(function(answer, index) {
       return Answer.create(Ember.getOwner(component).ownerInjection(), {
         sequence: index + 1,

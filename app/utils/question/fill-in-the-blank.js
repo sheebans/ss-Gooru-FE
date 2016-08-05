@@ -142,14 +142,17 @@ FillInTheBlankUtil.reopenClass({
      */
   getCorrectAnswers: function (text) {
     const regExp = FillInTheBlankUtil.FIB_REGEX.global;
-    var matches, answers = [];
-    while (matches = regExp.exec(text)) {
+    let matches = regExp.exec(text);
+    let answers = [];
+    while (matches) {
       let include =
         matches[1] === undefined || //when it is at the beginning of the line there is no group 1
         (matches[1] !== 'sqrt'); //check it is not a sqrt expression, i.e sqrt[2]
       if (include){
         answers.push(matches[2]); // return second group
       }
+
+      matches = regExp.exec(text);
     }
 
     return answers;
