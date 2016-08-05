@@ -3,6 +3,7 @@ import { validator, buildValidations } from 'ember-cp-validations';
 import {getQuestionApiType, getQuestionTypeByApiType, QUESTION_TYPES} from 'gooru-web/config/question';
 import PlayerResource from 'gooru-web/models/resource/resource';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
 
 const Validations = buildValidations({
   title: {
@@ -82,8 +83,7 @@ const Question = Ember.Object.extend(Validations, {
    * @property {string}
    */
   fibText: Ember.computed("text", function () {
-    const regExp = /(\[[^\[\]]+\])+/gi;
-    return this.get("text") ? this.get("text").replace(regExp, "_______") : null;
+    return FillInTheBlank.toFibText(this.get("text"));
   }),
 
   /**
@@ -203,7 +203,7 @@ const Question = Ember.Object.extend(Validations, {
    * @property {boolean}
    */
   isLegacyFIB: Ember.computed("isFIB", "text", function () {
-    const regExp = /(_______)+/gi;
+    const regExp = FillInTheBlank.LEGACY_REGEX.global;
     const questionText = this.get("text");
     return questionText && this.get("isFIB") && questionText.match(regExp);
   }),
@@ -338,7 +338,7 @@ const Question = Ember.Object.extend(Validations, {
       const answers = this.get("answers") || [];
       answers.forEach(function (answer) {
         let newFormat = `[${answer.text}]`;
-        text = text.replace(/_______/, newFormat);
+        text = text.replace(FillInTheBlank.LEGACY_REGEX.single, newFormat);
       });
       this.set("text", text);
     }

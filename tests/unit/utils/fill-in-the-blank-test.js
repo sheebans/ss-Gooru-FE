@@ -213,3 +213,42 @@ test('FIB - toUserAnswer when no respond is provided', function (assert) {
   assert.equal(userAnswer, null, "Wrong user answer");
 });
 
+test('FIB - getCorrectAnswers', function (assert) {
+
+  let answers = FillInTheBlankUtil.getCorrectAnswers("The ball is [red] and [white] and sqrt[2]");
+  assert.deepEqual(answers, ["[red]", "[white]"], "Wrong answers at the middle of the text");
+
+  answers = FillInTheBlankUtil.getCorrectAnswers("[red] and [white] and sqrt[2] and [blue]");
+  assert.deepEqual(answers, ["[red]", "[white]", "[blue]"], "Wrong answers at the start, middle and end of the text");
+
+  answers = FillInTheBlankUtil.getCorrectAnswers("[red][white]sqrt[2][blue]");
+  assert.deepEqual(answers, ["[red]", "[white]", "[blue]"], "Wrong answers when all together");
+
+  answers = FillInTheBlankUtil.getCorrectAnswers("With no answers sqrt[2]");
+  assert.deepEqual(answers, [], "Wrong answers when non were provided");
+
+  answers = FillInTheBlankUtil.getCorrectAnswers("With square root sqrt[2]");
+  assert.deepEqual(answers, [], "Square root should be ignored");
+
+  answers = FillInTheBlankUtil.getCorrectAnswers("With square root as answer [sqrt]");
+  assert.deepEqual(answers, ["[sqrt]"], "Square root as possible answer should not be ignored");
+});
+
+test('FIB - toFibText', function (assert) {
+
+  let text = FillInTheBlankUtil.toFibText("The ball is [red] and [white] and sqrt[2]");
+  assert.equal(text, "The ball is _______ and _______ and sqrt[2]", "Wrong text at the middle of the text");
+
+  text = FillInTheBlankUtil.toFibText("[red] and [white] and sqrt[2] and [blue]");
+  assert.equal(text, "_______ and _______ and sqrt[2] and _______", "Wrong text at the start, middle and end of the text");
+
+  text = FillInTheBlankUtil.toFibText("With no answers sqrt[2]");
+  assert.equal(text, "With no answers sqrt[2]", "Wrong answers when non were provided");
+
+  text = FillInTheBlankUtil.toFibText("With square root sqrt[2]");
+  assert.equal(text, "With square root sqrt[2]", "Square root should be ignored");
+
+  text = FillInTheBlankUtil.toFibText("With square root [sqrt]");
+  assert.equal(text, "With square root _______", "Square root as possible answer should no be ignored");
+});
+

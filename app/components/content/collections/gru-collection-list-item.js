@@ -3,6 +3,8 @@ import BuilderMixin from 'gooru-web/mixins/content/builder';
 import {CONTENT_TYPES} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
 import Answer from 'gooru-web/models/content/answer';
+import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
+
 
 /**
  * Collection List
@@ -437,18 +439,15 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     const component = this;
     let answers = Ember.A([]);
     const questionText = question.get('text');
-    const regExp = /(\[[^\[\]]+\])+/gi;
-    const matchedAnswers = questionText.match(regExp);
-    if (matchedAnswers) {
-      answers = matchedAnswers.map(function(answer, index) {
-        return Answer.create(Ember.getOwner(component).ownerInjection(), {
-          sequence: index + 1,
-          text: answer.substring(1, answer.length - 1),
-          isCorrect: true,
-          type: 'text'
-        });
+    const matchedAnswers = FillInTheBlank.getCorrectAnswers(questionText);
+    answers = matchedAnswers.map(function(answer, index) {
+      return Answer.create(Ember.getOwner(component).ownerInjection(), {
+        sequence: index + 1,
+        text: answer.substring(1, answer.length - 1), //remove []
+        isCorrect: true,
+        type: 'text'
       });
-    }
+    });
     return answers;
   },
 
