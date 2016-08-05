@@ -78,9 +78,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     ]);
 
     return profilePromise.then(function(profile){
-      let myClasses = route.get('classService').findMyClasses(profile);
       return Ember.RSVP.hash({
-        myClasses: myClasses,
+        applicationModel: route.modelFor('application'),
+        applicationController: route.controllerFor('application'),
         classesStatus: classesStatus,
         profile: profile,
         tourSteps:tourSteps
@@ -89,11 +89,18 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   },
 
   afterModel: function(model){
+    model.myClasses = model.applicationController.myClasses || model.applicationModel.myClasses;
     const classes = model.myClasses.classes || Ember.A([]);
     const archivedClasses = classes.filterBy("isArchived", true);
     const classesStatus = model.classesStatus;
     const classService = this.get("classService");
     const promises = [];
+    classes.forEach(function(aClass){
+      //when it has no owner we asume is the provided profile
+      if (!aClass.get("owner")){
+        aClass.set("owner", model.profile);
+      }
+    });
     archivedClasses.forEach(function(aClass){
       aClass.set("reportStatus", classesStatus[aClass.get("id")]);
       if (aClass.get("isReportInProgress")){ //checking if the report is ready for those classes having the report in progress
@@ -105,7 +112,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         promises.push(promise);
       }
     });
-
     return Ember.RSVP.all(promises);
   },
 
