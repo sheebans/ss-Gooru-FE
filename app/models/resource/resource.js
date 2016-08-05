@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {QUESTION_TYPES} from 'gooru-web/config/question';
+import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
 /**
  * Resource Model
  *
@@ -88,8 +89,7 @@ export default Ember.Object.extend({
    * @property {string}
    */
   fibText: Ember.computed("text", function(){
-    const regExp = /(\[[^\[\]]+\])+/gi;
-    return this.get("text") ? this.get("text").replace(regExp, "_______") : null;
+    return FillInTheBlank.toFibText(this.get("text"));
   }),
 
   /**
