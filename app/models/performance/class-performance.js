@@ -157,7 +157,7 @@ export default DS.Model.extend({
     if (studentPerformanceData && studentPerformanceData.length > 0) {
       const counter = studentPerformanceData.length;
       const classSum = this.calculateClassSum(fieldName, studentPerformanceData);
-      classAverage = Utils.roundFloat(classSum / counter)
+      classAverage = Utils.roundFloat(classSum / counter);
     }
     return classAverage;
   },
