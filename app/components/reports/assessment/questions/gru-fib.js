@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
+import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
 
 /**
  * Fill in the blank
@@ -24,7 +25,7 @@ export default Ember.Component.extend(QuestionMixin, {
     let question = component.get("question");
     let questionUtil = this.getQuestionUtil(question);
     let questionText = question.get("fibText");
-    let questionTextParts = questionText.split("_______");
+    let questionTextParts = questionText.split(FillInTheBlank.LEGACY_REGEX.text);
     let userAnswers = component.get("userAnswer");
     let anonymous = component.get("anonymous");
 
