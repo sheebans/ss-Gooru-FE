@@ -200,17 +200,13 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   parsedLocationChanged: Ember.observer('parsedLocation.[]', function () {
     const parsedLocation = this.get('parsedLocation');
-
     if (parsedLocation) {
       isUpdatingLocation = true;
-
       let lessonId = parsedLocation[1];
       this.updateAccordionById(lessonId);
-
       isUpdatingLocation = false;
     }
   }),
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -223,65 +219,95 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   loadData: function() {
     const component = this;
-    component.set("loading", true);
     const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
     const courseId = component.get('currentClass.courseId');
-    const classMinScore = component.get('currentClass.minScore');
     const unitId = component.get('unitId');
     const lessonId = component.get('model.id');
     const classMembers = component.get('classMembers');
     const isTeacher = component.get('isTeacher');
 
+    component.set("loading", true);
     component.get('lessonService').fetchById(courseId, unitId, lessonId)
       .then(function(lesson) {
-        const lessonItems = lesson.get('children');
+        const assessments = lesson.get('children');
         component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)
           .then(function(lessonPeers) {
-            const performancePromise = isTeacher ?
-              component.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers) :
-              component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, lessonItems);
-            performancePromise.then(function(performance) {
-              lessonItems.forEach(function(lessonItem) {
-                const peer = lessonPeers.findBy('id', lessonItem.get('id'));
-                if (peer) {
-                  component.get('profileService').readMultipleProfiles(peer.get('peerIds'),30)
-                    .then(function (profiles) {
-                      lessonItem.set('members', profiles);
-                    });
-                }
-
-                if (isTeacher) {
-                  const averageScore = performance.calculateAverageScoreByItem(lessonItem.get('id'));
-                  lessonItem.set('performance', Ember.Object.create({
-                    score: averageScore,
-                    hasStarted: averageScore > 0
-                  }));
-                } else {
-                  const collectionPerformanceData = performance.findBy('id', lessonItem.get('id'));
-                  const score = collectionPerformanceData.get('score');
-                  let hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
-                  collectionPerformanceData.set('hasTrophy', hasTrophy);
-                  lessonItem.set('performance', collectionPerformanceData);
-                  const performancePromiseData = component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, [lessonItem], {collectionType: 'assessment'});
-                  performancePromiseData.then(function(performanceData) {
-                    var attempts = performanceData.get(0).get('attempts');
-                    if(lessonItem.get('format')==='assessment') {
-                      component.get('assessmentService').readAssessment(lessonItem.get('id')).then(function (performanceData) {
-                        var attemptsSetting = performanceData.get('attempts');
-                        if(attemptsSetting){
-                          collectionPerformanceData.set('noMoreAttempts', attemptsSetting > 0 && attempts && attempts >= attemptsSetting);
-                        }
-                      });
-                    }
-                  });
-                }
-              });
-              component.set('items', lessonItems);
+            const loadDataPromise = isTeacher ?
+              component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments) :
+              component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments);
+            loadDataPromise.then(function() {
+              component.set('items', assessments);
               component.set("loading", false);
             });
           });
       });
+  },
+
+  loadTeacherData: function(classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments) {
+    const component = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      component.get('performanceService')
+        .findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers)
+        .then(function(performance) {
+          const promises = assessments.map(function(assessment) {
+            const peer = lessonPeers.findBy('id', assessment.get('id'));
+            if (peer) {
+              return component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
+                .then(function(profiles) {
+                  assessment.set('members', profiles);
+                  const averageScore = performance.calculateAverageScoreByItem(assessment.get('id'));
+                  assessment.set('performance', Ember.Object.create({
+                    score: averageScore,
+                    hasStarted: averageScore > 0
+                  }));
+                });
+            } else {
+              return Ember.RSVP.resolve(true);
+            }
+          });
+          Ember.RSVP.all(promises).then(resolve, reject);
+        });
+    });
+  },
+
+  loadStudentData: function(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments) {
+    const component = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      const classMinScore = component.get('currentClass.minScore');
+      component.get('performanceService')
+        .findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, assessments)
+        .then(function(performance) {
+          const promises = assessments.map(function(assessment) {
+            const peer = lessonPeers.findBy('id', assessment.get('id'));
+            if (peer) {
+              component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
+                .then(function (profiles) {
+                  assessment.set('members', profiles);
+                });
+            }
+            const collectionPerformanceData = performance.findBy('id', assessment.get('id'));
+            const score = collectionPerformanceData.get('score');
+            const hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
+            collectionPerformanceData.set('hasTrophy', hasTrophy);
+            assessment.set('performance', collectionPerformanceData);
+            const attempts = collectionPerformanceData.get('attempts');
+            if(assessment.get('format') === 'assessment') {
+              return component.get('assessmentService').readAssessment(assessment.get('id'))
+                .then(function (assessment) {
+                  const attemptsSettings = assessment.get('attempts');
+                  if (attemptsSettings) {
+                    const noMoreAttempts = attempts && attemptsSettings > 0 && attempts >= attemptsSettings;
+                    collectionPerformanceData.set('noMoreAttempts', noMoreAttempts);
+                  }
+                });
+            } else {
+              return Ember.RSVP.resolve(true);
+            }
+          });
+          Ember.RSVP.all(promises).then(resolve, reject);
+        });
+    });
   }
 
 });

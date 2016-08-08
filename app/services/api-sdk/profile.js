@@ -431,7 +431,7 @@ export default Ember.Service.extend({
     });
   },
 
-  readMultipleProfiles: function(profileIds,max) {
+  readMultipleProfiles: function(profileIds, max = 30) {
     const service = this;
     var chunk=(profileIds.length > max) ? max : profileIds.length ;
     const promises = [];
