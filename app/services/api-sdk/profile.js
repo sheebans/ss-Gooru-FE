@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 import CourseSerializer from 'gooru-web/serializers/content/course';
+import AuthenticationSerializer from 'gooru-web/serializers/authentication/authentication';
 import ProfileAdapter from 'gooru-web/adapters/profile/profile';
 import ProfileCoursesAdapter from 'gooru-web/adapters/profile/courses';
 import AvailabilityAdapter from 'gooru-web/adapters/profile/availability';
@@ -19,6 +20,10 @@ export default Ember.Service.extend({
 
   profileSerializer: null,
 
+  courseSerializer: null,
+
+  authenticationSerializer: null,
+
   profileAdapter: null,
 
   i18n: Ember.inject.service(),
@@ -28,6 +33,7 @@ export default Ember.Service.extend({
     this._super(...arguments);
     this.set('profileSerializer', ProfileSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('courseSerializer', CourseSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('authenticationSerializer', AuthenticationSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
     this.set('profileCoursesAdapter', ProfileCoursesAdapter.create(Ember.getOwner(this).ownerInjection()));
     this.set('availabilityAdapter', AvailabilityAdapter.create(Ember.getOwner(this).ownerInjection()));
@@ -46,7 +52,7 @@ export default Ember.Service.extend({
       service.get('profileAdapter').createProfile({
         body: serializedProfileData
       }).then(function(response) {
-        resolve(service.get('profileSerializer').normalizeCreateProfile(response));
+        resolve(service.get('authenticationSerializer').normalizeResponse(response, false, undefined));
       }, function(error) {
         reject(error && error.responseText ? JSON.parse(error.responseText) : error);
       });
@@ -438,7 +444,7 @@ export default Ember.Service.extend({
     var usersProfile = Ember.A([]);
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      
+
       for (let i=0, j=profileIds.length; i<j; i+=chunk) {
         let temparray = profileIds.slice(i,i+chunk);
         const promise = service.get('profileAdapter').readMultipleProfiles(temparray);
