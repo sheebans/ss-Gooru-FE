@@ -24,7 +24,7 @@ export default Ember.Object.extend({
       user: {
         username: payload.username,
         gooruUId: payload['user_id'],
-        avatarUrl: null,
+        avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
         isNew: !payload.user_category
       },
       cdnUrls: {
