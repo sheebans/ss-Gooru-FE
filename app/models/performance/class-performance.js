@@ -17,28 +17,47 @@ export default DS.Model.extend({
    * @property {Number} Computed property with the average score of the whole class.
    */
   classAverageScore: Ember.computed('studentPerformanceData', function() {
-    return this.calculateClassAverage('averageScore');
+    const fieldName = 'averageScore';
+    const studentPerformanceData = this.get('studentPerformanceData');
+    const validStudentPerformanceData = this.filterValidStudentPerformanceData(fieldName, studentPerformanceData);
+    return this.calculateClassAverage(fieldName, validStudentPerformanceData);
   }),
 
   /**
    * @property {Number} Computed property with the average time spent of the whole class.
    */
   classAverageTimeSpent: Ember.computed('studentPerformanceData', function() {
-    return this.calculateClassAverage('averageTimeSpent');
+    const fieldName = 'averageTimeSpent';
+    const studentPerformanceData = this.get('studentPerformanceData');
+    const validStudentPerformanceData = this.filterValidStudentPerformanceData(fieldName, studentPerformanceData);
+    return this.calculateClassAverage(fieldName, validStudentPerformanceData);
   }),
 
   /**
    * @property {Number} Computed property with the summatory of completion done for the whole class.
    */
   classSumCompletionDone: Ember.computed('studentPerformanceData', function() {
-    return this.calculateClassSum('sumCompletionDone');
+    const fieldName = 'sumCompletionDone';
+    const studentPerformanceData = this.get('studentPerformanceData');
+    const validStudentPerformanceData = this.filterValidStudentPerformanceData(fieldName, studentPerformanceData);
+    return this.calculateClassSum(fieldName, validStudentPerformanceData);
   }),
 
   /**
    * @property {Number} Computed property with the summatory of completion total for the whole class.
    */
   classSumCompletionTotal: Ember.computed('studentPerformanceData', function() {
-    return this.calculateClassSum('sumCompletionTotal');
+    const fieldName = 'sumCompletionTotal';
+    const studentPerformanceData = this.get('studentPerformanceData');
+    const validStudentPerformanceData = this.filterValidStudentPerformanceData(fieldName, studentPerformanceData);
+    return this.calculateClassSum(fieldName, validStudentPerformanceData);
+  }),
+
+  /**
+   * @property {boolean}
+   */
+  hasStarted: Ember.computed('studentPerformanceData', function() {
+    return this.get('classAverageTimeSpent') >= 0 || this.get('classAverageScore') >= 0;
   }),
 
   /**
@@ -47,7 +66,9 @@ export default DS.Model.extend({
    * @returns {Number} the average score
    */
   calculateAverageScoreByItem: function(itemId) {
-    return this.calculateAverageByField(itemId, 'score');
+    const studentPerformanceData = this.get('studentPerformanceData');
+    const filteredStudentPerformanceData = this.filterStudentPerformanceDataByItem(itemId, studentPerformanceData);
+    return this.calculateAverageByItem(itemId, 'score', filteredStudentPerformanceData);
   },
 
   /**
@@ -56,7 +77,9 @@ export default DS.Model.extend({
    * @returns {Number} the average time spent
    */
   calculateAverageTimeSpentByItem: function(itemId) {
-    return this.calculateAverageByField(itemId, 'timeSpent');
+    const studentPerformanceData = this.get('studentPerformanceData');
+    const filteredStudentPerformanceData = this.filterStudentPerformanceDataByItem(itemId, studentPerformanceData);
+    return this.calculateAverageByItem(itemId, 'timeSpent', filteredStudentPerformanceData);
   },
 
   /**
@@ -65,7 +88,9 @@ export default DS.Model.extend({
    * @returns {Number} The summatory of completion done
    */
   calculateSumCompletionDoneByItem: function(itemId) {
-    return this.calculateSumByField(itemId, 'completionDone');
+    const studentPerformanceData = this.get('studentPerformanceData');
+    const filteredStudentPerformanceData = this.filterStudentPerformanceDataByItem(itemId, studentPerformanceData);
+    return this.calculateSumByItem(itemId, 'completionDone', filteredStudentPerformanceData);
   },
 
   /**
@@ -74,87 +99,118 @@ export default DS.Model.extend({
    * @returns {Number} The summatory of completion total
    */
   calculateSumCompletionTotalByItem: function(itemId) {
-    return this.calculateSumByField(itemId, 'completionTotal');
+    const studentPerformanceData = this.get('studentPerformanceData');
+    const filteredStudentPerformanceData = this.filterStudentPerformanceDataByItem(itemId, studentPerformanceData);
+    return this.calculateSumByItem(itemId, 'completionTotal', filteredStudentPerformanceData);
   },
 
   /**
-   * Helper function to calculate the average value of a specific field and unit, lesson or collection|statement.
+   * Helper function to calculate the average of the specified field by unit or lesson or collection|statement
    * @param itemId the item id
    * @param fieldName the field to calculate
+   * @param studentPerformanceData an array with the student performance data
+   * @param doRoundValue indicates if the result should be rounded
    * @returns {number} the average value
    */
-  calculateAverageByField: function(itemId, fieldName) {
-    var sumValue = 0;
-    var counter = 0;
-    const studentPerformanceData = this.get('studentPerformanceData');
-    if (studentPerformanceData.get('length') > 0) {
-      studentPerformanceData.forEach(function (studentPerformanceItem) {
-        var performanceData = studentPerformanceItem.get('performanceData').findBy('realId', itemId);
-        if (performanceData) {
-          counter += 1;
-          sumValue += performanceData.get(fieldName);
-        }
-      });
+  calculateAverageByItem: function(itemId, fieldName, studentPerformanceData = [], doRoundValue = true) {
+    var avgValue = -1;
+    if (studentPerformanceData && studentPerformanceData.length > 0) {
+      const counter = studentPerformanceData.length;
+      const sumValue = this.calculateSumByItem(itemId, fieldName, studentPerformanceData, false);
+      avgValue = sumValue / counter;
+      if (doRoundValue) {
+        avgValue = Utils.roundFloat(avgValue);
+      }
     }
-    const value = counter > 0 ? sumValue / counter : sumValue;
-    return Utils.roundFloat(value);
+    return avgValue;
   },
 
   /**
-   * Helper function to calculate the summatory of a specific field and unit, lesson or collection|statement.
+   * Helper function to calculate the summatory of a specified field by unit, lesson or collection|statement.
    * @param itemId the item id
    * @param fieldName the field to calculate
+   * @param studentPerformanceData an array with the student performance data
+   * @param doRoundValue indicates if the result should be rounded
    * @returns {number} the summatory value
    */
-  calculateSumByField: function(itemId, fieldName) {
+  calculateSumByItem: function(itemId, fieldName, studentPerformanceData = [], doRoundValue = true) {
     var sumValue = 0;
-    const studentPerformanceData = this.get('studentPerformanceData');
-    if (studentPerformanceData.get('length') > 0) {
-      studentPerformanceData.forEach(function (studentPerformanceItem) {
-        var performanceData = studentPerformanceItem.get('performanceData').findBy('realId', itemId);
-        if (performanceData) {
-          sumValue += performanceData.get(fieldName);
-        }
+    if (studentPerformanceData && studentPerformanceData.length > 0) {
+      studentPerformanceData.forEach(function(studentPerformance) {
+        sumValue += studentPerformance.get(fieldName);
       });
+      if (doRoundValue) {
+        sumValue = Utils.roundFloat(sumValue);
+      }
     }
-    return Utils.roundFloat(sumValue);
+    return sumValue;
   },
 
   /**
    * Helper function to calculate the average of a specified field.
    * @param fieldName required values are score or timeSpent
+   * @param studentPerformanceData an array with the student performance data
    * @returns {Number} the average value
    */
-  calculateClassAverage: function(fieldName) {
-    const counter = this.get('studentPerformanceData.length');
-    if (counter > 0) {
-      return Utils.roundFloat(this.calculateClassSum(fieldName) / counter);
-    } else {
-      return 0;
+  calculateClassAverage: function(fieldName, studentPerformanceData = []) {
+    var classAverage = -1;
+    if (studentPerformanceData && studentPerformanceData.length > 0) {
+      const counter = studentPerformanceData.length;
+      const classSum = this.calculateClassSum(fieldName, studentPerformanceData);
+      classAverage = Utils.roundFloat(classSum / counter);
     }
+    return classAverage;
   },
 
   /**
    * Helper function to calculate the summatory of a specified field.
    * @param fieldName required values are completionDone or completionTotal
+   * @param studentPerformanceData an array with the student performance data
    * @returns {Number} the average value
    */
-  calculateClassSum: function(fieldName) {
+  calculateClassSum: function(fieldName, studentPerformanceData = []) {
     var sumValue = 0;
-    const studentPerformanceData = this.get('studentPerformanceData');
-    if (studentPerformanceData.get('length') > 0) {
-      studentPerformanceData.forEach(function(studentPerformanceItem) {
-        sumValue += studentPerformanceItem.get(fieldName);
+    if (studentPerformanceData && studentPerformanceData.length > 0) {
+      studentPerformanceData.forEach(function(studentPerformance) {
+        sumValue += studentPerformance.get(fieldName);
       });
     }
     return sumValue;
   },
 
   /**
-   * @property {boolean}
+   * Helper function to filter the student performance data for the cases where the specified field value is greater or than zero
+   * @param fieldName to field to be used in the filter
+   * @param studentPerformanceData an array with the student performance data
+   * @returns {Array}
    */
-  hasStarted: Ember.computed("studentPerformanceData", function(){
-    return this.get("classAverageTimeSpent") > 0 || this.get("classAverageScore") > 0;
-  })
+  filterValidStudentPerformanceData: function(fieldName, studentPerformanceData = []) {
+    var filteredPerformanceData = Ember.A([]);
+    if (studentPerformanceData && studentPerformanceData.length > 0) {
+      filteredPerformanceData = studentPerformanceData.filter(function(studentPerformance) {
+        return (studentPerformance.get(fieldName) >= 0);
+      });
+    }
+    return filteredPerformanceData;
+  },
+
+  /**
+   * Helper function to filter the all students data by a specified unit, lesson or collection|statement
+   * @param itemId the unit, lesson or collection|statement ID
+   * @param studentPerformanceData an array with the student performance data
+   * @returns {Array}
+   */
+  filterStudentPerformanceDataByItem: function(itemId, studentPerformanceData = []) {
+    var filteredPerformanceData = Ember.A([]);
+    if (studentPerformanceData && studentPerformanceData.length > 0) {
+      studentPerformanceData.forEach(function (studentPerformance) {
+        const performanceData = studentPerformance.get('performanceData').findBy('realId', itemId);
+        if (performanceData) {
+          filteredPerformanceData.push(performanceData);
+        }
+      });
+    }
+    return filteredPerformanceData;
+  }
 
 });

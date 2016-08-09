@@ -7,7 +7,7 @@ moduleForComponent('content/questions/gru-questions-edit', 'Unit | Component | c
 
 test('defineFIBAnswers in middle answers', function(assert) {
   const component = this.subject();
-  const question = Question.create({ text: 'Fill [in] the [blank]...'});
+  const question = Question.create({ text: 'Fill [in] the [blank]... and sqrt[2]'}); //sqrt should be ignored
   const fibAnswers = component.defineFIBAnswers(question);
 
   assert.equal(fibAnswers.length, 2, 'Wrong number of answers');
@@ -25,7 +25,7 @@ test('defineFIBAnswers in middle answers', function(assert) {
 
 test('defineFIBAnswers start and end answers', function(assert) {
   const component = this.subject();
-  const question = Question.create({ text: '[Fill] in the [blank]'});
+  const question = Question.create({ text: '[Fill] and sqrt[2] and [blank]'}); //sqrt should be ignored
   const fibAnswers = component.defineFIBAnswers(question);
 
   assert.equal(fibAnswers.length, 2, 'Wrong number of answers');
@@ -56,7 +56,7 @@ test('defineFIBAnswers just answer', function(assert) {
 
 test('defineFIBAnswers no answers', function(assert) {
   const component = this.subject();
-  const question = Question.create({ text: 'Fill in the blank...'});
+  const question = Question.create({ text: 'Fill and sqrt[2] in the blank...'}); //sqrt should be ignored
   const fibAnswers = component.defineFIBAnswers(question);
 
   assert.equal(fibAnswers.length, 0, 'Wrong number of answers');

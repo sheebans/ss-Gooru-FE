@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import QuestionComponent from './gru-question';
+import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
 
 /**
  * Fill in the blank
@@ -49,14 +50,14 @@ export default QuestionComponent.extend({
       let userAnswer = component.get("userAnswer");
       userAnswer.forEach(function(choice){
         let input = `<input type="text" value="${choice}" ${disabled}/>`;
-        answers = answers.replace(/_______/, input);
+        answers = answers.replace(FillInTheBlank.LEGACY_REGEX.single, input);
       });
 
       return answers;
     }
     else {
       let input = `<input type="text" value="" ${disabled}/>`;
-      return answers.replace(/_______/g, input);
+      return answers.replace(FillInTheBlank.LEGACY_REGEX.global, input);
     }
   }),
   // -------------------------------------------------------------------------

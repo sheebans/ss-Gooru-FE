@@ -40,8 +40,8 @@ test('Student average calculations for non existing units', function(assert) {
     performanceData: performanceData
   });
 
-  assert.equal(model.get('averageScore'), 0);
-  assert.equal(model.get('averageTimeSpent'), 0);
+  assert.equal(model.get('averageScore'), -1);
+  assert.equal(model.get('averageTimeSpent'), -1);
   assert.equal(model.get('sumCompletionDone'), 0);
   assert.equal(model.get('sumCompletionTotal'), 0);
 });

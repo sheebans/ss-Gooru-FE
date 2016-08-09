@@ -1,7 +1,7 @@
 <div class="controller quick-start">
   <div class="header">
     <h3>{{t 'class.quick-start.title'}}</h3>
-    {{gru-tour steps=tourSteps containerClass='quick-start-tour' on-change="setupTour"}}
+    {{gru-tour steps=tourSteps containerClass='quick-start-tour' on-change="setupTour" on-exit="closeTour"}}
   </div>
   <div class="quick-start-options">
     <div class="panel panel-default new-course-container">

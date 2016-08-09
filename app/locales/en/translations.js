@@ -341,7 +341,7 @@ export default {
     "remix-unit-lead": "You are about to remix a unit.",
     "remix-unit-success": "You've remixed a unit {{unitTitle}}.",
     "remixed-by": "Remixed by",
-    "remix-warning":"Heads up! There’s a lot of awesome content in this course and making a copy will take time. Confirm you want to start the process now and in about 15 minutes your course will be ready for remixing in your <b>Profile.</b>",
+    "remix-warning":"Heads up! There’s a lot of awesome content in this course and making a copy will take time. Confirm you want to start the process and in 15 minutes you will find your copy of this course on your <b>Profile.</b>",
     "remove": "Remove",
     "report-in-progress": "Report in progress",
     "request-to": "Request to be reviewed for a badge",
@@ -1249,15 +1249,15 @@ export default {
     "overview": {
       "stepOne":{
         "title": "Course Map",
-        "description": "Once you have created content and assigned it to a course, a course map will appear in the classroom you have created. The course map provides your students access to all assessments and collections you assign to them."
+        "description": "The course map provides your students access to all assessments and collections you assign to them."
       },
       "stepTwo":{
         "title":"Class Code",
         "description":"Each classroom you create has a unique class code. You will give this code to students when you are ready for them to join your classroom and access your content."
       },
       "stepThree":{
-        "title": "Monitor student and class data",
-        "description": "Clicking on data allows you to see class and individual student data once students access the content you have assigned to them."
+        "title": "Monitor Student and Class Data",
+        "description": "This allows you to see class and individual student assessment data when students complete assessments that are part of a course."
       },
       "stepFour":{
         "title" : "Classroom Information",
@@ -1278,7 +1278,7 @@ export default {
         "description": 'This is a view of a newly created classroom. To get back to a classroom at any time, click on "Classrooms" and use the drop down menu to select the classroom you wish to enter.'
       },
       "stepTwo":{
-        "title":"Getting started? Create an assessment!",
+        "title":"Getting Started? Create an Assessment!",
         "description":"We suggest creating an assessment as a way to get started with Gooru and to assess current levels of student understanding in your class."
       }
     },
