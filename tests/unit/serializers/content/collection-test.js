@@ -38,6 +38,23 @@ test('serializeUpdateCollection', function(assert) {
   assert.equal(response.taxonomy, null, "Wrong taxonomy object");
 });
 
+test('serializeUpdateCollection empty learning objectives', function(assert) {
+  const serializer = this.subject();
+  const collectionObject = CollectionModel.create({
+    title: 'collection-title',
+    learningObjectives: '',
+    isVisibleOnProfile: false,
+    thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
+    standards: []
+  });
+  const response = serializer.serializeUpdateCollection(collectionObject);
+  assert.equal(response.title, 'collection-title', "Wrong title");
+  assert.equal(response.learning_objective, null, "Wrong learning objective");
+  assert.equal(response.visible_on_profile, false, "Wrong visible on profile");
+  assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
+  assert.equal(response.taxonomy, null, "Wrong taxonomy object");
+});
+
 test('normalizeReadCollection', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({
