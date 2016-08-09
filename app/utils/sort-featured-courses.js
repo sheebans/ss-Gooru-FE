@@ -20,7 +20,7 @@ export function getSubjects(courses) {
        });
      })
      .filter(function(course) {
-       return (!subjects.findBy('taxonomySubject', course.get('taxonomySubject')))
+       return (!subjects.findBy('taxonomySubject', course.get('taxonomySubject')));
      })
      .forEach(function(course) {
        if (!subjects.findBy('taxonomySubject', course.get('taxonomySubject'))) {
