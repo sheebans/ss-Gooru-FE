@@ -24,7 +24,7 @@ module.exports = function (environment) {
     webServicePort: undefined,  // Uses the default value 80
     webServiceUri: '/nucleus/realtime',
 
-    webSocketProtocol: 'http://',
+    webSocketProtocol: 'https://',
     webSocketHostname: 'goorurt.qa.gooruweb.edify.cr',
     webSocketPort: undefined,   // Uses the default value 80
     webSocketUri: '/ws/realtime'
