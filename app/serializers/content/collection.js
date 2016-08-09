@@ -62,7 +62,7 @@ export default Ember.Object.extend({
     const thumbnail = cleanFilename(collectionModel.thumbnailUrl, this.get('session.cdnUrls'));
     return {
       title: collectionModel.get('title'),
-      'learning_objective': collectionModel.get('learningObjectives'),
+      'learning_objective': collectionModel.get('learningObjectives') || null,
       'visible_on_profile': collectionModel.get('isVisibleOnProfile'),
       thumbnail: !Ember.isEmpty(thumbnail) ? thumbnail : null,
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(collectionModel.get('standards'))
