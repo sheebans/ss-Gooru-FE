@@ -11,8 +11,6 @@ moduleForService('service:api-sdk/profile', 'Unit | Service | api-sdk/profile', 
 test('createProfile', function(assert) {
   const service = this.subject();
 
-  assert.expect(3);
-
   service.set('profileAdapter', Ember.Object.create({
     createProfile: function(data) {
       const expectedData = {
@@ -31,6 +29,15 @@ test('createProfile', function(assert) {
 
     normalizeCreateProfile: function(payload) {
       assert.deepEqual({}, payload, 'Wrong profile payload');
+      return {};
+    }
+  }));
+
+  service.set('authenticationSerializer', Ember.Object.create({
+    normalizeResponse: function(payload, isAnonymous, accessToken) {
+      assert.deepEqual(payload, {}, 'Wrong payload value');
+      assert.equal(isAnonymous, false, 'Wrong isAnonymous value');
+      assert.equal(accessToken, undefined, 'Wrong accessToken value');
       return {};
     }
   }));
