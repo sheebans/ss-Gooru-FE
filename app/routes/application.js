@@ -205,7 +205,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
         "userAgent": navigator.userAgent,
         "stack": error.stack
       },
-      "description": error.toString()
+      "description": JSON.stringify(error)
     });
 
     route.get("errorService").createError(model);

@@ -131,14 +131,14 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {Promise|Content/Lesson}
    */
   fetchById: function (courseId, unitId, lessonId) {
-    return this.get('adapter').getLessonById({
+    const service = this;
+    return service.get('adapter').getLessonById({
       courseId: courseId,
       unitId: unitId,
       lessonId: lessonId
-    }).then(function (unitData) {
-        return this.get('serializer').normalizeLesson(unitData);
-      }.bind(this))
-      .catch(function (error) {
+    }).then(function(lessonData) {
+        return service.get('serializer').normalizeLesson(lessonData);
+    }).catch(function(error) {
         return error;
       });
   },
