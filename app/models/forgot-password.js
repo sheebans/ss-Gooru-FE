@@ -8,7 +8,8 @@ const Validations = buildValidations({
         presence: true,
         message: '{{description}}',
         descriptionKey: 'common.errors.user-email-presence'
-      })
+      }),
+      validator('google-email', {})
     ]
   }
 });

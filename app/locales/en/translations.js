@@ -188,7 +188,7 @@ export default {
       "resource-title-length": "The title cannot be longer than 50 characters.",
       "select-correct-answer": "Please select the correct answer.",
       "sign-in-credentials-not-valid": "Uh oh! Something's not right. Please double check your username and password and try again.",
-      "sign-in-google-account-exists": "Please sign in with Google to access your account.",
+      "sign-in-google-account-exists": "Please use Google signin. We can't reset your password.",
       "sign-up-error": "Oops! Unable to sign up right now. Please try again shortly.",
       "sign-up-first-name": "Please enter your first name.",
       "sign-up-last-name": "Please enter your last name.",
@@ -201,7 +201,8 @@ export default {
       "unit-not-loaded": "Oops! Unable to load unit right now. Please try again shortly.",
       "unit-title-required": "Please enter the unit title.",
       "user-email-presence": "Please enter a valid email.",
-      "username-length": "Username must be between 4 and 16 characters."
+      "username-length": "Username must be between 4 and 16 characters.",
+      "forgot-password-gmail": "Please use Google signin. We can't reset your password."
     },
     "essential-questions": "Essential Questions",
     "explanation": "Explanation",
