@@ -146,6 +146,8 @@ module.exports = function(defaults) {
   }
   app.import('bower_components/KaTeX/dist/katex.min.css');
   app.import('bower_components/KaTeX/dist/katex.min.js');
+  app.import('bower_components/KaTeX/dist/contrib/auto-render.min.js');
+
   app.import({
     development: 'vendor/mathquill/mathquill.js',
     production:  'vendor/mathquill/mathquill.min.js'
