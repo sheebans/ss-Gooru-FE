@@ -181,3 +181,13 @@ it is also sent to Gooru Netops, they deploy it to production environment
 
 ### Design Color Palette
 ![Color Palette](color-palette.png)
+
+### RealTime Module
+
+The RealTime is the module used by the teachers to see "in live" the results for any assessment taken by the students. 
+This module uses a WebSocket connection with a sub-domain of the backend application. 
+ 
+##### Important:
+It is required that the sub-domain that gives the support to the RealTime needs to be configured to use a SSL (HTTPS)
+connection, otherwise the RealTime module will not be able to communicate with the backend server.
+

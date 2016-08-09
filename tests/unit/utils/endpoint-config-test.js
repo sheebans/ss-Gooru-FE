@@ -25,7 +25,7 @@ test('getRealTimeWebServiceUri', function (assert) {
 
 test('getRealTimeWebSocketUrl', function (assert) {
   const endpointUrl = EndPointsConfig.getRealTimeWebSocketUrl();
-  assert.equal(endpointUrl, 'http://localhost:7357/ws/realtime');
+  assert.equal(endpointUrl, 'https://localhost:7357/ws/realtime');
 });
 
 test('getRealTimeWebSocketUri', function (assert) {
