@@ -42,6 +42,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       const unitId = context.get('unitId');
       const lessonId = context.get('lessonId');
       const userId = context.get('userId');
+
+      model.role = params.role;
+
       return route.get('lessonService').fetchById(courseId, unitId, lessonId)
         .then(function(lesson) {
           model.lesson = lesson;
@@ -68,6 +71,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     controller.set('onAir', true); //TODO check for onAir
     controller.set('lesson', model.lesson);
     controller.set('showContent', collection.get('isCollection'));
+    controller.set('role', model.role);
     if (collection.get('isAssessment')) {
       controller.set('assessmentAttemptsLeft', model.assessmentAttemptsLeft);
     }

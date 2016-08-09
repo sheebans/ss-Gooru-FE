@@ -1,4 +1,5 @@
 import Ember from "ember";
+import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * Player navigator
@@ -12,15 +13,14 @@ import Ember from "ember";
  * @see controllers/player.js
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
-
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Attributes
-
   classNames:['gru-navigator'],
 
   // -------------------------------------------------------------------------
@@ -53,6 +53,17 @@ export default Ember.Component.extend({
      */
     seeUsageReport:function(){
       this.sendAction("onFinishCollection");
+    },
+
+    /**
+     * Action triggered to remix a collection
+     */
+    remixCollection: function(){
+      if (this.get('session.isAnonymous')) {
+        this.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        this.sendAction("onRemixCollection", this.get("collection"));
+      }
     }
   },
 
@@ -128,6 +139,14 @@ export default Ember.Component.extend({
       };
     });
     return items;
+  }),
+
+  /**
+   * Indicates if the remix button is shown or not
+   * @property {boolean}
+   */
+  showRemixButton: Ember.computed("hasContext", "isTeacher", function(){
+    return (this.get('hasContext') && this.get('isTeacher')) || (!this.get('hasContext'));
   }),
 
   /**
