@@ -2,7 +2,7 @@
   {
     "description": "Gets an assessment with all question types",
     "request": {
-      "url": "^/api/nucleus/v1/assessments/all-resource-types-assessment-id$",
+      "url": "^/api/nucleus/v1/assessments/all-question-types-assessment-id$",
       "method": "GET",
       "headers": {
         "Authorization": "Token (.+)"

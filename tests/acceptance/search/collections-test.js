@@ -55,7 +55,7 @@ test('onOpenContentPlayer: When opening a collection', function(assert) {
     T.exists(assert, $firstCollectionLink, "Missing collection link");
     click($firstCollectionLink); //clicking first collection title
     andThen(function() {
-      assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
+      assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3&type=collection');
     });
   });
 });

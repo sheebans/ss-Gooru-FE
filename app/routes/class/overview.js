@@ -43,7 +43,7 @@ export default Ember.Route.extend({
      */
     playResource: function (unitId, lessonId, collection) {
       if (collection.get("isExternalAssessment")){
-        window.open(collection.get("url")); //todo url?
+        window.open(collection.get("url"));
       }
       else{
         const currentClass = this.modelFor('class').class;
@@ -51,7 +51,7 @@ export default Ember.Route.extend({
         const courseId = currentClass.get("courseId");
         const role = this.get("controller.isStudent") ? "student" : "teacher";
         this.transitionTo('context-player', classId, courseId, unitId,
-          lessonId, collection.get("id"), { queryParams: { role: role }});
+          lessonId, collection.get("id"), { queryParams: { role: role, type: collection.get("collectionType") }});
       }
     },
 
