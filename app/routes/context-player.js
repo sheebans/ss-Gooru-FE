@@ -92,12 +92,11 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
 
   setupController(controller, model) {
     const collection = model.collection;
-    let originalCollection = model.originalCollection;
     controller.set('onAir', true); //TODO check for onAir
     controller.set('lesson', model.lesson);
     controller.set('showContent', collection.get('isCollection'));
     controller.set('role', model.role);
-    controller.set('originalCollection', originalCollection);
+    controller.set('originalCollection', model.originalCollection);
     if (collection.get('isAssessment')) {
       controller.set('assessmentAttemptsLeft', model.assessmentAttemptsLeft);
     }
