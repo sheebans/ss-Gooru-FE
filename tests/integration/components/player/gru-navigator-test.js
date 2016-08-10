@@ -409,3 +409,18 @@ test('See usage report', function(assert) {
   assert.ok($seeReportButton.length, "Missing button");
   $seeReportButton.click();
 });
+
+test('Remix collection/assessment', function(assert) {
+  assert.expect(2);
+
+  this.on('parentAction', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{player/gru-navigator onRemixCollection='parentAction' showRemixButton=true}}`);
+  var $component = this.$(); //component dom element
+  var $remixButton = $component.find(".gru-navigator .navigator-header button.remix-btn");
+  assert.ok($remixButton.length, "Missing remix button");
+
+  $remixButton.click();
+});

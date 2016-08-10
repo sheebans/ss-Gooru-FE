@@ -97,7 +97,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     controller.set('lesson', model.lesson);
     controller.set('showContent', collection.get('isCollection'));
     controller.set('role', model.role);
-    controller.set('originalCollection', model.originalCollection);
+    controller.set('originalCollection', originalCollection);
     if (collection.get('isAssessment')) {
       controller.set('assessmentAttemptsLeft', model.assessmentAttemptsLeft);
     }
