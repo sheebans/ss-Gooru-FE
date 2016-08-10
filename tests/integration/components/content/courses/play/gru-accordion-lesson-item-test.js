@@ -38,7 +38,6 @@ test('it renders a lesson item correctly -collection', function (assert) {
 
   const $titleContainer = $heading.find('> a.title');
   assert.ok($titleContainer.length, 'Title link');
-  assert.euqla($titleContainer.attr("href"), "url", 'Wrong player url');
 
 
   assert.ok($titleContainer.find('> img').length, 'Thumbnail element');
