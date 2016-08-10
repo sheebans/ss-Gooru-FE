@@ -2,6 +2,46 @@
 All notable changes to this project will be documented in this file.
 
 ## [release-3.1.7] - August 9, 2016
+https://collaborate.gooru.org/jira/browse/GG-1102
+https://collaborate.gooru.org/jira/browse/GG-1392
+https://collaborate.gooru.org/jira/browse/GG-1423
+https://collaborate.gooru.org/jira/browse/GG-1430
+https://collaborate.gooru.org/jira/browse/GG-1468
+https://collaborate.gooru.org/jira/browse/GG-1506
+https://collaborate.gooru.org/jira/browse/GG-1510
+https://collaborate.gooru.org/jira/browse/GG-1556
+https://collaborate.gooru.org/jira/browse/GG-1573
+https://collaborate.gooru.org/jira/browse/GG-1601
+https://collaborate.gooru.org/jira/browse/GG-1613
+https://collaborate.gooru.org/jira/browse/GG-1627
+https://collaborate.gooru.org/jira/browse/GG-1628
+https://collaborate.gooru.org/jira/browse/GG-1629
+https://collaborate.gooru.org/jira/browse/GG-1631
+https://collaborate.gooru.org/jira/browse/GG-1632
+https://collaborate.gooru.org/jira/browse/GG-1636
+https://collaborate.gooru.org/jira/browse/GG-1639
+https://collaborate.gooru.org/jira/browse/GG-1646
+https://collaborate.gooru.org/jira/browse/GG-1655
+https://collaborate.gooru.org/jira/browse/GG-1666
+https://collaborate.gooru.org/jira/browse/GG-1690
+https://collaborate.gooru.org/jira/browse/GG-1692
+https://collaborate.gooru.org/jira/browse/GG-1693
+https://collaborate.gooru.org/jira/browse/GG-1713
+https://collaborate.gooru.org/jira/browse/GG-1714
+https://collaborate.gooru.org/jira/browse/GG-1717
+https://collaborate.gooru.org/jira/browse/GG-1724
+https://collaborate.gooru.org/jira/browse/GG-1728
+https://collaborate.gooru.org/jira/browse/GG-1735
+https://collaborate.gooru.org/jira/browse/GG-1736
+https://collaborate.gooru.org/jira/browse/GG-1742
+https://collaborate.gooru.org/jira/browse/GG-1748
+https://collaborate.gooru.org/jira/browse/GG-1751
+https://collaborate.gooru.org/jira/browse/GG-1759
+https://collaborate.gooru.org/jira/browse/GG-1777
+https://collaborate.gooru.org/jira/browse/GG-704
+https://collaborate.gooru.org/jira/browse/GG-712
+
+## [release-3.1.7] - August 9, 2016
 https://collaborate.gooru.org/jira/browse/GG-1748
 https://collaborate.gooru.org/jira/browse/GG-1756
 
