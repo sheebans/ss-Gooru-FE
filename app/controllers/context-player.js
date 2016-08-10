@@ -2,7 +2,6 @@ import Ember from 'ember';
 import PlayerController from 'gooru-web/controllers/player';
 import {truncate} from 'gooru-web/utils/utils';
 import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
-import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * Context Player Controller
@@ -10,7 +9,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
  * @module
  * @augments ember/PlayerController
  */
-export default PlayerController.extend(ModalMixin, {
+export default PlayerController.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -48,21 +47,6 @@ export default PlayerController.extend(ModalMixin, {
           questionResult.set('submittedAnswer', true);
         });
       }
-    },
-
-    /**
-     * On navigator remix collection button click
-     * @param {Collection} collection
-     */
-    remixCollection: function (collection) {
-      var remixModel = {
-        content: collection
-      };
-      if(collection.get('isCollection')) {
-        this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
-      } else {
-        this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
-      }
     }
   },
 
@@ -76,23 +60,6 @@ export default PlayerController.extend(ModalMixin, {
   hasContext: true,
 
   /**
-   * Indicates the user's role, could be 'student', 'teacher' or null
-   * @property {string}
-   */
-  role: null,
-
-  /**
-   * Indicates if a user is a teacher of the current class
-   * @property {isTeacher}
-   * @see {Class} class
-   * @returns {bool}
-   */
-
-  isTeacher: Ember.computed('role', function() {
-    return (this.get('role')==='teacher');
-  }),
-
-  /**
    * Should resource navigation in the player be disabled?
    * @property {Lesson}
    */
@@ -103,6 +70,7 @@ export default PlayerController.extend(ModalMixin, {
     }
     return isDisabled;
   }),
+
   isAssessment: false,
 
   /**
@@ -182,5 +150,4 @@ export default PlayerController.extend(ModalMixin, {
       return Ember.RSVP.resolve(true); //not waiting for the real time events
     });
   }
-
 });

@@ -47,7 +47,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    * @param {Collection} collection
    * @returns {Promise.<*>}
    */
-  playerModel: function(params, context, collection) {
+  playerModel: function(params, context, collection, originalCollection) {
     const route = this;
     return this._super(params, context, collection).then(function(model) {
       const classId = context.get('classId');
@@ -56,18 +56,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       const lessonId = context.get('lessonId');
       const userId = context.get('userId');
 
-      model.role = params.role;
-
-      if (collection.get('isAssessment')) {
-        route.get('assessmentService').readAssessment(params.collectionId).then(function(originalCollection) {
-          model.originalCollection = originalCollection;
-        });
-      }
-      else {
-        route.get('collectionService').readCollection(params.collectionId).then(function(originalCollection) {
-          model.originalCollection = originalCollection;
-        });
-      }
+      model.originalCollection = originalCollection;
 
       return route.get('lessonService').fetchById(courseId, unitId, lessonId)
         .then(function(lesson) {
@@ -95,7 +84,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     controller.set('onAir', true); //TODO check for onAir
     controller.set('lesson', model.lesson);
     controller.set('showContent', collection.get('isCollection'));
-    controller.set('role', model.role);
     controller.set('originalCollection', model.originalCollection);
     if (collection.get('isAssessment')) {
       controller.set('assessmentAttemptsLeft', model.assessmentAttemptsLeft);
@@ -132,7 +120,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     this.get('controller').set('showContent',false);
     // Call parent method
     this._super(...arguments);
-
   }
 
 });
