@@ -125,10 +125,11 @@ export default Ember.Route.extend(ModalMixin,{
 
       const collectionFound = hash.assessment.state === 'rejected';
       let collection = collectionFound ? hash.collection.value : hash.assessment.value;
+      let originalCollection = collection;
 
       collection = collection.toPlayerCollection();
       context.set("collectionType", collection.get("collectionType"));
-      return route.playerModel(params, context, collection);
+      return route.playerModel(params, context, collection, originalCollection);
     });
   },
 
@@ -139,7 +140,7 @@ export default Ember.Route.extend(ModalMixin,{
    * @param {Collection} collection
    * @returns {Promise.<*>}
    */
-  playerModel: function(params, context, collection){
+  playerModel: function(params, context, collection, originalCollection){
     const route = this;
     const hasUserSession = !route.get('session.isAnonymous');
     const isAssessment = collection.get("isAssessment");
@@ -159,7 +160,8 @@ export default Ember.Route.extend(ModalMixin,{
         collection: collection,
         resourceId: params.resourceId,
         assessmentResult: assessmentResult,
-        context: context
+        context: context,
+        originalCollection: originalCollection
       });
     });
   },
@@ -187,6 +189,7 @@ export default Ember.Route.extend(ModalMixin,{
    */
   setupController(controller, model) {
     let collection = model.collection;
+    let originalCollection = model.originalCollection;
     let assessmentResult = model.assessmentResult;
     let hasUserSession = !this.get('session.isAnonymous');
 
@@ -209,6 +212,7 @@ export default Ember.Route.extend(ModalMixin,{
 
     controller.set("showReport", assessmentResult.get("submitted"));
     controller.set("collection", collection);
+    controller.set("originalCollection", originalCollection);
 
     if (controller.get("startAutomatically")){
       controller.startAssessment();

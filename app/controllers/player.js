@@ -161,6 +161,12 @@ export default Ember.Controller.extend(SessionMixin, {
   collection: null,
 
   /**
+   * The original collection to remix in the player
+   * @property {Collection} collection
+   */
+  originalCollection: null,
+
+  /**
    * Is Assessment
    * @property {boolean}
    */

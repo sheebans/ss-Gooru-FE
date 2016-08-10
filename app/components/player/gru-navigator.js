@@ -62,7 +62,8 @@ export default Ember.Component.extend(ModalMixin, {
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
-        this.sendAction("onRemixCollection", this.get("collection"));
+        let collection = this.get("originalCollection") ? this.get("originalCollection") : this.get("collection");
+        this.sendAction("onRemixCollection", collection);
       }
     }
   },

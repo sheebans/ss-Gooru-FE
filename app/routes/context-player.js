@@ -24,6 +24,19 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
   performanceService: Ember.inject.service('api-sdk/performance'),
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * @property {Ember.Service} Service to retrieve a collection
+   */
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
+  /**
+   * @property {Ember.Service} Service to retrieve a assessment
+   */
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
   // -------------------------------------------------------------------------
   // Methods
 
@@ -44,6 +57,17 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       const userId = context.get('userId');
 
       model.role = params.role;
+
+      if (collection.get('isAssessment')) {
+        route.get('assessmentService').readAssessment(params.collectionId).then(function(originalCollection) {
+          model.originalCollection = originalCollection;
+        });
+      }
+      else {
+        route.get('collectionService').readCollection(params.collectionId).then(function(originalCollection) {
+          model.originalCollection = originalCollection;
+        });
+      }
 
       return route.get('lessonService').fetchById(courseId, unitId, lessonId)
         .then(function(lesson) {
@@ -68,10 +92,12 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
 
   setupController(controller, model) {
     const collection = model.collection;
+    let originalCollection = model.originalCollection;
     controller.set('onAir', true); //TODO check for onAir
     controller.set('lesson', model.lesson);
     controller.set('showContent', collection.get('isCollection'));
     controller.set('role', model.role);
+    controller.set('originalCollection', model.originalCollection);
     if (collection.get('isAssessment')) {
       controller.set('assessmentAttemptsLeft', model.assessmentAttemptsLeft);
     }
