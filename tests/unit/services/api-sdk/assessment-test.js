@@ -106,12 +106,12 @@ test('addQuestion', function(assert) {
 test('deleteAssessment', function(assert) {
   const expectedAssessment = Ember.Object.create({
     id:'assessment-id',
-    format:'assessment'
+    isExternalAssessment: false
   });
 
   const secondExpectedAssessment = Ember.Object.create({
     id:'second-assessment-id',
-    format:'external-assessment'
+    isExternalAssessment: true
   });
   const service = this.subject();
 
@@ -132,11 +132,11 @@ test('deleteAssessment', function(assert) {
 
   service.deleteAssessment(Ember.Object.create({
     id:'assessment-id',
-    format:'assessment'
+    isExternalAssessment: false
   })).then(function() {
     service.deleteAssessment(Ember.Object.create({
       id:'second-assessment-id',
-      format:'external-assessment'
+      isExternalAssessment: true
     })).then(function() {
       done();
     });

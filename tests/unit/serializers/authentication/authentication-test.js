@@ -1,5 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 import Env from 'gooru-web/config/environment';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 moduleFor('serializer:authentication/authentication', 'Unit | Serializer | authentication/authentication');
 
@@ -20,7 +21,7 @@ test('normalizeResponse for anonymous account', function(assert) {
     user: {
       username: 'username',
       gooruUId: 'user-id',
-      avatarUrl: null,
+      avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
       isNew: true
     },
     'cdnUrls': {
@@ -50,7 +51,7 @@ test('normalizeResponse for normal account', function(assert) {
     user: {
       username: 'username',
       gooruUId: 'user-id',
-      avatarUrl: null,
+      avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
       isNew: true
     },
     'cdnUrls': {
@@ -79,7 +80,7 @@ test('normalizeResponse for google account', function(assert) {
     user: {
       username: 'username',
       gooruUId: 'user-id',
-      avatarUrl: null,
+      avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
       isNew: true
     },
     'cdnUrls': {
@@ -109,7 +110,7 @@ test('normalizeResponse for google account containing user category', function(a
     user: {
       username: 'username',
       gooruUId: 'user-id',
-      avatarUrl: null,
+      avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
       isNew: false
     },
     'cdnUrls': {
@@ -134,7 +135,7 @@ test('normalizeAvatarUrl', function(assert) {
     user: {
       username: 'username',
       gooruUId: 'user-id',
-      avatarUrl: null,
+      avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
       isNew: false
     },
     'cdnUrls': {
