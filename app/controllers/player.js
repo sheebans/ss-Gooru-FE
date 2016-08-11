@@ -11,7 +11,7 @@ export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
-  queryParams: ['resourceId', 'role'],
+  queryParams: ['resourceId', 'role', 'type'],
 
   session: Ember.inject.service("session"),
 
@@ -128,6 +128,12 @@ export default Ember.Controller.extend(SessionMixin, {
   role: null,
 
   /**
+   * Query param indicating if it is a collection or assessment
+   * @property {string}
+   */
+  type: null,
+
+  /**
    * Indicates if the student is playing the collection
    * @property {boolean}
    */
@@ -159,6 +165,12 @@ export default Ember.Controller.extend(SessionMixin, {
    * @property {Collection} collection
    */
   collection: null,
+
+  /**
+   * The original collection to remix in the player
+   * @property {Collection} collection
+   */
+  originalCollection: null,
 
   /**
    * Is Assessment

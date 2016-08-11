@@ -66,11 +66,11 @@ moduleForAcceptance('Acceptance | Edit Assessment', {
 });*/
 
 test('Click share button and check clipboard functionality', function (assert) {
-  visit('/content/assessments/edit/all-resource-types-assessment-id');
+  visit('/content/assessments/edit/all-question-types-assessment-id');
 
   andThen(function () {
-    //editing all-resource-types-assessment-id assessment, see assessment-endpoint.json
-    assert.equal(currentURL(), '/content/assessments/edit/all-resource-types-assessment-id');
+    //editing all-question-types-assessment-id assessment, see assessment-endpoint.json
+    assert.equal(currentURL(), '/content/assessments/edit/all-question-types-assessment-id');
     var $shareButton = find(".gru-share-pop-over");
 
     click($shareButton);
@@ -78,16 +78,33 @@ test('Click share button and check clipboard functionality', function (assert) {
       var $popOverContent = find(".gru-share-pop-over-content");
 
       T.exists(assert, $popOverContent.find('p'), "Missing share description");
-      T.exists(assert, $popOverContent.find('.share-actions #assessment-popover-input'), "Missing readonly input");
+      const $input = $popOverContent.find('.share-actions #assessment-popover-input');
+      T.exists(assert, $input, "Missing readonly input");
+      assert.ok($input.val().indexOf("/player/all-question-types-assessment-id?type=assessment"), "Wrong share url");
       var $copyBtn = $popOverContent.find('.share-actions .copy-btn');
       T.exists(assert, $copyBtn, "Missing copy button");
     });
   });
 });
-test('Delete Assessment', function (assert) {
-  visit('/content/assessments/edit/all-resource-types-assessment-id');
+
+test('Click preview button', function (assert) {
+  visit('/content/assessments/edit/all-question-types-assessment-id');
+
   andThen(function () {
-    assert.equal(currentURL(), '/content/assessments/edit/all-resource-types-assessment-id');
+    assert.equal(currentURL(), '/content/assessments/edit/all-question-types-assessment-id');
+    var $previewButton = find(".actions .preview");
+
+    click($previewButton);
+    andThen(function () {
+      assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8&type=assessment', "Wrong url");
+    });
+  });
+});
+
+test('Delete Assessment', function (assert) {
+  visit('/content/assessments/edit/all-question-types-assessment-id');
+  andThen(function () {
+    assert.equal(currentURL(), '/content/assessments/edit/all-question-types-assessment-id');
     var $deleteButton = find("header .actions .delete");
     click($deleteButton);
     andThen(function () {
@@ -119,9 +136,9 @@ test('Delete Assessment', function (assert) {
   });
 });
 test('Add new question', function (assert) {
-  visit('/content/assessments/edit/all-resource-types-assessment-id');
+  visit('/content/assessments/edit/all-question-types-assessment-id');
   andThen(function () {
-    assert.equal(currentURL(), '/content/assessments/edit/all-resource-types-assessment-id');
+    assert.equal(currentURL(), '/content/assessments/edit/all-question-types-assessment-id');
     var $settings = find("#settings");
     assert.ok($settings.length,'Missing settings section');
     var $addNewQuestionButton= find('#builder .gru-collection-list .add-resource-question .add-new-question');

@@ -89,7 +89,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
         window.open(collection.get("url")); //TODO url?
       }
       else {
-        this.transitionTo('player', collection.get("id"));
+        this.transitionTo('player', collection.get("id"), { queryParams: { type: collection.get("collectionType") } });
       }
     }
   },

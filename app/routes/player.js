@@ -2,6 +2,7 @@ import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
 import Context from 'gooru-web/models/result/context';
 import {generateUUID} from 'gooru-web/utils/utils';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -9,7 +10,7 @@ import {generateUUID} from 'gooru-web/utils/utils';
  * @module
  * @augments ember/Route
  */
-export default Ember.Route.extend({
+export default Ember.Route.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -61,6 +62,21 @@ export default Ember.Route.extend({
         //this doesn't work when refreshing the page, TODO
       reportController.set("backUrl", route.get('history.lastRoute.url'));
       route.transitionTo('reports.student-collection', { queryParams: queryParams});
+    },
+
+    /**
+     * On navigator remix collection button click
+     * @param {Collection} collection
+     */
+    remixCollection: function (collection) {
+      var remixModel = {
+        content: collection
+      };
+      if(collection.get('isCollection')) {
+        this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
+      } else {
+        this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
+      }
     }
 
   },
@@ -101,18 +117,17 @@ export default Ember.Route.extend({
     const route = this;
     const context = route.getContext(params);
     const collectionId = context.get("collectionId");
+    const type = params.type || "collection";
+    const isCollection = type === 'collection';
 
-    return Ember.RSVP.hashSettled({
-      assessment: route.get('assessmentService').readAssessment(collectionId),
-      collection: route.get('collectionService').readCollection(collectionId)
-    }).then(function(hash){
+    const collectionPromise = isCollection ?
+      route.get('collectionService').readCollection(collectionId) :
+      route.get('assessmentService').readAssessment(collectionId);
 
-      const collectionFound = hash.assessment.state === 'rejected';
-      let collection = collectionFound ? hash.collection.value : hash.assessment.value;
-
-      collection = collection.toPlayerCollection();
+    return collectionPromise.then(function(collection){
+      const playerCollection = collection.toPlayerCollection();
       context.set("collectionType", collection.get("collectionType"));
-      return route.playerModel(params, context, collection);
+      return route.playerModel(params, context, playerCollection, collection);
     });
   },
 
@@ -123,7 +138,7 @@ export default Ember.Route.extend({
    * @param {Collection} collection
    * @returns {Promise.<*>}
    */
-  playerModel: function(params, context, collection){
+  playerModel: function(params, context, collection, originalCollection){
     const route = this;
     const hasUserSession = !route.get('session.isAnonymous');
     const isAssessment = collection.get("isAssessment");
@@ -143,7 +158,8 @@ export default Ember.Route.extend({
         collection: collection,
         resourceId: params.resourceId,
         assessmentResult: assessmentResult,
-        context: context
+        context: context,
+        originalCollection: originalCollection
       });
     });
   },
@@ -171,6 +187,7 @@ export default Ember.Route.extend({
    */
   setupController(controller, model) {
     let collection = model.collection;
+    let originalCollection = model.originalCollection;
     let assessmentResult = model.assessmentResult;
     let hasUserSession = !this.get('session.isAnonymous');
 
@@ -193,6 +210,7 @@ export default Ember.Route.extend({
 
     controller.set("showReport", assessmentResult.get("submitted"));
     controller.set("collection", collection);
+    controller.set("originalCollection", originalCollection);
 
     if (controller.get("startAutomatically")){
       controller.startAssessment();

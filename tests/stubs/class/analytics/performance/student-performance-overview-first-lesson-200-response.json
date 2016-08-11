@@ -5,7 +5,7 @@
       "usageData":[
         {
           "completedCount": 10,
-          "collectionId": "all-resource-types-assessment-id",
+          "collectionId": "all-question-types-assessment-id",
           "scoreInPercentage": 90,
           "timeSpent": 130339,
           "views": 18,
@@ -13,7 +13,7 @@
         },
         {
           "completedCount": 10,
-          "collectionId": "all-question-types-collection-id",
+          "collectionId": "all-question-types-assessment-id",
           "scoreInPercentage": 90,
           "timeSpent": 130339,
           "views": 18,

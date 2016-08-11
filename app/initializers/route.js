@@ -33,11 +33,11 @@ export function initialize(app) {
 
       const lastRoute = this.get("history.lastRoute");
 
-      const savedRouteName = lastRoute.get('name');
-      const parentRouteIdx = savedRouteName && savedRouteName.indexOf(currentRouteName);
+      const savedRouteUrl = lastRoute.get('url');
+      const parentRouteIdx = savedRouteUrl && savedRouteUrl.indexOf(currentRouteUrl);
 
       if (!currentRouteName.match(/\.loading/) &&
-        (!savedRouteName || parentRouteIdx === -1)) {
+        (!savedRouteUrl || parentRouteIdx === -1)) {
         // On deactivate, save the "child-most" route
         // For example: on deactive save the route "search.collection", but "search" (the parent route)
         // will not be saved
