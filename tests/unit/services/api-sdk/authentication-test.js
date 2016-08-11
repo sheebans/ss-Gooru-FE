@@ -70,12 +70,6 @@ test('authenticateWithCredentials', function(assert) {
     normalizeResponse: function(payload) {
       assert.deepEqual({}, payload, 'Wrong response payload');
       return sessionData;
-    },
-
-    normalizeAvatarUrl: function(payload, session) {
-      assert.deepEqual(expectedProfile, payload, 'Wrong response payload');
-      assert.deepEqual(sessionData, session, 'Wrong session data');
-      return {};
     }
   }));
 
@@ -119,12 +113,6 @@ test('authenticateWithToken', function(assert) {
     normalizeResponse: function(payload) {
       assert.deepEqual({}, payload, 'Wrong response payload');
       return sessionData;
-    },
-
-    normalizeAvatarUrl: function(payload, session) {
-      assert.deepEqual(expectedProfile, payload, 'Wrong response payload');
-      assert.deepEqual(sessionData, session, 'Wrong session data');
-      return {};
     }
   }));
 
