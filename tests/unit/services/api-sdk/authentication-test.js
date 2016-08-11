@@ -46,23 +46,13 @@ test('authenticateWithCredentials', function(assert) {
       gooruUId: 'user-id'
     }
   };
-  const expectedProfile = {
-    avatarUrl: 'image-id'
-  };
 
-  assert.expect(5);
+  assert.expect(2);
 
   service.set('authenticationAdapter', Ember.Object.create({
     postAuthentication: function(data) {
       assert.deepEqual(expectedData, data, 'Wrong authentication data');
       return Ember.RSVP.resolve({});
-    }
-  }));
-
-  service.set('profileAdapter', Ember.Object.create({
-    readUserProfile: function(userId) {
-      assert.deepEqual(userId, 'user-id', 'Wrong user id');
-      return Ember.RSVP.resolve(expectedProfile);
     }
   }));
 
@@ -90,22 +80,12 @@ test('authenticateWithToken', function(assert) {
       gooruUId: 'user-id'
     }
   };
-  const expectedProfile = {
-    avatarUrl: 'image-id'
-  };
-  assert.expect(5);
+  assert.expect(2);
 
   service.set('authenticationAdapter', Ember.Object.create({
     postAuthenticationWithToken: function(data) {
       assert.deepEqual(expectedData, data, 'Wrong authentication data');
       return Ember.RSVP.resolve({});
-    }
-  }));
-
-  service.set('profileAdapter', Ember.Object.create({
-    readUserProfile: function(userId) {
-      assert.deepEqual(userId, 'user-id', 'Wrong user id');
-      return Ember.RSVP.resolve(expectedProfile);
     }
   }));
 
