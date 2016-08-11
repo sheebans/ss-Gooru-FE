@@ -41,7 +41,7 @@
         {{/if}}
     </div>
     <div class="description">
-      <p class="truncate">{{{if resource.isFIB resource.fibText resource.description }}}</p>
+      <p class="truncate">{{gru-math-text text=(if resource.isFIB resource.fibText resource.description)}}</p>
     </div>
   </div>
   <div class="panel-footer">

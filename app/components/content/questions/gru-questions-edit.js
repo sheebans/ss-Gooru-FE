@@ -7,6 +7,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
+import { replaceMathExpression } from 'gooru-web/utils/utils';
 
 
 export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
@@ -312,7 +313,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
   saveNewContent: function() {
     const component = this;
     var editedQuestion = this.get('tempQuestion');
-    editedQuestion.set('text',component.replaceMathExpression(editedQuestion.text));
+    editedQuestion.set('text',replaceMathExpression(editedQuestion.text));
     var promiseArray = [];
     var answersPromise = null;
     if (editedQuestion.get('isFIB')) {
@@ -477,27 +478,5 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
       }
     }
     return true;
-  },
-  /**
-   * Replace math expression before save
-   */
-  replaceMathExpression:function(text){
-    var questionText = $.parseHTML(text);
-    var newQuestionText="";
-    $.each( questionText, function( i, el ) {
-      let latex = $(el).find('.source').text();
-      if(latex.length>0){
-        let mathToSave = "<span class='gru-math-expression'><span class='source' hidden>" + latex + "</span>" + "$$"+ latex +"$$" + "</span>";
-        $(el).empty().append(mathToSave);
-      }
-      if(el.outerHTML){
-        newQuestionText = newQuestionText.concat(el.outerHTML);
-      }else{
-        newQuestionText = newQuestionText.concat(el.textContent);
-      }
-    });
-
-    return newQuestionText;
   }
-
 });

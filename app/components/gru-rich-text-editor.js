@@ -220,8 +220,8 @@ export default Ember.Component.extend({
       document.getElementById("wysihtml-editor"),
       {
         delimiters: [
-          {left: "$$", right: "$$", display: false},
+          {left: "$$", right: "$$", display: false}
         ]
-      })
+      });
   }
 });

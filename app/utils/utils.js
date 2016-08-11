@@ -351,3 +351,24 @@ export function getFileNameFromInvalidUrl(url) {
 
   return match;
 }
+/**
+ * Replace math expression before save
+ */
+export function replaceMathExpression(text){
+  var questionText = $.parseHTML(text);
+  var newQuestionText="";
+  $.each( questionText, function( i, el ) {
+    let latex = $(el).find('.source').text();
+    if(latex.length>0){
+      let mathToSave = "<span class='gru-math-expression'><span class='source' hidden>" + latex + "</span>$$" + latex + "$$</span>";
+      $(el).empty().append(mathToSave);
+    }
+    if(el.outerHTML){
+      newQuestionText = newQuestionText.concat(el.outerHTML);
+    }else{
+      newQuestionText = newQuestionText.concat(el.textContent);
+    }
+  });
+
+  return newQuestionText;
+}
