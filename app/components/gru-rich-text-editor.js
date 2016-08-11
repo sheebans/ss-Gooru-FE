@@ -28,6 +28,7 @@ export default Ember.Component.extend({
         let latex = component.get('mathField').latex();
         let html = "<span class='gru-math-expression'><span class='source' hidden>" + latex + "</span>" + katex.renderToString(latex) + "</span>";
         component.get('editor').focus();
+
         if (component.get('cursor')) {
           component.get('editor').composer.selection.setBookmark(component.get('cursor'));
         }
@@ -80,11 +81,13 @@ export default Ember.Component.extend({
       parserRules: wysihtml5ParserRules
     });
 
+
     // Workaround to prevent editor cleanup, which would delete math expressions
     Ember.run.later(function() {
       if (editor.composer && editor.composer.commands) {
         editor.focus();
         editor.composer.commands.exec("insertHTML", component.get('content'));
+        component.renderMathExpressions();
         component.makeExpressionsReadOnly();
         component.setCursor();
       }
@@ -114,9 +117,9 @@ export default Ember.Component.extend({
     });
 
     // Go to edit mode of existing expression
-    component.$().on('click', '.katex', function(e) {
+    component.$().on('click', '.gru-math-expression', function(e) {
       e.preventDefault();
-      var sourceLatex = $(this).siblings('.source').text();
+      var sourceLatex = $(this).find('.source').text();
       if (sourceLatex && sourceLatex !== "") {
         component.set('editingExpression', $(this).closest('.gru-math-expression'));
         component.set('showExpressionsPanel', true);
@@ -194,7 +197,7 @@ export default Ember.Component.extend({
    * Makes sure that the expressions inside the RTE are not editable
    */
   makeExpressionsReadOnly() {
-    this.$('.katex').attr('contenteditable', false);
+    this.$('.gru-math-expression').attr('contenteditable', false);
   },
   /**
    * Cancel expression panel
@@ -208,5 +211,17 @@ export default Ember.Component.extend({
     component.set('cursor',component.get('editor').composer.selection.getBookmark());
     component.get('editor').composer.selection.setBookmark(component.get('cursor'));
     component.get('editor').focus();
+  },
+  /**
+   * It searches all of the text nodes in a given element for the given delimiters, and renders the math in place.
+   */
+  renderMathExpressions(){
+    window.renderMathInElement(
+      document.getElementById("wysihtml-editor"),
+      {
+        delimiters: [
+          {left: "$$", right: "$$", display: false}
+        ]
+      });
   }
 });
