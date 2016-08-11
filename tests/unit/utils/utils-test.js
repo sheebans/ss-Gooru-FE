@@ -15,7 +15,8 @@ import {
   numberSort,
   generateUUID,
   cleanFilename,
-  getFileNameFromInvalidUrl
+  getFileNameFromInvalidUrl,
+  replaceMathExpression
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -203,4 +204,12 @@ test('Clean filename', function (assert) {
 test('Get File Name from Invalid URL', function (assert) {
   var url = "//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf";
   assert.equal(getFileNameFromInvalidUrl(url), "FromAtoZinc.pdf", 'Wrong filename.');
+});
+
+test('Replace Math Expression', function (assert) {
+  var mathExpression = "<span class='gru-math-expression'><span class='source' hidden=''>\frac{1}{2}</span><span class='katex'>here goes the katex expression</span></span><br>";
+
+  var expected = '<span class="gru-math-expression"><span class="gru-math-expression"><span class="source" hidden="">\frac{1}{2}</span>$$\frac{1}{2}$$</span></span><br>';
+
+  assert.equal(replaceMathExpression(mathExpression), expected, 'Wrong expression');
 });
