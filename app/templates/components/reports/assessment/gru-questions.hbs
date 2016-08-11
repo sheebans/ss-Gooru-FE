@@ -46,7 +46,7 @@
           {{result.index}}
       </td>
       <td class="question-text top-left">
-        {{{if result.question.isFIB result.question.fibText result.question.text}}}
+        {{gru-math-text text=(if result.question.isFIB result.question.fibText result.question.text)}}
         {{#if result.question.hasMedia}}
           <img class="img-responsive" src="{{result.question.mediaUrl}}"/>
         {{/if}}

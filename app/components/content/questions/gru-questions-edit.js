@@ -7,6 +7,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
+import { replaceMathExpression } from 'gooru-web/utils/utils';
 
 
 export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
@@ -312,6 +313,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
   saveNewContent: function() {
     const component = this;
     var editedQuestion = this.get('tempQuestion');
+    editedQuestion.set('text',replaceMathExpression(editedQuestion.text));
     var promiseArray = [];
     var answersPromise = null;
     if (editedQuestion.get('isFIB')) {
@@ -477,5 +479,4 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     }
     return true;
   }
-
 });

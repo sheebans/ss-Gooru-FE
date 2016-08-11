@@ -86,16 +86,19 @@ test('it shows an error message if the email is wrong', function (assert) {
   andThen(function() {
     assert.equal(currentURL(), '/forgot-password');
 
-    const $forgotPasswordContainer = find(".forgot-password");
+    let $forgotPasswordContainer = find(".forgot-password-form");
     const $emailField = $forgotPasswordContainer.find(".gru-input.email");
 
-    assert.ok(!find(".validation.error.email-error").length, 'Email error message not visible');
+    assert.ok(!$forgotPasswordContainer.find(".validation.error.email-error").length, 'Email error message not visible');
 
-    $emailField.find("input").val('test@gooru.org');
-    $forgotPasswordContainer.find("div.submit-button button").click();
+    fillIn($emailField.find("input"), 'test@gooru.org');
+    click($forgotPasswordContainer.find("div.submit-button button"));
 
-    return wait().then(function () {
-      assert.ok(find(".validation.error.email-error").length, 'Email error message should be visible');
-    });
+    andThen(
+      function () {
+        $forgotPasswordContainer = find(".forgot-password-form");
+        assert.ok($forgotPasswordContainer.find(".validation.error.email-error").length, 'Email error message should be visible');
+      }
+    );
   });
 });

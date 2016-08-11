@@ -92,6 +92,11 @@ export default Ember.Object.extend(Validations, {
   mainSubject: null,
 
   /**
+   * @property {boolean}
+   */
+  hasSubject: Ember.computed.bool("subject"),
+
+  /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   tags: Ember.computed('taxonomy.[]', function() {
