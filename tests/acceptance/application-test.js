@@ -74,37 +74,37 @@ test('Theme support - Having translations and styles url', function(assert) {
 });
 
 test('Legacy uri collection-play with no content id', function (assert) {
-  visit("/#collection-play&id=all-question-types-collection-id");
+  visit("/#collection-play&id=all-resource-types-collection-id");
   andThen(function() {
-    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3&type=collection');
   });
 });
 
 test('Legacy uri collection-play with content id', function (assert) {
-  visit("/#collection-play&id=all-question-types-collection-id&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
+  visit("/#collection-play&id=all-resource-types-collection-id&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
   andThen(function() {
-    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae&type=collection');
   });
 });
 
 test('Legacy uri assessment-play with no content id', function (assert) {
-  visit("/#assessment-play&id=all-question-types-collection-id");
+  visit("/#assessment-play&id=all-question-types-assessment-id");
   andThen(function() {
-    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
+    assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8&type=assessment');
   });
 });
 
 test('Legacy uri assessment-play with content id', function (assert) {
-  visit("/#assessment-play&id=all-question-types-collection-id&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
+  visit("/#assessment-play&id=all-question-types-assessment-id&cid=f86f874c-efc9-4100-9cf7-55eb86ec95ae");
   andThen(function() {
-    assert.equal(currentURL(), '/player/all-question-types-collection-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
+    assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae&type=assessment');
   });
 });
 
 test('Legacy uri resource-play', function (assert) {
-  visit("/#resource-play&id=all-question-types-collection-id");
+  visit("/#resource-play&id=all-question-types-assessment-id");
   andThen(function() {
-    assert.equal(currentURL(), '/content/resources/play/all-question-types-collection-id');
+    assert.equal(currentURL(), '/content/resources/play/all-question-types-assessment-id');
   });
 });
 

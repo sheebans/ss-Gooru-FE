@@ -65,10 +65,10 @@ moduleForAcceptance('Acceptance | Edit Collection', {
 });*/
 
 test('Click share button and check clipboard functionality', function (assert) {
-  visit('/content/collections/edit/all-question-types-collection-id');
+  visit('/content/collections/edit/all-resource-types-collection-id');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/collections/edit/all-question-types-collection-id');
+    assert.equal(currentURL(), '/content/collections/edit/all-resource-types-collection-id');
     var $shareButton = find(".gru-share-pop-over");
 
     click($shareButton);
@@ -76,17 +76,34 @@ test('Click share button and check clipboard functionality', function (assert) {
       var $popOverContent = find(".gru-share-pop-over-content");
 
       T.exists(assert, $popOverContent.find('p'), "Missing share description");
-      T.exists(assert, $popOverContent.find('.share-actions #collection-popover-input'), "Missing readonly input");
+      const $input = $popOverContent.find('.share-actions #collection-popover-input');
+      T.exists(assert, $input, "Missing readonly input");
+      assert.ok($input.val().indexOf("/player/all-question-types-assessment-id?type=collection"), "Missing input url");
+
       var $copyBtn = $popOverContent.find('.share-actions .copy-btn');
       T.exists(assert, $copyBtn, "Missing copy button");
     });
   });
 });
 
-test('Delete Collection', function (assert) {
-  visit('/content/collections/edit/all-question-types-collection-id');
+test('Click preview button', function (assert) {
+  visit('/content/collections/edit/all-resource-types-collection-id');
+
   andThen(function () {
-    assert.equal(currentURL(), '/content/collections/edit/all-question-types-collection-id');
+    assert.equal(currentURL(), '/content/collections/edit/all-resource-types-collection-id');
+    var $previewButton = find(".actions .preview");
+
+    click($previewButton);
+    andThen(function () {
+      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3&type=collection');
+    });
+  });
+});
+
+test('Delete Collection', function (assert) {
+  visit('/content/collections/edit/all-resource-types-collection-id');
+  andThen(function () {
+    assert.equal(currentURL(), '/content/collections/edit/all-resource-types-collection-id');
     var $deleteButton = find("header .actions .delete");
     click($deleteButton);
     andThen(function () {

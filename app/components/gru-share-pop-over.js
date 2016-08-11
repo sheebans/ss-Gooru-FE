@@ -62,13 +62,14 @@ export default Ember.Component.extend({
   shareUrl: Ember.computed('type', function(){
     var params = this.get('router.router.state.params');
     params = params[Object.keys(params)[3]];
-    switch(this.get('type')) {
+    const type = this.get("type");
+    switch(type) {
       case 'course':
         return `${window.location.protocol}//${window.location.host}/content/courses/play/${params.courseId}`;
       case 'assessment':
-        return `${window.location.protocol}//${window.location.host}/player/${params.assessmentId}`;
+        return `${window.location.protocol}//${window.location.host}/player/${params.assessmentId}?type=${type}`;
       case 'collection':
-        return `${window.location.protocol}//${window.location.host}/player/${params.collectionId}`;
+        return `${window.location.protocol}//${window.location.host}/player/${params.collectionId}?type=${type}`;
       case 'resource':
         return `${window.location.protocol}//${window.location.host}/content/resources/play/${params.resourceId}`;
       case 'question':

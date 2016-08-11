@@ -63,7 +63,7 @@
       "status": 201,
       "headers": {
         "Content-Type": "text/plain",
-        "Location": "all-resource-types-assessment-id"
+        "Location": "all-question-types-assessment-id"
       }
   }
   }
