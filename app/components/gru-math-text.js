@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   /**
    * Observe when the text change
    */
-  testRender: function() {
+  mathRender: function() {
     var component = this;
     component.renderInMath();
   }.observes("text"),
