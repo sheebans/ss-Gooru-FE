@@ -94,8 +94,13 @@ export default Ember.Component.extend({
    * @return {Ember.Array}
    */
   orderedQuestions: Ember.computed('assessmentResult.questionResults[]', function() {
-    return this.get('assessmentResult.questionResults').sort(function(a, b){
+    var resourceResultsOrdered = this.get('assessmentResult.questionResults').sort(function(a, b){
       return a.get('question.order')-b.get('question.order');
+    });
+
+    return resourceResultsOrdered.map(function (resourceResult, index) {
+      resourceResult.index= index+1;
+      return resourceResult;
     });
   })
 });
