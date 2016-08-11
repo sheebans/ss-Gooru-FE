@@ -71,9 +71,6 @@ test('it shows an error message if the email field is left blank', function (ass
     });
   });
 });
-/*
-
-@TODO Test started failing when validation for google email was added to the model. Error is not specific and it works for chrome but not PhantomJS.
 
 test('it shows an error message if the email is wrong', function (assert) {
   visit('/forgot-password');
@@ -89,15 +86,19 @@ test('it shows an error message if the email is wrong', function (assert) {
   andThen(function() {
     assert.equal(currentURL(), '/forgot-password');
 
-    const $forgotPasswordContainer = find(".forgot-password");
+    let $forgotPasswordContainer = find(".forgot-password-form");
     const $emailField = $forgotPasswordContainer.find(".gru-input.email");
-    assert.ok(!find(".validation.error.email-error").length, 'Email error message not visible');
 
-    $emailField.find("input").val('test@gooru.org');
-    $forgotPasswordContainer.find("div.submit-button button").click();
+    assert.ok(!$forgotPasswordContainer.find(".validation.error.email-error").length, 'Email error message not visible');
 
-    return wait().then(function () {
-      assert.ok(find(".validation.error.email-error").length, 'Email error message should be visible');
-    });
+    fillIn($emailField.find("input"), 'test@gooru.org');
+    click($forgotPasswordContainer.find("div.submit-button button"));
+
+    andThen(
+      function () {
+        $forgotPasswordContainer = find(".forgot-password-form");
+        assert.ok($forgotPasswordContainer.find(".validation.error.email-error").length, 'Email error message should be visible');
+      }
+    );
   });
-});*/
+});
