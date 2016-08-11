@@ -8,7 +8,7 @@ moduleForComponent('gru-math-text', 'Integration | Component | gru math text', {
 
 test('Render math expression on katex', function(assert) {
 
-  const text ="<span class='gru-math-expression'><span class='gru-math-expression'><span class='source' hidden=''>\left\{2324\right\}\ \times\left|a\right|</span>$$\left\{2324\right\}\ \times\left|a\right|$$</span></span><br>";
+  const text ="<span class='gru-math-expression'><span class='gru-math-expression'><span class='source' hidden=''>\\left\\{2324\\right\\}\\ \\times\\left|a\\right|</span>$$\\left\\{2324\\right\\}\\ \\times\\left|a\\right|$$</span></span><br>";
 
   this.set('text', text);
 
