@@ -28,15 +28,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  /**
-   * @property {Ember.Service} Service to retrieve a collection
-   */
-  collectionService: Ember.inject.service("api-sdk/collection"),
-
-  /**
-   * @property {Ember.Service} Service to retrieve a assessment
-   */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
   // -------------------------------------------------------------------------
   // Methods
 

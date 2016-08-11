@@ -94,12 +94,6 @@ export default PlayerController.extend({
   }),
 
   /**
-   * The original collection to remix in the player
-   * @property {Collection} collection
-   */
-  originalCollection: null,
-
-  /**
    * Saves the resource result
    * @param resourceResult
    * @returns {Promise.<boolean>}
