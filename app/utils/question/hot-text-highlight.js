@@ -88,8 +88,19 @@ export default QuestionUtil.extend({
    */
   getSentenceItems: function (text) {
     const util = this,
-      items = text.split(/(\[.*?])/gm);
-    return util.toItems(items);
+      regex = /(\[.*?\.])/gm,
+      items = text.split(regex);
+
+    let result = [];
+    items.forEach(function(item){
+      if (!regex.exec(item)){ // split consecutive non correct sentences
+        result = result.concat(item.replace(/\./gm, ".@").split("@"));
+      }
+      else {
+        result.push(item);
+      }
+    });
+    return util.toItems(result);
   },
 
   /**
