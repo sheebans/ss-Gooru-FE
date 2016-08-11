@@ -372,6 +372,7 @@ export default {
     "school-info": "School Information",
     "score": "Score",
     "select": "Select",
+    "select-a-framework": "Please first select a Standards Framework in the Course Information section above.",
     "sentence": "Sentence",
     "settings": "Settings",
     "search": "Search",

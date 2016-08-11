@@ -318,6 +318,8 @@ test('it renders a form when editing an existing unit', function (assert) {
   assert.equal($panelBody.find('.essential-questions textarea').val(), tempUnit.get('essentialQuestions'), 'Second textarea content');
 
   assert.ok($panelBody.find('> .data-row.domain').length, 'Domain');
+  assert.ok($panelBody.find('> .data-row.domain button.add-domain:disabled').length, 'Domain button should be disabled');
+  assert.ok($panelBody.find('> .data-row.domain span.legend').length, 'Add domain legend should be visible');
 });
 
 test('it triggers an external event when clicking cancel on a new unsaved unit', function (assert) {
