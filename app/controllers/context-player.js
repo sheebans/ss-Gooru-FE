@@ -50,8 +50,6 @@ export default PlayerController.extend({
     }
   },
 
-
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -72,6 +70,7 @@ export default PlayerController.extend({
     }
     return isDisabled;
   }),
+
   isAssessment: false,
 
   /**
@@ -145,5 +144,4 @@ export default PlayerController.extend({
       return Ember.RSVP.resolve(true); //not waiting for the real time events
     });
   }
-
 });

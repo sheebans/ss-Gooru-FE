@@ -100,7 +100,7 @@ export default Ember.Service.extend({
   deleteAssessment: function (assessment) {
     const service = this;
 
-    if(assessment.format==='external-assessment'){
+    if(assessment.get("isExternalAssessment")){
       return new Ember.RSVP.Promise(function(resolve, reject) {
         service.get('assessmentAdapter').deleteExternalAssessment(assessment.id)
           .then(resolve, reject);

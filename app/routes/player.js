@@ -2,6 +2,7 @@ import Ember from 'ember';
 import AssessmentResult from 'gooru-web/models/result/assessment';
 import Context from 'gooru-web/models/result/context';
 import {generateUUID} from 'gooru-web/utils/utils';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -9,7 +10,7 @@ import {generateUUID} from 'gooru-web/utils/utils';
  * @module
  * @augments ember/Route
  */
-export default Ember.Route.extend({
+export default Ember.Route.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -61,6 +62,21 @@ export default Ember.Route.extend({
         //this doesn't work when refreshing the page, TODO
       reportController.set("backUrl", route.get('history.lastRoute.url'));
       route.transitionTo('reports.student-collection', { queryParams: queryParams});
+    },
+
+    /**
+     * On navigator remix collection button click
+     * @param {Collection} collection
+     */
+    remixCollection: function (collection) {
+      var remixModel = {
+        content: collection
+      };
+      if(collection.get('isCollection')) {
+        this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
+      } else {
+        this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
+      }
     }
 
   },
@@ -109,9 +125,9 @@ export default Ember.Route.extend({
       route.get('assessmentService').readAssessment(collectionId);
 
     return collectionPromise.then(function(collection){
-      collection = collection.toPlayerCollection();
+      const playerCollection = collection.toPlayerCollection();
       context.set("collectionType", collection.get("collectionType"));
-      return route.playerModel(params, context, collection);
+      return route.playerModel(params, context, playerCollection, collection);
     });
   },
 
@@ -122,7 +138,7 @@ export default Ember.Route.extend({
    * @param {Collection} collection
    * @returns {Promise.<*>}
    */
-  playerModel: function(params, context, collection){
+  playerModel: function(params, context, collection, originalCollection){
     const route = this;
     const hasUserSession = !route.get('session.isAnonymous');
     const isAssessment = collection.get("isAssessment");
@@ -142,7 +158,8 @@ export default Ember.Route.extend({
         collection: collection,
         resourceId: params.resourceId,
         assessmentResult: assessmentResult,
-        context: context
+        context: context,
+        originalCollection: originalCollection
       });
     });
   },
@@ -170,6 +187,7 @@ export default Ember.Route.extend({
    */
   setupController(controller, model) {
     let collection = model.collection;
+    let originalCollection = model.originalCollection;
     let assessmentResult = model.assessmentResult;
     let hasUserSession = !this.get('session.isAnonymous');
 
@@ -192,6 +210,7 @@ export default Ember.Route.extend({
 
     controller.set("showReport", assessmentResult.get("submitted"));
     controller.set("collection", collection);
+    controller.set("originalCollection", originalCollection);
 
     if (controller.get("startAutomatically")){
       controller.startAssessment();
