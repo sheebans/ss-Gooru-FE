@@ -98,8 +98,6 @@ export default Ember.Component.extend({
       return a.get('question.order')-b.get('question.order');
     });
 
-    return resourceResultsOrdered.map(function (resourceResult) {
-      return resourceResult;
-    });
+    return resourceResultsOrdered;
   })
 });
