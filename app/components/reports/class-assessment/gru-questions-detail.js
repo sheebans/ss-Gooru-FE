@@ -83,9 +83,9 @@ export default Ember.Component.extend({
   questionsNavOptions: Ember.computed("assessment.resources.[]", function () {
     let questions = this.get("assessment.resources");
     let selectedQuestion = this.get("selectedQuestion");
-    return questions.map(function (question) {
+    return questions.map(function (question, index) {
       return Ember.Object.create({
-        label: question.get('order'),
+        label: index + 1,
         status: null, //no status needed
         value: question,
         selected: (selectedQuestion && selectedQuestion.get("id") === question.get("id"))

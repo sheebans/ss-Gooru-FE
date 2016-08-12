@@ -30,7 +30,7 @@ test('Questions Layout', function (assert) {
       "resource": Ember.Object.create({
         text: "This is a question 2",
         questionType: 'OE',
-        order: 2
+        order: 3 //not consecutive
       }),
       "reaction": 4,
       "timeSpent": 2096,
@@ -60,6 +60,7 @@ test('Questions Layout', function (assert) {
   T.exists(assert, $component.find('table th.header.time-spent'), 'Missing time spent header');
   T.exists(assert, $component.find('table thead th.header.reaction'), 'Missing reaction header');
   T.exists(assert, $component.find('table tbody td.number-question'), 'Missing number column');
+  assert.equal(T.text($component.find('table tbody td.number-question:eq(1)')), "2", 'Wrong question number for question 2');
   T.exists(assert, $component.find('table tbody td.question-text'), 'Missing text column');
   T.exists(assert, $component.find('table tbody td.question-answer'), 'Missing answer column');
   T.exists(assert, $component.find('table tbody td.question-answer:eq(0) .gru-open-ended'), 'Missing gru-open-ended component');
