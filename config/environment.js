@@ -13,7 +13,7 @@ module.exports = function (environment) {
   const GooruEndpointDefault = {
     protocol: 'http://',
     secureProtocol: 'https://',
-    hostname: 'nucleus-qa.gooru.org',
+    hostname: undefined,      // Uses the current hostname
     port: undefined,          // Uses the default value 80
     securePort: undefined     // Uses the default value 443
   };
@@ -126,18 +126,16 @@ module.exports = function (environment) {
   };
 
   ENV['gooru-endpoints'] = {
-    'local': GooruEndpointDefault,
-    'edify-qa': GooruEndpointDefault,
+    'local': extend(GooruEndpointDefault, {
+      hostname: 'nucleus-qa.gooru.org'
+    }),
+    'edify-qa': extend(GooruEndpointDefault, {
+      hostname: 'nucleus-qa.gooru.org'
+    }),
     'nucleus-qa': GooruEndpointDefault,
-    'parallel-qa': extend(GooruEndpointDefault, {
-      hostname: 'nucleus-qa-prl.gooru.org'
-    }),
-    'parallel': extend(GooruEndpointDefault, {
-      hostname: 'parallel.gooru.org'
-    }),
-    'prod': extend(GooruEndpointDefault, {
-      hostname: 'www.gooru.org'
-    })
+    'parallel-qa': GooruEndpointDefault,
+    'parallel': GooruEndpointDefault,
+    'prod': GooruEndpointDefault
   };
 
   ENV['real-time'] = {
