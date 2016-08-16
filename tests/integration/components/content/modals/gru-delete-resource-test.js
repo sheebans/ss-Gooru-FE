@@ -57,10 +57,8 @@ test('it enables the delete button under the appropriate conditions', function(a
   };
 
   const validator = Ember.Object.create({
-    confirm:"delete",
     check1:true,
-    check2:true,
-    check3:true
+    check2:true
   });
 
   this.set('model',model);

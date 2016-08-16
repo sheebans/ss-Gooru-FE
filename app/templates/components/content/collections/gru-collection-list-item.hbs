@@ -32,7 +32,7 @@
     <div class="detail {{if isPanelExpanded 'hidden' 'visible'}} collapsed">
         {{#if model.standards.length}}
           {{#each visibleStandardsList as |standard|}}
-            a<span class="btn btn-primary btn-small">{{standard.code}}</span>
+            <span class="btn btn-primary btn-small">{{standard.code}}</span>
           {{/each}}
           {{#if remainingStandards}}
             <span class="btn btn-default btn-small">+{{remainingStandards}}</span>
