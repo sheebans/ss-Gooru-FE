@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { TOKEN_EXPIRATION_TIME } from 'gooru-web/config/config';
 
 /**
  * TODO add this mixin to all the private routes
@@ -14,21 +15,35 @@ export default Ember.Mixin.create({
    */
   session: Ember.inject.service('session'),
 
+  /**
+   * @property {Ember.Service} Authentication service
+   */
   authenticationService: Ember.inject.service('api-sdk/authentication'),
+
+  /**
+   * @property {Ember.Service} Session service
+   */
+  sessionService: Ember.inject.service("api-sdk/session"),
 
   beforeModel() {
     const mixin = this;
     if(mixin.get('session.isAnonymous')) {
-      mixin.transitionTo('sign-in');
-    } else {
-      return mixin.get('authenticationService').checkToken(mixin.get('session.token-api3'))
-        .then(function() {
-            return Ember.RSVP.resolve(mixin._super(...arguments));
-          },
-          function() {
-            const queryParams = { queryParams: { sessionEnds: 'true' } };
-            mixin.transitionTo('sign-in', queryParams);
-          });
+      return mixin.transitionTo('sign-in');
     }
+    var session = mixin.get('session');
+    var now = Date.now();
+    var time = now - session.get('userData.providedAt');
+    if(time < TOKEN_EXPIRATION_TIME) {
+      return Ember.RSVP.resolve(mixin._super(...arguments));
+    }
+    return mixin.get('authenticationService').checkToken(mixin.get('session.token-api3'))
+      .then(function() {
+        session.set('userData.providedAt', now);
+        return mixin.get('sessionService').updateUserData(session.get('userData'));
+      },
+      function() {
+        const queryParams = { queryParams: { sessionEnds: 'true' } };
+        mixin.transitionTo('sign-in', queryParams);
+      });
   }
 });

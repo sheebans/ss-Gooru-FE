@@ -13,7 +13,8 @@ test('normalizeResponse for anonymous account', function(assert) {
     'cdn_urls': {
       'user_cdn_url': 'user-url',
       'content_cdn_url': 'content-url'
-    }
+    },
+    'provided_at': 0
   };
   const expected = {
     token: Env['API-3.0']['anonymous-token-api-2.0'],
@@ -22,7 +23,8 @@ test('normalizeResponse for anonymous account', function(assert) {
       username: 'username',
       gooruUId: 'user-id',
       avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
-      isNew: true
+      isNew: true,
+      providedAt: 0
     },
     'cdnUrls': {
       'user': 'user-url',
@@ -44,7 +46,8 @@ test('normalizeResponse for normal account', function(assert) {
     'cdn_urls': {
       'user_cdn_url': 'user-url/',
       'content_cdn_url': 'content-url/'
-    }
+    },
+    'provided_at': 1
   };
   const expected = {
     token: Env['API-3.0']['user-token-api-2.0'],
@@ -53,7 +56,8 @@ test('normalizeResponse for normal account', function(assert) {
       username: 'username',
       gooruUId: 'user-id',
       avatarUrl: 'user-url/image-id',
-      isNew: true
+      isNew: true,
+      providedAt: 1
     },
     'cdnUrls': {
       'user': 'user-url/',
@@ -73,7 +77,8 @@ test('normalizeResponse for google account', function(assert) {
     'cdn_urls': {
       'user_cdn_url': 'user-url',
       'content_cdn_url': 'content-url'
-    }
+    },
+    'provided_at': 2
   };
   const expected = {
     token: Env['API-3.0']['user-token-api-2.0'],
@@ -82,7 +87,8 @@ test('normalizeResponse for google account', function(assert) {
       username: 'username',
       gooruUId: 'user-id',
       avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
-      isNew: true
+      isNew: true,
+      providedAt: 2
     },
     'cdnUrls': {
       'user': 'user-url',
@@ -103,7 +109,8 @@ test('normalizeResponse for google account containing user category', function(a
     'cdn_urls': {
       'user_cdn_url': 'user-url',
       'content_cdn_url': 'content-url'
-    }
+    },
+    'provided_at': 3
   };
   const expected = {
     token: Env['API-3.0']['user-token-api-2.0'],
@@ -112,7 +119,8 @@ test('normalizeResponse for google account containing user category', function(a
       username: 'username',
       gooruUId: 'user-id',
       avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
-      isNew: false
+      isNew: false,
+      providedAt: 3
     },
     'cdnUrls': {
       'user': 'user-url',
