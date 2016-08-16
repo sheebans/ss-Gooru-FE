@@ -289,26 +289,12 @@ test('Delete resource', function (assert) {
       var $deleteButton = find(".gru-collection-list-item:eq(0) .item-actions .delete-item");
       click($deleteButton);
       andThen(function () {
-        var $deleteContentModal = find(".gru-modal .gru-remove-content");
-        var $check1 = $deleteContentModal.find("ul li:eq(0) input");
-        click($check1);
+        var $deleteContentModal = find(".gru-modal .gru-quick-remove-content");
+        const total = find(".gru-collection-list-item").length;
+        var $removeButton = $deleteContentModal.find("button.remove");
+        click($removeButton);
         andThen(function () {
-          var $check2 = $deleteContentModal.find("ul li:eq(1) input");
-          click($check2);
-          andThen(function () {
-            var $input = $deleteContentModal.find(".remove-input");
-            $input.val('remove');
-            $input.blur();
-            keyEvent($input, 'keyup', KEY_CODES.ENTER);
-            andThen(function () {
-              const total = find(".gru-collection-list-item").length;
-              var $removeButton = $deleteContentModal.find("button.remove");
-              click($removeButton);
-              andThen(function () {
-                assert.equal(find(".gru-collection-list-item").length, total - 1, 'Should have one collection item less');
-              });
-            });
-          });
+          assert.equal(find(".gru-collection-list-item").length, total - 1, 'Should have one collection item less');
         });
       });
     });
@@ -321,26 +307,12 @@ test('Delete question from collection', function (assert) {
     var $deleteButton = find(".gru-collection-list-item:eq(6) .item-actions .delete-item");
     click($deleteButton);
     andThen(function () {
-      var $deleteContentModal = find(".gru-modal .gru-delete-content");
-      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
-      click($check1);
+      var $deleteContentModal = find(".gru-modal .gru-quick-delete-content");
+      const total = find(".gru-collection-list-item").length;
+      var $deleteButton = $deleteContentModal.find("button.delete");
+      click($deleteButton);
       andThen(function () {
-        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
-        click($check2);
-        andThen(function () {
-          var $input = $deleteContentModal.find(".delete-input");
-          $input.val('delete');
-          $input.blur();
-          keyEvent($input, 'keyup', KEY_CODES.ENTER);
-          andThen(function () {
-            const total = find(".gru-collection-list-item").length;
-            var $deleteButton = $deleteContentModal.find("button.delete");
-            click($deleteButton);
-            andThen(function () {
-              assert.equal(find(".gru-collection-list-item").length, total - 1, 'Should have 1 collection item less');
-            });
-          });
-        });
+        assert.equal(find(".gru-collection-list-item").length, total - 1, 'Should have 1 collection item less');
       });
     });
   });
@@ -353,26 +325,12 @@ test('Delete question from assessment', function (assert) {
     var $deleteButton = find(".gru-collection-list-item:eq(0) .item-actions .delete-item");
     click($deleteButton);
     andThen(function () {
-      var $deleteContentModal = find(".gru-modal .gru-delete-content");
-      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
-      click($check1);
+      var $deleteContentModal = find(".gru-modal .gru-quick-delete-content");
+      const total = find(".gru-collection-list-item").length;
+      var $deleteButton = $deleteContentModal.find("button.delete");
+      click($deleteButton);
       andThen(function () {
-        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
-        click($check2);
-        andThen(function () {
-          var $input = $deleteContentModal.find(".delete-input");
-          $input.val('delete');
-          $input.blur();
-          keyEvent($input, 'keyup', KEY_CODES.ENTER);
-          andThen(function () {
-            const total = find(".gru-collection-list-item").length;
-            var $deleteButton = $deleteContentModal.find("button.delete");
-            click($deleteButton);
-            andThen(function () {
-              assert.equal(find(".gru-collection-list-item").length, total - 1, 'Should have 1 collection item less');
-            });
-          });
-        });
+        assert.equal(find(".gru-collection-list-item").length, total - 1, 'Should have 1 collection item less');
       });
     });
   });

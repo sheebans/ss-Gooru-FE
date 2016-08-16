@@ -4,7 +4,7 @@ import Ember from 'ember';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 import wait from 'ember-test-helpers/wait';
 
-moduleForComponent('content/modals/gru-quick-remove-content', 'Integration | Component | content/modals/gru quick remove content', {
+moduleForComponent('content/modals/gru-quick-delete-content', 'Integration | Component | content/modals/gru quick delete content', {
   integration: true,
   beforeEach: function () {
     this.i18n = this.container.lookup('service:i18n');
@@ -20,9 +20,9 @@ test('it renders', function(assert) {
   };
   this.set('model', model);
 
-  this.render(hbs`{{content/modals/gru-quick-remove-content model=model}}`);
+  this.render(hbs`{{content/modals/gru-quick-delete-content model=model}}`);
 
-  const $component = this.$(".gru-quick-remove-content");
+  const $component = this.$(".gru-quick-delete-content");
   assert.ok($component.length, 'Missing Component');
   assert.ok($component.find('h4.modal-title').length, 'Missing Title');
 
@@ -31,22 +31,22 @@ test('it renders', function(assert) {
         this.set('model.type', CONTENT_TYPES[content_type]);
     });
     assert.equal($component.find('h4.modal-title').text(),
-      `${this.get('i18n').t('common.remove').string} ${this.get('i18n').t(`common.${model.type}`).string}`, 'Incorrect Title');
+      `${this.get('i18n').t('common.delete').string} ${this.get('i18n').t(`common.${model.type}`).string}`, 'Incorrect Title');
   }.bind(this));
 
-  assert.ok($component.find('p.legend').length, 'Missing Remove Course Legend');
+  assert.ok($component.find('p.legend').length, 'Missing Delete Course Legend');
 
   assert.ok($component.find('.actions .cancel').length, 'Missing Cancel Button');
-  assert.ok($component.find('.actions .remove').length, 'Missing Remove Button');
+  assert.ok($component.find('.actions .delete').length, 'Missing Delete Button');
 
 });
 
-test('it calls a generic remove method and then a callback (if provided) after clicking on the remove button', function(assert) {
+test('it calls a generic delete method and then a callback (if provided) after clicking on the delete button', function(assert) {
   assert.expect(24);
 
   const model = {
-    removeMethod: function() {
-      assert.ok(true, 'Remove method invoked');
+    deleteMethod: function() {
+      assert.ok(true, 'Delete method invoked');
       return Ember.RSVP.resolve(true);
     },
     callback: {
@@ -61,25 +61,25 @@ test('it calls a generic remove method and then a callback (if provided) after c
     assert.ok(true, 'Close modal action triggered');
   };
 
-  this.render(hbs`{{content/modals/gru-quick-remove-content model=model}}`);
-  const $component = this.$(".gru-quick-remove-content");
+  this.render(hbs`{{content/modals/gru-quick-delete-content model=model}}`);
+  const $component = this.$(".gru-quick-delete-content");
 
   Object.keys(CONTENT_TYPES).forEach(function(question_type) {
     Ember.run(() => {
       this.set('model.type', CONTENT_TYPES[question_type]);
     });
 
-    $component.find('.actions .remove').click();
+    $component.find('.actions .delete').click();
   }.bind(this));
 
 });
 
-test('it calls a generic remove method and then redirects (if a route is provided) after clicking on the remove button', function(assert) {
+test('it calls a generic delete method and then redirects (if a route is provided) after clicking on the delete button', function(assert) {
   assert.expect(32);
 
   const model = {
-    removeMethod: function() {
-      assert.ok(true, 'Remove method invoked');
+    deleteMethod: function() {
+      assert.ok(true, 'Delete method invoked');
       return Ember.RSVP.resolve(true);
     },
     redirect: {
@@ -104,27 +104,27 @@ test('it calls a generic remove method and then redirects (if a route is provide
     assert.ok(true, 'Close modal action triggered');
   };
 
-  this.render(hbs`{{content/modals/gru-quick-remove-content model=model router=router}}`);
-  const $component = this.$(".gru-quick-remove-content");
+  this.render(hbs`{{content/modals/gru-quick-delete-content model=model router=router}}`);
+  const $component = this.$(".gru-quick-delete-content");
 
   Object.keys(CONTENT_TYPES).forEach(function(question_type) {
     Ember.run(() => {
       this.set('model.type', CONTENT_TYPES[question_type]);
     });
 
-    $component.find('.actions .remove').click();
+    $component.find('.actions .delete').click();
   }.bind(this));
 
 });
 
-test('show spinner button component while the server response, after clicking on the remove button', function(assert) {
+test('show spinner button component while the server response, after clicking on the delete button', function(assert) {
   assert.expect(4);
 
   var isLoading = false;
 
   const model = {
-    removeMethod: function() {
-      assert.ok(true, 'Remove method invoked');
+    deleteMethod: function() {
+      assert.ok(true, 'Delete method invoked');
       return Ember.RSVP.resolve(true);
     },
     type: 'resource'
@@ -137,13 +137,13 @@ test('show spinner button component while the server response, after clicking on
     assert.ok(true, 'Close modal action triggered');
   };
 
-  this.render(hbs`{{content/modals/gru-quick-remove-content model=model isLoading=isLoading}}`);
-  const $component = this.$(".gru-quick-remove-content");
+  this.render(hbs`{{content/modals/gru-quick-delete-content model=model isLoading=isLoading}}`);
+  const $component = this.$(".gru-quick-delete-content");
 
-  $component.find('.actions> button.remove').click();
+  $component.find('.actions> button.delete').click();
 
   return wait().then(function () {
     assert.ok($component.find('.actions> .gru-spinner-button').length, 'Missing gru-spinner-button component');
-    assert.ok(!$component.find('.actions> button.remove').length, 'Remove Button should not be visible');
+    assert.ok(!$component.find('.actions> button.delete').length, 'Delete Button should not be visible');
   });
 });

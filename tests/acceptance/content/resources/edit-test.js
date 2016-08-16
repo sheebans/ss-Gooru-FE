@@ -55,24 +55,18 @@ test('Delete Resource', function (assert) {
     var $deleteButton = find("header .actions .delete");
     click($deleteButton);
     andThen(function () {
-      var $deleteContentModal = find(".gru-modal .gru-delete-content");
+      var $deleteContentModal = find(".gru-modal .gru-delete-resource");
       var $check1 = $deleteContentModal.find("ul li:eq(0) input");
       click($check1);
       andThen(function () {
         var $check2 = $deleteContentModal.find("ul li:eq(1) input");
         click($check2);
         andThen(function () {
-          var $input = $deleteContentModal.find(".delete-input");
-          $input.val('delete');
-          $input.blur();
-          keyEvent($input, 'keyup', KEY_CODES.ENTER);
+          var $deleteButton = $deleteContentModal.find("button.delete");
+          click($deleteButton);
           andThen(function () {
-            var $deleteButton = $deleteContentModal.find("button.delete");
-            click($deleteButton);
-            andThen(function () {
-              assert.equal(currentURL(), '/id-for-pochita/content/courses');
-            });
-            });
+            assert.equal(currentURL(), '/id-for-pochita/content/courses');
+          });
         });
       });
     });
