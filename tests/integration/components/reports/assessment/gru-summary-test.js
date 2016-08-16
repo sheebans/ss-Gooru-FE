@@ -164,7 +164,7 @@ test('Assessment attempts on real time', function (assert) {
   const collection = Ember.Object.create({
     isAssessment: true,
     resources: [],
-    title: "collection",
+    title: "collection"
   });
 
   assessmentResult.merge(collection);
@@ -233,7 +233,7 @@ test('Assessment attempts on static report', function (assert) {
   const collection = Ember.Object.create({
     isAssessment: true,
     resources: [],
-    title: "collection",
+    title: "collection"
   });
 
   assessmentResult.merge(collection);

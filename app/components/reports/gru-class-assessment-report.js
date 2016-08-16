@@ -121,6 +121,6 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @prop { boolean } isRealTime - if the report is a real time report
    */
-  showAttempts:false,
+  showAttempts:false
 
 });
