@@ -77,7 +77,7 @@ export default Ember.Component.extend({
     return this.getAttemptList();
   }),
   /**
-   * @property {[]}showAttempts
+   * @property {boolean}showAttempts
    */
   showAttempts:true,
 
