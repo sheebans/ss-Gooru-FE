@@ -19,8 +19,6 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames:['gru-url-resource'],
-  attributeBindings: ['resourceHeight:style'],
-
   // -------------------------------------------------------------------------
   // Actions
 
