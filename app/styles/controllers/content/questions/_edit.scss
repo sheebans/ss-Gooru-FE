@@ -68,13 +68,22 @@
       .panel-heading {
         border-top-right-radius: 6px;
         border-top-left-radius: 6px;
+        h3 {
+          display: inline-block;
+        }
+        .advanced-button {
+          float: right;
+          span {
+            color: $light-500;
+          }
+        }
         div.border-bottom{
           padding-bottom: 15px;
           border-bottom: 1px solid $gray-lighter;
           margin-bottom: 0;
-          margin-top: 15px;
           .instructions {
             color: $gray;
+            display: block;
           }
         }
       }

@@ -53,6 +53,11 @@ export default Ember.Component.extend({
    */
   editMode: false,
 
+  /**
+   * @property {boolean}
+   */
+  disableEditorButtons: Ember.computed.not("showAdvancedEditor"),
+
   // -------------------------------------------------------------------------
   // Method
   validateAnswer: function() {

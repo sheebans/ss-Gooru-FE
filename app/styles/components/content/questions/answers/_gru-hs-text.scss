@@ -4,7 +4,6 @@
     margin-bottom: 15px;
     .answer-content {
       @include flexbox();
-      @include justify-content(space-between);
       @include align-items(center);
       > div, button {
         display: inline-block;
@@ -25,12 +24,13 @@
         @include flex();
         width: auto;
         margin-top: 5px;
-
-        .form-group {
-          min-height: 78px;
-          margin-bottom: 0;
-          textarea {
-            height: 3.2em;
+        .gru-rich-text-editor {
+          #wysihtml-editor {
+            min-height: 3.2em;
+            margin: 10px 20px 20px 0;
+            border-left: 0;
+            border-right: 0;
+            border-top: 0;
           }
         }
         p{

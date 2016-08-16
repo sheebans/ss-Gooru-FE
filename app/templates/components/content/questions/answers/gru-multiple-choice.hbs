@@ -6,7 +6,8 @@
     </div>
     <div class="text-area-container">
         {{#if editMode}}
-           {{validation.gru-textarea  model=answer valuePath='text' rows=2 maxLength=200}}
+          {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons}}
+        {{!validation.gru-textarea  model=answer valuePath='text' rows=2 maxLength=200}}
         {{else}}
           <p>{{{answer.text}}}</p>
         {{/if}}

@@ -8,9 +8,13 @@
     .answer-text {
       @include align-self(center);
     }
-    .text-area-container{
-      textarea{
-        padding-top:10px
+    .gru-rich-text-editor {
+      #wysihtml-editor {
+        min-height: 3.2em;
+        margin: 10px 20px 20px 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
       }
     }
   }

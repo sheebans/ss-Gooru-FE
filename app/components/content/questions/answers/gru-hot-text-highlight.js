@@ -27,6 +27,11 @@ export default Ember.Component.extend({
   editMode: false,
 
   /**
+   * @property {boolean}
+   */
+  disableEditorButtons: Ember.computed.not("showAdvancedEditor"),
+
+  /**
    * Indicates if the answer is for word selections
    */
   isHotTextHighlightWord: Ember.computed('answers.firstObject.highlightType', function() {

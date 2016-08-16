@@ -166,6 +166,12 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
 
     toggleImagePicker: function() {
       this.set('editImagePicker', true);
+    },
+
+    onShowAdvancedEditor: function(isChecked) {
+      if(isChecked){
+        this.set('showAdvancedEditor', true);
+      }
     }
   },
 
@@ -278,6 +284,20 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    */
   editableTags: Ember.computed('tempQuestion.standards.[]', function() {
     return TaxonomyTag.getTaxonomyTags(this.get("tempQuestion.standards"), false, true);
+  }),
+
+  /**
+   * If the advanced editor should be shown
+   * @property {Boolean}
+   */
+  showAdvancedEditor: false,
+
+  /**
+   * If the advanced edit button should be shown
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  showAdvancedEditButton: Ember.computed('question', 'isBuilderEditing', function() {
+    return !this.get('question.isTrueFalse') && !this.get('question.isHotSpotImage') && !this.get('question.isOpenEnded') && this.get('isBuilderEditing');
   }),
 
   // ----------------------------

@@ -57,6 +57,11 @@ export default Ember.Component.extend({
   maxAnswers: 10,
 
   /**
+   * @property {boolean}
+   */
+  disableEditorButtons: Ember.computed.not("showAdvancedEditor"),
+
+  /**
    * Max number of answers
    * */
   hasReachedAnswersLimit: Ember.computed('answers.[]', function () {

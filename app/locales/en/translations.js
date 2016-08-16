@@ -37,6 +37,7 @@ export default {
     "add-type-question": "What type of question would you like to add?",
     "add-type-resource": "What type of resource is this?",
     "add-units": "Add Units",
+    "advanced-editing": "Advanced Editing",
     "anonymous_mode": "Anonymous Mode",
     "answer": "Your Answer",
     "answer-correct": "You are correct!",
