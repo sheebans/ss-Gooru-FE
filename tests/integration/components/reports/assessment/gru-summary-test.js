@@ -81,6 +81,7 @@ test('it renders for assessment', function (assert) {
   assert.equal($percentage.text().trim(), "67%", "Incorrect percentage text");
 
   var $attempts = $gradeContainer.find('.attempts');
+  assert.ok($attempts.find('.attempt-selector'), 'Attempts dropdown should be visible');
   var $fractional = $attempts.find('.fractional');
   assert.ok($fractional, 'Fractional not found');
   assert.equal($fractional.find('.top').text().trim(), "2", "Incorrect fractional top text");
@@ -119,6 +120,143 @@ test('it renders for assessment', function (assert) {
   assert.notOk($overviewContainer.find('.gru-bubbles').length, 'Question links hidden');
 });
 
+test('Assessment attempts on real time', function (assert) {
+  const date = new Date(2010, 1, 20);
+  date.setSeconds(10);
+  date.setMinutes(15);
+  date.setHours(11);
+
+  const assessmentResult = AssessmentResult.create({
+    id: 501,
+    resourceResults: [
+      QuestionResult.create({
+        id: 601,
+        resource: {
+          order: 1
+        },
+        correct: false,
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      QuestionResult.create({
+        id: 603,
+        resource: {
+          order: 3
+        },
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      QuestionResult.create({
+        id: 602,
+        resource: {
+          order: 2
+        },
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2
+      })
+    ],
+    submittedAt: date,
+    totalAttempts: 4
+  });
+
+  const collection = Ember.Object.create({
+    isAssessment: true,
+    resources: [],
+    title: "collection",
+  });
+
+  assessmentResult.merge(collection);
+  this.set('assessmentResult', assessmentResult);
+  this.set('areQuestionLinksHidden', false);
+  this.set('showAttempts',false);
+  this.set('isRealTime',false);
+
+  this.render(hbs`
+    {{reports/assessment/gru-summary
+      assessmentResult=assessmentResult
+      areQuestionLinksHidden=areQuestionLinksHidden
+      showAttempts=showAttempts
+      isRealTime=isRealTime
+    }}`);
+
+  var $component = this.$('.reports.assessment.gru-summary');  //component dom element
+
+  var $gradeContainer = $component.find('.summary-container .grade[style~="background-color:"]');
+
+
+  var $attempts = $gradeContainer.find('.attempts');
+  assert.ok($attempts.find('.current'), 'Current attempt label should be visible');
+});
+test('Assessment attempts on static report', function (assert) {
+  const date = new Date(2010, 1, 20);
+  date.setSeconds(10);
+  date.setMinutes(15);
+  date.setHours(11);
+
+  const assessmentResult = AssessmentResult.create({
+    id: 501,
+    resourceResults: [
+      QuestionResult.create({
+        id: 601,
+        resource: {
+          order: 1
+        },
+        correct: false,
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      QuestionResult.create({
+        id: 603,
+        resource: {
+          order: 3
+        },
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      QuestionResult.create({
+        id: 602,
+        resource: {
+          order: 2
+        },
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2
+      })
+    ],
+    submittedAt: date,
+    totalAttempts: 4
+  });
+
+  const collection = Ember.Object.create({
+    isAssessment: true,
+    resources: [],
+    title: "collection",
+  });
+
+  assessmentResult.merge(collection);
+  this.set('assessmentResult', assessmentResult);
+  this.set('areQuestionLinksHidden', false);
+  this.set('showAttempts',false);
+
+  this.render(hbs`
+    {{reports/assessment/gru-summary
+      assessmentResult=assessmentResult
+      areQuestionLinksHidden=areQuestionLinksHidden
+      showAttempts=showAttempts
+
+    }}`);
+
+  var $component = this.$('.reports.assessment.gru-summary');  //component dom element
+
+  var $gradeContainer = $component.find('.summary-container .grade[style~="background-color:"]');
+
+
+  var $attempts = $gradeContainer.find('.attempts');
+  assert.ok($attempts.find('.latest'), 'latest attempt label should be visible');
+});
 
 test('it renders for collection', function (assert) {
   const date = new Date(2010, 1, 20);

@@ -67,7 +67,9 @@ export default Ember.Component.extend(ModalMixin, {
         totalAttempts: 1,
         selectedAttempt: 1,
         resourceResults: resourceResults,
-        collection: assessment
+        collection: assessment,
+        isRealTime:this.get('isRealTime'),
+        showAttempts:this.get('showAttempts')
       });
 
       let modalModel = {
@@ -109,6 +111,16 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @prop { User[] } students - Group of students taking an assessment
    */
-  students: null
+  students: null,
+
+  /**
+   * @prop { boolean } isRealTime - if the report is a real time report
+   */
+  isRealTime:false,
+
+  /**
+   * @prop { boolean } isRealTime - if the report is a real time report
+   */
+  showAttempts:false,
 
 });
