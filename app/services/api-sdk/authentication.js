@@ -49,17 +49,13 @@ export default Ember.Service.extend({
    */
   authenticateWithCredentials: function(username, password) {
     const service = this;
-    var authData;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('authenticationAdapter').postAuthentication({
         isAnonymous: false,
         username: username,
         password: password
       }).then(function(response) {
-        authData = service.get('authenticationSerializer').normalizeResponse(response, false);
-        return service.get('profileAdapter').readUserProfile(authData.user.gooruUId);
-      }).then(function(response) {
-        resolve(service.get('authenticationSerializer').normalizeAvatarUrl(response, authData));
+        resolve(service.get('authenticationSerializer').normalizeResponse(response, false));
       }, reject);
     });
   },
@@ -71,18 +67,12 @@ export default Ember.Service.extend({
    */
   authenticateWithToken: function(accessToken) {
     const service = this;
-    var authData;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('authenticationAdapter').postAuthenticationWithToken({
         accessToken
       }).then(function(response) {
-        authData = service.get('authenticationSerializer').normalizeResponse(response, false, accessToken);
-        return service.get('profileAdapter').readUserProfile(authData.user.gooruUId);
-      }).then(function(response) {
-        resolve(service.get('authenticationSerializer').normalizeAvatarUrl(response, authData));
-      }, function(error) {
-        reject(error);
-      });
+        resolve(service.get('authenticationSerializer').normalizeResponse(response, false, accessToken));
+      }, reject);
     });
   },
 

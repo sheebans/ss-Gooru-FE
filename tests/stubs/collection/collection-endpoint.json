@@ -2,7 +2,7 @@
   {
     "description": "Gets a collection with all resource types",
     "request": {
-      "url": "^/api/nucleus/v1/collections/all-question-types-collection-id$",
+      "url": "^/api/nucleus/v1/collections/all-resource-types-collection-id$",
       "method": "GET",
       "headers": {
         "Authorization": "Token (.+)"

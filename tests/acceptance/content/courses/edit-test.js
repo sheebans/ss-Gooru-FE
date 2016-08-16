@@ -281,10 +281,10 @@ test('Remove Collection from Lesson', function (assert) {
 });*/
 
 test('Delete resource', function (assert) {
-  visit('/content/collections/edit/all-question-types-collection-id?courseId=course-123');
+  visit('/content/collections/edit/all-resource-types-collection-id?courseId=course-123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/collections/edit/all-question-types-collection-id?courseId=course-123');
+    assert.equal(currentURL(), '/content/collections/edit/all-resource-types-collection-id?courseId=course-123');
     andThen(function () {
       var $deleteButton = find(".gru-collection-list-item:eq(0) .item-actions .delete-item");
       click($deleteButton);
@@ -301,9 +301,9 @@ test('Delete resource', function (assert) {
   });
 });
 test('Delete question from collection', function (assert) {
-  visit('/content/collections/edit/all-question-types-collection-id?courseId=course-123');
+  visit('/content/collections/edit/all-resource-types-collection-id?courseId=course-123');
   andThen(function () {
-    assert.equal(currentURL(), '/content/collections/edit/all-question-types-collection-id?courseId=course-123');
+    assert.equal(currentURL(), '/content/collections/edit/all-resource-types-collection-id?courseId=course-123');
     var $deleteButton = find(".gru-collection-list-item:eq(6) .item-actions .delete-item");
     click($deleteButton);
     andThen(function () {
@@ -318,10 +318,10 @@ test('Delete question from collection', function (assert) {
   });
 });
 test('Delete question from assessment', function (assert) {
-  visit('/content/assessments/edit/all-resource-types-assessment-id?courseId=course-123');
+  visit('/content/assessments/edit/all-question-types-assessment-id?courseId=course-123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/assessments/edit/all-resource-types-assessment-id?courseId=course-123');
+    assert.equal(currentURL(), '/content/assessments/edit/all-question-types-assessment-id?courseId=course-123');
     var $deleteButton = find(".gru-collection-list-item:eq(0) .item-actions .delete-item");
     click($deleteButton);
     andThen(function () {

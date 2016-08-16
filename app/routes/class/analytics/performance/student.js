@@ -87,7 +87,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       }
       else {
         this.transitionTo('context-player', classId, courseId, unitId,
-          lessonId, collection.get("id"), { queryParams: { role: role }});
+          lessonId, collection.get("id"), { queryParams: { role: role, type: collection.get("collectionType") }});
       }
     },
     /**

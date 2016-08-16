@@ -7,11 +7,16 @@ const RealTimeConfig = Env['real-time'] || {};
 
 export function getEndpointUrl() {
   const currentHostname = window.location.hostname;
-  const envKey = EnvironmentMap[currentHostname];
   const protocol = `${window.location.protocol}//`;
-  const hostname = GooruEndpoints[envKey].hostname;
+  const envKey = EnvironmentMap[currentHostname];
 
-  var port = (protocol === 'http://') ? GooruEndpoints[envKey].port : GooruEndpoints[envKey].securePort;
+  var hostname = undefined;
+  var port = undefined;
+  if (envKey) {
+    hostname = GooruEndpoints[envKey].hostname;
+    port = (protocol === 'http://') ? GooruEndpoints[envKey].port : GooruEndpoints[envKey].securePort;
+  }
+  hostname = hostname ? hostname : currentHostname;
   port = port ? `:${port}` : '';
 
   return `${protocol}${hostname}${port}`;

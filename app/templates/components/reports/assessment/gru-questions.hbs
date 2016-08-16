@@ -40,13 +40,13 @@
   </tr>
   </thead>
   <tbody>
-  {{#each results as |result|}}
+  {{#each results as |result index|}}
     <tr>
       <td class="number-question top-left">
-          {{result.question.order}}
+          {{plus-one index}}
       </td>
       <td class="question-text top-left">
-        {{{if result.question.isFIB result.question.fibText result.question.text}}}
+        {{gru-math-text text=(if result.question.isFIB result.question.fibText result.question.text)}}
         {{#if result.question.hasMedia}}
           <img class="img-responsive" src="{{result.question.mediaUrl}}"/>
         {{/if}}

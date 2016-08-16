@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
         window.open(assessment.get("url")); //TODO url?
       }
       else{
-        this.transitionToRoute('player', assessment.get("id"));
+        this.transitionToRoute('player', assessment.get("id"), { queryParams: { type: assessment.get("collectionType")}});
       }
     },
 

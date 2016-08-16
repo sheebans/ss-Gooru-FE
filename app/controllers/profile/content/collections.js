@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
 
   actions: {
     openContentPlayer: function(collection) {
-      this.transitionToRoute('player', collection.id);
+      this.transitionToRoute('player', collection.id, { queryParams: { type: collection.get("collectionType")}});
     },
 
     showMoreResults: function(){

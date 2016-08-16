@@ -49,6 +49,10 @@ export default Ember.Controller.extend({
               controller.keydownEvents();
             });
         }
+      }, function(error) {
+        // This error handler was added because PhantomJS is not handling the validation as Chrome does
+        controller.set('emailError', error.email_id || errorMessage);
+        controller.keydownEvents();
       });
     }
   },

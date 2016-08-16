@@ -46,11 +46,8 @@ test('authenticateWithCredentials', function(assert) {
       gooruUId: 'user-id'
     }
   };
-  const expectedProfile = {
-    avatarUrl: 'image-id'
-  };
 
-  assert.expect(5);
+  assert.expect(2);
 
   service.set('authenticationAdapter', Ember.Object.create({
     postAuthentication: function(data) {
@@ -59,23 +56,10 @@ test('authenticateWithCredentials', function(assert) {
     }
   }));
 
-  service.set('profileAdapter', Ember.Object.create({
-    readUserProfile: function(userId) {
-      assert.deepEqual(userId, 'user-id', 'Wrong user id');
-      return Ember.RSVP.resolve(expectedProfile);
-    }
-  }));
-
   service.set('authenticationSerializer', Ember.Object.create({
     normalizeResponse: function(payload) {
       assert.deepEqual({}, payload, 'Wrong response payload');
       return sessionData;
-    },
-
-    normalizeAvatarUrl: function(payload, session) {
-      assert.deepEqual(expectedProfile, payload, 'Wrong response payload');
-      assert.deepEqual(sessionData, session, 'Wrong session data');
-      return {};
     }
   }));
 
@@ -96,10 +80,7 @@ test('authenticateWithToken', function(assert) {
       gooruUId: 'user-id'
     }
   };
-  const expectedProfile = {
-    avatarUrl: 'image-id'
-  };
-  assert.expect(5);
+  assert.expect(2);
 
   service.set('authenticationAdapter', Ember.Object.create({
     postAuthenticationWithToken: function(data) {
@@ -108,23 +89,10 @@ test('authenticateWithToken', function(assert) {
     }
   }));
 
-  service.set('profileAdapter', Ember.Object.create({
-    readUserProfile: function(userId) {
-      assert.deepEqual(userId, 'user-id', 'Wrong user id');
-      return Ember.RSVP.resolve(expectedProfile);
-    }
-  }));
-
   service.set('authenticationSerializer', Ember.Object.create({
     normalizeResponse: function(payload) {
       assert.deepEqual({}, payload, 'Wrong response payload');
       return sessionData;
-    },
-
-    normalizeAvatarUrl: function(payload, session) {
-      assert.deepEqual(expectedProfile, payload, 'Wrong response payload');
-      assert.deepEqual(sessionData, session, 'Wrong session data');
-      return {};
     }
   }));
 

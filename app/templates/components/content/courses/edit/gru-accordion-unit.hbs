@@ -35,7 +35,10 @@
         <span>{{t "common.domain"}}</span>
         <div class="add-taxonomy">
           <div>
-            <button type="button" class="btn btn-primary btn-sm add-prefix" {{action 'openDomainPicker'}}>{{t "common.add"}}</button>
+            <button type="button" class="btn btn-primary btn-sm add-prefix add-domain" {{action 'openDomainPicker'}} disabled={{not course.hasSubject}}>{{t "common.add"}}</button>
+              {{#unless course.hasSubject}}
+                <span class="legend">{{t 'common.select-a-framework'}}</span>
+              {{/unless}}
           </div>
           {{taxonomy.gru-taxonomy-tag-list tags=selectedTags onRemove=(action 'removeTag')}}
         </div>

@@ -225,8 +225,12 @@ export default Ember.Route.extend(PublicRouteMixin, {
      * @see gru-header.hbs
      */
     signIn: function () {
-      this.send('updateUserClasses'); // Required to get list of classes after login
-      this.transitionTo("home");
+      const route = this;
+      route.actions.updateUserClasses.call(this).then( // Required to get list of classes after login
+        function() {
+          route.transitionTo("home");
+        }
+      );
     },
 
     /**
@@ -259,9 +263,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
      */
     updateUserClasses: function() {
       const route = this;
-      route.get('classService').findMyClasses()
+      return route.get('classService').findMyClasses()
         .then(function(classes) {
-          route.set('controller.myClasses', classes);
+          return route.set('controller.myClasses', classes);
         });
     }
   }
