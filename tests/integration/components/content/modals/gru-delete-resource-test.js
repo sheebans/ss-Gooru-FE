@@ -35,7 +35,7 @@ test('it renders', function(assert) {
   }.bind(this));
 
   assert.ok($component.find('p.legend').length, 'Missing Delete Course Legend');
-  //{{t "content.modals.delete-resource.legend" title=model.content.title}}
+
   assert.equal($component.find('p.legend').text(),  this.get('i18n').t('content.modals.delete-resource.legend', { title: model.content.title }).string, 'Incorrect legend');
 
   assert.ok($component.find('.delete-info').length, 'Missing Delete Information');
@@ -64,8 +64,8 @@ test('it enables the delete button under the appropriate conditions', function(a
   this.set('model',model);
   this.set('validator',validator);
 
-  this.render(hbs`{{content/modals/gru-delete-content model=model validator=validator}}`);
-  const $component = this.$(".gru-delete-content");
+  this.render(hbs`{{content/modals/gru-delete-resource model=model validator=validator}}`);
+  const $component = this.$(".gru-delete-resource");
   assert.equal($component.find('.actions .delete').prop('disabled'),false, 'Delete Button Should be enabled');
 });
 
@@ -85,10 +85,8 @@ test('it calls a generic delete method and then a callback (if provided) after c
   };
 
   const validator = Ember.Object.create({
-    confirm:"delete",
     check1:true,
-    check2:true,
-    check3:true
+    check2:true
   });
 
   this.set('model', model);
@@ -98,8 +96,8 @@ test('it calls a generic delete method and then a callback (if provided) after c
     assert.ok(true, 'Close modal action triggered');
   };
 
-  this.render(hbs`{{content/modals/gru-delete-content model=model validator=validator}}`);
-  const $component = this.$(".gru-delete-content");
+  this.render(hbs`{{content/modals/gru-delete-resource model=model validator=validator}}`);
+  const $component = this.$(".gru-delete-resource");
 
   Object.keys(CONTENT_TYPES).forEach(function(question_type) {
     Ember.run(() => {
@@ -128,10 +126,8 @@ test('it calls a generic delete method and then redirects (if a route is provide
   };
 
   const validator = Ember.Object.create({
-    confirm:"delete",
     check1:true,
-    check2:true,
-    check3:true
+    check2:true
   });
 
   const router = {
@@ -149,8 +145,8 @@ test('it calls a generic delete method and then redirects (if a route is provide
     assert.ok(true, 'Close modal action triggered');
   };
 
-  this.render(hbs`{{content/modals/gru-delete-content model=model validator=validator router=router}}`);
-  const $component = this.$(".gru-delete-content");
+  this.render(hbs`{{content/modals/gru-delete-resource model=model validator=validator router=router}}`);
+  const $component = this.$(".gru-delete-resource");
 
   Object.keys(CONTENT_TYPES).forEach(function(question_type) {
     Ember.run(() => {
@@ -176,10 +172,8 @@ test('show spinner button component while the server response, after clicking on
   };
 
   const validator = Ember.Object.create({
-    confirm:"delete",
     check1:true,
-    check2:true,
-    check3:true
+    check2:true
   });
 
   this.set('model', model);
@@ -190,8 +184,8 @@ test('show spinner button component while the server response, after clicking on
     assert.ok(true, 'Close modal action triggered');
   };
 
-  this.render(hbs`{{content/modals/gru-delete-content model=model validator=validator isLoading=isLoading}}`);
-  const $component = this.$(".gru-delete-content");
+  this.render(hbs`{{content/modals/gru-delete-resource model=model validator=validator isLoading=isLoading}}`);
+  const $component = this.$(".gru-delete-resource");
 
   $component.find('.actions> button.delete').click();
 

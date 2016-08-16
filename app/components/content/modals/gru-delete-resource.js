@@ -35,8 +35,7 @@ export default Ember.Component.extend({
     if (!validator) {
       this.set('validator',Ember.Object.create({
         check1:false,
-        check2:false,
-        check3:false
+        check2:false
       }));
     } else {
       this.set('validator', validator);
@@ -71,7 +70,7 @@ export default Ember.Component.extend({
         })
         .catch(function (error) {
           var message = component.get('i18n').t('content.modals.delete-content.delete-error',
-            { type: component.get('i18n').t('common.' + model.type).string.toLowerCase() }).string;
+            { type: component.get('i18n').t(`common.'${model.type}`).string.toLowerCase() }).string;
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });
@@ -106,17 +105,8 @@ export default Ember.Component.extend({
   /**
    * Indicate if delete button is disabled
    */
-  isDisabled: Ember.computed('validator.{confirm,check1,check2,check3}',function(){
+  isDisabled: Ember.computed('validator.{check1,check2}',function(){
     var areChecked = this.get('validator.check1') && this.get('validator.check2');
-    if(!this.get('hasNoWarning')){
-      areChecked = areChecked && this.get('validator.check3');
-    }
     return !(areChecked);
-  }),
-  /**
-   * Indicate if the modal has warning
-   */
-  hasNoWarning: Ember.computed('model.type',function(){
-    return this.get('model.type') === 'question' || this.get('model.type') === 'resource';
   })
 });
