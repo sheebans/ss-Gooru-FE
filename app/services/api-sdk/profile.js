@@ -224,7 +224,7 @@ export default Ember.Service.extend({
       service.get('availabilityAdapter').verifyEmail(email)
         .then(function(user) {
           if(user.login_type === "google") {
-            reject(i18n.t("common.errors.sign-in-google-account-exists").string);
+            reject(i18n.t("common.errors.reset-google-account-exists").string);
           } else {
             resolve();
           }

@@ -107,6 +107,11 @@ export default Ember.Controller.extend({
   /**
    * @param {Boolean } showSecondStep - value used to check if Second Step is showing or not
    */
-  showSecondStep: false
+  showSecondStep: false,
 
+  isGoogleAccountError: Ember.computed("user.validations.attrs.email.isValid", function(){
+    const valid = this.get("user.validations.attrs.email.isValid");
+    const message = this.get("user.validations.attrs.email.error.message");
+    return !valid && message && message.indexOf("Google") >= 0;
+  })
 });
