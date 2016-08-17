@@ -102,6 +102,7 @@ export default {
     "create": "Create",
     "create-class": "+ Create classroom",
     "created-by": "Created by",
+    "current-attempt":"Current Attempt",
     "delete": "Delete",
     "delete-instructions": {
       "links-inaccessible": "All share links will be inaccessible",
@@ -227,6 +228,7 @@ export default {
     "information": "Information",
     "last-name": "Last Name",
     "last-updated": "Last Updated",
+    "latest-attempt":"Latest attempt",
     "launch-anonymous": "Launch Anonymous",
     "launch-on-air": "Go Live",
     "learning-objectives": "Learning Objectives",
