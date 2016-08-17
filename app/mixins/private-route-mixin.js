@@ -14,21 +14,34 @@ export default Ember.Mixin.create({
    */
   session: Ember.inject.service('session'),
 
+  /**
+   * @property {Ember.Service} Authentication service
+   */
   authenticationService: Ember.inject.service('api-sdk/authentication'),
+
+  /**
+   * @property {Ember.Service} Session service
+   */
+  sessionService: Ember.inject.service("api-sdk/session"),
 
   beforeModel() {
     const mixin = this;
     if(mixin.get('session.isAnonymous')) {
-      mixin.transitionTo('sign-in');
-    } else {
-      return mixin.get('authenticationService').checkToken(mixin.get('session.token-api3'))
-        .then(function() {
-            return Ember.RSVP.resolve(mixin._super(...arguments));
-          },
-          function() {
-            const queryParams = { queryParams: { sessionEnds: 'true' } };
-            mixin.transitionTo('sign-in', queryParams);
-          });
+      return mixin.transitionTo('sign-in');
     }
+    var sessionService = mixin.get('sessionService');
+    if(!sessionService.hasTokenExpired()) {
+      return Ember.RSVP.resolve(mixin._super(...arguments));
+    }
+    return mixin.get('authenticationService').checkToken(mixin.get('session.token-api3'))
+      .then(function() {
+        let session = mixin.get('session');
+        session.set('userData.providedAt', Date.now());
+        return sessionService.updateUserData(session.get('userData'));
+      },
+      function() {
+        const queryParams = { queryParams: { sessionEnds: 'true' } };
+        mixin.transitionTo('sign-in', queryParams);
+      });
   }
 });
