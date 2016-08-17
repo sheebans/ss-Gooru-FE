@@ -188,6 +188,8 @@ test('Assessment attempts on real time', function (assert) {
 
   var $attempts = $gradeContainer.find('.attempts');
   assert.ok($attempts.find('.current'), 'Current attempt label should be visible');
+  assert.notOk($attempts.find('.attempt-selector').length, 'Attempts dropdown should not be visible');
+  assert.notOk($attempts.find('.latest').length, 'Latest attempt label should not be visible');
 });
 test('Assessment attempts on static report', function (assert) {
   const date = new Date(2010, 1, 20);
@@ -256,6 +258,8 @@ test('Assessment attempts on static report', function (assert) {
 
   var $attempts = $gradeContainer.find('.attempts');
   assert.ok($attempts.find('.latest'), 'latest attempt label should be visible');
+  assert.notOk($attempts.find('.attempt-selector').length, 'Attempts dropdown should not be visible');
+  assert.notOk($attempts.find('.current').length, 'Current attempt label should not be visible');
 });
 
 test('it renders for collection', function (assert) {

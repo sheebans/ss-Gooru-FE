@@ -100,7 +100,7 @@ export default Ember.Component.extend({
    * @property {boolean} showAttempts
    */
   showAttempts:Ember.computed('model',function(){
-    return !this.get('model.assessmentResult.showAttempts') && this.get('model.assessmentResult.showAttempts') !== undefined ? this.get('model.assessmentResult.showAttempts') : true;
+    return this.get('model.assessmentResult.showAttempts') !== undefined ? this.get('model.assessmentResult.showAttempts') : true;
   }),
 
   /**
