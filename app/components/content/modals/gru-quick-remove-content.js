@@ -25,23 +25,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'modals', 'gru-remove-content'],
+  classNames: ['content', 'modals', 'gru-quick-remove-content'],
   // -------------------------------------------------------------------------
   // Events
-  init(){
-    this._super(...arguments);
-    // 'validator' should never be set as a param except for testing
-    var validator = this.get('validator');
-    if (!validator) {
-      this.set('validator',Ember.Object.create({
-        confirm:"",
-        check1:false,
-        check2:false
-      }));
-    } else {
-      this.set('validator', validator);
-    }
-  },
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -92,22 +79,7 @@ export default Ember.Component.extend({
   types: CONTENT_TYPES,
 
   /**
-   * Object to control when the delete button becomes enabled
-   * @property {model}
-   */
-  validator: null,
-
-  /**
    * Indicate if it's waiting for removeMethod callback
    */
-  isLoading: false,
-
-  /**
-   * Indicate if delete button is disabled
-   */
-  isDisabled: Ember.computed('validator.{confirm,check1,check2}',function(){
-    const areChecked = this.get('validator.check1') && this.get('validator.check2');
-    const isConfirm = this.get('validator.confirm').toUpperCase() === "REMOVE";
-    return !(areChecked && isConfirm);
-  })
+  isLoading: false
 });
