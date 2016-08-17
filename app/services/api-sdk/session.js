@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { TOKEN_EXPIRATION_TIME } from 'gooru-web/config/config';
 
 export default Ember.Service.extend({
 
@@ -73,6 +74,16 @@ export default Ember.Service.extend({
     const session = this.get('session');
     session.set('userData', userData);
     session.get('store').persist(session.get('data'));
+  },
+
+  /**
+   * Checks if the token has expired
+   */
+  hasTokenExpired: function() {
+    var now = Date.now();
+    var providedAt = this.get('session.userData.providedAt');
+    var time = now - (providedAt || 0);
+    return time >= TOKEN_EXPIRATION_TIME;
   }
 
 });
