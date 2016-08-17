@@ -4,7 +4,7 @@
     $content-md-width: 890px;
     $content-lg-width: 1100px;
     min-width: 0;
-    padding-bottom: 20px;
+    padding-bottom: 0;
 
     > header {
       padding: 0;
@@ -210,7 +210,6 @@
       .gru-url-resource,
       .gru-image-resource,
       .gru-pdf-resource {
-        min-height: 370px;
         iframe {}
       }
 
