@@ -82,6 +82,8 @@ test('it renders for assessment', function (assert) {
 
   var $attempts = $gradeContainer.find('.attempts');
   assert.ok($attempts.find('.attempt-selector'), 'Attempts dropdown should be visible');
+  assert.notOk($attempts.find('.current').length, 'Current attempt label should not be visible');
+  assert.notOk($attempts.find('.latest').length, 'Latest attempt label should not be visible');
   var $fractional = $attempts.find('.fractional');
   assert.ok($fractional, 'Fractional not found');
   assert.equal($fractional.find('.top').text().trim(), "2", "Incorrect fractional top text");
