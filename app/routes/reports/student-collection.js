@@ -45,14 +45,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const controller = route.get("controller");
       const context = controller.get("context");
       if (context.get("lessonId")){
-        route.transitionTo("class.analytics.performance.student",
-          context.get("classId"),
-          {
-            queryParams: {
-              unitId: context.get("unitId"),
-              lessonId: context.get("lessonId")
-            }
-          });
+        controller.get("isTeacher") ? route.backToCourseMap() : route.backToData();
       }
       else {
         const toRoute = controller.get("backUrl") || 'index'; //index when refreshing the page, TODO fix
@@ -128,6 +121,40 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       classId: params.classId,
       unitId: unitId,
       lessonId: lessonId
+    });
+  },
+
+  /**
+   * Take the user back to data page
+   */
+  backToData: function () {
+    const route = this;
+    const controller = route.get("controller");
+    const context = controller.get("context");
+
+    route.transitionTo("class.analytics.performance.student", context.get("classId"),
+    {
+      queryParams: {
+        unitId: context.get("unitId"),
+        lessonId: context.get("lessonId")
+      }
+    });
+  },
+
+  /**
+   * Take the user back to course map page
+   */
+  backToCourseMap: function () {
+    const route = this;
+    const controller = route.get("controller");
+    const context = controller.get("context");
+    const unitId = context.get("unitId");
+    const lessonId = context.get("lessonId");
+    route.transitionTo("class.overview", context.get("classId"),
+    {
+      queryParams: {
+        location: `${unitId}+${lessonId}`
+      }
     });
   },
 

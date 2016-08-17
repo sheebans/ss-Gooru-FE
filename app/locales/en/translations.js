@@ -59,6 +59,7 @@ export default {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "back": "Back",
+    "back-to-course-map": "Back to Course Map",
     "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
     "beta": "Beta",

@@ -11,7 +11,7 @@ import { ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
 
 export default Ember.Controller.extend({
 
-  queryParams: ["classId", "courseId", "unitId", "lessonId", "collectionId", "userId", "type"],
+  queryParams: ["classId", "courseId", "unitId", "lessonId", "collectionId", "userId", "type", "role"],
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -93,6 +93,23 @@ export default Ember.Controller.extend({
    * @property {string} indicates if it is collection or assessment
    */
   type: null,
+
+  /**
+   * @property {string} indicates if it is a student or teacher view
+   */
+  role: null,
+
+  /**
+   * Indicates if the student is playing the collection
+   * @property {boolean}
+   */
+  isStudent: Ember.computed.equal("role", "student"),
+
+  /**
+   * Indicates if the teacher is playing this collection
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed.not("isStudent"),
 
   /**
    * indicates if it is assessment type
@@ -188,6 +205,7 @@ export default Ember.Controller.extend({
     this.set("lessonId", undefined);
     this.set("collectionId", undefined);
     this.set("userId", undefined);
+    this.set("role", undefined);
   }
 
 });
