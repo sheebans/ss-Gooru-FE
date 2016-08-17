@@ -4,6 +4,7 @@ import {CONTENT_TYPES} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
 import Answer from 'gooru-web/models/content/answer';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
+import { replaceMathExpression } from 'gooru-web/utils/utils';
 
 
 /**
@@ -347,6 +348,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   saveQuestion: function() {
     const component = this;
     var editedQuestion = this.get('tempModel');
+    editedQuestion.set('text',replaceMathExpression(editedQuestion.text));
     var promiseArray = [];
     var answersPromise = null;
     if (editedQuestion.get('isFIB')) {
