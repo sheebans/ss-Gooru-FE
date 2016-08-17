@@ -7,7 +7,11 @@ moduleForAcceptance('Acceptance | reset-password', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: true,
-      token: 'reset-password-token'
+      token: 'reset-password-token',
+      user: {
+        gooruUId: 'session-id',
+        providedAt: Date.now()
+      }
     });
   }
 });
