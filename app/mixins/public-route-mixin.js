@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { TOKEN_EXPIRATION_TIME } from 'gooru-web/config/config';
 
 /**
  * TODO may need to add this mixin to all the public routes
@@ -28,19 +27,17 @@ export default Ember.Mixin.create({
   beforeModel() {
     const mixin = this;
     var session = mixin.get('session');
-    var now = Date.now();
-    var time = now - session.get('userData.providedAt');
-
-    if(time < TOKEN_EXPIRATION_TIME) {
+    var sessionService = mixin.get('sessionService');
+    if(!sessionService.hasTokenExpired()) {
       return Ember.RSVP.resolve(mixin._super(...arguments));
     }
     return mixin.get('authenticationService').checkToken(mixin.get('session.token-api3'))
       .then(function() {
-        session.set('userData.providedAt', now);
-        return mixin.get('sessionService').updateUserData(session.get('userData'));
+        session.set('userData.providedAt', Date.now());
+        return sessionService.updateUserData(session.get('userData'));
       },
       function() {
-        return mixin.get('session').authenticateAsAnonymous();
+        return session.authenticateAsAnonymous();
       });
   }
 });
