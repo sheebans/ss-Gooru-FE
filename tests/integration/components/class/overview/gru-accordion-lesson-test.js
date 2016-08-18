@@ -1,5 +1,5 @@
 import { moduleForComponent/*, test*/ } from 'ember-qunit';
-//import hbs from 'htmlbars-inline-precompile';
+import hbs from 'htmlbars-inline-precompile';
 //import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import DS from 'ember-data';
@@ -186,7 +186,8 @@ const lessonServiceStub = Ember.Service.extend({
       collections = [
         Ember.Object.create({id: 'collection-id-1', title: 'collection-1', collectionType: 'collection'}),
         Ember.Object.create({id: 'collection-id-2', title: 'collection-2', collectionType: 'collection'}),
-        Ember.Object.create({id: 'assessment-id-1', title: 'collection-3', collectionType: 'assessment'})
+        Ember.Object.create({id: 'assessment-id-1', title: 'collection-3', collectionType: 'assessment', classroom_play_enabled:true}),
+        Ember.Object.create({id: 'assessment-id-2', title: 'collection-4', collectionType: 'assessment', classroom_play_enabled:false})
       ];
     }
     var lesson = Ember.Object.create({
@@ -220,6 +221,108 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
 
     this.inject.service('i18n');
   }
+});
+
+test('it loads collections/assessments and renders them correctly after clicking on the lesson name', function(assert) {
+  // Class with lessons per stub
+  var currentClass = Ember.Object.create({
+    id: "111-333-555",
+    courseId: "222-444-666"
+  });
+
+  // Lesson model
+  const lesson = Ember.Object.create({
+    id: 'lesson-with-collections',
+    title: 'Lesson Title',
+    completed: 5,
+    total: 10
+  });
+
+
+  this.set('currentClass', currentClass);
+  this.set('unitId', '777-999');
+  this.set('lesson', lesson);
+  this.set('index', 0);
+  this.set('resourceId', 'item-3');
+
+  this.render(hbs`{{class/overview/gru-accordion-lesson
+                    currentClass=currentClass
+                    unitId=unitId
+                    model=lesson
+                    index=index
+                    currentResource=resourceId }}`);
+const $component = this.$('.gru-accordion-lesson');
+assert.ok(!$component.hasClass('in'), 'Panel should not be visible');
+/*
+  const $component = this.$('.gru-accordion-lesson');
+  const $lessonTitleAnchor = $component.find('> .panel-heading a.title');
+
+  const $collapsePanel = $component.find('> .panel-collapse');
+  assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
+
+  const $collectionsContainer = $collapsePanel.find('.collections');
+
+  // Content for lessons is not available because the call to get data has not been made yet
+  assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
+
+  // Click on the lesson name
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
+
+  assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
+
+  var $loadingSpinner = $collectionsContainer.find('.three-bounce-spinner');
+  assert.ok($loadingSpinner.length, 'Loading spinner should be displayed');
+
+  return wait().then(function() {
+    $loadingSpinner = $collectionsContainer.find('.three-bounce-spinner');
+    assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
+
+    const $items = $collapsePanel.find('.collections .panel');
+    assert.equal($items.length, 3, 'Incorrect number of resources listed');
+
+    const $collection = $items.first();
+    const $assessment = $items.last();
+    //const $onAirAssessment = $items.eq(1);
+
+    const $locationMarker = $collection.find('> .location-marker');
+    assert.ok($locationMarker.length, 'Location marker');
+
+    const $collectionHeading = $collection.find('> .panel-heading');
+    assert.ok($collectionHeading.length, 'Panel heading');
+
+    const $collectionName = $collectionHeading.find('> .panel-title');
+    assert.ok($collectionName.length, 'Panel title');
+
+    const $collectionIcons = $collectionHeading.find('> .icon-container');
+    assert.ok($collectionIcons.length, 'Collection panel heading: icon container');
+    assert.ok($collectionIcons.find('.gru-icon.apps'), 'Icon container: collection icon');
+
+    const $assessmentHeading = $assessment.find('> .panel-heading');
+    assert.ok($assessmentHeading.length, 'Panel heading');
+
+    const $assessmentIcons = $assessmentHeading.find('> .icon-container');
+    assert.ok($assessmentIcons.length, 'Assessment panel heading: icon container');
+    assert.ok($assessmentIcons.find('span.score'), 'Icon container: assessment percentage');
+    assert.ok($assessmentIcons.find('i.on-air'), 'Icon container: on air icon');
+
+    // TODO Enable these tests once Integration with API 3.0 is done
+    //assert.ok($collection.hasClass('collection'), 'First resource should have the class "collection"');
+    //assert.ok($assessment.hasClass('assessment'), 'Last resource should have the class "assessment"');
+    //assert.ok($assessment.hasClass('selected'), 'Last resource should have the class "selected"');
+    //assert.ok($assessment.hasClass('on-air'), 'Assessment on air');
+    //assert.ok(!$onAirAssessment.hasClass('on-air'), 'Assessment not on air');
+    //
+    //assert.equal($collection.find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '1.  Collection 1', 'Incorrect first resource title');
+    //assert.equal($assessment.find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '3.  Assessment 1', 'Incorrect last resource title');
+    //
+    //assert.equal($collection.find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource for mobile');
+    //assert.equal($assessment.find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last resource for mobile');
+    //
+    //assert.equal($collection.find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource');
+    //assert.equal($assessment.find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource');
+  });*/
 });
 
 // TODO JBP Fix this!!

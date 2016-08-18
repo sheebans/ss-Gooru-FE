@@ -58,6 +58,11 @@ export default Ember.Object.extend(Validations, CollectionBase, {
   showFeedback: null,
 
   /**
+   * @property {boolean}
+   */
+  classroom_play_enabled: null,
+
+  /**
    * @property {string}
    */
   showKey: null,

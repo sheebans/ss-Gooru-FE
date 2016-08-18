@@ -68,12 +68,13 @@ export default Ember.Object.extend({
         bidirectional_play: assessmentModel.get('bidirectional') || false,
         show_feedback: assessmentModel.get('showFeedback') || ASSESSMENT_SHOW_VALUES.SUMMARY,
         show_key: assessmentModel.get('showKey') ? ASSESSMENT_SHOW_VALUES.SUMMARY : ASSESSMENT_SHOW_VALUES.NEVER,
-        attempts_allowed: assessmentModel.get('attempts') || -1
+        attempts_allowed: assessmentModel.get('attempts') || -1,
+        classroom_play_enabled: assessmentModel.get('classroom_play_enabled') !== undefined ? assessmentModel.get('classroom_play_enabled') : true
       }
     };
 
-    serializedAssessment.metadata['audience']= (assessmentModel.get("audience")) ? assessmentModel.get("audience") : [];
-    serializedAssessment.metadata['depth_of_knowledge']= (assessmentModel.get("depthOfknowledge")) ? assessmentModel.get("depthOfknowledge") : [];
+    serializedAssessment.metadata.audience= (assessmentModel.get("audience")) ? assessmentModel.get("audience") : [];
+    serializedAssessment.metadata.depth_of_knowledge= (assessmentModel.get("depthOfknowledge")) ? assessmentModel.get("depthOfknowledge") : [];
     return serializedAssessment;
 
   },
@@ -91,27 +92,29 @@ export default Ember.Object.extend({
     const metadata = assessmentData.metadata || {};
     const settings = assessmentData.setting || {};
 
-    return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+    let normalizedAssessment = AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
-      learningObjectives: assessmentData['learning_objective'],
-      isVisibleOnProfile: assessmentData['visible_on_profile'] !== false,
+      learningObjectives: assessmentData.learning_objective,
+      isVisibleOnProfile: assessmentData.visible_on_profile !== false,
       children: serializer.normalizeQuestions(assessmentData.question),
       questionCount: assessmentData.question_count ? assessmentData.question_count : 0,
       sequence: assessmentData.sequence_id,
       thumbnailUrl: thumbnailUrl,
+      classroom_play_enabled: settings.classroom_play_enabled !== undefined ? settings.classroom_play_enabled : true,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy),
       format: assessmentData.format,
       url: assessmentData.url,
       metadata: metadata,
-      audience: metadata["audience"] && metadata["audience"].length > 0 ? metadata["audience"] : [],
-      depthOfknowledge: metadata["depth_of_knowledge"] && metadata["depth_of_knowledge"].length > 0 ? metadata["depth_of_knowledge"] : [],
-      courseId: assessmentData['course_id'],
+      audience: metadata.audience && metadata.audience.length > 0 ? metadata.audience : [],
+      depthOfknowledge: metadata.depth_of_knowledge && metadata.depth_of_knowledge.length > 0 ? metadata.depth_of_knowledge : [],
+      courseId: assessmentData.course_id,
       attempts: settings.attempts_allowed || -1,
       bidirectional: settings.bidirectional_play || false,
       showFeedback: settings.show_feedback || ASSESSMENT_SHOW_VALUES.SUMMARY,
       showKey: settings.show_key === ASSESSMENT_SHOW_VALUES.SUMMARY
     });
+    return normalizedAssessment;
   },
 
   normalizeQuestions: function(payload) {

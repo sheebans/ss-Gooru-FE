@@ -103,19 +103,26 @@
             </div>
 
             <span class="panel-title">
-               {{#if item.performance.noMoreAttempts}}
-                 <a class="title disabled"
-                    data-toggle="tooltip" data-html="true" data-placement="top"
-                    title="{{t "common.no-more-attempts"}}">
-                     {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
-                 </a>
+              {{#if item.performance.isDisabled}}
+                <a class="title disabled"
+                   data-toggle="tooltip" data-html="true" data-placement="top"
+                   title="{{t "common.assessment-disabled"}}">
+                    {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
+                </a>
               {{else}}
+                {{#if item.performance.noMoreAttempts}}
+                  <a class="title disabled"
+                     data-toggle="tooltip" data-html="true" data-placement="top"
+                     title="{{t "common.no-more-attempts"}}">
+                      {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
+                  </a>
+               {{else}}
                  <a class="title" {{action "selectResource" item}}>
                      {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
                  </a>
+               {{/if}}
               {{/if}}
             </span>
-
             {{!-- Show only for xs --}}
             {{gru-user-icons
               class="visible-xs"

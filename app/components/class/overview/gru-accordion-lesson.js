@@ -262,6 +262,17 @@ export default Ember.Component.extend(AccordionMixin, {
                     hasStarted: averageScore > 0
                   }));
                 });
+            }
+            let collectionPerformanceData;
+            assessment.get('performance') ? collectionPerformanceData = assessment.get('performance') : collectionPerformanceData = Ember.Object.create({
+              isDisabled:false
+            });
+            assessment.set('performance', collectionPerformanceData);
+            if(assessment.get('format') === 'assessment') {
+              return component.get('assessmentService').readAssessment(assessment.get('id'))
+                .then(function (assessment) {
+                    collectionPerformanceData.set('isDisabled', !assessment.get('classroom_play_enabled'));
+                });
             } else {
               return Ember.RSVP.resolve(true);
             }
@@ -279,6 +290,7 @@ export default Ember.Component.extend(AccordionMixin, {
         .findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, assessments)
         .then(function(performance) {
           const promises = assessments.map(function(assessment) {
+
             const peer = lessonPeers.findBy('id', assessment.get('id'));
             if (peer) {
               component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
@@ -299,6 +311,7 @@ export default Ember.Component.extend(AccordionMixin, {
                   if (attemptsSettings) {
                     const noMoreAttempts = attempts && attemptsSettings > 0 && attempts >= attemptsSettings;
                     collectionPerformanceData.set('noMoreAttempts', noMoreAttempts);
+                    collectionPerformanceData.set('isDisabled', !assessment.get('classroom_play_enabled'));
                   }
                 });
             } else {
