@@ -4,6 +4,7 @@ import Env from '../config/environment';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 import GooruLegacyUrl from 'gooru-web/utils/gooru-legacy-url';
 import Error from 'gooru-web/models/error';
+import ClassesModel from 'gooru-web/models/content/classes';
 
 /**
  * @typedef {object} ApplicationRoute
@@ -59,7 +60,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     const currentSession = route.get("session.data.authenticated");
     const themeConfig = Env['themes'] || {};
     const themeId = params.themeId || Env['themes'].default;
-    let myClasses = null;
+    let myClasses = ClassesModel.create(Ember.getOwner(this).ownerInjection());
 
     var theme = null;
     if (themeId && themeConfig[themeId]){
