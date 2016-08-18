@@ -4,7 +4,6 @@ import Env from '../config/environment';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 import GooruLegacyUrl from 'gooru-web/utils/gooru-legacy-url';
 import Error from 'gooru-web/models/error';
-import ClassesModel from 'gooru-web/models/content/classes';
 
 /**
  * @typedef {object} ApplicationRoute
@@ -60,7 +59,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     const currentSession = route.get("session.data.authenticated");
     const themeConfig = Env['themes'] || {};
     const themeId = params.themeId || Env['themes'].default;
-    let myClasses = ClassesModel.create(Ember.getOwner(this).ownerInjection());
+    let myClasses = null;
 
     var theme = null;
     if (themeId && themeConfig[themeId]){
@@ -84,14 +83,16 @@ export default Ember.Route.extend(PublicRouteMixin, {
     this.handleLegacyUrlIfNecessary();
   },
 
-
   setupController: function(controller, model) {
     const theme = model.theme;
     if (theme){
       controller.set("theme", theme);
       this.setupTheme(theme, model.translations);
     }
-    controller.set('myClasses', model.myClasses);
+
+    if (model.myClasses) {
+      controller.set('myClasses', model.myClasses);
+    }
   },
 
   /**
@@ -264,10 +265,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
      */
     updateUserClasses: function() {
       const route = this;
-      return route.get('classService').findMyClasses()
-        .then(function(classes) {
-          return route.set('controller.myClasses', classes);
-        });
+      return route.get('controller').loadUserClasses();
     }
   }
 
