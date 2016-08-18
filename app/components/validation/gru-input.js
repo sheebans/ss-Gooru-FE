@@ -43,11 +43,16 @@ export default Ember.Component.extend({
         this.sendAction("onFocusOut");
       }
     },
+
     inputTyping: function() {
       this.set('isTyping', true);
       if (this.get("onTyping")){
         this.sendAction("onTyping");
       }
+    },
+
+    enterPressed: function() {
+      this.set('isTyping', false);
     }
   },
 
