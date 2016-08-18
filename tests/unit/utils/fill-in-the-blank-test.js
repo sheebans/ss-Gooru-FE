@@ -20,7 +20,10 @@ test('FIB - getCorrectAnswer', function (assert) {
     Ember.Object.create({id: 3, text: 'optionC'})
   ]);
 
-  let question = Ember.Object.create({answers: answers});
+  let question = Ember.Object.create({
+    text: "[optionA] and [optionB] and [optionC]",
+    answers: answers
+  });
   let questionUtil = FillInTheBlankUtil.create({question: question});
 
   let correctAnswer = questionUtil.getCorrectAnswer().toArray();
@@ -38,7 +41,10 @@ test('FIB - isAnswerChoiceCorrect', function (assert) {
     Ember.Object.create({id: 3, text: 'optionC'})
   ]);
 
-  let question = Ember.Object.create({answers: answers});
+  let question = Ember.Object.create({
+    text: "[optionA] and [optionB] and [optionC]",
+    answers: answers
+  });
   let questionUtil = FillInTheBlankUtil.create({question: question});
 
   assert.ok(questionUtil.isAnswerChoiceCorrect("optionA", 0), "Answer should be correct");
@@ -53,7 +59,10 @@ test('FIB - isCorrect', function (assert) {
     Ember.Object.create({id: 3, text: 'optionC'})
   ]);
 
-  let question = Ember.Object.create({answers: answers});
+  let question = Ember.Object.create({
+    text: "[optionA] and [optionB] and [optionC]",
+    answers: answers
+  });
   let questionUtil = FillInTheBlankUtil.create({question: question});
 
   let correctAnswer = Ember.A(['optionA', 'optionB', 'optionC']);
@@ -118,7 +127,10 @@ test('FIB - toAnswerObjects when correct', function (assert) {
     Ember.Object.create({id: 3, text: 'optionC'})
   ]);
 
-  let question = Ember.Object.create({answers: answers});
+  let question = Ember.Object.create({
+    text: "[optionA] and [optionB] and [optionC]",
+    answers: answers
+  });
   let questionUtil = FillInTheBlankUtil.create({question: question});
 
   let answerObjects = questionUtil.toAnswerObjects(["optionA", "optionB", "optionC"]).toArray();
@@ -151,7 +163,10 @@ test('FIB - toAnswerObjects when incorrect', function (assert) {
     Ember.Object.create({id: 3, text: 'optionC'})
   ]);
 
-  let question = Ember.Object.create({answers: answers});
+  let question = Ember.Object.create({
+    text: "[optionA] and [optionB] and [optionC]",
+    answers: answers
+  });
   let questionUtil = FillInTheBlankUtil.create({question: question});
 
   let answerObjects = questionUtil.toAnswerObjects(["optionD", "optionB", ""]).toArray();
@@ -184,7 +199,10 @@ test('FIB - toUserAnswer', function (assert) {
     Ember.Object.create({id: 3, text: 'optionC'})
   ]);
 
-  let question = Ember.Object.create({answers: answers});
+  let question = Ember.Object.create({
+    text: "[optionA] and [optionB] and [optionC]",
+    answers: answers
+  });
   let questionUtil = FillInTheBlankUtil.create({question: question});
 
   let answerObjects = Ember.A([
@@ -204,7 +222,10 @@ test('FIB - toUserAnswer when no respond is provided', function (assert) {
     Ember.Object.create({id: 3, text: 'optionC'})
   ]);
 
-  let question = Ember.Object.create({answers: answers});
+  let question = Ember.Object.create({
+    text: "[optionA] and [optionB] and [optionC]",
+    answers: answers
+  });
   let questionUtil = FillInTheBlankUtil.create({question: question});
 
   let answerObjects = Ember.A([]);
@@ -232,6 +253,9 @@ test('FIB - getCorrectAnswers', function (assert) {
 
   answers = FillInTheBlankUtil.getCorrectAnswers("With square root as answer [sqrt]");
   assert.deepEqual(answers, ["[sqrt]"], "Square root as possible answer should not be ignored");
+
+  answers = FillInTheBlankUtil.getCorrectAnswers("With square root as answer  sqrt[3]{27} = [3]");
+  assert.deepEqual(answers, ["[3]"], "Square root as possible answer and matching a correct answer");
 });
 
 test('FIB - toFibText', function (assert) {
@@ -250,5 +274,25 @@ test('FIB - toFibText', function (assert) {
 
   text = FillInTheBlankUtil.toFibText("With square root [sqrt]");
   assert.equal(text, "With square root _______", "Square root as possible answer should no be ignored");
+
+  text = FillInTheBlankUtil.toFibText("With square root sqrt[3]{27} = [3]");
+  assert.equal(text, "With square root sqrt[3]{27} = _______", "Square root as possible answer and matching a correct answer");
 });
 
+
+test('getQuestionAnswers from text', function(assert) {
+  const text = 'Fill [in] the [blank]... and sqrt[2]'; //sqrt should be ignored
+  const fibAnswers = FillInTheBlankUtil.getQuestionAnswers(text);
+
+  assert.equal(fibAnswers.length, 2, 'Wrong number of answers');
+  const answer1 = fibAnswers[0];
+  assert.equal(answer1.get('sequence'), 1, 'Wrong sequence');
+  assert.equal(answer1.get('text'), 'in', 'Wrong text');
+  assert.equal(answer1.get('isCorrect'), true, 'Wrong isCorrect');
+  assert.equal(answer1.get('type'), 'text', 'Wrong type');
+  const answer2 = fibAnswers[1];
+  assert.equal(answer2.get('sequence'), 2, 'Wrong sequence');
+  assert.equal(answer2.get('text'), 'blank', 'Wrong text');
+  assert.equal(answer2.get('isCorrect'), true, 'Wrong isCorrect');
+  assert.equal(answer2.get('type'), 'text', 'Wrong type');
+});

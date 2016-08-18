@@ -2,7 +2,6 @@ import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
 import {CONTENT_TYPES} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
-import Answer from 'gooru-web/models/content/answer';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
 import { replaceMathExpression } from 'gooru-web/utils/utils';
 
@@ -352,7 +351,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     var promiseArray = [];
     var answersPromise = null;
     if (editedQuestion.get('isFIB')) {
-      editedQuestion.set('answers', component.defineFIBAnswers(editedQuestion));
+      editedQuestion.set('answers', FillInTheBlank.getQuestionAnswers(editedQuestion.get("text")));
       component.updateQuestion(editedQuestion, component);
     } else if (editedQuestion.get('isOpenEnded')) {
       component.updateQuestion(editedQuestion, component);
@@ -437,23 +436,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     });
   },
 
-  defineFIBAnswers: function(question) {
-    const component = this;
-    let answers = Ember.A([]);
-    const questionText = question.get('text');
-    const matchedAnswers = FillInTheBlank.getCorrectAnswers(questionText);
-    answers = matchedAnswers.map(function(answer, index) {
-      return Answer.create(Ember.getOwner(component).ownerInjection(), {
-        sequence: index + 1,
-        text: answer.substring(1, answer.length - 1), //remove []
-        isCorrect: true,
-        type: 'text'
-      });
-    });
-    return answers;
-  },
-
-  /**
+ /**
    * Check that validate promises are not returning false
    */
   validateAnswers: function(promiseValues, question) {

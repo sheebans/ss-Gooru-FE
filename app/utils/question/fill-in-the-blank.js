@@ -1,5 +1,6 @@
 import AnswerObject from 'gooru-web/utils/question/answer-object';
 import QuestionUtil from './question';
+import Answer from 'gooru-web/models/content/answer';
 
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -52,7 +53,7 @@ const FillInTheBlankUtil = QuestionUtil.extend({
    * @return {string[]} the correct answer for this question type
    */
   getCorrectAnswer: function () {
-    const answers = this.get("question.answers");
+    const answers = this.getQuestionAnswers();
     return answers.map(function (answer) {
       return answer.get("text");
     });
@@ -110,7 +111,22 @@ const FillInTheBlankUtil = QuestionUtil.extend({
       answerObjects.map(function (answerObject) {
         return answerObject.get("text");
       });
+  },
+
+  /**
+   * FIB returns the question answers from text
+   * Some questions got corrupted having more answers when saving the question, it
+   * more accurate to generate the questions from text
+   * @returns {Answer[]}
+   */
+  getQuestionAnswers: function() {
+    const answersFromText = FillInTheBlankUtil.getQuestionAnswers(this.get("question.text"));
+    const answers = this.get("question.answers");
+    return (answers.get("length") !== answersFromText.get("length")) ?
+      answersFromText :
+      answers;
   }
+
 
 });
 
@@ -165,12 +181,32 @@ FillInTheBlankUtil.reopenClass({
      */
   toFibText: function (text){
     if (text) {
-      const answers = FillInTheBlankUtil.getCorrectAnswers(text);
-      answers.forEach(function(answer){
-        text = text.replace(answer, FillInTheBlankUtil.LEGACY_REGEX.text);
-      });
+      const inputText = FillInTheBlankUtil.LEGACY_REGEX.text;
+      const regExp = FillInTheBlankUtil.FIB_REGEX.global;
+      const replacer = function(match, p1/*, p2, offset, text*/) {
+        const replace = p1 === undefined || p1 !== 'sqrt';
+        const newText = p1 === undefined ? inputText : `${p1}${inputText}`;
+        return replace ? newText : match;
+      };
+      text = text.replace(regExp, replacer);
     }
     return text;
+  },
+
+  /**
+   * Generate question answers
+   * @property {Answer[]}
+   */
+  getQuestionAnswers: function(text) {
+    const matchedAnswers = FillInTheBlankUtil.getCorrectAnswers(text);
+    return matchedAnswers.map(function(answer, index) {
+      return Answer.create({
+        sequence: index + 1,
+        text: answer.substring(1, answer.length - 1), // it removes []
+        isCorrect: true,
+        type: 'text'
+      });
+    });
   }
 
 });

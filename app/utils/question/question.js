@@ -163,7 +163,7 @@ export default Ember.Object.extend({
    * @returns {Answer}
    */
   getAnswerById: function (answerId) {
-    return this.get("question.answers").findBy("id", answerId);
+    return this.getQuestionAnswers().findBy("id", answerId);
   },
 
   /**
@@ -172,7 +172,15 @@ export default Ember.Object.extend({
    * @returns {Answer}
    */
   getAnswerByText: function (text) {
-    return this.get("question.answers").findBy("text", text);
+    return this.getQuestionAnswers().findBy("text", text);
+  },
+
+  /**
+   * Returns the question answers
+   * @returns {Answer[]}
+     */
+  getQuestionAnswers: function() {
+    return this.get("question.answers");
   }
 
 });
