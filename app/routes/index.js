@@ -30,16 +30,16 @@ export default Ember.Route.extend(PublicRouteMixin, {
   },
 
   model(params) {
+    const route = this;
     let details = null;
     let accessToken = params.access_token;
-
     if (accessToken) { // this is for google sign in
-      details = this.get("sessionService").signInWithToken(accessToken);
+      details = this.get("sessionService").signInWithToken(accessToken)
+        .then(function() {
+          return route.controllerFor('application').loadUserClasses();
+        });
     }
-
-    return Ember.RSVP.hash({
-      details
-    });
+    return details;
   },
 
   afterModel() {

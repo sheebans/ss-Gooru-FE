@@ -32,6 +32,8 @@ export default Ember.Controller.extend({
    */
   term: Ember.computed.alias("searchController.term"),
 
+  classService: Ember.inject.service("api-sdk/class"),
+
 
   // -------------------------------------------------------------------------
   // Actions
@@ -77,6 +79,18 @@ export default Ember.Controller.extend({
   /**
    * @property {ClassesModel} list of user classes
    */
-  myClasses: null
+  myClasses: null,
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  loadUserClasses: function() {
+    const controller = this;
+    return controller.get('classService').findMyClasses()
+      .then(function(classes) {
+        controller.set('myClasses', classes);
+        return classes;
+      });
+  }
 
 });
