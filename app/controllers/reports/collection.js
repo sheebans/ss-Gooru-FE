@@ -83,6 +83,14 @@ export default Ember.Controller.extend({
    * from the Real Time server
    */
   webSocketClient: null,
+  /**
+   * @property {boolean} isRealTime
+   */
+  isRealTime:true,
+  /**
+   * @property {boolean} showAttempts
+   */
+  showAttempts:false,
 
   // -------------------------------------------------------------------------
   // Observers

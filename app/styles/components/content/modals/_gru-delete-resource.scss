@@ -1,0 +1,12 @@
+.content.modals.gru-delete-resource {
+  @extend .content.modals.gru-quick-delete-content;
+  .delete-info {
+    li {
+      &:last-child {
+        label {
+          @include flexbox;
+        }
+      }
+    }
+  }
+}

@@ -40,10 +40,10 @@
   </tr>
   </thead>
   <tbody>
-  {{#each results as |result|}}
+  {{#each results as |result index|}}
     <tr>
       <td class="number-question top-left">
-          {{result.index}}
+          {{plus-one index}}
       </td>
       <td class="question-text top-left">
         {{gru-math-text text=(if result.question.isFIB result.question.fibText result.question.text)}}

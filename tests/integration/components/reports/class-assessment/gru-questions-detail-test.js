@@ -83,7 +83,7 @@ test('Layout', function(assert) {
         ]),
         "resourceType": "assessment-question",
         "resourceFormat": "question",
-        "order": 2,
+        "order": 3, //not consecutive
         "hasAnswers": true
       })
     ]
@@ -144,6 +144,7 @@ test('Layout', function(assert) {
   T.exists(assert, $navigation, "Missing navigation");
   T.exists(assert, $navigation.find(".gru-bubbles"), "Missing navigation bubbles");
   assert.equal($navigation.find(".gru-bubbles .bubble").length, 3, "Wrong number of questions");
+  assert.equal($navigation.find(".gru-bubbles .bubble:eq(1)").text(), "2", "Wrong question number for second question");
 
   assert.ok($navigation.find(".gru-bubbles .bubble:eq(0)").hasClass("selected"), "First question should be selected");
 

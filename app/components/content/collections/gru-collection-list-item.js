@@ -84,7 +84,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           type: CONTENT_TYPES.QUESTION
         };
         this.actions.showModal.call(this,
-          'content.modals.gru-delete-content',
+          'content.modals.gru-quick-delete-content',
           $.extend(model, collectionItem), null, null, null, false);
       }else{
         collectionItem = {
@@ -94,7 +94,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           type: CONTENT_TYPES.RESOURCE
         };
         this.actions.showModal.call(this,
-          'content.modals.gru-remove-content',
+          'content.modals.gru-quick-remove-content',
           $.extend(model, collectionItem), null, null, null, false);
       }
     },

@@ -30,8 +30,8 @@ test('Fill in the blank Correct Answer', function(assert) {
   const $fib = $component.find(".reports.assessment.questions.gru-fib");
 
   T.exists(assert, $fib, 'Missing fill in the blank component');
-  T.exists(assert, $fib.find('span:eq(1).answer.correct'), 'The first answer should be correct');
-  T.exists(assert, $fib.find('span:eq(3).answer.correct'), 'The second answer should be correct');
+  T.exists(assert, $fib.find('> span:eq(1).answer.correct'), 'The first answer should be correct');
+  T.exists(assert, $fib.find('> span:eq(3).answer.correct'), 'The second answer should be correct');
   T.notExists(assert, $fib.find('span.answer.incorrect'), 'Should not be incorrect answers at all');
 });
 
@@ -57,8 +57,8 @@ test('Fill in the blank Your Answer Incorrect', function(assert) {
   const $component = this.$(); //component dom element
   const $fib = $component.find(".reports.assessment.questions.gru-fib");
   T.exists(assert, $fib, 'Missing fill in the blank component');
-  T.exists(assert, $fib.find('span:eq(1).answer.incorrect'), 'The first answer should be incorrect');
-  T.exists(assert, $fib.find('span:eq(3).answer.correct'), 'The second answer should be correct');
+  T.exists(assert, $fib.find('> span:eq(1).answer.incorrect'), 'The first answer should be incorrect');
+  T.exists(assert, $fib.find('> span:eq(3).answer.correct'), 'The second answer should be correct');
 });
 
 test('Fill in the blank Your Answer Correct', function(assert) {
@@ -83,8 +83,8 @@ test('Fill in the blank Your Answer Correct', function(assert) {
   const $component = this.$(); //component dom element
   const $fib = $component.find(".reports.assessment.questions.gru-fib");
   T.exists(assert, $fib, 'Missing fill in the blank component');
-  T.exists(assert, $fib.find('span:eq(1).answer.correct'), 'The first answer should be correct');
-  T.exists(assert, $fib.find('span:eq(3).answer.correct'), 'The second answer should be correct');
+  T.exists(assert, $fib.find('> span:eq(1).answer.correct'), 'The first answer should be correct');
+  T.exists(assert, $fib.find('> span:eq(3).answer.correct'), 'The second answer should be correct');
   T.notExists(assert, $fib.find('span.answer.incorrect'), 'Should not be incorrect answers at all');
 });
 
@@ -110,6 +110,6 @@ test('Fill in the blank anonymous', function(assert) {
   const $component = this.$(); //component dom element
   const $fib = $component.find(".reports.assessment.questions.gru-fib");
   T.exists(assert, $fib, 'Missing fill in the blank component');
-  T.exists(assert, $fib.find('span:eq(1).answer.anonymous'), 'The first answer should be anonymous');
-  T.exists(assert, $fib.find('span:eq(3).answer.anonymous'), 'The second answer should be anonymous');
+  T.exists(assert, $fib.find('> span:eq(1).answer.anonymous'), 'The first answer should be anonymous');
+  T.exists(assert, $fib.find('> span:eq(3).answer.anonymous'), 'The second answer should be anonymous');
 });

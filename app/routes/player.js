@@ -48,7 +48,8 @@ export default Ember.Route.extend(ModalMixin,{
       const queryParams = {
         collectionId: context.get("collectionId"),
         userId: controller.get('session.userId'),
-        type: collection.get("collectionType")
+        type: collection.get("collectionType"),
+        role: controller.get("role")
       };
       if (context.get("classId")) {
         queryParams.classId = context.get("classId");
