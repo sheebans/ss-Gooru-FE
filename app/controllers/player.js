@@ -61,14 +61,7 @@ export default Ember.Controller.extend(SessionMixin, {
     submitQuestion: function(question, questionResult){
       const controller = this;
       controller.finishResourceResult(questionResult).then(function(){
-        const next = controller.get("collection").nextResource(question);
-        if (next){
-          Ember.$(window).scrollTop(0);
-          controller.moveToResource(next);
-        }
-        else{
-          controller.finishCollection();
-        }
+        controller.moveOrFinish(question);
       });
     },
 
@@ -251,6 +244,21 @@ export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Moves to the next resource or finishes the collection
+   */
+  moveOrFinish: function(resource) {
+    const controller = this;
+    const next = controller.get("collection").nextResource(resource);
+    if (next){
+      Ember.$(window).scrollTop(0);
+      controller.moveToResource(next);
+    }
+    else{
+      controller.finishCollection();
+    }
+  },
+
   /**
    * Moves to resource
    * @param {Resource} resource

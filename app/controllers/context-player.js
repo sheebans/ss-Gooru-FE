@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import PlayerController from 'gooru-web/controllers/player';
 import {truncate} from 'gooru-web/utils/utils';
-import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 /**
  * Context Player Controller
@@ -29,22 +28,17 @@ export default PlayerController.extend({
      */
     submitQuestion: function (question, questionResult) {
       const controller = this;
-      let showFeedback = controller.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+      let showFeedback = controller.get('collection.immediateFeedback');
       let isTeacher = controller.get('isTeacher');
       if(!showFeedback || isTeacher) {
         controller._super(...arguments);
       }
-      if(questionResult.get('submittedAnswer')) {
-        const next = controller.get('collection').nextResource(question);
-        if (next) {
-          Ember.$(window).scrollTop(0);
-          controller.moveToResource(next);
-        } else {
-          controller.finishCollection();
-        }
-      } else {
+      else if(questionResult.get('submittedAnswer')) {
+        controller.moveOrFinish(question);
+      }
+      else {
         controller.finishResourceResult(questionResult).then(function(){
-          questionResult.set('submittedAnswer', true);
+          questionResult.set('submittedAnswer', true); //indicates the answer is submitted and shows feedback
         });
       }
     }
@@ -93,7 +87,23 @@ export default PlayerController.extend({
     return truncate(this.get("lesson.title"), null, "name");
   }),
 
+
   /**
+   * Moves to resource, before it handle the show immediate feedback logic
+   * @param {Resource} resource
+   */
+  moveToResource: function(resource) {
+    const controller = this;
+    let showFeedback = controller.get('collection.immediateFeedback');
+    if (showFeedback && resource.get("isQuestion")){
+      let assessmentResult = controller.get("assessmentResult");
+      let resourceId = resource.get("id");
+      let resourceResult = assessmentResult.getResultByResourceId(resourceId);
+      resourceResult.set("submittedAnswer", false); //when visiting a question again, we should set the flag to false
+    }
+    controller._super(...arguments);
+  },
+    /**
    * Saves the resource result
    * @param resourceResult
    * @returns {Promise.<boolean>}
