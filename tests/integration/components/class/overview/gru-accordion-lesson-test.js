@@ -207,6 +207,10 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
   integration: true,
 
   beforeEach: function() {
+
+    this.i18n = this.container.lookup('service:i18n');
+    this.i18n.set("locale","en");
+
     this.register('service:api-sdk/collection', collectionServiceStub);
     this.inject.service('api-sdk/collection', { as: 'collectionService' });
 
@@ -219,10 +223,8 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
     this.register('service:api-sdk/lesson', lessonServiceStub);
     this.inject.service('api-sdk/lesson', { as: 'lessonService' });
 
-    this.inject.service('i18n');
   }
 });
-
 test('it loads collections/assessments and renders them correctly after clicking on the lesson name', function(assert) {
   // Class with lessons per stub
   var currentClass = Ember.Object.create({
