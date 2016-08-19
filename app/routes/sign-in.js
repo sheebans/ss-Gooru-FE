@@ -20,6 +20,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * @param model
    */
   setupController: function(controller) {
+    // remove old notifications
     this.get('notifications').remove();
     controller.resetProperties();
   }
