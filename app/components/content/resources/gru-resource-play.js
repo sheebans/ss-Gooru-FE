@@ -114,9 +114,15 @@ export default Ember.Component.extend({
     if (this.get('resource.isUrlResource') ||
       this.get("resource.isPDFResource") ||
       this.get("resource.isImageResource")){
+
       let $component = this.$();
-      let $header = $component.find('header');
-      this.set('calculatedResourceContentHeight', $component.outerHeight(true) - $header.outerHeight(true) - 20);
+      let $windowHeight = $(window).outerHeight(true);
+      let $mainHeaderHeight = $('.gru-header').outerHeight(true);
+      let $componentHeaderHeight = $component.find('header').outerHeight(true);
+
+      // The 7 pixels subtracted are to make sure no scroll bar will appear for the content
+      // (Users should rely on the iframe scroll bar instead)
+      this.set('calculatedResourceContentHeight', $windowHeight - $mainHeaderHeight - $componentHeaderHeight - 7);
     }
   }
 });

@@ -200,7 +200,7 @@ test('Hot Text Highlight - getWordItems', function (assert) {
 });
 
 test('Hot Text Highlight - getSentenceItems', function (assert) {
-  assert.expect(25);
+  assert.expect(34);
 
   var questionUtil = HotTextHighlightUtil.create({question: 'FakeQuestion'});
 
@@ -240,6 +240,18 @@ test('Hot Text Highlight - getSentenceItems', function (assert) {
   assert.equal(sentenceItems[1].get("text"), "Sentence 2.", "Wrong text for second object");
   assert.equal(sentenceItems[2].get("text"), "Sentence 3.", "Wrong text for third object");
   assert.equal(sentenceItems[3].get("text"), "Sentence 4.", "Wrong text for fourth object");
+  assert.equal(sentenceItems[4].get("text"), "Sentence 5", "Wrong text for fifth object");
+  assert.equal(sentenceItems[5].get("text"), "Sentence 6.", "Wrong text for fifth object");
+  assert.equal(sentenceItems[6].get("text"), "Sentence 7", "Wrong text for fifth object");
+
+  //with many sentences between correct answer having phrases using dot (.)
+  sentenceItems = questionUtil.getSentenceItems("Sentence 1 [Sentence 2.] Sentence 3. 1.6 millions. Sentence 5 [Sentence 6.] Sentence 7");
+  assert.equal(sentenceItems.length, 7, "Wrong number of items");
+  assert.equal(sentenceItems[0].get("index"), 0, "Wrong id for first object");
+  assert.equal(sentenceItems[0].get("text"), "Sentence 1", "Wrong text for first object");
+  assert.equal(sentenceItems[1].get("text"), "Sentence 2.", "Wrong text for second object");
+  assert.equal(sentenceItems[2].get("text"), "Sentence 3.", "Wrong text for third object");
+  assert.equal(sentenceItems[3].get("text"), "1.6 millions.", "Wrong text for fourth object");
   assert.equal(sentenceItems[4].get("text"), "Sentence 5", "Wrong text for fifth object");
   assert.equal(sentenceItems[5].get("text"), "Sentence 6.", "Wrong text for fifth object");
   assert.equal(sentenceItems[6].get("text"), "Sentence 7", "Wrong text for fifth object");

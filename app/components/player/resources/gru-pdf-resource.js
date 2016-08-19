@@ -9,7 +9,6 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames:['gru-pdf-resource'],
-  attributeBindings: ['resourceHeight:style'],
 
   // -------------------------------------------------------------------------
   // Actions

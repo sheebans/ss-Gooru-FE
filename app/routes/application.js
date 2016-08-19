@@ -83,14 +83,16 @@ export default Ember.Route.extend(PublicRouteMixin, {
     this.handleLegacyUrlIfNecessary();
   },
 
-
   setupController: function(controller, model) {
     const theme = model.theme;
     if (theme){
       controller.set("theme", theme);
       this.setupTheme(theme, model.translations);
     }
-    controller.set('myClasses', model.myClasses);
+
+    if (model.myClasses) {
+      controller.set('myClasses', model.myClasses);
+    }
   },
 
   /**
@@ -263,10 +265,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
      */
     updateUserClasses: function() {
       const route = this;
-      return route.get('classService').findMyClasses()
-        .then(function(classes) {
-          return route.set('controller.myClasses', classes);
-        });
+      return route.get('controller').loadUserClasses();
     }
   }
 
