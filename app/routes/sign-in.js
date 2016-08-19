@@ -4,6 +4,14 @@ import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 export default Ember.Route.extend(PublicRouteMixin, {
 
   // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  // -------------------------------------------------------------------------
   // Methods
 
   /**
@@ -12,6 +20,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * @param model
    */
   setupController: function(controller) {
+    this.get('notifications').remove();
     controller.resetProperties();
   }
 

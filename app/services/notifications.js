@@ -31,13 +31,23 @@ export default Service.extend({
   }),
 
   /**
-   * Clear all notifications
+   * Clear all notifications using animation
    *
    * @function
    * @return {undefined}
    */
   clear() {
     toastr.clear();
+  },
+
+  /**
+   * Remove all notifications without animation
+   *
+   * @function
+   * @return {undefined}
+   */
+  remove() {
+    toastr.remove();
   },
 
   /**
