@@ -19,6 +19,7 @@
       onOpenNavigator="openNavigator"
       onChangeEmotion="changeEmotion"}}
 
+      {{#if resource}}
       {{player.gru-viewer
       submitted=assessmentResult.submitted
       resource=resource
@@ -28,6 +29,7 @@
       isNotIframeUrl=isNotIframeUrl
       hasContext=hasContext
       role=role}}
+      {{/if}}
     {{else}}
       {{! TODO add the not found component here}}
     {{/if}}

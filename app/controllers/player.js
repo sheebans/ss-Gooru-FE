@@ -265,6 +265,7 @@ export default Ember.Controller.extend(SessionMixin, {
     let resourceId = resource.get("id");
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
+    this.set("resource", null);
     controller.startResourceResult(resourceResult).then(function(){
       controller.setProperties({
         "showReport": false,

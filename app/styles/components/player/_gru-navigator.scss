@@ -112,7 +112,14 @@
         display: -webkit-flex;
         display: flex;
         width:100%;
-        padding: 0 20px;
+        padding: 0 5px;
+
+        span.number {
+          width: 40px;
+          text-align: center;
+          color: $white;
+        }
+
         i{
           -webkit-order: 0;
           order: 0;
