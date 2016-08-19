@@ -9,11 +9,13 @@ test('serializeCreateResource', function(assert) {
   const resourceObject = ResourceModel.create({
     title: 'resource-title',
     url: 'any',
-    format: 'video'
+    format: 'video',
+    visibleOnProfile: false
   });
   const serializedResource = serializer.serializeCreateResource(resourceObject);
   assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
   assert.equal(serializedResource.url, 'any', 'Wrong resource url');
+  assert.equal(serializedResource['visible_on_profile'], false, 'Wrong resource url');
 });
 
 test('serializeUpdateResource', function(assert) {

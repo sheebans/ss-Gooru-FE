@@ -48,7 +48,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Boolean} Is this course visible on profile
    */
-  isVisibleOnProfile: true,
+  isVisibleOnProfile: false,
 
   /**
    * @property {Boolean} isPublished When a course is set as published

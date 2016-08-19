@@ -134,9 +134,9 @@ const Question = Ember.Object.extend(Validations, {
   depthOfknowledge: [],
 
   /**
-   * @property {Boolean} isVisibleOnProfile - Indicates if the Question is visible on Profile. By default it is true
+   * @property {Boolean} isVisibleOnProfile - Indicates if the Question is visible on Profile. By default it is false
    */
-  isVisibleOnProfile: true,
+  isVisibleOnProfile: false,
 
   /**
    * @property {Answer[]} answers - Array of answers
