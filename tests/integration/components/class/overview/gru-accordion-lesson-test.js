@@ -186,8 +186,8 @@ const lessonServiceStub = Ember.Service.extend({
       collections = [
         Ember.Object.create({id: 'collection-id-1', title: 'collection-1', collectionType: 'collection'}),
         Ember.Object.create({id: 'collection-id-2', title: 'collection-2', collectionType: 'collection'}),
-        Ember.Object.create({id: 'assessment-id-1', title: 'collection-3', collectionType: 'assessment', classroom_play_enabled:true}),
-        Ember.Object.create({id: 'assessment-id-2', title: 'collection-4', collectionType: 'assessment', classroom_play_enabled:false})
+        Ember.Object.create({id: 'assessment-id-1', title: 'collection-3', collectionType: 'assessment', classroom_play_enabled:false}),
+        Ember.Object.create({id: 'assessment-id-2', title: 'collection-4', collectionType: 'assessment', classroom_play_enabled:true})
       ];
     }
     var lesson = Ember.Object.create({
@@ -238,7 +238,6 @@ test('it loads collections/assessments and renders them correctly after clicking
     total: 10
   });
 
-
   this.set('currentClass', currentClass);
   this.set('unitId', '777-999');
   this.set('lesson', lesson);
@@ -251,9 +250,8 @@ test('it loads collections/assessments and renders them correctly after clicking
                     model=lesson
                     index=index
                     currentResource=resourceId }}`);
-const $component = this.$('.gru-accordion-lesson');
-assert.ok(!$component.hasClass('in'), 'Panel should not be visible');
-/*
+
+
   const $component = this.$('.gru-accordion-lesson');
   const $lessonTitleAnchor = $component.find('> .panel-heading a.title');
 
@@ -263,7 +261,7 @@ assert.ok(!$component.hasClass('in'), 'Panel should not be visible');
   const $collectionsContainer = $collapsePanel.find('.collections');
 
   // Content for lessons is not available because the call to get data has not been made yet
-  assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
+  assert.equal($collectionsContainer.text().trim(), this.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
 
   // Click on the lesson name
   Ember.run(() => {
@@ -280,11 +278,11 @@ assert.ok(!$component.hasClass('in'), 'Panel should not be visible');
     assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
 
     const $items = $collapsePanel.find('.collections .panel');
-    assert.equal($items.length, 3, 'Incorrect number of resources listed');
+    assert.equal($items.length, 4, 'Incorrect number of resources listed');
 
     const $collection = $items.first();
     const $assessment = $items.last();
-    //const $onAirAssessment = $items.eq(1);
+    const $disabledAssessment = $items.eq(2);
 
     const $locationMarker = $collection.find('> .location-marker');
     assert.ok($locationMarker.length, 'Location marker');
@@ -307,6 +305,9 @@ assert.ok(!$component.hasClass('in'), 'Panel should not be visible');
     assert.ok($assessmentIcons.find('span.score'), 'Icon container: assessment percentage');
     assert.ok($assessmentIcons.find('i.on-air'), 'Icon container: on air icon');
 
+    const $disabledTitle = $disabledAssessment.find('.panel-title a.title.disabled');
+    assert.ok($disabledTitle.length, 'Disabled assessment is not disabled or missing');
+
     // TODO Enable these tests once Integration with API 3.0 is done
     //assert.ok($collection.hasClass('collection'), 'First resource should have the class "collection"');
     //assert.ok($assessment.hasClass('assessment'), 'Last resource should have the class "assessment"');
@@ -322,7 +323,7 @@ assert.ok(!$component.hasClass('in'), 'Panel should not be visible');
     //
     //assert.equal($collection.find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource');
     //assert.equal($assessment.find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource');
-  });*/
+  });
 });
 
 // TODO JBP Fix this!!
