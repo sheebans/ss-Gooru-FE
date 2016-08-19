@@ -110,6 +110,8 @@ export default PlayerController.extend({
    */
   saveResourceResult: function(resourceResult, context){
     let controller = this;
+    let isTeacher = controller.get('isTeacher');
+
     let promise = controller._super(...arguments);
     let onAir = controller.get("onAir");
     return promise.then(function(){
@@ -119,7 +121,7 @@ export default PlayerController.extend({
         const userId = context.get("userId");
         const realTimeService = controller.get('realTimeService');
 
-        if (context.get("isStopEvent")) { //only notifies when the question is completed
+        if (!isTeacher && context.get("isStopEvent")) { //only notifies when the question is completed
           realTimeService.notifyResourceResult(classId, collectionId, userId, resourceResult);
         }
       }
@@ -135,6 +137,7 @@ export default PlayerController.extend({
    */
   saveCollectionResult: function(assessmentResult, context){
     const controller = this;
+    let isTeacher = controller.get('isTeacher');
     const promise = this._super(assessmentResult, context);
     const onAir = controller.get("onAir");
     return promise.then(function(){
@@ -144,10 +147,10 @@ export default PlayerController.extend({
         const userId = context.get("userId");
         const realTimeService = controller.get('realTimeService');
 
-        if (context.get("isStartEvent")) {
+        if (!isTeacher && context.get("isStartEvent")) {
           realTimeService.notifyAttemptStarted(classId, collectionId, userId);
         }
-        else if (context.get("isStopEvent")) {
+        else if (!isTeacher && context.get("isStopEvent")) {
           realTimeService.notifyAttemptFinished(classId, collectionId, userId);
         }
       }
