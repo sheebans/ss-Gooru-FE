@@ -32,7 +32,8 @@ export default Ember.Object.extend({
     return {
       title: resourceModel.get('title'),
       url: resourceModel.get("url"),
-      content_subformat: format
+      content_subformat: format,
+      'visible_on_profile': resourceModel.get('isVisibleOnProfile')
     };
   },
 
@@ -50,7 +51,7 @@ export default Ember.Object.extend({
       narration: resourceModel.get('narration'),
       'content_subformat': ResourceModel.serializeResourceFormat(resourceModel.get("format")),
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(resourceModel.get('standards')),
-      'visible_on_profile': resourceModel.get('isVisibleOnProfile'),//,
+      'visible_on_profile': resourceModel.get('isVisibleOnProfile'),
       //"depth_of_knowledge": null, // Not required at the moment
       //"thumbnail": null // Not required at the moment
       //one publisher for now
