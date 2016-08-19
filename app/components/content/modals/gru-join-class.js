@@ -131,7 +131,7 @@ export default Ember.Component.extend(Validations,{
   /**
    * Indicate if it's waiting for join class callback
    */
-  isLoading: null
+  isLoading: false
 
 
 });
