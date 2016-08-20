@@ -52,7 +52,9 @@ export default QuestionComponent.extend({
 
   init() {
     this._super( ...arguments );
-    this.set('userSelection', Ember.A());
+
+    const userSelection = this.get("userAnswer") || Ember.A([]);
+    this.set('userSelection', userSelection);
   },
 
 
@@ -63,16 +65,16 @@ export default QuestionComponent.extend({
    * @property {[]}
    */
   answers: Ember.computed("question.answers", "userAnswer", function(){
+    const component = this;
     let answers = this.get("question.answers");
     let userAnswer = this.get("userAnswer");
     return answers.map(function(answer){
       var answerId = answer.get("id");
-      let choice = userAnswer ? userAnswer.findBy("id", answerId) : null;
-      let yesNo = choice && choice.selection ? "yes" : "no";
+      let userSelectionItem = userAnswer ? userAnswer.findBy("id", answerId) : null;
       return {
         id: answerId,
         text: answer.get("text"),
-        groupValue: choice ? `${yesNo}|${answerId}` : null
+        groupValue: userSelectionItem ? component.userSelectionItemToChoice(userSelectionItem) : null
       };
     });
   }),
@@ -104,20 +106,42 @@ export default QuestionComponent.extend({
    */
   setUserAnswerChoice: function(answerChoice){
     let userSelection = this.get("userSelection");
-    let values = answerChoice.split("|");
-    let id = values[1];
-    let selection = values[0] === "yes";
+    let userSelectionItem = this.choiceToUserSelectionItem(answerChoice);
+    let id = userSelectionItem.id;
+    let selection = userSelectionItem.selection;
     let found = userSelection.findBy("id", id);
     if (found){
       found.selection = selection;
     }
     else{
-      userSelection.addObject({
+      userSelection.addObject(userSelectionItem);
+    }
+  },
+
+  /**
+   * Converts the answer choice string to a  user selection item
+   * @param {string} answerChoice  in the format value|id, i.e yes|answer_1
+   * @returns {{id: *, selection: boolean}}
+     */
+  choiceToUserSelectionItem: function(answerChoice) {
+    let values = answerChoice.split("|");
+    let id = values[1];
+    let selection = values[0] === "yes";
+    return {
         id: id,
         selection: selection
-      });
-    }
+    };
+  },
 
+  /**
+   * Converts user selection item to answer choice
+   * @param {{id: *, selection: boolean}} userSelectionItem
+   *
+   * @return {string} in the format value|id, i.e yes|answer_1
+   */
+  userSelectionItemToChoice: function (userSelectionItem){
+    const selection = userSelectionItem.selection ? 'yes' : 'no';
+    return `${selection}|${userSelectionItem.id}`;
   }
 
 });
