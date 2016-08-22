@@ -210,6 +210,7 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
 
     this.i18n = this.container.lookup('service:i18n');
     this.i18n.set("locale","en");
+    this.__container__.lookup('service:i18n').set('locale', 'en');
 
     this.register('service:api-sdk/collection', collectionServiceStub);
     this.inject.service('api-sdk/collection', { as: 'collectionService' });
