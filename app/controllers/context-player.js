@@ -87,22 +87,6 @@ export default PlayerController.extend({
     return truncate(this.get("lesson.title"), null, "name");
   }),
 
-
-  /**
-   * Moves to resource, before it handle the show immediate feedback logic
-   * @param {Resource} resource
-   */
-  moveToResource: function(resource) {
-    const controller = this;
-    let showFeedback = controller.get('collection.immediateFeedback');
-    if (showFeedback && resource.get("isQuestion")){
-      let assessmentResult = controller.get("assessmentResult");
-      let resourceId = resource.get("id");
-      let resourceResult = assessmentResult.getResultByResourceId(resourceId);
-      resourceResult.set("submittedAnswer", false); //when visiting a question again, we should set the flag to false
-    }
-    controller._super(...arguments);
-  },
     /**
    * Saves the resource result
    * @param resourceResult
