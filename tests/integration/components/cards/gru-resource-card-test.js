@@ -23,7 +23,8 @@ test('Resource Card Layout', function(assert) {
     }),Ember.Object.create({
       description:"Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
       code:"CCSS.Math.Content.5.NBT.A.2"
-    })])
+    })]),
+    isVisibleOnProfile: false
   });
 
   this.set('resource', resource);
@@ -39,6 +40,7 @@ test('Resource Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Missing Add to Button");
   T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
+  T.exists(assert, $resourceCard.find(".panel-footer .visibility .pull-right"), "Missing visibility icon");
 });
 
 test('Question Card Layout', function(assert) {
@@ -56,7 +58,8 @@ test('Question Card Layout', function(assert) {
     }),Ember.Object.create({
       description:"Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
       code:"CCSS.Math.Content.5.NBT.A.2"
-    })])
+    })]),
+    isVisibleOnProfile: true
   });
 
   this.set('question', question);
@@ -72,7 +75,7 @@ test('Question Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.copy-btn"), "Copy To Button Missing");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add To Button should be visible");
-
+  T.exists(assert, !$resourceCard.find(".panel-footer .visibility .pull-right"), "Missing visibility icon");
 });
 
 test('Resource card trying buttons', function(assert) {

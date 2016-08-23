@@ -157,7 +157,15 @@
     }
     .panel-footer {
       background-color: $white;
-      padding: 12px 15px;
+      padding: 10px 15px 10px 15px;
+      .buttons{
+        display: inline-block;
+      }
+      .visibility {
+        display: inline-block;
+        float: right;
+        height: 24px;
+      }
     }
   }
 }
