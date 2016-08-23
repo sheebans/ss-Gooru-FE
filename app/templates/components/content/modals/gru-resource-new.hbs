@@ -95,20 +95,27 @@
         <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal" aria-label="{{t 'common.close'}}">
           <span aria-hidden="true">{{t 'common.cancel' }}</span>
         </button>
-        <button type="button" class="btn btn-default more-btn" {{action "createResource" "edit"}}
-                aria-label="{{t 'common.more-details'}}">
-          <span aria-hidden="true">{{t 'common.more-details' }}</span>
-        </button>
-        <button type='button' class="btn btn-primary add-btn" {{action "createResource" "add"}}
-                aria-label="{{t 'common.close'}}">{{t 'common.create'}}</button>
+        {{#gru-spinner-button classes='btn btn-default more-loading' text=(t 'common.loading') isLoading=isLoadingMoreDetails}}
+            <button type="button" class="btn btn-default more-btn" {{action "createResource" "edit"}}
+                    aria-label="{{t 'common.more-details'}}">
+                <span aria-hidden="true">{{t 'common.more-details' }}</span>
+            </button>
+        {{/gru-spinner-button}}
+
+        {{#gru-spinner-button classes='btn btn-primary add-btn create-loading' text=(t 'common.loading') isLoading=isLoadingCreate}}
+            <button type='button' class="btn btn-primary add-btn create" {{action "createResource" "add"}}
+                    aria-label="{{t 'common.close'}}">{{t 'common.create'}}</button>
+        {{/gru-spinner-button}}
       {{else}}
         {{#if model}}
           <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal"
                   aria-label="{{t 'common.close'}}">
             <span aria-hidden="true">{{t 'common.cancel' }}</span>
           </button>
-          <button type='button' class="btn btn-primary add-btn" {{action "addTo"}}
-                  aria-label="{{t 'common.close'}}">{{t 'common.add'}}</button>
+          {{#gru-spinner-button classes='btn btn-primary add-loading' text=(t 'common.loading') isLoading=isLoadingAddTo}}
+              <button type='button' class="btn btn-primary add-btn" {{action "addTo"}}
+                      aria-label="{{t 'common.close'}}">{{t 'common.add'}}</button>
+          {{/gru-spinner-button}}
         {{else}}
           <button type="button" class="btn btn-primary close-btn" data-dismiss="modal"
                   aria-label="{{t 'common.close'}}">

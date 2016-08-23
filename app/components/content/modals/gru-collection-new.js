@@ -62,6 +62,9 @@ export default Ember.Component.extend({
         const modelValue = component.get('model');
         component.get('validate').call(component).then(function ({ validations }) {
           if (validations.get('isValid')) {
+
+            component.set('isLoading', true);
+
             component.$('.actions button.add').prop('disabled', true);
             let assessmentOrCollectionId;
             if(modelValue && modelValue.isQuickstart) {
@@ -105,10 +108,12 @@ export default Ember.Component.extend({
                 .then(
                   function () {
                     component.$('.actions button.add').prop('disabled', false);
+                    this.set('isLoading', false);
                     component.get('closeModal').call(component, assessmentOrCollectionId);
                   },
                   function () {
                     component.$('.actions button.add').prop('disabled', false);
+                    this.set('isLoading', false);
                     component.get('showErrorMessage').bind(component)();
                   }
                 );
@@ -130,10 +135,12 @@ export default Ember.Component.extend({
                 .then(
                   function () {
                     component.$('.actions button.add').prop('disabled', false);
+                    this.set('isLoading', false);
                     component.get('closeModal').call(component, assessmentOrCollectionId);
                   },
                   function () {
                     component.$('.actions button.add').prop('disabled', false);
+                    this.set('isLoading', false);
                     component.get('showErrorMessage')();
                   }
                 );
@@ -160,6 +167,7 @@ export default Ember.Component.extend({
   },
 
   closeModal: function(collectionId) {
+    this.set('isLoading', false);
     this.triggerAction({ action: 'closeModal' });
     const queryParams = { queryParams: { editing: true } };
     this.get('router').transitionTo('content.collections.edit', collectionId, queryParams);
@@ -219,6 +227,11 @@ export default Ember.Component.extend({
   /**
    * @type {Course} course
    */
-  course: null
+  course: null,
+
+  /**
+   * Indicate if it's waiting for createCollection callback
+   */
+  isLoading: false
 
 });

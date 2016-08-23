@@ -181,3 +181,34 @@ test('Validate the character limit in the Course title field', function (assert)
   const maxLenValue = this.$('.gru-course-new .gru-input.title input').prop('maxlength');
   assert.equal(maxLenValue, 50, "Input max length");
 });
+
+
+test('show spinner button component while the server response, after clicking on the create button', function(assert) {
+  assert.expect(2);
+
+  this.on('closeModal', function () {
+    assert.ok(true, 'closeModal action triggered');
+  });
+
+  // Mock the transitionTo method in the router
+  this.set('router', {
+    transitionTo(route, courseId) {
+      assert.ok(route, 'Has route');
+      assert.ok(courseId, 'has course Id');
+    }
+  });
+
+  this.render(hbs`{{content/modals/gru-course-new router=router}}`);
+  const $component = this.$(".gru-course-new");
+
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val('Course Name');
+
+  $component.find(".actions .create").click();
+
+  return wait().then(function () {
+    assert.ok($component.find('.actions .gru-spinner-button .has-spinner').length, 'Missing gru-spinner-button component');
+    assert.ok(!$component.find(".actions > button.create").length, 'Create should not be visible');
+  });
+});

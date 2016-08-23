@@ -25,7 +25,9 @@
       <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
         <span aria-hidden="true">{{t 'common.cancel'}}</span>
       </button>
-      <button type="submit" class="btn btn-primary">{{t 'common.create'}}</button>
+      {{#gru-spinner-button classes='btn btn-primary create' text=(t 'common.loading') isLoading=isLoading}}
+          <button type="submit" class="btn btn-primary create">{{t 'common.create'}}</button>
+      {{/gru-spinner-button}}
     </div>
 
   </form>

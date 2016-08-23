@@ -129,10 +129,10 @@ test('show spinner button component while the server response, after clicking on
   this.render(hbs`{{content/modals/gru-delete-class model=model validator=validator isLoading=isLoading}}`);
   const $component = this.$(".gru-delete-class");
 
-  $component.find('.actions> button.delete').click();
+  $component.find('.actions button.delete').click();
 
   return wait().then(function () {
-    assert.ok($component.find('.actions> .gru-spinner-button').length, 'Missing gru-spinner-button component');
+    assert.ok($component.find('.actions .gru-spinner-button').length, 'Missing gru-spinner-button component');
     assert.ok(!$component.find('.actions> button.delete').length, 'Delete Button should not be visible');
   });
 });

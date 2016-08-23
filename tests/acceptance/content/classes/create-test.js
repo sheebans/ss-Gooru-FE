@@ -36,7 +36,7 @@ test('Layout', function (assert) {
     assert.equal($container.find('.conditions label').length, 2, "Number of edit sections");
 
     assert.ok($container.find('a.cancel-button').length, "Cancel button is missing");
-    assert.ok($container.find('a.get-started-btn').length, "Get started button is missing");
+    assert.ok($container.find('button.get-started-btn').length, "Get started button is missing");
 
 
 
@@ -55,7 +55,7 @@ test('it shows an error message if the title field is left blank and you blur it
 
     assert.ok(!$titleField.find(".error-messages .error").length, 'Username error message should not be visible');
     // Try submitting without filling in data
-    $createClassContainer.find("a.get-started-btn").click();
+    $createClassContainer.find("button.get-started-btn").click();
 
     return wait().then(function () {
 

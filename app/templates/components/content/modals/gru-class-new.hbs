@@ -33,7 +33,9 @@
       </div>
       <div class="modal-footer">
         {{#link-to 'home' class="cancel-button back-cta"}}{{t 'common.cancel'}}{{/link-to}}
-        <a class="btn btn-success get-started-btn " {{action "createClass"}}>{{t 'common.create'}} {{gru-icon name= "keyboard_arrow_right" class=""}}</a>
+        {{#gru-spinner-button classes='btn btn-success get-started-btn' text=(t 'common.loading') isLoading=isLoading}}
+            <button class="btn btn-success get-started-btn" {{action "createClass"}}>{{t 'common.create'}} {{gru-icon name= "keyboard_arrow_right" class=""}}</button>
+        {{/gru-spinner-button}}
       </div>
     </div>
   </div>

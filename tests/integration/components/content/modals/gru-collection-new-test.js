@@ -183,9 +183,9 @@ test('it creates a collection and assigns it to a newly created course, unit and
     })
   });
 
-  this.on('closeModal', function () {
-    assert.ok(true, 'closeModal action triggered');
-  });
+  this.actions.closeModal = function() {
+    assert.ok(true, 'Close modal action triggered');
+  };
 
   this.render(hbs`{{content/modals/gru-collection-new model=class router=router}}`);
 
@@ -230,11 +230,11 @@ test('it creates a collection and assigns it to an existing lesson', function (a
     courseId: 'course-id'
   });
 
-  this.on('closeModal', function () {
-    assert.ok(true, 'closeModal action triggered');
-  });
+  this.actions.closeModal = function() {
+    assert.ok(true, 'Close modal action triggered');
+  };
 
-  this.render(hbs`{{content/modals/gru-collection-new model=class router=router}}`);
+  this.render(hbs`{{content/modals/gru-collection-new model=class router=router closeModal=closeModal}}`);
 
   const $component = this.$('.gru-collection-new');
   const $titleField = $component.find(".gru-input.title");
@@ -253,3 +253,39 @@ test('it creates a collection and assigns it to an existing lesson', function (a
     });
   });
 });
+//test('show spinner button component while the server response, after clicking on the create button', function(assert) {
+//  //assert.expect(5);
+//
+//
+//  // Mock the transitionTo method in the router
+//  this.set('router', {
+//    transitionTo(route, courseId) {
+//      assert.ok(route, 'Has route');
+//      assert.ok(courseId, 'has course Id');
+//    }
+//  });
+//
+//  this.actions.closeModal = function() {
+//    assert.ok(true, 'Close modal action triggered');
+//  };
+//
+//  this.render(hbs`{{content/modals/gru-collection-new router=router}}`);
+//
+//  const $component = this.$(".gru-collection-new");
+//
+//  const $titleField = $component.find(".gru-input.title");
+//  // Fill in the input field
+//  $titleField.find("input").val('collection-title');
+//  $titleField.find("input").blur();
+//
+//  return wait().then(function () {
+//
+//  $component.find(".actions .add").click();
+//
+//  return wait().then(function () {
+//    assert.ok($component.find('.actions .gru-spinner-button .has-spinner').length, 'Missing gru-spinner-button component');
+//    assert.ok(!$component.find(".actions > button.add").length, 'Create should not be visible');
+//  });
+//
+//  });
+//});

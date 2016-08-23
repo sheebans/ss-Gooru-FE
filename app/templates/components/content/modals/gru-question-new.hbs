@@ -2,7 +2,7 @@
     <h4 class="modal-title">{{t "common.add-new-question"}}</h4>
 </div>
 <div class="modal-body">
-    <form {{action "createQuestion" on="submit"}}>
+    <form>
         <label class="type">
             <span class="required">{{t 'common.add-type-question'}}</span>
         </label>
@@ -22,7 +22,9 @@
             <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
                 <span aria-hidden="true">{{t 'common.cancel'}}</span>
             </button>
-            <button type="submit" class="btn btn-primary add">{{t 'common.create'}}</button>
+          {{#gru-spinner-button classes='btn btn-primary add-loading' text=(t 'common.loading') isLoading=isLoading}}
+              <button type="submit" class="btn btn-primary add" {{action "createQuestion" }}>{{t 'common.create'}}</button>
+          {{/gru-spinner-button}}
         </div>
     </form>
 </div>

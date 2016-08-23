@@ -40,6 +40,7 @@ export default NewCollectionModal.extend({
   },
 
   closeModal: function(assessmentId) {
+    this.set('isLoading', false);
     this.triggerAction({ action: 'closeModal' });
     const queryParams = { queryParams: { editing: true } };
     this.get('router').transitionTo('content.assessments.edit', assessmentId, queryParams);
