@@ -108,12 +108,12 @@ export default Ember.Component.extend({
                 .then(
                   function () {
                     component.$('.actions button.add').prop('disabled', false);
-                    this.set('isLoading', false);
+                    component.set('isLoading', false);
                     component.get('closeModal').call(component, assessmentOrCollectionId);
                   },
                   function () {
                     component.$('.actions button.add').prop('disabled', false);
-                    this.set('isLoading', false);
+                    component.set('isLoading', false);
                     component.get('showErrorMessage').bind(component)();
                   }
                 );
