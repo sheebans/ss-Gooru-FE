@@ -75,7 +75,7 @@ test('Question Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.copy-btn"), "Copy To Button Missing");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add To Button should be visible");
-  T.exists(assert, !$resourceCard.find(".panel-footer .visibility .pull-right"), "Missing visibility icon");
+  T.notExists(assert, $resourceCard.find(".panel-footer .visibility .pull-right"), "Missing visibility icon");
 });
 
 test('Resource card trying buttons', function(assert) {
