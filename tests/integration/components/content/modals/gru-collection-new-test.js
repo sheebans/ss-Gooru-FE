@@ -234,7 +234,7 @@ test('it creates a collection and assigns it to an existing lesson', function (a
     assert.ok(true, 'Close modal action triggered');
   };
 
-  this.render(hbs`{{content/modals/gru-collection-new model=class router=router closeModal=closeModal}}`);
+  this.render(hbs`{{content/modals/gru-collection-new model=class router=router}}`);
 
   const $component = this.$('.gru-collection-new');
   const $titleField = $component.find(".gru-input.title");
