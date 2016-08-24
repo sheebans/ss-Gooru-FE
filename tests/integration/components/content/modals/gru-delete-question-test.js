@@ -29,7 +29,7 @@ test('it renders', function(assert) {
 
   assert.ok($component.find('p.legend').length, 'Missing Delete Course Legend');
 
-  assert.equal($component.find('p.legend').text(),  this.get('i18n').t('content.modals.delete-resource.legend', { title: model.content.title }).string, 'Incorrect legend');
+  assert.equal($component.find('p.legend').text(),'Confirm you want to permanently delete Test String', 'Incorrect legend');
 
 
   assert.ok($component.find('.actions .cancel').length, 'Missing Cancel Button');
