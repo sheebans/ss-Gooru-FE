@@ -239,7 +239,6 @@ export default Ember.Component.extend(AccordionMixin, {
               component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments) :
               component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments);
             loadDataPromise.then(function() {
-              console.log(assessments);
               component.set('items', assessments);
               component.set("loading", false);
             });
@@ -315,7 +314,6 @@ export default Ember.Component.extend(AccordionMixin, {
                     const noMoreAttempts = attempts && attemptsSettings > 0 && attempts >= attemptsSettings;
                     collectionPerformanceData.set('noMoreAttempts', noMoreAttempts);
                     collectionPerformanceData.set('isDisabled', !assessment.get('classroom_play_enabled'));
-                    console.log(collectionPerformanceData.get('isDisabled'),'isDisabled');
                   }
                 });
             } else {
