@@ -20,7 +20,7 @@ test('Layout - default to collection since parameter is not sent', function (ass
   visit('/player/all-resource-types-collection-id');
 
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8');
 
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer, "Missing player");
@@ -39,7 +39,7 @@ test('Collection - Navigate to all resources types', function (assert) {
     const $playerContainer = find(".controller.player");
 
     //last visited resource is displayed
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3&type=collection');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8&type=collection');
     T.exists(assert, $playerContainer.find('.gru-viewer .gru-image-resource'), "Missing image resource component");
 
     click($playerContainer.find(".gru-navigator .list-group-item:eq(1)")); // navigating to url resource, website
@@ -136,7 +136,7 @@ test('Collection - Open collection without passing the type', function (assert) 
     const $playerContainer = find(".controller.player");
 
     //last visited resource is displayed
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8');
     T.exists(assert, $playerContainer.find('.gru-viewer .gru-image-resource'), "Missing image resource component");
   });
 });
@@ -200,14 +200,14 @@ test('Collection - see usage report', function (assert) {
   assert.expect(7);
   visit('/player/all-resource-types-collection-id');
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3', 'Wrong landing url');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8', 'Wrong landing url');
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer, "Missing player");
 
     var $navigation = $playerContainer.find(".gru-navigator");
     click($navigation.find(".see-usage-report"));
     andThen(function () {
-      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3', 'When anonymous should remain in the same page');
+      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8', 'When anonymous should remain in the same page');
       T.notExists(assert, $playerContainer.find(".gru-navigation"), "Navigation should not be visible");
       T.notExists(assert, $playerContainer.find(".gru-navigator"), "Navigator should not be visible");
       T.exists(assert, $playerContainer.find(".gru-assessment-report"), "Navigation assessment report should be visible");
@@ -283,4 +283,3 @@ test('openNavigator & closeNavigator: When opening and closing the navigator', f
     });
   });
 });
-

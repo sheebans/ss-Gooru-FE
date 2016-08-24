@@ -76,7 +76,7 @@ test('Theme support - Having translations and styles url', function(assert) {
 test('Legacy uri collection-play with no content id', function (assert) {
   visit("/#collection-play&id=all-resource-types-collection-id");
   andThen(function() {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3&type=collection');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8&type=collection');
   });
 });
 
