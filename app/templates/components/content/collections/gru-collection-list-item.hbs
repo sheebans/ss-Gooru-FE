@@ -47,7 +47,7 @@
           <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}}" {{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
           {{/unless}}
             <div class="item-actions">
-              <button title="{{t 'common.delete'}}" class="btn no-bgd delete-item" {{action 'deleteItem' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="delete"}}</button>
+              <button title="{{t 'common.delete'}}" class="btn no-bgd delete-item" {{action 'deleteItem' model}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">{{gru-icon name="delete"}}</button>
               <button title="{{t 'common.copy-to'}}" class="btn no-bgd copy-to" {{action 'copyTo' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="call_split"}}</button>
               <button title="{{t 'common.move'}}" class="btn no-bgd move-item out-of-scope" {{action 'move' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="subdirectory_arrow_right"}}</button>
               <button title="{{t 'common.copy'}}" class="btn no-bgd copy-item" {{action 'copy' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="content_copy"}}</button>

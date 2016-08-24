@@ -110,7 +110,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
           lessonId: lessonId,
           collectionId: collection.get("id"),
           userId: userId,
-          type: collection.get("type")
+          type: collection.get("type"),
+          role: "student"
         }});
     }
   }

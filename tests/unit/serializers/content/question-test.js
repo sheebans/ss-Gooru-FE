@@ -18,7 +18,7 @@ test('serializeCreateQuestion', function(assert) {
   assert.equal(response["title"], "question-title", "Wrong title");
   assert.equal(response["description"], "question-desc", "Wrong description");
   assert.equal(response["content_subformat"], "multiple_answer_question", "Wrong sub format");
-  assert.equal(response["visible_on_profile"], true, "Wrong visible on profile");
+  assert.equal(response["visible_on_profile"], false, "Wrong visible on profile");
   assert.equal(response['metadata']['audience'][0], 1, 'Wrong audience');
   assert.equal(response['metadata']['depth_of_knowledge'][0], 4, 'Wrong depth_of_knowledge');
 });

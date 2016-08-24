@@ -25,9 +25,18 @@ export function getEndpointUrl() {
 export function getEndpointSecureUrl() {
   const currentHostname = window.location.hostname;
   const envKey = EnvironmentMap[currentHostname];
-  const protocol = GooruEndpoints[envKey].secureProtocol;
-  const hostname = GooruEndpoints[envKey].hostname;
-  const port = GooruEndpoints[envKey].securePort ? `:${GooruEndpoints[envKey].securePort}` : '';
+
+  var protocol = undefined;
+  var hostname = undefined;
+  var port = undefined;
+  if (envKey) {
+    protocol = GooruEndpoints[envKey].secureProtocol;
+    hostname = GooruEndpoints[envKey].hostname;
+    port = GooruEndpoints[envKey].securePort;
+  }
+  protocol = protocol ? protocol : 'https://';
+  hostname = hostname ? hostname : currentHostname;
+  port = port ? `:${port}` : '';
 
   return `${protocol}${hostname}${port}`;
 }

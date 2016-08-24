@@ -83,6 +83,11 @@ const ResourceModel = Ember.Object.extend({
   isPublished: Ember.computed.equal("publishStatus", "published"),
 
   /**
+   * @property {Boolean} isVisibleOnProfile - Indicates if the Question is visible on Profile. By default it is false
+   */
+  isVisibleOnProfile: false,
+
+  /**
    * @property {TaxonomyTagData[]} an array with Taxonomy data
    */
   standards: [],

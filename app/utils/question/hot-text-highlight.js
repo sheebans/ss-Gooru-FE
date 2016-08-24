@@ -94,7 +94,7 @@ export default QuestionUtil.extend({
     let result = [];
     items.forEach(function(item){
       if (!regex.exec(item)){ // split consecutive non correct sentences
-        result = result.concat(item.replace(/\./gm, ".@").split("@"));
+        result = result.concat(item.replace(/\. /gm, ".@").split("@"));
       }
       else {
         result.push(item);

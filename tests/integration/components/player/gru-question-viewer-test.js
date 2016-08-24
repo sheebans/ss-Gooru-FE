@@ -102,6 +102,72 @@ test('Submit button should become enabled and call action on submit', function (
   $answerPanel.find(".actions button.save").click();
 });
 
+test('Multiple Answer - Submit button should become enabled by clicking 1 radio button when user answer if provided', function (assert) {
+  assert.expect(6);
+
+  let question = Ember.Object.create({
+    "id": "569906aa77bebed003fa6eb1",
+    questionType: 'MA',
+    text: 'Sample Question MA',
+    hints: [],
+    explanation: 'Sample explanation text',
+    answers: Ember.A([
+      Ember.Object.create({
+        "id": "1",
+        "text": "<p>An aquifer</p>",
+        "answerType": "text",
+        "isCorrect": true,
+        "sequence": 1
+      }),
+      Ember.Object.create({
+        "id": "2",
+        "text": "<p>A well</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 2
+      }),
+      Ember.Object.create({
+        "id": "3",
+        "text": "<p>A pump</p>",
+        "answerType": "text",
+        "isCorrect": false,
+        "sequence": 3
+      })
+    ]),
+    "resourceType": "assessment-question",
+    "resourceFormat": "question",
+    "order": 5,
+    "hasAnswers": true
+  });
+
+
+  const userAnswer = [{id: "1", selection: true}, {id: "2", selection: false}, {id: "3", selection: false}];
+  this.set('question', question);
+
+  const questionResult = QuestionResult.create({
+    userAnswer: userAnswer,
+    question: question
+  });
+
+  this.set('questionResult', questionResult);
+
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult }}`);
+
+  var $component = this.$(); //component dom element
+
+  var $answerPanel = $component.find(".answers-panel");
+  assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
+
+  assert.equal($component.find(".answer-choices tbody tr input").length, 6, "Missing answer choices radio inputs");
+  assert.equal($component.find(".answer-choices tbody tr:eq(0) input:checked").val(), 'yes|1', "Wrong selection for answer 1");
+  assert.equal($component.find(".answer-choices tbody tr:eq(1) input:checked").val(), 'no|2', "Wrong selection for answer 1");
+  assert.equal($component.find(".answer-choices tbody tr:eq(2) input:checked").val(), 'no|3', "Wrong selection for answer 1");
+
+  $answerPanel.find(".answer-choices tbody tr:eq(2) input:eq(0)").click(); //clicking yes at last answer choice
+
+  assert.ok(!$answerPanel.find(".actions button.save").attr("disabled"), "Button should not be disabled");
+});
+
 test('Clicking on the "Hints" button should display a certain number of hints and then become disabled', function(assert) {
 
   const question = Ember.Object.create({

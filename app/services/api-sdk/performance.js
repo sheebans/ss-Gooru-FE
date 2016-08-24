@@ -90,6 +90,7 @@ export default Ember.Service.extend({
   findStudentPerformanceByLesson: function (userId, classId, courseId, unitId, lessonId, collections,
                                             options = { collectionType: 'assessment' }) {
     const service = this;
+    service.get('store').unloadAll('performance/collection-performance');
     return service.get('store').queryRecord('performance/collection-performance', {
       userUid: userId,
       collectionType: options.collectionType,

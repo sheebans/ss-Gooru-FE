@@ -157,3 +157,6 @@ export const ASSESSMENT_SHOW_VALUES = {
 };
 
 export const MAX_ATTEMPTS = 10;
+
+/* token expiration time in milliseconds */
+export const TOKEN_EXPIRATION_TIME = 180000;

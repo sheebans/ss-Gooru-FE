@@ -92,7 +92,7 @@ export default (function() {
     /**
      * @property {Boolean} isVisibleOnProfile
      */
-    isVisibleOnProfile: true,
+    isVisibleOnProfile: false,
 
     /**
      * @property {Number[]} Array with the audience ids
