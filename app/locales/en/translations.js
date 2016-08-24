@@ -667,7 +667,7 @@ export default {
         "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
       },
       "delete-resource": {
-        "legend": "Confirm you want to permanently delete {{title}}",
+        "legend": "Confirm you want to permanently delete <b>{{title}}</b>",
         "delete-warning": "All content in this {{type}} will be deleted",
         "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
         "confirmation": "Are you sure you want to continue? Please click “Permanently Delete”.",
@@ -689,10 +689,10 @@ export default {
         "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
       },
       "quick-remove-content":{
-        "legend": "Confirm you want to remove {{title}} from {{parentName}}."
+        "legend": "Confirm you want to remove <b>{{title}}</b> from <b>{{parentName}}</b>."
       },
       "quick-delete-content":{
-        "legend": "Confirm you want to permanently delete {{title}} from {{parentName}}.",
+        "legend": "Confirm you want to permanently delete <b>{{title}}</b> from <b>{{parentName}}</b>.",
         "delete": "Permanently Delete"
       }
     },
