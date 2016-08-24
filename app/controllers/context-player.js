@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import PlayerController from 'gooru-web/controllers/player';
 import {truncate} from 'gooru-web/utils/utils';
-import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 /**
  * Context Player Controller
@@ -29,22 +28,17 @@ export default PlayerController.extend({
      */
     submitQuestion: function (question, questionResult) {
       const controller = this;
-      let showFeedback = controller.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+      let showFeedback = controller.get('collection.immediateFeedback');
       let isTeacher = controller.get('isTeacher');
       if(!showFeedback || isTeacher) {
         controller._super(...arguments);
       }
-      if(questionResult.get('submittedAnswer')) {
-        const next = controller.get('collection').nextResource(question);
-        if (next) {
-          Ember.$(window).scrollTop(0);
-          controller.moveToResource(next);
-        } else {
-          controller.finishCollection();
-        }
-      } else {
+      else if(questionResult.get('submittedAnswer')) {
+        controller.moveOrFinish(question);
+      }
+      else {
         controller.finishResourceResult(questionResult).then(function(){
-          questionResult.set('submittedAnswer', true);
+          questionResult.set('submittedAnswer', true); //indicates the answer is submitted and shows feedback
         });
       }
     }
@@ -93,13 +87,15 @@ export default PlayerController.extend({
     return truncate(this.get("lesson.title"), null, "name");
   }),
 
-  /**
+    /**
    * Saves the resource result
    * @param resourceResult
    * @returns {Promise.<boolean>}
    */
   saveResourceResult: function(resourceResult, context){
     let controller = this;
+    let isTeacher = controller.get('isTeacher');
+
     let promise = controller._super(...arguments);
     let onAir = controller.get("onAir");
     return promise.then(function(){
@@ -109,7 +105,7 @@ export default PlayerController.extend({
         const userId = context.get("userId");
         const realTimeService = controller.get('realTimeService');
 
-        if (context.get("isStopEvent")) { //only notifies when the question is completed
+        if (!isTeacher && context.get("isStopEvent")) { //only notifies when the question is completed
           realTimeService.notifyResourceResult(classId, collectionId, userId, resourceResult);
         }
       }
@@ -125,6 +121,7 @@ export default PlayerController.extend({
    */
   saveCollectionResult: function(assessmentResult, context){
     const controller = this;
+    let isTeacher = controller.get('isTeacher');
     const promise = this._super(assessmentResult, context);
     const onAir = controller.get("onAir");
     return promise.then(function(){
@@ -134,10 +131,10 @@ export default PlayerController.extend({
         const userId = context.get("userId");
         const realTimeService = controller.get('realTimeService');
 
-        if (context.get("isStartEvent")) {
+        if (!isTeacher && context.get("isStartEvent")) {
           realTimeService.notifyAttemptStarted(classId, collectionId, userId);
         }
-        else if (context.get("isStopEvent")) {
+        else if (!isTeacher && context.get("isStopEvent")) {
           realTimeService.notifyAttemptFinished(classId, collectionId, userId);
         }
       }

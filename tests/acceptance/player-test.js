@@ -33,36 +33,36 @@ test('Layout - default to collection since parameter is not sent', function (ass
 
 test('Collection - Navigate to all resources types', function (assert) {
   assert.expect(12);
-  visit('/player/all-resource-types-collection-id'); //visit all resource types collection
+  visit('/player/all-resource-types-collection-id?type=collection'); //visit all resource types collection
 
   andThen(function () {
     const $playerContainer = find(".controller.player");
 
     //last visited resource is displayed
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3&type=collection');
     T.exists(assert, $playerContainer.find('.gru-viewer .gru-image-resource'), "Missing image resource component");
 
     click($playerContainer.find(".gru-navigator .list-group-item:eq(1)")); // navigating to url resource, website
     andThen(function () {
-      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=82cda6e6-d34e-4e14-bd72-f4cd0868cb6b');
+      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=82cda6e6-d34e-4e14-bd72-f4cd0868cb6b&type=collection');
       T.exists(assert, $playerContainer.find('.gru-viewer .gru-url-resource'), "Missing url resource component");
 
       click($playerContainer.find(".gru-navigator .list-group-item:eq(2)")); // navigating to youtube resource, video
       andThen(function () {
-        assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=eba8e0ee-9c96-4e81-9338-7153125fde1a');
+        assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=eba8e0ee-9c96-4e81-9338-7153125fde1a&type=collection');
         T.exists(assert, $playerContainer.find('.gru-viewer .gru-youtube-resource'), "Missing youtube resource component");
         click($playerContainer.find(".gru-navigator .list-group-item:eq(3)")); // navigating to url resource, interactive
         andThen(function () {
-          assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=42749b05-18b5-4691-a980-1ec4e62b6b82');
+          assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=42749b05-18b5-4691-a980-1ec4e62b6b82&type=collection');
           T.exists(assert, $playerContainer.find('.gru-viewer .gru-url-resource'), "Missing url resource component");
           click($playerContainer.find(".gru-navigator .list-group-item:eq(4)")); // navigating to url resource, audio
           andThen(function () {
-            assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=8f77623a-f5ed-4d62-9085-bdd6d456ab94');
+            assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=8f77623a-f5ed-4d62-9085-bdd6d456ab94&type=collection');
             T.exists(assert, $playerContainer.find('.gru-viewer .gru-url-resource'), "Missing url resource component");
 
             click($playerContainer.find(".gru-navigator .list-group-item:eq(5)")); // navigating to youtube resource
             andThen(function () {
-              assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=88d65c77-a721-4bdd-ae53-56a12517b049');
+              assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=88d65c77-a721-4bdd-ae53-56a12517b049&type=collection');
               T.exists(assert, $playerContainer.find('.gru-viewer .gru-pdf-resource'), "Missing pdf resource component");
             });
           });
@@ -128,6 +128,31 @@ test('Assessment - Navigate to all question types', function (assert) {
   });
 });
 
+test('Collection - Open collection without passing the type', function (assert) {
+  assert.expect(2);
+  visit('/player/all-resource-types-collection-id'); //visit all resource types collection
+
+  andThen(function () {
+    const $playerContainer = find(".controller.player");
+
+    //last visited resource is displayed
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3');
+    T.exists(assert, $playerContainer.find('.gru-viewer .gru-image-resource'), "Missing image resource component");
+  });
+});
+
+test('Assessment - Open assessment without passing the type', function (assert) {
+  assert.expect(2);
+  visit('/player/all-question-types-assessment-id'); //visit all question types collection
+
+  andThen(function () {
+    const $playerContainer = find(".controller.player");
+
+    //checking that the last visited resource is displayed
+    assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8');
+    T.exists(assert, $playerContainer.find('.gru-question-viewer .gru-multiple-choice'), "Missing multiple choice component");
+  });
+});
 
 test('closePlayer: If navigating directly to the player, closing the player should return the user to the home page', function(assert) {
   visit('/player/all-resource-types-collection-id');
