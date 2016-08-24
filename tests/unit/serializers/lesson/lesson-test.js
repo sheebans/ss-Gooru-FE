@@ -11,7 +11,7 @@ test('NormalizeQueryRecordResponse for single result', function (assert) {
     },
     'collectionType': 'lesson',
     'collectionId': 24413346,
-    'parentGooruOid': '31886eac-f998-493c-aa42-016f53e9fa88',
+    'parentGooruOid': 'first-unit-id',
     'itemSequence': 1,
     'type': 'lesson',
     'lastModifiedUserUid': 'ff90e7e2-7788-48fb-9ce2-7b6d7a828840',
@@ -19,7 +19,7 @@ test('NormalizeQueryRecordResponse for single result', function (assert) {
     'sharing': 'private',
     'collectionItemId': '262c9b8f-c866-4ce7-89bc-45cc01e62e17',
     'lastModified': 1448917633000,
-    'gooruOid': 'fbd76aed-1b8d-4c2c-a9c6-c7603eef347c',
+    'gooruOid': 'first-lesson-id',
     'user': {
       'username': 'perezedify',
       'gooruUId': 'ff90e7e2-7788-48fb-9ce2-7b6d7a828840',
@@ -29,7 +29,7 @@ test('NormalizeQueryRecordResponse for single result', function (assert) {
   const response = serializer.normalizeQueryRecordResponse('any store', 'lesson/lesson', payload);
   const expected = {
     'data': {
-      'id': 'fbd76aed-1b8d-4c2c-a9c6-c7603eef347c',
+      'id': 'first-lesson-id',
       'type': 'lesson/lesson',
       'attributes': {
         'title': 'Property name conventions',
@@ -47,19 +47,19 @@ test('NormalizeQueryRecordResponse for multiple results', function (assert) {
   const payload = [
     {
       'title': 'Property name conventions',
-      'gooruOid': 'fbd76aed-1b8d-4c2c-a9c6-c7603eef347c',
+      'gooruOid': 'first-lesson-id',
       'collectionId': 24413346,
       'visibility': false
     },
     {
       'title': 'Method naming convention',
-      'gooruOid': 'aaac5d15-8434-43ff-8f8b-78cf0b6fd032',
+      'gooruOid': 'second-lesson-id',
       'collectionId': 24413350,
       'visibility': false
     },
     {
       'title': 'Class naming conventions',
-      'gooruOid': 'cc2bc04c-05ab-4407-9d76-b7021d6138e3',
+      'gooruOid': 'third-lesson-id',
       'collectionId': 24413351,
       'visibility': false
     }
@@ -68,7 +68,7 @@ test('NormalizeQueryRecordResponse for multiple results', function (assert) {
   const expected = {
     'data': [
       {
-        'id': 'fbd76aed-1b8d-4c2c-a9c6-c7603eef347c',
+        'id': 'first-lesson-id',
         'type': 'lesson/lesson',
         'attributes': {
           'title': 'Property name conventions',
@@ -77,7 +77,7 @@ test('NormalizeQueryRecordResponse for multiple results', function (assert) {
         }
       },
       {
-        'id': 'aaac5d15-8434-43ff-8f8b-78cf0b6fd032',
+        'id': 'second-lesson-id',
         'type': 'lesson/lesson',
         'attributes': {
           'title': 'Method naming convention',
@@ -86,7 +86,7 @@ test('NormalizeQueryRecordResponse for multiple results', function (assert) {
         }
       },
       {
-        'id': 'cc2bc04c-05ab-4407-9d76-b7021d6138e3',
+        'id': 'third-lesson-id',
         'type': 'lesson/lesson',
         'attributes': {
           'title': 'Class naming conventions',

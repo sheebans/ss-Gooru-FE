@@ -103,7 +103,7 @@ export default Ember.Component.extend(AccordionMixin, {
      * @function actions:updateLesson
      */
     updateLesson: function (lessonId) {
-      const newLocation = lessonId ? this.get('model.id') + '+' + lessonId : this.get('model.id');
+      const newLocation = lessonId ? `${this.get('model.id')}+${lessonId}` : this.get('model.id');
       this.get('onLocationUpdate')(newLocation);
     }
   },

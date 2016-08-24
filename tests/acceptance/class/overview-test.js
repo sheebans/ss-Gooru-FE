@@ -1,4 +1,3 @@
-/*
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
@@ -19,7 +18,7 @@ test('Layout as a student', function (assert) {
   visit('/class/class-for-pochita-as-student/overview');
   andThen(function() {
 
-    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=7deebd55-1976-40a2-8e46-3b8ec5b6d388%2B27f0bc24-c2b5-40d8-bb8f-e6ec939ad553%2B567399f336d4a8e75eb10661');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id');
 
     const $overviewContainer = find(".controller.class .controller.overview");
     assert.ok($overviewContainer.length, 'Missing overview container');
@@ -42,7 +41,7 @@ test('Layout as a student', function (assert) {
     const $expandedLessons = find(".gru-accordion-lesson.expanded", $overviewContainer);
     assert.equal($expandedLessons.length, 1, 'Wrong number of lesson accordions expanded');
 
-    var $accordion = find(".gru-accordion-unit:eq(1)", $overviewContainer);
+    var $accordion = find(".gru-accordion-unit:eq(0)", $overviewContainer);
     assert.ok($accordion.hasClass('expanded'), 'Second unit should be expanded');
 
     $accordion = find(".gru-accordion-lesson:eq(0)", $accordion);
@@ -50,11 +49,14 @@ test('Layout as a student', function (assert) {
 
     var $resource = find(".collections .panel:eq(1)", $accordion);
     assert.ok($resource.hasClass('selected'), 'Second resource should be marked as selected');
+
+    var $resourceTitle = $resource.find('.panel-title .title');
+    assert.ok($resourceTitle.hasClass('disabled'),"Second resource should be disabled");
   });
 });
 
 // TODO: Test opening the accordions using the Locate button
-
+/*
 test('Layout as a teacher', function (assert) {
   visit('/class/class-for-pochita-as-teacher/overview');
   andThen(function () {
@@ -79,7 +81,7 @@ test('Clicking on a collection in the accordions should open the player with sai
   visit('/class/class-10/overview');
   andThen(function () {
 
-    assert.equal(currentURL(), '/class/class-10/overview?location=7deebd55-1976-40a2-8e46-3b8ec5b6d388%2B27f0bc24-c2b5-40d8-bb8f-e6ec939ad553%2B567399f336d4a8e75eb10661');
+    assert.equal(currentURL(), '/class/class-10/overview?location=second-unit-id%2B27f0bc24-c2b5-40d8-bb8f-e6ec939ad553%2B567399f336d4a8e75eb10661');
     const $unitAccordions = find('.gru-accordion-course .gru-accordion-unit');
 
     // Click on the last unit
@@ -100,7 +102,7 @@ test('Clicking on a collection in the accordions should open the player with sai
           var pathName = currentURL().split('?')[0];
 
           assert.equal(currentRouteName(), 'context-player');
-          assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/all-question-types-assessment-id', 'Incorrect path name');
+          assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/third-lesson-id/collection/all-question-types-assessment-id', 'Incorrect path name');
         });
       });
     });
@@ -111,7 +113,7 @@ test('Clicking on an assessment in the accordions should open the player with sa
   visit('/class/class-for-pochita-as-student/overview');
   andThen(function() {
 
-    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=7deebd55-1976-40a2-8e46-3b8ec5b6d388%2B27f0bc24-c2b5-40d8-bb8f-e6ec939ad553%2B567399f336d4a8e75eb10661');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=second-unit-id%2B27f0bc24-c2b5-40d8-bb8f-e6ec939ad553%2B567399f336d4a8e75eb10661');
     const $unitAccordions = find('.gru-accordion-course .gru-accordion-unit');
 
     // Click on the last unit
@@ -137,8 +139,8 @@ test('Clicking on an assessment in the accordions should open the player with sa
           //var pathName = currentURL().split('?')[0];
         //
           assert.equal(currentRouteName(), 'context-player');
-        //  //assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/all-question-types-assessment-id', 'Incorrect path name');
-        //  assert.equal(pathName, '/player/class/class-for-pochita-as-stfudent/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/dfc99db4-d331-4733-ac06-35358cee5c64/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/collection/all-question-types-assessment-id?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68', 'Incorrect path name');
+        //  //assert.equal(pathName, '/player/class/90d82226-5d0d-4673-a85d-f93aa0cbddf2/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/21654d76-45e7-45e9-97ab-5f96a14da137/lesson/third-lesson-id/collection/all-question-types-assessment-id', 'Incorrect path name');
+        //  assert.equal(pathName, '/player/class/class-for-pochita-as-stfudent/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/dfc99db4-d331-4733-ac06-35358cee5c64/lesson/third-lesson-id/collection/all-question-types-assessment-id?resourceId=46d4a6d4-991b-4c51-a656-f694e037dd68', 'Incorrect path name');
         });
       });
     });

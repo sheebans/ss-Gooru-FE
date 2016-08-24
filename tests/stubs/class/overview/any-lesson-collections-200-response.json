@@ -16,14 +16,14 @@
   {
     "collectionType": "assessment",
     "title": "Drawing parallel lines",
-    "gooruOid": "5028ac7f-82da-4f09-998b-ecf480d4b985",
+    "gooruOid": "third-assessment-id",
     "collectionId": 24413365,
     "visibility": true
   },
   {
     "collectionType": "collection",
     "title": "Introduction to equations",
-    "gooruOid": "363d3cc2-f2ac-490d-a870-42167f204c96",
+    "gooruOid": "fourth-assessment-id",
     "collectionId": 24413366,
     "visibility": true
   }

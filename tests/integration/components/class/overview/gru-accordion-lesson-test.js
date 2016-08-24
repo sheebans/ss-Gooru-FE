@@ -1,12 +1,33 @@
-import { moduleForComponent/*, test*/ } from 'ember-qunit';
+/*import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-//import wait from 'ember-test-helpers/wait';
+import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import DS from 'ember-data';
+import tHelper from "ember-i18n/helper";
 
 // Stub performance service
 const performanceServiceStub = Ember.Service.extend({
+  findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers){
+    let response;
+    let promiseResponse;
 
+    response = Ember.Object.create({
+      calculateAverageScoreByItem: function() {
+        return '25';
+      }
+    });
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    // Simulate async data returned by the service
+    return DS.PromiseArray.create({
+      promise: promiseResponse
+    });
+  },
   findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections) {
     var response;
     var promiseResponse;
@@ -205,13 +226,11 @@ const lessonServiceStub = Ember.Service.extend({
 
 moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Component | class/overview/gru accordion lesson', {
   integration: true,
-
   beforeEach: function() {
+    this.i18n=this.container.lookup('service:i18n');
+    this.i18n.set('locale', 'en');
 
-    this.i18n = this.container.lookup('service:i18n');
-
-    this.i18n.set("locale","en");
-
+    this.registry.register('helper:t', tHelper);
 
     this.register('service:api-sdk/collection', collectionServiceStub);
     this.inject.service('api-sdk/collection', { as: 'collectionService' });
@@ -226,108 +245,6 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
     this.inject.service('api-sdk/lesson', { as: 'lessonService' });
 
   }
-});
-test('it loads collections/assessments and renders them correctly after clicking on the lesson name', function(assert) {
-  // Class with lessons per stub
-  var currentClass = Ember.Object.create({
-    id: "111-333-555",
-    courseId: "222-444-666"
-  });
-
-  // Lesson model
-  const lesson = Ember.Object.create({
-    id: 'lesson-with-collections',
-    title: 'Lesson Title',
-    completed: 5,
-    total: 10
-  });
-
-  this.set('currentClass', currentClass);
-  this.set('unitId', '777-999');
-  this.set('lesson', lesson);
-  this.set('index', 0);
-  this.set('resourceId', 'item-3');
-
-  this.render(hbs`{{class/overview/gru-accordion-lesson
-                    currentClass=currentClass
-                    unitId=unitId
-                    model=lesson
-                    index=index
-                    currentResource=resourceId }}`);
-
-
-  const $component = this.$('.gru-accordion-lesson');
-  const $lessonTitleAnchor = $component.find('> .panel-heading a.title');
-
-  const $collapsePanel = $component.find('> .panel-collapse');
-  assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible');
-
-  const $collectionsContainer = $collapsePanel.find('.collections');
-
-  // Content for lessons is not available because the call to get data has not been made yet
-  assert.equal($collectionsContainer.text().trim(), this.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
-
-  // Click on the lesson name
-  Ember.run(() => {
-    $lessonTitleAnchor.click();
-  });
-
-  assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
-
-  var $loadingSpinner = $collectionsContainer.find('.three-bounce-spinner');
-  assert.ok($loadingSpinner.length, 'Loading spinner should be displayed');
-
-  return wait().then(function() {
-    $loadingSpinner = $collectionsContainer.find('.three-bounce-spinner');
-    assert.ok(!$loadingSpinner.length, 'Loading spinner should have been hidden');
-
-    /*const $items = $collapsePanel.find('.collections .panel');
-    assert.equal($items.length, 4, 'Incorrect number of resources listed');
-
-    const $collection = $items.first();
-    const $assessment = $items.last();
-    const $disabledAssessment = $items.eq(2);
-
-    const $locationMarker = $collection.find('> .location-marker');
-    assert.ok($locationMarker.length, 'Location marker');
-
-    const $collectionHeading = $collection.find('> .panel-heading');
-    assert.ok($collectionHeading.length, 'Panel heading');
-
-    const $collectionName = $collectionHeading.find('> .panel-title');
-    assert.ok($collectionName.length, 'Panel title');
-
-    const $collectionIcons = $collectionHeading.find('> .icon-container');
-    assert.ok($collectionIcons.length, 'Collection panel heading: icon container');
-    assert.ok($collectionIcons.find('.gru-icon.apps'), 'Icon container: collection icon');
-
-    const $assessmentHeading = $assessment.find('> .panel-heading');
-    assert.ok($assessmentHeading.length, 'Panel heading');
-
-    const $assessmentIcons = $assessmentHeading.find('> .icon-container');
-    assert.ok($assessmentIcons.length, 'Assessment panel heading: icon container');
-    assert.ok($assessmentIcons.find('span.score'), 'Icon container: assessment percentage');
-    assert.ok($assessmentIcons.find('i.on-air'), 'Icon container: on air icon');
-
-    const $disabledTitle = $disabledAssessment.find('.panel-title a.title.disabled');
-    assert.ok($disabledTitle.length, 'Disabled assessment is not disabled or missing');
-
-    // TODO Enable these tests once Integration with API 3.0 is done
-    //assert.ok($collection.hasClass('collection'), 'First resource should have the class "collection"');
-    //assert.ok($assessment.hasClass('assessment'), 'Last resource should have the class "assessment"');
-    //assert.ok($assessment.hasClass('selected'), 'Last resource should have the class "selected"');
-    //assert.ok($assessment.hasClass('on-air'), 'Assessment on air');
-    //assert.ok(!$onAirAssessment.hasClass('on-air'), 'Assessment not on air');
-    //
-    //assert.equal($collection.find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '1.  Collection 1', 'Incorrect first resource title');
-    //assert.equal($assessment.find('.panel-title a.title').html().replace(/&nbsp;/g, " ").trim(), '3.  Assessment 1', 'Incorrect last resource title');
-    //
-    //assert.equal($collection.find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource for mobile');
-    //assert.equal($assessment.find('.panel-heading .gru-user-icons.visible-xs .first-view li').length, 1, 'Wrong number of user icons showing for the last resource for mobile');
-    //
-    //assert.equal($collection.find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 1, 'Wrong number of user icons showing for the first resource');
-    //assert.equal($assessment.find('.panel-heading .gru-user-icons.hidden-xs .first-view li').length, 0, 'Wrong number of user icons showing for the last resource');*/
-  });
 });
 
 // TODO JBP Fix this!!

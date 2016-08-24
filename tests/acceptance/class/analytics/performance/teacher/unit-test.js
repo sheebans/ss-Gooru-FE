@@ -22,10 +22,10 @@ test('Layout', function(assert) {
   assert.ok(true, 'This is a temporal assert!!');
 
   /*
-  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-unit");
     T.exists(assert, $performanceContainer.find(".gru-metrics-table"), "Missing metrics table component");
@@ -51,10 +51,10 @@ test('Navigate to lesson', function(assert) {
   assert.ok(true, 'This is a temporal assert!!');
 
   /*
-  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-unit");
     const $metricTable = $performanceContainer.find(".gru-metrics-table");
@@ -76,10 +76,10 @@ test('Test data picker options selected', function(assert) {
   assert.ok(true, 'This is a temporal assert!!');
 
   /*
-  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id');
 
   andThen(function() {
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/31886eac-f998-493c-aa42-016f53e9fa88');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id');
 
     const $dataPicker = find(".controller.class .gru-data-picker:eq(0)"); //click the desktop version of the data picker
     click($dataPicker.find("ul input:eq(1)")); //click on completion
