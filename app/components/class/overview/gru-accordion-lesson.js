@@ -265,8 +265,7 @@ export default Ember.Component.extend(AccordionMixin, {
                   }));
                 });
             }
-            let collectionPerformanceData;
-            assessment.get('performance') ? collectionPerformanceData = assessment.get('performance') : collectionPerformanceData = Ember.Object.create({
+            let collectionPerformanceData = assessment.get('performance') || Ember.Object.create({
               isDisabled:false
             });
             assessment.set('performance', collectionPerformanceData);

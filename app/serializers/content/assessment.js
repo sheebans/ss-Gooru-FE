@@ -73,8 +73,8 @@ export default Ember.Object.extend({
       }
     };
 
-    serializedAssessment.metadata.audience= (assessmentModel.get("audience")) ? assessmentModel.get("audience") : [];
-    serializedAssessment.metadata.depth_of_knowledge= (assessmentModel.get("depthOfknowledge")) ? assessmentModel.get("depthOfknowledge") : [];
+    serializedAssessment.metadata.audience= assessmentModel.get("audience") || [];
+    serializedAssessment.metadata.depth_of_knowledge= assessmentModel.get("depthOfknowledge") || [];
     return serializedAssessment;
 
   },
