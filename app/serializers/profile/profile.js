@@ -212,7 +212,8 @@ export default Ember.Object.extend({
       format: format,
       publishStatus: resourceData.publish_status,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
-      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null,
+      isVisibleOnProfile: resourceData.visible_on_profile
     });
   },
 
@@ -236,7 +237,8 @@ export default Ember.Object.extend({
       type:format,
       publishStatus: questionData.publish_status,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
-      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null,
+      isVisibleOnProfile: questionData.visible_on_profile
     });
   },
 

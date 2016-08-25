@@ -3,8 +3,11 @@
   .delete-info {
     li {
       &:last-child {
-        label {
-          @include flexbox;
+        span {
+          position: relative;
+          left: 26px;
+          bottom: 24px;
+          margin-right: 10px;
         }
       }
     }
