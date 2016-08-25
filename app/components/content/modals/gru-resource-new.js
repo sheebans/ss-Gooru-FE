@@ -56,13 +56,16 @@ export default Ember.Component.extend({
         this.set('emptyFileError', this.get('i18n').t('common.errors.file-upload-missing', { extensions: this.get('resource.extensions') }));
       } else {
         resource.validate().then(function ({ validations }) {
-          if(type === "edit") {
-            component.set('isLoadingMoreDetails',true);
-          } else {
-            component.set('isLoadingCreate', true);
-          }
+
           if (validations.get('isValid')) {
+            if(type === "edit") {
+              component.set('isLoadingMoreDetails',true);
+            } else {
+              component.set('isLoadingCreate', true);
+            }
+
             let resourceId;
+
             component.$('.resource-new button.add-btn').prop('disabled', true);
             component.handleResourceUpload(resource).then(function(uploadedResource) {
               component.get('resourceService').createResource(uploadedResource)

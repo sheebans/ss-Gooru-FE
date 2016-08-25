@@ -62,10 +62,7 @@ export default Ember.Component.extend({
         const modelValue = component.get('model');
         component.get('validate').call(component).then(function ({ validations }) {
           if (validations.get('isValid')) {
-
             component.set('isLoading', true);
-
-            component.$('.actions button.add').prop('disabled', true);
             let assessmentOrCollectionId;
             if(modelValue && modelValue.isQuickstart) {
               const course = this.get('course');
@@ -107,12 +104,10 @@ export default Ember.Component.extend({
                   })
                 .then(
                   function () {
-                    component.$('.actions button.add').prop('disabled', false);
                     component.set('isLoading', false);
                     component.get('closeModal').call(component, assessmentOrCollectionId);
                   },
                   function () {
-                    component.$('.actions button.add').prop('disabled', false);
                     component.set('isLoading', false);
                     component.get('showErrorMessage').bind(component)();
                   }
@@ -134,12 +129,10 @@ export default Ember.Component.extend({
                   })
                 .then(
                   function () {
-                    component.$('.actions button.add').prop('disabled', false);
                     component.set('isLoading', false);
                     component.get('closeModal').call(component, assessmentOrCollectionId);
                   },
                   function () {
-                    component.$('.actions button.add').prop('disabled', false);
                     component.set('isLoading', false);
                     component.get('showErrorMessage')();
                   }
