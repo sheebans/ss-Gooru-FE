@@ -672,7 +672,7 @@ export default {
         "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
         "confirmation": "Are you sure you want to continue? Please click “Permanently Delete”.",
         "first-check": "This is a permanent delete and cannot be undone",
-        "second-check": "Copies of this resource, in your collections and any collection by other users in the community, will be deleted."
+        "second-check": "Copies of this resource, in your collections and any collection by other users in the community, will be deleted"
       },
       "remove-content": {
         "legend": "You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
