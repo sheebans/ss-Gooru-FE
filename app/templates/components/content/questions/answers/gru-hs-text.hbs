@@ -6,8 +6,7 @@
       </div>
       {{#if editMode}}
         <div class="text-area-container">
-            {{!validation.gru-textarea  model=answer valuePath='text' rows=2 maxLength=200}}
-          {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons}}
+          {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons index=index model=answer valuePath='text'}}
         </div>
         {{#unless showAdvancedEditor}}
           <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
@@ -17,7 +16,7 @@
         {{/unless}}
       {{else}}
         <div class="answer-text">
-          {{{answer.text}}}
+          {{{gru-math-text text=answer.text}}}
         </div>
         {{#if answer.isCorrect}}
           <div class="correct-choice">

@@ -46,9 +46,11 @@
         margin-top: 5px;
 
         .gru-rich-text-editor {
-          #wysihtml-editor {
+          .rich-editor {
             min-height: 3.2em;
-            margin: 10px 20px 20px 0;
+            max-height: 6.9em;
+            overflow: auto;
+            margin: 10px 20px 10px 0;
             border-left: 0;
             border-right: 0;
             border-top: 0;
@@ -91,6 +93,12 @@
       }
       &.view-mode {
         @include justify-content(flex-start);
+        .answer-text {
+          .gru-math-text {
+            padding: 10px 0;
+            display: block;
+          }
+        }
         .choice-answers {
           @include align-self(stretch);
           @include flexbox();

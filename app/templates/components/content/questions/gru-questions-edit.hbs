@@ -47,14 +47,8 @@
     </div>
     <div class="panel-body">
       {{#if isBuilderEditing}}
-        {{gru-rich-text-editor content=tempQuestion.text}}
-        <div class="validation">
-          {{#if descriptionError}}
-            <span class="error">
-              {{descriptionError}}
-            </span>
-          {{/if}}
-        </div>
+        {{gru-rich-text-editor content=tempQuestion.text model=tempQuestion valuePath='description'}}
+
         {{#if showImagePicker}}
           {{content.gru-image isEditing=true srcImage=question.thumbnail editImage=tempQuestion.thumbnail}}
         {{else}}

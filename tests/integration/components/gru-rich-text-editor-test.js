@@ -2,19 +2,29 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import wait from 'ember-test-helpers/wait';
+import Question from 'gooru-web/models/content/question';
 
 moduleForComponent('gru-rich-text-editor', 'Integration | Component | gru rich text editor', {
   integration: true,
   beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale","en");
+    this.container.lookup('service:i18n').set("locale", "en");
+    this.inject.service('i18n');
   }
 });
 
 test('Layout', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   T.exists(assert,  $component.find(".bold"), "Missing bold button");
 
@@ -55,9 +65,16 @@ test('Layout', function(assert) {
 });
 test('Select fraction', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
   const $component = this.$();
   $component.find(".tab-content .fraction").click();
   return wait().then(function () {
@@ -79,9 +96,17 @@ test('Select sqrt', function(assert) {
 
 test('Select sqrtn', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .sqrtn").click();
   return wait().then(function () {
@@ -92,9 +117,17 @@ test('Select sqrtn', function(assert) {
 
 test('Select subscript', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .subscript").click();
   return wait().then(function () {
@@ -104,9 +137,17 @@ test('Select subscript', function(assert) {
 
 test('Select superscript', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .superscript").click();
   return wait().then(function () {
@@ -140,9 +181,17 @@ test('Select superscript', function(assert) {
 
 test('Select overline', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .overline").click();
   return wait().then(function () {
@@ -152,9 +201,17 @@ test('Select overline', function(assert) {
 
 test('Select sum', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .sum").click();
   return wait().then(function () {
@@ -165,9 +222,17 @@ test('Select sum', function(assert) {
 });
 test('Select plus', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .plus").click();
   return wait().then(function () {
@@ -176,9 +241,17 @@ test('Select plus', function(assert) {
 });
 test('Select minus', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .minus").click();
   return wait().then(function () {
@@ -187,9 +260,17 @@ test('Select minus', function(assert) {
 });
 test('Select div', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .div").click();
   return wait().then(function () {
@@ -198,9 +279,17 @@ test('Select div', function(assert) {
 });
 test('Select cdot', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .cdot").click();
   return wait().then(function () {
@@ -210,9 +299,17 @@ test('Select cdot', function(assert) {
 
 test('Select not equal', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .not-equal").click();
   return wait().then(function () {
@@ -221,9 +318,17 @@ test('Select not equal', function(assert) {
 });
 test('Select less', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .less").click();
   return wait().then(function () {
@@ -232,20 +337,37 @@ test('Select less', function(assert) {
 });
 test('Select greater', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .greater").click();
   return wait().then(function () {
     assert.equal(T.text($component.find(".math-field .mq-root-block .mq-binary-operator")), '>', 'Wrong greater icon');
   });
 });
+
 test('Select less-equal', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .less-equal").click();
   return wait().then(function () {
@@ -255,9 +377,17 @@ test('Select less-equal', function(assert) {
 
 test('Select greater-equal', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .greater-equal").click();
   return wait().then(function () {
@@ -266,9 +396,17 @@ test('Select greater-equal', function(assert) {
 });
 test('Select sim', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .sim").click();
   return wait().then(function () {
@@ -278,20 +416,37 @@ test('Select sim', function(assert) {
 
 test('Select approx', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .approx").click();
   return wait().then(function () {
     assert.equal(T.text($component.find(".math-field .mq-root-block .mq-binary-operator")), '≈', 'Wrong approx icon');
   });
 });
+
 test('Select alpha', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .alpha").click();
   return wait().then(function () {
@@ -301,9 +456,17 @@ test('Select alpha', function(assert) {
 
 test('Select ()', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .pmatrix").click();
   return wait().then(function () {
@@ -314,9 +477,17 @@ test('Select ()', function(assert) {
 
 test('Select {}', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .Bmatrix").click();
   return wait().then(function () {
@@ -327,9 +498,17 @@ test('Select {}', function(assert) {
 
 test('Select ||', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .vmatrix").click();
   return wait().then(function () {
@@ -340,9 +519,17 @@ test('Select ||', function(assert) {
 
 test('Select angle', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .angle").click();
   return wait().then(function () {
@@ -352,9 +539,17 @@ test('Select angle', function(assert) {
 
 test('Select measured angle', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .measuredangle").click();
   return wait().then(function () {
@@ -364,9 +559,17 @@ test('Select measured angle', function(assert) {
 
 test('Select infinity', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .infinity").click();
   return wait().then(function () {
@@ -377,9 +580,17 @@ test('Select infinity', function(assert) {
 
 test('Select perpendicular', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .bot").click();
   return wait().then(function () {
@@ -389,42 +600,77 @@ test('Select perpendicular', function(assert) {
 
 test('Select parallel', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .parallel").click();
   return wait().then(function () {
     T.exists(assert,  $component.find(".math-field .mq-root-block span"), "Missing parallel icon");
   });
 });
+
 test('Select sigma', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .sigma").click();
   return wait().then(function () {
     T.exists(assert,  $component.find(".math-field .mq-root-block span"), "Missing sigma icon");
   });
 });
+
 test('Select theta', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .theta").click();
   return wait().then(function () {
     T.exists(assert,  $component.find(".math-field .mq-root-block span"), "Missing theta icon");
   });
 });
+
 test('Select pi', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
+
   const $component = this.$();
   $component.find(".tab-content .pi").click();
   return wait().then(function () {

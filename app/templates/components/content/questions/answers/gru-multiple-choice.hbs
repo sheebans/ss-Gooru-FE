@@ -5,12 +5,11 @@
       <h3>{{answer-letter index}}</h3>
     </div>
     <div class="text-area-container">
-        {{#if editMode}}
-          {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons}}
-        {{!validation.gru-textarea  model=answer valuePath='text' rows=2 maxLength=200}}
-        {{else}}
-          <p>{{{answer.text}}}</p>
-        {{/if}}
+      {{#if editMode}}
+        {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons index=index model=answer valuePath='text'}}
+       {{else}}
+        <p>{{{gru-math-text text=answer.text}}}</p>
+      {{/if}}
     </div>
     {{#if editMode}}
       <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>

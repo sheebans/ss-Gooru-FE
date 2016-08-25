@@ -25,9 +25,11 @@
         width: auto;
         margin-top: 5px;
         .gru-rich-text-editor {
-          #wysihtml-editor {
+          .rich-editor {
             min-height: 3.2em;
-            margin: 10px 20px 20px 0;
+            max-height: 6.9em;
+            overflow: auto;
+            margin: 10px 20px 10px 0;
             border-left: 0;
             border-right: 0;
             border-top: 0;

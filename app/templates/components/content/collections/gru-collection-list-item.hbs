@@ -79,14 +79,7 @@
             <h3>{{t "common.question"}}</h3>
             <span class="instructions">{{t (concat 'content.questions.edit.builder.question-instructions.' model.type)}}</span>
           </div>
-          {{gru-rich-text-editor content=tempModel.text}}
-          <div class="validation">
-            {{#if descriptionError}}
-              <span class="error">
-                {{descriptionError}}
-              </span>
-            {{/if}}
-          </div>
+          {{gru-rich-text-editor content=tempModel.text model=tempModel valuePath='description'}}
           {{#if showImagePicker}}
             {{content.gru-image isEditing=true srcImage=model.thumbnail editImage=tempModel.thumbnail}}
           {{else}}
@@ -97,6 +90,12 @@
           <div class="answers">
             <div class="{{unless model.isHotTextHighlight 'border-bottom'}}">
               <h3>{{t "content.questions.edit.builder.answer"}}</h3>
+              {{#if showAdvancedEditButton}}
+                <div class="advanced-button">
+                  <span>{{t "common.advanced-editing"}}</span>
+                  {{gru-switch switchOptions=switchOptions onOptionSwitch='onShowAdvancedEditor' isChecked=showAdvancedEditor}}
+                </div>
+              {{/if}}
               {{#unless model.isHotTextHighlight}}
                 <span class="instructions">{{t (concat 'content.questions.edit.builder.answer-instructions.' model.type)}}</span>
               {{/unless}}
@@ -106,7 +105,7 @@
                 <p><small>{{t "common.errors.select-correct-answer"}}</small></p>
               </div>
             {{/if}}
-            {{component (questionConfig model.type 'component.builder_answer') answers=tempModel.answers editMode=true}}
+            {{component (questionConfig model.type 'component.builder_answer') answers=tempModel.answers editMode=true showAdvancedEditor=showAdvancedEditor}}
           </div>
         {{/unless}}
       {{else}}

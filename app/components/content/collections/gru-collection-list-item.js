@@ -4,7 +4,7 @@ import {CONTENT_TYPES} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
 import Answer from 'gooru-web/models/content/answer';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
-
+import { replaceMathExpression, removeHtmlTags } from 'gooru-web/utils/utils';
 
 /**
  * Collection List
@@ -191,6 +191,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
         else{
           // Add the description message to the equation editor
           component.set('descriptionError', model.get('validations.attrs.description.messages')[0]);
+          component.set('didValidate', true);
         }
       });
     },
@@ -206,6 +207,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
     toggleImagePicker: function() {
       this.set('editImagePicker', true);
+    },
+
+    onShowAdvancedEditor: function(isChecked) {
+      if(isChecked){
+        this.set('showAdvancedEditor', true);
+      }
     }
   },
 
@@ -338,6 +345,32 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    */
   correctAnswerNotSelected: false,
 
+  /**
+   * If the advanced editor should be shown
+   * @property {Boolean}
+   */
+  showAdvancedEditor: false,
+
+  /**
+   * If the advanced edit button should be shown
+   @property {Boolean}
+   */
+  showAdvancedEditButton: Ember.computed('model', 'isEditingInline', function() {
+    return !this.get('model.isTrueFalse') && !this.get('model.isHotSpotImage') && !this.get('model.isOpenEnded') && !this.get('model.isHotTextHighlight') && this.get('isEditingInline');
+  }),
+
+  /**
+   * Toggle Options for the Advanced Edit button
+   * @property {Ember.Array}
+   */
+  switchOptions: Ember.A([Ember.Object.create({
+    'label': "On",
+    'value': true
+  }),Ember.Object.create({
+    'label': "Off",
+    'value': false
+  })]),
+
   // ----------------------------
   // Methods
 
@@ -347,6 +380,8 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   saveQuestion: function() {
     const component = this;
     var editedQuestion = this.get('tempModel');
+    var questionForValidate = editedQuestion.copy();
+    var answersForValidate = questionForValidate.get('answers');
     var promiseArray = [];
     var answersPromise = null;
     if (editedQuestion.get('isFIB')) {
@@ -356,6 +391,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       component.updateQuestion(editedQuestion, component);
     } else {
       if (editedQuestion.get('answers')) {
+        if (this.get('showAdvancedEditButton')) {
+          for (var i = 0; i < editedQuestion.get('answers').length; i++) {
+            var answer = editedQuestion.get('answers')[i];
+            answer.set('text', replaceMathExpression (answer.get('text')));
+          }
+        }
         if (editedQuestion.get('isHotSpotImage')) {
           this.hasImages(editedQuestion.get('answers'));
           promiseArray = editedQuestion.get('answers').map(
@@ -366,11 +407,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
               editedQuestion.get('answers')[i].set('text', values[i]);
             }
             return Ember.RSVP.Promise.all(
-              editedQuestion.get('answers').map(component.getAnswerValidatePromise)
+              answersForValidate.map(component.getAnswerValidatePromise)
             );
           });
         } else {
-          promiseArray = editedQuestion.get('answers').map(component.getAnswerValidatePromise);
+          promiseArray = answersForValidate.map(component.getAnswerValidatePromise);
           answersPromise = Ember.RSVP.Promise.all(promiseArray);
         }
         answersPromise.then(function(values) {
@@ -387,7 +428,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   updateQuestion:function(editedQuestion,component){
     let question = component.get('model');
 
-    editedQuestion.validate().then(function ({ model, validations }) {
+    editedQuestion.validate().then(function ({ validations }) {
       if (validations.get('isValid')) {
         let imageIdPromise = new Ember.RSVP.resolve(editedQuestion.get('thumbnail'));
         if(editedQuestion.get('thumbnail') && editedQuestion.get('thumbnail') !== question.get('thumbnail')) {
@@ -427,9 +468,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
               Ember.Logger.error(error);
             });
           });
-      }else{
-        // Add the description message to the equation editor
-        component.set('descriptionError', model.get('validations.attrs.description.messages')[0]);
       }
       component.set('didValidate', true);
     });
@@ -494,9 +532,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   },
 
   /**
-   * Returns validate image promises
+   * Returns validate answer promises
    */
   getAnswerValidatePromise: function(answer) {
+    answer.set('text',removeHtmlTags (answer.text));
     return answer.validate().then(function ({ validations }) {
       return validations.get('isValid');
     });
@@ -531,7 +570,8 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       'tempModel': modelForEditing,
       'isPanelExpanded': true,
       'isEditingInline': true,
-      'editImagePicker': false
+      'editImagePicker': false,
+      'showAdvancedEditor': false
     });
   }
 });
