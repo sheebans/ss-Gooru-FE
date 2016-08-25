@@ -59,6 +59,11 @@ export default Ember.Component.extend({
   selectedAttempt: null,
 
   /**
+   * @property {boolean} is real time report
+   */
+  isRealTime:false,
+
+  /**
    * @property {[]}
    */
   resourceLinks: Ember.computed("assessmentResult.sortedResourceResults", function(){
@@ -71,6 +76,11 @@ export default Ember.Component.extend({
   attempts: Ember.computed("assessmentResult.totalAttempts", function(){
     return this.getAttemptList();
   }),
+  /**
+   * @property {boolean}showAttempts
+   */
+  showAttempts:true,
+
 
 
   // -------------------------------------------------------------------------

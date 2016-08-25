@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 /**
- * Remove content component
+ * Delete resource component
  *
- * Component responsible for remove a content from content builder
+ * Component responsible for delete a content from content builder
  *
  * @module
  * @augments ember/Component
@@ -25,7 +25,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'modals', 'gru-remove-content'],
+  classNames: ['content', 'modals', 'gru-delete-resource'],
   // -------------------------------------------------------------------------
   // Events
   init(){
@@ -34,7 +34,6 @@ export default Ember.Component.extend({
     var validator = this.get('validator');
     if (!validator) {
       this.set('validator',Ember.Object.create({
-        confirm:"",
         check1:false,
         check2:false
       }));
@@ -48,29 +47,30 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * Remove Content
+     * Delete Content
      */
-    removeContent: function (model) {
+    deleteContent: function (model) {
       let component = this;
 
       component.set('isLoading', true);
 
-      // This removeMethod will be a wrapper around the actual remove method that is particular to
-      // each content type.
-      model.removeMethod()
+      // This deleteMethod will be a wrapper around the actual delete method that is particular to
+      // each question type.
+      model.deleteMethod()
         .then(function () {
           if (model.callback) {
             model.callback.success();
           }
           component.set('isLoading', false);
           component.triggerAction({ action: 'closeModal' });
+
           if (model.redirect) {
             component.get('router').transitionTo(model.redirect.route, model.redirect.params.id);
           }
         })
         .catch(function (error) {
-          var message = component.get('i18n').t('content.modals.remove-content.remove-error',
-            { type: component.get('i18n').t(`common.${model.type}`).string.toLowerCase() }).string;
+          var message = component.get('i18n').t('content.modals.delete-content.delete-error',
+            { type: component.get('i18n').t(`common.'${model.type}`).string.toLowerCase() }).string;
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });
@@ -98,16 +98,15 @@ export default Ember.Component.extend({
   validator: null,
 
   /**
-   * Indicate if it's waiting for removeMethod callback
+   * Indicate if it's waiting for deleteMethod callback
    */
   isLoading: false,
 
   /**
    * Indicate if delete button is disabled
    */
-  isDisabled: Ember.computed('validator.{confirm,check1,check2}',function(){
-    const areChecked = this.get('validator.check1') && this.get('validator.check2');
-    const isConfirm = this.get('validator.confirm').toUpperCase() === "REMOVE";
-    return !(areChecked && isConfirm);
+  isDisabled: Ember.computed('validator.{check1,check2}',function(){
+    var areChecked = this.get('validator.check1') && this.get('validator.check2');
+    return !(areChecked);
   })
 });

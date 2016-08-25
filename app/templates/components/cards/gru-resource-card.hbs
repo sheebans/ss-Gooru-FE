@@ -45,16 +45,25 @@
     </div>
   </div>
   <div class="panel-footer">
-    {{#if editEnabled }}
-      <button class="edit-btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
-    {{/if}}
-    {{#if isQuestion}}
-      {{#if remixEnabled}}
-        <button class="copy-btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
+    <div class="buttons">
+      {{#if editEnabled }}
+        <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
       {{/if}}
-    {{/if}}
-    {{#if addEnabled}}
-      <button class="add-to-btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
-    {{/if}}
+      {{#if isQuestion}}
+        {{#if remixEnabled}}
+          <button class="copy-btn btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
+        {{/if}}
+      {{/if}}
+      {{#if addEnabled}}
+        <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+      {{/if}}
+    </div>
+    {{#unless publishVisible}}
+      <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
+        {{#unless resource.isVisibleOnProfile }}
+          {{gru-icon name="visibility_off" class='pull-right'}}
+        {{/unless}}
+      </div>
+    {{/unless}}
   </div>
 </div>

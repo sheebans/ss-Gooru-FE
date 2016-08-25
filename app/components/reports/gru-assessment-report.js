@@ -90,6 +90,20 @@ export default Ember.Component.extend({
   onSelectAttempt: null,
 
   /**
+   * @property {boolean} isRealTime
+   */
+  isRealTime:Ember.computed('model',function(){
+    return this.get('model.assessmentResult.isRealTime');
+  }),
+
+  /**
+   * @property {boolean} showAttempts
+   */
+  showAttempts:Ember.computed('model',function(){
+    return this.get('model.assessmentResult.showAttempts') !== undefined ? this.get('model.assessmentResult.showAttempts') : true;
+  }),
+
+  /**
    * Return ordered questions array
    * @return {Ember.Array}
    */

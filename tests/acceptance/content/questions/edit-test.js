@@ -2,7 +2,6 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 //import T from 'gooru-web/tests/helpers/assert';
-import {KEY_CODES} from "gooru-web/config/config";
 
 moduleForAcceptance('Acceptance | Edit Question', {
   beforeEach: function () {
@@ -42,25 +41,11 @@ test('Delete Question', function (assert) {
     var $deleteButton = find("header .actions .delete");
     click($deleteButton);
     andThen(function () {
-      var $deleteContentModal = find(".gru-modal .gru-delete-content");
-      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
-      click($check1);
+      var $deleteContentModal = find(".gru-modal .gru-delete-question");
+      var $deleteButton = $deleteContentModal.find("button.delete");
+      click($deleteButton);
       andThen(function () {
-        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
-        click($check2);
-        andThen(function () {
-          var $input = $deleteContentModal.find(".delete-input");
-          $input.val('delete');
-          $input.blur();
-          keyEvent($input, 'keyup', KEY_CODES.ENTER);
-          andThen(function () {
-            var $deleteButton = $deleteContentModal.find("button.delete");
-            click($deleteButton);
-            andThen(function () {
-              assert.equal(currentURL(), '/id-for-pochita/content/courses');
-            });
-          });
-        });
+        assert.equal(currentURL(), '/id-for-pochita/content/courses');
       });
     });
   });

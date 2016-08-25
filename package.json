@@ -54,6 +54,7 @@
   "dependencies": {
     "broccoli-sass": "^0.6.6",
     "broccoli-static-compiler": "^0.2.2",
+    "ember-cli-deprecation-workflow": "^0.2.3",
     "ember-d3": "^0.1.0",
     "ember-data": "2.4.0",
     "ember-disable-proxy-controllers": "^1.0.1",

@@ -41,14 +41,16 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
     // Ultimately all server and javascript errors will be caught by this handler
     Ember.onerror = function (error) {
-      const errorMessage = route.get('i18n').t('common.unexpectedError').string;
-      route.get('notifications').error(errorMessage);
-      route.trackAppError(error);
+      if(error.status !== 401) {
+        const errorMessage = route.get('i18n').t('common.unexpectedError').string;
+        route.get('notifications').error(errorMessage);
+        route.trackAppError(error);
+      }
     };
 
     Ember.$(document).ajaxError(function(event, jqXHR, settings) {
       if(jqXHR.status !== 401) {
-      route.trackEndPointError(event, jqXHR, settings);
+        route.trackEndPointError(event, jqXHR, settings);
       }
     });
 

@@ -1,4 +1,4 @@
- import Ember from 'ember';
+import Ember from 'ember';
 import SessionMixin from '../mixins/session';
 import {generateUUID} from 'gooru-web/utils/utils';
 /**
@@ -273,6 +273,7 @@ export default Ember.Controller.extend(SessionMixin, {
     let resourceId = resource.get("id");
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
+    this.set("resource", null);
     controller.startResourceResult(resourceResult).then(function(){
       controller.setProperties({
         "showReport": false,
@@ -411,12 +412,25 @@ export default Ember.Controller.extend(SessionMixin, {
    * Submits pending question results
    * @returns {Promise}
    */
-  submitPendingQuestionResults: function(){
+  submitPendingQuestionResults: function() {
     let controller = this;
-    let pendingQuestionResults = this.get("assessmentResult.pendingQuestionResults");
-    let promises = pendingQuestionResults.map(function(questionResult){
-      return controller.finishResourceResult(questionResult);
-    });
+    return controller.startNonStartedQuestionResults()
+      .then(function() {
+        let pendingQuestionResults = controller.get('assessmentResult.pendingQuestionResults');
+        let promises = pendingQuestionResults.map(function(questionResult) {
+          return controller.finishResourceResult(questionResult);
+        });
+        return Ember.RSVP.all(promises);
+      });
+  },
+
+  startNonStartedQuestionResults: function() {
+    let controller = this;
+    let questionResults = controller.get('assessmentResult.questionResults');
+    let promises = questionResults.filterBy('startedAt', null)
+      .map(function(questionResult) {
+        return controller.startResourceResult(questionResult);
+      });
     return Ember.RSVP.all(promises);
   },
 
