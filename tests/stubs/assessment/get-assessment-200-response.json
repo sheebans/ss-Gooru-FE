@@ -1,5 +1,5 @@
 {
-  "id": "first-assessment-id",
+  "id": "all-question-types-assessment-id",
   "title": "All question types",
   "owner_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
   "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
@@ -34,7 +34,7 @@
   "lesson_id": null,
   "question": [
     {
-      "id": "d675611c-12a1-11e6-aba0-0935596035e8",
+      "id": "multiple-choice-question-id",
       "title": "<p>What color is this?</p>",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
       "original_creator_id": null,
@@ -82,7 +82,7 @@
       "description": "<p>What color is this?</p>"
     },
     {
-      "id": "dc66d543-12a1-11e6-aba0-0935596035e8",
+      "id": "multiple-answer-question-id",
       "title": "<p>Cuál es su comida favorita?</p>",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
       "original_creator_id": null,
@@ -124,7 +124,7 @@
       "description": "<p>Cuál es su comida favorita?</p>"
     },
     {
-      "id": "fd01639f-12a1-11e6-aba0-0935596035e8",
+      "id": "true-false-question-id",
       "title": "<p>Practica usted ejercicio regularmente</p>",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
       "original_creator_id": null,
@@ -154,7 +154,7 @@
       "description": "<p>Practica usted ejercicio regularmente</p>"
     },
     {
-      "id": "f77ede06-12a1-11e6-aba0-0935596035e8",
+      "id": "fib-question-id",
       "title": "<p>El _______ es amarillo. La luna es_______<br data-mce-bogus=\"1\"></p>",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
       "original_creator_id": null,
@@ -184,7 +184,7 @@
       "description": "<p>El _______ es amarillo. La luna es_______<br data-mce-bogus=\"1\"></p>"
     },
     {
-      "id": "f0d555af-1390-11e6-bd2c-c13107c2c772",
+      "id": "htr-question-id",
       "title": "<p>Ordene los paises por fecha de independencia</p>",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
       "original_creator_id": null,
@@ -228,7 +228,7 @@
       "description": "<p>Ordene los paises por fecha de independencia</p>"
     },
     {
-      "id": "f0457189-1390-11e6-bd2c-c13107c2c772",
+      "id": "hth-question-id",
       "title": "<p>Seleccione las palabras escritas incorrectamente</p>",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
       "original_creator_id": null,
@@ -254,7 +254,7 @@
       "description": "<p>Seleccione las palabras escritas incorrectamente</p>"
     },
     {
-      "id": "f06f40ba-1390-11e6-bd2c-c13107c2c772",
+      "id": "hsi-question-id",
       "title": "<p>Seleccione la imagen que más le guste</p>",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
       "original_creator_id": null,
@@ -292,7 +292,7 @@
       "description": "<p>Seleccione la imagen que más le guste</p>"
     },
     {
-      "id": "efbf5176-1390-11e6-bd2c-c13107c2c772",
+      "id": "hst-question-id",
       "title": "<p>Cuales de los siguientes paises han sido campeones mundiales de futbol?</p>",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
       "original_creator_id": null,

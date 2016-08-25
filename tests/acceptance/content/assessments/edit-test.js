@@ -96,7 +96,7 @@ test('Click preview button', function (assert) {
 
     click($previewButton);
     andThen(function () {
-      assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=d675611c-12a1-11e6-aba0-0935596035e8&type=assessment', "Wrong url");
+      assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=multiple-choice-question-id&type=assessment', "Wrong url");
     });
   });
 });

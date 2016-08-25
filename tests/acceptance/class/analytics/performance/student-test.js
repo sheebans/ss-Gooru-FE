@@ -143,16 +143,17 @@ test('Exit Full Screen by pressing Esc', function(assert) {
     });
   });
 });
-
+// TODO Enable the commented code once integration is complete
+/*
 test('Transition to a collection or assessment', function(assert) {
   visit('/class/class-for-pochita-as-student/analytics/performance/student');
 
   andThen(function() {
 
-    // TODO Remove this assert and enable the commented code once integration is complete
+
     assert.ok(true, 'This is a temporal assert!!');
 
-    /*
+
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student');
 
     const $performanceContainer = find(".performance-content");
@@ -188,7 +189,7 @@ test('Transition to a collection or assessment', function(assert) {
         });
       });
     });
-    */
+
   });
 });
 
@@ -197,10 +198,6 @@ test('Transition to a collection or assessment in the player on xsmall', functio
 
   andThen(function() {
 
-    // TODO Remove this assert and enable the commented code once integration is complete
-    assert.ok(true, 'This is a temporal assert!!');
-
-    /*
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-abc6-c7603eef567q&unitId=first-unit-id');
 
     const $performanceContainer = find(".performance-content");
@@ -213,7 +210,7 @@ test('Transition to a collection or assessment in the player on xsmall', functio
     andThen(function() {
       assert.equal(currentURL(), '/player/class/class-for-pochita-as-student/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/first-unit-id/lesson/fbd76aed-1b8d-4c2c-abc6-c7603eef567q/collection/5673982fcf381597c956a53f?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae');
     });
-    */
+
   });
 });
 
@@ -222,10 +219,9 @@ test('Transition to a collection or assessment directly', function(assert) {
   visit('/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-abc6-c7603eef567q&unitId=first-unit-id');
   andThen(function() {
 
-    // TODO Remove this assert and enable the commented code once integration is complete
+
     assert.ok(true, 'This is a temporal assert!!');
 
-    /*
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?lessonId=fbd76aed-1b8d-4c2c-abc6-c7603eef567q&unitId=first-unit-id');
 
     const $performanceContainer = find(".performance-content");
@@ -244,7 +240,7 @@ test('Transition to a collection or assessment directly', function(assert) {
     const $firstLessonCollectionsContainer = $firstLesson.find("div.collections-container");
     T.exists(assert, $firstLessonCollectionsContainer, "No first lesson collections container");
     assert.ok($firstLessonCollectionsContainer.hasClass('in'), "Missing collection container 'in' class.");
-    */
+
   });
 });
 
@@ -272,6 +268,7 @@ test('Transition to a closed unit when a unit with lessons is opened', function(
     andThen(function() {
       assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?unitId=second-unit-id');
     });
-    */
+
   });
 });
+*/

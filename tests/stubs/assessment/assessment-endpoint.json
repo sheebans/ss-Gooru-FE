@@ -69,9 +69,9 @@
     }
   },
   {
-    "description": "Gets an assessment with all question types",
+    "description": "Gets any assessment",
     "request": {
-      "url": "^/api/nucleus/v1/assessments/(.+)$",
+      "url": "^/api/nucleus/v1/assessments/first-assessment-id$",
       "method": "GET",
       "headers": {
         "Authorization": "Token (.+)"
