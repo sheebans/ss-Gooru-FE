@@ -4,10 +4,10 @@
     display: block;
     position: relative;
     z-index: 0;
-    padding: 0;
     margin: 15px auto;
     max-width: 405px;
     width: 100%;
+    padding: 0 0 5px 0;
     @media (min-width: $screen-sm-min) {
       width: 425px;
       max-width: 425px;
@@ -214,6 +214,11 @@
         .sign-up-finish-form {
           .bootstrap-select {
             width: 100%;
+            &.btn-group {
+              .dropdown-menu.inner {
+                max-height: 230px !important;
+              }
+            }
           }
         }
         .gru-radio {
@@ -270,6 +275,12 @@
           line-height: $font-size-base;
         }
       }
+    }
+  }
+  &.finish {
+    .modal {
+      margin: 60px auto 10px auto;
+      min-height: 700px;
     }
   }
 }

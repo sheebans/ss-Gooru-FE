@@ -5,6 +5,7 @@
     placeholder=placeholder
     class="form-control" name=valuePath
     key-press="inputTyping"
+    enter="enterPressed"
     focus-out="inputValueChange"
     autofocus=autofocus
     maxlength=maxLength
@@ -12,7 +13,7 @@
   <div class="error-messages">
     {{#if showMessage}}
       <span class="error">
-        {{v-get model valuePath 'message'}}
+        {{{v-get model valuePath 'message'}}}
       </span>
     {{/if}}
   </div>

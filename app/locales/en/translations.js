@@ -45,6 +45,7 @@ export default {
     "answer-key-was-hidden": "Note: Your teacher has hidden the answer key.",
     "approved": "Approved",
     "assessment": "Assessment",
+    "assessment-disabled": "You can't attempt this assessment",
     "assessment-external": "Assessment-External",
     "assessment-pl": {
       one: "Assessment",
@@ -178,6 +179,7 @@ export default {
       "question-not-created": "Oops! Unable to create question right now. Please try again shortly.",
       "question-not-updated": "Oops! Unable to update question right now. Please try again shortly.",
       "reset-password-error": "Uh oh! Something’s not right. Unable to reset password. Please try again shortly.",
+      "reset-google-account-exists": "Your email login was created with a Google account and we cannot reset a Google password. If you forgot your Google password, you will need to reset it through your Google apps.",
       "resource-description-length": "The description cannot be longer than 500 characters.",
       "resource-invalid-url": "Invalid URL.",
       "resource-missing-title": "Please enter a resource title.",
@@ -885,6 +887,7 @@ export default {
   "forgot-password": {
     "description": "It happens to all of us.",
     "usernameOrEmail": "Please enter your email",
+    "footer-google-description-1": "Try logging in again by pressing <a href='/sign-in'>'Sign In with Google.'</a>",
     "footer-description-1": "You will receive an email with a link to reset your password.",
     "footer-description-2": "If you have any questions, please contact ",
     "mail": "support@gooru.org",
@@ -1275,7 +1278,9 @@ export default {
     "feedback-immediate": "Per question & at the end",
     "feedback-never": "Never",
     "feedback-summary": "At the end",
-    "navigation-scoring": "Navigation and Scoring"
+    "navigation-scoring": "Navigation and Scoring",
+    "disable-heading": "Activate Assessment in Course Map",
+    "disable-legend": "Students can play the assessment from their course map"
   },
 
   "gru-tour": {

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import ClassesModel from 'gooru-web/models/content/classes';
 
 /**
  * Home route
@@ -89,7 +90,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   },
 
   afterModel: function(model){
-    model.myClasses = model.applicationController.myClasses || model.applicationModel.myClasses;
+    const loadedClasses = model.applicationController.myClasses || model.applicationModel.myClasses;
+    model.myClasses = loadedClasses || ClassesModel.create(Ember.getOwner(this).ownerInjection());
+
     const classes = model.myClasses.classes || Ember.A([]);
     const archivedClasses = classes.filterBy("isArchived", true);
     const classesStatus = model.classesStatus;

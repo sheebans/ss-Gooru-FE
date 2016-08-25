@@ -7,7 +7,10 @@ moduleForAcceptance('Acceptance | index', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: true,
-      token: 'token-value'
+      token: 'token-value',
+      user: {
+        providedAt: Date.now()
+      }
     });
   }
 });

@@ -10,7 +10,8 @@ moduleForAcceptance('Acceptance | forgot-password', {
       token: 'forgot-password-token',
       'token-api3': 'forgot-password-token',
       user: {
-        gooruUId: 'session-id'
+        gooruUId: 'session-id',
+        providedAt: Date.now()
       }
     });
   }

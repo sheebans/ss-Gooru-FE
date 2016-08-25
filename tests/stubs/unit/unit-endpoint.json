@@ -1,7 +1,7 @@
 [{
   "description": "Gets unit lessons",
   "request": {
-    "url": "^/api/nucleus/v1/courses/(.+)/units/610cff79-d77b-4c23-8de3-1cb6969d4b07",
+    "url": "^/api/nucleus/v1/courses/(.+)/units/first-unit-id",
     "method": "GET",
     "headers": {
       "authorization": "Token (.+)"

@@ -6,7 +6,10 @@ moduleForAcceptance('Acceptance | integration', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: true,
-      token: 'token-value'
+      token: 'token-value',
+      user: {
+        providedAt: Date.now()
+      }
     });
   }
 });
@@ -61,6 +64,6 @@ test('teams route to overview', function(assert) {
 
   andThen(function() {
     assert.expect(1);
-    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=7fa6b7d9-7e9b-4465-a38d-3e25fe95f14f%2B3b7ecb54-6fc3-4381-a41d-760516dead16%2B19130c91-6c42-46f5-91da-11238b08c08f');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id');
   });
 });

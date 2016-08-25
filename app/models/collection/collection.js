@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 /**
  * @typedef {Object} Collection
@@ -137,6 +138,10 @@ export default Ember.Object.extend({
    * @property {string}
    */
   showFeedback: null,
+
+  immediateFeedback: Ember.computed("showFeedback", function(){
+    return this.get('showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+  }),
 
   /**
    * When should the answer key be shown for a question in an assessment

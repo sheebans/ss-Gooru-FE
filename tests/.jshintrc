@@ -24,7 +24,8 @@
     "currentRouteName",
     "authenticateSession",
     "invalidateSession",
-    "Clipboard"
+    "Clipboard",
+    "currentRouteName"
   ],
   "node": false,
   "browser": false,

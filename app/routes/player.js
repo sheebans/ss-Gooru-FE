@@ -118,14 +118,20 @@ export default Ember.Route.extend(ModalMixin,{
     const route = this;
     const context = route.getContext(params);
     const collectionId = context.get("collectionId");
-    const type = params.type || "collection";
+    const type = params.type;
     const isCollection = type === 'collection';
+    const isAssessment = type === 'assessment';
 
-    const collectionPromise = isCollection ?
-      route.get('collectionService').readCollection(collectionId) :
-      route.get('assessmentService').readAssessment(collectionId);
+    const loadAssessment = !type || isAssessment;
+    const loadCollection = !type || isCollection;
 
-    return collectionPromise.then(function(collection){
+    return Ember.RSVP.hashSettled({
+      assessment: loadAssessment ? route.get('assessmentService').readAssessment(collectionId) : false,
+      collection: loadCollection ? route.get('collectionService').readCollection(collectionId) : false
+    }).then(function(hash) {
+      let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
+      let collection = collectionFound ? hash.collection.value : hash.assessment.value;
+
       const playerCollection = collection.toPlayerCollection();
       context.set("collectionType", collection.get("collectionType"));
       return route.playerModel(params, context, playerCollection, collection);

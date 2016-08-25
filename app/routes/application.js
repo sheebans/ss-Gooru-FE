@@ -41,14 +41,16 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
     // Ultimately all server and javascript errors will be caught by this handler
     Ember.onerror = function (error) {
-      const errorMessage = route.get('i18n').t('common.unexpectedError').string;
-      route.get('notifications').error(errorMessage);
-      route.trackAppError(error);
+      if(error.status !== 401) {
+        const errorMessage = route.get('i18n').t('common.unexpectedError').string;
+        route.get('notifications').error(errorMessage);
+        route.trackAppError(error);
+      }
     };
 
     Ember.$(document).ajaxError(function(event, jqXHR, settings) {
       if(jqXHR.status !== 401) {
-      route.trackEndPointError(event, jqXHR, settings);
+        route.trackEndPointError(event, jqXHR, settings);
       }
     });
 
@@ -83,14 +85,16 @@ export default Ember.Route.extend(PublicRouteMixin, {
     this.handleLegacyUrlIfNecessary();
   },
 
-
   setupController: function(controller, model) {
     const theme = model.theme;
     if (theme){
       controller.set("theme", theme);
       this.setupTheme(theme, model.translations);
     }
-    controller.set('myClasses', model.myClasses);
+
+    if (model.myClasses) {
+      controller.set('myClasses', model.myClasses);
+    }
   },
 
   /**
@@ -263,10 +267,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
      */
     updateUserClasses: function() {
       const route = this;
-      return route.get('classService').findMyClasses()
-        .then(function(classes) {
-          return route.set('controller.myClasses', classes);
-        });
+      return route.get('controller').loadUserClasses();
     }
   }
 

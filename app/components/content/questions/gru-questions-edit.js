@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
-import Answer from 'gooru-web/models/content/answer';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
 import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
@@ -340,7 +339,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     var promiseArray = [];
     var answersPromise = null;
     if (editedQuestion.get('isFIB')) {
-      editedQuestion.set('answers', component.defineFIBAnswers(editedQuestion));
+      editedQuestion.set('answers', FillInTheBlank.getQuestionAnswers(editedQuestion.get("text")));
       component.updateQuestion(editedQuestion, component);
     } else if (editedQuestion.get('isOpenEnded')) {
       component.updateQuestion(editedQuestion, component);
@@ -419,22 +418,6 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
       }
       component.set('didValidate', true);
     });
-  },
-
-  defineFIBAnswers: function(question) {
-    const component = this;
-    let answers = Ember.A([]);
-    const questionText = question.get('text');
-    const matchedAnswers = FillInTheBlank.getCorrectAnswers(questionText);
-    answers = matchedAnswers.map(function(answer, index) { //todo this is duplicated
-      return Answer.create(Ember.getOwner(component).ownerInjection(), {
-        sequence: index + 1,
-        text: answer.substring(1, answer.length - 1), // it removes []
-        isCorrect: true,
-        type: 'text'
-      });
-    });
-    return answers;
   },
 
   /**

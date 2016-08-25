@@ -54,16 +54,26 @@ Once the release branch has been created, the build will be deployed to the stag
 * Once your changes are merged to the release candidate branch a Staging deployment will occur, verify that your changes are deployed correctly and move the ticket to QA
 
 ## Hotfix development
-Once the release candidate is deployed to production, if any issue is reported from that environment it will be treated as a hotfix (if approved by Product Owner/PM/Tech Lead/QA). Hot fixes are tagged with the **Hot-Fix** label, developers will take one hot fix at the time
+Once the release candidate is deployed to production, if any issue is reported from that environment it will be treated as a hotfix (if approved by Product Owner/PM/Tech Lead/QA). Every hotfix will have a Jira ticket tagged with the **Hot-Fix** label. Also a Production Release Hotfix ticket will be created in Jira, this ticket will be the reference to create a new hotfix branch in Git. Every hotfix reported will be worked in a sub-branch (normal branch) created from hotfix branch.
 
-* Move the ticket (having the Hot-Fix label) to the in progress column
-* Create a hotfix branch (using the latest of the master branch)
+* Create and move the ticket Production Release <release number> (Hotfix) to the in progress column.
+* Create the hotfix branch (using the latest of the master branch)
     * `git checkout master`   
     * `git pull origin master`
-    * `git flow hotfix start BRANCH_NAME`
-* When changes are ready, **add a change log** for this fix and publish them for peer review 
+    * `git flow hotfix start HOTFIX_BRANCH_NAME`
+* Move the hotfix ticket (having the Hot-Fix label) to the in progress column
+* Create a sub-branch (normal branch) from the hotfix branch
+    * `git checkout hotfix/HOTFIX_BRANCH_NAME`   
+    * `git pull origin hotfix/HOTFIX_BRANCH_NAME`
+    * `git checkout -b BRANCH_NAME`
+* When changes are ready, publish them for peer review 
+    * `git push origin BRANCH_NAME`
+* Once changes are approved and the branch build is passing merge the changes back to the hotfix branch (Hotfix production candidate branch)
+    * `git checkout hotfix/HOTFIX_BRANCH_BRANCH`
+    * `git merge BRANCH_NAME`
+    * `git push origin hotfix/HOTFIX_BRANCH_BRANCH`
+* Once all hotfixes were completed and merged back into the hotfix branch then publish the hotfix branch to be deployed to the staging server (Nucleus QA) for validation.
     * `git flow hotfix publish BRANCH_NAME`
-* Once changes are approved and the branch build is passing, it will be deployed to the staging server (Nucleus QA) for validation.
 * Once **QA sign off the changes** the hotfix branch can be merged back to master
     * `git flow hotfix finish BRANCH_NAME`
 * Make sure you changes are **also merged back to develop** 

@@ -15,7 +15,7 @@ test('Fill in the blanks layout', function(assert) {
   const question = Ember.Object.create({
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
-    text: 'The sun is _______ and the moon _______',
+    text: 'The sun is [yellow] and the moon [white]',
     fibText: 'The sun is _______ and the moon _______',
     hints: [],
     explanation: 'Sample explanation text',
@@ -44,7 +44,7 @@ test('Fill in the blanks events', function(assert) {
   const question = Ember.Object.create({
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
-    text: 'The sun is _______ and the moon _______',
+    text: 'The sun is [yellow] and the moon [white]',
     fibText: 'The sun is _______ and the moon _______',
     hints: [],
     explanation: 'Sample explanation text',
@@ -110,7 +110,7 @@ test('Fill in the blanks layout - read only', function(assert) {
   const question = Ember.Object.create({
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
-    text: 'The sun is _______ and the moon _______',
+    text: 'The sun is [yellow] and the moon [white]',
     fibText: 'The sun is _______ and the moon _______',
     hints: [],
     explanation: 'Sample explanation text',
@@ -137,7 +137,7 @@ test('Fill in the blanks layout - with user answer', function(assert) {
   const question = Ember.Object.create({
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
-    text: 'The sun is _______ and the moon _______',
+    text: 'The sun is [yellow] and the moon [white]',
     fibText: 'The sun is _______ and the moon _______',
     hints: [],
     explanation: 'Sample explanation text',
@@ -167,7 +167,7 @@ test('Set two questions', function(assert) {
   const question = Ember.Object.create({
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
-    text: 'The sun is_______ and the moon_______',
+    text: 'The sun is[yellow] and the moon[white]',
     fibText: 'The sun is_______ and the moon_______',
     hints: [],
     explanation: 'Sample explanation text',
@@ -184,7 +184,7 @@ test('Set two questions', function(assert) {
   const question1 = Ember.Object.create({
     "id": "569906aacea8416665209d53",
     questionType: 'FIB',
-    text: 'The sun is_______ ,the moon_______ and the stars_______',
+    text: 'The sun is[yellow] ,the moon[white] and the stars_______',
     fibText: 'The sun is_______ ,the moon_______ and the stars_______',
     hints: [],
     explanation: 'Sample explanation text',

@@ -66,7 +66,7 @@ test('Apply taxonomy filter', function(assert) {
   visit('/search/resources?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
 
   andThen(function() {
-    assert.equal(currentURL(), '/search/resources?taxonomies=%5B%22TEKS.K12.SC-K-SIR-01%22%2C%22TEKS.K12.SC-K-SIR-02%22%5D&term=any');
+    assert.equal(currentURL(), '/search/resources?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
 
     assert.equal(find(".gru-taxonomy-tag-list .gru-taxonomy-tag").length, 2, "Number of tags rendered");
   });
@@ -76,7 +76,7 @@ test('Apply taxonomy filter - Removing taxonomy tag', function(assert) {
   visit('/search/resources?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
 
   andThen(function() {
-    assert.equal(currentURL(), '/search/resources?taxonomies=%5B%22TEKS.K12.SC-K-SIR-01%22%2C%22TEKS.K12.SC-K-SIR-02%22%5D&term=any');
+    assert.equal(currentURL(), '/search/resources?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
 
     const $taxonomyTags = find(".gru-taxonomy-tag-list .gru-taxonomy-tag");
 

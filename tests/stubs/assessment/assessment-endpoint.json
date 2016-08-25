@@ -67,5 +67,23 @@
         "Content-Type": "application/json"
       }
     }
+  },
+  {
+    "description": "Gets any assessment",
+    "request": {
+      "url": "^/api/nucleus/v1/assessments/first-assessment-id$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-assessment-200-response.json"
+    }
   }
 ]

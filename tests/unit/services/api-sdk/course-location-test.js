@@ -14,7 +14,7 @@ test('findOneByUser', function (assert) {
   Ember.run(function() {
     const promise = service.findOneByUser('id-1');
     promise.then(function(courseLocation) {
-      assert.equal(courseLocation.get('unit'), '7deebd55-1976-40a2-8e46-3b8ec5b6d388', 'Wrong unit');
+      assert.equal(courseLocation.get('unit'), 'second-unit-id', 'Wrong unit');
       assert.equal(courseLocation.get('lesson'), '27f0bc24-c2b5-40d8-bb8f-e6ec939ad553', 'Wrong lesson');
       assert.equal(courseLocation.get('collection'), '567399f336d4a8e75eb10661', 'Wrong collection');
       assert.equal(courseLocation.get('locationUsers.length'), 1, 'Missing users');
