@@ -6,6 +6,7 @@ moduleForComponent('player/questions/gru-hs-text', 'Integration | Component | pl
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale", "en");
+    this.inject.service('i18n');
   }
 });
 
@@ -40,9 +41,9 @@ test('Layout', function (assert) {
   assert.equal($answersContainer.find("li.answer").length, 4, "Incorrect number of answer choices");
 
   assert.equal($answersContainer.find("li.answer:first-child").data('id'), 1, "First answer choice, data-id value is incorrect");
-  assert.equal($answersContainer.find("li.answer:first-child span").text().trim(), "Banana", "First answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:first-child span.gru-math-text").text().trim(), "Banana", "First answer choice does not have the right text");
   assert.equal($answersContainer.find("li.answer:last-child").data('id'), 4, "Last answer choice, data-id value is incorrect");
-  assert.equal($answersContainer.find("li.answer:last-child span").text().trim(), "Watermelon", "Last answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:last-child span.gru-math-text").text().trim(), "Watermelon", "Last answer choice does not have the right text");
 });
 
 test('Selecting answers', function (assert) {
@@ -258,10 +259,10 @@ test('Set two questions', function (assert) {
   const $component = this.$(); //component dom element
   const $answersContainer = $component.find('.answer-choices');
 
-  assert.equal($answersContainer.find("li.answer:first-child span").text().trim(), "Banana", "First answer choice does not have the right text");
-  assert.equal($answersContainer.find("li.answer:last-child span").text().trim(), "Watermelon", "Last answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:first-child span.gru-math-text").text().trim(), "Banana", "First answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:last-child span.gru-math-text").text().trim(), "Watermelon", "Last answer choice does not have the right text");
   this.set('question', question1);
 
-  assert.equal($answersContainer.find("li.answer:first-child span").text().trim(), "Banana1", "First answer choice does not have the right text");
-  assert.equal($answersContainer.find("li.answer:last-child span").text().trim(), "Watermelon1", "Last answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:first-child span.gru-math-text").text().trim(), "Banana1", "First answer choice does not have the right text");
+  assert.equal($answersContainer.find("li.answer:last-child span.gru-math-text").text().trim(), "Watermelon1", "Last answer choice does not have the right text");
 });

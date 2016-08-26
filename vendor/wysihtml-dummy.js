@@ -7,7 +7,7 @@ var wysihtml5 = {
       composer: {
         commands : {
           exec: function(name, p1) {
-            if (name === "insertHTML") {
+            if (name === "insertHTML" && document.getElementById(id)) {
               document.getElementById(id).innerHTML = p1;
             }
           }

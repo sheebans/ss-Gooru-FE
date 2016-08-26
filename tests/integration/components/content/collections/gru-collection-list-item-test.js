@@ -12,6 +12,7 @@ moduleForComponent('content/collections/gru-collection-list-item', 'Integration 
   integration: true,
 
   beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale", "en");
     this.inject.service('i18n');
   }
 });

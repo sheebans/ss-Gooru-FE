@@ -4,7 +4,11 @@ import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
 
 moduleForComponent('reports/assessment/questions/gru-reorder', 'Integration | Component | reports/assessment/questions/gru reorder', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale", "en");
+    this.inject.service('i18n');
+  }
 });
 
 test('Reoder Question - Show Correct Answer', function (assert) {
