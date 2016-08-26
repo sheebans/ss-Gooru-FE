@@ -52,6 +52,7 @@ export default Ember.Component.extend({
       question.set("description", component.get('i18n').t('common.new-question-text').string); //TODO temporal fix
       question.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
+          component.set('isLoading',true);
           let questionId;
           component.get('questionService')
             .createQuestion(question)
@@ -69,6 +70,7 @@ export default Ember.Component.extend({
                 component.closeModal(questionId);
               },
               function() {
+                component.set('isLoading',false);
                 const message = component.get('i18n').t('common.errors.question-not-created').string;
                 component.get('notifications').error(message);
               }
@@ -142,11 +144,16 @@ export default Ember.Component.extend({
     }
     return questionTypes;
   }),
+  /**
+   * Indicate if it's waiting for createQuestion callback
+   */
+  isLoading: false,
 
 
   //Methods
   closeModal : function(questionId){
     const component = this;
+    component.set('isLoading',false);
     component.triggerAction({ action: 'closeModal' });
 
     const collectionId = component.get('model.id');

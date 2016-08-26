@@ -36,7 +36,12 @@ export default Ember.Component.extend({
    * Class names
    * @property {string}
    */
-  classes: null
+  classes: null,
+  /**
+   * isLoading
+   * @property {boolean}
+   */
+  isLoading:false
 
   // -------------------------------------------------------------------------
   // Observers

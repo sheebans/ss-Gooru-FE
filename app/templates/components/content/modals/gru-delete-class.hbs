@@ -36,11 +36,10 @@
             <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
                 <span aria-hidden="true">{{t 'common.cancel'}}</span>
             </button>
-          {{#if isLoading}}
-            {{gru-spinner-button classes='btn btn-danger delete' text=(t 'common.loading')}}
-          {{else}}
-            <button {{action "deleteContent" model}} class="btn btn-danger delete" disabled={{isDisabled}}>{{t 'common.delete'}}</button>
-          {{/if}}
+
+          {{#gru-spinner-button classes='btn btn-danger delete' text=(t 'common.loading') isLoading=isLoading}}
+              <button {{action "deleteContent" model}} class="btn btn-danger delete" disabled={{isDisabled}}>{{t 'common.delete'}}</button>
+          {{/gru-spinner-button}}
         </div>
 
     </form>

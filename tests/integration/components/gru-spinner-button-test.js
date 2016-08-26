@@ -17,7 +17,7 @@ test('Layout', function(assert) {
   this.set('text', text);
   this.set('classes', classes);
 
-  this.render(hbs`{{gru-spinner-button classes=classes text=text}}`);
+  this.render(hbs`{{gru-spinner-button classes=classes text=text isLoading=true}}`);
 
   let $component = this.$(),
   $spinnerButton = $component.find("button.has-spinner");

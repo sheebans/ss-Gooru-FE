@@ -105,9 +105,8 @@ test('show spinner button component while the server response, after clicking on
   this.on("joinClass", function(code){
     assert.equal(code, "any","The event should be thrown");
   });
-  this.set('isLoading', false);
 
-  this.render(hbs`{{content/modals/gru-join-class onJoinClass='joinClass' isLoading=isLoading}}`);
+  this.render(hbs`{{content/modals/gru-join-class onJoinClass='joinClass'}}`);
 
   const $component = this.$('.content.modal.gru-join-class');
 
@@ -118,7 +117,7 @@ test('show spinner button component while the server response, after clicking on
   $component.find(".join-class-btn").click();
 
   return wait().then(function () {
-    assert.ok($component.find(".gru-spinner-button").length, 'Spinner button should appear');
+    assert.ok($component.find(".gru-spinner-button .has-spinner").length, 'Spinner button should appear');
   });
 });
 
@@ -129,9 +128,8 @@ test('Disable spinner button after showing an error', function (assert) {
   this.on("joinClass", function(code){
     assert.equal(code, "any","The event should be thrown");
   });
-  this.set('isLoading', false);
 
-  this.render(hbs`{{content/modals/gru-join-class validCode=null isLoading=isLoading}}`);
+  this.render(hbs`{{content/modals/gru-join-class validCode=null}}`);
 
   const $component = this.$('.content.modal.gru-join-class');
 
@@ -145,6 +143,6 @@ test('Disable spinner button after showing an error', function (assert) {
 
   return wait().then(function () {
     assert.ok($codeField.find(".error-messages .error").length, 'Invalid code message should appear');
-    assert.notOk($component.find(".gru-spinner-button").length, 'Spinner button should not appear');
+    assert.notOk($component.find(".gru-spinner-button .has-spinner").length, 'Spinner button should not appear');
   });
 });
