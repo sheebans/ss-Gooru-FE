@@ -98,10 +98,10 @@ export default Ember.Component.extend({
         editor.focus();
         if(component.get('content')){
           editor.composer.commands.exec("insertHTML", component.get('content'));
+          component.renderMathExpressions();
+          component.makeExpressionsReadOnly();
+          component.setCursor();
         }
-        component.renderMathExpressions();
-        component.makeExpressionsReadOnly();
-        component.setCursor();
       }
     }, 100);
 
