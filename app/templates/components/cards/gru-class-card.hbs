@@ -23,9 +23,9 @@
       <div class="collaborators">
         {{! Place collaborator avatar and first name in the next two lines }}
         <img class="collaborator-avatar" src="{{class.owner.avatarUrl}}" alt="{{class.owner.displayName}}">
-        {{#link-to 'profile' class.owner.id tagName="span" class="name pointer"}}
+        <span class="name">
           {{truncate text=class.owner.displayName maxLength=18}}
-        {{/link-to}}
+        </span>          
         {{#if (gt collaboratorsCount 0)}} <span class="collaborators-count">+{{collaboratorsCount}}</span>{{/if}}
       </div>
       <div class="students-info">
