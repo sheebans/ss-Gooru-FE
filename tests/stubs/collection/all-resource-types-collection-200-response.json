@@ -19,7 +19,7 @@
   "lesson_id": null,
   "content": [
     {
-      "id": "c8e9f5ad-021e-4f97-a36b-bc854ca094b3",
+      "id": "image-resource-id",
       "title": "Cycling",
       "url": "http://www.velofix.com/wp-content/uploads/2013/03/Cycling_golf.jpg",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
@@ -40,7 +40,7 @@
       "description": null
     },
     {
-      "id": "82cda6e6-d34e-4e14-bd72-f4cd0868cb6b",
+      "id": "webpage-resource-id",
       "title": "Golf",
       "url": "https://en.wikipedia.org/wiki/Golf",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
@@ -61,7 +61,7 @@
       "description": null
     },
     {
-      "id": "eba8e0ee-9c96-4e81-9338-7153125fde1a",
+      "id": "video-resource-id",
       "title": "Swimming",
       "url": "https://www.youtube.com/watch?v=Xh9jAD1ofm4",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
@@ -82,7 +82,7 @@
       "description": null
     },
     {
-      "id": "42749b05-18b5-4691-a980-1ec4e62b6b82",
+      "id": "interactive-resource-id",
       "title": "Taekwondo",
       "url": "https://s-media-cache-ak0.pinimg.com/originals/ba/10/80/ba10806ccce1c060fef3a4ce75e1db7f.jpg",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
@@ -103,7 +103,7 @@
       "description": null
     },
     {
-      "id": "8f77623a-f5ed-4d62-9085-bdd6d456ab94",
+      "id": "audio-resource-id",
       "title": "Basketball",
       "url": "https://en.wikipedia.org/wiki/Basketball#/media/File:Jordan_by_Lipofsky_16577.jpg",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
@@ -124,7 +124,7 @@
       "description": null
     },
     {
-      "id": "88d65c77-a721-4bdd-ae53-56a12517b049",
+      "id": "text-resource-id",
       "title": "Chess",
       "url": "https://www.chess.com/",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
@@ -145,7 +145,7 @@
       "description": null
     },
     {
-      "id": "efbf5176-1390-11e6-bd2c-c13107c2c772",
+      "id": "hst-question-id",
       "title": "<p>Cuales de los siguientes paises han sido campeones mundiales de futbol?</p>",
       "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
       "original_creator_id": null,

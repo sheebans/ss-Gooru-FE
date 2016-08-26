@@ -25,7 +25,7 @@ test('findById', function(assert) {
     'collectionItemId': '49557e9b-3aae-4cda-ab7f-23f8c9b2bd31',
     'lastModified': 1448581167000,
     'questions': '',
-    'gooruOid': '31886eac-f998-493c-aa42-016f53e9fa88',
+    'gooruOid': 'first-unit-id',
     'taxonomyCourse': [
       {
         'id': 36,
@@ -50,7 +50,7 @@ test('findById', function(assert) {
   var done = assert.async();
   service.findById('course-id-1', 'unit-id-1')
     .then(function(unit) {
-      assert.equal(unit.get('id'), '31886eac-f998-493c-aa42-016f53e9fa88', 'Wrong unit id');
+      assert.equal(unit.get('id'), 'first-unit-id', 'Wrong unit id');
       assert.equal(unit.get('title'), 'Code conventions', 'Wrong title');
       assert.equal(unit.get('visibility'), false, 'Wrong visibility');
       assert.equal(unit.get('collection'), 24413345, 'Wrong collection');
@@ -63,13 +63,13 @@ test('findByClassAndCourse', function(assert) {
   const response = [
     {
       'title': 'Code conventions',
-      'gooruOid': '31886eac-f998-493c-aa42-016f53e9fa88',
+      'gooruOid': 'first-unit-id',
       'collectionId': 24413345,
       'visibility': false
     },
     {
       'title': 'Unit testing',
-      'gooruOid': '7deebd55-1976-40a2-8e46-3b8ec5b6d388',
+      'gooruOid': 'second-unit-id',
       'collectionId': 24413347,
       'visibility': false
     }
@@ -87,7 +87,7 @@ test('findByClassAndCourse', function(assert) {
     .then(function(units) {
       assert.equal(units.get('length'), 2, 'Missing units');
       const unit = units.get('firstObject');
-      assert.equal(unit.get('id'), '31886eac-f998-493c-aa42-016f53e9fa88', 'Wrong unit id');
+      assert.equal(unit.get('id'), 'first-unit-id', 'Wrong unit id');
       assert.equal(unit.get('title'), 'Code conventions', 'Wrong title');
       assert.equal(unit.get('visibility'), false, 'Wrong visibility');
       assert.equal(unit.get('collection'), 24413345, 'Wrong collection');

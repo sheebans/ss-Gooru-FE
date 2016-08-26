@@ -44,6 +44,7 @@ export default {
     "answer-key-was-hidden": "Note: Your teacher has hidden the answer key.",
     "approved": "Approved",
     "assessment": "Assessment",
+    "assessment-disabled": "You can't attempt this assessment",
     "assessment-external": "Assessment-External",
     "assessment-pl": {
       one: "Assessment",
@@ -667,12 +668,12 @@ export default {
         "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
       },
       "delete-resource": {
-        "legend": "Confirm you want to permanently delete {{title}}",
+        "legend": "Confirm you want to permanently delete <b>{{title}}</b>",
         "delete-warning": "All content in this {{type}} will be deleted",
         "delete-error": "Oops! Unable to delete {{type}} right now. Please try again shortly.",
         "confirmation": "Are you sure you want to continue? Please click “Permanently Delete”.",
         "first-check": "This is a permanent delete and cannot be undone",
-        "second-check": "Copies of this resource, in your collections and any collection by other users in the community, will be deleted."
+        "second-check": "Copies of this resource, in your collections and any collection by other users in the community, will be deleted"
       },
       "remove-content": {
         "legend": "You are about to remove <b>{{title}}</b> from <b>{{parentName}}</b>",
@@ -689,10 +690,10 @@ export default {
         "confirmation": "Are you sure you want to continue? Please type “delete” below and click “delete”."
       },
       "quick-remove-content":{
-        "legend": "Confirm you want to remove {{title}} from {{parentName}}."
+        "legend": "Confirm you want to remove <b>{{title}}</b> from <b>{{parentName}}</b>."
       },
       "quick-delete-content":{
-        "legend": "Confirm you want to permanently delete {{title}} from {{parentName}}.",
+        "legend": "Confirm you want to permanently delete <b>{{title}}</b> from <b>{{parentName}}</b>.",
         "delete": "Permanently Delete"
       }
     },
@@ -1276,7 +1277,9 @@ export default {
     "feedback-immediate": "Per question & at the end",
     "feedback-never": "Never",
     "feedback-summary": "At the end",
-    "navigation-scoring": "Navigation and Scoring"
+    "navigation-scoring": "Navigation and Scoring",
+    "disable-heading": "Activate Assessment in Course Map",
+    "disable-legend": "Students can play the assessment from their course map"
   },
 
   "gru-tour": {

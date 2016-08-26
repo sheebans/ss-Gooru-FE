@@ -69,15 +69,16 @@ export default Ember.Mixin.create({
    * @return undefined
    */
   updateAccordionById: function (accordionId) {
+
     if (accordionId === this.get('model.id')) {
       if (!this.get('isExpanded')) {
         // If not expanded, open the accordion by simulating a click on the anchor in the heading
-        this.$('#' + this.get('elementId') + '-heading > .panel-title a').click();
+        this.$(`#${this.get('elementId')}-heading > .panel-title a`).click();
       }
     } else {
       if (this.get('isExpanded')) {
         // If expanded, close the accordion by simulating a click on the anchor in the heading
-        this.$('#' + this.get('elementId') + '-heading > .panel-title a').click();
+        this.$(`#${this.get('elementId')}-heading > .panel-title a`).click();
       }
     }
   }

@@ -55,7 +55,7 @@ test('onOpenContentPlayer: When opening a collection', function(assert) {
     T.exists(assert, $firstCollectionLink, "Missing collection link");
     click($firstCollectionLink); //clicking first collection title
     andThen(function() {
-      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=c8e9f5ad-021e-4f97-a36b-bc854ca094b3&type=collection');
+      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
     });
   });
 });
@@ -106,5 +106,3 @@ test('Apply taxonomy filter - Removing taxonomy tag', function(assert) {
     });
   });
 });
-
-

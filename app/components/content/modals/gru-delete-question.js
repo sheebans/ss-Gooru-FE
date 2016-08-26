@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import { CONTENT_TYPES } from 'gooru-web/config/config';
 /**
- * Delete resource component
+ * Delete question component
  *
  * Component responsible for delete a content from content builder
  *
@@ -25,22 +24,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'modals', 'gru-delete-resource'],
-  // -------------------------------------------------------------------------
-  // Events
-  init(){
-    this._super(...arguments);
-    // 'validator' should never be set as a param except for testing
-    var validator = this.get('validator');
-    if (!validator) {
-      this.set('validator',Ember.Object.create({
-        check1:false,
-        check2:false
-      }));
-    } else {
-      this.set('validator', validator);
-    }
-  },
+  classNames: ['content', 'modals', 'gru-delete-question'],
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -49,7 +34,7 @@ export default Ember.Component.extend({
     /**
      * Delete Content
      */
-    deleteContent: function (model) {
+    deleteQuestion: function (model) {
       let component = this;
 
       component.set('isLoading', true);
@@ -87,26 +72,8 @@ export default Ember.Component.extend({
   model: null,
 
   /**
-   * Content types.
-   */
-  types: CONTENT_TYPES,
-
-  /**
-   * Object to control when the delete button becomes enabled
-   * @property {model}
-   */
-  validator: null,
-
-  /**
    * Indicate if it's waiting for deleteMethod callback
    */
-  isLoading: false,
+  isLoading: false
 
-  /**
-   * Indicate if delete button is disabled
-   */
-  isDisabled: Ember.computed('validator.{check1,check2}',function(){
-    var areChecked = this.get('validator.check1') && this.get('validator.check2');
-    return !(areChecked);
-  })
 });

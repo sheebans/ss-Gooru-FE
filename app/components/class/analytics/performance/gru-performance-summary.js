@@ -88,6 +88,7 @@ export default Ember.Component.extend({
         if(attemptsSetting){
           component.set('noMoreAttempts', isAssessment && attemptsSetting > 0 && attempts && attempts >= attemptsSetting);
         }
+        component.set('isDisabled', !performanceData.get('classroom_play_enabled'));
       });
     }
   },

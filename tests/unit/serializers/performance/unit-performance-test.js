@@ -10,7 +10,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         "userUid": "6f337b1c-0b0d-49b3-8314-e279181aeddf",
         "usageData": [
           {
-            "unitId": "31886eac-f998-493c-aa42-016f53e9fa88",
+            "unitId": "first-unit-id",
             "completedCount": 5,
             "scoreInPercentage": 80,
             "timeSpent": 121507,
@@ -18,7 +18,7 @@ test('normalizeQueryRecordResponse', function(assert) {
             "totalCount": 10
           },
           {
-            "unitId": "7deebd55-1976-40a2-8e46-3b8ec5b6d388",
+            "unitId": "second-unit-id",
             "completedCount": 3,
             "scoreInPercentage": 55,
             "timeSpent": 215122,
@@ -26,7 +26,7 @@ test('normalizeQueryRecordResponse', function(assert) {
             "totalCount": 10
           },
           {
-            "unitId": "21654d76-45e7-45e9-97ab-5f96a14da135",
+            "unitId": "third-unit-id",
             "completedCount": 3,
             "scoreInPercentage": 55,
             "timeSpent": 215122,
@@ -57,7 +57,7 @@ test('normalizeQueryRecordResponse', function(assert) {
   };
   const expected = {
     "data": [{
-      "id": "31886eac-f998-493c-aa42-016f53e9fa88",
+      "id": "first-unit-id",
       "type": "performance/unit-performance",
       "attributes": {
         "type": "unit",
@@ -69,7 +69,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         "ratingScore": 0
       }
     }, {
-      "id": "7deebd55-1976-40a2-8e46-3b8ec5b6d388",
+      "id": "second-unit-id",
       "type": "performance/unit-performance",
       "attributes": {
         "type": "unit",
@@ -81,7 +81,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         "ratingScore": 0
       }
     }, {
-      "id": "21654d76-45e7-45e9-97ab-5f96a14da135",
+      "id": "third-unit-id",
       "type": "performance/unit-performance",
       "attributes": {
         "type": "unit",
