@@ -3,7 +3,6 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import DS from 'ember-data';
-import Course from 'gooru-web/models/content/course';
 
 const courseServiceStub = Ember.Service.extend({
 
