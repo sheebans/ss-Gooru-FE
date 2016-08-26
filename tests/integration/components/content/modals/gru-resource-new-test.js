@@ -3,7 +3,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Resource from 'gooru-web/models/content/resource';
-import ResourceValidations from 'gooru-web/validations/resource';
+//import ResourceValidations from 'gooru-web/validations/resource';
 import Collection from 'gooru-web/models/content/collection';
 
 const collectionServiceMock = Ember.Service.extend({

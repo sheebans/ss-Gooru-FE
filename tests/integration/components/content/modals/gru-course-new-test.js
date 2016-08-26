@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import DS from 'ember-data';
+import Course from 'gooru-web/models/content/course';
 
 const courseServiceStub = Ember.Service.extend({
 
@@ -58,7 +59,7 @@ test('it renders', function (assert) {
 
   assert.equal($body.find('.actions button').length, 2, 'Number of action buttons');
   assert.ok($body.find('.actions button.cancel').length, 'Cancel button');
-  assert.ok($body.find('.actions button[type="submit"]').length, 'Submit button');
+  assert.ok($body.find('.actions .create').length, 'Submit button');
 });
 
 test('it shows an error message if the course title field is left blank', function (assert) {
@@ -72,7 +73,7 @@ test('it shows an error message if the course title field is left blank', functi
   assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
+  $component.find(".actions .create").click();
 
   return wait().then(function () {
 
@@ -115,7 +116,7 @@ test('it transitions after creating a new course', function (assert) {
   $titleField.find("input").blur();
 
   return wait().then(function () {
-    $component.find(".actions button[type='submit']").click();
+    $component.find(".actions .create").click();
 
     return wait().then(function () {
       assert.equal(transition.route, 'content.courses.edit', 'Transition to correct route');
@@ -146,7 +147,7 @@ test('it displays a notification if the course cannot be created', function (ass
   $titleField.find("input").blur();
 
   return wait().then(function () {
-    $component.find(".actions button[type='submit']").click();
+    $component.find(".actions .create").click();
   });
 });
 test('Validate if the Course Title field has only whitespaces', function (assert) {
@@ -160,14 +161,14 @@ test('Validate if the Course Title field has only whitespaces', function (assert
   assert.ok(!$titleField.find(".error-messages .error").length, 'Course Title error message not visible');
 
   // Try submitting without filling in data
-  $component.find(".actions button[type='submit']").click();
+  $component.find(".create").click();
 
   return wait().then(function () {
 
     assert.ok($titleField.find(".error-messages .error").length, 'Course Title error should be visible');
     // Fill in the input field
     $titleField.find("input").val(' ');
-    $component.find(".actions button[type='submit']").click();
+    $component.find(".actions .create").click();
 
     return wait().then(function () {
       assert.ok($titleField.find(".error-messages .error").length, 'Course Title error message should be visible');
@@ -183,32 +184,36 @@ test('Validate the character limit in the Course title field', function (assert)
 });
 
 
-//test('show spinner button component while the server response, after clicking on the create button', function(assert) {
-//  assert.expect(2);
-//
-//  this.on('closeModal', function () {
-//    assert.ok(true, 'closeModal action triggered');
-//  });
-//
-//  // Mock the transitionTo method in the router
-//  this.set('router', {
-//    transitionTo(route, courseId) {
-//      assert.ok(route, 'Has route');
-//      assert.ok(courseId, 'has course Id');
-//    }
-//  });
-//
-//  this.render(hbs`{{content/modals/gru-course-new router=router}}`);
-//  const $component = this.$(".gru-course-new");
-//
-//  const $titleField = $component.find(".gru-input.title");
-//
-//  $titleField.find("input").val('Course Name');
-//
-//  $component.find(".actions .create").click();
-//
-//  return wait().then(function () {
-//    assert.ok($component.find('.actions .gru-spinner-button .has-spinner').length, 'Missing gru-spinner-button component');
-//    assert.ok(!$component.find(".actions > button.create").length, 'Create should not be visible');
-//  });
-//});
+test('show spinner button component while the server response, after clicking on the create button', function(assert) {
+  assert.expect(5);
+
+  this.on('closeModal', function () {
+    assert.ok(true, 'closeModal action triggered');
+  });
+
+  // Mock the transitionTo method in the router
+  this.set('router', {
+    transitionTo(route, courseId) {
+      assert.ok(route, 'Has route');
+      assert.ok(courseId, 'has course Id');
+    }
+  });
+
+  this.set('isLoading',false);
+
+  this.render(hbs`{{content/modals/gru-course-new router=router isLoading=isLoading}}`);
+  const $component = this.$(".gru-course-new");
+
+  const $titleField = $component.find(".gru-input.title");
+
+  $titleField.find("input").val('Course Name');
+
+  $titleField.find("input").blur();
+
+  $component.find(".actions .create").click();
+
+  return wait().then(function () {
+    assert.ok($component.find('.actions .gru-spinner-button .has-spinner').length, 'Missing gru-spinner-button component');
+    assert.ok(!$component.find(".actions button.create").length, 'Create should not be visible');
+  });
+});
