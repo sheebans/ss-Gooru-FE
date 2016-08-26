@@ -38,7 +38,7 @@
         </div>
         <div class="modal-body">
           <ul>
-            {{#each remainingUsers as |entity|}}
+            {{#each usersSorted as |entity|}}
               <li class="item user {{if entity.isActive 'active' ''}}">
                 <img class="img-circle" src="{{entity.avatarUrl}}" title="{{entity.fullName}}" />
                 <span class="user-name">{{truncate text=entity.firstName maxLength=10}} {{truncate text=entity.lastName maxLength=10}}</span>
