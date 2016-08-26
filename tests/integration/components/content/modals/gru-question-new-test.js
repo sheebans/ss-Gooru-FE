@@ -1,9 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
-//import QuestionModel from 'gooru-web/models/content/question';
-//import Collection from 'gooru-web/models/content/collection';
-//import wait from 'ember-test-helpers/wait';
+import Collection from 'gooru-web/models/content/collection';
+import wait from 'ember-test-helpers/wait';
 
 const collectionServiceMock = Ember.Service.extend({
   addQuestion: function(collectionId, questionId) {
@@ -76,54 +75,37 @@ test('Select question type', function(assert) {
   assert.equal($component.find('.panel.active').length,1, 'Only one type should be active');
 });
 
-//test('show spinner button component while the server response, after clicking on the add to button', function(assert) {
-//
-//  this.set('router', {
-//    transitionTo(route, resourceId, queryParams) {
-//      return {
-//        route: route,
-//        resource: resourceId,
-//        queryParams:queryParams
-//      };
-//    }
-//  });
-//
-//  var question = QuestionModel.create({
-//    title: "Question Title",
-//    format:"question",
-//    type:"MC",
-//    text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-//    owner:Ember.Object.create({
-//      firstName:"Publisher"
-//    }),
-//    standards:Ember.A([Ember.Object.create({
-//      description:"Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
-//      code:"CCSS.Math.Content.7.RP.A.3"
-//    }),Ember.Object.create({
-//      description:"Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
-//      code:"CCSS.Math.Content.5.NBT.A.2"
-//    })])
-//  });
-//
-//
-//
-//  this.set('collection', Collection.create(Ember.getOwner(this).ownerInjection(), {
-//    id: 'collection-id'
-//  }));
-//
-//  this.on('closeModal', function () {
-//    assert.ok(true, 'closeModal action triggered');
-//  });
-//
-//  this.render(hbs`{{content/modals/gru-question-new model=collection router=router}}`);
-//
-//  const $component = this.$('.gru-question-new');
-//
-//  $component.find(".add").click();
-//
-//  return wait().then(function () {
-//    assert.ok($component.find('.actions .gru-spinner-button .has-spinner.add-loading').length, 'Missing gru-spinner-button component');
-//    assert.ok(!$component.find(".actions .gru-spinner-button .add").length, 'Create button should not be visible');
-//  });
-//});
+test('show spinner button component while the server response, after clicking on the add to button', function(assert) {
+
+  this.set('router', {
+    transitionTo(route, resourceId, queryParams) {
+      return {
+        route: route,
+        resource: resourceId,
+        queryParams:queryParams
+      };
+    }
+  });
+
+  this.set('isLoading',false);
+
+  this.set('collection', Collection.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'collection-id'
+  }));
+
+  this.on('closeModal', function () {
+    assert.ok(true, 'closeModal action triggered');
+  });
+
+  this.render(hbs`{{content/modals/gru-question-new model=collection router=router isLoading=isLoading}}`);
+
+  const $component = this.$('.gru-question-new');
+
+  $component.find(".add").click();
+
+  return wait().then(function () {
+    assert.ok($component.find('.actions .gru-spinner-button .has-spinner').length, 'Missing gru-spinner-button component');
+    assert.ok(!$component.find(".actions .gru-spinner-button .add").length, 'Create button should not be visible');
+  });
+});
 

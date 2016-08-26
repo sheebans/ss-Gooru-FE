@@ -3,7 +3,6 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Resource from 'gooru-web/models/content/resource';
-//import ResourceValidations from 'gooru-web/validations/resource';
 import Collection from 'gooru-web/models/content/collection';
 
 const collectionServiceMock = Ember.Service.extend({
@@ -284,166 +283,140 @@ test('it toggles views between a URL and an upload resource', function (assert) 
   assert.ok($component.find('label.title-label input').length, 'Missing Title Input');
 });
 
-//test('show spinner button component while the server response, after clicking on the create button', function(assert) {
-//
-//  // Mock the refresh method in the router
-//  this.set('router', {
-//    router:{
-//      refresh(){
-//        assert.ok(true, 'refresh function triggered');
-//      }
-//    }
-//  });
-//
-//  this.actions.closeModal = function() {
-//    assert.ok(true, 'Close modal action triggered');
-//  };
-//
-//  this.set('collection', Collection.create(Ember.getOwner(this).ownerInjection(), {
-//    id: 'collection-id'
-//  }));
-//
-//  var resourceValidations = new ResourceValidations();
-//
-//  var urlResourceFactory = Resource.extend(resourceValidations.getAllValidations());
-//
-//
-//  this.render(hbs`{{content/modals/gru-resource-new model=collection router=router resource=resource}}`);
-//
-//  this.set('resource', urlResourceFactory.create(Ember.getOwner(this).ownerInjection(),{
-//    id:"12345",
-//    title: "Resource Title",
-//    url:"www.youtube.com",
-//    format: "video",
-//    publisher:"publisher",
-//    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-//    owner: Ember.Object.create({
-//      firstName: "Publisher"
-//    }),
-//    standards: Ember.A([Ember.Object.create({
-//      description: "Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
-//      code: "CCSS.Math.Content.7.RP.A.3"
-//    }), Ember.Object.create({
-//      description: "Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
-//      code: "CCSS.Math.Content.5.NBT.A.2"
-//    })])
-//  }));
-//
-//
-//  const $component = this.$('.gru-resource-new');
-//
-//  $component.find(".add-btn").click();
-//  return wait().then(function () {
-//      assert.ok($component.find('.actions .gru-spinner-button .has-spinner.create-loading').length, 'Missing gru-spinner-button component');
-//      assert.ok(!$component.find(".actions .gru-spinner-button .create").length, 'Create should not be visible');
-//  });
-//});
-//
-//test('show spinner button component while the server response, after clicking on the more details button', function(assert) {
-//
-//  // Mock the transitionTo method in the router
-//  this.set('router', {
-//    transitionTo(route, resourceId) {
-//      return {
-//        route: route,
-//        resource: resourceId
-//      };
-//    }
-//  });
-//  this.actions.closeModal = function() {
-//    assert.ok(true, 'Close modal action triggered');
-//  };
-//
-//  this.set('collection', Collection.create(Ember.getOwner(this).ownerInjection(), {
-//    id: 'collection-id'
-//  }));
-//
-//  var resourceValidations = new ResourceValidations();
-//
-//  var urlResourceFactory = Resource.extend(resourceValidations.getAllValidations());
-//
-//
-//  this.render(hbs`{{content/modals/gru-resource-new model=collection router=router resource=resource}}`);
-//
-//  const $component = this.$('.gru-resource-new');
-//
-//  this.set('resource', urlResourceFactory.create(Ember.getOwner(this).ownerInjection(),{
-//    id:"12345",
-//    title: "Resource Title",
-//    format: "video",
-//    publisher:"publisher",
-//    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-//    owner: Ember.Object.create({
-//      firstName: "Publisher"
-//    }),
-//    standards: Ember.A([Ember.Object.create({
-//      description: "Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
-//      code: "CCSS.Math.Content.7.RP.A.3"
-//    }), Ember.Object.create({
-//      description: "Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
-//      code: "CCSS.Math.Content.5.NBT.A.2"
-//    })])
-//  }));
-//
-//  $component.find(".more-btn").click();
-//  return wait().then(function () {
-//    assert.ok($component.find('.actions .gru-spinner-button .has-spinner.more-loading').length, 'Missing gru-spinner-button component');
-//    assert.ok(!$component.find(".actions .gru-spinner-button .more-btn").length, 'More details button should not be visible');
-//  });
-//});
-//
-//test('show spinner button component while the server response, after clicking on the add to button', function(assert) {
-//
-//  // Mock the refresh method in the router
-//  this.set('router', {
-//    router:{
-//      refresh(){
-//        assert.ok(true, 'refresh function triggered');
-//      }
-//    }
-//  });
-//
-//  var resourceValidations = new ResourceValidations();
-//
-//  var urlResourceFactory = Resource.extend(resourceValidations.getAllValidations());
-//
-//
-//  this.set('existingResource', resource);
-//
-//  this.set('collection', Collection.create(Ember.getOwner(this).ownerInjection(), {
-//    id: 'collection-id'
-//  }));
-//
-//  this.on('closeModal', function () {
-//    assert.ok(true, 'closeModal action triggered');
-//  });
-//
-//  this.render(hbs`{{content/modals/gru-resource-new model=collection router=router existingResource=existingResource}}`);
-//
-//  const $component = this.$('.gru-resource-new');
-//
-//  this.set('existingResource', urlResourceFactory.create(Ember.getOwner(this).ownerInjection(),{
-//    id:"12345",
-//    title: "Resource Title",
-//    format: "video",
-//    publisher:"publisher",
-//    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-//    owner: Ember.Object.create({
-//      firstName: "Publisher"
-//    }),
-//    standards: Ember.A([Ember.Object.create({
-//      description: "Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
-//      code: "CCSS.Math.Content.7.RP.A.3"
-//    }), Ember.Object.create({
-//      description: "Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
-//      code: "CCSS.Math.Content.5.NBT.A.2"
-//    })]),
-//  }));
-//
-//  $component.find(".add-btn").click();
-//
-//  return wait().then(function () {
-//    assert.ok($component.find('.actions .gru-spinner-button .has-spinner.add-loading').length, 'Missing gru-spinner-button component');
-//    assert.ok(!$component.find(".actions .gru-spinner-button .add-btn").length, 'Add to button should not be visible');
-//  });
-//});
+test('show spinner button component while the server response, after clicking on the create button', function(assert) {
+
+  // Mock the refresh method in the router
+  this.set('router', {
+    router:{
+      refresh(){
+        assert.ok(true, 'refresh function triggered');
+      }
+    }
+  });
+
+  this.actions.closeModal = function() {
+    assert.ok(true, 'Close modal action triggered');
+  };
+
+  this.set('collection', Collection.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'collection-id'
+  }));
+  this.set('isLoadingCreate',false);
+
+  this.render(hbs`{{content/modals/gru-resource-new model=collection router=router resource=resource isLoadingCreate=isLoadingCreate}}`);
+
+  const $component = this.$('.gru-resource-new');
+
+  const $urlField = $component.find(".gru-input.url");
+  const $titleField = $component.find(".gru-input.title");
+
+
+  $urlField.find("input").val('resource-url.com');
+  $urlField.find("input").blur();
+  $titleField.find("input").val('resource-title');
+  $titleField.find("input").blur();
+  $component.find(".add-btn").click();
+
+  return wait().then(function () {
+      assert.ok($component.find('.actions .gru-spinner-button .has-spinner').length, 'Missing gru-spinner-button component');
+      assert.ok(!$component.find(".actions .gru-spinner-button .create").length, 'Create should not be visible');
+  });
+});
+
+test('show spinner button component while the server response, after clicking on the more details button', function(assert) {
+
+  // Mock the transitionTo method in the router
+  this.set('router', {
+    transitionTo(route, resourceId) {
+      return {
+        route: route,
+        resource: resourceId
+      };
+    },
+    router:{
+      refresh(){
+        assert.ok(true, 'refresh function triggered');
+      }
+    }
+  });
+
+
+  this.actions.closeModal = function() {
+    assert.ok(true, 'Close modal action triggered');
+  };
+
+  this.set('collection', Collection.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'collection-id'
+  }));
+
+  this.set('isLoadingMoreDetails',false);
+
+  this.render(hbs`{{content/modals/gru-resource-new model=collection router=router resource=resource isLoadingMoreDetails=isLoadingMoreDetails}}`);
+  const $component = this.$('.gru-resource-new');
+
+  const $urlField = $component.find(".gru-input.url");
+  const $titleField = $component.find(".gru-input.title");
+
+  $urlField.find("input").val('resource-url.com');
+  $urlField.find("input").blur();
+  $titleField.find("input").val('resource-title');
+  $titleField.find("input").blur();
+
+  $component.find(".more-btn").click();
+  return wait().then(function () {
+    assert.ok($component.find('.actions .gru-spinner-button .has-spinner').length, 'Missing gru-spinner-button component');
+    assert.ok(!$component.find(".actions .gru-spinner-button .more-btn").length, 'More details button should not be visible');
+  });
+});
+
+test('show spinner button component while the server response, after clicking on the add to button', function(assert) {
+
+  // Mock the refresh method in the router
+  this.set('router', {
+    router:{
+      refresh(){
+        assert.ok(true, 'refresh function triggered');
+      }
+    }
+  });
+
+
+  this.set('existingResource', Resource.create(Ember.getOwner(this).ownerInjection(),{
+    id:"12345",
+    title: "Resource Title",
+    format: "video",
+    publisher:"publisher",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    owner: Ember.Object.create({
+      firstName: "Publisher"
+    }),
+    standards: Ember.A([Ember.Object.create({
+      description: "Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.",
+      code: "CCSS.Math.Content.7.RP.A.3"
+    }), Ember.Object.create({
+      description: "Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.",
+      code: "CCSS.Math.Content.5.NBT.A.2"
+    })])
+  }));
+
+  this.set('collection', Collection.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'collection-id'
+  }));
+
+  this.on('closeModal', function () {
+    assert.ok(true, 'closeModal action triggered');
+  });
+
+  this.set('isLoadingAddTo',false);
+
+  this.render(hbs`{{content/modals/gru-resource-new model=collection router=router existingResource=existingResource isLoadingAddTo=isLoadingAddTo}}`);
+
+  const $component = this.$('.gru-resource-new');
+
+  $component.find(".add-btn").click();
+
+  return wait().then(function () {
+    assert.ok($component.find('.actions .gru-spinner-button .has-spinner').length, 'Missing gru-spinner-button component');
+    assert.ok(!$component.find(".actions .gru-spinner-button .add-btn").length, 'Add to button should not be visible');
+  });
+});
