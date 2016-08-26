@@ -188,8 +188,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           }
         }
         else{
-          // Add the description message to the equation editor
-          component.set('descriptionError', model.get('validations.attrs.description.messages')[0]);
           component.set('didValidate', true);
         }
       });
