@@ -47,7 +47,10 @@
           min-width: $table-cell-width;
         }
 
-        i.fa-sort-asc, i.fa-sort-desc {
+        i.gru-icon {
+          font-size: 13px;
+        }
+        i.gru-icon.arrow_upward, i.gru-icon.arrow_downward {
           display: none;
         }
 
@@ -64,18 +67,18 @@
         }
 
         &.ascending {
-          i.fa-sort-asc {
+          i.gru-icon.arrow_upward {
             display: inline-block;
           }
-          i.fa-sort, i.fa-sort-desc {
+          i.gru-icon.arrow_downward, i.gru-icon.swap_vert {
             display: none;
           }
         }
         &.descending {
-          i.fa-sort-desc {
+          i.gru-icon.arrow_downward {
             display: inline-block;
           }
-          i.fa-sort, i.fa-sort-asc {
+          i.gru-icon.arrow_upward, i.gru-icon.swap_vert {
             display: none;
           }
         }
