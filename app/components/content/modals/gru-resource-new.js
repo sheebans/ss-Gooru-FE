@@ -58,14 +58,8 @@ export default Ember.Component.extend({
         resource.validate().then(function ({ validations }) {
 
           if (validations.get('isValid')) {
-            if(type === "edit") {
-              component.set('isLoadingMoreDetails',true);
-            } else {
-              component.set('isLoadingCreate', true);
-            }
-
+            type === "edit" ? component.set('isLoadingMoreDetails',true) : component.set('isLoadingCreate', true);
             let resourceId;
-
             component.$('.resource-new button.add-btn').prop('disabled', true);
             component.handleResourceUpload(resource).then(function(uploadedResource) {
               component.get('resourceService').createResource(uploadedResource)
