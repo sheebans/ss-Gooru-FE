@@ -61,6 +61,6 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {isTeacherAndStudentCard}
    */
   "isTeacherAndStudentCard":Ember.computed('isStudent','isStudentCard',function(){
-    return !this.get('isStudent')&& this.get('isStudentCard');
+    return !this.get('isStudent') && this.get('isStudentCard');
   })
 });
