@@ -12,6 +12,8 @@ const courseServiceStub = Ember.Service.extend({
 
     if (course.get('title') === 'COURSE FAIL') {
       promiseResponse = new Ember.RSVP.reject();
+    } if (updateAll === true) {
+      promiseResponse = new Ember.RSVP.reject();
     } else {
       course.set('id', 12345);
       promiseResponse = new Ember.RSVP.resolve(course);
@@ -20,8 +22,6 @@ const courseServiceStub = Ember.Service.extend({
     return DS.PromiseObject.create({
       promise: promiseResponse
     });
-
-    assert.equal(updateAll,false, 'This method should not update all course values');
   },
   copyCourse() {
     return DS.PromiseObject.create({
