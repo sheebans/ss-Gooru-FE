@@ -12,7 +12,7 @@ const courseServiceStub = Ember.Service.extend({
 
     if (course.get('title') === 'COURSE FAIL') {
       promiseResponse = new Ember.RSVP.reject();
-    } if (updateAll === true) {
+    } else if (updateAll === true) {
       promiseResponse = new Ember.RSVP.reject();
     } else {
       course.set('id', 12345);
