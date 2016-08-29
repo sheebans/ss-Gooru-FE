@@ -48,6 +48,7 @@ test('FIB - isAnswerChoiceCorrect', function (assert) {
   let questionUtil = FillInTheBlankUtil.create({question: question});
 
   assert.ok(questionUtil.isAnswerChoiceCorrect("optionA", 0), "Answer should be correct");
+  assert.ok(questionUtil.isAnswerChoiceCorrect("Optiona", 0), "Answer should be correct");
   assert.ok(!questionUtil.isAnswerChoiceCorrect("optionC", 1), "Answer should not be correct, optionC is at index 2");
   assert.ok(!questionUtil.isAnswerChoiceCorrect("optionD", 1), "Answer should not be correct, optionD is not valid");
 });
