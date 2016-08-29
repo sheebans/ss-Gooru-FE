@@ -70,3 +70,24 @@ test('it shows an error message if the title field is left blank and you blur it
     });
   });
 });
+
+test('Create Class', function (assert) {
+  visit('/content/classes/create');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/content/classes/create');
+
+    const $createClassContainer = find(".create-class");
+    const $titleField = $createClassContainer.find(".gru-input.title");
+
+    $titleField.find("input").val('Username');
+    $titleField.find("input").blur();
+
+    // Try submitting without filling in data
+    $createClassContainer.find("button.get-started-btn").click();
+
+    return wait().then(function () {
+      assert.equal(currentURL(), '/class/2d84ab6c-10ee-4578-b89a-6b41c87dc9fc/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id');
+    });
+  });
+});

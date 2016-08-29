@@ -262,7 +262,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
     /**
      * Gets a refreshed list of user classes
-     * @see gru-class-new.js
+     * @see create.js
      * @see join.js
      */
     updateUserClasses: function() {
