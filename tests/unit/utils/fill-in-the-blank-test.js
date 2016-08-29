@@ -52,6 +52,24 @@ test('FIB - isAnswerChoiceCorrect', function (assert) {
   assert.ok(!questionUtil.isAnswerChoiceCorrect("optionD", 1), "Answer should not be correct, optionD is not valid");
 });
 
+test('FIB - isAnswerChoiceCorrect with special character', function (assert) {
+  let answers = Ember.A([
+    Ember.Object.create({id: 1, text: '/'}),
+    Ember.Object.create({id: 2, text: '*'}),
+    Ember.Object.create({id: 3, text: '+'})
+  ]);
+
+  let question = Ember.Object.create({
+    text: "[/] and [*] and [+]",
+    answers: answers
+  });
+  let questionUtil = FillInTheBlankUtil.create({question: question});
+
+  assert.ok(questionUtil.isAnswerChoiceCorrect("/", 0), "Answer should be correct");
+  assert.ok(!questionUtil.isAnswerChoiceCorrect("+", 1), "Answer should not be correct, + is at index 2");
+  assert.ok(!questionUtil.isAnswerChoiceCorrect("%", 1), "Answer should not be correct, % is not valid");
+});
+
 test('FIB - isCorrect', function (assert) {
   let answers = Ember.A([
     Ember.Object.create({id: 1, text: 'optionA'}),

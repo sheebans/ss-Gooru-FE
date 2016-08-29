@@ -44,8 +44,8 @@ const FillInTheBlankUtil = QuestionUtil.extend({
    */
   isAnswerChoiceCorrect: function (answerChoice, index) {
     let correctAnswer = this.getCorrectAnswer();
-    let regex = new RegExp(`^${answerChoice}$`, 'i');
-    return correctAnswer[index] && regex.test(correctAnswer[index]);
+    return correctAnswer[index] &&
+      correctAnswer[index].toUpperCase() === answerChoice.toUpperCase();
   },
 
   /**
