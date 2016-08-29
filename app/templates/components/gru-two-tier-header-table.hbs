@@ -26,9 +26,9 @@
         {{action "updateSortCriteria" 0 -1}}>
         <span>
           {{rowHeadersHeader.label}}
-          <i class="fa fa-sort"></i>
-          <i class="fa fa-sort-asc"></i>
-          <i class="fa fa-sort-desc"></i>
+          {{gru-icon name='swap_vert'}}
+          {{gru-icon name='arrow_upward'}}
+          {{gru-icon name='arrow_downward'}}
         </span>
       </th>
     {{/if}}
@@ -40,9 +40,9 @@
           {{action "updateSortCriteria" firstTierIndex secondTierIndex}}>
           <span>
             {{secondTierHeader.label}}
-            <i class="fa fa-sort"></i>
-            <i class="fa fa-sort-asc"></i>
-            <i class="fa fa-sort-desc"></i>
+            {{gru-icon name='swap_vert'}}
+            {{gru-icon name='arrow_upward'}}
+            {{gru-icon name='arrow_downward'}}
           </span>
         </th>
       {{/each}}
