@@ -7,7 +7,7 @@ import CourseModel from 'gooru-web/models/content/course';
 
 const courseServiceStub = Ember.Service.extend({
 
-  updateCourse(course) {
+  updateCourse(course,updateAll) {
     var promiseResponse;
 
     if (course.get('title') === 'COURSE FAIL') {
@@ -20,6 +20,8 @@ const courseServiceStub = Ember.Service.extend({
     return DS.PromiseObject.create({
       promise: promiseResponse
     });
+
+    assert.equal(updateAll,false, 'This method should not update all course values');
   },
   copyCourse() {
     return DS.PromiseObject.create({
