@@ -36,9 +36,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
-  didUpdate() {
-    this.validateAnswer();
-  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -55,11 +52,5 @@ export default Ember.Component.extend({
   /**
    * @property {boolean}
    */
-  disableEditorButtons: Ember.computed.not("showAdvancedEditor"),
-
-  // -------------------------------------------------------------------------
-  // Method
-  validateAnswer: function() {
-    this.$('.text-area-container textarea').trigger('blur');
-  }
+  disableEditorButtons: Ember.computed.not("showAdvancedEditor")
 });

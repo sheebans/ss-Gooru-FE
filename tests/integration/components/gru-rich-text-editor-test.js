@@ -85,9 +85,16 @@ test('Select fraction', function(assert) {
 
 test('Select sqrt', function(assert) {
 
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "T/F"
+  });
+
+  this.set('tempQuestion', tempQuestion);
   this.set('showExpressionsPanel',true);
 
-  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel}}`);
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description'}}`);
   const $component = this.$();
   $component.find(".tab-content .sqrt").click();
   return wait().then(function () {
@@ -677,4 +684,38 @@ test('Select pi', function(assert) {
   return wait().then(function () {
     assert.equal(T.text($component.find(".math-field .mq-root-block .mq-nonSymbola")), 'π', 'Incorrect pi icon');
   });
+});
+
+test('Show editor toolbar', function(assert) {
+
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "MC"
+  });
+
+  this.set('tempQuestion', tempQuestion);
+  this.set('showExpressionsPanel',true);
+
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description' disableButtons=false}}`);
+  const $component = this.$();
+  T.exists(assert,  $component.find(".btn-toolbar"), "Missing btn-toolbar panel");
+  assert.ok(!$component.find(".btn-toolbar").hasClass("hidden"), "Active classes should be visible");
+});
+
+test('Hide editor toolbar', function(assert) {
+
+  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text:"",
+    type: "MC"
+  });
+
+  this.set('tempQuestion', tempQuestion);
+  this.set('showExpressionsPanel',true);
+
+  this.render(hbs`{{gru-rich-text-editor showExpressionsPanel=showExpressionsPanel content=tempQuestion.text model=tempQuestion valuePath='description' disableButtons=true}}`);
+  const $component = this.$();
+  T.exists(assert,  $component.find(".btn-toolbar"), "Missing btn-toolbar panel");
+  assert.ok($component.find(".btn-toolbar").hasClass("hidden"), "Active classes should be hidden");
 });

@@ -1087,3 +1087,43 @@ test('Layout view question image', function (assert) {
     assert.ok($image, 'Image shoudl be shown');
   });
 });
+
+test('Builder Edit with advanced edit button for the Multiple Choice answers', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.multipleChoice,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text A",
+      'isCorrect': false,
+      'type':"text"
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text B",
+      'isCorrect': false,
+      'type':"text"
+    })]),
+    standards: []
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit =  $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    var $builderSection = $component.find("#builder");
+    const $switchComponent = $component.find(".question-answer .panel-heading .advanced-button .gru-switch");
+    assert.ok($switchComponent.length, "Missing advanced button switchComponent");
+    const $richEditorComponent = $component.find(".question-answer .panel-body .gru-rich-text-editor");
+
+    assert.ok($richEditorComponent.length, "Missing gru-rich-text-editor component");
+    assert.ok($richEditorComponent.find('.btn-toolbar').hasClass("hidden"), "btn-toolbar should be hidden for the answers editors");
+
+    $switchComponent.find("a").click();
+
+    return wait().then(function () {
+      assert.ok(!$richEditorComponent.find('.btn-toolbar').hasClass("hidden"), "btn-toolbar should not be hidden for the answers editors");
+    });
+  });
+});
+
