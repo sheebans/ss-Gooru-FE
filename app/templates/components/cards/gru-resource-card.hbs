@@ -44,6 +44,7 @@
       <p class="truncate">{{gru-math-text text=(if resource.isFIB resource.fibText resource.description)}}</p>
     </div>
   </div>
+  {{#unless isLinkOut}}
   <div class="panel-footer">
     <div class="buttons">
       {{#if editEnabled }}
@@ -66,4 +67,5 @@
       </div>
     {{/unless}}
   </div>
+  {{/unless}}
 </div>
