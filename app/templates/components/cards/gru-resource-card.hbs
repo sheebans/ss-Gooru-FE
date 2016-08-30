@@ -2,13 +2,21 @@
   <div class="panel-heading">
     <div class="header">
       <div class="image">
-        {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
-          <i class="{{resource.format}}-icon"></i>
-        {{/link-to}}
+          {{#if isLinkOut}}
+              <i class="{{resource.format}}-icon"></i>
+          {{else}}
+            {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
+                <i class="{{resource.format}}-icon"></i>
+            {{/link-to}}
+          {{/if}}
       </div>
       <div class="resource-info">
         <div class="title-section">
-          {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+          {{#if isLinkOut}}
+            <h6 class="title truncate">{{{resource.title}}}</h6>
+            {{else}}
+            {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+          {{/if}}
           {{#unless publishVisible}}
             {{#if resource.isPublished}}
               <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>

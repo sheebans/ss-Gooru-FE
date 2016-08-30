@@ -127,10 +127,12 @@ export default Ember.Component.extend(ModalMixin,{
    */
   tags: Ember.computed('resource.standards.[]', function() {
     var standards = this.get('resource.standards');
-    standards = standards.filter(function(standard) {
-      // Filter out learning targets (they're too long for the card)
-      return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
-    });
+    if(standards){
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+    }
     return TaxonomyTag.getTaxonomyTags(standards);
   }),
   /**

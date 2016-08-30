@@ -279,9 +279,11 @@ const ResourceModel = Ember.Object.extend({
     return PlayerResource.create({
       id: model.get("id"),
       order: model.get("order"),
+      owner:model.get("owner"),
       title: model.get("title"),
       resourceType: model.get("resourceType"),
       resourceFormat: model.get("format"),
+      format:model.get("format"),
       description: model.get("description"),
       thumbnail: model.get("thumbnailUrl"),
       assetUrl: model.get("assetUrl"),
