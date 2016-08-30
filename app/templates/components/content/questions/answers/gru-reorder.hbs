@@ -6,7 +6,7 @@
       </div>
       {{#if editMode}}
       <div class="text-area-container">
-        {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons index=index model=answer valuePath='text'}}
+        {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons model=answer valuePath='text'}}
       </div>
       <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
 

@@ -64,7 +64,7 @@ export default Ember.Component.extend({
    * */
   hasReachedAnswersLimit: Ember.computed('answers.[]', function () {
     return (this.get('answers').length >= this.get('maxAnswers'));
-  }),
+  })
 
   // -------------------------------------------------------------------------
   // Method

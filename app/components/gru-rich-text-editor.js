@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { LATEX_EXPRESSIONS } from 'gooru-web/config/question';
-import { removeHtmlTags } from 'gooru-web/utils/utils';
+import { removeHtmlTags, generateUUID } from 'gooru-web/utils/utils';
 
 /**
  * Rich text editor component
@@ -212,6 +212,11 @@ export default Ember.Component.extend({
   cursor: null,
 
   /**
+   * @param {String} uuid
+   */
+  uuid: null,
+
+  /**
    * @param {Computed } showMessage - computed property that defines if show validation messages
    */
   showMessage: Ember.computed('content', function() {
@@ -224,11 +229,16 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @param {Computed } editorIndex - computed property that display the editor index when there is more than one
+   * @param {Computed } editorIndex - computed property that generate an UUID for the editor index
    */
-  editorIndex: Ember.computed('index', function() {
-    var index = (this.get('index')!== undefined) ? '-'+this.get('index') : '';
-    return index;
+
+  editorIndex: Ember.computed(function(){
+    let editorIndex = this.get("uuid");
+    if (!editorIndex){
+      editorIndex = generateUUID();
+    }
+
+    return editorIndex;
   }),
 
   restoreMathAndSelection: Ember.observer('showExpressionsPanel', function() {

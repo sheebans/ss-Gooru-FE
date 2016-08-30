@@ -1111,7 +1111,6 @@ test('Builder Edit with advanced edit button for the Multiple Choice answers', f
   const $edit =  $component.find("#builder .actions .edit");
   $edit.click();
   return wait().then(function () {
-    var $builderSection = $component.find("#builder");
     const $switchComponent = $component.find(".question-answer .panel-heading .advanced-button .gru-switch");
     assert.ok($switchComponent.length, "Missing advanced button switchComponent");
     const $richEditorComponent = $component.find(".question-answer .panel-body .gru-rich-text-editor");

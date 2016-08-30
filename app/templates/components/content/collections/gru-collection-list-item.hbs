@@ -107,6 +107,7 @@
             {{/if}}
             {{component (questionConfig model.type 'component.builder_answer') answers=tempModel.answers editMode=true showAdvancedEditor=showAdvancedEditor}}
           </div>
+          {{gru-notify onLoad="focusQuestionTextEditor"}}
         {{/unless}}
       {{else}}
         <div class="narration">

@@ -210,6 +210,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       if(isChecked){
         this.set('showAdvancedEditor', true);
       }
+    },
+
+    focusQuestionTextEditor: function(){
+      this.scrollToFirstEditor();
     }
   },
 
@@ -555,5 +559,19 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       'editImagePicker': false,
       'showAdvancedEditor': false
     });
+  },
+
+  /**
+  * scroll to first editor of the page, when it has several editor answers
+  */
+  scrollToFirstEditor: function () {
+    var component= this;
+    Ember.run.later(function() {
+      var editorID = '.panel-body .question .gru-rich-text-editor:eq(0) .rich-editor';
+      var editor = component.$(editorID);
+      if(editor && editor.length>0) {
+        editor[0].focus();
+      }
+    }, 100);
   }
 });

@@ -6,7 +6,7 @@
     </div>
     <div class="text-area-container">
       {{#if editMode}}
-        {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons index=index model=answer valuePath='text'}}
+        {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons model=answer valuePath='text'}}
        {{else}}
         <p>{{{gru-math-text text=answer.text}}}</p>
       {{/if}}

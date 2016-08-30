@@ -53,7 +53,7 @@ export default Ember.Component.extend({
   /**
    * @property {boolean}
    */
-  disableEditorButtons: Ember.computed.not("showAdvancedEditor"),
+  disableEditorButtons: Ember.computed.not("showAdvancedEditor")
 
   // -------------------------------------------------------------------------
   // Method
