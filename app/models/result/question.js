@@ -64,7 +64,7 @@ export default ResourceResult.extend({
    * @property {boolean}
    */
   skipped: Ember.computed("correct", "userAnswer", function () {
-    return (this.get("correct") === false) && !this.get("answered");
+    return !this.get("correct") && !this.get("answered");
   }),
 
   /**
