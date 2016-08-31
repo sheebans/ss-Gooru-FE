@@ -7,10 +7,7 @@ moduleForComponent('content/modals/gru-submit-confirmation', 'Integration | Comp
 
 test('Layout', function(assert) {
   this.set('model', {
-    title: 'any-title',
-    onConfirm: function() {
-      assert.ok(true, 'onConfirm called.')
-    }
+    title: 'any-title'
   });
   this.render(hbs`{{content/modals/gru-submit-confirmation}}`);
 
