@@ -2,7 +2,10 @@ import Ember from 'ember';
 import { COUNTRY_CODES, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
+  // -------------------------------------------------------------------------
+  // Attributes
 
+  classNames: ['gru-edit-profile'],
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -121,6 +124,14 @@ export default Ember.Component.extend({
             });
           }
         });
+      } else if (showCountryErrorMessage) {
+        $('html, body').animate({
+          scrollTop: $(".gru-edit-profile .country .error-messages").offset().top
+        }, 1000);
+      }else {
+        $('html, body').animate({
+          scrollTop: $(".gru-edit-profile .role .error-messages").offset().top
+        }, 1000);
       }
     },
 
