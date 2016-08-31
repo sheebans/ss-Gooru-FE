@@ -126,7 +126,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
       };
 
       this.actions.showModal.call(this,
-        'content.modals.gru-delete-content',
+        'content.modals.gru-delete-question',
         model, null, null, null, false);
     },
 

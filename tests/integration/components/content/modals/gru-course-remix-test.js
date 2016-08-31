@@ -7,10 +7,12 @@ import CourseModel from 'gooru-web/models/content/course';
 
 const courseServiceStub = Ember.Service.extend({
 
-  updateCourse(course) {
+  updateCourse(course,updateAll) {
     var promiseResponse;
 
     if (course.get('title') === 'COURSE FAIL') {
+      promiseResponse = new Ember.RSVP.reject();
+    } else if (updateAll === true) {
       promiseResponse = new Ember.RSVP.reject();
     } else {
       course.set('id', 12345);

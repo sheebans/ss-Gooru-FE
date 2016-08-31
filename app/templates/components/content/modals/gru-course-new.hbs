@@ -2,8 +2,7 @@
   <h4 class="modal-title">{{t "common.add-course"}}</h4>
 </div>
 <div class="modal-body">
-  <form {{action "createCourse" on="submit"}}>
-
+  <form>
     <label>
       <span class="required">{{t 'common.course-title'}}</span>
       {{validation.gru-input model=course valuePath='title' maxLength=50}}
@@ -25,9 +24,10 @@
       <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
         <span aria-hidden="true">{{t 'common.cancel'}}</span>
       </button>
-      <button type="submit" class="btn btn-primary">{{t 'common.create'}}</button>
+      {{#gru-spinner-button classes='btn btn-primary' text=(t 'common.loading') isLoading=isLoading}}
+          <button class="btn btn-primary create" {{action "createCourse"}}>{{t 'common.create'}}</button>
+      {{/gru-spinner-button}}
     </div>
 
   </form>
 </div>
-

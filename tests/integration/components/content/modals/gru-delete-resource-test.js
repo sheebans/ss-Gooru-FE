@@ -15,7 +15,7 @@ moduleForComponent('content/modals/gru-delete-resource', 'Integration | Componen
 test('it renders', function(assert) {
   const model = {
     content: {
-      title: "Test String"
+      title: 'Test String'
     }
   };
   this.set('model', model);
@@ -36,7 +36,7 @@ test('it renders', function(assert) {
 
   assert.ok($component.find('p.legend').length, 'Missing Delete Course Legend');
 
-  assert.equal($component.find('p.legend').text(),  this.get('i18n').t('content.modals.delete-resource.legend', { title: model.content.title }).string, 'Incorrect legend');
+  assert.equal($component.find('p.legend').text(),  'Confirm you want to permanently delete Test String', 'Incorrect legend');
 
   assert.ok($component.find('.delete-info').length, 'Missing Delete Information');
   assert.equal($component.find('.delete-info ul li:eq(0) label span').text(), this.get('i18n').t('content.modals.delete-resource.first-check').string, 'Incorrect first check warning');
@@ -187,10 +187,10 @@ test('show spinner button component while the server response, after clicking on
   this.render(hbs`{{content/modals/gru-delete-resource model=model validator=validator isLoading=isLoading}}`);
   const $component = this.$(".gru-delete-resource");
 
-  $component.find('.actions> button.delete').click();
+  $component.find('.actions button.delete').click();
 
   return wait().then(function () {
-    assert.ok($component.find('.actions> .gru-spinner-button').length, 'Missing gru-spinner-button component');
+    assert.ok($component.find('.actions .gru-spinner-button').length, 'Missing gru-spinner-button component');
     assert.ok(!$component.find('.actions> button.delete').length, 'Delete Button should not be visible');
   });
 });

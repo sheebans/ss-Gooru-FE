@@ -34,23 +34,22 @@ export default Ember.Component.extend({
       createClass: function () {
         const component = this;
         const newClass = this.get('newClass');
-        newClass.validate().then(function ({ validations }) {
+        newClass.validate().then(function ({validations }) {
           if (validations.get('isValid')) {
+            component.set('isLoading', true);
             component.get('classService')
-                .createClass(newClass)
-                .then(function(newClass) {
-                  component.sendAction('updateUserClasses');  // Triggers the refresh of user classes in top header
-                  component.get('router').transitionTo('class.overview', newClass.get('id'));
-                },
-
-                function() {
-                  const message = component.get('i18n').t('common.errors.class-not-created').string;
-                  component.get('notifications').error(message);
-                }
-              );
+              .createClass(newClass)
+              .then(function(newClass) {
+                component.sendAction('onUpdateUserClasses',newClass.id);  // Triggers the refresh of user classes in top header
+              }, function() {
+                component.set('isLoading', false);
+                const message = component.get('i18n').t('common.errors.class-not-created').string;
+                component.get('notifications').error(message);
+              }
+            );
           }
-          this.set('didValidate', true);
-        }.bind(this));
+          component.set('didValidate', true);
+        });
       }
 
     },
@@ -96,6 +95,11 @@ export default Ember.Component.extend({
   /**
    * @type {String} open or restricted, tells the component which radio is checked.
    */
-  currentClassSharing:  Ember.computed.alias('newClass.classSharing')
+  currentClassSharing:  Ember.computed.alias('newClass.classSharing'),
+
+  /**
+   * Indicate if it's waiting for join class callback
+   */
+  isLoading: false
 
 });

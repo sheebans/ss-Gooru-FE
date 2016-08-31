@@ -1,18 +1,22 @@
 .gru-user-card {
   display: table;
+
   > span {
-    display: table-row;
-    padding: 5px;
-    width: 100%;
-    text-align: center;
     cursor: pointer;
-    img.avatar {
-      width: $user-card-avatar-width;
-      height: $user-card-avatar-height;
+    display: table-row;
+    line-height: 17px;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+
+    .avatar {
       border-radius: 60px;
-      margin: 10px;
       display: inline-block;
+      height: $user-card-avatar-height;
+      margin: 10px;
+      width: $user-card-avatar-width;
     }
+
     &.user-name {
       span {
         display: block;
@@ -20,17 +24,19 @@
       }
     }
   }
-  .display-name{
-    width: 120px;
+
+  .display-name {
     height: 46px;
+    width: 120px;
   }
-  .remove{
+
+  .remove {
+    background-color: $dark-300;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: $white;
     display: block;
     height: 30px;
-    background-color: $dark-300;
-    color: $white;
-    line-height:21px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    line-height: 21px;
   }
 }

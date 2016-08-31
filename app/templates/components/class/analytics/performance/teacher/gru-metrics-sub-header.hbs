@@ -5,12 +5,12 @@
         {{t (concat 'gru-metrics-sub-header.' metric.value) }}
         {{#if metric.sorted}}
           {{#if metric.isAsc}}
-              <span>{{fa-icon icon='sort-asc'}}</span>
+              <span>{{gru-icon name='arrow_upward'}}</span>
           {{else}}
-              <span>{{fa-icon icon='sort-desc'}}</span>
+              <span>{{gru-icon name='arrow_downward'}}</span>
           {{/if}}
         {{else}}
-            <span>{{fa-icon icon='sort'}}</span>
+            <span>{{gru-icon name='swap_vert'}}</span>
         {{/if}}
       </a>
     </div>

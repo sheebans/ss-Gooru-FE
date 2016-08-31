@@ -36,7 +36,7 @@ test('Layout', function (assert) {
     assert.equal($container.find('.conditions label').length, 2, "Number of edit sections");
 
     assert.ok($container.find('a.cancel-button').length, "Cancel button is missing");
-    assert.ok($container.find('a.get-started-btn').length, "Get started button is missing");
+    assert.ok($container.find('button.get-started-btn').length, "Get started button is missing");
 
 
 
@@ -55,7 +55,7 @@ test('it shows an error message if the title field is left blank and you blur it
 
     assert.ok(!$titleField.find(".error-messages .error").length, 'Username error message should not be visible');
     // Try submitting without filling in data
-    $createClassContainer.find("a.get-started-btn").click();
+    $createClassContainer.find("button.get-started-btn").click();
 
     return wait().then(function () {
 
@@ -67,6 +67,27 @@ test('it shows an error message if the title field is left blank and you blur it
       return wait().then(function () {
         assert.ok(!$titleField.find(".error-messages .error").length, 'Username error message was hidden');
       });
+    });
+  });
+});
+
+test('Create Class', function (assert) {
+  visit('/content/classes/create');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/content/classes/create');
+
+    const $createClassContainer = find(".create-class");
+    const $titleField = $createClassContainer.find(".gru-input.title");
+
+    $titleField.find("input").val('Username');
+    $titleField.find("input").blur();
+
+    // Try submitting without filling in data
+    $createClassContainer.find("button.get-started-btn").click();
+
+    return wait().then(function () {
+      assert.equal(currentURL(), '/class/2d84ab6c-10ee-4578-b89a-6b41c87dc9fc/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id');
     });
   });
 });

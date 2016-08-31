@@ -120,7 +120,6 @@ test('it calls a generic remove method and then redirects (if a route is provide
 test('show spinner button component while the server response, after clicking on the remove button', function(assert) {
   assert.expect(4);
 
-  var isLoading = false;
 
   const model = {
     removeMethod: function() {
@@ -131,19 +130,18 @@ test('show spinner button component while the server response, after clicking on
   };
 
   this.set('model', model);
-  this.set('isLoading', isLoading);
 
   this.actions.closeModal = function() {
     assert.ok(true, 'Close modal action triggered');
   };
 
-  this.render(hbs`{{content/modals/gru-quick-remove-content model=model isLoading=isLoading}}`);
+  this.render(hbs`{{content/modals/gru-quick-remove-content model=model}}`);
   const $component = this.$(".gru-quick-remove-content");
 
-  $component.find('.actions> button.remove').click();
+  $component.find('.actions button.remove').click();
 
   return wait().then(function () {
-    assert.ok($component.find('.actions> .gru-spinner-button').length, 'Missing gru-spinner-button component');
+    assert.ok($component.find('.actions .gru-spinner-button').length, 'Missing gru-spinner-button component');
     assert.ok(!$component.find('.actions> button.remove').length, 'Remove Button should not be visible');
   });
 });
