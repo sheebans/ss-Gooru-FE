@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from '../mixins/session';
 import {generateUUID} from 'gooru-web/utils/utils';
 /**
@@ -7,7 +8,7 @@ import {generateUUID} from 'gooru-web/utils/utils';
  *
  * @augments Ember/Controller
  */
-export default Ember.Controller.extend(SessionMixin, {
+export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -39,12 +40,12 @@ export default Ember.Controller.extend(SessionMixin, {
      */
     finishCollection: function(){
       const controller = this;
-      const collection = this.get("collection");
+      const collection = this.get('collection');
 
-      if (collection.get("isAssessment")){
-        controller.finishCollection();
-      }
-      else{
+      if (collection.get("isAssessment")) {
+        //open confirmation modal
+        controller.finishConfirm();
+      } else {
         //finishes the last resource
         controller.finishResourceResult(controller.get("resourceResult")).then(function(){
           controller.finishCollection();
@@ -255,7 +256,7 @@ export default Ember.Controller.extend(SessionMixin, {
       controller.moveToResource(next);
     }
     else{
-      controller.finishCollection();
+      controller.finishConfirm();
     }
   },
 
@@ -360,6 +361,17 @@ export default Ember.Controller.extend(SessionMixin, {
         }
       });
     });
+  },
+
+  finishConfirm: function(){
+    const controller = this;
+    const collection = this.get('collection');
+    controller.actions.showModal.call(this,
+      'content.modals.gru-submit-confirmation',
+      {
+        title: collection.title,
+        onConfirm: controller.finishCollection.bind(controller)
+      });
   },
 
   /**

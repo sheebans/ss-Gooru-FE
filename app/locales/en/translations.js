@@ -751,6 +751,12 @@ export default {
     "cancel": "Cancel",
     "start": "Start!"
   },
+  "gru-submit-confirmation":{
+    "title": "You are about to submit an assessment...",
+    "description": "{{model.title}}",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
   "gru-quick-course-search": {
     "add-from-course": "Add from Existing Course",
     "view-featured-courses": "View Featured Courses",
