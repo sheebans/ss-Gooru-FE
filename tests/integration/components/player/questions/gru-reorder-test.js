@@ -7,6 +7,7 @@ moduleForComponent('player/questions/gru-reorder', 'Integration | Component | pl
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale", "en");
+    this.inject.service('i18n');
   }
 });
 
@@ -206,14 +207,14 @@ test('Set two questions', function (assert) {
 
   var $component = this.$(); //component dom element
 
-  assert.equal($component.find(".sortable li:first-child div").text().trim(), "An aquifer", "First answer choice does not have the right text");
-  assert.equal($component.find(".sortable li:last-child div").text().trim(), "A pump", "Last answer choice does not have the right text");
+  assert.equal($component.find(".sortable li:first-child span.gru-math-text").text().trim(), "An aquifer", "First answer choice does not have the right text");
+  assert.equal($component.find(".sortable li:last-child span.gru-math-text").text().trim(), "A pump", "Last answer choice does not have the right text");
 
   this.set('question', question1);
   this.set('userAnswer', ["aquifer", "well", "pump"]);
 
-  assert.equal($component.find(".sortable li:first-child div").text().trim(), "An aquifer1", "First answer choice does not have the right text");
-  assert.equal($component.find(".sortable li:last-child div").text().trim(), "A pump1", "Last answer choice does not have the right text");
+  assert.equal($component.find(".sortable li:first-child span.gru-math-text").text().trim(), "An aquifer1", "First answer choice does not have the right text");
+  assert.equal($component.find(".sortable li:last-child span.gru-math-text").text().trim(), "A pump1", "Last answer choice does not have the right text");
 
 
 });

@@ -7,6 +7,7 @@ moduleForComponent('player/questions/gru-multiple-answer', 'Integration | Compon
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale", "en");
+    this.inject.service('i18n');
   }
 });
 
@@ -58,9 +59,9 @@ test('Multiple answer question layout', function (assert) {
   T.exists(assert, $component.find(".instructions"), "Missing instructions");
   assert.equal($component.find(".answer-choices tbody tr").length, 3, "Missing answer choices");
   assert.equal($component.find(".answer-choices tr input[type=radio]").length, 6, "Missing answer choices radio inputs");
-  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(0) td:eq(2)")), "(A)An aquifer", "Incorrect Message");
-  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(1) td:eq(2)")), "(B)A well", "Incorrect Message");
-  assert.equal(T.text($component.find(".answer-choices tbody tr:eq(2) td:eq(2)")), "(C)A pump", "Incorrect Message");
+  assert.ok($component.find(".answer-choices tbody tr:eq(0) td:eq(2)").html().indexOf("(A)An aquifer"), "Incorrect Message");
+  assert.ok($component.find(".answer-choices tbody tr:eq(1) td:eq(2)").html().indexOf("(B)A well"), "Incorrect Message");
+  assert.ok($component.find(".answer-choices tbody tr:eq(2) td:eq(2)").html().indexOf("(C)A pump"), "Incorrect Message");
 });
 
 

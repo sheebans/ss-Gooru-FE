@@ -372,3 +372,16 @@ export function replaceMathExpression(text){
 
   return newQuestionText;
 }
+
+/**
+ * Remove html tags to validate blanks
+ */
+export function removeHtmlTags(text){
+  var newText;
+
+  if (text){
+    newText = text.replace(/(<([^>]+)>)/ig,"");
+  }
+
+  return newText;
+}

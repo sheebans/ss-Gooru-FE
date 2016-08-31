@@ -5,7 +5,11 @@ import Ember from 'ember';
 import Answer from 'gooru-web/models/content/answer';
 
 moduleForComponent('content/questions/answers/gru-multiple-choice', 'Integration | Component | content/questions/answers/gru multiple choice', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale", "en");
+    this.inject.service('i18n');
+  }
 });
 
 test('Multiple choice answer layout in editing mode', function(assert) {

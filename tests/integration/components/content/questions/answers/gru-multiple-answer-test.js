@@ -5,7 +5,11 @@ import wait from 'ember-test-helpers/wait';
 import Answer from 'gooru-web/models/content/answer';
 
 moduleForComponent('content/questions/answers/gru-multiple-answer', 'Integration | Component | content/questions/answers/gru multiple answer', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.container.lookup('service:i18n').set("locale", "en");
+    this.inject.service('i18n');
+  }
 });
 
 test('Multiple answer layout', function(assert) {

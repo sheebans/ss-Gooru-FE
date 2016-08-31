@@ -5,6 +5,7 @@
     li{
       list-style: none;
       position:relative;
+      display: flex;
 
       span.correct{
         color:$brand-success;
@@ -17,10 +18,13 @@
         color:$brand-anonymous;
       }
     }
-    li span.answer-text{
-      display: inline-block;
+    span.answer-text{
       margin-left: 2.5em;
       margin-top: 0.4em;
+      display: inherit;
+      >span {
+        margin: 0 0 0 5px;
+      }
       p {
         display: inline-block;
         margin: 0;
@@ -33,6 +37,4 @@
     top: 0.2em;
     left: 0;
   }
-
-
 }

@@ -11,18 +11,20 @@
       </div>
       {{#if editMode}}
         <div class="text-area-container">
-            {{validation.gru-textarea model=answer valuePath='text' rows=2 maxLength=200}}
+          {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons model=answer valuePath='text'}}
         </div>
-        <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
-        <button class="check yes {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer true}}>
-          {{gru-icon name="done"}}
-        </button>
-        <button class="check no {{unless answer.isCorrect 'correct'}}" {{action 'setCorrect' answer false}}>
-          {{gru-icon name="done"}}
-        </button>
+        {{#unless showAdvancedEditor}}
+          <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
+          <button class="check yes {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer true}}>
+            {{gru-icon name="done"}}
+          </button>
+          <button class="check no {{unless answer.isCorrect 'correct'}}" {{action 'setCorrect' answer false}}>
+            {{gru-icon name="done"}}
+          </button>
+        {{/unless}}
       {{else}}
         <div class="answer-text">
-          {{answer.text}}
+          {{{gru-math-text text=answer.text}}}
         </div>
         <div class="choice-answers">
           <span>

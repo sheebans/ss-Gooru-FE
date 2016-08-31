@@ -25,6 +25,17 @@
           }
         }
         > .panel-body {
+          .answers {
+            h3 {
+              display: inline-block;
+            }
+            .advanced-button {
+              float: right;
+            }
+            .instructions {
+              display: block;
+            }
+          }
           .narration {
             label {
               width: 100%;

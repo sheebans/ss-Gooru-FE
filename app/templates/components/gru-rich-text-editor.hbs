@@ -1,4 +1,4 @@
-<div id="wysihtml-toolbar" class="btn-toolbar" role="toolbar">
+<div id="wysihtml-toolbar{{editorIndex}}" class="btn-toolbar {{if disableButtons 'hidden'}}" role="toolbar">
     <button type="button" class="btn btn-math bold" data-wysihtml5-command="bold" title="{{t 'gru-rich-text-editor.bold'}}">
       <strong>B</strong>
     </button>
@@ -20,7 +20,7 @@
   <div class="expressions-panel {{if showExpressionsPanel 'show'}}">
     <div class="equation-editor">
         <div class="equation-wrapper">
-            <span class="math-field"></span>
+            <span class="math-field{{editorIndex}} math-editor"></span>
             <div class="actions">
               {{#if isEditingExpression}}
                   <button class="btn btn-primary" {{action 'updateExpression'}}>{{t 'gru-rich-text-editor.expressions-panel.update-expression'}}</button>
@@ -75,4 +75,11 @@
     </div>
   </div>
 </div>
-<div id="wysihtml-editor" class="editor-box"></div>
+<div id="wysihtml-editor{{editorIndex}}" class="rich-editor editor-box{{editorIndex}} {{if disableButtons 'not-editable' 'editable'}}"></div>
+<div class="error-messages validation">
+  {{#if showMessage}}
+    <span class="error">
+      {{v-get model valuePath 'message'}}
+    </span>
+  {{/if}}
+</div>

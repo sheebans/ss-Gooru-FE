@@ -47,14 +47,8 @@
     </div>
     <div class="panel-body">
       {{#if isBuilderEditing}}
-        {{gru-rich-text-editor content=tempQuestion.text}}
-        <div class="validation">
-          {{#if descriptionError}}
-            <span class="error">
-              {{descriptionError}}
-            </span>
-          {{/if}}
-        </div>
+        {{gru-rich-text-editor content=tempQuestion.text model=tempQuestion valuePath='description'}}
+
         {{#if showImagePicker}}
           {{content.gru-image isEditing=true srcImage=question.thumbnail editImage=tempQuestion.thumbnail}}
         {{else}}
@@ -79,6 +73,12 @@
     <div class="panel-heading">
       <div class="{{unless question.isHotTextHighlight 'border-bottom'}}">
         <h3>{{t "content.questions.edit.builder.answer"}}</h3>
+        {{#if showAdvancedEditButton}}
+          <div class="advanced-button">
+            <span>{{t "common.advanced-editing"}}</span>
+            {{gru-switch switchOptions=switchOptions onOptionSwitch='onShowAdvancedEditor' isChecked=showAdvancedEditor}}
+          </div>
+        {{/if}}
         {{#unless question.isHotTextHighlight}}
           <span class="instructions">{{t (concat 'content.questions.edit.builder.answer-instructions.' question.type)}}</span>
         {{/unless}}
@@ -96,7 +96,8 @@
     </div>
     <div class="panel-body">
       {{#if isBuilderEditing}}
-        {{component (questionConfig question.type 'component.builder_answer') answers=tempQuestion.answers editMode=true}}
+        {{component (questionConfig question.type 'component.builder_answer') answers=tempQuestion.answers editMode=true showAdvancedEditor=showAdvancedEditor}}
+        {{gru-notify onLoad="focusQuestionTextEditor"}}
       {{else}}
         {{component (questionConfig question.type 'component.builder_answer') answers=question.answers}}
       {{/if}}

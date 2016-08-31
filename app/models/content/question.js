@@ -243,6 +243,15 @@ const Question = Ember.Object.extend(Validations, {
   isHotTextHighlightSentence: Ember.computed.equal('answers.firstObject.highlightType', 'sentence'),
 
   /**
+   * Indicates if the question supports answer choices
+   * @property {boolean}
+   */
+  supportAnswerChoices: Ember.computed("isMultipleChoice", "isMultipleAnswer", "isHotTextReorder", "isHotSpotText", function () {
+    return this.get("isMultipleChoice") || this.get("isMultipleAnswer") || this.get("isHotTextReorder") || this.get("isHotSpotText");
+  }),
+
+
+  /**
    * Return a copy of the question
    *
    * @function

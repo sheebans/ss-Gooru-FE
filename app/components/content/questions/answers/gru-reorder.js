@@ -40,9 +40,7 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
-  didUpdate() {
-    this.validateAnswer();
-  },
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -57,18 +55,18 @@ export default Ember.Component.extend({
   maxAnswers: 10,
 
   /**
+   * @property {boolean}
+   */
+  disableEditorButtons: Ember.computed.not("showAdvancedEditor"),
+
+  /**
    * Max number of answers
    * */
   hasReachedAnswersLimit: Ember.computed('answers.[]', function () {
     return (this.get('answers').length >= this.get('maxAnswers'));
-  }),
+  })
 
   // -------------------------------------------------------------------------
   // Method
-
-  validateAnswer:function(){
-    this.$('.text-area-container textarea').trigger('blur');
-  }
-
 
 });

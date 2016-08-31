@@ -312,7 +312,7 @@ test('Builder Edit', function (assert) {
     assert.equal($builderSection.find('.header h2').text(),"Editor - "+questionType, "Missing Question label");
     assert.ok($builderSection.find('.question-text .panel-heading h3').length, "Missing Question label");
     assert.ok($builderSection.find('.question-text .panel-heading .instructions').length, "Missing Question Instructions");
-    assert.ok($builderSection.find('.question-text .panel-body textarea').length, "Missing text area");
+    assert.ok($builderSection.find('.question-text .panel-body .gru-rich-text-editor').length, "Missing gru-rich-text-editor component");
     assert.ok($builderSection.find('.question-text .panel-body .add-image').length, "Missing add image button");
     assert.ok($builderSection.find('.question-answer .panel-heading h3').length, "Missing Answer label");
     assert.ok($builderSection.find('.question-answer .panel-heading .instructions').length, "Missing Answer Instructions");
@@ -450,9 +450,9 @@ test('Update Question Save Answers', function (assert) {
     const $newAnswer = $component.find('div.add-answer a');
     $newAnswer.click();
     return wait().then(function () {
-      const $textField = $component.find(".gru-multiple-choice .panel .gru-textarea");
-      $textField.find("textarea").val(newAnswerText);
-      $textField.find("textarea").change();
+      const $textField = $component.find(".gru-multiple-choice .panel .gru-rich-text-editor");
+      $textField.find(".rich-editor").html(newAnswerText);
+      $textField.find(".rich-editor").change();
       const $save =  $component.find("#builder .actions .save");
       $save.click();
       return wait().then(function () {
@@ -489,17 +489,17 @@ test('Change answer text and cancel edit-Multiple Choice', function (assert) {
   const $edit = $component.find("#builder .actions .edit");
   $edit.click();
   return wait().then(function () {
-    const $textField = $component.find(".gru-multiple-choice .panel:nth-child(1) .gru-textarea");
-    $textField.find("textarea").val(newAnswerText);
-    $textField.find("textarea").change();
+    const $textField = $component.find(".gru-multiple-choice .panel:nth-child(1) .gru-rich-text-editor");
+    $textField.find(".rich-editor").html(newAnswerText);
+    $textField.find(".rich-editor").change();
     const $cancel = $component.find("#builder .actions .cancel");
     $cancel.click();
     return wait().then(function () {
       const $edit = $component.find("#builder .actions .edit");
       $edit.click();
       return wait().then(function () {
-        const $textField = $component.find(".gru-multiple-choice .panel:nth-child(1) .gru-textarea");
-        assert.equal($textField.find("textarea").val(), question.get('answers')[0].text, "Incorrect answer text");
+        const $textField = $component.find(".gru-multiple-choice .panel:nth-child(1) .gru-rich-text-editor");
+        assert.equal($textField.find(".rich-editor").html(), question.get('answers')[0].text, "Incorrect answer text");
       });
     });
   });
@@ -612,28 +612,28 @@ test('Update answer text - (drag/drop) Reorder', function (assert) {
   assert.equal($options.length, 1, 'Starting options');
   assert.equal($options.eq(0).text().trim(), question.get('answers')[0].get('text'), 'Option text');
 
-  const $edit = $component.find("#builder .actions .edit");
+  const $edit = $component.find("#builder .header .actions .edit");
   $edit.click();
   return wait().then(function () {
 
-    var $optionInput = $component.find(".gru-reorder .panel:first-of-type .gru-textarea textarea");
-    $optionInput.val(newText);
+    var $optionInput = $component.find(".gru-reorder .panel:first-of-type .gru-rich-text-editor .rich-editor");
+    $optionInput.html(newText);
     $optionInput.trigger('blur');
 
     $component.find('.gru-reorder .add-answer a').click();
     return wait().then(function () {
 
-      $optionInput = $component.find(".gru-reorder .panel:eq(1) .gru-textarea textarea");
-      $optionInput.val(newText);
+      $optionInput = $component.find(".gru-reorder .panel:eq(1) .gru-rich-text-editor .rich-editor");
+      $optionInput.html(newText);
       $optionInput.trigger('blur');
 
-      const $save = $component.find("#builder .actions .save");
+      const $save = $component.find("#builder .header .actions .save");
       $save.click();
       return wait().then(function () {
 
-        $options = $component.find('.answer-content .answer-text');
+        $options = $component.find('.answer-content');
         assert.equal($options.length, 2, 'Options after edit');
-        assert.equal($options.eq(0).text().trim(), newText, 'Option text after edit');
+        assert.equal($options.eq(0).find('.gru-rich-text-editor .rich-editor').html(), newText, 'Option text after edit');
       });
     });
   });
@@ -660,7 +660,7 @@ test('Remove answer and cancel - (drag/drop) Reorder', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
   const $component = this.$('.gru-questions-edit');
 
-  var $options = $component.find('.answer-content .answer-text');
+  var $options = $component.find('.answer-content');
   assert.equal($options.length, 2, 'Starting options');
 
   const $edit = $component.find("#builder .actions .edit");
@@ -673,13 +673,13 @@ test('Remove answer and cancel - (drag/drop) Reorder', function (assert) {
 
       $options = $component.find('.gru-reorder .panel');
       assert.ok($options.length, 1, 'Number of options after delete');
-      assert.equal($options.eq(0).find('.gru-textarea textarea').val(), question.get('answers')[1].get('text'), 'Text of remaining option');
+      assert.equal($options.eq(0).find('.gru-rich-text-editor .rich-editor').html(), question.get('answers')[1].get('text'), 'Text of remaining option');
 
       const $cancel = $component.find("#builder .actions .cancel");
       $cancel.click();
       return wait().then(function () {
 
-        var $options = $component.find('.answer-content .answer-text');
+        var $options = $component.find('.answer-content');
         assert.equal($options.length, 2, 'Starting options');
       });
     });
@@ -1087,3 +1087,42 @@ test('Layout view question image', function (assert) {
     assert.ok($image, 'Image shoudl be shown');
   });
 });
+
+test('Builder Edit with advanced edit button for the Multiple Choice answers', function (assert) {
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question for testing',
+    text: "",
+    type: QUESTION_TYPES.multipleChoice,
+    answers: Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text A",
+      'isCorrect': false,
+      'type':"text"
+    }), Answer.create(Ember.getOwner(this).ownerInjection(), {
+      'text': "Option Text B",
+      'isCorrect': false,
+      'type':"text"
+    })]),
+    standards: []
+  });
+  this.set('question',question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit =  $component.find("#builder .actions .edit");
+  $edit.click();
+  return wait().then(function () {
+    const $switchComponent = $component.find(".question-answer .panel-heading .advanced-button .gru-switch");
+    assert.ok($switchComponent.length, "Missing advanced button switchComponent");
+    const $richEditorComponent = $component.find(".question-answer .panel-body .gru-rich-text-editor");
+
+    assert.ok($richEditorComponent.length, "Missing gru-rich-text-editor component");
+    assert.ok($richEditorComponent.find('.btn-toolbar').hasClass("hidden"), "btn-toolbar should be hidden for the answers editors");
+
+    $switchComponent.find("a").click();
+
+    return wait().then(function () {
+      assert.ok(!$richEditorComponent.find('.btn-toolbar').hasClass("hidden"), "btn-toolbar should not be hidden for the answers editors");
+    });
+  });
+});
+

@@ -13,6 +13,7 @@
       }
       span.column {
         width: 35px;
+        min-width: 35px;
         display: inline-block;
         text-align: center;
       }
@@ -27,6 +28,10 @@
       }
       span.answer-text{
         margin-left: 0.5em;
+        display: inherit;
+        >span {
+          margin: 0 0 0 5px;
+        }
         p {
           display: inline-block;
           margin: 0;

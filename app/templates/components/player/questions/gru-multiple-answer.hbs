@@ -31,7 +31,7 @@
             name=(concat "answer-choice-radio-" answer.id)}}
           </td>
           <td class="answer-text">
-              <span>({{answer-letter index}})</span>{{{answer.text}}}
+              <span class="letter">({{answer-letter index}})</span>{{{gru-math-text text=answer.text}}}
           </td>
         </tr>
       {{/each}}
