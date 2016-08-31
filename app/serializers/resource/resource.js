@@ -84,7 +84,7 @@ export default DS.JSONAPISerializer.extend({
     model.attributes.mediaUrl = null;
     model.attributes.narration = null;
     model.attributes.order = 0;
-    model.attributes.owner = null;
+    model.attributes.owner = payload.resource.creator_id;
     //some extra resource options here
     model.attributes.options = {
       hotTextType: payload.resource.hlType,

@@ -20,8 +20,7 @@
           display: inline-block;
           vertical-align: top;
         }
-        a{
-          > i {
+        i {
             display: block;
             height: 36px;
             width: 28px;
@@ -81,7 +80,6 @@
             }
           }
         }
-      }
       .resource-info {
         margin-left: 5px;
         width: 77%;
