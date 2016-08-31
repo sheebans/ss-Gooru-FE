@@ -357,7 +357,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    @property {Boolean}
    */
   showAdvancedEditButton: Ember.computed('model', 'isEditingInline', function() {
-    return !this.get('model.isTrueFalse') && !this.get('model.isHotSpotImage') && !this.get('model.isOpenEnded') && !this.get('model.isHotTextHighlight') && this.get('isEditingInline');
+    return this.get('model.supportAnswerChoices') && this.get('isEditingInline');
   }),
 
   /**

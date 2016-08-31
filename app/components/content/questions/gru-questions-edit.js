@@ -301,7 +301,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    @property {Boolean}
    */
   showAdvancedEditButton: Ember.computed('question', 'isBuilderEditing', function() {
-    return !this.get('question.isTrueFalse') && !this.get('question.isHotSpotImage') && !this.get('question.isOpenEnded') && !this.get('question.isHotTextHighlight') && this.get('isBuilderEditing');
+    return this.get('question.supportAnswerChoices') && this.get('isBuilderEditing');
   }),
 
   // ----------------------------
