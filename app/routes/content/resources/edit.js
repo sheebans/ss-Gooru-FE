@@ -27,6 +27,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   session: Ember.inject.service("session"),
 
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
   // -------------------------------------------------------------------------
   // Events
   resetController(controller, isExiting) {
@@ -45,12 +50,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const route = this;
 
     var resource = route.get('resourceService').readResource(params.resourceId).then(function(resource){
-      var EditResourceValidation = Resource.extend(EditResourceValidations);
-      var editResource = EditResourceValidation.create(Ember.getOwner(route).ownerInjection());
-      // standards and info are not coming inside modelProperties
-      var properties = resource.modelProperties().concat(['standards', 'info']);
-      editResource.merge(resource, properties);
-      return editResource;
+      return route.get('profileService').readUserProfile(resource.owner).then(function(owner){
+        var EditResourceValidation = Resource.extend(EditResourceValidations);
+        var editResource = EditResourceValidation.create(Ember.getOwner(route).ownerInjection());
+        // standards and info are not coming inside modelProperties
+        var properties = resource.modelProperties().concat(['standards', 'info']);
+        editResource.merge(resource, properties);
+        editResource.set('owner', owner);
+        return editResource;
+      });
     });
 
     var isEditing = params.editing;
