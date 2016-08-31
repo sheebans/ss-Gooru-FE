@@ -18,15 +18,23 @@
       <div>
         {{#if performance.isCompleted}}
             <div class="btn-group">
+
                 <button class="btn btn-info collection-view-report-button" {{action "viewReport" performance}}>
-                    <span>{{gru-icon name="equalizer"}}{{t "gru-performance-summary.view-report"}}</span></button>
-                {{#if noMoreAttempts}}
+                    <span>{{gru-icon name="equalizer"}}{{t "gru-performance-summary.view-report"}}</span>
+                </button>
+                {{#if isDisabled}}
                   <button class="btn btn-info collection-redo-button disabled">
-                    <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
+                    <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span>
+                  </button>
                 {{else}}
-                  <button class="btn btn-info collection-redo-button" {{action "selectResource" performance}}>
-                    <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
-                {{/if}}
+                  {{#if noMoreAttempts}}
+                    <button class="btn btn-info collection-redo-button disabled">
+                      <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
+                  {{else}}
+                    <button class="btn btn-info collection-redo-button" {{action "selectResource" performance}}>
+                      <span>{{gru-icon name="replay"}}{{t "gru-performance-summary.redo"}}</span></button>
+                  {{/if}}
+                {{/if}}                
             </div>
         {{else}}
           {{#if isDisabled}}
