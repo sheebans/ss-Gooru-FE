@@ -424,3 +424,24 @@ test('Remix collection/assessment', function(assert) {
 
   $remixButton.click();
 });
+
+test('Finish collection', function(assert) {
+  assert.expect(2);
+
+  const collection = Ember.Object.create({
+    isAssessment: true
+  });
+
+  this.set("collection", collection);
+
+  this.on('onFinishCollection', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{player/gru-navigator onFinishCollection='onFinishCollection' submitted=false collection=collection}}`);
+  var $component = this.$(); //component dom element
+  var $finishButton = $component.find("button.finish-collection");
+
+  assert.ok($finishButton, "Missing finish button");
+  $finishButton.click();
+});

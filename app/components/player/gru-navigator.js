@@ -65,6 +65,12 @@ export default Ember.Component.extend(ModalMixin, {
         let collection = this.get("originalCollection") ? this.get("originalCollection") : this.get("collection");
         this.sendAction("onRemixCollection", collection);
       }
+    },
+    /**
+     * Action triggered when the user wants to finish the collection
+     */
+    finishCollection:function(){
+      this.sendAction("onFinishCollection");
     }
   },
 
@@ -166,6 +172,12 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {string} on finish collection, having type = 'collection'
    */
   onFinishCollection: null,
+
+  /**
+   * Indicates when the collection is already submitted
+   * @property {boolean}
+   */
+  submitted: false,
 
   // -------------------------------------------------------------------------
   // Observers

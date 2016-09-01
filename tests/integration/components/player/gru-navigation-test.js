@@ -11,7 +11,7 @@ moduleForComponent('player/gru-navigation', 'Integration | Component | player/gr
 });
 
 test('Not submitted layout', function(assert) {
-  assert.expect(3);
+  assert.expect(2);
 
   const collection = Ember.Object.create({
     isAssessment: true
@@ -24,7 +24,6 @@ test('Not submitted layout', function(assert) {
   const $navigation = $component.find(".gru-navigation");
   T.exists(assert, $navigation, "Missing navigation section");
   T.exists(assert, $navigation.find(".navigation-bar span"), "Missing clickable span");
-  T.exists(assert, $navigation.find("button.finish-collection"), "Missing finish collection button");
 });
 
 test('Submitted layout', function(assert) {
@@ -58,25 +57,4 @@ test('Layout when navigator is opened', function(assert) {
 
   assert.ok($menuButton, "Missing menu button");
   $menuButton.click();
-});
-
-test('Finish collection', function(assert) {
-  assert.expect(2);
-
-  const collection = Ember.Object.create({
-    isAssessment: true
-  });
-
-  this.set("collection", collection);
-
-  this.on('onFinishCollection', function(){
-    assert.ok(true, 'external Action was called!');
-  });
-
-  this.render(hbs`{{player/gru-navigation onFinishCollection='onFinishCollection' submitted=false collection=collection}}`);
-  var $component = this.$(); //component dom element
-  var $finishButton = $component.find("button.finish-collection");
-
-  assert.ok($finishButton, "Missing finish button");
-  $finishButton.click();
 });
