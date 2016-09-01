@@ -177,7 +177,6 @@ test('it calls a generic delete method and then redirects (if a route is provide
 test('show spinner button component while the server response, after clicking on the delete button', function(assert) {
   assert.expect(4);
 
-  var isLoading = false;
 
   const model = {
     deleteMethod: function() {
@@ -196,19 +195,18 @@ test('show spinner button component while the server response, after clicking on
 
   this.set('model', model);
   this.set('validator', validator);
-  this.set('isLoading', isLoading);
 
   this.actions.closeModal = function() {
     assert.ok(true, 'Close modal action triggered');
   };
 
-  this.render(hbs`{{content/modals/gru-delete-content model=model validator=validator isLoading=isLoading}}`);
+  this.render(hbs`{{content/modals/gru-delete-content model=model validator=validator}}`);
   const $component = this.$(".gru-delete-content");
 
-  $component.find('.actions> button.delete').click();
+  $component.find('.actions button.delete').click();
 
   return wait().then(function () {
-    assert.ok($component.find('.actions> .gru-spinner-button').length, 'Missing gru-spinner-button component');
+    assert.ok($component.find('.actions .gru-spinner-button').length, 'Missing gru-spinner-button component');
     assert.ok(!$component.find('.actions> button.delete').length, 'Delete Button should not be visible');
   });
 });

@@ -165,7 +165,6 @@ export default Ember.Service.extend({
       const foundRecord = store.recordForId(modelName, id);
       store.unloadRecord(foundRecord);
     }
-
     let newRecord = store.createRecord(modelName, record);
     if (type === 'collection') {
       newRecord.set("collectionType", object.get("collectionType"));

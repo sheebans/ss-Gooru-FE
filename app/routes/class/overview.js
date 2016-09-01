@@ -85,7 +85,6 @@ export default Ember.Route.extend({
     const isTeacher = currentClass.isTeacher(userId);
     const classMembers = currentClass.get('members');
     let userLocation = null;
-
     if (!isTeacher) {
       userLocation = route.get('analyticsService').getUserCurrentLocation(currentClass.get('id'), userId);
     }

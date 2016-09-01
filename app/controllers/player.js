@@ -290,15 +290,15 @@ export default Ember.Controller.extend(SessionMixin, {
    * @param {Date} submittedAt
    * @returns {Promise.<boolean>}
    */
-  finishResourceResult: function(resourceResult, submittedAt = new Date()){
+  finishResourceResult: function(resourceResult, submittedAt = new Date(), isSkip = false){
     let controller = this;
     let context = this.get("context");
 
     //setting submitted at, timeSpent is calculated
-    resourceResult.set("submittedAt", submittedAt);
+    resourceResult.set("submittedAt", isSkip ? undefined : submittedAt);
     context.set("eventType", "stop");
     context.set("isStudent", controller.get("isStudent"));
-    return controller.saveResourceResult(resourceResult, context);
+    return controller.saveResourceResult(resourceResult, context, isSkip);
   },
 
   /**
@@ -331,10 +331,11 @@ export default Ember.Controller.extend(SessionMixin, {
     let controller = this;
     let promise = Ember.RSVP.resolve(resourceResult);
     let save = controller.get("saveEnabled");
-    if (save){
-       promise = this.get('eventsService').saveResourceResult(resourceResult, context).then(function(){
-         return resourceResult;
-       });
+    if (save) {
+      promise = this.get('eventsService').saveResourceResult(resourceResult, context)
+        .then(function() {
+          return resourceResult;
+        });
     }
     return promise;
   },
@@ -418,7 +419,7 @@ export default Ember.Controller.extend(SessionMixin, {
       .then(function() {
         let pendingQuestionResults = controller.get('assessmentResult.pendingQuestionResults');
         let promises = pendingQuestionResults.map(function(questionResult) {
-          return controller.finishResourceResult(questionResult);
+          return controller.finishResourceResult(questionResult, undefined, questionResult.get('skipped'));
         });
         return Ember.RSVP.all(promises);
       });

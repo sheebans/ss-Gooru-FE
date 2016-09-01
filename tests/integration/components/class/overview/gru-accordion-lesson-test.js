@@ -1,12 +1,33 @@
-import { moduleForComponent/*, test*/ } from 'ember-qunit';
-//import hbs from 'htmlbars-inline-precompile';
-//import wait from 'ember-test-helpers/wait';
+/*import { moduleForComponent, test } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import DS from 'ember-data';
+import tHelper from "ember-i18n/helper";
 
 // Stub performance service
 const performanceServiceStub = Ember.Service.extend({
+  findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers){
+    let response;
+    let promiseResponse;
 
+    response = Ember.Object.create({
+      calculateAverageScoreByItem: function() {
+        return '25';
+      }
+    });
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    // Simulate async data returned by the service
+    return DS.PromiseArray.create({
+      promise: promiseResponse
+    });
+  },
   findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections) {
     var response;
     var promiseResponse;
@@ -186,7 +207,8 @@ const lessonServiceStub = Ember.Service.extend({
       collections = [
         Ember.Object.create({id: 'collection-id-1', title: 'collection-1', collectionType: 'collection'}),
         Ember.Object.create({id: 'collection-id-2', title: 'collection-2', collectionType: 'collection'}),
-        Ember.Object.create({id: 'assessment-id-1', title: 'collection-3', collectionType: 'assessment'})
+        Ember.Object.create({id: 'assessment-id-1', title: 'collection-3', collectionType: 'assessment', classroom_play_enabled:false}),
+        Ember.Object.create({id: 'assessment-id-2', title: 'collection-4', collectionType: 'assessment', classroom_play_enabled:true})
       ];
     }
     var lesson = Ember.Object.create({
@@ -204,8 +226,12 @@ const lessonServiceStub = Ember.Service.extend({
 
 moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Component | class/overview/gru accordion lesson', {
   integration: true,
-
   beforeEach: function() {
+    this.i18n=this.container.lookup('service:i18n');
+    this.i18n.set('locale', 'en');
+
+    this.registry.register('helper:t', tHelper);
+
     this.register('service:api-sdk/collection', collectionServiceStub);
     this.inject.service('api-sdk/collection', { as: 'collectionService' });
 
@@ -218,7 +244,6 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
     this.register('service:api-sdk/lesson', lessonServiceStub);
     this.inject.service('api-sdk/lesson', { as: 'lessonService' });
 
-    this.inject.service('i18n');
   }
 });
 

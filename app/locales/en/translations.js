@@ -44,6 +44,7 @@ export default {
     "answer-key-was-hidden": "Note: Your teacher has hidden the answer key.",
     "approved": "Approved",
     "assessment": "Assessment",
+    "assessment-disabled": "You can't attempt this assessment",
     "assessment-external": "Assessment-External",
     "assessment-pl": {
       one: "Assessment",
@@ -1276,7 +1277,9 @@ export default {
     "feedback-immediate": "Per question & at the end",
     "feedback-never": "Never",
     "feedback-summary": "At the end",
-    "navigation-scoring": "Navigation and Scoring"
+    "navigation-scoring": "Navigation and Scoring",
+    "disable-heading": "Activate Assessment in Course Map",
+    "disable-legend": "Students can play the assessment from their course map"
   },
 
   "gru-tour": {

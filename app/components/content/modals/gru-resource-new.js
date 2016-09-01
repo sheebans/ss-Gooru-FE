@@ -56,8 +56,9 @@ export default Ember.Component.extend({
         this.set('emptyFileError', this.get('i18n').t('common.errors.file-upload-missing', { extensions: this.get('resource.extensions') }));
       } else {
         resource.validate().then(function ({ validations }) {
-          if (validations.get('isValid')) {
 
+          if (validations.get('isValid')) {
+            type === "edit" ? component.set('isLoadingMoreDetails',true) : component.set('isLoadingCreate', true);
             let resourceId;
             component.$('.resource-new button.add-btn').prop('disabled', true);
             component.handleResourceUpload(resource).then(function(uploadedResource) {
@@ -80,11 +81,14 @@ export default Ember.Component.extend({
                       component.onNewResource(resourceId);
                     } else {
                       component.get('router').router.refresh();
+                      component.set('isLoadingCreate', false);
                       component.triggerAction({ action: 'closeModal' });
                     }
                     component.$('.resource-new button.add-btn').prop('disabled', false);
                   },
                   function (data) {
+                    component.set('isLoadingCreate', false);
+                    component.set('isLoadingMoreDetails', false);
                     if (data.resourceId) { //already exists
                       component.displayExistingResource(data.resourceId);
                     }
@@ -104,6 +108,7 @@ export default Ember.Component.extend({
 
     addTo: function() {
       const component = this;
+      component.set('isLoadingAddTo', true);
       var resourceId = component.get('existingResource.id');
       var collectionId = component.get('model.id');
       component.$('.resource-new button.add-btn').prop('disabled', true);
@@ -111,11 +116,13 @@ export default Ember.Component.extend({
         .then(copyId => component.get('collectionService').addResource(collectionId, copyId))
         .then(function() {
           component.get('router').router.refresh();
+          component.set('isLoadingAddTo', false);
           component.triggerAction({action: 'closeModal'});
         }, function(error) {
           var collectionType = this.get('i18n').t(`common.${this.get('collectionType').toLowerCase()}`);
           component.get('notifications').error(component.get('i18n').t('common.errors.resource-not-added-to-collection', {collectionType}).string);
           Ember.Logger.error(error);
+          component.set('isLoadingAddTo', false);
           component.$('.resource-new button.add-btn').prop('disabled', false);
         });
     },
@@ -237,6 +244,19 @@ export default Ember.Component.extend({
    */
   uploadableTypes: UPLOADABLE_TYPES,
 
+  /**
+   * Indicate if it's waiting for createResource callback
+   */
+  isLoadingCreate: false,
+  /**
+   * Indicate if it's waiting for createResource and Edit callback
+   */
+  isLoadingMoreDetails: false,
+  /**
+   * Indicate if it's waiting for addTo callback
+   */
+  isLoadingAddTo: false,
+
 
   // -------------------------------------------------------------------------
   // Observers
@@ -297,6 +317,7 @@ export default Ember.Component.extend({
    */
   onNewResource: function(newResourceId){
     const component = this;
+    component.set('isLoadingMoreDetails',false);
     component.triggerAction({ action: 'closeModal' });
 
     const collectionId = this.get("model.id");

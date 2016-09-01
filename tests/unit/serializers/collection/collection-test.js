@@ -17,7 +17,7 @@ test('normalizeSingleResponse for findById', function(assert) {
       "settings": {
         "comment": "turn-on"
       },
-      "parentGooruOid": "fbd76aed-1b8d-4c2c-a9c6-c7603eef347c",
+      "parentGooruOid": "first-lesson-id",
       "itemSequence": 2,
       "type": "collection",
       "title": "any-expected-title 1B",

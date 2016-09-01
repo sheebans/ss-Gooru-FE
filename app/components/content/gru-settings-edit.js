@@ -39,6 +39,9 @@ export default Ember.Component.extend({
 
     onGenericChange: function() {
       this.sendAction('action');
+    },
+    onClassroomPlayEnabledChange: function(){
+      this.sendAction('action');
     }
   },
 

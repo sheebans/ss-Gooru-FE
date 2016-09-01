@@ -123,6 +123,8 @@ export default Ember.Component.extend(AccordionMixin, {
 
   didRender: function(){
     this.$('[data-toggle="tooltip"]').tooltip();
+
+
   },
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
@@ -250,17 +252,32 @@ export default Ember.Component.extend(AccordionMixin, {
       component.get('performanceService')
         .findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers)
         .then(function(performance) {
+
           const promises = assessments.map(function(assessment) {
+
             const peer = lessonPeers.findBy('id', assessment.get('id'));
+
             if (peer) {
               return component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
                 .then(function(profiles) {
                   assessment.set('members', profiles);
                   const averageScore = performance.calculateAverageScoreByItem(assessment.get('id'));
-                  assessment.set('performance', Ember.Object.create({
-                    score: averageScore,
-                    hasStarted: averageScore > 0
-                  }));
+                  return component.get('assessmentService').readAssessment(assessment.get('id'))
+                    .then(function(assessmentData){
+                      assessment.set('performance', Ember.Object.create({
+                        score: averageScore,
+                        hasStarted: averageScore > 0,
+                        isDisabled: !assessmentData.get('classroom_play_enabled')
+                      }));
+                    });
+                });
+            }
+            if(assessment.get('format') === 'assessment') {
+              return component.get('assessmentService').readAssessment(assessment.get('id'))
+                .then(function (assessmentData) {
+                    assessment.set('perfomance', Ember.Object.create({
+                      isDisabled: !assessmentData.get('classroom_play_enabled')
+                    }));
                 });
             } else {
               return Ember.RSVP.resolve(true);
@@ -279,6 +296,7 @@ export default Ember.Component.extend(AccordionMixin, {
         .findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, assessments)
         .then(function(performance) {
           const promises = assessments.map(function(assessment) {
+
             const peer = lessonPeers.findBy('id', assessment.get('id'));
             if (peer) {
               component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
@@ -299,6 +317,7 @@ export default Ember.Component.extend(AccordionMixin, {
                   if (attemptsSettings) {
                     const noMoreAttempts = attempts && attemptsSettings > 0 && attempts >= attemptsSettings;
                     collectionPerformanceData.set('noMoreAttempts', noMoreAttempts);
+                    collectionPerformanceData.set('isDisabled', !assessment.get('classroom_play_enabled'));
                   }
                 });
             } else {

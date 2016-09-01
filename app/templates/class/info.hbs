@@ -54,8 +54,8 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <ul class="teachers">
                      {{#each class.teachers as |teacher|}}
-                       <li class="profile-card">
-                         {{cards.gru-user-card user=teacher}}
+                       <li class="profile-card {{if isStudent 'student-view' ''}}">
+                         {{cards.gru-user-card user=teacher }}
                        </li>
                      {{/each}}
                     </ul>

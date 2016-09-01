@@ -40,6 +40,7 @@ export default NewCollectionModal.extend({
   },
 
   closeModal: function(assessmentId) {
+    this.set('isLoading', false);
     this.triggerAction({ action: 'closeModal' });
     const queryParams = { queryParams: { editing: true } };
     this.get('router').transitionTo('content.assessments.edit', assessmentId, queryParams);
@@ -56,7 +57,10 @@ export default NewCollectionModal.extend({
 
   init() {
     this._super(...arguments);
-    var assessment = Assessment.create(Ember.getOwner(this).ownerInjection(), {title: null});
+    var assessment = Assessment.create(Ember.getOwner(this).ownerInjection(), {
+      title: null,
+      classroom_play_enabled: false
+    });
     this.set('assessment', assessment);
   },
 
@@ -70,4 +74,3 @@ export default NewCollectionModal.extend({
   assessment: null
 
 });
-

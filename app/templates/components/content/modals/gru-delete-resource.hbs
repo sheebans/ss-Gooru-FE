@@ -24,11 +24,9 @@
       <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
         <span aria-hidden="true">{{t 'common.cancel'}}</span>
       </button>
-      {{#if isLoading}}
-        {{gru-spinner-button classes='btn btn-danger delete' text=(t 'common.loading')}}
-      {{else}}
-        <button class="btn btn-danger delete" disabled={{isDisabled}} {{action "deleteContent" model}}>{{t 'content.modals.quick-delete-content.delete'}}</button>
-      {{/if}}
+      {{#gru-spinner-button classes='btn btn-danger delete' text=(t 'common.loading') isLoading=isLoading}}
+          <button class="btn btn-danger delete" disabled={{isDisabled}} {{action "deleteContent" model}}>{{t 'content.modals.quick-delete-content.delete'}}</button>
+      {{/gru-spinner-button}}
     </div>
   </form>
 </div>

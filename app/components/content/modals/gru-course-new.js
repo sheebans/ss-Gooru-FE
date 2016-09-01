@@ -40,14 +40,17 @@ export default Ember.Component.extend({
 
     createCourse: function () {
       const component = this;
+
       const course = this.get('course');
       course.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
-
+          component.set('isLoading', true);
           this.get("courseService")
             .createCourse(course)
             .then(function (course) {
-                component.triggerAction({
+              component.set('isLoading', false);
+
+              component.triggerAction({
                   action: 'closeModal'
                 });
                 component.get('router').transitionTo('content.courses.edit', course.get('id'), { queryParams: { editing: true }});
@@ -55,6 +58,7 @@ export default Ember.Component.extend({
               function () {
                 const message = component.get('i18n').t('common.errors.course-not-created').string;
                 component.get('notifications').error(message);
+                component.set('isLoading', false);
               }
             );
         }
@@ -90,6 +94,10 @@ export default Ember.Component.extend({
   /**
    * @type {Course} course
    */
-  course: null
+  course: null,
+  /**
+   * Indicate if it's waiting for createCourse callback
+   */
+  isLoading: false
 
 });

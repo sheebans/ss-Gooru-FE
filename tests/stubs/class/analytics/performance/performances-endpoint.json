@@ -63,7 +63,7 @@
   {
     "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/class-for-pochita-as-student/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/(.+)/lesson/cc2bc04c-05ab-4407-9d76-b7021d6138e3/performance",
+      "url": "^/api/nucleus-insights/v2/class/class-for-pochita-as-student/course/75366215-f9d5-424c-8a90-2cabdfeb3ffa/unit/(.+)/lesson/third-lesson-id/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -86,7 +86,7 @@
   {
     "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson/fbd76aed-1b8d-4c2c-a9c6-c7603eef347c/performance",
+      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/first-unit-id/lesson/first-lesson-id/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -109,7 +109,7 @@
   {
     "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/31886eac-f998-493c-aa42-016f53e9fa88/lesson/(.+)/performance",
+      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/first-unit-id/lesson/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -132,7 +132,7 @@
   {
     "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/class-for-pochita-as-student/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/lesson/(.+)/performance",
+      "url": "^/api/nucleus-insights/v2/class/class-for-pochita-as-student/course/(.+)/unit/second-unit-id/lesson/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -155,7 +155,7 @@
   {
     "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/lesson/(.+)/performance",
+      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/second-unit-id/lesson/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -178,7 +178,7 @@
   {
     "description": "API 3.0: Returns student's performance data for all the lessons in a class, course, unit and lesson",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/21654d76-45e7-45e9-97ab-5f96a14da135/lesson/(.+)/performance",
+      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/third-unit-id/lesson/(.+)/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -339,7 +339,7 @@
   {
     "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/31886eac-f998-493c-aa42-016f53e9fa88/performance",
+      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/first-unit-id/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -385,7 +385,7 @@
   {
     "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/class-for-pochita-as-student/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/performance",
+      "url": "^/api/nucleus-insights/v2/class/class-for-pochita-as-student/course/(.+)/unit/second-unit-id/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -408,7 +408,7 @@
   {
     "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/7deebd55-1976-40a2-8e46-3b8ec5b6d388/performance",
+      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/second-unit-id/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -431,7 +431,7 @@
   {
     "description": "API 3.0: Returns student's performance data for a specific unit in a class and course",
     "request": {
-      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/21654d76-45e7-45e9-97ab-5f96a14da135/performance",
+      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/third-unit-id/performance",
       "query": {
         "userUid": "(.+)",
         "collectionType": "(.+)"
@@ -583,5 +583,3 @@
   }
 
 ]
-
-

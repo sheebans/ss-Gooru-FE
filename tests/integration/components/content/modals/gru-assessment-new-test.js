@@ -252,3 +252,37 @@ test('it creates an assessment and assigns it to an existing lesson', function (
     });
   });
 });
+test('show spinner button component while the server response, after clicking on the create button', function(assert) {
+  assert.expect(5);
+
+
+  // Mock the transitionTo method in the router
+  this.set('router', {
+    transitionTo(route, courseId) {
+      assert.ok(route, 'Has route');
+      assert.ok(courseId, 'has course Id');
+    }
+  });
+
+  this.actions.closeModal = function() {
+    assert.ok(true, 'Close modal action triggered');
+  };
+
+  this.set('isLoading',false);
+
+  this.render(hbs`{{content/modals/gru-assessment-new router=router isLoading=isLoading}}`);
+
+  const $component = this.$(".gru-assessment-new");
+
+  const $titleField = $component.find(".gru-input.title");
+  // Fill in the input field
+  $titleField.find("input").val('assessment-title');
+  $titleField.find("input").blur();
+
+  $component.find(".actions .add").click();
+
+  return wait().then(function () {
+    assert.ok($component.find('.actions .gru-spinner-button .has-spinner').length, 'Missing gru-spinner-button component');
+    assert.ok(!$component.find(".actions button.add").length, 'Create should not be visible');
+  });
+});
