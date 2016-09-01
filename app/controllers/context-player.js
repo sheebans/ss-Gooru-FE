@@ -92,20 +92,24 @@ export default PlayerController.extend({
    * @param resourceResult
    * @returns {Promise.<boolean>}
    */
-  saveResourceResult: function(resourceResult, context){
+  saveResourceResult: function(resourceResult, context, isSkip = false) {
     let controller = this;
     let isTeacher = controller.get('isTeacher');
-
     let promise = controller._super(...arguments);
     let onAir = controller.get("onAir");
-    return promise.then(function(){
+
+    return promise.then(function() {
       if (onAir){
         const classId = context.get("classId");
         const collectionId = context.get("collectionId");
         const userId = context.get("userId");
         const realTimeService = controller.get('realTimeService');
 
-        if (!isTeacher && context.get("isStopEvent")) { //only notifies when the question is completed
+        // Only notifies to the RealTime server when it is a student stop event and the resource is not skipped.
+        // RealTime only processes completed resources (questions) due that it has a finish collection event to
+        // handle all the skipped resources. Sending multiple concurrent stop events for non-completed resources
+        // for the same student will provoke data overwrite issue in the RealTime server.
+        if (!isTeacher && context.get("isStopEvent") && !isSkip) {
           realTimeService.notifyResourceResult(classId, collectionId, userId, resourceResult);
         }
       }

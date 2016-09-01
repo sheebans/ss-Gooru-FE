@@ -252,27 +252,32 @@ export default Ember.Component.extend(AccordionMixin, {
       component.get('performanceService')
         .findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers)
         .then(function(performance) {
+
           const promises = assessments.map(function(assessment) {
+
             const peer = lessonPeers.findBy('id', assessment.get('id'));
+
             if (peer) {
               return component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
                 .then(function(profiles) {
                   assessment.set('members', profiles);
                   const averageScore = performance.calculateAverageScoreByItem(assessment.get('id'));
-                  assessment.set('performance', Ember.Object.create({
-                    score: averageScore,
-                    hasStarted: averageScore > 0
-                  }));
+                  return component.get('assessmentService').readAssessment(assessment.get('id'))
+                    .then(function(assessmentData){
+                      assessment.set('performance', Ember.Object.create({
+                        score: averageScore,
+                        hasStarted: averageScore > 0,
+                        isDisabled: !assessmentData.get('classroom_play_enabled')
+                      }));
+                    });
                 });
             }
-            let collectionPerformanceData = assessment.get('performance') || Ember.Object.create({
-              isDisabled:false
-            });
-            assessment.set('performance', collectionPerformanceData);
             if(assessment.get('format') === 'assessment') {
               return component.get('assessmentService').readAssessment(assessment.get('id'))
-                .then(function (assessment) {
-                    collectionPerformanceData.set('isDisabled', !assessment.get('classroom_play_enabled'));
+                .then(function (assessmentData) {
+                    assessment.set('perfomance', Ember.Object.create({
+                      isDisabled: !assessmentData.get('classroom_play_enabled')
+                    }));
                 });
             } else {
               return Ember.RSVP.resolve(true);
