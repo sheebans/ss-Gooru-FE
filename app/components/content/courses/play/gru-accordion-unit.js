@@ -122,22 +122,5 @@ export default Ember.Component.extend(BuilderMixin, {
     } else {
       return Ember.RSVP.resolve(true);
     }
-  },
-
-  // -------------------------------------------------------------------------
-  // Events
-
-  /**
-   * DidInsertElement ember event
-   */
-  didInsertElement: function(){
-    const component = this;
-    const unitId = this.get('unit.id');
-    const isCreate = !unitId;
-
-    if (component.get('index') === 0 && !isCreate) {
-      component.send('toggle');
-    }
   }
-
 });

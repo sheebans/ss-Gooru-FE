@@ -126,7 +126,7 @@ test('first unit should be expanded', function (assert) {
 
   const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
   assert.ok($container.length, 'Container');
-  assert.ok($container.hasClass('expanded'), 'Container is not expanded');
+  assert.ok($container.hasClass('collapsed'), 'First unit should not be expanded');
 });
 
 test('it expands/collapses the unit', function (assert) {
@@ -157,17 +157,17 @@ test('it expands/collapses the unit', function (assert) {
 
   const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
   assert.ok($container.length, 'Container');
-  assert.ok($container.hasClass('expanded'), 'Container is not expanded');
+  assert.ok($container.hasClass('collapsed'), 'Container should not be expanded');
 
 
   $container.find('> .panel-heading > h3 > a').click();
-  assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header prefix');
+  assert.ok($container.hasClass('expanded'), 'Container collapsed after clicking header prefix');
 
 
   $container.find('> .panel-heading > strong > a').click();
-  assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header title');
+  assert.ok($container.hasClass('collapsed'), 'Container expanded after clicking header title');
 
 
   $container.find('> .panel-heading > strong > a').click();
-  assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header title');
+  assert.ok($container.hasClass('expanded'), 'Container collapsed after clicking header title');
 });
