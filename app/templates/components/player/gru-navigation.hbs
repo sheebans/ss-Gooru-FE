@@ -10,7 +10,7 @@
            {{gru-emotion-picker startEmotion=ratingScore onChangeEmotion="changeEmotion" readOnly=readOnly}}
            {{#if showSubmitAll}}
              <button
-                 class="btn btn-success finish-collection pull-right hidden-xs" {{action "finishCollection"}}> {{t "common.submit-all"}}</button>
+               tabindex=-1 class="btn btn-success finish-collection pull-right hidden-xs" {{action "finishCollection"}}> {{t "common.submit-all"}}</button>
            {{/if}}
          </div>
 
