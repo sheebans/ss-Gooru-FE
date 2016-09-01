@@ -252,9 +252,13 @@ export default Ember.Component.extend(AccordionMixin, {
       component.get('performanceService')
         .findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers)
         .then(function(performance) {
+
           const promises = assessments.map(function(assessment) {
+
             const peer = lessonPeers.findBy('id', assessment.get('id'));
+
             if (peer) {
+              //if it has a peer it returns this, and never gets to the part where the information for performance is read
               return component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
                 .then(function(profiles) {
                   assessment.set('members', profiles);
@@ -265,6 +269,7 @@ export default Ember.Component.extend(AccordionMixin, {
                   }));
                 });
             }
+
             let collectionPerformanceData = assessment.get('performance') || Ember.Object.create({
               isDisabled:false
             });
