@@ -752,6 +752,12 @@ export default {
     "cancel": "Cancel",
     "start": "Start!"
   },
+  "gru-submit-confirmation":{
+    "title": "Are you sure you want to Submit All?",
+    "description": "You are about to end this attempt and submit all responses. Any skipped questions will be counted as incorrect.",
+    "cancel": "Cancel",
+    "confirm": "Submit All"
+  },
   "gru-quick-course-search": {
     "add-from-course": "Add from Existing Course",
     "view-featured-courses": "View Featured Courses",
