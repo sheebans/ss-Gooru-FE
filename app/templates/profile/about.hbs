@@ -72,7 +72,7 @@
         <div class="col-xs-12 col-sm-6">
           <h6>{{t "common.country"}}</h6>
           <p class="country">
-            {{#if profile.aboutMe}}
+            {{#if profile.country}}
               {{profile.country}}
             {{else}}
                 <span class="italic">{{t "common.not-specified"}}</span>
@@ -82,7 +82,7 @@
         <div class="col-xs-12 col-sm-6">
           <h6>{{t "common.state"}}</h6>
           <p class="school">
-            {{#if profile.aboutMe}}
+            {{#if profile.state}}
               {{profile.state}}
             {{else}}
               <span class="italic">{{t "common.not-specified"}}</span>
@@ -94,10 +94,22 @@
         <div class="col-xs-12 col-sm-6">
           <h6>{{t "common.district"}}</h6>
           <p class="district">
-            {{#if profile.aboutMe}}
+            {{#if profile.schoolDistrict}}
               {{profile.schoolDistrict}}
             {{else}}
                 <span class="italic">{{t "common.not-specified"}}</span>
+            {{/if}}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <h6>{{t "common.student-id"}}</h6>
+          <p class="student-id">
+            {{#if profile.studentId}}
+              {{profile.studentId}}
+            {{else}}
+              <span class="italic">{{t "common.not-specified"}}</span>
             {{/if}}
           </p>
         </div>

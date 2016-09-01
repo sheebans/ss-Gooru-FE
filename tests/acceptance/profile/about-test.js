@@ -31,6 +31,6 @@ test('Layout', function(assert) {
     T.exists(assert, $aboutContainer.find(".school"), "Missing user school");
     T.exists(assert, $aboutContainer.find(".district"), "Missing user district");
     T.exists(assert, $aboutContainer.find(".country"), "Missing user country");
-    T.notExists(assert, $aboutContainer.find(".studentId"), "Student ID should not appear");
+    T.exists(assert, $aboutContainer.find(".student-id"), "Missing Student ID");
   });
 });
