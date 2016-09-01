@@ -1,12 +1,19 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('content/modals/gru-submit-confirmation', 'Integration | Component | content/modals/gru submit confirmation', {
   integration: true
 });
 
 test('Layout', function(assert) {
-  this.render(hbs`{{content/modals/gru-submit-confirmation}}`);
+  this.set('model', {
+    onConfirm: function() {
+      assert.ok(true, 'Confirm method invoked');
+      return Ember.RSVP.resolve(true);
+    }
+  });
+  this.render(hbs`{{content/modals/gru-submit-confirmation model=model}}`);
 
   const $component = this.$('.content.modals.gru-submit-confirmation');
   assert.ok($component.length, 'Component classes');
@@ -21,4 +28,7 @@ test('Layout', function(assert) {
   assert.equal($body.find('.actions button').length, 2, 'Number of action buttons');
   assert.ok($body.find('.actions .cancel').length, 'Cancel button');
   assert.ok($body.find('.actions .submit').length, 'Submit button');
+
+
+  $component.find('.actions .submit').click();
 });
