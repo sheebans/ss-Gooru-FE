@@ -37,13 +37,6 @@ export default Ember.Component.extend({
      */
     openNavigator:function(){
       this.sendAction("onOpenNavigator");
-    },
-
-    /**
-     * Action triggered when the user wants to finish the collection
-     */
-    finishCollection:function(){
-      this.sendAction("onFinishCollection");
     }
   },
 
@@ -79,15 +72,7 @@ export default Ember.Component.extend({
   /**
    * @property {Collection
    */
-  collection: null,
-
-  /**
-   * Indicates if it should show the submit all functionality
-   * @property {boolean}
-   */
-  showSubmitAll: Ember.computed("submitted", "collection.isAssessment", function(){
-    return !this.get("submitted") && this.get("collection.isAssessment");
-  })
+  collection: null
 
   // -------------------------------------------------------------------------
   // Methods

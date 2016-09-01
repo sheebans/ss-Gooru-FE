@@ -36,19 +36,17 @@
     </li>
   {{/each}}
 </ul>
-<div class="navigator-subheader">
-  {{#if collection.isCollection}}
+{{#if collection.isCollection}}
+  <div class="navigator-subheader">
     <div class="see-usage-report" {{action 'seeUsageReport'}}>
       <span class="collection-title"> {{t 'player.gru-navigator.see-usage-report'}} </span>
       {{gru-icon name='keyboard_arrow_right'}}
     </div>
-  {{else}}
-    <div class="go-back" {{action 'closePlayer'}}>
-      {{#if lessonTitle}}
-        <span class="collection-title"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.lesson'}}:&nbsp; {{lessonTitle}}</span>
-      {{else}}
-        <span class="collection-title"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.back'}}</span>
-      {{/if}}
-    </div>
-  {{/if}}
-</div>
+  </div>
+{{else}}
+  <div class="submit-all">
+    {{#unless submitted}}
+      <button tabindex=-1 class="btn btn-success finish-collection" {{action "finishCollection"}}>{{t "common.submit-all"}}</button>
+    {{/unless}}
+  </div>
+{{/if}}
