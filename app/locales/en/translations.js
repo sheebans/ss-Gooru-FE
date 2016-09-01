@@ -752,10 +752,10 @@ export default {
     "start": "Start!"
   },
   "gru-submit-confirmation":{
-    "title": "You are about to submit an assessment...",
-    "description": "{{model.title}}",
+    "title": "Are you sure you want to Submit All?",
+    "description": "You are about to end this attempt and submit all responses. Any skipped questions will be counted as incorrect.",
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Submit All"
   },
   "gru-quick-course-search": {
     "add-from-course": "Add from Existing Course",

@@ -42,12 +42,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       const controller = this;
       const collection = this.get('collection');
 
-      if (collection.get("isAssessment")) {
+      if (collection.get('isAssessment')) {
         //open confirmation modal
         controller.finishConfirm();
       } else {
         //finishes the last resource
-        controller.finishResourceResult(controller.get("resourceResult")).then(function(){
+        controller.finishResourceResult(controller.get('resourceResult')).then(function(){
           controller.finishCollection();
         });
       }
@@ -365,11 +365,9 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   finishConfirm: function(){
     const controller = this;
-    const collection = this.get('collection');
     controller.actions.showModal.call(this,
       'content.modals.gru-submit-confirmation',
       {
-        title: collection.title,
         onConfirm: controller.finishCollection.bind(controller)
       });
   },
