@@ -138,8 +138,8 @@ test('Stats having not started, not started should be ignored', function (assert
   assert.equal(totals.get("totalIncorrect"), 3, 'Wrong incorrect');
   assert.equal(totals.get("incorrectPercentage"), 75, 'Wrong incorrect percentage');
   assert.equal(totals.get("incorrectPercentageFromTotal"), 50, 'Wrong incorrect percentage from total');
-  assert.equal(totals.get("totalSkipped"), 0, 'Wrong skipped');
-  assert.equal(totals.get("skippedPercentage"), 0, 'Wrong skipped percentage');
+  assert.equal(totals.get("totalSkipped"), 2, 'Wrong skipped');
+  assert.equal(totals.get("skippedPercentage"), 33, 'Wrong skipped percentage');
   assert.equal(totals.get("totalNotStarted"), 2, 'Wrong not started');
   assert.equal(totals.get("notStartedPercentage"), 33, 'Wrong not started percentage');
   assert.equal(totals.get("totalCompleted"), 4, 'Wrong not started');
