@@ -246,72 +246,72 @@ export default Ember.Component.extend(AccordionMixin, {
       });
   },
 
-  loadTeacherData: function(classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments) {
+  loadTeacherData: function(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) {
     const component = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       component.get('performanceService')
         .findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers)
         .then(function(performance) {
 
-          const promises = assessments.map(function(assessment) {
+          const promises = collections.map(function(collection) {
+            const isAssessment = collection.get('format') === 'assessment';
+            const collectionId = collection.get('id');
+            const peer = lessonPeers.findBy('id', collectionId);
 
-            const peer = lessonPeers.findBy('id', assessment.get('id'));
+            const assessmentDataPromise = isAssessment ?
+              component.get('assessmentService').readAssessment(collectionId):
+              Ember.RSVP.resolve(true);
 
-            if (peer) {
-              return component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
-                .then(function(profiles) {
-                  assessment.set('members', profiles);
-                  const averageScore = performance.calculateAverageScoreByItem(assessment.get('id'));
-                  return component.get('assessmentService').readAssessment(assessment.get('id'))
-                    .then(function(assessmentData){
-                      assessment.set('performance', Ember.Object.create({
-                        score: averageScore,
-                        hasStarted: averageScore > 0,
-                        isDisabled: !assessmentData.get('classroom_play_enabled')
-                      }));
-                    });
-                });
-            }
-            if(assessment.get('format') === 'assessment') {
-              return component.get('assessmentService').readAssessment(assessment.get('id'))
-                .then(function (assessmentData) {
-                    assessment.set('perfomance', Ember.Object.create({
-                      isDisabled: !assessmentData.get('classroom_play_enabled')
+            return assessmentDataPromise.then(function(assessmentData){
+              if (peer) {
+                return component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
+                  .then(function(profiles) {
+                    collection.set('members', profiles);
+                    const averageScore = performance.calculateAverageScoreByItem(collectionId);
+                    collection.set('performance', Ember.Object.create({
+                      score: averageScore,
+                      hasStarted: averageScore > 0,
+                      isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined
                     }));
-                });
-            } else {
-              return Ember.RSVP.resolve(true);
-            }
+                  });
+              }
+              else {
+                collection.set('performance', Ember.Object.create({
+                  isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined
+                }));
+                return Ember.RSVP.resolve(true);
+              }
+            });
           });
           Ember.RSVP.all(promises).then(resolve, reject);
         });
     });
   },
 
-  loadStudentData: function(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments) {
+  loadStudentData: function(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) {
     const component = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       const classMinScore = component.get('currentClass.minScore');
       component.get('performanceService')
-        .findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, assessments)
+        .findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections)
         .then(function(performance) {
-          const promises = assessments.map(function(assessment) {
-
-            const peer = lessonPeers.findBy('id', assessment.get('id'));
+          const promises = collections.map(function(collection) {
+            const isAssessment = collection.get('format') === 'assessment';
+            const peer = lessonPeers.findBy('id', collection.get('id'));
             if (peer) {
               component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
                 .then(function (profiles) {
-                  assessment.set('members', profiles);
+                  collection.set('members', profiles);
                 });
             }
-            const collectionPerformanceData = performance.findBy('id', assessment.get('id'));
+            const collectionPerformanceData = performance.findBy('id', collection.get('id'));
             const score = collectionPerformanceData.get('score');
             const hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
             collectionPerformanceData.set('hasTrophy', hasTrophy);
-            assessment.set('performance', collectionPerformanceData);
+            collection.set('performance', collectionPerformanceData);
             const attempts = collectionPerformanceData.get('attempts');
-            if(assessment.get('format') === 'assessment') {
-              return component.get('assessmentService').readAssessment(assessment.get('id'))
+            if(isAssessment) {
+              return component.get('assessmentService').readAssessment(collection.get('id'))
                 .then(function (assessment) {
                   const attemptsSettings = assessment.get('attempts');
                   if (attemptsSettings) {
