@@ -102,18 +102,20 @@
           </p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12 col-sm-6">
-          <h6>{{t "common.student-id"}}</h6>
-          <p class="student-id">
-            {{#if profile.studentId}}
-              {{profile.studentId}}
-            {{else}}
-              <span class="italic">{{t "common.not-specified"}}</span>
-            {{/if}}
-          </p>
+      {{#if isMyProfile}}
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <h6>{{t "common.student-id"}}</h6>
+            <p class="student-id">
+              {{#if profile.studentId}}
+                {{profile.studentId}}
+              {{else}}
+                <span class="italic">{{t "common.not-specified"}}</span>
+              {{/if}}
+            </p>
+          </div>
         </div>
-      </div>
+      {{/if}}
     </div>
   </div>
 </div>
