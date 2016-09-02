@@ -274,7 +274,10 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let resourceId = resource.get("id");
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
-    this.set("resource", null);
+
+    controller.set("resource", null);
+
+    Ember.run.later(function() {
     controller.startResourceResult(resourceResult).then(function(){
       controller.setProperties({
         "showReport": false,
@@ -283,6 +286,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         "resourceResult": resourceResult
       });
     }); //saves the resource status
+    },20);
   },
 
   /**
