@@ -401,7 +401,7 @@ export default {
     "standards": "Standards",
     "study": "Study",
     "student": "Student",
-    "student-id": "Student ID (not displayed on Profile)",
+    "student-id": "Student ID",
     "subject-and-framework": "Subject and Framework",
     "submit": "Submit",
     "submit-all": "Submit all",
