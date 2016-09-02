@@ -276,6 +276,9 @@ export default Ember.Component.extend(AccordionMixin, {
                   });
               }
               else {
+                collection.set('performance', Ember.Object.create({
+                  isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined
+                }));
                 return Ember.RSVP.resolve(true);
               }
             });
