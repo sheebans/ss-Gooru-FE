@@ -111,7 +111,7 @@ export default Ember.Component.extend({
               }
               return component.saveProfile(editedProfile);
             }).then(function() {
-              component.get('profile').merge(editedProfile, ['username','firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country', 'avatarUrl']);
+              component.get('profile').merge(editedProfile, ['username','firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country', 'studentId', 'avatarUrl']);
               component.get('router').transitionTo('profile.about', editedProfile.get('id'));
             }, function(error) {
               if(error.username) {
