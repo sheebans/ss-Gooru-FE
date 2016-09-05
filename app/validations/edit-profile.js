@@ -1,6 +1,24 @@
 import { validator, buildValidations } from 'ember-cp-validations';
 
 export default buildValidations({
+  firstName: {
+    validators: [
+      validator('format', {
+        regex: /^[a-z0-9-]+$/i,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.special-characters'
+      })
+    ]
+  },
+  lastName: {
+    validators: [
+      validator('format', {
+        regex: /^[a-z0-9-]+$/i,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.special-characters'
+      })
+    ]
+  },
   username: {
     validators: [
       validator('presence', {

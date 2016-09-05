@@ -24,12 +24,12 @@
                   </div>
                   <div class="row">
                       <div class="col-xs-12 col-sm-6">
-                          <h6><label for="first-name">{{t "common.first-name"}}</label></h6>
-                        {{input id="first-name" class="form-control" value=tempProfile.firstName}}
-                      </div>
+                        <h6><label for="first-name">{{t "common.first-name"}}</label></h6>
+                        {{validation.gru-input id="first-name" model=tempProfile valuePath='firstName'}}
+                     </div>
                       <div class="col-xs-12 col-sm-6">
-                          <h6><label for="last-name">{{t "common.last-name"}}</label></h6>
-                        {{input id="last-name" class="form-control" value=tempProfile.lastName}}
+                        <h6><label for="last-name">{{t "common.last-name"}}</label></h6>
+                        {{validation.gru-input id="last-name" model=tempProfile valuePath='lastName'}}
                       </div>
                   </div>
                   <h6><label for="bio">{{t "common.biography"}}</label></h6>
