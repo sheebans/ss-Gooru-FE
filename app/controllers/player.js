@@ -275,20 +275,40 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
 
-    controller.set("resource", null);
-
-    Ember.run.later(function() {
-    controller.startResourceResult(resourceResult).then(function(){
-      controller.setProperties({
-        "showReport": false,
-        "resourceId": resourceId,
-        "resource": resource,
-        "resourceResult": resourceResult
-      });
-    }); //saves the resource status
-    },20);
+    controller.cleanResourceComponent(controller.get("session.isAnonymous"),resourceResult,resource);
   },
+  /**
+   * This method destroy the component when the resource change and set a timer when
+   * the session is anonymous to prevent issues on re render components
+   * @param {Boolean} isAnonymous
+   */
+  cleanResourceComponent: function(isAnonymous,resourceResult,resource) {
+    let controller = this;
+    controller.set("resource", null);
+    let resourceId = resource.get("id");
 
+    if (!isAnonymous) {
+      controller.startResourceResult(resourceResult).then(function () {
+        controller.setProperties({
+          "showReport": false,
+          "resourceId": resourceId,
+          "resource": resource,
+          "resourceResult": resourceResult
+        });//saves the resource status
+      });
+    } else {
+      Ember.run.later(function () {
+        controller.startResourceResult(resourceResult).then(function () {
+          controller.setProperties({
+            "showReport": false,
+            "resourceId": resourceId,
+            "resource": resource,
+            "resourceResult": resourceResult
+          });//saves the resource status
+        });
+      }, 100);
+    }
+  },
   /**
    * Finishes a resource result or submits a question result
    * @param {ResourceResult} resourceResult
@@ -323,7 +343,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     context.set("eventType", "start");
     context.set("isStudent", controller.get("isStudent"));
 
-    return controller.saveResourceResult(resourceResult, context);
+    return controller.saveResourceResult(resourceResult,context);
   },
 
   /**
