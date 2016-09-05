@@ -47,7 +47,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         controller.finishConfirm();
       } else {
         //finishes the last resource
-        controller.finishResourceResult(controller.get('resourceResult')).then(function(){
+        controller.finishResourceResult(controller.get('resourceResult')).then(function() {
           controller.finishCollection();
         });
       }
@@ -223,10 +223,9 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    */
   resourcesPlayer: Ember.computed("collection.resources","assessmentResult.sortedResourceResults", function(){
     var availableResources = this.get('collection.resources').mapBy('id');
-    var assessmentAvailableResources = this.get('assessmentResult.sortedResourceResults').filter(function(item){
+    return this.get('assessmentResult.sortedResourceResults').filter(function(item){
        return availableResources.contains(item.resourceId);
     });
-    return assessmentAvailableResources;
   }),
 
   /**
@@ -266,7 +265,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    */
   moveToResource: function(resource) {
     let controller = this;
-    if (controller.get("isResource")){ //if previous item is a resource
+    if (controller.get("resourceResult")){ //if previous item is a resource
       controller.finishResourceResult(controller.get("resourceResult"));
     }
 
@@ -289,17 +288,22 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * Finishes a resource result or submits a question result
    * @param {ResourceResult} resourceResult
    * @param {Date} submittedAt
+   * @param {Boolean} isSkip
    * @returns {Promise.<boolean>}
    */
   finishResourceResult: function(resourceResult, submittedAt = new Date(), isSkip = false){
     let controller = this;
     let context = this.get("context");
+    let promise = Ember.RSVP.resolve(resourceResult);
 
-    //setting submitted at, timeSpent is calculated
-    resourceResult.set("submittedAt", isSkip ? undefined : submittedAt);
-    context.set("eventType", "stop");
-    context.set("isStudent", controller.get("isStudent"));
-    return controller.saveResourceResult(resourceResult, context, isSkip);
+    if(!resourceResult.get('submittedAt')) {
+      //setting submitted at, timeSpent is calculated
+      resourceResult.set("submittedAt", isSkip ? undefined : submittedAt);
+      context.set("eventType", "stop");
+      context.set("isStudent", controller.get("isStudent"));
+      promise = controller.saveResourceResult(resourceResult, context);
+    }
+    return promise;
   },
 
   /**
@@ -326,6 +330,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * Saves the resource result
    * This method is overriden by context-player controller to communicate with analytics
    * @param resourceResult
+   * @param context
    * @returns {Promise.<boolean>}
    */
   saveResourceResult: function(resourceResult, context){
@@ -349,7 +354,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     let submittedAt = new Date();
-    return controller.submitPendingQuestionResults(submittedAt).then(function(){
+    return controller.submitPendingQuestionResults().then(function(){
       context.set("eventType", "stop");
       context.set("isStudent", controller.get("isStudent"));
       assessmentResult.set("submittedAt", submittedAt);
