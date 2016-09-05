@@ -78,7 +78,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     /**
      * Action triggered when the user open de navigator panel
      */
-    openNavigator:function(){
+    openNavigator: function(){
       Ember.$( ".app-container" ).addClass( "navigator-on" );
     },
 
@@ -265,7 +265,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    */
   moveToResource: function(resource) {
     let controller = this;
-    if (controller.get("resourceResult")){ //if previous item is a resource
+    if (controller.get("resourceResult")){ //if previous item exists
       controller.finishResourceResult(controller.get("resourceResult"));
     }
 
