@@ -117,7 +117,7 @@ test('Assessment Card Layout', function(assert) {
 });
 
 test('Collection card trying buttons', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   var collection = Ember.Object.create({
     id: 1,

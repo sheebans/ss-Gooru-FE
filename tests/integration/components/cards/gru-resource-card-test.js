@@ -82,7 +82,7 @@ test('Question Card Layout', function(assert) {
 });
 
 test('Resource card trying buttons', function(assert) {
-  assert.expect(4);
+  assert.expect(6);
 
   var resource = ResourceModel.create({
     id: 1,
