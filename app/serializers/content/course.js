@@ -116,7 +116,7 @@ export default Ember.Object.extend({
       children: serializer.get('unitSerializer').normalizeUnits(payload.unit_summary),
       description: payload.description,
       isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
-      isVisibleOnProfile: payload['visible_on_profile'],
+      isVisibleOnProfile: typeof payload['visible_on_profile'] !== 'undefined' ? payload['visible_on_profile'] : true,
       owner: owner ? serializer.get("profileSerializer").normalizeReadProfile(owner): null,
       subject: payload.subject_bucket,
       taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
