@@ -140,3 +140,19 @@ test('Correct answer', function(assert) {
   });
 });
 
+test('Multiple choice answer layout in advanced editor', function(assert) {
+  const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+    'text': "Option A",
+    'isCorrect': true
+  })]);
+
+  this.set('answers', answers);
+
+  this.render(hbs`{{content/questions/answers/gru-multiple-choice answers=answers editMode=true showAdvancedEditor=true}}`);
+  var $component = this.$(); //component dom element
+  const $option = $component.find('.panel:eq(0)');
+  assert.ok(!$option.find('.delete i.delete').length, "Delete button should be hidden");
+  assert.ok(!$option.find('.check').length, "Correct  button should be hidden");
+
+});
+

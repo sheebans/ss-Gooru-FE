@@ -12,12 +12,12 @@
       {{/if}}
     </div>
     {{#if editMode}}
-      <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
-    {{/if}}
-    {{#if editMode}}
+      {{#unless showAdvancedEditor}}
+        <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
         <button class="check {{if answer.isCorrect 'correct'}}" {{action 'setCorrect' answer}}>
           {{gru-icon name="done"}}
         </button>
+      {{/unless}}
     {{else}}
       {{#if answer.isCorrect }}
         <div class="check correct">
