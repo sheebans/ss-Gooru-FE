@@ -44,6 +44,7 @@ test('Collection Card Layout', function(assert) {
   T.exists(assert, $collectionCard.find(".panel-body .description"), "Missing Collection Description");
   T.exists(assert, $collectionCard.find(".panel-footer .remix-btn"), "Missing Remixed Button");
   T.notExists(assert, $collectionCard.find(".panel-footer .edit-btn"), "Edit Button should not be visible");
+  T.notExists(assert, $collectionCard.find(".panel-footer .play-btn"), "Play Button should not be visible");
   T.exists(assert, $collectionCard.find(".panel-footer .visibility .pull-right"), "Missing visibility icon");
 });
 
@@ -142,14 +143,19 @@ test('Collection card trying buttons', function(assert) {
   this.on("editCollection", function(collection){
     assert.equal(collection.get("id"), 1, "Wrong collection id");
   });
+  this.on("openContentPlayer", function(collection){
+    assert.equal(collection.get("id"), 1, "Wrong collection id");
+  });
 
-  this.render(hbs`{{cards/gru-collection-card collection=collection editEnabled=true onEditCollection="editCollection" remixEnabled=false}}`);
+  this.render(hbs`{{cards/gru-collection-card collection=collection editEnabled=true onOpenContentPlayer="openContentPlayer" remixEnabled=false}}`);
   var $component = this.$(); //component dom element
   const $collectionCard = $component.find(".gru-collection-card");
   T.notExists(assert, $collectionCard.find(".panel-footer .remix-btn"), "Remixed Button should not fixed");
   T.exists(assert, $collectionCard.find(".panel-footer .edit-btn"), "Edit Button should be visible");
+  T.exists(assert, $collectionCard.find(".panel-footer .play-btn"), "Edit Button should be visible");
 
   $collectionCard.find(".panel-footer .edit-btn").click();
+  $collectionCard.find(".panel-footer .play-btn").click();
 
 });
 

@@ -50,7 +50,7 @@ test('Course Card Layout', function(assert) {
   });
 
   this.set('course', course);
-  assert.expect(9);
+  assert.expect(10);
   this.render(hbs`{{cards/gru-course-card course=course}}`);
 
   var $component = this.$(); //component dom element
@@ -64,6 +64,7 @@ test('Course Card Layout', function(assert) {
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
   T.exists(assert, $courseCard.find(".remix-button  button"), "Missing remix button");
   T.exists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");
+  T.notExists(assert, $courseCard.find(".play-button  button"), "Play button should not appear");
 });
 
 
@@ -205,7 +206,7 @@ test('Course Card Layout Owner and Private', function(assert) {
   });
 
   this.set('course', course);
-  assert.expect(8);
+  assert.expect(9);
   this.render(hbs`{{cards/gru-course-card course=course isOwner=true isEditEnabled=true}}`);
 
   var $component = this.$(); //component dom element
@@ -217,6 +218,7 @@ test('Course Card Layout Owner and Private', function(assert) {
   T.notExists(assert, $courseCard.find(".icon .public"), "Missing public icon");
   T.exists(assert, $courseCard.find(".users-teaser"), "Missing users teaser");
   T.exists(assert, $courseCard.find(".edit-button  button"), "Missing edit button");
+  T.exists(assert, $courseCard.find(".play-button  button"), "Missing play button");
   T.notExists(assert, $courseCard.find(".visibility  .gru-icon"), "Missing visibility icon");
 });
 test('Click Edit', function(assert) {
@@ -266,6 +268,55 @@ test('Click Edit', function(assert) {
   var $component = this.$(); //component dom element
   var $editButton = $component.find(".edit-button button");
   $editButton.click();
+
+});
+test('Click Play', function(assert) {
+  var course = Ember.Object.create({
+    'id': "1",
+    'title': 'Water cycle',
+    'totalUnits': 8,
+    'subjects': ['Science'],
+    'imageUrl': '/assets/gooru/profile.png',
+    'isPublished':true,
+    'isVisibleOnProfile':false,
+    'remixedBy':  Ember.A([Ember.Object.create({
+      'email': 'user_1@test.com',
+      'firstName': 'firstname-1',
+      'fullName': 'lastname-1 firstname-1',
+      'id': 'id-1',
+      'lastName': 'lastname-1',
+      'avatarUrl': '/assets/gooru/profile.png',
+      'username': 'username-1'
+    }),Ember.Object.create({
+      'email': 'user_2@test.com',
+      'firstName': 'firstname-2',
+      'fullName': 'lastname-2 firstname-2',
+      'id': 'id-2',
+      'lastName': 'lastname-2',
+      'avatarUrl': '/assets/gooru/profile.png',
+      'username': 'username-2'
+    }),Ember.Object.create({
+      'email': 'user_1@test.com',
+      'firstName': 'firstname-3',
+      'fullName': 'lastname-3 firstname-3',
+      'id': 'id-1',
+      'lastName': 'lastname-3',
+      'avatarUrl': '/assets/gooru/profile.png',
+      'username': 'username-3'
+    })])
+  });
+
+  this.set('course', course);
+  assert.expect(1);
+
+  this.on('playCourse', function(course){
+    assert.equal(course.get("id"), "1", "Wrong course id");
+  });
+
+  this.render(hbs`{{cards/gru-course-card course=course isOwner=true isEditEnabled=true onPlayCourse='playCourse'}}`);
+  var $component = this.$(); //component dom element
+  var $playButton = $component.find(".play-button button");
+  $playButton.click();
 
 });
 test('Course Card Unit Count with total 1', function(assert) {

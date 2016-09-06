@@ -40,6 +40,7 @@ test('Resource Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-body .description p"), "Missing Description");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Missing Add to Button");
   T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
+  T.notExists(assert, $resourceCard.find(".panel-footer button.play-btn"), "Play Button should not be visible");
   T.exists(assert, $resourceCard.find(".panel-footer .visibility .pull-right"), "Missing visibility icon");
 });
 
@@ -76,6 +77,8 @@ test('Question Card Layout', function(assert) {
   T.exists(assert, $resourceCard.find(".panel-footer button.copy-btn"), "Copy To Button Missing");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add To Button should be visible");
   T.notExists(assert, $resourceCard.find(".panel-footer .visibility .pull-right"), "Missing visibility icon");
+  T.notExists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should not be visible");
+  T.notExists(assert, $resourceCard.find(".panel-footer button.play-btn"), "Play Button should not be visible");
 });
 
 test('Resource card trying buttons', function(assert) {
@@ -102,6 +105,10 @@ test('Resource card trying buttons', function(assert) {
   this.on("editResource", function(resource){
     assert.equal(resource.get("id"), 1, "Wrong resource id");
   });
+  this.on("playResource", function(resource){
+    assert.equal(resource.get("id"), 1, "Wrong resource id");
+  });
+
   this.set('profileService', {
     readCollections: function(userId) {
       assert.equal(userId, 'user-id', "Wrong user id");
@@ -112,12 +119,14 @@ test('Resource card trying buttons', function(assert) {
     userId: 'user-id'
   });
 
-  this.render(hbs`{{cards/gru-resource-card resource=resource editEnabled=true onEditResource="editResource" session=session profileService=profileService}}`);
+  this.render(hbs`{{cards/gru-resource-card resource=resource editEnabled=true onPlayResource="playResource" onEditResource="editResource" session=session profileService=profileService}}`);
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find(".gru-resource-card");
   T.exists(assert, $resourceCard.find(".panel-footer button.add-to-btn"), "Add to Button should be visible");
   T.exists(assert, $resourceCard.find(".panel-footer button.edit-btn"), "Edit Button should be visible");
+  T.exists(assert, $resourceCard.find(".panel-footer button.play-btn"), "Play Button should be visible");
   $resourceCard.find(".panel-footer button.edit-btn").click();
+  $resourceCard.find(".panel-footer button.play-btn").click();
   $resourceCard.find(".panel-footer button.add-to-btn").click();
 
 });
