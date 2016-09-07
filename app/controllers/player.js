@@ -274,31 +274,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let resourceId = resource.get("id");
     let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
-
-    controller.cleanResourceComponent(controller.get("session.isAnonymous"),resourceResult,resource);
-  },
-  /**
-   * This method destroy the component when the resource change and set a timer when
-   * the session is anonymous to prevent issues on re render components
-   * @param {Boolean} isAnonymous
-   */
-  cleanResourceComponent: function(isAnonymous,resourceResult,resource) {
-    let controller = this;
-    controller.set("resource", null);
-    let resourceId = resource.get("id");
-
-    if (!isAnonymous) {
+    controller.cleanResourceComponent().then(function () {
       controller.startResourceResult(resourceResult).then(function () {
-        controller.setProperties({
-          "showReport": false,
-          "resourceId": resourceId,
-          "resource": resource,
-          "resourceResult": resourceResult
-        });//saves the resource status
-      });
-    } else {
-      Ember.run.later(function () {
-        controller.startResourceResult(resourceResult).then(function () {
           controller.setProperties({
             "showReport": false,
             "resourceId": resourceId,
@@ -306,8 +283,22 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
             "resourceResult": resourceResult
           });//saves the resource status
         });
+      });
+  },
+  /**
+   * This method destroy the component when the resource change and set a timer when
+   * the session is anonymous to prevent issues on re render components
+   */
+  cleanResourceComponent: function() {
+    let controller = this;
+    controller.set("resource", null);
+
+    let promise = new Ember.RSVP.Promise(function (resolve) {
+      Ember.run.later(function () {
+        resolve(true);
       }, 100);
-    }
+    });
+    return promise;
   },
   /**
    * Finishes a resource result or submits a question result
