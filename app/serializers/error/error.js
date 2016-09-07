@@ -14,7 +14,7 @@ export default Ember.Object.extend({
       "client_timestamp": error.get("timestamp"),
       "user_id": error.get("userId"),
       "log_type": "ERROR",
-      "client_info": JSON.stringify(error.get("details")),
+      "client_info": error.get("details"),
       "client_context": error.get("type"),
       "api": error.get("details.endpoint.url"),
       "api_status": error.get("details.endpoint.status"),

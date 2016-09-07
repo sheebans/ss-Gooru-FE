@@ -25,7 +25,7 @@ test('serializeError', function (assert) {
   assert.equal(serialized["user_id"], 1, 'Wrong user_id');
   assert.equal(serialized["log_type"], "ERROR", 'Wrong log_type');
   assert.equal(serialized["client_context"], "page", 'Wrong client_context');
-  assert.equal(serialized["client_info"], '{"agent":"Safari","endpoint":{"status":404,"response":"Not found","url":"/test.jsp"}}', 'Wrong client_info');
+  assert.deepEqual(serialized["client_info"], {"agent":"Safari","endpoint":{"status":404,"response":"Not found","url":"/test.jsp"}}, 'Wrong client_info');
   assert.equal(serialized["message"], "error description", 'Wrong message');
   assert.equal(serialized["api"], "/test.jsp", 'Wrong endpoint api');
   assert.equal(serialized["api_status"], 404, 'Wrong api status');
