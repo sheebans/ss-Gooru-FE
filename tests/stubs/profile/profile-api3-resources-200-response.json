@@ -12,7 +12,7 @@
         "K12.LA",
         "K12.SC-SC1"
       ],
-      "creator_id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
+      "creator_id": "id-for-pochita",
       "original_creator_id": null
     },
     {
@@ -23,7 +23,7 @@
       "content_format": "resource",
       "content_subformat": "video_resource",
       "taxonomy": [],
-      "creator_id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d"
+      "creator_id": "id-for-pochita"
     },
     {
       "id": "3",
@@ -43,7 +43,7 @@
       "content_format": "resource",
       "content_subformat": "interactive_resource",
       "taxonomy": [],
-      "creator_id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d"
+      "creator_id": "id-for-pochita"
     },
     {
       "id": "5",
@@ -53,14 +53,14 @@
       "content_format": "resource",
       "content_subformat": "image_resource",
       "taxonomy": [],
-      "creator_id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d"
+      "creator_id": "id-for-pochita"
     }
   ],
   "owner_details": [
     {
-      "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-      "firstname": "Sachin",
-      "lastname": "Zope",
+      "id": "id-for-pochita",
+      "firstname": "Pochita",
+      "lastname": "id-for-pochita",
       "thumbnail_path": null,
       "school_district_id": null
     }
