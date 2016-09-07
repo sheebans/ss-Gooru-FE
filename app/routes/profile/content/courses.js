@@ -23,6 +23,14 @@ export default Ember.Route.extend(ModalMixin, {
     },
 
     /**
+     * Edit course action, when clicking Play at the course card
+     * @param {Content/Course}
+     */
+    playCourse: function(course){
+      this.transitionTo("content.courses.play", course.get("id"));
+    },
+
+    /**
      * Remix course action, when clicking remix at the course card
      * @param {Content/Course}
      */

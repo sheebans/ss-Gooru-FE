@@ -21,6 +21,13 @@ export default Ember.Route.extend(ModalMixin, {
     editQuestion: function (question) {
       this.transitionTo("content.questions.edit", question.get("id"));
     },
+    /**
+     * On card play question button click
+     * @param {Question} question
+     */
+    playQuestion: function (question) {
+      this.transitionTo("content.questions.play", question.get("id"));
+    },
 
     /**
      * On card remix question button click

@@ -5,17 +5,27 @@
           {{#if isLinkOut}}
               <i class="{{resource.format}}-icon"></i>
           {{else}}
-            {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
-                <i class="{{resource.format}}-icon"></i>
-            {{/link-to}}
+            {{#if editEnabled}}
+              {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id}}
+                  <i class="{{resource.format}}-icon"></i>
+              {{/link-to}}
+              {{else}}
+              {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
+                  <i class="{{resource.format}}-icon"></i>
+              {{/link-to}}
+            {{/if}}
           {{/if}}
       </div>
       <div class="resource-info">
         <div class="title-section">
           {{#if isLinkOut}}
             <h6 class="title truncate">{{{resource.title}}}</h6>
+          {{else}}
+            {{#if editEnabled}}
+              {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
             {{else}}
-            {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+              {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+            {{/if}}
           {{/if}}
           {{#unless publishVisible}}
             {{#if resource.isPublished}}
@@ -56,7 +66,8 @@
   <div class="panel-footer">
     <div class="buttons">
       {{#if editEnabled }}
-        <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
+          <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
+          <button class="play-btn btn btn-success btn-sm" {{action "playResource"}}>{{t "common.play"}}</button>
       {{/if}}
       {{#if isQuestion}}
         {{#if remixEnabled}}
