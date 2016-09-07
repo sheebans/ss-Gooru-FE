@@ -13,7 +13,7 @@ moduleFor('controller:player', 'Unit | Controller | player', {
 });
 
 test('finishCollection on collection and anonymous', function(assert) {
-  assert.expect(9);
+  assert.expect(5);
   let controller = this.subject();
   let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Collection Title'
@@ -25,22 +25,11 @@ test('finishCollection on collection and anonymous', function(assert) {
     isAnonymous: true
   }));
   controller.set('role', 'teacher');
+  controller.set('saveEnabled', false);
   controller.set('collection', collection);
   controller.set('resourceResult', resourceResult);
   controller.set('assessmentResult', assessmentResult);
   controller.set('context', context);
-  controller.set('eventsService', Ember.Object.create({
-    saveResourceResult: function(result, cont) {
-      assert.deepEqual(result, resourceResult, 'Wrong result object');
-      assert.deepEqual(cont, context, 'Wrong context object');
-      return Ember.RSVP.resolve();
-    },
-    saveCollectionResult: function(result, cont){
-      assert.deepEqual(result, assessmentResult, 'Wrong result object');
-      assert.deepEqual(cont, context, 'Wrong context object');
-      return Ember.RSVP.resolve();
-    }
-  }));
 
   Ember.run(function() {
     controller.send('finishCollection');
@@ -283,4 +272,21 @@ test('changeEmotion', function(assert) {
   }));
 
   controller.send('changeEmotion', emotion);
+});
+
+test('changeEmotion save disabled', function(assert) {
+  assert.expect(2);
+  let controller = this.subject();
+  let questionResult = QuestionResult.create(Ember.getOwner(this).ownerInjection());
+  let context = Context.create(Ember.getOwner(this).ownerInjection());
+  let emotion = 'emotion';
+  controller.set('resourceResult', questionResult);
+  controller.set('context', context);
+  controller.set('role', 'student');
+  controller.set('saveEnabled', false);
+
+  controller.send('changeEmotion', emotion);
+
+  assert.notEqual(questionResult.get('reaction'), 'emotion', 'reactionType updated');
+  assert.notOk(context.get('isStudent'), 'isStudent not updated');
 });

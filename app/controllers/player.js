@@ -196,7 +196,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   /**
    * @property {boolean} indicates if the answer should be saved
    */
-  saveEnabled: true, //TODO save only when logged in
+  saveEnabled: true, // save only when logged in
 
   /**
    * @property {AssessmentResult} assessmentResult
@@ -419,8 +419,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @param {Context} context
    */
   saveCollectionResult: function(assessmentResult, context){
-    let controller = this;
-    return controller.get('eventsService').saveCollectionResult(assessmentResult, context);
+    return this.get("saveEnabled") ? this.get('eventsService').saveCollectionResult(assessmentResult, context) :
+      Ember.RSVP.resolve();
   },
 
 
@@ -454,10 +454,11 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     const controller = this;
     let eventsService = this.get('eventsService');
     let context = this.get('context');
-    context.set("isStudent", controller.get("isStudent"));
-    resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
-
-    eventsService.saveReaction(resourceResult, context);
+    if(controller.get("saveEnabled")) {
+      context.set("isStudent", controller.get("isStudent"));
+      resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
+      eventsService.saveReaction(resourceResult, context);
+    }
   },
 
   resetValues: function(){
