@@ -172,7 +172,7 @@ export default Ember.Object.extend({
 
       resourceResults
         // Filter in case a resource/question has been removed from the collection/assessment
-        .filter(result => resourceIds.hasOwnProperty(result.get('resourceId')))
+        .filter(result => resourceIds.indexOf(result.get('resourceId')) > -1)
         .forEach(function (resourceResult) {
         if (data[userId]) {
           const questionId = resourceResult.get('resourceId');
