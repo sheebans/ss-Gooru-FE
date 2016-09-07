@@ -103,7 +103,7 @@ export default Ember.Component.extend({
           component.setCursor();
         }
       }
-    }, 100);
+    }, 200);
 
     component.set('editor', editor);
 
