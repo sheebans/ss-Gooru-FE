@@ -7,6 +7,7 @@ import UserSessionAdapter from 'gooru-web/adapters/user-session';
 
 export default {
   name: 'adapters',
+  after: 'gooru-configuration',
   initialize: function(application) {
     application.register('adapter:analytics', AnalyticsAdapter, { singleton: false } );
     application.register('adapter:collection-resource-play', CollectionResourceAdapter, { singleton: false } );
