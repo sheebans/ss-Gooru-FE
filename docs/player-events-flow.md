@@ -8,8 +8,9 @@ This document describes several player scenarios related to sending or not playe
 ## When starting a new collection attempt
 This is when the user access a *new attempt* from search, profile, course map or data analytics
 
-* A collection start event should be sent when playing the new attempt, event if the user is not logged in
+* A collection start event should be sent when playing the new attempt
 * A resource/question start event is sent, since the player shows the first resource/question in the list by default
+* No events are sent if the user is not logged in
 
 ## When playing a non finished collection attempt
 This is when the user access a *previous started attempt* from search, profile, course map or data analytics 
@@ -56,8 +57,9 @@ This is when the user click at any visited resource at the navigation panel
 ## When starting a new assessment attempt
 This is when the user access a *new attempt* from search, profile, course map or data analytics
 
-* A assessment start event should be sent when playing the new attempt, event if the user is not logged in
+* A assessment start event should be sent when playing the new attempt
 * A question start event is sent, since the player shows the first question in the list by default
+* No events are sent if the user is not logged in
 
 ## When playing a non finished assessment attempt
 This is when the user access a *previous started attempt* from search, profile, course map or data analytics 
@@ -83,14 +85,14 @@ This is when the user clicks submit at the last question attempt
 ## When navigating to a non visited question from left navigation panel
 This is when the user click at any other non visited question at the navigation panel
 
-* A stop question event *should not be sent* for the current question
+* A stop question event should be sent for the current question
 * A start question event should be sent for the question the user is moving to
 * Question events are not sent if the user is not logged in
 
 ## When navigating back to a question visited from left navigation panel
 This is when the user click at any other visited question at the navigation panel
 
-* A stop question event *should not be sent* for the current question
+* A stop question event should be sent for the current question
 * A start question event should be sent for the question the user is moving
 * If the question was already started then the startedAt and resourceEventId are not modified, it keeps the original one
 * Question events are not sent if the user is not logged in
@@ -108,7 +110,7 @@ This is when the user completes a question and submits it.
 This is when the user clicks at the emotion icons
 
 * A rate event is should be sent for the current resource/question
-* This event is also sent for anonymous users
+* No event is sent for anonymous users
 
 
 ## When navigating back to course map, data, search or profile
