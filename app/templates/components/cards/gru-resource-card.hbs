@@ -62,29 +62,33 @@
       <p class="truncate">{{gru-math-text text=(if resource.isFIB resource.fibText resource.description)}}</p>
     </div>
   </div>
-  {{#unless isLinkOut}}
   <div class="panel-footer">
-    <div class="buttons">
-      {{#if editEnabled }}
-          <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
-          <button class="play-btn btn btn-success btn-sm" {{action "playResource"}}>{{t "common.play"}}</button>
-      {{/if}}
-      {{#if isQuestion}}
-        {{#if remixEnabled}}
-          <button class="copy-btn btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
-        {{/if}}
-      {{/if}}
-      {{#if addEnabled}}
-        <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
-      {{/if}}
-    </div>
-    {{#unless publishVisible}}
-      <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
-        {{#unless resource.isVisibleOnProfile }}
-          {{gru-icon name="visibility_off" class='pull-right'}}
+    {{#if isLinkOut}}
+        <div class="buttons">
+            <a class="play-btn btn btn-success btn-sm" href="{{{resource.url}}}" target="_blank">{{t "common.play"}}</a>
+        </div>
+    {{else}}
+          <div class="buttons">
+            {{#if editEnabled }}
+                <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
+                <button class="play-btn btn btn-success btn-sm" {{action "playResource"}}>{{t "common.play"}}</button>
+            {{/if}}
+            {{#if isQuestion}}
+              {{#if remixEnabled}}
+                  <button class="copy-btn btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
+              {{/if}}
+            {{/if}}
+            {{#if addEnabled}}
+                <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+            {{/if}}
+          </div>
+        {{#unless publishVisible}}
+            <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
+              {{#unless resource.isVisibleOnProfile }}
+                {{gru-icon name="visibility_off" class='pull-right'}}
+              {{/unless}}
+            </div>
         {{/unless}}
-      </div>
-    {{/unless}}
+  {{/if}}
   </div>
-  {{/unless}}
 </div>
