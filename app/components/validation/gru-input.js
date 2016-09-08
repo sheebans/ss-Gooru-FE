@@ -30,7 +30,7 @@ export default Ember.Component.extend({
   /**
    * @type {?string} string of classes (separated by a space) specific to the component instance
    */
-  classes: 'test',
+  classes: '',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -53,6 +53,12 @@ export default Ember.Component.extend({
 
     enterPressed: function() {
       this.set('isTyping', false);
+      this.get('isValid') === true && this.get("onEnter")(this.get('value'));
+    },
+
+    clearContent: function(){
+      this.set('rawInputValue','');
+      this.set('value', this.get('rawInputValue'));
     }
   },
 
@@ -99,6 +105,10 @@ export default Ember.Component.extend({
    */
   attributeValidation: null,
   isTyping: false,
+  hasClearButton: false,
+  showClearButton: computed('hasClearButton','hasContent', function(){
+    return this.get('hasContent') && this.get('hasClearButton');
+  }),
 
   /**
    * @property {string} onFocusOut action
