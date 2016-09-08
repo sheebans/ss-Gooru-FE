@@ -136,7 +136,7 @@ test('finishCollection on collection and not anonymous', function(assert) {
   assert.ok(assessmentResult.get('submittedAt'), 'submittedAt for assessment updated');
   assert.equal(context.get('eventType'), 'stop', 'eventType updated');
   assert.ok(context.get('isStudent'), 'isStudent updated');
-})
+});
 
 test('finishCollection on collection, not anonymous and on air', function(assert) {
   assert.expect(16);
