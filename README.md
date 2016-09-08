@@ -72,15 +72,15 @@ See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
 * See [Environment Setup](./docs/environment-setup.md)
 
 ### Application configuration
-The application configuration is store a the following places
+The application configuration is stored at the following places...
 
-* environment.js : it contains application properties that are reused for all environments
+* environment.js : it contains the application properties reused for all environments
 * config/env/{environment}.js : it contains the default environment (test, dev, prod) properties
-* public/config/{hostname}.json : it contains specific domain properties, see services/configuration.js
+* public/config/{hostname}.json : it contains specific hostname properties, see services/configuration.js
 
-We are providing 2 host configuration per default, you could add your own file during deployment so that your environment overrides the default configuration
+We are providing 2 host configurations files, you could add your own file during deployment so that your environment overrides the default configuration
 
-The application first load the environment configuration, then it tries to load the hostname configuration if provided to override the default env configuration
+The application first loads the environment configuration, then it tries to load the hostname file if provided to override the default env configuration
 
 ### Generating SVG sprite sheets
 It's required to run a grunt task that builds the SVG Sprite Sheets that the application requires prior to the build process. In order to build them just run the grunt task `grunt generateSVG`
