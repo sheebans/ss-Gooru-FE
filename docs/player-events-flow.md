@@ -72,7 +72,7 @@ This is when the user access a *previous started attempt* from search, profile, 
 This is when the user clicks at Submit All
 
 * A question start event should be sent for any question not started by the user
-* A question stop event should be sent for any started but not submitted question (pending)
+* A question stop event should be sent for any started but not submitted question (pending), if the user entered an answer the answer is saved, the question is not skipped
 * A collection stop event should be sent, event if the user is not logged in
 * The question events are not sent if the user is not logged in
 
@@ -85,14 +85,14 @@ This is when the user clicks submit at the last question attempt
 ## When navigating to a non visited question from left navigation panel
 This is when the user click at any other non visited question at the navigation panel
 
-* A stop question event should be sent for the current question
+* A stop question event should be sent for the current question, if the user entered an answer the answer is saved, the question is not skipped
 * A start question event should be sent for the question the user is moving to
 * Question events are not sent if the user is not logged in
 
 ## When navigating back to a question visited from left navigation panel
 This is when the user click at any other visited question at the navigation panel
 
-* A stop question event should be sent for the current question
+* A stop question event should be sent for the current question, if the user entered an answer the answer is saved, the question is not skipped
 * A start question event should be sent for the question the user is moving
 * If the question was already started then the startedAt and resourceEventId are not modified, it keeps the original one
 * Question events are not sent if the user is not logged in
