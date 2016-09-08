@@ -34,7 +34,7 @@ export default Ember.Component.extend({
     selectCollection:function(collection){
       this.set("selectedCollection", collection);
       $('.gru-add-to .selected').removeClass('selected');
-      $('.' + collection.id).addClass('selected');
+      $(`.${collection.id}`).addClass('selected');
     },
 
     /**

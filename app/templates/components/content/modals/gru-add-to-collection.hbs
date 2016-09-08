@@ -21,11 +21,13 @@
     </div>
   {{/if}}
   <div class="lead">
-    {{#if showCollections}}
-      {{t 'gru-add-to.add-to-collection-lead' contentTitle=content.title}}
+    <span>
+      {{#if showCollections}}
+        {{t 'gru-add-to.add-to-collection-lead' contentTitle=content.title}}
       {{else}}
         {{t 'gru-add-to.add-to-assessment-lead' contentTitle=content.title}}
-    {{/if}}
+      {{/if}}
+    </span>
   </div>
   <div class="list">
     {{#each collectionsList as |collection|}}

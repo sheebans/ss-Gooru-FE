@@ -30,7 +30,7 @@ export default Ember.Component.extend({
   /**
    * @type {?string} string of classes (separated by a space) specific to the component instance
    */
-  classes: 'test',
+  classes: '',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -53,6 +53,12 @@ export default Ember.Component.extend({
 
     enterPressed: function() {
       this.set('isTyping', false);
+      this.get('isValid') === true && this.get("onEnter")(this.get('value'));
+    },
+
+    clearContent: function(){
+      this.set('rawInputValue','');
+      this.set('value', this.get('rawInputValue'));
     }
   },
 
@@ -98,7 +104,20 @@ export default Ember.Component.extend({
    * @param {Object} attributeValidation - value used to set the rawInputValue
    */
   attributeValidation: null,
+  /**
+   * @param {Boolean} isTyping - Flag for when user is typing
+   */
   isTyping: false,
+  /**
+   * @param {Boolean} hasClearButton - Flag for when we want to show a clear button
+   */
+  hasClearButton: false,
+  /**
+   * @param {Computed} showClearButton - Flag that determines when the button should be shown when flag is true
+   */
+  showClearButton: computed('hasClearButton','hasContent', function(){
+    return this.get('hasContent') && this.get('hasClearButton');
+  }),
 
   /**
    * @property {string} onFocusOut action
