@@ -164,7 +164,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     const route = this;
 
     // do not track errors at the user-error api, this to prevent a loop
-    if (settings.url.indexOf('api/nucleus-utils/v1/user-error') >=0 ) {
+    if (settings.url.indexOf('api/nucleus-utils/v1/user-error') >= 0 ) {
       return;
     }
 
@@ -200,6 +200,12 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   trackAppError : function(error){
     const route = this;
+
+    // do not track errors at the user-error api, this to prevent a loop
+    if (error.responseText && error.responseText.indexOf('api/nucleus-utils/v1/user-error') >= 0 ) {
+      return;
+    }
+
     const model = Error.create({
       "type": "page",
       "timestamp": new Date().getTime(),
@@ -212,6 +218,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
       "description": JSON.stringify(error)
     });
 
+    Ember.Logger.error(error);
     route.get("errorService").createError(model);
   },
 

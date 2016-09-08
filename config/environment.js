@@ -2,34 +2,6 @@
 
 module.exports = function (environment) {
 
-  const extend = function(objectA, objectB) {
-    var objectC = {};
-    for(var key in objectA) {
-      objectC[key] = objectB.hasOwnProperty(key) ? objectB[key] : objectA[key];
-    }
-    return objectC;
-  };
-
-  const GooruEndpointDefault = {
-    protocol: 'http://',
-    secureProtocol: 'https://',
-    hostname: undefined,      // Uses the current hostname
-    port: undefined,          // Uses the default value 80
-    securePort: undefined     // Uses the default value 443
-  };
-
-  const RealTimeDefault = {
-    webServiceProtocol: 'http://',
-    webServiceHostname: 'goorurt.qa.gooruweb.edify.cr',
-    webServicePort: undefined,  // Uses the default value 80
-    webServiceUri: '/nucleus/realtime',
-
-    webSocketProtocol: 'https://',
-    webSocketHostname: 'goorurt.qa.gooruweb.edify.cr',
-    webSocketPort: undefined,   // Uses the default value 80
-    webSocketUri: '/ws/realtime'
-  };
-
   var ENV = {
     modulePrefix: 'gooru-web',
     environment: environment,
@@ -89,15 +61,6 @@ module.exports = function (environment) {
     eventAPIKey: '33b9ad34-1a0c-43ba-bb9c-4784abe07110'
   };
 
-  ENV['teamsHosts'] = {
-    'localhost': 'teams-qa.gooru.org',                  // Development
-    'qa.gooruweb.edify.cr': 'teams-qa.gooru.org',       // Edify-QA
-    'nucleus-qa.gooru.org': 'teams-qa.gooru.org',       // Nucleus-QA
-    'nucleus-qa-prl.gooru.org': 'teams-qa.gooru.org',   // Parallel-QA
-    'parallel.gooru.org': 'teams.gooru.org',            // Parallel
-    'www.gooru.org': 'teams.gooru.org'                  // Production
-  };
-
   ENV['simple-auth-custom'] = {
     apiKey: 'ASERTYUIOMNHBGFDXSDWERT123RTGHYT',
     serverTokenEndpoint: '/gooruapi/rest/v2/account/login',
@@ -115,49 +78,6 @@ module.exports = function (environment) {
     url: '/api/nucleus-auth-idp/v1/google'
   };
 
-  ENV['environment-map'] = {
-    'localhost': 'local',
-    'qa.gooruweb.edify.cr': 'edify-qa',
-    'nucleus-qa.gooru.org': 'nucleus-qa',
-    'nucleus-qa-prl.gooru.org': 'parallel-qa',
-    'parallel.gooru.org': 'parallel',
-    'www.gooru.org': 'prod',
-    'gooru.org': 'prod'
-  };
-
-  ENV['gooru-endpoints'] = {
-    'local': extend(GooruEndpointDefault, {
-      hostname: 'nucleus-qa.gooru.org'
-    }),
-    'edify-qa': extend(GooruEndpointDefault, {
-      hostname: 'nucleus-qa.gooru.org'
-    }),
-    'nucleus-qa': GooruEndpointDefault,
-    'parallel-qa': GooruEndpointDefault,
-    'parallel': GooruEndpointDefault,
-    'prod': GooruEndpointDefault
-  };
-
-  ENV['real-time'] = {
-    'local': RealTimeDefault,
-    'edify-qa': RealTimeDefault,
-    'nucleus-qa': extend(RealTimeDefault, {
-      webSocketHostname: 'rt.nucleus-qa.gooru.org',
-      webServiceHostname: 'nucleus-qa.gooru.org'
-    }),
-    'parallel-qa': extend(RealTimeDefault, {
-      webSocketHostname: 'rt.nucleus-qa.gooru.org',
-      webServiceHostname: 'nucleus-qa-prl.gooru.org'
-    }),
-    'parallel': extend(RealTimeDefault, {
-      webSocketHostname: 'rt.parallel.gooru.org',
-      webServiceHostname: 'parallel.gooru.org'
-    }),
-    'prod': extend(RealTimeDefault, {
-      webSocketHostname: 'rt.gooru.org',
-      webServiceHostname: 'www.gooru.org'
-    })
-  };
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -189,20 +109,6 @@ module.exports = function (environment) {
     ENV['ember-simple-auth'].store = 'session-store:ephemeral';
 
     ENV.APP.rootElement = '#ember-testing';
-
-    ENV['gooru-endpoints']['local'] = extend(GooruEndpointDefault, {
-      secureProtocol: 'http://',
-      hostname: 'localhost',
-      port: 7357,
-      securePort: 7357
-    });
-
-    ENV['real-time']['local'] = extend(RealTimeDefault, {
-      webSocketHostname: 'localhost',
-      webSocketPort: 7357,
-      webServiceHostname: 'localhost',
-      webServicePort: 7357
-    });
   }
 
   if (environment === 'production') {
