@@ -264,24 +264,25 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @param {Resource} resource
    */
   moveToResource: function(resource) {
-    let controller = this;
-    if (controller.get("resourceResult")){ //if previous item exists
-      controller.finishResourceResult(controller.get("resourceResult"));
-    }
+    const controller = this;
+    //if previous item exists
+    let promise = controller.get('resourceResult') ?
+      controller.finishResourceResult(controller.get('resourceResult')) : Ember.RSVP.resolve();
+    promise.then(function(){
+      let assessmentResult = controller.get('assessmentResult');
+      let resourceId = resource.get('id');
+      let resourceResult = assessmentResult.getResultByResourceId(resourceId);
 
-    let assessmentResult = controller.get("assessmentResult");
-    let resourceId = resource.get("id");
-    let resourceResult = assessmentResult.getResultByResourceId(resourceId);
-
-    this.set("resource", null);
-    controller.startResourceResult(resourceResult).then(function(){
-      controller.setProperties({
-        "showReport": false,
-        "resourceId": resourceId,
-        "resource": resource,
-        "resourceResult": resourceResult
-      });
-    }); //saves the resource status
+      controller.set('resource', null);
+      controller.startResourceResult(resourceResult).then(function(){
+        controller.setProperties({
+          'showReport': false,
+          resourceId,
+          resource,
+          resourceResult
+        });
+      }); //saves the resource status
+    });
   },
 
   /**
