@@ -1,8 +1,9 @@
 import ConfigurationService from 'gooru-web/services/configuration';
 
 export function getEndpointUrl() {
+  const protocol = window.location.protocol;
   const configuration = ConfigurationService.configuration;
-  return configuration.get("endpoint.url");
+  return (protocol === "https") ? getEndpointSecureUrl() : configuration.get("endpoint.url");
 }
 
 export function getEndpointSecureUrl() {
