@@ -1,4 +1,5 @@
 import BaseValidator from 'ember-cp-validations/validators/base';
+import Ember from 'ember';
 
 export default BaseValidator.extend({
   i18n: Ember.inject.service(),

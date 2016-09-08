@@ -231,7 +231,7 @@ test('it shows an error message if the username has reserved words', function (a
 
 
     const $signUpContainer = find(".sign-up");
-    const $usernameField = $signUpContainer.find(".gru-input.username")
+    const $usernameField = $signUpContainer.find(".gru-input.username");
 
     // Invalid format
     $usernameField.find("input").val('home');

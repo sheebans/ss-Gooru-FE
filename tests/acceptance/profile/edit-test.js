@@ -140,7 +140,7 @@ test('it shows an error message if the username has reserved words', function (a
 
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/edit');
-    const $usernameField = find(".gru-input.username")
+    const $usernameField = find(".gru-input.username");
 
     // Invalid format
     $usernameField.find("input").val('home');
