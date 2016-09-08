@@ -223,6 +223,31 @@ test('it shows an error message if the last name field has special characters an
   });
 });
 
+test('it shows an error message if the username has reserved words', function (assert) {
+  visit('/sign-up');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-up');
+
+
+    const $signUpContainer = find(".sign-up");
+    const $usernameField = $signUpContainer.find(".gru-input.username")
+
+    // Invalid format
+    $usernameField.find("input").val('home');
+    $usernameField.find("input").blur();
+
+    return wait().then(function () {
+      assert.ok($usernameField.find(".error-messages .error").length, 'Username error message visible');
+      // Valid format
+      $usernameField.find("input").val('test');
+      $usernameField.find("input").blur();
+      return wait().then(function () {
+        assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message was hidden');
+      });
+    });
+  });
+});
 //TODO
 
 //test('it shows a child-layout when user is under 13 years old', function (assert) {
