@@ -1,11 +1,13 @@
 import Ember from 'ember';
 import AddToModal from 'gooru-web/components/content/modals/gru-add-to';
+import CollectionSearch from 'gooru-web/models/search/collection-search';
 import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 export default AddToModal.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
 
   /**
    * @requires service:api-sdk/lesson
@@ -25,25 +27,50 @@ export default AddToModal.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'modals', 'gru-add-to-collection'],
+  classNames: ['content', 'modals', 'gru-add-to-lesson'],
 
   classNameBindings: ['component-class'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * Show more collection/Assessments results
      */
     showMoreResults: function(){
       this.showMoreResults();
+    },
+    updateContent:function(keyword){
+        const component = this;
+        const pagination = component.get("pagination");
+        pagination.page = pagination.page + 1;
+        pagination.filterBy="notInCourse";
+        pagination.searchText=keyword;
+        if(component.get('isCollection')){
+          component.get('profileService')
+            .readCollections(
+            component.get('session.userId'), pagination)
+            .then(function(collections){
+              component.set("collections", collections.toArray());
+            });
+        }else{
+          component.get('profileService').readAssessments(
+          component.get('session.userId'), pagination)
+          .then(function(assessments){
+            component.set("collections", assessments.toArray());
+          });
+        }
     }
   },
   copyContent: function() {
     return Ember.RSVP.resolve();
   },
-
+  init() {
+    this._super(...arguments);
+    this.set('searchObject',CollectionSearch.create(Ember.getOwner(this).ownerInjection(),{
+      term:''
+    }));
+  },
   addContent: function() {
     var collectionId = this.get('selectedCollection.id');
     var courseId = this.get('model.courseId');
@@ -110,7 +137,7 @@ export default AddToModal.extend({
   },
   // -------------------------------------------------------------------------
   // Properties
-
+  searchObject:'',
   /**
    * @type {Boolean} if it is showing collections
    */

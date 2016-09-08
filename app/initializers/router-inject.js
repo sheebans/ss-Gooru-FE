@@ -5,5 +5,6 @@ export function initialize(app) {
 
 export default {
   name: 'router-inject',
+  after: 'gooru-configuration',
   initialize: initialize
 };

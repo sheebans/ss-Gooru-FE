@@ -580,3 +580,175 @@ test('normalizeReadNetwork for followers', function(assert) {
   assert.equal(response[1].get("schoolDistrict"), "district-2", 'Invalid district for user 2');
 
 });
+
+test('normalizeQuestion - if visible_on_profile is undefined', function(assert) {
+  const serializer = this.subject();
+  const owners = [Ember.Object.create({
+    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const questionData = {
+    "id": "f59eff43-767d-4910-af5a-b7dc9a5ce065",
+    "title": "Introduction to Java"
+  };
+
+  const question = serializer.normalizeQuestion(questionData, owners);
+  assert.equal(question.get("id"), 'f59eff43-767d-4910-af5a-b7dc9a5ce065', 'Wrong id');
+  assert.equal(question.get("isVisibleOnProfile"), true, 'Wrong visible status');
+});
+
+test('normalizeQuestion - if it is not visible on profile', function(assert) {
+  const serializer = this.subject();
+  const owners = [Ember.Object.create({
+    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const questionData = {
+    "id": "f59eff43-767d-4910-af5a-b7dc9a5ce065",
+    "title": "Introduction to Java",
+    "visible_on_profile": false
+  };
+
+  const question = serializer.normalizeQuestion(questionData, owners);
+  assert.equal(question.get("id"), 'f59eff43-767d-4910-af5a-b7dc9a5ce065', 'Wrong id');
+  assert.equal(question.get("isVisibleOnProfile"), false, 'Wrong visible status');
+});
+
+test('normalizeResource - if visible_on_profile is undefined', function(assert) {
+  const serializer = this.subject();
+  const owners = [Ember.Object.create({
+    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const resourceData = {
+    "id": "f59eff43-767d-4910-af5a-b7dc9a5ce065",
+    "title": "Introduction to Java"
+  };
+
+  const resource = serializer.normalizeResource(resourceData, owners);
+  assert.equal(resource.get("id"), 'f59eff43-767d-4910-af5a-b7dc9a5ce065', 'Wrong id');
+  assert.equal(resource.get("isVisibleOnProfile"), true, 'Wrong visible status');
+});
+
+test('normalizeResource - if it is not visible on profile', function(assert) {
+  const serializer = this.subject();
+  const owners = [Ember.Object.create({
+    "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const resourceData = {
+    "id": "f59eff43-767d-4910-af5a-b7dc9a5ce065",
+    "title": "Introduction to Java",
+    "visible_on_profile": false
+  };
+
+  const resource = serializer.normalizeResource(resourceData, owners);
+  assert.equal(resource.get("id"), 'f59eff43-767d-4910-af5a-b7dc9a5ce065', 'Wrong id');
+  assert.equal(resource.get("isVisibleOnProfile"), false, 'Wrong visible status');
+});
+
+test('normalizeCollection - if visible_on_profile is undefined', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'content-url/'
+    }
+  }));
+  const owners = [Ember.Object.create({
+    "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const collectionData = {
+    "id": "50484e74-ad95-44d5-981a-c18411260233"
+  };
+
+  const collection = serializer.normalizeCollection(collectionData, owners);
+  assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
+  assert.equal(collection.get("isVisibleOnProfile"), true, 'Wrong visible status');
+});
+
+test('normalizeCollection - if is not visible on profile', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'content-url/'
+    }
+  }));
+  const owners = [Ember.Object.create({
+    "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const collectionData = {
+    "id": "50484e74-ad95-44d5-981a-c18411260233",
+    "visible_on_profile": false
+  };
+
+  const collection = serializer.normalizeCollection(collectionData, owners);
+  assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
+  assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible status');
+});
+
+test('normalizeAssessment - if visible_on_profile is undefined', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'content-url/'
+    }
+  }));
+  const owners = [Ember.Object.create({
+    "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const assessmentData = {
+    "id": "50484e74-ad95-44d5-981a-c18411260233"
+  };
+
+  const collection = serializer.normalizeAssessment(assessmentData, owners);
+  assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
+  assert.equal(collection.get("isVisibleOnProfile"), true, 'Wrong visible status');
+});
+
+test('normalizeAssessment - if it not is visible on profile', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'content-url/'
+    }
+  }));
+  const owners = [Ember.Object.create({
+    "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
+    "firstname": "Sachin",
+    "lastname": "Zope",
+    "thumbnail_path": "any"
+  })];
+
+  const assessmentData = {
+    "id": "50484e74-ad95-44d5-981a-c18411260233",
+    "visible_on_profile": false
+  };
+
+  const collection = serializer.normalizeAssessment(assessmentData, owners);
+  assert.equal(collection.get("id"), '50484e74-ad95-44d5-981a-c18411260233', 'Wrong id');
+  assert.equal(collection.get("isVisibleOnProfile"), false, 'Wrong visible status');
+});

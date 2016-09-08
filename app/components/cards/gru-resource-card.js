@@ -37,7 +37,12 @@ export default Ember.Component.extend(ModalMixin,{
     editResource: function(){
       this.sendAction("onEditResource", this.get("resource"));
     },
-
+    /**
+     * Action triggered to play the resource/question
+     */
+    playResource:function(){
+      this.sendAction("onPlayResource", this.get("resource"));
+    },
     /**
      * Action triggered to remix the question
      */

@@ -10,6 +10,11 @@
     autofocus=autofocus
     maxlength=maxLength
   }}
+  {{#if showClearButton}}
+  <span class="clear" {{action 'clearContent'}}>
+    {{gru-icon name="cancel"}}
+  </span>
+  {{/if}}
   <div class="error-messages">
     {{#if showMessage}}
       <span class="error">

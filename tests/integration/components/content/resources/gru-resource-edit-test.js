@@ -245,7 +245,8 @@ test('Layout of preview section for a link out resource', function (assert) {
 
   assert.ok($panel.find('.panel-header').length, "panel-header of not-iframe panel");
   assert.ok($panel.find('.panel-body').length, "panel-body of not-iframe panel");
-  assert.ok($panel.find('.panel-body a .gru-resource-card').length, "Missing resource card");
+  assert.ok($panel.find('.panel-body .gru-resource-card').length, "Missing resource card");
+  assert.ok($panel.find('.panel-body .gru-resource-card a.play-btn').length, "Missing play button");
   assert.ok($panel.find('.panel-footer').length, "panel-footer of not-iframe panel");
 });
 

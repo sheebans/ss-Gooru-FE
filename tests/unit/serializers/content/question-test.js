@@ -231,3 +231,38 @@ test('normalizeAnswer', function(assert) {
   assert.equal(answer.get('text'), 'Answer #1 text', 'Wrong text');
   assert.equal(answer.get('type'), 'text', 'Wrong type');
 });
+
+test('normalizeReadQuestion - if visible_on_profile is undefined', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
+  const questionData = {
+    id: 'abcd'
+  };
+
+  const question = serializer.normalizeReadQuestion(questionData);
+  assert.equal(question.get('id'), 'abcd', 'Wrong id');
+  assert.equal(question.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
+});
+
+test('normalizeReadQuestion - if it is not visible on profile', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+
+  const questionData = {
+    id: 'abcd',
+    'visible_on_profile': false
+  };
+
+  const question = serializer.normalizeReadQuestion(questionData);
+  assert.equal(question.get('id'), 'abcd', 'Wrong id');
+  assert.equal(question.get('isVisibleOnProfile'), false, 'Wrong isVisibleOnProfile');
+});

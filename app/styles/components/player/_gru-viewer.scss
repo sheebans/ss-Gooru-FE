@@ -37,42 +37,34 @@
     .panel-body{
       display: flex;
       justify-content: center;
+      $line-height: 1.2;
+      text-decoration: none;
+      color: $text-color;
 
-      a{
-        $line-height: 1.2;
-        text-decoration: none;
-        color: $text-color;
+      .cards.gru-resource-card {
+        margin:0 auto;
 
-        .cards.gru-resource-card {
-          margin:0 auto;
+        .panel-heading{
+          padding: 12px 15px 0 15px;
+          .header{
+            padding:0;
+            margin:0;
+            border:0;
+            }
+        }
+        .panel-body{
+          padding: 12px 15px 0 15px;
+          display: block;
 
-          .panel-heading{
-            padding: 12px 15px 0 15px;
-
-            .header{
-              padding:0;
-              margin:0;
-              border:0;
+          .publisher{
+            a{
+              color:$blue-400;
             }
           }
-          .panel-body{
-            padding: 12px 15px 0 15px;
-            height: 175px;
-            display: block;
-
-            .description {
-              $lines-to-show: 8;
-              width: 100%;
-              p.truncate {
-                @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
-              }
-            }
-            .publisher{
-              a{
-                color:$blue-400;
-              }
-            }
-          }
+        }
+        .panel-footer{
+          margin:0;
+          text-align: left;
         }
       }
     }

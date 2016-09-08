@@ -192,6 +192,7 @@ export default {
       "resource-same-host-url": "Resources cannot be Gooru URLs.",
       "resource-title-length": "The title cannot be longer than 50 characters.",
       "select-correct-answer": "Please select the correct answer.",
+      "search-collections-length": "Please enter at least 3 characters.",
       "sign-in-credentials-not-valid": "Uh oh! Something's not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please use Google signin. We can't reset your password.",
       "sign-up-error": "Oops! Unable to sign up right now. Please try again shortly.",
@@ -401,7 +402,7 @@ export default {
     "standards": "Standards",
     "study": "Study",
     "student": "Student",
-    "student-id": "Student ID",
+    "student-id": "Student ID (not displayed on Profile)",
     "subject-and-framework": "Subject and Framework",
     "submit": "Submit",
     "submit-all": "Submit all",
@@ -730,13 +731,15 @@ export default {
    */
   "gru-add-to": {
     "add-assessment-to-lesson": "Add from my assessments",
-    "add-assessment-to-lesson-lead": "Select an assessment to add to this lesson",
+    "add-assessment-to-lesson-lead": "Select an assessment to add to this lesson.",
     "add-collection-to-lesson": "Add from my collections",
-    "add-collection-to-lesson-lead": "Select a collection to add to this lesson",
+    "add-collection-to-lesson-lead": "Select a collection to add to this lesson.",
     "add-to-collection": "Add to collection",
     "add-to-collection-lead": "Choose a collection you want to add {{contentTitle}} to",
     "add-to-assessment": "Add to assessment or collection",
-    "add-to-assessment-lead": "Choose an assessment you want to add {{contentTitle}} to"
+    "add-to-assessment-lead": "Choose an assessment you want to add {{contentTitle}} to",
+    "assessments-info": "The assessments listed here <b>do not</b> belong to another lesson or course",
+    "collections-info": "The collections listed here <b>do not</b> belong to another lesson or course"
   },
   "gru-assessment-confirmation":{
     "title": "You are about to start an assessment...",

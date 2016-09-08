@@ -196,6 +196,7 @@ export default Ember.Object.extend({
    * @returns {Promise}
    */
   readCollections: function(userId, params = {}) {
+
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${userId}/collections`;
@@ -208,7 +209,10 @@ export default Ember.Object.extend({
       offset: offset
     };
     if(params.filterBy) {
-      data['filterBy'] = params.filterBy;
+      data.filterBy = params.filterBy;
+    }
+    if(params.searchText) {
+      data.searchText = params.searchText;
     }
     const options = {
       type: 'GET',

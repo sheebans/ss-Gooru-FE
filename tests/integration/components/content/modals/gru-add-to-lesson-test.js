@@ -93,7 +93,9 @@ test('Layout', function(assert) {
 
   const $body = $component.find('.modal-body');
   assert.ok($body.length, 'Body');
-  assert.equal($body.find('>div').length, 2, 'Number of cards');
+  assert.equal($body.find('.list >div').length, 2, 'Number of cards');
+  assert.equal($body.find('div.search').length, 1, 'Missing search container');
+  assert.equal($body.find('div.info').length, 1, 'Missing info container');
 
   const $footer = $component.find('.modal-footer');
 
@@ -118,7 +120,7 @@ test('Show more result Collections', function(assert) {
 
   this.render(hbs`{{content/modals/gru-add-to-lesson model=model}}`);
 
-  const $component = this.$('.content.modals.gru-add-to-collection');
+  const $component = this.$('.content.modals.gru-add-to-lesson');
   assert.ok($component.length, 'Component');
 
   const $body = $component.find('.modal-body');
@@ -149,7 +151,7 @@ test('Show more result Assessments', function(assert) {
 
   this.render(hbs`{{content/modals/gru-add-to-lesson model=model}}`);
 
-  const $component = this.$('.content.modals.gru-add-to-collection');
+  const $component = this.$('.content.modals.gru-add-to-lesson');
   assert.ok($component.length, 'Component');
 
   const $body = $component.find('.modal-body');

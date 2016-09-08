@@ -20,6 +20,13 @@ export default Ember.Route.extend(ModalMixin, {
      */
     editResource: function (resource) {
       this.transitionTo("content.resources.edit", resource.get("id"));
+    },
+    /**
+     * On card play resource button click
+     * @param {Resource} resource
+     */
+    playResource: function (resource) {
+      this.transitionTo("content.resources.play", resource.get("id"));
     }
   },
 
