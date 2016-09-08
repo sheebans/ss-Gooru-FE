@@ -135,6 +135,29 @@ test('it shows an error message if the username exists', function (assert) {
   });
 });
 
+test('it shows an error message if the username has reserved words', function (assert) {
+  visit('/id-for-pochita/edit');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/id-for-pochita/edit');
+    const $usernameField = find(".gru-input.username");
+
+    // Invalid format
+    $usernameField.find("input").val('home');
+    $usernameField.find("input").blur();
+
+    return wait().then(function () {
+      assert.ok($usernameField.find(".error-messages .error").length, 'Username error message visible');
+      // Valid format
+      $usernameField.find("input").val('test');
+      $usernameField.find("input").blur();
+      return wait().then(function () {
+        assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message was hidden');
+      });
+    });
+  });
+});
+
 //test('menu option \'about\' is selected when cancelling the edit', function (assert) {
 //  visit('/id-for-pochita/edit');
 //
