@@ -38,6 +38,7 @@ const ConfigurationService = Ember.Service.extend({
        else {
          Ember.Logger.info("Custom host configuration not found");
        }
+       return configuration;
     });
   }
 });
