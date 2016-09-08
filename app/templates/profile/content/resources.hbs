@@ -4,7 +4,8 @@
           <div class="card">
             {{cards.gru-resource-card resource=resource
               editEnabled=(eq resource.owner.id currentUserId)
-              onEditResource="editResource"}}
+              onEditResource="editResource"
+              onPlayResource="playResource"}}
           </div>
 
       {{else}}
