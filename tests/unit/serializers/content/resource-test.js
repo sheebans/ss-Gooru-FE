@@ -134,3 +134,26 @@ test('normalizeReadResource for url resource with no full path', function(assert
 //  assert.equal(resource.get("url"), "http://dev-content-gooru-org.s3-us-west-1.amazonaws.com/any", 'Wrong link-out');
 //
 //});
+
+test('normalizeReadResource - if visible_on_profile is undefined', function(assert) {
+  const serializer = this.subject();
+  const resourceData = {
+    id: "abcd"
+  };
+
+  const resource = serializer.normalizeReadResource(resourceData);
+  assert.equal(resource.get("id"), "abcd", 'Wrong id');
+  assert.equal(resource.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
+});
+
+test('normalizeReadResource - if it is not visible on profile', function(assert) {
+  const serializer = this.subject();
+  const resourceData = {
+    id: "abcd",
+    visible_on_profile: false
+  };
+
+  const resource = serializer.normalizeReadResource(resourceData);
+  assert.equal(resource.get("id"), "abcd", 'Wrong id');
+  assert.equal(resource.get("isVisibleOnProfile"), false, 'Wrong isVisibleOnProfile');
+});

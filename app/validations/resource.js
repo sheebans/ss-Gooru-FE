@@ -48,11 +48,7 @@ export default class {
             message: '{{description}}',
             descriptionKey: 'common.errors.resource-invalid-url'
           }),
-          validator('host', {
-            message: '{{description}}',
-            descriptionKey: 'common.errors.resource-same-host-url',
-            location: window.location.hostname
-          })
+          validator('host')
         ]
       }
     };

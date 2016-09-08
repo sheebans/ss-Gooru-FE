@@ -3,7 +3,7 @@ import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 export default {
   name: 'ajax',
-
+  after: 'gooru-configuration',
   initialize: function(/* app */) {
     Ember.$.ajaxSetup({
       cache: false,

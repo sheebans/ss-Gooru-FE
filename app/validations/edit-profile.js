@@ -18,7 +18,8 @@ export default buildValidations({
         regex: /^[a-z0-9]+$/i,
         message: '{{description}}',
         descriptionKey: 'common.errors.special-characters'
-      })
+      }),
+      validator('reserved-words')
     ]
   },
   studentId:[

@@ -1,11 +1,19 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="image">
-            <a {{action "openContentPlayer" collection}}><img class="img-responsive" src="{{collection.thumbnailUrl}}"></a>
+            {{#if editEnabled}}
+                <a {{action "editCollection" }}><img class="img-responsive" src="{{collection.thumbnailUrl}}"></a>
+            {{else}}
+                <a {{action "openContentPlayer" collection}}><img class="img-responsive" src="{{collection.thumbnailUrl}}"></a>
+            {{/if}}
         </div>
         <div class="collection-info">
             <div class="title-section">
-              <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
+              {{#if editEnabled}}
+                <a {{action "editCollection"}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
+              {{else}}
+                <a {{action "openContentPlayer" collection}}> <h6 class="title truncate" alt="{{ collection.title }}">{{ collection.title }}</h6></a>
+              {{/if}}
               {{#unless publishVisible}}
                 {{#if collection.isPublished}}
                   <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
@@ -73,6 +81,7 @@
             {{/if}}
             {{#if editEnabled }}
                 <button class="edit-btn btn btn-success btn-sm" {{action "editCollection"}}>{{t "common.edit"}}</button>
+                <button class="play-btn btn btn-sm btn-success" {{action 'openContentPlayer' collection}}>{{t "common.play"}}</button>
             {{/if}}
           </div>
         {{#unless publishVisible}}

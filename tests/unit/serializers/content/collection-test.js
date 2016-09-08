@@ -88,3 +88,34 @@ test('serializeReorderCollection', function(assert) {
   assert.equal(data.order[0].id, "a", 'Wrong id');
   assert.equal(data.order[0].sequence_id, 1, 'Wrong sequence id');
 });
+
+test('normalizeReadCollection - if visible_on_profile is undefined', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+  const collectionData = {
+    id: 'collection-id'
+  };
+  const collection = serializer.normalizeReadCollection(collectionData);
+  assert.equal(collection.get('id'), 'collection-id', 'Wrong id');
+  assert.equal(collection.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
+});
+
+test('normalizeReadCollection - if it is not visible on profile', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+  const collectionData = {
+    id: 'collection-id',
+    visible_on_profile: false
+  };
+  const collection = serializer.normalizeReadCollection(collectionData);
+  assert.equal(collection.get('id'), 'collection-id', 'Wrong id');
+  assert.equal(collection.get('isVisibleOnProfile'), false, 'Wrong isVisibleOnProfile');
+});

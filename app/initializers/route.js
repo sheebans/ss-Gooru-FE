@@ -1,4 +1,4 @@
-import Ember from 'ember';
+  import Ember from 'ember';
 
 export function initialize(app) {
 
@@ -63,5 +63,6 @@ export function initialize(app) {
 
 export default {
   name: 'route',
+  after: 'gooru-configuration',
   initialize: initialize
 };
