@@ -104,8 +104,17 @@ export default Ember.Component.extend({
    * @param {Object} attributeValidation - value used to set the rawInputValue
    */
   attributeValidation: null,
+  /**
+   * @param {Boolean} isTyping - Flag for when user is typing
+   */
   isTyping: false,
+  /**
+   * @param {Boolean} hasClearButton - Flag for when we want to show a clear button
+   */
   hasClearButton: false,
+  /**
+   * @param {Computed} showClearButton - Flag that determines when the button should be shown when flag is true
+   */
   showClearButton: computed('hasClearButton','hasContent', function(){
     return this.get('hasContent') && this.get('hasClearButton');
   }),
