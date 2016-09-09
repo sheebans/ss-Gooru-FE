@@ -53,7 +53,7 @@ export default Ember.Component.extend({
 
     enterPressed: function() {
       this.set('isTyping', false);
-      this.get('isValid') === true && this.get("onEnter")(this.get('value'));
+      this.get('onEnter') && this.get('isValid') === true && this.get("onEnter")(this.get('value'));
     },
 
     clearContent: function(){
@@ -153,7 +153,7 @@ export default Ember.Component.extend({
   /**
    * @param {Computed } isValid -  A computed property that says whether the value is valid
    */
-  isValid: computed.and('hasContent', 'attributeValidation.isValid'),
+  isValid: computed.readOnly('attributeValidation.isValid'),
   /**
    * @param {Computed } isInvalid - A computed property that says whether the value is invalid
    */
