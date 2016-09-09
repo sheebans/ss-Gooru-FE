@@ -19,7 +19,7 @@ module.exports = function (environment) {
   };
 
   const RealTimeDefault = {
-    webServiceProtocol: 'http://',
+    webServiceProtocol: 'https://',
     webServiceHostname: 'goorurt.qa.gooruweb.edify.cr',
     webServicePort: undefined,  // Uses the default value 80
     webServiceUri: '/nucleus/realtime',
