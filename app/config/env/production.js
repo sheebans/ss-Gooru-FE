@@ -3,12 +3,12 @@
  */
 export default {
   "endpoint" : {
-    "url": "http://www.gooru.org",
+    "url": "https://www.gooru.org",
     "secureUrl": "https://www.gooru.org"
   },
 
   "realTime": {
-    "webServiceUrl": "http://www.gooru.org",
+    "webServiceUrl": "https://www.gooru.org",
     "webServiceUri": "/nucleus/realtime",
     "webSocketUrl": "https://rt.gooru.org",
     "webSocketUri": "/ws/realtime"
