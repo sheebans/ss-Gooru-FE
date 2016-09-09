@@ -32,6 +32,13 @@ export default Ember.Component.extend(ModalMixin, {
     },
 
     /**
+     *Action triggered when select play the course
+     */
+    playCourse:function(){
+      this.sendAction("onPlayCourse", this.get("course"));
+    },
+
+    /**
      *Action triggered when select remix the course
      */
     remixCourse:function(){

@@ -192,6 +192,7 @@ export default {
       "resource-same-host-url": "Resources cannot be Gooru URLs.",
       "resource-title-length": "The title cannot be longer than 50 characters.",
       "select-correct-answer": "Please select the correct answer.",
+      "search-collections-length": "Please enter at least 3 characters.",
       "sign-in-credentials-not-valid": "Uh oh! Something's not right. Please double check your username and password and try again.",
       "sign-in-google-account-exists": "Please use Google signin. We can't reset your password.",
       "sign-up-error": "Oops! Unable to sign up right now. Please try again shortly.",
@@ -730,13 +731,15 @@ export default {
    */
   "gru-add-to": {
     "add-assessment-to-lesson": "Add from my assessments",
-    "add-assessment-to-lesson-lead": "Select an assessment to add to this lesson",
+    "add-assessment-to-lesson-lead": "Select an assessment to add to this lesson.",
     "add-collection-to-lesson": "Add from my collections",
-    "add-collection-to-lesson-lead": "Select a collection to add to this lesson",
+    "add-collection-to-lesson-lead": "Select a collection to add to this lesson.",
     "add-to-collection": "Add to collection",
     "add-to-collection-lead": "Choose a collection you want to add {{contentTitle}} to",
     "add-to-assessment": "Add to assessment or collection",
-    "add-to-assessment-lead": "Choose an assessment you want to add {{contentTitle}} to"
+    "add-to-assessment-lead": "Choose an assessment you want to add {{contentTitle}} to",
+    "assessments-info": "The assessments listed here <b>do not</b> belong to another lesson or course",
+    "collections-info": "The collections listed here <b>do not</b> belong to another lesson or course"
   },
   "gru-assessment-confirmation":{
     "title": "You are about to start an assessment...",
@@ -1220,7 +1223,7 @@ export default {
   },
   "featured": {
     "featured-title": "Featured Courses",
-    "featured-description": "Catch a sneak peek of one or more units of study in many featured courses! Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! All course content will be available in August 2016. Click here to <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
+    "featured-description": "Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to  <a href='http://about.gooru.org/courses' target='_blank'>learn more</a> about the development of these courses."
   },
 
   "taxonomy.modals": {

@@ -105,7 +105,7 @@ test('Navigation links', function(assert) {
   });
 });
 
-test('Navigate to course player by clicking course title', function(assert) {
+test('Navigate to course edit by clicking course title', function(assert) {
   visit('/id-for-pochita/content/courses');
   andThen(function() {
 
@@ -113,12 +113,12 @@ test('Navigate to course player by clicking course title', function(assert) {
     var $courseTitle = find('.gru-course-card:first-of-type .card-header .course-title');
     click($courseTitle);
     andThen(function() {
-     assert.equal(currentRouteName(), 'content.courses.play');
+     assert.equal(currentRouteName(), 'content.courses.edit');
     });
   });
 });
 
-test('Navigate to course player by clicking course image', function(assert) {
+test('Navigate to course edit by clicking course image', function(assert) {
   visit('/id-for-pochita/content/courses');
   andThen(function() {
 
@@ -126,7 +126,83 @@ test('Navigate to course player by clicking course image', function(assert) {
     var $courseTitle = find('.gru-course-card:first-of-type .card-header .course-image');
     click($courseTitle);
     andThen(function() {
-      assert.equal(currentRouteName(), 'content.courses.play');
+      assert.equal(currentRouteName(), 'content.courses.edit');
+    });
+  });
+});
+
+test('Navigate to collection edit by clicking collection title', function(assert) {
+  visit('/id-for-pochita/content/collections');
+  andThen(function() {
+
+    assert.equal(currentURL(), '/id-for-pochita/content/collections');
+    var $collectionTitle = find('.gru-collection-card .collection-info .title-section a').eq(0);
+    click($collectionTitle);
+    andThen(function() {
+      assert.equal(currentRouteName(), 'content.collections.edit');
+    });
+  });
+});
+
+test('Navigate to collection edit by clicking collection image', function(assert) {
+  visit('/id-for-pochita/content/collections');
+  andThen(function() {
+
+    assert.equal(currentURL(), '/id-for-pochita/content/collections');
+    var $collectionImage = find('.gru-collection-card .image a').eq(0);
+    click($collectionImage);
+    andThen(function() {
+      assert.equal(currentRouteName(), 'content.collections.edit');
+    });
+  });
+});
+test('Navigate to question edit by clicking question title', function(assert) {
+  visit('/id-for-pochita/content/questions');
+  andThen(function() {
+
+    assert.equal(currentURL(), '/id-for-pochita/content/questions');
+    var $questionTitle = find('.gru-resource-card:first-of-type .resource-info .title-section h6');
+    click($questionTitle);
+    andThen(function() {
+      assert.equal(currentRouteName(), 'content.questions.edit');
+    });
+  });
+});
+
+test('Navigate to question edit by clicking question image', function(assert) {
+  visit('/id-for-pochita/content/questions');
+  andThen(function() {
+
+    assert.equal(currentURL(), '/id-for-pochita/content/questions');
+    var $questionImage = find('.gru-resource-card:first-of-type  .image a');
+    click($questionImage);
+    andThen(function() {
+      assert.equal(currentRouteName(), 'content.questions.edit');
+    });
+  });
+});
+test('Navigate to resource edit by clicking resource title', function(assert) {
+  visit('/id-for-pochita/content/resources');
+  andThen(function() {
+
+    assert.equal(currentURL(), '/id-for-pochita/content/resources');
+    var $resourceTitle = find('.gru-resource-card .resource-info .title-section h6').eq(0);
+    click($resourceTitle);
+    andThen(function() {
+      assert.equal(currentRouteName(), 'content.resources.edit');
+    });
+  });
+});
+
+test('Navigate to resource edit by clicking resource image', function(assert) {
+  visit('/id-for-pochita/content/resources');
+  andThen(function() {
+
+    assert.equal(currentURL(), '/id-for-pochita/content/resources');
+    var $resourceImage = find('.gru-resource-card .image a').eq(0);
+    click($resourceImage);
+    andThen(function() {
+      assert.equal(currentRouteName(), 'content.resources.edit');
     });
   });
 });
