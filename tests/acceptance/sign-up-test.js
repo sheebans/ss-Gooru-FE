@@ -103,13 +103,13 @@ test('it shows an error message if the first name field is left blank', function
     const $firstNameField = $signUpContainer.find(".gru-input.firstName");
 
     // Invalid
-    $firstNameField.find("input").val('f');
+    $firstNameField.find("input").val('');
     $firstNameField.find("input").blur();
     return wait().then(function () {
 
       assert.ok($firstNameField.find(".error-messages .error").length, 'firstName error message visible');
       // Valid
-      $firstNameField.find("input").val('first name');
+      $firstNameField.find("input").val('firstName');
       $firstNameField.find("input").blur();
       return wait().then(function () {
         assert.ok(!$firstNameField.find(".error-messages .error").length, 'firstName error message was hidden');
@@ -135,7 +135,7 @@ test('it shows an error message if the last name field has less than 2 character
 
       assert.ok($lastNameField.find(".error-messages .error").length, 'lastName error message visible');
       // Valid
-      $lastNameField.find("input").val('last name');
+      $lastNameField.find("input").val('lastName');
       $lastNameField.find("input").blur();
       return wait().then(function () {
         assert.ok(!$lastNameField.find(".error-messages .error").length, 'lastName error message was hidden');
@@ -197,7 +197,34 @@ test('it shows an error message if the password and rePassword fields do not mat
   });
 });
 
-test('it shows an error message if the last name field has special characters and numbers', function (assert) {
+test('it shows an error message if the first name field has blanks', function (assert) {
+  visit('/sign-up');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-up');
+
+
+    const $signUpContainer = find(".sign-up");
+    const $firstNameField = $signUpContainer.find(".gru-input.firstName");
+
+    // Invalid
+    $firstNameField.find("input").val('one first name');
+    $firstNameField.find("input").blur();
+    return wait().then(function () {
+
+      assert.ok($firstNameField.find(".error-messages .error").length, 'firstName error message visible');
+      // Valid
+      $firstNameField.find("input").val('one-first-name');
+      $firstNameField.find("input").blur();
+      return wait().then(function () {
+        assert.ok(!$firstNameField.find(".error-messages .error").length, 'firstName error message was hidden');
+      });
+    });
+  });
+});
+
+
+test('it shows an error message if the last name field has invalid characters', function (assert) {
   visit('/sign-up');
 
   andThen(function() {
@@ -208,7 +235,7 @@ test('it shows an error message if the last name field has special characters an
     const $lastNameField = $signUpContainer.find(".gru-input.lastName");
 
     // Invalid
-    $lastNameField.find("input").val('lastname#1');
+    $lastNameField.find("input").val('lastname#%');
     $lastNameField.find("input").blur();
     return wait().then(function () {
 

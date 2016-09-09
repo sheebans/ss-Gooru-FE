@@ -43,7 +43,7 @@ export default AddToModal.extend({
     updateContent:function(keyword){
         const component = this;
         const pagination = component.get("pagination");
-        pagination.page = pagination.page + 1;
+        pagination.page = 0;
         pagination.filterBy="notInCourse";
         pagination.searchText=keyword;
         if(component.get('isCollection')){
@@ -155,6 +155,13 @@ export default AddToModal.extend({
       return this.get("collections.length") &&
       (this.get("collections.length") % this.get("pagination.pageSize") === 0);
   }),
+  /**
+   * @property {*}
+   */
+  searchPagination: {
+    page: 0,
+    pageSize: DEFAULT_PAGE_SIZE
+  },
   /**
    * @property {*}
    */
