@@ -35,7 +35,12 @@ export default Ember.Route.extend(ModalMixin, {
 
   model: function (){
     const profile = this.modelFor("profile").profile;
-    return this.get("profileService").readResources(profile.get("id"));
+    const params={
+      page:0,
+      searchText:  this.paramsFor('profile.content').term
+    };
+
+    return this.get("profileService").readResources(profile.get("id"),params);
   },
 
   setupController: function (controller , model) {

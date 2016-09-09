@@ -24,7 +24,11 @@ export default Ember.Controller.extend({
   profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
-  // Dependencies
+  // Properties
+  /**
+   * @property {string} term filter
+   */
+  term: Ember.computed.alias("contentController.term"),
 
   /**
    * @property {Collection[]} resources
@@ -68,6 +72,7 @@ export default Ember.Controller.extend({
     const profile = this.get("profile");
     const pagination = this.get("pagination");
     pagination.page = pagination.page + 1;
+    pagination.searchText=this.get('term');
 
     controller.get('profileService')
       .readResources(profile.get("id"), pagination)

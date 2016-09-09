@@ -122,6 +122,7 @@
       position: absolute;
     }
     .search-icon{
+      color:$gray-base;
       float:left;
       i{
         margin: 5px;
@@ -137,6 +138,11 @@
           box-shadow: none;
           border: none;
           font-size: 14px;
+        }
+        .error-messages{
+          position: absolute;
+          width: 184px;
+          left: -35px;
         }
       }
     }

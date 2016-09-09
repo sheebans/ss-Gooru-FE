@@ -53,7 +53,7 @@
         <span class="search-icon">
           {{gru-icon name='search'}}
         </span>
-      {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder") hasClearButton=true }}
+      {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder") hasClearButton=true onEnter=(action "searchByTerm" value=searchObject.term)}}
     </div>
 </div>
 <div class="content_outlet">

@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
-import CollectionSearch from 'gooru-web/models/search/collection-search';
+import ContentSearch from 'gooru-web/models/search/content-search';
 
 export default Ember.Controller.extend(ModalMixin, {
+  queryParams: ['term'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -29,6 +30,14 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   searchObject: null,
 
+  term:null,
+
+  actions:{
+    searchByTerm:function(term){
+     this.set('term',term);
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -37,10 +46,9 @@ export default Ember.Controller.extend(ModalMixin, {
    */
     resetProperties() {
     var controller = this;
-    var searchObject = CollectionSearch.create(Ember.getOwner(this).ownerInjection(),{
+    var searchObject = ContentSearch.create(Ember.getOwner(this).ownerInjection(),{
       term:''
     });
     controller.set('searchObject', searchObject);
-  },
-
+    }
 });

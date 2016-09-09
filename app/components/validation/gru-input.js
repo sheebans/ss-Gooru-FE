@@ -52,6 +52,8 @@ export default Ember.Component.extend({
     },
 
     enterPressed: function() {
+      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
+      this.set('value', this.get('rawInputValue'));
       this.set('isTyping', false);
       this.get('onEnter') && this.get('isValid') === true && this.get("onEnter")(this.get('value'));
     },

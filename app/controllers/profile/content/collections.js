@@ -2,6 +2,17 @@ import Ember from 'ember';
 import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
+  // -------------------------------------------------------------------------
+  // Dependencies
+
+  contentController: Ember.inject.controller('profile.content'),
+
+  profileController: Ember.inject.controller('profile'),
+
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -17,17 +28,11 @@ export default Ember.Controller.extend({
   },
 
   // -------------------------------------------------------------------------
-  // Dependencies
-
-  profileController: Ember.inject.controller('profile'),
-
+  // Properties
   /**
-   * @type {ProfileService} Service to retrieve profile information
+   * @property {string} term filter
    */
-  profileService: Ember.inject.service('api-sdk/profile'),
-
-  // -------------------------------------------------------------------------
-  // Dependencies
+  term: Ember.computed.alias("contentController.term"),
 
   /**
    * @property {Collection[]} collections
@@ -66,6 +71,7 @@ export default Ember.Controller.extend({
     const profile = this.get("profile");
     const pagination = this.get("pagination");
     pagination.page = pagination.page + 1;
+    pagination.searchText=this.get('term');
 
     controller.get('profileService')
       .readCollections(profile.get("id"), pagination)

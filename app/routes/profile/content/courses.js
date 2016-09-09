@@ -48,7 +48,11 @@ export default Ember.Route.extend(ModalMixin, {
 
   model: function() {
     let profile = this.modelFor('profile').profile;
-    let courses = this.get('profileService').getCourses(profile);
+    const params={
+      page:0,
+      searchText:  this.paramsFor('profile.content').term
+    };
+    let courses = this.get('profileService').getCourses(profile,params);
     return Ember.RSVP.hash({
       courses: courses
     });

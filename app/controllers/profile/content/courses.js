@@ -14,6 +14,10 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {string} term filter
+   */
+  term: Ember.computed.alias("contentController.term"),
 
   /**
    * @property {Content/Course[]} courses
@@ -61,6 +65,7 @@ export default Ember.Controller.extend({
     const profile = this.get("profile");
     const pagination = this.get("pagination");
     pagination.page = pagination.page + 1;
+    pagination.searchText=this.get('term');
 
     controller.get('profileService')
       .getCourses(profile, null, pagination)
