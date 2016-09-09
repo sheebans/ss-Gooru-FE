@@ -22,6 +22,6 @@ export default Ember.Controller.extend(ModalMixin, {
    * @see controllers/profile.js
    * @property {isMyProfile}
    */
-  "isMyProfile": Ember.computed.reads('parentController.isMyProfile')
+  "isMyProfile": Ember.computed.reads('parentController.isMyProfile'),
 
 });

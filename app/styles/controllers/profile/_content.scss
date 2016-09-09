@@ -91,3 +91,22 @@
     }
   }
 }
+.search-navbar {
+  @include flexbox;
+  @include flex-wrap(wrap);
+  @include justify-content(space-between);
+  @media(max-width: $screen-xs-max) {
+    @include justify-content(center);
+  }
+  .search {
+    @media(max-width: $screen-xs-max) {
+      @include order(1);
+    }
+
+    >i {
+      margin-left: 7px;
+      margin-top: 7px;
+      position: absolute;
+    }
+  }
+}

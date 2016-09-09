@@ -48,6 +48,12 @@
       </div>
     {{/if}}
 </div>
+<div class="search-navigation">
+    <div class="serch-keyword">
+      {{gru-icon name='search'}}
+      {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder") hasClearButton=true }}
+    </div>
+</div>
 <div class="content_outlet">
   {{outlet}}
 </div>
