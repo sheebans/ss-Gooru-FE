@@ -4,7 +4,7 @@ export default buildValidations({
   firstName: {
     validators: [
       validator('format', {
-        regex: /^[a-z0-9-]+$/i,
+        regex: /^[a-z0-9-.']+$/i,
         message: '{{description}}',
         descriptionKey: 'common.errors.special-characters'
       })
@@ -13,7 +13,7 @@ export default buildValidations({
   lastName: {
     validators: [
       validator('format', {
-        regex: /^[a-z0-9-]+$/i,
+        regex: /^[a-z0-9-.']+$/i,
         message: '{{description}}',
         descriptionKey: 'common.errors.special-characters'
       })
