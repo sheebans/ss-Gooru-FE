@@ -77,11 +77,9 @@ export default Ember.Route.extend({
       const currentMenuItem = controller.get('menuItem');
       controller.selectMenuItem(item);
 
-      const queryParams = { queryParams: { term: '' } };
-
       if (currentMenuItem !== item) {
         if (item === 'content'){
-          route.transitionTo('profile.' + item + '.courses',queryParams);
+          route.transitionTo('profile.' + item + '.courses');
         }else if (item === 'network'){
           route.transitionTo('profile.' + item + '.following');
         }
@@ -92,8 +90,4 @@ export default Ember.Route.extend({
     }
 
   }
-
-  // -------------------------------------------------------------------------
-  // Events
-
 });

@@ -48,6 +48,7 @@
       </div>
     {{/if}}
 </div>
+{{#unless disableSearch}}
 <div class="search-navigation">
     <div class="search-keyword">
         <span class="search-icon">
@@ -56,6 +57,7 @@
       {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder") hasClearButton=true onEnter=(action "searchByTerm" value=searchObject.term)}}
     </div>
 </div>
+{{/unless}}
 <div class="content_outlet">
   {{outlet}}
 </div>

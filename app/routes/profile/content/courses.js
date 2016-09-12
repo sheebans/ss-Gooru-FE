@@ -61,6 +61,7 @@ export default Ember.Route.extend(ModalMixin, {
   setupController: function (controller, model) {
     controller.get('profileController').selectMenuItem('content');
     controller.set('courses', model.courses);
+    controller.set('disableSearch',true);
   },
 
   deactivate: function() {

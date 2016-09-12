@@ -2,6 +2,7 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
+import {KEY_CODES} from "gooru-web/config/config";
 
 moduleForAcceptance('Acceptance | profile content', {
   beforeEach: function() {
@@ -203,6 +204,74 @@ test('Navigate to resource edit by clicking resource image', function(assert) {
     click($resourceImage);
     andThen(function() {
       assert.equal(currentRouteName(), 'content.resources.edit');
+    });
+  });
+});
+test('Search content by term', function(assert) {
+  assert.expect(2); //making sure all asserts are called
+  visit('/id-for-pochita/content/collections');
+  andThen(function() {
+    assert.equal(currentURL(), '/id-for-pochita/content/collections');
+
+    const $searchNavigator = find('.search-navigation');
+    const $searchInput = find(".search-keyword .gru-input input");
+
+    fillIn($searchInput, 'any');
+    $searchInput.val('any');
+    $searchInput.change();
+    keyEvent($searchInput, 'keyup', KEY_CODES.ENTER);
+    andThen(function(){
+      assert.equal(currentURL(), '/id-for-pochita/content/collections?term=any');
+    });
+  });
+});
+
+test('Changing term should filter the current result without changing the root url', function(assert) {
+  assert.expect(2); //making sure all asserts are called
+  visit('/id-for-pochita/content/collections?term=any');
+  andThen(function() {
+    assert.equal(currentURL(), '/id-for-pochita/content/collections?term=any');
+
+    const $searchNavigator = find('.search-navigation');
+    const $searchInput = find(".search-keyword .gru-input input");
+
+    fillIn($searchInput, 'europe');
+    $searchInput.val('europe');
+    $searchInput.change();
+    keyEvent($searchInput, 'keyup', KEY_CODES.ENTER);
+    andThen(function(){
+      assert.equal(currentURL(), '/id-for-pochita/content/collections?term=europe');
+    });
+  });
+});
+test('Search content by term and navigate into profile content options', function(assert) {
+  assert.expect(5); //making sure all asserts are called
+  visit('/id-for-pochita/content/collections');
+  andThen(function() {
+    assert.equal(currentURL(), '/id-for-pochita/content/collections');
+
+    const $searchNavigator = find('.search-navigation');
+    const $searchInput = find(".search-keyword .gru-input input");
+
+    fillIn($searchInput, 'any');
+    $searchInput.val('any');
+    $searchInput.change();
+    keyEvent($searchInput, 'keyup', KEY_CODES.ENTER);
+    andThen(function(){
+      assert.equal(currentURL(), '/id-for-pochita/content/collections?term=any');
+      const $contentNavContainer = find(".controller.profile .content .content-navigation");
+      click($contentNavContainer.find("li.assessments"));
+      andThen(function(){
+        assert.equal(currentURL(), '/id-for-pochita/content/assessments?term=any');
+        click($contentNavContainer.find("li.resources"));
+        andThen(function(){
+          assert.equal(currentURL(), '/id-for-pochita/content/resources?term=any');
+          click($contentNavContainer.find("li.questions"));
+          andThen(function(){
+            assert.equal(currentURL(), '/id-for-pochita/content/questions?term=any');
+          });
+        });
+      });
     });
   });
 });

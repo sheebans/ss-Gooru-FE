@@ -10,6 +10,8 @@ export default Ember.Controller.extend(ModalMixin, {
 
   parentController: Ember.inject.controller('profile'),
 
+  coursesController: Ember.inject.controller('profile.content.courses'),
+
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -29,8 +31,14 @@ export default Ember.Controller.extend(ModalMixin, {
    * Search term object
    */
   searchObject: null,
-
+  /**
+   * Search term
+   */
   term:null,
+  /**
+   * Indicate if the selected profile bar is Course
+   */
+  disableSearch: Ember.computed.alias("coursesController.disableSearch"),
 
   actions:{
     searchByTerm:function(term){

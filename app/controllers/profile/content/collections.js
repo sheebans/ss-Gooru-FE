@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
 
   contentController: Ember.inject.controller('profile.content'),
 
+
   profileController: Ember.inject.controller('profile'),
 
   /**
