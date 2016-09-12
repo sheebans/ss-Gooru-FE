@@ -74,7 +74,6 @@ export default Ember.Controller.extend({
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
+    this.set('disableSearch',false);
   }
-
-
 });

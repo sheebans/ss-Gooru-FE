@@ -149,13 +149,17 @@ export default Ember.Object.extend({
     const page = params.page || 0;
     const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     const offset = page * pageSize;
+    var data = {
+      limit: pageSize,
+      offset: offset
+    };
+    if(params.searchText) {
+      data.searchText = params.searchText;
+    }
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      data: {
-        limit: pageSize,
-        offset: offset
-      },
+      data,
       headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
@@ -176,13 +180,18 @@ export default Ember.Object.extend({
     const page = params.page || 0;
     const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     const offset = page * pageSize;
+    var data = {
+      limit: pageSize,
+      offset: offset
+    };
+    if(params.searchText) {
+      data.searchText = params.searchText;
+    }
+
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      data: {
-        limit: pageSize,
-        offset: offset
-      },
+      data,
       headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
@@ -244,6 +253,9 @@ export default Ember.Object.extend({
     };
     if(params.filterBy) {
       data['filterBy'] = params.filterBy;
+    }
+    if(params.searchText) {
+      data.searchText = params.searchText;
     }
     const options = {
       type: 'GET',

@@ -3,7 +3,7 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import wait from 'ember-test-helpers/wait';
-import SearchModel from 'gooru-web/models/search/collection-search';
+import SearchModel from 'gooru-web/models/search/content-search';
 
 moduleForComponent('gru-input', 'Integration | Component | gru input', {
   integration: true

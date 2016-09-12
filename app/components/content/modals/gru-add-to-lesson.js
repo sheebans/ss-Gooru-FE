@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import AddToModal from 'gooru-web/components/content/modals/gru-add-to';
-import CollectionSearch from 'gooru-web/models/search/collection-search';
+import CollectionSearch from 'gooru-web/models/search/content-search';
 import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 export default AddToModal.extend({
