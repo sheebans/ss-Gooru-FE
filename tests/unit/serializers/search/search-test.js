@@ -291,7 +291,7 @@ test('normalizeOwner', function(assert) {
     "gooruUId": "9eb1a416-c225-4a01-9ec3-5371b2274ccb",
     "lastName": "tfagooru",
     "usernameDisplay": "szope",
-    "profileImageUrl": "any"
+    "profileImage": "any"
   };
 
   const owner = serializer.normalizeOwner(ownerData);
