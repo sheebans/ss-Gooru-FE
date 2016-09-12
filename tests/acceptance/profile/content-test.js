@@ -213,7 +213,6 @@ test('Search content by term', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections');
 
-    const $searchNavigator = find('.search-navigation');
     const $searchInput = find(".search-keyword .gru-input input");
 
     fillIn($searchInput, 'any');
@@ -232,7 +231,6 @@ test('Changing term should filter the current result without changing the root u
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections?term=any');
 
-    const $searchNavigator = find('.search-navigation');
     const $searchInput = find(".search-keyword .gru-input input");
 
     fillIn($searchInput, 'europe');
@@ -249,8 +247,6 @@ test('Search content by term and navigate into profile content options', functio
   visit('/id-for-pochita/content/collections');
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections');
-
-    const $searchNavigator = find('.search-navigation');
     const $searchInput = find(".search-keyword .gru-input input");
 
     fillIn($searchInput, 'any');

@@ -14,7 +14,7 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Events
-  resetController(controller, isExiting) {
+  resetController(controller) {
     var queryParams = controller.get('queryParams');
     queryParams.forEach(function (param) {
       controller.set(param, null);
