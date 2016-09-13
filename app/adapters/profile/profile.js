@@ -156,6 +156,12 @@ export default Ember.Object.extend({
     if(params.searchText) {
       data.searchText = params.searchText;
     }
+    if(params.sortOn) {
+      data.sortOn = params.sortOn;
+    }
+    if(params.order) {
+      data.order = params.order;
+    }
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -186,6 +192,12 @@ export default Ember.Object.extend({
     };
     if(params.searchText) {
       data.searchText = params.searchText;
+    }
+    if(params.sortOn) {
+      data.sortOn = params.sortOn;
+    }
+    if(params.order) {
+      data.order = params.order;
     }
 
     const options = {
@@ -223,6 +235,12 @@ export default Ember.Object.extend({
     if(params.searchText) {
       data.searchText = params.searchText;
     }
+    if(params.sortOn) {
+      data.sortOn = params.sortOn;
+    }
+    if(params.order) {
+      data.order = params.order;
+    }
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -256,6 +274,12 @@ export default Ember.Object.extend({
     }
     if(params.searchText) {
       data.searchText = params.searchText;
+    }
+    if(params.sortOn) {
+      data.sortOn = params.sortOn;
+    }
+    if(params.order) {
+      data.order = params.order;
     }
     const options = {
       type: 'GET',

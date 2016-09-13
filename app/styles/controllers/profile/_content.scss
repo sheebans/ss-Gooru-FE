@@ -148,3 +148,17 @@
     }
   }
 }
+.filter-date-asc{
+  padding-top: 25px;
+  bottom: 5px;
+  float: right;
+
+  button.filter-date,button.filter-asc{
+    margin:3px;
+    padding: 5 15px;
+
+    i{
+      font-size: $font-size-h4;
+    }
+  }
+}
