@@ -8,7 +8,7 @@ export default {
   },
 
   "realTime": {
-    "webServiceUrl": "http://localhost:7357",
+    "webServiceUrl": "https://localhost:7357",
     "webServiceUri": "/nucleus/realtime",
     "webSocketUrl": "https://localhost:7357",
     "webSocketUri": "/ws/realtime"

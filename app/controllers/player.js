@@ -272,34 +272,20 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       let assessmentResult = controller.get('assessmentResult');
       let resourceId = resource.get('id');
       let resourceResult = assessmentResult.getResultByResourceId(resourceId);
-
-      controller.cleanResourceComponent().then(function() {
-        controller.startResourceResult(resourceResult).then(function() {
-          controller.setProperties({
-            'showReport': false,
-            resourceId,
-            resource,
-            resourceResult
-          }); //saves the resource status
-        });
+      // wait for it to update
+      Ember.run(() => controller.set("resource", null));
+      controller.startResourceResult(resourceResult).then(function() {
+        controller.setProperties({
+          'showReport': false,
+          resourceId,
+          resource,
+          resourceResult
+        }); //saves the resource status
       });
-    });
-  },
-  /**
-   * This method destroy the component when the resource change and set a timer when
-   * the session is anonymous to prevent issues on re render components
-   */
-  cleanResourceComponent: function() {
-    let controller = this;
-    controller.set("resource", null);
 
-    let promise = new Ember.RSVP.Promise(function (resolve) {
-      Ember.run.later(function () {
-        resolve(true);
-      }, 100);
     });
-    return promise;
   },
+
   /**
    * Finishes a resource result or submits a question result
    * @param {ResourceResult} resourceResult
