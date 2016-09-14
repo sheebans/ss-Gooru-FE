@@ -5,17 +5,17 @@
         <h3>{{answer-letter index}}</h3>
       </div>
       {{#if editMode}}
-      <div class="text-area-container">
-        {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons model=answer valuePath='text'}}
-      </div>
-      <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
-
+        <div class="text-area-container">
+          {{gru-rich-text-editor content=answer.text disableButtons=disableEditorButtons model=answer valuePath='text'}}
+        </div>
+        {{#unless showAdvancedEditor}}
+          <button class="delete" {{action 'removeChoice' answer}}>{{gru-icon name="delete"}}</button>
+        {{/unless}}
       {{else}}
-      <span class="answer-text">
-        {{{gru-math-text text=answer.text}}}
-      </span>
+        <span class="answer-text">
+          {{{gru-math-text text=answer.text}}}
+        </span>
       {{/if}}
-
     </div>
   </div>
 {{/each}}

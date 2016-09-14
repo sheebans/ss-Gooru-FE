@@ -47,7 +47,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         controller.finishConfirm();
       } else {
         //finishes the last resource
-        controller.finishResourceResult(controller.get('resourceResult')).then(function(){
+        controller.finishResourceResult(controller.get('resourceResult')).then(function() {
           controller.finishCollection();
         });
       }
@@ -78,7 +78,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     /**
      * Action triggered when the user open de navigator panel
      */
-    openNavigator:function(){
+    openNavigator: function(){
       Ember.$( ".app-container" ).addClass( "navigator-on" );
     },
 
@@ -196,7 +196,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   /**
    * @property {boolean} indicates if the answer should be saved
    */
-  saveEnabled: true, //TODO save only when logged in
+  saveEnabled: true, // save only when logged in
 
   /**
    * @property {AssessmentResult} assessmentResult
@@ -223,10 +223,9 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    */
   resourcesPlayer: Ember.computed("collection.resources","assessmentResult.sortedResourceResults", function(){
     var availableResources = this.get('collection.resources').mapBy('id');
-    var assessmentAvailableResources = this.get('assessmentResult.sortedResourceResults').filter(function(item){
+    return this.get('assessmentResult.sortedResourceResults').filter(function(item){
        return availableResources.contains(item.resourceId);
     });
-    return assessmentAvailableResources;
   }),
 
   /**
@@ -265,56 +264,48 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @param {Resource} resource
    */
   moveToResource: function(resource) {
-    let controller = this;
-    if (controller.get("isResource")){ //if previous item is a resource
-      controller.finishResourceResult(controller.get("resourceResult"));
-    }
-
-    let assessmentResult = controller.get("assessmentResult");
-    let resourceId = resource.get("id");
-    let resourceResult = assessmentResult.getResultByResourceId(resourceId);
-
-    controller.cleanResourceComponent().then(function () {
-      controller.startResourceResult(resourceResult).then(function () {
-          controller.setProperties({
-            "showReport": false,
-            "resourceId": resourceId,
-            "resource": resource,
-            "resourceResult": resourceResult
-          });//saves the resource status
-        });
+    const controller = this;
+    //if previous item exists
+    let promise = controller.get('resourceResult') ?
+      controller.finishResourceResult(controller.get('resourceResult')) : Ember.RSVP.resolve();
+    promise.then(function() {
+      let assessmentResult = controller.get('assessmentResult');
+      let resourceId = resource.get('id');
+      let resourceResult = assessmentResult.getResultByResourceId(resourceId);
+      // wait for it to update
+      Ember.run(() => controller.set("resource", null));
+      controller.startResourceResult(resourceResult).then(function() {
+        controller.setProperties({
+          'showReport': false,
+          resourceId,
+          resource,
+          resourceResult
+        }); //saves the resource status
       });
-  },
-  /**
-   * This method destroy the component when the resource change and set a timer when
-   * the session is anonymous to prevent issues on re render components
-   */
-  cleanResourceComponent: function() {
-    let controller = this;
-    controller.set("resource", null);
 
-    let promise = new Ember.RSVP.Promise(function (resolve) {
-      Ember.run.later(function () {
-        resolve(true);
-      }, 100);
     });
-    return promise;
   },
+
   /**
    * Finishes a resource result or submits a question result
    * @param {ResourceResult} resourceResult
    * @param {Date} submittedAt
+   * @param {Boolean} isSkip
    * @returns {Promise.<boolean>}
    */
   finishResourceResult: function(resourceResult, submittedAt = new Date(), isSkip = false){
     let controller = this;
     let context = this.get("context");
+    let promise = Ember.RSVP.resolve(resourceResult);
 
-    //setting submitted at, timeSpent is calculated
-    resourceResult.set("submittedAt", isSkip ? undefined : submittedAt);
-    context.set("eventType", "stop");
-    context.set("isStudent", controller.get("isStudent"));
-    return controller.saveResourceResult(resourceResult, context, isSkip);
+    if(!resourceResult.get('submittedAt')) {
+      //setting submitted at, timeSpent is calculated
+      resourceResult.set("submittedAt", isSkip ? undefined : submittedAt);
+      context.set("eventType", "stop");
+      context.set("isStudent", controller.get("isStudent"));
+      promise = controller.saveResourceResult(resourceResult, context);
+    }
+    return promise;
   },
 
   /**
@@ -334,13 +325,14 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     context.set("eventType", "start");
     context.set("isStudent", controller.get("isStudent"));
 
-    return controller.saveResourceResult(resourceResult,context);
+    return controller.saveResourceResult(resourceResult, context);
   },
 
   /**
    * Saves the resource result
    * This method is overriden by context-player controller to communicate with analytics
    * @param resourceResult
+   * @param context
    * @returns {Promise.<boolean>}
    */
   saveResourceResult: function(resourceResult, context){
@@ -364,7 +356,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     let submittedAt = new Date();
-    return controller.submitPendingQuestionResults(submittedAt).then(function(){
+    return controller.submitPendingQuestionResults().then(function(){
       context.set("eventType", "stop");
       context.set("isStudent", controller.get("isStudent"));
       assessmentResult.set("submittedAt", submittedAt);
@@ -429,8 +421,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @param {Context} context
    */
   saveCollectionResult: function(assessmentResult, context){
-    let controller = this;
-    return controller.get('eventsService').saveCollectionResult(assessmentResult, context);
+    return this.get("saveEnabled") ? this.get('eventsService').saveCollectionResult(assessmentResult, context) :
+      Ember.RSVP.resolve();
   },
 
 
@@ -464,10 +456,11 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     const controller = this;
     let eventsService = this.get('eventsService');
     let context = this.get('context');
-    context.set("isStudent", controller.get("isStudent"));
-    resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
-
-    eventsService.saveReaction(resourceResult, context);
+    if(controller.get("saveEnabled")) {
+      context.set("isStudent", controller.get("isStudent"));
+      resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
+      eventsService.saveReaction(resourceResult, context);
+    }
   },
 
   resetValues: function(){

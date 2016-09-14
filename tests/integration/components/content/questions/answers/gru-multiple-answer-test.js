@@ -156,3 +156,21 @@ test('Multiple answer, reach max answers', function(assert) {
     });
   });
 });
+
+test('Multiple answer layout in advanced editor', function(assert) {
+  const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
+    'text': "Option A",
+    'isCorrect': false
+  })]);
+
+  this.set('answers', answers);
+
+  this.render(hbs`{{content/questions/answers/gru-multiple-answer answers=answers editMode=true showAdvancedEditor=true}}`);
+  var $component = this.$(); //component dom element
+
+  const $option = $component.find('.panel:eq(0)');
+  assert.ok(!$option.find('.delete i.delete').length, "Delete button should be hidden");
+  assert.ok(!$option.find('.yes').length, "Correct button should be hidden");
+  assert.ok(!$option.find('.no').length, "Incorrect button should be hidden");
+
+});

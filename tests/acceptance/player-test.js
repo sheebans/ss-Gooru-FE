@@ -140,7 +140,7 @@ test('Assessment - Navigate to all question types', function (assert) {
 });
 
 
-/*
+
 test('Assessment - Open assessment without passing the type', function (assert) {
   assert.expect(2);
   visit('/player/all-question-types-assessment-id'); //visit all question types collection
@@ -200,14 +200,14 @@ test('Collection - see usage report', function (assert) {
   assert.expect(7);
   visit('/player/all-resource-types-collection-id');
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=multiple-choice-question-id', 'Wrong landing url');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id', 'Wrong landing url');
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer, "Missing player");
 
     var $navigation = $playerContainer.find(".gru-navigator");
     click($navigation.find(".see-usage-report"));
     andThen(function () {
-      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=multiple-choice-question-id', 'When anonymous should remain in the same page');
+      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id', 'When anonymous should remain in the same page');
       T.notExists(assert, $playerContainer.find(".gru-navigation"), "Navigation should not be visible");
       T.notExists(assert, $playerContainer.find(".gru-navigator"), "Navigator should not be visible");
       T.exists(assert, $playerContainer.find(".gru-assessment-report"), "Navigation assessment report should be visible");
@@ -225,7 +225,7 @@ test('selectNavigatorItem: When moving to another resource', function (assert) {
     click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
     andThen(function () {
       //it navigates to specific resource
-      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=f77ede06-12a1-11e6-aba0-0935596035e8');
+      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=interactive-resource-id');
     });
   });
 });
@@ -250,7 +250,7 @@ test('selectNavigatorItem & closeNavigator: When moving to another resource the 
       click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
       andThen(function () {
         //it navigates to specific resource
-        assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=f77ede06-12a1-11e6-aba0-0935596035e8');
+        assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=interactive-resource-id');
         andThen(function () {
           assert.ok(!$appContainer.hasClass("navigator-on"), "Shouldn't have navigator-on class");
         });
@@ -283,4 +283,3 @@ test('openNavigator & closeNavigator: When opening and closing the navigator', f
     });
   });
 });
-*/

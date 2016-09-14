@@ -2,8 +2,13 @@
 var wysihtml5 = {
   Editor: function(id) {
     return {
-      on: function() {},
+      on: function(type, callback) {
+        if (callback) {
+          callback(); //it calls the event right away
+        }
+      },
       focus: function() {},
+      stopObserving: function() {},
       composer: {
         commands : {
           exec: function(name, p1) {

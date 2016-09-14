@@ -28,7 +28,9 @@ export default Ember.Component.extend({
      * @param {Number} questionId
      */
     selectQuestion: function (questionId) {
-      this.get('onSelectQuestion')(questionId);
+      if(questionId) {
+        this.get('onSelectQuestion')(questionId);
+      }
     }
   },
 
