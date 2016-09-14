@@ -69,7 +69,7 @@ export default Ember.Controller.extend(ModalMixin, {
       }
     },
     /**
-     *Filter by ascending
+     *Filter by alphanumeric
      */
     filterByTitle:function(){
       if(this.get('sortOn')==='updated_at'){
