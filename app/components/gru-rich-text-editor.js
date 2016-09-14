@@ -92,20 +92,27 @@ export default Ember.Component.extend({
       parserRules: wysihtml5ParserRules
     });
 
-    // Workaround to prevent editor cleanup, which would delete math expressions
-    Ember.run.later(function() {
-      if (editor.composer && editor.composer.commands) {
-        editor.focus();
-        if(component.get('content')){
-          editor.composer.commands.exec("insertHTML", component.get('content'));
-          component.renderMathExpressions();
-          component.makeExpressionsReadOnly();
-          component.setCursor();
-        }
-      }
-    }, 100);
-
     component.set('editor', editor);
+
+    // observe load Event
+    editor.on("load", onLoad);
+
+    function onLoad() {
+      Ember.run (function(){
+        if (editor.composer && editor.composer.commands)
+        {
+          editor.focus();
+          if (component.get('content')) {
+            editor.composer.commands.exec("insertHTML", component.get('content'));
+            component.renderMathExpressions();
+            component.makeExpressionsReadOnly();
+            component.setCursor();
+          }
+        }
+      });
+      // unobserve load Event
+      editor.stopObserving("onLoad", onLoad);
+    }
 
     // Add expression to MathQuill field
     component.$().on('click', '.tab-pane a', function(e) {
@@ -115,7 +122,7 @@ export default Ember.Component.extend({
         component.get('mathField').write(LATEX_EXPRESSIONS[expression]).focus();
       }
     });
-   // Save cursor position
+    // Save cursor position
     component.$().on('click', editorClass, function(e) {
       e.preventDefault();
       component.setCursor();
@@ -140,6 +147,7 @@ export default Ember.Component.extend({
         }, 100);
       }
     });
+
   },
 
   /**

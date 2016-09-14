@@ -15,7 +15,7 @@ test('getEndpointSecureUrl', function (assert) {
 
 test('getRealTimeWebServiceUrl', function (assert) {
   const endpointUrl = EndPointsConfig.getRealTimeWebServiceUrl();
-  assert.equal(endpointUrl, 'http://localhost:7357');
+  assert.equal(endpointUrl, 'https://localhost:7357');
 });
 
 test('getRealTimeWebServiceUri', function (assert) {
