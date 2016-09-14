@@ -95,7 +95,8 @@ module.exports = function (environment) {
     'nucleus-qa.gooru.org': 'teams-qa.gooru.org',       // Nucleus-QA
     'nucleus-qa-prl.gooru.org': 'teams-qa.gooru.org',   // Parallel-QA
     'parallel.gooru.org': 'teams.gooru.org',            // Parallel
-    'www.gooru.org': 'teams.gooru.org'                  // Production
+    'www.gooru.org': 'teams.gooru.org',                 // Production
+    'gooru.org': 'teams.gooru.org'                      // Production
   };
 
   ENV['simple-auth-custom'] = {
