@@ -49,14 +49,27 @@
     {{/if}}
 </div>
 {{#unless disableSearch}}
-<div class="search-navigation">
-    <div class="search-keyword">
-        <span class="search-icon">
-          {{gru-icon name='search'}}
-        </span>
-      {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder") hasClearButton=true onEnter=(action "searchByTerm" value=searchObject.term)}}
-    </div>
-</div>
+  <div class="container-fluid">
+      <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="search-navigation">
+              <div class="search-keyword">
+              <span class="search-icon">
+                {{gru-icon name='search'}}
+              </span>
+                {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder") hasClearButton=true onEnter=(action "searchByTerm" value=searchObject.term)}}
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+          <!--TODO IN COURSE AND NOT IN COURSE FILTERS-->
+      </div>
+      <div class="col-md-4 col-sm-4 hidden-xs">
+          <div class="filter-date-asc btn-group" role="group">
+              <button type="button" {{action 'filterByDate'}} class="filter-date btn {{if (eq sortOn 'updated_at') 'btn-primary' 'btn-info'}}">{{gru-icon name='timer'}}</button>
+              <button type="button" {{action 'filterByTitle'}} class="filter-asc btn {{if (eq sortOn 'title') 'btn-primary' 'btn-info'}}"> {{gru-icon name='sort_by_alpha'}}</button>
+          </div>
+      </div>
+  </div>
 {{/unless}}
 <div class="content_outlet">
   {{outlet}}

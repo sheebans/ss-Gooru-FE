@@ -4,6 +4,12 @@ export default Ember.Route.extend({
   queryParams: {
     term: {
       refreshModel: true
+    },
+    sortOn:{
+      refreshModel: true
+    },
+    order:{
+      refreshModel: true
     }
   },
 
@@ -17,7 +23,13 @@ export default Ember.Route.extend({
   resetController(controller) {
     var queryParams = controller.get('queryParams');
     queryParams.forEach(function (param) {
-      controller.set(param, null);
+      if(param==="sortOn"){
+        controller.set(param, 'updated_at');
+      }else if(param==="order"){
+        controller.set(param, 'desc');
+      }else{
+        controller.set(param, null);
+      }
     });
   }
 

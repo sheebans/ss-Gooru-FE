@@ -24,7 +24,13 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
+  /**
+   * @type {ProfileService} Service to retrieve content controller
+   */
+  contentController: Ember.inject.controller('profile.content'),
+  /**
+   * @type {ProfileService} Service to retrieve profile controller
+   */
   profileController: Ember.inject.controller('profile'),
 
   /**
@@ -38,6 +44,16 @@ export default Ember.Controller.extend({
    * @property {string} term filter
    */
   term: Ember.computed.alias("contentController.term"),
+
+  /**
+   * @property {string} sortOn filter
+   */
+  sortOn: Ember.computed.alias("contentController.sortOn"),
+
+  /**
+   * @property {string} sortOn filter
+   */
+  order: Ember.computed.alias("contentController.order"),
 
   /**
    * @property {Assessment[]} assessments
@@ -73,10 +89,12 @@ export default Ember.Controller.extend({
   // Methods
   showMoreResults: function(){
     const controller = this;
-    const profile = this.get("profile");
-    const pagination = this.get("pagination");
+    const profile = this.get('profile');
+    const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
-    pagination.searchText=this.get('term');
+    pagination.searchText = this.get('term');
+    pagination.sortOn = this.get('sortOn');
+    pagination.order = this.get('order');
 
     controller.get('profileService')
       .readAssessments(profile.get("id"), pagination)
@@ -91,7 +109,5 @@ export default Ember.Controller.extend({
       pageSize: DEFAULT_PAGE_SIZE
     });
   }
-
-
 
 });
