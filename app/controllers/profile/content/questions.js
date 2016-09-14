@@ -82,8 +82,8 @@ export default Ember.Controller.extend({
     // Methods
   showMoreResults: function(){
     const controller = this;
-    const profile = this.get("profile");
-    const pagination = this.get("pagination");
+    const profile = this.get('profile');
+    const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
     pagination.searchText=this.get('term');
     pagination.sortOn = this.get('sortOn');

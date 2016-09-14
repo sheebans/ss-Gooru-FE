@@ -89,12 +89,12 @@ export default Ember.Controller.extend({
   // Methods
   showMoreResults: function(){
     const controller = this;
-    const profile = this.get("profile");
-    const pagination = this.get("pagination");
+    const profile = this.get('profile');
+    const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
-    pagination.searchText = this.get("term");
-    pagination.sortOn = this.get("sortOn");
-    pagination.order = this.get("order");
+    pagination.searchText = this.get('term');
+    pagination.sortOn = this.get('sortOn');
+    pagination.order = this.get('order');
 
     controller.get('profileService')
       .readAssessments(profile.get("id"), pagination)
