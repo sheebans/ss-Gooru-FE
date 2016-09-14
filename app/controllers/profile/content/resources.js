@@ -40,12 +40,12 @@ export default Ember.Controller.extend({
   /**
    * @property {string} sortRecent filter
    */
-  sortRecent: Ember.computed.alias("contentController.sortRecent"),
+  sortOn: Ember.computed.alias("contentController.sortOn"),
 
   /**
-   * @property {string} sortAscending filter
+   * @property {string} order filter
    */
-  sortAscending: Ember.computed.alias("contentController.sortAscending"),
+  order: Ember.computed.alias("contentController.order"),
 
   /**
    * @property {Collection[]} resources
@@ -89,9 +89,9 @@ export default Ember.Controller.extend({
     const profile = this.get("profile");
     const pagination = this.get("pagination");
     pagination.page = pagination.page + 1;
-    pagination.searchText=this.get('term');
-    pagination.sortOn = this.get('sortRecent') ? 'updated_at' : 'title';
-    pagination.order = this.get('sortAscending') ? 'asc' : 'desc';
+    pagination.searchText = this.get("term");
+    pagination.sortOn = this.get("sortOn");
+    pagination.order = this.get("order");
 
     controller.get('profileService')
       .readResources(profile.get("id"), pagination)
@@ -106,7 +106,5 @@ export default Ember.Controller.extend({
       pageSize: DEFAULT_PAGE_SIZE
     });
   }
-
-
 
 });

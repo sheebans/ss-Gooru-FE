@@ -42,8 +42,8 @@ export default Ember.Route.extend(ModalMixin, {
     const params={
       page:0,
       searchText:  this.paramsFor('profile.content').term,
-      sortOn: this.paramsFor('profile.content').sortRecent ? 'updated_at' : 'title',
-      order: this.paramsFor('profile.content').sortAscending ? 'asc' : 'desc'
+      sortOn: this.paramsFor('profile.content').sortOn,
+      order:this.paramsFor('profile.content').order
     };
 
     return this.get("profileService").readAssessments(profile.get("id"),params);
@@ -56,7 +56,5 @@ export default Ember.Route.extend(ModalMixin, {
   deactivate: function() {
     this.get("controller").resetValues();
   }
-
-
 
 });

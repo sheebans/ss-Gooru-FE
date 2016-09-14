@@ -36,14 +36,14 @@ export default Ember.Controller.extend({
   term: Ember.computed.alias("contentController.term"),
 
   /**
-   * @property {string} sortRecent filter
+   * @property {string} sortOn filter
    */
-  sortRecent: Ember.computed.alias("contentController.sortRecent"),
+  sortOn: Ember.computed.alias("contentController.sortOn"),
 
   /**
-   * @property {string} sortAscending filter
+   * @property {string} order filter
    */
-  sortAscending: Ember.computed.alias("contentController.sortAscending"),
+  order: Ember.computed.alias("contentController.order"),
 
   /**
    * @property {Collection[]} collections
@@ -82,9 +82,9 @@ export default Ember.Controller.extend({
     const profile = this.get("profile");
     const pagination = this.get("pagination");
     pagination.page = pagination.page + 1;
-    pagination.searchText = this.get('term');
-    pagination.sortOn = this.get('sortRecent') ? 'updated_at' : 'title';
-    pagination.order = this.get('sortAscending') ? 'asc' : 'desc';
+    pagination.searchText = this.get("term");
+    pagination.sortOn = this.get("sortRecent");
+    pagination.order = this.get("order");
 
     controller.get('profileService')
       .readCollections(profile.get("id"), pagination)

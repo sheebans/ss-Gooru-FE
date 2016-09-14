@@ -271,3 +271,55 @@ test('Search content by term and navigate into profile content options', functio
     });
   });
 });
+test('Filter content by most recent and descending/Filter content by most recent and ascending', function(assert) {
+  assert.expect(3); //making sure all asserts are called
+  visit('/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
+  andThen(function() {
+    assert.equal(currentURL(), '/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
+    const $filterDateButton = find(".filter-date");
+    click($filterDateButton);
+    andThen(function(){
+      assert.equal(currentURL(), '/id-for-pochita/content/collections?order=asc');
+      click($filterDateButton);
+      andThen(function(){
+        assert.equal(currentURL(), '/id-for-pochita/content/collections');
+      });
+    });
+  });
+});
+test('Sort by Alphanumeric and ascending/Sort by Alphanumeric and descending', function(assert) {
+  assert.expect(3); //making sure all asserts are called
+  visit('/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
+  andThen(function() {
+    assert.equal(currentURL(), '/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
+    const $filterDateButton = find(".filter-date");
+    click($filterDateButton);
+    andThen(function(){
+      assert.equal(currentURL(), '/id-for-pochita/content/collections?order=asc');
+      click($filterDateButton);
+      andThen(function(){
+        assert.equal(currentURL(), '/id-for-pochita/content/collections');
+      });
+    });
+  });
+});
+test('Sort by Alphanumeric and navigate into profile content options', function(assert) {
+  assert.expect(4); //making sure all asserts are called
+  visit('/id-for-pochita/content/collections?order=asc&sortOn=title');
+  andThen(function() {
+    assert.equal(currentURL(), '/id-for-pochita/content/collections?order=asc&sortOn=title');
+    const $contentNavContainer = find(".controller.profile .content .content-navigation");
+    click($contentNavContainer.find("li.assessments"));
+    andThen(function(){
+      assert.equal(currentURL(), '/id-for-pochita/content/assessments?order=asc&sortOn=title');
+      click($contentNavContainer.find("li.resources"));
+      andThen(function(){
+        assert.equal(currentURL(), '/id-for-pochita/content/resources?order=asc&sortOn=title');
+        click($contentNavContainer.find("li.questions"));
+        andThen(function(){
+          assert.equal(currentURL(), '/id-for-pochita/content/questions?order=asc&sortOn=title');
+        });
+      });
+    });
+  });
+});

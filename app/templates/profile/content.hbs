@@ -65,8 +65,8 @@
       </div>
       <div class="col-md-4 col-sm-4 hidden-xs">
           <div class="filter-date-asc btn-group" role="group">
-              <button type="button" {{action 'filterByDate'}} class="filter-date btn {{if sortRecent 'btn-primary' 'btn-info'}}">{{gru-icon name='timer'}}</button>
-              <button type="button" {{action 'filterByAsc'}} class="filter-asc btn {{if sortAscending 'btn-primary' 'btn-info' }}"> {{gru-icon name='sort_by_alpha'}}</button>
+              <button type="button" {{action 'filterByDate'}} class="filter-date btn {{if (eq sortOn 'updated_at') 'btn-primary' 'btn-info'}}">{{gru-icon name='timer'}}</button>
+              <button type="button" {{action 'filterByTitle'}} class="filter-asc btn {{if (eq sortOn 'title') 'btn-primary' 'btn-info'}}"> {{gru-icon name='sort_by_alpha'}}</button>
           </div>
       </div>
   </div>

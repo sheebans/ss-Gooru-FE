@@ -3,7 +3,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import ContentSearch from 'gooru-web/models/search/content-search';
 
 export default Ember.Controller.extend(ModalMixin, {
-  queryParams: ['term','sortRecent','sortAscending'],
+  queryParams: ['term','sortOn','order'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -36,13 +36,15 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   term:null,
   /**
-   * Search term
+   * sortOn to filter
    */
-  sortRecent:true,
+  sortOn:'updated_at',
+
   /**
-   * Sort Ascending
+   * order to filter
    */
-  sortAscending:false,
+  order:'desc',
+
   /**
    * Indicate if the selected profile bar is Course
    */
@@ -59,13 +61,23 @@ export default Ember.Controller.extend(ModalMixin, {
      *Filter by most recent
      */
     filterByDate:function(){
-      this.set('sortRecent',!this.get('sortRecent'));
+      if(this.get('sortOn')==='title'){
+        this.set('order','desc');
+        this.set('sortOn','updated_at');
+      }else{
+        this.set('order',(this.get('order') === 'asc') ?'desc': 'asc');
+      }
     },
     /**
      *Filter by ascending
      */
-    filterByAsc:function(){
-      this.set('sortAscending',!this.get('sortAscending'));
+    filterByTitle:function(){
+      if(this.get('sortOn')==='updated_at'){
+        this.set('order','asc');
+        this.set('sortOn','title');
+      }else{
+        this.set('order',(this.get('order') === 'desc') ?'asc': 'desc');
+      }
     }
   },
 
