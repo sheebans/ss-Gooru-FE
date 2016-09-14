@@ -157,19 +157,25 @@ export default Ember.Object.extend({
     let data = this.get('data');
     let resourceIds = this.get('resourceIds');
 
-    userResults.forEach(function (userResult) {
-      var userId = userResult.get("user");
-      var doReset = userResult.get("isAttemptStarted");
-      var doAutoComplete = userResult.get("isAttemptFinished");
-      var resourceResults = userResult.get("resourceResults");
+    userResults
+      // Filter in case a student has been removed from the course
+      .filter(result => data.hasOwnProperty(result.get('user')))
+      .forEach(function (userResult) {
+      var userId = userResult.get('user');
+      var doReset = userResult.get('isAttemptStarted');
+      var doAutoComplete = userResult.get('isAttemptFinished');
+      var resourceResults = userResult.get('resourceResults');
 
       if (doReset) {
         data[userId] = this.getEmptyRow(resourceIds);
       }
 
-      resourceResults.forEach(function (resourceResult) {
+      resourceResults
+        // Filter in case a resource/question has been removed from the collection/assessment
+        .filter(result => resourceIds.indexOf(result.get('resourceId')) > -1)
+        .forEach(function (resourceResult) {
         if (data[userId]) {
-          const questionId = resourceResult.get("resourceId");
+          const questionId = resourceResult.get('resourceId');
           data[userId][questionId] = resourceResult;
         }
       });

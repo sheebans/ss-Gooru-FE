@@ -86,3 +86,16 @@ test('Unable to add more than a certain number of answers', function(assert) {
   var $component = this.$(); //component dom element
   assert.notOk($component.find('.add-answer').length, "Add answers link");
 });
+
+test('Reorder answers layout in advanced editor', function(assert) {
+  const answers = Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(),{
+    'text': "Option A"
+  })]);
+
+  this.set('answers', answers);
+
+  this.render(hbs`{{content/questions/answers/gru-reorder answers=answers editMode=true showAdvancedEditor=true}}`);
+  var $component = this.$(); //component dom element
+  var $option = $component.find('.panel');
+  assert.ok(!$option.find('.delete i.delete').length, "Delete button should be hidden");
+});
