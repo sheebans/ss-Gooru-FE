@@ -146,9 +146,7 @@ export default Ember.Object.extend({
    * @property {string}
    */
   fullName: Ember.computed("firstName", "lastName", function(){
-    const firstName = this.get("firstName");
-    const lastName = this.get("lastName");
-    return `${firstName} ${lastName}`;
+    return this.get('lastName') + ', ' + this.get('firstName');
   }),
 
   /**
