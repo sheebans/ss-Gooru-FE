@@ -280,12 +280,17 @@ export default Ember.Component.extend({
     this.get('mathField').latex(""); // Clear math field
     this.set('editingExpression', null);
   },
-  setCursor(){
+
+  setCursor() {
     var component = this;
-    component.set('cursor',component.get('editor').composer.selection.getBookmark());
-    component.get('editor').composer.selection.setBookmark(component.get('cursor'));
+    var composer = component.get('editor').composer;
+    if (composer.selection) {
+      component.set('cursor', composer.selection.getBookmark());
+      composer.selection.setBookmark(component.get('cursor'));
+    }
     component.get('editor').focus();
   },
+
   /**
    * It searches all of the text nodes in a given element for the given delimiters, and renders the math in place.
    */
