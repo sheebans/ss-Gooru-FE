@@ -3,7 +3,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import ContentSearch from 'gooru-web/models/search/content-search';
 
 export default Ember.Controller.extend(ModalMixin, {
-  queryParams: ['term'],
+  queryParams: ['term','sortOn','order'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -36,13 +36,48 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   term:null,
   /**
+   * sortOn to filter
+   */
+  sortOn:'updated_at',
+
+  /**
+   * order to filter
+   */
+  order:'desc',
+
+  /**
    * Indicate if the selected profile bar is Course
    */
   disableSearch: Ember.computed.alias("coursesController.disableSearch"),
 
   actions:{
+    /**
+     *Term to search by keyword
+     */
     searchByTerm:function(term){
      this.set('term',term);
+    },
+    /**
+     *Filter by most recent
+     */
+    filterByDate:function(){
+      if(this.get('sortOn')==='title'){
+        this.set('order','desc');
+        this.set('sortOn','updated_at');
+      }else{
+        this.set('order',(this.get('order') === 'asc') ?'desc': 'asc');
+      }
+    },
+    /**
+     *Filter by alphanumeric
+     */
+    filterByTitle:function(){
+      if(this.get('sortOn')==='updated_at'){
+        this.set('order','asc');
+        this.set('sortOn','title');
+      }else{
+        this.set('order',(this.get('order') === 'desc') ?'asc': 'desc');
+      }
     }
   },
 

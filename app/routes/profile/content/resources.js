@@ -37,7 +37,9 @@ export default Ember.Route.extend(ModalMixin, {
     const profile = this.modelFor("profile").profile;
     const params={
       page:0,
-      searchText:  this.paramsFor('profile.content').term
+      searchText:  this.paramsFor('profile.content').term,
+      sortOn: this.paramsFor('profile.content').sortOn,
+      order:this.paramsFor('profile.content').order
     };
 
     return this.get("profileService").readResources(profile.get("id"),params);
