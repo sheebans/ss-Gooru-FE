@@ -223,7 +223,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
   init() {
     this._super(...arguments);
 
-    if (!this.get('unit.id')) {
+    if (this.get('unit') && !this.get('unit.id')) {
       // If this a new unit, set the tempUnit value so things don't break in edit mode
       let unitForEditing = this.get('unit').copy();
       this.set('tempUnit', unitForEditing);
