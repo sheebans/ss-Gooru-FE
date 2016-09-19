@@ -273,7 +273,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       let resourceId = resource.get('id');
       let resourceResult = assessmentResult.getResultByResourceId(resourceId);
       // wait for it to update
-      Ember.run(() => controller.set("resource", null));
+      Ember.run(() => controller.set('resource', null));
       controller.startResourceResult(resourceResult).then(function() {
         controller.setProperties({
           'showReport': false,
@@ -300,9 +300,9 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
     if(!resourceResult.get('submittedAt')) {
       //setting submitted at, timeSpent is calculated
-      resourceResult.set("submittedAt", isSkip ? undefined : submittedAt);
-      context.set("eventType", "stop");
-      context.set("isStudent", controller.get("isStudent"));
+      resourceResult.set('submittedAt', isSkip ? undefined : submittedAt);
+      context.set('eventType', 'stop');
+      context.set('isStudent', controller.get('isStudent'));
       promise = controller.saveResourceResult(resourceResult, context, isSkip);
     }
     return promise;
@@ -338,7 +338,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   saveResourceResult: function(resourceResult, context){
     let controller = this;
     let promise = Ember.RSVP.resolve(resourceResult);
-    let save = controller.get("saveEnabled");
+    let save = controller.get('saveEnabled');
     if (save) {
       promise = this.get('eventsService').saveResourceResult(resourceResult, context)
         .then(function() {
