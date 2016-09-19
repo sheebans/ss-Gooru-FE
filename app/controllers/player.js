@@ -303,7 +303,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       resourceResult.set("submittedAt", isSkip ? undefined : submittedAt);
       context.set("eventType", "stop");
       context.set("isStudent", controller.get("isStudent"));
-      promise = controller.saveResourceResult(resourceResult, context);
+      promise = controller.saveResourceResult(resourceResult, context, isSkip);
     }
     return promise;
   },
