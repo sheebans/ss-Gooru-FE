@@ -168,7 +168,7 @@ export default Ember.Component.extend({
       let sortedData = Ember.copy(data, true);
       let sortFunction;
 
-      if (firstTierIndex === -1) {
+      if (firstTierIndex === -1 || secondTierIndex  === -1) {
         // Sort alphabetically by row headers
         let rowHeadersHeader = this.get('rowHeadersHeader');
 
