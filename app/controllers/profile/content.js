@@ -78,6 +78,10 @@ export default Ember.Controller.extend(ModalMixin, {
       }else{
         this.set('order',(this.get('order') === 'desc') ?'asc': 'desc');
       }
+    },
+
+    clearContent:function(){
+      this.set('term','');
     }
   },
 
@@ -94,4 +98,5 @@ export default Ember.Controller.extend(ModalMixin, {
     });
     controller.set('searchObject', searchObject);
     }
+
 });

@@ -11,9 +11,9 @@
     maxlength=maxLength
   }}
   {{#if showClearButton}}
-  <span class="clear" {{action 'clearContent'}}>
+  <a class="clear" {{action 'clearContent'}}>
     {{gru-icon name="cancel"}}
-  </span>
+  </a>
   {{/if}}
   <div class="error-messages">
     {{#if showMessage}}
