@@ -17,7 +17,11 @@ test('normalizeResponse', function(assert) {
             'timeSpent': 3600000,
             'resourceType': 'question',
             'questionType': 'MC',
-            'answerObject': 'NA'
+            'answerObject': [
+              {
+                answerId: "answer_1"
+              }
+            ]
           },
           {
             'score': 0,
@@ -60,7 +64,7 @@ test('normalizeResponse', function(assert) {
   assert.equal(firstResource.get('timeSpent'), 3600000, 'Wrong timeSpent value');
   assert.equal(firstResource.get('correct'), true, 'Wrong correct value');
   assert.equal(firstResource.get('score'), 1, 'Wrong score value');
-  assert.equal(firstResource.get('userAnswer'), null, 'Wrong user answer value');
+  assert.equal(firstResource.get('userAnswer'), 'answer_1', 'Wrong user answer value');
   assert.ok(firstResource.get('submittedAnswer'), 'Wrong submitted answer value');
   const secondResource = resourceResults.objectAt(1);
   assert.equal(secondResource.get('resourceId'), '135d1eab-f00f-4c51-8c26-0b0efea2207f', 'Wrong resource id');
