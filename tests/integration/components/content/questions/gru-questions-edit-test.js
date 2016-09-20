@@ -921,11 +921,11 @@ test('HS-Image validate has images', function (assert) {
     text:"",
     type: QUESTION_TYPES.hotSpotImage,
     answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
-      'text': null,
+      'text': '',
       'isCorrect': true,
       'type':"text"
     }),Answer.create(Ember.getOwner(this).ownerInjection(), {
-      'text': null,
+      'text': '',
       'isCorrect': true,
       'type':"text"
     })
