@@ -31,14 +31,21 @@ export default QuestionComponent.extend({
   /**
    * When loading the user answer
    */
-  updateUserAnswer: Ember.on("init", function(){
+  updateUserAnswer: Ember.on('init', function(){
    const component = this;
-    component.setAnswers();
+   component.setAnswers();
   }),
 
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates when the answer is completed
+   * @return {bool}
+   */
+  isAnswerCompleted: Ember.computed.bool("answer.length"),
+
   /**
    * @property {number} max answer length
    */
@@ -62,34 +69,44 @@ export default QuestionComponent.extend({
    * When the user changes the response
    */
   updateAnswerObserver: function(){
-    const component = this,
-      answer = Ember.$.trim(component.get("answer"));
-    let correct = component.get("isAnswerCompleted");
-    component.notifyAnswerChanged(answer, correct);
-
-    if (component.get("isAnswerCompleted")){
-      component.notifyAnswerCompleted(answer, correct);
-    }
-    else{
-      component.notifyAnswerCleared(answer);
-    }
-  }.observes("answer"),
+    this.notify(false);
+  },
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * Indicates when the answer is completed
-   * @return {bool}
-   */
-  isAnswerCompleted: Ember.computed.bool("answer.length"),
 
   /**
    * Set answer
    * */
   setAnswers: function (){
-    if (this.get("hasUserAnswer")){
-      let userAnswer = this.get("userAnswer");
-      this.set("answer", userAnswer);
+    if (this.get('hasUserAnswer')){
+      let userAnswer = this.get('userAnswer');
+      this.set('answer', userAnswer);
+      this.notify(true);
+    }
+    // set observer for answer update
+    this.addObserver('answer', this.updateAnswerObserver);
+  },
+
+  /**
+   * Notifies answer events
+   * @param {boolean} onLoad if this was called when loading the component
+   */
+  notify: function(onLoad) {
+    const component = this,
+      answer = Ember.$.trim(component.get('answer'));
+    let correct = component.get('isAnswerCompleted');
+    component.notifyAnswerChanged(answer, correct);
+
+    if (component.get('isAnswerCompleted')){
+      if(onLoad) {
+        component.notifyAnswerLoaded(answer, correct);
+      } else {
+        component.notifyAnswerCompleted(answer, correct);
+      }
+    }
+    else{
+      component.notifyAnswerCleared(answer);
     }
   }
 });

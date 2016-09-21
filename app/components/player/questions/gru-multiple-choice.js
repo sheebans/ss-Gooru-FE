@@ -28,18 +28,29 @@ export default QuestionComponent.extend({
     /**
      * When the user changes the answer choice selection
      * @param {number} answerId
+     * @param {boolean} onLoad if this was called when loading the component
      */
-    selectAnswerChoice: function(answerId){
+    selectAnswerChoice: function(answerId, onLoad){
       const component = this;
       const questionUtil = component.get("questionUtil");
       const correct = questionUtil.isCorrect(answerId);
       component.notifyAnswerChanged(answerId, correct);
-      component.notifyAnswerCompleted(answerId, correct);
+      if(onLoad) {
+        component.notifyAnswerLoaded(answerId, correct);
+      } else {
+        component.notifyAnswerCompleted(answerId, correct);
+      }
     }
-  }
+  },
 
   // -------------------------------------------------------------------------
   // Events
+  init: function() {
+    this._super(...arguments);
+    if(this.get('userAnswer')) {
+      this.actions.selectAnswerChoice.call(this, this.get('userAnswer'), true);
+    }
+  }
 
 
   // -------------------------------------------------------------------------

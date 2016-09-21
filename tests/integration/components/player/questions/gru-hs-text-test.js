@@ -186,7 +186,7 @@ test('Layout - read only', function (assert) {
 });
 
 test('Layout - with user answer', function (assert) {
-
+  assert.expect(5);
   let question = Ember.Object.create({
     "id": "569906aabfcfc4cfc1b29b62",
     questionType: 'HS_TXT',
@@ -205,10 +205,20 @@ test('Layout - with user answer', function (assert) {
     "hasAnswers": true
   });
 
+  const answers = { answer: [1,3], correct: false };
+  this.on('changeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer changed, but the answers are not correct');
+  });
+  this.on('loadAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer loaded, but the answers are not correct');
+  });
   this.set('question', question);
   this.set('userAnswer', [1,3]);
 
-  this.render(hbs`{{player/questions/gru-hs-text question=question userAnswer=userAnswer}}`);
+  this.render(hbs`{{player/questions/gru-hs-text question=question 
+                    userAnswer=userAnswer
+                    onAnswerChanged="changeAnswer"
+                    onAnswerLoaded="loadAnswer"}}`);
 
   const $component = this.$(); //component dom element
   const $answersContainer = $component.find('.answer-choices');

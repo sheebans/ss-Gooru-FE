@@ -93,7 +93,7 @@ test('True or false question layout - read only', function (assert) {
 
 test('True or false question layout - with user answer', function (assert) {
 
-  assert.expect(2);
+  assert.expect(4);
 
   let question = Ember.Object.create({ //true false
     "id": "569906aa3ec3bb39969acbe6",
@@ -110,10 +110,19 @@ test('True or false question layout - with user answer', function (assert) {
     "order": 2,
     "hasAnswers": true
   });
-
+  const answers = { answer: '2', correct: false };
+  this.on('changeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer changed, but the answers are not correct');
+  });
+  this.on('loadAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer loaded, but the answers are not correct');
+  });
   this.set('question', question);
 
-  this.render(hbs`{{player/questions/gru-true-false question=question userAnswer="2"}}`);
+  this.render(hbs`{{player/questions/gru-true-false question=question
+                    userAnswer="2"
+                    onAnswerChanged="changeAnswer"
+                    onAnswerLoaded="loadAnswer"}}`);
 
   var $component = this.$(); //component dom element
   assert.equal($component.find(".answer-choices .radio").length, 2, "Missing answer choices");

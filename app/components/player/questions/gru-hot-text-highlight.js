@@ -30,9 +30,9 @@ export default QuestionComponent.extend({
      */
     markItem: function (item) {
       const component = this;
-      if (!component.get("readOnly")){
-        item.set("selected", !item.get("selected"));
-        component.notifyEvents(component.getSelectedItems());
+      if (!component.get('readOnly')){
+        item.set('selected', !item.get('selected'));
+        component.notifyEvents(component.getSelectedItems(), false);
       }
     }
   },
@@ -43,8 +43,12 @@ export default QuestionComponent.extend({
    * Generate items from question answer choices
    */
   initItems: function(){
-    this.generateItems();
-  }.on("didInsertElement"),
+    const component = this;
+    component.generateItems();
+    if(component.get('hasUserAnswer')) {
+      component.notifyEvents(component.getSelectedItems(), true);
+    }
+  }.on('didInsertElement'),
 
 
   // -------------------------------------------------------------------------
@@ -67,18 +71,23 @@ export default QuestionComponent.extend({
   /**
    * Notifies events based on selected items
    * @param {{index: number, text: string, selected: boolean}} selectedItems
+   * @param {boolean} onLoad if this was called when loading the component
    */
-  notifyEvents: function (selectedItems) {
+  notifyEvents: function (selectedItems, onLoad) {
     const component = this;
-    const questionUtil = component.get("questionUtil");
+    const questionUtil = component.get('questionUtil');
     const userAnswer = selectedItems.map(function(item){
-      return { index: item.get("index"), text: item.get("text") };
+      return { index: item.get('index'), text: item.get('text') };
     });
 
     const correct = questionUtil.isCorrect(userAnswer);
     component.notifyAnswerChanged(userAnswer, correct);
-    if (selectedItems.get("length")) {
-      component.notifyAnswerCompleted(userAnswer, correct);
+    if (selectedItems.get('length')) {
+      if(onLoad) {
+        component.notifyAnswerLoaded(userAnswer, correct);
+      } else {
+        component.notifyAnswerCompleted(userAnswer, correct);
+      }
     }
     else {
       component.notifyAnswerCleared(userAnswer);
@@ -91,18 +100,18 @@ export default QuestionComponent.extend({
    */
   generateItems: function(){
     const component = this;
-    const util = component.get("questionUtil");
+    const util = component.get('questionUtil');
     let items = util.getItems();
 
 
-    if (component.get("hasUserAnswer")){
-      let userAnswer = component.get("userAnswer");
+    if (component.get('hasUserAnswer')){
+      let userAnswer = component.get('userAnswer');
       items.forEach(function(item){
-        let selected = userAnswer.findBy("index", item.get("index"));
-        item.set("selected", selected !== undefined);
+        let selected = userAnswer.findBy('index', item.get('index'));
+        item.set('selected', selected !== undefined);
       });
     }
-    component.set("items", items);
+    component.set('items', items);
   },
 
   /**
@@ -110,7 +119,7 @@ export default QuestionComponent.extend({
    * @returns {{index: number, text: string, selected: boolean}[]} selected items
    */
   getSelectedItems: function(){
-      return this.get("items").filterBy("selected", true);
+    return this.get('items').filterBy('selected', true);
   }
 
 });

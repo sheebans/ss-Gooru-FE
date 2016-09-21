@@ -87,6 +87,21 @@ export default Ember.Component.extend({
         this.set("question", question);
         this.set("answerCompleted", false);
       }
+    },
+    /**
+     * When the question answer was loaded from BE
+     * @param {Resource} question the question
+     * @param { { answer: Object, correct: boolean } } stats
+     */
+    loadedAnswer: function(question, stats){
+      if (!this.get("submitted")) {
+        let questionResult = this.get("questionResult");
+        questionResult.set("userAnswer", stats.answer);
+        questionResult.set("correct", stats.correct);
+
+        this.set("question", question);
+        this.set("answerCompleted", false);
+      }
     }
   },
   // -------------------------------------------------------------------------
