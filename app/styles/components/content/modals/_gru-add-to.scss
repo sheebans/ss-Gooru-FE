@@ -253,8 +253,12 @@
         height: 100%;
         width: 50%;
       }
-    }
 
+    }
+    .btn-empty.cancel{
+      border: 1px solid #bbb;
+      background-color: #fff;
+    }
 
   }
 }

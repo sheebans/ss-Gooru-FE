@@ -28,21 +28,30 @@ const profileServiceStub = Ember.Service.extend({
       }
     });
   },
-  readAssessments(userId) {
+  readAssessments(userId,filter) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
       if (!userId) {
         reject({status: 500});
       } else {
-        resolve(
-          Ember.A([
-            {
-              id: 'some-id',
-              title: 'some-title'
-            },
-            {
-              id: 'some-id-2',
-              title: 'some-title-2'
-            }]));
+        if(filter.searchText === 'Water'){
+          resolve(
+            Ember.A([
+              {
+                id: 'some-id',
+                title: 'Water'
+              }]));
+        }else{
+          resolve(
+            Ember.A([
+              {
+                id: 'some-id',
+                title: 'Water'
+              },
+              {
+                id: 'some-id-2',
+                title: 'Wine'
+              }]));
+        }
       }
     });
   }
@@ -167,3 +176,75 @@ test('Show more result Assessments', function(assert) {
     assert.equal($body.find('.collection').length, DEFAULT_PAGE_SIZE + 2, 'Number of cards');
   });
 });
+
+test('Show more result Assessments', function(assert) {
+  var assessments = Ember.A([]);
+
+  for (var i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
+    assessments.pushObject(AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'some-id',
+      title: 'some-title'
+    }));
+  }
+
+  var content = {content:null, collections:assessments,isCollection: false};
+  this.set('model', content);
+
+  this.render(hbs`{{content/modals/gru-add-to-lesson model=model}}`);
+
+  const $component = this.$('.content.modals.gru-add-to-lesson');
+  assert.ok($component.length, 'Component');
+
+  const $body = $component.find('.modal-body');
+  assert.ok($body.length, 'Body');
+
+  const $showMoreResultButton = $component.find('.show-more-results');
+  assert.ok($showMoreResultButton);
+
+  assert.equal($body.find('.collection').length,DEFAULT_PAGE_SIZE, 'Number of cards');
+
+  $showMoreResultButton.click();
+  return wait().then(function () {
+    assert.equal($body.find('.collection').length, DEFAULT_PAGE_SIZE + 2, 'Number of cards');
+  });
+});
+
+//test('Search by term and cancel search', function(assert) {
+//
+//  var assessments = Ember.A([
+//    AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+//      id: 'some-id',
+//      title: 'Water'
+//    }),
+//    AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+//      id: 'some-id',
+//      title: 'Wine'
+//    })
+//  ]);
+//
+//  var content = {content:null, collections:assessments,isCollection: false};
+//  this.set('model', content);
+//
+//  this.render(hbs`{{content/modals/gru-add-to-lesson model=model}}`);
+//
+//  const $component = this.$('.content.modals.gru-add-to-lesson');
+//  assert.ok($component.length, 'Component');
+//
+//  const $body = $component.find('.modal-body');
+//  assert.ok($body.length, 'Body');
+//
+//  const $searchInput = $component.find('.search .gru-input input');
+//
+//  $searchInput.val('Water');
+//  const  e = $.Event("keydown");
+//  e.which = 13; //ENTER
+//  $searchInput.trigger(e);
+//  return wait().then(function () {
+//    assert.equal($body.find('.collection').length,1, 'Number of cards');
+//    const $clearButton = $component.find('a.clear');
+//    $clearButton.click();
+//    return wait().then(function () {
+//      assert.equal($body.find('.collection').length,2, 'Number of cards');
+//    });
+//  });
+//});

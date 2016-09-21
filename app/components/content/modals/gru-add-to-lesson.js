@@ -41,25 +41,10 @@ export default AddToModal.extend({
       this.showMoreResults();
     },
     updateContent:function(keyword){
-        const component = this;
-        const pagination = component.get("pagination");
-        pagination.page = 0;
-        pagination.filterBy="notInCourse";
-        pagination.searchText=keyword;
-        if(component.get('isCollection')){
-          component.get('profileService')
-            .readCollections(
-            component.get('session.userId'), pagination)
-            .then(function(collections){
-              component.set("collections", collections.toArray());
-            });
-        }else{
-          component.get('profileService').readAssessments(
-          component.get('session.userId'), pagination)
-          .then(function(assessments){
-            component.set("collections", assessments.toArray());
-          });
-        }
+       this.findResults(keyword);
+    },
+    clearContent:function(){
+      this.findResults('');
     }
   },
   copyContent: function() {
@@ -132,6 +117,27 @@ export default AddToModal.extend({
         component.get('session.userId'), pagination, { 'filterBy': 'notInCourse' })
         .then(function(assessments){
           component.get("collections").pushObjects(assessments.toArray());
+        });
+    }
+  },
+  findResults: function(keyword){
+    const component = this;
+    const pagination = component.get("pagination");
+    pagination.page = 0;
+    pagination.filterBy="notInCourse";
+    pagination.searchText=keyword;
+    if(component.get('isCollection')){
+      component.get('profileService')
+        .readCollections(
+        component.get('session.userId'), pagination)
+        .then(function(collections){
+          component.set("collections", collections.toArray());
+        });
+    }else{
+      component.get('profileService').readAssessments(
+        component.get('session.userId'), pagination)
+        .then(function(assessments){
+          component.set("collections", assessments.toArray());
         });
     }
   },
