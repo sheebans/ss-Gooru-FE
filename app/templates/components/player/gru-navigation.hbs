@@ -8,6 +8,11 @@
      <div class="panel panel-default">
          <div class="panel-body">
            {{gru-emotion-picker startEmotion=ratingScore onChangeEmotion="changeEmotion" readOnly=readOnly}}
+             <div class="indicators">
+                 <span class="context {{if hasContext 'on' 'off'}}"></span>
+                 <span class="role {{if isTeacher 'teacher' 'student'}}"></span>
+                 <span class="rt {{if notifyingRealTime 'on' 'off'}}"></span>
+             </div>
          </div>
      </div>
    </div>
