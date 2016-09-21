@@ -51,6 +51,11 @@ export default Ember.Component.extend({
   onAnswerChanged: null,
 
   /**
+   * @property {String|Function} onAnswerLoaded - event handler for when the question answer is loaded from BE
+   */
+  onAnswerLoaded: null,
+
+  /**
    * Question information
    * @property {Resource} question
    */
@@ -110,7 +115,7 @@ export default Ember.Component.extend({
    * @param {boolean} correct
    */
   notifyAnswerCompleted: function(answer, correct){
-    const question = this.get("question");
+    const question = this.get('question');
     this.sendAction('onAnswerCompleted', question, {
       answer: answer,
       correct: correct
@@ -122,7 +127,7 @@ export default Ember.Component.extend({
    * @param {*} answer question answer
    */
   notifyAnswerCleared: function(answer){
-    const question = this.get("question");
+    const question = this.get('question');
     this.sendAction('onAnswerCleared', question, {
       answer: answer,
       correct: false
@@ -135,8 +140,19 @@ export default Ember.Component.extend({
    * @param {boolean} correct
    */
   notifyAnswerChanged: function(answer, correct){
-    const question = this.get("question");
+    const question = this.get('question');
     this.sendAction('onAnswerChanged', question, {
+      answer: answer,
+      correct: correct
+    });
+  },
+
+  /**
+   * Notifies answer was loaded from BE
+   */
+  notifyAnswerLoaded: function(answer, correct){
+    const question = this.get('question');
+    this.sendAction('onAnswerLoaded', question, {
       answer: answer,
       correct: correct
     });

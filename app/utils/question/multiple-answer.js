@@ -75,7 +75,7 @@ export default QuestionUtil.extend({
    */
   answerKey: function (answer) {
     let keys = Ember.A(answer).sortBy('id').map(function (item) {
-      return item.id + "_" + item.selection;
+      return `${item.id}_${item.selection}`;
     });
     return keys.toArray().join();
   },
