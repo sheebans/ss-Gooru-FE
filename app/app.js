@@ -12,6 +12,7 @@ Ember.TextField.reopen({
 });
 
 App = Ember.Application.extend({
+  rootElement: config.rootElement,
   modulePrefix: config.modulePrefix,
   podModulePrefix: config.podModulePrefix,
   Resolver

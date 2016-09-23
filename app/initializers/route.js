@@ -1,4 +1,6 @@
-  import Ember from 'ember';
+import Ember from 'ember';
+import Env from '../config/environment';
+
 
 export function initialize(app) {
 
@@ -20,7 +22,7 @@ export function initialize(app) {
     addRouteSpecificClass: function() {
       const route = this;
       const currentRouteName = route.routeName;
-      Ember.$('body').attr('class', currentRouteName.replace(/\./g, '_'));
+      Ember.$(Env.rootElement).attr('class', currentRouteName.replace(/\./g, '_'));
     }.on('activate'),
 
     /**

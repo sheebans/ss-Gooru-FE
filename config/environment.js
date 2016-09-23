@@ -2,11 +2,15 @@
 
 module.exports = function (environment) {
 
+  var isEmbedded = process.env.GOORU_EMBEDDED === 'true';
+
   var ENV = {
     modulePrefix: 'gooru-web',
+    rootElement: "#gooru-application-container",
     environment: environment,
-    baseURL: '/',
-    locationType: 'auto',
+    baseURL: isEmbedded ? undefined : '/',
+    locationType: isEmbedded ? 'none' : 'auto',
+    exportApplicationGlobal: "GooruWebApp",
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -19,12 +23,17 @@ module.exports = function (environment) {
       // when it is created
     },
 
+    embedded: {
+      //Add anything you want as default values
+    },
+
     marketingSiteUrl: "/welcome",
     supportSiteUrl: "http://support.gooru.org",
     toolkitSiteUrl:"http://about.gooru.org/toolkit",
     termsConditionsUrl:"http://about.gooru.org/terms-and-conditions"
   };
 
+  ENV.embedded = isEmbedded;
 
   ENV.i18n = {
     defaultLocale: 'en'
@@ -87,7 +96,7 @@ module.exports = function (environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     ENV.contentSecurityPolicy = {
       'default-src': "'none'",
-      'script-src': "'self'",
+      'script-src': "'self' http://localhost:4200 http://localhost",
       'font-src': "'self' https://www.gooru.org",
       'connect-src': "'self' http://localhost:4200 ws://localhost:4200 http://localhost:8882 http://nucleus-qa.gooru.org",
       'img-src': "'self' data: http://qacdn.gooru.org http://profile-images.goorulearning.org.s3.amazonaws.com " +
@@ -109,6 +118,7 @@ module.exports = function (environment) {
     ENV['ember-simple-auth'].store = 'session-store:ephemeral';
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.embedded = false;
   }
 
   if (environment === 'production') {
