@@ -52,7 +52,7 @@ export default AddToModal.extend({
   },
   init() {
     this._super(...arguments);
-    this.set('searchObject',CollectionSearch.create(Ember.getOwner(this).ownerInjection(),{
+    this.set('searchObject', CollectionSearch.create(Ember.getOwner(this).ownerInjection(),{
       term:''
     }));
   },
@@ -103,9 +103,7 @@ export default AddToModal.extend({
       pagination.page = pagination.page + 1;
 
       component.get('profileService')
-        .readCollections(
-        component.get('session.userId'), pagination, { 'filterBy': 'notInCourse' }
-      )
+        .readCollections(component.get('session.userId'), pagination)
         .then(function(collections){
           component.get("collections").pushObjects(collections.toArray());
         });
@@ -114,7 +112,7 @@ export default AddToModal.extend({
       pagination.page = pagination.page + 1;
 
       component.get('profileService').readAssessments(
-        component.get('session.userId'), pagination, { 'filterBy': 'notInCourse' })
+        component.get('session.userId'), pagination)
         .then(function(assessments){
           component.get("collections").pushObjects(assessments.toArray());
         });
@@ -124,18 +122,15 @@ export default AddToModal.extend({
     const component = this;
     const pagination = component.get("pagination");
     pagination.page = 0;
-    pagination.filterBy="notInCourse";
     pagination.searchText=keyword;
     if(component.get('isCollection')){
       component.get('profileService')
-        .readCollections(
-        component.get('session.userId'), pagination)
+        .readCollections(component.get('session.userId'), pagination)
         .then(function(collections){
           component.set("collections", collections.toArray());
         });
     }else{
-      component.get('profileService').readAssessments(
-        component.get('session.userId'), pagination)
+      component.get('profileService').readAssessments(component.get('session.userId'), pagination)
         .then(function(assessments){
           component.set("collections", assessments.toArray());
         });
@@ -161,18 +156,13 @@ export default AddToModal.extend({
       return this.get("collections.length") &&
       (this.get("collections.length") % this.get("pagination.pageSize") === 0);
   }),
-  /**
-   * @property {*}
-   */
-  searchPagination: {
-    page: 0,
-    pageSize: DEFAULT_PAGE_SIZE
-  },
+
   /**
    * @property {*}
    */
   pagination: {
     page: 0,
+    filterBy: 'notInCourse',
     pageSize: DEFAULT_PAGE_SIZE
   }
 });
