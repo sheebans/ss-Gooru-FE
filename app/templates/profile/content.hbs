@@ -65,9 +65,9 @@
       </div>
       <div class="col-md-4 col-sm-4 hidden-xs sort">
           <div class="filter-date-asc btn-group" role="group">
-              <button type="button" title="Most Recent" data-toggle="tooltip" {{action 'filterByDate'}} class="filter-date btn {{if (eq sortOn 'updated_at') 'btn-primary' 'btn-info'}}">
+              <button type="button" title="Sort by Most Recently Updated" data-toggle="tooltip" {{action 'filterByDate'}} class="filter-date btn {{if (eq sortOn 'updated_at') 'btn-primary' 'btn-info'}}">
                 {{#if (eq sortOn 'updated_at')}}
-                  {{#if (eq order 'desc')}}
+                  {{#if (eq order 'asc')}}
                     <div class="arrow arrow-up"></div>
                   {{else}}
                     <div class="arrow arrow-down"></div>
@@ -75,7 +75,7 @@
                 {{/if}}
                 {{gru-icon name='timer'}}
               </button>
-              <button type="button" title="Alphabetic" data-toggle="tooltip" {{action 'filterByTitle'}} class="filter-asc btn {{if (eq sortOn 'title') 'btn-primary' 'btn-info'}}">
+              <button type="button" title="Sort Alphabetically" data-toggle="tooltip" {{action 'filterByTitle'}} class="filter-asc btn {{if (eq sortOn 'title') 'btn-primary' 'btn-info'}}">
                 {{gru-icon name='sort_by_alpha'}}
                 {{#if (eq sortOn 'title')}}
                   {{#if (eq order 'desc')}}
