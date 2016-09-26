@@ -117,6 +117,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   /**
    * Indicates the user's role, could be 'student', 'teacher' or null
+   * This property is not used for the context-player
    * @property {string}
    */
   role: null,
@@ -208,6 +209,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @property {boolean} showReport
    */
   showReport: false,
+
+  /**
+   * Indicates if the player is notifying the real time
+   * @property {boolean}
+   */
+  notifyingRealTime: false,
 
   /**
    * Indicates if the current resource type is resource
@@ -468,6 +475,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     this.set("resource", null);
     this.set("resourceResult", null);
     this.set("role", null);
+    this.set("notifyingRealTime", false);
   }
 
 });

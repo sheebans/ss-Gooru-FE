@@ -19,15 +19,22 @@ test('finishCollection on collection and anonymous', function(assert) {
   });
   let resourceResult = ResourceResult.create(Ember.getOwner(this).ownerInjection());
   let assessmentResult = AssessmentResult.create(Ember.getOwner(this).ownerInjection());
-  let context = Context.create(Ember.getOwner(this).ownerInjection());
+  let context = Context.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: false
+  });
+
   controller.set('session', Ember.Object.create({
     isAnonymous: true
   }));
-  controller.set('role', 'teacher');
   controller.set('collection', collection);
   controller.set('resourceResult', resourceResult);
   controller.set('assessmentResult', assessmentResult);
   controller.set('context', context);
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return true;
+    }
+  }));
   controller.set('eventsService', Ember.Object.create({
     saveResourceResult: function(result, cont) {
       assert.deepEqual(result, resourceResult, 'Wrong result object');
@@ -60,11 +67,18 @@ test('finishCollection on collection and not anonymous', function(assert) {
   });
   let resourceResult = ResourceResult.create(Ember.getOwner(this).ownerInjection());
   let assessmentResult = AssessmentResult.create(Ember.getOwner(this).ownerInjection());
-  let context = Context.create(Ember.getOwner(this).ownerInjection());
+  let context = Context.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: false
+  });
   controller.set('session', Ember.Object.create({
     isAnonymous: false
   }));
-  controller.set('role', 'student');
+
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('collection', collection);
   controller.set('resourceResult', resourceResult);
   controller.set('assessmentResult', assessmentResult);
@@ -103,11 +117,19 @@ test('finishCollection on collection and not anonymous', function(assert) {
   });
   let resourceResult = ResourceResult.create(Ember.getOwner(this).ownerInjection());
   let assessmentResult = AssessmentResult.create(Ember.getOwner(this).ownerInjection());
-  let context = Context.create(Ember.getOwner(this).ownerInjection());
+  let context = Context.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: true
+  });
+
   controller.set('session', Ember.Object.create({
     isAnonymous: false
   }));
-  controller.set('role', 'student');
+
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('collection', collection);
   controller.set('resourceResult', resourceResult);
   controller.set('assessmentResult', assessmentResult);
@@ -149,12 +171,18 @@ test('finishCollection on collection, not anonymous and on air', function(assert
   let context = Context.create(Ember.getOwner(this).ownerInjection(), {
     classId: 'class-id',
     collectionId: 'collection-id',
-    userId: 'user-id'
+    userId: 'user-id',
+    isStudent: true
   });
   controller.set('session', Ember.Object.create({
     isAnonymous: false
   }));
-  controller.set('role', 'student');
+
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('onAir', true);
   controller.set('collection', collection);
   controller.set('resourceResult', resourceResult);
@@ -245,12 +273,18 @@ test('submitQuestion with next question available', function(assert) {
     }
   });
   let context = Context.create(Ember.getOwner(this).ownerInjection(), {
-    resourceEventId: 'event-id'
+    resourceEventId: 'event-id',
+    isStudent: true
   });
   controller.set('session', Ember.Object.create({
     isAnonymous: false
   }));
-  controller.set('role', 'student');
+
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('collection', collection);
   controller.set('resource', question);
   controller.set('assessmentResult', assessmentResult);
@@ -307,6 +341,11 @@ test('submitQuestion with next question unavailable', function(assert) {
   controller.set('resource', question);
   controller.set('resourceResult', questionResult);
   controller.set('context', context);
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('eventsService', Ember.Object.create({
     saveResourceResult: function(result, cont) {
       assert.ok(saveCounter < 1, 'saveResourceResult should be called once');
@@ -340,15 +379,27 @@ test('submitQuestion with feedback to show', function(assert) {
   let questionResult = QuestionResult.create(Ember.getOwner(this).ownerInjection(), {
     submittedAnswer: false
   });
-  let context = Context.create(Ember.getOwner(this).ownerInjection());
+  let context = Context.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: true
+  });
   controller.set('session', Ember.Object.create({
     isAnonymous: false
   }));
-  controller.set('role', 'student');
+
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('collection', collection);
   controller.set('resource', question);
   controller.set('resourceResult', questionResult);
   controller.set('context', context);
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('eventsService', Ember.Object.create({
     saveResourceResult: function(result, cont) {
       assert.ok(saveCounter < 1, 'saveResourceResult should be called once');
@@ -383,11 +434,18 @@ test('submitQuestion with feedback showing', function(assert) {
   let questionResult = QuestionResult.create(Ember.getOwner(this).ownerInjection(), {
     submittedAnswer: true
   });
-  let context = Context.create(Ember.getOwner(this).ownerInjection());
+  let context = Context.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: true
+  });
   controller.set('session', Ember.Object.create({
     isAnonymous: false
   }));
-  controller.set('role', 'student');
+
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('collection', collection);
   controller.set('resource', question);
   controller.set('resourceResult', questionResult);
@@ -422,6 +480,11 @@ test('selectNavigatorItem', function(assert) {
   controller.set('collection', collection);
   controller.set('assessmentResult', assessmentResult);
   controller.set('context', context);
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('eventsService', Ember.Object.create({
     saveResourceResult: function(result, cont) {
       assert.deepEqual(result, questionResult, 'Wrong first result object');
@@ -465,10 +528,16 @@ test('selectNavigatorItem on air', function(assert) {
   let context = Context.create(Ember.getOwner(this).ownerInjection(), {
     classId: 'class-id',
     collectionId: 'collection-id',
-    userId: 'user-id'
+    userId: 'user-id',
+    isStudent: true
   });
   controller.set('onAir', true);
-  controller.set('role', 'student');
+
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('collection', collection);
   controller.set('resourceResult', questionResult);
   controller.set('assessmentResult', assessmentResult);
@@ -512,11 +581,17 @@ test('changeEmotion', function(assert) {
   assert.expect(4);
   let controller = this.subject();
   let questionResult = QuestionResult.create(Ember.getOwner(this).ownerInjection());
-  let context = Context.create(Ember.getOwner(this).ownerInjection());
+  let context = Context.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: true
+  });
   let emotion = 'emotion';
   controller.set('resourceResult', questionResult);
   controller.set('context', context);
-  controller.set('role', 'student');
+  controller.set('class', Ember.Object.create({
+    isTeacher: function() {
+      return false;
+    }
+  }));
   controller.set('eventsService', Ember.Object.create({
     saveReaction: function(result, cont) {
       assert.deepEqual(result, questionResult, 'Wrong first result object');

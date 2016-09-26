@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group {{if showClearButton 'has-feedback' ''}}">
   {{input type=type
     value=rawInputValue
     disabled=disabled
@@ -11,9 +11,9 @@
     maxlength=maxLength
   }}
   {{#if showClearButton}}
-  <a class="clear" {{action 'clearContent'}}>
+  <span class="clear form-control-feedback" {{action 'clearContent'}}>
     {{gru-icon name="cancel"}}
-  </a>
+  </span>
   {{/if}}
   <div class="error-messages">
     {{#if showMessage}}

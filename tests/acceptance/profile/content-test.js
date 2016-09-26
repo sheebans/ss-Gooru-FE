@@ -336,7 +336,7 @@ test('Search content by term and clear term', function(assert) {
     keyEvent($searchInput, 'keyup', KEY_CODES.ENTER);
     andThen(function(){
       assert.equal(currentURL(), '/id-for-pochita/content/collections?term=any');
-      const $clearButton = find('a.clear');
+      const $clearButton = find('span.clear');
       click($clearButton);
       andThen(function(){
         assert.equal(currentURL(), '/id-for-pochita/content/collections?term=');
