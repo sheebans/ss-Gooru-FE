@@ -64,9 +64,12 @@ export default Ember.Route.extend(PublicRouteMixin, {
   }),
 
   beforeModel: function() {
-    if (Env.embedded) {
-      this.handleEmbeddedApplication();
-    }
+    const route = this;
+    return route._super(...arguments).then(function(){
+      if (Env.embedded) {
+        route.handleEmbeddedApplication();
+      }
+    });
   },
 
   model: function(params) {
