@@ -63,7 +63,7 @@ export default QuestionComponent.extend({
    * Return true if the answers list are shuffled
    * @property {Boolean}
    */
-  areAnswersShuffled:false,
+  areAnswersShuffled: false,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -73,54 +73,69 @@ export default QuestionComponent.extend({
   setAnswers: function(){
     const component = this;
     const sortable = this.$('.sortable');
-    const questionUtil = this.get("questionUtil");
-    const readOnly = component.get("readOnly");
+    const readOnly = component.get('readOnly');
 
     sortable.sortable();
     if (readOnly){
       sortable.sortable('disable');
     }
 
-
+    if(component.get('hasUserAnswer')) {
+      component.notify(true);
+    }
     // Manually add subscriptions to sortable element -makes it easier to test
     sortable.on('sortupdate', function() {
-
-      const $items = component.$('.sortable').find('li');
-      const answers = $items.map(function(idx, item) {
-        return $(item).data('id');
-      }).toArray();
-
-
-      const correct = questionUtil.isCorrect(answers);
-
-      component.notifyAnswerChanged(answers, correct);
-      component.notifyAnswerCompleted(answers, correct);
+      component.notify(false);
     });
   },
+
+  /**
+   * Notifies answer events
+   * @param {boolean} onLoad if this was called when loading the component
+   */
+  notify: function(onLoad) {
+    const component = this;
+    const questionUtil = this.get('questionUtil');
+    const $items = component.$('.sortable').find('li');
+    const answers = $items.map(function(idx, item) {
+      return $(item).data('id');
+    }).toArray();
+
+
+    const correct = questionUtil.isCorrect(answers);
+
+    component.notifyAnswerChanged(answers, correct);
+    if(onLoad) {
+      component.notifyAnswerLoaded(answers, correct);
+    } else {
+      component.notifyAnswerCompleted(answers, correct);
+    }
+  },
+
   /**
    * Take the list of items and shuffle all his members
    */
-    shuffle: function(){
-      const component = this;
-      const $items = component.$('.sortable') ;
-      return $items.each(function(){
-        var items = $items.children().clone(true);
-        return (items.length) ? $(this).html(component.disorder(items)) : $items;
+  shuffle: function(){
+    const component = this;
+    const $items = component.$('.sortable') ;
+    return $items.each(function(){
+      var items = $items.children().clone(true);
+      return (items.length) ? $(this).html(component.disorder(items)) : $items;
 
-      });
-    },
+    });
+  },
   /**
    * Disorder elements
    */
-    disorder: function(list){
-      var j, x, i = list.length;
-      while(i) {
-        j = parseInt(Math.random() * i);
-        i -= 1;
-        x = list[i];
-        list[i] = list[j];
-        list[j] = x;
-      }
-      return list;
+  disorder: function(list){
+    var j, x, i = list.length;
+    while(i) {
+      j = parseInt(Math.random() * i);
+      i -= 1;
+      x = list[i];
+      list[i] = list[j];
+      list[j] = x;
     }
+    return list;
+  }
 });

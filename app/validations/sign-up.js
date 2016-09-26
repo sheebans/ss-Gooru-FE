@@ -18,7 +18,8 @@ export default buildValidations({
         regex: /^[a-z0-9]+$/i,
         message: '{{description}}',
         descriptionKey: 'common.errors.special-characters'
-      })
+      }),
+      validator('reserved-words')
     ]
   },
 
@@ -35,9 +36,9 @@ export default buildValidations({
         descriptionKey: 'common.errors.sign-up-name-length'
       }),
       validator('format', {
-        regex: /^[a-zA-Z- ]+$/,
+        regex: /^[a-z0-9-.']+$/i,
         message: '{{description}}',
-        descriptionKey: 'common.errors.sign-up-name-only-letters'
+        descriptionKey: 'common.errors.special-characters'
       })
     ]
   },
@@ -55,9 +56,9 @@ export default buildValidations({
         descriptionKey: 'common.errors.sign-up-name-length'
       }),
       validator('format', {
-        regex: /^[a-zA-Z- ]+$/,
+        regex: /^[a-z0-9-.']+$/i,
         message: '{{description}}',
-        descriptionKey: 'common.errors.sign-up-name-only-letters'
+        descriptionKey: 'common.errors.special-characters'
       })
     ]
   },

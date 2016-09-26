@@ -21,6 +21,13 @@ export default Ember.Route.extend(ModalMixin, {
     editQuestion: function (question) {
       this.transitionTo("content.questions.edit", question.get("id"));
     },
+    /**
+     * On card play question button click
+     * @param {Question} question
+     */
+    playQuestion: function (question) {
+      this.transitionTo("content.questions.play", question.get("id"));
+    },
 
     /**
      * On card remix question button click
@@ -39,7 +46,15 @@ export default Ember.Route.extend(ModalMixin, {
 
   model: function (){
     const profile = this.modelFor("profile").profile;
-    return this.get("profileService").readQuestions(profile.get("id"));
+
+    const params={
+      page:0,
+      searchText:  this.paramsFor('profile.content').term,
+      sortOn: this.paramsFor('profile.content').sortOn,
+      order: this.paramsFor('profile.content').order
+    };
+
+    return this.get("profileService").readQuestions(profile.get("id"),params);
   },
 
   setupController: function (controller , model) {

@@ -39,7 +39,14 @@ export default Ember.Route.extend(ModalMixin, {
 
   model: function (){
     const profile = this.modelFor("profile").profile;
-    return this.get("profileService").readAssessments(profile.get("id"));
+    const params={
+      page:0,
+      searchText:  this.paramsFor('profile.content').term,
+      sortOn: this.paramsFor('profile.content').sortOn,
+      order:this.paramsFor('profile.content').order
+    };
+
+    return this.get("profileService").readAssessments(profile.get("id"),params);
   },
 
   setupController: function (controller , model) {
@@ -49,7 +56,5 @@ export default Ember.Route.extend(ModalMixin, {
   deactivate: function() {
     this.get("controller").resetValues();
   }
-
-
 
 });

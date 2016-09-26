@@ -149,13 +149,23 @@ export default Ember.Object.extend({
     const page = params.page || 0;
     const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     const offset = page * pageSize;
+    var data = {
+      limit: pageSize,
+      offset: offset
+    };
+    if(params.searchText) {
+      data.searchText = params.searchText;
+    }
+    if(params.sortOn) {
+      data.sortOn = params.sortOn;
+    }
+    if(params.order) {
+      data.order = params.order;
+    }
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      data: {
-        limit: pageSize,
-        offset: offset
-      },
+      data,
       headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
@@ -176,13 +186,24 @@ export default Ember.Object.extend({
     const page = params.page || 0;
     const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
     const offset = page * pageSize;
+    var data = {
+      limit: pageSize,
+      offset: offset
+    };
+    if(params.searchText) {
+      data.searchText = params.searchText;
+    }
+    if(params.sortOn) {
+      data.sortOn = params.sortOn;
+    }
+    if(params.order) {
+      data.order = params.order;
+    }
+
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      data: {
-        limit: pageSize,
-        offset: offset
-      },
+      data,
       headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
@@ -196,6 +217,7 @@ export default Ember.Object.extend({
    * @returns {Promise}
    */
   readCollections: function(userId, params = {}) {
+
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${userId}/collections`;
@@ -208,7 +230,16 @@ export default Ember.Object.extend({
       offset: offset
     };
     if(params.filterBy) {
-      data['filterBy'] = params.filterBy;
+      data.filterBy = params.filterBy;
+    }
+    if(params.searchText) {
+      data.searchText = params.searchText;
+    }
+    if(params.sortOn) {
+      data.sortOn = params.sortOn;
+    }
+    if(params.order) {
+      data.order = params.order;
     }
     const options = {
       type: 'GET',
@@ -239,7 +270,16 @@ export default Ember.Object.extend({
       offset: offset
     };
     if(params.filterBy) {
-      data['filterBy'] = params.filterBy;
+      data.filterBy = params.filterBy;
+    }
+    if(params.searchText) {
+      data.searchText = params.searchText;
+    }
+    if(params.sortOn) {
+      data.sortOn = params.sortOn;
+    }
+    if(params.order) {
+      data.order = params.order;
     }
     const options = {
       type: 'GET',

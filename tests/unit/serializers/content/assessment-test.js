@@ -146,3 +146,34 @@ test('serializeReorderAssessment', function(assert) {
   assert.equal(data.order[0].id, "a", 'Wrong id');
   assert.equal(data.order[0].sequence_id, 1, 'Wrong sequence id');
 });
+
+test('normalizeReadAssessment - if visible_on_profile is undefined', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+  const assessmentData = {
+    id: 'assessment-id'
+  };
+  const assessment = serializer.normalizeReadAssessment(assessmentData);
+  assert.equal(assessment.get('id'), 'assessment-id', 'Wrong id');
+  assert.equal(assessment.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
+});
+
+test('normalizeReadAssessment - if it is not visible on profile', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+  const assessmentData = {
+    id: 'assessment-id',
+    'visible_on_profile': false
+  };
+  const assessment = serializer.normalizeReadAssessment(assessmentData);
+  assert.equal(assessment.get('id'), 'assessment-id', 'Wrong id');
+  assert.equal(assessment.get('isVisibleOnProfile'), false, 'Wrong isVisibleOnProfile');
+});

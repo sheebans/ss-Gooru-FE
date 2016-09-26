@@ -41,13 +41,13 @@ export default QuestionComponent.extend({
    */
   answers: Ember.computed('question.text', function () {
     const component = this;
-    let answers = component.get("question.fibText");
-    let readOnly = component.get("readOnly");
+    let answers = component.get('question.fibText');
+    let readOnly = component.get('readOnly');
     let disabled = readOnly ? 'disabled': '';
 
 
-    if (component.get("hasUserAnswer")) {
-      let userAnswer = component.get("userAnswer");
+    if (component.get('hasUserAnswer')) {
+      let userAnswer = component.get('userAnswer');
       userAnswer.forEach(function(choice){
         let input = `<input type="text" value="${choice}" ${disabled}/>`;
         answers = answers.replace(FillInTheBlank.LEGACY_REGEX.single, input);
@@ -67,10 +67,11 @@ export default QuestionComponent.extend({
   // Methods
   /**
    * Notify input answers
+   * @param {boolean} onLoad if this was called when loading the component
    */
-  notifyInputAnswers: function () {
+  notifyInputAnswers: function(onLoad) {
     const component = this,
-      inputs = component.$(".fib-answers input[type=text]"),
+      inputs = component.$('.fib-answers input[type=text]'),
       answers = inputs.map(function (index, input) {
         let answer = Ember.$(input).val();
         return Ember.$.trim(answer);
@@ -78,14 +79,17 @@ export default QuestionComponent.extend({
 
     const answerCompleted = answers.join("").length > 0; //to check that at least 1 answer has text
 
-    const questionUtil = component.get("questionUtil");
+    const questionUtil = component.get('questionUtil');
     const correct = questionUtil.isCorrect(answers);
 
     component.notifyAnswerChanged(answers, correct);
-    if (answerCompleted){
-      component.notifyAnswerCompleted(answers, correct);
-    }
-    else{
+    if (answerCompleted) {
+      if(onLoad) {
+        component.notifyAnswerLoaded(answers, correct);
+      } else {
+        component.notifyAnswerCompleted(answers, correct);
+      }
+    } else {
       component.notifyAnswerCleared(answers);
     }
 
@@ -96,9 +100,12 @@ export default QuestionComponent.extend({
    */
   setAnswersEvents:function(){
     const component = this;
-    const inputs = component.$(".fib-answers");
-    inputs.on("keyup", "input[type=text]", function () {
-      component.notifyInputAnswers();
+    const inputs = component.$('.fib-answers');
+    if(component.get('hasUserAnswer')) {
+      component.notifyInputAnswers(true);
+    }
+    inputs.on('keyup', 'input[type=text]', function () {
+      component.notifyInputAnswers(false);
     });
   }
 

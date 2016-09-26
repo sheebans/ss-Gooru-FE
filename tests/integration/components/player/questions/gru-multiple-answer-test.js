@@ -188,7 +188,7 @@ test('Multiple answer question layout - read only', function (assert) {
 
 test('Multiple answer question layout - with user answer', function (assert) {
 
-  assert.expect(5);
+  assert.expect(7);
 
   let question = Ember.Object.create({
     "id": "569906aa77bebed003fa6eb1",
@@ -225,11 +225,29 @@ test('Multiple answer question layout - with user answer', function (assert) {
     "hasAnswers": true
   });
 
-
+  const answers = { answer: [ {
+      'id': 1,
+      'selection': true
+    }, {
+      'id': 2,
+      'selection': false
+    }, {
+      'id': 3,
+      'selection': false
+    }], correct: true };
+  this.on('changeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer changed, but the answers are not correct');
+  });
+  this.on('loadAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer loaded, but the answers are not correct');
+  });
   this.set('question', question);
   this.set('userAnswer', [{id: 1, selection: true}, {id: 2, selection: false}, {id: 3, selection: false}]);
 
-  this.render(hbs`{{player/questions/gru-multiple-answer question=question userAnswer=userAnswer}}`);
+  this.render(hbs`{{player/questions/gru-multiple-answer question=question 
+                    userAnswer=userAnswer
+                    onAnswerChanged="changeAnswer"
+                    onAnswerLoaded="loadAnswer"}}`);
 
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find(".instructions"), "Missing instructions");

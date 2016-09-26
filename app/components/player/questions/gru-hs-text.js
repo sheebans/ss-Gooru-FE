@@ -35,15 +35,17 @@ export default QuestionComponent.extend({
 
   setupSubscriptions: Ember.on('didInsertElement', function () {
     const component = this;
-    const readOnly = component.get("readOnly");
+    const readOnly = component.get('readOnly');
 
     component.setUserAnswer();
 
     if (!readOnly){
+      if(component.get('userAnswer')) {
+        component.notify(true);
+      }
       this.$('li.answer').on('click', function () {
         const $this = $(this);
         const answerId = $this.data('id');
-        const questionUtil = component.get("questionUtil");
 
         var selected = component.get('selectedAnswers');
         var idx = selected.indexOf(answerId);
@@ -56,16 +58,7 @@ export default QuestionComponent.extend({
           selected.splice(idx, 1);
         }
 
-        let cleared = !selected.length;
-        const correct = questionUtil.isCorrect(selected);
-
-        component.notifyAnswerChanged(selected, correct);
-        if (cleared) {
-          component.notifyAnswerCleared(selected);
-        }
-        else {
-          component.notifyAnswerCompleted(selected, correct);
-        }
+        component.notify(false);
       });
     }
 
@@ -107,12 +100,36 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Notifies answer events
+   * @param {boolean} onLoad if this was called when loading the component
+   */
+  notify: function(onLoad) {
+    const component = this;
+    const questionUtil = component.get('questionUtil');
+    let selected = component.get('selectedAnswers');
+    let cleared = !selected.length;
+    const correct = questionUtil.isCorrect(selected);
+
+    component.notifyAnswerChanged(selected, correct);
+    if (cleared) {
+      component.notifyAnswerCleared(selected);
+    }
+    else {
+      if(onLoad) {
+        component.notifyAnswerLoaded(selected, correct);
+      } else {
+        component.notifyAnswerCompleted(selected, correct);
+      }
+    }
+  },
   /**
    * Set the user answer
    */
   setUserAnswer: function(){
-    if (this.get("hasUserAnswer")) {
-      const userAnswer = this.get("userAnswer");
+    if (this.get('hasUserAnswer')) {
+      const userAnswer = this.get('userAnswer');
       userAnswer.forEach(function(answerId){
         let selector = `li.answer[data-id='${answerId}']`;
         let $answer = Ember.$(selector);
@@ -124,7 +141,7 @@ export default QuestionComponent.extend({
    * Set answers
    */
   setAnswers: function(){
-    let userAnswer = this.get("userAnswer");
-    this.set('selectedAnswers', userAnswer ? userAnswer : []);
+    let userAnswer = this.get('userAnswer');
+    this.set('selectedAnswers', userAnswer || []);
   }
 });

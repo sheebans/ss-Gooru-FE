@@ -30,20 +30,12 @@ export default QuestionComponent.extend({
     /**
      * When the user changes the answer choice selection
      * @param {string} answerId
+     * @param {boolean} onLoad if this was called when loading the component
      */
     selectAnswerChoice: function(answerId){
       const component = this;
-      const questionUtil = component.get("questionUtil");
       component.setUserAnswerChoice(answerId);
-
-      let userSelection = this.get("userSelection").toArray();
-      const correct = questionUtil.isCorrect(userSelection);
-
-      component.notifyAnswerChanged(userSelection, correct);
-
-      if (component.isAnswerCompleted()){
-        component.notifyAnswerCompleted(userSelection, correct);
-      }
+      component.notify(false);
     }
   },
 
@@ -52,9 +44,11 @@ export default QuestionComponent.extend({
 
   init() {
     this._super( ...arguments );
-
-    const userSelection = this.get("userAnswer") || Ember.A([]);
+    const userSelection = this.get('userAnswer') || Ember.A([]);
     this.set('userSelection', userSelection);
+    if(this.get('hasUserAnswer')) {
+      this.notify(true);
+    }
   },
 
 
@@ -89,6 +83,28 @@ export default QuestionComponent.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Notifies answer events
+   * @param {boolean} onLoad if this was called when loading the component
+   */
+  notify: function(onLoad) {
+    const component = this;
+    const questionUtil = component.get('questionUtil');
+    let userSelection = component.get('userSelection').toArray();
+    const correct = questionUtil.isCorrect(userSelection);
+
+    component.notifyAnswerChanged(userSelection, correct);
+
+    if (component.isAnswerCompleted()){
+      if(onLoad) {
+        component.notifyAnswerLoaded(userSelection, correct);
+      } else {
+        component.notifyAnswerCompleted(userSelection, correct);
+      }
+    }
+  },
+
   /**
    * Indicates when the answer is completed
    * @return {boolean}

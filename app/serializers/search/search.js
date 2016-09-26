@@ -242,7 +242,7 @@ export default Ember.Object.extend({
   normalizeOwner: function (ownerData) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
-    const thumbnailUrl =  ownerData.profileImageUrl ? basePath +  ownerData.profileImageUrl : DEFAULT_IMAGES.USER_PROFILE;
+    const thumbnailUrl =  ownerData.profileImage ? basePath +  ownerData.profileImage : DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: ownerData.gooruUId || ownerData.id,

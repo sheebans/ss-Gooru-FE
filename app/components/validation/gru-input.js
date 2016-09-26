@@ -30,7 +30,7 @@ export default Ember.Component.extend({
   /**
    * @type {?string} string of classes (separated by a space) specific to the component instance
    */
-  classes: 'test',
+  classes: '',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -52,7 +52,16 @@ export default Ember.Component.extend({
     },
 
     enterPressed: function() {
+      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
+      this.set('value', this.get('rawInputValue'));
       this.set('isTyping', false);
+      this.get('onEnter') && this.get('isValid') === true && this.get("onEnter")(this.get('value'));
+    },
+
+    clearContent: function(){
+      this.set('rawInputValue','');
+      this.set('value', this.get('rawInputValue'));
+      this.sendAction("onClearContent");
     }
   },
 
@@ -98,7 +107,20 @@ export default Ember.Component.extend({
    * @param {Object} attributeValidation - value used to set the rawInputValue
    */
   attributeValidation: null,
+  /**
+   * @param {Boolean} isTyping - Flag for when user is typing
+   */
   isTyping: false,
+  /**
+   * @param {Boolean} hasClearButton - Flag for when we want to show a clear button
+   */
+  hasClearButton: false,
+  /**
+   * @param {Computed} showClearButton - Flag that determines when the button should be shown when flag is true
+   */
+  showClearButton: computed('hasClearButton','hasContent', function(){
+    return this.get('hasContent') && this.get('hasClearButton');
+  }),
 
   /**
    * @property {string} onFocusOut action
@@ -134,7 +156,7 @@ export default Ember.Component.extend({
   /**
    * @param {Computed } isValid -  A computed property that says whether the value is valid
    */
-  isValid: computed.and('hasContent', 'attributeValidation.isValid'),
+  isValid: computed.readOnly('attributeValidation.isValid'),
   /**
    * @param {Computed } isInvalid - A computed property that says whether the value is invalid
    */

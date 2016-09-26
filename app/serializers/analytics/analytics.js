@@ -67,7 +67,7 @@ export default Ember.Object.extend({
         startedAt: startedAt,
         submittedAt: submittedAt
       });
-      questionResult.submittedAnswer = !!questionResult.timeSpent;
+      questionResult.submittedAnswer = !!questionResult.userAnswer;
       return questionResult;
     } else {
       return ResourceResult.create({
@@ -83,7 +83,6 @@ export default Ember.Object.extend({
         sessionId: payload.sessionId,
         startedAt: payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime()), /* TODO this should come from server */
         submittedAt: payload.endTime ? toLocal(payload.endTime) : null
-
       });
     }
   },
@@ -96,8 +95,8 @@ export default Ember.Object.extend({
    * @returns {AnswerObject[]}
    */
   normalizeAnswerObjects: function(answerObjects){
-    answerObjects = (!answerObjects || answerObjects === "N/A" ||  answerObjects === "NA") ? [] : answerObjects;
-    if (typeof answerObjects === "string"){
+    answerObjects = (!answerObjects || answerObjects === 'N/A' ||  answerObjects === 'NA') ? [] : answerObjects;
+    if (typeof answerObjects === 'string'){
       answerObjects = JSON.parse(answerObjects);
     }
 

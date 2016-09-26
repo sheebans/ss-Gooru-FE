@@ -2,6 +2,18 @@ import Ember from 'ember';
 import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
+  // -------------------------------------------------------------------------
+  // Dependencies
+
+  contentController: Ember.inject.controller('profile.content'),
+
+
+  profileController: Ember.inject.controller('profile'),
+
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -17,17 +29,21 @@ export default Ember.Controller.extend({
   },
 
   // -------------------------------------------------------------------------
-  // Dependencies
-
-  profileController: Ember.inject.controller('profile'),
+  // Properties
+  /**
+   * @property {string} term filter
+   */
+  term: Ember.computed.alias("contentController.term"),
 
   /**
-   * @type {ProfileService} Service to retrieve profile information
+   * @property {string} sortOn filter
    */
-  profileService: Ember.inject.service('api-sdk/profile'),
+  sortOn: Ember.computed.alias("contentController.sortOn"),
 
-  // -------------------------------------------------------------------------
-  // Dependencies
+  /**
+   * @property {string} order filter
+   */
+  order: Ember.computed.alias("contentController.order"),
 
   /**
    * @property {Collection[]} collections
@@ -63,9 +79,12 @@ export default Ember.Controller.extend({
   // Methods
   showMoreResults: function(){
     const controller = this;
-    const profile = this.get("profile");
-    const pagination = this.get("pagination");
+    const profile = this.get('profile');
+    const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
+    pagination.searchText = this.get('term');
+    pagination.sortOn = this.get('sortOn');
+    pagination.order = this.get('order');
 
     controller.get('profileService')
       .readCollections(profile.get("id"), pagination)

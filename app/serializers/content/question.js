@@ -133,7 +133,7 @@ export default Ember.Object.extend({
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       hints: null, //TODO
       explanation: null, //TODO
-      isVisibleOnProfile: typeof questionData['visible_on_profile'] !== 'undefined' ? questionData['visible_on_profile'] : true,
+      isVisibleOnProfile: typeof questionData.visible_on_profile !== 'undefined' ? questionData.visible_on_profile : true,
       order: questionData.sequence_id || (index + 1),
       metadata: metadata,
       audience: metadata["audience"] && metadata["audience"].length > 0 ? metadata["audience"] : [],

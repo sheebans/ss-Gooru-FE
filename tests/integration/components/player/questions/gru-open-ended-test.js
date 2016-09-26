@@ -26,8 +26,6 @@ test('Open ended layout', function (assert) {
     "resourceFormat": "question",
     "order": 9
   });
-
-
   this.set('question', question);
   this.render(hbs`{{player/questions/gru-open-ended question=question}}`);
 
@@ -121,7 +119,7 @@ test('Open ended layout - read only', function (assert) {
 
 test('Open ended layout - with user answer', function (assert) {
 
-  assert.expect(2);
+  assert.expect(4);
 
   const question = Ember.Object.create({
     "id": "569906aa7fe0695bfd409731",
@@ -135,12 +133,21 @@ test('Open ended layout - with user answer', function (assert) {
     "order": 9
   });
 
-
+  const answers = { answer: 'test', correct: true };
+  this.on('changeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer changed, but the answers are not correct');
+  });
+  this.on('loadAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer loaded, but the answers are not correct');
+  });
   this.set('question', question);
-  this.set('userAnswer', "Hola");
-  this.render(hbs`{{player/questions/gru-open-ended question=question userAnswer=userAnswer}}`);
+  this.set('userAnswer', 'test');
+  this.render(hbs`{{player/questions/gru-open-ended question=question
+                    userAnswer=userAnswer
+                    onAnswerChanged="changeAnswer"
+                    onAnswerLoaded="loadAnswer"}}`);
 
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find("textarea"), "Missing textarea");
-  assert.equal($component.find("textarea").val(), "Hola", "Wrong user answer");
+  assert.equal($component.find("textarea").val(), "test", "Wrong user answer");
 });

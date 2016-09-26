@@ -213,7 +213,7 @@ export default Ember.Object.extend({
       publishStatus: resourceData.publish_status,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null,
-      isVisibleOnProfile: resourceData.visible_on_profile
+      isVisibleOnProfile: typeof resourceData.visible_on_profile !== 'undefined' ? resourceData.visible_on_profile : true
     });
   },
 
@@ -238,7 +238,7 @@ export default Ember.Object.extend({
       publishStatus: questionData.publish_status,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null,
-      isVisibleOnProfile: questionData.visible_on_profile
+      isVisibleOnProfile: typeof questionData.visible_on_profile !== 'undefined' ? questionData.visible_on_profile : true
     });
   },
 
@@ -270,7 +270,7 @@ export default Ember.Object.extend({
       remixCount: collectionData.remix_count, //TODO missing on API
       course: collectionData.course ? collectionData.course.title : null,
       courseId: collectionData.course ? collectionData.course.id : null,
-      isVisibleOnProfile: collectionData.visible_on_profile,
+      isVisibleOnProfile: typeof collectionData.visible_on_profile !== 'undefined' ? collectionData.visible_on_profile : true,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
     });
   },
@@ -302,7 +302,7 @@ export default Ember.Object.extend({
       remixCount: assessmentData.remix_count, //TODO missing on API
       course: assessmentData.course ? assessmentData.course.title : null,
       courseId: assessmentData.course ? assessmentData.course.id : null,
-      isVisibleOnProfile: assessmentData.visible_on_profile,
+      isVisibleOnProfile: typeof assessmentData.visible_on_profile !== 'undefined' ? assessmentData.visible_on_profile : true,
       owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null,
       format: assessmentData.format,
       url: assessmentData.url

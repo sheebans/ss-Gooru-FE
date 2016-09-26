@@ -232,3 +232,45 @@ test('serializeReorderCourse', function(assert) {
   assert.equal(data.order[0].id, "a", 'Wrong id');
   assert.equal(data.order[0].sequence_id, 1, 'Wrong sequence id');
 });
+
+test('normalizeCourse - if visible_on_profile is undefined', function (assert) {
+  const serializer = this.subject();
+  const contentCdnUrl = 'content-url/';
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: contentCdnUrl
+    }
+  }));
+  const owner = {
+    id: 'owner-id',
+    username: 'owner'
+  };
+  const payload = {
+    "id": "course-id"
+  };
+  const normalizedCourse = serializer.normalizeCourse(payload, Ember.A([owner]));
+  assert.equal(normalizedCourse.get("id"), 'course-id', 'Wrong id');
+  assert.equal(normalizedCourse.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
+});
+
+
+test('normalizeCourse - if it is not visible on profile', function (assert) {
+  const serializer = this.subject();
+  const contentCdnUrl = 'content-url/';
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: contentCdnUrl
+    }
+  }));
+  const owner = {
+    id: 'owner-id',
+    username: 'owner'
+  };
+  const payload = {
+    "id": "course-id",
+    "visible_on_profile": false
+  };
+  const normalizedCourse = serializer.normalizeCourse(payload, Ember.A([owner]));
+  assert.equal(normalizedCourse.get("id"), 'course-id', 'Wrong id');
+  assert.equal(normalizedCourse.get("isVisibleOnProfile"), false, 'Wrong isVisibleOnProfile');
+});

@@ -160,3 +160,32 @@ export const MAX_ATTEMPTS = 10;
 
 /* token expiration time in milliseconds */
 export const TOKEN_EXPIRATION_TIME = 180000;
+
+export const RESERVED_WORDS = [
+  "account-settings",
+  "analytics",
+  "assessments",
+  "class",
+  "classes",
+  "collections",
+  "content",
+  "context-player",
+  "courses",
+  "featured",
+  "forgot-password",
+  "home",
+  "index",
+  "integration",
+  "logout",
+  "network",
+  "player",
+  "profile",
+  "questions",
+  "reports",
+  "reset-password",
+  "resources",
+  "search",
+  "sign-in",
+  "sign-up",
+  "sign-up-finish"
+];

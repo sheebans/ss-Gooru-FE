@@ -2,15 +2,31 @@
   <div class="panel-body">
     <div class="card-header">
       <div class="image-container">
-        {{#link-to "content.courses.play" course.id class="course-image"}}
-          <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
-        {{/link-to}}
+        {{#if isOwner}}
+          {{#if isEditEnabled}}
+            {{#link-to "content.courses.edit" course.id class="course-image"}}
+                <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
+            {{/link-to}}
+          {{/if}}
+        {{else}}
+          {{#link-to "content.courses.play" course.id class="course-image"}}
+              <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
+          {{/link-to}}
+        {{/if}}
       </div>
       <div class="header-content">
         <div>
-          {{#link-to "content.courses.play" course.id class="course-title pointer truncate" tagName="h3"}}
-            {{course.title}}
-          {{/link-to}}
+            {{#if isOwner}}
+                {{#if isEditEnabled}}
+                  {{#link-to "content.courses.edit" course.id class="course-title pointer truncate" tagName="h3"}}
+                     {{course.title}}
+                  {{/link-to}}
+                {{/if}}
+            {{else}}
+              {{#link-to "content.courses.play" course.id class="course-title pointer truncate" tagName="h3"}}
+                {{course.title}}
+              {{/link-to}}
+            {{/if}}
         </div>
         <p class="subject truncate">
             {{#if course.unitCount}}
@@ -57,6 +73,9 @@
               <div class="edit-button">
                   <button class="btn btn-sm btn-success" {{action 'editCourse'}}>{{t "common.edit"}}</button>
               </div>
+                <div class="play-button">
+                    <button class="btn btn-sm btn-success" {{action 'playCourse'}}>{{t "common.play"}}</button>
+                </div>
             {{/if}}
           {{else}}
             {{#if (and course.isPublished isRemixEnabled)}}

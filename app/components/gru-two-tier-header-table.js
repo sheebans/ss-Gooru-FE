@@ -156,19 +156,20 @@ export default Ember.Component.extend({
   /**
    * @prop { Object[] } sortedData - Ordered representation of 'data'
    */
-  sortedData: Ember.computed('data', 'sortCriteria', function () {
+  sortedData: Ember.computed('data.length', 'sortCriteria', function () {
     const sortCriteria = this.get('sortCriteria');
     const data = this.get('data');
 
     if (sortCriteria) {
       let secondTierHeaders = this.get('secondTierHeaders');
+      let firstTierIndex = sortCriteria.firstTierIndex;
       let secondTierIndex = sortCriteria.secondTierIndex;
       let sortColumn = sortCriteria.firstTierIndex * secondTierHeaders.length + secondTierIndex;
       let sortedData = Ember.copy(data, true);
       let sortFunction;
 
-      if (sortColumn === -1) {
-        // Sort by row headers
+      if (firstTierIndex === -1 || secondTierIndex  === -1) {
+        // Sort alphabetically by row headers
         let rowHeadersHeader = this.get('rowHeadersHeader');
 
         sortFunction = rowHeadersHeader.sortFunction;
@@ -177,7 +178,7 @@ export default Ember.Component.extend({
         sortedData.sort(function (a, b) {
           return sortFunction(a.header, b.header) * sortCriteria.order;
         });
-      } else if (sortColumn >= 0) {
+      } else if (firstTierIndex >= 0) {
         sortFunction = secondTierHeaders[secondTierIndex].sortFunction;
         sortFunction = sortFunction ? sortFunction : numberSort;
 
