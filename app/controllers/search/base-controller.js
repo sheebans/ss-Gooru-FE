@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import {DEFAULT_SEARCH_PAGE_SIZE} from 'gooru-web/config/config';
 
 /**
  * Search Base Controller
@@ -108,7 +108,7 @@ export default Ember.Controller.extend({
    */
   pagination: {
     page: 0,
-    pageSize: DEFAULT_PAGE_SIZE
+    pageSize: DEFAULT_SEARCH_PAGE_SIZE
   },
 
   /**
@@ -156,7 +156,7 @@ export default Ember.Controller.extend({
   resetPagination: function () {
     this.set("pagination", {
       page: 0,
-      pageSize: DEFAULT_PAGE_SIZE
+      pageSize: DEFAULT_SEARCH_PAGE_SIZE
     });
   },
 
