@@ -135,7 +135,7 @@ test('Layout - read only', function(assert) {
 });
 
 test('Layout - with user answer', function(assert) {
-  assert.expect(2);
+  assert.expect(4);
 
   let question = Ember.Object.create({
     "id": "569906aa68f276ae7ea03c30",
@@ -153,10 +153,26 @@ test('Layout - with user answer', function(assert) {
     "hasAnswers": true
   });
 
+  const answers = { answer: [{
+    "index": 1,
+    "text": "Sentence 2."
+  }, {
+    "index": 3,
+    "text": "Sentence 4."
+  }], correct: true };
+  this.on('changeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer changed, but the answers are not correct');
+  });
+  this.on('loadAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer loaded, but the answers are not correct');
+  });
   this.set("question", question);
   this.set("userAnswer", [{ index: 1 }, { index: 3} ]);
 
-  this.render(hbs`{{player/questions/gru-hot-text-highlight question=question userAnswer=userAnswer}}`);
+  this.render(hbs`{{player/questions/gru-hot-text-highlight question=question
+                    userAnswer=userAnswer
+                    onAnswerChanged="changeAnswer"
+                    onAnswerLoaded="loadAnswer"}}`);
 
   var $component = this.$(), //component dom element
     $phrasesContainer = $component.find(".phrases");

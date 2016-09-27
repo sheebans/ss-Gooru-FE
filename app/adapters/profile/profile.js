@@ -270,7 +270,7 @@ export default Ember.Object.extend({
       offset: offset
     };
     if(params.filterBy) {
-      data['filterBy'] = params.filterBy;
+      data.filterBy = params.filterBy;
     }
     if(params.searchText) {
       data.searchText = params.searchText;

@@ -24,6 +24,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
   performanceService: Ember.inject.service('api-sdk/performance'),
+  classService: Ember.inject.service('api-sdk/class'),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -49,9 +50,12 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
 
       model.originalCollection = originalCollection;
 
-      return route.get('lessonService').fetchById(courseId, unitId, lessonId)
-        .then(function(lesson) {
-          model.lesson = lesson;
+      return Ember.RSVP.hash({
+        lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
+        class: route.get('classService').readClassInfo(classId)
+      }).then(function(hash) {
+          model.lesson = hash.lesson;
+          model.class = hash.class;
           const maxAttempts = collection.get('attempts');
           if (collection.get('hasUnlimitedAttempts')) {
             model.assessmentAttemptsLeft = maxAttempts;
@@ -76,6 +80,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     controller.set('lesson', model.lesson);
     controller.set('showContent', collection.get('isCollection'));
     controller.set('originalCollection', model.originalCollection);
+    controller.set('class', model.class);
     if (collection.get('isAssessment')) {
       controller.set('assessmentAttemptsLeft', model.assessmentAttemptsLeft);
     }

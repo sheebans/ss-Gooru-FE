@@ -125,7 +125,7 @@ test('Multiple choice question layout - read only', function (assert) {
 
 test('Multiple choice question with user answer', function (assert) {
 
-  assert.expect(3);
+  assert.expect(5);
   let question = Ember.Object.create({
     "id": "569906aa20b7dfae1bcd5",
     questionType: 'MC',
@@ -158,8 +158,18 @@ test('Multiple choice question with user answer', function (assert) {
     "hasNarration": true
   });
 
+  const answers = { answer: 2, correct: false };
+  this.on('changeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer changed, but the answers are not correct');
+  });
+  this.on('loadAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer loaded, but the answers are not correct');
+  });
   this.set('question', question);
-  this.render(hbs`{{player/questions/gru-multiple-choice question=question userAnswer=2}}`);
+  this.render(hbs`{{player/questions/gru-multiple-choice question=question 
+                    userAnswer=2
+                    onAnswerChanged="changeAnswer"
+                    onAnswerLoaded="loadAnswer"}}`);
 
   var $component = this.$(); //component dom element
   T.exists(assert, $component.find(".instructions"), "Missing instructions");

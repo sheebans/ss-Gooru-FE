@@ -61,6 +61,7 @@ export default Ember.Component.extend({
     clearContent: function(){
       this.set('rawInputValue','');
       this.set('value', this.get('rawInputValue'));
+      this.sendAction("onClearContent");
     }
   },
 

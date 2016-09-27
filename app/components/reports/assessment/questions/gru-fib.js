@@ -38,14 +38,14 @@ export default Ember.Component.extend(QuestionMixin, {
       let elementClass = (anonymous) ? 'anonymous' : ((userAnswerCorrect) ?'correct':'incorrect');
       return {
         text: userAnswer,
-        "class": 'answer ' + elementClass
+        'class': `answer ${elementClass}`
       };
     });
 
     let sentences= questionTextParts.map(function(questionTextPart){
       return {
         text: questionTextPart,
-        "class": 'sentence'
+        'class': 'sentence'
       };
     });
 

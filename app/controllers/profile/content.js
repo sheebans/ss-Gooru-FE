@@ -78,7 +78,21 @@ export default Ember.Controller.extend(ModalMixin, {
       }else{
         this.set('order',(this.get('order') === 'desc') ?'asc': 'desc');
       }
+    },
+
+    clearContent:function(){
+      this.set('term','');
     }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  init: function() {
+    this._super(...arguments);
+    Ember.run.scheduleOnce('afterRender', this, function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
   },
 
   // -------------------------------------------------------------------------
@@ -87,11 +101,12 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * init and reset all the properties for the validations
    */
-    resetProperties() {
+  resetProperties: function() {
     var controller = this;
-    var searchObject = ContentSearch.create(Ember.getOwner(this).ownerInjection(),{
+    var searchObject = ContentSearch.create(Ember.getOwner(this).ownerInjection(), {
       term:''
     });
     controller.set('searchObject', searchObject);
-    }
+  }
+
 });

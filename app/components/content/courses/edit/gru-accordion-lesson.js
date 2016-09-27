@@ -208,8 +208,8 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       associateLesson: true
     });
 
-    if (!this.get('lesson.id')) {
-      // If this a new unit, set the tempUnit value so things don't break in edit mode
+    if (this.get('lesson') && !this.get('lesson.id')) {
+      // If this a new lesson, set the tempLesson value so things don't break in edit mode
       let lessonForEditing = this.get('lesson').copy();
       this.set('tempLesson', lessonForEditing);
     }

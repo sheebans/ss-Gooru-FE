@@ -87,6 +87,27 @@ export default PlayerController.extend({
     return truncate(this.get("lesson.title"), null, "name");
   }),
 
+  /**
+   * Context class
+   * @property {Class}
+   */
+  class: null,
+
+  /**
+   * Indicates if the student is playing the collection
+   * @property {boolean}
+   */
+  isStudent: Ember.computed.not("isTeacher"),
+
+  /**
+   * Indicates if the teacher is playing this collection
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed("class", function(){
+    const aClass = this.get("class");
+    return aClass.isTeacher(this.get("context.userId"));
+  }),
+
     /**
    * Saves the resource result
    * @param resourceResult
@@ -111,6 +132,7 @@ export default PlayerController.extend({
         // for the same student will provoke data overwrite issue in the RealTime server.
         if (!isTeacher && context.get('isStopEvent') && !isSkip) {
           realTimeService.notifyResourceResult(classId, collectionId, userId, resourceResult);
+          controller.set("notifyingRealTime", true);
         }
       }
       return Ember.RSVP.resolve(true); //not waiting for the real time events
@@ -137,9 +159,11 @@ export default PlayerController.extend({
 
         if (!isTeacher && context.get("isStartEvent")) {
           realTimeService.notifyAttemptStarted(classId, collectionId, userId);
+          controller.set("notifyingRealTime", true);
         }
         else if (!isTeacher && context.get("isStopEvent")) {
           realTimeService.notifyAttemptFinished(classId, collectionId, userId);
+          controller.set("notifyingRealTime", true);
         }
       }
       return Ember.RSVP.resolve(true); //not waiting for the real time events

@@ -165,6 +165,26 @@ It is possible to proxy a server so you can connect to a different environment
 * `grunt build` (development)
 * `grunt build:prod` (production)
 
+### Embedded application
+The gooru application can run as a normal ember application or it could be embedded into a 3rd party application. 
+This was made with the intention of sharing some screens/functionality with Gooru partners
+
+#### Build it as embedded 
+To build the application as a embedded app do
+
+* `GOORU_EMBEDDED=true ember build --environment=development` an environment variable controls when the package should be build as embedded app
+
+#### Run as embedded
+You could do the same to run the application embedded
+
+* `GOORU_EMBEDDED=true grunt run` this will run the application embedded, you should access /embedded.html
+
+#### Configuring the embedded application
+When embedding the application you can pass several options
+
+* token, it should be a valid gooru token, when present the application would try to authentication using that token, otherwise it will authenticated anonymously 
+* transition, it is use to tell the application to navigate to a specific page, you need to provide the parameters matching the ember route, see public/embedded.html for an example
+
 ### Continuous Integration
 We have setup Bamboo as continuous integration server
 * when publishing a feature branch a bamboo build is triggered
@@ -182,8 +202,7 @@ We have setup Bamboo as continuous integration server
 At this point develop branch is deployed by Bamboo to the configured QA servers
 
 *Staging deployment*
-Release candidates, hot fixes and master build are send to a S3 bucket configured by Gooru Netops, from there
-they deploy the package to the staging environment (Nucleus QA)
+Release candidates, hot fixes and master build are deployed by Bamboo to Nucleus QA
 
 *Production deployment*
 The production package is archived at [Edify Artifactory](edify.artifactoryonline.com/edify/webapp/#/artifacts/browse/tree/General/gooruweb-releases-local), 

@@ -72,9 +72,9 @@ test('Layout when all completed', function (assert) {
   T.exists(assert, $questions, "Missing questions area");
 
   assert.equal($questions.find("span.correct").length, 2, "It should displayed 2 correct questions");
-  assert.equal($questions.find("span.incorrect").length, 2, "It should displayed 2 incorrect questions, 1 was skipped");
+  assert.equal($questions.find("span.incorrect").length, 1, "It should displayed 1 incorrect question");
   assert.equal($questions.find("span.not-started").length, 0, "It should displayed 0 not started questions");
-  assert.equal($questions.find("span.skipped").length, 0, "It should displayed 0 skipped questions, they are treated as incorrect");
+  assert.equal($questions.find("span.skipped").length, 1, "It should displayed 1 skipped question");
 
   $component.find(".panel").click();
 });

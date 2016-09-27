@@ -323,3 +323,24 @@ test('Sort by Alphanumeric and navigate into profile content options', function(
     });
   });
 });
+test('Search content by term and clear term', function(assert) {
+  assert.expect(3);
+  visit('/id-for-pochita/content/collections');
+  andThen(function() {
+    assert.equal(currentURL(), '/id-for-pochita/content/collections');
+    const $searchInput = find(".search-keyword .gru-input input");
+
+    fillIn($searchInput, 'any');
+    $searchInput.val('any');
+    $searchInput.change();
+    keyEvent($searchInput, 'keyup', KEY_CODES.ENTER);
+    andThen(function(){
+      assert.equal(currentURL(), '/id-for-pochita/content/collections?term=any');
+      const $clearButton = find('span.clear');
+      click($clearButton);
+      andThen(function(){
+        assert.equal(currentURL(), '/id-for-pochita/content/collections?term=');
+      });
+    });
+  });
+});

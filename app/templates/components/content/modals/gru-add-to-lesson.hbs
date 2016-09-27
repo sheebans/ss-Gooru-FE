@@ -18,7 +18,7 @@
     </span>
     <div class="search">
       {{gru-icon name='search'}}
-      {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder") hasClearButton=true onEnter=(action "updateContent" value=searchObject.term)}}
+      {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder") hasClearButton=true onEnter=(action "updateContent" value=searchObject.term) onClearContent='clearContent'}}
     </div>
   </div>
   <div class="info">
@@ -52,7 +52,7 @@
     <button type="button" class="btn btn-primary add-to"{{action "addTo"}} disabled={{if hasSelectedCollection '' 'true'}}>{{t 'common.add'}}</button>
   </div>
   <div class="hidden-xs">
-    <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+    <button type="button" class="btn btn-empty cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
         <span aria-hidden="true">{{t 'common.cancel'}}</span>
     </button>
 

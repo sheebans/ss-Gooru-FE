@@ -83,7 +83,7 @@ export default Ember.Controller.extend({
     const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
     pagination.searchText = this.get('term');
-    pagination.sortOn = this.get('sortRecent');
+    pagination.sortOn = this.get('sortOn');
     pagination.order = this.get('order');
 
     controller.get('profileService')

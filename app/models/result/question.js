@@ -26,7 +26,7 @@ export default ResourceResult.extend({
    * TODO once the SDK is integrated we could analyze if is possible to use only 'question'
    * @property {number} questionId - ID of the question graded
    */
-  questionId: Ember.computed.alias("resourceId"),
+  questionId: Ember.computed.alias('resourceId'),
 
   /**
    * @property {number} score - Question score
@@ -54,8 +54,8 @@ export default ResourceResult.extend({
    *
    * @property {String}
    */
-  attemptStatus: Ember.computed("correct", "skipped", "pending", function () {
-    return this.get('correct') ? 'correct' : ((this.get('skipped') || this.get("pending")) ? 'skipped' : 'incorrect');
+  attemptStatus: Ember.computed('correct', 'skipped', 'pending', function () {
+    return this.get('correct') ? 'correct' : ((this.get('skipped') || this.get('pending')) ? 'skipped' : 'incorrect');
   }),
 
   /**
@@ -63,8 +63,8 @@ export default ResourceResult.extend({
    * if it has no answer and correct === false
    * @property {boolean}
    */
-  skipped: Ember.computed("correct", "userAnswer", function () {
-    return !this.get("correct") && !this.get("answered");
+  skipped: Ember.computed('correct', 'userAnswer', function () {
+    return !this.get('correct') && !this.get('answered');
   }),
 
   /**
@@ -73,8 +73,8 @@ export default ResourceResult.extend({
    * Important! Skipped results are treated as incorrect as well
    * @property {boolean}
    */
-  incorrect: Ember.computed("correct", function(){
-    return (this.get("correct") === false);
+  incorrect: Ember.computed('correct', function(){
+    return (this.get('correct') === false);
   }),
 
   /**
@@ -83,15 +83,15 @@ export default ResourceResult.extend({
    * @property {boolean} indicates when it has been started
    */
   started: Ember.computed('correct', function(){
-    return this.get("correct") !== null;
+    return this.get('correct') !== null;
   }),
 
   /**
    * Indicates if it is answered
    * @return {boolean}
    */
-  answered: Ember.computed("userAnswer", function(){
-    return this.get("userAnswer") !== null && this.get("userAnswer") !== undefined;
+  answered: Ember.computed('userAnswer', function(){
+    return this.get('userAnswer') !== null && this.get('userAnswer') !== undefined;
   }),
 
   /**
@@ -99,8 +99,8 @@ export default ResourceResult.extend({
    * @returns {*}
    */
   toJSON: function() {
-    let question = this.get("question");
-    let questionType = question.get("questionType");
+    let question = this.get('question');
+    let questionType = question.get('questionType');
     let util = getQuestionUtil(questionType).create({
       question: question
     });

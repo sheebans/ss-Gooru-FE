@@ -20,6 +20,13 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   classService: Ember.inject.service("api-sdk/class"),
 
+  /**
+   * Authentication (api-sdk/session) service.
+   * @property authService
+   * @readOnly
+   */
+  authService: Ember.inject.service('api-sdk/session'),
+
   session: Ember.inject.service(),
 
   /**
@@ -55,6 +62,15 @@ export default Ember.Route.extend(PublicRouteMixin, {
     });
 
   }),
+
+  beforeModel: function() {
+    const route = this;
+    return route._super(...arguments).then(function(){
+      if (Env.embedded) {
+        route.handleEmbeddedApplication();
+      }
+    });
+  },
 
   model: function(params) {
     const route = this;
@@ -224,6 +240,30 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   deactivate: function () {
     Ember.$(document).off("ajaxError");
+  },
+
+  /**
+   * Handle the logic for the embedded application
+   * @returns {Promise.<TResult>}
+   */
+  handleEmbeddedApplication: function () {
+    const route = this;
+    const transition = Env.APP.transition;
+    const token = Env.APP.token;
+    const authService = this.get("authService");
+    const authPromise = token ?
+      authService.signInWithToken(token) :
+      authService.get('session').authenticateAsAnonymous();
+
+    return authPromise.then(function(){
+      const routeName = 'sign-in';
+      if (transition){
+        route.transitionTo.apply(route, transition);
+      }
+      else {
+        route.transitionTo(routeName);
+      }
+    });
   },
 
 

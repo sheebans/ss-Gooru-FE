@@ -218,10 +218,10 @@ export default Ember.Object.extend({
         if (questionResult) {
           questionResults.addObject(questionResult);
         } else {
-          Ember.Logger.warn("Missing question data " + studentId + " question " + questionId);
+          Ember.Logger.warn(`Missing question data ${studentId} question ${questionId}`);
         }
       } else {
-        Ember.Logger.warn("Missing student data " + studentId);
+        Ember.Logger.warn(`Missing student data ${studentId}`);
       }
     });
 
@@ -246,7 +246,7 @@ export default Ember.Object.extend({
         }
       }
     } else {
-      Ember.Logger.warning("Missing student data " + studentId);
+      Ember.Logger.warning(`Missing student data ${studentId}`);
     }
     return questionResults;
   },
@@ -294,7 +294,7 @@ export default Ember.Object.extend({
         }
       }
       else{
-        Ember.Logger.warning("Missing student data " + studentId);
+        Ember.Logger.warning(`Missing student data ${studentId}`);
       }
     });
     return found;

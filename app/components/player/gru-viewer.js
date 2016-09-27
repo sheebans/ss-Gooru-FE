@@ -115,11 +115,11 @@ export default Ember.Component.extend({
    * @property {string}
    */
   resourceComponentSelected: Ember.computed('resource.id', function () {
-    const resourceType = (this.get("resource.isImageResource") ? 'image' : this.get('resource.resourceType'));
+    const resourceType = (this.get('resource.isImageResource') ? 'image' : this.get('resource.resourceType'));
     var component = RESOURCE_COMPONENT_MAP[resourceType];
 
     if (!component) {
-      Ember.Logger.error('Resources of type ' + resourceType + ' are currently not supported');
+      Ember.Logger.error(`Resources of type ${resourceType} are currently not supported`);
     } else {
       Ember.Logger.debug('Resources component selected: ', component);
       return component;

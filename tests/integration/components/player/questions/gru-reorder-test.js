@@ -43,15 +43,13 @@ test('Reorder question layout', function (assert) {
 });
 
 test('Notifications work after reordering questions', function (assert) {
-
-
   let question = Ember.Object.create({
     "id": "569906aadfa0072204f7c7c7",
     questionType: 'HT_RO',
     text: 'Reorder Question',
     hints: [],
     explanation: 'Sample explanation text',
-    answers: Ember.A([ // ["crc", "bra", "pan", "chi"]
+    answers: Ember.A([
       Ember.Object.create({id: "aquifer", text: "An aquifer", order: 3}),
       Ember.Object.create({id: "well", text: "A well", order: 2}),
       Ember.Object.create({id: "pump", text: "A pump", order: 1})
@@ -62,12 +60,12 @@ test('Notifications work after reordering questions', function (assert) {
     "hasAnswers": true
   });
 
-  var answers = [];
+  var answers = { answer: ["pump", "well", "aquifer"], correct: true };
 
   this.set('question', question);
 
   this.on('changeAnswer', function (question, stats) {
-    //called 2 times
+    //called 3 times
     assert.deepEqual(stats, answers, "Answer changed, but the answers are not in the correct order");
   });
 
@@ -75,11 +73,17 @@ test('Notifications work after reordering questions', function (assert) {
     //called 2 times
     assert.deepEqual(stats, answers, "Answer completed, but the answers are not in the correct order");
   });
+
+  this.on('loadAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, "Answer loaded, but the answers are not in the correct order");
+  });
+
   this.set('userAnswer', ["pump", "well", "aquifer"]);
 
   this.render(hbs`{{player/questions/gru-reorder question=question
                     onAnswerChanged="changeAnswer"
                     onAnswerCompleted="completeAnswer"
+                    onAnswerLoaded="loadAnswer"
                     userAnswer=userAnswer}}`);
 
   var $component = this.$(); //component dom element
@@ -99,8 +103,6 @@ test('Notifications work after reordering questions', function (assert) {
     .insertBefore('.sortable li:last-child');
   answers = { answer: ["aquifer", "well", "pump"], correct: false };
   $component.find('.sortable').trigger('sortupdate');
-
-
 });
 
 test('Reorder question layout - read only', function (assert) {
@@ -135,7 +137,7 @@ test('Reorder question layout - read only', function (assert) {
 
 
 test('Reorder question layout - with user answer', function (assert) {
-
+  assert.expect(5);
   let question = Ember.Object.create({
     "id": "569906aadfa0072204f7c7c7",
     questionType: 'HT_RO',
@@ -152,11 +154,20 @@ test('Reorder question layout - with user answer', function (assert) {
     "order": 3,
     "hasAnswers": true
   });
-
+  var answers = { answer: ['well', 'aquifer', 'pump'], correct: false };
+  this.on('changeAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer changed, but the answers are not correct');
+  });
+  this.on('loadAnswer', function (question, stats) {
+    assert.deepEqual(stats, answers, 'Answer loaded, but the answers are not correct');
+  });
   this.set('question', question);
-  this.set('userAnswer', ["well", "aquifer", "pump"]);
+  this.set('userAnswer', ['well', 'aquifer', 'pump']);
 
-  this.render(hbs`{{player/questions/gru-reorder question=question userAnswer=userAnswer}}`);
+  this.render(hbs`{{player/questions/gru-reorder question=question
+                    userAnswer=userAnswer
+                    onAnswerChanged="changeAnswer"
+                    onAnswerLoaded="loadAnswer"}}`);
 
   var $component = this.$(); //component dom element
   assert.equal($component.find(".sortable li").length, 3, "3 Sortable items should be found");

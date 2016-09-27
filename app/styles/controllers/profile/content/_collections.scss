@@ -1,5 +1,5 @@
 .controller.content-collections{
-  padding: 20px 20px;
+  padding: 20px 0px;
 
   .collections {
     @include flexbox;
@@ -7,7 +7,7 @@
     @include justify-content(center);
 
     .card {
-      margin-right: 14px;
+      margin: 0 12px;
       float: left;
     }
   }
