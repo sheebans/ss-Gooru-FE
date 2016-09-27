@@ -470,8 +470,10 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
    * Returns validate answer promises
    */
   getAnswerValidatePromise: function(answer) {
-    if (answer.get('text').length > 0){
-      answer.set('text',removeHtmlTags (answer.text));
+    if (answer.get('text')){
+      if (answer.get('text').length > 0){
+        answer.set('text',removeHtmlTags (answer.text));
+      }
     }
     return answer.validate().then(function ({ validations }) {
       return validations.get('isValid');
