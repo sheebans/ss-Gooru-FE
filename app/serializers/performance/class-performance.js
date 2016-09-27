@@ -87,7 +87,16 @@ export default PerformanceSerializer.extend({
       studentPerformanceModel.relationships.performanceData.data.push(serializer.normalizePerformanceId(performance, userId));
 
       //Adding performance model in included, it could be more than one for each user
-      classPerformanceModel.included.push(serializer.normalizePerformanceAttributes(performance, userId));
+      if (!performance.assessment && !performance.collection) {
+        classPerformanceModel.included.push(serializer.normalizePerformanceAttributes(performance, userId));
+      }else{
+        if(performance.assessment){
+          classPerformanceModel.included.push(serializer.normalizePerformanceAttributes(performance.assessment[0], userId));
+        }
+        if(performance.collection){
+          classPerformanceModel.included.push(serializer.normalizePerformanceAttributes(performance.collection[0], userId));
+        }
+      }
     });
 
     //Adding user id and type in relationships - user -data

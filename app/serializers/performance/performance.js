@@ -56,6 +56,7 @@ export default DS.JSONAPISerializer.extend({
      *  If it's student performance we use only the model-id
      */
     var id = (userId) ? userId+'@' : '';
+    console.log(id+serializer.getModelId(result),'asdfasdf');
     return {
       id: id+serializer.getModelId(result),
       type: serializer.getModelType(),
