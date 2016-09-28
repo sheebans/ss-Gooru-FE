@@ -257,7 +257,6 @@ export default Ember.Component.extend(AccordionMixin, {
             const isAssessment = collection.get('format') === 'assessment';
             const collectionId = collection.get('id');
             const peer = lessonPeers.findBy('id', collectionId);
-            
             const assessmentDataPromise = isAssessment ?
               component.get('assessmentService').readAssessment(collectionId):
               Ember.RSVP.resolve(true);
