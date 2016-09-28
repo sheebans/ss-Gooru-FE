@@ -8,35 +8,53 @@ const ClassContentVisibility = Ember.Object.extend({
   /**
    * @property {string}
    */
-  contentVisibility: 0,
+  contentVisibility: null,
 
   /**
    * Sample:
-      {
-        "content_visibility": "visible_collections",
-        "course": {
-          "id": "2a121dd9-2acd-4db7-8d15-a8e694a95c5a",
-          "units": [
-            {
-              "id": "6354b8ad-2d32-48e8-9588-2883dbd97152",
-              "lessons": [
-                {
-                  "id": "176a137d-22c8-4e71-826a-39c2592de889",
-                  "assessments": [
-                    "99fbdd37-dafc-4e70-9bd6-a1cd6e2aa233",
-                    "5263b490-3052-4561-9d06-d0de0b45cc45",
-                    "54c7ee3c-00f3-4ac3-b5f1-5eff1d025af4",
-                    "173dca68-3d45-4c6c-baed-0bfd3d40070c"
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      }
+   {
+    "content_visibility": "visible_collections",
+     "course": {
+        "id": "2a121dd9-2acd-4db7-8d15-a8e694a95c5a",
+        "units": [{
+            "id": "6354b8ad-2d32-48e8-9588-2883dbd97152",
+            "lessons": [{
+                "id": "176a137d-22c8-4e71-826a-39c2592de889",
+                "assessments": [{
+                    "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
+                    "visible": "on"
+                }],
+                "collections": [{
+                    "id": "781b8add-31a4-4186-912a-31f735180805",
+                    "visible": "off"
+                    }, {
+                    "id": "86e5e705-66b0-470a-9ff0-f00472adeb0b",
+                    "visible": "on"
+                }]
+          }]
+     }]
+  }
+}
+
    * @property { id: number, units: [] }
    */
-  course: null
+  course: null,
+  /**
+   * Return a list of content visibility by assessment
+   *
+   */
+  getAssessmentsVisiblity: function(){
+    let units = this.get('course.units');
+    let assessments = Ember.A([]);
+    units.map(function(unit){
+      unit.get('lessons').map(function(lesson){
+        assessments.addObjects(lesson.get('assessments'));
+      });
+    });
+    return assessments;
+  }
+
+
 
 });
 

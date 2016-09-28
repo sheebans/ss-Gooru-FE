@@ -197,6 +197,23 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Update content visibility
+   * @param classId the class id
+   * @returns {Promise}
+   */
+  updateContentVisibility: function(classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').updateContentVisibility(content)
+        .then(function () {
+          resolve(content);
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
    * Gets the class report status for an archived class
    * @param {string} classId the class id
    * @param {string} courseId the course id
