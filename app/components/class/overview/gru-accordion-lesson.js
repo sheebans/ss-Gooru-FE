@@ -257,29 +257,24 @@ export default Ember.Component.extend(AccordionMixin, {
             const isAssessment = collection.get('format') === 'assessment';
             const collectionId = collection.get('id');
             const peer = lessonPeers.findBy('id', collectionId);
-
+            
             const assessmentDataPromise = isAssessment ?
               component.get('assessmentService').readAssessment(collectionId):
               Ember.RSVP.resolve(true);
 
             return assessmentDataPromise.then(function(assessmentData){
+              const averageScore = performance.calculateAverageScoreByItem(collectionId);
+              collection.set('performance', Ember.Object.create({
+                score: averageScore,
+                hasStarted: averageScore > 0,
+                isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined
+              }));
+
               if (peer) {
                 return component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
                   .then(function(profiles) {
                     collection.set('members', profiles);
-                    const averageScore = performance.calculateAverageScoreByItem(collectionId);
-                    collection.set('performance', Ember.Object.create({
-                      score: averageScore,
-                      hasStarted: averageScore > 0,
-                      isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined
-                    }));
                   });
-              }
-              else {
-                collection.set('performance', Ember.Object.create({
-                  isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined
-                }));
-                return Ember.RSVP.resolve(true);
               }
             });
           });
