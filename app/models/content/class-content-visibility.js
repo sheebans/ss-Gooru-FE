@@ -40,7 +40,7 @@ const ClassContentVisibility = Ember.Object.extend({
    */
   course: null,
   /**
-   * Return a list of content visibility by assessment
+   * Return a list of visible or non visible assessments
    *
    */
   getAssessmentsVisiblity: function(){
@@ -52,7 +52,8 @@ const ClassContentVisibility = Ember.Object.extend({
       });
     });
     return assessments;
-  }
+  },
+  
 
 
 
