@@ -168,6 +168,23 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Gets the class content visibility
+   * @param classId the class ID to be read
+   * @returns {Promise}
+   */
+  readClassContentVisibility: function(classId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${classId}/courses`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Associates a Course with a Class
    *
    * @param classId the class id

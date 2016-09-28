@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import ClassesModel from 'gooru-web/models/content/classes';
 import ClassModel from 'gooru-web/models/content/class';
+import ClassContentVisibilityModel from 'gooru-web/models/content/class-content-visibility';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 
 /**
@@ -35,17 +36,23 @@ export default Ember.Object.extend({
    * @returns {Object} returns a JSON Object
    */
   serializeUpdateClass: function(classModel) {
-    var classData = this.serializeClass(classModel);
+    var classData = this.serializeClass(classModel, true);
     classData['greeting'] = classModel.get('greeting');
     return classData;
   },
 
-  serializeClass: function(classModel) {
-    return {
+  serializeClass: function(classModel, update = false) {
+    let data = {
       title: classModel.get('title'),
       class_sharing: classModel.get('classSharing'),
       min_score: classModel.get('minScore') || 0
     };
+
+    if (!update) {
+      data.content_visibility = classModel.get('contentVisibility') || ClassModel.VISIBLE_COLLECTIONS;
+    }
+
+    return data;
   },
 
   /**
@@ -77,10 +84,10 @@ export default Ember.Object.extend({
       startDate: payload['created_at'],
       endDate: payload['end_date'],
       creatorSystem: '',
-      contentVisibility: payload['content_visibility'],
+      contentVisibility: payload['content_visibility'] || ClassModel.VISIBLE_NONE,
       isArchived: payload['is_archived'],
       collaborators: collaborators.map(function(collaboratorId){
-        return ProfileModel.create({ id: collaboratorId });
+        return ProfileModel.create({ id: collaboratorId }) ;
       })
     });
   },
@@ -96,6 +103,18 @@ export default Ember.Object.extend({
       owner: this.get('profileSerializer').normalizeReadProfile(payload.details.findBy('id', payload.owner[0])),
       collaborators: serializer.filterCollaborators(payload),
       members: serializer.filterMembers(payload)
+    });
+  },
+
+  /**
+   * Normalize the response from class members endpoint
+   * @param payload is the endpoint response in JSON format
+   * @returns {ClassMembersModel} a class members model object
+   */
+  normalizeReadClassContentVisibility: function(payload) {
+    return ClassContentVisibilityModel.create({
+      contentVisibility: payload.content_visibility,
+      course: payload.course
     });
   },
 
