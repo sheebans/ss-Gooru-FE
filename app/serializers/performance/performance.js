@@ -55,8 +55,7 @@ export default DS.JSONAPISerializer.extend({
      *  Use the format 'userId@model-id' for class performance to differentiate student units
      *  If it's student performance we use only the model-id
      */
-    var id = (userId) ? userId+'@' : '';
-    console.log(id+serializer.getModelId(result),'asdfasdf');
+    var id = (userId) ? `${userId}@` : '';
     return {
       id: id+serializer.getModelId(result),
       type: serializer.getModelType(),
@@ -84,7 +83,7 @@ export default DS.JSONAPISerializer.extend({
      *  Use the format 'userId@model-id' for class performance to differentiate student units
      *  If it's student performance we use only the model-id
      */
-    var id = (userId) ? userId+'@' : '';
+    var id = (userId) ? `${userId}@` : '';
     return {
       id: id+serializer.getModelId(result),
       type: serializer.getModelType()

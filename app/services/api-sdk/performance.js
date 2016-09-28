@@ -319,7 +319,6 @@ export default Ember.Service.extend({
       } else {
         studentPerformance = service.getStudentPerformanceRecord(student);
       }
-      console.log(studentPerformance, `student performance`);
       return studentPerformance;
     });
     classPerformance.set('studentPerformanceData', matchedStudentPerformanceData);
