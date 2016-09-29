@@ -81,12 +81,18 @@ export default Ember.Controller.extend({
    */
   myClasses: null,
 
+  /**
+   * @property {Profile}
+   */
+  profile: null,
+
   // -------------------------------------------------------------------------
   // Methods
 
   loadUserClasses: function() {
     const controller = this;
-    return controller.get('classService').findMyClasses()
+    const profile = controller.get('profile');
+    return controller.get('classService').findMyClasses(profile)
       .then(function(classes) {
         controller.set('myClasses', classes);
         return classes;

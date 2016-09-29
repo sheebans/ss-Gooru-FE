@@ -27,6 +27,14 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   authService: Ember.inject.service('api-sdk/session'),
 
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
+   * @type {SessionService} Service to retrieve session information
+   */
   session: Ember.inject.service(),
 
   /**
@@ -78,6 +86,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     const themeConfig = Env['themes'] || {};
     const themeId = params.themeId || Env['themes'].default;
     let myClasses = null;
+    var profilePromise = null;
 
     var theme = null;
     if (themeId && themeConfig[themeId]){
@@ -86,14 +95,19 @@ export default Ember.Route.extend(PublicRouteMixin, {
     }
 
     if (!currentSession.isAnonymous) {
-      myClasses = route.get('classService').findMyClasses();
+      profilePromise = route.get('profileService')
+        .readUserProfile(route.get("session.userId"));
+      myClasses = profilePromise.then(function(userProfile) {
+          return route.get('classService').findMyClasses(userProfile);
+        });
     }
 
     return Ember.RSVP.hash({
       currentSession: currentSession,
       theme: theme,
       translations: theme ? theme.loadTranslations() : null,
-      myClasses: myClasses
+      myClasses: myClasses,
+      profile: profilePromise
     });
   },
 
@@ -110,6 +124,10 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
     if (model.myClasses) {
       controller.set('myClasses', model.myClasses);
+    }
+
+    if (model.profile) {
+      controller.set('profile', model.profile);
     }
   },
 

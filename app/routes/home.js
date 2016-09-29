@@ -91,19 +91,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   afterModel: function(model){
     const loadedClasses = model.applicationController.myClasses || model.applicationModel.myClasses;
-    model.myClasses = loadedClasses || ClassesModel.create(Ember.getOwner(this).ownerInjection());
+    const myClasses = loadedClasses || ClassesModel.create(Ember.getOwner(this).ownerInjection());
 
-    const classes = model.myClasses.classes || Ember.A([]);
+    const classes = myClasses.classes || Ember.A([]);
     const archivedClasses = classes.filterBy("isArchived", true);
     const classesStatus = model.classesStatus;
     const classService = this.get("classService");
     const promises = [];
-    classes.forEach(function(aClass){
-      //when it has no owner we asume is the provided profile
-      if (!aClass.get("owner")){
-        aClass.set("owner", model.profile);
-      }
-    });
+
     archivedClasses.forEach(function(aClass){
       aClass.set("reportStatus", classesStatus[aClass.get("id")]);
       if (aClass.get("isReportInProgress")){ //checking if the report is ready for those classes having the report in progress
@@ -125,7 +120,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
 
   setupController: function(controller, model) {
-    controller.set('myClasses', model.myClasses);
     controller.set('profile', model.profile);
     controller.set('steps', model.tourSteps);
   }
