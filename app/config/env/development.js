@@ -15,6 +15,6 @@ export default {
   },
 
   "teams": {
-    "url": "http://teams.qa.gooru.org"
+    "url": "http://teams-qa.gooru.org"
   }
 };
