@@ -207,13 +207,7 @@
         @extend .embed-responsive;
         @extend .embed-responsive-16by9;
       }
-      .gru-url-resource,
-      .gru-image-resource,
-      .gru-pdf-resource {
-        -webkit-overflow-scrolling: touch;
-	      overflow-y: scroll;
-      }
-
+      
       .not-iframe {
         padding: 25px;
         .panel-header {
