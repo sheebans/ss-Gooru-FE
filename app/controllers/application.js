@@ -11,6 +11,11 @@ export default Ember.Controller.extend({
   session: Ember.inject.service("session"),
 
   /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
    * This dependency is here so that the header search input is linked to the controller
    * @property {SearchController}
    */
@@ -92,11 +97,15 @@ export default Ember.Controller.extend({
   loadUserClasses: function() {
     const controller = this;
     const profile = controller.get('profile');
-    return controller.get('classService').findMyClasses(profile)
-      .then(function(classes) {
+    let profilePromise = (profile) ? Ember.RSVP.resolve(profile) : controller.get('profileService').readUserProfile(controller.get("session.userId"));
+
+    return profilePromise.then(function(userProfile) {
+      controller.set('profile', userProfile);
+      return controller.get('classService').findMyClasses(userProfile)
+        .then(function(classes) {
         controller.set('myClasses', classes);
         return classes;
       });
+    });
   }
-
 });
