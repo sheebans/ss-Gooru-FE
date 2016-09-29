@@ -1,20 +1,20 @@
 /*
- Production Environment configuration properties
+ Development Environment configuration properties
  */
 export default {
   "endpoint" : {
-    "url": "https://www.gooru.org",
-    "secureUrl": "https://www.gooru.org"
+    "url": "http://nucleus-qa.gooru.org",
+    "secureUrl": "https://nucleus-qa.gooru.org"
   },
 
   "realTime": {
-    "webServiceUrl": "https://www.gooru.org",
+    "webServiceUrl": "http://goorurt.qa.gooruweb.edify.cr",
     "webServiceUri": "/nucleus/realtime",
-    "webSocketUrl": "https://rt.gooru.org",
+    "webSocketUrl": "https://goorurt.qa.gooruweb.edify.cr",
     "webSocketUri": "/ws/realtime"
   },
 
   "teams": {
-    "url": "http://teams.gooru.org"
+    "url": "http://teams.qa.gooru.org"
   }
 };
