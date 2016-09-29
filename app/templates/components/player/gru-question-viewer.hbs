@@ -50,7 +50,6 @@
         <div class="panel-body">
         <h2>{{t "gru-question-viewer.answer"}}</h2>
 
-        <form {{action "submitQuestion" on="submit"}}>
           {{component (questionConfig question.questionType 'component.player')
           userAnswer=questionResult.userAnswer
           instructionsActionTextKey=instructionsActionTextKey
@@ -75,9 +74,9 @@
               </div>
           {{/if}}
           <div class="actions">
-            <button type="submit" class="save btn btn-success" disabled="{{if isSubmitDisabled true null}}">{{t buttonTextKey}}</button>
+            <button type="button" {{action "submitQuestion"}}
+                    class="save btn btn-success" disabled="{{if isSubmitDisabled true null}}">{{t buttonTextKey}}</button>
           </div>
-        </form>
       </div>
     </div>
 </div>
