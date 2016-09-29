@@ -183,6 +183,27 @@ export default Ember.Object.extend({
     };
     return Ember.$.ajax(url, options);
   },
+  /**
+   * Update content visibility
+   * @param []
+   * @returns {Promise}
+   */
+  updateContentVisibility:function(classId,content){
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${classId}/courses`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({
+        content
+      })
+    };
+    return Ember.$.ajax(url, options);
+  },
 
   /**
    * Associates a Course with a Class

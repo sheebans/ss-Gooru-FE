@@ -232,6 +232,59 @@ test('readClassInfo', function(assert) {
       done();
     });
 });
+test('readClassContentVisibility', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('classAdapter', Ember.Object.create({
+    readClassContentVisibility: function(classId) {
+      assert.equal(classId, 'class-id', 'Wrong class id');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('classSerializer', Ember.Object.create({
+    normalizeReadClassContentVisibility: function(profilePayload) {
+      assert.deepEqual({}, profilePayload, 'Wrong class payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readClassContentVisibility('class-id')
+    .then(function() {
+      done();
+    });
+});
+test('updateContentVisibility', function(assert) {
+  const service = this.subject();
+  let classId = 'class-id';
+  let content = {
+      "assessments": [{
+        "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
+        "visible": "on"
+      }]
+    };
+
+  assert.expect(2);
+
+  service.set('classAdapter', Ember.Object.create({
+    updateContentVisibility: function(content) {
+      assert.deepEqual(content.assessments, [{
+        "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
+        "visible": "on"
+      }], 'Wrong content object');
+      assert.equal(classId, 'class-id', 'Wrong class id');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  var done = assert.async();
+  service.updateContentVisibility(classId,content)
+    .then(function() {
+      done();
+    });
+});
 
 test('readClassMembers', function(assert) {
   const service = this.subject();

@@ -51,31 +51,36 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       .then(function(classObj) {
         return route.get('classService').readClassMembers(classId)
           .then(function(members) {
-            classObj.set('owner', members.get('owner'));
-            classObj.set('collaborators', members.get('collaborators'));
-            classObj.set('members', members.get('members'));
+            return route.get('classService').readClassContentVisibility(classId)
+              .then(function (contentVisibility) {
+                classObj.set('owner', members.get('owner'));
+                classObj.set('collaborators', members.get('collaborators'));
+                classObj.set('members', members.get('members'));
 
-            const courseId = classObj.get('courseId');
-            if (courseId) {
-              return route.get('courseService').fetchById(courseId)
-                .then(function(course) {
+                const courseId = classObj.get('courseId');
+                if (courseId) {
+                  return route.get('courseService').fetchById(courseId)
+                    .then(function (course) {
+                      return Ember.RSVP.hash({
+                        class: classObj,
+                        course: course,
+                        members: members,
+                        units: course.get('children'),
+                        contentVisibility: contentVisibility
+                      });
+                    });
+                } else {
+                  // TODO It is required to implement the Get Course Info and the get Units
+                  // This code was change to support the new API, a lot of functionality inside class rount is not working at this moment
                   return Ember.RSVP.hash({
                     class: classObj,
-                    course: course,
+                    course: Ember.Object.create({}),
                     members: members,
-                    units: course.get('children')
+                    units: [],
+                    contentVisibility: []
                   });
-                });
-            } else {
-              // TODO It is required to implement the Get Course Info and the get Units
-              // This code was change to support the new API, a lot of functionality inside class rount is not working at this moment
-              return Ember.RSVP.hash({
-                class: classObj,
-                course: Ember.Object.create({}),
-                members: members,
-                units: []
+                }
               });
-            }
           });
       });
   },
@@ -89,6 +94,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set("class", model.class);
     controller.set("course", model.course);
     controller.set("units", model.units);
+    controller.set("contentVisibility", model.contentVisibility);
   },
 
   // -------------------------------------------------------------------------
