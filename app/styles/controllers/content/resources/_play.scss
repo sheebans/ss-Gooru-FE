@@ -210,7 +210,8 @@
       .gru-url-resource,
       .gru-image-resource,
       .gru-pdf-resource {
-        iframe {}
+        -webkit-overflow-scrolling: touch;
+	      overflow-y: scroll;
       }
 
       .not-iframe {
