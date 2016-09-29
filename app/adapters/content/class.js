@@ -188,7 +188,7 @@ export default Ember.Object.extend({
    * @param []
    * @returns {Promise}
    */
-  updateContentVisibility:function(content){
+  updateContentVisibility:function(classId,content){
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${classId}/courses`;
