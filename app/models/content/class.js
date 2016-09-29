@@ -126,14 +126,16 @@ const Class = Ember.Object.extend(Validations, {
    * Indicates if all content within this class is visible
    * @property {boolean}
    */
-  isAllContentVisible: Ember.computed.equal("contentVisibility", this.VISIBLE_ALL),
+  isAllContentVisible: Ember.computed("contentVisibility", function(){
+    return this.get("contentVisibility") === Class.VISIBLE_ALL;
+  }),
 
   /**
    * Indicates if all collections within this class is visible
    * @property {boolean}
    */
   areCollectionsVisible: Ember.computed("contentVisibility", function() {
-    return this.get("contentVisibility") === this.VISIBLE_COLLECTIONS || this.get("isAllContentVisible");
+    return this.get("contentVisibility") === Class.VISIBLE_COLLECTIONS || this.get("isAllContentVisible");
   }),
 
   /**

@@ -1,6 +1,6 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('model:content/collection', 'Unit | Model | content/class', {
+moduleFor('model:content/class', 'Unit | Model | content/class', {
   unit: true
 });
 
@@ -30,7 +30,7 @@ test("areCollectionsVisible", function(assert) {
   assert.ok(model.get("areCollectionsVisible"), "Should return true, collections are visible");
 
   model.set("contentVisibility", "visible_none");
-  assert.ok(model.get("areCollectionsVisible"), "Should return true, collections are visible");
+  assert.ok(!model.get("areCollectionsVisible"), "Should return false, collections are not visible, visible_none");
 
   model.set("contentVisibility", null);
   assert.ok(!model.get("areCollectionsVisible"), "Should return false, collections are not visible");
