@@ -42,7 +42,7 @@ const ClassContentVisibility = Ember.Object.extend({
   /**
    * Return a list of visible or non visible assessments
    */
-  getAssessmentsVisiblity: function(){
+  getAssessmentsVisibility: function(){
     let units = this.get('course.units');
     let assessments = Ember.A([]);
     let lessons = Ember.A([]);
@@ -58,8 +58,16 @@ const ClassContentVisibility = Ember.Object.extend({
    * Find assessment visibility by assessment id
    */
   findAssessmentVisibilityById: function(assessmentId){
-    let assessments = this.getAssessmentsVisiblity();
+    let assessments = this.getAssessmentsVisibility();
     return assessments.filterBy("id", assessmentId);
+  },
+  /**
+   * Return true if an assessment is visible
+   */
+  isVisible:function(assessmentId){
+    let assessment = this.findAssessmentVisibilityById(assessmentId);
+    let isVisible = assessment[0].visible;
+    return isVisible === 'on';
   }
 });
 

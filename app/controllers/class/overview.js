@@ -72,6 +72,13 @@ export default Ember.Controller.extend({
    */
   "class": Ember.computed.alias('classController.class'),
 
+  /**
+   * A link to the content visibility from class controller
+   * @see controllers/class.js
+   * @property {Class}
+   */
+  contentVisibility: Ember.computed.alias('classController.contentVisibility'),
+
   openingLocation: Ember.computed('location', function() {
     if (this.get('isFirstLoad')) {
       this.set('isFirstLoad', false);

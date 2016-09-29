@@ -46,9 +46,8 @@
           {{if item.isSubmitted 'submitted'}}
           {{set-if-equal 'selected' item.id currentResource}}
           {{if item.isOnAir 'on-air'}}">
-
           {{#if isTeacher}}
-
+            {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible}}
             {{#if item.isAssessment}}
               {{#unless item.isExternalAssessment}}
                    <button {{action "setOnAir" item.id}}

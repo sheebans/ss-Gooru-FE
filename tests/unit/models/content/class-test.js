@@ -1,6 +1,6 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('model:content/collection', 'Unit | Model | content/class', {
+moduleFor('model:content/class', 'Unit | Model | content/class', {
   unit: true
 });
 

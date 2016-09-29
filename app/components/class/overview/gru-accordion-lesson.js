@@ -171,6 +171,19 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   loading: false,
 
+  /**
+   * Toggle Options
+   * @property {Ember.Array}
+   */
+  switchOptions: Ember.A([Ember.Object.create({
+    'label': "On",
+    'value': true
+  }),Ember.Object.create({
+    'label': "Off",
+    'value': false
+  })]),
+
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -209,7 +222,6 @@ export default Ember.Component.extend(AccordionMixin, {
       isUpdatingLocation = false;
     }
   }),
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -239,6 +251,11 @@ export default Ember.Component.extend(AccordionMixin, {
               component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments) :
               component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments);
             loadDataPromise.then(function() {
+              if(isTeacher){
+                assessments.forEach(function(assessment){
+                  component.setVisibility(assessment);
+                });
+              }
               component.set('items', assessments);
               component.set("loading", false);
             });
@@ -327,6 +344,9 @@ export default Ember.Component.extend(AccordionMixin, {
           Ember.RSVP.all(promises).then(resolve, reject);
         });
     });
-  }
+  },
 
+  setVisibility: function(assessment){
+   assessment.set('visible',this.get('contentVisibility').isVisible(assessment.id));
+  }
 });
