@@ -318,16 +318,17 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   /**
    * Starts a resource result
    * @param {ResourceResult} resourceResult
+   * @param {Date} startedDate
    * @returns {Promise.<boolean>}
    */
-  startResourceResult: function(resourceResult){
+  startResourceResult: function(resourceResult, startedDate = new Date()){
     let controller = this;
     let context = this.get("context");
     //sets startedAt
     if (!resourceResult.get("pending")){ //new attempt
       //todo increase attempt
-      resourceResult.set("startedAt", new Date());
-      context.set("resourceEventId", generateUUID()); //sets the new event id for this resource event
+      resourceResult.set("startedAt", startedDate);
+      context.set("resourceEventId", generateUUID()); //sets the new event id for this resource event, this will be used for the next stop event
     }
     context.set("eventType", "start");
     context.set("isStudent", controller.get("isStudent"));
