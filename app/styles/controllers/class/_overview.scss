@@ -93,10 +93,8 @@
         margin-top: 10px;
       }
     }
-
     .panel-heading {
       position: relative;
-
       .panel-title {
         > a {
           display: inline-block;
@@ -170,7 +168,9 @@
           }
         }
       }
-
+      .item-disabled{
+        opacity: 0.5;
+      }
       .gru-accordion-lesson {
 
         > .panel-heading {
@@ -197,14 +197,38 @@
           padding-left: 14%;
 
           > .panel {
+              span.switch.visible-xs{
+                .change-visibility{
+                  color:$dark-300;
+                }
+                .dropdown-menu{
+                  min-width: 80px;
+                  position: absolute;
+                  left:-11px;
+                  .arrow-up {
+                    width: 0;
+                    height: 0;
+                    border-left: 7px solid transparent;
+                    border-right: 7px solid transparent;
+                    border-bottom: 7px solid $white;
+                    position: absolute;
+                    top: -12%;
+                    left: 19%;
+                  }
+                }
+              }
               span.switch{
                 position: absolute;
+                left: -38px;
+                top: 10px;
 
                 @media (min-width: $screen-sm) {
                   left: -96px;
+                  top: 4px;
                 }
                 @media (min-width: $screen-md) {
                   left: -116px;
+                  top: 4px;
                 }
               }
             > button.on-air {
@@ -273,15 +297,7 @@
             border-bottom: 1px solid $gray-lighter;
             padding: 0 20px 5px 0;
             margin: 0;
-
-            @media (min-width: $screen-sm) {
-              padding-right: 8px;
-              padding-left: 45px;
-            }
-            @media (min-width: $screen-md) {
-              padding-right: 8px;
-              padding-left: 50px;
-            }
+            padding-right: 8px;
 
             > .icon-container {
               display: inline-block;
@@ -344,6 +360,16 @@
               .item:last-child {
                 margin-right: 17px;
               }
+            }
+          }
+          .panel-heading.teacher{
+            @media (min-width: $screen-sm) {
+              padding-right: 8px;
+              padding-left: 45px;
+            }
+            @media (min-width: $screen-md) {
+              padding-right: 8px;
+              padding-left: 50px;
             }
           }
         }
