@@ -204,7 +204,7 @@ export default Ember.Service.extend({
   updateContentVisibility: function(classId,content) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').updateContentVisibility(content)
+      service.get('classAdapter').updateContentVisibility(classId,content)
         .then(function () {
           resolve(content);
         }, function(error) {

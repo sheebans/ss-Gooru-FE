@@ -199,7 +199,7 @@ export default Ember.Object.extend({
       processData: false,
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
-        content
+        assessments: content.assessments
       })
     };
     return Ember.$.ajax(url, options);

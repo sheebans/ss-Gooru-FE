@@ -269,7 +269,7 @@ test('updateContentVisibility', function(assert) {
   assert.expect(2);
 
   service.set('classAdapter', Ember.Object.create({
-    updateContentVisibility: function(content) {
+    updateContentVisibility: function(classId,content) {
       assert.deepEqual(content.assessments, [{
         "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
         "visible": "on"

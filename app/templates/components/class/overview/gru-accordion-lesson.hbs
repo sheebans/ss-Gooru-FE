@@ -47,13 +47,18 @@
           {{set-if-equal 'selected' item.id currentResource}}
           {{if item.isOnAir 'on-air'}}">
           {{#if isTeacher}}
-            {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible}}
+            <span class='switch' data-toggle="tooltip" data-html="true" data-placement="top"
+                    title="{{t "common.assign"}}">
+              {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
+            </span>
             {{#if item.isAssessment}}
               {{#unless item.isExternalAssessment}}
+                {{#if item.visible}}
                    <button {{action "setOnAir" item.id}}
                   data-toggle="tooltip" data-html="true" data-placement="bottom"
                   title="{{t "common.launch-on-air"}}"
                   class="on-air">{{t "common.launch-on-air"}}</button>
+                {{/if}}
               {{/unless}}
             {{/if}}
 
@@ -97,25 +102,25 @@
             </div>
 
             <span class="panel-title">
-              {{#if item.performance.isDisabled}}
-                <a class="title disabled"
-                   data-toggle="tooltip" data-html="true" data-placement="top"
-                   title="{{t "common.assessment-disabled"}}">
-                    {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
-                </a>
-              {{else}}
-                {{#if item.performance.noMoreAttempts}}
-                  <a class="title disabled"
-                     data-toggle="tooltip" data-html="true" data-placement="top"
-                     title="{{t "common.no-more-attempts"}}">
+              {{#if item.visible}}
+                  <a class="title" {{action "selectResource" item}}>
                       {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
                   </a>
-               {{else}}
-                 <a class="title" {{action "selectResource" item}}>
-                     {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
-                 </a>
+              {{else}}
+                {{#if item.performance.noMoreAttempts}}
+                    <a class="title disabled"
+                       data-toggle="tooltip" data-html="true" data-placement="top"
+                       title="{{t "common.no-more-attempts"}}">
+                        {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
+                    </a>
+                  {{else}}
+                    <a class="title disabled"
+                       data-toggle="tooltip" data-html="true" data-placement="top"
+                       title="{{t "common.assessment-disabled"}}">
+                        {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
+                    </a>
+                {{/if}}
                {{/if}}
-              {{/if}}
             </span>
             {{!-- Show only for xs --}}
             {{gru-user-icons

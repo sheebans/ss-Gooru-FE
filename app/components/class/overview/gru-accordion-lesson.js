@@ -59,6 +59,10 @@ export default Ember.Component.extend(AccordionMixin, {
    * @requires service:api-sdk/assessment
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
+  /**
+   * @type {ClassService} Service to retrieve class information
+   */
+  classService: Ember.inject.service("api-sdk/class"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -100,6 +104,22 @@ export default Ember.Component.extend(AccordionMixin, {
 
     setOnAir: function (collectionId) {
       this.get('onLaunchOnAir')(collectionId);
+    },
+    /**
+     * @function changeVisibility
+     * @param {boolean} isChecked
+     * @param {Assessment} item
+     */
+    changeVisibility:function (isChecked,item){
+      const component = this;
+      const classId = component.get('currentClass.id');
+      let content = {
+        "assessments":[
+          {id:item.id,
+          visible: isChecked ? 'on' :'off'
+          }]
+      };
+      component.get('classService').updateContentVisibility(classId,content);
     }
   },
 
