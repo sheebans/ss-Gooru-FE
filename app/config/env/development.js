@@ -1,10 +1,10 @@
 /*
-  Environment configuration properties
+ Development Environment configuration properties
  */
 export default {
   "endpoint" : {
     "url": "http://nucleus-qa.gooru.org",
-      "secureUrl": "https://nucleus-qa.gooru.org"
+    "secureUrl": "https://nucleus-qa.gooru.org"
   },
 
   "realTime": {

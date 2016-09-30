@@ -174,8 +174,8 @@ test('readResources', function(assert) {
   }));
   const routes = function() {
     this.get('/api/nucleus/v1/profiles/user-id/resources', function(request) {
-      assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
-      assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
+      assert.equal(request.queryParams['limit'], '50', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '100', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -199,8 +199,8 @@ test('readQuestions', function(assert) {
   }));
   const routes = function() {
     this.get('/api/nucleus/v1/profiles/user-id/questions', function(request) {
-      assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
-      assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
+      assert.equal(request.queryParams['limit'], '50', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '100', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -225,8 +225,8 @@ test('readCollections', function(assert) {
   }));
   const routes = function() {
     this.get('/api/nucleus/v1/profiles/user-id/collections', function(request) {
-      assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
-      assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
+      assert.equal(request.queryParams['limit'], '50', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '100', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -250,8 +250,8 @@ test('readAssessments', function(assert) {
   }));
   const routes = function() {
     this.get('/api/nucleus/v1/profiles/user-id/assessments', function(request) {
-      assert.equal(request.queryParams['limit'], '20', 'Wrong limit');
-      assert.equal(request.queryParams['offset'], '40', 'Wrong offset');
+      assert.equal(request.queryParams['limit'], '50', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '100', 'Wrong offset');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };

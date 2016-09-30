@@ -69,7 +69,7 @@ export default Ember.Object.extend({
         show_feedback: assessmentModel.get('showFeedback') || ASSESSMENT_SHOW_VALUES.SUMMARY,
         show_key: assessmentModel.get('showKey') ? ASSESSMENT_SHOW_VALUES.SUMMARY : ASSESSMENT_SHOW_VALUES.NEVER,
         attempts_allowed: assessmentModel.get('attempts') || -1,
-        classroom_play_enabled: assessmentModel.get('classroom_play_enabled') !== undefined ? assessmentModel.get('classroom_play_enabled') : true
+        classroom_play_enabled: true
       }
     };
 

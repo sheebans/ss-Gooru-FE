@@ -7,6 +7,8 @@ export default Ember.Controller.extend({
   // Dependencies
   classService: Ember.inject.service("api-sdk/class"),
 
+  applicationController: Ember.inject.controller('application'),
+
   /**
    * @type {SessionService} Service to retrieve session information
    */
@@ -56,6 +58,14 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showArchivedClasses: false,
+
+  /**
+   * A link to the parent application controller
+   * @see controllers/application.js
+   * @property {myClasses}
+   */
+
+  myClasses: Ember.computed.alias('applicationController.myClasses'),
 
   /**
    * @property {Class[]}
