@@ -17,8 +17,10 @@
         <div class="panel-body">
           {{#if resource.hasOwner}}
             <span class="avatar">
+              {{#if collectionHasAvatar}}
                 <img src="{{collection.avatarUrl}}">
-                <span class="user">{{ collection.author }}</span>
+              {{/if}}
+              <span class="user">{{ collection.author }}</span>
             </span>
           {{/if}}
           <span class="message">

@@ -51,6 +51,12 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * The text for the action in the instructions
+   * @property {string}
+   */
+
+   collectionHasAvatar: Ember.computed.notEmpty('collection.avatarURL'),
+  /**
    * Indicates if the student is playing the collection
    * @property {boolean}
    */
