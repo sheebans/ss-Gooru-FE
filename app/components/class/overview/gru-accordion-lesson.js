@@ -260,19 +260,17 @@ export default Ember.Component.extend(AccordionMixin, {
     component.set("loading", true);
     component.get('lessonService').fetchById(courseId, unitId, lessonId)
       .then(function(lesson) {
-        const assessments = lesson.get('children');
+        const collections = lesson.get('children');
         component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)
           .then(function(lessonPeers) {
             const loadDataPromise = isTeacher ?
-              component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments) :
-              component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments);
+              component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) :
+              component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections);
             loadDataPromise.then(function() {
-              if(isTeacher){
-                assessments.forEach(function(assessment){
-                  component.setVisibility(assessment);
-                });
-              }
-              component.set('items', assessments);
+              collections.forEach(function(collection){
+                component.setVisibility(collection);
+              });
+              component.set('items', collections);
               component.set("loading", false);
             });
           });
@@ -356,7 +354,9 @@ export default Ember.Component.extend(AccordionMixin, {
     });
   },
 
-  setVisibility: function(assessment){
-   assessment.set('visible',this.get('contentVisibility').isVisible(assessment.id));
+  setVisibility: function(collection){
+    const isAssessment = collection.get('format') === 'assessment';
+    const visible = isAssessment ? this.get('contentVisibility').isVisible(collection.id) : true;
+    collection.set('visible', visible);
   }
 });

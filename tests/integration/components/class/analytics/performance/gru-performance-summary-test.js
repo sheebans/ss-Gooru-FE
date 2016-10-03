@@ -176,3 +176,204 @@ test('Test for no more attempts on assessment', function(assert) {
 
 });
 
+test('Test non visible completed assessment when content visibility is not provided', function(assert) {
+  const collection = Ember.Object.create(
+    {
+      title: "Assessment",
+      id: "d4521a45-dcd1-4540-bba1-64af8fd2d6ec",
+      attempts: 2,
+      isAssessment:true,
+      isCollectionOrAssessment:true,
+      isCompleted:true
+    });
+
+  this.set('collection', collection);
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=collection noMoreAttempts=false}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceSummary = $component.find(".gru-performance-summary");
+
+  T.exists(assert, $performanceSummary, 'Missing performance summary');
+
+  return wait().then(function () {
+    const $reportButton = $performanceSummary.find(".collection-view-report-button");
+    assert.ok(!$reportButton.hasClass("disabled"), "Report btn should not be disabled");
+
+    const $redoButton = $performanceSummary.find(".collection-redo-button");
+    assert.ok($redoButton.hasClass("disabled"), "Redo btn should be disabled");
+  });
+
+});
+
+test('Test non visible not-started assessment when content visibility is not provided', function(assert) {
+  const collection = Ember.Object.create(
+    {
+      title: "Assessment",
+      id: "d4521a45-dcd1-4540-bba1-64af8fd2d6ec",
+      attempts: 2,
+      isAssessment:true,
+      isCollectionOrAssessment:true,
+      isCompleted:false
+    });
+
+  this.set('collection', collection);
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=collection noMoreAttempts=false}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceSummary = $component.find(".gru-performance-summary");
+
+  T.exists(assert, $performanceSummary, 'Missing performance summary');
+
+  return wait().then(function () {
+    const $studyButton = $performanceSummary.find(".collection-study-button");
+    assert.ok($studyButton.hasClass("disabled"), "Study btn should be disabled");
+  });
+
+});
+
+test('Test non visible completed assessment when content visibility is provided', function(assert) {
+  const collection = Ember.Object.create(
+    {
+      title: "Assessment",
+      id: "d4521a45-dcd1-4540-bba1-64af8fd2d6ec",
+      attempts: 2,
+      isAssessment:true,
+      isCollectionOrAssessment:true,
+      isCompleted:true
+    });
+
+  const contentVisibility = Ember.Object.create( {
+    isVisible: function () { return false; }
+  });
+
+  this.set('collection', collection);
+  this.set('contentVisibility', contentVisibility);
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary 
+      performance=collection noMoreAttempts=false contentVisibility=contentVisibility}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceSummary = $component.find(".gru-performance-summary");
+
+  T.exists(assert, $performanceSummary, 'Missing performance summary');
+
+  return wait().then(function () {
+    const $reportButton = $performanceSummary.find(".collection-view-report-button");
+    assert.ok(!$reportButton.hasClass("disabled"), "Report btn should not be disabled");
+
+    const $redoButton = $performanceSummary.find(".collection-redo-button");
+    assert.ok($redoButton.hasClass("disabled"), "Redo btn should be disabled");
+  });
+
+});
+
+test('Test non visible not-started assessment when content visibility is provided', function(assert) {
+  const collection = Ember.Object.create(
+    {
+      title: "Assessment",
+      id: "d4521a45-dcd1-4540-bba1-64af8fd2d6ec",
+      attempts: 2,
+      isAssessment:true,
+      isCollectionOrAssessment:true,
+      isCompleted:false
+    });
+
+  const contentVisibility = Ember.Object.create( {
+    isVisible: function () { return false; }
+  });
+
+  this.set('collection', collection);
+  this.set("contentVisibility", contentVisibility);
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary 
+    performance=collection noMoreAttempts=false contentVisibility=contentVisibility}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceSummary = $component.find(".gru-performance-summary");
+
+  T.exists(assert, $performanceSummary, 'Missing performance summary');
+
+  return wait().then(function () {
+    const $studyButton = $performanceSummary.find(".collection-study-button");
+    assert.ok($studyButton.hasClass("disabled"), "Study btn should be disabled");
+  });
+
+});
+
+test('Test visible completed assessment', function(assert) {
+  const collection = Ember.Object.create(
+    {
+      title: "Assessment",
+      id: "d4521a45-dcd1-4540-bba1-64af8fd2d6ec",
+      attempts: 2,
+      isAssessment:true,
+      isCollectionOrAssessment:true,
+      isCompleted:true
+    });
+
+  const contentVisibility = Ember.Object.create( {
+    isVisible: function () { return true; }
+  });
+
+  this.set('collection', collection);
+  this.set('contentVisibility', contentVisibility);
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary 
+      performance=collection noMoreAttempts=false contentVisibility=contentVisibility}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceSummary = $component.find(".gru-performance-summary");
+
+  T.exists(assert, $performanceSummary, 'Missing performance summary');
+
+  return wait().then(function () {
+    const $reportButton = $performanceSummary.find(".collection-view-report-button");
+    assert.ok(!$reportButton.hasClass("disabled"), "Report btn should not be disabled");
+
+    const $redoButton = $performanceSummary.find(".collection-redo-button");
+    assert.ok(!$redoButton.hasClass("disabled"), "Redo btn should not be disabled");
+  });
+
+});
+
+test('Test visible not-started assessment', function(assert) {
+  const collection = Ember.Object.create(
+    {
+      title: "Assessment",
+      id: "d4521a45-dcd1-4540-bba1-64af8fd2d6ec",
+      attempts: 2,
+      isAssessment:true,
+      isCollectionOrAssessment:true,
+      isCompleted:false
+    });
+
+  const contentVisibility = Ember.Object.create( {
+    isVisible: function () { return true; }
+  });
+
+  this.set('collection', collection);
+  this.set("contentVisibility", contentVisibility);
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary 
+    performance=collection noMoreAttempts=false contentVisibility=contentVisibility}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceSummary = $component.find(".gru-performance-summary");
+
+  T.exists(assert, $performanceSummary, 'Missing performance summary');
+
+  return wait().then(function () {
+    const $studyButton = $performanceSummary.find(".collection-study-button");
+    assert.ok(!$studyButton.hasClass("disabled"), "Study btn should not be disabled");
+  });
+
+});
+
