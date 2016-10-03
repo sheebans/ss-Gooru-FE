@@ -85,15 +85,19 @@ const ClassContentVisibility = Ember.Object.extend({
    * Return true if the content is visible
    */
   isVisible:function(contentId){
-    let visible = this.get("isAllContentVisible");
-    if (!visible) {
-      let assessment = this.findAssessmentVisibilityById(contentId);
-      if (!assessment) {
-        Ember.Logger.warn(`No content visibility found for id: ${contentId}`);
-      }
-      visible = assessment && assessment.visible === "on";
+    let isAllVisible = this.get("isAllContentVisible");
+    let assessment = this.findAssessmentVisibilityById(contentId);
+    if (!assessment) {
+      Ember.Logger.warn(`No content visibility found for id: ${contentId}`);
     }
-    return visible;
+    let enabled = assessment && assessment.visible === "on";
+    let disabled = !assessment || assessment.visible === "off";
+
+    return (isAllVisible && !disabled) ||
+      (isAllVisible && !assessment) ||
+      (!isAllVisible && enabled)||
+      (!isAllVisible && !disabled);
+
   }
 });
 

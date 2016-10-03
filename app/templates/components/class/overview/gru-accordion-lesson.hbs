@@ -48,12 +48,13 @@
           {{if item.visible 'item-enabled' 'item-disabled'}}
           {{if item.isOnAir 'on-air'}}">
           {{#if isTeacher}}
-            <span class='switch hidden-xs' data-toggle="tooltip" data-html="true" data-placement="top"
-                    title="{{t "common.assign"}}">
-              {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
-            </span>
-            <span class='switch visible-xs'>
-               <li class="navbar-nav-list dropdown">
+            {{#if item.isAssessment}}
+                <span class='switch hidden-xs' data-toggle="tooltip" data-html="true" data-placement="top"
+                      title="{{t "common.assign"}}">
+                  {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
+                </span>
+               <span class='switch visible-xs'>
+                <li class="navbar-nav-list dropdown">
                    <a class="change-visibility dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                      {{gru-icon name='more_vert'}}
                    </a>
@@ -64,8 +65,7 @@
                        </li>
                    </ul>
                </li>
-            </span>
-            {{#if item.isAssessment}}
+              </span>
               {{#unless item.isExternalAssessment}}
                 {{#if item.visible}}
                    <button {{action "setOnAir" item.id}}
