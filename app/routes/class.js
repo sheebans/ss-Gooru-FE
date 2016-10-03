@@ -46,43 +46,42 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   model: function(params) {
     const route = this;
     const classId = params.classId;
+    const classPromise = route.get('classService').readClassInfo(classId);
+    const membersPromise = route.get('classService').readClassMembers(classId);
+    return Ember.RSVP.hash({
+      class: classPromise,
+      members: membersPromise
+    }).then(function(hash) {
+      const aClass = hash.class;
+      const members = hash.members;
+      const courseId = aClass.get('courseId');
 
-    return route.get('classService').readClassInfo(classId)
-      .then(function(classObj) {
-        return route.get('classService').readClassMembers(classId)
-          .then(function(members) {
-            return route.get('classService').readClassContentVisibility(classId)
-              .then(function (contentVisibility) {
-                classObj.set('owner', members.get('owner'));
-                classObj.set('collaborators', members.get('collaborators'));
-                classObj.set('members', members.get('members'));
+      let visibilityPromise = Ember.RSVP.resolve([]);
+      let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
 
-                const courseId = classObj.get('courseId');
-                if (courseId) {
-                  return route.get('courseService').fetchById(courseId)
-                    .then(function (course) {
-                      return Ember.RSVP.hash({
-                        class: classObj,
-                        course: course,
-                        members: members,
-                        units: course.get('children'),
-                        contentVisibility: contentVisibility
-                      });
-                    });
-                } else {
-                  // TODO It is required to implement the Get Course Info and the get Units
-                  // This code was change to support the new API, a lot of functionality inside class rount is not working at this moment
-                  return Ember.RSVP.hash({
-                    class: classObj,
-                    course: Ember.Object.create({}),
-                    members: members,
-                    units: [],
-                    contentVisibility: []
-                  });
-                }
-              });
-          });
+      if (courseId) {
+        visibilityPromise = route.get('classService').readClassContentVisibility(classId);
+        coursePromise = route.get('courseService').fetchById(courseId);
+      }
+
+      return Ember.RSVP.hash({
+        contentVisibility: visibilityPromise,
+        course: coursePromise
+      }).then(function (hash) {
+        const contentVisibility = hash.contentVisibility;
+        const course = hash.course;
+        aClass.set('owner', members.get('owner'));
+        aClass.set('collaborators', members.get('collaborators'));
+        aClass.set('members', members.get('members'));
+        return Ember.RSVP.hash({
+          class: aClass,
+          course: course,
+          members: members,
+          units: course.get('children') || [],
+          contentVisibility: contentVisibility
+        });
       });
+    });
   },
 
   /**

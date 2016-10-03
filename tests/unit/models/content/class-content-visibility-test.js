@@ -43,7 +43,7 @@ test("getAssessmentsVisiblity", function(assert) {
     "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95atest",
     "visible": "on"
   }];
-  assert.equal(model.getAssessmentsVisibility().length,expectedResult.length, "Should return a list of assessments");
+  assert.equal(model.getAssessmentsVisibility().length, expectedResult.length, "Should return a list of assessments");
 
 });
 test("findAssessmentVisibilityById", function(assert) {
@@ -82,10 +82,12 @@ test("findAssessmentVisibilityById", function(assert) {
     "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
     "visible": "on"
   };
-  assert.equal(model.findAssessmentVisibilityById('59f7b7df-cef2-4f09-8012-1e58cb27b95a')[0].id,expectedResult.id, "Wrong Id");
+  assert.equal(model.findAssessmentVisibilityById('59f7b7df-cef2-4f09-8012-1e58cb27b95a').id, expectedResult.id, "Wrong Id");
 });
-test("isVisible", function(assert) {
+
+test("isVisible when content visibility is not all visible", function(assert) {
   let model = this.subject({
+    contentVisibility: "visible_collections",
     course: {
       "id": "2a121dd9-2acd-4db7-8d15-a8e694a95c5a",
       "units": [{
@@ -109,7 +111,7 @@ test("isVisible", function(assert) {
         "lessons": [{
           "id": "176a137d-22c8-4e71-826a-39c2592de889test",
           "assessments": [{
-            "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95atest",
+            "id": "59f7b7df-cef2-4f09-8012-1e58cb27bbbbb",
             "visible": "on"
           }]
         }]
@@ -117,4 +119,12 @@ test("isVisible", function(assert) {
     }
   });
   assert.equal(model.isVisible('59f7b7df-cef2-4f09-8012-1e58cb27b95a'),false, "The assessment should not be visible");
+  assert.equal(model.isVisible('59f7b7df-cef2-4f09-8012-1e58cb27bbbbb'),true, "The assessment should  be visible");
+});
+
+test("isVisible when content visibility is all visible", function(assert) {
+  let model = this.subject({
+    contentVisibility: "visible_all"
+  });
+  assert.equal(model.isVisible('59f7b7df-cef2-4f09-8012-1e58cb27b95a'), true, "The assessment should be visible");
 });

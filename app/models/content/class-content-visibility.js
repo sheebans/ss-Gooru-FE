@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Class from 'gooru-web/models/content/class';
 /**
  * ClassContentVisibility model
  * typedef {Object} ClassContentVisibility
@@ -39,17 +40,36 @@ const ClassContentVisibility = Ember.Object.extend({
    * @property { id: number, units: [] }
    */
   course: null,
+
+  /**
+   * Indicates if all content within this class is visible
+   * @property {boolean}
+   */
+  isAllContentVisible: Ember.computed("contentVisibility", function(){
+    return this.get("contentVisibility") === Class.VISIBLE_ALL;
+  }),
+
+  /**
+   * Indicates if all collections within this class is visible
+   * @property {boolean}
+   */
+  areCollectionsVisible: Ember.computed("contentVisibility", function() {
+    return this.get("contentVisibility") === Class.VISIBLE_COLLECTIONS || this.get("isAllContentVisible");
+  }),
+
   /**
    * Return a list of visible or non visible assessments
    */
   getAssessmentsVisibility: function(){
-    let units = this.get('course.units');
+    let units = this.get('course.units') || Ember.A([]);
     let assessments = Ember.A([]);
     let lessons = Ember.A([]);
-    units.map(function(unit){
+    units.forEach(function(unit){
       lessons.addObjects(unit.lessons);
-      lessons.map(function(lesson){
-        assessments.addObjects(lesson.assessments);
+      lessons.forEach(function(lesson){
+        if (lesson.assessments){
+          assessments.addObjects(lesson.assessments);
+        }
       });
     });
     return assessments;
@@ -59,15 +79,21 @@ const ClassContentVisibility = Ember.Object.extend({
    */
   findAssessmentVisibilityById: function(assessmentId){
     let assessments = this.getAssessmentsVisibility();
-    return assessments.filterBy("id", assessmentId);
+    return assessments.findBy("id", assessmentId);
   },
   /**
-   * Return true if an assessment is visible
+   * Return true if the content is visible
    */
-  isVisible:function(assessmentId){
-    let assessment = this.findAssessmentVisibilityById(assessmentId);
-    let isVisible = assessment[0].visible;
-    return isVisible === 'on';
+  isVisible:function(contentId){
+    let visible = this.get("isAllContentVisible");
+    if (!visible) {
+      let assessment = this.findAssessmentVisibilityById(contentId);
+      if (!assessment) {
+        Ember.Logger.warn(`No content visibility found for id: ${contentId}`);
+      }
+      visible = assessment && assessment.visible === "on";
+    }
+    return visible;
   }
 });
 
