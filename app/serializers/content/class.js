@@ -28,7 +28,17 @@ export default Ember.Object.extend({
     var classData = this.serializeClass(classModel);
     return classData;
   },
-
+  /**
+   * Serialize a content visibility object into a JSON representation required by the Update content Visibility endpoint
+   *
+   * @param id The id of content to change
+   * @param visibility Indicate if is visible = on/off
+   *  @param type Content object type
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateContentVisibility: function(id,visibility,type) {
+    return type==='assessment' ? { "assessments":[{id:id, visible: visibility ? 'on' : 'off'}]} : { "collections":[{id:id, visible: visibility ? 'on' : 'off'}]};
+  },
   /**
    * Serialize a Class object into a JSON representation required by the Update Class endpoint
    *

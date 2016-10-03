@@ -1,4 +1,4 @@
-/*import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
@@ -162,6 +162,38 @@ const collectionServiceStub = Ember.Service.extend({
     });
   }
 });
+// Stub assessment service
+const assessmentServiceStub = Ember.Service.extend({
+
+  readAssessment(collectionId) {
+    var response;
+    var promiseResponse;
+
+    if (collectionId) {
+      response = [
+        Ember.Object.create({
+          id: "item-1",
+          collectionType: "assessment",
+          title: "Assessment 1",
+          visibility: true,
+          attempts:8
+        })];
+    } else {
+      response = [];
+    }
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    // Simulate async data returned by the service
+    return DS.PromiseArray.create({
+      promise: promiseResponse
+    });
+  }
+});
 
 const courseLocationStub = Ember.Service.extend({
 
@@ -235,6 +267,9 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
     this.register('service:api-sdk/collection', collectionServiceStub);
     this.inject.service('api-sdk/collection', { as: 'collectionService' });
 
+    this.register('service:api-sdk/assessment', assessmentServiceStub);
+    this.inject.service('api-sdk/assessment', { as: 'assessmentService' });
+
     this.register('service:api-sdk/course-location', courseLocationStub);
     this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
 
@@ -247,8 +282,6 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
   }
 });
 
-// TODO JBP Fix this!!
-/*
 test('it renders', function(assert) {
   const context = this;
 
@@ -312,12 +345,9 @@ test('it renders', function(assert) {
   // Content for collections/assessments is not available because the call to get data has not been made yet
   assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Content for collections/assessments should not be available');
 });
-*/
 
-// TODO JBP Fix this!!
-/*
 test('it renders correctly when there are no collections/assessments to load after clicking on the lesson name', function(assert) {
-  assert.expect(7);
+  assert.expect(6);
 
   const context = this;
 
@@ -365,11 +395,8 @@ test('it renders correctly when there are no collections/assessments to load aft
   Ember.run(() => {
     $lessonTitleAnchor.click();
   });
-
+  return wait().then(function() {
   assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
-
-  var $loadingSpinner = $collapsePanel.find('.three-bounce-spinner');
-  assert.ok($loadingSpinner.length, 'Loading spinner should be displayed');
 
   return wait().then(function() {
     $loadingSpinner = $collapsePanel.find('.three-bounce-spinner');
@@ -379,8 +406,8 @@ test('it renders correctly when there are no collections/assessments to load aft
     assert.equal($items.length, 0, 'Incorrect number of collections listed');
     assert.equal($collectionsContainer.text().trim(), context.get('i18n').t('common.contentUnavailable').string, 'Incorrect message when there are no collections to load');
   });
+  });
 });
-*/
 
 // TODO JBP Fix this!!
 /*

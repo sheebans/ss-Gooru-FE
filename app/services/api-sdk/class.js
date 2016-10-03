@@ -201,12 +201,13 @@ export default Ember.Service.extend({
    * @param classId the class id
    * @returns {Promise}
    */
-  updateContentVisibility: function(classId,content) {
+  updateContentVisibility: function(classId,id,visibility,type) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').updateContentVisibility(classId,content)
+      let serializedUpdateContentVisibility = service.get('classSerializer').serializeUpdateContentVisibility(id,visibility,type);
+      service.get('classAdapter').updateContentVisibility(classId,serializedUpdateContentVisibility)
         .then(function () {
-          resolve(content);
+          resolve(serializedUpdateContentVisibility);
         }, function(error) {
           reject(error);
         });

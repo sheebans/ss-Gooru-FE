@@ -259,14 +259,21 @@ test('readClassContentVisibility', function(assert) {
 test('updateContentVisibility', function(assert) {
   const service = this.subject();
   let classId = 'class-id';
-  let content = {
-      "assessments": [{
-        "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
-        "visible": "on"
-      }]
-    };
 
-  assert.expect(2);
+  let contentId = "59f7b7df-cef2-4f09-8012-1e58cb27b95a";
+  let visibility = true;
+  let type = 'assessments';
+
+  assert.expect(5);
+
+  service.set('classSerializer', Ember.Object.create({
+    serializeUpdateContentVisibility: function(contentId,visibility,type) {
+      assert.deepEqual('59f7b7df-cef2-4f09-8012-1e58cb27b95a', contentId, 'Wrong content id');
+      assert.deepEqual(true, visibility, 'Wrong visibility');
+      assert.deepEqual('assessments', type, 'Wrong visibility');
+      return  { "assessments":[{id:contentId, visible: visibility ? 'on' : 'off'}]};
+    }
+  }));
 
   service.set('classAdapter', Ember.Object.create({
     updateContentVisibility: function(classId,content) {
@@ -280,7 +287,7 @@ test('updateContentVisibility', function(assert) {
   }));
 
   var done = assert.async();
-  service.updateContentVisibility(classId,content)
+  service.updateContentVisibility(classId,contentId,visibility,type)
     .then(function() {
       done();
     });

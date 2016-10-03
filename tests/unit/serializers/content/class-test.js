@@ -18,6 +18,24 @@ test('serializeCreateClass with default visibility', function(assert) {
   assert.equal(response.content_visibility, 'visible_collections', 'Wrong default visibility');
 });
 
+test('serializeUpdateContentVisibility with visibility true', function(assert) {
+  const serializer = this.subject();
+
+  const response = serializer.serializeUpdateContentVisibility('item-id',true,'assessment');
+  assert.equal(response.assessments.length, 1, 'Wrong assessments array');
+  assert.equal(response.assessments[0].id, 'item-id', 'Wrong item id');
+  assert.equal(response.assessments[0].visible, 'on', 'Wrong visibility value');
+});
+
+test('serializeUpdateContentVisibility with visibility false', function(assert) {
+  const serializer = this.subject();
+
+  const response = serializer.serializeUpdateContentVisibility('item-id',false,'assessment');
+  assert.equal(response.assessments.length, 1, 'Wrong assessments array');
+  assert.equal(response.assessments[0].id, 'item-id', 'Wrong item id');
+  assert.equal(response.assessments[0].visible, 'off', 'Wrong visibility value');
+});
+
 test('serializeCreateClass with custom visibility', function(assert) {
   const serializer = this.subject();
   const classObject = ClassModel.create({

@@ -169,7 +169,9 @@
         }
       }
       .item-disabled{
-        opacity: 0.5;
+        .icon-container,.panel-title,.gru-user-icons{
+          opacity: 0.5;
+        }
       }
       .gru-accordion-lesson {
 

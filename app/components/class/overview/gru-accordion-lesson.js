@@ -113,13 +113,9 @@ export default Ember.Component.extend(AccordionMixin, {
     changeVisibility:function (isChecked,item){
       const component = this;
       const classId = component.get('currentClass.id');
-      let content = {
-        "assessments":[
-          {id:item.id,
-          visible: isChecked ? 'on' :'off'
-          }]
-      };
-      component.get('classService').updateContentVisibility(classId,content);
+      let type = item.isAssessment ? 'assessment' : 'collection';
+      let contentId = item.id;
+      component.get('classService').updateContentVisibility(classId,contentId,isChecked,type);
     }
   },
 
