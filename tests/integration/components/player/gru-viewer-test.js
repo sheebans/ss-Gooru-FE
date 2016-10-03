@@ -26,6 +26,7 @@ test('On question submit', function (assert) {
 
   const collection = Ember.Object.create({
     collectionType: "assessment",
+    hasAuthor:false,
     resources: Ember.A([resource]),
     isLastResource: function(){
       return true;
@@ -48,6 +49,7 @@ test('On question submit', function (assert) {
 
   var $answerPanel = $component.find(".answers-panel");
   assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
+
   var $openEndedComponent = $answerPanel.find(".gru-open-ended");
   $openEndedComponent.find("textarea").val("test");
   $openEndedComponent.find("textarea").change();
@@ -55,6 +57,9 @@ test('On question submit', function (assert) {
   assert.ok(!$answerPanel.find(".actions button.save").attr("disabled"), "Button should not be disabled");
 
   $answerPanel.find(".actions button.save").click();
+
+  const $gruViewer = $component.find(".gru-viewer");
+  T.exists(assert, !$gruViewer.find(".narration .avatar"), "Missing author image");
 });
 
 test('Narration', function (assert) {
@@ -73,18 +78,27 @@ test('Narration', function (assert) {
     hasNarration: true,
     hasOwner: true
   });
+  const collection = Ember.Object.create({
+    collectionType: "assessment",
+    hasAuthor:false,
+    resources: Ember.A([resourceMockA]),
+    isLastResource: function(){
+      return true;
+    }
+  });
 
   const resourceResult = QuestionResult.create();
 
   this.set('resourceResult', resourceResult);
   this.set("resource", resourceMockA);
+  this.set('collection', collection);
 
-  this.render(hbs`{{player/gru-viewer resource=resource resourceResult=resourceResult}}`);
+  this.render(hbs`{{player/gru-viewer resource=resource resourceResult=resourceResult collection=collection}}`);
 
   var $component = this.$(); //component dom element
   const $gruViewer = $component.find(".gru-viewer");
   T.exists(assert, $gruViewer, "Missing narration section");
-  T.exists(assert, $gruViewer.find(".narration .avatar img"), "Missing autor image");
+  T.exists(assert, $gruViewer.find(".narration .avatar img"), "Missing author image");
   T.exists(assert, $gruViewer.find(".narration .message"), "Missing narration");
 });
 
