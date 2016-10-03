@@ -88,7 +88,9 @@ export default Ember.Component.extend({
         if(attemptsSetting){
           component.set('noMoreAttempts', isAssessment && attemptsSetting > 0 && attempts && attempts >= attemptsSetting);
         }
-        component.set('isDisabled', !performanceData.get('classroom_play_enabled'));
+        const contentVisibility = component.get("contentVisibility");
+        const isVisible = contentVisibility && contentVisibility.isVisible(performanceId);
+        component.set('isDisabled', !isVisible);
       });
     }
   },
@@ -130,7 +132,14 @@ export default Ember.Component.extend({
    * Indicates if attemps is selected
    * @property {boolean} attempsSelected
    */
-  attemptsSelected: Ember.computed.equal('selectedOption', 'attempts')
+  attemptsSelected: Ember.computed.equal('selectedOption', 'attempts'),
+
+  /**
+   * The class content visibility
+   * @property {ClassContentVisibility}
+   */
+  contentVisibility: null
+
 
   // -------------------------------------------------------------------------
   // Observers

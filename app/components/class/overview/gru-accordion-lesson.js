@@ -59,6 +59,10 @@ export default Ember.Component.extend(AccordionMixin, {
    * @requires service:api-sdk/assessment
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
+  /**
+   * @type {ClassService} Service to retrieve class information
+   */
+  classService: Ember.inject.service("api-sdk/class"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -100,6 +104,18 @@ export default Ember.Component.extend(AccordionMixin, {
 
     setOnAir: function (collectionId) {
       this.get('onLaunchOnAir')(collectionId);
+    },
+    /**
+     * @function changeVisibility
+     * @param {boolean} isChecked
+     * @param {Assessment} item
+     */
+    changeVisibility:function (isChecked,item){
+      const component = this;
+      const classId = component.get('currentClass.id');
+      let type = item.isAssessment ? 'assessment' : 'collection';
+      let contentId = item.id;
+      component.get('classService').updateContentVisibility(classId,contentId,isChecked,type);
     }
   },
 
@@ -171,6 +187,19 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   loading: false,
 
+  /**
+   * Toggle Options
+   * @property {Ember.Array}
+   */
+  switchOptions: Ember.A([Ember.Object.create({
+    'label': "On",
+    'value': true
+  }),Ember.Object.create({
+    'label': "Off",
+    'value': false
+  })]),
+
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -209,7 +238,6 @@ export default Ember.Component.extend(AccordionMixin, {
       isUpdatingLocation = false;
     }
   }),
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -232,14 +260,17 @@ export default Ember.Component.extend(AccordionMixin, {
     component.set("loading", true);
     component.get('lessonService').fetchById(courseId, unitId, lessonId)
       .then(function(lesson) {
-        const assessments = lesson.get('children');
+        const collections = lesson.get('children');
         component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)
           .then(function(lessonPeers) {
             const loadDataPromise = isTeacher ?
-              component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments) :
-              component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, assessments);
+              component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) :
+              component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections);
             loadDataPromise.then(function() {
-              component.set('items', assessments);
+              collections.forEach(function(collection){
+                component.setVisibility(collection);
+              });
+              component.set('items', collections);
               component.set("loading", false);
             });
           });
@@ -321,6 +352,11 @@ export default Ember.Component.extend(AccordionMixin, {
           Ember.RSVP.all(promises).then(resolve, reject);
         });
     });
-  }
+  },
 
+  setVisibility: function(collection){
+    const isAssessment = collection.get('format') === 'assessment';
+    const visible = isAssessment ? this.get('contentVisibility').isVisible(collection.id) : true;
+    collection.set('visible', visible);
+  }
 });

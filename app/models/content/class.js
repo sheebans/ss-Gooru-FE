@@ -118,9 +118,25 @@ const Class = Ember.Object.extend(Validations, {
   members: [],
 
   /**
-   * @property {String} stateId - The class content visibility
+   * @property {String} contentVisibility - The class content visibility
    */
   contentVisibility: null,
+
+  /**
+   * Indicates if all content within this class is visible
+   * @property {boolean}
+   */
+  isAllContentVisible: Ember.computed("contentVisibility", function(){
+    return this.get("contentVisibility") === Class.VISIBLE_ALL;
+  }),
+
+  /**
+   * Indicates if all collections within this class is visible
+   * @property {boolean}
+   */
+  areCollectionsVisible: Ember.computed("contentVisibility", function() {
+    return this.get("contentVisibility") === Class.VISIBLE_COLLECTIONS || this.get("isAllContentVisible");
+  }),
 
   /**
    * @property {Boolean} isArchived - Is the class archived?
@@ -243,6 +259,14 @@ const Class = Ember.Object.extend(Validations, {
     this.setProperties(properties);
   }
 
+});
+
+Class.reopenClass({
+
+  // visiblity options
+  VISIBLE_COLLECTIONS: 'visible_collections',
+  VISIBLE_ALL: 'visible_all',
+  VISIBLE_NONE: 'visible_none'
 });
 
 export default Class;
