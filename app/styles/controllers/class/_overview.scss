@@ -172,6 +172,19 @@
         .icon-container,.panel-title,.gru-user-icons{
           opacity: 0.5;
         }
+        .panel-title{
+          .title{
+            cursor: default;
+          }
+        }
+        .icon-container{
+          .score{
+            button{
+              cursor: default;
+            }
+          }
+        }
+
       }
       .gru-accordion-lesson {
 

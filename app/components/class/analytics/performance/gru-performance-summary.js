@@ -138,7 +138,7 @@ export default Ember.Component.extend({
    * The class content visibility
    * @property {ClassContentVisibility}
    */
-  contentVisibility: null,
+  contentVisibility: null
 
 
   // -------------------------------------------------------------------------
