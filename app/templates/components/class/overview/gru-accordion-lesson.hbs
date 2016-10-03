@@ -138,7 +138,8 @@
                   {{#if isTeacher}}
                       <a class="title disabled" {{action "selectResource" item}}> {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}} </a>
                   {{else}}
-                      <a class="title disabled"> {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}} </a>
+                      <a class="title disabled"  data-toggle="tooltip" data-html="true" data-placement="top"
+                         title="{{t "common.assessment-disabled"}}"> {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}} </a>
                   {{/if}}
                 {{/if}}
               {{/if}}
