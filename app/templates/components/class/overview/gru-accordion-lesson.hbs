@@ -90,20 +90,28 @@
               {{#if item.isAssessment}}
 
                 {{#if item.performance.hasStarted }}
-                  {{#link-to 'class.analytics.performance.teacher.collection'
-                      currentClass.id
-                      unitId
-                      model.id
-                      item.id
-                      class="score" }}
-                    <button style="background-color: {{gradeColor item.performance.score}}" class="{{if item.performance.hasTrophy 'trophy'}}">
-                    {{#if item.performance.hasTrophy }}
-                      <span class="icon"></span>
-                    {{else}}
-                      {{item.performance.score}}%
-                    {{/if}}
-                    </button>
-                  {{/link-to}}
+                  {{#if isTeacher}}
+                    {{#link-to 'class.analytics.performance.teacher.collection'
+                      currentClass.id unitId model.id item.id class="score" }}
+                        <button style="background-color: {{gradeColor item.performance.score}}" class="{{if item.performance.hasTrophy 'trophy'}}">
+                          {{#if item.performance.hasTrophy }}
+                              <span class="icon"></span>
+                          {{else}}
+                            {{item.performance.score}}%
+                          {{/if}}
+                        </button>
+                    {{/link-to}}
+                  {{else}}
+                    <a class="score">
+                      <button style="background-color: {{gradeColor item.performance.score}}" class="{{if item.performance.hasTrophy 'trophy'}}">
+                        {{#if item.performance.hasTrophy }}
+                            <span class="icon"></span>
+                        {{else}}
+                          {{item.performance.score}}%
+                        {{/if}}
+                      </button>
+                    </a>
+                  {{/if}}
                 {{else}}
                   <span class="score" style="background-color: {{ gradeColor 'NA' }}">--%</span>
                 {{/if}}
@@ -121,17 +129,19 @@
                   </a>
               {{else}}
                 {{#if item.performance.noMoreAttempts}}
-                      <a class="title disabled"
-                         data-toggle="tooltip" data-html="true" data-placement="top"
-                         title="{{t "common.no-more-attempts"}}">
-                          {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
-                      </a>
+                  <a class="title disabled"
+                     data-toggle="tooltip" data-html="true" data-placement="top"
+                     title="{{t "common.no-more-attempts"}}">
+                      {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
+                  </a>
+                {{else}}
+                  {{#if isTeacher}}
+                      <a class="title disabled" {{action "selectResource" item}}> {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}} </a>
                   {{else}}
-                    <a class="title disabled"  {{action "selectResource" item}}>
-                        {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}}
-                    </a>
+                      <a class="title disabled"> {{plus-one index}}&period;&nbsp;&nbsp;{{item.title}} </a>
+                  {{/if}}
                 {{/if}}
-               {{/if}}
+              {{/if}}
             </span>
             {{!-- Show only for xs --}}
             {{gru-user-icons
