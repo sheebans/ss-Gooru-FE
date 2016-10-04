@@ -95,6 +95,45 @@ test('Narration', function (assert) {
   assert.ok(!$gruViewer.find(".narration .avatar img").length,'There is an avatar when there shouldnt');
   T.exists(assert, $gruViewer.find(".narration .message"), "Missing narration");
 });
+test('Narrations author image', function (assert) {
+
+
+  assert.expect(3);
+
+  const resourceMockA = Ember.Object.create({
+    id: 1,
+    'name': 'Resource #3',
+    'type': 'question',
+    narration: 'Some narration message here',
+    owner: {
+-      avatarUrl: '76514d68-5f4b-48e2-b4bc-879b745f3d70.png'
+-    },
+    hasNarration: true,
+    hasOwner: true
+  });
+  const collection = Ember.Object.create({
+    collectionType: "assessment",
+    hasAuthor:true,
+    resources: Ember.A([resourceMockA]),
+    isLastResource: function(){
+      return true;
+    }
+  });
+
+  const resourceResult = QuestionResult.create();
+
+  this.set('resourceResult', resourceResult);
+  this.set("resource", resourceMockA);
+  this.set('collection', collection);
+
+  this.render(hbs`{{player/gru-viewer resource=resource resourceResult=resourceResult collection=collection}}`);
+
+  var $component = this.$(); //component dom element
+  const $gruViewer = $component.find(".gru-viewer");
+  T.exists(assert, $gruViewer, "Missing narration section");
+  T.exists(assert, $gruViewer.find(".narration .avatar img"), "Missing autor image");
+  T.exists(assert, $gruViewer.find(".narration .message"), "Missing narration");
+});
 
 test('Layout when a resource url cannot be showed in an iframe', function (assert) {
   const resourceMockA = Ember.Object.create({
