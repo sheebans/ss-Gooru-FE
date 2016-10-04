@@ -1,12 +1,19 @@
 .gru-two-tier-header-table {
   $table-cell-width: 90px;
 
+  .table-wrapper {
+    width: auto;
+    overflow-x: auto;
+    padding-bottom: 1px;
+    margin-left: 130px;
+  }
+
   table {
     font-size: $font-size-h6;
     background: $white;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
     border-top: 47px solid $dark-400;
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0;
     border-collapse: inherit;
 
     th, td {
@@ -27,6 +34,12 @@
       height: 42px;
       td, th {
         border-bottom: 1px solid $dark-200;
+      }
+      > td {
+        border-top: 47px solid $dark-400!important;
+        border-radius: 5px 0 0 0;
+        top: 76px;
+        height: 93px!important;
       }
       th {
         &:hover {
@@ -87,6 +100,10 @@
       + .data {
         th, td {
           padding-top: 20px;
+          &.fixed {
+            height: 74px;
+            padding-top: 27px;
+          }
         }
       }
     }
@@ -103,6 +120,11 @@
         &:first-child {
           padding-top: 20px;
         }
+        &.fixed {
+          background-color: $white;
+          border-left: 1px solid $light-300;
+          height:64px;
+        }
       }
       td {
         border-width: 0 0 1px 0;
@@ -114,8 +136,18 @@
       &:last-child {
         th, td {
           padding-bottom: 20px;
+          &.fixed {
+            height: 74px;
+            padding-top: 27px;
+          }
         }
       }
+    }
+    .fixed {
+      position: absolute;
+      left: 0;
+      min-height: 47px;
+      width: 131px!important;
     }
   }
 }
