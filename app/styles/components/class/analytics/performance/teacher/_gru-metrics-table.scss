@@ -70,9 +70,6 @@
     }
     tbody
     {
-      overflow-y: auto;
-      overflow-x: hidden;
-      max-height: 545px;
       tr {
         &:last-child {
           th.fixed {
