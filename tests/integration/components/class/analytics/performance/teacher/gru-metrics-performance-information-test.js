@@ -10,14 +10,15 @@ moduleForComponent('/class/analytics/performance/teacher/gru-metrics-performance
   }
 });
 test('Metrics performance information Layout', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   const dataPickerOptionsMock = Ember.A(["score","completion"]);
   const performanceDataMock = Ember.Object.create({
     score: 50,
     timeSpent: 3600,
     completionDone: 16,
-    completionTotal: 32
+    completionTotal: 32,
+    headerTitle: "header test"
   });
 
   this.set('dataPickerOptions', dataPickerOptionsMock);
@@ -29,6 +30,7 @@ test('Metrics performance information Layout', function(assert) {
 
   var $score = $component.find(".score");
   T.exists(assert, $score, 'Missing score cell');
+  assert.ok($score.hasClass("pointer"), "Missing score tooltip");
 
   var $completion = $component.find(".gru-completion-chart");
   T.exists(assert, $completion, 'Missing gru-completion-chart component');
