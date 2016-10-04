@@ -230,7 +230,7 @@ export default Ember.Component.extend({
           let label;
 
           //label used for the score tooltip
-          if (k==0) {
+          if (k===0) {
             label= labelPrefix + j;
           }
 
