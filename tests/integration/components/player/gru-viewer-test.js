@@ -113,7 +113,9 @@ test('Narrations author image', function (assert) {
   });
   const collection = Ember.Object.create({
     collectionType: "assessment",
-    hasAuthor:true,
+    author: {
+      avatarUrl: '76514d68-5f4b-48e2-b4bc-879b745f3d70.png'
+    },
     resources: Ember.A([resourceMockA]),
     isLastResource: function(){
       return true;
