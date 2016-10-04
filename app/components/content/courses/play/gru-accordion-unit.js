@@ -51,13 +51,23 @@ export default Ember.Component.extend(BuilderMixin, {
     toggle: function () {
       var toggleValue = !this.get('model.isExpanded');
 
+      const id = this.get('model.data.id');
       this.loadData();
-      this.get('onExpandUnit')();
+      this.get('onExpandUnit')(id, toggleValue);
       this.set('model.isExpanded', toggleValue);
     }
 
   },
 
+
+  // -------------------------------------------------------------------------
+  // Events
+  onInit: Ember.on("init", function(){
+    const expanded = this.get("model.isExpanded");
+    if (expanded) {
+      this.loadData();
+    }
+  }),
 
   // -------------------------------------------------------------------------
   // Properties

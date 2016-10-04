@@ -33,6 +33,15 @@ export default Ember.Component.extend(ModalMixin, {
         };
         this.send('showModal', 'content.modals.gru-course-remix', model);
       }
+    },
+
+    /**
+     * Sets the current course builder location
+     * @param unitId
+     * @param lessonId
+     */
+    setLocation: function (unitId, lessonId = undefined) {
+      this.sendAction("onLocationChange", unitId, lessonId);
     }
   },
 
@@ -88,7 +97,12 @@ export default Ember.Component.extend(ModalMixin, {
     return TaxonomyTag.getTaxonomyTags(this.get("course.taxonomy"), false);
   }),
 
-  isOwner: null
+  isOwner: null,
+
+ /**
+   * @property {string} action name when the location is changed
+   */
+  onLocationChange: null
 
 
 });

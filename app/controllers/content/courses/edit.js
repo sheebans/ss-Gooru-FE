@@ -8,8 +8,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  // -------------------------------------------------------------------------
-  // Actions
   actions: {
 
     /**
@@ -18,28 +16,12 @@ export default Ember.Controller.extend({
      * @param lessonId
      */
     setLocation: function (unitId, lessonId = undefined) {
-      this.set("unitId", unitId || null);
-      this.set("lesson", lessonId || null);
+      this.set("unitId", unitId);
+      this.set("lesson", lessonId);
     }
   },
-
   // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * @property {Profile[]} remixedUsers
-   */
-  remixedUsers: null,
-
-  /**
-   * @property {Profile[]} createdUsers
-   */
-  createdUsers: null,
-
-  /**
-   * @property {boolean}
-   */
-  isOwner: null,
 
   /**
    * @property  {string}
@@ -49,16 +31,5 @@ export default Ember.Controller.extend({
   /**
    * @property {string}
    */
-  lessonId: null,
-
-
-  // -------------------------------------------------------------------------
-  // Methods
-  resetValues: function(){
-    this.set("unitId", null);
-    this.set("lessonId", null);
-  }
-
-
-
+  lessonId: null
 });

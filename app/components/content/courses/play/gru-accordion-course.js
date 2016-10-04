@@ -24,12 +24,52 @@ export default Ember.Component.extend(BuilderMixin, {
 
   actions: {
 
+    expandUnit: function (unitId, expanded) {
+      const component = this;
+
+      if (expanded) {
+        component.sendAction("onLocationChange", unitId);
+      }
+      else {
+        component.sendAction("onLocationChange", undefined);
+      }
+
+      component.closeAllUnits();
+    },
+
     closeAllUnits: function () {
-      this.get('items').forEach(function (builderItem) {
-        builderItem.set('isExpanded', false);
-      });
+      this.closeAllUnits();
     }
 
+  },
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * @property  {string}
+   */
+  unitId: null,
+
+  /**
+   * @property {string}
+   */
+  lessonId: null,
+
+  /**
+   * @property {string} action name when the location is changed
+   */
+  onLocationChange: null,
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+  closeAllUnits: function() {
+    this.get('items').forEach(function (builderItem) {
+      builderItem.set('isExpanded', false);
+    });
   }
+
+
 
 });
