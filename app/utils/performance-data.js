@@ -6,11 +6,13 @@ import { formatTime } from './utils';
 /**
  * Create a performanceObject from the performance data
  * @param performance the base performance data
+ * @param headerTitle used for the score tooltip
  */
-function createPerformanceObject(performance) {
+function createPerformanceObject(performance, headerTitle) {
   const score = performance.get('score');
   const timeSpent = performance.get('timeSpent');
   return Ember.Object.create({
+    headerTitle: headerTitle,
     score: score,
     timeSpent: formatTime(timeSpent),
     hasStarted: score > 0 || timeSpent > 0,
@@ -91,7 +93,7 @@ export function createDataMatrix(headers, classPerformanceData) {
       const performance = performanceData.findBy('id', `${user.get('id')}@${headerItem.get('id')}`);
 
       if (performance) {
-        userData.get('performanceData').push(createPerformanceObject(performance));
+        userData.get('performanceData').push(createPerformanceObject(performance,headerItem.title));
       }
       else {
         userData.get('performanceData').push(undefined);
