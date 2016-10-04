@@ -51,6 +51,12 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * Indicates if collection has an author
+   * @property {string}
+   */
+
+   collectionHasAuthor: Ember.computed.notEmpty('collection.author'),
+  /**
    * Indicates if the student is playing the collection
    * @property {boolean}
    */
