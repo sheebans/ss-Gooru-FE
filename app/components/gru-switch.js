@@ -29,10 +29,10 @@ export default Ember.Component.extend({
     selectOption: function () {
       if(this.get('isChecked')){
         this.set('isChecked',false);
-        this.sendAction("onOptionSwitch", this.get("isChecked"));
+        this.sendAction("onOptionSwitch", this.get("isChecked"),this.get('item'));
       }else{
         this.set('isChecked',true);
-        this.sendAction("onOptionSwitch", this.get("isChecked"));
+        this.sendAction("onOptionSwitch", this.get("isChecked"),this.get('item'));
       }
     }
 
@@ -59,6 +59,11 @@ export default Ember.Component.extend({
    * @property {Array}
    */
   switchOptions: null,
+  /**
+   * Item to change
+   *
+   */
+  item:null,
 
   /**
    * Option in the left side of the switch

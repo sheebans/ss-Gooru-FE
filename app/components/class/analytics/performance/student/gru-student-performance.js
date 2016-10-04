@@ -37,6 +37,13 @@ export default Ember.Component.extend({
    */
   'aria-multiselectable':'true',
 
+  /**
+   * The class content visibility
+   * @property {ClassContentVisibility}
+   */
+  contentVisibility: null,
+
+
 
   // -------------------------------------------------------------------------
   // Actions

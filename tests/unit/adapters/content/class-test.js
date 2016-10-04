@@ -154,6 +154,45 @@ test('readClassMembers', function(assert) {
     });
 });
 
+test('readClassContentVisibility', function(assert) {
+  const adapter = this.subject();
+  const classId = 'class-id';
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus/v1/classes/class-id/courses', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.readClassContentVisibility(classId)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+test('updateContentVisibility', function(assert) {
+  const adapter = this.subject();
+  const content = {
+      "assessments": [{
+        "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
+        "visible": "on"
+      }]
+    };
+  const classId = 'class-id';
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v1/classes/class-id/courses', function() {
+      return [204, {'Content-Type': 'application/json'},''];
+    }, false);
+  });
+  adapter.updateContentVisibility(classId,content)
+    .then(function(response) {
+      assert.deepEqual(undefined, response, 'Wrong response');
+    });
+});
+
 test('associateCourseToClass', function(assert) {
   const adapter = this.subject();
   const courseId = 'course-id';
