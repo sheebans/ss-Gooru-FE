@@ -58,8 +58,6 @@ test('On question submit', function (assert) {
 
   $answerPanel.find(".actions button.save").click();
 
-  const $gruViewer = $component.find(".gru-viewer");
-  T.exists(assert, !$gruViewer.find(".narration .avatar"), "Missing author image");
 });
 
 test('Narration', function (assert) {
@@ -72,9 +70,6 @@ test('Narration', function (assert) {
     'name': 'Resource #3',
     'type': 'question',
     narration: 'Some narration message here',
-    owner: {
-      avatarUrl: '76514d68-5f4b-48e2-b4bc-879b745f3d70.png'
-    },
     hasNarration: true,
     hasOwner: true
   });
@@ -98,7 +93,8 @@ test('Narration', function (assert) {
   var $component = this.$(); //component dom element
   const $gruViewer = $component.find(".gru-viewer");
   T.exists(assert, $gruViewer, "Missing narration section");
-  T.exists(assert, $gruViewer.find(".narration .avatar img"), "Missing author image");
+  assert.ok(!$gruViewer.find(".narration .avatar img").length,'There is an avatar when there shouldnt');
+  
   T.exists(assert, $gruViewer.find(".narration .message"), "Missing narration");
 });
 
