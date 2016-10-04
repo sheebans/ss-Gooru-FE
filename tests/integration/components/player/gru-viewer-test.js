@@ -26,7 +26,6 @@ test('On question submit', function (assert) {
 
   const collection = Ember.Object.create({
     collectionType: "assessment",
-    hasAuthor:false,
     resources: Ember.A([resource]),
     isLastResource: function(){
       return true;
@@ -94,7 +93,6 @@ test('Narration', function (assert) {
   const $gruViewer = $component.find(".gru-viewer");
   T.exists(assert, $gruViewer, "Missing narration section");
   assert.ok(!$gruViewer.find(".narration .avatar img").length,'There is an avatar when there shouldnt');
-  
   T.exists(assert, $gruViewer.find(".narration .message"), "Missing narration");
 });
 
