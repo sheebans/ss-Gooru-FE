@@ -43,6 +43,12 @@ export default Ember.Controller.extend({
      */
     updateLocation: function(newLocation) {
       this.set('location', newLocation ? newLocation : null);
+    },
+    /**
+     * Trigger action to update content visibility list
+     */
+    updateContentVisibility:function(){
+      this.send('updateContentVisible');
     }
   },
 

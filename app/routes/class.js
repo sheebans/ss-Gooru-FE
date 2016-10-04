@@ -118,6 +118,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       } else {
         route.transitionTo('class.' + item);
       }
+    },
+    /**
+     * Gets a refreshed list of content visible
+     */
+    updateContentVisible: function() {
+      const route = this;
+      const controller = route.get("controller");
+      route.get('classService').readClassContentVisibility(controller.get('class.id')).then(function(visibility){
+        controller.set("contentVisibility", visibility);
+      });
     }
   },
 
