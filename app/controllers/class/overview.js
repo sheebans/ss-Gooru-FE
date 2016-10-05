@@ -47,8 +47,8 @@ export default Ember.Controller.extend({
     /**
      * Trigger action to update content visibility list
      */
-    updateContentVisibility:function(content){
-      this.send('updateContentVisible',content);
+    updateContentVisibility:function(contentId, visible){
+      this.send('updateContentVisible',contentId, visible);
     }
   },
 

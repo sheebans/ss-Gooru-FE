@@ -109,8 +109,8 @@ export default Ember.Component.extend(AccordionMixin, {
     /**
      * Trigger action to update content visibility list
      */
-    updateContentVisibility:function(content){
-      this.sendAction('onUpdateContentVisibility',content);
+    updateContentVisibility:function(contentId, visible){
+      this.sendAction('onUpdateContentVisibility',contentId, visible);
     }
   },
 

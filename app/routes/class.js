@@ -122,13 +122,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     /**
      * Gets a refreshed list of content visible
      */
-    updateContentVisible: function(content) {
+    updateContentVisible: function(contentId, visible) {
       const route = this;
       const controller = route.get("controller");
-      let assessmentID = content.assessments[0].id;
-      let visibility = content.assessments[0].visible;
       let contentVisibility = controller.get('contentVisibility');
-      contentVisibility.setAssessmentVisibility(assessmentID,visibility);
+      contentVisibility.setAssessmentVisibility(contentId,visible ? 'on' :'off');
     }
   },
 

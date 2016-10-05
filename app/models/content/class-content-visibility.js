@@ -87,7 +87,9 @@ const ClassContentVisibility = Ember.Object.extend({
   setAssessmentVisibility: function(assessmentId,visibility){
     let assessments = this.getAssessmentsVisibility();
     let assessment = assessments.findBy("id", assessmentId);
-    assessment.visible = visibility;
+    if(assessment){
+      assessment.visible = visibility;
+    }
     return assessment;
   },
   /**

@@ -117,7 +117,7 @@ export default Ember.Component.extend(AccordionMixin, {
       let contentId = item.get('id');
       component.get('classService').updateContentVisibility(classId,contentId,isChecked,type).then(function(content){
         item.set('visible',isChecked);
-        component.sendAction("onUpdateContentVisibility",content);
+        component.sendAction("onUpdateContentVisibility", item.get('id'), isChecked);
       });
     }
   },
@@ -358,7 +358,7 @@ export default Ember.Component.extend(AccordionMixin, {
   },
 
   setVisibility: function(collection){
-    const isAssessment = collection.get('format') === 'assessment';
+    const isAssessment = collection.get('isAssessment');
     const visible = isAssessment ? this.get('contentVisibility').isVisible(collection.id) : true;
     collection.set('visible', visible);
   }
