@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
      */
     setLocation: function (unitId, lessonId = undefined) {
       this.set("unitId", unitId || null);
-      this.set("lesson", lessonId || null);
+      this.set("lessonId", lessonId || null);
     }
   },
 

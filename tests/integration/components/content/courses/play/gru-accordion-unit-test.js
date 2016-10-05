@@ -206,3 +206,91 @@ test('when unit is expanded by default', function (assert) {
   assert.ok($container.length, 'Container');
   assert.ok($container.hasClass('expanded'), 'Container should not be expanded');
 });
+
+test('when unit and lesson are expanded by default', function (assert) {
+  assert.expect(4);
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123'
+    }),
+    isEditing: false,
+    isExpanded: true
+  });
+
+  this.on('expandUnit', function () {
+    assert.ok(false, 'this should not be called');
+  });
+
+  this.on('expandLesson', function () {
+    assert.ok(false, 'this should not be called');
+  });
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unit', unit);
+  this.render(hbs`
+    {{content/courses/play/gru-accordion-unit
+      course=course
+      model=unit
+      index=0
+      selectedLessonId='lesson-123'
+      onExpandUnit=(action 'expandUnit') 
+      onExpandLesson=(action 'expandLesson') 
+      }}
+    `);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
+  assert.ok($container.length, 'Container');
+  assert.ok($container.hasClass('expanded'), 'Container should not be expanded');
+
+  const $lessonContainer = $container.find('.content.courses.gru-accordion.gru-accordion-lesson:eq(0) > .view');
+  assert.ok($lessonContainer.length, 'Container');
+  assert.ok($lessonContainer.hasClass('expanded'), 'Lesson container should be expanded');
+
+});
+
+test('when lesson is expanded, the event is notified', function (assert) {
+  assert.expect(7);
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123'
+    }),
+    isEditing: false,
+    isExpanded: true
+  });
+
+  this.on('expandUnit', function () {
+    assert.ok(false, 'this should not be called');
+  });
+
+  this.on('expandLesson', function (unitId, lessonId, expanded) {
+    assert.ok(expanded, 'Expanded should be true');
+    assert.equal(unitId, '123', 'Wrong unit id');
+    assert.equal(lessonId, 'lesson-123', 'Wrong unit id');
+  });
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unit', unit);
+  this.render(hbs`
+    {{content/courses/play/gru-accordion-unit
+      course=course
+      model=unit
+      index=0
+      onExpandUnit=(action 'expandUnit') 
+      onExpandLesson=(action 'expandLesson') 
+      }}
+    `);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
+  assert.ok($container.length, 'Container');
+  assert.ok($container.hasClass('expanded'), 'Container should not be expanded');
+
+  const $lessonContainer = $container.find('.content.courses.gru-accordion.gru-accordion-lesson:eq(0) > .view');
+  assert.ok($lessonContainer.length, 'Container');
+  $lessonContainer.find('.panel-heading > h3 > a').click();
+  assert.ok($lessonContainer.hasClass('expanded'), 'Lesson container should be expanded');
+
+});

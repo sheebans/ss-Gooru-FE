@@ -37,6 +37,17 @@ export default Ember.Component.extend(BuilderMixin, {
       component.closeAllUnits();
     },
 
+    expandLesson: function (unitId, lessonId, expanded) {
+      const component = this;
+
+      if (expanded) {
+        component.sendAction("onLocationChange", unitId, lessonId);
+      }
+      else {
+        component.sendAction("onLocationChange", unitId, undefined);
+      }
+    },
+
     closeAllUnits: function () {
       this.closeAllUnits();
     }
@@ -47,14 +58,9 @@ export default Ember.Component.extend(BuilderMixin, {
   // Properties
 
   /**
-   * @property  {string}
-   */
-  unitId: null,
-
-  /**
    * @property {string}
    */
-  lessonId: null,
+  selectedLessonId: null,
 
   /**
    * @property {string} action name when the location is changed

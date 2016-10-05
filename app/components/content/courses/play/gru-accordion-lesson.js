@@ -47,8 +47,9 @@ export default Ember.Component.extend(BuilderMixin, {
   actions: {
 
     toggle: function () {
-      var toggleValue = !this.get('model.isExpanded');
-
+      const toggleValue = !this.get('model.isExpanded');
+      const id = this.get("model.data.id");
+      this.get("onExpandLesson")(id, toggleValue);
       this.loadData();
       this.set('model.isExpanded', toggleValue);
     }
@@ -79,6 +80,10 @@ export default Ember.Component.extend(BuilderMixin, {
    */
   unitId: null,
 
+  /**
+   * When a lesson within this unit is expanded/collapsed
+   */
+  onExpandLesson: null,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -125,8 +130,9 @@ export default Ember.Component.extend(BuilderMixin, {
     let lessonId = this.get('lesson.id');
     const isEdit = unitId && lessonId;
 
-    if (component.get('index') === 0 && isEdit && !this.get('isSorting')) {
-      component.send('toggle');
+    const expand = (component.get('model.isExpanded') && isEdit && !this.get('isSorting'));
+    if (expand) {
+      component.loadData();
     }
   }
 

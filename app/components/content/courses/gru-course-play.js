@@ -102,7 +102,12 @@ export default Ember.Component.extend(ModalMixin, {
  /**
    * @property {string} action name when the location is changed
    */
-  onLocationChange: null
+  onLocationChange: null,
+
+  /**
+   * @property {string} selected lesson id
+   */
+  selectedLessonId:null
 
 
 });
