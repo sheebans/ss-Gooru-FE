@@ -53,5 +53,8 @@
 <section id="content">
   {{content.courses.play.gru-accordion-course
   model=course
-  items=course.children }}
+  items=course.children
+  selectedLessonId=selectedLessonId
+  onLocationChange='setLocation'
+  }}
 </section>

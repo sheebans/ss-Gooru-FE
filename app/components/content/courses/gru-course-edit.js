@@ -149,6 +149,15 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
      */
     selectTaxonomy: function(taxonomy){
       this.set("tempCourse.taxonomy", taxonomy);
+    },
+
+    /**
+     * Sets the current course builder location
+     * @param unitId
+     * @param lessonId
+     */
+    setLocation: function (unitId, lessonId = undefined) {
+      this.sendAction("onLocationChange", unitId, lessonId);
     }
 
   },
@@ -175,6 +184,17 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin, {
    * @property {Course}
    */
   tempCourse: null,
+
+  /**
+   * @property {string} action name when the location is changed
+   */
+  onLocationChange: null,
+
+  /**
+   * @property {string} selected lesson id
+   */
+  selectedLessonId:null,
+
 
   // -------------------------------------------------------------------------
   // Methods

@@ -67,10 +67,12 @@ export default Ember.Route.extend({
     model.course.license = license;
     // end of mock data!
 
+    const unitId = controller.get("unitId");
     model.course.children = model.course.children.map(function (unit) {
       // Wrap every unit inside of a builder item
       return BuilderItem.create({
-        data: unit
+        data: unit,
+        isExpanded: unitId === unit.get("id")
       });
     });
 
@@ -78,6 +80,10 @@ export default Ember.Route.extend({
     controller.set('createdUsers', model.createdUsers);
     controller.set('remixedUsers', model.remixedUsers);
     controller.set('isOwner', isOwner);
+  },
+
+  deactivate: function () {
+    this.get("controller").resetValues();
   }
 
 });

@@ -380,7 +380,7 @@ test('it renders the unit correctly, if the unit has no lessons -view mode', fun
 });
 
 test('it expands/collapses the unit -view mode', function (assert) {
-
+  assert.expect(14);
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
       id: '123'
@@ -389,8 +389,11 @@ test('it expands/collapses the unit -view mode', function (assert) {
     isExpanded: false
   });
 
-  this.on('externalAction', function () {
-    assert.ok(true);
+  let expectedExpanded = false;
+  let expectedId = '123';
+  this.on('externalAction', function (id, expanded) {
+    assert.equal(id, expectedId, 'Wrong id');
+    assert.equal(expanded, expectedExpanded, 'Should match');
   });
 
   this.set('course', Course.create({
@@ -408,23 +411,26 @@ test('it expands/collapses the unit -view mode', function (assert) {
   assert.ok($container.length, 'Container');
   assert.ok($container.hasClass('collapsed'), 'Container collapsed');
 
-
+  expectedExpanded = true;
   $container.find('> .panel-heading > a').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header prefix');
 
+  expectedExpanded = false;
   $container.find('> .panel-heading > a').click();
   assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header prefix');
 
+  expectedExpanded = true;
   $container.find('> .panel-heading .actions .add-item').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded after clicking the add button');
 
 
+  expectedExpanded = true;
   $container.find('> .panel-heading .actions .add-item').click();
   assert.ok(!$container.hasClass('collapsed'), 'Container should remain expanded after clicking the add button');
 });
 
 test('it loads lessons and renders them after clicking on the unit name', function (assert) {
-
+  assert.expect(6);
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
       id: '123',
@@ -435,8 +441,9 @@ test('it loads lessons and renders them after clicking on the unit name', functi
   });
 
   //onExpandUnit action must be defined
-  this.on('externalAction', function () {
-    assert.ok(true, "called externalAction");
+  this.on('externalAction', function (id, expanded) {
+    assert.equal(id, '123', 'Wrong id');
+    assert.equal(expanded, true, 'Should match');
   });
 
   this.set('course', Course.create({
@@ -513,4 +520,121 @@ test('it offers the ability to reorder the lessons', function (assert) {
   assert.ok($heading.find('.actions button:eq(0)').hasClass('sort-items'), 'First button is for sorting the lessons in the unit');
   assert.ok($heading.find('.actions button:eq(1)').hasClass('cancel'), 'Second button is to cancel reordering');
   assert.ok($heading.find('.actions button:eq(2)').hasClass('save'), 'Third button is to save the new order of lessons');
+});
+
+
+test('when unit is expanded by default', function (assert) {
+  assert.expect(2);
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123'
+    }),
+    isEditing: false,
+    isExpanded: true
+  });
+
+  this.on('externalAction', function () {
+    assert.ok(false, 'this should not be called');
+  });
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unit', unit);
+  this.render(hbs`
+    {{content/courses/edit/gru-accordion-unit
+      course=course
+      model=unit
+      onExpandUnit=(action 'externalAction') }}
+    `);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
+  assert.ok($container.length, 'Container');
+  assert.ok($container.hasClass('expanded'), 'Container should not be expanded');
+});
+
+test('when unit and lesson are expanded by default', function (assert) {
+  assert.expect(4);
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123'
+    }),
+    isEditing: false,
+    isExpanded: true
+  });
+
+  this.on('expandUnit', function () {
+    assert.ok(false, 'this should not be called');
+  });
+
+  this.on('expandLesson', function () {
+    assert.ok(false, 'this should not be called');
+  });
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unit', unit);
+  this.render(hbs`
+    {{content/courses/edit/gru-accordion-unit
+      course=course
+      model=unit
+      selectedLessonId='lesson-123'
+      onExpandUnit=(action 'expandUnit') 
+      onExpandLesson=(action 'expandLesson') 
+      }}
+    `);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
+  assert.ok($container.length, 'Container');
+  assert.ok($container.hasClass('expanded'), 'Container should not be expanded');
+
+  const $lessonContainer = $container.find('.content.courses.gru-accordion.gru-accordion-lesson:eq(0) > .view');
+  assert.ok($lessonContainer.length, 'Container');
+  assert.ok($lessonContainer.hasClass('expanded'), 'Lesson container should be expanded');
+
+});
+
+test('when lesson is expanded, the event is notified', function (assert) {
+  assert.expect(7);
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123'
+    }),
+    isEditing: false,
+    isExpanded: true
+  });
+
+  this.on('expandUnit', function () {
+    assert.ok(false, 'this should not be called');
+  });
+
+  this.on('expandLesson', function (unitId, lessonId, expanded) {
+    assert.ok(expanded, 'Expanded should be true');
+    assert.equal(unitId, '123', 'Wrong unit id');
+    assert.equal(lessonId, 'lesson-123', 'Wrong unit id');
+  });
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unit', unit);
+  this.render(hbs`
+    {{content/courses/edit/gru-accordion-unit
+      course=course
+      model=unit
+      onExpandUnit=(action 'expandUnit') 
+      onExpandLesson=(action 'expandLesson') 
+      }}
+    `);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-unit > .view');
+  assert.ok($container.length, 'Container');
+  assert.ok($container.hasClass('expanded'), 'Container should not be expanded');
+
+  const $lessonContainer = $container.find('.content.courses.gru-accordion.gru-accordion-lesson:eq(0) > .view');
+  assert.ok($lessonContainer.length, 'Container');
+  $lessonContainer.find('.panel-heading > a').click();
+  assert.ok($lessonContainer.hasClass('expanded'), 'Lesson container should be expanded');
+
 });
