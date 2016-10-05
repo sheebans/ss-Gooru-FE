@@ -169,6 +169,7 @@ export default Ember.Controller.extend({
       .then(function(unitPerformances) {
         controller.set('performances', unitPerformances);
       });
+
   })
 
   // -------------------------------------------------------------------------

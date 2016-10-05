@@ -81,7 +81,7 @@ export default Ember.Component.extend({
     var isAssessment = this.get('performance.isAssessment');
     var performanceId = this.get('performance.id');
     var attempts = this.get('performance.attempts');
-
+    console.log(this.get('performance.score'),'performance score in gru-performance-summary');
     if(isAssessment) {
       component.get('assessmentService').readAssessment(performanceId).then(function (performanceData) {
         var attemptsSetting = performanceData.get('attempts');
