@@ -121,7 +121,7 @@ export default Ember.Component.extend(BuilderMixin, {
   scrollHere: function() {
     const $component = Ember.$(this.get("element"));
     Ember.$('html, body').animate({
-      scrollTop: $component.offset().top
+      scrollTop: $component.offset().top - 200
     }, 100);
   },
 
