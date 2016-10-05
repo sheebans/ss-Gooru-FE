@@ -118,6 +118,13 @@ export default Ember.Component.extend(BuilderMixin, {
     }
   },
 
+  scrollHere: function() {
+    const $component = Ember.$(this.get("element"));
+    Ember.$('html, body').animate({
+      scrollTop: $component.offset().top
+    }, 100);
+  },
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -132,6 +139,7 @@ export default Ember.Component.extend(BuilderMixin, {
 
     const expand = (component.get('model.isExpanded') && isEdit && !this.get('isSorting'));
     if (expand) {
+      component.scrollHere();
       component.loadData();
     }
   }

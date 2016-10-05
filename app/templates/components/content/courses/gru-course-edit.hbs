@@ -85,7 +85,10 @@
 <section id="builder">
   {{content.courses.edit.gru-accordion-course
   model=course
-  items=course.children }}
+  items=course.children
+  selectedLessonId=selectedLessonId
+  onLocationChange='setLocation'
+  }}
 </section>
 
 {{content.gru-settings-edit id="settings" action='publishToProfile' model=course}}

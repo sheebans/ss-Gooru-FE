@@ -67,9 +67,10 @@ export default Ember.Component.extend(BuilderMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  onInit: Ember.on("init", function(){
+  onDidInsertElement: Ember.on("didInsertElement", function(){
     const expanded = this.get("model.isExpanded");
     if (expanded) {
+      this.scrollHere();
       this.loadData();
     }
   }),
@@ -148,11 +149,18 @@ export default Ember.Component.extend(BuilderMixin, {
 
         .catch(function (error) {
           var message = component.get('i18n').t('common.errors.unit-not-loaded').string;
-          this.get('notifications').error(message);
+          component.get('notifications').error(message);
           Ember.Logger.error(error);
         });
     } else {
       return Ember.RSVP.resolve(true);
     }
+  },
+
+  scrollHere: function() {
+    const $component = Ember.$(this.get("element"));
+    Ember.$('html, body').animate({
+      scrollTop: $component.offset().top
+    }, 100);
   }
 });

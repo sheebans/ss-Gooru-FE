@@ -350,7 +350,7 @@ test('it renders the lesson correctly, if the lesson has no collections/assessme
 });
 
 test('it expands/collapses the lesson -view mode', function (assert) {
-
+  assert.expect(8);
   const lesson = BuilderItem.create({
     data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
       id: '123'
@@ -364,10 +364,19 @@ test('it expands/collapses the lesson -view mode', function (assert) {
   }));
   this.set('unitId', 'unit-id-123');
   this.set('lesson', lesson);
+  let expectedExpanded = false;
+  this.on('expandLesson', function(id, expanded){ //it should enter 4 times here
+    assert.equal(id, '123', 'Wrong lesson id');
+    assert.equal(expanded, expectedExpanded, 'Wrong expanded value');
+  });
+
+
+
   this.render(hbs`
     {{content/courses/edit/gru-accordion-lesson
       course=course
       unitId=unitId
+      onExpandLesson=(action 'expandLesson')
       model=lesson }}
     `);
 
@@ -375,9 +384,11 @@ test('it expands/collapses the lesson -view mode', function (assert) {
   assert.ok($container.length, 'Container');
   assert.ok($container.hasClass('collapsed'), 'Container collapsed');
 
+  expectedExpanded = true;
   $container.find('> .panel-heading > a').click();
   assert.ok($container.hasClass('expanded'), 'Container expanded after clicking header prefix');
 
+  expectedExpanded = false;
   $container.find('> .panel-heading > a').click();
   assert.ok($container.hasClass('collapsed'), 'Container collapsed after clicking header prefix');
 });
@@ -400,11 +411,16 @@ test('it loads lesson items and renders them after clicking on the lesson name',
   this.set('unitId', 'unit-id-123');
   this.set('lesson', lesson);
   this.set('isLoaded', false);  // Binding to check on the state
+  this.on('expandLesson', function(id, expanded){ //it should enter 4 times here
+    assert.equal(id, '123', 'Wrong lesson id');
+    assert.equal(expanded, true, 'Wrong expanded value');
+  });
   this.render(hbs`
     {{content/courses/edit/gru-accordion-lesson
       course=course
       unitId=unitId
       model=lesson
+      onExpandLesson=(action 'expandLesson')
       isLoaded=isLoaded }}
     `);
 
@@ -471,3 +487,36 @@ test('it offers the ability to reorder the lesson items', function (assert) {
   assert.ok($heading.find('.actions button:eq(1)').hasClass('cancel'), 'Second button is to cancel reordering');
   assert.ok($heading.find('.actions button:eq(2)').hasClass('save'), 'Third button is to save the new order of lessons');
 });
+
+test('The lesson is expanded by default ', function (assert) {
+  const lesson = BuilderItem.create({
+    data: Lesson.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123'
+    }),
+    isEditing: false,
+    isExpanded: true
+  });
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unitId', 'unit-id-123');
+  this.set('lesson', lesson);
+
+  this.on('expandLesson', function(){
+    assert.ok(false, 'Should not be called');
+  });
+
+  this.render(hbs`
+    {{content/courses/edit/gru-accordion-lesson
+      course=course
+      unitId=unitId
+      onExpandLesson='expandLesson'
+      model=lesson }}
+    `);
+
+  const $container = this.$('.content.courses.gru-accordion.gru-accordion-lesson > .view');
+  assert.ok($container.length, 'Container');
+  assert.ok($container.hasClass('expanded'), 'Container should be expanded');
+});
+

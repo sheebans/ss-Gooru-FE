@@ -37,9 +37,12 @@
     isSorting=model.isSorting
     totalItems=items.length
     onCancelAddUnit=(action 'cancelAddUnit')
-    onExpandUnit=(action 'closeAllUnits')
+    onExpandUnit=(action 'expandUnit')
     onDeleteUnit=(action 'removeUnit')
-    onRemixUnit=(action 'remixUnit')}}
+    onRemixUnit=(action 'remixUnit')
+    selectedLessonId=selectedLessonId
+    onExpandLesson=(action 'expandLesson')
+    }}
 
   {{/each}}
 

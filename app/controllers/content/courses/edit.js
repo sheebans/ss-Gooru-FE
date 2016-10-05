@@ -16,8 +16,8 @@ export default Ember.Controller.extend({
      * @param lessonId
      */
     setLocation: function (unitId, lessonId = undefined) {
-      this.set("unitId", unitId);
-      this.set("lesson", lessonId);
+      this.set("unitId", unitId || null);
+      this.set("lessonId", lessonId || null);
     }
   },
   // -------------------------------------------------------------------------
@@ -31,5 +31,12 @@ export default Ember.Controller.extend({
   /**
    * @property {string}
    */
-  lessonId: null
+  lessonId: null,
+
+  // -------------------------------------------------------------------------
+  // Methods
+  resetValues: function(){
+    this.set("unitId", null);
+    this.set("lessonId", null);
+  }
 });
