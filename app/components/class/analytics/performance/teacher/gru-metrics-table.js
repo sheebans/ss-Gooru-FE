@@ -47,6 +47,15 @@ export default Ember.Component.extend({
        */
       navigate:function(headerId){
         this.sendAction('onNavigation', headerId);
+      },
+
+      /**
+       * When the user clicks at the score
+       */
+      clickScore: function (performance, userPerformance) {
+        if (this.get("onClickScore")){
+          this.sendAction("onClickScore", performance, userPerformance);
+        }
       }
     },
   // -------------------------------------------------------------------------
@@ -162,6 +171,12 @@ export default Ember.Component.extend({
    * metric sent by the sort function
    */
   sortByMetric: null,
+
+  /**
+   * Action name when the user clicks at any score box
+   * @property {string}
+   */
+  onClickScore: null,
 
   // -------------------------------------------------------------------------
   // Methods

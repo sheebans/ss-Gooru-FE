@@ -102,6 +102,20 @@ export default Ember.Controller.extend({
   reportData: null,
 
   /**
+   * A link to the parent class controller
+   * @see controllers/class.js
+   * @property {Class}
+   */
+  "class": Ember.computed.reads('classController.class'),
+
+  /**
+   * A link to the parent class controller
+   * @see controllers/class.js
+   * @property {Course}
+   */
+  course: Ember.computed.alias('classController.course'),
+
+  /**
    * Indicates if the filters are visible
    * @property {boolean}
    */

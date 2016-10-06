@@ -126,7 +126,7 @@ export default Ember.Controller.extend({
 
   /**
    * Indicates which is the url to go back when pressing the button
-   * this is usefull when comming from the player out of the context of a class
+   * this is useful when coming from the player out of the context of a class
    * this needs to be improved so it works when refreshing the page
    * @property {string}
    */
@@ -206,6 +206,7 @@ export default Ember.Controller.extend({
     this.set("collectionId", undefined);
     this.set("userId", undefined);
     this.set("role", undefined);
+    this.set("backUrl", undefined);
   }
 
 });

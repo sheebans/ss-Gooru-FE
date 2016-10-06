@@ -430,15 +430,16 @@ test('Metrics Table Header Collection', function(assert) {
   $collectionHeader.click();
 
 });
-test('Metrics Table Header Assessment Click Header', function(assert) {
-  assert.expect(2);
+
+test('Metrics Table actions', function(assert) {
+  assert.expect(4);
 
   const headersMock = Ember.A([Ember.Object.create({
     id: '82168746-a4af-48aa-9975-01f6434cd806',
     title: 'Assessment A1'
   })]);
 
-  const dataPickerOptionsMock= Ember.A(["completion"]);
+  const dataPickerOptionsMock= Ember.A(["completion", "score"]);
 
   const classPerformanceDataMock = Ember.A([
     Ember.Object.create({
@@ -453,14 +454,14 @@ test('Metrics Table Header Assessment Click Header', function(assert) {
       user: 'Jennifer Ajoy',
       performanceData:  Ember.A([
         Ember.Object.create({
-          score : 10,
+          score : 11,
           completionDone: 13,
           completionTotal: 50,
           timeSpent: 3600
         }),
         Ember.Object.create({
           id: '82168746-a4af-48aa-9975-01f6434cd806',
-          score : 10,
+          score : 12,
           completionDone: 13,
           completionTotal: 50,
           timeSpent: 3600
@@ -474,11 +475,19 @@ test('Metrics Table Header Assessment Click Header', function(assert) {
   this.set('selectedOptions', dataPickerOptionsMock);
   this.set('headerType', 'assessment');
 
-  this.on('externalAction', function () {
+  this.on('navigationAction', function () {
     assert.ok(true, "This should be called");
   });
 
-  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix dataPickerOptions=selectedOptions headerType=headerType onNavigation='externalAction'}}`);
+  this.on('clickScore', function (performance, userPerformance) {
+    assert.equal(performance.get("score"), 11, "Wrong score");
+    assert.ok(userPerformance, "Missing userPerformance");
+  });
+
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers 
+      performanceDataMatrix=performanceDataMatrix dataPickerOptions=selectedOptions
+      onClickScore='clickScore'
+      headerType=headerType onNavigation='navigationAction'}}`);
 
   const $component = this.$(); //component dom element
   const $metricsTable = $component.find(".gru-metrics-table");
@@ -487,5 +496,9 @@ test('Metrics Table Header Assessment Click Header', function(assert) {
 
   const $collectionHeader = $metricsTable.find(".table .headers .header:eq(1)");
   $collectionHeader.click();
+  return wait().then(function(){
+    const $scoreBox = $metricsTable.find("tbody  .gru-metrics-performance-information:eq(0) .score");
+    $scoreBox.click();
+  });
 
 });
