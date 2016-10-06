@@ -1,6 +1,6 @@
 <header xmlns="http://www.w3.org/1999/html">
 {{#if allowBack}}
-  {{#link-to 'content.courses.edit' course.id class="back-to"}}
+  {{#link-to 'content.courses.edit' course.id (query-params unitId=collection.unitId lessonId=collection.lessonId) class="back-to"}}
       <div>
         {{gru-icon name="keyboard_arrow_left"}}{{t 'common.course'}}: {{course.title}}
       </div>
