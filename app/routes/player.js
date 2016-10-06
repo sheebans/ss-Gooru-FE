@@ -17,10 +17,6 @@ export default Ember.Route.extend(ModalMixin,{
 
   session: Ember.inject.service("session"),
 
-  /**
-   * @type {ProfileService} Service to retrieve profile information
-   */
-  profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -100,6 +96,11 @@ export default Ember.Route.extend(ModalMixin,{
   collectionService: Ember.inject.service("api-sdk/collection"),
 
   /**
+   * @property {Ember.Service} Service to retrieve a collection
+   */
+  profileService: Ember.inject.service("api-sdk/profile"),
+
+  /**
    * @property {Ember.Service} Service to retrieve an asssessment
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
@@ -138,16 +139,19 @@ export default Ember.Route.extend(ModalMixin,{
       let collection = collectionFound ? hash.collection.value : hash.assessment.value;
 
       const playerCollection = collection.toPlayerCollection();
-
+      console.log(playerCollection,'playerCollection');
       //Find resource owners
       playerCollection.get("resources").map(function(resource){
-        if(resource.owner){
+        console.log(resource,'RESOURCE');
+        /*if(resource.owner){
           return route.get('profileService').readUserProfile(resource.owner).then(function(owner){
             return resource.set('owner',owner);
           });
-        }
+        }*/
       });
       context.set("collectionType", collection.get("collectionType"));
+
+      console.log(collection);
       return route.playerModel(params, context, playerCollection, collection);
     });
   },
