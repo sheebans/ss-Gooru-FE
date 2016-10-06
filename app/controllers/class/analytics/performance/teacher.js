@@ -27,7 +27,6 @@ export default Ember.Controller.extend({
     optionsChange:function(options){
       this.set('selectedOptions', options.map(function(option){
         return option.get("value");
-
       }));
     },
 
@@ -104,7 +103,15 @@ export default Ember.Controller.extend({
    * List of selected options from the data picker.
    * @property {Array}
    */
-  selectedOptions: Ember.A(["score"]),
+  selectedOptions: Ember.computed(function(){
+    let selectedOptions;
+    if(this.get('filterBy') === 'assessment'){
+      selectedOptions = Ember.A(["score"]);
+    }else{
+      selectedOptions = Ember.A(["score", "study-time"]);
+    }
+    return selectedOptions;
+  }),
 
   /**
    * If analytics is fullscreen
@@ -118,20 +125,7 @@ export default Ember.Controller.extend({
    */
   breadcrumb: Ember.A(),
 
-  /**
-   * List of  options specific to teacher to be displayed by the component Data picker
-   *
-   * Only to validate acceptance criteria 6 "The data picker could received which options are selectable by default"
-   *
-   * @constant {Array}
-   */
-  optionsTeacher: Ember.A([]),
 
-  /**
-   * List of  options specific to teacher to be displayed by the component Data picker for mobiles
-   * @constant {Array}
-   */
-  mobileOptionsTeacher: Ember.A([]),
 
   /**
    * Indicates if the filters are visible
@@ -139,6 +133,92 @@ export default Ember.Controller.extend({
    */
   showFilters: Ember.computed.not('collectionLevel'),
 
+  /**
+   * List of  options specific to teacher to be displayed by the component Data picker
+   *
+   * Only to validate acceptance criteria 6 "The data picker could received which options are selectable by default"
+   *
+   * @constant {Array}
+   */
+  optionsTeacher : Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':true,
+      'readOnly':true,
+      'isDisabled':false
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':false
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':false
+    })]),
+
+  /**
+   * List of  options specific to teacher to be displayed by the component Data picker when filter by collection
+   *
+   * @constant {Array}
+   */
+    optionsCollectionsTeacher : Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':true,
+      'readOnly':true,
+      'isDisabled':false
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'isDisabled':true
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':true,
+      'readOnly':false,
+      'isDisabled':false
+    })]),
+
+  /**
+   * List of  options specific to teacher to be displayed by the component Data picker for mobiles
+   * @constant {Array}
+   */
+    mobileOptionsTeacher : Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':true,
+      'readOnly':false,
+      'isDisabled':false
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':false
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':false
+    })]),
+
+  /**
+   * List of  options specific to teacher to be displayed by the component Data picker for mobiles when filter by collection
+   * @constant {Array}
+   */
+  mobileCollectionsOptionsTeacher : Ember.A([Ember.Object.create({
+    'value': 'score',
+    'selected':true,
+    'readOnly':false,
+    'isDisabled':false
+  }),Ember.Object.create({
+    'value': 'completion',
+    'selected':false,
+    'readOnly':false,
+    'isDisabled':true
+  }),Ember.Object.create({
+    'value': 'study-time',
+    'selected':true,
+    'readOnly':false,
+    'isDisabled':false
+  })]),
   // -------------------------------------------------------------------------
   // Observers
 
@@ -179,5 +259,21 @@ export default Ember.Controller.extend({
     this.set('unit', null);
     this.set('lesson', null);
     this.set('collection', null);
-  }
+  },
+
+  restoreSelectedOptions: Ember.observer('filterBy', function() {
+    var component = this;
+    if(component.get('filterBy') === 'assessment'){
+      component.set('selectedOptions', component.get('optionsTeacher').map(function(option){
+        return option.get("value");
+      }));
+    }else{
+      component.set('selectedOptions', component.get('optionsCollectionsTeacher').map(function(option){
+        if(option.value !== 'completion'){
+          return option.get("value");
+        }
+      }));
+    }
+  })
+
 });

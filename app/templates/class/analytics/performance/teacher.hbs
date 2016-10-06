@@ -32,12 +32,22 @@
   {{#if showFilters}}
     <div class="row gru-filters col-xs-12">
       <div class="data-picker hidden-xs">
-        {{class.analytics.performance.gru-data-picker
-        onOptionsChange="optionsChange" options=optionsTeacher max=3}}
+          {{#if (eq filterBy 'assessment')}}
+            {{class.analytics.performance.gru-data-picker
+            onOptionsChange="optionsChange" options=optionsTeacher max=3}}
+          {{else}}
+            {{class.analytics.performance.gru-data-picker
+            onOptionsChange="optionsChange" options=optionsCollectionsTeacher max=3}}
+          {{/if}}
       </div>
       <div class="data-picker visible-xs">
-        {{class.analytics.performance.gru-data-picker
-        onOptionsChange="optionsChange" options=mobileOptionsTeacher max=1 }}
+        {{#if (eq filterBy 'assessment')}}
+          {{class.analytics.performance.gru-data-picker
+          onOptionsChange="optionsChange" options=mobileOptionsTeacher max=1 }}
+        {{else}}
+          {{class.analytics.performance.gru-data-picker
+          onOptionsChange="optionsChange" options=mobileCollectionsOptionsTeacher max=2 }}
+        {{/if}}
       </div>
       <div class="performance-scale">
         <div class="scale-indicator">
