@@ -20,29 +20,33 @@ test('Remove Collection from Lesson', function (assert) {
 
   andThen(function () {
     assert.equal(currentURL(), '/content/courses/edit/course-123');
-    var $unit = find(".content.courses.gru-accordion.gru-accordion-unit .panel-heading a");
-    click($unit);
+    var $unit = find(".content.courses.gru-accordion.gru-accordion-unit:eq(0)");
+    click($unit.find(".panel-heading a")); //expand unit
     andThen(function () {
-      var $itemContainer = find(".controller.content.courses.edit .accordion-lesson");
-      var $removeItemBtn = $itemContainer.find("li:first-child button.remove-item");
-      click($removeItemBtn);
+      var $lesson = $unit.find(".gru-accordion-lesson:eq(0)");
+      click($lesson.find(".panel-heading a")); //expand lesson
       andThen(function () {
-        var $removeContentModal = find(".gru-modal .gru-remove-content");
-        var $check1 = $removeContentModal.find("ul li:eq(0) input");
-        click($check1);
+        var $itemContainer = $lesson.find(".accordion-lesson");
+        var $removeItemBtn = $itemContainer.find("li:first-child button.remove-item");
+        click($removeItemBtn);
         andThen(function () {
-          var $check2 = $removeContentModal.find("ul li:eq(1) input");
-          click($check2);
+          var $removeContentModal = find(".gru-modal .gru-remove-content");
+          var $check1 = $removeContentModal.find("ul li:eq(0) input");
+          click($check1);
           andThen(function () {
-            var $input = $removeContentModal.find(".remove-input");
-            $input.val('remove');
-            $input.blur();
-            keyEvent($input, 'keyup', KEY_CODES.ENTER);
-            var $removeBtn = $removeContentModal.find(".remove button.remove");
+            var $check2 = $removeContentModal.find("ul li:eq(1) input");
+            click($check2);
             andThen(function () {
-              click($removeBtn);
+              var $input = $removeContentModal.find(".remove-input");
+              $input.val('remove');
+              $input.blur();
+              keyEvent($input, 'keyup', KEY_CODES.ENTER);
+              var $removeBtn = $removeContentModal.find(".remove button.remove");
               andThen(function () {
-                assert.equal($itemContainer.find("li").length, 1, "Didn't remove Collection from lesson");
+                click($removeBtn);
+                andThen(function () {
+                  assert.equal($itemContainer.find("li").length, 1, "Didn't remove Collection from lesson");
+                });
               });
             });
           });

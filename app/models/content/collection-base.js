@@ -140,6 +140,16 @@ export default (function() {
     courseId: null,
 
     /**
+     * @property {number} unitId
+     */
+    unitId: null,
+
+    /**
+     * @property {number} lessonId
+     */
+    lessonId: null,
+
+    /**
      * @property {Content/User} owner - The resource owner information
      */
     owner: null,
