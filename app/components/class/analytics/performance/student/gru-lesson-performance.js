@@ -127,6 +127,13 @@ export default Ember.Component.extend({
     return this.isSelected(); //calling the method because the property was not refreshed before events
   }),
 
+  /**
+   * The class content visibility
+   * @property {ClassContentVisibility}
+   */
+  contentVisibility: null,
+
+
   // -------------------------------------------------------------------------
   // Methods
   /**

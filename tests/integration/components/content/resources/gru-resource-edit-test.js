@@ -328,8 +328,12 @@ test('Update Resource Information', function (assert) {
   $titleField.find("input").val(newTitle);
   $titleField.find("input").trigger('blur');
 
-  var $linkOutCheck = $component.find(".link-out .gru-switch .switch a");
-  $linkOutCheck.click();
+  var $linkOutCheck = $component.find(".link-out .gru-switch .switch a input");
+
+  Ember.run(() => {
+    $linkOutCheck.click();
+  });
+
   return wait().then(function () {
     const $save =  $component.find("#information .actions .save");
     $save.click();

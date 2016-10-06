@@ -232,6 +232,66 @@ test('readClassInfo', function(assert) {
       done();
     });
 });
+test('readClassContentVisibility', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('classAdapter', Ember.Object.create({
+    readClassContentVisibility: function(classId) {
+      assert.equal(classId, 'class-id', 'Wrong class id');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('classSerializer', Ember.Object.create({
+    normalizeReadClassContentVisibility: function(profilePayload) {
+      assert.deepEqual({}, profilePayload, 'Wrong class payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.readClassContentVisibility('class-id')
+    .then(function() {
+      done();
+    });
+});
+test('updateContentVisibility', function(assert) {
+  const service = this.subject();
+  let classId = 'class-id';
+
+  let contentId = "59f7b7df-cef2-4f09-8012-1e58cb27b95a";
+  let visibility = true;
+  let type = 'assessments';
+
+  assert.expect(5);
+
+  service.set('classSerializer', Ember.Object.create({
+    serializeUpdateContentVisibility: function(contentId,visibility,type) {
+      assert.deepEqual('59f7b7df-cef2-4f09-8012-1e58cb27b95a', contentId, 'Wrong content id');
+      assert.deepEqual(true, visibility, 'Wrong visibility');
+      assert.deepEqual('assessments', type, 'Wrong visibility');
+      return  { "assessments":[{id:contentId, visible: visibility ? 'on' : 'off'}]};
+    }
+  }));
+
+  service.set('classAdapter', Ember.Object.create({
+    updateContentVisibility: function(classId,content) {
+      assert.deepEqual(content.assessments, [{
+        "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
+        "visible": "on"
+      }], 'Wrong content object');
+      assert.equal(classId, 'class-id', 'Wrong class id');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  var done = assert.async();
+  service.updateContentVisibility(classId,contentId,visibility,type)
+    .then(function() {
+      done();
+    });
+});
 
 test('readClassMembers', function(assert) {
   const service = this.subject();

@@ -43,6 +43,12 @@ export default Ember.Controller.extend({
      */
     updateLocation: function(newLocation) {
       this.set('location', newLocation ? newLocation : null);
+    },
+    /**
+     * Trigger action to update content visibility list
+     */
+    updateContentVisibility:function(contentId, visible){
+      this.send('updateContentVisible',contentId, visible);
     }
   },
 
@@ -71,6 +77,13 @@ export default Ember.Controller.extend({
    * @property {Class}
    */
   "class": Ember.computed.alias('classController.class'),
+
+  /**
+   * A link to the content visibility from class controller
+   * @see controllers/class.js
+   * @property {Class}
+   */
+  contentVisibility: Ember.computed.alias('classController.contentVisibility'),
 
   openingLocation: Ember.computed('location', function() {
     if (this.get('isFirstLoad')) {

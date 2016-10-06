@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ResourceModel from 'gooru-web/models/content/resource';
 import QuestionModel from 'gooru-web/models/content/question';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import {DEFAULT_SEARCH_PAGE_SIZE} from 'gooru-web/config/config';
 
 /**
  * Adapter to support the Search for Collections, Assessments, Resources and Questions
@@ -27,7 +27,7 @@ export default Ember.Object.extend({
     const url = `${namespace}/scollection`;
 
     const page = params.page || 0;
-    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
+    const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -62,7 +62,7 @@ export default Ember.Object.extend({
     const url = `${namespace}/scollection`;
 
     const page = params.page || 0;
-    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
+    const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -95,7 +95,7 @@ export default Ember.Object.extend({
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
     const page = params.page || 0;
-    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
+    const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     let options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -142,7 +142,7 @@ export default Ember.Object.extend({
     const url = `${namespace}/resource`;
 
     const page = params.page || 0;
-    const pageSize = params.pageSize || DEFAULT_PAGE_SIZE;
+    const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     let options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',

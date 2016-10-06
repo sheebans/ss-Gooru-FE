@@ -23,7 +23,7 @@ export default Ember.Route.extend({
     selectBreadcrumbItem: function(item){
       const type = item.get('value').type;
       const itemId = item.get('value').id;
-      const breadcrumbLink = 'class.analytics.performance.teacher.' + type;
+      const breadcrumbLink = `class.analytics.performance.teacher.${type}`;
 
       if (type === 'course') {
         this.transitionTo(breadcrumbLink);

@@ -1118,7 +1118,9 @@ test('Builder Edit with advanced edit button for the Multiple Choice answers', f
     assert.ok($richEditorComponent.length, "Missing gru-rich-text-editor component");
     assert.ok($richEditorComponent.find('.btn-toolbar').hasClass("hidden"), "btn-toolbar should be hidden for the answers editors");
 
-    $switchComponent.find("a").click();
+    Ember.run(() => {
+      $switchComponent.find("a input").click();
+    });
 
     return wait().then(function () {
       assert.ok(!$richEditorComponent.find('.btn-toolbar').hasClass("hidden"), "btn-toolbar should not be hidden for the answers editors");
