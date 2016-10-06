@@ -79,6 +79,7 @@ export default Ember.Component.extend({
   didInsertElement:function(){
     var component = this;
     var isAssessment = this.get('performance.isAssessment');
+    var isExternalAssessment = this.get('performance.isExternalAssessment');
     var performanceId = this.get('performance.id');
     var attempts = this.get('performance.attempts');
 
@@ -88,10 +89,12 @@ export default Ember.Component.extend({
         if(attemptsSetting){
           component.set('noMoreAttempts', isAssessment && attemptsSetting > 0 && attempts && attempts >= attemptsSetting);
         }
-        const contentVisibility = component.get("contentVisibility");
-        const isVisible = contentVisibility && contentVisibility.isVisible(performanceId);
-        component.set('isDisabled', !isVisible);
       });
+    }
+    if(isAssessment || isExternalAssessment ){
+      const contentVisibility = component.get("contentVisibility");
+      const isVisible = contentVisibility && contentVisibility.isVisible(performanceId);
+      component.set('isDisabled', !isVisible);
     }
   },
 

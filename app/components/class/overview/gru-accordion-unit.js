@@ -105,6 +105,12 @@ export default Ember.Component.extend(AccordionMixin, {
     updateLesson: function (lessonId) {
       const newLocation = lessonId ? `${this.get('model.id')}+${lessonId}` : this.get('model.id');
       this.get('onLocationUpdate')(newLocation);
+    },
+    /**
+     * Trigger action to update content visibility list
+     */
+    updateContentVisibility:function(contentId, visible){
+      this.sendAction('onUpdateContentVisibility',contentId, visible);
     }
   },
 
