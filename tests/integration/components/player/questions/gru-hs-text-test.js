@@ -38,6 +38,7 @@ test('Layout', function (assert) {
   const $answersContainer = $component.find('.answer-choices');
 
   assert.ok($component.find(".instructions"), "Missing instructions");
+  assert.equal($component.find(".instructions").text().trim(), `Please select the correct answer(s), and click "Save".`, "Instructions do not have the right text");
   assert.equal($answersContainer.find("li.answer").length, 4, "Incorrect number of answer choices");
 
   assert.equal($answersContainer.find("li.answer:first-child").data('id'), 1, "First answer choice, data-id value is incorrect");
@@ -215,7 +216,7 @@ test('Layout - with user answer', function (assert) {
   this.set('question', question);
   this.set('userAnswer', [1,3]);
 
-  this.render(hbs`{{player/questions/gru-hs-text question=question 
+  this.render(hbs`{{player/questions/gru-hs-text question=question
                     userAnswer=userAnswer
                     onAnswerChanged="changeAnswer"
                     onAnswerLoaded="loadAnswer"}}`);
