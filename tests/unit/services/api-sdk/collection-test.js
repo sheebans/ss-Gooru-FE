@@ -40,7 +40,9 @@ test('createCollection', function(assert) {
 test('readCollection', function(assert) {
   const service = this.subject();
   const expectedCollectionId = 'collection-id';
-  assert.expect(2);
+  const expectedProfileId = 'profile-id';
+
+  assert.expect(4);
 
   service.set('collectionAdapter', Ember.Object.create({
     readCollection: function(collectionId) {
@@ -55,7 +57,12 @@ test('readCollection', function(assert) {
       return {};
     }
   }));
-
+  service.set('profileService', Ember.Object.create({
+    readUserProfile: function(profileId) {
+      assert.deepEqual(profileId, { id: expectedProfileId }, `Wrong Profile id's`);
+      return {};
+    }
+  }));
   var done = assert.async();
   service.readCollection(expectedCollectionId).then(function() { done(); });
 });
