@@ -139,19 +139,17 @@ export default Ember.Route.extend(ModalMixin,{
       let collection = collectionFound ? hash.collection.value : hash.assessment.value;
 
       const playerCollection = collection.toPlayerCollection();
-      console.log(playerCollection,'playerCollection');
+
       //Find resource owners
       playerCollection.get("resources").map(function(resource){
-        console.log(resource,'RESOURCE');
-        /*if(resource.owner){
+        if(resource.owner){
           return route.get('profileService').readUserProfile(resource.owner).then(function(owner){
             return resource.set('owner',owner);
           });
-        }*/
+        }
       });
       context.set("collectionType", collection.get("collectionType"));
 
-      console.log(collection);
       return route.playerModel(params, context, playerCollection, collection);
     });
   },
