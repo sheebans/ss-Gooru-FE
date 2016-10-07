@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import ResourceModel from 'gooru-web/models/content/resource';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
-import { addProtocolIfNecessary } from 'gooru-web/utils/utils';
 
 /**
  * Serializer to support the Resource CRUD operations for API 3.0
@@ -100,11 +99,6 @@ export default Ember.Object.extend({
       if (!isFullPath){ // if it is a relative url, load from content cdn
         const url = resourceData.url ? basePath + resourceData.url : null;
         resource.set("url", url);
-      }
-      else {
-        if (resource.get("isPDFResource")) {
-          resource.set("url", addProtocolIfNecessary(resourceData.url));
-        }
       }
     }
 

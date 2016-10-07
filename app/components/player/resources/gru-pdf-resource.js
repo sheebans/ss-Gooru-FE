@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { addProtocolIfNecessary } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -31,13 +32,15 @@ export default Ember.Component.extend({
   pdfURL:Ember.computed('resource.assetUrl',function(){
 
     const configuration = this.get('configurationService.configuration');
+    const assetUrl = addProtocolIfNecessary(this.get("resource.assetUrl"));
+
 
     if(configuration.get("player.resources.pdf.googleDriveEnable"))
     {
-      return configuration.get("player.resources.pdf.googleDriveUrl") + this.get("resource.assetUrl") + '&embedded=true';
+      return configuration.get("player.resources.pdf.googleDriveUrl") + assetUrl + '&embedded=true';
     }
     else {
-      return this.get("resource.assetUrl");
+      return assetUrl;
     }
   }),
 
