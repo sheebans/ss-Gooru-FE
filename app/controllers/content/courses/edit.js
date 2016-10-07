@@ -8,8 +8,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  // -------------------------------------------------------------------------
-  // Actions
   actions: {
 
     /**
@@ -22,24 +20,8 @@ export default Ember.Controller.extend({
       this.set("lessonId", lessonId || null);
     }
   },
-
   // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * @property {Profile[]} remixedUsers
-   */
-  remixedUsers: null,
-
-  /**
-   * @property {Profile[]} createdUsers
-   */
-  createdUsers: null,
-
-  /**
-   * @property {boolean}
-   */
-  isOwner: null,
 
   /**
    * @property  {string}
@@ -51,14 +33,10 @@ export default Ember.Controller.extend({
    */
   lessonId: null,
 
-
   // -------------------------------------------------------------------------
   // Methods
   resetValues: function(){
     this.set("unitId", null);
     this.set("lessonId", null);
   }
-
-
-
 });

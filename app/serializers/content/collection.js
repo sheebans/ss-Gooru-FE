@@ -91,6 +91,8 @@ export default Ember.Object.extend({
       thumbnailUrl: thumbnailUrl,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy),
       courseId: payload.course_id,
+      unitId: payload.unit_id,
+      lessonId: payload.lesson_id,
       creatorId: payload.creator_id,
       ownerId: payload.owner_id
       // TODO Add more required properties here...

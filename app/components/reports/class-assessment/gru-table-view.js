@@ -216,6 +216,8 @@ export default Ember.Component.extend({
       }
 
       for (let j = 0; j < questionsIdsLen; j++) {
+        const labelPrefix = this.get('i18n').t('reports.gru-table-view.first-tier-header-prefix').string;
+
         if (questionsIds[j] === -1) {
           // Save this position to fill it in last (cells with propertyValues)
           totalIndex = j;
@@ -225,8 +227,15 @@ export default Ember.Component.extend({
           let renderFunction = questionProperties[k].renderFunction;
           let questionResult = reportData[studentsIds[i]][questionsIds[j]];
           let value = questionResult[questionPropertiesIds[k]];
+          let label;
+
+          //label used for the score tooltip
+          if (k===0) {
+            label= labelPrefix + j;
+          }
 
           data[i].content[j * questionPropertiesIdsLen + k] = {
+            label: label,
             value: value,
             output: (!renderFunction) ? value : renderFunction(value)
           };

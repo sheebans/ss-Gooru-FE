@@ -39,13 +39,17 @@
     }
 
     &.num-left {
-      height: $profile-image-height;
-      width: $profile-image-width;
-      border-radius: 50%;
-      text-align: center;
-      line-height: $profile-image-height - 2px;
-      background-color: $item-background;
-      color:$white;
+      color:$item-background;
+
+      @media (min-width: $screen-sm) {
+        height: $profile-image-height;
+        width: $profile-image-width;
+        border-radius: 50%;
+        text-align: center;
+        line-height: $profile-image-height - 2px;
+        background-color: $item-background;
+        color:$white;
+      }
     }
 
     &.active {

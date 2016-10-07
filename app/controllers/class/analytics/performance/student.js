@@ -153,6 +153,13 @@ export default Ember.Controller.extend({
    */
   currentlyLoading: null,
 
+  /**
+   * The class content visibility
+   * @property {ClassContentVisibility}
+   */
+  contentVisibility: Ember.computed.alias('classController.contentVisibility'),
+
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -169,6 +176,7 @@ export default Ember.Controller.extend({
       .then(function(unitPerformances) {
         controller.set('performances', unitPerformances);
       });
+
   })
 
   // -------------------------------------------------------------------------

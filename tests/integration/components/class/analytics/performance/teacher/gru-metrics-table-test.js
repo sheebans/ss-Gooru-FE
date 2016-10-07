@@ -12,7 +12,7 @@ moduleForComponent('/class/analytics/performance/teacher/gru-metrics-table', 'In
 });
 
 test('Metrics Table Layout', function(assert) {
-  assert.expect(10);
+  assert.expect(11);
 
   const headersMock = Ember.A([Ember.Object.create({
     id: '82168746-a4af-48aa-9975-01f6434cd806',
@@ -80,6 +80,9 @@ test('Metrics Table Layout', function(assert) {
   const $metricsTable = $component.find(".gru-metrics-table");
 
   T.exists(assert, $metricsTable, 'Missing teacher metrics table');
+
+  const $tableWrapper = $metricsTable.find(".metrics-table-wrapper");
+  T.exists(assert, $tableWrapper, 'Missing table wrapper');
 
   const $table = $metricsTable.find(".table");
   T.exists(assert, $table, 'Missing table');
@@ -366,5 +369,123 @@ test('Sort by Completion Metric', function(assert) {
     });
 
   });
+
+});
+test('Metrics Table Header Collection', function(assert) {
+
+  const headersMock = Ember.A([Ember.Object.create({
+    id: '82168746-a4af-48aa-9975-01f6434cd806',
+    title: 'Collection C1',
+    collectionType:'collection'
+  })]);
+
+  const dataPickerOptionsMock= Ember.A(["completion"]);
+
+  const classPerformanceDataMock = Ember.A([
+    Ember.Object.create({
+      performanceData: Ember.Object.create({
+        score : 10,
+        completionDone: 13,
+        completionTotal: 50,
+        timeSpent: 3600
+      })
+    }),
+    Ember.Object.create({
+      user: 'Jennifer Ajoy',
+      performanceData:  Ember.A([
+        Ember.Object.create({
+          score : 10,
+          completionDone: 13,
+          completionTotal: 50,
+          timeSpent: 3600
+        }),
+        Ember.Object.create({
+          id: '82168746-a4af-48aa-9975-01f6434cd806',
+          score : 10,
+          completionDone: 13,
+          completionTotal: 50,
+          timeSpent: 3600
+        })
+      ])
+    })
+  ]);
+
+  this.set('headers', headersMock);
+  this.set('performanceDataMatrix', classPerformanceDataMock);
+  this.set('selectedOptions', dataPickerOptionsMock);
+  this.set('headerType', 'collection');
+
+  this.on('externalAction', function () {
+    assert.ok(false, "This should not be called");
+  });
+
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix dataPickerOptions=selectedOptions headerType=headerType onNavigation='externalAction'}}`);
+
+  const $component = this.$(); //component dom element
+  const $metricsTable = $component.find(".gru-metrics-table");
+
+  T.exists(assert, $metricsTable, 'Missing teacher metrics table');
+
+  const $collectionHeader = $metricsTable.find(".table .headers .header:eq(1)");
+  $collectionHeader.click();
+
+});
+test('Metrics Table Header Assessment Click Header', function(assert) {
+  assert.expect(2);
+
+  const headersMock = Ember.A([Ember.Object.create({
+    id: '82168746-a4af-48aa-9975-01f6434cd806',
+    title: 'Assessment A1'
+  })]);
+
+  const dataPickerOptionsMock= Ember.A(["completion"]);
+
+  const classPerformanceDataMock = Ember.A([
+    Ember.Object.create({
+      performanceData: Ember.Object.create({
+        score : 10,
+        completionDone: 13,
+        completionTotal: 50,
+        timeSpent: 3600
+      })
+    }),
+    Ember.Object.create({
+      user: 'Jennifer Ajoy',
+      performanceData:  Ember.A([
+        Ember.Object.create({
+          score : 10,
+          completionDone: 13,
+          completionTotal: 50,
+          timeSpent: 3600
+        }),
+        Ember.Object.create({
+          id: '82168746-a4af-48aa-9975-01f6434cd806',
+          score : 10,
+          completionDone: 13,
+          completionTotal: 50,
+          timeSpent: 3600
+        })
+      ])
+    })
+  ]);
+
+  this.set('headers', headersMock);
+  this.set('performanceDataMatrix', classPerformanceDataMock);
+  this.set('selectedOptions', dataPickerOptionsMock);
+  this.set('headerType', 'assessment');
+
+  this.on('externalAction', function () {
+    assert.ok(true, "This should be called");
+  });
+
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-table headers=headers performanceDataMatrix=performanceDataMatrix dataPickerOptions=selectedOptions headerType=headerType onNavigation='externalAction'}}`);
+
+  const $component = this.$(); //component dom element
+  const $metricsTable = $component.find(".gru-metrics-table");
+
+  T.exists(assert, $metricsTable, 'Missing teacher metrics table');
+
+  const $collectionHeader = $metricsTable.find(".table .headers .header:eq(1)");
+  $collectionHeader.click();
 
 });

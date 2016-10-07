@@ -80,6 +80,12 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     updateLocation: function (newLocation) {
       this.get('onLocationUpdate')(newLocation);
+    },
+    /**
+     * Trigger action to update content visibility list
+     */
+    updateContentVisibility:function(contentId, visible){
+      this.sendAction('onUpdateContentVisibility', contentId, visible);
     }
   },
 
