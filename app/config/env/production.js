@@ -16,5 +16,14 @@ export default {
 
   "teams": {
     "url": "http://teams.gooru.org"
+  },
+
+  "player": {
+    "resources":{
+      "pdf": {
+        "googleDriveEnable": true,
+        "googleDriveUrl":"https://docs.google.com/gview?url="
+      }
+    }
   }
 };
