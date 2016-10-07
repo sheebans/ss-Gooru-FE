@@ -116,6 +116,25 @@ test('normalizeReadResource for url resource with no full path', function(assert
 
 });
 
+test('normalizeReadResource for pdf resource with relative path without protocol', function(assert) {
+  const serializer = this.subject();
+
+  const resourceData = {
+    url: '//dev-content-gooru-org.s3-us-west-1.amazonaws.com/any.pdf',
+    content_format: 'resource',
+    content_subformat: 'text_resource',
+    description: 'any desc',
+    publish_status: 'published',
+    taxonomy: {},
+    visible_on_profile: true,
+    sequence_id: 3,
+    creator_id: 'anyID'
+  };
+
+  const resource = serializer.normalizeReadResource(resourceData);
+  assert.equal(resource.get("url"), "http://dev-content-gooru-org.s3-us-west-1.amazonaws.com/any.pdf", 'Wrong url');
+});
+
 //TODO
 
 //test('normalizeReadResource for url broken/frame_breaker', function(assert) {

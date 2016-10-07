@@ -385,3 +385,17 @@ export function removeHtmlTags(text){
 
   return newText;
 }
+
+/**
+ * Returns resource name with a protocol if it is necessary
+ * @param {String} url
+ */
+export function addProtocolIfNecessary(url) {
+  const pattern = /^((http|https|ftp):\/\/)/;
+
+  if(!pattern.test(url)) { //if no protocol add http as default
+    return "http:" + url;
+  }
+
+  return url;
+}

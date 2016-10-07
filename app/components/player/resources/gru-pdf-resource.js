@@ -4,6 +4,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @property {Ember.Service} Service to configuration properties
+   */
+  configurationService: Ember.inject.service('configuration'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -25,7 +29,16 @@ export default Ember.Component.extend({
   resource: null,
 
   pdfURL:Ember.computed('resource.assetUrl',function(){
-    return this.get("resource.assetUrl");
+
+    const configuration = this.get('configurationService.configuration');
+
+    if(configuration.get("player.resources.pdf.googleDriveEnable"))
+    {
+      return configuration.get("player.resources.pdf.googleDriveUrl") + this.get("resource.assetUrl") + '&embedded=true';
+    }
+    else {
+      return this.get("resource.assetUrl");
+    }
   }),
 
   /**
