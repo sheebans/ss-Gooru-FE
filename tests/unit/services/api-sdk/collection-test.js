@@ -47,20 +47,21 @@ test('readCollection', function(assert) {
   service.set('collectionAdapter', Ember.Object.create({
     readCollection: function(collectionId) {
       assert.equal(collectionId, expectedCollectionId, 'Wrong Collection id');
-      return Ember.RSVP.resolve({ id: collectionId });
+
+      return Ember.RSVP.resolve({ id: collectionId, ownerId: expectedProfileId, creatorId:expectedProfileId});
     }
   }));
 
   service.set('collectionSerializer', Ember.Object.create({
     normalizeReadCollection: function(collectionData) {
-      assert.deepEqual(collectionData, { id: expectedCollectionId }, 'Wrong Collection data');
-      return {};
+      assert.deepEqual(collectionData, { id: expectedCollectionId, ownerId: expectedProfileId, creatorId:expectedProfileId }, 'Wrong Collection data');
+      return Ember.Object.create(collectionData);
     }
   }));
   service.set('profileService', Ember.Object.create({
     readUserProfile: function(profileId) {
-      assert.deepEqual(profileId, { id: expectedProfileId }, `Wrong Profile id's`);
-      return {};
+      assert.equal(profileId, expectedProfileId, `Wrong Profile id`);
+      return Ember.RSVP.resolve(Ember.Object.create({id:expectedProfileId}));
     }
   }));
   var done = assert.async();
