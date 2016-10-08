@@ -108,7 +108,7 @@ export default Ember.Controller.extend({
     if(this.get('filterBy') === 'assessment'){
       selectedOptions = Ember.A(["score"]);
     }else{
-      selectedOptions = Ember.A(["score", "study-time"]);
+      selectedOptions = Ember.A(["study-time"]);
     }
     return selectedOptions;
   }),
@@ -164,18 +164,19 @@ export default Ember.Controller.extend({
    */
     optionsCollectionsTeacher : Ember.A([Ember.Object.create({
       'value': 'score',
-      'selected':true,
-      'readOnly':true,
-      'isDisabled':false
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':true
     }),Ember.Object.create({
       'value': 'completion',
       'selected':false,
+      'readOnly':false,
       'isDisabled':true
     }),Ember.Object.create({
       'value': 'study-time',
       'selected':true,
       'readOnly':false,
-      'isDisabled':false
+      'isDisabled':true
     })]),
 
   /**
@@ -199,26 +200,6 @@ export default Ember.Controller.extend({
       'isDisabled':false
     })]),
 
-  /**
-   * List of  options specific to teacher to be displayed by the component Data picker for mobiles when filter by collection
-   * @constant {Array}
-   */
-  mobileCollectionsOptionsTeacher : Ember.A([Ember.Object.create({
-    'value': 'score',
-    'selected':true,
-    'readOnly':false,
-    'isDisabled':false
-  }),Ember.Object.create({
-    'value': 'completion',
-    'selected':false,
-    'readOnly':false,
-    'isDisabled':true
-  }),Ember.Object.create({
-    'value': 'study-time',
-    'selected':true,
-    'readOnly':false,
-    'isDisabled':false
-  })]),
   // -------------------------------------------------------------------------
   // Observers
 
@@ -264,16 +245,16 @@ export default Ember.Controller.extend({
   restoreSelectedOptions: Ember.observer('filterBy', function() {
     var component = this;
     if(component.get('filterBy') === 'assessment'){
-      component.set('selectedOptions', component.get('optionsTeacher').map(function(option){
-        return option.get("value");
+      let options = component.get('optionsTeacher').filterBy('selected',true);
+      component.set('selectedOptions', options.map(function(option){
+          return option.get("value");
       }));
     }else{
-      component.set('selectedOptions', component.get('optionsCollectionsTeacher').map(function(option){
-        if(option.value !== 'completion'){
+      let options = component.get('optionsCollectionsTeacher').filterBy('selected',true);
+      component.set('selectedOptions', options.map(function(option){
           return option.get("value");
-        }
       }));
     }
-  })
+  }),
 
 });
