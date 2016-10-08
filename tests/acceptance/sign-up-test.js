@@ -275,6 +275,48 @@ test('it shows an error message if the username has reserved words', function (a
     });
   });
 });
+
+test('it finishes the sign up correctly', function (assert) {
+  visit('/sign-up');
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-up');
+
+    const $signUpContainer = find(".sign-up");
+    const $usernameField = $signUpContainer.find(".gru-input.username");
+    const $firstNameField = $signUpContainer.find(".gru-input.firstName");
+    const $lastNameField = $signUpContainer.find(".gru-input.lastName");
+    const $emailField = $signUpContainer.find(".gru-input.email");
+    const $passwordField = $signUpContainer.find(".gru-input.password");
+    const $confirmPasswordField = $signUpContainer.find(".gru-input.rePassword");
+    // Invalid format
+    $usernameField.find("input").val('anyusername');
+    $firstNameField.find("input").val('javier');
+    $lastNameField.find("input").val('perez');
+    $emailField.find("input").val('anyusername@gooru.org');
+    $passwordField.find("input").val('test1234');
+    $confirmPasswordField.find("input").val('test1234');
+    var $birthMonthsField = $signUpContainer.find("select#months.selectpicker.months");
+    var $birthDaysField = $signUpContainer.find("select#days.selectpicker.days");
+    var $birthYearsField = $signUpContainer.find("select#years.selectpicker.years");
+
+    //Filling inputs
+    $birthMonthsField.val('09');
+    $birthDaysField.val('11');
+    $birthYearsField.val('1980');
+
+    // Try submitting without filling in data
+    click($signUpContainer.find("button.submit-sign-up"));
+
+    andThen(function () {
+      assert.equal(currentURL(), '/sign-up-finish');
+      visit("/home");
+      andThen(function () {
+        assert.equal(currentURL(), '/home');
+      });
+    });
+  });
+});
+
 //TODO
 
 //test('it shows a child-layout when user is under 13 years old', function (assert) {
