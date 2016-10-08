@@ -276,7 +276,7 @@ test('it shows an error message if the username has reserved words', function (a
   });
 });
 
-test('it finishes the sign up correctly', function (assert) {
+test('it finishes the sign up correctly and can navigate to home without issues', function (assert) {
   visit('/sign-up');
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
