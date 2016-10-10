@@ -62,6 +62,12 @@ export default Ember.Controller.extend({
   filterBy: Ember.computed.alias('teacherController.filterBy'),
 
   /**
+   * Indicates if the filters are visible
+   * @property {boolean}
+   */
+  showFilters: Ember.computed.alias('teacherController.showFilters'),
+
+  /**
    * List of selected options from the data picker.
    * @property {Array}
    */
@@ -72,6 +78,11 @@ export default Ember.Controller.extend({
    * @property {Array}
    */
   optionsCollectionsTeacher: Ember.computed.alias('teacherController.optionsCollectionsTeacher'),
+  /**
+   * List of selected options from the data picker for mobile.
+   * @property {Array}
+   */
+  mobileOptionsCollectionsTeacher: Ember.computed.alias('teacherController.mobileOptionsCollectionsTeacher'),
 
   /**
    * @property {Unit} unit

@@ -73,6 +73,9 @@ export default Ember.Route.extend({
     //updating the collectionLevel to show or not the launch anonymous button
     controller.set("teacherController.collectionLevel", false);
 
+    //updating the lessonLevel to show or not filters
+    controller.set("teacherController.lessonLevel", false);
+
     this.setupDataPickerOptions(controller);
   },
   /**
@@ -98,6 +101,23 @@ export default Ember.Route.extend({
         'readOnly':false,
         'isDisabled':true
       })]));
+      controller.set('mobileOptionsCollectionsTeacher', Ember.A([Ember.Object.create({
+        'value': 'score',
+        'selected':false,
+        'readOnly':false,
+        'isDisabled':true
+      }),Ember.Object.create({
+        'value': 'completion',
+        'selected':false,
+        'readOnly':false,
+        'isDisabled':true
+      }),Ember.Object.create({
+        'value': 'study-time',
+        'selected':true,
+        'readOnly':false,
+        'isDisabled':true
+      })]));
+      controller.set("showFilters", false);
     }
   }
 

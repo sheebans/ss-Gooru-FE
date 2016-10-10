@@ -94,6 +94,11 @@ export default Ember.Controller.extend({
   collectionLevel: false,
 
   /**
+   * @property {Boolean} lessonLevel - shows if the lesson level.
+   */
+  lessonLevel: false,
+
+  /**
    * The filterBy selected
    * @property {String}
    */
@@ -178,6 +183,27 @@ export default Ember.Controller.extend({
       'readOnly':false,
       'isDisabled':true
     })]),
+  /**
+   * List of  options specific to teacher to be displayed by the component Data picker when filter by collection
+   *
+   * @constant {Array}
+   */
+  mobileOptionsCollectionsTeacher : Ember.A([Ember.Object.create({
+    'value': 'score',
+    'selected':false,
+    'readOnly':false,
+    'isDisabled':true
+  }),Ember.Object.create({
+    'value': 'completion',
+    'selected':false,
+    'readOnly':false,
+    'isDisabled':true
+  }),Ember.Object.create({
+    'value': 'study-time',
+    'selected':true,
+    'readOnly':false,
+    'isDisabled':true
+  })]),
 
   /**
    * List of  options specific to teacher to be displayed by the component Data picker for mobiles
@@ -199,9 +225,6 @@ export default Ember.Controller.extend({
       'readOnly':false,
       'isDisabled':false
     })]),
-
-  // -------------------------------------------------------------------------
-  // Observers
 
   // -------------------------------------------------------------------------
   // Methods
@@ -241,20 +264,27 @@ export default Ember.Controller.extend({
     this.set('lesson', null);
     this.set('collection', null);
   },
-
+  // -------------------------------------------------------------------------
+  // Observers
   restoreSelectedOptions: Ember.observer('filterBy', function() {
     var component = this;
     if(component.get('filterBy') === 'assessment'){
+      component.set('showFilters',true);
       let options = component.get('optionsTeacher').filterBy('selected',true);
       component.set('selectedOptions', options.map(function(option){
           return option.get("value");
       }));
     }else{
+      if(this.get('lessonLevel')){
+        component.set('showFilters',true);
+      }else{
+        component.set('showFilters',false);
+      }
       let options = component.get('optionsCollectionsTeacher').filterBy('selected',true);
       component.set('selectedOptions', options.map(function(option){
           return option.get("value");
       }));
     }
-  }),
+  })
 
 });

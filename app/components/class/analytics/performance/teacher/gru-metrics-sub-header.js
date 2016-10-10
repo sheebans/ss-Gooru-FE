@@ -78,7 +78,7 @@ export default Ember.Component.extend({
 
     var metrics = this.get("metrics");
 
-    metrics.forEach(function(metric, index) {
+    metrics.forEach(function(metric) {
         metric.set('visible', false);
     });
 
