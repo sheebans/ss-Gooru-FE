@@ -63,14 +63,6 @@ export default Ember.Service.extend({
   readCollection: function(collectionId){
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      return Ember.RSVP.hashSettled({
-        collection: service.get('collectionAdapter').readCollection(collectionId),
-        owner: service.get('profileService').readUserProfile(collection.get('ownerId'))
-      }).then(function(hash) {
-        const collection = hash.collection.value;
-        collection.set('owner',hash.owner.value);
-        resolve(collection);
-
       service.get('collectionAdapter').readCollection(collectionId)
         .then(function(responseData) {
           let collection = service.get('collectionSerializer').normalizeReadCollection(responseData);
