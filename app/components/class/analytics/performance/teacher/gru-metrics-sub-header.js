@@ -78,8 +78,10 @@ export default Ember.Component.extend({
 
     var metrics = this.get("metrics");
 
-    metrics.forEach(function(metric) {
+    metrics.forEach(function(metric,index) {
+      if(index > 0){
         metric.set('visible', false);
+      }
     });
 
     dataPickerOptions.forEach(function(option) {
