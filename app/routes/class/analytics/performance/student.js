@@ -47,7 +47,12 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set('performances', model.unitPerformances);
+    const contentVisibility = controller.get("contentVisibility");
+    const performances = model.unitPerformances || [];
+    performances.forEach(function(performance){ //overriding totals from core
+      performance.set("completionTotal", contentVisibility.getTotalAssessmentsByUnit(performance.get("realId")));
+    });
+    controller.set('performances', performances);
     controller.set('userId', model.userId);
     controller.set('classModel', model.classModel);
     controller.set('units', model.units);

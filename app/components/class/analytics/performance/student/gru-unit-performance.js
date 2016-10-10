@@ -207,12 +207,15 @@ export default Ember.Component.extend({
   loadData: function(classId, courseId, unitId, userId) {
     const component = this;
     const filterBy = component.get('selectedFilterBy');
+    const contentVisibility = component.get("contentVisibility");
     return component.get('unitService').fetchById(courseId, unitId)
       .then(function(unit) {
         const lessons = unit.get('children');
         return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons, {collectionType: filterBy})
           .then(function(lessonPerformances) {
             const promises = lessonPerformances.map(function(lessonPerformance) {
+              //overriding totals from core
+              lessonPerformance.set("completionTotal", contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lessonId));
               //TODO this should be loaded at the gru-lesson-performance only when the lesson is expanded
               const lessonId = lessonPerformance.get('id');
               return component.get('lessonService').fetchById(courseId, unitId, lessonId)
