@@ -17,7 +17,7 @@ test('Class Performance Actions Bar with student mode', function(assert) {
   });
   this.set('collectionLevel', collectionLevel);
 
-  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='student' selectedFilterBy='collection' onFilterSelected='selectFilterBy' collectionLevel=collectionLevel}}`);
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='student' selectedFilterBy='assessment' onFilterSelected='selectFilterBy' collectionLevel=collectionLevel}}`);
 
   var $component = this.$(); //component dom element
   const $actions = $component.find(".gru-actions-bar");
@@ -27,17 +27,12 @@ test('Class Performance Actions Bar with student mode', function(assert) {
   //T.exists(assert, $actions.find(".download"), "Missing download button");
   T.exists(assert, $actions.find(".full-screen"), "Missing full-screen button");
 
-  //drop down menu list
-  const $dropMenu = $actions.find(".drop-menu");
-  T.exists(assert, $dropMenu, "Missing view drop down menu");
-  T.exists(assert, $dropMenu.find(".assessment"), "Missing assessment item in the view drop down menu");
-  //T.exists(assert, $dropMenu.find(".collection"), "Missing collection item in the view drop down menu");
-  //T.exists(assert, $dropMenu.find(".both"), "Missing both item in the view drop down menu");
+  T.exists(assert, $actions.find(".assessment"), "Missing assessment filter button");
+  T.exists(assert, $actions.find(".collection"), "Missing collection filter button");
 
-  //drop down menu item Selected
-  //T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
-  T.exists(assert, $dropMenu.find(".selected-filter i"), 'Missing icon');
-  assert.equal(T.text($dropMenu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
+  //assessment button selected
+  T.exists(assert, $actions.find(".assessment.selected"), "Missing selected assessment button");
+  T.notExists(assert, $actions.find(".collection.selected"), "collection button should not be selected");
 });
 
 
@@ -60,17 +55,12 @@ test('Class Performance Actions Bar with teacher mode', function(assert) {
   //T.exists(assert, $actions.find(".download"), "Missing download button");
   T.exists(assert, $actions.find(".full-screen"), "Missing full-screen button");
 
-  //drop down menu list
-  const $dropMenu = $actions.find(".drop-menu");
-  T.exists(assert, $dropMenu, "Missing view drop down menu");
-  T.exists(assert, $dropMenu.find(".assessment"), "Missing assessment item in the view drop down menu");
-  //T.exists(assert, $dropMenu.find(".collection"), "Missing collection item in the view drop down menu");
-  //T.exists(assert, $dropMenu.find(".both"), "Missing both item in the view drop down menu");
+  T.exists(assert, $actions.find(".assessment"), "Missing assessment filter button");
+  T.exists(assert, $actions.find(".collection"), "Missing collection filter button");
 
-
-  //drop down menu item Selected
-  //T.exists(assert, $dropMenu.find(".collection.selected"), "Missing selected collection item");
-  //assert.equal(T.text($dropMenu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
+  //collection button selected
+  T.exists(assert, $actions.find(".collection.selected"), "Missing selected collection button");
+  T.notExists(assert, $actions.find(".assessment.selected"), "assessment button should not be selected");
 });
 
 

@@ -3,9 +3,25 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 
+const ConfigurationService = Ember.Service.extend({
+  'configuration': Ember.Object.create({
+    "player": {
+      "resources": {
+        "pdf": {
+          "googleDriveEnable": true,
+          "googleDriveUrl": "https://docs.google.com/gview?url="
+        }
+      }
+    }
+  })
+});
 
 moduleForComponent('player/resources/gru-pdf-resource', 'Integration | Component |  player/resources/gru pdf resource', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.register('service:configuration', ConfigurationService);
+    this.inject.service('configuration');
+  }
 });
 test('PDF player layout', function (assert) {
 
@@ -25,5 +41,5 @@ test('PDF player layout', function (assert) {
   var $component = this.$(); //component dom element
 
   T.exists(assert, $component.find(".gru-pdf-resource iframe"), "Missing pdf resource element");
-  assert.equal($component.find("iframe").attr("src"), "http://qacdn.gooru.org/qalive/f000/2441/3308/GooruLearnYourWay.pdf", "Wrong url");
+  assert.equal($component.find("iframe").attr("src"), "https://docs.google.com/gview?url=http://qacdn.gooru.org/qalive/f000/2441/3308/GooruLearnYourWay.pdf&embedded=true", "Wrong url");
 });

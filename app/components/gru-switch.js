@@ -20,23 +20,6 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
-
-    /**
-     * Select a option
-     * @function actions:selectOption
-     */
-    selectOption: function () {
-      if(this.get('isChecked')){
-        this.set('isChecked',false);
-        this.sendAction("onOptionSwitch", this.get("isChecked"),this.get('item'));
-      }else{
-        this.set('isChecked',true);
-        this.sendAction("onOptionSwitch", this.get("isChecked"),this.get('item'));
-      }
-    }
-
-  },
   // -------------------------------------------------------------------------
   // Events
 
@@ -44,15 +27,32 @@ export default Ember.Component.extend({
    * Overwrites didInsertElement hook.
    */
   didInsertElement: function() {
-    this.$('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
-    if(this.get('isChecked')){
-      this.$('input[type=checkbox][data-toggle^=toggle]').prop('checked', true).change();
-    }else{
-      this.$('input[type=checkbox][data-toggle^=toggle]').prop('checked', false).change();
-    }
+    const component = this;
+    const $toggle = this.$('input[type=checkbox][data-toggle^=toggle]');
+    $toggle.bootstrapToggle();
+    $toggle.change(function() {
+      const checked = $toggle.prop("checked");
+      if (checked !== component.get("isChecked")){
+        component.set('isChecked', checked);
+        component.sendAction("onOptionSwitch", checked, component.get('item'));
+      }
+    });
+    this.changeStatus(this.get('isChecked'));
   },
-// -------------------------------------------------------------------------
-// Properties
+
+  stateObserver: Ember.observer("isChecked", function(){
+    this.changeStatus(this.get('isChecked'));
+  }),
+
+  // -------------------------------------------------------------------------
+  // Methods
+  changeStatus: function(isChecked){
+    const $toggle = this.$('input[type=checkbox][data-toggle^=toggle]');
+    $toggle.prop('checked', isChecked).change();
+  },
+
+  // -------------------------------------------------------------------------
+  // Properties
   /**
    * List of options to show in the switch
    *

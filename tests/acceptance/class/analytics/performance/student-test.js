@@ -81,8 +81,12 @@ test('When filtering by collection is  pre-selected', function(assert) {
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/analytics/performance/student?filterBy=collection');
 
     const $performanceContainer = find(".controller.class .controller.analytics-performance-student");
-    const $menu = $performanceContainer.find(".gru-actions-bar .drop-menu");
-    assert.equal(T.text($menu.find(".selected-filter span")), 'View Collection', 'Wrong text selected');
+
+    const $actions = $performanceContainer.find(".gru-actions-bar");
+
+    //collection button selected
+    T.exists(assert, $actions.find(".collection.selected"), "Missing selected collection button");
+    T.notExists(assert, $actions.find(".assessment.selected"), "assessment button should not be selected");
   });
 });
 

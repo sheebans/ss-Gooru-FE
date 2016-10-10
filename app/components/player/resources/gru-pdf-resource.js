@@ -1,9 +1,14 @@
 import Ember from 'ember';
+import { addProtocolIfNecessary } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @property {Ember.Service} Service to configuration properties
+   */
+  configurationService: Ember.inject.service('configuration'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -25,7 +30,18 @@ export default Ember.Component.extend({
   resource: null,
 
   pdfURL:Ember.computed('resource.assetUrl',function(){
-    return this.get("resource.assetUrl");
+
+    const configuration = this.get('configurationService.configuration');
+    const assetUrl = addProtocolIfNecessary(this.get("resource.assetUrl"));
+
+
+    if(configuration.get("player.resources.pdf.googleDriveEnable"))
+    {
+      return configuration.get("player.resources.pdf.googleDriveUrl") + assetUrl + '&embedded=true';
+    }
+    else {
+      return assetUrl;
+    }
   }),
 
   /**

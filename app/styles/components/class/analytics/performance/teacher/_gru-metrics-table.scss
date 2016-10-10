@@ -135,6 +135,9 @@
       left: 55px;
       min-height: 47px;
       width: 140px;
+      @media (max-width: $screen-xs-max) {
+        left: 15px;
+      }
     }
   }
 }

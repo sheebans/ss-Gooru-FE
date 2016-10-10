@@ -109,6 +109,8 @@ export default Ember.Object.extend({
       audience: metadata.audience && metadata.audience.length > 0 ? metadata.audience : [],
       depthOfknowledge: metadata.depth_of_knowledge && metadata.depth_of_knowledge.length > 0 ? metadata.depth_of_knowledge : [],
       courseId: assessmentData.course_id,
+      unitId: assessmentData.unit_id,
+      lessonId: assessmentData.lesson_id,
       attempts: settings.attempts_allowed || -1,
       bidirectional: settings.bidirectional_play || false,
       showFeedback: settings.show_feedback || ASSESSMENT_SHOW_VALUES.SUMMARY,
