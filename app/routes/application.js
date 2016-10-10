@@ -4,6 +4,7 @@ import Env from '../config/environment';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 import GooruLegacyUrl from 'gooru-web/utils/gooru-legacy-url';
 import Error from 'gooru-web/models/error';
+import Classes from 'gooru-web/models/content/classes';
 
 /**
  * @typedef {object} ApplicationRoute
@@ -61,6 +62,10 @@ export default Ember.Route.extend(PublicRouteMixin, {
         route.get('notifications').error(errorMessage);
         route.trackAppError(error);
       }
+      const isTesting = Env.environment === 'test';
+      if (isTesting) {
+        throw error; //throws the error so tests fail
+      }
     };
 
     Ember.$(document).ajaxError(function(event, jqXHR, settings) {
@@ -85,7 +90,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     const currentSession = route.get("session.data.authenticated");
     const themeConfig = Env['themes'] || {};
     const themeId = params.themeId || Env['themes'].default;
-    let myClasses = null;
+    let myClasses = Classes.create({});
     var profilePromise = null;
 
     var theme = null;
@@ -251,8 +256,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
       },
       "description": JSON.stringify(error)
     });
-
-    Ember.Logger.error(error);
+    Ember.Logger.error(error.stack);
     route.get("errorService").createError(model);
   },
 
