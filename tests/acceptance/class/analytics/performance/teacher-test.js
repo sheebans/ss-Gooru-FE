@@ -105,7 +105,7 @@ test('When view by assessment and collection option is selected for course level
 
      assert.equal($metricsTable.find('.sub-header.hidden-xs .gru-metrics-sub-header:eq(1) .metrics-sub-header .score').length,1, 'The table should have selected the score filter');
 
-    const $collectionOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .collection a");
+    const $collectionOption = $performanceContainer.find(".controls .gru-actions-bar .btn.collection");
     click($collectionOption);
     andThen(function() {
       assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course?filterBy=collection');
@@ -134,7 +134,7 @@ test('When view by assessment and collection option is selected for unit level',
 
     assert.equal($metricsTable.find('.sub-header.hidden-xs .gru-metrics-sub-header:eq(1) .metrics-sub-header .score').length,1, 'The table should have selected the score filter');
 
-    const $collectionOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .collection a");
+    const $collectionOption = $performanceContainer.find(".controls .gru-actions-bar .btn.collection");
     click($collectionOption);
     andThen(function() {
       assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id?filterBy=collection');
@@ -163,7 +163,7 @@ test('When view by assessment and collection option is selected for lesson level
 
     assert.equal($metricsTable.find('.sub-header.hidden-xs .gru-metrics-sub-header:eq(1) .metrics-sub-header .score').length,1, 'The table should have selected the score filter');
 
-    const $collectionOption = $performanceContainer.find(".controls .gru-actions-bar .dropdown-menu .collection a");
+    const $collectionOption = $performanceContainer.find(".controls .gru-actions-bar .btn.collection");
     click($collectionOption);
     andThen(function() {
       assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id/lesson/first-lesson-id?filterBy=collection');
