@@ -42,19 +42,19 @@ test('readCollection', function(assert) {
   const expectedCollectionId = 'collection-id';
   const expectedProfileId = 'profile-id';
 
-  assert.expect(4);
+  assert.expect(3);
 
   service.set('collectionAdapter', Ember.Object.create({
     readCollection: function(collectionId) {
       assert.equal(collectionId, expectedCollectionId, 'Wrong Collection id');
 
-      return Ember.RSVP.resolve({ id: collectionId, ownerId: expectedProfileId, creatorId:expectedProfileId});
+      return Ember.RSVP.resolve({ id: collectionId, ownerId: expectedProfileId});
     }
   }));
 
   service.set('collectionSerializer', Ember.Object.create({
     normalizeReadCollection: function(collectionData) {
-      assert.deepEqual(collectionData, { id: expectedCollectionId, ownerId: expectedProfileId, creatorId:expectedProfileId }, 'Wrong Collection data');
+      assert.deepEqual(collectionData, { id: expectedCollectionId, ownerId: expectedProfileId }, 'Wrong Collection data');
       return Ember.Object.create(collectionData);
     }
   }));
