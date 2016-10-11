@@ -10,6 +10,8 @@ export default Ember.Component.extend({
    */
   i18n: Ember.inject.service(),
 
+  tourService: Ember.inject.service('tours'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -95,5 +97,13 @@ export default Ember.Component.extend({
   }),Ember.Object.create({
     'label': "Off",
     'value': false
-  })])
+  })]),
+
+  // -------------------------------------------------------------------------
+  // Events
+  init: function() {
+    var component = this;
+    component._super( ...arguments );
+    component.set('assessmentSettingSteps',component.get("tourService").getAssessmentSettingsTourSteps());
+  }
 });
