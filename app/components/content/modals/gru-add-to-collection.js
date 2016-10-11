@@ -193,14 +193,14 @@ export default AddToModal.extend({
    * @property {*}
    */
   paginationCollections: {
-    page: 0,
+    page: 1,
     pageSize: DEFAULT_PAGE_SIZE
   },
   /**
    * @property {*}
    */
   paginationAssessments: {
-    page: 0,
+    page: 1,
     pageSize: DEFAULT_PAGE_SIZE
   }
 });
