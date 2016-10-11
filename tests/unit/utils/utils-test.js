@@ -17,7 +17,8 @@ import {
   cleanFilename,
   getFileNameFromInvalidUrl,
   replaceMathExpression,
-  addProtocolIfNecessary
+  addProtocolIfNecessary,
+  checkIfIsGoogleDoc
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -218,4 +219,9 @@ test('Replace Math Expression', function (assert) {
 test('add protocol if is necessary', function (assert) {
   var url = "//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf";
   assert.equal(addProtocolIfNecessary(url), "http://content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf", 'Wrong url.');
+});
+
+test('check if it is a GoogleDoc', function (assert) {
+  var url = "https://docs.google.com/document/any";
+  assert.equal(checkIfIsGoogleDoc(url), true, 'Wrong url.');
 });
