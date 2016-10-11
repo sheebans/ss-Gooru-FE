@@ -111,8 +111,8 @@ test('When view by assessment and collection option is selected for course level
       assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course?filterBy=collection');
       assert.equal($performanceContainer.find('.gru-filters .data-picker.hidden-xs .gru-data-picker .list-inline li').length,0, 'The data picker should not appear for desktop');
       assert.equal($performanceContainer.find('.gru-filters .data-picker.visible-xs .gru-data-picker .list-inline li').length,0, 'The data picker should not appear for mobile');
-      assert.equal($metricsTable.find('.sub-header.hidden-xs .gru-metrics-sub-header:eq(1) .metrics-sub-header').length,1, 'The table should have one filter');
-      assert.equal($metricsTable.find('.sub-header.hidden-xs .gru-metrics-sub-header:eq(1) .metrics-sub-header .study-time').length,1, 'The table should filter by study time');
+      assert.equal($metricsTable.find('.sub-header.hidden-xs th:eq(1) .gru-metrics-sub-header .metrics-sub-header').length,1, 'The table should have one filter');
+      assert.equal($metricsTable.find('.sub-header.hidden-xs .gru-metrics-sub-header:eq(2) .metrics-sub-header .study-time').length,1, 'The table should filter by study time');
     });
    });
 });
@@ -140,8 +140,8 @@ test('When view by assessment and collection option is selected for unit level',
       assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id?filterBy=collection');
       assert.equal($performanceContainer.find('.gru-filters .data-picker.hidden-xs .gru-data-picker .list-inline li').length,0, 'The data picker should not appear for desktop');
       assert.equal($performanceContainer.find('.gru-filters .data-picker.visible-xs .gru-data-picker .list-inline li').length,0, 'The data picker should not appear for mobile');
-      assert.equal($metricsTable.find('.sub-header.hidden-xs .gru-metrics-sub-header:eq(1) .metrics-sub-header').length,1, 'The table should have one filter');
-      assert.equal($metricsTable.find('.sub-header.hidden-xs .gru-metrics-sub-header:eq(1) .metrics-sub-header .study-time').length,1, 'The table should filter by study time');
+      assert.equal($metricsTable.find('.sub-header.hidden-xs th:eq(1) .gru-metrics-sub-header .metrics-sub-header').length,1, 'The table should have one filter');
+      assert.equal($metricsTable.find('.sub-header.hidden-xs .gru-metrics-sub-header:eq(2) .metrics-sub-header .study-time').length,1, 'The table should filter by study time');
     });
   });
 });
