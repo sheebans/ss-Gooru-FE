@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { addProtocolIfNecessary } from 'gooru-web/utils/utils';
+import { addProtocolIfNecessary, checkIfIsGoogleDoc } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
     const assetUrl = addProtocolIfNecessary(this.get("resource.assetUrl"));
 
 
-    if(configuration.get("player.resources.pdf.googleDriveEnable"))
+    if(configuration.get("player.resources.pdf.googleDriveEnable") && !checkIfIsGoogleDoc(assetUrl))
     {
       return configuration.get("player.resources.pdf.googleDriveUrl") + assetUrl + '&embedded=true';
     }
