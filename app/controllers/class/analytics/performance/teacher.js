@@ -179,5 +179,6 @@ export default Ember.Controller.extend({
     this.set('unit', null);
     this.set('lesson', null);
     this.set('collection', null);
+    this.set('filterBy', 'assessment');
   }
 });
