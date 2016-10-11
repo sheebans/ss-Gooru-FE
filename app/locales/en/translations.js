@@ -250,7 +250,7 @@ export default {
     "libraries": "Libraries",
     "license": "License",
     "link-out":"Link-out",
-    "link-out-message":"*If your resource is not rendering in the preview above, it may need a “link-out” and cannot be viewed within the Gooru player.",
+    "link-out-message":"*If your resource is showing up blank in the preview above, it may need a “link-out” to another page to view the content.",
     "loading": "Loading ...",
     "login": "Log In",
     "logout": "Logout",
