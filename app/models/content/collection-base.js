@@ -255,7 +255,7 @@ export default (function() {
         remixedBy: Ember.A(), //TODO missing
         course: model.get("course"),
         courseId: model.get("courseId"),
-        avatarUrl: null, //TODO missing
+        avatarUrl: model.get("owner.avatarUrl"), //TODO missing
         profilePageUrl: null, //TODO missing
         description: model.get("description"),
         resourceCount: model.get("resourceCount"),
