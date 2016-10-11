@@ -58,9 +58,11 @@
       height: 50px;
       @media (max-width: $screen-xs-max) {
         width: 100vw;
-        background: $white;
         padding: 0;
-        height: 58px;
+        height: auto;
+        .list-inline{
+          background: $white;
+        }
       }
     }
     .performance-scale {

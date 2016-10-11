@@ -87,6 +87,8 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
 
+    this.setupDataPickerOptions(controller);
+
     const performanceData = createDataMatrix(model.collections, model.classPerformanceData);
     controller.set('performanceDataMatrix', performanceData);
     controller.set('collections', model.collections);
@@ -102,6 +104,52 @@ export default Ember.Route.extend({
     //updating the collectionLevel to show or not the launch anonymous button
     controller.set("teacherController.collectionLevel", false);
 
+    //updating the lessonLevel to show or not filters
+    controller.set("teacherController.lessonLevel", true);
+
+  },
+  /**
+   * Setups data picker options for lesson
+   * @param controller
+   */
+  setupDataPickerOptions: function(controller){
+    if(controller.get('filterBy') !=='assessment'){
+      controller.set('selectedOptions', Ember.A(["score","study-time"]));
+      controller.set("showFilters", true);
+    }
+    controller.set('optionsCollectionsTeacher', Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':true,
+      'readOnly':true,
+      'isDisabled':false
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':true
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':true,
+      'readOnly':false,
+      'isDisabled':false
+    })]));
+
+    controller.set('mobileOptionsCollectionsTeacher', Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':true,
+      'readOnly':false,
+      'isDisabled':false
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':true
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':false
+    })]));
   }
 
 });

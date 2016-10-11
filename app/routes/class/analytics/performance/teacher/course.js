@@ -72,6 +72,53 @@ export default Ember.Route.extend({
     controller.get("teacherController").updateBreadcrumb(controller.get("course"), "course");
     //updating the collectionLevel to show or not the launch anonymous button
     controller.set("teacherController.collectionLevel", false);
+
+    //updating the lessonLevel to show or not filters
+    controller.set("teacherController.lessonLevel", false);
+
+    this.setupDataPickerOptions(controller);
+  },
+  /**
+   * Setups data picker options for lesson
+   * @param controller
+   */
+  setupDataPickerOptions: function(controller){
+    if(controller.get('filterBy') !=='assessment'){
+      controller.set('selectedOptions', Ember.A(["study-time"]));
+      controller.set('optionsCollectionsTeacher', Ember.A([Ember.Object.create({
+        'value': 'score',
+        'selected':false,
+        'readOnly':true,
+        'isDisabled':true
+      }),Ember.Object.create({
+        'value': 'completion',
+        'selected':false,
+        'readOnly':false,
+        'isDisabled':true
+      }),Ember.Object.create({
+        'value': 'study-time',
+        'selected':true,
+        'readOnly':false,
+        'isDisabled':true
+      })]));
+      controller.set('mobileOptionsCollectionsTeacher', Ember.A([Ember.Object.create({
+        'value': 'score',
+        'selected':false,
+        'readOnly':false,
+        'isDisabled':true
+      }),Ember.Object.create({
+        'value': 'completion',
+        'selected':false,
+        'readOnly':false,
+        'isDisabled':true
+      }),Ember.Object.create({
+        'value': 'study-time',
+        'selected':true,
+        'readOnly':false,
+        'isDisabled':true
+      })]));
+      controller.set("showFilters", false);
+    }
   }
 
 });
