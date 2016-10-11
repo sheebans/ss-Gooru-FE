@@ -111,7 +111,7 @@ export default Ember.Component.extend({
   /**
    * @property {String} selectedFilterBy - shows the filter option selected in the view dropdown.
    */
-  selectedFilterBy: "assessment",
+  selectedFilterBy: null,
 
   /**
    * @property {String} isFilterByAssessment - shows if the filter option selected is by Assessment.

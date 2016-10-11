@@ -119,7 +119,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       if ((item === "analytics.performance") && isTeacher){
         route.transitionTo('class.analytics.performance.teacher.course', queryParams);
       } else if ((item === "analytics.performance") && !isTeacher) {
-        route.transitionTo('class.analytics.performance.student');
+        route.transitionTo('class.analytics.performance.student', queryParams);
       } else {
         route.transitionTo('class.' + item);
       }
