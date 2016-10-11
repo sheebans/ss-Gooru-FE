@@ -79,7 +79,7 @@ export default Ember.Component.extend({
     var metrics = this.get("metrics");
 
     metrics.forEach(function(metric) {
-      if(metric.get('value')!= 'student'){
+      if(metric.get('value')!== 'student'){
         metric.set('visible', false);
       }
     });
