@@ -109,13 +109,7 @@ export default Ember.Controller.extend({
    * @property {Array}
    */
   selectedOptions: Ember.computed(function(){
-    let selectedOptions;
-    if(this.get('filterBy') === 'assessment'){
-      selectedOptions = Ember.A(["score"]);
-    }else{
-      selectedOptions = Ember.A(["study-time"]);
-    }
-    return selectedOptions;
+    return this.get('filterBy') === 'assessment' ? Ember.A(["score"]) : Ember.A(["study-time"])
   }),
 
   /**
@@ -275,11 +269,7 @@ export default Ember.Controller.extend({
           return option.get("value");
       }));
     }else{
-      if(this.get('lessonLevel')){
-        component.set('showFilters',true);
-      }else{
-        component.set('showFilters',false);
-      }
+      this.get('lessonLevel') ? component.set('showFilters',true) : component.set('showFilters',false);
       let options = component.get('optionsCollectionsTeacher').filterBy('selected',true);
       component.set('selectedOptions', options.map(function(option){
           return option.get("value");
