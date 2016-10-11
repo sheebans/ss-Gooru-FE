@@ -109,7 +109,7 @@ export default Ember.Controller.extend({
    * @property {Array}
    */
   selectedOptions: Ember.computed(function(){
-    return this.get('filterBy') === 'assessment' ? Ember.A(["score"]) : Ember.A(["study-time"])
+    return this.get('filterBy') === 'assessment' ? Ember.A(["score"]) : Ember.A(["study-time"]);
   }),
 
   /**
