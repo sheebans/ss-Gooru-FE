@@ -3,8 +3,8 @@
  */
 export default {
   "endpoint" : {
-    "url": "http://nucleus-qa.gooru.org",
-    "secureUrl": "https://nucleus-qa.gooru.org"
+    "url": "",
+    "secureUrl": ""
   },
 
   "realTime": {

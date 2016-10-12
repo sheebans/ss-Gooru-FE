@@ -104,9 +104,9 @@ test('Remove student', function(assert) {
               var $deleteButton = $deleteContentModal.find("button.delete");
               click($deleteButton);
               andThen(function () {
-                assert.equal(T.text($infoContainer.find('.students-section h5')), 'Students (0)');
+                assert.equal(T.text($infoContainer.find('.students-section h5')), 'Students (6)');
                 const $navigation = find(".controller.class .navigation .gru-class-navigation");
-                assert.equal(T.text($navigation.find('.members p')), '0 Students');
+                assert.equal(T.text($navigation.find('.members p')), '6 Students');
               });
             });
           });

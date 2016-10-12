@@ -100,14 +100,6 @@ export default Ember.Controller.extend({
    * @property {ReportData} the selected collection report data
    */
   reportData: null,
-
-  /**
-   * A link to the parent class controller
-   * @see controllers/class.js
-   * @property {Class}
-   */
-  "class": Ember.computed.reads('classController.class'),
-
   /**
    * A link to the parent class controller
    * @see controllers/class.js

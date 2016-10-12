@@ -15,7 +15,7 @@ moduleForAcceptance('Acceptance | Edit Course', {
     });
   }
 });
-test('Remove Collection from Lesson', function (assert) {
+test('Remove Assessment from Lesson', function (assert) {
   visit('/content/courses/edit/course-123');
 
   andThen(function () {
@@ -23,7 +23,7 @@ test('Remove Collection from Lesson', function (assert) {
     var $unit = find(".content.courses.gru-accordion.gru-accordion-unit:eq(0)");
     click($unit.find(".panel-heading a")); //expand unit
     andThen(function () {
-      var $lesson = $unit.find(".gru-accordion-lesson:eq(0)");
+      var $lesson = $unit.find(".gru-accordion-lesson:eq(2)");
       click($lesson.find(".panel-heading a")); //expand lesson
       andThen(function () {
         var $itemContainer = $lesson.find(".accordion-lesson");
@@ -45,7 +45,7 @@ test('Remove Collection from Lesson', function (assert) {
               andThen(function () {
                 click($removeBtn);
                 andThen(function () {
-                  assert.equal($itemContainer.find("li").length, 1, "Didn't remove Collection from lesson");
+                  assert.equal($itemContainer.find("li").length, 0, "Didn't remove Assessment from lesson");
                 });
               });
             });
