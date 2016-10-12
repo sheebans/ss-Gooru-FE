@@ -9,7 +9,7 @@
           </th>
           {{#each headers as |header index|}}
             {{#if (eq header.collectionType 'collection')}}
-                <th id="{{{header.id}}}" class="header pointer" scope="col">
+                <th id="{{{header.id}}}" class="header" scope="col">
                     <div class="header-title">
                       {{#if header.collectionType}}
                           <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>

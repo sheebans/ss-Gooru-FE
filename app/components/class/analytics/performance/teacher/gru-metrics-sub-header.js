@@ -47,7 +47,7 @@ export default Ember.Component.extend({
     'value': 'score',
     'sorted':false,
     'isAsc':false,
-    'visible': true,
+    'visible': false,
     'index':0
   }),Ember.Object.create({
     'value': 'completion',
@@ -78,9 +78,8 @@ export default Ember.Component.extend({
 
     var metrics = this.get("metrics");
 
-    // Reset the visibility of metrics, except the first element which is always visible
-    metrics.forEach(function(metric, index) {
-      if(index>0){
+    metrics.forEach(function(metric) {
+      if(metric.get('value')!== 'student'){
         metric.set('visible', false);
       }
     });

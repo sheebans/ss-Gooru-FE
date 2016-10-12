@@ -161,7 +161,7 @@ export default AddToModal.extend({
    * @property {*}
    */
   pagination: {
-    page: 0,
+    page: 1,
     filterBy: 'notInCourse',
     pageSize: DEFAULT_PAGE_SIZE
   }
