@@ -16,7 +16,7 @@ moduleForAcceptance('Acceptance | class', {
 });
 
 test('Layout', function(assert) {
-  visit('/class/class-10'); //@todo create stubs
+  visit('/class/class-10');
 
   andThen(function() {
     assert.equal(currentURL(), '/class/class-10');
@@ -47,10 +47,6 @@ test('When info page is selected', function(assert) {
 
 test('When overview page is selected', function(assert) {
 
-  // TODO Remove this assert and enable the commented code once integration is complete
-  assert.ok(true, 'This is a temporal assert!!');
-
-  /*
   visit('/class/class-10');
 
   andThen(function() {
@@ -61,9 +57,26 @@ test('When overview page is selected', function(assert) {
     click($overviewMenuItem);
 
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-10/overview?location=second-unit-id%2B27f0bc24-c2b5-40d8-bb8f-e6ec939ad553%2B567399f336d4a8e75eb10661');
+      assert.equal(currentURL(), '/class/class-10/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id');
 
     });
   });
-  */
+});
+
+test('When data analytics page is selected as student', function(assert) {
+
+  visit('/class/class-10');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-10');
+
+    const $analyticsMenuItem = find(".navigation .class-menu .analytics");
+
+    click($analyticsMenuItem);
+
+    andThen(function() {
+      assert.equal(currentURL(), '/class/class-10/analytics/performance/student');
+
+    });
+  });
 });
