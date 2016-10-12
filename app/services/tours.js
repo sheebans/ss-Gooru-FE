@@ -12,8 +12,7 @@ export default Ember.Service.extend({
   /**
    * Returns the Assessment Settings tour object
    *
-   * @param category - The classification type
-   * @returns {Promise}
+   * @returns {Ember.A}
    */
   getAssessmentSettingsTourSteps: function() {
     const service = this;
@@ -33,8 +32,7 @@ export default Ember.Service.extend({
   /**
    * Returns the Assessment Settings tour object
    *
-   * @param category - The classification type
-   * @returns {Promise}
+   * @returns {Ember.A}
    */
   getRealTimeTourSteps: function() {
     const service = this;
@@ -45,7 +43,7 @@ export default Ember.Service.extend({
           description: service.get('i18n').t('gru-tour.real-time.stepOne.description')
         },
         {
-          elementSelector: '.gru-class-assessment-report .gru-student-view .student-performance-list .student-performance-box:first-child',
+          elementSelector: '',
           title: service.get('i18n').t('gru-tour.real-time.stepOne.title'),
           description: service.get('i18n').t('gru-tour.real-time.stepOne.description')
         }

@@ -18,7 +18,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   session: Ember.inject.service('session'),
 
-  tourService: Ember.inject.service('tour'),
+  tourService: Ember.inject.service('tours'),
 
   collectionService: Ember.inject.service('api-sdk/collection'),
 
