@@ -1,7 +1,7 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
-//import T from 'gooru-web/tests/helpers/assert';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForAcceptance('Acceptance | class/analytics/performance/teacher/course', {
   beforeEach: function() {
@@ -18,10 +18,6 @@ moduleForAcceptance('Acceptance | class/analytics/performance/teacher/course', {
 
 test('Layout', function(assert) {
 
-  // TODO Remove this assert and enable the commented code once integration is complete
-  assert.ok(true, 'This is a temporal assert!!');
-
-  /*
   visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
   andThen(function() {
@@ -37,20 +33,17 @@ test('Layout', function(assert) {
     const $breadcrumb = find(".controller.class .gru-breadcrumb");
     const $breadcrumbItems = $breadcrumb.find("button");
     assert.equal($breadcrumbItems.length, 1, "Incorrect number of breadcrumb items");
-    assert.equal(T.text($breadcrumb.find("button:last-child")), 'The Best Course Ever Made', "Wrong breadcrumb item label");
+    assert.equal(T.text($breadcrumb.find("button:last-child")), 'mathematics course 101', "Wrong breadcrumb item label");
 
     const $filters = find(".controller.class .gru-filters");
-    T.exists(assert, $filters, "Filters should be visible");
+    assert.equal($filters.length, 1, "Filters should be visible");
+
   });
-  */
+
 });
 
 test('Navigate to unit', function(assert) {
 
-  // TODO Remove this assert and enable the commented code once integration is complete
-  assert.ok(true, 'This is a temporal assert!!');
-
-  /*
   visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
   andThen(function() {
@@ -67,15 +60,10 @@ test('Navigate to unit', function(assert) {
       T.exists(assert, $classMenu.find(".analytics.selected"), "Missing selected analytics item");
     });
   });
-  */
 });
 
 test('Test data picker options selected', function(assert) {
 
-  // TODO Remove this assert and enable the commented code once integration is complete
-  assert.ok(true, 'This is a temporal assert!!');
-
-  /*
   visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
 
   andThen(function() {
@@ -110,5 +98,36 @@ test('Test data picker options selected', function(assert) {
       });
     });
   });
-  */
+});
+
+test('Test collections/assessments filter button selected', function(assert) {
+
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
+
+    const $actionsBar = find(".controller.class .gru-actions-bar");
+    const $assessmentButton = $actionsBar.find("button.assessment");
+    const $collectionButton = $actionsBar.find("button.collection");
+    assert.ok($assessmentButton.hasClass("selected"), "assessment button should be selected by default");
+
+    click($collectionButton); //click on collections filter button
+
+    andThen(function(){
+
+      assert.ok($collectionButton.hasClass("selected"), "collection button should be selected");
+      assert.ok(!$assessmentButton.hasClass("selected"), "assessment button should not be selected");
+      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course?filterBy=collection');
+
+      click($assessmentButton); //click on assessments filter button
+      andThen(function(){
+
+        assert.ok(!$collectionButton.hasClass("selected"), "collection button should not be selected");
+        assert.ok($assessmentButton.hasClass("selected"), "assessment button should be selected");
+
+        assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
+      });
+    });
+  });
 });
