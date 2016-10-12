@@ -43,4 +43,10 @@
       display: inline-block;
     }
   }
+  .visibility-settings {
+    h3 {
+      @include flexbox;
+      @include align-items(center);
+    }
+  }
 }
