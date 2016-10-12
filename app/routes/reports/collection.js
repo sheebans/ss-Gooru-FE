@@ -18,8 +18,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   session: Ember.inject.service('session'),
 
-  tourService: Ember.inject.service('tour'),
-
   collectionService: Ember.inject.service('api-sdk/collection'),
 
   assessmentService: Ember.inject.service('api-sdk/assessment'),
@@ -54,14 +52,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     }).then(function(hash){
       const collectionFound = hash.assessment.state === 'rejected';
       let collection = collectionFound ? hash.collection.value : hash.assessment.value;
+
       return Ember.RSVP.hash({
         routeParams: Ember.Object.create({
           classId: classId,
           collectionId: collectionId
         }),
         collection: collection.toPlayerCollection(),
-        classMembers: route.get('classService').readClassMembers(classId),
-        tourSteps: route.get('tourService').getRealTimeTourSteps()
+        classMembers: route.get('classService').readClassMembers(classId)
       });
     });
   },
@@ -77,8 +75,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.setProperties({
       routeParams: model.routeParams,
       assessment: model.collection,
-      students: students,
-      tourSteps:model.tourSteps
+      students: students
     });
 
     // Because there's an observer on reportData, it's important set all other controller properties beforehand

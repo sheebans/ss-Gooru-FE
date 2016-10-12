@@ -29,28 +29,6 @@ export default Ember.Service.extend({
           description: service.get('i18n').t('gru-tour.assessments-settings.stepTwo.description')
         }
       ]);
-  },
-  /**
-   * Returns the Assessment Settings tour object
-   *
-   * @param category - The classification type
-   * @returns {Promise}
-   */
-  getRealTimeTourSteps: function() {
-    const service = this;
-    return new Ember.A([
-        {
-          elementSelector: '.gru-class-assessment-report .gru-questions-summary ol',
-          title: service.get('i18n').t('gru-tour.real-time.stepOne.title'),
-          description: service.get('i18n').t('gru-tour.real-time.stepOne.description')
-        },
-        {
-          elementSelector: '.gru-class-assessment-report .gru-student-view .student-performance-list .student-performance-box:first-child',
-          title: service.get('i18n').t('gru-tour.real-time.stepOne.title'),
-          description: service.get('i18n').t('gru-tour.real-time.stepOne.description')
-        }
-      ]);
   }
-
 
 });
