@@ -1292,7 +1292,10 @@ export default {
     "disable-heading": "Activate Assessment in Course Map",
     "disable-legend": "Students can play the assessment from their course map"
   },
-
+  "gru-icon-popover":{
+    "settings-visibility-title": "Make Your Content Visibile",
+    "settings-visibility-content": "This setting makes your assessment visible via your user profile. If you wish to share the assessments you create with colleagues, we suggest you turn this feature on."
+  },
   "gru-tour": {
     "assessments-settings":{
         "stepOne":{
