@@ -155,7 +155,7 @@ test('Add new question', function (assert) {
         assert.ok($create.length, 'Missing create button');
         click($create);
         andThen(function () {
-          var $assessmentSettings = find('.assessment-settings');
+          var $assessmentSettings = find('.nav-score-settings');
           assert.ok($assessmentSettings.length,'Missing assessment settings');
         });
       });

@@ -119,5 +119,11 @@ test('Trying the google sign in url', function (assert) {
   visit("/?access_token=google-sign-token");
   andThen(function() {
     assert.equal(currentURL(), '/sign-up-finish');
+    visit('/home');
+    andThen(function(){
+      const $userContainer = find(".controller.home");
+      T.exists(assert, $userContainer, "Missing user container");
+      assert.ok($userContainer.find(".gru-class-card").length > 1, "Missing classes");
+    });
   });
 });

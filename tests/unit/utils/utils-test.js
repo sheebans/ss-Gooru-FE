@@ -16,7 +16,8 @@ import {
   generateUUID,
   cleanFilename,
   getFileNameFromInvalidUrl,
-  replaceMathExpression
+  replaceMathExpression,
+  addProtocolIfNecessary
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -212,4 +213,9 @@ test('Replace Math Expression', function (assert) {
   var expected = '<span class="gru-math-expression"><span class="gru-math-expression"><span class="source" hidden="">\frac{1}{2}</span>$$\frac{1}{2}$$</span></span><br>';
 
   assert.equal(replaceMathExpression(mathExpression), expected, 'Wrong expression');
+});
+
+test('add protocol if is necessary', function (assert) {
+  var url = "//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf";
+  assert.equal(addProtocolIfNecessary(url), "http://content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf", 'Wrong url.');
 });

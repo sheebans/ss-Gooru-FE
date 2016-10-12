@@ -7,7 +7,10 @@ import CollectionAdapter from 'gooru-web/adapters/content/collection';
  * @typedef {Object} CollectionService
  */
 export default Ember.Service.extend({
-
+  /**
+   * @property {Profile} Profile service
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
   /**
    * @property {Store} Store service
    */
@@ -62,7 +65,12 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('collectionAdapter').readCollection(collectionId)
         .then(function(responseData) {
-          resolve(service.get('collectionSerializer').normalizeReadCollection(responseData));
+          let collection = service.get('collectionSerializer').normalizeReadCollection(responseData);
+          let profileService = service.get('profileService');
+          profileService.readUserProfile(collection.get('ownerId')).then(function(profile){
+            collection.set('owner',profile);
+              resolve(collection);
+            });
         }, reject );
     });
   },

@@ -43,7 +43,9 @@ export default Ember.Component.extend({
       });
       // Change value shown in UI when model changes
       component.addObserver('optionSelected', function(){
-        selectpicker.selectpicker('val', component.get('optionSelected'));
+        if (component.get('optionSelected') !== selectpicker.val()){
+          selectpicker.selectpicker('val', component.get('optionSelected'));
+        }
       });
     });
   },

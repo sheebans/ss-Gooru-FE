@@ -79,21 +79,22 @@ export default Ember.Object.extend({
     const basePath = serializer.get('session.cdnUrls.content');
     const thumbnailUrl = payload.thumbnail ?
     basePath + payload.thumbnail : DEFAULT_IMAGES.COLLECTION;
-
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
       title: payload.title,
-      learningObjectives: payload['learning_objective'],
-      isVisibleOnProfile: typeof payload['visible_on_profile'] !== 'undefined' ? payload['visible_on_profile'] : true,
+      learningObjectives: payload.learning_objective,
+      isVisibleOnProfile: typeof payload.visible_on_profile !== 'undefined' ? payload.visible_on_profile : true,
       children: serializer.normalizeResources(payload.content),
-      questionCount: payload['question_count'] ? payload['question_count'] : 0,
-      resourceCount: payload['resource_count'] ? payload['resource_count'] : 0,
-      sequence: payload['sequence_id'],
+      questionCount: payload.question_count ? payload.question_count : 0,
+      resourceCount: payload.resource_count ? payload.resource_count : 0,
+      sequence: payload.sequence_id,
       thumbnailUrl: thumbnailUrl,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy),
-      courseId: payload['course_id'],
-      unitId: payload['unit_id'],
-      lessonId: payload['lesson_id']
+      courseId: payload.course_id,
+      unitId: payload.unit_id,
+      lessonId: payload.lesson_id,
+      creatorId: payload.creator_id,
+      ownerId: payload.owner_id
       // TODO Add more required properties here...
     });
   },

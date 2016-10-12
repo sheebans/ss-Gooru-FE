@@ -71,7 +71,7 @@
                    <button {{action "setOnAir" item.id}}
                   data-toggle="tooltip" data-html="true" data-placement="bottom"
                   title="{{t "common.launch-on-air"}}"
-                  class="on-air">{{t "common.launch-on-air"}}</button>
+                  class="on-air hidden-xs">{{t "common.launch-on-air"}}</button>
                 {{/if}}
               {{/unless}}
             {{/if}}
@@ -115,7 +115,6 @@
                 {{else}}
                   <span class="score" style="background-color: {{ gradeColor 'NA' }}">--%</span>
                 {{/if}}
-                <i class="on-air">{{t 'common.launch-on-air'}}</i>
 
               {{ else }}
                 {{gru-icon name='apps'}}

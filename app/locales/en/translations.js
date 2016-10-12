@@ -1294,6 +1294,16 @@ export default {
   },
 
   "gru-tour": {
+    "assessments-settings":{
+        "stepOne":{
+          "title":"Navigation and Scoring",
+          "description":"This setting determines how students can move through an assessment and shows whether their answers are correct or incorrect. It does not show them an answer key."
+        },
+        "stepTwo":{
+          "title":"Answer Key and Number of Attempts",
+          "description":"This setting allows an answer key to be revealed and sets the number of attempts students have on the assessment."
+        }
+    },
     "overview": {
       "stepOne":{
         "title": "Course Map",

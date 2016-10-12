@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('gru-switch', 'Integration | Component | gru switch', {
   integration: true,
@@ -57,6 +58,9 @@ test('Switch', function(assert) {
     }
     counter += 1;
   });
-  $switchComponent.find("a").click();
-  $switchComponent.find("a").click();
+  $switchComponent.find("input").prop("checked", true).change();
+  return wait().then(function(){
+    $switchComponent.find("input").prop("checked", false).change();
+    return wait();
+  });
 });

@@ -9,6 +9,8 @@ const ConfigurationService = Ember.Service.extend({
 
   configurationAdapter: null,
 
+  configuration: null,
+
   init: function () {
     this._super(...arguments);
     this.set('configurationAdapter', ConfigurationAdapter.create(Ember.getOwner(this).ownerInjection()));
@@ -26,6 +28,8 @@ const ConfigurationService = Ember.Service.extend({
     const configuration = Ember.Object.create(envConfiguration);
     //setting the configuration to the global variable
     ConfigurationService.configuration = configuration;
+
+    this.set("configuration", configuration);
 
     const hostname = window.location.hostname;
 
