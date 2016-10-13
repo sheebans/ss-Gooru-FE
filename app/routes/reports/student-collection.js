@@ -36,6 +36,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   lessonService: Ember.inject.service("api-sdk/lesson"),
 
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment result
+   */
+  performanceService: Ember.inject.service("api-sdk/performance"),
+
 
   // -------------------------------------------------------------------------
   // Actions
@@ -89,6 +94,24 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     });
   },
 
+  afterModel: function (model){
+    const controller = this;
+    const context = model.context;
+    var completedSessions = model.completedSessions;
+    const totalSessions = completedSessions.length;
+    const session = totalSessions ? completedSessions[totalSessions - 1] : null;
+
+    if (session){ //collections has no session
+      context.set("sessionId", session.sessionId);
+    }
+    const performanceService = controller.get("performanceService");
+    const loadStandards = session && context.get("isInContext");
+    return performanceService.findAssessmentResultByCollectionAndStudent(context, loadStandards)
+      .then(function(assessmentResult) {
+        model.assessmentResult = assessmentResult;
+      });
+  },
+
   /**
    *
    * @param controller
@@ -96,14 +119,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @returns {Promise.<T>}
    */
   setupController: function(controller, model){
-    var completedSessions = model.completedSessions;
-    const totalSessions = completedSessions.length;
-    const lastCompletedSession = totalSessions ? completedSessions[totalSessions - 1] : null;
     controller.set("collection", model.collection.toPlayerCollection());
     controller.set("lesson", model.lesson);
-    controller.set("completedSessions", completedSessions);
+    controller.set("completedSessions", model.completedSessions);
     controller.set("context", model.context);
-    controller.loadSession(lastCompletedSession);
+    controller.setAssessmentResult(model.assessmentResult);
   },
 
   /**
