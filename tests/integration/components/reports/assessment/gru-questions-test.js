@@ -60,7 +60,7 @@ test('Questions Layout', function (assert) {
   T.exists(assert, $component.find('table th.header.time-spent'), 'Missing time spent header');
   T.exists(assert, $component.find('table thead th.header.reaction'), 'Missing reaction header');
   T.exists(assert, $component.find('table tbody td.number-question'), 'Missing number column');
-  assert.equal(T.text($component.find('table tbody td.number-question:eq(1)')), "2", 'Wrong question number for question 2');
+  assert.equal(T.text($component.find('table tbody td.number-question:eq(1)')), "3", 'Wrong question number for question 2');
   T.exists(assert, $component.find('table tbody td.question-text'), 'Missing text column');
   T.exists(assert, $component.find('table tbody td.question-answer'), 'Missing answer column');
   T.exists(assert, $component.find('table tbody td.question-answer:eq(0) .gru-open-ended'), 'Missing gru-open-ended component');

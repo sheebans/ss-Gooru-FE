@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
+import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
@@ -42,7 +43,7 @@ export default Ember.Route.extend(ModalMixin, {
     const profile = this.modelFor("profile").profile;
 
     const params={
-      page:0,
+      pageSize:DEFAULT_PAGE_SIZE,
       searchText:  this.paramsFor('profile.content').term,
       sortOn: this.paramsFor('profile.content').sortOn,
       order:this.paramsFor('profile.content').order

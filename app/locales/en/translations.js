@@ -250,7 +250,7 @@ export default {
     "libraries": "Libraries",
     "license": "License",
     "link-out":"Link-out",
-    "link-out-message":"*If your resource is not rendering in the preview above, it may need a “link-out” and cannot be viewed within the Gooru player.",
+    "link-out-message":"*If your resource is showing up blank in the preview above, it may need a “link-out” to another page to view the content.",
     "loading": "Loading ...",
     "login": "Log In",
     "logout": "Logout",
@@ -1120,7 +1120,7 @@ export default {
     "student": "Student",
     "score": "Score",
     "completion": "Completion",
-    "study-time": "Study Time"
+    "study-time": "Time"
   },
   "gru-resource-new": {
     "resource-already-exist": "This resource already exists in Gooru!"
@@ -1292,17 +1292,42 @@ export default {
     "disable-heading": "Activate Assessment in Course Map",
     "disable-legend": "Students can play the assessment from their course map"
   },
-
+  "gru-icon-popover":{
+    "settings-visibility-title": "Make Your Content Visibile",
+    "settings-visibility-content": "This setting makes your assessment visible via your user profile. If you wish to share the assessments you create with colleagues, we suggest you turn this feature on."
+  },
   "gru-tour": {
     "assessments-settings":{
-        "stepOne":{
-          "title":"Navigation and Scoring",
-          "description":"This setting determines how students can move through an assessment and shows whether their answers are correct or incorrect. It does not show them an answer key."
-        },
-        "stepTwo":{
-          "title":"Answer Key and Number of Attempts",
-          "description":"This setting allows an answer key to be revealed and sets the number of attempts students have on the assessment."
-        }
+      "stepOne":{
+        "title":"Navigation and Scoring",
+        "description":"This setting determines how students can move through an assessment and shows whether their answers are correct or incorrect. It does not show them an answer key."
+      },
+      "stepTwo":{
+        "title":"Answer Key and Number of Attempts",
+        "description":"This setting allows an answer key to be revealed and sets the number of attempts students have on the assessment."
+      }
+    },
+    "home":{
+      "stepOne":{
+        "title": "Your Homepage",
+        "description": "Welcome to your Gooru homepage! Here you can find a list of the classrooms you create in Gooru. Classrooms allow you to share content directly with students. You can always come back to your homepage by clicking on the Gooru icon."
+      },
+      "stepTwo":{
+        "title": "Classes You Teach or Join",
+        "description": 'Any classrooms you teach or join this school year will appear here under Active Classrooms.'
+      },
+      "stepThree":{
+        "title": "Previous Classes",
+        "description": "Any classrooms you created or joined in past school years can be found in Archived Classrooms. Content used in these classrooms can be found in your Profile, and it can be re-assigned to new classrooms for this school year."
+      },
+      "stepFour":{
+        "title": "Create a Classroom",
+        "description": "Click here to create a new classroom. Once you have content to share with students, you will assign it to them via a classroom."
+      },
+      "stepFive":{
+        "title": "Your Profile",
+        "description": "This is your Profile. Click on your profile at any time to access content you create or remix in Gooru."
+      }
     },
     "overview": {
       "stepOne":{
@@ -1340,26 +1365,26 @@ export default {
         "description":"We suggest creating an assessment as a way to get started with Gooru and to assess current levels of student understanding in your class."
       }
     },
-    "home":{
-      "stepOne":{
-        "title": "Your Homepage",
-        "description": "Welcome to your Gooru homepage! Here you can find a list of the classrooms you create in Gooru. Classrooms allow you to share content directly with students. You can always come back to your homepage by clicking on the Gooru icon."
+    "real-time": {
+      "stepOne": {
+        "title": "Breakdown of Responses",
+        "description": "Click on each question to see a breakdown of how students answered."
       },
       "stepTwo":{
-        "title": "Classes You Teach or Join",
-        "description": 'Any classrooms you teach or join this school year will appear here under Active Classrooms.'
+        "title": "Individual Student Data",
+        "description": "Select each student tile to see individual student data reports."
       },
       "stepThree":{
-        "title": "Previous Classes",
-        "description": "Any classrooms you created or joined in past school years can be found in Archived Classrooms. Content used in these classrooms can be found in your Profile, and it can be re-assigned to new classrooms for this school year."
+        "title": "Select a View",
+        "description":'Select "title view" or "list view" to see options for displaying data.'
       },
       "stepFour":{
-        "title": "Create a Classroom",
-        "description": "Click here to create a new classroom. Once you have content to share with students, you will assign it to them via a classroom."
+        "title": "Average Score",
+        "description": "See the class average calculated in real-time for all responses."
       },
       "stepFive":{
-        "title": "Your Profile",
-        "description": "This is your Profile. Click on your profile at any time to access content you create or remix in Gooru."
+        "title": "Project Anonymous Data",
+        "description": "Use this option to project an anonymous view of student data."
       }
     }
   }
