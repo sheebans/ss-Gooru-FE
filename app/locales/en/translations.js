@@ -1120,7 +1120,7 @@ export default {
     "student": "Student",
     "score": "Score",
     "completion": "Completion",
-    "study-time": "Study Time"
+    "study-time": "Time"
   },
   "gru-resource-new": {
     "resource-already-exist": "This resource already exists in Gooru!"
