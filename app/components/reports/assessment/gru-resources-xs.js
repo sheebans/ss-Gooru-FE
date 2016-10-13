@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 /**
- *Question-xs
+ *Resource-xs
  *
- * Component responsible for showing the question details for xsmall devices.
+ * Component responsible for showing the resoruce details for xsmall devices.
  *
  * @module
  * @augments ember/Component
