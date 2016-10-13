@@ -43,9 +43,24 @@ export default Ember.Service.extend({
           description: service.get('i18n').t('gru-tour.real-time.stepOne.description')
         },
         {
-          elementSelector: '',
-          title: service.get('i18n').t('gru-tour.real-time.stepOne.title'),
-          description: service.get('i18n').t('gru-tour.real-time.stepOne.description')
+          title: service.get('i18n').t('gru-tour.real-time.stepTwo.title'),
+          description: service.get('i18n').t('gru-tour.real-time.stepTwo.description'),
+          image: 'real-time-tour-image'
+        },
+        {
+          elementSelector: '.gru-class-assessment-report .gru-view-layout-picker',
+          title: service.get('i18n').t('gru-tour.real-time.stepThree.title'),
+          description: service.get('i18n').t('gru-tour.real-time.stepThree.description')
+        },
+        {
+          elementSelector: '.gru-class-assessment-report .overview .average-score',
+          title: service.get('i18n').t('gru-tour.real-time.stepFour.title'),
+          description: service.get('i18n').t('gru-tour.real-time.stepFour.description')
+        },
+        {
+          elementSelector: '.controller.reports .header .actions .anonymous',
+          title: service.get('i18n').t('gru-tour.real-time.stepFive.title'),
+          description: service.get('i18n').t('gru-tour.real-time.stepFive.description')
         }
       ]);
   }

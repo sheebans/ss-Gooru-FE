@@ -6,6 +6,11 @@
   font-size: $font-size-small;
   position: relative;
 
+  /*Fix for tour.*/
+  &.introjs-fixParent {
+    position:relative!important;
+  }
+
   > ol {
     list-style: none;
     margin: 0;
