@@ -88,20 +88,11 @@
       }
     }
   }
-  .show-performance {
-    .correct-answer {
-      display: none;
-    }
-  }
-  .show-correct-answer {
-    .your-answer {
-      display: none;
-    }
-  }
-
-  .correct-answer,
-  .your-answer {
-    padding: 8px 0 8px 15%;
-  }
-
+ .time-spent{
+  display:inline-block;
+   padding: 8px 0 8px 20%;
+   > *{
+     display: block;
+   }
+ }
 }

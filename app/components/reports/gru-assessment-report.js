@@ -16,9 +16,11 @@ export default Ember.Component.extend({
       const animationSpeed = 1000;  // milliseconds
       const selectorTable = $(".gru-assessment-report #resource-" + bubbleOption.label);
       const $elTable = $(selectorTable);
+      const $tableVisible = $(".gru-assessment-report").find('table:visible');
 
       const selectorList = $(".gru-assessment-report #mobile-resource-"+ bubbleOption.label);
       const $elList = $(selectorList);
+      const $cardsVisible = $(".gru-assessment-report").find('.question-cards:visible');
 
       const isModal=$('.gru-assessment-report').parents('.gru-modal');
       //Check if the assessment report is showing into a modal
@@ -30,11 +32,11 @@ export default Ember.Component.extend({
         }
       }else{
         //Check if the questions details are showing on table (md or sm devices) or  a list (xs devices)
-        if ($elTable.length) {
+        if ($tableVisible.length) {
           $('html,body').animate({
             scrollTop: $elTable.offset().top - $('.controller.class.analytics.collection.student').offset().top
           }, animationSpeed);
-        } else  if ($elList.length) {
+        } else  if ($cardsVisible.length) {
           $('html,body').animate({
             scrollTop: $elList.offset().top - $('.controller.class.analytics.collection.student').offset().top
           }, animationSpeed);

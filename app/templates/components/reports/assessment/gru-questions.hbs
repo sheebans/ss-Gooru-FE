@@ -76,14 +76,14 @@
   {{/each}}
   </tbody>
 </table>
-<div class="question-cards visible-xs">
+<div class="question-cards cards visible-xs">
   <div class="header">
     <span class="question-number">{{t "common.number"}}</span>
     <span class="question-text">{{t "common.question"}}</span>
   </div>
   <ul class="question-cards-list">
     {{#each results as |result|}}
-      <li>
+      <li id="mobile-resource-{{result.resource.order}}">
         {{reports.assessment.gru-questions-xs result=result showPerformance=showPerformance}}
       </li>
     {{/each}}
