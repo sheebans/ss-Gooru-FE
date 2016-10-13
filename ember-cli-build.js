@@ -90,9 +90,20 @@ module.exports = function(defaults) {
   });
 
   // Add touch events to jquery UI: https://github.com/furf/jquery-ui-touch-punch
+
   app.import({
     development: 'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.js',
     production:  'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js'
+  });
+
+  app.import({
+    development: 'bower_components/jquery-ui/ui/effect.js',
+    production:  'bower_components/jquery-ui/ui/minified/effect.min.js'
+  });
+
+  app.import({
+    development: 'bower_components/jquery-ui/ui/effect-highlight.js',
+    production:  'bower_components/jquery-ui/ui/minified/effect-highlight.min.js'
   });
 
   app.import({
