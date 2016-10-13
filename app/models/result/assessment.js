@@ -43,6 +43,15 @@ export default Ember.Object.extend({
   /**
    * @property {QuestionResult[]} questionResults
    */
+  resources: Ember.computed("resourceResults.[]", function(){
+    return this.get("resourceResults").filter(function(resourceResult){
+      return !(resourceResult instanceof QuestionResult);
+    });
+  }),
+
+  /**
+   * @property {QuestionResult[]} questionResults
+   */
   sortedResourceResults: Ember.computed("resourceResults.[]", function(){
     return this.get("resourceResults").sortBy("resource.order");
   }),
@@ -159,7 +168,7 @@ export default Ember.Object.extend({
   }),
 
 
-  //
+  // -------------------------------------------------------------------------
   // Methods
   /**
    * Initializes the assessment results
@@ -200,8 +209,15 @@ export default Ember.Object.extend({
    */
   getResultByResourceId: function(resourceId){
     return this.get("resourceResults").findBy("resourceId", resourceId);
+  },
+  /**
+   * Fix the order of the resouceResults list
+   * @param {A[]} resourceResults
+   * @returns {ResourceResult}
+   */
+  fixResultsOrder: function () {
+    this.get('sortedResourceResults').forEach(function (resourceResult,index) {
+      resourceResult.set('resource.order',index+1);
+    });
   }
-
-
-
 });
