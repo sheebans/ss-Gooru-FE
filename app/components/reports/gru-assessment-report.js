@@ -14,11 +14,13 @@ export default Ember.Component.extend({
      */
     bubbleSelect: function(bubbleOption) {
       const animationSpeed = 1000;  // milliseconds
-      const selectorTable = $(".gru-assessment-report .gru-questions table:visible tbody tr:nth-child(" + bubbleOption.label + ")");
+      const selectorTable = $(".gru-assessment-report #resource-" + bubbleOption.label);
       const $elTable = $(selectorTable);
+      const $tableVisible = $(".gru-assessment-report").find('table:visible');
 
-      const selectorList = $(".gru-assessment-report .gru-questions .question-cards-list:visible li:nth-child(" + bubbleOption.label + ") .question-card");
+      const selectorList = $(".gru-assessment-report #mobile-resource-"+ bubbleOption.label);
       const $elList = $(selectorList);
+      const $cardsVisible = $(".gru-assessment-report").find('.question-cards:visible');
 
       const isModal=$('.gru-assessment-report').parents('.gru-modal');
       //Check if the assessment report is showing into a modal
@@ -30,11 +32,11 @@ export default Ember.Component.extend({
         }
       }else{
         //Check if the questions details are showing on table (md or sm devices) or  a list (xs devices)
-        if ($elTable.length) {
+        if ($tableVisible.length) {
           $('html,body').animate({
             scrollTop: $elTable.offset().top - $('.controller.class.analytics.collection.student').offset().top
           }, animationSpeed);
-        } else  if ($elList.length) {
+        } else  if ($cardsVisible.length) {
           $('html,body').animate({
             scrollTop: $elList.offset().top - $('.controller.class.analytics.collection.student').offset().top
           }, animationSpeed);
@@ -113,5 +115,23 @@ export default Ember.Component.extend({
     });
 
     return resourceResultsOrdered;
-  })
+  }),
+  /**
+   * Return ordered resources array
+   * @return {Ember.Array}
+   */
+  orderedResources: Ember.computed('assessmentResult.resources[]', function() {
+    var resourceResultsOrdered = this.get('assessmentResult.resources').sort(function(a, b){
+      return a.get('resource.order')-b.get('resource.order');
+    });
+
+    return resourceResultsOrdered;
+  }),
+
+  // -------------------------------------------------------------------------
+  // Events
+  fixResourceResultOrder: function () {
+    const component = this;
+    component.get('assessmentResult').fixResultsOrder();
+  }.on('init')
 });
