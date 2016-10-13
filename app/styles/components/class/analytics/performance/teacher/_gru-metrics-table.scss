@@ -8,7 +8,10 @@
     width: auto;
     overflow-x: auto;
     padding-bottom: 1px;
-    margin-left: 138px;
+    margin-left: 64px;
+    @media (max-width: $screen-xs-max) {
+      margin-left: 105px;
+    }
   }
 
   .table {
@@ -17,7 +20,7 @@
     font-size: $font-size-h6;
     background: $white;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
-    border-top: 47px solid $dark-400;
+    border-top: 15px solid $dark-400;
     border-radius: 0 5px 5px 0;
     border-collapse: inherit;
     display: table-cell;
@@ -43,14 +46,17 @@
           border-bottom: 1px solid $dark-200;
         }
         > td {
-          border-top: 47px solid $dark-400!important;
+          border-top: 15px solid $dark-400!important;
           border-radius: 5px 0 0 0;
           top: 10px;
-          height: 98px!important;
+          height: 54px!important;
         }
         .header-title {
           text-align: left;
           width: inherit;
+          div {
+            line-height: $font-size-lead;
+          }
           .title {
             width: inherit;
             @include text-overflow();
@@ -60,11 +66,8 @@
       .headers,
       .sub-header {
         th, td {
-          height: 42px;
-          padding: 0 0 0 20px;
-        }
-        th.fixed {
-          padding-top: 7px;
+          height: 26px;
+          padding: 0 0 0 2px;
         }
       }
     }
@@ -92,9 +95,9 @@
       }
     }
     td, th {
-      width: 100px;
-      min-width: 100px;
-      height: 70px;
+      width: 57px;
+      min-width: 57px;
+      height: 32px;
       vertical-align: middle;
       font-weight: normal;
       white-space: nowrap;
@@ -102,42 +105,64 @@
       text-overflow: ellipsis;
       border: 0;
       border-right: 1px solid $light-300;
-      padding: 5px 0 5px 20px;
+      padding: 2px;
       div:last-child {
         border: 0;
       }
-      &.header.fixed {
-        padding-top: 17px;
-      }
     }
     .table-cell {
-      width: 100px;
-      min-width: 100px;
+      width: 57px;
+      min-width: 57px;
       display: table-cell;
       vertical-align: middle;
+    }
+    .gru-metrics-sub-header {
+      font-size: $font-size-base;
+      .metrics-sub-header {
+        a {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 47px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        .material-icons {
+          font-size: $font-size-base;
+          margin: 0 0 0 -5px;
+        }
+      }
     }
     .performance-information {
       .box {
         border-radius: 4px;
-        text-align: center;
-        width: 68px;
-        height: 43px;
-        display: block;
+        width: 42px;
+        height: 25px;
+        display: inline-table;
         color: $white;
-        padding: 7px;
+        text-align: center;
         &.completion {
           background-color: $blue-400;
+        }
+      }
+      .charts.gru-completion-chart {
+        width: 44px;
+        height: 25px;
+        display: inline-table;
+        vertical-align: middle;
+        > span {
+          line-height: 25px;
+        }
+        .charts.gru-x-bar-chart {
+          height: 100%;
         }
       }
     }
     .fixed {
       position: absolute;
-      left: 55px;
-      min-height: 47px;
-      width: 140px;
-      @media (max-width: $screen-xs-max) {
-        left: 15px;
-      }
+      left: 10px;
+      min-height: 25px;
+      width: 111px;
     }
   }
 }
