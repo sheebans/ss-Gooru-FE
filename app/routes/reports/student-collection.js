@@ -36,6 +36,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   lessonService: Ember.inject.service("api-sdk/lesson"),
 
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment result
+   */
+  performanceService: Ember.inject.service("api-sdk/performance"),
+
 
   // -------------------------------------------------------------------------
   // Actions
@@ -44,12 +49,18 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const route = this;
       const controller = route.get("controller");
       const context = controller.get("context");
+      let toRoute = controller.get("backUrl");
       if (context.get("lessonId")){
-        controller.get("isTeacher") ? route.backToCourseMap() : route.backToData();
+        if (controller.get("isTeacher")) {
+          toRoute ? route.transitionTo(toRoute) : route.backToCourseMap();
+        }
+        else {
+          route.backToData();
+        }
       }
       else {
-        const toRoute = controller.get("backUrl") || 'index'; //index when refreshing the page, TODO fix
-        this.transitionTo(toRoute);
+        toRoute = toRoute || 'index'; //index when refreshing the page, TODO fix
+        route.transitionTo(toRoute);
       }
     }
   },
@@ -83,6 +94,24 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     });
   },
 
+  afterModel: function (model){
+    const controller = this;
+    const context = model.context;
+    var completedSessions = model.completedSessions;
+    const totalSessions = completedSessions.length;
+    const session = totalSessions ? completedSessions[totalSessions - 1] : null;
+
+    if (session){ //collections has no session
+      context.set("sessionId", session.sessionId);
+    }
+    const performanceService = controller.get("performanceService");
+    const loadStandards = session && context.get("isInContext");
+    return performanceService.findAssessmentResultByCollectionAndStudent(context, loadStandards)
+      .then(function(assessmentResult) {
+        model.assessmentResult = assessmentResult;
+      });
+  },
+
   /**
    *
    * @param controller
@@ -90,14 +119,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @returns {Promise.<T>}
    */
   setupController: function(controller, model){
-    var completedSessions = model.completedSessions;
-    const totalSessions = completedSessions.length;
-    const lastCompletedSession = totalSessions ? completedSessions[totalSessions - 1] : null;
     controller.set("collection", model.collection.toPlayerCollection());
     controller.set("lesson", model.lesson);
-    controller.set("completedSessions", completedSessions);
+    controller.set("completedSessions", model.completedSessions);
     controller.set("context", model.context);
-    controller.loadSession(lastCompletedSession);
+    controller.setAssessmentResult(model.assessmentResult);
   },
 
   /**
@@ -107,7 +133,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   getContext: function(params){
     const route = this;
-    const userId = route.get('session.userId');
+    let userId = route.get('session.userId');
+    const role = params.role;
+    if (role === 'teacher'){
+      /*
+        for teachers, it could be the teacher playing a collection or a teacher seeing its students report
+        for student should use always the session id
+       */
+      userId = params.userId || userId;
+    }
     const collectionId = params.collectionId;
     const courseId = params.courseId;
     const unitId = params.unitId;

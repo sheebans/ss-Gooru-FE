@@ -3,7 +3,7 @@ import Ember from 'ember';
 import { createDataMatrix } from 'gooru-web/utils/performance-data';
 
 /**
- * Teacher Analytics Performance Controller - Course Level
+ * Teacher Analytics Performance Controller - Lesson Level
  *
  * Controller responsible of the logic for the teacher performance at course level
  *
@@ -82,6 +82,18 @@ export default Ember.Controller.extend({
   selectedOptions: Ember.computed.alias('teacherController.selectedOptions'),
 
   /**
+   * List of selected options from the data picker.
+   * @property {Array}
+   */
+  optionsCollectionsTeacher: Ember.computed.alias('teacherController.optionsCollectionsTeacher'),
+
+  /**
+   * List of selected options from the data picker for mobile.
+   * @property {Array}
+   */
+  mobileOptionsCollectionsTeacher: Ember.computed.alias('teacherController.mobileOptionsCollectionsTeacher'),
+
+  /**
    * @property {Unit} unit
    */
   unit: null,
@@ -100,6 +112,12 @@ export default Ember.Controller.extend({
    * @property {ReportData} the selected collection report data
    */
   reportData: null,
+  /**
+   * A link to the parent class controller
+   * @see controllers/class.js
+   * @property {Course}
+   */
+  course: Ember.computed.alias('classController.course'),
 
   /**
    * Indicates if the filters are visible

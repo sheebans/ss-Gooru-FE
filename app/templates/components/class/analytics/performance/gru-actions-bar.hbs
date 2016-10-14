@@ -12,16 +12,11 @@
       {{gru-icon name='fullscreen'}} <span>{{t "class.analytics.performance.actions.fullScreen"}}</span>
     {{/if}}
   </button>
-  {{#unless collectionLevel}}
-    <button class="selected-filter btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
-      {{gru-icon name='spellcheck'}} <span>{{t dropdownFilterText}}</span>
-    </button>
-    <ul class="dropdown-menu">
-      <li class="dropdown-menu-item assessment {{if isFilterByAssessment 'selected' }}"><a {{action 'filter' 'assessment'}}>{{t "class.analytics.performance.actions.assessment"}}</a></li>
-
-      <li class="dropdown-menu-item collection {{if isFilterByCollection 'selected' }}"><a {{action 'filter' 'collection'}}>{{t "class.analytics.performance.actions.collection"}}</a></li>
-      <li class="dropdown-menu-item both out-of-scope {{if isFilterByBoth 'selected' }}"><a {{action 'filter' 'both'}}>{{t "class.analytics.performance.actions.both"}}</a></li>
-
-    </ul>
-  {{/unless}}
 </div>
+{{#unless collectionLevel}}
+  <div class="btn-group drop-menu filters">
+    <button class="btn assessment {{if isFilterByAssessment 'btn-primary selected' 'btn-info'}}" {{action 'filter' 'assessment'}}><span>{{t "common.assessments"}}</span></button>
+    <button class="btn collection {{if isFilterByCollection 'btn-primary selected' 'btn-info' }}" {{action 'filter' 'collection'}}><span>{{t "common.collections"}}</span></button>
+  </div>
+{{/unless}}
+

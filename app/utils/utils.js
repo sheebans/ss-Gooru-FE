@@ -399,3 +399,12 @@ export function addProtocolIfNecessary(url) {
 
   return url;
 }
+
+/**
+ * Check if it is a GoogleDoc
+ * @param {String} asset url
+ * @returns {boolean}
+ */
+export function checkIfIsGoogleDoc(assetUrl) {
+  return (assetUrl.indexOf("//drive.google") !== -1 || assetUrl.indexOf("//docs.google") !== -1);
+}

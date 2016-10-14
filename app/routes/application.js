@@ -61,6 +61,10 @@ export default Ember.Route.extend(PublicRouteMixin, {
         route.get('notifications').error(errorMessage);
         route.trackAppError(error);
       }
+      const isTesting = Env.environment === 'test';
+      if (isTesting) {
+        throw error; //throws the error so tests fail
+      }
     };
 
     Ember.$(document).ajaxError(function(event, jqXHR, settings) {
@@ -251,8 +255,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
       },
       "description": JSON.stringify(error)
     });
-
-    Ember.Logger.error(error);
+    Ember.Logger.error(error.stack);
     route.get("errorService").createError(model);
   },
 

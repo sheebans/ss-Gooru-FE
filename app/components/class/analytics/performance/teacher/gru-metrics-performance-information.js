@@ -14,7 +14,14 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions:{
-
+    /**
+     * When the user clicks at the score
+     */
+    clickScore: function (performance) {
+      if (this.get("onClickScore")){
+        this.sendAction("onClickScore", performance, this.get("userPerformance"));
+      }
+    }
   },
   // -------------------------------------------------------------------------
   // Events
@@ -39,6 +46,12 @@ export default Ember.Component.extend({
    */
 
   performanceData: null,
+
+  /**
+   * The parent user performance data
+   * @property
+   */
+  userPerformance: null,
 
   /**
    * Show the score class
@@ -89,7 +102,13 @@ export default Ember.Component.extend({
   showStudyTime: Ember.computed('dataPickerOptions.[]', function() {
     const dataPickerOptions = this.get('dataPickerOptions');
     return dataPickerOptions.contains('study-time');
-  })
+  }),
+
+  /**
+   * Action name when the user clicks at any score box
+   * @property {string}
+   */
+  onClickScore: null
 
   // -------------------------------------------------------------------------
 

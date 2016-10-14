@@ -2,6 +2,8 @@
 
   .narration {
     margin-top: 0;
+    margin-bottom: 15px;
+    max-width: 904px;
     @media (max-width: $screen-sm-max) {
       margin-top: 30px;
     }
@@ -70,6 +72,7 @@
     }
   }
   .content {
+    margin-top: -10px;
     overflow: auto;
     height: 100vh;
     width: 100%;
@@ -100,9 +103,8 @@
       }
     }
     .message {
-      * {
-        font-size: $font-size-base!important;
-      }
+      font-size: $font-size-large;
+      line-height: 1.5;
     }
   }
 }

@@ -42,6 +42,33 @@ export default Ember.Route.extend({
       const unitId = this.get("controller.unit.id");
       const lessonId = this.get("controller.lesson.id");
       this.transitionTo('class.analytics.performance.teacher.collection', unitId, lessonId, collectionId);
+    },
+
+    /**
+     * Navigates to the assessment report
+     */
+    navigateToReport: function (performance, userPerformance){
+      if (!performance.get("isAverage")) {
+        const route = this;
+
+        const queryParams = {
+          collectionId: performance.get("id"),
+          userId: userPerformance.get('userId'),
+          type: performance.get("collectionType"),
+          role: "teacher",
+          classId: route.get("controller.class.id"),
+          unitId: route.get("controller.unit.id"),
+          lessonId: route.get("controller.lesson.id"),
+          courseId: route.get("controller.course.id")
+        };
+
+        const reportController = route.controllerFor('reports.student-collection');
+
+        //this doesn't work when refreshing the page, TODO
+        var currentUrl = route.router.get("url");
+        reportController.set("backUrl",currentUrl);
+        route.transitionTo('reports.student-collection', { queryParams: queryParams});
+      }
     }
   },
 
@@ -69,7 +96,8 @@ export default Ember.Route.extend({
             const filteredCollections = lesson.get('children').filter(function(collection) {
               return (filterBy === 'both') || (collection.get('format') === filterBy);
             });
-            const classPerformanceData = route.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy});
+            const classPerformanceData = route.get('performanceService')
+              .findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy});
             return Ember.RSVP.hash({
               unit: unit,
               lesson: lesson,
@@ -87,6 +115,8 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
 
+    this.setupDataPickerOptions(controller);
+
     const performanceData = createDataMatrix(model.collections, model.classPerformanceData);
     controller.set('performanceDataMatrix', performanceData);
     controller.set('collections', model.collections);
@@ -102,6 +132,52 @@ export default Ember.Route.extend({
     //updating the collectionLevel to show or not the launch anonymous button
     controller.set("teacherController.collectionLevel", false);
 
+    //updating the lessonLevel to show or not filters
+    controller.set("teacherController.lessonLevel", true);
+
+  },
+  /**
+   * Setups data picker options for lesson
+   * @param controller
+   */
+  setupDataPickerOptions: function(controller){
+    if(controller.get('filterBy') !=='assessment'){
+      controller.set('selectedOptions', Ember.A(["score","study-time"]));
+      controller.set("showFilters", true);
+    }
+    controller.set('optionsCollectionsTeacher', Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':true,
+      'readOnly':true,
+      'isDisabled':false
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':true
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':true,
+      'readOnly':false,
+      'isDisabled':false
+    })]));
+
+    controller.set('mobileOptionsCollectionsTeacher', Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':true,
+      'readOnly':false,
+      'isDisabled':false
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':true
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':false
+    })]));
   }
 
 });

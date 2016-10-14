@@ -67,7 +67,7 @@ export default Ember.Controller.extend({
    * @property {*}
    */
   pagination: {
-    page: 0,
+    page: 1,
     pageSize: DEFAULT_PAGE_SIZE
   },
 
@@ -85,6 +85,7 @@ export default Ember.Controller.extend({
     const profile = this.get('profile');
     const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
+    pagination.pageSize = pagination.pageSize;
     pagination.searchText=this.get('term');
     pagination.sortOn = this.get('sortOn');
     pagination.order = this.get('order');
@@ -98,7 +99,7 @@ export default Ember.Controller.extend({
 
   resetValues: function(){
     this.set("pagination", {
-      page: 0,
+      page: 1,
       pageSize: DEFAULT_PAGE_SIZE
     });
   }

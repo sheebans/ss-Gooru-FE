@@ -17,10 +17,6 @@ export default Ember.Route.extend(ModalMixin,{
 
   session: Ember.inject.service("session"),
 
-  /**
-   * @type {ProfileService} Service to retrieve profile information
-   */
-  profileService: Ember.inject.service('api-sdk/profile'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -100,6 +96,11 @@ export default Ember.Route.extend(ModalMixin,{
   collectionService: Ember.inject.service("api-sdk/collection"),
 
   /**
+   * @property {Ember.Service} Service to retrieve a collection
+   */
+  profileService: Ember.inject.service("api-sdk/profile"),
+
+  /**
    * @property {Ember.Service} Service to retrieve an asssessment
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
@@ -148,6 +149,7 @@ export default Ember.Route.extend(ModalMixin,{
         }
       });
       context.set("collectionType", collection.get("collectionType"));
+
       return route.playerModel(params, context, playerCollection, collection);
     });
   },

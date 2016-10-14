@@ -144,3 +144,27 @@ test('Verify the option can not be unselected when is readOnly', function(assert
   assert.ok($optionScore.length, "Score can not be unselected");
 });
 
+test('Do not show the option if is disabled', function(assert) {
+  assert.expect(1);
+
+  const options= Ember.A([Ember.Object.create({
+    'value': 'score',
+    'selected':true,
+    'readOnly':true,
+    'isDisabled': true
+  }),Ember.Object.create({
+    'value': 'completion',
+    'selected':true,
+    'readOnly':false,
+    'isDisabled': false
+  })
+  ]);
+  const max = 3;
+  this.set('options', options);
+  this.set('max', max);
+
+  this.render(hbs`{{class/analytics/performance/gru-data-picker  options=options max=max}}`);
+  var $component = this.$();
+  const $options = $component.find(".option-picker li");
+  assert.equal($options.length,1, "Should have only one option");
+});

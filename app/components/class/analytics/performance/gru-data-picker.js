@@ -54,23 +54,28 @@ export default Ember.Component.extend({
   options: Ember.A([Ember.Object.create({
     'value': 'score',
     'selected':true,
-    'readOnly':false
+    'readOnly':false,
+    'isDisabled':false
   }),Ember.Object.create({
     'value': 'completion',
     'selected':false,
-    'readOnly':false
+    'readOnly':false,
+    'isDisabled':false
   }),Ember.Object.create({
     'value': 'timeSpent',
     'selected':false,
-    'readOnly':false
+    'readOnly':false,
+    'isDisabled':false
   }),Ember.Object.create({
     'value': 'reaction',
     'selected':false,
-    'readOnly':false
+    'readOnly':false,
+    'isDisabled':false
   }),Ember.Object.create({
     'value': 'attempts',
     'selected':false,
-    'readOnly':false
+    'readOnly':false,
+    'isDisabled':false
   })]),
 
   /**

@@ -28,6 +28,10 @@ export default Ember.Controller.extend({
    */
   notifications: Ember.inject.service(),
 
+
+  applicationController: Ember.inject.controller('application'),
+
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -63,6 +67,7 @@ export default Ember.Controller.extend({
                 controller.set('didValidate', true);
                 // Trigger action in parent
                 controller.send('signUp');
+                controller.get("applicationController").loadUserClasses();
               });
             }, function(error) {
               if(error && (error.email_id || error.username)) {
