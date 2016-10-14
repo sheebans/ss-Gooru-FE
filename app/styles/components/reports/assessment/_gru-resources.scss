@@ -36,21 +36,16 @@
     th.number {
       width: 2%;
     }
+    th.resource-type{
+      width:6%;
+    }
     th.resource {
-      width: 45%;
+      width: 37%;
     }
     th.timeSpent {
       width: 24%;
     }
-    .resource-text{
-      .title-content{
-        display: flex;
-        > *{
-          display: flex;
-          -webkit-align-items: center;
-          align-items: center;
-        }
-      }
+    .resource-type-icon{
       .image {
         display: inline-block;
         margin-right: 10px;
