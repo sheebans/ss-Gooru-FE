@@ -207,7 +207,6 @@ export default Ember.Component.extend({
   loadData: function(classId, courseId, unitId, userId) {
     const component = this;
     const filterBy = component.get('selectedFilterBy');
-    const contentVisibility = component.get("contentVisibility");
     return component.get('unitService').fetchById(courseId, unitId)
       .then(function(unit) {
         const lessons = unit.get('children');

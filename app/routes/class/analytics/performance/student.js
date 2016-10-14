@@ -54,7 +54,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     controller.set('userId', model.userId);
     controller.set('classModel', model.classModel);
     controller.set('units', model.units);
-    controller.get('classController').selectMenuItem('analytics.performance')
+    controller.get('classController').selectMenuItem('analytics.performance');
   },
 
   // -------------------------------------------------------------------------

@@ -131,7 +131,7 @@ export default Ember.Controller.extend({
           contentVisibility.getTotalCollectionsByUnitAndLesson(unitId, performance.get("realId"));
         performance.set("completionTotal", totals);
       });
-    })
+    });
   }
 
 });
