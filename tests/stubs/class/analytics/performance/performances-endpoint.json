@@ -1,5 +1,23 @@
 [
   {
+    "description": "Student session - details",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/assessment/(.+)/user/(.+)",
+      "method": "GET",
+      "query": {
+        "sessionId": "(.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-session-details-200-response.json"
+    }
+  },
+  {
     "description": "Gets the collection performance data by student, unit, class, lesson, etc",
     "request": {
       "url": "^/api/nucleus-insights/v2/(assessment|collection)/(.+)/user/(.+)",
@@ -567,9 +585,47 @@
   },
 
   {
-    "description": "Student sessions - empty",
+    "description": "Student sessions - completed",
     "request": {
       "url": "^/api/nucleus-insights/v2/(.+)/(.+)/sessions",
+      "method": "GET",
+      "query": {
+        "openSession": false
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-sessions-completed-200-response.json"
+    }
+  },
+
+  {
+    "description": "Student sessions - open",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/(.+)/(.+)/sessions",
+      "method": "GET",
+      "query": {
+        "openSession": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-sessions-open-200-response.json"
+    }
+  },
+
+  {
+    "description": "Student sessions - taxonomy usage",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/session/(.+)/taxonomy/usage",
       "method": "GET"
     },
     "response": {
@@ -578,7 +634,7 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "student-sessions-empty-200-response.json"
+      "file": "student-session-taxonomy-usage-200-response.json"
     }
   }
 

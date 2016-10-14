@@ -42,6 +42,33 @@ export default Ember.Route.extend({
       const unitId = this.get("controller.unit.id");
       const lessonId = this.get("controller.lesson.id");
       this.transitionTo('class.analytics.performance.teacher.collection', unitId, lessonId, collectionId);
+    },
+
+    /**
+     * Navigates to the assessment report
+     */
+    navigateToReport: function (performance, userPerformance){
+      if (!performance.get("isAverage")) {
+        const route = this;
+
+        const queryParams = {
+          collectionId: performance.get("id"),
+          userId: userPerformance.get('userId'),
+          type: performance.get("collectionType"),
+          role: "teacher",
+          classId: route.get("controller.class.id"),
+          unitId: route.get("controller.unit.id"),
+          lessonId: route.get("controller.lesson.id"),
+          courseId: route.get("controller.course.id")
+        };
+
+        const reportController = route.controllerFor('reports.student-collection');
+
+        //this doesn't work when refreshing the page, TODO
+        var currentUrl = route.router.get("url");
+        reportController.set("backUrl",currentUrl);
+        route.transitionTo('reports.student-collection', { queryParams: queryParams});
+      }
     }
   },
 
@@ -69,7 +96,8 @@ export default Ember.Route.extend({
             const filteredCollections = lesson.get('children').filter(function(collection) {
               return (filterBy === 'both') || (collection.get('format') === filterBy);
             });
-            const classPerformanceData = route.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy});
+            const classPerformanceData = route.get('performanceService')
+              .findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy});
             return Ember.RSVP.hash({
               unit: unit,
               lesson: lesson,

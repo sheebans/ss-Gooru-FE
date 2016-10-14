@@ -12,6 +12,8 @@ function createPerformanceObject(performance, headerTitle) {
   const score = performance.get('score');
   const timeSpent = performance.get('timeSpent');
   return Ember.Object.create({
+    id: performance.get("realId"),
+    collectionType: performance.get("collectionType"),
     headerTitle: headerTitle,
     score: score,
     timeSpent: formatTime(timeSpent),
@@ -29,6 +31,7 @@ function createUserAverageObject(studentPerformance) {
   const score = studentPerformance.get('averageScore');
   const timeSpent = studentPerformance.get('averageTimeSpent');
   return Ember.Object.create({
+    isAverage: true, //indicates it is an average object
     score: roundFloat(score),
     studyTime: timeSpent,
     timeSpent: formatTime(roundFloat(timeSpent)),
@@ -87,6 +90,7 @@ export function createDataMatrix(headers, classPerformanceData) {
 
     var userData = Ember.Object.create({
       user: user.get('fullName'),
+      userId: user.get("id"),
       performanceData: Ember.A([])
     });
     headers.forEach(function(headerItem) {
