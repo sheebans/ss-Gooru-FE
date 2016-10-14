@@ -1,5 +1,5 @@
 <div class="summary-container">
-  {{#if collection.isAssessment}}
+  {{#if assessmentResult.questionResults}}
     <div class="grade" style="background-color: {{gradeColor assessmentResult.correctPercentage}}">
       <span class="percentage">{{round-number assessmentResult.correctPercentage}}%</span>
     <span class="attempts">
