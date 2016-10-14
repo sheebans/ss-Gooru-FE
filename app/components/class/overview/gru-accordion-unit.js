@@ -259,6 +259,7 @@ export default Ember.Component.extend(AccordionMixin, {
     const unitId = component.get('model.id');
     const classMembers = component.get('classMembers');
     const isTeacher = component.get('isTeacher');
+    const contentVisibility = component.get('contentVisibility');
 
     return component.get('unitService').fetchById(courseId, unitId)
       .then(function(unit) {
@@ -284,6 +285,7 @@ export default Ember.Component.extend(AccordionMixin, {
                   const lessonPerformance = performance.findBy('id', lesson.get('id'));
                   lesson.set('performance', lessonPerformance);
                 }
+                lesson.set('performance.completionTotal', contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get("id")));
               });
               return lessons;
             });
