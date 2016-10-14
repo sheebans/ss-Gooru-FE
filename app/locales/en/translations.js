@@ -326,6 +326,7 @@ export default {
       "HT_HL": "Highlight Text"
     },
     "reaction": "Reaction",
+    "read-first":"<b>Read this first!</b>",
     "remaining": "{{number}} Left",
     "remix": "Remix",
     "remix-assessment": "Remix Assessment",
