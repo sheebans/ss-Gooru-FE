@@ -213,9 +213,9 @@ export default Ember.Component.extend({
         const lessons = unit.get('children');
         return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons, {collectionType: filterBy})
           .then(function(lessonPerformances) {
+            component.fixTotalCounts(unitId, lessonPerformances, filterBy);
             const promises = lessonPerformances.map(function(lessonPerformance) {
               //overriding totals from core
-              lessonPerformance.set("completionTotal", contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lessonId));
               //TODO this should be loaded at the gru-lesson-performance only when the lesson is expanded
               const lessonId = lessonPerformance.get('id');
               return component.get('lessonService').fetchById(courseId, unitId, lessonId)
@@ -291,6 +291,19 @@ export default Ember.Component.extend({
    */
   isCollectionFilterable: function(collection, filterBy) {
     return (filterBy === 'both') || (collection.get('format').indexOf(filterBy) !== -1);
+  },
+
+
+  fixTotalCounts: function(unitId, performances, filterBy) {
+    const controller = this;
+    const contentVisibility = controller.get("contentVisibility");
+    performances.forEach(function(performance){ //overriding totals from core
+      const totals = filterBy === "assessment" ?
+        contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, performance.get("realId")) :
+        contentVisibility.getTotalCollectionsByUnitAndLesson(unitId, performance.get("realId"));
+      performance.set("completionTotal", totals);
+    });
   }
+
 
 });

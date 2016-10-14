@@ -30,14 +30,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     const userId = this.get('session.userId');
     const classId= classModel.get('id');
     const courseId = classModel.get('courseId');
-    // TODO This need to be reverted once we have the Collection Type dropdown with Collection and Both options enabled.
-    const collectionType = params.filterBy ? {collectionType: params.filterBy} : {collectionType: 'assessment'};
+    const filterBy = params.filterBy || 'assessment';
+    const collectionType = {collectionType: filterBy};
     const unitPerformances = this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units, collectionType);
     return Ember.RSVP.hash({
       userId:userId,
       classModel:classModel,
       units: units,
-      unitPerformances: unitPerformances
+      unitPerformances: unitPerformances,
+      filterBy: filterBy
     });
   },
 
@@ -47,16 +48,13 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    const contentVisibility = controller.get("contentVisibility");
     const performances = model.unitPerformances || [];
-    performances.forEach(function(performance){ //overriding totals from core
-      performance.set("completionTotal", contentVisibility.getTotalAssessmentsByUnit(performance.get("realId")));
-    });
+    controller.fixTotalCounts(performances, model.filterBy);
     controller.set('performances', performances);
     controller.set('userId', model.userId);
     controller.set('classModel', model.classModel);
     controller.set('units', model.units);
-    controller.get('classController').selectMenuItem('analytics.performance');
+    controller.get('classController').selectMenuItem('analytics.performance')
   },
 
   // -------------------------------------------------------------------------

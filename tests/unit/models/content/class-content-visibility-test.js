@@ -391,3 +391,70 @@ test("getTotalAssessmentsByUnit and getTotalAssessmentsByUnitAndLesson", functio
   assert.equal(model.getTotalAssessmentsByUnit('unit-2'), 1, "Wrong assessments total for unit-2");
   assert.equal(model.getTotalAssessmentsByUnitAndLesson('unit-2', 'lesson-2-1'), 1, "Wrong assessments total for unit-2/lesson-2-1");
 });
+
+test("getTotalCollectionsByUnit and getTotalCollectionsByUnitAndLesson", function(assert) {
+  let model = this.subject({
+    course: {
+      "id": "course-1",
+      "units": [
+        {
+          "id": "unit-1",
+          "lessons": [
+            {
+              "id": "lesson-1-1",
+              "assessments": [
+                {
+                  "id": "assessment-1.1.1",
+                  "visible": "on"
+                }
+              ],
+              "collections": [
+                {
+                  "id": "collection-1.1.2",
+                  "visible": "off"
+                },
+                {
+                  "id": "collection-1.1.3",
+                  "visible": "on"
+                }
+              ]
+            },
+            {
+              "id": "lesson-1-2",
+              "assessments": [
+                {
+                  "id": "assessment-1.2.1",
+                  "visible": "on"
+                },
+                {
+                  "id": "assessment-1.2.2",
+                  "visible": "on"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "unit-2",
+          "lessons": [
+            {
+              "id": "lesson-2-1",
+              "assessments": [
+                {
+                  "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95atest",
+                  "visible": "on"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  });
+  assert.equal(model.getTotalCollectionsByUnit('unit-1'), 2, "Wrong collections total for unit-1");
+  assert.equal(model.getTotalCollectionsByUnitAndLesson('unit-1', 'lesson-1-1'), 2, "Wrong collections total for unit-1/lesson-1-1");
+  assert.equal(model.getTotalCollectionsByUnitAndLesson('unit-1', 'lesson-1-2'), 0, "Wrong collections total for unit-1/lesson-1-2");
+
+  assert.equal(model.getTotalCollectionsByUnit('unit-2'), 0, "Wrong collections total for unit-2");
+  assert.equal(model.getTotalCollectionsByUnitAndLesson('unit-2', 'lesson-2-1'), 0, "Wrong collections total for unit-2/lesson-2-1");
+});

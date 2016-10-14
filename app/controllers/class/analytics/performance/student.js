@@ -174,12 +174,24 @@ export default Ember.Controller.extend({
     const courseId = classModel.get('courseId');
     controller.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units, {collectionType: filterBy})
       .then(function(unitPerformances) {
+        controller.fixTotalCounts(unitPerformances, filterBy);
         controller.set('performances', unitPerformances);
       });
 
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
+
+  fixTotalCounts: function(performances, filterBy) {
+    const controller = this;
+    const contentVisibility = controller.get("contentVisibility");
+    performances.forEach(function(performance){ //overriding totals from core
+      const totals = filterBy === "assessment" ?
+        contentVisibility.getTotalAssessmentsByUnit(performance.get("realId")) :
+        contentVisibility.getTotalCollectionsByUnit(performance.get("realId"));
+      performance.set("completionTotal", totals);
+    });
+  }
 
 });
