@@ -42,13 +42,13 @@ test('Layout as a student', function (assert) {
     assert.equal($expandedLessons.length, 1, 'Wrong number of lesson accordions expanded');
 
     var $accordion = find(".gru-accordion-unit:eq(0)", $overviewContainer);
-    assert.ok($accordion.hasClass('expanded'), 'Second unit should be expanded');
+    assert.ok($accordion.hasClass('expanded'), 'First unit should be expanded');
 
-    $accordion = find(".gru-accordion-lesson:eq(0)", $accordion);
-    assert.ok($accordion.hasClass('expanded'), 'First lesson in the second unit should be expanded');
+    $accordion = find(".gru-accordion-lesson:eq(2)", $accordion);
+    assert.ok($accordion.hasClass('expanded'), '3rd lesson in the second unit should be expanded');
 
-    var $resource = find(".collections .panel:eq(1)", $accordion);
-    assert.ok($resource.hasClass('selected'), 'Second resource should be marked as selected');
+    var $resource = find(".collections .panel:eq(0)", $accordion);
+    assert.ok($resource.hasClass('selected'), 'First collection should be marked as selected');
 
     var $resourceTitle = $resource.find('.panel-title .title');
     assert.ok($resourceTitle.hasClass('disabled'),"Second resource should be disabled");

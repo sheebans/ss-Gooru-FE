@@ -18,6 +18,24 @@
     }
   },
   {
+    "description": "Gets first assessment id data",
+    "request": {
+      "url": "^/api/nucleus/v1/assessments/first-assessment-id$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "first-assessment-id-200-response.json"
+    }
+  },
+  {
     "description": "Create a assessment",
     "request": {
       "url": "^/api/nucleus/v1/assessments$",

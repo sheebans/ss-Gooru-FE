@@ -53,7 +53,8 @@ export default Ember.Component.extend({
    * @prop {Object[]}
    */
   bubbleQuestions: Ember.computed('learningTarget.relatedQuestions.[]', 'assessmentResult.questionResults.[]', function () {
-    return this.getBubblesQuestions(this.get("assessmentResult.questionResults"));
+    const results = this.get("assessmentResult.questionResults").sortBy("resource.order");
+    return this.getBubblesQuestions(results);
   }),
   /**
    * List of questions
