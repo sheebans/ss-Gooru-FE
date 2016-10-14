@@ -50,7 +50,7 @@ test('Resources Layout', function (assert) {
   T.exists(assert, $component.find('table tbody td.number-resource'), 'Missing number column');
   assert.equal(T.text($component.find('table tbody td.number-resource:eq(1)')), "2", 'Wrong resource number for resource 2');
   T.exists(assert, $component.find('table tbody td.resource-text'), 'Missing text column');
-  T.exists(assert, $component.find('table tbody td.resource-text .image'), 'Missing resource icon');
+  T.exists(assert, $component.find('table tbody td.resource-type-icon .image'), 'Missing resource icon');
   T.exists(assert, $component.find('table tbody td.time-spent'), 'Missing time spent column');
   T.exists(assert, $component.find('table tbody td.reaction'), 'Missing reaction column');
   T.exists(assert, $component.find('.resource-cards.visible-xs'), 'Missing mobile resource cards');
