@@ -33,7 +33,7 @@ test('Layout', function(assert) {
     const $breadcrumb = find(".controller.class .gru-breadcrumb");
     const $breadcrumbItems = $breadcrumb.find("button");
     assert.equal($breadcrumbItems.length, 1, "Incorrect number of breadcrumb items");
-    assert.equal(T.text($breadcrumb.find("button:last-child")), 'mathematics course 101', "Wrong breadcrumb item label");
+    assert.equal(T.text($breadcrumb.find("button:last-child")), 'Release time! - Course 1', "Wrong breadcrumb item label");
 
     const $filters = find(".controller.class .gru-filters");
     assert.equal($filters.length, 1, "Filters should be visible");

@@ -19,7 +19,7 @@
     "request": {
       "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/(.+)/lesson/(.+)/performance",
       "query": {
-        "collectionType": "(.+)"
+        "collectionType": "collection"
       },
       "method": "GET"
     },
@@ -30,6 +30,24 @@
       },
       "body": "File not found!",
       "file": "teacher-performance-collection-200-response.json"
+    }
+  },
+  {
+    "description": "API 3.0: Returns all the students performance data for all the collections in a class, course, unit and lesson",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/class/(.+)/course/(.+)/unit/(.+)/lesson/(.+)/performance",
+      "query": {
+        "collectionType": "(.+)"
+      },
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "teacher-performance-assessment-200-response.json"
     }
   },
   {
