@@ -10,7 +10,7 @@
           {{#each headers as |header index|}}
             {{#if (eq header.collectionType 'collection')}}
                 <th id="{{{header.id}}}" class="header" scope="col">
-                    <div class="header-title">
+                    <div class="header-title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">
                       {{#if header.collectionType}}
                           <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>
                       {{else}}
@@ -21,7 +21,7 @@
                 </th>
             {{else}}
                 <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
-                    <div class="header-title">
+                    <div class="header-title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">
                       {{#if header.collectionType}}
                           <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>
                       {{else}}

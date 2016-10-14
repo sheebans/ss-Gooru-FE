@@ -69,6 +69,11 @@ export default Ember.Component.extend({
     });
   },
 
+  didRender() {
+    this._super(...arguments);
+    this.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+  },
+
   // -------------------------------------------------------------------------
   // Properties
   /**
