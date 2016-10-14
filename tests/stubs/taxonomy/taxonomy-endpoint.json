@@ -67,6 +67,27 @@
     "request": {
       "url": "^/api/nucleus/v1/taxonomy/codes",
       "query": {
+        "idList": "^CCSS.K12.MA-5-MD-B.01"
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "taxonomy-codes-for-student-report-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch Taxonomy Codes by a IDs",
+    "request": {
+      "url": "^/api/nucleus/v1/taxonomy/codes",
+      "query": {
         "idList": "(.+)"
       },
       "method": "GET",

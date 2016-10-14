@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Ember from "ember";
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('/class/analytics/performance/teacher/gru-metrics-performance-information', 'Integration | Component | /class/analytics/performance/teacher/gru-metrics-sub-header', {
   integration: true,
@@ -38,4 +39,35 @@ test('Metrics performance information Layout', function(assert) {
   var $studyTime = $component.find(".study-time");
   T.notExists(assert, $studyTime, "study time cell shouldn't be visible");
 
+});
+
+test('When clicking the score', function(assert) {
+  assert.expect(2);
+
+  const dataPickerOptionsMock = Ember.A(["score","completion"]);
+  const performanceDataMock = Ember.Object.create({
+    score: 50,
+    timeSpent: 3600,
+    completionDone: 16,
+    completionTotal: 32,
+    headerTitle: "header test"
+  });
+
+  this.set('dataPickerOptions', dataPickerOptionsMock);
+  this.set('performanceData', performanceDataMock);
+  this.on('clickScore', function (performance, userPerformance) {
+    assert.equal(performance.get("score"), 50, "Wrong score");
+    assert.equal(userPerformance, 'fakeUserPerformance', "Wrong user performance");
+  });
+
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-performance-information 
+      onClickScore='clickScore'
+      userPerformance='fakeUserPerformance'
+      performanceData=performanceData dataPickerOptions=dataPickerOptions}}`);
+
+  const $component = this.$(); //component dom element
+
+  var $score = $component.find(".score");
+  $score.click();
+  return wait();
 });

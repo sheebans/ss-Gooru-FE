@@ -65,7 +65,10 @@
             </th>
             {{#each userPerformance.performanceData as |data|}}
               <td class="performance-information">
-                {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=data dataPickerOptions=dataPickerOptions}}
+                {{class.analytics.performance.teacher.gru-metrics-performance-information
+                    userPerformance=userPerformance
+                    onClickScore='clickScore'
+                    performanceData=data dataPickerOptions=dataPickerOptions}}
               </td>
             {{/each}}
           </tr>

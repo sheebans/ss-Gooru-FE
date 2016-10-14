@@ -112,6 +112,12 @@ export default Ember.Controller.extend({
    * @property {ReportData} the selected collection report data
    */
   reportData: null,
+  /**
+   * A link to the parent class controller
+   * @see controllers/class.js
+   * @property {Course}
+   */
+  course: Ember.computed.alias('classController.course'),
 
   /**
    * Indicates if the filters are visible
