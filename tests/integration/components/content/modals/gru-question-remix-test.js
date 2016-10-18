@@ -21,6 +21,11 @@ const questionServiceStub = Ember.Service.extend({
       promise: promiseResponse
     });
   },
+
+  updateQuestionTitle(questionId, title) {
+    return (title  === 'QUESTION FAIL') ? new Ember.RSVP.reject() : new Ember.RSVP.resolve(title);
+  },
+
   copyQuestion() {
     return DS.PromiseObject.create({
       promise: new Ember.RSVP.resolve(12345)
