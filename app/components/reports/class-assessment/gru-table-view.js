@@ -304,7 +304,7 @@ export default Ember.Component.extend({
         filter: {
           label: this.get('i18n').t('reports.gru-table-view.study-time').string
         },
-        label: this.get('i18n').t('reports.gru-table-view.study-time').string,
+        label: this.get('i18n').t('reports.gru-table-view.time').string,
         value: 'timeSpent',
         renderFunction: formatTime,
         aggregateFunction: totalTimeSpent

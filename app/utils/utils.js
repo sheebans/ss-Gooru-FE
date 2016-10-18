@@ -170,10 +170,10 @@ export function getReactionIcon(reactionValue) {
       html += ' </svg>';
       html += '</div>';
     } else {
-      html = '&mdash;';
+      html = '<div class="align-center">&mdash;</div>';
     }
   } else if (reactionValue === null) {
-    html = '&mdash;';
+    html = '<div class="align-center">&mdash;</div>';
   } else {
     html = '';
   }
