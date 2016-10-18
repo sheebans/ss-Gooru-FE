@@ -55,6 +55,12 @@ test('serializeUpdateAssessment', function(assert) {
   assert.equal(response.setting.show_key, ASSESSMENT_SHOW_VALUES.NEVER, "Wrong show key");
 });
 
+test('serializeUpdateAssessmentTitle', function(assert) {
+  const serializer = this.subject();
+  const response = serializer.serializeUpdateAssessmentTitle('assessment-title');
+  assert.equal(response.title, 'assessment-title', "Wrong title");
+});
+
 test('normalizeReadAssessment', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({

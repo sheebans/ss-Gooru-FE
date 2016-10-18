@@ -57,6 +57,20 @@ export default Ember.Object.extend({
     return this.serializeCollection(collectionModel);
   },
 
+  /**
+   * Serialize the collection title
+   *
+   * @param title
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateCollectionTitle: function(title) {
+    let serialized = {
+      title: title
+    };
+    return serialized;
+  },
+
+
   serializeCollection: function(collectionModel) {
     const serializer = this;
     const thumbnail = cleanFilename(collectionModel.thumbnailUrl, this.get('session.cdnUrls'));

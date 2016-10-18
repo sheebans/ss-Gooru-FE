@@ -91,6 +91,21 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Updates the Collection title
+   *
+   * @param collectionId the id of the Collection to be updated
+   * @param title the Collection title
+   * @returns {Promise}
+   */
+  updateCollectionTitle: function(collectionId, title) {
+    const service = this;
+    let serializedData = service.get('collectionSerializer').serializeUpdateCollectionTitle(title);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(resolve, reject);
+    });
+  },
+
+  /**
    * Reorder collection resources
    *
    * @param collectionId the id of the Collection to be updated

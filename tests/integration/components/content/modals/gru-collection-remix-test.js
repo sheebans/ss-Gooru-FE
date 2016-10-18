@@ -21,6 +21,17 @@ const collectionServiceStub = Ember.Service.extend({
       promise: promiseResponse
     });
   },
+  updateCollectionTitle(collectionId, title) {
+    var promiseResponse;
+
+    if (title === 'COLLECTION FAIL') {
+      promiseResponse = new Ember.RSVP.reject();
+    } else {
+      promiseResponse = new Ember.RSVP.resolve(12345);
+    }
+
+    return promiseResponse;
+  },
   copyCollection() {
     return DS.PromiseObject.create({
       promise: new Ember.RSVP.resolve(12345)

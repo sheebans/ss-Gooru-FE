@@ -26,7 +26,7 @@ export default RemixBaseModal.extend({
 
   updateContent: function(collection) {
     const component = this;
-    return component.get('collectionService').updateCollection(collection.get('id'), collection).then(function(){
+    return component.get('collectionService').updateCollectionTitle(collection.get('id'), collection.get('title')).then(function(){
       let courseId = component.get('courseId');
       let unitId = component.get('unitId');
       let lessonId = component.get('lessonId');

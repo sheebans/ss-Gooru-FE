@@ -88,6 +88,19 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Serialize the question title
+   *
+   * @param title
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateQuestionTitle: function(title) {
+    let serializedQuestion = {
+      title: title
+    };
+    return serializedQuestion;
+  },
+
+  /**
    * Serialize an Answer model object into a JSON representation required by the Update Question endpoint
    *
    * @param answerModel - the Answer model to be serialized

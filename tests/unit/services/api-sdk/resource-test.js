@@ -83,6 +83,29 @@ test('updateResource', function(assert) {
   service.updateResource(expectedResourceId, expectedResourceModel).then(function() { done(); });
 });
 
+test('updateResourceTitle', function(assert) {
+  const service = this.subject();
+  const expectedResourceId = 'resource-id';
+  assert.expect(2);
+
+  service.set('resourceAdapter', Ember.Object.create({
+    updateResource: function(resourceId) {
+      assert.equal(resourceId, expectedResourceId, "Wrong resource id" );
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('resourceSerializer', Ember.Object.create({
+    serializeUpdateResourceTitle: function(title) {
+      assert.equal(title, 'any title', 'Wrong title');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.updateResourceTitle(expectedResourceId, 'any title').then(function() { done(); });
+});
+
 test('copyResource', function(assert) {
   const service = this.subject();
 

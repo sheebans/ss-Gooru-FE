@@ -58,7 +58,8 @@ export default Ember.Route.extend({
         return Ember.RSVP.hash({
           unit: unit,
           lessons: unit.get('children'),
-          classPerformanceData: classPerformanceData
+          classPerformanceData: classPerformanceData,
+          filterBy: filterBy
         });
       });
   },
@@ -69,7 +70,9 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    const performanceData = createDataMatrix(model.lessons, model.classPerformanceData);
+    const classPerformanceData = model.classPerformanceData;
+    controller.fixTotalCounts(model.unit.get("id"), classPerformanceData, model.filterBy);
+    const performanceData = createDataMatrix(model.lessons, classPerformanceData);
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('lessons', model.lessons);

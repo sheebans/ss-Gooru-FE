@@ -46,16 +46,22 @@ export default Ember.Object.extend({
    * @param courseModel The Course model to be serialized
    * @returns {Object} returns a JSON Object
    */
-  serializeUpdateCourse: function (courseModel,updateAll) {
-    var courseData;
-    if(updateAll){
-      courseData = this.serializeCourse(courseModel);
-    }else{
-      courseData = {
-        title: courseModel.get('title')
-      };
-    }
+  serializeUpdateCourse: function (courseModel) {
+    var courseData = this.serializeCourse(courseModel);
     return courseData;
+  },
+
+  /**
+   * Serialize the course title
+   *
+   * @param title
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateCourseTitle: function(title) {
+    let serialized = {
+      title: title
+    };
+    return serialized;
   },
 
   serializeCourse: function(courseModel) {

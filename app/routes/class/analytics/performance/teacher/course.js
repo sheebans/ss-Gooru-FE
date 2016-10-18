@@ -54,7 +54,8 @@ export default Ember.Route.extend({
 
     return Ember.RSVP.hash({
       units: units,
-      classPerformanceData: classPerformanceData
+      classPerformanceData: classPerformanceData,
+      filterBy: filterBy
     });
   },
 
@@ -64,7 +65,9 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    const performanceData = createDataMatrix(model.units, model.classPerformanceData);
+    const classPerformanceData = model.classPerformanceData;
+    controller.fixTotalCounts(classPerformanceData, model.filterBy);
+    const performanceData = createDataMatrix(model.units, classPerformanceData);
     controller.set('performanceDataMatrix', performanceData);
     controller.set('units', model.units);
 

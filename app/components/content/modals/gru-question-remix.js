@@ -35,7 +35,7 @@ export default RemixBaseModal.extend({
 
   updateContent: function(question) {
     const component = this;
-    return component.get('questionService').updateQuestion(question.get('id'), question).then(function() {
+    return component.get('questionService').updateQuestionTitle(question.get('id'), question.get("title")).then(function() {
       let collectionId = component.get('collectionId');
       let parentService = component.get('isCollection') ? component.get('collectionService') : component.get('assessmentService');
       return collectionId ?

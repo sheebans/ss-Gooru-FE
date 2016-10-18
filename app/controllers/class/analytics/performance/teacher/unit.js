@@ -89,6 +89,13 @@ export default Ember.Controller.extend({
    */
   unit: null,
 
+  /**
+   * A link to the content visibility from class controller
+   * @see controllers/class.js
+   * @property {Class}
+   */
+  contentVisibility: Ember.computed.alias('classController.contentVisibility'),
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -103,12 +110,28 @@ export default Ember.Controller.extend({
     const lessons = controller.get('lessons');
     controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
       .then(function(classPerformanceData) {
+        controller.fixTotalCounts(unitId, classPerformanceData, filterBy);
         const performanceData = createDataMatrix(lessons, classPerformanceData);
         controller.set('performanceDataMatrix', performanceData);
       });
-  })
+  }),
 
 
   // -------------------------------------------------------------------------
   // Methods
+  fixTotalCounts: function(unitId, classPerformanceData, filterBy) {
+    const controller = this;
+    const contentVisibility = controller.get("contentVisibility");
+    const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
+    studentPerformanceData.forEach(function(studentPerformance) {
+      const performanceData = studentPerformance.get("performanceData");
+      performanceData.forEach(function(performance) {
+        const totals = filterBy === "assessment" ?
+          contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, performance.get("realId")) :
+          contentVisibility.getTotalCollectionsByUnitAndLesson(unitId, performance.get("realId"));
+        performance.set("completionTotal", totals);
+      });
+    });
+  }
+
 });
