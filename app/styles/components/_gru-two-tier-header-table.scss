@@ -6,7 +6,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 1px;
-    margin-left: 66px;
+    margin-left: 65px;
     @media (max-width: $screen-xs-max) {
       margin-left: 105px;
     }
@@ -44,6 +44,9 @@
         border-radius: 5px 0 0 0;
         top: 76px;
         height: 47px!important;
+        @-moz-document url-prefix() {
+          top: 78px;
+        }
       }
       th {
         &:hover {
