@@ -24,7 +24,7 @@ export default RemixBaseModal.extend({
   },
 
   updateContent: function(course) {
-    return this.get('courseService').updateCourse(course,false);
+    return this.get('courseService').updateCourseTitle(course.get("id"), course.get("title"));
   },
 
   showSuccessNotification: function(course) {

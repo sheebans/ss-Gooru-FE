@@ -57,27 +57,16 @@ test('serializeUpdateCourse all values', function (assert) {
       "audience": courseModel.audience
     }
   };
-  const serializedCourse = serializer.serializeUpdateCourse(courseModel,true);
+  const serializedCourse = serializer.serializeUpdateCourse(courseModel);
   assert.deepEqual(serializedCourse, expectedSerializedCourse, 'Wrong serialized Course');
 });
 
-test('serializeUpdateCourse only with title', function (assert) {
+test('serializeUpdateCourseTitle', function (assert) {
   const serializer = this.subject();
-  const courseModel = Course.create({
-    id: 'course-id',
-    title: 'course-title',
-    description: 'course-description',
-    thumbnailUrl: 'course-thumbnail-url',
-    isVisibleOnProfile: true,
-    taxonomy: [],
-    subject: 'course-subject',
-    useCase: "use-case",
-    audience: [1]
-  });
   const expectedSerializedCourse = {
-    title: courseModel.title
+    title: 'course-title'
   };
-  const serializedCourse = serializer.serializeUpdateCourse(courseModel,false);
+  const serializedCourse = serializer.serializeUpdateCourseTitle('course-title');
   assert.deepEqual(serializedCourse, expectedSerializedCourse, 'Wrong serialized Course');
 });
 

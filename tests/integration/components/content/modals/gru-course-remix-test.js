@@ -7,22 +7,32 @@ import CourseModel from 'gooru-web/models/content/course';
 
 const courseServiceStub = Ember.Service.extend({
 
-  updateCourse(course,updateAll) {
+  updateCourse(course) {
     var promiseResponse;
 
     if (course.get('title') === 'COURSE FAIL') {
       promiseResponse = new Ember.RSVP.reject();
-    } else if (updateAll === true) {
-      promiseResponse = new Ember.RSVP.reject();
     } else {
-      course.set('id', 12345);
-      promiseResponse = new Ember.RSVP.resolve(course);
+      promiseResponse = new Ember.RSVP.reject();
     }
 
     return DS.PromiseObject.create({
       promise: promiseResponse
     });
   },
+
+  updateCourseTitle: function(id, title) {
+    if (title === 'COURSE FAIL') {
+      return new Ember.RSVP.reject();
+    }
+    else {
+      return Ember.RSVP.resolve({
+        id: id,
+        title: title
+      });
+    }
+  },
+
   copyCourse() {
     return DS.PromiseObject.create({
       promise: new Ember.RSVP.resolve(12345)
