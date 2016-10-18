@@ -39,6 +39,12 @@ test('serializeUpdateResource', function(assert) {
 
 });
 
+test('serializeUpdateResourceTitle', function(assert) {
+  const serializer = this.subject();
+  const serializedResource = serializer.serializeUpdateResourceTitle('resource-title');
+  assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
+});
+
 test('normalizeReadResource', function(assert) {
   const serializer = this.subject();
   const resourceData = {

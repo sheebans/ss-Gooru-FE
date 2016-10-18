@@ -21,6 +21,19 @@ const assessmentServiceStub = Ember.Service.extend({
       promise: promiseResponse
     });
   },
+  updateAssessmentTitle(assessmentId, title) {
+    var promiseResponse;
+
+    if (title === 'ASSESSMENT FAIL') {
+      promiseResponse = new Ember.RSVP.reject();
+    } else {
+      promiseResponse = new Ember.RSVP.resolve(12345);
+    }
+
+    return DS.PromiseObject.create({
+      promise: promiseResponse
+    });
+  },
   copyAssessment() {
     return DS.PromiseObject.create({
       promise: new Ember.RSVP.resolve(12345)

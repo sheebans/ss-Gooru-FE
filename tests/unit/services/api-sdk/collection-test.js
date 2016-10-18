@@ -92,6 +92,29 @@ test('updateCollection', function(assert) {
   service.updateCollection(expectedCollectionId, expectedCollectionModel).then(function() { done(); });
 });
 
+test('updateCollectionTitle', function(assert) {
+  const service = this.subject();
+  const expectedCollectionId = 'collection-id';
+
+  assert.expect(2);
+
+  service.set('collectionSerializer', Ember.Object.create({
+    serializeUpdateCollectionTitle: function(title) {
+      assert.equal(title, 'title', 'Wrong title');
+      return {};
+    }
+  }));
+  service.set('collectionAdapter', Ember.Object.create({
+    updateCollection: function(collectionId) {
+      assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.updateCollectionTitle(expectedCollectionId, 'title').then(function() { done(); });
+});
+
 test('reorderCollection', function(assert) {
   const service = this.subject();
   const expectedCollectionId = 'collection-id';

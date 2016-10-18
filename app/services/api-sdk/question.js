@@ -76,6 +76,21 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Updates the question title
+   *
+   * @param questionId the id of the question to be updated
+   * @param title
+   * @returns {Promise}
+   */
+  updateQuestionTitle: function(questionId, title) {
+    const service = this;
+    let serializedData = service.get('questionSerializer').serializeUpdateQuestionTitle(title);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('questionAdapter').updateQuestion(questionId, serializedData).then(resolve, reject);
+    });
+  },
+
+  /**
    * Delete question
    *
    * @param questionId question id to delete

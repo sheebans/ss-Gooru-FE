@@ -25,7 +25,7 @@ export default RemixBaseModal.extend({
 
   updateContent: function(assessment) {
     const component = this;
-    return component.get('assessmentService').updateAssessment(assessment.get('id'), assessment).then(function(){
+    return component.get('assessmentService').updateAssessmentTitle(assessment.get('id'), assessment.get("title")).then(function(){
       let courseId = component.get('courseId');
       let unitId = component.get('unitId');
       let lessonId = component.get('lessonId');

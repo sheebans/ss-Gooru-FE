@@ -53,6 +53,20 @@ export default Ember.Object.extend({
     return serializedAssessment;
   },
 
+  /**
+   * Serialize the assessment title
+   *
+   * @param title
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateAssessmentTitle: function(title) {
+    let serialized = {
+      title: title
+    };
+    return serialized;
+  },
+
+
   serializeAssessment: function(assessmentModel) {
     const thumbnail = cleanFilename(assessmentModel.get("thumbnailUrl"), this.get('session.cdnUrls'));
     let serializedAssessment = {

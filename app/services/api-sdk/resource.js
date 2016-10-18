@@ -88,6 +88,21 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Updates the resource title
+   *
+   * @param resourceId the id of the resource to be updated
+   * @param title the resource title
+   * @returns {Promise}
+   */
+  updateResourceTitle: function(resourceId, title) {
+    const service = this;
+    let serializedData = service.get('resourceSerializer').serializeUpdateResourceTitle(title);
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      service.get('resourceAdapter').updateResource(resourceId, serializedData).then(resolve, reject);
+    });
+  },
+
+  /**
    * Copies a resources by id
    * @param {string} resourceId
    * @returns {Ember.RSVP.Promise}

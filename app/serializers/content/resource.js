@@ -63,6 +63,18 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Serialize the resource title
+   *
+   * @param title
+   * @returns {Object} returns a JSON Object
+   */
+  serializeUpdateResourceTitle: function(title) {
+    let serialized = {
+      title: title
+    };
+    return serialized;
+  },
+  /**
    * Normalize the resource data into a Resource object
    * @param resourceData
    * @returns {Resource}

@@ -126,6 +126,13 @@ test('serializeUpdateQuestion', function(assert) {
 
 });
 
+test('serializeUpdateQuestionTitle', function(assert) {
+  const serializer = this.subject();
+  const response = serializer.serializeUpdateQuestionTitle("Title");
+
+  assert.equal(response.title, 'Title', 'Wrong title');
+});
+
 test('serializeAnswer', function(assert) {
   const serializer = this.subject();
   const answer = AnswerModel.create({
