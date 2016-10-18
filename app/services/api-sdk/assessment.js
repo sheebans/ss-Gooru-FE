@@ -78,6 +78,21 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Updates an Assessment
+   *
+   * @param assessmentId the id of the Assessment to be updated
+   * @param title the Assessment title
+   * @returns {Promise}
+   */
+  updateAssessmentTitle: function(assessmentId, title) {
+    const service = this;
+    let serializedData = service.get('assessmentSerializer').serializeUpdateAssessmentTitle(title);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('assessmentAdapter').updateAssessment(assessmentId, serializedData).then(resolve, reject);
+    });
+  },
+
+  /**
    * Adds a question to a specific assessment
    * @param assessmentId
    * @param questionId

@@ -82,6 +82,29 @@ test('updateAssessment', function(assert) {
   service.updateAssessment(expectedAssessmentId, expectedAssessmentModel).then(function() { done(); });
 });
 
+test('updateAssessmentTitle', function(assert) {
+  const service = this.subject();
+  const expectedAssessmentId = 'assessment-id';
+
+  assert.expect(2);
+
+  service.set('assessmentSerializer', Ember.Object.create({
+    serializeUpdateAssessmentTitle: function(title) {
+      assert.equal(title, 'title', 'Wrong assessment title');
+      return {};
+    }
+  }));
+  service.set('assessmentAdapter', Ember.Object.create({
+    updateAssessment: function(assessmentId) {
+      assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.updateAssessmentTitle(expectedAssessmentId, 'title').then(function() { done(); });
+});
+
 test('addQuestion', function(assert) {
   const service = this.subject();
   const expectedAssessmentId = 'assessment-id';
