@@ -82,22 +82,43 @@ test('Layout', function (assert) {
   assert.equal($component.find(".gru-student-performance-box").length, 3, "It should displayed 3 boxes");
 
 
-  $firstStudentPerformanceBox = $component.find(".gru-student-performance-box:first-child");
+  var $firstStudentPerformanceBox = $component.find(".gru-student-performance-box:first-child");
 
+  T.exists(assert, $firstStudentPerformanceBox, "Missing first student box");
+  var $firstHeaderName = $firstStudentPerformanceBox.find(".name");
+  T.exists(assert, $firstHeaderName, "Missing student box name");
+  assert.equal(T.text($firstHeaderName), 'Lorena Prendas Chavarria', "Wrong name");
+  var $firstHeaderScore = $firstStudentPerformanceBox.find(".score");
+  T.exists(assert, $firstHeaderScore, "Missing student box score");
+  assert.equal(T.text($firstHeaderScore), '100%', "Wrong score");
 
-  assert.equal(T.text($firstStudentPerformanceBox.find(".panel-heading")), "Lorena Prendas Chavarria (100%)", "It should say Lorena Prendas Chavarria (100%)");
+  var $lastStudentPerformanceBox = $component.find(".gru-student-performance-box:last-child");
 
-  $lastStudentPerformanceBox = $component.find(".gru-student-performance-box:last-child");
-
-  assert.equal(T.text($lastStudentPerformanceBox.find(".panel-heading")), "David Zumbado Alfaro (33%)", "It should say David Zumbado Alfaro (33%)");
+  T.exists(assert, $lastStudentPerformanceBox, "Missing last student box");
+  var $lastHeaderName = $lastStudentPerformanceBox.find(".name");
+  T.exists(assert, $lastHeaderName, "Missing student box name");
+  assert.equal(T.text($lastHeaderName), 'David Zumbado Alfaro', "Wrong name");
+  var $lastHeaderScore = $lastStudentPerformanceBox.find(".score");
+  T.exists(assert, $lastHeaderScore, "Missing student box score");
+  assert.equal(T.text($lastHeaderScore), '33%', "Wrong score");
 
   $alphabeticalSortBtn.click();
 
-  let $firstStudentPerformanceBox = $component.find(".gru-student-performance-box:first-child");
+  $firstStudentPerformanceBox = $component.find(".gru-student-performance-box:first-child");
+  $firstHeaderName = $firstStudentPerformanceBox.find(".name");
 
-  assert.equal(T.text($firstStudentPerformanceBox.find(".panel-heading")), "Andres Charpentier Zuñiga (67%)", "It should say Andres Charpentier Zuñiga");
+  T.exists(assert, $firstHeaderName, "Missing student box name");
+  assert.equal(T.text($firstHeaderName), 'Andres Charpentier Zuñiga', "Wrong name");
+  $firstHeaderScore = $firstStudentPerformanceBox.find(".score");
+  T.exists(assert, $firstHeaderScore, "Missing student box score");
+  assert.equal(T.text($firstHeaderScore), '67%', "Wrong score");
 
-  let $lastStudentPerformanceBox = $component.find(".gru-student-performance-box:last-child");
-  assert.equal(T.text($lastStudentPerformanceBox.find(".panel-heading")), "Lorena Prendas Chavarria (100%)", "It should say Lorena Prendas Chavarria");
+  $lastStudentPerformanceBox = $component.find(".gru-student-performance-box:last-child");
+  $lastHeaderName = $lastStudentPerformanceBox.find(".name");
 
+  T.exists(assert, $lastHeaderName, "Missing student box name");
+  assert.equal(T.text($lastHeaderName), 'Lorena Prendas Chavarria', "Wrong name");
+  $lastHeaderScore = $lastStudentPerformanceBox.find(".score");
+  T.exists(assert, $lastHeaderScore, "Missing student box score");
+  assert.equal(T.text($lastHeaderScore), '100%', "Wrong score");
 });

@@ -90,4 +90,7 @@
 
 .gru-tour {
   @include align-self(flex-end);
+  button {
+    vertical-align: 5px;
+  }
 }

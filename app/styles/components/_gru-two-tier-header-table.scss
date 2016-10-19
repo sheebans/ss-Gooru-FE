@@ -6,10 +6,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 1px;
-    margin-left: 65px;
-    @media (max-width: $screen-xs-max) {
-      margin-left: 105px;
-    }
+    margin-left: 110px;
   }
 
   table {
@@ -141,16 +138,30 @@
     }
     .fixed {
       position: absolute;
-      left: -45px;
+      left: 0;
       width: 111px;
-      @media (max-width: $screen-xs-max) {
-        left: -5px;
-      }
     }
     .emotion {
       display: block;
       margin: 0 auto;
       text-align: center;
+    }
+  }
+}
+
+.analytics-performance-teacher-collection .gru-two-tier-header-table {
+  .table-wrapper {
+    margin-left: 65px;
+    @media (max-width: $screen-xs-max) {
+      margin-left: 105px;
+    }
+    table {
+      .fixed {
+        left: -45px;
+        @media (max-width: $screen-xs-max) {
+          left: -5px;
+        }
+      }
     }
   }
 }
