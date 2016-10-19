@@ -25,13 +25,16 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
-  getStandardsSummary: function(sessionId) {
+  getStandardsSummary: function(sessionId, userId) {
     const namespace = this.get('namespace');
     const url = `${namespace}/session/${sessionId}/taxonomy/usage`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      headers: this.defineHeaders()
+      headers: this.defineHeaders(),
+      data: {
+        userUid: userId
+      }
     };
     return Ember.$.ajax(url, options);
   },
