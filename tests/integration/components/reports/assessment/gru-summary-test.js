@@ -292,7 +292,18 @@ test('it renders for collection with questions', function (assert) {
       QuestionResult.create({
         id: 602,
         resource: {
-          order: 2
+          order: 2,
+          isOpenEnded: false
+        },
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      QuestionResult.create({
+        id: 602,
+        resource: {
+          order: 2,
+          isOpenEnded: true
         },
         correct: true,
         timeSpent: 20000,
@@ -322,6 +333,12 @@ test('it renders for collection with questions', function (assert) {
   var $gradeContainer = $component.find('.summary-container .grade');
   assert.ok($gradeContainer.length, "Grade container should be visible");
 
+  var $fractional = $gradeContainer.find('.fractional');
+  assert.ok($fractional, 'Fractional not found');
+  assert.equal($fractional.find('.top').text().trim(), "1", "Incorrect fractional top text");
+  assert.equal($fractional.find('.bottom').text().trim(), "1", "Incorrect fractional bottom text");
+
+
   var $thumbnailContainer = $component.find('.summary-container .thumbnail');
   assert.notOk($thumbnailContainer.length, "thumbnail container should not be visible");
 
@@ -340,7 +357,7 @@ test('it renders for collection with questions', function (assert) {
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
-  assert.equal($overviewSection.find('span').text().trim(), '1m', 'Incorrect time value');
+  assert.equal($overviewSection.find('span').text().trim(), '1m 20s', 'Incorrect time value');
 
   // Reaction
   $overviewSection = $overviewContainer.find('.information .reaction');
@@ -348,10 +365,10 @@ test('it renders for collection with questions', function (assert) {
 
   // Reaction
   var $questionLinks = $overviewContainer.find('.gru-bubbles');
-  assert.equal($questionLinks.find('li').length, 3, "Incorrect number of resource links");
+  assert.equal($questionLinks.find('li').length, 4, "Incorrect number of resource links");
 });
 
-test('it renders for collection with only resources', function (assert) {
+test('it renders for collection with only resources and open ended questions', function (assert) {
   const date = new Date(2010, 1, 20);
   date.setSeconds(10);
   date.setMinutes(15);
@@ -381,6 +398,16 @@ test('it renders for collection with only resources', function (assert) {
         resource: {
           order: 2
         },
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      QuestionResult.create({
+        id: 602,
+        resource: {
+          order: 2,
+          isOpenEnded: true
+        },
+        correct: true,
         timeSpent: 20000,
         reaction: 2
       })
