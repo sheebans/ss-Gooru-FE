@@ -66,7 +66,7 @@ export default Ember.Service.extend({
     const searchService = service.get('searchService');
     const courseId = context.courseId;
     return new Ember.RSVP.Promise(function(resolve) {
-      analyticsService.getStandardsSummary(context.get('sessionId'))
+      analyticsService.getStandardsSummary(context.get('sessionId'), context.get("userId"))
         .then(function (standardsSummary) {
           assessmentResult.set('mastery', standardsSummary);
           let standardsIds = standardsSummary.map(function (standardSummary) {
