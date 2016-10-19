@@ -144,7 +144,7 @@ test('getReactionIcon', function (assert) {
   assert.equal(startsWith(3, '<div class="emotion emotion-3'), true);
   assert.equal(startsWith(2, '<div class="emotion emotion-2'), true);
   assert.equal(startsWith(1, '<div class="emotion emotion-1'), true);
-  assert.equal(getReactionIcon(null), '&mdash;');
+  assert.equal(getReactionIcon(null), '<div class="align-center">&mdash;</div>');
   assert.equal(getReactionIcon(undefined), '');
   assert.equal(getReactionIcon(false), '');
   assert.equal(getReactionIcon(''), '');

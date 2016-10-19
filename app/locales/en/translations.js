@@ -1183,6 +1183,7 @@ export default {
     "score": "Score",
     "scores": "Scores",
     "study-time": "Study Time",
+    "time": "Time",
     "time-spent": "Time Spent",
     "totals": "Total"
   },

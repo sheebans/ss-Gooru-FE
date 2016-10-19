@@ -10,7 +10,7 @@ moduleForComponent('reports/class-assessment/gru-student-performance-box', 'Inte
 
 test('Layout when all completed', function (assert) {
 
-  assert.expect(9);
+  assert.expect(11);
 
   const student = Ember.Object.create({
     "id": "56983a9060a68052c1ed934c",
@@ -65,8 +65,12 @@ test('Layout when all completed', function (assert) {
 
   const $header = $component.find(".panel .panel-heading");
   T.exists(assert, $header, "Missing student box title");
-  T.exists(assert, $header.find(".score"), "Missing student box score");
-  assert.equal(T.text($header), 'Rocha, Perez (50%)', "Wrong title");
+  const $headerName = $header.find(".name");
+  T.exists(assert, $headerName, "Missing student box name");
+  assert.equal(T.text($headerName), 'Rocha, Perez', "Wrong name");
+  const $headerScore = $header.find(".score");
+  T.exists(assert, $headerScore, "Missing student box score");
+  assert.equal(T.text($headerScore), '50%', "Wrong score");
 
   const $questions = $component.find(".panel .questions");
   T.exists(assert, $questions, "Missing questions area");
@@ -146,7 +150,7 @@ test('Layout having not started questions', function (assert) {
 
 test('Showing student code in anonymous mode', function (assert) {
 
-  assert.expect(4);
+  assert.expect(5);
 
   const student = Ember.Object.create({
     "id": "56983a9060a68052c1ed934c",
@@ -176,7 +180,11 @@ test('Showing student code in anonymous mode', function (assert) {
   T.exists(assert, $component.find(".panel"), "Missing student box panel");
 
   const $header = $component.find(".panel .panel-heading");
-  T.exists(assert, $header, "Missing student box title");
-  T.exists(assert, $header.find(".score"), "Missing student box score");
-  assert.equal(T.text($header), 'abcde (100%)', "Wrong title, it should use students code");
+  const $headerName = $header.find(".name");
+  T.exists(assert, $headerName, "Missing student box name");
+  assert.equal(T.text($headerName), 'abcde', "Wrong name");
+  const $headerScore = $header.find(".score");
+  T.notExists(assert, $headerScore, "student box score should not be visible");
+  const $inProgressIcon = $header.find(".question-in-progress");
+  T.notExists(assert, $inProgressIcon, "inProgressIcon should not be visible");
 });

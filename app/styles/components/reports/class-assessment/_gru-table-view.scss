@@ -71,8 +71,7 @@
 
       tr.data {
         th {
-          max-width: 12rem;
-
+          padding: 5px 0 0 2px;
           span {
             display: block;
             @include text-overflow();
@@ -86,11 +85,10 @@
           .score {
             border-radius: 4px;
             text-align: center;
-            width: 68px;
-            height: 43px;
+            width: 42px;
+            height: 25px;
             display: block;
             color: $white;
-            padding: 7px;
           }
         }
         th + td {
