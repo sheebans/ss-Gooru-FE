@@ -280,6 +280,7 @@ export default {
     "no-more-attempts": "No more attempts",
     "notStarted": "Not started",
     "not-added": "Not Added",
+    "not-applicable": "N/A",
     "not-following": "You're not following anyone.",
     "not-provided": "Not provided",
     "not-specified": "Not specified",

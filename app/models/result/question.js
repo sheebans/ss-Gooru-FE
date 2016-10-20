@@ -55,7 +55,14 @@ export default ResourceResult.extend({
    * @property {String}
    */
   attemptStatus: Ember.computed('correct', 'skipped', 'pending', function () {
-    return this.get('correct') ? 'correct' : ((this.get('skipped') || this.get('pending')) ? 'skipped' : 'incorrect');
+    const isOpenEnded = this.get("question.isOpenEnded");
+    const skipped = (this.get('skipped') || this.get('pending'));
+    const correct = this.get('correct');
+    let status = correct ? 'correct' : (skipped) ? 'skipped' : 'incorrect';
+    if (isOpenEnded) {
+      status = skipped ? 'skipped' : 'started';
+    }
+    return status;
   }),
 
   /**

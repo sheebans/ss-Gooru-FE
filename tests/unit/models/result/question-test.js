@@ -111,3 +111,76 @@ test('answered', function(assert) {
   questionResult.set("userAnswer", undefined);
   assert.ok(!questionResult.get("answered"), "It should not be answered");
 });
+
+
+test('attemptStatus, correct', function(assert) {
+  let questionResult = QuestionResult.create({
+    correct: true,
+    skipped: false,
+    pending: false
+  });
+  assert.equal(questionResult.get("attemptStatus"), 'correct', "wrong status");
+});
+
+test('attemptStatus, skipped', function(assert) {
+  let questionResult = QuestionResult.create({
+    correct: false,
+    skipped: true,
+    pending: false
+  });
+  assert.equal(questionResult.get("attemptStatus"), 'skipped', "wrong status");
+});
+
+test('attemptStatus, pending', function(assert) {
+  let questionResult = QuestionResult.create({
+    correct: false,
+    skipped: false,
+    pending: true
+  });
+  assert.equal(questionResult.get("attemptStatus"), 'skipped', "wrong status");
+});
+
+test('attemptStatus, incorrect', function(assert) {
+  let questionResult = QuestionResult.create({
+    correct: false,
+    skipped: false,
+    pending: false
+  });
+  assert.equal(questionResult.get("attemptStatus"), 'incorrect', "wrong status");
+});
+
+test('attemptStatus, open ended - pending', function(assert) {
+  let questionResult = QuestionResult.create({
+    correct: false,
+    skipped: false,
+    pending: true,
+    question: {
+      isOpenEnded: true
+    }
+  });
+  assert.equal(questionResult.get("attemptStatus"), 'skipped', "wrong status");
+});
+
+test('attemptStatus, open ended - skipped', function(assert) {
+  let questionResult = QuestionResult.create({
+    correct: false,
+    skipped: true,
+    pending: false,
+    question: {
+      isOpenEnded: true
+    }
+  });
+  assert.equal(questionResult.get("attemptStatus"), 'skipped', "wrong status");
+});
+
+test('attemptStatus, open ended - started', function(assert) {
+  let questionResult = QuestionResult.create({
+    correct: false,
+    skipped: false,
+    pending: false,
+    question: {
+      isOpenEnded: true
+    }
+  });
+  assert.equal(questionResult.get("attemptStatus"), 'started', "wrong status");
+});
