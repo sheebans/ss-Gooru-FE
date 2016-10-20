@@ -18,8 +18,10 @@ test('Questions Layout', function (assert) {
       "correct": true,
       "resource": Ember.Object.create({
         text: "This is a question 1",
-        questionType: 'OE',
-        order: 1
+        questionType: 'MC',
+        order: 1,
+        isOpenEnded: false,
+        answers: Ember.A([])
       }),
       "reaction": 4,
       "timeSpent": 2096,
@@ -30,7 +32,8 @@ test('Questions Layout', function (assert) {
       "resource": Ember.Object.create({
         text: "This is a question 2",
         questionType: 'OE',
-        order: 3 //not consecutive
+        order: 3, //not consecutive
+        isOpenEnded: true
       }),
       "reaction": 4,
       "timeSpent": 2096,
@@ -63,8 +66,11 @@ test('Questions Layout', function (assert) {
   assert.equal(T.text($component.find('table tbody td.number-question:eq(1)')), "3", 'Wrong question number for question 2');
   T.exists(assert, $component.find('table tbody td.question-text'), 'Missing text column');
   T.exists(assert, $component.find('table tbody td.question-answer'), 'Missing answer column');
-  T.exists(assert, $component.find('table tbody td.question-answer:eq(0) .gru-open-ended'), 'Missing gru-open-ended component');
+  T.exists(assert, $component.find('table tbody td.question-answer:eq(0) .gru-multiple-choice'), 'Missing gru-multiple-choice component');
+  T.exists(assert, $component.find('table tbody td.question-answer:eq(1) .gru-open-ended'), 'Missing gru-open-ended component');
   T.exists(assert, $component.find('table tbody td.question-score'), 'Missing score column');
+  T.exists(assert, $component.find('table tbody td.question-score .correct'), 'Missing score column for question 1');
+  T.exists(assert, $component.find('table tbody td.question-score .not-applicable'), 'Missing score column for question 2');
   T.exists(assert, $component.find('table tbody td.question-time'), 'Missing time spent column');
   T.exists(assert, $component.find('table tbody td.question-reaction'), 'Missing reaction column');
   T.exists(assert, $component.find('.question-cards.visible-xs'), 'Missing mobile question cards');
