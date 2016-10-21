@@ -210,8 +210,10 @@ export default Ember.Service.extend({
       let objectWithTitle = performances.findBy('id', object.get('id'));
       if(objectWithTitle) {
         objectWithTitle.set('title', object.get('title'));
+        objectWithTitle.set('model', object);
       }else{
         objectWithTitle = service.getPerformanceRecordByType(type, object);
+        objectWithTitle.set('model', object);
       }
       return objectWithTitle;
     });

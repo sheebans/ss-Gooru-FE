@@ -108,6 +108,116 @@ test('Test for started lesson performance', function(assert) {
   });
 });
 
+
+test('Test no show score for lesson performance', function(assert) {
+  const lesson = Ember.Object.create(
+    {
+      id:'333-555-777',
+      title: "Quiz :: Indian History",
+      type: "lesson",
+      score:75,
+      completionDone: 0,
+      completionTotal: 1,
+      timeSpent: 4852359,
+      ratingScore: 0,
+      isCompleted: true,
+      hasStarted: true,
+      isUnitOrLesson: true,
+      collections:Ember.A([
+        Ember.Object.create({
+          id:'all-question-types-assessment-id',
+          title: "Indian History Collection",
+          type: "collection",
+          score:75,
+          completionDone: 1,
+          completionTotal: 1,
+          timeSpent: 4852359,
+          ratingScore: 0,
+          isCompleted: true,
+          isCollection: true,
+          hasStarted:true,
+          isCollectionOrAssessment: true,
+          model: {
+            hasNonOpenEndedQuestions: true
+          }
+        }),
+        Ember.Object.create({
+          id:'all-question-types-assessment-id',
+          title: "Indian History Collection",
+          type: "collection",
+          score:75,
+          completionDone: 1,
+          completionTotal: 1,
+          timeSpent: 4852359,
+          ratingScore: 0,
+          isCompleted: true,
+          isCollection: true,
+          hasStarted:true,
+          isCollectionOrAssessment: true,
+          model: {
+            hasNonOpenEndedQuestions: false
+          }
+        }),
+        Ember.Object.create({
+          id:'all-question-types-assessment-id',
+          title: "Indian History Assessment",
+          type: "assessment",
+          score:75,
+          completionDone: 0,
+          completionTotal: 1,
+          timeSpent: 442359,
+          ratingScore: 0,
+          isCompleted: false,
+          isAssessment: true,
+          isCollectionOrAssessment: true,
+          model: {
+            hasNonOpenEndedQuestions: true
+          }
+        })
+      ])
+    });
+  this.set('lesson', lesson);
+  this.set('index',0);
+  this.set('selectedLessonId', 'not-my-id');
+  this.set('onSelectLesson', function(){
+    assert.ok(true, "This should be called 1 time");
+  });
+  assert.expect(9);
+  this.render(hbs`{{class.analytics.performance.student.gru-lesson-performance
+    lesson=lesson
+    localIndex=index
+    index=index
+    onSelectLesson=onSelectLesson
+    selectedLessonId=selectedLessonId
+    selectedFilterBy='collection'
+  }}`);
+  const $component = this.$();
+
+  T.exists(assert, $component, 'Missing Lesson Container');
+  const $lessonTitle = $component.find(".lesson-performance-content .title .section-title");
+  assert.ok($lessonTitle.length, "Missing title");
+
+  assert.ok(!$component.find(".gru-performance-summary .score .score-box").lenght, "Score should not be visible when filtering by collection");
+
+  const $clickableAnchor= $component.find(".gru-lesson-performance-container a"); //component dom element
+  T.exists(assert, $clickableAnchor, 'Missing Clickable Anchor');
+
+  Ember.run(() => {
+    $clickableAnchor.click();
+  });
+
+  return wait().then(function() {
+    const $collectionsContainer = $component.find(".collections-container");
+    assert.equal($collectionsContainer.hasClass('in'), true, "Collections container did not open");
+    assert.ok($collectionsContainer.find(".gru-performance-summary:eq(0) .score .score-box").length,
+      "First collection should display score, it has non open ended questions");
+    assert.ok(!$collectionsContainer.find(".gru-performance-summary:eq(1) .score .score-box").length,
+      "Second collection should not display score, it has only open ended questions");
+    assert.ok($collectionsContainer.find(".gru-performance-summary:eq(2) .score .score-box").length,
+      "Third collection should display score, it has non open ended questions");
+  });
+});
+
 test('Test for not started lesson performance', function(assert) {
   const lesson = Ember.Object.create(
     {

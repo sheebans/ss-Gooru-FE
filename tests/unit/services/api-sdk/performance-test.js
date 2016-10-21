@@ -70,6 +70,7 @@ test('findStudentPerformanceByCourse', function (assert) {
     assert.equal(unitPerformance.get('timeSpent'), 121507, 'Wrong time spent');
     assert.equal(unitPerformance.get('ratingScore'), 0, 'Wrong rating score');
     assert.equal(unitPerformance.get('attempts'), 16, 'Wrong attempts');
+    assert.equal(unitPerformance.get('model.id'), 'unit-id-1', 'Wrong model id');
     done();
   });
 });
@@ -129,6 +130,7 @@ test('findStudentPerformanceByUnit', function (assert) {
     assert.equal(lessonPerformance.get('timeSpent'), 89141, 'Wrong time spent');
     assert.equal(lessonPerformance.get('ratingScore'), 0, 'Wrong rating score');
     assert.equal(lessonPerformance.get('attempts'), 12, 'Wrong attempts');
+    assert.equal(lessonPerformance.get('model.id'), 'lesson-id-1', 'Wrong model id');
     done();
   });
 });
@@ -188,6 +190,7 @@ test('findStudentPerformanceByLesson', function (assert) {
     assert.equal(collectionPerformance.get('timeSpent'), 130339, 'Wrong time spent');
     assert.equal(collectionPerformance.get('ratingScore'), 0, 'Wrong rating score');
     assert.equal(collectionPerformance.get('attempts'), undefined, 'Wrong attempts');
+    assert.equal(collectionPerformance.get('model.id'), 'collection-id-1', 'Wrong model id');
     done();
   });
 });

@@ -83,10 +83,10 @@ export default Ember.Object.extend({
   performance: null,
 
   /**
-   * @propery {boolean} indicates if the lesson item has only open ended questions or resources
+   * @propery {boolean} indicates if the lesson item has non open ended questions
    */
-  hasOnlyResourceAndOpenEndedQuestions: Ember.computed("isCollection", "questionCount", "openEndedQuestionCount", function(){
-    return this.get("isCollection") && (this.get("questionCount") === this.get("openEndedQuestionCount"));
+  hasNonOpenEndedQuestions: Ember.computed("questionCount", "openEndedQuestionCount", function(){
+    return (this.get("questionCount") !== this.get("openEndedQuestionCount"));
   })
 
 });
