@@ -12,7 +12,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
   sessionService: Ember.inject.service("api-sdk/session"),
 
   queryParams: {
-    access_token : {}
+    access_token : {},
+	launch_url : {},
+	location : {}
   },
 
   beforeModel(transition) {
@@ -42,13 +44,22 @@ export default Ember.Route.extend(PublicRouteMixin, {
     return details;
   },
 
-  afterModel() {
+  afterModel(model, transition) {
     const anonymous = this.get('session.isAnonymous');
     if (!anonymous) {
       if (this.get('session.userData.isNew')) {
         this.transitionTo('sign-up-finish');
       } else {
-        this.transitionTo('home');
+		let launchUrl = transition.queryParams.launch_url;
+		let location = transition.queryParams.location;
+        if (launchUrl) {
+			if (location) {
+				launchUrl = launchUrl + "?location=" + location; 
+			}
+			window.location.replace(launchUrl);
+		} else {
+			this.transitionTo('home');
+		}
       }
     }
   }
