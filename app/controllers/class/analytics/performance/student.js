@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {download} from 'gooru-web/utils/csv';
 
 /**
  * Student Analytics Performance Controller
@@ -44,22 +43,6 @@ export default Ember.Controller.extend({
         this.set('unitId', location);
         this.set('lessonId', null);
       }
-    },
-
-    /**
-     * When clicking at the download button
-     */
-    download: function(){
-      const data = {
-        fields: ['First Name', "Last Name"],
-        data: [
-          ['Javier', 'P'],
-          ['David', 'P']
-        ]
-      };
-      const fileName = "student-performance";
-      //Data and File name are examples at this point
-      download(fileName, data);
     },
 
     /**
