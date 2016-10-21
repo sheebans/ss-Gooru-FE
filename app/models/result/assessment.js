@@ -43,6 +43,15 @@ export default Ember.Object.extend({
   /**
    * @property {QuestionResult[]} questionResults
    */
+  nonOpenEndedQuestionResults: Ember.computed("questionResults.[]", function(){
+    return this.get("questionResults").filter(function(questionResult){
+      return !questionResult.get("question.isOpenEnded");
+    });
+  }),
+
+  /**
+   * @property {QuestionResult[]} questionResults
+   */
   resources: Ember.computed("resourceResults.[]", function(){
     return this.get("resourceResults").filter(function(resourceResult){
       return !(resourceResult instanceof QuestionResult);
@@ -100,6 +109,17 @@ export default Ember.Object.extend({
   totalResources: Ember.computed.alias("resourceResults.length"),
 
   /**
+   * @property {number}
+   */
+  totalNonOpenEndedQuestions: Ember.computed.alias("nonOpenEndedQuestionResults.length"),
+
+
+  /**
+   * @property {boolean}
+   */
+  hasNonOpenEndedQuestions: Ember.computed.bool("totalNonOpenEndedQuestions"),
+
+  /**
    * @property {boolean} submitted
    */
   submitted: false,
@@ -138,8 +158,8 @@ export default Ember.Object.extend({
    * Percentage of correct answers vs. the total number of questions
    * @prop {number}
    */
-  correctPercentage:Ember.computed('questionResults.[]',function(){
-    return correctPercentage(this.get('questionResults'), true);
+  correctPercentage:Ember.computed('nonOpenEndedQuestionResults.[]',function(){
+    return correctPercentage(this.get('nonOpenEndedQuestionResults'), true);
   }),
 
   /**
@@ -154,8 +174,8 @@ export default Ember.Object.extend({
    * Total correct answers
    * @prop {number}
    */
-  correctAnswers:Ember.computed('questionResults.[]',function(){
-    return correctAnswers(this.get('questionResults'));
+  correctAnswers:Ember.computed('nonOpenEndedQuestionResults.[]',function(){
+    return correctAnswers(this.get('nonOpenEndedQuestionResults'));
   }),
 
   /**

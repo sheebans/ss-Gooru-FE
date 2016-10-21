@@ -57,9 +57,13 @@
         {{/if}}
       </td>
       <td class="question-score {{if showPerformance 'visible' 'hide'}}">
-        <span class="{{if result.correct 'correct' 'incorrect'}}">
-          {{gru-icon name='radio_button_checked'}}
-        </span>
+          {{#if result.question.isOpenEnded}}
+            <span class="not-applicable">{{t 'common.not-applicable'}}</span>
+          {{else}}
+            <span class="{{if result.correct 'correct' 'incorrect'}}">
+              {{gru-icon name='radio_button_checked'}}
+            </span>
+          {{/if}}
       </td>
       <td class="question-time {{if showPerformance 'visible' 'hide'}}">
         {{formatTime result.timeSpent}}

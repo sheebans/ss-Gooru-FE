@@ -106,7 +106,7 @@ export default Ember.Component.extend({
   getResourceLinks: function (resourceResults) {
     return resourceResults.map(function (resourceResult, index) {
       return Ember.Object.create({
-        label: index + 1, //using index here because the resouce.order could have gaps
+        label: index + 1, //using index here because the resource.order could have gaps
         status: resourceResult.get('attemptStatus'),
         value: resourceResult.get('id')
       });
