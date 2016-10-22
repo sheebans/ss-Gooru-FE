@@ -307,6 +307,7 @@ export default {
     "publisher": "Publisher",
     "question": "Question",
     "questions": "Questions",
+    "questions-OE": "Free Response Questions",
     "question-pl": {
       one: "Question",
       other: "Questions"

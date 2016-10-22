@@ -27,6 +27,12 @@
       results=orderedQuestions}}
   {{/if}}
 
+  {{#if orderedOpenEndedQuestions.length}}
+    {{reports.assessment.gru-open-ended-questions
+    isAnswerKeyHidden=isAnswerKeyHidden
+    results=orderedOpenEndedQuestions}}
+  {{/if}}
+
   {{#if orderedResources.length}}
     {{reports.assessment.gru-resources
     results=orderedResources}}

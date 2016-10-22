@@ -41,11 +41,20 @@ export default Ember.Object.extend({
   }),
 
   /**
-   * @property {QuestionResult[]} questionResults
+   * @property {QuestionResult[]} nonOpenEndedQuestionResults
    */
   nonOpenEndedQuestionResults: Ember.computed("questionResults.[]", function(){
     return this.get("questionResults").filter(function(questionResult){
       return !questionResult.get("question.isOpenEnded");
+    });
+  }),
+
+  /**
+   * @property {QuestionResult[]} openEndedQuestionResults
+   */
+  openEndedQuestionResults: Ember.computed("questionResults.[]", function(){
+    return this.get("questionResults").filter(function(questionResult){
+      return questionResult.get("question.isOpenEnded");
     });
   }),
 
