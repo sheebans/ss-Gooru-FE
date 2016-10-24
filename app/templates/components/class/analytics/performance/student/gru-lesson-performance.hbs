@@ -8,6 +8,7 @@
     <ul>
       <li class="lesson-performance-content">
           {{class.analytics.performance.gru-performance-summary
+          showScore=(not isFilteredByCollection)
           performance=lesson
           index=index
           isSelected=selected
@@ -21,6 +22,7 @@
         <li class="collection-performance-content">
           {{class.analytics.performance.gru-performance-summary
           performance=collection
+          showScore=collection.model.hasNonOpenEndedQuestions
           selectedOption=selectedOption
           onSelectResource=(action 'selectResource')
           onViewReport=(action 'viewReport')

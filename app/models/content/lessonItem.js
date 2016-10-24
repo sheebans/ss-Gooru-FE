@@ -39,10 +39,16 @@ export default Ember.Object.extend({
   url: null,
 
   collectionType: Ember.computed.alias("format"),
+
   /**
    * @property {Number} questionCount - total number of questions in the lesson
    */
   questionCount: 0,
+
+  /**
+   * @property {Number} openEndedQuestionCount - total number of open ended questions in the lesson
+   */
+  openEndedQuestionCount: 0,
 
   /**
    * @property {Number} resourceCount - total number of resources in the lesson
@@ -74,6 +80,13 @@ export default Ember.Object.extend({
    * @see components/class/overview/gru-accordion-lesson.js
    * @property {CollectionPerformance|Ember.Object}
    */
-  performance: null
+  performance: null,
+
+  /**
+   * @propery {boolean} indicates if the lesson item has non open ended questions
+   */
+  hasNonOpenEndedQuestions: Ember.computed("questionCount", "openEndedQuestionCount", function(){
+    return (this.get("questionCount") !== this.get("openEndedQuestionCount"));
+  })
 
 });

@@ -49,6 +49,12 @@ export default Ember.Component.extend({
    * @property {Number}
    */
   index:null,
+
+  /**
+   * @property {boolean} indicates if it should show the score
+   */
+  showScore: true,
+
   // -------------------------------------------------------------------------
   // Actions
   actions:{

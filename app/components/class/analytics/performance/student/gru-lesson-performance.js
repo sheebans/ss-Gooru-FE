@@ -133,6 +133,17 @@ export default Ember.Component.extend({
    */
   contentVisibility: null,
 
+  /**
+   * The selected filter by from the drop down
+   * @property {String}
+   */
+  selectedFilterBy: null,
+
+  /**
+   * @property {boolean} indicates if the data is filtered by collection
+   */
+  isFilteredByCollection: Ember.computed.equal("selectedFilterBy", "collection"),
+
 
   // -------------------------------------------------------------------------
   // Methods

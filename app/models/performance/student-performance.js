@@ -18,31 +18,48 @@ export default DS.Model.extend({
   performanceData: DS.hasMany('performance/performance', { async: false }),
 
   /**
+   * @property {Performance[]} List of Performance items, excluding the provided ids
+   */
+  filteredPerformanceData: Ember.computed("excludedIds.[]", function(){
+    const excludedIds = this.get("excludedIds");
+    return this.get('performanceData').filter(function(performance){
+      return excludedIds.indexOf(performance.get("realId")) < 0;
+    });
+  }),
+
+  /**
+   * Contains the ids that should be ignored during some calculations, like score
+   * This is useful for calculating the collections score since not all the collections has a score
+   * @property {string[]}
+   */
+  excludedIds: [],
+
+  /**
    * @property {Number} Computed property with the average score for all student data.
    */
-  averageScore: Ember.computed('performanceData', function() {
-    return this.calculateAverage('score');
+  averageScore: Ember.computed('filteredPerformanceData', function() {
+    return this.calculateAverage('score', this.get("filteredPerformanceData"));
   }),
 
   /**
    * @property {Number} Computed property with the average time spent for all student data.
    */
   averageTimeSpent: Ember.computed('performanceData', function() {
-    return this.calculateAverage('timeSpent');
+    return this.calculateAverage('timeSpent', this.get("performanceData"));
   }),
 
   /**
    * @property {Number} Computed property with the summatory of completion done for all student data.
    */
   sumCompletionDone: Ember.computed('performanceData', function() {
-    return this.calculateSum('completionDone');
+    return this.calculateSum('completionDone', this.get("performanceData"));
   }),
 
   /**
    * @property {Number} Computed property with the summatory of completion total for all student data.
    */
   sumCompletionTotal: Ember.computed('performanceData', function() {
-    return this.calculateSum('completionTotal');
+    return this.calculateSum('completionTotal', this.get("performanceData"));
   }),
 
   /**
@@ -50,11 +67,11 @@ export default DS.Model.extend({
    * @param fieldName the field to calculate
    * @returns {number} the average value
    */
-  calculateAverage: function(fieldName) {
+  calculateAverage: function(fieldName, performanceData) {
     var avgValue = -1;
-    const counter = this.get('performanceData').length;
+    const counter = performanceData.length;
     if (counter > 0) {
-      avgValue = this.calculateSum(fieldName) / counter;
+      avgValue = this.calculateSum(fieldName, performanceData) / counter;
     }
     return avgValue;
   },
@@ -64,9 +81,8 @@ export default DS.Model.extend({
    * @param fieldName the field to calculate
    * @returns {number} the summatory value
    */
-  calculateSum: function(fieldName) {
+  calculateSum: function(fieldName, performanceData) {
     var sumValue = 0;
-    const performanceData = this.get('performanceData');
     if (performanceData.length > 0) {
       performanceData.forEach(function(performance) {
         sumValue += performance.get(fieldName);

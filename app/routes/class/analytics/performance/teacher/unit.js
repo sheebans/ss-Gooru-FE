@@ -72,7 +72,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     const classPerformanceData = model.classPerformanceData;
     controller.fixTotalCounts(model.unit.get("id"), classPerformanceData, model.filterBy);
-    const performanceData = createDataMatrix(model.lessons, classPerformanceData);
+    const performanceData = createDataMatrix(model.lessons, classPerformanceData, 'unit');
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('lessons', model.lessons);
