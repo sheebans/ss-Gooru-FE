@@ -13,7 +13,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   queryParams: {
     access_token : {},
-	launch_url : {},
+	launchUrl : {},
 	location : {}
   },
 
@@ -50,9 +50,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
       if (this.get('session.userData.isNew')) {
         this.transitionTo('sign-up-finish');
       } else {
-		let launchUrl = transition.queryParams.launch_url;
-		let location = transition.queryParams.location;
-        if (launchUrl) {
+		let launchUrl = transition.queryParams.launchUrl;
+		if (launchUrl) {
+			let location = transition.queryParams.location;
 			if (location) {
 				launchUrl = launchUrl + "?location=" + location; 
 			}
