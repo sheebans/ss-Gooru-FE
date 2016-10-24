@@ -4,7 +4,7 @@ import T from 'gooru-web/tests/helpers/assert';
 import Ember from "ember";
 import wait from 'ember-test-helpers/wait';
 
-moduleForComponent('/class/analytics/performance/teacher/gru-metrics-performance-information', 'Integration | Component | /class/analytics/performance/teacher/gru-metrics-sub-header', {
+moduleForComponent('/class/analytics/performance/teacher/gru-metrics-performance-information', 'Integration | Component | /class/analytics/performance/teacher/gru-metrics-performance-information', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
@@ -19,7 +19,8 @@ test('Metrics performance information Layout', function(assert) {
     timeSpent: 3600,
     completionDone: 16,
     completionTotal: 32,
-    headerTitle: "header test"
+    headerTitle: "header test",
+    hideScore: false
   });
 
   this.set('dataPickerOptions', dataPickerOptionsMock);
@@ -42,7 +43,7 @@ test('Metrics performance information Layout', function(assert) {
 });
 
 test('When hiding the score ', function(assert) {
-  assert.expect(4);
+  assert.expect(3);
 
   const dataPickerOptionsMock = Ember.A(["score","completion"]);
   const performanceDataMock = Ember.Object.create({
@@ -63,7 +64,6 @@ test('When hiding the score ', function(assert) {
 
   var $score = $component.find(".score");
   T.notExists(assert, $score, 'Score cell should not be visible');
-  assert.ok($score.hasClass("pointer"), "Missing score tooltip");
 
   var $completion = $component.find(".gru-completion-chart");
   T.exists(assert, $completion, 'Missing gru-completion-chart component');
