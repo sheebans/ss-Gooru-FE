@@ -11,7 +11,7 @@ moduleForComponent('reports/assessment/gru-questions', 'Integration | Component 
   }
 });
 
-test('Questions Layout', function (assert) {
+test('Questions Layout-non open ended', function (assert) {
 
   const questionResults = Ember.A([
     QuestionResult.create({
@@ -55,7 +55,9 @@ test('Questions Layout', function (assert) {
   assert.notOk($component.hasClass('key-hidden'), 'Answer key hidden by default');
 
   T.exists(assert, $component, 'Missing questions component');
-  T.exists(assert, $component.find('.title h4'), 'Missing questions title');
+  var title = $component.find('.title h4');
+  T.exists(assert, title, 'Missing questions title');
+  assert.equal(T.text(title), 'Questions', 'Wrong title text');
   T.exists(assert, $component.find('.btn-group'), 'Missing btn-group section');
   T.exists(assert, $component.find('table th.header.number'), 'Missing number header');
   T.exists(assert, $component.find('table th.header.question'), 'Missing question header');
@@ -78,6 +80,57 @@ test('Questions Layout', function (assert) {
 
   this.set('isAnswerKeyHidden', true);
   assert.ok($component.hasClass('key-hidden'), 'Answer key class');
+});
+
+test('Questions Layout-open ended', function (assert) {
+
+  const questionResults = Ember.A([
+    QuestionResult.create({
+      "correct": true,
+      "resource": Ember.Object.create({
+        text: "This is a question 1",
+        questionType: 'OE',
+        order: 1,
+        isOpenEnded: true
+      }),
+      "reaction": 4,
+      "timeSpent": 2096,
+      "userAnswer": "Student Open Ended answer 1"
+    }),
+    QuestionResult.create({
+      "correct": true,
+      "resource": Ember.Object.create({
+        text: "This is a question 2",
+        questionType: 'OE',
+        order: 3, //not consecutive
+        isOpenEnded: true
+      }),
+      "reaction": 4,
+      "timeSpent": 2096,
+      "userAnswer": "Student Open Ended answer 2"
+    })
+  ]);
+
+  this.set('questionResults', questionResults);
+  this.set('isAnswerKeyHidden', undefined);
+
+  this.render(hbs`
+    {{reports/assessment/gru-questions
+      isAnswerKeyHidden=isAnswerKeyHidden
+      results=questionResults
+      viewMode='open-ended'
+    }}`);
+  const $component = this.$('.reports.assessment.gru-questions');
+
+  T.exists(assert, $component, 'Missing questions component');
+  var title = $component.find('.title h4');
+  T.exists(assert, title, 'Missing questions title');
+  assert.equal(T.text(title), 'Free Response Questions', 'Wrong title text');
+  T.notExists(assert, $component.find('table th.header.score'), 'score header should not be visible');
+  T.exists(assert, $component.find('table tbody td.question-answer:eq(0) .gru-open-ended'), 'Missing gru-open-ended component');
+  T.exists(assert, $component.find('table tbody td.question-answer:eq(1) .gru-open-ended'), 'Missing gru-open-ended component');
+  T.notExists(assert, $component.find('table tbody td.question-score'), 'score column should not be visible');
+  assert.equal($component.find('table tbody tr').length, 2, "Incorrect number of rows");
 });
 
 
