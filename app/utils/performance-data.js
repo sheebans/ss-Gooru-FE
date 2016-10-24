@@ -6,20 +6,24 @@ import { formatTime } from './utils';
 /**
  * Create a performanceObject from the performance data
  * @param performance the base performance data
- * @param headerTitle used for the score tooltip
+ * @param model model information
+ * @param level indicates the object level, course|unit|lesson
  */
-function createPerformanceObject(performance, headerTitle) {
+export function createPerformanceObject(performance, model, level = false) {
   const score = performance.get('score');
   const timeSpent = performance.get('timeSpent');
   return Ember.Object.create({
     id: performance.get("realId"),
     collectionType: performance.get("collectionType"),
-    headerTitle: headerTitle,
+    headerTitle: model.get("title"),
+    model: model,
     score: score,
     timeSpent: formatTime(timeSpent),
     hasStarted: score > 0 || timeSpent > 0,
     completionDone: performance.get('completionDone'),
-    completionTotal: performance.get('completionTotal')
+    completionTotal: performance.get('completionTotal'),
+    level: level,
+    hideScore: (level === 'lesson' && model && !model.get("hasNonOpenEndedQuestions"))
   });
 }
 
@@ -27,7 +31,7 @@ function createPerformanceObject(performance, headerTitle) {
  * Create a User average object from the classPerformanceData
  * @param classPerformanceData the base performance data
  */
-function createUserAverageObject(studentPerformance) {
+export function createUserAverageObject(studentPerformance) {
   const score = studentPerformance.get('averageScore');
   const timeSpent = studentPerformance.get('averageTimeSpent');
   return Ember.Object.create({
@@ -44,9 +48,10 @@ function createUserAverageObject(studentPerformance) {
 /**
  * Create an Item average object from the classPerformanceData with an itemId as well
  * @param classPerformanceData the base performance data
- * @param itemId Id of the item we are getting the item average object of
+ * @param model item we are getting the item average object of
  */
-function createItemAverageObject(classPerformanceData, itemId) {
+export function createItemAverageObject(classPerformanceData, model, level = false) {
+  const itemId = model.get("id");
   const score = classPerformanceData.calculateAverageScoreByItem(itemId);
   const timeSpent = classPerformanceData.calculateAverageTimeSpentByItem(itemId);
 
@@ -55,7 +60,8 @@ function createItemAverageObject(classPerformanceData, itemId) {
     timeSpent: formatTime(roundFloat(timeSpent)),
     hasStarted: score > 0 || timeSpent > 0,
     completionDone: classPerformanceData.calculateSumCompletionDoneByItem(itemId),
-    completionTotal: classPerformanceData.calculateSumCompletionTotalByItem(itemId)
+    completionTotal: classPerformanceData.calculateSumCompletionTotalByItem(itemId),
+    hideScore: (level === 'lesson' && model && !model.get("hasNonOpenEndedQuestions"))
   });
 }
 
@@ -63,7 +69,7 @@ function createItemAverageObject(classPerformanceData, itemId) {
  * Create a class average object from the classPerformanceData
  * @param classPerformanceData the base performance data
  */
-function createClassAverageObject(classPerformanceData) {
+export function createClassAverageObject(classPerformanceData) {
   const score = classPerformanceData.get('classAverageScore');
   const timeSpent = classPerformanceData.get('classAverageTimeSpent');
 
@@ -81,10 +87,19 @@ function createClassAverageObject(classPerformanceData) {
  * @param headers the table header
  * @param classPerformanceData the base performance data
  */
-export function createDataMatrix(headers, classPerformanceData) {
+export function createDataMatrix(headers, classPerformanceData, level = false) {
   const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
+  let excludedIds = [];
+  if (level === 'lesson') {
+    excludedIds = headers.filter(function(header){
+      return !header.get("hasNonOpenEndedQuestions");
+    }).map(function(header){
+      return header.get("id");
+    });
+  }
   const dataMatrix = Ember.A([]);
   studentPerformanceData.forEach(function(studentPerformance) {
+    studentPerformance.set("excludedIds", excludedIds);
     const user = studentPerformance.get('user');
     const performanceData = studentPerformance.get('performanceData');
 
@@ -97,7 +112,7 @@ export function createDataMatrix(headers, classPerformanceData) {
       const performance = performanceData.findBy('id', `${user.get('id')}@${headerItem.get('id')}`);
 
       if (performance) {
-        userData.get('performanceData').push(createPerformanceObject(performance,headerItem.title));
+        userData.get('performanceData').push(createPerformanceObject(performance, headerItem, level));
       }
       else {
         userData.get('performanceData').push(undefined);
@@ -115,7 +130,7 @@ export function createDataMatrix(headers, classPerformanceData) {
     performanceData: Ember.A([])
   });
   headers.forEach(function(headerItem) {
-    const itemPerformanceAverage = createItemAverageObject(classPerformanceData, headerItem.get('id'));
+    const itemPerformanceAverage = createItemAverageObject(classPerformanceData, headerItem, level);
     itemPerformanceAverageData.get('performanceData').push(itemPerformanceAverage);
   });
   itemPerformanceAverageData.get('performanceData').insertAt(0, createClassAverageObject(classPerformanceData));

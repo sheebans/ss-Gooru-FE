@@ -41,6 +41,38 @@ test('Metrics performance information Layout', function(assert) {
 
 });
 
+test('When hiding the score ', function(assert) {
+  assert.expect(4);
+
+  const dataPickerOptionsMock = Ember.A(["score","completion"]);
+  const performanceDataMock = Ember.Object.create({
+    score: 50,
+    timeSpent: 3600,
+    completionDone: 16,
+    completionTotal: 32,
+    headerTitle: "header test",
+    hideScore: true
+  });
+
+  this.set('dataPickerOptions', dataPickerOptionsMock);
+  this.set('performanceData', performanceDataMock);
+
+  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-performance-information performanceData=performanceData dataPickerOptions=dataPickerOptions}}`);
+
+  const $component = this.$(); //component dom element
+
+  var $score = $component.find(".score");
+  T.notExists(assert, $score, 'Score cell should not be visible');
+  assert.ok($score.hasClass("pointer"), "Missing score tooltip");
+
+  var $completion = $component.find(".gru-completion-chart");
+  T.exists(assert, $completion, 'Missing gru-completion-chart component');
+
+  var $studyTime = $component.find(".study-time");
+  T.notExists(assert, $studyTime, "study time cell shouldn't be visible");
+
+});
+
 test('When clicking the score', function(assert) {
   assert.expect(2);
 
