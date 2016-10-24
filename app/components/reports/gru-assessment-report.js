@@ -109,8 +109,8 @@ export default Ember.Component.extend({
    * Return ordered non open ended questions array
    * @return {Ember.Array}
    */
-  orderedQuestions: Ember.computed('assessmentResult.questionResults[]', function() {
-    var resourceResultsOrdered = this.get('assessmentResult.questionResults').sort(function(a, b){
+  orderedQuestions: Ember.computed('assessmentResult.nonOpenEndedQuestionResults.[]', function() {
+    var resourceResultsOrdered = this.get('assessmentResult.nonOpenEndedQuestionResults').sort(function(a, b){
       return a.get('question.order')-b.get('question.order');
     });
 
@@ -121,7 +121,7 @@ export default Ember.Component.extend({
    * Return ordered open ended questions array
    * @return {Ember.Array}
    */
-  orderedOpenEndedQuestions: Ember.computed('assessmentResult.openEndedQuestionResults[]', function() {
+  orderedOpenEndedQuestions: Ember.computed('assessmentResult.openEndedQuestionResults.[]', function() {
     var resourceResultsOrdered = this.get('assessmentResult.openEndedQuestionResults').sort(function(a, b){
       return a.get('question.order')-b.get('question.order');
     });
