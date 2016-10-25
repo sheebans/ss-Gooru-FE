@@ -176,6 +176,11 @@ export default Ember.Object.extend({
         .forEach(function (resourceResult) {
         if (data[userId]) {
           const questionId = resourceResult.get('resourceId');
+          if (data[userId][questionId]) {
+            //if there are several attempts for the same resource the time spent should be added
+            const totalTimeSpent = resourceResult.get("timeSpent") + data[userId][questionId].get("timeSpent");
+            resourceResult.set("timeSpent", totalTimeSpent);
+          }
           data[userId][questionId] = resourceResult;
         }
       });
