@@ -91,7 +91,6 @@ export default {
     "completed": "Completed",
     "confirm-copy":"Confirm & Copy",
     "content": "Content",
-    "content-publishing": "Content Visibility",
     "contentUnavailable": "Content not available",
     "contributed-by":"Contributed by",
     "copy": "Copy",
@@ -301,12 +300,14 @@ export default {
     "please_contact": "Please contact",
     "preview": "Preview",
     "profile": "Profile",
+    "profile-publishing": "Profile Visibility",
     "publish-to": " Make this visible to others on my profile library",
     "published-by": "Published by",
     "published-tooltip": "Badged Content",
     "publisher": "Publisher",
     "question": "Question",
     "questions": "Questions",
+    "questions-OE": "Free Response Questions",
     "question-pl": {
       one: "Question",
       other: "Questions"
@@ -1296,8 +1297,8 @@ export default {
     "disable-legend": "Students can play the assessment from their course map"
   },
   "gru-icon-popover":{
-    "settings-visibility-title": "Make Your Content Visibile",
-    "settings-visibility-content": "This setting makes your assessment visible via your user profile. If you wish to share the assessments you create with colleagues, we suggest you turn this feature on."
+    "settings-visibility-title": "Make Your Content Visible",
+    "settings-visibility-content": "This setting makes your content visible via your user profile. If you wish to share the courses, collections, assessments, resources, and/or questions you create with colleagues, we suggest you turn this feature on."
   },
   "gru-tour": {
     "assessments-settings":{

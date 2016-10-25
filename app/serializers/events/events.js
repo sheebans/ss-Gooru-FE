@@ -19,17 +19,17 @@ export default Ember.Object.extend({
 
   /**
    * Serializes a assessment result
-   * @param {AssessmentResult} assessment
+   * @param {AssessmentResult} assessmentResult
    * @param {Context} context
    * @param {string} apiKey
    * @returns {*[]}
    */
-  serializeCollection: function (assessment, context, apiKey) {
+  serializeCollection: function (assessmentResult, context, apiKey) {
     let serializer = this;
-    let totalResources = assessment.get("totalResources");
-    let contextObject = serializer.getContextValuesForCollection(context, totalResources);
-    let startedAt = assessment.get('startedAt');
-    let submittedAt = assessment.get('submittedAt');
+    let totalNonOpenEndedQuestions = assessmentResult.get("totalNonOpenEndedQuestions");
+    let contextObject = serializer.getContextValuesForCollection(context, totalNonOpenEndedQuestions);
+    let startedAt = assessmentResult.get('startedAt');
+    let submittedAt = assessmentResult.get('submittedAt');
     let startTime = toTimestamp(startedAt);
     let endTime = !submittedAt ? startTime: toTimestamp(submittedAt);
 

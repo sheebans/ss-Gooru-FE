@@ -44,6 +44,31 @@ test('nonOpenEndedQuestionResults', function(assert) {
   assert.equal(assessmentResult.get("nonOpenEndedQuestionResults").get("length"), 2, "Wrong non open ended question results");
 });
 
+test('openEndedQuestionResults', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      ResourceResult.create(),
+      QuestionResult.create({
+        question: {
+          isOpenEnded: true
+        }
+      }),
+      QuestionResult.create({
+        question: {
+          isOpenEnded: true
+        }
+      }),
+      QuestionResult.create({
+        question: {
+          isOpenEnded: false
+        }
+      })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("openEndedQuestionResults").get("length"), 2, "Wrong open ended question results");
+});
+
 test('totalResources', function(assert) {
   let assessmentResult = AssessmentResult.create({
     "resourceResults": Ember.A([1,2])

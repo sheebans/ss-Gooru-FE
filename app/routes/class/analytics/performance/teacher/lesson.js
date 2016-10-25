@@ -117,7 +117,7 @@ export default Ember.Route.extend({
 
     this.setupDataPickerOptions(controller);
 
-    const performanceData = createDataMatrix(model.collections, model.classPerformanceData);
+    const performanceData = createDataMatrix(model.collections, model.classPerformanceData, 'lesson');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('collections', model.collections);
     controller.set('unit', model.unit);

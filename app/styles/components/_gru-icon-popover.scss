@@ -7,7 +7,7 @@
   &.popover {
     .arrow {
       &:after {
-        border-top-color:$gray;
+        border-top-color:$pre-border-color;
       }
     }
   }

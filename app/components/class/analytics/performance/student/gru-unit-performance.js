@@ -164,6 +164,11 @@ export default Ember.Component.extend({
    */
   contentVisibility: null,
 
+  /**
+   * @property {boolean} indicates if the data is filtered by collection
+   */
+  isFilteredByCollection: Ember.computed.equal("selectedFilterBy", "collection"),
+
 
   // -------------------------------------------------------------------------
   // Observers
