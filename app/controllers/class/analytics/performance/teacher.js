@@ -66,7 +66,7 @@ export default Ember.Controller.extend({
       const courseTitle = this.get('course.title');
       const fileNameString = classTitle+'_'+courseTitle+"_"+date;
       const fileName = createFileNameToDownload(fileNameString);
-      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix);
+      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, this.get('filterBy'));
 
       download(fileName, fileData);
     }
@@ -308,5 +308,4 @@ export default Ember.Controller.extend({
       }));
     }
   })
-
 });

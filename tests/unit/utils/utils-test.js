@@ -228,7 +228,7 @@ test('check if it is a GoogleDoc', function (assert) {
   assert.equal(checkIfIsGoogleDoc(url), true, 'Wrong url.');
 });
 
-test('prepare csv file data to download', function (assert) {
+test('prepare csv file data to download filter by assessment', function (assert) {
   let performanceDataHeaders = Ember.A([
     Ember.Object.create({title: 'Unit#1'}),
     Ember.Object.create({title: 'Unit#2'})
@@ -270,7 +270,7 @@ test('prepare csv file data to download', function (assert) {
     Ember.A(["testUser2", "18%", "12/16","4m 35s","80%", "14/16","4m 35s","100%","16/16","4m 35s"])
   ]);
 
-  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix);
+  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'assessment');
 
   //header fields
   assert.equal(fileData.fields[0], expectedDataHeaders[0], 'Wrong header field.');
@@ -319,6 +319,70 @@ test('prepare csv file data to download', function (assert) {
   assert.equal(fileData.data[2][9], expectedPerformanceDataMatrix[2][9], 'Wrong data table field.');
 });
 
+test('prepare csv file data to download filter by assessment', function (assert) {
+  let performanceDataHeaders = Ember.A([
+    Ember.Object.create({title: 'Unit#1'}),
+    Ember.Object.create({title: 'Unit#2'})
+  ]);
+
+  let performanceDataMatrix = Ember.A([
+    Ember.Object.create({
+      performanceData: Ember.A([
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hasStarted: true, score: 38, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hasStarted: true, score: 38, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 11, completionTotal: 16, hasStarted: true, score: 39, timeSpent: "4m 35s"})
+      ])
+    }),
+    Ember.Object.create({
+      user: 'testUser1',
+      performanceData: Ember.A([
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 10, completionTotal: 16, hasStarted: true, score: 9, timeSpent: "4m 35s"})
+      ])
+    }),
+    Ember.Object.create({
+      user: 'testUser2',
+      performanceData: Ember.A([
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 14, completionTotal: 16, hasStarted: true, score: 80, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 16, completionTotal: 16, hasStarted: true, score: 100, timeSpent: "4m 35s"})
+      ])
+    })
+  ]);
+
+  let expectedDataHeaders = Ember.A(["Student", "Average time", "Unit#1 time","Unit#2 time"]);
+
+  let expectedPerformanceDataMatrix = Ember.A([
+    Ember.A(["Class average", "4m 35s","4m 35s","4m 35s"]),
+    Ember.A(["testUser1", "4m 35s","4m 35s","4m 35s"]),
+    Ember.A(["testUser2", "4m 35s","4m 35s","4m 35s"])
+  ]);
+
+  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'collection');
+
+  //header fields
+  assert.equal(fileData.fields[0], expectedDataHeaders[0], 'Wrong header field.');
+  assert.equal(fileData.fields[1], expectedDataHeaders[1], 'Wrong header field.');
+  assert.equal(fileData.fields[2], expectedDataHeaders[2], 'Wrong header field.');
+  assert.equal(fileData.fields[3], expectedDataHeaders[3], 'Wrong header field.');
+
+  //data table fields
+  assert.equal(fileData.data[0][0], expectedPerformanceDataMatrix[0][0], 'Wrong data table field.');
+  assert.equal(fileData.data[0][1], expectedPerformanceDataMatrix[0][1], 'Wrong data table field.');
+  assert.equal(fileData.data[0][2], expectedPerformanceDataMatrix[0][2], 'Wrong data table field.');
+  assert.equal(fileData.data[0][3], expectedPerformanceDataMatrix[0][3], 'Wrong data table field.');
+
+  assert.equal(fileData.data[1][0], expectedPerformanceDataMatrix[1][0], 'Wrong data table field.');
+  assert.equal(fileData.data[1][1], expectedPerformanceDataMatrix[1][1], 'Wrong data table field.');
+  assert.equal(fileData.data[1][2], expectedPerformanceDataMatrix[1][2], 'Wrong data table field.');
+  assert.equal(fileData.data[1][3], expectedPerformanceDataMatrix[1][3], 'Wrong data table field.');
+
+  assert.equal(fileData.data[2][0], expectedPerformanceDataMatrix[2][0], 'Wrong data table field.');
+  assert.equal(fileData.data[2][1], expectedPerformanceDataMatrix[2][1], 'Wrong data table field.');
+  assert.equal(fileData.data[2][2], expectedPerformanceDataMatrix[2][2], 'Wrong data table field.');
+  assert.equal(fileData.data[2][3], expectedPerformanceDataMatrix[2][3], 'Wrong data table field.');
+});
 
 test('Create File Name To Download', function (assert) {
   var fileName = "Class Test_Course Test_10-21-16";
