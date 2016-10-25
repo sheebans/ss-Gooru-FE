@@ -319,7 +319,7 @@ test('prepare csv file data to download filter by assessment', function (assert)
   assert.equal(fileData.data[2][9], expectedPerformanceDataMatrix[2][9], 'Wrong data table field.');
 });
 
-test('prepare csv file data to download filter by assessment', function (assert) {
+test('prepare csv file data to download filter by collection', function (assert) {
   let performanceDataHeaders = Ember.A([
     Ember.Object.create({title: 'Unit#1'}),
     Ember.Object.create({title: 'Unit#2'})
