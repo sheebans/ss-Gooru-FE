@@ -66,6 +66,7 @@ export default Ember.Component.extend({
     if (this.get("model")){
       this.set("assessmentResult", this.get("model").assessmentResult);
     }
+    this.get('assessmentResult').fixResultsOrder();
   }),
 
   // -------------------------------------------------------------------------
@@ -137,12 +138,5 @@ export default Ember.Component.extend({
     });
 
     return resourceResultsOrdered;
-  }),
-
-  // -------------------------------------------------------------------------
-  // Events
-  fixResourceResultOrder: function () {
-    const component = this;
-    component.get('assessmentResult').fixResultsOrder();
-  }.on('init')
+  })
 });
