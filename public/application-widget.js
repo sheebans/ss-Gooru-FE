@@ -14,7 +14,7 @@ var ApplicationWidget = function (selector, properties) {
     properties: {},
 
     getContainer: function () {
-      const selector = this.selector || ("#" + this.rootElementId);
+      const selector = this.selector || (`#${this.rootElementId}`);
       const container = jQuery(selector);
       // Verify Container ID
       var containerId = container.attr("id");
@@ -35,21 +35,21 @@ var ApplicationWidget = function (selector, properties) {
       }
 
       var aw = this;
-      var basePath = properties["basePath"];
+      var basePath = properties.basePath;
 
       // Add google font styles
       aw.addCss("https://www.gooru.org/css?family=Lato:400,300,300italic,400italic,700,700italic", "text/css");
       aw.addCss("https://www.gooru.org/icon?family=Material+Icons");
 
       // Add web app styles
-      aw.addCss(basePath + "assets/vendor.css", "text/css");
-      aw.addCss(basePath + "assets/gooru-web.css", "text/css");
+      aw.addCss(`${basePath}assets/vendor.css`, "text/css");
+      aw.addCss(`${basePath}assets/gooru-web.css`, "text/css");
 
       // Add web app javascripts
-      aw.addScript(basePath + "assets/vendor.js", {
+      aw.addScript(`${basePath}assets/vendor.js`, {
         // Add Ember App after vendor libs
         onload: function () {
-          aw.addScript(basePath + "assets/gooru-web.js", {
+          aw.addScript(`${basePath}assets/gooru-web.js`, {
             onload: function() {
               aw.properties = aw.mergeProperties(properties);
               onLoad(properties);
@@ -74,21 +74,21 @@ var ApplicationWidget = function (selector, properties) {
         features: {
           collections: {
             player: {
-              showReactionBar: fromBoth["showReactions"] === true,
-              showQuestions: fromBoth["showQuestions"] === true,
-              showReportLink: fromBoth["showReport"] === true,
-              showCollectionName: fromBoth["showCollectionName"] === true
+              showReactionBar: fromBoth.showReactions === true,
+              showQuestions: fromBoth.showQuestions === true,
+              showReportLink: fromBoth.showReport === true,
+              showCollectionName: fromBoth.showCollectionName === true
             }
           },
           resources: {
             player: {
-              showResourceHeader: fromBoth["showResourceHeader"] === true
+              showResourceHeader: fromBoth.showResourceHeader === true
             }
           }
         },
-        basePath: fromBoth["basePath"],
+        basePath: fromBoth.basePath,
         transition: transition,
-        token: fromBoth["gooruToken"]
+        token: fromBoth.gooruToken
       };
 
       return $.extend(properties, result);
@@ -101,9 +101,9 @@ var ApplicationWidget = function (selector, properties) {
      */
     getTransition: function(properties) {
       let transition = undefined;
-      const collectionId = properties["collectionId"];
-      const resourceId = properties["resourceId"];
-      const questionId = properties["questionId"];
+      const collectionId = properties.collectionId;
+      const resourceId = properties.resourceId;
+      const questionId = properties.questionId;
 
       if (collectionId) {
         transition = ['player', collectionId];
