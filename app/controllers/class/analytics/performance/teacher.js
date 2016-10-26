@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import {download} from 'gooru-web/utils/csv';
+import {prepareFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
 
 /**
  * Teacher Analytics Performance Controller
@@ -51,6 +53,22 @@ export default Ember.Controller.extend({
      */
     toggleFullScreen: function () {
       return this.get("classController").toggleFullScreen();
+    },
+
+    /**
+     * When clicking at the download button
+     */
+    download: function(){
+      const performanceDataHeaders = this.get('performanceDataHeaders');
+      const performanceDataMatrix = this.get('performanceDataMatrix');
+      const date=formatDate(new Date(),'MM-DD-YY');
+      const classTitle = this.get('class.title');
+      const courseTitle = this.get('course.title');
+      const fileNameString = classTitle+'_'+courseTitle+"_"+date;
+      const fileName = createFileNameToDownload(fileNameString);
+      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, this.get('filterBy'));
+
+      download(fileName, fileData);
     }
   },
 
@@ -103,6 +121,20 @@ export default Ember.Controller.extend({
    * @property {String}
    */
   filterBy: 'assessment',
+
+  /**
+   * The performance data header titles of the course, unit, lesson. This is setting in each setupController
+   * @property {Headers[]}
+   */
+
+  performanceDataHeaders: null,
+
+  /**
+   * The performanceDataMatrix of the course, unit, lesson. This is setting in each setupController
+   * @property {performanceData[]}
+   */
+
+  performanceDataMatrix: null,
 
   /**
    * List of selected options from the data picker.
@@ -276,5 +308,4 @@ export default Ember.Controller.extend({
       }));
     }
   })
-
 });

@@ -119,6 +119,7 @@ export default Ember.Controller.extend({
         controller.fixTotalCounts(classPerformanceData, filterBy);
         const performanceData = createDataMatrix(units, classPerformanceData);
         controller.set('performanceDataMatrix', performanceData);
+        controller.set("teacherController.performanceDataMatrix", performanceData);
       });
   }),
 

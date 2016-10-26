@@ -131,9 +131,12 @@ export default Ember.Route.extend({
     controller.set("teacherController.lesson", model.lesson);
     //updating the collectionLevel to show or not the launch anonymous button
     controller.set("teacherController.collectionLevel", false);
-
     //updating the lessonLevel to show or not filters
     controller.set("teacherController.lessonLevel", true);
+    //updating the performanceDataHeaders and performanceDataMatrix to download implementation
+    controller.set("teacherController.performanceDataHeaders", model.collections);
+    controller.set("teacherController.performanceDataMatrix", performanceData);
+
 
   },
   /**

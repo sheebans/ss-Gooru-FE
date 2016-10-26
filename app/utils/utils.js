@@ -408,3 +408,101 @@ export function addProtocolIfNecessary(url) {
 export function checkIfIsGoogleDoc(assetUrl) {
   return (assetUrl.indexOf("//drive.google") !== -1 || assetUrl.indexOf("//docs.google") !== -1);
 }
+
+/**
+ * prepares csv file data to download
+ * @param {string []} performanceDataHeaders the metrics table headers
+ * @param {string []} performanceDataMatrix the metrics table performance data
+ * @param {string} filterBy (assessments/collections)
+ */
+
+export function prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, filterBy){
+  const performanceAverageHeaders= performanceDataMatrix.objectAt(0).performanceData;
+  const performanceData = performanceDataMatrix.slice(1);
+  var dataHeaders = (filterBy ==='collection')?Ember.A(['Student', 'Average time']):Ember.A(['Student', 'Average score', 'Average time', 'Average completion']);
+  var dataMatrix = Ember.A([]);
+  var averageHeaders = Ember.A(['Class average']);
+
+  if(filterBy ==='collection') {
+    performanceDataHeaders.forEach(function(headerItem) {
+      const timeHeader = headerItem.get('title')+' time';
+      dataHeaders.push(timeHeader);
+    });
+    performanceAverageHeaders.forEach(function(avHeaderItem) {
+      const time = avHeaderItem.get('timeSpent');
+      averageHeaders.push(time);
+    });
+    dataMatrix.push(averageHeaders);
+
+    performanceData.forEach(function(dataItem) {
+      var data = Ember.A([]);
+      const performanceDataContent = dataItem.performanceData;
+      const student = dataItem.get('user');
+      data.push(student);
+      performanceDataContent.forEach(function(dataContentItem) {
+        if (dataContentItem){
+          const time = dataContentItem.timeSpent;
+          data.push(time);
+        }
+      });
+      dataMatrix.push(data);
+    });
+  }
+  else {
+    performanceDataHeaders.forEach(function(headerItem) {
+      const scoreHeader = headerItem.get('title')+' score';
+      const timeHeader = headerItem.get('title')+' time';
+      const completionHeader = headerItem.get('title')+' completion';
+      dataHeaders.push(scoreHeader);
+      dataHeaders.push(timeHeader);
+      dataHeaders.push(completionHeader);
+    });
+    performanceAverageHeaders.forEach(function(avHeaderItem) {
+      const score = (avHeaderItem.hasStarted)?avHeaderItem.score +'%':'--%';
+      const time = avHeaderItem.get('timeSpent');
+      const completion = (avHeaderItem.completionDone)?avHeaderItem.completionDone+"/"+avHeaderItem.completionTotal:'--';
+      averageHeaders.push(score);
+      averageHeaders.push(completion);
+      averageHeaders.push(time);
+    });
+    dataMatrix.push(averageHeaders);
+
+    performanceData.forEach(function(dataItem) {
+      var data = Ember.A([]);
+      const performanceDataContent = dataItem.performanceData;
+      const student = dataItem.get('user');
+      data.push(student);
+      performanceDataContent.forEach(function(dataContentItem) {
+        if (dataContentItem){
+          const score = (dataContentItem.hasStarted)?dataContentItem.score +'%':'--%';
+          const time = dataContentItem.timeSpent;
+          const completion = (dataContentItem.completionDone)?dataContentItem.completionDone+"/"+dataContentItem.completionTotal:'--';
+          data.push(score);
+          data.push(completion);
+          data.push(time);
+        }
+      });
+      dataMatrix.push(data);
+    });
+  }
+
+  return {
+    fields: dataHeaders,
+    data: dataMatrix
+  };
+}
+
+/**
+ * Removes blanks and transforms to lower case the file name
+ * @param {String} fileName
+ */
+export function createFileNameToDownload(fileName){
+
+  var newName;
+
+  if (fileName){
+    newName = fileName.toLowerCase().replace(/ /g,"");
+  }
+
+  return newName;
+}
