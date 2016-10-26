@@ -117,7 +117,7 @@ export default Ember.Controller.extend({
     controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
       .then(function(classPerformanceData) {
         controller.fixTotalCounts(classPerformanceData, filterBy);
-        const performanceData = createDataMatrix(units, classPerformanceData);
+        const performanceData = createDataMatrix(units, classPerformanceData, 'course');
         controller.set('performanceDataMatrix', performanceData);
       });
   }),

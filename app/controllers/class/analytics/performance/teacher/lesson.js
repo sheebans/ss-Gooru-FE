@@ -146,7 +146,7 @@ export default Ember.Controller.extend({
           return (filterBy === 'both') || (collection.get('format') === filterBy);
         });
         controller.set('collections', filteredCollections);
-        const performanceData = createDataMatrix(filteredCollections, classPerformanceData);
+        const performanceData = createDataMatrix(filteredCollections, classPerformanceData, 'lesson');
         controller.set('performanceDataMatrix', performanceData);
       });
   })
