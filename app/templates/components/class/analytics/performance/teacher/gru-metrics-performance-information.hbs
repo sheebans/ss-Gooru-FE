@@ -2,13 +2,17 @@
   {{#if showScore}}
     <div class="table-cell">
         {{#if performanceData.hideScore}}
-          {{t 'common.not-applicable'}}
+            <div class="not-applicable {{if performanceData.headerTitle 'pointer'}}"
+              {{action 'clickScore' performanceData}}
+                 title="{{performanceData.headerTitle}}" data-toggle="tooltip" data-placement="auto">
+              {{t 'common.not-applicable'}}
+            </div>
         {{else}}
           <div class="box score {{if performanceData.headerTitle 'pointer'}}"
             {{action 'clickScore' performanceData}}
                title="{{performanceData.headerTitle}}" data-toggle="tooltip" data-placement="auto"
                style="background-color: {{gradeColor (if performanceData.hasStarted performanceData.score 'NA')}}">
-            {{{if performanceData.hasStarted performanceData.score '--'}}}%
+            {{{if (and performanceData.hasStarted performanceData.hasScore) performanceData.score '--'}}}%
           </div>
         {{/if}}
     </div>
