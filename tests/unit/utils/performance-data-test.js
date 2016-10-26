@@ -108,7 +108,7 @@ test('createClassAverageObject', function (assert) {
 });
 
 test('createItemAverageObject', function (assert) {
-  assert.expect(10);
+  assert.expect(11);
   const classPerformanceData = Ember.Object.create({
     calculateAverageScoreByItem: function(itemId){
       assert.equal(itemId, 1, "Wrong item id at calculateAverageScoreByItem");
@@ -141,7 +141,7 @@ test('createItemAverageObject', function (assert) {
 });
 
 test('createItemAverageObject at lesson level', function (assert) {
-  assert.expect(10);
+  assert.expect(11);
   const classPerformanceData = Ember.Object.create({
     calculateAverageScoreByItem: function(itemId){
       assert.equal(itemId, 1, "Wrong item id at calculateAverageScoreByItem");
