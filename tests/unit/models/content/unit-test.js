@@ -31,4 +31,4 @@ test('get a child lesson index', function (assert) {
   });
 
   assert.equal(model.getChildLessonIndex(lesson), 3, "wrong lesson index");
-})
+});
