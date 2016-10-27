@@ -14,8 +14,8 @@ var ApplicationWidget = function (selector, properties) {
     properties: {},
 
     getContainer: function () {
-      const selector = this.selector || (`#${this.rootElementId}`);
-      const container = jQuery(selector);
+      var selector = this.selector || ("#" + this.rootElementId);
+      var container = jQuery(selector);
       // Verify Container ID
       var containerId = container.attr("id");
       if (typeof containerId === 'undefined') {
@@ -42,14 +42,14 @@ var ApplicationWidget = function (selector, properties) {
       aw.addCss("https://www.gooru.org/icon?family=Material+Icons");
 
       // Add web app styles
-      aw.addCss(`${basePath}assets/vendor.css`, "text/css");
-      aw.addCss(`${basePath}assets/gooru-web.css`, "text/css");
+      aw.addCss(basePath + "assets/vendor.css", "text/css");
+      aw.addCss(basePath + "assets/gooru-web.css", "text/css");
 
       // Add web app javascripts
-      aw.addScript(`${basePath}assets/vendor.js`, {
+      aw.addScript(basePath + "assets/vendor.js", {
         // Add Ember App after vendor libs
         onload: function () {
-          aw.addScript(`${basePath}assets/gooru-web.js`, {
+          aw.addScript(basePath + "assets/gooru-web.js", {
             onload: function() {
               aw.properties = aw.mergeProperties(properties);
               onLoad(properties);
@@ -63,14 +63,14 @@ var ApplicationWidget = function (selector, properties) {
      * Merges application custom properties
      */
     mergeProperties: function(properties) {
-      const aw = this;
-      const fromUrl = aw.getPropertiesFromUrl();
-      const fromContainer = aw.getPropertiesFromContainer();
-      const fromBoth = $.extend(fromContainer, fromUrl);
+      var aw = this;
+      var fromUrl = aw.getPropertiesFromUrl();
+      var fromContainer = aw.getPropertiesFromContainer();
+      var fromBoth = $.extend(fromContainer, fromUrl);
 
-      const transition = aw.getTransition(fromBoth);
+      var transition = aw.getTransition(fromBoth);
 
-      const result = {
+      var result = {
         features: {
           collections: {
             player: {
@@ -100,10 +100,10 @@ var ApplicationWidget = function (selector, properties) {
      * @returns {Array}
      */
     getTransition: function(properties) {
-      let transition = undefined;
-      const collectionId = properties.collectionId;
-      const resourceId = properties.resourceId;
-      const questionId = properties.questionId;
+      var transition = undefined;
+      var collectionId = properties.collectionId;
+      var resourceId = properties.resourceId;
+      var questionId = properties.questionId;
 
       if (collectionId) {
         transition = ['player', collectionId];
@@ -163,7 +163,7 @@ var ApplicationWidget = function (selector, properties) {
     addCss: function (url, type) {
       var tag = document.createElement('link');
       if (typeof type !== "undefined") {
-        tag.setAttribute("type", type)
+        tag.setAttribute("type", type);
       }
       tag.setAttribute("rel", "stylesheet");
       tag.setAttribute("href", url);
@@ -193,7 +193,7 @@ var ApplicationWidget = function (selector, properties) {
      * Loads properties from the container
      * */
     getPropertiesFromContainer: function () {
-      const container = this.getContainer();
+      var container = this.getContainer();
       return container.data();
     }
   };
