@@ -423,6 +423,9 @@ export function prepareFileDataToDownload(performanceDataHeaders, performanceDat
     if (!lessonLevel) {
       return collectionFileData(performanceDataHeaders, performanceDataMatrix);
     }
+    else {
+      return lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix);
+    }
   }
   else {
     return assessmentFileData(performanceDataHeaders, performanceDataMatrix);
@@ -483,7 +486,7 @@ function collectionFileData(performanceDataHeaders, performanceDataMatrix){
 function assessmentFileData(performanceDataHeaders, performanceDataMatrix){
   const performanceAverageHeaders= performanceDataMatrix.objectAt(0).performanceData;
   const performanceData = performanceDataMatrix.slice(1);
-  var dataHeaders = Ember.A(['Student', 'Average score', 'Average time', 'Average completion']);
+  var dataHeaders = Ember.A(['Student', 'Average score', 'Average completion', 'Average time']);
   var dataMatrix = Ember.A([]);
   var averageHeaders = Ember.A(['Class average']);
 
@@ -492,8 +495,8 @@ function assessmentFileData(performanceDataHeaders, performanceDataMatrix){
     const timeHeader = headerItem.get('title')+' time';
     const completionHeader = headerItem.get('title')+' completion';
     dataHeaders.push(scoreHeader);
-    dataHeaders.push(timeHeader);
     dataHeaders.push(completionHeader);
+    dataHeaders.push(timeHeader);
   });
   performanceAverageHeaders.forEach(function(avHeaderItem) {
     const score = (avHeaderItem.hasStarted)?avHeaderItem.score +'%':'--%';
@@ -517,6 +520,55 @@ function assessmentFileData(performanceDataHeaders, performanceDataMatrix){
         const completion = (dataContentItem.completionDone)?dataContentItem.completionDone+"/"+dataContentItem.completionTotal:'--';
         data.push(score);
         data.push(completion);
+        data.push(time);
+      }
+    });
+    dataMatrix.push(data);
+  });
+
+  return {
+    fields: dataHeaders,
+    data: dataMatrix
+  };
+}
+
+/**
+ * prepares lesson collection file data
+ * @param {string []} performanceDataHeaders the metrics table headers
+ * @param {string []} performanceDataMatrix the metrics table performance data
+ */
+
+function lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix){
+  const performanceAverageHeaders= performanceDataMatrix.objectAt(0).performanceData;
+  const performanceData = performanceDataMatrix.slice(1);
+  var dataHeaders = Ember.A(['Student', 'Average score', 'Average time']);
+  var dataMatrix = Ember.A([]);
+  var averageHeaders = Ember.A(['Class average']);
+
+  performanceDataHeaders.forEach(function(headerItem) {
+    const scoreHeader = headerItem.get('title')+' score';
+    const timeHeader = headerItem.get('title')+' time';
+    dataHeaders.push(scoreHeader);
+    dataHeaders.push(timeHeader);
+  });
+  performanceAverageHeaders.forEach(function(avHeaderItem) {
+    const score = (avHeaderItem.hasStarted)?avHeaderItem.score +'%':'--%';
+    const time = avHeaderItem.get('timeSpent');
+    averageHeaders.push(score);
+    averageHeaders.push(time);
+  });
+  dataMatrix.push(averageHeaders);
+
+  performanceData.forEach(function(dataItem) {
+    var data = Ember.A([]);
+    const performanceDataContent = dataItem.performanceData;
+    const student = dataItem.get('user');
+    data.push(student);
+    performanceDataContent.forEach(function(dataContentItem) {
+      if (dataContentItem){
+        const score = (dataContentItem.hasStarted)?dataContentItem.score +'%':'--%';
+        const time = dataContentItem.timeSpent;
+        data.push(score);
         data.push(time);
       }
     });
