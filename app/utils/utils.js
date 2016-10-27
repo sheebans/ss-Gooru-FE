@@ -414,77 +414,114 @@ export function checkIfIsGoogleDoc(assetUrl) {
  * @param {string []} performanceDataHeaders the metrics table headers
  * @param {string []} performanceDataMatrix the metrics table performance data
  * @param {string} filterBy (assessments/collections)
+ * @param {boolean} lessonLevel indicates if it is in the lesson level
  */
 
-export function prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, filterBy){
+export function prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, filterBy, lessonLevel){
+
+  if(filterBy ==='collection') {
+    if (!lessonLevel) {
+      return collectionFileData(performanceDataHeaders, performanceDataMatrix);
+    }
+  }
+  else {
+    return assessmentFileData(performanceDataHeaders, performanceDataMatrix);
+  }
+}
+
+/**
+ * prepares collection file data
+ * @param {string []} performanceDataHeaders the metrics table headers
+ * @param {string []} performanceDataMatrix the metrics table performance data
+ */
+
+function collectionFileData(performanceDataHeaders, performanceDataMatrix){
   const performanceAverageHeaders= performanceDataMatrix.objectAt(0).performanceData;
   const performanceData = performanceDataMatrix.slice(1);
-  var dataHeaders = (filterBy ==='collection')?Ember.A(['Student', 'Average time']):Ember.A(['Student', 'Average score', 'Average time', 'Average completion']);
+  var dataHeaders = Ember.A(['Student', 'Average time']);
   var dataMatrix = Ember.A([]);
   var averageHeaders = Ember.A(['Class average']);
 
-  if(filterBy ==='collection') {
-    performanceDataHeaders.forEach(function(headerItem) {
-      const timeHeader = headerItem.get('title')+' time';
-      dataHeaders.push(timeHeader);
-    });
-    performanceAverageHeaders.forEach(function(avHeaderItem) {
-      const time = avHeaderItem.get('timeSpent');
-      averageHeaders.push(time);
-    });
-    dataMatrix.push(averageHeaders);
+  performanceDataHeaders.forEach(function(headerItem) {
+    const timeHeader = headerItem.get('title')+' time';
+    dataHeaders.push(timeHeader);
+  });
 
-    performanceData.forEach(function(dataItem) {
-      var data = Ember.A([]);
-      const performanceDataContent = dataItem.performanceData;
-      const student = dataItem.get('user');
-      data.push(student);
-      performanceDataContent.forEach(function(dataContentItem) {
-        if (dataContentItem){
-          const time = dataContentItem.timeSpent;
-          data.push(time);
-        }
-      });
-      dataMatrix.push(data);
-    });
-  }
-  else {
-    performanceDataHeaders.forEach(function(headerItem) {
-      const scoreHeader = headerItem.get('title')+' score';
-      const timeHeader = headerItem.get('title')+' time';
-      const completionHeader = headerItem.get('title')+' completion';
-      dataHeaders.push(scoreHeader);
-      dataHeaders.push(timeHeader);
-      dataHeaders.push(completionHeader);
-    });
-    performanceAverageHeaders.forEach(function(avHeaderItem) {
-      const score = (avHeaderItem.hasStarted)?avHeaderItem.score +'%':'--%';
-      const time = avHeaderItem.get('timeSpent');
-      const completion = (avHeaderItem.completionDone)?avHeaderItem.completionDone+"/"+avHeaderItem.completionTotal:'--';
-      averageHeaders.push(score);
-      averageHeaders.push(completion);
-      averageHeaders.push(time);
-    });
-    dataMatrix.push(averageHeaders);
+  performanceAverageHeaders.forEach(function(avHeaderItem) {
+    const time = avHeaderItem.get('timeSpent');
+    averageHeaders.push(time);
+  });
 
-    performanceData.forEach(function(dataItem) {
-      var data = Ember.A([]);
-      const performanceDataContent = dataItem.performanceData;
-      const student = dataItem.get('user');
-      data.push(student);
-      performanceDataContent.forEach(function(dataContentItem) {
-        if (dataContentItem){
-          const score = (dataContentItem.hasStarted)?dataContentItem.score +'%':'--%';
-          const time = dataContentItem.timeSpent;
-          const completion = (dataContentItem.completionDone)?dataContentItem.completionDone+"/"+dataContentItem.completionTotal:'--';
-          data.push(score);
-          data.push(completion);
-          data.push(time);
-        }
-      });
-      dataMatrix.push(data);
+  dataMatrix.push(averageHeaders);
+
+  performanceData.forEach(function(dataItem) {
+    var data = Ember.A([]);
+    const performanceDataContent = dataItem.performanceData;
+    const student = dataItem.get('user');
+    data.push(student);
+    performanceDataContent.forEach(function(dataContentItem) {
+      if (dataContentItem){
+        const time = dataContentItem.timeSpent;
+        data.push(time);
+      }
     });
-  }
+    dataMatrix.push(data);
+  });
+
+  return {
+    fields: dataHeaders,
+    data: dataMatrix
+  };
+}
+
+/**
+ * prepares assessment file data
+ * @param {string []} performanceDataHeaders the metrics table headers
+ * @param {string []} performanceDataMatrix the metrics table performance data
+ */
+
+function assessmentFileData(performanceDataHeaders, performanceDataMatrix){
+  const performanceAverageHeaders= performanceDataMatrix.objectAt(0).performanceData;
+  const performanceData = performanceDataMatrix.slice(1);
+  var dataHeaders = Ember.A(['Student', 'Average score', 'Average time', 'Average completion']);
+  var dataMatrix = Ember.A([]);
+  var averageHeaders = Ember.A(['Class average']);
+
+  performanceDataHeaders.forEach(function(headerItem) {
+    const scoreHeader = headerItem.get('title')+' score';
+    const timeHeader = headerItem.get('title')+' time';
+    const completionHeader = headerItem.get('title')+' completion';
+    dataHeaders.push(scoreHeader);
+    dataHeaders.push(timeHeader);
+    dataHeaders.push(completionHeader);
+  });
+  performanceAverageHeaders.forEach(function(avHeaderItem) {
+    const score = (avHeaderItem.hasStarted)?avHeaderItem.score +'%':'--%';
+    const time = avHeaderItem.get('timeSpent');
+    const completion = (avHeaderItem.completionDone)?avHeaderItem.completionDone+"/"+avHeaderItem.completionTotal:'--';
+    averageHeaders.push(score);
+    averageHeaders.push(completion);
+    averageHeaders.push(time);
+  });
+  dataMatrix.push(averageHeaders);
+
+  performanceData.forEach(function(dataItem) {
+    var data = Ember.A([]);
+    const performanceDataContent = dataItem.performanceData;
+    const student = dataItem.get('user');
+    data.push(student);
+    performanceDataContent.forEach(function(dataContentItem) {
+      if (dataContentItem){
+        const score = (dataContentItem.hasStarted)?dataContentItem.score +'%':'--%';
+        const time = dataContentItem.timeSpent;
+        const completion = (dataContentItem.completionDone)?dataContentItem.completionDone+"/"+dataContentItem.completionTotal:'--';
+        data.push(score);
+        data.push(completion);
+        data.push(time);
+      }
+    });
+    dataMatrix.push(data);
+  });
 
   return {
     fields: dataHeaders,
