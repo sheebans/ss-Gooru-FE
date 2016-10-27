@@ -103,6 +103,26 @@ export default Ember.Object.extend(Validations, {
   merge: function(unit, propertyList = []) {
     var properties = unit.getProperties(propertyList);
     this.setProperties(properties);
+  },
+
+  /**
+   * Get an specific lesson index of the children
+   *
+   * @function
+   * @param {Lesson} lesson
+   * @return {Number}
+   */
+  getChildLessonIndex: function(lesson) {
+    var lessonId = lesson.id;
+    var lessonIndex;
+
+    this.get('children').forEach(function(child, index) {
+      if ( child.get('id')=== lessonId){
+        lessonIndex = index+1;
+      }
+    });
+
+    return lessonIndex;
   }
 
 });

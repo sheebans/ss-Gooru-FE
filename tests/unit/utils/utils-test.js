@@ -270,7 +270,7 @@ test('prepare csv file data to download filter by assessment', function (assert)
     Ember.A(["testUser2", "18%", "12/16","4m 35s","80%", "14/16","4m 35s","100%","16/16","4m 35s"])
   ]);
 
-  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'assessment');
+  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'assessment',false);
 
   //header fields
   assert.equal(fileData.fields[0], expectedDataHeaders[0], 'Wrong header field.');
@@ -359,7 +359,7 @@ test('prepare csv file data to download filter by collection', function (assert)
     Ember.A(["testUser2", "4m 35s","4m 35s","4m 35s"])
   ]);
 
-  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'collection');
+  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'collection',false);
 
   //header fields
   assert.equal(fileData.fields[0], expectedDataHeaders[0], 'Wrong header field.');

@@ -132,6 +132,7 @@ export default Ember.Controller.extend({
   filterByObserver: Ember.observer('filterBy', function() {
     const controller = this;
     controller.set('performanceDataMatrix', []);
+    controller.set("teacherController.performanceDataMatrix", []);
     controller.set('collections', []);
     const filterBy = controller.get('filterBy');
     const classId = controller.get('class.id');
@@ -148,6 +149,7 @@ export default Ember.Controller.extend({
         controller.set('collections', filteredCollections);
         const performanceData = createDataMatrix(filteredCollections, classPerformanceData);
         controller.set('performanceDataMatrix', performanceData);
+        controller.set("teacherController.performanceDataMatrix", performanceData);
       });
   })
 

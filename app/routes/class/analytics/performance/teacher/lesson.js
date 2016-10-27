@@ -127,6 +127,8 @@ export default Ember.Route.extend({
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
     //updating the breadcrumb with the lesson
     controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
+    //updating the unit in the teacher controller
+    controller.set("teacherController.unit", model.unit);
     //updating the lesson in the teacher controller
     controller.set("teacherController.lesson", model.lesson);
     //updating the collectionLevel to show or not the launch anonymous button
@@ -136,8 +138,6 @@ export default Ember.Route.extend({
     //updating the performanceDataHeaders and performanceDataMatrix to download implementation
     controller.set("teacherController.performanceDataHeaders", model.collections);
     controller.set("teacherController.performanceDataMatrix", performanceData);
-
-
   },
   /**
    * Setups data picker options for lesson
@@ -182,5 +182,4 @@ export default Ember.Route.extend({
       'isDisabled':false
     })]));
   }
-
 });

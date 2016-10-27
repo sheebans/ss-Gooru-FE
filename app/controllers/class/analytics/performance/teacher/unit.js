@@ -102,6 +102,7 @@ export default Ember.Controller.extend({
   filterByObserver: Ember.observer('filterBy', function() {
     const controller = this;
     controller.set('performanceDataMatrix', []);
+    controller.set("teacherController.performanceDataMatrix", []);
     const filterBy = controller.get('filterBy');
     const classId = controller.get('class.id');
     const courseId = controller.get('class.courseId');
@@ -113,6 +114,7 @@ export default Ember.Controller.extend({
         controller.fixTotalCounts(unitId, classPerformanceData, filterBy);
         const performanceData = createDataMatrix(lessons, classPerformanceData);
         controller.set('performanceDataMatrix', performanceData);
+        controller.set("teacherController.performanceDataMatrix", performanceData);
       });
   }),
 

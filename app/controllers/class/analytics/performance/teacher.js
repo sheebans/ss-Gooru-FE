@@ -19,6 +19,8 @@ export default Ember.Controller.extend({
 
   classController: Ember.inject.controller('class'),
 
+  applicationController: Ember.inject.controller('application'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions:{
@@ -64,9 +66,28 @@ export default Ember.Controller.extend({
       const date=formatDate(new Date(),'MM-DD-YY');
       const classTitle = this.get('class.title');
       const courseTitle = this.get('course.title');
-      const fileNameString = classTitle+'_'+courseTitle+"_"+date;
+      const currentRouteName = this.get('applicationController.currentRouteName');
+      var fileNameString = `${classTitle}_${courseTitle}`;
+      var unitIndex;
+      var lessonIndex;
+      var lessonLevel = false;
+
+      if (currentRouteName === 'class.analytics.performance.teacher.unit'){
+        unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
+        fileNameString = `${fileNameString}_unit${unitIndex}`;
+      }
+
+      if (currentRouteName === 'class.analytics.performance.teacher.lesson'){
+        lessonLevel = true;
+        unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
+        lessonIndex =  this.get('unit').getChildLessonIndex(this.get('lesson'));
+        fileNameString = `${fileNameString}_unit${unitIndex}_lesson${lessonIndex}`;
+      }
+
+      fileNameString = `${fileNameString}_${date}`;
+
       const fileName = createFileNameToDownload(fileNameString);
-      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, this.get('filterBy'));
+      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, this.get('filterBy'),lessonLevel);
 
       download(fileName, fileData);
     }

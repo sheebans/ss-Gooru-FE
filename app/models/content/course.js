@@ -194,6 +194,26 @@ export default Ember.Object.extend(Validations, {
     return (owner && owner.get("id") === id) || (creatorId === id);
   },
 
+  /**
+   * Get an specific unit index of the children
+   *
+   * @function
+   * @param {Unit} unit
+   * @return {Number}
+   */
+  getChildUnitIndex: function(unit) {
+    var unitId = unit.id;
+    var unitIndex;
+
+    this.get('children').forEach(function(child, index) {
+      if ( child.get('id')=== unitId){
+        unitIndex= index+1;
+      }
+    });
+
+    return unitIndex;
+  },
+
   // -------------------------------------------------------------
   // Events
   /**
@@ -203,7 +223,4 @@ export default Ember.Object.extend(Validations, {
     var mainSubject = this.get('mainSubject');
     this.set('subject', mainSubject ? mainSubject.get('id') : null);
   })
-
-
-
 });
