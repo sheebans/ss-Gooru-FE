@@ -74,14 +74,14 @@ export default Ember.Controller.extend({
 
       if (currentRouteName === 'class.analytics.performance.teacher.unit'){
         unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
-        fileNameString = `${fileNameString}_unit${unitIndex}`;
+        fileNameString = `${fileNameString}_unit${unitIndex+1}`;
       }
 
       if (currentRouteName === 'class.analytics.performance.teacher.lesson'){
         lessonLevel = true;
         unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
         lessonIndex =  this.get('unit').getChildLessonIndex(this.get('lesson'));
-        fileNameString = `${fileNameString}_unit${unitIndex}_lesson${lessonIndex}`;
+        fileNameString = `${fileNameString}_unit${unitIndex+1}_lesson${lessonIndex+1}`;
       }
 
       fileNameString = `${fileNameString}_${date}`;

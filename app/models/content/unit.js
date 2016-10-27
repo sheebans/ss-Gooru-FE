@@ -113,16 +113,7 @@ export default Ember.Object.extend(Validations, {
    * @return {Number}
    */
   getChildLessonIndex: function(lesson) {
-    var lessonId = lesson.id;
-    var lessonIndex;
-
-    this.get('children').forEach(function(child, index) {
-      if ( child.get('id')=== lessonId){
-        lessonIndex = index+1;
-      }
-    });
-
-    return lessonIndex;
+    return this.get("children").mapBy("id").indexOf(lesson.get("id"));
   }
 
 });

@@ -202,16 +202,7 @@ export default Ember.Object.extend(Validations, {
    * @return {Number}
    */
   getChildUnitIndex: function(unit) {
-    var unitId = unit.id;
-    var unitIndex;
-
-    this.get('children').forEach(function(child, index) {
-      if ( child.get('id')=== unitId){
-        unitIndex= index+1;
-      }
-    });
-
-    return unitIndex;
+    return this.get("children").mapBy("id").indexOf(unit.get("id"));
   },
 
   // -------------------------------------------------------------

@@ -30,5 +30,5 @@ test('get a child lesson index', function (assert) {
     title: 'Lesson#3'
   });
 
-  assert.equal(model.getChildLessonIndex(lesson), 3, "wrong lesson index");
+  assert.equal(model.getChildLessonIndex(lesson), 2, "wrong lesson index");
 });

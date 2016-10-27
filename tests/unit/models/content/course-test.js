@@ -30,5 +30,5 @@ test('get a child unit index', function (assert) {
     title: 'Unit#2'
   });
 
-  assert.equal(model.getChildUnitIndex(unit), 2, "wrong unit index");
+  assert.equal(model.getChildUnitIndex(unit), 1, "wrong unit index");
 });
