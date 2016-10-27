@@ -101,19 +101,23 @@ export default Ember.Controller.extend({
 
   filterByObserver: Ember.observer('filterBy', function() {
     const controller = this;
-    controller.set('performanceDataMatrix', []);
-    const filterBy = controller.get('filterBy');
-    const classId = controller.get('class.id');
-    const courseId = controller.get('class.courseId');
-    const members = controller.get('class.members');
-    const unitId = controller.get('unit.id');
-    const lessons = controller.get('lessons');
-    controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
-      .then(function(classPerformanceData) {
-        controller.fixTotalCounts(unitId, classPerformanceData, filterBy);
-        const performanceData = createDataMatrix(lessons, classPerformanceData, 'unit');
-        controller.set('performanceDataMatrix', performanceData);
-      });
+
+    if (controller.get("active")) {
+      controller.get("teacherController").restoreSelectedOptions();
+      controller.set('performanceDataMatrix', []);
+      const filterBy = controller.get('filterBy');
+      const classId = controller.get('class.id');
+      const courseId = controller.get('class.courseId');
+      const members = controller.get('class.members');
+      const unitId = controller.get('unit.id');
+      const lessons = controller.get('lessons');
+      controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
+        .then(function(classPerformanceData) {
+          controller.fixTotalCounts(unitId, classPerformanceData, filterBy);
+          const performanceData = createDataMatrix(lessons, classPerformanceData, 'unit');
+          controller.set('performanceDataMatrix', performanceData);
+        });
+    }
   }),
 
 
