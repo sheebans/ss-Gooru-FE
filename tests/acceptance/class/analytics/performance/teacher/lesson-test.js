@@ -72,6 +72,7 @@ test('Navigate to student report and go back to data', function(assert) {
       //menu is still selected
       const $container = find(".controller.class.analytics.collection.student");
       T.exists(assert, $container, "Missing container");
+      assert.equal(T.text($container.find(".navigation .back")), "Back to Data", "Wrong button title");
       click($container.find(".navigation .back"));
       andThen(function () {
         assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id/lesson/first-lesson-id');
