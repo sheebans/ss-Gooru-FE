@@ -70,15 +70,16 @@ export default Ember.Controller.extend({
       var fileNameString = `${classTitle}_${courseTitle}`;
       var unitIndex;
       var lessonIndex;
-      var lessonLevel = false;
+      var level = 'course';
 
       if (currentRouteName === 'class.analytics.performance.teacher.unit'){
         unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
         fileNameString = `${fileNameString}_unit${unitIndex+1}`;
+        level='unit';
       }
 
       if (currentRouteName === 'class.analytics.performance.teacher.lesson'){
-        lessonLevel = true;
+        level='lesson';
         unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
         lessonIndex =  this.get('unit').getChildLessonIndex(this.get('lesson'));
         fileNameString = `${fileNameString}_unit${unitIndex+1}_lesson${lessonIndex+1}`;
@@ -87,7 +88,7 @@ export default Ember.Controller.extend({
       fileNameString = `${fileNameString}_${date}`;
 
       const fileName = createFileNameToDownload(fileNameString);
-      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, this.get('filterBy'),lessonLevel);
+      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, this.get('filterBy'),level);
 
       download(fileName, fileData);
     }

@@ -417,18 +417,18 @@ export function checkIfIsGoogleDoc(assetUrl) {
  * @param {boolean} lessonLevel indicates if it is in the lesson level
  */
 
-export function prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, filterBy, lessonLevel){
+export function prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, filterBy, level){
 
-  if(filterBy ==='collection') {
-    if (!lessonLevel) {
-      return collectionFileData(performanceDataHeaders, performanceDataMatrix);
+  if(filterBy === 'collection') {
+    if (level === 'lesson') {
+      return lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix);
     }
     else {
-      return lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix);
+      return collectionFileData(performanceDataHeaders, performanceDataMatrix, level);
     }
   }
   else {
-    return assessmentFileData(performanceDataHeaders, performanceDataMatrix);
+    return assessmentFileData(performanceDataHeaders, performanceDataMatrix, level);
   }
 }
 
@@ -438,15 +438,16 @@ export function prepareFileDataToDownload(performanceDataHeaders, performanceDat
  * @param {string []} performanceDataMatrix the metrics table performance data
  */
 
-function collectionFileData(performanceDataHeaders, performanceDataMatrix){
+function collectionFileData(performanceDataHeaders, performanceDataMatrix, level){
   const performanceAverageHeaders= performanceDataMatrix.objectAt(0).performanceData;
   const performanceData = performanceDataMatrix.slice(1);
   var dataHeaders = Ember.A(['Student', 'Average time']);
   var dataMatrix = Ember.A([]);
   var averageHeaders = Ember.A(['Class average']);
 
-  performanceDataHeaders.forEach(function(headerItem) {
-    const timeHeader = headerItem.get('title')+' time';
+  performanceDataHeaders.forEach(function(headerItem, index) {
+    const prefixHeader = (level === 'course') ? `U${index+1} ` : `L${index+1} `;
+    const timeHeader = `${prefixHeader}${headerItem.get('title')} time`;
     dataHeaders.push(timeHeader);
   });
 
@@ -464,7 +465,7 @@ function collectionFileData(performanceDataHeaders, performanceDataMatrix){
     data.push(student);
     performanceDataContent.forEach(function(dataContentItem) {
       if (dataContentItem){
-        const time = dataContentItem.timeSpent;
+        const time = `${dataContentItem.get('timeSpent')}`;
         data.push(time);
       }
     });
@@ -483,25 +484,26 @@ function collectionFileData(performanceDataHeaders, performanceDataMatrix){
  * @param {string []} performanceDataMatrix the metrics table performance data
  */
 
-function assessmentFileData(performanceDataHeaders, performanceDataMatrix){
+function assessmentFileData(performanceDataHeaders, performanceDataMatrix, level){
   const performanceAverageHeaders= performanceDataMatrix.objectAt(0).performanceData;
   const performanceData = performanceDataMatrix.slice(1);
   var dataHeaders = Ember.A(['Student', 'Average score', 'Average completion', 'Average time']);
   var dataMatrix = Ember.A([]);
   var averageHeaders = Ember.A(['Class average']);
 
-  performanceDataHeaders.forEach(function(headerItem) {
-    const scoreHeader = headerItem.get('title')+' score';
-    const timeHeader = headerItem.get('title')+' time';
-    const completionHeader = headerItem.get('title')+' completion';
+  performanceDataHeaders.forEach(function(headerItem, index) {
+    const prefixHeader = (level === 'course') ? `U${index+1} ` : (level === 'unit') ? `L${index+1} ` : `A${index+1} `;
+    const scoreHeader = `${prefixHeader}${headerItem.get('title')} score`;
+    const timeHeader = `${prefixHeader}${headerItem.get('title')} time`;
+    const completionHeader = `${prefixHeader}${headerItem.get('title')} completion`;
     dataHeaders.push(scoreHeader);
     dataHeaders.push(completionHeader);
     dataHeaders.push(timeHeader);
   });
   performanceAverageHeaders.forEach(function(avHeaderItem) {
-    const score = (avHeaderItem.hasStarted)?avHeaderItem.score +'%':'--%';
-    const time = avHeaderItem.get('timeSpent');
-    const completion = (avHeaderItem.completionDone)?avHeaderItem.completionDone+"/"+avHeaderItem.completionTotal:'--';
+    const score = (avHeaderItem.hasStarted) ? `${avHeaderItem.score}%` : '--%';
+    const time = `${avHeaderItem.get('timeSpent')}`;
+    const completion = (avHeaderItem.completionDone) ? `"${avHeaderItem.completionDone}/${avHeaderItem.completionTotal}"` : '--';
     averageHeaders.push(score);
     averageHeaders.push(completion);
     averageHeaders.push(time);
@@ -515,9 +517,9 @@ function assessmentFileData(performanceDataHeaders, performanceDataMatrix){
     data.push(student);
     performanceDataContent.forEach(function(dataContentItem) {
       if (dataContentItem){
-        const score = (dataContentItem.hasStarted)?dataContentItem.score +'%':'--%';
-        const time = dataContentItem.timeSpent;
-        const completion = (dataContentItem.completionDone)?dataContentItem.completionDone+"/"+dataContentItem.completionTotal:'--';
+        const score = (dataContentItem.hasStarted) ? `${dataContentItem.score}%` : '--%';
+        const time = `${dataContentItem.get('timeSpent')}`;
+        const completion = (dataContentItem.completionDone) ? `"${dataContentItem.completionDone}/${dataContentItem.completionTotal}"` : '--';
         data.push(score);
         data.push(completion);
         data.push(time);
@@ -545,15 +547,16 @@ function lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix)
   var dataMatrix = Ember.A([]);
   var averageHeaders = Ember.A(['Class average']);
 
-  performanceDataHeaders.forEach(function(headerItem) {
-    const scoreHeader = headerItem.get('title')+' score';
-    const timeHeader = headerItem.get('title')+' time';
+  performanceDataHeaders.forEach(function(headerItem, index) {
+    const prefixHeader = `C${index+1} `;
+    const timeHeader = `${prefixHeader}${headerItem.get('title')} time`;
+    const scoreHeader = `${prefixHeader}${headerItem.get('title')} score`;
     dataHeaders.push(scoreHeader);
     dataHeaders.push(timeHeader);
   });
   performanceAverageHeaders.forEach(function(avHeaderItem) {
-    const score = (avHeaderItem.hasStarted)?avHeaderItem.score +'%':'--%';
-    const time = avHeaderItem.get('timeSpent');
+    const score = (avHeaderItem.hasStarted) ? `${avHeaderItem.score}%` : '--%';
+    const time = `${avHeaderItem.get('timeSpent')}`;
     averageHeaders.push(score);
     averageHeaders.push(time);
   });
@@ -566,8 +569,8 @@ function lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix)
     data.push(student);
     performanceDataContent.forEach(function(dataContentItem) {
       if (dataContentItem){
-        const score = (dataContentItem.hasStarted)?dataContentItem.score +'%':'--%';
-        const time = dataContentItem.timeSpent;
+        const score = (dataContentItem.hasStarted) ? `${dataContentItem.score}%` : '--%';
+        const time = `${dataContentItem.get('timeSpent')}`;
         data.push(score);
         data.push(time);
       }

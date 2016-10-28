@@ -228,7 +228,7 @@ test('check if it is a GoogleDoc', function (assert) {
   assert.equal(checkIfIsGoogleDoc(url), true, 'Wrong url.');
 });
 
-test('prepare csv file data to download filter by assessment', function (assert) {
+test('prepare csv file data to download filter by assessment in the course level', function (assert) {
   let performanceDataHeaders = Ember.A([
     Ember.Object.create({title: 'Unit#1'}),
     Ember.Object.create({title: 'Unit#2'})
@@ -261,16 +261,16 @@ test('prepare csv file data to download filter by assessment', function (assert)
   ]);
 
   let expectedDataHeaders = Ember.A(["Student", "Average score", "Average completion", "Average time",
-    "Unit#1 score", "Unit#1 completion", "Unit#1 time", "Unit#2 score", "Unit#2 completion", "Unit#2 time"
+    "U1 Unit#1 score", "U1 Unit#1 completion", "U1 Unit#1 time", "U2 Unit#2 score", "U2 Unit#2 completion", "U2 Unit#2 time"
   ]);
 
   let expectedPerformanceDataMatrix = Ember.A([
-    Ember.A(["Class average", "38%", "12/16","4m 35s","38%", "12/16","4m 35s","39%","11/16","4m 35s"]),
-    Ember.A(["testUser1", "18%", "12/16","4m 35s","18%", "12/16","4m 35s","9%","10/16","4m 35s"]),
-    Ember.A(["testUser2", "18%", "12/16","4m 35s","80%", "14/16","4m 35s","100%","16/16","4m 35s"])
+    Ember.A(["Class average", "38%", '"12/16"',"4m 35s","38%", '"12/16"',"4m 35s","39%",'"11/16"',"4m 35s"]),
+    Ember.A(["testUser1", "18%", '"12/16"',"4m 35s","18%", '"12/16"',"4m 35s","9%",'"10/16"',"4m 35s"]),
+    Ember.A(["testUser2", "18%", '"12/16"',"4m 35s","80%", '"14/16"',"4m 35s","100%",'"16/16"',"4m 35s"])
   ]);
 
-  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'assessment',false);
+  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'assessment','course');
 
   //header fields
   assert.equal(fileData.fields[0], expectedDataHeaders[0], 'Wrong header field.');
@@ -321,8 +321,8 @@ test('prepare csv file data to download filter by assessment', function (assert)
 
 test('prepare csv file data to download filter by collection in the lesson level', function (assert) {
   let performanceDataHeaders = Ember.A([
-    Ember.Object.create({title: 'Unit#1'}),
-    Ember.Object.create({title: 'Unit#2'})
+    Ember.Object.create({title: 'Collection#1'}),
+    Ember.Object.create({title: 'Collection#2'})
   ]);
 
   let performanceDataMatrix = Ember.A([
@@ -352,7 +352,7 @@ test('prepare csv file data to download filter by collection in the lesson level
   ]);
 
   let expectedDataHeaders = Ember.A(["Student", "Average score", "Average time",
-    "Unit#1 score", "Unit#1 time", "Unit#2 score", "Unit#2 time"
+    "C1 Collection#1 score", "C1 Collection#1 time", "C2 Collection#2 score", "C2 Collection#2 time"
   ]);
 
   let expectedPerformanceDataMatrix = Ember.A([
@@ -361,7 +361,7 @@ test('prepare csv file data to download filter by collection in the lesson level
     Ember.A(["testUser2", "18%", "4m 35s","80%", "4m 35s","100%","4m 35s"])
   ]);
 
-  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'collection',true);
+  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'collection','lesson');
 
   //header fields
   assert.equal(fileData.fields[0], expectedDataHeaders[0], 'Wrong header field.');
@@ -398,10 +398,10 @@ test('prepare csv file data to download filter by collection in the lesson level
   assert.equal(fileData.data[2][6], expectedPerformanceDataMatrix[2][6], 'Wrong data table field.');
 });
 
-test('prepare csv file data to download filter by collection', function (assert) {
+test('prepare csv file data to download filter by collection in the unit level', function (assert) {
   let performanceDataHeaders = Ember.A([
-    Ember.Object.create({title: 'Unit#1'}),
-    Ember.Object.create({title: 'Unit#2'})
+    Ember.Object.create({title: 'Lesson#1'}),
+    Ember.Object.create({title: 'Lesson#2'})
   ]);
 
   let performanceDataMatrix = Ember.A([
@@ -430,7 +430,7 @@ test('prepare csv file data to download filter by collection', function (assert)
     })
   ]);
 
-  let expectedDataHeaders = Ember.A(["Student", "Average time", "Unit#1 time","Unit#2 time"]);
+  let expectedDataHeaders = Ember.A(["Student", "Average time", "L1 Lesson#1 time","L2 Lesson#2 time"]);
 
   let expectedPerformanceDataMatrix = Ember.A([
     Ember.A(["Class average", "4m 35s","4m 35s","4m 35s"]),
@@ -438,7 +438,7 @@ test('prepare csv file data to download filter by collection', function (assert)
     Ember.A(["testUser2", "4m 35s","4m 35s","4m 35s"])
   ]);
 
-  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'collection',false);
+  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix,'collection',"unit");
 
   //header fields
   assert.equal(fileData.fields[0], expectedDataHeaders[0], 'Wrong header field.');
