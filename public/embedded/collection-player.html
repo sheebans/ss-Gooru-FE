@@ -26,6 +26,11 @@
                  placeholder="Collection Id">
         </div>
         <div class="form-group">
+          <label for="collection-id-input">User Token (Optional)</label>
+          <input type="text" class="form-control" id="user-token-input"
+                 placeholder="User Token">
+        </div>
+        <div class="form-group">
           <label>Type</label>
         </div>
         <div class="form-group">
@@ -65,6 +70,7 @@
     var aw = null;
     jQuery("#the-form").on("submit", function(){
       var collectionId = jQuery("#collection-id-input").val();
+      var userToken = jQuery("#user-token-input").val();
       var type = jQuery("#the-form input[name = 'collection-type']:checked").val();
       if (aw) {
         aw.destroy();
@@ -72,7 +78,8 @@
 
       aw = new ApplicationWidget('#gooru-application-container', {
         "basePath": "../",
-        "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}]
+        "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}],
+        "token": userToken.length > 0 ? userToken : undefined
       });
     })
   })();
