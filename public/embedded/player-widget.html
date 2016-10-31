@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Gooru</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <base href="/" />
+</head>
+<body>
+
+<div class="container-flow">
+  <div class="row" style="padding-left:10px">
+    <div class="col-md-2">
+      <form id="the-form" class="form" onsubmit="return false;">
+        <div class="form-group">
+          <label for="collection-id-input">Collection Id</label>
+          <input type="text" class="form-control" id="collection-id-input"
+                 value="b6170219-5841-46b8-9c6a-d684bc457538"
+                 placeholder="Collection Id">
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+        </div>
+        <div class="form-group">
+          <label class="radio-inline">
+            <input type="radio" name="collection-type" value="collection" checked="checked"> Collection
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="collection-type" value="assessment"> Assessment
+          </label>
+        </div>
+        <!--
+        <div class="form-group">
+          <label>Options</label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Show Reactions
+          </label>
+        </div>
+        -->
+        <button type="submit" class="btn btn-info">Generate</button>
+      </form>
+    </div>
+    <div class="col-md-9">
+      <div id="gooru-application-container"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Typical js -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<script src="../application-widget.js"></script>
+
+<script type="text/javascript">
+  (function () {
+    var aw = null;
+    jQuery("#the-form").on("submit", function(){
+      var collectionId = jQuery("#collection-id-input").val();
+      var type = jQuery("#the-form input[name = 'collection-type']:checked").val();
+      if (aw) {
+        aw.destroy();
+      }
+
+      aw = new ApplicationWidget('#gooru-application-container', {
+        "basePath": "../",
+        "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}]
+      });
+    })
+  })();
+</script>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 // Application Widget loader.
 // This file support the player widget 1.0 initialization
 
-var ApplicationWidget = function (selector, properties) {
+var ApplicationWidget = function (selector, properties, autoStart) {
 
   var aw = {
 
@@ -12,6 +12,8 @@ var ApplicationWidget = function (selector, properties) {
     selector: selector,
 
     properties: {},
+
+    autoStart : autoStart || true,
 
     getContainer: function () {
       var selector = this.selector || ("#" + this.rootElementId);
@@ -195,13 +197,24 @@ var ApplicationWidget = function (selector, properties) {
     getPropertiesFromContainer: function () {
       var container = this.getContainer();
       return container.data();
+    },
+
+    /**
+     * Destroys the application
+     */
+    destroy: function () {
+      var emberApp = window[aw.emberApp];
+      if (emberApp) {
+        emberApp.destroy();
+      }
     }
   };
 
-  document.addEventListener("DOMContentLoaded", function(/*event*/) {
-    aw.initialize(properties, function () {
+  aw.initialize(properties, function () {
+    if (aw.autoStart){
       aw.start();
-    });
+    }
   });
 
+  return aw;
 };
