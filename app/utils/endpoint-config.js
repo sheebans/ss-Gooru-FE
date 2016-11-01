@@ -1,6 +1,6 @@
 import ConfigurationService from 'gooru-web/services/configuration';
 
-export function getEndpointUrl() {
+export function getEndpointUrl() { //TODO don't use global configuration variable
   const configuration = ConfigurationService.configuration;
   return configuration.get("endpoint.url");
 }

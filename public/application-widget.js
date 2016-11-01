@@ -37,21 +37,21 @@ var ApplicationWidget = function (selector, properties, autoStart) {
       }
 
       var aw = this;
-      var basePath = properties.basePath;
+      var appRootPath = properties.appRootPath;
 
       // Add google font styles
       aw.addCss("https://www.gooru.org/css?family=Lato:400,300,300italic,400italic,700,700italic", "text/css");
       aw.addCss("https://www.gooru.org/icon?family=Material+Icons");
 
       // Add web app styles
-      aw.addCss(basePath + "assets/vendor.css", "text/css");
-      aw.addCss(basePath + "assets/gooru-web.css", "text/css");
+      aw.addCss(appRootPath + "assets/vendor.css", "text/css");
+      aw.addCss(appRootPath + "assets/gooru-web.css", "text/css");
 
       // Add web app javascripts
-      aw.addScript(basePath + "assets/vendor.js", {
+      aw.addScript(appRootPath + "assets/vendor.js", {
         // Add Ember App after vendor libs
         onload: function () {
-          aw.addScript(basePath + "assets/gooru-web.js", {
+          aw.addScript(appRootPath + "assets/gooru-web.js", {
             onload: function() {
               aw.properties = aw.mergeProperties(properties);
               onLoad(properties);
@@ -88,7 +88,7 @@ var ApplicationWidget = function (selector, properties, autoStart) {
             }
           }
         },
-        basePath: fromBoth.basePath,
+        appRootPath: fromBoth.appRootPath,
         transition: transition,
         token: fromBoth.gooruToken
       };
@@ -131,7 +131,9 @@ var ApplicationWidget = function (selector, properties, autoStart) {
         // Start App in next tick of the run loop.
         Ember.run.next(this, function () {
           var emberApp = window[aw.emberApp];
-          emberApp.start(aw.properties);
+          emberApp.start({
+            awProps: aw.properties
+          });
         });
       }
       else {

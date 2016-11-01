@@ -47,6 +47,12 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   errorService: Ember.inject.service("api-sdk/error"),
 
+  /**
+   * @property {ConfigurationService}
+   */
+  configurationService: Ember.inject.service("configuration"),
+
+
 
   // -------------------------------------------------------------------------
   // Methods
@@ -269,8 +275,11 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   handleEmbeddedApplication: function () {
     const route = this;
-    const transition = Env.APP.transition;
-    const token = Env.APP.token;
+    const transition = Env.APP.awProps.transition;
+    const token = Env.APP.awProps.token;
+    const configurationService = route.get("configurationService");
+    configurationService.merge(Env.APP.props);
+
     const authService = this.get("authService");
     const authPromise = token ?
       authService.signInWithToken(token) :

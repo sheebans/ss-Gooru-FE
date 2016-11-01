@@ -27,3 +27,24 @@ test('loadConfiguration', function(assert) {
     });
 });
 
+test('loadConfiguration with config url', function(assert) {
+  assert.expect(1);
+
+  const adapter = this.subject();
+  const routes = function() {
+    this.get('/any-config-url/config/any-environment.json', function(/*request*/) {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({ a: 1 })];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.loadConfiguration('any-environment', '/any-config-url')
+    .then(function(response) {
+      assert.deepEqual({ a: 1 }, response, 'Wrong response');
+    });
+});
+

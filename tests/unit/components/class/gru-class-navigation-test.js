@@ -14,8 +14,15 @@ test('resourceComponentSelected for non valid resource type', function (assert) 
     }),
     session: Ember.Object.create({
       'token-api3' :'any-token'
+    }),
+    configurationService: Ember.Object.create({
+      configuration: {
+        teams: {
+          url: "http://teams-qa.gooru.org"
+        }
+      }
     })
   });
 
-  assert.equal(component.get('teamsURL'),'http://teams-qa.gooru.org/#/integration/gooru?token=any-token&classId=any-id', 'Incorect URL');
+  assert.equal(component.get('teamsURL'), 'http://teams-qa.gooru.org/#/integration/gooru?token=any-token&classId=any-id', 'Incorect URL');
 });
