@@ -278,7 +278,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     const transition = Env.APP.awProps.transition;
     const token = Env.APP.awProps.token;
     const configurationService = route.get("configurationService");
-    configurationService.merge(Env.APP.props);
+    configurationService.merge(Env.APP.awProps);
 
     const authService = this.get("authService");
     const authPromise = token ?
