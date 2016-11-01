@@ -76,7 +76,7 @@
       }
 
       aw = new ApplicationWidget('#gooru-application-container', {
-        "basePath": "../",
+        "appRootPath": "../",
         "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}],
         "token": userToken.length > 0 ? userToken : undefined
       });
