@@ -155,6 +155,19 @@ test('correctPercentage', function(assert) {
   assert.equal(assessmentResult.get("correctPercentage"), 50, "Wrong correctPercentage");
 });
 
+test('correctPercentage with score property', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "score": 51,
+    "resourceResults": Ember.A([
+      ResourceResult.create(),
+      QuestionResult.create({ correct: false }),
+      QuestionResult.create({ correct: true })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("correctPercentage"), 51, "Wrong correctPercentage");
+});
+
 test('correctPercentage with open ended', function(assert) {
   let assessmentResult = AssessmentResult.create({
     "resourceResults": Ember.A([
@@ -180,6 +193,19 @@ test('totalTimeSpent', function(assert) {
   });
 
   assert.equal(assessmentResult.get("totalTimeSpent"), 35, "Wrong total time spent");
+});
+
+test('totalTimeSpent with time spent property', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "timeSpent": 40,
+    "resourceResults": Ember.A([
+      ResourceResult.create({ timeSpent: 5 }),
+      QuestionResult.create({ timeSpent: 10 }),
+      QuestionResult.create({ timeSpent: 20 })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("totalTimeSpent"), 40, "Wrong total time spent");
 });
 
 test('correctAnswers', function(assert) {

@@ -32,6 +32,24 @@ export default Ember.Object.extend({
   collection: null,
 
   /**
+   * Collection score, could be null
+   * @property {number}
+   */
+  score: null,
+
+  /**
+   * Collection time spent, could be null
+   * @property {number}
+   */
+  timeSpent: null,
+
+  /**
+   * @property {number}
+   */
+  views: null,
+
+
+  /**
    * @property {QuestionResult[]} questionResults
    */
   questionResults: Ember.computed("resourceResults.[]", function(){
@@ -168,7 +186,9 @@ export default Ember.Object.extend({
    * @prop {number}
    */
   correctPercentage:Ember.computed('nonOpenEndedQuestionResults.[]',function(){
-    return correctPercentage(this.get('nonOpenEndedQuestionResults'), true);
+    const score = this.get("score");
+
+    return score ? score : correctPercentage(this.get('nonOpenEndedQuestionResults'), true);
   }),
 
   /**
@@ -176,7 +196,8 @@ export default Ember.Object.extend({
    * @prop {number}
    */
   totalTimeSpent:Ember.computed('resourceResults.[]',function(){
-    return totalTimeSpent(this.get('resourceResults'));
+    const timeSpent = this.get("timeSpent");
+    return timeSpent ? timeSpent: totalTimeSpent(this.get('resourceResults'));
   }),
 
   /**
