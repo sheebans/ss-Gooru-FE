@@ -15,10 +15,11 @@ export default Ember.Object.extend({
    * Gets custom configuration
    * @returns {Promise.<[]>}
    */
-  loadConfiguration: function (key) {
+  loadConfiguration: function (key, configBaseUrl) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/${key}.json`;
+    const basePath = configBaseUrl ? configBaseUrl : '';
+    const url = `${basePath}${namespace}/${key}.json`;
     const options = {
       type: 'GET'
     };
