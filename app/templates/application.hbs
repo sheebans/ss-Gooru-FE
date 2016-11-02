@@ -1,10 +1,12 @@
-<div class="gooru">
-  {{gru-header
-    term=term
-    onLogout="logout"
-    onSearch="searchTerm"
-    isInvalidSearchTerm=isInvalidSearchTerm
-    classes=myClasses.classes}}
+<div class="gooru {{if configuration.embedded 'embedded'}}">
+    {{#if features.header.enabled}}
+    {{gru-header
+      term=term
+      onLogout="logout"
+      onSearch="searchTerm"
+      isInvalidSearchTerm=isInvalidSearchTerm
+      classes=myClasses.classes}}
+    {{/if}}
     <div class="container-fluid app-container">
       {{outlet}}
     </div>

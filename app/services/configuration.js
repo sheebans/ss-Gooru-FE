@@ -4,6 +4,7 @@ import Env from 'gooru-web/config/environment';
 import DevelopmentConfiguration from 'gooru-web/config/env/development';
 import TestConfiguration from 'gooru-web/config/env/test';
 import ProductionConfiguration from 'gooru-web/config/env/production';
+import FeaturesConfiguration from 'gooru-web/config/env/features';
 
 const ConfigurationService = Ember.Service.extend({
 
@@ -34,6 +35,8 @@ const ConfigurationService = Ember.Service.extend({
       (isDevelopment ? DevelopmentConfiguration : TestConfiguration);
 
     const configuration = Ember.Object.create(envConfiguration);
+    configuration.setProperties(FeaturesConfiguration); //setting default features behavior
+
     //setting the configuration to the global variable
     ConfigurationService.configuration = configuration;
 

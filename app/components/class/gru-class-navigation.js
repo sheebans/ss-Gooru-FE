@@ -1,4 +1,5 @@
 import Ember from "ember";
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Class navigation
  *
@@ -8,15 +9,11 @@ import Ember from "ember";
  * @see controllers/class.js
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
 
-  /**
-   * @property {ConfigurationService}
-   */
-  configurationService: Ember.inject.service("configuration"),
 
   /**
    * @requires service:session
