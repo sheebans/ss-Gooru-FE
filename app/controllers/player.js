@@ -245,6 +245,17 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     return isCollection || hasNoContext;
   }),
 
+  /**
+   * Indicates if it is an assessment and is started
+   * @property {boolean}
+   */
+  isAssessmentStarted: Ember.computed("assessmentResult", "collection", function(){
+    const isAssessment = this.get("collection.isAssessment");
+    const isStarted = this.get("assessmentResult.started");
+
+    return isAssessment && isStarted;
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -397,9 +408,10 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
+    let isInContext = this.get("context") && this.get("context.isInContext");
     controller.set('showContent',true);
 
-    if (! assessmentResult.get("started") ){
+    if (!assessmentResult.get("started") ){
       assessmentResult.set("startedAt", new Date());
       context.set("eventType", "start");
       context.set("isStudent", controller.get("isStudent"));
@@ -411,7 +423,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       let hasResources = collection.get("hasResources");
       if (hasResources){
         resource = assessmentResult.get("lastVisitedResource");
-        if (controller.get("resourceId")) { //if has a resource id as query param
+        if (controller.get("resourceId") && !isInContext) { //if has a resource id as query param and it is not in the context
           resource = collection.getResourceById(controller.get("resourceId"));
         }
       }

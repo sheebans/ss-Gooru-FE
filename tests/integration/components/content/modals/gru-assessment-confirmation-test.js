@@ -71,3 +71,21 @@ test('Negative ammount of attempts', function(assert) {
   assert.equal($body.find('.attempts p').text().trim(), "You have 0 attempts", 'Wrong attempts description');
   assert.equal($body.find('.actions .start').prop('disabled'), true, "Button should be disabled");
 });
+
+test('Layout with a started assessment', function(assert) {
+  this.set('model', {
+    bidirectional:true,
+    attempts:-1,
+    isAssessmentStarted: true
+  });
+
+  this.render(hbs`{{content/modals/gru-assessment-confirmation model=model}}`);
+
+  const $body = this.$('.content.modals.gru-assessment-confirmation .modal-body');
+  assert.ok($body.length, 'Body');
+
+  assert.equal($body.find('.actions button').length, 2, 'Number of action buttons');
+  assert.ok($body.find('.actions .cancel').length, 'Cancel button');
+  assert.ok($body.find('.actions .continue').length, 'Continue lesson button');
+
+});
