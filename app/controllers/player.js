@@ -408,7 +408,6 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
-    let isAssessmentStarted = controller.get("isAssessmentStarted");
     let isInContext = this.get("context") && this.get("context.isInContext");
     controller.set('showContent',true);
 
