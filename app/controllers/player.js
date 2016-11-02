@@ -409,7 +409,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
     let isAssessmentStarted = controller.get("isAssessmentStarted");
-    let classContext = this.get("context") && this.get("context.classId");
+    let isInContext = this.get("context") && this.get("context.isInContext");
     controller.set('showContent',true);
 
     if (!assessmentResult.get("started") ){
@@ -424,10 +424,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       let hasResources = collection.get("hasResources");
       if (hasResources){
         resource = assessmentResult.get("lastVisitedResource");
-        if(isAssessmentStarted || !classContext){
-          if (controller.get("resourceId")) { //if has a resource id as query param
-            resource = collection.getResourceById(controller.get("resourceId"));
-          }
+        if (controller.get("resourceId") && !isInContext) { //if has a resource id as query param and it is not in the context
+          resource = collection.getResourceById(controller.get("resourceId"));
         }
       }
 
