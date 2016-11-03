@@ -264,7 +264,7 @@ test('Assessment attempts on static report', function (assert) {
   assert.notOk($attempts.find('.current').length, 'Current attempt label should not be visible');
 });
 
-test('it renders for collection', function (assert) {
+test('it renders for collection with questions', function (assert) {
   const date = new Date(2010, 1, 20);
   date.setSeconds(10);
   date.setMinutes(15);
@@ -292,7 +292,18 @@ test('it renders for collection', function (assert) {
       QuestionResult.create({
         id: 602,
         resource: {
-          order: 2
+          order: 2,
+          isOpenEnded: false
+        },
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      QuestionResult.create({
+        id: 602,
+        resource: {
+          order: 2,
+          isOpenEnded: true
         },
         correct: true,
         timeSpent: 20000,
@@ -320,10 +331,16 @@ test('it renders for collection', function (assert) {
   assert.ok($component.length, "Component does not have the component classes");
 
   var $gradeContainer = $component.find('.summary-container .grade');
-  assert.ok(!$gradeContainer.length, "Grade container should be visible");
+  assert.ok($gradeContainer.length, "Grade container should be visible");
+
+  var $fractional = $gradeContainer.find('.fractional');
+  assert.ok($fractional, 'Fractional not found');
+  assert.equal($fractional.find('.top').text().trim(), "1", "Incorrect fractional top text");
+  assert.equal($fractional.find('.bottom').text().trim(), "1", "Incorrect fractional bottom text");
+
 
   var $thumbnailContainer = $component.find('.summary-container .thumbnail');
-  assert.ok($thumbnailContainer.length, "thumbnail container should not be visible");
+  assert.notOk($thumbnailContainer.length, "thumbnail container should not be visible");
 
   var $overviewContainer = $component.find('.summary-container .overview');
   assert.ok($overviewContainer.length, "Overview container is missing");
@@ -340,7 +357,7 @@ test('it renders for collection', function (assert) {
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
-  assert.equal($overviewSection.find('span').text().trim(), '1m', 'Incorrect time value');
+  assert.equal($overviewSection.find('span').text().trim(), '1m 20s', 'Incorrect time value');
 
   // Reaction
   $overviewSection = $overviewContainer.find('.information .reaction');
@@ -348,6 +365,77 @@ test('it renders for collection', function (assert) {
 
   // Reaction
   var $questionLinks = $overviewContainer.find('.gru-bubbles');
-  assert.equal($questionLinks.find('li').length, 3, "Incorrect number of resource links");
+  assert.equal($questionLinks.find('li').length, 4, "Incorrect number of resource links");
+});
+
+test('it renders for collection with only resources and open ended questions', function (assert) {
+  const date = new Date(2010, 1, 20);
+  date.setSeconds(10);
+  date.setMinutes(15);
+  date.setHours(11);
+
+  const assessmentResult = AssessmentResult.create({
+    id: 501,
+    resourceResults: [
+      ResourceResult.create({
+        id: 601,
+        resource: {
+          order: 1
+        },
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      ResourceResult.create({
+        id: 603,
+        resource: {
+          order: 3
+        },
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      ResourceResult.create({
+        id: 602,
+        resource: {
+          order: 2
+        },
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      QuestionResult.create({
+        id: 602,
+        resource: {
+          order: 2,
+          isOpenEnded: true
+        },
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2
+      })
+    ],
+    submittedAt: date,
+    totalAttempts: 4
+  });
+
+  const collection = Ember.Object.create({
+    isAssessment: false,
+    resources: [],
+    title: "collection"
+  });
+
+  assessmentResult.merge(collection);
+  this.set('assessmentResult', assessmentResult);
+  this.set('areQuestionLinksHidden', false);
+
+  this.render(hbs`
+  {{reports/assessment/gru-summary
+    assessmentResult=assessmentResult
+    areQuestionLinksHidden=areQuestionLinksHidden
+  }}`);
+
+  var $component = this.$('.reports.assessment.gru-summary');  //component dom element
+  var $gradeContainer = $component.find('.summary-container .grade[style~="background-color:"]');
+  assert.notOk($gradeContainer.length, "Percentage container should not appear");
+  var $timeSpent = $component.find('.summary-container .thumbnail .time-spent');
+  assert.ok($timeSpent.length, "Time spent should appear");
 });
 

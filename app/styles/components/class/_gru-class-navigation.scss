@@ -130,6 +130,10 @@
         @include justify-content(flex-end);
         @include align-content(center);
         height: 100%;
+        width: 25%;
+        @media (max-width: $screen-xs-max) {
+          width: 40%;
+        }
       }
 
       .arrow-up {
@@ -144,11 +148,22 @@
         width: 0;
       }
 
-      h4 {
-        margin: 0 20px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      .class-name {
+        width: 75%;
+        @media (max-width: $screen-xs-max) {
+          width: 60%;
+        }
+        h4 {
+          margin: 0 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 100%;
+          @media (max-width: $screen-xs-max) {
+            margin: 0;
+            padding: 5px;
+          }
+        }
       }
 
       .greetings {
@@ -156,6 +171,7 @@
         @include justify-content(center);
         @include align-content(center);
         position: relative;
+        margin: 15px 0;
 
         &.in {
           i {opacity: 1;}
@@ -191,7 +207,7 @@
 
         .btn {
           height: 22px;
-          margin: 0 15px;
+          margin: 15px;
           padding: 0;
 
           i {
@@ -284,6 +300,10 @@
       height: 36px;
       padding: 0 20px;
       width: 100%;
+
+      @media (max-width: $screen-xs-max) {
+        padding: 5px;
+      }
 
       >div {
         @include flexbox;

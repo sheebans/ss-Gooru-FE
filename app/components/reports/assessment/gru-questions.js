@@ -52,5 +52,13 @@ export default Ember.Component.extend({
    *
    * @property {Boolean}
    */
-  showPerformance: true
+  showPerformance: true,
+
+  /**
+   * Indicates if the view is open ended
+   * @property {boolean}
+   */
+  isOpenEnded: Ember.computed("viewMode", function(){
+    return this.get('viewMode')==='open-ended';
+  })
 });

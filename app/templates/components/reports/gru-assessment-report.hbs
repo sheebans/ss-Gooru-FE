@@ -27,4 +27,16 @@
       results=orderedQuestions}}
   {{/if}}
 
+  {{#if orderedOpenEndedQuestions.length}}
+    {{reports.assessment.gru-questions
+    isAnswerKeyHidden=isAnswerKeyHidden
+    results=orderedOpenEndedQuestions
+    viewMode='open-ended'}}
+  {{/if}}
+
+  {{#if orderedResources.length}}
+    {{reports.assessment.gru-resources
+    results=orderedResources}}
+  {{/if}}
+
 {{/if}}

@@ -78,25 +78,68 @@ export default Ember.Controller.extend({
    */
   selectedOptions: Ember.computed.alias('teacherController.selectedOptions'),
 
+  /**
+   * List of selected options from the data picker.
+   * @property {Array}
+   */
+  optionsCollectionsTeacher: Ember.computed.alias('teacherController.optionsCollectionsTeacher'),
+
+  /**
+   * List of selected options from the data picker for mobile.
+   * @property {Array}
+   */
+  mobileOptionsCollectionsTeacher: Ember.computed.alias('teacherController.mobileOptionsCollectionsTeacher'),
+
+  /**
+   * Indicates if the filters are visible
+   * @property {boolean}
+   */
+  showFilters: Ember.computed.alias('teacherController.showFilters'),
+
+  /**
+   * A link to the content visibility from class controller
+   * @see controllers/class.js
+   * @property {Class}
+   */
+  contentVisibility: Ember.computed.alias('classController.contentVisibility'),
+
   // -------------------------------------------------------------------------
   // Observers
 
   filterByObserver: Ember.observer('filterBy', function() {
     const controller = this;
-    controller.set('performanceDataMatrix', []);
-    const filterBy = controller.get('filterBy');
-    const classId = controller.get('class.id');
-    const courseId = controller.get('class.courseId');
-    const members = controller.get('class.members');
-    const units = controller.get('units');
-    controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
-      .then(function(classPerformanceData) {
-        const performanceData = createDataMatrix(units, classPerformanceData);
-        controller.set('performanceDataMatrix', performanceData);
-      });
-  })
+    if (controller.get("active")) {
+      controller.get("teacherController").restoreSelectedOptions();
+      controller.set('performanceDataMatrix', []);
+      const filterBy = controller.get('filterBy');
+      const classId = controller.get('class.id');
+      const courseId = controller.get('class.courseId');
+      const members = controller.get('class.members');
+      const units = controller.get('units');
+      controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
+        .then(function(classPerformanceData) {
+          controller.fixTotalCounts(classPerformanceData, filterBy);
+          const performanceData = createDataMatrix(units, classPerformanceData, 'course');
+          controller.set('performanceDataMatrix', performanceData);
+        });
+    }
+  }),
 
 
   // -------------------------------------------------------------------------
   // Methods
+  fixTotalCounts: function(classPerformanceData, filterBy) {
+    const controller = this;
+    const contentVisibility = controller.get("contentVisibility");
+    const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
+    studentPerformanceData.forEach(function(studentPerformance) {
+      const performanceData = studentPerformance.get("performanceData");
+      performanceData.forEach(function(performance) {
+        const totals = filterBy === "assessment" ?
+          contentVisibility.getTotalAssessmentsByUnit(performance.get("realId")) :
+          contentVisibility.getTotalCollectionsByUnit(performance.get("realId"));
+        performance.set("completionTotal", totals);
+      });
+    });
+  }
 });

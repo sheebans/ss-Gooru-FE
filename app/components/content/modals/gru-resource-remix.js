@@ -35,7 +35,7 @@ export default RemixBaseModal.extend({
 
   updateContent: function(resource) {
     const component = this;
-    return component.get('resourceService').updateResource(resource.get('id'), resource).then(function() {
+    return component.get('resourceService').updateResourceTitle(resource.get('id'), resource.get('title')).then(function() {
       let collectionId = component.get('collectionId');
       return collectionId ?
         component.get('collectionService').addResource(collectionId, resource.get('id')) :

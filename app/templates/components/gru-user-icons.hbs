@@ -9,8 +9,8 @@
     <ul>
       {{#each firstUsers as |entity index|}}
           <li class="item user {{if entity.isActive 'active' ''}}">
-              <img class="img-circle name-{{index}}" src="{{entity.avatarUrl}}" title="{{entity.fullName}}" />
-            <span class="user-name">{{truncate text=entity.firstName maxLength=10}} {{truncate text=entity.lastName maxLength=10}}</span>
+            <img class="img-circle name-{{index}}" src="{{entity.avatarUrl}}" title="{{entity.fullName}}" />
+            <span class="user-name">{{entity.firstName}} {{entity.lastName}}</span>
           </li>
       {{/each}}
 
@@ -41,7 +41,7 @@
             {{#each usersSorted as |entity|}}
               <li class="item user {{if entity.isActive 'active' ''}}">
                 <img class="img-circle" src="{{entity.avatarUrl}}" title="{{entity.fullName}}" />
-                <span class="user-name">{{truncate text=entity.firstName maxLength=10}} {{truncate text=entity.lastName maxLength=10}}</span>
+                <span class="user-name">{{entity.firstName}} {{entity.lastName}}</span>
               </li>
             {{/each}}
           </ul>

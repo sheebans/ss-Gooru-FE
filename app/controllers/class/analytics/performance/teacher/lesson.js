@@ -3,7 +3,7 @@ import Ember from 'ember';
 import { createDataMatrix } from 'gooru-web/utils/performance-data';
 
 /**
- * Teacher Analytics Performance Controller - Course Level
+ * Teacher Analytics Performance Controller - Lesson Level
  *
  * Controller responsible of the logic for the teacher performance at course level
  *
@@ -82,6 +82,18 @@ export default Ember.Controller.extend({
   selectedOptions: Ember.computed.alias('teacherController.selectedOptions'),
 
   /**
+   * List of selected options from the data picker.
+   * @property {Array}
+   */
+  optionsCollectionsTeacher: Ember.computed.alias('teacherController.optionsCollectionsTeacher'),
+
+  /**
+   * List of selected options from the data picker for mobile.
+   * @property {Array}
+   */
+  mobileOptionsCollectionsTeacher: Ember.computed.alias('teacherController.mobileOptionsCollectionsTeacher'),
+
+  /**
    * @property {Unit} unit
    */
   unit: null,
@@ -100,6 +112,12 @@ export default Ember.Controller.extend({
    * @property {ReportData} the selected collection report data
    */
   reportData: null,
+  /**
+   * A link to the parent class controller
+   * @see controllers/class.js
+   * @property {Course}
+   */
+  course: Ember.computed.alias('classController.course'),
 
   /**
    * Indicates if the filters are visible
@@ -113,24 +131,28 @@ export default Ember.Controller.extend({
 
   filterByObserver: Ember.observer('filterBy', function() {
     const controller = this;
-    controller.set('performanceDataMatrix', []);
-    controller.set('collections', []);
-    const filterBy = controller.get('filterBy');
-    const classId = controller.get('class.id');
-    const courseId = controller.get('class.courseId');
-    const members = controller.get('class.members');
-    const unitId = controller.get('unit.id');
-    const lessonId = controller.get('lesson.id');
-    const collections = controller.get('lesson.children');
-    controller.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy})
-      .then(function(classPerformanceData) {
-        const filteredCollections = collections.filter(function(collection) {
-          return (filterBy === 'both') || (collection.get('format') === filterBy);
+
+    if (controller.get("active")){
+      controller.set('performanceDataMatrix', []);
+      controller.set('collections', []);
+      controller.get("teacherController").restoreSelectedOptions(true);
+      const filterBy = controller.get('filterBy');
+      const classId = controller.get('class.id');
+      const courseId = controller.get('class.courseId');
+      const members = controller.get('class.members');
+      const unitId = controller.get('unit.id');
+      const lessonId = controller.get('lesson.id');
+      const collections = controller.get('lesson.children');
+      controller.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy})
+        .then(function(classPerformanceData) {
+          const filteredCollections = collections.filter(function(collection) {
+            return (filterBy === 'both') || (collection.get('format') === filterBy);
+          });
+          controller.set('collections', filteredCollections);
+          const performanceData = createDataMatrix(filteredCollections, classPerformanceData, 'lesson');
+          controller.set('performanceDataMatrix', performanceData);
         });
-        controller.set('collections', filteredCollections);
-        const performanceData = createDataMatrix(filteredCollections, classPerformanceData);
-        controller.set('performanceDataMatrix', performanceData);
-      });
+    }
   })
 
   // -------------------------------------------------------------------------

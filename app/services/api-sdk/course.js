@@ -84,6 +84,23 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
+   * Updates the course title
+   *
+   * @param courseId the id of the course to be updated
+   * @param title
+   * @returns {Promise}
+   */
+  updateCourseTitle: function(courseId, title) {
+    const service = this;
+    let serializedData = service.get('serializer').serializeUpdateCourseTitle(title);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('adapter').updateCourse({
+        courseId: courseId,
+        course: serializedData
+      }).then(resolve, reject);
+    });
+  },
+  /**
    * Delete course
    *
    * @param courseId The Course id to delete

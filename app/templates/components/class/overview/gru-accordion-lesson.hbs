@@ -115,9 +115,12 @@
                 {{else}}
                   <span class="score" style="background-color: {{ gradeColor 'NA' }}">--%</span>
                 {{/if}}
-
               {{ else }}
-                {{gru-icon name='apps'}}
+                {{#if item.thumbnailUrl}}
+                    <img class="img-rounded" src="{{item.thumbnailUrl}}" />
+                  {{else}}
+                  {{gru-icon name='apps'}}
+                {{/if}}
               {{/if}}
             </div>
 

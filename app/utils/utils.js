@@ -170,10 +170,10 @@ export function getReactionIcon(reactionValue) {
       html += ' </svg>';
       html += '</div>';
     } else {
-      html = '&mdash;';
+      html = '<div class="align-center">&mdash;</div>';
     }
   } else if (reactionValue === null) {
-    html = '&mdash;';
+    html = '<div class="align-center">&mdash;</div>';
   } else {
     html = '';
   }
@@ -384,4 +384,27 @@ export function removeHtmlTags(text){
   }
 
   return newText;
+}
+
+/**
+ * Returns resource name with a protocol if it is necessary
+ * @param {String} url
+ */
+export function addProtocolIfNecessary(url) {
+  const pattern = /^((http|https|ftp):\/\/)/;
+
+  if(!pattern.test(url)) { //if no protocol add http as default
+    return "http:" + url;
+  }
+
+  return url;
+}
+
+/**
+ * Check if it is a GoogleDoc
+ * @param {String} asset url
+ * @returns {boolean}
+ */
+export function checkIfIsGoogleDoc(assetUrl) {
+  return (assetUrl.indexOf("//drive.google") !== -1 || assetUrl.indexOf("//docs.google") !== -1);
 }

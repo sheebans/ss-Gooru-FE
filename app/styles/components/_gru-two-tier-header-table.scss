@@ -1,18 +1,27 @@
 .gru-two-tier-header-table {
-  $table-cell-width: 90px;
+  $table-cell-width: 55px;
+
+  .table-wrapper {
+    width: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 1px;
+    margin-left: 110px;
+  }
 
   table {
     font-size: $font-size-h6;
     background: $white;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
-    border-top: 47px solid $dark-400;
-    border-radius: 5px;
+    border-top: 15px solid $dark-400;
+    border-radius: 0 5px 5px 0;
     border-collapse: inherit;
 
     th, td {
       border: none;
-      padding: 10px 20px;
       font-weight: normal;
+      padding: 0 2px;
+      height: 32px;
     }
 
     .first-tier, .second-tier {
@@ -24,9 +33,17 @@
     }
 
     > .first-tier {
-      height: 42px;
       td, th {
         border-bottom: 1px solid $dark-200;
+      }
+      > td {
+        border-top: 15px solid $dark-400!important;
+        border-radius: 5px 0 0 0;
+        top: 76px;
+        height: 47px!important;
+        @-moz-document url-prefix() {
+          top: 78px;
+        }
       }
       th {
         &:hover {
@@ -36,8 +53,6 @@
     }
 
     > .second-tier {
-      height: 47px;
-
       th {
         line-height: 23px;
         > span {
@@ -45,6 +60,13 @@
           font-weight: normal;
           opacity: 0.6;
           min-width: $table-cell-width;
+          white-space: nowrap;
+          &:after {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 60px;
+          }
         }
 
         i.gru-icon {
@@ -55,8 +77,8 @@
         }
 
         &.row-header {
-          width: auto;
           text-align: left;
+          padding: 4px;
 
           > span {
             width: auto;
@@ -86,7 +108,9 @@
 
       + .data {
         th, td {
-          padding-top: 20px;
+          &.fixed {
+            height: 32px;
+          }
         }
       }
     }
@@ -100,8 +124,9 @@
         &:hover {
           cursor: pointer;
         }
-        &:first-child {
-          padding-top: 20px;
+        &.fixed {
+          background-color: $white;
+          border-left: 1px solid $light-300;
         }
       }
       td {
@@ -110,10 +135,31 @@
         border-style: solid;
         width: $table-cell-width;
       }
+    }
+    .fixed {
+      position: absolute;
+      left: 0;
+      width: 111px;
+    }
+    .emotion {
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+}
 
-      &:last-child {
-        th, td {
-          padding-bottom: 20px;
+.analytics-performance-teacher-collection .gru-two-tier-header-table {
+  .table-wrapper {
+    margin-left: 65px;
+    @media (max-width: $screen-xs-max) {
+      margin-left: 105px;
+    }
+    table {
+      .fixed {
+        left: -45px;
+        @media (max-width: $screen-xs-max) {
+          left: -5px;
         }
       }
     }

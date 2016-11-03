@@ -7,7 +7,10 @@ import CollectionAdapter from 'gooru-web/adapters/content/collection';
  * @typedef {Object} CollectionService
  */
 export default Ember.Service.extend({
-
+  /**
+   * @property {Profile} Profile service
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
   /**
    * @property {Store} Store service
    */
@@ -62,7 +65,12 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('collectionAdapter').readCollection(collectionId)
         .then(function(responseData) {
-          resolve(service.get('collectionSerializer').normalizeReadCollection(responseData));
+          let collection = service.get('collectionSerializer').normalizeReadCollection(responseData);
+          let profileService = service.get('profileService');
+          profileService.readUserProfile(collection.get('ownerId')).then(function(profile){
+            collection.set('owner',profile);
+              resolve(collection);
+            });
         }, reject );
     });
   },
@@ -77,6 +85,21 @@ export default Ember.Service.extend({
   updateCollection: function(collectionId, collectionModel) {
     const service = this;
     let serializedData = service.get('collectionSerializer').serializeUpdateCollection(collectionModel);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(resolve, reject);
+    });
+  },
+
+  /**
+   * Updates the Collection title
+   *
+   * @param collectionId the id of the Collection to be updated
+   * @param title the Collection title
+   * @returns {Promise}
+   */
+  updateCollectionTitle: function(collectionId, title) {
+    const service = this;
+    let serializedData = service.get('collectionSerializer').serializeUpdateCollectionTitle(title);
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(resolve, reject);
     });

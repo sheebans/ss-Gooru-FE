@@ -26,7 +26,19 @@ const taxonomyServiceStub = Ember.Service.extend({
       }
     });
   }
+});
 
+const ConfigurationService = Ember.Service.extend({
+  'configuration': Ember.Object.create({
+    "player": {
+      "resources": {
+        "pdf": {
+          "googleDriveEnable": true,
+          "googleDriveUrl": "https://docs.google.com/gview?url="
+        }
+      }
+    }
+  })
 });
 
 moduleForComponent('gru-resource-edit', 'Integration | Component | content/resources/gru resource edit', {
@@ -36,6 +48,8 @@ moduleForComponent('gru-resource-edit', 'Integration | Component | content/resou
     this.i18n.set("locale","en");
     this.register('service:taxonomy', taxonomyServiceStub);
     this.inject.service('taxonomy');
+    this.register('service:configuration', ConfigurationService);
+    this.inject.service('configuration');
   }
 });
 

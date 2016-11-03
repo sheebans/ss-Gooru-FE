@@ -56,6 +56,7 @@ export default Ember.Object.extend({
               url: lessonItemData.url,
               questionCount: lessonItemData.question_count ? lessonItemData.question_count : 0,
               resourceCount: lessonItemData.resource_count ? lessonItemData.resource_count : 0,
+              openEndedQuestionCount: lessonItemData.oe_question_count || 0,
               sequence: lessonItemData.sequence_id,
               title: lessonItemData.title
             });

@@ -53,7 +53,8 @@ test('normalizeLesson', function (assert) {
         "sequence_id": 1,
         "thumbnail" : "259b732c-2672-4780-9616-2c7a35d2d526.png",
         "resource_count": 5,
-        "question_count": 5
+        "question_count": 5,
+        "oe_question_count": 15
       },
       {
         "id": "assessment-id-456",
@@ -63,6 +64,7 @@ test('normalizeLesson', function (assert) {
         "thumbnail" : null,
         "resource_count": null,
         "question_count": 10,
+        "oe_question_count": 12,
         "url": "any"
       }
     ]
@@ -81,6 +83,7 @@ test('normalizeLesson', function (assert) {
   assert.equal(child.get("format"), "assessment", 'Wrong format');
   assert.equal(child.get("url"), "any", 'Wrong url');
   assert.equal(child.get("questionCount"), 10, 'Wrong question count');
+  assert.equal(child.get("openEndedQuestionCount"), 12, 'Wrong question count');
   assert.equal(child.get("resourceCount"), 0, 'Wrong resource count');
   assert.equal(child.get("thumbnailUrl"), '/assets/gooru/assessment-default.png', 'Wrong thumbnailUrl');
 

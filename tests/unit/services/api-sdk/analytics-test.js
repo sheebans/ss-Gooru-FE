@@ -61,3 +61,29 @@ test('findResourcesByCollection', function(assert) {
     });
 });
 
+test('getStandardsSummary', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('analyticsAdapter', Ember.Object.create({
+    getStandardsSummary: function(sessionId, userId) {
+      assert.equal(sessionId, 12345, 'wrong session id');
+      assert.equal(userId, 123, 'wrong user id');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('analyticsSerializer', Ember.Object.create({
+    normalizeGetStandardsSummary: function(payload) {
+      assert.equal(payload, 'fake response', 'wrong payload, should match adapter response');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.getStandardsSummary(12345, 123)
+    .then(function() {
+      done();
+    });
+});
+

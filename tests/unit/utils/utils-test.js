@@ -16,7 +16,9 @@ import {
   generateUUID,
   cleanFilename,
   getFileNameFromInvalidUrl,
-  replaceMathExpression
+  replaceMathExpression,
+  addProtocolIfNecessary,
+  checkIfIsGoogleDoc
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -142,7 +144,7 @@ test('getReactionIcon', function (assert) {
   assert.equal(startsWith(3, '<div class="emotion emotion-3'), true);
   assert.equal(startsWith(2, '<div class="emotion emotion-2'), true);
   assert.equal(startsWith(1, '<div class="emotion emotion-1'), true);
-  assert.equal(getReactionIcon(null), '&mdash;');
+  assert.equal(getReactionIcon(null), '<div class="align-center">&mdash;</div>');
   assert.equal(getReactionIcon(undefined), '');
   assert.equal(getReactionIcon(false), '');
   assert.equal(getReactionIcon(''), '');
@@ -212,4 +214,14 @@ test('Replace Math Expression', function (assert) {
   var expected = '<span class="gru-math-expression"><span class="gru-math-expression"><span class="source" hidden="">\frac{1}{2}</span>$$\frac{1}{2}$$</span></span><br>';
 
   assert.equal(replaceMathExpression(mathExpression), expected, 'Wrong expression');
+});
+
+test('add protocol if is necessary', function (assert) {
+  var url = "//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf";
+  assert.equal(addProtocolIfNecessary(url), "http://content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf", 'Wrong url.');
+});
+
+test('check if it is a GoogleDoc', function (assert) {
+  var url = "https://docs.google.com/document/any";
+  assert.equal(checkIfIsGoogleDoc(url), true, 'Wrong url.');
 });

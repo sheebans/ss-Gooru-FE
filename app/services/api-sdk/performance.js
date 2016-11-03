@@ -8,11 +8,28 @@ export default Ember.Service.extend({
   store: Ember.inject.service(),
 
   /**
+   * @property {Ember.Service} Service to retrieve analytics data
+   */
+  analyticsService: Ember.inject.service("api-sdk/analytics"),
+
+  /**
+   * @property {Ember.Service} Service to search for resources
+   */
+  searchService: Ember.inject.service("api-sdk/search"),
+
+  /**
+   * @property {Ember.Service} Service to get the Taxonomy data
+   */
+  taxonomyService: Ember.inject.service("api-sdk/taxonomy"),
+
+
+  /**
    * Gets a student's assessment result for a specific collection.
    * @param context
+   * @param loadStandards
    * @returns {Promise.<AssessmentResult>}
    */
-  findAssessmentResultByCollectionAndStudent: function (context) {
+  findAssessmentResultByCollectionAndStudent: function (context, loadStandards) {
     const service = this;
 
     const params = {
@@ -27,8 +44,68 @@ export default Ember.Service.extend({
       params.unitId = context.unitId;
       params.lessonId = context.lessonId;
     }
-    return service.get('studentCollectionAdapter').queryRecord(params).then(function (payload) {
-      return service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
+    return new Ember.RSVP.Promise(function(resolve) {
+      service.get('studentCollectionAdapter').queryRecord(params).then(function (payload) {
+        const assessmentResult = service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
+        if (loadStandards){
+          service.loadStandardsSummary(assessmentResult, context).then(function(){
+            resolve(assessmentResult);
+          });
+        }
+        else {
+          resolve(assessmentResult);
+        }
+      });
+    });
+  },
+
+  loadStandardsSummary: function(assessmentResult, context){
+    const service = this;
+    const analyticsService = service.get('analyticsService');
+    const taxonomyService = service.get('taxonomyService');
+    const searchService = service.get('searchService');
+    const courseId = context.courseId;
+    return new Ember.RSVP.Promise(function(resolve) {
+      analyticsService.getStandardsSummary(context.get('sessionId'), context.get("userId"))
+        .then(function (standardsSummary) {
+          assessmentResult.set('mastery', standardsSummary);
+          let standardsIds = standardsSummary.map(function (standardSummary) {
+            return standardSummary.get('id');
+          });
+          if (standardsIds.length){ //if it has standards
+            taxonomyService.fetchCodesByIds(standardsIds)
+              .then(function (taxonomyStandards) {
+                const promises = [];
+                standardsSummary.forEach(function (standardSummary) {
+                  const taxonomyStandard = taxonomyStandards.findBy('id', standardSummary.get('id'));
+                  if (taxonomyStandard) {
+                    standardSummary.set('description', taxonomyStandard.title);
+                  }
+                  const filters = {
+                    courseId: courseId,
+                    taxonomies: [standardSummary.get('id')],
+                    publishStatus: 'unpublished'  // TODO this parameter needs to be removed once we go to Production
+                  };
+                  const searchResourcePromise = searchService.searchResources('*', filters)
+                    .then(function (resources) {
+                      const suggestedResources = resources.map(function (resource) {
+                        return {
+                          resource: resource.toPlayerResource()
+                        };
+                      });
+                      standardSummary.set('suggestedResources', suggestedResources);
+                    });
+                  promises.push(searchResourcePromise);
+                });
+                Ember.RSVP.all(promises).then(function(){
+                  resolve(assessmentResult);
+                });
+              });
+          }
+          else {
+            resolve(assessmentResult);
+          }
+        });
     });
   },
 
@@ -43,6 +120,7 @@ export default Ember.Service.extend({
    */
   findStudentPerformanceByCourse: function(userId, classId, courseId, units, options = {collectionType: 'assessment'}) {
     const service = this;
+    service.get('store').unloadAll('performance/unit-performance');
     return service.get('store').queryRecord('performance/unit-performance', {
       userUid: userId,
       collectionType: options.collectionType,
@@ -65,6 +143,7 @@ export default Ember.Service.extend({
    */
   findStudentPerformanceByUnit: function (userId, classId, courseId, unitId, lessons, options = {collectionType: 'assessment'}) {
     const service = this;
+    service.get('store').unloadAll('performance/lesson-performance');
     return service.get('store').queryRecord('performance/lesson-performance', {
       userUid: userId,
       collectionType: options.collectionType,
@@ -131,8 +210,10 @@ export default Ember.Service.extend({
       let objectWithTitle = performances.findBy('id', object.get('id'));
       if(objectWithTitle) {
         objectWithTitle.set('title', object.get('title'));
+        objectWithTitle.set('model', object);
       }else{
         objectWithTitle = service.getPerformanceRecordByType(type, object);
+        objectWithTitle.set('model', object);
       }
       return objectWithTitle;
     });

@@ -49,6 +49,12 @@ export default Ember.Component.extend({
    * @property {Number}
    */
   index:null,
+
+  /**
+   * @property {boolean} indicates if it should show the score
+   */
+  showScore: true,
+
   // -------------------------------------------------------------------------
   // Actions
   actions:{
@@ -82,7 +88,6 @@ export default Ember.Component.extend({
     var isExternalAssessment = this.get('performance.isExternalAssessment');
     var performanceId = this.get('performance.id');
     var attempts = this.get('performance.attempts');
-
     if(isAssessment) {
       component.get('assessmentService').readAssessment(performanceId).then(function (performanceData) {
         var attemptsSetting = performanceData.get('attempts');

@@ -4,9 +4,24 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+  queryParams: ['unitId', 'lessonId'],
 
   // -------------------------------------------------------------------------
   // Actions
+  // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+
+    /**
+     * Sets the current course builder location
+     * @param unitId
+     * @param lessonId
+     */
+    setLocation: function (unitId, lessonId = undefined) {
+      this.set("unitId", unitId || null);
+      this.set("lessonId", lessonId || null);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -24,6 +39,26 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  isOwner: null
+  isOwner: null,
+
+  /**
+   * @property  {string}
+   */
+  unitId: null,
+
+  /**
+   * @property {string}
+   */
+  lessonId: null,
+
+
+  // -------------------------------------------------------------------------
+  // Methods
+  resetValues: function(){
+    this.set("unitId", null);
+    this.set("lessonId", null);
+  }
+
+
 
 });

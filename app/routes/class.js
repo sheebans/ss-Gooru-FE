@@ -110,11 +110,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const aClass = controller.get('class');
       const isTeacher = aClass.isTeacher(this.get("session.userId"));
       controller.selectMenuItem(item);
+      const queryParams = {
+        queryParams: {
+          filterBy: 'assessment'
+        }
+      };
 
       if ((item === "analytics.performance") && isTeacher){
-        route.transitionTo('class.analytics.performance.teacher.course');
+        route.transitionTo('class.analytics.performance.teacher.course', queryParams);
       } else if ((item === "analytics.performance") && !isTeacher) {
-        route.transitionTo('class.analytics.performance.student');
+        route.transitionTo('class.analytics.performance.student', queryParams);
       } else {
         route.transitionTo('class.' + item);
       }

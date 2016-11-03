@@ -1,5 +1,10 @@
 <div class="controller content courses edit">
-  {{content.courses.gru-course-edit course=course isEditing=isEditing tempCourse=tempCourse}}
+  {{content.courses.gru-course-edit
+    course=course
+    isEditing=isEditing
+    selectedLessonId=lessonId
+    onLocationChange='setLocation'
+    tempCourse=tempCourse}}
 
   <aside class="hidden-sm">
     <div>

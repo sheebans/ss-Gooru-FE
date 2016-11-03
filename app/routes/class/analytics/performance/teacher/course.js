@@ -54,7 +54,8 @@ export default Ember.Route.extend({
 
     return Ember.RSVP.hash({
       units: units,
-      classPerformanceData: classPerformanceData
+      classPerformanceData: classPerformanceData,
+      filterBy: filterBy
     });
   },
 
@@ -64,7 +65,12 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    const performanceData = createDataMatrix(model.units, model.classPerformanceData);
+    controller.set("active", true);
+    this.setupDataPickerOptions(controller);
+
+    const classPerformanceData = model.classPerformanceData;
+    controller.fixTotalCounts(classPerformanceData, model.filterBy);
+    const performanceData = createDataMatrix(model.units, classPerformanceData, 'course');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('units', model.units);
 
@@ -72,6 +78,52 @@ export default Ember.Route.extend({
     controller.get("teacherController").updateBreadcrumb(controller.get("course"), "course");
     //updating the collectionLevel to show or not the launch anonymous button
     controller.set("teacherController.collectionLevel", false);
+
+    //updating the lessonLevel to show or not filters
+    controller.set("teacherController.lessonLevel", false);
+  },
+  /**
+   * Setups data picker options for lesson
+   * @param controller
+   */
+  setupDataPickerOptions: function(controller){
+    controller.set('optionsCollectionsTeacher', Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':false,
+      'readOnly':true,
+      'isDisabled':true
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':true
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':true,
+      'readOnly':false,
+      'isDisabled':true
+    })]));
+    controller.set('mobileOptionsCollectionsTeacher', Ember.A([Ember.Object.create({
+      'value': 'score',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':true
+    }),Ember.Object.create({
+      'value': 'completion',
+      'selected':false,
+      'readOnly':false,
+      'isDisabled':true
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'selected':true,
+      'readOnly':false,
+      'isDisabled':true
+    })]));
+    controller.get("teacherController").restoreSelectedOptions();
+  },
+
+  deactivate: function() {
+    this.set("controller.active", false);
   }
 
 });

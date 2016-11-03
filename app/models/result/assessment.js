@@ -32,11 +32,56 @@ export default Ember.Object.extend({
   collection: null,
 
   /**
+   * Collection score, could be null
+   * @property {number}
+   */
+  score: null,
+
+  /**
+   * Collection time spent, could be null
+   * @property {number}
+   */
+  timeSpent: null,
+
+  /**
+   * @property {number}
+   */
+  views: null,
+
+
+  /**
    * @property {QuestionResult[]} questionResults
    */
   questionResults: Ember.computed("resourceResults.[]", function(){
     return this.get("resourceResults").filter(function(resourceResult){
       return resourceResult instanceof QuestionResult;
+    });
+  }),
+
+  /**
+   * @property {QuestionResult[]} nonOpenEndedQuestionResults
+   */
+  nonOpenEndedQuestionResults: Ember.computed("questionResults.[]", function(){
+    return this.get("questionResults").filter(function(questionResult){
+      return !questionResult.get("question.isOpenEnded");
+    });
+  }),
+
+  /**
+   * @property {QuestionResult[]} openEndedQuestionResults
+   */
+  openEndedQuestionResults: Ember.computed("questionResults.[]", function(){
+    return this.get("questionResults").filter(function(questionResult){
+      return questionResult.get("question.isOpenEnded");
+    });
+  }),
+
+  /**
+   * @property {QuestionResult[]} questionResults
+   */
+  resources: Ember.computed("resourceResults.[]", function(){
+    return this.get("resourceResults").filter(function(resourceResult){
+      return !(resourceResult instanceof QuestionResult);
     });
   }),
 
@@ -91,6 +136,17 @@ export default Ember.Object.extend({
   totalResources: Ember.computed.alias("resourceResults.length"),
 
   /**
+   * @property {number}
+   */
+  totalNonOpenEndedQuestions: Ember.computed.alias("nonOpenEndedQuestionResults.length"),
+
+
+  /**
+   * @property {boolean}
+   */
+  hasNonOpenEndedQuestions: Ember.computed.bool("totalNonOpenEndedQuestions"),
+
+  /**
    * @property {boolean} submitted
    */
   submitted: false,
@@ -129,8 +185,10 @@ export default Ember.Object.extend({
    * Percentage of correct answers vs. the total number of questions
    * @prop {number}
    */
-  correctPercentage:Ember.computed('questionResults.[]',function(){
-    return correctPercentage(this.get('questionResults'), true);
+  correctPercentage:Ember.computed('nonOpenEndedQuestionResults.[]',function(){
+    const score = this.get("score");
+
+    return score ? score : correctPercentage(this.get('nonOpenEndedQuestionResults'), true);
   }),
 
   /**
@@ -138,15 +196,16 @@ export default Ember.Object.extend({
    * @prop {number}
    */
   totalTimeSpent:Ember.computed('resourceResults.[]',function(){
-    return totalTimeSpent(this.get('resourceResults'));
+    const timeSpent = this.get("timeSpent");
+    return timeSpent ? timeSpent: totalTimeSpent(this.get('resourceResults'));
   }),
 
   /**
    * Total correct answers
    * @prop {number}
    */
-  correctAnswers:Ember.computed('questionResults.[]',function(){
-    return correctAnswers(this.get('questionResults'));
+  correctAnswers:Ember.computed('nonOpenEndedQuestionResults.[]',function(){
+    return correctAnswers(this.get('nonOpenEndedQuestionResults'));
   }),
 
   /**
@@ -159,7 +218,7 @@ export default Ember.Object.extend({
   }),
 
 
-  //
+  // -------------------------------------------------------------------------
   // Methods
   /**
    * Initializes the assessment results
@@ -200,8 +259,15 @@ export default Ember.Object.extend({
    */
   getResultByResourceId: function(resourceId){
     return this.get("resourceResults").findBy("resourceId", resourceId);
+  },
+  /**
+   * Fix the order of the resouceResults list
+   * @param {A[]} resourceResults
+   * @returns {ResourceResult}
+   */
+  fixResultsOrder: function () {
+    this.get('sortedResourceResults').forEach(function (resourceResult,index) {
+      resourceResult.set('resource.order',index+1);
+    });
   }
-
-
-
 });

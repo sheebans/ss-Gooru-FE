@@ -3,8 +3,25 @@ import hbs from 'htmlbars-inline-precompile';
 import Resource from 'gooru-web/models/content/resource';
 import Ember from 'ember';
 
+const ConfigurationService = Ember.Service.extend({
+  'configuration': Ember.Object.create({
+    "player": {
+      "resources": {
+        "pdf": {
+          "googleDriveEnable": true,
+          "googleDriveUrl": "https://docs.google.com/gview?url="
+        }
+      }
+    }
+  })
+});
+
 moduleForComponent('content/resources/gru-resource-play', 'Integration | Component | content/resources/gru resource play', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.register('service:configuration', ConfigurationService);
+    this.inject.service('configuration');
+  }
 });
 
 test('Layout', function(assert) {

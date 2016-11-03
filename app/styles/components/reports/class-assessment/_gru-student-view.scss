@@ -22,9 +22,18 @@
       }
     }
   }
-  .student-performance-list{
+  .student-performance-list {
     display: flex;
     flex-wrap: wrap;
     margin-top: 35px;
+  }
+}
+
+.analytics-performance-teacher-collection .reports.class-assessment.gru-student-view {
+  .student-performance-list {
+    margin-left: -45px;
+    @media (max-width: $screen-xs-max) {
+      margin-left: 0;
+    }
   }
 }

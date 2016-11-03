@@ -40,10 +40,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   setupController(controller, model) {
     var course = model.course;
 
+    const unitId = controller.get("unitId");
     course.children = course.children.map(function (unit) {
       // Wrap every unit inside of a builder item
       return BuilderItem.create({
-        data: unit
+        data: unit,
+        isExpanded: unitId === unit.get("id")
       });
     });
 
@@ -52,5 +54,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     if(model.isEditing) {
       controller.set('tempCourse', course.copy());
     }
+  },
+
+  deactivate: function () {
+    this.get("controller").resetValues();
   }
 });

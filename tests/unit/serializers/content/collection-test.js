@@ -38,6 +38,12 @@ test('serializeUpdateCollection', function(assert) {
   assert.equal(response.taxonomy, null, "Wrong taxonomy object");
 });
 
+test('serializeUpdateCollectionTitle', function(assert) {
+  const serializer = this.subject();
+  const response = serializer.serializeUpdateCollectionTitle('collection-title');
+  assert.equal(response.title, 'collection-title', "Wrong title");
+});
+
 test('serializeUpdateCollection empty learning objectives', function(assert) {
   const serializer = this.subject();
   const collectionObject = CollectionModel.create({
@@ -68,7 +74,10 @@ test('normalizeReadCollection', function(assert) {
     learning_objective: 'learning-objectives',
     visible_on_profile: true,
     thumbnail: 'image-id.png',
-    taxonomy: {}
+    taxonomy: {},
+    course_id: 1,
+    unit_id: 2,
+    lesson_id: 3
   };
   const collection = serializer.normalizeReadCollection(collectionData);
   assert.equal(collection.get('id'), 'collection-id', 'Wrong id');
@@ -77,6 +86,9 @@ test('normalizeReadCollection', function(assert) {
   assert.equal(collection.get('learningObjectives'), 'learning-objectives', 'Wrong learningObjectives');
   assert.equal(collection.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
   assert.equal(collection.get('standards.length'), 0, 'Wrong standards number of elements');
+  assert.equal(collection.get('courseId'), 1, 'Wrong course id');
+  assert.equal(collection.get('unitId'), 2, 'Wrong unit id');
+  assert.equal(collection.get('lessonId'), 3, 'Wrong lesson id');
 });
 
 test('serializeReorderCollection', function(assert) {

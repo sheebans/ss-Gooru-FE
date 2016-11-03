@@ -51,13 +51,29 @@ export default Ember.Component.extend(BuilderMixin, {
     toggle: function () {
       var toggleValue = !this.get('model.isExpanded');
 
+      const id = this.get('model.data.id');
       this.loadData();
-      this.get('onExpandUnit')();
+      this.get('onExpandUnit')(id, toggleValue);
       this.set('model.isExpanded', toggleValue);
+    },
+
+    expandLesson: function (lessonId, expanded) {
+      const id = this.get('model.data.id');
+      this.get('onExpandLesson')(id, lessonId, expanded);
     }
 
   },
 
+
+  // -------------------------------------------------------------------------
+  // Events
+  onDidInsertElement: Ember.on("didInsertElement", function(){
+    const expanded = this.get("model.isExpanded");
+    if (expanded) {
+      this.scrollHere();
+      this.loadData();
+    }
+  }),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -78,6 +94,21 @@ export default Ember.Component.extend(BuilderMixin, {
   unit: Ember.computed.alias('model.data'),
 
   /**
+   * @property {string} selected lesson id
+   */
+  selectedLessonId: null,
+
+  /**
+   * When a unit is expanded/collapsed
+   */
+  onExpandUnit: null,
+
+  /**
+   * When a lesson within this unit is expanded/collapsed
+   */
+  onExpandLesson: null,
+
+  /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   tags: Ember.computed('unit.taxonomy.[]', function() {
@@ -95,32 +126,41 @@ export default Ember.Component.extend(BuilderMixin, {
    * @returns {undefined}
    */
   loadData: function () {
-    if (!this.get('isLoaded')) {
-      let courseId = this.get('course.id');
-      let unitId = this.get('unit.id');
-
-      return this.get('unitService')
+    const component = this;
+    if (!component.get('isLoaded')) {
+      let courseId = component.get('course.id');
+      let unitId = component.get('unit.id');
+      let lessonId = component.get('selectedLessonId');
+      return component.get('unitService')
         .fetchById(courseId, unitId)
         .then(function (unit) {
-          this.set('model.data', unit);
+          component.set('model.data', unit);
 
           // Wrap every lesson inside of a builder item
           var children = unit.get('children').map(function (lesson) {
             return BuilderItem.create({
-              data: lesson
+              data: lesson,
+              isExpanded: lessonId === lesson.get("id")
             });
           });
-          this.set('items', children);
-          this.set('isLoaded', true);
-        }.bind(this))
+          component.set('items', children);
+          component.set('isLoaded', true);
+        })
 
         .catch(function (error) {
-          var message = this.get('i18n').t('common.errors.unit-not-loaded').string;
-          this.get('notifications').error(message);
+          var message = component.get('i18n').t('common.errors.unit-not-loaded').string;
+          component.get('notifications').error(message);
           Ember.Logger.error(error);
-        }.bind(this));
+        });
     } else {
       return Ember.RSVP.resolve(true);
     }
+  },
+
+  scrollHere: function() {
+    const $component = Ember.$(this.get("element"));
+    Ember.$('html, body').animate({
+      scrollTop: $component.offset().top - 200
+    }, 100);
   }
 });

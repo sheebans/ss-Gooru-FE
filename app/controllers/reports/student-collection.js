@@ -17,22 +17,8 @@ export default Ember.Controller.extend({
   /**
    * @property {Ember.Service} Service to retrieve an assessment result
    */
-  performanceService: Ember.inject.service("api-sdk/performance"),
-
-  /**
-   * @property {Ember.Service} Service to retrieve analytics data
-   */
-  analyticsService: Ember.inject.service("api-sdk/analytics"),
-
-  /**
-   * @property {Ember.Service} Service to search for resources
-   */
-  searchService: Ember.inject.service("api-sdk/search"),
-
-  /**
-   * @property {Ember.Service} Service to get the Taxonomy data
-   */
-  taxonomyService: Ember.inject.service("api-sdk/taxonomy"),
+  performanceService: Ember.inject.service("api-sdk/performance")
+,
 
   // -------------------------------------------------------------------------
   // Actions
@@ -126,7 +112,7 @@ export default Ember.Controller.extend({
 
   /**
    * Indicates which is the url to go back when pressing the button
-   * this is usefull when comming from the player out of the context of a class
+   * this is useful when coming from the player out of the context of a class
    * this needs to be improved so it works when refreshing the page
    * @property {string}
    */
@@ -144,53 +130,24 @@ export default Ember.Controller.extend({
     if (session){ //collections has no session
       context.set("sessionId", session.sessionId);
     }
-    controller.get("performanceService")
-      .findAssessmentResultByCollectionAndStudent(context)
+    const performanceService = controller.get("performanceService");
+    const loadStandards = session && context.get("isInContext");
+    return performanceService.findAssessmentResultByCollectionAndStudent(context, loadStandards)
       .then(function(assessmentResult) {
-        assessmentResult.merge(controller.get("collection"));
-        assessmentResult.set("totalAttempts", controller.get("completedSessions.length")); //TODO this is coming wrong from BE
-        if (session && session.eventTime){
-          assessmentResult.set("submittedAt", toLocal(session.eventTime));
-        }
-
-        if (session && context.get("isInContext")) {
-          controller.get('analyticsService')
-            .getStandardsSummary(context.get('sessionId'))
-            .then(function (standardsSummary) {
-              assessmentResult.set('mastery', standardsSummary);
-              let standardsIds = standardsSummary.map(function (standardSummary) {
-                return standardSummary.get('id');
-              });
-              if (standardsIds.length){ //if it has standards
-                controller.get('taxonomyService')
-                  .fetchCodesByIds(standardsIds)
-                  .then(function (taxonomyStandards) {
-                    standardsSummary.forEach(function (standardSummary) {
-                      const taxonomyStandard = taxonomyStandards.findBy('id', standardSummary.get('id'));
-                      if (taxonomyStandard) {
-                        standardSummary.set('description', taxonomyStandard.title);
-                      }
-                      controller.get('searchService')
-                        .searchResources('*', {
-                          courseId: controller.get('courseId'),
-                          taxonomies: [standardSummary.get('id')],
-                          publishStatus: 'unpublished'  // TODO this parameter needs to be removed once we go to Production
-                        })
-                        .then(function (resources) {
-                          const suggestedResources = resources.map(function (resource) {
-                            return {
-                              resource: resource.toPlayerResource()
-                            };
-                          });
-                          standardSummary.set('suggestedResources', suggestedResources);
-                        });
-                    });
-                  });
-              }
-            });
-        }
-        controller.set("assessmentResult", assessmentResult);
+        controller.setAssessmentResult(assessmentResult, session);
     });
+  },
+
+  setAssessmentResult: function(assessmentResult, session) {
+    const controller = this;
+    const collection = controller.get("collection");
+    const totalAttempts = controller.get("completedSessions.length"); //TODO this is coming wrong from BE
+    assessmentResult.merge(collection);
+    assessmentResult.set("totalAttempts", totalAttempts);
+    if (session && session.eventTime){
+      assessmentResult.set("submittedAt", toLocal(session.eventTime));
+    }
+    controller.set("assessmentResult", assessmentResult);
   },
 
   resetValues: function () {
@@ -206,6 +163,7 @@ export default Ember.Controller.extend({
     this.set("collectionId", undefined);
     this.set("userId", undefined);
     this.set("role", undefined);
+    this.set("backUrl", undefined);
   }
 
 });

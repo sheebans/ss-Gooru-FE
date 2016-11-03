@@ -1,5 +1,8 @@
 <div class="header">
     <h2>{{t "common.settings"}}</h2>
+    {{#if model.isAssessment}}
+      {{gru-tour steps=assessmentSettingSteps containerClass='assessment-settings-tour'}}
+    {{/if}}
 </div>
 {{#if model.isAssessment}}
   <div class="panel panel-default disable-setting out-of-scope">
@@ -14,9 +17,9 @@
       </div>
     </div>
   </div>
-  <div class="panel panel-default assessment-settings">
+  <div class="panel panel-default nav-score-settings">
       <div class="panel-heading">
-          <h3>{{t "gru-settings-edit.navigation-scoring"}}</h3>
+          <h3><span>{{t "gru-settings-edit.navigation-scoring"}}</span></h3>
       </div>
       <div class="panel-body">
           <div class="setting bidirectional">
@@ -44,9 +47,9 @@
       </div>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel panel-default key-attempts-settings">
       <div class="panel-heading">
-          <h3>{{t "gru-settings-edit.answerkey-attempts"}}</h3>
+          <h3><span>{{t "gru-settings-edit.answerkey-attempts"}}</span></h3>
       </div>
       <div class="panel-body">
           <div class="setting answer-key">
@@ -62,9 +65,9 @@
       </div>
   </div>
 {{/if}}
-<div class="panel panel-default">
+<div class="panel panel-default visibility-settings">
     <div class="panel-heading">
-      <h3>{{t "common.content-publishing"}}</h3>
+      <h3><span>{{t "common.profile-publishing"}}</span>{{gru-icon-popover name="live_help" key= "settings-visibility"}}</h3>
     </div>
     <div class="panel-body">
       <div class="setting publish-to">

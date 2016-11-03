@@ -106,6 +106,24 @@
     }
   },
   {
+    "description": "Get a specific class visibility where pochita is a teacher",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/class-for-pochita-as-teacher/courses$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "class-for-pochita-as-teacher-visibility-200-response.json"
+    }
+  },
+  {
     "description": "Get a specific class where pochita is a student",
     "request": {
       "url": "^/api/nucleus/v1/classes/class-for-pochita-as-student$",
@@ -180,7 +198,7 @@
   {
     "description": "Delete member",
     "request": {
-      "url": "/api/nucleus/v1/classes/(.+)/members/other-student-id",
+      "url": "/api/nucleus/v1/classes/(.+)/members/(.+)",
       "method": "DELETE",
       "headers": {
         "authorization": "Token (.+)"

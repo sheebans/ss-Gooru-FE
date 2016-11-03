@@ -83,6 +83,31 @@ test('updateQuestion', function(assert) {
   service.updateQuestion(expectedQuestionId, expectedQuestionModel).then(function() { done(); });
 });
 
+test('updateQuestionTitle', function(assert) {
+  const service = this.subject();
+  const expectedQuestionId = 'question-id';
+  const expectedQuestionTitle = 'Question title';
+
+  assert.expect(2);
+
+  service.set('questionAdapter', Ember.Object.create({
+    updateQuestion: function(questionId) {
+      assert.equal(questionId, expectedQuestionId, "Wrong question id" );
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('questionSerializer', Ember.Object.create({
+    serializeUpdateQuestionTitle: function(title) {
+      assert.deepEqual(title, 'Question title', 'Wrong question title');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.updateQuestionTitle(expectedQuestionId, expectedQuestionTitle).then(function() { done(); });
+});
+
 test('deleteQuestion', function(assert) {
   const expectedQuestionId = 'question-id';
   const service = this.subject();

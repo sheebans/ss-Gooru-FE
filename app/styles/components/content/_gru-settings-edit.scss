@@ -37,3 +37,16 @@
     padding-left: 5px;
   }
 }
+.gru-settings-edit {
+  .header {
+    >div {
+      display: inline-block;
+    }
+  }
+  .visibility-settings {
+    h3 {
+      @include flexbox;
+      @include align-items(center);
+    }
+  }
+}

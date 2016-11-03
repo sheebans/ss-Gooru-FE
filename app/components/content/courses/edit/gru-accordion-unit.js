@@ -35,7 +35,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
     add: function () {
       this.loadData().then(function() {
         this.actions.addLesson.call(this);
-        this.get('onExpandUnit')();
+        this.get('onExpandUnit')(this.get("unit.id"), true);
         this.set('model.isExpanded', true);
       }.bind(this));
     },

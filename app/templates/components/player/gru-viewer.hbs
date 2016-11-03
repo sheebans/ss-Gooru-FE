@@ -16,12 +16,15 @@
       <div class="panel panel-default narration">
         <div class="panel-body">
           {{#if resource.hasOwner}}
-            <span class="avatar">
+            {{#if collectionHasAuthor}}
+              <span class="avatar">
                 <img src="{{collection.avatarUrl}}">
                 <span class="user">{{ collection.author }}</span>
-            </span>
+              </span>
+            {{/if}}
           {{/if}}
           <span class="message">
+            {{t 'common.read-first'}}
             {{{resource.narration}}}
           </span>
         </div>

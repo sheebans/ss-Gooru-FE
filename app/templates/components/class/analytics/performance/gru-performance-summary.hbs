@@ -59,13 +59,15 @@
   {{/if}}
 </li>
 <li class="score {{if scoreSelected 'selected'}}">
-  {{#if performance.hasStarted}}
+  {{#if showScore}}
+    {{#if performance.hasStarted}}
         <span class="score-box" style="background-color: {{ gradeColor performance.score }}">{{performance.score}}%</span>
+    {{else}}
+        <span class="score-box" style="background-color: #959A9E">--%</span>
+    {{/if}}
   {{else}}
     {{#if performance.isCollection}}
       {{gru-icon name='apps'}}
-    {{else}}
-      <span class="score-box" style="background-color: #959A9E">--%</span>
     {{/if}}
   {{/if}}
 </li>

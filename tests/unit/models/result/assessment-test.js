@@ -19,12 +19,116 @@ test('questionResults', function(assert) {
   assert.equal(assessmentResult.get("questionResults").get("length"), 1, "Wrong question results");
 });
 
+test('nonOpenEndedQuestionResults', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      ResourceResult.create(),
+      QuestionResult.create({
+        question: {
+          isOpenEnded: true
+        }
+      }),
+      QuestionResult.create({
+        question: {
+          isOpenEnded: false
+        }
+      }),
+      QuestionResult.create({
+        question: {
+          isOpenEnded: false
+        }
+      })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("nonOpenEndedQuestionResults").get("length"), 2, "Wrong non open ended question results");
+});
+
+test('openEndedQuestionResults', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      ResourceResult.create(),
+      QuestionResult.create({
+        question: {
+          isOpenEnded: true
+        }
+      }),
+      QuestionResult.create({
+        question: {
+          isOpenEnded: true
+        }
+      }),
+      QuestionResult.create({
+        question: {
+          isOpenEnded: false
+        }
+      })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("openEndedQuestionResults").get("length"), 2, "Wrong open ended question results");
+});
+
 test('totalResources', function(assert) {
   let assessmentResult = AssessmentResult.create({
     "resourceResults": Ember.A([1,2])
   });
 
   assert.equal(assessmentResult.get("totalResources"), 2, "Wrong total resources");
+});
+
+test('totalNonOpenEndedQuestions', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      ResourceResult.create({reaction: 5}),
+      QuestionResult.create({
+        question: Ember.Object.create({ isOpenEnded: false })
+      }),
+      QuestionResult.create({
+        question: Ember.Object.create({ isOpenEnded: true })
+      }),
+      QuestionResult.create({
+        question: Ember.Object.create({ isOpenEnded: true })
+      })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("totalNonOpenEndedQuestions"), 1, "Should have 1 non open ended question");
+});
+
+test('hasNonOpenEndedQuestions, true', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      ResourceResult.create({reaction: 5}),
+      QuestionResult.create({
+        question: Ember.Object.create({ isOpenEnded: false })
+      }),
+      QuestionResult.create({
+        question: Ember.Object.create({ isOpenEnded: true })
+      }),
+      QuestionResult.create({
+        question: Ember.Object.create({ isOpenEnded: true })
+      })
+    ])
+  });
+
+  assert.ok(assessmentResult.get("hasNonOpenEndedQuestions"), "Should have non open ended questions");
+});
+
+test('hasNonOpenEndedQuestions, false', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      ResourceResult.create({reaction: 5}),
+      QuestionResult.create({
+        question: Ember.Object.create({ isOpenEnded: true })
+      }),
+      QuestionResult.create({
+        question: Ember.Object.create({ isOpenEnded: true })
+      })
+    ])
+  });
+
+  assert.ok(!assessmentResult.get("hasNonOpenEndedQuestions"), "Should not have other than open ended questions");
 });
 
 test('averageReaction', function(assert) {
@@ -51,6 +155,34 @@ test('correctPercentage', function(assert) {
   assert.equal(assessmentResult.get("correctPercentage"), 50, "Wrong correctPercentage");
 });
 
+test('correctPercentage with score property', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "score": 51,
+    "resourceResults": Ember.A([
+      ResourceResult.create(),
+      QuestionResult.create({ correct: false }),
+      QuestionResult.create({ correct: true })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("correctPercentage"), 51, "Wrong correctPercentage");
+});
+
+test('correctPercentage with open ended', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      ResourceResult.create(),
+      QuestionResult.create({ correct: false }),
+      QuestionResult.create({ correct: false }),
+      QuestionResult.create({ correct: false }),
+      QuestionResult.create({ correct: true }),
+      QuestionResult.create({ correct: true, question: { isOpenEnded: true } })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("correctPercentage"), 25, "Wrong correctPercentage");
+});
+
 test('totalTimeSpent', function(assert) {
   let assessmentResult = AssessmentResult.create({
     "resourceResults": Ember.A([
@@ -63,12 +195,38 @@ test('totalTimeSpent', function(assert) {
   assert.equal(assessmentResult.get("totalTimeSpent"), 35, "Wrong total time spent");
 });
 
+test('totalTimeSpent with time spent property', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "timeSpent": 40,
+    "resourceResults": Ember.A([
+      ResourceResult.create({ timeSpent: 5 }),
+      QuestionResult.create({ timeSpent: 10 }),
+      QuestionResult.create({ timeSpent: 20 })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("totalTimeSpent"), 40, "Wrong total time spent");
+});
+
 test('correctAnswers', function(assert) {
   let assessmentResult = AssessmentResult.create({
     "resourceResults": Ember.A([
       ResourceResult.create(),
       QuestionResult.create({ correct: false }),
       QuestionResult.create({ correct: true })
+    ])
+  });
+
+  assert.equal(assessmentResult.get("correctAnswers"), 1, "Wrong correctAnswers");
+});
+
+test('correctAnswers including open ended', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      ResourceResult.create(),
+      QuestionResult.create({ correct: false }),
+      QuestionResult.create({ correct: true }),
+      QuestionResult.create({ correct: true, question: { isOpenEnded: true } })
     ])
   });
 

@@ -55,6 +55,12 @@ test('serializeUpdateAssessment', function(assert) {
   assert.equal(response.setting.show_key, ASSESSMENT_SHOW_VALUES.NEVER, "Wrong show key");
 });
 
+test('serializeUpdateAssessmentTitle', function(assert) {
+  const serializer = this.subject();
+  const response = serializer.serializeUpdateAssessmentTitle('assessment-title');
+  assert.equal(response.title, 'assessment-title', "Wrong title");
+});
+
 test('normalizeReadAssessment', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({
@@ -80,7 +86,10 @@ test('normalizeReadAssessment', function(assert) {
       bidirectional_play: true,
       show_feedback: ASSESSMENT_SHOW_VALUES.SUMMARY,
       show_key: ASSESSMENT_SHOW_VALUES.SUMMARY
-    }
+    },
+    course_id: 1,
+    unit_id: 2,
+    lesson_id: 3
   };
   const assessment = serializer.normalizeReadAssessment(assessmentData);
   assert.equal(assessment.get('id'), 'assessment-id', 'Wrong id');
@@ -97,6 +106,10 @@ test('normalizeReadAssessment', function(assert) {
   assert.equal(assessment.get("bidirectional"), true, 'Wrong bidirectional');
   assert.equal(assessment.get("showFeedback"), ASSESSMENT_SHOW_VALUES.SUMMARY, 'Wrong show feedback');
   assert.equal(assessment.get("showKey"), true, 'Wrong show key');
+  assert.equal(assessment.get('courseId'), 1, 'Wrong course id');
+  assert.equal(assessment.get('unitId'), 2, 'Wrong unit id');
+  assert.equal(assessment.get('lessonId'), 3, 'Wrong lesson id');
+
 });
 
 test('normalizeReadAssessment with nulls', function(assert) {
