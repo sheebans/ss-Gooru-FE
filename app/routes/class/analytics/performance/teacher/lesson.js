@@ -114,7 +114,7 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-
+    controller.set("active", true);
     this.setupDataPickerOptions(controller);
 
     const performanceData = createDataMatrix(model.collections, model.classPerformanceData, 'lesson');
@@ -144,10 +144,6 @@ export default Ember.Route.extend({
    * @param controller
    */
   setupDataPickerOptions: function(controller){
-    if(controller.get('filterBy') !=='assessment'){
-      controller.set('selectedOptions', Ember.A(["score","study-time"]));
-      controller.set("showFilters", true);
-    }
     controller.set('optionsCollectionsTeacher', Ember.A([Ember.Object.create({
       'value': 'score',
       'selected':true,
@@ -181,5 +177,10 @@ export default Ember.Route.extend({
       'readOnly':false,
       'isDisabled':false
     })]));
+    controller.get("teacherController").restoreSelectedOptions(true);
+  },
+
+  deactivate: function () {
+    this.set("controller.active", false);
   }
 });

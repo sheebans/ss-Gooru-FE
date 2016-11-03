@@ -314,20 +314,22 @@ export default Ember.Controller.extend({
   },
   // -------------------------------------------------------------------------
   // Observers
-  restoreSelectedOptions: Ember.observer('filterBy', function() {
+  restoreSelectedOptions: function(lessonLevel = false) {
     var component = this;
-    if(component.get('filterBy') === 'assessment'){
+    if(component.get('filterBy') === 'assessment') {
       component.set('showFilters',true);
       let options = component.get('optionsTeacher').filterBy('selected',true);
       component.set('selectedOptions', options.map(function(option){
           return option.get("value");
       }));
-    }else{
-      this.get('lessonLevel') ? component.set('showFilters',true) : component.set('showFilters',false);
+    }
+    else {
+      lessonLevel ? component.set('showFilters',true) : component.set('showFilters',false);
       let options = component.get('optionsCollectionsTeacher').filterBy('selected',true);
       component.set('selectedOptions', options.map(function(option){
           return option.get("value");
       }));
     }
-  })
+  }
+
 });

@@ -20,6 +20,7 @@ export function createPerformanceObject(performance, model, level = false) {
     score: score,
     timeSpent: formatTime(timeSpent),
     hasStarted: score > 0 || timeSpent > 0,
+    hasScore: score >= 0,
     completionDone: performance.get('completionDone'),
     completionTotal: performance.get('completionTotal'),
     level: level,
@@ -40,6 +41,7 @@ export function createUserAverageObject(studentPerformance) {
     studyTime: timeSpent,
     timeSpent: formatTime(roundFloat(timeSpent)),
     hasStarted: score > 0 || timeSpent > 0,
+    hasScore: score >= 0,
     completionDone: studentPerformance.get('sumCompletionDone'),
     completionTotal: studentPerformance.get('sumCompletionTotal')
   });
@@ -59,6 +61,7 @@ export function createItemAverageObject(classPerformanceData, model, level = fal
     score: roundFloat(score),
     timeSpent: formatTime(roundFloat(timeSpent)),
     hasStarted: score > 0 || timeSpent > 0,
+    hasScore: score >= 0,
     completionDone: classPerformanceData.calculateSumCompletionDoneByItem(itemId),
     completionTotal: classPerformanceData.calculateSumCompletionTotalByItem(itemId),
     hideScore: (level === 'lesson' && model && !model.get("hasNonOpenEndedQuestions"))
@@ -77,6 +80,7 @@ export function createClassAverageObject(classPerformanceData) {
     score: roundFloat(score),
     timeSpent: formatTime(roundFloat(timeSpent)),
     hasStarted: score > 0 || timeSpent > 0,
+    hasScore: score >= 0,
     completionDone: classPerformanceData.get('classSumCompletionDone'),
     completionTotal: classPerformanceData.get('classSumCompletionTotal')
   });

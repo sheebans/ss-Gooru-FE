@@ -119,6 +119,49 @@ test('Test show no score for performance summary on valid unit values', function
   assert.equal(T.text($attemptSummary), "2", "Wrong attempts text");
 });
 
+test('Test show collection icon for collection performance summary', function(assert) {
+  const performance = Ember.Object.create(
+    {
+      title: "Quiz :: Indian History",
+      type: "unit",
+      score:75,
+      completionDone: 0,
+      completionTotal: 1,
+      timeSpent: 4852359,
+      isUnitOrLesson:true,
+      ratingScore: 0,
+      attempts: 2,
+      isCompleted: false,
+      hasStarted: true,
+      displayableTimeSpent: "1h 30m",
+      isCollection: true
+    });
+
+  this.set('performance', performance);
+
+
+  this.render(hbs`{{class.analytics.performance.gru-performance-summary performance=performance showScore=false}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceSummary = $component.find(".gru-performance-summary");
+
+  T.exists(assert, $performanceSummary, 'Missing performance summary');
+
+  const $scoreSummary = $component.find(".score .score-box");
+  T.notExists(assert, $scoreSummary, 'Score should not be visible');
+
+  const $collectionIcon = $component.find(".gru-icon.apps");
+  T.exists(assert, $collectionIcon, 'Missing collection icon');
+
+  const $completionSummary = $component.find(".completion .gru-completion-chart");
+  T.exists(assert, $completionSummary, 'Missing Completion summary');
+  const $timeSpentSummary = $component.find(".timeSpent p");
+  assert.equal(T.text($timeSpentSummary), "1h 30m", "Wrong time spent text ");
+  const $attemptSummary = $component.find(".attempts p");
+  assert.equal(T.text($attemptSummary), "2", "Wrong attempts text");
+});
+
 test('Test for performance summary on invalid unit values', function(assert) {
   const performance = Ember.Object.create(
     {

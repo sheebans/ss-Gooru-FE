@@ -41,7 +41,7 @@ test('createPerformanceObject', function (assert) {
 
 test('createPerformanceObject at lesson level', function (assert) {
   const performance = Ember.Object.create({
-    score: 10,
+    score: -1,
     timeSpent: 1000,
     realId: "1",
     collectionType: "assessment",
@@ -60,9 +60,10 @@ test('createPerformanceObject at lesson level', function (assert) {
   assert.equal(performanceObject.get("collectionType"), "assessment", "wrong collection type");
   assert.equal(performanceObject.get("headerTitle"), "title", "wrong title");
   assert.equal(performanceObject.get("model.id"), 1, "wrong model");
-  assert.equal(performanceObject.get("score"), 10, "wrong score");
+  assert.equal(performanceObject.get("score"), -1, "wrong score");
   assert.equal(performanceObject.get("timeSpent"), "1s", "wrong time spent");
   assert.equal(performanceObject.get("hasStarted"), true, "wrong has started");
+  assert.equal(performanceObject.get("hasScore"), false, "wrong has score");
   assert.equal(performanceObject.get("completionDone"), 11, "wrong completion done");
   assert.equal(performanceObject.get("completionTotal"), 12, "wrong completion total");
   assert.equal(performanceObject.get("hideScore"), true, "wrong hide score");
@@ -84,11 +85,12 @@ test('createUserAverageObject', function (assert) {
   assert.equal(userAverageObject.get("studyTime"), 1000, "wrong studyTime");
   assert.equal(userAverageObject.get("timeSpent"), "1s", "wrong timeSpent");
   assert.equal(userAverageObject.get("hasStarted"), true, "wrong has started");
+  assert.equal(userAverageObject.get("hasScore"), true, "wrong has score");
   assert.equal(userAverageObject.get("completionDone"), 11, "wrong completion done");
   assert.equal(userAverageObject.get("completionTotal"), 12, "wrong completion total");
 });
 
-test('createUserAverageObject', function (assert) {
+test('createClassAverageObject', function (assert) {
   const classPerformanceData = Ember.Object.create({
     classAverageScore: 10.65,
     classAverageTimeSpent: 1000,
@@ -100,12 +102,13 @@ test('createUserAverageObject', function (assert) {
   assert.equal(classAverageObject.get("score"), 11, "wrong score");
   assert.equal(classAverageObject.get("timeSpent"), "1s", "wrong timeSpent");
   assert.equal(classAverageObject.get("hasStarted"), true, "wrong has started");
+  assert.equal(classAverageObject.get("hasScore"), true, "wrong has started");
   assert.equal(classAverageObject.get("completionDone"), 11, "wrong completion done");
   assert.equal(classAverageObject.get("completionTotal"), 12, "wrong completion total");
 });
 
 test('createItemAverageObject', function (assert) {
-  assert.expect(10);
+  assert.expect(11);
   const classPerformanceData = Ember.Object.create({
     calculateAverageScoreByItem: function(itemId){
       assert.equal(itemId, 1, "Wrong item id at calculateAverageScoreByItem");
@@ -131,13 +134,14 @@ test('createItemAverageObject', function (assert) {
   assert.equal(itemAverageObject.get("score"), 11, "wrong score");
   assert.equal(itemAverageObject.get("timeSpent"), "1s", "wrong timeSpent");
   assert.equal(itemAverageObject.get("hasStarted"), true, "wrong has started");
+  assert.equal(itemAverageObject.get("hasScore"), true, "wrong has score");
   assert.equal(itemAverageObject.get("completionDone"), 5, "wrong completion done");
   assert.equal(itemAverageObject.get("completionTotal"), 6, "wrong completion total");
   assert.equal(itemAverageObject.get("hideScore"), false, "wrong hide score");
 });
 
 test('createItemAverageObject at lesson level', function (assert) {
-  assert.expect(10);
+  assert.expect(11);
   const classPerformanceData = Ember.Object.create({
     calculateAverageScoreByItem: function(itemId){
       assert.equal(itemId, 1, "Wrong item id at calculateAverageScoreByItem");
@@ -164,6 +168,7 @@ test('createItemAverageObject at lesson level', function (assert) {
   assert.equal(itemAverageObject.get("score"), 11, "wrong score");
   assert.equal(itemAverageObject.get("timeSpent"), "1s", "wrong timeSpent");
   assert.equal(itemAverageObject.get("hasStarted"), true, "wrong has started");
+  assert.equal(itemAverageObject.get("hasScore"), true, "wrong has score");
   assert.equal(itemAverageObject.get("completionDone"), 5, "wrong completion done");
   assert.equal(itemAverageObject.get("completionTotal"), 6, "wrong completion total");
   assert.equal(itemAverageObject.get("hideScore"), true, "wrong hide score");

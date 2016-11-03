@@ -1,14 +1,14 @@
 .controller.analytics-performance-student {
-  padding: 55px 0 0;
+  padding: 15px 0 0;
   .navigation {
     margin-bottom: 35px;
-    padding: 0 7%;
+    padding: 0 56px;
     text-align: center;
     @media (min-width: $screen-sm) {
       text-align: left;
     }
     @media (max-width: $screen-sm) {
-      padding: 0 4%;
+      padding: 0 15px;
     }
     ul {
       display: inline-block;
@@ -49,17 +49,25 @@
 
   }
   .student-actions {
-    padding: 0 7%;
+    padding: 0 56px;
+    @media (max-width: $screen-sm) {
+      padding: 0 15px;
+    }
+    .gru-actions-bar {
+      @media (min-width: $screen-sm) {
+        text-align: right;
+      }
+    }
   }
   .tab-content {
-    padding: 0 7%;
+    padding: 0 56px;
     @media (max-width: $screen-sm) {
-      padding: 0 4%;
+      padding: 0 15px;
     }
     .performance-content {
       color: $gray;
       margin-bottom: 15px;
-      margin-top: 40px;      
+      margin-top: 20px;
       span.not-started, span.no-content {
         text-align: start;
         white-space: nowrap;

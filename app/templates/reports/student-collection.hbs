@@ -5,7 +5,11 @@
           <span>
             {{gru-icon name='keyboard_arrow_left'}}
             {{#if lesson}}
-                {{t (if isStudent "common.back-to-data" "common.back-to-course-map")}}
+              {{#if isStudent}}
+                {{t "common.back-to-data"}}
+              {{else}}
+                {{t (if backUrl "common.back-to-data" "common.back-to-course-map")}}
+              {{/if}}
             {{else}}
               {{t 'common.back'}}
             {{/if}}
