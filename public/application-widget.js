@@ -74,6 +74,9 @@ var ApplicationWidget = function (selector, properties, autoStart) {
 
       var result = {
         features: {
+          header: {
+            enabled: false //header should be disabled for embedded apps
+          },
           collections: {
             player: {
               showReactionBar: fromBoth.showReactions === true,

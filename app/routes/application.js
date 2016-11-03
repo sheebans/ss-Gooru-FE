@@ -4,11 +4,12 @@ import Env from '../config/environment';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 import GooruLegacyUrl from 'gooru-web/utils/gooru-legacy-url';
 import Error from 'gooru-web/models/error';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * @typedef {object} ApplicationRoute
  */
-export default Ember.Route.extend(PublicRouteMixin, {
+export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -46,12 +47,6 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * @requires service:api-sdk/log
    */
   errorService: Ember.inject.service("api-sdk/error"),
-
-  /**
-   * @property {ConfigurationService}
-   */
-  configurationService: Ember.inject.service("configuration"),
-
 
 
   // -------------------------------------------------------------------------
@@ -278,6 +273,8 @@ export default Ember.Route.extend(PublicRouteMixin, {
     const transition = Env.APP.awProps.transition;
     const token = Env.APP.awProps.token;
     const configurationService = route.get("configurationService");
+
+    Env.APP.awProps.embedded = true;
     configurationService.merge(Env.APP.awProps);
 
     const authService = this.get("authService");

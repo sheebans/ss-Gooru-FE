@@ -1,14 +1,11 @@
 import Ember from 'ember';
 import { addProtocolIfNecessary, checkIfIsGoogleDoc } from 'gooru-web/utils/utils';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
-  /**
-   * @property {Ember.Service} Service to configuration properties
-   */
-  configurationService: Ember.inject.service('configuration'),
 
   // -------------------------------------------------------------------------
   // Attributes

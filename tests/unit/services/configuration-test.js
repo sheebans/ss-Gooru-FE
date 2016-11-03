@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import FeaturesConfiguration from 'gooru-web/config/env/features';
 
 moduleForService('service:configuration', 'Unit | Service | configuration', {
   // Specify the other units that are required for this test.
@@ -10,7 +11,7 @@ moduleForService('service:configuration', 'Unit | Service | configuration', {
 
 test('loadConfiguration', function(assert) {
   const service = this.subject();
-  assert.expect(4);
+  assert.expect(5);
 
   service.set('configurationAdapter', Ember.Object.create({
     loadConfiguration: function(key, configBaseUrl) {
@@ -28,13 +29,16 @@ test('loadConfiguration', function(assert) {
   service.loadConfiguration().then(function(configuration) {
     assert.equal(configuration.get("endpoint.url"), "http://localhost:7357", "endpoints.url should match config/env/test.js value");
     assert.equal(configuration.get("teams.url"), "any", "teams.url was not overridden");
+
+    //checking default features
+    assert.deepEqual(configuration.get("features"), FeaturesConfiguration.features, "features should not be affected");
     done();
   });
 });
 
 test('loadConfiguration with config url', function(assert) {
   const service = this.subject();
-  assert.expect(4);
+  assert.expect(5);
 
   service.set('configurationAdapter', Ember.Object.create({
     loadConfiguration: function(key, configBaseUrl) {
@@ -52,6 +56,10 @@ test('loadConfiguration with config url', function(assert) {
   service.loadConfiguration("any-url").then(function(configuration) {
     assert.equal(configuration.get("endpoint.url"), "http://localhost:7357", "endpoints.url should match config/env/test.js value");
     assert.equal(configuration.get("teams.url"), "any", "teams.url was not overridden");
+
+    //checking default features
+    assert.deepEqual(configuration.get("features"), FeaturesConfiguration.features, "features should not be affected");
+
     done();
   });
 });
