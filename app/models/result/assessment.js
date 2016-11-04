@@ -225,31 +225,58 @@ export default Ember.Object.extend({
    * @param {Collection} collection
    */
   merge: function(collection){
-    this.set("collection", collection);
-    const resourceResults = this.get("resourceResults");
+    var resourceResults = this.get("resourceResults");
     const resources = collection.get("resources");
 
-    if (resources.get('length')) {
+    this.set("collection", collection);
 
-      resources.forEach(function (resource) {
-        let resourceId = resource.get('id');
-        let found = resourceResults.findBy("resourceId", resourceId);
-        if (!found) {
-          let result = (resource.get("isQuestion")) ?
-            QuestionResult.create({resourceId: resourceId, resource: resource}) :
-            ResourceResult.create({resourceId: resourceId, resource: resource});
-          resourceResults.pushObject(result);
-        }
-        else {
-          found.set("resource", resource);
-        }
-      });
+    if (resources.get('length')) {
+      this.addMissingResource(resources, resourceResults);
 
     } else {
       Ember.Logger.error('Collection with ID: ' + collection.get('id') + ' does not have any resources. No resource results were set.');
     }
 
+    this.removeExtraResource(resources, resourceResults);
+  },
 
+  /**
+   * add missing collection resource in the resourceResults
+   * @param {QuestionResult[]} resources
+   * @param {QuestionResult[]} resourceResults
+   */
+  addMissingResource: function(resources, resourceResults){
+    resources.forEach(function (resource) {
+      let resourceId = resource.get('id');
+      let found = resourceResults.findBy("resourceId", resourceId);
+      if (!found) {
+        let result = (resource.get("isQuestion")) ?
+          QuestionResult.create({resourceId: resourceId, resource: resource}) :
+          ResourceResult.create({resourceId: resourceId, resource: resource});
+        resourceResults.pushObject(result);
+      }
+      else {
+        found.set("resource", resource);
+      }
+    });
+  },
+
+  /**
+   * remove an extra collection resource of the resourceResults
+   * @param {QuestionResult[]} resources
+   * @param {QuestionResult[]} resourceResults
+   */
+  removeExtraResource: function(resources, resourceResults){
+    if (resourceResults.get('length')) {
+      resourceResults = resourceResults.filter(function(resource) {
+        let resourceResultId = resource.get('resourceId');
+        let found = resources.findBy("id", resourceResultId);
+        if (found) {
+          return resource;
+        }
+      });
+      this.set("resourceResults", resourceResults);
+    }
   },
 
   /**
