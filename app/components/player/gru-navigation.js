@@ -21,6 +21,9 @@ export default Ember.Component.extend({
 
   classNames:['gru-navigation'],
 
+  classNameBindings: ['showReactionBar:with-reaction-bar:without-reaction-bar'],
+
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -72,7 +75,13 @@ export default Ember.Component.extend({
   /**
    * @property {Collection
    */
-  collection: null
+  collection: null,
+
+  /**
+   * Indicates if the reaction bar is visible
+   * @property {boolean}
+   */
+  showReactionBar: true
 
   // -------------------------------------------------------------------------
   // Methods

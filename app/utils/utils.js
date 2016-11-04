@@ -501,7 +501,7 @@ function assessmentFileData(performanceDataHeaders, performanceDataMatrix, level
     dataHeaders.push(timeHeader);
   });
   performanceAverageHeaders.forEach(function(avHeaderItem) {
-    const score = (avHeaderItem.hasStarted) ? `${avHeaderItem.score}%` : '--%';
+    const score = (avHeaderItem.hideScore) ? 'N/A': ((avHeaderItem.hasScore)) ? `${avHeaderItem.score}%` : '--%';
     const time = `${avHeaderItem.get('timeSpent')}`;
     const completion = (avHeaderItem.completionDone) ? `"${avHeaderItem.completionDone}/${avHeaderItem.completionTotal}"` : '--';
     averageHeaders.push(score);
@@ -517,7 +517,7 @@ function assessmentFileData(performanceDataHeaders, performanceDataMatrix, level
     data.push(student);
     performanceDataContent.forEach(function(dataContentItem) {
       if (dataContentItem){
-        const score = (dataContentItem.hasStarted) ? `${dataContentItem.score}%` : '--%';
+        const score = (dataContentItem.hideScore) ? 'N/A': ((dataContentItem.hasScore)) ? `${dataContentItem.score}%` : '--%';
         const time = `${dataContentItem.get('timeSpent')}`;
         const completion = (dataContentItem.completionDone) ? `"${dataContentItem.completionDone}/${dataContentItem.completionTotal}"` : '--';
         data.push(score);
@@ -555,7 +555,7 @@ function lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix)
     dataHeaders.push(timeHeader);
   });
   performanceAverageHeaders.forEach(function(avHeaderItem) {
-    const score = (avHeaderItem.hasStarted) ? `${avHeaderItem.score}%` : '--%';
+    const score = (avHeaderItem.hideScore) ? 'N/A': ((avHeaderItem.hasScore)) ? `${avHeaderItem.score}%` : '--%';
     const time = `${avHeaderItem.get('timeSpent')}`;
     averageHeaders.push(score);
     averageHeaders.push(time);
@@ -569,7 +569,7 @@ function lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix)
     data.push(student);
     performanceDataContent.forEach(function(dataContentItem) {
       if (dataContentItem){
-        const score = (dataContentItem.hasStarted) ? `${dataContentItem.score}%` : '--%';
+        const score = (dataContentItem.hideScore) ? 'N/A': ((dataContentItem.hasScore)) ? `${dataContentItem.score}%` : '--%';
         const time = `${dataContentItem.get('timeSpent')}`;
         data.push(score);
         data.push(time);
