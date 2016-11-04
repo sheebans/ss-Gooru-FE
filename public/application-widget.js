@@ -53,7 +53,7 @@ var ApplicationWidget = function (selector, properties, autoStart) {
         onload: function () {
           aw.addScript(appRootPath + "assets/gooru-web.js", {
             onload: function() {
-              aw.properties = aw.mergeProperties(properties);
+              aw.properties = aw.mergeDefaultProperties(properties);
               onLoad(properties);
             }
           });
@@ -62,64 +62,17 @@ var ApplicationWidget = function (selector, properties, autoStart) {
     },
 
     /**
-     * Merges application custom properties
+     * Merges application default properties
      */
-    mergeProperties: function(properties) {
-      var aw = this;
-      var fromUrl = aw.getPropertiesFromUrl();
-      var fromContainer = aw.getPropertiesFromContainer();
-      var fromBoth = $.extend(fromContainer, fromUrl);
+    mergeDefaultProperties: function(properties) {
+      const features = properties.features || {};
+      //setting header default features
+      const header = features.header || {};
+      header.enabled = false;
+      features.header = header;
 
-      var transition = aw.getTransition(fromBoth);
-
-      var result = {
-        features: {
-          header: {
-            enabled: false //header should be disabled for embedded apps
-          },
-          collections: {
-            player: {
-              showReactionBar: fromBoth.showReactions === true,
-              showQuestions: fromBoth.showQuestions === true,
-              showReportLink: fromBoth.showReport === true,
-              showCollectionName: fromBoth.showCollectionName === true
-            }
-          },
-          resources: {
-            player: {
-              showResourceHeader: fromBoth.showResourceHeader === true
-            }
-          }
-        },
-        appRootPath: fromBoth.appRootPath,
-        transition: transition,
-        token: fromBoth.gooruToken
-      };
-
-      return $.extend(properties, result);
-    },
-
-    /**
-     * Gets the transition information if available
-     * @param properties
-     * @returns {Array}
-     */
-    getTransition: function(properties) {
-      var transition = undefined;
-      var collectionId = properties.collectionId;
-      var resourceId = properties.resourceId;
-      var questionId = properties.questionId;
-
-      if (collectionId) {
-        transition = ['player', collectionId];
-      }
-      else if (resourceId) {
-        transition = ['content.resources.play', resourceId];
-      }
-      else if (questionId) {
-        transition = ['content.questions.play', questionId];
-      }
-      return transition;
+      properties.features = features;
+      return properties;
     },
 
     /**
@@ -177,31 +130,6 @@ var ApplicationWidget = function (selector, properties, autoStart) {
       // Add stylesheet to head
       var parent = document.getElementsByTagName("head")[0];
       parent.appendChild(tag);
-    },
-
-    /**
-     * Apply url params if available
-     * You can pass any param supported by the div element as data parameters
-     *
-     * i.e http://yourdomain.com/player.html?collection-id=123
-     *
-     */
-    getPropertiesFromUrl: function () {
-      var params = window.location.search.substring(1);
-      params = params ? JSON.parse('{"' + params.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
-        function (key, value) {
-          return key === "" ? value : decodeURIComponent(value);
-        }) : {};
-
-      return params;
-    },
-
-    /**
-     * Loads properties from the container
-     * */
-    getPropertiesFromContainer: function () {
-      var container = this.getContainer();
-      return container.data();
     },
 
     /**

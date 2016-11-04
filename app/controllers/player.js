@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from '../mixins/session';
+import ConfigurationMixin from '../mixins/configuration';
 import {generateUUID} from 'gooru-web/utils/utils';
 /**
  * @module
@@ -8,7 +9,7 @@ import {generateUUID} from 'gooru-web/utils/utils';
  *
  * @augments Ember/Controller
  */
-export default Ember.Controller.extend(SessionMixin, ModalMixin, {
+export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -255,6 +256,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
     return isAssessment && isStarted;
   }),
+
+  /**
+   * Indicates if the reaction bar is visible
+   * @property {boolean}
+   */
+  showReactionBar: Ember.computed.alias("features.collections.player.showReactionBar"),
 
   // -------------------------------------------------------------------------
   // Observers

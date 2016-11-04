@@ -59,16 +59,14 @@
               <input type="radio" name="collection-type" value="assessment"> Assessment
             </label>
           </div>
-          <!--
           <div class="form-group">
             <label>Options</label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox"> Show Reactions
+              <input name="show-reactions" type="checkbox" value="true"> Show Reactions
             </label>
           </div>
-          -->
         </form>
       </div>
       <div class="modal-footer">
@@ -96,6 +94,7 @@
       var collectionId = jQuery("#collection-id-input").val();
       var userToken = jQuery("#user-token-input").val();
       var type = jQuery("#the-form input[name = 'collection-type']:checked").val();
+      var reactions = jQuery("#the-form input[name = 'show-reactions']:checked").val() === "true";
       if (aw) {
         aw.destroy();
       }
@@ -103,7 +102,14 @@
       aw = new ApplicationWidget('#gooru-application-container', {
         "appRootPath": "../",
         "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}],
-        "token": userToken.length > 0 ? userToken : undefined
+        "token": userToken.length > 0 ? userToken : undefined,
+        "features": {
+          "collections": {
+            "player": {
+              "showReactionBar": reactions
+            }
+          }
+        }
       });
     });
 

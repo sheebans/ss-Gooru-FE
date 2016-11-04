@@ -11,8 +11,6 @@ moduleForComponent('player/gru-navigation', 'Integration | Component | player/gr
 });
 
 test('Not submitted layout', function(assert) {
-  assert.expect(2);
-
   const collection = Ember.Object.create({
     isAssessment: true
   });
@@ -24,11 +22,10 @@ test('Not submitted layout', function(assert) {
   const $navigation = $component.find(".gru-navigation");
   T.exists(assert, $navigation, "Missing navigation section");
   T.exists(assert, $navigation.find(".navigation-bar span"), "Missing clickable span");
+  T.exists(assert, $navigation.find(".reaction-bar .gru-emotion-picker"), "Missing reaction bar span");
 });
 
 test('Submitted layout', function(assert) {
-  assert.expect(3);
-
   const collection = Ember.Object.create({
     isAssessment: true
   });
@@ -57,4 +54,19 @@ test('Layout when navigator is opened', function(assert) {
 
   assert.ok($menuButton, "Missing menu button");
   $menuButton.click();
+});
+
+test('Not showing reaction bar', function(assert) {
+  const collection = Ember.Object.create({
+    isAssessment: true
+  });
+
+  this.set("collection", collection);
+  this.render(hbs`{{player/gru-navigation collection=collection showReactionBar=false}}`);
+
+  var $component = this.$(); //component dom element
+  const $navigation = $component.find(".gru-navigation.without-reaction-bar");
+  T.exists(assert, $navigation, "Missing navigation section");
+  T.exists(assert, $navigation.find(".navigation-bar span"), "Missing clickable span");
+  T.notExists(assert, $navigation.find(".reaction-bar .gru-emotion-picker"), "Missing reaction bar span");
 });
