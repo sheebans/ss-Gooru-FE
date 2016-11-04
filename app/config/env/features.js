@@ -10,14 +10,8 @@ export default {
     collections: {
       player: {
         showReactionBar: true,
-        showQuestions: true,
         showReportLink: true,
         showCollectionName: true
-      }
-    },
-    resources: {
-      player: {
-        showResourceHeader: true
       }
     }
   }

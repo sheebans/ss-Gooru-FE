@@ -24,3 +24,16 @@ test('Verifying header.enable feature default value', function(assert) {
     T.exists(assert, $gruHeader, "Missing header");
   });
 });
+
+test('Verifying collections.player.reactions feature default value', function(assert) {
+  visit('/player/all-resource-types-collection-id');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id');
+
+    const $playerContainer = find(".controller.player");
+    T.exists(assert, $playerContainer.find(".main .gru-navigation .reaction-bar"), "Missing reaction bar");
+  });
+});
+
+
