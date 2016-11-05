@@ -268,14 +268,13 @@ export default Ember.Object.extend({
    */
   removeExtraResource: function(resources, resourceResults){
     if (resourceResults.get('length')) {
-      resourceResults = resourceResults.filter(function(resource) {
+      var extraResources = resourceResults.filter(function(resource) {
         let resourceResultId = resource.get('resourceId');
-        let found = resources.findBy("id", resourceResultId);
-        if (found) {
-          return resource;
-        }
+        return !resources.findBy("id", resourceResultId);
       });
-      this.set("resourceResults", resourceResults);
+
+      resourceResults.removeObjects(extraResources);
+
     }
   },
 
