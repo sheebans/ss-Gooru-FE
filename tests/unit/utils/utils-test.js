@@ -237,25 +237,25 @@ test('prepare csv file data to download filter by assessment in the course level
   let performanceDataMatrix = Ember.A([
     Ember.Object.create({
       performanceData: Ember.A([
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 38, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 38, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 11, completionTotal: 16, hideScore: false, hasScore: false, score: -1, timeSpent: "4m 35s"})
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 38, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 38, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 11, completionTotal: 16, hideScore: false, hasScore: false, hasStarted: true, score: -1, timeSpent: "4m 35s"})
       ])
     }),
     Ember.Object.create({
       user: 'testUser1',
       performanceData: Ember.A([
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 18, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 18, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 10, completionTotal: 16, hideScore: false, hasScore: false, score: -1, timeSpent: "4m 35s"})
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 10, completionTotal: 16, hideScore: false, hasScore: false, hasStarted: true, score: -1, timeSpent: "4m 35s"})
       ])
     }),
     Ember.Object.create({
       user: 'testUser2',
       performanceData: Ember.A([
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 18, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 14, completionTotal: 16, hideScore: false, hasScore: true, score: 80, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 16, completionTotal: 16, hideScore: false, hasScore: false, score: -1, timeSpent: "4m 35s"})
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 14, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 80, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 16, completionTotal: 16, hideScore: false, hasScore: false, hasStarted: true, score: -1, timeSpent: "4m 35s"})
       ])
     })
   ]);
@@ -328,25 +328,25 @@ test('prepare csv file data to download filter by collection in the lesson level
   let performanceDataMatrix = Ember.A([
     Ember.Object.create({
       performanceData: Ember.A([
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 38, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 38, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 11, completionTotal: 16, hideScore: true, hasScore: true, score: 0, timeSpent: "4m 35s"})
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 38, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 38, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 11, completionTotal: 16, hideScore: true, hasScore: true, hasStarted: true, score: 0, timeSpent: "4m 35s"})
       ])
     }),
     Ember.Object.create({
       user: 'testUser1',
       performanceData: Ember.A([
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 18, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 18, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 10, completionTotal: 16, hideScore: true, hasScore: true, score: 0, timeSpent: "4m 35s"})
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 10, completionTotal: 16, hideScore: true, hasScore: true, hasStarted: true, score: 0, timeSpent: "4m 35s"})
       ])
     }),
     Ember.Object.create({
       user: 'testUser2',
       performanceData: Ember.A([
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 18, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 14, completionTotal: 16, hideScore: false, hasScore: true, score: 80, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 16, completionTotal: 16, hideScore: true, hasScore: true, score: 0, timeSpent: "4m 35s"})
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 14, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 80, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 16, completionTotal: 16, hideScore: true, hasScore: true, hasStarted: true, score: 0, timeSpent: "4m 35s"})
       ])
     })
   ]);
@@ -407,25 +407,25 @@ test('prepare csv file data to download filter by collection in the unit level',
   let performanceDataMatrix = Ember.A([
     Ember.Object.create({
       performanceData: Ember.A([
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 38, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 38, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 11, completionTotal: 16, hideScore: false, hasScore: true, score: 39, timeSpent: "4m 35s"})
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 38, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 38, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 11, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 39, timeSpent: "4m 35s"})
       ])
     }),
     Ember.Object.create({
       user: 'testUser1',
       performanceData: Ember.A([
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 18, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 18, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 10, completionTotal: 16, hideScore: false, hasScore: true, score: 9, timeSpent: "4m 35s"})
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 10, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 9, timeSpent: "4m 35s"})
       ])
     }),
     Ember.Object.create({
       user: 'testUser2',
       performanceData: Ember.A([
-        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, score: 18, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 14, completionTotal: 16, hideScore: false, hasScore: true, score: 80, timeSpent: "4m 35s"}),
-        Ember.Object.create({completionDone: 16, completionTotal: 16, hideScore: false, hasScore: true, score: 100, timeSpent: "4m 35s"})
+        Ember.Object.create({completionDone: 12, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 18, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 14, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 80, timeSpent: "4m 35s"}),
+        Ember.Object.create({completionDone: 16, completionTotal: 16, hideScore: false, hasScore: true, hasStarted: true, score: 100, timeSpent: "4m 35s"})
       ])
     })
   ]);
