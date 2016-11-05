@@ -469,7 +469,7 @@ export default Ember.Service.extend({
    */
   newUser: function() {
     return this.get('store').createRecord('user/user');
-  },
+  }
 
 
 });
