@@ -461,6 +461,15 @@ export default Ember.Service.extend({
           reject(error);
       });
     });
-  }
+  },
+
+  /**
+   * Creates a new empty user model
+   * @returns {User}
+   */
+  newUser: function() {
+    return this.get('store').createRecord('user/user');
+  },
+
 
 });
