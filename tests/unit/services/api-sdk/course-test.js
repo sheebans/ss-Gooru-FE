@@ -3,26 +3,7 @@ import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 
 moduleForService('service:api-sdk/course', 'Unit | Service | api-sdk/course', {
-  needs: ['serializer:course/course', 'model:course/course', 'model:user/user', 'adapter:course/course']
-});
-
-test('findById', function (assert) {
-  const service = this.subject();
-  assert.expect(3);
-  service.set("store", Ember.Object.create({
-    findRecord: function(model, id) {
-      assert.equal(model, 'course/course', 'wrong model');
-      assert.equal(id, 'the-course-id', 'wrong id');
-      return Ember.RSVP.resolve('fake-course-found');
-    }
-  }));
-
-  var done = assert.async();
-  const promise = service.findById('the-course-id');
-  promise.then(function (course) {
-    assert.equal(course, 'fake-course-found', 'Wrong course');
-    done();
-  });
+  needs: ['model:user/user']
 });
 
 test('createCourse', function(assert) {
