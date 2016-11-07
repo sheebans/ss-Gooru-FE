@@ -41,7 +41,7 @@ test('it renders a lesson item correctly -collection', function (assert) {
 
 
   assert.ok($titleContainer.find('> img').length, 'Thumbnail element');
-  assert.equal($titleContainer.find('> img').prop('src'), window.location.origin + '/' + lessonItem.get('thumbnailUrl'), 'Thumbnail image');
+  assert.ok($titleContainer.find('> img').prop('src').indexOf(lessonItem.get('thumbnailUrl')), 'Missing Thumbnail image');
   assert.equal($titleContainer.find('> div > strong').text(), lessonItem.get('title'), 'Title text');
   assert.equal($titleContainer.find('> div > span').text(), lessonItem.get('format'), 'Type');
 

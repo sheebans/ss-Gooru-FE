@@ -3,7 +3,8 @@ import config from './config/environment';
 import googlePageview from './mixins/google-pageview';
 
 var Router = Ember.Router.extend(googlePageview, {
-  location: config.locationType
+  location: config.locationType,
+  rootURL: config.rootURL
 });
 
 Router.map(function() {
