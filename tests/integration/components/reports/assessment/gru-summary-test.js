@@ -1,7 +1,10 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Collection from 'gooru-web/models/collection/collection';
 import QuestionResult from 'gooru-web/models/result/question';
+import QuestionResource from 'gooru-web/models/resource/question';
+import ResourceResource from 'gooru-web/models/resource/resource';
 import ResourceResult from 'gooru-web/models/result/resource';
 import AssessmentResult from 'gooru-web/models/result/assessment';
 
@@ -19,44 +22,52 @@ test('it renders for assessment', function (assert) {
   date.setMinutes(15);
   date.setHours(11);
 
-  const assessmentResult = AssessmentResult.create({
-    id: 501,
-    resourceResults: [
+  let assessmentResult = AssessmentResult.create({
+    resourceId: "600",
+    "resourceResults": Ember.A([
       QuestionResult.create({
-        id: 601,
-        resource: {
-          order: 1
-        },
-        correct: false,
-        timeSpent: 20000,
-        reaction: 2
-      }),
-      QuestionResult.create({
-        id: 603,
-        resource: {
-          order: 3
-        },
+        resourceId: "601",
+        resourceType: "question",
         correct: true,
         timeSpent: 20000,
-        reaction: 2
+        reaction: 2,
+        score: 100
       }),
       QuestionResult.create({
-        id: 602,
-        resource: {
-          order: 2
-        },
+        resourceId: "602",
+        resourceType: "question",
         correct: true,
         timeSpent: 20000,
-        reaction: 2
+        reaction: 2,
+        score: 100
+      }),
+      QuestionResult.create({
+        resourceId: "603",
+        resourceType: "question",
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2,
+        score: 100
       })
-    ],
+    ]),
     submittedAt: date,
     totalAttempts: 4
   });
 
-  const collection = Ember.Object.create({
+  const collection = Collection.create({
     isAssessment: true,
-    resources: [],
+    resources : Ember.A([
+      QuestionResource.create({
+        id: "601",
+        title: "OE",
+        questionType: "OE"
+      }),
+      QuestionResource.create({
+        id: "602",
+        title: "MC",
+        questionType: "MC"
+      })
+    ]),
     title: "collection"
   });
 
@@ -78,7 +89,7 @@ test('it renders for assessment', function (assert) {
 
   var $percentage = $gradeContainer.find('.percentage');
   assert.ok($percentage.length, "Percentage container is missing");
-  assert.equal($percentage.text().trim(), "67%", "Incorrect percentage text");
+  assert.equal($percentage.text().trim(), "100%", "Incorrect percentage text");
 
   var $attempts = $gradeContainer.find('.attempts');
   assert.ok($attempts.find('.attempt-selector'), 'Attempts dropdown should be visible');
@@ -86,8 +97,8 @@ test('it renders for assessment', function (assert) {
   assert.notOk($attempts.find('.latest').length, 'Latest attempt label should not be visible');
   var $fractional = $attempts.find('.fractional');
   assert.ok($fractional, 'Fractional not found');
-  assert.equal($fractional.find('.top').text().trim(), "2", "Incorrect fractional top text");
-  assert.equal($fractional.find('.bottom').text().trim(), "3", "Incorrect fractional bottom text");
+  assert.equal($fractional.find('.top').text().trim(), "1", "Incorrect fractional top text");
+  assert.equal($fractional.find('.bottom').text().trim(), "1", "Incorrect fractional bottom text");
   assert.equal($attempts.find('.text').text().trim(), this.get('i18n').t('common.correct').string, "Incorrect attempts text");
 
   var $overviewContainer = $component.find('.summary-container .overview');
@@ -108,7 +119,7 @@ test('it renders for assessment', function (assert) {
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
-  assert.equal($overviewSection.find('span').text().trim(), '1m', 'Incorrect time value');
+  assert.equal($overviewSection.find('span').text().trim(), '40s', 'Incorrect time value');
 
   // Reaction
   $overviewSection = $overviewContainer.find('.information .reaction');
@@ -116,7 +127,7 @@ test('it renders for assessment', function (assert) {
 
   // Links to questions
   var $questionLinks = $overviewContainer.find('.gru-bubbles');
-  assert.equal($questionLinks.find('li').length, 3, "Incorrect number of question links");
+  assert.equal($questionLinks.find('li').length, 2, "Incorrect number of question links");
 
   this.set('areQuestionLinksHidden', true);
   assert.notOk($overviewContainer.find('.gru-bubbles').length, 'Question links hidden');
@@ -132,28 +143,19 @@ test('Assessment attempts on real time', function (assert) {
     id: 501,
     resourceResults: [
       QuestionResult.create({
-        id: 601,
-        resource: {
-          order: 1
-        },
+        resourceId: 601,
         correct: false,
         timeSpent: 20000,
         reaction: 2
       }),
       QuestionResult.create({
-        id: 603,
-        resource: {
-          order: 3
-        },
+        resourceId: 603,
         correct: true,
         timeSpent: 20000,
         reaction: 2
       }),
       QuestionResult.create({
-        id: 602,
-        resource: {
-          order: 2
-        },
+        resourceId: 602,
         correct: true,
         timeSpent: 20000,
         reaction: 2
@@ -163,9 +165,20 @@ test('Assessment attempts on real time', function (assert) {
     totalAttempts: 4
   });
 
-  const collection = Ember.Object.create({
+  const collection = Collection.create({
     isAssessment: true,
-    resources: [],
+    resources : Ember.A([
+      QuestionResource.create({
+        id: "601",
+        title: "MC",
+        questionType: "MC"
+      }),
+      QuestionResource.create({
+        id: "602",
+        title: "MA",
+        questionType: "MA"
+      })
+    ]),
     title: "collection"
   });
 
@@ -193,6 +206,7 @@ test('Assessment attempts on real time', function (assert) {
   assert.notOk($attempts.find('.attempt-selector').length, 'Attempts dropdown should not be visible');
   assert.notOk($attempts.find('.latest').length, 'Latest attempt label should not be visible');
 });
+
 test('Assessment attempts on static report', function (assert) {
   const date = new Date(2010, 1, 20);
   date.setSeconds(10);
@@ -203,25 +217,19 @@ test('Assessment attempts on static report', function (assert) {
     id: 501,
     resourceResults: [
       QuestionResult.create({
-        id: 601,
-        resource: {
-          order: 1
-        },
+        resourceId: 601,
         correct: false,
         timeSpent: 20000,
         reaction: 2
       }),
       QuestionResult.create({
-        id: 603,
-        resource: {
-          order: 3
-        },
+        resourceId: 603,
         correct: true,
         timeSpent: 20000,
         reaction: 2
       }),
       QuestionResult.create({
-        id: 602,
+        resourceId: 602,
         resource: {
           order: 2
         },
@@ -234,9 +242,20 @@ test('Assessment attempts on static report', function (assert) {
     totalAttempts: 4
   });
 
-  const collection = Ember.Object.create({
+  const collection = Collection.create({
     isAssessment: true,
-    resources: [],
+    resources : Ember.A([
+      QuestionResource.create({
+        id: "601",
+        title: "MA",
+        questionType: "MA"
+      }),
+      QuestionResource.create({
+        id: "602",
+        title: "MC",
+        questionType: "MC"
+      })
+    ]),
     title: "collection"
   });
 
@@ -270,57 +289,50 @@ test('it renders for collection with questions', function (assert) {
   date.setMinutes(15);
   date.setHours(11);
 
-  const assessmentResult = AssessmentResult.create({
-    id: 501,
-    resourceResults: [
+  let assessmentResult = AssessmentResult.create({
+    resourceId: "600",
+    "resourceResults": Ember.A([
       ResourceResult.create({
-        id: 601,
-        resource: {
-          order: 1
-        },
-        timeSpent: 20000,
-        reaction: 2
-      }),
-      ResourceResult.create({
-        id: 603,
-        resource: {
-          order: 3
-        },
+        resourceId: 601,
         timeSpent: 20000,
         reaction: 2
       }),
       QuestionResult.create({
-        id: 602,
-        resource: {
-          order: 2,
-          isOpenEnded: false
-        },
+        resourceId: "602",
+        resourceType: "question",
         correct: true,
         timeSpent: 20000,
-        reaction: 2
+        reaction: 2,
+        score: 100
       }),
       QuestionResult.create({
-        id: 602,
-        resource: {
-          order: 2,
-          isOpenEnded: true
-        },
+        resourceId: "603",
+        resourceType: "question",
         correct: true,
         timeSpent: 20000,
-        reaction: 2
+        reaction: 2,
+        score: 100
       })
-    ],
+    ]),
     submittedAt: date,
-    totalAttempts: 4,
-    collection:null
+    totalAttempts: 4
   });
 
-  const collection = Ember.Object.create({
+  const collection = Collection.create({
     isAssessment: false,
-    imageUrl : "here.png",
-    resources: [],
+    resources : Ember.A([
+      ResourceResource.create({
+        id: "601"
+      }),
+      QuestionResource.create({
+        id: "602",
+        title: "MC",
+        questionType: "MC"
+      })
+    ]),
     title: "collection"
   });
+
   assessmentResult.merge(collection);
 
   this.set('assessmentResult', assessmentResult);
@@ -357,7 +369,7 @@ test('it renders for collection with questions', function (assert) {
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
-  assert.equal($overviewSection.find('span').text().trim(), '1m 20s', 'Incorrect time value');
+  assert.equal($overviewSection.find('span').text().trim(), '20s', 'Incorrect time value');
 
   // Reaction
   $overviewSection = $overviewContainer.find('.information .reaction');
@@ -365,7 +377,7 @@ test('it renders for collection with questions', function (assert) {
 
   // Reaction
   var $questionLinks = $overviewContainer.find('.gru-bubbles');
-  assert.equal($questionLinks.find('li').length, 4, "Incorrect number of resource links");
+  assert.equal($questionLinks.find('li').length, 2, "Incorrect number of resource links");
 });
 
 test('it renders for collection with only resources and open ended questions', function (assert) {
@@ -378,35 +390,22 @@ test('it renders for collection with only resources and open ended questions', f
     id: 501,
     resourceResults: [
       ResourceResult.create({
-        id: 601,
-        resource: {
-          order: 1
-        },
+        resourceId: 601,
         timeSpent: 20000,
         reaction: 2
       }),
       ResourceResult.create({
-        id: 603,
-        resource: {
-          order: 3
-        },
+        resourceId: 603,
         timeSpent: 20000,
         reaction: 2
       }),
       ResourceResult.create({
-        id: 602,
-        resource: {
-          order: 2
-        },
+        resourceId: 602,
         timeSpent: 20000,
         reaction: 2
       }),
       QuestionResult.create({
-        id: 602,
-        resource: {
-          order: 2,
-          isOpenEnded: true
-        },
+        resourceId: 602,
         correct: true,
         timeSpent: 20000,
         reaction: 2
@@ -416,9 +415,20 @@ test('it renders for collection with only resources and open ended questions', f
     totalAttempts: 4
   });
 
-  const collection = Ember.Object.create({
+  const collection = Collection.create({
     isAssessment: false,
-    resources: [],
+    resources : Ember.A([
+      QuestionResource.create({
+        id: "601",
+        title: "MC",
+        questionType: "MC"
+      }),
+      QuestionResource.create({
+        id: "602",
+        title: "OE",
+        questionType: "OE"
+      })
+    ]),
     title: "collection"
   });
 
