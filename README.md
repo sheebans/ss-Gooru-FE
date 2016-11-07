@@ -177,14 +177,15 @@ To build the application as a embedded app do
 #### Run as embedded
 You could do the same to run the application embedded
 
-* `GOORU_EMBEDDED=true grunt run` this will run the application embedded, you should access /embedded.html or /player-widget.js
+* `GOORU_EMBEDDED=true grunt run` this will run the application embedded, you should access /embedded/collection-player.html or /embedded/resource-player.html
 
 #### Configuring the embedded application
 When embedding the application you can pass several options
 
 * token, it should be a valid gooru token, when present the application would try to authentication using that token, otherwise it will authenticated anonymously 
-* transition, it is use to tell the application to navigate to a specific page, you need to provide the parameters matching the ember route, see public/embedded.html for an example
-* you can also use a dom configuration, see public/player-widget.js
+* transition, it is use to tell the application to navigate to a specific page, you need to provide the parameters matching the ember route
+* you can also set any other application property
+
 
 ### Continuous Integration
 We have setup Bamboo as continuous integration server
