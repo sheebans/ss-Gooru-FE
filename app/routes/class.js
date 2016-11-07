@@ -18,11 +18,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   session: Ember.inject.service("session"),
 
   /**
-   * @type {UserService} Service to retrieve user information
-   */
-  userService: Ember.inject.service("api-sdk/user"),
-
-  /**
    * @type {ClassService} Service to retrieve class information
    */
   classService: Ember.inject.service("api-sdk/class"),
