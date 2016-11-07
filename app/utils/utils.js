@@ -439,11 +439,18 @@ export function prepareFileDataToDownload(performanceDataHeaders, performanceDat
  */
 
 function collectionFileData(performanceDataHeaders, performanceDataMatrix, level){
-  const performanceAverageHeaders= performanceDataMatrix.objectAt(0).performanceData;
+  const performanceAverageHeaders = performanceDataMatrix.objectAt(0).performanceData;
   const performanceData = performanceDataMatrix.slice(1);
   var dataHeaders = Ember.A(['Student', 'Average time']);
   var dataMatrix = Ember.A([]);
   var averageHeaders = Ember.A(['Class average']);
+
+  let sortedData = performanceData;
+
+  //alphabeticalStringSort
+  sortedData.sort(function (a, b) {
+    return alphabeticalStringSort(a.user, b.user) * 1;
+  });
 
   performanceDataHeaders.forEach(function(headerItem, index) {
     const prefixHeader = (level === 'course') ? `U${index+1} ` : `L${index+1} `;
@@ -458,7 +465,7 @@ function collectionFileData(performanceDataHeaders, performanceDataMatrix, level
 
   dataMatrix.push(averageHeaders);
 
-  performanceData.forEach(function(dataItem) {
+  sortedData.forEach(function(dataItem) {
     var data = Ember.A([]);
     const performanceDataContent = dataItem.performanceData;
     const student = dataItem.get('user');
@@ -467,6 +474,10 @@ function collectionFileData(performanceDataHeaders, performanceDataMatrix, level
       if (dataContentItem){
         const time = `${dataContentItem.get('timeSpent')}`;
         data.push(time);
+      }
+      else {
+        //this is to fill the table with blanks when there isn't dataContentItem
+        data.push('');
       }
     });
     dataMatrix.push(data);
@@ -491,6 +502,13 @@ function assessmentFileData(performanceDataHeaders, performanceDataMatrix, level
   var dataMatrix = Ember.A([]);
   var averageHeaders = Ember.A(['Class average']);
 
+  let sortedData = performanceData;
+
+  //alphabeticalStringSort
+  sortedData.sort(function (a, b) {
+    return alphabeticalStringSort(a.user, b.user) * 1;
+  });
+
   performanceDataHeaders.forEach(function(headerItem, index) {
     const prefixHeader = (level === 'course') ? `U${index+1} ` : (level === 'unit') ? `L${index+1} ` : `A${index+1} `;
     const scoreHeader = `${prefixHeader}${headerItem.get('title')} score`;
@@ -501,7 +519,7 @@ function assessmentFileData(performanceDataHeaders, performanceDataMatrix, level
     dataHeaders.push(timeHeader);
   });
   performanceAverageHeaders.forEach(function(avHeaderItem) {
-    const score = (avHeaderItem.hideScore) ? 'N/A': ((avHeaderItem.hasScore)) ? `${avHeaderItem.score}%` : '--%';
+    const score = (avHeaderItem.hideScore) ? 'N/A': ((avHeaderItem.hasScore && avHeaderItem.hasStarted)) ? `${avHeaderItem.score}%` : '--%';
     const time = `${avHeaderItem.get('timeSpent')}`;
     const completion = (avHeaderItem.completionDone) ? `"${avHeaderItem.completionDone}/${avHeaderItem.completionTotal}"` : '--';
     averageHeaders.push(score);
@@ -510,19 +528,25 @@ function assessmentFileData(performanceDataHeaders, performanceDataMatrix, level
   });
   dataMatrix.push(averageHeaders);
 
-  performanceData.forEach(function(dataItem) {
+  sortedData.forEach(function(dataItem) {
     var data = Ember.A([]);
     const performanceDataContent = dataItem.performanceData;
     const student = dataItem.get('user');
     data.push(student);
     performanceDataContent.forEach(function(dataContentItem) {
       if (dataContentItem){
-        const score = (dataContentItem.hideScore) ? 'N/A': ((dataContentItem.hasScore)) ? `${dataContentItem.score}%` : '--%';
+        const score = (dataContentItem.hideScore) ? 'N/A': ((dataContentItem.hasScore && dataContentItem.hasStarted)) ? `${dataContentItem.score}%` : '--%';
         const time = `${dataContentItem.get('timeSpent')}`;
         const completion = (dataContentItem.completionDone) ? `"${dataContentItem.completionDone}/${dataContentItem.completionTotal}"` : '--';
         data.push(score);
         data.push(completion);
         data.push(time);
+      }
+      else {
+        //this is to fill the table with blanks when there isn't dataContentItem
+        data.push('');
+        data.push('');
+        data.push('');
       }
     });
     dataMatrix.push(data);
@@ -547,6 +571,13 @@ function lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix)
   var dataMatrix = Ember.A([]);
   var averageHeaders = Ember.A(['Class average']);
 
+  let sortedData = performanceData;
+
+  //alphabeticalStringSort
+  sortedData.sort(function (a, b) {
+    return alphabeticalStringSort(a.user, b.user) * 1;
+  });
+
   performanceDataHeaders.forEach(function(headerItem, index) {
     const prefixHeader = `C${index+1} `;
     const timeHeader = `${prefixHeader}${headerItem.get('title')} time`;
@@ -555,24 +586,29 @@ function lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix)
     dataHeaders.push(timeHeader);
   });
   performanceAverageHeaders.forEach(function(avHeaderItem) {
-    const score = (avHeaderItem.hideScore) ? 'N/A': ((avHeaderItem.hasScore)) ? `${avHeaderItem.score}%` : '--%';
+    const score = (avHeaderItem.hideScore) ? 'N/A': ((avHeaderItem.hasScore && avHeaderItem.hasStarted)) ? `${avHeaderItem.score}%` : '--%';
     const time = `${avHeaderItem.get('timeSpent')}`;
     averageHeaders.push(score);
     averageHeaders.push(time);
   });
   dataMatrix.push(averageHeaders);
 
-  performanceData.forEach(function(dataItem) {
+  sortedData.forEach(function(dataItem) {
     var data = Ember.A([]);
     const performanceDataContent = dataItem.performanceData;
     const student = dataItem.get('user');
     data.push(student);
     performanceDataContent.forEach(function(dataContentItem) {
       if (dataContentItem){
-        const score = (dataContentItem.hideScore) ? 'N/A': ((dataContentItem.hasScore)) ? `${dataContentItem.score}%` : '--%';
+        const score = (dataContentItem.hideScore) ? 'N/A': ((dataContentItem.hasScore && dataContentItem.hasStarted)) ? `${dataContentItem.score}%` : '--%';
         const time = `${dataContentItem.get('timeSpent')}`;
         data.push(score);
         data.push(time);
+      }
+      else {
+        //this is to fill the table with blanks when there isn't dataContentItem
+        data.push('');
+        data.push('');
       }
     });
     dataMatrix.push(data);
