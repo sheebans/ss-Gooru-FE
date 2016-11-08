@@ -21,7 +21,7 @@ export default {
   "player": {
     "resources":{
       "pdf": {
-        "googleDriveEnable": true,
+        "googleDriveEnable": false,
         "googleDriveUrl":"https://docs.google.com/gview?url="
       }
     }
