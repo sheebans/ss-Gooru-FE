@@ -22,7 +22,7 @@
 
       <label class="title-label">
         <span class="required">{{t 'common.resource-title'}}</span>
-        {{validation.gru-input model=resource valuePath='title' maxLength=50}}
+        {{validation.gru-input model=resource valuePath='title' maxLength=50 didValidate=didValidate}}
       </label>
       <label class="type">
         <span class="required">{{t 'common.add-type-resource'}}</span>
@@ -50,7 +50,7 @@
       </div>
       <label class="url-label">
         <span class="required">{{t 'common.enter-url'}}</span>
-        {{validation.gru-input model=resource valuePath='url'}}
+        {{validation.gru-input model=resource valuePath='url' didValidate=didValidate}}
 
         {{#if existingResource}}
           <span class="validation error">{{t 'gru-resource-new.resource-already-exist'}}</span>
@@ -68,7 +68,7 @@
       {{#unless existingResource}}
         <label class="title-label">
           <span class="required">{{t 'common.resource-title'}}</span>
-          {{validation.gru-input model=resource valuePath='title' maxLength=50}}
+          {{validation.gru-input model=resource valuePath='title' maxLength=50 didValidate=didValidate}}
         </label>
         <label class="type">
           <span class="required">{{t 'common.add-type-resource'}}</span>

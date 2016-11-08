@@ -41,7 +41,7 @@
                     <div class="form-group username">
                       <label>
                         <span class="required">{{t "sign-up.username"}}</span>
-                        {{validation.gru-input model=profile valuePath='username'}}
+                        {{validation.gru-input model=profile valuePath='username' didValidate=didValidate}}
                       </label>
                       {{#if usernameError}}
                         <span class="validation error username-error">{{usernameError}}</span>
@@ -51,19 +51,19 @@
                     <div class="form-group firstName">
                       <label>
                         <span class="required">{{t "common.first-name"}}</span>
-                        {{validation.gru-input model=profile valuePath='firstName' maxLength=25}}
+                        {{validation.gru-input model=profile valuePath='firstName' maxLength=25 didValidate=didValidate}}
                       </label>
                     </div>
                     <div class="form-group lastName">
                       <label>
                         <span class="required">{{t "common.last-name"}}</span>
-                        {{validation.gru-input model=profile valuePath='lastName' maxLength=25}}
+                        {{validation.gru-input model=profile valuePath='lastName' maxLength=25 didValidate=didValidate}}
                       </label>
                     </div>
                     <div class="form-group email">
                       <label>
                         <span class="required">{{t "sign-up.email"}}</span>
-                        {{validation.gru-input model=profile valuePath='email'}}
+                        {{validation.gru-input model=profile valuePath='email' didValidate=didValidate}}
                       </label>
                       {{#if emailError}}
                         <span class="validation error email-error">{{emailError}}</span>
@@ -72,13 +72,13 @@
                     <div class="form-group">
                       <label>
                         <span class="required">{{t "sign-up.password"}}</span>
-                        {{validation.gru-input model=profile valuePath='password' type='password'}}
+                        {{validation.gru-input model=profile valuePath='password' type='password' didValidate=didValidate}}
                       </label>
                     </div>
                     <div class="form-group">
                       <label>
                         <span class="required">{{t "sign-up.rePassword"}}</span>
-                        {{validation.gru-input model=profile valuePath='rePassword' type='password'}}
+                        {{validation.gru-input model=profile valuePath='rePassword' type='password' didValidate=didValidate}}
                       </label>
                     </div>
                     <div class="sign-up-button form-group text-center">

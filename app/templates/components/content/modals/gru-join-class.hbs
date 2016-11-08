@@ -9,6 +9,7 @@
         <label class="control-label" for="code">{{t 'content.classes.join.class-code-input'}}</label>
         {{validation.gru-input model=this valuePath='code' maxlength=50
           onTyping="onCodeTyping"
+          didValidate=didValidate
           onFocusOut="onCodeFocusOut"}}
       </div>
       <div class="join-terms-and-conditions">

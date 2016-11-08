@@ -166,6 +166,7 @@ test('Update Question Information', function (assert) {
 });
 
 test('Layout of the information section', function (assert) {
+  var self = this;
   var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
     title: "Question Title",
     standards: []
@@ -175,7 +176,7 @@ test('Layout of the information section', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
 
   return wait().then(function () {
-    var $settingsSection = this.$("#information");
+    var $settingsSection = self.$("#information");
     assert.ok($settingsSection.find('.header h2').length, "Information title missing");
     assert.ok($settingsSection.find('.panel-body .title label b').length, "Missing title label");
     assert.ok($settingsSection.find('.panel-body .question-types').length, "Missing question types");
@@ -183,6 +184,7 @@ test('Layout of the information section', function (assert) {
 });
 
 test('Layout of the information section editing mode', function (assert) {
+  var self = this;
   var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
     title: "Question Title",
     standards: []
@@ -192,7 +194,7 @@ test('Layout of the information section editing mode', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
 
   return wait().then(function () {
-    var $settingsSection = this.$("#information");
+    var $settingsSection = self.$("#information");
     assert.ok($settingsSection.find('.header h2').length, "Information title missing");
     assert.ok($settingsSection.find('.panel-body .title label .gru-input').length, "Missing title input");
     // assert.ok($settingsSection.find('.panel-body .question-types .btn-group .dropdown-toggle').length, "Missing question types dropdown");
@@ -258,6 +260,7 @@ test('Validate if the Question Title field has only whitespaces', function (asse
 });
 
 test('Validate the character limit in the Question title field', function (assert) {
+  var self = this;
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: null,
     standards: []
@@ -267,12 +270,13 @@ test('Validate the character limit in the Question title field', function (asser
   this.render(hbs`{{content/questions/gru-questions-edit isEditing=true question=question tempQuestion=question}}`);
 
   return wait().then(function () {
-    const maxLenValue = this.$('.gru-questions-edit .gru-input.title input').prop('maxlength');
+    const maxLenValue = self.$('.gru-questions-edit .gru-input.title input').prop('maxlength');
     assert.equal(maxLenValue, 50, "Input max length");
   });
 });
 
 test('Layout of the builder section', function (assert) {
+  var self = this;
   var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
     title: "Question Title",
     standards: []
@@ -282,7 +286,7 @@ test('Layout of the builder section', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
 
   return wait().then(function () {
-    var $builderSection = this.$("#builder");
+    var $builderSection = self.$("#builder");
     assert.ok($builderSection.find('.header h2').length, "Builder title missing");
     assert.ok($builderSection.find('.panel-heading h3').length, "Missing Question label");
     assert.ok($builderSection.find('.panel-heading .instructions').length, "Missing Instructions");
@@ -1118,10 +1122,7 @@ test('Builder Edit with advanced edit button for the Multiple Choice answers', f
     assert.ok($richEditorComponent.length, "Missing gru-rich-text-editor component");
     assert.ok($richEditorComponent.find('.btn-toolbar').hasClass("hidden"), "btn-toolbar should be hidden for the answers editors");
 
-    Ember.run(() => {
-      $switchComponent.find("a input").click();
-    });
-
+    $switchComponent.find("a input").prop("checked", true).change();
     return wait().then(function () {
       assert.ok(!$richEditorComponent.find('.btn-toolbar').hasClass("hidden"), "btn-toolbar should not be hidden for the answers editors");
     });
