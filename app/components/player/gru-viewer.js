@@ -150,7 +150,7 @@ export default Ember.Component.extend({
     let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
     if(!this.get('hasContext') || !showFeedback || this.get('isTeacher')) {
       if (this.get('collection').isLastResource(this.get('resource'))) {
-        i18nKey = (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
+        i18nKey = (this.get('collection').get('isAssessment') && this.get('showReportLink')) ? 'common.save-submit' : 'common.save-finish';
       }
     } else {
       if(this.get('resourceResult.submittedAnswer')) {
@@ -185,6 +185,12 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   isNotIframeUrl: null,
+
+  /**
+   * Indicates if the report is visible
+   * @property {boolean} showReportLink
+   */
+  showReportLink: true,
 
   // -------------------------------------------------------------------------
   // Methods

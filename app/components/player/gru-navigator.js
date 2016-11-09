@@ -179,6 +179,12 @@ export default Ember.Component.extend(ModalMixin, {
    */
   submitted: false,
 
+  /**
+   * Indicates if the report is visible
+   * @property {boolean} showReportLink
+   */
+  showReportLink: true,
+
   // -------------------------------------------------------------------------
   // Observers
 

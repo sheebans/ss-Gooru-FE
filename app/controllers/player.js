@@ -263,6 +263,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    */
   showReactionBar: Ember.computed.alias("features.collections.player.showReactionBar"),
 
+  /**
+   * Indicates if the report is visible
+   * @property {boolean} showReportLink
+   */
+  showReportLink: Ember.computed.alias("features.collections.player.showReportLink"),
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -387,11 +393,13 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
       context.set("isStudent", controller.get("isStudent"));
       assessmentResult.set("submittedAt", submittedAt);
       return controller.saveCollectionResult(assessmentResult, context).then(function() {
-        if (!controller.get("session.isAnonymous")) {
-          controller.send("navigateToReport");
-        }
-        else {
-          controller.set("showReport", true);
+        if (controller.get("showReportLink")) {
+          if (!controller.get("session.isAnonymous")) {
+            controller.send("navigateToReport");
+          }
+          else {
+            controller.set("showReport", true);
+          }
         }
       });
     });
