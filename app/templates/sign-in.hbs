@@ -32,13 +32,13 @@
         <div class="form-group username">
           <label>
             <span>{{t "login.usernameOrEmail"}}</span>
-            {{validation.gru-input model=user valuePath='username'}}
+            {{validation.gru-input model=user valuePath='username' didValidate=didValidate}}
           </label>
         </div>
         <div class="form-group">
           <label>
             <span>{{t "login.password"}}</span>
-            {{validation.gru-input model=user valuePath='password' type='password'}}
+            {{validation.gru-input model=user valuePath='password' type='password' didValidate=didValidate}}
           </label>
         </div>
         <div class="form-group forgot-password">
