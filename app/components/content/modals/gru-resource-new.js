@@ -55,6 +55,7 @@ export default Ember.Component.extend({
       if (this.get('isResourceUpload') && !this.get('resource.file')) {
         this.set('emptyFileError', this.get('i18n').t('common.errors.file-upload-missing', { extensions: this.get('resource.extensions') }));
       } else {
+        resource.set("isRemote", !component.get('isResourceUpload'));
         resource.validate().then(function ({ validations }) {
 
           if (validations.get('isValid')) {

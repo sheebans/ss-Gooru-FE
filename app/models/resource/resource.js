@@ -246,5 +246,13 @@ export default Ember.Object.extend({
    * Indicates if it is an vimeo resource
    * @property {boolean}
    */
-  isVimeoResource: Ember.computed.equal("resourceType", "vimeo/video")
+  isVimeoResource: Ember.computed.equal("resourceType", "vimeo/video"),
+
+
+  /**
+   * Indicates if the resources is a 3rd party/remote url
+   * Uploaded resources are not considered remote
+   * @property {boolean}
+   */
+  isRemote: true
 });
