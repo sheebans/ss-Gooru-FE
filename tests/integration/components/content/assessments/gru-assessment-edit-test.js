@@ -60,6 +60,12 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#information').length, "Information section");
   assert.ok($container.find('> section#builder').length, "Builder section");
   assert.ok($container.find('> section#settings').length, "Settings section");
+
+  //TODO adding a timeout here, this component has subcomponents doing async calls, producing a test error,
+  var done = assert.async();
+  Ember.run.later(function(){
+    done();
+  }, 300);
 });
 
 test('Header when comes from content builder', function (assert) {
@@ -85,4 +91,9 @@ test('Header when comes from content builder', function (assert) {
   assert.ok($header.length, "Header");
   assert.ok($header.find('.back-to').length, "Should have the option Back to Assessment");
 
+  //TODO adding a timeout here, this component has subcomponents doing async calls, producing a test error,
+  var done = assert.async();
+  Ember.run.later(function(){
+    done();
+  }, 300);
 });

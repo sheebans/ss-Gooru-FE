@@ -21,9 +21,11 @@ test('loadConfiguration', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
+  var done = assert.async();
   adapter.loadConfiguration('any-environment')
     .then(function(response) {
       assert.deepEqual({ a: 1 }, response, 'Wrong response');
+      done();
     });
 });
 
@@ -42,9 +44,11 @@ test('loadConfiguration with config url', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
+  var done = assert.async();
   adapter.loadConfiguration('any-environment', '/any-config-url')
     .then(function(response) {
       assert.deepEqual({ a: 1 }, response, 'Wrong response');
+      done();
     });
 });
 
