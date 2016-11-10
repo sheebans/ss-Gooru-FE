@@ -223,3 +223,9 @@ This module uses a WebSocket connection with a sub-domain of the backend applica
 It is required that the sub-domain that gives the support to the RealTime needs to be configured to use a SSL (HTTPS)
 connection, otherwise the RealTime module will not be able to communicate with the backend server.
 
+### Adding Themes
+Gooru app support custom themes
+* Add a new scss file under styles/themes, i.e london.scss
+* Add an entry to ember-cli-build.js, outpaths section,  ie `'themes/london': '/assets/themes/london/styles.css'`
+* The theme css will be loaded on demand when passing the correct themeId
+

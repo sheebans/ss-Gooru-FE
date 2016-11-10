@@ -51,16 +51,7 @@ module.exports = function (environment) {
    * Application themes configuration
    */
   ENV['themes'] = {
-    'default': null, /* when present it is not necessary to pass a query param */
-    'edify' : {
-      'translations': {
-        'locale': 'en-edify', /* this way it fallback to 'en' */
-        'url': '/themes/edify/translations.json'
-      },
-      'styles': {
-        'url': '/themes/edify/styles.css'
-      }
-    }
+    'default': null /* when present it is not necessary to pass a query param */
   };
 
   ENV['player'] = {
@@ -121,6 +112,7 @@ module.exports = function (environment) {
     ENV['ember-simple-auth'].store = 'session-store:ephemeral';
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.rootElement = '#ember-testing';
     ENV.embedded = false;
   }
 

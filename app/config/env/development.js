@@ -2,6 +2,7 @@
  Development Environment configuration properties
  */
 export default {
+  "appRootPath": "/", //default is root
   "endpoint" : {
     "url": "http://nucleus-qa.gooru.org",
     "secureUrl": "https://nucleus-qa.gooru.org"
