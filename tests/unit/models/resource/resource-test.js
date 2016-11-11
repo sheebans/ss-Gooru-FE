@@ -207,5 +207,12 @@ test('isUrlResource', function(assert) {
   assert.ok(model.get("isUrlResource"), "It should be url resource type");
 });
 
+test('isRemote', function(assert) {
+  assert.expect(1);
+  let model = this.subject({});
+
+  assert.ok(model.get("isRemote"), true, "by default it should be a remote resource");
+});
+
 
 
