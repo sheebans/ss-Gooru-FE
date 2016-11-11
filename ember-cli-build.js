@@ -17,11 +17,19 @@ var katexFonts = pickFiles('bower_components/KaTeX/dist/fonts', {
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
+    outputPaths: {
+      app: {
+        css: {
+          'app': '/assets/gooru-web.css',
+          'themes/london': '/assets/themes/london/styles.css'
+        }
+      }
+    },
     'ember-cli-qunit': {
       useLintTree: false
     },
     fingerprint: {
-      exclude: ['themes/edify'] //excluding test theme files
+      exclude: ['themes'] //excluding theme files
     }
   });
 

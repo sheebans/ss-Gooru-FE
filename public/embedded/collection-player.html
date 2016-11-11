@@ -49,6 +49,17 @@
                    placeholder="User Token">
           </div>
           <div class="form-group">
+            <label>Theme</label>
+          </div>
+          <div class="form-group">
+            <label class="radio-inline">
+              <input type="radio" name="theme-id" value="gooru" checked="checked"> Gooru
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="theme-id" value="london"> London
+            </label>
+          </div>
+          <div class="form-group">
             <label>Type</label>
           </div>
           <div class="form-group">
@@ -99,6 +110,7 @@
       var collectionId = jQuery("#collection-id-input").val();
       var userToken = jQuery("#user-token-input").val();
       var type = jQuery("#the-form input[name = 'collection-type']:checked").val();
+      var themeId = jQuery("#the-form input[name = 'theme-id']:checked").val();
       var reactions = jQuery("#the-form input[name = 'show-reactions']:checked").val() === "true";
       var report = jQuery("#the-form input[name = 'show-report']:checked").val() === "true";
       if (aw) {
@@ -107,6 +119,7 @@
 
       aw = new ApplicationWidget('#gooru-application-container', {
         "appRootPath": "../",
+        "themeId": themeId === "london" ? themeId : undefined,
         "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}],
         "token": userToken.length > 0 ? userToken : undefined,
         "features": {

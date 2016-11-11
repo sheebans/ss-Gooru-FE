@@ -16,52 +16,12 @@ export default Ember.Object.extend({
   id: null,
 
   /**
-   * Loaded styles
-   * @property {{url: string}} styles
+   * css url
+   * @property {string}
    */
-  styles: {
-    url: null
-  },
-
-  /**
-   * @property {{ url: string, locale: string }} path to a javascript translation file complaint with ember-i18n
-   */
-  translations: {
-    url: null,
-    locale: 'en'
-  },
-
-  // -------------------------------------------------------------------------
-  // Methods
-  /**
-   * Returns theme translations
-   *
-   * {
-   *   "en" : {
-   *      "common" : {
-   *        "search": "Search"
-   *      }
-   *    }
-   * }
-   *
-   */
-  loadTranslations: function(){
-    const theme = this;
-    const url = theme.get("translations.url");
-    return (url) ? theme._loadTranslations(url) : Ember.A();
-  },
-
-  /**
-   * Loads translations from a url
-   * @param {string} url
-   * @returns {Promise}
-   * @private
-   */
-  _loadTranslations: function(url){
-    return new Ember.RSVP.Promise(function(resolve) {
-      Ember.$.get(url, null, resolve);
-    });
-  }
-
+  cssUrl: Ember.computed('id', function(){
+    const id = this.get("id");
+    return `assets/themes/${id}/styles.css`;
+  })
 });
 

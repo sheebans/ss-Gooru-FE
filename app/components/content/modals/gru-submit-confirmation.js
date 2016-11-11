@@ -15,6 +15,7 @@ export default Ember.Component.extend({
   actions: {
 
     confirm: function() {
+      this.set("isLoading", true);
       this.get('model').onConfirm().then(
         this.get('closeModal').bind(this)
       );
@@ -25,6 +26,10 @@ export default Ember.Component.extend({
     }
 
   },
+
+  // -------------------------------------------------------------------------
+  // Properties
+  isLoading: false,
 
   // -------------------------------------------------------------------------
   // Methods

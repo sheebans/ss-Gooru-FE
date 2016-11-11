@@ -16,6 +16,16 @@ test('serializeCreateResource', function(assert) {
   assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
   assert.equal(serializedResource.url, 'any', 'Wrong resource url');
   assert.equal(serializedResource['visible_on_profile'], false, 'Wrong resource url');
+  assert.equal(serializedResource['is_remote'], true, 'Wrong is remote, should be true per default');
+});
+
+test('serializeCreateResource passing isRemote', function(assert) {
+  const serializer = this.subject();
+  const resourceObject = ResourceModel.create({
+    isRemote: false
+  });
+  const serializedResource = serializer.serializeCreateResource(resourceObject);
+  assert.equal(serializedResource['is_remote'], false, 'Wrong is remote');
 });
 
 test('serializeUpdateResource', function(assert) {
@@ -84,7 +94,18 @@ test('normalizeReadResource', function(assert) {
   assert.equal(resource.get("publisher"), "Publisher name", 'Wrong publisher');
   assert.equal(resource.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
   assert.equal(resource.get("displayGuide"), true, 'Url is going to be broke in a frame');
+  assert.equal(resource.get("isRemote"), true, 'When not provided, is remote should be true');
   assert.equal(resource.get("order"), 3, 'Wrong order');
+});
+
+test('normalizeReadResource when providing is remote', function(assert) {
+  const serializer = this.subject();
+  const resourceData = {
+    "is_remote": false
+  };
+
+  const resource = serializer.normalizeReadResource(resourceData);
+  assert.equal(resource.get("isRemote"), false, 'wrong is remote');
 });
 
 test('normalizeReadResource for image resource with relative path', function(assert) {

@@ -7,9 +7,9 @@ module.exports = function (grunt) {
           return command;
         }
       },
-      "ember-server-stubby": 'ember server --proxy http://localhost:8882',
-      "ember-server-qa": 'ember server --proxy http://qa.gooru.org',
-      "ember-server-nginx": 'ember server',
+      "ember-server-stubby": 'ember serve --proxy http://localhost:8882',
+      "ember-server-qa": 'ember serve --proxy http://qa.gooru.org',
+      "ember-server-nginx": 'ember serve',
       "nginx-start-server": 'sudo nginx -p ./ -c ./nginx.conf',
       'nginx-stop-server': 'sudo nginx -s stop',
 

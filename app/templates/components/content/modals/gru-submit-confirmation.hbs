@@ -7,6 +7,8 @@
         <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'gru-submit-confirmation.cancel'}}" {{action 'cancel'}}>
             <span aria-hidden="true">{{t 'gru-submit-confirmation.cancel'}}</span>
         </button>
-        <button type="button" class="btn btn-success submit" data-dismiss="modal" {{action 'confirm'}}>{{t 'gru-submit-confirmation.confirm'}}</button>
+      {{#gru-spinner-button classes='btn btn-success submit' text=(t 'common.loading') isLoading=isLoading}}
+          <button type="button" class="btn btn-success submit" data-dismiss="modal" {{action 'confirm'}}>{{t 'gru-submit-confirmation.confirm'}}</button>
+      {{/gru-spinner-button}}
     </div>
 </div>

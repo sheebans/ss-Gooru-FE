@@ -33,7 +33,8 @@ export default Ember.Object.extend({
       title: resourceModel.get('title'),
       url: resourceModel.get("url"),
       content_subformat: format,
-      'visible_on_profile': resourceModel.get('isVisibleOnProfile')
+      'visible_on_profile': resourceModel.get('isVisibleOnProfile'),
+      'is_remote': resourceModel.get("isRemote") !== false //if true or undefined should be true
     };
   },
 
@@ -100,7 +101,8 @@ export default Ember.Object.extend({
       publisher: info.publisher ? info.publisher[0] : null,
       isVisibleOnProfile: typeof resourceData.visible_on_profile !== 'undefined' ? resourceData.visible_on_profile : true,
       order: resourceData.sequence_id,
-      displayGuide:resourceData['display_guide']&& (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1)
+      displayGuide:resourceData['display_guide']&& (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1),
+      isRemote: resourceData['is_remote'] !== false  //if true or undefined should be true
     });
     resource.set('displayGuide', resource.get("displayGuide") || this.checkURLProtocol(resource.url));
 
