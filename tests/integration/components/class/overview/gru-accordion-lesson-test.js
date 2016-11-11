@@ -1,12 +1,12 @@
-/*import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
-import DS from 'ember-data';
+//import DS from 'ember-data';
 import tHelper from "ember-i18n/helper";
 
 // Stub performance service
-const performanceServiceStub = Ember.Service.extend({
+/*const performanceServiceStub = Ember.Service.extend({
   findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId){
     let response;
     let promiseResponse;
@@ -254,6 +254,7 @@ const lessonServiceStub = Ember.Service.extend({
     });
   }
 });
+*/
 
 moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Component | class/overview/gru accordion lesson', {
   integration: true,
@@ -263,7 +264,7 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
 
     this.registry.register('helper:t', tHelper);
 
-    this.register('service:api-sdk/collection', collectionServiceStub);
+    /*this.register('service:api-sdk/collection', collectionServiceStub);
     this.inject.service('api-sdk/collection', { as: 'collectionService' });
 
     this.register('service:api-sdk/assessment', assessmentServiceStub);
@@ -277,7 +278,7 @@ moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Compone
 
     this.register('service:api-sdk/lesson', lessonServiceStub);
     this.inject.service('api-sdk/lesson', { as: 'lessonService' });
-
+    */
   }
 });
 
@@ -346,7 +347,7 @@ test('it renders', function(assert) {
 });
 
 test('it renders correctly when there are no collections/assessments to load after clicking on the lesson name', function(assert) {
-  assert.expect(6);
+  assert.expect(7);
 
   const context = this;
 
@@ -409,7 +410,7 @@ test('it renders correctly when there are no collections/assessments to load aft
   });
 });
 
-test('it loads collections/assessments and renders them correctly after clicking on the lesson name', function(assert) {
+/*test('it loads collections/assessments and renders them correctly after clicking on the lesson name', function(assert) {
   const context = this;
 
   // Class with lessons per stub
