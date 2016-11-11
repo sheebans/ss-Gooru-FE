@@ -218,6 +218,13 @@ const ResourceModel = Ember.Object.extend({
   isVimeoResource: Ember.computed.equal("resourceType", "vimeo/video"),
 
   /**
+   * Indicates if the resources is a 3rd party/remote url
+   * Uploaded resources are not considered remote
+   * @property {boolean}
+   */
+  isRemote: true,
+
+  /**
    * Return a copy of the resource
    *
    * @function
@@ -291,7 +298,8 @@ const ResourceModel = Ember.Object.extend({
       displayGuide: model.get("displayGuide"),
       narration: model.get("narration"), //TODO missing
       options: null, //TODO missing
-      taxonomy: model.get('standards')
+      taxonomy: model.get('standards'),
+      isRemote: model.get('isRemote')
     });
   },
 
