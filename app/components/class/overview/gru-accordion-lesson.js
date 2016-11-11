@@ -297,9 +297,10 @@ export default Ember.Component.extend(AccordionMixin, {
 
             return assessmentDataPromise.then(function(assessmentData){
               const averageScore = performance.calculateAverageScoreByItem(collectionId);
+              const timeSpent = performance.calculateAverageTimeSpentByItem(collectionId);
               collection.set('performance', Ember.Object.create({
                 score: averageScore,
-                hasStarted: averageScore > 0,
+                hasStarted: averageScore > 0 || timeSpent > 0,
                 isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined
               }));
 
