@@ -25,6 +25,7 @@ test('Layout', function(assert) {
   const $body = $component.find('.modal-body');
   assert.ok($body.length, 'Body');
 
+  assert.equal($body.find('.lead.description').length, 2, 'Description');
   assert.equal($body.find('.actions button').length, 2, 'Number of action buttons');
   assert.ok($body.find('.actions .cancel').length, 'Cancel button');
   assert.ok($body.find('.actions .submit').length, 'Submit button');
