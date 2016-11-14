@@ -38,7 +38,6 @@ test('finishCollection on collection and anonymous', function(assert) {
   }));
 
   controller.set('configurationService', configurationService);
-
   controller.set('role', 'teacher');
   controller.set('saveEnabled', false);
   controller.set('collection', collection);
