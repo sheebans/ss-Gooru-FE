@@ -78,6 +78,11 @@
               <input name="show-reactions" type="checkbox" value="true"> Show Reactions
             </label>
           </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-report" type="checkbox" value="true"> Show Report
+            </label>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -107,6 +112,7 @@
       var type = jQuery("#the-form input[name = 'collection-type']:checked").val();
       var themeId = jQuery("#the-form input[name = 'theme-id']:checked").val();
       var reactions = jQuery("#the-form input[name = 'show-reactions']:checked").val() === "true";
+      var report = jQuery("#the-form input[name = 'show-report']:checked").val() === "true";
       if (aw) {
         aw.destroy();
       }
@@ -119,7 +125,8 @@
         "features": {
           "collections": {
             "player": {
-              "showReactionBar": reactions
+              "showReactionBar": reactions,
+              "showReportLink": report
             }
           }
         }

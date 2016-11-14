@@ -8,6 +8,18 @@ import AssessmentResult from 'gooru-web/models/result/assessment';
 import QuestionResult from 'gooru-web/models/result/question';
 import ResourceResult from 'gooru-web/models/result/resource';
 
+var configurationService = Ember.Object.create ({
+  configuration: {
+    features: {
+      collections: {
+        player: {
+          showReportLink: true
+        }
+      }
+    }
+  }
+});
+
 moduleFor('controller:context-player', 'Unit | Controller | context player', {
 });
 
@@ -30,6 +42,7 @@ test('finishCollection on collection and anonymous', function(assert) {
   controller.set('resourceResult', resourceResult);
   controller.set('assessmentResult', assessmentResult);
   controller.set('context', context);
+  controller.set('configurationService', configurationService);
   controller.set('class', Ember.Object.create({
     isTeacher: function() {
       return true;
@@ -83,6 +96,7 @@ test('finishCollection on collection and not anonymous', function(assert) {
   controller.set('resourceResult', resourceResult);
   controller.set('assessmentResult', assessmentResult);
   controller.set('context', context);
+  controller.set('configurationService', configurationService);
   controller.set('eventsService', Ember.Object.create({
     saveResourceResult: function(result, cont) {
       assert.deepEqual(result, resourceResult, 'Wrong result object');
@@ -110,7 +124,7 @@ test('finishCollection on collection and not anonymous', function(assert) {
 });
 
 test('finishCollection on collection and not anonymous', function(assert) {
-  assert.expect(9);
+  assert.expect(8);
   let controller = this.subject();
   let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Collection Title'
@@ -161,7 +175,7 @@ test('finishCollection on collection and not anonymous', function(assert) {
 });
 
 test('finishCollection on collection, not anonymous and on air', function(assert) {
-  assert.expect(16);
+  assert.expect(15);
   let controller = this.subject();
   let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Collection Title'

@@ -12,7 +12,7 @@ moduleForComponent('player/gru-viewer', 'Integration | Component | player/gru vi
 });
 
 test('On question submit', function (assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   const resource = Ember.Object.create(
     {
@@ -26,6 +26,7 @@ test('On question submit', function (assert) {
 
   const collection = Ember.Object.create({
     collectionType: "assessment",
+    isAssessment: true,
     resources: Ember.A([resource]),
     isLastResource: function(){
       return true;
@@ -53,9 +54,59 @@ test('On question submit', function (assert) {
   $openEndedComponent.find("textarea").val("test");
   $openEndedComponent.find("textarea").change();
 
-  assert.ok(!$answerPanel.find(".actions button.save").attr("disabled"), "Button should not be disabled");
+  var $buttonSave = $answerPanel.find(".actions button.save");
 
-  $answerPanel.find(".actions button.save").click();
+  assert.ok(!$buttonSave.attr("disabled"), "Button should not be disabled");
+  assert.equal($buttonSave.text().trim(), "Save and Submit All", "Button text is correct");
+
+  $buttonSave.click();
+
+});
+
+test('Not submit all', function (assert) {
+  assert.expect(3);
+
+  const resource = Ember.Object.create(
+    {
+      "id": 10,
+      "order": 2,
+      "text": "Dummy resource text",
+      "media": "test.jpg",
+      "isQuestion": true,
+      "questionType": 'OE'
+    });
+
+  const collection = Ember.Object.create({
+    collectionType: "assessment",
+    isAssessment: true,
+    resources: Ember.A([resource]),
+    isLastResource: function(){
+      return true;
+    }
+  });
+
+  const resourceResult = QuestionResult.create();
+
+  this.set('resourceResult', resourceResult);
+  this.set('resource', resource);
+  this.set('collection',collection);
+
+  this.render(hbs`{{player/gru-viewer resource=resource resourceResult=resourceResult
+    collection=collection showReportLink=false}}`);
+
+  var $component = this.$(); //component dom element
+
+  var $answerPanel = $component.find(".answers-panel");
+  assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
+
+  var $openEndedComponent = $answerPanel.find(".gru-open-ended");
+  $openEndedComponent.find("textarea").val("test");
+  $openEndedComponent.find("textarea").change();
+
+  var $buttonSave = $answerPanel.find(".actions button.save");
+
+  assert.ok(!$buttonSave.attr("disabled"), "Button should not be disabled");
+  assert.equal($buttonSave.text().trim(), "Save and Finish", "Button text is correct");
 
 });
 
