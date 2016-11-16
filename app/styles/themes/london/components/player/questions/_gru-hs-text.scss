@@ -1,0 +1,17 @@
+.player .gru-hs-text {
+
+  .answer-choices {
+    ul {
+      li.answer {
+        &.selected {
+          border-color: $green-200;
+        }
+        div{
+          i{
+            color: $green-200;
+          }
+        }
+      }
+    }
+  }
+}
