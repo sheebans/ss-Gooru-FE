@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export function initialize(application) {
   const sessionService = application.lookup('service:session');
-  const applicationRoute = application.container.lookup('route:application');
 
   Ember.$(document).ajaxError(function(event, jqXHR) {
     if(jqXHR.status === 401) {
