@@ -6,12 +6,7 @@ export function initialize(application) {
 
   Ember.$(document).ajaxError(function(event, jqXHR) {
     if(jqXHR.status === 401) {
-      if(sessionService.session.isAnonymous) {
-        sessionService.invalidate();
-      } else {
-        const queryParams = { queryParams: { sessionEnds: 'true' } };
-        applicationRoute.transitionTo('sign-in', queryParams);
-      }
+      sessionService.invalidate();
     }
   });
 }
