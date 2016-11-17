@@ -1,11 +1,12 @@
 import Ember from 'ember';
-import { addProtocolIfNecessary, checkIfIsGoogleDoc } from 'gooru-web/utils/utils';
+import { addProtocolIfNecessary, checkIfIsGoogleDoc, checkDomains } from 'gooru-web/utils/utils';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default Ember.Component.extend(ConfigurationMixin, {
+
   // -------------------------------------------------------------------------
   // Dependencies
-
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -29,8 +30,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
   pdfURL:Ember.computed('resource.assetUrl',function(){
 
     const configuration = this.get('configurationService.configuration');
-    const assetUrl = addProtocolIfNecessary(this.get("resource.assetUrl"));
-
+    const cdnUrl = this.get('session.cdnUrls.content');
+    const resourceUrl = this.get("resource.assetUrl");
+    const assetUrl = addProtocolIfNecessary(resourceUrl, checkDomains (resourceUrl, cdnUrl));
 
     if(configuration.get("player.resources.pdf.googleDriveEnable") && !checkIfIsGoogleDoc(assetUrl))
     {
