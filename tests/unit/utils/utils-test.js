@@ -19,6 +19,7 @@ import {
   replaceMathExpression,
   addProtocolIfNecessary,
   checkIfIsGoogleDoc,
+  checkDomains,
   prepareFileDataToDownload,
   createFileNameToDownload
   } from 'gooru-web/utils/utils';
@@ -220,12 +221,23 @@ test('Replace Math Expression', function (assert) {
 
 test('add protocol if is necessary', function (assert) {
   var url = "//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf";
-  assert.equal(addProtocolIfNecessary(url), "http://content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf", 'Wrong url.');
+  assert.equal(addProtocolIfNecessary(url, false), "http://content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf", 'Wrong url.');
+});
+
+test('add protocol if is necessary with secure protocol', function (assert) {
+  var url = "//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf";
+  assert.equal(addProtocolIfNecessary(url, true), "https://content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf", 'Wrong url.');
 });
 
 test('check if it is a GoogleDoc', function (assert) {
   var url = "https://docs.google.com/document/any";
   assert.equal(checkIfIsGoogleDoc(url), true, 'Wrong url.');
+});
+
+test('check if domains match', function (assert) {
+  var resourceUrl = "//cdn.gooru.org/document/any";
+  var cdnUrl = "//cdn.gooru.org/";
+  assert.equal(checkDomains(resourceUrl, cdnUrl), true, 'Domains match');
 });
 
 test('prepare csv file data to download filter by assessment in the course level', function (assert) {

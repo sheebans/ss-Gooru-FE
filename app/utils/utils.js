@@ -389,12 +389,17 @@ export function removeHtmlTags(text){
 /**
  * Returns resource name with a protocol if it is necessary
  * @param {String} url
+ * @param {boolean} secureProtocol
  */
-export function addProtocolIfNecessary(url) {
+export function addProtocolIfNecessary(url, secureProtocol) {
   const pattern = /^((http|https|ftp):\/\/)/;
+  var protocol = "http:";
 
-  if(!pattern.test(url)) { //if no protocol add http as default
-    return "http:" + url;
+  if(!pattern.test(url)) { //if no protocol add http/https
+    if (secureProtocol) {
+      protocol = "https:";
+    }
+    return protocol + url;
   }
 
   return url;
@@ -407,6 +412,16 @@ export function addProtocolIfNecessary(url) {
  */
 export function checkIfIsGoogleDoc(assetUrl) {
   return (assetUrl.indexOf("//drive.google") !== -1 || assetUrl.indexOf("//docs.google") !== -1);
+}
+
+/**
+ * Check if the session cdn url is in the resource url
+ * @param {String} resource url
+ * @param {String} cdn url
+ * @returns {boolean}
+ */
+export function checkDomains(resourceUrl, cdnUrl) {
+  return (resourceUrl.indexOf(cdnUrl) !== -1);
 }
 
 /**
