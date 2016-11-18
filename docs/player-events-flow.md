@@ -11,6 +11,7 @@ This is when the user access a *new attempt* from search, profile, course map or
 * A collection start event should be sent when playing the new attempt
 * A resource/question start event is sent, since the player shows the first resource/question in the list by default
 * No events are sent if the user is not logged in
+* The start time for the collection and the first resource should be the same
 
 ## When playing a non finished collection attempt
 This is when the user access a *previous started attempt* from search, profile, course map or data analytics 
@@ -29,12 +30,14 @@ This is when the user clicks at See usage report
 * No stop resource events should be sent for visited resources
 * A collection stop event should be sent, event if the user is not logged in
 * Resource and question events are not sent if the user is not logged in
+* The stop time for the collection and resources are the same
 
 ## When finishing a collection attempt by submitting the last resource
 This is when the last resource is a question and the user click submit at it
 
 * Same as finishing a collection but also a stop event should be sent for the current resource
 * Resource event is not sent if the user is not logged in
+* The collection and resource stop time are the same
 
 ## When navigating to a non visited resource from left navigation panel
 This is when the user click at any other non visited resource at the navigation panel
@@ -42,6 +45,7 @@ This is when the user click at any other non visited resource at the navigation 
 * A stop resource event should be sent for the current resource
 * A start resource event should be sent for the resource the user is moving to
 * Resource events are not sent if the user is not logged in
+* The start time of the resource is the stop time of the previous resource
 
 ## When navigating back to a resource already visited from left navigation panel
 This is when the user click at any visited resource at the navigation panel
@@ -50,6 +54,7 @@ This is when the user click at any visited resource at the navigation panel
 * A start resource event should be sent for the resource the user is moving
 * If the resource was already started then the startedAt and resourceEventId are not modified, it keeps the original one
 * Resource events are not sent if the user is not logged in
+* The start time of the resource is the stop time of the previous resource
 
 
 # Assessment flow
@@ -60,6 +65,7 @@ This is when the user access a *new attempt* from search, profile, course map or
 * A assessment start event should be sent when playing the new attempt
 * A question start event is sent, since the player shows the first question in the list by default
 * No events are sent if the user is not logged in
+* The start time for the assessment and first resource are the same
 
 ## When playing a non finished assessment attempt
 This is when the user access a *previous started attempt* from search, profile, course map or data analytics 
@@ -75,12 +81,14 @@ This is when the user clicks at Submit All
 * A question stop event should be sent for any started but not submitted question (pending), if the user entered an answer the answer is saved, the question is not skipped
 * A collection stop event should be sent, event if the user is not logged in
 * The question events are not sent if the user is not logged in
+* The stop time for the assessment and the stop time for all pending questions are the same
 
 ## When submitting the last question in an assessment attempt
 This is when the user clicks submit at the last question attempt
 
 * Same as submitting all flow but also a stop resource event should be sent for the current question
 * The question event is not sent if the user is not logged in
+* The stop time of the resource and assessment are the same
 
 ## When navigating to a non visited question from left navigation panel
 This is when the user click at any other non visited question at the navigation panel
@@ -88,6 +96,7 @@ This is when the user click at any other non visited question at the navigation 
 * A stop question event should be sent for the current question, if the user entered an answer the answer is saved, the question is not skipped
 * A start question event should be sent for the question the user is moving to
 * Question events are not sent if the user is not logged in
+* The start time of the question is the stop time of the previous question
 
 ## When navigating back to a question visited from left navigation panel
 This is when the user click at any other visited question at the navigation panel
@@ -96,6 +105,7 @@ This is when the user click at any other visited question at the navigation pane
 * A start question event should be sent for the question the user is moving
 * If the question was already started then the startedAt and resourceEventId are not modified, it keeps the original one
 * Question events are not sent if the user is not logged in
+* The start time of the question is the stop time of the previous question
 
 ## When submitting a question
 This is when the user completes a question and submits it.
