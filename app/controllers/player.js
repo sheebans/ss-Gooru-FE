@@ -422,7 +422,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
       'content.modals.gru-submit-confirmation',
       {
         onConfirm: function () {
-          controller.finishCollection(submittedAt);
+          return controller.finishCollection(submittedAt);
         }
       });
   },
