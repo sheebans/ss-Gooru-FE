@@ -67,6 +67,19 @@ It contains an authorized Gooru token, the application will start a user session
     }  
     ```
     
+## `sourceId` (optional)
+It contains an sourceId identifying the customer, most of the time is used by LTI communication
+
+*Default:* empty
+
+*Example:* 
+   ```
+    aw = new ApplicationWidget('#gooru-application-container', {
+        "appRootPath": "../",
+        "sourceId": any-id
+    }  
+    ```
+    
 ## `themeId` (optional)
 Gooru provides several UI themes, this property indicates which css rules should be loaded
 

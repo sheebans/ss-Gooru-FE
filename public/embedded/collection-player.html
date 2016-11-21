@@ -49,6 +49,11 @@
                    placeholder="User Token">
           </div>
           <div class="form-group">
+            <label for="collection-id-input">Source id (Optional)</label>
+            <input type="text" class="form-control" id="user-source-input"
+                   placeholder="Source Id">
+          </div>
+          <div class="form-group">
             <label>Theme</label>
           </div>
           <div class="form-group">
@@ -109,6 +114,7 @@
 
       var collectionId = jQuery("#collection-id-input").val();
       var userToken = jQuery("#user-token-input").val();
+      var sourceId = jQuery("#user-source-input").val();
       var type = jQuery("#the-form input[name = 'collection-type']:checked").val();
       var themeId = jQuery("#the-form input[name = 'theme-id']:checked").val();
       var reactions = jQuery("#the-form input[name = 'show-reactions']:checked").val() === "true";
@@ -122,6 +128,7 @@
         "themeId": themeId === "london" ? themeId : undefined,
         "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}],
         "token": userToken.length > 0 ? userToken : undefined,
+        "sourceId": sourceId.length > 0 ? sourceId : undefined,
         "features": {
           "collections": {
             "player": {
