@@ -20,6 +20,11 @@ export default Ember.Mixin.create({
   /**
    * @property {*} application feature properties
    */
-  features: Ember.computed.alias("configuration.features")
+  features: Ember.computed.alias("configuration.features"),
+
+  /**
+   * @property {string}
+   */
+  appRootPath: Ember.computed.alias("configuration.appRootPath")
 
 });
