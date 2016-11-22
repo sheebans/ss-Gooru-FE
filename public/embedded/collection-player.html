@@ -124,6 +124,15 @@
       }
 
       aw = new ApplicationWidget('#gooru-application-container', {
+        "endpoint" : {
+          "url": "http://nucleus-qa.gooru.org",
+          "secureUrl": "https://nucleus-qa.gooru.org"
+        },
+        "realTime": {
+          "webServiceUrl": "https://rt.nucleus-qa.gooru.org",
+          "webSocketUrl": "https://rt.nucleus-qa.gooru.org",
+        },
+
         "appRootPath": "../",
         "themeId": themeId === "london" ? themeId : undefined,
         "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}],

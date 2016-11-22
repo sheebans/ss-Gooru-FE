@@ -66,7 +66,7 @@ It contains an authorized Gooru token, the application will start a user session
         "token": axsdamdmsd2122asasa
     }  
     ```
-    
+
 ## `sourceId` (optional)
 It contains an sourceId identifying the customer, most of the time is used by LTI communication
 
@@ -124,9 +124,13 @@ See [application properties document](../application-properties.md) for more inf
     aw = new ApplicationWidget('#gooru-application-container', {
         "appRootPath": "../",
         "endpoint" : {
-            "url": "http://nucleus-qa.gooru.org",
-            "secureUrl": "https://nucleus-qa.gooru.org"
-          }
+          "url": "http://nucleus-qa.gooru.org",
+          "secureUrl": "https://nucleus-qa.gooru.org"
+        },
+        "realTime": {
+          "webServiceUrl": "https://rt.nucleus-qa.gooru.org",
+          "webSocketUrl": "https://rt.nucleus-qa.gooru.org",
+        },
     }  
     ```
 
