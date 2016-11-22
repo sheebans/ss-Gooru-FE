@@ -2,13 +2,14 @@ import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
 import LessonItem from 'gooru-web/models/content/lessonItem';
 import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Serializer to support the Lesson CRUD operations
  *
  * @typedef {Object} LessonSerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin, {
 
   session: Ember.inject.service('session'),
 
@@ -44,6 +45,8 @@ export default Ember.Object.extend({
   normalizeLesson: function (lessonData) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const configBaseUrl = appRootPath ? appRootPath : '';
     return Lesson.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
         var lessonItems = [];
@@ -61,7 +64,7 @@ export default Ember.Object.extend({
               title: lessonItemData.title
             });
 
-            const defaultImage = (lessonItem.get("isCollection")) ? DEFAULT_IMAGES.COLLECTION : DEFAULT_IMAGES.ASSESSMENT;
+            const defaultImage = (lessonItem.get("isCollection")) ? configBaseUrl + DEFAULT_IMAGES.COLLECTION : configBaseUrl + DEFAULT_IMAGES.ASSESSMENT;
             const thumbnailUrl = lessonItemData.thumbnail ? basePath + lessonItemData.thumbnail : defaultImage;
             lessonItem.set("thumbnailUrl", thumbnailUrl);
 

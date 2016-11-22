@@ -5,13 +5,14 @@ import UnitSerializer from 'gooru-web/serializers/content/unit';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from "gooru-web/config/config";
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Serializer to support the Course CRUD operations for API 3.0
  *
  * @typedef {Object} CourseSerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin, {
 
   session: Ember.inject.service('session'),
 
@@ -109,7 +110,9 @@ export default Ember.Object.extend({
   normalizeCourse: function(payload, owners) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
-    const thumbnailUrl = payload.thumbnail ? basePath + payload.thumbnail : DEFAULT_IMAGES.COURSE;
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const configBaseUrl = appRootPath ? appRootPath : '';
+    const thumbnailUrl = payload.thumbnail ? basePath + payload.thumbnail : configBaseUrl + DEFAULT_IMAGES.COURSE;
     const owner = owners ? owners.findBy("id", payload.owner_id) : null;
     const metadata = payload.metadata || {};
 

@@ -73,7 +73,7 @@ test('it renders the course information in the side panel', function (assert) {
       id: 'remix-1',
       firstName: 'Russell',
       fullName: 'Russell Owner1',
-      avatarUrl: '/assets/gooru/profile.png'
+      avatarUrl: 'assets/gooru/profile.png'
     }
   ];
 
@@ -82,7 +82,7 @@ test('it renders the course information in the side panel', function (assert) {
       id: 'owner-1',
       firstName: 'Shawn',
       fullName: 'Shawn Collaborator1',
-      avatarUrl: '/assets/gooru/profile.png'
+      avatarUrl: 'assets/gooru/profile.png'
     }
   ];
 

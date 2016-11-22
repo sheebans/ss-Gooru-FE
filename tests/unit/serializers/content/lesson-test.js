@@ -85,7 +85,7 @@ test('normalizeLesson', function (assert) {
   assert.equal(child.get("questionCount"), 10, 'Wrong question count');
   assert.equal(child.get("openEndedQuestionCount"), 12, 'Wrong question count');
   assert.equal(child.get("resourceCount"), 0, 'Wrong resource count');
-  assert.equal(child.get("thumbnailUrl"), '/assets/gooru/assessment-default.png', 'Wrong thumbnailUrl');
+  assert.equal(child.get("thumbnailUrl"), 'assets/gooru/assessment-default.png', 'Wrong thumbnailUrl');
 
 });
 test('serializeReorderLesson', function(assert) {

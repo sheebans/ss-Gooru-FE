@@ -87,7 +87,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         createdOn: undefined,
         organizationName: undefined,
         partyUid: undefined,
-        avatarUrl: '/assets/gooru/profile.png',
+        avatarUrl: 'assets/gooru/profile.png',
         userRoleSetString: undefined,
         usernameDisplay: undefined,
         viewFlag: undefined

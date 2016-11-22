@@ -4,13 +4,14 @@ import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
 import { DEFAULT_IMAGES, ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Serializer to support the Assessment CRUD operations for API 3.0
  *
  * @typedef {Object} AssessmentSerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin, {
 
   session: Ember.inject.service('session'),
 
@@ -101,8 +102,10 @@ export default Ember.Object.extend({
   normalizeReadAssessment: function(assessmentData){
     var serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const configBaseUrl = appRootPath ? appRootPath : '';
     const thumbnailUrl = assessmentData.thumbnail ?
-    basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
+    basePath + assessmentData.thumbnail : configBaseUrl + DEFAULT_IMAGES.ASSESSMENT;
     const metadata = assessmentData.metadata || {};
     const settings = assessmentData.setting || {};
 

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 // constants
 import {DEFAULT_IMAGES} from 'gooru-web/config/config';
@@ -13,7 +14,7 @@ import {DEFAULT_IMAGES} from 'gooru-web/config/config';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend(QuestionMixin, {
+export default Ember.Component.extend(QuestionMixin, ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -33,6 +34,8 @@ export default Ember.Component.extend(QuestionMixin, {
     let question = component.get("question");
     let questionUtil = component.getQuestionUtil(question);
     let userAnswers = component.get("userAnswer");
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const configBaseUrl = appRootPath ? appRootPath : '';
 
     if (component.get("showCorrect")){
       userAnswers = questionUtil.getCorrectAnswer();
@@ -51,7 +54,7 @@ export default Ember.Component.extend(QuestionMixin, {
       let elementClass = (anonymous) ? 'anonymous' :
         ((userAnswerCorrect) ? 'correct' : 'incorrect');
       return {
-        image: answer.get('text') ? answer.get('text') : DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
+        image: answer.get('text') ? answer.get('text') : configBaseUrl + DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
         selected: selected,
         "class": elementClass
       };

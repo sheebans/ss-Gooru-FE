@@ -5,13 +5,14 @@ import ResourceSerializer from 'gooru-web/serializers/content/resource';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
 import { DEFAULT_IMAGES } from "gooru-web/config/config";
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Serializer to support the Collection CRUD operations for API 3.0
  *
  * @typedef {Object} CollectionSerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin, {
 
   session: Ember.inject.service('session'),
 
@@ -91,8 +92,10 @@ export default Ember.Object.extend({
   normalizeReadCollection: function(payload) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const configBaseUrl = appRootPath ? appRootPath : '';
     const thumbnailUrl = payload.thumbnail ?
-    basePath + payload.thumbnail : DEFAULT_IMAGES.COLLECTION;
+    basePath + payload.thumbnail : configBaseUrl + DEFAULT_IMAGES.COLLECTION;
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
       title: payload.title,

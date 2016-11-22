@@ -332,7 +332,8 @@ export function cleanFilename(url, cdnUrls) {
       url = url.replace(cdnUrls.user, '');
     }
   }
-  return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
+
+  return (url && defaultImages.indexOf(url) < 0 && !isDefaultImage(defaultImages, url)) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
 }
 
 /**
@@ -648,4 +649,22 @@ export function createFileNameToDownload(fileName){
   }
 
   return newName;
+}
+
+/**
+ * check if is a config default image
+ * @param {string []} config default images
+ * @param {string} url of file
+ */
+
+function isDefaultImage(defaultImages, url) {
+  var isDefaultImage = false;
+
+  defaultImages.forEach(function(image) {
+    if (url.indexOf(image) > 0){
+      isDefaultImage = true;
+    }
+  });
+
+  return isDefaultImage;
 }
