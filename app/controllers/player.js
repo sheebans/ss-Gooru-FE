@@ -271,6 +271,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    */
   showReportLink: Ember.computed.alias("features.collections.player.showReportLink"),
 
+  /**
+   * Indicates if the back navigation is visible
+   * @property {boolean} showBackLink
+   */
+  showBackLink: Ember.computed.alias("features.collections.player.showBackLink"),
+
   // -------------------------------------------------------------------------
   // Observers
 

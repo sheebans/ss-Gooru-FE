@@ -107,7 +107,8 @@ See [features flag document](../feature-flags.md) for more information
         "collections": {
             "player": {
               "showReactionBar": false,
-              "showReportLink": false
+              "showReportLink": false,
+              "showBackLink": false
             }
         }
     }  

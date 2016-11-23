@@ -58,7 +58,7 @@ test('Player Navigator', function(assert) {
 
   this.render(hbs`{{player.gru-navigator collection=collection
       resourceResults=resourceResults lessonTitle='E-Lesson1'
-      selectedResourceId='1' onItemSelected='itemSelected'}}`);
+      selectedResourceId='1' onItemSelected='itemSelected' showBackLink=true}}`);
 
   var $component = this.$(); //component dom element
   const $navigator = $component.find(".gru-navigator");
@@ -385,7 +385,7 @@ test('Close player', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction' lessonTitle='E-Lesson1'}}`);
+  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction' lessonTitle='E-Lesson1' showBackLink=true}}`);
   var $component = this.$(); //component dom element
   var $closeButton = $component.find(".gru-navigator .navigator-header div:first-child");
   $closeButton.click();
@@ -475,4 +475,19 @@ test('Not finish collection', function(assert) {
   var $finishButton = $component.find("button.finish-collection");
 
   assert.notOk($finishButton.length, "Finish button should be hidden");
+});
+
+test('Not see back navigation', function(assert) {
+  assert.expect(1);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showBackLink=false}}`);
+  var $component = this.$(); //component dom element
+  var $seeBackLink = $component.find(".gru-navigator .navigator-header .lesson-title");
+  assert.notOk($seeBackLink.length, "back link should be hidden");
 });

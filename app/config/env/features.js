@@ -10,7 +10,8 @@ export default {
     collections: {
       player: {
         showReactionBar: true,
-        showReportLink: true
+        showReportLink: true,
+        showBackLink: true
       }
     }
   }
