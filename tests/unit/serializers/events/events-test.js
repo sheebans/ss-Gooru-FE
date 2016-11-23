@@ -24,7 +24,8 @@ test('serializeResource, for resource result', function(assert) {
     eventType: 'stop',
     resourceEventId: 'resource-event-id',
     sessionId: 'session-id',
-    isStudent: false
+    isStudent: false,
+    sourceId: 10
   });
 
   const resourceResult = ResourceResult.create({
@@ -55,6 +56,7 @@ test('serializeResource, for resource result', function(assert) {
   assert.deepEqual(response.metrics, {}, 'Wrong metrics');
   assert.equal(response.payLoadObject.isStudent, false, 'Wrong is student');
   assert.equal(response.payLoadObject.taxonomyIds, null, 'Wrong taxonomy ids');
+  assert.equal(response.payLoadObject.sourceId, 10, 'Wrong source id');
 });
 
 test('serializeResource, for question result', function(assert) {
@@ -74,7 +76,8 @@ test('serializeResource, for question result', function(assert) {
     eventType: 'stop',
     resourceEventId: 'resource-event-id',
     sessionId: 'session-id',
-    isStudent: false
+    isStudent: false,
+    sourceId: 10
   });
 
   const resourceResult = QuestionResult.create({
@@ -124,6 +127,7 @@ test('serializeResource, for question result', function(assert) {
 
   assert.equal(response.payLoadObject.isStudent, false, 'Wrong is student');
   assert.equal(response.payLoadObject.taxonomyIds, null, 'Wrong taxonomy ids');
+  assert.equal(response.payLoadObject.sourceId, 10, 'Wrong source id');
 });
 
 
@@ -201,7 +205,8 @@ test('serializeCollection', function(assert) {
     parentEventId: "parent-event-id",
     eventType: 'stop',
     sessionId: 'session-id',
-    isStudent: false
+    isStudent: false,
+    sourceId: 10
   });
 
   let assessmentResult = AssessmentResult.create({
@@ -223,6 +228,7 @@ test('serializeCollection', function(assert) {
   assert.deepEqual(serialized.metrics, {}, 'Wrong metrics');
   assert.equal(serialized.payLoadObject.gradingType, 'System', 'Wrong grading type');
   assert.equal(serialized.payLoadObject.isStudent, false, 'Wrong is student');
+  assert.equal(serialized.payLoadObject.sourceId, 10, 'Wrong source id');
 
 });
 
@@ -242,7 +248,8 @@ test('serializeReaction', function(assert) {
     unitId: 'unit-id',
     lessonId: 'lesson-id',
     collectionType:'collection',
-    isStudent: true
+    isStudent: true,
+    sourceId: 10
   });
   const resourceResult = QuestionResult.create({
     resource: Ember.Object.create({ id: 'resource-id' }),
@@ -271,7 +278,7 @@ test('serializeReaction', function(assert) {
     },
     version: { logApi: '3.0' },
     metrics: {},
-    payLoadObject: { isStudent: true }
+    payLoadObject: { isStudent: true, sourceId: 10 }
   }];
 
   assert.deepEqual(expected, response, 'Wrong response');
