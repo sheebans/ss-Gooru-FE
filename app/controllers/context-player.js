@@ -34,7 +34,7 @@ export default PlayerController.extend({
         controller._super(...arguments);
       }
       else if(questionResult.get('submittedAnswer')) {
-        controller.moveOrFinish(question);
+        controller.moveOrFinish(question, questionResult.get("submittedAt"));
       }
       else {
         controller.finishResourceResult(questionResult).then(function(){
