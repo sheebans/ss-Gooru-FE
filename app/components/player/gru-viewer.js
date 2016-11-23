@@ -1,5 +1,6 @@
 import Ember from "ember";
 import { ASSESSMENT_SHOW_VALUES, RESOURCE_COMPONENT_MAP } from 'gooru-web/config/config';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Player viewer
  *
@@ -10,7 +11,7 @@ import { ASSESSMENT_SHOW_VALUES, RESOURCE_COMPONENT_MAP } from 'gooru-web/config
  * @see controllers/player.js
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend( ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -215,6 +216,8 @@ export default Ember.Component.extend({
    * Set jquery effect to narration
    * */
   setNarrationEffect: function () {
-    $( ".narration" ).effect( "highlight",{ color: "#84B7DD"}, 2000);
+    var themeId = this.get("configuration.themeId") ? this.get("configuration.themeId") : undefined;
+    var color = (themeId && themeId === 'london') ? "#C1E7D9" : "#84B7DD";
+    $( ".narration" ).effect( "highlight",{ color: color}, 2000);
   }
 });
