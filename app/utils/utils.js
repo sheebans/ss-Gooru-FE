@@ -156,7 +156,7 @@ export function getScoreString(value) {
  * @param {Number} reactionValue
  * @returns {String} - html string
  */
-export function getReactionIcon(reactionValue) {
+export function getReactionIcon(reactionValue, basePath = '') {
   var html;
 
   if (reactionValue) {
@@ -166,7 +166,7 @@ export function getReactionIcon(reactionValue) {
     if (reaction && reaction.value && reaction.unicode) {
       html = '<div class="emotion emotion-' + reaction.value + '">';
       html += '  <svg class="svg-sprite">';
-      html += '    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#'+ reaction.unicode + '"></use>';
+      html += '    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="'+ basePath + 'assets/emoji-one/emoji.svg#'+ reaction.unicode + '"></use>';
       html += ' </svg>';
       html += '</div>';
     } else {
