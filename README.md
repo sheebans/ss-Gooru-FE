@@ -94,7 +94,7 @@ It's required to run a grunt task that builds the SVG Sprite Sheets that the app
 * `grunt run:stubby` to run it using the stubby server, this task starts up stubby server and proxy ember to it
 * `grunt run` or `grunt run:nginx` to run it proxying to the nginx server.
 
-Note: If you got some errors with `grunt run` is because the nginx server is down, so run this `grunt run --force`. 
+Note: If you get some errors with `grunt run` is because the nginx server is down, then run this `grunt run --force`. 
 
 ### Coding standards
 This application follows [Ember CLI standards and conventions](http://www.ember-cli.com/user-guide/#naming-conventions) and it also uses JSHint (http://jshint.com/) _"JSHint is a program that flags suspicious usage in programs written in JavaScript."_
