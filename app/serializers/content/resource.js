@@ -102,7 +102,7 @@ export default Ember.Object.extend({
       isVisibleOnProfile: typeof resourceData.visible_on_profile !== 'undefined' ? resourceData.visible_on_profile : true,
       order: resourceData.sequence_id,
       displayGuide:resourceData['display_guide']&& (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1),
-      //isRemote: resourceData['is_remote'] !== false  //if true or undefined should be true
+      isRemote: resourceData['is_remote'] !== false  //if true or undefined should be true
     });
     resource.set('displayGuide', resource.get("displayGuide") || this.checkURLProtocol(resource.url));
 
