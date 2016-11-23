@@ -217,7 +217,7 @@ export default Ember.Component.extend( ConfigurationMixin, {
    * */
   setNarrationEffect: function () {
     var themeId = this.get("configuration.themeId") ? this.get("configuration.themeId") : undefined;
-    var highlightColor = (this.get(`configuration.themes.${themeId}.player.narration.highlightColor`)) ? "#C1E7D9" : "#84B7DD";
+    var highlightColor = this.get(`configuration.themes.${themeId}.player.narration.highlightColor`) || "#84B7DD";
     $( ".narration" ).effect( "highlight",{ color: highlightColor}, 2000);
   }
 });
