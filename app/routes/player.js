@@ -3,6 +3,7 @@ import AssessmentResult from 'gooru-web/models/result/assessment';
 import Context from 'gooru-web/models/result/context';
 import {generateUUID} from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -10,7 +11,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
  * @module
  * @augments ember/Route
  */
-export default Ember.Route.extend(ModalMixin,{
+export default Ember.Route.extend(ModalMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -196,11 +197,14 @@ export default Ember.Route.extend(ModalMixin,{
     const route = this;
     const userId = route.get('session.userId');
     const collectionId = params.collectionId;
+    const sourceId = route.get("configuration.sourceId");
+
 
     return Context.create({
       userId: userId,
       collectionId: collectionId,
-      parentEventId: generateUUID() //TODO is this comming from BE?
+      parentEventId: generateUUID(),
+      sourceId: sourceId
     });
   },
 
