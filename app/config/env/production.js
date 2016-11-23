@@ -26,5 +26,15 @@ export default {
         "googleDriveUrl":"https://docs.google.com/gview?url="
       }
     }
+  },
+
+  "themes": {
+    "london": {
+      "player": {
+        "narration": {
+          "highlightColor": "#C1E7D9"
+        }
+      }
+    }
   }
 };
