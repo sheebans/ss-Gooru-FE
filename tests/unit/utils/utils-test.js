@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {DEFAULT_IMAGES} from "gooru-web/config/config";
 
 import {
   alphabeticalStringSort,
@@ -198,10 +199,11 @@ test('Check Uuid format', function (assert) {
 
 test('Clean filename', function (assert) {
   var id = generateUUID() + '.png';
+  var appRootPath = '/'; //default configuration appRootPath
   var url = `//test-bucket01.s3.amazonaws.com/test/${id}`;
-  var courseFile = '/assets/gooru/course-default.png';
-  var collectionFile = '/assets/gooru/collection-default.png';
-  var assessmentFile = '/assets/gooru/assessment-default.png';
+  var courseFile = `${appRootPath}${DEFAULT_IMAGES.COURSE}`;
+  var collectionFile = `${appRootPath}${DEFAULT_IMAGES.COLLECTION}`;
+  var assessmentFile = `${appRootPath}${DEFAULT_IMAGES.ASSESSMENT}`;
   assert.equal(cleanFilename(url), `test/${id}`, 'Wrong filename with complete url.');
   assert.equal(cleanFilename(`http:${url}`), `test/${id}`, 'Wrong filename with complete url.');
   assert.equal(cleanFilename(id), id, 'Wrong filename without complete url.');

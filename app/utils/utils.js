@@ -333,7 +333,7 @@ export function cleanFilename(url, cdnUrls) {
     }
   }
 
-  return (url && defaultImages.indexOf(url) < 0 && !isDefaultImage(defaultImages, url)) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
+  return (url && !isDefaultImage(defaultImages, url)) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
 }
 
 /**
@@ -661,7 +661,7 @@ function isDefaultImage(defaultImages, url) {
   var isDefaultImage = false;
 
   defaultImages.forEach(function(image) {
-    if (url.indexOf(image) > 0){
+    if (url.indexOf(image) >= 0){
       isDefaultImage = true;
     }
   });
