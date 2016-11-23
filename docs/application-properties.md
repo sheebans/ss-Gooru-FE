@@ -29,7 +29,17 @@ Gooru application can be configured at runtime by setting several properties
         "googleDriveUrl":"https://docs.google.com/gview?url="
       }
     }
-  }
+  },
+  
+  "themes": {
+      "london": {
+        "player": {
+          "narration": {
+            "highlightColor": "#C1E7D9"
+          }
+        }
+      }
+    }
 };
 ```
 
@@ -44,3 +54,6 @@ Useful to configure the real time BE services
 
 ## `teams`
 Useful to configure the Team application integration
+
+## `themes`
+Useful to configure some own properties of the themes
