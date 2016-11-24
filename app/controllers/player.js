@@ -395,10 +395,13 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
+    if (assessmentResult.get("submittedAt")) { //ignore if it was already submitted
+      return Ember.RSVP.resolve(assessmentResult);
+    }
+    assessmentResult.set("submittedAt", submittedAt);
     return controller.submitPendingQuestionResults(submittedAt).then(function(){
       context.set("eventType", "stop");
       context.set("isStudent", controller.get("isStudent"));
-      assessmentResult.set("submittedAt", submittedAt);
       return controller.saveCollectionResult(assessmentResult, context).then(function() {
         if (controller.get("showReportLink")) {
           if (!controller.get("session.isAnonymous")) {
