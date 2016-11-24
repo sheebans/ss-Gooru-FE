@@ -111,8 +111,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
-    const thumbnailUrl = payload.thumbnail ? basePath + payload.thumbnail : configBaseUrl + DEFAULT_IMAGES.COURSE;
+    const thumbnailUrl = payload.thumbnail ? basePath + payload.thumbnail : appRootPath + DEFAULT_IMAGES.COURSE;
     const owner = owners ? owners.findBy("id", payload.owner_id) : null;
     const metadata = payload.metadata || {};
 

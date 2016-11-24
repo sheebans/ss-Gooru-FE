@@ -46,7 +46,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
     return Lesson.create(Ember.getOwner(this).ownerInjection(), {
       children: function () {
         var lessonItems = [];
@@ -64,7 +63,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
               title: lessonItemData.title
             });
 
-            const defaultImage = (lessonItem.get("isCollection")) ? configBaseUrl + DEFAULT_IMAGES.COLLECTION : configBaseUrl + DEFAULT_IMAGES.ASSESSMENT;
+            const defaultImage = (lessonItem.get("isCollection")) ? appRootPath + DEFAULT_IMAGES.COLLECTION : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
             const thumbnailUrl = lessonItemData.thumbnail ? basePath + lessonItemData.thumbnail : defaultImage;
             lessonItem.set("thumbnailUrl", thumbnailUrl);
 

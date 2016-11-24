@@ -65,7 +65,6 @@ export default DS.JSONAPISerializer.extend(ConfigurationMixin, {
    */
   normalizeUser: function(payload) {
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
     return {
       id: payload.gooruUId,
       type: "user/user",
@@ -81,7 +80,7 @@ export default DS.JSONAPISerializer.extend(ConfigurationMixin, {
         lastName: payload.lastName ? payload.lastName : payload.lastname,
         organizationName: payload.organizationName,
         partyUid: payload.partyUid,
-        avatarUrl: payload.profileImageUrl ? payload.profileImageUrl : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE,
+        avatarUrl: payload.profileImageUrl ? payload.profileImageUrl : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
         userRoleSetString: payload.userRoleSetString,
         username: payload.username,
         usernameDisplay: payload.usernameDisplay,

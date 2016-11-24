@@ -103,9 +103,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
     var serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
     const thumbnailUrl = assessmentData.thumbnail ?
-    basePath + assessmentData.thumbnail : configBaseUrl + DEFAULT_IMAGES.ASSESSMENT;
+    basePath + assessmentData.thumbnail : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
     const metadata = assessmentData.metadata || {};
     const settings = assessmentData.setting || {};
 

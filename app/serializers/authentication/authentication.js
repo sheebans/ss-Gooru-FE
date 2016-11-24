@@ -21,7 +21,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
   normalizeResponse: function(payload, isAnonymous, accessToken) {
     const basePath = payload.cdn_urls.user_cdn_url;
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
 
     return {
       token: (isAnonymous ? Env['API-3.0']['anonymous-token-api-2.0'] : Env['API-3.0']['user-token-api-2.0']),
@@ -30,7 +29,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         username: payload.username,
         gooruUId: payload['user_id'],
         avatarUrl: payload['thumbnail_path'] ?
-          basePath + payload['thumbnail_path'] : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE,
+          basePath + payload['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
         isNew: !payload.user_category,
         providedAt: payload.provided_at
       },

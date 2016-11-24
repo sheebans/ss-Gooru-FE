@@ -54,10 +54,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const basePath = serializer.get('session.cdnUrls.content');
     const userBasePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
-    const thumbnailUrl = collectionData.thumbnail ? basePath + collectionData.thumbnail : configBaseUrl + DEFAULT_IMAGES.COLLECTION;
-    const userThumbnailUrl = collectionData.userProfileImage ? userBasePath + collectionData.userProfileImage : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE;
-    const creatorThumbnailUrl = collectionData.creatorProfileImage ? userBasePath + collectionData.creatorProfileImage : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE;
+    const thumbnailUrl = collectionData.thumbnail ? basePath + collectionData.thumbnail : appRootPath + DEFAULT_IMAGES.COLLECTION;
+    const userThumbnailUrl = collectionData.userProfileImage ? userBasePath + collectionData.userProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = collectionData.creatorProfileImage ? userBasePath + collectionData.creatorProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
     const taxonomyInfo = collectionData.taxonomySet &&
                           collectionData.taxonomySet.curriculum &&
                             collectionData.taxonomySet.curriculum.curriculumInfo || [];
@@ -103,10 +102,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const basePath = serializer.get('session.cdnUrls.content');
     const userBasePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
-    const thumbnailUrl = assessmentData.thumbnail ? basePath + assessmentData.thumbnail : configBaseUrl + DEFAULT_IMAGES.ASSESSMENT;
-    const ownerThumbnailUrl = assessmentData.userProfileImage ? userBasePath + assessmentData.userProfileImage : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE;
-    const creatorThumbnailUrl = assessmentData.creatorProfileImage ? userBasePath + assessmentData.creatorProfileImage : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE;
+    const thumbnailUrl = assessmentData.thumbnail ? basePath + assessmentData.thumbnail : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+    const ownerThumbnailUrl = assessmentData.userProfileImage ? userBasePath + assessmentData.userProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = assessmentData.creatorProfileImage ? userBasePath + assessmentData.creatorProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
     const taxonomyInfo = assessmentData.taxonomySet &&
                           assessmentData.taxonomySet.curriculum &&
                             assessmentData.taxonomySet.curriculum.curriculumInfo || [];
@@ -248,8 +246,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
-    const thumbnailUrl =  ownerData.profileImage ? basePath +  ownerData.profileImage : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE;
+    const thumbnailUrl =  ownerData.profileImage ? basePath +  ownerData.profileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: ownerData.gooruUId || ownerData.id,
@@ -284,8 +281,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
-    const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : configBaseUrl + DEFAULT_IMAGES.COURSE;
+    const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : appRootPath + DEFAULT_IMAGES.COURSE;
     const taxonomyInfo = result.taxonomy &&
                           result.taxonomy.curriculum &&
                             result.taxonomy.curriculum.curriculumInfo || [];

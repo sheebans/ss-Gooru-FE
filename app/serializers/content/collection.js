@@ -93,9 +93,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
     const thumbnailUrl = payload.thumbnail ?
-    basePath + payload.thumbnail : configBaseUrl + DEFAULT_IMAGES.COLLECTION;
+    basePath + payload.thumbnail : appRootPath + DEFAULT_IMAGES.COLLECTION;
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
       title: payload.title,

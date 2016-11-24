@@ -103,9 +103,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
     const thumbnailUrl = payload['thumbnail_path'] ?
-      basePath + payload['thumbnail_path'] : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE;
+      basePath + payload['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
@@ -258,9 +257,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(collectionData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
     const thumbnailUrl = collectionData.thumbnail ?
-      basePath + collectionData.thumbnail : configBaseUrl + DEFAULT_IMAGES.COLLECTION;
+      basePath + collectionData.thumbnail : appRootPath + DEFAULT_IMAGES.COLLECTION;
 
     return CollectionModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: collectionData.id,
@@ -293,9 +291,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
     const thumbnailUrl = assessmentData.thumbnail ?
-      basePath + assessmentData.thumbnail : configBaseUrl + DEFAULT_IMAGES.ASSESSMENT;
+      basePath + assessmentData.thumbnail : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
 
     return AssessmentModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: assessmentData.id,
@@ -347,9 +344,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
     const thumbnailUrl = networkData['thumbnail_path'] ?
-    basePath + networkData['thumbnail_path'] : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE;
+    basePath + networkData['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       "id": networkData.id,
@@ -368,7 +364,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
     let profiles = Ember.A([]);
     if (payload.users) {
       profiles = payload.users.map(function(userPayload) {
@@ -377,7 +372,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
           firstName: userPayload.firstname,
           lastName: userPayload.lastname,
           username: userPayload.username,
-          avatarUrl: userPayload['thumbnail_path'] ? basePath + userPayload['thumbnail_path'] : configBaseUrl + DEFAULT_IMAGES.USER_PROFILE
+          avatarUrl: userPayload['thumbnail_path'] ? basePath + userPayload['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE
         });
       });
     }

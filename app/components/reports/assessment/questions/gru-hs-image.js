@@ -35,7 +35,6 @@ export default Ember.Component.extend(QuestionMixin, ConfigurationMixin, {
     let questionUtil = component.getQuestionUtil(question);
     let userAnswers = component.get("userAnswer");
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const configBaseUrl = appRootPath ? appRootPath : '';
 
     if (component.get("showCorrect")){
       userAnswers = questionUtil.getCorrectAnswer();
@@ -54,7 +53,7 @@ export default Ember.Component.extend(QuestionMixin, ConfigurationMixin, {
       let elementClass = (anonymous) ? 'anonymous' :
         ((userAnswerCorrect) ? 'correct' : 'incorrect');
       return {
-        image: answer.get('text') ? answer.get('text') : configBaseUrl + DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
+        image: answer.get('text') ? answer.get('text') : appRootPath + DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
         selected: selected,
         "class": elementClass
       };
