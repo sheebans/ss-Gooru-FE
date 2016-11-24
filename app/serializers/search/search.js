@@ -8,13 +8,14 @@ import CourseModel from 'gooru-web/models/content/course';
 import ProfileModel from 'gooru-web/models/profile/profile';
 import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from 'gooru-web/config/config';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Serializer to support Search functionality
  *
  * @typedef {Object} SearchSerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin, {
 
   session: Ember.inject.service('session'),
 
@@ -52,9 +53,10 @@ export default Ember.Object.extend({
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const userBasePath = serializer.get('session.cdnUrls.user');
-    const thumbnailUrl = collectionData.thumbnail ? basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
-    const userThumbnailUrl = collectionData.userProfileImage ? userBasePath + collectionData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
-    const creatorThumbnailUrl = collectionData.creatorProfileImage ? userBasePath + collectionData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const thumbnailUrl = collectionData.thumbnail ? basePath + collectionData.thumbnail : appRootPath + DEFAULT_IMAGES.COLLECTION;
+    const userThumbnailUrl = collectionData.userProfileImage ? userBasePath + collectionData.userProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = collectionData.creatorProfileImage ? userBasePath + collectionData.creatorProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
     const taxonomyInfo = collectionData.taxonomySet &&
                           collectionData.taxonomySet.curriculum &&
                             collectionData.taxonomySet.curriculum.curriculumInfo || [];
@@ -99,9 +101,10 @@ export default Ember.Object.extend({
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const userBasePath = serializer.get('session.cdnUrls.user');
-    const thumbnailUrl = assessmentData.thumbnail ? basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
-    const ownerThumbnailUrl = assessmentData.userProfileImage ? userBasePath + assessmentData.userProfileImage : DEFAULT_IMAGES.USER_PROFILE;
-    const creatorThumbnailUrl = assessmentData.creatorProfileImage ? userBasePath + assessmentData.creatorProfileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const thumbnailUrl = assessmentData.thumbnail ? basePath + assessmentData.thumbnail : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+    const ownerThumbnailUrl = assessmentData.userProfileImage ? userBasePath + assessmentData.userProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = assessmentData.creatorProfileImage ? userBasePath + assessmentData.creatorProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
     const taxonomyInfo = assessmentData.taxonomySet &&
                           assessmentData.taxonomySet.curriculum &&
                             assessmentData.taxonomySet.curriculum.curriculumInfo || [];
@@ -242,7 +245,8 @@ export default Ember.Object.extend({
   normalizeOwner: function (ownerData) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
-    const thumbnailUrl =  ownerData.profileImage ? basePath +  ownerData.profileImage : DEFAULT_IMAGES.USER_PROFILE;
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const thumbnailUrl =  ownerData.profileImage ? basePath +  ownerData.profileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: ownerData.gooruUId || ownerData.id,
@@ -276,7 +280,8 @@ export default Ember.Object.extend({
   normalizeCourse: function(result){
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
-    const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : DEFAULT_IMAGES.COURSE;
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : appRootPath + DEFAULT_IMAGES.COURSE;
     const taxonomyInfo = result.taxonomy &&
                           result.taxonomy.curriculum &&
                             result.taxonomy.curriculum.curriculumInfo || [];

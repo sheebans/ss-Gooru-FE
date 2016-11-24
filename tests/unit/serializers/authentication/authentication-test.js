@@ -1,11 +1,20 @@
+import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import Env from 'gooru-web/config/environment';
 import { DEFAULT_IMAGES } from 'gooru-web/config/config';
+
+var configurationService = Ember.Object.create ({
+  configuration: {
+    appRootPath: '/'
+  }
+});
 
 moduleFor('serializer:authentication/authentication', 'Unit | Serializer | authentication/authentication');
 
 test('normalizeResponse for anonymous account', function(assert) {
   const serializer = this.subject();
+  const appRootPath = '/'; //default appRootPath
+  serializer.set('configurationService', configurationService);
   const payload = {
     'access_token': 'token-api-3.0',
     username: 'username',
@@ -22,7 +31,7 @@ test('normalizeResponse for anonymous account', function(assert) {
     user: {
       username: 'username',
       gooruUId: 'user-id',
-      avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
+      avatarUrl: `${appRootPath}${DEFAULT_IMAGES.USER_PROFILE}`,
       isNew: true,
       providedAt: 0
     },
@@ -71,6 +80,8 @@ test('normalizeResponse for normal account', function(assert) {
 
 test('normalizeResponse for google account', function(assert) {
   const serializer = this.subject();
+  const appRootPath = '/'; //default appRootPath
+  serializer.set('configurationService', configurationService);
   const payload = {
     username: 'username',
     'user_id': 'user-id',
@@ -86,7 +97,7 @@ test('normalizeResponse for google account', function(assert) {
     user: {
       username: 'username',
       gooruUId: 'user-id',
-      avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
+      avatarUrl: `${appRootPath}${DEFAULT_IMAGES.USER_PROFILE}`,
       isNew: true,
       providedAt: 2
     },
@@ -102,6 +113,8 @@ test('normalizeResponse for google account', function(assert) {
 
 test('normalizeResponse for google account containing user category', function(assert) {
   const serializer = this.subject();
+  const appRootPath = '/'; //default appRootPath
+  serializer.set('configurationService', configurationService);
   const payload = {
     username: 'username',
     'user_id': 'user-id',
@@ -118,7 +131,7 @@ test('normalizeResponse for google account containing user category', function(a
     user: {
       username: 'username',
       gooruUId: 'user-id',
-      avatarUrl: DEFAULT_IMAGES.USER_PROFILE,
+      avatarUrl: `${appRootPath}${DEFAULT_IMAGES.USER_PROFILE}`,
       isNew: false,
       providedAt: 3
     },
