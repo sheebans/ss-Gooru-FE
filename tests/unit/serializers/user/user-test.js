@@ -1,4 +1,12 @@
+import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
+
+var configurationService = Ember.Object.create ({
+  configuration: {
+    appRootPath: '/'
+  }
+});
 
 moduleFor('serializer:user/user', 'Unit | Serializer | user/user');
 
@@ -57,6 +65,9 @@ test('normalizeSingleResponse', function(assert) {
 test('normalizeQueryRecordResponse', function(assert) {
   const serializer = this.subject();
 
+  const appRootPath = '/'; //default appRootPath
+  serializer.set('configurationService', configurationService);
+
   const
     payload = {
       'searchResult': [{
@@ -87,7 +98,7 @@ test('normalizeQueryRecordResponse', function(assert) {
         createdOn: undefined,
         organizationName: undefined,
         partyUid: undefined,
-        avatarUrl: 'assets/gooru/profile.png',
+        avatarUrl: `${appRootPath}${DEFAULT_IMAGES.USER_PROFILE}`,
         userRoleSetString: undefined,
         usernameDisplay: undefined,
         viewFlag: undefined
