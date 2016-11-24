@@ -8,7 +8,7 @@
     width: 100%;
     background-color: $dark-500;
     padding: 12px;
-    @include flexbox();
+    display: table;
     @include justify-content(space-between);
     @include align-items(center);
     line-height: 28px;
