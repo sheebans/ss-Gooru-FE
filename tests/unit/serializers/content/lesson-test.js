@@ -1,5 +1,13 @@
+import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import Lesson from 'gooru-web/models/content/lesson';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
+
+var configurationService = Ember.Object.create ({
+  configuration: {
+    appRootPath: '/'
+  }
+});
 
 moduleFor('serializer:content/lesson', 'Unit | Serializer | content/lesson');
 
@@ -24,6 +32,9 @@ test('serializeCreateLesson', function (assert) {
 
 test('normalizeLesson', function (assert) {
   const serializer = this.subject();
+
+  const appRootPath = '/'; //default appRootPath
+  serializer.set('configurationService', configurationService);
 
   const payload = {
     "lesson_id": "lesson-id-789",
@@ -85,7 +96,7 @@ test('normalizeLesson', function (assert) {
   assert.equal(child.get("questionCount"), 10, 'Wrong question count');
   assert.equal(child.get("openEndedQuestionCount"), 12, 'Wrong question count');
   assert.equal(child.get("resourceCount"), 0, 'Wrong resource count');
-  assert.equal(child.get("thumbnailUrl"), '/assets/gooru/assessment-default.png', 'Wrong thumbnailUrl');
+  assert.equal(child.get("thumbnailUrl"), `${appRootPath}${DEFAULT_IMAGES.ASSESSMENT}`, 'Wrong thumbnailUrl');
 
 });
 test('serializeReorderLesson', function(assert) {

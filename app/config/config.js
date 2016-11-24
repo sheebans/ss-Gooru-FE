@@ -29,11 +29,11 @@ export const RESOURCE_TYPES = [
   ];
 
 export const DEFAULT_IMAGES = {
-  USER_PROFILE: '/assets/gooru/profile.png',
-  COURSE: '/assets/gooru/course-default.png',
-  COLLECTION: '/assets/gooru/collection-default.png',
-  ASSESSMENT: '/assets/gooru/assessment-default.png',
-  QUESTION_PLACEHOLDER_IMAGE: '/assets/gooru/question-placeholder-image.png'
+  USER_PROFILE: 'assets/gooru/profile.png',
+  COURSE: 'assets/gooru/course-default.png',
+  COLLECTION: 'assets/gooru/collection-default.png',
+  ASSESSMENT: 'assets/gooru/assessment-default.png',
+  QUESTION_PLACEHOLDER_IMAGE: 'assets/gooru/question-placeholder-image.png'
 };
 
 export const K12_CATEGORY = {value: 'k_12', apiCode: 'K12', label: 'common.categoryOptions.k12'};

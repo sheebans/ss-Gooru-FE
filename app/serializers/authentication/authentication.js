@@ -1,13 +1,14 @@
 import Ember from 'ember';
 import Env from 'gooru-web/config/environment';
 import { DEFAULT_IMAGES } from 'gooru-web/config/config';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Serializer for the Authentication (Login) with API 3.0
  *
  * @typedef {Object} AuthenticationSerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin, {
 
   /**
    *
@@ -19,6 +20,8 @@ export default Ember.Object.extend({
    */
   normalizeResponse: function(payload, isAnonymous, accessToken) {
     const basePath = payload.cdn_urls.user_cdn_url;
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+
     return {
       token: (isAnonymous ? Env['API-3.0']['anonymous-token-api-2.0'] : Env['API-3.0']['user-token-api-2.0']),
       'token-api3': (accessToken ? accessToken : payload['access_token']),
@@ -26,7 +29,7 @@ export default Ember.Object.extend({
         username: payload.username,
         gooruUId: payload['user_id'],
         avatarUrl: payload['thumbnail_path'] ?
-          basePath + payload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE,
+          basePath + payload['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
         isNew: !payload.user_category,
         providedAt: payload.provided_at
       },

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {DEFAULT_IMAGES} from "gooru-web/config/config";
 
 import {
   alphabeticalStringSort,
@@ -198,12 +199,19 @@ test('Check Uuid format', function (assert) {
 
 test('Clean filename', function (assert) {
   var id = generateUUID() + '.png';
+  var appRootPath = '/'; //default configuration appRootPath
   var url = `//test-bucket01.s3.amazonaws.com/test/${id}`;
+  var courseFile = `${appRootPath}${DEFAULT_IMAGES.COURSE}`;
+  var collectionFile = `${appRootPath}${DEFAULT_IMAGES.COLLECTION}`;
+  var assessmentFile = `${appRootPath}${DEFAULT_IMAGES.ASSESSMENT}`;
   assert.equal(cleanFilename(url), `test/${id}`, 'Wrong filename with complete url.');
   assert.equal(cleanFilename(`http:${url}`), `test/${id}`, 'Wrong filename with complete url.');
   assert.equal(cleanFilename(id), id, 'Wrong filename without complete url.');
   assert.equal(cleanFilename(null), '', 'Wrong filename without complete url.');
   assert.equal(cleanFilename(url, {content: '//test-bucket01.s3.amazonaws.com/test/'}), id, 'Wrong filename with cdn urls.');
+  assert.equal(cleanFilename(courseFile), '', 'Wrong course default file');
+  assert.equal(cleanFilename(collectionFile), '', 'Wrong collection default file');
+  assert.equal(cleanFilename(assessmentFile), '', 'Wrong assessment default file');
 });
 
 test('Get File Name from Invalid URL', function (assert) {
