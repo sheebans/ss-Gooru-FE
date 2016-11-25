@@ -343,7 +343,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     var promiseArray = [];
     var answersPromise = null;
     if (editedQuestion.get('isFIB')) {
-      editedQuestion.set('answers', FillInTheBlank.getQuestionAnswers(editedQuestion.get("text")));
+      editedQuestion.set('answers', FillInTheBlank.getQuestionAnswers(editedQuestion));
       component.updateQuestion(editedQuestion, component);
     } else if (editedQuestion.get('isOpenEnded')) {
       component.updateQuestion(editedQuestion, component);

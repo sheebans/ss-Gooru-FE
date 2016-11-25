@@ -301,7 +301,9 @@ test('FIB - toFibText', function (assert) {
 
 test('getQuestionAnswers from text', function(assert) {
   const text = 'Fill [in] the [blank]... and sqrt[2]'; //sqrt should be ignored
-  const fibAnswers = FillInTheBlankUtil.getQuestionAnswers(text);
+  const fibAnswers = FillInTheBlankUtil.getQuestionAnswers(Ember.Object.create({
+    "text": text
+  }));
 
   assert.equal(fibAnswers.length, 2, 'Wrong number of answers');
   const answer1 = fibAnswers[0];

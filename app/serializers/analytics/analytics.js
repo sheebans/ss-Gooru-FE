@@ -43,11 +43,12 @@ export default Ember.Object.extend({
 
   normalizeResourceResult: function(payload) {
     let answerObjects = this.normalizeAnswerObjects(payload.answerObject);
+    let eventTime = payload.eventTime ? toLocal(payload.eventTime) : null;
+    let startedAt = payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime());
+    let submittedAt = payload.endTime ? toLocal(payload.endTime) : startedAt;
+
     if (payload.resourceType && payload.resourceType === 'question') {
       let util = getQuestionUtil(payload.questionType).create();
-
-      let startedAt = payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime());
-      let submittedAt = payload.endTime ? toLocal(payload.endTime) : startedAt;
 
       let questionResult = QuestionResult.create({
         //Commons fields for real time and student collection performance
@@ -65,7 +66,8 @@ export default Ember.Object.extend({
         attempts: payload.attempts,
         sessionId: payload.sessionId,
         startedAt: startedAt,
-        submittedAt: submittedAt
+        submittedAt: submittedAt,
+        eventTime: eventTime
       });
       questionResult.submittedAnswer = !!questionResult.userAnswer;
       return questionResult;
@@ -81,8 +83,9 @@ export default Ember.Object.extend({
         resourceType: payload.resourceType,
         attempts: payload.attempts,
         sessionId: payload.sessionId,
-        startedAt: payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime()), /* TODO this should come from server */
-        submittedAt: payload.endTime ? toLocal(payload.endTime) : null
+        startedAt: startedAt,
+        submittedAt: submittedAt,
+        eventTime: eventTime
       });
     }
   },
