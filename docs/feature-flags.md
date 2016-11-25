@@ -11,7 +11,9 @@ Gooru application features can be enabled and disabled at runtime.
     collections: {
       player: {
         showReactionBar: true,
-        showReportLink: true
+        showReportLink: true,
+        showBackLink: true,
+        showRemix: true
       }
     }
   }
@@ -26,3 +28,9 @@ Useful to hide the reaction bar at the collection player
 
 ## `collections.player.showReportLink`
 Useful to hide the player summary report
+
+## `collections.player.showBackLink`
+Useful to hide the player back navigation
+
+## `collections.player.showRemix`
+Useful to hide the player remix button

@@ -1,11 +1,13 @@
-<div class="navigator-header" >
-  <div {{action 'closePlayer'}}>
-    {{#if lessonTitle}}
-      <span class="lesson-title"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.lesson'}}:&nbsp; {{lessonTitle}}</span>
-    {{else}}
-      <span class="lesson-title"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.back'}}</span>
-    {{/if}}
-  </div>
+<div class="navigator-header">
+  {{#if showBackLink}}
+    <div class="pull-left" {{action 'closePlayer'}}>
+      {{#if lessonTitle}}
+        <span class="lesson-title"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.lesson'}}:&nbsp; {{lessonTitle}}</span>
+      {{else}}
+        <span class="lesson-title"> {{gru-icon name='keyboard_arrow_left'}}{{t 'common.back'}}</span>
+      {{/if}}
+    </div>
+  {{/if}}
   {{#if showRemixButton}}
     <div class="pull-right hidden-sm hidden-xs">
       <button class="remix-btn btn btn-success btn-sm " {{action "remixCollection"}}>{{t "common.remix"}}</button>
