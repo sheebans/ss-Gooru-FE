@@ -58,3 +58,14 @@ test('Verifying collections.player.showBackLink feature default value', function
   });
 });
 
+test('Verifying collections.player.showRemix feature default value', function(assert) {
+  visit('/player/all-resource-types-collection-id');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id');
+
+    const $playerContainer = find(".controller.player");
+    T.exists(assert, $playerContainer.find(".aside .gru-navigator .navigator-header .remix-btn"), "Missing remix button");
+  });
+});
+

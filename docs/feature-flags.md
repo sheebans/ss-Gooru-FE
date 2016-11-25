@@ -12,7 +12,8 @@ Gooru application features can be enabled and disabled at runtime.
       player: {
         showReactionBar: true,
         showReportLink: true,
-        showBackLink: true
+        showBackLink: true,
+        showRemix: true
       }
     }
   }
@@ -30,3 +31,6 @@ Useful to hide the player summary report
 
 ## `collections.player.showBackLink`
 Useful to hide the player back navigation
+
+## `collections.player.showRemix`
+Useful to hide the player remix button

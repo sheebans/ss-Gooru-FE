@@ -11,7 +11,8 @@ export default {
       player: {
         showReactionBar: true,
         showReportLink: true,
-        showBackLink: true
+        showBackLink: true,
+        showRemix: true
       }
     }
   }

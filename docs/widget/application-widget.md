@@ -108,7 +108,8 @@ See [features flag document](../feature-flags.md) for more information
             "player": {
               "showReactionBar": false,
               "showReportLink": false,
-              "showBackLink": false
+              "showBackLink": false,
+              "showRemix": true
             }
         }
     }  

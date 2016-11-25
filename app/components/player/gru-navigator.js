@@ -152,8 +152,8 @@ export default Ember.Component.extend(ModalMixin, {
    * Indicates if the remix button is shown or not
    * @property {boolean}
    */
-  showRemixButton: Ember.computed("hasContext", "isTeacher", function(){
-    return (this.get('hasContext') && this.get('isTeacher')) || (!this.get('hasContext'));
+  showRemixButton: Ember.computed("hasContext", "isTeacher", "showRemix", function(){
+    return ((this.get('hasContext') && this.get('isTeacher')) || (!this.get('hasContext')) && this.get('showRemix'));
   }),
 
   /**
@@ -190,6 +190,12 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {boolean} showBackLink
    */
   showBackLink: true,
+
+  /**
+   * Indicates if the remix button is visible
+   * @property {boolean} showRemix
+   */
+  showRemix: true,
 
   // -------------------------------------------------------------------------
   // Observers
