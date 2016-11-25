@@ -1,6 +1,7 @@
 import Ember from "ember";
 import { toLocal } from 'gooru-web/utils/utils';
 import { ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  *
@@ -9,7 +10,7 @@ import { ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
  *
  */
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(ConfigurationMixin, {
 
   queryParams: ["classId", "courseId", "unitId", "lessonId", "collectionId", "userId", "type", "role"],
   // -------------------------------------------------------------------------
@@ -117,6 +118,12 @@ export default Ember.Controller.extend({
    * @property {string}
    */
   backUrl: null,
+
+  /**
+   * Indicates if the back navigation is visible
+   * @property {boolean} showBackLink
+   */
+  showBackLink: Ember.computed.alias("features.collections.player.showBackLink"),
 
   // -------------------------------------------------------------------------
   // Observers

@@ -185,6 +185,12 @@ export default Ember.Component.extend(ModalMixin, {
    */
   showReportLink: true,
 
+  /**
+   * Indicates if the back link is visible
+   * @property {boolean} showBackLink
+   */
+  showBackLink: true,
+
   // -------------------------------------------------------------------------
   // Observers
 
