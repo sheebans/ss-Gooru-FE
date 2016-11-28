@@ -302,6 +302,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    */
   moveToResource: function(resource, startedAt = new Date()) {
     const controller = this;
+    const previousResource = controller.get('resource');
+    const sameResource = previousResource && resource.get("id") === previousResource.get("id");
+    if (sameResource) {
+      return; //do nothing
+    }
+
     //if previous item exists
     const submittedAt = startedAt; //using the startedAt as submittedAt for previous resource
     let promise = controller.get('resourceResult') ?
