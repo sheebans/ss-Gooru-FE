@@ -1,12 +1,21 @@
 .reports.assessment.questions.gru-hs-text {
   ul{
-    padding-left: 0px;
+    padding-left: 0;
     li {
       list-style: none;
       margin: 0 5px 5px 0;
       padding: 15px;
       border: 2px solid $gray-lighter;
       border-radius: 4px;
+      word-wrap: break-word;
+      overflow: auto;
+      max-width: 15em;
+      @media (min-width: $screen-sm-min) {
+        max-width: 16em;
+      }
+      @media (min-width: $screen-lg-min) {
+        max-width: 25em;
+      }
 
       .text{
         p {

@@ -1,7 +1,7 @@
 .reports.assessment.questions.gru-multiple-answer {
   ul{
     display: inline-block;
-    padding-left: 0px;
+    padding-left: 0;
     li{
       list-style: none;
       position:relative;
@@ -29,6 +29,15 @@
       span.answer-text{
         margin-left: 0.5em;
         display: inherit;
+        word-wrap: break-word;
+        overflow: auto;
+        max-width: 7em;
+        @media (min-width: $screen-xs-min) {
+         max-width: 10em;
+        }
+        @media (min-width: $screen-lg-min) {
+          max-width: 20em;
+        }
         >span {
           margin: 0 0 0 5px;
         }
