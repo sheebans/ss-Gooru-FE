@@ -1,11 +1,3 @@
 .questions.answers.gru-true-false{
   @extend .questions.answers.gru-hs-text;
-  .panel {
-    margin-bottom: 15px;
-    .answer-content {
-      .text-area-container {
-        //max-width: 56em;
-      }
-    }
-  }
 }
