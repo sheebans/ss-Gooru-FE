@@ -16,13 +16,7 @@
       .question-text {
         word-wrap: break-word;
         overflow: auto;
-        max-width: 18em;
-        @media (max-width: $screen-sm) {
-          max-width: 30em;
-        }
-        @media (max-width: $screen-sm) {
-          max-width: 15em;
-        }
+        max-width: 12em;
         img {
           max-height: 100px;
           margin: 5px 0;
