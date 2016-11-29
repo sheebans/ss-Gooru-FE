@@ -70,7 +70,7 @@
         word-wrap: break-word;
         overflow: auto;
         max-width: 18em;
-        display: table-cell;
+        display: block;
         @media (max-width: $screen-sm) {
           max-width: 10em;
         }
