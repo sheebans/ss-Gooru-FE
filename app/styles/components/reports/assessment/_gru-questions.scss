@@ -65,9 +65,20 @@
     th.correct-answer {
       width: 36%;
     }
-    .question-text img {
-      max-height: 100px;
-      margin: 5px 0;
+    .question-text {
+      .text {
+        word-wrap: break-word;
+        overflow: auto;
+        max-width: 18em;
+        display: block;
+        @media (max-width: $screen-sm) {
+          max-width: 10em;
+        }
+      }
+      img {
+        max-height: 100px;
+        margin: 5px 0;
+      }
     }
     .question-score span{
       .mdi {

@@ -102,6 +102,8 @@
       &.question-text {
         .panel-body {
           min-height: 184px;
+          overflow-x: auto;
+          word-wrap: break-word;
         }
       }
       .panel-footer{

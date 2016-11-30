@@ -15,7 +15,9 @@
         text-align: center;
         border: 3px solid $white;
         position: relative;
-        border-radius: 0px;
+        border-radius: 0;
+        word-wrap: break-word;
+        overflow: auto;
 
         img {
           border: 0 none;
@@ -58,5 +60,4 @@
       }
     }
   }
-
 }

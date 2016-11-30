@@ -1,6 +1,14 @@
 .gru-hot-text-highlight p {
   line-height: 32px;
   span {
+    word-wrap: break-word;
+    overflow: auto;
+    max-width: 10em;
+
+    @media (min-width: $screen-sm-min) {
+      max-width: 19em;
+    }
+
     p {
       display: inline-block;
       margin: 0;
@@ -24,7 +32,4 @@
       background-color: $brand-anonymous;
     }
   }
-
-
-
 }

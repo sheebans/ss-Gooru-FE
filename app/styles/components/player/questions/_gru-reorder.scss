@@ -28,7 +28,10 @@
 
     div {
       display: block;
-      padding: 15px 10px 15px 40px;
+      padding: 15px 10px 15px 0;
+      margin-left: 40px;
+      overflow: auto;
+      word-wrap: break-word;
 
       p {
         margin: 0;
