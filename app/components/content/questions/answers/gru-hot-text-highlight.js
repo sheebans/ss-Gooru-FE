@@ -15,6 +15,19 @@ export default Ember.Component.extend({
   },
 
   // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    changeType: function(type) {
+      const component = this;
+      component.set('answers.firstObject.highlightType', type);
+      Ember.run(function() {
+        var $textarea = component.$().find('.gru-textarea textarea');
+        $textarea.focus().val($textarea.val() + " ").trigger('blur'); // Forces the validation of the textarea
+      });
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * Hot Spot Text Answers
@@ -55,18 +68,6 @@ export default Ember.Component.extend({
         }));
       }
     }
-  },
+  }
 
-  // -------------------------------------------------------------------------
-  // Observers
-  /**
-   * Observes for changes in the highlight type to force the validation of the answer in that type of questions
-   */
-  highlightTypeChange: Ember.observer('answers.firstObject.highlightType', function() {
-    const component = this;
-    Ember.run(function() {
-      var $textarea = component.$('.gru-textarea textarea');
-      $textarea.focus().val($textarea.val() + " ").trigger('blur'); // Forces the validation of the textarea
-    });
-  })
 });
