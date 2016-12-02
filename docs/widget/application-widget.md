@@ -89,7 +89,7 @@ Gooru provides several UI themes, this property indicates which css rules should
    ```
     aw = new ApplicationWidget('#gooru-application-container', {
         "appRootPath": "../",
-        "themeId": london
+        "themeId": bergen
     }  
     ```
     

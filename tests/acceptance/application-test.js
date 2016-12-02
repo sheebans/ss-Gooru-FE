@@ -58,18 +58,18 @@ test('Theme support - no theme', function(assert) {
 });
 
 test('Theme support - Having translations and styles url', function(assert) {
-  visit('/?themeId=london');
+  visit('/?themeId=bergen');
 
   andThen(function() {
     assert.expect(4); //making sure all asserts are called
 
-    assert.equal(currentURL(), '/?themeId=london');
+    assert.equal(currentURL(), '/?themeId=bergen');
 
-    T.exists(assert, Ember.$(".london-theme"), "Missing element having theme id");
+    T.exists(assert, Ember.$(".bergen-theme"), "Missing element having theme id");
 
     const $styleLink = Ember.$("#theme-style-link");
     T.exists(assert, $styleLink, "Missing link element having theme style");
-    assert.equal($styleLink.attr("href"), "/assets/themes/london/styles.css", "Wrong style url");
+    assert.equal($styleLink.attr("href"), "/assets/themes/bergen/styles.css", "Wrong style url");
 
   });
 });
