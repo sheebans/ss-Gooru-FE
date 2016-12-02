@@ -48,7 +48,7 @@ export default Ember.Controller.extend({
             .resetPassword(userId, profile.get('password'), token)
             .then(function() {
               controller.set('didValidate', true);
-              controller.transitionToRoute('home');
+              controller.transitionToRoute('sign-in');
             }, function(error) {
               var errorMessage = controller.get('i18n').t('common.errors.reset-password-error').string;
               controller.get("notifications").error(errorMessage);

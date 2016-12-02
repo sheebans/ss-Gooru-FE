@@ -152,3 +152,69 @@ test('Sign in after try with wrong credentials when press key Enter', function (
     });
   });
 });
+
+test('Sign in with correct credentials as a teacher', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+    const $signInContainer = find(".controller.sign-in .sign-in-form");
+    const $usernameField = $signInContainer.find(".gru-input.username");
+    $usernameField.find("input").val('pochita');
+    const $passwordField = $signInContainer.find(".gru-input.password");
+    $passwordField.find("input").val('pochita');
+    // Try submitting without filling in data
+    click($signInContainer.find("button.submit-sign-in"));
+    andThen(function() {
+      assert.equal(currentURL(), '/home');
+    });
+  });
+});
+
+test('Sign in with correct credentials as a student', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+    const $signInContainer = find(".controller.sign-in .sign-in-form");
+    const $usernameField = $signInContainer.find(".gru-input.username");
+    $usernameField.find("input").val('param');
+    const $passwordField = $signInContainer.find(".gru-input.password");
+    $passwordField.find("input").val('param');
+    // Try submitting without filling in data
+    click($signInContainer.find("button.submit-sign-in"));
+    andThen(function() {
+      assert.equal(currentURL(), '/student');
+    });
+  });
+});
+
+test('Navigate from student-profile-student', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+    const $signInContainer = find(".controller.sign-in .sign-in-form");
+    const $usernameField = $signInContainer.find(".gru-input.username");
+    $usernameField.find("input").val('param');
+    const $passwordField = $signInContainer.find(".gru-input.password");
+    $passwordField.find("input").val('param');
+    click($signInContainer.find("button.submit-sign-in"));
+
+    andThen(function() {
+      assert.equal(currentURL(), '/student');
+      const $navMenu = find(".gru-header .menu-navbar");
+      click($navMenu.find(".profile-link a.profile"));
+
+      andThen(function() {
+        assert.equal(currentURL(), '/param-123/content/courses');
+        const $navHeader = find(".gru-header .navbar-header");
+        click($navHeader.find(".home-link"));
+
+        andThen(function() {
+          assert.equal(currentURL(), '/student');
+        });
+      });
+    });
+  });
+});
