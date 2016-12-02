@@ -98,6 +98,11 @@
               <input name="show-remix" type="checkbox" value="true"> Show Remix
             </label>
           </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-collection-name" type="checkbox" value="true"> Show Collection Name
+            </label>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -131,6 +136,8 @@
       var report = jQuery("#the-form input[name = 'show-report']:checked").val() === "true";
       var back = jQuery("#the-form input[name = 'show-back']:checked").val() === "true";
       var remix = jQuery("#the-form input[name = 'show-remix']:checked").val() === "true";
+      var collectionName = jQuery("#the-form input[name = 'show-collection-name']:checked").val() === "true";
+
       if (aw) {
         aw.destroy();
       }
@@ -156,7 +163,8 @@
               "showReactionBar": reactions,
               "showReportLink": report,
               "showBackLink": back,
-              "showRemix": remix
+              "showRemix": remix,
+              "showCollectionName": collectionName
             }
           }
         }
