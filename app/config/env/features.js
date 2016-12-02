@@ -12,7 +12,8 @@ export default {
         showReactionBar: true,
         showReportLink: true,
         showBackLink: true,
-        showRemix: true
+        showRemix: true,
+        showCollectionName: true
       }
     }
   }

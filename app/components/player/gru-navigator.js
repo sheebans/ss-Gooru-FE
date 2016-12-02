@@ -197,6 +197,12 @@ export default Ember.Component.extend(ModalMixin, {
    */
   showRemix: true,
 
+  /**
+   * Indicates if the collection name is visible
+   * @property {boolean} showCollectionName
+   */
+  showCollectionName: true,
+
   // -------------------------------------------------------------------------
   // Observers
 

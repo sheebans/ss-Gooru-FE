@@ -47,6 +47,17 @@ test('Verifying collections.player.showReportLink feature default value', functi
   });
 });
 
+test('Verifying collections.player.showCollectionName feature default value', function(assert) {
+  visit('/player/all-resource-types-collection-id');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id');
+
+    const $playerContainer = find(".controller.player");
+    T.exists(assert, $playerContainer.find(".aside .gru-navigator .navigator-subheader"), "Missing see collection name");
+  });
+});
+
 test('Verifying collections.player.showBackLink feature default value', function(assert) {
   visit('/player/all-resource-types-collection-id');
 
