@@ -531,10 +531,14 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
 
   resetValues: function(){
     this.set("resourceId", null);
-    this.set("resource", null);
-    this.set("resourceResult", null);
+    this.resetCurrentResourceValues();
     this.set("role", null);
     this.set("notifyingRealTime", false);
+  },
+
+  resetCurrentResourceValues: function() {
+    this.set("resource", null);
+    this.set("resourceResult", null);
   }
 
 });
