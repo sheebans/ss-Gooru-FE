@@ -283,6 +283,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    */
   showRemix: Ember.computed.alias("features.collections.player.showRemix"),
 
+  /**
+   * Indicates if the remix button is visible
+   * @property {boolean} showRemix
+   */
+  showCollectionName: Ember.computed.alias("features.collections.player.showCollectionName"),
+
   // -------------------------------------------------------------------------
   // Observers
 
