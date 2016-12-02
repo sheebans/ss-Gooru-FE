@@ -17,10 +17,12 @@
     <button class="btn btn-link hamburger-icon"{{action 'closeNavigator'}}>{{gru-icon name='menu'}}</button>
   </div>
 </div>
+{{#if showCollectionName}}
 <div class="navigator-subheader">
   <p class="collection-type">{{#if collection.isAssessment}}{{t 'common.assessment'}}{{else}}{{t 'common.collection'}}{{/if}}:</p>
   <p class="collection-title">{{collection.title}}</p>
 </div>
+{{/if}}
 <ul class="list-group resources {{if isNavigationDisabled 'disabled' }}">
   {{#each resourceItems as |item index|}}
       <li class="list-group-item {{if item.started 'started'}} {{if item.selected 'selected'}}"
@@ -42,7 +44,7 @@
   {{#if collection.isCollection}}
     <div class="navigator-subheader">
       <div class="see-usage-report" {{action 'seeUsageReport'}}>
-        <span class="collection-title"> {{t 'player.gru-navigator.see-usage-report'}} </span>
+        <span class="see-usage-report-msg"> {{t 'player.gru-navigator.see-usage-report'}} </span>
         {{gru-icon name='keyboard_arrow_right'}}
       </div>
     </div>

@@ -425,6 +425,24 @@ test('Not see usage report', function(assert) {
   assert.notOk($seeReportButton.length, "report button should be hidden");
 });
 
+test('Not see collection name', function(assert) {
+  assert.expect(2);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showCollectionName=false}}`);
+  var $component = this.$(); //component dom element
+
+  const $navigatorSubheader = $component.find(".gru-navigator .navigator-subheader");
+  T.notExists(assert, $navigatorSubheader.find(".collection-type"), "Collection type should not be visible");
+  T.notExists(assert, $navigatorSubheader.find(".collection-title"), "Collection title should not be visible");
+
+});
+
 test('Remix collection/assessment', function(assert) {
   assert.expect(2);
 
