@@ -29,7 +29,7 @@ export default {
   },
 
   "themes": {
-    "london": {
+    "bergen": {
       "player": {
         "narration": {
           "highlightColor": "#C1E7D9"

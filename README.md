@@ -227,7 +227,7 @@ connection, otherwise the RealTime module will not be able to communicate with t
 
 ### Adding Themes
 Gooru app support custom themes
-* Add a new scss file under styles/themes, i.e london.scss
-* Add an entry to ember-cli-build.js, outpaths section,  ie `'themes/london': '/assets/themes/london/styles.css'`
+* Add a new scss file under styles/themes, i.e bergen.scss
+* Add an entry to ember-cli-build.js, outpaths section,  ie `'themes/bergen': '/assets/themes/bergen/styles.css'`
 * The theme css will be loaded on demand when passing the correct themeId
 

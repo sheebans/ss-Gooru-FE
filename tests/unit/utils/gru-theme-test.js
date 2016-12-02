@@ -5,7 +5,7 @@ module('Unit | Utility | gru theme');
 
 test('cssUrl', function (assert) {
   const theme = GruTheme.create({
-    id : "london"
+    id : "bergen"
   });
-  assert.equal(theme.get("cssUrl"), 'assets/themes/london/styles.css', "Wrong css url");
+  assert.equal(theme.get("cssUrl"), 'assets/themes/bergen/styles.css', "Wrong css url");
 });

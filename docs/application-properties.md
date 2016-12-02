@@ -32,7 +32,7 @@ Gooru application can be configured at runtime by setting several properties
   },
   
   "themes": {
-      "london": {
+      "bergen": {
         "player": {
           "narration": {
             "highlightColor": "#C1E7D9"
