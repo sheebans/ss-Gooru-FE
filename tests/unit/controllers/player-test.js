@@ -302,6 +302,6 @@ test('changeEmotion save disabled', function(assert) {
 
   controller.send('changeEmotion', emotion);
 
-  assert.notEqual(questionResult.get('reaction'), 'emotion', 'reactionType updated');
+  assert.equal(questionResult.get('reaction'), 'emotion', 'reactionType updated');
   assert.notOk(context.get('isStudent'), 'isStudent not updated');
 });
