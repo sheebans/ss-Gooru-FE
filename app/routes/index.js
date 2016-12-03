@@ -59,12 +59,17 @@ export default Ember.Route.extend(PublicRouteMixin, {
         route.get('profileService').readUserProfile(route.get("session.userId"))
           .then(function(userProfile) {
             const isStudent = userProfile.get('isStudent');
+            const isTeacher = userProfile.get('isTeacher');
 
             if (isStudent){
               route.transitionTo("student");
             }
             else {
-              route.transitionTo("home");
+              if (isTeacher) {
+                route.transitionTo("teacher");
+              } else {
+                route.transitionTo("home");
+              }
             }
           });
       }
