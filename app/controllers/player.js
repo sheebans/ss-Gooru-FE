@@ -530,9 +530,9 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
     const controller = this;
     let eventsService = this.get('eventsService');
     let context = this.get('context');
+    resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
     if(controller.get("saveEnabled")) {
       context.set("isStudent", controller.get("isStudent"));
-      resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
       eventsService.saveReaction(resourceResult, context);
     }
   },
