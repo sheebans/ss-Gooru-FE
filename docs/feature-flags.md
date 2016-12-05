@@ -14,7 +14,8 @@ Gooru application features can be enabled and disabled at runtime.
         showReportLink: true,
         showBackLink: true,
         showRemix: true,
-        showCollectionName: true
+        showCollectionName: true,
+        showResourceNumber: true
       }
     }
   }
@@ -38,3 +39,6 @@ Useful to hide the player remix button
 
 ## `collections.player.showCollectionName`
 Useful to hide the collection name
+
+## `collections.player.showResourceNumber`
+Useful to hide the resource number

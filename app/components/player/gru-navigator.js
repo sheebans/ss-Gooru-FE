@@ -203,6 +203,12 @@ export default Ember.Component.extend(ModalMixin, {
    */
   showCollectionName: true,
 
+  /**
+   * Indicates if the resource number is visible
+   * @property {boolean} showResourceNumber
+   */
+  showResourceNumber: true,
+
   // -------------------------------------------------------------------------
   // Observers
 
