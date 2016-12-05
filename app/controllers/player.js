@@ -289,6 +289,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    */
   showCollectionName: Ember.computed.alias("features.collections.player.showCollectionName"),
 
+  /**
+   * Indicates if the resource number is visible
+   * @property {boolean} showResourceNumber
+   */
+  showResourceNumber: Ember.computed.alias("features.collections.player.showResourceNumber"),
+
   // -------------------------------------------------------------------------
   // Observers
 

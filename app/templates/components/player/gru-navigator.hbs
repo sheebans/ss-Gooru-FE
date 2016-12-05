@@ -25,10 +25,12 @@
 {{/if}}
 <ul class="list-group resources {{if isNavigationDisabled 'disabled' }}">
   {{#each resourceItems as |item index|}}
-      <li class="list-group-item {{if item.started 'started'}} {{if item.selected 'selected'}}"
+    <li class="list-group-item {{if item.started 'started'}} {{if item.selected 'selected'}}"
         {{action 'selectItem' item}}>
       <div class="resources-info">
-        <span class="number">{{plus-one index}}</span>
+        {{#if showResourceNumber}}
+          <span class="number">{{plus-one index}}</span>
+        {{/if}}
         <i class="bubble-type {{item.resource.resourceFormat}}"></i>
           <h6 class="title hidden-sm hidden-md">
             {{truncate text=(noTags text=item.resource.title) type='medium'}}

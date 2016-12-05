@@ -443,6 +443,25 @@ test('Not see collection name', function(assert) {
 
 });
 
+test('Not see resource number', function(assert) {
+  assert.expect(1);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showResourceNumber=false}}`);
+  var $component = this.$(); //component dom element
+  const $navigator = $component.find(".gru-navigator");
+  const $collectionResources = $navigator.find(".resources");
+
+  const $firstResourceItem = $collectionResources.find("li.list-group-item:eq(0)");
+  T.notExists(assert, $firstResourceItem.find(".resources-info number"), "Missing resources number");
+
+});
+
 test('Remix collection/assessment', function(assert) {
   assert.expect(2);
 
