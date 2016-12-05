@@ -13,7 +13,8 @@ export default {
         showReportLink: true,
         showBackLink: true,
         showRemix: true,
-        showCollectionName: true
+        showCollectionName: true,
+        showResourceNumber: true
       }
     }
   }
