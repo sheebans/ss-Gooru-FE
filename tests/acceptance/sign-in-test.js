@@ -267,7 +267,7 @@ test('Navigate from teacher-profile-teacher as a teacher', function (assert) {
   });
 });
 
-test('Navigate from courses-collection-courses as another', function (assert) {
+test('Navigate from courses-collection-courses as provider', function (assert) {
   visit('/sign-in');
 
   andThen(function() {
