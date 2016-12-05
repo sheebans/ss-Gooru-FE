@@ -78,6 +78,24 @@
     }
   },
   {
+    "description": "API 3.0 Endpoint to return other user Profile info",
+    "request": {
+      "url": "^/api/nucleus/v1/profiles/other-123/demographics",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "profile-api3-other-200-response.json"
+    }
+  },
+  {
     "description": "API 3.0 Endpoint to return another (following) user Profile info",
     "request": {
       "url": "^/api/nucleus/v1/profiles/param-123/demographics",

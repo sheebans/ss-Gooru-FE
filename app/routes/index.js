@@ -51,12 +51,13 @@ export default Ember.Route.extend(PublicRouteMixin, {
   afterModel() {
     const route = this;
     const anonymous = route.get('session.isAnonymous');
+    const userId = route.get("session.userId");
 
     if (!anonymous) {
       if (route.get('session.userData.isNew')) {
         route.transitionTo('sign-up-finish');
       } else {
-        route.get('profileService').readUserProfile(route.get("session.userId"))
+        route.get('profileService').readUserProfile(userId)
           .then(function(userProfile) {
             const isStudent = userProfile.get('isStudent');
             const isTeacher = userProfile.get('isTeacher');
@@ -68,12 +69,11 @@ export default Ember.Route.extend(PublicRouteMixin, {
               if (isTeacher) {
                 route.transitionTo("teacher");
               } else {
-                route.transitionTo("home");
+                route.transitionTo('profile.content.courses', userId);
               }
             }
           });
       }
     }
   }
-
 });

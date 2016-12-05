@@ -189,7 +189,25 @@ test('Sign in with correct credentials as a student', function (assert) {
   });
 });
 
-test('Navigate from student-profile-student', function (assert) {
+test('Sign in with correct credentials as another', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+    const $signInContainer = find(".controller.sign-in .sign-in-form");
+    const $usernameField = $signInContainer.find(".gru-input.username");
+    $usernameField.find("input").val('other');
+    const $passwordField = $signInContainer.find(".gru-input.password");
+    $passwordField.find("input").val('other');
+    // Try submitting without filling in data
+    click($signInContainer.find("button.submit-sign-in"));
+    andThen(function() {
+      assert.equal(currentURL(), '/other-123/content/courses');
+    });
+  });
+});
+
+test('Navigate from student-profile-student as a student', function (assert) {
   visit('/sign-in');
 
   andThen(function() {
@@ -219,7 +237,7 @@ test('Navigate from student-profile-student', function (assert) {
   });
 });
 
-test('Navigate from teacher-profile-teacher', function (assert) {
+test('Navigate from teacher-profile-teacher as a teacher', function (assert) {
   visit('/sign-in');
 
   andThen(function() {
@@ -243,6 +261,36 @@ test('Navigate from teacher-profile-teacher', function (assert) {
 
         andThen(function() {
           assert.equal(currentURL(), '/teacher');
+        });
+      });
+    });
+  });
+});
+
+test('Navigate from courses-collection-courses as another', function (assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+    const $signInContainer = find(".controller.sign-in .sign-in-form");
+    const $usernameField = $signInContainer.find(".gru-input.username");
+    $usernameField.find("input").val('other');
+    const $passwordField = $signInContainer.find(".gru-input.password");
+    $passwordField.find("input").val('other');
+    click($signInContainer.find("button.submit-sign-in"));
+
+    andThen(function() {
+      assert.equal(currentURL(), '/other-123/content/courses');
+      const $contentNav = find(".content-navigation");
+      click($contentNav.find(".collections a"));
+
+      andThen(function() {
+        assert.equal(currentURL(), '/other-123/content/collections');
+        const $navHeader = find(".gru-header .navbar-header");
+        click($navHeader.find(".home-link"));
+
+        andThen(function() {
+          assert.equal(currentURL(), '/other-123/content/courses');
         });
       });
     });
