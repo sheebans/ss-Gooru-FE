@@ -67,17 +67,39 @@ test('updateResource', function(assert) {
   });
 });
 
-test('copyResource', function(assert) {
+test('copyResource, without title', function(assert) {
+  assert.expect(2);
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
-    this.post('/api/nucleus/v1/copier/resources/resource-id', function() {
+    this.post('/api/nucleus/v1/copier/resources/resource-id', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.ok(!requestBodyJson.title, 'title property should not exist');
       return [201, {'Content-Type': 'text/plain', 'Location': 'copy-resource-id'}, ''];
     }, false);
   });
   adapter.copyResource('resource-id')
+    .then(function(response) {
+      assert.equal('', response, 'Wrong response');
+    });
+});
+
+test('copyResource with title', function(assert) {
+  assert.expect(2);
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v1/copier/resources/resource-id', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.equal(requestBodyJson.title, 'resource-title', 'missing title at body');
+      return [201, {'Content-Type': 'text/plain', 'Location': 'copy-resource-id'}, ''];
+    }, false);
+  });
+  adapter.copyResource('resource-id', 'resource-title')
     .then(function(response) {
       assert.equal('', response, 'Wrong response');
     });
