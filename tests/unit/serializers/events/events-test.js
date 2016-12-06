@@ -59,6 +59,46 @@ test('serializeResource, for resource result', function(assert) {
   assert.equal(response.payLoadObject.sourceId, 10, 'Wrong source id');
 });
 
+test('serializeResource, for resource result, having submittedAt lower than startedAt', function(assert) {
+   const serializer = this.subject();
+
+  let context = Context.create({
+    userId:"user-id",
+    resourceId: "resource-id",
+    collectionId: "collection-id",
+    classId: "class-id",
+    parentEventId: "parent-id",
+    resourceType: "resource",
+    courseId: "course-id",
+    unitId:"unit-id",
+    lessonId: "b479f7cd-52af-4b41-a8e5-fbd4b899b099",
+    collectionType:"collection",
+    eventType: 'stop',
+    resourceEventId: 'resource-event-id',
+    sessionId: 'session-id',
+    isStudent: false,
+    sourceId: 10
+  });
+
+  const resourceResult = ResourceResult.create({
+    "correct": true,
+    "reaction": 4,
+    "timeSpent": 1333,
+    startedAt: new Date(1480375447326),
+    submittedAt: new Date(1480375429443),
+    resource: Ember.Object.create({
+      id: 123,
+      isQuestion: false,
+      taxonomy:[]
+    })
+  });
+
+  const apiKey = 'api-key-1';
+  const response = serializer.serializeResource(resourceResult, context, apiKey)[0];
+  assert.ok(response.startTime, 'Missing start time');
+  assert.equal(response.startTime, response.endTime, 'Start time and end time should be the same when end time is lower than start time');
+});
+
 test('serializeResource, for question result', function(assert) {
    const serializer = this.subject();
 

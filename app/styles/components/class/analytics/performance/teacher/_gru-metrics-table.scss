@@ -146,7 +146,7 @@
         }
       }
       .charts.gru-completion-chart {
-        width: 44px;
+        width: 55px;
         height: 25px;
         display: inline-table;
         vertical-align: middle;
@@ -154,7 +154,7 @@
           line-height: 25px;
         }
         .charts.gru-x-bar-chart {
-          height: 100%;
+          height:inherit;
         }
       }
     }

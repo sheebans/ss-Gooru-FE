@@ -109,18 +109,20 @@ test('updateResourceTitle', function(assert) {
 test('copyResource', function(assert) {
   const service = this.subject();
 
-  assert.expect(1);
+  assert.expect(2);
 
   // There is not a Adapter stub in this case
   // Pretender was included because it is needed to simulate the response Headers including the Location value
   this.pretender.map(function() {
-    this.post('/api/nucleus/v1/copier/resources/resource-id', function() {
+    this.post('/api/nucleus/v1/copier/resources/resource-id', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.equal(requestBodyJson.title, 'resource-title', 'missing title at body');
       return [201, {'Content-Type': 'text/plain', 'Location': 'copy-resource-id'}, ''];
     }, false);
   });
 
   var done = assert.async();
-  service.copyResource('resource-id')
+  service.copyResource('resource-id', 'resource-title')
     .then(function(response) {
       assert.equal(response, 'copy-resource-id', 'Wrong resource id');
       done();

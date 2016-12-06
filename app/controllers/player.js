@@ -326,6 +326,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    */
   moveToResource: function(resource, startedAt = new Date()) {
     const controller = this;
+    const previousResource = controller.get('resource');
+    const sameResource = previousResource && resource.get("id") === previousResource.get("id");
+    if (sameResource) {
+      return; //do nothing
+    }
+
     //if previous item exists
     const submittedAt = startedAt; //using the startedAt as submittedAt for previous resource
     let promise = controller.get('resourceResult') ?
@@ -419,6 +425,10 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
+    if (assessmentResult.get("submitted")) { //ignore if it was already submitted
+      return Ember.RSVP.resolve(assessmentResult);
+    }
+    assessmentResult.set("submitted", true);
     return controller.submitPendingQuestionResults(submittedAt).then(function(){
       context.set("eventType", "stop");
       context.set("isStudent", controller.get("isStudent"));
@@ -545,10 +555,14 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
 
   resetValues: function(){
     this.set("resourceId", null);
-    this.set("resource", null);
-    this.set("resourceResult", null);
+    this.resetCurrentResourceValues();
     this.set("role", null);
     this.set("notifyingRealTime", false);
+  },
+
+  resetCurrentResourceValues: function() {
+    this.set("resource", null);
+    this.set("resourceResult", null);
   }
 
 });
