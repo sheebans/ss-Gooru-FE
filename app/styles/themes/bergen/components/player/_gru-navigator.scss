@@ -1,20 +1,20 @@
 .player .gru-navigator {
-  background-color: $white;
+  background-color: $light-300;
   .navigator-header {
-    background-color: $white;
+    background-color: $light-300;
     span {
-      color:$dark-400;
+      color:$dark-100;
     }
     p {
-      color:$dark-400;
+      color:$dark-100;
     }
     .hamburger-icon {
-      color: $green-400;
+      color: $dark-100;
     }
   }
 
   .navigator-subheader {
-    color: $dark-400;
+    color: $dark-100;
   }
 
   .resources {
@@ -31,7 +31,7 @@
         .bubble-type,
         .title
         {
-          color: $light-500;
+          color: $dark-100;
         }
         .video {
           background: url("../../themes/bergen/video-resource-light.svg");
@@ -100,7 +100,7 @@
           .bubble-type,
           .title
           {
-            color: $dark-400;
+            color: $dark-200;
             font-weight: bold;
           }
           .video {
