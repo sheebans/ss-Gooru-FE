@@ -56,8 +56,14 @@ export default Ember.Component.extend( ConfigurationMixin, {
    * Indicates if collection has an author
    * @property {string}
    */
-
    collectionHasAuthor: Ember.computed.notEmpty('collection.author'),
+
+  /**
+   * Indicates if the collection author is visible
+   * @property {boolean} showCollectionAuthor
+   */
+  showCollectionAuthor: true,
+
   /**
    * Indicates if the student is playing the collection
    * @property {boolean}

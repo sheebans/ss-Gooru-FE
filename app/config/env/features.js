@@ -14,6 +14,7 @@ export default {
         showBackLink: true,
         showRemix: true,
         showCollectionName: true,
+        showCollectionAuthor: true,
         showResourceNumber: true
       }
     }
