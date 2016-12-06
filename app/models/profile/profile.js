@@ -169,11 +169,27 @@ export default Ember.Object.extend({
    */
   network: null,
 
-
   /**
    * @property {string}studentID
    */
   studentId: null,
+
+  /**
+   * @property {boolean} - Indicates if current user is a student
+   */
+  isStudent: Ember.computed.equal("role", "student"),
+
+  /**
+   * @property {boolean} - Indicates if current user is a teacher
+   */
+  isTeacher: Ember.computed.equal("role", "teacher"),
+
+  /**
+   * @property {boolean} - Indicates if current user is a provider
+   */
+  isProvider: Ember.computed("isTeacher", "isStudent", function(){
+    return !this.get("isTeacher") && !this.get("isStudent");
+  }),
 
   /**
    * Return a copy of the collection

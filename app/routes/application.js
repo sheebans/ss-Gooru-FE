@@ -291,7 +291,7 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
       const route = this;
       route.actions.updateUserClasses.call(this).then( // Required to get list of classes after login
         function() {
-          route.transitionTo("home");
+            route.transitionTo("index");
         }
       );
     },

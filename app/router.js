@@ -90,6 +90,10 @@ Router.map(function() {
 
   this.route('home');
 
+  this.route('student');
+
+  this.route('teacher');
+
   this.route('featured');
 
   this.route('account-settings', { path: '/account-settings/:userId' });

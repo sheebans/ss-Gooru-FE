@@ -11,6 +11,12 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   sessionService: Ember.inject.service("api-sdk/session"),
 
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+
   queryParams: {
     access_token : {}
   },
@@ -43,12 +49,29 @@ export default Ember.Route.extend(PublicRouteMixin, {
   },
 
   afterModel() {
-    const anonymous = this.get('session.isAnonymous');
+    const route = this;
+    const anonymous = route.get('session.isAnonymous');
+
     if (!anonymous) {
-      if (this.get('session.userData.isNew')) {
-        this.transitionTo('sign-up-finish');
+      if (route.get('session.userData.isNew')) {
+        route.transitionTo('sign-up-finish');
       } else {
-        this.transitionTo('home');
+        route.get('profileService').readUserProfile(route.get("session.userId"))
+          .then(function(userProfile) {
+            const isStudent = userProfile.get('isStudent');
+            const isTeacher = userProfile.get('isTeacher');
+
+            if (isStudent){
+              route.transitionTo("student");
+            }
+            else {
+              if (isTeacher) {
+                route.transitionTo("teacher");
+              } else {
+                route.transitionTo("home");
+              }
+            }
+          });
       }
     }
   }
