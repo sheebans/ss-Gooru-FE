@@ -21,18 +21,19 @@
       notifyingRealTime=notifyingRealTime
       isTeacher=isTeacher
       hasContext=hasContext
-      }}
+      showReactionBar=showReactionBar}}
 
       {{#if resource}}
-      {{player.gru-viewer
-      submitted=assessmentResult.submitted
-      resource=resource
-      resourceResult=resourceResult
-      collection=collection
-      onSubmitQuestion="submitQuestion"
-      isNotIframeUrl=isNotIframeUrl
-      hasContext=hasContext
-      role=role}}
+        {{player.gru-viewer
+        submitted=assessmentResult.submitted
+        resource=resource
+        resourceResult=resourceResult
+        collection=collection
+        onSubmitQuestion="submitQuestion"
+        isNotIframeUrl=isNotIframeUrl
+        hasContext=hasContext
+        role=role
+        showReportLink=showReportLink}}
       {{/if}}
     {{else}}
       {{! TODO add the not found component here}}
@@ -56,6 +57,6 @@
     isTeacher=isTeacher
     onRemixCollection="remixCollection"
     submitted=assessmentResult.submitted
-    }}
+    showReportLink=showReportLink}}
   </div>
 {{/unless}}

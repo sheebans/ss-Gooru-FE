@@ -345,3 +345,39 @@ test('merge with results', function(assert) {
   assert.ok(resourceResults.findBy("resource.id", "2"), "Resource 2 not found");
 });
 
+test('merge with an extra assessmentResult', function(assert) {
+  let collection = Ember.Object.create({
+    "resources" : Ember.A([
+      Ember.Object.create({
+        id: "1",
+        isQuestion: false
+      }),
+      Ember.Object.create({
+        id: "2",
+        isQuestion: true
+      })
+    ])
+  });
+
+  let assessmentResult = AssessmentResult.create({
+    "resourceResults": Ember.A([
+      Ember.Object.create({
+        "resourceId": "1"
+      }),
+      Ember.Object.create({
+        "resourceId": "2"
+      }),
+      Ember.Object.create({
+        "resourceId": "3"
+      })
+    ])
+  });
+
+  assessmentResult.merge(collection);
+  let resourceResults = assessmentResult.get("resourceResults");
+
+  assert.ok(resourceResults.findBy("resource.id", "1"), "Resource 1 not found");
+  assert.ok(resourceResults.findBy("resource.id", "2"), "Resource 2 not found");
+  assert.ok(!resourceResults.findBy("resource.id", "3"), "Resource 3 should not be found");
+});
+

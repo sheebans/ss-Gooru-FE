@@ -8,6 +8,18 @@ import AssessmentResult from 'gooru-web/models/result/assessment';
 import QuestionResult from 'gooru-web/models/result/question';
 import ResourceResult from 'gooru-web/models/result/resource';
 
+var configurationService = Ember.Object.create ({
+  configuration: {
+    features: {
+      collections: {
+        player: {
+          showReportLink: true
+        }
+      }
+    }
+  }
+});
+
 moduleFor('controller:player', 'Unit | Controller | player', {
 
 });
@@ -24,6 +36,8 @@ test('finishCollection on collection and anonymous', function(assert) {
   controller.set('session', Ember.Object.create({
     isAnonymous: true
   }));
+
+  controller.set('configurationService', configurationService);
   controller.set('role', 'teacher');
   controller.set('saveEnabled', false);
   controller.set('collection', collection);
@@ -59,6 +73,7 @@ test('finishCollection on collection and not anonymous', function(assert) {
   controller.set('resourceResult', resourceResult);
   controller.set('assessmentResult', assessmentResult);
   controller.set('context', context);
+  controller.set('configurationService', configurationService);
   controller.set('eventsService', Ember.Object.create({
     saveResourceResult: function(result, cont) {
       assert.deepEqual(result, resourceResult, 'Wrong result object');

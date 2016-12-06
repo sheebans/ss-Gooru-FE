@@ -35,7 +35,7 @@
           <label>
             <span class="required">{{t "content.courses.edit.information.course-title"}}</span>
             {{#if isEditing}}
-              {{validation.gru-input model=tempCourse valuePath='title' maxLength=50}}
+              {{validation.gru-input model=tempCourse valuePath='title' maxLength=50 didValidate=didValidate}}
             {{else}}
               <b>{{course.title}}</b>
             {{/if}}
@@ -45,7 +45,7 @@
             <label>
                 <span>{{t "content.courses.edit.information.description"}}</span>
               {{#if isEditing}}
-                {{validation.gru-textarea rawTextareaValue=tempCourse.description model=tempCourse valuePath='description' maxLength=500 rows=2}}
+                {{validation.gru-textarea rawTextareaValue=tempCourse.description model=tempCourse valuePath='description' maxLength=500 rows=2 didValidate=didValidate}}
               {{else}}
                 {{#if course.description}}
                 {{textarea class="text-description" value=course.description class="form-control" rows=2 readonly=true}}
@@ -69,7 +69,7 @@
           <label>
             <span>{{t "common.use-case"}}</span>
             {{#if isEditing}}
-              {{validation.gru-textarea rawTextareaValue=tempCourse.useCase model=tempCourse valuePath='useCase' maxLength=500 rows=2}}
+              {{validation.gru-textarea rawTextareaValue=tempCourse.useCase model=tempCourse valuePath='useCase' maxLength=500 rows=2 didValidate=didValidate}}
             {{else}}
               {{#if course.useCase}}
                 {{textarea class="text-useCase" value=course.useCase class="form-control" rows=2 readonly=true}}

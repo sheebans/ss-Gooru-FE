@@ -8,15 +8,19 @@ module.exports = function (environment) {
     modulePrefix: 'gooru-web',
     rootElement: "#gooru-application-container",
     environment: environment,
-    baseURL: isEmbedded ? undefined : '/',
+    rootURL: isEmbedded ? undefined : '/',
     locationType: isEmbedded ? 'none' : 'auto',
     exportApplicationGlobal: "GooruWebApp",
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
+      },
+      EXTEND_PROTOTYPES: {
+        // Prevent Ember Data from overriding Date.parse.
+        Date: false
       }
-    },
+},
 
     APP: {
       // Here you can pass flags/options to your application instance
@@ -40,23 +44,14 @@ module.exports = function (environment) {
   };
 
   ENV['ember-simple-auth'] = {
-    baseURL: '/'
+    baseURL: ''
   };
 
   /**
    * Application themes configuration
    */
   ENV['themes'] = {
-    'default': null, /* when present it is not necessary to pass a query param */
-    'edify' : {
-      'translations': {
-        'locale': 'en-edify', /* this way it fallback to 'en' */
-        'url': 'themes/edify/translations.json'
-      },
-      'styles': {
-        'url': 'themes/edify/styles.css'
-      }
-    }
+    'default': null /* when present it is not necessary to pass a query param */
   };
 
   ENV['player'] = {
@@ -108,7 +103,6 @@ module.exports = function (environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.baseURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter
@@ -118,10 +112,11 @@ module.exports = function (environment) {
     ENV['ember-simple-auth'].store = 'session-store:ephemeral';
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.rootElement = '#ember-testing';
     ENV.embedded = false;
   }
 
-  if (environment === 'production') {
+  if (environment === 'production' && !isEmbedded) {
     ENV.googleAnalytics = {
       webPropertyId: 'UA-79540131-1',
       tracker: "analytics.js",

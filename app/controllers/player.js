@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from '../mixins/session';
+import ConfigurationMixin from '../mixins/configuration';
 import {generateUUID} from 'gooru-web/utils/utils';
 /**
  * @module
@@ -8,7 +9,7 @@ import {generateUUID} from 'gooru-web/utils/utils';
  *
  * @augments Ember/Controller
  */
-export default Ember.Controller.extend(SessionMixin, ModalMixin, {
+export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -47,8 +48,9 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         controller.finishConfirm();
       } else {
         //finishes the last resource
-        controller.finishResourceResult(controller.get('resourceResult')).then(function() {
-          controller.finishCollection();
+        const submittedAt = new Date();
+        controller.finishResourceResult(controller.get('resourceResult'), submittedAt).then(function() {
+          controller.finishCollection(submittedAt); //using the resource submittedAt as collection submittedAt
         });
       }
     },
@@ -61,8 +63,9 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
      */
     submitQuestion: function(question, questionResult){
       const controller = this;
-      controller.finishResourceResult(questionResult).then(function(){
-        controller.moveOrFinish(question);
+      const submittedAt = new Date();
+      controller.finishResourceResult(questionResult, submittedAt).then(function(){
+        controller.moveOrFinish(question, submittedAt);
       });
     },
 
@@ -245,6 +248,29 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     return isCollection || hasNoContext;
   }),
 
+  /**
+   * Indicates if it is an assessment and is started
+   * @property {boolean}
+   */
+  isAssessmentStarted: Ember.computed("assessmentResult", "collection", function(){
+    const isAssessment = this.get("collection.isAssessment");
+    const isStarted = this.get("assessmentResult.started");
+
+    return isAssessment && isStarted;
+  }),
+
+  /**
+   * Indicates if the reaction bar is visible
+   * @property {boolean}
+   */
+  showReactionBar: Ember.computed.alias("features.collections.player.showReactionBar"),
+
+  /**
+   * Indicates if the report is visible
+   * @property {boolean} showReportLink
+   */
+  showReportLink: Ember.computed.alias("features.collections.player.showReportLink"),
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -253,35 +279,46 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   // Methods
   /**
    * Moves to the next resource or finishes the collection
+   * @param {Resource} resource
+   * @param {Date} submittedAt, this is the submittedAt of the previous resource
    */
-  moveOrFinish: function(resource) {
+  moveOrFinish: function(resource, submittedAt = new Date()) {
     const controller = this;
     const next = controller.get("collection").nextResource(resource);
     if (next){
       Ember.$(window).scrollTop(0);
-      controller.moveToResource(next);
+      const startedAt = submittedAt; //using previous resource submittedAt as next resource started at
+      controller.moveToResource(next, startedAt);
     }
     else{
-      controller.finishConfirm();
+      controller.finishConfirm(submittedAt); //using previous resource submittedAt as collection submittedAt
     }
   },
 
   /**
    * Moves to resource
    * @param {Resource} resource
+   * @param {Date} startedAt when the resource was started, if a previous resource is not submitted this date will be used
    */
-  moveToResource: function(resource) {
+  moveToResource: function(resource, startedAt = new Date()) {
     const controller = this;
+    const previousResource = controller.get('resource');
+    const sameResource = previousResource && resource.get("id") === previousResource.get("id");
+    if (sameResource) {
+      return; //do nothing
+    }
+
     //if previous item exists
+    const submittedAt = startedAt; //using the startedAt as submittedAt for previous resource
     let promise = controller.get('resourceResult') ?
-      controller.finishResourceResult(controller.get('resourceResult')) : Ember.RSVP.resolve();
+      controller.finishResourceResult(controller.get('resourceResult'), submittedAt) : Ember.RSVP.resolve();
     promise.then(function() {
       let assessmentResult = controller.get('assessmentResult');
       let resourceId = resource.get('id');
       let resourceResult = assessmentResult.getResultByResourceId(resourceId);
       // wait for it to update
       Ember.run(() => controller.set('resource', null));
-      controller.startResourceResult(resourceResult).then(function() {
+      controller.startResourceResult(resourceResult, startedAt).then(function() {
         controller.setProperties({
           'showReport': false,
           resourceId,
@@ -358,33 +395,45 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   /**
    * Finishes the assessment
+   * @param {Date} submittedAt the date for submit
    */
-  finishCollection: function(){
+  finishCollection: function(submittedAt = new Date()){
     let controller = this;
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
-    let submittedAt = new Date();
-    return controller.submitPendingQuestionResults().then(function(){
+    if (assessmentResult.get("submitted")) { //ignore if it was already submitted
+      return Ember.RSVP.resolve(assessmentResult);
+    }
+    assessmentResult.set("submitted", true);
+    return controller.submitPendingQuestionResults(submittedAt).then(function(){
       context.set("eventType", "stop");
       context.set("isStudent", controller.get("isStudent"));
       assessmentResult.set("submittedAt", submittedAt);
       return controller.saveCollectionResult(assessmentResult, context).then(function() {
-        if (!controller.get("session.isAnonymous")) {
-          controller.send("navigateToReport");
-        }
-        else {
-          controller.set("showReport", true);
+        if (controller.get("showReportLink")) {
+          if (!controller.get("session.isAnonymous")) {
+            controller.send("navigateToReport");
+          }
+          else {
+            controller.set("showReport", true);
+          }
         }
       });
     });
   },
 
-  finishConfirm: function(){
+  /**
+   * Confirms the submission
+   * @param submittedAt the date to use for submit
+   */
+  finishConfirm: function(submittedAt = new Date()){
     const controller = this;
     controller.actions.showModal.call(this,
       'content.modals.gru-submit-confirmation',
       {
-        onConfirm: controller.finishCollection.bind(controller)
+        onConfirm: function () {
+          return controller.finishCollection(submittedAt);
+        }
       });
   },
 
@@ -397,10 +446,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let assessmentResult = controller.get("assessmentResult");
     let context = controller.get("context");
     let promise = Ember.RSVP.resolve(controller.get("collection"));
+    let isInContext = this.get("context") && this.get("context.isInContext");
     controller.set('showContent',true);
 
-    if (! assessmentResult.get("started") ){
-      assessmentResult.set("startedAt", new Date());
+    const startedAt = new Date();
+    if (!assessmentResult.get("started") ){
+      assessmentResult.set("startedAt", startedAt);
       context.set("eventType", "start");
       context.set("isStudent", controller.get("isStudent"));
       promise = controller.saveCollectionResult(assessmentResult, context);
@@ -411,13 +462,13 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       let hasResources = collection.get("hasResources");
       if (hasResources){
         resource = assessmentResult.get("lastVisitedResource");
-        if (controller.get("resourceId")) { //if has a resource id as query param
+        if (controller.get("resourceId") && !isInContext) { //if has a resource id as query param and it is not in the context
           resource = collection.getResourceById(controller.get("resourceId"));
         }
       }
 
       if (resource) {
-        controller.moveToResource(resource);
+        controller.moveToResource(resource, startedAt);
       }
     });
   },
@@ -436,26 +487,33 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   /**
    * Submits pending question results
+   * @param {Date} submittedAt the submittedAt date for the pending questions
    * @returns {Promise}
    */
-  submitPendingQuestionResults: function() {
+  submitPendingQuestionResults: function(submittedAt = new Date()) {
     let controller = this;
-    return controller.startNonStartedQuestionResults()
+    const startedAt = submittedAt; //using the submittedAt as started as for non started questions
+    return controller.startNonStartedQuestionResults(startedAt)
       .then(function() {
         let pendingQuestionResults = controller.get('assessmentResult.pendingQuestionResults');
         let promises = pendingQuestionResults.map(function(questionResult) {
-          return controller.finishResourceResult(questionResult, undefined, questionResult.get('skipped'));
+          return controller.finishResourceResult(questionResult, submittedAt, questionResult.get('skipped'));
         });
         return Ember.RSVP.all(promises);
       });
   },
 
-  startNonStartedQuestionResults: function() {
+  /**
+   * Starts non visited questions
+   * @param startedAt the startedAt date for all events
+   * @returns {Promise.<*>|*}
+     */
+  startNonStartedQuestionResults: function(startedAt = new Date()) {
     let controller = this;
     let questionResults = controller.get('assessmentResult.questionResults');
     let promises = questionResults.filterBy('startedAt', null)
       .map(function(questionResult) {
-        return controller.startResourceResult(questionResult);
+        return controller.startResourceResult(questionResult, startedAt);
       });
     return Ember.RSVP.all(promises);
   },
@@ -473,10 +531,14 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   resetValues: function(){
     this.set("resourceId", null);
-    this.set("resource", null);
-    this.set("resourceResult", null);
+    this.resetCurrentResourceValues();
     this.set("role", null);
     this.set("notifyingRealTime", false);
+  },
+
+  resetCurrentResourceValues: function() {
+    this.set("resource", null);
+    this.set("resourceResult", null);
   }
 
 });

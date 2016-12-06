@@ -177,13 +177,15 @@ To build the application as a embedded app do
 #### Run as embedded
 You could do the same to run the application embedded
 
-* `GOORU_EMBEDDED=true grunt run` this will run the application embedded, you should access /embedded.html
+* `GOORU_EMBEDDED=true grunt run` this will run the application embedded, you should access /embedded/collection-player.html or /embedded/resource-player.html
 
 #### Configuring the embedded application
 When embedding the application you can pass several options
 
 * token, it should be a valid gooru token, when present the application would try to authentication using that token, otherwise it will authenticated anonymously 
-* transition, it is use to tell the application to navigate to a specific page, you need to provide the parameters matching the ember route, see public/embedded.html for an example
+* transition, it is use to tell the application to navigate to a specific page, you need to provide the parameters matching the ember route
+* you can also set any other application property
+
 
 ### Continuous Integration
 We have setup Bamboo as continuous integration server
@@ -220,4 +222,10 @@ This module uses a WebSocket connection with a sub-domain of the backend applica
 ##### Important:
 It is required that the sub-domain that gives the support to the RealTime needs to be configured to use a SSL (HTTPS)
 connection, otherwise the RealTime module will not be able to communicate with the backend server.
+
+### Adding Themes
+Gooru app support custom themes
+* Add a new scss file under styles/themes, i.e london.scss
+* Add an entry to ember-cli-build.js, outpaths section,  ie `'themes/london': '/assets/themes/london/styles.css'`
+* The theme css will be loaded on demand when passing the correct themeId
 

@@ -27,7 +27,7 @@ test('Layout', function(assert) {
     T.exists(assert, $editContainer.find(".save"), "Missing save button");
     T.exists(assert, $editContainer.find("#username"), "Missing username");
 
-    const usernameMaxLenValue = this.$('#username input').prop('maxlength');
+    const usernameMaxLenValue = $editContainer.find('#username input').prop('maxlength');
     assert.equal(usernameMaxLenValue, 20, "Incorrect username max length");
 
     T.exists(assert, $editContainer.find("#first-name"), "Missing user first name");
@@ -38,7 +38,7 @@ test('Layout', function(assert) {
     assert.equal(find(".roles .gru-radio").length, 3, "Missing roles gru-radio components");
     T.exists(assert, $editContainer.find(".gru-select"), "Missing gru-select component of countries");
 
-    const studentIDMaxLenValue = this.$('#studentId input').prop('maxlength');
+    const studentIDMaxLenValue = $editContainer.find('#studentId input').prop('maxlength');
     assert.equal(studentIDMaxLenValue, 25, "Incorrect student id max length");
   });
 });

@@ -209,6 +209,7 @@ export default Ember.Route.extend(ModalMixin,{
    * @param {Collection} model
    */
   setupController(controller, model) {
+    controller.resetCurrentResourceValues(); //making sure that previous collection session values are cleared
     let collection = model.collection;
     let originalCollection = model.originalCollection;
     let assessmentResult = model.assessmentResult;

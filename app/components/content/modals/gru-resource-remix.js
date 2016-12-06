@@ -30,17 +30,15 @@ export default RemixBaseModal.extend({
   // Actions
 
   copyContent: function(resource) {
-    return this.get("resourceService").copyResource(resource.get('id'));
+    return this.get("resourceService").copyResource(resource.get('id'), resource.get("title"));
   },
 
   updateContent: function(resource) {
     const component = this;
-    return component.get('resourceService').updateResourceTitle(resource.get('id'), resource.get('title')).then(function() {
-      let collectionId = component.get('collectionId');
-      return collectionId ?
-        component.get('collectionService').addResource(collectionId, resource.get('id')) :
-        Ember.RSVP.resolve();
-    });
+    let collectionId = component.get('collectionId');
+    return collectionId ?
+      component.get('collectionService').addResource(collectionId, resource.get('id')) :
+      Ember.RSVP.resolve();
   },
 
   showSuccessNotification: function(resource) {

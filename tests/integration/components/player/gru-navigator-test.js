@@ -410,6 +410,21 @@ test('See usage report', function(assert) {
   $seeReportButton.click();
 });
 
+test('Not see usage report', function(assert) {
+  assert.expect(1);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showReportLink=false}}`);
+  var $component = this.$(); //component dom element
+  var $seeReportButton = $component.find(".gru-navigator .see-usage-report");
+  assert.notOk($seeReportButton.length, "report button should be hidden");
+});
+
 test('Remix collection/assessment', function(assert) {
   assert.expect(2);
 
@@ -444,4 +459,20 @@ test('Finish collection', function(assert) {
 
   assert.ok($finishButton, "Missing finish button");
   $finishButton.click();
+});
+
+test('Not finish collection', function(assert) {
+  assert.expect(1);
+
+  const collection = Ember.Object.create({
+    isAssessment: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showReportLink=false}}`);
+  var $component = this.$(); //component dom element
+  var $finishButton = $component.find("button.finish-collection");
+
+  assert.notOk($finishButton.length, "Finish button should be hidden");
 });

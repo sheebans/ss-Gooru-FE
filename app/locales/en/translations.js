@@ -757,13 +757,15 @@ export default {
     },
     "unlimited-attempts":"You have unlimited attempts",
     "cancel": "Cancel",
+    "continue": "Continue",
     "start": "Start!"
   },
   "gru-submit-confirmation":{
-    "title": "Are you sure you want to Submit All?",
+    "title": "Finish this quiz and submit all",
     "description": "You are about to end this attempt and submit all responses. Any skipped questions will be counted as incorrect.",
     "cancel": "Cancel",
-    "confirm": "Submit All"
+    "confirm": "Finish Quiz",
+    "finish-description": "Click “Finish Quiz” to submit your responses."
   },
   "gru-quick-course-search": {
     "add-from-course": "Add from Existing Course",

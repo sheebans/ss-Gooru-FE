@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import {download} from 'gooru-web/utils/csv';
+import {prepareFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
 
 /**
  * Teacher Analytics Performance Controller
@@ -16,6 +18,8 @@ export default Ember.Controller.extend({
   queryParams: ['filterBy'],
 
   classController: Ember.inject.controller('class'),
+
+  applicationController: Ember.inject.controller('application'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -51,6 +55,42 @@ export default Ember.Controller.extend({
      */
     toggleFullScreen: function () {
       return this.get("classController").toggleFullScreen();
+    },
+
+    /**
+     * When clicking at the download button
+     */
+    download: function(){
+      const performanceDataHeaders = this.get('performanceDataHeaders');
+      const performanceDataMatrix = this.get('performanceDataMatrix');
+      const date=formatDate(new Date(),'MM-DD-YY');
+      const classTitle = this.get('class.title');
+      const courseTitle = this.get('course.title');
+      const currentRouteName = this.get('applicationController.currentRouteName');
+      var fileNameString = `${classTitle}_${courseTitle}`;
+      var unitIndex;
+      var lessonIndex;
+      var level = 'course';
+
+      if (currentRouteName === 'class.analytics.performance.teacher.unit'){
+        unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
+        fileNameString = `${fileNameString}_unit${unitIndex+1}`;
+        level='unit';
+      }
+
+      if (currentRouteName === 'class.analytics.performance.teacher.lesson'){
+        level='lesson';
+        unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
+        lessonIndex =  this.get('unit').getChildLessonIndex(this.get('lesson'));
+        fileNameString = `${fileNameString}_unit${unitIndex+1}_lesson${lessonIndex+1}`;
+      }
+
+      fileNameString = `${fileNameString}_${date}`;
+
+      const fileName = createFileNameToDownload(fileNameString);
+      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, this.get('filterBy'),level);
+
+      download(fileName, fileData);
     }
   },
 
@@ -103,6 +143,20 @@ export default Ember.Controller.extend({
    * @property {String}
    */
   filterBy: 'assessment',
+
+  /**
+   * The performance data header titles of the course, unit, lesson. This is setting in each setupController
+   * @property {Headers[]}
+   */
+
+  performanceDataHeaders: null,
+
+  /**
+   * The performanceDataMatrix of the course, unit, lesson. This is setting in each setupController
+   * @property {performanceData[]}
+   */
+
+  performanceDataMatrix: null,
 
   /**
    * List of selected options from the data picker.

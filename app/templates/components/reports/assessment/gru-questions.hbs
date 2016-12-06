@@ -69,7 +69,7 @@
         {{formatTime result.timeSpent}}
       </td>
       <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
-        {{reactionIcon result.reaction}}
+        {{reactionIcon result.reaction appRootPath}}
       </td>
       {{#unless isAnswerKeyHidden}}
         <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">

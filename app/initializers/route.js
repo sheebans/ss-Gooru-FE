@@ -22,8 +22,19 @@ export function initialize(app) {
     addRouteSpecificClass: function() {
       const route = this;
       const currentRouteName = route.routeName;
-      Ember.$(Env.rootElement).attr('class', currentRouteName.replace(/\./g, '_'));
+      const rootElement = Ember.$(Env.rootElement);
+      rootElement.addClass(currentRouteName.replace(/\./g, '_'));
     }.on('activate'),
+
+    /**
+     * This event handlers removes an specific class to the body everytime a route is activated
+     */
+    removeRouteSpecificClass: function() {
+      const route = this;
+      const currentRouteName = route.routeName;
+      const rootElement = Ember.$(Env.rootElement);
+      rootElement.removeClass(currentRouteName.replace(/\./g, '_'));
+    }.on('deactivate'),
 
     /**
      * When leaving a route this handler save the previous route so it can be accessed from history

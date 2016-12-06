@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies

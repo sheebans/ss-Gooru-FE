@@ -4,12 +4,21 @@ import Env from 'gooru-web/config/environment';
 import DevelopmentConfiguration from 'gooru-web/config/env/development';
 import TestConfiguration from 'gooru-web/config/env/test';
 import ProductionConfiguration from 'gooru-web/config/env/production';
+import FeaturesConfiguration from 'gooru-web/config/env/features';
 
 const ConfigurationService = Ember.Service.extend({
 
   configurationAdapter: null,
 
+  /**
+   * Application configuration
+   */
   configuration: null,
+
+  /**
+   * Feature flags
+   */
+  features: Ember.computed.alias("configuration.features"),
 
   init: function () {
     this._super(...arguments);
@@ -17,7 +26,7 @@ const ConfigurationService = Ember.Service.extend({
   },
 
 
-  loadConfiguration: function() {
+  loadConfiguration: function(configBaseUrl = null) {
     const service = this;
     const environment = Env.environment;
     const isProduction = environment === "production";
@@ -26,6 +35,8 @@ const ConfigurationService = Ember.Service.extend({
       (isDevelopment ? DevelopmentConfiguration : TestConfiguration);
 
     const configuration = Ember.Object.create(envConfiguration);
+    configuration.setProperties(FeaturesConfiguration); //setting default features behavior
+
     //setting the configuration to the global variable
     ConfigurationService.configuration = configuration;
 
@@ -33,10 +44,10 @@ const ConfigurationService = Ember.Service.extend({
 
     const hostname = window.location.hostname;
 
-    return service.get("configurationAdapter").loadConfiguration(hostname)
+    return service.get("configurationAdapter").loadConfiguration(hostname, configBaseUrl)
       .then(function(hostnameConfiguration){ //it looks for the specific domain configuration
        if (hostnameConfiguration) {
-         configuration.setProperties(hostnameConfiguration);
+         service.merge(hostnameConfiguration);
          Ember.Logger.info("Custom host configuration found: ", hostnameConfiguration);
        }
        else {
@@ -44,6 +55,13 @@ const ConfigurationService = Ember.Service.extend({
        }
        return configuration;
     });
+  },
+
+  /**
+   * Merges properties
+   */
+  merge: function(props) {
+    this.get("configuration").setProperties(props);
   }
 });
 

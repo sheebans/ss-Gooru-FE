@@ -46,6 +46,10 @@ test('merge', function (assert) {
   assert.deepEqual(reportData.data['2']['B'].get('resourceId'), 'B', 'row 2 | column 2: - wrong id for default object');
   assert.notOk(reportData.data['5'], 'row 5 should not exist');
 
+  //checking time spent
+  assert.equal(reportData.data['1']['A'].get("timeSpent"), 10, 'row 1 | column 1: - wrong time spent');
+  assert.equal(reportData.data['1']['B'].get("timeSpent"), 10, 'row 1 | column 2: - wrong time spent');
+
   reportData.merge([
     UserResourcesResult.create({
       user: '1',
@@ -61,6 +65,10 @@ test('merge', function (assert) {
   assert.equal(reportData.data['1']['B'], QR4, 'row 1 | column 2: -override with new object');
   assert.equal(reportData.data['2']['A'], QR5, 'row 2 | column 1: -override default object');
   assert.notOk(reportData.data['2']['C'], 'row 2 | column 3 should not exist');
+
+  //checking time spent
+  assert.equal(reportData.data['1']['A'].get("timeSpent"), 30, 'row 1 | column 1: - wrong time spent');
+  assert.equal(reportData.data['1']['B'].get("timeSpent"), 30, 'row 1 | column 2: - wrong time spent');
 });
 
 test('getEmptyMatrix', function (assert) {

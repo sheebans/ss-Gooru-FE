@@ -40,6 +40,13 @@
       }
     }
 
+    .gru-spinner-button {
+      display: inline;
+      .has-spinner {
+        width: auto;
+      }
+    }
+
     .actions {
       margin-top: 70px;
       text-align: right;

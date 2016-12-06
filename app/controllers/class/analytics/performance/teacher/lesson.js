@@ -134,6 +134,7 @@ export default Ember.Controller.extend({
 
     if (controller.get("active")){
       controller.set('performanceDataMatrix', []);
+      controller.set("teacherController.performanceDataMatrix", []);
       controller.set('collections', []);
       controller.get("teacherController").restoreSelectedOptions(true);
       const filterBy = controller.get('filterBy');
@@ -151,6 +152,7 @@ export default Ember.Controller.extend({
           controller.set('collections', filteredCollections);
           const performanceData = createDataMatrix(filteredCollections, classPerformanceData, 'lesson');
           controller.set('performanceDataMatrix', performanceData);
+          controller.set("teacherController.performanceDataMatrix", performanceData);
         });
     }
   })

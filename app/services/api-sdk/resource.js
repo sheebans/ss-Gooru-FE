@@ -105,12 +105,13 @@ export default Ember.Service.extend({
   /**
    * Copies a resources by id
    * @param {string} resourceId
+   * @param {string} title
    * @returns {Ember.RSVP.Promise}
    */
-  copyResource: function(resourceId){
+  copyResource: function(resourceId, title = null){
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('resourceAdapter').copyResource(resourceId)
+      service.get('resourceAdapter').copyResource(resourceId, title)
         .then(function(responseData, textStatus, request) {
           resolve(request.getResponseHeader('location'));
         }, reject );

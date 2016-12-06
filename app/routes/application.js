@@ -4,11 +4,12 @@ import Env from '../config/environment';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 import GooruLegacyUrl from 'gooru-web/utils/gooru-legacy-url';
 import Error from 'gooru-web/models/error';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * @typedef {object} ApplicationRoute
  */
-export default Ember.Route.extend(PublicRouteMixin, {
+export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -75,28 +76,18 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   }),
 
-  beforeModel: function() {
-    const route = this;
-    return route._super(...arguments).then(function(){
-      if (Env.embedded) {
-        route.handleEmbeddedApplication();
-      }
-    });
+  beforeModel: function(){
+    if (Env.embedded) {
+      return this.beforeModelEmbeddedApplication();
+    }
   },
 
   model: function(params) {
     const route = this;
     const currentSession = route.get("session.data.authenticated");
-    const themeConfig = Env['themes'] || {};
     const themeId = params.themeId || Env['themes'].default;
     let myClasses = null;
     var profilePromise = null;
-
-    var theme = null;
-    if (themeId && themeConfig[themeId]){
-      theme = GruTheme.create(themeConfig[themeId]);
-      theme.set("id", themeId);
-    }
 
     if (!currentSession.isAnonymous) {
       profilePromise = route.get('profileService')
@@ -106,26 +97,24 @@ export default Ember.Route.extend(PublicRouteMixin, {
         });
     }
 
+    route.setupTheme(themeId);
     return Ember.RSVP.hash({
       currentSession: currentSession,
-      theme: theme,
-      translations: theme ? theme.loadTranslations() : null,
       myClasses: myClasses,
       profile: profilePromise
     });
   },
 
   afterModel: function(){
-    this.handleLegacyUrlIfNecessary();
+    if (Env.embedded) {
+      return this.afterModelEmbeddedApplication();
+    }
+    else {
+      return this.handleLegacyUrlIfNecessary();
+    }
   },
 
   setupController: function(controller, model) {
-    const theme = model.theme;
-    if (theme){
-      controller.set("theme", theme);
-      this.setupTheme(theme, model.translations);
-    }
-
     if (model.myClasses) {
       controller.set('myClasses', model.myClasses);
     }
@@ -138,27 +127,14 @@ export default Ember.Route.extend(PublicRouteMixin, {
   /**
    * Setups the application theme
    * @param {GruTheme} theme
-   * @param {*} translations
    */
-  setupTheme: function(theme, translations){
-    this.setupThemeStyles(theme);
-    this.setupThemeTranslations(theme.get("translations.locale"), translations);
-  },
-
-  /**
-   * Setups theme translations
-   * @param {string} locale theme locale
-   * @param {{}} translations theme translations
-   */
-  setupThemeTranslations: function(locale, translations){
-    const i18n = this.get("i18n");
-    //sets the theme locale
-    i18n.set("locale", locale);
-
-    //Add the translations
-    Object.keys(translations).forEach((locale) => {
-      i18n.addTranslations(locale, translations[locale]);
-    });
+  setupTheme: function(themeId){
+    const route = this;
+    themeId = route.get("configuration.themeId") ? route.get("configuration.themeId") : themeId;
+    if (themeId) {
+      const theme = GruTheme.create({id: themeId});
+      route.setupThemeStyles(theme);
+    }
   },
 
   /**
@@ -167,11 +143,13 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   setupThemeStyles: function(theme){
     //setting theme id at html tag
-    Ember.$('html').attr("id", theme.get("id"));
+    Ember.$(Env.rootElement).addClass(`${theme.get("id")}-theme`);
     //adding theme styles to head tag
-    const themeStylesUrl = theme.get("styles.url");
-    if (themeStylesUrl){
-      Ember.$('head').append(`<link id="theme-style-link" rel="stylesheet" type="text/css" href="${themeStylesUrl}">`);
+    const appRootPath = this.get("configuration.appRootPath");
+    const cssUrl = theme.get("cssUrl");
+    const themeCssUrl = `${appRootPath}${cssUrl}`;
+    if (themeCssUrl){
+      Ember.$('head').append(`<link id="theme-style-link" rel="stylesheet" type="text/css" href="${themeCssUrl}">`);
     }
   },
 
@@ -267,24 +245,37 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * Handle the logic for the embedded application
    * @returns {Promise.<TResult>}
    */
-  handleEmbeddedApplication: function () {
+  beforeModelEmbeddedApplication: function () {
     const route = this;
-    const transition = Env.APP.transition;
-    const token = Env.APP.token;
-    const authService = this.get("authService");
+    const token = Env.APP.awProps.token;
+    const configurationService = route.get("configurationService");
+
+    //load embedded properties
+    Env.APP.awProps.embedded = true;
+    configurationService.merge(Env.APP.awProps);
+
+    const authService = route.get("authService");
     const authPromise = token ?
       authService.signInWithToken(token) :
       authService.get('session').authenticateAsAnonymous();
 
-    return authPromise.then(function(){
-      const routeName = 'sign-in';
-      if (transition){
-        route.transitionTo.apply(route, transition);
-      }
-      else {
-        route.transitionTo(routeName);
-      }
-    });
+    return authPromise;
+  },
+
+  /**
+   * Handle the embedded application transition
+   * @returns {Promise.<TResult>}
+   */
+  afterModelEmbeddedApplication: function () {
+    const route = this;
+    const transition = route.get("configuration.transition");
+    const routeName = 'sign-in';
+    if (transition){
+      route.transitionTo.apply(route, transition);
+    }
+    else {
+      route.transitionTo(routeName);
+    }
   },
 
 

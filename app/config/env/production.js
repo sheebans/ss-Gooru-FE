@@ -2,6 +2,7 @@
  Production Environment configuration properties
  */
 export default {
+  "appRootPath": "/", //default is root
   "endpoint" : {
     "url": "https://www.gooru.org",
     "secureUrl": "https://www.gooru.org"
@@ -21,7 +22,7 @@ export default {
   "player": {
     "resources":{
       "pdf": {
-        "googleDriveEnable": true,
+        "googleDriveEnable": false,
         "googleDriveUrl":"https://docs.google.com/gview?url="
       }
     }

@@ -21,21 +21,15 @@ const resourceServiceStub = Ember.Service.extend({
       promise: promiseResponse
     });
   },
-  updateResourceTitle(resourceId, title) {
-    var promiseResponse;
-
+  copyResource(resourceId, title) {
     if (title === 'RESOURCE FAIL') {
-      promiseResponse = new Ember.RSVP.reject();
-    } else {
-      promiseResponse = new Ember.RSVP.resolve('any response');
+      return new Ember.RSVP.reject();
     }
-
-    return promiseResponse;
-  },
-  copyResource() {
-    return DS.PromiseObject.create({
-      promise: new Ember.RSVP.resolve(12345)
-    });
+    else {
+      return DS.PromiseObject.create({
+        promise: new Ember.RSVP.resolve(12345)
+      });
+    }
   }
 });
 

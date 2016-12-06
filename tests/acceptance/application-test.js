@@ -20,11 +20,12 @@ test('searchTerm: Search box navigation', function(assert) {
   visit('/');
 
   andThen(function() {
-    assert.expect(2); //making sure all asserts are called
+    assert.expect(3); //making sure all asserts are called
 
     assert.equal(currentURL(), '/');
 
     const $appHeader = find('.gru-header');
+    assert.ok($appHeader.length, "Missing header");
     const $searchInput = $appHeader.find(".search-input");
 
     fillIn($searchInput, 'europe');
@@ -57,18 +58,18 @@ test('Theme support - no theme', function(assert) {
 });
 
 test('Theme support - Having translations and styles url', function(assert) {
-  visit('/?themeId=edify');
+  visit('/?themeId=london');
 
   andThen(function() {
     assert.expect(4); //making sure all asserts are called
 
-    assert.equal(currentURL(), '/?themeId=edify');
+    assert.equal(currentURL(), '/?themeId=london');
 
-    T.exists(assert, Ember.$("#edify"), "Missing html element having theme id");
+    T.exists(assert, Ember.$(".london-theme"), "Missing element having theme id");
 
     const $styleLink = Ember.$("#theme-style-link");
     T.exists(assert, $styleLink, "Missing link element having theme style");
-    assert.equal($styleLink.attr("href"), "themes/edify/styles.css", "Wrong style url");
+    assert.equal($styleLink.attr("href"), "/assets/themes/london/styles.css", "Wrong style url");
 
   });
 });
