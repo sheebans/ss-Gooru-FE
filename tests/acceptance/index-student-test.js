@@ -1,6 +1,5 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
-import T from 'gooru-web/tests/helpers/assert';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
 moduleForAcceptance('Acceptance | index-student', {
