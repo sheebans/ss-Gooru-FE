@@ -49,8 +49,7 @@ silent bower install
 info "Running tests..."
 silent grunt bamboo-test
 
-if [[ "$VERSION" =~ hotfix* ]] || [[ "$VERSION" =~ master* ]] ||\
-   [[ "$VERSION" =~ develop* ]] || [[ "$VERSION" =~ release* ]]; then
+if [[ "$VERSION" == "GG-Nile" ]]; then
 
   info "Building..."
   silent grunt build:prod-bamboo
@@ -59,11 +58,11 @@ if [[ "$VERSION" =~ hotfix* ]] || [[ "$VERSION" =~ master* ]] ||\
   info "Creating artifact..."
   tar czf gooru-web-$VERSION.tar.gz gooru-web/
 
-  info "Building embedded..."
-  rm -rf gooru-web
-  GOORU_EMBEDDED=true grunt build:prod-bamboo
-  echo $VERSION > gooru-web/version.html
-
-  info "Creating embedded artifact..."
-  tar czf gooru-embedded-web-$VERSION.tar.gz gooru-web/
+#  info "Building embedded..."
+#  rm -rf gooru-web
+#  GOORU_EMBEDDED=true grunt build:prod-bamboo
+#  echo $VERSION > gooru-web/version.html
+#
+#  info "Creating embedded artifact..."
+#  tar czf gooru-embedded-web-$VERSION.tar.gz gooru-web/
 fi
