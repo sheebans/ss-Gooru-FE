@@ -113,6 +113,11 @@
               <input name="show-resource-number" type="checkbox" value="true"> Show Resource Number
             </label>
           </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-question-feedback" type="checkbox" value="true"> Show Question Feedback
+            </label>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -149,6 +154,7 @@
       var collectionName = jQuery("#the-form input[name = 'show-collection-name']:checked").val() === "true";
       var collectionAuthor = jQuery("#the-form input[name = 'show-collection-author']:checked").val() === "true";
       var resourceNumber = jQuery("#the-form input[name = 'show-resource-number']:checked").val() === "true";
+      var showQuestionFeedback = jQuery("#the-form input[name = 'show-question-feedback']:checked").val() === "true";
 
 
       if (aw) {
@@ -179,7 +185,8 @@
               "showRemix": remix,
               "showCollectionName": collectionName,
               "showCollectionAuthor": collectionAuthor,
-              "showResourceNumber": resourceNumber
+              "showResourceNumber": resourceNumber,
+              "showQuestionFeedback": showQuestionFeedback
             }
           }
         }

@@ -294,7 +294,7 @@ test('Submit button disabled when submitted', function (assert) {
   assert.ok($answerPanel.find(".actions button.save").attr("disabled"), "Button should be disabled");
 });
 
-test('Show feedback layout', function (assert) {
+test('Show feedback layout, using collection setting', function (assert) {
   assert.expect(4);
 
   const question = Ember.Object.create(
@@ -325,7 +325,7 @@ test('Show feedback layout', function (assert) {
   this.set('role', 'student');
 
   this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
-      collection=assessment onSubmitQuestion="mySubmitQuestion" hasContext=true role=role}}`);
+      collection=assessment onSubmitQuestion="mySubmitQuestion" role=role}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");
@@ -338,7 +338,51 @@ test('Show feedback layout', function (assert) {
   $answerPanel.find(".actions button.save").click();
 });
 
-test('Show feedback when submitted layout', function (assert) {
+test('Show feedback layout, using showQuestionFeedback', function (assert) {
+  assert.expect(4);
+
+  const question = Ember.Object.create(
+    {
+      "id": 10,
+      "order": 2,
+      "text": "Dummy question text",
+      "mediaUrl": "test.jpg",
+      "questionType": 'OE',
+      "hasMedia": true
+    });
+
+  const assessment = Assessment.create({
+    showFeedback: ASSESSMENT_SHOW_VALUES.NEVER //setting hides feedback, property should override it
+  });
+
+  const questionResult = QuestionResult.create();
+
+  this.on("mySubmitQuestion", function(question, questionResult){
+    assert.equal(question.get("id"), 10, "Wrong id");
+    assert.equal(questionResult.get("correct"), true, "Answer should be correct");
+    assert.equal(questionResult.get("userAnswer"), "test", "Wrong id");
+  });
+
+  this.set('assessment', assessment);
+  this.set('questionResult', questionResult);
+  this.set('question', question);
+  this.set('role', 'student');
+
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
+      collection=assessment onSubmitQuestion="mySubmitQuestion" showQuestionFeedback=true role=role}}`);
+
+  var $component = this.$(); //component dom element
+  var $answerPanel = $component.find(".answers-panel");
+  const $saveButton = $answerPanel.find(".actions button.save");
+  assert.equal(T.text($saveButton), this.i18n.t('common.save').toString(), 'Wrong button text');
+
+  var $openEndedComponent = $answerPanel.find(".gru-open-ended");
+  $openEndedComponent.find("textarea").val("test");
+  $openEndedComponent.find("textarea").change();
+  $answerPanel.find(".actions button.save").click();
+});
+
+test('Show feedback when submitted layout, using collection setting', function (assert) {
   assert.expect(2);
 
   const question = Ember.Object.create(
@@ -365,7 +409,43 @@ test('Show feedback when submitted layout', function (assert) {
   this.set('role', 'student');
 
   this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
-      collection=assessment onSubmitQuestion="mySubmitQuestion" hasContext=true role=role}}`);
+      collection=assessment onSubmitQuestion="mySubmitQuestion" role=role}}`);
+
+  var $component = this.$(); //component dom element
+  var $answerPanel = $component.find(".answers-panel");
+  assert.notOk($answerPanel.find(".actions button.save").attr("disabled"), "Button should be enabled");
+
+  assert.ok($answerPanel.find(".feedback").length, "Feedback should be shown");
+});
+
+test('Show feedback when submitted layout, using collection setting', function (assert) {
+  assert.expect(2);
+
+  const question = Ember.Object.create(
+    {
+      "id": 10,
+      "order": 2,
+      "text": "Dummy question text",
+      "mediaUrl": "test.jpg",
+      "questionType": 'OE',
+      "hasMedia": true
+    });
+
+  const assessment = Assessment.create({
+    showFeedback: ASSESSMENT_SHOW_VALUES.NEVER //setting hides feedback, property should override it
+  });
+
+  const questionResult = QuestionResult.create({
+    submittedAnswer: true
+  });
+
+  this.set('assessment', assessment);
+  this.set('questionResult', questionResult);
+  this.set('question', question);
+  this.set('role', 'student');
+
+  this.render(hbs`{{player/gru-question-viewer question=question questionResult=questionResult
+      collection=assessment onSubmitQuestion="mySubmitQuestion" showQuestionFeedback=true role=role}}`);
 
   var $component = this.$(); //component dom element
   var $answerPanel = $component.find(".answers-panel");

@@ -16,7 +16,8 @@ Gooru application features can be enabled and disabled at runtime.
         showRemix: true,
         showCollectionName: true,
         showCollectionAuthor: true,
-        showResourceNumber: true
+        showResourceNumber: true,
+        showQuestionFeedback: false
       }
     }
   }
@@ -46,3 +47,7 @@ Useful to hide the collection author
 
 ## `collections.player.showResourceNumber`
 Useful to hide the resource number
+
+## `collections.player.showQuestionFeedback`
+Useful to always show or hide feedback per question, assessment settings take priority over this, so that if
+the assessment is configured to show feedback there is no way to turn it off.

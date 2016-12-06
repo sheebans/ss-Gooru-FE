@@ -60,13 +60,29 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
      * @see components/player/gru-question-viewer.js
      * @param {Resource} question
      * @param {QuestionResult} questionResult
+     * @param {Ember.RSVP.defer} resolved when all actions are done
+     * @param {boolean} continue to next resource
      */
-    submitQuestion: function(question, questionResult){
+    submitQuestion: function (question, questionResult) {
       const controller = this;
-      const submittedAt = new Date();
-      controller.finishResourceResult(questionResult, submittedAt).then(function(){
-        controller.moveOrFinish(question, submittedAt);
-      });
+      let showFeedback = controller.get('collection.immediateFeedback') || controller.get("showQuestionFeedback");
+      let isTeacher = controller.get('isTeacher');
+      if(!showFeedback || isTeacher) { // when not showing feedback
+        const submittedAt = new Date();
+        controller.finishResourceResult(questionResult, submittedAt).then(function(){
+          controller.moveOrFinish(question, submittedAt);
+        });
+      }
+      else { // when showing feedback
+        if(questionResult.get('submittedAnswer')) {
+          controller.moveOrFinish(question, questionResult.get("submittedAt"));
+        }
+        else {
+          controller.finishResourceResult(questionResult).then(function(){
+            questionResult.set('submittedAnswer', true); //indicates the answer is submitted and shows feedback
+          });
+        }
+      }
     },
 
     /**
@@ -300,6 +316,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    * @property {boolean} showResourceNumber
    */
   showResourceNumber: Ember.computed.alias("features.collections.player.showResourceNumber"),
+
+  /**
+   * Indicates if it should show feedback per question or not
+   * @property {boolean} showQuestionFeedback
+   */
+  showQuestionFeedback: Ember.computed.alias("features.collections.player.showQuestionFeedback"),
 
   // -------------------------------------------------------------------------
   // Observers
