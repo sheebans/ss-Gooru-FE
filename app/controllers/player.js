@@ -290,6 +290,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
   showCollectionName: Ember.computed.alias("features.collections.player.showCollectionName"),
 
   /**
+   * Indicates if the collection author is visible
+   * @property {boolean} showCollectionAuthor
+   */
+  showCollectionAuthor: Ember.computed.alias("features.collections.player.showCollectionAuthor"),
+
+  /**
    * Indicates if the resource number is visible
    * @property {boolean} showResourceNumber
    */

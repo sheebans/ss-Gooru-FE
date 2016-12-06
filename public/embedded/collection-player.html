@@ -105,6 +105,11 @@
           </div>
           <div class="checkbox">
             <label>
+              <input name="show-collection-author" type="checkbox" value="true"> Show Collection Author
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
               <input name="show-resource-number" type="checkbox" value="true"> Show Resource Number
             </label>
           </div>
@@ -142,7 +147,9 @@
       var back = jQuery("#the-form input[name = 'show-back']:checked").val() === "true";
       var remix = jQuery("#the-form input[name = 'show-remix']:checked").val() === "true";
       var collectionName = jQuery("#the-form input[name = 'show-collection-name']:checked").val() === "true";
+      var collectionAuthor = jQuery("#the-form input[name = 'show-collection-author']:checked").val() === "true";
       var resourceNumber = jQuery("#the-form input[name = 'show-resource-number']:checked").val() === "true";
+
 
       if (aw) {
         aw.destroy();
@@ -171,6 +178,7 @@
               "showBackLink": back,
               "showRemix": remix,
               "showCollectionName": collectionName,
+              "showCollectionAuthor": collectionAuthor,
               "showResourceNumber": resourceNumber
             }
           }
