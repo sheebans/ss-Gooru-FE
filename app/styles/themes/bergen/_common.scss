@@ -6,10 +6,10 @@ a {
 
 input[type="radio"] {
   &:before{
-    background-color: $dark-400;
+    background-color: $dark-200;
   }
   &:checked:after {
-    border-color: $dark-400;
+    border-color: $dark-200;
   }
 }
 
