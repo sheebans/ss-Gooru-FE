@@ -78,7 +78,7 @@ test('resourceComponentSelected for youtube resource type', function (assert) {
   assert.equal(component.get("resourceComponentSelected"), "player.resources.gru-url-resource", "Wrong component name");
 });
 
-test('buttonTextKey when is not the last resource', function (assert) {
+test('buttonTextKey when is not the last resource, no showing feedback', function (assert) {
   assert.expect(1);
 
   var component = this.subject({
@@ -87,14 +87,15 @@ test('buttonTextKey when is not the last resource', function (assert) {
       resourceType: "resource/url"
     }),
     collection: Ember.Object.create({
-      isLastResource: function () { return false; }
+      isLastResource: function () { return false; },
+      showFeedback: ASSESSMENT_SHOW_VALUES.NEVER
     })
   });
 
   assert.equal(component.get("buttonTextKey"), "common.save-next", "Wrong button text key");
 });
 
-test('buttonTextKey when is the last resource and assessment', function (assert) {
+test('buttonTextKey when is the last resource and assessment, no showing feedback', function (assert) {
   assert.expect(1);
 
   var component = this.subject({
@@ -104,14 +105,15 @@ test('buttonTextKey when is the last resource and assessment', function (assert)
     }),
     collection: Ember.Object.create({
       isLastResource: function () { return true; },
-      isAssessment: true
+      isAssessment: true,
+      showFeedback: ASSESSMENT_SHOW_VALUES.NEVER
     })
   });
 
   assert.equal(component.get("buttonTextKey"), "common.save-submit", "Wrong button text key");
 });
 
-test('buttonTextKey when is the last resource and collection', function (assert) {
+test('buttonTextKey when is the last resource and collection, no showing feedback', function (assert) {
   assert.expect(1);
 
   var component = this.subject({
@@ -121,7 +123,8 @@ test('buttonTextKey when is the last resource and collection', function (assert)
     }),
     collection: Ember.Object.create({
       isLastResource: function () { return true; },
-      isAssessment: false
+      isAssessment: false,
+      showFeedback: ASSESSMENT_SHOW_VALUES.NEVER
     })
   });
 
@@ -132,7 +135,6 @@ test('buttonTextKey when is student and showing feedback and answer submitted an
   assert.expect(1);
 
   var component = this.subject({
-    showFeedback: true,
     resource: Ember.Object.create({
       id: 1,
       resourceType: "resource/url"
@@ -142,7 +144,7 @@ test('buttonTextKey when is student and showing feedback and answer submitted an
     }),
     collection: Ember.Object.create({
       isLastResource: function () { return true; },
-      isAssessment: false
+      showFeedback: ASSESSMENT_SHOW_VALUES.IMMEDIATE
     }),
     isTeacher: false
   });
@@ -154,7 +156,6 @@ test('buttonTextKey when is student and showing feedback and answer submitted an
   assert.expect(1);
 
   var component = this.subject({
-    showFeedback: true,
     resource: Ember.Object.create({
       id: 1,
       resourceType: "resource/url"
@@ -164,7 +165,7 @@ test('buttonTextKey when is student and showing feedback and answer submitted an
     }),
     collection: Ember.Object.create({
       isLastResource: function () { return false; },
-      isAssessment: false
+      showFeedback: ASSESSMENT_SHOW_VALUES.IMMEDIATE
     }),
     isTeacher: false
   });
@@ -176,7 +177,6 @@ test('buttonTextKey when is student and showing feedback and answer is not submi
   assert.expect(1);
 
   var component = this.subject({
-    showFeedback: true,
     resource: Ember.Object.create({
       id: 1,
       resourceType: "resource/url"
@@ -186,7 +186,7 @@ test('buttonTextKey when is student and showing feedback and answer is not submi
     }),
     collection: Ember.Object.create({
       isLastResource: function () { return true; },
-      isAssessment: false
+      showFeedback: ASSESSMENT_SHOW_VALUES.IMMEDIATE
     }),
     isTeacher: false
   });
@@ -194,13 +194,11 @@ test('buttonTextKey when is student and showing feedback and answer is not submi
   assert.equal(component.get("buttonTextKey"), "common.submit", "Wrong button text key");
 });
 
-test('showFeedback using collection setting and submitted answer', function (assert) {
+test('showFeedback using collection setting', function (assert) {
   assert.expect(1);
 
   var component = this.subject({
-    resourceResult: Ember.Object.create({
-      submittedAnswer: true
-    }),
+    showQuestionFeedback: undefined,
     collection: Ember.Object.create({
       showFeedback: ASSESSMENT_SHOW_VALUES.IMMEDIATE
     }),
@@ -210,85 +208,30 @@ test('showFeedback using collection setting and submitted answer', function (ass
   assert.ok(component.get("showFeedback"), "Should be true");
 });
 
-test('showFeedback using collection setting and not submitted answer', function (assert) {
+test('showFeedback using show question feedback setting', function (assert) {
   assert.expect(1);
 
   var component = this.subject({
-    resourceResult: Ember.Object.create({
-      submittedAnswer: false
-    }),
-    collection: Ember.Object.create({
-      showFeedback: ASSESSMENT_SHOW_VALUES.IMMEDIATE
-    }),
-    isStudent: true
-  });
-
-  assert.ok(!component.get("showFeedback"), "Should be false");
-});
-
-test('showFeedback using wrong collection setting and submitted answer', function (assert) {
-  assert.expect(1);
-
-  var component = this.subject({
-    resourceResult: Ember.Object.create({
-      submittedAnswer: true
-    }),
     collection: Ember.Object.create({
       showFeedback: ASSESSMENT_SHOW_VALUES.NEVER
     }),
-    isStudent: true
-  });
-
-  assert.ok(!component.get("showFeedback"), "Should be false");
-});
-
-test('showFeedback using showQuestionFeedback and submitted answer', function (assert) {
-  assert.expect(1);
-
-  var component = this.subject({
-    showQuestionFeedback: true,
-    resourceResult: Ember.Object.create({
-      submittedAnswer: true
-    }),
-    collection: Ember.Object.create({
-      showFeedback: ASSESSMENT_SHOW_VALUES.NEVER
-    }),
-    isStudent: true
+    isStudent: true,
+    showQuestionFeedback: true
   });
 
   assert.ok(component.get("showFeedback"), "Should be true");
 });
 
-test('showFeedback using showQuestionFeedback and not submitted answer', function (assert) {
-  assert.expect(1);
-
-  var component = this.subject({
-    showQuestionFeedback: true,
-    resourceResult: Ember.Object.create({
-      submittedAnswer: false
-    }),
-    collection: Ember.Object.create({
-      showFeedback: ASSESSMENT_SHOW_VALUES.NEVER
-    }),
-    isStudent: true
-  });
-
-  assert.ok(!component.get("showFeedback"), "Should be false");
-});
-
-test('showFeedback ignoring showQuestionFeedback when collection setting is true', function (assert) {
+test('showFeedback using showQuestionFeedback when collection setting is true', function (assert) {
   assert.expect(1);
 
   var component = this.subject({
     showQuestionFeedback: false,
-    resourceResult: Ember.Object.create({
-      submittedAnswer: true
-    }),
     collection: Ember.Object.create({
       showFeedback: ASSESSMENT_SHOW_VALUES.IMMEDIATE
     }),
     isStudent: true
   });
 
-  assert.ok(component.get("showFeedback"), "Should be true");
+  assert.ok(!component.get("showFeedback"), "Should be false");
 });

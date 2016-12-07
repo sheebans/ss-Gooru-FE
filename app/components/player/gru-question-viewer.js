@@ -269,15 +269,19 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   showFeedback: Ember.computed('collection.showFeedback', 'questionResult.submittedAnswer', 'showQuestionFeedback', function() {
-    let feedback = this.get("showQuestionFeedback") || this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+    let isShowQuestionFeedbackSet = this.get("showQuestionFeedback") !== undefined;
+    let feedback = isShowQuestionFeedbackSet ?
+      this.get("showQuestionFeedback") :
+      (this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE);
     return feedback && this.get('isStudent') && this.get("questionResult.submittedAnswer");
   }),
 
   /**
-   * it forces to show the question feedback, no matter what configuration is set for the collection
+   * it forces to show the question feedback, no matter what configuration is set for the collection,
+   * should be undefined by default, so the property is ignored
    * @property {boolean}
    */
-  showQuestionFeedback: false,
+  showQuestionFeedback: undefined,
 
   /**
    * Indicates when the collection is already submitted

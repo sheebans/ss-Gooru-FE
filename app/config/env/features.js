@@ -16,7 +16,7 @@ export default {
         showCollectionName: true,
         showCollectionAuthor: true,
         showResourceNumber: true,
-        showQuestionFeedback: false
+        showQuestionFeedback: undefined
       }
     }
   }

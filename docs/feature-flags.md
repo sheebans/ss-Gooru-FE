@@ -49,5 +49,4 @@ Useful to hide the collection author
 Useful to hide the resource number
 
 ## `collections.player.showQuestionFeedback`
-Useful to always show or hide feedback per question, assessment settings take priority over this, so that if
-the assessment is configured to show feedback there is no way to turn it off.
+Useful to always show or hide feedback per question, this takes priority over assessment settings when provided

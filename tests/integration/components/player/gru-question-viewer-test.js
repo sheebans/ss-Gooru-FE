@@ -418,7 +418,7 @@ test('Show feedback when submitted layout, using collection setting', function (
   assert.ok($answerPanel.find(".feedback").length, "Feedback should be shown");
 });
 
-test('Show feedback when submitted layout, using collection setting', function (assert) {
+test('Show feedback when submitted layout, using showQuestionFeedback setting', function (assert) {
   assert.expect(2);
 
   const question = Ember.Object.create(
