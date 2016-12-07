@@ -65,7 +65,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
      */
     submitQuestion: function (question, questionResult) {
       const controller = this;
-      let showFeedback = controller.get('collection.immediateFeedback') || controller.get("showQuestionFeedback");
+      let showFeedback = controller.get("showFeedback");
       let isTeacher = controller.get('isTeacher');
       if(!showFeedback || isTeacher) { // when not showing feedback
         const submittedAt = new Date();
@@ -322,6 +322,18 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    * @property {boolean} showQuestionFeedback
    */
   showQuestionFeedback: Ember.computed.alias("features.collections.player.showQuestionFeedback"),
+
+  /**
+   * Indicates if feedback should be shown
+   * @property {boolean}
+   */
+  showFeedback: Ember.computed('collection.showFeedback', 'showQuestionFeedback', function() {
+    let controller = this;
+    let isShowQuestionFeedbackSet = controller.get("showQuestionFeedback") !== undefined;
+    return isShowQuestionFeedbackSet ?
+      controller.get("showQuestionFeedback") :
+      controller.get('collection.immediateFeedback');
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
