@@ -79,17 +79,21 @@ export default Ember.Object.extend({
    * @param data resource data to be sent in the request body
    * @returns {Promise}
    */
-  copyResource: function(resourceId) {
+  copyResource: function(resourceId, title) {
     const adapter = this;
     const namespace = this.get('copierNamespace');
     const url = `${namespace}/${resourceId}`;
+    const body = {};
+    if (title) {
+      body.title = title;
+    }
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: 'text',
       processData: false,
       headers: adapter.defineHeaders(),
-      data: JSON.stringify({})
+      data: JSON.stringify(body)
     };
     return Ember.$.ajax(url, options);
   },
