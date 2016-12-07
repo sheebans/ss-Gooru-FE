@@ -13,7 +13,7 @@ function info() {
 }
 
 function silent() {
-  ("${@}" &> build.log) &
+  ("${@}" &> /tmp/build.log) &
   PID=$!
   show_spinner "$PID"
 
@@ -26,7 +26,7 @@ function handle_error() {
   local code=$1
   if [ "$code" -ne 0 ]; then
     error "Build error"
-    cat build.log
+    cat /tmp/build.log
     exit $code
   fi
 }
