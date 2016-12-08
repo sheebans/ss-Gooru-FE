@@ -36,6 +36,43 @@ test('loadConfiguration', function(assert) {
   });
 });
 
+test('loadConfiguration - default features loaded', function(assert) {
+  const service = this.subject();
+  assert.expect(1);
+
+  service.set('configurationAdapter', Ember.Object.create({
+    loadConfiguration: function() {
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  var done = assert.async();
+  service.loadConfiguration().then(function(configuration) {
+
+    //checking default features
+    const defaultFeatures = {
+      header: {
+        enabled: true
+      },
+      collections: {
+        player: {
+          showReactionBar: true,
+          showReportLink: true,
+          showBackLink: true,
+          showRemix: true,
+          showCollectionName: true,
+          showCollectionAuthor: true,
+          showResourceNumber: true,
+          showQuestionFeedback: undefined
+        }
+      }
+    };
+    //making sure default features are not affected
+    assert.deepEqual(configuration.get("features"), defaultFeatures, "features should not be affected");
+    done();
+  });
+});
+
 test('loadConfiguration with config url', function(assert) {
   const service = this.subject();
   assert.expect(5);
