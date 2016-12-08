@@ -1,7 +1,7 @@
 <div class="btn-group drop-menu">
   {{#if isStudent }}
     <button class="btn btn-info share out-of-scope" {{action 'share'}}>{{gru-icon name='send'}} <span>{{t "class.analytics.performance.actions.share"}}</span></button>
-  {{else}}
+  {{else}}    
     {{#if enableEdit }}
       <button class="btn btn-info edit" {{action 'editContent'}}> {{gru-icon name='mode_edit'}}<span>{{t "class.analytics.performance.actions.edit"}}</span></button>
     {{/if}}
