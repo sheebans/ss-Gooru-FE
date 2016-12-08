@@ -101,3 +101,34 @@ test('Calling external action when pressing the full screen button', function (a
   T.exists(assert, $button, "Missing view full screen button");
   $button.click();
 });
+
+test('Displaying Edit Content option when enableEdit is true', function (assert) {
+  assert.expect(2);
+
+  this.on('editContent', function () {
+    assert.ok(true);
+  });
+
+  const enableEdit = true;
+  this.set('enableEdit', enableEdit);
+
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar onEditContent=(action 'editContent')}}`);
+
+  var $component = this.$(); //component dom element
+  const $button = $component.find(".gru-actions-bar .btn.btn-info.edit");
+
+  T.exists(assert, $button, "Button should be visible");
+  $button.click();
+});
+
+test('Not displaying Edit Content option when enableEdit is false', function (assert) {
+  assert.expect(1);
+
+  const enableEdit = false;
+  this.set('enableEdit', enableEdit);
+
+  var $component = this.$(); //component dom element
+  const $button = $component.find(".gru-actions-bar .btn.btn-info.edit");
+
+  T.notExists(assert, $button, "Button should not be visible");
+});

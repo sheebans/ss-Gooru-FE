@@ -178,8 +178,6 @@ export default Ember.Controller.extend({
    */
   breadcrumb: Ember.A(),
 
-
-
   /**
    * Indicates if the filters are visible
    * @property {boolean}
@@ -273,6 +271,12 @@ export default Ember.Controller.extend({
       'readOnly':false,
       'isDisabled':false
     })]),
+
+  /**
+   * If analytics is fullscreen
+   * @property {Boolean}
+   */
+  enableEdit:  Ember.computed.boolean('course'),  
 
   // -------------------------------------------------------------------------
   // Methods
