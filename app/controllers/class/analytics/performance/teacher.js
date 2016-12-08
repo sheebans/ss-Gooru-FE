@@ -276,7 +276,7 @@ export default Ember.Controller.extend({
    * If analytics is fullscreen
    * @property {Boolean}
    */
-  enableEdit:  Ember.computed.boolean('course'),  
+  enableEdit:  Ember.computed.bool('course'),  
 
   // -------------------------------------------------------------------------
   // Methods
