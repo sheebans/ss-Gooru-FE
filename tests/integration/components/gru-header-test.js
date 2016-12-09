@@ -42,6 +42,21 @@ test('header layout', function(assert) {
 
 });
 
+test('header layout for accessibility', function(assert) {
+  assert.expect(3); //making sure all asserts are called
+
+  this.set('session', Ember.Object.create({isAnonymous: true}));
+  this.render(hbs`{{gru-header session=session}}`);
+
+  var $component = this.$(); //component dom element
+
+  T.exists(assert, $component.find("header.gru-header"), "Root element not found");
+  var $navHeaderLink = $component.find(".navbar-header .home-link");
+  T.exists(assert, $navHeaderLink, "Missing home link");
+  assert.equal($navHeaderLink.attr('aria-label'), 'Home', "Missing aria label");
+
+});
+
 test('header layout with user', function(assert) {
   assert.expect(5); //making sure all asserts are called
 
