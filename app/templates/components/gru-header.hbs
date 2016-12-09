@@ -13,7 +13,7 @@
         <div class="search-navbar-form {{if session.isAnonymous 'anonymous' 'authenticated'}}">
           <form {{action "searchTerm" on="submit"}} class="form-inline">
             <div class="form-group">
-              <label for="searchId" class="out-of-scope">Hello my friend</label>
+              <label for="searchId" class="out-of-scope">{{t "common.search"}}</label>
               <span>{{gru-icon name='search'}}</span>
               <div class="input-group validation {{if searchErrorMessage 'has-error'}}">
                 {{input type="text" class="form-control search-input"
