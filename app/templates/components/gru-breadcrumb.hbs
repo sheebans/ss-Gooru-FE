@@ -1,6 +1,4 @@
 <div class="btn-group" role="group">
-  {{log items}}
-  {{log items}}
   {{#each items as |item|}}
     <button class="btn btn-info {{itemClassName}} breadcrumb-item" {{action 'selectItem' item}}>{{{item.label}}}</button>
   {{/each}}
