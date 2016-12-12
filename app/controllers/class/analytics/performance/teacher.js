@@ -311,11 +311,22 @@ export default Ember.Controller.extend({
   /**
    * willDestroyElement event
    */
-  willDestroyElement: function(){
+  willDestroyElement: function(){        
+    this.resetValues();
+  },
+
+  /**
+   * Reset controller values and breadcrumb list
+   */
+  resetValues: function(){
+    const controller = this;
+    let breadcrumb = controller.get('breadcrumb');
     this.set('unit', null);
     this.set('lesson', null);
     this.set('collection', null);
+    breadcrumb.clear();
   },
+
   // -------------------------------------------------------------------------
   // Observers
   restoreSelectedOptions: function(lessonLevel = false) {
