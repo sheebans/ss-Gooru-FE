@@ -305,3 +305,140 @@ test('changeEmotion save disabled', function(assert) {
   assert.equal(questionResult.get('reaction'), 'emotion', 'reactionType updated');
   assert.notOk(context.get('isStudent'), 'isStudent not updated');
 });
+
+test('submitQuestion with feedback to show, using collection property', function(assert) {
+  assert.expect(5);
+  let controller = this.subject();
+  let saveCounter = 0;
+  let question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question #1'
+  });
+  let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Collection Title',
+    immediateFeedback: true
+  });
+  let questionResult = QuestionResult.create(Ember.getOwner(this).ownerInjection(), {
+    submittedAnswer: false
+  });
+  let context = Context.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: true
+  });
+  controller.set('session', Ember.Object.create({
+    isAnonymous: false
+  }));
+
+  controller.set('collection', collection);
+  controller.set('resource', question);
+  controller.set('resourceResult', questionResult);
+  controller.set('context', context);
+  controller.set('isTeacher', false);
+  controller.set('eventsService', Ember.Object.create({
+    saveResourceResult: function(result, cont) {
+      assert.ok(saveCounter < 1, 'saveResourceResult should be called once');
+      assert.deepEqual(result, questionResult, 'Wrong first result object');
+      assert.equal(context.get('eventType'), 'stop', 'eventType updated');
+      assert.deepEqual(cont, context, 'Wrong context object');
+      saveCounter += 1;
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  Ember.run(function() {
+    controller.send('submitQuestion', question, questionResult);
+  });
+  assert.ok(questionResult.get('submittedAnswer', true));
+});
+
+test('submitQuestion with feedback to show, using configuration property', function(assert) {
+  assert.expect(5);
+  let controller = this.subject();
+  let saveCounter = 0;
+  let question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question #1'
+  });
+  let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Collection Title',
+    immediateFeedback: false //collection is marked as not showing feedback
+  });
+  let questionResult = QuestionResult.create(Ember.getOwner(this).ownerInjection(), {
+    submittedAnswer: false
+  });
+  let context = Context.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: true
+  });
+  controller.set('session', Ember.Object.create({
+    isAnonymous: false
+  }));
+
+  controller.set('collection', collection);
+  controller.set('resource', question);
+  controller.set('resourceResult', questionResult);
+  controller.set('context', context);
+  controller.set('isTeacher', false);
+
+  controller.set('eventsService', Ember.Object.create({
+    saveResourceResult: function(result, cont) {
+      assert.ok(saveCounter < 1, 'saveResourceResult should be called once');
+      assert.deepEqual(result, questionResult, 'Wrong first result object');
+      assert.equal(context.get('eventType'), 'stop', 'eventType updated');
+      assert.deepEqual(cont, context, 'Wrong context object');
+      saveCounter += 1;
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  controller.set('configurationService', Ember.Object.create ({
+    configuration: {
+      features: {
+        collections: {
+          player: {
+            showQuestionFeedback: true
+          }
+        }
+      }
+    }
+  }));
+  Ember.run(function() {
+    controller.send('submitQuestion', question, questionResult);
+  });
+  assert.ok(questionResult.get('submittedAnswer', true));
+});
+
+test('submitQuestion with feedback showing', function(assert) {
+  assert.expect(2);
+  let controller = this.subject();
+  let question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question #1'
+  });
+  let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Collection Title',
+    immediateFeedback: true,
+    nextResource: function(q) {
+      assert.deepEqual(q, question);
+      return null;
+    }
+  });
+  let questionResult = QuestionResult.create(Ember.getOwner(this).ownerInjection(), {
+    submittedAnswer: true
+  });
+  let context = Context.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: true
+  });
+  controller.set('session', Ember.Object.create({
+    isAnonymous: false
+  }));
+
+  controller.set('isTeacher', false);
+  controller.set('collection', collection);
+  controller.set('resource', question);
+  controller.set('resourceResult', questionResult);
+  controller.set('context', context);
+  controller.set('actions.showModal', function(modal) {
+    assert.equal(modal, 'content.modals.gru-submit-confirmation', 'Correct modal');
+  });
+
+  Ember.run(function() {
+    controller.send('submitQuestion', question, questionResult);
+  });
+});
+
