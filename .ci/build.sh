@@ -25,7 +25,7 @@ if [ $UID -eq 0 ]; then
   exit $?
 fi
 
-GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD | sed 's/\//-/')
+GIT_BRANCH=$(echo $bamboo_planRepository_branch | sed 's/\//-/')
 BUILD_NUMBER=${bamboo_buildNumber}
 VERSION=${GIT_BRANCH}-${BUILD_NUMBER}
 
