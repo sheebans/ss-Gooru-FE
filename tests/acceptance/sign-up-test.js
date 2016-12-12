@@ -29,8 +29,8 @@ test('Layout', function(assert) {
     const $signUpHeader = $modal.find(".modal-header");
     T.exists(assert, $signUpHeader, "Missing sign-up-header");
     T.exists(assert, $signUpHeader.find(".progress-dots"), "Missing progress-dots");
-    T.exists(assert, $signUpHeader.find("h3"), "Missing sign-up title");
-    assert.equal(T.text($signUpHeader.find("h3")), "Hello!", "Incorrect sign-up title text");
+    T.exists(assert, $signUpHeader.find("h1"), "Missing sign-up title");
+    assert.equal(T.text($signUpHeader.find("h1")), "Hello!", "Incorrect sign-up title text");
     T.exists(assert, $signUpHeader.find(".description"), "Missing sign-up description");
     assert.equal(T.text($signUpHeader.find(".description")), "We’re glad you’ve decided to join us.", "Incorrect sign-up description text");
     T.exists(assert, $signUpHeader.find(".sign-in-description"), "Missing sign-in description");

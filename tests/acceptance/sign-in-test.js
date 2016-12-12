@@ -27,8 +27,8 @@ test('Layout', function(assert) {
     T.exists(assert, $signInContainer.find(".sign-in-wrapper"), "Missing sign-in-wrapper");
     const $signInHeader = $signInContainer.find(".sign-in-header");
     T.exists(assert, $signInHeader, "Missing sign-in-header");
-    T.exists(assert, $signInHeader.find("h3"), "Missing sign-in title");
-    assert.equal(T.text($signInHeader.find("h3")), "Welcome Back!", "Incorrect sign-in title text");
+    T.exists(assert, $signInHeader.find("h1"), "Missing sign-in title");
+    assert.equal(T.text($signInHeader.find("h1")), "Welcome Back!", "Incorrect sign-in title text");
     T.exists(assert, $signInHeader.find(".description"), "Missing sign-in description");
     assert.equal(T.text($signInHeader.find(".description")), "Learning is just around the corner.", "Incorrect sign-in description text");
     T.exists(assert, $signInHeader.find(".google-button"), "Missing sign-in google button");
