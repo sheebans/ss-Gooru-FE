@@ -8,7 +8,7 @@
 
 source .ci/common.sh
 
-GIT_BRANCH=${bamboo_planRepository_branch}
+GIT_BRANCH=${bamboo_repository_branch_name}
 BUILD_NUMBER=${bamboo_buildNumber}
 VERSION=${GIT_BRANCH}-${BUILD_NUMBER}
 

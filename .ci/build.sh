@@ -13,6 +13,10 @@
 
 source .ci/common.sh
 
+GIT_BRANCH=$(echo $bamboo_repository_branch_name | sed 's/\//-/')
+BUILD_NUMBER=${bamboo_buildNumber}
+export VERSION=${GIT_BRANCH}-${BUILD_NUMBER}
+
 if [ $UID -eq 0 ]; then
   info "Running as root creating builder user and dropping privileges"
   groupadd -r -g 501 builder && useradd -m -r -g builder -u 500 builder
@@ -24,10 +28,6 @@ if [ $UID -eq 0 ]; then
   /tmp/su-exec-0.2/su-exec builder $0
   exit $?
 fi
-
-GIT_BRANCH=$(echo $bamboo_planRepository_branch | sed 's/\//-/')
-BUILD_NUMBER=${bamboo_buildNumber}
-VERSION=${GIT_BRANCH}-${BUILD_NUMBER}
 
 info "Installing global npm dependencies..."
 npm config set prefix '/tmp/node_modules'
