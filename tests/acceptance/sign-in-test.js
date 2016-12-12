@@ -43,6 +43,30 @@ test('Layout', function(assert) {
   });
 });
 
+test('Layout for Accessibility', function(assert) {
+  visit('/sign-in');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-in');
+
+    const $signInContainer = find(".sign-in");
+    var $signInForm = $signInContainer.find(".sign-in-form form");
+
+    var $label;
+    var $input;
+
+    var $usernameField = $signInForm.find(".username");
+    $label = $usernameField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The username input does not have a related label');
+
+    var $passwordField = $signInForm.find(".password");
+    $label = $passwordField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The password input does not have a related label');
+  });
+});
+
 
 test('it shows an error message if the username field is left blank', function (assert) {
   visit('/sign-in');
