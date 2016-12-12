@@ -48,12 +48,12 @@ export default Ember.Route.extend({
   setupController: function(controller) {
     if (controller.get("class.hasCourse")){
       controller.updateBreadcrumb(controller.get("course"), "course");
-    }    
+    }
     controller.get('classController').selectMenuItem('analytics.performance');
   },
 
   /**
-   * Cleanse the controller values 
+   * Cleanse the controller values
    */
   deactivate: function(){
     this.get("controller").resetValues();

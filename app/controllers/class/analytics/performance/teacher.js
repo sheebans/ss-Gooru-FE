@@ -276,7 +276,7 @@ export default Ember.Controller.extend({
    * If analytics is fullscreen
    * @property {Boolean}
    */
-  enableEdit:  Ember.computed.alias('class.hasCourse'),  
+  enableEdit:  Ember.computed.alias('class.hasCourse'),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -311,7 +311,7 @@ export default Ember.Controller.extend({
   /**
    * willDestroyElement event
    */
-  willDestroyElement: function(){        
+  willDestroyElement: function(){
     this.resetValues();
   },
 
