@@ -55,5 +55,5 @@ silent grunt build:prod-bamboo
 echo $VERSION > gooru-web/version.html
 
 info "Creating artifact with version ${VERSION}..."
-tar czf gooru-web-$VERSION.tar.gz gooru-web/ appspec.yml .deploy/
+tar czf gooru-web-${VERSION}.tar.gz gooru-web/ appspec.yml .deploy/
 
