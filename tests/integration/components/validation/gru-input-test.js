@@ -10,17 +10,18 @@ moduleForComponent('gru-input', 'Integration | Component | gru input', {
 });
 
 test('Layout and clear functionality', function(assert) {
-  assert.expect(6); // making sure all asserts are called
+  assert.expect(7); // making sure all asserts are called
 
   this.set('model', SearchModel.create(Ember.getOwner(this).ownerInjection(), {
     term: ''
   }));
-  this.render(hbs`{{validation.gru-input model=model valuePath='term' hasClearButton=true}}`); // render the component
+  this.render(hbs`{{validation.gru-input model=model valuePath='term' hasClearButton=true inputId='any-id'}}`); // render the component
   var $component = this.$(); // component dom element
   var $input = $component.find("input[type=text]");
 
   T.exists(assert, $input, "Input element not found");
   assert.equal($input.val(), "", "Wrong value");
+  assert.equal($input.attr('id'), "any-id", "Missing id");
 
   $input.val('So');
   $input.blur();

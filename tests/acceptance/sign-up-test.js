@@ -51,6 +51,54 @@ test('Layout', function(assert) {
   });
 });
 
+test('Layout for Accessibility', function(assert) {
+  visit('/sign-up');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-up');
+
+    const $signUpContainer = find(".sign-up");
+    var $modal = $signUpContainer.find(".modal");
+    T.exists(assert, $modal, "Missing sign-up modal");
+    T.exists(assert, $modal.find(".modal-content"), "Missing modal-content");
+
+    var $label;
+    var $input;
+
+    var $usernameField = $modal.find(".username");
+    $label = $usernameField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The username input does not have a related label');
+
+    var $firstNameField = $modal.find(".firstName");
+    $label = $firstNameField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The first name input does not have a related label');
+
+    var $lastNameField = $modal.find(".lastName");
+    $label = $lastNameField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The last name input does not have a related label');
+
+    var $emailField = $modal.find(".email");
+    $label = $emailField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The email input does not have a related label');
+
+    var $passwordField = $modal.find(".password");
+    $label = $passwordField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The password input does not have a related label');
+
+    var $rePasswordField = $modal.find(".rePassword");
+    $label = $rePasswordField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The re password input does not have a related label');
+
+  });
+
+});
+
 test('it shows error messages if the all fields are left blank', function (assert) {
   visit('/sign-up');
 
