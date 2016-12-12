@@ -69,7 +69,7 @@ export default Ember.Component.extend({
   /**
    * @property {bool} display the edic content option
    */
-  enableEdit: true,  
+  enableEdit: true,
 
   /**
    * @property {string} for mode: student or teacher
