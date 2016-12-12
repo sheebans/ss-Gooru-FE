@@ -17,6 +17,7 @@ docker run -t \
   --rm \
   --name builder \
   -v ${PWD}:/build \
-  -e BUILD_NUMBER=${bamboo_buildNumber} \
+  -e bamboo_buildNumber=${bamboo_buildNumber} \
+  -e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
   -w /build \
   node:4.6 .ci/build.sh
