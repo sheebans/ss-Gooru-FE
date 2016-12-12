@@ -24,13 +24,13 @@ if [[ "$GIT_BRANCH" == "GG-Nile" ]]; then
     exit 1
   fi
 
-  info "Installing AWS cli..."
+#  info "Installing AWS cli..."
 
-  curl -s "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-  unzip awscli-bundle.zip
-  ./awscli-bundle/install -b ~/bin/aws
+#  curl -s "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+#  unzip awscli-bundle.zip
+#  ./awscli-bundle/install -b ~/bin/aws
 
-  PATH=~/bin:$PATH
+#  PATH=~/bin:$PATH
 
   info "Publishing artifacts..."
 
