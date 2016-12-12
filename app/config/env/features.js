@@ -14,7 +14,9 @@ export default {
         showBackLink: true,
         showRemix: true,
         showCollectionName: true,
-        showResourceNumber: true
+        showCollectionAuthor: true,
+        showResourceNumber: true,
+        showQuestionFeedback: undefined
       }
     }
   }
