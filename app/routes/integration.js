@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import GooruIntegration from 'gooru-web/utils/gooru-integration';
 import PublicRouteMixin from 'gooru-web/mixins/public-route-mixin';
 
 export default Ember.Route.extend(PublicRouteMixin, {
@@ -8,33 +9,30 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   model(params){
     return Ember.RSVP.hash({
-      appType:params.appType,
-      token:params.token,
-      classId:params.classId,
-      page:params.page
+      params: params
     });
-
   },
+
   redirect(model) {
     let route = this;
-    if (model.appType=== 'teams') {
-      let authPromise = this.get('authSvc').checkToken(model.token).then(
-          result => result && this.get('sessionSvc').signInWithToken(model.token)
-        );
-        authPromise.then(
-          () => route.transitionTo(route.getRoute(model.page),model.classId),
-          () => route.transitionTo('sign-in')
-        );
-    }
-  },
+    let params = model.params;
+    let token = params.token;
 
-  getRoute(page){
-    var routes = {
-      'info':'class.info',
-      'data':'class.analytics.performance',
-      'course-map':'class.overview'
-    };
-    return routes[page];
+    let tokenPromise = token ? route.get('authSvc').checkToken(token) : Ember.RSVP.resolve(false);
+    tokenPromise.then(function(result){
+      let signInPromise = result ? route.get('sessionSvc').signInWithToken(token) : Ember.RSVP.resolve(false);
+      signInPromise.then(function(){
+        let integration = GooruIntegration.create({ params: params });
+        if (integration.get("validAppKey")){
+          route.transitionTo.apply(route, integration.get("routeParams"));
+        }
+        else {
+          Ember.Logger.warn("Invalid valid app key", params);
+          route.transitionTo("sign-in");
+        }
+
+      });
+    });
   }
 
 });
