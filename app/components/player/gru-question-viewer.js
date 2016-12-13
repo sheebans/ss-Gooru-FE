@@ -1,5 +1,6 @@
 import Ember from "ember";
 import { KEY_CODES, ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'gooru-web/config/config';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Player question viewer
@@ -12,7 +13,7 @@ import { KEY_CODES, ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'goor
  * @see controllers/player.js
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
