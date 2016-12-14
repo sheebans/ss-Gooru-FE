@@ -29,16 +29,6 @@ if [ $UID -eq 0 ]; then
   exit $?
 fi
 
-if [ -z "$S3_BUCKET" ]; then
-  error "No S3 bucket specified."
-  exit 1
-fi
-
-if [[ -z "$AWS_ACCESS_KEY_ID" ]] || [[ -z "$AWS_SECRET_ACCESS_KEY" ]] || [[ -z "$AWS_DEFAULT_REGION" ]]; then
-  error "No AWS credentials provided."
-  exit 1
-fi
-
 info "Installing global npm dependencies..."
 npm config set prefix '/tmp/node_modules'
 PATH=/tmp/node_modules/bin:$PATH
@@ -63,9 +53,6 @@ silent grunt bamboo-test
 info "Building..."
 silent grunt build:prod-bamboo
 echo $VERSION > gooru-web/version.html
-
-info "Downloading welcome site..."
-silent aws s3 cp s3://${S3_BUCKET}/frontend-30/welcome/welcome.tar.gz .
 
 info "Extracting welcome site into gooru-web"
 silent tar xvzf welcome.tar.gz -C gooru-web/
