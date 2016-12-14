@@ -1393,5 +1393,9 @@ export default {
         "description": "Use this option to project an anonymous view of student data."
       }
     }
+  },
+  "gru-course-play":{
+    "hide-course-details": "Hide Course Details",
+    "view-course-details": "View Course Details"
   }
 };

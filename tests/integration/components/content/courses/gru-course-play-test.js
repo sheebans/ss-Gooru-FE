@@ -37,9 +37,20 @@ test('it has correct header when user is course owner', function (assert) {
   assert.ok($header.find('> nav').hasClass('hidden-lg'), 'Navigation not visible for large resolutions');
   assert.equal($header.find('> nav > a').length, 2, "Number of header navigation links");
 
-  assert.equal($container.find('> section').length, 2, "Number of sections");
-  assert.ok($container.find('> section#information').length, "Information section");
-  assert.ok($container.find('> section#content').length, "Content section");
+  const $viewDetails = $container.find('> section#viewDetails');
+  const $information = $container.find('> section#information');
+  const $content = $container.find('> section#content');
+
+  assert.equal($container.find('> section').length, 3, "Number of sections");
+  assert.ok($viewDetails.length, "view Details section");
+  assert.ok($information.length, "Information section");
+  assert.ok($information.hasClass('hidden'), 'Information section should be hidden');
+  assert.ok($content.length, "Content section");
+
+  //Expand the view details section
+  $viewDetails.find('a').click();
+
+  assert.ok($information.hasClass('visible'), 'Information section should be visible');
 });
 
 test('it has correct header buttons when user is not course owner', function (assert) {
@@ -61,7 +72,7 @@ test('it has correct header buttons when user is not course owner', function (as
   assert.ok($actions.find('> button.play').length, "Play button");
 });
 
-test('it renders the course information in the side panel', function (assert) {
+test('it renders the course information', function (assert) {
 
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     license: 'License text',

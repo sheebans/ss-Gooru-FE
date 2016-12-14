@@ -42,6 +42,10 @@ export default Ember.Component.extend(ModalMixin, {
      */
     setLocation: function (unitId, lessonId = undefined) {
       this.sendAction("onLocationChange", unitId, lessonId);
+    },
+
+    viewDetails: function () {
+      this.toggleProperty('viewCourseDetails');
     }
   },
 
@@ -107,7 +111,11 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @property {string} selected lesson id
    */
-  selectedLessonId:null
+  selectedLessonId:null,
 
+  /**
+   * @property {Boolean} view course details
+   */
+  viewCourseDetails: false
 
 });

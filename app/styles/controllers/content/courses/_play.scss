@@ -26,8 +26,18 @@
       }
     }
 
+    .details {
+      margin-top: 10px;
+      display: table;
+      width: 280px;
+      border-bottom: 2px solid $light-300;
+      i, span {
+        vertical-align: middle;
+      }
+    }
+
     #information {
-      padding-top: 40px;
+      padding-top: 20px;
 
       > .content {
         padding-bottom: 10px;
@@ -39,7 +49,7 @@
       }
 
       > .panel.aside {
-        margin-top: 20px;
+        margin-top: 10px;
 
         .col-sm-4 {
           border-right: 1px solid $gray-lighter;
@@ -77,13 +87,10 @@
         .col-sm-12 {
           strong {
             display: block;
-            margin-top: 25px;
-            padding-top: 20px;
+            margin-top: 10px;
+            padding-top: 10px;
             padding-bottom: 10px;
             border-top: 1px solid $gray-lighter;
-            @media (max-width: $screen-xs-max) {
-              margin-top: 15px;
-            }
           }
         }
       }

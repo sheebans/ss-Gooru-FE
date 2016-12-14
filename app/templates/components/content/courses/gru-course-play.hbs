@@ -19,7 +19,14 @@
 
 </header>
 
-<section id="information">
+<section id="viewDetails" class="align-center details {{if viewCourseDetails 'hidden' 'visible'}}">
+  <a href="#" {{action 'viewDetails'}}>
+    <span>{{t "gru-course-play.view-course-details"}}</span>
+    {{gru-icon name='keyboard_arrow_down'}}
+  </a>
+</section>
+
+<section id="information" class="{{if viewCourseDetails 'visible' 'hidden'}}">
   <div class="content">
 
     {{content.gru-image isEditing=isEditing srcImage=course.thumbnailUrl editImage=tempCourse.thumbnailUrl}}
@@ -38,14 +45,17 @@
     </div>
   </div>
 
-  <hr class="hidden-sm hidden-xs">
-
-  <div class="panel panel-default aside hidden-md hidden-lg">
+  <div class="panel panel-default aside">
     <div class="panel-body">
-
       {{partial 'content/partials/course-information'}}
-
     </div>
+  </div>
+
+  <div class="align-center details">
+    <a href="#" {{action 'viewDetails'}}>
+      <span>{{t "gru-course-play.hide-course-details"}}</span>
+      {{gru-icon name='keyboard_arrow_up'}}
+    </a>
   </div>
 
 </section>
