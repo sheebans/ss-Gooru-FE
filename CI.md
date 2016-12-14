@@ -1,7 +1,8 @@
 Continuous integration
 ======================
 
-Build process:
+The build process consists of a plan that contains 2 stages. Then a Bamboo deployment project
+is in charged of only the deployment part to any enviroment needed.
 
 # Build stage
 
