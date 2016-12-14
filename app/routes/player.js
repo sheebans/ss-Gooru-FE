@@ -139,6 +139,8 @@ export default Ember.Route.extend(ModalMixin, ConfigurationMixin, {
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
       let collection = collectionFound ? hash.collection.value : hash.assessment.value;
 
+      context.set("collectionType", collection.get("collectionType")); //setting collection type
+
       const playerCollection = collection.toPlayerCollection();
 
       //Find resource owners
