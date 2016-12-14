@@ -35,7 +35,7 @@ if [[ "$GIT_BRANCH" == "GG-Nile" ]]; then
   info "Publishing artifacts..."
 
   silent aws s3 cp gooru-web-${VERSION}.tar.gz \
-    s3://${S3_BUCKET}/${GIT_BRANCH}/gooru-web-$VERSION.tar.gz
+    s3://${S3_BUCKET}/frontend-30/${GIT_BRANCH}/gooru-web-$VERSION.tar.gz
 
   info "Done publishing artifacts"
 else
