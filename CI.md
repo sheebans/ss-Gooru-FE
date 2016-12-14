@@ -28,7 +28,7 @@ Required enviroment variables:
 
 The AWS credentials need to have at at least read access to the S3_BUCKET.
 
-This scripts downloads the welcome site from `s3://${S3_BUCKET}/frontend-30/welcome/welcome.tar.gz`
+This scripts downloads the welcome site from `s3://${S3_BUCKET}/frontend-30/builds/welcome/welcome.tar.gz`
 
 Then it starts the actual build process inside a node:4.6 Docker container, passing the following
 Bamboo env variables to the build script:
@@ -72,7 +72,7 @@ Required enviroment variables:
 The AWS credentials need to have at at least read/write access to the S3_BUCKET.
 
 This scripts uploads the deploy artifact from the previous stage into
-`s3://${S3_BUCKET}/frontend-30/${GIT_BRANCH}/gooru-web-$VERSION.tar.gz`
+`s3://${S3_BUCKET}/frontend-30/builds/${GIT_BRANCH}/gooru-web-$VERSION.tar.gz`
 
 # Deployments
 
@@ -107,6 +107,8 @@ To upload a new version you would need to install the AWS CLI:
 ## Linux
 
 `sudo pip install -U awscli` or `pip install --user -U awscli`
+
+To configure the AWS CLI check http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html
 
 The to upload create tar.gz file of a folder called welcome that contains the site files.
 
