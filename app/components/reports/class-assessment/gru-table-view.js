@@ -10,6 +10,7 @@ import {
   averageReaction,
   correctPercentage,
   totalTimeSpent } from 'gooru-web/utils/question-result';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Class assessment table view
@@ -20,7 +21,7 @@ import {
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -286,6 +287,7 @@ export default Ember.Component.extend({
    * @return {Object[]}
    */
   initQuestionProperties: function () {
+    const component = this;
 
     return [
       Ember.Object.create({
@@ -315,7 +317,10 @@ export default Ember.Component.extend({
         },
         label: this.get('i18n').t('reports.gru-table-view.reaction').string,
         value: 'reaction',
-        renderFunction: getReactionIcon,
+        renderFunction: function (value) {
+          const appRootPath = component.get('appRootPath');
+          return getReactionIcon (value, appRootPath);
+        },
         aggregateFunction: averageReaction
       })
     ];
