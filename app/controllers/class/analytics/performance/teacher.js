@@ -178,8 +178,6 @@ export default Ember.Controller.extend({
    */
   breadcrumb: Ember.A(),
 
-
-
   /**
    * Indicates if the filters are visible
    * @property {boolean}
@@ -274,6 +272,12 @@ export default Ember.Controller.extend({
       'isDisabled':false
     })]),
 
+  /**
+   * If analytics is fullscreen
+   * @property {Boolean}
+   */
+  enableEdit:  Ember.computed.alias('class.hasCourse'),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -308,10 +312,21 @@ export default Ember.Controller.extend({
    * willDestroyElement event
    */
   willDestroyElement: function(){
+    this.resetValues();
+  },
+
+  /**
+   * Reset controller values and breadcrumb list
+   */
+  resetValues: function(){
+    const controller = this;
+    let breadcrumb = controller.get('breadcrumb');
     this.set('unit', null);
     this.set('lesson', null);
     this.set('collection', null);
+    breadcrumb.clear();
   },
+
   // -------------------------------------------------------------------------
   // Observers
   restoreSelectedOptions: function(lessonLevel = false) {

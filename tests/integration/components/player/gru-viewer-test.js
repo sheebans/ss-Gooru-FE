@@ -146,8 +146,8 @@ test('Narration', function (assert) {
   assert.ok(!$gruViewer.find(".narration .avatar img").length,'There is an avatar when there shouldnt');
   T.exists(assert, $gruViewer.find(".narration .message"), "Missing narration");
 });
-test('Narrations author image', function (assert) {
 
+test('Narrations author image', function (assert) {
 
   assert.expect(3);
 
@@ -212,4 +212,22 @@ test('Layout when a resource url cannot be showed in an iframe', function (asser
   assert.ok($panel.find('.panel-body .gru-resource-card').length, "Missing resource card");
   assert.ok($panel.find('.panel-body .gru-resource-card a.play-btn').length, "Missing play button");
   assert.ok($panel.find('.panel-footer').length, "panel-footer of not-iframe panel");
+});
+
+test('Not see collection author info', function(assert) {
+  assert.expect(1);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-viewer collection=collection showCollectionAuthor=false}}`);
+  var $component = this.$(); //component dom element
+
+  const $avatar = $component.find(".gru-viewer .avatar");
+  T.notExists(assert, $avatar, "Collection author should not be visible");
+
+
 });

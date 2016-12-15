@@ -69,7 +69,7 @@ export default Ember.Route.extend({
           return Ember.RSVP.hash({
             unit: unit,
             lesson: lesson,
-            collection: collection,
+            collection: collection.toPlayerCollection(),
             members: members,
             userResults: userResourcesResults
           });
@@ -86,7 +86,7 @@ export default Ember.Route.extend({
     const collection = model.collection;
     const reportData = ReportData.create({
       students: model.members,
-      resources: collection.get('children')
+      resources: collection.get('resources')
     });
     reportData.merge(model.userResults);
 

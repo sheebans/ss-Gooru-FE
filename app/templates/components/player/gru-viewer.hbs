@@ -8,15 +8,15 @@
     questionResult=resourceResult
     onSubmitQuestion="submitQuestion"
     collection=collection
-    hasContext=hasContext
+    showQuestionFeedback=showQuestionFeedback
     role=role
     }}
   {{else}}
     {{#if resource.hasNarration}}
       <div class="panel panel-default narration">
         <div class="panel-body">
-          {{#if resource.hasOwner}}
-            {{#if collectionHasAuthor}}
+          {{#if collectionHasAuthor}}
+            {{#if showCollectionAuthor}}
               <span class="avatar">
                 <img src="{{collection.avatarUrl}}">
                 <span class="user">{{ collection.author }}</span>

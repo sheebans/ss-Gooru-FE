@@ -29,8 +29,8 @@ test('Layout', function(assert) {
     const $signUpHeader = $modal.find(".modal-header");
     T.exists(assert, $signUpHeader, "Missing sign-up-header");
     T.exists(assert, $signUpHeader.find(".progress-dots"), "Missing progress-dots");
-    T.exists(assert, $signUpHeader.find("h3"), "Missing sign-up title");
-    assert.equal(T.text($signUpHeader.find("h3")), "Hello!", "Incorrect sign-up title text");
+    T.exists(assert, $signUpHeader.find("h1"), "Missing sign-up title");
+    assert.equal(T.text($signUpHeader.find("h1")), "Hello!", "Incorrect sign-up title text");
     T.exists(assert, $signUpHeader.find(".description"), "Missing sign-up description");
     assert.equal(T.text($signUpHeader.find(".description")), "We’re glad you’ve decided to join us.", "Incorrect sign-up description text");
     T.exists(assert, $signUpHeader.find(".sign-in-description"), "Missing sign-in description");
@@ -49,6 +49,54 @@ test('Layout', function(assert) {
     T.exists(assert, $signUpForm.find("div.sign-up-button button"), "Missing sign in button");
 
   });
+});
+
+test('Layout for Accessibility', function(assert) {
+  visit('/sign-up');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/sign-up');
+
+    const $signUpContainer = find(".sign-up");
+    var $modal = $signUpContainer.find(".modal");
+    T.exists(assert, $modal, "Missing sign-up modal");
+    T.exists(assert, $modal.find(".modal-content"), "Missing modal-content");
+
+    var $label;
+    var $input;
+
+    var $usernameField = $modal.find(".username");
+    $label = $usernameField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The username input does not have a related label');
+
+    var $firstNameField = $modal.find(".firstName");
+    $label = $firstNameField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The first name input does not have a related label');
+
+    var $lastNameField = $modal.find(".lastName");
+    $label = $lastNameField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The last name input does not have a related label');
+
+    var $emailField = $modal.find(".email");
+    $label = $emailField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The email input does not have a related label');
+
+    var $passwordField = $modal.find(".password");
+    $label = $passwordField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The password input does not have a related label');
+
+    var $rePasswordField = $modal.find(".rePassword");
+    $label = $rePasswordField.find("label");
+    $input = $label.find("input");
+    assert.equal($label.attr("for"), $input.attr("id"), 'The re password input does not have a related label');
+
+  });
+
 });
 
 test('it shows error messages if the all fields are left blank', function (assert) {

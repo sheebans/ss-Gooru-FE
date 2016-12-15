@@ -80,6 +80,10 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * @property {string} inputId - Id for input
+   */
+  inputId: null,
+  /**
    * @param {Object} model - Model that will be attached to the component
    */
   model: null,
