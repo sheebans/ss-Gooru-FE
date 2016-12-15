@@ -20,14 +20,7 @@
     (function () {
       var aw = new ApplicationWidget('#gooru-application-container', {
         "appRootPath": "../",
-        "endpoint" : {
-          "url": "https://nucleus-qa.gooru.org",
-          "secureUrl": "https://nucleus-qa.gooru.org"
-        },
-        "realTime": {
-          "webServiceUrl": "https://rt.nucleus-qa.gooru.org",
-          "webSocketUrl": "https://rt.nucleus-qa.gooru.org",
-        },
+        "environment" : "qa",
         "transition": [ 'player', 'b6170219-5841-46b8-9c6a-d684bc457538', { queryParams: { type: 'collection', role: 'student' }}]
       });
     })();
