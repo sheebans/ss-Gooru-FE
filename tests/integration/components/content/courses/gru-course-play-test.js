@@ -26,11 +26,8 @@ test('it has correct header when user is course owner', function (assert) {
 
   const $actions = $header.find('> .actions');
   assert.ok($actions.length, "Header actions");
-  assert.equal($actions.find(' > button').length, 4, "Number of header actions");
-  assert.ok($actions.find('> button.gru-share-pop-over').length, "Share button");
-  assert.ok($actions.find('> button.remix').length, "Remix button");
-  assert.ok($actions.find('> button.edit').length, "Edit button");
-  assert.ok($actions.find('> button.play').length, "Play button");
+  assert.equal($actions.find(' > button').length, 1, "Number of header actions");
+  assert.ok($actions.find('> button.performance').length, "Performance");
 
   const $viewDetails = $container.find('> section#viewDetails');
   const $information = $container.find('> section#information');
@@ -46,25 +43,6 @@ test('it has correct header when user is course owner', function (assert) {
   $viewDetails.find('a').click();
 
   assert.ok($information.hasClass('visible'), 'Information section should be visible');
-});
-
-test('it has correct header buttons when user is not course owner', function (assert) {
-
-  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Course Title'
-  });
-
-  this.set('course', course);
-  this.render(hbs`{{content/courses/gru-course-play course=course}}`);
-
-  var $container = this.$("article.content.courses.gru-course-play");
-
-  const $actions = $container.find('> header > .actions');
-  assert.ok($actions.length, "Header actions");
-  assert.equal($actions.find(' > button').length, 3, "Number of header actions");
-  assert.ok($actions.find('> button.gru-share-pop-over').length, "Share button");
-  assert.ok($actions.find('> button.remix').length, "Remix button");
-  assert.ok($actions.find('> button.play').length, "Play button");
 });
 
 test('it renders the course information', function (assert) {

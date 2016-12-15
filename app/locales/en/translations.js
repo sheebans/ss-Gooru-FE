@@ -1396,6 +1396,7 @@ export default {
   },
   "gru-course-play":{
     "hide-course-details": "Hide Course Details",
-    "view-course-details": "View Course Details"
+    "view-course-details": "View Course Details",
+    "performance": "Performance"
   }
 };
