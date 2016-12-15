@@ -32,11 +32,6 @@ test('it has correct header when user is course owner', function (assert) {
   assert.ok($actions.find('> button.edit').length, "Edit button");
   assert.ok($actions.find('> button.play').length, "Play button");
 
-  assert.ok($header.find('> nav').length, "Header navigation");
-  assert.ok($header.find('> nav').hasClass('hidden-md'), 'Navigation not visible for medium resolutions');
-  assert.ok($header.find('> nav').hasClass('hidden-lg'), 'Navigation not visible for large resolutions');
-  assert.equal($header.find('> nav > a').length, 2, "Number of header navigation links");
-
   const $viewDetails = $container.find('> section#viewDetails');
   const $information = $container.find('> section#information');
   const $content = $container.find('> section#content');

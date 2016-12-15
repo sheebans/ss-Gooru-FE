@@ -11,7 +11,7 @@ export default Ember.Component.extend(ModalMixin, {
 
   classNames: ['content', 'courses', 'gru-course-play'],
 
-  classNameBindings: ['view', 'fixed-header'],
+  classNameBindings: ['fixed-header'],
 
   tagName: 'article',
 
@@ -20,9 +20,6 @@ export default Ember.Component.extend(ModalMixin, {
   // Actions
 
   actions:  {
-    view: function(viewName) {
-      this.set('view', viewName);
-    },
 
     remix: function() {
       if (this.get('session.isAnonymous')) {
@@ -55,12 +52,6 @@ export default Ember.Component.extend(ModalMixin, {
     this._super(...arguments);
 
     const $header = this.$().find('> header');
-
-    if ($header.find('nav').css('display') !== 'none') {
-      // If there's a nav in the header then the resolution must be xs or sm
-      // Set the default view
-      this.set('view', 'content-view');
-    }
 
     // Add fix header behaviour
     var headerWidth = $header.css('width');
