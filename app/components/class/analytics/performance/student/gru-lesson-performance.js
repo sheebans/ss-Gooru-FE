@@ -10,6 +10,9 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
+  lessonService: Ember.inject.service('api-sdk/lesson'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -90,7 +93,7 @@ export default Ember.Component.extend({
   /**
    *  Performance models for this lesson, unit, class, course and student
    *
-   * @property {performance/performance}
+   * @property {LessonPerformance}
    */
   lesson:null,
   /**
@@ -144,6 +147,21 @@ export default Ember.Component.extend({
    */
   isFilteredByCollection: Ember.computed.equal("selectedFilterBy", "collection"),
 
+  /**
+   * @property {Class}
+   */
+  class: null,
+
+  /**
+   * @property {UnitPerformance}
+   */
+  unit: null,
+
+  /**
+   * @property {boolean} indicates if data is loading
+   */
+  loading: false,
+
 
   // -------------------------------------------------------------------------
   // Methods
@@ -154,6 +172,9 @@ export default Ember.Component.extend({
     let selected = this.isSelected();
     let collapsibleElement = Ember.$(this.element).find(".collections-container");
     collapsibleElement.collapse(selected ? "show" : "hide");
+    if (selected) {
+      this.loadData();
+    }
   },
 
   /**
@@ -163,5 +184,44 @@ export default Ember.Component.extend({
    */
   isSelected: function(){
     return this.get("selectedLessonId") === this.get("lesson.id");
+  },
+
+  /**
+   * Loads the lesson children performance data
+   */
+  loadData: function() {
+    const component = this;
+    const lessonPerformance = component.get("lesson");
+    const lessonId = lessonPerformance.get('id');
+    const unitId = component.get("unit.id");
+    const courseId = component.get("class.courseId");
+    const filterBy = component.get("selectedFilterBy");
+    const classId = component.get("class.id");
+    const userId = component.get("userId");
+
+    component.set("loading", true);
+    return component.get('lessonService').fetchById(courseId, unitId, lessonId)
+      .then(function(lesson) {
+        const collections = lesson.get('children').filter(function(collection) {
+          return component.isCollectionFilterable(collection, filterBy);
+        });
+        return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections, {collectionType: filterBy})
+          .then(function(collectionPerformances) {
+            lessonPerformance.set('collections', collectionPerformances);
+            component.set("loading", false);
+          });
+      });
+  },
+
+  /**
+   * Verifies is the collection is filterable according to the filterBy param value.
+   * When the filterBy is an 'assessment' we verify if collection format is 'assessment' or 'assessment-external'.
+   *
+   * @param collection the collection
+   * @param filterBy the filter by option
+   * @returns {boolean} Returns true is the collection is filterable.
+   */
+  isCollectionFilterable: function(collection, filterBy) {
+    return (filterBy === 'both') || (collection.get('format').indexOf(filterBy) !== -1);
   }
 });
