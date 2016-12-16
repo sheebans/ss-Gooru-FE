@@ -72,6 +72,31 @@ var ApplicationWidget = function (selector, properties, autoStart) {
       features.header = header;
 
       properties.features = features;
+
+      const environment = properties.environment || "qa";
+      properties = this.mergePropertiesByEnvironment(environment, properties);
+      return properties;
+    },
+
+    mergePropertiesByEnvironment: function (environment, properties) {
+      //we support 2 environments for now, qa and prod, any other environment will use qa
+      var endpointUrl =  "https://nucleus-qa.gooru.org";
+      var realTimeUrl =  "https://rt.nucleus-qa.gooru.org";
+
+      if (environment !== "custom") {
+        if (environment === "prod") {
+          endpointUrl =  "https://www.gooru.org";
+          realTimeUrl =  "https://rt.gooru.org";
+        }
+        properties.endpoint = {
+          "url": endpointUrl,
+          "secureUrl": endpointUrl
+        };
+        properties.realtime = {
+          "webServiceUrl": realTimeUrl,
+          "webSocketUrl": realTimeUrl
+        };
+      }
       return properties;
     },
 

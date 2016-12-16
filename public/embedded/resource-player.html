@@ -96,14 +96,7 @@
 
       aw = new ApplicationWidget('#gooru-application-container', {
         "appRootPath": "../",
-        "endpoint" : {
-          "url": "https://nucleus-qa.gooru.org",
-          "secureUrl": "https://nucleus-qa.gooru.org"
-        },
-        "realTime": {
-          "webServiceUrl": "https://rt.nucleus-qa.gooru.org",
-          "webSocketUrl": "https://rt.nucleus-qa.gooru.org",
-        },
+        "environment": "qa",
         "transition": [ 'content.' + type + '.play', resourceId]
       });
     });

@@ -30,8 +30,37 @@ Gooru application ca be also embedded in a 3rd party application, any of the exi
 
 # Options
 
+## `environment`
+Indicates the predefined environment configuration to use. Possible values are custom, qa, prod
+When custom is provided the user has to provide all configuration values for connectivity, otherwise it
+connects to Gooru available servers based on the value provided (see Available servers section in this document)
+
+Default value: qa
+
+*Example*
+   ```
+    aw = new ApplicationWidget('#gooru-application-container', {
+        "appRootPath": "../",
+        "environment" : "prod"
+    }  
+    ```
+
+The following properties are automatically configured to match the environment provided, it uses https for all urls by default, if a
+different configuration is required the environment property should use 'custom' and the other properties needs to be provided as well
+    ```
+        "endpoint": {
+          "url": "http://nucleus-qa.gooru.org",
+          "secureUrl": "https://nucleus-qa.gooru.org"
+        },
+        "realTime": {
+          "webServiceUrl": "https://rt.nucleus-qa.gooru.org",
+          "webSocketUrl": "https://rt.nucleus-qa.gooru.org",
+        },
+      ```
+
 ## `applicationRootPath`
 Indicates where the application-widget.js is hosted, another resources would be loaded from there
+Generally this property matches the base path for the application-widget.js file 
 
 *Default:* ""
 
@@ -135,6 +164,12 @@ See [application properties document](../application-properties.md) for more inf
         },
     }  
     ```
+
+## Available servers
+So far we  support only 2 environments, qa and prod; the default environment is qa
+
+qa: nucleus-qa.gooru.org
+prod: www.gooru.org
 
 ## Related documents
 

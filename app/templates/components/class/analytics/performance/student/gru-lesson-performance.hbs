@@ -29,8 +29,12 @@
           contentVisibility=contentVisibility
           }}
         </li>
-    {{else}}
-      <span class="no-content">{{t "gru-performance.no-content"}}</span>
-  {{/each}}
+      {{else}}
+        {{#if loading}}
+          {{three-bounce-spinner}}
+        {{else}}
+            <span class="no-content">{{t "gru-performance.no-content"}}</span>
+        {{/if}}
+        {{/each}}
     </ul>
 </div>
