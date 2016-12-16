@@ -5,6 +5,8 @@ var ApplicationWidget = function (selector, properties, autoStart) {
 
   var aw = {
 
+    name: "application-widget.js",
+
     emberApp: "GooruWebApp",
 
     rootElementId: "gooru-application-container",
@@ -37,7 +39,7 @@ var ApplicationWidget = function (selector, properties, autoStart) {
       }
 
       var aw = this;
-      var appRootPath = properties.appRootPath;
+      var appRootPath = properties.appRootPath || aw.getAppRootPathFromScript();
 
       // Add google font styles
       aw.addCss("https://www.gooru.org/css?family=Lato:400,300,300italic,400italic,700,700italic", "text/css");
@@ -155,6 +157,23 @@ var ApplicationWidget = function (selector, properties, autoStart) {
       // Add stylesheet to head
       var parent = document.getElementsByTagName("head")[0];
       parent.appendChild(tag);
+    },
+
+    /**
+     * Gets the app root path from the current script url
+     * @returns {*}
+     */
+    getAppRootPathFromScript: function () {
+      var appRootPath = null;
+      var scriptName = this.name;
+      var scripts = document.getElementsByTagName("script");
+      for (var i = 0; i< scripts.length; i++) {
+        var script = scripts[i];
+        if (script.src && script.src.indexOf(scriptName) >= 0) {
+          appRootPath = script.src.replace(scriptName, "");
+        }
+      }
+      return appRootPath;
     },
 
     /**
