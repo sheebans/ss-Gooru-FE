@@ -235,8 +235,8 @@ test('when unit and lesson are expanded by default', function (assert) {
       model=unit
       index=0
       selectedLessonId='lesson-123'
-      onExpandUnit=(action 'expandUnit') 
-      onExpandLesson=(action 'expandLesson') 
+      onExpandUnit=(action 'expandUnit')
+      onExpandLesson=(action 'expandLesson')
       }}
     `);
 
@@ -279,8 +279,8 @@ test('when lesson is expanded, the event is notified', function (assert) {
       course=course
       model=unit
       index=0
-      onExpandUnit=(action 'expandUnit') 
-      onExpandLesson=(action 'expandLesson') 
+      onExpandUnit=(action 'expandUnit')
+      onExpandLesson=(action 'expandLesson')
       }}
     `);
 
@@ -292,5 +292,43 @@ test('when lesson is expanded, the event is notified', function (assert) {
   assert.ok($lessonContainer.length, 'Container');
   $lessonContainer.find('.panel-heading > h3 > a').click();
   assert.ok($lessonContainer.hasClass('expanded'), 'Lesson container should be expanded');
+
+});
+
+test('it expands/collapses the unit metadata', function (assert) {
+  assert.expect(4);
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: '123',
+      bigIdeas: '-Simplification and computation of numerical expressions.',
+      essentialQuestions: '-How do I accurately evaluate and create numerical expressions using order of operations?'
+    }),
+    isEditing: false,
+    isExpanded: true
+  });
+
+  this.set('course', Course.create({
+    id: 'course-id-123'
+  }));
+  this.set('unit', unit);
+  this.render(hbs`
+    {{content/courses/play/gru-accordion-unit
+      course=course
+      model=unit
+      index=0}}
+    `);
+
+  const $container = this.$('.view');
+  const $overview = $container.find('.overview');
+  assert.ok($container.length, 'Container');
+
+  assert.ok($overview.hasClass('hidden'), 'Overview hidden by default');
+
+  $container.find('.panel-body > .details > a').click();
+  assert.ok($overview.hasClass('visible'), 'Overview visible after clicking view details link');
+
+
+  $overview.find('.details > a').click();
+  assert.ok($overview.hasClass('hidden'), 'Overview hidden after clicking hide details link');
 
 });

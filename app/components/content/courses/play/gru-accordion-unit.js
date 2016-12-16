@@ -50,8 +50,9 @@ export default Ember.Component.extend(BuilderMixin, {
 
     toggle: function () {
       var toggleValue = !this.get('model.isExpanded');
-
       const id = this.get('model.data.id');
+
+      this.set('viewUnitDetails', false);
       this.loadData();
       this.get('onExpandUnit')(id, toggleValue);
       this.set('model.isExpanded', toggleValue);
@@ -60,6 +61,10 @@ export default Ember.Component.extend(BuilderMixin, {
     expandLesson: function (lessonId, expanded) {
       const id = this.get('model.data.id');
       this.get('onExpandLesson')(id, lessonId, expanded);
+    },
+
+    viewDetails: function () {
+      this.toggleProperty('viewUnitDetails');
     }
 
   },
@@ -114,6 +119,11 @@ export default Ember.Component.extend(BuilderMixin, {
   tags: Ember.computed('unit.taxonomy.[]', function() {
     return TaxonomyTag.getTaxonomyTags(this.get("unit.taxonomy"), false);
   }),
+
+  /**
+   * @property {Boolean} view unit details
+   */
+  viewUnitDetails: false,
 
 
   // -------------------------------------------------------------------------

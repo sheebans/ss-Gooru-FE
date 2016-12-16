@@ -27,16 +27,6 @@
       }
     }
 
-    .details {
-      margin-top: 10px;
-      display: table;
-      width: 280px;
-      border-bottom: 2px solid $light-300;
-      i, span {
-        vertical-align: middle;
-      }
-    }
-
     #information {
       padding-top: 20px;
 
@@ -268,9 +258,8 @@
         padding: 10px 15px 15px;
 
         .overview {
-          padding: 10px 10px 20px 10px;
+          padding: 10px 10px 40px 10px;
           margin-bottom: 10px;
-          border-bottom: 1px solid $white;
 
           .big-ideas,
           .essential-questions {
@@ -290,6 +279,10 @@
             margin-top: 5px;
             color: $white;
           }
+        }
+
+        ol.accordion-unit {
+          clear: both;
         }
 
         .col-sm-6 {
@@ -341,6 +334,12 @@
 
         > .expanded > .panel-body {
           background-color: $dark-400;
+          .details {
+            text-align: center;
+            a {
+              color: $white;
+            }
+          }
         }
       }
     }
@@ -429,6 +428,16 @@
           }
         }
       }
+    }
+  }
+
+  .details {
+    margin-top: 10px;
+    display: table;
+    width: 280px;
+    border-bottom: 2px solid $light-300;
+    i, span {
+      vertical-align: middle;
     }
   }
 }
