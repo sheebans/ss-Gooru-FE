@@ -29,7 +29,7 @@ module.exports = function(defaults) {
       useLintTree: false
     },
     fingerprint: {
-      exclude: ['themes'] //excluding theme files
+      exclude: ['themes', 'application-widget.js'] //excluding files
     }
   });
 
