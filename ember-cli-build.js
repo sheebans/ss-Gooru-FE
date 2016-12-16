@@ -21,7 +21,7 @@ module.exports = function(defaults) {
       app: {
         css: {
           'app': '/assets/gooru-web.css',
-          'themes/london': '/assets/themes/london/styles.css'
+          'themes/bergen': '/assets/themes/bergen/styles.css'
         }
       }
     },

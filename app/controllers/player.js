@@ -60,13 +60,29 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
      * @see components/player/gru-question-viewer.js
      * @param {Resource} question
      * @param {QuestionResult} questionResult
+     * @param {Ember.RSVP.defer} resolved when all actions are done
+     * @param {boolean} continue to next resource
      */
-    submitQuestion: function(question, questionResult){
+    submitQuestion: function (question, questionResult) {
       const controller = this;
-      const submittedAt = new Date();
-      controller.finishResourceResult(questionResult, submittedAt).then(function(){
-        controller.moveOrFinish(question, submittedAt);
-      });
+      let showFeedback = controller.get("showFeedback");
+      let isTeacher = controller.get('isTeacher');
+      if(!showFeedback || isTeacher) { // when not showing feedback
+        const submittedAt = new Date();
+        controller.finishResourceResult(questionResult, submittedAt).then(function(){
+          controller.moveOrFinish(question, submittedAt);
+        });
+      }
+      else { // when showing feedback
+        if(questionResult.get('submittedAnswer')) {
+          controller.moveOrFinish(question, questionResult.get("submittedAt"));
+        }
+        else {
+          controller.finishResourceResult(questionResult).then(function(){
+            questionResult.set('submittedAnswer', true); //indicates the answer is submitted and shows feedback
+          });
+        }
+      }
     },
 
     /**
@@ -270,6 +286,54 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    * @property {boolean} showReportLink
    */
   showReportLink: Ember.computed.alias("features.collections.player.showReportLink"),
+
+  /**
+   * Indicates if the back navigation is visible
+   * @property {boolean} showBackLink
+   */
+  showBackLink: Ember.computed.alias("features.collections.player.showBackLink"),
+
+  /**
+   * Indicates if the remix button is visible
+   * @property {boolean} showRemix
+   */
+  showRemix: Ember.computed.alias("features.collections.player.showRemix"),
+
+  /**
+   * Indicates if the collection name is visible
+   * @property {boolean} showCollectionName
+   */
+  showCollectionName: Ember.computed.alias("features.collections.player.showCollectionName"),
+
+  /**
+   * Indicates if the collection author is visible
+   * @property {boolean} showCollectionAuthor
+   */
+  showCollectionAuthor: Ember.computed.alias("features.collections.player.showCollectionAuthor"),
+
+  /**
+   * Indicates if the resource number is visible
+   * @property {boolean} showResourceNumber
+   */
+  showResourceNumber: Ember.computed.alias("features.collections.player.showResourceNumber"),
+
+  /**
+   * Indicates if it should show feedback per question or not
+   * @property {boolean} showQuestionFeedback
+   */
+  showQuestionFeedback: Ember.computed.alias("features.collections.player.showQuestionFeedback"),
+
+  /**
+   * Indicates if feedback should be shown
+   * @property {boolean}
+   */
+  showFeedback: Ember.computed('collection.showFeedback', 'showQuestionFeedback', function() {
+    let controller = this;
+    let isShowQuestionFeedbackSet = controller.get("showQuestionFeedback") !== undefined;
+    return isShowQuestionFeedbackSet ?
+      controller.get("showQuestionFeedback") :
+      controller.get('collection.immediateFeedback');
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -522,9 +586,9 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
     const controller = this;
     let eventsService = this.get('eventsService');
     let context = this.get('context');
+    resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
     if(controller.get("saveEnabled")) {
       context.set("isStudent", controller.get("isStudent"));
-      resourceResult.set('reaction', reactionType);   // Sets the reaction value into the resourceResult
       eventsService.saveReaction(resourceResult, context);
     }
   },

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { EMOTION_VALUES } from "gooru-web/config/config";
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Emotion picker
@@ -10,7 +11,7 @@ import { EMOTION_VALUES } from "gooru-web/config/config";
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies

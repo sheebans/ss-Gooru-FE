@@ -15,7 +15,7 @@ test('it renders', function (assert) {
   assert.expect(5);
 
   const mockProfile = ProfileModel.create({
-    avatarUrl: "/assets/gooru/profile.png",
+    avatarUrl: "assets/gooru/profile.png",
     firstName: "John",
     lastName: "Doe",
     username: "JohnDoe",
@@ -38,7 +38,7 @@ test('it renders', function (assert) {
 
   return wait().then(function () {
     const $image = $component.find('> div > span > img');
-    assert.equal($image.attr('src'), '/assets/gooru/profile.png');
+    assert.equal($image.attr('src'), 'assets/gooru/profile.png');
 
     const $name = $component.find('> div > strong');
     assert.equal($name.text(), 'JohnDoe');

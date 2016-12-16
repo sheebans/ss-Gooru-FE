@@ -49,6 +49,11 @@
                    placeholder="User Token">
           </div>
           <div class="form-group">
+            <label for="collection-id-input">Source id (Optional)</label>
+            <input type="text" class="form-control" id="user-source-input"
+                   placeholder="Source Id">
+          </div>
+          <div class="form-group">
             <label>Theme</label>
           </div>
           <div class="form-group">
@@ -56,7 +61,7 @@
               <input type="radio" name="theme-id" value="gooru" checked="checked"> Gooru
             </label>
             <label class="radio-inline">
-              <input type="radio" name="theme-id" value="london"> London
+              <input type="radio" name="theme-id" value="bergen"> Bergen
             </label>
           </div>
           <div class="form-group">
@@ -81,6 +86,36 @@
           <div class="checkbox">
             <label>
               <input name="show-report" type="checkbox" value="true"> Show Report
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-back" type="checkbox" value="true"> Show Back Navigation
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-remix" type="checkbox" value="true"> Show Remix
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-collection-name" type="checkbox" value="true"> Show Collection Name
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-collection-author" type="checkbox" value="true"> Show Collection Author
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-resource-number" type="checkbox" value="true"> Show Resource Number
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-question-feedback" type="checkbox" value="true"> Show Question Feedback
             </label>
           </div>
         </form>
@@ -109,24 +144,49 @@
 
       var collectionId = jQuery("#collection-id-input").val();
       var userToken = jQuery("#user-token-input").val();
+      var sourceId = jQuery("#user-source-input").val();
       var type = jQuery("#the-form input[name = 'collection-type']:checked").val();
       var themeId = jQuery("#the-form input[name = 'theme-id']:checked").val();
       var reactions = jQuery("#the-form input[name = 'show-reactions']:checked").val() === "true";
       var report = jQuery("#the-form input[name = 'show-report']:checked").val() === "true";
+      var back = jQuery("#the-form input[name = 'show-back']:checked").val() === "true";
+      var remix = jQuery("#the-form input[name = 'show-remix']:checked").val() === "true";
+      var collectionName = jQuery("#the-form input[name = 'show-collection-name']:checked").val() === "true";
+      var collectionAuthor = jQuery("#the-form input[name = 'show-collection-author']:checked").val() === "true";
+      var resourceNumber = jQuery("#the-form input[name = 'show-resource-number']:checked").val() === "true";
+      var showQuestionFeedback = jQuery("#the-form input[name = 'show-question-feedback']:checked").val() === "true";
+
+
       if (aw) {
         aw.destroy();
       }
 
       aw = new ApplicationWidget('#gooru-application-container', {
+        "endpoint" : {
+          "url": "https://nucleus-qa.gooru.org",
+          "secureUrl": "https://nucleus-qa.gooru.org"
+        },
+        "realTime": {
+          "webServiceUrl": "https://rt.nucleus-qa.gooru.org",
+          "webSocketUrl": "https://rt.nucleus-qa.gooru.org",
+        },
+
         "appRootPath": "../",
-        "themeId": themeId === "london" ? themeId : undefined,
+        "themeId": themeId === "bergen" ? themeId : undefined,
         "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}],
         "token": userToken.length > 0 ? userToken : undefined,
+        "sourceId": sourceId.length > 0 ? sourceId : undefined,
         "features": {
           "collections": {
             "player": {
               "showReactionBar": reactions,
-              "showReportLink": report
+              "showReportLink": report,
+              "showBackLink": back,
+              "showRemix": remix,
+              "showCollectionName": collectionName,
+              "showCollectionAuthor": collectionAuthor,
+              "showResourceNumber": resourceNumber,
+              "showQuestionFeedback": showQuestionFeedback
             }
           }
         }

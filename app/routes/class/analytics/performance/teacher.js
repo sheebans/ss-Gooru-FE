@@ -46,7 +46,16 @@ export default Ember.Route.extend({
    * @param controller
    */
   setupController: function(controller) {
-    controller.updateBreadcrumb(controller.get("course"), "course");
+    if (controller.get("class.hasCourse")){
+      controller.updateBreadcrumb(controller.get("course"), "course");
+    }
     controller.get('classController').selectMenuItem('analytics.performance');
+  },
+
+  /**
+   * Cleanse the controller values
+   */
+  deactivate: function(){
+    this.get("controller").resetValues();
   }
 });

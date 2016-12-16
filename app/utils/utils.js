@@ -332,7 +332,8 @@ export function cleanFilename(url, cdnUrls) {
       url = url.replace(cdnUrls.user, '');
     }
   }
-  return (url && defaultImages.indexOf(url) < 0) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
+
+  return (url && !isDefaultImage(defaultImages, url)) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
 }
 
 /**
@@ -389,12 +390,17 @@ export function removeHtmlTags(text){
 /**
  * Returns resource name with a protocol if it is necessary
  * @param {String} url
+ * @param {boolean} addSecureProtocol
  */
-export function addProtocolIfNecessary(url) {
+export function addProtocolIfNecessary(url, addSecureProtocol) {
   const pattern = /^((http|https|ftp):\/\/)/;
+  var protocol = "http:";
 
-  if(!pattern.test(url)) { //if no protocol add http as default
-    return "http:" + url;
+  if(!pattern.test(url)) { //if no protocol add http/https
+    if (addSecureProtocol) {
+      protocol = "https:";
+    }
+    return protocol + url;
   }
 
   return url;
@@ -407,6 +413,16 @@ export function addProtocolIfNecessary(url) {
  */
 export function checkIfIsGoogleDoc(assetUrl) {
   return (assetUrl.indexOf("//drive.google") !== -1 || assetUrl.indexOf("//docs.google") !== -1);
+}
+
+/**
+ * Check if the session cdn url is in the resource url
+ * @param {String} resource url
+ * @param {String} cdn url
+ * @returns {boolean}
+ */
+export function checkDomains(resourceUrl, cdnUrl) {
+  return (resourceUrl.indexOf(cdnUrl) !== -1);
 }
 
 /**
@@ -633,4 +649,22 @@ export function createFileNameToDownload(fileName){
   }
 
   return newName;
+}
+
+/**
+ * check if is a config default image
+ * @param {string []} config default images
+ * @param {string} url of file
+ */
+
+function isDefaultImage(defaultImages, url) {
+  var isDefaultImage = false;
+
+  defaultImages.forEach(function(image) {
+    if (url.indexOf(image) >= 0){
+      isDefaultImage = true;
+    }
+  });
+
+  return isDefaultImage;
 }

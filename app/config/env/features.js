@@ -11,7 +11,12 @@ export default {
       player: {
         showReactionBar: true,
         showReportLink: true,
-        showCollectionName: true
+        showBackLink: true,
+        showRemix: true,
+        showCollectionName: true,
+        showCollectionAuthor: true,
+        showResourceNumber: true,
+        showQuestionFeedback: undefined
       }
     }
   }

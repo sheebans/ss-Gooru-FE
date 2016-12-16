@@ -1,7 +1,7 @@
 import AnswerObject from 'gooru-web/utils/question/answer-object';
 import QuestionUtil from './question';
 import Answer from 'gooru-web/models/content/answer';
-
+import Ember from 'ember';
 /**
  * It contains convenience methods for grading and retrieving useful information
  * for Fill in the bLank
@@ -120,7 +120,7 @@ const FillInTheBlankUtil = QuestionUtil.extend({
    * @returns {Answer[]}
    */
   getQuestionAnswers: function() {
-    const answersFromText = FillInTheBlankUtil.getQuestionAnswers(this.get("question.text"));
+    const answersFromText = FillInTheBlankUtil.getQuestionAnswers(this.get("question"));
     const answers = this.get("question.answers");
     return (answers.get("length") !== answersFromText.get("length")) ?
       answersFromText :
@@ -195,12 +195,15 @@ FillInTheBlankUtil.reopenClass({
 
   /**
    * Generate question answers
-   * @property {Answer[]}
+   * @param {Question} question
+   * @return {Answer[]}
    */
-  getQuestionAnswers: function(text) {
+  getQuestionAnswers: function(question) {
+    const text = question.get("text");
+    const owner = Ember.getOwner(question);
     const matchedAnswers = FillInTheBlankUtil.getCorrectAnswers(text);
     return matchedAnswers.map(function(answer, index) {
-      return Answer.create({
+      return Answer.create(owner ? owner.ownerInjection() : undefined, {
         sequence: index + 1,
         text: answer.substring(1, answer.length - 1), // it removes []
         isCorrect: true,

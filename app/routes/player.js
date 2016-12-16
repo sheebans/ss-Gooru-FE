@@ -3,6 +3,7 @@ import AssessmentResult from 'gooru-web/models/result/assessment';
 import Context from 'gooru-web/models/result/context';
 import {generateUUID} from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -10,7 +11,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
  * @module
  * @augments ember/Route
  */
-export default Ember.Route.extend(ModalMixin,{
+export default Ember.Route.extend(ModalMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -138,19 +139,19 @@ export default Ember.Route.extend(ModalMixin,{
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
       let collection = collectionFound ? hash.collection.value : hash.assessment.value;
 
+      context.set("collectionType", collection.get("collectionType")); //setting collection type
+
       const playerCollection = collection.toPlayerCollection();
 
       //Find resource owners
-      playerCollection.get("resources").map(function(resource){
-        if(resource.owner){
-          return route.get('profileService').readUserProfile(resource.owner).then(function(owner){
-            return resource.set('owner',owner);
-          });
-        }
+      const resourcesWithOwner = playerCollection.get("resources").filterBy("hasOwner");
+      const ownerIds = resourcesWithOwner.mapBy("owner").uniq();
+      return route.get('profileService').readMultipleProfiles(ownerIds).then(function(owners){
+        resourcesWithOwner.forEach(function(resource){
+          resource.set("owner", owners.findBy("id", resource.get("owner")));
+        });
+        return route.playerModel(params, context, playerCollection, collection);
       });
-      context.set("collectionType", collection.get("collectionType"));
-
-      return route.playerModel(params, context, playerCollection, collection);
     });
   },
 
@@ -196,11 +197,14 @@ export default Ember.Route.extend(ModalMixin,{
     const route = this;
     const userId = route.get('session.userId');
     const collectionId = params.collectionId;
+    const sourceId = route.get("configuration.sourceId");
+
 
     return Context.create({
       userId: userId,
       collectionId: collectionId,
-      parentEventId: generateUUID() //TODO is this comming from BE?
+      parentEventId: generateUUID(),
+      sourceId: sourceId
     });
   },
 

@@ -58,7 +58,7 @@ test('Player Navigator', function(assert) {
 
   this.render(hbs`{{player.gru-navigator collection=collection
       resourceResults=resourceResults lessonTitle='E-Lesson1'
-      selectedResourceId='1' onItemSelected='itemSelected'}}`);
+      selectedResourceId='1' onItemSelected='itemSelected' showBackLink=true}}`);
 
   var $component = this.$(); //component dom element
   const $navigator = $component.find(".gru-navigator");
@@ -385,7 +385,7 @@ test('Close player', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction' lessonTitle='E-Lesson1'}}`);
+  this.render(hbs`{{player/gru-navigator onClosePlayer='parentAction' lessonTitle='E-Lesson1' showBackLink=true}}`);
   var $component = this.$(); //component dom element
   var $closeButton = $component.find(".gru-navigator .navigator-header div:first-child");
   $closeButton.click();
@@ -425,6 +425,43 @@ test('Not see usage report', function(assert) {
   assert.notOk($seeReportButton.length, "report button should be hidden");
 });
 
+test('Not see collection name', function(assert) {
+  assert.expect(2);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showCollectionName=false}}`);
+  var $component = this.$(); //component dom element
+
+  const $navigatorSubheader = $component.find(".gru-navigator .navigator-subheader");
+  T.notExists(assert, $navigatorSubheader.find(".collection-type"), "Collection type should not be visible");
+  T.notExists(assert, $navigatorSubheader.find(".collection-title"), "Collection title should not be visible");
+
+});
+
+test('Not see resource number', function(assert) {
+  assert.expect(1);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showResourceNumber=false}}`);
+  var $component = this.$(); //component dom element
+  const $navigator = $component.find(".gru-navigator");
+  const $collectionResources = $navigator.find(".resources");
+
+  const $firstResourceItem = $collectionResources.find("li.list-group-item:eq(0)");
+  T.notExists(assert, $firstResourceItem.find(".resources-info number"), "Missing resources number");
+
+});
+
 test('Remix collection/assessment', function(assert) {
   assert.expect(2);
 
@@ -432,7 +469,7 @@ test('Remix collection/assessment', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-navigator onRemixCollection='parentAction' showRemixButton=true}}`);
+  this.render(hbs`{{player/gru-navigator onRemixCollection='parentAction' showRemixButton=true showRemix=true}}`);
   var $component = this.$(); //component dom element
   var $remixButton = $component.find(".gru-navigator .navigator-header button.remix-btn");
   assert.ok($remixButton.length, "Missing remix button");
@@ -475,4 +512,34 @@ test('Not finish collection', function(assert) {
   var $finishButton = $component.find("button.finish-collection");
 
   assert.notOk($finishButton.length, "Finish button should be hidden");
+});
+
+test('Not see back navigation', function(assert) {
+  assert.expect(1);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showBackLink=false}}`);
+  var $component = this.$(); //component dom element
+  var $seeBackLink = $component.find(".gru-navigator .navigator-header .lesson-title");
+  assert.notOk($seeBackLink.length, "back link should be hidden");
+});
+
+test('Not see remix button', function(assert) {
+  assert.expect(1);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showRemix=false}}`);
+  var $component = this.$(); //component dom element
+  var $seeRemix = $component.find(".gru-navigator .navigator-header .remix-btn");
+  assert.notOk($seeRemix.length, "remix button should be hidden");
 });

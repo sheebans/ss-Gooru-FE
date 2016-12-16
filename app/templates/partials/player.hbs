@@ -1,13 +1,15 @@
 <div class="main" role="main">
   {{#if showReport}}
-    <div class="report-navigation">
-      <button {{action "closePlayer"}} class="btn btn-info back">
-          <span>
-            {{gru-icon name='keyboard_arrow_left'}}
-            {{t 'common.back'}}
-          </span>
-      </button>
-    </div>
+    {{#if showBackLink}}
+      <div class="report-navigation">
+        <button {{action "closePlayer"}} class="btn btn-info back">
+            <span>
+              {{gru-icon name='keyboard_arrow_left'}}
+              {{t 'common.back'}}
+            </span>
+        </button>
+      </div>
+    {{/if}}
     {{reports.gru-assessment-report assessmentResult=assessmentResult }}
   {{else}}
     {{#if collection.hasResources }}
@@ -33,7 +35,9 @@
         isNotIframeUrl=isNotIframeUrl
         hasContext=hasContext
         role=role
-        showReportLink=showReportLink}}
+        showReportLink=showReportLink
+        showCollectionAuthor=showCollectionAuthor
+        showQuestionFeedback=showQuestionFeedback}}
       {{/if}}
     {{else}}
       {{! TODO add the not found component here}}
@@ -57,6 +61,10 @@
     isTeacher=isTeacher
     onRemixCollection="remixCollection"
     submitted=assessmentResult.submitted
-    showReportLink=showReportLink}}
+    showReportLink=showReportLink
+    showBackLink=showBackLink
+    showRemix=showRemix
+    showCollectionName=showCollectionName
+    showResourceNumber=showResourceNumber}}
   </div>
 {{/unless}}

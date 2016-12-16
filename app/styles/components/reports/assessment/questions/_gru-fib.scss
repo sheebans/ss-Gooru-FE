@@ -2,6 +2,17 @@
   line-height: 42px;
 }
 .reports.assessment.questions.gru-fib {
+  word-wrap: break-word;
+  overflow: auto;
+  max-width: 10em;
+
+  @media (min-width: $screen-sm-min) {
+    max-width: 16em;
+  }
+
+  @media (min-width: $screen-lg-min) {
+    max-width: 25em;
+  }
   span {
     line-height: 30px;
   }

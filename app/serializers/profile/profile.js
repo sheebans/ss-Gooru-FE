@@ -8,13 +8,14 @@ import CollectionModel from 'gooru-web/models/content/collection';
 import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
 import { cleanFilename } from 'gooru-web/utils/utils';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
  *
  * @typedef {Object} ProfileSerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin, {
 
   session: Ember.inject.service('session'),
 
@@ -101,8 +102,9 @@ export default Ember.Object.extend({
   normalizeReadProfile: function(payload) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
     const thumbnailUrl = payload['thumbnail_path'] ?
-      basePath + payload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
+      basePath + payload['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
@@ -254,8 +256,9 @@ export default Ember.Object.extend({
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
     const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(collectionData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
     const thumbnailUrl = collectionData.thumbnail ?
-      basePath + collectionData.thumbnail : DEFAULT_IMAGES.COLLECTION;
+      basePath + collectionData.thumbnail : appRootPath + DEFAULT_IMAGES.COLLECTION;
 
     return CollectionModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: collectionData.id,
@@ -287,8 +290,9 @@ export default Ember.Object.extend({
     const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
     const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
     const thumbnailUrl = assessmentData.thumbnail ?
-      basePath + assessmentData.thumbnail : DEFAULT_IMAGES.ASSESSMENT;
+      basePath + assessmentData.thumbnail : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
 
     return AssessmentModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: assessmentData.id,
@@ -339,8 +343,9 @@ export default Ember.Object.extend({
   normalizeNetworkDetail: function(networkData, type, following) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
     const thumbnailUrl = networkData['thumbnail_path'] ?
-    basePath + networkData['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE;
+    basePath + networkData['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       "id": networkData.id,
@@ -358,6 +363,7 @@ export default Ember.Object.extend({
   normalizeReadMultipleProfiles: function(payload) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
     let profiles = Ember.A([]);
     if (payload.users) {
       profiles = payload.users.map(function(userPayload) {
@@ -366,7 +372,7 @@ export default Ember.Object.extend({
           firstName: userPayload.firstname,
           lastName: userPayload.lastname,
           username: userPayload.username,
-          avatarUrl: userPayload['thumbnail_path'] ? basePath + userPayload['thumbnail_path'] : DEFAULT_IMAGES.USER_PROFILE
+          avatarUrl: userPayload['thumbnail_path'] ? basePath + userPayload['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE
         });
       });
     }

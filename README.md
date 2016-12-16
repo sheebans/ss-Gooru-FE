@@ -94,6 +94,8 @@ It's required to run a grunt task that builds the SVG Sprite Sheets that the app
 * `grunt run:stubby` to run it using the stubby server, this task starts up stubby server and proxy ember to it
 * `grunt run` or `grunt run:nginx` to run it proxying to the nginx server.
 
+Note: If you get some errors with `grunt run` is because the nginx server is down, then run this `grunt run --force`. 
+
 ### Coding standards
 This application follows [Ember CLI standards and conventions](http://www.ember-cli.com/user-guide/#naming-conventions) and it also uses JSHint (http://jshint.com/) _"JSHint is a program that flags suspicious usage in programs written in JavaScript."_
 
@@ -225,7 +227,7 @@ connection, otherwise the RealTime module will not be able to communicate with t
 
 ### Adding Themes
 Gooru app support custom themes
-* Add a new scss file under styles/themes, i.e london.scss
-* Add an entry to ember-cli-build.js, outpaths section,  ie `'themes/london': '/assets/themes/london/styles.css'`
+* Add a new scss file under styles/themes, i.e bergen.scss
+* Add an entry to ember-cli-build.js, outpaths section,  ie `'themes/bergen': '/assets/themes/bergen/styles.css'`
 * The theme css will be loaded on demand when passing the correct themeId
 

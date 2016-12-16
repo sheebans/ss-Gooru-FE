@@ -35,16 +35,25 @@
        @include flex();
        width: auto;
        margin-top: 5px;
-
+       overflow: auto;
+       word-wrap: break-word;
        .gru-rich-text-editor {
+         .btn-toolbar {
+           max-width: 59em;
+         }
          .rich-editor {
            min-height: 3.2em;
            max-height: 6.9em;
-           overflow: auto;
            margin: 10px 20px 10px 0;
            border-left: 0;
            border-right: 0;
            border-top: 0;
+           overflow: auto;
+           word-wrap: break-word;
+           max-width: 49em;
+           &.editable {
+             max-width: 59em;
+           }
          }
        }
        p{

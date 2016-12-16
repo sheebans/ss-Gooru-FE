@@ -1,10 +1,10 @@
 {{#if editMode}}
   <div class="form-group">
     <label class="radio-inline">
-      <input type="radio" name="highlightType" value="word" checked={{isHotTextHighlightWord}} onclick={{action (mut answers.firstObject.highlightType) value="target.value"}}> {{t 'common.word'}}
+      <input type="radio" name="highlightType" value="word" checked={{isHotTextHighlightWord}} {{action 'changeType' 'word' preventDefault=false}}> {{t 'common.word'}}
     </label>
     <label class="radio-inline">
-      <input type="radio" name="highlightType" value="sentence" checked={{isHotTextHighlightSentence}} onclick={{action (mut answers.firstObject.highlightType) value="target.value"}}> {{t 'common.sentence'}}
+      <input type="radio" name="highlightType" value="sentence" checked={{isHotTextHighlightSentence}} {{action 'changeType' 'sentence' preventDefault=false}}> {{t 'common.sentence'}}
     </label>
   </div>
 {{/if}}

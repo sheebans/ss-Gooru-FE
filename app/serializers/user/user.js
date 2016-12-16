@@ -1,7 +1,8 @@
 import DS from "ember-data";
 import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
-export default DS.JSONAPISerializer.extend({
+export default DS.JSONAPISerializer.extend(ConfigurationMixin, {
 
   serialize: function(snapshot) {
     var signUpObject = snapshot.record.toJSON();
@@ -63,6 +64,7 @@ export default DS.JSONAPISerializer.extend({
    * @returns {Object}
    */
   normalizeUser: function(payload) {
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
     return {
       id: payload.gooruUId,
       type: "user/user",
@@ -78,7 +80,7 @@ export default DS.JSONAPISerializer.extend({
         lastName: payload.lastName ? payload.lastName : payload.lastname,
         organizationName: payload.organizationName,
         partyUid: payload.partyUid,
-        avatarUrl: payload.profileImageUrl ? payload.profileImageUrl : DEFAULT_IMAGES.USER_PROFILE,
+        avatarUrl: payload.profileImageUrl ? payload.profileImageUrl : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
         userRoleSetString: payload.userRoleSetString,
         username: payload.username,
         usernameDisplay: payload.usernameDisplay,

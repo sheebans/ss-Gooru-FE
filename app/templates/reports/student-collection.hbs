@@ -1,21 +1,23 @@
 <div class="controller class analytics collection student">
   <div class="row">
-    <div class="col-sm-12 navigation">
-      <button {{action "goBack"}} class="btn btn-info back">
-          <span>
-            {{gru-icon name='keyboard_arrow_left'}}
-            {{#if lesson}}
-              {{#if isStudent}}
-                {{t "common.back-to-data"}}
+    {{#if showBackLink}}
+      <div class="col-sm-12 navigation">
+        <button {{action "goBack"}} class="btn btn-info back">
+            <span>
+              {{gru-icon name='keyboard_arrow_left'}}
+              {{#if lesson}}
+                {{#if isStudent}}
+                  {{t "common.back-to-data"}}
+                {{else}}
+                  {{t (if backUrl "common.back-to-data" "common.back-to-course-map")}}
+                {{/if}}
               {{else}}
-                {{t (if backUrl "common.back-to-data" "common.back-to-course-map")}}
+                {{t 'common.back'}}
               {{/if}}
-            {{else}}
-              {{t 'common.back'}}
-            {{/if}}
-          </span>
-      </button>
-    </div>
+            </span>
+        </button>
+      </div>
+    {{/if}}
     <div class="col-sm-12">
       {{#if assessmentResult}}
         {{reports.gru-assessment-report

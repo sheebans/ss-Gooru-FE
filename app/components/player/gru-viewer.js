@@ -1,5 +1,6 @@
 import Ember from "ember";
 import { ASSESSMENT_SHOW_VALUES, RESOURCE_COMPONENT_MAP } from 'gooru-web/config/config';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Player viewer
  *
@@ -10,7 +11,7 @@ import { ASSESSMENT_SHOW_VALUES, RESOURCE_COMPONENT_MAP } from 'gooru-web/config
  * @see controllers/player.js
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend( ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -55,8 +56,14 @@ export default Ember.Component.extend({
    * Indicates if collection has an author
    * @property {string}
    */
-
    collectionHasAuthor: Ember.computed.notEmpty('collection.author'),
+
+  /**
+   * Indicates if the collection author is visible
+   * @property {boolean} showCollectionAuthor
+   */
+  showCollectionAuthor: true,
+
   /**
    * Indicates if the student is playing the collection
    * @property {boolean}
@@ -106,12 +113,6 @@ export default Ember.Component.extend({
   calculatedResourceContentHeight: 0,
 
   /**
-   * Indicates when the player has context
-   * @property {boolean}
-   */
-  hasContext: false,
-
-  /**
    * Indicates when the collection is already submitted
    * @property {boolean}
    */
@@ -147,8 +148,8 @@ export default Ember.Component.extend({
    */
   buttonTextKey: Ember.computed('collection', 'resource.id', 'resourceResult.submittedAnswer', function() {
     let i18nKey = 'common.save-next';
-    let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
-    if(!this.get('hasContext') || !showFeedback || this.get('isTeacher')) {
+    let showFeedback = this.get('showFeedback');
+    if(!showFeedback || this.get('isTeacher')) {
       if (this.get('collection').isLastResource(this.get('resource'))) {
         i18nKey = (this.get('collection').get('isAssessment') && this.get('showReportLink')) ? 'common.save-submit' : 'common.save-finish';
       }
@@ -167,10 +168,10 @@ export default Ember.Component.extend({
    * The text for the action in the instructions
    * @property {string}
    */
-  instructionsActionTextKey: Ember.computed('collection', 'resource.id', 'resourceResult.submittedAnswer', function() {
+  instructionsActionTextKey: Ember.computed('collection', 'resource.id', 'showFeedback', function() {
     let i18nKey = 'common.save-next';
-    let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
-    if(!this.get('hasContext') || !showFeedback) {
+    let showFeedback = this.get('showFeedback');
+    if(!showFeedback || this.get('isTeacher')) {
       if (this.get('collection').isLastResource(this.get('resource'))) {
         return (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
       }
@@ -191,6 +192,23 @@ export default Ember.Component.extend({
    * @property {boolean} showReportLink
    */
   showReportLink: true,
+
+  /**
+   * Indicates if feedback should be shown
+   * @property {boolean}
+   */
+  showFeedback: Ember.computed('collection.showFeedback', 'showQuestionFeedback', function() {
+    let isShowQuestionFeedbackSet = this.get("showQuestionFeedback") !== undefined;
+    return isShowQuestionFeedbackSet ? this.get("showQuestionFeedback") :
+      (this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE);
+  }),
+
+  /**
+   * it forces to show the question feedback, no matter what configuration is set for the collection,
+   * it should be undefined by default so it is ignore when no provided
+   * @property {boolean}
+   */
+  showQuestionFeedback: undefined,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -215,6 +233,8 @@ export default Ember.Component.extend({
    * Set jquery effect to narration
    * */
   setNarrationEffect: function () {
-    $( ".narration" ).effect( "highlight",{ color: "#84B7DD"}, 2000);
+    var themeId = this.get("configuration.themeId");
+    var highlightColor = this.get(`configuration.themes.${themeId}.player.narration.highlightColor`) || "#84B7DD";
+    $( ".narration" ).effect( "highlight",{ color: highlightColor}, 2000);
   }
 });

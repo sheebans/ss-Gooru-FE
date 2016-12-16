@@ -1,6 +1,10 @@
 .gru-multiple-choice{
   .answer-choices{
     .radio label{
+      .text {
+        overflow: auto;
+        word-wrap: break-word;
+      }
       @include flexbox;
         > * {
           @include inline-flex;

@@ -100,6 +100,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     const courseId = params.courseId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
+    const sourceId = route.get("configuration.sourceId");
 
     return Context.create({
       userId: userId,
@@ -108,7 +109,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       courseId: courseId,
       classId: params.classId,
       unitId: unitId,
-      lessonId: lessonId
+      lessonId: lessonId,
+      sourceId: sourceId
     });
   },
 

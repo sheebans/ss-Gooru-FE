@@ -305,6 +305,8 @@
     border: 1px solid $gray-lighter;
     padding: 10px;
     outline: none;
+    overflow-y: auto;
+    word-wrap: break-word;
     &:focus {
       box-shadow: inset 0 -2px 0 $blue-500;
     }

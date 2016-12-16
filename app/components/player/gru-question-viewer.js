@@ -1,5 +1,6 @@
 import Ember from "ember";
 import { KEY_CODES, ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'gooru-web/config/config';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Player question viewer
@@ -12,7 +13,7 @@ import { KEY_CODES, ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'goor
  * @see controllers/player.js
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -178,12 +179,6 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * Indicates when the player has context
-   * @property {boolean}
-   */
-  hasContext: false,
-
-  /**
    * Hints to display
    * @property {Array} hintsToDisplay
    */
@@ -219,10 +214,9 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} indicates when the inputs are enabled
    */
-  isInputDisabled: Ember.computed("questionResult.submittedAnswer", "collection.showFeedback", function(){
-    let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
-    let hasContext = this.get('hasContext');
-    return (hasContext && showFeedback && this.get('isStudent') && this.get("questionResult.submittedAnswer")) || this.get('submitted');
+  isInputDisabled: Ember.computed("questionResult.submittedAnswer", "showFeedback", function(){
+    let showFeedback = this.get('showFeedback');
+    return (showFeedback && this.get('isStudent') && this.get("questionResult.submittedAnswer")) || this.get('submitted');
   }),
 
   /**
@@ -240,10 +234,9 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} indicates when the submit functionality is enabled
    */
-  isSubmitDisabled: Ember.computed("answerCompleted", "submitted", "questionResult.submittedAnswer", "collection.showFeedback", function() {
-    let showFeedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
-    let hasContext = this.get('hasContext');
-    if(!hasContext || !showFeedback || this.get('isTeacher') || !this.get("questionResult.submittedAnswer")) {
+  isSubmitDisabled: Ember.computed("answerCompleted", "submitted", "questionResult.submittedAnswer", "showFeedback", function() {
+    let showFeedback = this.get('showFeedback');
+    if(!showFeedback || this.get('isTeacher') || !this.get("questionResult.submittedAnswer")) {
       return this.get("submitted") || !this.get("answerCompleted");
     }
     return false;
@@ -276,11 +269,20 @@ export default Ember.Component.extend({
    * Indicates if feedback should be shown
    * @property {boolean}
    */
-  showFeedback: Ember.computed('hasContext', 'collection.showFeedback', 'questionResult.submittedAnswer', function() {
-    let feedback = this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
-    let hasContext = this.get('hasContext');
-    return hasContext && feedback && this.get('isStudent') && this.get("questionResult.submittedAnswer");
+  showFeedback: Ember.computed('collection.showFeedback', 'questionResult.submittedAnswer', 'showQuestionFeedback', function() {
+    let isShowQuestionFeedbackSet = this.get("showQuestionFeedback") !== undefined;
+    let feedback = isShowQuestionFeedbackSet ?
+      this.get("showQuestionFeedback") :
+      (this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE);
+    return feedback && this.get('isStudent') && this.get("questionResult.submittedAnswer");
   }),
+
+  /**
+   * it forces to show the question feedback, no matter what configuration is set for the collection,
+   * should be undefined by default, so the property is ignored
+   * @property {boolean}
+   */
+  showQuestionFeedback: undefined,
 
   /**
    * Indicates when the collection is already submitted

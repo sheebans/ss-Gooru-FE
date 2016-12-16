@@ -26,5 +26,15 @@ export default {
         "googleDriveUrl":"https://docs.google.com/gview?url="
       }
     }
+  },
+
+  "themes": {
+    "bergen": {
+      "player": {
+        "narration": {
+          "highlightColor": "#C1E7D9"
+        }
+      }
+    }
   }
 };
