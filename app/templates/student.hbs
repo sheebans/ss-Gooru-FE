@@ -1,5 +1,40 @@
 <div class="controller student row">
-  <div>
-    Student Landing Page
+  <iframe id="download_iframe" style="display:none;"></iframe>
+  <div class="greetings">
+    <div class="title">
+      <span>Hi {{profile.firstName}}!</span>
+    </div>
+    <p>
+      {{t 'user.joined-classes' count=totalJoinedClasses}}.
+    </p>
+  </div>
+  <div class="student-navigator">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active active-classes tab hidden-xs">
+        <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'active'}}>
+          <span class="lead">{{t 'user.active-classes'}}</span>
+        </a>
+      </li>
+
+      <li class="pull-right actions">
+        {{#link-to 'content.classes.join' class="btn btn-success join-class-cta" tagName='button'}}
+          {{t 'user.join-class'}}
+        {{/link-to}}
+      </li>
+    </ul>
+  </div>
+  <div class="content tab-content">
+    <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
+      {{#if hasClasses}}
+        {{#each activeClasses as |class|}}
+          {{cards.gru-class-card
+            class=class
+            profile=profile
+            classStudentCount=myClasses.memberCount}}
+        {{/each}}
+      {{else}}
+        {{partial 'partials/no-classes-found'}}
+      {{/if}}
+    </div>
   </div>
 </div>

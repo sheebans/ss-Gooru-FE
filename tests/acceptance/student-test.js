@@ -24,6 +24,15 @@ test('Layout', function(assert) {
 
     T.exists(assert, find("header.gru-header"), "Header component not found");
 
+    const $userContainer = find(".controller.student");
+    T.exists(assert, $userContainer, "Missing student container");
+    T.exists(assert, $userContainer.find(".greetings"), "Missing student greetings");
+
+    const $navigatorContainer = $userContainer.find(".student-navigator");
+    T.exists(assert, $navigatorContainer, "Missing student navigator");
+    T.exists(assert, $navigatorContainer.find(".actions .join-class-cta"), "Missing join class button");
+
+    assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
 
   });
 });
