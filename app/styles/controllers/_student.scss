@@ -88,16 +88,6 @@
         padding: 10px 0;
       }
     }
-    .switch-tab-btn {
-      @include flexbox;
-      @include align-items(center);
-      height: 100%;
-      padding: 0;
-
-      i {
-        font-size: $font-size-h3;
-      }
-    }
   }
 
   li {

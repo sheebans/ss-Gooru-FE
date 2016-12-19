@@ -2,7 +2,7 @@ import Ember from 'ember';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
 /**
- * Home route
+ * Student route
  *
  * @module
  * @augments Ember.Route
@@ -32,11 +32,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @type {I18nService} Service to retrieve translations information
    */
   i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Actions
-
-
-
 
 
   // -------------------------------------------------------------------------
@@ -60,8 +58,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       });
     });
   },
-
-
 
   /**
    * Set all controller properties from the model
