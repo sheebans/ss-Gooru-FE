@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
-import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
@@ -35,7 +34,8 @@ export default Ember.Component.extend(ModalMixin, {
     var course = component.get('course');
 
     if(course){
-      course = component.get('courseService').fetchCourseStructure(course);
+      //toDo
+      //course = component.get('courseService').fetchCourseStructure(course);
     }
   },
 

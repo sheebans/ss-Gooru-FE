@@ -167,7 +167,7 @@ export default Ember.Service.extend(StoreMixin, {
       Ember.RSVP.all(unitPromises).then(function(units){
         course.set("children", units);
         let promises = units.map(function(unit){
-          return new Ember.RSVP.Promise(function(resolve) {
+          return new Ember.RSVP.Promise(function(resolveLesson) {
             var lessons = unit.get('children');
 
             //TODO lesson service - fetchLessonsByIds(ids)
@@ -178,13 +178,12 @@ export default Ember.Service.extend(StoreMixin, {
             Ember.RSVP.all(lessonPromises).then(function(lessons){
               unit.set("children", lessons);
 
-              resolve();
+              resolveLesson();
             });
           });
-
-          Ember.RSVP.all(promises).then(function(){
-            resolve(course);
-          });
+        });
+        Ember.RSVP.all(promises).then(function(){
+          resolve(course);
         });
       });
     });
