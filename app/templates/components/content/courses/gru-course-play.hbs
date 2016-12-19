@@ -1,10 +1,4 @@
-<header>
-  <h1>{{course.title}}</h1>
-
-  <div class="actions">
-    <button class="btn btn-default performance btn-default">{{t "gru-course-play.performance"}}</button>
-  </div>
-</header>
+{{content.courses.gru-course-play-header course=course}}
 
 <section id="viewDetails" class="align-center details {{if viewCourseDetails 'hidden' 'visible'}}">
   <a href="#" {{action 'viewDetails'}}>

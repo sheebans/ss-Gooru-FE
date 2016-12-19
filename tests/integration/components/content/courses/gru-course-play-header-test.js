@@ -3,11 +3,11 @@ import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 import Course from 'gooru-web/models/content/course';
 
-moduleForComponent('content/courses/gru-course-play', 'Integration | Component | content/courses/gru course play', {
+moduleForComponent('content/courses/gru-course-play', 'Integration | Component | content/courses/gru course play header', {
   integration: true
 });
 
-test('layout', function (assert) {
+test('it has correct header when user is course owner', function (assert) {
 
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Course Title'
@@ -22,6 +22,12 @@ test('layout', function (assert) {
 
   const $headerComponent = $container.find('.gru-course-play-header');
   assert.ok($headerComponent.length, "Header component");
+  assert.ok($header.find('h1').text(), 'Course Title', "Title");
+
+  const $actions = $header.find('> .actions');
+  assert.ok($actions.length, "Header actions");
+  assert.equal($actions.find(' > button').length, 1, "Number of header actions");
+  assert.ok($actions.find('> button.performance').length, "Performance");
 
   const $viewDetails = $container.find('> section#viewDetails');
   const $information = $container.find('> section#information');

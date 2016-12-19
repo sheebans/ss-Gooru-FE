@@ -11,8 +11,6 @@ export default Ember.Component.extend(ModalMixin, {
 
   classNames: ['content', 'courses', 'gru-course-play'],
 
-  classNameBindings: ['fixed-header'],
-
   tagName: 'article',
 
 
@@ -48,23 +46,6 @@ export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  didInsertElement: function () {
-    this._super(...arguments);
-
-    const $header = this.$().find('> header');
-
-    // Add fix header behaviour
-    var headerWidth = $header.css('width');
-    headerWidth = headerWidth && headerWidth.split('px')[0] || '100%';
-
-    // Add inline styles to preserve the same look
-    $header.css({
-      width: headerWidth
-    });
-
-    this.set('fixed-header', true);
-  },
-
 
   // -------------------------------------------------------------------------
   // Properties

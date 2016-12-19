@@ -1,0 +1,15 @@
+.gru-course-play-header {
+  top: 55px;
+  min-height: 95px;
+  width: 100%;
+  position: fixed;
+
+  h1 {
+    display: inline-block;
+    text-transform: capitalize;
+  }
+
+  @media (min-width: $screen-md) {
+    top: 63px;
+  }
+}

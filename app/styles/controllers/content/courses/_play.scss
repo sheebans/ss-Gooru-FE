@@ -1,29 +1,20 @@
 .controller.content.courses.play {
 
-  > article.fixed-header {
-    padding-top: 105px;
-
-    @media (min-width: $screen-md) {
-      padding-top: 90px;
-    }
+  > article {
+    padding-top: 120px;
 
     > header {
-      top: 55px;
-      padding-top: 20px;
-      min-height: 95px;
-
-      h1 {
-        display: inline-block;
-        text-transform: capitalize;
-      }
-
-      nav a:focus {
-        text-decoration: none;
-      }
-
-      @media (min-width: $screen-md) {
-        top: 63px;
-        padding-bottom: 30px;
+      padding: 20px 20px 20px 5%;
+      nav {
+        a {
+          color: $white;
+          border-bottom: none;
+          margin: 0;
+          padding: 0;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
     }
 
@@ -281,6 +272,10 @@
           }
         }
 
+        .details {
+          width: auto;
+        }
+
         ol.accordion-unit {
           clear: both;
         }
@@ -434,7 +429,8 @@
   .details {
     margin-top: 10px;
     display: table;
-    width: 280px;
+    width: 330px;
+    padding: 0;
     border-bottom: 2px solid $light-300;
     i, span {
       vertical-align: middle;
