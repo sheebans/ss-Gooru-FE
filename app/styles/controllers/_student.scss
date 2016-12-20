@@ -1,5 +1,5 @@
 .container-fluid {
-  .student {
+  .student-landing {
     @include flexbox;
     @include flex-direction(column);
     @include align-items(center);
@@ -25,7 +25,7 @@
   }
 }
 
-.student {
+.student-landing {
   .greetings {
 
     span {
