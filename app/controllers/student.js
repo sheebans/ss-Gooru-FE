@@ -13,19 +13,15 @@ export default Ember.Controller.extend({
    */
   session: Ember.inject.service("session"),
 
-  // -------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
-    showClasses: function (type) {
-      this.set("showActiveClasses", type === "active");
-    }
-  },
+
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * Indicates when then active classes are visible
    * @property {boolean}
@@ -37,7 +33,6 @@ export default Ember.Controller.extend({
    * @see controllers/application.js
    * @property {myClasses}
    */
-
   myClasses: Ember.computed.alias('applicationController.myClasses'),
 
   /**
@@ -53,7 +48,8 @@ export default Ember.Controller.extend({
     return this.getActiveClasses(this.get('myClasses.memberList'));
   }),
 
-  hasClasses:Ember.computed('totalJoinedClasses','totalTeachingClasses',function(){
+
+  hasClasses:Ember.computed('totalJoinedClasses',function(){
     return this.get('totalJoinedClasses') > 0;
   }),
 
