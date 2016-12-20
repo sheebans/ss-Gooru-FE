@@ -47,13 +47,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     let route = this;
     const myId = route.get("session.userId");
     let profilePromise = route.get('profileService').readUserProfile(myId);
-    const classesStatus = this.get("classService").getReportClassesStatusFromStore(myId);
 
     return profilePromise.then(function(profile){
       return Ember.RSVP.hash({
         applicationModel: route.modelFor('application'),
         applicationController: route.controllerFor('application'),
-        classesStatus: classesStatus,
         profile: profile
       });
     });
