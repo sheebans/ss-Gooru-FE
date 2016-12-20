@@ -37,17 +37,14 @@ export default Ember.Controller.extend({
     });
   }),
 
-
   /**
    * @property {Number} Total of joined classes
    */
   totalJoinedClasses: Ember.computed.alias('activeClasses.length'),
 
-
   hasClasses:Ember.computed('totalJoinedClasses',function(){
     return this.get('totalJoinedClasses') > 0;
-  }),
-
+  })
 
 // -------------------------------------------------------------------------
 // Methods
