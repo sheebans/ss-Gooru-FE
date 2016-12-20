@@ -716,6 +716,7 @@ export default {
     }
   },
   "user": {
+    "hi": "Hi",
     "active-classes": "Active Classrooms",
     "archived-classes": "Archived Classrooms",
     "create-class": "Create Classroom",
