@@ -1,0 +1,30 @@
+.course-player {
+  &.player {
+    .gru-course-play-header {
+      top: 0;
+
+      h1 {
+        font-size: $font-size-h3;
+        color: $white;
+        margin: 0;
+      }
+    }
+    .main {
+      margin-top: 55px;
+      @media (min-width: $screen-md-min) {
+        margin-top: 75px;
+      }
+    }
+    .aside {
+      margin-top: 75px;
+    }
+    .gru-navigation {
+      .content {
+        .navigation-bar {
+          padding: 0 20px;
+          height:25px;
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,14 @@
 .controller.content.courses.play {
 
   > article {
-    padding-top: 120px;
+    padding-top: 75px;
 
     > header {
-      padding: 20px 20px 20px 5%;
+      padding: 10px 20px 5px 20px;
       nav {
+        clear: both;
+        height: 25px;
+        padding: 0;
         a {
           color: $white;
           border-bottom: none;
@@ -15,6 +18,9 @@
             text-decoration: underline;
           }
         }
+      }
+      .actions {
+        text-align: right;
       }
     }
 

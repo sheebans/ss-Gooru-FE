@@ -59,6 +59,8 @@ Router.map(function() {
 
   this.route('context-player', {path: '/player/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
 
+  this.route('course-player', {path: '/player/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
+
   this.route('classes');
 
   this.route('class', { path: '/class/:classId' }, function() {

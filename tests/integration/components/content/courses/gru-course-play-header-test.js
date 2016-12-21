@@ -25,5 +25,8 @@ test('Layout', function (assert) {
   assert.ok($actions.length, "Header actions");
   assert.equal($actions.find(' > button').length, 1, "Number of header actions");
   assert.ok($actions.find('> button.performance').length, "Performance");
-
+  const $coursePath = $container.find('> .path');
+  assert.ok($coursePath.length, "Course Path");
+  const $navigation = $container.find('nav');
+  assert.ok($navigation.length, "Course Navigation");
 });

@@ -24,7 +24,22 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * @prop {Content/Lesson} lesson
+   * @prop {String} courseId -  ID of the course this collection/assessment belongs to
+   */
+  courseId: null,
+
+  /**
+   * @prop {String} unitId - ID of the unit this collection/assessment belongs to
+   */
+  unitId: null,
+
+  /**
+   * @prop {String} lessonId - ID of the lesson this collection/assessment belongs to
+   */
+  lessonId: null,
+
+  /**
+   * @prop {Content/Collection-Assessment} model
    */
   model: null
 

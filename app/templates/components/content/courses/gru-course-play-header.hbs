@@ -1,18 +1,32 @@
-<h1>{{course.title}}</h1>
+<h1 class="ellipsis">{{course.title}}</h1>
 
 <div class="actions">
   <button class="btn btn-default performance btn-default">{{t "gru-course-play.performance"}}</button>
 </div>
 
+<div class="path ellipsis">
+  {{#if (and lesson unit)}}
+    {{unit.title}} / {{lesson.title}}
+  {{/if}}
+</div>
+
 <nav>
-  <div class="left">
+  <!--ToDo-->
+  <div class="right hidden-xs">
     <a href="#">
-      <span>&lt;&lt;{{t "gru-course-play.view-course-details"}}</span>
+      <span>&lt;&lt;Previous assessment</span>
+    </a> |
+    <a href="#">
+      <span>Next assessment&gt;&gt;</span>
     </a>
   </div>
-  <div class="right">
+
+  <div class="right hidden-md hidden-lg">
     <a href="#">
-      <span>{{t "gru-course-play.view-course-details"}}&gt;&gt;</span>
+      <span>&lt;&lt;Previous</span>
+    </a> |
+    <a href="#">
+      <span>Next&gt;&gt;</span>
     </a>
   </div>
 </nav>
