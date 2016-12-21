@@ -23,21 +23,10 @@ export default Ember.Object.extend({
   sessionId: null,
 
   /**
-   * @property {string} resourceEventId - Unique Id should be generated for every event from FE. This eventId should be same for start and stop event
-   */
-  resourceEventId: null,
-
-  /**
    * @property {string} classId - Class unique Id associated for the collection / assessment.
    * Can be null if play is outside context of class.
    */
   classId: null,
-
-  /**
-   * @property {string} eventType - Values are : start / stop
-   * If resource started to play then start, Reached end page or summary page or moved to next resource  then stop
-   */
-  eventType: null,
 
   /**
    * @property {string} courseId - Unique of course associated to the class. Can be null if play is outside context of class.
@@ -65,21 +54,9 @@ export default Ember.Object.extend({
   clientSource: 0,
 
   /**
-   * Indicates if the event type is stop
-   * @property {boolean}
-   */
-  isStopEvent: Ember.computed.equal("eventType", "stop"),
-
-  /**
-   * Indicates if the event type is start
-   * @property {boolean}
-   */
-  isStartEvent: Ember.computed.equal("eventType", "start"),
-
-  /**
    * @property  {boolean}
    */
-  isInContext: Ember.computed.bool("lessonId")
+  isInContext: Ember.computed.bool("classId")
 
 });
 

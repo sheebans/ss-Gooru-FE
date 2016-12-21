@@ -409,9 +409,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
     if(!resourceResult.get('submittedAt')) {
       //setting submitted at, timeSpent is calculated
       resourceResult.set('submittedAt', isSkip ? undefined : submittedAt);
-      context.set('eventType', 'stop');
       context.set('isStudent', controller.get('isStudent'));
-      promise = controller.saveResourceResult(resourceResult, context, isSkip);
+      promise = controller.saveResourceResult(resourceResult, context, "stop", isSkip);
     }
     return promise;
   },
@@ -429,27 +428,28 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
     if (!resourceResult.get("pending")){ //new attempt
       //todo increase attempt
       resourceResult.set("startedAt", startedDate);
-      context.set("resourceEventId", generateUUID()); //sets the new event id for this resource event, this will be used for the next stop event
+      resourceResult.set("resourceEventId", generateUUID()); //sets the new event id for this resource event, this will be used for the next stop event
     }
     context.set("eventType", "start");
     context.set("isStudent", controller.get("isStudent"));
 
-    return controller.saveResourceResult(resourceResult, context);
+    return controller.saveResourceResult(resourceResult, context, "start");
   },
 
   /**
    * Saves the resource result
-   * This method is overriden by context-player controller to communicate with analytics
-   * @param resourceResult
-   * @param context
+   * This method is overridden by context-player controller to communicate with analytics
+   * @param {Resource Result} resourceResult
+   * @param {Context} context
+   * @param {string} eventType
    * @returns {Promise.<boolean>}
    */
-  saveResourceResult: function(resourceResult, context){
+  saveResourceResult: function(resourceResult, context, eventType){
     let controller = this;
     let promise = Ember.RSVP.resolve(resourceResult);
     let save = controller.get('saveEnabled');
     if (save) {
-      promise = this.get('eventsService').saveResourceResult(resourceResult, context)
+      promise = this.get('eventsService').saveResourceResult(resourceResult, context, eventType)
         .then(function() {
           return resourceResult;
         });
@@ -470,10 +470,9 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
     }
     assessmentResult.set("submitted", true);
     return controller.submitPendingQuestionResults(submittedAt).then(function(){
-      context.set("eventType", "stop");
       context.set("isStudent", controller.get("isStudent"));
       assessmentResult.set("submittedAt", submittedAt);
-      return controller.saveCollectionResult(assessmentResult, context).then(function() {
+      return controller.saveCollectionResult(assessmentResult, context, "stop").then(function() {
         if (controller.get("showReportLink")) {
           if (!controller.get("session.isAnonymous")) {
             controller.send("navigateToReport");
@@ -516,9 +515,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
     const startedAt = new Date();
     if (!assessmentResult.get("started") ){
       assessmentResult.set("startedAt", startedAt);
-      context.set("eventType", "start");
       context.set("isStudent", controller.get("isStudent"));
-      promise = controller.saveCollectionResult(assessmentResult, context);
+      promise = controller.saveCollectionResult(assessmentResult, context, "start");
     }
 
     return promise.then(function(){
@@ -542,9 +540,10 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    * This method is overriden by context-player controller to communicate with analytics
    * @param {AssessmentResult} assessmentResult
    * @param {Context} context
+   * @param {string} eventType
    */
-  saveCollectionResult: function(assessmentResult, context){
-    return this.get("saveEnabled") ? this.get('eventsService').saveCollectionResult(assessmentResult, context) :
+  saveCollectionResult: function(assessmentResult, context, eventType){
+    return this.get("saveEnabled") ? this.get('eventsService').saveCollectionResult(assessmentResult, context, eventType) :
       Ember.RSVP.resolve();
   },
 
