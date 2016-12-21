@@ -1,6 +1,6 @@
 <div class="summary-container">
   {{#if assessmentResult.hasNonOpenEndedQuestions}}
-    <div class="grade" style="background-color: {{gradeColor assessmentResult.correctPercentage}}">
+    <div class="grade" style={{safeHtml (concat "background-color:" (gradeColor assessmentResult.correctPercentage))}}>
       <span class="percentage">{{round-number assessmentResult.correctPercentage}}%</span>
     <span class="attempts">
       <span class="fractional fraction"> {{{fractional numerator=assessmentResult.correctAnswers denominator=assessmentResult.totalNonOpenEndedQuestions}}}</span>

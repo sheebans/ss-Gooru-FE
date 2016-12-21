@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 
   {{#if started}}
-    <div class="panel-heading {{ if anonymous 'anonymous'}}" style="background-color: {{gradeColor score}}" {{action 'selectStudent'}}>
+    <div class="panel-heading {{ if anonymous 'anonymous'}}" style={{safeHtml (concat "background-color:" (gradeColor score))}} {{action 'selectStudent'}}>
       <span class="name ellipsis">{{ if anonymous student.code student.fullName }}</span>
       {{#unless anonymous}}
         <span class="score">{{score}}%</span>

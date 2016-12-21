@@ -26,10 +26,10 @@ test('Verifying header.enable feature default value', function(assert) {
 });
 
 test('Verifying collections.player.reactions feature default value', function(assert) {
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
 
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
 
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer.find(".main .gru-navigation .reaction-bar"), "Missing reaction bar");
@@ -37,10 +37,10 @@ test('Verifying collections.player.reactions feature default value', function(as
 });
 
 test('Verifying collections.player.showReportLink feature default value', function(assert) {
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
 
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
 
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer.find(".aside .gru-navigator .see-usage-report"), "Missing see report link");
@@ -48,10 +48,10 @@ test('Verifying collections.player.showReportLink feature default value', functi
 });
 
 test('Verifying collections.player.showCollectionName feature default value', function(assert) {
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
 
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
 
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer.find(".aside .gru-navigator .navigator-subheader"), "Missing see collection name");
@@ -59,10 +59,10 @@ test('Verifying collections.player.showCollectionName feature default value', fu
 });
 
 test('Verifying collections.player.showBackLink feature default value', function(assert) {
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
 
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
 
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer.find(".aside .gru-navigator .navigator-header .lesson-title"), "Missing back navigation link");
@@ -70,10 +70,10 @@ test('Verifying collections.player.showBackLink feature default value', function
 });
 
 test('Verifying collections.player.showRemix feature default value', function(assert) {
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
 
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
 
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer.find(".aside .gru-navigator .navigator-header .remix-btn"), "Missing remix button");

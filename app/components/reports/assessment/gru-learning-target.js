@@ -97,7 +97,7 @@ export default Ember.Component.extend({
   getQuestions: function (questionResults) {
     let relatedQuestions = this.get('learningTarget.relatedQuestions');
     let questions = questionResults.filter(function (questionResult) {
-      return relatedQuestions.contains(questionResult.get("resourceId"));
+      return relatedQuestions.includes(questionResult.get("resourceId"));
     });
     return questions;
   }

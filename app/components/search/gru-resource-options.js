@@ -45,7 +45,7 @@ export default Ember.Component.extend({
 
   videoSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("video");
+    return selectedOptions.includes("video");
   }),
 
   /**
@@ -56,7 +56,7 @@ export default Ember.Component.extend({
 
   webPageSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("webpage");
+    return selectedOptions.includes("webpage");
   }),
 
   /**
@@ -67,7 +67,7 @@ export default Ember.Component.extend({
 
   interactiveSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("interactive");
+    return selectedOptions.includes("interactive");
   }),
 
   /**
@@ -78,7 +78,7 @@ export default Ember.Component.extend({
 
   imageSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("image");
+    return selectedOptions.includes("image");
   }),
 
   /**
@@ -89,7 +89,7 @@ export default Ember.Component.extend({
 
   textSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.contains("text");
+    return selectedOptions.includes("text");
   }),
 
   /**
@@ -100,7 +100,7 @@ export default Ember.Component.extend({
 
   audioSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get("selectedOptionTypes");
-    return selectedOptions.contains('audio');
+    return selectedOptions.includes('audio');
   })
   // -------------------------------------------------------------------------
   // Observers
