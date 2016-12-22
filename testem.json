@@ -1,7 +1,8 @@
 {
   "framework": "qunit",
   "test_page": "tests/index.html?hidepassed",
-  "report_file": "report-xunit.xml",
+  "reporter": "tap",
+  "xunit_intermediate_output": false,
   "disable_watching": true,
   "launch_in_ci": [
     "PhantomJS"
