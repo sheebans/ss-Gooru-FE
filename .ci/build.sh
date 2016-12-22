@@ -47,6 +47,9 @@ silent npm -q install
 info "Installing bower dependencies..."
 silent bower install
 
+info "Running eslint..."
+silent grunt bamboo-eslint
+
 info "Running tests..."
 silent grunt bamboo-test
 
