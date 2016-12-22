@@ -5,6 +5,9 @@ module.exports = function (grunt) {
       "run": {
         cmd: function (command) {
           return command;
+        },
+        options: {
+          maxBuffer: (200*1024) * 2
         }
       },
       "ember-server-stubby": 'ember serve --proxy http://localhost:8882',
@@ -75,7 +78,7 @@ module.exports = function (grunt) {
     var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
       server = grunt.option("server") || grunt.option("s");
 
-    var command = 'ember test';
+    var command = 'ember test --silent';
     if (server) {
       command += " --server";
     }

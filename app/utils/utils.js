@@ -27,8 +27,8 @@ export function alphabeticalStringSort(a, b) {
  */
 export function checkStandards(standards, checkableStandards, codes) {
   standards.forEach(function(standard) {
-    if (checkableStandards.contains(standard.get("id"))) {
-      standard.set("disabled", !codes.contains(standard.get("id")));
+    if (checkableStandards.includes(standard.get("id"))) {
+      standard.set("disabled", !codes.includes(standard.get("id")));
     }
   });
 }
@@ -198,9 +198,6 @@ export function getGradeColor(grade) {
         break;
       }
     }
-
-  } else {
-    Ember.Logger.error('Grade value: ' + grade + ' is not a numeric value');
   }
   return color;
 }
