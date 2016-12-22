@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
-import { RESOURCE_TYPES, UPLOADABLE_TYPES } from 'gooru-web/config/config';
+import { RESOURCE_TYPES, UPLOADABLE_TYPES, VIDEO_RESOURCE_TYPE } from 'gooru-web/config/config';
 import ResourceValidations from 'gooru-web/validations/resource';
+import {isVideoURL} from 'gooru-web/utils/utils';
+
 
 export default Ember.Component.extend({
 
@@ -155,7 +157,9 @@ export default Ember.Component.extend({
     },
 
     selectType: function(type){
-      this.set('resource.format',type);
+      if (!this.get('isVideo')) {
+        this.set('resource.format',type);
+      }
     },
 
     selectUploadType: function(uploadType) {
@@ -164,6 +168,10 @@ export default Ember.Component.extend({
         this.set('resource.extensions', uploadType.validExtensions);
         this.set('resource.mimeType', uploadType.validType);
       }
+    },
+
+    onURLChange: function(){
+      this.detectVimeoYoutubeVideoURL(this.get('resource.url'));
     }
   },
 
@@ -190,6 +198,8 @@ export default Ember.Component.extend({
       this.set('resource', urlResource);
     }
   },
+
+
 
 
   // -------------------------------------------------------------------------
@@ -238,7 +248,17 @@ export default Ember.Component.extend({
   /**
    * @type {String[]} resourceTypes
    */
-  resourceTypes: RESOURCE_TYPES,
+  resourceTypes: Ember.computed('isVideo', 'selectedType', function(){
+    const isVideo = this.get('isVideo');
+    const selectedType = this.get('selectedType');
+    return RESOURCE_TYPES.map(function(resourceType){
+      return {
+        name: resourceType,
+        disabled: (resourceType !== VIDEO_RESOURCE_TYPE && isVideo),
+        active: (resourceType === selectedType)
+      };
+    });
+  }),
 
   /**
    * @type {String[]} uploadableTypes
@@ -257,6 +277,10 @@ export default Ember.Component.extend({
    * Indicate if it's waiting for addTo callback
    */
   isLoadingAddTo: false,
+  /**
+   * Indicate if the new resource is a video from youtube or vimeo
+   */
+  isVideo: false,
 
 
   // -------------------------------------------------------------------------
@@ -349,6 +373,15 @@ export default Ember.Component.extend({
       existingResource.set('owner', owner);
       component.set("existingResource", existingResource);
     });
+  },
+
+  detectVimeoYoutubeVideoURL: function(url){
+    if (isVideoURL(url)){
+      this.set('isVideo', true);
+      this.set('resource.format', VIDEO_RESOURCE_TYPE);
+    }else{
+      this.set('isVideo', false);
+    }
   }
 
 });

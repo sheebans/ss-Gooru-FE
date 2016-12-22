@@ -420,3 +420,55 @@ test('show spinner button component while the server response, after clicking on
     assert.ok(!$component.find(".actions .gru-spinner-button .add-btn").length, 'Add to button should not be visible');
   });
 });
+
+test('Detects input url, if is a video disables al other options and selects the video option', function (assert) {
+  assert.expect(17);
+
+  this.render(hbs`{{content/modals/gru-resource-new}}`);
+
+  const $component = this.$('.gru-resource-new');
+  const $urlField = $component.find(".gru-input.url");
+
+  $urlField.find("input").val('www.google.com');
+  $urlField.find("input").blur();
+  return wait().then(function () {
+    assert.ok(!$component.find('.resource-types .panel.resource-type-video.active').length, 'The video option should not be auto-selectec when url is not a video');
+    assert.ok(!$component.find('.resource-types .panel.resource-type-webpage.disabled').length, 'The webpage option should not be disabled when url is not a video');
+    assert.ok(!$component.find('.resource-types .panel.resource-type-interactive.disabled').length, 'The video option should not be disabled when url is not a video');
+    assert.ok(!$component.find('.resource-types .panel.resource-type-audio.disabled').length, 'The video option should not be disabled when url is not a video');
+    assert.ok(!$component.find('.resource-types .panel.resource-type-image.disabled').length, 'The video option should not be disabled when url is not a video');
+    assert.ok(!$component.find('.resource-types .panel.resource-type-text.disabled').length, 'The video option should not be disabled when url is not a video');
+  
+    $urlField.find("input").val('https://vimeo.com/45196609');
+    $urlField.find("input").blur();
+    return wait().then(function () {
+      assert.ok(!!$component.find('.resource-types .panel.resource-type-video.active').length, 'The video option should be auto-selectec when url is a video');
+      assert.ok(!!$component.find('.resource-types .panel.resource-type-webpage.disabled').length, 'The webpage option should be disabled when url is a video');
+      assert.ok(!!$component.find('.resource-types .panel.resource-type-interactive.disabled').length, 'The video option should be disabled when url is a video');
+      assert.ok(!!$component.find('.resource-types .panel.resource-type-audio.disabled').length, 'The video option should be disabled when url is a video');
+      assert.ok(!!$component.find('.resource-types .panel.resource-type-image.disabled').length, 'The video option should be disabled when url is a video');
+      assert.ok(!!$component.find('.resource-types .panel.resource-type-text.disabled').length, 'The video option should be disabled when url is a video');
+
+      $component.find(".resource-types .panel.resource-type-webpage").click();
+      return wait().then(function () {
+        assert.ok(!$component.find('.resource-types .panel.resource-type-webpage.active').length, 'The webpage option should not be activated when it\'s disabled');
+        $component.find(".resource-types .panel.resource-type-interactive").click();
+        return wait().then(function () {
+          assert.ok(!$component.find('.resource-types .panel.resource-type-interactive.active').length, 'The interactive option should not be activated when it\'s disabled');
+          $component.find(".resource-types .panel.resource-type-audio").click();
+          return wait().then(function () {
+            assert.ok(!$component.find('.resource-types .panel.resource-type-audio.active').length, 'The audio option should not be activated when it\'s disabled');
+            $component.find(".resource-types .panel.resource-type-image").click();
+            return wait().then(function () {
+              assert.ok(!$component.find('.resource-types .panel.resource-type-image.active').length, 'The image option should not be activated when it\'s disabled');
+              $component.find(".resource-types .panel.resource-type-text").click();
+              return wait().then(function () {
+                assert.ok(!$component.find('.resource-types .panel.resource-type-text.active').length, 'The text option should not be activated when it\'s disabled');
+              });
+            });
+          });
+        });
+      });
+    });    
+  });    
+});

@@ -50,8 +50,7 @@
       </div>
       <label class="url-label">
         <span class="required">{{t 'common.enter-url'}}</span>
-        {{validation.gru-input model=resource valuePath='url' didValidate=didValidate}}
-
+        {{validation.gru-input model=resource valuePath='url' didValidate=didValidate onChange="onURLChange"}}
         {{#if existingResource}}
           <span class="validation error">{{t 'gru-resource-new.resource-already-exist'}}</span>
           {{#if model}}
@@ -76,12 +75,12 @@
         <div class="resource-types text-center">
           {{#each resourceTypes as |resourceType|}}
             <div
-                class="panel panel-default {{concat 'resource-type-' resourceType}} {{set-if-equal 'active' resourceType selectedType}}" {{action 'selectType' resourceType}}>
+                class="panel panel-default {{concat 'resource-type-' resourceType.name}} {{if resourceType.active 'active'}} {{if resourceType.disabled 'disabled'}}" {{action 'selectType' resourceType.name}}>
               <div class="panel-body">
                 <i class="resource-type-icon"></i>
               </div>
               <div class="panel-footer">
-                {{t (concat 'common.resource-format.' resourceType) }}
+                {{t (concat 'common.resource-format.' resourceType.name) }}
               </div>
             </div>
           {{/each}}

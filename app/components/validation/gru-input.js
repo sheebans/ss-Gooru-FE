@@ -36,8 +36,6 @@ export default Ember.Component.extend({
   // Actions
   actions:{
     inputValueChange: function() {
-      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
-      this.set('value', this.get('rawInputValue'));
       this.set('isTyping', false);
       if (this.get("onFocusOut")){
         this.sendAction("onFocusOut");
@@ -128,6 +126,11 @@ export default Ember.Component.extend({
   onFocusOut: null,
 
   /**
+   * @property {string} onChange action
+   */
+  onChange: null,
+
+  /**
    * @property {string} onTyping action
    */
   onTyping: null,
@@ -171,6 +174,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Observers
 
+  rawInputValueObserver: function () {
+    this.set('value',this.removeWhiteSpaces(this.get('rawInputValue')));
+    this.sendAction("onChange");
+  }.observes('rawInputValue'),
 
   // -------------------------------------------------------------------------
   // Methods
