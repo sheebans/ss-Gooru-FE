@@ -84,7 +84,7 @@ export default Ember.Component.extend({
    */
   showScore: Ember.computed('dataPickerOptions.[]', function() {
     const dataPickerOptions = this.get('dataPickerOptions');
-    return dataPickerOptions.contains('score');
+    return dataPickerOptions.includes('score');
   }),
   /**
    * If completion option is selected
@@ -92,7 +92,7 @@ export default Ember.Component.extend({
    */
   showCompletion: Ember.computed('dataPickerOptions.[]', function() {
     const dataPickerOptions = this.get('dataPickerOptions');
-    return dataPickerOptions.contains('completion');
+    return dataPickerOptions.includes('completion');
   }),
 
   /**
@@ -101,7 +101,7 @@ export default Ember.Component.extend({
    */
   showStudyTime: Ember.computed('dataPickerOptions.[]', function() {
     const dataPickerOptions = this.get('dataPickerOptions');
-    return dataPickerOptions.contains('study-time');
+    return dataPickerOptions.includes('study-time');
   }),
 
   /**

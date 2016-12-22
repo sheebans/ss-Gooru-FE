@@ -233,8 +233,12 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
       },
       "description": JSON.stringify(error)
     });
-    Ember.Logger.error(error.stack);
-    route.get("errorService").createError(model);
+
+    const isTesting = Env.environment === 'test';
+    if (!isTesting) {
+      Ember.Logger.error(error.stack);
+      route.get("errorService").createError(model);
+    }
   },
 
   deactivate: function () {
