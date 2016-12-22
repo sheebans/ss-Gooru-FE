@@ -54,7 +54,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       const unitId = context.get('unitId');
       const lessonId = context.get('lessonId');
 
-      model.originalcollection = originalCollection;
+      model.originalCollection = originalCollection;
 
       return Ember.RSVP.hash({
         course: route.get('courseService').fetchById(courseId),
@@ -99,7 +99,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       courseId: courseId,
       unitId: unitId,
       lessonId: lessonId,
-      sourceId: sourceId
+      sourceId: sourceId,
+      role: params.role
     });
   }
 });

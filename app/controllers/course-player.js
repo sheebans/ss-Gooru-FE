@@ -41,6 +41,6 @@ export default PlayerController.extend({
    * The height of the coursePlay header
    * @property {Number}
    */
-  coursePlayHeaderHeight: 75
+  heightOffset: 75
 
 });
