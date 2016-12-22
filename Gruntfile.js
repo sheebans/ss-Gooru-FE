@@ -88,6 +88,13 @@ module.exports = function (grunt) {
     grunt.task.run(tasks);
   });
 
+  grunt.registerTask('bamboo-eslint', function() {
+    grunt.config.set('eslint.options.format', 'junit');
+    grunt.config.set('eslint.options.outputFile', 'linter-xunit.xml');
+    grunt.config.set('eslint.options.quiet', true);
+    grunt.task.run(['eslint']);
+  });
+
   grunt.registerTask('bamboo-test', function (target) {
     grunt.task.run(['stubby:test', 'exec:run:ember test --silent -r xunit > report-xunit.xml']);
   });
