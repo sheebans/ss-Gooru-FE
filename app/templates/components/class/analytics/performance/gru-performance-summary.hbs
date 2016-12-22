@@ -61,7 +61,7 @@
 <li class="score {{if scoreSelected 'selected'}}">
   {{#if showScore}}
     {{#if performance.hasStarted}}
-        <span class="score-box" style="background-color: {{ gradeColor performance.score }}">{{performance.score}}%</span>
+        <span class="score-box" style={{safeHtml (concat "background-color:" (gradeColor performance.score)) }}>{{performance.score}}%</span>
     {{else}}
         <span class="score-box" style="background-color: #959A9E">--%</span>
     {{/if}}

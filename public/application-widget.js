@@ -39,8 +39,9 @@ var ApplicationWidget = function (selector, properties, autoStart) {
       }
 
       var aw = this;
-      var appRootPath = properties.appRootPath || aw.getAppRootPathFromScript();
-
+      properties.appRootPath = properties.appRootPath || aw.getAppRootPathFromScript();
+      var appRootPath = properties.appRootPath;
+      
       // Add google font styles
       aw.addCss("https://www.gooru.org/css?family=Lato:400,300,300italic,400italic,700,700italic", "text/css");
       aw.addCss("https://www.gooru.org/icon?family=Material+Icons");
