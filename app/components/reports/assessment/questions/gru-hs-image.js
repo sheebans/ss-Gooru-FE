@@ -46,7 +46,7 @@ export default Ember.Component.extend(QuestionMixin, ConfigurationMixin, {
       let userAnswerCorrect = false;
       let selected = false;
 
-      if (userAnswers.contains(answer.get("id"))){
+      if (userAnswers.includes(answer.get("id"))){
         userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(answer.get("id"));
         selected = true;
       }

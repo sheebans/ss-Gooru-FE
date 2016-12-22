@@ -155,7 +155,7 @@ test('Assessment - Open assessment without passing the type', function (assert) 
 });
 
 test('closePlayer: If navigating directly to the player, closing the player should return the user to the home page', function(assert) {
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
   andThen(function() {
 
     const playerCloseButton = $('.gru-navigator .navigator-header div:first-child');
@@ -198,16 +198,16 @@ test('closePlayer: Return to search after closing the player', function(assert) 
 
 test('Collection - see usage report', function (assert) {
   assert.expect(7);
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id', 'Wrong landing url');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection', 'Wrong landing url');
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer, "Missing player");
 
     var $navigation = $playerContainer.find(".gru-navigator");
     click($navigation.find(".see-usage-report"));
     andThen(function () {
-      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id', 'When anonymous should remain in the same page');
+      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection', 'When anonymous should remain in the same page');
       T.notExists(assert, $playerContainer.find(".gru-navigation"), "Navigation should not be visible");
       T.notExists(assert, $playerContainer.find(".gru-navigator"), "Navigator should not be visible");
       T.exists(assert, $playerContainer.find(".gru-assessment-report"), "Navigation assessment report should be visible");
@@ -218,21 +218,21 @@ test('Collection - see usage report', function (assert) {
 
 test('selectNavigatorItem: When moving to another resource', function (assert) {
   assert.expect(2);
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
   andThen(function () {
     const $playerContainer = find(".controller.player");
     T.exists(assert, $playerContainer, "Missing player");
     click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
     andThen(function () {
       //it navigates to specific resource
-      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=interactive-resource-id');
+      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=interactive-resource-id&type=collection');
     });
   });
 });
 
 test('selectNavigatorItem & closeNavigator: When moving to another resource the navigator should be closed', function (assert) {
   assert.expect(7);
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
   andThen(function () {
     const $playerContainer = find(".controller.player");
     const $appContainer = find(".app-container");
@@ -250,7 +250,7 @@ test('selectNavigatorItem & closeNavigator: When moving to another resource the 
       click($playerContainer.find(".gru-navigator .list-group-item:eq(3)"));
       andThen(function () {
         //it navigates to specific resource
-        assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=interactive-resource-id');
+        assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=interactive-resource-id&type=collection');
         andThen(function () {
           assert.ok(!$appContainer.hasClass("navigator-on"), "Shouldn't have navigator-on class");
         });
@@ -261,7 +261,7 @@ test('selectNavigatorItem & closeNavigator: When moving to another resource the 
 
 test('openNavigator & closeNavigator: When opening and closing the navigator', function (assert) {
   assert.expect(6);
-  visit('/player/all-resource-types-collection-id');
+  visit('/player/all-resource-types-collection-id?type=collection');
   andThen(function () {
     const $appContainer = find(".app-container"),
       $playerContainer = find(".controller.player");

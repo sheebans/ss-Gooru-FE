@@ -50,9 +50,6 @@ const ConfigurationService = Ember.Service.extend({
          service.merge(hostnameConfiguration);
          Ember.Logger.info("Custom host configuration found: ", hostnameConfiguration);
        }
-       else {
-         Ember.Logger.info("Custom host configuration not found");
-       }
        return configuration;
     });
   },
