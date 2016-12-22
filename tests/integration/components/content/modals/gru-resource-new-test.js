@@ -438,7 +438,7 @@ test('Detects input url, if is a video disables al other options and selects the
     assert.ok(!$component.find('.resource-types .panel.resource-type-audio.disabled').length, 'The video option should not be disabled when url is not a video');
     assert.ok(!$component.find('.resource-types .panel.resource-type-image.disabled').length, 'The video option should not be disabled when url is not a video');
     assert.ok(!$component.find('.resource-types .panel.resource-type-text.disabled').length, 'The video option should not be disabled when url is not a video');
-  
+
     $urlField.find("input").val('https://vimeo.com/45196609');
     $urlField.find("input").blur();
     return wait().then(function () {
@@ -469,6 +469,6 @@ test('Detects input url, if is a video disables al other options and selects the
           });
         });
       });
-    });    
-  });    
+    });
+  });
 });
