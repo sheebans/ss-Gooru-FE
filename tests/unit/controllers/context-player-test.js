@@ -24,7 +24,7 @@ moduleFor('controller:context-player', 'Unit | Controller | context player', {
 });
 
 test('finishCollection on collection and anonymous', function(assert) {
-  assert.expect(9);
+  assert.expect(10);
   let controller = this.subject();
   let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Collection Title'
@@ -49,14 +49,16 @@ test('finishCollection on collection and anonymous', function(assert) {
     }
   }));
   controller.set('eventsService', Ember.Object.create({
-    saveResourceResult: function(result, cont) {
+    saveResourceResult: function(result, cont, eventType) {
       assert.deepEqual(result, resourceResult, 'Wrong result object');
       assert.deepEqual(cont, context, 'Wrong context object');
+      assert.equal(eventType, "stop", 'Wrong event type');
       return Ember.RSVP.resolve();
     },
-    saveCollectionResult: function(result, cont){
+    saveCollectionResult: function(result, cont, eventType){
       assert.deepEqual(result, assessmentResult, 'Wrong result object');
       assert.deepEqual(cont, context, 'Wrong context object');
+      assert.equal(eventType, "stop", 'Wrong event type');
       return Ember.RSVP.resolve();
     }
   }));
@@ -68,12 +70,11 @@ test('finishCollection on collection and anonymous', function(assert) {
   assert.ok(controller.get('showReport'), 'showReport updated');
   assert.ok(resourceResult.get('submittedAt'), 'submittedAt for resource updated');
   assert.ok(assessmentResult.get('submittedAt'), 'submittedAt for assessment updated');
-  assert.equal(context.get('eventType'), 'stop', 'eventType updated');
   assert.notOk(context.get('isStudent'), 'isStudent updated');
 });
 
 test('finishCollection on collection and not anonymous', function(assert) {
-  assert.expect(9);
+  assert.expect(10);
   let controller = this.subject();
   let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Collection Title'
@@ -98,14 +99,16 @@ test('finishCollection on collection and not anonymous', function(assert) {
   controller.set('context', context);
   controller.set('configurationService', configurationService);
   controller.set('eventsService', Ember.Object.create({
-    saveResourceResult: function(result, cont) {
+    saveResourceResult: function(result, cont, eventType) {
       assert.deepEqual(result, resourceResult, 'Wrong result object');
       assert.deepEqual(cont, context, 'Wrong context object');
+      assert.equal(eventType, "stop", 'Wrong event type');
       return Ember.RSVP.resolve();
     },
-    saveCollectionResult: function(result, cont){
+    saveCollectionResult: function(result, cont, eventType){
       assert.deepEqual(result, assessmentResult, 'Wrong result object');
       assert.deepEqual(cont, context, 'Wrong context object');
+      assert.equal(eventType, "stop", 'Wrong event type');
       return Ember.RSVP.resolve();
     }
   }));
@@ -119,12 +122,11 @@ test('finishCollection on collection and not anonymous', function(assert) {
 
   assert.ok(resourceResult.get('submittedAt'), 'submittedAt for resource updated');
   assert.ok(assessmentResult.get('submittedAt'), 'submittedAt for assessment updated');
-  assert.equal(context.get('eventType'), 'stop', 'eventType updated');
   assert.ok(context.get('isStudent'), 'isStudent updated');
 });
 
 test('finishCollection on collection and not anonymous', function(assert) {
-  assert.expect(8);
+  assert.expect(9);
   let controller = this.subject();
   let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Collection Title'
@@ -149,14 +151,16 @@ test('finishCollection on collection and not anonymous', function(assert) {
   controller.set('assessmentResult', assessmentResult);
   controller.set('context', context);
   controller.set('eventsService', Ember.Object.create({
-    saveResourceResult: function(result, cont) {
+    saveResourceResult: function(result, cont, eventType) {
       assert.deepEqual(result, resourceResult, 'Wrong result object');
       assert.deepEqual(cont, context, 'Wrong context object');
+      assert.equal(eventType, "stop", 'Wrong event type');
       return Ember.RSVP.resolve();
     },
-    saveCollectionResult: function(result, cont){
+    saveCollectionResult: function(result, cont, eventType){
       assert.deepEqual(result, assessmentResult, 'Wrong result object');
       assert.deepEqual(cont, context, 'Wrong context object');
+      assert.equal(eventType, "stop", 'Wrong event type');
       return Ember.RSVP.resolve();
     }
   }));
@@ -170,12 +174,11 @@ test('finishCollection on collection and not anonymous', function(assert) {
 
   assert.ok(resourceResult.get('submittedAt'), 'submittedAt for resource updated');
   assert.ok(assessmentResult.get('submittedAt'), 'submittedAt for assessment updated');
-  assert.equal(context.get('eventType'), 'stop', 'eventType updated');
   assert.ok(context.get('isStudent'), 'isStudent updated');
 });
 
 test('finishCollection on collection, not anonymous and on air', function(assert) {
-  assert.expect(15);
+  assert.expect(16);
   let controller = this.subject();
   let collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Collection Title'
@@ -203,14 +206,16 @@ test('finishCollection on collection, not anonymous and on air', function(assert
   controller.set('assessmentResult', assessmentResult);
   controller.set('context', context);
   controller.set('eventsService', Ember.Object.create({
-    saveResourceResult: function(result, cont) {
+    saveResourceResult: function(result, cont, eventType) {
       assert.deepEqual(result, resourceResult, 'Wrong result object');
       assert.deepEqual(cont, context, 'Wrong context object');
+      assert.equal(eventType, 'stop', 'eventType updated');
       return Ember.RSVP.resolve();
     },
-    saveCollectionResult: function(result, cont){
+    saveCollectionResult: function(result, cont, eventType){
       assert.deepEqual(result, assessmentResult, 'Wrong result object');
       assert.deepEqual(cont, context, 'Wrong context object');
+      assert.equal(eventType, 'stop', 'eventType updated');
       return Ember.RSVP.resolve();
     }
   }));
@@ -239,7 +244,6 @@ test('finishCollection on collection, not anonymous and on air', function(assert
 
   assert.ok(resourceResult.get('submittedAt'), 'submittedAt for resource updated');
   assert.ok(assessmentResult.get('submittedAt'), 'submittedAt for assessment updated');
-  assert.equal(context.get('eventType'), 'stop', 'eventType updated');
   assert.ok(context.get('isStudent'), 'isStudent updated');
 });
 
@@ -258,7 +262,7 @@ test('finishCollection on assessment', function(assert) {
 });
 
 test('submitQuestion with next question available', function(assert) {
-  assert.expect(16);
+  assert.expect(17);
   let controller = this.subject();
   let saveCounter = 0;
   let question = Question.create(Ember.getOwner(this).ownerInjection(), {
@@ -275,10 +279,13 @@ test('submitQuestion with next question available', function(assert) {
       return question2;
     }
   });
-  let questionResult = QuestionResult.create(Ember.getOwner(this).ownerInjection());
+  let questionResult = QuestionResult.create(Ember.getOwner(this).ownerInjection(), {
+    resourceEventId: 'event-id'
+  });
   let questionResult2 = QuestionResult.create(Ember.getOwner(this).ownerInjection(), {
     pending: true,
-    startedAt: 'any-date'
+    startedAt: 'any-date',
+    resourceEventId: 'event-id-2'
   });
   let assessmentResult = AssessmentResult.create(Ember.getOwner(this).ownerInjection(), {
     getResultByResourceId: function(resourceId) {
@@ -287,7 +294,6 @@ test('submitQuestion with next question available', function(assert) {
     }
   });
   let context = Context.create(Ember.getOwner(this).ownerInjection(), {
-    resourceEventId: 'event-id',
     isStudent: true
   });
   controller.set('session', Ember.Object.create({
@@ -305,16 +311,17 @@ test('submitQuestion with next question available', function(assert) {
   controller.set('resourceResult', questionResult);
   controller.set('context', context);
   controller.set('eventsService', Ember.Object.create({
-    saveResourceResult: function(result, cont) {
+    saveResourceResult: function(result, cont, eventType) {
       assert.ok(saveCounter < 2, 'saveResourceResult should be called twice');
       if(saveCounter < 1) {
         assert.deepEqual(result, questionResult, 'Wrong first result object');
-        assert.equal(context.get('eventType'), 'stop', 'eventType updated');
+        assert.equal(eventType, 'stop', 'eventType updated');
+        assert.equal(result.get('resourceEventId'), 'event-id', 'resourceEventId unchanged');
       } else {
         assert.deepEqual(result, questionResult2, 'Wrong second result object');
         assert.equal(result.get('startedAt'), 'any-date', 'startedAt unchanged');
-        assert.equal(context.get('eventType'), 'start', 'eventType updated');
-        assert.equal(context.get('resourceEventId'), 'event-id', 'resourceEventId unchanged');
+        assert.equal(eventType, 'start', 'eventType updated');
+        assert.equal(result.get('resourceEventId'), 'event-id-2', 'resourceEventId unchanged');
       }
       assert.deepEqual(cont, context, 'Wrong context object');
       saveCounter += 1;
@@ -361,10 +368,10 @@ test('submitQuestion with next question unavailable', function(assert) {
     }
   }));
   controller.set('eventsService', Ember.Object.create({
-    saveResourceResult: function(result, cont) {
+    saveResourceResult: function(result, cont, eventType) {
       assert.ok(saveCounter < 1, 'saveResourceResult should be called once');
       assert.deepEqual(result, questionResult, 'Wrong first result object');
-      assert.equal(context.get('eventType'), 'stop', 'eventType updated');
+      assert.equal(eventType, 'stop', 'eventType updated');
       assert.deepEqual(cont, context, 'Wrong context object');
       saveCounter += 1;
       return Ember.RSVP.resolve();
@@ -406,12 +413,12 @@ test('selectNavigatorItem', function(assert) {
     }
   }));
   controller.set('eventsService', Ember.Object.create({
-    saveResourceResult: function(result, cont) {
+    saveResourceResult: function(result, cont, eventType) {
       assert.deepEqual(result, questionResult, 'Wrong first result object');
       assert.ok(questionResult.get('startedAt'), 'startedAt updated');
       assert.deepEqual(cont, context, 'Wrong context object');
-      assert.equal(context.get('eventType'), 'start', 'eventType updated');
-      assert.ok(context.get('resourceEventId'), 'resourceEventId generated');
+      assert.equal(eventType, 'start', 'eventType updated');
+      assert.ok(result.get('resourceEventId'), 'resourceEventId generated');
       return Ember.RSVP.resolve();
     }
   }));
@@ -463,14 +470,14 @@ test('selectNavigatorItem on air', function(assert) {
   controller.set('assessmentResult', assessmentResult);
   controller.set('context', context);
   controller.set('eventsService', Ember.Object.create({
-    saveResourceResult: function(result, cont) {
+    saveResourceResult: function(result, cont, eventType) {
       assert.ok(saveCounter < 2, 'saveResourceResult should be called twice');
       if(saveCounter < 1) {
         assert.deepEqual(result, questionResult, 'Wrong first result object');
-        assert.equal(context.get('eventType'), 'stop', 'eventType updated');
+        assert.equal(eventType, 'stop', 'eventType updated');
       } else {
         assert.deepEqual(result, questionResult2, 'Wrong second result object');
-        assert.equal(context.get('eventType'), 'start', 'eventType updated');
+        assert.equal(eventType, 'start', 'eventType updated');
       }
       assert.deepEqual(cont, context, 'Wrong context object');
       saveCounter += 1;

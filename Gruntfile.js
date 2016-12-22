@@ -78,7 +78,7 @@ module.exports = function (grunt) {
     var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
       server = grunt.option("server") || grunt.option("s");
 
-    var command = 'ember test --silent';
+    var command = 'ember test';
     if (server) {
       command += " --server";
     }
