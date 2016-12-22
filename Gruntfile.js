@@ -5,6 +5,9 @@ module.exports = function (grunt) {
       "run": {
         cmd: function (command) {
           return command;
+        },
+        options: {
+          maxBuffer: (200*1024) * 2
         }
       },
       "ember-server-stubby": 'ember serve --proxy http://localhost:8882',
@@ -83,6 +86,13 @@ module.exports = function (grunt) {
 
     var tasks = noStubby ? [testExecTask] : ['stubby:test', testExecTask];
     grunt.task.run(tasks);
+  });
+
+  grunt.registerTask('bamboo-eslint', function() {
+    grunt.config.set('eslint.options.format', 'junit');
+    grunt.config.set('eslint.options.outputFile', 'linter-xunit.xml');
+    grunt.config.set('eslint.options.quiet', true);
+    grunt.task.run(['eslint']);
   });
 
   grunt.registerTask('bamboo-test', function (target) {

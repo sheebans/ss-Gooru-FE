@@ -21,8 +21,6 @@ test('serializeResource, for resource result', function(assert) {
     unitId:"unit-id",
     lessonId: "b479f7cd-52af-4b41-a8e5-fbd4b899b099",
     collectionType:"collection",
-    eventType: 'stop',
-    resourceEventId: 'resource-event-id',
     sessionId: 'session-id',
     isStudent: false,
     sourceId: 10
@@ -38,11 +36,12 @@ test('serializeResource, for resource result', function(assert) {
       id: 123,
       isQuestion: false,
       taxonomy:[]
-    })
+    }),
+    resourceEventId: 'resource-event-id'
   });
 
   const apiKey = 'api-key-1';
-  const response = serializer.serializeResource(resourceResult, context, apiKey)[0];
+  const response = serializer.serializeResource(resourceResult, context, "stop", apiKey)[0];
 
   assert.equal(response.eventId, 'resource-event-id', 'Wrong resource event id');
   assert.equal(response.eventName, 'collection.resource.play', 'Wrong event name');
@@ -73,8 +72,6 @@ test('serializeResource, for resource result, having submittedAt lower than star
     unitId:"unit-id",
     lessonId: "b479f7cd-52af-4b41-a8e5-fbd4b899b099",
     collectionType:"collection",
-    eventType: 'stop',
-    resourceEventId: 'resource-event-id',
     sessionId: 'session-id',
     isStudent: false,
     sourceId: 10
@@ -90,11 +87,12 @@ test('serializeResource, for resource result, having submittedAt lower than star
       id: 123,
       isQuestion: false,
       taxonomy:[]
-    })
+    }),
+    resourceEventId: 'resource-event-id'
   });
 
   const apiKey = 'api-key-1';
-  const response = serializer.serializeResource(resourceResult, context, apiKey)[0];
+  const response = serializer.serializeResource(resourceResult, context, "stop", apiKey)[0];
   assert.ok(response.startTime, 'Missing start time');
   assert.equal(response.startTime, response.endTime, 'Start time and end time should be the same when end time is lower than start time');
 });
@@ -113,8 +111,6 @@ test('serializeResource, for question result', function(assert) {
     unitId:"unit-id",
     lessonId: "b479f7cd-52af-4b41-a8e5-fbd4b899b099",
     collectionType:"collection",
-    eventType: 'stop',
-    resourceEventId: 'resource-event-id',
     sessionId: 'session-id',
     isStudent: false,
     sourceId: 10
@@ -137,11 +133,12 @@ test('serializeResource, for question result', function(assert) {
       ])
     }),
     userAnswer: 1,
-    attemptStatus: 'started'
+    attemptStatus: 'started',
+    resourceEventId: 'resource-event-id'
   });
 
   const apiKey = 'api-key-1';
-  const response = serializer.serializeResource(resourceResult, context, apiKey)[0];
+  const response = serializer.serializeResource(resourceResult, context, "stop", apiKey)[0];
 
   assert.equal(response.eventId, 'resource-event-id', 'Wrong resource event id');
   assert.equal(response.eventName, 'collection.resource.play', 'Wrong event name');
@@ -184,11 +181,10 @@ test('getContextValuesForResult', function(assert) {
     courseId: "course-id",
     unitId:"unit-id",
     lessonId: "lesson-id",
-    collectionType:"collection",
-    eventType: 'stop'
+    collectionType:"collection"
   });
 
-  let serialized = serializer.getContextValuesForResult(context, 123, 'any-resource-type', 'any-reaction-type');
+  let serialized = serializer.getContextValuesForResult(context, 123, 'stop', 'any-resource-type', 'any-reaction-type');
   assert.equal(serialized.contentGooruId, 123, 'wrong content gooru id');
   assert.equal(serialized.parentGooruId, 'collection-id', 'wrong parent gooru id');
   assert.equal(serialized.classGooruId, 'class-id', 'wrong class gooru id');
@@ -214,11 +210,10 @@ test('getContextValuesForCollection', function(assert) {
     courseId: "course-id",
     unitId:"unit-id",
     lessonId: "lesson-id",
-    collectionType:"collection",
-    eventType: 'stop'
+    collectionType:"collection"
   });
 
-  let serialized = serializer.getContextValuesForCollection(context, 123);
+  let serialized = serializer.getContextValuesForCollection(context, 'stop', 123);
   assert.equal(serialized.type, 'stop', 'wrong event type');
   assert.equal(serialized.contentGooruId, 'collection-id', 'wrong content gooru id');
   assert.equal(serialized.classGooruId, 'class-id', 'wrong class gooru id');
@@ -243,7 +238,6 @@ test('serializeCollection', function(assert) {
     lessonId: "lesson-id",
     collectionType:"collection",
     parentEventId: "parent-event-id",
-    eventType: 'stop',
     sessionId: 'session-id',
     isStudent: false,
     sourceId: 10
@@ -255,7 +249,7 @@ test('serializeCollection', function(assert) {
     submittedAt: null
   });
 
-  let serialized = serializer.serializeCollection(assessmentResult, context, 'api-key-1')[0];
+  let serialized = serializer.serializeCollection(assessmentResult, context, 'stop', 'api-key-1')[0];
   assert.equal(serialized.eventId, 'parent-event-id', 'wrong parent event id');
   assert.equal(serialized.eventName, 'collection.play', 'wrong event name');
   assert.equal(serialized.session.apiKey, 'api-key-1', 'wrong api key');
@@ -277,7 +271,6 @@ test('serializeReaction', function(assert) {
   const serializer = this.subject();
   const context = Context.create({
     userId: 'user-id',
-    resourceEventId: 'resource-event-id',
     sessionId: 'session-id',
     resourceId: 'resource-id',
     collectionId: 'collection-id',
@@ -294,7 +287,8 @@ test('serializeReaction', function(assert) {
   const resourceResult = QuestionResult.create({
     resource: Ember.Object.create({ id: 'resource-id' }),
     reaction: 3,
-    startedAt: null
+    startedAt: null,
+    resourceEventId: 'resource-event-id'
   });
   const apiKey = 'api-key-1';
   const response = serializer.serializeReaction(resourceResult, context, apiKey);
