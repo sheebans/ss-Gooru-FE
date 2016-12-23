@@ -767,6 +767,12 @@ export default {
     "confirm": "Finish Quiz",
     "finish-description": "Click “Finish Quiz” to submit your responses."
   },
+  "gru-suggest-resource":{
+    "title": "Suggested Resources",
+    "description": "These are the top 3 suggested resources for your course",
+    "cancel": "Cancel",
+    "confirm": "Got It"
+  },
   "gru-quick-course-search": {
     "add-from-course": "Add from Existing Course",
     "view-featured-courses": "View Featured Courses",

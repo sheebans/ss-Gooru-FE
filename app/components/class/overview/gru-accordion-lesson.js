@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AccordionMixin from 'gooru-web/mixins/gru-accordion';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 // Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the lessons should not update the location
@@ -15,7 +16,7 @@ var isUpdatingLocation = false;
  * @augments Ember/Component
  * @mixes mixins/gru-accordion
  */
-export default Ember.Component.extend(AccordionMixin, {
+export default Ember.Component.extend(ModalMixin,AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -63,6 +64,8 @@ export default Ember.Component.extend(AccordionMixin, {
    * @type {ClassService} Service to retrieve class information
    */
   classService: Ember.inject.service("api-sdk/class"),
+  
+  suggestService: Ember.inject.service("api-sdk/suggest"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -118,6 +121,17 @@ export default Ember.Component.extend(AccordionMixin, {
       component.get('classService').updateContentVisibility(classId,contentId,isChecked,type).then(function(){
         item.set('visible',isChecked);
         component.sendAction("onUpdateContentVisibility", item.get('id'), isChecked);
+      });
+    },
+    
+    suggestResource: function(item){
+      const component = this;
+      console.log(this);
+      const term = item.get('title');
+      const params = {}; 
+      params.GOid = item.get('id');
+      component.get('suggestService').suggestResources(term,params).then(function(res){
+        component.send('showModal', 'content.modals.gru-suggest-resource',res);
       });
     }
   },
