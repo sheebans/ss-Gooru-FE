@@ -293,8 +293,8 @@ test('it finishes the sign up correctly and can navigate to home without issues'
     $firstNameField.find("input").val('javier');
     $lastNameField.find("input").val('perez');
     $emailField.find("input").val('anyusername@gooru.org');
-    $passwordField.find("input").val('test1234');
-    $confirmPasswordField.find("input").val('test1234');
+    $passwordField.find("input").val('test1234@');
+    $confirmPasswordField.find("input").val('test1234@');
     var $birthMonthsField = $signUpContainer.find("select#months.selectpicker.months");
     var $birthDaysField = $signUpContainer.find("select#days.selectpicker.days");
     var $birthYearsField = $signUpContainer.find("select#years.selectpicker.years");
