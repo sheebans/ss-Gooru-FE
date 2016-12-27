@@ -8,5 +8,13 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
  * @augments Ember.Route
  */
 export default Ember.Route.extend(PrivateRouteMixin, {
+  // -------------------------------------------------------------------------
+  // Dependencies
 
+  // -------------------------------------------------------------------------
+  // Actions
+
+
+  // -------------------------------------------------------------------------
+  // Methods
 });

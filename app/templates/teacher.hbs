@@ -1,5 +1,9 @@
-<div class="controller teacher row">
-  <div>
-    Teacher Landing Page
-  </div>
+<div class="controller teacher-landing row">
+  <iframe id="download_iframe" style="display:none;"></iframe>
+  <div class="greetings">
+    <div class="title">
+      <span>Hi {{profile.firstName}}!</span>
+      {{gru-tour steps=steps containerClass='home-tour'}}
+    </div>
+  </div>  
 </div>
