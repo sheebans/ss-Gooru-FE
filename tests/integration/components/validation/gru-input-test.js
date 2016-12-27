@@ -54,7 +54,7 @@ test('Testing events and observer', function(assert) {
   var $component = this.$();
   var $input = $component.find("input[type=text]");
   var $clear = $component.find("span.clear");
-  var e = $.Event("keyup");  
+  var e = $.Event("keyup");
 
   $clear.click();
   return wait().then(function(){
@@ -70,7 +70,7 @@ test('Testing events and observer', function(assert) {
       $input.trigger(e);
       return wait().then(function(){
         assert.equal($component.find(".error-messages .error").length, 0, 'When pressing characters other than Enter, the isTyping property should be true, so there\'s no error message even if it\'s not a valid url');
-          
+
         e.which = 72; //H
         $input.trigger(e);
         e.which = 101; //e
@@ -94,7 +94,7 @@ test('Testing events and observer', function(assert) {
         e.which = 100; //d
         $input.trigger(e);
         return wait().then(function(){
-          assert.equal($input.val(), 'Hello World', 'The input should accept all values, even when the url is invalid.')
+          assert.equal($input.val(), 'Hello World', 'The input should accept all values, even when the url is invalid.');
         });
       });
     });
