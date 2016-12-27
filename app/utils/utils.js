@@ -665,3 +665,13 @@ function isDefaultImage(defaultImages, url) {
 
   return isDefaultImage;
 }
+
+/**
+ * Returns true if url belongs to youtube or vimeo
+ * @param {String} url
+ */
+export function isVideoURL(url){
+  var vimeoYoutubeRegularExpression = /^(https?:\/\/)?(www\.)?(?:(vimeo)\.com\/|(youtube)\.com\/|(youtu)\.be\/)/;
+  var match = vimeoYoutubeRegularExpression.test(url);
+  return match;
+}
