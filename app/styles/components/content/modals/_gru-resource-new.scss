@@ -26,6 +26,9 @@
         .panel-body { border-color: $blue-600; }
         .panel-footer { border-color: $blue-600; }
       }
+      &.disabled {        
+        opacity:0.3;
+      }
     }
   }
 

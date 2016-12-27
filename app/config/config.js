@@ -19,9 +19,11 @@ export const UPLOADABLE_TYPES = [
   }
 ];
 
+export const VIDEO_RESOURCE_TYPE = "video";
+
 export const RESOURCE_TYPES = [
     "webpage",
-    "video",
+    VIDEO_RESOURCE_TYPE,
     "interactive",
     "audio",
     "image",

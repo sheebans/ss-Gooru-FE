@@ -99,6 +99,13 @@ module.exports = function (grunt) {
     grunt.task.run(['stubby:test', 'exec:run:ember test --silent -r xunit > report-xunit.xml']);
   });
 
+  grunt.registerTask('bamboo-eslint', function() {
+    grunt.config.set('eslint.options.format', 'junit');
+    grunt.config.set('eslint.options.outputFile', 'linter-xunit.xml');
+    grunt.config.set('eslint.options.quiet', true);
+    grunt.task.run(['eslint']);
+  });
+
   grunt.registerTask('run', function (target) {
     target = target || 'nginx';
     var serverExecTask = 'exec:ember-server-' + (target);
