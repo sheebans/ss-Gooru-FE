@@ -35,7 +35,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions:{
-    inputValueChange: function() {
+    focusOut: function() {
+      this.set('rawInputValue',this.get('value'));
       this.set('isTyping', false);
       if (this.get("onFocusOut")){
         this.sendAction("onFocusOut");
@@ -50,15 +51,13 @@ export default Ember.Component.extend({
     },
 
     enterPressed: function() {
-      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
-      this.set('value', this.get('rawInputValue'));
+      this.set('rawInputValue',this.get('value'));
       this.set('isTyping', false);
       this.get('onEnter') && this.get('isValid') === true && this.get("onEnter")(this.get('value'));
     },
 
     clearContent: function(){
       this.set('rawInputValue','');
-      this.set('value', this.get('rawInputValue'));
       this.sendAction("onClearContent");
     }
   },
