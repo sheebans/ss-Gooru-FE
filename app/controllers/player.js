@@ -236,6 +236,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
   notifyingRealTime: false,
 
   /**
+   * Indicates if the navigator menu is going to be collapsed
+   * @property {Boolean}
+   */
+  collapsedMenu: false,
+
+  /**
    * Indicates if the current resource type is resource
    * @property {boolean}
    */
