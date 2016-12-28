@@ -763,6 +763,18 @@ export default {
       "other": " and teaching {{count}} classrooms"
     }
   },
+  "student-landing":{
+    "box-title-one": "Study from 35 Courses",
+    "box-text-one": "Choose from over 35 Navigator Courses across 10 programs to study.",
+    "box-title-two": "Explore what you can learn",
+    "box-text-two": "Before you make a decision, explore all the courses that you can take, learn about them and see what other students have to say.",
+    "box-title-three": "Success in every course you study",
+    "box-text-three": "Learn with the Navigator using real-time actionable data on your performance and progress and personalized learning pathways.",
+    "box-title-four": "Reach the Goals you set",
+    "box-text-four": "Set your goals, plan your activities and track your progress and achieve success each time.",
+    "box-title-five": "Interact with your peers and instructors",
+    "box-text-five": "Learn from your peers and mentors by asking your questions and following their work."
+  },
 
   /*
    * COMPONENTS: Translations used in a specific component

@@ -1,0 +1,52 @@
+.container-fluid {
+  .teacher-landing {
+    @include flexbox;
+    @include flex-direction(column);
+    @include align-items(center);
+    padding-top: 30px;
+    width: 100vw;
+
+    >* {
+      margin: 0 auto;
+      width: 97%;
+      @media (min-width: $screen-sm) {
+        width: 90%;
+      }
+      @media (min-width: $screen-md) {
+        width: 90%;
+      }
+    }
+
+    .title {
+      >* {
+        display: inline-block;
+        &:last-child {
+          margin-left: 25px; 
+        }
+      }
+    }
+  }
+}
+
+.teacher-landing {
+  .greetings {
+
+    span {
+      color: $gray-base;
+      font-size: $font-size-h4;
+      @media (min-width: $screen-sm) {
+        font-size: $font-size-h3;
+      }
+      @media (min-width: $screen-md) {
+        font-size: $font-size-h2;
+      }
+    }
+
+    p {
+      font-weight: lighter;
+      @media (min-width: $screen-sm) {
+        font-size: $font-size-lead;
+      }
+    }
+  }
+}
