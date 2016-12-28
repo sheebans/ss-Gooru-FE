@@ -41,6 +41,24 @@ export default PlayerController.extend({
    * The height of the coursePlay header
    * @property {Number}
    */
-  heightOffset: 75
+  heightOffset: 75,
+
+  /**
+   * Indicates if the navigator menu is going to be collapsed
+   * @property {Boolean}
+   */
+  collapsedMenu: true,
+
+  /**
+   * Indicates if the remix button is visible
+   * @property {boolean} showRemix
+   */
+  showRemix: false,
+
+  /**
+   * Indicates if the reaction bar is visible
+   * @property {boolean}
+   */
+  showReactionBar: false
 
 });

@@ -56,7 +56,7 @@ test('Layout when navigator is opened', function(assert) {
   $menuButton.click();
 });
 
-test('Not showing reaction bar', function(assert) {
+test('Not showing reaction bar / Layout from course player', function(assert) {
   const collection = Ember.Object.create({
     isAssessment: true
   });

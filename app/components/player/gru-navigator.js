@@ -209,6 +209,12 @@ export default Ember.Component.extend(ModalMixin, {
    */
   showResourceNumber: true,
 
+  /**
+   * Indicates if the navigator menu is going to be collapsed
+   * @property {Boolean}
+   */
+  collapsedMenu: false,
+
   // -------------------------------------------------------------------------
   // Observers
 

@@ -543,3 +543,17 @@ test('Not see remix button', function(assert) {
   var $seeRemix = $component.find(".gru-navigator .navigator-header .remix-btn");
   assert.notOk($seeRemix.length, "remix button should be hidden");
 });
+
+
+test('Layout from course-player', function(assert) {
+  assert.expect(2);
+
+  this.render(hbs`{{player/gru-navigator collapsedMenu=true showRemixButton=false}}`);
+  var $component = this.$(); //component dom element
+  var $menuButton = $component.find(".hamburger-icon");
+  assert.ok($menuButton, "Missing menu button");
+
+  var $remixButton = $component.find(".navigator-header button.remix-btn");
+  assert.notOk($remixButton.length, "Remix button should not be visible");
+
+});

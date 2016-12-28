@@ -36,11 +36,26 @@
     .lead {
       cursor: pointer;
     }
+    div {
+      height: 25px;
+    }
     .hamburger-icon {
       font-size: 2.45rem;
       color: $gray;
       cursor: pointer;
       margin: 0 10px 0 0;
+      height: 25px;
+      background-color: $dark-500;
+      border-radius: 0;
+      vertical-align: top;
+      i {
+        vertical-align: top;
+        background-color: $dark-500;
+        height: 25px;
+        &:hover, &:focus {
+          background-color: $dark-500;
+        }
+      }
     }
   }
 

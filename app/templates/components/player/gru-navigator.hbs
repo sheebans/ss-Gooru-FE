@@ -13,7 +13,7 @@
       <button class="remix-btn btn btn-success btn-sm " {{action "remixCollection"}}>{{t "common.remix"}}</button>
     </div>
   {{/if}}
-  <div class="pull-right close-navigator hidden-md hidden-lg">
+  <div class="pull-right close-navigator {{unless collapsedMenu 'hidden-md hidden-lg'}}">
     <button class="btn btn-link hamburger-icon"{{action 'closeNavigator'}}>{{gru-icon name='menu'}}</button>
   </div>
 </div>

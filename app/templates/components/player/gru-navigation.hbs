@@ -1,5 +1,5 @@
 <div class="content">
-    <div class="navigation-bar hidden-md hidden-lg">
+    <div class="navigation-bar {{unless collapsedMenu 'hidden-md hidden-lg'}}">
       <span {{action 'openNavigator'}}>
         {{gru-icon name='keyboard_arrow_down'}} <h5>{{t  "common.menu"}}</h5>
       </span>

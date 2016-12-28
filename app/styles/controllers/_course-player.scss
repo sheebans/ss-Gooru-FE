@@ -10,20 +10,34 @@
       }
     }
     .main {
-      margin-top: 55px;
-      @media (min-width: $screen-md-min) {
-        margin-top: 75px;
-      }
+      margin-top: 75px;
     }
     .aside {
       margin-top: 75px;
+      @media (min-width: $screen-md) {
+        @include translate-hide(-100%);
+      }
+      .gru-navigator {
+        .navigator-header {
+          padding: 10px;
+        }
+      }
     }
     .gru-navigation {
+      padding-left: 0;
+      height: 60px;
       .content {
+        height: 25px;
         .navigation-bar {
           padding: 0 20px;
           height:25px;
         }
+      }
+    }
+    .gru-viewer {
+      .content {
+        padding-left: 15px;
+        padding-right: 15px;
       }
     }
   }
