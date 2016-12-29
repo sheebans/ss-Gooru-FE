@@ -83,3 +83,21 @@ test('integration route to overview with unit id and lesson id and collection id
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id-first-lesson-id-first-assessment-id');
   });
 });
+
+test('integration route to player with collection id and type', function(assert) {
+  visit('/integration/teams?token=any-token&page=player&collectionId=all-resource-types-collection-id&collectionType=collection');
+
+  andThen(function() {
+    assert.expect(1);
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&type=collection');
+  });
+});
+
+test('integration route to player with collection id and type and source id', function(assert) {
+  visit('/integration/teams?token=any-token&page=player&collectionId=all-resource-types-collection-id&collectionType=collection&sourceId=123');
+
+  andThen(function() {
+    assert.expect(1);
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&sourceId=123&type=collection');
+  });
+});

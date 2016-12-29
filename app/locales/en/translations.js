@@ -202,7 +202,7 @@ export default {
       "lesson-not-loaded": "Oops! Unable to load lesson right now. Please try again shortly.",
       "lesson-title-required" : "Please enter the lesson title.",
       "password-confirm": "Please confirm your password.",
-      "password-length": "Password must be between 5 and 14 characters.",
+      "password-length": "Password must be between 5 and 20 characters.",
       "password-not-match": "Passwords do not match.",
       "password-required": "Please enter a password.",
       "password-special-characters": "Please don't use special characters.",

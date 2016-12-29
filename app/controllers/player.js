@@ -13,7 +13,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
 
   // -------------------------------------------------------------------------
   // Dependencies
-  queryParams: ['resourceId', 'role', 'type'],
+  queryParams: ['resourceId', 'role', 'type', 'sourceId'],
 
   session: Ember.inject.service("session"),
 

@@ -197,7 +197,7 @@ export default Ember.Route.extend(ModalMixin, ConfigurationMixin, {
     const route = this;
     const userId = route.get('session.userId');
     const collectionId = params.collectionId;
-    const sourceId = route.get("configuration.sourceId");
+    const sourceId = params.sourceId || route.get("configuration.sourceId");
 
 
     return Context.create({

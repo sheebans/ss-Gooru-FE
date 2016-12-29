@@ -55,6 +55,15 @@ test('courseMapPage', function (assert) {
   assert.ok(integration.get("courseMapPage"), "Should be true");
 });
 
+test('playerPage', function (assert) {
+  const integration = GooruIntegration.create({
+    params : {
+      page: "player"
+    }
+  });
+  assert.ok(integration.get("playerPage"), "Should be true");
+});
+
 test('routeParamsForInfoPage', function (assert) {
   const integration = GooruIntegration.create({
     params : {
@@ -86,6 +95,19 @@ test('routeParamsForStudentDataPage', function (assert) {
   });
   const params = integration.get("routeParamsForStudentDataPage");
   assert.deepEqual(params, ["class.analytics.performance.student", "any-class"], "Wrong params");
+});
+
+test('routeParamsForPlayerPage', function (assert) {
+  const integration = GooruIntegration.create({
+    params : {
+      page: "player",
+      collectionId: "any-collection-id",
+      sourceId: "any-source-id",
+      collectionType: "any-collection-type"
+    }
+  });
+  const params = integration.get("routeParamsForPlayerPage");
+  assert.deepEqual(params, ["player", "any-collection-id", { queryParams: { sourceId: "any-source-id", type: "any-collection-type", role: "student" }}], "Wrong params");
 });
 
 test('routeParamsForCourseMapPage', function (assert) {
