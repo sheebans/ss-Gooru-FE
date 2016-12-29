@@ -47,3 +47,13 @@ Integrates with the user course map page for both teachers and students
 `collectionId` (optional): used to specified the location within the course map, it should be provided with the unit and lesson id params
 
 Example: Example: `/integration/teams?token=any-token&page=teacher-data&classId=123&unitId=10&lessonId=20&collectionId=30`
+
+
+## Assessment/Collection player page
+Integrates with the assessment/collection player page for students
+
+`collectionId`: indicates the collection/assessment identifier
+`collectionType`: indicates the collection type, possible values 'assessment' 'collection'
+`sourceId` (optional): 3rd party identifier sent along with player events
+
+Example: Example: `/integration/teams?token=any-token&page=player&collectionId=123&collectionType=collection&sourceId=321`
