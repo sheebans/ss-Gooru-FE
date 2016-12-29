@@ -55,12 +55,17 @@ export default Ember.Object.extend({
   courseMapPage: Ember.computed.equal("page", "course-map"),
 
   /**
+   * @property {boolean}
+   */
+  playerPage: Ember.computed.equal("page", "player"),
+
+  /**
    * It returns the corresponding route params for a integration request
    * @property {*}
    */
   routeParams: Ember.computed(function(){
     let params = ['sign-in'];
-
+    //TODO simplify this if statement
     if (this.get("classInfoPage")) {
       params = this.get("routeParamsForInfoPage");
     }
@@ -72,6 +77,9 @@ export default Ember.Object.extend({
     }
     else if (this.get("courseMapPage")) {
       params = this.get("routeParamsForCourseMapPage");
+    }
+    else if (this.get("playerPage")) {
+      params = this.get("routeParamsForPlayerPage");
     }
     return params;
   }),
@@ -98,6 +106,19 @@ export default Ember.Object.extend({
    */
   routeParamsForStudentDataPage: Ember.computed(function(){
     return ["class.analytics.performance.student", this.get("params.classId")];
+  }),
+
+  /**
+   * Returns the route params for the player page
+   * @property {*}
+   */
+  routeParamsForPlayerPage: Ember.computed(function(){
+    const queryParams = {
+      sourceId: this.get("params.sourceId"),
+      type: this.get("params.collectionType"),
+      role: 'student'
+    };
+    return ["player", this.get("params.collectionId"), { queryParams: queryParams }];
   }),
 
   /**
