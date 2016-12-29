@@ -2,6 +2,7 @@
 .content.modals.gru-base-remix,
 .content.modals.gru-course-new,
 .content.modals.gru-collection-new,
+.content.modals.gru-collection-skills,
 .content.modals.gru-assessment-new,
 .content.modals.gru-resource-new,
 .content.modals.gru-question-new,
@@ -204,5 +205,14 @@
         }
       }
     }
+  }
+}
+
+.modal.gru-collection-skills {
+  .modal-dialog {
+    width: 80%;
+  }
+  .modals.gru-collection-skills {
+    max-width: 100%;
   }
 }

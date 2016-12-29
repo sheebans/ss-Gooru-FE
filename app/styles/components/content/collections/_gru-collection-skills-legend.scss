@@ -1,0 +1,38 @@
+.content.collections.gru-collection-skills-legend {
+  border-bottom: 1px solid $light-300;
+  padding-bottom: 12px;
+  ul {
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    li.legend {
+      list-style: none;
+      border-right: 2px solid $light-200;
+      margin-right: 15px;
+      padding-right: 15px;
+      float: left;
+      span.circle {
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        display: inline-block;
+        margin: 0 2px 0 0;
+        &.first {
+          background-color: $gru-collection-skills-legend-first;
+        }
+        &.second {
+          background-color: $gru-collection-skills-legend-second;
+        }
+        &.third {
+          background-color: $gru-collection-skills-legend-third;
+        }
+        &.fourth {
+          background-color: $gru-collection-skills-legend-fourth;
+        }
+      }
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+}
