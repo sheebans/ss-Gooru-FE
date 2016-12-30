@@ -92,23 +92,35 @@ export default Ember.Route.extend(PrivateRouteMixin, {
                 var mes = messageSnapshot.val().message;
                 var tmp = messageSnapshot.val();
                 // If the image is a Firebase Storage URI we fetch the URL.
-                  console.log('mes contains',mes);
-                  console.log('full message object',tmp);
+                  //console.log('mes contains',mes);
+                  //console.log('full message object',tmp);
                   if (mes.startsWith('gs://')) {
-                    console.log('mes starts with gs',mes);
+                    messages.pushObject(tmp);
+                   // console.log('mes starts with gs',mes);
                     //imgElement.src = "https://www.google.com/images/spin-32.gif"; // Display a loading image first.
                     //messages.pushObject(tmp);
                     storage.refFromURL(mes).getMetadata().then(function(metadata) {
+                      var message = mes; 
                       mes = metadata.downloadURLs[0];
-                      tmp.imageURL = mes;
-                      messages.pushObject(tmp);
+                      for(var i = 0; i < messages.length; i++){
+                        console.log('i is',i);
+                        console.log('message[i]',messages[i]);
+                        if(messages[i].message === message){
+                          console.log('message[i]',messages[i]);
+                          var toAdd = messages[i];
+                          toAdd.imageURL = mes;
+                          toAdd.message = mes;
+                          messages.splice(i,1,toAdd);
+                        }
+                      }
+                      //messages.pushObject(tmp);
                     });
                   }else{
                     messages.pushObject(messageSnapshot.val());
                   }
               });
             });
-            console.log('Messages contains after setImageUrl',messages);
+            //console.log('Messages contains after setImageUrl',messages);
             channels.pushObject(channelSnapshot.val());
             return true;
           });
