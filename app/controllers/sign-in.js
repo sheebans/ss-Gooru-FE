@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import User from 'gooru-web/models/sign-in/sign-in';
 import Env from 'gooru-web/config/environment';
+import { jwt_decode } from 'ember-cli-jwt-decode';
 
 export default Ember.Controller.extend({
 
@@ -28,6 +29,8 @@ export default Ember.Controller.extend({
    * @property {Service} I18N service
    */
   i18n: Ember.inject.service(),
+
+  firebaseApp: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
 
@@ -62,6 +65,53 @@ export default Ember.Controller.extend({
                 controller.set('didValidate', true);
                 // Trigger action in parent
                 controller.send('signIn');
+                //need to send this token to the backend right in order to generate the JWT
+                var token = {
+                  'Authorization': 'Token ' + controller.get("session.token-api3")
+                };
+                const options = {
+                  type: 'GET',
+                  headers: token
+                };
+                //Validating user and generating JWT
+                var hold = Ember.$.ajax('http://ec2-54-153-96-115.us-west-1.compute.amazonaws.com:8083/jwt/nile/v1/', options).then(function(val){
+                  var response = JSON.parse(val);
+                  var jwt = response.jwt;
+                  const auth = controller.get('firebaseApp').auth();
+                  const firebase = controller.get('firebaseApp');
+                  const db = firebase.database();
+                  auth.onAuthStateChanged(function(user) {
+                  if (user) {
+                    // User is signed in.
+                    //create user in database if not present
+                    var userRef = db.ref().child('users/');
+                    userRef.once('value').then(function(snapshot){
+                      var userID = user.uid;
+                      auth.currentUser.getToken().then(function(val){
+                         var decodedVal = jwt_decode(val);
+                         if (snapshot.hasChild(userID)) {
+                          }else{
+                              var postData = {
+                                  uuid: user.uid,
+                                  fullname : decodedVal.firstname + ' ' + decodedVal.lastname,
+                                  user_category: decodedVal.user_category
+                              };                  
+                            db.ref('users/' + user.uid).set(postData);
+                          } 
+                       });
+                        
+                    });
+                  } else {
+                    // No user is signed in               
+                    auth.signInWithCustomToken(jwt).catch(function(error) {
+                        // Handle Errors here.
+                      });
+
+                  }
+                });
+                
+              });
+
               }, function() {
                 controller.get("notifications").warning(errorMessage);
                 // Authenticate as anonymous if it fails to mantain session

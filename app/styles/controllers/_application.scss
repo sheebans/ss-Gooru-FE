@@ -21,7 +21,6 @@
 
     > .navigation {
       @media (min-width: $screen-md) {
-        height: calc(100vh - 63px);
         width: 20%;
       }
       @include linear-gradient($blue-500, $blue-400);
@@ -34,12 +33,25 @@
 
     > .content {
       @media (min-width: $screen-md) {
-        width: 80%;
+        width: 55%;
       }
 
       &.full-screen {
         width: 100%;
       }
     }
+ 
+ > .channel {
+      @media (min-width: $screen-md) {
+        width: 25%;
+      }
+      @include linear-gradient($blue-500, $blue-400);
+      box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, .50);
+
+      * {
+        background-color: transparent;
+      }
+    }
+ 
   }
 }

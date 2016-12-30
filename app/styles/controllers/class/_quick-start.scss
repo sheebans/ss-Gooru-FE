@@ -1,5 +1,7 @@
 .quick-start {
-  margin: 30px 10px 0;
+   margin: 30px 10px 0;
+   float: left;
+   width: 60%;
 
   .header {
     border-bottom: solid 2px $light-200;
@@ -28,5 +30,33 @@
 
   .lead {
     margin-bottom: 20px;
+  }
+}
+.quick-start-channel {
+  margin: 30px;
+  float: right;
+    width: 30%;
+  .header {
+    border-bottom: solid 2px $light-200;
+    padding-bottom: 35px;
+ 
+    >* {
+      display: inline-block;
+    }
+ 
+    h3 {
+      margin: 0 15px 0 0;
+    }
+  }
+  
+  .channel-chat-message-form {
+    .channel-chat-message {
+      margin-top: 10%;
+        height: 35px;
+      width: 83%;
+    }
+    .chat-send {
+      vertical-align: 3px;
+    }
   }
 }
