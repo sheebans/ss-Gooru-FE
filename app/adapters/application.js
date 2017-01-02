@@ -1,3 +1,4 @@
+import FirebaseAdapter from 'emberfire/adapters/firebase';
 import Ember from 'ember';
 import DS from 'ember-data';
 import Env from '../config/environment';
@@ -39,4 +40,10 @@ export default DS.RESTAdapter.extend(SessionMixin, {
     return this._super(`${endpointUrl}${url}`, method, hash);
   }
 
+
+
+});
+
+
+export default FirebaseAdapter.extend({
 });

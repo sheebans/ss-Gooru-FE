@@ -9,6 +9,10 @@ export default Ember.Route.extend({
 
   i18n: Ember.inject.service(),
 
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  firebaseApp: Ember.inject.service(),
+
   /**
    * @requires service:api-sdk/analytics
    */
@@ -84,6 +88,69 @@ export default Ember.Route.extend({
     const userId = route.get('session.userId');
     const isTeacher = currentClass.isTeacher(userId);
     const classMembers = currentClass.get('members');
+    var channels = [];
+    var messages = [];
+    var userInfo = this.get('profileService').findByCurrentUser().then(function(value) {
+        // fulfillment
+        return value;
+      });
+      const db = this.get('firebaseApp').database();
+    var coursesPromise = route.get('profileService')
+      .readUserProfile(route.get("session.userId"))
+        .then(function(profile) {
+      const classId = currentClass.id;
+      var channelRef = db.ref().child("channels/");
+      channelRef.once('value').then(function(snapshot) {
+        if (!snapshot.hasChild(classId)) {
+          console.log('currentClass',currentClass);
+          var newKey = channelRef.child(classId).push().key;
+          var creator = currentClass.creatorId;
+          console.log('creator',creator);
+          var fullName = currentClass.owner.firstName + ' ' + currentClass.owner.lastName;
+          var postData = {
+            creatorId: creator,
+            channelName: "Channel",
+            participants: currentClass.collaborators,
+            owners: {
+              [creator] : {
+                fullname: fullName
+              }
+            },
+            uuid: newKey
+          };   
+          db.ref().child("channels/"+classId + "/" + newKey).set(postData);
+          var user = this.get('firebaseApp').auth().currentUser.uid;
+          db.ref().child("users/"+user+"/channels/"+newKey).set({
+            channelId:newKey
+          });
+          for (var i=0; i<currentClass.members.length; i++) {              
+            db.ref().child("channels/"+classId+"/"+newKey+"/participants/"+currentClass.members[i].id).set({
+              user:"newuser"
+            });
+            db.ref().child("users/"+currentClass.members[i].id+"/channels/"+newKey).set({
+              channelId:newKey
+            });                        
+          }
+        }
+      });
+      var channelRef = db.ref().child("channels/");
+      var dbChannelRef = channelRef.child(classId);
+      dbChannelRef.on('value', function(snapshot) {
+        snapshot.forEach(function(channelSnapshot) {
+          var channelId = channelSnapshot.child("uuid").val();
+          var messageRef = db.ref().child("messages/" + channelId);
+          messageRef.on('value',function(snapshot) {
+            messages.clear();
+            snapshot.forEach(function(messageSnapshot) {
+              messages.pushObject(messageSnapshot.val());
+            });
+          });
+          channels.pushObject(channelSnapshot.val());
+          return true;
+        });
+      });
+      return route.get('profileService').getCourses(profile);
+      });
     let userLocation = null;
     if (!isTeacher) {
       userLocation = route.get('analyticsService').getUserCurrentLocation(currentClass.get('id'), userId);
@@ -129,7 +196,10 @@ export default Ember.Route.extend({
       isTeacher: isTeacher,
       currentClass: currentClass,
       classMembers: classMembers,
-      tourSteps: tourSteps
+      tourSteps: tourSteps,
+      channels:channels,
+      messages:messages,
+      userInfo:userInfo
     });
   },
 
@@ -150,6 +220,9 @@ export default Ember.Route.extend({
     controller.set('classMembers', model.classMembers);
     controller.set('tourSteps', model.tourSteps);
     controller.get('classController').selectMenuItem('overview');
+    controller.set('channels', model.channels);
+    controller.set('messages', model.messages);
+    controller.set('userInfo',model.userInfo);
   }
 
 });

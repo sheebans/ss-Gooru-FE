@@ -15,9 +15,14 @@ export default Ember.Controller.extend(ModalMixin,{
 
   searchService: Ember.inject.service('api-sdk/search'),
 
+  session: Ember.inject.service('session'),
+
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  firebaseApp: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Attributes
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -42,8 +47,9 @@ export default Ember.Controller.extend(ModalMixin,{
 
   class: null,
   courses: null,
+  messages: null,
   featuredCourses: null,
-  modelForCoursesModal: Ember.computed('class', 'courses', function() {
+  modelForCoursesModal: Ember.computed('class', 'courses','messages', function() {
     return Ember.Object.create({
       'classId': this.get('class.class.id'),
       'courses': this.get('courses')

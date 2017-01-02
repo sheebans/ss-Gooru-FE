@@ -9,6 +9,8 @@ export default Ember.Controller.extend({
    */
   classService: Ember.inject.service('api-sdk/class'),
 
+  session: Ember.inject.service('session'),
+
   /**
    * @property {Service} I18N service
    */
@@ -18,6 +20,8 @@ export default Ember.Controller.extend({
    * @property {Service} Notifications service
    */
   notifications: Ember.inject.service(),
+
+  firebaseApp: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -32,6 +36,8 @@ export default Ember.Controller.extend({
       controller.set("allowedCode", true);
       controller.set("validCode", true);
       controller.set("notMember", true);
+      console.log('code',code);
+      console.log('controller',controller);
 
       controller.get("classService")
         .joinClass(code)
@@ -42,6 +48,25 @@ export default Ember.Controller.extend({
           } else {
             controller.send('updateUserClasses'); // Triggers the refresh of user classes in top header
             controller.transitionToRoute('class.overview', classId);
+            //generate firebase information
+            var userId = controller.get("session.userId")
+            const db = controller.get('firebaseApp').database();
+            const auth = controller.get('firebaseApp').auth();
+            var channelUserRef = db.ref().child("channels/"+classId);
+            channelUserRef.once("value").then(function(snapshot){
+              console.log('snapshot',snapshot);
+              var user = auth.currentUser;
+              snapshot.forEach(function(channelSnapshot) {
+                db.ref().child("channels/"+classId+"/"+channelSnapshot.val().uuid+"/participants/"+userId).set({
+                  user:"newuser"
+                });
+                console.log('Adding channel to user profile');
+                db.ref().child("users/"+user.uid+"/channels/"+channelSnapshot.val().uuid).set({
+                  channelId:channelSnapshot.val().uuid
+                });
+                console.log('finished adding channel');
+              });
+            });
           }
 
         }, function (error) {

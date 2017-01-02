@@ -66,6 +66,7 @@ Router.map(function() {
     this.route('info');
     this.route('quick-start');
     this.route('edit');
+    this.route('channel', {path: '/channel/:channelId'});
 
     this.route('analytics', function() {
       this.route('performance', function() {
