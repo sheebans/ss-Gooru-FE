@@ -24,7 +24,14 @@ test('Layout', function(assert) {
     T.exists(assert, find("header.gru-header"), "Header component not found");
 
     const $userContainer = find(".controller.teacher-landing");
-    T.exists(assert, $userContainer, "Missing student container");
+    T.exists(assert, $userContainer, "Missing teacher container");
+    const $leftUserContainer = $userContainer.find(".teacher-left-panel");
     T.exists(assert, $userContainer.find(".greetings"), "Missing teacher greetings");
+    const $navigatorContainer = $leftUserContainer.find(".teacher-navigator");
+    T.exists(assert, $navigatorContainer, "Missing teacher navigator");
+    T.exists(assert, $navigatorContainer.find(".actions .create-class-cta"), "Missing create class button");
+    assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
+    const $tabContent = $leftUserContainer.find(".tab-content");
+    assert.equal($tabContent.find('.gru-class-card').length, 13 ,"Wrong number of class cards");
   });
 });
