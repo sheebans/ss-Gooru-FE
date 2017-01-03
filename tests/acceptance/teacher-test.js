@@ -33,5 +33,7 @@ test('Layout', function(assert) {
     assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
     const $tabContent = $leftUserContainer.find(".tab-content");
     assert.equal($tabContent.find('.gru-class-card').length, 13 ,"Wrong number of class cards");
+    const $rightUserContainer = $userContainer.find(".teacher-right-panel");
+    assert.equal($rightUserContainer.find('.box-info').length, 4 ,"Wrong number of info boxes");
   });
 });

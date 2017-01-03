@@ -775,6 +775,16 @@ export default {
     "box-title-five": "Interact with your peers and instructors",
     "box-text-five": "Learn from your peers and mentors by asking your questions and following their work."
   },
+  "teacher-landing":{
+    "box-title-one": "Productivity Tools",
+    "box-text-one": "Find millions of standards-aligned open resources, collections and assessments.",
+    "box-title-two": "Remix courses",
+    "box-text-two": "Choose from over 35 Navigator Courses across 10 programs.",
+    "box-title-three": "Manage your library",
+    "box-text-three": "Some text here.",
+    "box-title-four": "Interact with your students",
+    "box-text-four": "Some text here."
+  },
 
   /*
    * COMPONENTS: Translations used in a specific component
