@@ -110,7 +110,7 @@
                 <p><small>{{t "common.errors.select-correct-answer"}}</small></p>
               </div>
             {{/if}}
-            {{component (questionConfig model.type 'component.builder_answer') answers=tempModel.answers editMode=true showAdvancedEditor=showAdvancedEditor}}
+            {{component (question-config model.type 'component.builder_answer') answers=tempModel.answers editMode=true showAdvancedEditor=showAdvancedEditor}}
           </div>
           {{gru-notify onLoad="focusQuestionTextEditor"}}
         {{/unless}}

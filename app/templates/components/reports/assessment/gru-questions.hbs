@@ -57,7 +57,7 @@
       </td>
       <td class="question-answer top-left">
         {{#if result.answered}}
-          {{{component (questionConfig result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
+          {{{component (question-config result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
         {{/if}}
       </td>
      {{#unless result.question.isOpenEnded}}
@@ -68,14 +68,14 @@
         </td>
      {{/unless}}
       <td class="question-time {{if showPerformance 'visible' 'hide'}}">
-        {{formatTime result.timeSpent}}
+        {{format-time result.timeSpent}}
       </td>
       <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
-        {{reactionIcon result.reaction appRootPath}}
+        {{reaction-icon result.reaction appRootPath}}
       </td>
       {{#unless isAnswerKeyHidden}}
         <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
-          {{{component (questionConfig result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
+          {{{component (question-config result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
         </td>
       {{/unless}}
     </tr>
