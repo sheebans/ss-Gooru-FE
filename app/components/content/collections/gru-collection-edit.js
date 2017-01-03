@@ -232,6 +232,6 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     var model = {
       content: component.get('collection')
     };
-    this.actions.showModal.call(this, 'content.modals.gru-collection-skills', model, null, 'gru-collection-skills');
+    this.actions.showModal.call(this, 'century-skills.modals.gru-century-skills', model, null, 'gru-century-skills');
   }
 });

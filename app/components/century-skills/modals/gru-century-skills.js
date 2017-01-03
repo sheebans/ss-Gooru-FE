@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 /**
- * Collection 21st century skills
+ * 21st century skills
  *
  * Component responsible for displaying three panels of 21st century skills
  *
@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'modals', 'gru-collection-skills'],
+  classNames: ['century-skills', 'modals', 'gru-century-skills'],
 
 
   // -------------------------------------------------------------------------

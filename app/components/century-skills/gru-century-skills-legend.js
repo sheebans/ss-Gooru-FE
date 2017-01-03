@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'collections', 'gru-collection-skills-legend'],
+  classNames: [ 'gru-century-skills-legend'],
 
   tagName: 'header'
 

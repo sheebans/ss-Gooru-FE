@@ -125,7 +125,6 @@
 @import 'components/content/gru-depth-of-knowledge';
 @import 'components/content/collections/gru-collection-edit';
 @import 'components/content/collections/gru-collection-list';
-@import 'components/content/collections/gru-collection-skills-legend';
 @import 'components/content/modals';
 @import 'components/content/modals/gru-add-to';
 @import 'components/content/modals/gru-assessment-confirmation';
@@ -211,5 +210,8 @@
 @import 'components/taxonomy/gru-taxonomy-tag';
 @import 'components/taxonomy/gru-taxonomy-tag-list';
 @import 'components/taxonomy/modals/modals';
+
+@import 'components/century-skills/modals/modals';
+@import 'components/century-skills/gru-century-skills-legend';
 
 @import 'components/validation/gru-input';
