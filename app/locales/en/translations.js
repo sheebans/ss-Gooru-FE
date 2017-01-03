@@ -1430,7 +1430,7 @@ export default {
       }
     }
   },
-  "gru-collection-skills-legend": {
+  "gru-century-skills-legend": {
     "legends": {
       "first": "Hewlett Deeper Learning Model",
       "second": "Conley Four Keys",
