@@ -135,6 +135,10 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
 
     openTaxonomyModal: function(){
       this.openTaxonomyModal();
+    },
+
+    openSkillsModal: function(){
+      this.openSkillsModal();
     }
   },
   // -------------------------------------------------------------------------
@@ -221,5 +225,13 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     };
 
     this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
+  },
+
+  openSkillsModal: function(){
+    var component = this;
+    var model = {
+      content: component.get('collection')
+    };
+    this.actions.showModal.call(this, 'century-skills.modals.gru-century-skills', model, null, 'gru-century-skills');
   }
 });
