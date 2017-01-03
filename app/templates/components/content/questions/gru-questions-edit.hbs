@@ -96,10 +96,10 @@
     </div>
     <div class="panel-body">
       {{#if isBuilderEditing}}
-        {{component (questionConfig question.type 'component.builder_answer') answers=tempQuestion.answers editMode=true showAdvancedEditor=showAdvancedEditor}}
+        {{component (question-config question.type 'component.builder_answer') answers=tempQuestion.answers editMode=true showAdvancedEditor=showAdvancedEditor}}
         {{gru-notify onLoad="focusQuestionTextEditor"}}
       {{else}}
-        {{component (questionConfig question.type 'component.builder_answer') answers=question.answers}}
+        {{component (question-config question.type 'component.builder_answer') answers=question.answers}}
       {{/if}}
     </div>
     {{#if isBuilderEditing}}

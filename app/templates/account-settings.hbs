@@ -83,7 +83,7 @@
                   <!--TODO-->
                 {{!validation.gru-input model=tempProfile valuePath='title' maxLength=50}}
                 {{else}}
-                  <b>{{formatDate profile.dateOfBirth 'MMMM DD, YYYY'}}</b>
+                  <b>{{format-date profile.dateOfBirth 'MMMM DD, YYYY'}}</b>
                 {{/if}}
               </label>
             </div>
