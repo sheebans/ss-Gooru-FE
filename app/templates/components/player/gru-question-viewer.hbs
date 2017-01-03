@@ -50,7 +50,7 @@
         <div class="panel-body">
         <h2>{{t "gru-question-viewer.answer"}}</h2>
 
-          {{component (questionConfig question.questionType 'component.player')
+          {{component (question-config question.questionType 'component.player')
           userAnswer=questionResult.userAnswer
           instructionsActionTextKey=instructionsActionTextKey
           question=question
