@@ -32,27 +32,32 @@ const CurrentLocation = Ember.Object.extend({
   collectionId: null,
 
   /**
-   * @property {course} course - The current collection Course
+   * @property {course} course - The current Course
    */
   course: null,
 
   /**
-   * @property {unit} unit - The current collection Unit
+   * @property {unit} unit - The current Unit
    */
   unit: null,
 
   /**
-   * @property {lesson} lesson - The current collection Lesson
+   * @property {lesson} lesson - The current Lesson
    */
   lesson: null,
 
   /**
-   * @property {collection} collection - The current collection
+   * @property {collection} collection - The current Collection
    */
   collection: null,
 
   /**
-   * @property {Number} unitIndex - The current collection Unit Index
+   * @property {String} collectionType - The current collection Type
+   */
+  collectionType: null,
+
+  /**
+   * @property {Number} unitIndex - The current Unit Index
    */
   unitIndex: Ember.computed("course", "unit", function(){
     const course = this.get("course");
@@ -67,7 +72,7 @@ const CurrentLocation = Ember.Object.extend({
   }),
 
   /**
-   * @property {Number} lessonIndex - The current collection Lesson Index
+   * @property {Number} lessonIndex - The current Lesson Index
    */
   lessonIndex: Ember.computed("course", "unit", "lesson", function(){
     const course = this.get("course");
@@ -80,12 +85,7 @@ const CurrentLocation = Ember.Object.extend({
     }
 
     return index;
-  }),
-
-  /**
-   * @property {String} collectionType - The current collection Type
-   */
-  collectionType: null
+  })
 
 });
 

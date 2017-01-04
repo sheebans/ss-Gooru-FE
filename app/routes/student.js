@@ -13,19 +13,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // Dependencies
   analyticsService: Ember.inject.service("api-sdk/analytics"),
 
-
-
   // -------------------------------------------------------------------------
   // Actions
 
 
-
   // -------------------------------------------------------------------------
   // Methods
-
-
-
-
 
   /**
    * Set all controller properties from the model

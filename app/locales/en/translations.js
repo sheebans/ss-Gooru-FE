@@ -1196,7 +1196,8 @@ export default {
     "gru-class-card": {
       "student": {
         one: "{{count}} Student",
-        other: "{{count}} Students"
+        other: "{{count}} Students",
+        "not-started": "Not Started"
       },
       "archived":{
         "request-report":"This class is archived and cannot be modified. Existing class data can be accessed via report.",
