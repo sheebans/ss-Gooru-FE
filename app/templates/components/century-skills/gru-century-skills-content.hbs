@@ -1,0 +1,33 @@
+<form>
+  <div class="content">
+    {{#if firstSkillsGroup.length}}
+      <div class="column">
+        {{#each firstSkillsGroup as |firstSkill|}}
+          <div class="label">{{firstSkill.label}}</div>
+        {{/each}}
+      </div>
+    {{/if}}
+    {{#if secondSkillsGroup.length}}
+      <div class="column">
+        {{#each secondSkillsGroup as |secondSkill|}}
+          <div class="label">{{secondSkill.label}}</div>
+        {{/each}}
+      </div>
+    {{/if}}
+    {{#if thirdSkillsGroup.length}}
+      <div class="column">
+        {{#each thirdSkillsGroup as |thirdSkill|}}
+          <div class="label">{{thirdSkill.label}}</div>
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+      <span aria-hidden="true">{{t 'common.cancel'}}</span>
+    </button>
+    <button type="submit" class="btn btn-primary">{{t 'common.select'}}</button>
+  </div>
+
+</form>
