@@ -18,22 +18,22 @@ var CenturySkill = Ember.Object.extend({
   label: '',
 
   /**
-   * @property {Boolean} It says if the skill is hewlettDeepLearningModel
+   * @property {Boolean} It says if the skill is in hewlettDeepLearningModel category
    */
   hewlettDeepLearningModel: false,
 
   /**
-   * @property {Boolean} It says if the skill is conleyFourKeysModel
+   * @property {Boolean} It says if the skill is in conleyFourKeysModel category
    */
   conleyFourKeysModel: false,
 
   /**
-   * @property {Boolean} It says if the skill is p21FrameworkModel
+   * @property {Boolean} It says if the skill is in p21FrameworkModel category
    */
   p21FrameworkModel: false,
 
   /**
-   * @property {Boolean} It says if the skill is nationalResearchCenterModel
+   * @property {Boolean} It says if the skill is in nationalResearchCenterModel category
    */
   nationalResearchCenterModel: false,
 

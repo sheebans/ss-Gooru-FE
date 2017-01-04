@@ -19,6 +19,21 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
+  actions: {
+
+    /**
+     * Clear any active skill item, then change the path the browse selector is open to.
+     * @function actions:updatePath
+     * @param {CenturySkill} skillItem
+     */
+    selectSkillItem: function(skillItem) {
+      console.log('sI',skillItem);
+      //this.resetShortcuts();
+      //return this.updateSelectedPath(item);
+    }
+
+  },
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -31,7 +46,6 @@ export default Ember.Component.extend({
     component.get('centurySkillService').findCenturySkills()
       .then(function(centurySkills) {
         centurySkillsArray.pushObjects(centurySkills.toArray());
-        component.set('centurySkills', centurySkillsArray);
       });
   },
 
@@ -43,30 +57,30 @@ export default Ember.Component.extend({
    * List of Century Skills
    * @prop {CenturySkill[]}
    */
-  centurySkills: [],
+  centurySkills: Ember.A([]),
 
   /**
-   * @property {centurySkills[]} first group of century skills
+   * @property {centurySkill[]} cognitive group of century skills
    */
-  firstSkillsGroup: Ember.computed("centurySkills.[]", function(){
+  cognitiveSkillsGroup: Ember.computed("centurySkills.[]", function(){
     return this.get("centurySkills").filter(function(centurySkill){
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES;
     });
   }),
 
   /**
-   * @property {centurySkills[]} second group of second skills
+   * @property {centurySkill[]} content group of century skills
    */
-  secondSkillsGroup: Ember.computed("centurySkills.[]", function(){
+  contentSkillsGroup: Ember.computed("centurySkills.[]", function(){
     return this.get("centurySkills").filter(function(centurySkill){
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE;
     });
   }),
 
   /**
-   * @property {centurySkills[]} third group of second skills
+   * @property {centurySkill[]} learning group of century skills
    */
-  thirdSkillsGroup: Ember.computed("centurySkills.[]", function(){
+  learningSkillsGroup: Ember.computed("centurySkills.[]", function(){
     return this.get("centurySkills").filter(function(centurySkill){
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES;
     });

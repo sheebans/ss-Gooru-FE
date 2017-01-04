@@ -16,26 +16,26 @@ export default Ember.Object.extend({
   /**
    * Normalize the century skills endpoint response
    * @param payload The endpoint response in JSON format
-   * @returns {CenturySkills} a list of century skill model objects
+   * @returns {CenturySkill[]} a list of century skill model objects
    */
   normalizeCenturySkills: function(payload) {
     const serializer = this;
     let centurySkills = payload['21_century_skills'];
-    let firstSkillsGroup = centurySkills[CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES];
-    let secondSkillsGroup = centurySkills[CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE];
-    let thirdSkillsGroup = centurySkills[CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES];
+    let cognitiveSkillsGroup = centurySkills[CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES];
+    let contentSkillsGroup = centurySkills[CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE];
+    let learningSkillsGroup = centurySkills[CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES];
     let normalizedCenturySkills = [];
 
-    firstSkillsGroup.forEach(function(firstSkill) {
-      normalizedCenturySkills.push(serializer.normalizeReadCenturySkillInfo(firstSkill, CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES));
+    cognitiveSkillsGroup.forEach(function(cognitiveSkill) {
+      normalizedCenturySkills.push(serializer.normalizeReadCenturySkillInfo(cognitiveSkill, CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES));
     });
 
-    secondSkillsGroup.forEach(function(secondSkill) {
-      normalizedCenturySkills.push(serializer.normalizeReadCenturySkillInfo(secondSkill, CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE));
+    contentSkillsGroup.forEach(function(contentSkill) {
+      normalizedCenturySkills.push(serializer.normalizeReadCenturySkillInfo(contentSkill, CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE));
     });
 
-    thirdSkillsGroup.forEach(function(thirdSkill) {
-      normalizedCenturySkills.push(serializer.normalizeReadCenturySkillInfo(thirdSkill, CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES));
+    learningSkillsGroup.forEach(function(learningSkill) {
+      normalizedCenturySkills.push(serializer.normalizeReadCenturySkillInfo(learningSkill, CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES));
     });
 
     return normalizedCenturySkills;
