@@ -49,7 +49,7 @@ export default Ember.Controller.extend({
         var currentUser = auth.currentUser;
         var photo = this.userInfo.avatarUrl;
         var messageRef = db.ref().child("messages/" + channelId);
-        console.log('File contains',file);
+        //console.log('File contains',file);
         var newKey = messageRef.push().key;
         //db.ref().child("messages/" + channelId+"/"+newKey).set({
           db.ref().child("messages/" + channelId).push({
@@ -63,7 +63,7 @@ export default Ember.Controller.extend({
           fileSize: file.size,
           fileName: file.name
         }).then(function(data) {
-          console.log('in then with data which contains',data);
+          //console.log('in then with data which contains',data);
           // Upload the image to Firebase Storage.
           storage.ref(currentUser.uid + '/' + Date.now() + '/' + file.name)
               .put(file, {contentType: file.type})
@@ -71,9 +71,9 @@ export default Ember.Controller.extend({
                 // Get the file's Storage URI and update the chat message placeholder.
                 var filePath = snapshot.metadata.fullPath;
                 data.update({message: storage.ref(filePath).toString()});
-                console.log('filepath updated',storage.ref(filePath).toString());
-                console.log('data contains',data);
-                console.log('data key',data.path.o[2]);
+                //console.log('filepath updated',storage.ref(filePath).toString());
+                //console.log('data contains',data);
+                //console.log('data key',data.path.o[2]);
                 data.update({messageId: data.path.o[2]});
               }.bind(this)).catch(function(error) {
               });
@@ -86,11 +86,11 @@ export default Ember.Controller.extend({
       const storage =  this.get('firebaseApp').storage()
       const channelId = this.channels[0].uuid;
 
-      if(message.userId == auth.currentUser.uid){
-        console.log('user is the same user');
+      /*if(message.userId == auth.currentUser.uid){
+        //console.log('user is the same user');
       }else{
-        console.log('this is not the same user');
-      }
+        //console.log('this is not the same user');
+      }*/
 
       if(message.userId == auth.currentUser.uid){
         db.ref().child("messages/" + channelId +"/"+message.messageId).remove();
@@ -98,7 +98,7 @@ export default Ember.Controller.extend({
 
       auth.currentUser.getToken().then(function(val){
        var decodedVal = jwt_decode(val);
-       console.log(decodedVal);
+       //console.log(decodedVal);
        if(decodedVal.user_category == "teacher"){
         db.ref().child("messages/" + channelId+"/"+message.messageId).remove();
        }

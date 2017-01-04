@@ -46,10 +46,10 @@ export default Ember.Route.extend({
           channelRef.once('value').then(function(snapshot) {
             //create new channel in database for this class
             if (!snapshot.hasChild(classId)) {
-              console.log('currentClass',currentClass);
+              //console.log('currentClass',currentClass);
               var newKey = channelRef.child(classId).push().key;        
               var creator = currentClass.creatorId;
-              console.log('creator',creator);
+              //console.log('creator',creator);
               var fullName = profile.firstName + ' ' + profile.lastName;
               var postData = {
                 creatorId: creator,
@@ -64,7 +64,7 @@ export default Ember.Route.extend({
               //creating new channel
               db.ref().child("channels/"+classId + "/" + newKey).set(postData);
               var user = auth.currentUser;
-              console.log('current users uid',user.uid);
+              //console.log('current users uid',user.uid);
               db.ref().child("users/"+user.uid+"/channels/"+newKey).set({
                 channelId:newKey
               });
