@@ -25,7 +25,7 @@
         <img class="collaborator-avatar" src="{{class.owner.avatarUrl}}" alt="{{class.owner.displayName}}">
         <span class="name">
           {{truncate text=class.owner.displayName maxLength=18}}
-        </span>          
+        </span>
         {{#if (gt collaboratorsCount 0)}} <span class="collaborators-count">+{{collaboratorsCount}}</span>{{/if}}
       </div>
       <div class="students-info">
@@ -51,9 +51,9 @@
       {{/if}}
       {{#if class.isArchived}}
           <span class="archived-actions">
-      {{#if class.isReportAvailable}}
-          <button class="btn btn-success download-report" {{action 'downloadReport'}}>{{gru-icon name="get_app"}} {{t "common.download-report"}}</button>
-      {{/if}}
+            {{#if class.isReportAvailable}}
+              <button class="btn btn-success download-report" {{action 'downloadReport'}}>{{gru-icon name="get_app"}} {{t "common.download-report"}}</button>
+            {{/if}}
             {{#unless class.hasCourse}}
               {{gru-icon name="highlight_off"}}<span class="report-not-available">{{t "common.no-content"}}</span>
             {{/unless}}
@@ -63,8 +63,17 @@
             {{#if class.canRequestReport}}
                 <button class="btn btn-info request-report" {{action 'requestReport'}}>{{gru-icon name="timeline"}} {{t "common.request-report"}}</button>
             {{/if}}
-    </span>
+          </span>
       {{/if}}
+
+      <p>
+        {{#if class.currentLocation}}
+          U{{plus-one class.currentLocation.unitIndex}} / L{{plus-one class.currentLocation.lessonIndex}} / {{class.currentLocation.collection.title}}
+        {{else}}
+          Not Started
+        {{/if}}
+      </p>
+
     </div>
   </div>
 </div>

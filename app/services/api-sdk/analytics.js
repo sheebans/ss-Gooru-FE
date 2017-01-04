@@ -14,6 +14,15 @@ export default Ember.Service.extend({
 
   currentLocationSerializer: null,
 
+  courseService: Ember.inject.service("api-sdk/course"),
+
+  unitService: Ember.inject.service("api-sdk/unit"),
+
+  lessonService: Ember.inject.service("api-sdk/lesson"),
+
+  collectionService: Ember.inject.service("api-sdk/collection"),
+
+  assessmentService: Ember.inject.service("api-sdk/collection"),
 
   init: function() {
     this._super(...arguments);
@@ -77,12 +86,48 @@ export default Ember.Service.extend({
     });
   },
 
-  getUserCurrentLocation: function(classId, userId) {
+  getUserCurrentLocation: function(classId, userId, fetchAll = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('currentLocationAdapter').getUserCurrentLocation(classId, userId)
         .then(function(response) {
-          resolve(service.get('currentLocationSerializer').normalizeCurrentLocation(response));
+          const currentLocation = service.get('currentLocationSerializer').normalizeCurrentLocation(response);
+
+          if(fetchAll && currentLocation){
+            const courseId = currentLocation.get("courseId");
+            const unitId = currentLocation.get("unitId");
+            const lessonId = currentLocation.get("lessonId");
+            const collectionId = currentLocation.get("collectionId");
+            const collectionType = currentLocation.get("collectionType");
+
+            let collection = undefined;
+            if(collectionId){
+              if(collectionType === "collection"){
+                collection = service.get('collectionService').readCollection(collectionId);
+              }
+              else{
+                collection = service.get('assessmentService').readAssessment(collectionId);
+              }
+            }
+
+
+            Ember.RSVP.hash({
+              course: courseId ? service.get('courseService').fetchById(courseId) : undefined,
+              unit: unitId ? service.get('unitService').fetchById(courseId, unitId) : undefined,
+              lesson: lessonId ? service.get('lessonService').fetchById(courseId, unitId, lessonId) : undefined,
+              collection: collection
+            }).then(function (hash) {
+              currentLocation.set("course", hash.course);
+              currentLocation.set("unit", hash.unit);
+              currentLocation.set("lesson", hash.lesson);
+              currentLocation.set("collection", hash.collection);
+              resolve(currentLocation);
+            });
+
+          }else{
+            resolve(currentLocation);
+          }
+
         }, function(error) {
           reject(error);
         });

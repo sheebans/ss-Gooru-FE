@@ -22,7 +22,8 @@ export default Ember.Object.extend({
         courseId: locationPayload.courseId,
         unitId: locationPayload.unitId,
         lessonId: locationPayload.lessonId,
-        collectionId: locationPayload.collectionId ? locationPayload.collectionId : locationPayload.assessmentId
+        collectionId: locationPayload.collectionId ? locationPayload.collectionId : locationPayload.assessmentId,
+        collectionType: locationPayload.collectionId ? "collection" : "assessment"
       });
     }
     return currentLocation;

@@ -305,3 +305,60 @@ test('Class Card Layout for archived class, not available', function(assert) {
   T.exists(assert, $classCard.find(".report-not-available"), "Report not available should be visible");
 });
 
+
+test('Class Card Student with location', function(assert) {
+
+  this.set('class', Ember.Object.create({
+    id: "class-id",
+    creatorId: "creator-id",
+    title: "My class - 1",
+    description: "This class is intended to make awareness of good habits",
+    greeting: "Hi! Welcome to my class",
+    currentLocation: {
+      unitIndex: 2,
+      lessonIndex: 3,
+      collection: {
+        title: "Equations"
+      }
+    },
+    grade: [4, 5],
+    classSharing: "open",
+    coverImage: "cover.png",
+    code: "VZFMEWH",
+    minScore: 75,
+    endDate: "2016-12-31",
+    courseId: null,
+    collaborator: [
+      "collaborator-1",
+      "collaborator-2"
+    ],
+    creatorSystem: null,
+    contentVisibility: null,
+    isArchived: false,
+    isTeacher: function () { return false; }
+  }));
+  this.set('profile', mockProfile);
+  this.set('classStudentCount', classStudentCount);
+
+  assert.expect(10);
+
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
+
+  var $component = this.$(); //component dom element
+
+  const $classCard = $component.find(".gru-class-card");
+  const $panel = $classCard.find(".panel");
+
+  T.exists(assert, $classCard, "Missing class card section");
+  T.exists(assert, $panel, "Missing class card panel");
+  assert.ok($panel.hasClass("student"), "Must be a student class card");
+  T.exists(assert, $classCard.find("h5"), "Missing class card title");
+  T.exists(assert, $classCard.find(".side-info"), "side info should be visible");
+  T.exists(assert, $classCard.find(".collaborators .collaborator-avatar"), "Missing collaborator avatar");
+  T.exists(assert, $classCard.find(".collaborators .name"), "Missing collaborator name");
+  T.exists(assert, $classCard.find(".students-info"), "Missing students info");
+  T.exists(assert, $classCard.find(".description div"), "Missing class info");
+  T.exists(assert, $classCard.find(".description p"), "Missing current location class info");
+
+});
+
