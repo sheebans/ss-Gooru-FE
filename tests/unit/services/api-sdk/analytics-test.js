@@ -127,7 +127,7 @@ test('getUserCurrentLocation fetchAll-default-value', function(assert) {
 
   service.set('lessonService', Ember.Object.create({
     fetchById: function() {
-      assert.ok(false, '');
+      assert.ok(false, 'This should not be called');
       return Ember.RSVP.resolve('fake response');
     }
   }));
@@ -174,7 +174,7 @@ test('getUserCurrentLocation fetchAll-true currentLocation-null', function(asser
 
   service.set('lessonService', Ember.Object.create({
     fetchById: function() {
-      assert.ok(false, '');
+      assert.ok(false, 'This should not be called');
       return Ember.RSVP.resolve('fake response');
     }
   }));
