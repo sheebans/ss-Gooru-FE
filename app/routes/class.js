@@ -43,10 +43,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * Get model for the controller
    */
   model: function(params) {
-    const route = this;
-    const classId = params.classId;
-    const classPromise = route.get('classService').readClassInfo(classId);
-    const membersPromise = route.get('classService').readClassMembers(classId);
+  const route = this;
+  const classId = params.classId;
+  const classPromise = route.get('classService').readClassInfo(classId);
+  const membersPromise = route.get('classService').readClassMembers(classId);
   
   var channels = [];
   var messages = [];
@@ -103,10 +103,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
                       var message = mes; 
                       mes = metadata.downloadURLs[0];
                       for(var i = 0; i < messages.length; i++){
-                        console.log('i is',i);
-                        console.log('message[i]',messages[i]);
+                        //console.log('i is',i);
+                        //console.log('message[i]',messages[i]);
                         if(messages[i].message === message){
-                          console.log('message[i]',messages[i]);
+                          //console.log('message[i]',messages[i]);
                           var toAdd = messages[i];
                           toAdd.imageURL = mes;
                           toAdd.message = mes;

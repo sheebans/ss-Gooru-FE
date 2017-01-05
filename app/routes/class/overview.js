@@ -88,6 +88,43 @@ export default Ember.Route.extend({
     const userId = route.get('session.userId');
     const isTeacher = currentClass.isTeacher(userId);
     const classMembers = currentClass.get('members');
+    let userLocation = null;
+    if (!isTeacher) {
+      userLocation = route.get('analyticsService').getUserCurrentLocation(currentClass.get('id'), userId);
+    }
+
+    const tourSteps = Ember.A([
+      {
+        elementSelector: '.overview .overview-header .title h3',
+        title: route.get('i18n').t('gru-tour.overview.stepOne.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepOne.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .class-info .code',
+        title: route.get('i18n').t('gru-tour.overview.stepTwo.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepTwo.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .class-menu .analytics.performance',
+        title: route.get('i18n').t('gru-tour.overview.stepThree.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepThree.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .class-menu .info',
+        title: route.get('i18n').t('gru-tour.overview.stepFour.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepFour.description')
+      },
+      {
+        elementSelector: '.overview .overview-header .edit-content',
+        title: route.get('i18n').t('gru-tour.overview.stepFive.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepFive.description')
+      },
+      {
+        title: route.get('i18n').t('gru-tour.overview.stepSix.title'),
+        description: route.get('i18n').t('gru-tour.overview.stepSix.description'),
+        image: 'overview-tour-image'
+      }
+    ]);
     var channels = [];
     var messages = [];
     var userInfo = this.get('profileService').findByCurrentUser().then(function(value) {
@@ -98,14 +135,14 @@ export default Ember.Route.extend({
     var coursesPromise = route.get('profileService')
       .readUserProfile(route.get("session.userId"))
         .then(function(profile) {
-      const classId = currentClass.id;
+      const classId = currentClass.get("id");
       var channelRef = db.ref().child("channels/");
       channelRef.once('value').then(function(snapshot) {
         if (!snapshot.hasChild(classId)) {
-          console.log('currentClass',currentClass);
+          //console.log('currentClass',currentClass);
           var newKey = channelRef.child(classId).push().key;
           var creator = currentClass.creatorId;
-          console.log('creator',creator);
+          //console.log('creator',creator);
           var fullName = currentClass.owner.firstName + ' ' + currentClass.owner.lastName;
           var postData = {
             creatorId: creator,
@@ -151,43 +188,6 @@ export default Ember.Route.extend({
       });
       return route.get('profileService').getCourses(profile);
       });
-    let userLocation = null;
-    if (!isTeacher) {
-      userLocation = route.get('analyticsService').getUserCurrentLocation(currentClass.get('id'), userId);
-    }
-
-    const tourSteps = Ember.A([
-      {
-        elementSelector: '.overview .overview-header .title h3',
-        title: route.get('i18n').t('gru-tour.overview.stepOne.title'),
-        description: route.get('i18n').t('gru-tour.overview.stepOne.description')
-      },
-      {
-        elementSelector: '.gru-class-navigation .class-info .code',
-        title: route.get('i18n').t('gru-tour.overview.stepTwo.title'),
-        description: route.get('i18n').t('gru-tour.overview.stepTwo.description')
-      },
-      {
-        elementSelector: '.gru-class-navigation .class-menu .analytics.performance',
-        title: route.get('i18n').t('gru-tour.overview.stepThree.title'),
-        description: route.get('i18n').t('gru-tour.overview.stepThree.description')
-      },
-      {
-        elementSelector: '.gru-class-navigation .class-menu .info',
-        title: route.get('i18n').t('gru-tour.overview.stepFour.title'),
-        description: route.get('i18n').t('gru-tour.overview.stepFour.description')
-      },
-      {
-        elementSelector: '.overview .overview-header .edit-content',
-        title: route.get('i18n').t('gru-tour.overview.stepFive.title'),
-        description: route.get('i18n').t('gru-tour.overview.stepFive.description')
-      },
-      {
-        title: route.get('i18n').t('gru-tour.overview.stepSix.title'),
-        description: route.get('i18n').t('gru-tour.overview.stepSix.description'),
-        image: 'overview-tour-image'
-      }
-    ]);
 
     return Ember.RSVP.hash({
       userLocation: userLocation,
