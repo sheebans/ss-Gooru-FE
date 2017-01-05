@@ -19,9 +19,28 @@
   },
 
   {
-    "description": "Fetch user classes",
+    "description": "Fetch course 123",
     "request": {
       "url": "^/api/nucleus/v1/courses/course-123$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-course-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch any course",
+    "notes": "Adding (.+[0-9]|[aA-zZ]|[-])$ to the url so it doesnt conflict with the sub urls for units and lessons",
+    "request": {
+      "url": "^/api/nucleus/v1/courses/(.+[0-9]|[aA-zZ]|[-])$",
       "method": "GET",
       "headers": {
         "authorization": "Token (.+)"
