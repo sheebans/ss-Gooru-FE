@@ -96,6 +96,12 @@
                 {{action 'openSkillsModal'}}>
                 {{gru-icon name="open_in_new"}} {{t "common.choose"}}
               </button>
+              {{#each editableSkills as |skill|}}
+                <button type="button" class="btn-audience btn-info btn btn-sm">
+                  <span class="btn-label">{{skill.label}}</span>
+                  <span class="remove-audience">{{gru-icon name="clear"}}</span>
+                </button>
+              {{/each}}
             {{else}}
               <div class="skills">
                 {{t "common.not-specified"}}

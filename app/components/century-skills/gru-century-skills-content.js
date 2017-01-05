@@ -22,14 +22,27 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * Clear any active skill item, then change the path the browse selector is open to.
-     * @function actions:updatePath
+     * select or not the skill item.
+     * @function actions:selectSkillItem
      * @param {CenturySkill} skillItem
      */
     selectSkillItem: function(skillItem) {
-      console.log('sI',skillItem);
-      //this.resetShortcuts();
-      //return this.updateSelectedPath(item);
+
+      let component = this;
+      var selectedCenturySkills = component.get('selectedCenturySkills');
+      var isSelected = selectedCenturySkills.findBy('id', skillItem.get('id'));
+
+      if (isSelected){
+        selectedCenturySkills.removeObject(skillItem);
+      }
+      else {
+        selectedCenturySkills.pushObject(skillItem);
+      }
+    },
+
+    saveSelectedSkills () {
+      var selectedCenturySkills = this.get('selectedCenturySkills');
+      this.get('onSave')(selectedCenturySkills);
     }
 
   },
@@ -60,10 +73,23 @@ export default Ember.Component.extend({
   centurySkills: Ember.A([]),
 
   /**
+   * List of selected Century Skills
+   * @prop {CenturySkill[]}
+   */
+  selectedCenturySkills: Ember.A([]),
+
+  /**
    * @property {centurySkill[]} cognitive group of century skills
    */
-  cognitiveSkillsGroup: Ember.computed("centurySkills.[]", function(){
+  cognitiveSkillsGroup: Ember.computed("centurySkills.[]", "selectedCenturySkills.[]", function(){
+    let component = this;
+
     return this.get("centurySkills").filter(function(centurySkill){
+      var selectedCenturySkills = component.get('selectedCenturySkills');
+      var isSelected = (selectedCenturySkills.findBy('id', centurySkill.get('id'))) ? true : false;
+
+      centurySkill.set('isSelected',isSelected);
+
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES;
     });
   }),
@@ -71,8 +97,15 @@ export default Ember.Component.extend({
   /**
    * @property {centurySkill[]} content group of century skills
    */
-  contentSkillsGroup: Ember.computed("centurySkills.[]", function(){
+  contentSkillsGroup: Ember.computed("centurySkills.[]", "selectedCenturySkills.[]", function(){
+    let component = this;
+
     return this.get("centurySkills").filter(function(centurySkill){
+      var selectedCenturySkills = component.get('selectedCenturySkills');
+      var isSelected = (selectedCenturySkills.findBy('id', centurySkill.get('id'))) ? true : false;
+
+      centurySkill.set('isSelected',isSelected);
+
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE;
     });
   }),
@@ -80,8 +113,15 @@ export default Ember.Component.extend({
   /**
    * @property {centurySkill[]} learning group of century skills
    */
-  learningSkillsGroup: Ember.computed("centurySkills.[]", function(){
+  learningSkillsGroup: Ember.computed("centurySkills.[]", "selectedCenturySkills.[]", function(){
+    let component = this;
+
     return this.get("centurySkills").filter(function(centurySkill){
+      var selectedCenturySkills = component.get('selectedCenturySkills');
+      var isSelected = (selectedCenturySkills.findBy('id', centurySkill.get('id'))) ? true : false;
+
+      centurySkill.set('isSelected',isSelected);
+
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES;
     });
   })

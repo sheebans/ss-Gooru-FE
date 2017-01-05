@@ -19,6 +19,7 @@
         padding: 15px 10px;
         height: 488px;
         overflow-y: auto;
+        overflow-x: hidden;
         li {
           cursor: pointer;
           list-style: none;
@@ -27,16 +28,24 @@
           line-height: $font-size-h6;
           @include flexbox;
           .categories {
-            width: 50px;
+            width: 55px;
             text-align: right;
-            margin: 0 10px 0 0;
+            padding: 5px;
             span.circle {
               margin: 0 -1px;
             }
           }
           .title {
-            width: 250px;
+            width: 205px;
             float: left;
+            padding: 5px;
+            border: 1px solid $white;
+            &.selected {
+              border-color: $gru-century-skills-item-selected;
+              border-radius: 3px;
+              background-color: $gru-century-skills-item-selected;
+              color: $white;
+            }
           }
         }
       }

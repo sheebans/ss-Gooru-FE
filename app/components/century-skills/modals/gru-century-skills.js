@@ -24,8 +24,11 @@ export default Ember.Component.extend({
 
   actions: {
 
+    updateSelectedSkills(selectedCenturySkills) {
+      this.get('model.callback').success(selectedCenturySkills);
+      this.triggerAction({ action: 'closeModal' });
+    }
   }
-
 
   // -------------------------------------------------------------------------
   // Events

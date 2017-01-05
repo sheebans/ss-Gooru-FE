@@ -110,6 +110,11 @@ export default (function() {
     standards: [],
 
     /**
+     * @property {CenturySkill[]} centurySkills - The collection centurySkills information
+     */
+    centurySkills: [],
+
+    /**
      * @property {number} resourceCount - The number of resources in the collection
      */
     resourceCount: 0,

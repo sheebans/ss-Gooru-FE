@@ -20,8 +20,8 @@
                   <span class="circle national"></span>
                 {{/if}}
               </div>
-              <div class="title">
-                <a {{action 'selectSkillItem' cognitiveSkill}}>{{cognitiveSkill.label}}</a>
+              <div class="title {{if cognitiveSkill.isSelected 'selected'}}" {{action 'selectSkillItem' cognitiveSkill}}>
+                {{cognitiveSkill.label}}
               </div>
             </li>
           {{/each}}
@@ -48,8 +48,8 @@
                   <span class="circle national"></span>
                 {{/if}}
               </div>
-              <div class="title">
-                <a {{action 'selectSkillItem' contentSkill}}>{{contentSkill.label}}</a>
+              <div class="title {{if contentSkill.isSelected 'selected'}}" {{action 'selectSkillItem' contentSkill}}>
+                {{contentSkill.label}}
               </div>
             </li>
           {{/each}}
@@ -76,8 +76,8 @@
                   <span class="circle national"></span>
                 {{/if}}
               </div>
-              <div class="title">
-                <a {{action 'selectSkillItem' learningSkill}}>{{learningSkill.label}}</a>
+              <div class="title {{if learningSkill.isSelected 'selected'}}" {{action 'selectSkillItem' learningSkill}}>
+                {{learningSkill.label}}
               </div>
             </li>
           {{/each}}
@@ -90,7 +90,7 @@
     <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
       <span aria-hidden="true">{{t 'common.cancel'}}</span>
     </button>
-    <button type="submit" class="btn btn-primary">{{t 'common.select'}}</button>
+    <button {{action "saveSelectedSkills"}} class="btn btn-primary" disabled="{{if selectedCenturySkills.length null true}}">{{t 'common.select'}}</button>
   </div>
 
 </form>
