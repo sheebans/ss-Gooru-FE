@@ -27,16 +27,23 @@ export default Ember.Component.extend({
      * @param {CenturySkill} skillItem
      */
     selectSkillItem: function(skillItem) {
-
       let component = this;
+
       var selectedCenturySkills = component.get('selectedCenturySkills');
-      var isSelected = selectedCenturySkills.findBy('id', skillItem.get('id'));
+      var isSelected = (selectedCenturySkills.indexOf(skillItem.get('id'))>=0) ? true : false;
 
       if (isSelected){
-        selectedCenturySkills.removeObject(skillItem);
+        //selectedCenturySkills = selectedCenturySkills.filter(function(selectedCenturySkill){
+        //  return selectedCenturySkill.get("id") !== skillItem.get('id');
+        //});
+        //component.set('selectedCenturySkills',selectedCenturySkills);
+        selectedCenturySkills.removeObject(skillItem.get('id'));
+        //selectedCenturySkills = selectedCenturySkills.without(skillItem);
+        //component.set('selectedCenturySkills',selectedCenturySkills)
       }
       else {
-        selectedCenturySkills.pushObject(skillItem);
+        //skillItem.set('isSelected', !isSelected);
+        selectedCenturySkills.pushObject(skillItem.get('id'));
       }
     },
 
@@ -54,14 +61,16 @@ export default Ember.Component.extend({
     let component = this;
     component._super( ...arguments );
 
-    var centurySkillsArray = component.get('centurySkills');
-
     component.get('centurySkillService').findCenturySkills()
       .then(function(centurySkills) {
-        centurySkillsArray.pushObjects(centurySkills.toArray());
+        component.set('centurySkills', centurySkills.toArray());
       });
   },
 
+  willDestroyElement() {
+    this._super(...arguments);
+    this.set('centurySkills', null);
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -86,7 +95,7 @@ export default Ember.Component.extend({
 
     return this.get("centurySkills").filter(function(centurySkill){
       var selectedCenturySkills = component.get('selectedCenturySkills');
-      var isSelected = (selectedCenturySkills.findBy('id', centurySkill.get('id'))) ? true : false;
+      var isSelected = (selectedCenturySkills.indexOf(centurySkill.get('id'))>=0) ? true : false;
 
       centurySkill.set('isSelected',isSelected);
 
@@ -102,7 +111,7 @@ export default Ember.Component.extend({
 
     return this.get("centurySkills").filter(function(centurySkill){
       var selectedCenturySkills = component.get('selectedCenturySkills');
-      var isSelected = (selectedCenturySkills.findBy('id', centurySkill.get('id'))) ? true : false;
+      var isSelected = (selectedCenturySkills.indexOf(centurySkill.get('id'))>=0) ? true : false;
 
       centurySkill.set('isSelected',isSelected);
 
@@ -118,7 +127,7 @@ export default Ember.Component.extend({
 
     return this.get("centurySkills").filter(function(centurySkill){
       var selectedCenturySkills = component.get('selectedCenturySkills');
-      var isSelected = (selectedCenturySkills.findBy('id', centurySkill.get('id'))) ? true : false;
+      var isSelected = (selectedCenturySkills.indexOf(centurySkill.get('id'))>=0) ? true : false;
 
       centurySkill.set('isSelected',isSelected);
 

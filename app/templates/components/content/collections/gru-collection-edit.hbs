@@ -92,16 +92,18 @@
           <label>
             <span>{{t "common.century-skills"}}</span>
             {{#if isEditing}}
-              <button type="button" class="btn btn-primary"
+              <button type="button" class="btn btn-primary choose"
                 {{action 'openSkillsModal'}}>
                 {{gru-icon name="open_in_new"}} {{t "common.choose"}}
               </button>
-              {{#each editableSkills as |skill|}}
-                <button type="button" class="btn-audience btn-info btn btn-sm">
-                  <span class="btn-label">{{skill.label}}</span>
-                  <span class="remove-audience">{{gru-icon name="clear"}}</span>
-                </button>
-              {{/each}}
+              <div class="skills-buttons">
+                {{#each selectedSkills as |skill|}}
+                  <button type="button" class="btn-skill btn-info btn btn-sm">
+                    <span class="btn-label">{{skill.label}}</span>
+                    <span class="remove-skill">{{gru-icon name="clear"}}</span>
+                  </button>
+                {{/each}}
+              </div>
             {{else}}
               <div class="skills">
                 {{t "common.not-specified"}}

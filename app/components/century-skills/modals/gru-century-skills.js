@@ -28,12 +28,18 @@ export default Ember.Component.extend({
       this.get('model.callback').success(selectedCenturySkills);
       this.triggerAction({ action: 'closeModal' });
     }
-  }
+  },
 
   // -------------------------------------------------------------------------
   // Events
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * List of Century Skills
+   * @prop {CenturySkill[]}
+   */
+  centurySkills: Ember.A([])
 
 });

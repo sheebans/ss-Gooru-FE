@@ -203,7 +203,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   /**
    * @property {CenturySkill[]} List of century skills
    */
-  editableSkills: Ember.computed('tempCollection.centurySkills.[]', function() {
+  selectedSkills: Ember.computed('tempCollection.centurySkills.[]', function() {
     return this.get("tempCollection.centurySkills");
   }),
 
@@ -238,6 +238,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     var component = this;
     var centurySkills = [];
     var model = {
+      centurySkills: component.get('tempCollection.centurySkills'),
       callback: {
         success: function(selectedCenturySkills) {
           const centurySkills = Ember.A(selectedCenturySkills);
