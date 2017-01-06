@@ -107,7 +107,7 @@ export default Ember.Controller.extend({
    * @property {*}
    */
   pagination: {
-    page: 1,
+    page: 0,
     pageSize: DEFAULT_SEARCH_PAGE_SIZE
   },
 
@@ -155,7 +155,7 @@ export default Ember.Controller.extend({
    */
   resetPagination: function () {
     this.set("pagination", {
-      page: 1,
+      page: 0,
       pageSize: DEFAULT_SEARCH_PAGE_SIZE
     });
   },
