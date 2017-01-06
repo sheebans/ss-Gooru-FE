@@ -46,6 +46,7 @@ export default {
     "about-you": "About You",
     "add": "Add",
     "add-assessment": "Create New Assessment",
+    "add-century-skills": "Add 21st Century Skills",
     "add-collaborator": "Add Collaborator",
     "add-collection": "Create New Collection",
     "add-collection-item": "Create Resource or Question",
@@ -109,6 +110,8 @@ export default {
       "higher-ed": "Higher Education",
       "professional-dev": "Professional Development"
     },
+    "century-skills": "21st Century Skills",
+    "choose": "Choose",
     "class": "Classroom",
     "classes": "Classrooms",
     "classScores": "Class Scores",
@@ -1457,5 +1460,13 @@ export default {
     "view-course-details": "View Course Details",
     "view-unit-details": "View Unit Metadata",
     "performance": "Performance"
+  },
+  "gru-century-skills-legend": {
+    "legends": {
+      "first": "Hewlett Deeper Learning Model",
+      "second": "Conley Four Keys",
+      "third": "P21 Framework",
+      "fourth": "National Research Center for Life and Work"
+    }
   }
 };
