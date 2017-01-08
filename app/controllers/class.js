@@ -141,6 +141,8 @@ export default Ember.Controller.extend({
    */
   isFullScreen: false,
 
+  showChannels: true,
+
  /**
    * Indicates if a user is a teacher of this class
    * @property {isTeacher}
@@ -215,6 +217,11 @@ export default Ember.Controller.extend({
       console.log('user not signed in');
       return false;
     }
-  }
-
+  },
+    hideChannels: function(){
+      //console.log('going to hide channels soon');
+      //console.log('Getting channel div',Ember.$('#channel'));
+      this.toggleProperty('showChannels');
+      //Ember.$('#channel').hide();
+    }
 });
