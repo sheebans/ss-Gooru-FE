@@ -18,15 +18,14 @@ export default Ember.Object.extend({
    * Fetches the collections that match with the term
    *
    * @param term the term to search
+   * @param resetPagination indicates if the pagination needs a reset
    * @returns {Promise.<Collection[]>}
    */
-  searchCollections: function(term, params = {}) {
+  searchCollections: function(term, params = {}, resetPagination = false) {
     const adapter = this;
-
     const namespace = this.get('namespace');
     const url = `${namespace}/scollection`;
-
-    const page = params.page || 0;
+    const page = (!params.page || resetPagination) ? 0 : params.page;
     const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     const options = {
       type: 'GET',
@@ -54,14 +53,14 @@ export default Ember.Object.extend({
    *
    * @param term the term to search
    * @param params
+   * @param resetPagination indicates if the pagination needs a reset
    * @returns {Promise.<Assessment[]>}
    */
-  searchAssessments: function(term, params = {}) {
+  searchAssessments: function(term, params = {}, resetPagination = false) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/scollection`;
-
-    const page = params.page || 0;
+    const page = (!params.page || resetPagination) ? 0 : params.page;
     const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     const options = {
       type: 'GET',
@@ -88,13 +87,14 @@ export default Ember.Object.extend({
    * Fetches the resources that match with the term
    *
    * @param term the term to search
+   * @param resetPagination indicates if the pagination needs a reset
    * @returns {Promise.<Resource[]>}
    */
-  searchResources: function(term, params = {}) {
+  searchResources: function(term, params = {}, resetPagination = false) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
-    const page = params.page || 0;
+    const page = (!params.page || resetPagination) ? 0 : params.page ;
     const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     let options = {
       type: 'GET',
@@ -134,14 +134,14 @@ export default Ember.Object.extend({
    *
    * @param term the term to search
    * @param {*}
+   * @param resetPagination indicates if the pagination needs a reset
    * @returns {Promise.<Question[]>}
    */
-  searchQuestions: function(term, params = {}) {
+  searchQuestions: function(term, params = {}, resetPagination = false) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
-
-    const page = params.page || 0;
+    const page = (!params.page || resetPagination) ? 0 : params.page ;
     const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     let options = {
       type: 'GET',

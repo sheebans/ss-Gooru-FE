@@ -63,7 +63,7 @@ export default Ember.Controller.extend({
       controller.resetPagination();
       controller.doSearch(term, params, function(searchResults){
         controller.set("searchResults", searchResults);
-      });
+      }, true);
     }
 
   },
@@ -107,7 +107,7 @@ export default Ember.Controller.extend({
    * @property {*}
    */
   pagination: {
-    page: 0,
+    page: 1,
     pageSize: DEFAULT_SEARCH_PAGE_SIZE
   },
 
@@ -132,7 +132,7 @@ export default Ember.Controller.extend({
     pagination.page = pagination.page + 1;
     controller.doSearch(controller.get("term"), params, function(searchResults){
       controller.get("searchResults").pushObjects(searchResults);
-    });
+    }, false);
   },
 
   getSearchParams: function(){
@@ -155,7 +155,7 @@ export default Ember.Controller.extend({
    */
   resetPagination: function () {
     this.set("pagination", {
-      page: 0,
+      page: 1,
       pageSize: DEFAULT_SEARCH_PAGE_SIZE
     });
   },

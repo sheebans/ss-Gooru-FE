@@ -30,8 +30,8 @@ export default BaseController.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  doSearch: function(term, params, callback) {
-    this.get('searchService').searchCollections(term, params).then(callback);
+  doSearch: function(term, params, callback, resetPagination) {
+    this.get('searchService').searchCollections(term, params, resetPagination).then(callback);
   }
 
 });
