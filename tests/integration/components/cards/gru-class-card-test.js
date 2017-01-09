@@ -23,7 +23,7 @@ var mockClass = Ember.Object.create({
   code: "VZFMEWH",
   minScore: 75,
   endDate: "2016-12-31",
-  courseId: null,
+  courseId: "course-id",
   collaborator: [
     "collaborator-1",
     "collaborator-2"
@@ -41,6 +41,40 @@ var mockProfile = Ember.Object.create({
 
 var classStudentCount = Ember.Object.create({
   'class-id': 4
+});
+
+var mockCourse = Ember.Object.create({
+  'title': 'Water cycle',
+  'totalUnits': 8,
+  'subjects': ['Science'],
+  'imageUrl': 'assets/gooru/profile.png',
+  'isPublished':false,
+  'isVisibleOnProfile':false,
+  'remixedBy':  Ember.A([Ember.Object.create({
+    'email': 'user_1@test.com',
+    'firstName': 'firstname-1',
+    'fullName': 'lastname-1 firstname-1',
+    'id': 'id-1',
+    'lastName': 'lastname-1',
+    'avatarUrl': 'assets/gooru/profile.png',
+    'username': 'username-1'
+  }),Ember.Object.create({
+    'email': 'user_2@test.com',
+    'firstName': 'firstname-2',
+    'fullName': 'lastname-2 firstname-2',
+    'id': 'id-2',
+    'lastName': 'lastname-2',
+    'avatarUrl': 'assets/gooru/profile.png',
+    'username': 'username-2'
+  }),Ember.Object.create({
+    'email': 'user_1@test.com',
+    'firstName': 'firstname-3',
+    'fullName': 'lastname-3 firstname-3',
+    'id': 'id-1',
+    'lastName': 'lastname-3',
+    'avatarUrl': 'assets/gooru/profile.png',
+    'username': 'username-3'
+  })])
 });
 
 test('Class Card Layout', function(assert) {
@@ -362,3 +396,65 @@ test('Class Card Student with location', function(assert) {
 
 });
 
+test('Teacher class card pannel', function (assert) {
+  mockClass.set('isTeacher', function () {return true;});
+  this.set('class', mockClass);
+  this.set('profile', mockProfile);
+  this.set('classStudentCount', classStudentCount);
+
+  assert.expect(1);
+
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
+
+  const $component = this.$(); //component dom element
+  const $panel = $component.find(".panel");
+  assert.ok($panel.hasClass("teacher"), "Must be a teacher class card");
+});
+
+test('Teacher class card with no course', function (assert) {
+  mockClass.set('isTeacher', function () {return true;});
+  this.set('class', mockClass);  
+  this.set('profile', mockProfile);
+  this.set('classStudentCount', classStudentCount);
+
+  assert.expect(1);
+
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
+
+  const $component = this.$(); //component dom element
+  const $unitsInfo = $component.find('.panel .units-info');  
+  assert.equals(T.text($unitsInfo), 'No course', 'The No Course text should be visible');
+});
+
+test('Teacher class card with a course with 8 units', function (assert) {
+  mockClass.set('isTeacher', function () {return true;});
+  this.set('class', mockClass);
+  this.set('course', mockCourse);
+  this.set('profile', mockProfile);
+  this.set('classStudentCount', classStudentCount);
+
+  assert.expect(1);
+
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
+
+  const $component = this.$(); //component dom element
+  const $unitsInfo = $component.find('.panel .units-info');
+  assert.equals(T.text($unitsInfo), '8 Units', 'The message should read "8 Units"');
+});
+
+test('Teacher class card with a course with 1 unit', function (assert) {
+  mockClass.set('isTeacher', function () {return true;});
+  this.set('class', mockClass);
+  mockCourse.totalUnits = 1;
+  this.set('course', mockCourse);
+  this.set('profile', mockProfile);
+  this.set('classStudentCount', classStudentCount);
+
+  assert.expect(1);
+
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
+
+  const $component = this.$(); //component dom element
+  const $unitsInfo = $component.find('.panel .units-info');
+  assert.equals(T.text($unitsInfo), '1 Unit', 'The message should read "1 Unit"');
+});

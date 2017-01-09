@@ -3,6 +3,11 @@
 // for a locale or define behavior for a locale that Ember-I18n
 // doesn't know about.
 export default {
+  pluralForm: function englishWithZero(n) {
+    if (n === 0) { return 'zero'; }
+    if (n === 1) { return 'one'; }
+    return 'other';
+  }
   // rtl: [true|FALSE],
   //
   // pluralForm: function(count) {

@@ -2,6 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
+  // Dependencies
+    /**
+   * @requires service:api-sdk/course
+   */
+  courseService: Ember.inject.service("api-sdk/course"),
+
+  // -------------------------------------------------------------------------
   // Attributes
   classNames: ['cards gru-class-card col-xs-12 col-md-6'],
 
@@ -18,6 +25,18 @@ export default Ember.Component.extend({
   },
 
   // -------------------------------------------------------------------------
+  // Events
+  init: function() {
+    this._super(...arguments);
+    const courseId = this.get('class.courseId');
+    if (this.get('showUnitsCount') && courseId) {      
+      this.get('courseService').fetchById(courseId).then(function(course){
+        this.set('unitsCount', course.get('unitCount'));
+      }.bind(this));
+    }  
+  },
+
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {Class} class information
@@ -28,6 +47,16 @@ export default Ember.Component.extend({
    * @property {Object} Object containing student count by class
    */
   classStudentCount: null,
+
+  /**
+   * @property {Boolean} Indicates if units count is displayed
+   */
+  showUnitsCount: false,
+
+  /**
+   * @property {Number} Count of class units
+   */
+  unitsCount: 0,
 
   /**
    * @property {Profile}
