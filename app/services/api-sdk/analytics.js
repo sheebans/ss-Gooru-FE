@@ -22,7 +22,7 @@ export default Ember.Service.extend({
 
   collectionService: Ember.inject.service("api-sdk/collection"),
 
-  assessmentService: Ember.inject.service("api-sdk/collection"),
+  assessmentService: Ember.inject.service("api-sdk/assessment"),
 
   init: function() {
     this._super(...arguments);
