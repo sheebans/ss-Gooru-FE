@@ -74,19 +74,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         coursePromise = route.get('courseService').fetchById(courseId);
       }
 
-      console.log('1');
       var channelRef = db.ref().child("channels/");
-      console.log('2');
       channelRef.once('value').then(function(snapshot) {
-        console.log('3');
       if (!snapshot.hasChild(classId)) {
-        console.log('4');
             var newKey = channelRef.child(classId).push().key;
-            console.log('5');
             var creator = aClass.creatorId;
-            console.log('6');
             var fullName = userInfo.firstName + ' ' + userInfo.lastName;
-            console.log('7');
             var postData = {
               creatorId: creator,
               channelName: aClass.title,
@@ -97,9 +90,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               },
               uuid: newKey
             };   
-            console.log('8');
             db.ref().child("channels/"+classId + "/" + newKey).set(postData);
-            console.log('9');
             for (var i=0; i<aClass.members.length; i++) {
               db.ref().child("channels/"+classId).once("value").then(function(snapshot){
                 snapshot.forEach(function(channelSnapshot) {
@@ -111,11 +102,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
             }
           }
         });
-        console.log('8');
         var dbChannelRef = channelRef.child(classId);
-        console.log('9');
         dbChannelRef.on('value', function(snapshot) {
-          console.log('10');
           snapshot.forEach(function(channelSnapshot) {
             var channelId = channelSnapshot.child("uuid").val();
             var messageRef = db.ref().child("messages/" + channelId);
