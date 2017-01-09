@@ -14,7 +14,7 @@ export default Ember.Route.extend({
       taxonomies: taxonomies
     };
 
-    var assessmentResults = this.get('searchService').searchAssessments(term, options);
+    var assessmentResults = this.get('searchService').searchAssessments(term, options, true);
     return Ember.RSVP.hash({
       assessmentResults: assessmentResults
     }).catch(function(err){
@@ -32,6 +32,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('assessmentResults', model.assessmentResults);
+    controller.resetValues();
     if(model.error) {
       controller.setInvalidSearchTerm(true);
     }
