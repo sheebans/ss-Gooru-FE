@@ -51,9 +51,7 @@ export default Ember.Component.extend({
       intro.start();
       $('.introjs-skipbutton').hide();
       $('.introjs-prevbutton').hide();
-
     }
-
   },
 
   // -------------------------------------------------------------------------
