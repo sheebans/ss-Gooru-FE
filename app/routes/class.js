@@ -51,16 +51,38 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   var channels = [];
   var messages = [];
   const db = this.get('firebaseApp').database();
-  var userInfo = this.get('profileService').findByCurrentUser().then(function(value) {
-    var channelRef = db.ref().child("channels/");
+  const userInfo = this.get('profileService').findByCurrentUser();
+  
+    return Ember.RSVP.hash({
+      class: classPromise,
+      members: membersPromise
+    }).then(function(hash) {
+      const aClass = hash.class;
+      const members = hash.members;
+      const courseId = aClass.get('courseId');
+
+      console.log('members contains',members);
+      console.log('members contains',members);
+      console.log('user info',userInfo);
+      console.log('user info',userInfo);
+
+      let visibilityPromise = Ember.RSVP.resolve([]);
+      let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+
+      if (courseId) {
+        visibilityPromise = route.get('classService').readClassContentVisibility(classId);
+        coursePromise = route.get('courseService').fetchById(courseId);
+      }
+
+      var channelRef = db.ref().child("channels/");
       channelRef.once('value').then(function(snapshot) {
       if (!snapshot.hasChild(classId)) {
             var newKey = channelRef.child(classId).push().key;
-            var creator = classPromise.creatorId;
-            var fullName = value.firstName + ' ' + value.lastName;
+            var creator = aClass.creatorId;
+            var fullName = userInfo.firstName + ' ' + userInfo.lastName;
             var postData = {
               creatorId: creator,
-              channelName: classPromise.title,
+              channelName: aClass.title,
               owners: {
                 [creator] : {
                   fullname: fullName
@@ -69,10 +91,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               uuid: newKey
             };   
             db.ref().child("channels/"+classId + "/" + newKey).set(postData);
-            for (var i=0; i<currentClass.members.length; i++) {
+            for (var i=0; i<aClass.members.length; i++) {
               db.ref().child("channels/"+classId).once("value").then(function(snapshot){
                 snapshot.forEach(function(channelSnapshot) {
-                  db.ref().child("channels/"+classId+"/"+channelSnapshot.val().uuid+"/participants/"+currentClass.members[i].id).set({
+                  db.ref().child("channels/"+classId+"/"+channelSnapshot.val().uuid+"/participants/"+aClass.members[i].id).set({
                     user:"newuser"
                   });
                 });
@@ -108,9 +130,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
                         if(messages[i].message === message){
                           //console.log('message[i]',messages[i]);
                           var toAdd = messages[i];
-                          toAdd.imageURL = mes;
-                          toAdd.message = mes;
-                          messages.splice(i,1,toAdd);
+                          Ember.set(messages[i],'imageURL',mes);
+                          Ember.set(messages[i],'message',mes);
+                          //toAdd.imageURL = mes;
+                          //toAdd.message = mes;
+                          //messages.splice(i,1,toAdd);
                         }
                       }
                       //messages.pushObject(tmp);
@@ -125,26 +149,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
             return true;
           });
         });
-    
-        return value;
-    });
-  
-    return Ember.RSVP.hash({
-      class: classPromise,
-      members: membersPromise
-    }).then(function(hash) {
-      const aClass = hash.class;
-      const members = hash.members;
-      const courseId = aClass.get('courseId');
-
-      let visibilityPromise = Ember.RSVP.resolve([]);
-      let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
-
-      if (courseId) {
-        visibilityPromise = route.get('classService').readClassContentVisibility(classId);
-        coursePromise = route.get('courseService').fetchById(courseId);
-      }
-
       return Ember.RSVP.hash({
         contentVisibility: visibilityPromise,
         course: coursePromise
