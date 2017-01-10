@@ -29,11 +29,11 @@ export default Ember.Component.extend({
   init: function() {
     this._super(...arguments);
     const courseId = this.get('class.courseId');
-    if (this.get('showUnitsCount') && courseId) {      
+    if (this.get('showUnitsCount') && courseId) {
       this.get('courseService').fetchById(courseId).then(function(course){
         this.set('unitsCount', course.get('unitCount'));
       }.bind(this));
-    }  
+    }
   },
 
   // -------------------------------------------------------------------------

@@ -8,6 +8,7 @@ moduleForComponent('cards/gru-class-card', 'Integration | Component | cards/gru 
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale", "en");
     this.inject.service('i18n');
+    this.inject.service('api-sdk/course');
   }
 });
 
@@ -23,7 +24,7 @@ var mockClass = Ember.Object.create({
   code: "VZFMEWH",
   minScore: 75,
   endDate: "2016-12-31",
-  courseId: "course-id",
+  courseId: "course-123",
   collaborator: [
     "collaborator-1",
     "collaborator-2"
@@ -407,39 +408,42 @@ test('Teacher class card pannel', function (assert) {
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
 
   const $component = this.$(); //component dom element
-  const $panel = $component.find(".panel");
-  assert.ok($panel.hasClass("teacher"), "Must be a teacher class card");
+  const $panel = $component.find(".panel.teacher");
+  T.exists(assert, $panel, "Must be a teacher class card");
 });
 
 test('Teacher class card with no course', function (assert) {
   mockClass.set('isTeacher', function () {return true;});
-  this.set('class', mockClass);  
+  mockClass.set('courseId', null);
+  this.set('class', mockClass);
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
   assert.expect(1);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
-
-  const $component = this.$(); //component dom element
-  const $unitsInfo = $component.find('.panel .units-info');  
-  assert.equals(T.text($unitsInfo), 'No course', 'The No Course text should be visible');
+  return wait().then(function() {
+    const $component = this.$(); //component dom element
+    const $unitsInfo = $component.find('.panel .units-info');
+    assert.equal(T.text($unitsInfo), 'No course', 'The No Course text should be visible');
+  });
 });
 
-test('Teacher class card with a course with 8 units', function (assert) {
+test('Teacher class card with a course with 4 units', function (assert) {
   mockClass.set('isTeacher', function () {return true;});
   this.set('class', mockClass);
-  this.set('course', mockCourse);
+  // this.set('course', mockCourse);
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
   assert.expect(1);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
-
-  const $component = this.$(); //component dom element
-  const $unitsInfo = $component.find('.panel .units-info');
-  assert.equals(T.text($unitsInfo), '8 Units', 'The message should read "8 Units"');
+  return wait().then(function() {
+    const $component = this.$(); //component dom element
+    const $unitsInfo = $component.find('.panel .units-info');
+    assert.equal(T.text($unitsInfo), '4 Units', 'The message should read "8 Units"');
+  });
 });
 
 test('Teacher class card with a course with 1 unit', function (assert) {
@@ -453,8 +457,9 @@ test('Teacher class card with a course with 1 unit', function (assert) {
   assert.expect(1);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
-
-  const $component = this.$(); //component dom element
-  const $unitsInfo = $component.find('.panel .units-info');
-  assert.equals(T.text($unitsInfo), '1 Unit', 'The message should read "1 Unit"');
+  return wait().then(function() {
+    const $component = this.$(); //component dom element
+    const $unitsInfo = $component.find('.panel .units-info');
+    assert.equal(T.text($unitsInfo), '1 Unit', 'The message should read "1 Unit"');
+  });
 });
