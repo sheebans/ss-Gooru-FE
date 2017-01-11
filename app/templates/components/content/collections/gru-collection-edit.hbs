@@ -51,15 +51,12 @@
         </div>
 
         {{#if isEditing}}
-        {{taxonomy.gru-taxonomy-selector
-          isEditing=isEditing
-          onSubjectSelected="selectSubject"
-          selectedSubject=selectedSubject
-          internalCategory=k12Category
-          subjectLabelKey='common.subject-and-framework'
-          showCategories=false
-          showCourses=false
-          onlySubjectsWithStandards=true
+          {{taxonomy.gru-taxonomy-selector
+            isEditing=isEditing
+            onSubjectSelected="selectSubject"
+            selectedSubject=selectedSubject
+            subjectLabelKey='common.subject-and-framework'
+            onlySubjectsWithStandards=true
           }}
         {{/if}}
         <div class="standards">

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
+import {CONTENT_TYPES} from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
@@ -169,11 +169,6 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
    * @property {TaxonomyRoot}
    */
   selectedSubject: null,
-
-  /**
-   * @property {string}
-   */
-  k12Category: K12_CATEGORY.value,
 
   /**
    * @property {boolean}
