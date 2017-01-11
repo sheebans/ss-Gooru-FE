@@ -62,6 +62,10 @@ test('Layout for Accessibility', function(assert) {
     T.exists(assert, $modal, "Missing sign-up modal");
     T.exists(assert, $modal.find(".modal-content"), "Missing modal-content");
 
+    const $googleButtonContainer = $modal.find(".google-button");
+    const $linkGoogleButton = $googleButtonContainer.parent("a");
+    assert.equal($linkGoogleButton.attr("role"), "button", 'Google button does not have the role needed');
+
     var $label;
     var $input;
 
