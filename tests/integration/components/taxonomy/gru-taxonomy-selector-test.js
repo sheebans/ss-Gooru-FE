@@ -80,8 +80,17 @@ test('View mode it renders - no show categories', function(assert) {
 });
 
 
-test('Edit mode it renders when no selection is made', function(assert) {
+test('Edit mode it renders when no selection is made - from non course content', function(assert) {
   this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=true}}`);
+
+  const $component = this.$('.gru-taxonomy-selector');
+
+  assert.equal($component.find(".categories .btn-info").length, 2, "There should be 2 non selected category buttons displayed");
+  assert.equal($component.find(".subject .tags").length, 0, "There should be no tags displayed");
+});
+
+test('Edit mode it renders when no selection is made - from course content', function(assert) {
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=true showCourses=true}}`);
 
   const $component = this.$('.gru-taxonomy-selector');
 
@@ -89,13 +98,39 @@ test('Edit mode it renders when no selection is made', function(assert) {
   assert.equal($component.find(".subject .tags").length, 0, "There should be no tags displayed");
 });
 
-test('Edit mode category selection', function(assert) {
+
+test('Edit mode category selection - from non course content', function(assert) {
   assert.expect(8);
   this.on("selectCategory", function(category){
     assert.equal(category, "k_12", "Wrong category");
   });
 
   this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=true onCategorySelected='selectCategory'}}`);
+
+  const $component = this.$('.gru-taxonomy-selector');
+
+  assert.equal($component.find(".categories .btn-info").length, 2, "There should be 2 non selected category buttons displayed");
+
+  $component.find(".categories .btn-info:eq(0)").click();
+  return wait().then(function () {
+    assert.equal($component.find(".categories .btn-info").length, 1, "There should be 1 non selected category buttons displayed");
+    assert.equal($component.find(".categories .btn-primary").length, 1, "There should be 1 selected category button displayed");
+
+    const $subjectDropdown = $component.find(".gru-subject-picker");
+    assert.equal($subjectDropdown.length, 1, "Missing subject dropdown");
+    assert.equal($subjectDropdown.find(".selected-subject").length, 1, "Missing select subject");
+    assert.equal(T.text($subjectDropdown.find(".selected-subject")), 'Choose Subject', "Wrong selected subject title");
+    assert.equal($subjectDropdown.find("li.subject").length, 2, "Missing subjects");
+  });
+});
+
+test('Edit mode category selection - from course content', function(assert) {
+  assert.expect(8);
+  this.on("selectCategory", function(category){
+    assert.equal(category, "k_12", "Wrong category");
+  });
+
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=true onCategorySelected='selectCategory' showCourses=true}}`);
 
   const $component = this.$('.gru-taxonomy-selector');
 

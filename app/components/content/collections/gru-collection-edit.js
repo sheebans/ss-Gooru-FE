@@ -53,6 +53,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       var collectionForEditing = this.get('collection').copy();
       this.set('tempCollection', collectionForEditing);
       this.set('isEditing', true);
+      this.set('selectedSubject', null);
     },
 
     /**
