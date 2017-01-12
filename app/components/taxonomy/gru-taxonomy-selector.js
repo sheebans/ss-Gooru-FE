@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import { TAXONOMY_CATEGORIES, CONTENT_CATEGORIES } from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 /**
@@ -129,9 +129,11 @@ export default Ember.Component.extend({
   subjectLabelKey: 'taxonomy.gru-taxonomy-selector.primary-subject-and-course',
 
   /**
-   * @type {Ember.A} categories - List of course categories
+   * @type {Ember.A} categories - List of content categories
    */
-  categories: TAXONOMY_CATEGORIES,
+  categories: Ember.computed('showCourses', function() {
+    return this.get('showCourses') ? TAXONOMY_CATEGORIES : CONTENT_CATEGORIES;
+  }),
 
   /**
    * @property {boolean}

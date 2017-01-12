@@ -46,6 +46,11 @@ export const TAXONOMY_CATEGORIES = [
   {value: 'professional_learning', apiCode: 'PL', label: 'common.categoryOptions.professional-dev'}
 ];
 
+export const CONTENT_CATEGORIES = [
+  K12_CATEGORY,
+  {value: 'higher_education', apiCode: 'HE', label: 'common.categoryOptions.higher-ed'}
+];
+
 export const CONTENT_TYPES = {
   COLLECTION: 'collection',
   ASSESSMENT: 'assessment',
