@@ -26,4 +26,12 @@
       max-height: 150px;
     }
   }
+  .gru-taxonomy-selector {
+    > div {
+      display: table;
+    }
+    .gru-subject-picker {
+      margin-bottom: 15px;
+    }
+  }
 }
