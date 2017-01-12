@@ -14,7 +14,7 @@ export default Ember.Route.extend({
       taxonomies: taxonomies
     };
 
-    var collectionResults = this.get('searchService').searchCollections(term, options);
+    var collectionResults = this.get('searchService').searchCollections(term, options, true);
     return Ember.RSVP.hash({
       collectionResults: collectionResults
     }).catch(function(err){
@@ -32,6 +32,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('collectionResults', model.collectionResults);
+    controller.resetValues();
     if (model.error) {
       controller.setInvalidSearchTerm(true);
     }
