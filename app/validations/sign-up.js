@@ -78,7 +78,7 @@ export default buildValidations({
 */
     validator('length', {
       min: 5,
-      max: 20,
+      max: 14,
       message: '{{description}}',
       descriptionKey: 'common.errors.password-length'
     })
