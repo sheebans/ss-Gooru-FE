@@ -12,6 +12,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+    //Submit a message to the relevant location in firebase
     submitMessage: function() {
       const db = this.get('firebaseApp').database();
       const channelId = this.channels[0].uuid;
@@ -33,13 +34,13 @@ export default Ember.Controller.extend({
       }), 100);
       this.set("message", '');
     },
+    //Upload file to firebase storage
     submitFile: function(){
       const auth = this.get('firebaseApp').auth();
       const db = this.get('firebaseApp').database();
       const storage =  this.get('firebaseApp').storage()
       const channelId = this.channels[0].uuid;
-      //var file = this.get("file");
-      //console.log('file is',file);
+      //Gather document information
       let image = document.getElementById('mediaCapture');
       let file = image.files[0];        
       // Check if the user is signed-in
@@ -48,60 +49,56 @@ export default Ember.Controller.extend({
         var fullname = this.userInfo.firstName + ' ' + this.userInfo.lastName;
         var currentUser = auth.currentUser;
         var photo = this.userInfo.avatarUrl;
+        //Create a reference to the messages table for this particular channel
         var messageRef = db.ref().child("messages/" + channelId);
-        //console.log('File contains',file);
         var newKey = messageRef.push().key;
-        //db.ref().child("messages/" + channelId+"/"+newKey).set({
-          db.ref().child("messages/" + channelId).push({
-          username: this.get('session.userData.username'),
-          userId: this.get('session.userData.gooruUId'),
-          fullname: fullname, 
-          message: file.name,
-          photoUrl: file,
-          photo: photo,
-          fileType: file.type,
-          fileSize: file.size,
-          fileName: file.name
-        }).then(function(data) {
-          //console.log('in then with data which contains',data);
-          // Upload the image to Firebase Storage.
+          //store the file onto firebase storage based on the current user's id
           storage.ref(currentUser.uid + '/' + Date.now() + '/' + file.name)
-              .put(file, {contentType: file.type})
-              .then(function(snapshot) {
-                // Get the file's Storage URI and update the chat message placeholder.
-                var filePath = snapshot.metadata.fullPath;
-                data.update({message: storage.ref(filePath).toString()});
-                //console.log('filepath updated',storage.ref(filePath).toString());
-                //console.log('data contains',data);
-                //console.log('data key',data.path.o[2]);
-                data.update({messageId: data.path.o[2]});
-              }.bind(this)).catch(function(error) {
-              });
-        }.bind(this));
+            .put(file, {contentType: file.type})
+            .then(function(snapshot) {
+            var filePath = snapshot.metadata.fullPath;
+
+            //push a new message containing the file information
+            db.ref().child("messages/" + channelId + "/" + newKey).set({
+              username: this.get('session.userData.username'),
+              userId: this.get('session.userData.gooruUId'),
+              fullname: fullname, 
+              message: storage.ref(filePath).toString(),
+              photoUrl: file,
+              photo: photo,
+              fileType: file.type,
+              fileSize: file.size,
+              fileName: file.name,
+              messageId: newKey
+            });
+          }.bind(this));
       }
+      Ember.run.later((function() {
+      $('.message-row-container').scrollTop($('.message-row-container-inner').height());
+      }), 100);
+      this.set("message", '');
     },
     removeMessage: function(message){
+      console.log('starting to remove a message');
       const auth = this.get('firebaseApp').auth();
       const db = this.get('firebaseApp').database();
-      const storage =  this.get('firebaseApp').storage()
+      const storage =  this.get('firebaseApp').storage();
       const channelId = this.channels[0].uuid;
-
-      /*if(message.userId == auth.currentUser.uid){
-        //console.log('user is the same user');
-      }else{
-        //console.log('this is not the same user');
-      }*/
-
+      //Check user id against authenticated firebase id - if it's the same then we can remove the message
+      console.log('the messageId is',message.messageId);
       if(message.userId == auth.currentUser.uid){
         db.ref().child("messages/" + channelId +"/"+message.messageId).remove();
+        return;
       }
-
+      //Decode the JWT provided to firebase - need to look into the users role
       auth.currentUser.getToken().then(function(val){
        var decodedVal = jwt_decode(val);
-       //console.log(decodedVal);
+       //if the user is a teacher, then we allow them to remove anyones message
        if(decodedVal.user_category == "teacher"){
         db.ref().child("messages/" + channelId+"/"+message.messageId).remove();
+        console.log('user removed');
        }
+       console.log('finished removing a message');
      });
     }
   },
@@ -214,13 +211,10 @@ export default Ember.Controller.extend({
     if (auth.currentUser) {
       return true;
     }else{
-      console.log('user not signed in');
       return false;
     }
   },
     hideChannels: function(){
-      //console.log('going to hide channels soon');
-      //console.log('Getting channel div',Ember.$('#channel'));
       this.toggleProperty('showChannels');
       //Ember.$('#channel').hide();
     }

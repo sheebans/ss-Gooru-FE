@@ -60,12 +60,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const aClass = hash.class;
       const members = hash.members;
       const courseId = aClass.get('courseId');
-
-      console.log('members contains',members);
-      console.log('members contains',members);
-      console.log('user info',userInfo);
-      console.log('user info',userInfo);
-
       let visibilityPromise = Ember.RSVP.resolve([]);
       let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
 
@@ -74,11 +68,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         coursePromise = route.get('courseService').fetchById(courseId);
       }
 
+      //Create a reference to the channel table in firebase for this particular class
       var channelRef = db.ref().child("channels/");
+      //We will grab all existing channels once to perform a simple check
       channelRef.once('value').then(function(snapshot) {
+      //Check to see if a representation for the class exist in the channel table - if not, we create a new channel (default) 
       if (!snapshot.hasChild(classId)) {
             var newKey = channelRef.child(classId).push().key;
             var creator = aClass.creatorId;
+            const classId = aClass.id;
             var fullName = userInfo.firstName + ' ' + userInfo.lastName;
             var postData = {
               creatorId: creator,
@@ -90,6 +88,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               },
               uuid: newKey
             };   
+            //Creating the new channel in firebase DB
             db.ref().child("channels/"+classId + "/" + newKey).set(postData);
             for (var i=0; i<aClass.members.length; i++) {
               db.ref().child("channels/"+classId).once("value").then(function(snapshot){
@@ -100,51 +99,81 @@ export default Ember.Route.extend(PrivateRouteMixin, {
                 });
               });         
             }
+            db.ref().child("users/"+user.uid+"/channels/"+newKey).set({
+                channelId:newKey
+              });
+              //Add members of class to the channel
+              for (var i=0; i<currentClass.members.length; i++) {              
+                db.ref().child("channels/"+classId+"/"+newKey+"/participants/"+currentClass.members[i].id).set({
+                  user:"newuser"
+                });
+                db.ref().child("users/"+currentClass.members[i].id+"/channels/"+newKey).set({
+                  channelId:newKey
+                });                        
+              }    
           }
         });
+        //Now creating a listener to the classes' channel table; we will be notified if a new channel is added
         var dbChannelRef = channelRef.child(classId);
         dbChannelRef.on('value', function(snapshot) {
+          //Iterating through each channel in the class channel table (currently only the default exist).
           snapshot.forEach(function(channelSnapshot) {
             var channelId = channelSnapshot.child("uuid").val();
             var messageRef = db.ref().child("messages/" + channelId);
             const storage = route.get('firebaseApp').storage();
-            messageRef.on('value',function(snapshot) {
+            /*
+            * Create a reference to the messages for a particular channel (currently only one default channel)
+            * We then, only once, retrieve all messages for the particular channel and display them on the UI.
+            */
+  
+            messageRef.once('value').then(function(snapshot) {
               messages.clear();
               snapshot.forEach(function(messageSnapshot) {
                 var mes = messageSnapshot.val().message;
                 var tmp = messageSnapshot.val();
-                // If the image is a Firebase Storage URI we fetch the URL.
-                  //console.log('mes contains',mes);
-                  //console.log('full message object',tmp);
-                  if (mes.startsWith('gs://')) {
-                    messages.pushObject(tmp);
-                   // console.log('mes starts with gs',mes);
-                    //imgElement.src = "https://www.google.com/images/spin-32.gif"; // Display a loading image first.
-                    //messages.pushObject(tmp);
-                    storage.refFromURL(mes).getMetadata().then(function(metadata) {
-                      var message = mes; 
-                      mes = metadata.downloadURLs[0];
-                      for(var i = 0; i < messages.length; i++){
-                        //console.log('i is',i);
-                        //console.log('message[i]',messages[i]);
-                        if(messages[i].message === message){
-                          //console.log('message[i]',messages[i]);
-                          var toAdd = messages[i];
-                          Ember.set(messages[i],'imageURL',mes);
-                          Ember.set(messages[i],'message',mes);
-                          //toAdd.imageURL = mes;
-                          //toAdd.message = mes;
-                          //messages.splice(i,1,toAdd);
-                        }
-                      }
-                      //messages.pushObject(tmp);
-                    });
-                  }else{
-                    messages.pushObject(messageSnapshot.val());
-                  }
+                //If the message pertains to a file, then we need to generate the downloadable URL for the file
+                if (mes.startsWith('gs://')) {
+                  messages.pushObject(tmp);
+                  storage.refFromURL(mes).getMetadata().then(function(metadata) {
+                    var message = mes; 
+                    mes = metadata.downloadURLs[0];
+                      Ember.set(tmp,'imageURL',mes);
+                        Ember.set(tmp,'message',mes);
+                  });
+                }else{
+                  messages.pushObject(messageSnapshot.val());
+                }
               });
             });
-            //console.log('Messages contains after setImageUrl',messages);
+            //Generate a listener that will add a new message to the existing messages array
+            messageRef.on('child_added',function(snapshot) {
+              var mes = snapshot.val().message;
+              var tmp = snapshot.val();
+                if (mes.startsWith('gs://')) {
+                  messages.pushObject(tmp);
+                  storage.refFromURL(mes).getMetadata().then(function(metadata) {
+                    var message = mes; 
+                    mes = metadata.downloadURLs[0];
+                    Ember.set(tmp,'imageURL',mes);
+                    Ember.set(tmp,'message',mes);
+                  });
+                }else{
+                  messages.pushObject(snapshot.val());
+                }
+              Ember.run.later((function() {
+                $('.message-row-container').scrollTop($('.message-row-container-inner').height());
+              }), 100);
+            });
+
+            //Generate a listener that will add a new message to the existing messages array
+            messageRef.on('child_removed',function(snapshot) {
+              for (var i=0; i<messages.length; i++) {            
+                if(messages[i].messageId === snapshot.key){
+                  messages.removeAt(i);
+                }       
+              }
+            });
+
             channels.pushObject(channelSnapshot.val());
             return true;
           });
