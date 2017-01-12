@@ -408,6 +408,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
             for (var i = 0; i < editedQuestion.get('answers').length; i++) {
               editedQuestion.get('answers')[i].set('text', values[i]);
             }
+            answersForValidate = editedQuestion.get('answers');
             return Ember.RSVP.Promise.all(
               answersForValidate.map(component.getAnswerValidatePromise)
             );

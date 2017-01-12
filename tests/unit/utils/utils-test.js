@@ -22,7 +22,8 @@ import {
   checkIfIsGoogleDoc,
   checkDomains,
   prepareFileDataToDownload,
-  createFileNameToDownload
+  createFileNameToDownload,
+  isVideoURL
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -488,3 +489,26 @@ test('Create File Name To Download', function (assert) {
   assert.equal(createFileNameToDownload(fileName), "classtest_coursetest_10-21-16", 'Wrong filename.');
 });
 
+test('Detects if url is from Vimeo or Youtube', function(assert){
+  var youtubeURL1 = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+  var youtubeURL2 = 'http://www.youtube.com/watch?v=dQw4w9WgXcQ';
+  var youtubeURL3 = 'http://youtube.com/watch?v=dQw4w9WgXcQ';
+  var youtubeURL4 = 'https://youtube.com/watch?v=dQw4w9WgXcQ';
+  var youtubeURL5 = 'https://www.youtu.be/dQw4w9WgXcQ';
+  var youtubeURL6 = 'http://www.youtu.be/dQw4w9WgXcQ';
+  var youtubeURL7 = 'https://youtu.be/dQw4w9WgXcQ';
+  var youtubeURL8 = 'http://youtu.be/dQw4w9WgXcQ';
+  var vimeoURL = 'https://vimeo.com/45196609';
+  var randomURL = 'https://en.wikipedia.org/wiki/Never_Gonna_Give_You_Up';
+
+  assert.equal(isVideoURL(youtubeURL1), true, 'The Youtube url ${youtubeURL1} should return true.');
+  assert.equal(isVideoURL(youtubeURL2), true, 'The Youtube url ${youtubeURL2} should return true.');
+  assert.equal(isVideoURL(youtubeURL3), true, 'The Youtube url ${youtubeURL3} should return true.');
+  assert.equal(isVideoURL(youtubeURL4), true, 'The Youtube url ${youtubeURL4} should return true.');
+  assert.equal(isVideoURL(youtubeURL5), true, 'The Youtube url ${youtubeURL5} should return true.');
+  assert.equal(isVideoURL(youtubeURL6), true, 'The Youtube url ${youtubeURL6} should return true.');
+  assert.equal(isVideoURL(youtubeURL7), true, 'The Youtube url ${youtubeURL7} should return true.');
+  assert.equal(isVideoURL(youtubeURL8), true, 'The Youtube url ${youtubeURL8} should return true.');
+  assert.equal(isVideoURL(vimeoURL), true, 'The Vimeo url should return true.');
+  assert.equal(isVideoURL(randomURL), false, 'Any input, if not from Vimeo or Youtube, should return false.');
+});

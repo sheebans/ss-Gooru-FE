@@ -84,8 +84,9 @@ test('it renders for assessment', function (assert) {
   var $component = this.$('.reports.assessment.gru-summary');  //component dom element
   assert.ok($component.length, "Component does not have the component classes");
 
-  var $gradeContainer = $component.find('.summary-container .grade[style~="background-color:"]');
+  var $gradeContainer = $component.find('.summary-container .grade');
   assert.ok($gradeContainer.length, "Grade container is missing");
+  assert.ok($gradeContainer.attr("style").indexOf("background-color:") >= 0, "Missing grade color");
 
   var $percentage = $gradeContainer.find('.percentage');
   assert.ok($percentage.length, "Percentage container is missing");

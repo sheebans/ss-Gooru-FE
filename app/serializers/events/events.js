@@ -24,10 +24,10 @@ export default Ember.Object.extend({
    * @param {string} apiKey
    * @returns {*[]}
    */
-  serializeCollection: function (assessmentResult, context, apiKey) {
+  serializeCollection: function (assessmentResult, context, eventType, apiKey) {
     let serializer = this;
     let totalNonOpenEndedQuestions = assessmentResult.get("totalNonOpenEndedQuestions");
-    let contextObject = serializer.getContextValuesForCollection(context, totalNonOpenEndedQuestions);
+    let contextObject = serializer.getContextValuesForCollection(context, eventType, totalNonOpenEndedQuestions);
     let startedAt = assessmentResult.get('startedAt');
     let submittedAt = assessmentResult.get('submittedAt');
     let startTime = toTimestamp(startedAt);
@@ -58,15 +58,16 @@ export default Ember.Object.extend({
    * Serializes a result
    * @param {ResourceResult} resourceResult
    * @param {Context} context
+   * @param {string} eventType start|stop
    * @param {string} apiKey
    * @returns {*[]}
    */
-  serializeResource: function (resourceResult, context, apiKey) {
+  serializeResource: function (resourceResult, context, eventType, apiKey) {
     let serializer = this;
     let resource = resourceResult.get("resource");
     let resourceType = resource.get("isQuestion") ? 'question' : 'resource';
     let reactionType = resourceResult.get('reaction');
-    let contextObject = serializer.getContextValuesForResult(context, resource.get("id"), resourceType, reactionType);
+    let contextObject = serializer.getContextValuesForResult(context, resource.get("id"), eventType, resourceType, reactionType);
 
     let startedAt = resourceResult.get('startedAt');
     let submittedAt = resourceResult.get('submittedAt');
@@ -74,7 +75,7 @@ export default Ember.Object.extend({
     let endTime = !submittedAt ? startTime: toTimestamp(submittedAt);
     endTime = endTime < startTime ? startTime : endTime; //endTime can't be lower than start time - GG-2111
     let serialized = {
-      "eventId": context.get('resourceEventId'),
+      "eventId": resourceResult.get('resourceEventId'),
       "eventName": "collection.resource.play",
       "session": {"apiKey": apiKey, "sessionId": context.get('sessionId')},
       "startTime": startTime,
@@ -91,7 +92,7 @@ export default Ember.Object.extend({
       let userAnswer = resourceResult.get("userAnswer");
       serialized.payLoadObject = {
         "questionType": resourceResult.get('question.questionType'),
-        "attemptStatus": (context.get("isStopEvent") ? resourceResult.get('attemptStatus') : undefined),
+        "attemptStatus": ((eventType === "stop") ? resourceResult.get('attemptStatus') : undefined),
         "answerObject": util.toJSONAnswerObjects(userAnswer),
         "isStudent": context.get("isStudent"),
         "taxonomyIds": serializer.get('taxonomySerializer').serializeTaxonomyForEvents(resource.get('taxonomy')),
@@ -115,7 +116,7 @@ export default Ember.Object.extend({
     let startTime = toTimestamp(resourceResult.get('startedAt'));
     let contextObject = serializer.getContextValuesForReaction(context, resource.get('id'), reactionType);
     let serialized = {
-      eventId: context.get('resourceEventId'),
+      eventId: resourceResult.get('resourceEventId'),
       eventName: 'reaction.create',
       session: { apiKey: apiKey, sessionId: context.get('sessionId') },
       user: { gooruUId: context.get('userId') },
@@ -135,35 +136,38 @@ export default Ember.Object.extend({
   /**
    * Gets context values
    * @param {Context} context
+   * @param {string} eventType start|stop
    * @param {string} resourceType question|resource
+   * @param {string} reactionType
    * @returns {*}
    */
-  getContextValuesForResult: function (context, resourceId, resourceType, reactionType) {
+  getContextValuesForResult: function (context, resourceId, eventType, resourceType, reactionType) {
     return {
       "contentGooruId": resourceId,
       "parentGooruId": context.get('collectionId'),
       "classGooruId": context.get('classId'),
       "parentEventId": context.get('parentEventId'),
-      "type": context.get('eventType'),
+      "type": eventType,
       "courseGooruId": context.get('courseId'),
       "unitGooruId": context.get('unitId'),
       "lessonGooruId": context.get('lessonId'),
       "collectionType": context.get('collectionType'),
       "resourceType": resourceType,
       "clientSource": "web",
-      reactionType: reactionType
+      "reactionType": reactionType
     };
   },
 
   /**
    * Gets context values for collection
    * @param {Context} context
+   * @param {string} eventType
    * @param {number} questionCount
    * @returns {*}
    */
-  getContextValuesForCollection: function (context, questionCount) {
+  getContextValuesForCollection: function (context, eventType, questionCount) {
     return {
-      "type": context.get('eventType'),
+      "type": eventType,
       "contentGooruId": context.get('collectionId'),
       "classGooruId": context.get('classId'),
       "courseGooruId": context.get('courseId'),

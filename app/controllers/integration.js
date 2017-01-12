@@ -6,22 +6,8 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  queryParams: ['token', 'classId','page'],
+  queryParams: ['token', 'classId','page', 'unitId', 'lessonId', 'collectionId', 'sourceId', 'collectionType']
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * @property {String} Token to authenticate
-   */
-  token:null,
-
-  /**
-   * @property {String} Class ID when required
-   */
-  classId:null,
-
-  /**
-   * @property {String} TokenID
-   */
-  page:null
 
 });

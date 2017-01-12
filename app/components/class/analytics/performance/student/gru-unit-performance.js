@@ -6,10 +6,6 @@ export default Ember.Component.extend({
 
   performanceService: Ember.inject.service('api-sdk/performance'),
 
-  lessonService: Ember.inject.service('api-sdk/lesson'),
-
-  collectionService: Ember.inject.service('api-sdk/collection'),
-
   unitService: Ember.inject.service('api-sdk/unit'),
 
   // -------------------------------------------------------------------------
@@ -197,16 +193,11 @@ export default Ember.Component.extend({
     const classId = this.get('classModel.id');
     const courseId = this.get('classModel.courseId');
     const userId = this.get('userId');
-    const hasNoLessons = !this.get('lessons');
-
-    if(hasNoLessons) {
-      component.set('isLoading', true);
-      component.loadData(classId, courseId, unitId, userId).then(function(lessonPerformances){
-        component.set('lessons', lessonPerformances);
-        component.set('isLoading', false);
-      });
-
-    }
+    component.set('isLoading', true);
+    component.loadData(classId, courseId, unitId, userId).then(function(lessonPerformances){
+      component.set('lessons', lessonPerformances);
+      component.set('isLoading', false);
+    });
   },
 
   loadData: function(classId, courseId, unitId, userId) {
@@ -218,26 +209,7 @@ export default Ember.Component.extend({
         return component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons, {collectionType: filterBy})
           .then(function(lessonPerformances) {
             component.fixTotalCounts(unitId, lessonPerformances, filterBy);
-            const promises = lessonPerformances.map(function(lessonPerformance) {
-              //overriding totals from core
-              //TODO this should be loaded at the gru-lesson-performance only when the lesson is expanded
-              const lessonId = lessonPerformance.get('id');
-              return component.get('lessonService').fetchById(courseId, unitId, lessonId)
-                .then(function(lesson) {
-                  const collections = lesson.get('children').filter(function(collection) {
-                    return component.isCollectionFilterable(collection, filterBy);
-                  });
-                  return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections, {collectionType: filterBy})
-                    .then(function(collectionPerformances) {
-                      lessonPerformance.set('collections', collectionPerformances);
-                    });
-                });
-              });
-
-            //return lesson performances until everything is loaded
-            return Ember.RSVP.all(promises).then(function(){
-              return lessonPerformances;
-            });
+            return lessonPerformances;
           });
       });
   },
@@ -284,19 +256,6 @@ export default Ember.Component.extend({
   isSelected: function(){
     return this.get("selectedUnitId") === this.get("unit.id");
   },
-
-  /**
-   * Verifies is the collection is filterable according to the filterBy param value.
-   * When the filterBy is an 'assessment' we verify if collection format is 'assessment' or 'assessment-external'.
-   *
-   * @param collection the collection
-   * @param filterBy the filter by option
-   * @returns {boolean} Returns true is the collection is filterable.
-   */
-  isCollectionFilterable: function(collection, filterBy) {
-    return (filterBy === 'both') || (collection.get('format').indexOf(filterBy) !== -1);
-  },
-
 
   fixTotalCounts: function(unitId, performances, filterBy) {
     const controller = this;

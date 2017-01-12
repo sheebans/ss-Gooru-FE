@@ -5,6 +5,8 @@ var ApplicationWidget = function (selector, properties, autoStart) {
 
   var aw = {
 
+    name: "application-widget.js",
+
     emberApp: "GooruWebApp",
 
     rootElementId: "gooru-application-container",
@@ -37,8 +39,9 @@ var ApplicationWidget = function (selector, properties, autoStart) {
       }
 
       var aw = this;
+      properties.appRootPath = properties.appRootPath || aw.getAppRootPathFromScript();
       var appRootPath = properties.appRootPath;
-
+      
       // Add google font styles
       aw.addCss("https://www.gooru.org/css?family=Lato:400,300,300italic,400italic,700,700italic", "text/css");
       aw.addCss("https://www.gooru.org/icon?family=Material+Icons");
@@ -72,6 +75,31 @@ var ApplicationWidget = function (selector, properties, autoStart) {
       features.header = header;
 
       properties.features = features;
+
+      const environment = properties.environment || "qa";
+      properties = this.mergePropertiesByEnvironment(environment, properties);
+      return properties;
+    },
+
+    mergePropertiesByEnvironment: function (environment, properties) {
+      //we support 2 environments for now, qa and prod, any other environment will use qa
+      var endpointUrl =  "https://nucleus-qa.gooru.org";
+      var realTimeUrl =  "https://rt.nucleus-qa.gooru.org";
+
+      if (environment !== "custom") {
+        if (environment === "prod") {
+          endpointUrl =  "https://www.gooru.org";
+          realTimeUrl =  "https://rt.gooru.org";
+        }
+        properties.endpoint = {
+          "url": endpointUrl,
+          "secureUrl": endpointUrl
+        };
+        properties.realtime = {
+          "webServiceUrl": realTimeUrl,
+          "webSocketUrl": realTimeUrl
+        };
+      }
       return properties;
     },
 
@@ -130,6 +158,23 @@ var ApplicationWidget = function (selector, properties, autoStart) {
       // Add stylesheet to head
       var parent = document.getElementsByTagName("head")[0];
       parent.appendChild(tag);
+    },
+
+    /**
+     * Gets the app root path from the current script url
+     * @returns {*}
+     */
+    getAppRootPathFromScript: function () {
+      var appRootPath = null;
+      var scriptName = this.name;
+      var scripts = document.getElementsByTagName("script");
+      for (var i = 0; i< scripts.length; i++) {
+        var script = scripts[i];
+        if (script.src && script.src.indexOf(scriptName) >= 0) {
+          appRootPath = script.src.replace(scriptName, "");
+        }
+      }
+      return appRootPath;
     },
 
     /**

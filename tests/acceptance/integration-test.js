@@ -15,43 +15,32 @@ moduleForAcceptance('Acceptance | integration', {
 });
 
 
-test('teams route to info', function(assert) {
-  visit('/integration/teams?token=invalid-token&classId=class-for-pochita-as-teacher&page=info');
+test('integration route to not valid page', function(assert) {
+  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-teacher&page=unexistant-page');
   andThen(function() {
     assert.expect(1);
     assert.equal(currentURL(), '/sign-in');
   });
 });
 
-
-test('teams route to incorrect page', function(assert) {
-  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-teacher&page=unexistant-page');
-  andThen(function() {
-    assert.expect(1);
-    assert.equal(currentURL(), '/integration/class-for-pochita-as-teacher');
-  });
-});
-
-test('teams route to info', function(assert) {
-  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-teacher&page=info');
+test('integration route to info', function(assert) {
+  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-teacher&page=class-info');
   andThen(function() {
     assert.expect(1);
     assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/info');
   });
 });
 
-/* TODO This test is broken because we commented code in integration.js. We need to find a different approach for this.
-test('teams route to data analytics page in a teacher class', function(assert) {
-  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-teacher&page=data');
+test('integration route to data analytics page in a teacher class', function(assert) {
+  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-teacher&page=teacher-data');
   andThen(function() {
     assert.expect(1);
-    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher');
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/course');
   });
 });
-*/
 
-test('teams route to data analytics page in a student class', function(assert) {
-  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-student&page=data');
+test('integration route to data analytics page in a student class', function(assert) {
+  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-student&page=student-data');
 
   andThen(function() {
     assert.expect(1);
@@ -59,11 +48,56 @@ test('teams route to data analytics page in a student class', function(assert) {
   });
 });
 
-test('teams route to overview', function(assert) {
+test('integration route to overview', function(assert) {
   visit('/integration/teams?token=any-token&classId=class-for-pochita-as-student&page=course-map');
 
   andThen(function() {
     assert.expect(1);
     assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id');
+  });
+});
+
+test('integration route to overview with unit id', function(assert) {
+  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-student&page=course-map&unitId=first-unit-id');
+
+  andThen(function() {
+    assert.expect(1);
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id');
+  });
+});
+
+test('integration route to overview with unit id and lesson id', function(assert) {
+  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-student&page=course-map&unitId=first-unit-id&lessonId=first-lesson-id');
+
+  andThen(function() {
+    assert.expect(1);
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id-first-lesson-id');
+  });
+});
+
+test('integration route to overview with unit id and lesson id and collection id', function(assert) {
+  visit('/integration/teams?token=any-token&classId=class-for-pochita-as-student&page=course-map&unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id');
+
+  andThen(function() {
+    assert.expect(1);
+    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id-first-lesson-id-first-assessment-id');
+  });
+});
+
+test('integration route to player with collection id and type', function(assert) {
+  visit('/integration/teams?token=any-token&page=player&collectionId=all-resource-types-collection-id&collectionType=collection');
+
+  andThen(function() {
+    assert.expect(1);
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&type=collection');
+  });
+});
+
+test('integration route to player with collection id and type and source id', function(assert) {
+  visit('/integration/teams?token=any-token&page=player&collectionId=all-resource-types-collection-id&collectionType=collection&sourceId=123');
+
+  andThen(function() {
+    assert.expect(1);
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&sourceId=123&type=collection');
   });
 });

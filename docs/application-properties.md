@@ -13,9 +13,7 @@ Gooru application can be configured at runtime by setting several properties
 
   "realTime": {
     "webServiceUrl": "http://goorurt.qa.gooruweb.edify.cr",
-    "webServiceUri": "/nucleus/realtime",
     "webSocketUrl": "https://goorurt.qa.gooruweb.edify.cr",
-    "webSocketUri": "/ws/realtime"
   },
 
   "teams": {
@@ -44,16 +42,22 @@ Gooru application can be configured at runtime by setting several properties
 ```
 
 ## `appRootPath`
-Path were the application is hosted
+Base path where the application is hosted
 
 ## `endpoint`
 Useful to configure the BE services
+* `endpoint.url`: application rest services url
+* `endpoint.secureUrl`: application web socket url 
+
 
 ## `realTime`
 Useful to configure the real time BE services
+* `realTime.webServiceUrl`: application rest services url
+* `realTime.webSocketUrl`: application web socket url 
+
 
 ## `teams`
-Useful to configure the Team application integration
+* `teams.url`: Useful to configure the Team application integration
 
 ## `themes`
 Useful to configure some own properties of the themes

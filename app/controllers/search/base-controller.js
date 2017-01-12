@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
       const term = controller.get('term');
 
       var selectedOptionTypes = controller.get('selectedOptionTypes');
-      if (selectedOptionTypes.contains(option)) {
+      if (selectedOptionTypes.includes(option)) {
         selectedOptionTypes.removeObject(option);
       } else {
         selectedOptionTypes.pushObject(option);

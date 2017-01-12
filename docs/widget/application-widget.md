@@ -18,7 +18,6 @@ Gooru application ca be also embedded in a 3rd party application, any of the exi
   <script type="text/javascript">
     (function () {
       var aw = new ApplicationWidget('#gooru-application-container', {
-        "appRootPath": "../",
         "transition": [ 'player', 'b6170219-5841-46b8-9c6a-d684bc457538', { queryParams: { type: 'collection', role: 'student' }}]
       });
     })();
@@ -30,8 +29,37 @@ Gooru application ca be also embedded in a 3rd party application, any of the exi
 
 # Options
 
-## `applicationRootPath`
+## `environment`
+Indicates the predefined environment configuration to use. Possible values are custom, qa, prod
+When custom is provided the user has to provide all configuration values for connectivity, otherwise it
+connects to Gooru available servers based on the value provided (see Available servers section in this document)
+
+Default value: qa
+
+*Example*
+   ```
+    aw = new ApplicationWidget('#gooru-application-container', {
+        "environment" : "prod"
+    }  
+    ```
+
+The following properties are automatically configured to match the environment provided, it uses https for all urls by default, if a
+different configuration is required the environment property should use 'custom' and the other properties needs to be provided as well
+    ```
+        "endpoint": {
+          "url": "http://nucleus-qa.gooru.org",
+          "secureUrl": "https://nucleus-qa.gooru.org"
+        },
+        "realTime": {
+          "webServiceUrl": "https://rt.nucleus-qa.gooru.org",
+          "webSocketUrl": "https://rt.nucleus-qa.gooru.org",
+        },
+      ```
+
+## `applicationRootPath` (optional)
 Indicates where the application-widget.js is hosted, another resources would be loaded from there
+Generally this property matches the base path for the application-widget.js file 
+When no provided the script src base path is used as applicationRootPath
 
 *Default:* ""
 
@@ -41,7 +69,7 @@ Indicates where the application-widget.js is hosted, another resources would be 
         "appRootPath": "../"
     };
     ```
-## `transition`
+## `transition` (required)
 It is used to indicate the page to be presented to the user, it is an array having the route name, route params and query params
 
 *Default:* sign in page
@@ -49,7 +77,6 @@ It is used to indicate the page to be presented to the user, it is an array havi
 *Example*
     ```
     aw = new ApplicationWidget('#gooru-application-container', {
-        "appRootPath": "../",
         "transition": [ 'player', collectionId, { queryParams: { type: type, role: 'student' }}]
     }  
     ```
@@ -62,7 +89,6 @@ It contains an authorized Gooru token, the application will start a user session
 *Example:* 
    ```
     aw = new ApplicationWidget('#gooru-application-container', {
-        "appRootPath": "../",
         "token": axsdamdmsd2122asasa
     }  
     ```
@@ -75,7 +101,6 @@ It contains an sourceId identifying the customer, most of the time is used by LT
 *Example:* 
    ```
     aw = new ApplicationWidget('#gooru-application-container', {
-        "appRootPath": "../",
         "sourceId": any-id
     }  
     ```
@@ -88,7 +113,6 @@ Gooru provides several UI themes, this property indicates which css rules should
 *Example:* 
    ```
     aw = new ApplicationWidget('#gooru-application-container', {
-        "appRootPath": "../",
         "themeId": bergen
     }  
     ```
@@ -103,7 +127,6 @@ See [features flag document](../feature-flags.md) for more information
 *Example*
    ```
     aw = new ApplicationWidget('#gooru-application-container', {
-        "appRootPath": "../",
         "collections": {
             "player": {
               "showReactionBar": false,
@@ -124,7 +147,6 @@ See [application properties document](../application-properties.md) for more inf
 *Example*
    ```
     aw = new ApplicationWidget('#gooru-application-container', {
-        "appRootPath": "../",
         "endpoint" : {
           "url": "http://nucleus-qa.gooru.org",
           "secureUrl": "https://nucleus-qa.gooru.org"
@@ -135,6 +157,12 @@ See [application properties document](../application-properties.md) for more inf
         },
     }  
     ```
+
+## Available servers
+So far we  support only 2 environments, qa and prod; the default environment is qa
+
+qa: nucleus-qa.gooru.org
+prod: www.gooru.org
 
 ## Related documents
 
