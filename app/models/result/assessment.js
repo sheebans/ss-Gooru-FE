@@ -157,6 +157,11 @@ export default Ember.Object.extend({
   started: Ember.computed.bool("startedAt"),
 
   /**
+   * @property {boolean} is a real time result
+   */
+  isRealTime: false,
+
+  /**
    * Returns the last visited resource
    * @property {Resource} lastVisitedResource
    */
@@ -188,7 +193,7 @@ export default Ember.Object.extend({
   correctPercentage:Ember.computed('nonOpenEndedQuestionResults.[]',function(){
     const score = this.get("score");
 
-    return score ? score : correctPercentage(this.get('nonOpenEndedQuestionResults'), true);
+    return score ? score : correctPercentage(this.get('nonOpenEndedQuestionResults'), !this.get("isRealTime"));
   }),
 
   /**
