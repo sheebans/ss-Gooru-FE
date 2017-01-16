@@ -95,13 +95,13 @@ test('Layout for Accessibility', function(assert) {
 
     var $passwordField = $modal.find(".password");
     $label = $passwordField.find("label");
-    $input = $label.find("input[type=password]");
+    $input = $label.find("input");
     assert.equal($label.attr("for"), $input.attr("id"), 'The password input does not have a related label');
     assert.equal($input.attr("aria-required"), "true", 'The password input does not have the aria required attribute');
 
     var $rePasswordField = $modal.find(".rePassword");
     $label = $rePasswordField.find("label");
-    $input = $label.find("input[type=password]");
+    $input = $label.find("input");
     assert.equal($label.attr("for"), $input.attr("id"), 'The re password input does not have a related label');
     assert.equal($input.attr("aria-required"), "true", 'The re password input does not have the aria required attribute');
 
