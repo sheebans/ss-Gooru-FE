@@ -73,6 +73,16 @@ export default Ember.Component.extend({
     this.set('rawInputValue', value);
     defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
   },
+
+  didInsertElement: function() {
+    const $input = this.$('div input');
+
+    if(this.get('isRequired')){
+      $input.attr("aria-required", true);
+    }
+
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -104,6 +114,10 @@ export default Ember.Component.extend({
    * @param {Number} type - max length of the input field.
    */
   maxLength:1000,
+  /**
+   * @property {Boolean} isRequired - value used to add the aria-required attr when needed
+   */
+  isRequired: null,
   /**
    * @param {Object} attributeValidation - value used to set the rawInputValue
    */

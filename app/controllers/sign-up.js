@@ -82,6 +82,7 @@ export default Ember.Controller.extend({
               }
             });
         }
+        //Ember.$('.gru-input.firstName input').focus(); Ver cm poner focus en primer input cn error
         controller.set('dateValidated', true);
       });
     },
