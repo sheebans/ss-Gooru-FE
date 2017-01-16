@@ -9,9 +9,9 @@ export default {
   },
 
   "realTime": {
-    "webServiceUrl": "https://rt.nucleus-qa.gooru.org",
+    "webServiceUrl": "http://goorurt.qa.gooruweb.edify.cr",
     "webServiceUri": "/nucleus/realtime",
-    "webSocketUrl": "https://rt.nucleus-qa.gooru.org",
+    "webSocketUrl": "https://goorurt.qa.gooruweb.edify.cr",
     "webSocketUri": "/ws/realtime"
   },
 
