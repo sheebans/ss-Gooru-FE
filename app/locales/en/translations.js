@@ -424,7 +424,7 @@ export default {
     "sentence": "Sentence",
     "settings": "Settings",
     "search": "Search",
-    "search-placeholder": "Search...",
+    "search-placeholder": "Search",
     "search-error-message": "Search terms need to be at least 3 letters.",
     "search-400-error-message": "Please enter a valid search term",
     "search-standards": "Search Standards",
