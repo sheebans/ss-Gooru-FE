@@ -50,38 +50,6 @@ test('TakeATour', function(assert){
 
       T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
       assert.equal(T.text($tooltip.find('.tour-header h2')), 'Your Homepage', 'First step title should be "Your Homepage"');
-      // click($tooltip.find('a.introjs-nextbutton'));
-      // andThen(function() {        
-      //   $tooltip.queue(function(){
-      //     $tooltip.dequeue();
-      //     T.exists(assert, $tooltip, "Second step of tour should be displayed");
-      //     assert.equal(T.text($tooltip.find('.tour-header h2')), 'Classes You Teach or Join', 'Second step title should be "Classes You Teach or Join"');
-      //     click($tooltip.find('a.introjs-nextbutton'));
-      //     andThen(function() {
-      //       $tooltip.queue(function(){
-      //         $tooltip.dequeue();
-      //         T.exists(assert, $tooltip, "Third step of tour should be displayed");
-      //         assert.equal(T.text($tooltip.find('.tour-header h2')), 'Create a Classroom', 'Third step title should be "Create a Classroom"');
-      //         click($tooltip.find('a.introjs-nextbutton'));
-      //         andThen(function() {
-      //           $tooltip.queue(function(){
-      //             $tooltip.dequeue();
-      //             T.exists(assert, $tooltip, "Fourth step of tour should be displayed");
-      //             assert.equal(T.text($tooltip.find('.tour-header h2')), 'Your Profile', 'Fourth step title should be "Your Profile"');
-      //             click($tooltip.find('a.introjs-skipbutton'));
-      //             andThen(function() {
-      //               $tooltip.queue(function(){
-      //                 $tooltip.dequeue();
-      //                 T.notExists(assert, $tooltip, "After tour is done, there should be no tooltip");
-      //                 done();
-      //               });
-      //             });
-      //           });
-      //         });
-      //       });
-      //     });
-      //   });        
-      // });
       done();
     });
   });
