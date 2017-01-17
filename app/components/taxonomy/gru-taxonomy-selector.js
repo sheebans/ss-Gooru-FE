@@ -243,5 +243,15 @@ export default Ember.Component.extend({
    */
   onSelectedSubjectChanged: Ember.observer('selectedSubject', function() {
     this.setupComponent();
+  }),
+
+  /**
+   * Set the subject dropdown label - from course
+   */
+  setSubjectLabelKey: Ember.observer('internalCategory', 'showCourses', function() {
+    if (this.get('showCourses')){
+      var subjectLabelKey = this.get('internalCategory') === 'higher_education' ? 'taxonomy.gru-taxonomy-selector.competency-subject-and-course' : 'taxonomy.gru-taxonomy-selector.primary-subject-and-course';
+      this.set('subjectLabelKey', subjectLabelKey);
+    }
   })
 });

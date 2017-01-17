@@ -54,6 +54,7 @@
           {{taxonomy.gru-taxonomy-selector
             isEditing=isEditing
             onSubjectSelected="selectSubject"
+            onCategorySelected="selectCategory"
             selectedSubject=selectedSubject
             subjectLabelKey='common.subject-and-framework'
             onlySubjectsWithStandards=true
@@ -61,7 +62,7 @@
         {{/if}}
         <div class="standards">
           <label>
-            <span>{{t "common.standards"}}</span>
+            <span>{{t standardLabelKey}}</span>
             {{#if isEditing}}
               <button type="button" class="btn btn-primary"
                       {{action 'openTaxonomyModal'}}

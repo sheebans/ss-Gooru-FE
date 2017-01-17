@@ -116,6 +116,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
       this.set("selectedSubject", subject);
     },
 
+    selectCategory: function(category){
+      var standardLabel =  (category === "higher_education");
+      this.set("standardLabel", standardLabel);
+    },
+
     /**
      * Remove tag data from the taxonomy list in tempUnit
      */
@@ -180,6 +185,19 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
   selectedSubject: null,
 
   /**
+   * i18n key for the standard/competency dropdown label
+   * @property {string}
+   */
+  standardLabelKey: Ember.computed('standardLabel', function(){
+    return this.get('standardLabel') ? 'common.standards' : 'common.competencies';
+  }),
+
+  /**
+   * @property {boolean}
+   */
+  standardLabel: true,
+
+  /**
    * @property {boolean}
    */
   standardDisabled: Ember.computed.not("selectedSubject"),
@@ -230,6 +248,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
       selected: subjectStandards,
       shortcuts: null,  // TODO: TBD
       subject: subject,
+      standardLabel: component.get("standardLabel"),
       callback: {
         success: function(selectedTags) {
           var dataTags = selectedTags.map(function(taxonomyTag) {

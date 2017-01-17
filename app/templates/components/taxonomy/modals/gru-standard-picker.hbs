@@ -1,16 +1,16 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{if model.fromSearch (t "common.search-standards") (t "common.add-standards")}}</h4>
+  <h4 class="modal-title">{{t titleLabelKey}}</h4>
 </div>
 <div class="modal-body">
 
   {{taxonomy.gru-taxonomy-picker
-    browseSelectorText=(t "taxonomy.modals.gru-standard-picker.browseSelectorText")
+    browseSelectorText=browseSelectorText
     onSave=(action 'updateSelectedTags')
     onSearchPath=(action 'loadTaxonomyData')
     panelHeaders=panelHeaders
     selected=model.selected
     fromSearch=model.fromSearch
-    selectedTextKey="taxonomy.modals.gru-standard-picker.selectedText"
+    selectedTextKey=selectedTextKey
     shortcuts=model.shortcuts
     shortcutText=(t "taxonomy.modals.gru-standard-picker.shortcutText")
     subject=model.subject }}

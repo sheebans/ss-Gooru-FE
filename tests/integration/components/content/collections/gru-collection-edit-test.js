@@ -65,6 +65,17 @@ test('it has header and main sections', function (assert) {
   assert.ok($informationSection.length, "Information section");
   assert.ok($builderSection.length, "Builder section");
   assert.ok($settingsSection.length, "Settings section");
+});
+
+test('Layout of the information section', function (assert) {
+  var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Collection Title"
+  });
+
+  this.set('collection', collection);
+  this.render(hbs`{{content/collections/gru-collection-edit collection=collection}}`);
+
+  var $informationSection = this.$("#information");
 
   assert.ok($informationSection.find('> .header').length, "Information Header");
   assert.ok($informationSection.find('> .header h2').length, "Information Title");
@@ -74,8 +85,28 @@ test('it has header and main sections', function (assert) {
   assert.ok($informationContent.length, "Information section");
   assert.ok($informationContent.find('.title').length, "Collection Title");
   assert.ok($informationContent.find('.learning-objectives').length, "Collection learning-objectives");
-  assert.ok($informationContent.find('.standards').length, "Collection standards");
+
+  var $standardsLabel = $informationSection.find('.standards label span');
+
+  assert.ok($standardsLabel.length, "Missing standards label");
+  assert.equal($standardsLabel.text(), this.get('i18n').t('common.standards').string, "Incorrect standards label text");
   assert.ok($informationContent.find('.century-skills').length, "Collection century-skills");
+});
+
+test('Information section - Competency Label', function (assert) {
+
+  var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Collection Title"
+  });
+
+  this.set('collection', collection);
+  this.render(hbs`{{content/collections/gru-collection-edit collection=collection standardLabel=false}}`);
+
+  var $informationSection = this.$("#information");
+  var $competencyLabel = $informationSection.find('.panel-body .standards label span');
+
+  assert.ok($competencyLabel.length, "Missing standards label");
+  assert.equal($competencyLabel.text(), this.get('i18n').t('common.competencies').string, "Incorrect competency label text");
 });
 
 test('Header when comes from content builder', function (assert) {

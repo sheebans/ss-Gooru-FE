@@ -81,6 +81,32 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#settings').length, "Settings section");
 });
 
+test('Layout of the information section', function (assert) {
+  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Course Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12',
+    metadata: {},
+    useCase: "Use Case"
+  });
+
+  this.set('course', course);
+  this.render(hbs`{{content/courses/gru-course-edit course=course}}`);
+
+  var $informationSection = this.$("#information");
+
+  assert.ok($informationSection.find('> .header').length, "Information Header");
+  assert.ok($informationSection.find('> .header h2').length, "Information Title");
+  assert.ok($informationSection.find('> .header .actions').length, "Information actions");
+
+  const $informationContent = $informationSection.find('.content');
+  assert.ok($informationContent.length, "Information section");
+  assert.ok($informationContent.find('.title').length, "Course Title");
+  assert.ok($informationContent.find('.description').length, "Course description");
+  assert.ok($informationContent.find('.gru-taxonomy-selector').length, "gru-taxonomy-selector component");
+  assert.ok($informationContent.find('.use-case').length, "Course use-case");
+});
+
 /*test('Update Course Information', function (assert) {
   assert.expect(1);
   var newTitle ='Course for testing gooru';

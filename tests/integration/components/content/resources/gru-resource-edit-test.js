@@ -292,8 +292,41 @@ test('Layout of the information section', function (assert) {
   assert.ok($informationSection.find('.panel-body .type label b').length, "Missing type label");
   assert.ok($informationSection.find('.panel-body .license label b').length, "Missing license label");
   assert.ok($informationSection.find('.panel-body .description label b').length, "Missing description label");
+
+  var $standardsLabel = $informationSection.find('.panel-body .standards label span');
+
+  assert.ok($standardsLabel.length, "Missing standards label");
+  assert.equal($standardsLabel.text(), this.get('i18n').t('common.standards').string, "Incorrect standards label text");
   assert.ok($informationSection.find('.panel-body .gru-taxonomy-tag-list').length, "Missing taxonomy content");
   assert.equal($informationSection.find('.panel-body .gru-taxonomy-tag').length, 1, "Missing taxonomy tag");
+});
+
+test('Information section - Competency Label', function (assert) {
+  var ResourceValidation = Resource.extend(EditResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Resource for testing',
+    format: 'video',
+    url: '//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf',
+    subject: 'CCSS.K12.Math',
+    category: 'k_12',
+    standards: [{
+      id: "NGSS.K12.SC-K.2-ED-02",
+      code: "K-2-ETS1-2",
+      parentTitle: "Science",
+      description: "",
+      frameworkCode: "NGSS"
+    }]
+  });
+
+  this.set('resource', resource);
+
+  this.render(hbs`{{content/resources/gru-resource-edit resource=resource standardLabel=false}}`);
+
+  var $informationSection = this.$("#information");
+  var $competencyLabel = $informationSection.find('.panel-body .standards label span');
+
+  assert.ok($competencyLabel.length, "Missing competency label");
+  assert.equal($competencyLabel.text(), this.get('i18n').t('common.competencies').string, "Incorrect competency label text");
 });
 
 test('Layout of the information section on edit mode', function (assert) {

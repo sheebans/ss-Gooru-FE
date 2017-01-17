@@ -50,6 +50,7 @@ export default {
     "add-collaborator": "Add Collaborator",
     "add-collection": "Create New Collection",
     "add-collection-item": "Create Resource or Question",
+    "add-competency": "Add Competency",
     "add-content-prompt": "You haven't created <span>{{type}}</span> yet. Go on, be bold.",
     "add-course": "Create New Course",
     "add-domains-to-unit": "Add Domains to Unit",
@@ -124,6 +125,8 @@ export default {
     "collection-title": "Collection Title",
     "collections": "Collections",
     "collectionInitial": "C",
+    "competency": "Competency",
+    "competencies": "Competencies",
     "completed": "Completed",
     "confirm-copy":"Confirm & Copy",
     "content": "Content",
@@ -427,6 +430,7 @@ export default {
     "search-placeholder": "Search...",
     "search-error-message": "Search terms need to be at least 3 letters.",
     "search-400-error-message": "Please enter a valid search term",
+    "search-competency": "Search Competency",
     "search-standards": "Search Standards",
     "select-question-type": "Select Question Type",
     "select-resource-type": "Select Resource Type",
@@ -1282,6 +1286,7 @@ export default {
     "gru-taxonomy-selector": {
       "add-secondary": "Add secondary",
       "choose-subject": "Choose Subject",
+      "competency-subject-and-course": "Competencies Framework and Course",
       "primary-subject-and-course": "Standards Framework and Course"
     }
   },
@@ -1304,9 +1309,14 @@ export default {
     },
     "gru-standard-picker": {
       "browseSelectorText": "What standards will be covered?",
+      "browseCompetencySelectorText": "What competencies will be covered?",
       "selectedText": {
         one: "{{count}} standard selected",
         other: "{{count}} standards selected"
+      },
+      "selectedCompetencyText": {
+        one: "{{count}} competency selected",
+        other: "{{count}} competencies selected"
       },
       "shortcutText": "Unit is tagged to"
     }

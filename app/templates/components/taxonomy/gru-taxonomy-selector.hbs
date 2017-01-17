@@ -1,7 +1,7 @@
 {{#if showCategories}}
 <div class="category">
   <label>
-    <span class="required">{{t "common.category"}}</span>
+    <span class="{{if showCourses 'required'}}">{{t "common.category"}}</span>
     {{#if isEditing}}
       <div class="btn-group categories">
         {{#each categories as |category|}}

@@ -53,8 +53,8 @@ const taxonomyServiceStub = Ember.Service.extend({
 moduleForComponent('gru-taxonomy-selector', 'Integration | Component | taxonomy/gru taxonomy selector', {
   integration: true,
   beforeEach: function () {
-    this.inject.service('i18n');
-
+    this.i18n = this.container.lookup('service:i18n');
+    this.i18n.set("locale","en");
     this.register('service:taxonomy', taxonomyServiceStub);
     this.inject.service('taxonomy');
   }
@@ -121,6 +121,25 @@ test('Edit mode category selection - from non course content', function(assert) 
     assert.equal($subjectDropdown.find(".selected-subject").length, 1, "Missing select subject");
     assert.equal(T.text($subjectDropdown.find(".selected-subject")), 'Choose Subject', "Wrong selected subject title");
     assert.equal($subjectDropdown.find("li.subject").length, 2, "Missing subjects");
+  });
+});
+
+test('subject label of the higher school category selection - from course content', function(assert) {
+  assert.expect(3);
+
+  this.render(hbs`{{taxonomy/gru-taxonomy-selector isEditing=true showCourses=true}}`);
+
+  const self = this;
+  const $component = this.$('.gru-taxonomy-selector');
+
+  var $subjectLabel = $component.find(".subject > label span");
+  assert.equal($subjectLabel.length, 1, "Missing subject label");
+  assert.equal(T.text($subjectLabel), self.get('i18n').t('taxonomy.gru-taxonomy-selector.primary-subject-and-course').string, "Wrong subject label");
+
+  $component.find(".categories .btn-info:eq(1)").click();
+  return wait().then(function () {
+    $subjectLabel = $component.find(".subject > label span");
+    assert.equal(T.text($subjectLabel), self.get('i18n').t('taxonomy.gru-taxonomy-selector.competency-subject-and-course').string, "Wrong subject label");
   });
 });
 
