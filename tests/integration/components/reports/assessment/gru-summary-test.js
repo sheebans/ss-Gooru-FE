@@ -167,7 +167,7 @@ test('Assessment attempts on real time', function (assert) {
     ],
     submittedAt: date,
     totalAttempts: 4,
-    isRealTime: true,
+    isRealTime: true
   });
 
   const collection = Collection.create({
