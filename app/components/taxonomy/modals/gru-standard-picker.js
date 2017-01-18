@@ -105,7 +105,7 @@ export default Ember.Component.extend({
    * i18n key for the modal title label
    * @property {string}
    */
-  titleLabelKey: Ember.computed('model', function(){
+  titleLabelKey: Ember.computed('model.standardLabel', function(){
     const standardLabel = this.get('model.standardLabel');
     const fromSearch = this.get('model.fromSearch');
     var label = "common.add-competency";
@@ -128,7 +128,7 @@ export default Ember.Component.extend({
    * i18n key for the browse selector text
    * @property {string}
    */
-  browseSelectorText: Ember.computed('model', function(){
+  browseSelectorText: Ember.computed('model.standardLabel', function(){
     const standardLabel = this.get('model.standardLabel');
 
     return standardLabel ? "taxonomy.modals.gru-standard-picker.browseSelectorText" : "taxonomy.modals.gru-standard-picker.browseCompetencySelectorText";
@@ -138,7 +138,7 @@ export default Ember.Component.extend({
    * i18n key for the selected text key
    * @property {string}
    */
-  selectedTextKey: Ember.computed('model', function(){
+  selectedTextKey: Ember.computed('model.standardLabel', function(){
     const standardLabel = this.get('model.standardLabel');
 
     return standardLabel ? "taxonomy.modals.gru-standard-picker.selectedText" : "taxonomy.modals.gru-standard-picker.selectedCompetencyText";

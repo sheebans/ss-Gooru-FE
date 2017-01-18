@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {CONTENT_TYPES} from 'gooru-web/config/config';
+import {CONTENT_TYPES, EDUCATION_CATEGORY} from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
@@ -127,7 +127,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     },
 
     selectCategory: function(category){
-      var standardLabel = (category === "higher_education");
+      var standardLabel = (category === EDUCATION_CATEGORY.value);
       this.set("standardLabel", !standardLabel);
     },
 
