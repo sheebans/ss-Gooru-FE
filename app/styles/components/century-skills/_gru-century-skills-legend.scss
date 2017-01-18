@@ -11,25 +11,6 @@
       margin-right: 15px;
       padding-right: 15px;
       float: left;
-      span.circle {
-        width: 10px;
-        height: 10px;
-        border-radius: 100%;
-        display: inline-block;
-        margin: 0 2px 0 0;
-        &.first {
-          background-color: $gru-century-skills-legend-first;
-        }
-        &.second {
-          background-color: $gru-century-skills-legend-second;
-        }
-        &.third {
-          background-color: $gru-century-skills-legend-third;
-        }
-        &.fourth {
-          background-color: $gru-century-skills-legend-fourth;
-        }
-      }
       &:last-child {
         border: 0;
       }

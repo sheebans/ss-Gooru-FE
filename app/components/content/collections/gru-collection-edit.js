@@ -214,6 +214,13 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     return TaxonomyTag.getTaxonomyTags(this.get("tempCollection.standards"), false, true);
   }),
 
+  /**
+   * @property {CenturySkill[]} List of century skills
+   */
+  selectedSkills: Ember.computed('tempCollection.centurySkills.[]', function() {
+    return this.get("tempCollection.centurySkills");
+  }),
+
   // ----------------------------
   // Methods
   openTaxonomyModal: function(){
@@ -244,8 +251,15 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
 
   openSkillsModal: function(){
     var component = this;
+    var centurySkills = [];
     var model = {
-      content: component.get('collection')
+      centurySkills: component.get('tempCollection.centurySkills'),
+      callback: {
+        success: function(selectedCenturySkills) {
+          const centurySkills = Ember.A(selectedCenturySkills);
+          component.set('tempCollection.centurySkills', centurySkills);
+        }
+      }
     };
     this.actions.showModal.call(this, 'century-skills.modals.gru-century-skills', model, null, 'gru-century-skills');
   }
