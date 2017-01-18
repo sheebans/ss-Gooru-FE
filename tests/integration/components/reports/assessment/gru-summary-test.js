@@ -150,32 +150,46 @@ test('Assessment attempts on real time', function (assert) {
         reaction: 2
       }),
       QuestionResult.create({
+        resourceId: 602,
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2
+      }),
+      QuestionResult.create({
         resourceId: 603,
         correct: true,
         timeSpent: 20000,
         reaction: 2
       }),
       QuestionResult.create({
-        resourceId: 602,
-        correct: true,
-        timeSpent: 20000,
-        reaction: 2
+        resourceId: 604 //non answered
       })
     ],
     submittedAt: date,
-    totalAttempts: 4
+    totalAttempts: 4,
+    isRealTime: true,
   });
 
   const collection = Collection.create({
     isAssessment: true,
     resources : Ember.A([
       QuestionResource.create({
-        id: "601",
+        id: 601,
         title: "MC",
         questionType: "MC"
       }),
       QuestionResource.create({
-        id: "602",
+        id: 602,
+        title: "MA",
+        questionType: "MA"
+      }),
+      QuestionResource.create({
+        id: 603,
+        title: "MA",
+        questionType: "MA"
+      }),
+      QuestionResource.create({
+        id: 604,
         title: "MA",
         questionType: "MA"
       })
@@ -187,7 +201,7 @@ test('Assessment attempts on real time', function (assert) {
   this.set('assessmentResult', assessmentResult);
   this.set('areQuestionLinksHidden', false);
   this.set('showAttempts',false);
-  this.set('isRealTime',false);
+  this.set('isRealTime', true);
 
   this.render(hbs`
     {{reports/assessment/gru-summary
@@ -206,6 +220,8 @@ test('Assessment attempts on real time', function (assert) {
   assert.ok($attempts.find('.current'), 'Current attempt label should be visible');
   assert.notOk($attempts.find('.attempt-selector').length, 'Attempts dropdown should not be visible');
   assert.notOk($attempts.find('.latest').length, 'Latest attempt label should not be visible');
+  assert.equal($component.find(".fractional .top").text(), '2', 'Wrong fractional numerator');
+  assert.equal($component.find(".fractional .bottom").text(), '3', 'Wrong fractional denominator');
 });
 
 test('Assessment attempts on static report', function (assert) {
