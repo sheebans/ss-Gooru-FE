@@ -128,7 +128,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
 
     selectCategory: function(category){
       var standardLabel = (category === "higher_education");
-      this.set("standardLabel", standardLabel);
+      this.set("standardLabel", !standardLabel);
     },
 
     /**
