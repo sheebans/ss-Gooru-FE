@@ -560,5 +560,5 @@ test('Editing a video resource should disable the type dropdown', function (asse
 
   this.render(hbs`{{content/resources/gru-resource-edit resource=resource tempResource=resource isEditing=true}}`);
   var $informationSection = this.$("#information");
-  assert.equal($informationSection.find('.content button[data-toggle=dropdown].disabled').length, 2, "Both type dropdown buttons should be disabled when editing a video.");  
+  assert.equal($informationSection.find('.content button[data-toggle=dropdown].disabled').length, 2, "Both type dropdown buttons should be disabled when editing a video.");
 });
