@@ -4,6 +4,7 @@ import { RESOURCE_COMPONENT_MAP, RESOURCE_TYPES,CONTENT_TYPES, K12_CATEGORY } fr
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import ModalMixin from 'gooru-web/mixins/modal';
+import {isVideoURL} from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
   // -------------------------------------------------------------------------
@@ -220,6 +221,13 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
   isNotIframeUrl: Ember.computed("resource", function(){
     const resource = this.get("resource");
     return (resource && resource.displayGuide);
+  }),
+  /**
+   * Indicates is the resource type edit option should be disabled
+   * @property {boolean}
+   */
+  disableTypeEdition: Ember.computed('resource.url', function(){
+    return isVideoURL(this.get('resource.url'));
   }),
 
   // ----------------------------
