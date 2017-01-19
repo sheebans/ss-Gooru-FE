@@ -303,6 +303,15 @@ export function toTimestamp(date){
 }
 
 /**
+ * Returns a date in timestamp
+ * @param {moment} moment
+ * @returs {number} timestamp
+ */
+export function momentToTimestamp(moment){
+  return (moment) ? moment.valueOf() : moment;
+}
+
+/**
  * Returns a date in local time
  * @param {number} timestamp
  */
