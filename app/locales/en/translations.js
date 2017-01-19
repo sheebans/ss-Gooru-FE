@@ -756,6 +756,7 @@ export default {
     "active-classes": "Active Classrooms",
     "archived-classes": "Archived Classrooms",
     "create-class": "Create Classroom",
+    "manage-goals": "Manage Goals",
     "join-class": "Join Classroom",
     "joined-classes": {
       'one': "You're currently enrolled in 1 classroom",
