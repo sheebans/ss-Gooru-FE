@@ -51,5 +51,18 @@ export default Ember.Service.extend({
       goal.set('id', goalId);
       return goalId;
     });
+  },
+
+  /**
+   * Returns user goals
+   * @param {string} userId
+   * @returns {Promise|Goal[]}
+   */
+  getGoalsByUser: function (userId) {
+    const service = this;
+    return service.get('adapter').getGoalsByUser(userId)
+      .then(function (goalsData) {
+        return service.get('serializer').normalizeGetGoals(goalsData);
+    });
   }
 });

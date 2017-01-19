@@ -14,7 +14,7 @@ moduleForAdapter('adapter:goal/goal', 'Unit | Adapter | goal/goal', {
   }
 });
 
-test('Unit creation, success', function (assert) {
+test('Goal creation, success', function (assert) {
   assert.expect(3);
   // Mock backend response
   this.pretender.map(function () {
@@ -44,7 +44,7 @@ test('Unit creation, success', function (assert) {
     });
 });
 
-test('Unit creation, failure', function (assert) {
+test('Goal creation, failure', function (assert) {
   assert.expect(3);
   // Mock backend response
   this.pretender.map(function () {
@@ -65,5 +65,32 @@ test('Unit creation, failure', function (assert) {
   adapter.createGoal(params)
     .catch(function (response) {
       assert.equal(response.status, '500', 'Error code');
+    });
+});
+
+test('getGoalsByUser', function (assert) {
+  assert.expect(2);
+  const fakeResponse = "fakeResponse";
+
+  // Mock backend response
+  this.pretender.map(function () {
+    this.get('/api/nucleus/v1/goals/user/123', function (request) {
+      assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
+      return [
+        200,
+        {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        JSON.stringify(fakeResponse)];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.getGoalsByUser(123).then(function (response) {
+      assert.equal(response, fakeResponse, 'Wrong response');
     });
 });

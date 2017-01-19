@@ -40,6 +40,31 @@ export default Ember.Object.extend({
     });
   },
 
+  /**
+   * Gets user goals
+   *
+   * @param {string} userId
+   * @returns {Promise|Object}
+   */
+  getGoalsByUser: function (userId) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/user/${userId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData) {
+          resolve(responseData);
+        }, function (error) {
+          reject(error);
+        });
+    });
+  },
+
   defineHeaders: function () {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

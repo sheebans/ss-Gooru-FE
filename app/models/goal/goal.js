@@ -48,6 +48,11 @@ export default Ember.Object.extend(Validations, {
   reflection: null,
 
   /**
+   * @property {number}
+   */
+  order: null,
+
+  /**
    * @property {boolean} dropped
    */
   dropped: Ember.computed.equal("status", GOAL_STATUS.DROPPED),

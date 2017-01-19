@@ -1,5 +1,23 @@
 [
   {
+    "description": "Get goals by user - any user",
+    "request": {
+      "url": "^/api/nucleus/v1/goals/user/(.+)$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-goals-by-user-200-response.json"
+    }
+  },
+  {
     "description": "Create any goal",
     "request": {
       "url": "^/api/nucleus/v1/goals$",

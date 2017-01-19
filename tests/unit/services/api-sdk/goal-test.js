@@ -35,3 +35,29 @@ test('createGoal', function(assert) {
       done();
     });
 });
+
+test('getGoalsByUser', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('serializer', Ember.Object.create({
+    normalizeGetGoals: function(data) {
+      assert.equal(data, "fake-data", 'Wrong data');
+      return [1,2,3]; //fake response
+    }
+  }));
+
+  service.set('adapter', Ember.Object.create({
+    getGoalsByUser: function(userId) {
+      assert.deepEqual(userId, 123, 'Wrong id');
+      return Ember.RSVP.resolve("fake-data");
+    }
+  }));
+
+  var done = assert.async();
+  service.getGoalsByUser(123)
+    .then(function(goals) {
+      assert.deepEqual(goals, [1,2,3], 'Wrong response');
+      done();
+    });
+});

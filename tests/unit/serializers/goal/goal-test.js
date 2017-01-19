@@ -38,3 +38,44 @@ test('serializeCreateGoal with no dates', function (assert) {
   assert.ok(!modelObject.start_date, 'startDate should not be present');
   assert.ok(!modelObject.end_date, 'endDate should not be present');
 });
+
+
+test('normalizeGoal', function (assert) {
+  const serializer = this.subject();
+  const data = {
+    "id" : "goal-id",
+    "title": "My Fitness Goal",
+    "description": "This is Description to Goal",
+    "start_date":1409175049,
+    "end_date": 1409175049,
+    "sequence_id": 1,
+    "status": "not_started",
+    "reflection" : "need to do better"
+  };
+  const goal = serializer.normalizeGoal(data);
+  assert.equal(goal.get("id"), data.id, 'Wrong id');
+  assert.equal(goal.get("title"), data.title, 'Wrong title');
+  assert.equal(goal.get("status"), data.status, 'Wrong status');
+  assert.equal(goal.get("description"), data.description, 'Wrong description');
+  assert.equal(goal.get("reflection"), data.reflection, 'Wrong reflection');
+  assert.equal(goal.get("order"), data.sequence_id, 'Wrong reflection');
+  assert.ok(goal.get("startDate"), 'startDate should be present');
+  assert.ok(goal.get("endDate"), 'endDate should be present');
+});
+
+test('normalizeGetGoals', function (assert) {
+  const serializer = this.subject();
+  const data = [{
+    "id" : "goal-id",
+    "title": "My Fitness Goal",
+    "description": "This is Description to Goal",
+    "start_date":1409175049,
+    "end_date": 1409175049,
+    "sequence_id": 1,
+    "status": "not_started",
+    "reflection" : "need to do better"
+  }];
+  const goals = serializer.normalizeGetGoals(data);
+  assert.equal(goals.length, 1, 'Wrong number of goals');
+  assert.equal(goals[0].get("id"), data[0].id, 'Wrong id');
+});

@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { momentToTimestamp, toUtc } from 'gooru-web/utils/utils';
+import { momentToTimestamp, toUtc, toLocal } from 'gooru-web/utils/utils';
+import Goal from 'gooru-web/models/goal/goal';
 
 /**
  * Serializer to support the Goal CRUD operations
@@ -34,6 +35,41 @@ export default Ember.Object.extend({
       "status": model.get("status"),
       "reflection" : model.get("reflection")
     };
+  },
+
+  /**
+   * Normalize an array of goals
+   *
+   * @param payload endpoint response format in JSON format
+   * @returns {Goal[]}
+   */
+  normalizeGetGoals: function(payload) {
+    const serializer = this;
+    if (payload && Ember.isArray(payload)) {
+      return payload.map(function(goal) {
+        return serializer.normalizeGoal(goal);
+      });
+    } else {
+      return [];
+    }
+  },
+
+  /**
+   * Normalize a goal
+   * @param {*} data
+   * @return {Goal}
+     */
+  normalizeGoal: function (data) {
+    return Goal.create({
+      id: data.id,
+      title: data.title,
+      description: data.description,
+      status: data.status,
+      startDate: toLocal(data.start_date),
+      endDate: toLocal(data.end_date),
+      reflection: data.reflection,
+      order: data.sequence_id
+    });
   }
 
 });
