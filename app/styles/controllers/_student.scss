@@ -175,6 +175,9 @@
       @include align-items(flex-end);
       @include justify-content(space-between);
       height: 39px;
+      .manage-goals-cta{
+        margin-right: 10px;
+      }
     }
 
     a {
