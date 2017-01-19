@@ -1,0 +1,19 @@
+[
+  {
+    "description": "Create any goal",
+    "request": {
+      "url": "^/api/nucleus/v1/goals$",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "Content-Type": "text/plain",
+        "Location": "2d84ab6c-10ee-4578-b89a-6b41c87dc9fc"
+      }
+    }
+  }
+]
