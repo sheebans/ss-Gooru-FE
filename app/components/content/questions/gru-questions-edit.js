@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import {QUESTION_CONFIG} from 'gooru-web/config/question';
-import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
+import {CONTENT_TYPES, EDUCATION_CATEGORY} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
@@ -60,6 +60,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
       var questionForEditing = this.get('question').copy();
       this.set('tempQuestion', questionForEditing);
       this.set('isEditing', true);
+      this.set('selectedSubject', null);
     },
     /**
      * Send request to publish a question
@@ -150,6 +151,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
 
     selectSubject: function(subject){
       this.set("selectedSubject", subject);
+    },
+
+    selectCategory: function(category){
+      var standardLabel =  (category === EDUCATION_CATEGORY.value);
+      this.set("standardLabel", !standardLabel);
     },
 
     /**
@@ -255,9 +261,17 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
   selectedSubject: null,
 
   /**
+   * i18n key for the standard/competency dropdown label
    * @property {string}
    */
-  k12Category: K12_CATEGORY.value,
+  standardLabelKey: Ember.computed('standardLabel', function(){
+    return this.get('standardLabel') ? 'common.standards' : 'common.competencies';
+  }),
+
+  /**
+   * @property {boolean}
+   */
+  standardLabel: true,
 
   /**
    * @property {boolean}
@@ -316,6 +330,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
       selected: subjectStandards,
       shortcuts: null,  // TODO: TBD
       subject: subject,
+      standardLabel: component.get("standardLabel"),
       callback: {
         success: function(selectedTags) {
           var dataTags = selectedTags.map(function(taxonomyTag) {

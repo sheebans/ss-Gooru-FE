@@ -50,11 +50,13 @@
 @import 'controllers/sign-in';
 @import 'controllers/sign-up';
 @import 'controllers/home';
+@import 'controllers/teacher';
+@import 'controllers/student';
 @import 'controllers/forgot-password';
 @import 'controllers/reset-password';
 @import 'controllers/featured';
 @import 'controllers/account-settings';
-
+@import 'controllers/course-player';
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
@@ -154,6 +156,7 @@
 @import 'components/content/questions/gru-question-edit';
 @import 'components/content/questions/gru-question-play';
 @import 'components/content/resources/gru-resource-edit';
+@import 'components/content/courses/gru-course-play-header';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';
@@ -210,5 +213,8 @@
 @import 'components/taxonomy/gru-taxonomy-tag';
 @import 'components/taxonomy/gru-taxonomy-tag-list';
 @import 'components/taxonomy/modals/modals';
+
+@import 'components/century-skills/modals/modals';
+@import 'components/century-skills/gru-century-skills-legend';
 
 @import 'components/validation/gru-input';

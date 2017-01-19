@@ -1,0 +1,69 @@
+<div class="controller student-landing row">
+  <div class="student-left-panel">
+    <div class="greetings">
+      <div class="title">
+        <span>{{t 'user.hi'}} {{profile.firstName}}!</span>
+      </div>
+      <p>
+        {{t 'user.joined-classes' count=totalJoinedClasses}}.
+      </p>
+    </div>
+    <div class="student-navigator">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active active-classes tab hidden-xs">
+          <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'active'}}>
+            <span class="lead">{{t 'user.active-classes'}}</span>
+          </a>
+        </li>
+
+        <li class="pull-right actions">
+          {{#link-to 'content.classes.join' class="btn btn-success join-class-cta" tagName='button'}}
+            {{t 'user.join-class'}}
+          {{/link-to}}
+        </li>
+      </ul>
+    </div>
+    <div class="content tab-content">
+      <div role="tabpanel" class="tab-pane row active" id="active-classes">
+        {{#if hasClasses}}
+          {{#each activeClasses as |class|}}
+            {{cards.gru-class-card
+              class=class
+              profile=profile
+              classStudentCount=myClasses.memberCount}}
+          {{/each}}
+        {{else}}
+          {{partial 'partials/student-no-classes-found'}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="student-right-panel">
+
+    <div class="box-info">
+      <a href="#">{{t 'student-landing.box-title-one'}}</a>
+      <p>{{t 'student-landing.box-text-one'}}</p>
+    </div>
+
+    <div class="box-info">
+      <a href="#">{{t 'student-landing.box-title-two'}}</a>
+      <p>{{t 'student-landing.box-text-two'}}</p>
+    </div>
+
+    <div class="box-info">
+      <a href="#">{{t 'student-landing.box-title-three'}}</a>
+      <p>{{t 'student-landing.box-text-three'}}</p>
+    </div>
+
+    <div class="box-info">
+      <a href="#">{{t 'student-landing.box-title-four'}}</a>
+      <p>{{t 'student-landing.box-text-four'}}</p>
+    </div>
+
+    <div class="box-info">
+      <a href="#">{{t 'student-landing.box-title-five'}}</a>
+      <p>{{t 'student-landing.box-text-five'}}</p>
+    </div>
+
+  </div>
+</div>

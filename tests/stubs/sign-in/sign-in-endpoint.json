@@ -59,6 +59,26 @@
     }
   },
   {
+    "description": "API 3.0 Sign in support for Param username",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/token$",
+      "query": {},
+      "post": "(.+)\"grant_type\":\"credential\"(.+)",
+      "method": "POST",
+      "headers": {
+        "authorization": "Basic cGFyYW06cGFyYW0="
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "sign-in-api3-param-200-response.json"
+    }
+  },
+  {
     "description": "API 3.0 Sign in support for Anonymous user",
     "request": {
       "url": "^/api/nucleus-auth/v1/token$",
@@ -73,6 +93,26 @@
       },
       "body": "File not found!",
       "file": "sign-in-api3-anonymous-200-response.json"
+    }
+  },
+  {
+    "description": "API 3.0 Sign in support for Other username",
+    "request": {
+      "url": "^/api/nucleus-auth/v1/token$",
+      "query": {},
+      "post": "(.+)\"grant_type\":\"credential\"(.+)",
+      "method": "POST",
+      "headers": {
+        "authorization": "Basic b3RoZXI6b3RoZXI="
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "sign-in-api3-other-200-response.json"
     }
   },
   {

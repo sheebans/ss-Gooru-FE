@@ -35,9 +35,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions:{
-    inputValueChange: function() {
-      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
-      this.set('value', this.get('rawInputValue'));
+    focusOut: function() {
+      this.set('rawInputValue',this.get('value'));
       this.set('isTyping', false);
       if (this.get("onFocusOut")){
         this.sendAction("onFocusOut");
@@ -52,15 +51,13 @@ export default Ember.Component.extend({
     },
 
     enterPressed: function() {
-      this.set('rawInputValue',this.removeWhiteSpaces(this.get('rawInputValue')));
-      this.set('value', this.get('rawInputValue'));
+      this.set('rawInputValue',this.get('value'));
       this.set('isTyping', false);
       this.get('onEnter') && this.get('isValid') === true && this.get("onEnter")(this.get('value'));
     },
 
     clearContent: function(){
       this.set('rawInputValue','');
-      this.set('value', this.get('rawInputValue'));
       this.sendAction("onClearContent");
     }
   },
@@ -76,9 +73,23 @@ export default Ember.Component.extend({
     this.set('rawInputValue', value);
     defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
   },
+
+  didInsertElement: function() {
+    const $input = this.$('div input');
+
+    if(this.get('isRequired')){
+      $input.attr("aria-required", true);
+    }
+
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * @property {string} inputId - Id for input
+   */
+  inputId: null,
   /**
    * @param {Object} model - Model that will be attached to the component
    */
@@ -104,6 +115,10 @@ export default Ember.Component.extend({
    */
   maxLength:1000,
   /**
+   * @property {Boolean} isRequired - value used to add the aria-required attr when needed
+   */
+  isRequired: null,
+  /**
    * @param {Object} attributeValidation - value used to set the rawInputValue
    */
   attributeValidation: null,
@@ -126,6 +141,11 @@ export default Ember.Component.extend({
    * @property {string} onFocusOut action
    */
   onFocusOut: null,
+
+  /**
+   * @property {string} onChange action
+   */
+  onChange: null,
 
   /**
    * @property {string} onTyping action
@@ -171,6 +191,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Observers
 
+  rawInputValueObserver: function () {
+    this.set('value',this.removeWhiteSpaces(this.get('rawInputValue')));
+    this.sendAction("onChange");
+  }.observes('rawInputValue'),
 
   // -------------------------------------------------------------------------
   // Methods

@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
       const term = controller.get('term');
 
       var selectedOptionTypes = controller.get('selectedOptionTypes');
-      if (selectedOptionTypes.contains(option)) {
+      if (selectedOptionTypes.includes(option)) {
         selectedOptionTypes.removeObject(option);
       } else {
         selectedOptionTypes.pushObject(option);
@@ -63,7 +63,7 @@ export default Ember.Controller.extend({
       controller.resetPagination();
       controller.doSearch(term, params, function(searchResults){
         controller.set("searchResults", searchResults);
-      });
+      }, true);
     }
 
   },
@@ -132,7 +132,7 @@ export default Ember.Controller.extend({
     pagination.page = pagination.page + 1;
     controller.doSearch(controller.get("term"), params, function(searchResults){
       controller.get("searchResults").pushObjects(searchResults);
-    });
+    }, false);
   },
 
   getSearchParams: function(){

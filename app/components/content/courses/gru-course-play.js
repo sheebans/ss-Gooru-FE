@@ -11,8 +11,6 @@ export default Ember.Component.extend(ModalMixin, {
 
   classNames: ['content', 'courses', 'gru-course-play'],
 
-  classNameBindings: ['view', 'fixed-header'],
-
   tagName: 'article',
 
 
@@ -20,9 +18,6 @@ export default Ember.Component.extend(ModalMixin, {
   // Actions
 
   actions:  {
-    view: function(viewName) {
-      this.set('view', viewName);
-    },
 
     remix: function() {
       if (this.get('session.isAnonymous')) {
@@ -42,34 +37,15 @@ export default Ember.Component.extend(ModalMixin, {
      */
     setLocation: function (unitId, lessonId = undefined) {
       this.sendAction("onLocationChange", unitId, lessonId);
+    },
+
+    viewDetails: function () {
+      this.toggleProperty('viewCourseDetails');
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-  didInsertElement: function () {
-    this._super(...arguments);
-
-    const $header = this.$().find('> header');
-
-    if ($header.find('nav').css('display') !== 'none') {
-      // If there's a nav in the header then the resolution must be xs or sm
-      // Set the default view
-      this.set('view', 'content-view');
-    }
-
-    // Add fix header behaviour
-    var headerWidth = $header.css('width');
-    headerWidth = headerWidth && headerWidth.split('px')[0] || '100%';
-
-    // Add inline styles to preserve the same look
-    $header.css({
-      width: headerWidth
-    });
-
-    this.set('fixed-header', true);
-  },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -107,7 +83,11 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @property {string} selected lesson id
    */
-  selectedLessonId:null
+  selectedLessonId:null,
 
+  /**
+   * @property {Boolean} view course details
+   */
+  viewCourseDetails: false
 
 });

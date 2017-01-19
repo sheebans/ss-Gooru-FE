@@ -27,8 +27,8 @@ export function alphabeticalStringSort(a, b) {
  */
 export function checkStandards(standards, checkableStandards, codes) {
   standards.forEach(function(standard) {
-    if (checkableStandards.contains(standard.get("id"))) {
-      standard.set("disabled", !codes.contains(standard.get("id")));
+    if (checkableStandards.includes(standard.get("id"))) {
+      standard.set("disabled", !codes.includes(standard.get("id")));
     }
   });
 }
@@ -198,9 +198,6 @@ export function getGradeColor(grade) {
         break;
       }
     }
-
-  } else {
-    Ember.Logger.error('Grade value: ' + grade + ' is not a numeric value');
   }
   return color;
 }
@@ -333,7 +330,7 @@ export function cleanFilename(url, cdnUrls) {
     }
   }
 
-  return (url && !isDefaultImage(defaultImages, url)) ? /([^\/]*\/\/[^\/]+\/)?(.+)/.exec(url)[2] : '';
+  return (url && !isDefaultImage(defaultImages, url)) ? /([^/]*\/\/[^/]+\/)?(.+)/.exec(url)[2] : '';
 }
 
 /**
@@ -342,7 +339,7 @@ export function cleanFilename(url, cdnUrls) {
  */
 export function getFileNameFromInvalidUrl(url) {
   const regex = /\w+(?:\.\w+)*$/;
-  const validURL=/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+  const validURL=/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)/;
   var match;
   if((validURL).exec(url)){
     match = url;
@@ -667,4 +664,14 @@ function isDefaultImage(defaultImages, url) {
   });
 
   return isDefaultImage;
+}
+
+/**
+ * Returns true if url belongs to youtube or vimeo
+ * @param {String} url
+ */
+export function isVideoURL(url){
+  var vimeoYoutubeRegularExpression = /^(https?:\/\/)?(www\.)?(?:(vimeo)\.com\/|(youtube)\.com\/|(youtu)\.be\/)/;
+  var match = vimeoYoutubeRegularExpression.test(url);
+  return match;
 }

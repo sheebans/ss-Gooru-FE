@@ -1,5 +1,38 @@
 export default {
-
+  errors: {
+    description: "This field",
+    inclusion: "{{description}} is not included in the list",
+    exclusion: "{{description}} is reserved",
+    invalid: "{{description}} is invalid",
+    confirmation: "{{description}} doesn't match {{on}}",
+    accepted: "{{description}} must be accepted",
+    empty: "{{description}} can't be empty",
+    blank: "{{description}} can't be blank",
+    present: "{{description}} must be blank",
+    collection: "{{description}} must be a collection",
+    singular: "{{description}} can't be a collection",
+    tooLong: "{{description}} is too long (maximum is {{max}} characters)",
+    tooShort: "{{description}} is too short (minimum is {{min}} characters)",
+    before: "{{description}} must be before {{before}}",
+    after: "{{description}} must be after {{after}}",
+    wrongDateFormat: "{{description}} must be in the format of {{format}}",
+    wrongLength: "{{description}} is the wrong length (should be {{is}} characters)",
+    notANumber: "{{description}} must be a number",
+    notAnInteger: "{{description}} must be an integer",
+    greaterThan: "{{description}} must be greater than {{gt}}",
+    greaterThanOrEqualTo: "{{description}} must be greater than or equal to {{gte}}",
+    equalTo: "{{description}} must be equal to {{is}}",
+    lessThan: "{{description}} must be less than {{lt}}",
+    lessThanOrEqualTo: "{{description}} must be less than or equal to {{lte}}",
+    otherThan: "{{description}} must be other than {{value}}",
+    odd: "{{description}} must be odd",
+    even: "{{description}} must be even",
+    positive: "{{description}} must be positive",
+    date: "{{description}} must be a valid date",
+    email: "{{description}} must be a valid email address",
+    phone: "{{description}} must be a valid phone number",
+    url: "{{description}} must be a valid url"
+  },
   /*
    * COMMON: Translations used globally in the app or shared between components
    */
@@ -13,9 +46,11 @@ export default {
     "about-you": "About You",
     "add": "Add",
     "add-assessment": "Create New Assessment",
+    "add-century-skills": "Add 21st Century Skills",
     "add-collaborator": "Add Collaborator",
     "add-collection": "Create New Collection",
     "add-collection-item": "Create Resource or Question",
+    "add-competency": "Add Competency",
     "add-content-prompt": "You haven't created <span>{{type}}</span> yet. Go on, be bold.",
     "add-course": "Create New Course",
     "add-domains-to-unit": "Add Domains to Unit",
@@ -76,6 +111,8 @@ export default {
       "higher-ed": "Higher Education",
       "professional-dev": "Professional Development"
     },
+    "century-skills": "21st Century Skills",
+    "choose": "Choose",
     "class": "Classroom",
     "classes": "Classrooms",
     "classScores": "Class Scores",
@@ -88,6 +125,8 @@ export default {
     "collection-title": "Collection Title",
     "collections": "Collections",
     "collectionInitial": "C",
+    "competency": "Competency",
+    "competencies": "Competencies",
     "completed": "Completed",
     "confirm-copy":"Confirm & Copy",
     "content": "Content",
@@ -388,9 +427,10 @@ export default {
     "sentence": "Sentence",
     "settings": "Settings",
     "search": "Search",
-    "search-placeholder": "Search...",
+    "search-placeholder": "Search",
     "search-error-message": "Search terms need to be at least 3 letters.",
     "search-400-error-message": "Please enter a valid search term",
+    "search-competency": "Search Competency",
     "search-standards": "Search Standards",
     "select-question-type": "Select Question Type",
     "select-resource-type": "Select Resource Type",
@@ -716,6 +756,7 @@ export default {
     }
   },
   "user": {
+    "hi": "Hi",
     "active-classes": "Active Classrooms",
     "archived-classes": "Archived Classrooms",
     "create-class": "Create Classroom",
@@ -728,6 +769,28 @@ export default {
       'one': " and teaching 1 classroom",
       "other": " and teaching {{count}} classrooms"
     }
+  },
+  "student-landing":{
+    "box-title-one": "Study from 35 Courses",
+    "box-text-one": "Choose from over 35 Navigator Courses across 10 programs to study.",
+    "box-title-two": "Explore what you can learn",
+    "box-text-two": "Before you make a decision, explore all the courses that you can take, learn about them and see what other students have to say.",
+    "box-title-three": "Success in every course you study",
+    "box-text-three": "Learn with the Navigator using real-time actionable data on your performance and progress and personalized learning pathways.",
+    "box-title-four": "Reach the Goals you set",
+    "box-text-four": "Set your goals, plan your activities and track your progress and achieve success each time.",
+    "box-title-five": "Interact with your peers and instructors",
+    "box-text-five": "Learn from your peers and mentors by asking your questions and following their work."
+  },
+  "teacher-landing":{
+    "box-title-one": "Productivity Tools",
+    "box-text-one": "Find millions of standards-aligned open resources, collections and assessments.",
+    "box-title-two": "Remix courses",
+    "box-text-two": "Choose from over 35 Navigator Courses across 10 programs.",
+    "box-title-three": "Manage your library",
+    "box-text-three": "Some text here.",
+    "box-title-four": "Interact with your students",
+    "box-text-four": "Some text here."
   },
 
   /*
@@ -1146,7 +1209,8 @@ export default {
     "gru-class-card": {
       "student": {
         one: "{{count}} Student",
-        other: "{{count}} Students"
+        other: "{{count}} Students",
+        "not-started": "Not Started"
       },
       "archived":{
         "request-report":"This class is archived and cannot be modified. Existing class data can be accessed via report.",
@@ -1228,6 +1292,7 @@ export default {
     "gru-taxonomy-selector": {
       "add-secondary": "Add secondary",
       "choose-subject": "Choose Subject",
+      "competency-subject-and-course": "Competencies Framework and Course",
       "primary-subject-and-course": "Standards Framework and Course"
     }
   },
@@ -1250,9 +1315,14 @@ export default {
     },
     "gru-standard-picker": {
       "browseSelectorText": "What standards will be covered?",
+      "browseCompetencySelectorText": "What competencies will be covered?",
       "selectedText": {
         one: "{{count}} standard selected",
         other: "{{count}} standards selected"
+      },
+      "selectedCompetencyText": {
+        one: "{{count}} competency selected",
+        other: "{{count}} competencies selected"
       },
       "shortcutText": "Unit is tagged to"
     }
@@ -1398,6 +1468,21 @@ export default {
         "title": "Project Anonymous Data",
         "description": "Use this option to project an anonymous view of student data."
       }
+    }
+  },
+  "gru-course-play":{
+    "hide-course-details": "Hide Course Details",
+    "hide-unit-details": "Hide Unit Metadata",
+    "view-course-details": "View Course Details",
+    "view-unit-details": "View Unit Metadata",
+    "performance": "Performance"
+  },
+  "gru-century-skills-legend": {
+    "legends": {
+      "first": "Hewlett Deeper Learning Model",
+      "second": "Conley Four Keys",
+      "third": "P21 Framework",
+      "fourth": "National Research Center for Life and Work"
     }
   }
 };

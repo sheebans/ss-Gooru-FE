@@ -3,7 +3,8 @@
 
   position: relative;
   width: 180px;
-  height:$component-height;
+  max-height:$component-height;
+  height: auto;
   background-color: $dark-300;
   border: none;
   border-radius: 6px;

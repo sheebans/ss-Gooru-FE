@@ -227,22 +227,28 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     selectMenuItem: function(item){
       const route = this;
       const controller = route.get("controller");
-      const aClass = controller.get('class');
-      const isTeacher = aClass.isTeacher(this.get("session.userId"));
-      controller.selectMenuItem(item);
-      const queryParams = {
-        queryParams: {
-          filterBy: 'assessment'
-        }
-      };
+      const currentItem = controller.get("menuItem");
 
-      if ((item === "analytics.performance") && isTeacher){
-        route.transitionTo('class.analytics.performance.teacher.course', queryParams);
-      } else if ((item === "analytics.performance") && !isTeacher) {
-        route.transitionTo('class.analytics.performance.student', queryParams);
-      } else {
-        route.transitionTo('class.' + item);
+
+      if (item !== currentItem) {
+        const aClass = controller.get('class');
+        const isTeacher = aClass.isTeacher(this.get("session.userId"));
+        controller.selectMenuItem(item);
+        const queryParams = {
+          queryParams: {
+            filterBy: 'assessment'
+          }
+        };
+
+        if ((item === "analytics.performance") && isTeacher){
+          route.transitionTo('class.analytics.performance.teacher.course', queryParams);
+        } else if ((item === "analytics.performance") && !isTeacher) {
+          route.transitionTo('class.analytics.performance.student', queryParams);
+        } else {
+          route.transitionTo('class.' + item);
+        }
       }
+
     },
     /**
      * Gets a refreshed list of content visible

@@ -61,7 +61,7 @@ export default Ember.Component.extend(BuilderMixin, {
   // Properties
 
   /**
-   * @prop {String} course - Course this unit belongs to
+   * @prop {String} course - Course this lesson belongs to
    */
   course: null,
 

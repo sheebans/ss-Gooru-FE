@@ -6,9 +6,10 @@
     class="form-control" name=valuePath
     key-press="inputTyping"
     enter="enterPressed"
-    focus-out="inputValueChange"
+    focus-out="focusOut"
     autofocus=autofocus
     maxlength=maxLength
+    id=inputId
   }}
   {{#if showClearButton}}
   <span class="clear form-control-feedback" {{action 'clearContent'}}>

@@ -57,9 +57,56 @@ test('it has header and main sections', function (assert) {
   assert.notOk($header.find('.back-to').length, "Should don't have the option Back to course");
 
   assert.equal($container.find('> section').length, 3, "Number of edit sections");
-  assert.ok($container.find('> section#information').length, "Information section");
-  assert.ok($container.find('> section#builder').length, "Builder section");
-  assert.ok($container.find('> section#settings').length, "Settings section");
+
+  const $informationSection = $container.find('> section#information');
+  const $builderSection = $container.find('> section#builder');
+  const $settingsSection = $container.find('> section#settings');
+
+  assert.ok($informationSection.length, "Information section");
+  assert.ok($builderSection.length, "Builder section");
+  assert.ok($settingsSection.length, "Settings section");
+});
+
+test('Layout of the information section', function (assert) {
+  var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Collection Title"
+  });
+
+  this.set('collection', collection);
+  this.render(hbs`{{content/collections/gru-collection-edit collection=collection}}`);
+
+  var $informationSection = this.$("#information");
+
+  assert.ok($informationSection.find('> .header').length, "Information Header");
+  assert.ok($informationSection.find('> .header h2').length, "Information Title");
+  assert.ok($informationSection.find('> .header .actions').length, "Information actions");
+
+  const $informationContent = $informationSection.find('.content');
+  assert.ok($informationContent.length, "Information section");
+  assert.ok($informationContent.find('.title').length, "Collection Title");
+  assert.ok($informationContent.find('.learning-objectives').length, "Collection learning-objectives");
+
+  var $standardsLabel = $informationSection.find('.standards label span');
+
+  assert.ok($standardsLabel.length, "Missing standards label");
+  assert.equal($standardsLabel.text(), this.get('i18n').t('common.standards').string, "Incorrect standards label text");
+  assert.ok($informationContent.find('.century-skills').length, "Collection century-skills");
+});
+
+test('Information section - Competency Label', function (assert) {
+
+  var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Collection Title"
+  });
+
+  this.set('collection', collection);
+  this.render(hbs`{{content/collections/gru-collection-edit collection=collection standardLabel=false}}`);
+
+  var $informationSection = this.$("#information");
+  var $competencyLabel = $informationSection.find('.panel-body .standards label span');
+
+  assert.ok($competencyLabel.length, "Missing standards label");
+  assert.equal($competencyLabel.text(), this.get('i18n').t('common.competencies').string, "Incorrect competency label text");
 });
 
 test('Header when comes from content builder', function (assert) {

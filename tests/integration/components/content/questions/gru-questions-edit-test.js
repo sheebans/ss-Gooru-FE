@@ -176,12 +176,35 @@ test('Layout of the information section', function (assert) {
   this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
 
   return wait().then(function () {
-    var $settingsSection = self.$("#information");
-    assert.ok($settingsSection.find('.header h2').length, "Information title missing");
-    assert.ok($settingsSection.find('.panel-body .title label b').length, "Missing title label");
-    assert.ok($settingsSection.find('.panel-body .question-types').length, "Missing question types");
+    var $informationsSection = self.$("#information");
+    assert.ok($informationsSection.find('.header h2').length, "Information title missing");
+    assert.ok($informationsSection.find('.panel-body .title label b').length, "Missing title label");
+    assert.ok($informationsSection.find('.panel-body .question-types').length, "Missing question types");
+
+    var $standardsLabel = $informationsSection.find('.standards label.title span');
+
+    assert.ok($standardsLabel.length, "Missing standards label");
+    assert.equal($standardsLabel.text(), self.get('i18n').t('common.standards').string, "Incorrect standards label text");
   });
 });
+
+test('Information section - Competency Label', function (assert) {
+
+  var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Question Title",
+    standards: []
+  });
+
+  this.set('question', question);
+  this.render(hbs`{{content/questions/gru-questions-edit question=question standardLabel=false}}`);
+
+  var $informationSection = this.$("#information");
+  var $competencyLabel = $informationSection.find('.panel-body .standards label.title span');
+
+  assert.ok($competencyLabel.length, "Missing standards label");
+  assert.equal($competencyLabel.text(), this.get('i18n').t('common.competencies').string, "Incorrect competency label text");
+});
+
 
 test('Layout of the information section editing mode', function (assert) {
   var self = this;

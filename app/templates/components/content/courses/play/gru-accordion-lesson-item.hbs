@@ -10,7 +10,7 @@
         </div>
       </a>
     {{else}}
-      {{#link-to 'player' model.id (query-params type=model.collectionType) class="title"}}
+      {{#link-to 'course-player' courseId unitId lessonId model.id (query-params type=model.collectionType role='student') class="title"}}
         <img class="img-rounded" src="{{model.thumbnailUrl}}" />
         <div>
           <strong>{{model.title}}</strong>

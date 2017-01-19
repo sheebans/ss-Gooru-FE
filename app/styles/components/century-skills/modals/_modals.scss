@@ -1,0 +1,9 @@
+.modal.gru-century-skills {
+  .modal-dialog {
+    width: 80%;
+  }
+  .century-skills.modals.gru-century-skills {
+    max-width: 100%;
+    @extend .content.modals.gru-course-new;
+  }
+}

@@ -10,7 +10,16 @@
   </div>
   <div class="panel-body">
 
-    <div class="overview">
+    {{#if (or unit.bigIdeas unit.essentialQuestions tags.length)}}
+      <div class="right details {{if viewUnitDetails 'hidden' 'visible'}}">
+        <a href="#" {{action 'viewDetails'}}>
+          <span>{{t "gru-course-play.view-unit-details"}}</span>
+          {{gru-icon name='keyboard_arrow_down'}}
+        </a>
+      </div>
+    {{/if}}
+
+    <div class="overview {{if viewUnitDetails 'visible' 'hidden'}}">
       {{#if (or unit.bigIdeas unit.essentialQuestions)}}
         <div class="row">
           <div class="col-sm-6 big-ideas">
@@ -36,6 +45,13 @@
         {{taxonomy.gru-taxonomy-tag-list tags=tags}}
       </div>
       {{/if}}
+
+      <div class="right details">
+        <a href="#" {{action 'viewDetails'}}>
+          <span>{{t "gru-course-play.hide-unit-details"}}</span>
+          {{gru-icon name='keyboard_arrow_up'}}
+        </a>
+      </div>
     </div>
 
     <ol class="accordion-unit" role="tablist" aria-multiselectable="true">

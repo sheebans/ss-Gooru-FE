@@ -1,6 +1,6 @@
 <div class="panel-heading" role="tab" id="{{elementId}}-heading">
   {{#if isTeacher}}
-    <span class="score" style="background-color: {{ gradeColor (if model.performance.hasStarted model.performance.score 'NA') }}">
+    <span class="score" style={{safe-html (concat "background-color:" (grade-color (if model.performance.hasStarted model.performance.score 'NA')))}}>
       {{if model.performance.hasStarted model.performance.score '--'}}%
     </span>
   {{else}}
@@ -95,7 +95,7 @@
                   {{#if isTeacher}}
                     {{#link-to 'class.analytics.performance.teacher.collection'
                       currentClass.id unitId model.id item.id class="score" }}
-                        <button style="background-color: {{gradeColor item.performance.score}}" class="{{if item.performance.hasTrophy 'trophy'}}">
+                        <button style={{safe-html (concat "background-color:" (grade-color item.performance.score))}} class="{{if item.performance.hasTrophy 'trophy'}}">
                           {{#if item.performance.hasTrophy }}
                               <span class="icon"></span>
                           {{else}}
@@ -105,7 +105,7 @@
                     {{/link-to}}
                   {{else}}
                     <a class="score">
-                      <button style="background-color: {{gradeColor item.performance.score}}" class="{{if item.performance.hasTrophy 'trophy'}}">
+                      <button style={{safe-html (concat "background-color:" (grade-color item.performance.score))}} class="{{if item.performance.hasTrophy 'trophy'}}">
                         {{#if item.performance.hasTrophy }}
                             <span class="icon"></span>
                         {{else}}
@@ -115,7 +115,7 @@
                     </a>
                   {{/if}}
                 {{else}}
-                  <span class="score" style="background-color: {{ gradeColor 'NA' }}">--%</span>
+                  <span class="score" style={{safe-html (concat "background-color:" (grade-color 'NA'))}}>--%</span>
                 {{/if}}
               {{ else }}
                 {{#if item.thumbnailUrl}}

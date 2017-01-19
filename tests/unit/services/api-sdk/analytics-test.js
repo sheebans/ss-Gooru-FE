@@ -87,3 +87,155 @@ test('getStandardsSummary', function(assert) {
     });
 });
 
+
+test('getUserCurrentLocation fetchAll-default-value', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('currentLocationAdapter', Ember.Object.create({
+    getUserCurrentLocation: function(classId, userId) {
+      assert.equal(classId, 345, 'wrong class id');
+      assert.equal(userId, 123, 'wrong user id');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('currentLocationSerializer', Ember.Object.create({
+    normalizeCurrentLocation: function(payload) {
+      assert.equal(payload, 'fake response', 'wrong payload, should match adapter response');
+      return Ember.Object.create({
+        courseId: "courseId",
+        unitId: "unitId",
+        lessonId: "lessonId"
+      });
+    }
+  }));
+
+  service.set('courseService', Ember.Object.create({
+    fetchById: function() {
+      assert.ok(false, 'This should not be called');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('unitService', Ember.Object.create({
+    fetchById: function() {
+      assert.ok(false, 'This should not be called');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('lessonService', Ember.Object.create({
+    fetchById: function() {
+      assert.ok(false, 'This should not be called');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  var done = assert.async();
+  service.getUserCurrentLocation(345, 123)
+    .then(function() {
+      done();
+    });
+});
+
+test('getUserCurrentLocation fetchAll-true currentLocation-null', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('currentLocationAdapter', Ember.Object.create({
+    getUserCurrentLocation: function(classId, userId) {
+      assert.equal(classId, 345, 'wrong class id');
+      assert.equal(userId, 123, 'wrong user id');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('currentLocationSerializer', Ember.Object.create({
+    normalizeCurrentLocation: function(payload) {
+      assert.equal(payload, 'fake response', 'wrong payload, should match adapter response');
+      return null;
+    }
+  }));
+
+  service.set('courseService', Ember.Object.create({
+    fetchById: function() {
+      assert.ok(false, 'This should not be called');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('unitService', Ember.Object.create({
+    fetchById: function() {
+      assert.ok(false, 'This should not be called');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('lessonService', Ember.Object.create({
+    fetchById: function() {
+      assert.ok(false, 'This should not be called');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  var done = assert.async();
+  service.getUserCurrentLocation(345, 123, true)
+    .then(function() {
+      done();
+    });
+});
+
+test('getUserCurrentLocation fetchAll-true', function(assert) {
+  const service = this.subject();
+  assert.expect(9);
+
+  service.set('currentLocationAdapter', Ember.Object.create({
+    getUserCurrentLocation: function(classId, userId) {
+      assert.equal(classId, 345, 'wrong class id');
+      assert.equal(userId, 123, 'wrong user id');
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('currentLocationSerializer', Ember.Object.create({
+    normalizeCurrentLocation: function(payload) {
+      assert.equal(payload, 'fake response', 'wrong payload, should match adapter response');
+      return Ember.Object.create({
+        courseId: "courseId",
+        unitId: "unitId",
+        lessonId: "lessonId"
+      });
+    }
+  }));
+
+  service.set('courseService', Ember.Object.create({
+    fetchById: function(courseId) {
+      assert.equal(courseId, "courseId", "wrong course id");
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('unitService', Ember.Object.create({
+    fetchById: function(courseId, unitId) {
+      assert.equal(courseId, "courseId", "wrong course id");
+      assert.equal(unitId, "unitId", "wrong unit id");
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  service.set('lessonService', Ember.Object.create({
+    fetchById: function(courseId, unitId, lessonId) {
+      assert.equal(courseId, "courseId", "wrong course id");
+      assert.equal(unitId, "unitId", "wrong unit id");
+      assert.equal(lessonId, "lessonId", "wrong lesson id");
+      return Ember.RSVP.resolve('fake response');
+    }
+  }));
+
+  var done = assert.async();
+  service.getUserCurrentLocation(345, 123, true)
+    .then(function() {
+      done();
+    });
+});

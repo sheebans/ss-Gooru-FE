@@ -1,33 +1,31 @@
 .controller.content.courses.play {
 
-  > article.fixed-header {
-    padding-top: 105px;
-
-    @media (min-width: $screen-md) {
-      padding-top: 90px;
-    }
+  > article {
+    padding-top: 75px;
 
     > header {
-      top: 55px;
-      padding-top: 20px;
-
-      h1 {
-        display: inline-block;
-        text-transform: capitalize;
+      padding: 10px 20px 5px 20px;
+      nav {
+        clear: both;
+        height: 25px;
+        padding: 0;
+        a {
+          color: $white;
+          border-bottom: none;
+          margin: 0;
+          padding: 0;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
-
-      nav a:focus {
-        text-decoration: none;
-      }
-
-      @media (min-width: $screen-md) {
-        top: 63px;
-        padding-bottom: 30px;
+      .actions {
+        text-align: right;
       }
     }
 
     #information {
-      padding-top: 40px;
+      padding-top: 20px;
 
       > .content {
         padding-bottom: 10px;
@@ -39,7 +37,7 @@
       }
 
       > .panel.aside {
-        margin-top: 20px;
+        margin-top: 10px;
 
         .col-sm-4 {
           border-right: 1px solid $gray-lighter;
@@ -56,8 +54,8 @@
           ul {
             @media (max-width: $screen-xs-max) {
               border-bottom: 1px solid $gray-lighter;
-              padding: 0 0 30px 0;
-              margin: 0 0 30px 0;
+              padding: 0;
+              margin: 0 0 15px 0;
             }
           }
 
@@ -77,13 +75,10 @@
         .col-sm-12 {
           strong {
             display: block;
-            margin-top: 25px;
-            padding-top: 20px;
+            margin-top: 10px;
+            padding-top: 10px;
             padding-bottom: 10px;
             border-top: 1px solid $gray-lighter;
-            @media (max-width: $screen-xs-max) {
-              margin-top: 15px;
-            }
           }
         }
       }
@@ -260,9 +255,8 @@
         padding: 10px 15px 15px;
 
         .overview {
-          padding: 10px 10px 20px 10px;
+          padding: 10px 10px 40px 10px;
           margin-bottom: 10px;
-          border-bottom: 1px solid $white;
 
           .big-ideas,
           .essential-questions {
@@ -282,6 +276,14 @@
             margin-top: 5px;
             color: $white;
           }
+        }
+
+        .details {
+          width: auto;
+        }
+
+        ol.accordion-unit {
+          clear: both;
         }
 
         .col-sm-6 {
@@ -333,6 +335,12 @@
 
         > .expanded > .panel-body {
           background-color: $dark-400;
+          .details {
+            text-align: center;
+            a {
+              color: $white;
+            }
+          }
         }
       }
     }
@@ -421,6 +429,17 @@
           }
         }
       }
+    }
+  }
+
+  .details {
+    margin-top: 10px;
+    display: table;
+    width: 330px;
+    padding: 0;
+    border-bottom: 2px solid $light-300;
+    i, span {
+      vertical-align: middle;
     }
   }
 }

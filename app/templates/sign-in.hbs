@@ -2,12 +2,12 @@
   <div class="sign-in-wrapper col-md-12 col-sm-12 col-xs-12">
     <div class="sign-in-header">
       {{#if sessionEnds}}
-        <h3>{{t "login.title-session-ends"}}</h3>
+        <h1>{{t "login.title-session-ends"}}</h1>
         <div class="description" alt="{{t "login.description-session-ends"}}"
              title="{{t "login.description-session-ends"}}">{{t "login.description-session-ends"}}
         </div>
       {{else}}
-        <h3>{{t "login.title"}}</h3>
+        <h1>{{t "login.title"}}</h1>
         <div class="description" alt="{{t "login.description"}}"
              title="{{t "login.description"}}">{{t "login.description"}}
         </div>
@@ -30,15 +30,15 @@
     <div class="sign-in-form">
       <form>
         <div class="form-group username">
-          <label>
+          <label for="usernameId">
             <span>{{t "login.usernameOrEmail"}}</span>
-            {{validation.gru-input model=user valuePath='username' didValidate=didValidate}}
+            {{validation.gru-input model=user valuePath='username' didValidate=didValidate inputId='usernameId'}}
           </label>
         </div>
         <div class="form-group">
-          <label>
+          <label for="passwordId">
             <span>{{t "login.password"}}</span>
-            {{validation.gru-input model=user valuePath='password' type='password' didValidate=didValidate}}
+            {{validation.gru-input model=user valuePath='password' type='password' didValidate=didValidate inputId='passwordId'}}
           </label>
         </div>
         <div class="form-group forgot-password">

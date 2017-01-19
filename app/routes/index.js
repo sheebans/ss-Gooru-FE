@@ -11,6 +11,12 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   sessionService: Ember.inject.service("api-sdk/session"),
 
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+
   queryParams: {
     access_token : {},
 	launchUrl : {},
@@ -44,12 +50,21 @@ export default Ember.Route.extend(PublicRouteMixin, {
     return details;
   },
 
+<<<<<<< HEAD
   afterModel(model, transition) {
     const anonymous = this.get('session.isAnonymous');
+=======
+  afterModel() {
+    const route = this;
+    const anonymous = route.get('session.isAnonymous');
+    const userId = route.get("session.userId");
+
+>>>>>>> GG-Nile
     if (!anonymous) {
-      if (this.get('session.userData.isNew')) {
-        this.transitionTo('sign-up-finish');
+      if (route.get('session.userData.isNew')) {
+        route.transitionTo('sign-up-finish');
       } else {
+<<<<<<< HEAD
 		let launchUrl = transition.queryParams.launchUrl;
 		if (launchUrl) {
 			let location = transition.queryParams.location;
@@ -60,8 +75,25 @@ export default Ember.Route.extend(PublicRouteMixin, {
 		} else {
 			this.transitionTo('home');
 		}
+=======
+        route.get('profileService').readUserProfile(userId)
+          .then(function(userProfile) {
+            const isStudent = userProfile.get('isStudent');
+            const isTeacher = userProfile.get('isTeacher');
+
+            if (isStudent){
+              route.transitionTo("student");
+            }
+            else {
+              if (isTeacher) {
+                route.transitionTo("teacher");
+              } else {
+                route.transitionTo('profile.content.courses', userId);
+              }
+            }
+          });
+>>>>>>> GG-Nile
       }
     }
   }
-
 });

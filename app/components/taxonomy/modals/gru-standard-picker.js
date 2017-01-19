@@ -72,11 +72,12 @@ export default Ember.Component.extend({
 
   init() {
     this._super( ...arguments );
+    const standardLabel = this.get('model.standardLabel') ? 'common.standard' : 'common.competency';
 
     this.set('panelHeaders', [
       this.get('i18n').t('common.course').string,
       this.get('i18n').t('common.domain').string,
-      this.get('i18n').t('common.standard').string
+      this.get('i18n').t(standardLabel).string
     ]);
   },
 
@@ -98,6 +99,48 @@ export default Ember.Component.extend({
    * and standards). There *must* be one for each panel.
    * @prop {String[]}
    */
-  panelHeaders: []
+  panelHeaders: [],
 
+  /**
+   * i18n key for the modal title label
+   * @property {string}
+   */
+  titleLabelKey: Ember.computed('model.standardLabel', function(){
+    const standardLabel = this.get('model.standardLabel');
+    const fromSearch = this.get('model.fromSearch');
+    var label = "common.add-competency";
+
+    if (standardLabel) {
+      label = "common.add-standards";
+      if (fromSearch) {
+        label = "common.search-standards";
+      }
+    }
+    else {
+      if (fromSearch) {
+        label = "common.search-competency";
+      }
+    }
+    return label;
+  }),
+
+  /**
+   * i18n key for the browse selector text
+   * @property {string}
+   */
+  browseSelectorText: Ember.computed('model.standardLabel', function(){
+    const standardLabel = this.get('model.standardLabel');
+
+    return standardLabel ? "taxonomy.modals.gru-standard-picker.browseSelectorText" : "taxonomy.modals.gru-standard-picker.browseCompetencySelectorText";
+  }),
+
+  /**
+   * i18n key for the selected text key
+   * @property {string}
+   */
+  selectedTextKey: Ember.computed('model.standardLabel', function(){
+    const standardLabel = this.get('model.standardLabel');
+
+    return standardLabel ? "taxonomy.modals.gru-standard-picker.selectedText" : "taxonomy.modals.gru-standard-picker.selectedCompetencyText";
+  })
 });

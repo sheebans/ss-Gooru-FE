@@ -7,7 +7,7 @@ moduleForComponent('content/courses/gru-course-play', 'Integration | Component |
   integration: true
 });
 
-test('it has correct header when user is course owner', function (assert) {
+test('layout', function (assert) {
 
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Course Title'
@@ -20,48 +20,26 @@ test('it has correct header when user is course owner', function (assert) {
   var $container = this.$("article.content.courses.gru-course-play");
   assert.ok($container.length, "Component");
 
-  const $header = $container.find('> header');
-  assert.ok($header.length, "Header");
-  assert.ok($header.find('h1').text(), 'Course Title', "Title");
+  const $headerComponent = $container.find('.gru-course-play-header');
+  assert.ok($headerComponent.length, "Header component");
 
-  const $actions = $header.find('> .actions');
-  assert.ok($actions.length, "Header actions");
-  assert.equal($actions.find(' > button').length, 4, "Number of header actions");
-  assert.ok($actions.find('> button.gru-share-pop-over').length, "Share button");
-  assert.ok($actions.find('> button.remix').length, "Remix button");
-  assert.ok($actions.find('> button.edit').length, "Edit button");
-  assert.ok($actions.find('> button.play').length, "Play button");
+  const $viewDetails = $container.find('> section#viewDetails');
+  const $information = $container.find('> section#information');
+  const $content = $container.find('> section#content');
 
-  assert.ok($header.find('> nav').length, "Header navigation");
-  assert.ok($header.find('> nav').hasClass('hidden-md'), 'Navigation not visible for medium resolutions');
-  assert.ok($header.find('> nav').hasClass('hidden-lg'), 'Navigation not visible for large resolutions');
-  assert.equal($header.find('> nav > a').length, 2, "Number of header navigation links");
+  assert.equal($container.find('> section').length, 3, "Number of sections");
+  assert.ok($viewDetails.length, "view Details section");
+  assert.ok($information.length, "Information section");
+  assert.ok($information.hasClass('hidden'), 'Information section should be hidden');
+  assert.ok($content.length, "Content section");
 
-  assert.equal($container.find('> section').length, 2, "Number of sections");
-  assert.ok($container.find('> section#information').length, "Information section");
-  assert.ok($container.find('> section#content').length, "Content section");
+  //Expand the view details section
+  $viewDetails.find('a').click();
+
+  assert.ok($information.hasClass('visible'), 'Information section should be visible');
 });
 
-test('it has correct header buttons when user is not course owner', function (assert) {
-
-  var course = Course.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Course Title'
-  });
-
-  this.set('course', course);
-  this.render(hbs`{{content/courses/gru-course-play course=course}}`);
-
-  var $container = this.$("article.content.courses.gru-course-play");
-
-  const $actions = $container.find('> header > .actions');
-  assert.ok($actions.length, "Header actions");
-  assert.equal($actions.find(' > button').length, 3, "Number of header actions");
-  assert.ok($actions.find('> button.gru-share-pop-over').length, "Share button");
-  assert.ok($actions.find('> button.remix').length, "Remix button");
-  assert.ok($actions.find('> button.play').length, "Play button");
-});
-
-test('it renders the course information in the side panel', function (assert) {
+test('it renders the course information', function (assert) {
 
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     license: 'License text',

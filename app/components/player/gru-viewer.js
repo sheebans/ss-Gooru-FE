@@ -221,12 +221,14 @@ export default Ember.Component.extend( ConfigurationMixin, {
         this.get("resource.isPDFResource") ||
         this.get("resource.isImageResource") &&
         this.get("isNotIframeUrl")===false) {
+
+      var heightOffset = (this.get('heightOffset')) ? this.get('heightOffset'): 0;
       var narrationHeight = this.$(".narration").innerHeight();
       var contentHeight = this.$('.content').height();
 
       // The 4 pixels subtracted are to make sure no scroll bar will appear for the content
       // (Users should rely on the iframe scroll bar instead)
-      this.set('calculatedResourceContentHeight', contentHeight - narrationHeight - 4);
+      this.set('calculatedResourceContentHeight', contentHeight - narrationHeight - heightOffset - 4);
     }
   },
   /**

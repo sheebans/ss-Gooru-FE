@@ -15,6 +15,16 @@ export default Ember.Service.extend(StoreMixin, {
 
   adapter: null,
 
+  /**
+   * @requires service:api-sdk/lesson
+   */
+  lessonService: Ember.inject.service('api-sdk/lesson'),
+
+  /**
+   * @requires service:api-sdk/unit
+   */
+  unitService: Ember.inject.service('api-sdk/unit'),
+
 
   init: function () {
     this._super(...arguments);
@@ -133,7 +143,51 @@ export default Ember.Service.extend(StoreMixin, {
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('adapter').reorderCourse(courseId, serializedData).then(resolve, reject);
     });
+  },
+
+  /**
+   * Returns a course structure by course
+   * @param course The Course model to update
+   * @returns {Promise|Content/Course}
+   */
+  fetchCourseStructure: function (course) {
+    let service = this;
+    let unitService = service.get('unitService');
+    let lessonService = service.get('lessonService');
+    let courseId = course.get('id');
+    let units = course.get("children");
+
+    //TODO - we need a single end point for this.
+    let promise = new Ember.RSVP.Promise(function(resolve) {
+      //TODO unit service - fetchUnitsByIds(ids)
+      let unitPromises = units.map(function(unit){
+        return unitService.fetchById(courseId, unit.get("data.id"));
+      });
+
+      Ember.RSVP.all(unitPromises).then(function(units){
+        course.set("children", units);
+        let promises = units.map(function(unit){
+          return new Ember.RSVP.Promise(function(resolveLesson) {
+            var lessons = unit.get('children');
+
+            //TODO lesson service - fetchLessonsByIds(ids)
+            let lessonPromises = lessons.map(function(lesson){
+              return lessonService.fetchById(courseId, unit.get("id"), lesson.get("id"));
+            });
+
+            Ember.RSVP.all(lessonPromises).then(function(lessons){
+              unit.set("children", lessons);
+
+              resolveLesson();
+            });
+          });
+        });
+        Ember.RSVP.all(promises).then(function(){
+          resolve(course);
+        });
+      });
+    });
+
+    return promise;
   }
-
-
 });

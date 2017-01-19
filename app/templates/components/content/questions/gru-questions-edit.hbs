@@ -96,10 +96,10 @@
     </div>
     <div class="panel-body">
       {{#if isBuilderEditing}}
-        {{component (questionConfig question.type 'component.builder_answer') answers=tempQuestion.answers editMode=true showAdvancedEditor=showAdvancedEditor}}
+        {{component (question-config question.type 'component.builder_answer') answers=tempQuestion.answers editMode=true showAdvancedEditor=showAdvancedEditor}}
         {{gru-notify onLoad="focusQuestionTextEditor"}}
       {{else}}
-        {{component (questionConfig question.type 'component.builder_answer') answers=question.answers}}
+        {{component (question-config question.type 'component.builder_answer') answers=question.answers}}
       {{/if}}
     </div>
     {{#if isBuilderEditing}}
@@ -174,17 +174,15 @@
                     {{taxonomy.gru-taxonomy-selector
                     isEditing=isEditing
                     onSubjectSelected="selectSubject"
+                    onCategorySelected="selectCategory"
                     selectedSubject=selectedSubject
-                    internalCategory=k12Category
                     subjectLabelKey='common.subject-and-framework'
-                    showCategories=false
-                    showCourses=false
                     onlySubjectsWithStandards=true
                     }}
                   {{/if}}
                   <div>
                     <label class="title">
-                      <span>{{t "common.standards"}}</span>
+                      <span>{{t standardLabelKey}}</span>
                     </label>
                     {{#if isEditing}}
                       <button type="button" class="btn btn-primary"

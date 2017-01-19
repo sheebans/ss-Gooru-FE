@@ -1,6 +1,6 @@
-<div class="learning-target" style="border-color:{{gradeColor correctPercentage}}">
+<div class="learning-target" style={{safe-html (concat "border-color:" (grade-color correctPercentage))}}>
   <div class="header-content">
-    <div class="score"  style="background-color: {{gradeColor correctPercentage}}">
+    <div class="score"  style={{safe-html (concat "background-color:" (grade-color correctPercentage))}}>
       <div><span>{{learningTarget.mastery}}%</span></div>
     </div>
     <div class="learning-target-description">

@@ -81,7 +81,13 @@ export default Ember.Component.extend({
    * Indicates if the reaction bar is visible
    * @property {boolean}
    */
-  showReactionBar: true
+  showReactionBar: true,
+
+  /**
+   * Indicates if the navigator menu is going to be collapsed
+   * @property {Boolean}
+   */
+  collapsedMenu: false
 
   // -------------------------------------------------------------------------
   // Methods

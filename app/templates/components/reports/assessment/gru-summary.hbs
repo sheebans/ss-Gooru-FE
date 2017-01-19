@@ -1,6 +1,6 @@
 <div class="summary-container">
   {{#if assessmentResult.hasNonOpenEndedQuestions}}
-    <div class="grade" style="background-color: {{gradeColor assessmentResult.correctPercentage}}">
+    <div class="grade" style={{safe-html (concat "background-color:" (grade-color assessmentResult.correctPercentage))}}>
       <span class="percentage">{{round-number assessmentResult.correctPercentage}}%</span>
     <span class="attempts">
       <span class="fractional fraction"> {{{fractional numerator=assessmentResult.correctAnswers denominator=assessmentResult.totalNonOpenEndedQuestions}}}</span>
@@ -10,7 +10,7 @@
   {{else}}
     <div class="thumbnail">
       <span class="title">{{t "gru-assessment-report.gru-summary.total-time-spent"}}</span>
-      <span class="time-spent">{{gru-icon name='av_timer'}}<span>{{formatTime assessmentResult.totalTimeSpent}}</span></span>
+      <span class="time-spent">{{gru-icon name='av_timer'}}<span>{{format-time assessmentResult.totalTimeSpent}}</span></span>
     </div>
   {{/if}}
   <div class="overview">
@@ -44,14 +44,14 @@
       {{/if}}
       {{#if assessmentResult.submittedAt}}
         <span class="date">
-        {{gru-icon name='event'}}<span>{{formatDate assessmentResult.submittedAt 'h:mm a MMM. Do, YYYY'}}</span>
+        {{gru-icon name='event'}}<span>{{format-date assessmentResult.submittedAt 'h:mm a MMM. Do, YYYY'}}</span>
       </span>
       {{/if}}
       <span class="time">
-        {{gru-icon name='av_timer'}}<span>{{formatTime assessmentResult.totalTimeSpent}}</span>
+        {{gru-icon name='av_timer'}}<span>{{format-time assessmentResult.totalTimeSpent}}</span>
       </span>
       <span class="reaction">
-        {{reactionIcon assessmentResult.averageReaction appRootPath}}
+        {{reaction-icon assessmentResult.averageReaction appRootPath}}
       </span>
     </div>
     <div class="bubbles">

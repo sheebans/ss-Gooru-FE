@@ -153,6 +153,11 @@
       overflow: hidden;
       position: relative;
 
+      p{
+        margin-top: 35px;
+        margin-bottom: 0;
+      }
+
       > div {
         @include ellipsis($font-size-base, 1.5, 4);
       }

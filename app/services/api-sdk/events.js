@@ -4,11 +4,11 @@ const ConfigEvent = Env['events'] || {};
 
 export default Ember.Service.extend({
 
-  saveResourceResult: function(resourceResult, context) {
+  saveResourceResult: function(resourceResult, context, eventType) {
     var service = this;
     var apiKey = ConfigEvent.eventAPIKey;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      const eventContent = service.get('eventsSerializer').serializeResource(resourceResult, context, apiKey);
+      const eventContent = service.get('eventsSerializer').serializeResource(resourceResult, context, eventType, apiKey);
       service.get('collectionResourceAdapter').postData({
         body: eventContent,
         query: {
@@ -26,14 +26,15 @@ export default Ember.Service.extend({
    * Saves a collection result
    * @param {AssessmentResult} assessmentResult
    * @param {Context} context
+   * @param {string} eventType start|stop
    * @returns {Ember.RSVP.Promise}
      */
-  saveCollectionResult: function(assessmentResult, context) {
+  saveCollectionResult: function(assessmentResult, context, eventType) {
     const service = this;
     const apiKey = ConfigEvent.eventAPIKey;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      const eventContent = service.get('eventsSerializer').serializeCollection(assessmentResult, context, apiKey);
-      service.get('collectionPlayAdapter').postData({
+      const eventContent = service.get('eventsSerializer').serializeCollection(assessmentResult, context, eventType, apiKey);
+        service.get('collectionPlayAdapter').postData({
         body: eventContent,
         query: {
           apiKey: apiKey

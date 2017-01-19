@@ -9,7 +9,7 @@
               <span class="dot"></span>
               <span class="dot"></span>
             </div>
-            <h3>{{t "sign-up.step-1-title"}}</h3>
+            <h1>{{t "sign-up.step-1-title"}}</h1>
             <div class="description" alt="{{t "sign-up.step-1-description"}}"
                  title="{{t "sign-up.step-1-description"}}">{{t "sign-up.step-1-description"}}
             </div>
@@ -18,7 +18,7 @@
               {{#link-to 'sign-in'}} {{t "sign-up.log-in"}} {{/link-to}}
               {{t "sign-up.log-in-description"}}
             </div>
-            <a href="{{unbound googleSignUpUrl}}">
+            <a role="button" href="{{unbound googleSignUpUrl}}">
               <div class="google-button">
                 <div class="google-button-content-wrapper">
                   <div class="google-button-icon">
@@ -39,9 +39,9 @@
                 <div class="sign-up-form">
                   <form id="signUpForm" {{action "next" on="submit"}}>
                     <div class="form-group username">
-                      <label>
+                      <label for="usernameId">
                         <span class="required">{{t "sign-up.username"}}</span>
-                        {{validation.gru-input model=profile valuePath='username' didValidate=didValidate}}
+                        {{validation.gru-input model=profile valuePath='username' didValidate=didValidate inputId='usernameId' isRequired=true}}
                       </label>
                       {{#if usernameError}}
                         <span class="validation error username-error">{{usernameError}}</span>
@@ -49,36 +49,36 @@
                     </div>
                     {{gru-select-date-picker wasSubmitted=dateValidated onValidDate="validDate"}}
                     <div class="form-group firstName">
-                      <label>
+                      <label for="firstNameId">
                         <span class="required">{{t "common.first-name"}}</span>
-                        {{validation.gru-input model=profile valuePath='firstName' maxLength=25 didValidate=didValidate}}
+                        {{validation.gru-input model=profile valuePath='firstName' maxLength=25 didValidate=didValidate inputId='firstNameId' isRequired=true}}
                       </label>
                     </div>
                     <div class="form-group lastName">
-                      <label>
+                      <label for="lastNameId">
                         <span class="required">{{t "common.last-name"}}</span>
-                        {{validation.gru-input model=profile valuePath='lastName' maxLength=25 didValidate=didValidate}}
+                        {{validation.gru-input model=profile valuePath='lastName' maxLength=25 didValidate=didValidate inputId='lastNameId' isRequired=true}}
                       </label>
                     </div>
                     <div class="form-group email">
-                      <label>
+                      <label for="emailId">
                         <span class="required">{{t "sign-up.email"}}</span>
-                        {{validation.gru-input model=profile valuePath='email' didValidate=didValidate}}
+                        {{validation.gru-input model=profile valuePath='email' didValidate=didValidate inputId='emailId' isRequired=true}}
                       </label>
                       {{#if emailError}}
                         <span class="validation error email-error">{{emailError}}</span>
                       {{/if}}
                     </div>
-                    <div class="form-group">
-                      <label>
+                    <div class="form-group password">
+                      <label for="passwordId">
                         <span class="required">{{t "sign-up.password"}}</span>
-                        {{validation.gru-input model=profile valuePath='password' type='password' didValidate=didValidate}}
+                        {{validation.gru-input model=profile valuePath='password' type='password' didValidate=didValidate inputId='passwordId' isRequired=true}}
                       </label>
                     </div>
-                    <div class="form-group">
-                      <label>
+                    <div class="form-group rePassword">
+                      <label for="rePasswordId">
                         <span class="required">{{t "sign-up.rePassword"}}</span>
-                        {{validation.gru-input model=profile valuePath='rePassword' type='password' didValidate=didValidate}}
+                        {{validation.gru-input model=profile valuePath='rePassword' type='password' didValidate=didValidate inputId='rePasswordId' isRequired=true}}
                       </label>
                     </div>
                     <div class="sign-up-button form-group text-center">

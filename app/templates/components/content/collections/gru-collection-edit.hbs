@@ -51,20 +51,18 @@
         </div>
 
         {{#if isEditing}}
-        {{taxonomy.gru-taxonomy-selector
-          isEditing=isEditing
-          onSubjectSelected="selectSubject"
-          selectedSubject=selectedSubject
-          internalCategory=k12Category
-          subjectLabelKey='common.subject-and-framework'
-          showCategories=false
-          showCourses=false
-          onlySubjectsWithStandards=true
+          {{taxonomy.gru-taxonomy-selector
+            isEditing=isEditing
+            onSubjectSelected="selectSubject"
+            onCategorySelected="selectCategory"
+            selectedSubject=selectedSubject
+            subjectLabelKey='common.subject-and-framework'
+            onlySubjectsWithStandards=true
           }}
         {{/if}}
-        <div class="subject">
+        <div class="standards">
           <label>
-            <span>{{t "common.standards"}}</span>
+            <span>{{t standardLabelKey}}</span>
             {{#if isEditing}}
               <button type="button" class="btn btn-primary"
                       {{action 'openTaxonomyModal'}}
@@ -88,15 +86,20 @@
 
         {{!content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
 
-        <div class="century-skill out-of-scope">
-          <span class="label required">21st Century Skills</span>
-          {{#if isEditing}}
-            <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
-          {{else}}
-            <div class="skills">
-              <span>No specified</span>
-            </div>
-          {{/if}}
+        <div class="century-skills">
+          <label>
+            <span>{{t "common.century-skills"}}</span>
+            {{#if isEditing}}
+              <button type="button" class="btn btn-primary"
+                {{action 'openSkillsModal'}}>
+                {{gru-icon name="open_in_new"}} {{t "common.choose"}}
+              </button>
+            {{else}}
+              <div class="skills">
+                {{t "common.not-specified"}}
+              </div>
+            {{/if}}
+          </label>
         </div>
       </div>
     </div>

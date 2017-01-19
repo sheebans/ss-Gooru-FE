@@ -1,0 +1,66 @@
+.gru-course-play-header {
+  top: 55px;
+  min-height: 75px;
+  width: 100%;
+  position: fixed;
+  padding: 10px 20px 5px 20px;
+  z-index: $zindex-navbar-fixed;
+  background-color: $dark-400;
+
+  .actions {
+
+    float: right;
+    text-align: right;
+    width: 50%;
+
+    @media (min-width: $screen-sm-min) {
+      width: 15%;
+    }
+
+    .btn-icon {
+      padding: 5px 8px;
+
+      > i {
+        font-size: $font-size-h5;
+        line-height: 1.1;
+      }
+    }
+  }
+
+  @media (min-width: $screen-md) {
+    top: 63px;
+  }
+
+  h1 {
+    font-size: $font-size-h5;
+    text-transform: capitalize;
+    color: $white;
+    float: left;
+    width: 50%;
+
+    @media (min-width: $screen-sm-min) {
+      width: 80%;
+    }
+  }
+  .path {
+    color: $white;
+    float: left;
+    width: 50%;
+    clear: both;
+  }
+
+  nav {
+    float: right;
+    width: 50%;
+    a {
+      color: $white;
+      border-bottom: none;
+      margin: 0;
+      padding: 0;
+      opacity: 0.6;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

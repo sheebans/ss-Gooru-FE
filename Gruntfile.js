@@ -5,6 +5,9 @@ module.exports = function (grunt) {
       "run": {
         cmd: function (command) {
           return command;
+        },
+        options: {
+          maxBuffer: (200*1024) * 2
         }
       },
       "ember-server-stubby": 'ember serve --proxy http://localhost:8882',
@@ -85,13 +88,22 @@ module.exports = function (grunt) {
     grunt.task.run(tasks);
   });
 
+  grunt.registerTask('bamboo-eslint', function() {
+    grunt.config.set('eslint.options.format', 'junit');
+    grunt.config.set('eslint.options.outputFile', 'linter-xunit.xml');
+    grunt.config.set('eslint.options.quiet', true);
+    grunt.task.run(['eslint']);
+  });
+
   grunt.registerTask('bamboo-test', function (target) {
-    /*
-      An issue generating the report was found when upgrading ember cli to 1.13.13
-      We should give it a try when a new version become available
-      grunt.task.run(['stubby:test', 'exec:run:ember test --silent --reporter xunit']);
-     */
-    grunt.task.run(['stubby:test', 'exec:run:ember test']);
+    grunt.task.run(['stubby:test', 'exec:run:ember test --silent -r xunit > report-xunit.xml']);
+  });
+
+  grunt.registerTask('bamboo-eslint', function() {
+    grunt.config.set('eslint.options.format', 'junit');
+    grunt.config.set('eslint.options.outputFile', 'linter-xunit.xml');
+    grunt.config.set('eslint.options.quiet', true);
+    grunt.task.run(['eslint']);
   });
 
   grunt.registerTask('run', function (target) {
