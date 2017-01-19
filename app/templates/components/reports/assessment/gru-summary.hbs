@@ -3,7 +3,7 @@
     <div class="grade" style={{safe-html (concat "background-color:" (grade-color assessmentResult.correctPercentage))}}>
       <span class="percentage">{{round-number assessmentResult.correctPercentage}}%</span>
     <span class="attempts">
-      <span class="fractional fraction"> {{{fractional numerator=assessmentResult.correctAnswers denominator=assessmentResult.totalNonOpenEndedQuestions}}}</span>
+      <span class="fractional fraction"> {{{fractional numerator=assessmentResult.correctAnswers denominator=(if isRealTime assessmentResult.totalQuestionsCompleted assessmentResult.totalNonOpenEndedQuestions)}}}</span>
       <span class="text">{{t 'common.correct'}}</span>
     </span>
     </div>
