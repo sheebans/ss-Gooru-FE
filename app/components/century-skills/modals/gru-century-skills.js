@@ -1,11 +1,14 @@
 import Ember from 'ember';
-import BaseController from 'gooru-web/controllers/search/base-controller';
 
 /**
- * Resources search controller
+ * 21st century skills
  *
+ * Component responsible for displaying three panels of 21st century skills
+ *
+ * @module
+ * @augments ember/Component
  */
-export default BaseController.extend({
+export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -13,22 +16,21 @@ export default BaseController.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  resourceResults: Ember.computed.alias('searchResults'),
+  classNames: ['century-skills', 'modals', 'gru-century-skills'],
+
 
   // -------------------------------------------------------------------------
   // Actions
+
+  actions: {
+
+  }
+
 
   // -------------------------------------------------------------------------
   // Events
 
   // -------------------------------------------------------------------------
   // Properties
-
-  // -------------------------------------------------------------------------
-  // Methods
-
-  doSearch: function(term, params, callback, resetPagination) {
-    this.get('searchService').searchResources(term, params, resetPagination).then(callback);
-  }
 
 });

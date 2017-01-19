@@ -155,6 +155,20 @@ test('correctPercentage', function(assert) {
   assert.equal(assessmentResult.get("correctPercentage"), 50, "Wrong correctPercentage");
 });
 
+test('correctPercentage for real time', function(assert) {
+  let assessmentResult = AssessmentResult.create({
+    "isRealTime": true,
+    "resourceResults": Ember.A([
+      QuestionResult.create({ correct: false }),
+      QuestionResult.create({ correct: false }),
+      QuestionResult.create({ correct: true }),
+      QuestionResult.create({}) //pending
+    ])
+  });
+
+  assert.equal(assessmentResult.get("correctPercentage"), 33, "Wrong correctPercentage");
+});
+
 test('correctPercentage with score property', function(assert) {
   let assessmentResult = AssessmentResult.create({
     "score": 51,
