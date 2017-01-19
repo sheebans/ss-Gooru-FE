@@ -18,8 +18,8 @@ test('serializeCreateGoal', function (assert) {
   assert.equal(modelObject.status, 'not_started', 'Wrong status');
   assert.equal(modelObject.description, 'the desc', 'Wrong description');
   assert.equal(modelObject.reflection, 'the reflection', 'Wrong reflection');
-  assert.equal(modelObject.start_date, '789717600000', 'Wrong startDate');
-  assert.equal(modelObject.end_date, '789717600000', 'Wrong endDate');
+  assert.ok(modelObject.start_date, 'Missing startDate');
+  assert.ok(modelObject.end_date, 'Missing endDate');
 });
 
 test('serializeCreateGoal with no dates', function (assert) {
