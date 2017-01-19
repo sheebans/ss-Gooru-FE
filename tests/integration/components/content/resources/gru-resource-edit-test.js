@@ -544,3 +544,21 @@ test('Validate if the I am the publisher checkbox is unchecked', function (asser
 
   });
 });
+
+test('Editing a video resource should disable the type dropdown', function (assert) {
+  var ResourceValidation = Resource.extend(EditResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Video resource for testing',
+    format: 'video',
+    url: 'https://www.youtube.com/watch?v=wZZ7oFKsKzY&',
+    subject: 'Nyan Cat',
+    category: 'NC_1',
+    displayGuide:true
+  });
+
+  this.set('resource', resource);
+
+  this.render(hbs`{{content/resources/gru-resource-edit resource=resource tempResource=resource isEditing=true}}`);
+  var $informationSection = this.$("#information");
+  assert.equal($informationSection.find('.content button[data-toggle=dropdown].disabled').length, 2, "Both type dropdown buttons should be disabled when editing a video.");
+});

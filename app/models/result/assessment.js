@@ -2,7 +2,7 @@ import Ember from "ember";
 import QuestionResult from './question';
 import ResourceResult from './resource';
 
-import { averageReaction, correctPercentage, totalTimeSpent, correctAnswers } from 'gooru-web/utils/question-result';
+import { averageReaction, correctPercentage, totalTimeSpent, correctAnswers, totalCompleted } from 'gooru-web/utils/question-result';
 
 /**
  * Model for a group of questions that were answered by a user during one attempt to complete an assessment.
@@ -211,6 +211,14 @@ export default Ember.Object.extend({
    */
   correctAnswers:Ember.computed('nonOpenEndedQuestionResults.[]',function(){
     return correctAnswers(this.get('nonOpenEndedQuestionResults'));
+  }),
+
+  /**
+   * Total completed questions
+   * @prop {number}
+   */
+  totalQuestionsCompleted:Ember.computed('nonOpenEndedQuestionResults.[]',function(){
+    return totalCompleted(this.get('nonOpenEndedQuestionResults'));
   }),
 
   /**
