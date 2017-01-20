@@ -204,5 +204,15 @@ export const RESERVED_WORDS = [
   "search",
   "sign-in",
   "sign-up",
-  "sign-up-finish"
+  "sign-up-finish",
+  "student",
+  "teacher",
+  "goals"
 ];
+
+export const GOAL_STATUS = {
+  NOT_STARTED : "not_started",
+  ACTIVE : "activated",
+  COMPLETED : "completed",
+  DROPPED : "dropped"
+};

@@ -37,3 +37,20 @@ test('Layout', function(assert) {
     assert.equal($rightUserContainer.find('.box-info').length, 4 ,"Wrong number of info boxes");
   });
 });
+
+test('TakeATour', function(assert){
+  assert.expect(2);
+  visit('/teacher');
+  var done = assert.async();
+  andThen(function() {
+    let $tooltip;
+    click(".teacher-landing .greetings button.start-tour");
+    andThen(function() {
+      $tooltip = $("div.introjs-tooltip");
+
+      T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
+      assert.equal(T.text($tooltip.find('.tour-header h2')), 'Your Homepage', 'First step title should be "Your Homepage"');
+      done();
+    });
+  });
+});

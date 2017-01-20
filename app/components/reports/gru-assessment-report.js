@@ -31,14 +31,17 @@ export default Ember.Component.extend({
           }, animationSpeed);
         }
       }else{
+        const $parentContainer = $('.controller.class.analytics.collection.student');
+        const parentTopOffset = $parentContainer.length ? $parentContainer.offset().top : 0;
+        const $body = $('html,body');
         //Check if the questions details are showing on table (md or sm devices) or  a list (xs devices)
         if ($tableVisible.length) {
-          $('html,body').animate({
-            scrollTop: $elTable.offset().top - $('.controller.class.analytics.collection.student').offset().top
+          $body.animate({
+            scrollTop: $elTable.offset().top - parentTopOffset
           }, animationSpeed);
         } else  if ($cardsVisible.length) {
-          $('html,body').animate({
-            scrollTop: $elList.offset().top - $('.controller.class.analytics.collection.student').offset().top
+          $body.animate({
+            scrollTop: $elList.offset().top - parentTopOffset
           }, animationSpeed);
         }else {
           Ember.Logger.error("No element was found for selectorTable: " + selectorTable);
