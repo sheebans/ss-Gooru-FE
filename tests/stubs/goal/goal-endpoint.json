@@ -18,6 +18,22 @@
     }
   },
   {
+    "description": "update any goal",
+    "request": {
+      "url": "^/api/nucleus/v1/goals/(.+)$",
+      "method": "PUT",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/plain"
+      }
+    }
+  },
+  {
     "description": "Create any goal",
     "request": {
       "url": "^/api/nucleus/v1/goals$",

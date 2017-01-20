@@ -36,6 +36,37 @@ test('createGoal', function(assert) {
     });
 });
 
+test('updateGoal', function(assert) {
+  const service = this.subject();
+  let goal = GoalModel.create({
+    id: 123,
+    title: "any goal"
+  });
+
+  assert.expect(3);
+
+  service.set('serializer', Ember.Object.create({
+    serializeGoal: function(goalParam) {
+      assert.deepEqual(goalParam, goal, 'Wrong goal parameter');
+      return { id: "fake-id" };
+    }
+  }));
+
+  service.set('adapter', Ember.Object.create({
+    updateGoal: function(data) {
+      assert.deepEqual(data, { id: "fake-id" }, 'Wrong data');
+      return Ember.RSVP.resolve(1);
+    }
+  }));
+
+  var done = assert.async();
+  service.updateGoal(goal)
+    .then(function(updatedGoal) {
+      assert.equal(goal.get('id'), updatedGoal.get("id"), 'Wrong goal id');
+      done();
+    });
+});
+
 test('getGoalsByUser', function(assert) {
   const service = this.subject();
   assert.expect(3);
