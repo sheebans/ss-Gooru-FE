@@ -1,15 +1,10 @@
 import Ember from 'ember';
-import { CENTURY_SKILLS_GROUPS } from 'gooru-web/config/config';
+import {CENTURY_SKILLS_GROUPS} from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
-  /**
-   * @requires service:century-skill/century-skill
-   */
-  centurySkillService: Ember.inject.service("century-skill"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -30,20 +25,16 @@ export default Ember.Component.extend({
       let component = this;
 
       var selectedCenturySkills = component.get('selectedCenturySkills');
-      var isSelected = (selectedCenturySkills.indexOf(skillItem.get('id'))>=0) ? true : false;
 
-      if (isSelected){
-        //selectedCenturySkills = selectedCenturySkills.filter(function(selectedCenturySkill){
-        //  return selectedCenturySkill.get("id") !== skillItem.get('id');
-        //});
-        //component.set('selectedCenturySkills',selectedCenturySkills);
-        selectedCenturySkills.removeObject(skillItem.get('id'));
-        //selectedCenturySkills = selectedCenturySkills.without(skillItem);
-        //component.set('selectedCenturySkills',selectedCenturySkills)
+      if (component.isSelected(skillItem)){
+        selectedCenturySkills = selectedCenturySkills.filter(function(selectedCenturySkill){
+          return selectedCenturySkill.get("id") !== skillItem.get('id');
+        });
+
+        component.set('selectedCenturySkills',selectedCenturySkills);
       }
       else {
-        //skillItem.set('isSelected', !isSelected);
-        selectedCenturySkills.pushObject(skillItem.get('id'));
+        selectedCenturySkills.pushObject(skillItem);
       }
     },
 
@@ -51,21 +42,10 @@ export default Ember.Component.extend({
       var selectedCenturySkills = this.get('selectedCenturySkills');
       this.get('onSave')(selectedCenturySkills);
     }
-
   },
 
   // -------------------------------------------------------------------------
   // Events
-
-  init() {
-    let component = this;
-    component._super( ...arguments );
-
-    component.get('centurySkillService').findCenturySkills()
-      .then(function(centurySkills) {
-        component.set('centurySkills', centurySkills.toArray());
-      });
-  },
 
   willDestroyElement() {
     this._super(...arguments);
@@ -94,11 +74,7 @@ export default Ember.Component.extend({
     let component = this;
 
     return this.get("centurySkills").filter(function(centurySkill){
-      var selectedCenturySkills = component.get('selectedCenturySkills');
-      var isSelected = (selectedCenturySkills.indexOf(centurySkill.get('id'))>=0) ? true : false;
-
-      centurySkill.set('isSelected',isSelected);
-
+      centurySkill.set('isSelected',component.isSelected(centurySkill));
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES;
     });
   }),
@@ -110,11 +86,7 @@ export default Ember.Component.extend({
     let component = this;
 
     return this.get("centurySkills").filter(function(centurySkill){
-      var selectedCenturySkills = component.get('selectedCenturySkills');
-      var isSelected = (selectedCenturySkills.indexOf(centurySkill.get('id'))>=0) ? true : false;
-
-      centurySkill.set('isSelected',isSelected);
-
+      centurySkill.set('isSelected',component.isSelected(centurySkill));
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE;
     });
   }),
@@ -126,15 +98,25 @@ export default Ember.Component.extend({
     let component = this;
 
     return this.get("centurySkills").filter(function(centurySkill){
-      var selectedCenturySkills = component.get('selectedCenturySkills');
-      var isSelected = (selectedCenturySkills.indexOf(centurySkill.get('id'))>=0) ? true : false;
-
-      centurySkill.set('isSelected',isSelected);
-
+      centurySkill.set('isSelected',component.isSelected(centurySkill));
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES;
     });
-  })
+  }),
 
   // ----------------------------
   // Methods
+
+  /**
+   * Returns if a skillItem is in the selectedCenturySkills
+   * @param {CenturySkill} skillItem
+   * @return {Boolean}
+   */
+  isSelected: function(skillItem) {
+    var selectedCenturySkills = this.get('selectedCenturySkills');
+    var isSelected = selectedCenturySkills.filter(function (selectedCenturySkill) {
+      return selectedCenturySkill.get("id") === skillItem.get('id');
+    });
+
+    return (isSelected.length > 0);
+  }
 });

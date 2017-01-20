@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { CENTURY_SKILLS_GROUPS } from 'gooru-web/config/config';
+import {CENTURY_SKILLS_GROUPS} from 'gooru-web/config/config';
 import CenturySkillModel from 'gooru-web/models/century-skill/century-skill';
 
 /**
@@ -39,7 +39,6 @@ export default Ember.Object.extend({
     });
 
     return normalizedCenturySkills;
-
   },
 
   /**
@@ -61,5 +60,4 @@ export default Ember.Object.extend({
       group: group
     });
   }
-
 });

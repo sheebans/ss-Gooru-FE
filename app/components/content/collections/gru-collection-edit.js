@@ -251,9 +251,8 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
 
   openSkillsModal: function(){
     var component = this;
-    var centurySkills = [];
     var model = {
-      centurySkills: component.get('tempCollection.centurySkills'),
+      selectedSkills: component.get('tempCollection.centurySkills'),
       callback: {
         success: function(selectedCenturySkills) {
           const centurySkills = Ember.A(selectedCenturySkills);

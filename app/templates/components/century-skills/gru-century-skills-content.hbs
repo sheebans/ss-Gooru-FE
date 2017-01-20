@@ -1,7 +1,7 @@
 <form>
   <div class="content">
     {{#if cognitiveSkillsGroup.length}}
-      <div class="column">
+      <div class="column cognitive-skills">
         <div class="header">{{t "gru-century-skills.content.groups.cognitive"}}</div>
         <ul class="skills">
           {{#each cognitiveSkillsGroup as |cognitiveSkill|}}
@@ -29,7 +29,7 @@
       </div>
     {{/if}}
     {{#if contentSkillsGroup.length}}
-      <div class="column between">
+      <div class="column between content-skills">
         <div class="header">{{t "gru-century-skills.content.groups.content"}}</div>
         <ul class="skills">
           {{#each contentSkillsGroup as |contentSkill|}}
@@ -57,7 +57,7 @@
       </div>
     {{/if}}
     {{#if learningSkillsGroup.length}}
-      <div class="column">
+      <div class="column learning-skills">
         <div class="header">{{t "gru-century-skills.content.groups.learning"}}</div>
         <ul class="skills">
           {{#each learningSkillsGroup as |learningSkill|}}
@@ -90,7 +90,7 @@
     <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
       <span aria-hidden="true">{{t 'common.cancel'}}</span>
     </button>
-    <button {{action "saveSelectedSkills"}} class="btn btn-primary" disabled="{{if selectedCenturySkills.length null true}}">{{t 'common.select'}}</button>
+    <button {{action "saveSelectedSkills"}} class="btn btn-primary select" disabled="{{if selectedCenturySkills.length null true}}">{{t 'common.select'}}</button>
   </div>
 
 </form>
