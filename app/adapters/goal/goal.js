@@ -12,7 +12,7 @@ export default Ember.Object.extend({
   namespace: '/api/nucleus/v1/goals',
 
   /**
-   * Posts a new goals
+   * Posts a new goal
    *
    * @param params - data to send in the request
    * @returns {Ember.Promise|String} ID of the newly created goal
@@ -34,6 +34,61 @@ export default Ember.Object.extend({
         .then(function (responseData, textStatus, request) {
           var goalId = request.getResponseHeader('location');
           resolve(goalId);
+        }, function (error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Updates a goal
+   *
+   * @param params - data to send in the request
+   * @returns {Ember.Promise|Boolean} true when updated
+   */
+  updateGoal: function (params) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${params.id}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify(params)
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function () {
+          resolve(true);
+        }, function (error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Deletes a goal
+   *
+   * @param params - data to send in the request
+   * @returns {Ember.Promise|boolean} true when deleted
+   */
+  deleteGoal: function (goalId) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${goalId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders()
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function () {
+          resolve(true);
         }, function (error) {
           reject(error);
         });

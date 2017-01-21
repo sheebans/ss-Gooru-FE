@@ -68,6 +68,65 @@ test('Goal creation, failure', function (assert) {
     });
 });
 
+test('Goal update, success', function (assert) {
+  assert.expect(3);
+  // Mock backend response
+  this.pretender.map(function () {
+    this.put('/api/nucleus/v1/goals/123', function (request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.equal(requestBodyJson["title"], "any content", "Wrong title");
+      assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
+      return [
+        201,
+        {
+          'Content-Type': 'text/plain'
+        },
+        ''];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+  const params = {
+    id: 123,
+    title: "any content"
+  };
+
+  adapter.updateGoal(params)
+    .then(function (response) {
+      assert.ok(response, 'Should return true');
+    });
+});
+
+test('Goal delete, success', function (assert) {
+  assert.expect(2);
+  // Mock backend response
+  this.pretender.map(function () {
+    this.delete('/api/nucleus/v1/goals/123', function (request) {
+      assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
+      return [
+        200,
+        {
+          'Content-Type': 'text/plain'
+        },
+        ''];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.deleteGoal(123)
+    .then(function (response) {
+      assert.ok(response, 'Should return true');
+    });
+});
+
+
 test('getGoalsByUser', function (assert) {
   assert.expect(2);
   const fakeResponse = "fakeResponse";
