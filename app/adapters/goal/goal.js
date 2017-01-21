@@ -44,7 +44,7 @@ export default Ember.Object.extend({
    * Updates a goal
    *
    * @param params - data to send in the request
-   * @returns {Ember.Promise|String} ID of the newly created goal
+   * @returns {Ember.Promise|Boolean} true when updated
    */
   updateGoal: function (params) {
     const namespace = this.get('namespace');
@@ -56,6 +56,33 @@ export default Ember.Object.extend({
       processData: false,
       headers: this.defineHeaders(),
       data: JSON.stringify(params)
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function () {
+          resolve(true);
+        }, function (error) {
+          reject(error);
+        });
+    });
+  },
+
+  /**
+   * Deletes a goal
+   *
+   * @param params - data to send in the request
+   * @returns {Ember.Promise|boolean} true when deleted
+   */
+  deleteGoal: function (goalId) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${goalId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders()
     };
 
     return new Ember.RSVP.Promise(function (resolve, reject) {

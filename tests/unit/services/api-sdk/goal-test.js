@@ -67,6 +67,25 @@ test('updateGoal', function(assert) {
     });
 });
 
+test('deleteGoal', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('adapter', Ember.Object.create({
+    deleteGoal: function(goalId) {
+      assert.deepEqual(goalId, 123, 'Wrong id');
+      return Ember.RSVP.resolve(true);
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteGoal(123)
+    .then(function(deleted) {
+      assert.ok(deleted, 'Wrong response');
+      done();
+    });
+});
+
 test('getGoalsByUser', function(assert) {
   const service = this.subject();
   assert.expect(3);

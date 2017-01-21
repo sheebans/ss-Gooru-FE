@@ -67,6 +67,15 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Deletes a goal
+   * @param {String} goalId
+   * @returns {Promise|boolean} returns true if deleted
+   */
+  deleteGoal: function (goalId) {
+    return this.get('adapter').deleteGoal(goalId);
+  },
+
+  /**
    * Returns user goals
    * @param {string} userId
    * @returns {Promise|Goal[]}

@@ -18,6 +18,22 @@
     }
   },
   {
+    "description": "delete any goal",
+    "request": {
+      "url": "^/api/nucleus/v1/goals/(.+)$",
+      "method": "DELETE",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/plain"
+      }
+    }
+  },
+  {
     "description": "update any goal",
     "request": {
       "url": "^/api/nucleus/v1/goals/(.+)$",
