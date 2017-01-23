@@ -63,7 +63,8 @@ test('loadConfiguration - default features loaded', function(assert) {
           showCollectionName: true,
           showCollectionAuthor: true,
           showResourceNumber: true,
-          showQuestionFeedback: undefined
+          showQuestionFeedback: undefined,
+          allowProfileNavigation: true
         }
       }
     };

@@ -146,5 +146,11 @@ export default Ember.Component.extend(ModalMixin,{
    */
   showPublisher:Ember.computed('resource', function(){
     return this.get('resource').isPublished && this.get('resource').publisher;
-  })
+  }),
+
+  /**
+   * Indicates if it allow profile navigation or not in the cards
+   * @property {boolean} allowProfileNavigation
+   */
+  allowProfileNavigation: true
 });

@@ -335,6 +335,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
       controller.get('collection.immediateFeedback');
   }),
 
+  /**
+   * Indicates if it allow profile navigation or not in the cards
+   * @property {boolean} allowProfileNavigation
+   */
+  allowProfileNavigation: Ember.computed.alias("features.collections.player.allowProfileNavigation"),
+
   // -------------------------------------------------------------------------
   // Observers
 
