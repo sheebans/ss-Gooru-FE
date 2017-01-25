@@ -1,0 +1,11 @@
+{{#if isReadOnly}}
+  <div class="content">
+    <span class="tag-label">{{skill.label}}</span>
+  </div>
+{{else}}
+  <button type="button" class="btn-skill btn-info btn btn-sm">
+    <span class="btn-label">{{skill.label}}</span>
+    <span class="remove-skill" {{action 'removeSkill' skill}}>{{gru-icon name="clear"}}</span>
+  </button>
+{{/if}}
+

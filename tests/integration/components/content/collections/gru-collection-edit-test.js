@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 import Collection from 'gooru-web/models/content/collection';
 import Course from 'gooru-web/models/content/course';
+import CenturySkillModel from 'gooru-web/models/century-skill/century-skill';
 
 const taxonomyServiceStub = Ember.Service.extend({
 
@@ -107,6 +108,67 @@ test('Information section - Competency Label', function (assert) {
 
   assert.ok($competencyLabel.length, "Missing standards label");
   assert.equal($competencyLabel.text(), this.get('i18n').t('common.competencies').string, "Incorrect competency label text");
+});
+
+test('Information section - Century skills Label', function (assert) {
+
+  var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Collection Title",
+    centurySkills: [1,5]
+  });
+
+  var centurySkills = [
+    CenturySkillModel.create({
+      id: 1,
+      label: "Problem Formulation",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 2,
+      label: "Research: Access and Evaluate Information",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 3,
+      label: "Global Awareness",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Content Knowledge"}),
+    CenturySkillModel.create({
+      id: 4,
+      label: "Building of Persistence",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"}),
+    CenturySkillModel.create({
+      id: 5,
+      label: "Leadership",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"})
+  ];
+
+  this.set('collection', collection);
+  this.set('centurySkills', centurySkills);
+  this.render(hbs`{{content/collections/gru-collection-edit collection=collection centurySkills=centurySkills}}`);
+
+  var $informationSection = this.$("#information");
+  var $centurySkillsLabel = $informationSection.find('.century-skills');
+
+  assert.ok($centurySkillsLabel.length, "Collection century-skills");
+  assert.equal($centurySkillsLabel.find('.skills .gru-century-skill-tag').length, 2, "Two gru-century-skill-tag components");
 });
 
 test('Header when comes from content builder', function (assert) {

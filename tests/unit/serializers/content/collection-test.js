@@ -28,7 +28,8 @@ test('serializeUpdateCollection', function(assert) {
     learningObjectives: 'any',
     isVisibleOnProfile: false,
     thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
-    standards: []
+    standards: [],
+    centurySkills: [2]
   });
   const response = serializer.serializeUpdateCollection(collectionObject);
   assert.equal(response.title, 'collection-title', "Wrong title");
@@ -36,6 +37,7 @@ test('serializeUpdateCollection', function(assert) {
   assert.equal(response.visible_on_profile, false, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
   assert.equal(response.taxonomy, null, "Wrong taxonomy object");
+  assert.equal(response['metadata']['21_century_skills'][0], 2, 'Wrong centurySkill');
 });
 
 test('serializeUpdateCollectionTitle', function(assert) {
@@ -77,7 +79,10 @@ test('normalizeReadCollection', function(assert) {
     taxonomy: {},
     course_id: 1,
     unit_id: 2,
-    lesson_id: 3
+    lesson_id: 3,
+    "metadata": {
+      "21_century_skills": [2]
+    }
   };
   const collection = serializer.normalizeReadCollection(collectionData);
   assert.equal(collection.get('id'), 'collection-id', 'Wrong id');
@@ -89,6 +94,7 @@ test('normalizeReadCollection', function(assert) {
   assert.equal(collection.get('courseId'), 1, 'Wrong course id');
   assert.equal(collection.get('unitId'), 2, 'Wrong unit id');
   assert.equal(collection.get('lessonId'), 3, 'Wrong lesson id');
+  assert.equal(collection.get("centurySkills"), 2, 'Wrong century Skills');
 });
 
 test('serializeReorderCollection', function(assert) {

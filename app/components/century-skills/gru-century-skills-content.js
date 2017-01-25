@@ -23,18 +23,14 @@ export default Ember.Component.extend({
      */
     selectSkillItem: function(skillItem) {
       let component = this;
-
       var selectedCenturySkills = component.get('selectedCenturySkills');
+      var skillItemId = skillItem.get('id');
 
-      if (component.isSelected(skillItem)){
-        selectedCenturySkills = selectedCenturySkills.filter(function(selectedCenturySkill){
-          return selectedCenturySkill.get("id") !== skillItem.get('id');
-        });
-
-        component.set('selectedCenturySkills',selectedCenturySkills);
+      if (component.isSelected(skillItemId)){
+        selectedCenturySkills.removeObject(skillItemId);
       }
       else {
-        selectedCenturySkills.pushObject(skillItem);
+        selectedCenturySkills.pushObject(skillItemId);
       }
     },
 
@@ -74,7 +70,7 @@ export default Ember.Component.extend({
     let component = this;
 
     return this.get("centurySkills").filter(function(centurySkill){
-      centurySkill.set('isSelected',component.isSelected(centurySkill));
+      centurySkill.set('isSelected',component.isSelected(centurySkill.get("id")));
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES;
     });
   }),
@@ -86,7 +82,7 @@ export default Ember.Component.extend({
     let component = this;
 
     return this.get("centurySkills").filter(function(centurySkill){
-      centurySkill.set('isSelected',component.isSelected(centurySkill));
+      centurySkill.set('isSelected',component.isSelected(centurySkill.get("id")));
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE;
     });
   }),
@@ -98,7 +94,7 @@ export default Ember.Component.extend({
     let component = this;
 
     return this.get("centurySkills").filter(function(centurySkill){
-      centurySkill.set('isSelected',component.isSelected(centurySkill));
+      centurySkill.set('isSelected',component.isSelected(centurySkill.get("id")));
       return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES;
     });
   }),
@@ -108,15 +104,11 @@ export default Ember.Component.extend({
 
   /**
    * Returns if a skillItem is in the selectedCenturySkills
-   * @param {CenturySkill} skillItem
+   * @param {Number} skillItem id
    * @return {Boolean}
    */
-  isSelected: function(skillItem) {
+  isSelected: function(skillItemId) {
     var selectedCenturySkills = this.get('selectedCenturySkills');
-    var isSelected = selectedCenturySkills.filter(function (selectedCenturySkill) {
-      return selectedCenturySkill.get("id") === skillItem.get('id');
-    });
-
-    return (isSelected.length > 0);
+    return selectedCenturySkills.includes(skillItemId);
   }
 });

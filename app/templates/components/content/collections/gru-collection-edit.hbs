@@ -96,15 +96,18 @@
               </button>
               <div class="skills-buttons">
                 {{#each selectedSkills as |skill|}}
-                  <button type="button" class="btn-skill btn-info btn btn-sm">
-                    <span class="btn-label">{{skill.label}}</span>
-                    <span class="remove-skill">{{gru-icon name="clear"}}</span>
-                  </button>
+                  {{century-skills.gru-century-skill-tag skill=skill isReadOnly=false onRemove=(action 'removeSkill')}}
                 {{/each}}
               </div>
             {{else}}
               <div class="skills">
-                {{t "common.not-specified"}}
+                {{#if selectedSkills.length}}
+                  {{#each selectedSkills as |skill|}}
+                    {{century-skills.gru-century-skill-tag skill=skill}}
+                  {{/each}}
+                {{else}}
+                  {{t "common.not-specified"}}
+                {{/if}}
               </div>
             {{/if}}
           </label>

@@ -55,24 +55,7 @@ test('Century skills content Layout - select/unselect skills', function (assert)
       group: "Key Learning Skills and Techniques"})
   ];
 
-  var selectedCenturySkills = [
-    CenturySkillModel.create({
-      id: 1,
-      label: "Problem Formulation",
-      hewlettDeepLearningModel:true,
-      conleyFourKeysModel: false,
-      p21FrameworkModel: true,
-      nationalResearchCenterModel:false,
-      group: "Key Cognitive Skills and Strategies"}),
-    CenturySkillModel.create({
-      id: 5,
-      label: "Leadership",
-      hewlettDeepLearningModel:true,
-      conleyFourKeysModel: false,
-      p21FrameworkModel: true,
-      nationalResearchCenterModel:false,
-      group: "Key Learning Skills and Techniques"})
-  ];
+  var selectedCenturySkills = [1,5];
 
   this.set('centurySkills', centurySkills);
   this.set('selectedCenturySkills', selectedCenturySkills);
