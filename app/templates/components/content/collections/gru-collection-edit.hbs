@@ -95,7 +95,7 @@
                 {{gru-icon name="open_in_new"}} {{t "common.choose"}}
               </button>
               <div class="skills-buttons">
-                {{#each selectedSkills as |skill|}}
+                {{#each tempSelectedSkills as |skill|}}
                   {{century-skills.gru-century-skill-tag skill=skill isReadOnly=false onRemove=(action 'removeSkill')}}
                 {{/each}}
               </div>

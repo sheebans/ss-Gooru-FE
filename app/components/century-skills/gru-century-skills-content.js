@@ -37,6 +37,10 @@ export default Ember.Component.extend({
     saveSelectedSkills () {
       var selectedCenturySkills = this.get('selectedCenturySkills');
       this.get('onSave')(selectedCenturySkills);
+    },
+
+    cancelSelectedSkills () {
+      this.get('onCancel')();
     }
   },
 

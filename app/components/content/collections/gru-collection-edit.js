@@ -224,26 +224,22 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   /**
    * @property {CenturySkill[]} List of selected century skills
    */
-  selectedSkills: Ember.computed('tempCollection.centurySkills.[]', 'collection.centurySkills.[]', 'centurySkills.[]', function() {
+  tempSelectedSkills: Ember.computed('tempCollection.centurySkills.[]', 'centurySkills.[]', function() {
 
-    let component = this;
-    let isEditing = component.get('isEditing');
-    let centurySkills = component.get('centurySkills');
-    let selectedCenturySkillsIds = isEditing ? component.get('tempCollection.centurySkills') : component.get('collection.centurySkills');
-    var selectedCenturySkillsData = Ember.A([]);
+    let selectedCenturySkillsIds = this.get('tempCollection.centurySkills');
 
-    if (selectedCenturySkillsIds && centurySkills) {
-      for (var i = 0; i < selectedCenturySkillsIds.length; i++) {
-        var skillItem = selectedCenturySkillsIds[i];
+    return this.selectedCenturySkillsData(selectedCenturySkillsIds);
+  }),
 
-        centurySkills.filter(function(centurySkill){
-          if (centurySkill.get("id") === skillItem) {
-            selectedCenturySkillsData.pushObject(centurySkill);
-          }
-        });
-      }
-    }
-    return selectedCenturySkillsData;
+  /**
+   * @property {CenturySkill[]} List of selected century skills
+   */
+  selectedSkills: Ember.computed('collection.centurySkills.[]', 'centurySkills.[]', function() {
+
+    let selectedCenturySkillsIds = this.get('collection.centurySkills');
+
+    return this.selectedCenturySkillsData(selectedCenturySkillsIds);
+
   }),
 
   /**
@@ -283,7 +279,8 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   openSkillsModal: function(){
     var component = this;
     var model = {
-      selectedCenturySkills: component.get('tempCollection.centurySkills'),
+      tempSelectedCenturySkills: component.get('tempCollection.centurySkills'),
+      selectedCenturySkills: component.get('collection.centurySkills'),
       centurySkills: component.get('centurySkills'),
       callback: {
         success: function(selectedCenturySkills) {
@@ -292,5 +289,30 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       }
     };
     this.actions.showModal.call(this, 'century-skills.modals.gru-century-skills', model, null, 'gru-century-skills');
+  },
+
+  /**
+   * Returns selectedCenturySkills data
+   * @param {Number[]} selectedCenturySkills ids
+   * @return {centurySkill[]}
+   */
+  selectedCenturySkillsData: function(selectedCenturySkillsIds){
+    debugger;
+
+    var selectedCenturySkillsData = Ember.A([]);
+    let centurySkills = this.get('centurySkills');
+
+    if (selectedCenturySkillsIds && centurySkills) {
+      for (var i = 0; i < selectedCenturySkillsIds.length; i++) {
+        var skillItem = selectedCenturySkillsIds[i];
+
+        centurySkills.filter(function (centurySkill) {
+          if (centurySkill.get("id") === skillItem) {
+            selectedCenturySkillsData.pushObject(centurySkill);
+          }
+        });
+      }
+    }
+    return selectedCenturySkillsData;
   }
 });

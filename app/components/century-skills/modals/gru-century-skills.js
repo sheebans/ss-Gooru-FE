@@ -24,9 +24,14 @@ export default Ember.Component.extend({
 
   actions: {
 
-    updateSelectedSkills(selectedCenturySkills) {
-      this.set('selectedCenturySkills', selectedCenturySkills);
-      this.get('model.callback').success(selectedCenturySkills);
+    updateSelectedSkills(tempSelectedCenturySkills) {
+      this.set('tempSelectedCenturySkills', tempSelectedCenturySkills);
+      this.get('model.callback').success(tempSelectedCenturySkills);
+      this.triggerAction({ action: 'closeModal' });
+    },
+
+    cancelSelectedSkills() {
+      this.get('model.callback').success(this.get('selectedCenturySkills'));
       this.triggerAction({ action: 'closeModal' });
     }
   },
@@ -39,10 +44,12 @@ export default Ember.Component.extend({
     component._super( ...arguments );
 
     var selectedCenturySkills = component.get('model.selectedCenturySkills');
+    var tempSelectedCenturySkills = component.get('model.tempSelectedCenturySkills');
     var centurySkills = component.get('model.centurySkills');
 
     if (selectedCenturySkills) {
       this.set('selectedCenturySkills', selectedCenturySkills);
+      this.set('tempSelectedCenturySkills', tempSelectedCenturySkills);
     }
     if (centurySkills) {
       this.set('centurySkills', centurySkills);
@@ -52,6 +59,8 @@ export default Ember.Component.extend({
   willDestroyElement() {
     this._super(...arguments);
     this.set('centurySkills', null);
+    this.set('selectedCenturySkills', null);
+    this.set('tempSelectedCenturySkills', null);
   },
 
   // -------------------------------------------------------------------------
@@ -67,6 +76,12 @@ export default Ember.Component.extend({
    * List of selected Century Skills ids
    * @prop {Number[]}
    */
-  selectedCenturySkills: Ember.A([])
+  selectedCenturySkills: Ember.A([]),
+
+  /**
+   * List of selected Century Skills ids
+   * @prop {Number[]}
+   */
+  tempSelectedCenturySkills: Ember.A([])
 
 });
