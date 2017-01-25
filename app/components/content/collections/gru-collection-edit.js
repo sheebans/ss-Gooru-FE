@@ -297,7 +297,6 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
    * @return {centurySkill[]}
    */
   selectedCenturySkillsData: function(selectedCenturySkillsIds){
-    debugger;
 
     var selectedCenturySkillsData = Ember.A([]);
     let centurySkills = this.get('centurySkills');
