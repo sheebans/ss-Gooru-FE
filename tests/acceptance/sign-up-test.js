@@ -62,6 +62,10 @@ test('Layout for Accessibility', function(assert) {
     T.exists(assert, $modal, "Missing sign-up modal");
     T.exists(assert, $modal.find(".modal-content"), "Missing modal-content");
 
+    const $googleButtonContainer = $modal.find(".google-button");
+    const $linkGoogleButton = $googleButtonContainer.parent("a");
+    assert.equal($linkGoogleButton.attr("role"), "button", 'Google button does not have the role needed');
+
     var $label;
     var $input;
 
@@ -69,31 +73,37 @@ test('Layout for Accessibility', function(assert) {
     $label = $usernameField.find("label");
     $input = $label.find("input");
     assert.equal($label.attr("for"), $input.attr("id"), 'The username input does not have a related label');
+    assert.equal($input.attr("aria-required"), "true", 'The username input does not have the aria required attribute');
 
     var $firstNameField = $modal.find(".firstName");
     $label = $firstNameField.find("label");
     $input = $label.find("input");
     assert.equal($label.attr("for"), $input.attr("id"), 'The first name input does not have a related label');
+    assert.equal($input.attr("aria-required"), "true", 'The first name input does not have the aria required attribute');
 
     var $lastNameField = $modal.find(".lastName");
     $label = $lastNameField.find("label");
     $input = $label.find("input");
     assert.equal($label.attr("for"), $input.attr("id"), 'The last name input does not have a related label');
+    assert.equal($input.attr("aria-required"), "true", 'The last name input does not have the aria required attribute');
 
     var $emailField = $modal.find(".email");
     $label = $emailField.find("label");
     $input = $label.find("input");
     assert.equal($label.attr("for"), $input.attr("id"), 'The email input does not have a related label');
+    assert.equal($input.attr("aria-required"), "true", 'The email input does not have the aria required attribute');
 
     var $passwordField = $modal.find(".password");
     $label = $passwordField.find("label");
     $input = $label.find("input");
     assert.equal($label.attr("for"), $input.attr("id"), 'The password input does not have a related label');
+    assert.equal($input.attr("aria-required"), "true", 'The password input does not have the aria required attribute');
 
     var $rePasswordField = $modal.find(".rePassword");
     $label = $rePasswordField.find("label");
     $input = $label.find("input");
     assert.equal($label.attr("for"), $input.attr("id"), 'The re password input does not have a related label');
+    assert.equal($input.attr("aria-required"), "true", 'The re password input does not have the aria required attribute');
 
   });
 

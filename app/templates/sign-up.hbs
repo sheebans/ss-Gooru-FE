@@ -18,7 +18,7 @@
               {{#link-to 'sign-in'}} {{t "sign-up.log-in"}} {{/link-to}}
               {{t "sign-up.log-in-description"}}
             </div>
-            <a href="{{unbound googleSignUpUrl}}">
+            <a role="button" href="{{unbound googleSignUpUrl}}">
               <div class="google-button">
                 <div class="google-button-content-wrapper">
                   <div class="google-button-icon">
@@ -41,7 +41,7 @@
                     <div class="form-group username">
                       <label for="usernameId">
                         <span class="required">{{t "sign-up.username"}}</span>
-                        {{validation.gru-input model=profile valuePath='username' didValidate=didValidate inputId='usernameId'}}
+                        {{validation.gru-input model=profile valuePath='username' didValidate=didValidate inputId='usernameId' isRequired=true}}
                       </label>
                       {{#if usernameError}}
                         <span class="validation error username-error">{{usernameError}}</span>
@@ -51,34 +51,34 @@
                     <div class="form-group firstName">
                       <label for="firstNameId">
                         <span class="required">{{t "common.first-name"}}</span>
-                        {{validation.gru-input model=profile valuePath='firstName' maxLength=25 didValidate=didValidate inputId='firstNameId'}}
+                        {{validation.gru-input model=profile valuePath='firstName' maxLength=25 didValidate=didValidate inputId='firstNameId' isRequired=true}}
                       </label>
                     </div>
                     <div class="form-group lastName">
                       <label for="lastNameId">
                         <span class="required">{{t "common.last-name"}}</span>
-                        {{validation.gru-input model=profile valuePath='lastName' maxLength=25 didValidate=didValidate inputId='lastNameId'}}
+                        {{validation.gru-input model=profile valuePath='lastName' maxLength=25 didValidate=didValidate inputId='lastNameId' isRequired=true}}
                       </label>
                     </div>
                     <div class="form-group email">
                       <label for="emailId">
                         <span class="required">{{t "sign-up.email"}}</span>
-                        {{validation.gru-input model=profile valuePath='email' didValidate=didValidate inputId='emailId'}}
+                        {{validation.gru-input model=profile valuePath='email' didValidate=didValidate inputId='emailId' isRequired=true}}
                       </label>
                       {{#if emailError}}
                         <span class="validation error email-error">{{emailError}}</span>
                       {{/if}}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group password">
                       <label for="passwordId">
                         <span class="required">{{t "sign-up.password"}}</span>
-                        {{validation.gru-input model=profile valuePath='password' type='password' didValidate=didValidate inputId='passwordId'}}
+                        {{validation.gru-input model=profile valuePath='password' type='password' didValidate=didValidate inputId='passwordId' isRequired=true}}
                       </label>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group rePassword">
                       <label for="rePasswordId">
                         <span class="required">{{t "sign-up.rePassword"}}</span>
-                        {{validation.gru-input model=profile valuePath='rePassword' type='password' didValidate=didValidate inputId='rePasswordId'}}
+                        {{validation.gru-input model=profile valuePath='rePassword' type='password' didValidate=didValidate inputId='rePasswordId' isRequired=true}}
                       </label>
                     </div>
                     <div class="sign-up-button form-group text-center">

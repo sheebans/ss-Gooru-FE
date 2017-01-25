@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
-import { RESOURCE_COMPONENT_MAP, RESOURCE_TYPES,CONTENT_TYPES, K12_CATEGORY } from "gooru-web/config/config";
+import {RESOURCE_COMPONENT_MAP, RESOURCE_TYPES, CONTENT_TYPES, EDUCATION_CATEGORY} from "gooru-web/config/config";
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import ModalMixin from 'gooru-web/mixins/modal';
+import {isVideoURL} from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
   // -------------------------------------------------------------------------
@@ -48,6 +49,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
       var resourceForEditing = this.get('resource').copy();
       this.set('tempResource', resourceForEditing);
       this.set('isEditing', true);
+      this.set('selectedSubject', null);
     },
 
     /**
@@ -115,6 +117,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
       this.set("selectedSubject", subject);
     },
 
+    selectCategory: function(category){
+      var standardLabel =  (category === EDUCATION_CATEGORY.value);
+      this.set("standardLabel", !standardLabel);
+    },
+
     /**
      * Remove tag data from the taxonomy list in tempUnit
      */
@@ -179,9 +186,17 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
   selectedSubject: null,
 
   /**
+   * i18n key for the standard/competency dropdown label
    * @property {string}
    */
-  k12Category: K12_CATEGORY.value,
+  standardLabelKey: Ember.computed('standardLabel', function(){
+    return this.get('standardLabel') ? 'common.standards' : 'common.competencies';
+  }),
+
+  /**
+   * @property {boolean}
+   */
+  standardLabel: true,
 
   /**
    * @property {boolean}
@@ -221,6 +236,13 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
     const resource = this.get("resource");
     return (resource && resource.displayGuide);
   }),
+  /**
+   * Indicates is the resource type edit option should be disabled
+   * @property {boolean}
+   */
+  disableTypeEdition: Ember.computed('resource.url', function(){
+    return isVideoURL(this.get('resource.url'));
+  }),
 
   // ----------------------------
   // Methods
@@ -234,6 +256,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
       selected: subjectStandards,
       shortcuts: null,  // TODO: TBD
       subject: subject,
+      standardLabel: component.get("standardLabel"),
       callback: {
         success: function(selectedTags) {
           var dataTags = selectedTags.map(function(taxonomyTag) {

@@ -28,6 +28,29 @@ test('searchCollections', function(assert) {
     });
 });
 
+
+test('searchCollections - resetting pagination', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/gooru-search/rest/v2/search/scollection', function(request) {
+      assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
+      assert.equal(request.queryParams['flt.collectionType'], 'collection', 'Wrong collection type');
+      assert.deepEqual(request.queryParams['flt.standard'], 'a,b', 'Wrong standards');
+      assert.equal(request.queryParams['start'], 1, 'Wrong default start');
+      assert.equal(request.queryParams['length'], 20, 'Wrong default length');
+
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.searchCollections('any-term', { page: 6, taxonomies: ['a', 'b'] }, true)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
 test('searchCollections 400', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -68,6 +91,27 @@ test('searchAssessments', function(assert) {
     });
 });
 
+test('searchAssessments - resetting pagination', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/gooru-search/rest/v2/search/scollection', function(request) {
+      assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
+      assert.equal(request.queryParams['flt.collectionType'], 'assessment', 'Wrong collection type');
+      assert.deepEqual(request.queryParams['flt.standard'], 'a,b', 'Wrong standards');
+      assert.equal(request.queryParams['start'], 1, 'Wrong default start');
+      assert.equal(request.queryParams['length'], 20, 'Wrong default length');
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.searchAssessments('any-term', { page: 4, taxonomies: ['a', 'b'] }, true)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
 test('searchAssessments 400', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -103,6 +147,28 @@ test('searchResources for all resource types', function(assert) {
     }, false);
   });
   adapter.searchResources('any-term', { page: 2, taxonomies: ['a', 'b'] })
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
+test('searchResources for all resource types- resetting pagination', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/gooru-search/rest/v2/search/resource', function(request) {
+      assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
+      assert.equal(request.queryParams['start'], 1, 'Wrong default start');
+      assert.equal(request.queryParams['length'], 20, 'Wrong default length');
+      assert.ok(!request.queryParams['flt.resourceFormat'], 'Wrong format filters');
+      assert.equal(request.queryParams['flt.contentFormat'], 'resource', 'Wrong content format');
+      assert.deepEqual(request.queryParams['flt.standard'], 'a,b', 'Wrong standards');
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.searchResources('any-term', { page: 5, taxonomies: ['a', 'b'] }, true)
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });
@@ -162,6 +228,27 @@ test('searchQuestions for all types', function(assert) {
     }, false);
   });
   adapter.searchQuestions('any-term', { page: 2 })
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
+test('searchQuestions for all types- resetting pagination', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/gooru-search/rest/v2/search/resource', function(request) {
+      assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
+      assert.equal(request.queryParams['start'], 1, 'Wrong default start');
+      assert.equal(request.queryParams['length'], 20, 'Wrong default length');
+      assert.equal(request.queryParams['flt.resourceFormat'], 'question', 'Wrong format filter');
+      assert.ok(!request.queryParams['flt.questionType'], 'Wrong question type filters');
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.searchQuestions('any-term', { page: 7 }, true)
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });

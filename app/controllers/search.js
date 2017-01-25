@@ -95,6 +95,7 @@ export default Ember.Controller.extend(ModalMixin, {
       selected: subjectStandards,
       subject: subject,
       fromSearch: true,
+      standardLabel: true,
       callback: {
         success: function(selectedTags) {
           var dataTags = selectedTags.map(function(taxonomyTag) {

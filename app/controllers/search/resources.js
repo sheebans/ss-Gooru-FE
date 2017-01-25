@@ -27,8 +27,8 @@ export default BaseController.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  doSearch: function(term, params, callback) {
-    this.get('searchService').searchResources(term, params).then(callback);
+  doSearch: function(term, params, callback, resetPagination) {
+    this.get('searchService').searchResources(term, params, resetPagination).then(callback);
   }
 
 });

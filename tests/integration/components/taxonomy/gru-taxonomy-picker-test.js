@@ -2,13 +2,18 @@ import { moduleForComponent, test } from 'ember-qunit';
 import { generateTaxonomyTestTree } from 'gooru-web/utils/taxonomy';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
 import TaxonomyRoot from 'gooru-web/models/taxonomy/taxonomy-root';
 import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 moduleForComponent('taxonomy/gru-taxonomy-picker', 'Integration | Component | taxonomy/gru taxonomy picker', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.i18n = this.container.lookup('service:i18n');
+    this.i18n.set("locale","en");
+  }
 });
 
 test('it renders a shortcut list of taxonomy tags, a browse selector and a list of selected taxonomy tags', function(assert) {
@@ -59,19 +64,24 @@ test('it renders a shortcut list of taxonomy tags, a browse selector and a list 
     });
   });
 
+  var browseSelectorText = 'taxonomy.modals.gru-standard-picker.browseSelectorText';
+  var selectedTextKey = 'taxonomy.modals.gru-standard-picker.selectedText';
+
   this.set('subject', subject);
   this.set('shortcuts', shortcuts);
   this.set('selected', selected);
   this.set('panelHeaders', ['Level 1', 'Level 2']);
+  this.set('browseSelectorText', browseSelectorText);
+  this.set('selectedTextKey', selectedTextKey);
 
   this.render(hbs`{{
     taxonomy/gru-taxonomy-picker
-      browseSelectorText="Taxonomy Picker Title"
+      browseSelectorText=browseSelectorText
       maxLevels=2
       onSearchPath=(action 'loadData')
       panelHeaders=panelHeaders
       selected=selected
-      selectedTextKey="Text for Selected Tags"
+      selectedTextKey=selectedTextKey
       shortcuts=shortcuts
       shortcutText="Text for Shortcut Tags"
       subject=subject }}`);
@@ -79,7 +89,11 @@ test('it renders a shortcut list of taxonomy tags, a browse selector and a list 
   const $component = this.$('.taxonomy.gru-taxonomy-picker');
   assert.ok($component.length, 'Component');
   assert.equal($component.find('.shortcut-list .gru-taxonomy-tag').length, 2, 'Number of shortcut tags');
-  assert.ok($component.find('.taxonomy.gru-browse-selector').length, 'Browse selector');
+  assert.ok($component.find('.browse-selector span').length, 'Browse selector label');
+  assert.equal(T.text($component.find('.browse-selector span')), this.get('i18n').t(browseSelectorText).string, "Wrong browse selector label text");
+  assert.ok($component.find('.taxonomy.gru-browse-selector').length, 'Browse selector component');
+  assert.ok($component.find('.selected-list > span').length, 'Selected list  label');
+  assert.equal(T.text($component.find('.selected-list > span')), `${selected.length}${this.get('i18n').t(selectedTextKey).string}`, "Wrong selected list label text");
 
   return wait().then(function () {
     assert.equal($component.find('.selected-list .gru-taxonomy-tag').length, 2, 'Number of selected tags');

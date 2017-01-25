@@ -39,11 +39,18 @@ export const DEFAULT_IMAGES = {
 };
 
 export const K12_CATEGORY = {value: 'k_12', apiCode: 'K12', label: 'common.categoryOptions.k12'};
+export const EDUCATION_CATEGORY = {value: 'higher_education', apiCode: 'HE', label: 'common.categoryOptions.higher-ed'};
+export const LEARNING_CATEGORY = {value: 'professional_learning', apiCode: 'PL', label: 'common.categoryOptions.professional-dev'};
 
 export const TAXONOMY_CATEGORIES = [
   K12_CATEGORY,
-  {value: 'higher_education', apiCode: 'HE', label: 'common.categoryOptions.higher-ed'},
-  {value: 'professional_learning', apiCode: 'PL', label: 'common.categoryOptions.professional-dev'}
+  EDUCATION_CATEGORY,
+  LEARNING_CATEGORY
+];
+
+export const CONTENT_CATEGORIES = [
+  K12_CATEGORY,
+  EDUCATION_CATEGORY
 ];
 
 export const CONTENT_TYPES = {
@@ -143,6 +150,12 @@ export const TAXONOMY_LEVELS = {
   MICRO:    'micro-standard'
 };
 
+export const CENTURY_SKILLS_GROUPS = {
+  KEY_COGNITIVE_SKILLS_AND_STRATEGIES: 'Key Cognitive Skills and Strategies',
+  KEY_CONTENT_KNOWLEDGE:               'Key Content Knowledge',
+  KEY_LEARNING_SKILLS_AND_TECHNIQUES:  'Key Learning Skills and Techniques'
+};
+
 export const CODE_TYPES = {
   STANDARD_CATEGORY:  'standard_level_0',
   STANDARD:           'standard_level_1',
@@ -191,5 +204,15 @@ export const RESERVED_WORDS = [
   "search",
   "sign-in",
   "sign-up",
-  "sign-up-finish"
+  "sign-up-finish",
+  "student",
+  "teacher",
+  "goals"
 ];
+
+export const GOAL_STATUS = {
+  NOT_STARTED : "not_started",
+  ACTIVE : "activated",
+  COMPLETED : "completed",
+  DROPPED : "dropped"
+};

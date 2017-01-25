@@ -58,17 +58,15 @@
           {{taxonomy.gru-taxonomy-selector
           isEditing=isEditing
           onSubjectSelected="selectSubject"
+          onCategorySelected="selectCategory"
           selectedSubject=selectedSubject
-          internalCategory=k12Category
           subjectLabelKey='common.subject-and-framework'
-          showCategories=false
-          showCourses=false
           onlySubjectsWithStandards=true
           }}
         {{/if}}
-        <div class="subject">
+        <div class="standards">
           <label>
-            <span>{{t "common.standards"}}</span>
+            <span>{{t standardLabelKey}}</span>
             {{#if isEditing}}
               <button type="button" class="btn btn-primary"
                 {{action 'openTaxonomyModal'}}
@@ -94,7 +92,7 @@
 
         {{content.gru-depth-of-knowledge isEditing=isEditing srcSelectedKnowledge=collection.depthOfknowledge editSelectedKnowledge=tempCollection.depthOfknowledge}}
 
-        <div class="century-skill out-of-scope">
+        <div class="century-skills out-of-scope">
           <label>
             <span>21st Century Skills</span>
             {{#if isEditing}}

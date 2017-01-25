@@ -57,6 +57,14 @@
         }
       }
     }
+    .gru-taxonomy-selector {
+      > div {
+        display: table;
+      }
+      .gru-subject-picker {
+        margin-bottom: 15px;
+      }
+    }
   }
   .tags {
     margin: 10px 0px;

@@ -124,14 +124,14 @@
               <span class="required">{{t "common.type"}}</span>
               {{#if isEditing}}
                 <div class="btn-group clearfix">
-                  <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button type="button" class="btn btn-primary btn-sm {{if disableTypeEdition 'disabled'}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{#if tempResource.format}}
                       {{t (concat 'common.resource-format.' tempResource.format) }}
                     {{else}}
                       {{t 'common.select-resource-type'}}
                     {{/if}}
                   </button>
-                  <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button type="button" class="btn btn-primary btn-sm dropdown-toggle {{if disableTypeEdition 'disabled'}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
@@ -202,17 +202,15 @@
               {{taxonomy.gru-taxonomy-selector
               isEditing=isEditing
               onSubjectSelected="selectSubject"
+              onCategorySelected="selectCategory"
               selectedSubject=selectedSubject
-              internalCategory=k12Category
               subjectLabelKey='common.subject-and-framework'
-              showCategories=false
-              showCourses=false
               onlySubjectsWithStandards=true
               }}
             {{/if}}
-            <div class="subject">
+            <div class="standards">
               <label>
-                <span>{{t "common.standards"}}</span>
+                <span>{{t standardLabelKey}}</span>
               </label>
               {{#if isEditing}}
                 <button type="button" class="btn btn-primary"

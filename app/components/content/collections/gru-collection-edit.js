@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {CONTENT_TYPES, K12_CATEGORY} from 'gooru-web/config/config';
+import {CONTENT_TYPES, EDUCATION_CATEGORY} from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
@@ -53,6 +53,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       var collectionForEditing = this.get('collection').copy();
       this.set('tempCollection', collectionForEditing);
       this.set('isEditing', true);
+      this.set('selectedSubject', null);
     },
 
     /**
@@ -125,6 +126,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       this.set("selectedSubject", subject);
     },
 
+    selectCategory: function(category){
+      var standardLabel = (category === EDUCATION_CATEGORY.value);
+      this.set("standardLabel", !standardLabel);
+    },
+
     /**
      * Remove tag data from the taxonomy list in tempUnit
      */
@@ -170,9 +176,17 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   selectedSubject: null,
 
   /**
+   * i18n key for the standard/competency dropdown label
    * @property {string}
    */
-  k12Category: K12_CATEGORY.value,
+  standardLabelKey: Ember.computed('standardLabel', function(){
+    return this.get('standardLabel') ? 'common.standards' : 'common.competencies';
+  }),
+
+  /**
+   * @property {boolean}
+   */
+  standardLabel: true,
 
   /**
    * @property {boolean}
@@ -200,6 +214,13 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     return TaxonomyTag.getTaxonomyTags(this.get("tempCollection.standards"), false, true);
   }),
 
+  /**
+   * @property {CenturySkill[]} List of century skills
+   */
+  selectedSkills: Ember.computed('tempCollection.centurySkills.[]', function() {
+    return this.get("tempCollection.centurySkills");
+  }),
+
   // ----------------------------
   // Methods
   openTaxonomyModal: function(){
@@ -212,6 +233,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       selected: subjectStandards,
       shortcuts: null,  // TODO: TBD
       subject: subject,
+      standardLabel: component.get("standardLabel"),
       callback: {
         success: function(selectedTags) {
           var dataTags = selectedTags.map(function(taxonomyTag) {
@@ -230,7 +252,13 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   openSkillsModal: function(){
     var component = this;
     var model = {
-      content: component.get('collection')
+      selectedSkills: component.get('tempCollection.centurySkills'),
+      callback: {
+        success: function(selectedCenturySkills) {
+          const centurySkills = Ember.A(selectedCenturySkills);
+          component.set('tempCollection.centurySkills', centurySkills);
+        }
+      }
     };
     this.actions.showModal.call(this, 'century-skills.modals.gru-century-skills', model, null, 'gru-century-skills');
   }
