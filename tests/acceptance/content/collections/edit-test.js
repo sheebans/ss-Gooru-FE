@@ -15,7 +15,7 @@ moduleForAcceptance('Acceptance | Edit Collection', {
     });
   }
 });
-//
+
 // TODO: Fix test per changes in 1149
 /*test('Edit collection information', function (assert) {
   visit('/content/collections/edit/123');
