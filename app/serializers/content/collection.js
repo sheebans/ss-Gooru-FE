@@ -75,13 +75,20 @@ export default Ember.Object.extend(ConfigurationMixin, {
   serializeCollection: function(collectionModel) {
     const serializer = this;
     const thumbnail = cleanFilename(collectionModel.thumbnailUrl, this.get('session.cdnUrls'));
-    return {
+
+    let serializedCollection = {
       title: collectionModel.get('title'),
       'learning_objective': collectionModel.get('learningObjectives') || null,
       'visible_on_profile': collectionModel.get('isVisibleOnProfile'),
       thumbnail: !Ember.isEmpty(thumbnail) ? thumbnail : null,
-      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(collectionModel.get('standards'))
+      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(collectionModel.get('standards')),
+      'metadata': {
+        '21_century_skills': []
+      }
     };
+
+    serializedCollection.metadata['21_century_skills']= collectionModel.get("centurySkills") || [];
+    return serializedCollection;
   },
 
   /**
@@ -95,6 +102,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
     const thumbnailUrl = payload.thumbnail ?
     basePath + payload.thumbnail : appRootPath + DEFAULT_IMAGES.COLLECTION;
+    const metadata = payload.metadata || {};
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
       title: payload.title,
@@ -110,8 +118,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
       unitId: payload.unit_id,
       lessonId: payload.lesson_id,
       creatorId: payload.creator_id,
-      ownerId: payload.owner_id
-      // TODO Add more required properties here...
+      ownerId: payload.owner_id,
+      metadata: metadata,
+      centurySkills: metadata['21_century_skills'] && metadata['21_century_skills'].length > 0 ? metadata['21_century_skills'] : []
     });
   },
 
@@ -142,5 +151,4 @@ export default Ember.Object.extend(ConfigurationMixin, {
       "order": values
     };
   }
-
 });

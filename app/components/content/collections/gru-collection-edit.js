@@ -74,7 +74,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
             component.get('collectionService').updateCollection(editedCollection.get('id'), editedCollection)
               .then(function () {
                 collection.merge(editedCollection,
-                  ['title', 'learningObjectives', 'isVisibleOnProfile', 'thumbnailUrl', 'standards']);
+                  ['title', 'learningObjectives', 'isVisibleOnProfile', 'thumbnailUrl', 'standards', 'centurySkills']);
                 component.set('isEditing', false);
               })
               .catch(function (error) {
@@ -137,6 +137,13 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     removeTag: function (taxonomyTag) {
       var tagData = taxonomyTag.get('data');
       this.get('tempCollection.standards').removeObject(tagData);
+    },
+
+    /**
+     * Remove century skill id
+     */
+    removeSkill: function (skillItemId) {
+      this.get('tempCollection.centurySkills').removeObject(skillItemId);
     },
 
     openTaxonomyModal: function(){
@@ -214,6 +221,33 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     return TaxonomyTag.getTaxonomyTags(this.get("tempCollection.standards"), false, true);
   }),
 
+  /**
+   * @property {CenturySkill[]} List of selected century skills
+   */
+  tempSelectedSkills: Ember.computed('tempCollection.centurySkills.[]', 'centurySkills.[]', function() {
+
+    let selectedCenturySkillsIds = this.get('tempCollection.centurySkills');
+
+    return this.selectedCenturySkillsData(selectedCenturySkillsIds);
+  }),
+
+  /**
+   * @property {CenturySkill[]} List of selected century skills
+   */
+  selectedSkills: Ember.computed('collection.centurySkills.[]', 'centurySkills.[]', function() {
+
+    let selectedCenturySkillsIds = this.get('collection.centurySkills');
+
+    return this.selectedCenturySkillsData(selectedCenturySkillsIds);
+
+  }),
+
+  /**
+   * List of Century Skills
+   * @prop {CenturySkill[]}
+   */
+  centurySkills: Ember.A([]),
+
   // ----------------------------
   // Methods
   openTaxonomyModal: function(){
@@ -245,8 +279,39 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   openSkillsModal: function(){
     var component = this;
     var model = {
-      content: component.get('collection')
+      tempSelectedCenturySkills: component.get('tempCollection.centurySkills'),
+      selectedCenturySkills: component.get('collection.centurySkills'),
+      centurySkills: component.get('centurySkills'),
+      callback: {
+        success: function(selectedCenturySkills) {
+          component.set('tempCollection.centurySkills', Ember.A(selectedCenturySkills));
+        }
+      }
     };
     this.actions.showModal.call(this, 'century-skills.modals.gru-century-skills', model, null, 'gru-century-skills');
+  },
+
+  /**
+   * Returns selectedCenturySkills data
+   * @param {Number[]} selectedCenturySkills ids
+   * @return {centurySkill[]}
+   */
+  selectedCenturySkillsData: function(selectedCenturySkillsIds){
+
+    var selectedCenturySkillsData = Ember.A([]);
+    let centurySkills = this.get('centurySkills');
+
+    if (selectedCenturySkillsIds && centurySkills) {
+      for (var i = 0; i < selectedCenturySkillsIds.length; i++) {
+        var skillItem = selectedCenturySkillsIds[i];
+
+        centurySkills.filter(function (centurySkill) {
+          if (centurySkill.get("id") === skillItem) {
+            selectedCenturySkillsData.pushObject(centurySkill);
+          }
+        });
+      }
+    }
+    return selectedCenturySkillsData;
   }
 });

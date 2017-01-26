@@ -17,6 +17,10 @@
         </li>
 
         <li class="pull-right actions">
+          {{#link-to 'goals.manage' class="btn btn-info manage-goals-cta" tagName='button'}}
+            {{t 'user.manage-goals'}}
+          {{/link-to}}
+
           {{#link-to 'content.classes.join' class="btn btn-success join-class-cta" tagName='button'}}
             {{t 'user.join-class'}}
           {{/link-to}}

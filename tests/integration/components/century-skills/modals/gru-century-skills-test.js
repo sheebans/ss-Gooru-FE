@@ -17,7 +17,5 @@ test('Century skills Layout', function(assert) {
   assert.ok($component.find('h4.modal-title'), 'Missing Title');
   assert.equal($component.find('h4.modal-title').text(), this.get('i18n').t('common.add-century-skills').string, 'Incorrect Title');
   assert.ok($component.find('.gru-century-skills-legend'), 'Missing gru-century-skills-legend component');
-  assert.ok($component.find('actions .cancel'), 'Missing Cancel Button');
-  assert.ok($component.find('actions .add'), 'Missing Add Button');
-
+  assert.ok($component.find('.gru-century-skills-content'), 'Missing gru-century-skills-content component');
 });

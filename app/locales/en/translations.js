@@ -760,6 +760,7 @@ export default {
     "active-classes": "Active Classrooms",
     "archived-classes": "Archived Classrooms",
     "create-class": "Create Classroom",
+    "manage-goals": "Manage Goals",
     "join-class": "Join Classroom",
     "joined-classes": {
       'one': "You're currently enrolled in 1 classroom",
@@ -1477,12 +1478,19 @@ export default {
     "view-unit-details": "View Unit Metadata",
     "performance": "Performance"
   },
-  "gru-century-skills-legend": {
+  "gru-century-skills": {
     "legends": {
-      "first": "Hewlett Deeper Learning Model",
-      "second": "Conley Four Keys",
-      "third": "P21 Framework",
-      "fourth": "National Research Center for Life and Work"
+      "hewlett": "Hewlett Deeper Learning Model",
+      "conley": "Conley Four Keys",
+      "framework": "P21 Framework",
+      "national": "National Research Center for Life and Work"
+    },
+    "content": {
+      "groups": {
+        "cognitive": "Key Cognitive Skills and Strategies",
+        "content": "Key Content Knowledge",
+        "learning": "Key Learning Skills and Techniques"
+      }
     }
   }
 };

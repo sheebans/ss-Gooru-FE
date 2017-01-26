@@ -90,6 +90,9 @@ Router.map(function() {
     this.route('student-collection');
   });
 
+  this.route('goals', function() {
+    this.route('manage');
+  });
 
   this.route('home');
 

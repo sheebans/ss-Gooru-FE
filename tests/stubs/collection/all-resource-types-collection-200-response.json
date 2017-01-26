@@ -9,7 +9,9 @@
   "thumbnail": null,
   "learning_objective": null,
   "license": 261,
-  "metadata": null,
+  "metadata": {
+    "21_century_skills": [2]
+  },
   "taxonomy": null,
   "setting": null,
   "grading": null,
