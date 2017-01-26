@@ -103,7 +103,6 @@ export default Ember.Controller.extend({
             Ember.$.ajax('http://localhost:8080/api/nucleus/v1/firebase/jwt', options).then(function(val){
               var response = JSON.parse(val);
               var jwt = response.jwt;
-              console.log('JWT val ',jwt);
               /*
               * If the user is not logged in, then we log them into Firebase. First we setup the listener so that after
               * the user is logged into firebase, we then create a representation for the user in the user
