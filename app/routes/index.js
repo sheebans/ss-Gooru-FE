@@ -50,32 +50,14 @@ export default Ember.Route.extend(PublicRouteMixin, {
     return details;
   },
 
-<<<<<<< HEAD
-  afterModel(model, transition) {
-    const anonymous = this.get('session.isAnonymous');
-=======
   afterModel() {
     const route = this;
     const anonymous = route.get('session.isAnonymous');
     const userId = route.get("session.userId");
-
->>>>>>> GG-Nile
     if (!anonymous) {
       if (route.get('session.userData.isNew')) {
         route.transitionTo('sign-up-finish');
       } else {
-<<<<<<< HEAD
-		let launchUrl = transition.queryParams.launchUrl;
-		if (launchUrl) {
-			let location = transition.queryParams.location;
-			if (location) {
-				launchUrl = launchUrl + "?location=" + location; 
-			}
-			window.location.replace(launchUrl);
-		} else {
-			this.transitionTo('home');
-		}
-=======
         route.get('profileService').readUserProfile(userId)
           .then(function(userProfile) {
             const isStudent = userProfile.get('isStudent');
@@ -92,7 +74,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
               }
             }
           });
->>>>>>> GG-Nile
+//>>>>>>> GG-Nile
       }
     }
   }

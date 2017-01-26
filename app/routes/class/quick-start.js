@@ -8,7 +8,7 @@ export default Ember.Route.extend({
   session: Ember.inject.service('session'),
   i18n: Ember.inject.service(),
   profileService: Ember.inject.service('api-sdk/profile'),
-  
+
   actions: {
     setupTour: function(step){
       if(this.currentModel.tourSteps.indexOf(step)===0){
@@ -23,23 +23,16 @@ export default Ember.Route.extend({
       }
     }
   },
-  
+
   model: function () {
   const route = this;
-  const currentClass = this.modelFor('class').class;  
-
-  var userInfo = this.get('profileService').findByCurrentUser().then(function(value) {
-        // fulfillment
-        return value;
-      });
-  
-  var coursesPromise = route.get('profileService')
+  const currentClass = this.modelFor('class').class;
+  const coursesPromise = route.get('profileService')
       .readUserProfile(route.get("session.userId"))
         .then(function(profile) {
           return route.get('profileService').getCourses(profile);
         });
-    
-    const tourSteps = Ember.A([
+  const tourSteps = Ember.A([
         {
           elementSelector:'.menu-navbar .profile.dropdown-toggle',
           title: route.get('i18n').t('gru-tour.quick-start.stepOne.title'),
@@ -51,15 +44,12 @@ export default Ember.Route.extend({
           description: route.get('i18n').t('gru-tour.quick-start.stepTwo.description')
         }
       ]);
-  
     return Ember.RSVP.hash({
       courses:coursesPromise,
       class:currentClass,
       tourSteps:tourSteps
     });
-
   },
-  
   setupController: function (controller, model) {
     controller.get('classController').selectMenuItem('overview');
     controller.set('class', {
@@ -69,5 +59,4 @@ export default Ember.Route.extend({
     controller.set('courses', model.courses);
     controller.set('tourSteps', model.tourSteps);
   }
-
 });

@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service("session"),
+
   firebaseApp: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
@@ -16,38 +17,41 @@ export default Ember.Controller.extend({
     submitMessage: function() {
       const db = this.get('firebaseApp').database();
       const channelId = this.channels[0].uuid;
-      var fullname = this.userInfo.firstName + ' ' + this.userInfo.lastName;
-      var photo = this.userInfo.avatarUrl;
-      var messageRef = db.ref().child("messages/" + channelId);
-      var newKey = messageRef.push().key;
-      db.ref("messages/" + channelId + "/" + newKey).set({
-        message: this.get("message"),
-        username: this.get('session.userData.username'),
-        userId: this.get('session.userData.gooruUId'),
-        fullname: fullname, 
-        photo: photo,
-        createdTime: firebase.database.ServerValue.TIMESTAMP,
-        messageId: newKey
-      });
-      Ember.run.later((function() {
-      $('.message-row-container').scrollTop($('.message-row-container-inner').height());
-      }), 100);
-      this.set("message", '');
+      var user = this.get('firebaseApp').auth().currentUser;
+      if (user) {
+        var fullname = this.userInfo.firstName + ' ' + this.userInfo.lastName;
+        var photo = this.userInfo.avatarUrl;
+        var messageRef = db.ref().child("messages/" + channelId);
+        var newKey = messageRef.push().key;
+        db.ref("messages/" + channelId + "/" + newKey).set({
+          message: this.get("message"),
+          username: this.get('session.userData.username'),
+          userId: this.get('session.userData.gooruUId'),
+          fullname: fullname,
+          photo: photo,
+          createdTime: firebase.database.ServerValue.TIMESTAMP,
+          messageId: newKey
+        });
+        //Move the location in message pane to the bottom
+        Ember.run.later((function() {
+        $('.message-row-container').scrollTop($('.message-row-container-inner').height());
+        }), 100);
+        this.set("message", '');
+      }
     },
     //Upload file to firebase storage
     submitFile: function(){
-      const auth = this.get('firebaseApp').auth();
       const db = this.get('firebaseApp').database();
-      const storage =  this.get('firebaseApp').storage()
+      const storage =  this.get('firebaseApp').storage();
       const channelId = this.channels[0].uuid;
-      //Gather document information
-      let image = document.getElementById('mediaCapture');
-      let file = image.files[0];        
-      // Check if the user is signed-in
-      if (this.checkSignedInWithMessage()) {
-        // We add a message with a loading icon that will get updated with the shared image.
+      var user = this.get('firebaseApp').auth().currentUser;
+      //Only allow this functionality if the user is signed into firebase
+      if (user) {
+        //Gather document information
+        let image = document.getElementById('mediaCapture');
+        let file = image.files[0];
         var fullname = this.userInfo.firstName + ' ' + this.userInfo.lastName;
-        var currentUser = auth.currentUser;
+        var currentUser = user;
         var photo = this.userInfo.avatarUrl;
         //Create a reference to the messages table for this particular channel
         var messageRef = db.ref().child("messages/" + channelId);
@@ -62,47 +66,45 @@ export default Ember.Controller.extend({
             db.ref().child("messages/" + channelId + "/" + newKey).set({
               username: this.get('session.userData.username'),
               userId: this.get('session.userData.gooruUId'),
-              fullname: fullname, 
+              fullname: fullname,
               message: storage.ref(filePath).toString(),
               photoUrl: file,
               photo: photo,
               fileType: file.type,
               fileSize: file.size,
               fileName: file.name,
-              messageId: newKey
+              messageId: newKey,
+              createdTime: firebase.database.ServerValue.TIMESTAMP
             });
           }.bind(this));
+        //Move the location in message pane to the bottom
+        Ember.run.later((function() {
+        $('.message-row-container').scrollTop($('.message-row-container-inner').height());
+        }), 100);
+        this.set("message", '');
       }
-      Ember.run.later((function() {
-      $('.message-row-container').scrollTop($('.message-row-container-inner').height());
-      }), 100);
-      this.set("message", '');
     },
+    //remove a message from the message pane and firebase
     removeMessage: function(message){
-      console.log('starting to remove a message');
       const auth = this.get('firebaseApp').auth();
       const db = this.get('firebaseApp').database();
-      const storage =  this.get('firebaseApp').storage();
       const channelId = this.channels[0].uuid;
       //Check user id against authenticated firebase id - if it's the same then we can remove the message
-      console.log('the messageId is',message.messageId);
-      if(message.userId == auth.currentUser.uid){
+      if(message.userId === auth.currentUser.uid){
         db.ref().child("messages/" + channelId +"/"+message.messageId).remove();
+        //return from this method since we are done
         return;
       }
       //Decode the JWT provided to firebase - need to look into the users role
       auth.currentUser.getToken().then(function(val){
        var decodedVal = jwt_decode(val);
        //if the user is a teacher, then we allow them to remove anyones message
-       if(decodedVal.user_category == "teacher"){
+       if(decodedVal.user_category === "teacher"){
         db.ref().child("messages/" + channelId+"/"+message.messageId).remove();
-        console.log('user removed');
        }
-       console.log('finished removing a message');
      });
     }
   },
-
   // -------------------------------------------------------------------------
   // Events
 

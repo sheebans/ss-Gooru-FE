@@ -8,8 +8,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       refreshModel: true
     }
   },
-
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -33,7 +31,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @type {UnitService} Service to retrieve unit information
    */
   unitService: Ember.inject.service('api-sdk/unit'),
-  
+
+  /**
+  * @type {FirebaseService} Service to utilize firebase features
+  */
   firebaseApp: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
@@ -47,12 +48,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   const classId = params.classId;
   const classPromise = route.get('classService').readClassInfo(classId);
   const membersPromise = route.get('classService').readClassMembers(classId);
-  
+
   var channels = [];
   var messages = [];
+  //Create objects for firebase services
   const db = this.get('firebaseApp').database();
+  const auth = this.get('firebaseApp').auth();
   const userInfo = this.get('profileService').findByCurrentUser();
-  
+
     return Ember.RSVP.hash({
       class: classPromise,
       members: membersPromise
@@ -67,14 +70,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         visibilityPromise = route.get('classService').readClassContentVisibility(classId);
         coursePromise = route.get('courseService').fetchById(courseId);
       }
-
+      //Retrieve the current representation of the user logged into firebase
+      const user = auth.currentUser;
+      if(user){
       //Create a reference to the channel table in firebase for this particular class
       var channelRef = db.ref().child("channels/");
       //We will grab all existing channels once to perform a simple check
       channelRef.once('value').then(function(snapshot) {
-      //Check to see if a representation for the class exist in the channel table - if not, we create a new channel (default) 
+      //Check to see if a representation for the class exist in the channel table - if not, we create a new channel (default)
       if (!snapshot.hasChild(classId)) {
-            var newKey = channelRef.child(classId).push().key;
+            var newKey = db.ref("channels/"+classId).push().key;
             var creator = aClass.creatorId;
             const classId = aClass.id;
             var fullName = userInfo.firstName + ' ' + userInfo.lastName;
@@ -87,7 +92,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
                 }
               },
               uuid: newKey
-            };   
+            };
             //Creating the new channel in firebase DB
             db.ref().child("channels/"+classId + "/" + newKey).set(postData);
             for (var i=0; i<aClass.members.length; i++) {
@@ -97,23 +102,25 @@ export default Ember.Route.extend(PrivateRouteMixin, {
                     user:"newuser"
                   });
                 });
-              });         
+              });
             }
-            db.ref().child("users/"+user.uid+"/channels/"+newKey).set({
+            //Add new channel to user's list of enrolled channels in users table
+            db.ref().child("users/"+auth.currentUser.uid+"/channels/"+newKey).set({
                 channelId:newKey
               });
-              //Add members of class to the channel
-              for (var i=0; i<currentClass.members.length; i++) {              
-                db.ref().child("channels/"+classId+"/"+newKey+"/participants/"+currentClass.members[i].id).set({
-                  user:"newuser"
-                });
-                db.ref().child("users/"+currentClass.members[i].id+"/channels/"+newKey).set({
-                  channelId:newKey
-                });                        
-              }    
+            //Add members of class to the channel
+            for (var q=0; q<aClass.members.length; i++) {
+              db.ref().child("channels/"+classId+"/"+newKey+"/participants/"+aClass.members[q].id).set({
+                user:"newuser"
+              });
+              //Add the channel to the class member's enrolled channels in users table
+              db.ref().child("users/"+aClass.members[q].id+"/channels/"+newKey).set({
+                channelId:newKey
+              });
+            }
           }
         });
-        //Now creating a listener to the classes' channel table; we will be notified if a new channel is added
+        //Now creating a listener to the classes' channel table; we will be notified if a new channel is added.
         var dbChannelRef = channelRef.child(classId);
         dbChannelRef.on('value', function(snapshot) {
           //Iterating through each channel in the class channel table (currently only the default exist).
@@ -122,20 +129,18 @@ export default Ember.Route.extend(PrivateRouteMixin, {
             var messageRef = db.ref().child("messages/" + channelId);
             const storage = route.get('firebaseApp').storage();
             /*
-            * Create a reference to the messages for a particular channel (currently only one default channel)
+            * Create a reference to the messages table for a particular channel (currently only one default channel)
             * We then, only once, retrieve all messages for the particular channel and display them on the UI.
             */
-  
             messageRef.once('value').then(function(snapshot) {
               messages.clear();
               snapshot.forEach(function(messageSnapshot) {
                 var mes = messageSnapshot.val().message;
                 var tmp = messageSnapshot.val();
-                //If the message pertains to a file, then we need to generate the downloadable URL for the file
+                //If the message pertains to a file, then we need to generate the downloadable URL for the file.
                 if (mes.startsWith('gs://')) {
                   messages.pushObject(tmp);
                   storage.refFromURL(mes).getMetadata().then(function(metadata) {
-                    var message = mes; 
                     mes = metadata.downloadURLs[0];
                       Ember.set(tmp,'imageURL',mes);
                         Ember.set(tmp,'message',mes);
@@ -152,7 +157,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
                 if (mes.startsWith('gs://')) {
                   messages.pushObject(tmp);
                   storage.refFromURL(mes).getMetadata().then(function(metadata) {
-                    var message = mes; 
                     mes = metadata.downloadURLs[0];
                     Ember.set(tmp,'imageURL',mes);
                     Ember.set(tmp,'message',mes);
@@ -165,19 +169,19 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               }), 100);
             });
 
-            //Generate a listener that will add a new message to the existing messages array
+            //Generate a listener that will listen for removed messages in the database and remove them from the message array
             messageRef.on('child_removed',function(snapshot) {
-              for (var i=0; i<messages.length; i++) {            
+              for (var i=0; i<messages.length; i++){
                 if(messages[i].messageId === snapshot.key){
                   messages.removeAt(i);
-                }       
+                }
               }
             });
-
             channels.pushObject(channelSnapshot.val());
             return true;
           });
         });
+      }
       return Ember.RSVP.hash({
         contentVisibility: visibilityPromise,
         course: coursePromise
@@ -211,7 +215,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set("course", model.course);
     controller.set("units", model.units);
     controller.set("contentVisibility", model.contentVisibility);
-  controller.set('channels', model.channels);
+    controller.set('channels', model.channels);
     controller.set('messages', model.messages);
     controller.set('userInfo', model.userInfo);
   },
@@ -258,19 +262,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const controller = route.get("controller");
       let contentVisibility = controller.get('contentVisibility');
       contentVisibility.setAssessmentVisibility(contentId,visible ? 'on' :'off');
-    },
-     // Sets the URL of the given img element with the URL of the image stored in Firebase Storage.
-    setImageUrl: function(imageUri) {
-      const storage = route.get('firebaseApp').storage();
-      // If the image is a Firebase Storage URI we fetch the URL.
-      if (imageUri.startsWith('gs://')) {
-        //imgElement.src = "https://www.google.com/images/spin-32.gif"; // Display a loading image first.
-        storage.refFromURL(imageUri).getMetadata().then(function(metadata) {
-          return metadata.downloadURLs[0];
-        });
-      }else{
-        return imageUri;
-      }
     }
   },
 

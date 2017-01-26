@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Profile from 'gooru-web/models/profile/profile';
 import { COUNTRY_CODES } from "gooru-web/config/config";
+import { jwt_decode } from 'ember-cli-jwt-decode';
 
 export default Ember.Controller.extend({
 
@@ -27,6 +28,8 @@ export default Ember.Controller.extend({
    */
   sessionService: Ember.inject.service('api-sdk/session'),
 
+  firebaseApp: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -48,7 +51,6 @@ export default Ember.Controller.extend({
       var showStateErrorMessage = false;
       var showDistrictErrorMessage = false;
       var isValid = true;
-
       profile.set('id', userId);
       controller.set('otherSchoolDistrict', otherSchoolDistrict);
 
@@ -85,7 +87,51 @@ export default Ember.Controller.extend({
           .then(function() {
             let session = controller.get('session');
             session.set('userData.isNew', false);
-            controller.get('sessionService').updateUserData(session.get('userData'));
+            //need to log user into firebase
+            const auth = controller.get('firebaseApp').auth();
+            const firebase = controller.get('firebaseApp');
+            const db = controller.get('firebaseApp').database();
+            const user = auth.currentUser;
+            var token = {
+              'Authorization': 'Token ' + controller.get("session.token-api3")
+            };
+            const options = {
+              type: 'GET',
+              headers: token
+            };
+            //Validating user and generating JWT
+            Ember.$.ajax('http://localhost:8080/api/nucleus/v1/firebase/jwt', options).then(function(val){
+              var response = JSON.parse(val);
+              var jwt = response.jwt;
+              console.log('JWT val ',jwt);
+              /*
+              * If the user is not logged in, then we log them into Firebase. First we setup the listener so that after
+              * the user is logged into firebase, we then create a representation for the user in the user
+              * table in the firebase database.
+              */
+              auth.onAuthStateChanged(function(user) {
+                if (user) {
+                  //create user in database if not present
+                  var userRef = db.ref().child('users/');
+                  userRef.once('value').then(function(snapshot){
+                    var userID = user.uid;
+                    auth.currentUser.getToken().then(function(val){
+                       var decodedVal = jwt_decode(val);
+                       if (!(snapshot.hasChild(userID))){
+                            var postData = {
+                                uuid: user.uid,
+                                fullname : decodedVal.firstname + ' ' + decodedVal.lastname,
+                                user_category: decodedVal.user_category
+                            };
+                          db.ref('users/' + user.uid).set(postData);
+                        }
+                     });
+                  });
+                } else {
+                  auth.signInWithCustomToken(jwt);
+                }
+              });
+            });
             controller.send('signUpFinish', role);
           }, function() {
             Ember.Logger.error('Error updating user');
