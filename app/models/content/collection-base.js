@@ -110,6 +110,11 @@ export default (function() {
     standards: [],
 
     /**
+     * @property {Number[]} Array with the centurySkills ids
+     */
+    centurySkills: [],
+
+    /**
      * @property {number} resourceCount - The number of resources in the collection
      */
     resourceCount: 0,
@@ -216,11 +221,13 @@ export default (function() {
       var audience = this.get('audience');
       var depthOfknowledge = this.get('depthOfknowledge');
       var standards = this.get("standards");
+      var centurySkills = this.get("centurySkills");
 
       // Copy array values
       properties.audience = audience.slice(0);
       properties.depthOfknowledge = depthOfknowledge.slice(0);
       properties.standards = standards.slice(0);
+      properties.centurySkills = centurySkills.slice(0);
 
       properties.children = this.get('children');
 

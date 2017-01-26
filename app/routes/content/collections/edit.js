@@ -21,6 +21,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   courseService: Ember.inject.service('api-sdk/course'),
 
+  /**
+   * @requires service:century-skill/century-skill
+   */
+  centurySkillService: Ember.inject.service("century-skill"),
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -30,6 +35,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   model: function (params) {
     const route = this;
+
     return route.get('collectionService').readCollection(params.collectionId)
       .then(function(collection) {
         const courseId = collection.get('courseId');
@@ -53,10 +59,17 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   },
 
   setupController(controller, model) {
+    const route = this;
+
     controller.set('collection',  model.collection);
     controller.set('course', model.course);
     controller.set('isEditing', model.isEditing);
     controller.set('editingContent', model.editingContent);
+
+    route.get('centurySkillService').findCenturySkills()
+      .then(function(centurySkillsArray) {
+        controller.set('centurySkills', centurySkillsArray.toArray());
+      });
 
     if (model.isEditing || model.editingContent) {
       controller.set('tempCollection', model.collection.copy());

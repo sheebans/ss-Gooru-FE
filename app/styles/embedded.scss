@@ -2,7 +2,6 @@
   .app-container {
     padding-top: 0;
   }
-
   .player, .context-player {
     .gru-navigation {
       &.without-reaction-bar {
@@ -12,6 +11,10 @@
         }
 
       }
+    }
+    .reports.gru-assessment-report {
+      overflow: hidden;
+      height: 100%;
     }
   }
 }

@@ -150,6 +150,12 @@ export const TAXONOMY_LEVELS = {
   MICRO:    'micro-standard'
 };
 
+export const CENTURY_SKILLS_GROUPS = {
+  KEY_COGNITIVE_SKILLS_AND_STRATEGIES: 'Key Cognitive Skills and Strategies',
+  KEY_CONTENT_KNOWLEDGE:               'Key Content Knowledge',
+  KEY_LEARNING_SKILLS_AND_TECHNIQUES:  'Key Learning Skills and Techniques'
+};
+
 export const CODE_TYPES = {
   STANDARD_CATEGORY:  'standard_level_0',
   STANDARD:           'standard_level_1',
@@ -198,5 +204,15 @@ export const RESERVED_WORDS = [
   "search",
   "sign-in",
   "sign-up",
-  "sign-up-finish"
+  "sign-up-finish",
+  "student",
+  "teacher",
+  "goals"
 ];
+
+export const GOAL_STATUS = {
+  NOT_STARTED : "not_started",
+  ACTIVE : "activated",
+  COMPLETED : "completed",
+  DROPPED : "dropped"
+};

@@ -33,6 +33,7 @@ test('Layout', function(assert) {
     const $navigatorContainer = $leftUserContainer.find(".student-navigator");
     T.exists(assert, $navigatorContainer, "Missing student navigator");
     T.exists(assert, $navigatorContainer.find(".actions .join-class-cta"), "Missing join class button");
+    T.exists(assert, $navigatorContainer.find(".actions .manage-goals-cta"), "Missing manage goals button");
 
     assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
 
@@ -43,6 +44,24 @@ test('Layout', function(assert) {
     assert.equal($rightUserContainer.find('.box-info').length, 5 ,"Wrong number of info boxes");
 
 
+  });
+
+});
+
+test('Go to manage goals page', function(assert) {
+  visit('/student');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student');
+
+    const $userContainer = find(".controller.student-landing");
+    const $leftUserContainer = $userContainer.find(".student-left-panel");
+    const $navigatorContainer = $leftUserContainer.find(".student-navigator");
+
+    click($navigatorContainer.find(".actions .manage-goals-cta"));
+    andThen(function() {
+      assert.equal(currentURL(), '/goals/manage', 'Wrong route');
+    });
   });
 
 });
