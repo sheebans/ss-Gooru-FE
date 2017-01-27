@@ -23,7 +23,7 @@ export default Ember.Component.extend({
      */
     selectSkillItem: function(skillItem) {
       let component = this;
-      var selectedCenturySkills = component.get('selectedCenturySkills');
+      var selectedCenturySkills = component.get('tempSelectedCenturySkills');
       var skillItemId = skillItem.get('id');
 
       if (component.isSelected(skillItemId)){
@@ -35,21 +35,30 @@ export default Ember.Component.extend({
     },
 
     saveSelectedSkills () {
-      var selectedCenturySkills = this.get('selectedCenturySkills');
+      var selectedCenturySkills = this.get('tempSelectedCenturySkills');
       this.get('onSave')(selectedCenturySkills);
-    },
-
-    cancelSelectedSkills () {
-      this.get('onCancel')();
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
 
+  init() {
+    let component = this;
+    component._super( ...arguments );
+
+    var tempSelectedCenturySkills = component.get('selectedCenturySkills').copy();
+
+    if (tempSelectedCenturySkills) {
+      this.set('tempSelectedCenturySkills', tempSelectedCenturySkills);
+    }
+  },
+
   willDestroyElement() {
     this._super(...arguments);
     this.set('centurySkills', null);
+    this.set('selectedCenturySkills', null);
+    this.set('tempSelectedCenturySkills', null);
   },
 
   // -------------------------------------------------------------------------
@@ -70,7 +79,7 @@ export default Ember.Component.extend({
   /**
    * @property {centurySkill[]} cognitive group of century skills
    */
-  cognitiveSkillsGroup: Ember.computed("centurySkills.[]", "selectedCenturySkills.[]", function(){
+  cognitiveSkillsGroup: Ember.computed("centurySkills.[]", "tempSelectedCenturySkills.[]", function(){
     let component = this;
 
     return this.get("centurySkills").filter(function(centurySkill){
@@ -82,7 +91,7 @@ export default Ember.Component.extend({
   /**
    * @property {centurySkill[]} content group of century skills
    */
-  contentSkillsGroup: Ember.computed("centurySkills.[]", "selectedCenturySkills.[]", function(){
+  contentSkillsGroup: Ember.computed("centurySkills.[]", "tempSelectedCenturySkills.[]", function(){
     let component = this;
 
     return this.get("centurySkills").filter(function(centurySkill){
@@ -94,7 +103,7 @@ export default Ember.Component.extend({
   /**
    * @property {centurySkill[]} learning group of century skills
    */
-  learningSkillsGroup: Ember.computed("centurySkills.[]", "selectedCenturySkills.[]", function(){
+  learningSkillsGroup: Ember.computed("centurySkills.[]", "tempSelectedCenturySkills.[]", function(){
     let component = this;
 
     return this.get("centurySkills").filter(function(centurySkill){
@@ -112,7 +121,13 @@ export default Ember.Component.extend({
    * @return {Boolean}
    */
   isSelected: function(skillItemId) {
-    var selectedCenturySkills = this.get('selectedCenturySkills');
+    var selectedCenturySkills = this.get('tempSelectedCenturySkills');
     return selectedCenturySkills.includes(skillItemId);
-  }
+  },
+
+  /**
+   * List of temp selected Century Skills ids
+   * @prop {Number[]}
+   */
+  tempSelectedCenturySkills: Ember.A([])
 });
