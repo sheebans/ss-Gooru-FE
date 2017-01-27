@@ -1207,6 +1207,11 @@ export default {
         other: "{{count}} Students",
         "not-started": "Not Started"
       },
+      "unit": {
+        zero: "No course",
+        one: "{{count}} Unit",
+        other: "{{count}} Units"
+      },
       "archived":{
         "request-report":"This class is archived and cannot be modified. Existing class data can be accessed via report.",
         "report-in-progress":"Report generation can take up to 20 min. Please check back.",

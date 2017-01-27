@@ -1,21 +1,21 @@
 <div class="panel {{if (is-teacher class profile.id) 'teacher' 'student' }}">
   {{#if class.isArchived}}
-      <div class="panel-heading">
-          <div class="title">
-              <h5>{{class.title}}</h5>
-          </div>
+    <div class="panel-heading">
+      <div class="title">
+        <h5>{{class.title}}</h5>
       </div>
-    {{else}}
+    </div>
+  {{else}}
     {{#link-to 'class.overview' class.id}}
-        <div class="panel-heading">
-            <div class="title">
-                <h5>{{class.title}}</h5>
-            </div>
-              <div class="side-info">
-                  <span class="code">{{class.code}}</span>
-                  <span class="profile-link action">{{if (is-teacher class profile.id) (t "common.teach") (t "common.study") }} {{gru-icon name="keyboard_arrow_right"}} </span>
-              </div>
+      <div class="panel-heading">
+        <div class="title">
+          <h5>{{class.title}}</h5>          
         </div>
+        <div class="side-info">
+          <span class="code">{{class.code}}</span>
+          <span class="profile-link action">{{if (is-teacher class profile.id) (t "common.teach") (t "common.study") }} {{gru-icon name="keyboard_arrow_right"}} </span>
+        </div>
+      </div>
     {{/link-to}}
   {{/if}}
   <div class="panel-body">
@@ -31,6 +31,11 @@
       <div class="students-info">
         <small>{{gru-icon name="group"}} {{t "cards.gru-class-card.student" count=studentCount}}</small>
       </div>
+      {{#if showUnitsCount}}
+        <div class="units-info">
+          {{t "cards.gru-class-card.unit" count=class.unitsCount}}          
+        </div>
+      {{/if}}
     </div>
     <div class="description">
       {{#if class.isArchived}}
