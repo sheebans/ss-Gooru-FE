@@ -2,6 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
+  // Dependencies
+
+  // -------------------------------------------------------------------------
   // Attributes
   classNames: ['cards gru-class-card col-xs-12 col-md-6'],
 
@@ -18,6 +21,9 @@ export default Ember.Component.extend({
   },
 
   // -------------------------------------------------------------------------
+  // Events
+
+  // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {Class} class information
@@ -28,6 +34,11 @@ export default Ember.Component.extend({
    * @property {Object} Object containing student count by class
    */
   classStudentCount: null,
+
+  /**
+   * @property {Boolean} Indicates if units count is displayed
+   */
+  showUnitsCount: false,
 
   /**
    * @property {Profile}

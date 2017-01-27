@@ -202,6 +202,11 @@ const Class = Ember.Object.extend(Validations, {
     return hasCourse && !this.get("isReportInProgress") && !this.get("isReportAvailable");
   }),
 
+  /**
+   * @property {Number}
+   */
+  unitsCount: 0,
+
   // -------------------
   // Methods
   /**
