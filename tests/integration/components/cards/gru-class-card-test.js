@@ -44,40 +44,6 @@ var classStudentCount = Ember.Object.create({
   'class-id': 4
 });
 
-var mockCourse = Ember.Object.create({
-  'title': 'Water cycle',
-  'totalUnits': 8,
-  'subjects': ['Science'],
-  'imageUrl': 'assets/gooru/profile.png',
-  'isPublished':false,
-  'isVisibleOnProfile':false,
-  'remixedBy':  Ember.A([Ember.Object.create({
-    'email': 'user_1@test.com',
-    'firstName': 'firstname-1',
-    'fullName': 'lastname-1 firstname-1',
-    'id': 'id-1',
-    'lastName': 'lastname-1',
-    'avatarUrl': 'assets/gooru/profile.png',
-    'username': 'username-1'
-  }),Ember.Object.create({
-    'email': 'user_2@test.com',
-    'firstName': 'firstname-2',
-    'fullName': 'lastname-2 firstname-2',
-    'id': 'id-2',
-    'lastName': 'lastname-2',
-    'avatarUrl': 'assets/gooru/profile.png',
-    'username': 'username-2'
-  }),Ember.Object.create({
-    'email': 'user_1@test.com',
-    'firstName': 'firstname-3',
-    'fullName': 'lastname-3 firstname-3',
-    'id': 'id-1',
-    'lastName': 'lastname-3',
-    'avatarUrl': 'assets/gooru/profile.png',
-    'username': 'username-3'
-  })])
-});
-
 test('Class Card Layout', function(assert) {
 
   this.set('class', mockClass);
@@ -413,53 +379,73 @@ test('Teacher class card pannel', function (assert) {
 });
 
 test('Teacher class card with no course', function (assert) {
-  mockClass.set('isTeacher', function () {return true;});
-  mockClass.set('courseId', null);
-  this.set('class', mockClass);
+  this.set('class', Ember.Object.create({
+    id: "class-id",
+    unitsCount: 0,
+    creatorId: "creator-id",
+    title: "My empty class",    
+    code: "VZFMEWH",
+    courseId: null,
+    collaborator: [
+      "collaborator-1"
+    ],
+    isArchived: false,
+    isTeacher: function () { return true; }
+  }));
+  
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
-  assert.expect(1);
-
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
-  return wait().then(function() {
-    const $component = this.$(); //component dom element
-    const $unitsInfo = $component.find('.panel .units-info');
-    assert.equal(T.text($unitsInfo), 'No course', 'The No Course text should be visible');
-  });
+
+  const $component = this.$(); //component dom element
+  const $unitsInfo = $component.find('.panel .units-info');
+  assert.equal(T.text($unitsInfo), 'No course', 'The "No Course" text should be visible');  
 });
 
 test('Teacher class card with a course with 4 units', function (assert) {
-  mockClass.set('isTeacher', function () {return true;});
-  this.set('class', mockClass);
-  // this.set('course', mockCourse);
+  this.set('class', Ember.Object.create({
+    id: "class-id",
+    unitsCount: 4,
+    creatorId: "creator-id",
+    title: "My 4 units class",    
+    code: "VZFMEWH",
+    courseId: "123",
+    collaborator: [
+      "collaborator-1"
+    ],
+    isArchived: false,
+    isTeacher: function () { return true; }
+  }));
+  
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
-  assert.expect(1);
-
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
-  return wait().then(function() {
-    const $component = this.$(); //component dom element
-    const $unitsInfo = $component.find('.panel .units-info');
-    assert.equal(T.text($unitsInfo), '4 Units', 'The message should read "8 Units"');
-  });
+  
+  const $component = this.$(); //component dom element
+  const $unitsInfo = $component.find('.panel .units-info');
+  assert.equal(T.text($unitsInfo), '4 Units', 'The message should read "4 Units"');
 });
 
 test('Teacher class card with a course with 1 unit', function (assert) {
-  mockClass.set('isTeacher', function () {return true;});
-  this.set('class', mockClass);
-  mockCourse.totalUnits = 1;
-  this.set('course', mockCourse);
-  this.set('profile', mockProfile);
-  this.set('classStudentCount', classStudentCount);
-
-  assert.expect(1);
+  this.set('class', Ember.Object.create({
+    id: "class-id",
+    unitsCount: 1,
+    creatorId: "creator-id",
+    title: "My 4 units class",    
+    code: "VZFMEWH",
+    courseId: "123",
+    collaborator: [
+      "collaborator-1"
+    ],
+    isArchived: false,
+    isTeacher: function () { return true; }
+  }));
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
-  return wait().then(function() {
-    const $component = this.$(); //component dom element
-    const $unitsInfo = $component.find('.panel .units-info');
-    assert.equal(T.text($unitsInfo), '1 Unit', 'The message should read "1 Unit"');
-  });
+  
+  const $component = this.$(); //component dom element
+  const $unitsInfo = $component.find('.panel .units-info');
+  assert.equal(T.text($unitsInfo), '1 Unit', 'The message should read "1 Unit", in singular');
 });

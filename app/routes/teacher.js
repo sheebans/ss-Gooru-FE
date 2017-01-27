@@ -10,6 +10,11 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+  
+  /**
+   * @requires service:api-sdk/course
+   */
+  courseService: Ember.inject.service("api-sdk/course"),
 
   /**
    * @type {I18nService} Service to retrieve translations information
@@ -65,6 +70,17 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
+    const activeClasses = controller.get('activeClasses');
+    let courseId;
+
+    activeClasses.forEach((aClass) => {
+      courseId = aClass.get('courseId');
+      if(courseId){
+        this.get('courseService').fetchById(courseId).then((course) => {
+          aClass.set('unitsCount', course.get('unitCount'));
+        });
+      }      
+    });
   }
 
 });
