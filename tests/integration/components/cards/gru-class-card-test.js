@@ -383,7 +383,7 @@ test('Teacher class card with no course', function (assert) {
     id: "class-id",
     unitsCount: 0,
     creatorId: "creator-id",
-    title: "My empty class",    
+    title: "My empty class",
     code: "VZFMEWH",
     courseId: null,
     collaborator: [
@@ -392,7 +392,7 @@ test('Teacher class card with no course', function (assert) {
     isArchived: false,
     isTeacher: function () { return true; }
   }));
-  
+
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
@@ -400,7 +400,7 @@ test('Teacher class card with no course', function (assert) {
 
   const $component = this.$(); //component dom element
   const $unitsInfo = $component.find('.panel .units-info');
-  assert.equal(T.text($unitsInfo), 'No course', 'The "No Course" text should be visible');  
+  assert.equal(T.text($unitsInfo), 'No course', 'The "No Course" text should be visible');
 });
 
 test('Teacher class card with a course with 4 units', function (assert) {
@@ -408,7 +408,7 @@ test('Teacher class card with a course with 4 units', function (assert) {
     id: "class-id",
     unitsCount: 4,
     creatorId: "creator-id",
-    title: "My 4 units class",    
+    title: "My 4 units class",
     code: "VZFMEWH",
     courseId: "123",
     collaborator: [
@@ -417,12 +417,12 @@ test('Teacher class card with a course with 4 units', function (assert) {
     isArchived: false,
     isTeacher: function () { return true; }
   }));
-  
+
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
-  
+
   const $component = this.$(); //component dom element
   const $unitsInfo = $component.find('.panel .units-info');
   assert.equal(T.text($unitsInfo), '4 Units', 'The message should read "4 Units"');
@@ -433,7 +433,7 @@ test('Teacher class card with a course with 1 unit', function (assert) {
     id: "class-id",
     unitsCount: 1,
     creatorId: "creator-id",
-    title: "My 4 units class",    
+    title: "My 4 units class",
     code: "VZFMEWH",
     courseId: "123",
     collaborator: [
@@ -444,7 +444,7 @@ test('Teacher class card with a course with 1 unit', function (assert) {
   }));
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
-  
+
   const $component = this.$(); //component dom element
   const $unitsInfo = $component.find('.panel .units-info');
   assert.equal(T.text($unitsInfo), '1 Unit', 'The message should read "1 Unit", in singular');

@@ -10,7 +10,7 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
-  
+
   /**
    * @requires service:api-sdk/course
    */
@@ -79,7 +79,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         this.get('courseService').fetchById(courseId).then((course) => {
           aClass.set('unitsCount', course.get('unitCount'));
         });
-      }      
+      }
     });
   }
 
