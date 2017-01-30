@@ -92,14 +92,28 @@
 
         {{content.gru-depth-of-knowledge isEditing=isEditing srcSelectedKnowledge=collection.depthOfknowledge editSelectedKnowledge=tempCollection.depthOfknowledge}}
 
-        <div class="century-skills out-of-scope">
+        <div class="century-skills">
           <label>
-            <span>21st Century Skills</span>
+            <span>{{t "common.century-skills"}}</span>
             {{#if isEditing}}
-              <button type="button" class="btn-primary btn-sm add-prefix">{{t "common.add"}}</button>
+              <button type="button" class="btn btn-primary choose"
+                {{action 'openSkillsModal'}}>
+                {{gru-icon name="open_in_new"}} {{t "common.choose"}}
+              </button>
+              <div class="skills-buttons">
+                {{#each tempSelectedSkills as |skill|}}
+                  {{century-skills.gru-century-skill-tag skill=skill isReadOnly=false onRemove=(action 'removeSkill')}}
+                {{/each}}
+              </div>
             {{else}}
               <div class="skills">
-                <span>Not specified</span>
+                {{#if selectedSkills.length}}
+                  {{#each selectedSkills as |skill|}}
+                    {{century-skills.gru-century-skill-tag skill=skill}}
+                  {{/each}}
+                {{else}}
+                  {{t "common.not-specified"}}
+                {{/if}}
               </div>
             {{/if}}
           </label>

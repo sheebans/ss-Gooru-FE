@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 import Assessment from 'gooru-web/models/content/assessment';
 import Course from 'gooru-web/models/content/course';
+import CenturySkillModel from 'gooru-web/models/century-skill/century-skill';
 
 const taxonomyServiceStub = Ember.Service.extend({
 
@@ -97,3 +98,71 @@ test('Header when comes from content builder', function (assert) {
     done();
   }, 300);
 });
+
+test('Information section - Century skills Label', function (assert) {
+
+  var assessment = Assessment.create(Ember.getOwner(this).ownerInjection(), {
+    title: "Assessment Title",
+    centurySkills: [1,5]
+  });
+
+  var centurySkills = [
+    CenturySkillModel.create({
+      id: 1,
+      label: "Problem Formulation",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 2,
+      label: "Research: Access and Evaluate Information",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 3,
+      label: "Global Awareness",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Content Knowledge"}),
+    CenturySkillModel.create({
+      id: 4,
+      label: "Building of Persistence",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"}),
+    CenturySkillModel.create({
+      id: 5,
+      label: "Leadership",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"})
+  ];
+
+  this.set('assessment', assessment);
+  this.set('centurySkills', centurySkills);
+  this.render(hbs`{{content/assessments/gru-assessment-edit collection=assessment centurySkills=centurySkills}}`);
+
+  var $informationSection = this.$("#information");
+  var $centurySkillsLabel = $informationSection.find('.century-skills label');
+
+  assert.ok($centurySkillsLabel.length, "Assessment century-skills label");
+  assert.equal($centurySkillsLabel.find('.skills .gru-century-skill-tag').length, 2, "Two gru-century-skill-tag components");
+
+  //TODO adding a timeout here, this component has subcomponents doing async calls, producing a test error,
+  var done = assert.async();
+  Ember.run.later(function(){
+    done();
+  }, 300);
+});
+

@@ -77,7 +77,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       thumbnail: !Ember.isEmpty(thumbnail) ? thumbnail : null,
       'metadata': assessmentModel.get('metadata') || {
         audience: [],
-        depth_of_knowledge: []
+        depth_of_knowledge: [],
+        '21_century_skills': []
       },
       setting: {
         bidirectional_play: assessmentModel.get('bidirectional') || false,
@@ -90,6 +91,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
 
     serializedAssessment.metadata.audience= assessmentModel.get("audience") || [];
     serializedAssessment.metadata.depth_of_knowledge= assessmentModel.get("depthOfknowledge") || [];
+    serializedAssessment.metadata['21_century_skills']= assessmentModel.get("centurySkills") || [];
     return serializedAssessment;
 
   },
@@ -130,7 +132,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       attempts: settings.attempts_allowed || -1,
       bidirectional: settings.bidirectional_play || false,
       showFeedback: settings.show_feedback || ASSESSMENT_SHOW_VALUES.SUMMARY,
-      showKey: settings.show_key === ASSESSMENT_SHOW_VALUES.SUMMARY
+      showKey: settings.show_key === ASSESSMENT_SHOW_VALUES.SUMMARY,
+      centurySkills: metadata['21_century_skills'] && metadata['21_century_skills'].length > 0 ? metadata['21_century_skills'] : []
     });
     return normalizedAssessment;
   },
@@ -158,6 +161,5 @@ export default Ember.Object.extend(ConfigurationMixin, {
       "order": values
     };
   }
-
 
 });

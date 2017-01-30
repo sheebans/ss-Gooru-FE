@@ -20,6 +20,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   courseService: Ember.inject.service('api-sdk/course'),
 
+  /**
+   * @requires service:century-skill/century-skill
+   */
+  centurySkillService: Ember.inject.service("century-skill"),
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -50,6 +55,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   },
 
   setupController(controller, model) {
+    const route = this;
     // Since assessment is a collection with only questions, we'll reuse the same components
     // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
     // and that is why the property 'collection' is being reused here, too.
@@ -58,6 +64,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('isEditing', model.isEditing);
     controller.set('editingContent', model.editingContent);
     controller.set('isAssessment', true);
+
+    route.get('centurySkillService').findCenturySkills()
+      .then(function(centurySkillsArray) {
+        controller.set('centurySkills', centurySkillsArray.toArray());
+      });
 
     if(model.isEditing || model.editingContent ) {
       controller.set('tempCollection', model.assessment.copy());
