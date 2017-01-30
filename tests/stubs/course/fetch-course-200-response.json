@@ -1,6 +1,7 @@
 {
   "id": "course-123",
   "title": "Release time! - Course 1",
+  "unitCount": 4,
   "description": "This is a course for testing the release!",
   "owner_id": "d76575bc-8892-40b4-94dc-f5782a276194",
   "creator_id": "d76575bc-8892-40b4-94dc-f5782a276194",
