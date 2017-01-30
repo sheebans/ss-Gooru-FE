@@ -58,8 +58,12 @@ export default Ember.Object.extend({
       //one publisher for now
       'copyright_owner': resourceModel.get('publisher') ? [resourceModel.get('publisher')] : [''] ,
       'is_copyright_owner': resourceModel.get('amIThePublisher'),
-      'display_guide' : resourceModel.get('displayGuide') ? {"is_broken": 0, "is_frame_breaker": 1} : {"is_broken": 0, "is_frame_breaker": 0}
+      'display_guide' : resourceModel.get('displayGuide') ? {"is_broken": 0, "is_frame_breaker": 1} : {"is_broken": 0, "is_frame_breaker": 0},
+      'metadata': {
+        '21_century_skills': []
+      }
     };
+    serializedResource.metadata['21_century_skills']= resourceModel.get("centurySkills") || [];
     return serializedResource;
   },
 
@@ -86,6 +90,7 @@ export default Ember.Object.extend({
     const standards = resourceData.taxonomy || {};
     const basePath = serializer.get('session.cdnUrls.content');
     const info = resourceData.info || {};
+    const metadata = resourceData.metadata || {};
     const resource = ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: resourceData.id,
       title: resourceData.title,
@@ -102,7 +107,8 @@ export default Ember.Object.extend({
       isVisibleOnProfile: typeof resourceData.visible_on_profile !== 'undefined' ? resourceData.visible_on_profile : true,
       order: resourceData.sequence_id,
       displayGuide:resourceData['display_guide']&& (resourceData['display_guide'].is_broken ===1 || resourceData['display_guide'].is_frame_breaker ===1),
-      isRemote: resourceData['is_remote'] !== false  //if true or undefined should be true
+      isRemote: resourceData['is_remote'] !== false,  //if true or undefined should be true
+      centurySkills: metadata['21_century_skills'] && metadata['21_century_skills'].length > 0 ? metadata['21_century_skills'] : []
     });
     resource.set('displayGuide', resource.get("displayGuide") || this.checkURLProtocol(resource.url));
 

@@ -32,6 +32,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
+  /**
+   * @requires service:century-skill/century-skill
+   */
+  centurySkillService: Ember.inject.service("century-skill"),
+
   // -------------------------------------------------------------------------
   // Events
   resetController(controller, isExiting) {
@@ -54,7 +59,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         var EditResourceValidation = Resource.extend(EditResourceValidations);
         var editResource = EditResourceValidation.create(Ember.getOwner(route).ownerInjection());
         // standards and info are not coming inside modelProperties
-        var properties = resource.modelProperties().concat(['standards', 'info']);
+        var properties = resource.modelProperties().concat(['standards', 'info', 'centurySkills']);
         editResource.merge(resource, properties);
         editResource.set('owner', owner);
         return editResource;
@@ -76,9 +81,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   },
 
   setupController(controller, model) {
+    const route = this;
+
     controller.set('resource', model.resource);
     controller.set('collection', model.collection);
     controller.set('isEditing', model.isEditing);
+
+    route.get('centurySkillService').findCenturySkills()
+      .then(function(centurySkillsArray) {
+        controller.set('centurySkills', centurySkillsArray.toArray());
+      });
 
     if (model.isEditing) {
       controller.set('tempResource', model.resource.copy());
