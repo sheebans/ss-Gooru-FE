@@ -87,10 +87,10 @@
   </div>
 
   <div class="actions">
-    <button {{action "cancelSelectedSkills"}} type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
+    <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
       <span aria-hidden="true">{{t 'common.cancel'}}</span>
     </button>
-    <button {{action "saveSelectedSkills"}} class="btn btn-primary select" disabled="{{if selectedCenturySkills.length null true}}">{{t 'common.select'}}</button>
+    <button {{action "saveSelectedSkills"}} class="btn btn-primary select" disabled="{{if tempSelectedCenturySkills.length null true}}">{{t 'common.select'}}</button>
   </div>
 
 </form>

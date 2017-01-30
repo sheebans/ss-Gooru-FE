@@ -38,7 +38,8 @@ test('serializeUpdateAssessment', function(assert) {
     thumbnailUrl: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
     standards: [],
     audience: [1],
-    depthOfknowledge: [4]
+    depthOfknowledge: [4],
+    centurySkills: [2]
 });
   const response = serializer.serializeUpdateAssessment(assessmentObject);
   assert.equal(response.title, 'assessment-title', "Wrong title");
@@ -49,6 +50,7 @@ test('serializeUpdateAssessment', function(assert) {
   assert.equal(response.taxonomy, null, "Wrong taxonomy object");
   assert.equal(response['metadata']['audience'][0], 1, 'Wrong audience');
   assert.equal(response['metadata']['depth_of_knowledge'][0], 4, 'Wrong depth_of_knowledge');
+  assert.equal(response['metadata']['21_century_skills'][0], 2, 'Wrong centurySkill');
   assert.equal(response.setting.attempts_allowed, -1, "Wrong attempts allowed");
   assert.equal(response.setting.bidirectional_play, false, "Wrong bidirectional play");
   assert.equal(response.setting.show_feedback, ASSESSMENT_SHOW_VALUES.SUMMARY, "Wrong show feedback");
@@ -79,7 +81,8 @@ test('normalizeReadAssessment', function(assert) {
     url: "any",
     "metadata": {
       "audience": [1],
-      "depth_of_knowledge": [4]
+      "depth_of_knowledge": [4],
+      "21_century_skills": [2]
     },
     setting: {
       attempts_allowed: 1,
@@ -102,6 +105,7 @@ test('normalizeReadAssessment', function(assert) {
   assert.equal(assessment.get('url'), 'any', 'Wrong url');
   assert.equal(assessment.get("audience"), 1, 'Wrong audience');
   assert.equal(assessment.get("depthOfknowledge"), 4, 'Wrong depthOfknowledge');
+  assert.equal(assessment.get("centurySkills"), 2, 'Wrong century Skills');
   assert.equal(assessment.get("attempts"), 1, 'Wrong attemps');
   assert.equal(assessment.get("bidirectional"), true, 'Wrong bidirectional');
   assert.equal(assessment.get("showFeedback"), ASSESSMENT_SHOW_VALUES.SUMMARY, 'Wrong show feedback');
