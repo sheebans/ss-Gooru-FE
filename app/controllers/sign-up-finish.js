@@ -89,9 +89,7 @@ export default Ember.Controller.extend({
             session.set('userData.isNew', false);
             //need to log user into firebase
             const auth = controller.get('firebaseApp').auth();
-            const firebase = controller.get('firebaseApp');
             const db = controller.get('firebaseApp').database();
-            const user = auth.currentUser;
             var token = {
               'Authorization': 'Token ' + controller.get("session.token-api3")
             };

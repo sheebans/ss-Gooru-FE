@@ -21,5 +21,5 @@ export default Ember.Service.extend({
         }, reject);
     });
   }
-  
+
 });

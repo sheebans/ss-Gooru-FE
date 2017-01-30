@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ApplicationAdapter from '../application';
 
 export default ApplicationAdapter.extend({
-  
+
   session: Ember.inject.service('session'),
   /**
    * @property {string} End-point URI
@@ -40,5 +40,4 @@ export default ApplicationAdapter.extend({
       'Gooru-Session-Token': this.get('session.token-api3')
     };
   }
-  
 });
