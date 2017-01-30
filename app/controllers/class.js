@@ -14,27 +14,7 @@ export default Ember.Controller.extend({
   // Actions
   actions: {
     //Submit a message to the relevant location in firebase
-    submitMessage: function() {
-      this.get('firebase').submitMessage(this.userInfo,this.channels,this.get("message"));
-        //Move the location in message pane to the bottom
-        Ember.run.later((function() {
-        $('.message-row-container').scrollTop($('.message-row-container-inner').height());
-        }), 100);
-        this.set("message", '');
-    },
-    //Upload file to firebase storage
-    submitFile: function(){
-      this.get('firebase').submitFile(this.userInfo,this.channels,document.getElementById('mediaCapture'));
-        //Move the location in message pane to the bottom
-        Ember.run.later((function() {
-        $('.message-row-container').scrollTop($('.message-row-container-inner').height());
-        }), 100);
-        this.set("message", '');
-      },
-    //remove a message from the message pane and firebase
-    removeMessage: function(message){
-      this.get('firebase').removeMessage(message,this.channels);
-    }
+
   },
   // -------------------------------------------------------------------------
   // Events
