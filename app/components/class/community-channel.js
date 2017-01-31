@@ -1,5 +1,6 @@
 import Ember from "ember";
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import { jwt_decode } from 'ember-cli-jwt-decode';
 /**
  * Class navigation
  *
@@ -9,6 +10,7 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @see controllers/class.js
  * @augments ember/Component
  */
+ /*global firebase:true*/
 export default Ember.Component.extend(ConfigurationMixin, {
 
     /**
@@ -74,7 +76,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
         channels = this.get('channels');
         currentUser = this.get('currentUser');
         message = this.get('message');
-        const service = this;
         const db = this.get('firebaseApp').database();
         const channelId = channels[0].uuid;
         var user = this.get('firebaseApp').auth().currentUser;
@@ -104,7 +105,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
     submitFile: function(currentUser, channels, fileToSend){
         channels = this.get('channels');
         currentUser = this.get('currentUser');
-        fileToSend = document.getElementById('mediaCapture')
+        fileToSend = document.getElementById('mediaCapture');
         const db = this.get('firebaseApp').database();
         const storage =  this.get('firebaseApp').storage();
         const channelId = channels[0].uuid;

@@ -1,6 +1,5 @@
 import Ember from "ember";
 import {KEY_CODES} from "gooru-web/config/config";
-/*global firebase:true*/
 
 export default Ember.Controller.extend({
 
