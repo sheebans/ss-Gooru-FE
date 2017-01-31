@@ -67,6 +67,29 @@
     }
   }
   .tags {
-    margin: 10px 0px;
+    margin: 10px 0;
+  }
+  .century-skills {
+    > label {
+      width: 100%;
+      .choose {
+        float: left;
+        padding: 4px 16px;
+      }
+      .skills-buttons {
+        width: inherit;
+        margin: 5px 0 0 0;
+        float: left;
+
+        @media (min-width: $screen-lg-min) {
+          width: 75%;
+          margin: 0 0 0 5px;
+        }
+        .btn-skill {
+          margin: 0 5px 5px 0;
+          padding: 6px;
+        }
+      }
+    }
   }
 }

@@ -6,6 +6,7 @@ import Resource from 'gooru-web/models/content/resource';
 import Collection from 'gooru-web/models/content/collection';
 import EditResourceValidations from 'gooru-web/validations/edit-resource';
 import CreateResourceValidations from 'gooru-web/validations/create-resource';
+import CenturySkillModel from 'gooru-web/models/century-skill/century-skill';
 
 const taxonomyServiceStub = Ember.Service.extend({
 
@@ -84,6 +85,7 @@ test('it has header and main sections', function (assert) {
   assert.ok($container.find('> section#information').length, "Information section");
   assert.ok($container.find('> section#settings').length, "Information section");
 });
+
 test('Header when comes from content builder', function (assert) {
 
 
@@ -364,10 +366,56 @@ test('Update Resource Information', function (assert) {
     url: 'http://example.com',
     subject: 'CCSS.K12.Math',
     category: 'k_12',
-    displayGuide:false
+    displayGuide:false,
+    centurySkills: [1,5]
   });
+
+  var centurySkills = [
+    CenturySkillModel.create({
+      id: 1,
+      label: "Problem Formulation",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 2,
+      label: "Research: Access and Evaluate Information",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 3,
+      label: "Global Awareness",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Content Knowledge"}),
+    CenturySkillModel.create({
+      id: 4,
+      label: "Building of Persistence",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"}),
+    CenturySkillModel.create({
+      id: 5,
+      label: "Leadership",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"})
+  ];
+
   this.set('resource', resource);
-  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
+  this.set('centurySkills', centurySkills);
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource centurySkills=centurySkills}}`);
 
   const $component = this.$('.gru-resource-edit');
   const $titleField = $component.find(".gru-input.title");
@@ -400,10 +448,56 @@ test('Edit resource with incorrect URL', function (assert) {
     format: 'video',
     url: '//content.gooru.org/content/f000/2441/3377/FromAtoZinc.pdf',
     subject: 'CCSS.K12.Math',
-    category: 'k_12'
+    category: 'k_12',
+    centurySkills: [1,5]
   });
+
+  var centurySkills = [
+    CenturySkillModel.create({
+      id: 1,
+      label: "Problem Formulation",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 2,
+      label: "Research: Access and Evaluate Information",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 3,
+      label: "Global Awareness",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Content Knowledge"}),
+    CenturySkillModel.create({
+      id: 4,
+      label: "Building of Persistence",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"}),
+    CenturySkillModel.create({
+      id: 5,
+      label: "Leadership",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"})
+  ];
+
   this.set('resource', resource);
-  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
+  this.set('centurySkills', centurySkills);
+  this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource centurySkills=centurySkills}}`);
 
   const $component = this.$('.gru-resource-edit');
   const $titleField = $component.find(".gru-input.title");
@@ -430,7 +524,7 @@ test('Validate if the resource title field is left blank', function (assert) {
   this.set('resource',resource);
   this.render(hbs`{{content/resources/gru-resource-edit isEditing=true resource=resource tempResource=resource}}`);
 
-  const $component = this.$('.gru-resource-edit');
+  const $component = this.$('.gru-resource-edit #information');
   const $titleField = $component.find(".gru-input.title");
 
   assert.ok(!$titleField.find(".error-messages .error").length, 'Title error message not visible');
@@ -594,4 +688,71 @@ test('Editing a video resource should disable the type dropdown', function (asse
   this.render(hbs`{{content/resources/gru-resource-edit resource=resource tempResource=resource isEditing=true}}`);
   var $informationSection = this.$("#information");
   assert.equal($informationSection.find('.content button[data-toggle=dropdown].disabled').length, 2, "Both type dropdown buttons should be disabled when editing a video.");
+});
+
+test('Information section - Century skills Label', function (assert) {
+
+  var ResourceValidation = Resource.extend(CreateResourceValidations);
+  var resource = ResourceValidation.create(Ember.getOwner(this).ownerInjection(), {
+    title: null,
+    url: "http://example.com/image.png",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12',
+    centurySkills: [1,5]
+  });
+
+  var centurySkills = [
+    CenturySkillModel.create({
+      id: 1,
+      label: "Problem Formulation",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 2,
+      label: "Research: Access and Evaluate Information",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Cognitive Skills and Strategies"}),
+    CenturySkillModel.create({
+      id: 3,
+      label: "Global Awareness",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Content Knowledge"}),
+    CenturySkillModel.create({
+      id: 4,
+      label: "Building of Persistence",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"}),
+    CenturySkillModel.create({
+      id: 5,
+      label: "Leadership",
+      hewlettDeepLearningModel:true,
+      conleyFourKeysModel: false,
+      p21FrameworkModel: true,
+      nationalResearchCenterModel:false,
+      group: "Key Learning Skills and Techniques"})
+  ];
+
+  this.set('resource', resource);
+  this.set('centurySkills', centurySkills);
+
+  this.render(hbs`{{content/resources/gru-resource-edit resource=resource tempResource=resource centurySkills=centurySkills}}`);
+
+  var $informationSection = this.$("#information");
+  var $centurySkillsLabel = $informationSection.find('.century-skills label');
+
+  assert.ok($centurySkillsLabel.length, "Resource century-skills label");
+  assert.equal($centurySkillsLabel.find('.skills .gru-century-skill-tag').length, 2, "Two gru-century-skill-tag components");
+
 });

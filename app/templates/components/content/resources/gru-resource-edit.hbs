@@ -146,7 +146,7 @@
               {{/if}}
             </label>
           </div>
-            <div class="col-sm-6 form-field link-out">
+          <div class="col-sm-6 form-field link-out">
             <label>
                 <span>{{t "common.link-out"}}</span>
               {{#if isEditing}}
@@ -160,7 +160,7 @@
                   {{/if}}
               {{/if}}
             </label>
-            </div>
+          </div>
         </div>
         <div class="row">
           <div class="col-sm-6 form-field license out-of-scope">
@@ -181,7 +181,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12 form-field description">
+          <div class="col-sm-6 form-field description">
             <label>
               <span>{{t "common.description"}}</span>
               {{#if isEditing}}
@@ -192,6 +192,32 @@
                 {{else}}
                   <b>{{t 'common.not-provided'}}</b>
                 {{/if}}
+              {{/if}}
+            </label>
+          </div>
+          <div class="col-sm-6 form-field century-skills">
+            <label>
+              <span>{{t "common.century-skills"}}</span>
+              {{#if isEditing}}
+                <button type="button" class="btn btn-primary choose"
+                  {{action 'openSkillsModal'}}>
+                  {{gru-icon name="open_in_new"}} {{t "common.choose"}}
+                </button>
+                <div class="skills-buttons">
+                  {{#each tempSelectedSkills as |skill|}}
+                    {{century-skills.gru-century-skill-tag skill=skill isReadOnly=false onRemove=(action 'removeSkill')}}
+                  {{/each}}
+                </div>
+              {{else}}
+                <div class="skills">
+                  {{#if selectedSkills.length}}
+                    {{#each selectedSkills as |skill|}}
+                      {{century-skills.gru-century-skill-tag skill=skill}}
+                    {{/each}}
+                  {{else}}
+                    {{t "common.not-specified"}}
+                  {{/if}}
+                </div>
               {{/if}}
             </label>
           </div>

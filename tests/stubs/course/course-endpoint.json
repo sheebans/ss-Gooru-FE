@@ -17,7 +17,6 @@
       "file": "get-course-response.json"
     }
   },
-
   {
     "description": "Fetch course 123",
     "request": {
@@ -37,10 +36,9 @@
     }
   },
   {
-    "description": "Fetch any course",
-    "notes": "Adding (.+[0-9]|[aA-zZ]|[-])$ to the url so it doesnt conflict with the sub urls for units and lessons",
+    "description": "Fetch any course",    
     "request": {
-      "url": "^/api/nucleus/v1/courses/(.+[0-9]|[aA-zZ]|[-])$",
+      "url": "^/api/nucleus/v1/courses/([^//]+)$",
       "method": "GET",
       "headers": {
         "authorization": "Token (.+)"

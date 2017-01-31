@@ -93,6 +93,11 @@ const ResourceModel = Ember.Object.extend({
   standards: [],
 
   /**
+   * @property {Number[]} Array with the centurySkills ids
+   */
+  centurySkills: [],
+
+  /**
    * Some metadata properties
    * @property {{}}
    */
@@ -236,10 +241,12 @@ const ResourceModel = Ember.Object.extend({
 
     let standards = this.get('standards');
     let info = this.get('info');
+    let centurySkills = this.get("centurySkills");
 
     // Copy standards and info values
     properties.standards = standards.slice(0);
     properties.info = JSON.parse(JSON.stringify(info));
+    properties.centurySkills = centurySkills.slice(0);
 
     var ResourceValidation = ResourceModel.extend(EditResourceValidations);
 

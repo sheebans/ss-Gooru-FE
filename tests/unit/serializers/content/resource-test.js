@@ -36,7 +36,8 @@ test('serializeUpdateResource', function(assert) {
     format: 'video',
     publisher: "myself",
     amIThePublisher: true,
-    displayGuide:true
+    displayGuide:true,
+    centurySkills: [2]
   });
   const serializedResource = serializer.serializeUpdateResource(resourceObject);
   assert.equal(serializedResource.title, 'resource-title', 'Wrong resource title');
@@ -46,7 +47,7 @@ test('serializeUpdateResource', function(assert) {
   assert.deepEqual(serializedResource['copyright_owner'], ['myself'], 'Wrong copyright_owner');
   assert.equal(serializedResource['is_copyright_owner'], true, 'Wrong is_copyright_owner');
   assert.equal(JSON.stringify(serializedResource['display_guide']), JSON.stringify({"is_broken": 0, "is_frame_breaker": 1}), 'Wrong display_guide');
-
+  assert.equal(serializedResource['metadata']['21_century_skills'][0], 2, 'Wrong centurySkill');
 });
 
 test('serializeUpdateResourceTitle', function(assert) {
@@ -74,7 +75,10 @@ test('normalizeReadResource', function(assert) {
       'is_frame_breaker': 1
     },
     "copyright_owner": ["myself"],
-    "is_copyright_owner": true
+    "is_copyright_owner": true,
+    "metadata": {
+      "21_century_skills": [2]
+    }
   };
 
   const resource = serializer.normalizeReadResource(resourceData);
@@ -93,6 +97,7 @@ test('normalizeReadResource', function(assert) {
   assert.equal(resource.get("displayGuide"), true, 'Url is going to be broke in a frame');
   assert.equal(resource.get("isRemote"), true, 'When not provided, is remote should be true');
   assert.equal(resource.get("order"), 3, 'Wrong order');
+  assert.equal(resource.get("centurySkills"), 2, 'Wrong century Skills');
 });
 
 test('normalizeReadResource when providing is remote', function(assert) {
