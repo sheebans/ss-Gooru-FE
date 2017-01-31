@@ -144,9 +144,21 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
         tempResource.set('amIThePublisher', false);
       }
     },
+
     linkSwitch:function(){
       var tempResource = this.get('tempResource');
       tempResource.set('displayGuide', this.get('tempResource.displayGuide'));
+    },
+
+    openSkillsModal: function(){
+      this.openSkillsModal();
+    },
+
+    /**
+     * Remove century skill id
+     */
+    removeSkill: function (skillItemId) {
+      this.get('tempResource.centurySkills').removeObject(skillItemId);
     }
   },
 
@@ -244,6 +256,30 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
     return isVideoURL(this.get('resource.url'));
   }),
 
+  /**
+   * @property {CenturySkill[]} List of selected century skills
+   */
+  tempSelectedSkills: Ember.computed('tempResource.centurySkills.[]', 'centurySkills.[]', function() {
+    let selectedCenturySkillsIds = this.get('tempResource.centurySkills');
+
+    return this.selectedCenturySkillsData(selectedCenturySkillsIds);
+  }),
+
+  /**
+   * @property {CenturySkill[]} List of selected century skills
+   */
+  selectedSkills: Ember.computed('resource.centurySkills.[]', 'centurySkills.[]', function() {
+    let selectedCenturySkillsIds = this.get('resource.centurySkills');
+
+    return this.selectedCenturySkillsData(selectedCenturySkillsIds);
+
+  }),
+  /**
+   * List of Century Skills
+   * @prop {CenturySkill[]}
+   */
+  centurySkills: Ember.A([]),
+
   // ----------------------------
   // Methods
   openTaxonomyModal: function(){
@@ -292,5 +328,42 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
       }
       component.set('didValidate', true);
     });
+  },
+
+  openSkillsModal: function(){
+    var component = this;
+    var model = {
+      selectedCenturySkills: component.get('tempResource.centurySkills'),
+      centurySkills: component.get('centurySkills'),
+      callback: {
+        success: function(selectedCenturySkills) {
+          component.set('tempResource.centurySkills', Ember.A(selectedCenturySkills));
+        }
+      }
+    };
+    this.actions.showModal.call(this, 'century-skills.modals.gru-century-skills', model, null, 'gru-century-skills');
+  },
+
+  /**
+   * Returns selectedCenturySkills data
+   * @param {Number[]} selectedCenturySkills ids
+   * @return {centurySkill[]}
+   */
+  selectedCenturySkillsData: function(selectedCenturySkillsIds){
+    var selectedCenturySkillsData = Ember.A([]);
+    let centurySkills = this.get('centurySkills');
+
+    if (selectedCenturySkillsIds && centurySkills) {
+      for (var i = 0; i < selectedCenturySkillsIds.length; i++) {
+        var skillItem = selectedCenturySkillsIds[i];
+
+        centurySkills.filter(function (centurySkill) {
+          if (centurySkill.get("id") === skillItem) {
+            selectedCenturySkillsData.pushObject(centurySkill);
+          }
+        });
+      }
+    }
+    return selectedCenturySkillsData;
   }
 });

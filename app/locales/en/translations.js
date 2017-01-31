@@ -83,6 +83,7 @@ export default {
     "assessment-disabled": "You can't attempt this assessment",
     "assessment-external": "Assessment-External",
     "assessment-pl": {
+      zero: "Assessments",
       one: "Assessment",
       other: "Assessments"
     },
@@ -119,6 +120,7 @@ export default {
     "close": "Close",
     "collection": "Collection",
     "collection-pl": {
+      zero: "Collections",
       one: "Collection",
       other: "Collections"
     },
@@ -282,6 +284,7 @@ export default {
     "lessonInitial": "L",
     "lesson-title": "Lesson Title",
     "lessonObj": {
+      zero: "Lessons",
       one: "Lesson",
       other: "Lessons"
     },
@@ -325,6 +328,7 @@ export default {
     "nothing-to-display": "Nothing to display.",
     "number": "No.",
     "numberStudents": {
+      zero: "{{count}} Students",
       one: "{{count}} Student",
       other: "{{count}} Students"
     },
@@ -348,6 +352,7 @@ export default {
     "questions": "Questions",
     "questions-OE": "Free Response Questions",
     "question-pl": {
+      zero: "Questions",
       one: "Question",
       other: "Questions"
     },
@@ -409,6 +414,7 @@ export default {
       "question": "Question"
     },
     "resource-pl": {
+      zero: "Resources",
       one: "Resource",
       other: "Resources"
     },
@@ -466,6 +472,7 @@ export default {
     "unit-title": "Unit Title",
     "unitInitial": "U",
     "unitObj": {
+      zero: "Units",
       one: "Unit",
       other: "Units"
     },
@@ -763,12 +770,14 @@ export default {
     "manage-goals": "Manage Goals",
     "join-class": "Join Classroom",
     "joined-classes": {
-      'one': "You're currently enrolled in 1 classroom",
-      "other": "You're currently enrolled in {{count}} classrooms"
+      zero: "You're currently not enrolled in classrooms",
+      one: "You're currently enrolled in 1 classroom",
+      other: "You're currently enrolled in {{count}} classrooms"
     },
     "teaching-classes": {
-      'one': " and teaching 1 classroom",
-      "other": " and teaching {{count}} classrooms"
+      zero: " and teaching {{count}} classrooms",
+      one: " and teaching 1 classroom",
+      other: " and teaching {{count}} classrooms"
     }
   },
   "student-landing":{
@@ -816,8 +825,9 @@ export default {
     "setting-forward-backward": "You can navigate forward and backwards to answer questions",
     "unlimited-attempts-left": 'You have unlimited attempts',
     "attempts-left": {
-      'one':"You have 1 attempt left",
-      'other':"You have {{count}} attempts"
+      zero:"You have {{count}} attempts",
+      one:"You have 1 attempt left",
+      other:"You have {{count}} attempts"
     },
     "unlimited-attempts":"You have unlimited attempts",
     "cancel": "Cancel",
@@ -1209,6 +1219,7 @@ export default {
   "cards": {
     "gru-class-card": {
       "student": {
+        zero: "{{count}} Students",
         one: "{{count}} Student",
         other: "{{count}} Students",
         "not-started": "Not Started"
@@ -1228,15 +1239,18 @@ export default {
     "gru-course-card": {
       "in": "in",
       "units": {
+        zero: "{{count}} Units",
         one: "{{count}} Unit",
         other: "{{count}} Units"
       },
       "resource": {
+        zero: "{{count}} Resources",
         one: "{{count}} Resource",
         other: "{{count}} Resources"
       },
       "and": "and",
       "question": {
+        zero: "{{count}} Questions",
         one: "{{count}} Question",
         other: "{{count}} Questions"
       }
@@ -1314,6 +1328,7 @@ export default {
     "gru-domain-picker": {
       "browseSelectorText": "What domains will this unit cover?",
       "selectedText": {
+        zero: "{{count}} domains selected",
         one: "{{count}} domain selected",
         other: "{{count}} domains selected"
       },
@@ -1323,10 +1338,12 @@ export default {
       "browseSelectorText": "What standards will be covered?",
       "browseCompetencySelectorText": "What competencies will be covered?",
       "selectedText": {
+        zero: "{{count}} standards selected",
         one: "{{count}} standard selected",
         other: "{{count}} standards selected"
       },
       "selectedCompetencyText": {
+        zero: "{{count}} competencies selected",
         one: "{{count}} competency selected",
         other: "{{count}} competencies selected"
       },
