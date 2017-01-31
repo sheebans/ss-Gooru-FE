@@ -37,8 +37,6 @@ export default Ember.Controller.extend({
       controller.set("allowedCode", true);
       controller.set("validCode", true);
       controller.set("notMember", true);
-      //console.log('code',code);
-      //console.log('controller',controller);
 
       controller.get("classService")
         .joinClass(code)

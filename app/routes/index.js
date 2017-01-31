@@ -18,9 +18,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
 
   queryParams: {
-    access_token : {},
-	launchUrl : {},
-	location : {}
+    access_token : {}
   },
 
   beforeModel(transition) {
@@ -74,7 +72,6 @@ export default Ember.Route.extend(PublicRouteMixin, {
               }
             }
           });
-//>>>>>>> GG-Nile
       }
     }
   }

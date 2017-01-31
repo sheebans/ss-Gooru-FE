@@ -14,13 +14,6 @@ export default Ember.Controller.extend({
 
   classController: Ember.inject.controller('class'),
 
-  session: Ember.inject.service('session'),
-
-  profileService: Ember.inject.service('api-sdk/profile'),
-
-  firebaseApp: Ember.inject.service(),
-
-
   // -------------------------------------------------------------------------
   // Attributes
 
