@@ -7,6 +7,8 @@ export default Ember.Controller.extend({
   // Dependencies
   session: Ember.inject.service("session"),
 
+  firebase: Ember.inject.service("firebase"),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
