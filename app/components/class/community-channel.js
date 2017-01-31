@@ -141,6 +141,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
                 createdTime: firebase.database.ServerValue.TIMESTAMP
               });
             }.bind(this));
+          //Move the location in message pane to the bottom
+          Ember.run.later((function() {
+          $('.message-row-container').scrollTop($('.message-row-container-inner').height());
+          }), 100);
+          this.set("message", '');
           }
     },
     //remove a message from firebase
