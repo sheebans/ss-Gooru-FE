@@ -87,14 +87,9 @@
       &.started {
         background: $light-200;
       }
-      &.selected {
-        background: $white;
-      }
-      &:hover {
-        background: $green-100;
-      }
       &.selected,
       &:hover {
+        background: $white;
         .resources-info {
           span.number,
           .bubble-type,
