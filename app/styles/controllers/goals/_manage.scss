@@ -17,7 +17,6 @@
         width: 90%;
       }
     }
-
     .greetings {
       span {
         color: $gray-base;
@@ -36,7 +35,6 @@
 .goals-navigator {
   box-shadow: inset 0 -1px 0 $gray-light;
   padding-bottom: 10px;
-
   .add-goal{
     background-color: $blue-400;
     color: $white;
@@ -51,26 +49,20 @@
     height: 420px;
     margin-top: 30px;
     width: 100%;
-    @media (min-width: $screen-sm) {
-
-    }
     @media (min-width: $screen-md) {
       width: 50%;
     }
     > div{
       float: left;
       height: 100%;
-
       &.collapse-action{
         background-color: $blue-400;
         width: 4%;
       }
-
       &.create-action{
         border-top: 2px solid $gray-light;
         padding: 15px;
         width: 94%;
-
         .form-group{
           float: left;
           margin-bottom: 8px;
@@ -82,7 +74,6 @@
             width: 75%;
           }
         }
-
         .form-actions{
           float: right;
           margin-top: 10px;
@@ -91,16 +82,12 @@
             color: $white;
           }
         }
-
       }
-
       &.goal-status{
         background-color: $yellow-400;
         width: 2%;
       }
     }
-
-
   }
 
 }

@@ -108,5 +108,4 @@ export default Ember.Service.extend({
     return options;
   }
 
-
 });

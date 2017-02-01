@@ -22,7 +22,6 @@ export default Ember.Controller.extend({
    */
   i18n: Ember.inject.service(),
 
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -42,7 +41,6 @@ export default Ember.Controller.extend({
   statusOptions: Ember.computed(function() {
     return this.get('goalService').getGoalStatusOptions();
   }),
-
 
   typeOptions: Ember.computed(function() {
     let options = [
@@ -95,11 +93,8 @@ export default Ember.Controller.extend({
           var message = controller.get('i18n').t('goals.create.created-success-msg',{goalTitle: goal.get('title')}).string;
           controller.get('notifications').success(message);
         });
-
     }
   },
-
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -107,13 +102,11 @@ export default Ember.Controller.extend({
   /**
    * init and reset all the properties for the validations
    */
-
   resetProperties(){
     var controller = this;
     var newGoalProfile = Goal.extend(createGoalValidations);
     var goal = newGoalProfile.create(Ember.getOwner(this).ownerInjection(), {});
     controller.set('goal', goal);
   }
-
 
 });
