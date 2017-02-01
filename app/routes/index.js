@@ -52,6 +52,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     const route = this;
     const anonymous = route.get('session.isAnonymous');
     const userId = route.get("session.userId");
+
     if (!anonymous) {
       if (route.get('session.userData.isNew')) {
         route.transitionTo('sign-up-finish');

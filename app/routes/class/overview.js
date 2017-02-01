@@ -10,9 +10,6 @@ export default Ember.Route.extend({
   i18n: Ember.inject.service(),
 
   profileService: Ember.inject.service('api-sdk/profile'),
-
-  firebaseApp: Ember.inject.service(),
-
   /**
    * @requires service:api-sdk/analytics
    */
@@ -159,9 +156,6 @@ export default Ember.Route.extend({
     controller.set('classMembers', model.classMembers);
     controller.set('tourSteps', model.tourSteps);
     controller.get('classController').selectMenuItem('overview');
-    controller.set('channels', model.channels);
-    controller.set('messages', model.messages);
-    controller.set('userInfo',model.userInfo);
   }
 
 });

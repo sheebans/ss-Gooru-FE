@@ -37,6 +37,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   */
   firebaseApp: Ember.inject.service(),
 
+  firebase: Ember.inject.service('firebase'),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -71,116 +73,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         coursePromise = route.get('courseService').fetchById(courseId);
       }
       //Retrieve the current representation of the user logged into firebase
-      const user = auth.currentUser;
+      const user = route.get('firebase').getUser();
       if(user){
-      //Create a reference to the channel table in firebase for this particular class
-      var channelRef = db.ref().child("channels/");
-      //We will grab all existing channels once to perform a simple check
-      channelRef.once('value').then(function(snapshot) {
-      //Check to see if a representation for the class exist in the channel table - if not, we create a new channel (default)
-      if (!snapshot.hasChild(classId)) {
-            var newKey = db.ref("channels/"+classId).push().key;
-            var creator = aClass.creatorId;
-            const classId = aClass.id;
-            var fullName = userInfo.firstName + ' ' + userInfo.lastName;
-            var postData = {
-              creatorId: creator,
-              channelName: aClass.title,
-              owners: {
-                [creator] : {
-                  fullname: fullName
-                }
-              },
-              uuid: newKey
-            };
-            //Creating the new channel in firebase DB
-            db.ref().child("channels/"+classId + "/" + newKey).set(postData);
-            for (var i=0; i<aClass.members.length; i++) {
-              db.ref().child("channels/"+classId).once("value").then(function(snapshot){
-                snapshot.forEach(function(channelSnapshot) {
-                  db.ref().child("channels/"+classId+"/"+channelSnapshot.val().uuid+"/participants/"+aClass.members[i].id).set({
-                    user:"newuser"
-                  });
-                });
-              });
-            }
-            //Add new channel to user's list of enrolled channels in users table
-            db.ref().child("users/"+auth.currentUser.uid+"/channels/"+newKey).set({
-                channelId:newKey
-              });
-            //Add members of class to the channel
-            for (var q=0; q<aClass.members.length; i++) {
-              db.ref().child("channels/"+classId+"/"+newKey+"/participants/"+aClass.members[q].id).set({
-                user:"newuser"
-              });
-              //Add the channel to the class member's enrolled channels in users table
-              db.ref().child("users/"+aClass.members[q].id+"/channels/"+newKey).set({
-                channelId:newKey
-              });
-            }
-          }
-        });
+        //create class representation and add users as needed
+        route.get('firebase').createClassRepresentation(classId,aClass,userInfo);
         //Now creating a listener to the classes' channel table; we will be notified if a new channel is added.
-        var dbChannelRef = channelRef.child(classId);
-        dbChannelRef.on('value', function(snapshot) {
-          //Iterating through each channel in the class channel table (currently only the default exist).
-          snapshot.forEach(function(channelSnapshot) {
-            var channelId = channelSnapshot.child("uuid").val();
-            var messageRef = db.ref().child("messages/" + channelId);
-            const storage = route.get('firebaseApp').storage();
-            /*
-            * Create a reference to the messages table for a particular channel (currently only one default channel)
-            * We then, only once, retrieve all messages for the particular channel and display them on the UI.
-            */
-            messageRef.once('value').then(function(snapshot) {
-              messages.clear();
-              snapshot.forEach(function(messageSnapshot) {
-                var mes = messageSnapshot.val().message;
-                var tmp = messageSnapshot.val();
-                //If the message pertains to a file, then we need to generate the downloadable URL for the file.
-                if (mes.startsWith('gs://')) {
-                  messages.pushObject(tmp);
-                  storage.refFromURL(mes).getMetadata().then(function(metadata) {
-                    mes = metadata.downloadURLs[0];
-                      Ember.set(tmp,'imageURL',mes);
-                        Ember.set(tmp,'message',mes);
-                  });
-                }else{
-                  messages.pushObject(messageSnapshot.val());
-                }
-              });
-            });
-            //Generate a listener that will add a new message to the existing messages array
-            messageRef.on('child_added',function(snapshot) {
-              var mes = snapshot.val().message;
-              var tmp = snapshot.val();
-                if (mes.startsWith('gs://')) {
-                  messages.pushObject(tmp);
-                  storage.refFromURL(mes).getMetadata().then(function(metadata) {
-                    mes = metadata.downloadURLs[0];
-                    Ember.set(tmp,'imageURL',mes);
-                    Ember.set(tmp,'message',mes);
-                  });
-                }else{
-                  messages.pushObject(snapshot.val());
-                }
-              Ember.run.later((function() {
-                $('.message-row-container').scrollTop($('.message-row-container-inner').height());
-              }), 100);
-            });
-
-            //Generate a listener that will listen for removed messages in the database and remove them from the message array
-            messageRef.on('child_removed',function(snapshot) {
-              for (var i=0; i<messages.length; i++){
-                if(messages[i].messageId === snapshot.key){
-                  messages.removeAt(i);
-                }
-              }
-            });
-            channels.pushObject(channelSnapshot.val());
-            return true;
-          });
-        });
+        route.get('firebase').generateClassListeners(classId,messages,channels);
       }
       return Ember.RSVP.hash({
         contentVisibility: visibilityPromise,
