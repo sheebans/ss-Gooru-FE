@@ -1,5 +1,4 @@
 import Ember from 'ember';
-//import { jwt_decode } from 'ember-cli-jwt-decode';
 
 export default Ember.Controller.extend({
 
