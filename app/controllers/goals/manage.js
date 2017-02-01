@@ -111,13 +111,7 @@ export default Ember.Controller.extend({
   resetProperties(){
     var controller = this;
     var newGoalProfile = Goal.extend(createGoalValidations);
-    var goal = newGoalProfile.create(Ember.getOwner(this).ownerInjection(), {
-      title: null,
-      startDate: null,
-      endDate: null,
-      status: null,
-      reflection: null
-    });
+    var goal = newGoalProfile.create(Ember.getOwner(this).ownerInjection(), {});
     controller.set('goal', goal);
   }
 

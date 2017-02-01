@@ -25,6 +25,8 @@ export default Ember.Service.extend({
   // -------------------------------------------------------------------------
   // Properties
 
+  i18n: Ember.inject.service(),
+
   /**
    * @property {GoalSerializer} serializer
    */
@@ -94,14 +96,14 @@ export default Ember.Service.extend({
    */
   getGoalStatusOptions: function () {
     let options = [
-      {id: 'Yet to Start',
-        name: 'Yet to Start'},
-      {id: 'In progress',
-        name: 'In progress'},
-      {id: 'Completed',
-        name: 'Completed'},
-      {id: 'Delayed',
-        name: 'Delayed'}
+      {id: 'not_started',
+        name: this.get('i18n').t('goals.manage.not-started').string},
+      {id: 'activated',
+        name: this.get('i18n').t('goals.manage.activated').string},
+      {id: 'completed',
+        name: this.get('i18n').t('goals.manage.completed').string},
+      {id: 'dropped',
+        name: this.get('i18n').t('goals.manage.dropped').string}
     ];
     return options;
   }

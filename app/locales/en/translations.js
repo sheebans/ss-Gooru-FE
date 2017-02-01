@@ -802,6 +802,10 @@ export default {
       "end-date-label": "End Date",
       "type-label": "Goal Type",
       "status-label": "Status",
+      "not-started": "Not Started",
+      "activated": "Activated",
+      "completed": "Completed",
+      "dropped": "Dropped",
       "reflection-label": "Reflection",
       "save": "Save"
     },
