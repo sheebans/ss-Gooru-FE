@@ -13,6 +13,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/profiles',
 
+  namespaceV2: '/api/nucleus/v2/profiles',
+
   usersNamespace: '/api/nucleus-auth/v1/users',
 
   /**
@@ -66,12 +68,15 @@ export default Ember.Object.extend({
    */
   readUserProfile: function(userId) {
     const adapter = this;
-    const namespace = adapter.get('namespace');
-    const url = `${namespace}/${userId}/demographics`;
+    const namespace = adapter.get('namespaceV2');
+    const url = `${namespace}/demographics`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      headers: adapter.defineHeaders()
+      headers: adapter.defineHeaders(),
+      data: {
+        "userId": userId
+      }
     };
     return Ember.$.ajax(url, options);
   },

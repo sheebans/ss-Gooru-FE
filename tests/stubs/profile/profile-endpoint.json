@@ -44,8 +44,11 @@
   {
     "description": "API 3.0 Endpoint to return current user Profile info",
     "request": {
-      "url": "^/api/nucleus/v1/profiles/id-for-pochita/demographics",
+      "url": "^/api/nucleus/v2/profiles/demographics",
       "method": "GET",
+      "query": {
+        "userId": "id-for-pochita"
+      },
       "headers": {
         "authorization": "Token (.+)"
       }
@@ -62,8 +65,11 @@
   {
     "description": "API 3.0 Endpoint to return another user Profile info",
     "request": {
-      "url": "^/api/nucleus/v1/profiles/param-123/demographics",
+      "url": "^/api/nucleus/v2/profiles/demographics",
       "method": "GET",
+      "query": {
+        "userId": "param-123"
+      },
       "headers": {
         "authorization": "Token (.+)"
       }
@@ -80,8 +86,11 @@
   {
     "description": "API 3.0 Endpoint to return other user Profile info",
     "request": {
-      "url": "^/api/nucleus/v1/profiles/other-123/demographics",
+      "url": "^/api/nucleus/v2/profiles/demographics",
       "method": "GET",
+      "query": {
+        "userId": "other-123"
+      },
       "headers": {
         "authorization": "Token (.+)"
       }
@@ -98,8 +107,11 @@
   {
     "description": "API 3.0 Endpoint to return another (following) user Profile info",
     "request": {
-      "url": "^/api/nucleus/v1/profiles/param-123/demographics",
+      "url": "^/api/nucleus/v2/profiles/demographics",
       "method": "GET",
+      "query": {
+        "userId": "param-123"
+      },
       "headers": {
         "authorization": "Token (.+)"
       }
@@ -116,8 +128,11 @@
   {
     "description": "API 3.0 Endpoint to return current user Profile info",
     "request": {
-      "url": "^/api/nucleus/v1/profiles/(.+)/demographics",
+      "url": "^/api/nucleus/v2/profiles/demographics",
       "method": "GET",
+      "query": {
+        "userId": "(.+)"
+      },
       "headers": {
         "authorization": "Token (.+)"
       }
