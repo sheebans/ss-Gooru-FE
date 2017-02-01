@@ -30,6 +30,8 @@ export default Ember.Controller.extend({
 
   firebaseApp: Ember.inject.service(),
 
+  firebase: Ember.inject.service('firebase'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -98,37 +100,7 @@ export default Ember.Controller.extend({
               headers: token
             };
             //Validating user and generating JWT
-            Ember.$.ajax('http://localhost:8080/api/nucleus/v1/firebase/jwt', options).then(function(val){
-              var response = JSON.parse(val);
-              var jwt = response.jwt;
-              /*
-              * If the user is not logged in, then we log them into Firebase. First we setup the listener so that after
-              * the user is logged into firebase, we then create a representation for the user in the user
-              * table in the firebase database.
-              */
-              auth.onAuthStateChanged(function(user) {
-                if (user) {
-                  //create user in database if not present
-                  var userRef = db.ref().child('users/');
-                  userRef.once('value').then(function(snapshot){
-                    var userID = user.uid;
-                    auth.currentUser.getToken().then(function(val){
-                       var decodedVal = jwt_decode(val);
-                       if (!(snapshot.hasChild(userID))){
-                            var postData = {
-                                uuid: user.uid,
-                                fullname : decodedVal.firstname + ' ' + decodedVal.lastname,
-                                user_category: decodedVal.user_category
-                            };
-                          db.ref('users/' + user.uid).set(postData);
-                        }
-                     });
-                  });
-                } else {
-                  auth.signInWithCustomToken(jwt);
-                }
-              });
-            });
+            controller.get('firebase').generateJWT(options);
             controller.send('signUpFinish', role);
           }, function() {
             Ember.Logger.error('Error updating user');

@@ -108,5 +108,45 @@ export default Ember.Service.extend({
       db.ref().child("messages/" + channelId+"/"+message.messageId).remove();
      }
    });
+  },
+
+  //generate the JWT needed by firebase
+  generateJWT: function(options){
+    //create objects for the authentication, and database services
+    const auth = this.get('firebaseApp').auth();
+    const db = this.get('firebaseApp').database();
+    //Validating user and generating JWT
+    Ember.$.ajax('http://localhost:8083/jwt/nile/v1/', options).then(function(val){
+      var response = JSON.parse(val);
+      const jwt = response.jwt; 
+      /*
+      * If the user is not logged in, then we log them into Firebase. First we setup the listener so that after
+      * the user is logged into firebase, we then create a representation for the user in the user
+      * table in the firebase database.
+      */
+      auth.onAuthStateChanged(function(user) {
+      if (user) {
+        //create user in database if not present
+        var userRef = db.ref().child('users/');
+        userRef.once('value').then(function(snapshot){
+          var userID = user.uid;
+          auth.currentUser.getToken().then(function(val){
+             var decodedVal = jwt_decode(val);
+             if (!(snapshot.hasChild(userID))){
+                  var postData = {
+                      uuid: user.uid,
+                      fullname : decodedVal.firstname + ' ' + decodedVal.lastname,
+                      user_category: decodedVal.user_category
+                  };
+                db.ref('users/' + user.uid).set(postData);
+              }
+           });
+        });
+      } else {
+        // User needs to be signed in using custom authentication - uses the uid set in the JWT
+        auth.signInWithCustomToken(jwt);
+        }
+      });
+    });
   }
 });
