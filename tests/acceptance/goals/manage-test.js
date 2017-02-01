@@ -21,6 +21,31 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/goals/manage');
 
+    T.exists(assert, find("header.gru-header"), "Header component not found");
+
+    const $userContainer = find(".controller.student-landing");
+    T.exists(assert, $userContainer, "Missing manage goals container");
+
+    T.exists(assert, $userContainer.find(".greetings"), "Missing title");
+    T.exists(assert, $userContainer.find(".goals-navigator"), "Missing navigator");
+
+    const $goalsContainer = $userContainer.find(".goals-container");
+    T.exists(assert, $goalsContainer, "Missing container");
+
+    const $newGoalContainer = $goalsContainer.find("new-goal");
+
+    var $createGoalForm = $newGoalContainer.find("#createGoalForm");
+    T.exists(assert, $createGoalForm, "Missing create goal form");
+
+    T.exists(assert, $createGoalForm.find(".gru-input.title"), "Missing goal title field");
+    assert.ok($createGoalForm.find(".gru-datepicker").length, 2,"Missing 2 date picker components");
+    assert.ok($createGoalForm.find(".gru-select").length, 2,"Missing 2 select components");
+    T.exists(assert, $createGoalForm.find(".gru-input.reflection"), "Missing reflection field");
+    T.exists(assert, $createGoalForm.find(".create-goal"), "Missing create goal button");
+
+
+
+
   });
 
 });

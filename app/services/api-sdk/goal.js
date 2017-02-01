@@ -86,5 +86,25 @@ export default Ember.Service.extend({
       .then(function (goalsData) {
         return service.get('serializer').normalizeGetGoals(goalsData);
     });
+  },
+
+  /**
+   * Get Status Options
+   * @returns {Array} returns the list of possible status for a goal
+   */
+  getGoalStatusOptions: function () {
+    let options = [
+      {id: 'Yet to Start',
+        name: 'Yet to Start'},
+      {id: 'In progress',
+        name: 'In progress'},
+      {id: 'Completed',
+        name: 'Completed'},
+      {id: 'Delayed',
+        name: 'Delayed'}
+    ];
+    return options;
   }
+
+
 });

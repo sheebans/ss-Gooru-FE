@@ -793,6 +793,26 @@ export default {
     "box-title-four": "Interact with your students",
     "box-text-four": "Some text here."
   },
+  "goals":{
+    "manage":{
+      "title": "My Goals!",
+      "add-goal": "Add Goal",
+      "goal-label": "Goal",
+      "start-date-label": "Start Date",
+      "end-date-label": "End Date",
+      "type-label": "Goal Type",
+      "status-label": "Status",
+      "reflection-label": "Reflection",
+      "save": "Save",
+    },
+    "create":{
+      "error-add-title": "Please enter the goal",
+      "error-add-reflection": "Please enter the reflection",
+      "created-success-msg": "You've created the goal {{goalTitle}}"
+    }
+
+
+  },
 
   /*
    * COMPONENTS: Translations used in a specific component
