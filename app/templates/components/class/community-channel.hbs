@@ -53,11 +53,11 @@
                           <li class="navbar-nav-list">
                             <form {{action "submitFile" on="submit"}}>
                           <input id="mediaCapture"  multiple="true"  valueBinding="file" onchange={{action "submitFile"}} type="file"/>
-                          <label class="upload-file" for="mediaCapture">Choose a file</label>
+                          <label class="upload-file" for="mediaCapture">{{t "common.choose-file"}}</label>
                       </form>
                 </li>
                           <li class="navbar-nav-list">
-                            <a class="navbar-link" href="javascript: void(0);" {{action 'submitMessage'}}>Post Message</a>
+                            <a class="navbar-link" href="javascript: void(0);" {{action 'submitMessage'}}>{{t "common.post-message"}}</a>
                           </li>
                       </ul>
                     </li>

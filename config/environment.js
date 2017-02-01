@@ -11,8 +11,6 @@ module.exports = function (environment) {
     rootURL: isEmbedded ? undefined : '/',
     locationType: isEmbedded ? 'none' : 'auto',
     exportApplicationGlobal: "GooruWebApp",
-    locationType: 'auto',
-    // ...
     firebase: {
       apiKey: 'AIzaSyBK9u8tQun9rL9erEEkIq9HULSpdjHBLL8',
       authDomain: 'nile-2d108.firebaseapp.com',
