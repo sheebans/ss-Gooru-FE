@@ -803,15 +803,13 @@ export default {
       "type-label": "Goal Type",
       "status-label": "Status",
       "reflection-label": "Reflection",
-      "save": "Save",
+      "save": "Save"
     },
     "create":{
       "error-add-title": "Please enter the goal",
       "error-add-reflection": "Please enter the reflection",
       "created-success-msg": "You've created the goal {{goalTitle}}"
     }
-
-
   },
 
   /*

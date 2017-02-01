@@ -119,7 +119,7 @@ export default Ember.Controller.extend({
       reflection: null
     });
     controller.set('goal', goal);
-  },
+  }
 
 
 });

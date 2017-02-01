@@ -24,7 +24,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   setupController: function(controller) {
     controller.resetProperties();
-  },
-
+  }
 
 });
