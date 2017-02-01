@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
   // Dependencies
 
   /**
-   * @requires service:goal
+   * @dependency service:goal
    */
   goalService: Ember.inject.service("api-sdk/goal"),
 
@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
   notifications: Ember.inject.service(),
 
   /**
-   * @dependency {Ember.Service} i18n service
+   * @dependency service:i18n
    */
   i18n: Ember.inject.service(),
 
