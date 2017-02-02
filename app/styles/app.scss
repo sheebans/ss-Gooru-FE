@@ -58,6 +58,8 @@
 @import 'controllers/account-settings';
 @import 'controllers/course-player';
 
+@import 'controllers/goals/manage';
+
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
 @import 'components/standard-dropdown';

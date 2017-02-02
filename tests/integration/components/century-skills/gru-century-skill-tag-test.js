@@ -25,7 +25,7 @@ test('it renders a century skill tag correctly', function(assert) {
   const $component = this.$('.century-skills.gru-century-skill-tag');
 
   assert.ok($component.length, 'Component');
-  assert.notOk($component.find('button').length, 'Read only class by default, button should no be visible');
+  assert.notOk($component.find('.btn-skill').length, 'Read only class by default, btn-skill should no be visible');
   assert.ok($component.find('.content .tag-label').length, 'Tag label');
   assert.equal($component.find('.content .tag-label').text(), 'Problem Formulation', 'Tag label Text');
 });
@@ -50,10 +50,10 @@ test('if it is not read-only', function(assert) {
 
   assert.ok($component.length, 'Component');
   assert.notOk($component.find('.content .tag-label').length, 'Tag label should no be visible');
-  assert.ok($component.find('button').length, 'Tag button');
-  assert.ok($component.find('button .btn-label').length, 'label button');
-  assert.equal($component.find('button .btn-label').text(), 'Problem Formulation', 'Tag button label Text');
-  assert.ok($component.find('button .remove-skill').length, 'remove-skill icon');
+  assert.ok($component.find('.btn-skill').length, 'btn-skill');
+  assert.ok($component.find('.btn-skill .btn-label').length, 'label btn-skill');
+  assert.equal($component.find('.btn-skill .btn-label').text(), 'Problem Formulation', 'Tag button label Text');
+  assert.ok($component.find('.btn-skill .remove-skill').length, 'remove-skill icon');
 });
 
 test('it calls an external action when its remove button is clicked', function(assert) {
@@ -79,5 +79,5 @@ test('it calls an external action when its remove button is clicked', function(a
   this.render(hbs`{{century-skills/gru-century-skill-tag skill=centurySkillTag isReadOnly=false onRemove=(action 'externalAction')}}`);
 
   const $component = this.$('.century-skills.gru-century-skill-tag');
-  $component.find('button .remove-skill').click();
+  $component.find('.btn-skill .remove-skill').click();
 });
