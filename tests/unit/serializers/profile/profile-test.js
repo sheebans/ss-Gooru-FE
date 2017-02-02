@@ -16,18 +16,16 @@ test('serializeCreateProfile', function(assert) {
     email: 'email',
     password: 'password',
     dateOfBirth: '01/01/2000',
-    role: 'role'
+    tenantId: '123'
   });
   const expected =  {
-    firstname:"first-name",
-    lastname:"last-name",
+    first_name:"first-name",
+    last_name:"last-name",
     username:"username",
-    email_id:"email",
+    email:"email",
     password:"password",
     birth_date:"01/01/2000",
-    user_category:"role",
-    gender:null,
-    grade:[]
+    tenant_id: '123'
   };
   const response = serializer.serializeCreateProfile(profileObject);
   assert.deepEqual(expected, response, 'Wrong serialized response');
@@ -83,10 +81,10 @@ test('normalizeReadProfile', function(assert) {
 
   const profilePayload = {
     id: 'id',
-    firstname: 'first-name',
-    lastname: 'last-name',
+    first_name: 'first-name',
+    last_name: 'last-name',
     username: 'username',
-    'email_id': 'email',
+    email: 'email',
     gender: 'male',
     grade: [],
     'birth_date': '01/01/2000',

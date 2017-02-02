@@ -175,6 +175,11 @@ export default Ember.Object.extend({
   studentId: null,
 
   /**
+   * @property {string} tenant id
+   */
+  tenantId: null,
+
+  /**
    * @property {boolean} - Indicates if current user is a student
    */
   isStudent: Ember.computed.equal("role", "student"),
