@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import Profile from 'gooru-web/models/profile/profile';
 import { COUNTRY_CODES } from "gooru-web/config/config";
-import { jwt_decode } from 'ember-cli-jwt-decode';
 
 export default Ember.Controller.extend({
 

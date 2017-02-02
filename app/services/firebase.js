@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { jwt_decode } from 'ember-cli-jwt-decode';
-
+/*global firebase:true*/
 /**
  * @typedef {Object} FirebaseService
  */
@@ -24,10 +24,8 @@ export default Ember.Service.extend({
    */
   submitMessage: function(currentUser, channels, message) {
       if(message === null || message === ""){
-        console.log('no message to submit - messages');
         return;
       }
-      const service = this;
       const db = this.get('firebaseApp').database();
       const channelId = channels[0].uuid;
       var user = this.get('firebaseApp').auth().currentUser;
@@ -56,7 +54,6 @@ export default Ember.Service.extend({
   //submit a file to firebase storage
   submitFile: function(currentUser, channels, fileToSend){
       if(fileToSend === null || fileToSend === undefined){
-        console.log('nothing to submit - file');
         return;
       }
       const db = this.get('firebaseApp').database();
@@ -100,8 +97,7 @@ export default Ember.Service.extend({
   //remove a message from firebase
   removeMessage: function(message,channels){
     if(message === null || message === undefined){
-      console.log('nothing to remove - message');
-      reeturn;
+      return;
     }
     const auth = this.get('firebaseApp').auth();
     const db = this.get('firebaseApp').database();
@@ -137,13 +133,13 @@ export default Ember.Service.extend({
     //Validating user and generating JWT
     Ember.$.ajax('http://localhost:8083/jwt/nile/v1/', options).then(function(val){
       var response = JSON.parse(val);
-      const jwt = response.jwt; 
+      const jwt = response.jwt;
       /*
       * If the user is not logged in, then we log them into Firebase. First we setup the listener so that after
       * the user is logged into firebase, we then create a representation for the user in the user
       * table in the firebase database.
       */
-      auth.onAuthStateChanged(function(user) {
+      auth.onAuthStateChanged(function(user){
       if (user) {
         //create user in database if not present
         var userRef = db.ref().child('users/');
@@ -224,7 +220,6 @@ export default Ember.Service.extend({
 
   generateClassListeners: function(classId,messages, channels){
       const db = this.get('firebaseApp').database();
-      const auth = this.get('firebaseApp').auth();
       const storage = this.get('firebaseApp').storage();
       var channelRef = db.ref().child("channels/");
       var dbChannelRef = channelRef.child(classId);
@@ -232,7 +227,7 @@ export default Ember.Service.extend({
         //Iterating through each channel in the class channel table (currently only the default exist).
         snapshot.forEach(function(channelSnapshot) {
           var channelId = channelSnapshot.child("uuid").val();
-          var messageRef = db.ref().child("messages/" + channelId);  
+          var messageRef = db.ref().child("messages/" + channelId);
           /*
           * Create a reference to the messages table for a particular channel (currently only one default channel)
           * We then, only once, retrieve all messages for the particular channel and display them on the UI.
@@ -302,6 +297,6 @@ export default Ember.Service.extend({
 
   signOut: function(){
     const auth = this.get('firebaseApp').auth();
-    var tmp = auth.signOut();
+    auth.signOut();
   }
 });

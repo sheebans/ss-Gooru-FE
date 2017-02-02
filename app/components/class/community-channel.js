@@ -1,6 +1,5 @@
 import Ember from "ember";
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
-import { jwt_decode } from 'ember-cli-jwt-decode';
 /**
  * Class navigation
  *
@@ -10,7 +9,6 @@ import { jwt_decode } from 'ember-cli-jwt-decode';
  * @see controllers/class.js
  * @augments ember/Component
  */
- /*global firebase:true*/
 export default Ember.Component.extend(ConfigurationMixin, {
 
     /**
@@ -84,8 +82,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
       },
 
     //remove a message from firebase
-    removeMessage: function(message,channels){
-      channels = this.get('channels');
+    removeMessage: function(message){
       this.get('firebase').removeMessage(message,this.channels);
     },
 

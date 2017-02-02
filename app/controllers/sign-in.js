@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import User from 'gooru-web/models/sign-in/sign-in';
 import Env from 'gooru-web/config/environment';
-import { jwt_decode } from 'ember-cli-jwt-decode';
 
 export default Ember.Controller.extend({
 
@@ -72,8 +71,8 @@ export default Ember.Controller.extend({
                 controller.send('signIn');
                 //Need to move this out into a seperate service
                 //Validating user and generating JWT
-                controller.get('firebase').generateJWT();    
-              }, function() {
+                controller.get('firebase').generateJWT();
+              }, function(){
                 controller.get("notifications").warning(errorMessage);
                 // Authenticate as anonymous if it fails to mantain session
                 controller.get('session').authenticateAsAnonymous();
