@@ -9,7 +9,7 @@ import EndPointsConfig from 'gooru-web/utils/endpoint-config';
  */
 export default Ember.Object.extend({
 
-  namespace: '/api/nucleus-auth/v1/token',
+  namespace: '/api/nucleus-auth/v2/signin',
 
   /**
    * Post a request to authenticate a normal user or anonymous user.

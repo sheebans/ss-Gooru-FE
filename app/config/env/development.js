@@ -4,14 +4,14 @@
 export default {
   "appRootPath": "/", //default is root
   "endpoint" : {
-    "url": "http://nucleus-qa.gooru.org",
-    "secureUrl": "https://nucleus-qa.gooru.org"
+    "url": "http://nile-dev.gooru.org",
+    "secureUrl": "https://nile-dev.gooru.org"
   },
 
   "realTime": {
-    "webServiceUrl": "http://goorurt.qa.gooruweb.edify.cr",
+    "webServiceUrl": "http://nile-dev.gooru.org",
     "webServiceUri": "/nucleus/realtime",
-    "webSocketUrl": "https://goorurt.qa.gooruweb.edify.cr",
+    "webSocketUrl": "https://rt.nile-dev.gooru.org",
     "webSocketUri": "/ws/realtime"
   },
 

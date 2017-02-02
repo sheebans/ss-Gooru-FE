@@ -16,10 +16,7 @@
 
     .title {
       >* {
-        display: inline-block;
-        &:last-child {
-          margin-left: 25px; 
-        }
+        display: inline-block;        
       }
     }
   }
