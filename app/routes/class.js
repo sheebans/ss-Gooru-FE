@@ -53,9 +53,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   var channels = [];
   var messages = [];
-  //Create objects for firebase services
-  const db = this.get('firebaseApp').database();
-  const auth = this.get('firebaseApp').auth();
   const userInfo = this.get('profileService').findByCurrentUser();
 
     return Ember.RSVP.hash({
@@ -95,9 +92,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           members: members,
           units: course.get('children') || [],
           contentVisibility: contentVisibility,
-      channels:channels,
-      messages:messages,
-      userInfo:userInfo
+          channels:channels,
+          messages:messages,
+          userInfo:userInfo
         });
       });
     });

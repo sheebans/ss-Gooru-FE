@@ -24,6 +24,7 @@ export default Ember.Service.extend({
    */
   submitMessage: function(currentUser, channels, message) {
       if(message === null || message === ""){
+        console.log('no message to submit - messages');
         return;
       }
       const service = this;
@@ -54,7 +55,11 @@ export default Ember.Service.extend({
 
   //submit a file to firebase storage
   submitFile: function(currentUser, channels, fileToSend){
-    const db = this.get('firebaseApp').database();
+      if(fileToSend === null || fileToSend === undefined){
+        console.log('nothing to submit - file');
+        return;
+      }
+      const db = this.get('firebaseApp').database();
       const storage =  this.get('firebaseApp').storage();
       const channelId = channels[0].uuid;
       var user = this.get('firebaseApp').auth().currentUser;
@@ -94,6 +99,10 @@ export default Ember.Service.extend({
   },
   //remove a message from firebase
   removeMessage: function(message,channels){
+    if(message === null || message === undefined){
+      console.log('nothing to remove - message');
+      reeturn;
+    }
     const auth = this.get('firebaseApp').auth();
     const db = this.get('firebaseApp').database();
     const channelId = channels[0].uuid;
@@ -114,10 +123,17 @@ export default Ember.Service.extend({
   },
 
   //generate the JWT needed by firebase
-  generateJWT: function(options){
+  generateJWT: function(){
     //create objects for the authentication, and database services
     const auth = this.get('firebaseApp').auth();
     const db = this.get('firebaseApp').database();
+    var token = {
+              'Authorization': 'Token ' + this.get("session.token-api3")
+            };
+            const options = {
+              type: 'GET',
+              headers: token
+            };
     //Validating user and generating JWT
     Ember.$.ajax('http://localhost:8083/jwt/nile/v1/', options).then(function(val){
       var response = JSON.parse(val);

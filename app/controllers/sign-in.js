@@ -70,17 +70,9 @@ export default Ember.Controller.extend({
                 controller.set('didValidate', true);
                 // Trigger action in parent
                 controller.send('signIn');
-                //Token needs to be sent to the backend in order to generate the JWT used by Firebase.
-                var token = {
-                  'Authorization': 'Token ' + controller.get("session.token-api3")
-                };
-                const options = {
-                  type: 'GET',
-                  headers: token
-                };
                 //Need to move this out into a seperate service
                 //Validating user and generating JWT
-                controller.get('firebase').generateJWT(options);    
+                controller.get('firebase').generateJWT();    
               }, function() {
                 controller.get("notifications").warning(errorMessage);
                 // Authenticate as anonymous if it fails to mantain session

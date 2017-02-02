@@ -50,6 +50,10 @@ export default Ember.Controller.extend({
    */
   isFullScreen: false,
 
+  /*
+  * If this variable is set to false then the channel section should not be shown
+  * @property {Booelan}
+  */
   showChannels: true,
 
  /**
@@ -115,7 +119,12 @@ export default Ember.Controller.extend({
   selectMenuItem: function(item){
     this.set("menuItem", item);
   },
-    hideChannels: function(){
+
+  /**
+  * Hide channels in the class page
+  * @param empty
+  */
+  hideChannels: function(){
       this.toggleProperty('showChannels');
       //Ember.$('#channel').hide();
     }

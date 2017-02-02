@@ -89,18 +89,8 @@ export default Ember.Controller.extend({
           .then(function() {
             let session = controller.get('session');
             session.set('userData.isNew', false);
-            //need to log user into firebase
-            const auth = controller.get('firebaseApp').auth();
-            const db = controller.get('firebaseApp').database();
-            var token = {
-              'Authorization': 'Token ' + controller.get("session.token-api3")
-            };
-            const options = {
-              type: 'GET',
-              headers: token
-            };
             //Validating user and generating JWT
-            controller.get('firebase').generateJWT(options);
+            controller.get('firebase').generateJWT();
             controller.send('signUpFinish', role);
           }, function() {
             Ember.Logger.error('Error updating user');

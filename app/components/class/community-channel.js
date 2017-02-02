@@ -73,15 +73,15 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * @returns void
      */
     submitMessage: function(currentUser, channels, message) {
-        channels = this.get('channels');
-        currentUser = this.get('currentUser');
-        message = this.get('message');
-        this.get('firebase').submitMessage(currentUser,channels,message);
-        Ember.run.later((function() {
-        $('.message-row-container').scrollTop($('.message-row-container-inner').height());
-        }), 100);
-        this.set("message", '');
-        },
+      channels = this.get('channels');
+      currentUser = this.get('currentUser');
+      message = this.get('message');
+      this.get('firebase').submitMessage(currentUser,channels,message);
+      Ember.run.later((function() {
+      $('.message-row-container').scrollTop($('.message-row-container-inner').height());
+      }), 100);
+      this.set("message", '');
+      },
 
     //remove a message from firebase
     removeMessage: function(message,channels){
@@ -100,6 +100,10 @@ export default Ember.Component.extend(ConfigurationMixin, {
           $('.message-row-container').scrollTop($('.message-row-container-inner').height());
           }), 100);
           this.set("message", '');
-          }
+    },
+    hideChannels: function(){
+      this.toggleProperty('showChannels');
+      Ember.$('#channel').hide();
+    }
   }
 });
