@@ -42,7 +42,6 @@ test('serializeCreateGoal with no dates', function (assert) {
 test('serializeGoal', function (assert) {
   const serializer = this.subject();
   const modelInstance = Goal.create({
-    id : 123,
     title: 'Goal Title',
     status: 'not_started',
     description: 'the desc',
@@ -51,7 +50,6 @@ test('serializeGoal', function (assert) {
     endDate: new Date(1994, 12, 10)
   });
   const modelObject = serializer.serializeGoal(modelInstance);
-  assert.equal(modelObject.id, 123, 'Wrong id');
   assert.equal(modelObject.title, 'Goal Title', 'Wrong title');
   assert.equal(modelObject.status, 'not_started', 'Wrong status');
   assert.equal(modelObject.description, 'the desc', 'Wrong description');
@@ -63,14 +61,12 @@ test('serializeGoal', function (assert) {
 test('serializeCreateGoal with no dates', function (assert) {
   const serializer = this.subject();
   const modelInstance = Goal.create({
-    id: 123,
     title: 'Goal Title',
     status: 'not_started',
     description: 'the desc',
     reflection: 'the reflection'
   });
   const modelObject = serializer.serializeGoal(modelInstance);
-  assert.equal(modelObject.id, 123, 'Wrong id');
   assert.equal(modelObject.title, 'Goal Title', 'Wrong title');
   assert.equal(modelObject.status, 'not_started', 'Wrong status');
   assert.equal(modelObject.description, 'the desc', 'Wrong description');
@@ -98,7 +94,7 @@ test('normalizeGoal', function (assert) {
   assert.equal(goal.get("status"), data.status, 'Wrong status');
   assert.equal(goal.get("description"), data.description, 'Wrong description');
   assert.equal(goal.get("reflection"), data.reflection, 'Wrong reflection');
-  assert.equal(goal.get("order"), data.sequence_id, 'Wrong reflection');
+  assert.equal(goal.get("order"), data.sequence_id, 'Wrong sequence id');
   assert.ok(goal.get("startDate"), 'startDate should be present');
   assert.ok(goal.get("endDate"), 'endDate should be present');
 });
