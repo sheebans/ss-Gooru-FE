@@ -36,15 +36,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   serializeCreateProfile: function(profileData) {
     return {
-      firstname: profileData.get('firstName'),
-      lastname: profileData.get('lastName'),
+      first_name: profileData.get('firstName'),
+      last_name: profileData.get('lastName'),
       username: profileData.get('username'),
-      'email_id': profileData.get('email'),
+      email: profileData.get('email'),
       password: profileData.get('password'),
-      'birth_date': profileData.get('dateOfBirth'),
-      'user_category': profileData.get('role'),
-      gender: null,
-      grade: []
+      birth_date: profileData.get('dateOfBirth'),
+      tenant_id: profileData.get("tenantId")
     };
   },
 
@@ -108,10 +106,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
-      firstName: payload.firstname,
-      lastName: payload.lastname,
+      firstName: payload.first_name,
+      lastName: payload.last_name,
       username: payload.username,
-      email: payload['email_id'],
+      email: payload.email,
       gender: payload.gender,
       grades: payload.grade,
       dateOfBirth: payload['birth_date'],

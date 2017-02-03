@@ -1,9 +1,9 @@
 {
   "id": "param-123",
-  "firstname": "Param",
-  "lastname": "V",
+  "first_name": "Param",
+  "last_name": "V",
   "username": "param",
-  "email_id": "email@param.com",
+  "email": "email@param.com",
   "gender": "male",
   "grade": [],
   "birth_date": "01/01/2000",

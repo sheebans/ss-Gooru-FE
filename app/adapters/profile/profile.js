@@ -17,6 +17,8 @@ export default Ember.Object.extend({
 
   usersNamespace: '/api/nucleus-auth/v1/users',
 
+  authNamespace: '/api/nucleus-auth/v2',
+
   /**
    * Posts a request to the API to create a new user account
    *
@@ -26,8 +28,8 @@ export default Ember.Object.extend({
   createProfile: function(data) {
     const adapter = this;
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
-    const namespace = this.get('usersNamespace');
-    const url = `${endpointUrl}${namespace}`;
+    const namespace = this.get('authNamespace');
+    const url = `${endpointUrl}${namespace}/signup`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
