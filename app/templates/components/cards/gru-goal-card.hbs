@@ -1,0 +1,25 @@
+<div class="collapse"></div>
+<div class="panel">
+  <div class="panel-heading">
+    <span class="icon">{{gru-icon name='track_changes'}}</span>
+    <span class="title">{{goal.title}}</span>
+  </div>
+  <div class="panel-body">
+    <div class="date">
+      <span>{{format-date goal.startDate 'MMMM DD, YYYY'}} - {{format-date goal.endDate 'MMMM DD, YYYY'}}</span>
+    </div>
+    <div class="status">
+      <span>{{t 'goals.manage.status-label'}} - {{t (concat 'goals.manage.' goal.status)}}</span>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="expand">
+      <span>{{gru-icon name='keyboard_arrow_down'}}</span>
+    </div>
+    <div class="actions">
+      <button class="btn edit-item no-bgd" title="{{t 'common.edit'}}">{{gru-icon name="edit"}}</button>
+      <button title="{{t 'common.delete'}}" class="btn no-bgd delete-item">{{gru-icon name="delete"}}</button>
+    </div>
+  </div>
+</div>
+<div class="status"></div>

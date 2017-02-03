@@ -1,0 +1,90 @@
+.gru-goal-card {
+  height: 105px;
+  border-top: 1px solid $gray-light;
+  border-bottom: 1px solid $gray-light;
+  @media (min-width: $screen-md) {
+    width: 55%;
+  }
+  > div{
+    float: left;
+    height: 100%;
+    display: block;
+    &.collapse {
+      background-color: $blue-400;
+      width: 4%;
+    }
+    &.panel {
+      padding: 5px;
+      width: 94%;
+      background-color: $white;
+      margin: 0;
+      @media (min-width: $screen-xs) {
+        padding: 10px 15px;
+      }
+      .panel-heading {
+        max-height: 45px;
+        padding: 0;
+        @include flexbox();
+        .icon {
+          display: inline-block;
+          color: $gray-light;
+          margin: 0 5px 0 0;
+        }
+        .title {
+          padding: 5px 0 0 0;
+        }
+      }
+      .panel-body {
+        padding: 0 15px 0 15px;
+        height: 35px;
+        .date {
+          display: inline-block;
+          margin: 0 0 0 15px;
+          @media (min-width: $screen-xs) {
+            width: 45%;
+          }
+        }
+        .status {
+          display: inline-block;
+          margin: 0 0 0 15px;
+          @media (min-width: $screen-xs) {
+            width: 45%;
+            margin: 0;
+          }
+        }
+      }
+      .panel-footer {
+        background-color: $white;
+        color: $gray-light;
+        padding: 0;
+        height: 25px;
+        .expand {
+          width: 50%;
+          text-align: right;
+          float: left;
+          height: inherit;
+          i {
+            cursor: pointer;
+            font-size: $expand-arrow-size;
+          }
+        }
+        .actions{
+          float: right;
+          button {
+            background-color: $white;
+            padding: 0;
+            margin: 0;
+            i {
+              color: $blue-400;
+              font-size: $font-size-lead;
+            }
+          }
+        }
+      }
+    }
+    &.status{
+      background-color: $yellow-400;
+      width: 2%;
+    }
+  }
+}

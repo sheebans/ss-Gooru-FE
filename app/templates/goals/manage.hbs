@@ -21,6 +21,7 @@
       <div class="create-action">
 
         <form id="createGoalForm" {{action "create" on="submit"}}>
+          <div class="icon">{{gru-icon name='track_changes'}}</div>
           <div class="form-group goalTitle">
             <label for="goalTitleId">
               <span class="required">{{t 'goals.manage.goal-label'}}</span>
@@ -73,5 +74,15 @@
 
       <div class="goal-status"></div>
     </div>
+  </div>
+
+  <div class="list-goals">
+    {{#each goals as |goal|}}
+      {{cards.gru-goal-card
+        goal=goal
+      }}
+    {{else}}
+      {{t 'goals.manage.goals-not-found'}}
+    {{/each}}
   </div>
 </div>

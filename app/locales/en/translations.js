@@ -811,12 +811,14 @@ export default {
       "end-date-label": "End Date",
       "type-label": "Goal Type",
       "status-label": "Status",
-      "not-started": "Not Started",
+      "not_started": "Not Started",
       "activated": "Activated",
       "completed": "Completed",
       "dropped": "Dropped",
       "reflection-label": "Reflection",
-      "save": "Save"
+      "save": "Save",
+      "goals-not-found": "You have not set any goals now. You can add a goal by clicking ‘add’ above."
+
     },
     "create":{
       "error-add-title": "Please enter the goal",

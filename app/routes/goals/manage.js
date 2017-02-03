@@ -10,11 +10,6 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
 export default Ember.Route.extend(PrivateRouteMixin, {
 
-// -------------------------------------------------------------------------
-  // Properties
-
-
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -23,7 +18,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param controller
    */
   setupController: function(controller) {
+    let route = this;
+    let userId = route.get("session.userId");
+
+    controller.get('goalService').getGoalsByUser(userId).then(function (goals) {
+      controller.set("goals", goals);
+    });
     controller.resetProperties();
+
   }
 
 });

@@ -31,6 +31,11 @@ export default Ember.Controller.extend({
   goal: null,
 
   /**
+   * @property {Goal[]} goals
+   */
+  goals: null,
+
+  /**
    * @property {String} Goal type
    */
   type: "",
@@ -64,13 +69,13 @@ export default Ember.Controller.extend({
     return options;
   }),
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
 
     showNewGoalForm: function() {
+      this.resetProperties();
       $('.new-goal').slideDown();
       $('#goalTitleId').focus();
     },
@@ -87,11 +92,13 @@ export default Ember.Controller.extend({
     create: function () {
       const controller = this;
       const goal = controller.get('goal');
+      var goals = controller.get('goals');
 
       controller.get('goalService').createGoal(goal)
         .then(function () {
           var message = controller.get('i18n').t('goals.create.created-success-msg',{goalTitle: goal.get('title')}).string;
           controller.get('notifications').success(message);
+          goals.pushObject(goal);
         });
     }
   },

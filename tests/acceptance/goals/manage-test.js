@@ -35,6 +35,12 @@ test('Layout', function(assert) {
     const $goalsContainer = $userContainer.find(".goals-container");
     T.exists(assert, $goalsContainer, "Missing container");
 
+    const $goalsList = $userContainer.find(".list-goals");
+    T.exists(assert, $goalsList, "Missing list of goals");
+
+    const cards = $goalsList.find(".gru-goal-card");
+    assert.equal(cards.length, 2, "Missing cards");
+
     click($goalsNavigator.find(".add-goal"));
     andThen(function() {
       const $newGoalContainer = $goalsContainer.find(".new-goal");

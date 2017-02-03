@@ -97,7 +97,7 @@ export default Ember.Service.extend({
   getGoalStatusOptions: function () {
     let options = [
       {id: 'not_started',
-        name: this.get('i18n').t('goals.manage.not-started').string},
+        name: this.get('i18n').t('goals.manage.not_started').string},
       {id: 'activated',
         name: this.get('i18n').t('goals.manage.activated').string},
       {id: 'completed',
