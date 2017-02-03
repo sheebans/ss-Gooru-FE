@@ -75,7 +75,6 @@ export default Ember.Controller.extend({
   actions: {
 
     showNewGoalForm: function() {
-      this.resetProperties();
       $('.new-goal').slideDown();
       $('#goalTitleId').focus();
     },
@@ -89,6 +88,11 @@ export default Ember.Controller.extend({
       goal.set('status', newValue);
     },
 
+    cancelGoalCreation: function () {
+      this.closeCreateGoalForm();
+      this.resetProperties();
+    },
+
     create: function () {
       const controller = this;
       const goal = controller.get('goal');
@@ -96,6 +100,7 @@ export default Ember.Controller.extend({
 
       controller.get('goalService').createGoal(goal)
         .then(function () {
+          controller.closeCreateGoalForm();
           var message = controller.get('i18n').t('goals.create.created-success-msg',{goalTitle: goal.get('title')}).string;
           controller.get('notifications').success(message);
           goals.pushObject(goal);
@@ -114,6 +119,11 @@ export default Ember.Controller.extend({
     var newGoalProfile = Goal.extend(createGoalValidations);
     var goal = newGoalProfile.create(Ember.getOwner(this).ownerInjection(), {});
     controller.set('goal', goal);
+  },
+
+  closeCreateGoalForm(){
+    $('#createGoalForm')[0].reset();
+    $('.new-goal').slideUp();
   }
 
 });

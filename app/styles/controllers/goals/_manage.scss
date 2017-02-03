@@ -82,7 +82,7 @@
           @media (min-width: $screen-xs) {
             width: 95%;
           }
-          &.goalTitle {
+          &.title {
             margin-top: 5px;
           }
           &.date-input{
@@ -95,9 +95,15 @@
         .form-actions{
           float: right;
           margin-top: 10px;
-          .create-goal{
-            background-color: $blue-400;
+          button{
             color: $white;
+            &.create-goal{
+              background-color: $blue-400;
+            }
+            &.cancel-goal{
+              margin-left: 5px;
+              background-color: $dark-200;
+            }
           }
         }
       }
