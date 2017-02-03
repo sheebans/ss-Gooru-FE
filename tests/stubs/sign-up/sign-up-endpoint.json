@@ -21,7 +21,7 @@
     "description": "API 3.0 Endpoint to support account creation",
     "post": "(.+)\"username\":\"anyusername\"(.+)",
     "request": {
-      "url": "^/api/nucleus-auth/v1/users$",
+      "url": "^/api/nucleus-auth/v2/signup$",
       "method": "POST",
       "headers": {
         "Authorization": "Token (.+)"
