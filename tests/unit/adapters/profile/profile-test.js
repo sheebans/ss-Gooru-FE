@@ -17,7 +17,7 @@ test('createProfile', function(assert) {
   };
   const routes = function() {
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
-    this.post(`${endpointUrl}/api/nucleus-auth/v1/users`, function() {
+    this.post(`${endpointUrl}/api/nucleus-auth/v2/signup`, function() {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };

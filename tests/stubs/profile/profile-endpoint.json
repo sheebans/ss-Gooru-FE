@@ -149,7 +149,7 @@
   {
     "description": "API 3.0 Endpoint to create user",
     "request": {
-      "url": "^/api/nucleus-auth/v1/users$",
+      "url": "^/api/nucleus-auth/v2/signup$",
       "post": "(.+)\"username\":\"testtest\"(.+)",
       "method": "POST",
       "headers": {

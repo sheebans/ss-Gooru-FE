@@ -1,9 +1,9 @@
 {
   "id": "id-for-pochita",
-  "firstname": "Pochita",
-  "lastname": "Salas",
+  "first_name": "Pochita",
+  "last_name": "Salas",
   "username": "pochita",
-  "email_id": "email@pochita.com",
+  "email": "email@pochita.com",
   "gender": "female",
   "grade": [],
   "birth_date": "01/01/2000",

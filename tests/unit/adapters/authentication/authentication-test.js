@@ -85,7 +85,7 @@ test('postAuthenticationWithToken', function(assert) {
   };
   const access_token = 'access_token';
   const routes = function() {
-    this.get('/api/nucleus-auth/v2/signin', function(request) {
+    this.get('/api/nucleus-auth/v1/token', function(request) {
       assert.equal('Token ' + access_token, request.requestHeaders['Authorization']);
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);

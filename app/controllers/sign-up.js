@@ -59,7 +59,9 @@ export default Ember.Controller.extend({
 
       profile.validate().then(function ({ validations }) {
         if (validations.get('isValid') && birthDayDate !== '') {
+          const clientId = Env['API-3.0'].clientId; //TODO this should come soon from the tenant configuration
           profile.set('dateOfBirth', birthDayDate);
+          profile.set("tenantId", clientId);
           controller.get('profileService').createProfile(profile)
             .then(function (profile) {
               controller.get('sessionService')
