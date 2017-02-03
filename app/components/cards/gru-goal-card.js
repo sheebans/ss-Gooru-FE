@@ -8,9 +8,14 @@ export default Ember.Component.extend({
   // Attributes
   classNames: ['cards gru-goal-card'],
 
+  classNameBindings: ['expanded:expanded:collapsed'],
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+    toggle: function() {
+      this.set("expanded", !this.get("expanded"));
+    }
 
   },
 
@@ -22,5 +27,10 @@ export default Ember.Component.extend({
   /**
    * @property {Goal} goal information
    */
-  goal: null
+  goal: null,
+
+  /**
+   * @property {boolean}
+   */
+  expanded: false
 });
