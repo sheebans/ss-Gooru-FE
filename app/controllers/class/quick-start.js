@@ -18,7 +18,6 @@ export default Ember.Controller.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Attributes
 
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -42,8 +41,9 @@ export default Ember.Controller.extend(ModalMixin,{
 
   class: null,
   courses: null,
+  messages: null,
   featuredCourses: null,
-  modelForCoursesModal: Ember.computed('class', 'courses', function() {
+  modelForCoursesModal: Ember.computed('class', 'courses','messages', function() {
     return Ember.Object.create({
       'classId': this.get('class.class.id'),
       'courses': this.get('courses')

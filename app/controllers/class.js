@@ -7,9 +7,14 @@ export default Ember.Controller.extend({
   // Dependencies
   session: Ember.inject.service("session"),
 
+  firebase: Ember.inject.service("firebase"),
+
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    //Submit a message to the relevant location in firebase
 
+  },
   // -------------------------------------------------------------------------
   // Events
 
@@ -19,7 +24,7 @@ export default Ember.Controller.extend({
    * The class presented to the user
    * @property {Class}
    */
-  "class": null,
+  class: null,
 
   /**
    * The course presented to the user
@@ -44,6 +49,12 @@ export default Ember.Controller.extend({
    * @property {Boolean}
    */
   isFullScreen: false,
+
+  /*
+  * If this variable is set to false then the channel section should not be shown
+  * @property {Booelan}
+  */
+  showChannels: true,
 
  /**
    * Indicates if a user is a teacher of this class
@@ -107,7 +118,14 @@ export default Ember.Controller.extend({
    */
   selectMenuItem: function(item){
     this.set("menuItem", item);
-  }
+  },
 
-
+  /**
+  * Hide channels in the class page
+  * @param empty
+  */
+  hideChannels: function(){
+      this.toggleProperty('showChannels');
+      //Ember.$('#channel').hide();
+    }
 });

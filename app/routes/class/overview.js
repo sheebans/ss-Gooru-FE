@@ -9,6 +9,7 @@ export default Ember.Route.extend({
 
   i18n: Ember.inject.service(),
 
+  profileService: Ember.inject.service('api-sdk/profile'),
   /**
    * @requires service:api-sdk/analytics
    */
@@ -121,6 +122,11 @@ export default Ember.Route.extend({
         image: 'overview-tour-image'
       }
     ]);
+    route.get('profileService')
+      .readUserProfile(route.get("session.userId"))
+        .then(function(profile) {
+      return route.get('profileService').getCourses(profile);
+      });
 
     return Ember.RSVP.hash({
       userLocation: userLocation,

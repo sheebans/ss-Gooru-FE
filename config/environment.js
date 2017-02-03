@@ -11,6 +11,12 @@ module.exports = function (environment) {
     rootURL: isEmbedded ? undefined : '/',
     locationType: isEmbedded ? 'none' : 'auto',
     exportApplicationGlobal: "GooruWebApp",
+    firebase: {
+      apiKey: 'AIzaSyBK9u8tQun9rL9erEEkIq9HULSpdjHBLL8',
+      authDomain: 'nile-2d108.firebaseapp.com',
+      databaseURL: 'https://nile-2d108.firebaseio.com',
+      storageBucket: 'nile-2d108.appspot.com'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -93,7 +99,7 @@ module.exports = function (environment) {
       'default-src': "'none'",
       'script-src': "'self' http://localhost:4200 http://localhost",
       'font-src': "'self' https://www.gooru.org",
-      'connect-src': "'self' http://localhost:4200 ws://localhost:4200 http://localhost:8882 http://nucleus-qa.gooru.org",
+      'connect-src': "'self' http://localhost:4200 ws://localhost:4200 http://localhost:8882  http://nucleus-qa.gooru.org",
       'img-src': "'self' data: http://qacdn.gooru.org http://profile-images.goorulearning.org.s3.amazonaws.com " +
         "http://dev-content-gooru-org.s3-us-west-1.amazonaws.com http://dev-user-gooru-org.s3-us-west-1.amazonaws.com",
       'style-src': "'self' 'unsafe-inline' https://www.gooru.org",

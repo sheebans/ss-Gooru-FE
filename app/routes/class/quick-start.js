@@ -8,6 +8,7 @@ export default Ember.Route.extend({
   session: Ember.inject.service('session'),
   i18n: Ember.inject.service(),
   profileService: Ember.inject.service('api-sdk/profile'),
+
   actions: {
     setupTour: function(step){
       if(this.currentModel.tourSteps.indexOf(step)===0){
@@ -22,34 +23,32 @@ export default Ember.Route.extend({
       }
     }
   },
+
   model: function () {
-    const route = this;
-    const currentClass = this.modelFor('class').class;
-    var coursesPromise = route.get('profileService')
+  const route = this;
+  const currentClass = this.modelFor('class').class;
+  const coursesPromise = route.get('profileService')
       .readUserProfile(route.get("session.userId"))
         .then(function(profile) {
           return route.get('profileService').getCourses(profile);
         });
-
-    const tourSteps = Ember.A([
-      {
-        elementSelector:'.menu-navbar .profile.dropdown-toggle',
-        title: route.get('i18n').t('gru-tour.quick-start.stepOne.title'),
-        description: route.get('i18n').t('gru-tour.quick-start.stepOne.description')
-      },
-      {
-        elementSelector: '.quick-start-options .new-assessment.btn',
-        title: route.get('i18n').t('gru-tour.quick-start.stepTwo.title'),
-        description: route.get('i18n').t('gru-tour.quick-start.stepTwo.description')
-      }
-    ]);
+  const tourSteps = Ember.A([
+        {
+          elementSelector:'.menu-navbar .profile.dropdown-toggle',
+          title: route.get('i18n').t('gru-tour.quick-start.stepOne.title'),
+          description: route.get('i18n').t('gru-tour.quick-start.stepOne.description')
+        },
+        {
+          elementSelector: '.quick-start-options .new-assessment.btn',
+          title: route.get('i18n').t('gru-tour.quick-start.stepTwo.title'),
+          description: route.get('i18n').t('gru-tour.quick-start.stepTwo.description')
+        }
+      ]);
     return Ember.RSVP.hash({
       courses:coursesPromise,
       class:currentClass,
       tourSteps:tourSteps
     });
-
-
   },
   setupController: function (controller, model) {
     controller.get('classController').selectMenuItem('overview');
@@ -60,5 +59,4 @@ export default Ember.Route.extend({
     controller.set('courses', model.courses);
     controller.set('tourSteps', model.tourSteps);
   }
-
 });

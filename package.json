@@ -36,6 +36,7 @@
     "ember-cli-htmlbars-inline-precompile": "^0.3.5",
     "ember-cli-ic-ajax": "1.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
+    "ember-cli-jwt-decode": "0.0.3",
     "ember-cli-pretender": "0.7.0",
     "ember-cli-qunit": "^3.0.2",
     "ember-cli-release": "^0.2.9",
@@ -49,6 +50,7 @@
     "ember-i18n-cp-validations": "2.8.0",
     "ember-simple-auth": "^1.1.0",
     "ember-truth-helpers": "1.2.0",
+    "emberfire": "2.0.5",
     "grunt": "^0.4.5",
     "grunt-eslint": "^19.0.0",
     "grunt-stubby": "^0.2.1",
@@ -68,6 +70,7 @@
     "ember-radio-button": "^1.0.7",
     "ember-resolver": "^2.1.0",
     "ember-welcome-page": "^1.0.3",
+    "firebase": "^3.6.2",
     "grunt-exec": "^1.0.0",
     "loader.js": "^4.0.11"
   }

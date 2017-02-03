@@ -9,6 +9,8 @@ export default Ember.Controller.extend({
    */
   classService: Ember.inject.service('api-sdk/class'),
 
+  session: Ember.inject.service('session'),
+
   /**
    * @property {Service} I18N service
    */
@@ -18,6 +20,8 @@ export default Ember.Controller.extend({
    * @property {Service} Notifications service
    */
   notifications: Ember.inject.service(),
+
+  firebaseApp: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Actions
