@@ -53,6 +53,7 @@ test('Layout', function(assert) {
       assert.ok($createGoalForm.find(".gru-select").length, 1,"Missing 1 select components");
       T.exists(assert, $createGoalForm.find(".gru-input.reflection"), "Missing reflection field");
       T.exists(assert, $createGoalForm.find(".create-goal"), "Missing create goal button");
+      T.exists(assert, $createGoalForm.find(".cancel-goal"), "Missing cancel button");
     });
 
   });
