@@ -4,10 +4,8 @@
 export default {
   "appRootPath": "/", //default is root
   "endpoint" : {
-    "url": "",
-    "secureUrl": ""
-//    "url": "http://nile-dev.gooru.org",
-//    "secureUrl": "https://nile-dev.gooru.org"
+    "url": "http://nile-dev.gooru.org",
+    "secureUrl": "https://nile-dev.gooru.org"
   },
 
   "realTime": {
