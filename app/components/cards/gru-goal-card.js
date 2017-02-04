@@ -15,6 +15,11 @@ export default Ember.Component.extend({
   actions: {
     toggle: function() {
       this.set("expanded", !this.get("expanded"));
+    },
+
+    delete: function() {
+      if (this.get("onDelete"))
+      this.sendAction("onDelete", this.get("goal"));
     }
 
   },
@@ -32,5 +37,10 @@ export default Ember.Component.extend({
   /**
    * @property {boolean}
    */
-  expanded: false
+  expanded: false,
+
+  /**
+   * @property {string} name of the delete action
+   */
+  onDelete: null
 });

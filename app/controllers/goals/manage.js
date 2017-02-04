@@ -92,7 +92,7 @@ export default Ember.Controller.extend({
     create: function () {
       const controller = this;
       const goal = controller.get('goal');
-      var goals = controller.get('goals');
+      const goals = controller.get('goals');
 
       controller.get('goalService').createGoal(goal)
         .then(function () {
@@ -100,6 +100,14 @@ export default Ember.Controller.extend({
           controller.get('notifications').success(message);
           goals.pushObject(goal);
         });
+    },
+
+    deleteGoal: function(goal) {
+      const controller = this;
+      controller.get('goalService').deleteGoal(goal.get("id")).then(function(){
+        const goals = controller.get('goals');
+        goals.removeObject(goal);
+      });
     }
   },
 

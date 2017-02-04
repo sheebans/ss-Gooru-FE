@@ -112,3 +112,21 @@ test('Goal Card - expand collapse', function(assert) {
     });
   });
 });
+
+test('Goal Card - delete goal', function(assert) {
+  assert.expect(1);
+
+  this.set('goal', mockGoal);
+  this.on('deleteGoal', function(goal){
+    assert.equal(goal.get("id"), "goal-id", "Wrong id");
+  });
+
+  this.render(hbs`{{cards/gru-goal-card goal=goal onDelete='deleteGoal'}}`);
+  var $component = this.$(); //component dom element
+
+  const $goalCard = $component.find(".gru-goal-card.collapsed");
+
+  $goalCard.find(".delete-item").click(); //click the arrow
+
+  return wait();
+});
