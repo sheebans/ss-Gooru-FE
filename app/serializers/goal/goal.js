@@ -28,7 +28,6 @@ export default Ember.Object.extend({
    */
   serializeGoal: function (model) {
     return {
-      "id": model.get("id"),
       "title": model.get('title'),
       "description": model.get('description'),
       "start_date": momentToTimestamp(toUtc(model.get("startDate"))),

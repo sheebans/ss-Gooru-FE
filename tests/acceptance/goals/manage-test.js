@@ -47,12 +47,14 @@ test('Layout', function(assert) {
 
       var $createGoalForm = $newGoalContainer.find("#createGoalForm");
       T.exists(assert, $createGoalForm, "Missing create goal form");
-
       T.exists(assert, $createGoalForm.find(".gru-input.title"), "Missing goal title field");
-      assert.ok($createGoalForm.find(".gru-datepicker").length, 2,"Missing 2 date picker components");
-      assert.ok($createGoalForm.find(".gru-select").length, 1,"Missing 1 select components");
+      T.exists(assert, $createGoalForm.find(".form-group.status"), "Missing status select component");
+      T.exists(assert, $createGoalForm.find(".form-group.type"), "Missing type select component");
+      T.exists(assert, $createGoalForm.find(".form-group.start-date"), "Missing datepicker for start date");
+      T.exists(assert, $createGoalForm.find(".form-group.end-date"), "Missing datepicker for end date");
       T.exists(assert, $createGoalForm.find(".gru-input.reflection"), "Missing reflection field");
       T.exists(assert, $createGoalForm.find(".create-goal"), "Missing create goal button");
+      T.exists(assert, $createGoalForm.find(".cancel-goal"), "Missing cancel button");
     });
 
   });
