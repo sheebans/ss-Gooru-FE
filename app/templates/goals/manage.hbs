@@ -81,9 +81,7 @@
 
   <div class="list-goals">
     {{#each goals as |goal|}}
-      {{cards.gru-goal-card
-        goal=goal
-      }}
+      {{cards.gru-goal-card goal=goal}}
     {{else}}
       {{t 'goals.manage.goals-not-found'}}
     {{/each}}

@@ -1,5 +1,10 @@
 .gru-goal-card {
   height: 105px;
+
+  &.expanded {
+    height: 165px;
+  }
+
   border-top: 1px solid $gray-light;
   border-bottom: 1px solid $gray-light;
   @media (min-width: $screen-md) {
@@ -12,6 +17,7 @@
     &.collapse {
       background-color: $blue-400;
       width: 4%;
+      cursor: pointer;
     }
     &.panel {
       padding: 5px;
@@ -36,7 +42,6 @@
       }
       .panel-body {
         padding: 0 15px 0 15px;
-        height: 35px;
         .date {
           display: inline-block;
           margin: 0 0 0 15px;
@@ -52,13 +57,17 @@
             margin: 0;
           }
         }
+        .reflection {
+          margin-top:10px ;
+          min-height: 50px;
+        }
       }
       .panel-footer {
         background-color: $white;
         color: $gray-light;
         padding: 0;
         height: 25px;
-        .expand {
+        .expand-collapse {
           width: 50%;
           text-align: right;
           float: left;
