@@ -45,7 +45,7 @@ test('updateMyProfile', function(assert) {
     body: profile
   };
   const routes = function() {
-    this.put('/api/nucleus-auth/v1/users/me', function() {
+    this.put('/api/nucleus-auth/v2/users', function() {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };

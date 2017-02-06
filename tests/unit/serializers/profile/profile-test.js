@@ -58,13 +58,13 @@ test('serializeUpdateProfile', function(assert) {
     "username":"username",
     "grade":[],
     "country":"country",
-    "about_me":"about-me",
+    "about":"about-me",
     "country_id":"country-id",
     "state_id":"state-id",
     "school_district_id":"school-district-id",
     "state":"state",
     "school_district":"school-district",
-    "thumbnail_path": "image-id"
+    "thumbnail": "image-id"
   };
 
   const response = serializer.serializeUpdateProfile(profile);
@@ -97,8 +97,8 @@ test('normalizeReadProfile', function(assert) {
     state: 'state',
     'school_district_id': '4444',
     'school_district': 'school-district',
-    'about_me': 'about-me',
-    'thumbnail_path': 'thumbnail.png',
+    'about': 'about-me',
+    'thumbnail': 'thumbnail.png',
     'roster_id': '5555',
     followers: 2,
     followings: 3,

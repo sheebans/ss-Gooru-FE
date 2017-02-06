@@ -49,8 +49,8 @@ export default Ember.Object.extend({
    */
   updateMyProfile: function(data) {
     const adapter = this;
-    const namespace = adapter.get('usersNamespace');
-    const url = `${namespace}/me`;
+    const namespace = adapter.get('authNamespace');
+    const url = `${namespace}/users`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',

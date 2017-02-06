@@ -60,11 +60,11 @@ export default Ember.Object.extend(ConfigurationMixin, {
       username:profile.get('username'),
       grade: profile.get('grades'),
       country: profile.get('country'),
-      'about_me': profile.get('aboutMe'),
+      'about': profile.get('aboutMe'),
       'country_id': profile.get('countryId'),
       'state_id': profile.get('stateId'),
       'school_district_id': profile.get('schoolDistrictId'),
-      'thumbnail_path': cleanFilename(profile.get('avatarUrl'), this.get('session.cdnUrls'))
+      'thumbnail': cleanFilename(profile.get('avatarUrl'), this.get('session.cdnUrls'))
     };
 
     if(profile.get('state') && profile.get('state')!==''){
@@ -101,8 +101,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const thumbnailUrl = payload['thumbnail_path'] ?
-      basePath + payload['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const thumbnailUrl = payload['thumbnail'] ?
+      basePath + payload['thumbnail'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.id,
@@ -123,7 +123,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       studentId:payload.roster_global_userid,
       schoolDistrictId: payload['school_district_id'],
       schoolDistrict: payload['school_district'],
-      aboutMe: payload['about_me'],
+      aboutMe: payload['about'],
       avatarUrl: thumbnailUrl,
       rosterId: payload['roster_id'],
       followers: payload.followers,
