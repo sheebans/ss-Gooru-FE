@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {K12_CATEGORY} from 'gooru-web/config/config';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
@@ -41,7 +40,6 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   model: function(params) {
     const taxonomyIds = params.taxonomies;
-    const subjects = this.get('taxonomyService').getSubjects(K12_CATEGORY.value);
     var taxonomyCodes = [];
 
     if (taxonomyIds.length > 0) {
@@ -49,7 +47,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
     }
 
     return Ember.RSVP.hash({
-      subjects: subjects,
+      subjects: [],
       taxonomyCodes: taxonomyCodes
     });
   },

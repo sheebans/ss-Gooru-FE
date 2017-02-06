@@ -29,9 +29,12 @@
       </ul>
     </div>
     <span class="col-md-3 standards hidden-xs">
-      {{taxonomy.gru-subject-picker
+      {{search.gru-search-filter
+        categories=categories
         subjects=subjects
-        placeholderLabelKey='common.standards'
+        categoriesPlaceholderLabelKey='common.categories'
+        subjectsPlaceholderLabelKey='common.standards'
+        onCategorySelected='setCategory'
         onSubjectSelected='setSubject'
         onlySubjectsWithStandards=true
         alignment='left'

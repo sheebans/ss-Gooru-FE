@@ -2,6 +2,7 @@ import Ember from 'ember';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import ModalMixin from 'gooru-web/mixins/modal';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import { SEARCH_CATEGORIES } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
@@ -81,6 +82,10 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   selectedTags: Ember.A([]),
 
+  /**
+   * @property {categories[]} list of categories for filter
+   */
+  categories: SEARCH_CATEGORIES,
 
   // -------------------------------------------------------------------------
   // Methods
