@@ -18,8 +18,9 @@ export default Ember.Component.extend({
     },
 
     delete: function() {
-      if (this.get("onDelete"))
-      this.sendAction("onDelete", this.get("goal"));
+      if (this.get("onDelete")) {
+        this.sendAction("onDelete", this.get("goal"));
+      }
     }
 
   },
