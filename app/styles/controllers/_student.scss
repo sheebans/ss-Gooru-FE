@@ -38,7 +38,7 @@
       .panel-body{
         min-height: 230px;
         .warning{
-          margin: 0 0 10px 0;
+          margin: 0 0 10px;
           @include flexbox;
           i{
             color:$yellow-500;
