@@ -71,6 +71,27 @@ test('serializeUpdateProfile', function(assert) {
   assert.deepEqual(expected, response, 'Wrong serialized response');
 });
 
+test('serializeUpdateProfile missing some values', function(assert) {
+  const serializer = this.subject();
+  const profile = ProfileModel.create({
+    role: 'role',
+    grades: [],
+    country: 'country',
+    state: 'state',
+    schoolDistrict: 'school-district',
+    aboutMe: 'about-me',
+    countryId: 'country-id',
+    stateId: 'state-id',
+    schoolDistrictId: 'school-district-id',
+    avatarUrl: '//baseUrl/image-id'
+  });
+
+  const response = serializer.serializeUpdateProfile(profile);
+  assert.ok(response.first_name === undefined, 'First name should not be present');
+  assert.ok(response.last_name === undefined, 'Last name should not be present');
+  assert.ok(response.username === undefined, 'Username should not be present');
+});
+
 test('normalizeReadProfile', function(assert) {
   const serializer = this.subject();
   serializer.set('session', Ember.Object.create({
