@@ -87,6 +87,16 @@ export default Ember.Service.extend({
         accessToken
       }).then(resolve, reject);
     });
+  },
+
+  /**
+   * Invalidates current token
+   */
+  signOut: function() {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('authenticationAdapter').signOut().then(resolve, reject);
+    });
   }
 
 });

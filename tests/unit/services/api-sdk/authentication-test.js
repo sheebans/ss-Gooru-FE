@@ -102,3 +102,21 @@ test('authenticateWithToken', function(assert) {
       done();
     });
 });
+
+test('signOut', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('authenticationAdapter', Ember.Object.create({
+    signOut: function() {
+      assert.ok(true, 'This should be called once');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  var done = assert.async();
+  service.signOut().then(function() {
+    assert.ok(true, "This should be called once");
+    done();
+  });
+});

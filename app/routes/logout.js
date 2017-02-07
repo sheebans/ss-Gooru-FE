@@ -11,9 +11,18 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   firebase: Ember.inject.service('firebase'),
 
+  /**
+   * Authentication (api-sdk/authentication) service.
+   * @property {AuthenticationService} authService
+   * @readOnly
+   */
+  authenticationService: Ember.inject.service('api-sdk/authentication'),
+
 
   beforeModel: function() {
     this._super(...arguments);
+
+    this.get("authenticationService").signOut();
     this.get("session").invalidate();
     //Signing the user out of firebase
     this.get('firebase').signOut();

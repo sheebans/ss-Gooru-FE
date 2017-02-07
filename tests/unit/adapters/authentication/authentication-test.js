@@ -101,3 +101,28 @@ test('postAuthenticationWithToken', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('signOut', function(assert) {
+  assert.expect(2);
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+
+  const routes = function() {
+    this.delete('/api/nucleus-auth/v2/signout', function(request) {
+      assert.equal('Token token-api-3', request.requestHeaders['Authorization']);
+      return [204, {'Content-Type': 'application/json'}, ''];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.signOut('token-api-3')
+    .then(function() {
+      assert.ok(true, 'Should be called once');
+    });
+});
