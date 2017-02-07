@@ -786,6 +786,7 @@ export default {
     }
   },
   "student-landing":{
+    "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "box-title-one": "Study from 35 Courses",
     "box-text-one": "Choose from over 35 Navigator Courses across 10 programs to study.",
     "box-title-two": "Explore what you can learn",
