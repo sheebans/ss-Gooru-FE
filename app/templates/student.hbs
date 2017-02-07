@@ -1,18 +1,44 @@
-<div class="controller student-landing row">
+<div class="controller student-landing container-fluid">
   <div class="student-left-panel">
     <div class="greetings">
       <div class="title">
-        <span>{{t 'user.hi'}} {{profile.firstName}}!</span>
+        <span>{{t 'user.hello' name=profile.firstName}}</span>
       </div>
-      <p>
-        {{t 'user.joined-classes' count=totalJoinedClasses}}.
-      </p>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="panel panel-default panel-primary announcements">
+                <div class="panel-heading">{{t 'common.announcements'}}</div>
+                <div class="panel-body">
+                    <div class="warning">
+                        <span>{{gru-icon name='volume_up'}}</span>
+                        <span class="announcements-lead">{{t 'student-landing.announcements'}}</span>
+                    </div>
+                    <div class="classes-announcements">
+                      <ul>
+                        {{#each announcementsClasses as |class| }}
+                            <li>
+                              {{#link-to 'class.overview' class.id}}{{class.title}}{{/link-to}}
+                                <span class="greeting">{{truncate text=class.greeting maxLength=40}}</span>
+                            </li>
+                        {{/each}}
+                      </ul>
+                        {{#if hasMoreAnnouncementes}}
+                            <span class="more-classes">...</span>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{!--"TO DO" BOX SHOULD BE HERE--}}
+        </div>
     </div>
     <div class="student-navigator">
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active active-classes tab hidden-xs">
           <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'active'}}>
-            <span class="lead">{{t 'user.active-classes'}}</span>
+            <span class="lead">{{t 'user.my-classes'}}</span>
           </a>
         </li>
 
@@ -41,33 +67,5 @@
         {{/if}}
       </div>
     </div>
-  </div>
-  <div class="student-right-panel">
-
-    <div class="box-info">
-      <a href="#">{{t 'student-landing.box-title-one'}}</a>
-      <p>{{t 'student-landing.box-text-one'}}</p>
-    </div>
-
-    <div class="box-info">
-      <a href="#">{{t 'student-landing.box-title-two'}}</a>
-      <p>{{t 'student-landing.box-text-two'}}</p>
-    </div>
-
-    <div class="box-info">
-      <a href="#">{{t 'student-landing.box-title-three'}}</a>
-      <p>{{t 'student-landing.box-text-three'}}</p>
-    </div>
-
-    <div class="box-info">
-      <a href="#">{{t 'student-landing.box-title-four'}}</a>
-      <p>{{t 'student-landing.box-text-four'}}</p>
-    </div>
-
-    <div class="box-info">
-      <a href="#">{{t 'student-landing.box-title-five'}}</a>
-      <p>{{t 'student-landing.box-text-five'}}</p>
-    </div>
-
   </div>
 </div>
