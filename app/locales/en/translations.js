@@ -766,6 +766,7 @@ export default {
     }
   },
   "user": {
+    "hello":"Hello, {{name}}!",
     "hi": "Hi",
     "active-classes": "Active Classrooms",
     "archived-classes": "Archived Classrooms",
