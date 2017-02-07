@@ -54,6 +54,7 @@ export default Ember.Controller.extend({
      * Triggered when the user toggles between normal and full screen mode
      */
     toggleFullScreen: function () {
+      this.get("classController").hideChannels();
       return this.get("classController").toggleFullScreen();
     },
 

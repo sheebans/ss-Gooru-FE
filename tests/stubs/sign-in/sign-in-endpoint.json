@@ -41,7 +41,7 @@
   {
     "description": "API 3.0 Sign in support for Pochita username",
     "request": {
-      "url": "^/api/nucleus-auth/v1/token$",
+      "url": "^/api/nucleus-auth/v2/signin$",
       "query": {},
       "post": "(.+)\"grant_type\":\"credential\"(.+)",
       "method": "POST",
@@ -61,7 +61,7 @@
   {
     "description": "API 3.0 Sign in support for Param username",
     "request": {
-      "url": "^/api/nucleus-auth/v1/token$",
+      "url": "^/api/nucleus-auth/v2/signin$",
       "query": {},
       "post": "(.+)\"grant_type\":\"credential\"(.+)",
       "method": "POST",
@@ -81,7 +81,7 @@
   {
     "description": "API 3.0 Sign in support for Anonymous user",
     "request": {
-      "url": "^/api/nucleus-auth/v1/token$",
+      "url": "^/api/nucleus-auth/v2/signin$",
       "query": {},
       "post": "(.+)\"grant_type\":\"anonymous\"(.+)",
       "method": "POST"
@@ -98,7 +98,7 @@
   {
     "description": "API 3.0 Sign in support for Other username",
     "request": {
-      "url": "^/api/nucleus-auth/v1/token$",
+      "url": "^/api/nucleus-auth/v2/signin$",
       "query": {},
       "post": "(.+)\"grant_type\":\"credential\"(.+)",
       "method": "POST",

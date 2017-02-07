@@ -27,6 +27,10 @@ export default Ember.Controller.extend({
    */
   sessionService: Ember.inject.service('api-sdk/session'),
 
+  firebaseApp: Ember.inject.service(),
+
+  firebase: Ember.inject.service('firebase'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -48,7 +52,6 @@ export default Ember.Controller.extend({
       var showStateErrorMessage = false;
       var showDistrictErrorMessage = false;
       var isValid = true;
-
       profile.set('id', userId);
       controller.set('otherSchoolDistrict', otherSchoolDistrict);
 
@@ -85,7 +88,8 @@ export default Ember.Controller.extend({
           .then(function() {
             let session = controller.get('session');
             session.set('userData.isNew', false);
-            controller.get('sessionService').updateUserData(session.get('userData'));
+            //Validating user and generating JWT
+            controller.get('firebase').generateJWT();
             controller.send('signUpFinish', role);
           }, function() {
             Ember.Logger.error('Error updating user');

@@ -58,6 +58,8 @@
 @import 'controllers/account-settings';
 @import 'controllers/course-player';
 
+@import 'controllers/goals/manage';
+
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
 @import 'components/standard-dropdown';
@@ -87,7 +89,6 @@
 @import 'components/gru-unit-tree';
 @import 'components/gru-user-icons';
 @import 'components/gru-user-registration';
-@import 'components/gru-user-sign-up';
 @import 'components/gru-user-sign-up-cancel';
 @import 'components/gru-user-teaser';
 @import 'components/gru-view-layout-picker';
@@ -102,6 +103,7 @@
 @import 'components/cards/gru-user-card';
 @import 'components/cards/gru-user-network-card';
 @import 'components/cards/gru-resource-result-card';
+@import 'components/cards/gru-goal-card';
 
 @import 'components/charts/gru-bubble-chart';
 @import 'components/charts/gru-completion-chart';

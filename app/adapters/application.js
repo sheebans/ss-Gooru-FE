@@ -39,4 +39,7 @@ export default DS.RESTAdapter.extend(SessionMixin, {
     return this._super(`${endpointUrl}${url}`, method, hash);
   }
 
+
+
 });
+

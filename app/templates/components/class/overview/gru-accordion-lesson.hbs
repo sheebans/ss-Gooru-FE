@@ -76,12 +76,14 @@
               {{/unless}}
             {{/if}}
           {{else}}
-            <div class="location-marker">
-              <div class="icon-wrapper">
-                  {{gru-icon name='near_me'}}
+            <a {{action "suggestResource" item}}>
+              <div class="location-marker">
+                <div class="icon-wrapper">
+                    {{gru-icon name='near_me'}}
+                </div>
+                <div class="arrow-right"></div>
               </div>
-              <div class="arrow-right"></div>
-            </div>
+            </a>
           {{/if}}
 
           <div class="panel-heading {{if isTeacher 'teacher' 'student'}}">

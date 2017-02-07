@@ -42,6 +42,7 @@ export default {
     "a-question": "a question",
     "a-resource": "a resource",
     "an-assessment": "an assessment",
+    "announcements":"Announcements",
     "about": "About",
     "about-you": "About You",
     "add": "Add",
@@ -115,6 +116,7 @@ export default {
     },
     "century-skills": "21st Century Skills",
     "choose": "Choose",
+    "choose-file":"Choose a file",
     "class": "Classroom",
     "classes": "Classrooms",
     "classScores": "Class Scores",
@@ -342,6 +344,7 @@ export default {
     "performance": "Show Performance",
     "play": "Play",
     "please_contact": "Please contact",
+    "post-message": "Post Message",
     "preview": "Preview",
     "profile": "Profile",
     "profile-publishing": "Profile Visibility",
@@ -764,6 +767,7 @@ export default {
     }
   },
   "user": {
+    "hello":"Hello, {{name}}!",
     "hi": "Hi",
     "active-classes": "Active Classrooms",
     "archived-classes": "Archived Classrooms",
@@ -775,6 +779,7 @@ export default {
       one: "You're currently enrolled in 1 classroom",
       other: "You're currently enrolled in {{count}} classrooms"
     },
+    "my-classes":"My Classes",
     "teaching-classes": {
       zero: " and teaching {{count}} classrooms",
       one: " and teaching 1 classroom",
@@ -802,6 +807,30 @@ export default {
     "box-text-three": "Some text here.",
     "box-title-four": "Interact with your students",
     "box-text-four": "Some text here."
+  },
+  "goals":{
+    "manage":{
+      "title": "My Goals!",
+      "add-goal": "Add Goal",
+      "goal-label": "Goal",
+      "start-date-label": "Start Date",
+      "end-date-label": "End Date",
+      "type-label": "Goal Type",
+      "status-label": "Status",
+      "not_started": "Not Started",
+      "activated": "Activated",
+      "completed": "Completed",
+      "dropped": "Dropped",
+      "reflection-label": "Reflection",
+      "save": "Save",
+      "goals-not-found": "You have not set any goals now. You can add a goal by clicking ‘add’ above."
+
+    },
+    "create":{
+      "error-add-title": "Please enter the goal",
+      "error-add-reflection": "Please enter the reflection",
+      "created-success-msg": "You've created the goal {{goalTitle}}"
+    }
   },
 
   /*

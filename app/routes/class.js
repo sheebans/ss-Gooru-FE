@@ -8,14 +8,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       refreshModel: true
     }
   },
-
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @property {Session} current session
    */
   session: Ember.inject.service("session"),
+
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   /**
    * @type {ClassService} Service to retrieve class information
@@ -32,6 +32,13 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   unitService: Ember.inject.service('api-sdk/unit'),
 
+  /**
+  * @type {FirebaseService} Service to utilize firebase features
+  */
+  firebaseApp: Ember.inject.service(),
+
+  firebase: Ember.inject.service('firebase'),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -39,10 +46,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * Get model for the controller
    */
   model: function(params) {
-    const route = this;
-    const classId = params.classId;
-    const classPromise = route.get('classService').readClassInfo(classId);
-    const membersPromise = route.get('classService').readClassMembers(classId);
+  const route = this;
+  const classId = params.classId;
+  const classPromise = route.get('classService').readClassInfo(classId);
+  const membersPromise = route.get('classService').readClassMembers(classId);
+
+  var channels = [];
+  var messages = [];
+  const userInfo = this.get('profileService').findByCurrentUser();
+
     return Ember.RSVP.hash({
       class: classPromise,
       members: membersPromise
@@ -50,7 +62,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const aClass = hash.class;
       const members = hash.members;
       const courseId = aClass.get('courseId');
-
       let visibilityPromise = Ember.RSVP.resolve([]);
       let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
 
@@ -58,7 +69,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         visibilityPromise = route.get('classService').readClassContentVisibility(classId);
         coursePromise = route.get('courseService').fetchById(courseId);
       }
-
+      //Retrieve the current representation of the user logged into firebase
+      const user = route.get('firebase').getUser();
+      if(user){
+        //create class representation and add users as needed
+        route.get('firebase').createClassRepresentation(classId,aClass,userInfo);
+        //Now creating a listener to the classes' channel table; we will be notified if a new channel is added.
+        route.get('firebase').generateClassListeners(classId,messages,channels);
+      }
       return Ember.RSVP.hash({
         contentVisibility: visibilityPromise,
         course: coursePromise
@@ -73,7 +91,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           course: course,
           members: members,
           units: course.get('children') || [],
-          contentVisibility: contentVisibility
+          contentVisibility: contentVisibility,
+          channels:channels,
+          messages:messages,
+          userInfo:userInfo
         });
       });
     });
@@ -89,6 +110,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set("course", model.course);
     controller.set("units", model.units);
     controller.set("contentVisibility", model.contentVisibility);
+    controller.set('channels', model.channels);
+    controller.set('messages', model.messages);
+    controller.set('userInfo', model.userInfo);
   },
 
   // -------------------------------------------------------------------------

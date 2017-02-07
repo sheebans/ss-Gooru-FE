@@ -17,7 +17,7 @@ test('createProfile', function(assert) {
   };
   const routes = function() {
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
-    this.post(`${endpointUrl}/api/nucleus-auth/v1/users`, function() {
+    this.post(`${endpointUrl}/api/nucleus-auth/v2/signup`, function() {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -68,7 +68,7 @@ test('readUserProfile', function(assert) {
     'token-api3': 'token-api-3'
   }));
   const routes = function() {
-    this.get('/api/nucleus/v1/profiles/user-id/demographics', function() {
+    this.get('/api/nucleus/v2/profiles/demographics', function() {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -95,7 +95,7 @@ test('readUserProfileByUsername', function(assert) {
 
   const routes = function() {
     //serving get profile request for userId 100
-    this.get('/api/nucleus/v1/profiles/100/demographics', function() {
+    this.get('/api/nucleus/v2/profiles/demographics', function() {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
 

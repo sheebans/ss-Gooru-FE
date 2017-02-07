@@ -28,7 +28,7 @@ export default Ember.Component.extend({
     });
     $component.on("changeDate", function() {
       var dateValue = $component.datepicker('getFormattedDate');
-      component.$('#datepicker').val(dateValue);
+      component.$('.datepicker').val(dateValue);
       component.sendAction("onSelectDateAction", dateValue);
     });
   }

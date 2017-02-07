@@ -25,7 +25,7 @@ test('postAuthentication for anonymous account', function(assert) {
   };
   const routes = function() {
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
-    this.post(`${endpointUrl}/api/nucleus-auth/v1/token`, function(request) {
+    this.post(`${endpointUrl}/api/nucleus-auth/v2/signin`, function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
       assert.equal('anonymous', requestBodyJson['grant_type']);
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
@@ -56,7 +56,7 @@ test('postAuthentication for normal account', function(assert) {
   const encodedCredentials = window.btoa('username:password');
   const routes = function() {
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
-    this.post(`${endpointUrl}/api/nucleus-auth/v1/token`, function(request) {
+    this.post(`${endpointUrl}/api/nucleus-auth/v2/signin`, function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
       assert.equal('credential', requestBodyJson['grant_type']);
       assert.equal('Basic ' + encodedCredentials, request.requestHeaders['Authorization']);

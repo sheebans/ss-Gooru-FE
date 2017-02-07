@@ -9,7 +9,9 @@ import EndPointsConfig from 'gooru-web/utils/endpoint-config';
  */
 export default Ember.Object.extend({
 
-  namespace: '/api/nucleus-auth/v1/token',
+  namespace: '/api/nucleus-auth/v2/signin',
+
+  tokenNamespace: '/api/nucleus-auth/v1/token',
 
   /**
    * Post a request to authenticate a normal user or anonymous user.
@@ -53,7 +55,7 @@ export default Ember.Object.extend({
    * @returns {Promise}
    */
   postAuthenticationWithToken: function(data) {
-    const url = this.get('namespace');
+    const url = this.get('tokenNamespace');
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -70,7 +72,7 @@ export default Ember.Object.extend({
    * @returns {Promise}
    */
   checkToken: function(data) {
-    const url = this.get('namespace');
+    const url = this.get('tokenNamespace');
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
