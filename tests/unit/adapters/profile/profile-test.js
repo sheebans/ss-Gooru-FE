@@ -316,8 +316,8 @@ test('forgotPassword', function(assert) {
 });
 
 test('resetPassword', function(assert) {
+  assert.expect(2);
   const adapter = this.subject();
-  const userId = 'user-id';
   const password = 'password';
   const token = 'token';
   adapter.set('session', Ember.Object.create({
@@ -325,9 +325,9 @@ test('resetPassword', function(assert) {
   }));
   const routes = function() {
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
-    this.put(`${endpointUrl}/api/nucleus-auth/v1/users/user-id/password`, function(request) {
+    this.put(`${endpointUrl}/api/nucleus-auth/v2/users/reset-password`, function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(password, requestBodyJson['new_password']);
+      assert.equal(password, requestBodyJson['password']);
       assert.equal(token, requestBodyJson['token']);
       return [200, {'Content-Type': 'application/json'}, {}];
     }, false);
@@ -338,8 +338,5 @@ test('resetPassword', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
-  adapter.resetPassword(userId, password, token)
-    .then(function(response) {
-      assert.deepEqual({}, response, 'Wrong response');
-    });
+  adapter.resetPassword(password, token);
 });

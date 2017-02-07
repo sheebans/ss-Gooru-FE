@@ -51,8 +51,8 @@ test('serializeUpdateProfile', function(assert) {
   });
 
   const expected = {
-    "firstname":"first-name",
-    "lastname":"last-name",
+    "first_name":"first-name",
+    "last_name":"last-name",
     "roster_global_userid":null,
     "user_category":"role",
     "username":"username",

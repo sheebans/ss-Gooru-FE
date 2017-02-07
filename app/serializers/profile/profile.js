@@ -53,8 +53,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   serializeUpdateProfile: function(profile) {
     var profileObject = {
-      firstname: profile.get('firstName'),
-      lastname: profile.get('lastName'),
+      first_name: profile.get('firstName'),
+      last_name: profile.get('lastName'),
       'roster_global_userid':profile.get('studentId'),
       'user_category': profile.get('role'),
       username:profile.get('username'),

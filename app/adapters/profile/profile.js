@@ -320,15 +320,14 @@ export default Ember.Object.extend({
 
   /**
    * Resets the user password
-   * @param userId
    * @param token
    * @returns {*|Promise}
    */
-  resetPassword: function (userId, password, token) {
+  resetPassword: function (password, token) {
     const adapter = this;
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
-    const namespace = adapter.get('usersNamespace');
-    const url = `${endpointUrl}${namespace}/${userId}/password`;
+    const namespace = adapter.get('authNamespace');
+    const url = `${endpointUrl}${namespace}/users/reset-password`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',
@@ -337,7 +336,7 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
         token,
-        new_password: password
+        password: password
       })
     };
 
