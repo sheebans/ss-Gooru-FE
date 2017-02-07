@@ -8,6 +8,9 @@ export default Ember.Controller.extend({
   applicationController: Ember.inject.controller('application'),
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -54,7 +57,7 @@ export default Ember.Controller.extend({
   /**
    * @property {Boolean} Indicate if has more announcements to show
    */
-  hasMoreAnnouncementes:Ember.computed('activeClasses',function(){
+  hasMoreAnnouncementes:Ember.computed('activeClasses','announcementsClasses',function(){
     return this.get('activeClasses').length > this.get('announcementsClasses').length;
   })
 
