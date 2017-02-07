@@ -96,9 +96,6 @@ export default Ember.Component.extend({
         editedProfile.validate().then(function ({ validations }) {
 
           if (validations.get('isValid')) {
-            if(editedProfile.get('username') === profile.get('username')) {
-              editedProfile.set('username', null);
-            }
             let imageIdPromise = new Ember.RSVP.resolve(editedProfile.get('avatarUrl'));
             if(editedProfile.get('avatarUrl') && editedProfile.get('avatarUrl') !== profile.get('avatarUrl')) {
               imageIdPromise =  component.get('mediaService').uploadUserFile(editedProfile.get('avatarUrl'));
@@ -328,9 +325,6 @@ export default Ember.Component.extend({
       }
       session.set('userData.avatarUrl', profile.get('avatarUrl'));
       session.set('userData.isNew', false);
-      if(!profile.username){
-        profile.set('username',component.get('profile.username'));
-      }
       session.set('userData.username', profile.username);
       return component.get('sessionService').updateUserData(session.get('userData'));
     });
