@@ -319,7 +319,7 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
       }
       else {
         var termParam = '?term=' + term;
-        this.transitionTo('/search/collections' + termParam);
+        this.transitionTo('/search/courses' + termParam);
       }
     },
 

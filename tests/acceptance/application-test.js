@@ -36,7 +36,7 @@ test('searchTerm: Search box navigation', function(assert) {
 
     andThen(function(){
 
-      assert.equal(currentURL(), '/search/collections?term=europe');
+      assert.equal(currentURL(), '/search/courses?term=europe');
     });
   });
 });
