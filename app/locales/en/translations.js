@@ -42,6 +42,7 @@ export default {
     "a-question": "a question",
     "a-resource": "a resource",
     "an-assessment": "an assessment",
+    "announcements":"Announcements",
     "about": "About",
     "about-you": "About You",
     "add": "Add",
@@ -765,6 +766,7 @@ export default {
     }
   },
   "user": {
+    "hello":"Hello, {{name}}!",
     "hi": "Hi",
     "active-classes": "Active Classrooms",
     "archived-classes": "Archived Classrooms",
@@ -776,6 +778,7 @@ export default {
       one: "You're currently enrolled in 1 classroom",
       other: "You're currently enrolled in {{count}} classrooms"
     },
+    "my-classes":"My Classes",
     "teaching-classes": {
       zero: " and teaching {{count}} classrooms",
       one: " and teaching 1 classroom",
