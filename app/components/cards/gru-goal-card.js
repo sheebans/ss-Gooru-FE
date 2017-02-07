@@ -8,9 +8,20 @@ export default Ember.Component.extend({
   // Attributes
   classNames: ['cards gru-goal-card'],
 
+  classNameBindings: ['expanded:expanded:collapsed'],
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+    toggle: function() {
+      this.set("expanded", !this.get("expanded"));
+    },
+
+    delete: function() {
+      if (this.get("onDelete")) {
+        this.sendAction("onDelete", this.get("goal"));
+      }
+    }
 
   },
 
@@ -22,5 +33,15 @@ export default Ember.Component.extend({
   /**
    * @property {Goal} goal information
    */
-  goal: null
+  goal: null,
+
+  /**
+   * @property {boolean}
+   */
+  expanded: false,
+
+  /**
+   * @property {string} name of the delete action
+   */
+  onDelete: null
 });
