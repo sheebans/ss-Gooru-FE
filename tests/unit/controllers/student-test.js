@@ -4,8 +4,8 @@ import { moduleFor, test } from 'ember-qunit';
 var applicationController = Ember.Object.create ({
   myClasses: {
     classes:[
-      Ember.Object.create ({id:'class1',isArchived:true,isTeacher:function(){return false}}),
-      Ember.Object.create ({id:'class2',isArchived:false,isTeacher:function(){return false}})
+      Ember.Object.create ({id:'class1',isArchived:true,isTeacher:function(){return false;}}),
+      Ember.Object.create ({id:'class2',isArchived:false,isTeacher:function(){return false;}})
     ]
   },
   profile:Ember.Object.create ({id:'profile-id'})
