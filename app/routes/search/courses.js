@@ -31,7 +31,7 @@ export default Ember.Route.extend(ModalMixin, {
 
   model: function() {
     let route = this;
-    return route.get('searchService').searchFeaturedCourses("*").then(function(result){
+    return route.get('searchService').searchFeaturedCourses('*').then(function(result){
       return Ember.RSVP.hash({
         courses:result
       });

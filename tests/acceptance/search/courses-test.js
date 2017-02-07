@@ -20,8 +20,8 @@ test('Layout', function(assert) {
   visit('/search/courses?term=any');
   andThen(function() {
     assert.equal(currentURL(), '/search/courses?term=any');
-    T.exists(assert, find(".gru-featured-courses"), "Missing gru-featured-courses component");
-    assert.equal(find(".gru-header .search-input").val(), "any", "Wrong input value");
+    T.exists(assert, find('.gru-featured-courses'), 'Missing gru-featured-courses component');
+    assert.equal(find('.gru-header .search-input').val(), 'any', 'Wrong input value');
   });
 });
 
@@ -33,7 +33,7 @@ test('Changing term should filter the current result without changing the root u
     assert.equal(currentURL(), '/search/collections?term=any');
 
     const $appHeader = find('.gru-header');
-    const $searchInput = find(".gru-header .search-input");
+    const $searchInput = find('.gru-header .search-input');
 
     fillIn($searchInput, 'europe');
     $searchInput.val('europe');
