@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('index', {path: '/'});
 
   this.route('search', function() {
+    this.route('courses');
     this.route('collections');
     this.route('assessments');
     this.route('questions');
