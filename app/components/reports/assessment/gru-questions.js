@@ -56,6 +56,12 @@ export default Ember.Component.extend(ConfigurationMixin, {
   showPerformance: true,
 
   /**
+   * Indicates if the reaction bar is visible
+   * @property {boolean}
+   */
+  showReactionBar: true,
+
+  /**
    * Indicates if the view is open ended
    * @property {boolean}
    */

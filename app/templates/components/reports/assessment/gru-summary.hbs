@@ -50,9 +50,11 @@
       <span class="time">
         {{gru-icon name='av_timer'}}<span>{{format-time assessmentResult.totalTimeSpent}}</span>
       </span>
-      <span class="reaction">
-        {{reaction-icon assessmentResult.averageReaction appRootPath}}
-      </span>
+      {{#if showReactionBar}}
+        <span class="reaction">
+          {{reaction-icon assessmentResult.averageReaction appRootPath}}
+        </span>
+      {{/if}}
     </div>
     <div class="bubbles">
       {{#if (not areQuestionLinksHidden)}}

@@ -38,6 +38,7 @@ test('Resources Layout', function (assert) {
   this.render(hbs`
     {{reports/assessment/gru-resources
       results=resourceResults
+      showReactionBar=true
     }}`);
   const $component = this.$('.reports.assessment.gru-resources');
 
@@ -55,4 +56,40 @@ test('Resources Layout', function (assert) {
   T.exists(assert, $component.find('table tbody td.reaction'), 'Missing reaction column');
   T.exists(assert, $component.find('.resource-cards.visible-xs'), 'Missing mobile resource cards');
   assert.equal($component.find('table tbody tr').length, 2, "Incorrect number of rows");
+});
+
+test('Resources Layout - do not show reaction bar', function (assert) {
+
+  const resourceResults = Ember.A([
+    resourceResult.create({
+      "resource": Ember.Object.create({
+        title: "Resource Title 1",
+        format:'interactive',
+        order: 1
+      }),
+      "reaction": 4,
+      "timeSpent": 2096
+    }),
+    resourceResult.create({
+      "resource": Ember.Object.create({
+        title: "Resource Title 2",
+        format:'image',
+        order: 2
+      }),
+      "reaction": 2,
+      "timeSpent": 1096
+    })
+  ]);
+
+  this.set('resourceResults', resourceResults);
+
+  this.render(hbs`
+    {{reports/assessment/gru-resources
+      results=resourceResults
+      showReactionBar=false
+    }}`);
+  const $component = this.$('.reports.assessment.gru-resources');
+
+  T.notExists(assert, $component.find('table th.header.reaction'), 'Reaction header should not be visible');
+  T.notExists(assert, $component.find('table tbody td.reaction'), 'Reaction column should not be visible');
 });
