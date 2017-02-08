@@ -34,3 +34,18 @@ test('logged in as a student and home-link button navigation', function (assert)
     });
   });
 });
+
+test('logged in as a student and go to my performance', function (assert) {
+
+  visit('/');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student');
+    const $navMenu = find(".gru-header .menu-navbar");
+    click($navMenu.find(".performance-link a"));
+
+    andThen(function () {
+      assert.equal(currentURL(), '/students/performance');
+    });
+  });
+});

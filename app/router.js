@@ -99,6 +99,10 @@ Router.map(function() {
 
   this.route('student');
 
+  this.route('students', function() {
+    this.route('performance');
+  });
+
   this.route('teacher');
 
   this.route('featured');

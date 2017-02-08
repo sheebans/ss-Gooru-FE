@@ -77,3 +77,17 @@ test('Go to course map from announcement', function(assert) {
   });
 
 });
+
+test('Go to course map from announcement', function(assert) {
+  visit('/student');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student');
+    const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
+    click($announcement);
+    andThen(function() {
+      assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id', 'Wrong route');
+    });
+  });
+
+});
