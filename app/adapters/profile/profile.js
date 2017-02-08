@@ -91,16 +91,14 @@ export default Ember.Object.extend({
    */
   readUserProfileByUsername: function(username) {
     const adapter = this;
-    const namespace = adapter.get('usersNamespace');
-    const url = `${namespace}?username=${username}`;
+    const namespace = adapter.get('namespaceV2');
+    const url = `${namespace}/search?username=${username}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders()
     };
-    return Ember.$.ajax(url, options).then(function(data){
-      return adapter.readUserProfile(data.id);
-    });
+    return Ember.$.ajax(url, options);
   },
 
   /**
@@ -373,13 +371,14 @@ export default Ember.Object.extend({
    */
   readMultipleProfiles: function(profileIds) {
     const adapter = this;
-    const url = adapter.get('usersNamespace');
+    const namespace = adapter.get('namespaceV2');
+    const url = `${namespace}/search`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders(),
       data: {
-        ids: Ember.isArray(profileIds) ? profileIds.join() : null
+        userids: Ember.isArray(profileIds) ? profileIds.join() : null
       }
     };
     return Ember.$.ajax(url, options);

@@ -131,7 +131,7 @@ export default Ember.Service.extend({
               headers: token
             };
     //Validating user and generating JWT
-    Ember.$.ajax('http://nile-dev.gooru.org/jwt/nile/v1/', options).then(function(val){
+    Ember.$.ajax('/api/nucleus/v1/firebase/jwt', options).then(function(val){
       var response = JSON.parse(val);
       const jwt = response.jwt;
       /*

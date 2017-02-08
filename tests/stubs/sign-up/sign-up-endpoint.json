@@ -40,7 +40,7 @@
   {
     "description": "API 3.0 Endpoint verifies username Availability. Username exists",
     "request": {
-      "url": "^/api/nucleus-auth/v1/users$",
+      "url": "^/api/nucleus/v2/profiles/search$",
       "method": "GET",
       "query": {
         "username": "JeffTeach01"
@@ -62,7 +62,7 @@
   {
     "description": "API 3.0 Endpoint verifies username Availability. Username DOES NOT exist",
     "request": {
-      "url": "^/api/nucleus-auth/v1/users$",
+      "url": "^/api/nucleus/v2/profiles/search$",
       "method": "GET",
       "headers": {
         "Authorization": "Token (.+)"

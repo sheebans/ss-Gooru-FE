@@ -358,20 +358,17 @@ export default Ember.Object.extend(ConfigurationMixin, {
     });
   },
 
+  /**
+   * Normalizes multiple profile items information
+   * @param { users: [] } payload
+   * @returns {ProfileModel[]}
+     */
   normalizeReadMultipleProfiles: function(payload) {
     const serializer = this;
-    const basePath = serializer.get('session.cdnUrls.user');
-    const appRootPath = this.get('appRootPath'); //configuration appRootPath
     let profiles = Ember.A([]);
     if (payload.users) {
       profiles = payload.users.map(function(userPayload) {
-        return ProfileModel.create({
-          id: userPayload.id,
-          firstName: userPayload.firstname,
-          lastName: userPayload.lastname,
-          username: userPayload.username,
-          avatarUrl: userPayload['thumbnail_path'] ? basePath + userPayload['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE
-        });
+        return serializer.normalizeReadProfile(userPayload);
       });
     }
     return profiles;

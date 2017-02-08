@@ -168,7 +168,7 @@
   {
     "description": "API 3.0 Endpoint to get user by username",
     "request": {
-      "url": "^/api/nucleus-auth/v1/users",
+      "url": "^/api/nucleus/v2/profiles/search",
       "method": "GET",
       "query": {
         "username": "param-123"
@@ -221,7 +221,7 @@
   {
     "description": "API 3.0 Endpoint to get user by username",
     "request": {
-      "url": "^/api/nucleus-auth/v1/users",
+      "url": "^/api/nucleus/v2/profiles/search",
       "method": "GET",
       "query": {
         "username": "(.+)"
@@ -242,10 +242,10 @@
   {
     "description": "API 3.0 Endpoint to get Multiple Profiles by IDs",
     "request": {
-      "url": "^/api/nucleus-auth/v1/users",
+      "url": "^/api/nucleus/v2/profiles/search",
       "method": "GET",
       "query": {
-        "ids": "(.+)"
+        "userids": "(.+)"
       },
       "headers": {
         "authorization": "Token (.+)"
