@@ -12,6 +12,9 @@
     @include justify-content(space-between);
     @include align-items(center);
     line-height: 28px;
+    @media (max-width: $screen-md) {
+      display: table!important;
+    }
     span {
       color:$white;
       -webkit-flex-direction: row;
@@ -38,6 +41,7 @@
     }
     .hamburger-icon {
       font-size: 2.45rem;
+      line-height: 2.45rem;
       color: $gray;
       cursor: pointer;
       margin: 0 10px 0 0;
