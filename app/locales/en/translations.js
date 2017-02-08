@@ -42,7 +42,6 @@ export default {
     "a-question": "a question",
     "a-resource": "a resource",
     "an-assessment": "an assessment",
-    "announcements":"Announcements",
     "about": "About",
     "about-you": "About You",
     "add": "Add",
