@@ -543,3 +543,18 @@ test('Not see remix button', function(assert) {
   var $seeRemix = $component.find(".gru-navigator .navigator-header .remix-btn");
   assert.notOk($seeRemix.length, "remix button should be hidden");
 });
+
+test('Not see navigator header', function(assert) {
+  assert.expect(1);
+
+  const collection = Ember.Object.create({
+    isCollection: true
+  });
+
+  this.set("collection", collection);
+
+  this.render(hbs`{{player/gru-navigator collection=collection showRemix=false showBackLink=false}}`);
+  var $component = this.$(); //component dom element
+  var $navigatorHeader = $component.find(".gru-navigator .navigator-header");
+  assert.ok($navigatorHeader.hasClass('hidden'), 'hidden class');
+});
