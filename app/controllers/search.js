@@ -147,7 +147,7 @@ export default Ember.Controller.extend(ModalMixin, {
 
   reloadTaxonomyTags: function(taxonomyCodes){
     this.set('taxonomyCodes', taxonomyCodes);
-    this.loadSubjectsFromCodesSync().then(()=>{
+    this.loadSubjectsFromCodes().then(()=>{
       const selectedTags = this.taxonomyCodes.map(function(taxonomyCode){
         const framework = this.extractFramework(taxonomyCode);
         return this.createTaxonomyTag(TaxonomyTagData.create({
@@ -162,7 +162,7 @@ export default Ember.Controller.extend(ModalMixin, {
     });
   },
 
-  loadSubjectsFromCodesSync: function(){
+  loadSubjectsFromCodes: function(){
     const chain = Ember.A([]);
     let codes = Ember.A([]);
     this.get('taxonomyCodes').forEach((taxonomyCode)=>{
@@ -181,12 +181,14 @@ export default Ember.Controller.extend(ModalMixin, {
     const frameworkId = taxonomyCode.id.split('-')[0];
     let framework;
     this.subjects.forEach(function(subject) {
-      const frameworks = subject.get('frameworks');
-      if (frameworks.length) {
-        framework = frameworks.findBy('id', frameworkId);
+      if (!framework) {
+        const frameworks = subject.get('frameworks');
+        if (frameworks.length) {
+          framework = frameworks.findBy('id', frameworkId);
+        }
       }
-      return framework;
     });
+    return framework;
   },
 
   createTaxonomyTag: function(dataTag) {
