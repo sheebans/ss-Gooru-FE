@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
-import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 /**
  * @typedef {object} SearchCollectionsController
@@ -47,7 +46,6 @@ export default Ember.Route.extend(PublicRouteMixin, {
     }
 
     return Ember.RSVP.hash({
-      subjects: [],
       taxonomyCodes: taxonomyCodes
     });
   },
@@ -57,22 +55,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    const route = this;
-    controller.set('subjects', model.subjects);
-    var selectedTags = controller.get('selectedTags');
-    if (!selectedTags.length) {
-      selectedTags = model.taxonomyCodes.map(function(taxonomyCode) {
-        const framework = route.extractFramework(model.subjects, taxonomyCode.id);
-        return controller.createTaxonomyTag(TaxonomyTagData.create({
-          id: taxonomyCode.id,
-          code: taxonomyCode.code,
-          frameworkCode: framework ? framework.get('frameworkId') : '',
-          parentTitle: framework ? framework.get('subjectTitle') : '',
-          title: taxonomyCode.title
-        }));
-      });
-      controller.set("selectedTags", selectedTags);
-    }
+    controller.reloadTaxonomyTags(model.taxonomyCodes);
   },
 
   // -------------------------------------------------------------------------
@@ -90,20 +73,6 @@ export default Ember.Route.extend(PublicRouteMixin, {
         this.transitionTo('player', collection.get("id"), { queryParams: { type: collection.get("collectionType") } });
       }
     }
-  },
-
-  extractFramework: function(subjects, codeId) {
-    const frameworkId = codeId.split('-')[0];
-    var framework = undefined;
-    subjects.forEach(function(subject) {
-      if (!framework) {
-        const frameworks = subject.get('frameworks');
-        if (frameworks.length) {
-          framework = frameworks.findBy('id', frameworkId);
-        }
-      }
-    });
-    return framework ? framework : null;
   }
 
 });

@@ -14,6 +14,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
+  classNames: ['taxonomy', 'gru-category-picker'],
 
   // -------------------------------------------------------------------------
   // Events
