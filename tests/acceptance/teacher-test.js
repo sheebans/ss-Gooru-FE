@@ -16,6 +16,7 @@ moduleForAcceptance('Acceptance | Teacher Landing page', {
 });
 
 test('Layout', function(assert) {
+  assert.expect(10);
   visit('/teacher');
 
   andThen(function() {
@@ -23,18 +24,21 @@ test('Layout', function(assert) {
 
     T.exists(assert, find("header.gru-header"), "Header component not found");
 
-    const $userContainer = find(".controller.teacher-landing");
-    T.exists(assert, $userContainer, "Missing teacher container");
-    const $leftUserContainer = $userContainer.find(".teacher-left-panel");
-    T.exists(assert, $userContainer.find(".greetings"), "Missing teacher greetings");
-    const $navigatorContainer = $leftUserContainer.find(".teacher-navigator");
+    const $teacherContainer = find(".controller.teacher-landing");
+    T.exists(assert, $teacherContainer, "Missing teacher container");
+    const $teacherPanel = $teacherContainer.find(".teacher-panel");
+    T.exists(assert, $teacherPanel.find(".greetings"), "Missing teacher greetings");
+    T.exists(assert, $teacherPanel.find(".teacher-header .panel.announcements"), "Missing announcements panel in header");
+    const $navigatorContainer = $teacherPanel.find(".teacher-navigator");
     T.exists(assert, $navigatorContainer, "Missing teacher navigator");
-    T.exists(assert, $navigatorContainer.find(".actions .create-class-cta"), "Missing create class button");
+    T.exists(assert, $teacherPanel.find(".actions .create-class-cta"), "Missing create class button");
     assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
-    const $tabContent = $leftUserContainer.find(".tab-content");
-    assert.equal($tabContent.find('.gru-class-card').length, 13 ,"Wrong number of class cards");
-    const $rightUserContainer = $userContainer.find(".teacher-right-panel");
-    assert.equal($rightUserContainer.find('.box-info').length, 4 ,"Wrong number of info boxes");
+    const $tabContent = $teacherPanel.find(".tab-content");
+    assert.equal($tabContent.find('#active-classes .gru-class-card').length, 13 ,"Wrong number of current class cards");
+    click("#archived-classes");
+    andThen(function() {
+      assert.equal($tabContent.find('#archived-classes .gru-class-card').length, 0 ,"Wrong number of archived class cards");
+    });
   });
 });
 

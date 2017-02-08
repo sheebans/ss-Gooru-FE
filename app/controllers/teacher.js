@@ -10,10 +10,27 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
+  actions: {
+    showClasses: function (type) {
+      this.set("showActiveClasses", type === "active");
+      this.set("showArchivedClasses", type === "archived");
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates when then active classes are visible
+   * @property {boolean}
+   */
+  showActiveClasses: true,
+
+  /**
+   * Indicates when then archived classes are visible
+   * @property {boolean}
+   */
+  showArchivedClasses: false,
 
   /**
    * A link to the parent application controller
