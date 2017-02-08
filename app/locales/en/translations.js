@@ -302,6 +302,7 @@ export default {
     "more-details": "More Details",
     "move": "Move",
     "myContent": "My Content",
+    "myPerformance":"My Performance",
     "edit-narration": "Edit Narration",
     "narration": "Narration",
     "new-assessment": "New Assessment",
