@@ -157,3 +157,41 @@ test('Search terms under 3 letters', function(assert) {
     T.exists(assert, $navSearch.find(".error"), "error message should be visible");
   });
 });
+
+test('My Performance as student', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  let profile = Ember.Object.create({
+    isTeacher:false
+  });
+
+  this.set('profile', profile);
+
+  this.render(hbs`{{gru-header profile=profile}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceLink = $component.find(".performance-link");
+
+  assert.ok($performanceLink.length, "Missing performance link");
+
+});
+
+test('My Performance as teacher', function(assert) {
+  assert.expect(1); //making sure all asserts are called
+
+  let profile = Ember.Object.create({
+    isTeacher:true
+    });
+
+  this.set('profile', profile);
+
+  this.render(hbs`{{gru-header profile=profile}}`);
+
+  const $component = this.$(); //component dom element
+
+  const $performanceLink = $component.find(".performance-link");
+
+  assert.notOk($performanceLink.length, "Performance link should not appear");
+
+});

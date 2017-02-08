@@ -61,13 +61,13 @@
                   </ul>
               </li>
             {{else}}
+              {{#unless profile.isTeacher}}
                 <li class="navbar-nav-list visible-md visible-lg performance-link">
-                {{#unless profile.isTeacher}}
                   {{#link-to 'students.performance'}}
                       <span>{{t "common.myPerformance"}}</span>
                   {{/link-to}}
-                {{/unless}}
                 </li>
+              {{/unless}}
                 <li class="navbar-nav-list visible-md visible-lg dropdown my-classes">
                     <a class="profile dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="classes">{{t "common.classes"}}</span>
