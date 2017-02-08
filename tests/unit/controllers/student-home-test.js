@@ -10,7 +10,7 @@ var applicationController = Ember.Object.create ({
   },
   profile:Ember.Object.create ({id:'profile-id'})
 });
-moduleFor('controller:student', 'Unit | Controller | student', {
+moduleFor('controller:student-home', 'Unit | Controller | student-home', {
 
 });
 

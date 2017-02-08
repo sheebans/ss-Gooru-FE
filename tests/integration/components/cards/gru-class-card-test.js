@@ -37,7 +37,8 @@ var mockClass = Ember.Object.create({
 
 var mockProfile = Ember.Object.create({
   id: 'test-profile',
-  displayName: "test"
+  displayName: "test",
+  role: "student"
 });
 
 var classStudentCount = Ember.Object.create({
@@ -442,6 +443,8 @@ test('Teacher class card with a course with 1 unit', function (assert) {
     isArchived: false,
     isTeacher: function () { return true; }
   }));
+
+  this.set('profile', mockProfile);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
 

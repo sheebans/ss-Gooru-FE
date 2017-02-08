@@ -97,10 +97,11 @@ Router.map(function() {
 
   this.route('home');
 
-  this.route('student');
+  this.route('student-home');
 
-  this.route('students', function() {
+  this.route('student', function() {
     this.route('performance');
+    this.route('class', { path: '/class/:classId' });
   });
 
   this.route('teacher');

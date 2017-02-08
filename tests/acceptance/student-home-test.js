@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForAcceptance('Acceptance | Student Landing page', {
+moduleForAcceptance('Acceptance | Student Home Landing page', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
@@ -17,10 +17,10 @@ moduleForAcceptance('Acceptance | Student Landing page', {
 
 
 test('Layout', function(assert) {
-  visit('/student');
+  visit('/student-home');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student');
+    assert.equal(currentURL(), '/student-home');
 
     T.exists(assert, find('header.gru-header'), 'Header component not found');
     T.exists(assert, find('.announcements'),'Missing announcements panel');
@@ -48,10 +48,10 @@ test('Layout', function(assert) {
 });
 
 test('Go to manage goals page', function(assert) {
-  visit('/student');
+  visit('/student-home');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student');
+    assert.equal(currentURL(), '/student-home');
 
     const $userContainer = find('.controller.student-landing');
     const $leftUserContainer = $userContainer.find('.student-left-panel');
@@ -65,28 +65,28 @@ test('Go to manage goals page', function(assert) {
 });
 
 test('Go to course map from announcement', function(assert) {
-  visit('/student');
+  visit('/student-home');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student');
+    assert.equal(currentURL(), '/student-home');
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id', 'Wrong route');
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student', 'Wrong route');
     });
   });
 
 });
 
 test('Go to course map from announcement', function(assert) {
-  visit('/student');
+  visit('/student-home');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student');
+    assert.equal(currentURL(), '/student-home');
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id', 'Wrong route');
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student', 'Wrong route');
     });
   });
 

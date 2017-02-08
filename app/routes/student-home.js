@@ -2,7 +2,7 @@ import Ember from 'ember';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 
 /**
- * Student route
+ * Student home route
  *
  * @module
  * @augments Ember.Route
