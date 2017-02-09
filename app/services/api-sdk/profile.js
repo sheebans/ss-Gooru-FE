@@ -87,12 +87,9 @@ export default Ember.Service.extend({
   readUserProfile: function(userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readUserProfile(userId)
-        .then(function(response) {
-          resolve(service.get('profileSerializer').normalizeReadProfile(response));
-        }, function(error) {
-          reject(error);
-        });
+      service.readMultipleProfiles([userId]).then(function(profiles) {
+          resolve(profiles.length ? profiles[0] : undefined);
+        }, reject);
     });
   },
 
@@ -389,13 +386,14 @@ export default Ember.Service.extend({
 
   /**
    * Resets the user password
-   * @param {string} username - account's username or email
+   * @param {string} password
+   * @param {string} token
    * @returns {Ember.RSVP.Promise}
    */
-  resetPassword: function(userId, password, token) {
+  resetPassword: function(password, token) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').resetPassword(userId, password, token).then(function() {
+      service.get('profileAdapter').resetPassword(password, token).then(function() {
         resolve(token);
       }, function(error) {
         reject(error);

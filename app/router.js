@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('index', {path: '/'});
 
   this.route('search', function() {
+    this.route('courses');
     this.route('collections');
     this.route('assessments');
     this.route('questions');
@@ -96,7 +97,12 @@ Router.map(function() {
 
   this.route('home');
 
-  this.route('student');
+  this.route('student-home');
+
+  this.route('student', function() {
+    this.route('performance');
+    this.route('class', { path: '/class/:classId' });
+  });
 
   this.route('teacher');
 

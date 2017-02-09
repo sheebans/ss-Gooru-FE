@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { formatDate as formatDateTo } from 'gooru-web/utils/utils';
 const {
   computed,
   defineProperty
@@ -114,6 +115,14 @@ export default Ember.Component.extend({
    */
   showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', function() {
     return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid');
+  }),
+
+  /**
+   * @property {string} selected date
+   */
+  selectedDate: computed('value', function(){
+    const value = this.get('value');
+    return value ? formatDateTo(value, 'MM/DD/YYYY') : '';
   })
 
 

@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForAcceptance('Acceptance | Student Landing page', {
+moduleForAcceptance('Acceptance | Student Home Landing page', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
@@ -17,13 +17,17 @@ moduleForAcceptance('Acceptance | Student Landing page', {
 
 
 test('Layout', function(assert) {
-  visit('/student');
+  visit('/student-home');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student');
+    assert.equal(currentURL(), '/student-home');
 
     T.exists(assert, find('header.gru-header'), 'Header component not found');
     T.exists(assert, find('.announcements'),'Missing announcements panel');
+    T.exists(assert, find('.announcements .warning i'),'Missing warning icon');
+    T.exists(assert, find('.announcements .warning span.announcements-lead'),'Missing warning announcements lead');
+    assert.equal(find('.announcements .classes-announcements ul li').length,5,'Missing announcements lust');
+    T.exists(assert, find('.more-classes'),'Missing more classes indetifier');
 
     const $userContainer = find('.controller.student-landing');
     T.exists(assert, $userContainer, 'Missing student container');
@@ -40,17 +44,14 @@ test('Layout', function(assert) {
 
     const $tabContent = $leftUserContainer.find('.tab-content');
     assert.equal($tabContent.find('.gru-class-card').length, 7 ,'Wrong number of class cards');
-
-
   });
-
 });
 
 test('Go to manage goals page', function(assert) {
-  visit('/student');
+  visit('/student-home');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student');
+    assert.equal(currentURL(), '/student-home');
 
     const $userContainer = find('.controller.student-landing');
     const $leftUserContainer = $userContainer.find('.student-left-panel');
@@ -59,6 +60,33 @@ test('Go to manage goals page', function(assert) {
     click($navigatorContainer.find('.actions .manage-goals-cta'));
     andThen(function() {
       assert.equal(currentURL(), '/goals/manage', 'Wrong route');
+    });
+  });
+});
+
+test('Go to course map from announcement', function(assert) {
+  visit('/student-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-home');
+    const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
+    click($announcement);
+    andThen(function() {
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student', 'Wrong route');
+    });
+  });
+
+});
+
+test('Go to course map from announcement', function(assert) {
+  visit('/student-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-home');
+    const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
+    click($announcement);
+    andThen(function() {
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student', 'Wrong route');
     });
   });
 

@@ -10,8 +10,6 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -30,10 +28,10 @@ export default Ember.Controller.extend({
   /**
    * @property {Class[]}
    */
-  activeClasses: Ember.computed("myClasses.classes", function () {
-    const profile = this.get("profile");
-    return this.get("myClasses.classes").filter(function(aClass){
-      return !aClass.get("isArchived") && !aClass.isTeacher(profile.get("id"));
+  activeClasses: Ember.computed('myClasses.classes', function () {
+    const profile = this.get('profile');
+    return this.get('myClasses.classes').filter(function(aClass){
+      return !aClass.get('isArchived') && !aClass.isTeacher(profile.get('id'));
     });
   }),
 
@@ -42,12 +40,26 @@ export default Ember.Controller.extend({
    */
   totalJoinedClasses: Ember.computed.alias('activeClasses.length'),
 
+  /**
+   * @property {Boolean} Indicate if the student has classes
+   */
   hasClasses:Ember.computed('totalJoinedClasses',function(){
     return this.get('totalJoinedClasses') > 0;
-  })
+  }),
 
-// -------------------------------------------------------------------------
-// Methods
+  /**
+   * @property {Class[]} Active classes for announcements
+   */
+  announcementsClasses:Ember.computed('activeClasses',function(){
+    return this.get('activeClasses').slice(0,5);
+  }),
+
+  /**
+   * @property {Boolean} Indicate if has more announcements to show
+   */
+  hasMoreAnnouncementes:Ember.computed('activeClasses','announcementsClasses',function(){
+    return this.get('activeClasses').length > this.get('announcementsClasses').length;
+  })
 
 });
 

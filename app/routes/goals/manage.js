@@ -11,19 +11,32 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 export default Ember.Route.extend(PrivateRouteMixin, {
 
   // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @dependency service:goal
+   */
+  goalService: Ember.inject.service("api-sdk/goal"),
+
+
+
+  // -------------------------------------------------------------------------
   // Methods
+  model: function() {
+    const route = this;
+    const userId = route.get("session.userId");
+    const goalService = route.get("goalService");
+
+    return Ember.RSVP.hash({
+      goals: goalService.getGoalsByUser(userId)
+    });
+  },
 
   /**
    * Set all controller properties used in the template
    * @param controller
    */
-  setupController: function(controller) {
-    let route = this;
-    let userId = route.get("session.userId");
-
-    controller.get('goalService').getGoalsByUser(userId).then(function (goals) {
-      controller.set("goals", goals);
-    });
+  setupController: function(controller, model) {
+    controller.set("goals",  model.goals);
     controller.resetProperties();
 
   }

@@ -33,7 +33,6 @@ export default Ember.Controller.extend({
       const controller = this;
       const profile = controller.get('profile');
       const token = controller.get('token');
-      const userId = controller.get('userId');
 
       if(controller.get('didValidate') === false) {
         var password = Ember.$('.gru-input.password input').val();
@@ -45,7 +44,7 @@ export default Ember.Controller.extend({
       profile.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
           controller.get("profileService")
-            .resetPassword(userId, profile.get('password'), token)
+            .resetPassword(profile.get('password'), token)
             .then(function() {
               controller.set('didValidate', true);
               controller.transitionToRoute('sign-in');

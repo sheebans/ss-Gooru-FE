@@ -46,6 +46,13 @@ export default Ember.Component.extend({
   profile: null,
 
   /**
+   * @property {boolean} Indicates if the class path
+   */
+  classPath: Ember.computed('profile', function() {
+    return (this.get('profile').get('role') === 'student') ? 'student.class' : 'class.overview';
+  }),
+
+  /**
    * @property {Number} Count of collaborators in the class
    */
   collaboratorsCount: Ember.computed('class.collaborators', function() {

@@ -49,8 +49,8 @@ export default Ember.Object.extend({
    */
   updateMyProfile: function(data) {
     const adapter = this;
-    const namespace = adapter.get('usersNamespace');
-    const url = `${namespace}/me`;
+    const namespace = adapter.get('authNamespace');
+    const url = `${namespace}/users`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',
@@ -68,39 +68,16 @@ export default Ember.Object.extend({
    * @param userId the unique profile user id
    * @returns {Promise}
    */
-  readUserProfile: function(userId) {
-    const adapter = this;
-    const namespace = adapter.get('namespaceV2');
-    const url = `${namespace}/demographics`;
-    const options = {
-      type: 'GET',
-      contentType: 'application/json; charset=utf-8',
-      headers: adapter.defineHeaders(),
-      data: {
-        "userId": userId
-      }
-    };
-    return Ember.$.ajax(url, options);
-  },
-
-  /**
-   * Gets the profile information of a given user id
-   *
-   * @param userId the unique profile user id
-   * @returns {Promise}
-   */
   readUserProfileByUsername: function(username) {
     const adapter = this;
-    const namespace = adapter.get('usersNamespace');
-    const url = `${namespace}?username=${username}`;
+    const namespace = adapter.get('namespaceV2');
+    const url = `${namespace}/search?username=${username}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders()
     };
-    return Ember.$.ajax(url, options).then(function(data){
-      return adapter.readUserProfile(data.id);
-    });
+    return Ember.$.ajax(url, options);
   },
 
   /**
@@ -320,15 +297,14 @@ export default Ember.Object.extend({
 
   /**
    * Resets the user password
-   * @param userId
    * @param token
    * @returns {*|Promise}
    */
-  resetPassword: function (userId, password, token) {
+  resetPassword: function (password, token) {
     const adapter = this;
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
-    const namespace = adapter.get('usersNamespace');
-    const url = `${endpointUrl}${namespace}/${userId}/password`;
+    const namespace = adapter.get('authNamespace');
+    const url = `${endpointUrl}${namespace}/users/reset-password`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',
@@ -337,7 +313,7 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
         token,
-        new_password: password
+        password: password
       })
     };
 
@@ -374,13 +350,14 @@ export default Ember.Object.extend({
    */
   readMultipleProfiles: function(profileIds) {
     const adapter = this;
-    const url = adapter.get('usersNamespace');
+    const namespace = adapter.get('namespaceV2');
+    const url = `${namespace}/search`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders(),
       data: {
-        ids: Ember.isArray(profileIds) ? profileIds.join() : null
+        userids: Ember.isArray(profileIds) ? profileIds.join() : null
       }
     };
     return Ember.$.ajax(url, options);

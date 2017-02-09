@@ -51,24 +51,45 @@ test('serializeUpdateProfile', function(assert) {
   });
 
   const expected = {
-    "firstname":"first-name",
-    "lastname":"last-name",
+    "first_name":"first-name",
+    "last_name":"last-name",
     "roster_global_userid":null,
     "user_category":"role",
     "username":"username",
     "grade":[],
     "country":"country",
-    "about_me":"about-me",
+    "about":"about-me",
     "country_id":"country-id",
     "state_id":"state-id",
     "school_district_id":"school-district-id",
     "state":"state",
     "school_district":"school-district",
-    "thumbnail_path": "image-id"
+    "thumbnail": "image-id"
   };
 
   const response = serializer.serializeUpdateProfile(profile);
   assert.deepEqual(expected, response, 'Wrong serialized response');
+});
+
+test('serializeUpdateProfile missing some values', function(assert) {
+  const serializer = this.subject();
+  const profile = ProfileModel.create({
+    role: 'role',
+    grades: [],
+    country: 'country',
+    state: 'state',
+    schoolDistrict: 'school-district',
+    aboutMe: 'about-me',
+    countryId: 'country-id',
+    stateId: 'state-id',
+    schoolDistrictId: 'school-district-id',
+    avatarUrl: '//baseUrl/image-id'
+  });
+
+  const response = serializer.serializeUpdateProfile(profile);
+  assert.ok(response.first_name === undefined, 'First name should not be present');
+  assert.ok(response.last_name === undefined, 'Last name should not be present');
+  assert.ok(response.username === undefined, 'Username should not be present');
 });
 
 test('normalizeReadProfile', function(assert) {
@@ -97,8 +118,8 @@ test('normalizeReadProfile', function(assert) {
     state: 'state',
     'school_district_id': '4444',
     'school_district': 'school-district',
-    'about_me': 'about-me',
-    'thumbnail_path': 'thumbnail.png',
+    'about': 'about-me',
+    'thumbnail': 'thumbnail.png',
     'roster_id': '5555',
     followers: 2,
     followings: 3,

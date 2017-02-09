@@ -13,7 +13,7 @@ test('verifyUsername', function(assert) {
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
-    this.get('/api/nucleus-auth/v1/users', function(request) {
+    this.get('/api/nucleus/v2/profiles/search', function(request) {
       assert.equal(request.queryParams.username, username, 'Wrong request param username value');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
@@ -31,7 +31,7 @@ test('verifyEmail', function(assert) {
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
-    this.get('/api/nucleus-auth/v1/users', function(request) {
+    this.get('/api/nucleus/v2/profiles/search', function(request) {
       assert.equal(request.queryParams.email, email, 'Wrong request param email value');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);

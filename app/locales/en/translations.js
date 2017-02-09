@@ -42,7 +42,6 @@ export default {
     "a-question": "a question",
     "a-resource": "a resource",
     "an-assessment": "an assessment",
-    "announcements":"Announcements",
     "about": "About",
     "about-you": "About You",
     "add": "Add",
@@ -74,6 +73,7 @@ export default {
     "add-type-resource": "What type of resource is this?",
     "add-units": "Add Units",
     "advanced-editing": "Advanced Editing",
+    "announcements": "Announcements",
     "anonymous_mode": "Anonymous Mode",
     "answer": "Your Answer",
     "answer-correct": "You are correct!",
@@ -107,6 +107,7 @@ export default {
     "biography": "Biography",
     "builder": "Editor",
     "cancel": "Cancel",
+    "categories": "Categories",
     "category": "Category",
     "categoryOptions": {
       "k12": "K-12",
@@ -302,6 +303,7 @@ export default {
     "more-details": "More Details",
     "move": "Move",
     "myContent": "My Content",
+    "myPerformance":"My Performance",
     "edit-narration": "Edit Narration",
     "narration": "Narration",
     "new-assessment": "New Assessment",
@@ -786,6 +788,7 @@ export default {
     }
   },
   "student-landing":{
+    "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "box-title-one": "Study from 35 Courses",
     "box-text-one": "Choose from over 35 Navigator Courses across 10 programs to study.",
     "box-title-two": "Explore what you can learn",
@@ -796,16 +799,6 @@ export default {
     "box-text-four": "Set your goals, plan your activities and track your progress and achieve success each time.",
     "box-title-five": "Interact with your peers and instructors",
     "box-text-five": "Learn from your peers and mentors by asking your questions and following their work."
-  },
-  "teacher-landing":{
-    "box-title-one": "Productivity Tools",
-    "box-text-one": "Find millions of standards-aligned open resources, collections and assessments.",
-    "box-title-two": "Remix courses",
-    "box-text-two": "Choose from over 35 Navigator Courses across 10 programs.",
-    "box-title-three": "Manage your library",
-    "box-text-three": "Some text here.",
-    "box-title-four": "Interact with your students",
-    "box-text-four": "Some text here."
   },
   "goals":{
     "manage":{

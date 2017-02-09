@@ -63,7 +63,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
             const isTeacher = userProfile.get('isTeacher');
 
             if (isStudent){
-              route.transitionTo("student");
+              route.transitionTo("student-home");
             }
             else {
               if (isTeacher) {

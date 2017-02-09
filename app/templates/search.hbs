@@ -2,6 +2,12 @@
   <div class="content-navigation">
     <div class="category-menu col-md-10 col-sm-12 col-xs-12">
       <ul class="nav nav-tabs category-options">
+        {{#link-to "search.courses" (query-params term=term) tagName="li" class='courses'}}
+          <a href='{{view.href}}' class="btn btn-category">
+            <i class="icon"></i>
+            <span>{{t "search-filter.courses"}}</span>
+          </a>
+        {{/link-to}}
         {{#link-to "search.collections" (query-params term=term) tagName="li" class='collections'}}
           <a href='{{view.href}}' class="btn btn-category">
             <i class="icon"></i>
@@ -29,9 +35,12 @@
       </ul>
     </div>
     <span class="col-md-3 standards hidden-xs">
-      {{taxonomy.gru-subject-picker
+      {{search.gru-search-filter
+        categories=categories
         subjects=subjects
-        placeholderLabelKey='common.standards'
+        categoriesPlaceholderLabelKey='common.categories'
+        subjectsPlaceholderLabelKey='common.standards'
+        onCategorySelected='setCategory'
         onSubjectSelected='setSubject'
         onlySubjectsWithStandards=true
         alignment='left'

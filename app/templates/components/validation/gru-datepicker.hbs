@@ -1,8 +1,9 @@
 <div class="form-group">
   {{datepicker-field
-  onSelectDateAction=(action 'setValue')
-  placeholder=placeholder
-  class=class}}
+    onSelectDateAction=(action 'setValue')
+    placeholder=placeholder
+    selectedDate=selectedDate
+    class=class}}
     <div class="error-messages">
       {{#if showMessage}}
           <span class="error">

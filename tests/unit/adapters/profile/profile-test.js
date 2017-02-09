@@ -45,7 +45,7 @@ test('updateMyProfile', function(assert) {
     body: profile
   };
   const routes = function() {
-    this.put('/api/nucleus-auth/v1/users/me', function() {
+    this.put('/api/nucleus-auth/v2/users', function() {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   };
@@ -61,29 +61,6 @@ test('updateMyProfile', function(assert) {
     });
 });
 
-test('readUserProfile', function(assert) {
-  const adapter = this.subject();
-  const userId = "user-id";
-  adapter.set('session', Ember.Object.create({
-    'token-api3': 'token-api-3'
-  }));
-  const routes = function() {
-    this.get('/api/nucleus/v2/profiles/demographics', function() {
-      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
-    }, false);
-  };
-
-  this.pretender.map(routes);
-  this.pretender.unhandledRequest = function(verb, path) {
-    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
-  };
-
-  adapter.readUserProfile(userId)
-    .then(function(response) {
-      assert.deepEqual({}, response, 'Wrong response');
-    });
-});
-
 test('readUserProfileByUsername', function(assert) {
   assert.expect(2);
 
@@ -94,13 +71,8 @@ test('readUserProfileByUsername', function(assert) {
   }));
 
   const routes = function() {
-    //serving get profile request for userId 100
-    this.get('/api/nucleus/v2/profiles/demographics', function() {
-      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
-    }, false);
-
     //serving get user by username
-    this.get('/api/nucleus-auth/v1/users', function(request) {
+    this.get('/api/nucleus/v2/profiles/search', function(request) {
       assert.equal(request.queryParams.username, "user-id", "Wrong username parameter");
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({ id: "100" })];
     }, false);
@@ -113,7 +85,35 @@ test('readUserProfileByUsername', function(assert) {
 
   adapter.readUserProfileByUsername(username)
     .then(function(response) {
-      assert.deepEqual({}, response, 'Wrong response');
+      assert.deepEqual({ id: "100" }, response, 'Wrong response');
+    });
+});
+
+test('readMultipleProfiles', function(assert) {
+  assert.expect(2);
+
+  const adapter = this.subject();
+  const ids = [1,2,3];
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+
+  const routes = function() {
+    //serving get user by username
+    this.get('/api/nucleus/v2/profiles/search', function(request) {
+      assert.equal(request.queryParams.userids, "1,2,3", "Wrong user ids");
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({ id: "100" })];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.readMultipleProfiles(ids)
+    .then(function() {
+      assert.ok(true, 'This should be called once');
     });
 });
 
@@ -316,8 +316,8 @@ test('forgotPassword', function(assert) {
 });
 
 test('resetPassword', function(assert) {
+  assert.expect(2);
   const adapter = this.subject();
-  const userId = 'user-id';
   const password = 'password';
   const token = 'token';
   adapter.set('session', Ember.Object.create({
@@ -325,9 +325,9 @@ test('resetPassword', function(assert) {
   }));
   const routes = function() {
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
-    this.put(`${endpointUrl}/api/nucleus-auth/v1/users/user-id/password`, function(request) {
+    this.put(`${endpointUrl}/api/nucleus-auth/v2/users/reset-password`, function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(password, requestBodyJson['new_password']);
+      assert.equal(password, requestBodyJson['password']);
       assert.equal(token, requestBodyJson['token']);
       return [200, {'Content-Type': 'application/json'}, {}];
     }, false);
@@ -338,8 +338,5 @@ test('resetPassword', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
-  adapter.resetPassword(userId, password, token)
-    .then(function(response) {
-      assert.deepEqual({}, response, 'Wrong response');
-    });
+  adapter.resetPassword(password, token);
 });

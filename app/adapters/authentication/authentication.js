@@ -9,7 +9,9 @@ import EndPointsConfig from 'gooru-web/utils/endpoint-config';
  */
 export default Ember.Object.extend({
 
-  namespace: '/api/nucleus-auth/v2/signin',
+  session: Ember.inject.service('session'),
+
+  namespace: '/api/nucleus-auth/v2',
 
   tokenNamespace: '/api/nucleus-auth/v1/token',
 
@@ -22,7 +24,7 @@ export default Ember.Object.extend({
     const adapter = this;
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
     const namespace = this.get('namespace');
-    const url = `${endpointUrl}${namespace}`;
+    const url = `${endpointUrl}${namespace}/signin`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -80,6 +82,24 @@ export default Ember.Object.extend({
         'Authorization' : 'Token ' + data.accessToken
       },
       global: false /* Stop global ajaxError event from triggering */
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Invalidates the current token
+   * @returns {Promise}
+   */
+  signOut: function() {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/signout`;
+    const token = this.get('session.token-api3');
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      headers: {
+        'Authorization' : `Token ${token}`
+      }
     };
     return Ember.$.ajax(url, options);
   }

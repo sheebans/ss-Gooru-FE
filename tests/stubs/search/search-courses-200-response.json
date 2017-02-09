@@ -1,30 +1,82 @@
 {
   "searchResults": [
     {
-      "sequence": 1,
-      "title": "title-1",
-      "description": "description-1",
-      "thumbnail": "thumbnail-url-1",
+      "addDate": "2016-03-25T08:46:57Z",
+      "collaboratorCount": 0,
+      "courseRemixCount": 32,
+      "creator": {
+        "firstname": "Summit",
+        "id": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
+        "lastname": "Science"
+      },
+      "description": "Focus areas for physics are: Energy Basics; Wave Basics and Properties; Electromagnetic Radiation; Electromagnetic Waves; Fields: Forces and Energy; Circuits; Kinematics; Newton’s First and Second Laws of Motion; Newton’s Third Law and the Conservation of Momentum; Conservation of Energy; Electrostatics; Electromagnetism;  First and Second Law of Thermodynamics;Gravity; Big Bang, Stars, and Planets; and Circular Motion.",
+      "id": "b8336353-08c1-42ce-add9-3454227902c8",
+      "lastModified": "2016-09-14T12:00:31Z",
+      "lastModifiedBy": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
+      "license": {
+        "code": null,
+        "definition": null,
+        "icon": null,
+        "name": null
+      },
+      "orginalCreator": null,
       "owner": {
-        "emailId": "",
-        "firstName": "",
-        "gooruUId": "owner-id-1",
-        "lastName": "",
-        "usernameDisplay": ""
-      }
+        "firstname": "Summit",
+        "id": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
+        "lastname": "Science"
+      },
+      "publishStatus": "published",
+      "sequence": 11,
+      "subjectBucket": "NGSS.K12.SC",
+      "subjectSequence": 3,
+      "taxonomy": {
+        "subject": ["Science"],
+        "course": ["High School"]
+      },
+      "thumbnail": "8d7c54f8-948d-4029-9cd5-d288a14c41c3.png",
+      "title": "Physics",
+      "unitCount": 21,
+      "viewCount": 0,
+      "visibleOnProfile": false
     },
     {
-      "sequence": 2,
-      "title": "title-2",
-      "description": "description-2",
-      "thumbnail": "thumbnail-url-2",
+      "addDate": "2016-03-25T08:46:57Z",
+      "collaboratorCount": 0,
+      "courseRemixCount": 32,
+      "creator": {
+        "firstname": "Summit",
+        "id": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
+        "lastname": "Science"
+      },
+      "description": "Focus areas for Modern World II are: Energy Basics; Wave Basics and Properties; Electromagnetic Radiation; Electromagnetic Waves; Fields: Forces and Energy; Circuits; Kinematics; Newton’s First and Second Laws of Motion; Newton’s Third Law and the Conservation of Momentum; Conservation of Energy; Electrostatics; Electromagnetism;  First and Second Law of Thermodynamics;Gravity; Big Bang, Stars, and Planets; and Circular Motion.",
+      "id": "c8336353-08c1-42ce-add9-3454227902c8",
+      "lastModified": "2016-09-14T12:00:31Z",
+      "lastModifiedBy": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
+      "license": {
+        "code": null,
+        "definition": null,
+        "icon": null,
+        "name": null
+      },
+      "orginalCreator": null,
       "owner": {
-        "emailId": "",
-        "firstName": "",
-        "gooruUId": "owner-id-2",
-        "lastName": "",
-        "usernameDisplay": ""
-      }
+        "firstname": "Summit",
+        "id": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
+        "lastname": "Science"
+      },
+      "publishStatus": "published",
+      "sequence": 11,
+      "subjectBucket": "NGSS.K12.SC",
+      "subjectSequence": 3,
+      "taxonomy": {
+        "subject": ["Science"],
+        "course": ["High School"]
+      },
+      "thumbnail": "8d7c54f8-948d-4029-9cd5-d288a14c41c3.png",
+      "title": "Modern World II",
+      "unitCount": 21,
+      "viewCount": 0,
+      "visibleOnProfile": false
     }
   ]
 }
