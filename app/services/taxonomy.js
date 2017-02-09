@@ -370,6 +370,19 @@ export default Ember.Service.extend({
 
     categories.push(defaultCategory);
     return categories;
+  },
+
+  fetchSubjectsByIds(taxonomyIds){
+    const chain = Ember.A([]);
+    let codes = Ember.A([]);
+    taxonomyIds.forEach((taxonomyId)=>{
+      codes.push(taxonomyId.substring(taxonomyId.indexOf('.')+1, taxonomyId.indexOf('-')));
+    });
+    codes = codes.uniq();
+    codes.forEach((code)=>{
+      chain.push(this.findSubjectById(code, false));
+    });
+    return Ember.RSVP.all(chain);
   }
 
 });

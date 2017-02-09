@@ -20,9 +20,13 @@
       float: none;
       text-align: right;
       vertical-align: middle;
+      div{
+        float:right;
+      }
     }
 
-    .gru-subject-picker .btn {
+    .gru-category-picker .btn,
+    .gru-subject-picker .btn{
       background-color: $green-300;
 
       &.dropdown-toggle {

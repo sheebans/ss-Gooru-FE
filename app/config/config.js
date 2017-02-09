@@ -53,6 +53,11 @@ export const CONTENT_CATEGORIES = [
   EDUCATION_CATEGORY
 ];
 
+export const SEARCH_CATEGORIES = [
+  K12_CATEGORY,
+  EDUCATION_CATEGORY
+];
+
 export const CONTENT_TYPES = {
   COLLECTION: 'collection',
   ASSESSMENT: 'assessment',
