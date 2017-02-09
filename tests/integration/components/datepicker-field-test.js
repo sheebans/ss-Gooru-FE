@@ -18,7 +18,7 @@ test('renders datepicker', function(assert) {
   T.exists(assert, $component.find('div.datepicker'), 'Div container element not found');
   T.exists(assert, $component.find('input.datepicker'), 'Missing datepicker textbox');
   T.exists(assert, $component.find('button.datepicker-icon'), 'Datepicker icon element not found');
-  assert.equal(this.$('input.datepicker').attr('placeholder'), 'MyBirthday", "Wrong placeholder');
+  assert.equal(this.$('input.datepicker').attr('placeholder'), 'MyBirthday', 'Wrong placeholder');
 });
 
 
