@@ -6,21 +6,8 @@ import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
  */
 export default Ember.Route.extend(PublicRouteMixin, {
 
-  queryParams: {
-    term: {
-      /**
-       Only 'term' query param should refresh the entire model, since the event is handled by
-       the application route. Other query params are handled by the collection controller
-
-       @see routes/application.js#searchTerm
-       */
-      refreshModel: true
-    },
-    taxonomies: {
-      refreshModel: true
-    }
-  },
-
+  // -------------------------------------------------------------------------
+  // Dependencies
   /**
    * @requires service:api-sdk/search
    */
@@ -36,17 +23,34 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   taxonomySdkService: Ember.inject.service('api-sdk/taxonomy'),
 
+  queryParams: {
+    term: {
+      /**
+       Only 'term' query param should refresh the entire model, since the event is handled by
+       the application route. Other query params are handled by the collection controller
+
+       @see routes/application.js#searchTerm
+       */
+      refreshModel: true
+    },
+    taxonomies: {
+      refreshModel: true
+    }
+  },
 
   model: function(params) {
     const taxonomyIds = params.taxonomies;
-    var taxonomyCodes = [];
+    let taxonomyCodes = [];
+    let subjects = [];
 
     if (taxonomyIds.length > 0) {
       taxonomyCodes = this.get('taxonomySdkService').fetchCodesByIds(taxonomyIds);
+      subjects = this.get('taxonomyService').fetchSubjectsByIds(taxonomyIds);
     }
 
     return Ember.RSVP.hash({
-      taxonomyCodes: taxonomyCodes
+      taxonomyCodes: taxonomyCodes,
+      subjects: subjects
     });
   },
   /**
@@ -55,7 +59,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    controller.reloadTaxonomyTags(model.taxonomyCodes);
+    controller.set('subjects', model.subjects);
+    controller.set('taxonomyCodes', model.taxonomyCodes);
+    controller.reloadTaxonomyTags();
   },
 
   // -------------------------------------------------------------------------

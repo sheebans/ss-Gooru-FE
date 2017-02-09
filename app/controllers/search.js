@@ -145,36 +145,18 @@ export default Ember.Controller.extend(ModalMixin, {
     }.bind(this));
   },
 
-  reloadTaxonomyTags: function(taxonomyCodes){
-    this.set('taxonomyCodes', taxonomyCodes);
-    this.loadSubjectsFromCodes().then(()=>{
-      const selectedTags = this.taxonomyCodes.map(function(taxonomyCode){
-        const framework = this.extractFramework(taxonomyCode);
-        return this.createTaxonomyTag(TaxonomyTagData.create({
-          id: taxonomyCode.id,
-          code: taxonomyCode.code,
-          frameworkCode: framework ? framework.get('frameworkId') : '',
-          parentTitle: framework ? framework.get('subjectTitle') : '',
-          title: taxonomyCode.title
-        }));
-      }.bind(this));
-      this.set("selectedTags", selectedTags);
-    });
-  },
-
-  loadSubjectsFromCodes: function(){
-    const chain = Ember.A([]);
-    let codes = Ember.A([]);
-    this.get('taxonomyCodes').forEach((taxonomyCode)=>{
-      codes.push(taxonomyCode.id.substring(taxonomyCode.id.indexOf('.')+1, taxonomyCode.id.indexOf('-')));
-    });
-    codes = codes.uniq();
-    codes.forEach((code)=>{
-      chain.push(this.get('taxonomyService').findSubjectById(code, false));
-    });
-    return Promise.all(chain).then(values => {
-      this.subjects.pushObjects(values);
-    });
+  reloadTaxonomyTags: function(){
+    const selectedTags = this.taxonomyCodes.map(function(taxonomyCode){
+      const framework = this.extractFramework(taxonomyCode);
+      return this.createTaxonomyTag(TaxonomyTagData.create({
+        id: taxonomyCode.id,
+        code: taxonomyCode.code,
+        frameworkCode: framework ? framework.get('frameworkId') : '',
+        parentTitle: framework ? framework.get('subjectTitle') : '',
+        title: taxonomyCode.title
+      }));
+    }.bind(this));
+    this.set("selectedTags", selectedTags);
   },
 
   extractFramework: function(taxonomyCode){

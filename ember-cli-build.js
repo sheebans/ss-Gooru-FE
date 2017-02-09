@@ -30,9 +30,6 @@ module.exports = function(defaults) {
     },
     fingerprint: {
       exclude: ['themes', 'application-widget.js'] //excluding files
-    },
-    babel: {
-      includePolyfill: true
     }
   });
 
