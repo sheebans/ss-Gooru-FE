@@ -9,7 +9,7 @@ export default Ember.Object.extend({
 
   session: Ember.inject.service('session'),
 
-  namespace: '/api/nucleus-auth/v1/users',
+  namespace: '/api/nucleus/v2/profiles/search',
 
   /**
    * Gets the profile information of a given user id

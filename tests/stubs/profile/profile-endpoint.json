@@ -44,10 +44,10 @@
   {
     "description": "API 3.0 Endpoint to return current user Profile info",
     "request": {
-      "url": "^/api/nucleus/v2/profiles/demographics",
+      "url": "^/api/nucleus/v2/profiles/search",
       "method": "GET",
       "query": {
-        "userId": "id-for-pochita"
+        "userids": "id-for-pochita"
       },
       "headers": {
         "authorization": "Token (.+)"
@@ -59,16 +59,16 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "profile-api3-pochita-200-response.json"
+      "file": "profile-api3-multiple-pochita-200-response.json"
     }
   },
   {
     "description": "API 3.0 Endpoint to return another user Profile info",
     "request": {
-      "url": "^/api/nucleus/v2/profiles/demographics",
+      "url": "^/api/nucleus/v2/profiles/search",
       "method": "GET",
       "query": {
-        "userId": "param-123"
+        "userids": "param-123"
       },
       "headers": {
         "authorization": "Token (.+)"
@@ -80,16 +80,16 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "profile-api3-param-200-response.json"
+      "file": "profile-api3-multiple-param-200-response.json"
     }
   },
   {
     "description": "API 3.0 Endpoint to return other user Profile info",
     "request": {
-      "url": "^/api/nucleus/v2/profiles/demographics",
+      "url": "^/api/nucleus/v2/profiles/search",
       "method": "GET",
       "query": {
-        "userId": "other-123"
+        "userids": "other-123"
       },
       "headers": {
         "authorization": "Token (.+)"
@@ -101,49 +101,7 @@
         "Content-Type": "application/json"
       },
       "body": "File not found!",
-      "file": "profile-api3-other-200-response.json"
-    }
-  },
-  {
-    "description": "API 3.0 Endpoint to return another (following) user Profile info",
-    "request": {
-      "url": "^/api/nucleus/v2/profiles/demographics",
-      "method": "GET",
-      "query": {
-        "userId": "param-123"
-      },
-      "headers": {
-        "authorization": "Token (.+)"
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": "File not found!",
-      "file": "profile-api3-param-following-200-response.json"
-    }
-  },
-  {
-    "description": "API 3.0 Endpoint to return current user Profile info",
-    "request": {
-      "url": "^/api/nucleus/v2/profiles/demographics",
-      "method": "GET",
-      "query": {
-        "userId": "(.+)"
-      },
-      "headers": {
-        "authorization": "Token (.+)"
-      }
-    },
-    "response": {
-      "status": 200,
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": "File not found!",
-      "file": "profile-api3-pochita-200-response.json"
+      "file": "profile-api3-multiple-other-200-response.json"
     }
   },
   {

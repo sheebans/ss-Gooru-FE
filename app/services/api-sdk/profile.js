@@ -87,12 +87,9 @@ export default Ember.Service.extend({
   readUserProfile: function(userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readUserProfile(userId)
-        .then(function(response) {
-          resolve(service.get('profileSerializer').normalizeReadProfile(response));
-        }, function(error) {
-          reject(error);
-        });
+      service.readMultipleProfiles([userId]).then(function(profiles) {
+          resolve(profiles.length ? profiles[0] : undefined);
+        }, reject);
     });
   },
 

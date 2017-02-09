@@ -82,26 +82,18 @@ test('readUserProfile', function(assert) {
   const service = this.subject();
   assert.expect(2);
 
-  service.set('profileAdapter', Ember.Object.create({
-    readUserProfile: function() {
-      assert.ok(true, "readUserProfile() function was called" );
-      return Ember.RSVP.resolve({});
-    }
-  }));
-
-  service.set('profileSerializer', Ember.Object.create({
-    normalizeReadProfile: function(profilePayload) {
-      assert.deepEqual({}, profilePayload, 'Wrong profile payload');
-      return {};
-    }
-  }));
+  service.readMultipleProfiles = function (profileIds) {
+    assert.deepEqual(profileIds, [1]);
+    return Ember.RSVP.resolve(["fakeProfile"]);
+  };
 
   var done = assert.async();
-  service.readUserProfile()
-    .then(function() {
-      done();
-    });
+  service.readUserProfile(1).then(function(profile) {
+    assert.equal(profile, "fakeProfile", "Wrong profile");
+    done();
+  });
 });
+
 test('readMultipleProfiles', function(assert) {
   const service = this.subject();
   assert.expect(6);
