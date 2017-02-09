@@ -815,7 +815,7 @@ export default {
       "dropped": "Dropped",
       "reflection-label": "Reflection",
       "save": "Save",
-      "goals-not-found": "You have not set any goals now. You can add a goal by clicking ‘add’ above."
+      "goals-not-found": 'You have not set any goals yet. You can add a goal by clicking "Add Goal" button above.'
 
     },
     "create":{
