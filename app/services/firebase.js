@@ -132,8 +132,7 @@ export default Ember.Service.extend({
             };
     //Validating user and generating JWT
     Ember.$.ajax('/api/nucleus/v1/firebase/jwt', options).then(function(val){
-      var response = JSON.parse(val);
-      const jwt = response.jwt;
+      const jwt = val.jwt;
       /*
       * If the user is not logged in, then we log them into Firebase. First we setup the listener so that after
       * the user is logged into firebase, we then create a representation for the user in the user
