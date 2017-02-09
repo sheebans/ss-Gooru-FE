@@ -107,6 +107,7 @@ export default {
     "biography": "Biography",
     "builder": "Editor",
     "cancel": "Cancel",
+    "categories": "Categories",
     "category": "Category",
     "categoryOptions": {
       "k12": "K-12",
