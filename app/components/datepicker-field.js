@@ -31,12 +31,12 @@ export default Ember.Component.extend({
     $component.datepicker({
       autoclose: true
     });
-    $component.datepicker("update", component.get("selectedDate"));
-    $component.on("changeDate", function() {
+    $component.datepicker('update', component.get('selectedDate'));
+    $component.on('changeDate', function() {
       var dateValue = $component.datepicker('getFormattedDate');
       component.$('.datepicker').val(dateValue);
-      component.set("selectedDate", dateValue);
-      component.sendAction("onSelectDateAction", dateValue);
+      component.set('selectedDate', dateValue);
+      component.sendAction('onSelectDateAction', dateValue);
     });
   }
 });

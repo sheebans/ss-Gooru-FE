@@ -120,9 +120,9 @@ export default Ember.Component.extend({
   /**
    * @property {string} selected date
    */
-  selectedDate: computed("value", function(){
-    const value = this.get("value");
-    return value ? formatDateTo(value, "MM/DD/YYYY") : "";
+  selectedDate: computed('value', function(){
+    const value = this.get('value');
+    return value ? formatDateTo(value, 'MM/DD/YYYY') : '';
   })
 
 

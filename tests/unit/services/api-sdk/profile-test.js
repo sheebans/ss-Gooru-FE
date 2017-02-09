@@ -84,12 +84,12 @@ test('readUserProfile', function(assert) {
 
   service.readMultipleProfiles = function (profileIds) {
     assert.deepEqual(profileIds, [1]);
-    return Ember.RSVP.resolve(["fakeProfile"]);
+    return Ember.RSVP.resolve(['fakeProfile']);
   };
 
   var done = assert.async();
   service.readUserProfile(1).then(function(profile) {
-    assert.equal(profile, "fakeProfile", "Wrong profile");
+    assert.equal(profile, 'fakeProfile', 'Wrong profile');
     done();
   });
 });
