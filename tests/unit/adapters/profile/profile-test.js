@@ -292,14 +292,16 @@ test('readNetwork', function(assert) {
 
 test('forgotPassword', function(assert) {
   const adapter = this.subject();
-  const email = "email-id";
+  const email = 'email-id';
   adapter.set('session', Ember.Object.create({
-    'token-api3': 'token-api-3'
+    'token-api3': 'token-api-3',
+    'tenantId': 'tenant123'
   }));
   const routes = function() {
-    this.post('/api/nucleus-auth/v1/users/password-reset', function(request) {
+    this.post('/api/nucleus-auth/v2/users/reset-password', function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(email, requestBodyJson['email_id']);
+      assert.equal(email, requestBodyJson['email']);
+      assert.equal('tenant123', requestBodyJson['tenant_id']);
       return [200, {'Content-Type': 'application/json'}, {}];
     }, false);
   };

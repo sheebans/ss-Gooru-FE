@@ -48,6 +48,7 @@ export default Ember.Service.extend({
   createProfile: function(profileData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
+      profileData.set('tenantId', service.get('session.tenantId'));
       let serializedProfileData = service.get('profileSerializer').serializeCreateProfile(profileData);
       service.get('profileAdapter').createProfile({
         body: serializedProfileData

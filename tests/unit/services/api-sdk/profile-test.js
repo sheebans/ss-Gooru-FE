@@ -9,6 +9,7 @@ moduleForService('service:api-sdk/profile', 'Unit | Service | api-sdk/profile', 
 });
 
 test('createProfile', function(assert) {
+  assert.expect(5);
   const service = this.subject();
 
   service.set('profileAdapter', Ember.Object.create({
@@ -23,12 +24,7 @@ test('createProfile', function(assert) {
 
   service.set('profileSerializer', Ember.Object.create({
     serializeCreateProfile: function(profileObject) {
-      assert.deepEqual({}, profileObject, 'Wrong profile object');
-      return {};
-    },
-
-    normalizeCreateProfile: function(payload) {
-      assert.deepEqual({}, payload, 'Wrong profile payload');
+      assert.equal(profileObject.get('tenantId'), 'tenant-id', 'Wrong profile object');
       return {};
     }
   }));
@@ -42,8 +38,12 @@ test('createProfile', function(assert) {
     }
   }));
 
+  service.set('session', {
+    tenantId: 'tenant-id'
+  });
+
   var done = assert.async();
-  service.createProfile({})
+  service.createProfile(Ember.Object.create({}))
     .then(function() {
       done();
     });
