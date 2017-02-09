@@ -82,7 +82,7 @@ test('Goal Form - Create goal', function(assert) {
   assert.expect(1);
 
   this.set('goal', mockGoal);
-  this.on('createGoal', function(goal){
+  this.on('createGoal', function(){
     assert.ok(true, 'Create Goal action called');
   });
 
