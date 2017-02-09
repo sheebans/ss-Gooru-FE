@@ -48,18 +48,18 @@
     <div class="form-actions">
 
       {{#if isEditView}}
-        <button {{action 'update'}} class="btn update-goal">
-          {{t 'goals.manage.update'}}
-        </button>
         <button {{action 'cancelEdit'}} class="btn cancel-goal">
           {{t 'common.cancel'}}
         </button>
-      {{else}}
-        <button type="submit" class="btn create-goal">
-          {{t 'goals.manage.save'}}
+        <button {{action 'update'}} class="btn update-goal">
+          {{t 'goals.manage.update'}}
         </button>
+      {{else}}
         <button {{action 'cancel'}} class="btn cancel-goal">
           {{t 'common.cancel'}}
+        </button>
+        <button type="submit" class="btn create-goal">
+          {{t 'goals.manage.save'}}
         </button>
       {{/if}}
 

@@ -71,8 +71,9 @@ export default Ember.Controller.extend({
 
     updateGoal: function (goal) {
       const controller = this;
+      const goalId = goal.get('id');
 
-      controller.get('goalService').updateGoal(goal)
+      controller.get('goalService').updateGoal(goal, goalId)
         .then(function () {
           let message = controller.get('i18n').t('goals.update.updated-success-msg').string;
           controller.get('notifications').success(message);
