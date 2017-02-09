@@ -1,0 +1,70 @@
+<div class="collapse-action"></div>
+<div class="panel-form">
+
+  <form id="createGoalForm" {{action "create" on="submit"}}>
+    <div class="icon">{{gru-icon name='track_changes'}}</div>
+    <div class="form-group title">
+      <label for="goalTitleId">
+        <span class="required">{{t 'goals.manage.goal-label'}}</span>
+        {{validation.gru-input model=goal valuePath='title' inputId='goalTitleId' isRequired=true}}
+      </label>
+    </div>
+
+    <div class="form-group date-input start-date">
+      <label for="startDateId">
+        <span class="required">{{t 'goals.manage.start-date-label'}}</span>
+        {{validation.gru-datepicker model=goal valuePath='startDate'}}
+      </label>
+    </div>
+
+    <div class="form-group date-input end-date">
+      <label for="endDateId">
+        <span class="required">{{t 'goals.manage.end-date-label'}}</span>
+        {{validation.gru-datepicker model=goal valuePath='endDate'}}
+      </label>
+    </div>
+
+    <div class="form-group type out-of-scope">
+      <label for="goalTypeId">
+        <span class="required">{{t 'goals.manage.type-label'}}</span>
+        {{validation.gru-select options=typeOptions optionSelected=goal.type title=(t "common.select") search="true" onOptionSelect="onTypesChange"}}
+      </label>
+    </div>
+
+    <div class="form-group status">
+      <label for="goalStatusId">
+        <span class="required">{{t 'goals.manage.status-label'}}</span>
+        {{validation.gru-select options=statusOptions optionSelected=goal.status title=(t "common.select") search="true" onOptionSelect="onStatusChange"}}
+      </label>
+    </div>
+
+    <div class="form-group reflection">
+      <label for="goalReflectionId">
+        <span>{{t 'goals.manage.reflection-label'}}</span>
+        {{validation.gru-input model=goal valuePath='reflection' inputId='goalReflectionId'}}
+      </label>
+    </div>
+
+    <div class="form-actions">
+
+      {{#if isEditView}}
+        <button {{action 'update'}} class="btn update-goal">
+          {{t 'goals.manage.update'}}
+        </button>
+        <button {{action 'cancelEdit'}} class="btn cancel-goal">
+          {{t 'common.cancel'}}
+        </button>
+      {{else}}
+        <button type="submit" class="btn create-goal">
+          {{t 'goals.manage.save'}}
+        </button>
+        <button {{action 'cancel'}} class="btn cancel-goal">
+          {{t 'common.cancel'}}
+        </button>
+      {{/if}}
+
+    </div>
+  </form>
+</div>
+
+<div class="goal-status"></div>

@@ -31,9 +31,7 @@ test('Layout', function(assert) {
 
     const $goalsNavigator = $userContainer.find(".goals-navigator");
     T.exists(assert, $goalsNavigator, "Missing navigator");
-
-    const $goalsContainer = $userContainer.find(".goals-container");
-    T.exists(assert, $goalsContainer, "Missing container");
+    T.exists(assert, $goalsNavigator.find(".add-goal"), "Missing Add Goal button");
 
     const $goalsList = $userContainer.find(".list-goals");
     T.exists(assert, $goalsList, "Missing list of goals");
@@ -43,18 +41,11 @@ test('Layout', function(assert) {
 
     click($goalsNavigator.find(".add-goal"));
     andThen(function() {
-      const $newGoalContainer = $goalsContainer.find(".new-goal");
+      const $goalsContainer = $userContainer.find(".form-goal-container");
+      T.exists(assert, $goalsContainer, "Missing form goal container");
 
-      var $createGoalForm = $newGoalContainer.find("#createGoalForm");
-      T.exists(assert, $createGoalForm, "Missing create goal form");
-      T.exists(assert, $createGoalForm.find(".gru-input.title"), "Missing goal title field");
-      T.exists(assert, $createGoalForm.find(".form-group.status"), "Missing status select component");
-      T.exists(assert, $createGoalForm.find(".form-group.type"), "Missing type select component");
-      T.exists(assert, $createGoalForm.find(".form-group.start-date"), "Missing datepicker for start date");
-      T.exists(assert, $createGoalForm.find(".form-group.end-date"), "Missing datepicker for end date");
-      T.exists(assert, $createGoalForm.find(".gru-input.reflection"), "Missing reflection field");
-      T.exists(assert, $createGoalForm.find(".create-goal"), "Missing create goal button");
-      T.exists(assert, $createGoalForm.find(".cancel-goal"), "Missing cancel button");
+      const $formComponent= $goalsContainer.find(".gru-goal-form");
+      T.exists(assert, $formComponent, "Missing create goal form component");
     });
 
   });
