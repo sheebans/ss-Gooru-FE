@@ -1,4 +1,4 @@
-<div class="navigator-header">
+<div class="navigator-header {{unless (or showBackLink showRemixButton) 'hidden'}}">
   {{#if showBackLink}}
     <div class="pull-left" {{action 'closePlayer'}}>
       {{#if lessonTitle}}

@@ -53,7 +53,7 @@ moduleForComponent('content/courses/gru-course-edit', 'Integration | Component |
 });
 
 test('it has header and main sections', function (assert) {
-
+  assert.expect(10);
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: "Course Title",
     subject: 'CCSS.K12.Math',
@@ -82,6 +82,7 @@ test('it has header and main sections', function (assert) {
 });
 
 test('Layout of the information section', function (assert) {
+  assert.expect(8);
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: "Course Title",
     subject: 'CCSS.K12.Math',
@@ -138,6 +139,7 @@ test('Layout of the information section', function (assert) {
 });*/
 
 test('Validate the character limit in the Description field', function (assert) {
+  assert.expect(1);
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     description:"",
@@ -154,6 +156,7 @@ test('Validate the character limit in the Description field', function (assert) 
 });
 
 test('Validate the character limit in the Use Case field', function (assert) {
+  assert.expect(1);
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
     description:"",

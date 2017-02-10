@@ -77,12 +77,17 @@ export default Ember.Component.extend(ConfigurationMixin, {
   attempts: Ember.computed("assessmentResult.totalAttempts", function(){
     return this.getAttemptList();
   }),
+
   /**
    * @property {boolean}showAttempts
    */
   showAttempts:true,
 
-
+  /**
+   * Indicates if the reaction bar is visible
+   * @property {boolean}
+   */
+  showReactionBar: true,
 
   // -------------------------------------------------------------------------
   // Methods

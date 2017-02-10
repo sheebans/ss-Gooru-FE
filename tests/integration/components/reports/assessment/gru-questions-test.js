@@ -49,6 +49,7 @@ test('Questions Layout-non open ended', function (assert) {
     {{reports/assessment/gru-questions
       isAnswerKeyHidden=isAnswerKeyHidden
       results=questionResults
+      showReactionBar=true
     }}`);
   const $component = this.$('.reports.assessment.gru-questions');
   assert.ok($component.hasClass('performance-view'), 'Performance view set by default');
@@ -172,6 +173,7 @@ test('Buttons Options', function (assert) {
     {{reports/assessment/gru-questions
       isAnswerKeyHidden=isAnswerKeyHidden
       results=questionResults
+      showReactionBar=true
     }}`);
   const $component = this.$('.reports.assessment.gru-questions');
 
@@ -201,5 +203,51 @@ test('Buttons Options', function (assert) {
   assert.notOk($component.find('.btn-group button.performance').length, 'Performance button not present');
   assert.notOk($component.find('table thead th.header.correct-answer').length, 'Correct answer header not present');
   assert.notOk($component.find('table tbody td.correct-answer').length, 'Correct answer column not present');
+});
+
+test('Questions Layout - do not show reaction bar', function (assert) {
+
+  const questionResults = Ember.A([
+    QuestionResult.create({
+      "correct": true,
+      "resource": Ember.Object.create({
+        text: "This is a question 1",
+        questionType: 'MC',
+        order: 1,
+        isOpenEnded: false,
+        answers: Ember.A([])
+      }),
+      "reaction": 4,
+      "timeSpent": 2096,
+      "userAnswer": "Student Multiple Choice answer 1"
+    }),
+    QuestionResult.create({
+      "correct": true,
+      "resource": Ember.Object.create({
+        text: "This is a question 2",
+        questionType: 'MC',
+        order: 3, //not consecutive
+        isOpenEnded: false,
+        answers: Ember.A([])
+      }),
+      "reaction": 4,
+      "timeSpent": 2096,
+      "userAnswer": "Student Multiple Answer answer 2"
+    })
+  ]);
+
+  this.set('questionResults', questionResults);
+  this.set('isAnswerKeyHidden', undefined);
+
+  this.render(hbs`
+    {{reports/assessment/gru-questions
+      isAnswerKeyHidden=isAnswerKeyHidden
+      results=questionResults
+      showReactionBar=false
+    }}`);
+  const $component = this.$('.reports.assessment.gru-questions');
+
+  T.notExists(assert, $component.find('table thead th.header.reaction'), 'Reaction header should not be visible');
+  T.notExists(assert, $component.find('table tbody td.question-reaction'), 'Reaction column should not be visible');
 });
 
