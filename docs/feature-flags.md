@@ -17,7 +17,8 @@ Gooru application features can be enabled and disabled at runtime.
         showCollectionName: true,
         showCollectionAuthor: true,
         showResourceNumber: true,
-        showQuestionFeedback: undefined
+        showQuestionFeedback: undefined,
+        allowProfileNavigation: true
       }
     }
   }
@@ -50,3 +51,6 @@ Useful to hide the resource number
 
 ## `collections.player.showQuestionFeedback`
 Useful to always show or hide feedback per question, this takes priority over assessment settings when provided, the default value is undefined
+
+## `collections.player.allowProfileNavigation`
+Useful to allow or not the profile navigation in the cards

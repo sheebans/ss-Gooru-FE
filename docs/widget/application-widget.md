@@ -132,7 +132,8 @@ See [features flag document](../feature-flags.md) for more information
               "showReactionBar": false,
               "showReportLink": false,
               "showBackLink": false,
-              "showRemix": true
+              "showRemix": true,
+              "allowProfileNavigation": true
             }
         }
     }  

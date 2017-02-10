@@ -52,10 +52,17 @@
     <div class="publisher">
         {{#if showPublisher}}
           <b class="publisher-name">{{resource.publisher}}</b>
-          {{else}}
-            <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
-            <span class="owner">{{#link-to 'profile.content.courses' resource.owner.id class="pointer"}}
-            {{resource.owner.displayName}}{{/link-to}}</span>
+        {{else}}
+          <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
+          <span class="owner">
+            {{#if allowProfileNavigation}}
+              {{#link-to 'profile.content.courses' resource.owner.id class="pointer enable"}}
+                {{resource.owner.displayName}}
+              {{/link-to}}
+            {{else}}
+              <a class="disabled">{{resource.owner.displayName}}</a>
+            {{/if}}
+          </span>
         {{/if}}
     </div>
     <div class="description">

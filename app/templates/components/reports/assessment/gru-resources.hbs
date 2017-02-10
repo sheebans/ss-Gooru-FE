@@ -17,9 +17,11 @@
         <th class="header timeSpent">
           {{t "common.timeSpent"}}
         </th>
-        <th class="header reaction">
-          {{t "common.reaction"}}
-        </th>
+        {{#if showReactionBar}}
+          <th class="header reaction">
+            {{t "common.reaction"}}
+          </th>
+        {{/if}}
     </tr>
     </thead>
     <tbody>
@@ -41,9 +43,11 @@
             <td class="time-spent">
               {{format-time result.timeSpent}}
             </td>
-            <td class="reaction">
-              {{reaction-icon result.reaction appRootPath}}
-            </td>
+            {{#if showReactionBar}}
+              <td class="reaction">
+                {{reaction-icon result.reaction appRootPath}}
+              </td>
+            {{/if}}
         </tr>
     {{/each}}
     </tbody>

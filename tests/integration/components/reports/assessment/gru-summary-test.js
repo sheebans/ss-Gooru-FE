@@ -79,6 +79,7 @@ test('it renders for assessment', function (assert) {
     {{reports/assessment/gru-summary
       assessmentResult=assessmentResult
       areQuestionLinksHidden=areQuestionLinksHidden
+      showReactionBar=true
     }}`);
 
   var $component = this.$('.reports.assessment.gru-summary');  //component dom element
@@ -220,8 +221,8 @@ test('Assessment attempts on real time', function (assert) {
   assert.ok($attempts.find('.current'), 'Current attempt label should be visible');
   assert.notOk($attempts.find('.attempt-selector').length, 'Attempts dropdown should not be visible');
   assert.notOk($attempts.find('.latest').length, 'Latest attempt label should not be visible');
-  assert.equal($component.find(".fractional .top").text(), '2', 'Wrong fractional numerator');
-  assert.equal($component.find(".fractional .bottom").text(), '3', 'Wrong fractional denominator');
+  assert.equal($component.find('.fractional .top').text(), '2', 'Wrong fractional numerator');
+  assert.equal($component.find('.fractional .bottom').text(), '3', 'Wrong fractional denominator');
 });
 
 test('Assessment attempts on static report', function (assert) {
@@ -354,7 +355,7 @@ test('it renders for collection with questions', function (assert) {
 
   this.set('assessmentResult', assessmentResult);
 
-  this.render(hbs`{{reports/assessment/gru-summary assessmentResult=assessmentResult}}`);
+  this.render(hbs`{{reports/assessment/gru-summary assessmentResult=assessmentResult showReactionBar=true}}`);
 
   var $component = this.$('.reports.assessment.gru-summary');  //component dom element
   assert.ok($component.length, "Component does not have the component classes");
@@ -464,5 +465,80 @@ test('it renders for collection with only resources and open ended questions', f
   assert.notOk($gradeContainer.length, "Percentage container should not appear");
   var $timeSpent = $component.find('.summary-container .thumbnail .time-spent');
   assert.ok($timeSpent.length, "Time spent should appear");
+});
+
+test('it renders for assessment - do not show Reaction', function (assert) {
+  const date = new Date(2010, 1, 20);
+  date.setSeconds(10);
+  date.setMinutes(15);
+  date.setHours(11);
+
+  let assessmentResult = AssessmentResult.create({
+    resourceId: "600",
+    "resourceResults": Ember.A([
+      QuestionResult.create({
+        resourceId: "601",
+        resourceType: "question",
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2,
+        score: 100
+      }),
+      QuestionResult.create({
+        resourceId: "602",
+        resourceType: "question",
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2,
+        score: 100
+      }),
+      QuestionResult.create({
+        resourceId: "603",
+        resourceType: "question",
+        correct: true,
+        timeSpent: 20000,
+        reaction: 2,
+        score: 100
+      })
+    ]),
+    submittedAt: date,
+    totalAttempts: 4
+  });
+
+  const collection = Collection.create({
+    isAssessment: true,
+    resources : Ember.A([
+      QuestionResource.create({
+        id: "601",
+        title: "OE",
+        questionType: "OE"
+      }),
+      QuestionResource.create({
+        id: "602",
+        title: "MC",
+        questionType: "MC"
+      })
+    ]),
+    title: "collection"
+  });
+
+  assessmentResult.merge(collection);
+  this.set('assessmentResult', assessmentResult);
+  this.set('areQuestionLinksHidden', false);
+
+  this.render(hbs`
+    {{reports/assessment/gru-summary
+      assessmentResult=assessmentResult
+      areQuestionLinksHidden=areQuestionLinksHidden
+      showReactionBar=false
+    }}`);
+
+  var $component = this.$('.reports.assessment.gru-summary');  //component dom element
+  var $overviewContainer = $component.find('.summary-container .overview');
+
+  // Reaction
+  var $overviewSection = $overviewContainer.find('.information .reaction');
+  assert.notOk($overviewSection.find('.emotion').hasClass('emotion-2'), "Emotion icon should not have the class 'emotion-2'");
+
 });
 

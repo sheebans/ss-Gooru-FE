@@ -194,6 +194,12 @@ export default Ember.Component.extend( ConfigurationMixin, {
   showReportLink: true,
 
   /**
+   * Indicates if it allow profile navigation or not in the cards
+   * @property {boolean} allowProfileNavigation
+   */
+  allowProfileNavigation: true,
+
+  /**
    * Indicates if feedback should be shown
    * @property {boolean}
    */
