@@ -1,0 +1,70 @@
+.student.class {
+  padding: 15px;
+  .header {
+    h1 {
+      font-size: $font-size-lead;
+      display: block;
+      color: $dark-300;
+      margin: 0 0 5px 0;
+      font-weight: bold;
+    }
+  }
+  .class-navigator {
+    border-top: solid 1px $light-200;
+    .nav-tabs {
+      li {
+        margin: 0 10px 0 0;
+        @media (min-width: $screen-sm) {
+          margin: 0 15px 0 0;
+        }
+        a {
+          padding: 10px 5px 0 0;
+        }
+      }
+    }
+    li {
+      height: 50px;
+      margin-bottom: 0;
+
+      &.active {
+        display: block;
+        a {
+          box-shadow: inset 0 -4px 0 $gray;
+
+          &:focus {
+            box-shadow: inset 0 -4px 0 $gray;
+          }
+
+          &:active {
+            box-shadow: inset 0 -4px 0 $gray;
+          }
+        }
+      }
+
+      &:not(.active) {
+        a {
+          box-shadow: none;
+        }
+      }
+
+      &.actions {
+        @include flexbox;
+        @include align-items(flex-end);
+        @include justify-content(space-between);
+        height: 39px;
+        .manage-goals-cta{
+          margin-right: 10px;
+        }
+      }
+
+      a {
+        &:hover {
+          color: initial;
+        }
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

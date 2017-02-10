@@ -46,7 +46,11 @@
     .panel{
       min-height: 300px;
       .panel-heading{
-        background-color: $blue-300;
+        background-color: $blue-400;
+        font-size: $font-size-lead;
+        padding: 0 15px;
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
         * {
           color: $white;
         }

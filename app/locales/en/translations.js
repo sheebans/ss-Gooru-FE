@@ -798,7 +798,13 @@ export default {
     "box-title-four": "Reach the Goals you set",
     "box-text-four": "Set your goals, plan your activities and track your progress and achieve success each time.",
     "box-title-five": "Interact with your peers and instructors",
-    "box-text-five": "Learn from your peers and mentors by asking your questions and following their work."
+    "box-text-five": "Learn from your peers and mentors by asking your questions and following their work.",
+    "class":{
+      "activity-list": "Activity List",
+      "performance": "Performance",
+      "classmates": "Classmates",
+      "content-map": "Content Map"
+    }
   },
   "goals":{
     "manage":{
@@ -817,7 +823,6 @@ export default {
       "save": "Save",
       "update": "Update",
       "goals-not-found": 'You have not set any goals yet. You can add a goal by clicking "Add Goal" button above.'
-
     },
     "create":{
       "error-add-title": "Please enter the goal",
