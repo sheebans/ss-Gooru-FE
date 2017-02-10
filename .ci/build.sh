@@ -63,14 +63,19 @@ silent tar xvzf welcome.tar.gz -C gooru-web/
 info "Creating artifact with version ${VERSION}..."
 tar czf gooru-web-${VERSION}.tar.gz gooru-web/ appspec.yml .deploy/
 
-info "Building embedded version..."
+if [[ "$GIT_BRANCH" =~ hotfix* ]] || \
+  [[ "$GIT_BRANCH" =~ release* ]] || \
+  [[ "$GIT_BRANCH" == "master" ]] || \
+  [[ "$GIT_BRANCH" == "develop" ]] ; then
 
-rm -rf gooru-web
-GOORU_EMBEDDED=true grunt build:prod-bamboo
+  info "Building embedded version..."
 
-echo $VERSION > gooru-web/version.html
+  rm -rf gooru-web
+  GOORU_EMBEDDED=true grunt build:prod-bamboo
 
-info "Creating embedded artifact with version ${VERSION}..."
+  echo $VERSION > gooru-web/version.html
 
-tar czf gooru-embedded-web-${VERSION}.tar.gz gooru-web/
+  info "Creating embedded artifact with version ${VERSION}..."
 
+  tar czf gooru-embedded-web-${VERSION}.tar.gz gooru-web/
+fi
