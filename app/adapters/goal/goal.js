@@ -46,9 +46,9 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Ember.Promise|Boolean} true when updated
    */
-  updateGoal: function (params) {
+  updateGoal: function (params, goalId) {
     const namespace = this.get('namespace');
-    const url = `${namespace}/${params.id}`;
+    const url = `${namespace}/${goalId}`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',

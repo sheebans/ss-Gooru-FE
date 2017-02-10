@@ -1,15 +1,19 @@
 .gru-goal-card {
-  height: 105px;
+  height: 110px;
+  @media (min-width: $screen-xs) {
+    height: 105px;
+  }
 
   &.expanded {
     height: 165px;
   }
 
+  &.edit-view {
+    height: 385px;
+  }
+
   border-top: 1px solid $gray-light;
   border-bottom: 1px solid $gray-light;
-  @media (min-width: $screen-md) {
-    width: 55%;
-  }
   > div{
     float: left;
     height: 100%;
@@ -45,14 +49,14 @@
         .date {
           display: inline-block;
           margin: 0 0 0 15px;
-          @media (min-width: $screen-xs) {
+          @media (min-width: $screen-lg) {
             width: 45%;
           }
         }
         .status {
           display: inline-block;
           margin: 0 0 0 15px;
-          @media (min-width: $screen-xs) {
+          @media (min-width: $screen-lg) {
             width: 45%;
             margin: 0;
           }

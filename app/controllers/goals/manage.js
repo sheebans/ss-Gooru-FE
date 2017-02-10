@@ -36,38 +36,10 @@ export default Ember.Controller.extend({
   goals: null,
 
   /**
-   * @property {String} Goal type
+   * @property {Boolean} Indicates if the form component should be displayed
    */
-  type: "",
+  showForm: false,
 
-  /**
-   * @property {Array} Returns the list of possible status to fill component
-   */
-  statusOptions: Ember.computed(function() {
-    return this.get('goalService').getGoalStatusOptions();
-  }),
-
-  typeOptions: Ember.computed(function() {
-    let options = [
-      {id: 'Completion',
-        name: 'Completion'},
-      {id: 'Performance',
-        name: 'Performance'},
-      {id: 'Improvement',
-        name: 'Improvement'},
-      {id: 'Teamwork',
-        name: 'Teamwork'},
-      {id: 'Growth',
-        name: 'Growth'},
-      {id: 'Mindset',
-        name: 'Mindset'},
-      {id: 'Seek help',
-        name: 'Seek help'},
-      {id: 'Help another',
-        name: 'Help another'}
-    ];
-    return options;
-  }),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -75,41 +47,44 @@ export default Ember.Controller.extend({
   actions: {
 
     showNewGoalForm: function() {
-      $('.new-goal').slideDown();
-      $('#goalTitleId').focus();
+      this.resetProperties();
+      this.set('showForm', true);
     },
 
-    onTypesChange: function(newValue) {
-      this.set('type', newValue);
-    },
-
-    onStatusChange: function(newValue) {
-      const goal = this.get('goal');
-      goal.set('status', newValue);
-    },
-
-    cancelGoalCreation: function () {
+    cancelCreation: function () {
       this.closeCreateGoalForm();
       this.resetProperties();
     },
 
-    create: function () {
+    createGoal: function (goal) {
       const controller = this;
-      const goal = controller.get('goal');
       const goals = controller.get('goals');
 
       controller.get('goalService').createGoal(goal)
         .then(function () {
           controller.closeCreateGoalForm();
-          var message = controller.get('i18n').t('goals.create.created-success-msg',{goalTitle: goal.get('title')}).string;
+          let message = controller.get('i18n').t('goals.create.created-success-msg',{goalTitle: goal.get('title')}).string;
           controller.get('notifications').success(message);
           goals.pushObject(goal);
+        });
+    },
+
+    updateGoal: function (goal) {
+      const controller = this;
+      const goalId = goal.get('id');
+
+      controller.get('goalService').updateGoal(goal, goalId)
+        .then(function () {
+          let message = controller.get('i18n').t('goals.update.updated-success-msg').string;
+          controller.get('notifications').success(message);
         });
     },
 
     deleteGoal: function(goal) {
       const controller = this;
       controller.get('goalService').deleteGoal(goal.get("id")).then(function(){
+        let message = controller.get('i18n').t('goals.delete.deleted-success-msg').string;
+        controller.get('notifications').success(message);
         const goals = controller.get('goals');
         goals.removeObject(goal);
       });
@@ -131,7 +106,7 @@ export default Ember.Controller.extend({
 
   closeCreateGoalForm(){
     $('#createGoalForm')[0].reset();
-    $('.new-goal').slideUp();
+    this.set('showForm', false);
   }
 
 });

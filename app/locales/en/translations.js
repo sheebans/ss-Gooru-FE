@@ -821,12 +821,19 @@ export default {
       "dropped": "Dropped",
       "reflection-label": "Reflection",
       "save": "Save",
-      "goals-not-found": "You have not set any goals now. You can add a goal by clicking ‘add’ above."
+      "update": "Update",
+      "goals-not-found": 'You have not set any goals yet. You can add a goal by clicking "Add Goal" button above.'
+
     },
     "create":{
       "error-add-title": "Please enter the goal",
-      "error-add-reflection": "Please enter the reflection",
       "created-success-msg": "You've created the goal {{goalTitle}}"
+    },
+    "delete":{
+      "deleted-success-msg": "You've deleted the goal"
+    },
+    "update":{
+      "updated-success-msg": "You've updated the goal"
     }
   },
 
