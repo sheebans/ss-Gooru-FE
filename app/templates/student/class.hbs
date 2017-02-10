@@ -1,48 +1,31 @@
-<div class="controller class row">
-  <div class="content-navigation">
-    <div class="category-menu col-md-10 col-sm-12 col-xs-12">
-      <ul class="nav nav-tabs category-options">
-        {{#link-to "search.courses" (query-params term=term) tagName="li" class='courses'}}
-          <a href='{{view.href}}' class="btn btn-category">
-            <i class="icon"></i>
-            <span>{{t "search-filter.courses"}}</span>
-          </a>
-        {{/link-to}}
-        {{#link-to "search.collections" (query-params term=term) tagName="li" class='collections'}}
-          <a href='{{view.href}}' class="btn btn-category">
-            <i class="icon"></i>
-            <span>{{t "search-filter.collections"}}</span>
-          </a>
-        {{/link-to}}
-        {{#link-to "search.assessments" (query-params term=term) tagName="li" class='assessments'}}
-          <a href='{{view.href}}' class="btn btn-category">
-            <i class="icon"></i>
-            <span>{{t "search-filter.assessments"}}</span>
-          </a>
-        {{/link-to}}
-        {{#link-to "search.resources" (query-params term=term) tagName="li" class='resources'}}
-          <a href='{{view.href}}' class="btn btn-category">
-            <i class="icon"></i>
-            <span>{{t "search-filter.resources"}}</span>
-          </a>
-        {{/link-to}}
-        {{#link-to "search.questions" (query-params term=term) tagName="li" class='questions'}}
-          <a href='{{view.href}}' class="btn btn-category">
-            {{gru-icon name='help_outline'}}
-            <span>{{t "search-filter.questions"}}</span>
-          </a>
-        {{/link-to}}
-      </ul>
-    </div>
-    <span class="col-md-3 standards hidden-xs">
-      {{taxonomy.gru-subject-picker
-      subjects=subjects
-      placeholderLabelKey='common.standards'
-      onSubjectSelected='setSubject'
-      onlySubjectsWithStandards=true
-      alignment='left'
-      }}
-    </span>
+<div class="student class">
+  <div class="header">
+    <h1>{{class.title}}</h1>
+    <div class="code">{{class.code}}</div>
+  </div>
+  <div class="class-navigator">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active activity-list tab">
+        <a href="#" role="tab" data-toggle="tab">
+          <span class="lead">{{t 'student-landing.class.activity-list'}}</span>
+        </a>
+      </li>
+      <li class="performance tab">
+        <a href="#" role="tab" data-toggle="tab">
+          <span class="lead">{{t 'student-landing.class.performance'}}</span>
+        </a>
+      </li>
+      <li class="classmates tab">
+        <a href="#" role="tab" data-toggle="tab">
+          <span class="lead">{{t 'student-landing.class.classmates'}}</span>
+        </a>
+      </li>
+      <li class="content-map tab">
+        <a href="#" role="tab" data-toggle="tab">
+          <span class="lead">{{t 'student-landing.class.content-map'}}</span>
+        </a>
+      </li>
+    </ul>
   </div>
   <div class="content">
     {{outlet}}
