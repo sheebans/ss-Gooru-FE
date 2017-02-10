@@ -59,6 +59,9 @@ export default Ember.Controller.extend({
    */
   totalTeachingClasses: Ember.computed.alias("activeClasses.length"),
 
+  /**
+   * @property {boolean} Indicates if there are classes
+   */
   hasClasses: Ember.computed.bool("totalTeachingClasses"),
 
   /**
@@ -67,6 +70,20 @@ export default Ember.Controller.extend({
    */
   toolkitSiteUrl: Ember.computed(function(){
     return Env.toolkitSiteUrl;
+  }),
+
+  /**
+   * @property {Class[]} Active classes for announcements
+   */
+  announcementsClasses:Ember.computed('activeClasses',function(){
+    return this.get('activeClasses').slice(0,5);
+  }),
+
+  /**
+   * @property {Boolean} Indicate if has more announcements to show
+   */
+  hasMoreAnnouncementes:Ember.computed('activeClasses','announcementsClasses',function(){
+    return this.get('activeClasses').length > this.get('announcementsClasses').length;
   })
 
 // -------------------------------------------------------------------------
