@@ -90,11 +90,11 @@ test('Goal update, success', function (assert) {
 
   const adapter = this.subject();
   const params = {
-    id: 123,
     title: "any content"
   };
+  const goalId = 123;
 
-  adapter.updateGoal(params)
+  adapter.updateGoal(params, goalId)
     .then(function (response) {
       assert.ok(response, 'Should return true');
     });

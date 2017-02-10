@@ -25,7 +25,13 @@ export default Ember.Component.extend(ConfigurationMixin, {
    *
    * @constant {Array}
    */
-  results: null
+  results: null,
+
+  /**
+   * Indicates if the reaction bar is visible
+   * @property {boolean}
+   */
+  showReactionBar: true
 
 });
 

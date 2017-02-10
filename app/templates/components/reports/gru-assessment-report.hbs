@@ -4,7 +4,8 @@
   onSelectAttempt='selectAttempt'
   onBubbleSelect='bubbleSelect'
   isRealTime=isRealTime
-  showAttempts=showAttempts}}
+  showAttempts=showAttempts
+  showReactionBar=showReactionBar}}
 
 {{#if areAnswersHidden}}
 
@@ -24,19 +25,22 @@
   {{#if orderedQuestions.length}}
     {{reports.assessment.gru-questions
       isAnswerKeyHidden=isAnswerKeyHidden
-      results=orderedQuestions}}
+      results=orderedQuestions
+      showReactionBar=showReactionBar}}
   {{/if}}
 
   {{#if orderedOpenEndedQuestions.length}}
     {{reports.assessment.gru-questions
-    isAnswerKeyHidden=isAnswerKeyHidden
-    results=orderedOpenEndedQuestions
-    viewMode='open-ended'}}
+      isAnswerKeyHidden=isAnswerKeyHidden
+      results=orderedOpenEndedQuestions
+      viewMode='open-ended'
+      showReactionBar=showReactionBar}}
   {{/if}}
 
   {{#if orderedResources.length}}
     {{reports.assessment.gru-resources
-    results=orderedResources}}
+      results=orderedResources
+      showReactionBar=showReactionBar}}
   {{/if}}
 
 {{/if}}

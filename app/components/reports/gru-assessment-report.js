@@ -110,6 +110,12 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Indicates if the reaction bar is visible
+   * @property {boolean}
+   */
+  showReactionBar: true,
+
+  /**
    * Return ordered non open ended questions array
    * @return {Ember.Array}
    */

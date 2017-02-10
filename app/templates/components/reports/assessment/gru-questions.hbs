@@ -31,9 +31,11 @@
     <th class="header time-spent {{if showPerformance 'visible' 'hide'}}">
       {{t "common.timeSpent"}}
      </th>
-    <th class="header reaction {{if showPerformance 'visible' 'hide'}}">
-      {{t "common.reaction"}}
-    </th>
+    {{#if showReactionBar}}
+      <th class="header reaction {{if showPerformance 'visible' 'hide'}}">
+        {{t "common.reaction"}}
+      </th>
+    {{/if}}
     {{#unless isAnswerKeyHidden}}
       <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
         {{t "common.correct-answer"}}
@@ -70,9 +72,11 @@
       <td class="question-time {{if showPerformance 'visible' 'hide'}}">
         {{format-time result.timeSpent}}
       </td>
-      <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
-        {{reaction-icon result.reaction appRootPath}}
-      </td>
+      {{#if showReactionBar}}
+        <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
+          {{reaction-icon result.reaction appRootPath}}
+        </td>
+      {{/if}}
       {{#unless isAnswerKeyHidden}}
         <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
           {{{component (question-config result.question.questionType 'component.answer') question=result.question showCorrect=true}}}

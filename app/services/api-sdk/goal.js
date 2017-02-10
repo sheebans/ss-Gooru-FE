@@ -60,10 +60,10 @@ export default Ember.Service.extend({
    * @param {Goal} goal
    * @returns {Promise|Goal} returns the goal model
    */
-  updateGoal: function (goal) {
+  updateGoal: function (goal, goalId) {
     var data = this.get('serializer').serializeGoal(goal);
 
-    return this.get('adapter').updateGoal(data).then(function () {
+    return this.get('adapter').updateGoal(data, goalId).then(function () {
       return goal;
     });
   },

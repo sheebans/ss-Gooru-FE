@@ -63,34 +63,32 @@ test('Changing term should filter the current result without changing the root u
   });
 });
 
-//TODO: Stubby server modif required.
-// test('Apply taxonomy filter', function(assert) {
-//   visit('/search/questions?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
-//
-//   andThen(function() {
-//     assert.equal(currentURL(), '/search/questions?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
-//
-//     assert.equal(find(".gru-taxonomy-tag-list .gru-taxonomy-tag").length, 2, "Number of tags rendered");
-//   });
-// });
+test('Apply taxonomy filter', function(assert) {
+  visit('/search/questions?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
 
-//TODO: Stubby server modif required.
-// test('Apply taxonomy filter - Removing taxonomy tag', function(assert) {
-//   visit('/search/questions?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
-//
-//   andThen(function() {
-//     assert.equal(currentURL(), '/search/questions?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
-//
-//     const $taxonomyTags = find(".gru-taxonomy-tag-list .gru-taxonomy-tag");
-//
-//     assert.equal($taxonomyTags.length, 2, "Number of tags rendered");
-//
-//     $taxonomyTags.eq(0).find("button.remove").click();
-//
-//     andThen(function() {
-//       const $taxonomyTags = find(".gru-taxonomy-tag-list .gru-taxonomy-tag");
-//
-//       assert.equal($taxonomyTags.length, 1, "One tag should be removed");
-//     });
-//   });
-// });
+  andThen(function() {
+    assert.equal(currentURL(), '/search/questions?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
+
+    assert.equal(find(".gru-taxonomy-tag-list .gru-taxonomy-tag").length, 2, "Number of tags rendered");
+  });
+});
+
+test('Apply taxonomy filter - Removing taxonomy tag', function(assert) {
+  visit('/search/questions?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/search/questions?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
+
+    const $taxonomyTags = find(".gru-taxonomy-tag-list .gru-taxonomy-tag");
+
+    assert.equal($taxonomyTags.length, 2, "Number of tags rendered");
+
+    $taxonomyTags.eq(0).find("button.remove").click();
+
+    andThen(function() {
+      const $taxonomyTags = find(".gru-taxonomy-tag-list .gru-taxonomy-tag");
+
+      assert.equal($taxonomyTags.length, 1, "One tag should be removed");
+    });
+  });
+});

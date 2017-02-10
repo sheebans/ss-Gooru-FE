@@ -23,7 +23,7 @@
     }
     li {
       background: $light-100;
-      border: 1px solid $white;
+      border: 1px solid $light-300;
       border-bottom: 0;
       margin: 0;
       .resources-info {
@@ -87,14 +87,9 @@
       &.started {
         background: $light-200;
       }
-      &.selected {
-        background: $white;
-      }
-      &:hover {
-        background: $green-100;
-      }
       &.selected,
       &:hover {
+        background: $white;
         .resources-info {
           span.number,
           .bubble-type,
