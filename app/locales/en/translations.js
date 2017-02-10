@@ -823,7 +823,6 @@ export default {
       "save": "Save",
       "update": "Update",
       "goals-not-found": 'You have not set any goals yet. You can add a goal by clicking "Add Goal" button above.'
-
     },
     "create":{
       "error-add-title": "Please enter the goal",
