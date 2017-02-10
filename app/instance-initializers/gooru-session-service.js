@@ -42,7 +42,7 @@ export function initialize(application) {
     /**
      * @property {string} session tenant id
      */
-    tenantId: Ember.computed.alias("data.tenant.tenantId"),
+    tenantId: Ember.computed.alias("data.authenticated.tenant.tenantId"),
 
     /**
      * This method authenticates using the default authenticator for an anonymous user
