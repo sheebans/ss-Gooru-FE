@@ -80,7 +80,7 @@ test('No results found', function(assert) {
 });
 
 test('Apply category filter to standards', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
   visit('/search/collections?term=any');
   andThen(function() {
     const $categoryPicker = find(".content-navigation .taxonomy.gru-category-picker");
@@ -89,43 +89,40 @@ test('Apply category filter to standards', function(assert) {
       const category = $categoryPicker.find('a.category-action');
       click(category);
       andThen(function() {
-        // const $subjectPicker = find(".content-navigation .taxonomy.gru-subject-picker:eq( 1 )");
+        const $subjectPicker = find(".content-navigation .taxonomy.gru-subject-picker");
         assert.equal($categoryPicker.find('.selected-category').text().trim(), 'K-12', 'The Category button should display the selected category');
-        //TODO: this test needs a stub endpoint fix
-        // assert.equal($subjectPicker.find('li.subject').length, 3, "Filtered subjects of the K12 category should be a total of 10");
+        assert.equal($subjectPicker.find('li.subject').length, 1, "Filtered subjects of the K12 category should be a total of 10");
       });
     });
   });
 });
 
-//TODO: this test needs a stub endpoint fix
-// test('Apply taxonomy filter', function(assert) {
-//   visit('/search/collections?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
-//
-//   andThen(function() {
-//     assert.equal(currentURL(), '/search/collections?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
-//
-//     assert.equal(find(".gru-taxonomy-tag-list .gru-taxonomy-tag").length, 2, "Number of tags rendered");
-//   });
-// });
+test('Apply taxonomy filter', function(assert) {
+  visit('/search/collections?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
 
-//TODO: this test needs a stub endpoint fix
-// test('Apply taxonomy filter - Removing taxonomy tag', function(assert) {
-//   visit('/search/collections?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
-//
-//   andThen(function() {
-//     assert.equal(currentURL(), '/search/collections?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
-//
-//     const $taxonomyTags = find(".gru-taxonomy-tag-list .gru-taxonomy-tag");
-//
-//     assert.equal($taxonomyTags.length, 2, "Number of tags rendered");
-//
-//     $taxonomyTags.eq(0).find("button.remove").click();
-//
-//     andThen(function() {
-//       const $taxonomyTags = find(".gru-taxonomy-tag-list .gru-taxonomy-tag");
-//
-//       assert.equal($taxonomyTags.length, 1, "One tag should be removed");
-//     });
-//   });
-// });
+  andThen(function() {
+    assert.equal(currentURL(), '/search/collections?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
+
+    assert.equal(find(".gru-taxonomy-tag-list .gru-taxonomy-tag").length, 2, "Number of tags rendered");
+  });
+});
+
+test('Apply taxonomy filter - Removing taxonomy tag', function(assert) {
+  visit('/search/collections?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/search/collections?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
+
+    const $taxonomyTags = find(".gru-taxonomy-tag-list .gru-taxonomy-tag");
+
+    assert.equal($taxonomyTags.length, 2, "Number of tags rendered");
+
+    $taxonomyTags.eq(0).find("button.remove").click();
+
+    andThen(function() {
+      const $taxonomyTags = find(".gru-taxonomy-tag-list .gru-taxonomy-tag");
+
+      assert.equal($taxonomyTags.length, 1, "One tag should be removed");
+    });
+  });
+});

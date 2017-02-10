@@ -94,5 +94,18 @@
     "description": null,
     "code": "GDF.K12.OT",
     "standard_framework_id": "GDF"
+  },
+  {
+    "id": "K12.SC",
+    "title": "Science",
+    "description": "Science",
+    "code": "K12.SC",
+    "standard_framework_id": null,
+    "frameworks": [{
+      "standard_framework_id": "NGSS",
+      "taxonomy_subject_id": "NGSS.K12.SC",
+      "taxonomy_subject_title": "Science",
+      "title": "Next Generation Science Standards"
+    }]
   }]
 }
