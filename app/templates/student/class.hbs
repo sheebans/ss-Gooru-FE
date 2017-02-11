@@ -4,8 +4,14 @@
       <h1>{{class.title}}</h1>
       <div class="code">{{class.code}}</div>
       <div class="boxes">
-        <div class="performance">
-          {{charts.gru-bubble-chart content=(concat averageScore '%') color=(grade-color averageScore)}}
+        <div class="box completed">
+        </div>
+        <div class="box performance">
+          {{charts.gru-bubble-chart content='80%' color=(grade-color 80)}}
+          <span class="legend">{{t 'student-landing.class.performance'}}</span>
+        </div>
+        <div class="box improvement">
+
         </div>
       </div>
     </div>
