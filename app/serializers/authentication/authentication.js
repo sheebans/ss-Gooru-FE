@@ -37,7 +37,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
         user: basePath,
         content: payload.cdn_urls.content_cdn_url
       },
-      isAnonymous: isAnonymous
+      isAnonymous: isAnonymous,
+      tenant: {
+        tenantId: payload.tenant ? payload.tenant.tenant_id : undefined
+      }
     };
   }
 });

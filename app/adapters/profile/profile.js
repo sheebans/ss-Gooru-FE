@@ -281,15 +281,19 @@ export default Ember.Object.extend({
    */
   forgotPassword: function (email) {
     const adapter = this;
-    const namespace = adapter.get('usersNamespace');
-    const url = `${namespace}/password-reset`;
+    const namespace = adapter.get('authNamespace');
+    const tenantId = this.get("session.tenantId");
+    const url = `${namespace}/users/reset-password`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: 'text',
       processData: false,
       headers: adapter.defineHeaders(),
-      data: JSON.stringify({"email_id": email})
+      data: JSON.stringify({
+        "email": email,
+        "tenant_id": tenantId
+      })
     };
 
     return Ember.$.ajax(url, options);
