@@ -56,7 +56,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
   didInsertElement: function() {
-    $('#goalTitleId').focus();
+    this.$('.form-group .title input').focus();
   },
 
 
