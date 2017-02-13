@@ -16,58 +16,58 @@
   "details": [
     {
       "id": "55a93b0e-599e-4484-9bbe-addf53943110",
-      "firstname": "Priti",
-      "lastname": "Jadhav",
-      "thumbnail_path": null,
+      "first_name": "Priti",
+      "last_name": "Jadhav",
+      "thumbnail": null,
       "roster_global_userid": null
     },
     {
       "id": "66d29979-c91f-47a1-a385-93c0df686d2d",
-      "firstname": "Yalu",
-      "lastname": "Ye",
-      "thumbnail_path": null,
+      "first_name": "Yalu",
+      "last_name": "Ye",
+      "thumbnail": null,
       "roster_global_userid": null
     },
     {
       "id": "b84b56bd-76ac-494b-87a1-e399b4947024",
-      "firstname": "Nikhil",
-      "lastname": "Yadav",
-      "thumbnail_path": "",
+      "first_name": "Nikhil",
+      "last_name": "Yadav",
+      "thumbnail": "",
       "roster_global_userid": null
     },
     {
       "id": "c4176d77-2507-4bd0-b1a1-308ad98526e5",
-      "firstname": "Gina",
-      "lastname": "Morris",
-      "thumbnail_path": null,
+      "first_name": "Gina",
+      "last_name": "Morris",
+      "thumbnail": null,
       "roster_global_userid": null
     },
     {
       "id": "d038b0ea-7e4f-44ce-898c-78474295bfa9",
-      "firstname": "Ashish",
-      "lastname": "Ashish",
-      "thumbnail_path": "",
+      "first_name": "Ashish",
+      "last_name": "Ashish",
+      "thumbnail": "",
       "roster_global_userid": null
     },
     {
       "id": "id-for-pochita",
-      "firstname": "Nina",
-      "lastname": "Pochita",
-      "thumbnail_path": "837872e8-c757-40ba-91ad-5ff9f6930bf0.png",
+      "first_name": "Nina",
+      "last_name": "Pochita",
+      "thumbnail": "837872e8-c757-40ba-91ad-5ff9f6930bf0.png",
       "roster_global_userid": null
     },
     {
       "id": "df956d5f-b7b2-43ae-98a1-c90a12eacaf9",
-      "firstname": "June",
-      "lastname": "Wang",
-      "thumbnail_path": "7f1cab3e-642d-460e-bb73-c6efa4a1720d.gif",
+      "first_name": "June",
+      "last_name": "Wang",
+      "thumbnail": "7f1cab3e-642d-460e-bb73-c6efa4a1720d.gif",
       "roster_global_userid": "GC88888888888888888888888"
     },
     {
       "id": "f67a2f33-09a5-4a48-bf20-8f3b1d5bb583",
-      "firstname": "Donna",
-      "lastname": "Park",
-      "thumbnail_path": "19299cdf-fcd3-4c7e-8fa1-42ba8810ecc4.jpg",
+      "first_name": "Donna",
+      "last_name": "Park",
+      "thumbnail": "19299cdf-fcd3-4c7e-8fa1-42ba8810ecc4.jpg",
       "roster_global_userid": ""
     }
   ]

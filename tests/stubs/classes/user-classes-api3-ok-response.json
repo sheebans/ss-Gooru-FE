@@ -441,21 +441,21 @@
   "teacher_details": [
     {
       "id": "a9abf5c5-f64e-41c8-9ade-12345",
-      "firstname": "Niña",
-      "lastname": "Pochita",
-      "thumbnail_path": null
+      "first_name": "Niña",
+      "last_name": "Pochita",
+      "thumbnail": null
     },
     {
       "id": "a9abf5c5-f64e-41c8-9ade-dccb100ce0da",
-      "firstname": "gmail",
-      "lastname": "connect2",
-      "thumbnail_path": null
+      "first_name": "gmail",
+      "last_name": "connect2",
+      "thumbnail": null
     },
     {
       "id": "f9c310f1-02b5-458f-80c5-4bac7af3eddb",
-      "firstname": "Javier",
-      "lastname": "Perez",
-      "thumbnail_path": null
+      "first_name": "Javier",
+      "last_name": "Perez",
+      "thumbnail": null
     }
   ]
 }

@@ -195,14 +195,14 @@ test('normalizeReadClassMembers', function(assert) {
     "invitees": [],
     "details": [{
       "id": "08fd3a1a-8118-4b02-ab59-c0b4a5037863",
-      "firstname": "Jeffrey",
-      "lastname": "Bermudez",
-      "thumbnail_path": null
+      "first_name": "Jeffrey",
+      "last_name": "Bermudez",
+      "thumbnail": null
     }, {
       "id": "e568193d-603a-4c3a-a5d2-320579d32f3f",
-      "firstname": "Jeffrey",
-      "lastname": "Bermudez",
-      "thumbnail_path": null
+      "first_name": "Jeffrey",
+      "last_name": "Bermudez",
+      "thumbnail": null
     }]
   };
   const normalizedClassMembers = serializer.normalizeReadClassMembers(classPayload);
