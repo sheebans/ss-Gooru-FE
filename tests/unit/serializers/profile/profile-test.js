@@ -182,15 +182,15 @@ test('normalizeOwners', function(assert) {
   const ownersData = [
     {
     "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
     },
     {
     "id": "2",
-    "firstname": "Javier",
-    "lastname": "Perez",
-    "thumbnail_path": "none"
+    "first_name": "Javier",
+    "last_name": "Perez",
+    "thumbnail": "none"
     }
   ];
 
@@ -202,9 +202,9 @@ test('normalizeQuestion', function(assert) {
   const serializer = this.subject();
   const owners = [Ember.Object.create({
     "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const questionData = {
@@ -230,9 +230,9 @@ test('normalizeResource', function(assert) {
   const serializer = this.subject();
   const owners = [Ember.Object.create({
     "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const resourceData = {
@@ -262,9 +262,9 @@ test('normalizeCollection', function(assert) {
   }));
   const owners = [Ember.Object.create({
     "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const collectionData = {
@@ -307,9 +307,9 @@ test('normalizeAssessment', function(assert) {
   }));
   const owners = [Ember.Object.create({
     "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const assessmentData = {
@@ -370,9 +370,9 @@ test('normalizeReadResources', function(assert) {
     owner_details: [
       {
         "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-        "firstname": "Sachin",
-        "lastname": "Zope",
-        "thumbnail_path": "any"
+        "first_name": "Sachin",
+        "last_name": "Zope",
+        "thumbnail": "any"
       }
     ]
   };
@@ -407,9 +407,9 @@ test('normalizeReadQuestions', function(assert) {
     owner_details: [
       {
         "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-        "firstname": "Sachin",
-        "lastname": "Zope",
-        "thumbnail_path": "any"
+        "first_name": "Sachin",
+        "last_name": "Zope",
+        "thumbnail": "any"
       }
     ]
   };
@@ -458,9 +458,9 @@ test('normalizeReadCollections', function(assert) {
     owner_details: [
       {
         "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-        "firstname": "Sachin",
-        "lastname": "Zope",
-        "thumbnail_path": "any"
+        "first_name": "Sachin",
+        "last_name": "Zope",
+        "thumbnail": "any"
       }
     ]
   };
@@ -507,9 +507,9 @@ test('normalizeReadAssessments', function(assert) {
     owner_details: [
       {
         "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-        "firstname": "Sachin",
-        "lastname": "Zope",
-        "thumbnail_path": "any"
+        "first_name": "Sachin",
+        "last_name": "Zope",
+        "thumbnail": "any"
       }
     ]
   };
@@ -534,16 +534,16 @@ test('normalizeReadNetwork for following', function(assert) {
     ],
     details: [{
       id: 'id-1',
-      firstname: 'first-name-1',
-      lastname: 'last-name-1',
-      thumbnail_path: 'thumbnail-path-1',
+      first_name: 'first-name-1',
+      last_name: 'last-name-1',
+      thumbnail: 'thumbnail-path-1',
       followers_count: 10,
       followings_count: 20
     },{
       id: 'id-2',
-      firstname: 'first-name-2',
-      lastname: 'last-name-2',
-      thumbnail_path: 'thumbnail-path-2',
+      first_name: 'first-name-2',
+      last_name: 'last-name-2',
+      thumbnail: 'thumbnail-path-2',
       followers_count: 20,
       followings_count: 10
     }]
@@ -571,18 +571,18 @@ test('normalizeReadNetwork for followers', function(assert) {
     ],
     details: [{
       id: 'id-1',
-      firstname: 'first-name-1',
-      lastname: 'last-name-1',
-      thumbnail_path: 'thumbnail-path-1',
+      first_name: 'first-name-1',
+      last_name: 'last-name-1',
+      thumbnail: 'thumbnail-path-1',
       followers_count: 10,
       followings_count: 20,
       country: 'country-1',
       school_district: 'district-1'
     },{
       id: 'id-2',
-      firstname: 'first-name-2',
-      lastname: 'last-name-2',
-      thumbnail_path: 'thumbnail-path-2',
+      first_name: 'first-name-2',
+      last_name: 'last-name-2',
+      thumbnail: 'thumbnail-path-2',
       followers_count: 20,
       followings_count: 10,
       country: 'country-2',
@@ -604,9 +604,9 @@ test('normalizeQuestion - if visible_on_profile is undefined', function(assert) 
   const serializer = this.subject();
   const owners = [Ember.Object.create({
     "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const questionData = {
@@ -623,9 +623,9 @@ test('normalizeQuestion - if it is not visible on profile', function(assert) {
   const serializer = this.subject();
   const owners = [Ember.Object.create({
     "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const questionData = {
@@ -643,9 +643,9 @@ test('normalizeResource - if visible_on_profile is undefined', function(assert) 
   const serializer = this.subject();
   const owners = [Ember.Object.create({
     "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const resourceData = {
@@ -662,9 +662,9 @@ test('normalizeResource - if it is not visible on profile', function(assert) {
   const serializer = this.subject();
   const owners = [Ember.Object.create({
     "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const resourceData = {
@@ -687,9 +687,9 @@ test('normalizeCollection - if visible_on_profile is undefined', function(assert
   }));
   const owners = [Ember.Object.create({
     "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const collectionData = {
@@ -710,9 +710,9 @@ test('normalizeCollection - if is not visible on profile', function(assert) {
   }));
   const owners = [Ember.Object.create({
     "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const collectionData = {
@@ -734,9 +734,9 @@ test('normalizeAssessment - if visible_on_profile is undefined', function(assert
   }));
   const owners = [Ember.Object.create({
     "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const assessmentData = {
@@ -757,9 +757,9 @@ test('normalizeAssessment - if it not is visible on profile', function(assert) {
   }));
   const owners = [Ember.Object.create({
     "id": "852f9814-0eb4-461d-bd3b-aca9c2500595",
-    "firstname": "Sachin",
-    "lastname": "Zope",
-    "thumbnail_path": "any"
+    "first_name": "Sachin",
+    "last_name": "Zope",
+    "thumbnail": "any"
   })];
 
   const assessmentData = {

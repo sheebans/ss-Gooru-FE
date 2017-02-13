@@ -5,9 +5,9 @@
       "collaboratorCount": 0,
       "courseRemixCount": 32,
       "creator": {
-        "firstname": "Summit",
+        "first_name": "Summit",
         "id": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
-        "lastname": "Science"
+        "last_name": "Science"
       },
       "description": "Focus areas for physics are: Energy Basics; Wave Basics and Properties; Electromagnetic Radiation; Electromagnetic Waves; Fields: Forces and Energy; Circuits; Kinematics; Newton’s First and Second Laws of Motion; Newton’s Third Law and the Conservation of Momentum; Conservation of Energy; Electrostatics; Electromagnetism;  First and Second Law of Thermodynamics;Gravity; Big Bang, Stars, and Planets; and Circular Motion.",
       "id": "b8336353-08c1-42ce-add9-3454227902c8",
@@ -21,9 +21,9 @@
       },
       "orginalCreator": null,
       "owner": {
-        "firstname": "Summit",
+        "first_name": "Summit",
         "id": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
-        "lastname": "Science"
+        "last_name": "Science"
       },
       "publishStatus": "published",
       "sequence": 11,
@@ -44,9 +44,9 @@
       "collaboratorCount": 0,
       "courseRemixCount": 32,
       "creator": {
-        "firstname": "Summit",
+        "first_name": "Summit",
         "id": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
-        "lastname": "Science"
+        "last_name": "Science"
       },
       "description": "Focus areas for Modern World II are: Energy Basics; Wave Basics and Properties; Electromagnetic Radiation; Electromagnetic Waves; Fields: Forces and Energy; Circuits; Kinematics; Newton’s First and Second Laws of Motion; Newton’s Third Law and the Conservation of Momentum; Conservation of Energy; Electrostatics; Electromagnetism;  First and Second Law of Thermodynamics;Gravity; Big Bang, Stars, and Planets; and Circular Motion.",
       "id": "c8336353-08c1-42ce-add9-3454227902c8",
@@ -60,9 +60,9 @@
       },
       "orginalCreator": null,
       "owner": {
-        "firstname": "Summit",
+        "first_name": "Summit",
         "id": "5f208e9b-73eb-4f7f-b222-3817e6d15df4",
-        "lastname": "Science"
+        "last_name": "Science"
       },
       "publishStatus": "published",
       "sequence": 11,
