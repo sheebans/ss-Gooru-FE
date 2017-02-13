@@ -28,8 +28,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       user: {
         username: payload.username,
         gooruUId: payload['user_id'],
-        avatarUrl: payload['thumbnail_path'] ?
-          basePath + payload['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
+        avatarUrl: payload['thumbnail'] ?
+          basePath + payload['thumbnail'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
         isNew: !payload.user_category,
         providedAt: payload.provided_at
       },

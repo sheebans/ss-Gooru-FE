@@ -342,13 +342,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const thumbnailUrl = networkData['thumbnail_path'] ?
-    basePath + networkData['thumbnail_path'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const thumbnailUrl = networkData['thumbnail'] ?
+    basePath + networkData['thumbnail'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       "id": networkData.id,
-      "firstName": networkData.firstname,
-      "lastName": networkData.lastname,
+      "firstName": networkData.first_name,
+      "lastName": networkData.last_name,
       "avatarUrl": thumbnailUrl,
       "country": networkData.country,
       "schoolDistrict": networkData.school_district,
