@@ -1,7 +1,21 @@
 <div class="student class">
   <div class="header">
-    <h1>{{class.title}}</h1>
-    <div class="code">{{class.code}}</div>
+    <div class="first-column">
+      <h1>{{class.title}}</h1>
+      <div class="code">{{class.code}}</div>
+      <div class="boxes">
+        <div class="box completed">
+        </div>
+        <div class="box performance">
+          {{charts.gru-bubble-chart content='80%' color=(grade-color 80)}}
+          <span class="legend">{{t 'student-landing.class.performance'}}</span>
+        </div>
+        <div class="box improvement">
+        </div>
+      </div>
+    </div>
+    <div class="second-column">
+    </div>
   </div>
   <div class="class-navigator">
     <ul class="nav nav-tabs" role="tablist">
