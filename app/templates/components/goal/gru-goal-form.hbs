@@ -6,7 +6,7 @@
     <div class="form-group title">
       <label for="goalTitleId">
         <span class="required">{{t 'goals.manage.goal-label'}}</span>
-        {{validation.gru-input model=goal valuePath='title' inputId='goalTitleId' isRequired=true}}
+        {{validation.gru-input model=goal valuePath='title' isRequired=true}}
       </label>
     </div>
 
@@ -41,7 +41,7 @@
     <div class="form-group reflection">
       <label for="goalReflectionId">
         <span>{{t 'goals.manage.reflection-label'}}</span>
-        {{validation.gru-input model=goal valuePath='reflection' inputId='goalReflectionId'}}
+        {{validation.gru-input model=goal valuePath='reflection'}}
       </label>
     </div>
 
