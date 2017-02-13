@@ -3,7 +3,7 @@
   "creator_id": "any-other-but-no-pochita",
   "title": "Pochita As Student - With Course",
   "description": null,
-  "greeting": null,
+  "greeting": "Class Greeting",
   "grade": null,
   "class_sharing": "restricted",
   "cover_image": null,
