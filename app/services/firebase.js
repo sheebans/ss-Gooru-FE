@@ -41,7 +41,8 @@ export default Ember.Service.extend({
           fullname: fullname,
           photo: photo,
           createdTime: firebase.database.ServerValue.TIMESTAMP,
-          messageId: newKey
+          messageId: newKey,
+          editing: false
         });
         //Move the location in message pane to the bottom
         Ember.run.later((function() {
@@ -89,7 +90,8 @@ export default Ember.Service.extend({
               fileSize: file.size,
               fileName: file.name,
               messageId: newKey,
-              createdTime: firebase.database.ServerValue.TIMESTAMP
+              createdTime: firebase.database.ServerValue.TIMESTAMP,
+              editing: false
             });
           }.bind(this));
         }
@@ -268,6 +270,22 @@ export default Ember.Service.extend({
             }), 100);
           });
 
+          //Generate a listener to update messages as and when they are updated in the database
+          messageRef.on('child_changed',function(snapshot) {
+            var mes = snapshot.val().message;
+            var tmp = snapshot.val();
+            console.log('child changed mes',mes);
+            console.log('child changed tmp',tmp);
+            for (var i=0; i<messages.length; i++){
+              if(messages[i].messageId === snapshot.key){
+                Ember.set(messages[i],'message',mes);
+              }
+            }
+            Ember.run.later((function() {
+              $('.message-row-container').scrollTop($('.message-row-container-inner').height());
+            }), 100);
+          });
+
           //Generate a listener that will listen for removed messages in the database and remove them from the message array
           messageRef.on('child_removed',function(snapshot) {
             for (var i=0; i<messages.length; i++){
@@ -297,5 +315,31 @@ export default Ember.Service.extend({
   signOut: function(){
     const auth = this.get('firebaseApp').auth();
     auth.signOut();
+  },
+  editMessage: function(message,currentUser){
+    const db = this.get('firebaseApp').database();
+    if(message.userId === currentUser.id){
+          if(message.editing === false){
+            Ember.set(message,'editing',true);
+          }else{
+            Ember.set(message,'editing',false);
+          }
+    }
+  },
+  submitEditedMessage: function(message,currentUser,messageOld,channels){
+    const db = this.get('firebaseApp').database();
+    Ember.set(messageOld,'editing',false);
+    const channelId = channels[0].uuid;
+    db.ref("messages/" + channelId + "/" + messageOld.messageId).set({
+      message: message,
+      username: messageOld.username,
+      userId: messageOld.userId,
+      fullname: messageOld.fullname,
+      photo: messageOld.photo,
+      createdTime: messageOld.createdTime,
+      messageId: messageOld.messageId,
+      editing: false,
+      modifitedTime: firebase.database.ServerValue.TIMESTAMP
+    });
   }
 });
