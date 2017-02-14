@@ -48,12 +48,7 @@ test('Layout', function(assert) {
     T.exists(assert, $secondColumnHeader.find('.announcements .panel-body'), 'Missing announcements panel-body');
     assert.equal(T.text($secondColumnHeader.find('.announcements .panel-body .greeting')), 'Class Greeting', 'Incorrect class greeting text');
 
-    T.exists(assert, $classContainer.find('> .class-navigator'), 'Missing class navigator');
-    assert.equal($classContainer.find('> .class-navigator .nav a').length, 4, 'Number of class navigator links');
-    T.exists(assert, $classContainer.find('> .class-navigator .nav .activity-list'), 'Missing activity list link');
-    T.exists(assert, $classContainer.find('> .class-navigator .nav .performance'), 'Missing performance link');
-    T.exists(assert, $classContainer.find('> .class-navigator .nav .classmates'), 'Missing classmates link');
-    T.exists(assert, $classContainer.find('> .class-navigator .nav .content-map'), 'Missing content map link');
+    T.exists(assert, $classContainer.find('> .gru-class-navigation'), 'Missing class navigation component');
     T.exists(assert, $classContainer.find('> .content'), 'Missing class content');
   });
 });
