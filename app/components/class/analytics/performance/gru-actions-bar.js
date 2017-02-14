@@ -67,9 +67,14 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * @property {bool} display the edic content option
+   * @property {bool} display the edit content option
    */
   enableEdit: true,
+
+  /**
+   * @property {bool} display the full screen button
+   */
+  enableFullScreen: true,
 
   /**
    * @property {string} for mode: student or teacher
