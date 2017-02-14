@@ -1,3 +1,6 @@
+{{#if tenant}}
+  {{tenant.gru-tenant-theme tenant=tenant}}
+{{/if}}
 <div class="gooru {{if configuration.embedded 'embedded'}}">
     {{#if features.header.enabled}}
     {{gru-header

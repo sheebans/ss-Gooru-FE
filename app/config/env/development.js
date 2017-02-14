@@ -5,7 +5,8 @@ export default {
   "appRootPath": "/", //default is root
   "endpoint" : {
     "url": "http://nile-dev.gooru.org",
-    "secureUrl": "https://nile-dev.gooru.org"
+    "secureUrl": "https://nile-dev.gooru.org",
+    "tenantUrl": "http://s3-us-west-1.amazonaws.com/nile-tenants/dev"
   },
 
   "realTime": {

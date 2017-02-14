@@ -1,0 +1,30 @@
+<style type="text/css">
+    {{#if theme.buttons.primary}}
+    .btn-primary, .btn-primary:active {
+        background-color: {{theme.buttons.primary.color}} !important;
+    }
+    {{/if}}
+
+    {{#if theme.buttons.info}}
+    .btn-info, .btn-info:active {
+        background-color: {{theme.buttons.info.color}} !important
+    }
+    {{/if}}
+
+    {{#if theme.buttons.success}}
+    .btn-success, .btn-success:active {
+        background-color: {{theme.buttons.success.color}} !important
+    }
+    {{/if}}
+
+    {{#if theme.header.logo}}
+    .gru-header .container-fluid .navbar-default .navbar-header .navbar-brand {
+        background: url("{{theme.header.logo.url}}");
+        height: 63px;
+        padding: 0;
+        width: 47px;
+        background-size: contain;
+        margin-top: 10px;
+    }
+    {{/if}}
+</style>
