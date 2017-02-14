@@ -55,7 +55,6 @@ export default Ember.Controller.extend({
     this.get('classController').set('menuItem', 'performance');
   },
 
-
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -64,13 +63,6 @@ export default Ember.Controller.extend({
    * @property {Class}
    */
   "class": Ember.computed.reads('classController.class'),
-
-  /**
-   * A link to the computed property isStudent in class controller
-   * @see controllers/class.js
-   * @property {isStudent}
-   */
-  isStudent: Ember.computed.alias('classController.isStudent'),
 
   /**
    * The performances for the units that will be shown to the user
@@ -136,7 +128,6 @@ export default Ember.Controller.extend({
    */
   contentVisibility: Ember.computed.alias('classController.contentVisibility'),
 
-
   // -------------------------------------------------------------------------
   // Observers
 
@@ -154,7 +145,6 @@ export default Ember.Controller.extend({
         controller.fixTotalCounts(unitPerformances, filterBy);
         controller.set('performances', unitPerformances);
       });
-
   }),
 
   // -------------------------------------------------------------------------
@@ -170,5 +160,4 @@ export default Ember.Controller.extend({
       performance.set("completionTotal", totals);
     });
   }
-
 });

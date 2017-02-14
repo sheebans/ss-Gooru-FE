@@ -3,10 +3,10 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Student class navigation
  *
- * Component responsible for enabling more flexible navigation options for the class.
- * For example, where {@link class/gru-class-navigation.js}} allows access the class information and navigate through the menu options.
+ * Component responsible for enabling more flexible navigation options for the student class.
+ * For example, where {@link student/class/gru-class-navigation.js}} allows access the student class information and navigate through the menu options.
  * @module
- * @see controllers/class.js
+ * @see controllers/student/class.js
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
@@ -70,7 +70,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
     var item = this.get("selectedMenuItem");
     this.selectItem(item);
   }.observes("selectedMenuItem"),
-
 
   // -------------------------------------------------------------------------
 
