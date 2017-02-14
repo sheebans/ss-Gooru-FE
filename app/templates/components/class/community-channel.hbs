@@ -27,10 +27,18 @@
                   <div class="message-content">
                     <span class="user-full-name">{{item.fullname}}</span>
                     <a href="javascript: void(0);" class="fa fa-remove" title="remove this message" onclick={{action 'removeMessage' item}}></a>
-                            {{#if item.imageURL}}
-                      <span class="message"><a target="_blank" href="{{item.imageURL}}">{{item.fileName}}</a></span>
+                      {{#if item.imageURL}}
+                        {{#if item.role}}
+                          <span class="messageTeacher"><a target="_blank" href="{{item.imageURL}}">{{item.fileName}}</a></span>
+                        {{else}}
+                          <span class="message"><a target="_blank" href="{{item.imageURL}}">{{item.fileName}}</a></span>
+                        {{/if}}
                       {{else}}  
-                      <span class="message">{{item.message}}</span>
+                        {{#if item.role}}
+                          <span class="messageTeacher">{{item.message}}</span>
+                        {{else}}
+                          <span class="message">{{item.message}}</span>
+                        {{/if}}                     
                       {{/if}}
                   </div>
                 </div>

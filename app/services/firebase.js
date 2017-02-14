@@ -28,21 +28,41 @@ export default Ember.Service.extend({
       }
       const db = this.get('firebaseApp').database();
       const channelId = channels[0].uuid;
+      let role = null;
+      if(currentUser.role === 'teacher'){
+        role = 'teacher';
+      }else{
+        role = 'student';
+      }
       var user = this.get('firebaseApp').auth().currentUser;
       if (user) {
         var fullname = currentUser.firstName + ' ' + currentUser.lastName;
         var photo = currentUser.avatarUrl;
         var messageRef = db.ref().child("messages/" + channelId);
         var newKey = messageRef.push().key;
-        db.ref("messages/" + channelId + "/" + newKey).set({
-          message: message,
-          username: this.get('session.userData.username'),
-          userId: this.get('session.userData.gooruUId'),
-          fullname: fullname,
-          photo: photo,
-          createdTime: firebase.database.ServerValue.TIMESTAMP,
-          messageId: newKey
-        });
+        if(role === 'teacher'){
+          db.ref("messages/" + channelId + "/" + newKey).set({
+            message: message,
+            username: this.get('session.userData.username'),
+            userId: this.get('session.userData.gooruUId'),
+            fullname: fullname,
+            photo: photo,
+            createdTime: firebase.database.ServerValue.TIMESTAMP,
+            messageId: newKey,
+            role: role
+          });
+        }else{
+          db.ref("messages/" + channelId + "/" + newKey).set({
+            message: message,
+            username: this.get('session.userData.username'),
+            userId: this.get('session.userData.gooruUId'),
+            fullname: fullname,
+            photo: photo,
+            createdTime: firebase.database.ServerValue.TIMESTAMP,
+            messageId: newKey
+          });
+        }
+        
         //Move the location in message pane to the bottom
         Ember.run.later((function() {
         $('.message-row-container').scrollTop($('.message-row-container-inner').height());
@@ -59,6 +79,12 @@ export default Ember.Service.extend({
       const db = this.get('firebaseApp').database();
       const storage =  this.get('firebaseApp').storage();
       const channelId = channels[0].uuid;
+      let role = null;
+      if(currentUser.role === 'teacher'){
+        role = 'teacher';
+      }else{
+        role = 'student';
+      }
       var user = this.get('firebaseApp').auth().currentUser;
       //Only allow this functionality if the user is signed into firebase
       if (user) {
@@ -71,12 +97,29 @@ export default Ember.Service.extend({
         //Create a reference to the messages table for this particular channel
         var messageRef = db.ref().child("messages/" + channelId);
         var newKey = messageRef.push().key;
-          //store the file onto firebase storage based on the current user's id
-          storage.ref(currentUser.uid + '/' + Date.now() + '/' + file.name)
-            .put(file, {contentType: file.type})
-            .then(function(snapshot) {
-            var filePath = snapshot.metadata.fullPath;
+        //store the file onto firebase storage based on the current user's id
+        storage.ref(currentUser.uid + '/' + Date.now() + '/' + file.name)
+          .put(file, {contentType: file.type})
+          .then(function(snapshot) {
+          var filePath = snapshot.metadata.fullPath;
 
+          if(role === 'teacher'){
+            //push a new message containing the file information
+            db.ref().child("messages/" + channelId + "/" + newKey).set({
+              username: this.get('session.userData.username'),
+              userId: this.get('session.userData.gooruUId'),
+              fullname: fullname,
+              message: storage.ref(filePath).toString(),
+              photoUrl: file,
+              photo: photo,
+              fileType: file.type,
+              fileSize: file.size,
+              fileName: file.name,
+              messageId: newKey,
+              createdTime: firebase.database.ServerValue.TIMESTAMP,
+              role: role
+            });
+          }else{
             //push a new message containing the file information
             db.ref().child("messages/" + channelId + "/" + newKey).set({
               username: this.get('session.userData.username'),
@@ -91,7 +134,9 @@ export default Ember.Service.extend({
               messageId: newKey,
               createdTime: firebase.database.ServerValue.TIMESTAMP
             });
-          }.bind(this));
+          }
+          
+        }.bind(this));
         }
   },
   //remove a message from firebase
