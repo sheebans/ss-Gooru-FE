@@ -7,11 +7,7 @@
   width: 100%;
 
   .category-menu {
-    width: 100%;
     @media (min-width: $screen-sm-min) {
-      margin-left: 0;
-      width: auto;
-
       ul {
         margin-left: 0;
 
@@ -27,12 +23,16 @@
         }
       }
     }
+  }
+  .category-menu,
+  .standards{
+    padding: 0;
     @media (min-width: $screen-md-min) {
-      margin-left: 20px;
+      padding: 0 15px;
     }
   }
   .btn-group {
-    margin-right: 10px;
+    margin-right: 5px;
     @media (min-width: $screen-md-min) {
       margin-right: 30px;
     }

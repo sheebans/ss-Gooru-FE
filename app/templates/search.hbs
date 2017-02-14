@@ -1,6 +1,6 @@
-<div class="controller search row">
-  <div class="content-navigation">
-    <div class="category-menu col-md-10 col-sm-12 col-xs-12">
+<div class="controller search">
+  <div class="content-navigation row">
+    <div class="category-menu col-xs-12 col-sm-7 col-md-8">
       <ul class="nav nav-tabs category-options">
         {{#link-to "search.courses" (query-params term=term) tagName="li" class='courses'}}
           <a href='{{view.href}}' class="btn btn-category">
@@ -34,7 +34,7 @@
         {{/link-to}}
       </ul>
     </div>
-    <span class="col-md-3 standards hidden-xs">
+    <span class="hidden-xs col-sm-5 col-md-4 standards">
       {{search.gru-search-filter
         categories=categories
         subjects=subjects
@@ -44,6 +44,7 @@
         onSubjectSelected='setSubject'
         onlySubjectsWithStandards=true
         alignment='left'
+        disableSubjects=disableSubjects
       }}
       </span>
   </div>
