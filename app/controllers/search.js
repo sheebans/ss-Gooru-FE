@@ -30,6 +30,7 @@ export default Ember.Controller.extend(ModalMixin, {
   actions: {
     setCategory: function(category){
       this.filterSubjects(category);
+      this.set('disableSubjects', false);
     },
     setSubject: function(subject){
       const controller = this;
@@ -56,6 +57,12 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Standard[]}
    */
   standards: null,
+
+  /**
+   * Enables the subject control
+   * @property {boolean}
+   */
+  disableSubjects: true,
 
   /**
    * These are the collection search results

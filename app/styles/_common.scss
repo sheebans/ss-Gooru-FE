@@ -269,7 +269,7 @@ span.validation.warning {
     margin: 0 10px;
     height:100%;
     @include respond-to(xs) {margin:0;}
-    @include respond-to(sm) {margin: 0 20px;}
+    @include respond-to(sm) {margin: 0 5px;}
     &.active a{
       -webkit-box-shadow: inset 0 -3px 0 $white;
       box-shadow: inset 0 -3px 0 $white;

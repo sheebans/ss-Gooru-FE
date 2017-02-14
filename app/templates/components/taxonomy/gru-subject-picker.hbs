@@ -1,12 +1,12 @@
 <div class="btn-group clearfix">
-  <button type="button" class="btn btn-primary btn-sm selected-subject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button type="button" class="btn btn-primary btn-sm selected-subject {{if disabled 'disabled'}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     {{#if selectedSubject}}
       {{selectedSubject.frameworkId}} {{selectedSubject.subjectTitle}}
     {{else}}
       {{t placeholderLabelKey}}
     {{/if}}
   </button>
-  <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button type="button" class="btn btn-primary btn-sm dropdown-toggle {{if disabled 'disabled'}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="caret"></span>
     <span class="sr-only">{{t "common.toggle-dropdown"}}</span>
   </button>
