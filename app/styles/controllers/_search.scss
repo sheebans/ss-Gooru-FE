@@ -1,27 +1,47 @@
 .controller.search {
   display: block;
   padding: 0;
+  margin-left: -15px;
+  margin-right: -15px;
   div.content-navigation{
     background-color: $dark-400;
     height: 51px;
-    padding: 0 0 0 3%;
+    padding: 0;
     width: 100vw;
-
+    margin: 0;
     div.category-menu {
       height: inherit;
-      padding: 0;
       ul.category-options {
         margin-left: 0;
-        width: inherit;
       }
     }
     .standards {
       display: table-cell;
       float: none;
       text-align: right;
-      vertical-align: middle;
       div{
-        float:right;
+        display: inline-block;
+      }
+      .taxonomy{
+        button.selected-category,
+        button.selected-subject{
+          max-width: 80px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          @media (min-width: $screen-md-min) {
+            max-width: 105px;
+          }
+        }
+        &:nth-of-type(2) .btn-group{
+          margin-right: 5px;
+          @media (min-width: $screen-md-min) {
+            margin-right: 10px;
+          }
+          @media (min-width: $screen-lg-min) {
+            margin-right: 15px;
+          }
+        }
       }
     }
 
