@@ -273,9 +273,6 @@ export default Ember.Service.extend({
           //Generate a listener to update messages as and when they are updated in the database
           messageRef.on('child_changed',function(snapshot) {
             var mes = snapshot.val().message;
-            var tmp = snapshot.val();
-            console.log('child changed mes',mes);
-            console.log('child changed tmp',tmp);
             for (var i=0; i<messages.length; i++){
               if(messages[i].messageId === snapshot.key){
                 Ember.set(messages[i],'message',mes);
@@ -317,7 +314,6 @@ export default Ember.Service.extend({
     auth.signOut();
   },
   editMessage: function(message,currentUser){
-    const db = this.get('firebaseApp').database();
     if(message.userId === currentUser.id){
           if(message.editing === false){
             Ember.set(message,'editing',true);
