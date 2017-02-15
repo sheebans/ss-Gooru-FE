@@ -35,16 +35,11 @@
           width: 120px;
           margin: 10px 10px 0 0;
           float: left;
-
+          .charts.gru-radial-chart,
           .charts.gru-bubble-chart {
             width: 75px;
             height: 75px;
-            margin: 0 auto;
-            .bubble-circle {
-              width: 75px;
-              height: 75px;
-              margin: 20px auto;
-            }
+            margin: 20px auto 0;
           }
           .legend {
             display: block;
