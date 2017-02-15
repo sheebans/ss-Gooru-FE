@@ -18,6 +18,9 @@ export default Ember.Component.extend({
     },
 
     editView: function() {
+      let goal = this.get('goal');
+      let originalGoal = goal.copy();
+      this.set('originalGoal', originalGoal);
       this.set('isEdition', true);
     },
 
@@ -29,6 +32,10 @@ export default Ember.Component.extend({
     },
 
     cancelEditGoal: function() {
+      let goal = this.get('goal');
+      let originalGoal = this.get('originalGoal');
+      var properties = goal.modelProperties().concat(['startDate', 'endDate']);
+      goal.merge(originalGoal, properties);
       this.set('isEdition', false);
     },
 
@@ -49,6 +56,11 @@ export default Ember.Component.extend({
    * @property {Goal} goal information
    */
   goal: null,
+
+  /**
+   * @property {Goal} original goal information
+   */
+  originalGoal: null,
 
   /**
    * @property {boolean}

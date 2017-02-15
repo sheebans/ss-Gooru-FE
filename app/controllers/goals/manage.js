@@ -100,7 +100,7 @@ export default Ember.Controller.extend({
   resetProperties(){
     var controller = this;
     var newGoalProfile = Goal.extend(createGoalValidations);
-    var goal = newGoalProfile.create(Ember.getOwner(this).ownerInjection(), {});
+    var goal = newGoalProfile.create();
     controller.set('goal', goal);
   },
 
