@@ -1,7 +1,8 @@
 {
   "endpoint": {
     "url": "",
-    "secureUrl": ""
+    "secureUrl": "",
+    "tenantUrl": "http://s3-us-west-1.amazonaws.com/nile-tenants/prod"
   },
   "realTime": {
     "webServiceUrl": "",

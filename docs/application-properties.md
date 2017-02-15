@@ -8,7 +8,8 @@ Gooru application can be configured at runtime by setting several properties
   "appRootPath": "/", //default is root
   "endpoint" : {
     "url": "http://nucleus-qa.gooru.org",
-    "secureUrl": "https://nucleus-qa.gooru.org"
+    "secureUrl": "https://nucleus-qa.gooru.org",
+    "tenantUrl": "http://s3-us-west-1.amazonaws.com/nile-tenants/qa"
   },
 
   "realTime": {
@@ -48,6 +49,7 @@ Base path where the application is hosted
 Useful to configure the BE services
 * `endpoint.url`: application rest services url
 * `endpoint.secureUrl`: application web socket url 
+* `endpoint.tenantUrl`: location to the tenant repository
 
 
 ## `realTime`

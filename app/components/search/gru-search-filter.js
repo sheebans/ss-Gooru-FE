@@ -109,6 +109,11 @@ export default Ember.Component.extend({
   /**
    * @property {string} dropdown alignment, right | left
    */
-  alignment: null
+  alignment: null,
+
+  /**
+   * @property {boolean} indicates if subjects are disabled
+   */
+  disableSubjects: true
 
 });

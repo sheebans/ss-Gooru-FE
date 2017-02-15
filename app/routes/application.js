@@ -29,6 +29,11 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
   authService: Ember.inject.service('api-sdk/session'),
 
   /**
+   * @property {TenantService}
+   */
+  tenantService: Ember.inject.service('api-sdk/tenant'),
+
+  /**
    * @type {ProfileService} Service to retrieve profile information
    */
   profileService: Ember.inject.service('api-sdk/profile'),
@@ -84,14 +89,14 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
 
   model: function(params) {
     const route = this;
-    const currentSession = route.get("session.data.authenticated");
+    const currentSession = route.get('session.data.authenticated');
     const themeId = params.themeId || Env['themes'].default;
     let myClasses = null;
     var profilePromise = null;
 
     if (!currentSession.isAnonymous) {
       profilePromise = route.get('profileService')
-        .readUserProfile(route.get("session.userId"));
+        .readUserProfile(route.get('session.userId'));
       myClasses = profilePromise.then(function(userProfile) {
           return route.get('classService').findMyClasses(userProfile);
         });
@@ -105,13 +110,18 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     });
   },
 
-  afterModel: function(){
-    if (Env.embedded) {
-      return this.afterModelEmbeddedApplication();
-    }
-    else {
-      return this.handleLegacyUrlIfNecessary();
-    }
+  afterModel: function(model){
+    const route = this;
+    const tenantService = route.get('tenantService');
+    return tenantService.findTenantFromCurrentSession().then(function(tenant){
+      model.tenant = tenant;
+      if (Env.embedded) {
+        return route.afterModelEmbeddedApplication();
+      }
+      else {
+        return route.handleLegacyUrlIfNecessary();
+      }
+    });
   },
 
   setupController: function(controller, model) {
@@ -122,6 +132,8 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     if (model.profile) {
       controller.set('profile', model.profile);
     }
+
+    controller.set('tenant', model.tenant);
   },
 
   /**
@@ -180,7 +192,9 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     const route = this;
 
     // do not track errors at the user-error api, this to prevent a loop
-    if (settings.url.indexOf('api/nucleus-utils/v1/user-error') >= 0 ) {
+    const isUserError = settings.url.indexOf('api/nucleus-utils/v1/user-error') >= 0;
+    const isTenantError = settings.url.indexOf('tenant.json') >= 0;
+    if ( isUserError || isTenantError) {
       return;
     }
 

@@ -22,6 +22,9 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    */
   searchController: Ember.inject.controller('search'),
 
+
+  classService: Ember.inject.service("api-sdk/class"),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -38,7 +41,10 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    */
   term: Ember.computed.alias("searchController.term"),
 
-  classService: Ember.inject.service("api-sdk/class"),
+  /**
+   * @property {Tenant} tenant
+   */
+  tenant: null,
 
 
   // -------------------------------------------------------------------------

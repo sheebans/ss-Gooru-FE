@@ -220,3 +220,5 @@ Gooru app support custom themes
 * Add an entry to ember-cli-build.js, outpaths section,  ie `'themes/bergen': '/assets/themes/bergen/styles.css'`
 * The theme css will be loaded on demand when passing the correct themeId
 
+### Tenant configuration support
+See [Tenant Support](docs/tenant.md)

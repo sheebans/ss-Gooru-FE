@@ -166,9 +166,9 @@ test('normalizeGetCourses', function(assert) {
         "unit_count": 5,
         "owner_info": {
           "id": "owner-id-1",
-          "firstname": "Florinda",
-          "lastname": "Meza",
-          "thumbnail_path": null,
+          "first_name": "Florinda",
+          "last_name": "Meza",
+          "thumbnail": null,
           "school_district_id": null
         },
         "use_case": "course use case",
@@ -191,9 +191,9 @@ test('normalizeGetCourses', function(assert) {
         "unit_count": null,
         "owner_info": {
           "id": "owner-id-2",
-          "firstname": "Roberto",
-          "lastname": "Gomez",
-          "thumbnail_path": null,
+          "first_name": "Roberto",
+          "last_name": "Gomez",
+          "thumbnail": null,
           "school_district_id": null
         },
         "use_case": "course use case",

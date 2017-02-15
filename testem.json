@@ -33,6 +33,9 @@
     },
     "/api": {
       "target": "http://localhost:8882"
+    },
+    "/nile-tenants": {
+      "target": "http://localhost:8882"
     }
   }
 }

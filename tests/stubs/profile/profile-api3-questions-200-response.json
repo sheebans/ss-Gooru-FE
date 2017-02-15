@@ -59,9 +59,9 @@
   "owner_details": [
     {
       "id": "f8179782-c5e1-4c0f-85e5-7db5ff6b0c8d",
-      "firstname": "Sachin",
-      "lastname": "Zope",
-      "thumbnail_path": null,
+      "first_name": "Sachin",
+      "last_name": "Zope",
+      "thumbnail": null,
       "school_district_id": null
     }
   ],

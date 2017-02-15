@@ -56,7 +56,7 @@ test('normalizeResponse for normal account', function(assert) {
   const payload = {
     'access_token': 'token-api-3.0',
     username: 'username',
-    thumbnail_path: 'image-id',
+    thumbnail: 'image-id',
     'user_id': 'user-id',
     'cdn_urls': {
       'user_cdn_url': 'user-url/',
