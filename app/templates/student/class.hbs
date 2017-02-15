@@ -5,6 +5,11 @@
       <div class="code">{{class.code}}</div>
       <div class="boxes">
         <div class="box completed">
+          {{charts.gru-radial-chart
+          value=27
+          minValue=0
+          maxValue=35 }}
+          <span class="legend">{{t "common.completed"}}</span>          
         </div>
         <div class="box performance">
           {{charts.gru-bubble-chart content='80%' color=(grade-color 80)}}
