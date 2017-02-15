@@ -39,7 +39,7 @@ test('Layout', function(assert) {
     assert.equal($headerBoxes.find('> .box').length, 3, 'Number of header boxes');
     T.exists(assert, $headerBoxes.find('> .box.completed'), 'Missing completed box');
     T.exists(assert, $headerBoxes.find('> .box.completed .gru-radial-chart'), 'Missing completed gru-radial-chart component');
-    T.exists(assert, $headerBoxes.find('> .box.completed .legend'), 'Missing completed legend');    
+    T.exists(assert, $headerBoxes.find('> .box.completed .legend'), 'Missing completed legend');
     T.exists(assert, $headerBoxes.find('> .box.performance'), 'Missing performance box');
     T.exists(assert, $headerBoxes.find('> .box.performance .gru-bubble-chart'), 'Missing performance gru-bubble-chart component');
     T.exists(assert, $headerBoxes.find('> .box.performance .legend'), 'Missing performance legend');
