@@ -67,7 +67,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
             }
             else {
               if (isTeacher) {
-                route.transitionTo("teacher");
+                route.transitionTo("teacher-home");
               } else {
                 route.transitionTo('profile.content.courses', userId);
               }

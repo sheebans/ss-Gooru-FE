@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForAcceptance('Acceptance | Teacher Landing page', {
+moduleForAcceptance('Acceptance | Teacher Home Landing page', {
   beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
@@ -17,10 +17,10 @@ moduleForAcceptance('Acceptance | Teacher Landing page', {
 
 test('Layout', function(assert) {
   assert.expect(10);
-  visit('/teacher');
+  visit('/teacher-home');
 
   andThen(function() {
-    assert.equal(currentURL(), '/teacher');
+    assert.equal(currentURL(), '/teacher-home');
 
     T.exists(assert, find("header.gru-header"), "Header component not found");
 
@@ -44,7 +44,7 @@ test('Layout', function(assert) {
 
 test('TakeATour', function(assert){
   assert.expect(2);
-  visit('/teacher');
+  visit('/teacher-home');
   andThen(function() {
     let $tooltip;
     click(".teacher-landing .greetings button.start-tour");
@@ -58,10 +58,10 @@ test('TakeATour', function(assert){
 });
 
 test('Go to class overview from announcement', function(assert) {
-  visit('/teacher');
+  visit('/teacher-home');
 
   andThen(function() {
-    assert.equal(currentURL(), '/teacher');
+    assert.equal(currentURL(), '/teacher-home');
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
