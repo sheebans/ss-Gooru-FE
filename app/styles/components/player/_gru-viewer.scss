@@ -20,6 +20,10 @@
   }
   .not-iframe {
     padding: 25px;
+    height: auto;
+    @media (min-width: $screen-sm) {
+      height: 600px;
+    }
     .panel-header {
       text-align: center;
     }
@@ -34,7 +38,9 @@
     .panel-footer {
       text-align: center;
       background-color: $white;
-      margin: 15px 0 0 0;
+      @media (min-width: $screen-sm) {
+        margin: 15px 0 0 0;
+      }
     }
     .panel-body{
       display: flex;
@@ -77,11 +83,15 @@
     height: 100vh;
     width: 100%;
     float: right;
-    padding-bottom: $player-navigation-height;
+    padding-bottom: 100px;
     padding-left: 310px;
     padding-right: 45px;
-    @media (min-width: $screen-md) {
-      padding-bottom: $player-navigation-md-height;
+    @media (min-width: $screen-sm) {
+      height: 100%;
+      padding-bottom: 20px;
+    }
+    @media (min-width: $screen-lg) {
+      height: 100vh;
     }
     @media (max-width: $screen-sm-max) {
       padding-left: 15px;
