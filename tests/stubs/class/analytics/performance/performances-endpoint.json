@@ -636,6 +636,42 @@
       "body": "File not found!",
       "file": "student-session-taxonomy-usage-200-response.json"
     }
+  },
+  {
+    "description": "Class Performance Summary for Pochita",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/classes/performance",
+      "method": "POST",
+      "query": {
+        "userId": "id-for-pochita"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "pochita-class-performance-summary-200-response.json"
+    }
+  },
+  {
+    "description": "Class Performance Summary for Param",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/classes/performance",
+      "method": "POST",
+      "query": {
+        "userId": "param-123"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "param-class-performance-summary-200-response.json"
+    }
   }
 
 ]

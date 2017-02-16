@@ -13,28 +13,31 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // Dependencies
   analyticsService: Ember.inject.service("api-sdk/analytics"),
 
+  performanceService: Ember.inject.service("api-sdk/performance"),
+
   // -------------------------------------------------------------------------
   // Actions
 
 
   // -------------------------------------------------------------------------
   // Methods
-
-  /**
-   * Set all controller properties from the model
-   * @param controller
-   */
-  setupController: function(controller) {
-    let activeClasses = controller.get('activeClasses');
+  model: function () {
     let route = this;
+    let activeClasses = route.controllerFor('application').get('studentActiveClasses');
     const myId = route.get("session.userId");
+    const classIds = activeClasses.mapBy("id");
 
-    activeClasses.forEach(function (aClass) {
-      route.get('analyticsService').getUserCurrentLocation(aClass.get("id"), myId, true).then(function (currentLocation) {
-        aClass.set("currentLocation", currentLocation);
+    return route.get("performanceService").findClassPerformanceSummaryByClassIds(myId, classIds).then(function(classPerformanceSummaryItems){
+      const promises = activeClasses.map(function (aClass) {
+        const classId = aClass.get("id");
+        return route.get('analyticsService').getUserCurrentLocation(classId, myId, true).then(function (currentLocation) {
+          aClass.set("currentLocation", currentLocation);
+          aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
+        });
       });
-    });
 
+      return Ember.RSVP.all(promises);
+    });
   }
 
 });
