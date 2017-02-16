@@ -46,6 +46,14 @@ export default Ember.Component.extend(ConfigurationMixin, {
     var item = this.get("selectedMenuItem");
     this.selectItem(item);
   },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    this.set('selectedMenuItem', null);
+  },
+
+  // -------------------------------------------------------------------------
+  // Properties
   /**
    * @property {Class} class
    */
