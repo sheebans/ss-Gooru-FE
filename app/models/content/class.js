@@ -207,6 +207,18 @@ const Class = Ember.Object.extend(Validations, {
    */
   unitsCount: 0,
 
+  /**
+   * This property is not available all the time, it needs to be loaded separately
+   * @property {CurrentLocation}
+   */
+  currentLocation: null,
+
+  /**
+   * This property is not available all the time, it needs to be loaded separately
+   * @property {ClassPerformanceSummary}
+   */
+  performanceSummary: null,
+
   // -------------------
   // Methods
   /**

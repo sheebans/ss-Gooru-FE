@@ -14,13 +14,6 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
-   * A link to the parent application controller
-   * @see controllers/application.js
-   * @property {ClassesModel}
-   */
-  myClasses: Ember.computed.alias('applicationController.myClasses'),
-
-  /**
    * @property {Profile}
    */
   profile: Ember.computed.alias('applicationController.profile'),
@@ -28,12 +21,7 @@ export default Ember.Controller.extend({
   /**
    * @property {Class[]}
    */
-  activeClasses: Ember.computed('myClasses.classes', function () {
-    const profile = this.get('profile');
-    return this.get('myClasses.classes').filter(function(aClass){
-      return !aClass.get('isArchived') && !aClass.isTeacher(profile.get('id'));
-    });
-  }),
+  activeClasses: Ember.computed.alias('applicationController.studentActiveClasses'),
 
   /**
    * @property {Number} Total of joined classes
@@ -57,7 +45,7 @@ export default Ember.Controller.extend({
   /**
    * @property {Boolean} Indicate if has more announcements to show
    */
-  hasMoreAnnouncementes:Ember.computed('activeClasses','announcementsClasses',function(){
+  hasMoreAnnouncements:Ember.computed('activeClasses','announcementsClasses',function(){
     return this.get('activeClasses').length > this.get('announcementsClasses').length;
   })
 
