@@ -19,7 +19,7 @@ test('logged in as a teacher and home-link button navigation', function (assert)
   visit('/');
 
   andThen(function() {
-    assert.equal(currentURL(), '/teacher', 'As a teacher, the landing page should be "/teacher"');
+    assert.equal(currentURL(), '/teacher-home', 'As a teacher, the landing page should be "/teacher-home"');
     const $navMenu = find(".gru-header .menu-navbar");
     click($navMenu.find(".profile-link a.profile"));
 
@@ -29,7 +29,7 @@ test('logged in as a teacher and home-link button navigation', function (assert)
       click($navHeader.find(".home-link"));
 
       andThen(function () {
-        assert.equal(currentURL(), '/teacher', 'Home link should redirect to "/teacher" if the user is a teacher');
+        assert.equal(currentURL(), '/teacher-home', 'Home link should redirect to "/teacher" if the user is a teacher');
       });
     });
   });

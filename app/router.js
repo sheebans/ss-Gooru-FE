@@ -107,7 +107,7 @@ Router.map(function() {
     });
   });
 
-  this.route('teacher');
+  this.route('teacher-home');
 
   this.route('featured');
 
