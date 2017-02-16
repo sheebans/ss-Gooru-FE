@@ -98,9 +98,23 @@ export default Ember.Component.extend(ConfigurationMixin, {
           }), 100);
           this.set("message", '');
     },
+
     hideChannels: function(){
       this.toggleProperty('showChannels');
       Ember.$('#channel').hide();
+    },
+
+    //Allow the creator of the message the ability to edit their particular messages.
+    editMessage: function(message){
+      this.sendAction("oldMessage", message);
+      this.get('firebase').editMessage(message,this.get('currentUser'));
+    },
+
+    //Allows the creator of a message the ability to edit their own messages
+    submitEditedMessage: function(item){
+      let channels = this.get('channels');
+      let message = this.get('editedMessage');
+      this.get('firebase').submitEditedMessage(message,this.get('currentUser'),item,channels);
     }
   }
 });
