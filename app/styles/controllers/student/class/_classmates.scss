@@ -1,0 +1,39 @@
+.controller.classmates {
+  .teachers-section,
+  .students-section {
+    .row {
+      hr {
+        margin-top: 0;
+        margin-bottom: 18px;
+        border-top-color: $light-300;
+      }
+      ul {
+        padding-left: 0;
+        list-style: none;
+        li {
+          float:left;
+          padding: 0 20px 20px 0;
+        }
+      }
+      .profile-card {
+        div {
+          background: $white;
+          box-shadow: 0 2px 5px 0 rgba(0,0,0,0.10);
+          @include border-top-radius(5px);
+          @include border-bottom-radius(5px);
+          width:135px;
+          height: 140px;
+        }
+      }
+    }
+  }
+  .teachers-section {
+    .profile-card.student-view {
+      .gru-user-card {
+        span{
+          cursor: default;
+        }
+      }
+    }
+  }
+}

@@ -104,6 +104,7 @@ Router.map(function() {
       this.route('analytics', function() {
         this.route('performance');
       });
+      this.route('classmates');
     });
   });
 
