@@ -2,7 +2,9 @@
   height: 100vh;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
-
+  @media (min-width: $screen-lg) {
+    overflow-y: hidden;
+  }
   .web-container {
     height: calc(100% + 1px);
   }
