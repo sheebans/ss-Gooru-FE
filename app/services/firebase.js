@@ -137,7 +137,6 @@ export default Ember.Service.extend({
               editing: false
             });
           }
-          
         }.bind(this));
         }
   },
@@ -371,17 +370,31 @@ export default Ember.Service.extend({
     const db = this.get('firebaseApp').database();
     Ember.set(messageOld,'editing',false);
     const channelId = channels[0].uuid;
-    db.ref("messages/" + channelId + "/" + messageOld.messageId).set({
-      message: message,
-      username: messageOld.username,
-      userId: messageOld.userId,
-      fullname: messageOld.fullname,
-      photo: messageOld.photo,
-      createdTime: messageOld.createdTime,
-      messageId: messageOld.messageId,
-      editing: false,
-      modifitedTime: firebase.database.ServerValue.TIMESTAMP,
-      role: messageOld.role
-    });
+    if(currentUser.role === 'teacher'){
+      db.ref("messages/" + channelId + "/" + messageOld.messageId).set({
+        message: message,
+        username: messageOld.username,
+        userId: messageOld.userId,
+        fullname: messageOld.fullname,
+        photo: messageOld.photo,
+        createdTime: messageOld.createdTime,
+        messageId: messageOld.messageId,
+        editing: false,
+        modifitedTime: firebase.database.ServerValue.TIMESTAMP,
+        role: messageOld.role
+      });
+    }else{
+      db.ref("messages/" + channelId + "/" + messageOld.messageId).set({
+        message: message,
+        username: messageOld.username,
+        userId: messageOld.userId,
+        fullname: messageOld.fullname,
+        photo: messageOld.photo,
+        createdTime: messageOld.createdTime,
+        messageId: messageOld.messageId,
+        editing: false,
+        modifitedTime: firebase.database.ServerValue.TIMESTAMP
+      });
+    }
   }
 });
