@@ -380,7 +380,8 @@ export default Ember.Service.extend({
       createdTime: messageOld.createdTime,
       messageId: messageOld.messageId,
       editing: false,
-      modifitedTime: firebase.database.ServerValue.TIMESTAMP
+      modifitedTime: firebase.database.ServerValue.TIMESTAMP,
+      role: messageOld.role
     });
   }
 });
