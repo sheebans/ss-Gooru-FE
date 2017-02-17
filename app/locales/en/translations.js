@@ -806,6 +806,13 @@ export default {
       "content-map": "Content Map"
     }
   },
+  "teacher-landing": {
+    "class": {
+      "course-map": "Course Map",
+      "performance": "Performance",
+      "management": "Roster Management"
+    }
+  },
   "goals":{
     "manage":{
       "title": "My Goals!",
