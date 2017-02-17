@@ -1,0 +1,78 @@
+.teacher.class {
+  padding: 10px;
+  @media (min-width: $screen-sm) {
+    padding: 25px 47px;
+  }
+  .header {
+    min-height: 210px;
+    .first-column {
+      float: left;
+      width: 100%;
+      margin: 5px 0;
+      @media (min-width: $screen-sm) {
+        width: 60%;
+      }
+      @media (min-width: $screen-md) {
+        width: 45%;
+      }
+      @media (min-width: $screen-lg) {
+        width: 35%;
+      }
+      h1 {
+        font-size: $font-size-h5;
+        display: block;
+        color: $dark-500;
+        margin: 0 0 5px 0;
+      }
+      .boxes {
+        margin: 20px 0 0 0;
+        @include flexbox;
+        .box {
+          box-shadow: 0 2px 5px 0 rgba(0,0,0,0.10);
+          border-radius: 5px;
+          background-color: $white;
+          height: 125px;
+          width: 120px;
+          margin: 10px 10px 0 0;
+          float: left;
+          .charts.gru-radial-chart,
+          .charts.gru-bubble-chart {
+            width: 75px;
+            height: 75px;
+            margin: 20px auto 0;
+          }
+          .legend {
+            display: block;
+            text-align: center;
+            padding: 3px 0 0 0;
+          }
+        }
+      }
+    }
+    .second-column {
+      float: left;
+      width: 70%;
+      margin: 10px 10px 0 0;
+      .panel.announcements {
+        height: 210px;
+        .panel-heading {
+          font-size: $font-size-large;
+          line-height: $font-size-large;
+          padding: 5px 10px 6px;
+        }
+        .panel-body {
+          padding: 10px;
+          overflow-y: auto;
+          height: 180px;
+        }
+      }
+      @media (min-width: $screen-xs) {
+        width: 47%;
+      }
+      @media (min-width: $screen-sm) {
+        width: 32%;
+        margin: 0 10px 0 0;
+      }
+    }
+  }
+}
