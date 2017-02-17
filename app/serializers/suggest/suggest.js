@@ -22,6 +22,6 @@ export default SearchSerializer.extend({
         return serializer.normalizeResource(result);
       });
     }
-  },
+  }
 
 });
