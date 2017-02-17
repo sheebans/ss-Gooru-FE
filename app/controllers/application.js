@@ -97,18 +97,6 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * @property {Profile}
    */
   profile: null,
-
-  /**
-   * @property {Class[]}
-   */
-  studentActiveClasses: Ember.computed('myClasses.classes.[]', function () {
-    const profile = this.get('profile');
-    const totalClasses = this.get('myClasses.classes.length');
-    return totalClasses ? this.get('myClasses.classes').filter(function(aClass){
-      return !aClass.get('isArchived') && !aClass.isTeacher(profile.get('id'));
-    }) : [];
-  }),
-
   // -------------------------------------------------------------------------
   // Methods
 

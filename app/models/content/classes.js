@@ -29,5 +29,20 @@ export default Ember.Object.extend({
   /**
    * @property {Class[]} Detailed list of classes
    */
-  classes: []
+  classes: [],
+
+
+  //
+  // Methods
+  /**
+   * Retrieve the student active classes
+   * @param {string}
+   * @return {Class[]}
+   */
+  getStudentActiveClasses: function (userId) {
+    const totalClasses = this.get('classes.length');
+    return totalClasses ? this.get('classes').filter(function(aClass){
+      return !aClass.get('isArchived') && !aClass.isTeacher(userId);
+    }) : [];
+  }
 });

@@ -21,7 +21,9 @@ export default Ember.Controller.extend({
   /**
    * @property {Class[]}
    */
-  activeClasses: Ember.computed.alias('applicationController.studentActiveClasses'),
+  activeClasses: Ember.computed('applicationController.myClasses.classes.[]', function(){
+    return this.get("applicationController.myClasses").getStudentActiveClasses(this.get("profile.id"));
+  }),
 
   /**
    * @property {Number} Total of joined classes

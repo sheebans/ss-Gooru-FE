@@ -23,8 +23,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // Methods
   model: function () {
     let route = this;
-    let activeClasses = route.controllerFor('application').get('studentActiveClasses');
+    let myClasses = route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
+      route.controllerFor("application").get("myClasses"); //after login the variable is refreshed at the controller
     const myId = route.get("session.userId");
+    const activeClasses = myClasses.getStudentActiveClasses(myId);
     const classIds = activeClasses.mapBy("id");
 
     return route.get("performanceService").findClassPerformanceSummaryByClassIds(myId, classIds).then(function(classPerformanceSummaryItems){
