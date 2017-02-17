@@ -17,7 +17,7 @@ test('Class Performance Actions Bar with student mode', function(assert) {
   });
   this.set('collectionLevel', collectionLevel);
 
-  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='student' selectedFilterBy='assessment' onFilterSelected='selectFilterBy' collectionLevel=collectionLevel}}`);
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='student' selectedFilterBy='assessment' onFilterSelected='selectFilterBy' collectionLevel=collectionLevel enableFullScreen=true}}`);
 
   var $component = this.$(); //component dom element
   const $actions = $component.find(".gru-actions-bar");
@@ -45,7 +45,7 @@ test('Class Performance Actions Bar with teacher mode', function(assert) {
 
   this.set('collectionLevel', collectionLevel);
 
-  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='teacher' selectedFilterBy='collection' onFilterSelected='selectFilterBy' collectionLevel=collectionLevel}}`);
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar mode='teacher' selectedFilterBy='collection' onFilterSelected='selectFilterBy' collectionLevel=collectionLevel enableFullScreen=true}}`);
 
   var $component = this.$(); //component dom element
   const $actions = $component.find(".gru-actions-bar");
@@ -93,7 +93,7 @@ test('Calling external action when pressing the full screen button', function (a
 
   this.set('isFullScreenMode', true);
 
-  this.render(hbs`{{class.analytics.performance.gru-actions-bar onToggleFullScreen=(action 'externalAction')}}`);
+  this.render(hbs`{{class.analytics.performance.gru-actions-bar onToggleFullScreen=(action 'externalAction') enableFullScreen=true}}`);
 
   var $component = this.$(); //component dom element
   const $button = $component.find(".gru-actions-bar .full-screen");
@@ -129,6 +129,19 @@ test('Not displaying Edit Content option when enableEdit is false', function (as
 
   var $component = this.$(); //component dom element
   const $button = $component.find(".gru-actions-bar .btn.btn-info.edit");
+
+  T.notExists(assert, $button, "Button should not be visible");
+});
+
+test('Not displaying Edit Content option when enableEdit is false', function (assert) {
+  assert.expect(1);
+
+  const enableFullScreen = false;
+  this.set('enableFullScreen', enableFullScreen);
+
+  var $component = this.$(); //component dom element
+
+  const $button = $component.find(".gru-actions-bar .full-screen");
 
   T.notExists(assert, $button, "Button should not be visible");
 });

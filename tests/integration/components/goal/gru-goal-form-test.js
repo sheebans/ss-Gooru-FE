@@ -113,3 +113,39 @@ test('Goal Form - Update goal', function(assert) {
   return wait();
 });
 
+
+test('Goal Form - Edit values and cancel edition', function(assert) {
+  assert.expect(4);
+
+  this.set('goal', mockGoal);
+  this.on('cancelEditGoal', function(){
+    this.render(hbs`{{cards/gru-goal-card goal=goal expanded=true}}`);
+    let $component = this.$(); //component dom element
+
+    const $goalCard = $component.find(".gru-goal-card.expanded");
+    const $panel = $goalCard.find(".panel");
+    const $panelHeading = $panel.find(".panel-heading");
+    const $panelBody = $panel.find(".panel-body");
+
+    assert.equal(T.text($panelHeading.find(".title")), 'My Fitness Goal', 'Title has not changed after canceling edition');
+    assert.notEqual(T.text($panelBody.find(".date")), '', 'date not empty');
+    assert.equal(T.text($panelBody.find(".status")), 'Status - Not Started', 'Status has not changed after canceling edition');
+    assert.equal(T.text($panelBody.find(".reflection")), 'need to do better', 'Reflection has not changed after canceling edition');
+  });
+
+  this.render(hbs`{{goal.gru-goal-form goal=goal isEditView=true onUpdate='update' onCancelEdit='cancelEditGoal'}}`);
+  var $component = this.$(); //component dom element
+
+  const $goalFormContainer = $component.find(".gru-goal-form");
+  const $panel = $goalFormContainer.find(".panel-form");
+  const $form = $panel.find("#createGoalForm");
+
+  $form.find(".gru-input.title").val("New Fitness Goal");
+  $form.find(".form-group.status").val("activated");
+  $form.find(".form-group.start-date").val(1409175059);
+  $form.find(".form-group.end-date").val(1409175059);
+  $form.find(".gru-input.reflection").val("New reflection");
+
+  $goalFormContainer.find(".cancel-goal").click(); //click the button
+  return wait();
+});

@@ -82,7 +82,6 @@ Router.map(function() {
         });
       });
     });
-
   });
 
 
@@ -101,10 +100,15 @@ Router.map(function() {
 
   this.route('student', function() {
     this.route('performance');
-    this.route('class', { path: '/class/:classId' });
+    this.route('class', { path: '/class/:classId' }, function() {
+      this.route('analytics', function() {
+        this.route('performance');
+      });
+      this.route('classmates');
+    });
   });
 
-  this.route('teacher');
+  this.route('teacher-home');
 
   this.route('featured');
 

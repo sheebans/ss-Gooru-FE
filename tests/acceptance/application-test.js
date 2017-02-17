@@ -41,6 +41,18 @@ test('searchTerm: Search box navigation', function(assert) {
   });
 });
 
+test('Tenant support', function(assert) {
+  visit('/');
+
+  andThen(function() {
+    assert.expect(2); //making sure all asserts are called
+
+    assert.equal(currentURL(), '/');
+
+    assert.ok(Ember.$(".gru-tenant-theme style").length, "Missing tenant theme component");
+  });
+});
+
 test('Theme support - no theme', function(assert) {
   visit('/');
 

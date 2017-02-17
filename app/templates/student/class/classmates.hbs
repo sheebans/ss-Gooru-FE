@@ -1,0 +1,50 @@
+<div class="controller classmates">
+  <div class="row">
+    <div class="teachers-section col-md-12 col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <h5>{{t "class.info.teachers"}} ({{class.countTeachers}})</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <ul class="teachers">
+           {{#each class.teachers as |teacher|}}
+             <li class="profile-card student-view">
+               {{cards.gru-user-card user=teacher }}
+             </li>
+           {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="students-section col-md-12 col-sm-12 col-xs-12">
+      <div class="row">
+         <div class="col-md-6 col-sm-6 col-xs-6">
+           <h5>{{t "class.info.students"}} ({{class.countMembers}})</h5>
+         </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <ul class="students">
+            {{#each class.members as |member|}}
+              <li class="profile-card">
+                {{cards.gru-user-card user=member isStudent=true isStudentCard=true classId=class.id}}
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

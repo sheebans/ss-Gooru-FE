@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import ClassPerformanceSummarySerializer from 'gooru-web/serializers/performance/class-performance-summary';
+import ClassPerformanceSummaryAdapter from 'gooru-web/adapters/performance/class-performance-summary';
 
 /**
  * @typedef {Object} PerformanceService
@@ -22,6 +24,25 @@ export default Ember.Service.extend({
    */
   taxonomyService: Ember.inject.service("api-sdk/taxonomy"),
 
+  /**
+   * @propery {ClassPerformanceSummarySerializer}
+   */
+  classPerformanceSummarySerializer: null,
+
+  /**
+   * @propery {classPerformanceSummaryAdapter}
+   */
+  classPerformanceSummaryAdapter: null,
+
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  init: function () {
+    this._super(...arguments);
+    this.set('classPerformanceSummarySerializer', ClassPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('classPerformanceSummaryAdapter', ClassPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Gets a student's assessment result for a specific collection.
@@ -388,6 +409,19 @@ export default Ember.Service.extend({
     }).then(function(collectionPerformances) {
       return collectionPerformances;
     });
+  },
+
+  /**
+   * Gets the class performance summary by class ids
+   * @param userId
+   * @param classIds
+     */
+  findClassPerformanceSummaryByClassIds: function(userId, classIds) {
+    const service = this;
+    return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByClassIds(userId, classIds)
+      .then(function (data) {
+        return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
+      });
   },
 
   matchStudentsWithPerformances: function(students, classPerformance) {

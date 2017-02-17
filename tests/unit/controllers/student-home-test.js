@@ -2,23 +2,13 @@ import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 
 var applicationController = Ember.Object.create ({
-  myClasses: {
-    classes:[
-      Ember.Object.create ({id:'class1',isArchived:true,isTeacher:function(){return false;}}),
-      Ember.Object.create ({id:'class2',isArchived:false,isTeacher:function(){return false;}})
-    ]
-  },
-  profile:Ember.Object.create ({id:'profile-id'})
+  profile:Ember.Object.create ({id:'profile-id'}),
+  studentActiveClasses: [
+    Ember.Object.create ({id:'class2',isArchived:false,isTeacher:function(){return false;}})
+  ]
 });
 moduleFor('controller:student-home', 'Unit | Controller | student-home', {
 
-});
-
-test('myClasses', function(assert) {
-  assert.expect(1);
-  let controller = this.subject();
-  controller.set('applicationController', applicationController);
-  assert.deepEqual(controller.get('myClasses'),applicationController.myClasses, 'myClasses should be equal than application controller classes');
 });
 
 test('profile', function(assert) {
@@ -32,7 +22,7 @@ test('activeClasses', function(assert) {
   assert.expect(1);
   let controller = this.subject();
   controller.set('applicationController', applicationController);
-  assert.equal(controller.get('activeClasses').length,1, 'Should have one active classes');
+  assert.equal(controller.get('activeClasses').length, 1, 'Should have one active classes');
 });
 
 test('totalJoinedClasses', function(assert) {
@@ -56,9 +46,9 @@ test('announcementsClasses', function(assert) {
   assert.equal(controller.get('announcementsClasses').length,1, 'Should have 1 announcement');
 });
 
-test('hasMoreAnnouncementes', function(assert) {
+test('hasMoreAnnouncements', function(assert) {
   assert.expect(1);
   let controller = this.subject();
   controller.set('applicationController', applicationController);
-  assert.equal(controller.get('hasMoreAnnouncementes'),false, 'Should not have more announcements');
+  assert.equal(controller.get('hasMoreAnnouncements'),false, 'Should not have more announcements');
 });

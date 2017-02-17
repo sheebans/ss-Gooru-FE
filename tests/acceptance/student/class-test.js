@@ -38,6 +38,8 @@ test('Layout', function(assert) {
     const $headerBoxes = $firstColumnHeader.find('.boxes');
     assert.equal($headerBoxes.find('> .box').length, 3, 'Number of header boxes');
     T.exists(assert, $headerBoxes.find('> .box.completed'), 'Missing completed box');
+    T.exists(assert, $headerBoxes.find('> .box.completed .gru-radial-chart'), 'Missing completed gru-radial-chart component');
+    T.exists(assert, $headerBoxes.find('> .box.completed .legend'), 'Missing completed legend');
     T.exists(assert, $headerBoxes.find('> .box.performance'), 'Missing performance box');
     T.exists(assert, $headerBoxes.find('> .box.performance .gru-bubble-chart'), 'Missing performance gru-bubble-chart component');
     T.exists(assert, $headerBoxes.find('> .box.performance .legend'), 'Missing performance legend');
@@ -48,12 +50,7 @@ test('Layout', function(assert) {
     T.exists(assert, $secondColumnHeader.find('.announcements .panel-body'), 'Missing announcements panel-body');
     assert.equal(T.text($secondColumnHeader.find('.announcements .panel-body .greeting')), 'Class Greeting', 'Incorrect class greeting text');
 
-    T.exists(assert, $classContainer.find('> .class-navigator'), 'Missing class navigator');
-    assert.equal($classContainer.find('> .class-navigator .nav a').length, 4, 'Number of class navigator links');
-    T.exists(assert, $classContainer.find('> .class-navigator .nav .activity-list'), 'Missing activity list link');
-    T.exists(assert, $classContainer.find('> .class-navigator .nav .performance'), 'Missing performance link');
-    T.exists(assert, $classContainer.find('> .class-navigator .nav .classmates'), 'Missing classmates link');
-    T.exists(assert, $classContainer.find('> .class-navigator .nav .content-map'), 'Missing content map link');
+    T.exists(assert, $classContainer.find('> .gru-class-navigation'), 'Missing class navigation component');
     T.exists(assert, $classContainer.find('> .content'), 'Missing class content');
   });
 });
