@@ -97,24 +97,23 @@ export default PlayerController.extend({
     let promise = controller._super(...arguments);
     let onAir = controller.get('onAir');
 
-    return promise.then(function() {
-      if (onAir){
-        const classId = context.get('classId');
-        const collectionId = context.get('collectionId');
-        const userId = context.get('userId');
-        const realTimeService = controller.get('realTimeService');
+    if (onAir){
+      const classId = context.get('classId');
+      const collectionId = context.get('collectionId');
+      const userId = context.get('userId');
+      const realTimeService = controller.get('realTimeService');
 
-        // Only notifies to the RealTime server when it is a student stop event and the resource is not skipped.
-        // RealTime only processes completed resources (questions) due that it has a finish collection event to
-        // handle all the skipped resources. Sending multiple concurrent stop events for non-completed resources
-        // for the same student will provoke data overwrite issue in the RealTime server.
-        if (!isTeacher && (eventType === 'stop') && !isSkip) {
-          realTimeService.notifyResourceResult(classId, collectionId, userId, resourceResult);
-          controller.set("notifyingRealTime", true);
-        }
+      // Only notifies to the RealTime server when it is a student stop event and the resource is not skipped.
+      // RealTime only processes completed resources (questions) due that it has a finish collection event to
+      // handle all the skipped resources. Sending multiple concurrent stop events for non-completed resources
+      // for the same student will provoke data overwrite issue in the RealTime server.
+      if (!isTeacher && (eventType === 'stop') && !isSkip) {
+        realTimeService.notifyResourceResult(classId, collectionId, userId, resourceResult);
+        controller.set("notifyingRealTime", true);
       }
-      return Ember.RSVP.resolve(true); //not waiting for the real time events
-    });
+    }
+
+    return promise;
   },
 
   /**
@@ -129,23 +128,21 @@ export default PlayerController.extend({
     let isTeacher = controller.get('isTeacher');
     const promise = this._super(...arguments);
     const onAir = controller.get("onAir");
-    return promise.then(function(){
-      if (onAir){
-        const classId = context.get("classId");
-        const collectionId = context.get("collectionId");
-        const userId = context.get("userId");
-        const realTimeService = controller.get('realTimeService');
+    if (onAir){
+      const classId = context.get("classId");
+      const collectionId = context.get("collectionId");
+      const userId = context.get("userId");
+      const realTimeService = controller.get('realTimeService');
 
-        if (!isTeacher && (eventType === "start")) {
-          realTimeService.notifyAttemptStarted(classId, collectionId, userId);
-          controller.set("notifyingRealTime", true);
-        }
-        else if (!isTeacher && (eventType === "stop")) {
-          realTimeService.notifyAttemptFinished(classId, collectionId, userId);
-          controller.set("notifyingRealTime", true);
-        }
+      if (!isTeacher && (eventType === "start")) {
+        realTimeService.notifyAttemptStarted(classId, collectionId, userId);
+        controller.set("notifyingRealTime", true);
       }
-      return Ember.RSVP.resolve(true); //not waiting for the real time events
-    });
+      else if (!isTeacher && (eventType === "stop")) {
+        realTimeService.notifyAttemptFinished(classId, collectionId, userId);
+        controller.set("notifyingRealTime", true);
+      }
+    }
+    return promise;
   }
 });
