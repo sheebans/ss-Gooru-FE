@@ -14,7 +14,7 @@ moduleForAdapter('adapter:performance/class-performance-summary', 'Unit | Adapte
   }
 });
 
-test('findClassPerformanceSummaryByClassIds', function (assert) {
+test('findClassPerformanceSummaryByStudentAndClassIds', function (assert) {
   assert.expect(4);
   // Mock backend response
   this.pretender.map(function () {
@@ -37,7 +37,36 @@ test('findClassPerformanceSummaryByClassIds', function (assert) {
 
   const adapter = this.subject();
 
-  adapter.findClassPerformanceSummaryByClassIds('23', [1,2,3])
+  adapter.findClassPerformanceSummaryByStudentAndClassIds('23', [1,2,3])
+    .then(function () {
+      assert.ok(true, 'This should be called once');
+    });
+});
+
+test('findClassPerformanceSummaryByClassIds', function (assert) {
+  assert.expect(4);
+  // Mock backend response
+  this.pretender.map(function () {
+    this.post('/api/nucleus-insights/v2/classes/performance', function (request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.ok(!request.queryParams.userId, 'User id should not be provided');
+      assert.deepEqual(requestBodyJson["classIds"], [1,2,3], "Wrong classIds");
+      assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
+      return [
+        200,
+        {
+          'Content-Type': 'application/json'
+        },
+        ''];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.findClassPerformanceSummaryByClassIds([1,2,3])
     .then(function () {
       assert.ok(true, 'This should be called once');
     });

@@ -3,9 +3,14 @@ import { moduleFor, test } from 'ember-qunit';
 
 var applicationController = Ember.Object.create ({
   profile:Ember.Object.create ({id:'profile-id'}),
-  studentActiveClasses: [
-    Ember.Object.create ({id:'class2',isArchived:false,isTeacher:function(){return false;}})
-  ]
+  myClasses: {
+    classes: [
+      Ember.Object.create ({id:'class2',isArchived:false,isTeacher:function(){return false;}})
+    ],
+    getStudentActiveClasses: function() {
+      return this.classes;
+    }
+  }
 });
 moduleFor('controller:student-home', 'Unit | Controller | student-home', {
 

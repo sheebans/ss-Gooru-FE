@@ -36,7 +36,8 @@ export default Ember.Object.extend({
       classId: data.classId,
       timeSpent: data.timeSpent,
       score: data.scoreInPercentage,
-      totalCompleted: data.completedCount
+      totalCompleted: data.completedCount,
+      total: data.totalCount || data.completedCount /* using completedCount when no total count found, tmp fix */
     });
   }
 
