@@ -23,8 +23,8 @@
     }
     li {
       background: $light-100;
-      border: 1px solid $light-300;
-      border-bottom: 0;
+      border: 2px solid $light-300;
+      border-top: 0;
       margin: 0;
       .resources-info {
         span.number,
@@ -98,6 +98,9 @@
             color: $dark-200;
             font-weight: bold;
           }
+        }
+        &.selected{
+          border-right: none;
         }
       }
     }
