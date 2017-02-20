@@ -1,18 +1,19 @@
-.student.gru-class-navigation {
+.student.gru-class-navigation,
+.teacher.gru-class-navigation {
   border-top: solid 1px $light-300;
   clear: both;
-  margin: 15px 0 0 0;
+  margin: 20px 0 0 0;
   .nav-tabs {
-    margin: 10px 0;
+    margin: 0;
     li {
       margin: 0 10px 0 0;
       @media (min-width: $screen-sm) {
         margin: 0 15px 0 0;
       }
       a {
-        padding: 10px 5px 0 5px;
+        padding: 10px 5px;
         .lead {
-          font-size: $font-navigator;
+          font-size: $font-size-h5;
           font-weight: normal;
         }
       }

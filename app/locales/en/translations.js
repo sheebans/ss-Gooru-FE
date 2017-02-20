@@ -340,6 +340,7 @@ export default {
     "off":"OFF",
     "on":"ON",
     "other": "Other",
+    "overall-performance": "Overall Performance",
     "password": "Password",
     "pending": "Pending",
     "performance": "Show Performance",

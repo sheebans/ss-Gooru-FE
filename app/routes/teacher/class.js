@@ -41,11 +41,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
       if (item !== currentItem) {
         controller.selectMenuItem(item);
-        const queryParams = {
-          queryParams: {
-            filterBy: 'assessment'
-          }
-        };
 
         //if (item === 'performance') {
         //  route.transitionTo('teacher.class.analytics.performance', queryParams);
