@@ -340,6 +340,7 @@ export default {
     "off":"OFF",
     "on":"ON",
     "other": "Other",
+    "overall-performance": "Overall Performance",
     "password": "Password",
     "pending": "Pending",
     "performance": "Show Performance",
@@ -804,6 +805,13 @@ export default {
       "performance": "Performance",
       "classmates": "Classmates",
       "content-map": "Content Map"
+    }
+  },
+  "teacher-landing": {
+    "class": {
+      "course-map": "Course Map",
+      "performance": "Performance",
+      "management": "Roster Management"
     }
   },
   "goals":{

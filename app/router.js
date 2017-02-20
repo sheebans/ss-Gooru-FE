@@ -110,6 +110,10 @@ Router.map(function() {
 
   this.route('teacher-home');
 
+  this.route('teacher', function() {
+    this.route('class', { path: '/class/:classId' });
+  });
+
   this.route('featured');
 
   this.route('account-settings', { path: '/account-settings/:userId' });
