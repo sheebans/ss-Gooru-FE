@@ -825,7 +825,13 @@ export default {
       "goals-not-found": 'You have not set any goals yet. You can add a goal by clicking "Add Goal" button above.'
     },
     "create":{
-      "error-add-title": "Please enter the goal",
+      "error-add-title": "Please enter the Goal",
+      "error-length-title": "Goal must have max 200 characters",
+      "error-add-start-date": "Please enter the Start Date",
+      "error-add-end-date": "Please enter the End Date",
+      "error-greater-end-date": "The End Date must be greater than the Start Date",
+      "error-add-status": "Please select the Goal Status",
+      "error-length-reflection": "Reflection must have max 2000 characters",
       "created-success-msg": "You've created the goal {{goalTitle}}"
     },
     "delete":{

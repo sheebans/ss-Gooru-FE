@@ -51,3 +51,72 @@ test('Layout', function(assert) {
   });
 
 });
+
+test('It shows an error message if the Goal field is left blank', function(assert) {
+
+  visit('/goals/manage');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/goals/manage');
+
+    const $userContainer = find(".controller.manage-goals");
+    const $goalsNavigator = $userContainer.find(".goals-navigator");
+
+    click($goalsNavigator.find(".add-goal"));
+    andThen(function() {
+      const $goalsContainer = $userContainer.find(".form-goal-container");
+      const $goalFormContainer= $goalsContainer.find(".gru-goal-form");
+
+      const $panel = $goalFormContainer.find(".panel-form");
+      const $form = $panel.find("#createGoalForm");
+      const $titleField = $form.find(".form-group.title");
+
+      //invalid
+      $titleField.find("input").val('');
+      $titleField.find("input").blur();
+
+      return wait().then(function () {
+        assert.ok($titleField.find(".error-messages .error").length, 'Title error message is visible');
+        assert.equal(T.text($titleField.find(".error-messages .error")), 'Please enter the Goal' ,'Title error message is correct');
+
+        //valid
+        $titleField.find("input").val('Title test');
+        $titleField.find("input").blur();
+        return wait().then(function () {
+          T.notExists(assert, $titleField.find(".error-messages span.error"), 'Error message for title should not be visible');
+        });
+      });
+    });
+  });
+});
+
+test('It shows an error message if the Start Date field is left blank', function(assert) {
+
+  visit('/goals/manage');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/goals/manage');
+
+    const $userContainer = find(".controller.manage-goals");
+    const $goalsNavigator = $userContainer.find(".goals-navigator");
+
+    click($goalsNavigator.find(".add-goal"));
+    andThen(function() {
+      const $goalsContainer = $userContainer.find(".form-goal-container");
+      const $goalFormContainer= $goalsContainer.find(".gru-goal-form");
+
+      const $panel = $goalFormContainer.find(".panel-form");
+      const $form = $panel.find("#createGoalForm");
+      const $startDateField = $form.find(".form-group.start-date");
+
+      //invalid
+      $startDateField.find("input").val('');
+      click($form.find('.create-goal'));
+      andThen(function () {
+        assert.ok($startDateField.find(".error-messages .error").length, 'Start Date error message is visible');
+        assert.equal(T.text($startDateField.find(".error-messages .error")), 'Please enter the Start Date', 'Start Date error message is correct');
+      });
+    });
+  });
+});
+

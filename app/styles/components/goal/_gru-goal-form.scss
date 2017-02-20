@@ -1,5 +1,5 @@
 .gru-goal-form {
-  height: 385px;
+  height: 400px;
   border-top: 1px solid $gray-light;
   border-bottom: 1px solid $gray-light;
   > div{
@@ -27,7 +27,8 @@
       }
       .form-group{
         float: left;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
+        position: relative;
         width: 90%;
         @media (min-width: $screen-xs) {
           width: 95%;
@@ -40,6 +41,18 @@
         }
         label{
           width: 75%;
+        }
+        .error-messages{
+          bottom: -20px;
+          position: absolute;
+          .error{
+            color: #F46360;
+            font-size: 12px;
+            margin: 0;
+            &.dates-error{
+              width: 275px;
+            }
+          }
         }
       }
       .form-actions{

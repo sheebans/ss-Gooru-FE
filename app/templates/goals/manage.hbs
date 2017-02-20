@@ -15,7 +15,7 @@
 
   {{#if showForm}}
     <div class="form-goal-container">
-      {{goal.gru-goal-form goal=goal onCreate='createGoal' onCancel='cancelCreation'}}
+      {{goal.gru-goal-form goal=goal onCreate='createGoal' onCancel='cancelCreation' didValidate=didValidate}}
     </div>
   {{/if}}
 

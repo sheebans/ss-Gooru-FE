@@ -116,6 +116,14 @@ export default Ember.Component.extend({
   showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', function() {
     return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid');
   }),
+  /**
+   * @param {String} Error when there are 2 dates in same form with wrong order
+   */
+  errorDatesMessage: null,
+  /**
+   * @param {Boolean} Flag to know if the dates error should be displayed
+   */
+  showDatesMessage: null,
 
   /**
    * @property {string} selected date

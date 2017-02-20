@@ -56,17 +56,23 @@ export default Ember.Controller.extend({
       this.resetProperties();
     },
 
-    createGoal: function (goal) {
+    createGoal: function (goal, areDatesOk) {
       const controller = this;
-      const goals = controller.get('goals');
+      goal.validate().then(function ({ validations }) {
+        controller.set("didValidate", true);
+        if (validations.get('isValid') && areDatesOk) {
+          const goals = controller.get('goals');
 
-      controller.get('goalService').createGoal(goal)
-        .then(function () {
-          controller.closeCreateGoalForm();
-          let message = controller.get('i18n').t('goals.create.created-success-msg',{goalTitle: goal.get('title')}).string;
-          controller.get('notifications').success(message);
-          goals.pushObject(goal);
-        });
+          controller.get('goalService').createGoal(goal)
+          .then(function () {
+            controller.closeCreateGoalForm();
+            let message = controller.get('i18n').t('goals.create.created-success-msg', {goalTitle: goal.get('title')}).string;
+            controller.get('notifications').success(message);
+            goals.pushObject(goal);
+          });
+
+        }
+      });
     },
 
     updateGoal: function (goal) {
@@ -100,8 +106,10 @@ export default Ember.Controller.extend({
   resetProperties(){
     var controller = this;
     var newGoalProfile = Goal.extend(createGoalValidations);
-    var goal = newGoalProfile.create();
+    var goal = newGoalProfile.create(Ember.getOwner(this).ownerInjection(), {});
     controller.set('goal', goal);
+    controller.set("didValidate", false);
+
   },
 
   closeCreateGoalForm(){

@@ -10,5 +10,11 @@
             {{v-get model valuePath 'message'}}
           </span>
       {{/if}}
+
+      {{#if showDatesMessage}}
+          <span class="error dates-error">
+            {{errorDatesMessage}}
+          </span>
+      {{/if}}
     </div>
 </div>

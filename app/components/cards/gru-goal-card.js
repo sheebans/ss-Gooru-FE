@@ -19,23 +19,23 @@ export default Ember.Component.extend({
 
     editView: function() {
       let goal = this.get('goal');
-      let originalGoal = goal.copy();
-      this.set('originalGoal', originalGoal);
+      let tmpGoal = goal.copy();
+      this.set('tmpGoal', tmpGoal);
       this.set('isEdition', true);
     },
 
     update: function() {
       if (this.get('onUpdate')) {
-        this.sendAction("onUpdate", this.get("goal"));
+        let goal = this.get('goal');
+        let tmpGoal = this.get('tmpGoal');
+        var properties = goal.modelProperties().concat(['startDate', 'endDate']);
+        goal.merge(tmpGoal, properties);
+        this.sendAction("onUpdate", goal);
         this.set('isEdition', false);
       }
     },
 
     cancelEditGoal: function() {
-      let goal = this.get('goal');
-      let originalGoal = this.get('originalGoal');
-      var properties = goal.modelProperties().concat(['startDate', 'endDate']);
-      goal.merge(originalGoal, properties);
       this.set('isEdition', false);
     },
 
@@ -60,7 +60,7 @@ export default Ember.Component.extend({
   /**
    * @property {Goal} original goal information
    */
-  originalGoal: null,
+  tmpGoal: null,
 
   /**
    * @property {boolean}

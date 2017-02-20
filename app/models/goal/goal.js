@@ -100,7 +100,7 @@ const GoalModel = Ember.Object.extend(Validations, {
     properties.reflection = reflection;
 
     var newGoalProfile = GoalModel.extend(createGoalValidations);
-    return newGoalProfile.create(properties);
+    return newGoalProfile.create(Ember.getOwner(this).ownerInjection(), properties);
   },
 
   /**
