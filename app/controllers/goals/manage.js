@@ -77,13 +77,17 @@ export default Ember.Controller.extend({
 
     updateGoal: function (goal) {
       const controller = this;
-      const goalId = goal.get('id');
-
-      controller.get('goalService').updateGoal(goal, goalId)
-        .then(function () {
-          let message = controller.get('i18n').t('goals.update.updated-success-msg').string;
-          controller.get('notifications').success(message);
-        });
+      goal.validate().then(function ({ validations }) {
+        controller.set("didValidate", true);
+        if (validations.get('isValid')) {
+          const goalId = goal.get('id');
+          controller.get('goalService').updateGoal(goal, goalId)
+          .then(function () {
+            let message = controller.get('i18n').t('goals.update.updated-success-msg').string;
+            controller.get('notifications').success(message);
+          });
+        }
+      });
     },
 
     deleteGoal: function(goal) {
@@ -105,11 +109,10 @@ export default Ember.Controller.extend({
    */
   resetProperties(){
     var controller = this;
-    var newGoalProfile = Goal.extend(createGoalValidations);
-    var goal = newGoalProfile.create(Ember.getOwner(this).ownerInjection(), {});
+    var newGoal = Goal.extend(createGoalValidations);
+    var goal = newGoal.create(Ember.getOwner(this).ownerInjection(), {});
     controller.set('goal', goal);
     controller.set("didValidate", false);
-
   },
 
   closeCreateGoalForm(){

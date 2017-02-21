@@ -38,6 +38,9 @@
         }
         &.date-input{
           width: 45%;
+          .datepicker-icon{
+            z-index: 3;
+          }
         }
         label{
           width: 75%;
