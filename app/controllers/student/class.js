@@ -46,6 +46,11 @@ export default Ember.Controller.extend({
    */
    menuItem: null,
 
+  /**
+   * @property {ClassContentVisibility}
+   */
+  contentVisibility: null,
+
   // -------------------------------------------------------------------------
   // Methods
 
