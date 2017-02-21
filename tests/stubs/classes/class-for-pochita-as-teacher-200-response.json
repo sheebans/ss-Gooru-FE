@@ -13,7 +13,7 @@
   "end_date": null,
   "gooru_version": 3,
   "grade": null,
-  "greeting": null,
+  "greeting": "Class Greeting",
   "id": "462bcc67-1717-4140-bdc0-672e7bf4cdb1",
   "is_archived": false,
   "member_count": 7,

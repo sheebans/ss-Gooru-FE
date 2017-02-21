@@ -65,7 +65,7 @@ test('Go to class overview from announcement', function(assert) {
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-for-pochita-as-teacher-no-course/quick-start', 'The navigated route shuld be of class overview');
+      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher-no-course', 'Wrong route');
     });
   });
 });
