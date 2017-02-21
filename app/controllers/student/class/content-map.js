@@ -1,8 +1,8 @@
 import Ember from "ember";
 /**
- * Class Overview controller
+ * Content map controller
  *
- * Controller responsible of the logic for the class overview page
+ * Controller responsible of the logic for the content map page
  */
 
 
