@@ -1,6 +1,16 @@
 .gooru.embedded {
   .app-container {
     padding-top: 0;
+    .main {
+      .gru-viewer {
+        .content {
+          @media (min-width: $screen-lg) {
+            overflow-y: hidden;
+            height: 100%;
+          }
+        }
+      }
+    }
   }
   .player, .context-player {
     .gru-navigation {
