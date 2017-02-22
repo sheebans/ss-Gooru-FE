@@ -23,6 +23,29 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Get user location in class provided
+   * @param {string[]} classIds
+   * @param {string} userId
+   * @returns {*}
+     */
+  getUserCurrentLocationByClassIds: function(classIds, userId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/classes/location`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify({
+        "classIds" : classIds
+      })
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'gooru-session-token': this.get('session.token-api3')
