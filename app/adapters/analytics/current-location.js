@@ -36,11 +36,11 @@ export default Ember.Object.extend({
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
-      dataType: 'text',
-      processData: false,
-      headers: this.defineHeaders(),
+      dataType: 'json',
+      headers: this.defineAuthorizationHeaders(),
       data: JSON.stringify({
-        "classIds" : classIds
+        "classIds" : classIds,
+        "userId": userId
       })
     };
     return Ember.$.ajax(url, options);
@@ -49,6 +49,12 @@ export default Ember.Object.extend({
   defineHeaders: function() {
     return {
       'gooru-session-token': this.get('session.token-api3')
+    };
+  },
+
+  defineAuthorizationHeaders: function() {
+    return {
+      'Authorization': 'Token ' + this.get('session.token-api3')
     };
   }
 
