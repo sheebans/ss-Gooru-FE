@@ -105,6 +105,7 @@ Router.map(function() {
         this.route('performance');
       });
       this.route('classmates');
+      this.route('content-map');
     });
   });
 

@@ -57,7 +57,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
       if (route.get('session.userData.isNew')) {
         route.transitionTo('sign-up-finish');
       } else {
-        route.get('profileService').readUserProfile(userId)
+        return route.get('profileService').readUserProfile(userId)
           .then(function(userProfile) {
             const isStudent = userProfile.get('isStudent');
             const isTeacher = userProfile.get('isTeacher');
