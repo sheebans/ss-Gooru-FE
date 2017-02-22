@@ -397,7 +397,7 @@ test('findClassPerformanceByUnitAndLesson', function (assert) {
 });
 
 
-test('findClassPerformanceSummaryByClassIds', function(assert) {
+test('findClassPerformanceSummaryByStudentAndClassIds', function(assert) {
   const service = this.subject();
   assert.expect(4);
 
@@ -409,7 +409,7 @@ test('findClassPerformanceSummaryByClassIds', function(assert) {
   }));
 
   service.set('classPerformanceSummaryAdapter', Ember.Object.create({
-    findClassPerformanceSummaryByClassIds: function(userId, classIds) {
+    findClassPerformanceSummaryByStudentAndClassIds: function(userId, classIds) {
       assert.deepEqual(userId, 123, 'Wrong id');
       assert.deepEqual(classIds, [1,2,3], 'Wrong ids');
       return Ember.RSVP.resolve("fake-data");
@@ -417,7 +417,33 @@ test('findClassPerformanceSummaryByClassIds', function(assert) {
   }));
 
   var done = assert.async();
-  service.findClassPerformanceSummaryByClassIds(123, [1,2,3])
+  service.findClassPerformanceSummaryByStudentAndClassIds(123, [1,2,3])
+    .then(function(response) {
+      assert.deepEqual(response, [1,2,3,4,5], 'Wrong response');
+      done();
+    });
+});
+
+test('findClassPerformanceSummaryByClassIds', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('classPerformanceSummarySerializer', Ember.Object.create({
+    normalizeAllClassPerformanceSummary: function(data) {
+      assert.equal(data, "fake-data", 'Wrong data');
+      return [1,2,3,4,5]; //fake response
+    }
+  }));
+
+  service.set('classPerformanceSummaryAdapter', Ember.Object.create({
+    findClassPerformanceSummaryByClassIds: function(classIds) {
+      assert.deepEqual(classIds, [1,2,3], 'Wrong ids');
+      return Ember.RSVP.resolve("fake-data");
+    }
+  }));
+
+  var done = assert.async();
+  service.findClassPerformanceSummaryByClassIds([1,2,3])
     .then(function(response) {
       assert.deepEqual(response, [1,2,3,4,5], 'Wrong response');
       done();

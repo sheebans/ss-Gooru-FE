@@ -412,13 +412,26 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Gets the class performance summary by class ids
-   * @param userId
+   * Gets the class performance summary by student class ids
+   * @param studentId
    * @param classIds
      */
-  findClassPerformanceSummaryByClassIds: function(userId, classIds) {
+  findClassPerformanceSummaryByStudentAndClassIds: function(studentId, classIds) {
     const service = this;
-    return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByClassIds(userId, classIds)
+    return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByStudentAndClassIds(studentId, classIds)
+      .then(function (data) {
+        return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
+      });
+  },
+
+  /**
+   * Gets the class performance summary by class ids
+   * This method is used by teachers to get their class summary performance
+   * @param classIds
+     */
+  findClassPerformanceSummaryByClassIds: function(classIds) {
+    const service = this;
+    return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByClassIds(classIds)
       .then(function (data) {
         return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
       });

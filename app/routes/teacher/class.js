@@ -41,22 +41,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
       if (item !== currentItem) {
         controller.selectMenuItem(item);
-        const queryParams = {
-          queryParams: {
-            filterBy: 'assessment'
-          }
-        };
 
-        if (item === 'performance') {
-          route.transitionTo('student.class.analytics.performance', queryParams);
-        } else if (item === 'content-map') {
-          route.transitionTo('student.class.content-map');
-        } else if (item === 'classmates') {
-          route.transitionTo('student.class.classmates');
-        }
-        else {
-          route.transitionTo('student.class');
-        }
+        //if (item === 'performance') {
+        //  route.transitionTo('teacher.class.analytics.performance', queryParams);
+        //} else if (item === 'classmates') {
+        //  route.transitionTo('teacher.class.classmates');
+        //}
+        //else {
+        //  route.transitionTo('teacher.class');
+        //}
       }
     }
   },

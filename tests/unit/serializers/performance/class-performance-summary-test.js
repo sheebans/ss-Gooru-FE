@@ -9,7 +9,7 @@ test('normalizeClassPerformanceSummary', function (assert) {
     "timeSpent": 23,
     "completedCount": 20,
     "scoreInPercentage": 10,
-    "totalCount": "NA"
+    "totalCount": 10
   };
   const classPerformanceSummary = serializer.normalizeClassPerformanceSummary(data);
   assert.equal(classPerformanceSummary.get("id"), "123", 'Wrong id');
@@ -17,6 +17,7 @@ test('normalizeClassPerformanceSummary', function (assert) {
   assert.equal(classPerformanceSummary.get("timeSpent"), 23, 'Wrong time spent');
   assert.equal(classPerformanceSummary.get("totalCompleted"), 20, 'Wrong total completed');
   assert.equal(classPerformanceSummary.get("score"), 10, 'Wrong score');
+  assert.equal(classPerformanceSummary.get("total"), 10, 'Wrong score');
 });
 
 test('normalizeAllClassPerformanceSummary', function (assert) {

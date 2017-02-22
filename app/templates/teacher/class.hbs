@@ -1,4 +1,4 @@
-<div class="controller student class">
+<div class="teacher class">
   <div class="header">
     <h1>{{class.title}}</h1>
     <div class="code">{{class.code}}</div>
@@ -6,6 +6,9 @@
     <div class="panel panel-default panel-primary announcements">
       <div class="panel-heading">{{t 'common.announcements'}}</div>
       <div class="panel-body">
+        <div class="edit">
+          <button class="btn btn-edit"> {{gru-icon name='edit'}}</button>
+        </div>
         <div class="greeting">
           <span>{{class.greeting}}</span>
         </div>
@@ -32,7 +35,7 @@
     </div>
   </div>
 
-  {{student.class.gru-class-navigation
+  {{teacher.class.gru-class-navigation
     class=class
     onItemSelected="selectMenuItem"
     selectedMenuItem=menuItem}}

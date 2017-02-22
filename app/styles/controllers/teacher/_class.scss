@@ -1,4 +1,4 @@
-.student.class {
+.teacher.class {
   padding: 10px;
   @media (min-width: $screen-sm) {
     padding: 35px 47px;
@@ -56,25 +56,28 @@
           }
           &.completed {
             .charts.gru-radial-chart .radial-svg {
-              width: inherit !important;
-              height: inherit !important;
+              width: inherit!important;
+              height: inherit!important;
             }
           }
         }
       }
       &.announcements {
+        .edit {
+          height: 100%;
+          float: left;
+          .btn-edit {
+            background-color: $white;
+            color: $dark-500;
+            font-size: $font-navigator;
+            line-height: $font-navigator;
+            padding: 0 5px 0 0;
+          }
+        }
         .greeting {
           height: 100%;
           overflow-y: auto;
         }
-      }
-    }
-  }
-  .content {
-    .analytics-performance-student {
-      .student-actions,
-      .tab-content {
-        padding: 0;
       }
     }
   }
