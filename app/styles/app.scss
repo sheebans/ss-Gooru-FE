@@ -59,6 +59,7 @@
 @import 'controllers/course-player';
 
 @import 'controllers/student/class';
+@import 'controllers/student/performance';
 @import 'controllers/student/class/classmates';
 
 @import 'controllers/teacher/class';
@@ -217,6 +218,7 @@
 @import 'components/search/gru-resource-options';
 
 @import 'components/student/class/gru-class-navigation';
+@import 'components/student/class/analytics/gru-performance-table';
 
 @import 'components/taxonomy/gru-subject-course-picker';
 @import 'components/taxonomy/gru-subject-picker';
