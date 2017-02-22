@@ -788,6 +788,7 @@ export default {
     }
   },
   "student-landing":{
+    "announcement":"Announcement",
     "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "box-title-one": "Study from 35 Courses",
     "box-text-one": "Choose from over 35 Navigator Courses across 10 programs to study.",
@@ -804,7 +805,8 @@ export default {
       "performance": "Performance",
       "classmates": "Classmates",
       "content-map": "Content Map"
-    }
+    },
+    "current-activity":"Current activity"
   },
   "goals":{
     "manage":{

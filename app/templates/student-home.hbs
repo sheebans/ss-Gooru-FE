@@ -57,10 +57,12 @@
       <div role="tabpanel" class="tab-pane row active" id="active-classes">
         {{#if hasClasses}}
           {{#each activeClasses as |class|}}
-            {{cards.gru-class-card
+          {{cards.gru-student-class-card class=class}}
+          <!-- TODO: delete unnecesary dependencies -->
+            <!-- {{cards.gru-class-card
               class=class
               profile=profile
-              classStudentCount=myClasses.memberCount}}
+              classStudentCount=myClasses.memberCount}} -->
           {{/each}}
         {{else}}
           {{partial 'partials/student-no-classes-found'}}
