@@ -29,22 +29,14 @@
                     <a href="javascript: void(0);" class="fa fa-remove" title="remove this message" onclick={{action 'removeMessage' item}}></a>
                     <a href="javascript: void(0);" class="fa fa-pencil-square-o" title="edit this message" onclick={{action 'editMessage' item}}></a>
                       {{#if item.imageURL}}
-                        {{#if item.role}}
-                            <span class="messageTeacher"><a target="_blank" href="{{item.imageURL}}">{{item.fileName}}</a></span>
-                          {{else}}
-                            <span class="message"><a target="_blank" href="{{item.imageURL}}">{{item.fileName}}</a></span>
-                          {{/if}}
+                            <span class={{if item.role 'messageTeacher' 'message'}}><a target="_blank" href="{{item.imageURL}}">{{item.fileName}}</a></span>
                       {{else}}  
                         {{#if item.editing}}
                         <form {{action "submitEditedMessage" item on="submit"}}>
                           {{input type="text" class="channel-chat-message" valueBinding="editedMessage" placeholder=item.message}}
                         </form>                     
                         {{else}}
-                          {{#if item.role}}
-                            <span class="messageTeacher">{{item.message}}</span>
-                          {{else}}
-                            <span class="message">{{item.message}}</span>
-                          {{/if}}  
+                            <span class={{if item.role 'messageTeacher' 'message'}}>{{item.message}}</span>
                         {{/if}}
                       {{/if}}
                   </div>

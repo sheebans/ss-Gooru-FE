@@ -40,7 +40,6 @@ export default Ember.Service.extend({
         var photo = currentUser.avatarUrl;
         var messageRef = db.ref().child("messages/" + channelId);
         var newKey = messageRef.push().key;
-        if(role === 'teacher'){
           db.ref("messages/" + channelId + "/" + newKey).set({
             message: message,
             username: this.get('session.userData.username'),
@@ -49,21 +48,9 @@ export default Ember.Service.extend({
             photo: photo,
             createdTime: firebase.database.ServerValue.TIMESTAMP,
             messageId: newKey,
-            role: role,
+            role: role === 'teacher' ? role : null,
             editing: false
           });
-        }else{
-          db.ref("messages/" + channelId + "/" + newKey).set({
-            message: message,
-            username: this.get('session.userData.username'),
-            userId: this.get('session.userData.gooruUId'),
-            fullname: fullname,
-            photo: photo,
-            createdTime: firebase.database.ServerValue.TIMESTAMP,
-            messageId: newKey,
-            editing: false
-          });
-        }
         //Move the location in message pane to the bottom
         Ember.run.later((function() {
         $('.message-row-container').scrollTop($('.message-row-container-inner').height());
@@ -104,39 +91,20 @@ export default Ember.Service.extend({
           .then(function(snapshot) {
           var filePath = snapshot.metadata.fullPath;
 
-          if(role === 'teacher'){
-            //push a new message containing the file information
-            db.ref().child("messages/" + channelId + "/" + newKey).set({
-              username: this.get('session.userData.username'),
-              userId: this.get('session.userData.gooruUId'),
-              fullname: fullname,
-              message: storage.ref(filePath).toString(),
-              photoUrl: file,
-              photo: photo,
-              fileType: file.type,
-              fileSize: file.size,
-              fileName: file.name,
-              messageId: newKey,
-              createdTime: firebase.database.ServerValue.TIMESTAMP,
-              role: role
-            });
-          }else{
-            //push a new message containing the file information
-            db.ref().child("messages/" + channelId + "/" + newKey).set({
-              username: this.get('session.userData.username'),
-              userId: this.get('session.userData.gooruUId'),
-              fullname: fullname,
-              message: storage.ref(filePath).toString(),
-              photoUrl: file,
-              photo: photo,
-              fileType: file.type,
-              fileSize: file.size,
-              fileName: file.name,
-              messageId: newKey,
-              createdTime: firebase.database.ServerValue.TIMESTAMP,
-              editing: false
-            });
-          }
+          db.ref().child("messages/" + channelId + "/" + newKey).set({
+            username: this.get('session.userData.username'),
+            userId: this.get('session.userData.gooruUId'),
+            fullname: fullname,
+            message: storage.ref(filePath).toString(),
+            photoUrl: file,
+            photo: photo,
+            fileType: file.type,
+            fileSize: file.size,
+            fileName: file.name,
+            messageId: newKey,
+            createdTime: firebase.database.ServerValue.TIMESTAMP,
+            role: role === 'teacher' ? role : null
+          });
         }.bind(this));
         }
   },
@@ -370,31 +338,17 @@ export default Ember.Service.extend({
     const db = this.get('firebaseApp').database();
     Ember.set(messageOld,'editing',false);
     const channelId = channels[0].uuid;
-    if(currentUser.role === 'teacher'){
-      db.ref("messages/" + channelId + "/" + messageOld.messageId).set({
-        message: message,
-        username: messageOld.username,
-        userId: messageOld.userId,
-        fullname: messageOld.fullname,
-        photo: messageOld.photo,
-        createdTime: messageOld.createdTime,
-        messageId: messageOld.messageId,
-        editing: false,
-        modifitedTime: firebase.database.ServerValue.TIMESTAMP,
-        role: messageOld.role
-      });
-    }else{
-      db.ref("messages/" + channelId + "/" + messageOld.messageId).set({
-        message: message,
-        username: messageOld.username,
-        userId: messageOld.userId,
-        fullname: messageOld.fullname,
-        photo: messageOld.photo,
-        createdTime: messageOld.createdTime,
-        messageId: messageOld.messageId,
-        editing: false,
-        modifitedTime: firebase.database.ServerValue.TIMESTAMP
-      });
-    }
+    db.ref("messages/" + channelId + "/" + messageOld.messageId).set({
+      message: message,
+      username: messageOld.username,
+      userId: messageOld.userId,
+      fullname: messageOld.fullname,
+      photo: messageOld.photo,
+      createdTime: messageOld.createdTime,
+      messageId: messageOld.messageId,
+      editing: false,
+      modifitedTime: firebase.database.ServerValue.TIMESTAMP,
+      role: currentUser.role === 'teacher' ? messageOld.role : null
+    });
   }
 });
