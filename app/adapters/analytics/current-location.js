@@ -11,7 +11,7 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus-insights/v2',
 
-  getUserCurrentLocation: function(classId, userId) {
+  normalizeForGetUserCurrentLocation: function(classId, userId) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/class/${classId}/user/${userId}/current/location`;
