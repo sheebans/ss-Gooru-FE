@@ -127,7 +127,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('currentLocationAdapter').getUserCurrentLocation(classId, userId)
         .then(function(response) {
-          const currentLocation = service.get('currentLocationSerializer').normalizeCurrentLocation(response);
+          const currentLocation = service.get('currentLocationSerializer').normalizeForGetUserCurrentLocation(response);
 
           if(fetchAll && currentLocation) {
             service.loadCurrentLocationData(currentLocation).then(function(){

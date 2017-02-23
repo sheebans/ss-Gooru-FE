@@ -107,7 +107,7 @@ test('getUserCurrentLocation fetchAll-default-value', function(assert) {
   }));
 
   service.set('currentLocationSerializer', Ember.Object.create({
-    normalizeCurrentLocation: function(payload) {
+    normalizeForGetUserCurrentLocation: function(payload) {
       assert.equal(payload, 'fake response', 'wrong payload, should match adapter response');
       return Ember.Object.create({
         courseId: "courseId",
@@ -143,7 +143,7 @@ test('getUserCurrentLocation fetchAll-true currentLocation-null', function(asser
   }));
 
   service.set('currentLocationSerializer', Ember.Object.create({
-    normalizeCurrentLocation: function(payload) {
+    normalizeForGetUserCurrentLocation: function(payload) {
       assert.equal(payload, 'fake response', 'wrong payload, should match adapter response');
       return null;
     }
@@ -175,7 +175,7 @@ test('getUserCurrentLocation fetchAll-true', function(assert) {
   }));
 
   service.set('currentLocationSerializer', Ember.Object.create({
-    normalizeCurrentLocation: function(payload) {
+    normalizeForGetUserCurrentLocation: function(payload) {
       assert.equal(payload, 'fake response', 'wrong payload, should match adapter response');
       return Ember.Object.create({
         courseId: "courseId",
