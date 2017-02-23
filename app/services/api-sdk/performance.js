@@ -418,10 +418,15 @@ export default Ember.Service.extend({
      */
   findClassPerformanceSummaryByStudentAndClassIds: function(studentId, classIds) {
     const service = this;
-    return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByStudentAndClassIds(studentId, classIds)
-      .then(function (data) {
-        return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
-      });
+    if (classIds && classIds.length) {
+      return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByStudentAndClassIds(studentId, classIds)
+        .then(function (data) {
+          return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
+        });
+    }
+    else {
+      return Ember.RSVP.resolve([]);
+    }
   },
 
   /**
@@ -431,10 +436,15 @@ export default Ember.Service.extend({
      */
   findClassPerformanceSummaryByClassIds: function(classIds) {
     const service = this;
-    return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByClassIds(classIds)
-      .then(function (data) {
-        return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
-      });
+    if (classIds && classIds.length) {
+      return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByClassIds(classIds)
+        .then(function (data) {
+          return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
+        });
+    }
+    else {
+        return Ember.RSVP.resolve([]);
+    }
   },
 
   matchStudentsWithPerformances: function(students, classPerformance) {
