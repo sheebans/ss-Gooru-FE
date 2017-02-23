@@ -489,7 +489,7 @@ test('findClassPerformanceSummaryByClassIds with empty ids', function(assert) {
 
   service.set('classPerformanceSummaryAdapter', Ember.Object.create({
     findClassPerformanceSummaryByClassIds: function() {
-      assert.equal(data, "fake-data", 'Wrong data');
+      assert.ok(false, "fake-data", 'Wrong data');
       return Ember.RSVP.resolve("fake-data");
     }
   }));
