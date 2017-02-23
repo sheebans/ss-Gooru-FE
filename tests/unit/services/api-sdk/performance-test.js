@@ -424,6 +424,32 @@ test('findClassPerformanceSummaryByStudentAndClassIds', function(assert) {
     });
 });
 
+test('findClassPerformanceSummaryByStudentAndClassIds with empty class ids', function(assert) {
+  const service = this.subject();
+  assert.expect(1);
+
+  service.set('classPerformanceSummarySerializer', Ember.Object.create({
+    normalizeAllClassPerformanceSummary: function() {
+      assert.ok(false, "this should not be called");
+      return '';
+    }
+  }));
+
+  service.set('classPerformanceSummaryAdapter', Ember.Object.create({
+    findClassPerformanceSummaryByStudentAndClassIds: function() {
+      assert.ok(false, "this should not be called");
+      return Ember.RSVP.resolve("fake-data");
+    }
+  }));
+
+  var done = assert.async();
+  service.findClassPerformanceSummaryByStudentAndClassIds(123, [])
+    .then(function(response) {
+      assert.deepEqual(response, [], 'Wrong response');
+      done();
+    });
+});
+
 test('findClassPerformanceSummaryByClassIds', function(assert) {
   const service = this.subject();
   assert.expect(3);
@@ -446,6 +472,32 @@ test('findClassPerformanceSummaryByClassIds', function(assert) {
   service.findClassPerformanceSummaryByClassIds([1,2,3])
     .then(function(response) {
       assert.deepEqual(response, [1,2,3,4,5], 'Wrong response');
+      done();
+    });
+});
+
+test('findClassPerformanceSummaryByClassIds with empty ids', function(assert) {
+  const service = this.subject();
+  assert.expect(1);
+
+  service.set('classPerformanceSummarySerializer', Ember.Object.create({
+    normalizeAllClassPerformanceSummary: function() {
+      assert.ok(false, "this should not be called");
+      return ""; //fake response
+    }
+  }));
+
+  service.set('classPerformanceSummaryAdapter', Ember.Object.create({
+    findClassPerformanceSummaryByClassIds: function() {
+      assert.ok(false, "fake-data", 'Wrong data');
+      return Ember.RSVP.resolve("fake-data");
+    }
+  }));
+
+  var done = assert.async();
+  service.findClassPerformanceSummaryByClassIds([])
+    .then(function(response) {
+      assert.deepEqual(response, [], 'Wrong response');
       done();
     });
 });

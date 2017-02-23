@@ -86,50 +86,97 @@ export default Ember.Service.extend({
     });
   },
 
+  /**
+   * Loads the current location for a student within several classes
+   * @param {string[]} classIds
+   * @param {string} userId
+   * @param {boolean} fetchAll when true load dependencies for current location
+   * @returns {Ember.RSVP.Promise.<CurrentLocation>}
+   */
+  getUserCurrentLocationByClassIds: function(classIds, userId, fetchAll = false) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('currentLocationAdapter').getUserCurrentLocationByClassIds(classIds, userId)
+        .then(function(response) {
+          const currentLocations = service.get('currentLocationSerializer').normalizeForGetUserClassesLocation(response);
+          if(fetchAll) {
+            const promises = currentLocations.map(function(currentLocation){
+              return service.loadCurrentLocationData(currentLocation);
+            });
+            Ember.RSVP.all(promises).then(function(){
+              resolve(currentLocations);
+            }, reject);
+          }
+          else {
+            resolve(currentLocations);
+          }
+        }, reject);
+    });
+  },
+
+
+  /**
+   * Loads the current location for a student within a class
+   * @param {string} classId
+   * @param {string} userId
+   * @param {boolean} fetchAll when true load dependencies for current location
+   * @returns {Ember.RSVP.Promise.<CurrentLocation>}
+     */
   getUserCurrentLocation: function(classId, userId, fetchAll = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('currentLocationAdapter').getUserCurrentLocation(classId, userId)
         .then(function(response) {
-          const currentLocation = service.get('currentLocationSerializer').normalizeCurrentLocation(response);
+          const currentLocation = service.get('currentLocationSerializer').normalizeForGetUserCurrentLocation(response);
 
-          if(fetchAll && currentLocation){
-            const courseId = currentLocation.get("courseId");
-            const unitId = currentLocation.get("unitId");
-            const lessonId = currentLocation.get("lessonId");
-            const collectionId = currentLocation.get("collectionId");
-            const collectionType = currentLocation.get("collectionType");
-
-            let collection = undefined;
-            if(collectionId){
-              if(collectionType === "collection"){
-                collection = service.get('collectionService').readCollection(collectionId);
-              }
-              else{
-                collection = service.get('assessmentService').readAssessment(collectionId);
-              }
-            }
-
-            Ember.RSVP.hash({
-              course: courseId ? service.get('courseService').fetchById(courseId) : undefined,
-              unit: unitId ? service.get('unitService').fetchById(courseId, unitId) : undefined,
-              lesson: lessonId ? service.get('lessonService').fetchById(courseId, unitId, lessonId) : undefined,
-              collection: collection
-            }).then(function (hash) {
-              currentLocation.set("course", hash.course);
-              currentLocation.set("unit", hash.unit);
-              currentLocation.set("lesson", hash.lesson);
-              currentLocation.set("collection", hash.collection);
+          if(fetchAll && currentLocation) {
+            service.loadCurrentLocationData(currentLocation).then(function(){
               resolve(currentLocation);
-            });
-
-          }else{
+            }, reject);
+          }
+          else {
             resolve(currentLocation);
           }
+        }, reject);
+    });
+  },
 
-        }, function(error) {
-          reject(error);
-        });
+  /**
+   * Loads the dependencies data for a current location
+   * @param {CurrentLocation} currentLocation
+   * @returns {Ember.RSVP.Promise.<CurrentLocation>}
+     */
+  loadCurrentLocationData: function(currentLocation) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      const courseId = currentLocation.get("courseId");
+      const unitId = currentLocation.get("unitId");
+      const lessonId = currentLocation.get("lessonId");
+      const collectionId = currentLocation.get("collectionId");
+      const collectionType = currentLocation.get("collectionType");
+
+      let collection = undefined;
+      if (collectionId) {
+        if (collectionType === "collection") {
+          collection = service.get('collectionService').readCollection(collectionId);
+        }
+        else {
+          collection = service.get('assessmentService').readAssessment(collectionId);
+        }
+      }
+
+      Ember.RSVP.hash({
+        course: courseId ? service.get('courseService').fetchById(courseId) : undefined,
+        unit: unitId ? service.get('unitService').fetchById(courseId, unitId) : undefined,
+        lesson: lessonId ? service.get('lessonService').fetchById(courseId, unitId, lessonId) : undefined,
+        collection: collection
+      }).then(function (hash) {
+        currentLocation.set("course", hash.course);
+        currentLocation.set("unit", hash.unit);
+        currentLocation.set("lesson", hash.lesson);
+        currentLocation.set("collection", hash.collection);
+        resolve(currentLocation);
+      }, reject);
     });
   },
 

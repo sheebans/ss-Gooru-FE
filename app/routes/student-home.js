@@ -29,14 +29,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const activeClasses = myClasses.getStudentActiveClasses(myId);
     const classIds = activeClasses.mapBy("id");
 
-    return route.get("performanceService").findClassPerformanceSummaryByStudentAndClassIds(myId, classIds)
-      .then(function(classPerformanceSummaryItems){
+    return Ember.RSVP.hash({
+      classPerformanceSummaryItems: route.get("performanceService").findClassPerformanceSummaryByStudentAndClassIds(myId, classIds),
+      classesLocation: route.get("analyticsService").getUserCurrentLocationByClassIds(classIds, myId, true)
+    }).then(function(hash){
+        const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+        const classesLocation = hash.classesLocation;
         const promises = activeClasses.map(function (aClass) {
           const classId = aClass.get("id");
-          return route.get('analyticsService').getUserCurrentLocation(classId, myId, true).then(function (currentLocation) {
-            aClass.set("currentLocation", currentLocation);
-            aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
-          });
+          aClass.set("currentLocation", classesLocation.findBy("classId", classId));
+          aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
         });
         return Ember.RSVP.all(promises);
       });
