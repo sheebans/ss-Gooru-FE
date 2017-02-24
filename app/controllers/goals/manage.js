@@ -56,28 +56,42 @@ export default Ember.Controller.extend({
       this.resetProperties();
     },
 
-    createGoal: function (goal) {
+    createGoal: function (goal, areDatesOk) {
       const controller = this;
-      const goals = controller.get('goals');
-
-      controller.get('goalService').createGoal(goal)
-        .then(function () {
-          controller.closeCreateGoalForm();
-          let message = controller.get('i18n').t('goals.create.created-success-msg',{goalTitle: goal.get('title')}).string;
-          controller.get('notifications').success(message);
-          goals.pushObject(goal);
-        });
+      goal.validate().then(function ({ validations }) {
+        controller.set("didValidate", true);
+        if (validations.get('isValid') && areDatesOk) {
+          const goals = controller.get('goals');
+          controller.get('goalService').createGoal(goal)
+          .then(function () {
+            controller.closeCreateGoalForm();
+            let message = controller.get('i18n').t('goals.create.created-success-msg', {goalTitle: goal.get('title')}).string;
+            controller.get('notifications').success(message);
+            goals.pushObject(goal);
+          });
+        }
+      });
     },
 
-    updateGoal: function (goal) {
+    updateGoal: function (editedGoal, areDatesOk) {
       const controller = this;
-      const goalId = goal.get('id');
-
-      controller.get('goalService').updateGoal(goal, goalId)
-        .then(function () {
-          let message = controller.get('i18n').t('goals.update.updated-success-msg').string;
-          controller.get('notifications').success(message);
+      return new Ember.RSVP.Promise(function (resolve) {
+        editedGoal.validate().then(function ({ validations }) {
+          controller.set("didValidate", true);
+          if (validations.get('isValid') && areDatesOk) {
+            const goalId = editedGoal.get('id');
+            controller.get('goalService').updateGoal(editedGoal, goalId)
+              .then(function () {
+                resolve(true);
+                let message = controller.get('i18n').t('goals.update.updated-success-msg').string;
+                controller.get('notifications').success(message);
+              });
+          }
+          else {
+            resolve(false);
+          }
         });
+      });
     },
 
     deleteGoal: function(goal) {
@@ -99,9 +113,10 @@ export default Ember.Controller.extend({
    */
   resetProperties(){
     var controller = this;
-    var newGoalProfile = Goal.extend(createGoalValidations);
-    var goal = newGoalProfile.create();
+    var newGoal = Goal.extend(createGoalValidations);
+    var goal = newGoal.create(Ember.getOwner(this).ownerInjection(), {});
     controller.set('goal', goal);
+    controller.set("didValidate", false);
   },
 
   closeCreateGoalForm(){
