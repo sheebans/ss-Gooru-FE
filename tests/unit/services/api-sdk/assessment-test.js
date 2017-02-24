@@ -212,3 +212,8 @@ test('reorderAssessment', function(assert) {
   var done = assert.async();
   service.reorderAssessment(expectedAssessmentId, ["a", "b"]).then(function() { done(); });
 });
+
+//todo
+//
+//test('findAssessments', function(assert) {
+//});

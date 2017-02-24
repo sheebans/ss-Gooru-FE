@@ -449,3 +449,8 @@ test('findClassPerformanceSummaryByClassIds', function(assert) {
       done();
     });
 });
+
+//todo
+//
+//test('findAssessmentsPerformance', function(assert) {
+//});

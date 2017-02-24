@@ -473,6 +473,109 @@ export default Ember.Service.extend({
     const store = this.get('store');
     const found = store.recordIsLoaded(modelName, id);
     return (found) ? store.recordForId(modelName, id) : store.createRecord(modelName, { id: id });
-  }
+  },
 
+  /**
+   * Find assessments Performance Data
+   *
+   * @param {Assessment[]} assessments to obtain the Performance Data
+   * @param {string} userId to filter the Assessments
+   * @returns {string[]}
+   */
+  findAssessmentsPerformance: function(assessments, userId) {
+    //TODO
+    var assessmentsPerformance = Ember.A([
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 1,
+          completionDone: 1,
+          completionTotal: 50,
+          timeSpent: 5000000
+        })
+      }),
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 2,
+          completionDone: 14,
+          completionTotal: 50,
+          timeSpent: 5100000
+        })
+      }),
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 3,
+          completionDone: 23,
+          completionTotal: 50,
+          timeSpent: 5300000
+        })
+      }),
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 4,
+          completionDone: 33,
+          completionTotal: 50,
+          timeSpent: 5800000
+        })
+      }),
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 5,
+          completionDone: 45,
+          completionTotal: 50,
+          timeSpent: 5900000
+        })
+      }),
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 6,
+          completionDone: 50,
+          completionTotal: 50,
+          timeSpent: 5800000
+        })
+      }),
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 7,
+          completionDone: 46,
+          completionTotal: 50,
+          timeSpent: 5400000
+        })
+      }),
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 8,
+          completionDone: 23,
+          completionTotal: 50,
+          timeSpent: 5600000
+        })
+      }),
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 9,
+          completionDone: 31,
+          completionTotal: 50,
+          timeSpent: 5500000
+        })
+      }),
+      Ember.Object.create({
+        user: userId,
+        performanceData: Ember.Object.create({
+          score : 10,
+          completionDone: 44,
+          completionTotal: 50,
+          timeSpent: 5400000
+        })
+      })
+    ]);
+    return new Ember.RSVP.resolve(assessmentsPerformance);
+  }
 });

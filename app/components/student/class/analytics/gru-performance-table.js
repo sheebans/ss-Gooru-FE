@@ -2,9 +2,9 @@ import Ember from 'ember';
 import { alphabeticalStringSort, numberSort } from 'gooru-web/utils/utils';
 
 /**
- * Teacher Metrics Table
+ * Student Performance Table
  *
- * Component responsible for showing the Metrics Table in the teacher page.
+ * Component responsible for showing the Performance Table in the student page.
  *
  * @module
  * @augments ember/Component
@@ -22,7 +22,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
     actions:{
-      sortChange:function(metric){
+      sort:function(metric){
+        this.sortByMetrics(metric);
         var metricsIndex = metric.get('index');
         var sortCriteria = this.get('sortCriteria');
         var newSortCriteria = {
@@ -50,6 +51,7 @@ export default Ember.Component.extend({
 
     Ember.run.scheduleOnce('afterRender', this, function () {
       this.set('sortCriteria', this.initSortCriteria());
+      this.resetSortByMetrics();
     });
   },
 
@@ -63,40 +65,11 @@ export default Ember.Component.extend({
   sortCriteria: null,
 
   /**
-   * The header titles
-   * @property {Headers[]}
-   */
-
-  headers: null,
-
-  /**
-   * The headerType titles
-   * @property {String}
-   */
-  headerType: null,
-
-  /**
-   * The performanceDataMatrix
-   * @property {performanceDataMatrix[]}
-   */
-
-  performanceDataMatrix: null,
-
-  /**
-   * The average headers of the Data Matrix
-   * @property {averageHeaders[]}
-   */
-  averageHeaders: Ember.computed('performanceDataMatrix.length', function() {
-    const averageHeaders = this.get('performanceDataMatrix').objectAt(0);
-    return averageHeaders;
-  }),
-
-  /**
    * The user performanceData
    * @property {performanceData[]}
    */
-  performanceData: Ember.computed('performanceDataMatrix.length','sortCriteria', function() {
-    const performanceData = this.get('performanceDataMatrix').slice(1);
+  performanceData: Ember.computed('assessments.length', 'studentPerformanceItems.length' ,'sortCriteria', function() {
+    const performanceData = this.createDataArray (this.get('assessments'), this.get('studentPerformanceItems'));
     const sortCriteria = this.get('sortCriteria');
 
     if (sortCriteria) {
@@ -106,17 +79,17 @@ export default Ember.Component.extend({
       //alphabeticalStringSort
       if (metricsIndex === -1) {
         sortedData.sort(function (a, b) {
-          return alphabeticalStringSort(a.user, b.user) * sortCriteria.order;
+          return alphabeticalStringSort(a.assessment.title, b.assessment.title) * sortCriteria.order;
         });
       } else if (metricsIndex >= 0) {
         let sortByMetric = this.get('sortByMetric');
         sortedData.sort(function (a, b) {
           if (sortByMetric === 'score') {
-            return numberSort(a.performanceData[0].score, b.performanceData[0].score) * sortCriteria.order;
+            return numberSort(a.performanceData.score, b.performanceData.score) * sortCriteria.order;
           } else if (sortByMetric === 'completion') {
-            return numberSort(a.performanceData[0].completionDone, b.performanceData[0].completionDone) * sortCriteria.order;
+            return numberSort(a.performanceData.completionDone, b.performanceData.completionDone) * sortCriteria.order;
           } else {
-            return numberSort(a.performanceData[0].studyTime, b.performanceData[0].studyTime) * sortCriteria.order;
+            return numberSort(a.performanceData.timeSpent, b.performanceData.timeSpent) * sortCriteria.order;
           }
         });
       }
@@ -181,5 +154,62 @@ export default Ember.Component.extend({
       metricsIndex: -1,
       order: this.get('defaultSortOrder')
     };
+  },
+
+  /**
+   * Create an array to fill the student performance table.
+   * @param assessments the table assessments by sort criteria
+   * @param studentPerformanceData the student performance data for each assessments
+   */
+  createDataArray: function (assessments, studentPerformanceData) {
+
+    const dataArray = Ember.A([]);
+
+    studentPerformanceData.forEach(function(studentPerformance, index) {
+      var itemDataArray = Ember.Object.create({
+        performanceData: studentPerformance.get('performanceData'),
+        assessment: assessments[index]
+      });
+      dataArray.push(itemDataArray);
+    });
+
+    return dataArray;
+  },
+
+  /**
+   * Sort by specific metric
+   * @metric {Ember Object}
+   *
+   */
+  sortByMetrics(metric){
+    var component =this;
+    var metrics = component.get("metrics");
+    metrics.forEach(function(option){
+      if (option.get("value") === metric.get("value")){
+        metric.set("sorted", true);
+        component.changeTypeSort(metric);
+      }else{
+        option.set("isAsc", null);
+        option.set("sorted", false);
+      }
+    });
+  },
+
+  /**
+   * Change the type of sort
+   * @metric {Ember Object}
+   *
+   */
+  changeTypeSort(metric){
+    metric.set("isAsc",!metric.get("isAsc"));
+  },
+
+  resetSortByMetrics(){
+    var component =this;
+    var metrics = component.get("metrics");
+    metrics.forEach(function(option){
+      option.set("isAsc", null);
+      option.set("sorted", false);
+    });
   }
 });
