@@ -65,7 +65,7 @@ export default Ember.Component.extend({
   sortCriteria: null,
 
   /**
-   * The user performanceData
+   * The assessment performanceData
    * @property {performanceData[]}
    */
   performanceData: Ember.computed('assessments.length', 'studentPerformanceItems.length' ,'sortCriteria', function() {
