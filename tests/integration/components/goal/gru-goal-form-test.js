@@ -113,7 +113,6 @@ test('Goal Form - Update goal', function(assert) {
   return wait();
 });
 
-
 test('Goal Form - Edit values and cancel edition', function(assert) {
   assert.expect(4);
 

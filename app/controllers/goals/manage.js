@@ -62,7 +62,6 @@ export default Ember.Controller.extend({
         controller.set("didValidate", true);
         if (validations.get('isValid') && areDatesOk) {
           const goals = controller.get('goals');
-
           controller.get('goalService').createGoal(goal)
           .then(function () {
             controller.closeCreateGoalForm();
@@ -70,7 +69,6 @@ export default Ember.Controller.extend({
             controller.get('notifications').success(message);
             goals.pushObject(goal);
           });
-
         }
       });
     },
@@ -94,7 +92,6 @@ export default Ember.Controller.extend({
           }
         });
       });
-
     },
 
     deleteGoal: function(goal) {

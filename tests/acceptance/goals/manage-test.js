@@ -114,13 +114,6 @@ test('It shows an error message if the Start Date field is left blank', function
       andThen(function () {
         assert.ok($startDateField.find(".error-messages .error").length, 'Start Date error message is visible');
         assert.equal(T.text($startDateField.find(".error-messages .error")), 'Please enter the Start Date', 'Start Date error message is correct');
-
-        //valid
-        $startDateField.find("input.datepicker").val('02/01/2017');
-        click($form.find('.create-goal'));
-        andThen(function () {
-          //T.notExists(assert, $startDateField.find(".error-messages span.error"), 'Error message for Start Date should not be visible');
-        });
       });
     });
   });
@@ -150,13 +143,6 @@ test('It shows an error message if the End Date field is left blank', function(a
       andThen(function () {
         assert.ok($endDateField.find(".error-messages .error").length, 'End Date error message is visible');
         assert.equal(T.text($endDateField.find(".error-messages .error")), 'Please enter the End Date', 'Start Date error message is correct');
-
-        //valid
-        $endDateField.find("input.datepicker").val('02/01/2017');
-        click($form.find('.create-goal'));
-        andThen(function () {
-          //T.notExists(assert, $endDateField.find(".error-messages span.error"), 'Error message for End Date should not be visible');
-        });
       });
     });
   });
@@ -182,8 +168,8 @@ test('It shows an error message if the Start Date is greater than End Date', fun
       const $startDateField = $form.find(".form-group.start-date");
       const $endDateField = $form.find(".form-group.end-date");
 
-      $startDateField.find("input.datepicker").val('02/15/2017').change();
-      $endDateField.find("input.datepicker").val('02/01/2017').change();
+      $startDateField.find("input.datepicker").val('02/15/2017');
+      $endDateField.find("input.datepicker").val('02/01/2017');
 
       click($form.find('.create-goal'));
       andThen(function () {
