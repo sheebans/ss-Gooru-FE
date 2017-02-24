@@ -60,7 +60,7 @@ export default Ember.Object.extend({
    * @return {Goal}
      */
   normalizeGoal: function (data) {
-    return Goal.create({
+    return Goal.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
       title: data.title,
       description: data.description,

@@ -68,6 +68,17 @@ export function formatDate(date, format) {
 }
 
 /**
+ * Formats a date into a string
+ * @param {string} strDate
+ * @param {string} format
+ * @return {Date}
+ */
+export function parseDate(strDate, format) {
+  format = format || 'dddd, MMMM Do, YYYY h:mm A';
+  return moment(strDate, format).toDate();
+}
+
+/**
  * Format a certain number of milliseconds to a string of the form
  * '<hours>h <min>m or <min>m <sec>s'. If the value is falsey, a string
  * with the value '--' is returned
