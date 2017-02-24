@@ -133,6 +133,13 @@
                       </ul>
                     </li>
                   {{/if}}
+                  {{#unless profile.isTeacher}}
+                    <li class="navbar-nav-list">
+                      {{#link-to 'student.performance'}}
+                        <span>{{t "common.myPerformance"}}</span>
+                      {{/link-to}}
+                    </li>
+                  {{/unless}}
                   <li class="navbar-nav-list">
                     {{#link-to 'profile.content.courses' session.userData.gooruUId class="navbar-link"}}
                       <span class="">{{t "common.profile"}}</span>
