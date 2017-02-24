@@ -200,6 +200,12 @@ export default Ember.Component.extend( ConfigurationMixin, {
   allowProfileNavigation: true,
 
   /**
+   * Indicates if profile information should be visible or not
+   * @property {boolean} showProfileInformation
+   */
+  showProfileInformation: true,
+
+  /**
    * Indicates if feedback should be shown
    * @property {boolean}
    */

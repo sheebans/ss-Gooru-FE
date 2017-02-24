@@ -341,6 +341,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, ConfigurationMi
    */
   allowProfileNavigation: Ember.computed.alias("features.collections.player.allowProfileNavigation"),
 
+  /**
+   * Indicates if profile information should be visible or not
+   * @property {boolean} showProfileInformation
+   */
+  showProfileInformation: Ember.computed.alias("features.collections.player.showProfileInformation"),
+
   // -------------------------------------------------------------------------
   // Observers
 

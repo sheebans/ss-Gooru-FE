@@ -152,5 +152,11 @@ export default Ember.Component.extend(ModalMixin,{
    * Indicates if it allow profile navigation or not in the cards
    * @property {boolean} allowProfileNavigation
    */
-  allowProfileNavigation: true
+  allowProfileNavigation: true,
+
+  /**
+   * Indicates when to show or not the profile information
+   * @property {boolean} showProfileInformation
+   */
+  showProfileInformation: true
 });

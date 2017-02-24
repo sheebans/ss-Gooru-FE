@@ -17,7 +17,8 @@ export default {
         showCollectionAuthor: true,
         showResourceNumber: true,
         showQuestionFeedback: undefined,
-        allowProfileNavigation: true
+        allowProfileNavigation: true,
+        showProfileInformation: true
       }
     }
   }

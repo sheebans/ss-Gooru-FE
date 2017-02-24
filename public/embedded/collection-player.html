@@ -123,6 +123,11 @@
               <input name="allow-profile-navigation" type="checkbox" value="true"> Allow Profile Navigation
             </label>
           </div>
+          <div class="checkbox">
+            <label>
+              <input name="show-profile-profile" type="checkbox" value="true"> Show Profile Information
+            </label>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -161,6 +166,7 @@
       var resourceNumber = jQuery("#the-form input[name = 'show-resource-number']:checked").val() === "true";
       var showQuestionFeedback = jQuery("#the-form input[name = 'show-question-feedback']:checked").val() === "true";
       var allowProfileNavigation = jQuery("#the-form input[name = 'allow-profile-navigation']:checked").val() === "true";
+      var showProfileInformation = jQuery("#the-form input[name = 'show-profile-profile']:checked").val() === "true";
 
       if (aw) {
         aw.destroy();
@@ -183,7 +189,8 @@
               "showCollectionAuthor": collectionAuthor,
               "showResourceNumber": resourceNumber,
               "showQuestionFeedback": showQuestionFeedback,
-              "allowProfileNavigation": allowProfileNavigation
+              "allowProfileNavigation": allowProfileNavigation,
+              "showProfileInformation": showProfileInformation
             }
           }
         }
