@@ -105,10 +105,15 @@ Router.map(function() {
         this.route('performance');
       });
       this.route('classmates');
+      this.route('content-map');
     });
   });
 
   this.route('teacher-home');
+
+  this.route('teacher', function() {
+    this.route('class', { path: '/class/:classId' });
+  });
 
   this.route('featured');
 

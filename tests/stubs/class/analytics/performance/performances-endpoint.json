@@ -672,6 +672,21 @@
       "body": "File not found!",
       "file": "param-class-performance-summary-200-response.json"
     }
+  },
+  {
+    "description": "Class Performance Summary for any teacher",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/classes/performance",
+      "method": "POST"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "teacher-class-performance-summary-200-response.json"
+    }
   }
 
 ]

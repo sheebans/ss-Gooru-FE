@@ -1,31 +1,32 @@
 <div class="student class">
   <div class="header">
-    <div class="first-column">
-      <h1>{{class.title}}</h1>
-      <div class="code">{{class.code}}</div>
-      <div class="boxes">
-        <div class="box completed">
+    <h1>{{class.title}}</h1>
+    <div class="code">{{class.code}}</div>
+
+    <div class="panel panel-default panel-primary announcements">
+      <div class="panel-heading">{{t 'common.announcements'}}</div>
+      <div class="panel-body">
+        <div class="greeting">
+          <span>{{class.greeting}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default panel-primary graphics">
+      <div class="panel-heading">{{t 'common.overall-performance'}}</div>
+      <div class="panel-body">
+        <div class="graphic performance">
+          {{charts.gru-bubble-chart content='80%' color=(grade-color 80)}}
+          <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
+        </div>
+        <div class="graphic completed">
           {{charts.gru-radial-chart
           value=27
           minValue=0
           maxValue=35 }}
-          <span class="legend">{{t "common.completed"}}</span>          
+          <span class="legend">{{t "common.completed"}}</span>
         </div>
-        <div class="box performance">
-          {{charts.gru-bubble-chart content='80%' color=(grade-color 80)}}
-          <span class="legend">{{t 'student-landing.class.performance'}}</span>
-        </div>
-        <div class="box improvement">
-        </div>
-      </div>
-    </div>
-    <div class="second-column">
-      <div class="panel panel-default panel-primary announcements">
-        <div class="panel-heading">{{t 'common.announcements'}}</div>
-        <div class="panel-body">
-          <div class="greeting">
-            <span>{{class.greeting}}</span>
-          </div>
+        <div class="graphic improvement">
         </div>
       </div>
     </div>

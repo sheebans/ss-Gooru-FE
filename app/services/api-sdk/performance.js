@@ -412,16 +412,39 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Gets the class performance summary by class ids
-   * @param userId
+   * Gets the class performance summary by student class ids
+   * @param studentId
    * @param classIds
      */
-  findClassPerformanceSummaryByClassIds: function(userId, classIds) {
+  findClassPerformanceSummaryByStudentAndClassIds: function(studentId, classIds) {
     const service = this;
-    return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByClassIds(userId, classIds)
-      .then(function (data) {
-        return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
-      });
+    if (classIds && classIds.length) {
+      return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByStudentAndClassIds(studentId, classIds)
+        .then(function (data) {
+          return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
+        });
+    }
+    else {
+      return Ember.RSVP.resolve([]);
+    }
+  },
+
+  /**
+   * Gets the class performance summary by class ids
+   * This method is used by teachers to get their class summary performance
+   * @param classIds
+     */
+  findClassPerformanceSummaryByClassIds: function(classIds) {
+    const service = this;
+    if (classIds && classIds.length) {
+      return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByClassIds(classIds)
+        .then(function (data) {
+          return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
+        });
+    }
+    else {
+        return Ember.RSVP.resolve([]);
+    }
   },
 
   matchStudentsWithPerformances: function(students, classPerformance) {

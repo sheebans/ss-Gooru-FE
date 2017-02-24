@@ -4,7 +4,7 @@ import {roundFloat} from 'gooru-web/utils/math';
 /**
  * Class performance summary model
  *
- * @typedef {Object} Goal
+ * @typedef {Object} ClassPerformanceSummary
  */
 export default Ember.Object.extend({
 
