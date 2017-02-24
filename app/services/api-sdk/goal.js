@@ -106,6 +106,19 @@ export default Ember.Service.extend({
         name: this.get('i18n').t('goals.manage.dropped').string}
     ];
     return options;
+  },
+
+  /**
+   * Check the order of dates
+   * @param {Goal} goal
+   * @returns Boolean
+   */
+  checkBothDates: function (startDate, endDate) {
+    let areOk = true;
+    if(startDate > endDate){
+      areOk = false;
+    }
+    return areOk;
   }
 
 });

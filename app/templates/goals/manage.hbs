@@ -15,13 +15,13 @@
 
   {{#if showForm}}
     <div class="form-goal-container">
-      {{goal.gru-goal-form goal=goal onCreate='createGoal' onCancel='cancelCreation'}}
+      {{goal.gru-goal-form goal=goal onCreate='createGoal' onCancel='cancelCreation' didValidate=didValidate}}
     </div>
   {{/if}}
 
   <div class="list-goals">
     {{#each goals as |goal|}}
-      {{cards.gru-goal-card goal=goal onDelete='deleteGoal' onUpdate='updateGoal'}}
+      {{cards.gru-goal-card goal=goal onDelete='deleteGoal' onUpdate=(action 'updateGoal')}}
     {{else}}
       {{t 'goals.manage.goals-not-found'}}
     {{/each}}

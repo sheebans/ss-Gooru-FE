@@ -99,9 +99,9 @@ test('Goal Form - Update goal', function(assert) {
   assert.expect(2);
 
   this.set('goal', mockGoal);
-  this.on('update', function(goal){
+  this.on('update', function(){
     assert.ok(true, 'Update Goal action called');
-    assert.equal(goal.get("id"), "goal-id", "Wrong id");
+    assert.equal(this.get('goal').get("id"), "goal-id", "Wrong id");
   });
 
   this.render(hbs`{{goal.gru-goal-form goal=goal isEditView=true onUpdate='update'}}`);
@@ -112,7 +112,6 @@ test('Goal Form - Update goal', function(assert) {
   $goalFormContainer.find(".update-goal").click(); //click the button
   return wait();
 });
-
 
 test('Goal Form - Edit values and cancel edition', function(assert) {
   assert.expect(4);
@@ -149,3 +148,5 @@ test('Goal Form - Edit values and cancel edition', function(assert) {
   $goalFormContainer.find(".cancel-goal").click(); //click the button
   return wait();
 });
+
+
