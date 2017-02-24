@@ -99,9 +99,9 @@ test('Goal Form - Update goal', function(assert) {
   assert.expect(2);
 
   this.set('goal', mockGoal);
-  this.on('update', function(goal){
+  this.on('update', function(){
     assert.ok(true, 'Update Goal action called');
-    assert.equal(goal.get("id"), "goal-id", "Wrong id");
+    assert.equal(this.get('goal').get("id"), "goal-id", "Wrong id");
   });
 
   this.render(hbs`{{goal.gru-goal-form goal=goal isEditView=true onUpdate='update'}}`);
@@ -149,46 +149,5 @@ test('Goal Form - Edit values and cancel edition', function(assert) {
   $goalFormContainer.find(".cancel-goal").click(); //click the button
   return wait();
 });
-
-
-/* test('It shows an error message if the Goal field is left blank', function(assert) {
-
-  const mockGoal = Ember.Object.create({
-    "title": "",
-    "description": "This is Description to Goal",
-    "start_date": 1409175049,
-    "end_date": 1409175049,
-    "status": "not_started",
-    "reflection": "need to do better"
-  });
-
-  assert.expect(2);
-
-  this.set('goal', mockGoal);
-
-  this.on('createGoal', function(goal, areDatesOk=true){
-    assert.ok($titleField.find(".error-messages .error").length, 'Title error message visible');
-    assert.equal(T.text($titleField.find(".error-messages .error")), 'Please enter the Goal' ,'Title error message visible');
-  });
-
-  this.render(hbs`{{goal.gru-goal-form goal=goal onCreate='createGoal' didValidate=didValidate}}`);
-  var $component = this.$(); //component dom element
-
-  const $goalFormContainer = $component.find(".gru-goal-form");
-  const $panel = $goalFormContainer.find(".panel-form");
-  const $form = $panel.find("#createGoalForm");
-  const $titleField = $form.find(".form-group.title");
-
-  $titleField.find("input").val('');
-  $goalFormContainer.find(".create-goal").click(); //click the button
-
-  return wait();
-
-  /*return wait().then(function () {
-    assert.ok($titleField.find(".error-messages .error").length, 'Title error message visible');
-    assert.equal(T.text($titleField.find(".error-messages .error")), 'Please enter the Goal' ,'Title error message visible');
-  });
-
-});  */
 
 

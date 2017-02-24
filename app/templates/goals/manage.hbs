@@ -21,7 +21,7 @@
 
   <div class="list-goals">
     {{#each goals as |goal|}}
-      {{cards.gru-goal-card goal=goal onDelete='deleteGoal' onUpdate='updateGoal'}}
+      {{cards.gru-goal-card goal=goal onDelete='deleteGoal' onUpdate=(action 'updateGoal')}}
     {{else}}
       {{t 'goals.manage.goals-not-found'}}
     {{/each}}

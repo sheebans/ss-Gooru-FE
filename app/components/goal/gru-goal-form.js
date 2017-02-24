@@ -51,7 +51,18 @@ export default Ember.Component.extend({
 
     update: function() {
       if (this.get("onUpdate")) {
-        this.sendAction("onUpdate", this.get("goal"));
+        const component = this;
+        const goal = component.get('goal');
+        const startDate = goal.get('startDate');
+        const endDate = goal.get('endDate');
+        let areDatesOk = false;
+
+        if(startDate != null && endDate != null){
+          areDatesOk = component.get('goalService').checkBothDates(startDate, endDate);
+          component.set('showDatesError', !areDatesOk);
+        }
+
+        this.sendAction("onUpdate", areDatesOk);
       }
     },
 

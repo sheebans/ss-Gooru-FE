@@ -90,8 +90,6 @@ test('It shows an error message if the Goal field is left blank', function(asser
   });
 });
 
-
-//Revisar... Y hacer uno para chequear las fechas!
 test('It shows an error message if the Start Date field is left blank', function(assert) {
 
   visit('/goals/manage');
@@ -184,15 +182,12 @@ test('It shows an error message if the Start Date is greater than End Date', fun
       const $startDateField = $form.find(".form-group.start-date");
       const $endDateField = $form.find(".form-group.end-date");
 
-      $startDateField.find("input.datepicker").val('02/15/2017');
-      $endDateField.find("input.datepicker").val('02/01/2017');
+      $startDateField.find("input.datepicker").val('02/15/2017').change();
+      $endDateField.find("input.datepicker").val('02/01/2017').change();
 
-      //invalid
       click($form.find('.create-goal'));
       andThen(function () {
-        //assert.ok($endDateField.find(".error-messages .error").length, 'Error message of wrong order is visible');
-        //assert.equal(T.text($startDateField.find(".error-messages .error")), 'The End Date must be greater than the Start Date', 'Wrong order dates error message is correct');
-
+        assert.ok($startDateField.find(".error-messages .error").length, 'Error message of wrong order is visible');
       });
     });
   });

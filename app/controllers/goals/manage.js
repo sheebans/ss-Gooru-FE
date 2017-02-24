@@ -75,19 +75,26 @@ export default Ember.Controller.extend({
       });
     },
 
-    updateGoal: function (goal) {
+    updateGoal: function (editedGoal, areDatesOk) {
       const controller = this;
-      goal.validate().then(function ({ validations }) {
-        controller.set("didValidate", true);
-        if (validations.get('isValid')) {
-          const goalId = goal.get('id');
-          controller.get('goalService').updateGoal(goal, goalId)
-          .then(function () {
-            let message = controller.get('i18n').t('goals.update.updated-success-msg').string;
-            controller.get('notifications').success(message);
-          });
-        }
+      return new Ember.RSVP.Promise(function (resolve) {
+        editedGoal.validate().then(function ({ validations }) {
+          controller.set("didValidate", true);
+          if (validations.get('isValid') && areDatesOk) {
+            const goalId = editedGoal.get('id');
+            controller.get('goalService').updateGoal(editedGoal, goalId)
+              .then(function () {
+                resolve(true);
+                let message = controller.get('i18n').t('goals.update.updated-success-msg').string;
+                controller.get('notifications').success(message);
+              });
+          }
+          else {
+            resolve(false);
+          }
+        });
       });
+
     },
 
     deleteGoal: function(goal) {

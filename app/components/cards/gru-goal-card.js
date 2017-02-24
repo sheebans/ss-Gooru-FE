@@ -24,14 +24,19 @@ export default Ember.Component.extend({
       this.set('isEdition', true);
     },
 
-    update: function() {
-      if (this.get('onUpdate')) {
-        let goal = this.get('goal');
-        let tmpGoal = this.get('tmpGoal');
-        var properties = goal.modelProperties().concat(['startDate', 'endDate']);
-        goal.merge(tmpGoal, properties);
-        this.sendAction("onUpdate", goal);
-        this.set('isEdition', false);
+    update: function(areDatesOk) {
+      const component = this;
+      if (component.get('onUpdate')) {
+        let tmpGoal = component.get('tmpGoal');
+        component.get("onUpdate")(tmpGoal, areDatesOk).then(function (saved) {
+          if (saved) {
+            const originalGoal = component.get("goal");
+            var properties = originalGoal.modelProperties().concat(['startDate', 'endDate']);
+            originalGoal.merge(tmpGoal, properties);
+          }
+          component.set('isEdition', !saved);
+        });
+
       }
     },
 

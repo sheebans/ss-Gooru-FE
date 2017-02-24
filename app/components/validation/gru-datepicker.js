@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { formatDate as formatDateTo } from 'gooru-web/utils/utils';
+import { formatDate as formatDateTo, parseDate } from 'gooru-web/utils/utils';
 const {
   computed,
   defineProperty
@@ -42,7 +42,7 @@ export default Ember.Component.extend({
      * @param {String} value - value as string
      */
     setValue:function(value){
-      this.set("model."+this.valuePath, value);
+      this.set("model."+this.valuePath, value ? parseDate(value, this.get('dateFormat')) : value);
     }
 
   },
@@ -85,7 +85,10 @@ export default Ember.Component.extend({
    */
   attributeValidation: null,
 
-
+  /**
+   * @property {string} default date format
+   */
+  dateFormat: 'MM/DD/YYYY',
 
   /**
    * @param {Computed } didValidate - value used to check if input has been validated or not
@@ -130,7 +133,8 @@ export default Ember.Component.extend({
    */
   selectedDate: computed('value', function(){
     const value = this.get('value');
-    return value ? formatDateTo(value, 'MM/DD/YYYY') : '';
+    const dateFormat = this.get('dateFormat');
+    return value ? formatDateTo(value, dateFormat) : '';
   })
 
 
