@@ -55,6 +55,11 @@ export default Ember.Controller.extend({
   }),
 
   /**
+   * @property {Class[]}
+   */
+  archivedClasses: Ember.computed.filterBy("myClasses.classes", "isArchived", true),
+
+  /**
    * @property {Number} Total of teaching classes
    */
   totalTeachingClasses: Ember.computed.alias("activeClasses.length"),
