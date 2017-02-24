@@ -28,7 +28,7 @@ test('findClassPerformanceSummaryByStudentAndClassIds', function (assert) {
         {
           'Content-Type': 'application/json'
         },
-        ''];
+        JSON.stringify({})];
     });
   });
   this.pretender.unhandledRequest = function(verb, path) {
@@ -57,7 +57,7 @@ test('findClassPerformanceSummaryByClassIds', function (assert) {
         {
           'Content-Type': 'application/json'
         },
-        ''];
+        JSON.stringify({})];
     });
   });
   this.pretender.unhandledRequest = function(verb, path) {
