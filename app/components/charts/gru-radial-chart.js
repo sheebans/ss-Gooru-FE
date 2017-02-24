@@ -80,6 +80,10 @@ export default Ember.Component.extend({
    */
   value: 0,
 
+  /**
+   * @property {Boolean} displayAsPercentage - Indicates if the chart displays a single % number
+   */
+  displayAsPercentage: false,
 
   renderChart: Ember.observer('value', function () {
     const maxValue = this.get('maxValue');

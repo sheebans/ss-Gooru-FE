@@ -1,17 +1,19 @@
 <div class="panel">
-  <div class="panel-heading">
-    <div class="title">
-      <h5>{{class.title}}MPM-Data Analytics Class</h5>
+  {{#link-to 'student.class.content-map' class.id}}
+    <div class="panel-heading">
+      <div class="title">
+        <h5>{{class.title}}</h5>
+      </div>
+      <div class="code">
+        <span>{{class.code}}</span>
+      </div>
     </div>
-    <div class="code">
-      <span>{{class.code}}ABC123</span>
-    </div>
-  </div>
+  {{/link-to}}
   <div class="panel-body border-between">
     <div class="charts col-md-6">
       <div class="row">
         <div class="col-md-6">
-          {{charts.gru-bubble-chart content=class.performanceSummary.score color=(grade-color 80)}}
+          {{charts.gru-bubble-chart content=0 color=(grade-color 80)}}
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>
         <div class="col-md-6">
