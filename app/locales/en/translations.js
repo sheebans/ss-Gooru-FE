@@ -1248,6 +1248,7 @@ export default {
     "no-content": "No content available"
   },
   "gru-metrics-sub-header": {
+    "assessment": "Assessment",
     "student": "Student",
     "score": "Score",
     "completion": "Completion",

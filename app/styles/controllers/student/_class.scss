@@ -18,6 +18,9 @@
       height: 210px;
       &:last-child {
         margin-right: 0;
+        @media (max-width: $screen-sm) {
+          margin-bottom: 20px;
+        }
       }
       .panel-heading {
         font-size: $font-size-large;

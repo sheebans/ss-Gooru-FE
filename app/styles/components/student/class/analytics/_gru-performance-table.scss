@@ -1,0 +1,116 @@
+.gru-performance-table {
+  width: inherit;
+  min-width: 475px;
+
+  @media (max-width: $screen-xs-max) {
+    overflow-x: auto;
+  }
+
+  .table {
+    margin: 0;
+    width: auto;
+    font-size: $font-size-h6;
+    background: $white;
+    -webkit-box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
+    -moz-box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
+    box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
+    border-top: 2px solid $white;
+    display: table-cell;
+
+    thead {
+      background-color: $performance-table-header;
+      tr {
+        th {
+          border: 0;
+          vertical-align: top;
+          padding: 5px 0 0 10px;
+          height: 32px;
+          width: 180px;
+          a, i {
+            color: $white;
+            vertical-align: top;
+            font-weight: normal;
+          }
+          &:first-child {
+            padding: 5px 17px;
+          }
+          &.score {
+            width: 75px;
+          }
+          &.completion {
+            width: 112px;
+          }
+          &.study-time {
+            width: 115px;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        td, th {
+          border: 0;
+          height: 35px;
+          padding: 0 10px;
+          vertical-align: middle;
+        }
+        th {
+          border-right: 2px solid $light-300;
+          padding: 2px 17px;
+          font-weight: normal;
+          vertical-align: middle;
+          line-height: $font-size-h6;
+        }
+        &:nth-of-type(odd) {
+          background-color: $light-100;
+        }
+        &:first-child {
+          border-bottom: 2px solid $light-300;
+          background-color: $white;
+          td, th {
+            height: 40px;
+          }
+          th {
+            font-size: $font-size-large;
+          }
+          td {
+            .radial-svg {
+              height: inherit;
+              width: inherit;
+            }
+          }
+        }
+        td {
+          &.performance-info {
+            .score {
+              border-radius: 4px;
+              width: 46px;
+              height: 32px;
+              display: inline-table;
+              color: $white;
+              text-align: center;
+              span {
+                vertical-align: middle;
+              }
+            }
+            .gru-radial-chart {
+              width: 38px;
+              margin: 0 auto;
+            }
+            &.performance-completion {
+              text-align: center;
+              .completion {
+                i {
+                  color: $blue-400;
+                  font-size: $expand-arrow-size;
+                  font-weight: bold;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
