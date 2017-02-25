@@ -166,9 +166,9 @@ test('Sort by assessment title', function(assert) {
 
 test('Sort by score Metric', function(assert) {
   const assessmentsMock = [
-    AssessmentModel.create({id: '100', title: 'What is a Fish?'}),
-    AssessmentModel.create({id: '22', title: 'Global Warming Quiz'}),
-    AssessmentModel.create({id: '35', title: 'Assessment Human Impact on Earth'})
+    AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
+    AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
+    AssessmentModel.create({id: '3', title: 'Assessment Human Impact on Earth'})
   ];
 
   var assessmentsPerformanceMock = Ember.A([
@@ -230,9 +230,9 @@ test('Sort by score Metric', function(assert) {
 test('Sort by Completion Metric', function(assert) {
 
   const assessmentsMock = [
-    AssessmentModel.create({id: '100', title: 'What is a Fish?'}),
-    AssessmentModel.create({id: '22', title: 'Global Warming Quiz'}),
-    AssessmentModel.create({id: '35', title: 'Assessment Human Impact on Earth'})
+    AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
+    AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
+    AssessmentModel.create({id: '3', title: 'Assessment Human Impact on Earth'})
   ];
 
   var assessmentsPerformanceMock = Ember.A([
