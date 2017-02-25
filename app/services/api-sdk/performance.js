@@ -497,6 +497,7 @@ export default Ember.Service.extend({
     var assessmentsPerformance = Ember.A([
       Ember.Object.create({
         user: userId,
+        realId: '1',
         performanceData: Ember.Object.create({
           score : 1,
           completionDone: 1,
@@ -506,6 +507,7 @@ export default Ember.Service.extend({
       }),
       Ember.Object.create({
         user: userId,
+        realId: '2',
         performanceData: Ember.Object.create({
           score : 2,
           completionDone: 14,
@@ -515,6 +517,7 @@ export default Ember.Service.extend({
       }),
       Ember.Object.create({
         user: userId,
+        realId: '3',
         performanceData: Ember.Object.create({
           score : 3,
           completionDone: 23,
@@ -524,6 +527,7 @@ export default Ember.Service.extend({
       }),
       Ember.Object.create({
         user: userId,
+        realId: '4',
         performanceData: Ember.Object.create({
           score : 4,
           completionDone: 33,
@@ -533,6 +537,7 @@ export default Ember.Service.extend({
       }),
       Ember.Object.create({
         user: userId,
+        realId: '5',
         performanceData: Ember.Object.create({
           score : 5,
           completionDone: 45,
@@ -542,6 +547,7 @@ export default Ember.Service.extend({
       }),
       Ember.Object.create({
         user: userId,
+        realId: '6',
         performanceData: Ember.Object.create({
           score : 6,
           completionDone: 50,
@@ -551,6 +557,7 @@ export default Ember.Service.extend({
       }),
       Ember.Object.create({
         user: userId,
+        realId: '7',
         performanceData: Ember.Object.create({
           score : 7,
           completionDone: 46,
@@ -560,6 +567,7 @@ export default Ember.Service.extend({
       }),
       Ember.Object.create({
         user: userId,
+        realId: '8',
         performanceData: Ember.Object.create({
           score : 8,
           completionDone: 23,
@@ -569,6 +577,7 @@ export default Ember.Service.extend({
       }),
       Ember.Object.create({
         user: userId,
+        realId: '9',
         performanceData: Ember.Object.create({
           score : 9,
           completionDone: 31,
@@ -578,6 +587,7 @@ export default Ember.Service.extend({
       }),
       Ember.Object.create({
         user: userId,
+        realId: '10',
         performanceData: Ember.Object.create({
           score : 10,
           completionDone: 44,

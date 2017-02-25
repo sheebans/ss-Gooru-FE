@@ -84,12 +84,14 @@ export default Ember.Component.extend({
       } else if (metricsIndex >= 0) {
         let sortByMetric = this.get('sortByMetric');
         sortedData.sort(function (a, b) {
-          if (sortByMetric === 'score') {
-            return numberSort(a.performanceData.score, b.performanceData.score) * sortCriteria.order;
-          } else if (sortByMetric === 'completion') {
-            return numberSort(a.performanceData.completionDone, b.performanceData.completionDone) * sortCriteria.order;
-          } else {
-            return numberSort(a.performanceData.timeSpent, b.performanceData.timeSpent) * sortCriteria.order;
+          if (a.performanceData && b.performanceData){
+            if (sortByMetric === 'score') {
+              return numberSort(a.performanceData.score, b.performanceData.score) * sortCriteria.order;
+            } else if (sortByMetric === 'completion') {
+              return numberSort(a.performanceData.completionDone, b.performanceData.completionDone) * sortCriteria.order;
+            } else {
+              return numberSort(a.performanceData.timeSpent, b.performanceData.timeSpent) * sortCriteria.order;
+            }
           }
         });
       }
@@ -165,10 +167,11 @@ export default Ember.Component.extend({
 
     const dataArray = Ember.A([]);
 
-    studentPerformanceData.forEach(function(studentPerformance, index) {
+    assessments.forEach(function(assessment) {
+      var studentPerformance = studentPerformanceData.findBy("realId", assessment.get('id'));
       var itemDataArray = Ember.Object.create({
-        performanceData: studentPerformance.get('performanceData'),
-        assessment: assessments[index]
+        performanceData: (studentPerformance) ? studentPerformance.get('performanceData') : undefined,
+        assessment: assessment
       });
       dataArray.push(itemDataArray);
     });

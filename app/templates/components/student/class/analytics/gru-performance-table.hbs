@@ -47,19 +47,31 @@
         <th class="header assessment-title" scope="row">
           <span>{{{studentPerformance.assessment.title}}}</span>
         </th>
-        <td class="performance-info performance-score">
-          <div class="score" style={{safe-html (concat "background-color:" (grade-color 80)) }}>
-            <span>{{{studentPerformance.performanceData.score}}}%</span>
-          </div>
-        </td>
-        <td class="performance-info performance-completion">
-          <span class="completion">
-            {{gru-icon name='done'}}
-          </span>
-        </td>
-        <td class="performance-info performance-time">
-          {{format-time studentPerformance.performanceData.timeSpent}}
-        </td>
+        {{#if studentPerformance.performanceData}}
+          <td class="performance-info performance-score">
+            <div class="score" style={{safe-html (concat "background-color:" (grade-color 80)) }}>
+              <span>{{{studentPerformance.performanceData.score}}}%</span>
+            </div>
+          </td>
+          <td class="performance-info performance-completion">
+            <span class="completion">
+              {{gru-icon name='done'}}
+            </span>
+          </td>
+          <td class="performance-info performance-time">
+            {{format-time studentPerformance.performanceData.timeSpent}}
+          </td>
+        {{else}}
+          <td class="performance-info performance-score">
+            <div class="score" style={{safe-html (concat "background-color:" (grade-color 80)) }}>
+              <span>--%</span>
+            </div>
+          </td>
+          <td class="performance-info performance-completion">
+          </td>
+          <td class="performance-info performance-time">
+          </td>
+        {{/if}}
       </tr>
     {{/each}}
     </tbody>
