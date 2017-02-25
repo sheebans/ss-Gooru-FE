@@ -23,6 +23,7 @@ test('Performance Table Layout', function(assert) {
   var assessmentsPerformanceMock = Ember.A([
     Ember.Object.create({
       user: '1',
+      realId: '1',
       performanceData: Ember.Object.create({
         score : 1,
         completionDone: 1,
@@ -32,6 +33,7 @@ test('Performance Table Layout', function(assert) {
     }),
     Ember.Object.create({
       user: '1',
+      realId: '2',
       performanceData: Ember.Object.create({
         score : 2,
         completionDone: 14,
@@ -41,6 +43,7 @@ test('Performance Table Layout', function(assert) {
     }),
     Ember.Object.create({
       user: '1',
+      realId: '3',
       performanceData: Ember.Object.create({
         score : 3,
         completionDone: 23,
@@ -108,6 +111,7 @@ test('Sort by assessment title', function(assert) {
   var assessmentsPerformanceMock = Ember.A([
     Ember.Object.create({
       user: '1',
+      realId: '1',
       performanceData: Ember.Object.create({
         score : 1,
         completionDone: 1,
@@ -117,6 +121,7 @@ test('Sort by assessment title', function(assert) {
     }),
     Ember.Object.create({
       user: '1',
+      realId: '2',
       performanceData: Ember.Object.create({
         score : 2,
         completionDone: 14,
@@ -126,6 +131,7 @@ test('Sort by assessment title', function(assert) {
     }),
     Ember.Object.create({
       user: '1',
+      realId: '3',
       performanceData: Ember.Object.create({
         score : 3,
         completionDone: 23,
@@ -168,6 +174,7 @@ test('Sort by score Metric', function(assert) {
   var assessmentsPerformanceMock = Ember.A([
     Ember.Object.create({
       user: '1',
+      realId: '1',
       performanceData: Ember.Object.create({
         score : 100,
         completionDone: 1,
@@ -177,6 +184,7 @@ test('Sort by score Metric', function(assert) {
     }),
     Ember.Object.create({
       user: '1',
+      realId: '2',
       performanceData: Ember.Object.create({
         score : 22,
         completionDone: 14,
@@ -186,6 +194,7 @@ test('Sort by score Metric', function(assert) {
     }),
     Ember.Object.create({
       user: '1',
+      realId: '3',
       performanceData: Ember.Object.create({
         score : 35,
         completionDone: 23,
@@ -229,6 +238,7 @@ test('Sort by Completion Metric', function(assert) {
   var assessmentsPerformanceMock = Ember.A([
     Ember.Object.create({
       user: '1',
+      realId: '1',
       performanceData: Ember.Object.create({
         score : 1,
         completionDone: 1,
@@ -238,6 +248,7 @@ test('Sort by Completion Metric', function(assert) {
     }),
     Ember.Object.create({
       user: '1',
+      realId: '2',
       performanceData: Ember.Object.create({
         score : 2,
         completionDone: 14,
@@ -247,6 +258,7 @@ test('Sort by Completion Metric', function(assert) {
     }),
     Ember.Object.create({
       user: '1',
+      realId: '3',
       performanceData: Ember.Object.create({
         score : 3,
         completionDone: 23,
