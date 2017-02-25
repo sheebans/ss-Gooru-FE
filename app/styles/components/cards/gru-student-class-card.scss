@@ -9,11 +9,10 @@
       @include justify-content(space-between);
       @include border-top-radius(4px);
       background-color: $sky-300;
-      * {
-        color: $white;
-      }
       .title{
-
+        h5{
+          color: $white;
+        }
       }
       .code {
         span{
@@ -25,6 +24,7 @@
           line-height: 1;
           padding: 4px 5px;
           text-transform: uppercase;
+          color: $white;
           @media (min-width: $screen-xs) {
             font-size: $font-size-large;
           }

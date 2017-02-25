@@ -35,7 +35,7 @@
       <span>{{t "student-landing.current-activity"}}</span>
       <div class="current-activity">
         {{#if class.currentLocation}}
-          Unit {{plus-one class.currentLocation.unitIndex}}, Lesson {{plus-one class.currentLocation.lessonIndex}}, {{class.currentLocation.collection.title}}
+          {{t "student-landing.class.unit" }} {{plus-one class.currentLocation.unitIndex}}, {{t "student-landing.class.leson" }} {{plus-one class.currentLocation.lessonIndex}}, {{class.currentLocation.collection.title}}
         {{else}}
           {{t "common.not-applicable"}}
         {{/if}}

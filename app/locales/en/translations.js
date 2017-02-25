@@ -806,7 +806,9 @@ export default {
       "activity-list": "Activity List",
       "performance": "Performance",
       "classmates": "Classmates",
-      "content-map": "Content Map"
+      "content-map": "Content Map",
+      "unit": "Unit",
+      "leson": "Leson"
     },
     "current-activity":"Current activity"
   },
