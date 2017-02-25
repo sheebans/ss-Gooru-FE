@@ -80,7 +80,6 @@ export default Ember.Component.extend({
    */
   value: 0,
 
-
   renderChart: Ember.observer('value', function () {
     const maxValue = this.get('maxValue');
     const value = this.get('value');

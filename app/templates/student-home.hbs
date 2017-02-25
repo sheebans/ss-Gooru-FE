@@ -56,11 +56,17 @@
     <div class="content tab-content">
       <div role="tabpanel" class="tab-pane row active" id="active-classes">
         {{#if hasClasses}}
-          {{#each activeClasses as |class|}}
-            {{cards.gru-class-card
-              class=class
-              profile=profile
-              classStudentCount=myClasses.memberCount}}
+        <!-- TODO: delete unnecesary dependencies -->
+          <!-- {{cards.gru-class-card
+            class=class
+            profile=profile
+            classStudentCount=myClasses.memberCount}} -->
+          {{#each activeClassesChunks as |activeClasses|}}
+            <div class="row">
+              {{#each activeClasses as |class|}}
+                {{cards.gru-student-class-card class=class}}
+              {{/each}}
+            </div>
           {{/each}}
         {{else}}
           {{partial 'partials/student-no-classes-found'}}
