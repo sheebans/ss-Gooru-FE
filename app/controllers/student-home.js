@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {arrayChunks} from 'gooru-web/utils/utils';
 
 export default Ember.Controller.extend({
 
@@ -23,6 +24,13 @@ export default Ember.Controller.extend({
    */
   activeClasses: Ember.computed('applicationController.myClasses.classes.[]', function(){
     return this.get("applicationController.myClasses").getStudentActiveClasses(this.get("profile.id"));
+  }),
+
+  /**
+   * @property {Array[]}
+   */
+  activeClassesChunks: Ember.computed('activeClasses', function(){
+    return arrayChunks(this.get("activeClasses"), 2);
   }),
 
   /**
@@ -52,5 +60,3 @@ export default Ember.Controller.extend({
   })
 
 });
-
-

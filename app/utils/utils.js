@@ -695,3 +695,17 @@ export function isVideoURL(url){
   var match = vimeoYoutubeRegularExpression.test(url);
   return match;
 }
+
+/**
+ * Gets and array and returns an array containing arrays of the specified size
+ * @param {Array} array The aray do be divided
+ * @param {Number} chunkSize the size of the chunks
+ */
+export function arrayChunks(array, chunkSize){
+  let chunks = Ember.A([]);
+  let i = 0;
+  while (i < array.length) {
+    chunks.push(array.slice(i, i+= chunkSize));
+  }
+  return chunks;
+}
