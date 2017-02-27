@@ -354,6 +354,14 @@ export function cleanFilename(url, cdnUrls) {
 }
 
 /**
+ * Returns null if value is empty, i.e ''
+ * @param {string} value
+ */
+export function nullIfEmpty(value) {
+  return (value && value.length) ? value : null;
+}
+
+/**
  * Returns filename with extension from a invalid url
  * @param {String} file complete url
  */
