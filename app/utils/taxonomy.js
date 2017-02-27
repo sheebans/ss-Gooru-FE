@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import TaxonomyItem from 'gooru-web/models/taxonomy/taxonomy-item';
 import BrowseItem from 'gooru-web/models/taxonomy/browse-item';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
