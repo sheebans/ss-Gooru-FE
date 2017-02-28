@@ -25,7 +25,7 @@ test('Class Navigation', function(assert) {
 
   this.set('class', classMock);
 
-  this.render(hbs`{{student.class.gru-class-navigation class=class selectedMenuItem='activity-list'}}`);
+  this.render(hbs`{{student.class.gru-class-navigation class=class selectedMenuItem='performance'}}`);
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-class-navigation");
@@ -36,7 +36,7 @@ test('Class Navigation', function(assert) {
   T.exists(assert, $navigation.find('.nav .content-map'), 'Missing content map link');
 
   //$menu item Selected
-  T.exists(assert, $navigation.find(".activity-list.active"), "Missing selected activity-list item");
+  T.exists(assert, $navigation.find(".performance.active"), "Missing selected performance item");
 
 });
 
