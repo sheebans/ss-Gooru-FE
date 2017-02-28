@@ -43,5 +43,4 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         return Ember.RSVP.all(promises);
       });
   }
-
 });

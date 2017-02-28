@@ -57,11 +57,9 @@
       <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
         {{#if hasClasses}}
           {{#each activeClasses as |class|}}
-            {{cards.gru-class-card
+            {{cards.gru-teacher-class-card
               class=class
-              profile=profile
-              classStudentCount=myClasses.memberCount
-              showUnitsCount=true}}
+              classStudentCount=myClasses.memberCount}}
           {{/each}}
         {{else}}
           {{partial 'partials/teacher-no-classes-found'}}

@@ -31,7 +31,6 @@ export default Ember.Object.extend({
    */
   classes: [],
 
-
   //
   // Methods
   /**
@@ -43,6 +42,18 @@ export default Ember.Object.extend({
     const totalClasses = this.get('classes.length');
     return totalClasses ? this.get('classes').filter(function(aClass){
       return !aClass.get('isArchived') && !aClass.isTeacher(userId);
+    }) : [];
+  },
+
+  /**
+   * Retrieve the teacher active classes
+   * @param {string}
+   * @return {Class[]}
+   */
+  getTeacherActiveClasses: function (userId) {
+    const totalClasses = this.get('classes.length');
+    return totalClasses ? this.get('classes').filter(function(aClass){
+      return !aClass.get('isArchived') && aClass.isTeacher(userId);
     }) : [];
   }
 });

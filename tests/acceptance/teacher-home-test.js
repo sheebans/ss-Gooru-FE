@@ -34,7 +34,7 @@ test('Layout', function(assert) {
     T.exists(assert, $teacherPanel.find(".actions .create-class-cta"), "Missing create class button");
     assert.ok($("#active-classes").hasClass("active"), "Active classes should be visible");
     const $tabContent = $teacherPanel.find(".tab-content");
-    assert.equal($tabContent.find('#active-classes .gru-class-card').length, 13 ,"Wrong number of current class cards");
+    assert.equal($tabContent.find('#active-classes .gru-teacher-class-card').length, 13 ,"Wrong number of current class cards");
     click("#archived-classes");
     andThen(function() {
       assert.equal($tabContent.find('#archived-classes .gru-class-card').length, 0 ,"Wrong number of archived class cards");

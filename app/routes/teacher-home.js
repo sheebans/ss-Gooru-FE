@@ -8,8 +8,11 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
  * @augments Ember.Route
  */
 export default Ember.Route.extend(PrivateRouteMixin, {
+
   // -------------------------------------------------------------------------
   // Dependencies
+
+  performanceService: Ember.inject.service("api-sdk/performance"),
 
   /**
    * @requires service:api-sdk/course
@@ -57,8 +60,22 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       }
     ]);
 
-    return Ember.RSVP.hash({
-      tourSteps:tourSteps
+    let myClasses = route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
+      route.controllerFor("application").get("myClasses"); //after login the variable is refreshed at the controller
+    const myId = route.get("session.userId");
+    const activeClasses = myClasses.getTeacherActiveClasses(myId);
+    const classIds = activeClasses.mapBy("id");
+
+    return route.get("performanceService").findClassPerformanceSummaryByClassIds(classIds)
+      .then(function(classPerformanceSummaryItems){
+        activeClasses.forEach(function (aClass) {
+          const classId = aClass.get("id");
+          aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
+        });
+        return Ember.RSVP.hash({
+          classPerformanceSummaryItems: classPerformanceSummaryItems,
+          tourSteps: tourSteps
+        });
     });
   },
 
@@ -67,7 +84,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param controller
    * @param model
    */
-
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
     const activeClasses = controller.get('activeClasses');
@@ -82,5 +98,4 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       }
     });
   }
-
 });

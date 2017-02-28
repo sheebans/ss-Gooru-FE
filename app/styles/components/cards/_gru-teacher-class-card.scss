@@ -1,0 +1,76 @@
+.gru-teacher-class-card {
+  .panel{
+    @include border-top-radius(4px);
+    @include border-bottom-radius(4px);
+    @include box-shadow(0 0 7px #ddd);
+    .panel-heading{
+      @include flexbox;
+      @include align-items(center);
+      @include justify-content(space-between);
+      @include border-top-radius(4px);
+      background-color: $sky-300;
+      .title{
+        h5{
+          color: $white;
+          font-size: $font-size-lead;
+          margin: 5px 0;
+        }
+      }
+      .code {
+        span{
+          @include border-top-radius(4px);
+          @include border-bottom-radius(4px);
+          @include flex-shrink(0);
+          border: 1px solid $white;
+          font-size: $font-size-h6;
+          line-height: 1;
+          padding: 3px 5px;
+          color: $white;
+          @media (min-width: $screen-xs) {
+            padding: 3px 20px;
+          }
+        }
+      }
+    }
+    .panel-body {
+      padding: 10px 0;
+      .class-info {
+        text-align: center;
+        border-right: 1px solid $gray-lighter;
+        @media (max-width: $screen-xs) {
+          padding: 0;
+        }
+        .students-info {
+          color: $sky-500;
+          @media (max-width: $screen-xs) {
+            font-size: $font-size-base;
+          }
+          i {
+            color: $student-icon;
+            vertical-align: middle;
+          }
+          span {
+            vertical-align: middle;
+          }
+        }
+        .chart {
+          .charts.gru-bubble-chart{
+            width: 70px;
+            height: 70px;
+            margin: 10px auto 0;
+          }
+          span.legend {
+            display: block;
+            line-height: $font-size-base;
+            margin: 5px 0;
+          }
+        }
+      }
+      .greeting {
+        span {
+          color: $dark-500;
+        }
+      }
+    }
+  }
+}
