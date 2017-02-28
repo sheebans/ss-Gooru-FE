@@ -47,11 +47,8 @@ export default Ember.Controller.extend({
   /**
    * @property {Class[]}
    */
-  activeClasses: Ember.computed("myClasses.classes", function () {
-    const profile = this.get("profile");
-    return this.get("myClasses.classes").filter(function(aClass){
-      return !aClass.get("isArchived") && aClass.isTeacher(profile.get("id"));
-    });
+  activeClasses: Ember.computed('applicationController.myClasses.classes.[]', function(){
+    return this.get("applicationController.myClasses").getTeacherActiveClasses(this.get("profile.id"));
   }),
 
   /**

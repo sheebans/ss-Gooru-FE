@@ -6,7 +6,7 @@
         <th class="{{metric.value}}">
           <div>
             <a {{action 'sort' metric}}>
-              {{t (concat 'gru-metrics-sub-header.' metric.value) }}
+              {{t (concat 'gru-performance-metrics.' metric.value) }}
               {{#if metric.sorted}}
                 {{#if metric.isAsc}}
                   <span>{{gru-icon name='arrow_upward'}}</span>

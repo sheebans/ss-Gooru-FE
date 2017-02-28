@@ -813,6 +813,8 @@ export default {
     "current-activity":"Current activity"
   },
   "teacher-landing": {
+    "latest-announcement":"Latest Announcement",
+    "latest-assessment":"Latest Assessment",
     "class": {
       "course-map": "Course Map",
       "performance": "Performance",
@@ -1246,6 +1248,13 @@ export default {
   },
   "gru-performance": {
     "no-content": "No content available"
+  },
+  "gru-performance-metrics": {
+    "assessment": "Assessment",
+    "student": "Student",
+    "score": "Score",
+    "completion": "Completion",
+    "study-time": "Time Spent"
   },
   "gru-metrics-sub-header": {
     "assessment": "Assessment",
