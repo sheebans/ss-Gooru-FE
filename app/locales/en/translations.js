@@ -803,7 +803,6 @@ export default {
     "box-title-five": "Interact with your peers and instructors",
     "box-text-five": "Learn from your peers and mentors by asking your questions and following their work.",
     "class":{
-      "activity-list": "Activity List",
       "performance": "Performance",
       "classmates": "Classmates",
       "content-map": "Content Map",
