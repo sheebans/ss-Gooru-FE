@@ -228,6 +228,35 @@ test('getUserCurrentLocationByClassIds fetchAll-default-value', function(assert)
     });
 });
 
+test('getUserCurrentLocationByClassIds with no classes', function(assert) {
+  assert.expect(1);
+
+  const service = this.subject({
+    loadCurrentLocationData: function() {
+      assert.ok(false, 'loadCurrentLocationData should not be called');
+    }
+  });
+
+  service.set('currentLocationAdapter', Ember.Object.create({
+    getUserCurrentLocationByClassIds: function() {
+      assert.ok(false, 'getUserCurrentLocationByClassIds should not be called');
+    }
+  }));
+
+  service.set('currentLocationSerializer', Ember.Object.create({
+    normalizeForGetUserClassesLocation: function() {
+      assert.ok(false, 'normalizeForGetUserClassesLocation should not be called');
+    }
+  }));
+
+  var done = assert.async();
+  service.getUserCurrentLocationByClassIds([], 123)
+    .then(function(data) {
+      assert.deepEqual(data, [], 'Wrong data');
+      done();
+    });
+});
+
 test('getUserCurrentLocationByClassIds fetchAll- true', function(assert) {
   assert.expect(4);
 
