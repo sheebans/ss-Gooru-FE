@@ -2,14 +2,30 @@
 
 input[type="radio"] {
   &:before{
-    background-color: $dark-200;
+    background-color: $dark-300;
   }
   &:checked:after {
-    border-color: $dark-200;
+    border-color: $dark-300;
   }
 }
 
-.btn.btn-success {
-  background-color: $green-400;
-  color: $white!important;
+.btn{
+  border-radius: 4px;
+  font-size: 14px;
+
+  &.btn-success{
+    background-color: $green-400;
+    color: $white;
+    &:hover{
+      background-color: $green-600;
+    }
+    &.inactive{
+      background-color: $light-300;
+      border: solid 2px $light-500;
+      color: $light-800;
+    }
+  }
 }
+
+
+

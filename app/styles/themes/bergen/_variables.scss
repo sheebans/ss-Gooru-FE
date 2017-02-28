@@ -5,15 +5,22 @@
 
 //** Dark
 $dark-100:              #7c7c7c !default;
-$dark-200:              #6b546a !default;
-$dark-300:              #4a4a4a !default;
+$dark-200:              #7f707d !default;
+$dark-300:              #6b546a !default; //200
+$dark-400:              #4a4a4a !default;  //300
+$dark-500:              #554854 !default;
 
 
 //** Light
 $light-100:              #f8f6f8 !default;
 $light-200:              #efecee !default;
-$light-300:              #e7e2e7 !default;
-$light-400:              #B8BFC4 !default;
+$light-300:              #ececec !default;
+$light-400:              #e7e2e7 !default;  //300
+$light-500:              #cfcfcf !default;
+$light-600:              #B8BFC4 !default;  //400
+$light-700:              #b7aab5 !default;
+$light-800:              #9b9b9b !default;
+
 
 //** Sea green
 $green-100:              #C1E7D9 !default;
@@ -21,5 +28,6 @@ $green-200:              #B9DEC0 !default;
 $green-300:              #65D0A9 !default;
 $green-400:              #4CB992 !default;
 $green-500:              #3D9777 !default;
+$green-600:              #1f8572 !default;
 
 $white:                 #fff;

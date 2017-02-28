@@ -1,7 +1,7 @@
 .player .gru-navigator {
-  background-color: $light-300;
+  background-color: $light-400;
   .navigator-header {
-    background-color: $light-300;
+    background-color: $light-400;
     span {
       color:$dark-100;
     }
@@ -23,7 +23,7 @@
     }
     li {
       background: $light-100;
-      border: 2px solid $light-300;
+      border: 2px solid $light-400;
       border-top: 0;
       margin: 0;
       .resources-info {
@@ -95,7 +95,7 @@
           .bubble-type,
           .title
           {
-            color: $dark-200;
+            color: $dark-300;
             font-weight: bold;
           }
         }

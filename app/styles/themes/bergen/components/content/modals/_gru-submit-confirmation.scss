@@ -1,10 +1,23 @@
 .content.modals.gru-submit-confirmation {
 
   .modal-header {
-    background-color: $light-400;
+    background-color: $light-600;
   }
 
   .modal-title {
-    color: $dark-200;
+    color: $dark-300;
+  }
+
+  .modal-body{
+    .actions{
+      .btn-default{
+        background-color: $white;
+        border: solid 2px $light-700;
+        color: $dark-500;
+        &:hover{
+          border: solid 2px $dark-200;
+        }
+      }
+    }
   }
 }

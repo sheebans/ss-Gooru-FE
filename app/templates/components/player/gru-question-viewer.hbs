@@ -75,7 +75,7 @@
           {{/if}}
           <div class="actions">
             <button type="button" {{action "submitQuestion"}} tabindex="-1"
-                    class="save btn btn-success" disabled="{{if isSubmitDisabled true null}}">{{t buttonTextKey}}</button>
+                    class="save btn btn-success {{if isSubmitDisabled 'inactive' ''}}" disabled="{{if isSubmitDisabled true null}}">{{t buttonTextKey}}</button>
           </div>
       </div>
     </div>
