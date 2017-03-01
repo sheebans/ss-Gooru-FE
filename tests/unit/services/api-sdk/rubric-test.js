@@ -89,3 +89,59 @@ test('deleteRubric', function(assert) {
 });
 
 
+test('getRubric', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+
+  service.set('serializer', Ember.Object.create({
+    normalizeRubric: function(data) {
+      assert.equal(data, 'fake-data', 'Wrong data');
+      return 'fake-response';
+    }
+  }));
+
+  service.set('adapter', Ember.Object.create({
+    getRubric: function(rubricId) {
+      assert.deepEqual(rubricId, 123, 'Wrong id');
+      return Ember.RSVP.resolve('fake-data');
+    }
+  }));
+
+  var done = assert.async();
+  service.getRubric(123)
+    .then(function(response) {
+      assert.equal(response, 'fake-response', 'Wrong response');
+      done();
+    });
+});
+
+
+test('getUserRubrics', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+
+  service.set('serializer', Ember.Object.create({
+    normalizeGetRubrics: function(data) {
+      assert.equal(data, 'fake-data', 'Wrong data');
+      return 'fake-response';
+    }
+  }));
+
+  service.set('adapter', Ember.Object.create({
+    getUserRubrics: function(userId) {
+      assert.deepEqual(userId, 123, 'Wrong id');
+      return Ember.RSVP.resolve('fake-data');
+    }
+  }));
+
+  var done = assert.async();
+  service.getUserRubrics(123)
+    .then(function(response) {
+      assert.equal(response, 'fake-response', 'Wrong response');
+      done();
+    });
+});
+
+

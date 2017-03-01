@@ -101,3 +101,57 @@ test('Rubric delete, success', function (assert) {
       assert.ok(response, 'Should return true');
     });
 });
+
+test('getRubric', function (assert) {
+  assert.expect(2);
+  const fakeResponse = "fakeResponse";
+
+  // Mock backend response
+  this.pretender.map(function () {
+    this.get('/api/nucleus/v2/rubrics/123', function (request) {
+      assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
+      return [
+        200,
+        {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        JSON.stringify(fakeResponse)];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.getRubric(123).then(function (response) {
+    assert.equal(response, fakeResponse, 'Wrong response');
+  });
+});
+
+test('getUserRubrics', function (assert) {
+  assert.expect(2);
+  const fakeResponse = "fakeResponse";
+
+  // Mock backend response
+  this.pretender.map(function () {
+    this.get('/api/nucleus/v2/profiles/123/rubrics', function (request) {
+      assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
+      return [
+        200,
+        {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        JSON.stringify(fakeResponse)];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.getUserRubrics(123).then(function (response) {
+    assert.equal(response, fakeResponse, 'Wrong response');
+  });
+});
