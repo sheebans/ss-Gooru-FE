@@ -96,7 +96,27 @@ export default Ember.Service.extend({
       .then(function (data) {
         return service.get('serializer').normalizeGetRubrics(data);
       });
+  },
+
+  /**
+   * Copies a rubric
+   * @param {String} rubricId
+   * @returns {Promise|string} returns the copied id
+   */
+  copyRubric: function (rubricId) {
+    return this.get('adapter').copyRubric(rubricId);
+  },
+
+  /**
+   * Associates a rubric with a question
+   * @param {String} rubricId
+   * @param {String} questionId
+   * @returns {Promise|boolean} true when successful
+   */
+  associateRubricToQuestion: function (rubricId, questionId) {
+    return this.get('adapter').associateRubricToQuestion(rubricId, questionId);
   }
+
 
 
 });

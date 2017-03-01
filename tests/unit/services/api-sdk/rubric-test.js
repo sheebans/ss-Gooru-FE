@@ -145,3 +145,44 @@ test('getUserRubrics', function(assert) {
 });
 
 
+test('copyRubric', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('adapter', Ember.Object.create({
+    copyRubric: function(rubricId) {
+      assert.equal(rubricId, 123, 'Wrong id');
+      return Ember.RSVP.resolve(12345);
+    }
+  }));
+
+  var done = assert.async();
+  service.copyRubric(123)
+    .then(function(copiedId) {
+      assert.equal(copiedId, 12345, 'Wrong response');
+      done();
+    });
+});
+
+
+test('associateRubricToQuestion', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('adapter', Ember.Object.create({
+    associateRubricToQuestion: function(rubricId, questionId) {
+      assert.equal(rubricId, 123, 'Wrong id');
+      assert.equal(questionId, 312, 'Wrong question id');
+      return Ember.RSVP.resolve(true);
+    }
+  }));
+
+  var done = assert.async();
+  service.associateRubricToQuestion(123, 312)
+    .then(function(associated) {
+      assert.equal(associated, true, 'Wrong response');
+      done();
+    });
+});
+
+

@@ -13,6 +13,10 @@ export default Ember.Object.extend({
 
   profileNamespace: '/api/nucleus/v2/profiles',
 
+  copierNamespace: '/api/nucleus/v2/copier',
+
+  questionsNamespace: '/api/nucleus/v2/questions',
+
   /**
    * Posts a new rubric
    *
@@ -36,9 +40,7 @@ export default Ember.Object.extend({
         .then(function (responseData, textStatus, request) {
           var rubricId = request.getResponseHeader('location');
           resolve(rubricId);
-        }, function (error) {
-          reject(error);
-        });
+        }, reject);
     });
   },
 
@@ -134,6 +136,60 @@ export default Ember.Object.extend({
       Ember.$.ajax(url, options)
         .then(function (responseData) {
           resolve(responseData);
+        }, reject);
+    });
+  },
+
+  /**
+   * Copies a rubric
+   *
+   * @param {string} rubricId to be copied
+   * @returns {Ember.Promise|String} ID of the copied rubric
+   */
+  copyRubric: function (rubricId) {
+    const copierNamespace = this.get('copierNamespace');
+    const url = `${copierNamespace}/rubrics/${rubricId}`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify({}) //empty body is required
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData, textStatus, request) {
+          var rubricId = request.getResponseHeader('location');
+          resolve(rubricId);
+        }, reject);
+    });
+  },
+
+  /**
+   * Associates a rubric with a question
+   *
+   * @param {string} rubricId
+   * @param {string} questionId
+   * @returns {Ember.Promise|boolean} true when successful
+   */
+  associateRubricToQuestion: function (rubricId, questionId) {
+    const questionsNamespace = this.get('questionsNamespace');
+    const url = `${questionsNamespace}/${questionId}/rubrics/${rubricId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify({}) //empty body is required
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function () {
+          resolve(true);
         }, reject);
     });
   },
