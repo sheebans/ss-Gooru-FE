@@ -221,3 +221,8 @@ export const GOAL_STATUS = {
   COMPLETED : "completed",
   DROPPED : "dropped"
 };
+
+export const RUBRIC_TYPE = {
+  _1xN: '1xN',
+  NxN: 'NxN'
+};

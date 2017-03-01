@@ -1,0 +1,51 @@
+[
+  {
+    "description": "delete any rubric",
+    "request": {
+      "url": "^/api/nucleus/v2/rubrics/(.+)$",
+      "method": "DELETE",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/plain"
+      }
+    }
+  },
+  {
+    "description": "update any rubric",
+    "request": {
+      "url": "^/api/nucleus/v2/rubrics/(.+)$",
+      "method": "PUT",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/plain"
+      }
+    }
+  },
+  {
+    "description": "Create any rubric",
+    "request": {
+      "url": "^/api/nucleus/v2/rubrics$",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "Content-Type": "text/plain",
+        "Location": "2d84ab6c-10ee-4578-b89a-6b41c87dc9fc"
+      }
+    }
+  }
+]
