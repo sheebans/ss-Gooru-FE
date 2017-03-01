@@ -63,6 +63,30 @@ export default Ember.Object.extend({
   /**
    * @property {boolean}
    */
-  hasCategories: Ember.computed.bool('categories.length')
+  hasCategories: Ember.computed.bool('categories.length'),
 
+  /**
+   * @property {string} rubric url when uploading a file
+   */
+  url: null,
+
+  /**
+   * @property {boolean} true when a rubric file is uploaded
+   */
+  uploaded: null,
+
+  /**
+   * @property {string} feedback guidance
+   */
+  feedback: null,
+
+ /**
+   * @property {number} total points
+   */
+  totalPoints: null,
+
+  /**
+   * @property {boolean} true when the rubric requires feedback
+   */
+  requiresFeedback: null
 });

@@ -25,17 +25,17 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} requiresFeedback
    */
-  requireFeedback: null,
+  requiresFeedback: null,
 
   /**
    * @property {boolean} allowScoring
    */
-  allowScoring: null,
+  allowsScoring: null,
 
   /**
    * @property {boolean} allowLevel
    */
-  allowLevels: null,
+  allowsLevels: null,
 
   /**
    * @property {Ember.A} levels { name: string, score: number }

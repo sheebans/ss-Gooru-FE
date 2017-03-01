@@ -36,3 +36,33 @@ test('createRubric', function(assert) {
     });
 });
 
+test('updateRubric', function(assert) {
+  const service = this.subject();
+  let rubric = RubricModel.create({
+    title: "any rubric"
+  });
+
+  assert.expect(3);
+
+  service.set('serializer', Ember.Object.create({
+    serializeUpdateRubric: function(rubricParam) {
+      assert.deepEqual(rubricParam, rubric, 'Wrong rubric parameter');
+      return { id: "fake-id" };
+    }
+  }));
+
+  service.set('adapter', Ember.Object.create({
+    updateRubric: function(data) {
+      assert.deepEqual(data, { id: "fake-id" }, 'Wrong data');
+      return Ember.RSVP.resolve(true);
+    }
+  }));
+
+  var done = assert.async();
+  service.updateRubric(rubric)
+    .then(function(updated) {
+      assert.ok(updated, 'Wrong updated');
+      done();
+    });
+});
+

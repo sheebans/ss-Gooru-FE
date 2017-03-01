@@ -354,11 +354,20 @@ export function cleanFilename(url, cdnUrls) {
 }
 
 /**
- * Returns null if value is empty, i.e ''
+ * This function is used to clear up fields when serializing then. At the
+ * BE a null field will delete the value at the repository a non present field (undefined) would be ignored (not changed).
+ *
+ * Returns null if value is empty or null
+ * Returns undefined if value is undefined
+ * Otherwise it returns value
  * @param {string} value
  */
 export function nullIfEmpty(value) {
-  return (value && value.length) ? value : null;
+  let toReturn = value;
+  if (value !== undefined){
+    toReturn = (value && value.length) ? value : null;
+  }
+  return toReturn;
 }
 
 /**

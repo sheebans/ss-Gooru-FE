@@ -219,6 +219,8 @@ test('Clean filename', function (assert) {
 test('nullIfEmpty', function (assert) {
   assert.equal(nullIfEmpty(""), null, 'Wrong value, should be null');
   assert.equal(nullIfEmpty('Hi'), 'Hi', 'Wrong value, should be Hi');
+  assert.equal(nullIfEmpty(null), null, 'Wrong value, should be null');
+  assert.equal(nullIfEmpty(undefined), undefined, 'Wrong value, should be undefined');
 });
 
 test('Get File Name from Invalid URL', function (assert) {
