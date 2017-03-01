@@ -61,6 +61,16 @@ export default Ember.Service.extend({
   updateRubric: function (rubric) {
     var data = this.get('serializer').serializeUpdateRubric(rubric);
     return this.get('adapter').updateRubric(data, rubric.get('id'));
+  },
+
+  /**
+   * Deletes a rubric
+   * @param {String} rubricId
+   * @returns {Promise|boolean} returns true if deleted
+   */
+  deleteRubric: function (rubricId) {
+    return this.get('adapter').deleteRubric(rubricId);
   }
+
 
 });
