@@ -60,7 +60,7 @@ export default Ember.Service.extend({
    */
   updateRubric: function (rubric) {
     var data = this.get('serializer').serializeUpdateRubric(rubric);
-    return this.get('adapter').updateRubric(data);
+    return this.get('adapter').updateRubric(data, rubric.get('id'));
   }
 
 });

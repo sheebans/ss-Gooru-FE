@@ -39,10 +39,11 @@ test('createRubric', function(assert) {
 test('updateRubric', function(assert) {
   const service = this.subject();
   let rubric = RubricModel.create({
+    id: 123,
     title: "any rubric"
   });
 
-  assert.expect(3);
+  assert.expect(4);
 
   service.set('serializer', Ember.Object.create({
     serializeUpdateRubric: function(rubricParam) {
@@ -52,7 +53,8 @@ test('updateRubric', function(assert) {
   }));
 
   service.set('adapter', Ember.Object.create({
-    updateRubric: function(data) {
+    updateRubric: function(data, rubricId) {
+      assert.equal(rubricId, 123, 'Wrong rubric id');
       assert.deepEqual(data, { id: "fake-id" }, 'Wrong data');
       return Ember.RSVP.resolve(true);
     }
