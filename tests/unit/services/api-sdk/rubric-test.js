@@ -170,7 +170,7 @@ test('associateRubricToQuestion', function(assert) {
   assert.expect(3);
 
   service.set('adapter', Ember.Object.create({
-    associateRubricWithQuestion: function(rubricId, questionId) {
+    associateRubricToQuestion: function(rubricId, questionId) {
       assert.equal(rubricId, 123, 'Wrong id');
       assert.equal(questionId, 312, 'Wrong question id');
       return Ember.RSVP.resolve(true);
