@@ -51,6 +51,16 @@ export default Ember.Service.extend({
       rubric.set('id', rubricId);
       return rubricId;
     });
+  },
+
+  /**
+   * Updates a rubric
+   * @param {Rubric} rubric
+   * @returns {Promise|Rubric} returns the rubric model with the newly assigned ID
+   */
+  updateRubric: function (rubric) {
+    var data = this.get('serializer').serializeUpdateRubric(rubric);
+    return this.get('adapter').updateRubric(data, rubric.get('id'));
   }
 
 });
