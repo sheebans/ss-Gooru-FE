@@ -29,6 +29,7 @@ export default Ember.Controller.extend(ModalMixin, {
   // Actions
   actions: {
     setCategory: function(category){
+      this.set('selectedCategory', category);
       this.filterSubjects(category);
       this.set('disableSubjects', false);
     },
@@ -103,6 +104,12 @@ export default Ember.Controller.extend(ModalMixin, {
   categories: SEARCH_CATEGORIES,
 
   /**
+   * The selected category
+   * @property {object}
+   */
+  selectedCategory: null,
+
+  /**
    * @property {subjects[]} list of subjects for the search function
    */
   subjects: Ember.A([]),
@@ -164,6 +171,7 @@ export default Ember.Controller.extend(ModalMixin, {
       }));
     }.bind(this));
     this.set("selectedTags", selectedTags);
+    this.resetCategory();
   },
 
   extractFramework: function(taxonomyCode){
@@ -187,5 +195,12 @@ export default Ember.Controller.extend(ModalMixin, {
       isRemovable: true,
       data: dataTag
     });
+  },
+
+  resetCategory: function(){
+    const category = this.get('selectedCategory');
+    if (category) {
+      this.send('setCategory', category);
+    }
   }
 });

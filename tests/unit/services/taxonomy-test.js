@@ -439,7 +439,7 @@ test('findSubjectById for a loaded category and non-loaded subject', function(as
 
   service.set('taxonomyContainer', taxonomyContainer);
   var done = assert.async();
-  service.findSubjectById('non-existing-subject-id')
+  service.findSubjectById('non.existing.subject')
     .then(function(subject) {
       assert.equal(subject, null, 'Invalid subject. Should be null');
       done();
