@@ -155,3 +155,61 @@ test('getUserRubrics', function (assert) {
     assert.equal(response, fakeResponse, 'Wrong response');
   });
 });
+
+test('Rubric copy, success', function (assert) {
+  assert.expect(3);
+  // Mock backend response
+  this.pretender.map(function () {
+    this.post('/api/nucleus/v2/copier/rubrics/123', function (request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.deepEqual(requestBodyJson, {}, "Missing empty body");
+      assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
+      return [
+        201,
+        {
+          'Content-Type': 'text/plain',
+          'location': 'rubric-id-456'
+        },
+        ''];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.copyRubric(123)
+    .then(function (response) {
+      assert.equal(response, 'rubric-id-456', 'Should respond with the copied ID for the rubric');
+    });
+});
+
+test('Associate rubric with question, success', function (assert) {
+  assert.expect(3);
+  // Mock backend response
+  this.pretender.map(function () {
+    this.put('/api/nucleus/v2/questions/321/rubrics/123', function (request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.deepEqual(requestBodyJson, {}, "Missing empty body");
+      assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
+      return [
+        201,
+        {
+          'Content-Type': 'text/plain'
+        },
+        ''];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.associateRubricToQuestion(123, 321)
+    .then(function (associated) {
+      assert.ok(associated === true, 'Wrong response');
+    });
+});
+
