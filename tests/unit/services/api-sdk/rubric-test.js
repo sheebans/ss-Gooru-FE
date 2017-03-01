@@ -68,3 +68,24 @@ test('updateRubric', function(assert) {
     });
 });
 
+
+test('deleteRubric', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+
+  service.set('adapter', Ember.Object.create({
+    deleteRubric: function(rubricId) {
+      assert.deepEqual(rubricId, 123, 'Wrong id');
+      return Ember.RSVP.resolve(true);
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteRubric(123)
+    .then(function(deleted) {
+      assert.ok(deleted, 'Wrong response');
+      done();
+    });
+});
+
+
