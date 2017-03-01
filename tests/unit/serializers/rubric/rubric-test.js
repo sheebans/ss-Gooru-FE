@@ -199,3 +199,92 @@ test('serializedUpdateRubricCategory empty properties', function(assert) {
   assert.equal(categoryObject.category_title, null, 'Wrong category_title');
   assert.equal(categoryObject.narrative_feedback, null, 'Wrong narrative_feedback');
 });
+
+test('normalizeRubricCategory', function(assert) {
+  const serializer = this.subject();
+
+  const category = {
+    "category_title": "Thesis and Sub-claims",
+    "narrative_feedback": "any feedback",
+    "required_feedback": true,
+    "level": true,
+    "scoring": false,
+    "levels": [
+      {
+        "level_name": "Exemplary",
+        "level_score": 4
+      },
+      {
+        "level_name": "Proficient",
+        "level_score": 3
+      },
+      {
+        "level_name": "Basic",
+        "level_score": 2
+      },
+      {
+        "level_name": "Below Basic",
+        "level_score": 1
+      }
+    ]
+  };
+
+  const rubricCategory = serializer.normalizeRubricCategory(category);
+  assert.equal(rubricCategory.get('title'), 'Thesis and Sub-claims', 'Wrong title');
+  assert.equal(rubricCategory.get('narrativeFeedback'), 'any feedback', 'Wrong feedback');
+  assert.equal(rubricCategory.get('requiresFeedback'), true, 'Wrong requiresFeedback');
+  assert.equal(rubricCategory.get('allowsLevels'), true, 'Wrong allowsLevels');
+  assert.equal(rubricCategory.get('allowsScoring'), false, 'Wrong allowsScoring');
+  assert.equal(rubricCategory.get('levels.length'), 4, 'Wrong allowsScoring');
+  assert.equal(rubricCategory.get('levels')[0].name, 'Exemplary', 'Wrong level name');
+  assert.equal(rubricCategory.get('levels')[0].score, 4, 'Wrong level score');
+});
+
+test('normalizeRubric', function(assert) {
+  const serializer = this.subject();
+  const contentCdnUrl = 'content-url/';
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: contentCdnUrl
+    }
+  }));
+
+  const rubricData = {
+    "id": "2c185398-d0e6-42d8-9926-572939fc0784",
+    "title": "Rubric - 1",
+    "description": "This is the example question for the rubrics association",
+    "type": "1xN",
+    "thumbnail": "2c185398-d0e6-42d8-9926-572939fc0784.png",
+    "metadata": {
+      "audience": [12, 45]
+    },
+    "taxonomy": {},
+    "url": "https://en.wikipedia.org/wiki/Rubric_(academic)",
+    "is_remote": true,
+    "feedback_guidance": "Summarize your feedback on the essay as a whole",
+    "total_points": 4,
+    "overall_feedback_required": true,
+    "categories": [{
+        "category_title": "Thesis and Sub-claims"
+      },
+      {
+        "category_title": "Thesis and Sub-claims"
+      }
+    ]
+  };
+
+  const rubric = serializer.normalizeRubric(rubricData);
+  assert.equal(rubric.get('id'), '2c185398-d0e6-42d8-9926-572939fc0784', 'Wrong id');
+  assert.equal(rubric.get('title'), 'Rubric - 1', 'Wrong title');
+  assert.equal(rubric.get('description'), 'This is the example question for the rubrics association', 'Wrong description');
+  assert.equal(rubric.get('type'), '1xN', 'Wrong type');
+  assert.equal(rubric.get('thumbnail'), contentCdnUrl + '2c185398-d0e6-42d8-9926-572939fc0784.png', 'Wrong thumbnail');
+  assert.deepEqual(rubric.get('audience'), [12, 45], 'Wrong audience');
+  assert.equal(rubric.get("taxonomy.length"), 0, 'Wrong taxonomy');
+  assert.equal(rubric.get('url'), 'https://en.wikipedia.org/wiki/Rubric_(academic)', 'Wrong url');
+  assert.equal(rubric.get('uploaded'), true, 'Wrong url');
+  assert.equal(rubric.get('feedback'), 'Summarize your feedback on the essay as a whole', 'Wrong feedback');
+  assert.equal(rubric.get('totalPoints'), 4, 'Wrong total points');
+  assert.equal(rubric.get('requiresFeedback'), true, 'Wrong requires feedback');
+  assert.equal(rubric.get('categories.length'), 2, 'Wrong categories length');
+});

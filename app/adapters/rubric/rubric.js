@@ -11,6 +11,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v2/rubrics',
 
+  profileNamespace: '/api/nucleus/v2/profiles',
+
   /**
    * Posts a new rubric
    *
@@ -87,6 +89,51 @@ export default Ember.Object.extend({
       Ember.$.ajax(url, options)
         .then(function () {
           resolve(true);
+        }, reject);
+    });
+  },
+
+  /**
+   * Gets the rubric information
+   *
+   * @param {string} rubricId
+   * @returns {Promise|Object}
+   */
+  getRubric: function (rubricId) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${rubricId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData) {
+          resolve(responseData);
+        }, reject);
+    });
+  },
+
+  /**
+   * Gets the user rubrics information
+   * @param {string} userId
+   * @returns {Promise|Object}
+   */
+  getUserRubrics: function (userId) {
+    const profileNamespace = this.get('profileNamespace');
+    const url = `${profileNamespace}/${userId}/rubrics`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData) {
+          resolve(responseData);
         }, reject);
     });
   },

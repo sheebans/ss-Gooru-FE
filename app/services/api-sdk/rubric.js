@@ -70,6 +70,32 @@ export default Ember.Service.extend({
    */
   deleteRubric: function (rubricId) {
     return this.get('adapter').deleteRubric(rubricId);
+  },
+
+  /**
+   * Returns rubric
+   * @param {string} rubricId
+   * @returns {Promise|Rubric}
+   */
+  getRubric: function (rubricId) {
+    const service = this;
+    return service.get('adapter').getRubric(rubricId)
+      .then(function (data) {
+        return service.get('serializer').normalizeRubric(data);
+      });
+  },
+
+  /**
+   * Returns user rubrics
+   * @param {string} userId
+   * @returns {Promise|Rubric[]}
+   */
+  getUserRubrics: function (userId) {
+    const service = this;
+    return service.get('adapter').getUserRubrics(userId)
+      .then(function (data) {
+        return service.get('serializer').normalizeGetRubrics(data);
+      });
   }
 
 
