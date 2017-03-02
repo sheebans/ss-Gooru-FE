@@ -1,4 +1,6 @@
-export default {
+import quizzesTranslations from './quizzes/translations';
+
+export default Object.assign(quizzesTranslations, {
   errors: {
     description: "This field",
     inclusion: "{{description}} is not included in the list",
@@ -1550,4 +1552,4 @@ export default {
       }
     }
   }
-};
+});

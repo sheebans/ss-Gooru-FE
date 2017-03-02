@@ -4,15 +4,15 @@
 export default {
   "appRootPath": "/", //default is root
   "endpoint" : {
-    "url": "http://nile-dev.gooru.org",
-    "secureUrl": "https://nile-dev.gooru.org",
+    "url": "http://nile-qa.gooru.org",
+    "secureUrl": "https://nile-qa.gooru.org",
     "tenantUrl": "http://s3-us-west-1.amazonaws.com/nile-tenants/dev"
   },
 
   "realTime": {
-    "webServiceUrl": "http://nile-dev.gooru.org",
+    "webServiceUrl": "http://nile-qa.gooru.org",
     "webServiceUri": "/nucleus/realtime",
-    "webSocketUrl": "https://rt.nile-dev.gooru.org",
+    "webSocketUrl": "https://rt.nile-qa.gooru.org",
     "webSocketUri": "/ws/realtime"
   },
 
