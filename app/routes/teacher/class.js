@@ -42,8 +42,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       if (item !== currentItem) {
         controller.selectMenuItem(item);
 
-        //if (item === 'performance') {
-        //  route.transitionTo('teacher.class.analytics.performance', queryParams);
+        if (item === 'course-map') {
+          route.transitionTo('teacher.class.course-map');
+        }
         //} else if (item === 'classmates') {
         //  route.transitionTo('teacher.class.classmates');
         //}
@@ -51,6 +52,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         //  route.transitionTo('teacher.class');
         //}
       }
+    },
+
+    /**
+     * Gets a refreshed list of content visible
+     */
+    updateContentVisible: function(contentId, visible) {
+      const route = this;
+      const controller = route.get("controller");
+      let contentVisibility = controller.get('contentVisibility');
+      contentVisibility.setAssessmentVisibility(contentId,visible ? 'on' :'off');
     }
   },
 
