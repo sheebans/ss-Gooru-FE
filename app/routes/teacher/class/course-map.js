@@ -8,13 +8,6 @@ export default Ember.Route.extend({
   session: Ember.inject.service("session"),
 
   i18n: Ember.inject.service(),
-
-  profileService: Ember.inject.service('api-sdk/profile'),
-  /**
-   * @requires service:api-sdk/analytics
-   */
-  analyticsService: Ember.inject.service("api-sdk/analytics"),
-
   // -------------------------------------------------------------------------
   // Attributes
 
