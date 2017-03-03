@@ -64,7 +64,7 @@ export default Ember.Route.extend({
     const route = this;
     const currentClass = route.modelFor('teacher.class').class;
     const course = route.modelFor('teacher.class').course;
-    const units = route.modelFor('teacher.class').units;
+    const units = course.get('children') || [];
     const classMembers = currentClass.get('members');
     return Ember.RSVP.hash({
       course: course,

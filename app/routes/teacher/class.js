@@ -44,10 +44,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
         if (item === 'course-map') {
           route.transitionTo('teacher.class.course-map');
+        } else if (item === 'performance') {
+          route.transitionTo('teacher.class.performance');
         }
-        //} else if (item === 'classmates') {
-        //  route.transitionTo('teacher.class.classmates');
-        //}
         //else {
         //  route.transitionTo('teacher.class');
         //}
@@ -104,7 +103,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           class: aClass,
           course: course,
           members: members,
-          units: course.get('children') || [],
           contentVisibility: contentVisibility
         });
       });
@@ -119,7 +117,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   setupController: function(controller, model) {
     controller.set("class", model.class);
     controller.set("course", model.course);
-    controller.set("units", model.units);
     controller.set("contentVisibility", model.contentVisibility);
   }
 });
