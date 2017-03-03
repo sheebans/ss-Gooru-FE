@@ -116,10 +116,10 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, {
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
       let collection = collectionFound ? hash.collection.value : hash.assessment.value;
       params.token = route.get('session.token-api3');
+      params.profileId = route.get('session.userData.gooruUId');
       params.type = collection.get('collectionType');
       params.routeURL = '';
       params.contextId = 'a37c6762-bfa9-4ffc-adbb-68fb7c7be60f';
-
       return route.quizzesModel(params);
     });
   }
