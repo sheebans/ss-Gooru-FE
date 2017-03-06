@@ -26,7 +26,7 @@ export default Ember.Component.extend({
    */
   score: Ember.computed('class.performanceSummary.score', function(){
     const score = this.get('class.performanceSummary.score');
-    return Ember.typeOf(score) === 'number'? score + '%' : '0%';
+    return Ember.typeOf(score) === 'number' ? score : 0;
   }),
 
   /**
