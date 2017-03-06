@@ -1,0 +1,18 @@
+<div class="controller teacher class course-map">
+  <button {{action "editContent" course.id}} class="btn btn-default edit-content">
+    {{t "class.overview.editContent"}}
+  </button>
+
+  {{class.overview.gru-accordion-course
+  currentClass=class
+  classMembers=classMembers
+  onSelectResource="playResource"
+  onLocationUpdate=(action 'updateLocation')
+  onLaunchOnAir="launchOnAir"
+  location=location
+  units=units
+  contentVisibility=contentVisibility
+  onUpdateContentVisibility="updateContentVisibility"
+  isTeacher=true}}
+
+</div>

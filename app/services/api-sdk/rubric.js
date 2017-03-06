@@ -70,7 +70,53 @@ export default Ember.Service.extend({
    */
   deleteRubric: function (rubricId) {
     return this.get('adapter').deleteRubric(rubricId);
+  },
+
+  /**
+   * Returns rubric
+   * @param {string} rubricId
+   * @returns {Promise|Rubric}
+   */
+  getRubric: function (rubricId) {
+    const service = this;
+    return service.get('adapter').getRubric(rubricId)
+      .then(function (data) {
+        return service.get('serializer').normalizeRubric(data);
+      });
+  },
+
+  /**
+   * Returns user rubrics
+   * @param {string} userId
+   * @returns {Promise|Rubric[]}
+   */
+  getUserRubrics: function (userId) {
+    const service = this;
+    return service.get('adapter').getUserRubrics(userId)
+      .then(function (data) {
+        return service.get('serializer').normalizeGetRubrics(data);
+      });
+  },
+
+  /**
+   * Copies a rubric
+   * @param {String} rubricId
+   * @returns {Promise|string} returns the copied id
+   */
+  copyRubric: function (rubricId) {
+    return this.get('adapter').copyRubric(rubricId);
+  },
+
+  /**
+   * Associates a rubric with a question
+   * @param {String} rubricId
+   * @param {String} questionId
+   * @returns {Promise|boolean} true when successful
+   */
+  associateRubricToQuestion: function (rubricId, questionId) {
+    return this.get('adapter').associateRubricToQuestion(rubricId, questionId);
   }
+
 
 
 });

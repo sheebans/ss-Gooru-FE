@@ -11,6 +11,12 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v2/rubrics',
 
+  profileNamespace: '/api/nucleus/v2/profiles',
+
+  copierNamespace: '/api/nucleus/v2/copier',
+
+  questionsNamespace: '/api/nucleus/v2/questions',
+
   /**
    * Posts a new rubric
    *
@@ -34,9 +40,7 @@ export default Ember.Object.extend({
         .then(function (responseData, textStatus, request) {
           var rubricId = request.getResponseHeader('location');
           resolve(rubricId);
-        }, function (error) {
-          reject(error);
-        });
+        }, reject);
     });
   },
 
@@ -81,6 +85,105 @@ export default Ember.Object.extend({
       dataType: 'text',
       processData: false,
       headers: this.defineHeaders()
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function () {
+          resolve(true);
+        }, reject);
+    });
+  },
+
+  /**
+   * Gets the rubric information
+   *
+   * @param {string} rubricId
+   * @returns {Promise|Object}
+   */
+  getRubric: function (rubricId) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${rubricId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData) {
+          resolve(responseData);
+        }, reject);
+    });
+  },
+
+  /**
+   * Gets the user rubrics information
+   * @param {string} userId
+   * @returns {Promise|Object}
+   */
+  getUserRubrics: function (userId) {
+    const profileNamespace = this.get('profileNamespace');
+    const url = `${profileNamespace}/${userId}/rubrics`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData) {
+          resolve(responseData);
+        }, reject);
+    });
+  },
+
+  /**
+   * Copies a rubric
+   *
+   * @param {string} rubricId to be copied
+   * @returns {Ember.Promise|String} ID of the copied rubric
+   */
+  copyRubric: function (rubricId) {
+    const copierNamespace = this.get('copierNamespace');
+    const url = `${copierNamespace}/rubrics/${rubricId}`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify({}) //empty body is required
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData, textStatus, request) {
+          var rubricId = request.getResponseHeader('location');
+          resolve(rubricId);
+        }, reject);
+    });
+  },
+
+  /**
+   * Associates a rubric with a question
+   *
+   * @param {string} rubricId
+   * @param {string} questionId
+   * @returns {Ember.Promise|boolean} true when successful
+   */
+  associateRubricToQuestion: function (rubricId, questionId) {
+    const questionsNamespace = this.get('questionsNamespace');
+    const url = `${questionsNamespace}/${questionId}/rubrics/${rubricId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify({}) //empty body is required
     };
 
     return new Ember.RSVP.Promise(function (resolve, reject) {
