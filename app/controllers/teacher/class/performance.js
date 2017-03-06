@@ -352,7 +352,7 @@ export default Ember.Controller.extend({
     this.set('collection', null);
     this.set('collectionId', null);
     this.set('anonymous', false);
-    this.set('filterBy', null);
+    this.set('filterBy', 'assessment');
     breadcrumb.clear();
   },
 

@@ -25,6 +25,12 @@ export default Ember.Controller.extend(ConfigurationMixin, {
 
   classService: Ember.inject.service("api-sdk/class"),
 
+  /**
+   * @property {TenantService}
+   */
+  tenantService: Ember.inject.service('api-sdk/tenant'),
+
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -113,5 +119,19 @@ export default Ember.Controller.extend(ConfigurationMixin, {
         return classes;
       });
     });
+  },
+
+  /**
+   * Setups the tenant information
+   * @returns {Promise.<Tenant>}
+     */
+  setupTenant: function() {
+    const controller = this;
+    const tenantService = controller.get('tenantService');
+    return tenantService.findTenantFromCurrentSession().then(function(tenant){
+      controller.set('tenant', tenant);
+      return tenant;
+    });
   }
+
 });
