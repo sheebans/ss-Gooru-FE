@@ -134,6 +134,7 @@ export default Ember.Route.extend({
     }
 
     route.loadData(controller);
+    controller.get('classController').selectMenuItem('performance');
   },
 
   loadData: function (controller) {
@@ -168,7 +169,7 @@ export default Ember.Route.extend({
     const units = controller.get('class.course.children') || [];
     controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
       .then(function(classPerformanceData) {
-        route.fixUnitsTotalCounts(controller, classPerformanceData, controller.get('filterByAssessment'));
+        route.fixUnitsTotalCounts(controller, classPerformanceData, controller.get('filteredByAssessment'));
         const performanceData = createDataMatrix(units, classPerformanceData, 'course');
         controller.set('performanceDataMatrix', performanceData);
         controller.set('performanceDataHeaders', units);
@@ -190,7 +191,7 @@ export default Ember.Route.extend({
     const lessons = controller.get('unit.children') || [];
     controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
       .then(function(classPerformanceData) {
-        route.fixLessonTotalCounts(controller, unitId, classPerformanceData, controller.get("filterByAssessment"));
+        route.fixLessonTotalCounts(controller, unitId, classPerformanceData, controller.get("filteredByAssessment"));
         const performanceData = createDataMatrix(lessons, classPerformanceData, 'unit');
         controller.set('performanceDataMatrix', performanceData);
         controller.set('performanceDataHeaders', lessons);
@@ -249,15 +250,15 @@ export default Ember.Route.extend({
   /**
    * Fixes total counts using data from core
    * @param classPerformanceData
-   * @param filterByAssessment
+   * @param filteredByAssessment
      */
-  fixUnitsTotalCounts: function(controller, classPerformanceData, filterByAssessment) {
+  fixUnitsTotalCounts: function(controller, classPerformanceData, filteredByAssessment) {
     const contentVisibility = controller.get("contentVisibility");
     const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
     studentPerformanceData.forEach(function(studentPerformance) {
       const performanceData = studentPerformance.get("performanceData");
       performanceData.forEach(function(performance) {
-        const totals = filterByAssessment ?
+        const totals = filteredByAssessment ?
           contentVisibility.getTotalAssessmentsByUnit(performance.get("realId")) :
           contentVisibility.getTotalCollectionsByUnit(performance.get("realId"));
         performance.set("completionTotal", totals);
@@ -271,13 +272,13 @@ export default Ember.Route.extend({
    * @param classPerformanceData
    * @param filterBy
      */
-  fixLessonTotalCounts: function(controller, unitId, classPerformanceData, filterByAssessment) {
+  fixLessonTotalCounts: function(controller, unitId, classPerformanceData, filteredByAssessment) {
     const contentVisibility = controller.get("contentVisibility");
     const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
     studentPerformanceData.forEach(function(studentPerformance) {
       const performanceData = studentPerformance.get("performanceData");
       performanceData.forEach(function(performance) {
-        const totals = filterByAssessment ?
+        const totals = filteredByAssessment ?
           contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, performance.get("realId")) :
           contentVisibility.getTotalCollectionsByUnitAndLesson(unitId, performance.get("realId"));
         performance.set("completionTotal", totals);

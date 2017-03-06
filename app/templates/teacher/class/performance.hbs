@@ -6,11 +6,11 @@
         </div>
     </div>
   {{#unless (and isAtCollectionLevel reportData)}}
-    <div class="row">
+    <div class="row actions">
         <div class="col-xs-12">
-            <button class="btn btn-primary" {{action 'selectFilterBy' 'assessment'}}>{{t 'common.assessment'}}</button>
-            <button class="btn btn-primary" {{action 'selectFilterBy' 'collection'}}>{{t 'common.collection'}}</button>
-            <button class="btn btn-primary" {{action 'download'}}>{{t 'common.download-report'}}</button>
+            <button class="btn btn-primary assessment-filter-btn {{if filteredByAssessment 'selected'}}" {{action 'selectFilterBy' 'assessment'}}>{{t 'common.assessment'}}</button>
+            <button class="btn btn-primary collection-filter-btn {{if filteredByCollection 'selected'}}" {{action 'selectFilterBy' 'collection'}}>{{t 'common.collection'}}</button>
+            <button class="btn btn-primary report-btn" {{action 'download'}}>{{t 'common.download-report'}}</button>
         </div>
     </div>
   {{/unless}}
@@ -21,7 +21,7 @@
         {{#unless (and isAtCollectionLevel reportData)}}
         <div class="col-xs-12 col-sm-4 col-md-4">
             <div class="data-picker">
-              {{#if filterByAssessment}}
+              {{#if filteredByAssessment}}
                 {{class.analytics.performance.gru-data-picker
                 onOptionsChange="optionsChange" options=defaultAssessmentOptions max=3}}
               {{else}}

@@ -92,35 +92,33 @@ export default Ember.Controller.extend({
      */
     download: function(){
       const controller = this;
-      const performanceDataHeaders = this.get('performanceDataHeaders');
-      const performanceDataMatrix = this.get('performanceDataMatrix');
+      const performanceDataHeaders = controller.get('performanceDataHeaders');
+      const performanceDataMatrix = controller.get('performanceDataMatrix');
       const date=formatDate(new Date(),'MM-DD-YY');
-      const classTitle = this.get('class.title');
-      const courseTitle = this.get('course.title');
+      const classTitle = controller.get('class.title');
+      const courseTitle = controller.get('course.title');
       var fileNameString = `${classTitle}_${courseTitle}`;
       var unitIndex;
       var lessonIndex;
       var level = 'course';
 
-      const isUnit = controller.get('headerType') === 'unit';
-      const isLesson = controller.get('headerType') === 'lesson';
-      if (isUnit){
-        unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
+      if (controller.get('isAtUnitLevel')){
+        unitIndex = controller.get('course').getChildUnitIndex(controller.get('unit'));
         fileNameString = `${fileNameString}_unit${unitIndex+1}`;
         level='unit';
       }
 
-      if (isLesson){
+      if (controller.get('isAtLessonLevel')){
         level='lesson';
-        unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
-        lessonIndex =  this.get('unit').getChildLessonIndex(this.get('lesson'));
+        unitIndex = controller.get('course').getChildUnitIndex(controller.get('unit'));
+        lessonIndex =  controller.get('unit').getChildLessonIndex(controller.get('lesson'));
         fileNameString = `${fileNameString}_unit${unitIndex+1}_lesson${lessonIndex+1}`;
       }
 
       fileNameString = `${fileNameString}_${date}`;
 
       const fileName = createFileNameToDownload(fileNameString);
-      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, this.get('filterBy'),level);
+      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, controller.get('filterBy'),level);
 
       download(fileName, fileData);
     }
@@ -192,7 +190,12 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  filterByAssessment: Ember.computed.equal('filterBy', 'assessment'),
+  filteredByAssessment: Ember.computed.not('filteredByCollection'),
+
+  /**
+   * @property {boolean}
+   */
+  filteredByCollection: Ember.computed.equal('filterBy', 'collection'),
 
   /**
    * The performance data header titles of the course, unit, lesson. This is setting in each setupController
@@ -240,7 +243,9 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean} indicates the app is showing unit data
    */
-  isAtUnitLevel: Ember.computed.not('lessonId'),
+  isAtUnitLevel: Ember.computed('lessonId', 'unitId', function() {
+    return this.get('unitId') && !this.get('lessonId');
+  }),
 
   /**
    * @property {boolean} indicates the app is showing lesson data
@@ -347,6 +352,7 @@ export default Ember.Controller.extend({
     this.set('collection', null);
     this.set('collectionId', null);
     this.set('anonymous', false);
+    this.set('filterBy', null);
     breadcrumb.clear();
   },
 
@@ -355,7 +361,7 @@ export default Ember.Controller.extend({
    */
   restoreSelectedOptions: function() {
     const controller = this;
-    const assessment = controller.get('filterByAssessment');
+    const assessment = controller.get('filteredByAssessment');
     const options = assessment ? controller.get('defaultAssessmentOptions') : controller.get('defaultCollectionOptions');
     controller.set('selectedOptions', options.filterBy('selected', true).mapBy('value'));
   }
