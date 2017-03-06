@@ -298,10 +298,13 @@ export default Ember.Component.extend(AccordionMixin, {
             return assessmentDataPromise.then(function(assessmentData){
               const averageScore = performance.calculateAverageScoreByItem(collectionId);
               const timeSpent = performance.calculateAverageTimeSpentByItem(collectionId);
+              const completionDone = performance.calculateSumCompletionDoneByItem(collectionId);
+              const completionTotal = performance.calculateSumCompletionTotalByItem(collectionId);
               collection.set('performance', Ember.Object.create({
                 score: averageScore,
                 hasStarted: averageScore > 0 || timeSpent > 0,
-                isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined
+                isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined,
+                isCompleted: completionDone > 0 && completionDone >= completionTotal
               }));
 
               if (peer) {
@@ -325,22 +328,33 @@ export default Ember.Component.extend(AccordionMixin, {
         .findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections)
         .then(function(performance) {
           const promises = collections.map(function(collection) {
+            const collectionId = collection.get('id');
             const isAssessment = collection.get('format') === 'assessment';
-            const peer = lessonPeers.findBy('id', collection.get('id'));
+            const peer = lessonPeers.findBy('id', collectionId);
             if (peer) {
               component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
                 .then(function (profiles) {
                   collection.set('members', profiles);
                 });
             }
-            const collectionPerformanceData = performance.findBy('id', collection.get('id'));
+            const collectionPerformanceData = performance.findBy('id', collectionId);
             const score = collectionPerformanceData.get('score');
+            const timeSpent = collectionPerformanceData.get('timeSpent');
+            const completionDone = collectionPerformanceData.get('completionDone');
+            const completionTotal = collectionPerformanceData.get('completionTotal');
+
+            const hasStarted = score > 0 || timeSpent > 0;
+            const isCompleted = completionDone > 0 && completionDone >= completionTotal;
             const hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
+
             collectionPerformanceData.set('hasTrophy', hasTrophy);
+            collectionPerformanceData.set('hasStarted', hasStarted);
+            collectionPerformanceData.set('isCompleted', isCompleted);
+
             collection.set('performance', collectionPerformanceData);
             const attempts = collectionPerformanceData.get('attempts');
             if(isAssessment) {
-              return component.get('assessmentService').readAssessment(collection.get('id'))
+              return component.get('assessmentService').readAssessment(collectionId)
                 .then(function (assessment) {
                   const attemptsSettings = assessment.get('attempts');
                   if (attemptsSettings) {

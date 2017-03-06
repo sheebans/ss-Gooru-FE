@@ -1,11 +1,18 @@
-.teacher.course-map {
+.student.course-map {
   .gru-accordion {
     .panel-heading {
-      padding: 8px 0;
+      padding: 8px 5px;
       margin: 0;
       background-color: $white;
-      @media (min-width: $screen-md-min) {
+      @media (min-width: $screen-lg) {
         padding: 8px 40px 8px 20px;
+      }
+
+      .panel-title {
+        > a {
+          width: 95%;
+          max-width: 95%;
+        }
       }
     }
     .panel-group .panel + .panel {

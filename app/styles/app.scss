@@ -61,7 +61,7 @@
 @import 'controllers/student/class';
 @import 'controllers/student/performance';
 @import 'controllers/student/class/classmates';
-@import 'controllers/student/class/content-map';
+@import 'controllers/student/class/course-map';
 
 @import 'controllers/teacher/class';
 @import 'controllers/teacher/class/course-map';
@@ -130,6 +130,9 @@
 @import 'components/class/analytics/performance/student/gru-lesson-performance';
 @import 'components/class/analytics/performance/teacher/gru-metrics-table';
 @import 'components/class/analytics/performance/teacher/gru-metrics-sub-header';
+@import 'components/class/overview/gru-accordion-course';
+@import 'components/class/overview/gru-accordion-unit';
+@import 'components/class/overview/gru-accordion-lesson';
 
 @import 'components/content/assessments/gru-assessment-edit';
 @import 'components/content/gru-audience';

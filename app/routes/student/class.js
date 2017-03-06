@@ -49,8 +49,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
         if (item === 'performance') {
           route.transitionTo('student.class.analytics.performance', queryParams);
-        } else if (item === 'content-map') {
-          route.transitionTo('student.class.content-map');
+        } else if (item === 'course-map') {
+          route.transitionTo('student.class.course-map');
         } else if (item === 'classmates') {
           route.transitionTo('student.class.classmates');
         }

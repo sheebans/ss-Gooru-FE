@@ -72,7 +72,7 @@ test('Go to course map from announcement', function(assert) {
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student', 'Wrong route');
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/analytics/performance', 'Wrong route');
     });
   });
 
@@ -86,7 +86,7 @@ test('Go to course map from announcement', function(assert) {
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student', 'Wrong route');
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/analytics/performance', 'Wrong route');
     });
   });
 

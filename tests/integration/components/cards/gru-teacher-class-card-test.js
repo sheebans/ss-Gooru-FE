@@ -77,7 +77,7 @@ test('Class Card Layout', function(assert) {
 
   T.exists(assert, $panelBody.find('.chart .charts.gru-bubble-chart'), 'Missing gru-bubble-chart component');
   assert.equal(T.text($panelBody.find('.chart .charts.gru-bubble-chart .bubble-circle span')), '90%', 'Wrong performance score of the chart');
-  assert.equal(T.text($panelBody.find('.chart .legend')), this.get('i18n').t('teacher-landing.latest-assessment').string, 'Wrong legend of the chart');
+  assert.equal(T.text($panelBody.find('.chart .legend')), this.get('i18n').t('teacher-landing.class.performance').string, 'Wrong legend of the chart');
 
   T.exists(assert, $panelBody.find('.greeting'), 'Missing class greeting');
   assert.equal(T.text($panelBody.find('.greeting span')), this.get('i18n').t('teacher-landing.latest-announcement').string, 'Wrong legend of the greeting');

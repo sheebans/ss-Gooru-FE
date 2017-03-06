@@ -1,0 +1,361 @@
+.gru-accordion-lesson {
+  $on-air-icon: 35px;
+  $collection-icon-size: 48px;
+
+  .img-rounded {
+    display: inline-block;
+    width: 47px;
+    height: 36px;
+    border-radius: 5px;
+  }
+
+  > .panel-heading {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
+    border-radius: 5px;
+    min-height: 40px;
+    color: $text-color;
+    display: inline-block;
+    width: 100%;
+    height: auto;
+
+    .title, .score, .gru-user-icons, .gru-completion-chart, .content-count {
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0;
+      @media (min-width: $screen-sm) {
+        padding: 10px 0;
+      }
+    }
+
+    .panel-title {
+      width: 100%;
+      float: left;
+      @media (min-width: $screen-sm) {
+        width: 34%;
+      }
+      @media (min-width: $screen-md) {
+        width: 50%;
+      }
+      .title {
+        font-size: $font-size-lead;
+        vertical-align: middle;
+        margin: 0;
+        @media (min-width: $screen-sm) {
+          margin: 0 0 0 10px;
+        }
+        .lesson-prefix {
+          color: $gray-base;
+          margin: 0 5px 0 0;
+          @media (min-width: $screen-md) {
+            margin: 0 30px 0 0;
+          }
+        }
+      }
+    }
+
+    .info {
+      width: 100%;
+      float: left;
+      @media (min-width: $screen-sm) {
+        width: 66%;
+        float: right;
+        text-align: right;
+      }
+      @media (min-width: $screen-md) {
+        width: 50%;
+      }
+      .content-count {
+        font-size: $font-size-large;
+        margin: 0 5px 0 0;
+        @media (min-width: $screen-md) {
+          margin: 0 10px 0 0;
+        }
+        &.mixed {
+          > span:first-child {
+            border-right: 1px solid $text-color;
+            margin: 0 5px 0 0;
+            padding: 0 5px 0 0;
+          }
+        }
+      }
+      .left-info {
+        border-left: 2px solid $light-200;
+        text-align: left;
+        width: 131px;
+        display: inline-block;
+        @media (min-width: $screen-lg) {
+          width: 160px;
+        }
+        .charts.gru-completion-chart {
+          height: 36px;
+          width: 48px;
+          padding: 0;
+          .charts.gru-x-bar-chart {
+            height: 36px;
+          }
+          > span {
+            line-height: 36px;
+          }
+        }
+        .score {
+          padding: 0 3px;
+          font-size: $font-size-lead;
+          font-weight: bold;
+          width: 55px;
+          text-align: center;
+          @media (min-width: $screen-lg) {
+            padding: 10px 20px 10px 10px;
+            width: 80px;
+          }
+        }
+      }
+    }
+  }
+
+  .panel-collapse.collapse.in {
+    .collections {
+      > .panel {
+        margin: 0;
+        padding: 0;
+        height: 134px;
+        border-bottom: 1px solid $light-100;
+        @media (min-width: $screen-sm) {
+          height: 80px;
+        }
+        span.switch.visible-xs {
+          .change-visibility {
+            color: $dark-300;
+          }
+          .dropdown-menu {
+            min-width: 80px;
+            position: absolute;
+            left: -11px;
+            .arrow-up {
+              width: 0;
+              height: 0;
+              border-left: 7px solid transparent;
+              border-right: 7px solid transparent;
+              border-bottom: 7px solid $white;
+              position: absolute;
+              top: -12%;
+              left: 19%;
+            }
+          }
+        }
+        span.switch {
+          position: absolute;
+          left: -38px;
+          top: 10px;
+
+          @media (min-width: $screen-sm) {
+            left: -96px;
+            top: 4px;
+          }
+          @media (min-width: $screen-md) {
+            left: -116px;
+            top: 4px;
+          }
+        }
+        > button.on-air {
+          display: none;
+          position: absolute;
+          top: 9px;
+
+          display: inline-block;
+          margin: 0 5px 0 15px;
+          width: $on-air-icon;
+          height: $on-air-icon;
+          vertical-align: middle;
+          background-image: url('gooru/images/on-air-icon.svg');
+          background-size: $on-air-icon $on-air-icon;
+          @include text-hide();
+          cursor: pointer;
+          @media (min-width: $screen-sm) {
+            left: -27px;
+            top: 6px;
+          }
+          @media (min-width: $screen-md) {
+            left: -40px;
+            top: 5px;
+          }
+        }
+
+        &.collection {
+          &.submitted {
+            > .panel-heading i {
+              color: $blue-400;
+            }
+          }
+        }
+
+        &.assessment {
+          .panel-heading .panel-title {
+            vertical-align: -8px;
+          }
+        }
+
+        &.on-air {
+          > button.on-air {
+            display: none;
+          }
+
+          // on-air icon
+          .panel-heading > .icon-container > .score + i {
+            display: none;
+
+            @media (min-width: $screen-sm) {
+              display: inline-block;
+            }
+          }
+        }
+        &:last-child {
+          border-bottom: 0 none;
+          margin: 0 0 10px 0;
+          .panel-heading {
+            border-bottom: 0 none;
+            border-radius: 0 0 5px 5px;
+          }
+        }
+      }
+
+      .panel-heading {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
+        width: 100%;
+        height: auto;
+        display: inline-block;
+        border-radius: 0;
+
+        .icon-container {
+          i {
+            font-size: $collection-icon-size;
+            vertical-align: bottom;
+          }
+          .score {
+            margin: 5px 0 10px 0;
+            + i {
+              display: none;
+              width: $on-air-icon;
+              height: $on-air-icon;
+              vertical-align: middle;
+              margin-left: 15px;
+              background-image: url('gooru/images/on-air-icon.svg');
+              background-size: $on-air-icon $on-air-icon;
+              @include text-hide();
+            }
+          }
+
+          a.score {
+            padding: 0;
+            button {
+              border: 0 none;
+              .icon {
+                background: url("gooru/images/trophy.svg");
+                background-size: 24px 24px;
+                height: 24px;
+                width: 24px;
+                display: block;
+              }
+            }
+          }
+        }
+
+        .title, .score, .gru-user-icons, .state, .content-count, .icon-container {
+          display: inline-block;
+          vertical-align: middle;
+          padding: 10px 0;
+        }
+
+        .panel-title {
+          width: 100%;
+          float: left;
+          @media (min-width: $screen-sm) {
+            width: 50%;
+          }
+          @media (min-width: $screen-md) {
+            width: 60%;
+          }
+          .title {
+            font-size: $font-size-lead;
+            vertical-align: middle;
+            margin: 0;
+            line-height: $font-size-lead;
+            max-width: 80%;
+            width: 80%;
+            @media (min-width: $screen-sm) {
+              margin: 0 0 0 10px;
+              max-width: inherit;
+              width: inherit;
+            }
+            .type {
+              color: $light-300;
+              font-size: $font-navigator;
+              padding: 5px 0 0 0;
+            }
+          }
+        }
+
+        .info {
+          width: 100%;
+          float: left;
+          @media (min-width: $screen-sm) {
+            width: 50%;
+            float: right;
+            text-align: right;
+          }
+          @media (min-width: $screen-md) {
+            width: 40%;
+          }
+          .content-count {
+            font-size: $font-size-large;
+            margin: 0 10px 0 0;
+            &.mixed {
+              > span:first-child {
+                border-right: 1px solid $text-color;
+                margin: 0 5px 0 0;
+                padding: 0 5px 0 0;
+              }
+            }
+          }
+          .left-info {
+            border-left: 2px solid $light-200;
+            text-align: left;
+            width: 131px;
+            display: inline-block;
+            @media (min-width: $screen-lg) {
+              width: 160px;
+            }
+            .state {
+              width: 70px;
+              color: $blue-400;
+              .not-started {
+                color: $light-300;
+              }
+            }
+            .score {
+              padding: 10px 3px;
+              font-size: $font-size-lead;
+              font-weight: bold;
+              width: 55px;
+              text-align: center;
+              @media (min-width: $screen-lg) {
+                padding: 10px 20px 10px 10px;
+                width: 80px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.expanded {
+    .panel-heading {
+      border-radius: 5px 5px 0 0;
+      margin-bottom: 0;
+    }
+    .panel-collapse.collapse.in {
+      margin: -6px 0;
+    }
+  }
+}
+
