@@ -11,6 +11,8 @@ import QuizzesPlayer from 'quizzes-addon/routes/player';
  */
 export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, {
 
+  templateName: 'player',
+
   // -------------------------------------------------------------------------
   // Dependencies
 

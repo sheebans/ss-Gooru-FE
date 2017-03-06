@@ -11,5 +11,5 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
  * @extends PlayerRoute
  */
 export default PlayerRoute.extend(PrivateRouteMixin, {
-
+  templateName: 'player'
 });
