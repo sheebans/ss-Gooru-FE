@@ -819,7 +819,13 @@ export default {
     "class": {
       "course-map": "Course Map",
       "performance": "Performance",
-      "management": "Roster Management"
+      "management": "Roster Management",
+      "class-management": "Class Management",
+      "class-management-tab": {
+        "class-information": "Class Information",
+        "course-information": "Course Information",
+        "teachers": "Teachers"
+      }
     }
   },
   "goals":{

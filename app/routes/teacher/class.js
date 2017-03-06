@@ -41,16 +41,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
       if (item !== currentItem) {
         controller.selectMenuItem(item);
-
-        if (item === 'course-map') {
+        if (item === 'class-management') {
+          route.transitionTo('teacher.class.class-management');
+        }else if (item === 'course-map') {
           route.transitionTo('teacher.class.course-map');
         }
-        //} else if (item === 'classmates') {
-        //  route.transitionTo('teacher.class.classmates');
-        //}
-        //else {
-        //  route.transitionTo('teacher.class');
-        //}
       }
     },
 

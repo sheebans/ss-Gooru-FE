@@ -112,7 +112,8 @@ Router.map(function() {
   this.route('teacher-home');
 
   this.route('teacher', function() {
-    this.route('class', { path: '/class/:classId' }, function() {
+    this.route('class', { path: '/class/:classId' }, function(){
+      this.route('class-management');
       this.route('course-map');
     });
   });
