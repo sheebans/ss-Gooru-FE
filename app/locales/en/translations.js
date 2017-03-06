@@ -275,6 +275,7 @@ export default {
     "home": "Home",
     "if_questions": "If you have any questions,",
     "information": "Information",
+    "in-progress": "In Progress",
     "last-name": "Last Name",
     "last-updated": "Last Updated",
     "latest-attempt":"Latest attempt",
@@ -329,6 +330,7 @@ export default {
     "not-following": "You're not following anyone.",
     "not-provided": "Not provided",
     "not-specified": "Not specified",
+    "not_started": "Not Started",
     "nothing-to-display": "Nothing to display.",
     "number": "No.",
     "numberStudents": {
@@ -805,7 +807,7 @@ export default {
     "class":{
       "performance": "Performance",
       "classmates": "Classmates",
-      "content-map": "Content Map",
+      "course-map": "Course Map",
       "unit": "Unit",
       "leson": "Leson"
     },

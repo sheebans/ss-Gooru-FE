@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 //import DS from 'ember-data';
+import T from 'gooru-web/tests/helpers/assert';
 import tHelper from "ember-i18n/helper";
 
 // Stub performance service
@@ -295,9 +296,10 @@ test('it renders', function(assert) {
   const lesson = Ember.Object.create({
     id: "888-000",
     title: 'Lesson Title',
-
     completed: 5,
-    total: 10
+    total: 10,
+    assessmentCount: 1,
+    collectionCount: 2
   });
 
   this.set('currentClass', currentClass);
@@ -319,16 +321,26 @@ test('it renders', function(assert) {
   const $lessonHeading = $component.find('> .panel-heading');
   assert.ok($lessonHeading.length, 'Panel heading element is missing');
 
-  const $completionChart = $lessonHeading.find('> .gru-completion-chart');
-  assert.ok($completionChart.length, 'Completion chart for lesson');
-
   const $lessonTitle = $lessonHeading.find('> .panel-title');
   assert.ok($lessonTitle.length, 'Panel title element is missing');
 
   const $lessonTitleAnchor = $lessonTitle.find('> a.title');
   assert.ok($lessonTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($lessonTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
-  assert.equal($lessonTitleAnchor.html().replace(/&nbsp;/g, " ").trim(), 'Lesson 1.  Lesson Title', 'Wrong title text');
+  assert.equal(T.text($lessonTitleAnchor), 'Lesson 1Lesson Title', 'Wrong title text');
+  //assert.equal($lessonTitleAnchor.html().replace(/&nbsp;/g, " ").trim(), 'Lesson 1  Lesson Title', 'Wrong title text');
+
+  const $lessonInfo = $lessonHeading.find('> .info');
+  assert.ok($lessonInfo.length, 'Panel info element is missing');
+
+  const $lessonContentCount = $lessonInfo.find('> .content-count');
+  assert.equal(T.text($lessonContentCount.find(".assessment-count")), '1 Assessment', 'Wrong text assessment count');
+  assert.equal(T.text($lessonContentCount.find(".collection-count")), '2 Collections', 'Wrong text collection count');
+
+  assert.ok($lessonHeading.find('.gru-user-icons').length, 'gru-user-icons component is missing');
+  assert.ok($lessonHeading.find('.score').length, 'Score info element is missing');
+  const $completionChart = $lessonHeading.find('.gru-completion-chart');
+  assert.ok($completionChart.length, 'Completion chart for lesson');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');

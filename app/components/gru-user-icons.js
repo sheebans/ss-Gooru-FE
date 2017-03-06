@@ -26,23 +26,21 @@ export default Ember.Component.extend({
       const component = this;
       const viewMoreIn = (this.get('viewMoreIn') === 'modal') ? 'modal' : 'tooltip';
 
-      if(!this.get('showOnlyNumbers')){
-        if (viewMoreIn === 'modal') {
-          component.$('.remaining').modal('toggle');
-        } else {
-          const openClass = component.get('tooltipOpenClass');
-          const anyTooltipSelector = '.gru-user-icons .' + openClass;
-          // The popovers are controlled manually so that only one popover
-          // is visible at a time
-          var $open = Ember.$(anyTooltipSelector);
+      if (viewMoreIn === 'modal') {
+        component.$('.remaining').modal('toggle');
+      } else {
+        const openClass = component.get('tooltipOpenClass');
+        const anyTooltipSelector = '.gru-user-icons .' + openClass;
+        // The popovers are controlled manually so that only one popover
+        // is visible at a time
+        var $open = Ember.$(anyTooltipSelector);
 
-          if ($open.length) {
-            $open.removeClass(openClass).popover('hide');
-          }
+        if ($open.length) {
+          $open.removeClass(openClass).popover('hide');
+        }
 
-          if ($open.get(0) !== this) {
-            $(this).addClass(openClass).popover('show');
-          }
+        if ($open.get(0) !== this) {
+          $(this).addClass(openClass).popover('show');
         }
       }
     }
@@ -52,10 +50,8 @@ export default Ember.Component.extend({
   // Events
   setup: Ember.on('didInsertElement', function() {
     const viewMoreIn = (this.get('viewMoreIn') === 'modal') ? 'modal' : 'tooltip';
-    if(!this.get('showOnlyNumbers')){
-      if (viewMoreIn !== 'modal') {
-        this.setupTooltip();
-      }
+    if (viewMoreIn !== 'modal') {
+      this.setupTooltip();
     }
   }),
 
@@ -139,17 +135,6 @@ export default Ember.Component.extend({
   viewMoreIn: 'tooltip',
 
   /**
-   * @prop {Number} viewThreshold - Number of users that will be seen at first
-   * glance (without requiring to view more)
-   */
-  viewThreshold: 3,
-
-  /**
-   * @prop {Bool} showOnlyNumbers - Shoy only the number of users
-   */
-  showOnlyNumbers:false,
-
-  /**
    * @prop {Number} totalUsers - Number of total users
    */
   totalUsers: Ember.computed('usersSorted.length', function() {
@@ -179,7 +164,6 @@ export default Ember.Component.extend({
     const $anchor = this.$('a.first-view');
 
     if (this.get('showMoreUsers')) {
-
       $anchor.addClass('clickable');
       $anchor.attr('data-html', 'true');
       $anchor.popover({
