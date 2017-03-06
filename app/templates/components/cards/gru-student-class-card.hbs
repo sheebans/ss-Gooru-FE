@@ -13,7 +13,7 @@
     <div class="charts col-md-6">
       <div class="row">
         <div class="col-md-6">
-          {{charts.gru-bubble-chart content=score color=(grade-color 80)}}
+          {{charts.gru-bubble-chart content=(concat score '%') color=(grade-color score)}}
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>
         <div class="col-md-6">
