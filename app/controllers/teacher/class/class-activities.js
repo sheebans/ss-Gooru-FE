@@ -1,8 +1,8 @@
 import Ember from "ember";
 /**
- * Class management controller
+ * Class activities controller
  *
- * Controller responsible of the logic for the teacher class management tab
+ * Controller responsible of the logic for the teacher class activities tab
  */
 
 export default Ember.Controller.extend({

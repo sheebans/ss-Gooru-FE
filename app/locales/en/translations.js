@@ -817,6 +817,7 @@ export default {
     "latest-announcement":"Latest Announcement",
     "latest-assessment":"Latest Assessment",
     "class": {
+      "class-activities": "Daily Class Activities",
       "course-map": "Course Map",
       "performance": "Performance",
       "management": "Roster Management",
