@@ -32,7 +32,11 @@
       <h5>{{t "teacher-landing.class.class-management-tab.teachers"}}</h5>
       <div class="panel teachers-panel">
         <div class="panel-body">
-          <!--  -->
+          <div class="teachers">
+            {{#each class.teachers as |teacher|}}
+              {{cards.gru-user-card user=teacher }}
+            {{/each}}
+          </div>
         </div>
       </div>
     </div>

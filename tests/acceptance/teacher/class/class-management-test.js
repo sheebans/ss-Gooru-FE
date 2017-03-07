@@ -31,5 +31,9 @@ test('Layout', function (assert) {
     assert.ok($coursePanel.find('.assessment-min-score h5').length, 'Missing assessment min score information');
     assert.ok($coursePanel.find('.assessment-min-score h5 .gru-icon').length, 'Missing assessment min score edit icon');
     assert.ok($coursePanel.find('.course-information .gru-course-card.small').length, 'Missing small course card');
+
+    const $teacherPanel = $container.find('.teachers-panel');
+    assert.ok($teacherPanel.find('.gru-user-card').length, 'Missing teacher card');
+
   });
 });
