@@ -953,6 +953,14 @@ export default {
     "teams": "Teams",
     "information": "Classroom Information"
   },
+  "class.gru-class-statistics": {
+    "title": "Class Statistics",
+    "on-average": "On Average",
+    "performance": "Performance",
+    "completion": "Completion",
+    "time-spent": "Time Spent",
+    "no-performance": "--"
+  },
   "gru-user-registration": {
     "joinTitle": "Join the Gooru Community!",
     "joinDescription": "Find, remix, and share the best free K-12 learning resources.",

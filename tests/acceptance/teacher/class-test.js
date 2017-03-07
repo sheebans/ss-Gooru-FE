@@ -25,9 +25,11 @@ test('Layout', function(assert) {
     T.exists(assert, $classContainer, 'Missing class container');
 
     const $classHeader = $classContainer.find('.header');
+    const $classStatistics = $classHeader.find('.gru-class-statistics');
     const $announcements = $classHeader.find('.announcements');
     const $graphics = $classHeader.find('.graphics');
     T.exists(assert, $classHeader, 'Missing class header');
+    T.exists(assert, $classStatistics, 'Missing class statistics component');
     T.exists(assert, $announcements, 'Missing announcements panel');
     T.exists(assert, $graphics, 'Missing graphics panel');
 
