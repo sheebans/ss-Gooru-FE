@@ -23,7 +23,7 @@ const classMock = Ember.Object.create({
 
 
 test('Layout', function(assert) {
-  assert.expect(4);
+  assert.expect(7);
 
   this.set('class', classMock);
   this.render(hbs`{{teacher.class.gru-class-statistics class=class}}`);
@@ -39,6 +39,8 @@ test('Layout', function(assert) {
   T.exists(assert, $completionContainer, 'Missing class completion container');
   T.exists(assert, $timeSpentContainer, 'Missing class time spent container');
 
-
+  assert.equal($performanceContainer.find('span').text().trim(), "80%", "Performance incorrect");
+  assert.equal($completionContainer.find('span').text().trim(), "60%", "Completion incorrect");
+  assert.equal($timeSpentContainer.find('span').text().trim(), "5m 49s", "Time Spent incorrect");
 
 });
