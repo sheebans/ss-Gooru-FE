@@ -1,25 +1,30 @@
 .teacher.gru-class-statistics {
   @include box-shadow(0 1px 4px rgba(0,0,0,.3));
+  @include flexbox;
+  @include flex-direction(row);
+  @include align-items(center);
   background-color: $white;
   border-radius: 5px;
   height: 95px;
   margin: 20px 0 15px 0;
-  padding: 18px 15px 16px 15px;
+  padding: 18px 0 16px 0;
   width: 100%;
   @media (min-width: $screen-xs) {
-    //width: 91%;
+    padding: 18px 15px 16px 15px;
+    width: 77%;
   }
   @media (min-width: $screen-md) {
-    width: 62%;
+    width: 64%;
   }
   @media (min-width: $screen-lg) {
     width: 45%;
   }
   div{
-    float: left;
-    height: 100%;
-    margin: 0 4% 0 6%;
+    margin: 0 1% 0 2%;
     text-align: center;
+    @media (min-width: $screen-md) {
+      margin: 0 4% 0 6%;
+    }
     p{
       color: $text-color;
       font-size: 15px;

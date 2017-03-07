@@ -955,7 +955,6 @@ export default {
     "completion": "Completion",
     "time-spent": "Time Spent"
   },
-
   "gru-user-registration": {
     "joinTitle": "Join the Gooru Community!",
     "joinDescription": "Find, remix, and share the best free K-12 learning resources.",
