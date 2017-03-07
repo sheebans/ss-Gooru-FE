@@ -953,7 +953,8 @@ export default {
     "on-average": "On Average",
     "performance": "Performance",
     "completion": "Completion",
-    "time-spent": "Time Spent"
+    "time-spent": "Time Spent",
+    "no-performance": "--"
   },
   "gru-user-registration": {
     "joinTitle": "Join the Gooru Community!",

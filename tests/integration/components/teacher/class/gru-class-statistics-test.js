@@ -11,19 +11,19 @@ moduleForComponent('teacher/class/gru-class-statistics', 'Integration | Componen
 });
 
 
-const classMock = Ember.Object.create({
-  id: '1',
-  name: 'Class A1',
-  code: 'ABCDEF',
-  greetings: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  startDate: '9.2.2015',
-  endDate: '12.15.2015'
-});
-
-
-test('Layout', function(assert) {
+test('Layout with performance summary', function(assert) {
   assert.expect(7);
+
+  const classMock = Ember.Object.create({
+    id: '1',
+    name: 'Class A1',
+    performanceSummary:{
+      classId: '1',
+      score: 90,
+      timeSpent: 349659,
+      completedPercentage: 3
+    }
+  });
 
   this.set('class', classMock);
   this.render(hbs`{{teacher.class.gru-class-statistics class=class}}`);
@@ -39,8 +39,37 @@ test('Layout', function(assert) {
   T.exists(assert, $completionContainer, 'Missing class completion container');
   T.exists(assert, $timeSpentContainer, 'Missing class time spent container');
 
-  assert.equal($performanceContainer.find('span').text().trim(), "80%", "Performance incorrect");
-  assert.equal($completionContainer.find('span').text().trim(), "60%", "Completion incorrect");
+  assert.equal($performanceContainer.find('span').text().trim(), "90%", "Performance incorrect");
+  assert.equal($completionContainer.find('span').text().trim(), "3%", "Completion incorrect");
   assert.equal($timeSpentContainer.find('span').text().trim(), "5m 49s", "Time Spent incorrect");
+
+});
+
+
+test('Layout without performance summary', function(assert) {
+  assert.expect(7);
+
+  const classMock = Ember.Object.create({
+    id: '1',
+    name: 'Class A1'
+  });
+
+  this.set('class', classMock);
+  this.render(hbs`{{teacher.class.gru-class-statistics class=class}}`);
+  const $statistics = this.$(); //component dom element
+
+  const $titleContainer = $statistics.find(".title-statistics");
+  const $performanceContainer = $statistics.find(".performance");
+  const $completionContainer = $statistics.find(".completion");
+  const $timeSpentContainer = $statistics.find(".time-spent");
+
+  T.exists(assert, $titleContainer, 'Missing class statistics title');
+  T.exists(assert, $performanceContainer, 'Missing class performance container');
+  T.exists(assert, $completionContainer, 'Missing class completion container');
+  T.exists(assert, $timeSpentContainer, 'Missing class time spent container');
+
+  assert.equal($performanceContainer.find('span').text().trim(), "--", "Performance should not be visible");
+  assert.equal($completionContainer.find('span').text().trim(), "--", "Completion should not be visible");
+  assert.equal($timeSpentContainer.find('span').text().trim(), "--", "Time Spent should not be visible");
 
 });

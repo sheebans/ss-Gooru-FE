@@ -4,15 +4,31 @@
 </div>
 <div class="performance">
   <p>{{t 'class.gru-class-statistics.performance'}}</p>
-  <span>80%</span>
+  <span>
+    {{#if class.performanceSummary}}
+      {{class.performanceSummary.score}}%
+    {{else}}
+      {{t "class.gru-class-statistics.no-performance"}}
+    {{/if}}
+  </span>
 </div>
 <div class="completion">
   <p>{{t 'class.gru-class-statistics.completion'}}</p>
-  <span>60%</span>
+  <span>
+    {{#if class.performanceSummary}}
+      {{class.performanceSummary.completedPercentage}}%
+    {{else}}
+      {{t "class.gru-class-statistics.no-performance"}}
+    {{/if}}
+  </span>
 </div>
 <div class="time-spent">
   <p>{{t 'class.gru-class-statistics.time-spent'}}</p>
   <span>
-    {{format-time 349659}}
+    {{#if class.performanceSummary}}
+      {{format-time class.performanceSummary.timeSpent}}
+    {{else}}
+      {{t "class.gru-class-statistics.no-performance"}}
+    {{/if}}
   </span>
 </div>
