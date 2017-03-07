@@ -1,8 +1,8 @@
 import Ember from "ember";
 /**
- * Class management controller
+ * Class activities controller
  *
- * Controller responsible of the logic for the teacher class management tab
+ * Controller responsible of the logic for the teacher class activities tab
  */
 
 export default Ember.Controller.extend({
@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  classController: Ember.inject.controller('teacher.class'),
+  classController: Ember.inject.controller('teacher.class')
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -23,15 +23,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * @property {Class}
-   */
-  'class': Ember.computed.alias('classController.class'),
-
-  /**
-   * @property {Course}
-   */
-  course: Ember.computed.alias('classController.course')
 
   // -------------------------------------------------------------------------
   // Observers

@@ -21,7 +21,7 @@ export default Ember.Route.extend({
    * @param controller
    */
   setupController: function (controller) {
-    controller.get('classController').selectMenuItem('class-management');
+    controller.get('classController').selectMenuItem('class-activities');
   }
 
 });
