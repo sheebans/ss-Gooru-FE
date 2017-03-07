@@ -54,7 +54,7 @@ module.exports = function (grunt) {
       },
       default : {
         files: {
-          'public/assets/emoji-one/emoji.svg': ['vendor/emoji-one/*.svg'],
+          'public/assets/emoji-one/emoji.svg': ['vendor/emoji-one/*.svg']
         }
       }
     },
@@ -62,9 +62,9 @@ module.exports = function (grunt) {
       options: {
         configFile: '.eslintrc',
         quiet: grunt.option('quiet')
-  		},
+      },
       target: ['app', 'config', 'tests']
-  	}
+    }
   });
 
   grunt.loadNpmTasks('grunt-stubby');
@@ -73,7 +73,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-eslint');
 
 
-  grunt.registerTask('test', function (target) {
+  grunt.registerTask('test', function () {
     //for development
     var noStubby = grunt.option("no-stubby") || grunt.option("ns"),
       server = grunt.option("server") || grunt.option("s");
@@ -95,7 +95,7 @@ module.exports = function (grunt) {
     grunt.task.run(['eslint']);
   });
 
-  grunt.registerTask('bamboo-test', function (target) {
+  grunt.registerTask('bamboo-test', function () {
     grunt.task.run(['stubby:test', 'exec:run:ember test --silent -r xunit > report-xunit.xml']);
   });
 
