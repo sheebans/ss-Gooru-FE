@@ -824,7 +824,9 @@ export default {
       "class-management-tab": {
         "class-information": "Class Information",
         "course-information": "Course Information",
-        "teachers": "Teachers"
+        "teachers": "Teachers",
+        "assessment-min-score": "Assessment Minimum Score for Trophies",
+        "assigned-course": "Assigned course"
       }
     }
   },

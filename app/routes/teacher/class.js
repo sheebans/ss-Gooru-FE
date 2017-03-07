@@ -115,6 +115,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   setupController: function(controller, model) {
     controller.set("class", model.class);
     controller.set("course", model.course);
+    controller.set("members", model.members);
     controller.set("contentVisibility", model.contentVisibility);
   }
 });

@@ -1,7 +1,8 @@
 .controller.class-management {
-  .panel{
-    .panel-body{
-      min-height: 200px;
-    }
+  .course-panel,
+  .teachers-panel,
+  .class-panel{
+    min-height: 230px;
+    padding: 10px;
   }
 }

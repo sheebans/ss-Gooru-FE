@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  teacherClassController: Ember.inject.controller('teacher.class')
+  teacherClassController: Ember.inject.controller('teacher.class'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -23,6 +23,15 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {Class}
+   */
+  'class': Ember.computed.alias('teacherClassController.class'),
+
+  /**
+   * @property {Course}
+   */
+  course: Ember.computed.alias('teacherClassController.course')
 
   // -------------------------------------------------------------------------
   // Observers

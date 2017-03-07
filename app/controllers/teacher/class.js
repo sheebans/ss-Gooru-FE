@@ -32,7 +32,7 @@ export default Ember.Controller.extend({
    * The course presented to the user
    * @property {Course}
    */
-  course: Ember.computed.alias('class.course'),
+  course: null,
 
    /**
    * The menuItem selected
