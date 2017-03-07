@@ -72,10 +72,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           const classId = aClass.get("id");
           aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
         });
-        return Ember.RSVP.hash({
+        return {
           classPerformanceSummaryItems: classPerformanceSummaryItems,
           tourSteps: tourSteps
-        });
+        };
     });
   },
 
