@@ -16,7 +16,7 @@ moduleForAcceptance('Acceptance | search/courses', {
 });
 
 test('Layout', function(assert) {
-  assert.expect(3); //making sure all asserts are called
+  assert.expect(4); //making sure all asserts are called
   visit('/search/courses?term=any');
   andThen(function() {
     assert.equal(currentURL(), '/search/courses?term=any');
