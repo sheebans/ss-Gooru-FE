@@ -114,6 +114,12 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   subjects: Ember.A([]),
 
+  /**
+   * Indicates if the standard filters are enabled
+   * @property {boolean}
+   */
+  standardFilterEnabled: true,
+
   // -------------------------------------------------------------------------
   // Methods
   openTaxonomyModal: function(subject){
