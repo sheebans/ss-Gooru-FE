@@ -165,3 +165,44 @@
     }
   }
 }
+
+.gru-course-card.small {
+  margin: 15px 0 0;
+  width: 225px;
+  height: 64px;
+  >.panel {
+    border-radius: 6px;
+    box-shadow: 0 0 7px $gray-light;
+    margin: 0;
+    width: 100%;
+    .panel-body {
+      padding: 0;
+    }
+    .card-header {
+      .image-container {
+        padding: 0;
+        height: 64px;
+        width: 64px;
+        .course-image {
+          border-radius: 6px 0 0 6px;
+          padding: 0;
+          height: inherit;
+          width: inherit;
+        }
+      }
+      .header-content {
+        padding: 5px;
+        margin-left: 5px;
+        height: 64px;
+        width: 140px;
+        .course-title {
+          height: auto;
+        }
+        .subject {
+          margin-top: 5px;
+          font-size: $font-size-xsmall;
+        }
+      }
+    }
+  }
+}

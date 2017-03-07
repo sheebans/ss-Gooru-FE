@@ -23,7 +23,13 @@ test('Layout', function (assert) {
     const $container = find(".teacher.class .controller.class-management");
     assert.ok($container.length, 'Missing class management tab container');
 
-    const $tabs = find(".panel", $container);
-    assert.equal($tabs.length, 3, 'The class management must have 3 tabs');
+    assert.ok($container.find('.class-panel').length, 'Missing class panel');
+    assert.ok($container.find('.course-panel').length, 'Missing course panel');
+    assert.ok($container.find('.teachers-panel').length, 'Missing teacher panel');
+
+    const $coursePanel = $container.find('.course-panel');
+    assert.ok($coursePanel.find('.assessment-min-score h5').length, 'Missing assessment min score information');
+    assert.ok($coursePanel.find('.assessment-min-score h5 .gru-icon').length, 'Missing assessment min score edit icon');
+    assert.ok($coursePanel.find('.course-information .gru-course-card.small').length, 'Missing small course card');
   });
 });
