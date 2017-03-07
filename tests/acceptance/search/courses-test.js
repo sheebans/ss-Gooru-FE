@@ -21,6 +21,7 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/search/courses?term=any');
     T.exists(assert, find('.gru-featured-courses'), 'Missing gru-featured-courses component');
+    T.notExists(assert, find('.gru-search-filter'), 'Filters should not be visible');
     assert.equal(find('.gru-header .search-input').val(), 'any', 'Wrong input value');
   });
 });
