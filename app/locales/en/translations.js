@@ -41,6 +41,7 @@ export default {
     "a-course": "a course",
     "a-question": "a question",
     "a-resource": "a resource",
+    "all-completed": "All Completed",
     "an-assessment": "an assessment",
     "about": "About",
     "about-you": "About You",
@@ -817,7 +818,6 @@ export default {
     "latest-announcement":"Latest Announcement",
     "latest-assessment":"Latest Assessment",
     "class": {
-      "class-activities": "Daily Class Activities",
       "course-map": "Course Map",
       "performance": "Performance",
       "management": "Roster Management",
@@ -828,6 +828,10 @@ export default {
         "teachers": "Teachers",
         "assessment-min-score": "Assessment Minimum Score for Trophies",
         "assigned-course": "Assigned course"
+      },
+      "class-activities": "Daily Class Activities",
+      "class-activities-tab": {
+        "today": "Today"
       }
     }
   },
