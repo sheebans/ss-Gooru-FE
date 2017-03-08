@@ -1,0 +1,45 @@
+<div class="panel">
+  {{#link-to 'student.class.course-map' class.id}}
+    <div class="panel-heading">
+      <div class="title">
+        <h5>{{class.title}}</h5>
+      </div>
+      <div class="code">
+        <span>{{class.code}}</span>
+      </div>
+    </div>
+  {{/link-to}}
+  <div class="panel-body border-between">
+    <div class="charts col-md-6">
+      <div class="row">
+        <div class="col-md-6">
+          {{charts.gru-bubble-chart content=(concat score '%') color=(grade-color score)}}
+          <span>{{t 'student-landing.class.performance'}}</span>
+        </div>
+        <div class="col-md-6">
+          {{charts.gru-radial-chart value=totalCompleted minValue=0 maxValue=total showPercentageLabel=true }}
+          <span>{{t "common.completed"}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="information col-md-6">
+      <span>{{t "student-landing.announcement"}}</span>
+      <div class="announcement">
+        {{#if class.greeting}}
+          {{class.greeting}}
+        {{else}}
+          {{t "common.not-applicable"}}
+        {{/if}}
+      </div>
+      <br>
+      <span>{{t "student-landing.current-activity"}}</span>
+      <div class="current-activity ellipsis">
+        {{#if class.currentLocation}}
+          {{t "student-landing.class.unit" }} {{plus-one class.currentLocation.unitIndex}}, {{t "student-landing.class.leson" }} {{plus-one class.currentLocation.lessonIndex}}, {{class.currentLocation.collection.title}}
+        {{else}}
+          {{t "common.not-applicable"}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

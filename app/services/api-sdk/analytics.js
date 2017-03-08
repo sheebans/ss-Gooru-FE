@@ -96,21 +96,26 @@ export default Ember.Service.extend({
   getUserCurrentLocationByClassIds: function(classIds, userId, fetchAll = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('currentLocationAdapter').getUserCurrentLocationByClassIds(classIds, userId)
-        .then(function(response) {
-          const currentLocations = service.get('currentLocationSerializer').normalizeForGetUserClassesLocation(response);
-          if(fetchAll) {
-            const promises = currentLocations.map(function(currentLocation){
-              return service.loadCurrentLocationData(currentLocation);
-            });
-            Ember.RSVP.all(promises).then(function(){
+      if (classIds && classIds.length) {
+        service.get('currentLocationAdapter').getUserCurrentLocationByClassIds(classIds, userId)
+          .then(function(response) {
+            const currentLocations = service.get('currentLocationSerializer').normalizeForGetUserClassesLocation(response);
+            if(fetchAll) {
+              const promises = currentLocations.map(function(currentLocation){
+                return service.loadCurrentLocationData(currentLocation);
+              });
+              Ember.RSVP.all(promises).then(function(){
+                resolve(currentLocations);
+              }, reject);
+            }
+            else {
               resolve(currentLocations);
-            }, reject);
-          }
-          else {
-            resolve(currentLocations);
-          }
-        }, reject);
+            }
+          }, reject);
+      }
+      else {
+        resolve([]);
+      }
     });
   },
 

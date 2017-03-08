@@ -1,0 +1,46 @@
+.gru-student-class-card {
+  .panel{
+    @include border-top-radius(4px);
+    @include border-bottom-radius(4px);
+    @include box-shadow(0 0 7px #ddd);
+    .panel-heading{
+      @include flexbox;
+      @include align-items(center);
+      @include justify-content(space-between);
+      @include border-top-radius(4px);
+      background-color: $sky-300;
+      .title{
+        h5{
+          color: $white;
+        }
+      }
+      .code {
+        span{
+          @include border-top-radius(4px);
+          @include border-bottom-radius(4px);
+          @include flex-shrink(0);
+          border: 1px solid $white;
+          font-size: $font-size-base;
+          line-height: 1;
+          padding: 4px 5px;
+          text-transform: uppercase;
+          color: $white;
+          @media (min-width: $screen-xs) {
+            font-size: $font-size-large;
+          }
+        }
+      }
+    }
+    .panel-body{
+      .charts{
+        text-align: center;
+        .charts.gru-radial-chart,
+        .charts.gru-bubble-chart{
+          width: 75px;
+          height: 75px;
+          margin: 20px auto 0;
+        }
+      }
+    }
+  }
+}

@@ -19,6 +19,7 @@ export default Ember.Component.extend({
   actions: {
 
     onStatusChange: function(newValue) {
+      this.set('showStatusErrorMessage', false);
       const goal = this.get('goal');
       goal.set('status', newValue);
     },
@@ -28,14 +29,40 @@ export default Ember.Component.extend({
     },
 
     create: function() {
-      if (this.get("onCreate")) {
-        this.sendAction("onCreate", this.get("goal"));
+      const component = this;
+      const goal = component.get('goal');
+      const startDate = goal.get('startDate');
+      const endDate = goal.get('endDate');
+      let areDatesOk = false;
+
+      if (component.get("onCreate")) {
+        let statusSelected =  component.get('statusSelected');
+        let showStatusErrorMessage = (!statusSelected);
+        component.set('showStatusErrorMessage', showStatusErrorMessage);
+
+        if(startDate != null && endDate != null){
+          areDatesOk = component.get('goalService').checkBothDates(startDate, endDate);
+          component.set('showDatesError', !areDatesOk);
+        }
+
+        this.sendAction("onCreate", goal, areDatesOk);
       }
     },
 
     update: function() {
       if (this.get("onUpdate")) {
-        this.sendAction("onUpdate", this.get("goal"));
+        const component = this;
+        const goal = component.get('goal');
+        const startDate = goal.get('startDate');
+        const endDate = goal.get('endDate');
+        let areDatesOk = false;
+
+        if(startDate != null && endDate != null){
+          areDatesOk = component.get('goalService').checkBothDates(startDate, endDate);
+          component.set('showDatesError', !areDatesOk);
+        }
+
+        this.sendAction("onUpdate", areDatesOk);
       }
     },
 
@@ -91,6 +118,12 @@ export default Ember.Component.extend({
    * @property {string} name of the cancel action
    */
   onCancel: null,
+
+  /**
+   * statusSelected
+   * @property {String}
+   */
+  statusSelected: Ember.computed.alias('goal.status'),
 
   /**
    * @property {Array} Returns the list of possible status to fill component

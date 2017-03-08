@@ -1,11 +1,11 @@
 .gru-user-icons {
-  $profile-image-width: 34px;
-  $profile-image-height: 34px;
-  $item-background: $brand-primary;
   $modal-height: 270px;
   $tooltip-width: 290px;
   text-align: right;
-
+  margin: 0 5px 0 0;
+  @media (min-width: $screen-lg-min) {
+    margin: 0 15px 0 0;
+  }
   ul {
     list-style: none;
     padding: 0;
@@ -18,50 +18,13 @@
     margin: 0 3px 0 0;
     vertical-align: middle;
     color:$gray;
-
-    img {
-      height: $profile-image-height - 4px;
-      width: $profile-image-width - 4px;
-      margin-bottom: 5px;
-    }
-
-    > .user-name {
-      font-size: 11px;
-      line-height: 11px;
-      text-align: center;
-      display: inline-block;
-      min-height: 30px;
+    i {
       vertical-align: middle;
-      white-space: pre-line;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 55px;
+      margin: 0 5px 0 0;
     }
-
-    &.num-left {
-      color:$item-background;
-
-      @media (min-width: $screen-sm) {
-        height: $profile-image-height;
-        width: $profile-image-width;
-        border-radius: 50%;
-        text-align: center;
-        line-height: $profile-image-height - 2px;
-        background-color: $item-background;
-        color:$white;
-      }
-    }
-
-    &.active {
-      border-color: $brand-primary;
-    }
-    >*{
-      display: block;
-      margin: 0 auto;
-    }
-
-    &.user:last-child {
-      margin-right: 6px;
+    span {
+      font-size: $font-size-large;
+      vertical-align: middle;
     }
   }
 

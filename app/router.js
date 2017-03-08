@@ -26,7 +26,6 @@ Router.map(function() {
   this.route('logout');
 
   this.route('content', function () {
-
     this.route('assessments', function () {
       this.route('edit', {path: '/edit/:assessmentId'});
     });
@@ -53,6 +52,10 @@ Router.map(function() {
     this.route('questions', function () {
       this.route('edit', {path: '/edit/:questionId'});
       this.route('play', {path: '/play/:questionId'});
+    });
+
+    this.route('rubric', function() {
+      this.route('edit');
     });
   });
 
@@ -105,14 +108,19 @@ Router.map(function() {
         this.route('performance');
       });
       this.route('classmates');
-      this.route('content-map');
+      this.route('course-map');
     });
   });
 
   this.route('teacher-home');
 
   this.route('teacher', function() {
-    this.route('class', { path: '/class/:classId' });
+    this.route('class', { path: '/class/:classId' }, function(){
+      this.route('class-activities');
+      this.route('class-management');
+      this.route('course-map');
+      this.route('performance');
+    });
   });
 
   this.route('featured');

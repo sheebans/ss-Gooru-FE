@@ -6,7 +6,7 @@ import AssessmentModel from 'gooru-web/models/content/assessment';
 import QuestionModel from 'gooru-web/models/content/question';
 import CollectionModel from 'gooru-web/models/content/collection';
 import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
-import { cleanFilename } from 'gooru-web/utils/utils';
+import { cleanFilename, nullIfEmpty } from 'gooru-web/utils/utils';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
@@ -55,15 +55,14 @@ export default Ember.Object.extend(ConfigurationMixin, {
     var profileObject = {
       first_name: profile.get('firstName') ? profile.get('firstName') : undefined,
       last_name: profile.get('lastName') ? profile.get('lastName') : undefined,
-      'roster_global_userid':profile.get('studentId'),
+      'roster_global_userid': nullIfEmpty(profile.get('studentId')),
       'user_category': profile.get('role'),
       username: profile.get('username') ? profile.get('username') : undefined,
-      grade: profile.get('grades'),
       country: profile.get('country'),
-      'about': profile.get('aboutMe'),
+      'about': nullIfEmpty(profile.get('aboutMe')),
       'country_id': profile.get('countryId'),
-      'state_id': profile.get('stateId'),
-      'school_district_id': profile.get('schoolDistrictId'),
+      'state_id': nullIfEmpty(profile.get('stateId')),
+      'school_district_id': nullIfEmpty(profile.get('schoolDistrictId')),
       'thumbnail': cleanFilename(profile.get('avatarUrl'), this.get('session.cdnUrls'))
     };
 

@@ -43,6 +43,7 @@ export default Object.assign(quizzesTranslations, {
     "a-course": "a course",
     "a-question": "a question",
     "a-resource": "a resource",
+    "all-completed": "All Completed",
     "an-assessment": "an assessment",
     "about": "About",
     "about-you": "About You",
@@ -65,6 +66,7 @@ export default Object.assign(quizzesTranslations, {
     "add-new-question": "Create a new question",
     "add-question": "Create Question",
     "add-question-image": "Add Question Image",
+    "add-rubric": "Add New Rubric",
     "add-standard": "Add Standard",
     "add-standards": "Add Standards",
     "add-standards-to-collection": "Add Standards to Collection",
@@ -151,6 +153,7 @@ export default Object.assign(quizzesTranslations, {
     "create": "Create",
     "create-class": "+ Create classroom",
     "created-by": "Created by",
+    "create-rubric": "Create New Rubric",
     "current-attempt":"Current Attempt",
     "delete": "Delete",
     "delete-instructions": {
@@ -277,6 +280,7 @@ export default Object.assign(quizzesTranslations, {
     "home": "Home",
     "if_questions": "If you have any questions,",
     "information": "Information",
+    "in-progress": "In Progress",
     "last-name": "Last Name",
     "last-updated": "Last Updated",
     "latest-attempt":"Latest attempt",
@@ -295,6 +299,7 @@ export default Object.assign(quizzesTranslations, {
     },
     "libraries": "Libraries",
     "license": "License",
+    "link": "Link",
     "link-out":"Link-out",
     "link-out-message":"*If your resource is showing up blank in the preview above, it may need a “link-out” to another page to view the content.",
     "loading": "Loading ...",
@@ -331,6 +336,7 @@ export default Object.assign(quizzesTranslations, {
     "not-following": "You're not following anyone.",
     "not-provided": "Not provided",
     "not-specified": "Not specified",
+    "not_started": "Not Started",
     "nothing-to-display": "Nothing to display.",
     "number": "No.",
     "numberStudents": {
@@ -429,6 +435,8 @@ export default Object.assign(quizzesTranslations, {
     "resource-title": "Resource Title",
     "resource-url": "Resource URL",
     "role": "Role",
+    "rubric":"Rubric",
+    "rubric-title": "Rubric Title",
     "save": "Save",
     "save-next": "Save and Next",
     "save-submit": "Save and Submit All",
@@ -774,7 +782,8 @@ export default Object.assign(quizzesTranslations, {
     "hello":"Hello, {{name}}!",
     "hi": "Hi",
     "active-classes": "Active Classrooms",
-    "archived-classes": "Archived Classrooms",
+    "my-current-classes":"My Current Classes",
+    "archived-classes": "Archived Classes",
     "create-class": "Create Classroom",
     "manage-goals": "Manage Goals",
     "join-class": "Join Classroom",
@@ -791,6 +800,7 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   "student-landing":{
+    "announcement":"Announcement",
     "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "box-title-one": "Study from 35 Courses",
     "box-text-one": "Choose from over 35 Navigator Courses across 10 programs to study.",
@@ -803,17 +813,46 @@ export default Object.assign(quizzesTranslations, {
     "box-title-five": "Interact with your peers and instructors",
     "box-text-five": "Learn from your peers and mentors by asking your questions and following their work.",
     "class":{
-      "activity-list": "Activity List",
       "performance": "Performance",
       "classmates": "Classmates",
-      "content-map": "Content Map"
-    }
+      "course-map": "Course Map",
+      "unit": "Unit",
+      "leson": "Leson"
+    },
+    "current-activity":"Current activity"
   },
   "teacher-landing": {
+    "latest-announcement":"Latest Announcement",
+    "latest-assessment":"Latest Assessment",
     "class": {
       "course-map": "Course Map",
       "performance": "Performance",
-      "management": "Roster Management"
+      "management": "Roster Management",
+      "class-management": "Class Management",
+      "class-management-tab": {
+        "class-information": "Class Information",
+        "course-information": "Course Information",
+        "teachers": "Teachers",
+        "assessment-min-score": "Assessment Minimum Score for Trophies",
+        "assigned-course": "Assigned course",
+        "students": "Students",
+        "import-roster": "Import Roster",
+        "edit": "Edit",
+        "download-roster": "Download Roster",
+        "student-name": "Student Name",
+        "student-id": "Student Id",
+        "email-address": "Email Address",
+        "performance": "Performance",
+        "actions": "Actions",
+        "view-report": "View Report",
+        "message": "Message",
+        "archive": "Archive",
+        "delete": "Delete"
+      },
+      "class-activities": "Daily Class Activities",
+      "class-activities-tab": {
+        "today": "Today"
+      }
     }
   },
   "goals":{
@@ -835,7 +874,13 @@ export default Object.assign(quizzesTranslations, {
       "goals-not-found": 'You have not set any goals yet. You can add a goal by clicking "Add Goal" button above.'
     },
     "create":{
-      "error-add-title": "Please enter the goal",
+      "error-add-title": "Please enter the Goal",
+      "error-length-title": "Goal must have max 200 characters",
+      "error-add-start-date": "Please enter the Start Date",
+      "error-add-end-date": "Please enter the End Date",
+      "error-greater-end-date": "The End Date must be greater than the Start Date",
+      "error-add-status": "Please select the Goal Status",
+      "error-length-reflection": "Reflection must have max 2000 characters",
       "created-success-msg": "You've created the goal {{goalTitle}}"
     },
     "delete":{
@@ -931,6 +976,14 @@ export default Object.assign(quizzesTranslations, {
     "analytics": "Data",
     "teams": "Teams",
     "information": "Classroom Information"
+  },
+  "class.gru-class-statistics": {
+    "title": "Class Statistics",
+    "on-average": "On Average",
+    "performance": "Performance",
+    "completion": "Completion",
+    "time-spent": "Time Spent",
+    "no-performance": "--"
   },
   "gru-user-registration": {
     "joinTitle": "Join the Gooru Community!",
@@ -1238,7 +1291,15 @@ export default Object.assign(quizzesTranslations, {
   "gru-performance": {
     "no-content": "No content available"
   },
+  "gru-performance-metrics": {
+    "assessment": "Assessment",
+    "student": "Student",
+    "score": "Score",
+    "completion": "Completion",
+    "study-time": "Time Spent"
+  },
   "gru-metrics-sub-header": {
+    "assessment": "Assessment",
     "student": "Student",
     "score": "Score",
     "completion": "Completion",

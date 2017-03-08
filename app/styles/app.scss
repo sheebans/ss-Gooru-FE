@@ -60,10 +60,15 @@
 @import 'controllers/course-player';
 
 @import 'controllers/student/class';
+@import 'controllers/student/performance';
 @import 'controllers/student/class/classmates';
-@import 'controllers/student/class/content-map';
+@import 'controllers/student/class/course-map';
 
 @import 'controllers/teacher/class';
+@import 'controllers/teacher/class/class-activities';
+@import 'controllers/teacher/class/class-management';
+@import 'controllers/teacher/class/course-map';
+@import 'controllers/teacher/class/performance';
 
 @import 'controllers/goals/manage';
 
@@ -103,6 +108,8 @@
 @import 'components/gru-icon-popover';
 
 @import 'components/cards/gru-class-card';
+@import 'components/cards/gru-student-class-card';
+@import 'components/cards/gru-teacher-class-card';
 @import 'components/cards/gru-collection-card';
 @import 'components/cards/gru-course-card';
 @import 'components/cards/gru-profile-card';
@@ -119,6 +126,7 @@
 @import 'components/charts/gru-x-bar-chart';
 
 @import 'components/class/gru-class-navigation';
+@import 'components/class/gru-class-collection-panel';
 @import 'components/class/analytics/performance/gru-actions-bar';
 @import 'components/class/analytics/performance/gru-data-picker';
 @import 'components/class/analytics/performance/gru-performance-summary';
@@ -127,6 +135,9 @@
 @import 'components/class/analytics/performance/student/gru-lesson-performance';
 @import 'components/class/analytics/performance/teacher/gru-metrics-table';
 @import 'components/class/analytics/performance/teacher/gru-metrics-sub-header';
+@import 'components/class/overview/gru-accordion-course';
+@import 'components/class/overview/gru-accordion-unit';
+@import 'components/class/overview/gru-accordion-lesson';
 
 @import 'components/content/assessments/gru-assessment-edit';
 @import 'components/content/gru-audience';
@@ -134,6 +145,7 @@
 @import 'components/content/gru-image';
 @import 'components/content/gru-settings-edit';
 @import 'components/content/gru-depth-of-knowledge';
+@import 'components/content/gru-header';
 @import 'components/content/collections/gru-collection-edit';
 @import 'components/content/collections/gru-collection-list';
 @import 'components/content/modals';
@@ -165,6 +177,7 @@
 @import 'components/content/questions/gru-question-edit';
 @import 'components/content/questions/gru-question-play';
 @import 'components/content/resources/gru-resource-edit';
+@import 'components/content/rubric/gru-rubric-edit';
 @import 'components/content/courses/gru-course-play-header';
 
 @import 'components/goal/gru-goal-form';
@@ -219,6 +232,9 @@
 @import 'components/search/gru-resource-options';
 
 @import 'components/student/class/gru-class-navigation';
+@import 'components/student/class/analytics/gru-performance-table';
+
+@import 'components/teacher/class/gru-class-statistics';
 
 @import 'components/taxonomy/gru-subject-course-picker';
 @import 'components/taxonomy/gru-subject-picker';

@@ -1,0 +1,187 @@
+.gru-class-collection-panel.panel {
+  $collection-icon-size: 48px;
+  $on-air-icon: 35px;
+
+  margin: 0;
+  padding: 0;
+  height: 134px;
+  list-style: none;
+  border-radius: 5px;
+
+  @media (min-width: $screen-md) {
+    height: 80px;
+  }
+
+  .panel-heading {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
+    width: 100%;
+    height: inherit;
+    display: inline-block;
+    border-radius: 0;
+
+    @media (max-width: $screen-xs) {
+      padding: 0;
+    }
+
+    .actions {
+      border-right: 2px solid $light-200;
+      float: left;
+      width: 16%;
+      text-align: center;
+
+      @media (min-width: $screen-md) {
+        width: 13%;
+        height: 100%;
+      }
+
+      .switch-panel {
+        .gru-switch {
+          padding: 0;
+          .switch {
+            .toggle {
+              width: 45px !important;
+              .toggle-off.btn {
+                padding-left: 19px;
+              }
+              .toggle-on.btn {
+                padding-left: 3px;
+              }
+            }
+          }
+        }
+      }
+
+      button.on-air {
+        display: inline-block;
+        margin: 0 5px;
+        width: $on-air-icon;
+        height: $on-air-icon;
+        vertical-align: middle;
+        background-image: url('gooru/images/on-air-icon.svg');
+        background-size: $on-air-icon $on-air-icon;
+        background-color: $white;
+        cursor: pointer;
+        @include text-hide();
+      }
+    }
+
+    .title, .score, .gru-user-icons, .state, .content-count, .icon-container, .switch-panel, .on-air {
+      display: inline-block;
+      vertical-align: middle;
+      padding: 10px 0;
+    }
+
+    .panel-title {
+      width: 100%;
+      float: left;
+      padding: 0 0 0 10px;
+
+      @media (min-width: $screen-xs) {
+        width: 80%;
+      }
+      @media (min-width: $screen-md) {
+        width: 50%;
+      }
+      @media (min-width: $screen-lg) {
+        width: 53%;
+      }
+      .icon-container {
+        i {
+          font-size: $collection-icon-size;
+          vertical-align: bottom;
+        }
+      }
+      .title {
+        font-size: $font-size-lead;
+        vertical-align: middle;
+        margin: 0;
+        line-height: $font-size-lead;
+        max-width: 80%;
+        width: 80%;
+        @media (min-width: $screen-sm) {
+          margin: 0 0 0 10px;
+        }
+        .type {
+          color: $light-300;
+          font-size: $font-navigator;
+          padding: 5px 0 0 0;
+        }
+      }
+    }
+
+    .info {
+      width: 100%;
+      float: left;
+      @media (min-width: $screen-md) {
+        width: 37%;
+        float: right;
+        text-align: right;
+      }
+      @media (min-width: $screen-lg) {
+        width: 33%;
+      }
+      .content-count {
+        font-size: $font-size-large;
+        margin: 0 10px 0 0;
+
+        @media (max-width: $screen-sm) {
+          padding: 0;
+          margin: 0 10px;
+        }
+
+        &.mixed {
+          > span:first-child {
+            border-right: 1px solid $text-color;
+            margin: 0 5px 0 0;
+            padding: 0 5px 0 0;
+          }
+        }
+      }
+
+      .gru-user-icons {
+        @media (max-width: $screen-xs) {
+          padding: 0;
+        }
+      }
+
+      .left-info {
+        border-left: 2px solid $light-200;
+        text-align: left;
+        width: 100%;
+
+        @media (min-width: $screen-xs) {
+          width: 146px;
+          display: inline-block;
+        }
+        @media (min-width: $screen-lg) {
+          width: 172px;
+        }
+        .state {
+          width: 85px;
+          color: $blue-400;
+          .not-started {
+            color: $light-300;
+          }
+        }
+        .score {
+          padding: 0;
+          font-size: $font-size-lead;
+          font-weight: bold;
+          width: 55px;
+          text-align: center;
+
+          @media (min-width: $screen-xs) {
+            padding: 10px 3px;
+          }
+
+          @media (min-width: $screen-lg) {
+            padding: 10px 20px 10px 10px;
+            width: 80px;
+          }
+        }
+      }
+    }
+  }
+}
+
+

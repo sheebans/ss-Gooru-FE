@@ -60,11 +60,10 @@ test('Layout', function(assert) {
 
     .gru-header .container-fluid .navbar-default .navbar-header .navbar-brand {
         background: url("http://www.edify.cr/images/logo-EDIFY.png");
-        height: 63px;
+        height: 55px;
         padding: 0;
-        width: 47px;
-        background-size: contain;
-        margin-top: 10px;
+        width: 140px;
+        background-size: cover;
     }
 `;
   assert.equal($style.text(), expedtedStyle, "Wrong style body");

@@ -24,7 +24,7 @@ export default Ember.Object.extend({
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
-      dataType: 'text',
+      dataType: 'json',
       processData: false,
       headers: this.defineHeaders(),
       data: JSON.stringify({
@@ -51,7 +51,7 @@ export default Ember.Object.extend({
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
-      dataType: 'text',
+      dataType: 'json',
       processData: false,
       headers: this.defineHeaders(),
       data: JSON.stringify({
