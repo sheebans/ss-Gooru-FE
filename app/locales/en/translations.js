@@ -432,6 +432,7 @@ export default {
     "resource-url": "Resource URL",
     "role": "Role",
     "rubric":"Rubric",
+    "rubric-title": "Rubric Title",
     "save": "Save",
     "save-next": "Save and Next",
     "save-submit": "Save and Submit All",

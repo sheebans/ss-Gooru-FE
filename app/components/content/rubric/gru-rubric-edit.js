@@ -14,7 +14,6 @@ export default Ember.Component.extend({
 
   classNames: ['content', 'rubric', 'gru-rubric-edit'],
 
-  tagName: 'article',
 
   // -------------------------------------------------------------------------
   // Properties
