@@ -68,6 +68,7 @@ The tenant should have this structure
 ```
 
 For now only the button colors and logo url can be configure.
+The logo suggested width is 140px and height is 55px, if bigger the application will scale it down to that size.
 
 
 # Theme generation
