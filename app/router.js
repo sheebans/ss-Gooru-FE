@@ -26,7 +26,6 @@ Router.map(function() {
   this.route('logout');
 
   this.route('content', function () {
-
     this.route('assessments', function () {
       this.route('edit', {path: '/edit/:assessmentId'});
     });
@@ -53,6 +52,10 @@ Router.map(function() {
     this.route('questions', function () {
       this.route('edit', {path: '/edit/:questionId'});
       this.route('play', {path: '/play/:questionId'});
+    });
+
+    this.route('rubric', function() {
+      this.route('edit');
     });
   });
 
