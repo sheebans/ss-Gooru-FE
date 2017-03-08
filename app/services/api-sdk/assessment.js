@@ -18,6 +18,11 @@ export default Ember.Service.extend({
    */
   assessmentAdapter: null,
 
+  /**
+   * @property {CollectionService}
+   */
+  quizzesCollectionService: Ember.inject.service('quizzes/collection'),
+
   init: function () {
     this._super(...arguments);
     this.set('assessmentSerializer', AssessmentSerializer.create(Ember.getOwner(this).ownerInjection()));
@@ -73,7 +78,10 @@ export default Ember.Service.extend({
     const service = this;
     let serializedData = service.get('assessmentSerializer').serializeUpdateAssessment(assessmentModel);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('assessmentAdapter').updateAssessment(assessmentId, serializedData).then(resolve, reject);
+      service.get('assessmentAdapter').updateAssessment(assessmentId, serializedData).then(function(){
+        service.notifyQuizzesAssessmentChange(assessmentId);
+        resolve();
+      }, reject);
     });
   },
 
@@ -88,7 +96,10 @@ export default Ember.Service.extend({
     const service = this;
     let serializedData = service.get('assessmentSerializer').serializeUpdateAssessmentTitle(title);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('assessmentAdapter').updateAssessment(assessmentId, serializedData).then(resolve, reject);
+      service.get('assessmentAdapter').updateAssessment(assessmentId, serializedData).then(function(){
+        service.notifyQuizzesAssessmentChange(assessmentId);
+        resolve();
+      }, reject);
     });
   },
 
@@ -102,7 +113,10 @@ export default Ember.Service.extend({
     var service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('assessmentAdapter').addQuestion(assessmentId, questionId)
-        .then(resolve, reject);
+        .then(function(){
+          service.notifyQuizzesAssessmentChange(assessmentId);
+          resolve();
+        }, reject);
     });
   },
 
@@ -123,7 +137,10 @@ export default Ember.Service.extend({
     }else{
       return new Ember.RSVP.Promise(function(resolve, reject) {
         service.get('assessmentAdapter').deleteAssessment(assessment.id)
-          .then(resolve, reject);
+          .then(function(){
+            service.notifyQuizzesAssessmentChange(assessment.id);
+            resolve();
+          }, reject);
       });
     }
   },
@@ -154,8 +171,20 @@ export default Ember.Service.extend({
     const service = this;
     let serializedData = service.get('assessmentSerializer').serializeReorderAssessment(questionIds);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('assessmentAdapter').reorderAssessment(assessmentId, serializedData).then(resolve, reject);
+      service.get('assessmentAdapter').reorderAssessment(assessmentId, serializedData).then(function(){
+        service.notifyQuizzesAssessmentChange(assessmentId);
+        resolve();
+      }, reject);
     });
+  },
+
+  /**
+   * Notify an assessment change at quizzes
+   * @param {string} assessmentId
+   */
+  notifyQuizzesAssessmentChange: function(assessmentId){
+    const quizzesCollectionService = this.get('quizzesCollectionService');
+    return quizzesCollectionService.notifyCollectionChange(assessmentId, 'assessment');
   }
 
 
