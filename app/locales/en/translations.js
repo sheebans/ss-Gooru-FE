@@ -150,6 +150,7 @@ export default {
     "create": "Create",
     "create-class": "+ Create classroom",
     "created-by": "Created by",
+    "create-rubric": "Create New Rubric",
     "current-attempt":"Current Attempt",
     "delete": "Delete",
     "delete-instructions": {
