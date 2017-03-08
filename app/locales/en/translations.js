@@ -151,6 +151,7 @@ export default {
     "create": "Create",
     "create-class": "+ Create classroom",
     "created-by": "Created by",
+    "create-rubric": "Create New Rubric",
     "current-attempt":"Current Attempt",
     "delete": "Delete",
     "delete-instructions": {
@@ -433,6 +434,7 @@ export default {
     "resource-url": "Resource URL",
     "role": "Role",
     "rubric":"Rubric",
+    "rubric-title": "Rubric Title",
     "save": "Save",
     "save-next": "Save and Next",
     "save-submit": "Save and Submit All",

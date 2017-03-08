@@ -14,7 +14,6 @@ export default Ember.Component.extend({
 
   classNames: ['content', 'rubric', 'gru-rubric-edit'],
 
-  tagName: 'article',
 
   // -------------------------------------------------------------------------
   // Properties
@@ -45,7 +44,7 @@ export default Ember.Component.extend({
    * @property {String} headerTitle
    */
   headerTitle: Ember.computed(function() {
-    return this.get('i18n').t('common.add-rubric');
+    return this.get('i18n').t('common.create-rubric');
   }),
 
   /**
