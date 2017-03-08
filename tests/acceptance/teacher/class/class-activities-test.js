@@ -21,10 +21,10 @@ test('Layout', function (assert) {
 
     assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-activities');
 
-    const $container = find(".teacher.class .controller.teacher.class.class-activities");
+    const $container = find('.teacher.class .controller.teacher.class.class-activities');
     assert.ok($container.length, 'Missing class activities tab container');
 
-    T.exists(assert, $container.find(".today"), "Missing today title");
-    T.exists(assert, $container.find(".collections"), "Missing activities collections");
+    T.exists(assert, $container.find('.today'), 'Missing today title');
+    T.exists(assert, $container.find('.collections'), 'Missing activities collections');
   });
 });

@@ -3,7 +3,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
 import Assessment from 'gooru-web/models/content/assessment';
-import tHelper from "ember-i18n/helper";
+import tHelper from 'ember-i18n/helper';
 
 moduleForComponent('class/gru-class-collection-panel', 'Integration | Component | class/gru class collection panel', {
   integration: true,
@@ -17,12 +17,12 @@ moduleForComponent('class/gru-class-collection-panel', 'Integration | Component 
 test('Layout', function(assert) {
 
   const collectionMock = Assessment.create(Ember.getOwner(this).ownerInjection(), {
-    id: "3-1",
-    format: "assessment",
+    id: '3-1',
+    format: 'assessment',
     openEndedQuestionCount: 0,
     questionCount: 4,
     resourceCount: 0,
-    title: "The Early Earth",
+    title: 'The Early Earth',
     members: [],
     visible: true,
     isOnAir: true,
@@ -40,11 +40,11 @@ test('Layout', function(assert) {
   this.render(hbs`{{class.gru-class-collection-panel item=item}}`);
 
   var $component = this.$(); //component dom element
-  const $collectionPanel = $component.find(".gru-class-collection-panel.panel");
-  T.exists(assert, $collectionPanel, "Missing class collection panel");
-  T.exists(assert, $collectionPanel.find(".actions"), "Missing actions");
-  T.exists(assert, $collectionPanel.find(".actions .switch-panel .gru-switch"), "Missing gru-switch component");
-  T.exists(assert, $collectionPanel.find(".actions .on-air"), "Missing on-air button");
+  const $collectionPanel = $component.find('.gru-class-collection-panel.panel');
+  T.exists(assert, $collectionPanel, 'Missing class collection panel');
+  T.exists(assert, $collectionPanel.find('.actions'), 'Missing actions');
+  T.exists(assert, $collectionPanel.find('.actions .switch-panel .gru-switch'), 'Missing gru-switch component');
+  T.exists(assert, $collectionPanel.find('.actions .on-air'), 'Missing on-air button');
 
   const $collectionTitle = $collectionPanel.find('.panel-title');
   assert.ok($collectionTitle.length, 'Panel title element is missing');
@@ -68,7 +68,7 @@ test('Layout', function(assert) {
 
   const $collectionContentCount = $collectionInfo.find('.content-count');
   assert.ok($collectionContentCount.length, 'Content count panel is missing');
-  assert.equal(T.text($collectionContentCount.find(".question-count")), '4 Questions', 'Wrong  question count text');
+  assert.equal(T.text($collectionContentCount.find('.question-count')), '4 Questions', 'Wrong  question count text');
 
   assert.ok($collectionInfo.find('.gru-user-icons').length, 'gru-user-icons component is missing');
   assert.ok($collectionInfo.find('.left-info .score').length, 'Score info element is missing');
