@@ -167,16 +167,6 @@
           padding: 0 20px 20px 0;
         }
       }
-      .profile-card {
-        div {
-          background: $white;
-          box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.10);
-          @include border-top-radius(5px);
-          @include border-bottom-radius(5px);
-          width:135px;
-          height: 140px;
-        }
-      }
     }
   }
   .teachers-section{

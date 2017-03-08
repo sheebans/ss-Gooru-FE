@@ -64,6 +64,7 @@ export default {
     "add-new-question": "Create a new question",
     "add-question": "Create Question",
     "add-question-image": "Add Question Image",
+    "add-rubric": "Add New Rubric",
     "add-standard": "Add Standard",
     "add-standards": "Add Standards",
     "add-standards-to-collection": "Add Standards to Collection",
@@ -295,6 +296,7 @@ export default {
     },
     "libraries": "Libraries",
     "license": "License",
+    "link": "Link",
     "link-out":"Link-out",
     "link-out-message":"*If your resource is showing up blank in the preview above, it may need a “link-out” to another page to view the content.",
     "loading": "Loading ...",
@@ -430,6 +432,7 @@ export default {
     "resource-title": "Resource Title",
     "resource-url": "Resource URL",
     "role": "Role",
+    "rubric":"Rubric",
     "save": "Save",
     "save-next": "Save and Next",
     "save-submit": "Save and Submit All",
@@ -827,7 +830,20 @@ export default {
         "course-information": "Course Information",
         "teachers": "Teachers",
         "assessment-min-score": "Assessment Minimum Score for Trophies",
-        "assigned-course": "Assigned course"
+        "assigned-course": "Assigned course",
+        "students": "Students",
+        "import-roster": "Import Roster",
+        "edit": "Edit",
+        "download-roster": "Download Roster",
+        "student-name": "Student Name",
+        "student-id": "Student Id",
+        "email-address": "Email Address",
+        "performance": "Performance",
+        "actions": "Actions",
+        "view-report": "View Report",
+        "message": "Message",
+        "archive": "Archive",
+        "delete": "Delete"
       },
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
@@ -956,6 +972,14 @@ export default {
     "analytics": "Data",
     "teams": "Teams",
     "information": "Classroom Information"
+  },
+  "class.gru-class-statistics": {
+    "title": "Class Statistics",
+    "on-average": "On Average",
+    "performance": "Performance",
+    "completion": "Completion",
+    "time-spent": "Time Spent",
+    "no-performance": "--"
   },
   "gru-user-registration": {
     "joinTitle": "Join the Gooru Community!",
