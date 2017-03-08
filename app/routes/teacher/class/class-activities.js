@@ -5,7 +5,11 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service("session"),
-  i18n: Ember.inject.service(),
+
+  /**
+   * @requires service:api-sdk/class-activity
+   */
+  classActivityService: Ember.inject.service("api-sdk/class-activity"),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -16,12 +20,26 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
 
+  model: function () {
+    const route = this;
+    const currentClass = route.modelFor('teacher.class').class;
+    const userId = route.get('session.userId');
+
+    return route.get('classActivityService').findClassActivities(currentClass.get('id'), userId)
+      .then(function(classActivities) {
+      return Ember.RSVP.hash({
+        classActivities: classActivities
+      });
+    });
+  },
+
   /**
    * Set all controller properties from the model
    * @param controller
+   * @param model
    */
-  setupController: function (controller) {
+  setupController: function (controller, model) {
     controller.get('classController').selectMenuItem('class-activities');
+    controller.set("classActivities", model.classActivities);
   }
-
 });

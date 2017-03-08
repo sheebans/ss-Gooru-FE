@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  classController: Ember.inject.controller('teacher.class')
+  classController: Ember.inject.controller('teacher.class'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -23,6 +23,12 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Contains classActivity objects
+   * @property {classActivity[]} classActivities
+   */
+  classActivities: null
 
   // -------------------------------------------------------------------------
   // Observers

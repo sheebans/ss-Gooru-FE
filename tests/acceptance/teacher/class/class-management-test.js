@@ -20,7 +20,7 @@ test('Layout', function (assert) {
 
     assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
 
-    const $container = find(".teacher.class .controller.class-management");
+    const $container = find(".teacher.class .controller.teacher.class.class-management");
     assert.ok($container.length, 'Missing class management tab container');
 
     assert.ok($container.find('.class-panel').length, 'Missing class panel');
