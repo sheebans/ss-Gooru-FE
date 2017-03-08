@@ -184,6 +184,7 @@ export default Ember.Service.extend({
    */
   notifyQuizzesAssessmentChange: function(assessmentId){
     const quizzesCollectionService = this.get('quizzesCollectionService');
+    Ember.Logger.info('Notifying assessment change');
     return quizzesCollectionService.notifyCollectionChange(assessmentId, 'assessment');
   }
 

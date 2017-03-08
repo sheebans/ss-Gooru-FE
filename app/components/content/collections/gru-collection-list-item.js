@@ -64,6 +64,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     deleteItem: function (builderItem) {
       let component = this;
+      const collection = component.get('collection');
       var model =  {
         content: builderItem,
         index:this.get('index'),
@@ -78,7 +79,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       if(builderItem.get('format')==='question'){
         collectionItem = {
           deleteMethod: function () {
-            return this.get('questionService').deleteQuestion(this.get('model.id'));
+            return this.get('questionService').deleteQuestion(this.get('model.id'), collection);
           }.bind(this),
           type: CONTENT_TYPES.QUESTION
         };
@@ -88,7 +89,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       }else{
         collectionItem = {
           removeMethod: function () {
-            return this.get('resourceService').deleteResource(this.get('model.id'));
+            return this.get('resourceService').deleteResource(this.get('model.id'), collection);
           }.bind(this),
           type: CONTENT_TYPES.RESOURCE
         };
@@ -164,13 +165,14 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     updateItem: function (builderItem) {
       let component = this;
       var editedModel = this.get('tempModel');
+      const collection = component.get('collection');
 
       editedModel.validate().then(function({model, validations}) {
         if (validations.get('isValid')) {
           if(builderItem.get('format') === 'question') {
             component.saveQuestion();
           }else{
-            component.get('resourceService').updateResource(editedModel.id, editedModel)
+            component.get('resourceService').updateResource(editedModel.id, editedModel, collection)
               .then(function() {
                 component.set('model', editedModel);
                 model.merge(editedModel, ['title','narration']);
@@ -430,6 +432,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
   updateQuestion:function(editedQuestion,component){
     let question = component.get('model');
+    const collection = component.get('collection');
 
     editedQuestion.validate().then(function ({ validations }) {
       if (validations.get('isValid')) {
@@ -450,7 +453,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
         }
         imageIdPromise.then(function(imageId) {
           editedQuestion.set('thumbnail', imageId);
-          component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
+          component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion, collection)
             .then(function() {
               component.setProperties({
                 'model': editedQuestion,
