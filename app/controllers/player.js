@@ -1,10 +1,12 @@
+import PlayerController from 'quizzes-addon/controllers/player';
+
 /**
  * @module
  * @typedef {Object} PlayerController
  *
  * @augments Ember/Controller
  */
-export default Ember.Controller.extend({
+export default PlayerController.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies

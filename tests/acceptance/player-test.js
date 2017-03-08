@@ -20,7 +20,7 @@ test('Layout - default to collection since parameter is not sent', function (ass
   visit('/player/all-resource-types-collection-id');
 
   andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id');
+    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id');
 
     const $playerContainer = find('.qz-player');
     T.exists(assert, $playerContainer, 'Missing quizzes player component');
