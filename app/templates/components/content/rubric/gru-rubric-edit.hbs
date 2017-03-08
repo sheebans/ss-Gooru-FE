@@ -1,1 +1,22 @@
 {{content.gru-header options=options selected=selected headerActions=headerActions title=headerTitle}}
+
+{{#if (eq selected 'information')}}
+    <section id="information">
+        <div class="header">
+            <h2>{{t 'common.information'}}</h2>
+        </div>
+        <div class="content">
+          {{content.gru-image isEditing=true}}
+            <div class="panel panel-default information">
+                <div class="panel-body">
+                    <div class="title">
+                        <label>
+                            <span class="required">{{t "common.rubric-title"}}</span>
+                          {{validation.gru-input model=assessment valuePath='title' maxLength=50}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{{/if}}
