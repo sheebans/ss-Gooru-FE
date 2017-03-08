@@ -830,7 +830,20 @@ export default {
         "course-information": "Course Information",
         "teachers": "Teachers",
         "assessment-min-score": "Assessment Minimum Score for Trophies",
-        "assigned-course": "Assigned course"
+        "assigned-course": "Assigned course",
+        "students": "Students",
+        "import-roster": "Import Roster",
+        "edit": "Edit",
+        "download-roster": "Download Roster",
+        "student-name": "Student Name",
+        "student-id": "Student Id",
+        "email-address": "Email Address",
+        "performance": "Performance",
+        "actions": "Actions",
+        "view-report": "View Report",
+        "message": "Message",
+        "archive": "Archive",
+        "delete": "Delete"
       }
     }
   },
