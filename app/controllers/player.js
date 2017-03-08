@@ -30,12 +30,6 @@ export default PlayerController.extend({
   role: null,
 
   /**
-   * Query param
-   * @property {string} sourceId
-   */
-  sourceId: null,
-
-  /**
    * Query param indicating if it is a collection or assessment
    * @property {string}
    */
