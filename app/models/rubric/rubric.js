@@ -88,5 +88,10 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} true when the rubric requires feedback
    */
-  requiresFeedback: null
+  requiresFeedback: null,
+
+  /**
+   * @property {string} mimeType
+   */
+  mimeType:'application/pdf,image/*'
 });

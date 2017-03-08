@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
-import RubricModel from 'gooru-web/models/content/rubric';
+import RubricModel from 'gooru-web/models/rubric/rubric';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
