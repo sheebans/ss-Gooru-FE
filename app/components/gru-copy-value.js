@@ -9,7 +9,10 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
-
+  /**
+   * @dependency service:i18n
+   */
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -33,7 +36,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
     $('.copy-btn').tooltip({placement:'right'});
 
-    clipboard.on('success', function(e) {
+    clipboard.on('success', function() {
       $('.copy-btn').tooltip('hide');
     });
 
@@ -47,12 +50,22 @@ export default Ember.Component.extend(ConfigurationMixin, {
   value: null,
 
   /**
-   * @property {String} text to be displayed in the tooltip
+   * @property {String} code with text to be displayed in the tooltip
    */
-  tooltip: null,
+  tooltipCode: null,
 
+  /**
+   * Return the respective text to be displayed as a tooltip
+   */
+  tooltip: Ember.computed('tooltipCode', function() {
+    if(this.get('tooltipCode')){
+      return this.get('i18n').t(this.get('tooltipCode')).string;
+    }
+    else{
+      return "";
+    }
 
-
+  })
   // -------------------------------------------------------------------------
   // Methods
 
