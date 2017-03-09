@@ -4,6 +4,7 @@ import Ember from 'ember';
 import Assessment from 'gooru-web/models/content/assessment';
 import Course from 'gooru-web/models/content/course';
 import CenturySkillModel from 'gooru-web/models/century-skill/century-skill';
+import { registerQuizzesServices } from 'gooru-web/tests/helpers/quizzes';
 
 const taxonomyServiceStub = Ember.Service.extend({
 
@@ -34,6 +35,8 @@ moduleForComponent('content/assessments/gru-assessment-edit', 'Integration | Com
     this.i18n.set("locale","en");
     this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
     this.inject.service('api-sdk/taxonomy');
+
+    registerQuizzesServices(this);
   }
 });
 
