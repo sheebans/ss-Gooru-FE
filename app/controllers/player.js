@@ -1,3 +1,4 @@
+import Ember from 'ember';
 /**
  * @module
  * @typedef {Object} PlayerController
