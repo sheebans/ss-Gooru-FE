@@ -1611,5 +1611,16 @@ export default {
         "learning": "Key Learning Skills and Techniques"
       }
     }
+  },
+  "gru-rubric-edit":{
+    "upload-rubric":"Upload Rubric"
+  },
+  "gru-rubric-creation":{
+    "url":"URL",
+    "upload-file":"Upload File",
+    "gru-category":"Add New Category",
+    "gru-preview-url":{
+      "preview":"Add rubric above and preview here"
+    }
   }
 };

@@ -20,3 +20,20 @@
         </div>
     </section>
 {{/if}}
+{{#if (eq selected 'rubric')}}
+    <section id="rubric">
+        <div class="header">
+            <h2>{{t 'common.rubric'}}</h2>
+        </div>
+        <div class="panel panel-default rubric-creation">
+            <div class="panel-heading">
+                <div class="border-bottom">
+                    <h3>{{t 'gru-rubric-edit.upload-rubric'}}</h3>
+                </div>
+            </div>
+            <div class="panel-body">
+              {{content.rubric.gru-rubric-creation rubric=rubric}}
+            </div>
+        </div>
+    </section>
+{{/if}}
