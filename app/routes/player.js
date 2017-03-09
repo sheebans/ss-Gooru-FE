@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import QuizzesPlayer from 'quizzes-addon/routes/player';
+import QuizzesContext from 'quizzes-addon/models/context/context';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -98,6 +99,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
+
   /**
    * @param {{ collectionId: string, resourceId: string }} params
    */
@@ -111,18 +113,33 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, {
     const loadAssessment = !type || isAssessment;
     const loadCollection = !type || isCollection;
 
+    let collection;
+
     return Ember.RSVP.hashSettled({
       assessment: loadAssessment ? route.get('assessmentService').readAssessment(collectionId) : false,
       collection: loadCollection ? route.get('collectionService').readCollection(collectionId) : false
     }).then(function(hash) {
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
-      let collection = collectionFound ? hash.collection.value : hash.assessment.value;
-      params.token = route.get('session.token-api3');
+      collection = collectionFound ? hash.collection.value : hash.assessment.value;
+      return route.createContext(params, collection);
+    }).then(function({ id }) {
       params.profileId = route.get('session.userData.gooruUId');
       params.type = collection.get('collectionType');
       params.routeURL = '';
-      params.contextId = 'a37c6762-bfa9-4ffc-adbb-68fb7c7be60f';
+      params.contextId = id;
       return route.quizzesModel(params);
     });
+  },
+
+  /**
+   * @param {All route params} params
+   * @param {Collection} collection
+   */
+  createContext(params, collection) {
+    return this.get('quizzesContextService').createContext(QuizzesContext.create({
+      collectionId: collection.get('id'),
+      title: collection.get('title'),
+      isCollection: collection.get('isCollection')
+    }));
   }
 });
