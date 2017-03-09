@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import PlayerController from 'quizzes-addon/controllers/player';
+
 /**
  * @module
  * @typedef {Object} PlayerController
  *
  * @augments Ember/Controller
  */
-export default Ember.Controller.extend({
+export default PlayerController.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -27,12 +28,6 @@ export default Ember.Controller.extend({
    * @property {string}
    */
   role: null,
-
-  /**
-   * Query param
-   * @property {string} sourceId
-   */
-  sourceId: null,
 
   /**
    * Query param indicating if it is a collection or assessment

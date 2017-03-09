@@ -1,6 +1,6 @@
 {
   "id": "collection-id",
-  "isCollection": true,
+  "isCollection": false,
   "metadata": {
     "setting": {
       "attempts_allowed":-1,
