@@ -832,6 +832,9 @@ export default {
         "class-information": "Class Information",
         "course-information": "Course Information",
         "teachers": "Teachers",
+        "class-name": "Classroom Name",
+        "class-code": "Class Code",
+        "attend-class-with-code": "Attend Class With Code",
         "assessment-min-score": "Assessment Minimum Score for Trophies",
         "assigned-course": "Assigned course",
         "students": "Students",
@@ -846,7 +849,8 @@ export default {
         "view-report": "View Report",
         "message": "Message",
         "archive": "Archive",
-        "delete": "Delete"
+        "delete": "Delete",
+        "click-to-copy-class-code": "Click to copy class code"
       },
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
