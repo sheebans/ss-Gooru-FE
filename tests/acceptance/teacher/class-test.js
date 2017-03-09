@@ -25,18 +25,21 @@ test('Layout', function(assert) {
     T.exists(assert, $classContainer, 'Missing class container');
 
     const $classHeader = $classContainer.find('.header');
+    const $classCodeContainer = $classHeader.find('.code');
     const $classStatistics = $classHeader.find('.gru-class-statistics');
     const $announcements = $classHeader.find('.announcements');
     const $graphics = $classHeader.find('.graphics');
     T.exists(assert, $classHeader, 'Missing class header');
     T.exists(assert, $classStatistics, 'Missing class statistics component');
+    T.exists(assert, $classCodeContainer, 'Missing class code container');
     T.exists(assert, $announcements, 'Missing announcements panel');
     T.exists(assert, $graphics, 'Missing graphics panel');
 
     T.exists(assert, $classHeader.find('h1'), 'Missing class title');
     assert.equal(T.text($classHeader.find('h1')), 'Pochita As Teacher - With Course', 'Incorrect class title text');
-    T.exists(assert, $classHeader.find('.code'), 'Missing class code');
-    assert.equal(T.text($classHeader.find('.code')), 'I4BYYQZ', 'Incorrect class code text');
+
+    assert.equal(T.text($classCodeContainer.find('.class-code')), 'I4BYYQZ', 'Incorrect class code text');
+    T.exists(assert, $classCodeContainer.find('.gru-copy-value'), 'Missing copy value component');
 
     T.exists(assert, $announcements.find('.panel-heading'), 'Missing announcements panel-heading');
     T.exists(assert, $announcements.find('.panel-body'), 'Missing announcements panel-body');
