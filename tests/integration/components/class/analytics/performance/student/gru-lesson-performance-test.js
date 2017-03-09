@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
 import wait from 'ember-test-helpers/wait';
+import { registerQuizzesServices } from 'gooru-web/tests/helpers/quizzes';
 
 // Stub performance service
 
@@ -10,6 +11,7 @@ moduleForComponent('class/analytics/performance/student/gru-lesson-performance',
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
+    registerQuizzesServices(this);
   }
 });
 

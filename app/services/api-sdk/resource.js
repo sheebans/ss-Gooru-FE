@@ -18,6 +18,16 @@ export default Ember.Service.extend({
    */
   resourceAdapter: null,
 
+  /**
+   * @property {AssessmentService}
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
+   * @property {AssessmentService}
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
   init: function () {
     this._super(...arguments);
     this.set('resourceSerializer', ResourceSerializer.create(Ember.getOwner(this).ownerInjection()));
@@ -77,13 +87,17 @@ export default Ember.Service.extend({
    *
    * @param resourceId the id of the resource to be updated
    * @param resourceModel the resource model with the data
+   * @param {content/Collection|content/Assessment} collection provided when the resource belongs to a collection
    * @returns {Promise}
    */
-  updateResource: function(resourceId, resourceModel) {
+  updateResource: function(resourceId, resourceModel, collection = null) {
     const service = this;
     let serializedData = service.get('resourceSerializer').serializeUpdateResource(resourceModel);
     return new Ember.RSVP.Promise(function (resolve, reject) {
-      service.get('resourceAdapter').updateResource(resourceId, serializedData).then(resolve, reject);
+      service.get('resourceAdapter').updateResource(resourceId, serializedData).then(function() {
+        service.notifyQuizzesCollectionChange(collection);
+        resolve();
+      }, reject);
     });
   },
 
@@ -92,13 +106,17 @@ export default Ember.Service.extend({
    *
    * @param resourceId the id of the resource to be updated
    * @param title the resource title
+   * @param {content/Collection|content/Assessment} collection provided when the resource belongs to a collection
    * @returns {Promise}
    */
-  updateResourceTitle: function(resourceId, title) {
+  updateResourceTitle: function(resourceId, title, collection = null) {
     const service = this;
     let serializedData = service.get('resourceSerializer').serializeUpdateResourceTitle(title);
     return new Ember.RSVP.Promise(function (resolve, reject) {
-      service.get('resourceAdapter').updateResource(resourceId, serializedData).then(resolve, reject);
+      service.get('resourceAdapter').updateResource(resourceId, serializedData).then(function() {
+        service.notifyQuizzesCollectionChange(collection);
+        resolve();
+      }, reject);
     });
   },
 
@@ -122,13 +140,32 @@ export default Ember.Service.extend({
    * Delete resource
    *
    * @param resourceId resource id to delete
+   * @param {content/Collection|content/Assessment} collection provided when the resource belongs to a collection
    * @returns {Ember.RSVP.Promise}
    */
-  deleteResource: function (resourceId) {
+  deleteResource: function (resourceId, collection = null) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('resourceAdapter').deleteResource(resourceId)
-        .then(resolve, reject);
+        .then(function() {
+          service.notifyQuizzesCollectionChange(collection);
+          resolve();
+        }, reject);
     });
+  },
+
+  /**
+   * Notifies a change at quizzes for the provided collection
+   * @param {content/Collection|content/Assessment} collection
+   */
+  notifyQuizzesCollectionChange: function(collection){
+    if (collection) {
+      const collectionId = collection.get('id');
+      return (collection.get("isAssessment")) ?
+          this.get("assessmentService").notifyQuizzesAssessmentChange(collectionId) :
+          this.get("collectionService").notifyQuizzesCollectionChange(collectionId);
+    }
+    return Ember.RSVP.resolve(false);
   }
+
 });

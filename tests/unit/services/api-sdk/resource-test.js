@@ -83,6 +83,37 @@ test('updateResource', function(assert) {
   service.updateResource(expectedResourceId, expectedResourceModel).then(function() { done(); });
 });
 
+test('updateResource with collection', function(assert) {
+  const service = this.subject();
+  const expectedResourceId = 'resource-id';
+  const expectedResourceModel = ResourceModel.create({ title: 'Resource title' });
+  const collection = Ember.Object.create({ id: 123 });
+
+  assert.expect(3);
+
+  service.set('resourceAdapter', Ember.Object.create({
+    updateResource: function(resourceId) {
+      assert.equal(resourceId, expectedResourceId, "Wrong resource id" );
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('resourceSerializer', Ember.Object.create({
+    serializeUpdateResource: function(resourceObject) {
+      assert.deepEqual(resourceObject, expectedResourceModel, 'Wrong resource object');
+      return {};
+    }
+  }));
+
+  service.set('notifyQuizzesCollectionChange', function(collection) {
+    assert.equal(collection.get('id'), 123, 'Wrong collection id');
+    return Ember.RSVP.resolve();
+  });
+
+  var done = assert.async();
+  service.updateResource(expectedResourceId, expectedResourceModel, collection).then(function() { done(); });
+});
+
 test('updateResourceTitle', function(assert) {
   const service = this.subject();
   const expectedResourceId = 'resource-id';
@@ -104,6 +135,36 @@ test('updateResourceTitle', function(assert) {
 
   var done = assert.async();
   service.updateResourceTitle(expectedResourceId, 'any title').then(function() { done(); });
+});
+
+test('updateResourceTitle with collection', function(assert) {
+  const service = this.subject();
+  const expectedResourceId = 'resource-id';
+  const collection = Ember.Object.create({ id: 123 });
+
+  assert.expect(3);
+
+  service.set('resourceAdapter', Ember.Object.create({
+    updateResource: function(resourceId) {
+      assert.equal(resourceId, expectedResourceId, "Wrong resource id" );
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('resourceSerializer', Ember.Object.create({
+    serializeUpdateResourceTitle: function(title) {
+      assert.equal(title, 'any title', 'Wrong title');
+      return {};
+    }
+  }));
+
+  service.set('notifyQuizzesCollectionChange', function(collection) {
+    assert.equal(collection.get('id'), 123, 'Wrong collection id');
+    return Ember.RSVP.resolve();
+  });
+
+  var done = assert.async();
+  service.updateResourceTitle(expectedResourceId, 'any title', collection).then(function() { done(); });
 });
 
 test('copyResource', function(assert) {
@@ -144,6 +205,32 @@ test('deleteResource', function(assert) {
 
   var done = assert.async();
   service.deleteResource('resource-id')
+    .then(function() {
+      done();
+    });
+});
+
+test('deleteResource with collection', function(assert) {
+  const expectedResourceId = 'resource-id';
+  const service = this.subject();
+  const collection = Ember.Object.create({ id: 123 });
+
+  assert.expect(2);
+
+  service.set('resourceAdapter', Ember.Object.create({
+    deleteResource: function(resourceId) {
+      assert.equal(resourceId, expectedResourceId, 'Wrong resource id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('notifyQuizzesCollectionChange', function(collection) {
+    assert.equal(collection.get('id'), 123, 'Wrong collection id');
+    return Ember.RSVP.resolve();
+  });
+
+  var done = assert.async();
+  service.deleteResource('resource-id', collection)
     .then(function() {
       done();
     });

@@ -79,10 +79,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
      */
     deleteResource: function () {
       const myId = this.get("session.userId");
+      const collection = this.get('collection');
       var model = {
         content: this.get('resource'),
         deleteMethod: function () {
-          return this.get('resourceService').deleteResource(this.get('resource.id'));
+          return this.get('resourceService').deleteResource(this.get('resource.id'), collection);
         }.bind(this),
         type: CONTENT_TYPES.RESOURCE,
         redirect: {
@@ -313,10 +314,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin,{
    */
   saveContent: function () {
     const component = this;
+    const collection = component.get('collection');
     var editedResource = component.get('tempResource');
     editedResource.validate().then(function({ validations }) {
       if (validations.get('isValid')) {
-        component.get('resourceService').updateResource(component.get('resource.id'), editedResource)
+        component.get('resourceService').updateResource(component.get('resource.id'), editedResource, collection)
           .then(function () {
             component.set('resource', editedResource);
             component.set('isEditing', false);

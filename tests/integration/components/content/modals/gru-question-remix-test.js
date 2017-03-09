@@ -4,6 +4,7 @@ import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import DS from 'ember-data';
 import QuestionModel from 'gooru-web/models/content/question';
+import { registerQuizzesServices } from 'gooru-web/tests/helpers/quizzes';
 
 const questionServiceStub = Ember.Service.extend({
 
@@ -41,6 +42,8 @@ moduleForComponent('content/modals/question-remix', 'Integration | Component | c
 
     this.register('service:api-sdk/question', questionServiceStub);
     this.inject.service('api-sdk/question', {as: 'questionService'});
+
+    registerQuizzesServices(this);
   }
 });
 

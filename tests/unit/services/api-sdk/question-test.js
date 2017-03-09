@@ -83,6 +83,37 @@ test('updateQuestion', function(assert) {
   service.updateQuestion(expectedQuestionId, expectedQuestionModel).then(function() { done(); });
 });
 
+test('updateQuestion with collection', function(assert) {
+  const service = this.subject();
+  const expectedQuestionId = 'question-id';
+  const expectedQuestionModel = QuestionModel.create({ title: 'Question title' });
+  const collection = Ember.Object.create({ id: 123 });
+
+  assert.expect(3);
+
+  service.set('questionAdapter', Ember.Object.create({
+    updateQuestion: function(questionId) {
+      assert.equal(questionId, expectedQuestionId, "Wrong question id" );
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('questionSerializer', Ember.Object.create({
+    serializeUpdateQuestion: function(questionObject) {
+      assert.deepEqual(questionObject, expectedQuestionModel, 'Wrong question object');
+      return {};
+    }
+  }));
+
+  service.set('notifyQuizzesCollectionChange', function(collection) {
+    assert.equal(collection.get('id'), 123, 'Wrong collection id');
+    return Ember.RSVP.resolve();
+  });
+
+  var done = assert.async();
+  service.updateQuestion(expectedQuestionId, expectedQuestionModel, collection).then(function() { done(); });
+});
+
 test('updateQuestionTitle', function(assert) {
   const service = this.subject();
   const expectedQuestionId = 'question-id';
@@ -108,6 +139,37 @@ test('updateQuestionTitle', function(assert) {
   service.updateQuestionTitle(expectedQuestionId, expectedQuestionTitle).then(function() { done(); });
 });
 
+test('updateQuestionTitle with collection', function(assert) {
+  const service = this.subject();
+  const expectedQuestionId = 'question-id';
+  const expectedQuestionTitle = 'Question title';
+  const collection = Ember.Object.create({ id: 123 });
+
+  assert.expect(3);
+
+  service.set('questionAdapter', Ember.Object.create({
+    updateQuestion: function(questionId) {
+      assert.equal(questionId, expectedQuestionId, "Wrong question id" );
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('questionSerializer', Ember.Object.create({
+    serializeUpdateQuestionTitle: function(title) {
+      assert.deepEqual(title, 'Question title', 'Wrong question title');
+      return {};
+    }
+  }));
+
+  service.set('notifyQuizzesCollectionChange', function(collection) {
+    assert.equal(collection.get('id'), 123, 'Wrong collection id');
+    return Ember.RSVP.resolve();
+  });
+
+  var done = assert.async();
+  service.updateQuestionTitle(expectedQuestionId, expectedQuestionTitle, collection).then(function() { done(); });
+});
+
 test('deleteQuestion', function(assert) {
   const expectedQuestionId = 'question-id';
   const service = this.subject();
@@ -123,6 +185,33 @@ test('deleteQuestion', function(assert) {
 
   var done = assert.async();
   service.deleteQuestion('question-id')
+    .then(function() {
+      done();
+    });
+});
+
+test('deleteQuestion with collection', function(assert) {
+  const expectedQuestionId = 'question-id';
+  const service = this.subject();
+  const collection = Ember.Object.create({ id: 123 });
+
+
+  assert.expect(2);
+
+  service.set('questionAdapter', Ember.Object.create({
+    deleteQuestion: function(questionId) {
+      assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('notifyQuizzesCollectionChange', function(collection) {
+    assert.equal(collection.get('id'), 123, 'Wrong collection id');
+    return Ember.RSVP.resolve();
+  });
+
+  var done = assert.async();
+  service.deleteQuestion('question-id', collection)
     .then(function() {
       done();
     });
@@ -148,3 +237,83 @@ test('copyQuestion', function(assert) {
       done();
     });
 });
+
+test('notifyQuizzesCollectionChange with no collection', function(assert) {
+  const service = this.subject();
+  assert.expect(1);
+
+  service.set('assessmentService', Ember.Object.create({
+    notifyQuizzesAssessmentChange: function() {
+      assert.ok(false, 'notifyQuizzesAssessmentChange should not be called');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('collectionService', Ember.Object.create({
+    notifyQuizzesCollectionChange: function() {
+      assert.ok(false, 'notifyQuizzesCollectionChange should not be called');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.notifyQuizzesCollectionChange(null).then(function(notified){
+    assert.equal(notified, false, 'Wrong response');
+    done();
+  });
+});
+
+test('notifyQuizzesCollectionChange with collection', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+  const collection = Ember.Object.create({ id: 123, isAssessment: false });
+
+
+  service.set('assessmentService', Ember.Object.create({
+    notifyQuizzesAssessmentChange: function() {
+      assert.ok(false, 'notifyQuizzesAssessmentChange should not be called');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  service.set('collectionService', Ember.Object.create({
+    notifyQuizzesCollectionChange: function(collectionId) {
+      assert.equal(collectionId, 123, 'Wrong collection id');
+      return Ember.RSVP.resolve(true);
+    }
+  }));
+
+  var done = assert.async();
+  service.notifyQuizzesCollectionChange(collection).then(function(notified){
+    assert.equal(notified, true, 'Wrong response');
+    done();
+  });
+});
+
+test('notifyQuizzesCollectionChange with assessment', function(assert) {
+  const service = this.subject();
+  assert.expect(2);
+  const collection = Ember.Object.create({ id: 123, isAssessment: true });
+
+
+  service.set('assessmentService', Ember.Object.create({
+    notifyQuizzesAssessmentChange: function(assessmentId) {
+      assert.equal(assessmentId, 123, 'Wrong assessment id');
+      return Ember.RSVP.resolve(true);
+    }
+  }));
+
+  service.set('collectionService', Ember.Object.create({
+    notifyQuizzesCollectionChange: function() {
+      assert.ok(false, 'notifyQuizzesCollectionChange should not be called');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.notifyQuizzesCollectionChange(collection).then(function(notified){
+    assert.equal(notified, true, 'Wrong response');
+    done();
+  });
+});
+
