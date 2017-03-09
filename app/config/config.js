@@ -114,6 +114,11 @@ export const GRADING_SCALE = [
   {LOWER_LIMIT: 90, COLOR: '#4B9741'} //green-400
 ];
 
+export const ROLES = {
+  STUDENT: 'student',
+  TEACHER: 'teacher'
+};
+
 export const CORRECT_COLOR = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR; //green-400
 
 export const INCORRECT_COLOR = GRADING_SCALE[0].COLOR;//red-400
