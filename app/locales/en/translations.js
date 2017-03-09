@@ -823,6 +823,7 @@ export default {
     "latest-announcement":"Latest Announcement",
     "latest-assessment":"Latest Assessment",
     "class": {
+      "click-to-copy": "Click to copy class code",
       "course-map": "Course Map",
       "performance": "Performance",
       "management": "Roster Management",
