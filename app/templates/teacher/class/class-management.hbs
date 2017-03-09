@@ -1,0 +1,121 @@
+<div class="controller teacher class class-management">
+  <br>
+  <div class="row">
+    <div class="col-md-4">
+      <h5>{{t "teacher-landing.class.class-management-tab.class-information"}}</h5>
+      <div class="panel class-panel">
+        <div class="panel-body">
+          <!--  -->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h5>{{t "teacher-landing.class.class-management-tab.course-information"}}</h5>
+      <div class="panel course-panel">
+        <div class="panel-body">
+          <div class="assessment-min-score">
+            <p><{{t 'teacher-landing.class.class-management-tab.assessment-min-score'}}</p>
+              <h5>{{if class.minScore class.minScore '--'}} % {{gru-icon name='edit'}}</h5>
+          </div>
+          <div class="course-information">
+            <p>{{t 'teacher-landing.class.class-management-tab.assigned-course'}}</p>
+            {{#if course}}
+                {{cards.gru-course-card course=course isEditEnabled=true isOwner=true isSmall=true}}
+              {{else}}
+                --
+              {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h5>{{t "teacher-landing.class.class-management-tab.teachers"}}</h5>
+      <div class="panel teachers-panel">
+        <div class="panel-body">
+          <div class="teachers">
+            {{#each class.teachers as |teacher|}}
+              {{cards.gru-user-card user=teacher }}
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-6">
+      <h5>{{t "teacher-landing.class.class-management-tab.students"}}</h5>
+    </div>
+    <div class="col-md-6">
+      <div class="pull-right hidden">
+        <button class="btn btn-primary">
+          {{t "teacher-landing.class.class-management-tab.import-roster"}}
+        </button>
+        <button class="btn btn-primary">
+          {{t "teacher-landing.class.class-management-tab.edit"}}
+        </button>
+        <button class="btn btn-primary">
+          {{t "teacher-landing.class.class-management-tab.download-roster"}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="panel students-panel">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-md-3">
+          <span>{{t "teacher-landing.class.class-management-tab.student-name"}}</span>
+        </div>
+        <div class="col-md-3">
+          <span>{{t "teacher-landing.class.class-management-tab.student-id"}}</span>
+        </div>
+        <div class="col-md-3">
+          <span>{{t "teacher-landing.class.class-management-tab.email-address"}}</span>
+        </div>
+        <!-- when this is not hidden, assign 2, 2, 2, 2, 4 as sizing -->
+        <div class="col-md-2 hidden">
+          <span>{{t "teacher-landing.class.class-management-tab.performance"}}</span>
+        </div>
+        <div class="col-md-3">
+          <span>{{t "teacher-landing.class.class-management-tab.actions"}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body border-below">
+      {{#each class.members as |student|}}
+        <div class="row">
+          <div class="col-md-3">
+            <p>{{student.firstName}} {{student.lastName}}</p>
+          </div>
+          <div class="col-md-3">
+            <p>{{student.studentId}}</p>
+          </div>
+          <div class="col-md-3">
+            <p>{{student.email}}</p>
+          </div>
+          <!-- when this is not hidden, assign 2, 2, 2, 2, 4 as sizing -->
+          <div class="col-md-2 hidden">
+            <button class="btn btn-default">
+              {{gru-icon name='assessment'}}
+              {{t "teacher-landing.class.class-management-tab.view-report"}}
+            </button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-default">
+              {{gru-icon name='message'}}
+              {{t "teacher-landing.class.class-management-tab.message"}}
+            </button>
+            <button class="btn btn-default">
+              {{gru-icon name='archive'}}
+              {{t "teacher-landing.class.class-management-tab.archive"}}
+            </button>
+            <button class="btn btn-default">
+              {{gru-icon name='delete'}}
+              {{t "teacher-landing.class.class-management-tab.delete"}}
+            </button>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

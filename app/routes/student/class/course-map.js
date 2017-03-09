@@ -82,7 +82,7 @@ export default Ember.Route.extend({
     controller.set('units', model.units);
     controller.set('course', model.course);
     controller.set('classMembers', model.classMembers);
-    controller.get('studentClassController').selectMenuItem('content-map');
+    controller.get('studentClassController').selectMenuItem('course-map');
   }
 
 });

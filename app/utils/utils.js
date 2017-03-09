@@ -68,6 +68,17 @@ export function formatDate(date, format) {
 }
 
 /**
+ * Formats a date into a string
+ * @param {string} strDate
+ * @param {string} format
+ * @return {Date}
+ */
+export function parseDate(strDate, format) {
+  format = format || 'dddd, MMMM Do, YYYY h:mm A';
+  return moment(strDate, format).toDate();
+}
+
+/**
  * Format a certain number of milliseconds to a string of the form
  * '<hours>h <min>m or <min>m <sec>s'. If the value is falsey, a string
  * with the value '--' is returned
@@ -340,6 +351,23 @@ export function cleanFilename(url, cdnUrls) {
   }
 
   return (url && !isDefaultImage(defaultImages, url)) ? /([^/]*\/\/[^/]+\/)?(.+)/.exec(url)[2] : '';
+}
+
+/**
+ * This function is used to clear up fields when serializing then. At the
+ * BE a null field will delete the value at the repository a non present field (undefined) would be ignored (not changed).
+ *
+ * Returns null if value is empty or null
+ * Returns undefined if value is undefined
+ * Otherwise it returns value
+ * @param {string} value
+ */
+export function nullIfEmpty(value) {
+  let toReturn = value;
+  if (value !== undefined){
+    toReturn = (value && value.length) ? value : null;
+  }
+  return toReturn;
 }
 
 /**
@@ -683,4 +711,18 @@ export function isVideoURL(url){
   var vimeoYoutubeRegularExpression = /^(https?:\/\/)?(www\.)?(?:(vimeo)\.com\/|(youtube)\.com\/|(youtu)\.be\/)/;
   var match = vimeoYoutubeRegularExpression.test(url);
   return match;
+}
+
+/**
+ * Gets and array and returns an array containing arrays of the specified size
+ * @param {Array} array The aray do be divided
+ * @param {Number} chunkSize the size of the chunks
+ */
+export function arrayChunks(array, chunkSize){
+  let chunks = Ember.A([]);
+  let i = 0;
+  while (i < array.length) {
+    chunks.push(array.slice(i, i+= chunkSize));
+  }
+  return chunks;
 }

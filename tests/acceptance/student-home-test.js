@@ -43,7 +43,7 @@ test('Layout', function(assert) {
     assert.ok($('#active-classes').hasClass('active'), 'Active classes should be visible');
 
     const $tabContent = $leftUserContainer.find('.tab-content');
-    assert.equal($tabContent.find('.gru-class-card').length, 7 ,'Wrong number of class cards');
+    assert.equal($tabContent.find('.gru-student-class-card').length, 7 ,'Wrong number of class cards');
   });
 });
 
@@ -72,7 +72,7 @@ test('Go to course map from announcement', function(assert) {
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student', 'Wrong route');
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/analytics/performance', 'Wrong route');
     });
   });
 
@@ -86,7 +86,7 @@ test('Go to course map from announcement', function(assert) {
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student', 'Wrong route');
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/analytics/performance', 'Wrong route');
     });
   });
 

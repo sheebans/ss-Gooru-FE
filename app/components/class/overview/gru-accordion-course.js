@@ -110,6 +110,11 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   currentResource: Ember.computed('userLocation', function () {
     const userLocation = this.get('userLocation');
+
+    if (!userLocation) {
+      return;
+    }
+
     var parsedLocation = userLocation.split('+');
     var currentResource = null;
 

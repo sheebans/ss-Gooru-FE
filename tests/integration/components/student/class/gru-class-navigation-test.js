@@ -11,7 +11,7 @@ moduleForComponent('student/class/gru-class-navigation', 'Integration | Componen
 });
 
 test('Class Navigation', function(assert) {
-  assert.expect(6);
+  assert.expect(5);
 
   const classMock = Ember.Object.create({
     id: '1',
@@ -25,18 +25,17 @@ test('Class Navigation', function(assert) {
 
   this.set('class', classMock);
 
-  this.render(hbs`{{student.class.gru-class-navigation class=class selectedMenuItem='activity-list'}}`);
+  this.render(hbs`{{student.class.gru-class-navigation class=class selectedMenuItem='performance'}}`);
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-class-navigation");
-  assert.equal($navigation.find('.nav a').length, 4, 'Number of class navigator links');
-  T.exists(assert, $navigation.find('.nav .activity-list'), 'Missing activity list link');
+  assert.equal($navigation.find('.nav a').length, 3, 'Number of class navigator links');
   T.exists(assert, $navigation.find('.nav .performance'), 'Missing performance link');
   T.exists(assert, $navigation.find('.nav .classmates'), 'Missing classmates link');
-  T.exists(assert, $navigation.find('.nav .content-map'), 'Missing content map link');
+  T.exists(assert, $navigation.find('.nav .course-map'), 'Missing content map link');
 
   //$menu item Selected
-  T.exists(assert, $navigation.find(".activity-list.active"), "Missing selected activity-list item");
+  T.exists(assert, $navigation.find(".performance.active"), "Missing selected performance item");
 
 });
 
@@ -50,12 +49,12 @@ test('Layout when a menu Item is selected', function(assert) {
   this.render(hbs`{{student.class.gru-class-navigation onItemSelected='itemSelected'}}`);
   var $navigation = this.$(); //component dom element
 
-  const $activityMenuItem = $navigation.find(".nav .activity-list a");
   const $performanceMenuItem = $navigation.find(".nav .performance a");
+  const $classmatesMenuItem = $navigation.find(".nav .classmates a");
 
-  assert.ok($activityMenuItem, "Missing activity item in the class menu");
   assert.ok($performanceMenuItem, "Missing performance item in the class menu");
-  $activityMenuItem.click();
+  assert.ok($classmatesMenuItem, "Missing classmates item in the class menu");
   $performanceMenuItem.click();
+  $classmatesMenuItem.click();
   assert.equal($navigation.find(".nav .tab.active").length, 1, "The class menu should have only one item selected");
 });

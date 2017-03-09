@@ -42,7 +42,10 @@ export default Ember.Route.extend(PublicRouteMixin, {
     if (accessToken) { // this is for google sign in
       details = this.get("sessionService").signInWithToken(accessToken)
         .then(function() {
-          return route.controllerFor('application').loadUserClasses();
+          const applicationController = route.controllerFor('application');
+          return Ember.RSVP.all([
+            applicationController.loadUserClasses(),
+            applicationController.setupTenant()]);
         });
     }
     return details;

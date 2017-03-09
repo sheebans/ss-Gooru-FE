@@ -35,6 +35,7 @@
       </ul>
     </div>
     <span class="hidden-xs col-sm-5 col-md-4 standards">
+    {{#if standardFilterEnabled}}
       {{search.gru-search-filter
         categories=categories
         subjects=subjects
@@ -46,7 +47,8 @@
         alignment='left'
         disableSubjects=disableSubjects
       }}
-      </span>
+    {{/if}}
+    </span>
   </div>
   <div class="content">
     {{outlet}}

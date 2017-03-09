@@ -29,11 +29,6 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
   authService: Ember.inject.service('api-sdk/session'),
 
   /**
-   * @property {TenantService}
-   */
-  tenantService: Ember.inject.service('api-sdk/tenant'),
-
-  /**
    * @type {ProfileService} Service to retrieve profile information
    */
   profileService: Ember.inject.service('api-sdk/profile'),
@@ -110,18 +105,14 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     });
   },
 
-  afterModel: function(model){
+  afterModel: function(){
     const route = this;
-    const tenantService = route.get('tenantService');
-    return tenantService.findTenantFromCurrentSession().then(function(tenant){
-      model.tenant = tenant;
-      if (Env.embedded) {
-        return route.afterModelEmbeddedApplication();
-      }
-      else {
-        return route.handleLegacyUrlIfNecessary();
-      }
-    });
+    if (Env.embedded) {
+      return route.afterModelEmbeddedApplication();
+    }
+    else {
+      return route.handleLegacyUrlIfNecessary();
+    }
   },
 
   setupController: function(controller, model) {
@@ -133,7 +124,6 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
       controller.set('profile', model.profile);
     }
 
-    controller.set('tenant', model.tenant);
   },
 
   /**

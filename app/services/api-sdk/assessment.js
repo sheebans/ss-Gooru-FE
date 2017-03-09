@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AssessmentSerializer from 'gooru-web/serializers/content/assessment';
 import AssessmentAdapter from 'gooru-web/adapters/content/assessment';
-
+import AssessmentModel from 'gooru-web/models/content/assessment';
 
 /**
  * @typedef {Object} AssessmentService
@@ -156,7 +156,29 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('assessmentAdapter').reorderAssessment(assessmentId, serializedData).then(resolve, reject);
     });
+  },
+
+  /**
+   * Find assessments
+   *
+   * @param {object} filterCriteria to filter the Assessments
+   * @returns {string[]}
+   */
+  findAssessments: function() {
+
+    //TODO
+    var response = [
+      AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
+      AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
+      AssessmentModel.create({id: '3', title: 'Pre Assessment Human Impact on Earth'}),
+      AssessmentModel.create({id: '4', title: 'A Human Impact on Earth'}),
+      AssessmentModel.create({id: '5', title: 'Tsunamis Quiz'}),
+      AssessmentModel.create({id: '6', title: 'The Nature of Ecosystems'}),
+      AssessmentModel.create({id: '7', title: 'Biodiversity'}),
+      AssessmentModel.create({id: '8', title: 'Newton’s First Law of Motion Quiz'}),
+      AssessmentModel.create({id: '9', title: 'Check Your Understanding of Energy'}),
+      AssessmentModel.create({id: '10', title: 'Marvelist Scoring Sheet'})
+    ];
+    return new Ember.RSVP.resolve(response);
   }
-
-
 });

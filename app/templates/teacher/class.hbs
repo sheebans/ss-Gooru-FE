@@ -1,7 +1,12 @@
 <div class="teacher class">
   <div class="header">
     <h1>{{class.title}}</h1>
-    <div class="code">{{class.code}}</div>
+    <div class="code">
+      <span class="class-code">{{class.code}}</span>
+      {{gru-copy-value value=class.code tooltipCode="teacher-landing.class.click-to-copy"}}
+    </div>
+
+    {{teacher.class.gru-class-statistics class=class}}
 
     <div class="panel panel-default panel-primary announcements">
       <div class="panel-heading">{{t 'common.announcements'}}</div>

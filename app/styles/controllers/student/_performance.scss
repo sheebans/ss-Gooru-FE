@@ -1,0 +1,16 @@
+.student.performance {
+  padding: 10px;
+  @media (min-width: $screen-sm) {
+    padding: 35px 55px;
+  }
+  .filters {
+    max-height: 50px;
+    display: inline-block;
+    height: auto;
+    width: 100%;
+    padding: 6px 0 0 0;
+    .performance-scale {
+      float: right;
+    }
+  }
+}

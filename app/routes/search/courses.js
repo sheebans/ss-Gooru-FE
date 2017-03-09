@@ -39,7 +39,13 @@ export default Ember.Route.extend(ModalMixin, {
   },
 
   setupController: function (controller, model) {
+    const route = this;
+    route.controllerFor('search').set('standardFilterEnabled', false);
     controller.set('courses', model.courses);
-  }
+  },
 
+  deactivate: function () {
+    const route = this;
+    route.controllerFor('search').set('standardFilterEnabled', true);
+  }
 });

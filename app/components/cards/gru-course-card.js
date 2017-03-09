@@ -19,6 +19,8 @@ export default Ember.Component.extend(ModalMixin, {
 
   classNames:['cards','gru-course-card'],
 
+  classNameBindings: ['isSmall:small'],
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -94,6 +96,12 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {Boolean}
    */
   isEyeVisible: true,
+
+  /**
+   * Indicates if it is a small card
+   * @property {boolean}
+   */
+  isSmall: false,
 
   /**
    * @property {Array} users

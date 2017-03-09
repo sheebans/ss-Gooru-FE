@@ -2,7 +2,7 @@ import Ember from "ember";
 /**
  * Content map controller
  *
- * Controller responsible of the logic for the content map page
+ * Controller responsible of the logic for the course map page
  */
 
 

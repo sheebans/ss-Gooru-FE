@@ -17,6 +17,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   classService: Ember.inject.service("api-sdk/class"),
 
   /**
+   * @type {PerformanceService} Service to retrieve class performance summary
+   */
+  performanceService: Ember.inject.service("api-sdk/performance"),
+
+  /**
    * @type {CourseService} Service to retrieve course information
    */
   courseService: Ember.inject.service('api-sdk/course'),
@@ -41,16 +46,26 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
       if (item !== currentItem) {
         controller.selectMenuItem(item);
-
-        //if (item === 'performance') {
-        //  route.transitionTo('teacher.class.analytics.performance', queryParams);
-        //} else if (item === 'classmates') {
-        //  route.transitionTo('teacher.class.classmates');
-        //}
-        //else {
-        //  route.transitionTo('teacher.class');
-        //}
+        if (item === 'class-management') {
+          route.transitionTo('teacher.class.class-management');
+        }else if (item === 'course-map') {
+          route.transitionTo('teacher.class.course-map');
+        } else if (item === 'performance') {
+          route.transitionTo('teacher.class.performance');
+        } else if (item === 'class-activities') {
+          route.transitionTo('teacher.class.class-activities');
+        }
       }
+    },
+
+    /**
+     * Gets a refreshed list of content visible
+     */
+    updateContentVisible: function(contentId, visible) {
+      const route = this;
+      const controller = route.get("controller");
+      let contentVisibility = controller.get('contentVisibility');
+      contentVisibility.setAssessmentVisibility(contentId,visible ? 'on' :'off');
     }
   },
 
@@ -65,13 +80,17 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
     const membersPromise = route.get('classService').readClassMembers(classId);
-
+    const performanceSummaryPromise = route.get("performanceService").findClassPerformanceSummaryByClassIds([classId]);
     return Ember.RSVP.hash({
       class: classPromise,
-      members: membersPromise
+      members: membersPromise,
+      classPerformanceSummaryItems: performanceSummaryPromise
     }).then(function(hash) {
       const aClass = hash.class;
       const members = hash.members;
+      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+      aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
+
       const courseId = aClass.get('courseId');
       let visibilityPromise = Ember.RSVP.resolve([]);
       let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
@@ -89,13 +108,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         aClass.set('owner', members.get('owner'));
         aClass.set('collaborators', members.get('collaborators'));
         aClass.set('members', members.get('members'));
-        return Ember.RSVP.hash({
+        return {
           class: aClass,
           course: course,
           members: members,
-          units: course.get('children') || [],
           contentVisibility: contentVisibility
-        });
+        };
       });
     });
   },
@@ -108,7 +126,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   setupController: function(controller, model) {
     controller.set("class", model.class);
     controller.set("course", model.course);
-    controller.set("units", model.units);
+    controller.set("members", model.members);
     controller.set("contentVisibility", model.contentVisibility);
   }
 });

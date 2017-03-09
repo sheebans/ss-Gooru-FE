@@ -1,0 +1,15 @@
+<div class="controller teacher class class-activities">
+  <div class="today">
+    {{t "teacher-landing.class.class-activities-tab.today"}}
+  </div>
+
+  <ol class="collections">
+    {{#each classActivities as |classActivity|}}
+      {{class.gru-class-collection-panel
+        item=classActivity.collection
+      }}
+    {{else}}
+      <li>{{t "common.contentUnavailable"}}</li>
+    {{/each}}
+  </ol>
+</div>

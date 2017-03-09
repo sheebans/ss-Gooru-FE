@@ -174,17 +174,21 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function(resolve) {
       const category = getCategoryFromSubjectId(subjectId);
-      service.getSubjects(category).then(function(){
-        var result = service.findSubject(category, subjectId);
-        if (result && loadCourses) {
-          service.getCourses(result).then(function(){
+      if (category) {
+        service.getSubjects(category).then(function(){
+          var result = service.findSubject(category, subjectId);
+          if (result && loadCourses) {
+            service.getCourses(result).then(function(){
+              resolve(result);
+            });
+          }
+          else{
             resolve(result);
-          });
-        }
-        else{
-          resolve(result);
-        }
-      });
+          }
+        });
+      }else {
+        resolve(null);
+      }
     });
   },
 
@@ -195,7 +199,11 @@ export default Ember.Service.extend({
     if (taxonomyContainer) {
       const categorySubjects = taxonomyContainer[categoryId];
       if (categorySubjects) {
-        result = categorySubjects.findBy('id', subjectId);
+        result = categorySubjects.find(function(subject){
+          if (subjectId.includes(subject.id)) {
+            return subject;
+          }
+        });
         if (!result) {
           categorySubjects.forEach(function (subject) {
             if (!result) {   // Array forEach function does not have a short circuit, so we are testing is the value has not been found, otherwise just jump to the next element
@@ -376,7 +384,7 @@ export default Ember.Service.extend({
     const chain = Ember.A([]);
     let codes = Ember.A([]);
     taxonomyIds.forEach((taxonomyId)=>{
-      codes.push(taxonomyId.substring(taxonomyId.indexOf('.')+1, taxonomyId.indexOf('-')));
+      codes.push(taxonomyId.substring(0, taxonomyId.indexOf('-')));
     });
     codes = codes.uniq();
     codes.forEach((code)=>{

@@ -1,1 +1,11 @@
-<h1>My Performance</h1>
+<div class="student performance">
+  <div class="filters">
+    <div class="performance-scale">
+      {{grading-scale-legend}}
+    </div>
+  </div>
+  {{student.class.analytics.gru-performance-table
+    assessments=assessments
+    studentPerformanceItems=studentPerformanceItems
+  }}
+</div>

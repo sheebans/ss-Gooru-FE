@@ -49,7 +49,7 @@ test('Tenant support', function(assert) {
 
     assert.equal(currentURL(), '/');
 
-    assert.ok(Ember.$(".gru-tenant-theme style").length, "Missing tenant theme component");
+    assert.ok(!Ember.$(".gru-tenant-theme style").length, "Tenant theme component should not be loaded, only when passing access_token");
   });
 });
 
@@ -131,6 +131,7 @@ test('Legacy uri profile', function (assert) {
 test('Trying the google sign in url', function (assert) {
   visit("/?access_token=google-sign-token");
   andThen(function() {
+    assert.ok(Ember.$(".gru-tenant-theme style").length, "Tenant theme component should be loaded");
     assert.equal(currentURL(), '/sign-up-finish');
     visit('/home');
     andThen(function(){

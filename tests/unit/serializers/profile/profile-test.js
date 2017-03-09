@@ -39,7 +39,6 @@ test('serializeUpdateProfile', function(assert) {
     lastName: 'last-name',
     username:'username',
     role: 'role',
-    grades: [],
     country: 'country',
     state: 'state',
     schoolDistrict: 'school-district',
@@ -56,7 +55,6 @@ test('serializeUpdateProfile', function(assert) {
     "roster_global_userid":null,
     "user_category":"role",
     "username":"username",
-    "grade":[],
     "country":"country",
     "about":"about-me",
     "country_id":"country-id",
@@ -75,7 +73,6 @@ test('serializeUpdateProfile missing some values', function(assert) {
   const serializer = this.subject();
   const profile = ProfileModel.create({
     role: 'role',
-    grades: [],
     country: 'country',
     state: 'state',
     schoolDistrict: 'school-district',
@@ -91,6 +88,33 @@ test('serializeUpdateProfile missing some values', function(assert) {
   assert.ok(response.last_name === undefined, 'Last name should not be present');
   assert.ok(response.username === undefined, 'Username should not be present');
 });
+
+test('serializeUpdateProfile passing empty strings', function(assert) {
+  const serializer = this.subject();
+  const profile = ProfileModel.create({
+    firstName: 'first-name',
+    lastName: 'last-name',
+    username:'username',
+    role: 'role',
+    country: 'country',
+    state: 'state',
+    schoolDistrict: 'school-district',
+    aboutMe: '',
+    countryId: 'country-id',
+    stateId: '',
+    schoolDistrictId: '',
+    avatarUrl: '//baseUrl/image-id',
+    studentId: ''
+  });
+
+  const response = serializer.serializeUpdateProfile(profile);
+  assert.equal(response.roster_global_userid, null, 'Wrong roster global user id');
+  assert.equal(response.state_id, null, 'Wrong state id');
+  assert.equal(response.school_district_id, null, 'Wrong school district id');
+  assert.equal(response.school_district_id, null, 'Wrong school district id');
+  assert.equal(response.about, null, 'Wrong about');
+});
+
 
 test('normalizeReadProfile', function(assert) {
   const serializer = this.subject();

@@ -23,7 +23,8 @@ import {
   checkDomains,
   prepareFileDataToDownload,
   createFileNameToDownload,
-  isVideoURL
+  isVideoURL,
+  nullIfEmpty
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -213,6 +214,13 @@ test('Clean filename', function (assert) {
   assert.equal(cleanFilename(courseFile), '', 'Wrong course default file');
   assert.equal(cleanFilename(collectionFile), '', 'Wrong collection default file');
   assert.equal(cleanFilename(assessmentFile), '', 'Wrong assessment default file');
+});
+
+test('nullIfEmpty', function (assert) {
+  assert.equal(nullIfEmpty(""), null, 'Wrong value, should be null');
+  assert.equal(nullIfEmpty('Hi'), 'Hi', 'Wrong value, should be Hi');
+  assert.equal(nullIfEmpty(null), null, 'Wrong value, should be null');
+  assert.equal(nullIfEmpty(undefined), undefined, 'Wrong value, should be undefined');
 });
 
 test('Get File Name from Invalid URL', function (assert) {

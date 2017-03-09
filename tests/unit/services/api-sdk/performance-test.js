@@ -501,3 +501,8 @@ test('findClassPerformanceSummaryByClassIds with empty ids', function(assert) {
       done();
     });
 });
+
+//todo
+//
+//test('findAssessmentsPerformance', function(assert) {
+//});

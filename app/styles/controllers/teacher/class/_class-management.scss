@@ -1,0 +1,17 @@
+.controller.teacher.class.class-management {
+  padding: 0;
+  .course-panel,
+  .teachers-panel,
+  .class-panel{
+    min-height: 230px;
+    padding: 10px;
+  }
+  .students-panel{
+    p{
+      color: #000;
+    }
+    button{
+      border: 1px solid #eee;
+    }
+  }
+}

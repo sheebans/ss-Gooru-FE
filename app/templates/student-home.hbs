@@ -18,7 +18,7 @@
                       <ul>
                         {{#each announcementsClasses as |class| }}
                             <li>
-                              {{#link-to 'student.class' class.id}}{{class.title}}{{/link-to}}
+                              {{#link-to 'student.class.analytics.performance' class.id}}{{class.title}}{{/link-to}}
                                 <span class="greeting">{{truncate text=class.greeting maxLength=40}}</span>
                             </li>
                         {{/each}}
@@ -56,11 +56,17 @@
     <div class="content tab-content">
       <div role="tabpanel" class="tab-pane row active" id="active-classes">
         {{#if hasClasses}}
-          {{#each activeClasses as |class|}}
-            {{cards.gru-class-card
-              class=class
-              profile=profile
-              classStudentCount=myClasses.memberCount}}
+        <!-- TODO: delete unnecesary dependencies -->
+          <!-- {{cards.gru-class-card
+            class=class
+            profile=profile
+            classStudentCount=myClasses.memberCount}} -->
+          {{#each activeClassesChunks as |activeClasses|}}
+            <div class="row">
+              {{#each activeClasses as |class|}}
+                {{cards.gru-student-class-card class=class}}
+              {{/each}}
+            </div>
           {{/each}}
         {{else}}
           {{partial 'partials/student-no-classes-found'}}

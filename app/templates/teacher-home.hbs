@@ -20,7 +20,7 @@
               <ul>
                 {{#each announcementsClasses as |class| }}
                     <li>
-                      {{#link-to 'teacher.class' class.id}}{{class.title}}{{/link-to}}
+                      {{#link-to 'teacher.class.class-activities' class.id}}{{class.title}}{{/link-to}}
                         <span class="greeting">{{truncate text=class.greeting maxLength=40}}</span>
                     </li>
                 {{/each}}
@@ -37,7 +37,7 @@
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active active-classes tab hidden-xs">
           <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'active'}}>
-            <span class="lead">{{t 'user.active-classes'}}</span>
+            <span class="lead">{{t 'user.my-current-classes'}}</span>
           </a>
         </li>
         <li role="presentation" class="archived-classes tab hidden-xs">
@@ -57,11 +57,9 @@
       <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
         {{#if hasClasses}}
           {{#each activeClasses as |class|}}
-            {{cards.gru-class-card
+            {{cards.gru-teacher-class-card
               class=class
-              profile=profile
-              classStudentCount=myClasses.memberCount
-              showUnitsCount=true}}
+              classStudentCount=myClasses.memberCount}}
           {{/each}}
         {{else}}
           {{partial 'partials/teacher-no-classes-found'}}
