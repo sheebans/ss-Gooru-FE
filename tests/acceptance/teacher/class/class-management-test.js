@@ -27,6 +27,12 @@ test('Layout', function (assert) {
     assert.ok($container.find('.course-panel').length, 'Missing course panel');
     assert.ok($container.find('.teachers-panel').length, 'Missing teacher panel');
 
+    const $classPanel = $container.find('.class-panel');
+    assert.ok($classPanel.find('.class-name h5').length, 'Missing class title');
+    assert.ok($classPanel.find('.class-name h5 i').length, 'Missing class title edit');
+    assert.ok($classPanel.find('.gru-copy-value').length, 'Missing class code copy function');
+    assert.ok($classPanel.find('.gru-switch').length, 'Missing attend class switch function');
+
     const $coursePanel = $container.find('.course-panel');
     assert.ok($coursePanel.find('.assessment-min-score h5').length, 'Missing assessment min score information');
     assert.ok($coursePanel.find('.assessment-min-score h5 .gru-icon').length, 'Missing assessment min score edit icon');

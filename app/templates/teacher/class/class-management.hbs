@@ -5,7 +5,25 @@
       <h5>{{t "teacher-landing.class.class-management-tab.class-information"}}</h5>
       <div class="panel class-panel">
         <div class="panel-body">
-          <!--  -->
+          <div class="class-name">
+            <p><{{t 'teacher-landing.class.class-management-tab.class-name'}}</p>
+            <h5>{{class.title}} {{gru-icon name='edit'}}</h5>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p><{{t 'teacher-landing.class.class-management-tab.class-code'}}</p>
+              <div class="input-group input-group-sm">
+                <input type="text" class="form-control" value="{{class.code}}" disabled aria-describedby="class-code-addon">
+                <div id="class-code-addon" class="input-group-addon">
+                  {{gru-copy-value value=class.code tooltipCode="teacher-landing.class.class-management-tab.click-to-copy-class-code"}}                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <p><{{t 'teacher-landing.class.class-management-tab.attend-class-with-code'}}</p>
+              {{gru-switch switchOptions=switchOptions onOptionSwitch='onAttendClassWithCodeChange' isChecked=false}}
+            </div>
+          </div>
         </div>
       </div>
     </div>
