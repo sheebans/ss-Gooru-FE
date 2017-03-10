@@ -33,7 +33,7 @@ test('Layout', function(assert) {
     T.exists(assert, $announcements, 'Missing announcements panel');
     T.exists(assert, $graphics, 'Missing graphics panel');
 
-    T.exists(assert, $classHeader.find('.back-to'), 'Missing back link');
+    T.exists(assert, $classHeader.find('.go-back-container .back-to'), 'Missing back link');
 
     T.exists(assert, $classHeader.find('h1'), 'Missing class title');
     assert.equal(T.text($classHeader.find('h1')), 'Pochita As Teacher - With Course', 'Incorrect class title text');
@@ -70,7 +70,7 @@ test('Click on back link', function(assert) {
     const $classContainer = find('.teacher.class');
     const $classHeader = $classContainer.find('.header');
 
-    click($classHeader.find(".back-to"));
+    click($classHeader.find(".go-back-container .back-to"));
     andThen(function() {
       assert.equal(currentURL(), '/teacher-home');
     });
