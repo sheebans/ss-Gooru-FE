@@ -43,7 +43,7 @@ silent npm -q install -g \
   grunt-cli@0.1.13
 
 info "Installing quizzes addon..."
-slient npm install quizzes-addon-${QUIZZES_VERSION}.tgz
+silent npm install quizzes-addon-${QUIZZES_VERSION}.tgz
 
 info "Installing npm dependencies..."
 silent npm -q install
