@@ -64,8 +64,8 @@
     .panel {
 
       .panel-heading, .panel-body {
-        padding-left: 25px;
-        padding-right: 25px;
+        padding-left: 50px;
+        padding-right: 50px;
       }
 
       .panel-heading {
@@ -108,24 +108,19 @@
       .feedback{
         label{
           @include flexbox;
-          @include align-items(center);
-          .feedbackGuidance{
-            width: 88%;
-          }
+          @include flex-direction(column);
           textarea{
-            margin-left: 15px;
+            //border-style: groove;
+            //border-color: $light-200;
+            //border-width: 1px;
+            //box-shadow: none;
             font-size: $font-size-base;
+            padding: 5px;
+            height: 150px;
           }
-        }
-      }
-      .total-points{
-        display: inline-block;
-        .label-pts{
-          margin-left: 10px
         }
       }
       .required-feedback{
-        float:right;
         @include flexbox;
         .check_box{
           color:$blue-500;

@@ -1625,6 +1625,10 @@ export default {
     "gru-category":"Add New Category",
     "gru-preview-url":{
       "preview":"Add rubric above and preview here"
-    }
+    },
+    "overall-narrative":"Overall Narrative Feedback",
+    "feedback-guidance":"Feedback Guidance",
+    "required-feedback":"Required Feedback",
+    "feedback-guidance-placeholder":"Summarise your feedback on the essay as a whole."
   }
 };
