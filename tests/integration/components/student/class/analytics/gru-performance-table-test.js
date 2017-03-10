@@ -20,43 +20,34 @@ test('Performance Table Layout', function(assert) {
     AssessmentModel.create({id: '3', title: 'Pre Assessment Human Impact on Earth'})
   ];
 
-  var assessmentsPerformanceMock = Ember.A([
+  var collectionPerformanceSummaryItems = Ember.A([
     Ember.Object.create({
-      user: '1',
-      realId: '1',
-      performanceData: Ember.Object.create({
+        id: 1,
         score : 1,
         completionDone: 1,
         completionTotal: 50,
         timeSpent: 5000000
-      })
     }),
     Ember.Object.create({
-      user: '1',
-      realId: '2',
-      performanceData: Ember.Object.create({
-        score : 2,
-        completionDone: 14,
-        completionTotal: 50,
-        timeSpent: 5100000
-      })
+      id: '2',
+      score : 2,
+      completionDone: 14,
+      completionTotal: 50,
+      timeSpent: 5100000
     }),
     Ember.Object.create({
-      user: '1',
-      realId: '3',
-      performanceData: Ember.Object.create({
-        score : 3,
-        completionDone: 23,
-        completionTotal: 50,
-        timeSpent: 5300000
-      })
+      id: '3',
+      score : 3,
+      completionDone: 23,
+      completionTotal: 50,
+      timeSpent: 5300000
     })
   ]);
 
-  this.set('assessmentsPerformanceMock', assessmentsPerformanceMock);
+  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock studentPerformanceItems=assessmentsPerformanceMock}}`);
+  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table');
@@ -108,43 +99,34 @@ test('Sort by assessment title', function(assert) {
     AssessmentModel.create({id: '3', title: 'Assessment Human Impact on Earth'})
   ];
 
-  var assessmentsPerformanceMock = Ember.A([
+  var collectionPerformanceSummaryItems = Ember.A([
     Ember.Object.create({
-      user: '1',
-      realId: '1',
-      performanceData: Ember.Object.create({
-        score : 1,
-        completionDone: 1,
-        completionTotal: 50,
-        timeSpent: 5000000
-      })
+      id: '1',
+      score : 1,
+      completionDone: 1,
+      completionTotal: 50,
+      timeSpent: 5000000
     }),
     Ember.Object.create({
-      user: '1',
-      realId: '2',
-      performanceData: Ember.Object.create({
-        score : 2,
-        completionDone: 14,
-        completionTotal: 50,
-        timeSpent: 5100000
-      })
+      id: '2',
+      score : 2,
+      completionDone: 14,
+      completionTotal: 50,
+      timeSpent: 5100000
     }),
     Ember.Object.create({
-      user: '1',
-      realId: '3',
-      performanceData: Ember.Object.create({
-        score : 3,
-        completionDone: 23,
-        completionTotal: 50,
-        timeSpent: 5300000
-      })
+      id: '3',
+      score : 3,
+      completionDone: 23,
+      completionTotal: 50,
+      timeSpent: 5300000
     })
   ]);
 
-  this.set('assessmentsPerformanceMock', assessmentsPerformanceMock);
+  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock studentPerformanceItems=assessmentsPerformanceMock}}`);
+  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table .table');
@@ -171,43 +153,34 @@ test('Sort by score Metric', function(assert) {
     AssessmentModel.create({id: '3', title: 'Assessment Human Impact on Earth'})
   ];
 
-  var assessmentsPerformanceMock = Ember.A([
+  var collectionPerformanceSummaryItems = Ember.A([
     Ember.Object.create({
-      user: '1',
-      realId: '1',
-      performanceData: Ember.Object.create({
-        score : 100,
-        completionDone: 1,
-        completionTotal: 50,
-        timeSpent: 5000000
-      })
+      id: '1',
+      score : 100,
+      completionDone: 1,
+      completionTotal: 50,
+      timeSpent: 5000000
     }),
     Ember.Object.create({
-      user: '1',
-      realId: '2',
-      performanceData: Ember.Object.create({
-        score : 22,
-        completionDone: 14,
-        completionTotal: 50,
-        timeSpent: 5100000
-      })
+      id: '2',
+      score : 22,
+      completionDone: 14,
+      completionTotal: 50,
+      timeSpent: 5100000
     }),
     Ember.Object.create({
-      user: '1',
-      realId: '3',
-      performanceData: Ember.Object.create({
-        score : 35,
-        completionDone: 23,
-        completionTotal: 50,
-        timeSpent: 5300000
-      })
+      id: '3',
+      score : 35,
+      completionDone: 23,
+      completionTotal: 50,
+      timeSpent: 5300000
     })
   ]);
 
-  this.set('assessmentsPerformanceMock', assessmentsPerformanceMock);
+  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock studentPerformanceItems=assessmentsPerformanceMock}}`);
+  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table .table');
@@ -235,43 +208,35 @@ test('Sort by Completion Metric', function(assert) {
     AssessmentModel.create({id: '3', title: 'Assessment Human Impact on Earth'})
   ];
 
-  var assessmentsPerformanceMock = Ember.A([
+  var collectionPerformanceSummaryItems = Ember.A([
     Ember.Object.create({
-      user: '1',
-      realId: '1',
-      performanceData: Ember.Object.create({
-        score : 1,
-        completionDone: 1,
-        completionTotal: 50,
-        timeSpent: 5000000
-      })
+      id: '1',
+      score : 1,
+      completionDone: 1,
+      completionTotal: 50,
+      timeSpent: 5000000
     }),
     Ember.Object.create({
-      user: '1',
-      realId: '2',
-      performanceData: Ember.Object.create({
-        score : 2,
-        completionDone: 14,
-        completionTotal: 50,
-        timeSpent: 5100000
-      })
+      id: '2',
+      score : 2,
+      completionDone: 14,
+      completionTotal: 50,
+      timeSpent: 5100000
     }),
     Ember.Object.create({
-      user: '1',
-      realId: '3',
-      performanceData: Ember.Object.create({
-        score : 3,
-        completionDone: 23,
-        completionTotal: 50,
-        timeSpent: 5300000
-      })
+      id: '3',
+      score : 3,
+      completionDone: 23,
+      completionTotal: 50,
+      timeSpent: 5300000
     })
   ]);
 
-  this.set('assessmentsPerformanceMock', assessmentsPerformanceMock);
+  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock studentPerformanceItems=assessmentsPerformanceMock}}`);
+  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
+
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table .table');
