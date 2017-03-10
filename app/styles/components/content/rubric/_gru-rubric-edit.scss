@@ -110,12 +110,7 @@
           @include flexbox;
           @include flex-direction(column);
           textarea{
-            //border-style: groove;
-            //border-color: $light-200;
-            //border-width: 1px;
-            //box-shadow: none;
             font-size: $font-size-base;
-            padding: 5px;
             height: 150px;
           }
         }
