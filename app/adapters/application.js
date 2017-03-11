@@ -10,7 +10,7 @@ export default DS.RESTAdapter.extend(SessionMixin, {
 
   headers: Ember.computed('session.token', function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      'Authorization': 'Token ' + this.get('session.token')
     };
   }),
 
