@@ -73,7 +73,7 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} true when a rubric file is uploaded
    */
-  uploaded: null,
+  uploaded: false,
 
   /**
    * @property {string} feedback guidance
@@ -88,7 +88,7 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} true when the rubric requires feedback
    */
-  requiresFeedback: null,
+  requiresFeedback: false,
 
   /**
    * @property {string} mimeType

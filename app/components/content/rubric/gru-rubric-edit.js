@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
@@ -13,6 +14,17 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['content', 'rubric', 'gru-rubric-edit'],
+
+  // -------------------------------------------------------------------------
+  // Actions
+  actions:{
+    /**
+     *Set if feedback is required
+     */
+    setFeedBack: function(){
+      this.set('rubric.requiresFeedback',!this.get('rubric.requiresFeedback'));
+    }
+  },
 
 
   // -------------------------------------------------------------------------
@@ -38,6 +50,20 @@ export default Ember.Component.extend({
       name: 'preview',
       text: this.get('i18n').t('common.preview'),
       icon: 'remove_red_eye'
+    }];
+  }),
+  /**
+   * @property {Object[]} headerActions List of action buttons to show
+   */
+  footerActions: Ember.computed(function(){
+    return [{
+      name: 'cancel',
+      text: this.get('i18n').t('common.cancel'),
+      class: 'btn-default'
+    }, {
+      name: 'save',
+      text: this.get('i18n').t('common.save'),
+      class: 'btn-primary'
     }];
   }),
   /**
