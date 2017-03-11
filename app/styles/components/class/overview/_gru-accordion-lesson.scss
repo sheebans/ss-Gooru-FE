@@ -274,6 +274,27 @@
           @media (min-width: $screen-md) {
             width: 60%;
           }
+          .collection-controls{
+            display: table;
+            height: 100%;
+            text-align: center;
+            .row{
+              display: table-cell;
+              height: 100%;
+              & > [class*='col-']{
+                display: table-cell;
+                height: 100%;
+                padding: 0;
+                .gru-switch{
+                  position: relative;
+                  top: 50%;
+                  -webkit-transform: translateY(-50%);
+                  -ms-transform: translateY(-50%);
+                  transform: translateY(-50%);
+                }
+              }
+            }
+          }
           .title {
             font-size: $font-size-lead;
             vertical-align: middle;
@@ -358,4 +379,3 @@
     }
   }
 }
-
