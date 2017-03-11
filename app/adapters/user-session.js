@@ -10,7 +10,7 @@ export default ApplicationAdapter.extend({
 
   headers: Ember.computed('session.token-api3', function() {
     return {
-      'gooru-session-token': this.get('session.token-api3')
+      'Authorization': 'Token ' + this.get('session.token-api3')
     };
   }),
 
