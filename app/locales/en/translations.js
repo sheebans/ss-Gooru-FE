@@ -833,7 +833,7 @@ export default {
         "class-code": "Class Code",
         "attend-class-with-code": "Attend Class With Code",
         "assessment-min-score": "Assessment Minimum Score for Trophies",
-        "assigned-course": "Assigned course",
+        "assigned-course": "Assigned Course",
         "students": "Students",
         "import-roster": "Import Roster",
         "edit": "Edit",
