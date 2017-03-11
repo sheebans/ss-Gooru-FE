@@ -1,6 +1,23 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+
+
+  queryParams: {
+    collectionType: {
+      refreshModel: true
+    },
+    unitId: {
+      refreshModel: true
+    },
+    lessonId: {
+      refreshModel: true
+    },
+    courseId: {
+      refreshModel: true
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -18,25 +35,21 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function() {
+  model: function(params) {
 
     const route = this;
 
-    //TODO
-    //var filterCriteria = {
-    //  courseId: '1',
-    //  unitId: '2',
-    //  lessonId: '3'
-    //};
     const userId = route.get('session.userId');
+    const criteria = {
+      courseId: params.courseId,
+      unitId: params.unitId,
+      lessonId: params.lessonId,
+      collectionType: params.collectionType
+    };
 
-    return route.get('assessmentService').findAssessments().then(function(assessments) {
-      return route.get('performanceService').findAssessmentsPerformance(assessments, userId).then(function(studentPerformanceItems) {
-        return Ember.RSVP.hash({
-          assessments: assessments,
-          studentPerformanceItems: studentPerformanceItems
-        });
-      });
+    return Ember.RSVP.hash({
+      assessments: route.get('assessmentService').findAssessments(userId, criteria),
+      collectionPerformanceSummaryItems: route.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
     });
   },
 
@@ -47,6 +60,6 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     controller.set('assessments', model.assessments);
-    controller.set('studentPerformanceItems', model.studentPerformanceItems);
+    controller.set('collectionPerformanceSummaryItems', model.collectionPerformanceSummaryItems);
   }
 });
