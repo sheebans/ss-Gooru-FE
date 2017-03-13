@@ -14,3 +14,10 @@ test('setFeedBack', function(assert) {
   component.send('setFeedBack');
   assert.equal(component.get('rubric.requiresFeedback'),true,'Feedback should be required');
 });
+
+test('addNewCategory', function(assert) {
+  let component = this.subject();
+  assert.equal(component.get('categories.length'), 0, 'Should not have categories');
+  component.send('addNewCategory');
+  assert.equal(component.get('categories.length'), 1, 'Should have 1 category');
+});

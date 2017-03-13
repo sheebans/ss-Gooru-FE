@@ -1619,13 +1619,16 @@ export default {
   "gru-rubric-creation":{
     "url":"URL",
     "upload-file":"Upload File",
-    "gru-category":"Add New Category",
+    "add-category":"Add New Category",
     "gru-preview-url":{
       "preview":"Add rubric above and preview here"
     },
     "overall-narrative":"Overall Narrative Feedback",
     "feedback-guidance":"Feedback Guidance",
     "required-feedback":"Required Feedback",
-    "feedback-guidance-placeholder":"Summarise your feedback on the essay as a whole."
+    "feedback-guidance-placeholder":"Summarize your feedback on the essay as a whole.",
+    "gru-category":{
+      "category-title":"Category Title"
+    }
   }
 };
