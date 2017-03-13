@@ -808,6 +808,7 @@ export default {
       "collections": "Collections"
     },
     "class":{
+      "back-to": "Back to My Classes",
       "performance": "Performance",
       "classmates": "Classmates",
       "course-map": "Course Map",

@@ -34,7 +34,6 @@ test('Layout', function(assert) {
     T.exists(assert, $graphics, 'Missing graphics panel');
 
     T.exists(assert, $classHeader.find('.go-back-container .back-to'), 'Missing back link');
-
     T.exists(assert, $classHeader.find('h1'), 'Missing class title');
     assert.equal(T.text($classHeader.find('h1')), 'Pochita As Teacher - With Course', 'Incorrect class title text');
 
@@ -63,7 +62,6 @@ test('Layout', function(assert) {
 
 test('Click on back link', function(assert) {
   visit('/teacher/class/class-for-pochita-as-teacher');
-
   andThen(function() {
     assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher');
 
@@ -74,6 +72,5 @@ test('Click on back link', function(assert) {
     andThen(function() {
       assert.equal(currentURL(), '/teacher-home');
     });
-
   });
 });
