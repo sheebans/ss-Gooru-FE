@@ -8,9 +8,9 @@ const Config = Env['simple-auth-custom'] || {};
 
 export default DS.RESTAdapter.extend(SessionMixin, {
 
-  headers: Ember.computed('session.token', function() {
+  headers: Ember.computed('session.token-api3', function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token')
+      'Authorization': 'Token ' + this.get('session.token-api3')
     };
   }),
 
