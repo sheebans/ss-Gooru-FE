@@ -27,3 +27,26 @@ test('addContentToClass', function(assert) {
       done();
     });
 });
+
+
+test('enableClassContent', function(assert) {
+  const service = this.subject();
+
+  assert.expect(4);
+
+  service.set('classActivityAdapter', Ember.Object.create({
+    enableClassContent: function(classId, contentId, activationDate) {
+      assert.equal(classId, 123, 'Wrong class id');
+      assert.equal(contentId, 321, 'Wrong content id');
+      assert.equal(activationDate, 'any activation date', 'Wrong activation date');
+      return Ember.RSVP.resolve(true);
+    }
+  }));
+
+  var done = assert.async();
+  service.enableClassContent(123, 321, 'any activation date')
+    .then(function(response) {
+      assert.ok(response, 'fake-response', 'Wrong response');
+      done();
+    });
+});

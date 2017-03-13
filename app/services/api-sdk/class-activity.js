@@ -39,6 +39,24 @@ export default Ember.Service.extend({
     });
   },
 
+
+  /**
+   * Enables the class content
+   *
+   * @param {string} classId
+   * @param {string} contentId
+   * @param {Date} activationDate
+   * @returns {boolean}
+   */
+  enableClassContent: function (classId, contentId, activationDate = new Date()) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classActivityAdapter').enableClassContent(classId, contentId, activationDate).then(function() {
+        resolve(true);
+      }, reject);
+    });
+  },
+
     /**
    * Find class activities for teacher or student
    * @param {string} classId class id
