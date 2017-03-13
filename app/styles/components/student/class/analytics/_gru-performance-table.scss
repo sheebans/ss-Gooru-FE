@@ -8,15 +8,12 @@
 
   .table {
     margin: 0;
-    width: auto;
     font-size: $font-size-h6;
     background: $white;
     -webkit-box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
     -moz-box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
     box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
     border-top: 2px solid $white;
-    display: table-cell;
-
     thead {
       background-color: $performance-table-header;
       tr {
@@ -25,6 +22,7 @@
           vertical-align: top;
           padding: 5px 0 0 10px;
           height: 32px;
+          text-align: center;
           width: 180px;
           a, i {
             color: $white;
@@ -39,6 +37,7 @@
           }
           &:first-child {
             padding: 5px 17px;
+            text-align: left;
           }
           &.score {
             width: 75px;
@@ -87,6 +86,7 @@
           }
         }
         td {
+          text-align: center;
           &.performance-info {
             .score {
               border-radius: 4px;
@@ -101,10 +101,9 @@
             }
             .gru-radial-chart {
               width: 38px;
-              margin: 0 auto;
+              margin: 2px auto 0;
             }
             &.performance-completion {
-              text-align: center;
               .completion {
                 i {
                   color: $blue-400;
