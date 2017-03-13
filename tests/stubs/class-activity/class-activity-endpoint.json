@@ -1,0 +1,18 @@
+[
+  {
+    "description": "Add content to class",
+    "request": {
+      "url": "^/api/nucleus/v2/classes/(.+)/contents",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "Content-Type": "text/plain"
+      }
+    }
+  }
+]

@@ -2,14 +2,45 @@ import Ember from 'ember';
 import Collection from 'gooru-web/models/content/collection';
 import Assessment from 'gooru-web/models/content/assessment';
 import ClassActivity from 'gooru-web/models/content/class-activity';
+import ClassActivityAdapter from 'gooru-web/adapters/content/class-activity';
 
 /**
  * @typedef {Object} ClassActivityService
  */
 export default Ember.Service.extend({
 
+
   /**
-   * Find class activities
+   * @property {ClassActivityAdapter} classActivityAdapter
+   */
+  classActivityAdapter: null,
+
+  init: function () {
+    this._super(...arguments);
+    //this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('classActivityAdapter', ClassActivityAdapter.create(Ember.getOwner(this).ownerInjection()));
+  },
+
+  /**
+   * Adds a new content to class
+   *
+   * @param {string} classId
+   * @param {string} contentId
+   * @param {string} contentType
+   * @param { { courseId: string, unitId: string, lessonId: string } } context
+   * @returns {boolean}
+   */
+  addContentToClass: function (classId, contentId, contentType, context = {}) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classActivityAdapter').addContentToClass(classId, contentId, contentType, context).then(function() {
+        resolve(true);
+      }, reject);
+    });
+  },
+
+    /**
+   * Find class activities for teacher or student
    * @param {string} classId class id
    * @param {string} userId user id
    * @returns {string[]}

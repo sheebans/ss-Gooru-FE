@@ -22,7 +22,7 @@ export default Ember.Object.extend({
     collection: null,
 
     /**
-     * @property {CollectionPerformance|Ember.Object}
+     * @property {CollectionPerformanceSummary}
      */
     performance: null
 });
