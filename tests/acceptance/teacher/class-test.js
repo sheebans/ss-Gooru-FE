@@ -33,6 +33,8 @@ test('Layout', function(assert) {
     T.exists(assert, $announcements, 'Missing announcements panel');
     T.exists(assert, $graphics, 'Missing graphics panel');
 
+    T.exists(assert, $classHeader.find('.go-back-container .back-to'), 'Missing back link');
+
     T.exists(assert, $classHeader.find('h1'), 'Missing class title');
     assert.equal(T.text($classHeader.find('h1')), 'Pochita As Teacher - With Course', 'Incorrect class title text');
 
@@ -56,5 +58,22 @@ test('Layout', function(assert) {
 
     T.exists(assert, $classContainer.find('> .gru-class-navigation'), 'Missing class navigation component');
     T.exists(assert, $classContainer.find('> .content'), 'Missing class content');
+  });
+});
+
+test('Click on back link', function(assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher');
+
+    const $classContainer = find('.teacher.class');
+    const $classHeader = $classContainer.find('.header');
+
+    click($classHeader.find(".go-back-container .back-to"));
+    andThen(function() {
+      assert.equal(currentURL(), '/teacher-home');
+    });
+
   });
 });

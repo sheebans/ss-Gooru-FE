@@ -820,6 +820,7 @@ export default {
     "latest-announcement":"Latest Announcement",
     "latest-assessment":"Latest Assessment",
     "class": {
+      "back-to": "Back to Classrooms",
       "click-to-copy": "Click to copy class code",
       "course-map": "Course Map",
       "performance": "Performance",
