@@ -5,6 +5,9 @@
   .class-panel{
     min-height: 230px;
     padding: 10px;
+    .gru-icon.edit {
+      color: $light-500;
+    }
   }
   .class-panel{
     input{
