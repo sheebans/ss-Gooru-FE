@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import SessionMixin from 'gooru-web/mixins/session';
 
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(SessionMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -59,11 +60,13 @@ export default Ember.Component.extend({
     return [{
       name: 'cancel',
       text: this.get('i18n').t('common.cancel'),
-      class: 'btn-default'
+      class: 'btn-default',
+      action:  () => this.cancel()
     }, {
       name: 'save',
       text: this.get('i18n').t('common.save'),
-      class: 'btn-primary'
+      class: 'btn-primary',
+      action: () => this.save()
     }];
   }),
   /**
@@ -88,5 +91,21 @@ export default Ember.Component.extend({
   /**
    * @property {String} selected Current option selected
    */
-  selected: 'information'
+  selected: 'information',
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Cancel function for footer
+   */
+  cancel:function(){
+    this.get('router').transitionTo('profile.content.courses', this.get('session.userData.gooruUId'));
+  },
+  /**
+   * Save function for footer
+   */
+  save:function(){
+    // TODO: Save rubric
+    Ember.Logger.log('Save rubric');
+  }
 });
