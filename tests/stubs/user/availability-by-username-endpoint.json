@@ -5,10 +5,7 @@
       "query": {
         "keyword": "^gooru$"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -25,10 +22,7 @@
       "query": {
         "keyword": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,

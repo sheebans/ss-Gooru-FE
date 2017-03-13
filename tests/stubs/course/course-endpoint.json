@@ -3,10 +3,7 @@
     "description": "Gets course data for a specific ID",
     "request": {
       "url": "^/gooruapi/rest/v1/course/(.+)$",
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -36,7 +33,7 @@
     }
   },
   {
-    "description": "Fetch any course",    
+    "description": "Fetch any course",
     "request": {
       "url": "^/api/nucleus/v1/courses/([^//]+)$",
       "method": "GET",

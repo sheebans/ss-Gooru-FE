@@ -37,7 +37,7 @@ export default Ember.Object.extend({
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
-      headers: this.defineAuthorizationHeaders(),
+      headers: this.defineHeaders(),
       data: JSON.stringify({
         "classIds" : classIds,
         "userId": userId
@@ -47,12 +47,6 @@ export default Ember.Object.extend({
   },
 
   defineHeaders: function() {
-    return {
-      'gooru-session-token': this.get('session.token-api3')
-    };
-  },
-
-  defineAuthorizationHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
     };

@@ -75,10 +75,7 @@
       "query": {
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
