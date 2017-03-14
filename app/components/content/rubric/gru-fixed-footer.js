@@ -7,6 +7,18 @@ export default Ember.Component.extend({
   classNames: ['content','rubric','gru-fixed-footer'],
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions:{
+    /**
+     * Click button action
+     */
+    clickAction:function(action){
+      action();
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Properties
 
   /**

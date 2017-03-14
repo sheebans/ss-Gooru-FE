@@ -2,10 +2,7 @@
   {
     "request": {
       "url": "^/gooruapi/rest/v2/library$",
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,

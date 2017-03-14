@@ -1,7 +1,9 @@
 import Ember from 'ember';
+import SessionMixin from 'gooru-web/mixins/session';
+import Category from 'gooru-web/models/rubric/rubric-category';
 
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(SessionMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -23,6 +25,14 @@ export default Ember.Component.extend({
      */
     setFeedBack: function(){
       this.set('rubric.requiresFeedback',!this.get('rubric.requiresFeedback'));
+    },
+    /**
+     * Add new category
+     */
+    addNewCategory:function(){
+      let newCategory = Category.create({});
+      let categories = this.get('categories');
+      categories.addObject(newCategory);
     }
   },
 
@@ -30,6 +40,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * @property {Category[]} Temporal categories array
+   */
+  categories:Ember.computed('rubric.categories.[]',function(){
+    let categories = Ember.A([]);
+    if(this.get('rubric.categories.length')){
+      categories = this.get('rubric.categories');
+    }
+    return categories;
+  }),
   /**
    * @property {Object[]} headerActions List of action buttons to show
    */
@@ -59,11 +79,13 @@ export default Ember.Component.extend({
     return [{
       name: 'cancel',
       text: this.get('i18n').t('common.cancel'),
-      class: 'btn-default'
+      class: 'btn-default',
+      action:  () => this.cancel()
     }, {
       name: 'save',
       text: this.get('i18n').t('common.save'),
-      class: 'btn-primary'
+      class: 'btn-primary',
+      action: () => this.save()
     }];
   }),
   /**
@@ -88,5 +110,21 @@ export default Ember.Component.extend({
   /**
    * @property {String} selected Current option selected
    */
-  selected: 'information'
+  selected: 'information',
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Cancel function for footer
+   */
+  cancel:function(){
+    this.get('router').transitionTo('profile.content.courses', this.get('session.userData.gooruUId'));
+  },
+  /**
+   * Save function for footer
+   */
+  save:function(){
+    // TODO: Save rubric
+    Ember.Logger.log('Save rubric');
+  }
 });

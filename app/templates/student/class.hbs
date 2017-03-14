@@ -1,5 +1,11 @@
 <div class="student class">
   <div class="header">
+    <div class="go-back-container">
+      {{#link-to 'student-home' class="back-to"}}
+        {{gru-icon name='arrow_back'}}
+        {{t 'student-landing.class.back-to'}}
+      {{/link-to}}
+    </div>
     <h1>{{class.title}}</h1>
     <div class="code">{{class.code}}</div>
 

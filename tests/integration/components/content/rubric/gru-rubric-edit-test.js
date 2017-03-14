@@ -28,3 +28,18 @@ test('it renders', function(assert) {
     assert.ok($component.find('.overall-score .panel-body .required-feedback span').length,'Missing required feedback checkbox');
   });
 });
+
+test('Add Category', function(assert) {
+  this.render(hbs`{{content/rubric/gru-rubric-edit}}`);
+  const $component = this.$();
+  var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
+  $rubricTab.click();
+  return wait().then(function () {
+    var $addCategory = $component.find('.category-panel a.add-category');
+    $addCategory.click();
+    return wait().then(function () {
+      assert.ok($component.find('.category-panel .content.rubric.gru-category').length, 'Should add a category');
+      assert.ok($component.find('.category-panel .content.rubric.gru-category .panel.expanded').length, 'The category should be expanded');
+    });
+  });
+});

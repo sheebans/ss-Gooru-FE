@@ -67,7 +67,7 @@ export default Ember.Controller.extend({
    * @property {*}
    */
   pagination: {
-    page: 1,
+    page: 0,
     pageSize: DEFAULT_PAGE_SIZE
   },
 
@@ -99,7 +99,7 @@ export default Ember.Controller.extend({
 
   resetValues: function(){
     this.set("pagination", {
-      page: 1,
+      page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
   }
