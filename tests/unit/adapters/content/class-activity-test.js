@@ -6,7 +6,7 @@ moduleForAdapter('adapter:content/class-activity', 'Unit | Adapter | content/cla
   // needs: []
 });
 
-test('addContentToClass with no context', function(assert) {
+test('addActivityToClass with no context', function(assert) {
   assert.expect(9);
 
   const adapter = this.subject();
@@ -27,13 +27,13 @@ test('addContentToClass with no context', function(assert) {
       return [201, {'Content-Type': 'text/plain'}, ''];
     }, false);
   });
-  adapter.addContentToClass(123, 321, 'assessment')
+  adapter.addActivityToClass(123, 321, 'assessment')
     .then(function(response) {
       assert.equal('', response, 'Wrong response');
     });
 });
 
-test('addContentToClass with context', function(assert) {
+test('addActivityToClass with context', function(assert) {
   assert.expect(9);
 
   const adapter = this.subject();
@@ -54,7 +54,7 @@ test('addContentToClass with context', function(assert) {
       return [201, {'Content-Type': 'text/plain'}, ''];
     }, false);
   });
-  adapter.addContentToClass(123, 321, 'assessment', {
+  adapter.addActivityToClass(123, 321, 'assessment', {
     courseId: 10,
     unitId: 20,
     lessonId: 30,
@@ -65,7 +65,7 @@ test('addContentToClass with context', function(assert) {
     });
 });
 
-test('enableClassContent with date', function(assert) {
+test('enableClassActivity with date', function(assert) {
   assert.expect(3);
 
   const adapter = this.subject();
@@ -81,13 +81,13 @@ test('enableClassContent with date', function(assert) {
     }, false);
   });
   const november = (11 - 1);
-  adapter.enableClassContent(123, 321, new Date(2012, november, 13))
+  adapter.enableClassActivity(123, 321, new Date(2012, november, 13))
     .then(function(response) {
       assert.equal('', response, 'Wrong response');
     });
 });
 
-test('findClassContent with no content type', function(assert) {
+test('findClassActivities with no content type', function(assert) {
   assert.expect(3);
 
   const adapter = this.subject();
@@ -101,13 +101,13 @@ test('findClassContent with no content type', function(assert) {
       return [201, {'Content-Type': 'application/json'}, JSON.stringify('fake-response')];
     }, false);
   });
-  adapter.findClassContent(123)
+  adapter.findClassActivities(123)
     .then(function(response) {
       assert.equal('fake-response', response, 'Wrong response');
     });
 });
 
-test('findClassContent with content type', function(assert) {
+test('findClassActivities with content type', function(assert) {
   assert.expect(3);
 
   const adapter = this.subject();
@@ -121,7 +121,7 @@ test('findClassContent with content type', function(assert) {
       return [201, {'Content-Type': 'application/json'}, JSON.stringify('fake-response')];
     }, false);
   });
-  adapter.findClassContent(123, 'assessment')
+  adapter.findClassActivities(123, 'assessment')
     .then(function(response) {
       assert.equal('fake-response', response, 'Wrong response');
     });

@@ -23,7 +23,7 @@ export default Ember.Object.extend({
    * @param { { courseId: string, unitId: string, lessonId: string } } context
    * @returns {Promise}
    */
-  addContentToClass: function (classId, contentId, contentType, context = {}) {
+  addActivityToClass: function (classId, contentId, contentType, context = {}) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents`;
@@ -55,7 +55,7 @@ export default Ember.Object.extend({
    * @param { { courseId: string, unitId: string, lessonId: string } } context
    * @returns {Promise}
    */
-  enableClassContent: function (classId, contentId, activationDate = new Date()) {
+  enableClassActivity: function (classId, contentId, activationDate = new Date()) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents/${contentId}`;
@@ -79,7 +79,7 @@ export default Ember.Object.extend({
    * @param {string} contentType collection|assessment|resource|question
    * @returns {Promise}
    */
-  findClassContent: function(classId, contentType = undefined) {
+  findClassActivities: function(classId, contentType = undefined) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents`;

@@ -28,10 +28,10 @@ export default Ember.Service.extend({
    * @param { { courseId: string, unitId: string, lessonId: string } } context
    * @returns {boolean}
    */
-  addContentToClass: function (classId, contentId, contentType, context = {}) {
+  addActivityToClass: function (classId, contentId, contentType, context = {}) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classActivityAdapter').addContentToClass(classId, contentId, contentType, context).then(function() {
+      service.get('classActivityAdapter').addActivityToClass(classId, contentId, contentType, context).then(function() {
         resolve(true);
       }, reject);
     });
@@ -46,10 +46,10 @@ export default Ember.Service.extend({
    * @param {Date} activationDate
    * @returns {boolean}
    */
-  enableClassContent: function (classId, contentId, activationDate = new Date()) {
+  enableClassActivity: function (classId, contentId, activationDate = new Date()) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classActivityAdapter').enableClassContent(classId, contentId, activationDate).then(function() {
+      service.get('classActivityAdapter').enableClassActivity(classId, contentId, activationDate).then(function() {
         resolve(true);
       }, reject);
     });
@@ -63,12 +63,15 @@ export default Ember.Service.extend({
    * @param {string} contentType collection|assessment|resource|question
    * @returns {Promise}
    */
-  findClassContent: function(classId, contentType = undefined) {
+  findClassActivities: function(classId, contentType = undefined) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classActivityAdapter')
-        .findClassContent(classId, contentType).then(function(payload) {
-        resolve(service.get('classActivitySerializer').normalizeFindClassActivities(payload));
+        .findClassActivities(classId, contentType).then(function(payload) {
+        //TODO load performance
+        //TODO load members at collection
+        const classActivities = service.get('classActivitySerializer').normalizeFindClassActivities(payload);
+        resolve(classActivities);
       }, reject);
     });
   }
