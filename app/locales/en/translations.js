@@ -588,7 +588,8 @@ export default {
     "overview": {
       "title": "Course Map",
       "locate": "Locate Me",
-      "editContent": "Edit Content"
+      "edit-content": "Edit Content",
+      "add-to-daily-class-activities": "Add to Daily Class Activities"
     },
     "analytics": {
       "performance": {

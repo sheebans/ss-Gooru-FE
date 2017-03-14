@@ -64,6 +64,11 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   classService: Ember.inject.service("api-sdk/class"),
 
+  /**
+   * @property {ClassActivityService}
+   */
+  classActivityService: Ember.inject.service('api-sdk/class-activity'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -104,6 +109,21 @@ export default Ember.Component.extend(AccordionMixin, {
 
     setOnAir: function (collectionId) {
       this.get('onLaunchOnAir')(collectionId);
+    },
+
+    /**
+     * Add to class activity
+     *
+     * @function actions:addToClassActivities
+     */
+    addToClassActivities: function (collection) {
+        const classId = this.get('currentClass.id');
+        const context = {
+          courseId: this.get('currentClass.courseId'),
+          unitId: this.get('unitId'),
+          lessonId: this.get('model.id')
+        };
+        this.get('classActivityService').addActivityToClass(classId, collection.get('id'), collection.get('collectionType'), context);
     },
     /**
      * @function changeVisibility

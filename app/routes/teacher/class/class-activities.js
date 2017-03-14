@@ -21,15 +21,12 @@ export default Ember.Route.extend({
   // Methods
 
   model: function () {
-    const route = this;
-    const currentClass = route.modelFor('teacher.class').class;
-    const userId = route.get('session.userId');
+    //const route = this;
+    //const currentClass = route.modelFor('teacher.class').class;
+    //const userId = route.get('session.userId');
 
-    return route.get('classActivityService').findClassActivities(currentClass.get('id'), userId)
-      .then(function(classActivities) {
-      return Ember.RSVP.hash({
-        classActivities: classActivities
-      });
+    return Ember.RSVP.hash({
+      classActivities: [] //route.get('classActivityService').findClassActivities(userId, currentClass.get('id'), 'assessment')
     });
   },
 

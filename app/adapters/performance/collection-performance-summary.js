@@ -43,6 +43,39 @@ export default Ember.Object.extend({
     });
   },
 
+
+  /**
+   * Finds collection performance summary for the ids provided
+   * @param {string} userId user id
+   * @param {string[]} collectionIds
+   * @param {string} collectionType collection|assessment
+   * @param {string} classId optional class id filter
+   * @param {string} timePeriod optional time period filter
+   * @returns {Ember.RSVP.Promise}
+     */
+  findCollectionPerformanceSummaryByIds: function (userId, collectionIds, collectionType, classId = undefined, timePeriod = undefined) {
+    const namespace = this.get("namespace");
+    const url = `${namespace}/${collectionType}/performance`;
+    const options = {
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      headers: this.defineHeaders(),
+      data: JSON.stringify({
+        userId: userId,
+        classId: classId,
+        timePeriod: timePeriod,
+        collectionIds: collectionIds
+      })
+    };
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData) {
+          resolve(responseData);
+        }, reject);
+    });
+  },
+
   defineHeaders: function () {
     return {
       "Authorization": "Token " + this.get("session.token-api3")
