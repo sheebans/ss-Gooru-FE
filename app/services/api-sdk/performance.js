@@ -513,5 +513,22 @@ export default Ember.Service.extend({
         .then(function (data) {
           return service.get('collectionPerformanceSummarySerializer').normalizeAllCollectionPerformanceSummary(data);
         });
+  },
+
+  /**
+   * Finds collection performance summary for the ids provided
+   * @param {string} userId user id
+   * @param {string[]} collectionIds
+   * @param {string} collectionType collection|assessment
+   * @param {string} classId optional class id filter
+   * @param {string} timePeriod optional time period filter
+   * @returns {Ember.RSVP.Promise}
+   */
+  findCollectionPerformanceSummaryByIds: function (userId, collectionIds, collectionType, classId = undefined, timePeriod = undefined) {
+    const service = this;
+    return service.get('collectionPerformanceSummaryAdapter').findCollectionPerformanceSummaryByIds(userId, collectionIds, collectionType, classId, timePeriod)
+        .then(function (data) {
+          return service.get('collectionPerformanceSummarySerializer').normalizeAllCollectionPerformanceSummary(data);
+        });
   }
 });

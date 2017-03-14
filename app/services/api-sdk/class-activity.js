@@ -9,6 +9,11 @@ export default Ember.Service.extend({
 
 
   /**
+   * @property {PerformanceService} performanceService
+   */
+  performanceService: Ember.inject.service("api-sdk/performance"),
+
+  /**
    * @property {ClassActivityAdapter} classActivityAdapter
    */
   classActivityAdapter: null,
@@ -59,18 +64,50 @@ export default Ember.Service.extend({
   /**
    * Gets all class activity for the authorized user (student|teacher)
    *
+   * @param {string} userId
    * @param {string} classId
    * @param {string} contentType collection|assessment|resource|question
-   * @returns {Promise}
+   * @returns {Promise.<ClassActivity[]>}
    */
-  findClassActivities: function(classId, contentType = undefined) {
+  findClassActivities: function(userId, classId, contentType = undefined) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classActivityAdapter')
         .findClassActivities(classId, contentType).then(function(payload) {
-        //TODO load performance
-        //TODO load members at collection
         const classActivities = service.get('classActivitySerializer').normalizeFindClassActivities(payload);
+        service.findClassActivitiesPerformanceSummary(userId, classId, classActivities).then(resolve, reject);
+      });
+    });
+  },
+
+  /**
+   * Gets all class activity for the authorized user (student|teacher)
+   * @param {ClassActivity[]} classActivities
+   * @returns {Promise.<ClassActivity[]>}
+   */
+  findClassActivitiesPerformanceSummary: function(userId, classId, classActivities) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      const assessmentIds = classActivities.filterBy('collection.isAssessment').mapBy('collection.id');
+      const collectionIds = classActivities.filterBy('collection.isCollection').mapBy('collection.id');
+      const performanceService = service.get('performanceService');
+      Ember.RSVP.hash({
+        collectionPerformanceSummaryItems: collectionIds.length ?
+          performanceService.findCollectionPerformanceSummaryByIds(userId, collectionIds, 'collection', classId) : [],
+        assessmentPerformanceSummaryItems: assessmentIds.length ?
+          performanceService.findCollectionPerformanceSummaryByIds(userId, assessmentIds, 'assessment', classId) : []
+      }).then(function(hash){
+        const collectionPerformanceSummaryItems = hash.collectionPerformanceSummaryItems;
+        const assessmentPerformanceSummaryItems = hash.assessmentPerformanceSummaryItems;
+
+        classActivities.forEach(function(classActivity){
+          const collection = classActivity.get('collection');
+          const collectionPerformanceSummary = collection.get('isAssessment') ?
+            assessmentPerformanceSummaryItems.findBy('collectionId', collection.get('id')) :
+            collectionPerformanceSummaryItems.findBy('collectionId', collection.get('id'));
+          classActivity.set('collectionPerformanceSummary', collectionPerformanceSummary);
+        });
+
         resolve(classActivities);
       }, reject);
     });

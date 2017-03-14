@@ -24,7 +24,7 @@ export default Ember.Object.extend({
   /**
    * @property {CollectionPerformanceSummary}
    */
-  performance: null,
+  collectionPerformanceSummary: null,
 
   /**
    * @property { { courseId: string, unitId: string, lessonId: string, collectionId: string }}

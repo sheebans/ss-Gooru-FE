@@ -34,7 +34,7 @@ export default Ember.Object.extend({
       processData: false,
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
-        classId: classId,
+        class_id: classId,
         content_id: contentId,
         content_type: contentType,
         ctx_course_id: context.courseId,

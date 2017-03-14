@@ -97,7 +97,7 @@
 
           <div class="panel-heading {{if isTeacher 'teacher' 'student'}}">
             <div class="panel-title">
-              <div class="icon-container">
+              <div class="icon-container" {{action 'addToClassActivities' item}}>
                 {{#if item.isAssessment}}
                   {{#if item.thumbnailUrl}}
                     <img class="img-rounded" src="{{item.thumbnailUrl}}" />

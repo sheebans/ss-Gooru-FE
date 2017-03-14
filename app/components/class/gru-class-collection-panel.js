@@ -55,6 +55,11 @@ export default Ember.Component.extend({
   item: null,
 
   /**
+   * @property {CollectionPerformanceSummary}
+   */
+  collectionPerformanceSummary: null,
+
+  /**
    * Toggle Options
    * @property {Ember.Array}
    */

@@ -16,7 +16,7 @@ test('addActivityToClass with no context', function(assert) {
   this.pretender.map(function() {
     this.post('/api/nucleus/v2/classes/123/contents', function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(requestBodyJson.classId, 123, 'Wrong class id');
+      assert.equal(requestBodyJson.class_id, 123, 'Wrong class id');
       assert.equal(requestBodyJson.content_id, 321, 'Wrong content id');
       assert.equal(requestBodyJson.content_type, 'assessment', 'Wrong content type');
       assert.ok(!requestBodyJson.ctx_course_id, 'ctx_course_id should be undefined');
@@ -43,7 +43,7 @@ test('addActivityToClass with context', function(assert) {
   this.pretender.map(function() {
     this.post('/api/nucleus/v2/classes/123/contents', function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(requestBodyJson.classId, 123, 'Wrong class id');
+      assert.equal(requestBodyJson.class_id, 123, 'Wrong class id');
       assert.equal(requestBodyJson.content_id, 321, 'Wrong content id');
       assert.equal(requestBodyJson.content_type, 'assessment', 'Wrong content type');
       assert.equal(requestBodyJson.ctx_course_id, 10, 'ctx_course_id should be 10');
