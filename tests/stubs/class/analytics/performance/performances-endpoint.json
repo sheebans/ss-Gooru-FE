@@ -33,6 +33,21 @@
     }
   },
   {
+    "description": "Gets the collection performance data for any student, course, unit, lesson",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/study/(assessment|collection)/performance",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-collection-performance-summary-200-response.json"
+    }
+  },
+  {
     "description": "Gets the lesson performance data by student and unit",
     "request": {
       "url": "^/mocked-api/insights/api/v1/class/(.+)/course/(.+)/unit/0619777a-45fa-4bfe-b800-40b2ab158c7a/progress$",
@@ -86,10 +101,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -109,10 +121,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -132,10 +141,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -155,10 +161,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -178,10 +181,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -201,10 +201,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -224,10 +221,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -247,10 +241,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -270,10 +261,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -293,10 +281,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -316,10 +301,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -339,10 +321,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -362,10 +341,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -385,10 +361,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -408,10 +381,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -431,10 +401,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -454,10 +421,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -477,10 +441,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -500,10 +461,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -523,10 +481,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -546,10 +501,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,
@@ -569,10 +521,7 @@
         "userUid": "(.+)",
         "collectionType": "(.+)"
       },
-      "method": "GET",
-      "headers": {
-        "gooru-session-token": "(.+)"
-      }
+      "method": "GET"
     },
     "response": {
       "status": 200,

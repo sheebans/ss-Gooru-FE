@@ -46,7 +46,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'gooru-session-token': this.get('session.token-api3')
+      'Authorization': 'Token ' + this.get('session.token-api3')
     };
   }
 

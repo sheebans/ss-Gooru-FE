@@ -114,7 +114,7 @@
               </div>
               {{#if item.visible}}
                 <a class="title" {{action "selectResource" item}}>
-                  <div>{{item.title}}</div>
+                  <div class="ellipsis">{{item.title}}</div>
                   <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
                 </a>
               {{else}}
@@ -133,7 +133,7 @@
                     </a>
                   {{else}}
                     <a class="title disabled"  data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
-                      <div>{{item.title}}</div>
+                      <div class="ellipsis">{{item.title}}</div>
                       <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
                     </a>
                   {{/if}}
@@ -141,14 +141,19 @@
               {{/if}}
             </div>
             <div class="info">
-              <div class="content-count">
+              <div class="content-count {{if (and item.questionCount item.resourceCount) 'mixed'}}">
                 {{#if item.isAssessment}}
                   {{#if item.questionCount}}
                     <span><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
                   {{/if}}
                 {{else}}
-                  {{#if item.resourceCount}}
-                    <span><b>{{item.resourceCount}}</b> {{t "common.resource-pl" count=item.resourceCount}}</span>
+                  {{#if (or item.questionCount item.resourceCount)}}
+                    {{#if item.resourceCount}}
+                      <span><b>{{item.resourceCount}}</b> {{t "common.resource-pl" count=item.resourceCount}}</span>
+                    {{/if}}
+                    {{#if item.questionCount}}
+                      <span><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
+                    {{/if}}
                   {{/if}}
                 {{/if}}
               </div>

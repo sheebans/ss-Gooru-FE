@@ -5,6 +5,34 @@
   .class-panel{
     min-height: 230px;
     padding: 10px;
+    .gru-icon.edit {
+      color: $light-500;
+    }
+  }
+  .class-panel{
+    input{
+      text-align: center;
+      border: 1px solid $dark-200;
+      -webkit-border-top-left-radius: 3px;
+      -moz-border-top-left-radius: 3px;
+      border-top-left-radius: 3px;
+      -webkit-border-bottom-left-radius: 3px;
+      -moz-border-bottom-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      height: 32px;
+    }
+    .input-group-addon{
+      background-color: $dark-200;
+      border-left: 1px solid white;
+      padding: 0 5px;
+      i{
+          color: white;
+      }
+    }
+    .gru-switch{
+      margin: 0;
+      padding: 0;
+    }
   }
   .students-panel{
     p{

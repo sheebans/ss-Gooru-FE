@@ -7,7 +7,8 @@ export default Ember.Object.extend(SessionMixin, {
 
   headers: Ember.computed('session.token', function() {
     return {
-      'gooru-session-token': this.get('session.token')
+      'gooru-session-token': this.get('session.token'), //TODO change RT BE to support authorization token
+      'Authorization': 'Token ' + this.get('session.token')
     };
   }),
 

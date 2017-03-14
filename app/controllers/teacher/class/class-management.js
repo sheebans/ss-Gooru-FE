@@ -17,6 +17,11 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    onAttendClassWithCodeChange: function(){
+      //
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -31,7 +36,19 @@ export default Ember.Controller.extend({
   /**
    * @property {Course}
    */
-  course: Ember.computed.alias('classController.course')
+  course: Ember.computed.alias('classController.course'),
+
+  /**
+   * Toggle Options
+   * @property {Ember.Array}
+   */
+  switchOptions: Ember.A([Ember.Object.create({
+    'label': "On",
+    'value': true
+  }),Ember.Object.create({
+    'label': "Off",
+    'value': false
+  })])
 
   // -------------------------------------------------------------------------
   // Observers

@@ -33,7 +33,7 @@
       @media (min-width: $screen-sm) {
         width: 34%;
       }
-      @media (min-width: $screen-md) {
+      @media (min-width: $screen-lg) {
         width: 50%;
       }
       .title {
@@ -61,7 +61,7 @@
         float: right;
         text-align: right;
       }
-      @media (min-width: $screen-md) {
+      @media (min-width: $screen-lg) {
         width: 50%;
       }
       .content-count {
@@ -117,7 +117,7 @@
       > .panel {
         margin: 0;
         padding: 0;
-        height: 134px;
+        height: 145px;
         border-bottom: 1px solid $light-100;
         @media (min-width: $screen-sm) {
           height: 80px;
@@ -221,7 +221,7 @@
       .panel-heading {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
         width: 100%;
-        height: auto;
+        height: inherit;
         display: inline-block;
         border-radius: 0;
 
@@ -262,32 +262,36 @@
         .title, .score, .gru-user-icons, .state, .content-count, .icon-container {
           display: inline-block;
           vertical-align: middle;
-          padding: 10px 0;
+          padding: 0;
+          @media (min-width: $screen-sm) {
+            padding: 10px 0;
+          }
         }
 
         .panel-title {
           width: 100%;
           float: left;
           @media (min-width: $screen-sm) {
-            width: 50%;
+            width: 34%;
           }
-          @media (min-width: $screen-md) {
-            width: 60%;
+          @media (min-width: $screen-lg) {
+            width: 50%;
           }
           .title {
             font-size: $font-size-lead;
             vertical-align: middle;
             margin: 0;
-            line-height: $font-size-lead;
-            max-width: 80%;
-            width: 80%;
-            @media (min-width: $screen-sm) {
+            line-height: $font-size-h5;
+            max-width: 75%;
+            width: 75%;
+
+            @media (min-width: $screen-lg) {
               margin: 0 0 0 10px;
-              max-width: inherit;
-              width: inherit;
+              max-width: 80%;
+              width: 80%;
             }
             .type {
-              color: $light-300;
+              color: $light-500;
               font-size: $font-navigator;
               padding: 5px 0 0 0;
             }
@@ -298,16 +302,19 @@
           width: 100%;
           float: left;
           @media (min-width: $screen-sm) {
-            width: 50%;
+            width: 66%;
             float: right;
             text-align: right;
           }
-          @media (min-width: $screen-md) {
-            width: 40%;
+          @media (min-width: $screen-lg) {
+            width: 50%;
           }
           .content-count {
             font-size: $font-size-large;
-            margin: 0 10px 0 0;
+            margin: 0 5px 0 0;
+            @media (min-width: $screen-md) {
+              margin: 0 10px 0 0;
+            }
             &.mixed {
               > span:first-child {
                 border-right: 1px solid $text-color;

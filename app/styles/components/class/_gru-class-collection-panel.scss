@@ -68,7 +68,10 @@
     .title, .score, .gru-user-icons, .state, .content-count, .icon-container, .switch-panel, .on-air {
       display: inline-block;
       vertical-align: middle;
-      padding: 10px 0;
+      padding: 0;
+      @media (min-width: $screen-xs) {
+        padding: 10px 0;
+      }
     }
 
     .panel-title {
@@ -80,10 +83,10 @@
         width: 80%;
       }
       @media (min-width: $screen-md) {
-        width: 50%;
+        width: 38%;
       }
       @media (min-width: $screen-lg) {
-        width: 53%;
+        width: 45%;
       }
       .icon-container {
         i {
@@ -95,14 +98,15 @@
         font-size: $font-size-lead;
         vertical-align: middle;
         margin: 0;
-        line-height: $font-size-lead;
+        line-height: $font-size-h5;
         max-width: 80%;
         width: 80%;
+        padding: 10px 0;
         @media (min-width: $screen-sm) {
           margin: 0 0 0 10px;
         }
         .type {
-          color: $light-300;
+          color: $light-500;
           font-size: $font-navigator;
           padding: 5px 0 0 0;
         }
@@ -113,12 +117,12 @@
       width: 100%;
       float: left;
       @media (min-width: $screen-md) {
-        width: 37%;
+        width: 49%;
         float: right;
         text-align: right;
       }
       @media (min-width: $screen-lg) {
-        width: 33%;
+        width: 42%;
       }
       .content-count {
         font-size: $font-size-large;

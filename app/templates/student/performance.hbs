@@ -1,11 +1,35 @@
 <div class="student performance">
+  <div class="panel-header">
+    <h1>{{t 'student-landing.my-performance.title'}}</h1>
+    <button class="btn btn-primary download">
+      {{gru-icon name='file_download'}}
+      <span>{{t 'student-landing.my-performance.download-print'}}</span>
+    </button>
+    <p>{{t 'student-landing.my-performance.primary-text'}}</p>
+  </div>
+
   <div class="filters">
+    <div class="radios-container">
+      {{validation.gru-radio
+        groupValue=currentRole
+        valuePath='assessment'
+        name="filter-radio"
+        translationPath="student-landing.my-performance.assessments"
+      }}
+
+      {{validation.gru-radio
+        groupValue=currentRole
+        valuePath='collection'
+        name="filter-radio"
+        translationPath="student-landing.my-performance.collections"
+      }}
+    </div>
     <div class="performance-scale">
       {{grading-scale-legend}}
     </div>
   </div>
   {{student.class.analytics.gru-performance-table
     assessments=assessments
-    studentPerformanceItems=studentPerformanceItems
+    collectionPerformanceSummaryItems=collectionPerformanceSummaryItems
   }}
 </div>
