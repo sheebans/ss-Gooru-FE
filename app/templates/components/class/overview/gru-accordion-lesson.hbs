@@ -97,20 +97,22 @@
 
           <div class="panel-heading {{if isTeacher 'teacher' 'student'}}">
             <div class="panel-title border-between row">
-              <div class="col-md-3 collection-controls">
-                <div class="row">
-                  <div class="col-md-6">
-                    <a href="#" data-toggle="tooltip" title="{{t 'class.overview.add-to-daily-class-activities'}}">
-                      {{gru-icon name='add'}}
-                      <br>
-                      <span>{{t 'common.add'}}</span>
-                    </a>
-                  </div>
-                  <div class="col-md-6">
-                    {{gru-switch switchOptions=switchOptions onOptionSwitch='onAttendClassWithCodeChange' isChecked=false}}
+              {{#if isTeacher}}
+                <div class="col-md-3 collection-controls">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <a href="#" data-toggle="tooltip" title="{{t 'class.overview.add-to-daily-class-activities'}}">
+                        {{gru-icon name='add'}}
+                        <br>
+                        <span>{{t 'common.add'}}</span>
+                      </a>
+                    </div>
+                    <div class="col-md-6">
+                      {{gru-switch switchOptions=switchOptions onOptionSwitch='onAttendClassWithCodeChange' isChecked=false}}
+                    </div>
                   </div>
                 </div>
-              </div>
+              {{/if}}
               <div class="col-md-9">
                 <div class="icon-container">
                   {{#if item.isAssessment}}
