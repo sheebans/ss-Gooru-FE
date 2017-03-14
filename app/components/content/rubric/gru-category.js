@@ -68,7 +68,7 @@ export default Ember.Component.extend({
    * Copy of the category used for editing.
    * @property {Category}
    */
-  categoryModel: null,
+  tempCategory: null,
   // -------------------------------------------------------------------------
   // Methods
   /**
@@ -77,7 +77,7 @@ export default Ember.Component.extend({
   showInlinePanel: function () {
     var modelForEditing = this.get('category').copy();
     this.setProperties({
-      'categoryModel': modelForEditing,
+      'tempCategory': modelForEditing,
       'isPanelExpanded': true,
       'isEditingInline': true
     });
