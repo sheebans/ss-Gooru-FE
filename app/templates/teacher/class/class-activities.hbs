@@ -7,6 +7,7 @@
     {{#each classActivities as |classActivity|}}
       {{class.gru-class-collection-panel
         item=classActivity.collection
+        collectionPerformanceSummary=classActivity.collectionPerformanceSummary
       }}
     {{else}}
       <li>{{t "common.contentUnavailable"}}</li>

@@ -26,19 +26,19 @@ test('Layout', function(assert) {
     title: 'The Early Earth',
     members: [],
     visible: true,
-    isOnAir: true,
-    performance: Ember.Object.create({
-      score : 100,
-      completionDone: 44,
-      completionTotal: 50,
-      timeSpent: 5400000,
-      isCompleted: true
-    })
+    isOnAir: true
+  });
+
+  const performance = Ember.Object.create({
+    score : 100,
+    timeSpent: 5400000,
+    isCompleted: true
   });
 
   this.set('item', collectionMock);
+  this.set('collectionPerformanceSummary', performance);
 
-  this.render(hbs`{{class.gru-class-collection-panel item=item}}`);
+  this.render(hbs`{{class.gru-class-collection-panel item=item collectionPerformanceSummary=collectionPerformanceSummary}}`);
 
   var $component = this.$(); //component dom element
   const $collectionPanel = $component.find('.gru-class-collection-panel.panel');

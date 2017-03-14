@@ -79,3 +79,64 @@ test("searchStudentCollectionPerformanceSummary just required criteria provided"
       assert.ok(true, "This should be called once");
     });
 });
+
+test("findCollectionPerformanceSummaryByIds with no class", function (assert) {
+  assert.expect(6);
+  // Mock backend response
+  this.pretender.map(function () {
+    this.post("/api/nucleus-insights/v2/assessment/performance", function (request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.equal(requestBodyJson.userId, 123, "Wrong user id");
+      assert.deepEqual(requestBodyJson.collectionIds, [1,2,3], "Wrong collection ids");
+      assert.ok(!requestBodyJson.classId, "Class id should be undefined");
+      assert.ok(!requestBodyJson.timePeriod, "Time period should be undefined");
+      assert.equal(request.requestHeaders["Authorization"], "Token token-api-3", "Wrong token");
+      return [
+        200,
+        {
+          "Content-Type": "application/json"
+        },
+        JSON.stringify({})];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.findCollectionPerformanceSummaryByIds(123, [1,2,3], "assessment").then(function () {
+    assert.ok(true, "This should be called once");
+  });
+});
+
+test("findCollectionPerformanceSummaryByIds with class", function (assert) {
+  assert.expect(6);
+  // Mock backend response
+  this.pretender.map(function () {
+    this.post("/api/nucleus-insights/v2/assessment/performance", function (request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.equal(requestBodyJson.userId, 123, "Wrong user id");
+      assert.deepEqual(requestBodyJson.collectionIds, [1,2,3], "Wrong collection ids");
+      assert.equal(requestBodyJson.classId, 321, "Class id should be 321");
+      assert.equal(requestBodyJson.timePeriod, "any time period", "Wrong time period");
+      assert.equal(request.requestHeaders["Authorization"], "Token token-api-3", "Wrong token");
+      return [
+        200,
+        {
+          "Content-Type": "application/json"
+        },
+        JSON.stringify({})];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.findCollectionPerformanceSummaryByIds(123, [1,2,3], "assessment", 321, "any time period").then(function () {
+    assert.ok(true, "This should be called once");
+  });
+});
+

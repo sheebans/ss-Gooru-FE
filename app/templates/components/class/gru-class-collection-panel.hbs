@@ -56,15 +56,15 @@
     users=item.members}}
 
     <div class="left-info">
-      <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
-        {{if item.performance.hasStarted item.performance.score '--'}}%
+      <span class="score" style={{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.hasStarted collectionPerformanceSummary.score 'NA')))}}>
+        {{if collectionPerformanceSummary.hasStarted collectionPerformanceSummary.score '--'}}%
       </span>
 
       <span class="state">
-        {{#if item.performance.isCompleted}}
+        {{#if collectionPerformanceSummary.isCompleted}}
           {{t 'common.all-completed'}}
         {{else}}
-          {{#if item.performance.hasStarted}}
+          {{#if collectionPerformanceSummary.hasStarted}}
             {{t 'common.in-progress'}}
           {{else}}
             <span class="not-started">{{t 'common.not_started'}}</span>
