@@ -96,49 +96,65 @@
           {{/if}}
 
           <div class="panel-heading {{if isTeacher 'teacher' 'student'}}">
-            <div class="panel-title">
-              <div class="icon-container">
-                {{#if item.isAssessment}}
-                  {{#if item.thumbnailUrl}}
-                    <img class="img-rounded" src="{{item.thumbnailUrl}}" />
-                  {{else}}
-                    {{gru-icon name='playlist_add_check'}}
-                  {{/if}}
-                {{ else }}
-                  {{#if item.thumbnailUrl}}
-                    <img class="img-rounded" src="{{item.thumbnailUrl}}" />
-                  {{else}}
-                    {{gru-icon name='view_comfy'}}
-                  {{/if}}
-                {{/if}}
+            <div class="panel-title border-between row">
+              <div class="col-md-3 collection-controls">
+                <div class="row">
+                  <div class="col-md-6">
+                    <a href="#" data-toggle="tooltip" title="{{t 'class.overview.add-to-daily-class-activities'}}">
+                      {{gru-icon name='add'}}
+                      <br>
+                      <span>{{t 'common.add'}}</span>
+                    </a>
+                  </div>
+                  <div class="col-md-6">
+                    {{gru-switch switchOptions=switchOptions onOptionSwitch='onAttendClassWithCodeChange' isChecked=false}}
+                  </div>
+                </div>
               </div>
-              {{#if item.visible}}
-                <a class="title" {{action "selectResource" item}}>
-                  <div class="ellipsis">{{item.title}}</div>
-                  <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
-                </a>
-              {{else}}
-                {{#if item.performance.noMoreAttempts}}
-                  <a class="title disabled"
-                     data-toggle="tooltip" data-html="true" data-placement="top"
-                     title="{{t "common.no-more-attempts"}}">
-                    <div>{{item.title}}</div>
+              <div class="col-md-9">
+                <div class="icon-container">
+                  {{#if item.isAssessment}}
+                    {{#if item.thumbnailUrl}}
+                      <img class="img-rounded" src="{{item.thumbnailUrl}}" />
+                    {{else}}
+                      {{gru-icon name='playlist_add_check'}}
+                    {{/if}}
+                  {{ else }}
+                    {{#if item.thumbnailUrl}}
+                      <img class="img-rounded" src="{{item.thumbnailUrl}}" />
+                    {{else}}
+                      {{gru-icon name='view_comfy'}}
+                    {{/if}}
+                  {{/if}}
+                </div>
+                {{#if item.visible}}
+                  <a class="title" {{action "selectResource" item}}>
+                    <div class="ellipsis">{{item.title}}</div>
                     <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
                   </a>
                 {{else}}
-                  {{#if isTeacher}}
-                    <a class="title disabled" {{action "selectResource" item}}>
+                  {{#if item.performance.noMoreAttempts}}
+                    <a class="title disabled"
+                       data-toggle="tooltip" data-html="true" data-placement="top"
+                       title="{{t "common.no-more-attempts"}}">
                       <div>{{item.title}}</div>
                       <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
                     </a>
                   {{else}}
-                    <a class="title disabled"  data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
-                      <div class="ellipsis">{{item.title}}</div>
-                      <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
-                    </a>
+                    {{#if isTeacher}}
+                      <a class="title disabled" {{action "selectResource" item}}>
+                        <div>{{item.title}}</div>
+                        <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
+                      </a>
+                    {{else}}
+                      <a class="title disabled"  data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
+                        <div class="ellipsis">{{item.title}}</div>
+                        <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
+                      </a>
+                    {{/if}}
                   {{/if}}
                 {{/if}}
-              {{/if}}
+              </div>
             </div>
             <div class="info">
               <div class="content-count {{if (and item.questionCount item.resourceCount) 'mixed'}}">

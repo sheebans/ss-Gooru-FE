@@ -221,7 +221,7 @@
       .panel-heading {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
         width: 100%;
-        height: inherit;
+        height: 100%;
         display: inline-block;
         border-radius: 0;
 
@@ -277,10 +277,34 @@
           @media (min-width: $screen-lg) {
             width: 50%;
           }
+          .collection-controls{
+            height: 100%;
+            text-align: center;
+            .row{
+              display: table-cell;
+              height: 100%;
+              & > [class*='col-']{
+                display: table-cell;
+                height: 100%;
+                padding: 0;
+                .gru-switch{
+                  position: relative;
+                  top: 50%;
+                  -webkit-transform: translateY(-50%);
+                  -ms-transform: translateY(-50%);
+                  transform: translateY(-50%);
+                }
+              }
+            }
+            @media (min-width: $screen-sm) {
+              display: none;
+            }
+          }
           .title {
             font-size: $font-size-lead;
             vertical-align: middle;
             margin: 0;
+            padding: 0;
             line-height: $font-size-h5;
             max-width: 75%;
             width: 75%;
@@ -365,4 +389,3 @@
     }
   }
 }
-
