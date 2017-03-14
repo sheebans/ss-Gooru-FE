@@ -26,9 +26,13 @@
       {{#each scoringLevels as |level|}}
           <div>
             {{validation.gru-input model=level valuePath='score'}}
-              <button title="{{t 'common.delete'}}" class="btn no-bgd delete" {{action 'deleteLevel' level}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="delete"}}</button>
           </div>
       {{/each}}
     </div>
   {{/if}}
+</div>
+<div class="delete-levels">
+  {{#each scoringLevels as |level|}}
+      <button title="{{t 'common.delete'}}" class="btn no-bgd delete" {{action 'deleteLevel' level}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="delete"}}</button>
+  {{/each}}
 </div>

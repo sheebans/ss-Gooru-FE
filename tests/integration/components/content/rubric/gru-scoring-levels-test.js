@@ -33,8 +33,8 @@ test('Delete Scoring Level', function(assert) {
   this.render(hbs`{{content/rubric/gru-scoring-levels}}`);
   var $component = this.$();
   assert.ok($component.find('.content.rubric.gru-scoring-levels').length,'Missing scoring levels component');
-  assert.equal($component.find('.content.rubric.gru-scoring-levels .points .point-list .btn.delete').length,4,'Should have 4 delete buttons');
-  var $firstLevelDeleteBtn = $component.find('.content.rubric.gru-scoring-levels .points .point-list div:eq(0) .btn.delete');
+  assert.equal($component.find('.content.rubric.gru-scoring-levels .delete-levels .btn.delete').length,4,'Should have 4 delete buttons');
+  var $firstLevelDeleteBtn = $component.find('.content.rubric.gru-scoring-levels .delete-levels .btn.delete:eq(0)');
   var done = assert.async();
   Ember.run.later(function(){
     $firstLevelDeleteBtn.click();

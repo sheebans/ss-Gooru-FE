@@ -10,10 +10,10 @@
         .line{
           border-left: 1px solid $gray-light;
           min-height: 134px;
-          margin-left: 15px;
+          margin: 0 0 0 15px;
         }
         .arrow-down{
-          margin-left: 10px;
+          margin: 0 0 0 10px;
           width: 0;
           height: 0;
           border-left: 5px solid transparent;
@@ -23,7 +23,7 @@
       }
       .level-list{
         width: 100%;
-        margin-left: 16px;
+        margin: 0 0 0 16px;
         input{
           font-size: $font-size-base;
         }
@@ -31,29 +31,33 @@
     }
   }
   .points{
-    margin-left: 30px;
+    margin: 0 0 0 30px;
     .point-list{
-      padding-left: 45px;
+      padding: 0 0 0 45px;
       div{
         @include flexbox;
         .gru-input.point{
           width: 45%;
         }
-        .btn{
-          margin-left: 27%;
-          background-color: transparent;
-          font-size: 24px;
-          line-height: 1;
-          padding: 7px 5px;
-        }
-      }
-      .actions{
-        border-left: 1px solid $gray-light;
       }
     }
   }
+  .delete-levels{
+    padding: 45px 0 0 0;
+    .btn{
+      display: block;
+      margin: 0 0 27% 27%;
+      background-color: transparent;
+      font-size: 24px;
+      line-height: 1;
+      padding: 7px 5px;
+    }
+    .actions{
+      border-left: 1px solid $gray-light;
+    }
+  }
   .btn-new-level{
-    margin-left: 65px;
+    margin: 0 0 0 65px;
     font-size: $font-size-base;
     i{
       font-size: $font-size-h4;
