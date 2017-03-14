@@ -20,9 +20,6 @@ test('layout', function (assert) {
   var $container = this.$("article.content.courses.gru-course-play");
   assert.ok($container.length, "Component");
 
-  const $headerComponent = $container.find('.gru-course-play-header');
-  assert.ok($headerComponent.length, "Header component");
-
   const $viewDetails = $container.find('> section#viewDetails');
   const $information = $container.find('> section#information');
   const $content = $container.find('> section#content');
