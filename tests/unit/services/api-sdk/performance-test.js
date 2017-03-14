@@ -502,7 +502,29 @@ test('findClassPerformanceSummaryByClassIds with empty ids', function(assert) {
     });
 });
 
-//todo
-//
-//test('findAssessmentsPerformance', function(assert) {
-//});
+test('searchStudentCollectionPerformanceSummary', function(assert) {
+  const service = this.subject();
+  assert.expect(4);
+
+  service.set('collectionPerformanceSummarySerializer', Ember.Object.create({
+    normalizeAllCollectionPerformanceSummary: function(data) {
+      assert.equal(data, "fake-data", 'Wrong data');
+      return [1,2,3,4,5]; //fake response
+    }
+  }));
+
+  service.set('collectionPerformanceSummaryAdapter', Ember.Object.create({
+    searchStudentCollectionPerformanceSummary: function(studentId, criteria) {
+      assert.equal(studentId, 123, 'Wrong student id');
+      assert.deepEqual(criteria, { courseId: 321 }, 'Wrong criteria');
+      return Ember.RSVP.resolve("fake-data");
+    }
+  }));
+
+  var done = assert.async();
+  service.searchStudentCollectionPerformanceSummary(123, { courseId: 321 })
+      .then(function(response) {
+        assert.deepEqual(response, [1,2,3,4,5], 'Wrong response');
+        done();
+      });
+});

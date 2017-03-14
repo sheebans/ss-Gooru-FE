@@ -52,7 +52,7 @@ export default ApplicationAdapter.extend({
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
-      headers: adapter.defineAuthorizationHeaders(),
+      headers: adapter.defineHeaders(),
       data: {
         "contextType": "resource-study-suggest",
         "resourceId": resourceId,
@@ -81,7 +81,7 @@ export default ApplicationAdapter.extend({
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
-      headers: adapter.defineAuthorizationHeaders(),
+      headers: adapter.defineHeaders(),
       data: JSON.stringify({
         "context":{
           "contextType": "collection-study",
@@ -102,14 +102,8 @@ export default ApplicationAdapter.extend({
 
   defineHeaders: function() {
     return {
-      //'Authorization': 'Token ' + this.get('session.token-api3')
-      'Gooru-Session-Token': this.get('session.token-api3')
-    };
-  },
-
-  defineAuthorizationHeaders: function() {
-    return {
       'Authorization': 'Token ' + this.get('session.token-api3')
     };
   }
+
 });

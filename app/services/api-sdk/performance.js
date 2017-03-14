@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import ClassPerformanceSummarySerializer from 'gooru-web/serializers/performance/class-performance-summary';
 import ClassPerformanceSummaryAdapter from 'gooru-web/adapters/performance/class-performance-summary';
+import CollectionPerformanceSummarySerializer from 'gooru-web/serializers/performance/collection-performance-summary';
+import CollectionPerformanceSummaryAdapter from 'gooru-web/adapters/performance/collection-performance-summary';
 
 /**
  * @typedef {Object} PerformanceService
@@ -25,14 +27,24 @@ export default Ember.Service.extend({
   taxonomyService: Ember.inject.service("api-sdk/taxonomy"),
 
   /**
-   * @propery {ClassPerformanceSummarySerializer}
+   * @property {ClassPerformanceSummarySerializer}
    */
   classPerformanceSummarySerializer: null,
 
   /**
-   * @propery {classPerformanceSummaryAdapter}
+   * @property {ClassPerformanceSummaryAdapter}
    */
   classPerformanceSummaryAdapter: null,
+
+  /**
+   * @property {CollectionPerformanceSummarySerializer}
+   */
+  collectionPerformanceSummarySerializer: null,
+
+  /**
+   * @property {CollectionPerformanceSummaryAdapter}
+   */
+  collectionPerformanceSummaryAdapter: null,
 
 
   // -------------------------------------------------------------------------
@@ -42,6 +54,8 @@ export default Ember.Service.extend({
     this._super(...arguments);
     this.set('classPerformanceSummarySerializer', ClassPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('classPerformanceSummaryAdapter', ClassPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('collectionPerformanceSummarySerializer', CollectionPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('collectionPerformanceSummaryAdapter', CollectionPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -486,116 +500,18 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Find assessments Performance Data
+   * Searches student collection performance by course, unit, lesson and type
+   * Criteria values are not required except for courseId
    *
-   * @param {Assessment[]} assessments to obtain the Performance Data
-   * @param {string} userId to filter the Assessments
-   * @returns {string[]}
+   * @param {string} studentId
+   * @param {{ courseId: number, unitId: string, lessonId: string, collectionType: string }} criteria
+   * @returns {Promise}
    */
-  findAssessmentsPerformance: function(assessments, userId) {
-    //TODO
-    var assessmentsPerformance = Ember.A([
-      Ember.Object.create({
-        user: userId,
-        realId: '1',
-        performanceData: Ember.Object.create({
-          score : 1,
-          completionDone: 1,
-          completionTotal: 50,
-          timeSpent: 5000000
-        })
-      }),
-      Ember.Object.create({
-        user: userId,
-        realId: '2',
-        performanceData: Ember.Object.create({
-          score : 2,
-          completionDone: 14,
-          completionTotal: 50,
-          timeSpent: 5100000
-        })
-      }),
-      Ember.Object.create({
-        user: userId,
-        realId: '3',
-        performanceData: Ember.Object.create({
-          score : 3,
-          completionDone: 23,
-          completionTotal: 50,
-          timeSpent: 5300000
-        })
-      }),
-      Ember.Object.create({
-        user: userId,
-        realId: '4',
-        performanceData: Ember.Object.create({
-          score : 4,
-          completionDone: 33,
-          completionTotal: 50,
-          timeSpent: 5800000
-        })
-      }),
-      Ember.Object.create({
-        user: userId,
-        realId: '5',
-        performanceData: Ember.Object.create({
-          score : 5,
-          completionDone: 45,
-          completionTotal: 50,
-          timeSpent: 5900000
-        })
-      }),
-      Ember.Object.create({
-        user: userId,
-        realId: '6',
-        performanceData: Ember.Object.create({
-          score : 6,
-          completionDone: 50,
-          completionTotal: 50,
-          timeSpent: 5800000
-        })
-      }),
-      Ember.Object.create({
-        user: userId,
-        realId: '7',
-        performanceData: Ember.Object.create({
-          score : 7,
-          completionDone: 46,
-          completionTotal: 50,
-          timeSpent: 5400000
-        })
-      }),
-      Ember.Object.create({
-        user: userId,
-        realId: '8',
-        performanceData: Ember.Object.create({
-          score : 8,
-          completionDone: 23,
-          completionTotal: 50,
-          timeSpent: 5600000
-        })
-      }),
-      Ember.Object.create({
-        user: userId,
-        realId: '9',
-        performanceData: Ember.Object.create({
-          score : 9,
-          completionDone: 31,
-          completionTotal: 50,
-          timeSpent: 5500000
-        })
-      }),
-      Ember.Object.create({
-        user: userId,
-        realId: '10',
-        performanceData: Ember.Object.create({
-          score : 10,
-          completionDone: 44,
-          completionTotal: 50,
-          timeSpent: 5400000
-        })
-      })
-    ]);
-    return new Ember.RSVP.resolve(assessmentsPerformance);
+  searchStudentCollectionPerformanceSummary: function (studentId, criteria) {
+    const service = this;
+    return service.get('collectionPerformanceSummaryAdapter').searchStudentCollectionPerformanceSummary(studentId, criteria)
+        .then(function (data) {
+          return service.get('collectionPerformanceSummarySerializer').normalizeAllCollectionPerformanceSummary(data);
+        });
   }
 });

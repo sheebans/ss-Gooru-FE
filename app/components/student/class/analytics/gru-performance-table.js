@@ -68,8 +68,8 @@ export default Ember.Component.extend({
    * The assessment performanceData
    * @property {performanceData[]}
    */
-  performanceData: Ember.computed('assessments.length', 'studentPerformanceItems.length' ,'sortCriteria', function() {
-    const performanceData = this.createDataArray (this.get('assessments'), this.get('studentPerformanceItems'));
+  performanceData: Ember.computed('assessments.length', 'collectionPerformanceSummaryItems.length' ,'sortCriteria', function() {
+    const performanceData = this.createDataArray (this.get('assessments'), this.get('collectionPerformanceSummaryItems'));
     const sortCriteria = this.get('sortCriteria');
 
     if (sortCriteria) {
@@ -161,16 +161,16 @@ export default Ember.Component.extend({
   /**
    * Create an array to fill the student performance table.
    * @param assessments the table assessments by sort criteria
-   * @param studentPerformanceData the student performance data for each assessments
+   * @param {CollectionPerformanceSummary[]} collectionPerformanceSummaryItems the student performance data for each assessments
    */
-  createDataArray: function (assessments, studentPerformanceData) {
+  createDataArray: function (assessments, collectionPerformanceSummaryItems) {
 
     const dataArray = Ember.A([]);
 
     assessments.forEach(function(assessment) {
-      var studentPerformance = studentPerformanceData.findBy("realId", assessment.get('id'));
+      var collectionPerformanceSummaryItem = collectionPerformanceSummaryItems.findBy("id", assessment.get('id'));
       var itemDataArray = Ember.Object.create({
-        performanceData: (studentPerformance) ? studentPerformance.get('performanceData') : undefined,
+        performanceData: collectionPerformanceSummaryItem,
         assessment: assessment
       });
       dataArray.push(itemDataArray);

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import PerformanceSummary from './performance-summary';
 import {roundFloat} from 'gooru-web/utils/math';
 
 /**
@@ -6,22 +7,12 @@ import {roundFloat} from 'gooru-web/utils/math';
  *
  * @typedef {Object} ClassPerformanceSummary
  */
-export default Ember.Object.extend({
-
-  /**
-   * @property {String} id - Gooru id for the goal
-   */
-  id: null,
+export default PerformanceSummary.extend({
 
   /**
    * @property {String} classId
    */
   classId: null,
-
-  /**
-   * @property {number} time spent in seconds
-   */
-  timeSpent: null,
 
   /**
    * @property {number} total learning items completed
@@ -34,16 +25,12 @@ export default Ember.Object.extend({
   total: null,
 
   /**
-   * @property {number} score
-   */
-  score: null,
-
-  /**
    * @property {number} completed percentage
    */
   completedPercentage : Ember.computed("totalCompleted", "total", function(){
     const total = this.get("total");
     return total ? roundFloat(this.get("totalCompleted") / this.get("total") * 100) : 0;
   })
+
 
 });

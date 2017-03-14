@@ -242,7 +242,7 @@ export default Ember.Object.extend({
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      headers: adapter.defineHeadersForReport()
+      headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
   },
@@ -255,16 +255,5 @@ export default Ember.Object.extend({
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
     };
-  },
-
-  /**
-   * Creates the headers required by API 3.0
-   * @returns {{Authorization: string}}
-   */
-  defineHeadersForReport: function() {
-    return {
-      'gooru-session-token': this.get('session.token-api3')
-    };
   }
-
 });

@@ -51,7 +51,7 @@ test('getStandardsSummary', function(assert) {
   this.pretender.map(function() {
     this.get('/api/nucleus-insights/v2/session/12345/taxonomy/usage', function(request) {
       assert.equal(request.queryParams.userUid, '23', 'Wrong user id param');
-      assert.equal(request.requestHeaders['gooru-session-token'], 'token-api-3', 'wrong token header');
+      assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
