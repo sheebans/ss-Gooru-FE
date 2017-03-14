@@ -588,7 +588,8 @@ export default {
     "overview": {
       "title": "Course Map",
       "locate": "Locate Me",
-      "editContent": "Edit Content"
+      "edit-content": "Edit Content",
+      "add-to-daily-class-activities": "Add to Daily Class Activities"
     },
     "analytics": {
       "performance": {
@@ -808,6 +809,7 @@ export default {
       "collections": "Collections"
     },
     "class":{
+      "back-to": "Back to My Classes",
       "performance": "Performance",
       "classmates": "Classmates",
       "course-map": "Course Map",
@@ -820,6 +822,7 @@ export default {
     "latest-announcement":"Latest Announcement",
     "latest-assessment":"Latest Assessment",
     "class": {
+      "back-to": "Back to Classrooms",
       "click-to-copy": "Click to copy class code",
       "course-map": "Course Map",
       "performance": "Performance",
@@ -1619,13 +1622,16 @@ export default {
   "gru-rubric-creation":{
     "url":"URL",
     "upload-file":"Upload File",
-    "gru-category":"Add New Category",
+    "add-category":"Add New Category",
     "gru-preview-url":{
       "preview":"Add rubric above and preview here"
     },
     "overall-narrative":"Overall Narrative Feedback",
     "feedback-guidance":"Feedback Guidance",
     "required-feedback":"Required Feedback",
-    "feedback-guidance-placeholder":"Summarise your feedback on the essay as a whole."
+    "feedback-guidance-placeholder":"Summarize your feedback on the essay as a whole.",
+    "gru-category":{
+      "category-title":"Category Title"
+    }
   }
 };

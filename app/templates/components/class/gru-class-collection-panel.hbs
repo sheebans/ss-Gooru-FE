@@ -4,10 +4,13 @@
          title="{{t "common.assign"}}">
      {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
     </span>
-    <button
-      data-toggle="tooltip" data-html="true" data-placement="bottom"
-      title="{{t "common.launch-on-air"}}"
-      class="on-air hidden-xs">{{t "common.launch-on-air"}}</button>
+    {{#if item.isAssessment}}
+      <button
+        data-toggle="tooltip" data-html="true" data-placement="bottom"
+        title="{{t "common.launch-on-air"}}"
+        class="on-air hidden-xs">{{t "common.launch-on-air"}}
+      </button>
+    {{/if}}
   </div>
   <div class="panel-title">
     <div class="icon-container">
@@ -39,10 +42,10 @@
       {{else}}
         {{#if (or item.questionCount item.resourceCount)}}
           {{#if item.resourceCount}}
-              <span><b>{{item.resourceCount}}</b> {{t "common.resource-pl" count=item.resourceCount}}</span>
+              <span class="resource-count"><b>{{item.resourceCount}}</b> {{t "common.resource-pl" count=item.resourceCount}}</span>
           {{/if}}
           {{#if item.questionCount}}
-              <span><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
+              <span class="question-count"><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
           {{/if}}
         {{/if}}
       {{/if}}

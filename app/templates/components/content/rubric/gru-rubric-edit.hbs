@@ -60,6 +60,12 @@
                 </label>
             </div>
         </div>
+        <div class="category-panel">
+          {{#each categories as |category index|}}
+            {{content.rubric.gru-category category=category index=index}}
+          {{/each}}
+            <a class="add-prefix add-category" {{action 'addNewCategory'}}>{{t "gru-rubric-creation.add-category"}}</a>
+        </div>
     </section>
 {{/if}}
 {{content.rubric.gru-fixed-footer footerActions=footerActions}}
