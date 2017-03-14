@@ -25,6 +25,7 @@ export default Ember.Component.extend({
   // Properties
   /**
    * @property {[]} scoringLevels
+   * Should have 4 levels as default
    */
   scoringLevels:Ember.A([
     {
