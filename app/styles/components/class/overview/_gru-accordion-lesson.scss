@@ -299,6 +299,11 @@
             @media (max-width: $screen-lg) {
               display: none;
             }
+            a.added {
+              i {
+                color: $green-400;
+              }
+            }
           }
           .title {
             font-size: $font-size-lead;
