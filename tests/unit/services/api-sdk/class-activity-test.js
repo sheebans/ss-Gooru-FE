@@ -50,3 +50,31 @@ test('enableClassContent', function(assert) {
       done();
     });
 });
+
+test('findClassContent', function(assert) {
+  const service = this.subject();
+
+  assert.expect(4);
+
+  service.set('classActivityAdapter', Ember.Object.create({
+    findClassContent: function(classId, contentType) {
+      assert.equal(classId, 123, 'Wrong class id');
+      assert.equal(contentType, 'any content type', 'Wrong content type');
+      return Ember.RSVP.resolve('fake-payload');
+    }
+  }));
+
+  service.set('classActivitySerializer', Ember.Object.create({
+    normalizeFindClassActivities: function(payload) {
+      assert.equal(payload, 'fake-payload', 'Wrong payload');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  var done = assert.async();
+  service.findClassContent(123, 'any content type')
+    .then(function(response) {
+      assert.ok(response, 'fake-response', 'Wrong response');
+      done();
+    });
+});

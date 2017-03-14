@@ -72,6 +72,26 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Gets all class activity for the authorized user (student|teacher)
+   *
+   * @param {string} classId
+   * @param {string} contentType collection|assessment|resource|question
+   * @returns {Promise}
+   */
+  findClassContent: function(classId, contentType = undefined) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${classId}/contents`;
+    const options = {
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        headers: adapter.defineHeaders(),
+        data: { content_type : contentType }
+      };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

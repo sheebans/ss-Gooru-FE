@@ -1,28 +1,33 @@
 import Ember from 'ember';
 
 /**
- * CLass Activity model
- * typedef {Object} CLassActivity
+ * Class Activity model
+ * typedef {Object} ClassActivity
  */
 export default Ember.Object.extend({
 
-    /**
-     * @property {String} id - The class activity id
-     */
-    id: null,
+  /**
+   * @property {String} id - The class activity id
+   */
+  id: null,
 
-    /**
-     * @property {Date} date of class activity
-     */
-    date: null,
+  /**
+   * @property {Date} date of class activity
+   */
+  date: null,
 
-    /**
-     * @property {Collection}
-     */
-    collection: null,
+  /**
+   * @property {Collection}
+   */
+  collection: null,
 
-    /**
-     * @property {CollectionPerformanceSummary}
-     */
-    performance: null
+  /**
+   * @property {CollectionPerformanceSummary}
+   */
+  performance: null,
+
+  /**
+   * @property { { courseId: string, unitId: string, lessonId: string, collectionId: string }}
+   */
+  context: null
 });
