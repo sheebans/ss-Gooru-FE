@@ -296,7 +296,7 @@
                 }
               }
             }
-            @media (min-width: $screen-sm) {
+            @media (max-width: $screen-lg) {
               display: none;
             }
           }
