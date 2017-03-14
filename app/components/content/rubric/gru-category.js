@@ -24,6 +24,12 @@ export default Ember.Component.extend({
         'isPanelExpanded': false,
         'isEditingInline': false
       });
+    },
+    /**
+     *Set if feedback is required
+     */
+    setFeedBack: function(){
+      this.set('category.requiresFeedback',!this.get('category.requiresFeedback'));
     }
   },
   // -------------------------------------------------------------------------

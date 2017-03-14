@@ -1631,7 +1631,19 @@ export default {
     "required-feedback":"Required Feedback",
     "feedback-guidance-placeholder":"Summarize your feedback on the essay as a whole.",
     "gru-category":{
-      "category-title":"Category Title"
+      "category-title":"Category Title",
+      "category-feedback": "ex. As you are reviewing this category, pay careful attention to the author’s purpose",
+      "gru-scoring-levels":{
+        "0":"ex. Proficient",
+        "1":"ex. Exemplary",
+        "2":"ex. Basic",
+        "3":"ex. Below Basic",
+        "best":"Best",
+        "levels":"Level",
+        "new-level":"Add New Level",
+        "scoring":"Scoring",
+        "worst":"Worst"
+      }
     }
   }
 };
