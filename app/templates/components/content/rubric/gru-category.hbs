@@ -1,0 +1,42 @@
+<div class="panel panel-default {{if isPanelExpanded 'expanded' 'collapsed'}}">
+    <div class="panel-heading">
+        <h3 class="category-index">{{plus-one index}}</h3>
+        <h3 class="required">{{t 'gru-rubric-creation.gru-category.category-title'}}</h3>
+      {{#if isEditingInline}}
+          <div class="edit-title">
+              <div class="input">
+                {{validation.gru-input model=tempCategory valuePath='title' maxLength=50}}
+              </div>
+          </div>
+      {{else}}
+          <a class="title" {{action 'editInline'}}>
+              <div>
+                  <h2>{{{category.title}}}</h2>
+              </div>
+          </a>
+      {{/if}}
+
+        <div class="detail {{if isPanelExpanded 'hidden' 'visible'}} collapsed">
+            <div class="actions">
+                <div class="item-actions border">
+                    <button title="{{t 'common.delete'}}" class="btn no-bgd delete" data-toggle="tooltip" data-placement="auto" data-trigger="hover">{{gru-icon name="delete"}}</button>
+                    <button title="{{t 'common.copy'}}" class="btn no-bgd copy" {{action 'copy' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="content_copy"}}</button>
+                    <button class="btn edit no-bgd" title="{{t 'common.edit'}}" {{action 'editInline'}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="detail {{if isPanelExpanded 'visible' 'hidden'}} expanded">
+            <div class="actions">
+                <div class="item-actions">
+                    <button class="cancel btn btn-info" {{action 'cancel'}}>{{t "common.cancel"}}</button>
+                    <button class="save btn btn-success" >{{t "common.save"}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body">
+
+    </div>
+</div>
+

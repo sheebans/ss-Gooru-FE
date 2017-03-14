@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import SessionMixin from 'gooru-web/mixins/session';
+import Category from 'gooru-web/models/rubric/rubric-category';
 
 
 export default Ember.Component.extend(SessionMixin,{
@@ -24,6 +25,14 @@ export default Ember.Component.extend(SessionMixin,{
      */
     setFeedBack: function(){
       this.set('rubric.requiresFeedback',!this.get('rubric.requiresFeedback'));
+    },
+    /**
+     * Add new category
+     */
+    addNewCategory:function(){
+      let newCategory = Category.create({});
+      let categories = this.get('categories');
+      categories.addObject(newCategory);
     }
   },
 
@@ -31,6 +40,16 @@ export default Ember.Component.extend(SessionMixin,{
   // -------------------------------------------------------------------------
   // Properties
 
+  /**
+   * @property {Category[]} Temporal categories array
+   */
+  categories:Ember.computed('rubric.categories.[]',function(){
+    let categories = Ember.A([]);
+    if(this.get('rubric.categories.length')){
+      categories = this.get('rubric.categories');
+    }
+    return categories;
+  }),
   /**
    * @property {Object[]} headerActions List of action buttons to show
    */
