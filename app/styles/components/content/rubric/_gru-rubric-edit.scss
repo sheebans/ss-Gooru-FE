@@ -115,12 +115,6 @@
           }
         }
       }
-      .required-feedback{
-        @include flexbox;
-        .check_box{
-          color:$blue-500;
-        }
-      }
     }
     .add-category{
       margin-bottom: 15px;
@@ -134,6 +128,12 @@
     }
     .add-prefix:before {
       content: '+ ';
+    }
+    .required-feedback{
+      @include flexbox;
+      .check_box{
+        color:$blue-500;
+      }
     }
   }
 }
