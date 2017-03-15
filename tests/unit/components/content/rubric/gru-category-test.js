@@ -10,9 +10,9 @@ test('setFeedBack', function(assert) {
   let component = this.subject({
     category: Category.create({})
   });
-  assert.equal(component.get('category.requiresFeedback'),false,'Feedback is not required');
-  component.send('setFeedBack');
   assert.equal(component.get('category.requiresFeedback'),true,'Feedback should be required');
+  component.send('setFeedBack');
+  assert.equal(component.get('category.requiresFeedback'),false,'Feedback should not be required');
 });
 
 test('editInline', function(assert) {
