@@ -32,13 +32,11 @@
   }
   .points{
     margin: 0 0 0 30px;
+    width: 16%;
     .point-list{
       padding: 0 0 0 45px;
       div{
         @include flexbox;
-        .gru-input.point{
-          width: 45%;
-        }
       }
     }
   }

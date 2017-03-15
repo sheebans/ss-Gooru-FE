@@ -26,10 +26,29 @@ export default Ember.Component.extend({
       });
     },
     /**
+     *Copy category
+     */
+    copyCategory: function (category,index) {
+      this.sendAction('onCopyCategory',category,index);
+    },
+    /**
      *Set if feedback is required
      */
     setFeedBack: function(){
       this.set('category.requiresFeedback',!this.get('category.requiresFeedback'));
+    },
+    /**
+     *Save category
+     */
+    saveCategory: function () {
+      let tempCategory = this.get('tempCategory');
+      let category = this.get('category');
+      category.setProperties(tempCategory);
+
+      this.setProperties({
+        'isPanelExpanded': false,
+        'isEditingInline': false
+      });
     }
   },
   // -------------------------------------------------------------------------
