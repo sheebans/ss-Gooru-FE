@@ -263,3 +263,112 @@ test('normalizeCourse - if it is not visible on profile', function (assert) {
   assert.equal(normalizedCourse.get("id"), 'course-id', 'Wrong id');
   assert.equal(normalizedCourse.get("isVisibleOnProfile"), false, 'Wrong isVisibleOnProfile');
 });
+
+
+test('normalizeCourseStructureLessonItems', function (assert) {
+  const serializer = this.subject();
+  const payload = [
+    {
+      id: 1,
+      title: 'Title 1',
+      format: 'assessment'
+    },
+    {
+      id: 2,
+      title: 'Title 2',
+      format: 'assessment'
+    }
+  ];
+  const lessonItems = serializer.normalizeCourseStructureLessonItems(payload);
+  assert.equal(lessonItems.length, 2, 'Wrong total items');
+  assert.equal(lessonItems[0].get('id'), 1, 'Wrong id');
+  assert.equal(lessonItems[0].get('isAssessment'), true, 'It should be assessment');
+});
+
+test('normalizeCourseStructureLessons for assessment', function (assert) {
+  assert.expect(4);
+  const serializer = this.subject({
+    normalizeCourseStructureLessonItems: function (payload) {
+      assert.deepEqual(payload, [5,6], 'this should be called once');
+      return [1,2];
+    }
+  });
+  const payload = [
+    {
+      id: 10,
+      title: 'Lesson 1',
+      assessments: [5, 6]
+    }
+  ];
+  const lessons = serializer.normalizeCourseStructureLessons(payload, 'assessment');
+  assert.equal(lessons.length, 1, 'Wrong total items');
+  assert.equal(lessons[0].get('id'), 10, 'Wrong id');
+  assert.deepEqual(lessons[0].get('children'), [1,2], 'Wrong total children');
+});
+
+
+test('normalizeCourseStructureLessons for collections', function (assert) {
+  assert.expect(4);
+  const serializer = this.subject({
+    normalizeCourseStructureLessonItems: function (payload) {
+      assert.deepEqual(payload, [5,6], 'this should be called once');
+      return [1,2];
+    }
+  });
+  const payload = [
+    {
+      id: 10,
+      title: 'Lesson 1',
+      collections: [5, 6]
+    }
+  ];
+  const lessons = serializer.normalizeCourseStructureLessons(payload, 'collections');
+  assert.equal(lessons.length, 1, 'Wrong total items');
+  assert.equal(lessons[0].get('id'), 10, 'Wrong id');
+  assert.deepEqual(lessons[0].get('children'), [1,2], 'Wrong total children');
+});
+
+test('normalizeCourseStructureUnits', function (assert) {
+  assert.expect(5);
+  const serializer = this.subject({
+    normalizeCourseStructureLessons: function (payload, collectionType) {
+      assert.deepEqual(payload, [1, 2, 3], 'this should be called once');
+      assert.deepEqual(collectionType, 'any collection type', 'this should be called once');
+      return [1,2];
+    }
+  });
+  const payload = [
+    {
+      id: 10,
+      title: 'Unit 1',
+      lessons: [1, 2, 3]
+    }
+  ];
+  const units = serializer.normalizeCourseStructureUnits(payload, 'any collection type');
+  assert.equal(units.length, 1, 'Wrong total items');
+  assert.equal(units[0].get('id'), 10, 'Wrong id');
+  assert.deepEqual(units[0].get('children'), [1,2], 'Wrong total children');
+});
+
+test('normalizeCourseStructure', function (assert) {
+  assert.expect(4);
+  const serializer = this.subject({
+    normalizeCourseStructureUnits: function (payload, collectionType) {
+      assert.deepEqual(payload, [1, 2, 3], 'this should be called once');
+      assert.deepEqual(collectionType, 'any collection type', 'this should be called once');
+      return [1,2];
+    }
+  });
+  const payload = {
+    courses: [
+      {
+        id: 10,
+        title: 'Course 1',
+        units: [1, 2, 3]
+      }
+    ]
+  };
+  const course = serializer.normalizeCourseStructure(payload, 'any collection type');
+  assert.equal(course.get('id'), 10, 'Wrong id');
+  assert.deepEqual(course.get('children'), [1,2], 'Wrong total children');
+});

@@ -157,3 +157,30 @@ test('reorderCourse', function(assert) {
   service.reorderCourse(expectedCourseId, ["a", "b"]).then(function() { done(); });
 });
 
+test('getCourseStructure', function(assert) {
+  const service = this.subject();
+
+  assert.expect(5);
+
+  service.set('serializer', Ember.Object.create({
+    normalizeCourseStructure: function(payload, collectionType) {
+      assert.equal(payload, 'fake-response', 'Wrong payload');
+      assert.equal(collectionType, 'assessment', 'Wrong collection type');
+      return 'fake-course';
+    }
+  }));
+  service.set('adapter', Ember.Object.create({
+    getCourseStructure: function(courseId, collectionType) {
+      assert.equal(courseId, 123, 'Wrong course id');
+      assert.equal(collectionType, 'assessment', 'Wrong collection type');
+      return Ember.RSVP.resolve('fake-response');
+    }
+  }));
+
+  var done = assert.async();
+  service.getCourseStructure(123, 'assessment').then(function(course) {
+    assert.equal(course, 'fake-course', 'Wrong response');
+    done();
+  });
+});
+
