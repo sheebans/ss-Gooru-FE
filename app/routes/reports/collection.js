@@ -57,12 +57,8 @@ export default QuizzesReport.extend(PrivateRouteMixin, {
     let collection;
 
     // Get initialization data from analytics
-    return Ember.RSVP.hashSettled({
-      assessment: route.get('assessmentService').readAssessment(collectionId),
-      collection: route.get('collectionService').readCollection(collectionId)
-    }).then(function(hash) {
-      const collectionFound = hash.assessment.state === 'rejected';
-      collection = collectionFound ? hash.collection.value : hash.assessment.value;
+    return route.get('assessmentService').readAssessment(collectionId).then(function(assessment) {
+      collection = assessment;
       return route.createContext(params, collection);
     }).then(function({ id }) {
       params.cdnURL = route.get('session.cdnUrls.content');

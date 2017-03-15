@@ -103,7 +103,7 @@ test('Legacy uri collection-play with content id', function (assert) {
 test('Legacy uri assessment-play with no content id', function (assert) {
   visit("/#assessment-play&id=all-question-types-assessment-id");
   andThen(function() {
-    assert.equal(currentURL(), '/player/all-question-types-assessment-id?type=assessment');
+    assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment');
   });
 });
 

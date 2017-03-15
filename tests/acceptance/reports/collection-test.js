@@ -18,7 +18,7 @@ moduleForAcceptance('Acceptance | reports/collection', {
 
 test('Layout', function (assert) {
   assert.expect(2);
-  visit('/reports/class/just-a-class/collection/all-resource-types-collection-id');
+  visit('/reports/class/just-a-class/collection/all-question-types-assessment-id');
 
   let createSocket = () => {
     return {
@@ -36,7 +36,7 @@ test('Layout', function (assert) {
 
   let done = assert.async();
   andThen(function () {
-    assert.equal(currentURL(), '/reports/class/just-a-class/collection/all-resource-types-collection-id');
+    assert.equal(currentURL(), '/reports/class/just-a-class/collection/all-question-types-assessment-id');
     const $reportContainer = find('.reports.qz-class-assessment-report');
     T.exists(assert, $reportContainer, 'Missing quizzes reports component');
     done();
