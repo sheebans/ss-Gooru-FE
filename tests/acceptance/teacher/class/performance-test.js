@@ -27,21 +27,20 @@ test('Layout at course level', function(assert) {
     T.exists(assert, $performanceContainer.find(".gru-metrics-table"), "Missing metrics table component");
 
     const $actions = $performanceContainer.find(".actions");
-    assert.ok($actions.find('.assessment-filter-btn').length, 'Missing assessment button');
-    assert.ok($actions.find('.collection-filter-btn').length, 'Missing collection button');
-    assert.ok($actions.find('.report-btn').length, 'Missing report button');
+    assert.equal($actions.find('.gru-radio').length, 2, "Incorrect number of radio buttons");
+    assert.ok($actions.find('.report-btn').length, 'Missing download button');
 
-    //assert breadcrumb text
-    const $breadcrumb = $performanceContainer.find(".controls .gru-breadcrumb");
+    const $options = $performanceContainer.find('.options');
+    const $dataPicker = $options.find('.data-picker .gru-data-picker');
+    assert.ok($dataPicker.length, 'Missing data picker');
+
+    const $info = $performanceContainer.find(".info");
+    const $breadcrumb = $info.find(".teacher-breadcrumb");
     const $breadcrumbItems = $breadcrumb.find("button");
     assert.equal($breadcrumbItems.length, 1, "Incorrect number of breadcrumb items");
     assert.equal(T.text($breadcrumb.find("button:last-child")), 'Release time! - Course 1', "Wrong breadcrumb item label");
-
-    const $dataPicker = $performanceContainer.find(".controls .gru-data-picker");
-    assert.ok($dataPicker.length, 'Missing data picker');
-
-    const $legend = $performanceContainer.find(".controls .grading-scale-legend");
-    assert.ok($legend.length, 'Missing data picker');
+    const $legend = $performanceContainer.find(".info .grading-scale-legend");
+    assert.ok($legend.length, 'Missing grading scale legend');
 
   });
 
@@ -71,7 +70,8 @@ test('Test data picker options selected', function(assert) {
     assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/performance');
     const $performanceContainer = find(".controller.teacher.class.performance");
 
-    const $dataPicker = $performanceContainer.find(".controls .gru-data-picker");
+    const $options = $performanceContainer.find('.options');
+    const $dataPicker = $options.find('.data-picker .gru-data-picker');
     click($dataPicker.find("ul input:eq(1)")); //click on completion
     andThen(function(){
       const $metricTable = $performanceContainer.find(".gru-metrics-table");
@@ -101,7 +101,7 @@ test('Test data picker options selected', function(assert) {
   });
 });
 
-test('Test collections/assessments filter button selected', function(assert) {
+/*test('Test collections/assessments filter radio button selected', function(assert) {
 
   visit('/teacher/class/class-for-pochita-as-teacher/performance');
 
@@ -132,7 +132,7 @@ test('Test collections/assessments filter button selected', function(assert) {
       });
     });
   });
-});
+});*/
 
 test('Layout at unit level', function(assert) {
 
@@ -145,21 +145,21 @@ test('Layout at unit level', function(assert) {
     T.exists(assert, $performanceContainer.find(".gru-metrics-table"), "Missing metrics table component");
 
     const $actions = $performanceContainer.find(".actions");
-    assert.ok($actions.find('.assessment-filter-btn').length, 'Missing assessment button');
-    assert.ok($actions.find('.collection-filter-btn').length, 'Missing collection button');
+    assert.equal($actions.find('.gru-radio').length, 2, "Incorrect number of radio buttons");
     assert.ok($actions.find('.report-btn').length, 'Missing report button');
 
+    const $options = $performanceContainer.find('.options');
+    const $dataPicker = $options.find('.data-picker .gru-data-picker');
+    assert.ok($dataPicker.length, 'Missing data picker');
+
     //assert breadcrumb text
-    const $breadcrumb = $performanceContainer.find(".controls .gru-breadcrumb");
+    const $info = $performanceContainer.find(".info");
+    const $breadcrumb = $info.find(".teacher-breadcrumb");
     const $breadcrumbItems = $breadcrumb.find("button");
     assert.equal($breadcrumbItems.length, 2, "Incorrect number of breadcrumb items");
     assert.equal(T.text($breadcrumb.find("button:last-child")), 'Food', "Wrong breadcrumb item label");
-
-    const $dataPicker = $performanceContainer.find(".controls .gru-data-picker");
-    assert.ok($dataPicker.length, 'Missing data picker');
-
-    const $legend = $performanceContainer.find(".controls .grading-scale-legend");
-    assert.ok($legend.length, 'Missing data picker');
+    const $legend = $performanceContainer.find(".info .grading-scale-legend");
+    assert.ok($legend.length, 'Missing grading scale legend');
   });
 });
 
@@ -190,17 +190,18 @@ test('Layout for lesson', function(assert) {
     const $performanceContainer = find(".controller.teacher.class.performance");
     T.exists(assert, $performanceContainer.find(".gru-metrics-table"), "Missing metrics table component");
 
+    const $options = $performanceContainer.find('.options');
+    const $dataPicker = $options.find('.data-picker .gru-data-picker');
+    assert.ok($dataPicker.length, 'Missing data picker');
+
     //assert breadcrumb text
-    const $breadcrumb = find(".controller.class .gru-breadcrumb");
+    const $info = $performanceContainer.find(".info");
+    const $breadcrumb = $info.find(".teacher-breadcrumb");
     const $breadcrumbItems = $breadcrumb.find("button");
     assert.equal($breadcrumbItems.length, 3, "Incorrect number of breadcrumb items");
     assert.equal(T.text($breadcrumb.find("button:last-child")), 'Release Day Quiz', "Wrong breadcrumb item label");
-
-    const $dataPicker = $performanceContainer.find(".controls .gru-data-picker");
-    assert.ok($dataPicker.length, 'Missing data picker');
-
-    const $legend = $performanceContainer.find(".controls .grading-scale-legend");
-    assert.ok($legend.length, 'Missing data picker');
+    const $legend = $performanceContainer.find(".info .grading-scale-legend");
+    assert.ok($legend.length, 'Missing grading scale legend');
   });
 });
 
