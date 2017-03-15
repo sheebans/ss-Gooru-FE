@@ -20,7 +20,7 @@
             <div class="actions">
                 <div class="item-actions border">
                     <button title="{{t 'common.delete'}}" class="btn no-bgd delete" data-toggle="tooltip" data-placement="auto" data-trigger="hover">{{gru-icon name="delete"}}</button>
-                    <button title="{{t 'common.copy'}}" class="btn no-bgd copy" {{action 'copy' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="content_copy"}}</button>
+                    <button title="{{t 'common.copy'}}" class="btn no-bgd copy" {{action 'copyCategory' category index}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="content_copy"}}</button>
                     <button class="btn edit no-bgd" title="{{t 'common.edit'}}" {{action 'editInline'}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="actions">
                 <div class="item-actions">
                     <button class="cancel btn btn-info" {{action 'cancel'}}>{{t "common.cancel"}}</button>
-                    <button class="save btn btn-success" >{{t "common.save"}}</button>
+                    <button class="save btn btn-success"  {{action 'saveCategory'}}>{{t "common.save"}}</button>
                 </div>
             </div>
         </div>

@@ -39,5 +39,23 @@ test('cancel', function(assert) {
   assert.equal(component.get('isPanelExpanded'),false,'Panel should not expanded');
   assert.equal(component.get('isEditingInline'),false,'Should not edit inline');
 });
+test('copyCategory', function(assert) {
+  let component = this.subject();
+  let categoryCopy = {id:'category-test'};
+  component.set('sendAction', function(actionName, category, index) {
+    assert.equal(actionName, 'onCopyCategory', 'Action sent should match');
+    assert.equal(category,categoryCopy, 'Category should match');
+    assert.equal(index,1, 'Index should match');
+  });
+  component.send('copyCategory', categoryCopy,1);
+});
+test('saveCategory', function(assert) {
+  let component = this.subject({
+    category: Category.create({title:'test'}),
+    tempCategory: Category.create({title:'copy category'})
+  });
+  component.send('saveCategory');
+  assert.deepEqual(component.get('category'),component.get('tempCategory'),'Incorrect copy');
+});
 
 
