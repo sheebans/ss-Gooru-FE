@@ -19,7 +19,7 @@
         <div class="detail {{if isPanelExpanded 'hidden' 'visible'}} collapsed">
             <div class="actions">
                 <div class="item-actions border">
-                    <button title="{{t 'common.delete'}}" class="btn no-bgd delete" data-toggle="tooltip" data-placement="auto" data-trigger="hover">{{gru-icon name="delete"}}</button>
+                    <button title="{{t 'common.delete'}}" class="btn no-bgd delete" {{action 'deleteCategory' category}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">{{gru-icon name="delete"}}</button>
                     <button title="{{t 'common.copy'}}" class="btn no-bgd copy" {{action 'copyCategory' category index}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="content_copy"}}</button>
                     <button class="btn edit no-bgd" title="{{t 'common.edit'}}" {{action 'editInline'}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
                 </div>

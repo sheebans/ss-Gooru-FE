@@ -57,5 +57,14 @@ test('saveCategory', function(assert) {
   component.send('saveCategory');
   assert.deepEqual(component.get('category'),component.get('tempCategory'),'Incorrect copy');
 });
+test('deleteCategory', function(assert) {
+  let component = this.subject();
+  let categoryDelete = {id:'category-test'};
+  component.set('sendAction', function(actionName, category) {
+    assert.equal(actionName, 'onDeleteCategory', 'Action sent should match');
+    assert.equal(category,categoryDelete, 'Category should match');
+  });
+  component.send('deleteCategory', categoryDelete);
+});
 
 
