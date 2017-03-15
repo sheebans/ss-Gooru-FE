@@ -10,9 +10,9 @@ test('setFeedBack', function(assert) {
   let component = this.subject({
     rubric: RubricModel.create({})
   });
-  assert.equal(component.get('rubric.requiresFeedback'),false,'Feedback is not required');
-  component.send('setFeedBack');
   assert.equal(component.get('rubric.requiresFeedback'),true,'Feedback should be required');
+  component.send('setFeedBack');
+  assert.equal(component.get('rubric.requiresFeedback'),false,'Feedback should not be required');
 });
 
 test('addNewCategory', function(assert) {

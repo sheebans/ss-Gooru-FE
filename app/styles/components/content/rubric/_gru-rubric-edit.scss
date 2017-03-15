@@ -105,6 +105,9 @@
   }
   #rubric{
     .overall-score{
+      .panel-body{
+        padding: 0 50px;
+      }
       .feedback{
         label{
           @include flexbox;

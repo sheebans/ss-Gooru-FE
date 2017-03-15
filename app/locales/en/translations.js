@@ -1628,7 +1628,7 @@ export default {
     },
     "overall-narrative":"Overall Narrative Feedback",
     "feedback-guidance":"Feedback Guidance",
-    "required-feedback":"Required Feedback",
+    "required-feedback":"Require Feedback",
     "feedback-guidance-placeholder":"Summarize your feedback on the essay as a whole.",
     "gru-category":{
       "category-title":"Category Title",
