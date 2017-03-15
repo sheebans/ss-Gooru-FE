@@ -25,7 +25,7 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} requiresFeedback
    */
-  requiresFeedback: false,
+  requiresFeedback: true,
 
   /**
    * @property {boolean} allowScoring

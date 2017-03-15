@@ -88,7 +88,7 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} true when the rubric requires feedback
    */
-  requiresFeedback: false,
+  requiresFeedback: true,
 
   /**
    * @property {string} mimeType
