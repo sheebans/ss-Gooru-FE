@@ -70,8 +70,8 @@ export default Ember.Controller.extend({
                 controller.get("applicationController").loadUserClasses();
               });
             }, function(error) {
-              if(error && (error.email_id || error.username)) {
-                controller.set('emailError', error.email_id);
+              if(error && (error.email || error.username)) {
+                controller.set('emailError', error.email);
                 controller.set('usernameError', error.username);
                 controller.keydownEvents();
               } else {
