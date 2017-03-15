@@ -26,7 +26,7 @@ test('createContext as teacher', function(assert) {
       assert.equal(context.get('collectionId'), 'collection-id', 'Collection id should match');
       assert.equal(context.get('title'), 'collection-title', 'Collection title should match');
       assert.ok(context.get('isCollection'), 'Should show as collection');
-      assert.notOk(context.get('contextMapping'), 'Context should not have mapping');
+      assert.deepEqual(context.get('contextMapping'), {}, 'Context should not have mapping');
       return Ember.RSVP.resolve();
     }
   });

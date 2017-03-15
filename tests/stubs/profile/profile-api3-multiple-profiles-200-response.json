@@ -13,6 +13,20 @@
       "lastName": "Collaborator2",
       "username": "shawn",
       "avatarUrl": ""
+    },
+    {
+      "id": "profile-id-1",
+      "firstName": "Profile",
+      "lastName": "Number 1",
+      "username": "Prof1",
+      "avatarUrl": ""
+    },
+    {
+      "id": "profile-id-2",
+      "firstName": "Profile",
+      "lastName": "Number 2",
+      "username": "Prof2",
+      "avatarUrl": ""
     }
   ]
 }
