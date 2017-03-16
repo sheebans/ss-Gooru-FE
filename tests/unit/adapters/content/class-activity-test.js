@@ -107,8 +107,8 @@ test('findClassActivities with no content type', function(assert) {
     });
 });
 
-test('findClassActivities with content type', function(assert) {
-  assert.expect(3);
+test('findClassActivities with content type and dates', function(assert) {
+  assert.expect(5);
 
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -117,11 +117,13 @@ test('findClassActivities with content type', function(assert) {
   this.pretender.map(function() {
     this.get('/api/nucleus/v2/classes/123/contents', function(request) {
       assert.equal(request.queryParams.content_type, 'assessment', 'Content type should be assessment');
+      assert.equal(request.queryParams.date_from, '2012-01-20', 'Wrong start date');
+      assert.equal(request.queryParams.date_to, '2012-01-30', 'Wrong end date');
       assert.equal(request.requestHeaders['Authorization'], 'Token token-api-3', 'Wrong token');
       return [201, {'Content-Type': 'application/json'}, JSON.stringify('fake-response')];
     }, false);
   });
-  adapter.findClassActivities(123, 'assessment')
+  adapter.findClassActivities(123, 'assessment', new Date(2012, 0, 20), new Date(2012, 0, 30))
     .then(function(response) {
       assert.equal('fake-response', response, 'Wrong response');
     });
