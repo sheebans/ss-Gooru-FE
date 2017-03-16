@@ -85,7 +85,8 @@ export default Ember.Object.extend({
       code: payload.code,
       title: payload.title,
       description: payload.description,
-      courseId: payload['course_id'],
+      courseId: payload.course_id,
+      courseTitle: payload.course_title,
       greeting: payload.greeting,
       grade:[], // TODO We need to get the grade values, we have just the IDs.
       classSharing: payload['class_sharing'],

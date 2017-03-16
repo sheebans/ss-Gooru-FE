@@ -20,7 +20,7 @@
             <div class="actions">
                 <div class="item-actions border">
                     <button title="{{t 'common.delete'}}" class="btn no-bgd delete" data-toggle="tooltip" data-placement="auto" data-trigger="hover">{{gru-icon name="delete"}}</button>
-                    <button title="{{t 'common.copy'}}" class="btn no-bgd copy" {{action 'copy' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="content_copy"}}</button>
+                    <button title="{{t 'common.copy'}}" class="btn no-bgd copy" {{action 'copyCategory' category index}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="content_copy"}}</button>
                     <button class="btn edit no-bgd" title="{{t 'common.edit'}}" {{action 'editInline'}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
                 </div>
             </div>
@@ -29,14 +29,30 @@
             <div class="actions">
                 <div class="item-actions">
                     <button class="cancel btn btn-info" {{action 'cancel'}}>{{t "common.cancel"}}</button>
-                    <button class="save btn btn-success" >{{t "common.save"}}</button>
+                    <button class="save btn btn-success"  {{action 'saveCategory'}}>{{t "common.save"}}</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="panel-body">
-
+        <div class="feedback">
+            <label>
+                <span>{{t "gru-rubric-creation.feedback-guidance"}}</span>
+              {{validation.gru-textarea rawTextareaValue=category.narrativeFeedback model=category valuePath='narrativeFeedback' maxLength=500 rows=5 placeholder=(t 'gru-rubric-creation.gru-category.category-feedback')}}
+            </label>
+        </div>
+        <label class="required-feedback">
+            <span {{action 'setFeedBack'}}>
+              {{#if category.requiresFeedback}}
+                {{gru-icon name='check_box'}}
+              {{else}}
+                {{gru-icon name='check_box_outline_blank'}}
+              {{/if}}
+            </span>
+          {{t 'gru-rubric-creation.required-feedback'}}
+        </label>
+        {{content.rubric.gru-scoring-levels}}
     </div>
 </div>
 

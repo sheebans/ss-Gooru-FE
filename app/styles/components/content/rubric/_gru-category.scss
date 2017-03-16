@@ -130,5 +130,13 @@
       }
     }
   }
+  .feedback{
+    label{
+      width: 100%;
+      textarea{
+        font-size: $font-size-base;
+      }
+    }
+  }
 }
 

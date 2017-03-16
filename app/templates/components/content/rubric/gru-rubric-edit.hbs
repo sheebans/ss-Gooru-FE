@@ -45,7 +45,7 @@
                 <div class="feedback">
                     <label>
                         <span>{{t "gru-rubric-creation.feedback-guidance"}}</span>
-                      {{validation.gru-textarea rawTextareaValue=rubric.feedback model=rubric valuePath='feedback' maxLength=500 rows=1 placeholder=(t 'gru-rubric-creation.feedback-guidance-placeholder')}}
+                      {{validation.gru-textarea rawTextareaValue=rubric.feedback model=rubric valuePath='feedback' maxLength=500 rows=5 placeholder=(t 'gru-rubric-creation.feedback-guidance-placeholder')}}
                     </label>
                 </div>
                 <label class="required-feedback">
@@ -62,7 +62,7 @@
         </div>
         <div class="category-panel">
           {{#each categories as |category index|}}
-            {{content.rubric.gru-category category=category index=index}}
+            {{content.rubric.gru-category category=category index=index onCopyCategory='copyCategory'}}
           {{/each}}
             <a class="add-prefix add-category" {{action 'addNewCategory'}}>{{t "gru-rubric-creation.add-category"}}</a>
         </div>

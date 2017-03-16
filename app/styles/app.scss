@@ -56,7 +56,6 @@
 @import 'controllers/reset-password';
 @import 'controllers/featured';
 @import 'controllers/account-settings';
-@import 'controllers/course-player';
 
 @import 'controllers/student/class';
 @import 'controllers/student/performance';
@@ -182,7 +181,7 @@
 @import 'components/content/rubric/gru-preview-url';
 @import 'components/content/rubric/gru-fixed-footer';
 @import 'components/content/rubric/gru-category';
-@import 'components/content/courses/gru-course-play-header';
+@import 'components/content/rubric/gru-scoring-levels';
 
 @import 'components/goal/gru-goal-form';
 

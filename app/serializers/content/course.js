@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import { cleanFilename } from 'gooru-web/utils/utils';
 import CourseModel from 'gooru-web/models/content/course';
+import Lesson from 'gooru-web/models/content/lesson';
+import LessonItem from 'gooru-web/models/content/lessonItem';
+import Unit from 'gooru-web/models/content/unit';
+
 import UnitSerializer from 'gooru-web/serializers/content/unit';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
@@ -135,6 +139,78 @@ export default Ember.Object.extend(ConfigurationMixin, {
       audience: metadata["audience"] && metadata["audience"].length > 0 ? metadata["audience"] : [],
       useCase: payload.use_case
       // TODO More properties will be added here...
+    });
+  },
+
+  /**
+   * Normalizes the course structure response
+   *
+   * @param {*} payload - The endpoint response in JSON format
+   * @param {string} collectionType collection|assessment
+   * @returns {Content/Course} Course Model
+   */
+  normalizeCourseStructure: function(payload, collectionType) {
+    const serializer = this;
+    const coursePayload = payload.courses[0];
+    const course = CourseModel.create({
+      id: coursePayload.id,
+      title: coursePayload.title,
+      children: serializer.normalizeCourseStructureUnits(coursePayload.units || [], collectionType)
+    });
+    return course;
+  },
+
+  /**
+   * Normalizes the course structure units response
+   *
+   * @param {[]} payload - The endpoint response in JSON format
+   * @param {string} collectionType collection|assessment
+   * @returns {Content/Unit[]} units
+   */
+  normalizeCourseStructureUnits: function(payload, collectionType) {
+    const serializer = this;
+    return payload.map(function(unitPayload) {
+      return Unit.create({
+        id: unitPayload.id,
+        title: unitPayload.title,
+        children: serializer.normalizeCourseStructureLessons(unitPayload.lessons || [], collectionType)
+      });
+    });
+  },
+
+  /**
+   * Normalizes the course structure lessons response
+   *
+   * @param {[]} payload - The endpoint response in JSON format
+   * @param {string} collectionType collection|assessment
+   * @returns {Content/Lesson[]} lessons
+   */
+  normalizeCourseStructureLessons: function(payload, collectionType) {
+    const serializer = this;
+    const isAssessment = collectionType === 'assessment';
+    return payload.map(function(lessonPayload) {
+      const items = isAssessment ? lessonPayload.assessments : lessonPayload.collections;
+      return Lesson.create({
+        id: lessonPayload.id,
+        title: lessonPayload.title,
+        children: serializer.normalizeCourseStructureLessonItems(items || [])
+      });
+    });
+  },
+
+  /**
+   * Normalizes the course structure lesson items response
+   *
+   * @param {[]} payload - The endpoint response in JSON format
+   * @returns {Content/LessonItem[]} lesson items
+   */
+  normalizeCourseStructureLessonItems: function(payload) {
+    return payload.map(function(lessonItemPayload) {
+      return LessonItem.create({
+        id: lessonItemPayload.id,
+        title: lessonItemPayload.title,
+        format: lessonItemPayload.format
+      });
     });
   },
 
