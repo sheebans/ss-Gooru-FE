@@ -124,6 +124,8 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, {
       return route.createContext(params, collection);
     }).then(function({ id }) {
       params.profileId = route.get('session.userData.gooruUId');
+      params.role = params.role || 'teacher';
+      params.cdnURL = route.get('session.cdnUrls.content');
       params.type = collection.get('collectionType');
       params.routeURL = '';
       params.contextId = id;

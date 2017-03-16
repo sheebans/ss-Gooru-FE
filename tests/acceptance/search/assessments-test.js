@@ -55,7 +55,7 @@ test('onOpenContentPlayer: When opening a assessment', function(assert) {
     T.exists(assert, $firstCollectionLink, "Missing collection link");
     click($firstCollectionLink); //clicking first collection title
     andThen(function() {
-      assert.equal(currentURL(), '/player/all-question-types-assessment-id?type=assessment');
+      assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment');
     });
   });
 });
