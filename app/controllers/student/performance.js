@@ -9,40 +9,71 @@ import Ember from 'ember';
  * @augments ember/Controller
  */
 export default Ember.Controller.extend({
-    // -------------------------------------------------------------------------
-    // Dependencies
+  // -------------------------------------------------------------------------
+  // Dependencies
 
-    queryParams: ['collectionType', 'unitId', 'lessonId', 'courseId'],
+  queryParams: ['collectionType', 'unitId', 'lessonId', 'courseId'],
 
 
-    // -------------------------------------------------------------------------
-    // Properties
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * @property {string}
+   */
+  collectionType: 'assessment',
+
+  /**
+   * @property {string}
+   */
+  courseId: null,
+
+  /**
+   * @property {string}
+   */
+  unitId: null,
+
+  /**
+   * @property {string}
+   */
+  lessonId: null,
+
+  /**
+   * @property {Boolean} isCourseFiltersExpanded
+   */
+  isCourseFiltersExpanded: true,
+
+  /**
+   * @property {Boolean} isCourseFiltersExpanded
+   */
+  isUnitFiltersExpanded: false,
+  /**
+   * @property {Boolean} isCourseFiltersExpanded
+   */
+  isLessonFiltersExpanded: false,
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
 
     /**
-     * @property {string}
+     * Expand filter panel
      */
-    collectionType: 'assessment',
+    expandPanel: function (filterType) {
+      if (filterType === 'course') {
+        this.toggleProperty('isCourseFiltersExpanded');
+      }
+      if (filterType === 'unit') {
+        this.toggleProperty('isUnitFiltersExpanded');
+      }
+      if (filterType === 'lesson') {
+        this.toggleProperty('isLessonFiltersExpanded');
+      }
+    }
+  }
 
-    /**
-     * @property {string}
-     */
-    courseId: null,
-
-    /**
-     * @property {string}
-     */
-    unitId: null,
-
-    /**
-     * @property {string}
-     */
-    lessonId: null
-
-    // -------------------------------------------------------------------------
-    // Actions
-
-    // -------------------------------------------------------------------------
-    // Methods
-
+  // -------------------------------------------------------------------------
+  // Methods
 
 });

@@ -803,10 +803,12 @@ export default {
     "announcement":"Announcement",
     "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "my-performance":{
-      "title": "Analyze your performance.",
-      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
       "assessments": "Assessments",
-      "collections": "Collections"
+      "collections": "Collections",
+      "filter": "Filter",
+      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
+      "title": "Analyze your performance.",
+      "update-report": "Update Report"
     },
     "class":{
       "back-to": "Back to My Classes",

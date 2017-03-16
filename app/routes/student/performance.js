@@ -35,23 +35,33 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function(params) {
-
-    const route = this;
-
-    const userId = route.get('session.userId');
-    const criteria = {
-      courseId: params.courseId,
-      unitId: params.unitId,
-      lessonId: params.lessonId,
-      collectionType: params.collectionType
-    };
-
+  model: function() {
     return Ember.RSVP.hash({
-      assessments: route.get('assessmentService').findAssessments(userId, criteria),
-      collectionPerformanceSummaryItems: route.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
+      assessments: [],
+      collectionPerformanceSummaryItems: []
     });
   },
+
+  //Meanwhile the integration works
+
+  //model: function(params) {
+  //
+  //  const route = this;
+  //
+  //  const userId = route.get('session.userId');
+  //  const criteria = {
+  //    courseId: params.courseId,
+  //    unitId: params.unitId,
+  //    lessonId: params.lessonId,
+  //    collectionType: params.collectionType
+  //  };
+  //
+  //
+  //  return Ember.RSVP.hash({
+  //    assessments: route.get('assessmentService').findAssessments(userId, criteria),
+  //    collectionPerformanceSummaryItems: route.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
+  //  });
+  //},
 
   /**
    * Set all controller properties from the model
