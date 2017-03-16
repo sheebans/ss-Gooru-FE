@@ -157,6 +157,7 @@ test('normalizeReadClassInfo', function(assert) {
     "min_score": 0,
     "end_date": "2016-01-01",
     "course_id": "d44d3928-2623-4925-9d38-e933650a7573",
+    "course_title": "Course 1",
     "collaborator": ['1', '2'],
     "gooru_version": 3,
     "content_visibility": null,
@@ -171,6 +172,7 @@ test('normalizeReadClassInfo', function(assert) {
   assert.equal(normalizedClassInfo.get("title"), "My Class 1", 'Wrong title');
   assert.equal(normalizedClassInfo.get("description"), "Class description", 'Wrong description');
   assert.equal(normalizedClassInfo.get("courseId"), "d44d3928-2623-4925-9d38-e933650a7573", 'Wrong course id');
+  assert.equal(normalizedClassInfo.get("courseTitle"), "Course 1", 'Wrong course title');
   assert.equal(normalizedClassInfo.get("greeting"), "Greeting message", 'Wrong greeting');
   assert.equal(normalizedClassInfo.get("grade.length"), 0, 'Wrong grade length');
   assert.equal(normalizedClassInfo.get("classSharing"), "open", 'Wrong classSharing');

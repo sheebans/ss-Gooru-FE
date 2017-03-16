@@ -98,6 +98,11 @@ const Class = Ember.Object.extend(Validations, {
   courseId: null,
 
   /**
+   * @property {string}
+   */
+  courseTitle: null,
+
+  /**
    * @property {String} Creator name
    */
   creatorSystem: null,
