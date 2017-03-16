@@ -1,60 +1,71 @@
 <div class="controller teacher class performance container-fluid">
-    <div class="row">
-        <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
-        </div>
+  <div class="row">
+    <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
     </div>
+  </div>
   {{#unless (and isAtCollectionLevel reportData)}}
     <div class="row actions">
-        <div class="col-xs-12">
-            <button class="btn btn-primary assessment-filter-btn {{if filteredByAssessment 'selected'}}" {{action 'selectFilterBy' 'assessment'}}>{{t 'common.assessment'}}</button>
-            <button class="btn btn-primary collection-filter-btn {{if filteredByCollection 'selected'}}" {{action 'selectFilterBy' 'collection'}}>{{t 'common.collection'}}</button>
-            <button class="btn btn-primary report-btn" {{action 'download'}}>{{t 'common.download-report'}}</button>
-        </div>
+      <div class="radios-container">
+        <label class="radio-button assessment">
+          <input type="radio" name="filter-radio" tabindex="0" checked="checked" {{action "selectFilterBy" "assessment" preventDefault=false}}>
+          {{t 'teacher-landing.class.performance-tab.assessments'}}
+        </label>
+        <label class="radio-button collection">
+          <input type="radio" name="filter-radio" tabindex="0" {{action "selectFilterBy" "collection" preventDefault=false}}>
+          {{t 'teacher-landing.class.performance-tab.collections'}}
+        </label>
+      </div>
+      <button class="btn btn-primary report-btn" {{action 'download'}}>
+        {{gru-icon name='file_download'}}
+        <span>{{t 'common.download-print'}}</span>
+      </button>
     </div>
   {{/unless}}
-    <div class="row controls">
-        <div class="teacher-breadcrumb col-md-8 col-sm-8 col-xs-12">
-          {{gru-breadcrumb items=breadcrumb onSelectedItem="selectBreadcrumbItem"}}
+    <div class="row options">
+      {{#unless (and isAtCollectionLevel reportData)}}
+        <div class="data-picker">
+          {{#if filteredByAssessment}}
+            {{class.analytics.performance.gru-data-picker
+              onOptionsChange="optionsChange" options=defaultAssessmentOptions max=3}}
+          {{else}}
+            {{class.analytics.performance.gru-data-picker
+              onOptionsChange="optionsChange" options=defaultCollectionOptions max=3}}
+          {{/if}}
         </div>
-        {{#unless (and isAtCollectionLevel reportData)}}
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="data-picker">
-              {{#if filteredByAssessment}}
-                {{class.analytics.performance.gru-data-picker
-                onOptionsChange="optionsChange" options=defaultAssessmentOptions max=3}}
-              {{else}}
-                {{class.analytics.performance.gru-data-picker
-                onOptionsChange="optionsChange" options=defaultCollectionOptions max=3}}
-              {{/if}}
-            </div>
-            <div class="grading-scale">
-              {{grading-scale-legend}}
-            </div>
+      {{/unless}}
+    </div>
+    <div class="row info">
+      <div class="teacher-breadcrumb">
+        {{gru-breadcrumb items=breadcrumb onSelectedItem="selectBreadcrumbItem"}}
+      </div>
+      {{#unless (and isAtCollectionLevel reportData)}}
+        <div class="grading-scale">
+          {{grading-scale-legend}}
         </div>
-        {{/unless}}
+      {{/unless}}
     </div>
     <div class="row gru-content">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            {{#if (and isAtCollectionLevel reportData)}}
-              {{ reports.gru-class-assessment-report
-                assessment=collection
-                students=class.members
-                reportData=reportData
-                anonymous=false
-                isRealTime=false
-              }}
-            {{else}}
-                {{class.analytics.performance.teacher.gru-metrics-table
-                headers=performanceDataHeaders
-                performanceDataMatrix=performanceDataMatrix
-                dataPickerOptions=selectedOptions
-                onNavigation="navigateTo"
-                onClickScore="navigateToReport"
-                headerType= headerType
-                }}
-            {{/if}}
-        </div>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        {{#if (and isAtCollectionLevel reportData)}}
+          {{ reports.gru-class-assessment-report
+            assessment=collection
+            students=class.members
+            reportData=reportData
+            anonymous=false
+            isRealTime=false
+          }}
+        {{else}}
+          {{class.analytics.performance.teacher.gru-metrics-table
+          headers=performanceDataHeaders
+          performanceDataMatrix=performanceDataMatrix
+          dataPickerOptions=selectedOptions
+          onNavigation="navigateTo"
+          onClickScore="navigateToReport"
+          headerType= headerType
+          }}
+        {{/if}}
+      </div>
     </div>
 </div>
