@@ -42,6 +42,10 @@ export default Ember.Component.extend({
       .maxValue(maxValue);
 
     if (!this.get('showPercentageLabel')) {
+      if(!value || !maxValue){
+        radialChart.__textDisplay('--');
+      }
+      else
       radialChart.__textDisplay(value + '/' + maxValue);
     }
 
