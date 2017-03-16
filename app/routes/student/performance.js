@@ -47,9 +47,18 @@ export default Ember.Route.extend({
       collectionType: params.collectionType
     };
 
+    //Remove this after the integration works
+    Ember.log.info(userId);
+    Ember.log.info(criteria);
+
     return Ember.RSVP.hash({
-      assessments: route.get('assessmentService').findAssessments(userId, criteria),
-      collectionPerformanceSummaryItems: route.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
+
+      //Meanwhile the integration works
+      //assessments: route.get('assessmentService').findAssessments(userId, criteria),
+      //collectionPerformanceSummaryItems: route.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
+      assessments: [],
+      collectionPerformanceSummaryItems: []
+
     });
   },
 
