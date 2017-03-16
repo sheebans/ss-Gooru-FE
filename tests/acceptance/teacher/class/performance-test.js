@@ -27,7 +27,7 @@ test('Layout at course level', function(assert) {
     T.exists(assert, $performanceContainer.find(".gru-metrics-table"), "Missing metrics table component");
 
     const $actions = $performanceContainer.find(".actions");
-    assert.equal($actions.find('.gru-radio').length, 2, "Incorrect number of radio buttons");
+    assert.equal($actions.find('.radio-button').length, 2, "Incorrect number of radio buttons");
     assert.ok($actions.find('.report-btn').length, 'Missing download button');
 
     const $options = $performanceContainer.find('.options');
@@ -101,7 +101,7 @@ test('Test data picker options selected', function(assert) {
   });
 });
 
-/*test('Test collections/assessments filter radio button selected', function(assert) {
+test('Test collections/assessments filter radio button selected', function(assert) {
 
   visit('/teacher/class/class-for-pochita-as-teacher/performance');
 
@@ -110,29 +110,20 @@ test('Test data picker options selected', function(assert) {
 
     const $performanceContainer = find(".controller.teacher.class.performance");
     const $actions = $performanceContainer.find(".actions");
-    const $assessmentButton = $actions.find('.assessment-filter-btn');
-    const $collectionButton = $actions.find('.collection-filter-btn');
-    assert.ok($assessmentButton.hasClass("selected"), "assessment button should be selected by default");
+    const $assessmentRadioButton = $actions.find('.radios-container .assessment');
+    const $collectionRadioButton = $actions.find('.radios-container .collection');
 
-    click($collectionButton); //click on collections filter button
-
+    click($collectionRadioButton); //click on collections filter radio button
     andThen(function(){
-
-      assert.ok($collectionButton.hasClass("selected"), "collection button should be selected");
-      assert.ok(!$assessmentButton.hasClass("selected"), "assessment button should not be selected");
       assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/performance?filterBy=collection');
 
-      click($assessmentButton); //click on assessments filter button
+      click($assessmentRadioButton); //click on assessments filter radio button
       andThen(function(){
-
-        assert.ok(!$collectionButton.hasClass("selected"), "collection button should not be selected");
-        assert.ok($assessmentButton.hasClass("selected"), "assessment button should be selected");
-
         assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/performance');
       });
     });
   });
-});*/
+});
 
 test('Layout at unit level', function(assert) {
 
@@ -145,7 +136,7 @@ test('Layout at unit level', function(assert) {
     T.exists(assert, $performanceContainer.find(".gru-metrics-table"), "Missing metrics table component");
 
     const $actions = $performanceContainer.find(".actions");
-    assert.equal($actions.find('.gru-radio').length, 2, "Incorrect number of radio buttons");
+    assert.equal($actions.find('.radio-button').length, 2, "Incorrect number of radio buttons");
     assert.ok($actions.find('.report-btn').length, 'Missing report button');
 
     const $options = $performanceContainer.find('.options');

@@ -8,27 +8,19 @@
   {{#unless (and isAtCollectionLevel reportData)}}
     <div class="row actions">
       <div class="radios-container">
-        {{validation.gru-radio
-          valuePath='assessment'
-          name="filter-radio"
-          translationPath="teacher-landing.class.performance-tab.assessments"
-          onChange=(action 'selectFilterBy' 'assessment')
-        }}  <!-- REVISAR XQ SOLO SIRVE EN LA PRIMERA VEZ QUE CAMBIA -->
-        {{validation.gru-radio
-          valuePath='collection'
-          name="filter-radio"
-          translationPath="teacher-landing.class.performance-tab.collections"
-          onChange=(action 'selectFilterBy' 'collection')
-        }}
+        <label class="radio-button assessment">
+          <input type="radio" name="filter-radio" tabindex="0" checked="checked" {{action "selectFilterBy" "assessment" preventDefault=false}}>
+          {{t 'teacher-landing.class.performance-tab.assessments'}}
+        </label>
+        <label class="radio-button collection">
+          <input type="radio" name="filter-radio" tabindex="0" {{action "selectFilterBy" "collection" preventDefault=false}}>
+          {{t 'teacher-landing.class.performance-tab.collections'}}
+        </label>
       </div>
       <button class="btn btn-primary report-btn" {{action 'download'}}>
         {{gru-icon name='file_download'}}
         <span>{{t 'common.download-print'}}</span>
       </button>
-      <!--
-      <button class="btn btn-primary assessment-filter-btn {{if filteredByAssessment 'selected'}}" {{action 'selectFilterBy' 'assessment'}}>{{t 'common.assessment'}}</button>
-      <button class="btn btn-primary collection-filter-btn {{if filteredByCollection 'selected'}}" {{action 'selectFilterBy' 'collection'}}>{{t 'common.collection'}}</button>
-      -->
     </div>
   {{/unless}}
     <div class="row options">
