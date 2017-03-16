@@ -45,8 +45,9 @@ export default Ember.Component.extend({
       if(!value || !maxValue){
         radialChart.__textDisplay('--');
       }
-      else
-      radialChart.__textDisplay(value + '/' + maxValue);
+      else {
+        radialChart.__textDisplay(value + '/' + maxValue);
+      }
     }
 
     radialChart.render();
