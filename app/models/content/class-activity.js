@@ -22,9 +22,9 @@ export default Ember.Object.extend({
   collection: null,
 
   /**
-   * @property {CollectionPerformanceSummary}
+   * @property {ActivityPerformanceSummary}
    */
-  collectionPerformanceSummary: null,
+  activityPerformanceSummary: null,
 
   /**
    * @property { { courseId: string, unitId: string, lessonId: string, collectionId: string }}
