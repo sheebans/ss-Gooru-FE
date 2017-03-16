@@ -19,6 +19,18 @@ export default Ember.Component.extend({
      */
     addLevel: function(){
       this.get('scoringLevels').addObject({name:'',score:null});
+    },
+    /**
+     *Triggered when scoring switch change
+     */
+    onScoringChange: function(isChecked){
+      this.set('showScore',isChecked);
+    },
+    /**
+     *Triggered when level switch change
+     */
+    onLevelChange: function(isChecked){
+      this.set('showLevel',isChecked);
     }
   },
   //// -------------------------------------------------------------------------

@@ -44,3 +44,40 @@ test('Category expanded', function(assert) {
   assert.ok($component.find('.actions .panel-body .feedback label'), 'Missing category feedback');
   assert.ok($component.find('.actions .panel-body .required-feedback'), 'Missing requires feedback checkbox');
 });
+test('Delete Category', function(assert) {
+  assert.expect(1);
+
+  this.on('parentAction', function(category){
+    assert.ok(categoryDelete, category);
+  });
+
+  var categoryDelete = Category.create({
+    title:'Category for test'
+  });
+
+  this.set('category',categoryDelete);
+  this.render(hbs`{{content/rubric/gru-category category=category onDeleteCategory='parentAction'}}`);
+
+  var $component = this.$();
+  var $delete = $component.find('.btn.delete');
+  $delete.click();
+});
+
+test('Copy Category', function(assert) {
+  assert.expect(1);
+
+  this.on('parentAction', function(category){
+    assert.ok(categoryCopy, category);
+  });
+
+  var categoryCopy = Category.create({
+    title:'Category for test'
+  });
+
+  this.set('category',categoryCopy);
+  this.render(hbs`{{content/rubric/gru-category category=category onCopyCategory='parentAction'}}`);
+
+  var $component = this.$();
+  var $copy = $component.find('.btn.copy');
+  $copy.click();
+});
