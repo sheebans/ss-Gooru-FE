@@ -1,6 +1,6 @@
 <div class="score-section level">
     <span>{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.levels'}}</span>
-  {{gru-switch switchOptions=switchOptions isChecked=showLevel}}
+  {{gru-switch switchOptions=switchOptions onOptionSwitch='onScoringChange' isChecked=showLevel}}
   {{#if showLevel}}
     <div class="levels">
         <div class="scale">
@@ -20,7 +20,7 @@
 </div>
 <div class="score-section points">
     <span>{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.scoring'}}</span>
-  {{gru-switch switchOptions=switchOptions  isChecked=showScore}}
+  {{gru-switch switchOptions=switchOptions onOptionSwitch='onLevelChange' isChecked=showScore}}
   {{#if showScore}}
     <div class="point-list">
       {{#each scoringLevels as |level|}}

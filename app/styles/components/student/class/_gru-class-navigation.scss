@@ -1,9 +1,9 @@
 .student.gru-class-navigation,
 .teacher.gru-class-navigation {
-  border-top: solid 1px $light-300;
   clear: both;
   margin: 20px 0 0 0;
   .nav-tabs {
+    border-bottom: solid 1px $light-300;
     margin: 0;
     li {
       margin: 0 10px 0 0;

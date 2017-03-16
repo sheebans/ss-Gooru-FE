@@ -225,6 +225,27 @@
         display: inline-block;
         border-radius: 0;
 
+        .controls{
+          width: 45px;
+          max-width: 5%;
+          float: left;
+          padding-left: 10px;
+          margin-right: 10px;
+          border-right: solid 2px $light-200;
+          a.add {
+            color: $gray;
+            display: inline-block;
+            text-align: center;
+            i, span{
+              float: left;
+              clear: left;
+            }
+            @media (max-width: $screen-lg) {
+              display: none;
+            }
+          }
+        }
+
         .icon-container {
           i {
             font-size: $collection-icon-size;
@@ -315,7 +336,7 @@
             width: 75%;
 
             @media (min-width: $screen-lg) {
-              margin: 0 0 0 10px;
+              padding-left: 10px;
               max-width: 80%;
               width: 80%;
             }
@@ -336,7 +357,7 @@
             text-align: right;
           }
           @media (min-width: $screen-lg) {
-            width: 50%;
+            width: 45%;
           }
           .content-count {
             font-size: $font-size-large;

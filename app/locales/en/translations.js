@@ -164,6 +164,7 @@ export default {
     "district": "District",
     "domain": "Domain",
     "domains": "Domains",
+    "download-print": "Download/Print",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
     "download-report": "Download Report",
     "edit": "Edit",
@@ -803,11 +804,12 @@ export default {
     "announcement":"Announcement",
     "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "my-performance":{
-      "title": "Analyze your performance.",
-      "download-print": "Download/Print",
-      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
       "assessments": "Assessments",
-      "collections": "Collections"
+      "collections": "Collections",
+      "filter": "Filter",
+      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
+      "title": "Analyze your performance.",
+      "update-report": "Update Report"
     },
     "class":{
       "back-to": "Back to My Classes",
@@ -856,6 +858,10 @@ export default {
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
         "today": "Today"
+      },
+      "performance-tab": {
+        "assessments": "Assessments",
+        "collections": "Collections"
       }
     }
   },

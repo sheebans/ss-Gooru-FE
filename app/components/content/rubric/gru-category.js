@@ -32,6 +32,12 @@ export default Ember.Component.extend({
       this.sendAction('onCopyCategory',category,index);
     },
     /**
+     *Delete a category
+     */
+    deleteCategory: function(category){
+      this.sendAction('onDeleteCategory',category);
+    },
+    /**
      *Set if feedback is required
      */
     setFeedBack: function(){
