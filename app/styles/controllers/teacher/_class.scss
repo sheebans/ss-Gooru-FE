@@ -3,8 +3,7 @@
   @media (min-width: $screen-sm) {
     padding: 35px 47px;
   }
-  .header {
-    min-height: 275px;
+  .header {    
     .go-back-container{
       margin: 0 0 25px 0;
       .back-to{
@@ -27,7 +26,6 @@
       float: left;
       width: 100%;
       margin: 15px 20px 0 0;
-      height: 210px;
       &:last-child {
         margin-right: 0;
       }

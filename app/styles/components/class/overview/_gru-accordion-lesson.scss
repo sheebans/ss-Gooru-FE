@@ -230,7 +230,6 @@
           max-width: 5%;
           float: left;
           padding-left: 10px;
-          margin-right: 10px;
           border-right: solid 2px $light-200;
           a.add {
             color: $gray;
@@ -240,12 +239,14 @@
               float: left;
               clear: left;
             }
-            @media (max-width: $screen-lg) {
-              display: none;
-            }
+          }
+          @media (max-width: $screen-md) {
+            display: none;
           }
         }
-
+        .panel-title{
+          padding-left: 10px;
+        }
         .icon-container {
           i {
             font-size: $collection-icon-size;
@@ -293,7 +294,7 @@
           width: 100%;
           float: left;
           @media (min-width: $screen-sm) {
-            width: 34%;
+            width: 45%;
           }
           @media (min-width: $screen-lg) {
             width: 50%;
@@ -352,7 +353,7 @@
           width: 100%;
           float: left;
           @media (min-width: $screen-sm) {
-            width: 66%;
+            width: 50%;
             float: right;
             text-align: right;
           }

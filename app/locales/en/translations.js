@@ -121,7 +121,6 @@ export default {
     "choose": "Choose",
     "choose-file":"Choose a file",
     "class": "Classroom",
-    "classes": "Classrooms",
     "classScores": "Class Scores",
     "close": "Close",
     "collection": "Collection",
@@ -150,7 +149,6 @@ export default {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
-    "create-class": "+ Create classroom",
     "created-by": "Created by",
     "create-rubric": "Create New Rubric",
     "current-attempt":"Current Attempt",
@@ -849,7 +847,7 @@ export default {
         "edit": "Edit",
         "download-roster": "Download Roster",
         "student-name": "Student Name",
-        "student-id": "Student Id",
+        "student-id": "Student ID",
         "email-address": "Email Address",
         "performance": "Performance",
         "actions": "Actions",
@@ -1643,7 +1641,7 @@ export default {
     "feedback-guidance-placeholder":"Summarize your feedback on the essay as a whole.",
     "gru-category":{
       "category-title":"Category Title",
-      "category-feedback": "ex. As you are reviewing this category, pay careful attention to the author’s purpose",
+      "category-feedback": "ex. As you are reviewing this category, pay careful attention to the author’s purpose.",
       "gru-scoring-levels":{
         "0":"ex. Proficient",
         "1":"ex. Exemplary",

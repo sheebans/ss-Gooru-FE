@@ -68,26 +68,6 @@
                   {{/link-to}}
                 </li>
               {{/unless}}
-                <li class="navbar-nav-list visible-md visible-lg dropdown my-classes">
-                    <a class="profile dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="classes">{{t "common.classes"}}</span>
-                      {{gru-icon name='keyboard_arrow_down'}}
-                    </a>
-                    <ul class="dropdown-menu pull-right" role="menu" id="profile-dropdown">
-                      {{#each activeClasses as |class|}}
-                          <li class="navbar-nav-list">
-                            {{#link-to 'class.overview' class.id class="navbar-link"}}
-                                <span class="class">{{class.title}}</span>
-                            {{/link-to}}
-                          </li>
-                      {{/each}}
-                        <li>
-                          {{#link-to 'content.classes.create' class="navbar-link"}}
-                              <span class="class">{{t "common.create-class"}}</span>
-                          {{/link-to}}
-                        </li>
-                    </ul>
-                </li>
                 <li class="navbar-nav-list visible-md visible-lg profile-link">
                 {{#link-to 'profile.content.courses' session.userData.gooruUId class="profile"}}
                   <div class="img-container pull-left">
@@ -117,22 +97,6 @@
                   <li class="navbar-nav-list close-menu">
                     <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='close'}}</button>
                   </li>
-                  {{#if activeClasses}}
-                    <li class="navbar-nav-list">
-                      <a class="my-classes">
-                        {{t "common.classes"}} {{gru-icon name='keyboard_arrow_down'}} {{gru-icon name='keyboard_arrow_up'}}
-                      </a>
-                      <ul class="list-group">
-                        {{#each activeClasses as |class|}}
-                          <li class="list-group-item">
-                            {{#link-to 'class.overview' class.id class="navbar-link"}}
-                                <span class="class">{{class.title}}</span>
-                            {{/link-to}}
-                          </li>
-                        {{/each}}
-                      </ul>
-                    </li>
-                  {{/if}}
                   {{#unless profile.isTeacher}}
                     <li class="navbar-nav-list">
                       {{#link-to 'student.performance'}}
