@@ -558,3 +558,34 @@ test('findCollectionPerformanceSummaryByIds', function(assert) {
         done();
       });
 });
+
+test('findClassActivityPerformanceSummaryByIds', function(assert) {
+  const service = this.subject();
+  assert.expect(8);
+
+  service.set('activityPerformanceSummarySerializer', Ember.Object.create({
+    normalizeAllActivityPerformanceSummary: function(data) {
+      assert.equal(data, "fake-data", 'Wrong data');
+      return [1,2,3,4,5]; //fake response
+    }
+  }));
+
+  service.set('activityPerformanceSummaryAdapter', Ember.Object.create({
+    findClassActivityPerformanceSummaryByIds: function(userId, classId, activityIds, activityType, startDate, endDate) {
+      assert.equal(userId, 123, 'Wrong user id');
+      assert.deepEqual(activityIds, [1,2,3], 'Wrong activity ids');
+      assert.equal(activityType, 'assessment', 'Wrong collection type');
+      assert.equal(classId, 321, 'Wrong class id');
+      assert.equal(startDate, 'fake-start-date', 'Wrong start date');
+      assert.equal(endDate, 'fake-end-date', 'Wrong start date');
+      return Ember.RSVP.resolve("fake-data");
+    }
+  }));
+
+  var done = assert.async();
+  service.findClassActivityPerformanceSummaryByIds(123, 321, [1,2,3], 'assessment', 'fake-start-date', 'fake-end-date')
+      .then(function(response) {
+        assert.deepEqual(response, [1,2,3,4,5], 'Wrong response');
+        done();
+      });
+});
