@@ -843,7 +843,7 @@ export default {
         "edit": "Edit",
         "download-roster": "Download Roster",
         "student-name": "Student Name",
-        "student-id": "Student Id",
+        "student-id": "Student ID",
         "email-address": "Email Address",
         "performance": "Performance",
         "actions": "Actions",
