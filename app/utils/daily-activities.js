@@ -29,7 +29,7 @@ export function aggregateClassActivityPerformanceSummaryItems(activityPerformanc
     });
   });
   return aggregatedClassActivities;
-};
+}
 
 /**
  * Aggregates all users collection activity summary items
@@ -47,4 +47,4 @@ export function aggregateCollectionPerformanceSummaryItems(collectionPerformance
     score: average(scoreValues),
     attempts: sumAll(attempts)
   });
-};
+}

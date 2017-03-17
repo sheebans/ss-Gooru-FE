@@ -17,7 +17,7 @@ test('aggregateCollectionPerformanceSummaryItems', function (assert) {
       timeSpent: 10,
       score: 20,
       attempts: 5,
-      collectionId: 123,
+      collectionId: 123
     }),
     CollectionPerformanceSummary.create({
       timeSpent: 20,

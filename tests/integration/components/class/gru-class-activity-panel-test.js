@@ -6,7 +6,7 @@ import Assessment from 'gooru-web/models/content/assessment';
 import Collection from 'gooru-web/models/content/collection';
 import tHelper from 'ember-i18n/helper';
 
-moduleForComponent('class/gru-class-collection-panel', 'Integration | Component | class/gru class collection panel', {
+moduleForComponent('class/gru-class-activity-panel', 'Integration | Component | class/gru class activity panel', {
   integration: true,
   beforeEach: function () {
     this.i18n=this.container.lookup('service:i18n');
@@ -38,10 +38,10 @@ test('Layout', function(assert) {
   this.set('item', collectionMock);
   this.set('collectionPerformanceSummary', performance);
 
-  this.render(hbs`{{class.gru-class-collection-panel item=item collectionPerformanceSummary=collectionPerformanceSummary visible=false}}`);
+  this.render(hbs`{{class.gru-class-activity-panel item=item collectionPerformanceSummary=collectionPerformanceSummary visible=false}}`);
 
   var $component = this.$(); //component dom element
-  const $collectionPanel = $component.find('.gru-class-collection-panel.panel');
+  const $collectionPanel = $component.find('.gru-class-activity-panel.panel');
   T.exists(assert, $collectionPanel, 'Missing class collection panel');
   T.exists(assert, $collectionPanel.find('.actions'), 'Missing actions');
   T.exists(assert, $collectionPanel.find('.actions .visibility-panel .visibility_off'), 'Missing visibility component');
@@ -71,10 +71,7 @@ test('Layout', function(assert) {
   assert.ok($collectionContentCount.length, 'Content count panel is missing');
   assert.equal(T.text($collectionContentCount.find('.question-count')), '4 Questions', 'Wrong  question count text');
 
-  assert.ok($collectionInfo.find('.gru-user-icons').length, 'gru-user-icons component is missing');
   assert.ok($collectionInfo.find('.left-info .score').length, 'Score info element is missing');
-  assert.ok($collectionInfo.find('.left-info .state').length, 'State info element is missing');
-  assert.equal(T.text($collectionInfo.find('.left-info .state')), this.get('i18n').t('common.all-completed').string, 'Wrong state text');
 
 });
 
@@ -101,10 +98,10 @@ test('Layout - collection', function(assert) {
 
   this.set('item', collectionMock);
 
-  this.render(hbs`{{class.gru-class-collection-panel item=item}}`);
+  this.render(hbs`{{class.gru-class-activity-panel item=item}}`);
 
   var $component = this.$(); //component dom element
-  const $collectionPanel = $component.find('.gru-class-collection-panel.panel');
+  const $collectionPanel = $component.find('.gru-class-activity-panel.panel');
   T.notExists(assert, $collectionPanel.find('.actions .on-air'), 'on-air button should not be visible');
 
   const $collectionInfo = $collectionPanel.find('.info');

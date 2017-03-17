@@ -61,6 +61,7 @@
 @import 'controllers/student/performance';
 @import 'controllers/student/class/classmates';
 @import 'controllers/student/class/course-map';
+@import 'controllers/student/class/class-activities';
 
 @import 'controllers/teacher/class';
 @import 'controllers/teacher/class/class-activities';
@@ -125,7 +126,8 @@
 @import 'components/charts/gru-x-bar-chart';
 
 @import 'components/class/gru-class-navigation';
-@import 'components/class/gru-class-collection-panel';
+@import 'components/class/gru-class-activity-panel';
+@import 'components/class/gru-student-class-activity-panel';
 @import 'components/class/analytics/performance/gru-actions-bar';
 @import 'components/class/analytics/performance/gru-data-picker';
 @import 'components/class/analytics/performance/gru-performance-summary';

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 /**
- * Class Collection Panel
+ * Class Activity Panel
  *
  * Panel that displays a collection/assessment information
  *
@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-class-collection-panel', 'panel'],
+  classNames: ['gru-class-activity-panel', 'panel'],
 
   classNameBindings: ['item.isAssessment:assessment:collection', 'item.visible:item-enabled:item-disabled', 'item.isOnAir:on-air'],
 

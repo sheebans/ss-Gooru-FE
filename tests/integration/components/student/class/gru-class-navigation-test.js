@@ -29,13 +29,14 @@ test('Class Navigation', function(assert) {
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-class-navigation");
-  assert.equal($navigation.find('.nav a').length, 3, 'Number of class navigator links');
+  assert.equal($navigation.find('.nav a').length, 4, 'Number of class navigator links');
   T.exists(assert, $navigation.find('.nav .performance'), 'Missing performance link');
   T.exists(assert, $navigation.find('.nav .classmates'), 'Missing classmates link');
   T.exists(assert, $navigation.find('.nav .course-map'), 'Missing content map link');
+  T.exists(assert, $navigation.find('.nav .class-activities'), 'Missing class activities link');
 
   //$menu item Selected
-  T.exists(assert, $navigation.find(".performance.active"), "Missing selected performance item");
+  T.exists(assert, $navigation.find(".class-activities.active"), "Missing selected class activities item");
 
 });
 

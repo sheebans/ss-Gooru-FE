@@ -1,5 +1,10 @@
 <ul class="nav nav-tabs" role="tablist">
-  <li class="active performance tab">
+    <li class="class-activities tab">
+        <a {{action 'selectItem' 'class-activities'}} role="tab" data-toggle="tab">
+            <span class="lead">{{t 'student-landing.class.class-activities'}}</span>
+        </a>
+    </li>
+    <li class="performance tab">
     <a {{action 'selectItem' 'performance'}} role="tab" data-toggle="tab">
       <span class="lead">{{t 'student-landing.class.performance'}}</span>
     </a>

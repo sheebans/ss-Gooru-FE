@@ -3,15 +3,16 @@
     {
       "activity": [
         {
-          "collectionId":"8c256e4a-4b37-423c-82b6-82fd8a128af2",
+          "date": "2017-03-14",
+          "collectionId":"all-question-types-assessment-id",
           "timeSpent":123456,
           "scoreInPercentage":20,
           "attempts":10,
           "status": "complete"
-
         },
         {
-          "collectionId":"18943604-108f-4b68-b4b1-b1b40ba6ba22",
+          "date": "2017-03-14",
+          "collectionId":"all-resource-types-collection-id",
           "timeSpent":428342,
           "scoreInPercentage":50,
           "attempts":10,
@@ -19,6 +20,7 @@
 
         },
         {
+          "date": "2017-03-14",
           "collectionId":"aaa5e73a-2372-46a5-8344-4feeab1c9f1d",
           "timeSpent":42423,
           "scoreInPercentage":60,

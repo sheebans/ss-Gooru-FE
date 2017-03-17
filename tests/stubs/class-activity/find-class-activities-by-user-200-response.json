@@ -1,14 +1,27 @@
 {
   "class_contents":[
     {
-      "content_id":"0cdc6f53-16c1-4092-9cd9-62ee9c9c8fdb",
+      "content_id":"all-resource-types-collection-id",
       "content_type":"collection",
-      "ctx_course_id":"bcf2df05-0c38-4135-b37f-f011e93e5832",
-      "ctx_unit_id":"994fa07b-0520-4097-8374-8ba3c3e9c55c",
-      "ctx_lesson_id":"10902b6a-2103-43ca-88a1-acea65ca92fc",
+      "ctx_course_id":"course-1",
+      "ctx_unit_id":"first-unit-id",
+      "ctx_lesson_id":"first-lesson-id",
       "ctx_collection_id":null,
       "activation_date":"2017-09-30",
       "title":"Introduction to Integers Part 1",
+      "resource_count":5,
+      "question_count":1,
+      "oe_question_count":1
+    },
+    {
+      "content_id":"all-question-types-assessment-id",
+      "content_type":"assessment",
+      "ctx_course_id":"course-1",
+      "ctx_unit_id":"first-unit-id",
+      "ctx_lesson_id":"first-lesson-id",
+      "ctx_collection_id":null,
+      "activation_date":"2017-09-30",
+      "title":"Introduction to Integers Part 2",
       "resource_count":5,
       "question_count":1,
       "oe_question_count":1
