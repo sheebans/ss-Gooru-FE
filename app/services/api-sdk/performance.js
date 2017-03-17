@@ -3,6 +3,8 @@ import ClassPerformanceSummarySerializer from 'gooru-web/serializers/performance
 import ClassPerformanceSummaryAdapter from 'gooru-web/adapters/performance/class-performance-summary';
 import CollectionPerformanceSummarySerializer from 'gooru-web/serializers/performance/collection-performance-summary';
 import CollectionPerformanceSummaryAdapter from 'gooru-web/adapters/performance/collection-performance-summary';
+import ActivityPerformanceSummarySerializer from 'gooru-web/serializers/performance/activity-performance-summary';
+import ActivityPerformanceSummaryAdapter from 'gooru-web/adapters/performance/activity-performance-summary';
 
 /**
  * @typedef {Object} PerformanceService
@@ -46,6 +48,16 @@ export default Ember.Service.extend({
    */
   collectionPerformanceSummaryAdapter: null,
 
+  /**
+   * @property {ActivityPerformanceSummarySerializer}
+   */
+  activityPerformanceSummarySerializer: null,
+
+  /**
+   * @property {ActivityPerformanceSummaryAdapter}
+   */
+  activityPerformanceSummaryAdapter: null,
+
 
   // -------------------------------------------------------------------------
   // Events
@@ -56,6 +68,8 @@ export default Ember.Service.extend({
     this.set('classPerformanceSummaryAdapter', ClassPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
     this.set('collectionPerformanceSummarySerializer', CollectionPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('collectionPerformanceSummaryAdapter', CollectionPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('activityPerformanceSummarySerializer', ActivityPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('activityPerformanceSummaryAdapter', ActivityPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -522,13 +536,31 @@ export default Ember.Service.extend({
    * @param {string} collectionType collection|assessment
    * @param {string} classId optional class id filter
    * @param {string} timePeriod optional time period filter
-   * @returns {Ember.RSVP.Promise}
+   * @returns {Ember.RSVP.Promise.<CollectionPerformanceSummary[]>}
    */
   findCollectionPerformanceSummaryByIds: function (userId, collectionIds, collectionType, classId = undefined, timePeriod = undefined) {
     const service = this;
     return service.get('collectionPerformanceSummaryAdapter').findCollectionPerformanceSummaryByIds(userId, collectionIds, collectionType, classId, timePeriod)
         .then(function (data) {
           return service.get('collectionPerformanceSummarySerializer').normalizeAllCollectionPerformanceSummary(data);
+        });
+  },
+
+  /**
+   * Finds class activity performance summary for the ids provided
+   * @param {string} userId user id
+   * @param {string} classId optional class id filter
+   * @param {string[]} activityIds
+   * @param {string} activityType collection|assessment
+   * @param {Date} startDate optional start date, default is now
+   * @param {Date} endDate optional end date, default is now
+   * @returns {Ember.RSVP.Promise.<ActivityPerformanceSummary[]>}
+   */
+  findClassActivityPerformanceSummaryByIds: function (userId, classId, activityIds, activityType, startDate = new Date(), endDate = new Date()) {
+    const service = this;
+    return service.get('activityPerformanceSummaryAdapter').findClassActivityPerformanceSummaryByIds(userId, classId, activityIds, activityType, startDate, endDate)
+        .then(function (data) {
+          return service.get('activityPerformanceSummarySerializer').normalizeAllActivityPerformanceSummary(data);
         });
   }
 });

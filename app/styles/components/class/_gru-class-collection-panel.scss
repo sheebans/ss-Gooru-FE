@@ -38,20 +38,10 @@
         padding: 0 0 0 20px;
       }
 
-      .switch-panel {
-        .gru-switch {
-          padding: 0;
-          .switch {
-            .toggle {
-              width: 45px !important;
-              .toggle-off.btn {
-                padding-left: 19px;
-              }
-              .toggle-on.btn {
-                padding-left: 3px;
-              }
-            }
-          }
+      .visibility-panel {
+        margin-top: 10px;
+        &.item-visible {
+          color: $green-500;
         }
       }
 
@@ -69,7 +59,7 @@
       }
     }
 
-    .title, .score, .gru-user-icons, .state, .content-count, .icon-container, .switch-panel, .on-air {
+    .title, .score, .gru-user-icons, .state, .content-count, .icon-container, .visibility-panel, .on-air {
       display: inline-block;
       vertical-align: middle;
       padding: 0;

@@ -230,8 +230,7 @@
           max-width: 5%;
           float: left;
           padding-left: 10px;
-          margin-right: 10px;
-          border-right: solid 2px $light-200;          
+          border-right: solid 2px $light-200;
           a.add {
             color: $gray;
             display: inline-block;
@@ -240,12 +239,14 @@
               float: left;
               clear: left;
             }
-            @media (max-width: $screen-lg) {
+            @media (max-width: $screen-md) {
               display: none;
             }
           }
         }
-
+        .panel-title{
+          padding-left: 10px;
+        }
         .icon-container {
           i {
             font-size: $collection-icon-size;
@@ -293,10 +294,38 @@
           width: 100%;
           float: left;
           @media (min-width: $screen-sm) {
-            width: 34%;
+            width: 45%;
           }
           @media (min-width: $screen-lg) {
             width: 50%;
+          }
+          .collection-controls{
+            height: 100%;
+            text-align: center;
+            .row{
+              display: table-cell;
+              height: 100%;
+              & > [class*='col-']{
+                display: table-cell;
+                height: 100%;
+                padding: 0;
+                .gru-switch{
+                  position: relative;
+                  top: 50%;
+                  -webkit-transform: translateY(-50%);
+                  -ms-transform: translateY(-50%);
+                  transform: translateY(-50%);
+                }
+              }
+            }
+            @media (max-width: $screen-lg) {
+              display: none;
+            }
+            a.added {
+              i {
+                color: $green-400;
+              }
+            }
           }
           .title {
             font-size: $font-size-lead;
@@ -324,7 +353,7 @@
           width: 100%;
           float: left;
           @media (min-width: $screen-sm) {
-            width: 66%;
+            width: 50%;
             float: right;
             text-align: right;
           }

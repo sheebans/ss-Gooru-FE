@@ -98,10 +98,19 @@
           <div class="panel-heading {{if isTeacher 'teacher' 'student'}}">
             {{#if isTeacher}}
               <div class="controls">
-                <a class="add" data-toggle="tooltip" title="{{t 'class.overview.add-to-daily-class-activities'}}">
-                  {{gru-icon name='add'}}
-                  <span>{{t 'common.add'}}</span>
-                </a>
+                {{#if item.isAddedToClassActivities}}
+                    <a href="#" class="added">
+                      {{gru-icon name='check'}}
+                        <br>
+                        <span>{{t 'common.added'}}</span>
+                    </a>
+                {{else}}
+                    <a href="#" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
+                      {{gru-icon name='add'}}
+                        <br>
+                        <span>{{t 'common.add'}}</span>
+                    </a>
+                {{/if}}
               </div>
             {{/if}}
             <div class="panel-title">

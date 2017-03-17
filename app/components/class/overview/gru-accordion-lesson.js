@@ -117,13 +117,15 @@ export default Ember.Component.extend(AccordionMixin, {
      * @function actions:addToClassActivities
      */
     addToClassActivities: function (collection) {
-        const classId = this.get('currentClass.id');
-        const context = {
-          courseId: this.get('currentClass.courseId'),
-          unitId: this.get('unitId'),
-          lessonId: this.get('model.id')
-        };
-        this.get('classActivityService').addActivityToClass(classId, collection.get('id'), collection.get('collectionType'), context);
+      const classId = this.get('currentClass.id');
+      const context = {
+        courseId: this.get('currentClass.courseId'),
+        unitId: this.get('unitId'),
+        lessonId: this.get('model.id')
+      };
+      this.get('classActivityService').addActivityToClass(classId, collection.get('id'), collection.get('collectionType'), context).then(function(){
+        collection.set('isAddedToClassActivities', true);
+      });
     },
     /**
      * @function changeVisibility

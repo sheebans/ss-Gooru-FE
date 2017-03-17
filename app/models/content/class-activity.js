@@ -22,12 +22,17 @@ export default Ember.Object.extend({
   collection: null,
 
   /**
-   * @property {CollectionPerformanceSummary}
+   * @property {ActivityPerformanceSummary}
    */
-  collectionPerformanceSummary: null,
+  activityPerformanceSummary: null,
 
   /**
    * @property { { courseId: string, unitId: string, lessonId: string, collectionId: string }}
    */
-  context: null
+  context: null,
+
+  /**
+   * @property {boolean}
+   */
+  isActive: Ember.computed.bool('date')
 });

@@ -38,13 +38,13 @@ test('Layout', function(assert) {
   this.set('item', collectionMock);
   this.set('collectionPerformanceSummary', performance);
 
-  this.render(hbs`{{class.gru-class-collection-panel item=item collectionPerformanceSummary=collectionPerformanceSummary}}`);
+  this.render(hbs`{{class.gru-class-collection-panel item=item collectionPerformanceSummary=collectionPerformanceSummary visible=false}}`);
 
   var $component = this.$(); //component dom element
   const $collectionPanel = $component.find('.gru-class-collection-panel.panel');
   T.exists(assert, $collectionPanel, 'Missing class collection panel');
   T.exists(assert, $collectionPanel.find('.actions'), 'Missing actions');
-  T.exists(assert, $collectionPanel.find('.actions .switch-panel .gru-switch'), 'Missing gru-switch component');
+  T.exists(assert, $collectionPanel.find('.actions .visibility-panel .visibility_off'), 'Missing visibility component');
   T.exists(assert, $collectionPanel.find('.actions .on-air'), 'Missing on-air button');
 
   const $collectionTitle = $collectionPanel.find('.panel-title');

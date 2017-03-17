@@ -17,8 +17,8 @@ export default Ember.Object.extend({
   normalizeAllCollectionPerformanceSummary: function(payload) {
     const serializer = this;
     if (payload && Ember.isArray(payload.usageData)) {
-      return payload.usageData.map(function(CollectionPerformanceSummary) {
-        return serializer.normalizeCollectionPerformanceSummary(CollectionPerformanceSummary);
+      return payload.usageData.map(function(collectionPerformanceSummary) {
+        return serializer.normalizeCollectionPerformanceSummary(collectionPerformanceSummary);
       });
     } else {
       return [];

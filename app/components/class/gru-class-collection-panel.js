@@ -25,17 +25,17 @@ export default Ember.Component.extend({
   actions: {
 
     /**
-     * @function setOnAir
-     */
-    //setOnAir: function () {
-    //
-    //},
-    /**
      * @function changeVisibility
      */
-    changeVisibility:function (){
-      Ember.log('changeVisibility');
+    changeVisibility:function (collectionId){
+      this.sendAction('onChangeVisibility', collectionId);
+    },
 
+    /**
+     * @function goLive
+     */
+    goLive: function (collectionId) {
+      this.sendAction('onGoLive', collectionId);
     }
   },
 
@@ -60,15 +60,13 @@ export default Ember.Component.extend({
   collectionPerformanceSummary: null,
 
   /**
-   * Toggle Options
-   * @property {Ember.Array}
+   * @property {string} go live action name
    */
-  switchOptions: Ember.A([Ember.Object.create({
-    'label': "On",
-    'value': true
-  }),Ember.Object.create({
-    'label': "Off",
-    'value': false
-  })])
+  onGoLive: 'goLive',
+
+  /**
+   * @property {string} changeVisibility action name
+   */
+  onChangeVisibility: 'changeVisibility'
 
 });

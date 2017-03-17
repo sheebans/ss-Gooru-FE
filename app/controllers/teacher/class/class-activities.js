@@ -12,11 +12,32 @@ export default Ember.Controller.extend({
 
   classController: Ember.inject.controller('teacher.class'),
 
+  /**
+   * @requires service:api-sdk/class-activity
+   */
+  classActivityService: Ember.inject.service("api-sdk/class-activity"),
+
   // -------------------------------------------------------------------------
   // Attributes
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    /**
+     *
+     * @function actions:changeVisibility
+     */
+    changeVisibility: function (collectionId) {
+      const controller = this;
+      const currentClass = controller.get('classController.class');
+      const classId = currentClass.get("id");
+      const date = new Date();
+      controller.get('classActivityService').enableClassActivity(classId, collectionId, date).then(function(){
+        const classActivity = controller.get('classActivities').findBy("collection.id", collectionId);
+        classActivity.set('date', date);
+      });
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
