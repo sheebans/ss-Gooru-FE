@@ -35,11 +35,15 @@
     }
   }
   .students-panel{
-    p{
-      color: #000;
-    }
-    button{
-      border: 1px solid #eee;
+    .panel-body{
+      max-height: 300px;
+      overflow: auto;
+      p{
+        color: #000;
+      }
+      button{
+        border: 1px solid #eee;
+      }
     }
   }
 }
