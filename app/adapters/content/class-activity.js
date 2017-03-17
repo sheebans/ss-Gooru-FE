@@ -77,9 +77,11 @@ export default Ember.Object.extend({
    *
    * @param {string} classId
    * @param {string} contentType collection|assessment|resource|question
+   * @param {Date} startDate optional, default is now
+   * @param {Date} endDate optional, default is now
    * @returns {Promise}
    */
-  findClassActivities: function(classId, contentType = undefined) {
+  findClassActivities: function(classId, contentType = undefined, startDate = new Date(), endDate = new Date()) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents`;
@@ -87,7 +89,11 @@ export default Ember.Object.extend({
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
         headers: adapter.defineHeaders(),
-        data: { content_type : contentType }
+        data: {
+          content_type : contentType,
+          date_from: formatDate(startDate, 'YYYY-MM-DD'),
+          date_to: formatDate(endDate, 'YYYY-MM-DD')
+        }
       };
     return Ember.$.ajax(url, options);
   },

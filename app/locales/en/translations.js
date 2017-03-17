@@ -74,6 +74,7 @@ export default {
     "add-type-question": "What type of question would you like to add?",
     "add-type-resource": "What type of resource is this?",
     "add-units": "Add Units",
+    "added": "Added",
     "advanced-editing": "Advanced Editing",
     "announcements": "Announcements",
     "anonymous_mode": "Anonymous Mode",
@@ -803,10 +804,12 @@ export default {
     "announcement":"Announcement",
     "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "my-performance":{
-      "title": "Analyze your performance.",
-      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
       "assessments": "Assessments",
-      "collections": "Collections"
+      "collections": "Collections",
+      "filter": "Filter",
+      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
+      "title": "Analyze your performance.",
+      "update-report": "Update Report"
     },
     "class":{
       "back-to": "Back to My Classes",
@@ -1636,7 +1639,7 @@ export default {
     "feedback-guidance-placeholder":"Summarize your feedback on the essay as a whole.",
     "gru-category":{
       "category-title":"Category Title",
-      "category-feedback": "ex. As you are reviewing this category, pay careful attention to the author’s purpose",
+      "category-feedback": "ex. As you are reviewing this category, pay careful attention to the author’s purpose.",
       "gru-scoring-levels":{
         "0":"ex. Proficient",
         "1":"ex. Exemplary",
