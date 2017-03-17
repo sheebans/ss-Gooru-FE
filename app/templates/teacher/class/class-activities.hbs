@@ -7,10 +7,13 @@
     {{#each classActivities as |classActivity|}}
       {{class.gru-class-collection-panel
         item=classActivity.collection
+        visible=classActivity.isActive
         collectionPerformanceSummary=classActivity.activityCollectionPerformance.collectionPerformanceSummary
+        onGoLive='goLive'
+        onChangeVisibility='changeVisibility'
       }}
     {{else}}
-      <li>{{t "common.contentUnavailable"}}</li>
+      <li class="no-content">{{t "common.contentUnavailable"}}</li>
     {{/each}}
   </ol>
 </div>
