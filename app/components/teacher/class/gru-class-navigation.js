@@ -33,6 +33,16 @@ export default Ember.Component.extend(ConfigurationMixin, {
         this.selectItem(item);
         this.sendAction("onItemSelected", item);
       }
+    },
+
+    /**
+     * Triggered when a menu item is selected. Set the class icon for the item selected showing in the mobiles dropdown menu.
+     */
+    toggleHeader: function(){
+      this.set('toggleState', !this.get('toggleState'));
+      if (this.onCollapseExpandClicked) {
+          this.sendAction('onCollapseExpandClicked', this.get('toggleState'));
+      }
     }
   },
 
@@ -68,6 +78,16 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @property {String} selectedMenuItem - menu Item selected
    */
   selectedMenuItem:null,
+
+  /**
+   * @property {boolean|Function} onCollapseExpandClicked - event handler for when the toggle button is clicked
+   */
+  onCollapseExpandClicked: null,
+
+  /**
+   * @property {boolean} toggleState - indicates the toggle button state, false means open, true means closed
+   */
+  toggleState: false,
 
   // -------------------------------------------------------------------------
   // Observers

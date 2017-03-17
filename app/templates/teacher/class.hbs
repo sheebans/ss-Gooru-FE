@@ -1,5 +1,5 @@
 <div class="teacher class">
-  <div class="header">
+  <div class="header clearfix">
     <div class="go-back-container">
       {{#link-to 'teacher-home' class="back-to"}}
         {{gru-icon name='arrow_back'}}
@@ -50,6 +50,7 @@
   {{teacher.class.gru-class-navigation
     class=class
     onItemSelected="selectMenuItem"
+    onCollapseExpandClicked="toggleHeader"
     selectedMenuItem=menuItem}}
 
   <div class="content">

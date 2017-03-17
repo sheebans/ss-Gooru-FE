@@ -239,9 +239,9 @@
               float: left;
               clear: left;
             }
-            @media (max-width: $screen-md) {
-              display: none;
-            }
+          }
+          @media (max-width: $screen-md) {
+            display: none;
           }
         }
         .panel-title{

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
@@ -72,5 +73,23 @@ test('Click on back link', function(assert) {
     andThen(function() {
       assert.equal(currentURL(), '/teacher-home');
     });
+  });
+});
+
+test('Click the toggle button to collapse and expand header', function(assert) {
+  assert.expect(2);
+  visit('/teacher/class/class-for-pochita-as-teacher');
+  andThen(function() {
+    const $classContainer = find('.teacher.class');
+    const $panels = $classContainer.find('.header .panel');
+    const $toggle = $classContainer.find('.gru-class-navigation .extra-buttons a.collapse-expand');
+
+    assert.ok((!$panels.css('display')) || ($panels.css('display') === 'block'), 'The panels should be visible');
+    $toggle.click();
+    var done = assert.async();
+    Ember.run.later(this, ()=> {
+      assert.ok($panels.css('display') === 'none', 'The panels should be hidden');
+      done();
+    }, 500);
   });
 });

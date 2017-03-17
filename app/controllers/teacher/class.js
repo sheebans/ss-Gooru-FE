@@ -8,6 +8,20 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+  actions: {
+    /**
+    * Collapses the header section
+    * @param {boolean} state
+    */
+    toggleHeader: function(state){
+      var $panels = $('.header .panel');
+      if (state) {
+        $panels.slideUp();
+      }else{
+        $panels.slideDown();
+      }
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
