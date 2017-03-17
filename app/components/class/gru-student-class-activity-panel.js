@@ -17,9 +17,8 @@ export default Ember.Component.extend({
 
   classNameBindings: [
     'visible:visibility-on:visibility-off',
-    'item.isAssessment:assessment:collection',
-    'item.visible:item-enabled:item-disabled',
-    'item.isOnAir:on-air'],
+    'item.isAssessment:assessment:collection'
+  ],
 
   tagName: 'li',
 
