@@ -11,7 +11,7 @@ moduleForComponent('student/class/gru-class-navigation', 'Integration | Componen
 });
 
 test('Class Navigation', function(assert) {
-  assert.expect(5);
+  assert.expect(6);
 
   const classMock = Ember.Object.create({
     id: '1',
@@ -36,7 +36,7 @@ test('Class Navigation', function(assert) {
   T.exists(assert, $navigation.find('.nav .class-activities'), 'Missing class activities link');
 
   //$menu item Selected
-  T.exists(assert, $navigation.find(".class-activities.active"), "Missing selected class activities item");
+  T.exists(assert, $navigation.find(".performance.active"), "Missing selected class activities item");
 
 });
 

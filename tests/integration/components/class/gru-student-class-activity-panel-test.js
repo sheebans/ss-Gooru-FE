@@ -59,14 +59,14 @@ test('Layout', function(assert) {
   const $collectionIcon = $collectionTitle.find('.icon-container .gru-icon');
   assert.ok($collectionIcon.length, 'Collection icon is missing');
 
-  const $collectionTitleAnchor = $collectionTitle.find('a.title');
+  const $collectionTitleAnchor = $collectionTitle.find('.title');
   assert.ok($collectionTitleAnchor.length, 'Title anchor element is missing');
 
-  const $collectionTitleText = $collectionTitle.find('a.title .text');
+  const $collectionTitleText = $collectionTitle.find('.title .text');
   assert.ok($collectionTitleText.length, 'Title text element is missing');
   assert.equal(T.text($collectionTitleText), 'The Early Earth', 'Wrong title text');
 
-  const $collectionTitleType = $collectionTitle.find('a.title .type');
+  const $collectionTitleType = $collectionTitle.find('.title .type');
   assert.ok($collectionTitleType.length, 'Title type element is missing');
   assert.equal(T.text($collectionTitleType), this.get('i18n').t('common.assessment').string, 'Wrong title type');
 

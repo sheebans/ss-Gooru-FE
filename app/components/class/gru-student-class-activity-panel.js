@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   classNames: ['gru-student-class-activity-panel', 'panel'],
 
   classNameBindings: [
-    'visible:visibility_on:visibility_off',
+    'visible:visibility-on:visibility-off',
     'item.isAssessment:assessment:collection',
     'item.visible:item-enabled:item-disabled',
     'item.isOnAir:on-air'],

@@ -1,6 +1,9 @@
 .gru-student-class-activity-panel.panel {
   $collection-icon-size: 48px;
 
+  &.visibility-off {
+    opacity: 0.5;
+  }
   margin: 0;
   padding: 0;
   height: 134px;

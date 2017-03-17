@@ -15,7 +15,11 @@ export default Ember.Component.extend({
 
   classNames: ['gru-class-activity-panel', 'panel'],
 
-  classNameBindings: ['item.isAssessment:assessment:collection', 'item.visible:item-enabled:item-disabled', 'item.isOnAir:on-air'],
+  classNameBindings: [
+    'visible:visibility_on:visibility_off',
+    'item.isAssessment:assessment:collection',
+    'item.visible:item-enabled:item-disabled',
+    'item.isOnAir:on-air'],
 
   tagName: 'li',
 
@@ -50,14 +54,24 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * @property {ClassActivity}
+   */
+  classActivity: null,
+
+  /**
    * @property {Collection/Assessment} item
    */
-  item: null,
+  item: Ember.computed.alias('classActivity.collection'),
 
   /**
    * @property {CollectionPerformanceSummary}
    */
-  collectionPerformanceSummary: null,
+  collectionPerformanceSummary: Ember.computed.alias('classActivity.activityPerformanceSummary.collectionPerformanceSummary'),
+
+  /**
+   * @property {boolean}
+   */
+  visible: Ember.computed.alias('classActivity.isActive'),
 
   /**
    * @property {string} go live action name

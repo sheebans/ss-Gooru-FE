@@ -25,6 +25,19 @@
       "resource_count":5,
       "question_count":1,
       "oe_question_count":1
+    },
+    {
+      "content_id":"123456",
+      "content_type":"assessment",
+      "ctx_course_id":"course-1",
+      "ctx_unit_id":"first-unit-id",
+      "ctx_lesson_id":"first-lesson-id",
+      "ctx_collection_id":null,
+      "activation_date":null,
+      "title":"Introduction to Integers Part 3",
+      "resource_count":5,
+      "question_count":1,
+      "oe_question_count":1
     }
   ]
 }

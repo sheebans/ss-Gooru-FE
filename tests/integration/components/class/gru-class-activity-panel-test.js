@@ -4,6 +4,9 @@ import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
 import Assessment from 'gooru-web/models/content/assessment';
 import Collection from 'gooru-web/models/content/collection';
+import ClassActivity from 'gooru-web/models/content/class-activity';
+import ActivityPerformanceSummary from 'gooru-web/models/performance/activity-performance-summary';
+
 import tHelper from 'ember-i18n/helper';
 
 moduleForComponent('class/gru-class-activity-panel', 'Integration | Component | class/gru class activity panel', {
@@ -35,10 +38,17 @@ test('Layout', function(assert) {
     isCompleted: true
   });
 
-  this.set('item', collectionMock);
-  this.set('collectionPerformanceSummary', performance);
+  const classActivity = ClassActivity.create({
+    activationDate: null, //inactive
+    collection: collectionMock,
+    activityPerformanceSummary: ActivityPerformanceSummary.create({
+      collectionPerformanceSummary: performance
+    })
+  });
 
-  this.render(hbs`{{class.gru-class-activity-panel item=item collectionPerformanceSummary=collectionPerformanceSummary visible=false}}`);
+  this.set('classActivity', classActivity);
+
+  this.render(hbs`{{class.gru-class-activity-panel classActivity=classActivity}}`);
 
   var $component = this.$(); //component dom element
   const $collectionPanel = $component.find('.gru-class-activity-panel.panel');
@@ -96,9 +106,25 @@ test('Layout - collection', function(assert) {
     })
   });
 
-  this.set('item', collectionMock);
+  const performance = Ember.Object.create({
+    score : 100,
+    completionDone: 44,
+    completionTotal: 50,
+    timeSpent: 5400000,
+    isCompleted: true
+  });
 
-  this.render(hbs`{{class.gru-class-activity-panel item=item}}`);
+  const classActivity = ClassActivity.create({
+    activationDate: null, //inactive
+    collection: collectionMock,
+    activityPerformanceSummary: ActivityPerformanceSummary.create({
+      collectionPerformanceSummary: performance
+    })
+  });
+
+  this.set('classActivity', classActivity);
+
+  this.render(hbs`{{class.gru-class-activity-panel classActivity=classActivity}}`);
 
   var $component = this.$(); //component dom element
   const $collectionPanel = $component.find('.gru-class-activity-panel.panel');
