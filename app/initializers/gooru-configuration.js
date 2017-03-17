@@ -11,7 +11,7 @@ export function initialize(application) {
   const configBaseUrl = awProps ? awProps.appRootPath : undefined;
   configurationService.loadConfiguration(configBaseUrl).then(function(){
     //Setting quizzes-addon properties
-    quizzesConfigurationService.addProperties(configurationService.get('configuration.quizzes-addon'));
+    quizzesConfigurationService.mergeConfiguration(configurationService.get('configuration.quizzes-addon'));
     // Continue the Application boot process, allowing other Initializers to run
     application.advanceReadiness();
   });

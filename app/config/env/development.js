@@ -41,15 +41,15 @@ export default {
 
   "quizzes-addon": {
     "endpoint" : {
-      "url": "https://qa.api.quizzes.edify.cr",
-      "secureUrl": "https://qa.api.quizzes.edify.cr",
-      "providerUrl": "https://nile-qa.gooru.org"
+      "url": "http://nile-dev.gooru.org",
+      "secureUrl": "https://nile-dev.gooru.org",
+      "providerUrl": "http://nile-dev.gooru.org"
     },
 
     "realTime": {
-      "webServiceUrl": "https://qa.api.quizzes.edify.cr",
+      "webServiceUrl": "https://nile-dev.gooru.org",
       "webServiceUri": "/",
-      "webSocketUrl": "https://qa.api.quizzes.edify.cr",
+      "webSocketUrl": "https://nile-dev.gooru.org",
       "webSocketUri": "/ws/quizzes-realtime"
     }
   }
