@@ -64,32 +64,32 @@ export default Ember.Service.extend({
   /**
    * Gets all class activity for the authorized user (student|teacher)
    *
-   * @param {string} userId
    * @param {string} classId
    * @param {string} contentType collection|assessment|resource|question
    * @param {Date} startDate optional start date, default is now
    * @param {Date} endDate optional end date, default is now
    * @returns {Promise.<ClassActivity[]>}
    */
-  findClassActivities: function(userId, classId, contentType = undefined, startDate = new Date(), endDate = new Date()) {
+  findClassActivities: function(classId, contentType = undefined, startDate = new Date(), endDate = new Date()) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classActivityAdapter')
         .findClassActivities(classId, contentType, startDate, endDate).then(function(payload) {
         const classActivities = service.get('classActivitySerializer').normalizeFindClassActivities(payload);
-        service.findClassActivitiesPerformanceSummary(userId, classId, classActivities, startDate, endDate).then(resolve, reject);
+        service.findClassActivitiesPerformanceSummary(classId, classActivities, startDate, endDate).then(resolve, reject);
       });
     });
   },
 
   /**
    * Gets all class activity for the authorized user (student|teacher)
+   * @param {string} classId
    * @param {ClassActivity[]} classActivities
    * @param {Date} startDate optional start date, default is now
    * @param {Date} endDate optional end date, default is now
    * @returns {Promise.<ClassActivity[]>}
    */
-  findClassActivitiesPerformanceSummary: function(userId, classId, classActivities, startDate = new Date(), endDate = new Date()) {
+  findClassActivitiesPerformanceSummary: function(classId, classActivities, startDate = new Date(), endDate = new Date()) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       const assessmentIds = classActivities.filterBy('collection.isAssessment').mapBy('collection.id');
@@ -97,9 +97,9 @@ export default Ember.Service.extend({
       const performanceService = service.get('performanceService');
       Ember.RSVP.hash({
         activityCollectionPerformanceSummaryItems: collectionIds.length ?
-          performanceService.findClassActivityPerformanceSummaryByIds(userId, classId, collectionIds, 'collection', startDate, endDate) : [],
+          performanceService.findClassActivityPerformanceSummaryByIds(classId, collectionIds, 'collection', startDate, endDate) : [],
         activityAssessmentPerformanceSummaryItems: assessmentIds.length ?
-          performanceService.findClassActivityPerformanceSummaryByIds(userId, classId, assessmentIds, 'assessment', startDate, endDate) : []
+          performanceService.findClassActivityPerformanceSummaryByIds(classId, assessmentIds, 'assessment', startDate, endDate) : []
       }).then(function(hash){
         const activityCollectionPerformanceSummaryItems = hash.activityCollectionPerformanceSummaryItems;
         const activityAssessmentPerformanceSummaryItems = hash.activityAssessmentPerformanceSummaryItems;

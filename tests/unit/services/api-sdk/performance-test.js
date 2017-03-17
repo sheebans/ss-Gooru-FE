@@ -566,6 +566,37 @@ test('findClassActivityPerformanceSummaryByIds', function(assert) {
   service.set('activityPerformanceSummarySerializer', Ember.Object.create({
     normalizeAllActivityPerformanceSummary: function(data) {
       assert.equal(data, "fake-data", 'Wrong data');
+      return []; //fake response
+    }
+  }));
+
+  service.set('activityPerformanceSummaryAdapter', Ember.Object.create({
+    findClassActivityPerformanceSummaryByIds: function(userId, classId, activityIds, activityType, startDate, endDate) {
+      assert.equal(userId, undefined, 'Wrong user id, should be undefined when getting class data');
+      assert.deepEqual(activityIds, [1,2,3], 'Wrong activity ids');
+      assert.equal(activityType, 'assessment', 'Wrong collection type');
+      assert.equal(classId, 321, 'Wrong class id');
+      assert.equal(startDate, 'fake-start-date', 'Wrong start date');
+      assert.equal(endDate, 'fake-end-date', 'Wrong start date');
+      return Ember.RSVP.resolve("fake-data");
+    }
+  }));
+
+  var done = assert.async();
+  service.findClassActivityPerformanceSummaryByIds(321, [1,2,3], 'assessment', 'fake-start-date', 'fake-end-date')
+      .then(function(response) {
+        assert.ok(response, 'Missing response');
+        done();
+      });
+});
+
+test('findStudentActivityPerformanceSummaryByIds', function(assert) {
+  const service = this.subject();
+  assert.expect(8);
+
+  service.set('activityPerformanceSummarySerializer', Ember.Object.create({
+    normalizeAllActivityPerformanceSummary: function(data) {
+      assert.equal(data, "fake-data", 'Wrong data');
       return [1,2,3,4,5]; //fake response
     }
   }));
@@ -583,7 +614,7 @@ test('findClassActivityPerformanceSummaryByIds', function(assert) {
   }));
 
   var done = assert.async();
-  service.findClassActivityPerformanceSummaryByIds(123, 321, [1,2,3], 'assessment', 'fake-start-date', 'fake-end-date')
+  service.findStudentActivityPerformanceSummaryByIds(123, 321, [1,2,3], 'assessment', 'fake-start-date', 'fake-end-date')
       .then(function(response) {
         assert.deepEqual(response, [1,2,3,4,5], 'Wrong response');
         done();

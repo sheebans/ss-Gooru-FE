@@ -39,7 +39,7 @@ export default Ember.Route.extend({
     const userId = route.get('session.userId');
 
     return Ember.RSVP.hash({
-      classActivities: route.get('classActivityService').findClassActivities(userId, currentClass.get('id'), undefined)
+      classActivities: route.get('classActivityService').findClassActivities(currentClass.get('id'), undefined)
     });
   },
 

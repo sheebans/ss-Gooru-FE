@@ -14,8 +14,8 @@ export default Ember.Object.extend({
   namespace: "/api/nucleus-insights/v2",
 
   /**
-   * Finds class activity performance summary for the ids provided
-   * @param {string} userId user id
+   * Finds activity performance summary for the ids provided
+   * @param {string} userId user id, useful to the get the performance for an specific class user
    * @param {string} classId optional class id filter
    * @param {string[]} activityIds
    * @param {string} activityType collection|assessment

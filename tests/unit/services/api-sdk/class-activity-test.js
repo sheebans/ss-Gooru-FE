@@ -52,11 +52,10 @@ test('enableClassActivity', function(assert) {
 });
 
 test('findClassActivities', function(assert) {
-  assert.expect(11);
+  assert.expect(10);
 
   const service = this.subject({
-    findClassActivitiesPerformanceSummary: function (userId, classId, classActivities, startDate, endDate) {
-      assert.equal(userId, 321, 'Wrong userId');
+    findClassActivitiesPerformanceSummary: function (classId, classActivities, startDate, endDate) {
       assert.equal(classId, 123, 'Wrong class id');
       assert.equal(startDate, 'fake-start-date', 'Wrong start date');
       assert.equal(endDate, 'fake-end-date', 'Wrong end date');
@@ -83,7 +82,7 @@ test('findClassActivities', function(assert) {
   }));
 
   var done = assert.async();
-  service.findClassActivities(321, 123, 'any content type', 'fake-start-date', 'fake-end-date')
+  service.findClassActivities(123, 'any content type', 'fake-start-date', 'fake-end-date')
     .then(function(response) {
       assert.deepEqual(response, [1,2,3], 'Wrong response');
       done();
@@ -91,14 +90,13 @@ test('findClassActivities', function(assert) {
 });
 
 test('findClassActivitiesPerformanceSummary', function(assert) {
-  assert.expect(13);
+  assert.expect(11);
 
   const service = this.subject();
 
   service.set('performanceService', Ember.Object.create({
-    findClassActivityPerformanceSummaryByIds: function(userId, classId, activityIds, activityType, startDate, endDate) {
+    findClassActivityPerformanceSummaryByIds: function(classId, activityIds, activityType, startDate, endDate) {
       //this method is called twice, one for assessment and one for collection
-      assert.equal(userId, 321, 'Wrong user id');
       assert.equal(classId, 123, 'Wrong class id');
       assert.equal(startDate, 'fake-start-date', 'Wrong start date');
       assert.equal(endDate, 'fake-end-date', 'Wrong end date');
@@ -133,7 +131,7 @@ test('findClassActivitiesPerformanceSummary', function(assert) {
     })
   ];
   var done = assert.async();
-  service.findClassActivitiesPerformanceSummary(321, 123, classActivities, 'fake-start-date', 'fake-end-date')
+  service.findClassActivitiesPerformanceSummary(123, classActivities, 'fake-start-date', 'fake-end-date')
     .then(function(response) {
       const classActivity = response[0];
       assert.ok(classActivity.get('activityPerformanceSummary'), 'Missing activity performance summary');
