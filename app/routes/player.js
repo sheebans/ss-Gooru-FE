@@ -41,16 +41,16 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
      */
     onFinish: function() {
       let controller = this.get('controller');
+      let queryParams = {
+        collectionId: controller.get('collection.id'),
+        type: controller.get('type'),
+        role: controller.get('role'),
+        classId: controller.get('classId'),
+        contextId: controller.get('contextResult.contextId')
+      };
       this.transitionTo(
         'reports.student-collection',
-        {
-          queryParams: {
-            collectionId: controller.get('collection.id'),
-            type: controller.get('type'),
-            role: controller.get('role'),
-            classId: controller.get('classId')
-          }
-        }
+        { queryParams }
       );
     },
 
@@ -145,7 +145,6 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     }).then(function({ id }) {
       params.profileId = route.get('session.userData.gooruUId');
       params.role = role;
-      params.cdnURL = route.get('session.cdnUrls.content');
       params.type = collection.get('collectionType');
       params.contextId = id;
       return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId }));

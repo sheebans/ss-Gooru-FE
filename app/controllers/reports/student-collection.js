@@ -10,7 +10,7 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default Ember.Controller.extend(ConfigurationMixin, {
 
-  queryParams: ["classId", "courseId", "unitId", "lessonId", "collectionId", "userId", "type", "role"],
+  queryParams: ["classId", "courseId", "unitId", "lessonId", "collectionId", "userId", "type", "role", "contextId"],
   // -------------------------------------------------------------------------
   // Dependencies
 

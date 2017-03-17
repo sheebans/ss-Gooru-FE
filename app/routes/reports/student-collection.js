@@ -78,6 +78,7 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
   model(params) {
     const route = this;
     const collectionId = params.collectionId;
+    const contextId = params.contextId;
     const type = params.type || 'collection';
     const role = params.role || ROLES.TEACHER;
 
@@ -95,10 +96,9 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
     }).then(function(hash) {
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
       collection = collectionFound ? hash.collection.value : hash.assessment.value;
-      return route.createContext(params, collection, params.role === ROLES.STUDENT);
+      return contextId ? { id: contextId } : route.createContext(params, collection, params.role === ROLES.STUDENT);
     }).then(function({ id }) {
       params.profileId = route.get('session.userData.gooruUId');
-      params.cdnURL = route.get('session.cdnUrls.content');
       params.type = collection.get('collectionType');
       params.contextId = id;
       params.role = role;

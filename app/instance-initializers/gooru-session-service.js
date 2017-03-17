@@ -60,6 +60,7 @@ export function initialize(application) {
     tokenObserver: Ember.observer('token-api3', function() {
       if (quizzesConfigurationService) {
         quizzesConfigurationService.setToken(this.get('token-api3'));
+        quizzesConfigurationService.setCdnUrl(this.get('cdnUrls.content'));
       }
     })
   });

@@ -55,7 +55,6 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
       collection = assessment;
       return route.createContext(params, collection, true);
     }).then(function({ id }) {
-      params.cdnURL = route.get('session.cdnUrls.content');
       params.type = collection.get('collectionType');
       params.contextId = id;
       params.anonymous = anonymous;
