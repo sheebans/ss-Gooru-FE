@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import ContextMixin from "gooru-web/mixins/quizzes/context";
 import QuizzesReport from 'quizzes-addon/routes/reports/context';
-import QuizzesContext from 'quizzes-addon/models/context/context';
 
 /**
  * Route for collection/assessment report
@@ -12,7 +12,7 @@ import QuizzesContext from 'quizzes-addon/models/context/context';
  * @module
  * @augments ember/Route
  */
-export default QuizzesReport.extend(PrivateRouteMixin, {
+export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
 
   templateName: 'reports/context',
 
@@ -28,12 +28,6 @@ export default QuizzesReport.extend(PrivateRouteMixin, {
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   classService: Ember.inject.service("api-sdk/class"),
-
-  /**
-   * @type {ContextService} contextService
-   * @property {Ember.Service} Service to send context related events
-   */
-  quizzesContextService: Ember.inject.service('quizzes/context'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -59,7 +53,7 @@ export default QuizzesReport.extend(PrivateRouteMixin, {
     // Get initialization data from analytics
     return route.get('assessmentService').readAssessment(collectionId).then(function(assessment) {
       collection = assessment;
-      return route.createContext(params, collection);
+      return route.createContext(params, collection, true);
     }).then(function({ id }) {
       params.cdnURL = route.get('session.cdnUrls.content');
       params.type = collection.get('collectionType');
@@ -67,24 +61,6 @@ export default QuizzesReport.extend(PrivateRouteMixin, {
       params.anonymous = anonymous;
       return route.quizzesModel(params);
     });
-  },
-
-  /**
-   * @param {All route params} params
-   * @param {Collection} collection
-   */
-  createContext(params, collection) {
-    return this.get('quizzesContextService').createContext(QuizzesContext.create({
-      collectionId: collection.get('id'),
-      title: collection.get('title'),
-      isCollection: collection.get('isCollection'),
-      classId: params.classId,
-      contextMapping: {
-        courseId: collection.get('courseId'),
-        unitId: collection.get('unitId'),
-        lessonId: collection.get('lessonId')
-      }
-    }));
   }
 
 });

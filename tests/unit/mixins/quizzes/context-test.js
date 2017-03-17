@@ -1,27 +1,24 @@
 import Ember from 'ember';
-import { moduleFor, test } from 'ember-qunit';
-import { ROLES } from 'gooru-web/config/config';
+import { module, test } from 'qunit';
+import ContextMixin from '../../../../mixins/quizzes/context';
 import CollectionModel from 'gooru-web/models/content/collection';
 
-moduleFor('route:context-player', 'Unit | Route | context player', {
-  // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
-});
+module('Unit | Mixin | quizzes/context');
 
-test('createContext as teacher', function(assert) {
-  let route = this.subject();
+test('createContext without context', function(assert) {
+  let subject = Ember.Object.extend(ContextMixin).create();
   const params = {
-    classId: 'class-id',
-    courseId: 'course-id',
-    unitId: 'unit-id',
-    lessonId: 'lesson-id'
+    classId: 'class-id'
   };
   const collection = CollectionModel.create({
     id: 'collection-id',
     title: 'collection-title',
-    isCollection: true
+    isCollection: true,
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    lessonId: 'lesson-id'
   });
-  route.set('quizzesContextService', {
+  subject.set('quizzesContextService', {
     createContext: (context) => {
       assert.equal(context.get('collectionId'), 'collection-id', 'Collection id should match');
       assert.equal(context.get('title'), 'collection-title', 'Collection title should match');
@@ -31,24 +28,23 @@ test('createContext as teacher', function(assert) {
     }
   });
   let done = assert.async();
-  route.createContext(params, collection).then(done);
+  subject.createContext(params, collection, false).then(done);
 });
 
-test('createContext as student', function(assert) {
-  let route = this.subject();
+test('createContext with context', function(assert) {
+  let subject = Ember.Object.extend(ContextMixin).create();
   const params = {
-    classId: 'class-id',
-    courseId: 'course-id',
-    unitId: 'unit-id',
-    lessonId: 'lesson-id',
-    role: ROLES.STUDENT
+    classId: 'class-id'
   };
   const collection = CollectionModel.create({
     id: 'collection-id',
     title: 'collection-title',
-    isCollection: false
+    isCollection: false,
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    lessonId: 'lesson-id'
   });
-  route.set('quizzesContextService', {
+  subject.set('quizzesContextService', {
     createContext: (context) => {
       assert.equal(context.get('collectionId'), 'collection-id', 'Collection id should match');
       assert.equal(context.get('title'), 'collection-title', 'Collection title should match');
@@ -61,5 +57,5 @@ test('createContext as student', function(assert) {
     }
   });
   let done = assert.async();
-  route.createContext(params, collection).then(done);
+  subject.createContext(params, collection, true).then(done);
 });

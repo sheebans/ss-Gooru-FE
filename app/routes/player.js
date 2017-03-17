@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import ContextMixin from 'gooru-web/mixins/quizzes/context';
 import QuizzesPlayer from 'quizzes-addon/routes/player';
-import QuizzesContext from 'quizzes-addon/models/context/context';
+import { ROLES } from 'gooru-web/config/config';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -10,7 +11,7 @@ import QuizzesContext from 'quizzes-addon/models/context/context';
  * @module
  * @augments ember/Route
  */
-export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, {
+export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin, {
 
   templateName: 'player',
 
@@ -33,6 +34,24 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, {
       }
       var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
       this.transitionTo(route);
+    },
+
+    /**
+     * When the submission is complete
+     */
+    onFinish: function() {
+      let controller = this.get('controller');
+      this.transitionTo(
+        'reports.student-collection',
+        {
+          queryParams: {
+            collectionId: controller.get('collection.id'),
+            type: controller.get('type'),
+            role: controller.get('role'),
+            classId: controller.get('classId')
+          }
+        }
+      );
     },
 
     startAssessment: function(){
@@ -107,6 +126,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, {
     const route = this;
     const collectionId = params.collectionId;
     const type = params.type;
+    const role = params.role || ROLES.TEACHER;
     const isCollection = type === 'collection';
     const isAssessment = type === 'assessment';
 
@@ -121,27 +141,19 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, {
     }).then(function(hash) {
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
       collection = collectionFound ? hash.collection.value : hash.assessment.value;
-      return route.createContext(params, collection);
+      return route.createContext(params, collection, role === ROLES.STUDENT);
     }).then(function({ id }) {
       params.profileId = route.get('session.userData.gooruUId');
-      params.role = params.role || 'teacher';
+      params.role = role;
       params.cdnURL = route.get('session.cdnUrls.content');
       params.type = collection.get('collectionType');
-      params.routeURL = '';
       params.contextId = id;
-      return route.quizzesModel(params);
+      return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId }));
     });
   },
 
-  /**
-   * @param {All route params} params
-   * @param {Collection} collection
-   */
-  createContext(params, collection) {
-    return this.get('quizzesContextService').createContext(QuizzesContext.create({
-      collectionId: collection.get('id'),
-      title: collection.get('title'),
-      isCollection: collection.get('isCollection')
-    }));
+  setupController(controller, model) {
+    controller.set('classId', model.classId);
+    this._super(...arguments);
   }
 });
