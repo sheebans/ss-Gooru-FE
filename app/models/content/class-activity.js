@@ -29,5 +29,10 @@ export default Ember.Object.extend({
   /**
    * @property { { courseId: string, unitId: string, lessonId: string, collectionId: string }}
    */
-  context: null
+  context: null,
+
+  /**
+   * @property {boolean}
+   */
+  isActive: Ember.computed.bool('date')
 });

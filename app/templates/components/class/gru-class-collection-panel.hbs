@@ -1,11 +1,19 @@
 <div class="panel-heading">
   <div class="actions">
-    <span class='switch-panel hidden-xs' data-toggle="tooltip" data-html="true" data-placement="top"
-         title="{{t "common.assign"}}">
-     {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
-    </span>
+        {{#if visible}}
+        <span class='visibility-panel item-visible hidden-xs'>
+          {{gru-icon name='visibility'}}
+        </span>
+        {{else}}
+        <span class='visibility-panel item-not-visible hidden-xs pointer'
+          {{action 'changeVisibility' item.id}}
+              data-toggle="tooltip" data-html="true" data-placement="top"
+              title="{{t "common.assign"}}">
+          {{gru-icon name='visibility_off'}}
+        </span>
+        {{/if}}
     {{#if item.isAssessment}}
-      <button
+      <button {{action 'goLive' item.id}}
         data-toggle="tooltip" data-html="true" data-placement="bottom"
         title="{{t "common.launch-on-air"}}"
         class="on-air hidden-xs">{{t "common.launch-on-air"}}
@@ -28,10 +36,11 @@
         {{/if}}
       {{/if}}
     </div>
-    <a class="title">
-      <div class="ellipsis text">{{item.title}}</div>
-      <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
-    </a>
+    {{!# TODO: it should be different for students }}
+    {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher') class="title"}}
+        <div class="ellipsis text">{{item.title}}</div>
+        <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
+    {{/link-to}}
   </div>
   <div class="info">
     <div class="content-count {{if (and item.questionCount item.resourceCount) 'mixed'}}">
