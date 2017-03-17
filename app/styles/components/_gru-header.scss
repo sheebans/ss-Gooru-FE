@@ -180,12 +180,6 @@
               vertical-align: middle;
             }
           }
-          &.my-classes {
-            .dropdown-menu {
-              max-height: ($line-height-base * $font-size-base  + $link-vertical-padding) * 8; // Max height of 8 items
-              overflow: auto;
-            }
-          }
           &.xs-design {
             > .dropdown-menu {
               width: auto;
@@ -222,35 +216,6 @@
                   }
                   .gru-icon {
                     vertical-align: middle;
-                  }
-                  &.my-classes {
-                    .keyboard_arrow_down {
-                      display: inline-block;
-                    }
-                    .keyboard_arrow_up {
-                      display: none;
-                    }
-                    + ul.list-group {
-                      display: none;
-                      background-color: rgba(0, 0, 0, 0.1);
-                      margin: 0;
-                      li {
-                        background-color: transparent;
-                        padding-left: 10px;
-                        a {
-                          padding: ($link-vertical-padding / 2) ($link-horizontal-padding);
-                          display: block;
-                        }
-                      }
-                    }
-                    &.open {
-                      .keyboard_arrow_down {
-                        display: none;
-                      }
-                      .keyboard_arrow_up {
-                        display: inline-block;
-                      }
-                    }
                   }
                 }
                 &.close-menu {
