@@ -76,6 +76,7 @@ export default Object.assign(quizzesTranslations, {
     "add-type-question": "What type of question would you like to add?",
     "add-type-resource": "What type of resource is this?",
     "add-units": "Add Units",
+    "added": "Added",
     "advanced-editing": "Advanced Editing",
     "announcements": "Announcements",
     "anonymous_mode": "Anonymous Mode",
@@ -122,7 +123,6 @@ export default Object.assign(quizzesTranslations, {
     "choose": "Choose",
     "choose-file":"Choose a file",
     "class": "Classroom",
-    "classes": "Classrooms",
     "classScores": "Class Scores",
     "close": "Close",
     "collection": "Collection",
@@ -151,7 +151,6 @@ export default Object.assign(quizzesTranslations, {
     "course-title": "Course Title",
     "courses": "Courses",
     "create": "Create",
-    "create-class": "+ Create classroom",
     "created-by": "Created by",
     "create-rubric": "Create New Rubric",
     "current-attempt":"Current Attempt",
@@ -165,6 +164,7 @@ export default Object.assign(quizzesTranslations, {
     "district": "District",
     "domain": "Domain",
     "domains": "Domains",
+    "download-print": "Download/Print",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
     "download-report": "Download Report",
     "edit": "Edit",
@@ -590,7 +590,8 @@ export default Object.assign(quizzesTranslations, {
     "overview": {
       "title": "Course Map",
       "locate": "Locate Me",
-      "editContent": "Edit Content"
+      "edit-content": "Edit Content",
+      "add-to-daily-class-activities": "Add to Daily Class Activities"
     },
     "analytics": {
       "performance": {
@@ -803,11 +804,12 @@ export default Object.assign(quizzesTranslations, {
     "announcement":"Announcement",
     "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "my-performance":{
-      "title": "Analyze your performance.",
-      "download-print": "Download/Print",
-      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
       "assessments": "Assessments",
-      "collections": "Collections"
+      "collections": "Collections",
+      "filter": "Filter",
+      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
+      "title": "Analyze your performance.",
+      "update-report": "Update Report"
     },
     "class":{
       "back-to": "Back to My Classes",
@@ -843,7 +845,7 @@ export default Object.assign(quizzesTranslations, {
         "edit": "Edit",
         "download-roster": "Download Roster",
         "student-name": "Student Name",
-        "student-id": "Student Id",
+        "student-id": "Student ID",
         "email-address": "Email Address",
         "performance": "Performance",
         "actions": "Actions",
@@ -856,6 +858,10 @@ export default Object.assign(quizzesTranslations, {
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
         "today": "Today"
+      },
+      "performance-tab": {
+        "assessments": "Assessments",
+        "collections": "Collections"
       }
     }
   },
@@ -1629,10 +1635,22 @@ export default Object.assign(quizzesTranslations, {
     },
     "overall-narrative":"Overall Narrative Feedback",
     "feedback-guidance":"Feedback Guidance",
-    "required-feedback":"Required Feedback",
+    "required-feedback":"Require Feedback",
     "feedback-guidance-placeholder":"Summarize your feedback on the essay as a whole.",
     "gru-category":{
-      "category-title":"Category Title"
+      "category-title":"Category Title",
+      "category-feedback": "ex. As you are reviewing this category, pay careful attention to the author’s purpose.",
+      "gru-scoring-levels":{
+        "0":"ex. Proficient",
+        "1":"ex. Exemplary",
+        "2":"ex. Basic",
+        "3":"ex. Below Basic",
+        "best":"Best",
+        "levels":"Level",
+        "new-level":"Add New Level",
+        "scoring":"Scoring",
+        "worst":"Worst"
+      }
     }
   }
 });

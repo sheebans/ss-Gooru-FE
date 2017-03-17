@@ -21,18 +21,35 @@ export default Ember.Component.extend(SessionMixin,{
   // Actions
   actions:{
     /**
-     *Set if feedback is required
-     */
-    setFeedBack: function(){
-      this.set('rubric.requiresFeedback',!this.get('rubric.requiresFeedback'));
-    },
-    /**
      * Add new category
      */
     addNewCategory:function(){
       let newCategory = Category.create({});
       let categories = this.get('categories');
       categories.addObject(newCategory);
+    },
+    /**
+     * Triggered by gru-category
+     *Copy category
+     */
+    copyCategory: function (category,index) {
+      let categories = this.get('categories');
+      let newCategory = category.copy();
+      categories.insertAt(index+1, newCategory);
+    },
+    /**
+     *Triggered by gru-category
+     * Delete category
+     */
+    deleteCategory:function(category){
+      let categories = this.get('categories');
+      categories.removeObject(category);
+    },
+    /**
+     *Set if feedback is required
+     */
+    setFeedBack: function(){
+      this.set('rubric.requiresFeedback',!this.get('rubric.requiresFeedback'));
     }
   },
 

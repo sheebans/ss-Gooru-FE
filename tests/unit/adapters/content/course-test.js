@@ -62,6 +62,46 @@ test('Get course by ID', function (assert) {
     });
 });
 
+test('getCourseStructure for assessments', function (assert) {
+  assert.expect(1);
+
+  this.pretender.map(function () {
+    this.get('/api/nucleus/v1/courses/123/assessments', function () {
+      return [
+        200,
+        {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        JSON.stringify('fake-response')];
+    });
+  });
+
+  const adapter = this.subject();
+  adapter.getCourseStructure(123, 'assessment').then(function (response) {
+    assert.equal(response, 'fake-response', 'Wrong respond');
+  });
+});
+
+test('getCourseStructure for collections', function (assert) {
+  assert.expect(1);
+
+  this.pretender.map(function () {
+    this.get('/api/nucleus/v1/courses/123/collections', function () {
+      return [
+        200,
+        {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        JSON.stringify('fake-response')];
+    });
+  });
+
+  const adapter = this.subject();
+  adapter.getCourseStructure(123, 'collection').then(function (response) {
+    assert.equal(response, 'fake-response', 'Wrong respond');
+  });
+});
+
 test('Update course, success', function (assert) {
   this.pretender.map(function () {
     this.put('/api/nucleus/v1/courses/course-id-123', function () {

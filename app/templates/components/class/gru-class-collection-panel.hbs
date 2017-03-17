@@ -1,13 +1,24 @@
 <div class="panel-heading">
   <div class="actions">
-    <span class='switch-panel hidden-xs' data-toggle="tooltip" data-html="true" data-placement="top"
-         title="{{t "common.assign"}}">
-     {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
-    </span>
-    <button
-      data-toggle="tooltip" data-html="true" data-placement="bottom"
-      title="{{t "common.launch-on-air"}}"
-      class="on-air hidden-xs">{{t "common.launch-on-air"}}</button>
+        {{#if visible}}
+        <span class='visibility-panel item-visible hidden-xs'>
+          {{gru-icon name='visibility'}}
+        </span>
+        {{else}}
+        <span class='visibility-panel item-not-visible hidden-xs pointer'
+          {{action 'changeVisibility' item.id}}
+              data-toggle="tooltip" data-html="true" data-placement="top"
+              title="{{t "common.assign"}}">
+          {{gru-icon name='visibility_off'}}
+        </span>
+        {{/if}}
+    {{#if item.isAssessment}}
+      <button {{action 'goLive' item.id}}
+        data-toggle="tooltip" data-html="true" data-placement="bottom"
+        title="{{t "common.launch-on-air"}}"
+        class="on-air hidden-xs">{{t "common.launch-on-air"}}
+      </button>
+    {{/if}}
   </div>
   <div class="panel-title">
     <div class="icon-container">
@@ -25,10 +36,11 @@
         {{/if}}
       {{/if}}
     </div>
-    <a class="title">
-      <div class="ellipsis text">{{item.title}}</div>
-      <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
-    </a>
+    {{!# TODO: it should be different for students }}
+    {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher') class="title"}}
+        <div class="ellipsis text">{{item.title}}</div>
+        <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
+    {{/link-to}}
   </div>
   <div class="info">
     <div class="content-count {{if (and item.questionCount item.resourceCount) 'mixed'}}">
@@ -39,10 +51,10 @@
       {{else}}
         {{#if (or item.questionCount item.resourceCount)}}
           {{#if item.resourceCount}}
-              <span><b>{{item.resourceCount}}</b> {{t "common.resource-pl" count=item.resourceCount}}</span>
+              <span class="resource-count"><b>{{item.resourceCount}}</b> {{t "common.resource-pl" count=item.resourceCount}}</span>
           {{/if}}
           {{#if item.questionCount}}
-              <span><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
+              <span class="question-count"><b>{{item.questionCount}}</b> {{t "common.question-pl" count=item.questionCount}}</span>
           {{/if}}
         {{/if}}
       {{/if}}
@@ -53,15 +65,15 @@
     users=item.members}}
 
     <div class="left-info">
-      <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
-        {{if item.performance.hasStarted item.performance.score '--'}}%
+      <span class="score" style={{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.hasStarted collectionPerformanceSummary.score 'NA')))}}>
+        {{if collectionPerformanceSummary.hasStarted collectionPerformanceSummary.score '--'}}%
       </span>
 
       <span class="state">
-        {{#if item.performance.isCompleted}}
+        {{#if collectionPerformanceSummary.isCompleted}}
           {{t 'common.all-completed'}}
         {{else}}
-          {{#if item.performance.hasStarted}}
+          {{#if collectionPerformanceSummary.hasStarted}}
             {{t 'common.in-progress'}}
           {{else}}
             <span class="not-started">{{t 'common.not_started'}}</span>

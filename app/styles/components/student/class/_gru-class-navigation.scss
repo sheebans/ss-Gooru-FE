@@ -1,9 +1,9 @@
 .student.gru-class-navigation,
 .teacher.gru-class-navigation {
-  border-top: solid 1px $light-300;
   clear: both;
   margin: 20px 0 0 0;
   .nav-tabs {
+    border-bottom: solid 1px $light-300;
     margin: 0;
     li {
       margin: 0 10px 0 0;
@@ -60,6 +60,25 @@
       }
       span {
         font-weight: bold;
+      }
+    }
+  }
+  .extra-buttons{
+    .collapse-expand{
+      color: $gray;
+      i{
+        float: left;
+        clear: left;
+        display:inline-block;
+        -webkit-transform:scale(2,1);
+        -moz-transform:scale(2,1);
+        -ms-transform:scale(2,1);
+        -o-transform:scale(2,1);
+        transform:scale(2,1);
+        &:nth-child(2){
+          position: relative;
+          top: -15px;
+        }
       }
     }
   }

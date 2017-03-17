@@ -1,5 +1,6 @@
 .content.rubric.gru-category{
   padding: 10px 0;
+  margin: 0 0 10px 0;
 
   .required {
     &:after {
@@ -8,6 +9,7 @@
   }
 
   > .panel {
+    margin:0;
     > .panel-heading {
       padding: 12px 10px 10px 25px;
       border-radius: 6px;
@@ -127,6 +129,14 @@
       margin-left: 5px;
       .item-actions.border{
         border-left: 1px solid $gray-light;
+      }
+    }
+  }
+  .feedback{
+    label{
+      width: 100%;
+      textarea{
+        font-size: $font-size-base;
       }
     }
   }

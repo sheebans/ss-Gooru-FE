@@ -20,4 +20,11 @@
   .toggle-handle.btn-default{
     background-color: $white;
   }
+  .switch{
+    .toggle-group{
+      label{
+        line-height: 18px;
+      }
+    }
+  }
 }

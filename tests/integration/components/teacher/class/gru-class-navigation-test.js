@@ -2,17 +2,17 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('teacher/class/gru-class-navigation', 'Integration | Component | teacher/class/gru class navigation', {
   integration: true,
   beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale","en");
+    this.container.lookup('service:i18n').set('locale','en');
   }
 });
 
 test('Class Navigation', function(assert) {
   assert.expect(7);
-
   const classMock = Ember.Object.create({
     id: '1',
     name: 'Class A1',
@@ -29,15 +29,17 @@ test('Class Navigation', function(assert) {
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find(".gru-class-navigation");
-  assert.equal($navigation.find('.nav a').length, 5, 'Number of class navigator links');
+  assert.equal($navigation.find('.nav a').length, 4, 'Number of class navigator links');
   T.exists(assert, $navigation.find('.nav .course-map'), 'Missing course-map link');
   T.exists(assert, $navigation.find('.nav .performance'), 'Missing performance link');
-  T.exists(assert, $navigation.find('.nav .management'), 'Missing management link');
   T.exists(assert, $navigation.find('.nav .class-management'), 'Missing class management link');
   T.exists(assert, $navigation.find('.nav .class-activities'), 'Missing class activities link');
 
   //$menu item Selected
-  T.exists(assert, $navigation.find(".course-map.active"), "Missing selected course-map item");
+  T.exists(assert, $navigation.find('.course-map.active'), 'Missing selected course-map item');
+
+  // extra buttons
+  T.exists(assert, $navigation.find('.extra-buttons .collapse-expand'), 'Missing collapse-expand button');
 
 });
 
@@ -51,12 +53,31 @@ test('Layout when a menu Item is selected', function(assert) {
   this.render(hbs`{{teacher.class.gru-class-navigation onItemSelected='itemSelected'}}`);
   var $navigation = this.$(); //component dom element
 
-  const $courseMapMenuItem = $navigation.find(".nav .course-map a");
-  const $performanceMenuItem = $navigation.find(".nav .performance a");
+  const $courseMapMenuItem = $navigation.find('.nav .course-map a');
+  const $performanceMenuItem = $navigation.find('.nav .performance a');
 
-  assert.ok($courseMapMenuItem, "Missing course-map item in the class menu");
-  assert.ok($performanceMenuItem, "Missing performance item in the class menu");
+  assert.ok($courseMapMenuItem, 'Missing course-map item in the class menu');
+  assert.ok($performanceMenuItem, 'Missing performance item in the class menu');
   $courseMapMenuItem.click();
   $performanceMenuItem.click();
-  assert.equal($navigation.find(".nav .tab.active").length, 1, "The class menu should have only one item selected");
+  assert.equal($navigation.find('.nav .tab.active').length, 1, 'The class menu should have only one item selected');
+});
+
+test('Toggle header collapse expand click', function(assert) {
+  assert.expect(3);
+
+  this.on('toggleHeader', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{student.class.gru-class-navigation onCollapseExpandClicked='toggleHeader'}}`);
+  var $navigation = this.$(); //component dom element
+
+  const $collapseExpand = $navigation.find('.extra-buttons a.collapse-expand');
+  assert.ok($collapseExpand.text().includes('expand_less'), 'The icons shlud be expand_less');
+  $collapseExpand.click();
+
+  return wait().then(function () {
+    assert.ok($collapseExpand.text().includes('expand_more', 'The icons shlud be expand_more'));
+  });
 });

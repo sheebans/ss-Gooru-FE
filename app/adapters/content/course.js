@@ -94,6 +94,25 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Gets the course structure by collection type
+   *
+   * @param {string} courseId
+   * @param {string} collectionType assessment|collection
+   * @returns {Promise|Object}
+   */
+  getCourseStructure: function (courseId, collectionType) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${courseId}/${collectionType}s`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: this.defineHeaders()
+    };
+
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Deletes a course by id
    *
    * @param courseId course id to be sent

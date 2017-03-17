@@ -1,6 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+import RubricModel from 'gooru-web/models/rubric/rubric';
+import Category from 'gooru-web/models/rubric/rubric-category';
 
 moduleForComponent('content/rubric/gru-rubric-edit', 'Integration | Component | content/rubric/gru rubric edit', {
   integration: true
@@ -40,6 +42,45 @@ test('Add Category', function(assert) {
     return wait().then(function () {
       assert.ok($component.find('.category-panel .content.rubric.gru-category').length, 'Should add a category');
       assert.ok($component.find('.category-panel .content.rubric.gru-category .panel.expanded').length, 'The category should be expanded');
+    });
+  });
+});
+
+test('Copy Category', function(assert) {
+  let rubric = RubricModel.create( {id:'id-for-test',title: 'Rubric for testing',categories:[
+    Category.create({title:'Category testing'})
+  ]});
+  this.set('rubric',rubric);
+
+  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  const $component = this.$();
+  var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
+  $rubricTab.click();
+  return wait().then(function () {
+    assert.equal($component.find('.category-panel .content.rubric.gru-category').length,1, 'Should have 1 category');
+    var $copyCategory = $component.find('.category-panel .gru-category button.copy');
+    $copyCategory.click();
+    return wait().then(function () {
+      assert.equal($component.find('.category-panel .content.rubric.gru-category').length,2, 'Should have 2 category');
+    });
+  });
+});
+test('Delete Category', function(assert) {
+  let rubric = RubricModel.create( {id:'id-for-test',title: 'Rubric for testing',categories:[
+    Category.create({title:'Category testing'})
+  ]});
+  this.set('rubric',rubric);
+
+  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  const $component = this.$();
+  var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
+  $rubricTab.click();
+  return wait().then(function () {
+    assert.equal($component.find('.category-panel .content.rubric.gru-category').length,1, 'Should have 1 category');
+    var $copyCategory = $component.find('.category-panel .gru-category button.delete');
+    $copyCategory.click();
+    return wait().then(function () {
+      assert.equal($component.find('.category-panel .content.rubric.gru-category').length,0, 'Should not have categories');
     });
   });
 });

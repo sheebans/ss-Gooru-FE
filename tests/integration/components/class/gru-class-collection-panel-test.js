@@ -3,6 +3,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
 import Assessment from 'gooru-web/models/content/assessment';
+import Collection from 'gooru-web/models/content/collection';
 import tHelper from 'ember-i18n/helper';
 
 moduleForComponent('class/gru-class-collection-panel', 'Integration | Component | class/gru class collection panel', {
@@ -25,25 +26,25 @@ test('Layout', function(assert) {
     title: 'The Early Earth',
     members: [],
     visible: true,
-    isOnAir: true,
-    performance: Ember.Object.create({
-      score : 100,
-      completionDone: 44,
-      completionTotal: 50,
-      timeSpent: 5400000,
-      isCompleted: true
-    })
+    isOnAir: true
+  });
+
+  const performance = Ember.Object.create({
+    score : 100,
+    timeSpent: 5400000,
+    isCompleted: true
   });
 
   this.set('item', collectionMock);
+  this.set('collectionPerformanceSummary', performance);
 
-  this.render(hbs`{{class.gru-class-collection-panel item=item}}`);
+  this.render(hbs`{{class.gru-class-collection-panel item=item collectionPerformanceSummary=collectionPerformanceSummary visible=false}}`);
 
   var $component = this.$(); //component dom element
   const $collectionPanel = $component.find('.gru-class-collection-panel.panel');
   T.exists(assert, $collectionPanel, 'Missing class collection panel');
   T.exists(assert, $collectionPanel.find('.actions'), 'Missing actions');
-  T.exists(assert, $collectionPanel.find('.actions .switch-panel .gru-switch'), 'Missing gru-switch component');
+  T.exists(assert, $collectionPanel.find('.actions .visibility-panel .visibility_off'), 'Missing visibility component');
   T.exists(assert, $collectionPanel.find('.actions .on-air'), 'Missing on-air button');
 
   const $collectionTitle = $collectionPanel.find('.panel-title');
@@ -74,5 +75,44 @@ test('Layout', function(assert) {
   assert.ok($collectionInfo.find('.left-info .score').length, 'Score info element is missing');
   assert.ok($collectionInfo.find('.left-info .state').length, 'State info element is missing');
   assert.equal(T.text($collectionInfo.find('.left-info .state')), this.get('i18n').t('common.all-completed').string, 'Wrong state text');
+
+});
+
+test('Layout - collection', function(assert) {
+
+  const collectionMock = Collection.create(Ember.getOwner(this).ownerInjection(), {
+    id: '3-1',
+    format: 'collection',
+    openEndedQuestionCount: 0,
+    questionCount: 2,
+    resourceCount: 4,
+    title: 'The Early Earth',
+    members: [],
+    visible: true,
+    isOnAir: true,
+    performance: Ember.Object.create({
+      score : 100,
+      completionDone: 44,
+      completionTotal: 50,
+      timeSpent: 5400000,
+      isCompleted: true
+    })
+  });
+
+  this.set('item', collectionMock);
+
+  this.render(hbs`{{class.gru-class-collection-panel item=item}}`);
+
+  var $component = this.$(); //component dom element
+  const $collectionPanel = $component.find('.gru-class-collection-panel.panel');
+  T.notExists(assert, $collectionPanel.find('.actions .on-air'), 'on-air button should not be visible');
+
+  const $collectionInfo = $collectionPanel.find('.info');
+  assert.ok($collectionInfo.length, 'Collection Info element is missing');
+
+  const $collectionContentCount = $collectionInfo.find('.content-count');
+  assert.ok($collectionContentCount.length, 'Content count panel is missing');
+  assert.equal(T.text($collectionContentCount.find('.resource-count')), '4 Resources', 'Wrong  resource count text');
+  assert.equal(T.text($collectionContentCount.find('.question-count')), '2 Questions', 'Wrong  question count text');
 
 });

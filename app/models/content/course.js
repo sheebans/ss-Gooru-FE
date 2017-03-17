@@ -205,6 +205,36 @@ export default Ember.Object.extend(Validations, {
     return this.get("children").mapBy("id").indexOf(unit.get("id"));
   },
 
+  /**
+   * Get all assessments/collections in course, it could be filtered by unit or lesson
+   * @param {string} collectionType collection||assessment
+   * @param {string} unitId
+   * @param {string} lessonId
+   * @return {LessonItem[]} lesson items
+     */
+  getCollectionsByType: function (collectionType, unitId = undefined, lessonId = undefined) {
+    const units = this.get('children');
+    const collections = Ember.A([]);
+    units.forEach(function(unit){
+      const validUnit = !unitId || unit.get('id') === unitId;
+      if (validUnit) {
+        const lessons = unit.get('children');
+        lessons.forEach(function(lesson){
+          const validLesson = !lessonId || lesson.get('id') === lessonId;
+          if (validLesson) {
+            const lessonItems = lesson.get('children');
+            lessonItems.forEach(function(lessonItem){
+              if (lessonItem.get('format') === collectionType) {
+                collections.pushObject(lessonItem);
+              }
+            });
+          }
+        });
+      }
+    });
+    return collections;
+  },
+
   // -------------------------------------------------------------
   // Events
   /**
