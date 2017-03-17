@@ -1639,7 +1639,7 @@ export default {
     "feedback-guidance-placeholder":"Summarize your feedback on the essay as a whole.",
     "gru-category":{
       "category-title":"Category Title",
-      "category-feedback": "ex. As you are reviewing this category, pay careful attention to the author’s purpose",
+      "category-feedback": "ex. As you are reviewing this category, pay careful attention to the author’s purpose.",
       "gru-scoring-levels":{
         "0":"ex. Proficient",
         "1":"ex. Exemplary",
