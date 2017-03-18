@@ -1,7 +1,9 @@
-.gru-class-collection-panel.panel {
+.gru-student-class-activity-panel.panel {
   $collection-icon-size: 48px;
-  $on-air-icon: 35px;
 
+  &.visibility-off {
+    opacity: 0.5;
+  }
   margin: 0;
   padding: 0;
   height: 134px;
@@ -23,43 +25,7 @@
       padding: 0;
     }
 
-    .actions {
-      border-right: 2px solid $light-200;
-      float: left;
-      width: 16%;
-      padding: 0;
-
-      @media (min-width: $screen-md) {
-        width: 13%;
-        height: 100%;
-      }
-
-      @media (min-width: $screen-lg) {
-        padding: 0 0 0 20px;
-      }
-
-      .visibility-panel {
-        margin-top: 10px;
-        &.item-visible {
-          color: $green-500;
-        }
-      }
-
-      button.on-air {
-        display: inline-block;
-        margin: 0 5px;
-        width: $on-air-icon;
-        height: $on-air-icon;
-        vertical-align: middle;
-        background-image: url('gooru/images/on-air-icon.svg');
-        background-size: $on-air-icon $on-air-icon;
-        background-color: $white;
-        cursor: pointer;
-        @include text-hide();
-      }
-    }
-
-    .title, .score, .gru-user-icons, .state, .content-count, .icon-container, .visibility-panel, .on-air {
+    .title, .score, .content-count, .icon-container{
       display: inline-block;
       vertical-align: middle;
       padding: 0;
@@ -136,12 +102,6 @@
         }
       }
 
-      .gru-user-icons {
-        @media (max-width: $screen-xs) {
-          padding: 0;
-        }
-      }
-
       .left-info {
         border-left: 2px solid $light-200;
         text-align: left;
@@ -153,13 +113,6 @@
         }
         @media (min-width: $screen-lg) {
           width: 172px;
-        }
-        .state {
-          width: 85px;
-          color: $blue-400;
-          .not-started {
-            color: $light-300;
-          }
         }
         .score {
           padding: 0;

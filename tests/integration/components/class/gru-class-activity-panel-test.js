@@ -4,9 +4,12 @@ import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
 import Assessment from 'gooru-web/models/content/assessment';
 import Collection from 'gooru-web/models/content/collection';
+import ClassActivity from 'gooru-web/models/content/class-activity';
+import ActivityPerformanceSummary from 'gooru-web/models/performance/activity-performance-summary';
+
 import tHelper from 'ember-i18n/helper';
 
-moduleForComponent('class/gru-class-collection-panel', 'Integration | Component | class/gru class collection panel', {
+moduleForComponent('class/gru-class-activity-panel', 'Integration | Component | class/gru class activity panel', {
   integration: true,
   beforeEach: function () {
     this.i18n=this.container.lookup('service:i18n');
@@ -35,13 +38,20 @@ test('Layout', function(assert) {
     isCompleted: true
   });
 
-  this.set('item', collectionMock);
-  this.set('collectionPerformanceSummary', performance);
+  const classActivity = ClassActivity.create({
+    activationDate: null, //inactive
+    collection: collectionMock,
+    activityPerformanceSummary: ActivityPerformanceSummary.create({
+      collectionPerformanceSummary: performance
+    })
+  });
 
-  this.render(hbs`{{class.gru-class-collection-panel item=item collectionPerformanceSummary=collectionPerformanceSummary visible=false}}`);
+  this.set('classActivity', classActivity);
+
+  this.render(hbs`{{class.gru-class-activity-panel classActivity=classActivity}}`);
 
   var $component = this.$(); //component dom element
-  const $collectionPanel = $component.find('.gru-class-collection-panel.panel');
+  const $collectionPanel = $component.find('.gru-class-activity-panel.panel');
   T.exists(assert, $collectionPanel, 'Missing class collection panel');
   T.exists(assert, $collectionPanel.find('.actions'), 'Missing actions');
   T.exists(assert, $collectionPanel.find('.actions .visibility-panel .visibility_off'), 'Missing visibility component');
@@ -71,10 +81,7 @@ test('Layout', function(assert) {
   assert.ok($collectionContentCount.length, 'Content count panel is missing');
   assert.equal(T.text($collectionContentCount.find('.question-count')), '4 Questions', 'Wrong  question count text');
 
-  assert.ok($collectionInfo.find('.gru-user-icons').length, 'gru-user-icons component is missing');
   assert.ok($collectionInfo.find('.left-info .score').length, 'Score info element is missing');
-  assert.ok($collectionInfo.find('.left-info .state').length, 'State info element is missing');
-  assert.equal(T.text($collectionInfo.find('.left-info .state')), this.get('i18n').t('common.all-completed').string, 'Wrong state text');
 
 });
 
@@ -99,12 +106,28 @@ test('Layout - collection', function(assert) {
     })
   });
 
-  this.set('item', collectionMock);
+  const performance = Ember.Object.create({
+    score : 100,
+    completionDone: 44,
+    completionTotal: 50,
+    timeSpent: 5400000,
+    isCompleted: true
+  });
 
-  this.render(hbs`{{class.gru-class-collection-panel item=item}}`);
+  const classActivity = ClassActivity.create({
+    activationDate: null, //inactive
+    collection: collectionMock,
+    activityPerformanceSummary: ActivityPerformanceSummary.create({
+      collectionPerformanceSummary: performance
+    })
+  });
+
+  this.set('classActivity', classActivity);
+
+  this.render(hbs`{{class.gru-class-activity-panel classActivity=classActivity}}`);
 
   var $component = this.$(); //component dom element
-  const $collectionPanel = $component.find('.gru-class-collection-panel.panel');
+  const $collectionPanel = $component.find('.gru-class-activity-panel.panel');
   T.notExists(assert, $collectionPanel.find('.actions .on-air'), 'on-air button should not be visible');
 
   const $collectionInfo = $collectionPanel.find('.info');

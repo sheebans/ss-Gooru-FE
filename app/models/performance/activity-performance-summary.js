@@ -1,11 +1,15 @@
-import PerformanceSummary from './performance-summary';
-
+import Ember from 'ember';
 /**
  * Activity performance summary model
  *
  * @typedef {Object} ActivityPerformanceSummary
  */
-export default PerformanceSummary.extend({
+export default Ember.Object.extend({
+
+  /**
+   * @property {string} user id for the student
+   */
+  userId: null,
 
   /**
    * @property {Date}

@@ -817,7 +817,11 @@ export default Object.assign(quizzesTranslations, {
       "classmates": "Classmates",
       "course-map": "Course Map",
       "unit": "Unit",
-      "leson": "Leson"
+      "leson": "Leson",
+      "class-activities": "Daily Class Activities",
+      "class-activities-tab": {
+        "today": "Today"
+      }
     },
     "current-activity":"Current activity"
   },

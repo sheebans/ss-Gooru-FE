@@ -107,6 +107,7 @@ Router.map(function() {
       });
       this.route('classmates');
       this.route('course-map');
+      this.route('class-activities');
     });
   });
 

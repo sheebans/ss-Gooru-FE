@@ -26,30 +26,37 @@ export default Ember.Object.extend({
 
 
   /**
-   * Normalize an array of CollectionPerformanceSummary
+   * Normalize an array of ActivityPerformanceSummary
    *
    * @param payload endpoint response format in JSON format
-   * @returns {CollectionPerformanceSummary[]}
+   * @returns {ActivityPerformanceSummary[]}
    */
   normalizeAllActivityPerformanceSummary: function(payload) {
     const serializer = this;
+    const activityPerformanceSummaryItems = Ember.A([]);
     if (payload && Ember.isArray(payload.usageData)) {
-      return payload.usageData.map(function(activityPerformanceSummary) {
-        return serializer.normalizeActivityPerformanceSummary(activityPerformanceSummary);
+      payload.usageData.forEach(function(activityPerformanceSummaryData) {
+        const userId = activityPerformanceSummaryData.userId; //process the data for each user
+        const activitiesData = activityPerformanceSummaryData.activity || [];
+        activitiesData.forEach(function(activityData){
+          const activityPerformanceSummary = serializer.normalizeActivityPerformanceSummary(userId, activityData);
+          activityPerformanceSummaryItems.pushObject(activityPerformanceSummary);
+        });
       });
-    } else {
-      return [];
     }
+
+    return activityPerformanceSummaryItems;
   },
 
   /**
-   * Normalize a CollectionPerformanceSummary
+   * Normalize a ActivityPerformanceSummary
    * @param {*} data
-   * @return {CollectionPerformanceSummary}
+   * @return {ActivityPerformanceSummary}
    */
-  normalizeActivityPerformanceSummary: function (data) {
+  normalizeActivityPerformanceSummary: function (userId, data) {
     const serializer = this;
     return ActivityPerformanceSummary.create({
+      userId: userId,
       date: parseDate(data.date, 'YYYY-MM-DD'),
       collectionPerformanceSummary: serializer.get('collectionPerformanceSummarySerializer').normalizeCollectionPerformanceSummary(data)
     });

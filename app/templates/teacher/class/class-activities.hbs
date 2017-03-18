@@ -5,10 +5,8 @@
 
   <ol class="collections">
     {{#each classActivities as |classActivity|}}
-      {{class.gru-class-collection-panel
-        item=classActivity.collection
-        visible=classActivity.isActive
-        collectionPerformanceSummary=classActivity.activityCollectionPerformance.collectionPerformanceSummary
+      {{class.gru-class-activity-panel
+        classActivity=classActivity
         onGoLive='goLive'
         onChangeVisibility='changeVisibility'
       }}

@@ -4,6 +4,8 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+  session: Ember.inject.service("session"),
+
   /**
    * @requires service:api-sdk/class-activity
    */
@@ -15,17 +17,6 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
-    /**
-     * Launch an assessment on-air
-     *
-     * @function actions:goLive
-     */
-    goLive: function (collectionId) {
-      const currentClass = this.modelFor('teacher.class').class;
-      const classId = currentClass.get("id");
-      this.transitionTo('reports.collection', classId, collectionId);
-    }
   },
 
   // -------------------------------------------------------------------------
@@ -33,10 +24,11 @@ export default Ember.Route.extend({
 
   model: function () {
     const route = this;
-    const currentClass = route.modelFor('teacher.class').class;
+    const currentClass = route.modelFor('student.class').class;
+    const userId = route.get('session.userId');
 
     return Ember.RSVP.hash({
-      classActivities: route.get('classActivityService').findClassActivities(currentClass.get('id'))
+      classActivities: route.get('classActivityService').findStudentClassActivities(userId, currentClass.get('id'))
     });
   },
 

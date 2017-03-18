@@ -36,7 +36,6 @@
         {{/if}}
       {{/if}}
     </div>
-    {{!# TODO: it should be different for students }}
     {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher') class="title"}}
         <div class="ellipsis text">{{item.title}}</div>
         <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
@@ -60,25 +59,9 @@
       {{/if}}
     </div>
 
-    {{gru-user-icons
-    membersCount=item.members.length
-    users=item.members}}
-
     <div class="left-info">
-      <span class="score" style={{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.hasStarted collectionPerformanceSummary.score 'NA')))}}>
-        {{if collectionPerformanceSummary.hasStarted collectionPerformanceSummary.score '--'}}%
-      </span>
-
-      <span class="state">
-        {{#if collectionPerformanceSummary.isCompleted}}
-          {{t 'common.all-completed'}}
-        {{else}}
-          {{#if collectionPerformanceSummary.hasStarted}}
-            {{t 'common.in-progress'}}
-          {{else}}
-            <span class="not-started">{{t 'common.not_started'}}</span>
-          {{/if}}
-        {{/if}}
+      <span class="score" style={{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.score collectionPerformanceSummary.score 'NA')))}}>
+        {{if collectionPerformanceSummary.score collectionPerformanceSummary.score '--'}}%
       </span>
     </div>
   </div>

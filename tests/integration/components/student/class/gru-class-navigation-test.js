@@ -12,7 +12,7 @@ moduleForComponent('student/class/gru-class-navigation', 'Integration | Componen
 });
 
 test('Class Navigation', function(assert) {
-  assert.expect(6);
+  assert.expect(7);
 
   const classMock = Ember.Object.create({
     id: '1',
@@ -30,10 +30,11 @@ test('Class Navigation', function(assert) {
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find('.gru-class-navigation');
-  assert.equal($navigation.find('.nav a').length, 3, 'Number of class navigator links');
+  assert.equal($navigation.find('.nav a').length, 4, 'Number of class navigator links');
   T.exists(assert, $navigation.find('.nav .performance'), 'Missing performance link');
   T.exists(assert, $navigation.find('.nav .classmates'), 'Missing classmates link');
   T.exists(assert, $navigation.find('.nav .course-map'), 'Missing content map link');
+  T.exists(assert, $navigation.find('.nav .class-activities'), 'Missing class activities link');
 
   //$menu item Selected
   T.exists(assert, $navigation.find('.performance.active'), 'Missing selected performance item');

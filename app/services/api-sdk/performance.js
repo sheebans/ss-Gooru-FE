@@ -5,7 +5,7 @@ import CollectionPerformanceSummarySerializer from 'gooru-web/serializers/perfor
 import CollectionPerformanceSummaryAdapter from 'gooru-web/adapters/performance/collection-performance-summary';
 import ActivityPerformanceSummarySerializer from 'gooru-web/serializers/performance/activity-performance-summary';
 import ActivityPerformanceSummaryAdapter from 'gooru-web/adapters/performance/activity-performance-summary';
-
+import { aggregateClassActivityPerformanceSummaryItems } from 'gooru-web/utils/daily-activities';
 /**
  * @typedef {Object} PerformanceService
  */
@@ -548,6 +548,24 @@ export default Ember.Service.extend({
 
   /**
    * Finds class activity performance summary for the ids provided
+   * @param {string} classId optional class id filter
+   * @param {string[]} activityIds
+   * @param {string} activityType collection|assessment
+   * @param {Date} startDate optional start date, default is now
+   * @param {Date} endDate optional end date, default is now
+   * @returns {Ember.RSVP.Promise.<ActivityPerformanceSummary[]>}
+   */
+  findClassActivityPerformanceSummaryByIds: function (classId, activityIds, activityType, startDate = new Date(), endDate = new Date()) {
+    const service = this;
+    return service.get('activityPerformanceSummaryAdapter').findClassActivityPerformanceSummaryByIds(undefined, classId, activityIds, activityType, startDate, endDate)
+        .then(function (data) {
+          const activities = service.get('activityPerformanceSummarySerializer').normalizeAllActivityPerformanceSummary(data);
+          return aggregateClassActivityPerformanceSummaryItems(activities);
+        });
+  },
+
+  /**
+   * Finds class activity performance summary for the ids provided
    * @param {string} userId user id
    * @param {string} classId optional class id filter
    * @param {string[]} activityIds
@@ -556,7 +574,7 @@ export default Ember.Service.extend({
    * @param {Date} endDate optional end date, default is now
    * @returns {Ember.RSVP.Promise.<ActivityPerformanceSummary[]>}
    */
-  findClassActivityPerformanceSummaryByIds: function (userId, classId, activityIds, activityType, startDate = new Date(), endDate = new Date()) {
+  findStudentActivityPerformanceSummaryByIds: function (userId, classId, activityIds, activityType, startDate = new Date(), endDate = new Date()) {
     const service = this;
     return service.get('activityPerformanceSummaryAdapter').findClassActivityPerformanceSummaryByIds(userId, classId, activityIds, activityType, startDate, endDate)
         .then(function (data) {
