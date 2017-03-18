@@ -3,7 +3,7 @@
   .course-panel,
   .teachers-panel,
   .class-panel{
-    min-height: 230px;
+    min-height: 250px;
     padding: 10px;
     .gru-icon.edit {
       color: $light-500;
@@ -43,6 +43,16 @@
       }
       button{
         border: 1px solid #eee;
+        padding: 5px 7px;
+        @media (min-width: $screen-xs) {
+          padding: 6px 16px;
+        }
+        @media (min-width: $screen-md) {
+          padding: 5px 2px;
+        }
+        @media (min-width: $screen-lg) {
+          padding: 6px 16px;
+        }
       }
     }
   }
