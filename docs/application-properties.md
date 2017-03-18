@@ -38,7 +38,11 @@ Gooru application can be configured at runtime by setting several properties
           }
         }
       }
-    }
+    },
+    
+   "quizzes-addon": {
+    ....
+   }
 };
 ```
 
@@ -63,3 +67,6 @@ Useful to configure the real time BE services
 
 ## `themes`
 Useful to configure some own properties of the themes
+
+## `quizzes-addon`
+Quizzes addon property configuration, see [Quizzes Integration Addon](quizzes-integration-addon.md)

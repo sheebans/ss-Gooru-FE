@@ -73,7 +73,7 @@ test('updateCollection', function(assert) {
   const expectedCollectionId = 'collection-id';
   const expectedCollectionModel = CollectionModel.create({ title: 'Collection title' });
 
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('collectionSerializer', Ember.Object.create({
     serializeUpdateCollection: function(collectionModel) {
@@ -88,6 +88,12 @@ test('updateCollection', function(assert) {
     }
   }));
 
+  service.set('notifyQuizzesCollectionChange', function(collectionId) {
+        assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+        return Ember.RSVP.resolve();
+      }
+  );
+
   var done = assert.async();
   service.updateCollection(expectedCollectionId, expectedCollectionModel).then(function() { done(); });
 });
@@ -96,7 +102,7 @@ test('updateCollectionTitle', function(assert) {
   const service = this.subject();
   const expectedCollectionId = 'collection-id';
 
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('collectionSerializer', Ember.Object.create({
     serializeUpdateCollectionTitle: function(title) {
@@ -111,6 +117,12 @@ test('updateCollectionTitle', function(assert) {
     }
   }));
 
+  service.set('notifyQuizzesCollectionChange', function(collectionId) {
+        assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+        return Ember.RSVP.resolve();
+      }
+  );
+
   var done = assert.async();
   service.updateCollectionTitle(expectedCollectionId, 'title').then(function() { done(); });
 });
@@ -119,7 +131,7 @@ test('reorderCollection', function(assert) {
   const service = this.subject();
   const expectedCollectionId = 'collection-id';
 
-  assert.expect(4);
+  assert.expect(5);
 
   service.set('collectionSerializer', Ember.Object.create({
     serializeReorderCollection: function(resourceIds) {
@@ -135,6 +147,12 @@ test('reorderCollection', function(assert) {
       return Ember.RSVP.resolve();
     }
   }));
+
+  service.set('notifyQuizzesCollectionChange', function(collectionId) {
+        assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+        return Ember.RSVP.resolve();
+      }
+  );
 
   var done = assert.async();
   service.reorderCollection(expectedCollectionId, ["a", "b"]).then(function() { done(); });
@@ -255,7 +273,7 @@ test('addResource', function(assert) {
   const expectedCollectionId = 'collection-id';
   const expectedResourceId = 'resource-id';
 
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('collectionAdapter', Ember.Object.create({
     addResource: function(collectionId, resourceId) {
@@ -264,6 +282,12 @@ test('addResource', function(assert) {
       return Ember.RSVP.resolve();
     }
   }));
+
+  service.set('notifyQuizzesCollectionChange', function(collectionId) {
+        assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+        return Ember.RSVP.resolve();
+      }
+  );
 
   var done = assert.async();
   service.addResource(expectedCollectionId, expectedResourceId).then(function() {
@@ -276,7 +300,7 @@ test('addQuestion', function(assert) {
   const expectedCollectionId = 'collection-id';
   const expectedQuestionId = 'question-id';
 
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('collectionAdapter', Ember.Object.create({
     addQuestion: function(collectionId, questionId) {
@@ -285,6 +309,12 @@ test('addQuestion', function(assert) {
       return Ember.RSVP.resolve();
     }
   }));
+
+  service.set('notifyQuizzesCollectionChange', function(collectionId) {
+        assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+        return Ember.RSVP.resolve();
+      }
+  );
 
   var done = assert.async();
   service.addQuestion(expectedCollectionId, expectedQuestionId).then(function() {
@@ -296,7 +326,7 @@ test('deleteCollection', function(assert) {
   const expectedCollectionId = 'collection-id';
   const service = this.subject();
 
-  assert.expect(1);
+  assert.expect(2);
 
   service.set('collectionAdapter', Ember.Object.create({
     deleteCollection: function(collectionId) {
@@ -304,6 +334,12 @@ test('deleteCollection', function(assert) {
       return Ember.RSVP.resolve();
     }
   }));
+
+  service.set('notifyQuizzesCollectionChange', function(collectionId) {
+        assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+        return Ember.RSVP.resolve();
+      }
+  );
 
   var done = assert.async();
   service.deleteCollection('collection-id')
@@ -331,4 +367,21 @@ test('copyCollection', function(assert) {
       assert.equal(response, 'copy-collection-id', 'Wrong collection id');
       done();
     });
+});
+
+test('notifyQuizzesCollectionChange', function(assert) {
+  const service = this.subject();
+  const expectedCollectionId = 'collection-id';
+
+  assert.expect(2);
+
+  service.set('quizzesCollectionService', Ember.Object.create({
+    notifyCollectionChange: function(collectionId, type) {
+      assert.equal(collectionId, expectedCollectionId, 'Wrong collection id');
+      assert.equal(type, 'collection', 'Wrong type');
+      return Ember.RSVP.resolve();
+    }
+  }));
+  var done = assert.async();
+  service.notifyQuizzesCollectionChange(expectedCollectionId).then(function() { done(); });
 });

@@ -5,6 +5,7 @@
 
 @import 'mixins';
 @import 'common';
+@import 'quizzes';
 
 @import 'helpers/grading-scale-legend';
 @import 'helpers/three-bounce-spinner';
@@ -46,6 +47,7 @@
 @import 'controllers/profile/network';
 @import 'controllers/reports/collection';
 @import 'controllers/reports/student-collection';
+@import 'controllers/reports/student-collection-analytics';
 @import 'controllers/search';
 @import 'controllers/sign-in';
 @import 'controllers/sign-up';

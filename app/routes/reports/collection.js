@@ -1,6 +1,7 @@
 import Ember from 'ember';
-import ReportData from 'gooru-web/models/result/report-data';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import ContextMixin from "gooru-web/mixins/quizzes/context";
+import QuizzesReport from 'quizzes-addon/routes/reports/context';
 
 /**
  * Route for collection/assessment report
@@ -11,7 +12,9 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
  * @module
  * @augments ember/Route
  */
-export default Ember.Route.extend(PrivateRouteMixin, {
+export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
+
+  templateName: 'reports/context',
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -25,7 +28,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   classService: Ember.inject.service("api-sdk/class"),
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -44,60 +46,19 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   model: function (params) {
     const route = this;
-    const classId = params.classId;
     const collectionId = params.collectionId;
+    const anonymous = params.anonymous;
+    let collection;
 
     // Get initialization data from analytics
-    return Ember.RSVP.hashSettled({
-      assessment: route.get('assessmentService').readAssessment(collectionId),
-      collection: route.get('collectionService').readCollection(collectionId)
-    }).then(function(hash){
-      const collectionFound = hash.assessment.state === 'rejected';
-      let collection = collectionFound ? hash.collection.value : hash.assessment.value;
-      return Ember.RSVP.hash({
-        routeParams: Ember.Object.create({
-          classId: classId,
-          collectionId: collectionId
-        }),
-        collection: collection.toPlayerCollection(),
-        classMembers: route.get('classService').readClassMembers(classId),
-        tourSteps: route.get('tourService').getRealTimeTourSteps()
-      });
-    });
-  },
-
-  setupController: function (controller, model) {
-    // Create an instance of report data to pass to the controller.
-    const students = model.classMembers.get("members");
-    var reportData = ReportData.create({
-      students: students,
-      resources: model.collection.get('resources')
-    });
-
-    controller.setProperties({
-      routeParams: model.routeParams,
-      assessment: model.collection,
-      students: students,
-      tourSteps:model.tourSteps
-    });
-
-    // Because there's an observer on reportData, it's important set all other controller properties beforehand
-    controller.set('reportData', reportData);
-  },
-
-  resetController: function (controller) {
-    const webSocketClient = controller.get('webSocketClient');
-    if (webSocketClient !== null) {
-      webSocketClient.disconnect();
-    }
-
-    // When exiting, reset the controller values
-    controller.setProperties({
-      routeParams: null,
-      assessment: null,
-      students: null,
-      reportData: null,
-      webSocketClient: null
+    return route.get('assessmentService').readAssessment(collectionId).then(function(assessment) {
+      collection = assessment;
+      return route.createContext(params, collection, true);
+    }).then(function({ id }) {
+      params.type = collection.get('collectionType');
+      params.contextId = id;
+      params.anonymous = anonymous;
+      return route.quizzesModel(params);
     });
   }
 

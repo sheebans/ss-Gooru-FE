@@ -16,6 +16,7 @@ source .ci/common.sh
 GIT_BRANCH=$(echo $bamboo_repository_branch_name | sed 's/\//-/')
 BUILD_NUMBER=${bamboo_buildNumber}
 export VERSION=${GIT_BRANCH}-${BUILD_NUMBER}
+export QUIZZES_VERSION=${QUIZZES_VERSION}
 
 if [ $UID -eq 0 ]; then
   info "Running as root creating builder user and dropping privileges"
@@ -40,6 +41,9 @@ silent npm -q install -g \
   phantomjs-prebuilt@2.1.3 \
   stubby@0.2.13 \
   grunt-cli@0.1.13
+
+info "Installing quizzes addon..."
+silent npm install quizzes-addon-${QUIZZES_VERSION}.tgz
 
 info "Installing npm dependencies..."
 silent npm -q install

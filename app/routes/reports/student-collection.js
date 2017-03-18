@@ -1,6 +1,9 @@
 import Ember from 'ember';
-import Context from 'gooru-web/models/result/context';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import ContextMixin from "gooru-web/mixins/quizzes/context";
+import QuizzesReport from 'quizzes-addon/routes/reports/student-context';
+import { ROLES } from 'gooru-web/config/config';
+
 /**
  *
  * Analytics data for a student related to a collection of resources
@@ -9,7 +12,9 @@ import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
  * @module
  * @augments ember/Route
  */
-export default Ember.Route.extend(PrivateRouteMixin, {
+export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
+
+  templateName: 'reports/student-context',
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -40,7 +45,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @property {Ember.Service} Service to retrieve an assessment result
    */
   performanceService: Ember.inject.service("api-sdk/performance"),
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -73,88 +77,32 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model(params) {
     const route = this;
-    const context = route.getContext(params);
-    const type = params.type || "collection";
-
-    const lessonPromise = context.get("courseId") ?
-      route.get("lessonService").fetchById(context.get("courseId"), context.get("unitId"), context.get("lessonId")) :
-      null;
-
-    const isCollection = (type === "collection");
-    const collectionPromise = (isCollection) ?
-      route.get("collectionService").readCollection(params.collectionId) :
-      route.get("assessmentService").readAssessment(params.collectionId);
-    const completedSessionsPromise = (isCollection) ? [] :
-      route.get("userSessionService").getCompletedSessions(context);
-    return Ember.RSVP.hash({
-      collection: collectionPromise,
-      completedSessions : completedSessionsPromise,
-      lesson: lessonPromise,
-      context: context
-    });
-  },
-
-  afterModel: function (model){
-    const controller = this;
-    const context = model.context;
-    var completedSessions = model.completedSessions;
-    const totalSessions = completedSessions.length;
-    const session = totalSessions ? completedSessions[totalSessions - 1] : null;
-
-    if (session){ //collections has no session
-      context.set("sessionId", session.sessionId);
-    }
-    const performanceService = controller.get("performanceService");
-    const loadStandards = session && context.get("isInContext");
-    return performanceService.findAssessmentResultByCollectionAndStudent(context, loadStandards)
-      .then(function(assessmentResult) {
-        model.assessmentResult = assessmentResult;
-      });
-  },
-
-  /**
-   *
-   * @param controller
-   * @param model
-   * @returns {Promise.<T>}
-   */
-  setupController: function(controller, model){
-    controller.set("collection", model.collection.toPlayerCollection());
-    controller.set("lesson", model.lesson);
-    controller.set("completedSessions", model.completedSessions);
-    controller.set("context", model.context);
-    controller.setAssessmentResult(model.assessmentResult);
-  },
-
-  /**
-   * Get the player context
-   * @param params
-   * @returns {Context}
-   */
-  getContext: function(params){
-    const route = this;
-    let userId = route.get('session.userId');
-    const role = params.role;
-    if (role === 'teacher'){
-      /*
-        for teachers, it could be the teacher playing a collection or a teacher seeing its students report
-        for student should use always the session id
-       */
-      userId = params.userId || userId;
-    }
     const collectionId = params.collectionId;
-    const courseId = params.courseId;
-    const unitId = params.unitId;
-    const lessonId = params.lessonId;
+    const contextId = params.contextId;
+    const type = params.type || 'collection';
+    const role = params.role || ROLES.TEACHER;
 
-    return Context.create({
-      collectionType: params.type,
-      userId: userId,
-      collectionId: collectionId,
-      courseId: courseId,
-      classId: params.classId,
-      unitId: unitId,
-      lessonId: lessonId
+    const isCollection = type === 'collection';
+    const isAssessment = type === 'assessment';
+
+    const loadAssessment = !type || isAssessment;
+    const loadCollection = !type || isCollection;
+
+    let collection;
+
+    return Ember.RSVP.hashSettled({
+      assessment: loadAssessment ? route.get('assessmentService').readAssessment(collectionId) : false,
+      collection: loadCollection ? route.get('collectionService').readCollection(collectionId) : false
+    }).then(function(hash) {
+      let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
+      collection = collectionFound ? hash.collection.value : hash.assessment.value;
+      return contextId ? { id: contextId } : route.createContext(params, collection, params.role === ROLES.STUDENT);
+    }).then(function({ id }) {
+      params.profileId = route.get('session.userData.gooruUId');
+      params.type = collection.get('collectionType');
+      params.contextId = id;
+      params.role = role;
+      return route.quizzesModel(params);
     });
   },
 
@@ -190,11 +138,5 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         location: `${unitId}+${lessonId}`
       }
     });
-  },
-
-  deactivate: function(){
-    this.get("controller").resetValues();
   }
-
-
 });
