@@ -18,6 +18,16 @@ export default Ember.Service.extend({
    */
   questionAdapter: null,
 
+  /**
+   * @property {AssessmentService}
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
+   * @property {AssessmentService}
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
   init: function () {
     this._super(...arguments);
     this.set('questionSerializer', QuestionSerializer.create(Ember.getOwner(this).ownerInjection()));
@@ -65,13 +75,17 @@ export default Ember.Service.extend({
    *
    * @param questionId the id of the question to be updated
    * @param questionModel the question model with the data
+   * @param {content/Collection|content/Assessment} collection provided when the question belongs to a collection
    * @returns {Promise}
    */
-  updateQuestion: function(questionId, questionModel) {
+  updateQuestion: function(questionId, questionModel, collection = null) {
     const service = this;
     let serializedData = service.get('questionSerializer').serializeUpdateQuestion(questionModel);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('questionAdapter').updateQuestion(questionId, serializedData).then(resolve, reject);
+      service.get('questionAdapter').updateQuestion(questionId, serializedData).then(function() {
+        service.notifyQuizzesCollectionChange(collection);
+        resolve();
+      }, reject);
     });
   },
 
@@ -80,13 +94,17 @@ export default Ember.Service.extend({
    *
    * @param questionId the id of the question to be updated
    * @param title
+   * @param {content/Collection|content/Assessment} collection provided when the question belongs to a collection
    * @returns {Promise}
    */
-  updateQuestionTitle: function(questionId, title) {
+  updateQuestionTitle: function(questionId, title, collection = null) {
     const service = this;
     let serializedData = service.get('questionSerializer').serializeUpdateQuestionTitle(title);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('questionAdapter').updateQuestion(questionId, serializedData).then(resolve, reject);
+      service.get('questionAdapter').updateQuestion(questionId, serializedData).then(function() {
+        service.notifyQuizzesCollectionChange(collection);
+        resolve();
+      }, reject);
     });
   },
 
@@ -94,13 +112,17 @@ export default Ember.Service.extend({
    * Delete question
    *
    * @param questionId question id to delete
+   * @param {content/Collection|content/Assessment} collection provided when the question belongs to a collection
    * @returns {Ember.RSVP.Promise}
    */
-  deleteQuestion: function (questionId) {
+  deleteQuestion: function (questionId, collection = null) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('questionAdapter').deleteQuestion(questionId)
-        .then(resolve, reject);
+        .then(function() {
+          service.notifyQuizzesCollectionChange(collection);
+          resolve();
+        }, reject);
     });
   },
 
@@ -117,6 +139,20 @@ export default Ember.Service.extend({
           resolve(request.getResponseHeader('location'));
         }, reject );
     });
+  },
+
+  /**
+   * Notifies a change at quizzes for the provided collection
+   * @param {content/Collection|content/Assessment} collection
+     */
+  notifyQuizzesCollectionChange: function(collection){
+    if (collection) {
+      const collectionId = collection.get('id');
+      return (collection.get("isAssessment")) ?
+        this.get("assessmentService").notifyQuizzesAssessmentChange(collectionId) :
+        this.get("collectionService").notifyQuizzesCollectionChange(collectionId);
+    }
+    return Ember.RSVP.resolve(false);
   }
 
 });

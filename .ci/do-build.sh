@@ -9,6 +9,8 @@
 
 source .ci/common.sh
 
+QUIZZES_VERSION="0.0.0"
+
 if [ -z "$S3_BUCKET" ]; then
   error "No S3 bucket specified."
   exit 1
@@ -22,6 +24,10 @@ fi
 info "Downloading welcome site..."
 silent aws s3 cp s3://${S3_BUCKET}/frontend-30/welcome/welcome.tar.gz .
 
+info "Downloading quizzes addon..."
+silent aws s3 cp \
+  s3://${S3_BUCKET}/quizzes-addon/${QUIZZES_VERSION}/quizzes-addon-${QUIZZES_VERSION}.tgz .
+
 info "Running build inside node:4.6 docker image..."
 
 docker kill builder
@@ -32,5 +38,6 @@ docker run -t \
   -v ${PWD}:/build \
   -e bamboo_buildNumber=${bamboo_buildNumber} \
   -e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
+  -e QUIZZES_VERSION=${QUIZZES_VERSION} \
   -w /build \
   node:4.6 .ci/build.sh

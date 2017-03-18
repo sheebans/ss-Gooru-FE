@@ -63,7 +63,7 @@ test('updateAssessment', function(assert) {
   const expectedAssessmentId = 'assessment-id';
   const expectedAssessmentModel = AssessmentModel.create({ title: 'Assessment title' });
 
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('assessmentSerializer', Ember.Object.create({
     serializeUpdateAssessment: function(assessmentModel) {
@@ -78,6 +78,12 @@ test('updateAssessment', function(assert) {
     }
   }));
 
+  service.set('notifyQuizzesAssessmentChange', function(assessmentId) {
+      assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+      return Ember.RSVP.resolve();
+    }
+  );
+
   var done = assert.async();
   service.updateAssessment(expectedAssessmentId, expectedAssessmentModel).then(function() { done(); });
 });
@@ -86,7 +92,7 @@ test('updateAssessmentTitle', function(assert) {
   const service = this.subject();
   const expectedAssessmentId = 'assessment-id';
 
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('assessmentSerializer', Ember.Object.create({
     serializeUpdateAssessmentTitle: function(title) {
@@ -101,6 +107,11 @@ test('updateAssessmentTitle', function(assert) {
     }
   }));
 
+  service.set('notifyQuizzesAssessmentChange', function(assessmentId) {
+        assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+        return Ember.RSVP.resolve();
+      }
+  );
   var done = assert.async();
   service.updateAssessmentTitle(expectedAssessmentId, 'title').then(function() { done(); });
 });
@@ -110,7 +121,7 @@ test('addQuestion', function(assert) {
   const expectedAssessmentId = 'assessment-id';
   const expectedQuestionId = 'question-id';
 
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('assessmentAdapter', Ember.Object.create({
     addQuestion: function(assessmentId, questionId) {
@@ -119,6 +130,12 @@ test('addQuestion', function(assert) {
       return Ember.RSVP.resolve();
     }
   }));
+
+  service.set('notifyQuizzesAssessmentChange', function(assessmentId) {
+        assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+        return Ember.RSVP.resolve();
+      }
+  );
 
   var done = assert.async();
   service.addQuestion(expectedAssessmentId, expectedQuestionId).then(function() {
@@ -138,7 +155,7 @@ test('deleteAssessment', function(assert) {
   });
   const service = this.subject();
 
-  assert.expect(2);
+  assert.expect(3);
 
   service.set('assessmentAdapter', Ember.Object.create({
     deleteAssessment: function(assessmentId) {
@@ -150,6 +167,12 @@ test('deleteAssessment', function(assert) {
       return Ember.RSVP.resolve();
     }
   }));
+
+  service.set('notifyQuizzesAssessmentChange', function(assessmentId) {
+        assert.equal(assessmentId, 'assessment-id', 'Wrong assessment id');
+        return Ember.RSVP.resolve();
+      }
+  );
 
   var done = assert.async();
 
@@ -192,7 +215,7 @@ test('reorderAssessment', function(assert) {
   const service = this.subject();
   const expectedAssessmentId = 'assessment-id';
 
-  assert.expect(4);
+  assert.expect(5);
 
   service.set('assessmentSerializer', Ember.Object.create({
     serializeReorderAssessment: function(resourceIds) {
@@ -209,8 +232,30 @@ test('reorderAssessment', function(assert) {
     }
   }));
 
+  service.set('notifyQuizzesAssessmentChange', function(assessmentId) {
+        assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+        return Ember.RSVP.resolve();
+      }
+  );
   var done = assert.async();
   service.reorderAssessment(expectedAssessmentId, ["a", "b"]).then(function() { done(); });
+});
+
+test('notifyQuizzesAssessmentChange', function(assert) {
+  const service = this.subject();
+  const expectedAssessmentId = 'assessment-id';
+
+  assert.expect(2);
+
+  service.set('quizzesCollectionService', Ember.Object.create({
+    notifyCollectionChange: function(assessmentId, type) {
+      assert.equal(assessmentId, expectedAssessmentId, 'Wrong assessment id');
+      assert.equal(type, 'assessment', 'Wrong type');
+      return Ember.RSVP.resolve();
+    }
+  }));
+  var done = assert.async();
+  service.notifyQuizzesAssessmentChange(expectedAssessmentId).then(function() { done(); });
 });
 
 //todo

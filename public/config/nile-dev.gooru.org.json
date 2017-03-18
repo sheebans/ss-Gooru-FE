@@ -12,5 +12,19 @@
   },
   "teams": {
     "url": "http://teams.gooru.org"
+  },
+  "quizzes-addon": {
+    "endpoint" : {
+      "url": "",
+      "secureUrl": "",
+      "providerUrl": ""
+    },
+
+    "realTime": {
+      "webServiceUrl": "",
+      "webServiceUri": "/",
+      "webSocketUrl": "",
+      "webSocketUri": "/ws/quizzes-realtime"
+    }
   }
 }

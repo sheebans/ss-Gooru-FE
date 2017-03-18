@@ -96,14 +96,13 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     ENV.contentSecurityPolicy = {
-      'default-src': "'none'",
-      'script-src': "'self' http://localhost:4200 http://localhost",
-      'font-src': "'self' https://www.gooru.org",
-      'connect-src': "'self' http://localhost:4200 ws://localhost:4200 http://localhost:8882  http://nucleus-qa.gooru.org http://nile-dev.gooru.org",
-      'img-src': "'self' data: http://qacdn.gooru.org http://profile-images.goorulearning.org.s3.amazonaws.com " +
-        "http://dev-content-gooru-org.s3-us-west-1.amazonaws.com http://dev-user-gooru-org.s3-us-west-1.amazonaws.com",
-      'style-src': "'self' 'unsafe-inline' https://www.gooru.org",
-      'media-src': "'self'"
+      'default-src': "*",
+      'script-src': "*",
+      'font-src': "*",
+      'connect-src': "*",
+      'img-src': "*",
+      'style-src': "* 'unsafe-inline'",
+      'media-src': "*"
     };
   }
 

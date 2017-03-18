@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export function initialize(application) {
   const sessionService = application.lookup('service:session');
+  const quizzesConfigurationService = application.lookup('service:quizzes/configuration');
 
   sessionService.reopen({
     /**
@@ -50,7 +51,18 @@ export function initialize(application) {
      */
     authenticateAsAnonymous: function() {
       return this.authenticate('authenticator:auth-api-3', { isAnonymous: true });
-    }
+    },
+
+    /**
+     * Checks for changes at token-api3
+     * @observer
+     */
+    tokenObserver: Ember.observer('token-api3', function() {
+      if (quizzesConfigurationService) {
+        quizzesConfigurationService.setToken(this.get('token-api3'));
+        quizzesConfigurationService.setCdnUrl(this.get('cdnUrls.content'));
+      }
+    })
   });
 }
 

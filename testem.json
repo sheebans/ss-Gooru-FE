@@ -36,6 +36,9 @@
     },
     "/nile-tenants": {
       "target": "http://localhost:8882"
+    },
+    "/quizzes": {
+      "target": "http://localhost:8882"
     }
   }
 }

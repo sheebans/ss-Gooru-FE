@@ -2,6 +2,14 @@
   min-width: $screen-md-min;
 }
 
+.app-container {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  height: 100vh;
+}
+
 .app-container > .controller.reports {
   $gutter-width: 30px;
   $on-air-icon: 40px;
@@ -73,7 +81,6 @@
       }
     }
   }
-
   .gru-class-assessment-report {
     padding-top: 10px;
   }

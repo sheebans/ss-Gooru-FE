@@ -26,6 +26,11 @@ export default Ember.Service.extend({
    */
   collectionAdapter: null,
 
+  /**
+   * @property {CollectionService}
+   */
+  quizzesCollectionService: Ember.inject.service('quizzes/collection'),
+
   init: function () {
     this._super(...arguments);
     this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
@@ -86,7 +91,10 @@ export default Ember.Service.extend({
     const service = this;
     let serializedData = service.get('collectionSerializer').serializeUpdateCollection(collectionModel);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(resolve, reject);
+      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(function(){
+        service.notifyQuizzesCollectionChange(collectionId);
+        resolve();
+      }, reject);
     });
   },
 
@@ -101,7 +109,10 @@ export default Ember.Service.extend({
     const service = this;
     let serializedData = service.get('collectionSerializer').serializeUpdateCollectionTitle(title);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(resolve, reject);
+      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(function(){
+        service.notifyQuizzesCollectionChange(collectionId);
+        resolve();
+      }, reject);
     });
   },
 
@@ -116,7 +127,10 @@ export default Ember.Service.extend({
     const service = this;
     let serializedData = service.get('collectionSerializer').serializeReorderCollection(resourceIds);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').reorderCollection(collectionId, serializedData).then(resolve, reject);
+      service.get('collectionAdapter').reorderCollection(collectionId, serializedData).then(function(){
+        service.notifyQuizzesCollectionChange(collectionId);
+        resolve();
+      }, reject);
     });
   },
 
@@ -156,7 +170,10 @@ export default Ember.Service.extend({
     var service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('collectionAdapter').addResource(collectionId, resourceId)
-        .then(resolve, reject);
+        .then(function(){
+          service.notifyQuizzesCollectionChange(collectionId);
+          resolve();
+        }, reject);
     });
   },
 
@@ -170,7 +187,10 @@ export default Ember.Service.extend({
     var service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('collectionAdapter').addQuestion(collectionId, questionId)
-        .then(resolve, reject);
+        .then(function(){
+          service.notifyQuizzesCollectionChange(collectionId);
+          resolve();
+        }, reject);
     });
   },
 
@@ -184,7 +204,10 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('collectionAdapter').deleteCollection(collectionId)
-        .then(resolve, reject);
+        .then(function(){
+          service.notifyQuizzesCollectionChange(collectionId);
+          resolve();
+        }, reject);
     });
   },
 
@@ -201,6 +224,17 @@ export default Ember.Service.extend({
           resolve(request.getResponseHeader('location'));
         }, reject );
     });
+  },
+
+  /**
+   * Notify a collection change at quizzes
+   * @param {string} collectionId
+   */
+  notifyQuizzesCollectionChange: function(collectionId){
+    const quizzesCollectionService = this.get('quizzesCollectionService');
+    Ember.Logger.info('Notifying collection change');
+    return quizzesCollectionService.notifyCollectionChange(collectionId, 'collection');
   }
+
 
 });

@@ -37,5 +37,20 @@ export default {
         }
       }
     }
+  },
+
+  "quizzes-addon": {
+    "endpoint" : {
+      "url": "http://nile-dev.gooru.org",
+      "secureUrl": "https://nile-dev.gooru.org",
+      "providerUrl": "http://nile-dev.gooru.org"
+    },
+
+    "realTime": {
+      "webServiceUrl": "https://nile-dev.gooru.org",
+      "webServiceUri": "/",
+      "webSocketUrl": "https://nile-dev.gooru.org",
+      "webSocketUri": "/ws/quizzes-realtime"
+    }
   }
 };

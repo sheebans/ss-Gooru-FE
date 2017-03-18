@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import AssessmentResult from 'gooru-web/models/result/assessment';
-import Context from 'gooru-web/models/result/context';
-import {generateUUID} from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import ContextMixin from 'gooru-web/mixins/quizzes/context';
+import QuizzesPlayer from 'quizzes-addon/routes/player';
+import { ROLES } from 'gooru-web/config/config';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -11,7 +11,9 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @module
  * @augments ember/Route
  */
-export default Ember.Route.extend(ModalMixin, ConfigurationMixin, {
+export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin, {
+
+  templateName: 'player',
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -32,6 +34,24 @@ export default Ember.Route.extend(ModalMixin, ConfigurationMixin, {
       }
       var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
       this.transitionTo(route);
+    },
+
+    /**
+     * When the submission is complete
+     */
+    onFinish: function() {
+      let controller = this.get('controller');
+      let queryParams = {
+        collectionId: controller.get('collection.id'),
+        type: controller.get('type'),
+        role: controller.get('role'),
+        classId: controller.get('classId'),
+        contextId: controller.get('contextResult.contextId')
+      };
+      this.transitionTo(
+        'reports.student-collection',
+        { queryParams }
+      );
     },
 
     startAssessment: function(){
@@ -87,165 +107,52 @@ export default Ember.Route.extend(ModalMixin, ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {Ember.Service} Service to rate a resource
-   */
-  ratingService: Ember.inject.service("api-sdk/rating"),
-
-  /**
    * @property {Ember.Service} Service to retrieve a collection
    */
   collectionService: Ember.inject.service("api-sdk/collection"),
-
-  /**
-   * @property {Ember.Service} Service to retrieve a collection
-   */
-  profileService: Ember.inject.service("api-sdk/profile"),
 
   /**
    * @property {Ember.Service} Service to retrieve an asssessment
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
 
-  /**
-   * @property {Ember.Service} Service to retrieve an assessment result
-   */
-  performanceService: Ember.inject.service("api-sdk/performance"),
-
-  /**
-   * @property {Ember.Service} Service to retrieve an assessment result
-   */
-  userSessionService: Ember.inject.service("api-sdk/user-session"),
-
   // -------------------------------------------------------------------------
   // Methods
+
   /**
    * @param {{ collectionId: string, resourceId: string }} params
    */
   model(params) {
     const route = this;
-    const context = route.getContext(params);
-    const collectionId = context.get("collectionId");
+    const collectionId = params.collectionId;
     const type = params.type;
+    const role = params.role || ROLES.TEACHER;
     const isCollection = type === 'collection';
     const isAssessment = type === 'assessment';
 
     const loadAssessment = !type || isAssessment;
     const loadCollection = !type || isCollection;
 
+    let collection;
+
     return Ember.RSVP.hashSettled({
       assessment: loadAssessment ? route.get('assessmentService').readAssessment(collectionId) : false,
       collection: loadCollection ? route.get('collectionService').readCollection(collectionId) : false
     }).then(function(hash) {
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
-      let collection = collectionFound ? hash.collection.value : hash.assessment.value;
-
-      context.set("collectionType", collection.get("collectionType")); //setting collection type
-
-      const playerCollection = collection.toPlayerCollection();
-
-      //Find resource owners
-      const resourcesWithOwner = playerCollection.get("resources").filterBy("hasOwner");
-      const ownerIds = resourcesWithOwner.mapBy("owner").uniq();
-      return route.get('profileService').readMultipleProfiles(ownerIds).then(function(owners){
-        resourcesWithOwner.forEach(function(resource){
-          resource.set("owner", owners.findBy("id", resource.get("owner")));
-        });
-        return route.playerModel(params, context, playerCollection, collection);
-      });
+      collection = collectionFound ? hash.collection.value : hash.assessment.value;
+      return route.createContext(params, collection, role === ROLES.STUDENT);
+    }).then(function({ id }) {
+      params.profileId = route.get('session.userData.gooruUId');
+      params.role = role;
+      params.type = collection.get('collectionType');
+      params.contextId = id;
+      return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId }));
     });
   },
 
-  /**
-   * Gets player model
-   * @param {*} params
-   * @param {Context} context
-   * @param {Collection} collection
-   * @returns {Promise.<*>}
-   */
-  playerModel: function(params, context, collection, originalCollection){
-    const route = this;
-    const hasUserSession = !route.get('session.isAnonymous');
-    const isAssessment = collection.get("isAssessment");
-    const loadSession = hasUserSession && isAssessment;
-
-    let lastOpenSessionPromise = loadSession ?
-      route.get("userSessionService").getOpenSession(context) :
-      Ember.RSVP.resolve(null);
-
-    return lastOpenSessionPromise.then(function (lastSession) {
-      //Setting new content if we have some session opened
-      context.set('sessionId', lastSession ? lastSession.sessionId : null);
-
-      let assessmentResult = (lastSession) ?
-        route.get("performanceService").findAssessmentResultByCollectionAndStudent(context) : null;
-      return Ember.RSVP.hash({
-        collection: collection,
-        resourceId: params.resourceId,
-        assessmentResult: assessmentResult,
-        context: context,
-        originalCollection: originalCollection
-      });
-    });
-  },
-
-  /**
-   * Get the player context
-   * @param params
-   * @returns {Context}
-   */
-  getContext: function(params){
-    const route = this;
-    const userId = route.get('session.userId');
-    const collectionId = params.collectionId;
-    const sourceId = params.sourceId || route.get("configuration.sourceId");
-
-
-    return Context.create({
-      userId: userId,
-      collectionId: collectionId,
-      parentEventId: generateUUID(),
-      sourceId: sourceId
-    });
-  },
-
-  /**
-   * @param {PlayerController} controller
-   * @param {Collection} model
-   */
   setupController(controller, model) {
-    controller.resetCurrentResourceValues(); //making sure that previous collection session values are cleared
-    let collection = model.collection;
-    let originalCollection = model.originalCollection;
-    let assessmentResult = model.assessmentResult;
-    let hasUserSession = !this.get('session.isAnonymous');
-
-    if (!assessmentResult){
-      assessmentResult = AssessmentResult.create({
-        totalAttempts: 1,
-        sessionId: generateUUID(), //sessionId for new assessment
-        selectedAttempt: 1,
-        resourceResults: Ember.A([])
-      });
-      Ember.Logger.debug('No assessment results found. Assessment result was created.');
-    }
-    assessmentResult.merge(collection);
-
-    model.context.set("sessionId", assessmentResult.get("sessionId"));
-
-    controller.set("saveEnabled", hasUserSession);
-    controller.set("context", model.context);
-    controller.set("assessmentResult", assessmentResult);
-
-    controller.set("showReport", assessmentResult.get("submitted"));
-    controller.set("collection", collection);
-    controller.set("originalCollection", originalCollection);
-
-    if (controller.get("startAutomatically")){
-      controller.startAssessment();
-    }
-  },
-
-  deactivate: function(){
-    this.get("controller").resetValues();
+    controller.set('classId', model.classId);
+    this._super(...arguments);
   }
 });

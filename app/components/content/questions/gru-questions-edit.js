@@ -112,10 +112,11 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
     */
     deleteQuestion:function(){
       const myId = this.get("session.userId");
+      const collection = this.get('collection');
       var model = {
         content: this.get('question'),
         deleteMethod: function () {
-          return this.get('questionService').deleteQuestion(this.get('question.id'));
+          return this.get('questionService').deleteQuestion(this.get('question.id'), collection);
         }.bind(this),
         type: CONTENT_TYPES.QUESTION,
         redirect: {
@@ -400,6 +401,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
 
   updateQuestion:function(editedQuestion, component){
     let question = component.get('question');
+    const collection = component.get('collection');
 
     editedQuestion.validate().then(function ({ validations }) {
       if (validations.get('isValid')) {
@@ -420,7 +422,7 @@ export default Ember.Component.extend(ContentEditMixin,ModalMixin,{
         }
         imageIdPromise.then(function(imageId) {
           editedQuestion.set('thumbnail', imageId);
-          component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion)
+          component.get('questionService').updateQuestion(editedQuestion.id, editedQuestion, collection)
             .then(function () {
               component.set('question', editedQuestion);
               component.set('isEditing', false);
