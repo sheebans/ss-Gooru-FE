@@ -50,15 +50,13 @@ export default Ember.Object.extend({
    * Enables the class content
    *
    * @param {string} classId
-   * @param {string} contentId
-   * @param {string} contentType
-   * @param { { courseId: string, unitId: string, lessonId: string } } context
+   * @param {string} classActivityId
    * @returns {Promise}
    */
-  enableClassActivity: function (classId, contentId, activationDate = new Date()) {
+  enableClassActivity: function (classId, classActivityId/*, activationDate = new Date()*/) {
     const adapter = this;
     const namespace = this.get('namespace');
-    const url = `${namespace}/${classId}/contents/${contentId}`;
+    const url = `${namespace}/${classId}/contents/${classActivityId}`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',
@@ -66,7 +64,7 @@ export default Ember.Object.extend({
       processData: false,
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
-        activation_date: formatDate(activationDate,'YYYY-MM-DD')
+        //activation_date: formatDate(activationDate,'YYYY-MM-DD') TODO: BE is throwing 400
       })
     };
     return Ember.$.ajax(url, options);

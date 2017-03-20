@@ -47,14 +47,14 @@ export default Ember.Service.extend({
    * Enables the class content
    *
    * @param {string} classId
-   * @param {string} contentId
+   * @param {string} classActivityId
    * @param {Date} activationDate
    * @returns {boolean}
    */
-  enableClassActivity: function (classId, contentId, activationDate = new Date()) {
+  enableClassActivity: function (classId, classActivityId, activationDate = new Date()) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classActivityAdapter').enableClassActivity(classId, contentId, activationDate).then(function() {
+      service.get('classActivityAdapter').enableClassActivity(classId, classActivityId, activationDate).then(function() {
         resolve(true);
       }, reject);
     });

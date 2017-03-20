@@ -37,7 +37,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const content =  serializer.normalizeClassActivityContent(data);
     return ClassActivity.create(Ember.getOwner(this).ownerInjection(), {
-      id: data.content_id,
+      id: data.id,
       date: data.activation_date ? parseDate(data.activation_date, 'YYYY-MM-DD') : null,
       context: {
         courseId: data.ctx_course_id,

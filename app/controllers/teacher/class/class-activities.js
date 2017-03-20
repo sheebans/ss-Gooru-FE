@@ -27,13 +27,13 @@ export default Ember.Controller.extend({
      *
      * @function actions:changeVisibility
      */
-    changeVisibility: function (collectionId) {
+    changeVisibility: function (classActivityId) {
       const controller = this;
       const currentClass = controller.get('classController.class');
       const classId = currentClass.get("id");
       const date = new Date();
-      controller.get('classActivityService').enableClassActivity(classId, collectionId, date).then(function(){
-        const classActivity = controller.get('classActivities').findBy("collection.id", collectionId);
+      controller.get('classActivityService').enableClassActivity(classId, classActivityId, date).then(function(){
+        const classActivity = controller.get('classActivities').findBy("id", classActivityId);
         classActivity.set('date', date);
       });
     }

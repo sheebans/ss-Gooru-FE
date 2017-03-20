@@ -65,8 +65,8 @@ test('addActivityToClass with context', function(assert) {
     });
 });
 
-test('enableClassActivity with date', function(assert) {
-  assert.expect(3);
+test('enableClassActivity', function(assert) {
+  assert.expect(2);
 
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -74,14 +74,13 @@ test('enableClassActivity with date', function(assert) {
   }));
   this.pretender.map(function() {
     this.put('/api/nucleus/v2/classes/123/contents/321', function(request) {
-      let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(requestBodyJson.activation_date, '2012-11-13', 'Wrong activation date');
+      //let requestBodyJson = JSON.parse(request.requestBody);
+      //assert.equal(requestBodyJson.activation_date, '2012-11-13', 'Wrong activation date');
       assert.equal(request.requestHeaders['Authorization'], 'Token token-api-3', 'Wrong token');
       return [201, {'Content-Type': 'text/plain'}, ''];
     }, false);
   });
-  const november = (11 - 1);
-  adapter.enableClassActivity(123, 321, new Date(2012, november, 13))
+  adapter.enableClassActivity(123, 321)
     .then(function(response) {
       assert.equal('', response, 'Wrong response');
     });

@@ -35,9 +35,9 @@ test('enableClassActivity', function(assert) {
   assert.expect(4);
 
   service.set('classActivityAdapter', Ember.Object.create({
-    enableClassActivity: function(classId, contentId, activationDate) {
+    enableClassActivity: function(classId, classActivityId, activationDate) {
       assert.equal(classId, 123, 'Wrong class id');
-      assert.equal(contentId, 321, 'Wrong content id');
+      assert.equal(classActivityId, 321, 'Wrong class activity id');
       assert.equal(activationDate, 'any activation date', 'Wrong activation date');
       return Ember.RSVP.resolve(true);
     }

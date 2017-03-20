@@ -5,6 +5,7 @@ moduleFor('serializer:content/class-activity', 'Unit | Serializer | content/clas
 test('normalizeClassActivityContent for collection', function (assert) {
   const serializer = this.subject();
   const data = {
+    id: 10,
     content_id: 123,
     title: 'Any title',
     content_type: 'collection',
@@ -22,6 +23,7 @@ test('normalizeClassActivityContent for collection', function (assert) {
 test('normalizeClassActivityContent for assessment', function (assert) {
   const serializer = this.subject();
   const data = {
+    id: 10,
     content_id: 123,
     title: 'Any title',
     content_type: 'assessment',
@@ -39,6 +41,7 @@ test('normalizeClassActivityContent for assessment', function (assert) {
 test('normalizeClassActivity with context and activation date', function (assert) {
   const serializer = this.subject();
   const data = {
+    id: 10,
     content_id: 123,
     title: 'Any title',
     content_type: 'assessment',
@@ -51,7 +54,7 @@ test('normalizeClassActivity with context and activation date', function (assert
     ctx_collection_id: 40
   };
   const modelObject = serializer.normalizeClassActivity(data);
-  assert.equal(modelObject.get("id"), 123, 'Wrong id');
+  assert.equal(modelObject.get("id"), 10, 'Wrong id');
   assert.equal(modelObject.get("context.courseId"), 10, 'Wrong course id');
   assert.equal(modelObject.get("context.unitId"), 20, 'Wrong unit id');
   assert.equal(modelObject.get("context.lessonId"), 30, 'Wrong lesson id');

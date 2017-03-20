@@ -31,8 +31,8 @@ export default Ember.Component.extend({
     /**
      * @function changeVisibility
      */
-    changeVisibility:function (collectionId){
-      this.sendAction('onChangeVisibility', collectionId);
+    changeVisibility:function (classActivity){
+      this.sendAction('onChangeVisibility', classActivity);
     },
 
     /**
