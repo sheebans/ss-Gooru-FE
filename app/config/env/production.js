@@ -6,7 +6,7 @@ export default {
   "endpoint" : {
     "url": "https://www.gooru.org",
     "secureUrl": "https://www.gooru.org",
-    "tenantUrl": "http://s3-us-west-1.amazonaws.com/nile-tenants/prod"
+    "tenantUrl": "https://s3-us-west-1.amazonaws.com/nile-tenants/prod"
   },
 
   "realTime": {
