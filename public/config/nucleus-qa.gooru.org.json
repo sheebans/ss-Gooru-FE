@@ -2,7 +2,7 @@
   "endpoint" : {
     "url": "",
     "secureUrl": "https://nucleus-qa.gooru.org",
-    "tenantUrl": "http://s3-us-west-1.amazonaws.com/nile-tenants/qa"
+    "tenantUrl": "https://s3-us-west-1.amazonaws.com/nile-tenants/qa"
   },
 
   "realTime": {
