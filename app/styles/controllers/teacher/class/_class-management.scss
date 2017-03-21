@@ -34,6 +34,11 @@
       padding: 0;
     }
   }
+  .teachers-panel{
+    .gru-user-card span{
+      cursor: default;
+    }
+  }
   .students-panel{
     .panel-body{
       max-height: 300px;
