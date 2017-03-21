@@ -24,34 +24,44 @@
       .level-list{
         width: 100%;
         margin: 0 0 0 16px;
-        input{
-          font-size: $font-size-base;
-        }
       }
     }
   }
   .points{
     margin: 0 0 0 30px;
-    width: 16%;
     .point-list{
       padding: 0 0 0 45px;
+      width: 215px;
       div{
         @include flexbox;
+      }
+      .btn{
+        display: block;
+        background-color: transparent;
+        font-size: 24px;
+        line-height: 1;
+        padding: 7px 5px;
+      }
+      .score-input{
+        width: 135px;
+        height: 52px;
+
+        .gru-input{
+          input{
+            text-align: center;
+          }
+        }
       }
     }
   }
   .delete-levels{
-    padding: 45px 0 0 0;
-    .btn{
-      display: block;
-      margin: 0 0 27% 27%;
-      background-color: transparent;
-      font-size: 24px;
-      line-height: 1;
-      padding: 7px 5px;
-    }
+    padding: 70px 0 0 0;
+
     .actions{
       border-left: 1px solid $gray-light;
+    }
+    @media (min-width: $screen-md) {
+      padding: 50px 0 0 0;
     }
   }
   .btn-new-level{
@@ -61,5 +71,8 @@
       font-size: $font-size-h4;
       vertical-align: bottom;
     }
+  }
+  input{
+    font-size: $font-size-base;
   }
 }
