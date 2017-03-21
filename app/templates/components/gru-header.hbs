@@ -61,6 +61,11 @@
                   </ul>
               </li>
             {{else}}
+              <li class="navbar-nav-list visible-md visible-lg library-link">
+                {{#link-to 'library'}}
+                  <span>{{t "common.library"}}</span>
+                {{/link-to}}
+              </li>
               {{#unless profile.isTeacher}}
                 <li class="navbar-nav-list visible-md visible-lg performance-link">
                   {{#link-to 'student.performance'}}
@@ -96,6 +101,11 @@
                 <ul class="dropdown-menu" role="menu">
                   <li class="navbar-nav-list close-menu">
                     <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='close'}}</button>
+                  </li>
+                  <li class="navbar-nav-list">
+                    {{#link-to 'library'}}
+                      <span>{{t "common.library"}}</span>
+                    {{/link-to}}
                   </li>
                   {{#unless profile.isTeacher}}
                     <li class="navbar-nav-list">

@@ -124,6 +124,8 @@ Router.map(function() {
 
   this.route('featured');
 
+  this.route('library');
+
   this.route('account-settings', { path: '/account-settings/:userId' });
 
   this.route('integration', { path: '/integration/:appType'});

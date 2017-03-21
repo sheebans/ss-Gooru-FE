@@ -8,7 +8,7 @@ import ClassModel from 'gooru-web/models/content/class';
 moduleForComponent('gru-header', 'Integration | Component | Header', {
   integration: true,
   beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale","en");
+    this.container.lookup('service:i18n').set('locale','en');
   }
 });
 
@@ -18,27 +18,27 @@ test('header layout', function(assert) {
   this.set('session', Ember.Object.create({isAnonymous: true}));
 
   this.on('myAuthenticateAction', function() {
-    assert.ok(false, "onAuthenticateAction should not be called");
+    assert.ok(false, 'onAuthenticateAction should not be called');
   });
 
   this.render(hbs`{{gru-header session=session onAuthenticateAction='myAuthenticateAction'}}`);
 
   var $component = this.$(); //component dom element
 
-  T.exists(assert, $component.find("header.gru-header"), "Root element not found");
+  T.exists(assert, $component.find('header.gru-header'), 'Root element not found');
 
-  var $navHeader = $component.find(".navbar-header");
-  T.exists(assert, $navHeader, "Missing nav header");
-  T.exists(assert, $navHeader.find(".home-link"), "Missing home link");
+  var $navHeader = $component.find('.navbar-header');
+  T.exists(assert, $navHeader, 'Missing nav header');
+  T.exists(assert, $navHeader.find('.home-link'), 'Missing home link');
 
-  var $navSearch = $component.find(".search-navbar-form");
-  T.exists(assert, $navSearch, "Missing nav search form");
-  T.exists(assert, $navSearch.find(".search-input"), "Missing search input");
+  var $navSearch = $component.find('.search-navbar-form');
+  T.exists(assert, $navSearch, 'Missing nav search form');
+  T.exists(assert, $navSearch.find('.search-input'), 'Missing search input');
 
-  var $navMenu = $component.find(".menu-navbar");
-  T.notExists(assert, $navMenu.find(".home-link"), "Link should be available for authenticated users only");
-  T.exists(assert, $navMenu.find(".sign-up-button"), "Missing sign up button");
-  T.notExists(assert, $navMenu.find(".user-logged"), "User info should not be present");
+  var $navMenu = $component.find('.menu-navbar');
+  T.notExists(assert, $navMenu.find('.home-link'), 'Link should be available for authenticated users only');
+  T.exists(assert, $navMenu.find('.sign-up-button'), 'Missing sign up button');
+  T.notExists(assert, $navMenu.find('.user-logged'), 'User info should not be present');
 
 });
 
@@ -50,15 +50,15 @@ test('header layout for accessibility', function(assert) {
 
   var $component = this.$(); //component dom element
 
-  T.exists(assert, $component.find("header.gru-header"), "Root element not found");
-  var $navHeaderLink = $component.find(".navbar-header .home-link");
-  T.exists(assert, $navHeaderLink, "Missing home link");
-  assert.equal($navHeaderLink.attr('aria-label'), 'Home', "Missing aria label");
+  T.exists(assert, $component.find('header.gru-header'), 'Root element not found');
+  var $navHeaderLink = $component.find('.navbar-header .home-link');
+  T.exists(assert, $navHeaderLink, 'Missing home link');
+  assert.equal($navHeaderLink.attr('aria-label'), 'Home', 'Missing aria label');
 
 });
 
 test('header layout with user', function(assert) {
-  assert.expect(3); //making sure all asserts are called
+  assert.expect(4); //making sure all asserts are called
 
   this.set('session', Ember.Object.create({
     isAnonymous: false,
@@ -80,10 +80,11 @@ test('header layout with user', function(assert) {
 
   const $component = this.$(); //component dom element
 
-  const $navMenu = $component.find(".menu-navbar");
-  T.notExists(assert, $component.find(".sign-in-button"), "Missing sign-in-btn button");
-  T.exists(assert, $navMenu.find(".profile .username"), "User info should not be present");
-  assert.equal(T.text($navMenu.find(".profile .username")), "jperez", "Wrong username");
+  const $navMenu = $component.find('.menu-navbar');
+  T.notExists(assert, $component.find('.sign-in-button'), 'Missing sign-in-btn button');
+  T.exists(assert, $navMenu.find('.library-link'), 'Library link should be present');
+  T.exists(assert, $navMenu.find('.profile .username'), 'User info should be present');
+  assert.equal(T.text($navMenu.find('.profile .username')), 'jperez', 'Wrong username');
 
 });
 
@@ -91,19 +92,19 @@ test('Do search by clicking search button', function(assert) {
   assert.expect(3); //making sure all asserts are called
 
   this.on('mySearchAction', function(term){
-    assert.equal(term, "test", "onSearchAction should be called once");
+    assert.equal(term, 'test', 'onSearchAction should be called once');
   });
 
   this.render(hbs`{{gru-header user=myUser onSearch='mySearchAction'}}`);
 
   const $component = this.$(); //component dom element
 
-  const $navSearch = $component.find(".search-navbar-form");
-  T.exists(assert, $navSearch, "Missing nav search form");
-  T.exists(assert, $navSearch.find(".search-input"), "Missing search input");
+  const $navSearch = $component.find('.search-navbar-form');
+  T.exists(assert, $navSearch, 'Missing nav search form');
+  T.exists(assert, $navSearch.find('.search-input'), 'Missing search input');
 
-  const $searchInput = $navSearch.find(".search-input");
-  $searchInput.val("test");
+  const $searchInput = $navSearch.find('.search-input');
+  $searchInput.val('test');
   $searchInput.change();
   this.$('form').submit();
 });
@@ -135,7 +136,7 @@ test('Do search with a blank space', function(assert) {
   $searchInput.val(ANY_TERM);
   $searchInput.change();
   this.$('form').submit();
-  T.notExists(assert,this.$(".results"), "Result of search should not appear");
+  T.notExists(assert,this.$('.results'), 'Result of search should not appear');
 });
 
 
@@ -146,13 +147,13 @@ test('Search terms under 3 letters', function(assert) {
 
   const $component = this.$(); //component dom element
 
-  const $navSearch = $component.find(".search-navbar-form");
-  const $searchInput = $navSearch.find(".search-input");
-  $searchInput.val("te");
+  const $navSearch = $component.find('.search-navbar-form');
+  const $searchInput = $navSearch.find('.search-input');
+  $searchInput.val('te');
   $searchInput.blur();
 
   return wait().then(function () {
-    T.exists(assert, $navSearch.find(".error"), "error message should be visible");
+    T.exists(assert, $navSearch.find('.error'), 'error message should be visible');
   });
 });
 
@@ -169,9 +170,9 @@ test('My Performance as student', function(assert) {
 
   const $component = this.$(); //component dom element
 
-  const $performanceLink = $component.find(".performance-link");
+  const $performanceLink = $component.find('.performance-link');
 
-  assert.ok($performanceLink.length, "Missing performance link");
+  assert.ok($performanceLink.length, 'Missing performance link');
 
 });
 
@@ -188,8 +189,8 @@ test('My Performance as teacher', function(assert) {
 
   const $component = this.$(); //component dom element
 
-  const $performanceLink = $component.find(".performance-link");
+  const $performanceLink = $component.find('.performance-link');
 
-  assert.notOk($performanceLink.length, "Performance link should not appear");
+  assert.notOk($performanceLink.length, 'Performance link should not appear');
 
 });
