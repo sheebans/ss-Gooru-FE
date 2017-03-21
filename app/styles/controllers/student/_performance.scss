@@ -1,6 +1,11 @@
 .student.performance {
   padding: 0;
 
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .filter-panel {
     background-color: $dark-400;
     height: auto;
@@ -63,7 +68,7 @@
         overflow: hidden;
         .items {
           font-size: $font-size-small;
-          padding: 15px 10px 0 20px;
+          padding: 15px 15px 0 20px;
           height: 190px;
           overflow-x: hidden;
           overflow-y: auto;
@@ -116,9 +121,16 @@
         margin: 2px 0 0 0;
         width: auto;
       }
-      button{
+      button {
         float: right;
         padding: 6px 10px 6px 8px;
+        &.download {
+          @media (max-width: $screen-xs) {
+            float: left;
+            display: block;
+            margin: 10px 0;
+          }
+        }
       }
       p{
         float: left;
@@ -141,7 +153,7 @@
           margin-left: 20px;
         }
         label{
-          padding-left: 0px;
+          padding-left: 0;
         }
         &>:last-child {
           margin-right: 0;
