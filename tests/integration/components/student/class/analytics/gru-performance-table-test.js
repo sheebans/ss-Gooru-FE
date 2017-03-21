@@ -4,6 +4,7 @@ import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
 import wait from 'ember-test-helpers/wait';
 import AssessmentModel from 'gooru-web/models/content/assessment';
+import CollectionPerformanceSummary from 'gooru-web/models/performance/collection-performance-summary';
 
 moduleForComponent('student/class/analytics/gru-performance-table', 'Integration | Component | student/class/analytics/gru-performance-table', {
   integration: true,
@@ -17,37 +18,36 @@ test('Performance Table Layout', function(assert) {
   const assessmentsMock = [
     AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
     AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
-    AssessmentModel.create({id: '3', title: 'Pre Assessment Human Impact on Earth'})
+    AssessmentModel.create({id: '3', title: 'Pre Assessment Human Impact on Earth'}),
+    AssessmentModel.create({id: '4', title: 'Assessment having no performance'}) //assessment without performance
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
-    Ember.Object.create({
-        id: 1,
-        score : 1,
-        completionDone: 1,
-        completionTotal: 50,
-        timeSpent: 5000000
+    CollectionPerformanceSummary.create({
+      id: '1',
+      score : 100,
+      timeSpent: 5000000
     }),
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '2',
-      score : 2,
-      completionDone: 14,
-      completionTotal: 50,
+      score : 90,
       timeSpent: 5100000
     }),
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '3',
-      score : 3,
-      completionDone: 23,
-      completionTotal: 50,
+      score : 80,
       timeSpent: 5300000
     })
   ]);
 
+  this.set('contentTitle', 'Any content title');
   this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
+  this.render(hbs`{{student/class/analytics/gru-performance-table 
+    contentTitle=contentTitle
+    assessments=assessmentsMock 
+    collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table');
@@ -78,7 +78,8 @@ test('Performance Table Layout', function(assert) {
   const $studyTime = $thead.find('.study-time');
   T.exists(assert, $studyTime, 'Missing completion header');
 
-  assert.equal($tbody.find('th.assessment-title').length, 4, 'The tbody should have only 4 assessment headers');
+  //1 for the summary, 3 assessments, the assessment with no performance should not be included
+  assert.equal($tbody.find('th.assessment-title').length, 4, 'The tbody should have only 4 assessment headers, 1 for the summary, 3 for the assessments');
 
   const $performanceScore = $tbody.find('.performance-score');
   assert.equal($performanceScore.length, 4, 'The tbody should have only 4 assessment performance scores');
@@ -88,6 +89,12 @@ test('Performance Table Layout', function(assert) {
 
   const $performanceStudyTime = $tbody.find('.performance-time');
   assert.equal($performanceStudyTime.length, 4, 'The tbody should have only 4 assessment performance study times');
+
+  //Summary row
+  const $summaryRow = $table.find('.summary');
+  assert.equal(T.text($summaryRow.find('.assessment-title')), 'Any content title', 'Wrong summary title');
+  assert.equal(T.text($summaryRow.find('.performance-score')), '90%', 'Wrong summary score');
+  assert.equal(T.text($summaryRow.find('.performance-time')), '4h 16m', 'Wrong summary time spent');
 
 });
 
@@ -100,21 +107,21 @@ test('Sort by assessment title', function(assert) {
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '1',
       score : 1,
       completionDone: 1,
       completionTotal: 50,
       timeSpent: 5000000
     }),
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '2',
       score : 2,
       completionDone: 14,
       completionTotal: 50,
       timeSpent: 5100000
     }),
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '3',
       score : 3,
       completionDone: 23,
@@ -154,21 +161,21 @@ test('Sort by score Metric', function(assert) {
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '1',
       score : 100,
       completionDone: 1,
       completionTotal: 50,
       timeSpent: 5000000
     }),
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '2',
       score : 22,
       completionDone: 14,
       completionTotal: 50,
       timeSpent: 5100000
     }),
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '3',
       score : 35,
       completionDone: 23,
@@ -209,21 +216,21 @@ test('Sort by Completion Metric', function(assert) {
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '1',
       score : 1,
       completionDone: 1,
       completionTotal: 50,
       timeSpent: 5000000
     }),
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '2',
       score : 2,
       completionDone: 14,
       completionTotal: 50,
       timeSpent: 5100000
     }),
-    Ember.Object.create({
+    CollectionPerformanceSummary.create({
       id: '3',
       score : 3,
       completionDone: 23,

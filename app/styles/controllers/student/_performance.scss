@@ -136,9 +136,12 @@
       .radios-container {
         @include flexbox;
         float: left;
-        .gru-radio {
+        input[type=radio] {
           height: 25px;
-          margin-right: 20px;
+          margin-left: 20px;
+        }
+        label{
+          padding-left: 0px;
         }
         &>:last-child {
           margin-right: 0;

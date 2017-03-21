@@ -22,16 +22,14 @@
         </div>
         <div class="content-panel course {{if isCourseFiltersExpanded 'visible' 'hidden'}}">
           <div class="items">
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 1</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 2</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 3</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 4</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 5</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 6</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 7</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 5</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 6</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 7</div>
+            {{#each courses as |course|}}
+              <div class="item ellipsis">
+                  <input type="radio" name="courseOption"
+                         checked="{{if (eq course.id courseId) 'checked'}}"
+                    {{action 'selectCourse' course.id preventDefault=false}}/> {{course.title}}</div>
+            {{else}}
+              {{t 'common.no-content'}}
+            {{/each}}
           </div>
         </div>
 
@@ -47,13 +45,14 @@
         </div>
         <div class="content-panel unit {{if isUnitFiltersExpanded 'visible' 'hidden'}}">
           <div class="items">
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 1</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 2</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 3</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 4</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 5</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 6</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 7</div>
+            {{#each units as |unit|}}
+                <div class="item ellipsis">
+                    <input type="radio" name="unitOption"
+                           checked="{{if (eq unit.id unitId) 'checked'}}"
+                      {{action 'selectUnit' unit.id preventDefault=false}}/> {{unit.title}}</div>
+            {{else}}
+              {{t 'common.no-content'}}
+            {{/each}}
           </div>
         </div>
 
@@ -69,17 +68,18 @@
         </div>
         <div class="content-panel lesson {{if isLessonFiltersExpanded 'visible' 'hidden'}}">
           <div class="items">
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 1</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 2</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 3</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 4</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 5</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 6</div>
-            <div class="item ellipsis"><input type="radio" name="courseOption" preventDefault=false}}> Course 7</div>
+            {{#each lessons as |lesson|}}
+                <div class="item ellipsis">
+                    <input type="radio" name="lessonOption"
+                           checked="{{if (eq lesson.id lessonId) 'checked'}}"
+                      {{action 'selectLesson' lesson.id preventDefault=false}}/> {{lesson.title}}</div>
+            {{else}}
+              {{t 'common.no-content'}}
+            {{/each}}
           </div>
         </div>
         <div class="actions">
-          <button class="btn btn-primary update-report">
+          <button class="btn btn-primary update-report" {{action 'updateReport'}}>
             {{gru-icon name='trending_up'}}
             <span>{{t 'student-landing.my-performance.update-report'}}</span>
           </button>
@@ -99,26 +99,20 @@
 
       <div class="filters">
         <div class="radios-container">
-          {{validation.gru-radio
-            groupValue=currentRole
-            valuePath='assessment'
-            name="filter-radio"
-            translationPath="student-landing.my-performance.assessments"
-          }}
-
-          {{validation.gru-radio
-            groupValue=currentRole
-            valuePath='collection'
-            name="filter-radio"
-            translationPath="student-landing.my-performance.collections"
-          }}
+            <input id="assessment-content-type" type="radio" name="contentTypeOption"
+                   checked="{{if (eq collectionType 'assessment') 'checked'}}"
+              {{action 'selectContentType' 'assessment' preventDefault=false}}/> <label for="assessment-content-type" >{{t 'student-landing.my-performance.assessments'}}</label>
+            <input id="collection-content-type" type="radio" name="contentTypeOption"
+                   checked="{{if (eq collectionType 'collection') 'checked'}}"
+              {{action 'selectContentType' 'collection' preventDefault=false}}/> <label for="collection-content-type" >{{t 'student-landing.my-performance.collections'}}</label>
         </div>
         <div class="performance-scale">
           {{grading-scale-legend}}
         </div>
       </div>
       {{student.class.analytics.gru-performance-table
-        assessments=assessments
+        contentTitle=contentTitle
+        assessments=collections
         collectionPerformanceSummaryItems=collectionPerformanceSummaryItems
       }}
     </div>

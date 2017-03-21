@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { alphabeticalStringSort, numberSort } from 'gooru-web/utils/utils';
+import { aggregateCollectionPerformanceSummaryItems } from 'gooru-web/utils/performance-summary';
 
 /**
  * Student Performance Table
@@ -65,6 +66,13 @@ export default Ember.Component.extend({
   sortCriteria: null,
 
   /**
+   * @property {CollectionPerformanceSummary}
+   */
+  aggregatedPerformanceSummary: Ember.computed('collectionPerformanceSummaryItems.[]', function(){
+    return aggregateCollectionPerformanceSummaryItems(this.get('collectionPerformanceSummaryItems') || Ember.A([]));
+  }),
+
+  /**
    * The assessment performanceData
    * @property {performanceData[]}
    */
@@ -95,9 +103,9 @@ export default Ember.Component.extend({
           }
         });
       }
-      return sortedData;
+      return sortedData.filterBy('performanceData');
     } else {
-      return performanceData;
+      return performanceData.filterBy('performanceData');
     }
   }),
 
@@ -143,6 +151,12 @@ export default Ember.Component.extend({
    * metric sent by the sort function
    */
   sortByMetric: null,
+
+  /**
+   * Content title, it could be course, unit or lesson title
+   * @property {string}
+   */
+  contentTitle: null,
 
   // -------------------------------------------------------------------------
   // Methods

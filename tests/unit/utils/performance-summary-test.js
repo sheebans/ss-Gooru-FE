@@ -2,13 +2,13 @@ import Ember from 'ember';
 import {
   aggregateClassActivityPerformanceSummaryItems,
   aggregateCollectionPerformanceSummaryItems
-} from 'gooru-web/utils/daily-activities';
+} from 'gooru-web/utils/performance-summary';
 import ActivityPerformanceSummary from 'gooru-web/models/performance/activity-performance-summary';
 import CollectionPerformanceSummary from 'gooru-web/models/performance/collection-performance-summary';
 
 import { module, test } from 'qunit';
 
-module('Unit | Utility | daily activities');
+module('Unit | Utility | performance summary');
 
 test('aggregateCollectionPerformanceSummaryItems', function (assert) {
 
