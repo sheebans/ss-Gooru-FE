@@ -8,15 +8,18 @@ The `quizzes-addon` needs to be added to package.json as a dependency. The packa
 1. As an npm link, this is recommended for development as it can show the changes in the quizzes project really fast:
   - Download the quizzes repository (https://github.com/Gooru/quizzes)
   - In a terminal navigate to the quizzes folder
+  - Move to the `develop` branch using the command `git checkout develop`
   - Execute the command `npm link`
   - Navigate to the Nile project folder
-  - Execute the command `npm quizzes-addon`
+  - Execute the command `npm link quizzes-addon`
+  - Execute `npm install && bower install` to install Nile dependencies
 2. As a tarball, this is recommended for production:
   - Download the quizzes repository (https://github.com/Gooru/quizzes)
   - In a terminal navigate to the quizzes folder
-  - Executhe the command `npm pack`, this will create a file with the name `quizzes-addon-{QUIZZES_VERSION}.tgz`
+  - Execute the command `npm pack`, this will create a file with the name `quizzes-addon-{QUIZZES_VERSION}.tgz`
   - Navigate to the Nile project folder
   - Execute the command `npm install <path to quizzes-addon-{QUIZZES_VERSION}.tgz>`
+  - Execute `npm install && bower install` to install Nile dependencies
 
 # Configuration
 The quizzes addon is configured by setting the properties at the configuration initializer (initializers/configuration.js),
