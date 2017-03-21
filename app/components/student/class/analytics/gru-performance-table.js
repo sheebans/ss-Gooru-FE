@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { alphabeticalStringSort, numberSort } from 'gooru-web/utils/utils';
-import { aggregateCollectionPerformanceSummaryItems } from 'gooru-web/utils/daily-activities';
+import { aggregateCollectionPerformanceSummaryItems } from 'gooru-web/utils/performance-summary';
 
 /**
  * Student Performance Table
