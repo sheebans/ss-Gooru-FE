@@ -310,6 +310,7 @@ export default Object.assign(quizzesTranslations, {
     "more-details": "More Details",
     "move": "Move",
     "myContent": "My Content",
+    "library": "Library",
     "myPerformance":"My Performance",
     "edit-narration": "Edit Narration",
     "narration": "Narration",

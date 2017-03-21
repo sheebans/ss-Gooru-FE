@@ -58,7 +58,7 @@ test('header layout for accessibility', function(assert) {
 });
 
 test('header layout with user', function(assert) {
-  assert.expect(3); //making sure all asserts are called
+  assert.expect(4); //making sure all asserts are called
 
   this.set('session', Ember.Object.create({
     isAnonymous: false,
@@ -82,7 +82,8 @@ test('header layout with user', function(assert) {
 
   const $navMenu = $component.find(".menu-navbar");
   T.notExists(assert, $component.find(".sign-in-button"), "Missing sign-in-btn button");
-  T.exists(assert, $navMenu.find(".profile .username"), "User info should not be present");
+  T.exists(assert, $navMenu.find(".library-link"), "Library link should be present");
+  T.exists(assert, $navMenu.find(".profile .username"), "User info should be present");
   assert.equal(T.text($navMenu.find(".profile .username")), "jperez", "Wrong username");
 
 });
