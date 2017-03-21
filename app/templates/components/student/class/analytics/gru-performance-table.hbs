@@ -1,79 +1,73 @@
 <div class="performance-table-wrapper">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-      {{#each metrics as |metric|}}
-        <th class="{{metric.value}}">
-          <div>
-            <a {{action 'sort' metric}}>
-              {{t (concat 'gru-performance-metrics.' metric.value) }}
-              {{#if metric.sorted}}
-                {{#if metric.isAsc}}
-                  <span>{{gru-icon name='arrow_upward'}}</span>
-                {{else}}
-                  <span>{{gru-icon name='arrow_downward'}}</span>
-                {{/if}}
-              {{else}}
-                <span>{{gru-icon name='swap_vert'}}</span>
-              {{/if}}
-            </a>
-          </div>
-        </th>
-      {{/each}}
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th class="header assessment-title" scope="row">
-        <span>Sciense Period 4</span>
-      </th>
-      <td class="performance-info performance-score">
-        <div class="score" style={{safe-html (concat "background-color:" (grade-color 80))}}>
-          <span>70%</span>
-        </div>
-      </td>
-      <td class="performance-info performance-completion">
-        {{charts.gru-radial-chart
-        value=27
-        minValue=0
-        maxValue=35 }}
-      </td>
-      <td class="performance-info performance-time">
-        1h 40min
-      </td>
-    </tr>
-    {{#each performanceData as |studentPerformance|}}
-      <tr>
-        <th class="header assessment-title" scope="row">
-          <span>{{{studentPerformance.assessment.title}}}</span>
-        </th>
-        {{#if studentPerformance.performanceData}}
-          <td class="performance-info performance-score">
-            <div class="score" style={{safe-html (concat "background-color:" (grade-color 80)) }}>
-              <span>{{{studentPerformance.performanceData.score}}}%</span>
-            </div>
-          </td>
-          <td class="performance-info performance-completion">
-            <span class="completion">
-              {{gru-icon name='done'}}
-            </span>
-          </td>
-          <td class="performance-info performance-time">
-            {{format-time studentPerformance.performanceData.timeSpent}}
-          </td>
-        {{else}}
-          <td class="performance-info performance-score">
-            <div class="score" style={{safe-html (concat "background-color:" (grade-color 80)) }}>
-              <span>--%</span>
-            </div>
-          </td>
-          <td class="performance-info performance-completion">
-          </td>
-          <td class="performance-info performance-time">
-          </td>
-        {{/if}}
-      </tr>
-    {{/each}}
-    </tbody>
-  </table>
+  {{#if performanceData.length}}
+      <table class="table table-striped">
+          <thead>
+          <tr>
+            {{#each metrics as |metric|}}
+                <th class="{{metric.value}}">
+                    <div>
+                        <a {{action 'sort' metric}}>
+                          {{t (concat 'gru-performance-metrics.' metric.value) }}
+                          {{#if metric.sorted}}
+                            {{#if metric.isAsc}}
+                                <span>{{gru-icon name='arrow_upward'}}</span>
+                            {{else}}
+                                <span>{{gru-icon name='arrow_downward'}}</span>
+                            {{/if}}
+                          {{else}}
+                              <span>{{gru-icon name='swap_vert'}}</span>
+                          {{/if}}
+                        </a>
+                    </div>
+                </th>
+            {{/each}}
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+              <th class="header assessment-title" scope="row">
+                  <span>{{contentTitle}}</span>
+              </th>
+              <td class="performance-info performance-score">
+                  <div class="score"
+                       style={{safe-html (concat "background-color:" (grade-color aggregatedPerformanceSummary.score))}}>
+                      <span>{{aggregatedPerformanceSummary.score}}%</span>
+                  </div>
+              </td>
+              <td class="performance-info performance-completion">
+                {{charts.gru-radial-chart
+                value=performanceData.length
+                minValue=0
+                maxValue=assessments.length }}
+              </td>
+              <td class="performance-info performance-time">
+                {{format-time aggregatedPerformanceSummary.timeSpent}}
+              </td>
+          </tr>
+          {{#each performanceData as |studentPerformance|}}
+              <tr>
+                  <th class="header assessment-title" scope="row">
+                      <span>{{{studentPerformance.assessment.title}}}</span>
+                  </th>
+                  <td class="performance-info performance-score">
+                      <div class="score"
+                           style={{safe-html (concat "background-color:" (grade-color studentPerformance.performanceData.score)) }}>
+                          <span>{{{studentPerformance.performanceData.score}}}%</span>
+                      </div>
+                  </td>
+                  <td class="performance-info performance-completion">
+                      <span class="completion">
+                        {{gru-icon name='done'}}
+                      </span>
+                  </td>
+                  <td class="performance-info performance-time">
+                    {{format-time studentPerformance.performanceData.timeSpent}}
+                  </td>
+              </tr>
+          {{/each}}
+          </tbody>
+      </table>
+  {{else}}
+    {{t 'common.no-content'}}
+  {{/if}}
 </div>

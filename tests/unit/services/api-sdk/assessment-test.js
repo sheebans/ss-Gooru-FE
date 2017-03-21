@@ -257,8 +257,3 @@ test('notifyQuizzesAssessmentChange', function(assert) {
   var done = assert.async();
   service.notifyQuizzesAssessmentChange(expectedAssessmentId).then(function() { done(); });
 });
-
-//todo
-//
-//test('findAssessments', function(assert) {
-//});
