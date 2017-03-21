@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 /**
  * Library route
