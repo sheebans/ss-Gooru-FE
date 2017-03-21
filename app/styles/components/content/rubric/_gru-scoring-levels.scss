@@ -54,16 +54,6 @@
       }
     }
   }
-  .delete-levels{
-    padding: 70px 0 0 0;
-
-    .actions{
-      border-left: 1px solid $gray-light;
-    }
-    @media (min-width: $screen-md) {
-      padding: 50px 0 0 0;
-    }
-  }
   .btn-new-level{
     margin: 0 0 0 65px;
     font-size: $font-size-base;
