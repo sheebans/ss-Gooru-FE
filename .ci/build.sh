@@ -24,6 +24,9 @@ if [ $UID -eq 0 ]; then
   exit $?
 fi
 
+info "Removing quizzes addon from lock.file..."
+silent yarn remove quizzes-addon
+
 info "Installing quizzes addon..."
 silent yarn add file:/quizzes-addon-${QUIZZES_VERSION}.tgz
 
