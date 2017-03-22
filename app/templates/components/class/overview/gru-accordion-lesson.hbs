@@ -99,17 +99,17 @@
             {{#if isTeacher}}
               <div class="controls">
                 {{#if item.isAddedToClassActivities}}
-                    <a href="#" class="added">
-                      {{gru-icon name='check'}}
-                        <br>
-                        <span>{{t 'common.added'}}</span>
-                    </a>
+                  <a href="#" class="added add-to">
+                    {{gru-icon name='check'}}
+                      <br>
+                      <span>{{t 'common.added'}}</span>
+                  </a>
                 {{else}}
-                    <a href="#" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
-                      {{gru-icon name='add'}}
-                        <br>
-                        <span>{{t 'common.add'}}</span>
-                    </a>
+                  <a href="#" class="add-to" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
+                    {{gru-icon name='add'}}
+                      <br>
+                      <span>{{t 'common.add'}}</span>
+                  </a>
                 {{/if}}
               </div>
             {{/if}}

@@ -161,7 +161,6 @@
           position: absolute;
           top: 9px;
 
-          display: inline-block;
           margin: 0 5px 0 15px;
           width: $on-air-icon;
           height: $on-air-icon;
@@ -225,19 +224,32 @@
         display: inline-block;
         border-radius: 0;
 
-        .controls{
+        .controls {
           width: 45px;
           max-width: 5%;
           float: left;
-          padding-left: 10px;
           border-right: solid 2px $light-200;
-          a.add {
+          min-height: 55px;
+          .add-to {
             color: $gray;
             display: inline-block;
             text-align: center;
-            i, span{
+            i, span {
               float: left;
               clear: left;
+              width: 100%;
+            }
+            i {
+              color: $light-400;
+              font-size: $expand-arrow;
+            }
+            &.added {
+              i {
+                color: $green-400;
+              }
+              span {
+                font-size: $font-size-small;
+              }
             }
           }
           @media (max-width: $screen-md) {
