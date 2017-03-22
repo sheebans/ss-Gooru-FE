@@ -1570,7 +1570,11 @@ dom-storage@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/dom-storage/-/dom-storage-2.0.2.tgz#ed17cbf68abd10e0aef8182713e297c5e4b500b0"
 
-domelementtype@1, domelementtype@~1.1.1:
+domelementtype@1:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.0.tgz#b17aed82e8ab59e52dd9c19b1756e0fc187204c2"
+
+domelementtype@~1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.1.3.tgz#bd28773e2642881aec51544924299c5cd822185b"
 
@@ -1921,13 +1925,13 @@ ember-cli-valid-component-name@^1.0.0:
   dependencies:
     silent-error "^1.0.0"
 
-ember-cli-version-checker@1.1.6, ember-cli-version-checker@^1.0.2, ember-cli-version-checker@^1.1.4, ember-cli-version-checker@^1.1.6:
+ember-cli-version-checker@1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-1.1.6.tgz#d789418b8a3627bd43486da42b9d3d76dbcc0e1d"
   dependencies:
     semver "^4.2.2"
 
-ember-cli-version-checker@^1.1.7, ember-cli-version-checker@^1.2.0:
+ember-cli-version-checker@^1.0.2, ember-cli-version-checker@^1.1.4, ember-cli-version-checker@^1.1.6, ember-cli-version-checker@^1.1.7, ember-cli-version-checker@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-1.2.0.tgz#caa286b77d1b485df5d2f62c67a6f19aa8b582c4"
   dependencies:
@@ -3751,19 +3755,19 @@ js-tokens@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-js-yaml@>=1.0.1, js-yaml@~2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-2.0.5.tgz#a25ae6509999e97df278c6719da11bd0687743a8"
-  dependencies:
-    argparse "~ 0.1.11"
-    esprima "~ 1.0.2"
-
-js-yaml@^3.2.5, js-yaml@^3.2.7, js-yaml@^3.5.1:
+js-yaml@>=1.0.1, js-yaml@^3.2.5, js-yaml@^3.2.7, js-yaml@^3.5.1:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.2.tgz#02d3e2c0f6beab20248d412c352203827d786721"
   dependencies:
     argparse "^1.0.7"
     esprima "^3.1.1"
+
+js-yaml@~2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-2.0.5.tgz#a25ae6509999e97df278c6719da11bd0687743a8"
+  dependencies:
+    argparse "~ 0.1.11"
+    esprima "~ 1.0.2"
 
 jsbn@~0.1.0:
   version "0.1.1"
@@ -5117,17 +5121,6 @@ quick-temp@^0.1.0, quick-temp@^0.1.2, quick-temp@^0.1.3, quick-temp@^0.1.5:
     rimraf "^2.5.4"
     underscore.string "~3.3.4"
 
-"quizzes-addon@file:/quizzes-addon-1.0.0.tgz":
-  version "1.0.0"
-  resolved "/quizzes-addon-1.0.0.tgz#dd1bbfd702fe534f214b4b45ad8363a6ef5453ab"
-  dependencies:
-    broccoli-static-compiler "^0.2.2"
-    ember-cli-babel "^5.1.7"
-    ember-cli-htmlbars "^1.0.10"
-    ember-disable-proxy-controllers "^1.0.1"
-    ember-radio-button "^1.0.7"
-    grunt-exec "^1.0.0"
-
 qunit-notifications@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/qunit-notifications/-/qunit-notifications-0.1.1.tgz#3001afc6a6a77dfbd962ccbcddde12dec5286c09"
@@ -5207,7 +5200,7 @@ read@1, read@~1.0.1, read@~1.0.7:
   dependencies:
     mute-stream "~0.0.4"
 
-"readable-stream@1 || 2", readable-stream@^2, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.2, readable-stream@^2.2.2:
+"readable-stream@1 || 2", "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.2, readable-stream@^2.2.2:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.6.tgz#8b43aed76e71483938d12a8d46c6cf1a00b1f816"
   dependencies:
@@ -5228,6 +5221,18 @@ readable-stream@1.1:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
+readable-stream@^2, readable-stream@~2.1.2:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.1.5.tgz#66fa8b720e1438b364681f2ad1a63c618448c9d0"
+  dependencies:
+    buffer-shims "^1.0.0"
+    core-util-is "~1.0.0"
+    inherits "~2.0.1"
+    isarray "~1.0.0"
+    process-nextick-args "~1.0.6"
+    string_decoder "~0.10.x"
+    util-deprecate "~1.0.1"
+
 readable-stream@~1.0.2:
   version "1.0.34"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.0.34.tgz#125820e34bc842d2f2aaafafe4c2916ee32c157c"
@@ -5241,18 +5246,6 @@ readable-stream@~2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
   dependencies:
-    core-util-is "~1.0.0"
-    inherits "~2.0.1"
-    isarray "~1.0.0"
-    process-nextick-args "~1.0.6"
-    string_decoder "~0.10.x"
-    util-deprecate "~1.0.1"
-
-readable-stream@~2.1.2:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.1.5.tgz#66fa8b720e1438b364681f2ad1a63c618448c9d0"
-  dependencies:
-    buffer-shims "^1.0.0"
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"

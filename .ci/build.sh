@@ -25,7 +25,7 @@ if [ $UID -eq 0 ]; then
 fi
 
 info "Installing quizzes addon..."
-silent yarn add quizzes-addon-${QUIZZES_VERSION}.tgz
+silent yarn add file:/quizzes-addon-${QUIZZES_VERSION}.tgz
 
 info "Installing npm dependencies..."
 silent yarn install
