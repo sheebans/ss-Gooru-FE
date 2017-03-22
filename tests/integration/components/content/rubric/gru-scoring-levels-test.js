@@ -55,39 +55,42 @@ test('Delete Scoring Level', function(assert) {
   var $component = this.$();
   assert.ok($component.find('.content.rubric.gru-scoring-levels').length,'Missing scoring levels component');
   assert.equal($component.find('.content.rubric.gru-scoring-levels .points .point-list .gru-input').length,2,'Should have 2 delete buttons');
-  var $firstLevelDeleteBtn = $component.find('.content.rubric.gru-scoring-levels .delete-levels .btn.delete:eq(0)');
-  Ember.run(function () {
+  var $firstLevelDeleteBtn = $component.find('.content.rubric.gru-scoring-levels .point-list div:eq(0) .btn.delete');
+  //Ember.run(function () {
     $firstLevelDeleteBtn.click();
-  });
+  //});
   return wait().then(function () {
     assert.equal($component.find('.content.rubric.gru-scoring-levels .points .point-list .gru-input').length,1,'Should have 1 levels');
   });
 });
 
 test('Disabled scoring', function(assert) {
-  this.render(hbs`{{content/rubric/gru-scoring-levels}}`);
+  this.set('showScore',true);
+  this.render(hbs`{{content/rubric/gru-scoring-levels showScore=showScore}}`);
   var $component = this.$();
   assert.ok($component.find('.content.rubric.gru-scoring-levels').length,'Missing scoring levels component');
   var $scoringSwitch = $component.find('.content.rubric.gru-scoring-levels .points .gru-switch a input');
-  assert.ok($component.find('.content.rubric.gru-scoring-levels .points .point-list').length,'Scoring should appear');
-  Ember.run(function () {
-    $scoringSwitch.click();
-  });
+  $scoringSwitch.prop('checked',false);
   return wait().then(function () {
-    assert.notOk($component.find('.content.rubric.gru-scoring-levels .points .point-list').length,'Scoring should not appear');
+    $scoringSwitch.change();
+    return wait().then(function () {
+      assert.notOk($component.find('.content.rubric.gru-scoring-levels .points .point-list .gru-input').length,'Scoring should not appear');
+    });
   });
 });
 
 test('Disabled level', function(assert) {
-  this.render(hbs`{{content/rubric/gru-scoring-levels}}`);
+  this.set('showLevel',true);
+  this.render(hbs`{{content/rubric/gru-scoring-levels showLevel=showLevel}}`);
   var $component = this.$();
   assert.ok($component.find('.content.rubric.gru-scoring-levels').length,'Missing scoring levels component');
   var $levelSwitch = $component.find('.content.rubric.gru-scoring-levels .level .gru-switch a input');
   assert.ok($component.find('.content.rubric.gru-scoring-levels .level .levels').length,'Levels should appear');
-  Ember.run(function () {
-    $levelSwitch.click();
-  });
+  $levelSwitch.prop('checked',false);
   return wait().then(function () {
-    assert.notOk($component.find('.content.rubric.gru-scoring-levels .level .levels').length,'Levels should not appear');
+    $levelSwitch.change();
+    return wait().then(function () {
+      assert.notOk($component.find('.content.rubric.gru-scoring-levels .level .levels').length,'Levels should not appear');
+    });
   });
 });
