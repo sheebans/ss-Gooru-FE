@@ -1,7 +1,8 @@
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('model:content/class', 'Unit | Model | content/class', {
-  unit: true
+  unit: true,
+  needs: ['validator:presence', 'validator:number']
 });
 
 test("isAllContentVisible", function(assert) {

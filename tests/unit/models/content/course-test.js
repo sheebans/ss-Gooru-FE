@@ -5,7 +5,8 @@ import LessonItem from 'gooru-web/models/content/lessonItem';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('model:content/course', 'Unit | Model | content/course', {
-  unit: true
+  unit: true,
+  needs: ['validator:presence']
 });
 
 test('get a child unit index', function (assert) {

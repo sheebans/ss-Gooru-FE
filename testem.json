@@ -4,6 +4,7 @@
   "reporter": "tap",
   "xunit_intermediate_output": false,
   "disable_watching": true,
+  "parallel": 4,
   "launch_in_ci": [
     "PhantomJS"
   ],
@@ -11,7 +12,6 @@
     "PhantomJS",
     "Chrome"
   ],
-
   "proxies": {
     "/gooruapi": {
       "target": "http://localhost:8882"

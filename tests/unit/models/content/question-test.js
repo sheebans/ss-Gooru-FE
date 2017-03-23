@@ -3,7 +3,8 @@ import {QUESTION_TYPES} from 'gooru-web/config/question';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('model:content/question', 'Unit | Model | content/question', {
-  unit: true
+  unit: true,
+  needs: ['validator:presence', 'validator:presence-html']
 });
 
 test('fibText having correct answer', function (assert) {
