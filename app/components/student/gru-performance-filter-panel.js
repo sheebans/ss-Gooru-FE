@@ -145,7 +145,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   unit: Ember.computed('selectedCourse.children.[]', 'unitId', function() {
     const units = this.get('selectedCourse.children') || [];
-    debugger;
     return units.findBy('id', this.get('unitId'));
   }),
 
