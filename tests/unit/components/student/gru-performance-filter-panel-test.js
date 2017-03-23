@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
-import Category from 'gooru-web/models/rubric/rubric-category';
-
+import Ember from 'ember';
 
 moduleForComponent('student/gru-performance-filter-panel', 'Unit | Component | student/gru performance filter panel', {
   unit: true
