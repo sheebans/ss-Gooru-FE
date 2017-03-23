@@ -96,7 +96,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('bamboo-test', function () {
-    grunt.task.run(['stubby:test', 'exec:run:ember test --silent -r xunit > report-xunit.xml']);
+    grunt.task.run(['stubby:test', 'exec:run:ember exam --split=4 --parallel --silent -r xunit > report-xunit.xml']);
   });
 
   grunt.registerTask('bamboo-eslint', function() {
