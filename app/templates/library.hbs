@@ -1,5 +1,9 @@
-<div class="controller library row">
-  <h1>
-    Library
-  </h1>
+<div class="libraries">
+  {{content.gru-header options=options selected=selected}}
+  {{#if (eq selected 'browse-library')}}
+      <div id="browse-library">
+          {{library.gru-browse-library}}
+      </div>
+  {{/if}}
 </div>
+

@@ -1657,5 +1657,11 @@ export default Object.assign(quizzesTranslations, {
         "worst":"Worst"
       }
     }
+  },
+  "library":{
+    "browse-library":"Browse Library",
+    "gru-browse-library":{
+      "featured-libraries": "Featured Libraries"
+    }
   }
 });
