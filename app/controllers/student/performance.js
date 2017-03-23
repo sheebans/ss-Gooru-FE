@@ -43,24 +43,6 @@ export default Ember.Controller.extend({
   course: null,
 
   /**
-   * Selected unit
-   * @property {Unit}
-   */
-  unit: Ember.computed('course.children.[]', 'unitId', function() {
-    const units = this.get('course.children') || [];
-    return units.findBy('id', this.get('unitId'));
-  }),
-
-  /**
-   * Selected lesson
-   * @property {Lesson}
-   */
-  lesson: Ember.computed('unit.children.[]', 'lessonId', function() {
-    const lessons = this.get('unit.children') || [];
-    return lessons.findBy('id', this.get('lessonId'));
-  }),
-
-  /**
    * @property {CollectionPerformanceSummary[]}
    */
   collectionPerformanceSummaryItems: [],
@@ -86,18 +68,10 @@ export default Ember.Controller.extend({
   lessonId: null,
 
   /**
-   * @property {Boolean} isCourseFiltersExpanded
+   * filter Criteria
+   * @property {string}
    */
-  isCourseFiltersExpanded: true,
-
-  /**
-   * @property {Boolean} isCourseFiltersExpanded
-   */
-  isUnitFiltersExpanded: false,
-  /**
-   * @property {Boolean} isCourseFiltersExpanded
-   */
-  isLessonFiltersExpanded: false,
+  filterCriteria: null,
 
   /**
    * @property {Collection[]|Assessment[]}
@@ -116,20 +90,6 @@ export default Ember.Controller.extend({
         title: aClass.get('courseTitle')
       };
     });
-  }),
-
-  /**
-   * @property {Unit[]}
-   */
-  units: Ember.computed('course.children.[]', 'unitId', function() {
-    return this.get('course.children');
-  }),
-
-  /**
-   * @property {Lesson[]}
-   */
-  lessons: Ember.computed('unit.children.[]', 'lessonId', function() {
-    return this.get('unit.children');
   }),
 
   /**
@@ -185,21 +145,6 @@ export default Ember.Controller.extend({
      */
     updateReport: function () {
       this.loadData();
-    },
-
-    /**
-     * Expand filter panel
-     */
-    expandPanel: function (filterType) {
-      if (filterType === 'course') {
-        this.toggleProperty('isCourseFiltersExpanded');
-      }
-      if (filterType === 'unit') {
-        this.toggleProperty('isUnitFiltersExpanded');
-      }
-      if (filterType === 'lesson') {
-        this.toggleProperty('isLessonFiltersExpanded');
-      }
     }
   },
 
@@ -222,6 +167,7 @@ export default Ember.Controller.extend({
         lessonId: lessonId,
         collectionType: collectionType
       };
+      controller.set('filterCriteria', criteria);
       Ember.RSVP.hash({
         course: controller.get('courseService').getCourseStructure(courseId, collectionType),
         items: controller.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
@@ -231,9 +177,9 @@ export default Ember.Controller.extend({
         controller.setProperties({
           course: course,
           collectionPerformanceSummaryItems: items,
-          collections: course.getCollectionsByType(collectionType, unitId, lessonId),
-          contentTitle: controller.getContentTitle()
+          collections: course.getCollectionsByType(collectionType, unitId, lessonId)
         });
+        controller.set('contentTitle', controller.getContentTitle());
       });
     }
   },
@@ -274,5 +220,4 @@ export default Ember.Controller.extend({
       collectionPerformanceSummaryItems: []
     });
   }
-
 });
