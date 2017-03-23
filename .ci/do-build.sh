@@ -9,7 +9,7 @@
 
 source .ci/common.sh
 
-QUIZZES_VERSION="1.0.0"
+QUIZZES_VERSION="0.0.0"
 
 if [ -z "$S3_BUCKET" ]; then
   error "No S3 bucket specified."
