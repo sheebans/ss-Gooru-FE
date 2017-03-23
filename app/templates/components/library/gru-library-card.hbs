@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="information">
+            <div class="title">
+                <h3>Course title</h3>
+                <span class="resource-count">3 Courses</span>
+            </div>
+            <div class="thumbnail">
+                <img class="img-responsive" src="{{model.thumbnailUrl}}"/>
+            </div>
+        </div>
+        <div class="type">
+          {{gru-icon name="chrome_reader_mode"}}
+            <span>Featured Course</span>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="network">
+
+        </div>
+        <div class="actions">
+            <div class="share">
+                <button class="btn share no-bgd" title="{{t 'common.share'}}" data-toggle="tooltip" data-placement="auto">{{gru-icon name="share"}}</button>
+            </div>
+            <div class="bookmark">
+                <button class="btn bookmark no-bgd" title="{{t 'common.bookmark'}}" data-toggle="tooltip" data-placement="auto"> {{gru-icon name="turned_in_not"}}</button>
+            </div>
+        </div>
+    </div>
+</div>

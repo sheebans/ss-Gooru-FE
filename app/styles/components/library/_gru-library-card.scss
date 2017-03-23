@@ -1,0 +1,22 @@
+.library.gru-library-card {
+  .panel-body, .information, .panel-footer {
+    @include flexbox;
+    @include flex-direction(column);
+  }
+  .actions{
+    &.btn {
+      margin: 0;
+      font-size: $font-size-small;
+      padding: 0 8px;
+
+      &.btn-default {
+        color: $white;
+        background-color: $dark-300;
+      }
+
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+}
