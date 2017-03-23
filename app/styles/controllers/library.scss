@@ -1,0 +1,20 @@
+.application.library{
+  overflow: hidden;
+  > .ember-view,
+  .gooru{
+    height: 100%;
+  }
+}
+.libraries{
+  height: 100%;
+  .header.content.gru-header{
+    margin: 0;
+    height: 54px;
+    header{
+      padding: 0 20px 0 3%;
+    }
+  }
+  #browse-library{
+    height: 100%;
+  }
+}

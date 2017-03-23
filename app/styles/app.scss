@@ -26,6 +26,7 @@
 @import 'controllers/content/classes/modals';
 @import 'controllers/content/classes/create';
 @import 'controllers/content/classes/join';
+@import 'controllers/library';
 
 @import 'controllers/content/courses/edit';
 @import 'controllers/content/courses/play';
@@ -188,6 +189,8 @@
 @import 'components/content/rubric/gru-scoring-levels';
 
 @import 'components/goal/gru-goal-form';
+
+@import 'components/library/gru-browse-library';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';
