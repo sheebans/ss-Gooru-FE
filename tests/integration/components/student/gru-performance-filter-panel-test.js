@@ -147,3 +147,62 @@ test('Expand/Collapse filter content panel', function(assert) {
     });
   });
 });
+
+test('Layout when a menu course item is selected', function(assert) {
+
+  const courseMock = Ember.Object.create({
+    id: '0101',
+    title: 'Course 1',
+    children: [
+      Ember.Object.create({
+        id: '0102',
+        title: 'Unit 1',
+        children: [
+          Ember.Object.create({
+            id: '0103',
+            title: 'Lesson 1'
+          })
+        ]
+      })
+    ]
+  });
+
+  const coursesMock = [
+    Ember.Object.create({
+      id: '0101',
+      title: 'Course 1'
+    }),
+    Ember.Object.create({
+      id: '0201',
+      title: 'Course 2'
+    }),
+    Ember.Object.create({
+      id: '0301',
+      title: 'Course 3'
+    })
+  ];
+
+  const filterCriteria = Ember.Object.create({
+    collectionType:'assessment',
+    courseId:'0101',
+    lessonId:null,
+    unitId:null
+  });
+
+  this.set('selectedCourse', courseMock);
+  this.set('courses', coursesMock);
+  this.set('filterCriteria', filterCriteria);
+
+  this.on('selectCourse', function(){
+    assert.ok(true, 'external Action was called!');
+  });
+
+  this.render(hbs`{{student.gru-performance-filter-panel courses=courses selectedCourse=selectedCourse filterCriteria=filterCriteria onSelectCourse='selectCourse'}}`);
+  var $performanceFilterPanel = this.$(); //component dom element
+
+  const $courseContentPanel = $performanceFilterPanel.find('.content-panel.course');
+  const $courseItem = $courseContentPanel.find('.items .item:eq(0) input');
+
+  assert.ok($courseItem, 'Missing first course item in the content panel');
+  $courseItem.click();
+});

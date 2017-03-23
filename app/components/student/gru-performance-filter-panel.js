@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Student performance filter panel
@@ -62,14 +62,16 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * Expand filter panel
      */
     expandPanel: function (filterType) {
-      if (filterType === 'course') {
-        this.toggleProperty('isCourseFiltersExpanded');
-      }
-      if (filterType === 'unit') {
-        this.toggleProperty('isUnitFiltersExpanded');
-      }
-      if (filterType === 'lesson') {
-        this.toggleProperty('isLessonFiltersExpanded');
+      switch (filterType){
+        case 'course':
+          this.toggleProperty('isCourseFiltersExpanded');
+          break;
+        case 'unit':
+          this.toggleProperty('isUnitFiltersExpanded');
+          break;
+        case 'lesson':
+          this.toggleProperty('isLessonFiltersExpanded');
+          break;
       }
     }
   },
@@ -143,6 +145,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   unit: Ember.computed('selectedCourse.children.[]', 'unitId', function() {
     const units = this.get('selectedCourse.children') || [];
+    debugger;
     return units.findBy('id', this.get('unitId'));
   }),
 
