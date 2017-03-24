@@ -1,3 +1,4 @@
+{{#if class.courseId}}
 <div class="controller analytics-performance-student">
   <div class="student-actions">
     {{class.analytics.performance.gru-actions-bar
@@ -30,3 +31,6 @@
       <div role="tabpanel" class="tab-pane" id="mastery"></div>
   </div>
 </div>
+{{else}}
+  <div class="no-content">This classroom does not have a related course and it has no content</div>
+{{/if}}

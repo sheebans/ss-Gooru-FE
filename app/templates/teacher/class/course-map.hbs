@@ -1,3 +1,4 @@
+{{#if class.courseId}}
 <div class="controller teacher class course-map">
   <button {{action "editContent" course.id}} class="btn btn-default edit-content">
     {{t "class.overview.edit-content"}}
@@ -16,3 +17,6 @@
   isTeacher=true}}
 
 </div>
+{{else}}
+  <div class="no-content">This classroom does not have a related course and it has no content</div>
+{{/if}}

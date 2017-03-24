@@ -1,3 +1,4 @@
+{{#if class.courseId}}
 <div class="controller student course-map">
   {{class.overview.gru-accordion-course
   currentClass=class
@@ -10,3 +11,6 @@
   contentVisibility=contentVisibility
   isTeacher=false}}
 </div>
+{{else}}
+  <div class="no-content">This classroom does not have a related course and it has no content</div>
+{{/if}}

@@ -1,3 +1,4 @@
+{{#if class.courseId}}
 <div class="controller teacher class performance container-fluid">
   <div class="row">
     <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
@@ -69,3 +70,6 @@
       </div>
     </div>
 </div>
+{{else}}
+  <div class="no-content">This classroom does not have a related course and it has no content</div>
+{{/if}}

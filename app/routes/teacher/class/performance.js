@@ -167,14 +167,16 @@ export default Ember.Route.extend({
     const courseId = controller.get('class.courseId');
     const members = controller.get('class.members');
     const units = controller.get('course.children') || [];
-    controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
-      .then(function(classPerformanceData) {
-        route.fixUnitsTotalCounts(controller, classPerformanceData, controller.get('filteredByAssessment'));
-        const performanceData = createDataMatrix(units, classPerformanceData, 'course');
-        controller.set('performanceDataMatrix', performanceData);
-        controller.set('performanceDataHeaders', units);
-        controller.set('headerType', 'unit');
-      });
+    if(courseId) {
+      controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
+        .then(function(classPerformanceData) {
+          route.fixUnitsTotalCounts(controller, classPerformanceData, controller.get('filteredByAssessment'));
+          const performanceData = createDataMatrix(units, classPerformanceData, 'course');
+          controller.set('performanceDataMatrix', performanceData);
+          controller.set('performanceDataHeaders', units);
+          controller.set('headerType', 'unit');
+        });
+    }
   },
 
   /**
