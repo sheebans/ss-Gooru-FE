@@ -2,16 +2,29 @@
     <div class="panel-body">
         <div class="information">
             <div class="title">
-                <h3>Course title</h3>
-                <span class="resource-count">3 Courses</span>
+              {{#link-to "content.courses.play" model.id class="title pointer truncate" tagName="h3"}}
+                {{model.title}}
+              {{/link-to}}
+              {{#if model.unitCount}}
+                  <span class="resource-count"></span><span class="total-units">{{t "cards.gru-course-card.units" count=model.unitCount}}</span>
+              {{else}}
+                  <span class="resource-count"></span><span class="total-units">{{t "cards.gru-course-card.units" count=0}}</span>
+              {{/if}}
             </div>
             <div class="image">
-                <img class="img-responsive" src="{{model.thumbnailUrl}}"/>
+              {{#link-to "content.courses.play" model.id class="library-card-image"}}
+                  <img class="img-responsive" src="{{model.thumbnailUrl}}"/>
+              {{/link-to}}
             </div>
         </div>
         <div class="type">
           {{gru-icon name="chrome_reader_mode"}}
-            <span>Featured Course</span>
+            <span>{{t "library.gru-library-card.featured-course"}}</span>
+        </div>
+        <div class="description">
+          {{#if model.description}}
+            {{truncate text=model.description maxLength=100}}
+          {{/if}}
         </div>
     </div>
     <div class="panel-footer">
@@ -19,12 +32,8 @@
 
         </div>
         <div class="actions">
-            <div class="share-option">
-                <button class="btn share-btn no-bgd" title="{{t 'common.share'}}" data-toggle="tooltip" data-placement="auto"  data-trigger="hover" disabled={{disabledActions}}>{{gru-icon name="share"}}</button>
-            </div>
-            <div class="bookmark">
-                <button class="btn bookmark-btn no-bgd" title="{{t 'common.bookmark'}}" data-toggle="tooltip" data-placement="auto" data-trigger="hover" disabled={{disabledActions}}> {{gru-icon name="turned_in_not"}}</button>
-            </div>
+            <button class="btn share-btn no-bgd" title="{{t 'common.share'}}" data-toggle="tooltip" data-placement="auto"  data-trigger="hover" disabled={{disabledActions}}>{{gru-icon name="share"}}</button>
+            <button class="btn bookmark-btn no-bgd" title="{{t 'common.bookmark'}}" data-toggle="tooltip" data-placement="auto" data-trigger="hover" disabled={{disabledActions}}> {{gru-icon name="turned_in_not"}}</button>
         </div>
     </div>
 </div>

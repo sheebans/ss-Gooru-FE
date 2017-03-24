@@ -1664,6 +1664,9 @@ export default Object.assign(quizzesTranslations, {
     "browse-library":"Browse Library",
     "gru-browse-library":{
       "featured-libraries": "Featured Libraries"
+    },
+    "gru-library-card":{
+      "featured-course":"Featured Course"
     }
   }
 });
