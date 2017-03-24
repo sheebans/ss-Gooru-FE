@@ -1,21 +1,75 @@
 .library.gru-library-card {
-  .panel-body, .information, .panel-footer {
-    @include flexbox;
-    @include flex-direction(column);
-  }
-  .actions{
-    &.btn {
-      margin: 0;
-      font-size: $font-size-small;
-      padding: 0 8px;
+  width: 100%;
 
-      &.btn-default {
-        color: $white;
-        background-color: $dark-300;
+  @media(min-width: $screen-sm-min){
+    width: 345px;
+  }
+  @media(min-width: $screen-sm-max){
+    width: 315px;
+  }
+  @media(min-width: $screen-lg){
+    width: 370px;
+  }
+
+  .panel-body, .information, .panel-footer,.actions,.type {
+    @include flexbox;
+  }
+  .panel{
+    .panel-body{
+      @include flex-direction(column);
+      .information{
+        @include justify-content(space-between);
+        .title{
+          h3{
+            color: $blue-300;
+            cursor: pointer;
+            font-size: $font-size-large;
+            margin:0;
+          }
+        }
+        .image{
+          display: block;
+          height: 80px;
+          overflow: hidden;
+          width: 80px;
+          @media(min-width: $screen-md-min) {
+            height: 100px;
+            width: 100px;
+          }
+        }
       }
 
-      &:hover {
-        cursor: default;
+    }
+    .panel-footer{
+      @include flex-direction(column);
+      .actions{
+        .share,.bookmark{
+          .btn {
+            margin: 0;
+            font-size: $font-size-small;
+            padding: 0 8px;
+
+            &.btn-default {
+              color: $white;
+              background-color: $dark-300;
+            }
+
+            &:hover {
+              cursor: default;
+            }
+          }
+          .no-bgd {
+            background-color: transparent;
+            font-size: 24px;
+            line-height: 1;
+            padding: 7px 5px;
+
+            i {
+              color: $gray;
+            }
+          }
+
+        }
       }
     }
   }
