@@ -12,7 +12,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
   /**
-   * @type {ProfileService} Search service object
+   * @type {searchService} Search service object
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
@@ -21,7 +21,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   model: function() {
     let route = this;
-    return route.get('searchService').searchFeaturedCourses("*").then(function (result) {
+    return route.get('searchService').searchFeaturedCourses('*').then(function (result) {
       return Ember.RSVP.hash({
         courses: result
       });
