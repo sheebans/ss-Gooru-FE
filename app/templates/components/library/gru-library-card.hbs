@@ -19,11 +19,11 @@
 
         </div>
         <div class="actions">
-            <div class="share">
-                <button class="btn share no-bgd" title="{{t 'common.share'}}" data-toggle="tooltip" data-placement="auto">{{gru-icon name="share"}}</button>
+            <div class="share-option">
+                <button class="btn share-btn no-bgd" title="{{t 'common.share'}}" data-toggle="tooltip" data-placement="auto"  data-trigger="hover" disabled={{disabledActions}}>{{gru-icon name="share"}}</button>
             </div>
             <div class="bookmark">
-                <button class="btn bookmark no-bgd" title="{{t 'common.bookmark'}}" data-toggle="tooltip" data-placement="auto"> {{gru-icon name="turned_in_not"}}</button>
+                <button class="btn bookmark-btn no-bgd" title="{{t 'common.bookmark'}}" data-toggle="tooltip" data-placement="auto" data-trigger="hover" disabled={{disabledActions}}> {{gru-icon name="turned_in_not"}}</button>
             </div>
         </div>
     </div>

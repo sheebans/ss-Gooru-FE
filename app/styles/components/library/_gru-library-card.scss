@@ -11,12 +11,15 @@
     width: 370px;
   }
 
-  .panel-body, .information, .panel-footer,.actions,.type {
+  .panel-body, .information, .panel-footer,.actions,.type, .share-option, .bookmark {
     @include flexbox;
   }
   .panel{
+    border-radius: 6px;
     .panel-body{
       @include flex-direction(column);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
       .information{
         @include justify-content(space-between);
         .title{
@@ -41,9 +44,18 @@
 
     }
     .panel-footer{
-      @include flex-direction(column);
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      background-color: $white;
+      border-top: 1px solid $gray-lighter;
+      padding: 0;
+      height: 62px;
+      .network{
+        width: 80%;
+      }
       .actions{
-        .share,.bookmark{
+        .share-option,.bookmark{
+          border-left: 1px solid $gray-lighter;
           .btn {
             margin: 0;
             font-size: $font-size-small;
