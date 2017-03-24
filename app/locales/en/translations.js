@@ -1514,6 +1514,9 @@ export default Object.assign(quizzesTranslations, {
     "settings-visibility-title": "Make Your Content Visible",
     "settings-visibility-content": "This setting makes your content visible via your user profile. If you wish to share the courses, collections, assessments, resources, and/or questions you create with colleagues, we suggest you turn this feature on."
   },
+  "gru-take-tour":{
+    "text": "Take a Tour"
+  },
   "gru-tour": {
     "assessments-settings":{
       "stepOne":{
