@@ -17,8 +17,11 @@
     }
   }
   > #featured-libraries{
-    padding-left: 5%;
-    padding-right: 5%;
+    margin: 20px 0 40px;
+    padding: 0 3%;
     overflow: auto;
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include justify-content(space-between);
   }
 }

@@ -110,6 +110,7 @@ export default Object.assign(quizzesTranslations, {
     "beta": "Beta",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
+    "bookmark":"Bookmark",
     "builder": "Editor",
     "cancel": "Cancel",
     "categories": "Categories",
@@ -458,6 +459,7 @@ export default Object.assign(quizzesTranslations, {
     "select-question-type": "Select Question Type",
     "select-resource-type": "Select Resource Type",
     "send-request": "Send Request",
+    "share":"Share",
     "show-correct-answer": "Show Correct Answer",
     "show-more-results": "Show More Results",
     "show-results": "Show Results",
@@ -1662,6 +1664,9 @@ export default Object.assign(quizzesTranslations, {
     "browse-library":"Browse Library",
     "gru-browse-library":{
       "featured-libraries": "Featured Libraries"
+    },
+    "gru-library-card":{
+      "featured-course":"Featured Course"
     }
   }
 });
