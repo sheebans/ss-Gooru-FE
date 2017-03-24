@@ -33,28 +33,28 @@ export default Ember.Controller.extend({
      */
     joinClass: function(code){
       const controller = this;
-      controller.set("allowedCode", true);
-      controller.set("validCode", true);
-      controller.set("notMember", true);
+      controller.set('allowedCode', true);
+      controller.set('validCode', true);
+      controller.set('notMember', true);
 
-      controller.get("classService")
+      controller.get('classService')
         .joinClass(code)
         .then(function (classId) {
           if (!classId){ //no class is provided when is already joined to that class
             controller.set('isLoading', false);
-            controller.set("notMember", null);
+            controller.set('notMember', null);
           } else {
             controller.send('updateUserClasses'); // Triggers the refresh of user classes in top header
-            controller.transitionToRoute('class.overview', classId);
+            controller.transitionToRoute('student.class.class-activities', classId);
           }
 
         }, function (error) {
           controller.set('isLoading', false);
           if (error.code === 'restricted') {
-            controller.set("allowedCode", null);
+            controller.set('allowedCode', null);
           }
           else if (error.code === 'not-found') {
-            controller.set("validCode", null);
+            controller.set('validCode', null);
           }
           else {
             let message = controller.get('i18n').t('common.errors.can-not-join-class').string;

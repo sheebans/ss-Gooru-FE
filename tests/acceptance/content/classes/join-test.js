@@ -20,28 +20,24 @@ test('Layout', function (assert) {
   andThen(function () {
     assert.equal(currentURL(), '/content/classes/join');
 
-    let $container = find(".controller.join-class");
-    assert.ok($container.length, "Container is missing");
+    let $container = find('.controller.join-class');
+    assert.ok($container.length, 'Container is missing');
   });
 });
 
-// TODO JBP Fix this!!
-/*
 test('Join class', function (assert) {
   visit('/content/classes/join');
 
   andThen(function () {
     assert.equal(currentURL(), '/content/classes/join');
 
-    let $container = find(".controller.join-class");
-    $container.find(".gru-input.code input").val("any-code");
-    $container.find(".gru-input.code input").blur();
+    let $container = find('.controller.join-class');
+    $container.find('.gru-input.code input').val('any-code');
+    $container.find('.gru-input.code input').blur();
 
-    click($container.find("a.join-class-btn"));
+    click($container.find('button.join-class-btn'));
     andThen(function(){
-      assert.equal(currentRouteName(), 'class.overview');
+      assert.equal(currentRouteName(), 'student.class.class-activities');
     });
-
   });
 });
-*/
