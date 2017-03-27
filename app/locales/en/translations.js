@@ -624,7 +624,8 @@ export default Object.assign(quizzesTranslations, {
     "quick-start": {
       "title": "Assign content to this classroom.",
       "new-course": "Quickstart a New Course",
-      "new-course-desc": "Start by creating a collection or assessment",
+      "new-course-desc": "Start by creating a new course, a collection or an assessment",
+      "course": "New Course",
       "new-collection": "New Collection",
       "new-assessment": "New Assessment",
       "remix-a-sample": "Remix a Sample",
@@ -633,7 +634,7 @@ export default Object.assign(quizzesTranslations, {
       "choose-course": "Choose Course",
       "remix-from-course": "Remix a Featured Course",
       "featured-course": "View Featured Courses",
-      "remix-desc": "Copy and customize a featured course for your students."
+      "remix-desc": "Copy and customize a featured course for your students"
     }
   },
   "classes": {

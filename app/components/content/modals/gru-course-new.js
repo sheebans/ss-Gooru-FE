@@ -10,7 +10,7 @@ export default Ember.Component.extend({
   /**
    * @property {Service} User service API SDK
    */
-  courseService: Ember.inject.service("api-sdk/course"),
+  courseService: Ember.inject.service('api-sdk/course'),
 
   /**
    * @property {Service} I18N service
@@ -45,7 +45,7 @@ export default Ember.Component.extend({
       course.validate().then(function ({ validations }) {
         if (validations.get('isValid')) {
           component.set('isLoading', true);
-          this.get("courseService")
+          this.get('courseService')
             .createCourse(course)
             .then(function (course) {
               component.set('isLoading', false);

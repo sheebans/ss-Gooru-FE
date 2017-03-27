@@ -9,7 +9,9 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
+  /**
+   * Class controller
+   */
   classController: Ember.inject.controller('teacher.class'),
 
   /**

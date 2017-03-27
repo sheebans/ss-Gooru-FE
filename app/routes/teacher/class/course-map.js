@@ -4,9 +4,13 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-
-  session: Ember.inject.service("session"),
-
+  /**
+   * @type {Service} session service
+   */
+  session: Ember.inject.service('session'),
+  /**
+   * @type {Service} i18n
+   */
   i18n: Ember.inject.service(),
   // -------------------------------------------------------------------------
   // Attributes
@@ -23,7 +27,7 @@ export default Ember.Route.extend({
      */
     launchOnAir: function (collectionId) {
       const currentClass = this.modelFor('teacher.class').class;
-      const classId = currentClass.get("id");
+      const classId = currentClass.get('id');
       this.transitionTo('reports.collection', classId, collectionId);
     },
 
@@ -36,16 +40,16 @@ export default Ember.Route.extend({
      * @param {string} collection - collection or assessment
      */
     playResource: function (unitId, lessonId, collection) {
-      if (collection.get("isExternalAssessment")){
-        window.open(collection.get("url"));
+      if (collection.get('isExternalAssessment')){
+        window.open(collection.get('url'));
       }
       else{
         const currentClass = this.modelFor('teacher.class').class;
-        const classId = currentClass.get("id");
-        const courseId = currentClass.get("courseId");
-        const role = "teacher";
+        const classId = currentClass.get('id');
+        const courseId = currentClass.get('courseId');
+        const role = 'teacher';
         this.transitionTo('context-player', classId, courseId, unitId,
-          lessonId, collection.get("id"), { queryParams: { role: role, type: collection.get("collectionType") }});
+          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType') }});
       }
     },
 
@@ -54,12 +58,21 @@ export default Ember.Route.extend({
      * @param {Content/Course}
      */
     editContent: function(id){
-      this.transitionTo("content.courses.edit",id);
+      this.transitionTo('content.courses.edit',id);
     }
   },
 
   // -------------------------------------------------------------------------
   // Methods
+
+  beforeModel: function() {
+    const currentClass = this.modelFor('teacher.class').class;
+    const userId = this.get('session.userId');
+    if (currentClass.isTeacher(userId) && !currentClass.get('courseId')) {
+      this.transitionTo('teacher.class.quick-start');
+    }
+  },
+
   model: function() {
     const route = this;
     const currentClass = route.modelFor('teacher.class').class;

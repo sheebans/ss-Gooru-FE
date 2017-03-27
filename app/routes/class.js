@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
 
@@ -13,14 +13,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @property {Session} current session
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   profileService: Ember.inject.service('api-sdk/profile'),
 
   /**
    * @type {ClassService} Service to retrieve class information
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   /**
    * @type {CourseService} Service to retrieve course information
@@ -106,10 +106,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("class", model.class);
-    controller.set("course", model.course);
-    controller.set("units", model.units);
-    controller.set("contentVisibility", model.contentVisibility);
+    controller.set('class', model.class);
+    controller.set('course', model.course);
+    controller.set('units', model.units);
+    controller.set('contentVisibility', model.contentVisibility);
     controller.set('channels', model.channels);
     controller.set('messages', model.messages);
     controller.set('userInfo', model.userInfo);
@@ -125,13 +125,13 @@ export default Ember.Route.extend(PrivateRouteMixin, {
      */
     selectMenuItem: function(item){
       const route = this;
-      const controller = route.get("controller");
-      const currentItem = controller.get("menuItem");
+      const controller = route.get('controller');
+      const currentItem = controller.get('menuItem');
 
 
       if (item !== currentItem) {
         const aClass = controller.get('class');
-        const isTeacher = aClass.isTeacher(this.get("session.userId"));
+        const isTeacher = aClass.isTeacher(this.get('session.userId'));
         controller.selectMenuItem(item);
         const queryParams = {
           queryParams: {
@@ -139,9 +139,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           }
         };
 
-        if ((item === "analytics.performance") && isTeacher){
+        if ((item === 'analytics.performance') && isTeacher){
           route.transitionTo('class.analytics.performance.teacher.course', queryParams);
-        } else if ((item === "analytics.performance") && !isTeacher) {
+        } else if ((item === 'analytics.performance') && !isTeacher) {
           route.transitionTo('class.analytics.performance.student', queryParams);
         } else {
           route.transitionTo('class.' + item);
@@ -154,7 +154,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
      */
     updateContentVisible: function(contentId, visible) {
       const route = this;
-      const controller = route.get("controller");
+      const controller = route.get('controller');
       let contentVisibility = controller.get('contentVisibility');
       contentVisibility.setAssessmentVisibility(contentId,visible ? 'on' :'off');
     }
@@ -166,7 +166,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * This event handlers reset some class properties when leaving the route
    */
   handleDeactivate: function() {
-    this.get("controller").exitFullScreen();
+    this.get('controller').exitFullScreen();
   }.on('deactivate')
 
 });
