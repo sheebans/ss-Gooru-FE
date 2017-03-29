@@ -471,6 +471,7 @@ export default Object.assign(quizzesTranslations, {
     "standard": "Standard",
     "standards": "Standards",
     "study": "Study",
+    "study-now": "Study Now",
     "student": "Student",
     "student-id": "Student ID (not displayed on Profile)",
     "subject-and-framework": "Subject and Framework",

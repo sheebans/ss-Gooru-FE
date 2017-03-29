@@ -1,4 +1,11 @@
 <div class="controller student course-map">
+  <div class="actions">
+    <button type="button" class="btn btn-primary study-now">
+      {{gru-icon name='play_arrow'}}
+      <span>{{t 'common.study-now'}}</span>
+    </button>
+  </div>
+
   {{class.overview.gru-accordion-course
   currentClass=class
   classMembers=classMembers
