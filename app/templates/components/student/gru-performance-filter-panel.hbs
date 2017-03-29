@@ -67,13 +67,7 @@
     </div>
     <div class="content-panel course {{if isCourseFiltersExpanded 'visible' 'hidden'}}">
         <div class="items">
-          {{#each courses as |course|}}
-              <div class="item ellipsis">
-                  <input type="radio" name="courseOption" checked="{{if (eq course.id courseId) 'checked'}}"
-                    {{action 'selectCourse' course.id preventDefault=false}}/> {{course.title}}</div>
-          {{else}}
-            {{t 'common.no-content'}}
-          {{/each}}
+         {{student.gru-performance-courses courses=courses courseId=courseId onSelectCourse='selectCourse'}}
         </div>
     </div>
     <div class="filter-type unit">

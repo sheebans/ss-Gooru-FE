@@ -67,25 +67,6 @@
         height: 190px;
         overflow-x: hidden;
         overflow-y: auto;
-        .item {
-          height: 25px;
-          input[type="radio"] {
-            &:checked {
-              &:after {
-                border-color: $blue-400;
-              }
-            }
-            &:before {
-              width: 15px;
-              height: 15px;
-            }
-            &:after {
-              border-color: $light-500;
-              width: 15px;
-              height: 15px;
-            }
-          }
-        }
         .activity-option{
           @include flexbox;
           @include align-items(flex-end);
