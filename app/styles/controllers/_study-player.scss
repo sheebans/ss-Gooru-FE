@@ -1,0 +1,27 @@
+.study-player {
+  .qz-player {
+    overflow: auto;
+    height: 100vh;
+    .player {
+      overflow: auto;
+    }
+  }
+  .no-confirmation {
+    &.expanded {
+      .qz-player {
+        padding-top: 130px;
+      }
+    }
+    &.collapsed {
+      .qz-player {
+        padding-top: 40px;
+      }
+    }
+  }
+
+  .qz-navigator {
+    .navigator-header {
+      display: none;
+    }
+  }
+}

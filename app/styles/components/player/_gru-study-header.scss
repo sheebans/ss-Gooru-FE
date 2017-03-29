@@ -1,0 +1,185 @@
+.study-player .gru-study-header {
+  top: 0;
+  width: 100%;
+  background-color: $light-500;
+  position: fixed;
+  color: $white;
+  z-index: $zindex-navbar-fixed + 1;
+  padding: 0 5px;
+  @include flexbox;
+  &.expanded {
+    height: 130px;
+  }
+  &.collapsed {
+    height: 40px;
+  }
+  .header-panel {
+    width: inherit;
+    margin: 0;
+    @media (min-width: $screen-sm) {
+      margin: 0 7%;
+    }
+    .course-info {
+      border-bottom: 2px solid $light-300;
+      height: 40px;
+      .course-title {
+        float: left;
+        width: 65%;
+        font-size: $font-size-h5;
+        font-weight: bold;
+        @media (min-width: $screen-xs) {
+          width: 75%;
+        }
+        @media (min-width: $screen-sm) {
+          width: 85%;
+        }
+        i.icon {
+          background: url("gooru/images/navigation_course_selected.svg");
+          width: 20px;
+          min-height: 15px;
+          display: inline-block;
+          margin: 0 10px;
+        }
+      }
+      .actions {
+        float: right;
+        margin: 6px 0;
+        button {
+          padding: 1px 7px;
+          i {
+            font-size: $font-size-lead;
+          }
+        }
+      }
+    }
+
+    .performance-info {
+      margin: 8px 0 0 5px;
+      @include flexbox;
+      @media (min-width: $screen-sm) {
+        margin: 8px 0 0 37px;
+      }
+      .performance {
+        width: 70px;
+        margin: 0 10px 0 0;
+        float: left;
+        @media (min-width: $screen-sm) {
+          margin: 0 35px 0 0;
+        }
+        .gru-bubble-chart {
+          width: 60px;
+          height: 60px;
+        }
+      }
+      .bar-charts {
+        width: 150px;
+        float: left;
+        border-right: 1px solid $light-300;
+        @media (min-width: $screen-sm) {
+          width: 185px;
+        }
+        .charts.gru-x-bar-chart {
+          background: $light-300;
+          border-radius: 0;
+          height: 8px;
+          .segment {
+            &:first-child {
+              border-radius: 0;
+            }
+          }
+        }
+        .completion-chart {
+          padding: 0 5px 0 0;
+          @media (min-width: $screen-sm) {
+            padding: 0 25px 0 0;
+          }
+        }
+        .legend {
+          margin: 5px 0 0;
+        }
+      }
+      .legend {
+        display: block;
+        font-size: $font-size-small;
+        line-height: $font-size-small;
+      }
+    }
+    .resources {
+      width: 75%;
+      margin: 0 0 0 5px;
+      font-size: $font-size-small;
+      @media (min-width: $screen-sm) {
+        margin: 0 0 0 25px;
+      }
+      .collapse-expand {
+        bottom: 7px;
+      }
+      .count-resources {
+        .counter {
+          font-weight: bold;
+        }
+        .resources-btn {
+          background-color: $dark-400;
+          color: $white;
+          height: 18px;
+          width: 78px;
+          padding: 0;
+          line-height: $font-size-small;
+          margin: 0 0 0 5px;
+        }
+      }
+      .navigation {
+        color: $light-300;
+        font-weight: bold;
+        span, i {
+          vertical-align: middle;
+          display: inline-block;
+        }
+        .title {
+          width: 70px;
+          @media (min-width: $screen-xs) {
+            width: 200px;
+          }
+        }
+        .next-resource {
+          margin: 0 0 0 5px;
+        }
+        .question {
+          .icon {
+            background: url("gooru/images/question-resource.svg");
+            -webkit-background-size: 15px 15px;
+            background-size: 15px 15px;
+            height: 15px;
+            width: 15px;
+          }
+        }
+      }
+    }
+    .collapse-expand {
+      color: $white;
+      height: 25px;
+      width: 35px;
+      padding: 0 5px;
+      bottom: 67px;
+      position: absolute;
+      right: 0;
+      @media (min-width: $screen-sm) {
+        right: 7%;
+      }
+      i {
+        float: left;
+        clear: left;
+        display:inline-block;
+        -webkit-transform:scale(2,1);
+        -moz-transform:scale(2,1);
+        -ms-transform:scale(2,1);
+        -o-transform:scale(2,1);
+        transform:scale(2,1);
+        &:nth-child(2){
+          position: relative;
+          top: -18px;
+        }
+      }
+    }
+  }
+}
