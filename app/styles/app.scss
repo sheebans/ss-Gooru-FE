@@ -20,7 +20,6 @@
 @import 'controllers/class/analytics/performance/teacher/collection';
 @import 'controllers/class/info';
 @import 'controllers/class/overview';
-@import 'controllers/class/quick-start';
 @import 'controllers/class/edit';
 @import 'controllers/classes';
 @import 'controllers/content/classes/modals';
@@ -72,6 +71,7 @@
 @import 'controllers/teacher/class/class-management';
 @import 'controllers/teacher/class/course-map';
 @import 'controllers/teacher/class/performance';
+@import 'controllers/teacher/class/quick-start';
 
 @import 'controllers/goals/manage';
 
@@ -100,6 +100,7 @@
 @import 'components/gru-share-pop-over';
 @import 'components/gru-standards-popup';
 @import 'components/gru-switch';
+@import 'components/gru-take-tour';
 @import 'components/gru-tour';
 @import 'components/gru-two-tier-header-table';
 @import 'components/gru-unit-tree';
@@ -192,6 +193,7 @@
 @import 'components/goal/gru-goal-form';
 
 @import 'components/library/gru-browse-library';
+@import 'components/library/gru-library-card';
 
 @import 'components/player/gru-navigation';
 @import 'components/player/gru-navigator';

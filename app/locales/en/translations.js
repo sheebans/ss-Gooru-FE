@@ -110,6 +110,7 @@ export default Object.assign(quizzesTranslations, {
     "beta": "Beta",
     "big-ideas": "Big Ideas",
     "biography": "Biography",
+    "bookmark":"Bookmark",
     "builder": "Editor",
     "cancel": "Cancel",
     "categories": "Categories",
@@ -459,6 +460,7 @@ export default Object.assign(quizzesTranslations, {
     "select-question-type": "Select Question Type",
     "select-resource-type": "Select Resource Type",
     "send-request": "Send Request",
+    "share":"Share",
     "show-correct-answer": "Show Correct Answer",
     "show-more-results": "Show More Results",
     "show-results": "Show Results",
@@ -624,7 +626,8 @@ export default Object.assign(quizzesTranslations, {
     "quick-start": {
       "title": "Assign content to this classroom.",
       "new-course": "Quickstart a New Course",
-      "new-course-desc": "Start by creating a collection or assessment",
+      "new-course-desc": "Start by creating a new course, a collection or an assessment",
+      "course": "New Course",
       "new-collection": "New Collection",
       "new-assessment": "New Assessment",
       "remix-a-sample": "Remix a Sample",
@@ -633,7 +636,7 @@ export default Object.assign(quizzesTranslations, {
       "choose-course": "Choose Course",
       "remix-from-course": "Remix a Featured Course",
       "featured-course": "View Featured Courses",
-      "remix-desc": "Copy and customize a featured course for your students."
+      "remix-desc": "Copy and customize a featured course for your students"
     }
   },
   "classes": {
@@ -1516,6 +1519,9 @@ export default Object.assign(quizzesTranslations, {
     "settings-visibility-title": "Make Your Content Visible",
     "settings-visibility-content": "This setting makes your content visible via your user profile. If you wish to share the courses, collections, assessments, resources, and/or questions you create with colleagues, we suggest you turn this feature on."
   },
+  "gru-take-tour":{
+    "text": "Take a Tour"
+  },
   "gru-tour": {
     "assessments-settings":{
       "stepOne":{
@@ -1664,6 +1670,9 @@ export default Object.assign(quizzesTranslations, {
     "browse-library":"Browse Library",
     "gru-browse-library":{
       "featured-libraries": "Featured Libraries"
+    },
+    "gru-library-card":{
+      "featured-course":"Featured Course"
     }
   }
 });

@@ -33,7 +33,7 @@ export default Ember.Component.extend({
 
   actions: {
     selectCourse:function(id){
-      this.set("selectedCourse", id);
+      this.set('selectedCourse', id);
       $('.gru-quick-course-search .selected').removeClass('selected');
       $('.'+id).addClass('selected');
     },
@@ -50,7 +50,7 @@ export default Ember.Component.extend({
           .associateCourseToClass(courseIdToAssign,classId);
       }).then(function(){
           component.triggerAction({ action: 'closeModal' });
-          component.get('router').transitionTo('class.overview', classId, { queryParams: { refresh: true } });
+          component.get('router').transitionTo('teacher.class.course-map', classId, { queryParams: { refresh: true } });
         },
         function () {
           const message = component.get('i18n').t('common.errors.course-not-associated').string;
