@@ -59,6 +59,7 @@
 @import 'controllers/reset-password';
 @import 'controllers/featured';
 @import 'controllers/account-settings';
+@import 'controllers/study-player';
 
 @import 'controllers/student/class';
 @import 'controllers/student/performance';
@@ -209,6 +210,7 @@
 @import 'components/player/resources/gru-url-resource';
 @import 'components/player/resources/gru-pdf-resource';
 @import 'components/player/resources/gru-vimeo-resource';
+@import 'components/player/gru-study-header';
 
 @import 'components/reports/gru-assessment-report';
 @import 'components/reports/assessment/gru-learning-target';
