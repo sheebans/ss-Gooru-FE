@@ -156,12 +156,8 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     const isAnonymous = model.isAnonymous;
     const isTeacher = model.role === 'teacher';
 
-    if (collection.get('isCollection') || isAnonymous || isTeacher) {
-      controller.set('showConfirmation', false);
-    }
-    else {
-      controller.set('showConfirmation', true);
-    }
+    controller.set('showConfirmation', !(collection.get('isCollection') || isAnonymous || isTeacher));
+
     controller.set('classId', model.classId);
     this._super(...arguments);
   }

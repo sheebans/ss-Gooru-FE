@@ -27,6 +27,9 @@ export default Ember.Component.extend({
 
   actions: {
 
+    /**
+     * Action triggered when the performance information panel is expanded/collapsed
+     */
     toggleHeader() {
       this.toggleProperty('toggleState');
       this.sendAction("onToggleHeader", this.get('toggleState'));
@@ -53,7 +56,7 @@ export default Ember.Component.extend({
   /**
    * @property {Number} barChartData
    */
-  barChartData: Ember.computed('collection', function () {
+  barChartData: Ember.computed(function () {
     return [
       {
         color: this.get('color'),

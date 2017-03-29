@@ -9,6 +9,10 @@ import PlayerController from 'gooru-web/controllers/player';
 export default PlayerController.extend({
 
   actions: {
+
+    /**
+     * Action triggered when the performance information panel is expanded/collapsed
+     */
     toggleHeader: function (toggleState) {
       this.set('toggleState', toggleState);
     }

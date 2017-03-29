@@ -22,16 +22,16 @@
     .course-info {
       border-bottom: 2px solid $light-300;
       height: 40px;
+      @include flexbox;
       .course-title {
-        float: left;
-        width: 65%;
+        width: 70%;
         font-size: $font-size-h5;
         font-weight: bold;
-        @media (min-width: $screen-xs) {
-          width: 75%;
-        }
+        //@media (min-width: $screen-xs) {
+        //  width: 70%;
+        //}
         @media (min-width: $screen-sm) {
-          width: 85%;
+          width: 80%;
         }
         i.icon {
           background: url("gooru/images/navigation_course_selected.svg");
@@ -42,8 +42,12 @@
         }
       }
       .actions {
-        float: right;
+        width: 30%;
         margin: 6px 0;
+        text-align: right;
+        @media (min-width: $screen-sm) {
+          width: 20%;
+        }
         button {
           padding: 1px 7px;
           i {
@@ -62,7 +66,6 @@
       .performance {
         width: 70px;
         margin: 0 10px 0 0;
-        float: left;
         @media (min-width: $screen-sm) {
           margin: 0 35px 0 0;
         }
@@ -73,7 +76,6 @@
       }
       .bar-charts {
         width: 150px;
-        float: left;
         border-right: 1px solid $light-300;
         @media (min-width: $screen-sm) {
           width: 185px;
