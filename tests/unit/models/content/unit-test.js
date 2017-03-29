@@ -3,7 +3,8 @@ import Lesson from 'gooru-web/models/content/lesson';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('model:content/unit', 'Unit | Model | content/unit', {
-  unit: true
+  unit: true,
+  needs: ['validator:presence']
 });
 
 test('get a child lesson index', function (assert) {

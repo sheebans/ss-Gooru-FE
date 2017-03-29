@@ -15,6 +15,7 @@
 
   .panel {
     height: 290px;
+    overflow-y: auto;
   }
 
   .card-header {
@@ -140,7 +141,7 @@
     }
 
     .taxonomy-standards {
-      height: 35px;
+      min-height: 35px;
     }
 
     .course-description {

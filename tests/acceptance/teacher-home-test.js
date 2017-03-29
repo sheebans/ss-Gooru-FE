@@ -57,7 +57,7 @@ test('TakeATour', function(assert){
   });
 });
 
-test('Go to class overview from announcement', function(assert) {
+test('Go to class with no content', function(assert) {
   visit('/teacher-home');
 
   andThen(function() {
@@ -65,7 +65,20 @@ test('Go to class overview from announcement', function(assert) {
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher-no-course/class-activities', 'Wrong route');
+      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher-no-course/quick-start', 'Wrong route');
+    });
+  });
+});
+
+test('Go to class with content', function(assert) {
+  visit('/teacher-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher-home');
+    const $announcement = find('.announcements .classes-announcements ul li:nth-child(2) a');
+    click($announcement);
+    andThen(function() {
+      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-activities', 'Wrong route');
     });
   });
 });

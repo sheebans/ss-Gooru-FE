@@ -1,13 +1,13 @@
-import Ember from "ember";
-import {KEY_CODES} from "gooru-web/config/config";
+import Ember from 'ember';
+import {KEY_CODES} from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
-  firebase: Ember.inject.service("firebase"),
+  firebase: Ember.inject.service('firebase'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -63,7 +63,7 @@ export default Ember.Controller.extend({
    * @returns {bool}
    */
   isTeacher: Ember.computed('class', function() {
-    return this.get('class').isTeacher(this.get("session.userId"));
+    return this.get('class').isTeacher(this.get('session.userId'));
   }),
 
   /**
@@ -73,7 +73,7 @@ export default Ember.Controller.extend({
    * @returns {bool}
    */
   isStudent: Ember.computed('class', function() {
-    return this.get('class').isStudent(this.get("session.userId"));
+    return this.get('class').isStudent(this.get('session.userId'));
   }),
 
   // -------------------------------------------------------------------------
@@ -117,7 +117,7 @@ export default Ember.Controller.extend({
    * @param {string} item
    */
   selectMenuItem: function(item){
-    this.set("menuItem", item);
+    this.set('menuItem', item);
   },
 
   /**

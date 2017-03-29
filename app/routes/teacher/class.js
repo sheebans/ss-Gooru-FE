@@ -14,12 +14,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @type {ClassService} Service to retrieve class information
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   /**
    * @type {PerformanceService} Service to retrieve class performance summary
    */
-  performanceService: Ember.inject.service("api-sdk/performance"),
+  performanceService: Ember.inject.service('api-sdk/performance'),
 
   /**
    * @type {CourseService} Service to retrieve course information
@@ -63,7 +63,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
      */
     updateContentVisible: function(contentId, visible) {
       const route = this;
-      const controller = route.get("controller");
+      const controller = route.get('controller');
       let contentVisibility = controller.get('contentVisibility');
       contentVisibility.setAssessmentVisibility(contentId,visible ? 'on' :'off');
     }
@@ -80,7 +80,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
     const membersPromise = route.get('classService').readClassMembers(classId);
-    const performanceSummaryPromise = route.get("performanceService").findClassPerformanceSummaryByClassIds([classId]);
+    const performanceSummaryPromise = route.get('performanceService').findClassPerformanceSummaryByClassIds([classId]);
     return Ember.RSVP.hash({
       class: classPromise,
       members: membersPromise,
@@ -89,7 +89,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const aClass = hash.class;
       const members = hash.members;
       const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
-      aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
+      aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
 
       const courseId = aClass.get('courseId');
       let visibilityPromise = Ember.RSVP.resolve([]);
@@ -124,9 +124,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("class", model.class);
-    controller.set("course", model.course);
-    controller.set("members", model.members);
-    controller.set("contentVisibility", model.contentVisibility);
+    controller.set('class', model.class);
+    controller.set('course', model.course);
+    controller.set('members', model.members);
+    controller.set('contentVisibility', model.contentVisibility);
   }
 });

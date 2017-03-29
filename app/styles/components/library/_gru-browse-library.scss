@@ -1,0 +1,27 @@
+.library.gru-browse-library{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  @include flexbox();
+  @include flex-direction(column);
+  .header.content.gru-header{
+    @include flex-shrink(0);
+    header{
+      background-color: $light-100;
+    }
+    nav{
+      .tab{
+        color: $green-300;
+        border-bottom: 3px solid $green-300;
+      }
+    }
+  }
+  > #featured-libraries{
+    margin: 20px 0 40px;
+    padding: 0 3%;
+    overflow: auto;
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include justify-content(space-between);
+  }
+}

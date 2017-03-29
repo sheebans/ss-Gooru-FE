@@ -68,7 +68,6 @@ Router.map(function() {
   this.route('class', { path: '/class/:classId' }, function() {
     this.route('overview');
     this.route('info');
-    this.route('quick-start');
     this.route('edit');
     this.route('channel', {path: '/channel/:channelId'});
 
@@ -118,11 +117,14 @@ Router.map(function() {
       this.route('class-activities');
       this.route('class-management');
       this.route('course-map');
+      this.route('quick-start');
       this.route('performance');
     });
   });
 
   this.route('featured');
+
+  this.route('library');
 
   this.route('account-settings', { path: '/account-settings/:userId' });
 

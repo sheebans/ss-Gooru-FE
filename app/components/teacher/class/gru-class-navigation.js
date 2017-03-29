@@ -29,9 +29,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * @param item
      */
     selectItem: function(item){
-      if (this.get("onItemSelected")){
+      if (this.get('onItemSelected')){
         this.selectItem(item);
-        this.sendAction("onItemSelected", item);
+        this.sendAction('onItemSelected', item);
       }
     },
 
@@ -53,7 +53,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * DidInsertElement ember event
    */
   didInsertElement: function() {
-    var item = this.get("selectedMenuItem");
+    var item = this.get('selectedMenuItem');
     this.selectItem(item);
   },
 
@@ -95,9 +95,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Refreshes the left navigation with the selected menu item
    */
   refreshSelectedMenuItem: function() {
-    var item = this.get("selectedMenuItem");
+    var item = this.get('selectedMenuItem');
     this.selectItem(item);
-  }.observes("selectedMenuItem"),
+  }.observes('selectedMenuItem'),
 
   // -------------------------------------------------------------------------
 
@@ -108,7 +108,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   selectItem: function(item) {
     if(item) {
-      var itemElement = "."+item;
+      var itemElement = '.'+item;
       this.$('.tab').removeClass('active');
       this.$(itemElement).addClass('active');
     }

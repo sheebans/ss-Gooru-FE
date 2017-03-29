@@ -9,7 +9,12 @@ moduleForModel('performance/class-performance', 'Unit | Model | performance/clas
     'model:performance/performance',
     'model:user/user',
     'model:meta',
-    'model:taxonomy-preference'
+    'model:taxonomy-preference',
+    'validator:presence',
+    'validator:length',
+    'validator:format',
+    'validator:username',
+    'validator:email'
   ]
 });
 

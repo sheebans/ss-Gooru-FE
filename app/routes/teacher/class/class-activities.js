@@ -5,9 +5,13 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   /**
+   * @type {Service} session service
+   */
+  session: Ember.inject.service('session'),
+  /**
    * @requires service:api-sdk/class-activity
    */
-  classActivityService: Ember.inject.service("api-sdk/class-activity"),
+  classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -23,13 +27,21 @@ export default Ember.Route.extend({
      */
     goLive: function (collectionId) {
       const currentClass = this.modelFor('teacher.class').class;
-      const classId = currentClass.get("id");
+      const classId = currentClass.get('id');
       this.transitionTo('reports.collection', classId, collectionId);
     }
   },
 
   // -------------------------------------------------------------------------
   // Methods
+
+  beforeModel: function() {
+    const currentClass = this.modelFor('teacher.class').class;
+    const userId = this.get('session.userId');
+    if (currentClass.isTeacher(userId) && !currentClass.get('courseId')) {
+      this.transitionTo('teacher.class.course-map');
+    }
+  },
 
   model: function () {
     const route = this;
@@ -47,6 +59,6 @@ export default Ember.Route.extend({
    */
   setupController: function (controller, model) {
     controller.get('classController').selectMenuItem('class-activities');
-    controller.set("classActivities", model.classActivities);
+    controller.set('classActivities', model.classActivities);
   }
 });

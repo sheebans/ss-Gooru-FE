@@ -5,7 +5,7 @@ import CollectionPerformanceSummarySerializer from 'gooru-web/serializers/perfor
 import CollectionPerformanceSummaryAdapter from 'gooru-web/adapters/performance/collection-performance-summary';
 import ActivityPerformanceSummarySerializer from 'gooru-web/serializers/performance/activity-performance-summary';
 import ActivityPerformanceSummaryAdapter from 'gooru-web/adapters/performance/activity-performance-summary';
-import { aggregateClassActivityPerformanceSummaryItems } from 'gooru-web/utils/daily-activities';
+import { aggregateClassActivityPerformanceSummaryItems } from 'gooru-web/utils/performance-summary';
 /**
  * @typedef {Object} PerformanceService
  */

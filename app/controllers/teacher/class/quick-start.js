@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 /**
  * Class quick start controller
@@ -9,11 +9,21 @@ export default Ember.Controller.extend(ModalMixin,{
 
   // -------------------------------------------------------------------------
   // Dependencies
-  classController: Ember.inject.controller('class'),
 
+  /**
+   * @property {Service} class
+   */
   classService: Ember.inject.service('api-sdk/class'),
 
+  /**
+   * @property {Service} searchService
+   */
   searchService: Ember.inject.service('api-sdk/search'),
+
+  /**
+   * classController
+   */
+  classController: Ember.inject.controller('teacher.class'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -26,8 +36,8 @@ export default Ember.Controller.extend(ModalMixin,{
       controller.get('searchService').searchFeaturedCourses('*')
         .then(function(featuredCourses) {
           controller.set('featuredCourses', featuredCourses);
-          controller.send('showModal', "content.modals.gru-quick-course-search",
-            controller.get('modelForFeaturedCoursesModal'), null, "quick-course-search");
+          controller.send('showModal', 'content.modals.gru-quick-course-search',
+            controller.get('modelForFeaturedCoursesModal'), null, 'quick-course-search');
         });
     }
   },

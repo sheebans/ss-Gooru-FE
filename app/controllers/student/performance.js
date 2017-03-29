@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Teacher Performance Controller
@@ -14,14 +15,42 @@ export default Ember.Controller.extend({
 
   queryParams: ['collectionType', 'unitId', 'lessonId', 'courseId'],
 
+  applicationController: Ember.inject.controller('application'),
+
+  /**
+   * @type {PerformanceService}
+   */
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
+  /**
+   * @type {CourseService}
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
 
   // -------------------------------------------------------------------------
   // Properties
 
   /**
+   * @property {Profile}
+   */
+  profile: Ember.computed.alias('applicationController.profile'),
+
+  /**
+   * Selected course
+   * @property {Course}
+   */
+  course: null,
+
+  /**
+   * @property {CollectionPerformanceSummary[]}
+   */
+  collectionPerformanceSummaryItems: [],
+
+  /**
    * @property {string}
    */
-  collectionType: 'assessment',
+  collectionType: CONTENT_TYPES.ASSESSMENT,
 
   /**
    * @property {string}
@@ -39,18 +68,35 @@ export default Ember.Controller.extend({
   lessonId: null,
 
   /**
-   * @property {Boolean} isCourseFiltersExpanded
+   * filter Criteria
+   * @property {string}
    */
-  isCourseFiltersExpanded: true,
+  filterCriteria: null,
 
   /**
-   * @property {Boolean} isCourseFiltersExpanded
+   * @property {Collection[]|Assessment[]}
    */
-  isUnitFiltersExpanded: false,
+  collections: [],
+
   /**
-   * @property {Boolean} isCourseFiltersExpanded
+   * Class courses
+   * @property {Course[]}
    */
-  isLessonFiltersExpanded: false,
+  courses: Ember.computed('applicationController.myClasses.classes.[]', 'courseId', function() {
+    const activeClasses = this.get("applicationController.myClasses").getStudentActiveClasses(this.get("profile.id"));
+    return activeClasses.filterBy('hasCourse').map(function(aClass){
+      return {
+        id: aClass.get('courseId'),
+        title: aClass.get('courseTitle')
+      };
+    });
+  }),
+
+  /**
+   * Last selected content title
+   * @property {string}
+   */
+  contentTitle: null,
 
   // -------------------------------------------------------------------------
   // Actions
@@ -58,22 +104,120 @@ export default Ember.Controller.extend({
   actions: {
 
     /**
-     * Expand filter panel
+     * Selects the content type
+     * @param collectionType
      */
-    expandPanel: function (filterType) {
-      if (filterType === 'course') {
-        this.toggleProperty('isCourseFiltersExpanded');
-      }
-      if (filterType === 'unit') {
-        this.toggleProperty('isUnitFiltersExpanded');
-      }
-      if (filterType === 'lesson') {
-        this.toggleProperty('isLessonFiltersExpanded');
-      }
+    selectContentType: function (collectionType) {
+      this.set('collectionType', collectionType);
+      this.loadData();
+    },
+
+    /**
+     * Selects the course
+     * @param courseId
+     */
+    selectCourse: function (courseId) {
+      this.set('courseId', courseId);
+      this.set('unitId', null);
+      this.set('lessonId', null);
+      this.loadCourse();
+    },
+
+    /**
+     * Selects the unit
+     * @param unitId
+     */
+    selectUnit: function (unitId) {
+      this.set('unitId', unitId);
+      this.set('lessonId', null);
+    },
+
+    /**
+     * Selects the lesson
+     * @param lessonId
+     */
+    selectLesson: function (lessonId) {
+      this.set('lessonId', lessonId);
+    },
+
+    /**
+     * Loads report data
+     */
+    updateReport: function () {
+      this.loadData();
     }
-  }
+  },
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Loads report data
+   */
+  loadData: function() {
+    const controller = this;
+    const courseId = controller.get('courseId');
+    if (courseId) {
+      const userId = controller.get('profile.id');
+      const collectionType = controller.get('collectionType');
+      const unitId = controller.get('unitId');
+      const lessonId = controller.get('lessonId');
+      const criteria = {
+        courseId: controller.get('courseId'),
+        unitId: unitId,
+        lessonId: lessonId,
+        collectionType: collectionType
+      };
+      controller.set('filterCriteria', criteria);
+      Ember.RSVP.hash({
+        course: controller.get('courseService').getCourseStructure(courseId, collectionType),
+        items: controller.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
+      }).then(function(hash){
+        const course = hash.course;
+        const items = hash.items;
+        controller.setProperties({
+          course: course,
+          collectionPerformanceSummaryItems: items,
+          collections: course.getCollectionsByType(collectionType, unitId, lessonId)
+        });
+        controller.set('contentTitle', controller.getContentTitle());
+      });
+    }
+  },
 
+  /**
+   * Loads report data
+   */
+  loadCourse: function() {
+    const controller = this;
+    const courseId = controller.get('courseId');
+    const collectionType = controller.get('collectionType');
+    controller.get('courseService').getCourseStructure(courseId, collectionType).then(function(course){
+      controller.set('course', course);
+    });
+  },
+
+  /**
+   * Gets the last selected content title
+   * @returns {string}
+   */
+  getContentTitle: function() {
+    let title = this.get('course') ? this.get('course.title'): null;
+    title = this.get('unit') ? this.get('unit.title'): title;
+    return this.get('lesson') ? this.get('lesson.title'): title;
+  },
+
+  /**
+   * Resets values
+   */
+  resetValues: function () {
+    this.setProperties({
+      course: null,
+      unit: null,
+      courseId: null,
+      unitId: null,
+      lessonId: null,
+      collections: [],
+      collectionPerformanceSummaryItems: []
+    });
+  }
 });

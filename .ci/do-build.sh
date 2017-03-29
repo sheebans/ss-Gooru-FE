@@ -28,16 +28,20 @@ info "Downloading quizzes addon..."
 silent aws s3 cp \
   s3://${S3_BUCKET}/quizzes-addon/${QUIZZES_VERSION}/quizzes-addon-${QUIZZES_VERSION}.tgz .
 
-info "Running build inside node:4.6 docker image..."
+info "Running build inside a custom docker image..."
 
-docker kill builder
-docker rm builder
-docker run -t \
-  --rm \
-  --name builder \
-  -v ${PWD}:/build \
+mkdir /tmp/yarn-cache-bamboo
+chmod 0777 /tmp/yarn-cache-bamboo
+
+docker login \
+  -u $ARTIFACTORY_USERNAME \
+  -p $ARTIFACTORY_PASSWORD edify-dkr.jfrog.io
+
+docker run -t --rm \
+  -v $PWD:/build \
+  -v /tmp/yarn-cache-bamboo:/tmp/yarn-cache \
   -e bamboo_buildNumber=${bamboo_buildNumber} \
   -e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
   -e QUIZZES_VERSION=${QUIZZES_VERSION} \
-  -w /build \
-  node:4.6 .ci/build.sh
+  -w /build edify-dkr.jfrog.io/gooru-fe-builder ./.ci/build.sh
+

@@ -4,7 +4,8 @@ import Question from 'gooru-web/models/content/question';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('model:content/collection', 'Unit | Model | content/collection', {
-  unit: true
+  unit: true,
+  needs: ['validator:presence']
 });
 
 test('number of resources is computed correctly', function (assert) {
@@ -44,4 +45,3 @@ test('number of questions is computed correctly', function (assert) {
 
   assert.equal(model.get("computedQuestionCount"), 2, "Computed question count");
 });
-
