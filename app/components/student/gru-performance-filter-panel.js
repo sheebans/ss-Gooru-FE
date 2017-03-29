@@ -119,17 +119,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Activity Filter selected
    */
   activityFilter:'study',
-  /**
-   * Selected course
-   * @property {Course}
-   */
-  selectedCourse: null,
-
-  /**
-   * filter Criteria
-   * @property {string}
-   */
-  filterCriteria: null,
 
   /**
    * @property {string}
@@ -137,14 +126,10 @@ export default Ember.Component.extend(ConfigurationMixin, {
   courseId: null,
 
   /**
+   * filter Criteria
    * @property {string}
    */
-  unitId: null,
-
-  /**
-   * @property {string}
-   */
-  lessonId: null,
+  filterCriteria: null,
 
   /**
    * @property {Boolean} isCourseFiltersExpanded
@@ -176,21 +161,46 @@ export default Ember.Component.extend(ConfigurationMixin, {
   isSubjectFiltersExpanded: false,
 
   /**
-   * Selected unit
-   * @property {Unit}
-   */
-  unit: Ember.computed('selectedCourse.children.[]', 'unitId', function() {
-    const units = this.get('selectedCourse.children') || [];
-    return units.findBy('id', this.get('unitId'));
-  }),
-
-  /**
    * Selected lesson
    * @property {Lesson}
    */
   lesson: Ember.computed('unit.children.[]', 'lessonId', function() {
     const lessons = this.get('unit.children') || [];
     return lessons.findBy('id', this.get('lessonId'));
+  }),
+
+  /**
+   * @property {Lesson[]}
+   */
+  lessons: Ember.computed('unit.children.[]', 'lessonId', function() {
+    return this.get('unit.children');
+  }),
+
+  /**
+   * @property {string}
+   */
+  lessonId: null,
+
+  /**
+   * Selected course
+   * @property {Course}
+   */
+  selectedCourse: null,
+
+  /**
+   * Computed property that indicates if show the activity option selected
+   */
+  showActivitySubcategory : Ember.computed('activityFilter','isActivityFiltersExpanded', function(){
+    return this.get('activityFilter') && !this.get('isActivityFiltersExpanded');
+  }),
+
+  /**
+   * Selected unit
+   * @property {Unit}
+   */
+  unit: Ember.computed('selectedCourse.children.[]', 'unitId', function() {
+    const units = this.get('selectedCourse.children') || [];
+    return units.findBy('id', this.get('unitId'));
   }),
 
   /**
@@ -201,11 +211,10 @@ export default Ember.Component.extend(ConfigurationMixin, {
   }),
 
   /**
-   * @property {Lesson[]}
+   * @property {string}
    */
-  lessons: Ember.computed('unit.children.[]', 'lessonId', function() {
-    return this.get('unit.children');
-  })
+  unitId: null
+
 
   // -------------------------------------------------------------------------
   // Methods

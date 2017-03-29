@@ -4,8 +4,7 @@
 <div class="body">
     <div class="filter-type activity">
         <span class="filter-category">
-          {{t (if (and activityFilter (not isActivityFiltersExpanded)) (concat 'student-landing.my-performance.activities.' activityFilter)
-          'student-landing.my-performance.activity')}}
+          {{t (if  showActivitySubcategory (concat 'student-landing.my-performance.activities.' activityFilter) 'student-landing.my-performance.activity')}}
         </span>
         <a class="arrow" {{action 'expandPanel' 'activity'}}>
           {{#if isActivityFiltersExpanded}}
