@@ -5,6 +5,21 @@ moduleForComponent('student/gru-performance-filter-panel', 'Unit | Component | s
   unit: true
 });
 
+
+test('selectActivity', function(assert) {
+  let component = this.subject();
+  component.send('selectActivity', 'activity-test');
+  assert.equal(component.get('activityFilter'), 'activity-test' , 'Incorrect activity filter');
+});
+
+test('expandPanel', function(assert) {
+  let component = this.subject();
+  component.send('expandPanel', 'subject');
+  assert.equal(component.get('isSubjectFiltersExpanded'), true , 'Incorrect value of isSubjectFiltersExpanded');
+  component.send('expandPanel', 'subject');
+  assert.equal(component.get('isSubjectFiltersExpanded'), false , 'Incorrect value of isSubjectFiltersExpanded');
+});
+
 test('unit', function(assert) {
   let component = this.subject();
   const selectedCourse = Ember.Object.create({
