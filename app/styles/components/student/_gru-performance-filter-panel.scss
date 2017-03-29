@@ -54,6 +54,9 @@
           font-size: $expand-arrow;
         }
       }
+      .filter-category {
+        text-transform: uppercase;
+      }
     }
     .content-panel {
       height: 190px;
@@ -82,6 +85,17 @@
               height: 15px;
             }
           }
+        }
+        .activity-option{
+          @include flexbox;
+          @include align-items(flex-end);
+          cursor:pointer;
+          span{
+            margin: 0 0 0 10px;
+          }
+        }
+        .activity-option.active{
+          color: $white;
         }
       }
     }
