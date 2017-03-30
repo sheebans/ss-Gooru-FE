@@ -37,6 +37,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   model: function() {
     let route = this;
 
+    //Steps for Take a Tour functionality
     const tourSteps = Ember.A([
       {
         elementSelector: '.gru-header .home-link',

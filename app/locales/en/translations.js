@@ -1545,6 +1545,52 @@ export default Object.assign(quizzesTranslations, {
         "title": "Your Profile",
         "description": "This is your Profile. Click on your profile at any time to access content you create or remix in Gooru."
       }
+    },
+    "student-home":{
+      "stepOne":{
+        "title": "Take a Tour Icon",
+        "description": "Welcome to Take a Tour! This is your personal home page. Remember you can always get back to your page by clicking on the Gooru logo. Now let’s get started!"
+      },
+      "stepTwo":{
+        "title": "Announcements",
+        "description": 'Here you will see announcements that your teacher or school would like you to know about.'
+      },
+      "stepFour":{
+        "title": "My Classes",
+        "description": "See all of the classes in which you are enrolled."
+      },
+      "stepFive":{
+        "title": "Join Classroom",
+        "description": 'To join a new classroom, enter the class code and it will be displayed under “My Classes.”'
+      },
+      "stepSix":{
+        "title": "Independent Learning",
+        "description": 'Explore and bookmark topics that interest you and that you want learn more about.'
+      },
+      "stepSeven":{
+        "title": "Search Bar",
+        "description": 'Search our content catalog for topics that interest to you.'
+      },
+      "stepEight":{
+        "title": "Your Homepage",
+        "description": 'Return to your home page.'
+      },
+      "stepNine":{
+        "title": "Library",
+        "description": 'Browse our featured courses.'
+      },
+      "stepTen":{
+        "title": "Performance",
+        "description": 'See a summary of your performance in the courses you are enrolled in.'
+      },
+      "stepThirteen":{
+        "title": "User name",
+        "description": 'Access and update your user profile.'
+      },
+      "stepFourteen":{
+        "title": "Finished!",
+        "description": 'Now go ahead and click on a course you have enrolled in, join a classroom, or search for content that is of interest to you. '
+      }
     }
   },
   "gru-tour": {

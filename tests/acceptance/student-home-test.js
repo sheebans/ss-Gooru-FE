@@ -47,6 +47,21 @@ test('Layout', function(assert) {
   });
 });
 
+test('Take A Tour', function(assert){
+  assert.expect(2);
+  visit('/student-home');
+  andThen(function() {
+    let $tooltip;
+    click(".app-container .gru-take-tour button.start-tour");
+    andThen(function() {
+      $tooltip = $("div.introjs-tooltip");
+
+      T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
+      assert.equal(T.text($tooltip.find('.tour-header h2')), 'Take a Tour Icon', 'First step title should be "Take a Tour Icon"');
+    });
+  });
+});
+
 test('Go to manage goals page', function(assert) {
   visit('/student-home');
 
