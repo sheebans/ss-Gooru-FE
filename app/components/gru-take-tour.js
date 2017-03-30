@@ -119,20 +119,38 @@ export default Ember.Component.extend(ConfigurationMixin, {
     }
   ),
 
+  /**
+   * @property {string} Defines the tooltip position
+   */
   tooltipPosition: 'auto',
 
   positionPrecedence:  ['right', 'bottom', 'left', 'top'],
 
+  /**
+   * @property {boolean} Indicates if the bullets should be displayed
+   */
   showBullets: false,
 
+  /**
+   * @property {boolean} Indicates if the progress should be displayed
+   */
   showProgress: false,
 
+  /**
+   * @property {boolean} Indicates if the step number should be displayed
+   */
   showStepNumbers: false,
 
   disableInteraction: true,
 
+  /**
+   * @property {boolean} Indicates if the page should scroll to the respective element
+   */
   scrollToElement: true,
 
+  /**
+   * @property {boolean} Indicates if the user can exit from the tour by pressing Exc
+   */
   exitOnEsc: true,
 
   prevLabel:Ember.computed('i18n', function(){
@@ -237,6 +255,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
     var stepObject = Ember.A(this.get('steps')).objectAt(step);
     this.set('currentStep', stepObject);
   },
+
   _getStepIndex: function(step){
     return this.get('steps').indexOf(step);
   }.bind(this)
