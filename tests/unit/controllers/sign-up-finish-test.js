@@ -10,7 +10,7 @@ test('countrySelect action', function (assert) {
       id: 'profile-id',
       stateId: 'state-id',
       state: 'state-name',
-      schoolDistrictId: 'district-id',
+      schoolDistrictId: 'district-id'
     }),
     countries: [{
       code: 'US',

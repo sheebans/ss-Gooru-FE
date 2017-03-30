@@ -119,6 +119,11 @@ test('saveProfile', function(assert) {
     avatarUrl: 'url',
     username: 'username'
   });
+  let userData = {
+    avatarUrl: '',
+    isNew: true,
+    username: 'test'
+  };
   let component = this.subject({
     profile,
     profileService: {
@@ -128,16 +133,10 @@ test('saveProfile', function(assert) {
       }
     },
     sessionService: {
-      updateUserData: userData => {
-        return '';
-      }
+      updateUserData: userDataParam => assert.deepEqual(userDataParam, userData, 'User data should match')
     },
     session: Ember.Object.create({
-      userData: {
-        avatarUrl: '',
-        isNew: true,
-        username: 'test'
-      }
+      userData
     })
   });
 
