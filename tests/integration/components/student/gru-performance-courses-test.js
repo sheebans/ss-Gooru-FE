@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 import wait from 'ember-test-helpers/wait';
+import Course from 'gooru-web/models/content/course';
 
 moduleForComponent('student/gru-performance-courses', 'Integration | Component | student/gru performance courses', {
   integration: true
@@ -9,15 +10,15 @@ moduleForComponent('student/gru-performance-courses', 'Integration | Component |
 
 test('Layout', function(assert) {
   const courses = [
-    Ember.Object.create({
+    Course.create({
       id: '0101',
       title: 'Course 1'
     }),
-    Ember.Object.create({
+    Course.create({
       id: '0201',
       title: 'Course 2'
     }),
-    Ember.Object.create({
+    Course.create({
       id: '0301',
       title: 'Course 3'
     })
@@ -39,15 +40,15 @@ test('Layout', function(assert) {
 
 test('Search course by name', function(assert) {
   const courses = [
-    Ember.Object.create({
+    Course.create({
       id: '0101',
       title: 'Course 1'
     }),
-    Ember.Object.create({
+    Course.create({
       id: '0201',
       title: 'Course 2'
     }),
-    Ember.Object.create({
+    Course.create({
       id: '0301',
       title: 'Course 3'
     })

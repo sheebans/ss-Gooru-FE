@@ -14,42 +14,42 @@ test('selectActivity', function(assert) {
 
 test('showActivitySubcategory', function(assert) {
   let component = this.subject();
-  assert.equal(component.get('showActivitySubcategory'), true , 'Should show the activity subCategory');
+  assert.ok(component.get('showActivitySubcategory'),'Should show the activity subCategory');
   component.set('isActivityFiltersExpanded',true);
-  assert.equal(component.get('showActivitySubcategory'), false , 'Should not show the activity subCategory');
+  assert.notOk(component.get('showActivitySubcategory'), 'Should not show the activity subCategory');
 });
 
 test('expandPanel', function(assert) {
   let component = this.subject();
   component.send('expandPanel', 'subject');
-  assert.equal(component.get('isSubjectFiltersExpanded'), true , 'Incorrect value of isSubjectFiltersExpanded');
+  assert.ok(component.get('isSubjectFiltersExpanded'),'Incorrect value of isSubjectFiltersExpanded');
   component.send('expandPanel', 'subject');
-  assert.equal(component.get('isSubjectFiltersExpanded'), false , 'Incorrect value of isSubjectFiltersExpanded');
+  assert.notOk(component.get('isSubjectFiltersExpanded'),'Incorrect value of isSubjectFiltersExpanded');
 
   component.send('expandPanel', 'course');
-  assert.equal(component.get('isCourseFiltersExpanded'), false , 'Incorrect value of isCourseFiltersExpanded');
+  assert.notOk(component.get('isCourseFiltersExpanded'),'Incorrect value of isCourseFiltersExpanded');
   component.send('expandPanel', 'course');
-  assert.equal(component.get('isCourseFiltersExpanded'), true , 'Incorrect value of isCourseFiltersExpanded');
+  assert.ok(component.get('isCourseFiltersExpanded'),'Incorrect value of isCourseFiltersExpanded');
 
   component.send('expandPanel', 'unit');
-  assert.equal(component.get('isUnitFiltersExpanded'), true , 'Incorrect value of isUnitFiltersExpanded');
+  assert.ok(component.get('isUnitFiltersExpanded'),'Incorrect value of isUnitFiltersExpanded');
   component.send('expandPanel', 'unit');
-  assert.equal(component.get('isUnitFiltersExpanded'), false , 'Incorrect value of isUnitFiltersExpanded');
+  assert.notOk(component.get('isUnitFiltersExpanded'),'Incorrect value of isUnitFiltersExpanded');
 
   component.send('expandPanel', 'lesson');
-  assert.equal(component.get('isLessonFiltersExpanded'), true , 'Incorrect value of isLessonFiltersExpanded');
+  assert.ok(component.get('isLessonFiltersExpanded'),'Incorrect value of isLessonFiltersExpanded');
   component.send('expandPanel', 'lesson');
-  assert.equal(component.get('isLessonFiltersExpanded'), false , 'Incorrect value of isLessonFiltersExpanded');
+  assert.notOk(component.get('isLessonFiltersExpanded'),'Incorrect value of isLessonFiltersExpanded');
 
   component.send('expandPanel', 'activity');
-  assert.equal(component.get('isActivityFiltersExpanded'), true , 'Incorrect value of isActivityFiltersExpanded');
+  assert.ok(component.get('isActivityFiltersExpanded'),'Incorrect value of isActivityFiltersExpanded');
   component.send('expandPanel', 'activity');
-  assert.equal(component.get('isActivityFiltersExpanded'), false , 'Incorrect value of isActivityFiltersExpanded');
+  assert.notOk(component.get('isActivityFiltersExpanded'), 'Incorrect value of isActivityFiltersExpanded');
 
   component.send('expandPanel', 'time-period');
-  assert.equal(component.get('isTimePeriodFiltersExpanded'), true , 'Incorrect value of isTimePeriodFiltersExpanded');
+  assert.ok(component.get('isTimePeriodFiltersExpanded'),'Incorrect value of isTimePeriodFiltersExpanded');
   component.send('expandPanel', 'time-period');
-  assert.equal(component.get('isTimePeriodFiltersExpanded'), false , 'Incorrect value of isTimePeriodFiltersExpanded');
+  assert.notOk(component.get('isTimePeriodFiltersExpanded'),'Incorrect value of isTimePeriodFiltersExpanded');
 });
 
 test('unit', function(assert) {

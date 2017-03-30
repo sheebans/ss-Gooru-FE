@@ -206,7 +206,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @property {Unit[]}
    */
-  units: Ember.computed('selectedCourse.children.[]', 'unitId', function() {
+  units: Ember.computed('selectedCourse.children.[]', function() {
     return this.get('selectedCourse.children');
   }),
 
