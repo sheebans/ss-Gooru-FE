@@ -80,7 +80,7 @@ if [ -z "$DEPLOYMENT_GROUP" ] || [ -z "$CODE_DEPLOY_APP_NAME" ]; then
   exit 1
 fi
 
-GIT_BRANCH=${bamboo_planRepository_branch}
+GIT_BRANCH=$(echo ${bamboo_planRepository_branch} | sed 's/\//-/' )
 BUILD_NUMBER=${bamboo_buildNumber}
 VERSION=${GIT_BRANCH}-${BUILD_NUMBER}
 
