@@ -4,7 +4,10 @@ import { moduleForModel, test } from 'ember-qunit';
 
 moduleForModel('performance/student-performance', 'Unit | Model | performance/student-performance', {
   // Specify the other units that are required for this test.
-  needs: ['model:performance/performance', 'model:user/user', 'model:meta', 'model:taxonomy-preference']
+  needs: [
+    'model:performance/performance', 'model:user/user', 'model:meta', 'model:taxonomy-preference',
+    'validator:presence', 'validator:length', 'validator:format', 'validator:username', 'validator:email'
+  ]
 });
 
 test('Student average calculations for existing units', function(assert) {
