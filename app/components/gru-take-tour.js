@@ -47,6 +47,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+    /**
+     * Action triggered when the start tour button is clicked
+     */
     startTour: function(){
       let component = this;
       let intro = component.get('introJS');
