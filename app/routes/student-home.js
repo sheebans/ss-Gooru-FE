@@ -80,10 +80,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         elementSelector: '.gru-header .profile-link .profile',
         title: route.get('i18n').t('gru-take-tour.student-home.stepThirteen.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepThirteen.description')
-      }
-      ,
+      },
       {
-        elementSelector: '.student-landing .grettings .title',
         title: route.get('i18n').t('gru-take-tour.student-home.stepFourteen.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepFourteen.description')
       }
