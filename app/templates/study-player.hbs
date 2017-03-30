@@ -1,0 +1,17 @@
+{{player.gru-study-header
+  showConfirmation=showConfirmation
+  onToggleHeader='toggleHeader'
+}}
+<div class="player-container {{if toggleState 'expanded' 'collapsed'}} {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
+  {{player.qz-player
+    showConfirmation=showConfirmation
+    resourceId=resourceId
+    role=role
+    type=type
+    reportURL=reportURL
+    startContextFunction=startContextFunction
+    contextResult=contextResult
+    isAnonymous=isAnonymous
+    onFinish='onFinish'
+  }}
+</div>
