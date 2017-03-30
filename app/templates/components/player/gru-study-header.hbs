@@ -1,0 +1,44 @@
+<div class="header-panel">
+  <div class="course-info">
+    {{#unless toggleState}}
+      <div {{action 'toggleHeader'}} class="course-title ellipsis pointer"> <i class="icon"></i>Marine Biology</div>
+    {{else}}
+      <div class="course-title ellipsis"> <i class="icon"></i>Marine Biology</div>
+    {{/unless}}
+    <div class="actions">
+      <button class="btn btn-default course-map">{{gru-icon name='map'}} {{t "common.course-map"}}</button>
+    </div>
+  </div>
+  <div class="performance-info {{if toggleState 'visible' 'hidden'}}">
+    <div class="graphic performance">
+      {{charts.gru-bubble-chart
+      content= '20%'
+      color=(grade-color 20)
+      }}
+      <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
+    </div>
+    <div class="bar-charts">
+      <div class="completion-chart">
+        {{charts/gru-x-bar-chart data=barChartData }}
+        <span class="legend"> 10/50 {{t 'common.completion'}}</span>
+      </div>
+    </div>
+    <div class="resources">
+      <div class="count-resources">
+        <span class="counter">1/10</span>
+        <button class="btn btn-default resources-btn">{{t "common.questions"}}</button>
+      </div>
+      <div class="navigation">
+        <span class="next">Next:</span>
+        <span class="next-resource question">
+          <i class="icon"></i>
+          <span class="title ellipsis">Cartilaginous fishes like sharks, mantas...</span>
+        </span>
+      </div>
+      <a {{action 'toggleHeader'}} class="collapse-expand {{if toggleState 'visible' 'hidden'}}">
+        {{gru-icon name='expand_less'}}
+        {{gru-icon name='expand_less'}}
+      </a>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,8 @@ moduleForService('service:api-sdk/performance', 'Unit | Service | api-sdk/perfor
     'model:performance/unit-performance', 'model:performance/lesson-performance', 'model:performance/collection-performance',
     'model:performance/class-unit-performance', 'model:performance/class-lesson-performance', 'model:performance/class-collection-performance',
     'model:performance/student-performance', 'model:user/user',
-    'model:meta', 'model:taxonomy-preference', 'model:performance/class-performance', 'model:performance/performance'
+    'model:meta', 'model:taxonomy-preference', 'model:performance/class-performance', 'model:performance/performance',
+    'validator:presence', 'validator:format', 'validator:length', 'validator:username', 'validator:email'
   ]
 });
 
