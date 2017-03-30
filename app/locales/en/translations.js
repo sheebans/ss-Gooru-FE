@@ -811,11 +811,17 @@ export default Object.assign(quizzesTranslations, {
     "announcement":"Announcement",
     "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "my-performance":{
+      "activity":"Activity",
+      "activities":{
+        "study":"Study"
+      },
       "assessments": "Assessments",
       "collections": "Collections",
       "filter": "Filter",
       "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
+      "subject":"Subject",
       "title": "Analyze your performance.",
+      "time-period":"Time Period",
       "update-report": "Update Report"
     },
     "class":{

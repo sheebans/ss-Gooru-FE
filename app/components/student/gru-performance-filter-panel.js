@@ -20,7 +20,38 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
+    /**
+     * Expand filter panel
+     */
+    expandPanel: function (filterType) {
+      switch (filterType){
+        case 'activity':
+          this.toggleProperty('isActivityFiltersExpanded');
+          break;
+        case 'course':
+          this.toggleProperty('isCourseFiltersExpanded');
+          break;
+        case 'lesson':
+          this.toggleProperty('isLessonFiltersExpanded');
+          break;
+        case 'subject':
+          this.toggleProperty('isSubjectFiltersExpanded');
+          break;
+        case 'time-period':
+          this.toggleProperty('isTimePeriodFiltersExpanded');
+          break;
+        case 'unit':
+          this.toggleProperty('isUnitFiltersExpanded');
+          break;
+      }
+    },
+    /**
+     * Select Activity
+     * @param activity option
+     */
+    selectActivity: function (activity) {
+      this.set('activityFilter',activity);
+    },
     /**
      * Selects the course
      * @param courseId
@@ -29,9 +60,16 @@ export default Ember.Component.extend(ConfigurationMixin, {
       this.set('courseId', courseId);
       this.set('unitId', null);
       this.set('lessonId', null);
-      this.sendAction("onSelectCourse", courseId);
+      this.sendAction('onSelectCourse', courseId);
     },
-
+    /**
+     * Selects the lesson
+     * @param lessonId
+     */
+    selectLesson: function (lessonId) {
+      this.set('lessonId', lessonId);
+      this.sendAction('onSelectLesson', lessonId);
+    },
     /**
      * Selects the unit
      * @param unitId
@@ -39,40 +77,14 @@ export default Ember.Component.extend(ConfigurationMixin, {
     selectUnit: function (unitId) {
       this.set('unitId', unitId);
       this.set('lessonId', null);
-      this.sendAction("onSelectUnit", unitId);
-    },
-
-    /**
-     * Selects the lesson
-     * @param lessonId
-     */
-    selectLesson: function (lessonId) {
-      this.set('lessonId', lessonId);
-      this.sendAction("onSelectLesson", lessonId);
+      this.sendAction('onSelectUnit', unitId);
     },
 
     /**
      * Loads report data
      */
     updateReport: function () {
-      this.sendAction("onUpdateReport");
-    },
-
-    /**
-     * Expand filter panel
-     */
-    expandPanel: function (filterType) {
-      switch (filterType){
-        case 'course':
-          this.toggleProperty('isCourseFiltersExpanded');
-          break;
-        case 'unit':
-          this.toggleProperty('isUnitFiltersExpanded');
-          break;
-        case 'lesson':
-          this.toggleProperty('isLessonFiltersExpanded');
-          break;
-      }
+      this.sendAction('onUpdateReport');
     }
   },
 
@@ -97,12 +109,21 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Activities filter options
+   */
+  activities: [
+    'study'
+  ],
+  /**
+   * Activity Filter selected
+   */
+  activityFilter:'study',
 
   /**
-   * Selected course
-   * @property {Course}
+   * @property {string}
    */
-  selectedCourse: null,
+  courseId: null,
 
   /**
    * filter Criteria
@@ -111,42 +132,33 @@ export default Ember.Component.extend(ConfigurationMixin, {
   filterCriteria: null,
 
   /**
-   * @property {string}
-   */
-  courseId: null,
-
-  /**
-   * @property {string}
-   */
-  unitId: null,
-
-  /**
-   * @property {string}
-   */
-  lessonId: null,
-
-  /**
    * @property {Boolean} isCourseFiltersExpanded
    */
   isCourseFiltersExpanded: true,
 
   /**
-   * @property {Boolean} isCourseFiltersExpanded
+   * @property {Boolean} isUnitFiltersExpanded
    */
   isUnitFiltersExpanded: false,
   /**
-   * @property {Boolean} isCourseFiltersExpanded
+   * @property {Boolean} isLessonFiltersExpanded
    */
   isLessonFiltersExpanded: false,
 
   /**
-   * Selected unit
-   * @property {Unit}
+   * @property {Boolean} isActivityFiltersExpanded
    */
-  unit: Ember.computed('selectedCourse.children.[]', 'unitId', function() {
-    const units = this.get('selectedCourse.children') || [];
-    return units.findBy('id', this.get('unitId'));
-  }),
+  isActivityFiltersExpanded: false,
+
+  /**
+   * @property {Boolean} isTimePeriodFiltersExpanded
+   */
+  isTimePeriodFiltersExpanded: false,
+
+  /**
+   * @property {Boolean} isSubjectFiltersExpanded
+   */
+  isSubjectFiltersExpanded: false,
 
   /**
    * Selected lesson
@@ -158,18 +170,51 @@ export default Ember.Component.extend(ConfigurationMixin, {
   }),
 
   /**
-   * @property {Unit[]}
-   */
-  units: Ember.computed('selectedCourse.children.[]', 'unitId', function() {
-    return this.get('selectedCourse.children');
-  }),
-
-  /**
    * @property {Lesson[]}
    */
   lessons: Ember.computed('unit.children.[]', 'lessonId', function() {
     return this.get('unit.children');
-  })
+  }),
+
+  /**
+   * @property {string}
+   */
+  lessonId: null,
+
+  /**
+   * Selected course
+   * @property {Course}
+   */
+  selectedCourse: null,
+
+  /**
+   * Computed property that indicates if show the activity option selected
+   */
+  showActivitySubcategory : Ember.computed('activityFilter','isActivityFiltersExpanded', function(){
+    return this.get('activityFilter') && !this.get('isActivityFiltersExpanded');
+  }),
+
+  /**
+   * Selected unit
+   * @property {Unit}
+   */
+  unit: Ember.computed('selectedCourse.children.[]', 'unitId', function() {
+    const units = this.get('selectedCourse.children') || [];
+    return units.findBy('id', this.get('unitId'));
+  }),
+
+  /**
+   * @property {Unit[]}
+   */
+  units: Ember.computed('selectedCourse.children.[]', function() {
+    return this.get('selectedCourse.children');
+  }),
+
+  /**
+   * @property {string}
+   */
+  unitId: null
+
 
   // -------------------------------------------------------------------------
   // Methods
