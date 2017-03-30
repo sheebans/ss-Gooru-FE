@@ -11,7 +11,7 @@ export default Ember.Component.extend({
   // Actions
   actions: {
     /**
-     * Selects the course
+     * Select the course
      * @param courseId
      */
     selectCourse: function (courseId) {
@@ -21,7 +21,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
   /**
-   * didRender  event
+   * didRender  Event
    */
   didRender: function() {
     this.setDataSearchTerms();
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
   courses:null,
 
   /**
-   * @property {string} selected course id
+   * @property {String} selected course id
    */
   courseId: null,
   // -------------------------------------------------------------------------
