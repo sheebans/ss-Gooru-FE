@@ -42,12 +42,12 @@ test('Layout', function(assert) {
   });
 });
 
-test('TakeATour', function(assert){
+test('Take A Tour', function(assert){
   assert.expect(2);
   visit('/teacher-home');
   andThen(function() {
     let $tooltip;
-    click(".teacher-landing .greetings button.start-tour");
+    click(".app-container .gru-take-tour button.start-tour");
     andThen(function() {
       $tooltip = $("div.introjs-tooltip");
 

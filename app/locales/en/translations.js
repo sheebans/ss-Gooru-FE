@@ -1527,7 +1527,25 @@ export default Object.assign(quizzesTranslations, {
     "settings-visibility-content": "This setting makes your content visible via your user profile. If you wish to share the courses, collections, assessments, resources, and/or questions you create with colleagues, we suggest you turn this feature on."
   },
   "gru-take-tour":{
-    "text": "Take a Tour"
+    "text": "Take a Tour",
+    "teacher-home":{
+      "stepOne":{
+        "title": "Your Homepage",
+        "description": "Welcome to your Gooru homepage! Here you can find a list of the classrooms you create in Gooru. Classrooms allow you to share content directly with students. You can always come back to your homepage by clicking on the Gooru icon."
+      },
+      "stepTwo":{
+        "title": "Classes You Teach or Join",
+        "description": 'Any classrooms you teach or join this school year will appear here under Active Classrooms.'
+      },
+      "stepThree":{
+        "title": "Create a Classroom",
+        "description": "Click here to create a new classroom. Once you have content to share with students, you will assign it to them via a classroom."
+      },
+      "stepFour":{
+        "title": "Your Profile",
+        "description": "This is your Profile. Click on your profile at any time to access content you create or remix in Gooru."
+      }
+    }
   },
   "gru-tour": {
     "assessments-settings":{
@@ -1538,28 +1556,6 @@ export default Object.assign(quizzesTranslations, {
       "stepTwo":{
         "title":"Answer Key and Number of Attempts",
         "description":"This setting allows an answer key to be revealed and sets the number of attempts students have on the assessment."
-      }
-    },
-    "home":{
-      "stepOne":{
-        "title": "Your Homepage",
-        "description": "Welcome to your Gooru homepage! Here you can find a list of the classrooms you create in Gooru. Classrooms allow you to share content directly with students. You can always come back to your homepage by clicking on the Gooru icon."
-      },
-      "stepTwo":{
-        "title": "Classes You Teach or Join",
-        "description": 'Any classrooms you teach or join this school year will appear here under Active Classrooms.'
-      },
-      "stepThree":{
-        "title": "Previous Classes",
-        "description": "Any classrooms you created or joined in past school years can be found in Archived Classrooms. Content used in these classrooms can be found in your Profile, and it can be re-assigned to new classrooms for this school year."
-      },
-      "stepFour":{
-        "title": "Create a Classroom",
-        "description": "Click here to create a new classroom. Once you have content to share with students, you will assign it to them via a classroom."
-      },
-      "stepFive":{
-        "title": "Your Profile",
-        "description": "This is your Profile. Click on your profile at any time to access content you create or remix in Gooru."
       }
     },
     "overview": {
