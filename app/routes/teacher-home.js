@@ -40,23 +40,23 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const tourSteps = Ember.A([
       {
         elementSelector: '.gru-header .home-link',
-        title: route.get('i18n').t('gru-tour.home.stepOne.title'),
-        description: route.get('i18n').t('gru-tour.home.stepOne.description')
+        title: route.get('i18n').t('gru-take-tour.teacher-home.stepOne.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-home.stepOne.description')
       },
       {
         elementSelector: '.teacher-navigator .active-classes a',
-        title: route.get('i18n').t('gru-tour.home.stepTwo.title'),
-        description: route.get('i18n').t('gru-tour.home.stepTwo.description')
+        title: route.get('i18n').t('gru-take-tour.teacher-home.stepTwo.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-home.stepTwo.description')
       },
       {
         elementSelector: '.teacher-navigator .actions .create-class-cta',
-        title: route.get('i18n').t('gru-tour.home.stepFour.title'),
-        description: route.get('i18n').t('gru-tour.home.stepFour.description')
+        title: route.get('i18n').t('gru-take-tour.teacher-home.stepThree.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-home.stepThree.description')
       },
       {
         elementSelector: '.gru-header .profile-link .profile',
-        title: route.get('i18n').t('gru-tour.home.stepFive.title'),
-        description: route.get('i18n').t('gru-tour.home.stepFive.description')
+        title: route.get('i18n').t('gru-take-tour.teacher-home.stepFour.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-home.stepFour.description')
       }
     ]);
 
