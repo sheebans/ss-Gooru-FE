@@ -19,12 +19,12 @@ export default Ember.Component.extend({
   /**
    * @property {Ember.Service} Session service
    */
-  sessionService: Ember.inject.service("api-sdk/session"),
+  sessionService: Ember.inject.service('api-sdk/session'),
 
   /**
    * @property {Ember.Service} Media service
    */
-  mediaService: Ember.inject.service("api-sdk/media"),
+  mediaService: Ember.inject.service('api-sdk/media'),
 
   /**
    * @property {Service} Session service
@@ -102,7 +102,7 @@ export default Ember.Component.extend({
             }
             imageIdPromise.then(function(imageId) {
               editedProfile.set('avatarUrl', imageId);
-              if(otherSchoolDistrict && otherSchoolDistrict!== ''){
+              if(otherSchoolDistrict) {
                 editedProfile.set('schoolDistrictId', '');
                 editedProfile.set('schoolDistrict', otherSchoolDistrict);
               }
@@ -123,11 +123,11 @@ export default Ember.Component.extend({
         });
       } else if (showCountryErrorMessage) {
         $('html, body').animate({
-          scrollTop: $(".gru-edit-profile .country .error-messages").offset().top
+          scrollTop: $('.gru-edit-profile .country .error-messages').offset().top
         }, 1000);
       }else {
         $('html, body').animate({
-          scrollTop: $(".gru-edit-profile .role .error-messages").offset().top
+          scrollTop: $('.gru-edit-profile .role .error-messages').offset().top
         }, 1000);
       }
     },
@@ -135,17 +135,17 @@ export default Ember.Component.extend({
     countrySelect: function(id){
       var component = this;
       var countries = this.get('countries');
-      var countryCode = countries.findBy("id", id).code;
-      var countryName = countries.findBy("id", id).name;
+      var country = countries.findBy('id', id);
+      var countryCode = country.code;
+      var countryName = country.name;
 
       component.set('showCountryErrorMessage', false);
       component.set('countrySelected', id);
       component.set('country', countryName);
 
-      if (countryCode===COUNTRY_CODES.US) {
+      if (countryCode === COUNTRY_CODES.US) {
         component.set('showStates', true);
-      }
-      else {
+      } else {
         component.set('showStates', false);
         component.set('districts', null);
         component.set('stateSelected', '');
@@ -157,15 +157,14 @@ export default Ember.Component.extend({
 
     stateSelect: function(id){
       var component = this;
-
+      var states = component.get('states');
       component.set('showStateErrorMessage', false);
       component.set('showDistrictErrorMessage', false);
       component.set('districts', null);
       component.set('stateSelected', id);
-      component.get("lookupService").readDistricts(id)
-        .then(function(districts) {
-          component.set('districts', districts);
-        });
+      component.set('state', states.findBy('id', id).name);
+      component.get('lookupService').readDistricts(id)
+        .then(districts => component.set('districts', districts));
     },
 
     districtSelect: function(id){
@@ -192,7 +191,7 @@ export default Ember.Component.extend({
   didInsertElement: function(){
     const component = this;
     var $username = component.$('#username input');
-    $username.on("keydown", function () {
+    $username.on('keydown', function () {
       component.set('usernameError',false);
     });
   },
@@ -212,8 +211,8 @@ export default Ember.Component.extend({
    * @see {Class} profile
    * @returns {bool}
    */
-  isMyProfile: Ember.computed('profile', function() {
-    return this.get('profile').get('id') === this.get("session.userId");
+  isMyProfile: Ember.computed('profile.id', 'session.userId', function() {
+    return this.get('profile.id') === this.get('session.userId');
   }),
 
   /**
@@ -247,6 +246,7 @@ export default Ember.Component.extend({
    * @property {String}
    */
   state: Ember.computed.alias('tempProfile.state'),
+
   /**
    * stateSelected
    * @property {String}
