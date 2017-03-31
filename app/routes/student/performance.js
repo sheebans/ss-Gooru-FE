@@ -42,7 +42,7 @@ export default Ember.Route.extend({
     ]);
 
     return{
-      tourSteps: tourSteps
+      tourSteps
     };
 
   },

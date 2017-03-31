@@ -32,8 +32,8 @@ test('Layout', function(assert) {
     const $header = $performanceContent.find('.panel-header');
     T.exists(assert, $header, 'Missing performance header');
     T.exists(assert, $header.find('h1'), 'Missing title');
-    T.exists(assert, $header.find('button.download'), 'Missing download button');
     T.exists(assert, $header.find('p'), 'Missing primary text');
+    T.exists(assert, $header.find('button.download'), 'Missing download button');
 
     const $filters = $performanceContent.find('.filters');
     T.exists(assert, $filters, 'Missing filters');
