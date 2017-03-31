@@ -5,7 +5,7 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   i18n: Ember.inject.service(),
 
@@ -13,7 +13,7 @@ export default Ember.Route.extend({
   /**
    * @requires service:api-sdk/analytics
    */
-  analyticsService: Ember.inject.service("api-sdk/analytics"),
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -32,16 +32,16 @@ export default Ember.Route.extend({
      * @param {string} collection - collection or assessment
      */
     playResource: function (unitId, lessonId, collection) {
-      if (collection.get("isExternalAssessment")){
-        window.open(collection.get("url"));
+      if (collection.get('isExternalAssessment')){
+        window.open(collection.get('url'));
       }
       else{
         const currentClass = this.modelFor('student.class').class;
-        const classId = currentClass.get("id");
-        const courseId = currentClass.get("courseId");
-        const role = "student";
+        const classId = currentClass.get('id');
+        const courseId = currentClass.get('courseId');
+        const role = 'student';
         this.transitionTo('context-player', classId, courseId, unitId,
-          lessonId, collection.get("id"), { queryParams: { role: role, type: collection.get("collectionType") }});
+          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType') }});
       }
     }
 
@@ -73,10 +73,13 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function (controller, model) {
-    let userLocation = model.userLocation ?
-    model.userLocation.get('unitId') + '+' +
-    model.userLocation.get('lessonId') + '+' +
-    model.userLocation.get('collectionId') : '';
+    let userLocation = '';
+    if(model.userLocation) {
+      let unitId = model.userLocation.get('unitId');
+      let lessonId = model.userLocation.get('lessonId');
+      let collectionId = model.userLocation.get('collectionId');
+      userLocation = `${unitId}+${lessonId}+${collectionId}`;
+    }
 
     controller.set('userLocation', userLocation);
     controller.set('units', model.units);
