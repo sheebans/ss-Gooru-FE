@@ -1,10 +1,12 @@
 import Ember from 'ember';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
+import {download} from 'gooru-web/utils/csv';
+import {prepareFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
 
 /**
- * Teacher Performance Controller
+ * Student Performance Controller
  *
- * Controller responsible of the logic for the teacher performance
+ * Controller responsible of the logic for the student performance
  *
  * @module
  * @augments ember/Controller
@@ -145,9 +147,77 @@ export default Ember.Controller.extend({
      */
     updateReport: function () {
       this.loadData();
-    }
+    },
+    /**
+     * When clicking at the download button
+     */
+    //download: function(){
+    //  const controller = this;
+    //  const performanceDataHeaders = controller.get('metrics');
+    //  const performanceDataMatrix = controller.get('assessments');
+    //  const date=formatDate(new Date(),'MM-DD-YY');
+    //  const classTitle = controller.get('class.title');
+    //  const courseTitle = controller.get('course.title');
+    //  var fileNameString = `${classTitle}_${courseTitle}`;
+    //  var unitIndex;
+    //  var lessonIndex;
+    //  var level = 'course';
+    //
+    //  if (controller.get('isAtUnitLevel')){
+    //    unitIndex = controller.get('course').getChildUnitIndex(controller.get('unit'));
+    //    fileNameString = `${fileNameString}_unit${unitIndex+1}`;
+    //    level='unit';
+    //  }
+    //
+    //  if (controller.get('isAtLessonLevel')){
+    //    level='lesson';
+    //    unitIndex = controller.get('course').getChildUnitIndex(controller.get('unit'));
+    //    lessonIndex =  controller.get('unit').getChildLessonIndex(controller.get('lesson'));
+    //    fileNameString = `${fileNameString}_unit${unitIndex+1}_lesson${lessonIndex+1}`;
+    //  }
+    //
+    //  fileNameString = `${fileNameString}_${date}`;
+    //
+    //  const fileName = createFileNameToDownload(fileNameString);
+    //  const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, controller.get('filterBy'),level);
+    //
+    //  download(fileName, fileData);
+    //}
   },
-
+  // -------------------------------------------------------------------------
+  // Properties
+  /**
+   * Default list of  metrics to be displayed by the component
+   * @sorted {Boolean}
+   * @isAsc {Boolean}
+   * @visible {Boolean}
+   * @constant {Array}
+   */
+  metrics: Ember.A([Ember.Object.create({
+    'value': 'assessment',
+    'sorted': false,
+    'isAsc': false,
+    'visible': true,
+    'index': -1
+  }),Ember.Object.create({
+    'value': 'score',
+    'sorted':false,
+    'isAsc':false,
+    'visible': false,
+    'index':0
+  }),Ember.Object.create({
+    'value': 'completion',
+    'sorted':false,
+    'isAsc':false,
+    'visible': false,
+    'index':1
+  }),Ember.Object.create({
+    'value': 'study-time',
+    'sorted':false,
+    'isAsc':false,
+    'visible': false,
+    'index':2
+  })]),
   // -------------------------------------------------------------------------
   // Methods
   /**
