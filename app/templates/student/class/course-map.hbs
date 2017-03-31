@@ -1,6 +1,9 @@
 {{#if class.courseId}}
 <div class="controller student course-map">
   <div class="actions">
+    <button {{action "updateLocation" userLocation}} class="btn btn-info locate">
+      <span>{{gru-icon name='near_me'}}{{t "class.overview.locate"}}</span>
+    </button>
     <button type="button" class="btn btn-primary study-now">
       {{gru-icon name='play_arrow'}}
       <span>{{t 'common.study-now'}}</span>
