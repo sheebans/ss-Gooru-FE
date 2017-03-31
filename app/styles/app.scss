@@ -246,6 +246,7 @@
 @import 'components/search/gru-resource-options';
 
 @import 'components/student/gru-performance-filter-panel';
+@import 'components/student/gru-performance-course-filter';
 @import 'components/student/gru-performance-courses';
 
 @import 'components/student/class/gru-class-navigation';
@@ -266,3 +267,5 @@
 @import 'components/century-skills/gru-century-skill-tag';
 
 @import 'components/validation/gru-input';
+
+@import 'routes/student/class/performance';

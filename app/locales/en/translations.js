@@ -834,7 +834,8 @@ export default Object.assign(quizzesTranslations, {
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
         "today": "Today"
-      }
+      },
+      "my-report":"My Report"
     },
     "current-activity":"Current activity"
   },

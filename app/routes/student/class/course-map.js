@@ -5,7 +5,7 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   i18n: Ember.inject.service(),
 
@@ -13,7 +13,7 @@ export default Ember.Route.extend({
   /**
    * @requires service:api-sdk/analytics
    */
-  analyticsService: Ember.inject.service("api-sdk/analytics"),
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -32,16 +32,16 @@ export default Ember.Route.extend({
      * @param {string} collection - collection or assessment
      */
     playResource: function (unitId, lessonId, collection) {
-      if (collection.get("isExternalAssessment")){
-        window.open(collection.get("url"));
+      if (collection.get('isExternalAssessment')){
+        window.open(collection.get('url'));
       }
       else{
         const currentClass = this.modelFor('student.class').class;
-        const classId = currentClass.get("id");
-        const courseId = currentClass.get("courseId");
-        const role = "student";
+        const classId = currentClass.get('id');
+        const courseId = currentClass.get('courseId');
+        const role = 'student';
         this.transitionTo('context-player', classId, courseId, unitId,
-          lessonId, collection.get("id"), { queryParams: { role: role, type: collection.get("collectionType") }});
+          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType') }});
       }
     }
 
