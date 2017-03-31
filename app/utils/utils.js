@@ -27,8 +27,8 @@ export function alphabeticalStringSort(a, b) {
  */
 export function checkStandards(standards, checkableStandards, codes) {
   standards.forEach(function(standard) {
-    if (checkableStandards.includes(standard.get("id"))) {
-      standard.set("disabled", !codes.includes(standard.get("id")));
+    if (checkableStandards.includes(standard.get('id'))) {
+      standard.set('disabled', !codes.includes(standard.get('id')));
     }
   });
 }
@@ -457,28 +457,32 @@ export function checkIfIsGoogleDoc(assetUrl) {
  */
 export function checkDomains(resourceUrl, cdnUrl) {
   return (resourceUrl.indexOf(cdnUrl) !== -1);
-},
+}
+
 /**
  * prepares csv student file data to download
- * @param {string []} performanceDataHeaders the metrics table headers
- * @param {string []} performanceDataMatrix the metrics table performance data
- * @param {string} filterBy (assessments/collections)
- * @param {boolean} lessonLevel indicates if it is in the lesson level
+ * @param {string []} assessments
+ * @param {string []} collectionPerformanceSummaryItems
+ * @param {string []} headers
  */
 
-export function prepareStudentFileDataToDownload(performanceDataHeaders, performanceDataMatrix, filterBy, level){
+export function prepareStudentFileDataToDownload(assessments,collectionPerformanceSummaryItems, headers){
+  var dataHeaders = headers;
+  const dataArray = Ember.A([]);
 
-  if(filterBy === 'collection') {
-    if (level === 'lesson') {
-      return lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix);
-    }
-    else {
-      return collectionFileData(performanceDataHeaders, performanceDataMatrix, level);
-    }
-  }
-  else {
-    return assessmentFileData(performanceDataHeaders, performanceDataMatrix, level);
-  }
+  assessments.forEach(function(assessment) {
+    var collectionPerformanceSummaryItem = collectionPerformanceSummaryItems.findBy('id', assessment.get('id'));
+    var itemDataArray = Ember.Object.create({
+      performanceData: collectionPerformanceSummaryItem,
+      assessment: assessment
+    });
+    dataArray.push(itemDataArray);
+  });
+
+  return {
+    fields: dataHeaders,
+    data: dataArray
+  };
 }
 
 /**

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 import {download} from 'gooru-web/utils/csv';
-import {prepareFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
+import {prepareStudentFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
 
 /**
  * Student Performance Controller
@@ -163,7 +163,7 @@ export default Ember.Controller.extend({
       fileNameString = `${fileNameString}_${date}`;
 
       const fileName = createFileNameToDownload(fileNameString);
-      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, controller.get('filterBy'),level);
+      const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,this.get('metrics').filterBy('value'));
 
       download(fileName, fileData);
     }
