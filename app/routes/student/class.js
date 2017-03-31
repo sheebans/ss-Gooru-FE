@@ -14,7 +14,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @type {ClassService} Service to retrieve class information
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   /**
    * @type {CourseService} Service to retrieve course information
@@ -48,7 +48,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         };
 
         if (item === 'performance') {
-          route.transitionTo('student.class.analytics.performance', queryParams);
+          route.transitionTo('student.class.performance',queryParams);
         } else if (item === 'course-map') {
           route.transitionTo('student.class.course-map');
         } else if (item === 'classmates') {
@@ -115,9 +115,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("class", model.class);
-    controller.set("course", model.course);
-    controller.set("units", model.units);
-    controller.set("contentVisibility", model.contentVisibility);
+    controller.set('class', model.class);
+    controller.set('course', model.course);
+    controller.set('units', model.units);
+    controller.set('contentVisibility', model.contentVisibility);
   }
 });

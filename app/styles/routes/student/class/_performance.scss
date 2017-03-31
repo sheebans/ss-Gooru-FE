@@ -1,12 +1,25 @@
-.student.performance {
-  padding: 0;
+.student.class.performance{
+  margin: 20px 0;
+  @include flexbox;
+  @include flex-direction(column);
 
-  .row {
-    margin-left: 0;
-    margin-right: 0;
+  @media(min-width: $screen-sm) {
+    @include flex-direction(row);
   }
-
-  .performance-content {
+  .navigation{
+    @include flex-shrink(0);
+    background-color: $dark-400;
+    height: auto;
+    max-height: 890px;
+    color: #949A9F;
+    padding: 0;
+    font-size: 19px;
+    width: 100%;
+    @media(min-width: $screen-sm) {
+      width: 20%;
+    }
+  }
+  .content {
     padding: 20px;
     .panel-header{
       height: 115px;
@@ -41,6 +54,7 @@
       height: auto;
       width: 100%;
       padding: 6px 0 0 0;
+      margin: 0 0 10px;
       .radios-container {
         @include flexbox;
         @include align-items(end);

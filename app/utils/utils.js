@@ -457,6 +457,28 @@ export function checkIfIsGoogleDoc(assetUrl) {
  */
 export function checkDomains(resourceUrl, cdnUrl) {
   return (resourceUrl.indexOf(cdnUrl) !== -1);
+},
+/**
+ * prepares csv student file data to download
+ * @param {string []} performanceDataHeaders the metrics table headers
+ * @param {string []} performanceDataMatrix the metrics table performance data
+ * @param {string} filterBy (assessments/collections)
+ * @param {boolean} lessonLevel indicates if it is in the lesson level
+ */
+
+export function prepareStudentFileDataToDownload(performanceDataHeaders, performanceDataMatrix, filterBy, level){
+
+  if(filterBy === 'collection') {
+    if (level === 'lesson') {
+      return lessonCollectionFileData(performanceDataHeaders, performanceDataMatrix);
+    }
+    else {
+      return collectionFileData(performanceDataHeaders, performanceDataMatrix, level);
+    }
+  }
+  else {
+    return assessmentFileData(performanceDataHeaders, performanceDataMatrix, level);
+  }
 }
 
 /**
