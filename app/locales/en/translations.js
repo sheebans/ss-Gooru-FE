@@ -1614,6 +1614,28 @@ export default Object.assign(quizzesTranslations, {
         "title": "Finished!",
         "description": 'Go ahead and analyze your performance!'
       }
+    },
+    "student-class":{
+      "stepOne":{
+        "title": "Welcome!",
+        "description": "Welcome to your Course Page. Here you will find your daily activities, course map, and performance data. Let’s get started!"
+      },
+      "stepTwo":{
+        "title": "Daily Class Activities",
+        "description": 'Access a list of activities assigned by your teacher. Select the activities you want to study.'
+      },
+      "stepThree":{
+        "title": "Course Map",
+        "description": "Click on the units and lessons to complete the collections and assessments in the course."
+      },
+      "stepFour":{
+        "title": "My Report",
+        "description": 'Take a look at your overall class performance. '
+      },
+      "stepFive":{
+        "title": "Finished!",
+        "description": 'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
+      }
     }
   },
   "gru-tour": {
