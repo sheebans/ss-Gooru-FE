@@ -4,6 +4,7 @@ import {
   DEFAULT_IMAGES,
   EMOTION_VALUES,
   GRADING_SCALE } from 'gooru-web/config/config';
+import { formatTime as formatMilliseconds } from 'gooru-web/utils/utils';
 /**
  * Function for sorting strings alphabetically in ascending order
  * @param {string} a
@@ -27,8 +28,8 @@ export function alphabeticalStringSort(a, b) {
  */
 export function checkStandards(standards, checkableStandards, codes) {
   standards.forEach(function(standard) {
-    if (checkableStandards.includes(standard.get('id'))) {
-      standard.set('disabled', !codes.includes(standard.get('id')));
+    if (checkableStandards.includes(standard.get("id"))) {
+      standard.set("disabled", !codes.includes(standard.get("id")));
     }
   });
 }
@@ -458,26 +459,31 @@ export function checkIfIsGoogleDoc(assetUrl) {
 export function checkDomains(resourceUrl, cdnUrl) {
   return (resourceUrl.indexOf(cdnUrl) !== -1);
 }
-
 /**
- * prepares csv student file data to download
- * @param {string []} assessments
- * @param {string []} collectionPerformanceSummaryItems
- * @param {string []} headers
+ * prepares csv file data to download
+ * @param {string []} assessments the metrics table headers
+ * @param {string []} collectionPerformanceSummaryItems the metrics table performance data
+ * @param {string []} headers (assessments/collections)
  */
-
 export function prepareStudentFileDataToDownload(assessments,collectionPerformanceSummaryItems, headers){
   var dataHeaders = headers;
   const dataArray = Ember.A([]);
 
+  assessments.sort(function (a, b) {
+    return alphabeticalStringSort(a.title, b.title) * 1;
+  });
+
   assessments.forEach(function(assessment) {
     var collectionPerformanceSummaryItem = collectionPerformanceSummaryItems.findBy('id', assessment.get('id'));
-    var itemDataArray = Ember.Object.create({
-      performanceData: collectionPerformanceSummaryItem,
-      assessment: assessment
-    });
+    var itemDataArray = Ember.A([
+      assessment.get('title'),
+      collectionPerformanceSummaryItem.get('score'),
+      collectionPerformanceSummaryItem.get('status'),
+      formatMilliseconds(collectionPerformanceSummaryItem.get('timeSpent'))
+    ]);
     dataArray.push(itemDataArray);
   });
+
 
   return {
     fields: dataHeaders,

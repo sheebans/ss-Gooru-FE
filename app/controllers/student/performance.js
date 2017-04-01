@@ -85,7 +85,7 @@ export default Ember.Controller.extend({
    * @property {Course[]}
    */
   courses: Ember.computed('applicationController.myClasses.classes.[]', 'courseId', function() {
-    const activeClasses = this.get("applicationController.myClasses").getStudentActiveClasses(this.get("profile.id"));
+    const activeClasses = this.get('applicationController.myClasses').getStudentActiveClasses(this.get('profile.id'));
     return activeClasses.filterBy('hasCourse').map(function(aClass){
       return {
         id: aClass.get('courseId'),
@@ -156,14 +156,13 @@ export default Ember.Controller.extend({
       const performanceSummaryItems = controller.get('collectionPerformanceSummaryItems');
       const collections = controller.get('collections');
       const date=formatDate(new Date(),'MM-DD-YY');
-      const classTitle = controller.get('class.title');
       const courseTitle = controller.get('course.title');
-      var fileNameString = `${classTitle}_${courseTitle}`;
+      var fileNameString = `${courseTitle}`;
 
       fileNameString = `${fileNameString}_${date}`;
 
       const fileName = createFileNameToDownload(fileNameString);
-      const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,this.get('metrics').filterBy('value'));
+      const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,this.get('metrics').mapBy('value'));
 
       download(fileName, fileData);
     }
