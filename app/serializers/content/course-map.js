@@ -1,10 +1,10 @@
 import Ember from 'ember';
-
 import LessonSerializer from 'gooru-web/serializers/content/lesson';
+
 /**
- * Serializer to support the Collection CRUD operations for API 3.0
+ * Serializer to support the Course Map operations
  *
- * @typedef {Object} CollectionSerializer
+ * @typedef {Object} CourseMapSerializer
  */
 export default Ember.Object.extend({
 
@@ -20,7 +20,7 @@ export default Ember.Object.extend({
 
   /**
    * Normalize a lesson info response
-   * @param lessonData - The endpoint response in JSON format
+   * @param data - The endpoint response in JSON format
    * @returns {Content/Lesson} lesson model
    */
   normalizeLessonInfo: function (data) {
