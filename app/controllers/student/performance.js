@@ -152,19 +152,9 @@ export default Ember.Controller.extend({
      * When clicking at the download button
      */
     download: function(){
-      const controller = this;
-      const performanceSummaryItems = controller.get('collectionPerformanceSummaryItems');
-      const collections = controller.get('collections');
-      const date=formatDate(new Date(),'MM-DD-YY');
-      const courseTitle = controller.get('course.title');
-      var fileNameString = `${courseTitle}`;
-
-      fileNameString = `${fileNameString}_${date}`;
-
-      const fileName = createFileNameToDownload(fileNameString);
-      const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,this.get('metrics').mapBy('value'));
-
-      download(fileName, fileData);
+      let reportData = this.prepareReportValues();
+      //let downloadCSV = this.downloadFile();
+      this.downloadFile(reportData[0], reportData[1]);
     }
   },
   // -------------------------------------------------------------------------
@@ -272,5 +262,29 @@ export default Ember.Controller.extend({
       collections: [],
       collectionPerformanceSummaryItems: []
     });
+  },
+  /**
+   * Prepare the report value in order to download as csv file
+   */
+  prepareReportValues: function(){
+    const controller = this;
+    const collectionType = controller.getContentTitle();
+    const performanceSummaryItems = controller.get('collectionPerformanceSummaryItems');
+    const collections = controller.get('collections');
+    const date=formatDate(new Date(),'MM-DD-YY');
+    const courseTitle = controller.get('course.title');
+    var fileNameString = `${courseTitle}`;
+
+    fileNameString = `${fileNameString}_${date}`;
+
+    const fileName = createFileNameToDownload(fileNameString);
+    const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,this.get('metrics').mapBy('value'),collectionType);
+    return [fileName,fileData];
+  },
+  /**
+   * Download file
+   */
+  downloadFile:function(name,data){
+   return download(name,data);
   }
 });

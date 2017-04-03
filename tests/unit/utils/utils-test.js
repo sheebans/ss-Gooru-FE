@@ -24,7 +24,8 @@ import {
   prepareFileDataToDownload,
   createFileNameToDownload,
   isVideoURL,
-  nullIfEmpty
+  nullIfEmpty,
+  prepareStudentFileDataToDownload
   } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -490,6 +491,42 @@ test('prepare csv file data to download filter by collection in the unit level',
   assert.equal(fileData.data[2][1], expectedPerformanceDataMatrix[2][1], 'Wrong data table field.');
   assert.equal(fileData.data[2][2], expectedPerformanceDataMatrix[2][2], 'Wrong data table field.');
   assert.equal(fileData.data[2][3], expectedPerformanceDataMatrix[2][3], 'Wrong data table field.');
+});
+
+test('prepareStudentFileDataToDownload', function (assert) {
+  var assessments =  Ember.A([Ember.Object.create({
+    format: 'assessment',
+    id: 'ec2a9b12-93b1-4daf-9c35-3ee86547aada',
+    title: 'Assessment Test'
+  })]);
+  var collectionPerformanceSummaryItems = Ember.A([Ember.Object.create({attempts: 1,
+    collectionId: 'ec2a9b12-93b1-4daf-9c35-3ee86547aada',
+    id: 'ec2a9b12-93b1-4daf-9c35-3ee86547aada',
+    score:0,
+    status:'complete',
+    timeSpent: 552927})
+  ]);
+  var headers = ['header1','header2','header3','header4'];
+  var contentTitle = 'Content title';
+
+  var expectedData = [
+    [
+      'Content title',
+      0,
+      '1 / 1 ',
+      '9m 12s'
+    ],
+    [
+      'Assessment Test',
+      0,
+      'complete',
+      '9m 12s'
+    ]
+  ];
+
+  const fileData = prepareStudentFileDataToDownload(assessments, collectionPerformanceSummaryItems,headers,contentTitle);
+  assert.deepEqual(fileData.fields, headers, 'Wrong header field.');
+  assert.deepEqual(fileData.data, expectedData, 'Wrong header data.');
 });
 
 test('Create File Name To Download', function (assert) {
