@@ -234,6 +234,7 @@ export default Ember.Controller.extend({
   prepareReportValues: function(){
     const controller = this;
     const collectionType = controller.getContentTitle();
+    const metrics = ['Assessment','Score','Completion','Time Spent'];
     const performanceSummaryItems = controller.get('collectionPerformanceSummaryItems');
     const collections = controller.get('collections');
     const date=formatDate(new Date(),'MM-DD-YY');
@@ -243,7 +244,7 @@ export default Ember.Controller.extend({
     fileNameString = `${fileNameString}_${date}`;
 
     const fileName = createFileNameToDownload(fileNameString);
-    const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,this.get('metrics').mapBy('value'),collectionType);
+    const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,metrics,collectionType);
     return [fileName,fileData];
   },
   /**
