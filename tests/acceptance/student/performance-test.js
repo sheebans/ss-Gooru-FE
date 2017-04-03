@@ -32,8 +32,8 @@ test('Layout', function(assert) {
     const $header = $performanceContent.find('.panel-header');
     T.exists(assert, $header, 'Missing performance header');
     T.exists(assert, $header.find('h1'), 'Missing title');
-    T.exists(assert, $header.find('button.download'), 'Missing download button');
     T.exists(assert, $header.find('p'), 'Missing primary text');
+    T.exists(assert, $header.find('button.download'), 'Missing download button');
 
     const $filters = $performanceContent.find('.filters');
     T.exists(assert, $filters, 'Missing filters');
@@ -41,5 +41,20 @@ test('Layout', function(assert) {
     T.exists(assert, $filters.find('.radios-container'), 'Missing radio buttons container');
     assert.equal($filters.find('.radios-container input[type=radio]').length, 2, 'Missing assessment/collection filter radio buttons');
     T.exists(assert, $performanceContent.find('.gru-performance-table'), 'Missing gru-performance-table component');
+  });
+});
+
+test('Take A Tour', function(assert){
+  assert.expect(2);
+  visit('/student/performance');
+  andThen(function() {
+    let $tooltip;
+    click(".app-container .gru-take-tour button.start-tour");
+    andThen(function() {
+      $tooltip = $("div.introjs-tooltip");
+
+      T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
+      assert.equal(T.text($tooltip.find('.tour-header h2')), 'Welcome!', 'First step title should be "Welcome!"');
+    });
   });
 });

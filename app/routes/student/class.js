@@ -14,7 +14,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @type {ClassService} Service to retrieve class information
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   /**
    * @type {CourseService} Service to retrieve course information
@@ -25,6 +25,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @type {UnitService} Service to retrieve unit information
    */
   unitService: Ember.inject.service('api-sdk/unit'),
+
+  /**
+   * @type {i18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -48,7 +53,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         };
 
         if (item === 'performance') {
-          route.transitionTo('student.class.analytics.performance', queryParams);
+          route.transitionTo('student.class.performance',queryParams);
         } else if (item === 'course-map') {
           route.transitionTo('student.class.course-map');
         } else if (item === 'classmates') {
@@ -71,6 +76,34 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model: function(params) {
     const route = this;
+
+    //Steps for Take a Tour functionality
+    let tourSteps = Ember.A([
+      {
+        title: route.get('i18n').t('gru-take-tour.student-class.stepOne.title'),
+        description: route.get('i18n').t('gru-take-tour.student-class.stepOne.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .class-activities',
+        title: route.get('i18n').t('gru-take-tour.student-class.stepTwo.title'),
+        description: route.get('i18n').t('gru-take-tour.student-class.stepTwo.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .course-map',
+        title: route.get('i18n').t('gru-take-tour.student-class.stepThree.title'),
+        description: route.get('i18n').t('gru-take-tour.student-class.stepThree.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .performance',
+        title: route.get('i18n').t('gru-take-tour.student-class.stepFour.title'),
+        description: route.get('i18n').t('gru-take-tour.student-class.stepFour.description')
+      },
+      {
+        title: route.get('i18n').t('gru-take-tour.student-class.stepFive.title'),
+        description: route.get('i18n').t('gru-take-tour.student-class.stepFive.description')
+      }
+    ]);
+
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
     const membersPromise = route.get('classService').readClassMembers(classId);
@@ -103,7 +136,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           course: course,
           members: members,
           units: course.get('children') || [],
-          contentVisibility: contentVisibility
+          contentVisibility: contentVisibility,
+          tourSteps: tourSteps
         });
       });
     });
@@ -115,9 +149,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("class", model.class);
-    controller.set("course", model.course);
-    controller.set("units", model.units);
-    controller.set("contentVisibility", model.contentVisibility);
+    controller.set('class', model.class);
+    controller.set('course', model.course);
+    controller.set('units', model.units);
+    controller.set('contentVisibility', model.contentVisibility);
+    controller.set('steps', model.tourSteps);
   }
 });
