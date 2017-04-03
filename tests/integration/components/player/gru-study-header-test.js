@@ -2,17 +2,68 @@ import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+import Class from 'gooru-web/models/content/class';
+
+const classServiceStub = Ember.Service.extend({
+
+  readClassInfo: function(classId) {
+    const aClassInfo = Class.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'class-1',
+      title: 'MPM-Data Analytics Class',
+      code: 'CZHAMO3'
+    });
+
+    return new Ember.RSVP.resolve(aClassInfo);
+  }
+});
+
+const performanceServiceStub = Ember.Service.extend({
+
+  findClassPerformanceSummaryByClassIds: function(classId) {
+    const aClassPerformance = Class.create({
+      id: 'class-1',
+      classId: 'class-1',
+      score: 80,
+      timeSpent: 3242209,
+      total: 10,
+      totalCompleted: 5
+    });
+
+    return new Ember.RSVP.resolve([aClassPerformance]);
+  }
+});
 
 moduleForComponent('player/gru-study-header', 'Integration | Component | player/gru study header', {
   integration: true,
   beforeEach: function () {
     this.container.lookup('service:i18n').set("locale","en");
+    this.register('service:api-sdk/class', classServiceStub);
+    this.inject.service('api-sdk/class');
+    this.register('service:api-sdk/performance', performanceServiceStub);
+    this.inject.service('api-sdk/performance');
   }
 });
 
 test('Layout', function(assert) {
 
-  this.render(hbs`{{player/gru-study-header}}`);
+  //var aClass = Ember.Object.create({
+  //  id: 'class-1',
+  //  title: 'MPM-Data Analytics Class'
+  //  performanceSummary: Ember.Object.create({
+  //    classId: 'class-1',
+  //    id: 'summary-01',
+  //    score: 80,
+  //    timeSpent: 3242209,
+  //    total: 10,
+  //    totalCompleted: 5
+  //  })
+  //});
+
+  const classId= 'class-1';
+
+  this.set('classId', classId);
+
+  this.render(hbs`{{player/gru-study-header classId=classId}}`);
 
   var $component = this.$(); //component dom element
   const $header = $component.find(".gru-study-header");
@@ -25,8 +76,12 @@ test('Layout', function(assert) {
 
   const $performanceInfo = $header.find(".performance-info");
   T.exists(assert, $performanceInfo, "Missing performance-info");
-  T.exists(assert, $performanceInfo.find(".graphic.performance .gru-bubble-chart"), "Missing performance chart");
+
+  const $scoreChart = $performanceInfo.find(".graphic.performance .gru-bubble-chart");
+  T.exists(assert, $scoreChart, "Missing score chart");
   T.exists(assert, $performanceInfo.find(".graphic.performance .legend"), "Missing performance chart legend");
+  assert.equal(T.text($scoreChart.find(".bubble-circle span")), '80%', 'Wrong score text');
+
   T.exists(assert, $performanceInfo.find(".bar-charts .completion-chart .gru-x-bar-chart"), "Missing completion chart");
   T.exists(assert, $performanceInfo.find(".bar-charts .completion-chart .legend"), "Missing completion chart");
 

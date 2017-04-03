@@ -12,16 +12,21 @@
   <div class="performance-info {{if toggleState 'visible' 'hidden'}}">
     <div class="graphic performance">
       {{charts.gru-bubble-chart
-      content= '20%'
-      color=(grade-color 20)
+        content= (if class.performanceSummary (concat class.performanceSummary.score '%') '--')
+        color= (if class.performanceSummary (grade-color class.performanceSummary.score) defaultBarColor)
       }}
       <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
     </div>
     <div class="bar-charts">
       <div class="completion-chart">
         {{charts/gru-x-bar-chart data=barChartData }}
-        <span class="legend"> 10/50 {{t 'common.completion'}}</span>
-      </div>
+        <span class="legend">
+        {{#if class.performanceSummary.totalCompleted}}
+           {{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}
+        {{/if}}
+        {{t 'common.completion'}}
+        </span>
+       </div>
     </div>
     <div class="resources">
       <div class="count-resources">
