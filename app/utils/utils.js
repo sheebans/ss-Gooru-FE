@@ -461,10 +461,11 @@ export function checkDomains(resourceUrl, cdnUrl) {
   return (resourceUrl.indexOf(cdnUrl) !== -1);
 }
 /**
- * prepares csv file data to download
+ * Prepares student csv file data to download
  * @param {string []} assessments the metrics table headers
  * @param {string []} collectionPerformanceSummaryItems the metrics table performance data
  * @param {string []} headers (assessments/collections)
+ *  @param {string} contentTitle
  */
 export function prepareStudentFileDataToDownload(assessments,collectionPerformanceSummaryItems, headers, contentTitle){
   var dataHeaders = headers;

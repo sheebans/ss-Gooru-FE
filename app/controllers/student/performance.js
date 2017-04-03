@@ -153,44 +153,9 @@ export default Ember.Controller.extend({
      */
     download: function(){
       let reportData = this.prepareReportValues();
-      //let downloadCSV = this.downloadFile();
       this.downloadFile(reportData[0], reportData[1]);
     }
   },
-  // -------------------------------------------------------------------------
-  // Properties
-  /**
-   * Default list of  metrics to be displayed by the component
-   * @sorted {Boolean}
-   * @isAsc {Boolean}
-   * @visible {Boolean}
-   * @constant {Array}
-   */
-  metrics: Ember.A([Ember.Object.create({
-    'value': 'assessment',
-    'sorted': false,
-    'isAsc': false,
-    'visible': true,
-    'index': -1
-  }),Ember.Object.create({
-    'value': 'score',
-    'sorted':false,
-    'isAsc':false,
-    'visible': false,
-    'index':0
-  }),Ember.Object.create({
-    'value': 'completion',
-    'sorted':false,
-    'isAsc':false,
-    'visible': false,
-    'index':1
-  }),Ember.Object.create({
-    'value': 'study-time',
-    'sorted':false,
-    'isAsc':false,
-    'visible': false,
-    'index':2
-  })]),
   // -------------------------------------------------------------------------
   // Methods
   /**
