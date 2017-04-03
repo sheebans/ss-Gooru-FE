@@ -7,6 +7,7 @@
     @include flex-direction(row);
   }
   .navigation{
+    @include flex-shrink(0);
     background-color: $dark-400;
     height: auto;
     max-height: 890px;
