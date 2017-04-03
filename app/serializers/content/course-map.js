@@ -1,23 +1,29 @@
 import Ember from 'ember';
 
-// import Lesson from 'gooru-web/models/content/lesson';
-// import LessonItem from 'gooru-web/models/content/lessonItem';
-// import { DEFAULT_IMAGES } from "gooru-web/config/config";
-import ConfigurationMixin from 'gooru-web/mixins/configuration';
-
+import LessonSerializer from 'gooru-web/serializers/content/lesson';
 /**
  * Serializer to support the Collection CRUD operations for API 3.0
  *
  * @typedef {Object} CollectionSerializer
  */
-export default Ember.Object.extend(ConfigurationMixin, {
+export default Ember.Object.extend({
+
+  /**
+   * @property {LessonSerializer} lessonSerializer
+   */
+  lessonSerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('lessonSerializer', LessonSerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Normalize a lesson info response
    * @param lessonData - The endpoint response in JSON format
    * @returns {Content/Lesson} lesson model
    */
-  normalizeLessonInfo: function (lessonData) {
-    return lessonData;
+  normalizeLessonInfo: function (data) {
+    return this.get('lessonSerializer').normalizeLesson(data.course_path);
   }
 });

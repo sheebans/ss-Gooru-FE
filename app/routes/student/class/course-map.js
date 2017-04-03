@@ -87,5 +87,4 @@ export default Ember.Route.extend({
     controller.set('classMembers', model.classMembers);
     controller.get('studentClassController').selectMenuItem('course-map');
   }
-
 });

@@ -15,7 +15,7 @@ export default Ember.Object.extend({
   /**
    * @type {String}} base url for course map API endpoints
    */
-  namespace: ' /api/nucleus/v2/course-map',
+  namespace: '/api/nucleus/v2/course-map',
 
   /**
    * Gets the lesson infor for course map
