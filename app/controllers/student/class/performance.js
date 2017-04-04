@@ -1,12 +1,10 @@
 import Ember from 'ember';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
-import {download} from 'gooru-web/utils/csv';
-import {prepareStudentFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
 
 /**
- * Student Performance Controller
+ * Student Class Performance Controller
  *
- * Controller responsible of the logic for the student performance
+ * Controller responsible of the logic for the teacher performance
  *
  * @module
  * @augments ember/Controller
@@ -57,11 +55,6 @@ export default Ember.Controller.extend({
   /**
    * @property {string}
    */
-  courseId: null,
-
-  /**
-   * @property {string}
-   */
   unitId: null,
 
   /**
@@ -81,20 +74,6 @@ export default Ember.Controller.extend({
   collections: [],
 
   /**
-   * Class courses
-   * @property {Course[]}
-   */
-  courses: Ember.computed('applicationController.myClasses.classes.[]', 'courseId', function() {
-    const activeClasses = this.get('applicationController.myClasses').getStudentActiveClasses(this.get('profile.id'));
-    return activeClasses.filterBy('hasCourse').map(function(aClass){
-      return {
-        id: aClass.get('courseId'),
-        title: aClass.get('courseTitle')
-      };
-    });
-  }),
-
-  /**
    * Last selected content title
    * @property {string}
    */
@@ -112,17 +91,6 @@ export default Ember.Controller.extend({
     selectContentType: function (collectionType) {
       this.set('collectionType', collectionType);
       this.loadData();
-    },
-
-    /**
-     * Selects the course
-     * @param courseId
-     */
-    selectCourse: function (courseId) {
-      this.set('courseId', courseId);
-      this.set('unitId', null);
-      this.set('lessonId', null);
-      this.loadCourse();
     },
 
     /**
@@ -147,15 +115,9 @@ export default Ember.Controller.extend({
      */
     updateReport: function () {
       this.loadData();
-    },
-    /**
-     * When clicking at the download button
-     */
-    download: function(){
-      let reportData = this.prepareReportValues();
-      this.downloadFile(reportData[0], reportData[1]);
     }
   },
+
   // -------------------------------------------------------------------------
   // Methods
   /**
@@ -163,17 +125,17 @@ export default Ember.Controller.extend({
    */
   loadData: function() {
     const controller = this;
-    const courseId = controller.get('courseId');
+    const courseId = controller.get('course.id');
     if (courseId) {
       const userId = controller.get('profile.id');
       const collectionType = controller.get('collectionType');
       const unitId = controller.get('unitId');
       const lessonId = controller.get('lessonId');
       const criteria = {
-        courseId: controller.get('courseId'),
-        unitId: unitId,
-        lessonId: lessonId,
-        collectionType: collectionType
+        courseId,
+        unitId,
+        lessonId,
+        collectionType
       };
       controller.set('filterCriteria', criteria);
       Ember.RSVP.hash({
@@ -183,7 +145,7 @@ export default Ember.Controller.extend({
         const course = hash.course;
         const items = hash.items;
         controller.setProperties({
-          course: course,
+          course,
           collectionPerformanceSummaryItems: items,
           collections: course.getCollectionsByType(collectionType, unitId, lessonId)
         });
@@ -227,30 +189,5 @@ export default Ember.Controller.extend({
       collections: [],
       collectionPerformanceSummaryItems: []
     });
-  },
-  /**
-   * Prepare the report value in order to download as csv file
-   */
-  prepareReportValues: function(){
-    const controller = this;
-    const collectionType = controller.getContentTitle();
-    const metrics = ['Assessment','Score','Completion','Time Spent'];
-    const performanceSummaryItems = controller.get('collectionPerformanceSummaryItems');
-    const collections = controller.get('collections');
-    const date=formatDate(new Date(),'MM-DD-YY');
-    const courseTitle = controller.get('course.title');
-    var fileNameString = `${courseTitle}`;
-
-    fileNameString = `${fileNameString}_${date}`;
-
-    const fileName = createFileNameToDownload(fileNameString);
-    const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,metrics,collectionType);
-    return [fileName,fileData];
-  },
-  /**
-   * Download file
-   */
-  downloadFile:function(name,data){
-   return download(name,data);
   }
 });

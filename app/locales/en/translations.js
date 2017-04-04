@@ -834,7 +834,8 @@ export default Object.assign(quizzesTranslations, {
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
         "today": "Today"
-      }
+      },
+      "my-report":"My Report"
     },
     "current-activity":"Current activity"
   },
@@ -1590,6 +1591,50 @@ export default Object.assign(quizzesTranslations, {
       "stepFourteen":{
         "title": "Finished!",
         "description": 'Now go ahead and click on a course you have enrolled in, join a classroom, or search for content that is of interest to you. '
+      }
+    },
+    "student-performance":{
+      "stepOne":{
+        "title": "Welcome!",
+        "description": "Welcome to your Performance Dashboard. You can view how you are performing in all classes and courses."
+      },
+      "stepTwo":{
+        "title": "Filter Tab",
+        "description": 'Click on the arrow to filter your performance by activity, time period, subject, and course. '
+      },
+      "stepThree":{
+        "title": "Update Report",
+        "description": "Once you have selected your filters, click on update report to display results."
+      },
+      "stepFour":{
+        "title": "Download/Print",
+        "description": 'Download your report.'
+      },
+      "stepFive":{
+        "title": "Finished!",
+        "description": 'Go ahead and analyze your performance!'
+      }
+    },
+    "student-class":{
+      "stepOne":{
+        "title": "Welcome!",
+        "description": "Welcome to your Course Page. Here you will find your daily activities, course map, and performance data. Let’s get started!"
+      },
+      "stepTwo":{
+        "title": "Daily Class Activities",
+        "description": 'Access a list of activities assigned by your teacher. Select the activities you want to study.'
+      },
+      "stepThree":{
+        "title": "Course Map",
+        "description": "Click on the units and lessons to complete the collections and assessments in the course."
+      },
+      "stepFour":{
+        "title": "My Report",
+        "description": 'Take a look at your overall class performance. '
+      },
+      "stepFive":{
+        "title": "Finished!",
+        "description": 'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
       }
     }
   },

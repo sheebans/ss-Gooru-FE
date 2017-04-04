@@ -63,7 +63,7 @@ test('Layout', function(assert) {
         height: 55px;
         padding: 0;
         width: 140px;
-        background-size: cover;
+        background-size: 140px 55px;
     }
 `;
   assert.equal($style.text(), expedtedStyle, "Wrong style body");
