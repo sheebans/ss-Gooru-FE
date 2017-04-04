@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 /**
  * Content map controller
  *
@@ -62,7 +62,7 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.alias('studentClassController.class'),
+  'class': Ember.computed.alias('studentClassController.class'),
 
   /**
    * A link to the content visibility from class controller
@@ -74,11 +74,11 @@ export default Ember.Controller.extend({
   openingLocation: Ember.computed('location', function() {
     if (this.get('isFirstLoad')) {
       this.set('isFirstLoad', false);
-      var location = this.get('location') ? this.get('location') : this.get('userLocation');
+      var location = this.get('location') || this.get('userLocation');
       this.set('location', location);
       return location;
     } else {
-      return this.get('location') ? this.get('location') : '';
+      return this.get('location') || '';
     }
   })
 
