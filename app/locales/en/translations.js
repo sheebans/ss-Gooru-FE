@@ -1585,7 +1585,7 @@ export default Object.assign(quizzesTranslations, {
         "description": 'See a summary of your performance in the courses you are enrolled in.'
       },
       "stepThirteen":{
-        "title": "User name",
+        "title": "User Name",
         "description": 'Access and update your user profile.'
       },
       "stepFourteen":{
