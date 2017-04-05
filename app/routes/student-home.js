@@ -94,7 +94,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
     return Ember.RSVP.hash({
       activeClasses: activeClasses,
-      tourSteps: tourSteps,
+      tourSteps: tourSteps
     });
   },
 
