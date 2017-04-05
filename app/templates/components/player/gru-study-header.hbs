@@ -6,7 +6,7 @@
       <div class="course-title ellipsis"> <i class="icon"></i>Marine Biology</div>
     {{/unless}}
     <div class="actions">
-      <button class="btn btn-default course-map">{{gru-icon name='map'}} {{t "common.course-map"}}</button>
+      <button class="btn btn-default course-map" {{action 'redirectCourseMap'}}>{{gru-icon name='map'}} {{t "common.course-map"}}</button>
     </div>
   </div>
   <div class="performance-info {{if toggleState 'visible' 'hidden'}}">
