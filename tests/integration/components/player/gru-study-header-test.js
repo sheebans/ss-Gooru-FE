@@ -4,6 +4,7 @@ import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Class from 'gooru-web/models/content/class';
+import Resource from 'gooru-web/models/content/resource';
 
 const classServiceStub = Ember.Service.extend({
 
@@ -34,6 +35,26 @@ const performanceServiceStub = Ember.Service.extend({
   }
 });
 
+const suggestServiceStub = Ember.Service.extend({
+
+  suggestResourcesForCollection: function() {
+    const suggestedResources = [
+      Resource.create({
+      id: 'resource-1',
+      title: 'resource1',
+      format: 'video'
+      }),
+      Resource.create({
+        id: 'resource-2',
+        title: 'resource2',
+        format: 'image'
+      })
+    ];
+
+    return new Ember.RSVP.resolve(suggestedResources);
+  }
+});
+
 moduleForComponent('player/gru-study-header', 'Integration | Component | player/gru study header', {
   integration: true,
   beforeEach: function () {
@@ -42,16 +63,24 @@ moduleForComponent('player/gru-study-header', 'Integration | Component | player/
     this.inject.service('api-sdk/class');
     this.register('service:api-sdk/performance', performanceServiceStub);
     this.inject.service('api-sdk/performance');
+    this.register('service:api-sdk/suggest', suggestServiceStub);
+    this.inject.service('api-sdk/suggest');
   }
 });
 
 test('Layout', function(assert) {
 
-  const classId= 'class-1';
+  this.set('session', {
+    userId: 'user-id'
+  });
 
-  this.set('classId', classId);
+  this.set('collection', {
+    id: 'collection-id'
+  });
 
-  this.render(hbs`{{player/gru-study-header classId=classId}}`);
+  this.set('classId', 'class-1');
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session}}`);
 
   var $component = this.$(); //component dom element
   const $header = $component.find('.gru-study-header');
@@ -78,7 +107,15 @@ test('Layout', function(assert) {
   T.exists(assert, $performanceInfo.find('.resources .count-resources button'), 'Missing button of resources');
   T.exists(assert, $performanceInfo.find('.resources .navigation'), 'Missing resources navigation');
 
-  T.exists(assert, $performanceInfo.find('.resources .collapse-expand'), 'Missing collapse-expand link');
+  T.exists(assert, $performanceInfo.find('.suggestions'), 'Missing suggestions section');
+  T.exists(assert, $performanceInfo.find('.suggestions .description'), 'Missing suggestions description');
+  T.exists(assert, $performanceInfo.find('.suggestions .suggested-resources'), 'Missing suggested resources');
+  assert.equal($performanceInfo.find('.suggestions .suggested-resources .btn-resource').length, 2, 'Wrong suggested resource buttons');
+  T.exists(assert, $performanceInfo.find('.suggestions .suggested-resources .btn-resource:eq(0) .video-icon'), 'Missing resource video icon');
+  T.exists(assert, $performanceInfo.find('.suggestions .suggested-resources .btn-resource:eq(0) .title'), 'Missing resource title');
+  assert.equal(T.text($performanceInfo.find('.suggestions .suggested-resources .btn-resource:eq(0) .title')), 'resource1', 'Wrong title text');
+
+  T.exists(assert, $performanceInfo.find('.suggestions .collapse-expand'), 'Missing collapse-expand link');
 });
 
 test('Collapse-expand performance information', function(assert) {
@@ -92,7 +129,7 @@ test('Collapse-expand performance information', function(assert) {
   const $header = $component.find('.gru-study-header');
   const $courseInfo = $header.find('.course-info');
   const $performanceInfo = $header.find('.performance-info');
-  const $performanceInfoButton = $performanceInfo.find('.resources a.collapse-expand');
+  const $performanceInfoButton = $performanceInfo.find('.suggestions a.collapse-expand');
 
   assert.ok($performanceInfo.hasClass('visible'), 'Performance Info container has visible class by default');
   assert.ok($performanceInfoButton, 'Missing expand-collapse button');
