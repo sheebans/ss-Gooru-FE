@@ -73,10 +73,13 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function (controller, model) {
-    let userLocation = model.userLocation ?
-    model.userLocation.get('unitId') + '+' +
-    model.userLocation.get('lessonId') + '+' +
-    model.userLocation.get('collectionId') : '';
+    let userLocation = '';
+    if(model.userLocation) {
+      let unitId = model.userLocation.get('unitId');
+      let lessonId = model.userLocation.get('lessonId');
+      let collectionId = model.userLocation.get('collectionId');
+      userLocation = `${unitId}+${lessonId}+${collectionId}`;
+    }
 
     controller.set('userLocation', userLocation);
     controller.set('units', model.units);
@@ -84,5 +87,4 @@ export default Ember.Route.extend({
     controller.set('classMembers', model.classMembers);
     controller.get('studentClassController').selectMenuItem('course-map');
   }
-
 });
