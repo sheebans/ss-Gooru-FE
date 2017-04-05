@@ -65,19 +65,31 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       route.controllerFor("application").get("myClasses"); //after login the variable is refreshed at the controller
     const myId = route.get("session.userId");
     const activeClasses = myClasses.getTeacherActiveClasses(myId);
-    const classIds = activeClasses.mapBy("id");
 
-    return route.get("performanceService").findClassPerformanceSummaryByClassIds(classIds)
-      .then(function(classPerformanceSummaryItems){
-        activeClasses.forEach(function (aClass) {
-          const classId = aClass.get("id");
-          aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
-        });
-        return {
-          classPerformanceSummaryItems: classPerformanceSummaryItems,
-          tourSteps: tourSteps
-        };
+    return Ember.RSVP.hash({
+      activeClasses: activeClasses,
+      tourSteps: tourSteps,
     });
+  },
+
+  afterModel(resolvedModel) {
+    let route = this;
+    let activeClasses = resolvedModel.activeClasses;
+    let classIds = activeClasses.mapBy("id");
+
+    route.get("performanceService").findClassPerformanceSummaryByClassIds(classIds)
+      .then(function (classPerformanceSummaryItems) {
+        activeClasses.forEach(function (activeClass) {
+          let classId = activeClass.get("id");
+          let courseId = activeClass.get('courseId');
+          if (courseId) {
+            route.get('courseService').fetchById(courseId).then((course) => {
+              activeClass.set('unitsCount', course.get('unitCount'));
+            });
+          }
+          activeClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
+        });
+      });
   },
 
   /**
@@ -87,16 +99,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
-    const activeClasses = controller.get('activeClasses');
-    let courseId;
-
-    activeClasses.forEach((aClass) => {
-      courseId = aClass.get('courseId');
-      if(courseId){
-        this.get('courseService').fetchById(courseId).then((course) => {
-          aClass.set('unitsCount', course.get('unitCount'));
-        });
-      }
-    });
   }
+
 });

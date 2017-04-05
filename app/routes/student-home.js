@@ -91,27 +91,36 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       route.controllerFor("application").get("myClasses"); //after login the variable is refreshed at the controller
     const myId = route.get("session.userId");
     const activeClasses = myClasses.getStudentActiveClasses(myId);
-    const classIds = activeClasses.mapBy("id");
 
     return Ember.RSVP.hash({
-      classPerformanceSummaryItems: route.get("performanceService").findClassPerformanceSummaryByStudentAndClassIds(myId, classIds),
+      activeClasses: activeClasses,
+      tourSteps: tourSteps,
+    });
+  },
+
+  afterModel(resolvedModel) {
+    let route = this;
+    let activeClasses = resolvedModel.activeClasses;
+    let classIds = activeClasses.mapBy("id");
+    let myId = route.get("session.userId");
+
+    Ember.RSVP.hash({
+      classPerformanceSummaryItems: route.get("performanceService")
+        .findClassPerformanceSummaryByStudentAndClassIds(myId, classIds),
       classesLocation: route.get("analyticsService").getUserCurrentLocationByClassIds(classIds, myId, true)
     }).then(function(hash){
-        const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
-        const classesLocation = hash.classesLocation;
-        const promises = activeClasses.map(function (aClass) {
-          const classId = aClass.get("id");
-          aClass.set("currentLocation", classesLocation.findBy("classId", classId));
-          aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
-        });
-        return Ember.RSVP.hash({
-          promises: promises,
-          steps: tourSteps
-        });
+      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+      const classesLocation = hash.classesLocation;
+      activeClasses.forEach(function (activeClass) {
+        const classId = activeClass.get("id");
+        activeClass.set("currentLocation", classesLocation.findBy("classId", classId));
+        activeClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
       });
+    });
   },
 
   setupController: function(controller, model) {
-    controller.set('steps', model.steps);
+    controller.set('steps', model.tourSteps);
   }
+
 });
