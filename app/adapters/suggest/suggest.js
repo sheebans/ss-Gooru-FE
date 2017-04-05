@@ -36,6 +36,7 @@ export default ApplicationAdapter.extend({
     return Ember.$.ajax(url, options);
   },
 
+  //TODO this has to be changed according to the documentation -is not using now-
   /**
    * Gets resource suggestion for an specific resource in a context
    * @param {String} resourceId
@@ -72,7 +73,7 @@ export default ApplicationAdapter.extend({
    * @param {number} limit
    * @returns {*}
      */
-  suggestResourcesForCollection: function(context, limit = 10) {
+  suggestResourcesForCollection: function(context, limit = 3) {
     const adapter = this;
     const namespace = this.get('namespaceV3');
     const url = `${namespace}/resource?limit=${limit}`;
@@ -84,12 +85,13 @@ export default ApplicationAdapter.extend({
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
         "context":{
-          "contextType": "collection-study",
-          "containerId": context.get('containerId'),
-          "userId": context.get("userId"),
-          "courseId": context.get("courseId") ? context.get("courseId") : undefined,
-          "unitId": context.get("unitId") ? context.get("unitId") : undefined,
-          "lessonId": context.get("lessonId") ? context.get("lessonId") : undefined
+          "context_type": "collection-study",
+          "context_area":"study-player",
+          "collection_id": context.get("collectionId"),
+          "user_id": context.get("userId"),
+          "course_id": context.get("courseId") ? context.get("courseId") : undefined,
+          "unit_id": context.get("unitId") ? context.get("unitId") : undefined,
+          "lesson_id": context.get("lessonId") ? context.get("lessonId") : undefined
         },
         "metrics":{
           "score": context.get("score") >= 0 ? context.get("score") : undefined,

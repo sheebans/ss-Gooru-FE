@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | study-player', {
 });
 
 test('Layout - default to collection since parameter is not sent', function (assert) {
-  visit('/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/first-assessment-id');
+  visit('/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/all-resource-types-collection-id');
 
   andThen(function () {
-    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/first-assessment-id?resourceId=image-resource-id');
+    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/all-resource-types-collection-id?resourceId=image-resource-id');
 
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');

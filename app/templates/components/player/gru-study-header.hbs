@@ -40,6 +40,17 @@
           <span class="title ellipsis">Cartilaginous fishes like sharks, mantas...</span>
         </span>
       </div>
+    </div>
+    <div class="suggestions">
+      <div class="description">{{t 'gru-study-header.suggestions-legend'}}</div>
+      <div class="suggested-resources">
+      {{#each suggestedResources as |resource|}}
+        <button class="btn-resource">
+          <i class="{{resource.format}}-icon"></i>
+          <span class="title ellipsis">{{resource.title}}</span>
+        </button>
+      {{/each}}
+      </div>
       <a {{action 'toggleHeader'}} class="collapse-expand {{if toggleState 'visible' 'hidden'}}">
         {{gru-icon name='expand_less'}}
         {{gru-icon name='expand_less'}}

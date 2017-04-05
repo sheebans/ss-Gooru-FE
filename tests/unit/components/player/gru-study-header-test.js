@@ -22,9 +22,27 @@ test('barChartData', function(assert) {
       totalCompleted: 5
     })
   ];
+  let suggestedResources = [
+    Ember.Object.create({
+      id: 'resource-1',
+      title: 'resource1',
+      format: 'video'
+    }),
+    Ember.Object.create({
+      id: 'resource-2',
+      title: 'resource2',
+      format: 'image'
+    })
+  ];
   Ember.run(() =>
     component = this.subject({
       classId: 'class-1',
+      session: {
+        userId: 'user-id'
+      },
+      collection: {
+        id: 'collection-id'
+      },
       classService: {
         readClassInfo: (classId) => {
           assert.equal(classId, 'class-1', 'Class id should match');
@@ -35,6 +53,13 @@ test('barChartData', function(assert) {
         findClassPerformanceSummaryByClassIds: (classId)=> {
           assert.equal(classId[0], 'class-1', 'Class id should match');
           return Ember.RSVP.resolve(classPerformanceSummary);
+        }
+      },
+      suggestService: {
+        suggestResourcesForCollection: (userId, collectionId)=> {
+          assert.equal(userId, 'user-id', 'User id should match');
+          assert.equal(collectionId, 'collection-id', 'Collection id should match');
+          return Ember.RSVP.resolve(suggestedResources);
         }
       }
     })

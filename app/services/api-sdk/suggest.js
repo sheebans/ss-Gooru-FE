@@ -38,7 +38,7 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function (resolve, reject) {
       const context = SuggestContext.create({
-        containerId: collectionId,
+        collectionId: collectionId,
         userId: userId,
         courseId: courseId,
         unitId: unitId,
@@ -64,7 +64,7 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function (resolve, reject) {
       const context = SuggestContext.create({
-        containerId: collectionId,
+        collectionId: collectionId,
         userId: userId,
         score: score,
         timeSpent: timeSpent
