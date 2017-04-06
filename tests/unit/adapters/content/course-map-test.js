@@ -39,7 +39,7 @@ test('createNewPath', function (assert) {
       assert.equal(requestBodyJson['target_unit_id'], 'unit-id', 'Wrong target_unit_id');
       assert.equal(requestBodyJson['target_lesson_id'], 'lesson-id', 'Wrong target_lesson_id');
       assert.equal(requestBodyJson['target_collection_id'], undefined, 'Wrong target_collection_id');
-      return [201, {'Content-Type': 'text/plain', 'Location': expectedResponse}, undefined]
+      return [201, {'Content-Type': 'text/plain', 'Location': expectedResponse}, undefined];
     }, false);
   });
   let done = assert.async();
