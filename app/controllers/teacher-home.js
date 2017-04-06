@@ -1,11 +1,17 @@
 import Ember from 'ember';
 import Env from 'gooru-web/config/environment';
+import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
   applicationController: Ember.inject.controller('application'),
+
+  /**
+   * @property {Service} Session service
+   */
+  session: Ember.inject.service("session"),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -14,6 +20,18 @@ export default Ember.Controller.extend({
     showClasses: function (type) {
       this.set("showActiveClasses", type === "active");
       this.set("showArchivedClasses", type === "archived");
+    }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+  init: function () {
+    let localStorage = this.get('applicationController').getLocalStorage();
+    const userId = this.get("session.userId");
+    const localStorageItem = userId+'_dontShowWelcomeModal';
+
+    if(localStorage.getItem(localStorageItem) === null){
+      this.send('showModal', 'content.modals.gru-welcome-message');
     }
   },
 

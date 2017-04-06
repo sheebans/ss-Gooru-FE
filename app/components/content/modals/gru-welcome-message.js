@@ -28,8 +28,8 @@ export default Ember.Component.extend({
       if($checkboxShowAgain.prop("checked")){
         let localStorage = this.getLocalStorage();
         const userId = this.get("session.userId");
-        const showWelcomeMessage = userId+'_showWelcomeMessage';
-        localStorage.setItem(showWelcomeMessage, true);
+        const localStorageItem = userId+'_dontShowWelcomeModal';
+        localStorage.setItem(localStorageItem, true);
       }
     }
   },

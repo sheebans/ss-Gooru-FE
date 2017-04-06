@@ -16,15 +16,17 @@ export default Ember.Controller.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
-    copy: function () {  //Tengo q hacer esto pero cuando carga la pag...
-      let localStorage = this.get('applicationController').getLocalStorage();
-      const userId = this.get("session.userId");
-      const showWelcomeMessage = userId+'_showWelcomeMessage';
 
-      if(!localStorage.getItem(showWelcomeMessage)){
-        this.send('showModal', 'content.modals.gru-welcome-message');
-      }
+
+  // -------------------------------------------------------------------------
+  // Events
+  init: function () {
+    let localStorage = this.get('applicationController').getLocalStorage();
+    const userId = this.get("session.userId");
+    const localStorageItem = userId+'_dontShowWelcomeModal';
+
+    if(localStorage.getItem(localStorageItem) === null){
+      this.send('showModal', 'content.modals.gru-welcome-message');
     }
   },
 
