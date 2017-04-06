@@ -86,27 +86,53 @@ test('redirectCourseMap', function(assert) {
       totalCompleted: 5
     })
   ];
+  let suggestedResources = [
+    Ember.Object.create({
+      id: 'resource-1',
+      title: 'resource1',
+      format: 'video'
+    }),
+    Ember.Object.create({
+      id: 'resource-2',
+      title: 'resource2',
+      format: 'image'
+    })
+  ];
   Ember.run(() =>
       component = this.subject({
-        classId: classID,
-        classService: {
-          readClassInfo: (classId) => {
-            assert.equal(classId, 'class-id', 'Class id should match');
-            return Ember.RSVP.resolve(aClass);
+          classId: classID,
+          session: {
+            userId: 'user-id'
+          },
+          collection: {
+            id: 'collection-id'
+          },
+          classService: {
+            readClassInfo: (classId) => {
+              assert.equal(classId, 'class-id', 'Class id should match');
+              return Ember.RSVP.resolve(aClass);
+            }
+          },
+          performanceService: {
+            findClassPerformanceSummaryByClassIds: (classId)=> {
+              assert.equal(classId[0], 'class-id', 'Class id should match');
+              return Ember.RSVP.resolve(classPerformanceSummary);
           }
         },
-        performanceService: {
-          findClassPerformanceSummaryByClassIds: (classId)=> {
-            assert.equal(classId[0], 'class-id', 'Class id should match');
-            return Ember.RSVP.resolve(classPerformanceSummary);
+          router:{
+            transitionTo(route, classId) {
+              assert.equal(classId,classID,'Incorrect Class ID');
+              assert.equal(route,'student.class.course-map','Incorrect Class ID');
+            }
+          },
+          suggestService: {
+            suggestResourcesForCollection: (userId, collectionId)=> {
+              assert.equal(userId, 'user-id', 'User id should match');
+              assert.equal(collectionId, 'collection-id', 'Collection id should match');
+              return Ember.RSVP.resolve(suggestedResources);
+            }
           }
-        },
-        router:{
-          transitionTo(route, classId) {
-            assert.equal(classId,classID,'Incorrect Class ID');
-            assert.equal(route,'student.class.course-map','Incorrect Class ID');
-          }
-        }}
+        }
       )
   );
   component.send('redirectCourseMap');
