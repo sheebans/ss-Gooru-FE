@@ -37,3 +37,37 @@ test('getLessonInfo', function(assert) {
       done();
     });
 });
+
+test('createNewPath', function(assert) {
+  let service = this.subject();
+  let expectedContext = Ember.Object.create({
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    lessonId: 'lesson-id',
+    collectionId: 'collection-id'
+  });
+  let expectedTarget = Ember.Object.create({
+    contentType: 'collection',
+    contentSubType: 'pre-test',
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    lessonId: 'lesson-id'
+  });
+  let expectedPathId = 1;
+
+  service.set('courseMapAdapter', Ember.Object.create({
+    createNewPath: function(context, target, pathId) {
+      assert.deepEqual(context, expectedContext, 'Invalid context data');
+      assert.deepEqual(target, expectedTarget, 'Invalid target data');
+      assert.equal(pathId, undefined, 'Wrong pathId');
+      return Ember.RSVP.resolve(expectedPathId);
+    }
+  }));
+
+  var done = assert.async();
+  service.createNewPath(expectedContext, expectedTarget, undefined)
+    .then(response => {
+      assert.equal(response, expectedPathId, 'Invalid response value');
+      done();
+    });
+});
