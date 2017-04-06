@@ -9,8 +9,7 @@ var applicationController = Ember.Object.create ({
     ],
     getStudentActiveClasses: function() {
       return this.classes;
-    },
-
+    }
   },
   getLocalStorage: () => (
     {getItem: () => null}

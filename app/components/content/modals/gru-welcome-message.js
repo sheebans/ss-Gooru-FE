@@ -31,7 +31,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
         localStorage.setItem(localStorageItem, true);
       }
     }
-  },
+  }
 
   // -------------------------------------------------------------------------
   // Methods
