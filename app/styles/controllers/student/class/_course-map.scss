@@ -11,6 +11,12 @@
         font-size: $font-size-h5;
         width: 18px;
       }
+      &.locate {
+        i {
+          font-size: $font-size-lead;
+          width: 24px;
+        }
+      }
     }
   }
   .gru-accordion {

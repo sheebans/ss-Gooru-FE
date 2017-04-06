@@ -59,7 +59,7 @@ export default Ember.Object.extend({
     };
 
     if (!update) {
-      data.content_visibility = classModel.get('contentVisibility') || ClassModel.VISIBLE_COLLECTIONS;
+      data.content_visibility = classModel.get('contentVisibility') || ClassModel.VISIBLE_ALL;
     }
 
     return data;
