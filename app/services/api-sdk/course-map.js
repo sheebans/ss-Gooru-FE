@@ -53,11 +53,7 @@ export default Ember.Service.extend({
    * @returns {Ember.RSVP.Promise}
    */
   createNewPath: function (context, target, pathId) {
-    let service = this;
-    return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('courseMapAdapter').createNewPath(context, target, pathId)
-        .then(response => resolve(response), reject);
-    });
+    return this.get('courseMapAdapter').createNewPath(context, target, pathId);
   }
 
 });

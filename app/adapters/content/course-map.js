@@ -46,7 +46,7 @@ export default ApplicationAdapter.extend({
    * @param {Integer} pathId - an optional parameter with a Path Id.
    * @returns {Ember.RSVP.Promise}
    */
-  createNewPath: function (context, target, pathId) {
+  createNewPath: function (context, target, pathId = undefined) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/paths`;
@@ -57,27 +57,25 @@ export default ApplicationAdapter.extend({
       processData: false,
       headers: adapter.get('headers'),
       data: JSON.stringify({
-        'ctx_course_id': context.get('courseId') ? context.get('courseId') : undefined,
-        'ctx_class_id': context.get('classId') ? context.get('classId') : undefined,
-        'ctx_unit_id': context.get('unitId') ? context.get('unitId') : undefined,
-        'ctx_lesson_id': context.get('lessonId') ? context.get('lessonId') : undefined,
-        'ctx_collection_id': context.get('collectionId') ? context.get('collectionId') : undefined,
-        'path_id': pathId ? pathId : undefined,
-        'target_content_type': target.get('contentType') ? target.get('contentType') : undefined,
-        'target_content_subtype': target.get('contentSubType') ? target.get('contentSubType') : undefined,
-        'target_course_id': target.get('courseId') ? target.get('courseId') : undefined,
-        'target_unit_id': target.get('unitId') ? target.get('unitId') : undefined,
-        'target_lesson_id': target.get('lessonId') ? target.get('lessonId') : undefined,
-        'target_collection_id': target.get('collectionId') ? target.get('collectionId') : undefined
+        'ctx_course_id': context.get('courseId'),
+        'ctx_class_id': context.get('classId'),
+        'ctx_unit_id': context.get('unitId'),
+        'ctx_lesson_id': context.get('lessonId'),
+        'ctx_collection_id': context.get('collectionId'),
+        'path_id': pathId,
+        'target_content_type': target.get('contentType'),
+        'target_content_subtype': target.get('contentSubType'),
+        'target_course_id': target.get('courseId'),
+        'target_unit_id': target.get('unitId'),
+        'target_lesson_id': target.get('lessonId'),
+        'target_collection_id': target.get('collectionId')
       })
     };
     return new Ember.RSVP.Promise(function (resolve, reject) {
       Ember.$.ajax(url, options)
         .then(function (responseData, textStatus, request) {
           resolve(request.getResponseHeader('location'));
-        }, function (error) {
-          reject(error);
-        });
+        }, reject);
     });
   }
 
