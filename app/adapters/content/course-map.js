@@ -32,7 +32,7 @@ export default ApplicationAdapter.extend({
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      headers: adapter.headers
+      headers: adapter.get('headers')
     };
     return Ember.$.ajax(url, options);
   },
@@ -55,7 +55,7 @@ export default ApplicationAdapter.extend({
       contentType: 'application/json; charset=utf-8',
       dataType: 'text',
       processData: false,
-      headers: adapter.headers,
+      headers: adapter.get('headers'),
       data: JSON.stringify({
         'ctx_course_id': context.get('courseId') ? context.get('courseId') : undefined,
         'ctx_class_id': context.get('classId') ? context.get('classId') : undefined,
