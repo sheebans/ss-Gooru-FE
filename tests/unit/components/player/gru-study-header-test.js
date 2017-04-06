@@ -67,3 +67,48 @@ test('barChartData', function(assert) {
 
   assert.equal(component.get('barChartData.firstObject.percentage'), 50 , 'Incorrect performance percentage');
 });
+
+test('redirectCourseMap', function(assert) {
+  let component ;
+  let classID='class-id';
+  let aClass =
+    Ember.Object.create({
+      id: 'class-1',
+      title: 'MPM-Data Analytics Class'
+    });
+  let classPerformanceSummary = [
+    Ember.Object.create({
+      id: 'class-1',
+      classId: 'class-1',
+      score: 80,
+      timeSpent: 3242209,
+      total: 10,
+      totalCompleted: 5
+    })
+  ];
+  Ember.run(() =>
+      component = this.subject({
+        classId: classID,
+        classService: {
+          readClassInfo: (classId) => {
+            assert.equal(classId, 'class-id', 'Class id should match');
+            return Ember.RSVP.resolve(aClass);
+          }
+        },
+        performanceService: {
+          findClassPerformanceSummaryByClassIds: (classId)=> {
+            assert.equal(classId[0], 'class-id', 'Class id should match');
+            return Ember.RSVP.resolve(classPerformanceSummary);
+          }
+        },
+        router:{
+          transitionTo(route, classId) {
+            assert.equal(classId,classID,'Incorrect Class ID');
+            assert.equal(route,'student.class.course-map','Incorrect Class ID');
+          }
+        }}
+      )
+  );
+  component.send('redirectCourseMap');
+});
+

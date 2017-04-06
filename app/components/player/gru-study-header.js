@@ -46,13 +46,19 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+    /**
+     * Redirect to course map
+     */
+    redirectCourseMap(){
+      this.get('router').transitionTo('student.class.course-map', this.get('classId'), { queryParams: { refresh: true } });
+    },
 
     /**
      * Action triggered when the performance information panel is expanded/collapsed
      */
     toggleHeader() {
       this.toggleProperty('toggleState');
-      this.sendAction("onToggleHeader", this.get('toggleState'));
+      this.sendAction('onToggleHeader', this.get('toggleState'));
     }
   },
 
