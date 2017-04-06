@@ -1,4 +1,4 @@
-<div class="panel-heading {{if (eq activeElement model.id) 'study-active'}}" role="tab" id="{{elementId}}-heading">
+<div class="panel-heading  {{if isLessonSelected 'study-active'}}" role="tab" id="{{elementId}}-heading">
   <div class="panel-title">
     <a class="title collapsed"
        role="button"
@@ -6,7 +6,7 @@
        href="#{{elementId}}-content"
        aria-expanded="false"
        aria-controls="{{elementId}}-content"
-      {{action "selectLesson" model.id}}>
+      {{action "selectLesson" model}}>
         <span class="lesson-prefix">{{course-sections-prefix  index=index type='lesson' longName=true}}</span>{{model.title}}
     </a>
   </div>

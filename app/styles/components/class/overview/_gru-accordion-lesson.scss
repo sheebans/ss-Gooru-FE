@@ -9,7 +9,8 @@
     border-radius: 5px;
   }
 
-  > .panel-heading {
+  > .panel-heading
+  {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
     border-radius: 5px;
     min-height: 40px;
@@ -111,7 +112,6 @@
       }
     }
   }
-
   .panel-collapse.collapse.in {
     .collections {
       > .panel {
@@ -216,7 +216,7 @@
           }
         }
 
-        &.selected {
+        &.selected, &.study-active{
           .panel-heading {
             background-color: $blue-400;
             color: $white;

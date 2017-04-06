@@ -74,7 +74,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   classNames:['gru-accordion-lesson', 'panel', 'panel-default'],
 
-  classNameBindings:['isExpanded:expanded','studyPlayerActive:study-player-active'],
+  classNameBindings:['isExpanded:expanded'],
 
   tagName: 'li',
 
@@ -96,7 +96,6 @@ export default Ember.Component.extend(AccordionMixin, {
       } else if(!this.get('isExpanded')) {
         this.loadData();
       }
-      this.activeStudyPlayer(lessonId);
     },
 
     /**
@@ -108,7 +107,7 @@ export default Ember.Component.extend(AccordionMixin, {
         let lessonId = this.get('model.id');
         this.get('onSelectResource')(lessonId, collection);
       } else {
-        this.activeStudyPlayer(collection.id);
+        this.activeStudyPlayer(collection);
       }
     },
 
@@ -163,7 +162,7 @@ export default Ember.Component.extend(AccordionMixin, {
       e.stopPropagation();
       component.set('isExpanded', true);
     });
-
+    this.set('activeElement',this.get('currentResource'));
     Ember.run.scheduleOnce('afterRender', this, this.parsedLocationChanged);
   }),
 
@@ -217,6 +216,13 @@ export default Ember.Component.extend(AccordionMixin, {
   isStudent: Ember.computed.not('isTeacher'),
 
   /**
+   * @prop {Boolean} Indicate if the lesson is selected
+   */
+  isLessonSelected:Ember.computed('isExpanded','activeElement','isStudent',function(){
+    return this.get('isStudent') && this.get('isExpanded') && this.get('activeElement') === '';
+  }),
+
+  /**
    * Indicates the status of the spinner
    * @property {Boolean}
    */
@@ -265,19 +271,6 @@ export default Ember.Component.extend(AccordionMixin, {
    * (expanded/collapsed).
    */
   parsedLocationChanged: Ember.observer('parsedLocation.[]', function () {
-    const parsedLocation = this.get('parsedLocation');
-    if (parsedLocation) {
-      isUpdatingLocation = true;
-      let lessonId = parsedLocation[1];
-      this.updateAccordionById(lessonId);
-      isUpdatingLocation = false;
-    }
-  }),
-  /**
-   * Observe changes to 'isExpanded' to update the study player status
-   * (expanded/collapsed).
-   */
-  activeElementChanged: Ember.observer('isExpanded', function () {
     const parsedLocation = this.get('parsedLocation');
     if (parsedLocation) {
       isUpdatingLocation = true;
@@ -416,9 +409,14 @@ export default Ember.Component.extend(AccordionMixin, {
         });
     });
   },
-  activeStudyPlayer: function(id){
+  activeStudyPlayer: function(item){
     if(this.get('isStudent')){
-      this.get('activeElement') === id ? this.set('activeElement','') : this.set('activeElement',id);
+      if(this.get('activeElement') === item.id){
+        this.set('activeElement','');
+      }else {
+        this.set('activeElement',item.id);
+      }
+      this.set('currentResource','');
     }
   },
   setVisibility: function(collection){
