@@ -1,4 +1,4 @@
-<div class="panel-heading" role="tab" id="{{elementId}}-heading">
+<div class="panel-heading {{if (eq activeElement model.id) 'study-active'}}" role="tab" id="{{elementId}}-heading">
   <div class="panel-title">
     <a class="title collapsed"
        role="button"
@@ -54,7 +54,8 @@
           {{if item.isSubmitted 'submitted'}}
           {{set-if-equal 'selected' item.id currentResource}}
           {{if item.visible 'item-enabled' 'item-disabled'}}
-          {{if item.isOnAir 'on-air'}}">
+          {{if item.isOnAir 'on-air'}}
+          {{if (eq activeElement item.id) 'study-active'}}">
 
           {{#if isTeacher}}
             {{#if item.isAssessment}}

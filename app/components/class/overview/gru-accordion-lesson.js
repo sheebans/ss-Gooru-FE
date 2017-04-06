@@ -74,7 +74,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   classNames:['gru-accordion-lesson', 'panel', 'panel-default'],
 
-  classNameBindings:['isExpanded:expanded'],
+  classNameBindings:['isExpanded:expanded','studyPlayerActive:study-player-active'],
 
   tagName: 'li',
 
@@ -96,6 +96,7 @@ export default Ember.Component.extend(AccordionMixin, {
       } else if(!this.get('isExpanded')) {
         this.loadData();
       }
+      this.activeStudyPlayer(lessonId);
     },
 
     /**
@@ -103,8 +104,12 @@ export default Ember.Component.extend(AccordionMixin, {
      * @param {string} collection - (collection/assessment)
      */
     selectResource: function (collection) {
-      let lessonId = this.get('model.id');
-      this.get('onSelectResource')(lessonId, collection);
+      if(this.get('isTeacher')){
+        let lessonId = this.get('model.id');
+        this.get('onSelectResource')(lessonId, collection);
+      } else {
+        this.activeStudyPlayer(collection.id);
+      }
     },
 
     setOnAir: function (collectionId) {
@@ -205,6 +210,11 @@ export default Ember.Component.extend(AccordionMixin, {
    * Will resolve to {Location[]}
    */
   usersLocation: Ember.A([]),
+  /**
+   * @prop {Boolean} isStudent
+   *
+   */
+  isStudent: Ember.computed.not('isTeacher'),
 
   /**
    * Indicates the status of the spinner
@@ -255,6 +265,19 @@ export default Ember.Component.extend(AccordionMixin, {
    * (expanded/collapsed).
    */
   parsedLocationChanged: Ember.observer('parsedLocation.[]', function () {
+    const parsedLocation = this.get('parsedLocation');
+    if (parsedLocation) {
+      isUpdatingLocation = true;
+      let lessonId = parsedLocation[1];
+      this.updateAccordionById(lessonId);
+      isUpdatingLocation = false;
+    }
+  }),
+  /**
+   * Observe changes to 'isExpanded' to update the study player status
+   * (expanded/collapsed).
+   */
+  activeElementChanged: Ember.observer('isExpanded', function () {
     const parsedLocation = this.get('parsedLocation');
     if (parsedLocation) {
       isUpdatingLocation = true;
@@ -393,7 +416,11 @@ export default Ember.Component.extend(AccordionMixin, {
         });
     });
   },
-
+  activeStudyPlayer: function(id){
+    if(this.get('isStudent')){
+      this.get('activeElement') === id ? this.set('activeElement','') : this.set('activeElement',id);
+    }
+  },
   setVisibility: function(collection){
     const isAssessment = collection.get('isAssessment');
     const visible = isAssessment ? this.get('contentVisibility').isVisible(collection.id) : true;
