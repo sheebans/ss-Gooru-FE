@@ -132,14 +132,5 @@ export default Ember.Controller.extend(ConfigurationMixin, {
       controller.set('tenant', tenant);
       return tenant;
     });
-  },
-
-  /**
-   * Returns the local storage
-   * @returns {Storage}
-   */
-  getLocalStorage: function(){
-    return window.localStorage;
   }
-
 });

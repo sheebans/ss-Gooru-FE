@@ -38,6 +38,8 @@ test('Layout', function(assert) {
     click("#archived-classes");
     andThen(function() {
       assert.equal($tabContent.find('#archived-classes .gru-class-card').length, 0 ,"Wrong number of archived class cards");
+      //This should be here to close the WelcomeModal after this test on the browser where the results can be seen
+      click(".gru-welcome-message .modal-body .actions .cancel");
     });
   });
 });
@@ -53,6 +55,8 @@ test('Take A Tour', function(assert){
 
       T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
       assert.equal(T.text($tooltip.find('.tour-header h2')), 'Your Homepage', 'First step title should be "Your Homepage"');
+      //This should be here to close the WelcomeModal after this test on the browser where the results can be seen
+      click(".gru-welcome-message .modal-body .actions .cancel");
     });
   });
 });
@@ -66,6 +70,8 @@ test('Go to class with no content', function(assert) {
     click($announcement);
     andThen(function() {
       assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher-no-course/quick-start', 'Wrong route');
+      //This should be here to close the WelcomeModal after this test on the browser where the results can be seen
+      click(".gru-welcome-message .modal-body .actions .cancel");
     });
   });
 });
@@ -79,6 +85,8 @@ test('Go to class with content', function(assert) {
     click($announcement);
     andThen(function() {
       assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-activities', 'Wrong route');
+      //This should be here to close the WelcomeModal after this test on the browser where the results can be seen
+      click(".gru-welcome-message .modal-body .actions .cancel");
     });
   });
 });

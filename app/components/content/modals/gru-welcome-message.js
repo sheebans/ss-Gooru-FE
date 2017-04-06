@@ -1,24 +1,23 @@
 import Ember from 'ember';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
   /**
-   * @property {Service} Session service
+   * @dependency {Service} Session service
    */
   session: Ember.inject.service("session"),
 
 
   // -------------------------------------------------------------------------
   // Attributes
-
   classNames: ['content', 'modals', 'gru-welcome-message'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions:{
-
     /**
      * Check if 'Dont show again' checkbox is selected and create variable on localStorage
      */
@@ -36,13 +35,5 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
-  /**
-   * Returns the local storage
-   * @returns {Storage}
-   */
-  getLocalStorage: function(){
-    return window.localStorage;
-  }
 
 });
