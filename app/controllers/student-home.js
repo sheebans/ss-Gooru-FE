@@ -12,7 +12,7 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @property {Service} Session service
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -22,7 +22,7 @@ export default Ember.Controller.extend(ModalMixin, {
   // Events
   init: function () {
     let localStorage = this.get('applicationController').getLocalStorage();
-    const userId = this.get("session.userId");
+    const userId = this.get('session.userId');
     const localStorageItem = userId+'_dontShowWelcomeModal';
 
     if(localStorage.getItem(localStorageItem) === null){
@@ -42,14 +42,14 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Class[]}
    */
   activeClasses: Ember.computed('applicationController.myClasses.classes.[]', function(){
-    return this.get("applicationController.myClasses").getStudentActiveClasses(this.get("profile.id"));
+    return this.get('applicationController.myClasses').getStudentActiveClasses(this.get('profile.id'));
   }),
 
   /**
    * @property {Array[]}
    */
   activeClassesChunks: Ember.computed('activeClasses', function(){
-    return arrayChunks(this.get("activeClasses"), 2);
+    return arrayChunks(this.get('activeClasses'), 2);
   }),
 
   /**

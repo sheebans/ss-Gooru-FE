@@ -8,8 +8,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @dependency {Service} Session service
    */
-  session: Ember.inject.service("session"),
-
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -24,9 +23,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
     close: function () {
       const $checkboxShowAgain = $('#dontShowAgain');
 
-      if($checkboxShowAgain.prop("checked")){
+      if($checkboxShowAgain.prop('checked')){
         let localStorage = this.getLocalStorage();
-        const userId = this.get("session.userId");
+        const userId = this.get('session.userId');
         const localStorageItem = userId+'_dontShowWelcomeModal';
         localStorage.setItem(localStorageItem, true);
       }

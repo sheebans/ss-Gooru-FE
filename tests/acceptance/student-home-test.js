@@ -44,8 +44,6 @@ test('Layout', function(assert) {
 
     const $tabContent = $leftUserContainer.find('.tab-content');
     assert.equal($tabContent.find('.gru-student-class-card').length, 7 ,'Wrong number of class cards');
-    //This should be here to close the WelcomeModal after this test on the browser where the results can be seen
-    click(".gru-welcome-message .modal-body .actions .cancel");
   });
 });
 
@@ -60,8 +58,6 @@ test('Take A Tour', function(assert){
 
       T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
       assert.equal(T.text($tooltip.find('.tour-header h2')), 'Take a Tour Icon', 'First step title should be "Take a Tour Icon"');
-      //This should be here to close the WelcomeModal after this test on the browser where the results can be seen
-      click(".gru-welcome-message .modal-body .actions .cancel");
     });
   });
 });
@@ -79,8 +75,6 @@ test('Go to manage goals page', function(assert) {
     click($navigatorContainer.find('.actions .manage-goals-cta'));
     andThen(function() {
       assert.equal(currentURL(), '/goals/manage', 'Wrong route');
-      //This should be here to close the WelcomeModal after this test on the browser where the results can be seen
-      click(".gru-welcome-message .modal-body .actions .cancel");
     });
   });
 });
@@ -94,8 +88,6 @@ test('Go to course map from announcement', function(assert) {
     click($announcement);
     andThen(function() {
       assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/performance', 'Wrong route');
-      //This should be here to close the WelcomeModal after this test on the browser where the results can be seen
-      click(".gru-welcome-message .modal-body .actions .cancel");
     });
   });
 });
@@ -109,8 +101,6 @@ test('Go to course map from class card', function(assert) {
     click($card);
     andThen(function() {
       assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/performance', 'Wrong route');
-      //This should be here to close the WelcomeModal after this test on the browser where the results can be seen
-      click(".gru-welcome-message .modal-body .actions .cancel");
     });
   });
 });

@@ -11,15 +11,15 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @property {Service} Session service
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
     showClasses: function (type) {
-      this.set("showActiveClasses", type === "active");
-      this.set("showArchivedClasses", type === "archived");
+      this.set('showActiveClasses', type === 'active');
+      this.set('showArchivedClasses', type === 'archived');
     }
   },
 
@@ -27,7 +27,7 @@ export default Ember.Controller.extend(ModalMixin, {
   // Events
   init: function () {
     let localStorage = this.get('applicationController').getLocalStorage();
-    const userId = this.get("session.userId");
+    const userId = this.get('session.userId');
     const localStorageItem = userId+'_dontShowWelcomeModal';
 
     if(localStorage.getItem(localStorageItem) === null){
@@ -66,23 +66,23 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Class[]}
    */
   activeClasses: Ember.computed('applicationController.myClasses.classes.[]', function(){
-    return this.get("applicationController.myClasses").getTeacherActiveClasses(this.get("profile.id"));
+    return this.get('applicationController.myClasses').getTeacherActiveClasses(this.get('profile.id'));
   }),
 
   /**
    * @property {Class[]}
    */
-  archivedClasses: Ember.computed.filterBy("myClasses.classes", "isArchived", true),
+  archivedClasses: Ember.computed.filterBy('myClasses.classes', 'isArchived', true),
 
   /**
    * @property {Number} Total of teaching classes
    */
-  totalTeachingClasses: Ember.computed.alias("activeClasses.length"),
+  totalTeachingClasses: Ember.computed.alias('activeClasses.length'),
 
   /**
    * @property {boolean} Indicates if there are classes
    */
-  hasClasses: Ember.computed.bool("totalTeachingClasses"),
+  hasClasses: Ember.computed.bool('totalTeachingClasses'),
 
   /**
    * Toolkit site url
