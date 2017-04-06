@@ -12,7 +12,7 @@ test('suggestResourcesForCollectionInCourse', function(assert) {
   assert.expect(10);
   service.set('suggestAdapter', Ember.Object.create({
     suggestResourcesForCollection: function(context, limit) {
-      assert.equal(context.get("containerId"), "collection-id", "Wrong container id");
+      assert.equal(context.get("collectionId"), "collection-id", "Wrong container id");
       assert.equal(context.get("userId"), "user-id", "Wrong user id");
       assert.equal(context.get("courseId"), "course-id", "Wrong course id");
       assert.equal(context.get("unitId"), "unit-id", "Wrong unit id");
@@ -45,7 +45,7 @@ test('suggestResourcesForCollection', function(assert) {
   assert.expect(7);
   service.set('suggestAdapter', Ember.Object.create({
     suggestResourcesForCollection: function(context, limit) {
-      assert.equal(context.get("containerId"), "collection-id", "Wrong container id");
+      assert.equal(context.get("collectionId"), "collection-id", "Wrong container id");
       assert.equal(context.get("userId"), "user-id", "Wrong user id");
       assert.equal(context.get("score"), 10, "Wrong score");
       assert.equal(context.get("timeSpent"), 100, "Wrong time spent");

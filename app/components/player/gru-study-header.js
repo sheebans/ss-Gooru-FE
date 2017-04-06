@@ -26,6 +26,16 @@ export default Ember.Component.extend({
    */
   performanceService: Ember.inject.service('api-sdk/performance'),
 
+  /**
+   * @type {suggestService} Service to retrieve suggest resources
+   */
+  suggestService: Ember.inject.service('api-sdk/suggest'),
+
+  /**
+   * @property {Service} session
+   */
+  session: Ember.inject.service('session'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -36,13 +46,19 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+    /**
+     * Redirect to course map
+     */
+    redirectCourseMap(){
+      this.get('router').transitionTo('student.class.course-map', this.get('classId'), { queryParams: { refresh: true } });
+    },
 
     /**
      * Action triggered when the performance information panel is expanded/collapsed
      */
     toggleHeader() {
       this.toggleProperty('toggleState');
-      this.sendAction("onToggleHeader", this.get('toggleState'));
+      this.sendAction('onToggleHeader', this.get('toggleState'));
     }
   },
 
@@ -51,15 +67,8 @@ export default Ember.Component.extend({
 
   init() {
     this._super( ...arguments );
-    const controller = this;
-    const classId = this.get('classId');
 
-    controller.get('classService').readClassInfo(classId).then(function(aClass) {
-      controller.get('performanceService').findClassPerformanceSummaryByClassIds([classId]).then(function(classPerformanceSummaryItems) {
-        aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
-        controller.set('class', aClass);
-      });
-    });
+    this.loadContent();
   },
 
   // -------------------------------------------------------------------------
@@ -71,9 +80,14 @@ export default Ember.Component.extend({
   class: null,
 
   /**
-   * @property {string} classId - Class unique Id associated for the collection / assessment.
+   * @property {String} classId - Class unique Id associated for the collection / assessment.
    */
   classId: null,
+
+  /**
+   * @property {Array} list of suggested resources of a collection
+   */
+  suggestedResources: null,
 
   /**
    * @property {String} color - Hex color value for the bar in the bar chart
@@ -105,9 +119,31 @@ export default Ember.Component.extend({
         percentage: percentage
       }
     ];
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Load Header Content
+   */
+
+  loadContent: function(){
+    const component = this;
+    const classId = component.get('classId');
+    const collectionId = component.get('collection.id');
+
+    component.get('classService').readClassInfo(classId).then(function(aClass) {
+      component.get('performanceService').findClassPerformanceSummaryByClassIds([classId]).then(function(classPerformanceSummaryItems) {
+        aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
+        component.set('class', aClass);
+      });
+    });
+
+    component.get('suggestService').suggestResourcesForCollection(component.get('session.userId'), collectionId)
+      .then(function(suggestedResources) {
+        component.set('suggestedResources', suggestedResources);
+      });
+  }
 
 });

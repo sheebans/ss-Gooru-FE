@@ -67,5 +67,23 @@
         "Content-Type": "application/json"
       }
     }
+  },
+  {
+    "description": "Gets first collection id data",
+    "request": {
+      "url": "^/api/nucleus/v1/collections/first-assessment-id$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "first-collection-id-200-response.json"
+    }
   }
 ]
