@@ -30,7 +30,7 @@ test('createNewPath', function (assert) {
       assert.equal(requestBodyJson['ctx_course_id'], 'course-id', 'Wrong ctx_course_id');
       assert.equal(requestBodyJson['ctx_unit_id'], 'unit-id', 'Wrong ctx_unit_id');
       assert.equal(requestBodyJson['ctx_lesson_id'], 'lesson-id', 'Wrong ctx_lesson_id');
-      assert.equal(requestBodyJson['ctx_collection_id'], 'collection-id', 'Wrong ctx_collection_id');
+      assert.equal(requestBodyJson['ctx_collection_id'], null, 'Wrong ctx_collection_id');
       assert.equal(requestBodyJson['ctx_class_id'], undefined, 'Wrong ctx_class_id');
       assert.equal(requestBodyJson['path_id'], undefined, 'Wrong path_id');
       assert.equal(requestBodyJson['target_content_type'], 'collection', 'Wrong target_content_type');
@@ -47,7 +47,7 @@ test('createNewPath', function (assert) {
     courseId: 'course-id',
     unitId: 'unit-id',
     lessonId: 'lesson-id',
-    collectionId: 'collection-id'
+    collectionId: null
   });
   let target = Ember.Object.create({
     contentType: 'collection',
