@@ -87,7 +87,7 @@ test('Go to course map from announcement', function(assert) {
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/performance', 'Wrong route');
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/course-map?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id', 'Wrong route');
     });
   });
 });
@@ -100,7 +100,7 @@ test('Go to course map from class card', function(assert) {
     const $card = find('.gru-student-class-card:eq(0) a');
     click($card);
     andThen(function() {
-      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/performance', 'Wrong route');
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/course-map?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id', 'Wrong route');
     });
   });
 });
