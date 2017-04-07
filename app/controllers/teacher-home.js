@@ -30,7 +30,7 @@ export default Ember.Controller.extend(ModalMixin, {
     const userId = this.get('session.userId');
     const localStorageItem = userId+'_dontShowWelcomeModal';
 
-    if(localStorage.getItem(localStorageItem) === null){
+    if(!localStorage.getItem(localStorageItem)){
       this.send('showModal', 'content.modals.gru-welcome-message');
     }
   },

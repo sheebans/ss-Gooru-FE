@@ -21,7 +21,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * Check if 'Dont show again' checkbox is selected and create variable on localStorage
      */
     close: function () {
-      const $checkboxShowAgain = $('#dontShowAgain');
+      const $checkboxShowAgain = this.$('#dontShowAgain');
 
       if($checkboxShowAgain.prop('checked')){
         let localStorage = this.getLocalStorage();
