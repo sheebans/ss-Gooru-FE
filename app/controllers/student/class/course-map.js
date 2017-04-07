@@ -41,7 +41,7 @@ export default Ember.Controller.extend({
      * @returns {undefined}
      */
     updateLocation: function(newLocation) {
-      this.set('location', newLocation ? newLocation : null);
+      this.set('location', newLocation);
     },
     /**
      * Locate the user in is actual location
@@ -51,7 +51,7 @@ export default Ember.Controller.extend({
      * @returns {undefined}
      */
     locateMe: function(location) {
-      this.set('location', location ? location : null);
+      this.set('location', location);
       this.set('showLocation',true);
     }
   },
