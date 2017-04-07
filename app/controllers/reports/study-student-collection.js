@@ -1,5 +1,4 @@
-import Ember from "ember";
-import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import StudentCollection from 'gooru-web/controllers/reports/student-collection';
 
 /**
  *
@@ -8,11 +7,7 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  *
  */
 
-export default Ember.Controller.extend(ConfigurationMixin, {
-
-  queryParams: ['classId', 'courseId', 'unitId', 'lessonId', 'collectionId', 'userId', 'type', 'role', 'contextId'],
-  // -------------------------------------------------------------------------
-  // Dependencies
+export default StudentCollection.extend({
 
   // -------------------------------------------------------------------------
   // Actions
@@ -31,16 +26,6 @@ export default Ember.Controller.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * @property {string} indicates if it is collection or assessment
-   */
-  type: null,
-
-  /**
-   * @property {string} indicates if it is a student or teacher view
-   */
-  role: null,
 
   /**
    * @property {Collection} collection
