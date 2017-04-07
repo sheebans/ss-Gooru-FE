@@ -42,6 +42,17 @@ export default Ember.Controller.extend({
      */
     updateLocation: function(newLocation) {
       this.set('location', newLocation ? newLocation : null);
+    },
+    /**
+     * Locate the user in is actual location
+     *
+     * @function
+     * @param {String} location'
+     * @returns {undefined}
+     */
+    locateMe: function(location) {
+      this.set('location', location ? location : null);
+      this.set('showLocation',true);
     }
   },
 
@@ -63,6 +74,11 @@ export default Ember.Controller.extend({
    * @property {Class}
    */
   'class': Ember.computed.alias('studentClassController.class'),
+
+  /**
+   *Show the current location
+   */
+  showLocation:true,
 
   /**
    * A link to the content visibility from class controller

@@ -451,4 +451,20 @@
       margin: -6px 0;
     }
   }
+  .study-active{
+    .panel-title .title .lesson-prefix {
+      color: $white;
+    }
+    .left-info{
+      padding-left: 30px;
+      .btn.study-now{
+        height: 41px;
+        font-size: 14px;
+        i{
+          font-size: 23px;
+          vertical-align: bottom
+        }
+      }
+    }
+  }
 }

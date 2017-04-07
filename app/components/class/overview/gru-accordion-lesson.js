@@ -93,6 +93,7 @@ export default Ember.Component.extend(AccordionMixin, {
       if (!isUpdatingLocation) {
         let updateValue = this.get('isExpanded') ? '' : lessonId;
         this.get('onSelectLesson')(updateValue);
+        this.set('showLocation',false);
       } else if(!this.get('isExpanded')) {
         this.loadData();
       }
@@ -113,6 +114,18 @@ export default Ember.Component.extend(AccordionMixin, {
 
     setOnAir: function (collectionId) {
       this.get('onLaunchOnAir')(collectionId);
+    },
+    /**
+     * Go to study player
+     */
+    studyNow:function(type,item){
+      let lessonId = this.get('model.id');
+      if(type==='lesson'){
+        Ember.Logger.log('Study Lesson', item);
+      }else{
+        Ember.Logger.log('Study Assessment/Collection', item);
+        this.get('onStudyNow')(type, lessonId,item);
+      }
     },
 
     /**
@@ -153,6 +166,8 @@ export default Ember.Component.extend(AccordionMixin, {
   setupComponent: Ember.on('didInsertElement', function () {
     const component = this;
 
+    this.set('activeElement',this.get('currentResource'));
+
     this.$().on('hide.bs.collapse', function(e) {
       e.stopPropagation();
       component.set('isExpanded', false);
@@ -162,14 +177,11 @@ export default Ember.Component.extend(AccordionMixin, {
       e.stopPropagation();
       component.set('isExpanded', true);
     });
-    this.set('activeElement',this.get('currentResource'));
     Ember.run.scheduleOnce('afterRender', this, this.parsedLocationChanged);
   }),
 
   didRender: function(){
     this.$('[data-toggle="tooltip"]').tooltip();
-
-
   },
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
@@ -179,7 +191,6 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
-
   /**
    * @prop {String[]} parsedLocation - Location the user has navigated to
    * parsedLocation[0] - unitId
@@ -216,10 +227,10 @@ export default Ember.Component.extend(AccordionMixin, {
   isStudent: Ember.computed.not('isTeacher'),
 
   /**
-   * @prop {Boolean} Indicate if the lesson is selected
+   * @prop {Boolean} Indicate if the lesson is selected as active element to study
    */
-  isLessonSelected:Ember.computed('isExpanded','activeElement','isStudent',function(){
-    return this.get('isStudent') && this.get('isExpanded') && this.get('activeElement') === '';
+  isLessonSelected:Ember.computed('isExpanded','activeElement','isStudent','showLocation',function(){
+    return this.get('isStudent') && this.get('isExpanded') && !this.get('showLocation') && this.get('activeElement') === '';
   }),
 
   /**
@@ -277,6 +288,22 @@ export default Ember.Component.extend(AccordionMixin, {
       let lessonId = parsedLocation[1];
       this.updateAccordionById(lessonId);
       isUpdatingLocation = false;
+    }
+  }),
+  /**
+   * Observe changes when expands or collapse a lesson.
+   */
+  removedActiveLocation: Ember.observer('isExpanded', function () {
+    if(this.get('isStudent') && !this.get('isExpanded')){
+      this.set('activeElement','');
+    }
+  }),
+  /**
+   * Removed the selected element if the user decide to show the current location
+   */
+  showMyLocation: Ember.observer('showLocation', function () {
+    if(this.get('showLocation')){
+      this.set('activeElement','');
     }
   }),
   // -------------------------------------------------------------------------
@@ -409,6 +436,9 @@ export default Ember.Component.extend(AccordionMixin, {
         });
     });
   },
+  /**
+   * Select an element as active element to study
+   */
   activeStudyPlayer: function(item){
     if(this.get('isStudent')){
       if(this.get('activeElement') === item.id){
@@ -416,7 +446,7 @@ export default Ember.Component.extend(AccordionMixin, {
       }else {
         this.set('activeElement',item.id);
       }
-      this.set('currentResource','');
+      this.set('showLocation',false);
     }
   },
   setVisibility: function(collection){
