@@ -118,13 +118,12 @@ export default Ember.Component.extend(AccordionMixin, {
     /**
      * Go to study player
      */
-    studyNow:function(type,item){
+    studyNow: function (type, item ) {
       let lessonId = this.get('model.id');
-      if(type==='lesson'){
+      if(type === 'lesson'){
         Ember.Logger.log('Study Lesson', item);
       }else{
-        Ember.Logger.log('Study Assessment/Collection', item);
-        this.get('onStudyNow')(type, lessonId,item);
+        this.get('onStudyNow')(type, lessonId, item);
       }
     },
 
