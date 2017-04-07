@@ -29,10 +29,11 @@ export default Ember.Object.extend({
       dataType: "json",
       headers: this.defineHeaders(),
       data: {
-        "courseId" : criteria.courseId,
-        "lessonId" : criteria.lessonId,
-        "unitId" : criteria.unitId,
-        "userId" : studentId
+        courseId: criteria.courseId,
+        classId: criteria.classId,
+        lessonId: criteria.lessonId,
+        unitId: criteria.unitId,
+        userId: studentId
       }
     };
     return new Ember.RSVP.Promise(function (resolve, reject) {

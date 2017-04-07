@@ -63,6 +63,11 @@ export default Ember.Controller.extend({
   lessonId: null,
 
   /**
+   * @property {string}
+   */
+  classId: null,
+
+  /**
    * filter Criteria
    * @property {string}
    */
@@ -131,8 +136,10 @@ export default Ember.Controller.extend({
       const collectionType = controller.get('collectionType');
       const unitId = controller.get('unitId');
       const lessonId = controller.get('lessonId');
+      let classId = controller.get('classId');
       const criteria = {
         courseId,
+        classId,
         unitId,
         lessonId,
         collectionType
