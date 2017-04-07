@@ -1025,6 +1025,24 @@ export default Object.assign(quizzesTranslations, {
     "haveAccount": "Already have an account?",
     "clickLogIn": "Click here to log in."
   },
+  "gru-welcome-message": {
+    "title": "Welcome to Gooru’s Learning Navigator!",
+    "text-one": "As you move throughout the Learning Navigator, we are happy to support your journey in the following ways:",
+    "text-two": {
+      "subtitle": "Take a Tour",
+      "text": ": Provides guided tours on how to use our features."
+    },
+    "text-three": {
+      "subtitle": "Help",
+      "text": ": At-your-fingertips support for additional questions."
+    },
+    "text-four": {
+      "subtitle": "New",
+      "text": ": Identifies new features for you to try out."
+    },
+    "text-five": "At anytime if you wish you return to your home page, simply click on",
+    "dont-show-again": "Don't show again"
+  },
   "sign-up": {
     "step-1-title": "Hello!",
     "step-1-description": "We’re glad you’ve decided to join us.",

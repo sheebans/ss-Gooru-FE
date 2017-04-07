@@ -133,5 +133,4 @@ export default Ember.Controller.extend(ConfigurationMixin, {
       return tenant;
     });
   }
-
 });
