@@ -23,14 +23,17 @@
       <div class="panel-heading">{{t 'common.overall-performance'}}</div>
       <div class="panel-body">
         <div class="graphic performance">
-          {{charts.gru-bubble-chart content='80%' color=(grade-color 80)}}
+          {{charts.gru-bubble-chart
+            content= (if class.performanceSummary (concat class.performanceSummary.score '%') '--')
+            color=(grade-color class.performanceSummary.score)
+          }}
           <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
         </div>
         <div class="graphic completed">
           {{charts.gru-radial-chart
-          value=27
+          value=class.performanceSummary.totalCompleted
           minValue=0
-          maxValue=35 }}
+          maxValue=class.performanceSummary.total}}
           <span class="legend">{{t "common.completed"}}</span>
         </div>
         <div class="graphic improvement">

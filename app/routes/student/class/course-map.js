@@ -43,6 +43,27 @@ export default Ember.Route.extend({
         this.transitionTo('context-player', classId, courseId, unitId,
           lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType') }});
       }
+    },
+    /**
+     * Open the player with the specific collection/assessment
+     *
+     * @function actions:playItem
+     * @param {string} unitId - Identifier for a unit
+     * @param {string} lessonId - Identifier for lesson
+     * @param {string} collection - collection or assessment
+     */
+    studyPlayer: function (type,unitId,lessonId, collection) {
+      if (type === 'lesson'){
+        //TODO
+      }
+      else{
+        const currentClass = this.modelFor('student.class').class;
+        const classId = currentClass.get('id');
+        const courseId = currentClass.get('courseId');
+        const role = 'student';
+        this.transitionTo('study-player', classId, courseId, unitId,
+          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType') }});
+      }
     }
 
   },

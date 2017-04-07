@@ -1,11 +1,12 @@
 import Ember from 'ember';
+import ApplicationAdapter from 'gooru-web/adapters/application';
 
 /**
  * Adapter to support the course map operations
  *
  * @typedef {Object} CourseMapAdapter
  */
-export default Ember.Object.extend({
+export default ApplicationAdapter.extend({
 
   /**
    * @type {SessionService} Service to retrieve session information
@@ -31,18 +32,51 @@ export default Ember.Object.extend({
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      headers: adapter.defineHeaders()
+      headers: adapter.get('headers')
     };
     return Ember.$.ajax(url, options);
   },
 
   /**
-   * Gets the Authorization header (internal use only)
-   * @returns {Object}
+   * Creates a New Path based on the Context data.
+   * @param {Object} context - is the base context data used to define a new path. It is an object with these properties
+   * { courseId, classId, unitId, lessonId, collectionId }
+   * @param {Object} target - the target context. It is an object with these properties
+   * { courseId, unitId, lessonId, collectionId }
+   * @param {Integer} pathId - an optional parameter with a Path Id.
+   * @returns {Ember.RSVP.Promise}
    */
-  defineHeaders: function() {
-    return {
-      Authorization: `Token ${this.get('session.token-api3')}`
+  createNewPath: function (context, target, pathId = undefined) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/paths`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.get('headers'),
+      data: JSON.stringify({
+        'ctx_course_id': context.get('courseId'),
+        'ctx_class_id': context.get('classId'),
+        'ctx_unit_id': context.get('unitId'),
+        'ctx_lesson_id': context.get('lessonId'),
+        'ctx_collection_id': context.get('collectionId'),
+        'path_id': pathId,
+        'target_content_type': target.get('contentType'),
+        'target_content_subtype': target.get('contentSubType'),
+        'target_course_id': target.get('courseId'),
+        'target_unit_id': target.get('unitId'),
+        'target_lesson_id': target.get('lessonId'),
+        'target_collection_id': target.get('collectionId')
+      })
     };
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options)
+        .then(function (responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject);
+    });
   }
+
 });

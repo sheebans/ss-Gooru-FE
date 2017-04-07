@@ -36,6 +36,27 @@
         }
       }
     }
+    .panel-heading.study-active {
+      background-color: $blue-400;
+      color: $white;
+      .panel-title {
+        .title {
+          .type {
+            color: $white;
+          }
+        }
+      }
+      .info {
+        .content-count.mixed {
+          > span:first-child {
+            border-right: 1px solid $white;
+          }
+        }
+        .gru-user-icons .item {
+          color: $white;
+        }
+      }
+    }
     .panel-group .panel + .panel {
       margin-top: 10px;
     }
