@@ -11,5 +11,27 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
  * @extends PlayerRoute
  */
 export default PlayerRoute.extend(PrivateRouteMixin, {
-  templateName: 'study-player'
+  templateName: 'study-player',
+
+  // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    /**
+     * When the submission is complete
+     */
+    onFinish: function () {
+      let controller = this.get('controller');
+      let queryParams = {
+        collectionId: controller.get('collection.id'),
+        type: controller.get('type'),
+        role: controller.get('role'),
+        classId: controller.get('classId'),
+        contextId: controller.get('contextResult.contextId')
+      };
+      this.transitionTo(
+        'reports.study-student-collection',
+        { queryParams }
+      );
+    }
+  }
 });
