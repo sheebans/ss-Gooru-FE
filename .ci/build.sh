@@ -26,7 +26,7 @@ fi
 
 info "Removing quizzes addon from lock.file..."
 silent rm -rf node_modules/quizzes-addon || true
-silent rm -rf /tmp/yarn-cache/npm-npm-quizzes-addon* || true
+silent rm -rf /tmp/yarn-cache/npm-quizzes-addon* || true
 silent yarn remove quizzes-addon
 
 info "Installing quizzes addon..."
