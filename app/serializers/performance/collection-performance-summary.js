@@ -32,8 +32,8 @@ export default Ember.Object.extend({
    */
   normalizeCollectionPerformanceSummary: function (data) {
     return CollectionPerformanceSummary.create({
-      id: data.collectionId,
-      collectionId: data.collectionId,
+      id: data.collectionId || data.collection_id,
+      collectionId: data.collectionId || data.collection_id,
       timeSpent: data.timeSpent,
       attempts: data.attempts,
       views: data.views,

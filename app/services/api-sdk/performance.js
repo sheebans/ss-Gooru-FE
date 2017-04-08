@@ -514,11 +514,11 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Searches student collection performance by course, unit, lesson and type
+   * Searches student collection performance by course, class, unit, lesson and type
    * Criteria values are not required except for courseId
    *
    * @param {string} studentId
-   * @param {{ courseId: number, unitId: string, lessonId: string, collectionType: string }} criteria
+   * @param {{ courseId: string, classId: string, unitId: string, lessonId: string, collectionType: string }} criteria
    * @returns {Promise}
    */
   searchStudentCollectionPerformanceSummary: function (studentId, criteria) {
@@ -527,6 +527,24 @@ export default Ember.Service.extend({
         .then(function (data) {
           return service.get('collectionPerformanceSummarySerializer').normalizeAllCollectionPerformanceSummary(data);
         });
+  },
+
+  /**
+   * Searches student collection performance by course, unit, lesson and type. Only courseId param is required.
+   *
+   * @param {string} userId
+   * @param {string} courseId
+   * @param {string} lessonId
+   * @param {string} unitId
+   * @param {string} collectionType
+   */
+  findMyPerformance: function (userId, courseId, lessonId, unitId, collectionType = 'assessment') {
+    let service = this;
+    return service.get('collectionPerformanceSummaryAdapter').findMyPerformance(userId, courseId, lessonId, unitId,
+      collectionType)
+      .then(function (data) {
+        return service.get('collectionPerformanceSummarySerializer').normalizeAllCollectionPerformanceSummary(data);
+      });
   },
 
   /**

@@ -161,7 +161,7 @@ export default Ember.Controller.extend({
   /**
    * Loads report data
    */
-  loadData: function() {
+  loadData: function () {
     const controller = this;
     const courseId = controller.get('courseId');
     if (courseId) {
@@ -178,8 +178,9 @@ export default Ember.Controller.extend({
       controller.set('filterCriteria', criteria);
       Ember.RSVP.hash({
         course: controller.get('courseService').getCourseStructure(courseId, collectionType),
-        items: controller.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
-      }).then(function(hash){
+        items: controller.get('performanceService').findMyPerformance(userId, courseId, lessonId, unitId,
+          collectionType)
+      }).then(function (hash) {
         const course = hash.course;
         const items = hash.items;
         controller.setProperties({

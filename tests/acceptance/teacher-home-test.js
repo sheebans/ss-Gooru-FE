@@ -78,7 +78,7 @@ test('Go to class with content', function(assert) {
     const $announcement = find('.announcements .classes-announcements ul li:nth-child(2) a');
     click($announcement);
     andThen(function() {
-      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-activities', 'Wrong route');
+      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/course-map', 'Wrong route');
     });
   });
 });

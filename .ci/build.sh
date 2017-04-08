@@ -25,6 +25,8 @@ if [ $UID -eq 0 ]; then
 fi
 
 info "Removing quizzes addon from lock.file..."
+silent rm -rf node_modules/quizzes-addon || true
+rm -rf /tmp/yarn-cache/npm-quizzes-addon*
 silent yarn remove quizzes-addon
 
 info "Installing quizzes addon..."
