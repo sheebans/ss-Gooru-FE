@@ -32,6 +32,7 @@ info "Running build inside a custom docker image..."
 
 mkdir /tmp/yarn-cache-bamboo
 chmod 0777 /tmp/yarn-cache-bamboo
+rm -rf /tmp/yarn-cache-bamboo/npm-quizzes-addon*
 
 docker login \
   -u $ARTIFACTORY_USERNAME \

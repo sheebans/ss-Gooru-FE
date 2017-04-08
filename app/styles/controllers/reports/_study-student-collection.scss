@@ -1,0 +1,28 @@
+.reports_study-student-collection {
+  overflow: auto;
+  height: 100vh;
+  .app-container {
+    padding: 0;
+  }
+  .gru-header,
+  .gru-footer {
+    display: none;
+  }
+
+  .expanded {
+    .qz-student-report {
+      margin-top: 275px;
+      @media (min-width: $screen-sm) {
+        margin-top: 155px;
+      }
+      @media (min-width: $screen-md) {
+        margin-top: 130px;
+      }
+    }
+  }
+  .collapsed {
+    .qz-student-report {
+      margin-top: 40px;
+    }
+  }
+}

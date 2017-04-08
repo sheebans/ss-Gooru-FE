@@ -152,3 +152,67 @@ test('it renders correctly when there are no collections/assessments to load aft
   });
   });
 });
+test('Study now', function(assert) {
+  assert.expect(6);
+
+  this.on('parentAction', function(type, item){
+    assert.ok(type, 'Should have type');
+    assert.ok(item, 'Should have item');
+  });
+
+  const currentClass = Ember.Object.create({
+    id: "111-111-111",
+    courseId: "999-999-999"
+  });
+
+  const lesson = Ember.Object.create({
+    id: "lesson-with-out-collections-id",
+    title: 'Lesson Title',
+    completed: 5,
+    total: 10
+  });
+
+  this.on('externalAction', function () {
+    assert.ok(true, "This should be called");
+  });
+
+
+  this.set('currentClass', currentClass);
+  this.set('unitId', '777-999');
+  this.set('lesson', lesson);
+  this.set('index', 0);
+  this.set('currentResource','123');
+  this.set('items',Ember.A([
+    {
+      id:'123',
+      title: 'Equations',
+      visible:true
+    }
+  ]));
+  this.render(hbs`{{class/overview/gru-accordion-lesson
+                    currentClass=currentClass
+                    unitId=unitId
+                    model=lesson
+                    index=index
+                    showLocation=false
+                    items=items
+                    isLessonSelected=isLessonSelected
+                    onStudyNow=(action 'parentAction')
+                    onSelectLesson=(action 'externalAction')}}`);
+
+  var $component = this.$();
+  const $lessonTitleAnchor = $component.find('.panel-heading a.title');
+  const $collapsePanel = $component.find('.panel-collapse');
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
+  return wait().then(function() {
+    assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
+    assert.ok($collapsePanel.find('li'), 'Missing item');
+    return wait().then(function() {
+      var $studyNowButton = $component.find('.btn.study-now');
+      assert.ok($studyNowButton.length,'Missing study now button');
+      $studyNowButton.click();
+    });
+  });
+});

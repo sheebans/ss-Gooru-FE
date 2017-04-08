@@ -17,6 +17,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   classService: Ember.inject.service('api-sdk/class'),
 
   /**
+   * @type {PerformanceService} Service to retrieve class performance summary
+   */
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
+  /**
    * @type {CourseService} Service to retrieve course information
    */
   courseService: Ember.inject.service('api-sdk/course'),
@@ -89,14 +94,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         description: route.get('i18n').t('gru-take-tour.student-class.stepTwo.description')
       },
       {
-        elementSelector: '.gru-class-navigation .nav-tabs .course-map',
-        title: route.get('i18n').t('gru-take-tour.student-class.stepThree.title'),
-        description: route.get('i18n').t('gru-take-tour.student-class.stepThree.description')
-      },
-      {
         elementSelector: '.gru-class-navigation .nav-tabs .performance',
         title: route.get('i18n').t('gru-take-tour.student-class.stepFour.title'),
         description: route.get('i18n').t('gru-take-tour.student-class.stepFour.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .course-map',
+        title: route.get('i18n').t('gru-take-tour.student-class.stepThree.title'),
+        description: route.get('i18n').t('gru-take-tour.student-class.stepThree.description')
       },
       {
         title: route.get('i18n').t('gru-take-tour.student-class.stepFive.title'),
@@ -107,13 +112,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
     const membersPromise = route.get('classService').readClassMembers(classId);
-
+    const performanceSummaryPromise = route.get('performanceService').findClassPerformanceSummaryByClassIds([classId]);
     return Ember.RSVP.hash({
       class: classPromise,
-      members: membersPromise
+      members: membersPromise,
+      classPerformanceSummaryItems: performanceSummaryPromise
     }).then(function(hash) {
       const aClass = hash.class;
       const members = hash.members;
+      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+      aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
       const courseId = aClass.get('courseId');
       let visibilityPromise = Ember.RSVP.resolve([]);
       let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
