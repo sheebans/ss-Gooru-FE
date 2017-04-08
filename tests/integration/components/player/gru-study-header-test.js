@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
@@ -58,7 +58,8 @@ const suggestServiceStub = Ember.Service.extend({
 moduleForComponent('player/gru-study-header', 'Integration | Component | player/gru study header', {
   integration: true,
   beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale","en");
+    this.i18n = this.container.lookup('service:i18n');
+    this.i18n.set('locale','en');
     this.register('service:api-sdk/class', classServiceStub);
     this.inject.service('api-sdk/class');
     this.register('service:api-sdk/performance', performanceServiceStub);
@@ -75,7 +76,8 @@ test('Layout', function(assert) {
   });
 
   this.set('collection', {
-    id: 'collection-id'
+    id: 'collection-id',
+    isCollection: true
   });
 
   this.set('classId', 'class-1');
@@ -104,7 +106,10 @@ test('Layout', function(assert) {
 
   T.exists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
   T.exists(assert, $performanceInfo.find('.resources .count-resources .counter'), 'Missing counter of resources');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources .counter')), '0', 'Wrong counter of resources');
+
   T.exists(assert, $performanceInfo.find('.resources .count-resources button'), 'Missing button of resources');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), this.get('i18n').t('common.resources').string, 'Wrong button text');
   T.exists(assert, $performanceInfo.find('.resources .navigation'), 'Missing resources navigation');
 
   T.exists(assert, $performanceInfo.find('.suggestions'), 'Missing suggestions section');
@@ -116,6 +121,110 @@ test('Layout', function(assert) {
   assert.equal(T.text($performanceInfo.find('.suggestions .suggested-resources .btn-resource:eq(0) .title')), 'resource1', 'Wrong title text');
 
   T.exists(assert, $performanceInfo.find('.suggestions .collapse-expand'), 'Missing collapse-expand link');
+});
+
+test('Layout-Resources in Assessment', function(assert) {
+
+  this.set('session', {
+    userId: 'user-id'
+  });
+
+  this.set('collection', {
+    id: 'collection-id',
+    isCollection: false,
+    resources: [
+      Ember.Object.create({
+        id: 'resource-1'
+      }),
+      Ember.Object.create({
+        id: 'resource-2'
+      })
+    ]
+  });
+
+  this.set('classId', 'class-1');
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session resourceSequence=1}}`);
+
+  var $component = this.$(); //component dom element
+  const $header = $component.find('.gru-study-header');
+
+  const $performanceInfo = $header.find('.performance-info');
+
+  T.exists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
+  T.exists(assert, $performanceInfo.find('.resources .count-resources .counter'), 'Missing counter of resources');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources .counter')), '1/2', 'Wrong counter of resources');
+
+  T.exists(assert, $performanceInfo.find('.resources .count-resources button'), 'Missing button of resources');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), this.get('i18n').t('common.questions').string, 'Wrong button text');
+});
+
+test('Layout-Collection Resources from Collection Report', function(assert) {
+
+  this.set('session', {
+    userId: 'user-id'
+  });
+
+  this.set('collection', {
+    id: 'collection-id',
+    isCollection: true,
+    resources: [
+      Ember.Object.create({
+        id: 'resource-1'
+      }),
+      Ember.Object.create({
+        id: 'resource-2'
+      })
+    ]
+  });
+
+  this.set('classId', 'class-1');
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session resourceSequence=1 fromReport=true}}`);
+
+  var $component = this.$(); //component dom element
+  const $header = $component.find('.gru-study-header');
+
+  const $performanceInfo = $header.find('.performance-info');
+
+  T.exists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
+  T.exists(assert, $performanceInfo.find('.resources .count-resources'), 'Missing counter of resources');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources')), this.get('i18n').t('gru-study-header.resources-collection-report').string, 'Wrong resources collection report text');
+
+});
+
+test('Layout-Assessment Resources from Collection Report', function(assert) {
+
+  this.set('session', {
+    userId: 'user-id'
+  });
+
+  this.set('collection', {
+    id: 'collection-id',
+    isCollection: false,
+    resources: [
+      Ember.Object.create({
+        id: 'resource-1'
+      }),
+      Ember.Object.create({
+        id: 'resource-2'
+      })
+    ]
+  });
+
+  this.set('classId', 'class-1');
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session resourceSequence=1 fromReport=true}}`);
+
+  var $component = this.$(); //component dom element
+  const $header = $component.find('.gru-study-header');
+
+  const $performanceInfo = $header.find('.performance-info');
+
+  T.exists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
+  T.exists(assert, $performanceInfo.find('.resources .count-resources'), 'Missing counter of resources');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources')), this.get('i18n').t('gru-study-header.resources-assessment-report').string, 'Wrong resources collection report text');
+
 });
 
 test('Collapse-expand performance information', function(assert) {

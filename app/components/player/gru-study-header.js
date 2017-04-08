@@ -85,6 +85,21 @@ export default Ember.Component.extend({
   classId: null,
 
   /**
+   * @property {collection} collection - The current Collection
+   */
+  collection: null,
+
+  /**
+   * @property {Number} resourceSequence - The resource sequence in the collection / assessment
+   */
+  resourceSequence: null,
+
+  /**
+   * @property {Number} totalResources - The collection / assessment total resources
+   */
+  totalResources: null,
+
+  /**
    * @property {Array} list of suggested resources of a collection
    */
   suggestedResources: null,
@@ -104,6 +119,12 @@ export default Ember.Component.extend({
    * @property {Boolean} toggleState
    */
   toggleState: true,
+
+  /**
+   * Shows if the component is called from collection report
+   * @property {Boolean} fromReport
+   */
+  fromReport: false,
 
   /**
    * @property {Number} barChartData
@@ -132,6 +153,9 @@ export default Ember.Component.extend({
     const component = this;
     const classId = component.get('classId');
     const collectionId = component.get('collection.id');
+    const totalResources = (component.get('collection.resources')) ? component.get('collection.resources').length : null;
+
+    component.set('totalResources', totalResources);
 
     component.get('classService').readClassInfo(classId).then(function(aClass) {
       component.get('performanceService').findClassPerformanceSummaryByClassIds([classId]).then(function(classPerformanceSummaryItems) {

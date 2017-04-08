@@ -1788,6 +1788,8 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   "gru-study-header": {
-    "suggestions-legend": "To learn more, check out these resources."
+    "suggestions-legend": "To learn more, check out these resources.",
+    "resources-collection-report": "Collection usage report",
+    "resources-assessment-report": "Assessment summary report"
   }
 });
