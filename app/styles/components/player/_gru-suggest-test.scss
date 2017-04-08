@@ -1,0 +1,27 @@
+.player.gru-suggest-test{
+  padding-top: 155px;
+  width: 70%;
+  margin: 0 auto;
+
+  .panel{
+    margin: 0 auto;
+    .panel-body{
+      @include flexbox;
+      @include flex-direction(column);
+
+      .lead{
+        color:$gray-base;
+      }
+      .actions{
+        margin: 20px 0 0;
+        align-self: flex-end;
+        .btn-no {
+          border: 2px solid $light-300;
+        }
+        .btn-suggestion{
+          height: 37px;
+        }
+      }
+    }
+  }
+}

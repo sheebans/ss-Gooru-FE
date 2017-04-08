@@ -5,7 +5,10 @@
   onToggleHeader='toggleHeader'
 }}
 <div class="player-container {{if toggleState 'expanded' 'collapsed'}} {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
-  {{player.qz-player
+  {{#if showSuggestion}}
+      {{player.gru-suggest-test type='pre-test'}}
+  {{else}}
+    {{player.qz-player
     showConfirmation=showConfirmation
     resourceId=resourceId
     role=role
@@ -15,5 +18,6 @@
     contextResult=contextResult
     isAnonymous=isAnonymous
     onFinish='onFinish'
-  }}
+    }}
+  {{/if}}
 </div>

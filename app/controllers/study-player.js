@@ -24,6 +24,8 @@ export default PlayerController.extend({
    * Shows the performance information
    * @property {Boolean} toggleState
    */
-  toggleState: true
+  toggleState: true,
+
+  showSuggestion:true
 
 });
