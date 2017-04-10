@@ -3,7 +3,7 @@ import { cleanFilename } from 'gooru-web/utils/utils';
 import CollectionModel from 'gooru-web/models/content/collection';
 import ResourceSerializer from 'gooru-web/serializers/content/resource';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
-import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
@@ -65,10 +65,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @returns {Object} returns a JSON Object
    */
   serializeUpdateCollectionTitle: function(title) {
-    let serialized = {
-      title: title
-    };
-    return serialized;
+    return { title };
   },
 
 
@@ -78,16 +75,16 @@ export default Ember.Object.extend(ConfigurationMixin, {
 
     let serializedCollection = {
       title: collectionModel.get('title'),
-      'learning_objective': collectionModel.get('learningObjectives') || null,
-      'visible_on_profile': collectionModel.get('isVisibleOnProfile'),
+      learning_objective: collectionModel.get('learningObjectives') || null,
+      visible_on_profile: collectionModel.get('isVisibleOnProfile'),
       thumbnail: !Ember.isEmpty(thumbnail) ? thumbnail : null,
       taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(collectionModel.get('standards')),
-      'metadata': {
+      metadata: {
         '21_century_skills': []
       }
     };
 
-    serializedCollection.metadata['21_century_skills']= collectionModel.get("centurySkills") || [];
+    serializedCollection.metadata['21_century_skills'] = collectionModel.get('centurySkills') || [];
     return serializedCollection;
   },
 
@@ -101,39 +98,40 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
     const thumbnailUrl = payload.thumbnail ?
-    basePath + payload.thumbnail : appRootPath + DEFAULT_IMAGES.COLLECTION;
+      basePath + payload.thumbnail :
+      appRootPath + DEFAULT_IMAGES.COLLECTION;
     const metadata = payload.metadata || {};
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: payload.id,
+      id: payload.target_collection_id || payload.id,
       title: payload.title,
       learningObjectives: payload.learning_objective,
       isVisibleOnProfile: typeof payload.visible_on_profile !== 'undefined' ? payload.visible_on_profile : true,
       children: serializer.normalizeResources(payload.content),
-      questionCount: payload.question_count ? payload.question_count : 0,
-      resourceCount: payload.resource_count ? payload.resource_count : 0,
+      questionCount: payload.question_count || 0,
+      resourceCount: payload.resource_count || 0,
       sequence: payload.sequence_id,
       thumbnailUrl: thumbnailUrl,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy),
-      courseId: payload.course_id,
-      unitId: payload.unit_id,
-      lessonId: payload.lesson_id,
+      courseId: payload.target_course_id || payload.course_id,
+      unitId: payload.target_unit_id || payload.unit_id,
+      lessonId: payload.target_lesson_id || payload.lesson_id,
       creatorId: payload.creator_id,
       ownerId: payload.owner_id,
-      metadata: metadata,
-      centurySkills: metadata['21_century_skills'] && metadata['21_century_skills'].length > 0 ? metadata['21_century_skills'] : []
+      metadata,
+      centurySkills: metadata['21_century_skills'] &&
+        metadata['21_century_skills'].length ?
+        metadata['21_century_skills'] : []
     });
   },
 
   normalizeResources: function(payload) {
     const serializer = this;
     if (Ember.isArray(payload)) {
-      return payload.map(function(item) {
-        if (item.content_format === 'resource') {
-          return serializer.get('resourceSerializer').normalizeReadResource(item);
-        } else {
-          return serializer.get('questionSerializer').normalizeReadQuestion(item);
-        }
-      });
+      return payload.map(item =>
+        item.content_format === 'resource' ?
+          serializer.get('resourceSerializer').normalizeReadResource(item) :
+          serializer.get('questionSerializer').normalizeReadQuestion(item)
+      );
     }
     return [];
   },
@@ -143,12 +141,11 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param {string[]} resourceIds
    */
   serializeReorderCollection: function (resourceIds) {
-    const values = resourceIds.map(function(id, index) {
-      return { "id" : id, "sequence_id" : index + 1 };
-    });
-
+    const values = resourceIds.map(
+      (id, index) => ({ id, 'sequence_id' : index + 1 })
+    );
     return {
-      "order": values
+      'order': values
     };
   }
 });
