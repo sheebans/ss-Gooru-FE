@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import LessonSerializer from 'gooru-web/serializers/content/lesson';
+import CollectionSerializer from 'gooru-web/serializers/content/collection';
 
 /**
  * Serializer to support the Course Map operations
@@ -12,18 +13,35 @@ export default Ember.Object.extend({
    * @property {LessonSerializer} lessonSerializer
    */
   lessonSerializer: null,
+  /**
+   * @property {CollectionSerializer} collectionSerializer
+   */
+  collectionSerializer: null,
 
   init: function () {
     this._super(...arguments);
     this.set('lessonSerializer', LessonSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
    * Normalize a lesson info response
    * @param data - The endpoint response in JSON format
-   * @returns {Content/Lesson} lesson model
+   * @returns {Object} lesson and alternate paths
    */
   normalizeLessonInfo: function (data) {
-    return this.get('lessonSerializer').normalizeLesson(data.course_path);
+    let alternatePath = this.normalizeAlternatePaths(data.alternate_path);
+    let lesson = this.get('lessonSerializer').normalizeLesson(data.course_path);
+    lesson.get('children').unshift(...alternatePath);
+    return lesson;
+  },
+
+  /**
+   * Normalize the alternate paths for a lesson
+   * @param data - The alternate paths in JSON format
+   * @returns {Collection[]} alternate paths list
+   */
+  normalizeAlternatePaths: function (data) {
+    return data.map(path => this.get('collectionSerializer').normalizeReadCollection(path));
   }
 });
