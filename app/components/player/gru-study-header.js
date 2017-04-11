@@ -105,6 +105,11 @@ export default Ember.Component.extend({
   suggestedResources: null,
 
   /**
+   * @property {Array} list of breadcrumbs of a collection
+   */
+  breadcrumbs: null,
+
+  /**
    * @property {String} color - Hex color value for the bar in the bar chart
    */
   color: ANONYMOUS_COLOR,

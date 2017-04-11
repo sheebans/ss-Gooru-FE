@@ -116,6 +116,21 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
    */
   assessmentService: Ember.inject.service("api-sdk/assessment"),
 
+  /**
+   * @type {UnitService} Service to retrieve course information
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
+  /**
+   * @type {UnitService} Service to retrieve unit information
+   */
+  unitService: Ember.inject.service('api-sdk/unit'),
+
+  /**
+   * @type {LessonService} Service to retrieve unit information
+   */
+  lessonService: Ember.inject.service('api-sdk/lesson'),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -124,6 +139,9 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
    */
   model(params) {
     const route = this;
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
     const collectionId = params.collectionId;
     const type = params.type;
     const role = params.role || ROLES.TEACHER;
@@ -147,7 +165,22 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
       params.role = role;
       params.type = collection.get('collectionType');
       params.contextId = id;
-      return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId }));
+
+      return route.get('courseService').fetchById(courseId)
+        .then(function(course) {
+          return route.get('unitService').fetchById(courseId, unitId)
+            .then(function (unit) {
+              return route.get('lessonService').fetchById(courseId, unitId, lessonId)
+                .then(function (lesson) {
+                  return route.quizzesModel(params).then(hash => Object.assign(hash, {
+                    classId: params.classId,
+                    course: course,
+                    unit: unit,
+                    lesson: lesson
+                  }));
+                });
+            });
+        });
     });
   },
 
@@ -159,6 +192,9 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     controller.set('showConfirmation', !(collection.get('isCollection') || isAnonymous || isTeacher));
 
     controller.set('classId', model.classId);
+    controller.set('course', model.course);
+    controller.set('unit', model.unit);
+    controller.set('lesson', model.lesson);
     this._super(...arguments);
   }
 });

@@ -1,10 +1,16 @@
 <div class="header-panel">
   <div class="course-info">
-    {{#unless toggleState}}
-      <div {{action 'toggleHeader'}} class="course-title ellipsis pointer"> <i class="icon"></i>Marine Biology</div>
-    {{else}}
-      <div class="course-title ellipsis"> <i class="icon"></i>Marine Biology</div>
-    {{/unless}}
+    <div {{action (unless toggleState 'toggleHeader' (action (mut undefProp)))}} class="course-title {{unless toggleState 'pointer'}}">
+      <i class="icon"></i>
+      <span class="title ellipsis">{{courseTitle}}</span>
+      {{#if breadcrumbs}}
+        <div class="breadcrumbs hidden-xs">
+          {{#each breadcrumbs as |breadcrumb|}}
+            <span class="breadcrumb-title ellipsis">{{{breadcrumb}}}</span> {{gru-icon name='keyboard_arrow_right'}}
+          {{/each}}
+        </div>
+      {{/if}}
+    </div>
     <div class="actions">
       <button class="btn btn-default course-map" {{action 'redirectCourseMap'}}>{{gru-icon name='map'}} {{t "common.course-map"}}</button>
     </div>
