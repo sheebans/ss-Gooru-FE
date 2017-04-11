@@ -94,7 +94,7 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     selectResource: function (lessonId, collection) {
       let unitId = this.get('model.id');
-      this.sendAction('onSelectResource')(unitId, lessonId, collection);
+      this.get('onSelectResource')(unitId, lessonId, collection);
     },
 
     /**

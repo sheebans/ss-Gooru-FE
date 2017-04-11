@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | study-player', {
 });
 
 test('Layout - default to collection since parameter is not sent', function (assert) {
-  visit('/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/all-resource-types-collection-id');
+  visit('/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/all-resource-types-collection-id?courseStarted=true&isLesson=false');
 
   andThen(function () {
-    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/all-resource-types-collection-id?resourceId=image-resource-id');
+    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/all-resource-types-collection-id?courseStarted=true&isLesson=false&resourceId=image-resource-id');
 
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');
@@ -33,7 +33,7 @@ test('Redirect to Course Map', function (assert) {
   visit('/study-player/class/class-for-pochita-as-student/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/first-assessment-id');
 
   andThen(function () {
-    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-student/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/first-assessment-id?resourceId=image-resource-id');
+    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-student/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/first-assessment-id');
 
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');

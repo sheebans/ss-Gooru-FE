@@ -1791,5 +1791,12 @@ export default Object.assign(quizzesTranslations, {
     "suggestions-legend": "To learn more, check out these resources.",
     "resources-collection-report": "Collection usage report",
     "resources-assessment-report": "Assessment summary report"
+  },
+  "gru-suggest-test":{
+    "pre-test-header":"Pre-Test (Optional)",
+    "post-test-header":"Post-Test (Optional)",
+    "pre-test-lead":"Students are more prepared for this lesson by taken a pre-test",
+    "no":"No, thanks",
+    "take":"Take {{type}}"
   }
 });
