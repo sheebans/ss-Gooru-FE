@@ -6,7 +6,7 @@ const sessionStub = Ember.Service.extend({
   'token-api3': 'token-api-3'
 });
 
-moduleForAdapter('adapter:map/map', 'Unit | Adapter | map/map', {
+moduleForAdapter('adapter:map/navigate-map', 'Unit | Adapter | map/navigate-map', {
   unit: true,
   beforeEach: function () {
     this.register('service:session', sessionStub);

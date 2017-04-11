@@ -3,9 +3,9 @@ import MapContext from 'gooru-web/models/map/map-context';
 import MapSuggestion from 'gooru-web/models/map/map-suggestion';
 
 /**
- * Serializer to support the map operations
+ * Serializer to support the navigate map operations
  *
- * @typedef {Object} GoalSerializer
+ * @typedef {Object} NavigateMapSerializer
  */
 export default Ember.Object.extend({
 
