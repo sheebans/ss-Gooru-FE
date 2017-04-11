@@ -65,6 +65,11 @@ test('Layout', function(assert) {
         width: 140px;
         background-size: 140px 55px;
     }
+
+    .content.modals.gru-welcome-message .modal-body .last-text p .logo {
+        background: url("http://www.edify.cr/images/logo-EDIFY.png") no-repeat;
+        background-size: contain;
+    }
 `;
   assert.equal($style.text(), expedtedStyle, "Wrong style body");
 });
