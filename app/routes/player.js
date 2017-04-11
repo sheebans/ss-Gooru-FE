@@ -172,23 +172,24 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
       params.contextId = id;
 
       if(courseId && unitId && lessonId){
-        return route.get('courseService').fetchById(courseId)
-          .then(function(course) {
-            return route.get('unitService').fetchById(courseId, unitId)
-              .then(function (unit) {
-                return route.get('lessonService').fetchById(courseId, unitId, lessonId)
-                  .then(function (lesson) {
-                    return route.quizzesModel(params).then(hash => Object.assign(hash, {
-                      classId: params.classId,
-                      course: course,
-                      unit: unit,
-                      lesson: lesson,
-                      isLesson,
-                      courseStarted
-                    }));
-                  });
-              });
-          });
+
+        return  Ember.RSVP.hash ({
+          course: route.get('courseService').fetchById(courseId),
+          unit: route.get('unitService').fetchById(courseId, unitId),
+          lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId)
+        }).then(function(hash){
+          var course = hash.course;
+          var unit = hash.unit;
+          var lesson = hash.lesson;
+          return route.quizzesModel(params).then(hash => Object.assign(hash, {
+            classId: params.classId,
+            course,
+            unit,
+            lesson,
+            isLesson,
+            courseStarted
+          }));
+        });
       }
 
       return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId, isLesson, courseStarted }));
