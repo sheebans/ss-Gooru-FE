@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
 import LessonItem from 'gooru-web/models/content/lessonItem';
-import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 
 /**
  * Serializer to support the Lesson CRUD operations
@@ -12,6 +13,16 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
 export default Ember.Object.extend(ConfigurationMixin, {
 
   session: Ember.inject.service('session'),
+
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
+  init: function () {
+    this._super(...arguments);
+    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+  },
 
   /**
    * Serialize a Content/Lesson object into a JSON representation required by the Create Lesson endpoint
@@ -32,8 +43,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   serializeUpdateLesson: function (lessonModel) {
     return {
-      title: lessonModel.get('title'),
-      taxonomy: []   // TODO: pending
+      title: lessonModel.get('title')
     };
   },
 
@@ -63,9 +73,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
               title: lessonItemData.title
             });
 
-            const defaultImage = (lessonItem.get("isCollection")) ? appRootPath + DEFAULT_IMAGES.COLLECTION : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+            const defaultImage = (lessonItem.get('isCollection')) ? appRootPath + DEFAULT_IMAGES.COLLECTION : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
             const thumbnailUrl = lessonItemData.thumbnail ? basePath + lessonItemData.thumbnail : defaultImage;
-            lessonItem.set("thumbnailUrl", thumbnailUrl);
+            lessonItem.set('thumbnailUrl', thumbnailUrl);
 
             return lessonItem;
           });
@@ -75,7 +85,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       id: lessonData.lesson_id,
       sequence: lessonData.sequence_id,
       title: lessonData.title,
-      taxonomy: lessonData.taxonomy ? lessonData.taxonomy.slice(0) : []
+      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(lessonData.taxonomy)
     });
   },
 
@@ -84,12 +94,11 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param {string[]} collectionIds
    */
   serializeReorderLesson: function (collectionIds) {
-    const values = collectionIds.map(function(id, index) {
-      return { "id" : id, "sequence_id" : index + 1 };
-    });
-
+    const values = collectionIds.map(
+      (id, index) => ({ id, 'sequence_id' : index + 1 })
+    );
     return {
-      "order": values
+      order: values
     };
   }
 
