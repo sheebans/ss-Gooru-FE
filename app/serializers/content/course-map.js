@@ -42,6 +42,8 @@ export default Ember.Object.extend({
    * @returns {Collection[]} alternate paths list
    */
   normalizeAlternatePaths: function (data) {
-    return data.map(path => this.get('collectionSerializer').normalizeReadCollection(path));
+    return Ember.isArray(data) ? data.map(
+      path => this.get('collectionSerializer').normalizeReadCollection(path)
+    ) : [];
   }
 });
