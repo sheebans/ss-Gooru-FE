@@ -15,6 +15,15 @@ export default PlayerController.extend({
      */
     toggleHeader: function (toggleState) {
       this.set('toggleState', toggleState);
+    },
+    /**
+     * If the user want to continue playing the collection
+     */
+    playActualCollection:function(){
+      this.set('isLesson', false);
+      this.set('courseStarted', true);
+      this.set('showConfirmation', !this.get('isLesson') && !(this.get('collection.isCollection') || this.get('isAnonymous') || this.get('isTeacher')));
+      this.set('showSuggestion',false);
     }
   },
 
@@ -26,6 +35,14 @@ export default PlayerController.extend({
    * @property {Boolean} toggleState
    */
   toggleState: true,
+
+  /**
+   * Indicate if show pre test suggestion
+   * @property {Boolean} showSuggestion
+   */
+  showSuggestion:Ember.computed('isLesson','courseStarted', function(){
+    return this.get('isLesson') || !this.get('courseStarted') ;
+  }),
 
   /**
    * Shows the breadcrumbs info of the collection

@@ -1,0 +1,10 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <span class="lead"><b>{{t  (concat 'gru-suggest-test.' type '-header')}}</b></span>
+        <span class="description">{{t  (concat 'gru-suggest-test.' type '-lead')}}</span>
+        <div class="actions">
+            <button class="btn btn-default btn-no" {{action 'playCollection'}}>{{t 'gru-suggest-test.no'}}</button>
+            <button class="btn btn-primary btn-suggestion">{{t 'gru-suggest-test.take' type=type}}</button>
+        </div>
+    </div>
+</div>

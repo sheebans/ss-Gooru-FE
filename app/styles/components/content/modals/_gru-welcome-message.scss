@@ -40,10 +40,11 @@
         margin: 0;
         .logo{
           background: url('gooru/images/gooru-logo.svg') no-repeat;
+          background-size: contain;
           float: right;
-          height: 33px;
-          margin-left: 6px;
-          width: 111px;
+          height: 38px;
+          margin: 2px 0  0 6px;
+          width: 110px;
         }
       }
     }

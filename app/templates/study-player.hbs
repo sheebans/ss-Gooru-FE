@@ -8,7 +8,10 @@
   resourceSequence=resource.sequence
 }}
 <div class="player-container {{if toggleState 'expanded' 'collapsed'}} {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
-  {{player.qz-player
+  {{#if showSuggestion}}
+      {{player.gru-suggest-test type='pre-test' onPlayCollection='playActualCollection'}}
+  {{else}}
+    {{player.qz-player
     showConfirmation=showConfirmation
     resource=resource
     resourceId=resourceId
@@ -19,5 +22,6 @@
     contextResult=contextResult
     isAnonymous=isAnonymous
     onFinish='onFinish'
-  }}
+    }}
+  {{/if}}
 </div>

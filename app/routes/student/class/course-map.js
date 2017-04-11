@@ -54,15 +54,22 @@ export default Ember.Route.extend({
      */
     studyPlayer: function (type,unitId,lessonId, collection) {
       if (type === 'lesson'){
-        //TODO
-      }
-      else{
         const currentClass = this.modelFor('student.class').class;
         const classId = currentClass.get('id');
         const courseId = currentClass.get('courseId');
         const role = 'student';
         this.transitionTo('study-player', classId, courseId, unitId,
-          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType') }});
+          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType'),isLesson:true }});
+      }
+      else {
+        const currentClass = this.modelFor('student.class').class;
+        const classId = currentClass.get('id');
+        const courseId = currentClass.get('courseId');
+        const role = 'student';
+        const courseStarted = this.get('controller.userLocation').length > 0;
+
+        this.transitionTo('study-player', classId, courseId, unitId,
+          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType'),isLesson:false, courseStarted }});
       }
     }
 
