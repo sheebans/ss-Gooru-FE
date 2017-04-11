@@ -5,6 +5,11 @@ export default Ember.Component.extend({
   // Attributes
   classNames: ['player','gru-suggest-test'],
 
+  actions:{
+    playCollection:function(){
+      this.sendAction('onPlayCollection');
+    }
+  },
   // -------------------------------------------------------------------------
   // Properties
   /**

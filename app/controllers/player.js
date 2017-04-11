@@ -11,7 +11,7 @@ export default PlayerController.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['resourceId', 'role', 'type', 'sourceId'],
+  queryParams: ['resourceId', 'role', 'type', 'sourceId','isLesson','courseStarted'],
 
   // -------------------------------------------------------------------------
   // Properties
@@ -33,5 +33,17 @@ export default PlayerController.extend({
    * Query param indicating if it is a collection or assessment
    * @property {string}
    */
-  type: null
+  type: null,
+  /**
+   * Query param
+   * Indicate if the player has been call by a lesson
+   * @property {string} isLesson
+   */
+  isLesson:null,
+  /**
+   * Query param
+   * Indicate if the course has been started
+   * @property {string} courseStared
+   */
+  courseStarted:false
 });

@@ -5,21 +5,14 @@ moduleForComponent('player/gru-suggest-test', 'Integration | Component | player/
   integration: true
 });
 
-test('it renders', function(assert) {
+test('Layout', function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{player/gru-suggest-test}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#player/gru-suggest-test}}
-      template block text
-    {{/player/gru-suggest-test}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.set('type', 'pre-test');
+  this.render(hbs`{{player/gru-suggest-test type=type}}`);
+  const $component = this.$();
+  assert.ok($component.find('.player.gru-suggest-test').length, 'Missing suggest test panel');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .lead').length, 'Missing lead');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .description').length, 'Missing description');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-no').length, 'Missing no thanks button');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-suggestion').length, 'Missing suggestion button');
 });

@@ -1793,6 +1793,8 @@ export default Object.assign(quizzesTranslations, {
   "gru-suggest-test":{
     "pre-test-header":"Pre-Test (Optional)",
     "post-test-header":"Post-Test (Optional)",
-    "pre-test-lead":"Students are more prepared for this lesson by taken a pre-test"
+    "pre-test-lead":"Students are more prepared for this lesson by taken a pre-test",
+    "no":"No, thanks",
+    "take":"Take {{type}}"
   }
 });

@@ -15,10 +15,22 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
 
   templateName: 'player',
 
+
   // -------------------------------------------------------------------------
   // Dependencies
 
-  session: Ember.inject.service("session"),
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+  /**
+   * @property {Ember.Service} Service to retrieve a collection
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+  /**
+   * @property {Ember.Service} session service
+   */
+  session: Ember.inject.service('session'),
 
 
   // -------------------------------------------------------------------------
@@ -28,9 +40,9 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
      * When closing the player
      */
     closePlayer: function(){
-      const $appContainer = Ember.$( ".app-container" );
-      if ($appContainer.hasClass( "navigator-on" )){
-        $appContainer.removeClass( "navigator-on" );
+      const $appContainer = Ember.$( '.app-container' );
+      if ($appContainer.hasClass( 'navigator-on' )){
+        $appContainer.removeClass( 'navigator-on' );
       }
       var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
       this.transitionTo(route);
@@ -55,7 +67,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     },
 
     startAssessment: function(){
-      const controller = this.get("controller");
+      const controller = this.get('controller');
       controller.startAssessment();
     },
 
@@ -64,26 +76,26 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
      */
     navigateToReport: function (){
       const route = this;
-      const controller = route.get("controller");
-      let context = controller.get("context");
-      let collection = controller.get("collection");
+      const controller = route.get('controller');
+      let context = controller.get('context');
+      let collection = controller.get('collection');
       const queryParams = {
-        collectionId: context.get("collectionId"),
+        collectionId: context.get('collectionId'),
         userId: controller.get('session.userId'),
-        type: collection.get("collectionType"),
-        role: controller.get("role")
+        type: collection.get('collectionType'),
+        role: controller.get('role')
       };
-      if (context.get("classId")) {
-        queryParams.classId = context.get("classId");
-        queryParams.courseId = context.get("courseId");
-        queryParams.unitId = context.get("unitId");
-        queryParams.lessonId = context.get("lessonId");
+      if (context.get('classId')) {
+        queryParams.classId = context.get('classId');
+        queryParams.courseId = context.get('courseId');
+        queryParams.unitId = context.get('unitId');
+        queryParams.lessonId = context.get('lessonId');
       }
 
       const reportController = route.controllerFor('reports.student-collection');
 
         //this doesn't work when refreshing the page, TODO
-      reportController.set("backUrl", route.get('history.lastRoute.url'));
+      reportController.set('backUrl', route.get('history.lastRoute.url'));
       route.transitionTo('reports.student-collection', { queryParams: queryParams});
     },
 
@@ -105,18 +117,6 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
   },
 
   // -------------------------------------------------------------------------
-  // Properties
-  /**
-   * @property {Ember.Service} Service to retrieve a collection
-   */
-  collectionService: Ember.inject.service("api-sdk/collection"),
-
-  /**
-   * @property {Ember.Service} Service to retrieve an asssessment
-   */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
-
-  // -------------------------------------------------------------------------
   // Methods
 
   /**
@@ -126,6 +126,8 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     const route = this;
     const collectionId = params.collectionId;
     const type = params.type;
+    const isLesson = params.isLesson;
+    const courseStarted = params.courseStarted;
     const role = params.role || ROLES.TEACHER;
     const isCollection = type === 'collection';
     const isAssessment = type === 'assessment';
@@ -147,7 +149,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
       params.role = role;
       params.type = collection.get('collectionType');
       params.contextId = id;
-      return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId }));
+      return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId, isLesson, courseStarted }));
     });
   },
 
@@ -156,9 +158,15 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     const isAnonymous = model.isAnonymous;
     const isTeacher = model.role === 'teacher';
 
-    controller.set('showConfirmation', !(collection.get('isCollection') || isAnonymous || isTeacher));
+    const isLesson = JSON.parse(model.isLesson);
+    const courseStarted = JSON.parse(model.courseStarted);
 
+    controller.set('showConfirmation', !isLesson && !(collection.get('isCollection') || isAnonymous || isTeacher));
+    controller.set('isTeacher',isTeacher);
+    controller.set('isAnonymous',isAnonymous);
     controller.set('classId', model.classId);
+    controller.set('isLesson',isLesson);
+    controller.set('courseStarted',courseStarted);
     this._super(...arguments);
   }
 });
