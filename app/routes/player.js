@@ -171,23 +171,28 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
       params.type = collection.get('collectionType');
       params.contextId = id;
 
-      return route.get('courseService').fetchById(courseId)
-        .then(function(course) {
-          return route.get('unitService').fetchById(courseId, unitId)
-            .then(function (unit) {
-              return route.get('lessonService').fetchById(courseId, unitId, lessonId)
-                .then(function (lesson) {
-                  return route.quizzesModel(params).then(hash => Object.assign(hash, {
-                    classId: params.classId,
-                    course: course,
-                    unit: unit,
-                    lesson: lesson,
-                    isLesson,
-                    courseStarted
-                  }));
-                });
-            });
-        });
+      if(courseId && unitId && lessonId){
+        return route.get('courseService').fetchById(courseId)
+          .then(function(course) {
+            return route.get('unitService').fetchById(courseId, unitId)
+              .then(function (unit) {
+                return route.get('lessonService').fetchById(courseId, unitId, lessonId)
+                  .then(function (lesson) {
+                    return route.quizzesModel(params).then(hash => Object.assign(hash, {
+                      classId: params.classId,
+                      course: course,
+                      unit: unit,
+                      lesson: lesson,
+                      isLesson,
+                      courseStarted
+                    }));
+                  });
+              });
+          });
+      }
+
+      return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId, isLesson, courseStarted }));
+
     });
   },
 
