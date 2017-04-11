@@ -1,0 +1,10 @@
+{{player.gru-study-header
+  onToggleHeader='toggleHeader'
+  classId=classId
+  resource=resource
+  resourceSequence=resource.sequence
+  collectionUrl=collectionUrl
+}}
+<div class="resource-player {{if toggleState 'expanded' 'collapsed'}}">
+  {{player.qz-resource-viewer resource=resource}}
+</div>
