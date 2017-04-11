@@ -30,8 +30,28 @@
     </div>
     <div class="resources">
       <div class="count-resources">
-        <span class="counter">1/10</span>
-        <button class="btn btn-default resources-btn">{{t "common.questions"}}</button>
+        {{#if fromReport}}
+          {{#if collection.isCollection}}
+            {{t "gru-study-header.resources-collection-report"}}
+          {{else}}
+            {{t "gru-study-header.resources-assessment-report"}}
+          {{/if}}
+        {{else}}
+          <span class="counter">
+            {{#if totalResources}}
+              {{resourceSequence}}/{{totalResources}}
+            {{else}}
+              0
+            {{/if}}
+            </span>
+          <button class="btn btn-default resources-btn">
+            {{#if collection.isCollection}}
+              {{t "common.resources"}}
+            {{else}}
+              {{t "common.questions"}}
+            {{/if}}
+          </button>
+        {{/if}}
       </div>
       <div class="navigation">
         <span class="next">Next:</span>

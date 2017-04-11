@@ -7,8 +7,10 @@ export default Ember.Route.extend({
   model: function() {
     const route = this;
     const course = route.modelFor('student.class').course;
+    let classId = route.modelFor('student.class').class.id;
     return Ember.RSVP.hash({
-      course: course
+      course: course,
+      classId: classId
     });
   },
   /**
@@ -18,6 +20,7 @@ export default Ember.Route.extend({
    */
   setupController: function(controller,model) {
     controller.set('course', model.course);
+    controller.set('classId', model.classId);
     controller.loadData();
   },
 

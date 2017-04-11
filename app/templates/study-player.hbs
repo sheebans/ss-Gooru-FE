@@ -3,6 +3,7 @@
   collection=collection
   showConfirmation=showConfirmation
   onToggleHeader='toggleHeader'
+  resourceSequence=resource.sequence
 }}
 <div class="player-container {{if toggleState 'expanded' 'collapsed'}} {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
   {{#if showSuggestion}}
@@ -10,6 +11,7 @@
   {{else}}
     {{player.qz-player
     showConfirmation=showConfirmation
+    resource=resource
     resourceId=resourceId
     role=role
     type=type
