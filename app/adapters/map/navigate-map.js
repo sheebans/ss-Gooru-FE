@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 /**
- * Adapter to support the map operations
+ * Adapter to support the navigate map operations
  *
- * @typedef {Object} MapAdapter
+ * @typedef {Object} NavigateMapAdapter
  */
 export default Ember.Object.extend({
 

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForAdapter from 'gooru-web/tests/helpers/module-for-adapter';
 
-moduleForAdapter('adapter:content/course-map', 'Unit | Adapter | content/course-map', {
+moduleForAdapter('adapter:map/course-map', 'Unit | Adapter | map/course-map', {
   // needs: []
 });
 

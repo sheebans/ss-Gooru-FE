@@ -1,7 +1,7 @@
 import { moduleFor, test } from 'ember-qunit';
 import MapContext from 'gooru-web/models/map/map-context';
 
-moduleFor('serializer:map/map', 'Unit | Serializer | map/map');
+moduleFor('serializer:map/navigate-map', 'Unit | Serializer | map/navigate-map');
 
 test('serializeMapContext', function (assert) {
   const serializer = this.subject();
