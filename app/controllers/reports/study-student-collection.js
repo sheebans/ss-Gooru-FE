@@ -1,4 +1,5 @@
 import StudentCollection from 'gooru-web/controllers/reports/student-collection';
+import { SUGGESTION_TYPE } from 'gooru-web/config/config';
 
 /**
  *
@@ -36,6 +37,11 @@ export default StudentCollection.extend({
    * Shows the performance information
    * @property {Boolean} toggleState
    */
-  toggleState: true
+  toggleState: true,
 
+  /**
+   *Back fill pre test suggestion
+   * @property {String} typeSuggestion
+   */
+  typeSuggestion: SUGGESTION_TYPE.backFill
 });

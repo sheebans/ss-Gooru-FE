@@ -5,6 +5,11 @@
   onToggleHeader='toggleHeader'
   fromReport=true
 }}
-<div class="report-container {{if toggleState 'expanded' 'collapsed'}}">
+{{#if isPreTest}}
+  <div class="suggestion-panel {{if toggleState 'expanded' 'collapsed'}}">
+    {{player.gru-suggest-test type=typeSuggestion assessment=collection}}
+  </div>
+{{/if}}
+<div class="report-container {{if isPreTest 'pre-test' 'report'}} {{if toggleState 'expanded' 'collapsed'}}">
   {{reports.qz-student-report attemptData=attemptData}}
 </div>
