@@ -22,14 +22,6 @@ export default Ember.Component.extend({
   class: null,
 
   /**
-   * @property {string} class performance score
-   */
-  score: Ember.computed('class.performanceSummary.score', function(){
-    const score = this.get('class.performanceSummary.score');
-    return Ember.typeOf(score) === 'number' ? score : 0;
-  }),
-
-  /**
    * @property {Number} class performance total completed
    */
   totalCompleted: Ember.computed('class.performanceSummary.totalCompleted', function(){
