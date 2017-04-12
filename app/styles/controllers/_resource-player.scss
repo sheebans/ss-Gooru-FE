@@ -1,0 +1,34 @@
+.resource-player {
+  height: 100%;
+  .gru-header,
+  .gru-footer {
+    display: none;
+  }
+
+  .app-container {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+  }
+
+  .qz-resource-viewer {
+    padding-bottom: 15px;
+  }
+
+  &.expanded {
+    .qz-resource-viewer {
+      padding-top: 300px;
+      @media (min-width: $screen-sm) {
+        padding-top: 170px;
+      }
+      @media (min-width: $screen-md) {
+        padding-top: 145px;
+      }
+    }
+  }
+  &.collapsed {
+    .qz-resource-viewer {
+      padding-top: 55px;
+    }
+  }
+}

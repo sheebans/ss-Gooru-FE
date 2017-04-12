@@ -1,4 +1,4 @@
-.study-player, .reports_study-student-collection {
+.study-player, .reports_study-student-collection, .resource-player {
   .gru-study-header {
     top: 0;
     width: 100%;
@@ -234,6 +234,20 @@
             }
           }
         }
+        .btn-back {
+          color: $white;
+          border-radius: 5px;
+          border: 1px solid $white;
+          background-color: transparent;
+          width: 118px;
+          height: 36px;
+          padding: 5px;
+          margin: 0 0 2px;
+          .title {
+            width: 85px;
+            margin: 0 0 0 2px;
+          }
+        }
       }
       .suggestions {
         width: 100%;
@@ -249,6 +263,45 @@
         .description {
           line-height: $font-navigator;
           font-weight: bold;
+        }
+        .resource-title {
+          margin: 10px 0 0;
+          @include inline-flex;
+          i {
+            height: 20px;
+            width: 22px;
+            margin-right: 5px;
+            &.video_resource-icon {
+              background: url("quizzes-addon/quizzes/images/video-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.webpage_resource-icon {
+              background: url("quizzes-addon/quizzes/images/website-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.interactive_resource-icon {
+              background: url("quizzes-addon/quizzes/images/interactive-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.image_resource-icon {
+              background: url("quizzes-addon/quizzes/images/image-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.text_resource-icon {
+              background: url("quizzes-addon/quizzes/images/text-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.audio_resource-icon {
+              background: url("quizzes-addon/quizzes/images/audio-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+          }
         }
         .suggested-resources {
           margin: 10px 0 0;
