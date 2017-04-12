@@ -45,7 +45,7 @@ export default Ember.Controller.extend({
             controller.set('notMember', null);
           } else {
             controller.send('updateUserClasses'); // Triggers the refresh of user classes in top header
-            controller.transitionToRoute('student.class.class-activities', classId);
+            controller.transitionToRoute('student.class.course-map', classId);
           }
 
         }, function (error) {

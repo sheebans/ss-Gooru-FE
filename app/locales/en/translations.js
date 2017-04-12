@@ -828,7 +828,7 @@ export default Object.assign(quizzesTranslations, {
     "class":{
       "back-to": "Back to My Classes",
       "performance": "Performance",
-      "classmates": "Classmates",
+      "classmates": "Classroom Information",
       "course-map": "Course Map",
       "unit": "Unit",
       "leson": "Leson",
