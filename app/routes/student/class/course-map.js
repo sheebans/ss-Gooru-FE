@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { ROLES } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
 
@@ -15,6 +16,11 @@ export default Ember.Route.extend({
    */
   analyticsService: Ember.inject.service('api-sdk/analytics'),
 
+  /**
+   * @property {NavigateMapService}
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -23,6 +29,16 @@ export default Ember.Route.extend({
   // Actions
 
   actions: {
+
+    studyNow: function() {
+      const route = this;
+      const currentClass = route.modelFor('student.class').class;
+      const classId = currentClass.get('id');
+      const courseId = currentClass.get('courseId');
+
+      route.continueCourseStudyPlayer(classId, courseId);
+    },
+
     /**
      * Open the player with the specific collection/assessment
      *
@@ -39,7 +55,7 @@ export default Ember.Route.extend({
         const currentClass = this.modelFor('student.class').class;
         const classId = currentClass.get('id');
         const courseId = currentClass.get('courseId');
-        const role = 'student';
+        const role = ROLES.STUDENT;
         this.transitionTo('context-player', classId, courseId, unitId,
           lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType') }});
       }
@@ -52,24 +68,17 @@ export default Ember.Route.extend({
      * @param {string} lessonId - Identifier for lesson
      * @param {string} collection - collection or assessment
      */
-    studyPlayer: function (type,unitId,lessonId, collection) {
-      if (type === 'lesson'){
-        const currentClass = this.modelFor('student.class').class;
-        const classId = currentClass.get('id');
-        const courseId = currentClass.get('courseId');
-        const role = 'student';
-        this.transitionTo('study-player', classId, courseId, unitId,
-          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType'),isLesson:true }});
+    studyPlayer: function (type, unitId, lessonId, collection) {
+      const route = this;
+      const currentClass = route.modelFor('student.class').class;
+      const classId = currentClass.get('id');
+      const courseId = currentClass.get('courseId');
+
+      if (type === 'lesson') {
+        route.startLessonStudyPlayer(classId, courseId, unitId, lessonId);
       }
       else {
-        const currentClass = this.modelFor('student.class').class;
-        const classId = currentClass.get('id');
-        const courseId = currentClass.get('courseId');
-        const role = 'student';
-        const courseStarted = this.get('controller.userLocation').length > 0;
-
-        this.transitionTo('study-player', classId, courseId, unitId,
-          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType'),isLesson:false, courseStarted }});
+        route.startCollectionStudyPlayer(classId, courseId, unitId, lessonId, collection);
       }
     }
 
@@ -114,5 +123,60 @@ export default Ember.Route.extend({
     controller.set('course', model.course);
     controller.set('classMembers', model.classMembers);
     controller.get('studentClassController').selectMenuItem('course-map');
+  },
+
+  /**
+   * Navigates to collection
+   * @param {string} classId
+   * @param {string} courseId
+   * @param {string} unitId
+   * @param {string} lessonId
+   * @param {Collection} collection
+     */
+  startCollectionStudyPlayer:function(classId, courseId, unitId, lessonId, collection) {
+    const route = this;
+    const role = ROLES.STUDENT;
+    const collectionId = collection.get('id');
+    const collectionType = collection.get('collectionType');
+
+    const queryParams = {
+      unitId: unitId,
+      lessonId: lessonId,
+      collectionId: collectionId,
+      type: collectionType,
+      role: role
+    };
+    route.transitionTo('study-player', classId, courseId, { queryParams: queryParams });
+  },
+
+  /**
+   * Navigates to the next lesson collection
+   * @param {string} classId
+   * @param {string} courseId
+   * @param {string} unitId
+   * @param {string} lessonId
+     */
+  startLessonStudyPlayer:function(classId, courseId, unitId, lessonId) {
+    const route = this;
+    const role = ROLES.STUDENT;
+    const queryParams = {
+      unitId: unitId,
+      lessonId: lessonId,
+      role: role
+    };
+    route.transitionTo('study-player', classId, courseId, { queryParams: queryParams });
+  },
+
+  /**
+   * Resumes or start the course study player
+   * @param {string} classId
+   * @param {string} courseId
+     */
+  continueCourseStudyPlayer: function (classId, courseId) {
+    const route = this;
+    const queryParams = {
+      role: ROLES.STUDENT
+    };
+    route.transitionTo('study-player', classId, courseId, { queryParams: queryParams });
   }
 });

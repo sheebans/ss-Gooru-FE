@@ -70,6 +70,12 @@ export const CONTENT_TYPES = {
   QUESTION:'question'
 };
 
+export const ASSESSMENT_SUB_TYPES = {
+  PRE_TEST: 'pre-test',
+  POST_TEST: 'post-test',
+  BENCHMARK: 'benchmark'
+};
+
 export const KEY_CODES = {
   DOWN: 40,
   ENTER: 13,

@@ -33,6 +33,31 @@ export default Ember.Object.extend({
     });
   },
 
+  /**
+   * Calls the get current map location api
+   *
+   * @param {string} courseId
+   * @param {string} classId
+   * @returns {Promise|Object}
+   */
+  getCurrentMapContext: function (courseId, classId = undefined) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/context`;
+    const options = {
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      headers: this.defineHeaders(),
+      data: {
+        course_id: courseId,
+        class_id: classId
+      }
+    };
+
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      Ember.$.ajax(url, options).then(resolve, reject);
+    });
+  },
+
   defineHeaders: function () {
     return {
       'Authorization': `Token ${this.get('session.token-api3')}`

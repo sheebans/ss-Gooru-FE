@@ -41,3 +41,30 @@ test('next', function (assert) {
   });
 });
 
+test('getCurrentMapContext', function (assert) {
+  assert.expect(4);
+  // Mock backend response
+  this.pretender.map(function () {
+    this.get('/api/navigate-map/v1/context', function (request) {
+      assert.equal(request.queryParams.course_id, 123, 'Wrong course id');
+      assert.equal(request.queryParams.class_id, 321, 'Wrong class id');
+      assert.equal(request.requestHeaders['Authorization'], 'Token token-api-3', 'Wrong token');
+      return [
+        200,
+        {
+          'Content-Type': 'application/json'
+        },
+        JSON.stringify({})];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+
+  adapter.getCurrentMapContext(123, 321).then(function () {
+    assert.ok(true, 'This should be called once');
+  });
+});
+

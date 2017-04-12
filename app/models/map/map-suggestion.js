@@ -20,7 +20,23 @@ const MapSuggestionModel = Ember.Object.extend({
   /**
    * @property {String} type pre-test, post-test, benchmark
    */
-  type: null
+  type: null,
+
+  /**
+   * @property {boolean}
+   */
+  isPreTest: Ember.computed.equal('type', 'pre-test'),
+
+  /**
+   * @property {boolean}
+   */
+  isPostTest: Ember.computed.equal('type', 'post-test'),
+
+  /**
+   * @property {boolean}
+   */
+  isBenchmark: Ember.computed.equal('type', 'benchmark')
+
 });
 
 export default MapSuggestionModel;
