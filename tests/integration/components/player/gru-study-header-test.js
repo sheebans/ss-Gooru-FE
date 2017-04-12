@@ -80,9 +80,13 @@ test('Layout', function(assert) {
     isCollection: true
   });
 
+  this.set('breadcrumbs', ['unit 1', 'lesson 1', 'collection 1']);
+
   this.set('classId', 'class-1');
 
-  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session}}`);
+  this.set('courseTitle', 'Marine Biology');
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session courseTitle=courseTitle breadcrumbs=breadcrumbs}}`);
 
   var $component = this.$(); //component dom element
   const $header = $component.find('.gru-study-header');
@@ -91,6 +95,14 @@ test('Layout', function(assert) {
   const $courseInfo = $header.find('.course-info');
   T.exists(assert, $courseInfo, 'Missing course-info');
   T.exists(assert, $courseInfo.find('.course-title'), 'Missing course title');
+  T.exists(assert, $courseInfo.find('.course-title i'), 'Missing course title icon');
+  assert.equal(T.text($courseInfo.find('.course-title .title')), 'Marine Biology', 'Wrong course title text');
+  T.exists(assert, $courseInfo.find('.breadcrumbs'), 'Missing breadcrumbs');
+  assert.equal($courseInfo.find('.breadcrumb-title').length, 3, 'Wrong breadcrumb-titles');
+  assert.equal(T.text($courseInfo.find('.breadcrumb-title:eq(0)')), 'unit 1', 'Wrong first breadcrumb title');
+  assert.equal(T.text($courseInfo.find('.breadcrumb-title:eq(1)')), 'lesson 1', 'Wrong second breadcrumb title');
+  assert.equal(T.text($courseInfo.find('.breadcrumb-title:eq(2)')), 'collection 1', 'Wrong third breadcrumb title');
+
   T.exists(assert, $courseInfo.find('.actions .course-map'), 'Missing course map button');
 
   const $performanceInfo = $header.find('.performance-info');

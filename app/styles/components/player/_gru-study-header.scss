@@ -1,4 +1,4 @@
-.study-player, .reports_study-student-collection {
+.study-player, .reports_study-student-collection, .resource-player {
   .gru-study-header {
     top: 0;
     width: 100%;
@@ -19,6 +19,12 @@
     }
     &.collapsed {
       height: 40px;
+      @media (min-width: $screen-sm) {
+        height: 65px;
+      }
+      @media (min-width: $screen-md) {
+        height: 40px;
+      }
     }
     .header-panel {
       width: inherit;
@@ -29,20 +35,66 @@
       .course-info {
         border-bottom: 2px solid $light-300;
         height: 40px;
+        @media (min-width: $screen-sm) {
+          height: 65px;
+        }
+        @media (min-width: $screen-md) {
+          height: 40px;
+        }
         @include flexbox;
         .course-title {
           width: 65%;
           font-size: $font-size-h5;
           font-weight: bold;
           @media (min-width: $screen-sm) {
-            width: 80%;
+            width: 84%;
           }
-          i.icon {
-            background: url("gooru/images/navigation_course_selected.svg");
-            width: 20px;
-            min-height: 15px;
+          @media (min-width: $screen-md) {
+            width: 90%;
+          }
+          i {
+            vertical-align: middle;
+            &.icon {
+              background: url("gooru/images/navigation_course_selected.svg");
+              width: 20px;
+              min-height: 15px;
+              display: inline-block;
+              margin: 0 0 0 10px;
+            }
+          }
+          .title {
+            max-width: 160px;
+            width: auto;
             display: inline-block;
-            margin: 0 10px;
+            vertical-align: middle;
+            margin: 0 5px 0 0;
+            line-height: $font-size-h4;
+            @media (min-width: $screen-xs) {
+              max-width: 215px;
+            }
+          }
+        }
+        .breadcrumbs {
+          display: block;
+          line-height: $font-size-large;
+          height: 25px;
+          @media (min-width: $screen-md) {
+            display: inline-block;
+          }
+          .breadcrumb-title {
+            max-width: 170px;
+            width: auto;
+            font-size: $font-size-large;
+            line-height: $font-size-lead;
+            font-weight: normal;
+            display: inline-block;
+            vertical-align: middle;
+          }
+          i {
+            width: 17px;
+            &:last-child {
+              display: none;
+            }
           }
         }
         .actions {
@@ -50,7 +102,10 @@
           margin: 6px 0;
           text-align: right;
           @media (min-width: $screen-sm) {
-            width: 20%;
+            width: 14%;
+          }
+          @media (min-width: $screen-md) {
+            width: 10%;
           }
           button {
             padding: 1px 7px;
@@ -179,6 +234,20 @@
             }
           }
         }
+        .btn-back {
+          color: $white;
+          border-radius: 5px;
+          border: 1px solid $white;
+          background-color: transparent;
+          width: 118px;
+          height: 36px;
+          padding: 5px;
+          margin: 0 0 2px;
+          .title {
+            width: 85px;
+            margin: 0 0 0 2px;
+          }
+        }
       }
       .suggestions {
         width: 100%;
@@ -194,6 +263,45 @@
         .description {
           line-height: $font-navigator;
           font-weight: bold;
+        }
+        .resource-title {
+          margin: 10px 0 0;
+          @include inline-flex;
+          i {
+            height: 20px;
+            width: 22px;
+            margin-right: 5px;
+            &.video_resource-icon {
+              background: url("quizzes-addon/quizzes/images/video-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.webpage_resource-icon {
+              background: url("quizzes-addon/quizzes/images/website-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.interactive_resource-icon {
+              background: url("quizzes-addon/quizzes/images/interactive-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.image_resource-icon {
+              background: url("quizzes-addon/quizzes/images/image-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.text_resource-icon {
+              background: url("quizzes-addon/quizzes/images/text-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+            &.audio_resource-icon {
+              background: url("quizzes-addon/quizzes/images/audio-resource-white.svg");
+              -webkit-background-size: 22px 20px;
+              background-size: 22px 20px;
+            }
+          }
         }
         .suggested-resources {
           margin: 10px 0 0;

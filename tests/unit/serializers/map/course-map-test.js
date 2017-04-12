@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('serializer:content/course-map', 'Unit | Serializer | content/course-map');
+moduleFor('serializer:map/course-map', 'Unit | Serializer | map/course-map');
 
 test('normalizeLessonInfo', function(assert) {
   const data = {

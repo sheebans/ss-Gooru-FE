@@ -54,11 +54,29 @@ export default Ember.Component.extend({
     },
 
     /**
+     * Go back to collection
+     */
+    backToCollection() {
+      window.location.href = this.get('collectionUrl');
+    },
+
+    /**
      * Action triggered when the performance information panel is expanded/collapsed
      */
     toggleHeader() {
       this.toggleProperty('toggleState');
       this.sendAction('onToggleHeader', this.get('toggleState'));
+    },
+    /**
+     * Action triggered when a suggested resource is clicked
+     */
+    playSuggested(resource) {
+      this.get('router').transitionTo('resource-player',
+        this.get('classId'), resource.id, {
+          queryParams: {
+            collectionUrl: window.location.href
+          }
+        });
     }
   },
 
@@ -67,12 +85,18 @@ export default Ember.Component.extend({
 
   init() {
     this._super( ...arguments );
-
-    this.loadContent();
+    if(!this.get('collectionUrl')) {
+      this.loadContent();
+    }
   },
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @property {String} collectionUrl
+   */
+  collectionUrl: null,
 
   /**
    * @property {Class} class information
@@ -103,6 +127,11 @@ export default Ember.Component.extend({
    * @property {Array} list of suggested resources of a collection
    */
   suggestedResources: null,
+
+  /**
+   * @property {Array} list of breadcrumbs of a collection
+   */
+  breadcrumbs: null,
 
   /**
    * @property {String} color - Hex color value for the bar in the bar chart
@@ -137,7 +166,7 @@ export default Ember.Component.extend({
     return [
       {
         color: this.get('color'),
-        percentage: percentage
+        percentage
       }
     ];
   }),
@@ -158,16 +187,15 @@ export default Ember.Component.extend({
     component.set('totalResources', totalResources);
 
     component.get('classService').readClassInfo(classId).then(function(aClass) {
-      component.get('performanceService').findClassPerformanceSummaryByClassIds([classId]).then(function(classPerformanceSummaryItems) {
-        aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
-        component.set('class', aClass);
-      });
+      component.get('performanceService').findClassPerformanceSummaryByClassIds([classId])
+        .then(function(classPerformanceSummaryItems) {
+          aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
+          component.set('class', aClass);
+        });
     });
 
-    component.get('suggestService').suggestResourcesForCollection(component.get('session.userId'), collectionId)
-      .then(function(suggestedResources) {
-        component.set('suggestedResources', suggestedResources);
-      });
+    component.get('suggestService')
+      .suggestResourcesForCollection(component.get('session.userId'), collectionId)
+      .then(suggestedResources => component.set('suggestedResources', suggestedResources));
   }
-
 });

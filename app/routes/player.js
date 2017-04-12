@@ -15,7 +15,6 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
 
   templateName: 'player',
 
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -27,6 +26,22 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
    * @property {Ember.Service} Service to retrieve a collection
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
+
+  /**
+   * @type {UnitService} Service to retrieve course information
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
+  /**
+   * @type {UnitService} Service to retrieve unit information
+   */
+  unitService: Ember.inject.service('api-sdk/unit'),
+
+  /**
+   * @type {LessonService} Service to retrieve unit information
+   */
+  lessonService: Ember.inject.service('api-sdk/lesson'),
+
   /**
    * @property {Ember.Service} session service
    */
@@ -117,6 +132,9 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
   },
 
   // -------------------------------------------------------------------------
+  // Properties
+
+  // -------------------------------------------------------------------------
   // Methods
 
   /**
@@ -124,6 +142,9 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
    */
   model(params) {
     const route = this;
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
     const collectionId = params.collectionId;
     const type = params.type;
     const isLesson = params.isLesson;
@@ -149,7 +170,30 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
       params.role = role;
       params.type = collection.get('collectionType');
       params.contextId = id;
+
+      if(courseId && unitId && lessonId){
+
+        return  Ember.RSVP.hash ({
+          course: route.get('courseService').fetchById(courseId),
+          unit: route.get('unitService').fetchById(courseId, unitId),
+          lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId)
+        }).then(function(hash){
+          var course = hash.course;
+          var unit = hash.unit;
+          var lesson = hash.lesson;
+          return route.quizzesModel(params).then(hash => Object.assign(hash, {
+            classId: params.classId,
+            course,
+            unit,
+            lesson,
+            isLesson,
+            courseStarted
+          }));
+        });
+      }
+
       return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId, isLesson, courseStarted }));
+
     });
   },
 
@@ -167,6 +211,9 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     controller.set('classId', model.classId);
     controller.set('isLesson',isLesson);
     controller.set('courseStarted',courseStarted);
+    controller.set('course', model.course);
+    controller.set('unit', model.unit);
+    controller.set('lesson', model.lesson);
     this._super(...arguments);
   }
 });

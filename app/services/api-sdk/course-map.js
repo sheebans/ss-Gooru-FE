@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import CourseMapSerializer from 'gooru-web/serializers/content/course-map';
-import CourseMapAdapter from 'gooru-web/adapters/content/course-map';
+import CourseMapSerializer from 'gooru-web/serializers/map/course-map';
+import CourseMapAdapter from 'gooru-web/adapters/map/course-map';
 
 /**
  * @typedef {Object} CourseMapService
