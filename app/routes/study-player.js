@@ -56,19 +56,18 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       const unitId = mapLocation.get('context.unitId');
       const lessonId = mapLocation.get('context.lessonId');
 
-      //calling the player model
       return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
         course: route.get('courseService').fetchById(courseId),
         unit: route.get('unitService').fetchById(courseId, unitId),
         lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId)
       }).then(function (hash) {
         const hasPreTestSuggestion = mapLocation.get('hasPreTestSuggestion');
-        //loads the player model if it has no suggestions
 
         //setting query params using the map location
         params.collectionId = mapLocation.get('context.collectionId');
         params.type = mapLocation.get('context.collectionType');
 
+        //loads the player model if it has no suggestions
         const playerModel = !hasPreTestSuggestion ? route.playerModel(params) : Ember.RSVP.resolve({});
         return playerModel.then(function (model) {
           return Object.assign(model, {
