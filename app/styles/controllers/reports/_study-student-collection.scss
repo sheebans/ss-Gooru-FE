@@ -8,8 +8,17 @@
   .gru-footer {
     display: none;
   }
+  .suggestion-panel {
+    padding: 0 30px;
+    @media (min-width: $screen-sm) {
+      padding: 0 23px;
+    }
+    @media (min-width: $screen-md) {
+      padding: 0 92px;
+    }
+  }
 
-  .expanded {
+  .expanded.report {
     .qz-student-report {
       margin-top: 275px;
       @media (min-width: $screen-sm) {
@@ -20,9 +29,28 @@
       }
     }
   }
-  .collapsed {
+  .collapsed{
     .qz-student-report {
       margin-top: 40px;
     }
+  }
+  .suggestion-panel.collapsed{
+    .player.gru-suggest-test {
+      padding-top: 57px;
+    }
+  }
+  .collapsed.pre-test, .expanded.pre-test {
+    .qz-student-report {
+      margin-top: 0;
+      .collection.student{
+        padding-top: 0;
+      }
+      .reports.qz-assessment-report {
+        padding-top: 16px;
+      }
+    }
+  }
+  .player.gru-suggest-test {
+    width: 100%;
   }
 }

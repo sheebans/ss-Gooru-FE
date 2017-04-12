@@ -7,7 +7,7 @@
 }}
 <div class="player-container {{if toggleState 'expanded' 'collapsed'}} {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
   {{#if showSuggestion}}
-      {{player.gru-suggest-test type='pre-test' onPlayCollection='playActualCollection'}}
+      {{player.gru-suggest-test type=typeSuggestion onPlayCollection='playActualCollection'}}
   {{else}}
     {{player.qz-player
     showConfirmation=showConfirmation

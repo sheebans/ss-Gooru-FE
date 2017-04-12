@@ -234,3 +234,9 @@ export const RUBRIC_TYPE = {
   _1xN: '1xN',
   NxN: 'NxN'
 };
+
+export const SUGGESTION_TYPE = {
+  'pre_T': 'pre-test',
+  'post_T': 'post-test',
+  'bf_preT':'backfill-pretest'
+};

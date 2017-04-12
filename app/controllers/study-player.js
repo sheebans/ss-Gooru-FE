@@ -1,5 +1,6 @@
 import PlayerController from 'gooru-web/controllers/player';
 import Ember from 'ember';
+import { SUGGESTION_TYPE } from 'gooru-web/config/config';
 
 
 /**
@@ -43,6 +44,11 @@ export default PlayerController.extend({
    */
   showSuggestion:Ember.computed('isLesson','courseStarted', function(){
     return this.get('isLesson') || !this.get('courseStarted') ;
-  })
+  }),
+  /**
+   * Pre test suggestion
+   * @property {String} typeSuggestion
+   */
+  typeSuggestion: SUGGESTION_TYPE.pre_T
 
 });
