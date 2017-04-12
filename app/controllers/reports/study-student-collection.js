@@ -44,10 +44,4 @@ export default StudentCollection.extend({
    * @property {String} typeSuggestion
    */
   typeSuggestion: SUGGESTION_TYPE.bf_preT
-  ///**
-  // * Indicate if the assessment is pre test
-  // * @property {Boolean} isPreTest
-  // */
-  //isPreTest: true
-
 });
