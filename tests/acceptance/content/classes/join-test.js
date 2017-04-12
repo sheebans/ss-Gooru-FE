@@ -37,7 +37,7 @@ test('Join class', function (assert) {
 
     click($container.find('button.join-class-btn'));
     andThen(function(){
-      assert.equal(currentRouteName(), 'student.class.class-activities');
+      assert.equal(currentRouteName(), 'student.class.course-map');
     });
   });
 });
