@@ -49,7 +49,7 @@ export default PlayerController.extend({
    * Pre test suggestion
    * @property {String} typeSuggestion
    */
-  typeSuggestion: SUGGESTION_TYPE.pre_T,
+  typeSuggestion: SUGGESTION_TYPE.preTest,
 
   /**
    * Shows the breadcrumbs info of the collection

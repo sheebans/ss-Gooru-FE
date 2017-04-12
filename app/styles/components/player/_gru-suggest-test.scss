@@ -53,12 +53,11 @@
           }
         }
         .actions {
-          margin: 20px 0 0;
-          margin-left: auto;
+          margin: 20px 0 0 auto;
           .btn-no {
             border: 2px solid $light-300;
           }
-          .btn-suggestion{
+          .btn-suggestion, .btn-backfill{
             height: 37px;
           }
         }

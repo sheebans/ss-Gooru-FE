@@ -236,7 +236,7 @@ export const RUBRIC_TYPE = {
 };
 
 export const SUGGESTION_TYPE = {
-  'pre_T': 'pre-test',
-  'post_T': 'post-test',
-  'bf_preT':'backfill-pretest'
+  preTest: 'pre-test',
+  postTest: 'post-test',
+  backFill:'backfill-pretest'
 };

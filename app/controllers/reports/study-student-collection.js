@@ -43,5 +43,5 @@ export default StudentCollection.extend({
    *Back fill pre test suggestion
    * @property {String} typeSuggestion
    */
-  typeSuggestion: SUGGESTION_TYPE.bf_preT
+  typeSuggestion: SUGGESTION_TYPE.backFill
 });
