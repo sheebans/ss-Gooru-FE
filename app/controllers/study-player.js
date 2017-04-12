@@ -1,5 +1,7 @@
 import Ember from 'ember';
+import { SUGGESTION_TYPE } from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
+
 
 /**
  * Study Player Controller
@@ -68,6 +70,12 @@ export default PlayerController.extend({
    * @property {boolean}
    */
   hasPreTestSuggestion: Ember.computed.alias('mapLocation.hasPreTestSuggestion'),
+
+  /**
+   * Pre test suggestion
+   * @property {String} typeSuggestion
+   */
+  typeSuggestion: SUGGESTION_TYPE.preTest,
 
   /**
    * Shows the breadcrumbs info of the collection

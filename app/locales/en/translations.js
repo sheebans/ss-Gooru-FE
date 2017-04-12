@@ -104,6 +104,7 @@ export default Object.assign(quizzesTranslations, {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "back": "Back",
+    "back-to-collection": "Back to Collection",
     "back-to-course-map": "Back to Course Map",
     "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
@@ -827,7 +828,7 @@ export default Object.assign(quizzesTranslations, {
     "class":{
       "back-to": "Back to My Classes",
       "performance": "Performance",
-      "classmates": "Classmates",
+      "classmates": "Classroom Information",
       "course-map": "Course Map",
       "unit": "Unit",
       "leson": "Leson",
@@ -1789,14 +1790,19 @@ export default Object.assign(quizzesTranslations, {
   },
   "gru-study-header": {
     "suggestions-legend": "To learn more, check out these resources.",
+    "resource-legend": "You are checking this resource.",
     "resources-collection-report": "Collection usage report",
     "resources-assessment-report": "Assessment summary report"
   },
   "gru-suggest-test":{
     "pre-test-header":"Pre-Test (Optional)",
     "post-test-header":"Post-Test (Optional)",
+    "backfill-pretest-header":"Suggested Collection (Optional)",
     "pre-test-lead":"Students are more prepared for this lesson by taken a pre-test",
+    "post-test-lead":"You are almost done with this lesson! Student usually take a post-test to know how well they’ve learned.",
+    "backfill-pretest-lead":"You completed the Pre-Test! Student like you would like to take a collection below to improve the knowledge before starting this course. Estimated time to take this post-test is 30 minutes.",
     "no":"No, thanks",
-    "take":"Take {{type}}"
+    "take":"Take {{type}}",
+    "take-backfill-pretest":"Study Suggested Collection"
   }
 });

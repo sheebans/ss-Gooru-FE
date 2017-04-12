@@ -35,6 +35,9 @@
        </div>
     </div>
     <div class="resources">
+    {{#if collectionUrl}}
+      <button class="btn btn-default btn-back" {{action 'backToCollection'}}>{{t "common.back-to-collection"}}</button>
+    {{else}}
       <div class="count-resources">
         {{#if fromReport}}
           {{#if collection.isCollection}}
@@ -66,17 +69,26 @@
           <span class="title ellipsis">Cartilaginous fishes like sharks, mantas...</span>
         </span>
       </div>
+    {{/if}}
     </div>
     <div class="suggestions">
-      <div class="description">{{t 'gru-study-header.suggestions-legend'}}</div>
-      <div class="suggested-resources">
-      {{#each suggestedResources as |resource|}}
-        <button class="btn-resource">
-          <i class="{{resource.format}}-icon"></i>
-          <span class="title ellipsis">{{resource.title}}</span>
-        </button>
-      {{/each}}
+    {{#if collectionUrl}}
+      <div class="description">{{t 'gru-study-header.resource-legend'}}</div>
+      <div class="resource-title">
+        <i class="{{resource.type}}-icon"></i>
+        <span class="title ellipsis">{{resource.title}}</span>
       </div>
+    {{else}}
+        <div class="description">{{t 'gru-study-header.suggestions-legend'}}</div>
+        <div class="suggested-resources">
+        {{#each suggestedResources as |resource|}}
+          <button class="btn-resource" {{action 'playSuggested' resource}}>
+            <i class="{{resource.format}}-icon"></i>
+            <span class="title ellipsis">{{resource.title}}</span>
+          </button>
+        {{/each}}
+        </div>
+    {{/if}}
       <a {{action 'toggleHeader'}} class="collapse-expand {{if toggleState 'visible' 'hidden'}}">
         {{gru-icon name='expand_less'}}
         {{gru-icon name='expand_less'}}
