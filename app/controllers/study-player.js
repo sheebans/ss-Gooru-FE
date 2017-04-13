@@ -11,6 +11,9 @@ import PlayerController from 'gooru-web/controllers/player';
  */
 export default PlayerController.extend({
 
+  queryParams: ['resourceId', 'role', 'type', 'sourceId', 'unitId', 'lessonId', 'collectionId'],
+
+
   actions: {
     /**
      * Action triggered when the performance information panel is expanded/collapsed
@@ -22,15 +25,28 @@ export default PlayerController.extend({
      * If the user want to continue playing the collection
      */
     playActualCollection:function(){
-      this.set('isLesson', false);
-      this.set('courseStarted', true);
-      this.set('showConfirmation', !this.get('isLesson') && !(this.get('collection.isCollection') || this.get('isAnonymous') || this.get('isTeacher')));
-      this.set('showSuggestion',false);
+      this.set('showSuggestion', false);
+      //TODO load pretest here
     }
   },
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @property {string}
+   */
+  unitId: null,
+
+  /**
+   * @property {string}
+   */
+  lessonId: null,
+
+  /**
+   * @property {string}
+   */
+  collectionId: null,
 
   /**
    * Shows the performance information
@@ -42,9 +58,19 @@ export default PlayerController.extend({
    * Indicate if show pre test suggestion
    * @property {Boolean} showSuggestion
    */
-  showSuggestion:Ember.computed('isLesson','courseStarted', function(){
-    return this.get('isLesson') || !this.get('courseStarted') ;
-  }),
+  showSuggestion: true,
+
+  /**
+   * Current map location
+   * @property {MapLocation}
+   */
+  mapLocation: null,
+
+  /**
+   * @property {boolean}
+   */
+  hasPreTestSuggestion: Ember.computed.alias('mapLocation.hasPreTestSuggestion'),
+
   /**
    * Pre test suggestion
    * @property {String} typeSuggestion
@@ -71,5 +97,19 @@ export default PlayerController.extend({
       titles.push(collection.get('title'));
     }
     return titles;
-  })
+  }),
+
+  /**
+   * Resets to default values
+   */
+  resetValues: function() {
+    this.setProperties({
+      showSuggestion: true,
+      toggleState: true,
+      unitId: null,
+      lessonId: null,
+      collectionId: null,
+      type: null
+    });
+  }
 });

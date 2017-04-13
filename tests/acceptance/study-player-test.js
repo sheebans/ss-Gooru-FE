@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | study-player', {
 });
 
 test('Layout - default to collection since parameter is not sent', function (assert) {
-  visit('/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/all-resource-types-collection-id?courseStarted=true&isLesson=false');
+  visit('/study-player/class/class-for-pochita-as-teacher/course/course-123?unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id');
 
   andThen(function () {
-    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-teacher/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/all-resource-types-collection-id?courseStarted=true&isLesson=false&resourceId=image-resource-id');
+    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-teacher/course/course-123?collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id');
 
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');
@@ -30,10 +30,10 @@ test('Layout - default to collection since parameter is not sent', function (ass
 });
 
 test('Redirect to Course Map', function (assert) {
-  visit('/study-player/class/class-for-pochita-as-student/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/first-assessment-id');
+  visit('/study-player/class/class-for-pochita-as-student/course/course-123?unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id');
 
   andThen(function () {
-    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-student/course/course-123/unit/first-unit-id/lesson/first-lesson-id/collection/first-assessment-id');
+    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-student/course/course-123?collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id');
 
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');

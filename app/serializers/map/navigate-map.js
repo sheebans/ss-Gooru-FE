@@ -28,7 +28,7 @@ export default Ember.Object.extend({
       current_item_id: model.get('itemId'),
       current_item_type: model.get('itemType'),
       state: model.get('status'),
-      path_id: model.get('pathId'),
+      path_id: model.get('pathId') || 0,
       score_percent: model.get('score')
     };
   },

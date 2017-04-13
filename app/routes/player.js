@@ -141,79 +141,59 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
    * @param {{ collectionId: string, resourceId: string }} params
    */
   model(params) {
+    return this.playerModel(params);
+  },
+
+  setupController(controller, model) {
+    const isAnonymous = model.isAnonymous;
+    const isTeacher = model.role === ROLES.TEACHER;
+
+    controller.set('isTeacher',isTeacher);
+    controller.set('isAnonymous',isAnonymous);
+    this._super(...arguments);
+  },
+
+  /**
+   * Loads the player model
+   * @param params
+   * @returns {Promise.<TResult>}
+     */
+  playerModel: function(params) {
     const route = this;
-    const courseId = params.courseId;
-    const unitId = params.unitId;
-    const lessonId = params.lessonId;
     const collectionId = params.collectionId;
     const type = params.type;
-    const isLesson = params.isLesson;
-    const courseStarted = params.courseStarted;
     const role = params.role || ROLES.TEACHER;
+
+    return route.loadCollection(collectionId, type).then(function(collection) {
+      params.type = collection.get('collectionType');
+      return route.createContext(params, collection, role === ROLES.STUDENT);
+    }).then(function({ id }) {
+      params.contextId = id;
+      params.role = role;
+      params.profileId = route.get('session.userData.gooruUId');
+      return route.quizzesModel(params);
+    });
+  },
+
+  /**
+   * Loads the collection
+   * @param {string} collectionId
+   * @param {string} type
+   * @returns {Promise.<Collection>}
+     */
+  loadCollection: function(collectionId, type) {
+    const route = this;
     const isCollection = type === 'collection';
     const isAssessment = type === 'assessment';
-
     const loadAssessment = !type || isAssessment;
     const loadCollection = !type || isCollection;
-
-    let collection;
 
     return Ember.RSVP.hashSettled({
       assessment: loadAssessment ? route.get('assessmentService').readAssessment(collectionId) : false,
       collection: loadCollection ? route.get('collectionService').readCollection(collectionId) : false
-    }).then(function(hash) {
+    }).then(function (hash) {
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
-      collection = collectionFound ? hash.collection.value : hash.assessment.value;
-      return route.createContext(params, collection, role === ROLES.STUDENT);
-    }).then(function({ id }) {
-      params.profileId = route.get('session.userData.gooruUId');
-      params.role = role;
-      params.type = collection.get('collectionType');
-      params.contextId = id;
-
-      if(courseId && unitId && lessonId){
-
-        return  Ember.RSVP.hash ({
-          course: route.get('courseService').fetchById(courseId),
-          unit: route.get('unitService').fetchById(courseId, unitId),
-          lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId)
-        }).then(function(hash){
-          var course = hash.course;
-          var unit = hash.unit;
-          var lesson = hash.lesson;
-          return route.quizzesModel(params).then(hash => Object.assign(hash, {
-            classId: params.classId,
-            course,
-            unit,
-            lesson,
-            isLesson,
-            courseStarted
-          }));
-        });
-      }
-
-      return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId, isLesson, courseStarted }));
-
+      return collectionFound ? hash.collection.value : hash.assessment.value;
     });
-  },
-
-  setupController(controller, model) {
-    let collection = model.collection;
-    const isAnonymous = model.isAnonymous;
-    const isTeacher = model.role === 'teacher';
-
-    const isLesson = JSON.parse(model.isLesson);
-    const courseStarted = JSON.parse(model.courseStarted);
-
-    controller.set('showConfirmation', !isLesson && !(collection.get('isCollection') || isAnonymous || isTeacher));
-    controller.set('isTeacher',isTeacher);
-    controller.set('isAnonymous',isAnonymous);
-    controller.set('classId', model.classId);
-    controller.set('isLesson',isLesson);
-    controller.set('courseStarted',courseStarted);
-    controller.set('course', model.course);
-    controller.set('unit', model.unit);
-    controller.set('lesson', model.lesson);
-    this._super(...arguments);
   }
 });

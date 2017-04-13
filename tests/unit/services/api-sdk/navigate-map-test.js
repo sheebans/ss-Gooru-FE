@@ -37,13 +37,40 @@ test('next', function(assert) {
   var done = assert.async();
   service.next('fake-map-context')
     .then(function(response) {
-      assert.equal(response.context, 'normalized-map-context', 'Wrong map context');
-      assert.equal(response.suggestions, 'normalized-map-suggestions', 'Wrong map suggestions');
+      assert.equal(response.get('context') , 'normalized-map-context', 'Wrong map context');
+      assert.equal(response.get('suggestions'), 'normalized-map-suggestions', 'Wrong map suggestions');
       done();
     });
 });
 
-test('continue', function(assert) {
+test('getCurrentMapContext', function(assert) {
+  const service = this.subject();
+  assert.expect(4);
+
+  service.set('serializer', Ember.Object.create({
+    normalizeMapContext: function(payload) {
+      assert.equal(payload, 'next-map-context', 'Wrong payload');
+      return 'normalized-map-context';
+    }
+  }));
+
+  service.set('adapter', Ember.Object.create({
+    getCurrentMapContext: function(courseId, classId) {
+      assert.equal(courseId, 123, 'Wrong course id');
+      assert.equal(classId, 321, 'Wrong class id');
+      return Ember.RSVP.resolve('next-map-context');
+    }
+  }));
+
+  var done = assert.async();
+  service.getCurrentMapContext(123, 321)
+    .then(function(response) {
+      assert.equal(response , 'normalized-map-context', 'Wrong map context');
+      done();
+    });
+});
+
+test('continueCourse', function(assert) {
   const service = this.subject({
     next: function(mapContext) {
       assert.equal(mapContext.get('courseId'), 'course-id', 'Wrong course id');
@@ -55,25 +82,53 @@ test('continue', function(assert) {
   assert.expect(4);
 
   var done = assert.async();
-  service.continue('course-id', 'class-id')
+  service.continueCourse('course-id', 'class-id')
     .then(function(response) {
       assert.equal(response, 'fake-response', 'Wrong response');
       done();
     });
 });
 
-test('start', function(assert) {
+test('startCollection', function(assert) {
   const service = this.subject({
     next: function(mapContext) {
+      assert.equal(mapContext.get('courseId'), 'course-id', 'Wrong course id');
+      assert.equal(mapContext.get('unitId'), 'unit-id', 'Wrong unit id');
+      assert.equal(mapContext.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+      assert.equal(mapContext.get('collectionId'), 'collection-id', 'Wrong collection id');
+      assert.equal(mapContext.get('collectionType'), 'collection-type', 'Wrong collection type');
+      assert.equal(mapContext.get('itemId'), 'collection-id', 'Wrong item id');
+      assert.equal(mapContext.get('itemType'), 'collection-type', 'Wrong item type');
+      assert.equal(mapContext.get('classId'), 'class-id', 'Wrong class id');
       assert.equal(mapContext.get('status'), 'start', 'Wrong status');
       return Ember.RSVP.resolve('fake-response');
     }
   });
-  assert.expect(2);
+  assert.expect(10);
 
   var done = assert.async();
-  const mapContext = Ember.Object.create({ status: 'any' });
-  service.start(mapContext)
+  service.startCollection('course-id', 'unit-id', 'lesson-id', 'collection-id', 'collection-type', 'class-id')
+    .then(function(response) {
+      assert.equal(response, 'fake-response', 'Wrong response');
+      done();
+    });
+});
+
+test('startLesson', function(assert) {
+  const service = this.subject({
+    next: function(mapContext) {
+      assert.equal(mapContext.get('courseId'), 'course-id', 'Wrong course id');
+      assert.equal(mapContext.get('unitId'), 'unit-id', 'Wrong unit id');
+      assert.equal(mapContext.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+      assert.equal(mapContext.get('classId'), 'class-id', 'Wrong class id');
+      assert.equal(mapContext.get('status'), 'start', 'Wrong status');
+      return Ember.RSVP.resolve('fake-response');
+    }
+  });
+  assert.expect(6);
+
+  var done = assert.async();
+  service.startLesson('course-id', 'unit-id', 'lesson-id', 'class-id')
     .then(function(response) {
       assert.equal(response, 'fake-response', 'Wrong response');
       done();
