@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import StudentCollection from 'gooru-web/controllers/reports/student-collection';
-import { SUGGESTION_TYPE } from 'gooru-web/config/config';
+import { SUGGESTION_TYPE, ROLES } from 'gooru-web/config/config';
 
 /**
  *
@@ -12,6 +12,18 @@ import { SUGGESTION_TYPE } from 'gooru-web/config/config';
 export default StudentCollection.extend({
 
   // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @property {CourseMapService}
+   */
+  courseMapService: Ember.inject.service('api-sdk/course-map'),
+
+  /**
+   * @property {NavigateMapService}
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
+  // -------------------------------------------------------------------------
   // Actions
 
   actions: {
@@ -20,11 +32,29 @@ export default StudentCollection.extend({
      */
     toggleHeader: function (toggleState) {
       this.set('toggleState', toggleState);
+    },
+
+    /**
+     * If the user want to continue playing the collection
+     */
+    playActualCollection:function(){
+      this.set('showSuggestion', false);
+    },
+
+    /**
+     * If the user want to continue playing the post-test suggestion
+     */
+    playPostTestSuggestion: function(){
+      this.playSuggestion(this.get('mapLocation.postTestSuggestion'));
+    },
+
+    /**
+     * If the user want to continue playing the backfill suggestion
+     */
+    playBackFillSuggestion: function(){
+      this.playSuggestion(this.get('mapLocation.backFillSuggestion'));
     }
   },
-
-  // -------------------------------------------------------------------------
-  // Events
 
   // -------------------------------------------------------------------------
   // Properties
@@ -105,5 +135,32 @@ export default StudentCollection.extend({
       titles.push(collection.get('title'));
     }
     return titles;
-  })
+  }),
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  playSuggestion: function(suggestion) {
+    const controller = this;
+    controller.set('showSuggestion', false);
+    const courseMapService = controller.get('courseMapService');
+    const navigateMapService = controller.get('navigateMapService');
+    const context = controller.get('mapLocation.context');
+    courseMapService.createNewPath(context, suggestion)
+    .then(() => navigateMapService.next(context))
+    .then(function(mapLocation) {
+      const queryParams = {
+        unitId: mapLocation.get('context.unitId'),
+        lessonId: mapLocation.get('context.lessonId'),
+        collectionId: mapLocation.get('context.itemId'),
+        type: mapLocation.get('context.itemType')
+        role: ROLES.STUDENT
+      };
+      controller.transitionToRoute('study-player',
+        mapLocation.get('context.classId'),
+        mapLocation.get('context.courseId'),
+        { queryParams }
+      );
+    });
+  }
 });

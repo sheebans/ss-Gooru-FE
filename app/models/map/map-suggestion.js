@@ -40,6 +40,11 @@ const MapSuggestionModel = Ember.Object.extend({
   /**
    * @property {boolean}
    */
+  isBackFill: Ember.computed.equal('subType', ASSESSMENT_SUB_TYPES.BACKFILL)
+
+  /**
+   * @property {boolean}
+   */
   isBenchmark: Ember.computed.equal('subType', ASSESSMENT_SUB_TYPES.BENCHMARK)
 
 });

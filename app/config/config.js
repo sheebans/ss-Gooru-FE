@@ -73,6 +73,7 @@ export const CONTENT_TYPES = {
 export const ASSESSMENT_SUB_TYPES = {
   PRE_TEST: 'pre-test',
   POST_TEST: 'post-test',
+  BACKFILL: 'backfill-pretest',
   BENCHMARK: 'benchmark'
 };
 
