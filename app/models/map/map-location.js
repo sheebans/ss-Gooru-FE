@@ -41,8 +41,23 @@ const MapLocationModel = Ember.Object.extend({
   /**
    * @property {boolean}
    */
+  hasBackFillSuggestions: Ember.computed('suggestions.[]', function(){
+    return this.get('suggestions').filterBy('isBackFill').get('length');
+  }),
+
+  /**
+   * @property {boolean}
+   */
   hasBenchmarkSuggestions: Ember.computed('suggestions.[]', function(){
     return this.get('suggestions').filterBy('isBenchmark').get('length');
+  }),
+
+  /**
+   * Returns the post test suggestion for this location
+   * @property {MapSuggestion}
+   */
+  postTestSuggestion: Ember.computed('hasPostTestSuggestions', function(){
+    return this.get('hasPostTestSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.POST_TEST) : undefined;
   }),
 
   /**
@@ -51,6 +66,22 @@ const MapLocationModel = Ember.Object.extend({
    */
   preTestSuggestion: Ember.computed('hasPreTestSuggestions', function(){
     return this.get('hasPreTestSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.PRE_TEST) : undefined;
+  }),
+
+  /**
+   * Returns the backfill test suggestion for this location
+   * @property {MapSuggestion}
+   */
+  backFillSuggestion: Ember.computed('hasPostTestSuggestions', function(){
+    return this.get('hasBackFillSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.BACKFILL) : undefined;
+  }),
+
+  /**
+   * Returns the pre test suggestion for this location
+   * @property {MapSuggestion}
+   */
+  benchmarkSuggestion: Ember.computed('hasPreTestSuggestions', function(){
+    return this.get('hasBenchmarkSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.BENCHMARK) : undefined;
   }),
 
   /**
