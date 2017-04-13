@@ -44,6 +44,10 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         'reports.study-student-collection',
         { queryParams }
       );
+    },
+
+    loadPreTest: function() {
+      this.refresh();
     }
   },
 
