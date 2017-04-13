@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import StudentCollection from 'gooru-web/controllers/reports/student-collection';
 import { SUGGESTION_TYPE } from 'gooru-web/config/config';
 
@@ -29,6 +30,21 @@ export default StudentCollection.extend({
   // Properties
 
   /**
+   * @property {Course} course
+   */
+  course: null,
+
+  /**
+   * @property {Unit} unit
+   */
+  unit: null,
+
+  /**
+   * @property {Lesson} lesson
+   */
+  lesson: null,
+
+  /**
    * @property {Collection} collection
    */
   collection: null,
@@ -43,5 +59,27 @@ export default StudentCollection.extend({
    *Back fill pre test suggestion
    * @property {String} typeSuggestion
    */
-  typeSuggestion: SUGGESTION_TYPE.backFill
+  typeSuggestion: SUGGESTION_TYPE.backFill,
+
+  /**
+   * Shows the breadcrumbs info of the collection
+   * @property {Array[]}
+   */
+  breadcrumbs: Ember.computed('collection', 'lesson', 'unit', function() {
+    let unit = this.get('unit');
+    let lesson = this.get('lesson');
+    let collection = this.get('collection');
+    let titles = Ember.A([]);
+
+    if (unit) {
+      titles.push(unit.get('title'));
+    }
+    if (lesson) {
+      titles.push(lesson.get('title'));
+    }
+    if (collection) {
+      titles.push(collection.get('title'));
+    }
+    return titles;
+  })
 });

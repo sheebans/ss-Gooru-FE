@@ -9,7 +9,7 @@ moduleForAcceptance('Acceptance | reports/study-student-collection', {
       isAnonymous: false,
       token: 'player-token',
       user: {
-        gooruUId: 'player-token-user-id'
+        gooruUId: 'id-for-pochita'
       }
     });
   }
@@ -17,11 +17,12 @@ moduleForAcceptance('Acceptance | reports/study-student-collection', {
 
 test('Layout', function (assert) {
   assert.expect(3);
-  visit('/reports/study-student-collection?classId=just-a-class&collectionId=all-question-types-assessment-id&role=student&type=assessment');
+
+  visit('/reports/study-student-collection?course=course-123&unit=first-unit-id&lesson=first-lesson-id&classId=class-for-pochita-as-teacher&collectionId=all-question-types-assessment-id&role=teacher&type=assessment');
 
   let done = assert.async();
   andThen(function () {
-    assert.equal(currentURL(), '/reports/study-student-collection?classId=just-a-class&collectionId=all-question-types-assessment-id&role=student&type=assessment');
+    assert.equal(currentURL(), '/reports/study-student-collection?course=course-123&unit=first-unit-id&lesson=first-lesson-id&classId=class-for-pochita-as-teacher&collectionId=all-question-types-assessment-id&role=teacher&type=assessment');
 
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');

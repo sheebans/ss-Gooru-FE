@@ -32,6 +32,12 @@
   .collapsed{
     .qz-student-report {
       margin-top: 40px;
+      @media (min-width: $screen-sm) {
+        margin-top: 65px;
+      }
+      @media (min-width: $screen-md) {
+        margin-top: 40px;
+      }
     }
   }
   .suggestion-panel.collapsed{

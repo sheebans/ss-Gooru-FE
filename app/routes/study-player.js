@@ -33,6 +33,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     onFinish: function () {
       let controller = this.get('controller');
       let queryParams = {
+        courseId: controller.get('course.id'),
         collectionId: controller.get('collection.id'),
         type: controller.get('type'),
         role: controller.get('role'),

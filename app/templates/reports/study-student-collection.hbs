@@ -1,10 +1,13 @@
 {{player.gru-study-header
   classId=classId
   collection=collection
+  courseTitle=course.title
+  breadcrumbs=breadcrumbs
   showConfirmation=false
   onToggleHeader='toggleHeader'
   fromReport=true
 }}
+<div>{{course.title}}</div>
 {{#if isPreTest}}
   <div class="suggestion-panel {{if toggleState 'expanded' 'collapsed'}}">
     {{player.gru-suggest-test type=typeSuggestion assessment=collection}}
