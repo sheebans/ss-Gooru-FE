@@ -54,7 +54,7 @@ export default PlayerController.extend({
       const context = controller.get('mapLocation.context');
       courseMapService.createNewPath(context, suggestion).then(function(){
         navigateMapService.next(context).then(function(mapLocation){
-          console.debug(mapLocation);
+          Ember.Logger.debug(mapLocation);
         });
         //TODO redirect
       });

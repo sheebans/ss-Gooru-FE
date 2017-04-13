@@ -61,7 +61,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         unit: route.get('unitService').fetchById(courseId, unitId),
         lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId)
       }).then(function (hash) {
-        const hasPreTestSuggestions = mapLocation.get('hasPreTestSuggestions');
 
         //setting query params using the map location
         params.collectionId = mapLocation.get('context.collectionId');
