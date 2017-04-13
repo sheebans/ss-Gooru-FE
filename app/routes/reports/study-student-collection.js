@@ -56,15 +56,18 @@ export default StudentCollection.extend({
       return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
         course: route.get('courseService').fetchById(courseId),
         unit: route.get('unitService').fetchById(courseId, unitId),
-        lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId)
+        lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
+        mapLocation: navigateMapService.next(currentContext)
       }).then(function (hash) {
         var course = hash.course;
         var unit = hash.unit;
         var lesson = hash.lesson;
+        var mapLocation = hash.mapLocation;
         return route.studentCollectionModel(params).then(hash => Object.assign(hash, {
           course,
           unit,
-          lesson
+          lesson,
+          mapLocation
         }));
       });
     });
@@ -75,7 +78,8 @@ export default StudentCollection.extend({
     controller.setProperties({
       course: model.course,
       unit: model.unit,
-      lesson: model.lesson
+      lesson: model.lesson,
+      mapLocation:  model.mapLocation
     });
   }
 });

@@ -59,7 +59,31 @@ export default StudentCollection.extend({
    *Back fill pre test suggestion
    * @property {String} typeSuggestion
    */
-  typeSuggestion: SUGGESTION_TYPE.backFill,
+  backFillType: SUGGESTION_TYPE.backFill,
+
+  /**
+   *Post Test pre test suggestion
+   * @property {String} typeSuggestion
+   */
+  postTestType: SUGGESTION_TYPE.postTest,
+
+  /**
+   * Indicate if show pre test suggestion
+   * @property {Boolean} showSuggestion
+   */
+  showSuggestion: true,
+
+  /**
+   * Current map location
+   * @property {MapSuggestions}
+   */
+  mapLocation: null,
+
+  /**
+   * @property {boolean}
+   */
+  hasPostTestSuggestions: Ember.computed.alias('mapLocation.hasPostTestSuggestions'),
+
 
   /**
    * Shows the breadcrumbs info of the collection

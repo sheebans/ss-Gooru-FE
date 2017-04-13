@@ -7,12 +7,17 @@
   onToggleHeader='toggleHeader'
   fromReport=true
 }}
-<div>{{course.title}}</div>
-{{#if isPreTest}}
-  <div class="suggestion-panel {{if toggleState 'expanded' 'collapsed'}}">
-    {{player.gru-suggest-test type=typeSuggestion assessment=collection}}
-  </div>
-{{/if}}
-<div class="report-container {{if isPreTest 'pre-test' 'report'}} {{if toggleState 'expanded' 'collapsed'}}">
+
+<div class="report-container {{if toggleState 'expanded' 'collapsed'}}">
+  {{#if isPreTest}}
+    <div class="suggestion-panel">
+      {{player.gru-suggest-test type=backFillType assessment=collection}}
+    </div>
+  {{/if}}
+  {{#if (and hasPostTestSuggestions showSuggestion)}}
+    <div class="suggestion-panel">
+      {{player.gru-suggest-test type=postTestType assessment=collection}}
+    </div>
+  {{/if}}
   {{reports.qz-student-report attemptData=attemptData}}
 </div>

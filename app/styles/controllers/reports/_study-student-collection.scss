@@ -8,18 +8,9 @@
   .gru-footer {
     display: none;
   }
-  .suggestion-panel {
-    padding: 0 30px;
-    @media (min-width: $screen-sm) {
-      padding: 0 23px;
-    }
-    @media (min-width: $screen-md) {
-      padding: 0 92px;
-    }
-  }
 
-  .expanded.report {
-    .qz-student-report {
+  .report-container {
+    &.expanded {
       margin-top: 275px;
       @media (min-width: $screen-sm) {
         margin-top: 155px;
@@ -28,9 +19,7 @@
         margin-top: 130px;
       }
     }
-  }
-  .collapsed{
-    .qz-student-report {
+    &.collapsed {
       margin-top: 40px;
       @media (min-width: $screen-sm) {
         margin-top: 65px;
@@ -39,24 +28,21 @@
         margin-top: 40px;
       }
     }
-  }
-  .suggestion-panel.collapsed{
-    .player.gru-suggest-test {
-      padding-top: 57px;
-    }
-  }
-  .collapsed.pre-test, .expanded.pre-test {
-    .qz-student-report {
-      margin-top: 0;
-      .collection.student{
-        padding-top: 0;
+    .suggestion-panel {
+      padding: 20px 30px 0;
+      @media (min-width: $screen-sm) {
+        padding: 20px 23px 0;
       }
-      .reports.qz-assessment-report {
-        padding-top: 16px;
+      @media (min-width: $screen-md) {
+        padding: 20px 92px 0;
+      }
+      .player.gru-suggest-test {
+        width: 100%;
+        padding: 0;
       }
     }
-  }
-  .player.gru-suggest-test {
-    width: 100%;
+    .qz-assessment-report {
+      padding-top: 0;
+    }
   }
 }
