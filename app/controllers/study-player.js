@@ -47,7 +47,6 @@ export default PlayerController.extend({
      */
     playSuggestion:function(){
       const controller = this;
-      controller.set('showSuggestion', false);
       const courseMapService = controller.get('courseMapService');
       const navigateMapService = controller.get('navigateMapService');
       const suggestion = controller.get('mapLocation.preTestSuggestion');
