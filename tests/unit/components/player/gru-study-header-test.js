@@ -139,7 +139,7 @@ test('redirectCourseMap', function(assert) {
 });
 
 test('playSuggested', function(assert) {
-  let component ;
+  let component;
   let classId = 'class-id';
   let courseId = 'course-id';
   let resource = { id: 'resource-id' };
@@ -154,7 +154,7 @@ test('playSuggested', function(assert) {
           assert.equal(courseParam, courseId,'Incorrect Course id');
           assert.equal(route,'resource-player','Incorrect route');
         }
-      },
+      }
     })
   );
   component.send('playSuggested', resource);
