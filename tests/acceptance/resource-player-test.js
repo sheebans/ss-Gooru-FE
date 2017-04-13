@@ -16,10 +16,10 @@ moduleForAcceptance('Acceptance | resource-player', {
 });
 
 test('Layout', function (assert) {
-  visit('/resource-player/class/class-for-pochita-as-teacher/resource/image-resource-id?collectionUrl=collection-url');
+  visit('/study-player/class/class-for-pochita-as-student/course/course-123/resource/image-resource-id?collectionUrl=collection-url');
 
   andThen(function () {
-    assert.equal(currentURL(), '/resource-player/class/class-for-pochita-as-teacher/resource/image-resource-id?collectionUrl=collection-url');
+    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-student/course/course-123/resource/image-resource-id?collectionUrl=collection-url');
 
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');

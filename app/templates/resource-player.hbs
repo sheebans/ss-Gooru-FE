@@ -1,8 +1,12 @@
 {{player.gru-study-header
   onToggleHeader='toggleHeader'
   classId=classId
+  collection=collection
+  courseId=course.id
+  courseTitle=course.title
   resource=resource
   resourceSequence=resource.sequence
+  breadcrumbs=breadcrumbs
   collectionUrl=collectionUrl
 }}
 <div class="resource-player {{if toggleState 'expanded' 'collapsed'}}">

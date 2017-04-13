@@ -71,12 +71,13 @@ export default Ember.Component.extend({
      * Action triggered when a suggested resource is clicked
      */
     playSuggested(resource) {
+      let queryParams = { collectionUrl: window.location.href };
       this.get('router').transitionTo('resource-player',
-        this.get('classId'), resource.id, {
-          queryParams: {
-            collectionUrl: window.location.href
-          }
-        });
+        this.get('classId'),
+        this.get('courseId'),
+        resource.id,
+        { queryParams }
+      );
     }
   },
 
@@ -107,6 +108,11 @@ export default Ember.Component.extend({
    * @property {String} classId - Class unique Id associated for the collection / assessment.
    */
   classId: null,
+
+  /**
+   * @property {String} courseId - course unique Id associated for the collection / assessment.
+   */
+  courseId: null,
 
   /**
    * @property {collection} collection - The current Collection
