@@ -148,7 +148,6 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     const isAnonymous = model.isAnonymous;
     const isTeacher = model.role === ROLES.TEACHER;
 
-    //TODO: do we need this here? controller.set('showConfirmation', !(collection.get('isCollection') || isAnonymous || isTeacher));
     controller.set('isTeacher',isTeacher);
     controller.set('isAnonymous',isAnonymous);
     this._super(...arguments);

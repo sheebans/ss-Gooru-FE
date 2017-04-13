@@ -108,8 +108,6 @@ export default Ember.Service.extend({
    * @param {string} courseId
    * @param {string} unitId
    * @param {string} lessonId
-   * @param {string} collectionId
-   * @param {string} collectionType
    * @param {string} classId
    * @returns {Promise.<MapLocation>}
    */

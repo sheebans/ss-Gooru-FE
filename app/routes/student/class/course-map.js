@@ -47,27 +47,6 @@ export default Ember.Route.extend({
      * @param {string} lessonId - Identifier for lesson
      * @param {string} collection - collection or assessment
      */
-    playResource: function (unitId, lessonId, collection) {
-      if (collection.get('isExternalAssessment')){
-        window.open(collection.get('url'));
-      }
-      else{
-        const currentClass = this.modelFor('student.class').class;
-        const classId = currentClass.get('id');
-        const courseId = currentClass.get('courseId');
-        const role = ROLES.STUDENT;
-        this.transitionTo('context-player', classId, courseId, unitId,
-          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType') }});
-      }
-    },
-    /**
-     * Open the player with the specific collection/assessment
-     *
-     * @function actions:playItem
-     * @param {string} unitId - Identifier for a unit
-     * @param {string} lessonId - Identifier for lesson
-     * @param {string} collection - collection or assessment
-     */
     studyPlayer: function (type, unitId, lessonId, collection) {
       const route = this;
       const currentClass = route.modelFor('student.class').class;

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import PlayerRoute from 'gooru-web/routes/player';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
-import { ROLES } from 'gooru-web/config/config';
 
 
 /**
@@ -82,14 +81,13 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   },
 
   setupController(controller, model) {
-    const isAnonymous = model.isAnonymous; //TODO is this coming from quizzes?
-    const isTeacher = model.role === ROLES.TEACHER; //TODO a teacher can use the study player?
+    const isAnonymous = model.isAnonymous;
     const mapLocation = model.mapLocation;
     controller.setProperties({
       course: model.course,
       unit: model.unit,
       lesson: model.lesson,
-      showConfirmation: !(model.collection.get('isCollection') || isAnonymous || isTeacher),
+      showConfirmation: model.collection && !(model.collection.get('isCollection') || isAnonymous), //TODO: move to computed
       mapLocation: model.mapLocation,
       classId: mapLocation.get('context.classId'),
       //setting query params variables using the map location
