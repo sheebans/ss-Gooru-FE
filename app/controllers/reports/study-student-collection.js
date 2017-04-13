@@ -153,7 +153,7 @@ export default StudentCollection.extend({
         unitId: mapLocation.get('context.unitId'),
         lessonId: mapLocation.get('context.lessonId'),
         collectionId: mapLocation.get('context.itemId'),
-        type: mapLocation.get('context.itemType')
+        type: mapLocation.get('context.itemType'),
         role: ROLES.STUDENT
       };
       controller.transitionToRoute('study-player',
