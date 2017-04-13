@@ -72,7 +72,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
             course: hash.course,
             unit: hash.unit,
             lesson: hash.lesson,
-            mapLocation: mapLocation
+            mapLocation
           });
         });
       });

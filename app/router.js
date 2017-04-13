@@ -60,9 +60,9 @@ Router.map(function() {
   });
 
   this.route('player', {path: '/player/:collectionId'});
-  this.route('resource-player', {path: '/resource-player/class/:classId/resource/:resourceId'});
 
   this.route('study-player', {path: '/study-player/class/:classId/course/:courseId'});
+  this.route('resource-player', {path: '/study-player/class/:classId/course/:courseId/resource/:resourceId'});
 
   this.route('context-player', {path: '/player/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
 

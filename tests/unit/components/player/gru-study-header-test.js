@@ -138,3 +138,24 @@ test('redirectCourseMap', function(assert) {
   component.send('redirectCourseMap');
 });
 
+test('playSuggested', function(assert) {
+  let component ;
+  let classId = 'class-id';
+  let courseId = 'course-id';
+  let resource = { id: 'resource-id' };
+  Ember.run(() =>
+    component = this.subject({
+      classId,
+      courseId,
+      collectionUrl: 'collection-url',
+      router: {
+        transitionTo(route, classParam, courseParam) {
+          assert.equal(classParam, classId,'Incorrect Class id');
+          assert.equal(courseParam, courseId,'Incorrect Course id');
+          assert.equal(route,'resource-player','Incorrect route');
+        }
+      },
+    })
+  );
+  component.send('playSuggested', resource);
+});

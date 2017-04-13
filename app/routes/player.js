@@ -38,7 +38,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
   unitService: Ember.inject.service('api-sdk/unit'),
 
   /**
-   * @type {LessonService} Service to retrieve unit information
+   * @type {LessonService} Service to retrieve lesson information
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
 
