@@ -39,14 +39,11 @@ export default ApplicationAdapter.extend({
 
   /**
    * Creates a New Path based on the Context data.
-   * @param {Object} context - is the base context data used to define a new path. It is an object with these properties
-   * { courseId, classId, unitId, lessonId, collectionId }
-   * @param {Object} target - the target context. It is an object with these properties
-   * { courseId, unitId, lessonId, collectionId }
-   * @param {Integer} pathId - an optional parameter with a Path Id.
+   * @param {MapContext} context - is the context where the suggestion was presented
+   * @param {MapSuggestion} suggestion - the suggestion. The suggested path
    * @returns {Ember.RSVP.Promise}
    */
-  createNewPath: function (context, target, pathId = undefined) {
+  createNewPath: function (context, suggestion) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/paths`;
@@ -62,13 +59,16 @@ export default ApplicationAdapter.extend({
         'ctx_unit_id': context.get('unitId'),
         'ctx_lesson_id': context.get('lessonId'),
         'ctx_collection_id': context.get('collectionId'),
-        'path_id': pathId,
-        'target_content_type': target.get('contentType'),
-        'target_content_subtype': target.get('contentSubType'),
-        'target_course_id': target.get('courseId'),
-        'target_unit_id': target.get('unitId'),
-        'target_lesson_id': target.get('lessonId'),
-        'target_collection_id': target.get('collectionId')
+        'path_id': context.get('pathId') || undefined,
+        //same as the current context
+        //TODO: we need more clarification about when to use these values, for now are not needed
+//      'target_course_id': context.get('courseId'),
+//      'target_unit_id': context.get('unitId'),
+//      'target_lesson_id': context.get('lessonId'),
+        //suggestion information
+        'target_content_type': suggestion.get('type'),
+        'target_content_subtype': suggestion.get('subType'),
+        'target_collection_id': suggestion.get('id')
       })
     };
     return new Ember.RSVP.Promise(function (resolve, reject) {

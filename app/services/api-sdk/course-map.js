@@ -45,15 +45,12 @@ export default Ember.Service.extend({
 
   /**
    * Creates a New Path based on the Context data.
-   * @param {Object} context - is the base context data used to define a new path. It is an object with these properties
-   * { courseId, classId, unitId, lessonId, collectionId }
-   * @param {Object} target - the target context. It is an object with these properties
-   * { courseId, unitId, lessonId, collectionId }
-   * @param {Integer} pathId - an optional parameter with a Path Id.
+   * @param {MapContext} context - is the context where the suggestion was presented
+   * @param {MapSuggestion} suggestion - the suggestion. The suggested path
    * @returns {Ember.RSVP.Promise}
    */
-  createNewPath: function (context, target, pathId) {
-    return this.get('courseMapAdapter').createNewPath(context, target, pathId);
+  createNewPath: function (context, suggestion) {
+    return this.get('courseMapAdapter').createNewPath(context, suggestion);
   }
 
 });

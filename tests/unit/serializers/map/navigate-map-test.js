@@ -72,12 +72,14 @@ test('normalizeMapSuggestion', function (assert) {
   const payload = {
     id: '123',
     title: 'Title',
-    type: 'pre-test'
+    format: 'assessment',
+    subformat: 'pre-test'
   };
   const model = serializer.normalizeMapSuggestion(payload);
   assert.equal(model.get('id'), payload.id, 'Wrong id');
   assert.equal(model.get('title'), payload.title, 'Wrong title');
-  assert.equal(model.get('type'), payload.type, 'Wrong type');
+  assert.equal(model.get('type'), payload.format, 'Wrong type');
+  assert.equal(model.get('subType'), payload.subformat, 'Wrong type');
 });
 
 test('normalizeMapSuggestions', function (assert) {
@@ -86,12 +88,14 @@ test('normalizeMapSuggestions', function (assert) {
     {
       id: '123',
       title: 'Title',
-      type: 'pre-test'
+      format: 'assessment',
+      subformat: 'pre-test'
     },
     {
       id: '1234',
       title: 'Title',
-      type: 'pre-test'
+      format: 'assessment',
+      subformat: 'pre-test'
     }
   ];
   const models = serializer.normalizeMapSuggestions(payload);

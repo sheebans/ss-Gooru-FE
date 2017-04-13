@@ -61,15 +61,14 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         unit: route.get('unitService').fetchById(courseId, unitId),
         lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId)
       }).then(function (hash) {
-        const hasPreTestSuggestion = mapLocation.get('hasPreTestSuggestion');
+        const hasPreTestSuggestions = mapLocation.get('hasPreTestSuggestions');
 
         //setting query params using the map location
         params.collectionId = mapLocation.get('context.collectionId');
         params.type = mapLocation.get('context.collectionType');
 
         //loads the player model if it has no suggestions
-        const playerModel = !hasPreTestSuggestion ? route.playerModel(params) : Ember.RSVP.resolve({});
-        return playerModel.then(function (model) {
+        return route.playerModel(params).then(function (model) {
           return Object.assign(model, {
             course: hash.course,
             unit: hash.unit,

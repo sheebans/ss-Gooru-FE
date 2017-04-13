@@ -9,6 +9,9 @@ export default Ember.Component.extend({
   actions:{
     playCollection:function(){
       this.sendAction('onPlayCollection');
+    },
+    playSuggestion:function(){
+      this.sendAction('onPlaySuggestion');
     }
   },
   // -------------------------------------------------------------------------

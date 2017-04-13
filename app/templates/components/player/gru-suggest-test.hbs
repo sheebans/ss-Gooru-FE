@@ -16,7 +16,7 @@
               {{#if isBackFill}}
                   <button class="btn btn-primary btn-backfill">{{t 'gru-suggest-test.take-backfill-pretest'}}</button>
                 {{else}}
-                  <button class="btn btn-primary btn-suggestion">{{t 'gru-suggest-test.take' type=type}}</button>
+                  <button class="btn btn-primary btn-suggestion" {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take' type=type}}</button>
               {{/if}}
             </div>
         </div>

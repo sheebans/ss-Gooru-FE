@@ -82,7 +82,8 @@ export default Ember.Object.extend({
     return MapSuggestion.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
       title: data.title,
-      type: data.type
+      type: data.format,
+      subType: data.subformat
     });
   }
 

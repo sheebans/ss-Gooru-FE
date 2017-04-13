@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import {ASSESSMENT_SUB_TYPES} from 'gooru-web/config/config';
 /**
  * MapSuggestion model
  *
@@ -18,24 +18,29 @@ const MapSuggestionModel = Ember.Object.extend({
   title: null,
 
   /**
-   * @property {String} type pre-test, post-test, benchmark
+   * @property {String} type assessment
    */
   type: null,
 
   /**
-   * @property {boolean}
+   * @property {String} type pre-test, post-test, benchmark
    */
-  isPreTest: Ember.computed.equal('type', 'pre-test'),
+  subType: null,
 
   /**
    * @property {boolean}
    */
-  isPostTest: Ember.computed.equal('type', 'post-test'),
+  isPreTest: Ember.computed.equal('subType', ASSESSMENT_SUB_TYPES.PRE_TEST),
 
   /**
    * @property {boolean}
    */
-  isBenchmark: Ember.computed.equal('type', 'benchmark')
+  isPostTest: Ember.computed.equal('subType', ASSESSMENT_SUB_TYPES.POST_TEST),
+
+  /**
+   * @property {boolean}
+   */
+  isBenchmark: Ember.computed.equal('subType', ASSESSMENT_SUB_TYPES.BENCHMARK)
 
 });
 

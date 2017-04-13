@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {ASSESSMENT_SUB_TYPES} from 'gooru-web/config/config';
 
 /**
  * MapLocation model
@@ -42,7 +43,23 @@ const MapLocationModel = Ember.Object.extend({
    */
   hasBenchmarkSuggestions: Ember.computed('suggestions.[]', function(){
     return this.get('suggestions').filterBy('isBenchmark').get('length');
-  })
+  }),
+
+  /**
+   * Returns the pre test suggestion for this location
+   * @property {MapSuggestion}
+   */
+  preTestSuggestion: Ember.computed('hasPreTestSuggestions', function(){
+    return this.get('hasPreTestSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.PRE_TEST) : undefined;
+  }),
+
+  /**
+   * Returns the suggestion by sub type
+   * @param {string} subType @see ASSESSMENT_SUB_TYPES
+     */
+  getSuggestion: function(subType) {
+    return this.get('suggestions').findBy('subType', subType);
+  }
 });
 
 export default MapLocationModel;

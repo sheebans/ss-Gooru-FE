@@ -46,26 +46,22 @@ test('createNewPath', function(assert) {
     lessonId: 'lesson-id',
     collectionId: 'collection-id'
   });
-  let expectedTarget = Ember.Object.create({
-    contentType: 'collection',
-    contentSubType: 'pre-test',
-    courseId: 'course-id',
-    unitId: 'unit-id',
-    lessonId: 'lesson-id'
+  let expectedSuggestion = Ember.Object.create({
+    type: 'collection',
+    subType: 'pre-test'
   });
   let expectedPathId = 1;
 
   service.set('courseMapAdapter', Ember.Object.create({
-    createNewPath: function(context, target, pathId) {
+    createNewPath: function(context, suggestion) {
       assert.deepEqual(context, expectedContext, 'Invalid context data');
-      assert.deepEqual(target, expectedTarget, 'Invalid target data');
-      assert.equal(pathId, undefined, 'Wrong pathId');
+      assert.deepEqual(suggestion, expectedSuggestion, 'Invalid suggestion data');
       return Ember.RSVP.resolve(expectedPathId);
     }
   }));
 
   var done = assert.async();
-  service.createNewPath(expectedContext, expectedTarget, undefined)
+  service.createNewPath(expectedContext, expectedSuggestion)
     .then(response => {
       assert.equal(response, expectedPathId, 'Invalid response value');
       done();

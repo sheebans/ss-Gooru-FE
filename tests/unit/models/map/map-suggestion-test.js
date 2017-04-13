@@ -7,7 +7,7 @@ moduleFor('model:map/map-suggestion', 'Unit | Model | map/map-suggestion', {
 
 test('isPreTest', function (assert) {
   var model = this.subject({
-    type: ASSESSMENT_SUB_TYPES.PRE_TEST
+    subType: ASSESSMENT_SUB_TYPES.PRE_TEST
   });
 
   assert.ok(model.get("isPreTest"), "Should be pretest");
@@ -15,14 +15,14 @@ test('isPreTest', function (assert) {
 
 test('isPostTest', function (assert) {
   var model = this.subject({
-    type: ASSESSMENT_SUB_TYPES.POST_TEST
+    subType: ASSESSMENT_SUB_TYPES.POST_TEST
   });
 
   assert.ok(model.get("isPostTest"), "Should be post test");
 });
 test('isBenchmark', function (assert) {
   var model = this.subject({
-    type: ASSESSMENT_SUB_TYPES.BENCHMARK
+    subType: ASSESSMENT_SUB_TYPES.BENCHMARK
   });
 
   assert.ok(model.get("isBenchmark"), "Should be benchmark");
@@ -30,7 +30,7 @@ test('isBenchmark', function (assert) {
 
 test('is not pre-test, post-test or benchmark', function (assert) {
   var model = this.subject({
-    type: 'any'
+    subType: 'any'
   });
 
   assert.ok(!model.get("isPreTest"), "Should not be pre test");

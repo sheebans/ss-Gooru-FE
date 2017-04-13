@@ -13,7 +13,20 @@ export default PlayerController.extend({
 
   queryParams: ['resourceId', 'role', 'type', 'sourceId', 'unitId', 'lessonId', 'collectionId'],
 
+  // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @property {CourseMapService}
+   */
+  courseMapService: Ember.inject.service('api-sdk/course-map'),
 
+  /**
+   * @property {NavigateMapService}
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
+  // -------------------------------------------------------------------------
+  // Actions
   actions: {
     /**
      * Action triggered when the performance information panel is expanded/collapsed
@@ -21,12 +34,30 @@ export default PlayerController.extend({
     toggleHeader: function (toggleState) {
       this.set('toggleState', toggleState);
     },
+
     /**
      * If the user want to continue playing the collection
      */
     playActualCollection:function(){
       this.set('showSuggestion', false);
-      //TODO load pretest here
+    },
+
+    /**
+     * If the user want to continue playing the suggestion
+     */
+    playSuggestion:function(){
+      const controller = this;
+      controller.set('showSuggestion', false);
+      const courseMapService = controller.get('courseMapService');
+      const navigateMapService = controller.get('navigateMapService');
+      const suggestion = controller.get('mapLocation.preTestSuggestion');
+      const context = controller.get('mapLocation.context');
+      courseMapService.createNewPath(context, suggestion).then(function(){
+        navigateMapService.next(context).then(function(mapLocation){
+          console.debug(mapLocation);
+        });
+        //TODO redirect
+      });
     }
   },
 
@@ -69,7 +100,7 @@ export default PlayerController.extend({
   /**
    * @property {boolean}
    */
-  hasPreTestSuggestion: Ember.computed.alias('mapLocation.hasPreTestSuggestion'),
+  hasPreTestSuggestions: Ember.computed.alias('mapLocation.hasPreTestSuggestions'),
 
   /**
    * Pre test suggestion
@@ -103,6 +134,7 @@ export default PlayerController.extend({
    * Resets to default values
    */
   resetValues: function() {
+    //TODO: call the parent reset values method
     this.setProperties({
       showSuggestion: true,
       toggleState: true,
