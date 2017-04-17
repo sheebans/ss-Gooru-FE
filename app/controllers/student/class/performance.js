@@ -84,6 +84,34 @@ export default Ember.Controller.extend({
    */
   contentTitle: null,
 
+  metrics: Ember.computed('collectionType',function(){
+    return Ember.A([Ember.Object.create({
+      'value': this.get('collectionType'),
+      'sorted': false,
+      'isAsc': false,
+      'visible': true,
+      'index': -1
+    }),Ember.Object.create({
+      'value': 'score',
+      'sorted': false,
+      'isAsc': false,
+      'visible': false,
+      'index':0
+    }),Ember.Object.create({
+      'value': 'completion',
+      'sorted': false,
+      'isAsc': false,
+      'visible': false,
+      'index':1
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'sorted': false,
+      'isAsc': false,
+      'visible': false,
+      'index':2
+    })]);
+  }),
+
   // -------------------------------------------------------------------------
   // Actions
 
