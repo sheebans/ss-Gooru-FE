@@ -1797,9 +1797,11 @@ export default Object.assign(quizzesTranslations, {
   "gru-suggest-test":{
     "pre-test-header":"Pre-Test (Optional)",
     "post-test-header":"Post-Test (Optional)",
+    "benchmark-header":"Benchmark-Test (Optional)",
     "backfill-pretest-header":"Suggested Collection (Optional)",
     "pre-test-lead":"Students are more prepared for this lesson by taken a pre-test",
     "post-test-lead":"You are almost done with this lesson! Student usually take a post-test to know how well they’ve learned.",
+    "benchmark-lead":"You’re now ready to demonstrate your understanding by taking a benchmark assessment. You will eran a badge for successfully completing the benchmark. The benchmark will not affect your course performance score.",
     "backfill-pretest-lead":"You completed the Pre-Test! Student like you would like to take a collection below to improve the knowledge before starting this course. Estimated time to take this post-test is 30 minutes.",
     "no":"No, thanks",
     "take":"Take {{type}}",

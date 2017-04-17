@@ -245,5 +245,6 @@ export const RUBRIC_TYPE = {
 export const SUGGESTION_TYPE = {
   preTest: 'pre-test',
   postTest: 'post-test',
-  backFill:'backfill-pretest'
+  backFill:'backfill-pretest',
+  benchmark:'benchmark'
 };

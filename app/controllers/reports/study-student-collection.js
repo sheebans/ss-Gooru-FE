@@ -92,10 +92,16 @@ export default StudentCollection.extend({
   backFillType: SUGGESTION_TYPE.backFill,
 
   /**
-   *Post Test pre test suggestion
+   *Post test suggestion
    * @property {String} typeSuggestion
    */
   postTestType: SUGGESTION_TYPE.postTest,
+
+  /**
+   *Benchmark suggestion
+   * @property {String} benchmarkType
+   */
+  benchmarkType: SUGGESTION_TYPE.benchmark,
 
   /**
    * Indicate if show pre test suggestion
@@ -114,6 +120,10 @@ export default StudentCollection.extend({
    */
   hasPostTestSuggestions: Ember.computed.alias('mapLocation.hasPostTestSuggestions'),
 
+  /**
+   * @property {boolean}
+   */
+  hasBenchmarkSuggestions: Ember.computed.alias('mapLocation.hasBenchmarkSuggestions'),
 
   /**
    * Shows the breadcrumbs info of the collection
