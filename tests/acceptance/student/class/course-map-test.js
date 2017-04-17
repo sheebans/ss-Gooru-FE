@@ -45,6 +45,6 @@ test('Layout as a student', function (assert) {
     assert.ok($resource.hasClass('selected'), 'First collection should be marked as selected');
 
     var $resourceTitle = $resource.find('.panel-title .title');
-    assert.ok($resourceTitle.hasClass('disabled'),"Second resource should be disabled");
+    assert.notOk($resourceTitle.hasClass('disabled'),"Second resource should not be disabled");
   });
 });

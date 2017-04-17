@@ -29,6 +29,11 @@ export default Ember.Controller.extend({
    */
   courseService: Ember.inject.service('api-sdk/course'),
 
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -99,6 +104,41 @@ export default Ember.Controller.extend({
    * @property {string}
    */
   contentTitle: null,
+
+  /**
+   * Default list of  metrics to be displayed in the table
+   * @sorted {Boolean}
+   * @isAsc {Boolean}
+   * @visible {Boolean}
+   * @constant {Array}
+   */
+  metrics: Ember.computed('collectionType',function(){
+    return Ember.A([Ember.Object.create({
+      'value': this.get('collectionType'),
+      'sorted': false,
+      'isAsc': false,
+      'visible': true,
+      'index': -1
+    }),Ember.Object.create({
+      'value': 'score',
+      'sorted': false,
+      'isAsc': false,
+      'visible': false,
+      'index':0
+    }),Ember.Object.create({
+      'value': 'completion',
+      'sorted': false,
+      'isAsc': false,
+      'visible': false,
+      'index':1
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'sorted': false,
+      'isAsc': false,
+      'visible': false,
+      'index':2
+    })]);
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -235,7 +275,7 @@ export default Ember.Controller.extend({
   prepareReportValues: function(){
     const controller = this;
     const collectionType = controller.getContentTitle();
-    const metrics = ['Assessment','Score','Completion','Time Spent'];
+    const metrics = [controller.get('i18n').t('gru-performance-metrics.'+controller.get('collectionType')),controller.get('i18n').t('gru-performance-metrics.score'),controller.get('i18n').t('gru-performance-metrics.completion'),controller.get('i18n').t('gru-performance-metrics.study-time')];
     const performanceSummaryItems = controller.get('collectionPerformanceSummaryItems');
     const collections = controller.get('collections');
     const date=formatDate(new Date(),'MM-DD-YY');
@@ -245,7 +285,7 @@ export default Ember.Controller.extend({
     fileNameString = `${fileNameString}_${date}`;
 
     const fileName = createFileNameToDownload(fileNameString);
-    const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,metrics,collectionType);
+    const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,metrics.map(item => item.string),collectionType);
     return [fileName,fileData];
   },
   /**
@@ -254,4 +294,5 @@ export default Ember.Controller.extend({
   downloadFile:function(name,data){
    return download(name,data);
   }
+
 });
