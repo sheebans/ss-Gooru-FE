@@ -35,41 +35,46 @@
        </div>
     </div>
     <div class="resources">
-    {{#if collectionUrl}}
-      <button class="btn btn-default btn-back" {{action 'backToCollection'}}>{{t "common.back-to-collection"}}</button>
-    {{else}}
-      <div class="count-resources">
-        {{#if fromReport}}
-          {{#if collection.isCollection}}
-            {{t "gru-study-header.resources-collection-report"}}
-          {{else}}
-            {{t "gru-study-header.resources-assessment-report"}}
-          {{/if}}
+      {{#unless isPreTest}}
+        {{#if collectionUrl}}
+          <button class="btn btn-default btn-back" {{action 'backToCollection'}}>{{t "common.back-to-collection"}}</button>
         {{else}}
-          <span class="counter">
-            {{#if totalResources}}
-              {{resourceSequence}}/{{totalResources}}
+          <div class="count-resources">
+            {{#if fromReport}}
+              {{#if collection.isCollection}}
+                {{t "gru-study-header.resources-collection-report"}}
+              {{else}}
+                {{t "gru-study-header.resources-assessment-report"}}
+              {{/if}}
             {{else}}
-              0
+              <span class="counter">
+                {{#if totalResources}}
+                  {{resourceSequence}}/{{totalResources}}
+                {{else}}
+                  0
+                {{/if}}
+                </span>
+              <button class="btn btn-default resources-btn">
+                {{#if collection.isCollection}}
+                  {{t "common.resources"}}
+                {{else}}
+                  {{t "common.questions"}}
+                {{/if}}
+              </button>
             {{/if}}
+          </div>
+          <div class="navigation">
+            <span class="next">Next:</span>
+            <span class="next-resource question">
+              <i class="icon"></i>
+              <span class="title ellipsis">Cartilaginous fishes like sharks, mantas...</span>
             </span>
-          <button class="btn btn-default resources-btn">
-            {{#if collection.isCollection}}
-              {{t "common.resources"}}
-            {{else}}
-              {{t "common.questions"}}
-            {{/if}}
-          </button>
+          </div>
         {{/if}}
-      </div>
-      <div class="navigation">
-        <span class="next">Next:</span>
-        <span class="next-resource question">
-          <i class="icon"></i>
-          <span class="title ellipsis">Cartilaginous fishes like sharks, mantas...</span>
-        </span>
-      </div>
-    {{/if}}
+      {{else}}
+        <div class="lesson-info">{{t "gru-study-header.lesson-legend"}} {{lessonTitle}}</div>
+      {{/unless}}
+
     </div>
     <div class="suggestions">
     {{#if collectionUrl}}

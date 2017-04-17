@@ -162,6 +162,12 @@ export default Ember.Component.extend({
   fromReport: false,
 
   /**
+   * Indicates if PreTest is showing
+   * @property {Boolean} isPreTest
+   */
+  isPreTest: false,
+
+  /**
    * @property {Number} barChartData
    */
   barChartData: Ember.computed('class.performanceSummary', function () {
@@ -175,6 +181,14 @@ export default Ember.Component.extend({
         percentage
       }
     ];
+  }),
+
+  /**
+   * @property {String} lessonTitle
+   */
+  lessonTitle: Ember.computed('breadcrumbs', function () {
+    const breadcrumbs = this.get('breadcrumbs');
+    return breadcrumbs[1] || '';
   }),
 
   // -------------------------------------------------------------------------

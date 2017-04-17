@@ -171,6 +171,40 @@ test('Layout-Resources in Assessment', function(assert) {
   assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), this.get('i18n').t('common.questions').string, 'Wrong button text');
 });
 
+test('Layout - Pre Test', function(assert) {
+
+  this.set('session', {
+    userId: 'user-id'
+  });
+
+  this.set('collection', {
+    id: 'collection-id',
+    isCollection: true
+  });
+
+  this.set('breadcrumbs', ['unit 1', 'lesson 1', 'collection 1']);
+
+  this.set('classId', 'class-1');
+
+  this.set('courseTitle', 'Marine Biology');
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session courseTitle=courseTitle breadcrumbs=breadcrumbs isPreTest=true}}`);
+
+  var $component = this.$(); //component dom element
+  const $header = $component.find('.gru-study-header');
+  T.exists(assert, $header, 'Missing header section');
+
+  const $performanceInfo = $header.find('.performance-info');
+  T.exists(assert, $performanceInfo, 'Missing performance-info');
+
+  T.exists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
+  T.exists(assert, $performanceInfo.find('.resources .lesson-info'), 'Missing lesson info');
+  assert.equal(T.text($performanceInfo.find('.resources .lesson-info')), this.get('i18n').t('gru-study-header.lesson-legend').string+' lesson 1', 'Wrong lesson title');
+
+  T.notExists(assert, $performanceInfo.find('.resources .count-resources'), 'Counter of resources should not be visible');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation'), 'Resources navigation should not be visible');
+});
+
 test('Layout-Collection Resources from Collection Report', function(assert) {
 
   this.set('session', {
