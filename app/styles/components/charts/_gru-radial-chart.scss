@@ -32,6 +32,7 @@
   }
 
   .component {
+    cursor: default;
     fill: #e1e1e1;
   }
 
@@ -56,6 +57,7 @@
   .label {
     text-anchor: middle;
     color: $dark-100;
+    cursor: default;
   }
 
   .radial-svg {
