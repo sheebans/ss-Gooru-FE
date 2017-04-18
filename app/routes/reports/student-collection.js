@@ -148,9 +148,9 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
   },
 
   setupController(controller, model) {
-    if (model){
+    this._super(...arguments);
+    if(model && model.collection) {
       controller.set('collection', model.collection);
-      controller.set('attemptData', model.attemptData);
     }
   }
 });
