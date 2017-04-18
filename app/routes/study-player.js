@@ -67,8 +67,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       }).then(function (hash) {
 
         //setting query params using the map location
-        params.collectionId = mapLocation.get('context.collectionId') || mapLocation.get('context.itemId');
-        params.type = mapLocation.get('context.collectionType') || mapLocation.get('context.itemType');
+        params.collectionId = mapLocation.get('context.itemId') || mapLocation.get('context.collectionId');
+        params.type = mapLocation.get('context.itemType') || mapLocation.get('context.collectionType');
         params.classId = params.classId || mapLocation.get('context.classId');
         params.unitId = params.unitId || mapLocation.get('context.unitId');
         params.lessonId = params.lessonId || mapLocation.get('context.lessonId');
