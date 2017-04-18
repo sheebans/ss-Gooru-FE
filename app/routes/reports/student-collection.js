@@ -145,5 +145,12 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
       params.role = role;
       return route.quizzesModel(params);
     });
+  },
+
+  setupController(controller, model) {
+    this._super(...arguments);
+    if(model && model.collection) {
+      controller.set('collection', model.collection);
+    }
   }
 });
