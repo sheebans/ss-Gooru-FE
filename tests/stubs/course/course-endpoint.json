@@ -2,7 +2,7 @@
   {
     "description": "Get course assessment detail",
     "request": {
-      "url": "^/api/nucleus/v1/courses/course-123/assessments$",
+      "url": "^/api/nucleus/v1/courses/(.+)/assessments$",
       "method": "GET",
       "headers": {
         "authorization": "Token (.+)"
@@ -15,6 +15,24 @@
       },
       "body": "File not found!",
       "file": "course-assessment-200-response.json"
+    }
+  },
+  {
+    "description": "Get course collection detail",
+    "request": {
+      "url": "^/api/nucleus/v1/courses/course-123/collections$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "course-collection-200-response.json"
     }
   },
   {
