@@ -1656,6 +1656,40 @@ export default Object.assign(quizzesTranslations, {
         "title": "Finished!",
         "description": 'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
       }
+    },
+    "study-player":{
+      "stepOne": {
+        "title": "Welcome!",
+        "description": "This is your Study Player. Let’s walk through the features available to you."
+      },
+      "stepTwo": {
+        "title": "Unit/Course/Lesson Header",
+        "description": "Indicates where the collection or assessment are located in your course."
+      },
+      "stepThree": {
+        "title": "Performance/Completion",
+        "description": "Indicates how you are performing and how much of the course you have completed."
+      },
+      "stepFour": {
+        "title": "React to Resource",
+        "description": "Let your teacher know what you think about this resource."
+      },
+      "stepFive": {
+        "title": "Course Map",
+        "description": "Return to your Course Map to see additional course content."
+      },
+      "stepSix": {
+        "title": "Suggestions",
+        "description": "These are resources that you might want to explore based on what you are currently studying."
+      },
+      "stepSeven": {
+        "title": "Check out these resources",
+        "description": ""
+      },
+      "stepEight": {
+        "title": "Finished!",
+        "description": "Start studying!"
+      }
     }
   },
   "gru-tour": {
