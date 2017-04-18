@@ -130,3 +130,24 @@ test('Valid bubble chart when the class has performance', function(assert) {
     assert.equal($chart.find('span').text(),'0%','Incorrect score');
   });
 });
+
+test('Valid completed chart when the class has started', function(assert) {
+  visit('/student-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-home');
+    let $chart = find('.gru-student-class-card:eq(0) .gru-radial-chart .radial-svg .labels');
+    assert.equal($chart.text(),'1/3','Incorrect label');
+  });
+});
+
+
+test('Valid completed chart when the class has not started', function(assert) {
+  visit('/student-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-home');
+    let $chart = find('.gru-student-class-card:eq(1) .gru-radial-chart .radial-svg .labels');
+    assert.equal($chart.text(),'--','Incorrect label');
+  });
+});
