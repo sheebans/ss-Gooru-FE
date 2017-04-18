@@ -117,6 +117,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       lessonId: payload.target_lesson_id || payload.lesson_id,
       creatorId: payload.creator_id,
       ownerId: payload.owner_id,
+      collectionSubType: payload.target_content_subtype,
       metadata,
       centurySkills: metadata['21_century_skills'] &&
         metadata['21_century_skills'].length ?

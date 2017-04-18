@@ -30,9 +30,9 @@ export default Ember.Object.extend({
    * @returns {Object} lesson and alternate paths
    */
   normalizeLessonInfo: function (data) {
-    let alternatePath = this.normalizeAlternatePaths(data.alternate_path);
+    let alternatePaths = this.normalizeAlternatePaths(data.alternate_paths);
     let lesson = this.get('lessonSerializer').normalizeLesson(data.course_path);
-    lesson.get('children').unshift(...alternatePath);
+    lesson.get('children').unshift(...alternatePaths);
     return lesson;
   },
 

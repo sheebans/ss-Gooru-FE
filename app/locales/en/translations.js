@@ -479,6 +479,7 @@ export default Object.assign(quizzesTranslations, {
     "submit": "Submit",
     "submit-all": "Submit all",
     "swap": "Re-order",
+    "suggestion": "Suggestion",
     "suggestions": "Suggestions",
     "suggested-resources": "Suggested Resources",
     "support": "Support",

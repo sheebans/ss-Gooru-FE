@@ -23,6 +23,11 @@ export default Ember.Object.extend(Validations, CollectionBase, {
   /**
    * @property {string} indicates it is an collection
    */
-  collectionType: "collection"
+  collectionType: "collection",
+
+  /**
+   * @property {string} indicates the sub-type if it has one
+   */
+  collectionSubType: null
 
 });

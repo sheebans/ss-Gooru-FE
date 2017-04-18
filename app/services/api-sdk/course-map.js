@@ -30,10 +30,10 @@ export default Ember.Service.extend({
    * @param {string} lessonId - lesson ID to search for
    * @returns {Promise}
    */
-  getLessonInfo: function (courseId, unitId, lessonId){
+  getLessonInfo: function (classId, courseId, unitId, lessonId){
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('courseMapAdapter').getLessonInfo(courseId, unitId, lessonId)
+      service.get('courseMapAdapter').getLessonInfo(classId, courseId, unitId, lessonId)
         .then(
           response => resolve(
             service.get('courseMapSerializer').normalizeLessonInfo(response)
