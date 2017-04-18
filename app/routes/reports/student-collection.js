@@ -120,7 +120,7 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
     const route = this;
     const collectionId = params.collectionId;
     const contextId = params.contextId;
-    const type = params.type || 'collection';
+    const type = params.type;
     const role = params.role || ROLES.TEACHER;
 
     const isCollection = type === 'collection';

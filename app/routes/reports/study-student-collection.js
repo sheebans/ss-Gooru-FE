@@ -79,7 +79,7 @@ export default StudentCollection.extend({
       course: model.course,
       unit: model.unit,
       lesson: model.lesson,
-      mapLocation:  model.mapLocation
+      mapLocation: model.mapLocation
     });
   }
 });
