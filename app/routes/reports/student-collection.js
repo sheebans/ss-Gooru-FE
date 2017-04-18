@@ -145,12 +145,5 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
       params.role = role;
       return route.quizzesModel(params);
     });
-  },
-
-  setupController(controller, model) {
-    if (model){
-      controller.set('collection', model.collection);
-      controller.set('attemptData', model.attemptData);
-    }
   }
 });
