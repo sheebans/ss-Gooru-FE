@@ -48,10 +48,9 @@ export default PlayerController.extend({
     playSuggestion:function(){
       const controller = this;
       const courseMapService = controller.get('courseMapService');
-      const navigateMapService = controller.get('navigateMapService');
       const suggestion = controller.get('mapLocation.preTestSuggestion');
       const context = controller.get('mapLocation.context');
-      courseMapService.createNewPath(context, suggestion).then(function(mapLocation){
+      courseMapService.createNewPath(context, suggestion).then(function(){
         Ember.run(() =>
           controller.setProperties({
             resourceId: null,

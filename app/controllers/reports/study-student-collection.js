@@ -144,7 +144,6 @@ export default StudentCollection.extend({
     const controller = this;
     controller.set('showSuggestion', false);
     const courseMapService = controller.get('courseMapService');
-    const navigateMapService = controller.get('navigateMapService');
     const context = controller.get('mapLocation.context');
     courseMapService.createNewPath(context, suggestion)
     .then(function() {
