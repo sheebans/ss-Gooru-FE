@@ -1,4 +1,11 @@
 .study-player {
+  .player-container{
+    .gru-take-tour{
+      top: 60px;
+      z-index: 1100;
+    }
+  }
+
   .qz-player {
     overflow: auto;
     height: 100vh;

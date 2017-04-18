@@ -23,6 +23,11 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  /**
+   * @dependency {i18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
+
 
   // -------------------------------------------------------------------------
   // Actions
@@ -55,6 +60,39 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   // Methods
   model: function(params) {
     const route = this;
+
+    //Steps for Take a Tour functionality
+    const tourSteps = Ember.A([
+      {
+        title: route.get('i18n').t('gru-take-tour.study-player.stepOne.title'),
+        description: route.get('i18n').t('gru-take-tour.study-player.stepOne.description')
+      },
+      {
+        elementSelector: '.header-panel .course-info .course-title',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepTwo.title'),
+        description: route.get('i18n').t('gru-take-tour.study-player.stepTwo.description')
+      },
+      {
+        elementSelector: '.header-panel .performance-info .graphic',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepThree.title'),
+        description: route.get('i18n').t('gru-take-tour.study-player.stepThree.description')
+      },
+      {
+        elementSelector: '.header-panel .course-info .actions .course-map',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepFive.title'),
+        description: route.get('i18n').t('gru-take-tour.study-player.stepFive.description')
+      },
+      {
+        elementSelector: '.header-panel .performance-info .suggestions',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepSeven.title'),
+        description: route.get('i18n').t('gru-take-tour.study-player.stepSeven.description')
+      },
+      {
+        title: route.get('i18n').t('gru-take-tour.study-player.stepEight.title'),
+        description: route.get('i18n').t('gru-take-tour.study-player.stepEight.description')
+      }
+    ]);
+
     return route.getMapLocation(params).then(function (mapLocation) {
       const courseId = mapLocation.get('context.courseId');
       const unitId = mapLocation.get('context.unitId');
@@ -76,6 +114,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         //loads the player model if it has no suggestions
         return route.playerModel(params).then(function (model) {
           return Object.assign(model, {
+            tourSteps: tourSteps,
             course: hash.course,
             unit: hash.unit,
             lesson: hash.lesson,
@@ -92,6 +131,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     const isAnonymous = model.isAnonymous;
     const mapLocation = model.mapLocation;
     controller.setProperties({
+      steps: model.tourSteps,
       course: model.course,
       unit: model.unit,
       lesson: model.lesson,
