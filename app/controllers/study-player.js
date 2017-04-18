@@ -51,17 +51,18 @@ export default PlayerController.extend({
       const navigateMapService = controller.get('navigateMapService');
       const suggestion = controller.get('mapLocation.preTestSuggestion');
       const context = controller.get('mapLocation.context');
-      courseMapService.createNewPath(context, suggestion).then(function(){
-        navigateMapService.next(context).then(function(mapLocation){
+      courseMapService.createNewPath(context, suggestion).then(function(mapLocation){
+        Ember.run(() =>
           controller.setProperties({
-            unitId: mapLocation.get('context.unitId'),
-            lessonId: mapLocation.get('context.lessonId'),
-            collectionId: mapLocation.get('context.itemId'),
-            type: mapLocation.get('context.itemType')
-          });
-          //sending action to route
-          controller.send('loadPreTest');
-        });
+            resourceId: null,
+            unitId: null,
+            lessonId: null,
+            collectionId: null,
+            type: null
+          })
+        );
+        //sending action to route
+        controller.send('loadPreTest');
       });
     },
 
