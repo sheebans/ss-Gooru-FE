@@ -788,19 +788,20 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   "user": {
-    "hello":"Hello, {{name}}!",
-    "hi": "Hi",
     "active-classes": "Active Classrooms",
-    "my-current-classes":"My Current Classes",
     "archived-classes": "Archived Classes",
     "create-class": "Create Classroom",
-    "manage-goals": "Manage Goals",
+    "hello":"Hello, {{name}}!",
+    "hi": "Hi",
+    "independent-learning": "Independent Learning",
     "join-class": "Join Classroom",
     "joined-classes": {
       zero: "You're currently not enrolled in classrooms",
       one: "You're currently enrolled in 1 classroom",
       other: "You're currently enrolled in {{count}} classrooms"
     },
+    "my-current-classes":"My Current Classes",
+    "manage-goals": "Manage Goals",
     "my-classes":"My Classes",
     "teaching-classes": {
       zero: " and teaching {{count}} classrooms",

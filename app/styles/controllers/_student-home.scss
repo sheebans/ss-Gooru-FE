@@ -56,29 +56,28 @@
       span {
         color: $gray-base;
         font-size: $font-size-h4;
-        @media (min-width: $screen-sm) {
-          font-size: $font-size-h3;
-        }
-        @media (min-width: $screen-md) {
-          font-size: $font-size-h2;
-        }
+        line-height: $font-size-h4;
       }
 
       p {
         font-weight: lighter;
         @media (min-width: $screen-sm) {
-          font-size: $font-size-lead;
+          font-size: $font-navigator;
         }
       }
     }
     .tab-content {
-      padding-top: 25px;
+      padding-top: 10px;
+      clear: both;
       @include transition(width .3s ease-out);
       @media (min-width: $screen-sm) {
         width: 100%;
       }
       @media (min-width: $screen-md) {
         width: 100%;
+      }
+      .tab-pane {
+        margin: 0;
       }
 
       .no-classes-found {
@@ -111,7 +110,6 @@
     }
   }
 }
-
 
 .student-navigator {
   .nav-tabs {
@@ -155,24 +153,12 @@
     }
 
     &:not(.active) {
-
       a {
         box-shadow: none;
       }
     }
 
-    &.actions {
-      @include flexbox;
-      @include align-items(flex-end);
-      @include justify-content(space-between);
-      height: 39px;
-      .manage-goals-cta{
-        margin-right: 10px;
-      }
-    }
-
     a {
-
       &:hover {
         color: initial;
       }
@@ -180,6 +166,17 @@
       span {
         font-weight: bold;
       }
+    }
+  }
+
+  .actions {
+    @include flexbox;
+    @include align-items(flex-end);
+    @include justify-content(space-between);
+    height: 35px;
+    margin: 8px 0 0;
+    .manage-goals-cta{
+      margin-right: 10px;
     }
   }
 }

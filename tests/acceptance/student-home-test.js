@@ -34,6 +34,10 @@ test('Layout', function(assert) {
 
     const $leftUserContainer = $userContainer.find('.student-left-panel');
     T.exists(assert, $leftUserContainer.find('.greetings'), 'Missing student greetings');
+    T.exists(assert, $leftUserContainer.find('.greetings .title'), 'Missing student name');
+    assert.equal( $leftUserContainer.find('.greetings .title span').text(),'Hello, Pochita!','Incorrect student name text');
+    T.exists(assert, $leftUserContainer.find('.greetings p'), 'Missing count classrooms');
+    assert.equal( $leftUserContainer.find('.greetings p').text(), "You're currently enrolled in 7 classrooms",'Incorrect count classrooms text');
 
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
