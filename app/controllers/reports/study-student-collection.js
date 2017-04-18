@@ -151,8 +151,8 @@ export default StudentCollection.extend({
         role: ROLES.STUDENT
       };
       controller.transitionToRoute('study-player',
-        context.get('context.classId'),
-        context.get('context.courseId'),
+        context.get('classId'),
+        context.get('courseId'),
         { queryParams }
       );
     });

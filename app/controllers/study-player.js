@@ -148,6 +148,7 @@ export default PlayerController.extend({
       unitId: null,
       lessonId: null,
       collectionId: null,
+      resourceId: null,
       type: null
     });
   }
