@@ -79,7 +79,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
             course: hash.course,
             unit: hash.unit,
             lesson: hash.lesson,
-            mapLocation
+            mapLocation,
+            collectionId: params.collectionId,
+            type: params.type
           });
         });
       });
@@ -99,8 +101,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       //setting query params variables using the map location
       unitId: mapLocation.get('context.unitId'),
       lessonId: mapLocation.get('context.lessonId'),
-      collectionId: mapLocation.get('context.collectionId'),
-      type: mapLocation.get('context.collectionType')
+      collectionId: model.collectionId,
+      type: model.type
     });
 
     this._super(...arguments);
