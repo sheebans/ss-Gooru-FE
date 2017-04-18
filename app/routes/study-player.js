@@ -67,8 +67,11 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       }).then(function (hash) {
 
         //setting query params using the map location
-        params.collectionId = mapLocation.get('context.collectionId');
-        params.type = mapLocation.get('context.collectionType');
+        params.collectionId = mapLocation.get('context.itemId') || mapLocation.get('context.collectionId');
+        params.type = mapLocation.get('context.itemType') || mapLocation.get('context.collectionType');
+        params.classId = params.classId || mapLocation.get('context.classId');
+        params.unitId = params.unitId || mapLocation.get('context.unitId');
+        params.lessonId = params.lessonId || mapLocation.get('context.lessonId');
 
         //loads the player model if it has no suggestions
         return route.playerModel(params).then(function (model) {
@@ -76,7 +79,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
             course: hash.course,
             unit: hash.unit,
             lesson: hash.lesson,
-            mapLocation
+            mapLocation,
+            collectionId: params.collectionId,
+            type: params.type
           });
         });
       });
@@ -96,8 +101,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       //setting query params variables using the map location
       unitId: mapLocation.get('context.unitId'),
       lessonId: mapLocation.get('context.lessonId'),
-      collectionId: mapLocation.get('context.collectionId'),
-      type: mapLocation.get('context.collectionType')
+      collectionId: model.collectionId,
+      type: model.type
     });
 
     this._super(...arguments);
