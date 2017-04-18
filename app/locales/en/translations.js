@@ -140,6 +140,7 @@ export default Object.assign(quizzesTranslations, {
     "competencies": "Competencies",
     "completed": "Completed",
     "completion": "Completion",
+    "community": "Community",
     "confirm-copy":"Confirm & Copy",
     "content": "Content",
     "contentUnavailable": "Content not available",
@@ -826,6 +827,7 @@ export default Object.assign(quizzesTranslations, {
       "time-period":"Time Period",
       "update-report": "Update Report"
     },
+    "my-study": "My Study",
     "class":{
       "back-to": "Back to My Classes",
       "performance": "Performance",
