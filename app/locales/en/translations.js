@@ -1832,6 +1832,16 @@ export default Object.assign(quizzesTranslations, {
     "resource-legend": "You are checking this resource.",
     "resources-collection-report": "Collection usage report",
     "resources-assessment-report": "Assessment summary report",
+    "resource": {
+      zero: "Resource",
+      one: "Resource",
+      other: "Resources"
+    },
+    "question": {
+      zero: "Question",
+      one: "Question",
+      other: "Questions"
+    },
     "suggestions-legend": "To learn more, check out these resources."
   },
   "gru-suggest-test":{

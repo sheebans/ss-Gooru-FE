@@ -77,7 +77,8 @@ test('Layout', function(assert) {
 
   this.set('collection', {
     id: 'collection-id',
-    isCollection: true
+    isCollection: true,
+    resources: []
   });
 
   this.set('breadcrumbs', ['unit 1', 'lesson 1', 'collection 1']);
@@ -121,7 +122,7 @@ test('Layout', function(assert) {
   assert.equal(T.text($performanceInfo.find('.resources .count-resources .counter')), '0', 'Wrong counter of resources');
 
   T.exists(assert, $performanceInfo.find('.resources .count-resources button'), 'Missing button of resources');
-  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), this.get('i18n').t('common.resources').string, 'Wrong button text');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), 'Resource', 'Wrong button text');
   T.exists(assert, $performanceInfo.find('.resources .navigation'), 'Missing resources navigation');
 
   T.exists(assert, $performanceInfo.find('.suggestions'), 'Missing suggestions section');
@@ -168,7 +169,7 @@ test('Layout-Resources in Assessment', function(assert) {
   assert.equal(T.text($performanceInfo.find('.resources .count-resources .counter')), '1/2', 'Wrong counter of resources');
 
   T.exists(assert, $performanceInfo.find('.resources .count-resources button'), 'Missing button of resources');
-  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), this.get('i18n').t('common.questions').string, 'Wrong button text');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), 'Questions', 'Wrong button text');
 });
 
 test('Layout - Pre Test', function(assert) {
