@@ -82,3 +82,14 @@ test('Go to class with content', function(assert) {
     });
   });
 });
+
+test('Valid bubble chart when the class does not has performance', function(assert) {
+  visit('/teacher-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher-home');
+    let $chart = find('.gru-teacher-class-card:eq(1) .gru-bubble-chart .bubble-circle');
+    assert.equal($chart.attr('style'),'background-color:#949A9F','Incorrect chart color');
+    assert.equal($chart.find('span').text(),'--','Incorrect score');
+  });
+});

@@ -1366,7 +1366,7 @@ export default Object.assign(quizzesTranslations, {
   "cards": {
     "gru-class-card": {
       "student": {
-        zero: "{{count}} Students",
+        zero: "{{count}} Student",
         one: "{{count}} Student",
         other: "{{count}} Students",
         "not-started": "Not Started"
