@@ -8,14 +8,16 @@ moduleFor('service:api-sdk/course-map', 'Unit | Service | api sdk/course map', {
 
 test('getLessonInfo', function(assert) {
   const service = this.subject();
+  const expectedClassId = 'class-id';
   const expectedCourseId = 'course-id';
   const expectedUnitId = 'unit-id';
   const expectedLessonId = 'lesson-id';
 
-  assert.expect(5);
+  assert.expect(6);
 
   service.set('courseMapAdapter', Ember.Object.create({
-    getLessonInfo: function(courseId, unitId, lessonId) {
+    getLessonInfo: function(classId, courseId, unitId, lessonId) {
+      assert.equal(classId, expectedClassId, 'Wrong class id');
       assert.equal(courseId, expectedCourseId, 'Wrong course id');
       assert.equal(unitId, expectedUnitId, 'Wrong unit id');
       assert.equal(lessonId, expectedLessonId, 'Wrong lesson id');
@@ -31,7 +33,7 @@ test('getLessonInfo', function(assert) {
   }));
 
   var done = assert.async();
-  service.getLessonInfo(expectedCourseId, expectedUnitId, expectedLessonId)
+  service.getLessonInfo(expectedClassId, expectedCourseId, expectedUnitId, expectedLessonId)
     .then(response => {
       assert.deepEqual(response, { id: expectedLessonId }, 'Response has to match');
       done();
