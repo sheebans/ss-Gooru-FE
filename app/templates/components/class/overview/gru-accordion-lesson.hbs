@@ -195,14 +195,18 @@
                     {{if item.performance.hasStarted item.performance.score '--'}}%
                   </span>
                   <span class="state">
-                    {{#if item.performance.isCompleted}}
-                      {{t 'common.completed'}}
-                    {{else}}
-                      {{#if item.performance.hasStarted}}
-                        {{t 'common.in-progress'}}
+                    {{#if item.isAssessment}}
+                      {{#if item.performance.isCompleted}}
+                        {{t 'common.completed'}}
                       {{else}}
-                          <span class="not-started">{{t 'common.not_started'}}</span>
+                        {{#if item.performance.hasStarted}}
+                          {{t 'common.in-progress'}}
+                        {{else}}
+                            <span class="not-started">{{t 'common.not_started'}}</span>
+                        {{/if}}
                       {{/if}}
+                    {{else}}
+                      <span class="not-started">&dash;&dash;</span>
                     {{/if}}
                   </span>
                 {{/if}}
