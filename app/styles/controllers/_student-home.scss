@@ -1,182 +1,184 @@
-.container-fluid {
-  .student-landing {
-    padding-top: 30px;
+.student-home {
+  .container-fluid {
+    .student-landing {
+      padding-top: 30px;
 
-    >* {
-      margin: 0 auto;
-      width: 97%;
-
-      @media (min-width: $screen-sm) {
-        width: 90%;
-      }
-      @media (min-width: $screen-md) {
-        width: 90%;
-      }
-    }
-
-    .title {
       >* {
-        display: inline-block;
-      }
-    }
-  }
-}
+        margin: 0 auto;
+        width: 97%;
 
-.student-landing {
-  .student-left-panel {
-    float:left;
-    .announcements{
-      width: 85%;
-      border-bottom-right-radius: 4px;
-      border-bottom-left-radius: 4px;
-      .panel-heading{
-        font-size: $font-size-lead;
-        padding: 0 15px;
-        border-top-right-radius: 4px;
-        border-top-left-radius: 4px;
-      }
-      .panel-body{
-        min-height: 230px;
-        .warning{
-          margin: 0 0 10px;
-          @include flexbox;
-          i{
-            color:$yellow-500;
-            vertical-align: middle;
-          }
-        }
-        .more-classes{
-          text-align: center;
-          display: block;
-          font-size: $font-size-lead;
-        }
-      }
-    }
-    .greetings {
-      span {
-        color: $gray-base;
-        font-size: $font-size-h4;
-        line-height: $font-size-h4;
-      }
-
-      p {
-        font-weight: lighter;
         @media (min-width: $screen-sm) {
-          font-size: $font-navigator;
+          width: 90%;
+        }
+        @media (min-width: $screen-md) {
+          width: 90%;
+        }
+      }
+
+      .title {
+        >* {
+          display: inline-block;
         }
       }
     }
-    .tab-content {
-      padding-top: 10px;
-      clear: both;
-      @include transition(width .3s ease-out);
+  }
+
+  .student-landing {
+    .student-left-panel {
+      float:left;
+      .announcements{
+        width: 85%;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+        .panel-heading{
+          font-size: $font-size-lead;
+          padding: 0 15px;
+          border-top-right-radius: 4px;
+          border-top-left-radius: 4px;
+        }
+        .panel-body{
+          min-height: 230px;
+          .warning{
+            margin: 0 0 10px;
+            @include flexbox;
+            i{
+              color:$yellow-500;
+              vertical-align: middle;
+            }
+          }
+          .more-classes{
+            text-align: center;
+            display: block;
+            font-size: $font-size-lead;
+          }
+        }
+      }
+      .greetings {
+        span {
+          color: $gray-base;
+          font-size: $font-size-h4;
+          line-height: $font-size-h4;
+        }
+
+        p {
+          font-weight: lighter;
+          @media (min-width: $screen-sm) {
+            font-size: $font-navigator;
+          }
+        }
+      }
+      .tab-content {
+        padding-top: 10px;
+        clear: both;
+        @include transition(width .3s ease-out);
+        @media (min-width: $screen-sm) {
+          width: 100%;
+        }
+        @media (min-width: $screen-md) {
+          width: 100%;
+        }
+        .tab-pane {
+          margin: 0;
+        }
+
+        .no-classes-found {
+          @include flexbox;
+          @include flex-wrap(wrap);
+          @include justify-content(center);
+          .create-class, .join-class, .featured-courses, .teacher-toolkit {
+            margin: 0 15px;
+
+            @media (min-width: $screen-sm) {
+              width: 42%;
+            }
+            @media (min-width: $screen-md) {
+              width: 45%;
+            }
+          }
+          .panel {
+            width: 300px;
+            @media (min-width: $screen-sm) {
+              width: 100%;
+            }
+            button.btn-info, a {
+              margin-top: 20px;
+            }
+            p {
+              font-size: 19px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .student-navigator {
+    .nav-tabs {
       @media (min-width: $screen-sm) {
-        width: 100%;
+        box-shadow: inset 0 -1px 0 $gray-light;
       }
-      @media (min-width: $screen-md) {
-        width: 100%;
-      }
-      .tab-pane {
-        margin: 0;
-      }
-
-      .no-classes-found {
-        @include flexbox;
-        @include flex-wrap(wrap);
-        @include justify-content(center);
-        .create-class, .join-class, .featured-courses, .teacher-toolkit {
-          margin: 0 15px;
-
-          @media (min-width: $screen-sm) {
-            width: 42%;
-          }
-          @media (min-width: $screen-md) {
-            width: 45%;
-          }
-        }
-        .panel {
-          width: 300px;
-          @media (min-width: $screen-sm) {
-            width: 100%;
-          }
-          button.btn-info, a {
-            margin-top: 20px;
-          }
-          p {
-            font-size: 19px;
-          }
+      li{
+        margin-right: 15px;
+        a{
+          padding: 10px 0;
         }
       }
     }
-  }
-}
 
-.student-navigator {
-  .nav-tabs {
-    @media (min-width: $screen-sm) {
-      box-shadow: inset 0 -1px 0 $gray-light;
-    }
-    li{
-      margin-right: 15px;
-      a{
-        padding: 10px 0;
+    li {
+      display: none;
+      height: 50px;
+      margin-bottom: 0;
+
+      @media (min-width: $screen-sm) {
+        display: block;
       }
-    }
-  }
 
-  li {
-    display: none;
-    height: 50px;
-    margin-bottom: 0;
+      &.active {
+        display: block;
 
-    @media (min-width: $screen-sm) {
-      display: block;
-    }
+        a {
+          box-shadow: inset 0 -4px 0 $gray;
+          padding-left: 0;
+          padding-right: 0;
 
-    &.active {
-      display: block;
+          &:focus {
+            box-shadow: inset 0 -4px 0 $gray;
+          }
+
+          &:active {
+            box-shadow: inset 0 -4px 0 $gray;
+          }
+
+        }
+      }
+
+      &:not(.active) {
+        a {
+          box-shadow: none;
+        }
+      }
 
       a {
-        box-shadow: inset 0 -4px 0 $gray;
-        padding-left: 0;
-        padding-right: 0;
-
-        &:focus {
-          box-shadow: inset 0 -4px 0 $gray;
+        &:hover {
+          color: initial;
         }
 
-        &:active {
-          box-shadow: inset 0 -4px 0 $gray;
+        span {
+          font-weight: bold;
         }
-
       }
     }
 
-    &:not(.active) {
-      a {
-        box-shadow: none;
+    .actions {
+      @include flexbox;
+      @include align-items(flex-end);
+      @include justify-content(space-between);
+      height: 35px;
+      margin: 8px 0 0;
+      .manage-goals-cta{
+        margin-right: 10px;
       }
-    }
-
-    a {
-      &:hover {
-        color: initial;
-      }
-
-      span {
-        font-weight: bold;
-      }
-    }
-  }
-
-  .actions {
-    @include flexbox;
-    @include align-items(flex-end);
-    @include justify-content(space-between);
-    height: 35px;
-    margin: 8px 0 0;
-    .manage-goals-cta{
-      margin-right: 10px;
     }
   }
 }

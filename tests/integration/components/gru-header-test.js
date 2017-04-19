@@ -157,8 +157,8 @@ test('Search terms under 3 letters', function(assert) {
   });
 });
 
-test('My Performance as student', function(assert) {
-  assert.expect(1); //making sure all asserts are called
+test('Links as student', function(assert) {
+  assert.expect(3); //making sure all asserts are called
 
   let profile = Ember.Object.create({
     isTeacher:false
@@ -171,13 +171,15 @@ test('My Performance as student', function(assert) {
   const $component = this.$(); //component dom element
 
   const $performanceLink = $component.find('.performance-link');
-
   assert.ok($performanceLink.length, 'Missing performance link');
-
+  const $communityLink = $component.find('.community-link');
+  assert.ok($communityLink.length, 'Missing community link');
+  const $notificationsLink = $component.find('.notifications-link');
+  assert.ok($notificationsLink.length, 'Missing notifications link');
 });
 
-test('My Performance as teacher', function(assert) {
-  assert.expect(1); //making sure all asserts are called
+test('hidden links as teacher', function(assert) {
+  assert.expect(3); //making sure all asserts are called
 
   let profile = Ember.Object.create({
     isTeacher:true
@@ -190,7 +192,9 @@ test('My Performance as teacher', function(assert) {
   const $component = this.$(); //component dom element
 
   const $performanceLink = $component.find('.performance-link');
-
   assert.notOk($performanceLink.length, 'Performance link should not appear');
-
+  const $communityLink = $component.find('.community-link');
+  assert.notOk($communityLink.length, 'Missing community link');
+  const $notificationsLink = $component.find('.notifications-link');
+  assert.notOk($notificationsLink.length, 'Missing notifications link');
 });

@@ -146,6 +146,17 @@
           a{
             padding: 0;
             color: rgba(0,0,0,0.3);
+            &.active {
+              color: $gray-base;
+            }
+          }
+
+          &.notifications-link {
+            height: 23px;
+            padding: 0 5px;
+            a {
+              color: $gray-icon;
+            }
           }
           &.open {
             > a {

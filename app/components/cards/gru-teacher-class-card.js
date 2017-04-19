@@ -26,11 +26,6 @@ export default Ember.Component.extend({
    */
   classStudentCount: null,
 
-  score: Ember.computed('class.performanceSummary.score', function(){
-    const score = this.get('class.performanceSummary.score');
-    return Ember.typeOf(score) === 'number' ? score : 0;
-  }),
-
   /**
    * @property {Number} Count of students in the class
    */
