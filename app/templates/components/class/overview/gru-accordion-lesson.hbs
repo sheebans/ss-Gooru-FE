@@ -179,33 +179,33 @@
                 {{/if}}
               </div>
 
-              {{gru-user-icons
-              membersCount=item.members.length
-              users=item.members}}
+              {{#unless item.collectionSubType}}
+                {{gru-user-icons
+                membersCount=item.members.length
+                users=item.members}}
+              {{/unless}}
 
               <div class="left-info">
-                {{#unless item.collectionSubType}}
-                  {{#if (eq activeElement item.id)}}
-                      <button {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
-                        {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
-                      </button>
+                {{#if (eq activeElement item.id)}}
+                    <button {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
+                      {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
+                    </button>
+                {{else}}
+                  <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
+                    {{if item.performance.hasStarted item.performance.score '--'}}%
+                  </span>
+                  <span class="state">
+                    {{#if item.performance.isCompleted}}
+                      {{t 'common.completed'}}
                     {{else}}
-                      <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
-                        {{if item.performance.hasStarted item.performance.score '--'}}%
-                      </span>
-                      <span class="state">
-                        {{#if item.performance.isCompleted}}
-                          {{t 'common.completed'}}
-                        {{else}}
-                          {{#if item.performance.hasStarted}}
-                            {{t 'common.in-progress'}}
-                          {{else}}
-                              <span class="not-started">{{t 'common.not_started'}}</span>
-                          {{/if}}
-                        {{/if}}
-                      </span>
-                  {{/if}}
-                {{/unless}}
+                      {{#if item.performance.hasStarted}}
+                        {{t 'common.in-progress'}}
+                      {{else}}
+                          <span class="not-started">{{t 'common.not_started'}}</span>
+                      {{/if}}
+                    {{/if}}
+                  </span>
+                {{/if}}
               </div>
             </div>
           </div>
