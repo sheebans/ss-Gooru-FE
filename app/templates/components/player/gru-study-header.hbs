@@ -56,9 +56,9 @@
                 </span>
               <button class="btn btn-default resources-btn">
                 {{#if collection.isCollection}}
-                  {{t "common.resources"}}
+                  {{t "gru-study-header.resource" count=totalResources}}
                 {{else}}
-                  {{t "common.questions"}}
+                  {{t "gru-study-header.question" count=totalResources}}
                 {{/if}}
               </button>
             {{/if}}
