@@ -73,8 +73,8 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * The assessment performanceData
-   * @property {assessmentsCompleted[]}
+   * Number of assessments completed
+   * @property {Number}
    */
   assessmentsCompleted: Ember.computed('assessments.length', 'collectionPerformanceSummaryItems.length', function() {
     const performanceData = this.createDataArray(this.get('assessments'), this.get('collectionPerformanceSummaryItems'));
