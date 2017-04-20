@@ -178,13 +178,13 @@
                   {{/if}}
                 {{/if}}
               </div>
-
+              {{!--
               {{#unless item.collectionSubType}}
                 {{gru-user-icons
                 membersCount=item.members.length
                 users=item.members}}
               {{/unless}}
-
+              --}}
               <div class="left-info">
                 {{#if (eq activeElement item.id)}}
                     <button {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
