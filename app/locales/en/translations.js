@@ -842,7 +842,8 @@ export default Object.assign(quizzesTranslations, {
       },
       "my-report":"My Report"
     },
-    "current-activity":"Current activity"
+    "current-activity":"Current activity",
+    "welcome":"Welcome to Gooru."
   },
   "teacher-landing": {
     "latest-announcement":"Latest Announcement",

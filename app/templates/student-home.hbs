@@ -14,7 +14,11 @@
                 <div class="panel-body">
                     <div class="warning">
                       <span>{{gru-icon name='volume_up'}}</span>
-                      <span class="announcements-lead">{{t 'student-landing.announcements'}}</span>
+                      {{#if announcementsClasses}}
+                          <span class="announcements-lead">{{t 'student-landing.announcements'}}</span>
+                        {{else}}
+                          <span class="announcements-lead welcome">{{t 'student-landing.welcome'}}</span>
+                      {{/if}}
                     </div>
                     <div class="classes-announcements">
                       <ul>
