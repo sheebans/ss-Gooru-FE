@@ -63,11 +63,21 @@
               </button>
             {{/if}}
           </div>
-          <div class="navigation out-of-scope">
+          <div class="navigation">
             <span class="next">Next:</span>
-            <span class="next-resource question">
-              <i class="icon"></i>
-              <span class="title ellipsis">Cartilaginous fishes like sharks, mantas...</span>
+            <span class="next-resource">
+               {{#unless fromReport}}
+                 {{#if nextResource}}
+                     <i class="icon {{nextResource.format}}-icon"></i>
+                     <span class="title ellipsis">{{nextResource.title}}</span>
+                 {{else}}
+                   {{#if collection.isCollection}}
+                       <span class="usage-report"> {{t 'gru-study-header.check-usage'}}</span>
+                   {{else}}
+                       <span class="summary-report"> {{t 'gru-study-header.check-summary'}}</span>
+                   {{/if}}
+                 {{/if}}
+               {{/unless}}
             </span>
           </div>
         {{/if}}
