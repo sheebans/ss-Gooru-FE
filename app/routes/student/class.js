@@ -81,6 +81,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model: function(params) {
     const route = this;
+    const myId = route.get("session.userId");
 
     //Steps for Take a Tour functionality
     let tourSteps = Ember.A([
@@ -94,14 +95,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         description: route.get('i18n').t('gru-take-tour.student-class.stepTwo.description')
       },
       {
-        elementSelector: '.gru-class-navigation .nav-tabs .performance',
-        title: route.get('i18n').t('gru-take-tour.student-class.stepFour.title'),
-        description: route.get('i18n').t('gru-take-tour.student-class.stepFour.description')
-      },
-      {
         elementSelector: '.gru-class-navigation .nav-tabs .course-map',
         title: route.get('i18n').t('gru-take-tour.student-class.stepThree.title'),
         description: route.get('i18n').t('gru-take-tour.student-class.stepThree.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .performance',
+        title: route.get('i18n').t('gru-take-tour.student-class.stepFour.title'),
+        description: route.get('i18n').t('gru-take-tour.student-class.stepFour.description')
       },
       {
         title: route.get('i18n').t('gru-take-tour.student-class.stepFive.title'),
@@ -112,7 +113,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
     const membersPromise = route.get('classService').readClassMembers(classId);
-    const performanceSummaryPromise = route.get('performanceService').findClassPerformanceSummaryByClassIds([classId]);
+    const performanceSummaryPromise = route.get('performanceService').findClassPerformanceSummaryByStudentAndClassIds(myId,[classId]);
     return Ember.RSVP.hash({
       class: classPromise,
       members: membersPromise,
