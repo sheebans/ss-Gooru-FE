@@ -36,7 +36,7 @@
               </td>
               <td class="performance-info performance-completion">
                 {{charts.gru-radial-chart
-                value=performanceData.length
+                value=assessmentsCompleted
                 minValue=0
                 maxValue=assessments.length }}
               </td>
@@ -56,9 +56,9 @@
                       </div>
                   </td>
                   <td class="performance-info performance-completion">
-                      <span class="completion">
-                        {{gru-icon name='done'}}
-                      </span>
+                    <span class="completion {{if (eq studentPerformance.performanceData.status 'complete') 'visible' 'hidden'}}">
+                      {{gru-icon name='done'}}
+                    </span>
                   </td>
                   <td class="performance-info performance-time">
                     {{format-time studentPerformance.performanceData.timeSpent}}
