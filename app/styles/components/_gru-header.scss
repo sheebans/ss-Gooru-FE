@@ -112,7 +112,7 @@
         @include flex-basis(15%);
         padding: 0;
         @media (min-width: $screen-md) {
-          @include flex-basis(50%);
+          @include flex-basis(52%);
           min-width: 380px;
         }
       }
