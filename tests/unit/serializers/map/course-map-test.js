@@ -1,20 +1,19 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
+import CollectionModel from 'gooru-web/models/content/collection';
 
 moduleFor('serializer:map/course-map', 'Unit | Serializer | map/course-map');
 
 test('normalizeLessonInfo', function(assert) {
   const data = {
-    alternate_path: [
-      'collection'
+    alternate_paths: [
+      ASSESSMENT_SUB_TYPES.PRE_TEST,
+      ASSESSMENT_SUB_TYPES.POST_TEST,
+      ASSESSMENT_SUB_TYPES.BENCHMARK,
+      ASSESSMENT_SUB_TYPES.BACKFILL
     ],
     course_path: 'lesson'
-  };
-  const expectedData = {
-    title: 'normalized-lesson',
-    children: [
-      'normalized-collection'
-    ]
   };
   const serializer = this.subject();
   serializer.set('lessonSerializer', {
@@ -28,11 +27,17 @@ test('normalizeLessonInfo', function(assert) {
   });
   serializer.set('collectionSerializer', {
     normalizeReadCollection: collection => {
-      assert.equal(collection, 'collection', 'Normalize param should match');
-      return 'normalized-collection';
+      return CollectionModel.create({
+        title: `normalized-collection-${collection}`,
+        collectionSubType: collection
+      });
     }
   });
   const serializedData = serializer.normalizeLessonInfo(data);
-  assert.deepEqual(serializedData.get('lesson'), expectedData.lesson, 'Returned data should match');
-  assert.deepEqual(serializedData.get('children'), expectedData.children, 'Returned data should match');
+  assert.deepEqual(serializedData.get('title'), 'normalized-lesson', 'Returned data should match');
+  assert.deepEqual(serializedData.get('children').length, 4, 'Returned data length should match');
+  assert.deepEqual(serializedData.get('children')[0].title, `normalized-collection-${ASSESSMENT_SUB_TYPES.PRE_TEST}`, 'Pre test data should match');
+  assert.deepEqual(serializedData.get('children')[1].title, `normalized-collection-${ASSESSMENT_SUB_TYPES.BACKFILL}`, 'Backfill data should match');
+  assert.deepEqual(serializedData.get('children')[2].title, `normalized-collection-${ASSESSMENT_SUB_TYPES.POST_TEST}`, 'Post test data should match');
+  assert.deepEqual(serializedData.get('children')[3].title, `normalized-collection-${ASSESSMENT_SUB_TYPES.BENCHMARK}`, 'Benchmark data should match');
 });

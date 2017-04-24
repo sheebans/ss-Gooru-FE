@@ -228,8 +228,8 @@ export default Ember.Component.extend(AccordionMixin, {
   /**
    * @prop {Boolean} Indicate if the lesson is selected as active element to study
    */
-  isLessonSelected:Ember.computed('isExpanded','activeElement','isStudent','showLocation',function(){
-    return this.get('isStudent') && this.get('isExpanded') && !this.get('showLocation') && this.get('activeElement') === '';
+  isLessonSelected:Ember.computed('isExpanded','isStudent',function(){
+    return this.get('isStudent') && this.get('isExpanded');
   }),
 
   /**
@@ -325,7 +325,7 @@ export default Ember.Component.extend(AccordionMixin, {
     const isTeacher = component.get('isTeacher');
 
     component.set('loading', true);
-    component.get('courseMapService').getLessonInfo(courseId, unitId, lessonId)
+    component.get('courseMapService').getLessonInfo(classId, courseId, unitId, lessonId)
       .then(function(lesson) {
         const collections = lesson.get('children');
         component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import LessonSerializer from 'gooru-web/serializers/content/lesson';
 import CollectionSerializer from 'gooru-web/serializers/content/collection';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Course Map operations
@@ -30,9 +31,21 @@ export default Ember.Object.extend({
    * @returns {Object} lesson and alternate paths
    */
   normalizeLessonInfo: function (data) {
-    let alternatePath = this.normalizeAlternatePaths(data.alternate_path);
+    let alternatePaths = this.normalizeAlternatePaths(data.alternate_paths);
     let lesson = this.get('lessonSerializer').normalizeLesson(data.course_path);
-    lesson.get('children').unshift(...alternatePath);
+    let alternatePathsMap = alternatePaths.reduce((mapping, path) => {
+      mapping[path.get('collectionSubType')].push(path);
+      return mapping;
+    }, {
+      [ASSESSMENT_SUB_TYPES.BACKFILL]: [],
+      [ASSESSMENT_SUB_TYPES.BENCHMARK]: [],
+      [ASSESSMENT_SUB_TYPES.PRE_TEST]: [],
+      [ASSESSMENT_SUB_TYPES.POST_TEST]: []
+    });
+    lesson.get('children').unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BACKFILL]);
+    lesson.get('children').unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.PRE_TEST]);
+    lesson.get('children').push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.POST_TEST]);
+    lesson.get('children').push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BENCHMARK]);
     return lesson;
   },
 

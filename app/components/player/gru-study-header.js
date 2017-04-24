@@ -93,7 +93,10 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
+  /**
+   * @property {Resource} actualResource
+   */
+  actualResource: null,
   /**
    * @property {String} collectionUrl
    */
@@ -118,6 +121,12 @@ export default Ember.Component.extend({
    * @property {collection} collection - The current Collection
    */
   collection: null,
+  /**
+   * @property {Resource} nextResource - Return the next resource
+   */
+  nextResource:Ember.computed('actualResource','collection',function(){
+    return this.get('collection').nextResource(this.get('actualResource'));
+  }),
 
   /**
    * @property {Number} resourceSequence - The resource sequence in the collection / assessment
@@ -162,6 +171,12 @@ export default Ember.Component.extend({
   fromReport: false,
 
   /**
+   * Indicates if PreTest is showing
+   * @property {Boolean} isPreTest
+   */
+  isPreTest: false,
+
+  /**
    * @property {Number} barChartData
    */
   barChartData: Ember.computed('class.performanceSummary', function () {
@@ -175,6 +190,14 @@ export default Ember.Component.extend({
         percentage
       }
     ];
+  }),
+
+  /**
+   * @property {String} lessonTitle
+   */
+  lessonTitle: Ember.computed('breadcrumbs', function () {
+    const breadcrumbs = this.get('breadcrumbs');
+    return breadcrumbs[1] || '';
   }),
 
   // -------------------------------------------------------------------------

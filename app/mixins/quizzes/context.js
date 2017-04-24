@@ -29,9 +29,9 @@ export default Ember.Mixin.create({
       context.setProperties({
         classId: params.classId,
         contextMapping: {
-          courseId: collection.get('courseId'),
-          unitId: collection.get('unitId'),
-          lessonId: collection.get('lessonId')
+          courseId: collection.get('courseId') || params.courseId,
+          unitId: collection.get('unitId') || params.unitId,
+          lessonId: collection.get('lessonId') || params.lessonId
         }
       });
     }

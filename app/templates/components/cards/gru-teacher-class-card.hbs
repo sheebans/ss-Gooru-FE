@@ -15,7 +15,7 @@
         {{gru-icon name="group"}} <span>{{t "cards.gru-class-card.student" count=studentCount}}</span>
       </div>
       <div class="chart">
-        {{charts.gru-bubble-chart content=(concat score '%') color=(grade-color score)}}
+        {{charts.gru-bubble-chart content=(if class.performanceSummary (concat class.performanceSummary.score '%') '--') color=(grade-color class.performanceSummary.score)}}
         <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
       </div>
     </div>

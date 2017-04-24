@@ -5,6 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Class from 'gooru-web/models/content/class';
 import Resource from 'gooru-web/models/content/resource';
+import Collection from 'gooru-web/models/collection/collection';
 
 const classServiceStub = Ember.Service.extend({
 
@@ -75,10 +76,27 @@ test('Layout', function(assert) {
     userId: 'user-id'
   });
 
-  this.set('collection', {
-    id: 'collection-id',
-    isCollection: true
+  let resourceA = Ember.Object.create({
+    id: 1,
+    sequence:1,
+    title: 'resource1',
+    format: 'image_resource'});
+
+  let resourceB = Ember.Object.create({
+    id: 2,
+    sequence:2,
+    title: 'resource1',
+    format: 'video_resource'
   });
+
+  this.set('collection',Collection.create({
+    id: 'collection-id',
+    isCollection: true,
+      resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
 
   this.set('breadcrumbs', ['unit 1', 'lesson 1', 'collection 1']);
 
@@ -86,7 +104,10 @@ test('Layout', function(assert) {
 
   this.set('courseTitle', 'Marine Biology');
 
-  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session courseTitle=courseTitle breadcrumbs=breadcrumbs}}`);
+  this.set('actualResource', resourceA);
+  this.set('resourceSequence', resourceA.get('sequence'));
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection actualResource=actualResource resourceSequence=resourceSequence session=session courseTitle=courseTitle breadcrumbs=breadcrumbs}}`);
 
   var $component = this.$(); //component dom element
   const $header = $component.find('.gru-study-header');
@@ -118,11 +139,15 @@ test('Layout', function(assert) {
 
   T.exists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
   T.exists(assert, $performanceInfo.find('.resources .count-resources .counter'), 'Missing counter of resources');
-  assert.equal(T.text($performanceInfo.find('.resources .count-resources .counter')), '0', 'Wrong counter of resources');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources .counter')), '1/2', 'Wrong counter of resources');
 
   T.exists(assert, $performanceInfo.find('.resources .count-resources button'), 'Missing button of resources');
-  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), this.get('i18n').t('common.resources').string, 'Wrong button text');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), 'Resources', 'Wrong button text');
   T.exists(assert, $performanceInfo.find('.resources .navigation'), 'Missing resources navigation');
+  T.exists(assert, $performanceInfo.find('.resources .navigation .next'), 'Missing next label');
+  T.exists(assert, $performanceInfo.find('.resources .navigation .next-resource'), 'Missing next resource section');
+  T.exists(assert, $performanceInfo.find('.resources .navigation .next-resource i.video_resource-icon'), 'Incorrect next resource icon');
+  T.exists(assert, $performanceInfo.find('.resources .navigation .next-resource .title'), 'Incorrect next resource title');
 
   T.exists(assert, $performanceInfo.find('.suggestions'), 'Missing suggestions section');
   T.exists(assert, $performanceInfo.find('.suggestions .description'), 'Missing suggestions description');
@@ -141,22 +166,33 @@ test('Layout-Resources in Assessment', function(assert) {
     userId: 'user-id'
   });
 
-  this.set('collection', {
+  let resourceA = Ember.Object.create({
+    id: 'resource-1',
+    sequence:1,
+    title: 'resource1',
+    format: 'image_resource'});
+
+  let resourceB = Ember.Object.create({
+    id: 'resource-2',
+    sequence:2,
+    title: 'resource1',
+    format: 'video_resource'
+  });
+
+  this.set('collection',Collection.create({
     id: 'collection-id',
     isCollection: false,
-    resources: [
-      Ember.Object.create({
-        id: 'resource-1'
-      }),
-      Ember.Object.create({
-        id: 'resource-2'
-      })
-    ]
-  });
+    resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
 
   this.set('classId', 'class-1');
 
-  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session resourceSequence=1}}`);
+  this.set('actualResource', resourceA);
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection  actualResource=actualResource session=session resourceSequence=1}}`);
 
   var $component = this.$(); //component dom element
   const $header = $component.find('.gru-study-header');
@@ -168,7 +204,60 @@ test('Layout-Resources in Assessment', function(assert) {
   assert.equal(T.text($performanceInfo.find('.resources .count-resources .counter')), '1/2', 'Wrong counter of resources');
 
   T.exists(assert, $performanceInfo.find('.resources .count-resources button'), 'Missing button of resources');
-  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), this.get('i18n').t('common.questions').string, 'Wrong button text');
+  assert.equal(T.text($performanceInfo.find('.resources .count-resources button')), 'Questions', 'Wrong button text');
+});
+
+test('Layout - Pre Test', function(assert) {
+
+  this.set('session', {
+    userId: 'user-id'
+  });
+
+  let resourceA = Ember.Object.create({
+    id: 'resource-1',
+    sequence:1,
+    title: 'resource1',
+    format: 'image_resource'});
+
+  let resourceB = Ember.Object.create({
+    id: 'resource-2',
+    sequence:2,
+    title: 'resource1',
+    format: 'video_resource'
+  });
+
+  this.set('collection',Collection.create({
+    id: 'collection-id',
+    isCollection: true,
+    resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
+
+  this.set('breadcrumbs', ['unit 1', 'lesson 1', 'collection 1']);
+
+  this.set('classId', 'class-1');
+
+  this.set('courseTitle', 'Marine Biology');
+
+  this.set('actualResource', resourceA);
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection  actualResource=actualResource session=session courseTitle=courseTitle breadcrumbs=breadcrumbs isPreTest=true}}`);
+
+  var $component = this.$(); //component dom element
+  const $header = $component.find('.gru-study-header');
+  T.exists(assert, $header, 'Missing header section');
+
+  const $performanceInfo = $header.find('.performance-info');
+  T.exists(assert, $performanceInfo, 'Missing performance-info');
+
+  T.exists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
+  T.exists(assert, $performanceInfo.find('.resources .lesson-info'), 'Missing lesson info');
+  assert.equal(T.text($performanceInfo.find('.resources .lesson-info')), this.get('i18n').t('gru-study-header.lesson-legend').string+' lesson 1', 'Wrong lesson title');
+
+  T.notExists(assert, $performanceInfo.find('.resources .count-resources'), 'Counter of resources should not be visible');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation'), 'Resources navigation should not be visible');
 });
 
 test('Layout-Collection Resources from Collection Report', function(assert) {
@@ -177,22 +266,33 @@ test('Layout-Collection Resources from Collection Report', function(assert) {
     userId: 'user-id'
   });
 
-  this.set('collection', {
+  let resourceA = Ember.Object.create({
+    id: 'resource-1',
+    sequence:1,
+    title: 'resource1',
+    format: 'image_resource'});
+
+  let resourceB = Ember.Object.create({
+    id: 'resource-2',
+    sequence:2,
+    title: 'resource1',
+    format: 'video_resource'
+  });
+
+  this.set('collection',Collection.create({
     id: 'collection-id',
     isCollection: true,
-    resources: [
-      Ember.Object.create({
-        id: 'resource-1'
-      }),
-      Ember.Object.create({
-        id: 'resource-2'
-      })
-    ]
-  });
+    resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
 
   this.set('classId', 'class-1');
 
-  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session resourceSequence=1 fromReport=true}}`);
+  this.set('actualResource', resourceA);
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection actualResource=actualResource session=session resourceSequence=1 fromReport=true}}`);
 
   var $component = this.$(); //component dom element
   const $header = $component.find('.gru-study-header');
@@ -211,22 +311,33 @@ test('Layout-Assessment Resources from Collection Report', function(assert) {
     userId: 'user-id'
   });
 
-  this.set('collection', {
+  let resourceA = Ember.Object.create({
+    id: 'resource-1',
+    sequence:1,
+    title: 'resource1',
+    format: 'image_resource'});
+
+  let resourceB = Ember.Object.create({
+    id: 'resource-2',
+    sequence:2,
+    title: 'resource1',
+    format: 'video_resource'
+  });
+
+  this.set('collection',Collection.create({
     id: 'collection-id',
     isCollection: false,
-    resources: [
-      Ember.Object.create({
-        id: 'resource-1'
-      }),
-      Ember.Object.create({
-        id: 'resource-2'
-      })
-    ]
-  });
+    resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
 
   this.set('classId', 'class-1');
 
-  this.render(hbs`{{player/gru-study-header classId=classId collection=collection session=session resourceSequence=1 fromReport=true}}`);
+  this.set('actualResource', resourceA);
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection actualResource=actualResource session=session resourceSequence=1 fromReport=true}}`);
 
   var $component = this.$(); //component dom element
   const $header = $component.find('.gru-study-header');
@@ -241,11 +352,33 @@ test('Layout-Assessment Resources from Collection Report', function(assert) {
 
 test('Collapse-expand performance information', function(assert) {
 
+  let resourceA = Ember.Object.create({
+    id: 'resource-1',
+    sequence:1,
+    title: 'resource1',
+    format: 'image_resource'});
+
+  let resourceB = Ember.Object.create({
+    id: 'resource-2',
+    sequence:2,
+    title: 'resource1',
+    format: 'video_resource'
+  });
+
+  this.set('collection',Collection.create({
+    id: 'collection-id',
+    isCollection: true,
+    resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
+
   this.on('parentAction', function(){
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{player/gru-study-header onToggleHeader='parentAction'}}`);
+  this.render(hbs`{{player/gru-study-header onToggleHeader='parentAction' collection=collection actualResource=actualResource}}`);
   var $component = this.$(); //component dom element
   const $header = $component.find('.gru-study-header');
   const $courseInfo = $header.find('.course-info');
@@ -264,4 +397,108 @@ test('Collapse-expand performance information', function(assert) {
       assert.ok($performanceInfo.hasClass('visible'), 'Performance Info container is expanded');
     });
   });
+});
+
+test('Next when is the last question of an assessment', function(assert) {
+
+  let resourceA = Ember.Object.create({
+    id: 'question-1',
+    sequence:1,
+    title: 'question 1',
+    format: 'question'});
+
+  let resourceB = Ember.Object.create({
+    id: 'question-2',
+    sequence:2,
+    title: 'question 2',
+    format: 'question'
+  });
+
+  this.set('collection',Collection.create({
+    id: 'collection-id',
+    isCollection: false,
+    resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
+
+  this.set('actualResource',resourceB);
+
+  this.render(hbs`{{player/gru-study-header collection=collection actualResource=actualResource}}`);
+  var $component = this.$(); //component dom element
+  const $performanceInfo = $component.find('.performance-info');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation .next-resource .title'), 'Next resource title should not appear');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation .next-resource .usage-report'), 'Usage report label should not appear');
+  T.exists(assert, $performanceInfo.find('.resources .navigation .next-resource .summary-report'), 'Summary report label should appear');
+  assert.equal(T.text($performanceInfo.find('.resources .navigation .next-resource .summary-report')), 'Check your summary report', 'Wrong summary report message');
+});
+
+test('Next when is the last resource of an collection', function(assert) {
+
+  let resourceA = Ember.Object.create({
+    id: 'resource-1',
+    sequence:1,
+    title: 'resource 1',
+    format: 'video_resource'});
+
+  let resourceB = Ember.Object.create({
+    id: 'resource-2',
+    sequence:2,
+    title: 'resource 2',
+    format: 'image_resource'
+  });
+
+  this.set('collection',Collection.create({
+    id: 'collection-id',
+    isCollection: true,
+    resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
+
+  this.set('actualResource',resourceB);
+
+  this.render(hbs`{{player/gru-study-header collection=collection actualResource=actualResource}}`);
+  var $component = this.$(); //component dom element
+  const $performanceInfo = $component.find('.performance-info');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation .next-resource .title'), 'Next resource title should not appear');
+  T.exists(assert, $performanceInfo.find('.resources .navigation .next-resource .usage-report'), 'Usage report label should appear');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation .next-resource .summary-report'), 'Summary report label should not appear');
+  assert.equal(T.text($performanceInfo.find('.resources .navigation .next-resource .usage-report')), 'Check your usage report', 'Wrong usage report message');
+});
+
+test('Next for the summary report and the usage report', function(assert) {
+
+  let resourceA = Ember.Object.create({
+    id: 'resource-1',
+    sequence:1,
+    title: 'resource 1',
+    format: 'video_resource'});
+
+  let resourceB = Ember.Object.create({
+    id: 'resource-2',
+    sequence:2,
+    title: 'resource 2',
+    format: 'image_resource'
+  });
+
+  this.set('collection',Collection.create({
+    id: 'collection-id',
+    isCollection: true,
+    resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
+
+  this.set('fromReport',true);
+
+  this.render(hbs`{{player/gru-study-header collection=collection fromReport=fromReport}}`);
+  var $component = this.$(); //component dom element
+  const $performanceInfo = $component.find('.performance-info');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation .next-resource .title'), 'Next resource title should not appear');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation .next-resource .usage-report'), 'Usage report label should not appear');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation .next-resource .summary-report'), 'Summary report label should not appear');
 });

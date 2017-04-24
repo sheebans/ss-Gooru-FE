@@ -5,6 +5,7 @@
       <div class="title">
         <span>{{t 'user.hello' name=profile.firstName}}</span>
       </div>
+      <p>{{t 'user.joined-classes' count=totalJoinedClasses}}</p>
     </div>
     <div class="row">
         <div class="col-sm-6 col-xs-12">
@@ -13,7 +14,11 @@
                 <div class="panel-body">
                     <div class="warning">
                       <span>{{gru-icon name='volume_up'}}</span>
-                      <span class="announcements-lead">{{t 'student-landing.announcements'}}</span>
+                      {{#if announcementsClasses}}
+                          <span class="announcements-lead">{{t 'student-landing.announcements'}}</span>
+                        {{else}}
+                          <span class="announcements-lead welcome">{{t 'student-landing.welcome'}}</span>
+                      {{/if}}
                     </div>
                     <div class="classes-announcements">
                       <ul>
@@ -38,21 +43,25 @@
     <div class="student-navigator">
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active active-classes tab hidden-xs">
-          <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'active'}}>
+          <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab">
             <span class="lead">{{t 'user.my-classes'}}</span>
           </a>
         </li>
-
-        <li class="pull-right actions">
-          {{#link-to 'goals.manage' class="btn btn-info manage-goals-cta" tagName='button'}}
-            {{t 'user.manage-goals'}}
-          {{/link-to}}
-
-          {{#link-to 'content.classes.join' class="btn btn-success join-class-cta" tagName='button'}}
-            {{t 'user.join-class'}}
-          {{/link-to}}
+        <li role="presentation" class="independent-learning tab hidden-xs">
+          <a href="#independent-learning" aria-controls="independentLearning" role="tab" data-toggle="tab">
+            <span class="lead">{{t 'user.independent-learning'}}</span>
+          </a>
         </li>
       </ul>
+      <div class="pull-right actions">
+        {{#link-to 'goals.manage' class="btn btn-info manage-goals-cta" tagName='button'}}
+          {{t 'user.manage-goals'}}
+        {{/link-to}}
+
+        {{#link-to 'content.classes.join' class="btn btn-success join-class-cta" tagName='button'}}
+          {{t 'user.join-class'}}
+        {{/link-to}}
+      </div>
     </div>
     <div class="content tab-content">
       <div role="tabpanel" class="tab-pane row active" id="active-classes">

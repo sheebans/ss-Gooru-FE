@@ -25,14 +25,15 @@ export default ApplicationAdapter.extend({
    * @param {string} lessonId - lesson ID to search for
    * @returns {Promise}
    */
-  getLessonInfo: function (courseId, unitId, lessonId) {
+  getLessonInfo: function (classId, courseId, unitId, lessonId) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${courseId}/units/${unitId}/lessons/${lessonId}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      headers: adapter.get('headers')
+      headers: adapter.get('headers'),
+      data: { classId }
     };
     return Ember.$.ajax(url, options);
   },

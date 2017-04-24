@@ -4,7 +4,7 @@ import {formatDate,createFileNameToDownload} from 'gooru-web/utils/utils';
 import Ember from 'ember';
 
 moduleFor('controller:student/performance', 'Unit | Controller | student/performance', {
-
+  integration: true
 });
 
 test('prepareReportValues', function(assert) {

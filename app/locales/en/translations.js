@@ -140,6 +140,7 @@ export default Object.assign(quizzesTranslations, {
     "competencies": "Competencies",
     "completed": "Completed",
     "completion": "Completion",
+    "community": "Community",
     "confirm-copy":"Confirm & Copy",
     "content": "Content",
     "contentUnavailable": "Content not available",
@@ -479,6 +480,7 @@ export default Object.assign(quizzesTranslations, {
     "submit": "Submit",
     "submit-all": "Submit all",
     "swap": "Re-order",
+    "suggestion": "Suggestion",
     "suggestions": "Suggestions",
     "suggested-resources": "Suggested Resources",
     "support": "Support",
@@ -788,19 +790,20 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   "user": {
-    "hello":"Hello, {{name}}!",
-    "hi": "Hi",
     "active-classes": "Active Classrooms",
-    "my-current-classes":"My Current Classes",
     "archived-classes": "Archived Classes",
     "create-class": "Create Classroom",
-    "manage-goals": "Manage Goals",
+    "hello":"Hello, {{name}}!",
+    "hi": "Hi",
+    "independent-learning": "Independent Learning",
     "join-class": "Join Classroom",
     "joined-classes": {
       zero: "You're currently not enrolled in classrooms",
       one: "You're currently enrolled in 1 classroom",
       other: "You're currently enrolled in {{count}} classrooms"
     },
+    "my-current-classes":"My Current Classes",
+    "manage-goals": "Manage Goals",
     "my-classes":"My Classes",
     "teaching-classes": {
       zero: " and teaching {{count}} classrooms",
@@ -825,6 +828,7 @@ export default Object.assign(quizzesTranslations, {
       "time-period":"Time Period",
       "update-report": "Update Report"
     },
+    "my-study": "My Study",
     "class":{
       "back-to": "Back to My Classes",
       "performance": "Performance",
@@ -838,7 +842,8 @@ export default Object.assign(quizzesTranslations, {
       },
       "my-report":"My Report"
     },
-    "current-activity":"Current activity"
+    "current-activity":"Current activity",
+    "welcome":"Welcome to Gooru."
   },
   "teacher-landing": {
     "latest-announcement":"Latest Announcement",
@@ -1339,6 +1344,7 @@ export default Object.assign(quizzesTranslations, {
     "no-content": "No content available"
   },
   "gru-performance-metrics": {
+    "collection":"Collection",
     "assessment": "Assessment",
     "student": "Student",
     "score": "Score",
@@ -1364,7 +1370,7 @@ export default Object.assign(quizzesTranslations, {
   "cards": {
     "gru-class-card": {
       "student": {
-        zero: "{{count}} Students",
+        zero: "{{count}} Student",
         one: "{{count}} Student",
         other: "{{count}} Students",
         "not-started": "Not Started"
@@ -1655,6 +1661,40 @@ export default Object.assign(quizzesTranslations, {
         "title": "Finished!",
         "description": 'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
       }
+    },
+    "study-player":{
+      "stepOne": {
+        "title": "Welcome!",
+        "description": "This is your Study Player. Let’s walk through the features available to you."
+      },
+      "stepTwo": {
+        "title": "Unit/Course/Lesson Header",
+        "description": "Indicates where the collection or assessment are located in your course."
+      },
+      "stepThree": {
+        "title": "Performance/Completion",
+        "description": "Indicates how you are performing and how much of the course you have completed."
+      },
+      "stepFour": {
+        "title": "React to Resource",
+        "description": "Let your teacher know what you think about this resource."
+      },
+      "stepFive": {
+        "title": "Course Map",
+        "description": "Return to your Course Map to see additional course content."
+      },
+      "stepSix": {
+        "title": "Suggestions",
+        "description": "These are resources that you might want to explore based on what you are currently studying."
+      },
+      "stepSeven": {
+        "title": "Check out these resources",
+        "description": ""
+      },
+      "stepEight": {
+        "title": "Finished!",
+        "description": "Start studying!"
+      }
     }
   },
   "gru-tour": {
@@ -1789,10 +1829,23 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   "gru-study-header": {
-    "suggestions-legend": "To learn more, check out these resources.",
+    "lesson-legend": "You are currently on lesson",
     "resource-legend": "You are checking this resource.",
     "resources-collection-report": "Collection usage report",
-    "resources-assessment-report": "Assessment summary report"
+    "resources-assessment-report": "Assessment summary report",
+    "check-summary":"Check your summary report",
+    "check-usage":"Check your usage report",
+    "resource": {
+      zero: "Resource",
+      one: "Resource",
+      other: "Resources"
+    },
+    "question": {
+      zero: "Question",
+      one: "Question",
+      other: "Questions"
+    },
+    "suggestions-legend": "To learn more, check out these resources."
   },
   "gru-suggest-test":{
     "pre-test-header":"Pre-Test (Optional)",

@@ -23,7 +23,7 @@ test('serializeCreateLesson', function (assert) {
 
   const expected = {
     title: modelInstance.get('title'),
-    taxonomy: []
+    taxonomy: null
   };
 
   const modelObject = serializer.serializeCreateLesson(modelInstance);

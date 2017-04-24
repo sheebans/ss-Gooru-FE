@@ -17,7 +17,10 @@
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>
         <div class="col-md-6">
-          {{charts.gru-radial-chart value=totalCompleted minValue=0 maxValue=total showPercentageLabel=true }}
+          {{charts.gru-radial-chart
+          value=class.performanceSummary.totalCompleted
+          minValue=0
+          maxValue=class.performanceSummary.total}}
           <span>{{t "common.completed"}}</span>
         </div>
       </div>

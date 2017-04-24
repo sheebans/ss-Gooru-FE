@@ -34,6 +34,10 @@ test('Layout', function(assert) {
 
     const $leftUserContainer = $userContainer.find('.student-left-panel');
     T.exists(assert, $leftUserContainer.find('.greetings'), 'Missing student greetings');
+    T.exists(assert, $leftUserContainer.find('.greetings .title'), 'Missing student name');
+    assert.equal( $leftUserContainer.find('.greetings .title span').text(),'Hello, Pochita!','Incorrect student name text');
+    T.exists(assert, $leftUserContainer.find('.greetings p'), 'Missing count classrooms');
+    assert.equal( $leftUserContainer.find('.greetings p').text(), "You're currently enrolled in 7 classrooms",'Incorrect count classrooms text');
 
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
@@ -124,5 +128,26 @@ test('Valid bubble chart when the class has performance', function(assert) {
     let $chart = find('.gru-student-class-card:eq(0) .gru-bubble-chart .bubble-circle');
     assert.equal($chart.attr('style'),'background-color:#F46360','Incorrect chart color');
     assert.equal($chart.find('span').text(),'0%','Incorrect score');
+  });
+});
+
+test('Valid completed chart when the class has started', function(assert) {
+  visit('/student-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-home');
+    let $chart = find('.gru-student-class-card:eq(0) .gru-radial-chart .radial-svg .labels');
+    assert.equal($chart.text(),'1/3','Incorrect label');
+  });
+});
+
+
+test('Valid completed chart when the class has not started', function(assert) {
+  visit('/student-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-home');
+    let $chart = find('.gru-student-class-card:eq(1) .gru-radial-chart .radial-svg .labels');
+    assert.equal($chart.text(),'--','Incorrect label');
   });
 });

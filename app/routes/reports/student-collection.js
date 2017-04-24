@@ -120,7 +120,7 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
     const route = this;
     const collectionId = params.collectionId;
     const contextId = params.contextId;
-    const type = params.type || 'collection';
+    const type = params.type;
     const role = params.role || ROLES.TEACHER;
 
     const isCollection = type === 'collection';
@@ -148,9 +148,9 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
   },
 
   setupController(controller, model) {
-    if (model){
+    this._super(...arguments);
+    if(model && model.collection) {
       controller.set('collection', model.collection);
-      controller.set('attemptData', model.attemptData);
     }
   }
 });

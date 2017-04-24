@@ -178,6 +178,9 @@
         }
       }
       .resources {
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(space-between);
         width: 100%;
         margin: 0 0 0 5px;
         font-size: $font-size-small;
@@ -267,41 +270,6 @@
         .resource-title {
           margin: 10px 0 0;
           @include inline-flex;
-          i {
-            height: 20px;
-            width: 22px;
-            margin-right: 5px;
-            &.video_resource-icon {
-              background: url("quizzes-addon/quizzes/images/video-resource-white.svg");
-              -webkit-background-size: 22px 20px;
-              background-size: 22px 20px;
-            }
-            &.webpage_resource-icon {
-              background: url("quizzes-addon/quizzes/images/website-resource-white.svg");
-              -webkit-background-size: 22px 20px;
-              background-size: 22px 20px;
-            }
-            &.interactive_resource-icon {
-              background: url("quizzes-addon/quizzes/images/interactive-resource-white.svg");
-              -webkit-background-size: 22px 20px;
-              background-size: 22px 20px;
-            }
-            &.image_resource-icon {
-              background: url("quizzes-addon/quizzes/images/image-resource-white.svg");
-              -webkit-background-size: 22px 20px;
-              background-size: 22px 20px;
-            }
-            &.text_resource-icon {
-              background: url("quizzes-addon/quizzes/images/text-resource-white.svg");
-              -webkit-background-size: 22px 20px;
-              background-size: 22px 20px;
-            }
-            &.audio_resource-icon {
-              background: url("quizzes-addon/quizzes/images/audio-resource-white.svg");
-              -webkit-background-size: 22px 20px;
-              background-size: 22px 20px;
-            }
-          }
         }
         .suggested-resources {
           margin: 10px 0 0;
@@ -383,6 +351,48 @@
           &:nth-child(2) {
             position: relative;
             top: -18px;
+          }
+        }
+      }
+      .next-resource, .resource-title {
+        i {
+          height: 20px;
+          width: 22px;
+          margin-right: 5px;
+          &.question-icon {
+            background: url("quizzes-addon/quizzes/images/question-resource.svg");
+            -webkit-background-size: 22px 20px;
+            background-size: 22px 20px;
+          }
+          &.video_resource-icon {
+            background: url("quizzes-addon/quizzes/images/video-resource-white.svg");
+            -webkit-background-size: 22px 20px;
+            background-size: 22px 20px;
+          }
+          &.webpage_resource-icon {
+            background: url("quizzes-addon/quizzes/images/website-resource-white.svg");
+            -webkit-background-size: 22px 20px;
+            background-size: 22px 20px;
+          }
+          &.interactive_resource-icon {
+            background: url("quizzes-addon/quizzes/images/interactive-resource-white.svg");
+            -webkit-background-size: 22px 20px;
+            background-size: 22px 20px;
+          }
+          &.image_resource-icon {
+            background: url("quizzes-addon/quizzes/images/image-resource-white.svg");
+            -webkit-background-size: 22px 20px;
+            background-size: 22px 20px;
+          }
+          &.text_resource-icon {
+            background: url("quizzes-addon/quizzes/images/text-resource-white.svg");
+            -webkit-background-size: 22px 20px;
+            background-size: 22px 20px;
+          }
+          &.audio_resource-icon {
+            background: url("quizzes-addon/quizzes/images/audio-resource-white.svg");
+            -webkit-background-size: 22px 20px;
+            background-size: 22px 20px;
           }
         }
       }

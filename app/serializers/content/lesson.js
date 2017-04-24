@@ -44,7 +44,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
   serializeUpdateLesson: function (lessonModel) {
     return {
       title: lessonModel.get('title'),
-      taxonomy: []   // TODO: pending
+      taxonomy: null  // TODO: pending
     };
   },
 

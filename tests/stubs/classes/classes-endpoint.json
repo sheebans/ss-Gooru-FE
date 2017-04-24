@@ -124,6 +124,24 @@
     }
   },
   {
+    "description": "Get a specific class visibility where pochita is a teacher",
+    "request": {
+      "url": "^/api/nucleus/v1/classes/class-for-pochita-as-student/courses$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "class-for-pochita-as-student-visibility-200-response.json"
+    }
+  },
+  {
     "description": "Get a specific class where pochita is a student",
     "request": {
       "url": "^/api/nucleus/v1/classes/class-for-pochita-as-student$",

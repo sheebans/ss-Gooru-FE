@@ -154,21 +154,15 @@ export default StudentCollection.extend({
     const controller = this;
     controller.set('showSuggestion', false);
     const courseMapService = controller.get('courseMapService');
-    const navigateMapService = controller.get('navigateMapService');
     const context = controller.get('mapLocation.context');
     courseMapService.createNewPath(context, suggestion)
-    .then(() => navigateMapService.next(context))
-    .then(function(mapLocation) {
+    .then(function() {
       const queryParams = {
-        unitId: mapLocation.get('context.unitId'),
-        lessonId: mapLocation.get('context.lessonId'),
-        collectionId: mapLocation.get('context.itemId'),
-        type: mapLocation.get('context.itemType'),
         role: ROLES.STUDENT
       };
       controller.transitionToRoute('study-player',
-        mapLocation.get('context.classId'),
-        mapLocation.get('context.courseId'),
+        context.get('classId'),
+        context.get('courseId'),
         { queryParams }
       );
     });
