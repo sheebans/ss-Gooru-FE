@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('new-cards/gru-collection-card', 'Integration | Component | new cards/gru collection card', {
   integration: true
