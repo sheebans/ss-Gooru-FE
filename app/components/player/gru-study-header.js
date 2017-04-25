@@ -209,6 +209,7 @@ export default Ember.Component.extend({
 
   loadContent: function(){
     const component = this;
+    const myId = component.get('session.userId');
     const classId = component.get('classId');
     const collectionId = component.get('collection.id');
     const totalResources = (component.get('collection.resources')) ? component.get('collection.resources').length : null;
@@ -216,7 +217,7 @@ export default Ember.Component.extend({
     component.set('totalResources', totalResources);
 
     component.get('classService').readClassInfo(classId).then(function(aClass) {
-      component.get('performanceService').findClassPerformanceSummaryByClassIds([classId])
+      component.get('performanceService').findClassPerformanceSummaryByStudentAndClassIds(myId,[classId])
         .then(function(classPerformanceSummaryItems) {
           aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
           component.set('class', aClass);
