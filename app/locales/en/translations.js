@@ -1371,6 +1371,31 @@ export default Object.assign(quizzesTranslations, {
         other: "{{count}} Questions"
       }
     },
+    "gru-collection-card":{
+      "courses": {
+        zero: "{{count}} Courses",
+        one: "{{count}} Course",
+        other: "{{count}} Courses"
+      },
+      "students": {
+        zero: "{{count}} Students",
+        one: "{{count}} Student",
+        other: "{{count}} Students"
+      },
+      "collections": {
+        one: "{{count}} Collection",
+        other: "{{count}} Collections"
+      },
+      "assessments": {
+        one: "{{count}} Assessment",
+        other: "{{count}} Assessments"
+      },
+      "classrooms": {
+        zero: "{{count}} Classrooms",
+        one: "{{count}} Classroom",
+        other: "{{count}} Classrooms"
+      }
+    },
     "gru-resource-card": {
       "add": "Add to"
     },

@@ -87,7 +87,7 @@ export default (function() {
     /**
      * @property {Boolean} isPublished
      */
-    isPublished: Ember.computed.equal("publishStatus", "published"),
+    isPublished: Ember.computed.equal('publishStatus', 'published'),
 
     /**
      * @property {Boolean} isVisibleOnProfile
@@ -138,6 +138,10 @@ export default (function() {
      * @property {string} course - The name of the course which this collection belongs to
      */
     course: null,
+    /**
+     * @property {number} course - Total count of couses which this collection belongs to
+     */
+    totalCourses:0,
 
     /**
      * @property {number} courseId
@@ -168,10 +172,10 @@ export default (function() {
      * When the owner and the creator are the same
      * @property {boolean}
      */
-    sameOwnerAndCreator: Ember.computed("owner.id", "originalCreatorId", function(){
-      if( !this.get('originalCreatorId')){
+    sameOwnerAndCreator: Ember.computed('owner.id', 'creator.id', function(){
+      if( !this.get('creator.id')){
         return true;
-      }else if(this.get('owner.id') === this.get('originalCreatorId')){
+      }else if(this.get('owner.id') === this.get('creator.id')){
         return true;
       }
     }),
@@ -184,17 +188,21 @@ export default (function() {
     /**
      * @property {boolean}
      */
-    isCollection: Ember.computed.equal("collectionType", "collection"),
+    isCollection: Ember.computed.equal('collectionType', 'collection'),
 
     /**
      * @property {boolean}
      */
-    isAssessment: Ember.computed.not("isCollection"),
+    isAssessment: Ember.computed.not('isCollection'),
 
     /**
      * @property {Ember.Array} resources - An children alias property
      */
     resources: Ember.computed.alias('children'),
+    /**
+     * @property {number} totalStudents - Students enrolled into the collection
+     */
+    totalStudents: 0,
 
     /**
      * Return a copy of the collection
@@ -220,8 +228,8 @@ export default (function() {
 
       var audience = this.get('audience');
       var depthOfknowledge = this.get('depthOfknowledge');
-      var standards = this.get("standards");
-      var centurySkills = this.get("centurySkills");
+      var standards = this.get('standards');
+      var centurySkills = this.get('centurySkills');
 
       // Copy array values
       properties.audience = audience.slice(0);
@@ -250,30 +258,30 @@ export default (function() {
     toPlayerCollection: function(){
       const model = this;
       return PlayerCollection.create({
-        id: model.get("id"),
-        collectionType: model.get("collectionType"),
-        title: model.get("title"),
-        remixes: model.get("remixCount"),
+        id: model.get('id'),
+        collectionType: model.get('collectionType'),
+        title: model.get('title'),
+        remixes: model.get('remixCount'),
         views: null, //TODO missing
-        imageUrl: model.get("thumbnailUrl"),
+        imageUrl: model.get('thumbnailUrl'),
         url: null, //TODO missing
-        author: model.get("owner.displayName"),
-        authorId: model.get("owner.id"),
+        author: model.get('owner.displayName'),
+        authorId: model.get('owner.id'),
         remixedBy: Ember.A(), //TODO missing
-        course: model.get("course"),
-        courseId: model.get("courseId"),
-        avatarUrl: model.get("owner.avatarUrl"), //TODO missing
+        course: model.get('course'),
+        courseId: model.get('courseId'),
+        avatarUrl: model.get('owner.avatarUrl'), //TODO missing
         profilePageUrl: null, //TODO missing
-        description: model.get("description"),
-        resourceCount: model.get("resourceCount"),
-        questionCount: model.get("questionCount"),
+        description: model.get('description'),
+        resourceCount: model.get('resourceCount'),
+        questionCount: model.get('questionCount'),
         hasTeam: null, //TODO missing
         visibility: null, //TODO missing
         libraries: Ember.A(), //TODO missing
-        resources: model.get("children").map(function(child){
+        resources: model.get('children').map(function(child){
           return child.toPlayerResource();
         }),
-        standards: model.get("standards")
+        standards: model.get('standards')
       });
     },
 
