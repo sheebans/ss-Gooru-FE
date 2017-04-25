@@ -51,7 +51,7 @@ test('barChartData', function(assert) {
         }
       },
       performanceService: {
-        findClassPerformanceSummaryByClassIds: (classId)=> {
+        findClassPerformanceSummaryByStudentAndClassIds: (userId, classId)=> {
           assert.equal(classId[0], 'class-1', 'Class id should match');
           return Ember.RSVP.resolve(classPerformanceSummary);
         }
@@ -115,7 +115,7 @@ test('redirectCourseMap', function(assert) {
             }
           },
           performanceService: {
-            findClassPerformanceSummaryByClassIds: (classId)=> {
+            findClassPerformanceSummaryByStudentAndClassIds: (userId, classId)=> {
               assert.equal(classId[0], 'class-id', 'Class id should match');
               return Ember.RSVP.resolve(classPerformanceSummary);
           }
@@ -207,7 +207,7 @@ test('lessonTitle', function(assert) {
         }
       },
       performanceService: {
-        findClassPerformanceSummaryByClassIds: (classId)=> {
+        findClassPerformanceSummaryByStudentAndClassIds: (userId, classId)=> {
           assert.equal(classId[0], 'class-1', 'Class id should match');
           return Ember.RSVP.resolve(classPerformanceSummary);
         }
@@ -277,7 +277,7 @@ test('nextResource', function(assert) {
           }
         },
         performanceService: {
-          findClassPerformanceSummaryByClassIds: (classId)=> {
+          findClassPerformanceSummaryByStudentAndClassIds: (userId, classId)=> {
             assert.equal(classId[0], 'class-1', 'Class id should match');
             return Ember.RSVP.resolve(classPerformanceSummary);
           }
