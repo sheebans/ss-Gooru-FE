@@ -14,7 +14,8 @@
   }
 
   .panel {
-    height: 290px;
+    height: auto;
+    min-height: 290px;
     overflow-y: auto;
   }
 

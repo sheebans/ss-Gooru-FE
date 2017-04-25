@@ -64,7 +64,7 @@
         </div>
         <div class="course-description">
           {{#if course.description}}
-            {{truncate text=(no-tags text=course.description) type='large'}}
+            {{truncate text=(no-tags text=course.description) maxLength=190}}
           {{/if}}
         </div>
         <div class="actions">
