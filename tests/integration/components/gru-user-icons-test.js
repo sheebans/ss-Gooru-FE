@@ -34,7 +34,7 @@ test('Layout', function(assert) {
   const $firstView = $component.find('.first-view');
 
   assert.ok($component, 'Component does not have the component class');
-  assert.ok($firstView.find('.item i.group'), 'Group icon should be present');
+  assert.ok($firstView.find('.item i.group').length, 'Group icon should be present');
   assert.equal(T.text($firstView.find('.item span')), '2', 'Incorrect number of members at first view');
 });
 

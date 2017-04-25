@@ -68,7 +68,7 @@ test('it renders', function(assert) {
   assert.equal(T.text($lessonContentCount.find(".assessment-count")), '1 Assessment', 'Wrong text assessment count');
   assert.equal(T.text($lessonContentCount.find(".collection-count")), '2 Collections', 'Wrong text collection count');
 
-  assert.ok($lessonHeading.find('.gru-user-icons'), 'gru-user-icons component is missing');
+  assert.ok($lessonHeading.find('.gru-user-icons').length, 'gru-user-icons component is missing');
   assert.ok($lessonHeading.find('.score').length, 'Score info element is missing');
   const $completionChart = $lessonHeading.find('.gru-completion-chart');
   assert.ok($completionChart.length, 'Completion chart for lesson');
