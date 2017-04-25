@@ -22,7 +22,7 @@ const classServiceStub = Ember.Service.extend({
 
 const performanceServiceStub = Ember.Service.extend({
 
-  findClassPerformanceSummaryByClassIds: function() {
+  findClassPerformanceSummaryByStudentAndClassIds: function() {
     const aClassPerformance = Class.create({
       id: 'class-1',
       classId: 'class-1',
