@@ -17,7 +17,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
-  classNames: ['gru-user-icons'],
+  classNames: ['gru-user-icons, out-of-scope'],
 
   // -------------------------------------------------------------------------
   // Actions
