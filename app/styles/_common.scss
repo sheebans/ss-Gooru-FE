@@ -110,6 +110,7 @@ span.validation.warning {
 }
 
 .app-container {
+  overflow-x: hidden;
   min-height: 400px;
   @media (min-width: $screen-md-min) {
     min-height: 400px;
@@ -188,7 +189,7 @@ span.validation.warning {
   clear: both;
 }
 
-.cards {
+.cards, .new-cards {
   i.video-icon {
     background-image: url("gooru/images/video-resource.svg");
   }

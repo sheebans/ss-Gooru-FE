@@ -1,6 +1,5 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
-import T from 'gooru-web/tests/helpers/assert';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
 moduleForAcceptance('Acceptance | search/courses', {
@@ -20,8 +19,8 @@ test('Layout', function(assert) {
   visit('/search/courses?term=any');
   andThen(function() {
     assert.equal(currentURL(), '/search/courses?term=any');
-    T.exists(assert, find('.gru-featured-courses'), 'Missing gru-featured-courses component');
-    T.notExists(assert, find('.gru-search-filter'), 'Filters should not be visible');
+    assert.ok(find('.gru-collection-card').length, 'Missing gru-collection-card component');
+    assert.notOk(find('.gru-search-filter').length, 'Filters should not be visible');
     assert.equal(find('.gru-header .search-input').val(), 'any', 'Wrong input value');
   });
 });
