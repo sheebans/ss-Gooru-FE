@@ -4,11 +4,10 @@
             <div class="results col-md-10 col-sm-12 col-xs-12">
                 {{#if collectionResults}}
                   {{#each collectionResults as |collection|}}
-                    {{cards.gru-collection-card
-                      collection=collection
-                      onRemixCollection="remixCollection"
+                    {{new-cards.gru-collection-card
+                      content=collection
                       onOpenContentPlayer="openContentPlayer"
-                      publishVisible=true}}
+                      }}
                   {{/each}}
                 {{else}}
                   {{partial 'partials/no-results-found'}}

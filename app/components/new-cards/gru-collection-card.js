@@ -36,13 +36,6 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Events
-  didInsertElement(){
-    var component = this;
-   if(component.get('isCourse')){
-     this.set('assessmentCount',component.get('content').getCollectionsByType('assessment').length);
-     this.set('collectionCount',component.get('content').getCollectionsByType('collections').length);
-   }
-  },
   didRender(){
     var component = this;
     component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});

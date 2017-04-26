@@ -2,35 +2,50 @@
     <div class="panel-heading">
         <div class="image">
           {{#if editEnabled}}
-              <a {{action "editCollection" }}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
+            {{#if isCourse}}
+              {{#link-to "content.courses.edit" content.id }}
+                  <img class="img-responsive" src="{{content.thumbnailUrl}}"/>
+              {{/link-to}}
+            {{else}}
+                <a {{action "editCollection" }}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
+            {{/if}}
           {{else}}
-              <a {{action "openContentPlayer" content}}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
+            {{#if isCourse}}
+              {{#link-to "content.courses.play" content.id }}
+                  <img class="img-responsive" src="{{content.thumbnailUrl}}"/>
+              {{/link-to}}
+              {{else}}
+                <a {{action "openContentPlayer" content}}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
+            {{/if}}
           {{/if}}
         </div>
         <div class="collection-info">
             <div class="title-section">
               {{#if editEnabled}}
-                  <a {{action "editContent"}}> <h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
+                {{#if isCourse}}
+                  {{#link-to "content.courses.edit" content.id class="title" tagName="h3"}}
+                    {{content.title}}
+                  {{/link-to}}
+                 {{else}}
+                    <a {{action "editContent"}}> <h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
+                {{/if}}
               {{else}}
-                  <a {{action "openContentPlayer" content}}> <h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
+                {{#if isCourse}}
+                  {{#link-to "content.courses.play" content.id class="title" tagName="h3"}}
+                    {{content.title}}
+                  {{/link-to}}
+                {{else}}
+                    <a {{action "openContentPlayer" content}}> <h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
+                {{/if}}
               {{/if}}
             </div>
             <span class="question-resources">
-                {{#if isCourse}}
-                  {{#if hasCollections}}
-                      <span class="bar">| </span><p>{{t "cards.gru-collection-card.collection" count=contentCount}}</p>
-                  {{/if}}
-                  {{#if hasAssessments}}
-                      <span class="bar">| </span><p>{{t "cards.gru-collection-card.assessment" count=assessmentsCount}}</p>
-                  {{/if}}
-                {{else}}
-                  {{#if hasResources}}
-                      <span class="bar">| </span><p>{{t "cards.gru-course-card.resource" count=content.resourceCount}}</p>
-                  {{/if}}
-                  {{#if hasQuestions}}
-                      <span class="bar">| </span><p>{{t "cards.gru-course-card.question" count=content.questionCount}}</p>
-                  {{/if}}
-                {{/if}}
+              {{#if hasResources}}
+                  <span class="bar resource-count">| </span><p>{{t "cards.gru-course-card.resource" count=content.resourceCount}}</p>
+              {{/if}}
+              {{#if hasQuestions}}
+                  <span class="bar question-count">| </span><p>{{t "cards.gru-course-card.question" count=content.questionCount}}</p>
+              {{/if}}
             </span>
         </div>
     </div>
@@ -63,12 +78,12 @@
               </div>
               <div class="description">
                   {{#if isCourse}}
-                      <p class="truncate description">{{ content.description }}</p>
+                      <p class="truncate content-description">{{ content.description }}</p>
                     {{else}}
                       <p class="truncate learning-objective">{{ content.learningObjectives }}</p>
                   {{/if}}
               </div>
-            <div class="statistics">
+            <div class="statistics out-of-scope">
                 {{#if isCourse}}
                     <div class="classrooms">
                       {{gru-icon name="group_work"}}

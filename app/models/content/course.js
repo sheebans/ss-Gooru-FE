@@ -71,15 +71,6 @@ export default Ember.Object.extend(Validations, {
   creatorId: null,
 
   /**
-   * @property {Number} totalClassrooms with this course
-   */
-  totalClassrooms:0,
-  /**
-   * @property {Number} totalStudents enrolled on this course
-   */
-  totalStudents:0,
-
-  /**
    * @property {String} originalCourseId - The id of the original course
    */
   originalCourseId: null,

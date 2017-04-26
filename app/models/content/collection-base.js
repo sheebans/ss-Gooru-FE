@@ -138,10 +138,6 @@ export default (function() {
      * @property {string} course - The name of the course which this collection belongs to
      */
     course: null,
-    /**
-     * @property {number} course - Total count of couses which this collection belongs to
-     */
-    totalCourses:0,
 
     /**
      * @property {number} courseId
@@ -199,10 +195,6 @@ export default (function() {
      * @property {Ember.Array} resources - An children alias property
      */
     resources: Ember.computed.alias('children'),
-    /**
-     * @property {number} totalStudents - Students enrolled into the collection
-     */
-    totalStudents: 0,
 
     /**
      * Return a copy of the collection

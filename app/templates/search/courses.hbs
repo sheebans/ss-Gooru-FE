@@ -1,3 +1,13 @@
-<div class="controller featured row">
-  {{gru-featured-courses courses=courses onRemixCourse="remixCourse"}}
+<div class="controller featured">
+    <div class="courses-results">
+        <div class="results">
+          {{#each courses as |course|}}
+            {{new-cards.gru-collection-card
+            content=course
+            isCourse=true
+            onOpenContentPlayer="openContentPlayer"
+            }}
+          {{/each}}
+        </div>
+    </div>
 </div>
