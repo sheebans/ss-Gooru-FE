@@ -41,10 +41,10 @@ export default Ember.Controller.extend({
       var userId = controller.get("session.userId");
       var profile = controller.get("profile");
       var role = controller.get('profile.role');
-      var countrySelected =  controller.get('countrySelected');
-      var stateSelected =  controller.get('stateSelected');
-      var districtSelected =  controller.get('districtSelected');
-      var otherSchoolDistrict =  $.trim(controller.get('otherSchoolDistrict'));
+      var countrySelected = controller.get('countrySelected');
+      var stateSelected = controller.get('stateSelected');
+      var districtSelected = controller.get('districtSelected');
+      var otherSchoolDistrict = $.trim(controller.get('otherSchoolDistrict'));
       var districts = controller.get('districts');
       var showStates = controller.get('showStates');
       var showRoleErrorMessage = false;
@@ -69,7 +69,7 @@ export default Ember.Controller.extend({
         isValid = false;
       }
 
-      if((!otherSchoolDistrict && otherSchoolDistrict=== '') && stateSelected && !districtSelected && districts && districts.length>0){
+      if(otherSchoolDistrict === '' && stateSelected && !districtSelected && districts && districts.length > 0) {
         showDistrictErrorMessage = true;
         isValid = false;
       }
@@ -79,52 +79,55 @@ export default Ember.Controller.extend({
       controller.set('showStateErrorMessage', showStateErrorMessage);
       controller.set('showDistrictErrorMessage', showDistrictErrorMessage);
 
-      if(isValid){
-        if(otherSchoolDistrict && otherSchoolDistrict!== ''){
+      if(isValid) {
+        if(otherSchoolDistrict) {
           profile.set('schoolDistrictId', null);
           profile.set('schoolDistrict', otherSchoolDistrict);
         }
         controller.get('profileService').updateMyProfile(profile)
-          .then(function() {
+          .then(()  => {
             let session = controller.get('session');
             session.set('userData.isNew', false);
             //Validating user and generating JWT
             controller.get('firebase').generateJWT();
             controller.send('signUpFinish', role);
-          }, function() {
-            Ember.Logger.error('Error updating user');
-          });
+          }, () => Ember.Logger.error('Error updating user'));
       }
    },
 
     countrySelect: function(id){
       var controller = this;
       var countries = this.get('countries');
-      var countryCode = countries.findBy("id", id).code;
+      var country = countries.findBy('id', id);
+      var countryCode = country.code;
+      var countryName = country.name;
 
       controller.set('showCountryErrorMessage', false);
       controller.set('countrySelected', id);
+      controller.set('country', countryName);
 
-      if (countryCode===COUNTRY_CODES.US) {
+      if (countryCode === COUNTRY_CODES.US) {
         controller.set('showStates', true);
-      }
-      else {
+      } else {
         controller.set('showStates', false);
         controller.set('districts', null);
+        controller.set('stateSelected', '');
+        controller.set('state', '');
+        controller.set('districtSelected', '');
+        controller.set('otherSchoolDistrict', '');
       }
     },
 
     stateSelect: function(id){
       var controller = this;
-
+      var states = controller.get('states');
       controller.set('showStateErrorMessage', false);
       controller.set('showDistrictErrorMessage', false);
       controller.set('districts', null);
       controller.set('stateSelected', id);
+      controller.set('state', states.findBy('id', id).name);
       controller.get("lookupService").readDistricts(id)
-        .then(function(districts) {
-           controller.set('districts', districts);
-        });
+        .then(districts => controller.set('districts', districts));
     },
 
     districtSelect: function(id){
@@ -158,14 +161,24 @@ export default Ember.Controller.extend({
    * countrySelected
    * @property {String}
    */
+  country: Ember.computed.alias('profile.country'),
 
+  /**
+   * country
+   * @property {String}
+   */
   countrySelected: Ember.computed.alias('profile.countryId'),
+
+  /**
+   * state
+   * @property {String}
+   */
+  state: Ember.computed.alias('profile.state'),
 
   /**
    * stateSelected
    * @property {String}
    */
-
   stateSelected: Ember.computed.alias('profile.stateId'),
 
   /**

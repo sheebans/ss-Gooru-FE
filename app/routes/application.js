@@ -98,6 +98,12 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     }
 
     route.setupTheme(themeId);
+
+    let accessToken = params.access_token;
+    if (!accessToken) {
+      let applicationController = route.controllerFor('application');
+      applicationController.setupTenant();
+    }
     return Ember.RSVP.hash({
       currentSession: currentSession,
       myClasses: myClasses,

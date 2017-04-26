@@ -20,7 +20,7 @@
   {
     "description": "Gets the collection performance data by student, unit, class, lesson, etc",
     "request": {
-      "url": "^/api/nucleus-insights/v2/(assessment|collection)/(.+)/user/(.+)",
+      "url": "^/api/nucleus-insights/v2/collection/(.+)/user/(.+)",
       "method": "GET"
     },
     "response": {
@@ -33,9 +33,24 @@
     }
   },
   {
+    "description": "Gets the assessment performance data by student, unit, class, lesson, etc",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/assessment/(.+)/user/(.+)",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-assessment-performance-200-response.json"
+    }
+  },
+  {
     "description": "Gets the collection performance data for any student, course, unit, lesson",
     "request": {
-      "url": "^/api/nucleus-insights/v2/study/(assessment|collection)/performance",
+      "url": "^/api/nucleus-insights/v2/study/collection/performance",
       "method": "GET"
     },
     "response": {
@@ -48,9 +63,25 @@
     }
   },
   {
+    "description": "Gets the assessment performance data for any student, course, unit, lesson",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/study/assessment/performance",
+      "method": "GET"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-assessment-performance-summary-200-response.json"
+    }
+  },
+
+  {
     "description": "Gets the collection performance summary by ids, any ids",
     "request": {
-      "url": "^/api/nucleus-insights/v2/(assessment|collection)/performance$",
+      "url": "^/api/nucleus-insights/v2/collection/performance$",
       "method": "POST"
     },
     "response": {
@@ -60,6 +91,21 @@
       },
       "body": "File not found!",
       "file": "student-collection-performance-summary-200-response.json"
+    }
+  },
+  {
+    "description": "Gets the assessment performance summary by ids, any ids",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/assessment/performance$",
+      "method": "POST"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "student-assessment-performance-summary-200-response.json"
     }
   },
   {

@@ -1,5 +1,5 @@
 <div class="panel">
-  {{#link-to 'student.class.analytics.performance' class.id}}
+  {{#link-to 'student.class.course-map' class.id}}
     <div class="panel-heading">
       <div class="title">
         <h5>{{class.title}}</h5>
@@ -13,11 +13,14 @@
     <div class="charts col-md-6">
       <div class="row">
         <div class="col-md-6">
-          {{charts.gru-bubble-chart content=(concat score '%') color=(grade-color score)}}
+          {{charts.gru-bubble-chart content= (if class.performanceSummary (concat class.performanceSummary.score '%') '--') color=(grade-color class.performanceSummary.score)}}
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>
         <div class="col-md-6">
-          {{charts.gru-radial-chart value=totalCompleted minValue=0 maxValue=total showPercentageLabel=true }}
+          {{charts.gru-radial-chart
+          value=class.performanceSummary.totalCompleted
+          minValue=0
+          maxValue=class.performanceSummary.total}}
           <span>{{t "common.completed"}}</span>
         </div>
       </div>

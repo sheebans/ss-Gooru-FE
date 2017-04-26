@@ -1,0 +1,48 @@
+.reports_study-student-collection {
+  overflow: auto;
+  height: 100vh;
+  .app-container {
+    padding: 0;
+  }
+  .gru-header,
+  .gru-footer {
+    display: none;
+  }
+
+  .report-container {
+    &.expanded {
+      margin-top: 275px;
+      @media (min-width: $screen-sm) {
+        margin-top: 155px;
+      }
+      @media (min-width: $screen-md) {
+        margin-top: 130px;
+      }
+    }
+    &.collapsed {
+      margin-top: 40px;
+      @media (min-width: $screen-sm) {
+        margin-top: 65px;
+      }
+      @media (min-width: $screen-md) {
+        margin-top: 40px;
+      }
+    }
+    .suggestion-panel {
+      padding: 20px 30px 0;
+      @media (min-width: $screen-sm) {
+        padding: 20px 23px 0;
+      }
+      @media (min-width: $screen-md) {
+        padding: 20px 92px 0;
+      }
+      .player.gru-suggest-test {
+        width: 100%;
+        padding: 0;
+      }
+    }
+    .qz-assessment-report {
+      padding-top: 0;
+    }
+  }
+}

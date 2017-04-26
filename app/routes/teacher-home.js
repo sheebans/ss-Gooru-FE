@@ -37,26 +37,27 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   model: function() {
     let route = this;
 
-    const tourSteps = Ember.A([
+    //Steps for Take a Tour functionality
+    let tourSteps = Ember.A([
       {
         elementSelector: '.gru-header .home-link',
-        title: route.get('i18n').t('gru-tour.home.stepOne.title'),
-        description: route.get('i18n').t('gru-tour.home.stepOne.description')
+        title: route.get('i18n').t('gru-take-tour.teacher-home.stepOne.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-home.stepOne.description')
       },
       {
         elementSelector: '.teacher-navigator .active-classes a',
-        title: route.get('i18n').t('gru-tour.home.stepTwo.title'),
-        description: route.get('i18n').t('gru-tour.home.stepTwo.description')
+        title: route.get('i18n').t('gru-take-tour.teacher-home.stepTwo.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-home.stepTwo.description')
       },
       {
         elementSelector: '.teacher-navigator .actions .create-class-cta',
-        title: route.get('i18n').t('gru-tour.home.stepFour.title'),
-        description: route.get('i18n').t('gru-tour.home.stepFour.description')
+        title: route.get('i18n').t('gru-take-tour.teacher-home.stepThree.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-home.stepThree.description')
       },
       {
         elementSelector: '.gru-header .profile-link .profile',
-        title: route.get('i18n').t('gru-tour.home.stepFive.title'),
-        description: route.get('i18n').t('gru-tour.home.stepFive.description')
+        title: route.get('i18n').t('gru-take-tour.teacher-home.stepFour.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-home.stepFour.description')
       }
     ]);
 
@@ -64,19 +65,31 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       route.controllerFor("application").get("myClasses"); //after login the variable is refreshed at the controller
     const myId = route.get("session.userId");
     const activeClasses = myClasses.getTeacherActiveClasses(myId);
-    const classIds = activeClasses.mapBy("id");
 
-    return route.get("performanceService").findClassPerformanceSummaryByClassIds(classIds)
-      .then(function(classPerformanceSummaryItems){
-        activeClasses.forEach(function (aClass) {
-          const classId = aClass.get("id");
-          aClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
-        });
-        return {
-          classPerformanceSummaryItems: classPerformanceSummaryItems,
-          tourSteps: tourSteps
-        };
+    return Ember.RSVP.hash({
+      activeClasses: activeClasses,
+      tourSteps: tourSteps
     });
+  },
+
+  afterModel(resolvedModel) {
+    let route = this;
+    let activeClasses = resolvedModel.activeClasses;
+    let classIds = activeClasses.mapBy("id");
+
+    route.get("performanceService").findClassPerformanceSummaryByClassIds(classIds)
+      .then(function (classPerformanceSummaryItems) {
+        activeClasses.forEach(function (activeClass) {
+          let classId = activeClass.get("id");
+          let courseId = activeClass.get('courseId');
+          if (courseId) {
+            route.get('courseService').fetchById(courseId).then((course) => {
+              activeClass.set('unitsCount', course.get('unitCount'));
+            });
+          }
+          activeClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
+        });
+      });
   },
 
   /**
@@ -86,16 +99,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
-    const activeClasses = controller.get('activeClasses');
-    let courseId;
-
-    activeClasses.forEach((aClass) => {
-      courseId = aClass.get('courseId');
-      if(courseId){
-        this.get('courseService').fetchById(courseId).then((course) => {
-          aClass.set('unitsCount', course.get('unitCount'));
-        });
-      }
-    });
   }
+
 });

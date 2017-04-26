@@ -1,10 +1,12 @@
 import Ember from 'ember';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
+import {download} from 'gooru-web/utils/csv';
+import {prepareStudentFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
 
 /**
- * Teacher Performance Controller
+ * Student Performance Controller
  *
- * Controller responsible of the logic for the teacher performance
+ * Controller responsible of the logic for the student performance
  *
  * @module
  * @augments ember/Controller
@@ -26,6 +28,11 @@ export default Ember.Controller.extend({
    * @type {CourseService}
    */
   courseService: Ember.inject.service('api-sdk/course'),
+
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
 
 
   // -------------------------------------------------------------------------
@@ -83,7 +90,7 @@ export default Ember.Controller.extend({
    * @property {Course[]}
    */
   courses: Ember.computed('applicationController.myClasses.classes.[]', 'courseId', function() {
-    const activeClasses = this.get("applicationController.myClasses").getStudentActiveClasses(this.get("profile.id"));
+    const activeClasses = this.get('applicationController.myClasses').getStudentActiveClasses(this.get('profile.id'));
     return activeClasses.filterBy('hasCourse').map(function(aClass){
       return {
         id: aClass.get('courseId'),
@@ -97,6 +104,41 @@ export default Ember.Controller.extend({
    * @property {string}
    */
   contentTitle: null,
+
+  /**
+   * Default list of  metrics to be displayed in the table
+   * @sorted {Boolean}
+   * @isAsc {Boolean}
+   * @visible {Boolean}
+   * @constant {Array}
+   */
+  metrics: Ember.computed('collectionType',function(){
+    return Ember.A([Ember.Object.create({
+      'value': this.get('collectionType'),
+      'sorted': false,
+      'isAsc': false,
+      'visible': true,
+      'index': -1
+    }),Ember.Object.create({
+      'value': 'score',
+      'sorted': false,
+      'isAsc': false,
+      'visible': false,
+      'index':0
+    }),Ember.Object.create({
+      'value': 'completion',
+      'sorted': false,
+      'isAsc': false,
+      'visible': false,
+      'index':1
+    }),Ember.Object.create({
+      'value': 'study-time',
+      'sorted': false,
+      'isAsc': false,
+      'visible': false,
+      'index':2
+    })]);
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -145,15 +187,21 @@ export default Ember.Controller.extend({
      */
     updateReport: function () {
       this.loadData();
+    },
+    /**
+     * When clicking at the download button
+     */
+    download: function(){
+      let reportData = this.prepareReportValues();
+      this.downloadFile(reportData[0], reportData[1]);
     }
   },
-
   // -------------------------------------------------------------------------
   // Methods
   /**
    * Loads report data
    */
-  loadData: function() {
+  loadData: function () {
     const controller = this;
     const courseId = controller.get('courseId');
     if (courseId) {
@@ -170,8 +218,9 @@ export default Ember.Controller.extend({
       controller.set('filterCriteria', criteria);
       Ember.RSVP.hash({
         course: controller.get('courseService').getCourseStructure(courseId, collectionType),
-        items: controller.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
-      }).then(function(hash){
+        items: controller.get('performanceService').findMyPerformance(userId, courseId, lessonId, unitId,
+          collectionType)
+      }).then(function (hash) {
         const course = hash.course;
         const items = hash.items;
         controller.setProperties({
@@ -219,5 +268,31 @@ export default Ember.Controller.extend({
       collections: [],
       collectionPerformanceSummaryItems: []
     });
+  },
+  /**
+   * Prepare the report value in order to download as csv file
+   */
+  prepareReportValues: function(){
+    const controller = this;
+    const collectionType = controller.getContentTitle();
+    const metrics = [controller.get('i18n').t('gru-performance-metrics.'+controller.get('collectionType')),controller.get('i18n').t('gru-performance-metrics.score'),controller.get('i18n').t('gru-performance-metrics.completion'),controller.get('i18n').t('gru-performance-metrics.study-time')];
+    const performanceSummaryItems = controller.get('collectionPerformanceSummaryItems');
+    const collections = controller.get('collections');
+    const date=formatDate(new Date(),'MM-DD-YY');
+    const courseTitle = controller.get('course.title');
+    var fileNameString = `${courseTitle}`;
+
+    fileNameString = `${fileNameString}_${date}`;
+
+    const fileName = createFileNameToDownload(fileNameString);
+    const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,metrics.map(item => item.string),collectionType);
+    return [fileName,fileData];
+  },
+  /**
+   * Download file
+   */
+  downloadFile:function(name,data){
+   return download(name,data);
   }
+
 });

@@ -1,5 +1,8 @@
+
 import Ember from 'ember';
 import { isNumeric } from './math';
+import { formatTime as formatMilliseconds } from 'gooru-web/utils/utils';
+import { aggregateCollectionPerformanceSummaryItems } from 'gooru-web/utils/performance-summary';
 import {
   DEFAULT_IMAGES,
   EMOTION_VALUES,
@@ -457,6 +460,48 @@ export function checkIfIsGoogleDoc(assetUrl) {
  */
 export function checkDomains(resourceUrl, cdnUrl) {
   return (resourceUrl.indexOf(cdnUrl) !== -1);
+}
+/**
+ * Prepares student csv file data to download
+ * @param {string []} assessments the metrics table headers
+ * @param {string []} collectionPerformanceSummaryItems the metrics table performance data
+ * @param {string []} headers (assessments/collections)
+ *  @param {string} contentTitle
+ */
+export function prepareStudentFileDataToDownload(assessments,collectionPerformanceSummaryItems, headers, contentTitle){
+  var dataHeaders = headers;
+  const dataArray = Ember.A([]);
+
+  assessments.sort(function (a, b) {
+    return alphabeticalStringSort(a.title, b.title) * 1;
+  });
+
+  let summary = aggregateCollectionPerformanceSummaryItems(collectionPerformanceSummaryItems || Ember.A([]));
+
+  var summaryItems = Ember.A([
+    contentTitle,
+    summary.get('score'),
+    `${collectionPerformanceSummaryItems.length} / ${assessments.length} `,
+    formatMilliseconds(summary.get('timeSpent'))
+  ]);
+
+  dataArray.push(summaryItems);
+
+  assessments.forEach(function(assessment) {
+    var collectionPerformanceSummaryItem = collectionPerformanceSummaryItems.findBy('id', assessment.get('id'));
+    var itemDataArray = Ember.A([
+      assessment.get('title'),
+      collectionPerformanceSummaryItem.get('score'),
+      collectionPerformanceSummaryItem.get('status'),
+      formatMilliseconds(collectionPerformanceSummaryItem.get('timeSpent'))
+    ]);
+    dataArray.push(itemDataArray);
+  });
+
+  return {
+    fields: dataHeaders,
+    data: dataArray
+  };
 }
 
 /**

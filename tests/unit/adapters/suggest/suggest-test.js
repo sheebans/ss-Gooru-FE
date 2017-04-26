@@ -16,18 +16,19 @@ moduleForAdapter('adapter:suggest/suggest', 'Unit | Adapter | suggest/suggest', 
 });
 
 test('suggestResourcesForCollection no course information', function (assert) {
-  assert.expect(11);
+  assert.expect(12);
   // Mock backend response
   this.pretender.map(function () {
     this.post('/gooru-search/rest/v3/suggest/resource', function (request) {
       let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(request.queryParams.limit, 10, 'Wrong limit');
-      assert.equal(requestBodyJson.context.contextType, "collection-study", "Wrong context type");
-      assert.equal(requestBodyJson.context.containerId, "container-id-1", "Wrong container id");
-      assert.equal(requestBodyJson.context.userId, "user-id-1", "Wrong user id");
-      assert.ok(!requestBodyJson.context.courseId, "Should have no course id");
-      assert.ok(!requestBodyJson.context.unitId, "Should have no unit id");
-      assert.ok(!requestBodyJson.context.lessonId, "Should have no lesson id");
+      assert.equal(request.queryParams.limit, 3, 'Wrong limit');
+      assert.equal(requestBodyJson.context.context_type, "collection-study", "Wrong context type");
+      assert.equal(requestBodyJson.context.context_area, "study-player", "Wrong context are");
+      assert.equal(requestBodyJson.context.collection_id, "collection-id-1", "Wrong collection id");
+      assert.equal(requestBodyJson.context.user_id, "user-id-1", "Wrong user id");
+      assert.ok(!requestBodyJson.context.course_id, "Should have no course id");
+      assert.ok(!requestBodyJson.context.unit_id, "Should have no unit id");
+      assert.ok(!requestBodyJson.context.lesson_id, "Should have no lesson id");
       assert.equal(requestBodyJson.metrics.score, 10, "Wrong score");
       assert.equal(requestBodyJson.metrics.timespent, 100, "Wrong time spent");
       assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
@@ -41,7 +42,7 @@ test('suggestResourcesForCollection no course information', function (assert) {
   const adapter = this.subject();
 
   adapter.suggestResourcesForCollection(SuggestContext.create({
-    containerId: 'container-id-1',
+    collectionId: 'collection-id-1',
     userId: 'user-id-1',
     score: 10,
     timeSpent: 100
@@ -51,18 +52,19 @@ test('suggestResourcesForCollection no course information', function (assert) {
 });
 
 test('suggestResourcesForCollection with course information', function (assert) {
-  assert.expect(11);
+  assert.expect(12);
   // Mock backend response
   this.pretender.map(function () {
     this.post('/gooru-search/rest/v3/suggest/resource', function (request) {
       let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(request.queryParams.limit, 10, 'Wrong limit');
-      assert.equal(requestBodyJson.context.contextType, "collection-study", "Wrong context type");
-      assert.equal(requestBodyJson.context.containerId, "container-id-1", "Wrong container id");
-      assert.equal(requestBodyJson.context.userId, "user-id-1", "Wrong user id");
-      assert.equal(requestBodyJson.context.courseId, "course-id-1", "Wrong course id");
-      assert.equal(requestBodyJson.context.unitId, "unit-id-1", "Wrong unit id");
-      assert.equal(requestBodyJson.context.lessonId, "lesson-id-1", "Wrong lesson id");
+      assert.equal(request.queryParams.limit, 3, 'Wrong limit');
+      assert.equal(requestBodyJson.context.context_type, "collection-study", "Wrong context type");
+      assert.equal(requestBodyJson.context.context_area, "study-player", "Wrong context are");
+      assert.equal(requestBodyJson.context.collection_id, "collection-id-1", "Wrong collection id");
+      assert.equal(requestBodyJson.context.user_id, "user-id-1", "Wrong user id");
+      assert.equal(requestBodyJson.context.course_id, "course-id-1", "Wrong course id");
+      assert.equal(requestBodyJson.context.unit_id, "unit-id-1", "Wrong unit id");
+      assert.equal(requestBodyJson.context.lesson_id, "lesson-id-1", "Wrong lesson id");
       assert.equal(requestBodyJson.metrics.score, 10, "Wrong score");
       assert.equal(requestBodyJson.metrics.timespent, 100, "Wrong time spent");
       assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
@@ -76,7 +78,7 @@ test('suggestResourcesForCollection with course information', function (assert) 
   const adapter = this.subject();
 
   adapter.suggestResourcesForCollection(SuggestContext.create({
-    containerId: 'container-id-1',
+    collectionId: 'collection-id-1',
     userId: 'user-id-1',
     courseId: 'course-id-1',
     unitId: 'unit-id-1',

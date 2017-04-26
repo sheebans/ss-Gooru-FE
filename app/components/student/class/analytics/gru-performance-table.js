@@ -73,6 +73,14 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Number of assessments completed
+   * @property {Number}
+   */
+  assessmentsCompleted: Ember.computed('assessments.length', 'collectionPerformanceSummaryItems.length', function() {
+    const performanceData = this.createDataArray(this.get('assessments'), this.get('collectionPerformanceSummaryItems'));
+    return performanceData.filterBy('performanceData.status', 'complete').length;
+  }),
+  /**
    * The assessment performanceData
    * @property {performanceData[]}
    */
@@ -182,7 +190,7 @@ export default Ember.Component.extend({
     const dataArray = Ember.A([]);
 
     assessments.forEach(function(assessment) {
-      var collectionPerformanceSummaryItem = collectionPerformanceSummaryItems.findBy("id", assessment.get('id'));
+      var collectionPerformanceSummaryItem = collectionPerformanceSummaryItems.findBy('id', assessment.get('id'));
       var itemDataArray = Ember.Object.create({
         performanceData: collectionPerformanceSummaryItem,
         assessment: assessment
@@ -200,14 +208,14 @@ export default Ember.Component.extend({
    */
   sortByMetrics(metric){
     var component =this;
-    var metrics = component.get("metrics");
+    var metrics = component.get('metrics');
     metrics.forEach(function(option){
-      if (option.get("value") === metric.get("value")){
-        metric.set("sorted", true);
+      if (option.get('value') === metric.get('value')){
+        metric.set('sorted', true);
         component.changeTypeSort(metric);
       }else{
-        option.set("isAsc", null);
-        option.set("sorted", false);
+        option.set('isAsc', null);
+        option.set('sorted', false);
       }
     });
   },
@@ -218,15 +226,15 @@ export default Ember.Component.extend({
    *
    */
   changeTypeSort(metric){
-    metric.set("isAsc",!metric.get("isAsc"));
+    metric.set('isAsc',!metric.get('isAsc'));
   },
 
   resetSortByMetrics(){
     var component =this;
-    var metrics = component.get("metrics");
+    var metrics = component.get('metrics');
     metrics.forEach(function(option){
-      option.set("isAsc", null);
-      option.set("sorted", false);
+      option.set('isAsc', null);
+      option.set('sorted', false);
     });
   }
 });

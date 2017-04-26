@@ -63,7 +63,12 @@ test('Layout', function(assert) {
         height: 55px;
         padding: 0;
         width: 140px;
-        background-size: cover;
+        background-size: 140px 55px;
+    }
+
+    .content.modals.gru-welcome-message .modal-body .last-text p .logo {
+        background: url("http://www.edify.cr/images/logo-EDIFY.png") no-repeat;
+        background-size: contain;
     }
 `;
   assert.equal($style.text(), expedtedStyle, "Wrong style body");

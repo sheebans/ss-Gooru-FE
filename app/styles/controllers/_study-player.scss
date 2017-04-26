@@ -1,0 +1,46 @@
+.study-player {
+  .player-container{
+    .gru-take-tour{
+      top: 60px;
+      z-index: 1100;
+    }
+  }
+
+  .qz-player {
+    overflow: auto;
+    height: 100vh;
+    .player {
+      overflow: auto;
+    }
+  }
+  .no-confirmation {
+    &.expanded {
+      .qz-player {
+        padding-top: 275px;
+        @media (min-width: $screen-sm) {
+          padding-top: 155px;
+        }
+        @media (min-width: $screen-md) {
+          padding-top: 130px;
+        }
+      }
+    }
+    &.collapsed {
+      .qz-player {
+        padding-top: 40px;
+        @media (min-width: $screen-sm) {
+          padding-top: 65px;
+        }
+        @media (min-width: $screen-md) {
+          padding-top: 40px;
+        }
+      }
+    }
+  }
+
+  .qz-navigator {
+    .navigator-header {
+      display: none;
+    }
+  }
+}

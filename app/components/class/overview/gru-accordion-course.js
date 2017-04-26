@@ -73,6 +73,17 @@ export default Ember.Component.extend(AccordionMixin, {
     },
 
     /**
+     * @function studyNow
+     * @param {string} type - collection or assessment
+     * @param {string} lessonId - lesson id
+     * @param {string} unitId - lesson id
+     * * @param {string} item - lesson or collection
+     * @see components/class/overview/gru-accordion-lesson
+     */
+    studyNow: function (type,unitId, lessonId, item) {
+      this.sendAction('onStudyNow',type, unitId, lessonId, item);
+    },
+    /**
      * Trigger the 'onLocationUpdate' event handler
      *
      * @function actions:updateLocation

@@ -9,7 +9,8 @@
     border-radius: 5px;
   }
 
-  > .panel-heading {
+  > .panel-heading
+  {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
     border-radius: 5px;
     min-height: 40px;
@@ -111,7 +112,6 @@
       }
     }
   }
-
   .panel-collapse.collapse.in {
     .collections {
       > .panel {
@@ -213,6 +213,30 @@
           .panel-heading {
             border-bottom: 0 none;
             border-radius: 0 0 5px 5px;
+          }
+        }
+
+        &.selected, &.study-active{
+          .panel-heading {
+            background-color: $blue-400;
+            color: $white;
+            .panel-title {
+              .title {
+                .type {
+                  color: $white;
+                }
+              }
+            }
+            .info {
+              .content-count.mixed {
+                > span:first-child {
+                  border-right: 1px solid $white;
+                }
+              }
+              .gru-user-icons .item {
+                color: $white;
+              }
+            }
           }
         }
       }
@@ -425,6 +449,22 @@
     }
     .panel-collapse.collapse.in {
       margin: -6px 0;
+    }
+  }
+  .study-active{
+    .panel-title .title .lesson-prefix {
+      color: $white;
+    }
+    .left-info{
+      padding-left: 30px;
+      .btn.study-now{
+        height: 41px;
+        font-size: $font-size-h6;
+        i{
+          font-size: $font-size-h4;
+          vertical-align: bottom
+        }
+      }
     }
   }
 }

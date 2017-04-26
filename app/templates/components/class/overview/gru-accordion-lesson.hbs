@@ -1,4 +1,4 @@
-<div class="panel-heading" role="tab" id="{{elementId}}-heading">
+<div class="panel-heading  {{if isLessonSelected 'study-active'}}" role="tab" id="{{elementId}}-heading">
   <div class="panel-title">
     <a class="title collapsed"
        role="button"
@@ -22,18 +22,22 @@
       </div>
     {{/if}}
     {{gru-user-icons
-      membersCount=model.membersCount
-      users=model.users}}
-
-    <div class="left-info">
-      <span class="score" style={{safe-html (concat "color:" (grade-color (if model.performance.hasStarted model.performance.score 'NA')))}}>
-        {{if model.performance.hasStarted model.performance.score '--'}}%
-      </span>
-
-      {{charts/gru-completion-chart
-      completed=model.performance.completionDone
-      total=model.performance.completionTotal }}
-    </div>
+    membersCount=model.membersCount
+    users=model.users}}
+      <div class="left-info">
+        {{#if isLessonSelected}}
+          <button {{action "studyNow" 'lesson' model}} class="btn btn-info study-now">
+            {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
+          </button>
+        {{else}}
+            <span class="score" style={{safe-html (concat "color:" (grade-color (if model.performance.hasStarted model.performance.score 'NA')))}}>
+              {{if model.performance.hasStarted model.performance.score '--'}}%
+            </span>
+          {{charts/gru-completion-chart
+          completed=model.performance.completionDone
+          total=model.performance.completionTotal }}
+        {{/if}}
+      </div>
   </div>
 </div>
 
@@ -52,9 +56,10 @@
       {{#each items as |item index|}}
         <li class="panel {{if item.isAssessment 'assessment' 'collection'}}
           {{if item.isSubmitted 'submitted'}}
-          {{set-if-equal 'selected' item.id currentResource}}
+          {{if (and (eq currentResource item.id) showLocation) 'selected'}}
           {{if item.visible 'item-enabled' 'item-disabled'}}
-          {{if item.isOnAir 'on-air'}}">
+          {{if item.isOnAir 'on-air'}}
+          {{if (eq activeElement item.id) 'study-active'}}">
 
           {{#if isTeacher}}
             {{#if item.isAssessment}}
@@ -85,14 +90,9 @@
               {{/unless}}
             {{/if}}
           {{else}}
-            <a {{action "suggestResource" item}}>
-              <div class="location-marker out-of-scope">
-                <div class="icon-wrapper">
-                    {{gru-icon name='near_me'}}
-                </div>
-                <div class="arrow-right"></div>
-              </div>
-            </a>
+            <div class="location-marker">
+              {{gru-icon name='near_me'}}
+            </div>
           {{/if}}
 
           <div class="panel-heading {{if isTeacher 'teacher' 'student'}}">
@@ -132,7 +132,11 @@
               {{#if item.visible}}
                 <a class="title" {{action "selectResource" item}}>
                   <div class="ellipsis">{{item.title}}</div>
-                  <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
+                  {{#if item.collectionSubType}}
+                    <div class="type">{{t 'common.suggestion'}}</div>
+                  {{else}}
+                    <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
+                  {{/if}}
                 </a>
               {{else}}
                 {{#if item.performance.noMoreAttempts}}
@@ -174,27 +178,36 @@
                   {{/if}}
                 {{/if}}
               </div>
-
-              {{gru-user-icons
-              membersCount=item.members.length
-              users=item.members}}
-
+              {{#unless item.collectionSubType}}
+                {{gru-user-icons
+                membersCount=item.members.length
+                users=item.members}}
+              {{/unless}}
               <div class="left-info">
-                <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
-                  {{if item.performance.hasStarted item.performance.score '--'}}%
-                </span>
-
-                <span class="state">
-                  {{#if item.performance.isCompleted}}
-                    {{t 'common.completed'}}
-                  {{else}}
-                    {{#if item.performance.hasStarted}}
-                      {{t 'common.in-progress'}}
+                {{#if (eq activeElement item.id)}}
+                    <button {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
+                      {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
+                    </button>
+                {{else}}
+                  <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
+                    {{if item.performance.hasStarted item.performance.score '--'}}%
+                  </span>
+                  <span class="state">
+                    {{#if item.isAssessment}}
+                      {{#if item.performance.isCompleted}}
+                        {{t 'common.completed'}}
+                      {{else}}
+                        {{#if item.performance.hasStarted}}
+                          {{t 'common.in-progress'}}
+                        {{else}}
+                          <span class="not-started">{{t 'common.not_started'}}</span>
+                        {{/if}}
+                      {{/if}}
                     {{else}}
-                      <span class="not-started">{{t 'common.not_started'}}</span>
+                      <span class="not-started">&dash;&dash;</span>
                     {{/if}}
-                  {{/if}}
-                </span>
+                  </span>
+                {{/if}}
               </div>
             </div>
           </div>

@@ -70,6 +70,13 @@ export const CONTENT_TYPES = {
   QUESTION:'question'
 };
 
+export const ASSESSMENT_SUB_TYPES = {
+  PRE_TEST: 'pre-test',
+  POST_TEST: 'post-test',
+  BACKFILL: 'backfill-pretest',
+  BENCHMARK: 'benchmark'
+};
+
 export const KEY_CODES = {
   DOWN: 40,
   ENTER: 13,
@@ -126,6 +133,8 @@ export const INCORRECT_COLOR = GRADING_SCALE[0].COLOR;//red-400
 export const ANONYMOUS_COLOR = '#0072BC';//blue-400
 
 export const NO_ANSWER_COLOR = '#FFFFFF';//white
+
+export const STUDY_PLAYER_BAR_COLOR = '#CDD2D6';//$light-300
 
 // Height of the application header in pixels
 export const HEADER_HEIGHT = 50;
@@ -231,4 +240,10 @@ export const GOAL_STATUS = {
 export const RUBRIC_TYPE = {
   _1xN: '1xN',
   NxN: 'NxN'
+};
+
+export const SUGGESTION_TYPE = {
+  preTest: 'pre-test',
+  postTest: 'post-test',
+  backFill:'backfill-pretest'
 };

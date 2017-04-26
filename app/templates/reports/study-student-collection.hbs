@@ -1,0 +1,24 @@
+{{player.gru-study-header
+  classId=classId
+  collection=collection
+  courseId=course.id
+  courseTitle=course.title
+  breadcrumbs=breadcrumbs
+  showConfirmation=false
+  onToggleHeader='toggleHeader'
+  fromReport=true
+}}
+
+<div class="report-container {{if toggleState 'expanded' 'collapsed'}}">
+  {{#if  (and isPreTest showSuggestion)}}
+    <div class="suggestion-panel">
+      {{player.gru-suggest-test type=backFillType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playBackFillSuggestion'}}
+    </div>
+  {{/if}}
+  {{#if (and hasPostTestSuggestions showSuggestion)}}
+    <div class="suggestion-panel">
+      {{player.gru-suggest-test type=postTestType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playPostTestSuggestion'}}
+    </div>
+  {{/if}}
+  {{reports.qz-student-report attemptData=attemptData}}
+</div>

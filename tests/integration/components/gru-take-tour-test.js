@@ -11,17 +11,18 @@ moduleForComponent('gru-take-tour', 'Integration | Component | gru take tour', {
 });
 
 test('Layout', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   this.render(hbs`{{gru-take-tour}}`);
   const $component = this.$(); //component dom element
 
+  const $button = $component.find("button.start-tour");
   const $icon = $component.find("i.directions");
   const $textContainer = $component.find(".descriptive-text");
 
+  T.exists(assert, $button, 'Missing start tour button');
   T.exists(assert, $icon, 'Wrong icon displayed');
   T.exists(assert, $textContainer, 'Missing text container');
   assert.equal($textContainer.find('p').text(), "Take a Tour", "Wrong descriptive text");
 
 });
-

@@ -18,7 +18,34 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
   // -------------------------------------------------------------------------
   // Dependencies
 
-  session: Ember.inject.service("session"),
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+  /**
+   * @property {Ember.Service} Service to retrieve a collection
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
+  /**
+   * @type {UnitService} Service to retrieve course information
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
+  /**
+   * @type {UnitService} Service to retrieve unit information
+   */
+  unitService: Ember.inject.service('api-sdk/unit'),
+
+  /**
+   * @type {LessonService} Service to retrieve lesson information
+   */
+  lessonService: Ember.inject.service('api-sdk/lesson'),
+
+  /**
+   * @property {Ember.Service} session service
+   */
+  session: Ember.inject.service('session'),
 
 
   // -------------------------------------------------------------------------
@@ -28,9 +55,9 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
      * When closing the player
      */
     closePlayer: function(){
-      const $appContainer = Ember.$( ".app-container" );
-      if ($appContainer.hasClass( "navigator-on" )){
-        $appContainer.removeClass( "navigator-on" );
+      const $appContainer = Ember.$( '.app-container' );
+      if ($appContainer.hasClass( 'navigator-on' )){
+        $appContainer.removeClass( 'navigator-on' );
       }
       var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
       this.transitionTo(route);
@@ -55,7 +82,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     },
 
     startAssessment: function(){
-      const controller = this.get("controller");
+      const controller = this.get('controller');
       controller.startAssessment();
     },
 
@@ -64,26 +91,26 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
      */
     navigateToReport: function (){
       const route = this;
-      const controller = route.get("controller");
-      let context = controller.get("context");
-      let collection = controller.get("collection");
+      const controller = route.get('controller');
+      let context = controller.get('context');
+      let collection = controller.get('collection');
       const queryParams = {
-        collectionId: context.get("collectionId"),
+        collectionId: context.get('collectionId'),
         userId: controller.get('session.userId'),
-        type: collection.get("collectionType"),
-        role: controller.get("role")
+        type: collection.get('collectionType'),
+        role: controller.get('role')
       };
-      if (context.get("classId")) {
-        queryParams.classId = context.get("classId");
-        queryParams.courseId = context.get("courseId");
-        queryParams.unitId = context.get("unitId");
-        queryParams.lessonId = context.get("lessonId");
+      if (context.get('classId')) {
+        queryParams.classId = context.get('classId');
+        queryParams.courseId = context.get('courseId');
+        queryParams.unitId = context.get('unitId');
+        queryParams.lessonId = context.get('lessonId');
       }
 
       const reportController = route.controllerFor('reports.student-collection');
 
         //this doesn't work when refreshing the page, TODO
-      reportController.set("backUrl", route.get('history.lastRoute.url'));
+      reportController.set('backUrl', route.get('history.lastRoute.url'));
       route.transitionTo('reports.student-collection', { queryParams: queryParams});
     },
 
@@ -106,15 +133,6 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
 
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * @property {Ember.Service} Service to retrieve a collection
-   */
-  collectionService: Ember.inject.service("api-sdk/collection"),
-
-  /**
-   * @property {Ember.Service} Service to retrieve an asssessment
-   */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -123,36 +141,59 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
    * @param {{ collectionId: string, resourceId: string }} params
    */
   model(params) {
+    return this.playerModel(params);
+  },
+
+  setupController(controller, model) {
+    const isAnonymous = model.isAnonymous;
+    const isTeacher = model.role === ROLES.TEACHER;
+
+    controller.set('isTeacher',isTeacher);
+    controller.set('isAnonymous',isAnonymous);
+    this._super(...arguments);
+  },
+
+  /**
+   * Loads the player model
+   * @param params
+   * @returns {Promise.<TResult>}
+     */
+  playerModel: function(params) {
     const route = this;
     const collectionId = params.collectionId;
     const type = params.type;
     const role = params.role || ROLES.TEACHER;
+
+    return route.loadCollection(collectionId, type).then(function(collection) {
+      params.type = collection.get('collectionType');
+      return route.createContext(params, collection, role === ROLES.STUDENT);
+    }).then(function({ id }) {
+      params.contextId = id;
+      params.role = role;
+      params.profileId = route.get('session.userData.gooruUId');
+      return route.quizzesModel(params);
+    });
+  },
+
+  /**
+   * Loads the collection
+   * @param {string} collectionId
+   * @param {string} type
+   * @returns {Promise.<Collection>}
+     */
+  loadCollection: function(collectionId, type) {
+    const route = this;
     const isCollection = type === 'collection';
     const isAssessment = type === 'assessment';
-
     const loadAssessment = !type || isAssessment;
     const loadCollection = !type || isCollection;
-
-    let collection;
 
     return Ember.RSVP.hashSettled({
       assessment: loadAssessment ? route.get('assessmentService').readAssessment(collectionId) : false,
       collection: loadCollection ? route.get('collectionService').readCollection(collectionId) : false
-    }).then(function(hash) {
+    }).then(function (hash) {
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
-      collection = collectionFound ? hash.collection.value : hash.assessment.value;
-      return route.createContext(params, collection, role === ROLES.STUDENT);
-    }).then(function({ id }) {
-      params.profileId = route.get('session.userData.gooruUId');
-      params.role = role;
-      params.type = collection.get('collectionType');
-      params.contextId = id;
-      return route.quizzesModel(params).then(hash => Object.assign(hash, { classId: params.classId }));
+      return collectionFound ? hash.collection.value : hash.assessment.value;
     });
-  },
-
-  setupController(controller, model) {
-    controller.set('classId', model.classId);
-    this._super(...arguments);
   }
 });

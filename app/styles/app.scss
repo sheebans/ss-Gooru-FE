@@ -48,6 +48,7 @@
 @import 'controllers/reports/collection';
 @import 'controllers/reports/student-collection';
 @import 'controllers/reports/student-collection-analytics';
+@import 'controllers/reports/study-student-collection';
 @import 'controllers/search';
 @import 'controllers/sign-in';
 @import 'controllers/sign-up';
@@ -58,6 +59,8 @@
 @import 'controllers/reset-password';
 @import 'controllers/featured';
 @import 'controllers/account-settings';
+@import 'controllers/study-player';
+@import 'controllers/resource-player';
 
 @import 'controllers/student/class';
 @import 'controllers/student/performance';
@@ -170,6 +173,7 @@
 @import 'components/content/modals/gru-remove-student';
 @import 'components/content/modals/gru-resource-new';
 @import 'components/content/modals/gru-submit-confirmation';
+@import 'components/content/modals/gru-welcome-message';
 @import 'components/content/questions/answers/gru-answers';
 @import 'components/content/questions/answers/gru-hot-text-highlight';
 @import 'components/content/questions/answers/gru-hs-image';
@@ -213,6 +217,8 @@
 @import 'components/player/resources/gru-url-resource';
 @import 'components/player/resources/gru-pdf-resource';
 @import 'components/player/resources/gru-vimeo-resource';
+@import 'components/player/gru-study-header';
+@import 'components/player/gru-suggest-test';
 
 @import 'components/reports/gru-assessment-report';
 @import 'components/reports/assessment/gru-learning-target';
@@ -246,6 +252,8 @@
 @import 'components/search/gru-resource-options';
 
 @import 'components/student/gru-performance-filter-panel';
+@import 'components/student/gru-performance-course-filter';
+@import 'components/student/gru-performance-courses';
 
 @import 'components/student/class/gru-class-navigation';
 @import 'components/student/class/analytics/gru-performance-table';
@@ -265,3 +273,5 @@
 @import 'components/century-skills/gru-century-skill-tag';
 
 @import 'components/validation/gru-input';
+
+@import 'routes/student/class/performance';

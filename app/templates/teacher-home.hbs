@@ -1,10 +1,10 @@
+{{gru-take-tour steps=steps containerClass='home-tour'}}
 <div class="controller teacher-landing row">
   <iframe id="download_iframe" style="display:none;"></iframe>
   <div class="teacher-panel">
     <div class="greetings">
       <div class="title">
         <span>{{t 'user.hi'}} {{profile.firstName}}!</span>
-        {{gru-tour steps=steps containerClass='home-tour'}}
       </div>
     </div>
     <div class="teacher-header row">
@@ -20,7 +20,7 @@
               <ul>
                 {{#each announcementsClasses as |class| }}
                     <li>
-                      {{#link-to 'teacher.class.class-activities' class.id}}{{class.title}}{{/link-to}}
+                      {{#link-to 'teacher.class.course-map' class.id}}{{class.title}}{{/link-to}}
                         <span class="greeting">{{truncate text=class.greeting maxLength=40}}</span>
                     </li>
                 {{/each}}

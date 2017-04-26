@@ -52,26 +52,28 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @returns {Object} returns a JSON Object
    */
   serializeUpdateProfile: function(profile) {
+    let state = profile.get('state');
+    let schoolDistrict = profile.get('schoolDistrict');
     var profileObject = {
-      first_name: profile.get('firstName') ? profile.get('firstName') : undefined,
-      last_name: profile.get('lastName') ? profile.get('lastName') : undefined,
-      'roster_global_userid': nullIfEmpty(profile.get('studentId')),
-      'user_category': profile.get('role'),
-      username: profile.get('username') ? profile.get('username') : undefined,
+      first_name: profile.get('firstName') || undefined,
+      last_name: profile.get('lastName') || undefined,
+      roster_global_userid: nullIfEmpty(profile.get('studentId')),
+      user_category: profile.get('role'),
+      username: profile.get('username') || undefined,
       country: profile.get('country'),
-      'about': nullIfEmpty(profile.get('aboutMe')),
-      'country_id': profile.get('countryId'),
-      'state_id': nullIfEmpty(profile.get('stateId')),
-      'school_district_id': nullIfEmpty(profile.get('schoolDistrictId')),
-      'thumbnail': cleanFilename(profile.get('avatarUrl'), this.get('session.cdnUrls'))
+      about: nullIfEmpty(profile.get('aboutMe')),
+      country_id: profile.get('countryId'),
+      state_id: nullIfEmpty(profile.get('stateId')),
+      school_district_id: nullIfEmpty(profile.get('schoolDistrictId')),
+      thumbnail: cleanFilename(profile.get('avatarUrl'), this.get('session.cdnUrls'))
     };
 
-    if(profile.get('state') && profile.get('state')!==''){
-      profileObject["state"] = profile.get('state');
+    if(state) {
+      profileObject.state = state;
     }
 
-    if(profile.get('schoolDistrict') && profile.get('schoolDistrict')!==''){
-      profileObject["school_district"] = profile.get('schoolDistrict');
+    if(schoolDistrict){
+      profileObject.school_district = schoolDistrict;
     }
 
     return profileObject;

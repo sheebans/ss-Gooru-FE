@@ -23,6 +23,12 @@ test('Layout as a student', function (assert) {
     const $container = find(".student.class .controller.course-map");
     assert.ok($container.length, 'Missing course map container');
 
+    const $actions = find(".actions", $container);
+    assert.equal($actions.length, 1, 'Missing actions panel');
+
+    var $studyNowButton = $actions.find('.study-now');
+    assert.equal($studyNowButton.length, 1, 'Missing Study Now Button');
+
     const $expandedUnits = find(".gru-accordion-unit.expanded", $container);
     assert.equal($expandedUnits.length, 1, 'Wrong number of unit accordions expanded');
 
@@ -39,6 +45,6 @@ test('Layout as a student', function (assert) {
     assert.ok($resource.hasClass('selected'), 'First collection should be marked as selected');
 
     var $resourceTitle = $resource.find('.panel-title .title');
-    assert.ok($resourceTitle.hasClass('disabled'),"Second resource should be disabled");
+    assert.notOk($resourceTitle.hasClass('disabled'),"Second resource should not be disabled");
   });
 });

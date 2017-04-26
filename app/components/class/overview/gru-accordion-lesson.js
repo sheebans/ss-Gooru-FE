@@ -23,27 +23,27 @@ export default Ember.Component.extend(AccordionMixin, {
   /**
    * @requires service:session
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   /**
    * @requires service:api-sdk/collection
    */
-  collectionService: Ember.inject.service("api-sdk/collection"),
+  collectionService: Ember.inject.service('api-sdk/collection'),
 
   /**
    * @requires service:api-sdk/course-location
    */
-  courseLocationService: Ember.inject.service("api-sdk/course-location"),
+  courseLocationService: Ember.inject.service('api-sdk/course-location'),
 
   /**
    * @requires service:api-sdk/performance
    */
-  performanceService: Ember.inject.service("api-sdk/performance"),
+  performanceService: Ember.inject.service('api-sdk/performance'),
 
   /**
-   * @requires service:api-sdk/lesson
+   * @requires service:api-sdk/course-map
    */
-  lessonService:  Ember.inject.service("api-sdk/lesson"),
+  courseMapService:  Ember.inject.service('api-sdk/course-map'),
 
   /**
    * @requires service:api-sdk/analytics
@@ -58,11 +58,11 @@ export default Ember.Component.extend(AccordionMixin, {
   /**
    * @requires service:api-sdk/assessment
    */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
   /**
    * @type {ClassService} Service to retrieve class information
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   /**
    * @property {ClassActivityService}
@@ -93,6 +93,7 @@ export default Ember.Component.extend(AccordionMixin, {
       if (!isUpdatingLocation) {
         let updateValue = this.get('isExpanded') ? '' : lessonId;
         this.get('onSelectLesson')(updateValue);
+        this.set('showLocation',false);
       } else if(!this.get('isExpanded')) {
         this.loadData();
       }
@@ -103,12 +104,27 @@ export default Ember.Component.extend(AccordionMixin, {
      * @param {string} collection - (collection/assessment)
      */
     selectResource: function (collection) {
-      let lessonId = this.get("model.id");
-      this.get('onSelectResource')(lessonId, collection);
+      if(this.get('isTeacher')){
+        let lessonId = this.get('model.id');
+        this.get('onSelectResource')(lessonId, collection);
+      } else {
+        this.activeStudyPlayer(collection);
+      }
     },
 
     setOnAir: function (collectionId) {
       this.get('onLaunchOnAir')(collectionId);
+    },
+    /**
+     * Go to study player
+     */
+    studyNow: function (type, item ) {
+      let lessonId = this.get('model.id');
+      if(type === 'lesson'){
+        this.get('onStudyNow')(type, item.id, this.get('items')[0]);
+      }else{
+        this.get('onStudyNow')(type, lessonId, item);
+      }
     },
 
     /**
@@ -139,7 +155,7 @@ export default Ember.Component.extend(AccordionMixin, {
       let contentId = item.get('id');
       component.get('classService').updateContentVisibility(classId,contentId,isChecked,type).then(function(){
         item.set('visible',isChecked);
-        component.sendAction("onUpdateContentVisibility", item.get('id'), isChecked);
+        component.sendAction('onUpdateContentVisibility', item.get('id'), isChecked);
       });
     }
   },
@@ -148,6 +164,8 @@ export default Ember.Component.extend(AccordionMixin, {
   // Events
   setupComponent: Ember.on('didInsertElement', function () {
     const component = this;
+
+    this.set('activeElement',this.get('currentResource'));
 
     this.$().on('hide.bs.collapse', function(e) {
       e.stopPropagation();
@@ -158,14 +176,11 @@ export default Ember.Component.extend(AccordionMixin, {
       e.stopPropagation();
       component.set('isExpanded', true);
     });
-
     Ember.run.scheduleOnce('afterRender', this, this.parsedLocationChanged);
   }),
 
   didRender: function(){
     this.$('[data-toggle="tooltip"]').tooltip();
-
-
   },
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
@@ -175,7 +190,6 @@ export default Ember.Component.extend(AccordionMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
-
   /**
    * @prop {String[]} parsedLocation - Location the user has navigated to
    * parsedLocation[0] - unitId
@@ -205,6 +219,18 @@ export default Ember.Component.extend(AccordionMixin, {
    * Will resolve to {Location[]}
    */
   usersLocation: Ember.A([]),
+  /**
+   * @prop {Boolean} isStudent
+   *
+   */
+  isStudent: Ember.computed.not('isTeacher'),
+
+  /**
+   * @prop {Boolean} Indicate if the lesson is selected as active element to study
+   */
+  isLessonSelected:Ember.computed('isExpanded','isStudent',function(){
+    return this.get('isStudent') && this.get('isExpanded');
+  }),
 
   /**
    * Indicates the status of the spinner
@@ -217,10 +243,10 @@ export default Ember.Component.extend(AccordionMixin, {
    * @property {Ember.Array}
    */
   switchOptions: Ember.A([Ember.Object.create({
-    'label': "On",
+    'label': 'On',
     'value': true
   }),Ember.Object.create({
-    'label': "Off",
+    'label': 'Off',
     'value': false
   })]),
 
@@ -237,7 +263,7 @@ export default Ember.Component.extend(AccordionMixin, {
     if (this.get('items.length')) {
       let component = this;
       let visibleItems = this.get('items');
-      let usersLocation = component.get("usersLocation");
+      let usersLocation = component.get('usersLocation');
       visibleItems.forEach((item) => {
         // Get the users for a specific lesson
         let entity = usersLocation.findBy('collection', item.get('id'));
@@ -263,6 +289,22 @@ export default Ember.Component.extend(AccordionMixin, {
       isUpdatingLocation = false;
     }
   }),
+  /**
+   * Observe changes when expands or collapse a lesson.
+   */
+  removedActiveLocation: Ember.observer('isExpanded', function () {
+    if(this.get('isStudent') && !this.get('isExpanded')){
+      this.set('activeElement','');
+    }
+  }),
+  /**
+   * Removed the selected element if the user decide to show the current location
+   */
+  showMyLocation: Ember.observer('showLocation', function () {
+    if(this.get('showLocation')){
+      this.set('activeElement','');
+    }
+  }),
   // -------------------------------------------------------------------------
   // Methods
 
@@ -282,8 +324,8 @@ export default Ember.Component.extend(AccordionMixin, {
     const classMembers = component.get('classMembers');
     const isTeacher = component.get('isTeacher');
 
-    component.set("loading", true);
-    component.get('lessonService').fetchById(courseId, unitId, lessonId)
+    component.set('loading', true);
+    component.get('courseMapService').getLessonInfo(classId, courseId, unitId, lessonId)
       .then(function(lesson) {
         const collections = lesson.get('children');
         component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)
@@ -296,7 +338,7 @@ export default Ember.Component.extend(AccordionMixin, {
                 component.setVisibility(collection);
               });
               component.set('items', collections);
-              component.set("loading", false);
+              component.set('loading', false);
             });
           });
       });
@@ -393,7 +435,19 @@ export default Ember.Component.extend(AccordionMixin, {
         });
     });
   },
-
+  /**
+   * Select an element as active element to study
+   */
+  activeStudyPlayer: function(item){
+    if(this.get('isStudent')){
+      if(this.get('activeElement') === item.id){
+        this.set('activeElement','');
+      }else {
+        this.set('activeElement',item.id);
+      }
+      this.set('showLocation',false);
+    }
+  },
   setVisibility: function(collection){
     const isAssessment = collection.get('isAssessment');
     const visible = isAssessment ? this.get('contentVisibility').isVisible(collection.id) : true;

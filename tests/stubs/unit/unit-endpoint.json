@@ -1,4 +1,5 @@
-[{
+[
+  {
   "description": "Gets unit lessons",
   "request": {
     "url": "^/api/nucleus/v1/courses/(.+)/units/first-unit-id",
@@ -15,7 +16,7 @@
     "body": "File not found!",
     "file": "get-unit-response.json"
   }
-},
+  },
   {
     "description": "Delete unit",
     "request": {
@@ -30,6 +31,24 @@
       "headers": {
         "Content-Type": "application/json"
       }
+    }
+  },
+  {
+    "description": "Fetch unit for a specific ID",
+    "request": {
+      "url": "^/api/nucleus/v1/courses/(.+)/units/(.+)$",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-unit-200-response.json"
     }
   }
 ]

@@ -104,6 +104,7 @@ export default Object.assign(quizzesTranslations, {
     "avatarFor": "Avatar for",
     "averageScore": "Average Score",
     "back": "Back",
+    "back-to-collection": "Back to Collection",
     "back-to-course-map": "Back to Course Map",
     "back-to-data": "Back to Data",
     "best-practices": "Best Practices",
@@ -138,6 +139,8 @@ export default Object.assign(quizzesTranslations, {
     "competency": "Competency",
     "competencies": "Competencies",
     "completed": "Completed",
+    "completion": "Completion",
+    "community": "Community",
     "confirm-copy":"Confirm & Copy",
     "content": "Content",
     "contentUnavailable": "Content not available",
@@ -470,12 +473,15 @@ export default Object.assign(quizzesTranslations, {
     "standard": "Standard",
     "standards": "Standards",
     "study": "Study",
+    "study-now": "Study Now",
     "student": "Student",
     "student-id": "Student ID (not displayed on Profile)",
     "subject-and-framework": "Subject and Framework",
     "submit": "Submit",
     "submit-all": "Submit all",
     "swap": "Re-order",
+    "suggestion": "Suggestion",
+    "suggestions": "Suggestions",
     "suggested-resources": "Suggested Resources",
     "support": "Support",
     "start-tour": "Take a tour",
@@ -784,19 +790,20 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   "user": {
-    "hello":"Hello, {{name}}!",
-    "hi": "Hi",
     "active-classes": "Active Classrooms",
-    "my-current-classes":"My Current Classes",
     "archived-classes": "Archived Classes",
     "create-class": "Create Classroom",
-    "manage-goals": "Manage Goals",
+    "hello":"Hello, {{name}}!",
+    "hi": "Hi",
+    "independent-learning": "Independent Learning",
     "join-class": "Join Classroom",
     "joined-classes": {
       zero: "You're currently not enrolled in classrooms",
       one: "You're currently enrolled in 1 classroom",
       other: "You're currently enrolled in {{count}} classrooms"
     },
+    "my-current-classes":"My Current Classes",
+    "manage-goals": "Manage Goals",
     "my-classes":"My Classes",
     "teaching-classes": {
       zero: " and teaching {{count}} classrooms",
@@ -808,26 +815,35 @@ export default Object.assign(quizzesTranslations, {
     "announcement":"Announcement",
     "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "my-performance":{
+      "activity":"Activity",
+      "activities":{
+        "study":"Study"
+      },
       "assessments": "Assessments",
       "collections": "Collections",
       "filter": "Filter",
       "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
+      "subject":"Subject",
       "title": "Analyze your performance.",
+      "time-period":"Time Period",
       "update-report": "Update Report"
     },
+    "my-study": "My Study",
     "class":{
       "back-to": "Back to My Classes",
       "performance": "Performance",
-      "classmates": "Classmates",
+      "classmates": "Classroom Information",
       "course-map": "Course Map",
       "unit": "Unit",
       "leson": "Leson",
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
         "today": "Today"
-      }
+      },
+      "my-report":"My Report"
     },
-    "current-activity":"Current activity"
+    "current-activity":"Current activity",
+    "welcome":"Welcome to Gooru."
   },
   "teacher-landing": {
     "latest-announcement":"Latest Announcement",
@@ -1014,6 +1030,24 @@ export default Object.assign(quizzesTranslations, {
     "signUpEmail": "Sign up with your email address",
     "haveAccount": "Already have an account?",
     "clickLogIn": "Click here to log in."
+  },
+  "gru-welcome-message": {
+    "title": "Welcome to Gooru’s Learning Navigator!",
+    "text-one": "As you move throughout the Learning Navigator, we are happy to support your journey in the following ways:",
+    "text-two": {
+      "subtitle": "Take a Tour",
+      "text": ": Provides guided tours on how to use our features."
+    },
+    "text-three": {
+      "subtitle": "Help",
+      "text": ": At-your-fingertips support for additional questions."
+    },
+    "text-four": {
+      "subtitle": "New",
+      "text": ": Identifies new features for you to try out."
+    },
+    "text-five": "At anytime if you wish you return to your home page, simply click on",
+    "dont-show-again": "Don't show again"
   },
   "sign-up": {
     "step-1-title": "Hello!",
@@ -1310,6 +1344,7 @@ export default Object.assign(quizzesTranslations, {
     "no-content": "No content available"
   },
   "gru-performance-metrics": {
+    "collection":"Collection",
     "assessment": "Assessment",
     "student": "Student",
     "score": "Score",
@@ -1335,7 +1370,7 @@ export default Object.assign(quizzesTranslations, {
   "cards": {
     "gru-class-card": {
       "student": {
-        zero: "{{count}} Students",
+        zero: "{{count}} Student",
         one: "{{count}} Student",
         other: "{{count}} Students",
         "not-started": "Not Started"
@@ -1543,7 +1578,149 @@ export default Object.assign(quizzesTranslations, {
     "settings-visibility-content": "This setting makes your content visible via your user profile. If you wish to share the courses, collections, assessments, resources, and/or questions you create with colleagues, we suggest you turn this feature on."
   },
   "gru-take-tour":{
-    "text": "Take a Tour"
+    "text": "Take a Tour",
+    "teacher-home":{
+      "stepOne":{
+        "title": "Your Homepage",
+        "description": "Welcome to your Gooru homepage! Here you can find a list of the classrooms you create in Gooru. Classrooms allow you to share content directly with students. You can always come back to your homepage by clicking on the Gooru icon."
+      },
+      "stepTwo":{
+        "title": "Classes You Teach or Join",
+        "description": 'Any classrooms you teach or join this school year will appear here under Active Classrooms.'
+      },
+      "stepThree":{
+        "title": "Create a Classroom",
+        "description": "Click here to create a new classroom. Once you have content to share with students, you will assign it to them via a classroom."
+      },
+      "stepFour":{
+        "title": "Your Profile",
+        "description": "This is your Profile. Click on your profile at any time to access content you create or remix in Gooru."
+      }
+    },
+    "student-home":{
+      "stepOne":{
+        "title": "Take a Tour Icon",
+        "description": "Welcome to Take a Tour! This is your personal home page. Remember you can always get back to your page by clicking on the Gooru logo. Now let’s get started!"
+      },
+      "stepTwo":{
+        "title": "Announcements",
+        "description": 'Here you will see announcements that your teacher or school would like you to know about.'
+      },
+      "stepFour":{
+        "title": "My Classes",
+        "description": "See all of the classes in which you are enrolled."
+      },
+      "stepFive":{
+        "title": "Join Classroom",
+        "description": 'To join a new classroom, enter the class code and it will be displayed under “My Classes.”'
+      },
+      "stepSix":{
+        "title": "Independent Learning",
+        "description": 'Explore and bookmark topics that interest you and that you want learn more about.'
+      },
+      "stepSeven":{
+        "title": "Search Bar",
+        "description": 'Search our content catalog for topics that interest to you.'
+      },
+      "stepEight":{
+        "title": "Your Homepage",
+        "description": 'Return to your home page.'
+      },
+      "stepNine":{
+        "title": "Library",
+        "description": 'Browse our featured courses.'
+      },
+      "stepTen":{
+        "title": "Performance",
+        "description": 'See a summary of your performance in the courses you are enrolled in.'
+      },
+      "stepThirteen":{
+        "title": "User Name",
+        "description": 'Access and update your user profile.'
+      },
+      "stepFourteen":{
+        "title": "Finished!",
+        "description": 'Now go ahead and click on a course you have enrolled in, join a classroom, or search for content that is of interest to you. '
+      }
+    },
+    "student-performance":{
+      "stepOne":{
+        "title": "Welcome!",
+        "description": "Welcome to your Performance Dashboard. You can view how you are performing in all classes and courses."
+      },
+      "stepTwo":{
+        "title": "Filter Tab",
+        "description": 'Click on the arrow to filter your performance by activity, time period, subject, and course. '
+      },
+      "stepThree":{
+        "title": "Update Report",
+        "description": "Once you have selected your filters, click on update report to display results."
+      },
+      "stepFour":{
+        "title": "Download/Print",
+        "description": 'Download your report.'
+      },
+      "stepFive":{
+        "title": "Finished!",
+        "description": 'Go ahead and analyze your performance!'
+      }
+    },
+    "student-class":{
+      "stepOne":{
+        "title": "Welcome!",
+        "description": "Welcome to your Course Page. Here you will find your daily activities, course map, and performance data. Let’s get started!"
+      },
+      "stepTwo":{
+        "title": "Daily Class Activities",
+        "description": 'Access a list of activities assigned by your teacher. Select the activities you want to study.'
+      },
+      "stepThree":{
+        "title": "Course Map",
+        "description": "Click on the units and lessons to complete the collections and assessments in the course."
+      },
+      "stepFour":{
+        "title": "My Report",
+        "description": 'Take a look at your overall class performance. '
+      },
+      "stepFive":{
+        "title": "Finished!",
+        "description": 'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
+      }
+    },
+    "study-player":{
+      "stepOne": {
+        "title": "Welcome!",
+        "description": "This is your Study Player. Let’s walk through the features available to you."
+      },
+      "stepTwo": {
+        "title": "Unit/Course/Lesson Header",
+        "description": "Indicates where the collection or assessment are located in your course."
+      },
+      "stepThree": {
+        "title": "Performance/Completion",
+        "description": "Indicates how you are performing and how much of the course you have completed."
+      },
+      "stepFour": {
+        "title": "React to Resource",
+        "description": "Let your teacher know what you think about this resource."
+      },
+      "stepFive": {
+        "title": "Course Map",
+        "description": "Return to your Course Map to see additional course content."
+      },
+      "stepSix": {
+        "title": "Suggestions",
+        "description": "These are resources that you might want to explore based on what you are currently studying."
+      },
+      "stepSeven": {
+        "title": "Check out these resources",
+        "description": ""
+      },
+      "stepEight": {
+        "title": "Finished!",
+        "description": "Start studying!"
+      }
+    }
   },
   "gru-tour": {
     "assessments-settings":{
@@ -1554,28 +1731,6 @@ export default Object.assign(quizzesTranslations, {
       "stepTwo":{
         "title":"Answer Key and Number of Attempts",
         "description":"This setting allows an answer key to be revealed and sets the number of attempts students have on the assessment."
-      }
-    },
-    "home":{
-      "stepOne":{
-        "title": "Your Homepage",
-        "description": "Welcome to your Gooru homepage! Here you can find a list of the classrooms you create in Gooru. Classrooms allow you to share content directly with students. You can always come back to your homepage by clicking on the Gooru icon."
-      },
-      "stepTwo":{
-        "title": "Classes You Teach or Join",
-        "description": 'Any classrooms you teach or join this school year will appear here under Active Classrooms.'
-      },
-      "stepThree":{
-        "title": "Previous Classes",
-        "description": "Any classrooms you created or joined in past school years can be found in Archived Classrooms. Content used in these classrooms can be found in your Profile, and it can be re-assigned to new classrooms for this school year."
-      },
-      "stepFour":{
-        "title": "Create a Classroom",
-        "description": "Click here to create a new classroom. Once you have content to share with students, you will assign it to them via a classroom."
-      },
-      "stepFive":{
-        "title": "Your Profile",
-        "description": "This is your Profile. Click on your profile at any time to access content you create or remix in Gooru."
       }
     },
     "overview": {
@@ -1697,5 +1852,35 @@ export default Object.assign(quizzesTranslations, {
     "gru-library-card":{
       "featured-course":"Featured Course"
     }
+  },
+  "gru-study-header": {
+    "lesson-legend": "You are currently on lesson",
+    "resource-legend": "You are checking this resource.",
+    "resources-collection-report": "Collection usage report",
+    "resources-assessment-report": "Assessment summary report",
+    "check-summary":"Check your summary report",
+    "check-usage":"Check your usage report",
+    "resource": {
+      zero: "Resource",
+      one: "Resource",
+      other: "Resources"
+    },
+    "question": {
+      zero: "Question",
+      one: "Question",
+      other: "Questions"
+    },
+    "suggestions-legend": "To learn more, check out these resources."
+  },
+  "gru-suggest-test":{
+    "pre-test-header":"Pre-Test (Optional)",
+    "post-test-header":"Post-Test (Optional)",
+    "backfill-pretest-header":"Suggested Collection (Optional)",
+    "pre-test-lead":"Students are more prepared for this lesson by taken a pre-test",
+    "post-test-lead":"You are almost done with this lesson! Student usually take a post-test to know how well they’ve learned.",
+    "backfill-pretest-lead":"You completed the Pre-Test! Student like you would like to take a collection below to improve the knowledge before starting this course. Estimated time to take this post-test is 30 minutes.",
+    "no":"No, thanks",
+    "take":"Take {{type}}",
+    "take-backfill-pretest":"Study Suggested Collection"
   }
 });

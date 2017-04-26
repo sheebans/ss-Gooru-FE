@@ -25,6 +25,14 @@ export default Ember.Mixin.create({
   /**
    * @property {string}
    */
-  appRootPath: Ember.computed.alias("configuration.appRootPath")
+  appRootPath: Ember.computed.alias("configuration.appRootPath"),
+
+  /**
+   * Returns the local storage
+   * @returns {Storage}
+   */
+  getLocalStorage: function(){
+    return window.localStorage;
+  }
 
 });

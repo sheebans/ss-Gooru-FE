@@ -32,10 +32,13 @@ info "Running build inside a custom docker image..."
 
 mkdir /tmp/yarn-cache-bamboo
 chmod 0777 /tmp/yarn-cache-bamboo
+rm -rf /tmp/yarn-cache-bamboo/npm-quizzes-addon*
+rm -rf /tmp/yarn-cache-bamboo/.tmp
 
 docker login \
   -u $ARTIFACTORY_USERNAME \
   -p $ARTIFACTORY_PASSWORD edify-dkr.jfrog.io
+
 
 docker run -t --rm \
   -v $PWD:/build \

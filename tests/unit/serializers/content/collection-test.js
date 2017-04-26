@@ -37,7 +37,7 @@ test('serializeUpdateCollection', function(assert) {
   assert.equal(response.visible_on_profile, false, "Wrong visible on profile");
   assert.equal(response.thumbnail, 'image-id.png', "Wrong thumbnail");
   assert.equal(response.taxonomy, null, "Wrong taxonomy object");
-  assert.equal(response['metadata']['21_century_skills'][0], 2, 'Wrong centurySkill');
+  assert.equal(response.metadata['21_century_skills'][0], 2, 'Wrong centurySkill');
 });
 
 test('serializeUpdateCollectionTitle', function(assert) {
@@ -95,6 +95,38 @@ test('normalizeReadCollection', function(assert) {
   assert.equal(collection.get('unitId'), 2, 'Wrong unit id');
   assert.equal(collection.get('lessonId'), 3, 'Wrong lesson id');
   assert.equal(collection.get("centurySkills"), 2, 'Wrong century Skills');
+});
+
+test('normalizeReadCollection for alternate paths', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+  const collectionData = {
+    thumbnail: 'image-id.png',
+    target_course_id: 'course-id',
+    target_unit_id: 'unit-id',
+    target_lesson_id: 'lesson-id',
+    target_collection_id: 'collection-id',
+    target_content_subtype: 'pre-test',
+    target_content_type: 'assessment',
+    title: 'collection-title',
+    question_count:1,
+    oe_question_count: 2,
+    resource_count: 5
+  };
+  const collection = serializer.normalizeReadCollection(collectionData);
+  assert.equal(collection.get('id'), 'collection-id', 'Wrong id');
+  assert.equal(collection.get('title'), 'collection-title', 'Wrong title');
+  assert.equal(collection.get('thumbnailUrl'), 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image');
+  assert.equal(collection.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
+  assert.equal(collection.get('courseId'), 'course-id', 'Wrong course id');
+  assert.equal(collection.get('unitId'), 'unit-id', 'Wrong unit id');
+  assert.equal(collection.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+  assert.equal(collection.get('questionCount'), 1, 'Wrong question count');
+  assert.equal(collection.get('resourceCount'), 5, 'Wrong resource count');
 });
 
 test('serializeReorderCollection', function(assert) {
