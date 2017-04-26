@@ -45,12 +45,13 @@
           }
         }
         .question-resources {
-          display: block;
+          @include flexbox;
           height: 16px;
         }
         .bar{
           font-weight:bold;
           color:$gray-dark;
+          margin: 0 2px;
         }
       }
     }
