@@ -29,8 +29,10 @@ export default Ember.Component.extend({
     openContentPlayer: function(content) {
       this.sendAction('onOpenContentPlayer', content);
     },
-
-    editCollection: function(){
+    /**
+     * Action triggered to edit content
+     */
+    editContent: function(){
       this.sendAction('onEditContent', this.get('content'));
     }
   },
