@@ -11,6 +11,22 @@
       height: inherit;
       ul.category-options {
         margin-left: 0;
+        display: inline-block;
+        li{
+          width: auto;
+          margin: 0 1px;
+          @media (min-width: $screen-md) {
+            margin: 0 10px;
+          }
+          a{
+            span{
+              font-size: 12px;
+              @media (min-width: $screen-md) {
+                font-size: 14px;
+              }
+            }
+          }
+        }
       }
     }
     .standards {
@@ -55,7 +71,11 @@
 
   .content {
     margin: 0 15px;
-    width: 100%;
+    width: 95%;
+    @media (min-width: $screen-md) {
+      width: 98%;
+    }
+
     .standards-list {
       margin: 20px;
       .gru-taxonomy-tag-list {
