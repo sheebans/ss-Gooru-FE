@@ -11,7 +11,7 @@ export default QuizzesPlayerController.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['resourceId', 'role', 'type', 'sourceId'],
+  queryParams: ['resourceId', 'role', 'type', 'sourceId', 'source'],
 
   // -------------------------------------------------------------------------
   // Properties
@@ -28,6 +28,12 @@ export default QuizzesPlayerController.extend({
    * @property {string}
    */
   role: null,
+
+  /**
+   * Indicates the component of the application that is originating the events
+   * @property {String} source
+   */
+  source: null,
 
   /**
    * Query param indicating if it is a collection or assessment

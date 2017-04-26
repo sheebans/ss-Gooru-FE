@@ -43,7 +43,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         type: controller.get('type'),
         role: controller.get('role'),
         classId: controller.get('classId'),
-        contextId: controller.get('contextResult.contextId')
+        contextId: controller.get('contextResult.contextId'),
+        source: controller.get('source')
       };
       this.transitionTo(
         'reports.study-student-collection',

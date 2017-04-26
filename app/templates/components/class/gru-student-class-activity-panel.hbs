@@ -16,13 +16,18 @@
       {{/if}}
     </div>
     {{#if visible}}
-      {{#link-to 'context-player'
+      {{#link-to 'study-player'
       class.id
       classActivity.context.courseId
-      classActivity.context.unitId
-      classActivity.context.lessonId
-      item.id
-      (query-params type=item.collectionType role='student') class="title"}}
+      (query-params
+        unitId=classActivity.context.unitId
+        lessonId=classActivity.context.lessonId
+        collectionId=item.id
+        type=item.collectionType
+        role='student'
+        source=source
+      )
+      class="title"}}
           <div class="ellipsis text">{{item.title}}</div>
           <div class="type">{{t (if item.isAssessment 'common.assessment' 'common.collection')}}</div>
       {{/link-to}}

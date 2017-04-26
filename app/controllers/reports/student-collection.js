@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
@@ -10,7 +10,7 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default Ember.Controller.extend(ConfigurationMixin, {
 
-  queryParams: ["classId", "courseId", "unitId", "lessonId", "collectionId", "userId", "type", "role", "contextId"],
+  queryParams: ['classId', 'courseId', 'unitId', 'lessonId', 'collectionId', 'userId', 'type', 'role', 'contextId', 'source'],
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -31,5 +31,11 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   /**
    * @property {string} indicates if it is a student or teacher view
    */
-  role: null
+  role: null,
+
+  /**
+   * Indicates the component of the application that is originating the events
+   * @property {String} source
+   */
+  source: null
 });

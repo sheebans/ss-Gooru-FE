@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 /**
  * Student Class Activity Panel
@@ -47,6 +48,11 @@ export default Ember.Component.extend({
    * @property {CollectionPerformanceSummary}
    */
   collectionPerformanceSummary: Ember.computed.alias('classActivity.activityPerformanceSummary.collectionPerformanceSummary'),
+
+  /**
+   * @property {String} source
+   */
+  source: PLAYER_EVENT_SOURCE.DAILY_CLASS,
 
   /**
    * @property {boolean}
