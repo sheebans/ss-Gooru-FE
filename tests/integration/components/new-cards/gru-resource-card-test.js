@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import ResourceModel from 'gooru-web/models/content/resource';
 import QuestionModel from 'gooru-web/models/content/question';
 import RubricModel from 'gooru-web/models/rubric/rubric';
+import Ember from 'ember';
 
 moduleForComponent('new-cards/gru-resource-card', 'Integration | Component | new cards/gru resource card', {
   integration: true
