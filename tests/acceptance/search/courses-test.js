@@ -19,7 +19,7 @@ test('Layout', function(assert) {
   visit('/search/courses?term=any');
   andThen(function() {
     assert.equal(currentURL(), '/search/courses?term=any');
-    assert.ok(find('.gru-collection-card').length, 'Missing gru-featured-courses component');
+    assert.ok(find('.gru-collection-card').length, 'Missing gru-collection-card component');
     assert.notOk(find('.gru-search-filter').length, 'Filters should not be visible');
     assert.equal(find('.gru-header .search-input').val(), 'any', 'Wrong input value');
   });

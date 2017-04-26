@@ -169,11 +169,7 @@ export default (function() {
      * @property {boolean}
      */
     sameOwnerAndCreator: Ember.computed('owner.id', 'creator.id', function(){
-      if( !this.get('creator.id')){
-        return true;
-      }else if(this.get('owner.id') === this.get('creator.id')){
-        return true;
-      }
+      return !this.get('creator.id') || this.get('owner.id') === this.get('creator.id');
     }),
 
     /**
