@@ -1205,7 +1205,8 @@ export default Object.assign(quizzesTranslations, {
       "HS_TXT": "Multiple Select - Text",
       "HS_IMG": "Multiple Select - Image",
       "HT_RO": "Drag and Drop Order",
-      "HT_HL": "Hot Text- Highlight"
+      "HT_HL": "Hot Text- Highlight",
+      "OE":"Free Response"
     },
     "author": {
       "placeholder": "Author"

@@ -89,6 +89,17 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Free response option is selected
+   *  @property {boolean} freeResponseSelected
+   *
+   */
+
+  freeResponseSelected: Ember.computed('selectedOptionTypes.[]', function() {
+    const selectedOptions = this.get('selectedOptionTypes');
+    return selectedOptions.includes(QUESTION_TYPES.openEnded);
+  }),
+
+  /**
    * True if ht-highlight option is selected
    *  @property {boolean} htHighlightSelected
    *

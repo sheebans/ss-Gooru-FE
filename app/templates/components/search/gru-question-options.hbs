@@ -48,5 +48,11 @@
         <span class="text">{{t "search-filter.question-types.HS_IMG"}}</span>
       </button>
     </li>
+      <li>
+          <button class="btn free-response btn-option {{if freeResponseSelected 'selected'}}" {{action 'selectOption' questionTypes.openEnded this}}>
+              <span class="icon"></span>
+              <span class="text">{{t "search-filter.question-types.OE"}}</span>
+          </button>
+      </li>
   </ul>
 </section>
