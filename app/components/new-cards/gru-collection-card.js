@@ -3,7 +3,7 @@ import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 /**
- * Collection, Assessment and Rubric card
+ * Collection, Assessment and Course card
  *
  * Component responsible of showing the collection assessment or rubric information in cards, so that most useful information is summarized there.
  * @module
