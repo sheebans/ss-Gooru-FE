@@ -16,7 +16,7 @@
           width: auto;
           margin: 0 1px;
           @media (min-width: $screen-md) {
-            margin: 0 10px;
+            margin: 0 8px;
           }
           a{
             span{
@@ -24,6 +24,9 @@
               @media (min-width: $screen-md) {
                 font-size: 14px;
               }
+            }
+            @media (min-width: $screen-md) {
+              padding: 0 20px;
             }
           }
         }
@@ -70,11 +73,7 @@
   }
 
   .content {
-    margin: 0 15px;
-    width: 95%;
-    @media (min-width: $screen-md) {
-      width: 98%;
-    }
+   width: 100%;
 
     .standards-list {
       margin: 20px;
