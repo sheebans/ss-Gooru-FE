@@ -249,6 +249,6 @@ export const SUGGESTION_TYPE = {
 };
 
 export const PLAYER_EVENT_SOURCE = {
-  INCLASS_COURSE_MAP: 'InClass-CourseMap',
-  DAILY_CLASS: 'DailyClassActivity'
+  COURSE_MAP: 'coursemap',
+  DAILY_CLASS: 'dailyclassactivity'
 };

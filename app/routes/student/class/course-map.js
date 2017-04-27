@@ -124,7 +124,7 @@ export default Ember.Route.extend({
       collectionId,
       type: collectionType,
       role,
-      source: PLAYER_EVENT_SOURCE.INCLASS_COURSE_MAP
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
     route.transitionTo('study-player', classId, courseId, { queryParams });
   },
@@ -143,7 +143,7 @@ export default Ember.Route.extend({
       unitId,
       lessonId,
       role,
-      source: PLAYER_EVENT_SOURCE.INCLASS_COURSE_MAP
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
     route.transitionTo('study-player', classId, courseId, { queryParams });
   },
@@ -157,7 +157,7 @@ export default Ember.Route.extend({
     const route = this;
     const queryParams = {
       role: ROLES.STUDENT,
-      source: PLAYER_EVENT_SOURCE.INCLASS_COURSE_MAP
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
     route.transitionTo('study-player', classId, courseId, { queryParams });
   }
