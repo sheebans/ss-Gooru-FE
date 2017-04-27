@@ -124,12 +124,15 @@
     .panel-body {
       @include flex-direction(column);
       @include justify-content(space-between);
-      padding: 12px 15px 0 15px;
+      padding: 0 15px;
       height: 128px;
 
       .gru-taxonomy-tag-list {
         .gru-taxonomy-tag {
           max-width: 64px;
+          .content{
+            margin:0;
+          }
         }
       }
 
