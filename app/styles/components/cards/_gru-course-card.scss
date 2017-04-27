@@ -41,6 +41,11 @@
         $line-height: 1.1;
         $lines-to-show: 2;
         @include ellipsis($font-size: $font-size-large, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+        @media (min-width: $screen-md) {
+          &:before{
+            width: 0;
+          }
+        }
       }
     }
 
