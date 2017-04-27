@@ -11,7 +11,7 @@
     margin: 20px 126px;
     @include flexbox;
     @include flex-wrap(wrap);
-    @include justify-content(space-between);
+    @include justify-content(space-around);
   }
   .gru-resource-card{
     display:inline-block;

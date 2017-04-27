@@ -66,6 +66,9 @@
         .gru-taxonomy-tag-list {
           .gru-taxonomy-tag {
             max-width: 64px;
+            .content{
+              margin:0;
+            }
           }
         }
       }
