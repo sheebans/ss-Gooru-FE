@@ -46,7 +46,7 @@ test('Layout', function (assert) {
     const $coursePanel = $container.find('.course-panel');
     const $coursePanelHeader = $coursePanel.find(".panel-header");
 
-    assert.ok($classPanelHeader.find('h5').length, 'Missing course information title');
+    assert.ok(coursePanelHeader.find('h5').length, 'Missing course information title');
 
     const $coursePanelBody = $coursePanel.find(".panel-body");
     assert.ok($coursePanelBody.find('.course-information p').length, 'Missing course information label');
