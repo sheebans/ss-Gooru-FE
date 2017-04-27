@@ -23,8 +23,8 @@
     .results{
       @include flexbox;
       @include flex-wrap(wrap);
-      @include justify-content(space-between);
-      margin: 40px 175px;
+      @include justify-content(space-around);
+      margin: 40px 110px;
     }
   }
 }
