@@ -20,21 +20,21 @@ test('Layout', function (assert) {
 
     assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
 
-    const $container = find(".teacher.class .controller.teacher.class.class-management");
+    const $container = find('.teacher.class .controller.teacher.class.class-management');
     assert.ok($container.length, 'Missing class management tab container');
 
     assert.ok($container.find('.class-panel').length, 'Missing class panel');
     assert.ok($container.find('.course-panel').length, 'Missing course panel');
 
     const $classPanel = $container.find('.class-panel');
-    const $classPanelHeader = $classPanel.find(".panel-header");
+    const $classPanelHeader = $classPanel.find('.panel-header');
 
     assert.ok($classPanelHeader.find('h5').length, 'Missing class information title');
     assert.ok($classPanelHeader.find('.actions').length, 'Missing class actions panel');
     assert.ok($classPanelHeader.find('.actions .delete-btn').length, 'Missing delete btn');
     assert.ok($classPanelHeader.find('.actions .archive-btn').length, 'Missing archive btn');
 
-    const $classPanelBody = $classPanel.find(".panel-body");
+    const $classPanelBody = $classPanel.find('.panel-body');
     assert.ok($classPanelBody.find('.class-name p').length, 'Missing class name label');
     assert.ok($classPanelBody.find('.class-name .edit-text span').length, 'Missing class title to edit');
     assert.ok($classPanelBody.find('.class-name .edit-text i').length, 'Missing class title edit icon');
@@ -44,11 +44,11 @@ test('Layout', function (assert) {
     assert.ok($classPanelBody.find('.class-code .gru-switch').length, 'Missing attend class switch component');
 
     const $coursePanel = $container.find('.course-panel');
-    const $coursePanelHeader = $coursePanel.find(".panel-header");
+    const $coursePanelHeader = $coursePanel.find('.panel-header');
 
     assert.ok($coursePanelHeader.find('h5').length, 'Missing course information title');
 
-    const $coursePanelBody = $coursePanel.find(".panel-body");
+    const $coursePanelBody = $coursePanel.find('.panel-body');
     assert.ok($coursePanelBody.find('.course-information p').length, 'Missing course information label');
     assert.ok($coursePanelBody.find('.course-information .gru-course-card.small').length, 'Missing small course card');
     assert.ok($coursePanelBody.find('.assessment-min-score p').length, 'Missing course assessment-min-score label');
