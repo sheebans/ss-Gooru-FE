@@ -5,19 +5,14 @@
     background-color: $dark-400;
     height: 51px;
     padding: 0;
-    width: 100vw;
     margin: 0;
+    @include flexbox;
     div.category-menu {
       height: inherit;
       ul.category-options {
-        margin-left: 0;
-        display: inline-block;
+        @include flexbox;
+        @include justify-content(space-between);
         li{
-          width: auto;
-          margin: 0 1px;
-          @media (min-width: $screen-md) {
-            margin: 0 8px;
-          }
           a{
             span{
               font-size: 12px;
@@ -25,7 +20,10 @@
                 font-size: 14px;
               }
             }
-            @media (min-width: $screen-md) {
+            @media (min-width: $screen-sm-max) {
+              padding: 0 7px;
+            }
+            @media (min-width: $screen-md-max) {
               padding: 0 20px;
             }
           }
@@ -36,15 +34,36 @@
               width: 25px;
             }
           }
+          @media (min-width: $screen-md-max) {
+            margin: 0 10px;
+          }
+        }
+        @media (max-width: $screen-xs) {
+          overflow: hidden;
+          overflow-x: auto;
+        }
+        @media (min-width: $screen-sm-min) {
+          margin: 0;
         }
       }
     }
     .standards {
-      display: table-cell;
-      float: none;
-      text-align: right;
+      @include flexbox;
+      @include justify-content(flex-end);
+      padding:0;
+
+      @media (min-width: $screen-sm-min) {
+        width: 44%;
+      }
+      @media (min-width: $screen-sm-max) {
+        width: 32%;
+      }
+      @media (min-width: $screen-md-max) {
+        width: 26%;
+      }
       div{
-        display: inline-block;
+        display: inherit;
+        align-self: center;
       }
       .taxonomy{
         button.selected-category,
@@ -57,14 +76,11 @@
             max-width: 105px;
           }
         }
-        &:nth-of-type(2) .btn-group{
-          margin-right: 5px;
-          @media (min-width: $screen-md-min) {
-            margin-right: 10px;
-          }
-          @media (min-width: $screen-lg-min) {
-            margin-right: 15px;
-          }
+       .btn-group{
+         margin-right: 5px;
+         button{
+           font-size:$font-size-base;
+         }
         }
       }
     }
