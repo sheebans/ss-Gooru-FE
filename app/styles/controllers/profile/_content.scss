@@ -1,4 +1,4 @@
-.content-navigation {
+.profile-content.content-navigation {
   @include flexbox;
   @include align-items(center);
   @include justify-content(space-between);

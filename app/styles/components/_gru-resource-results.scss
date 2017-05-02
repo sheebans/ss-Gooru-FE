@@ -1,5 +1,6 @@
 .resource-results {
   @include flexbox;
+  @include justify-content(center);
   .search-results {
     height: 35px;
   }
