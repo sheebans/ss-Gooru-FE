@@ -31,13 +31,19 @@
       }
       .edit-text {
         font-size: $font-navigator;
-        span {
-          color: $gray-base;
-        }
+        color: $gray-base;
         .gru-icon.edit {
           color: $light-400;
           font-size: $font-size-large;
           cursor: pointer;
+        }
+        .gru-input {
+          &.minScore {
+            width: 20%;
+          }
+          &.title {
+            width: 50%;
+          }
         }
       }
     }
@@ -82,6 +88,10 @@
             color: white;
             font-size: $font-size-lead;
           }
+          .tooltip {
+            width: 100%;
+            line-height: $font-size-base;
+          }
         }
       }
       .gru-switch {
@@ -115,9 +125,11 @@
               padding: 0;
               .card-header {
                 .header-content {
-                  width: 100%;
+                  @media (max-width: $screen-lg) {
+                    width: 100%;
+                  }
                   .course-title {
-                    width: 95%;
+                    width: 100%;
                   }
                   .subject {
                     margin: 15px 0 0;

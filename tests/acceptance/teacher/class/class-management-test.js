@@ -1,6 +1,8 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
+import T from 'gooru-web/tests/helpers/assert';
+import {KEY_CODES} from "gooru-web/config/config";
 
 moduleForAcceptance('Acceptance | teacher/class/class-management', {
   beforeEach: function() {
@@ -62,3 +64,99 @@ test('Layout', function (assert) {
     assert.equal($studentsPanel.find('.panel-body .row').length, 7, 'The students panel must have 7 students');
   });
 });
+
+test('If a blank name is saved it is not updated', function (assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher/class-management');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
+
+    const $container = find('.teacher.class .controller.teacher.class.class-management');
+    assert.ok($container.length, 'Missing class management tab container');
+
+    const $classPanel = $container.find('.class-panel');
+    const $classPanelBody = $classPanel.find('.panel-body');
+    const $editNameIcon = $classPanelBody.find('.class-name .edit-text .edit-icon');
+
+    click($editNameIcon);
+
+    return wait().then(function () {
+
+      const $titleInput = $classPanelBody.find('.class-name .edit-text .gru-input.title input');
+      $titleInput.val('');
+      $titleInput.blur();
+      return wait().then(function () {
+        assert.equal(T.text($classPanelBody.find('.class-name .edit-text .class-title')), 'Pochita As Teacher - With Course');
+      });
+    });
+  });
+});
+
+test('If a diferent name is saved it is updated', function (assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher/class-management');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
+
+    const $container = find('.teacher.class .controller.teacher.class.class-management');
+    assert.ok($container.length, 'Missing class management tab container');
+
+    const $classPanel = $container.find('.class-panel');
+    const $classPanelBody = $classPanel.find('.panel-body');
+    var $editNameIcon = $classPanelBody.find('.class-name .edit-text .edit-icon');
+
+    click($editNameIcon);
+
+    return wait().then(function () {
+      const $titleInput = $classPanelBody.find('.class-name .edit-text .gru-input.title input');
+      $titleInput.val('Teacher Class');
+      $titleInput.blur();
+      return wait().then(function () {
+        assert.equal(T.text($classPanelBody.find('.class-name .edit-text .class-title')), 'Teacher Class');
+      });
+    });
+  });
+});
+
+test('Remove class', function(assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher/class-management');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
+
+    const $container = find('.teacher.class .controller.teacher.class.class-management');
+    const $classPanel = $container.find('.class-panel');
+    const $classPanelHeader = $classPanel.find('.panel-header');
+
+    const $removeButton =$classPanelHeader.find('.actions .delete-btn');
+    click($removeButton);
+    andThen(function () {
+      var $deleteContentModal = find(".gru-modal .gru-delete-class");
+      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+      click($check1);
+      andThen(function () {
+        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+        click($check2);
+        andThen(function () {
+          var $check3 = $deleteContentModal.find("ul li:eq(2) input");
+          click($check3);
+          andThen(function () {
+            var $input = $deleteContentModal.find(".delete-input");
+            $input.val('delete');
+            $input.blur();
+            keyEvent($input, 'keyup', KEY_CODES.ENTER);
+            andThen(function () {
+              var $deleteButton = $deleteContentModal.find("button.delete");
+              click($deleteButton);
+
+              andThen(function () {
+                assert.equal(currentURL(), '/teacher-home');
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});
+
