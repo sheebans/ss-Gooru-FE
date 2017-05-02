@@ -27,6 +27,7 @@ export default Ember.Object.extend({
       collection_subtype: model.get('collectionSubType'),
       current_item_id: model.get('itemId'),
       current_item_type: model.get('itemType'),
+      current_item_subtype: model.get('itemSubType'),
       state: model.get('status'),
       path_id: model.get('pathId') || 0,
       score_percent: model.get('score')
@@ -67,6 +68,7 @@ export default Ember.Object.extend({
       collectionSubType: data.collection_subtype,
       itemId: data.current_item_id,
       itemType: data.current_item_type,
+      itemSubType: data.current_item_subtype,
       status: data.state,
       pathId: data.path_id,
       score: data.score_percent
