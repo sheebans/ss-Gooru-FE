@@ -1,6 +1,6 @@
 <div class="controller search">
-  <div class="content-navigation row">
-    <div class="category-menu col-xs-12 col-sm-7 col-md-8">
+  <div class="content-navigation">
+    <div class="category-menu">
       <ul class="nav nav-tabs category-options">
         {{#link-to "search.courses" (query-params term=term) tagName="li" class='courses'}}
           <a href='{{view.href}}' class="btn btn-category">
@@ -32,9 +32,15 @@
             <span>{{t "search-filter.questions"}}</span>
           </a>
         {{/link-to}}
+        <li class="rubrics">
+          <a href='#' class="btn btn-category">
+            <i></i>
+            <span>{{t "search-filter.rubrics"}}</span>
+          </a>
+        </li>
       </ul>
     </div>
-    <span class="hidden-xs col-sm-5 col-md-4 standards">
+    <div class="hidden-xs standards">
     {{#if standardFilterEnabled}}
       {{search.gru-search-filter
         categories=categories
@@ -48,7 +54,7 @@
         disableSubjects=disableSubjects
       }}
     {{/if}}
-    </span>
+    </div>
   </div>
   <div class="content">
     {{outlet}}

@@ -850,39 +850,41 @@ export default Object.assign(quizzesTranslations, {
     "latest-assessment":"Latest Assessment",
     "class": {
       "back-to": "Back to Classrooms",
-      "click-to-copy": "Click to copy class code",
-      "course-map": "Course Map",
-      "performance": "Performance",
-      "management": "Roster Management",
       "class-management": "Class Management",
       "class-management-tab": {
-        "class-information": "Class Information",
-        "course-information": "Course Information",
-        "teachers": "Teachers",
-        "class-name": "Classroom Name",
-        "class-code": "Class Code",
-        "attend-class-with-code": "Attend Class With Code",
+        "actions": "Actions",
         "assessment-min-score": "Assessment Minimum Score for Trophies",
         "assigned-course": "Assigned Course",
-        "students": "Students",
-        "import-roster": "Import Roster",
-        "edit": "Edit",
+        "archive": "Archive",
+        "archive-class": "Archive Class",
+        "attend-class-with-code": "Attend Class With Code",
+        "class-information": "Class Information",
+        "class-name": "Classroom Name",
+        "class-code": "Class Code",
+        "click-to-copy-class-code": "Click to copy class code",
+        "course-information": "Course Information",
+        "delete": "Delete",
+        "delete-class": "Delete Class",
         "download-roster": "Download Roster",
+        "edit": "Edit",
+        "email-address": "Email Address",
+        "import-roster": "Import Roster",
+        "message": "Message",
+        "performance": "Performance",
+        "students": "Students",
         "student-name": "Student Name",
         "student-id": "Student ID",
-        "email-address": "Email Address",
-        "performance": "Performance",
-        "actions": "Actions",
-        "view-report": "View Report",
-        "message": "Message",
-        "archive": "Archive",
-        "delete": "Delete",
-        "click-to-copy-class-code": "Click to copy class code"
+        "teachers": "Teachers",
+        "view-report": "View Report"
       },
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
         "today": "Today"
       },
+      "click-to-copy": "Click to copy class code",
+      "course-map": "Course Map",
+      "management": "Roster Management",
+      "performance": "Performance",
       "performance-tab": {
         "assessments": "Assessments",
         "collections": "Collections"
@@ -1197,6 +1199,7 @@ export default Object.assign(quizzesTranslations, {
     "resources": "Resources",
     "assessments": "Assessments",
     "questions": "Questions",
+    "rubrics": "Rubrics",
     "question-types": {
       "MC": "Multiple Choice",
       "FIB": "Fill in the Blank",
@@ -1205,7 +1208,8 @@ export default Object.assign(quizzesTranslations, {
       "HS_TXT": "Multiple Select - Text",
       "HS_IMG": "Multiple Select - Image",
       "HT_RO": "Drag and Drop Order",
-      "HT_HL": "Hot Text- Highlight"
+      "HT_HL": "Hot Text- Highlight",
+      "OE":"Free Response"
     },
     "author": {
       "placeholder": "Author"
@@ -1404,6 +1408,31 @@ export default Object.assign(quizzesTranslations, {
         zero: "{{count}} Questions",
         one: "{{count}} Question",
         other: "{{count}} Questions"
+      }
+    },
+    "gru-collection-card":{
+      "courses": {
+        zero: "{{count}} Courses",
+        one: "{{count}} Course",
+        other: "{{count}} Courses"
+      },
+      "students": {
+        zero: "{{count}} Students",
+        one: "{{count}} Student",
+        other: "{{count}} Students"
+      },
+      "collections": {
+        one: "{{count}} Collection",
+        other: "{{count}} Collections"
+      },
+      "assessments": {
+        one: "{{count}} Assessment",
+        other: "{{count}} Assessments"
+      },
+      "classrooms": {
+        zero: "{{count}} Classrooms",
+        one: "{{count}} Classroom",
+        other: "{{count}} Classrooms"
       }
     },
     "gru-resource-card": {

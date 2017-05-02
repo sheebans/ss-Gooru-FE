@@ -247,3 +247,8 @@ export const SUGGESTION_TYPE = {
   postTest: 'post-test',
   backFill:'backfill-pretest'
 };
+
+export const PLAYER_EVENT_SOURCE = {
+  COURSE_MAP: 'coursemap',
+  DAILY_CLASS: 'dailyclassactivity'
+};

@@ -77,11 +77,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model: function(params) {
     const route = this;
-    const myId = route.get("session.userId");
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
     const membersPromise = route.get('classService').readClassMembers(classId);
-    const performanceSummaryPromise = route.get('performanceService').findClassPerformanceSummaryByStudentAndClassIds(myId,[classId]);
+    const performanceSummaryPromise = route.get('performanceService').findClassPerformanceSummaryByClassIds([classId]);
     return Ember.RSVP.hash({
       class: classPromise,
       members: membersPromise,
@@ -111,9 +110,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         aClass.set('members', members.get('members'));
         return {
           class: aClass,
-          course: course,
-          members: members,
-          contentVisibility: contentVisibility
+          course,
+          members,
+          contentVisibility
         };
       });
     });

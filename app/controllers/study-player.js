@@ -11,7 +11,7 @@ import PlayerController from 'gooru-web/controllers/player';
  */
 export default PlayerController.extend({
 
-  queryParams: ['resourceId', 'role', 'type', 'sourceId', 'unitId', 'lessonId', 'collectionId'],
+  queryParams: ['resourceId', 'role', 'type', 'sourceId', 'unitId', 'lessonId', 'collectionId', 'source'],
 
   // -------------------------------------------------------------------------
   // Dependencies

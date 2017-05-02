@@ -188,7 +188,7 @@ span.validation.warning {
   clear: both;
 }
 
-.cards {
+.cards, .new-cards {
   i.video-icon {
     background-image: url("gooru/images/video-resource.svg");
   }
@@ -337,9 +337,14 @@ span.validation.warning {
 
       }
       i{
-        background: url("gooru/images/navigation_resource.svg");
+        background: url("gooru/images/navigation_resource.svg") no-repeat;
+        background-size: 22px 19px;
+        min-height: 19px;
         width: 23px;
-        min-height: 21px;
+        @media (min-width: $screen-md) {
+          background-size: contain;
+          min-height: 21px;
+        }
       }
       &.active {
         i {

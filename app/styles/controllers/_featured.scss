@@ -16,4 +16,15 @@
     }
 
   }
+
+  .courses-results{
+    @include flexbox;
+    @include justify-content(center);
+    .results{
+      @include flexbox;
+      @include flex-wrap(wrap);
+      @include justify-content(space-around);
+      margin: 40px 110px;
+    }
+  }
 }

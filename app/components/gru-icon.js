@@ -3,6 +3,7 @@ import Ember from 'ember';
 /**
  * Gru icon
  * Wrapper for application icons, default implementation is material-design-icons from google
+ * https://material.io/icons/
  * @see application.hbs
  *
  *
