@@ -106,12 +106,13 @@ test('normalizeReadCollection for alternate paths', function(assert) {
   }));
   const collectionData = {
     thumbnail: 'image-id.png',
+    id: 1,
     target_course_id: 'course-id',
     target_unit_id: 'unit-id',
     target_lesson_id: 'lesson-id',
     target_collection_id: 'collection-id',
     target_content_subtype: 'pre-test',
-    target_content_type: 'assessment',
+    target_content_type: 'collection',
     title: 'collection-title',
     question_count:1,
     oe_question_count: 2,
@@ -119,6 +120,7 @@ test('normalizeReadCollection for alternate paths', function(assert) {
   };
   const collection = serializer.normalizeReadCollection(collectionData);
   assert.equal(collection.get('id'), 'collection-id', 'Wrong id');
+  assert.equal(collection.get('pathId'), 1, 'Wrong path id');
   assert.equal(collection.get('title'), 'collection-title', 'Wrong title');
   assert.equal(collection.get('thumbnailUrl'), 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image');
   assert.equal(collection.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
