@@ -1199,6 +1199,7 @@ export default Object.assign(quizzesTranslations, {
     "resources": "Resources",
     "assessments": "Assessments",
     "questions": "Questions",
+    "rubrics": "Rubrics",
     "question-types": {
       "MC": "Multiple Choice",
       "FIB": "Fill in the Blank",
