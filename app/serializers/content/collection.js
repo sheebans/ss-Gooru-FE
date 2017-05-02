@@ -103,6 +103,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const metadata = payload.metadata || {};
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.target_collection_id || payload.id,
+      pathId: payload.id,
       title: payload.title,
       learningObjectives: payload.learning_objective,
       isVisibleOnProfile: typeof payload.visible_on_profile !== 'undefined' ? payload.visible_on_profile : true,
