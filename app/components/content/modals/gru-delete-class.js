@@ -57,7 +57,7 @@ export default Ember.Component.extend({
           }
           component.set('isLoading', false);
           component.triggerAction({ action: 'closeModal' });
-          component.get('router').transitionTo('home');
+          component.get('router').transitionTo('teacher-home');
         })
         .catch(function (error) {
           var message = component.get('i18n').t('content.modals.delete-content.delete-error',

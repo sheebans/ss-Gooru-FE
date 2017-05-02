@@ -6,7 +6,7 @@
         <div class="panel-header">
           <h5>{{t "teacher-landing.class.class-management-tab.class-information"}}</h5>
           <div class="actions">
-            <button class="btn btn-primary delete-btn">
+            <button class="btn btn-primary delete-btn" {{action 'deleteClass'}}>
               <span>{{t 'teacher-landing.class.class-management-tab.delete-class'}}</span>
             </button>
             <button class="btn btn-primary archive-btn">
@@ -18,7 +18,12 @@
           <div class="class-name">
             <p><{{t 'teacher-landing.class.class-management-tab.class-name'}}</p>
             <div class="edit-text">
-              <span>{{class.title}}</span> {{gru-icon name='edit'}}
+              {{#unless editingTitle}}
+                <span class='class-title'>{{class.title}}</span>
+                <span class='edit-icon' {{action "editTitle" true}}>{{gru-icon name='edit'}}</span>
+              {{else}}
+                {{validation.gru-input model=tempClass valuePath='title' didValidate=didValidate onFocusOut="editTitle"}}
+              {{/unless}}
             </div>
           </div>
           <div class="row class-code">
@@ -33,7 +38,7 @@
             </div>
             <div class="col-md-7 col-sm-7 col-xs-7">
               <p><{{t 'teacher-landing.class.class-management-tab.attend-class-with-code'}}</p>
-              {{gru-switch switchOptions=switchOptions onOptionSwitch='onAttendClassWithCodeChange' isChecked=false}}
+              {{gru-switch switchOptions=switchOptions onOptionSwitch='updateClass' isChecked=isAttendClassWithCode}}
             </div>
           </div>
         </div>
@@ -61,7 +66,12 @@
               <div class="assessment-min-score">
                 <p><{{t 'teacher-landing.class.class-management-tab.assessment-min-score'}}</p>
                 <div class="edit-text">
-                  <span>{{if class.minScore class.minScore '--'}} % </span> {{gru-icon name='edit'}}
+                  {{#unless editingScore}}
+                    <span>{{if class.minScore class.minScore '--'}} % </span>
+                    <span {{action "editScore" true}}>{{gru-icon name='edit'}}</span>
+                  {{else}}
+                    {{validation.gru-input-number model=tempClass valuePath='minScore' min=1 max=100 step=1 didValidate=didValidate onFocusOut="editScore"}}
+                  {{/unless}}
                 </div>
               </div>
             </div>

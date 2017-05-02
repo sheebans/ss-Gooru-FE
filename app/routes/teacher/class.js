@@ -110,9 +110,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         aClass.set('members', members.get('members'));
         return {
           class: aClass,
-          course: course,
-          members: members,
-          contentVisibility: contentVisibility
+          course,
+          members,
+          contentVisibility
         };
       });
     });
