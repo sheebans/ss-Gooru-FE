@@ -75,9 +75,14 @@ export default Ember.Component.extend({
   },
 
   didInsertElement: function() {
-    const $input = this.$('div input');
+    const component = this;
+    const $input = component.$('div input');
 
-    if(this.get('isRequired')){
+    if(component.get('autofocus')){
+      $input.focus();
+    }
+
+    if(component.get('isRequired')){
       $input.attr("aria-required", true);
     }
 
@@ -153,8 +158,7 @@ export default Ember.Component.extend({
   onTyping: null,
 
   /**
-   * Indicates if
-   * @property {boolean}
+   * @param {Boolean} focus - set input focus
    */
   autofocus: false,
 

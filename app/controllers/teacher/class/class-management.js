@@ -88,11 +88,6 @@ export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
-    var classForEditing = this.get('class').copy();
-    this.set('tempClass', classForEditing);
-  },
-
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -163,6 +158,7 @@ export default Ember.Controller.extend(ModalMixin, {
       if (validations.get('isValid')) {
         controller.get('classService').updateClass(editedClass)
           .then(function () {
+            controller.send('updateUserClasses');
             controller.get('class').merge(editedClass, ['title', 'minScore', 'classSharing']);
           });
       }
@@ -172,5 +168,14 @@ export default Ember.Controller.extend(ModalMixin, {
       }
       this.set('didValidate', true);
     }.bind(this));
+  },
+
+  /**
+   * Reset controller values
+   */
+  resetValues: function(){
+    this.set('editingTitle', null);
+    this.set('editingScore', null);
+    this.set('didValidate', false);
   }
 });
