@@ -111,6 +111,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         params.classId = params.classId || mapLocation.get('context.classId');
         params.unitId = params.unitId || mapLocation.get('context.unitId');
         params.lessonId = params.lessonId || mapLocation.get('context.lessonId');
+        params.pathId = params.pathId || mapLocation.get('context.pathId');
 
         //loads the player model if it has no suggestions
         return route.playerModel(params).then(function (model) {
@@ -162,6 +163,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     const lessonId = params.lessonId;
     const collectionType = params.type;
     const collectionId = params.collectionId;
+    const pathId = params.pathId;
+    const collectionSubType = params.subtype;
 
     const continueCourse = !unitId;
     const startLesson = lessonId && !collectionId;
@@ -170,13 +173,21 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
 
     let mapLocationPromise = null;
     if (continueCourse) {
-      mapLocationPromise = navigateMapService.continueCourse(courseId, classId);
-    }
-    else if (startLesson) {
-      mapLocationPromise = navigateMapService.startLesson(courseId, unitId, lessonId, classId);
-    }
-    else {
-      mapLocationPromise = navigateMapService.startCollection(courseId, unitId, lessonId, collectionId, collectionType, classId);
+      mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId)
+        .then(mapContext => navigateMapService.next(mapContext));
+    } else if (startLesson) {
+      mapLocationPromise = navigateMapService.startLesson(
+        courseId, unitId, lessonId, classId
+      );
+    } else if (collectionSubType) {
+      mapLocationPromise = navigateMapService.startSuggestion(
+        courseId, unitId, lessonId, collectionId, collectionType,
+        collectionSubType, pathId, classId
+      );
+    } else {
+      mapLocationPromise = navigateMapService.startCollection(
+        courseId, unitId, lessonId, collectionId, collectionType, classId
+      );
     }
     return mapLocationPromise;
   },

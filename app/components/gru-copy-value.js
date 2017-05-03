@@ -34,7 +34,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
       }
     });
 
-    $('.copy-btn').tooltip({placement:'right'});
+    $('.copy-btn').tooltip({placement:'bottom'});
 
     clipboard.on('success', function() {
       $('.copy-btn').tooltip('hide');

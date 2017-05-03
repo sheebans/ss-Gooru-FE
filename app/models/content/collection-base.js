@@ -22,24 +22,34 @@ export default (function() {
     id: null,
 
     /**
+     * @property {string} pathId only used for suggestions
+     */
+    pathId: null,
+
+    /**
+     * @property {string} indicates the sub-type if it has one
+     */
+    collectionSubType: null,
+
+    /**
      * @property {String} category - Category the course belongs to
      */
     category: Ember.computed('subject', function() {
-    var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
-    if (this.get('subject')) {
-      let keys = this.get('subject').split('.');
-      if (keys.length > 1) {
-        for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
-          // The second part of the subjectId represents the category
-          if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
-            category = TAXONOMY_CATEGORIES[i].value;
-            break;
+      var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
+      if (this.get('subject')) {
+        let keys = this.get('subject').split('.');
+        if (keys.length > 1) {
+          for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
+            // The second part of the subjectId represents the category
+            if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
+              category = TAXONOMY_CATEGORIES[i].value;
+              break;
+            }
           }
         }
       }
-    }
-    return category;
-  }),
+      return category;
+    }),
 
     /**
      * @property {Ember.Array} children - List of collections/assessments

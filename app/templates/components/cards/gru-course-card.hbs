@@ -5,35 +5,39 @@
         {{#if isOwner}}
           {{#if isEditEnabled}}
             {{#link-to "content.courses.edit" course.id class="course-image"}}
-                <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
+              <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
             {{/link-to}}
           {{/if}}
         {{else}}
           {{#link-to "content.courses.play" course.id class="course-image"}}
-              <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
+            <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
           {{/link-to}}
         {{/if}}
       </div>
       <div class="header-content">
         <div>
+          {{#unless isSmall}}
             {{#if isOwner}}
-                {{#if isEditEnabled}}
-                  {{#link-to "content.courses.edit" course.id class="course-title pointer ellipsis" tagName="h3"}}
-                     {{course.title}}
-                  {{/link-to}}
-                {{/if}}
+              {{#if isEditEnabled}}
+                {{#link-to "content.courses.edit" course.id class="course-title pointer ellipsis" tagName="h3"}}
+                   {{course.title}}
+                {{/link-to}}
+              {{/if}}
             {{else}}
               {{#link-to "content.courses.play" course.id class="course-title pointer ellipsis" tagName="h3"}}
                 {{course.title}}
               {{/link-to}}
             {{/if}}
+          {{else}}
+            <h3 class="course-title ellipsis">{{course.title}}</h3>
+          {{/unless}}
         </div>
         <p class="subject ellipsis">
-            {{#if course.unitCount}}
-              <span class="bars"></span><span class="total-units">{{t "cards.gru-course-card.units" count=course.unitCount}}</span>
-            {{else}}
-                <span class="bars"></span><span class="total-units">{{t "cards.gru-course-card.units" count=0}}</span>
-            {{/if}}
+          {{#if course.unitCount}}
+            <span class="bars"></span><span class="total-units">{{t "cards.gru-course-card.units" count=course.unitCount}}</span>
+          {{else}}
+            <span class="bars"></span><span class="total-units">{{t "cards.gru-course-card.units" count=0}}</span>
+          {{/if}}
           {{#if subjects}}
             <span class="bars"></span>{{subjects}}
           {{/if}}
@@ -50,7 +54,7 @@
             </div>
           {{/if}}
           {{#if course.isPublished}}
-              <i class="icon public" data-toggle="tooltip" data-placement="auto" title="{{t 'common.published-tooltip'}}"></i>
+            <i class="icon public" data-toggle="tooltip" data-placement="auto" title="{{t 'common.published-tooltip'}}"></i>
           {{/if}}
         {{/unless}}
       </div>
@@ -59,8 +63,8 @@
       <div class="card-content">
         <div class="taxonomy-standards">
           {{#if tags.length}}
-             {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true hasTooltips=false}}
-           {{/if}}
+            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true hasTooltips=false}}
+          {{/if}}
         </div>
         <div class="course-description">
           {{#if course.description}}
@@ -71,16 +75,16 @@
           {{#if isOwner}}
             {{#if isEditEnabled}}
               <div class="edit-button">
-                  <button class="btn btn-sm btn-success" {{action 'editCourse'}}>{{t "common.edit"}}</button>
+                <button class="btn btn-sm btn-success" {{action 'editCourse'}}>{{t "common.edit"}}</button>
               </div>
                 <div class="play-button">
-                    <button class="btn btn-sm btn-success" {{action 'playCourse'}}>{{t "common.play"}}</button>
+                  <button class="btn btn-sm btn-success" {{action 'playCourse'}}>{{t "common.play"}}</button>
                 </div>
             {{/if}}
           {{else}}
             {{#if (and course.isPublished isRemixEnabled)}}
               <div class="remix-button">
-                  <button class="btn btn-sm btn-success" {{action 'remixCourse'}}>{{t "common.remix"}}</button>
+                <button class="btn btn-sm btn-success" {{action 'remixCourse'}}>{{t "common.remix"}}</button>
               </div>
             {{/if}}
           {{/if}}
@@ -88,7 +92,7 @@
         {{#if isEyeVisible}}
           {{#unless course.isVisibleOnProfile }}
             <div class="visibility" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="auto">
-                {{gru-icon name="visibility_off"}}
+              {{gru-icon name="visibility_off"}}
             </div>
           {{/unless}}
         {{/if}}

@@ -114,6 +114,34 @@ test('startCollection', function(assert) {
     });
 });
 
+test('startSuggestion', function(assert) {
+  const service = this.subject({
+    next: function(mapContext) {
+      assert.equal(mapContext.get('courseId'), 'course-id', 'Wrong course id');
+      assert.equal(mapContext.get('unitId'), 'unit-id', 'Wrong unit id');
+      assert.equal(mapContext.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+      assert.equal(mapContext.get('collectionId'), 'collection-id', 'Wrong collection id');
+      assert.equal(mapContext.get('collectionType'), 'collection-type', 'Wrong collection type');
+      assert.equal(mapContext.get('collectionSubType'), 'pre-test', 'Wrong collection sub type');
+      assert.equal(mapContext.get('itemId'), 'collection-id', 'Wrong item id');
+      assert.equal(mapContext.get('itemType'), 'collection-type', 'Wrong item type');
+      assert.equal(mapContext.get('itemSubType'), 'pre-test', 'Wrong item sub type');
+      assert.equal(mapContext.get('classId'), 'class-id', 'Wrong class id');
+      assert.equal(mapContext.get('pathId'), 1, 'Wrong path id');
+      assert.equal(mapContext.get('status'), 'start', 'Wrong status');
+      return Ember.RSVP.resolve('fake-response');
+    }
+  });
+  assert.expect(13);
+
+  var done = assert.async();
+  service.startSuggestion('course-id', 'unit-id', 'lesson-id', 'collection-id', 'collection-type', 'pre-test', 1, 'class-id')
+    .then(function(response) {
+      assert.equal(response, 'fake-response', 'Wrong response');
+      done();
+    });
+});
+
 test('startLesson', function(assert) {
   const service = this.subject({
     next: function(mapContext) {

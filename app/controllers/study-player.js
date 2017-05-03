@@ -11,7 +11,7 @@ import PlayerController from 'gooru-web/controllers/player';
  */
 export default PlayerController.extend({
 
-  queryParams: ['resourceId', 'role', 'type', 'sourceId', 'unitId', 'lessonId', 'collectionId', 'source'],
+  queryParams: ['resourceId', 'role', 'type', 'subtype', 'sourceId', 'unitId', 'lessonId', 'collectionId', 'source', 'pathId'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -85,6 +85,11 @@ export default PlayerController.extend({
    * @property {string}
    */
   collectionId: null,
+
+  /**
+   * @property {string}
+   */
+  pathId: null,
 
   /**
    * Shows the performance information
