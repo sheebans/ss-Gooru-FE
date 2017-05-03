@@ -21,6 +21,8 @@ export default Ember.Route.extend({
    * @param controller
    */
   setupController: function (controller) {
+    controller.resetValues();
+    controller.set('tempClass', controller.get('class').copy());
     controller.get('classController').selectMenuItem('class-management');
   }
 

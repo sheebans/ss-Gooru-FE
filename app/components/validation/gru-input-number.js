@@ -50,6 +50,10 @@ export default GruInput.extend({
   didRender: function() {
     this._super(...arguments);
     const component = this;
+
+    if(component.get('autofocus')){
+      component.$('input[type=number]').focus();
+    }
     // only accept numbers
     component.$('input[type=number]').keypress(function(event) {
       // 0 means key without character input, 8 is backspace, 48-57 are numbers
@@ -89,6 +93,11 @@ export default GruInput.extend({
   /**
    * @param {String} oldValue - before the value has changed / before the input event
    */
-  oldValue: null
+  oldValue: null,
+
+  /**
+   * @param {Boolean} focus - set input focus
+   */
+  autofocus: false
 
 });
