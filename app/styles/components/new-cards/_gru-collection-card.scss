@@ -65,10 +65,15 @@
       .standards{
         .gru-taxonomy-tag-list {
           .gru-taxonomy-tag {
-            max-width: 64px;
+            max-width: 88%;
             .content{
               margin:0;
             }
+          }
+        }
+        .popover-content{
+          .gru-taxonomy-tag {
+            max-width:100%;
           }
         }
       }
