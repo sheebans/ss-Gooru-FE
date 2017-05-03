@@ -106,12 +106,14 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
     const thumbnailUrl = assessmentData.thumbnail ?
-    basePath + assessmentData.thumbnail : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+      basePath + assessmentData.thumbnail :
+      appRootPath + DEFAULT_IMAGES.ASSESSMENT;
     const metadata = assessmentData.metadata || {};
     const settings = assessmentData.setting || {};
 
     let normalizedAssessment = AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: assessmentData.id,
+      id: assessmentData.target_collection_id || assessmentData.id,
+      pathId: assessmentData.id,
       title: assessmentData.title,
       learningObjectives: assessmentData.learning_objective,
       isVisibleOnProfile: typeof assessmentData.visible_on_profile !== 'undefined' ? assessmentData.visible_on_profile : true,
@@ -126,9 +128,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
       metadata: metadata,
       audience: metadata.audience && metadata.audience.length > 0 ? metadata.audience : [],
       depthOfknowledge: metadata.depth_of_knowledge && metadata.depth_of_knowledge.length > 0 ? metadata.depth_of_knowledge : [],
-      courseId: assessmentData.course_id,
-      unitId: assessmentData.unit_id,
-      lessonId: assessmentData.lesson_id,
+      courseId: assessmentData.target_course_id || assessmentData.course_id,
+      unitId: assessmentData.target_unit_id || assessmentData.unit_id,
+      lessonId: assessmentData.target_lesson_id || assessmentData.lesson_id,
+      collectionSubType: assessmentData.target_content_subtype,
       attempts: settings.attempts_allowed || -1,
       bidirectional: settings.bidirectional_play || false,
       showFeedback: settings.show_feedback || ASSESSMENT_SHOW_VALUES.SUMMARY,

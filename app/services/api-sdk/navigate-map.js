@@ -86,17 +86,49 @@ export default Ember.Service.extend({
    * @param {string} classId
    * @returns {Promise.<MapLocation>}
    */
-  startCollection: function (courseId, unitId, lessonId, collectionId, collectionType, classId = undefined) {
+  startCollection: function (courseId, unitId, lessonId, collectionId, collectionType, classId=undefined) {
     const service = this;
     const mapContext = MapContext.create({
-      courseId: courseId,
-      unitId: unitId,
-      lessonId: lessonId,
-      collectionId: collectionId,
-      collectionType: collectionType,
+      courseId,
+      unitId,
+      lessonId,
+      collectionId,
+      collectionType,
       itemId: collectionId,
       itemType: collectionType,
-      classId: classId,
+      classId,
+      status: 'start'
+    });
+    return service.next(mapContext);
+  },
+
+  /**
+   * Starts a suggestion
+   *
+   * @param {string} courseId
+   * @param {string} unitId
+   * @param {string} lessonId
+   * @param {string} collectionId
+   * @param {string} collectionType
+   * @param {string} collectionSubType
+   * @param {string} pathId
+   * @param {string} classId
+   * @returns {Promise.<MapLocation>}
+   */
+  startSuggestion: function (courseId, unitId, lessonId, collectionId, collectionType, collectionSubType, pathId, classId) {
+    const service = this;
+    const mapContext = MapContext.create({
+      courseId,
+      unitId,
+      lessonId,
+      collectionId,
+      collectionType,
+      collectionSubType,
+      itemId: collectionId,
+      itemType: collectionType,
+      itemSubType: collectionSubType,
+      pathId: +pathId,
+      classId,
       status: 'start'
     });
     return service.next(mapContext);

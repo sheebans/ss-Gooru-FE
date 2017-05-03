@@ -124,7 +124,9 @@ export default Ember.Route.extend({
       collectionId,
       type: collectionType,
       role,
-      source: PLAYER_EVENT_SOURCE.COURSE_MAP
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+      subtype: collection.collectionSubType,
+      pathId: collection.pathId
     };
     route.transitionTo('study-player', classId, courseId, { queryParams });
   },

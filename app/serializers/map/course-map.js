@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import LessonSerializer from 'gooru-web/serializers/content/lesson';
 import CollectionSerializer from 'gooru-web/serializers/content/collection';
+import AssessmentSerializer from 'gooru-web/serializers/content/assessment';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 /**
@@ -14,6 +15,12 @@ export default Ember.Object.extend({
    * @property {LessonSerializer} lessonSerializer
    */
   lessonSerializer: null,
+
+  /**
+   * @property {AssessmentSerializer} assessmentSerializer
+   */
+  assessmentSerializer: null,
+
   /**
    * @property {CollectionSerializer} collectionSerializer
    */
@@ -22,6 +29,7 @@ export default Ember.Object.extend({
   init: function () {
     this._super(...arguments);
     this.set('lessonSerializer', LessonSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('assessmentSerializer', AssessmentSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
@@ -56,7 +64,9 @@ export default Ember.Object.extend({
    */
   normalizeAlternatePaths: function (data) {
     return Ember.isArray(data) ? data.map(
-      path => this.get('collectionSerializer').normalizeReadCollection(path)
+      path => path.target_content_type === 'collection' ?
+        this.get('collectionSerializer').normalizeReadCollection(path) :
+        this.get('assessmentSerializer').normalizeReadAssessment(path)
     ) : [];
   }
 });
