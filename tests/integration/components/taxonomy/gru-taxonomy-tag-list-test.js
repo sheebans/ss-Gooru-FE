@@ -34,6 +34,31 @@ test('it renders all tags correctly', function(assert) {
   const $tooltip = $(".tags-tooltip"); //the tooltip is injected out of the element
   assert.ok(!$tooltip.length, 'All tags tooltip should not be visible');
   assert.equal($component.find('> .gru-taxonomy-tag').length, 4, 'Should tags should be visible');
+  assert.notOk($component.find('.description-tag').length,'Description tag should not appear');
+});
+
+test('Show description', function(assert) {
+  const tags = [];
+  for(var i = 0; i < 4; i++){
+    var tag = TaxonomyTag.create({
+      isActive: false,
+      isReadonly: false,
+      isRemovable: false,
+      data: TaxonomyTagData.create({
+        id: `id-${i}`,
+        code: `ST.03.${i}`,
+        frameworkCode: "GDF",
+        parentTitle: "Subject"
+      })
+    });
+    tags.push(tag);
+  }
+  this.set('tags', tags);
+
+  this.render(hbs`{{taxonomy/gru-taxonomy-tag-list tags=tags showDescription=true tagsVisible=1}}`);
+
+  const $component = this.$('.taxonomy.gru-taxonomy-tag-list');
+  assert.ok($component.find('.description-tag').length,'Description tag should appear');
 });
 
 test('it renders max allowed tags correctly', function(assert) {
