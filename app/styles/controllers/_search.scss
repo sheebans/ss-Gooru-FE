@@ -32,6 +32,9 @@
               background: url("gooru/images/add_rubric_white.svg") no-repeat center;
               height: 25px;
               width: 25px;
+              @media (max-width: $screen-xs-max) {
+                height: 16px;
+              }
             }
           }
           @media (min-width: $screen-md-max) {
