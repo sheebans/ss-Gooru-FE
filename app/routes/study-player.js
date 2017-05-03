@@ -173,7 +173,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
 
     let mapLocationPromise = null;
     if (continueCourse) {
-      mapLocationPromise = navigateMapService.continueCourse(courseId, classId);
+      mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId)
+        .then(mapContext => navigateMapService.next(mapContext));
     } else if (startLesson) {
       mapLocationPromise = navigateMapService.startLesson(
         courseId, unitId, lessonId, classId
