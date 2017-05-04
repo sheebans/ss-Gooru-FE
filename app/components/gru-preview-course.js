@@ -17,6 +17,18 @@ export default Ember.Component.extend({
   classNames:['gru-preview-course'],
 
   // -------------------------------------------------------------------------
+  // Actions
+  actions:{
+    /**
+     * Action triggered to remix the course
+     * @param content
+     */
+    remixCourse:function(){
+      this.get('model').remixCourse();
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Events
 
   init() {

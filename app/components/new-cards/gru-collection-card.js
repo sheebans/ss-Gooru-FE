@@ -43,7 +43,10 @@ export default Ember.Component.extend(ModalMixin,{
      */
     previewContent: function(content) {
       var model = {
-        content: content
+        content: content,
+        remixCourse: function () {
+          return this.remixCourse();
+        }.bind(this)
       };
       if(this.get('isCourse')){
         this.send('showModal', 'gru-preview-course', model);
@@ -121,20 +124,6 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {string} on content player action
    */
   onOpenContentPlayer: null,
-
-  /**
-   * Indicates if the edit functionality is enabled
-   * @property {boolean}
-   */
-  remixEnabled: Ember.computed('editEnabled', 'content', function(){
-    const isEditing = this.get('editEnabled');
-    if (this.get('iscontent')) {
-      return !isEditing;
-    }
-    else {
-      return !isEditing && !this.get('isExternalAssessment');
-    }
-  }),
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
@@ -149,5 +138,18 @@ export default Ember.Component.extend(ModalMixin,{
     } else {
       return TaxonomyTag.getTaxonomyTags(this.get('content.taxonomy'));
     }
-  })
+  }),
+  // -------------------------------------------------------------------------
+  // Methods
+
+  remixCourse:function(){
+    if (this.get('session.isAnonymous')) {
+      this.send('showModal', 'content.modals.gru-login-prompt');
+    } else {
+      var remixModel = {
+        content: this.get('content')
+      };
+      this.send('showModal', 'content.modals.gru-course-remix', remixModel);
+    }
+  }
 });
