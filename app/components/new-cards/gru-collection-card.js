@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * Collection, Assessment and Course card
@@ -8,7 +9,7 @@ import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
  * Component responsible of showing the collection assessment or rubric information in cards, so that most useful information is summarized there.
  * @module
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service('session'),
@@ -23,17 +24,30 @@ export default Ember.Component.extend({
 
   actions: {
     /**
+     * Action triggered to edit content
+     */
+    editContent: function(){
+      this.sendAction('onEditContent', this.get('content'));
+    },
+    /**
      * Action triggered to open the content player
      * @param {string} content identifier
      */
     openContentPlayer: function(content) {
       this.sendAction('onOpenContentPlayer', content);
     },
+
     /**
-     * Action triggered to edit content
+     * Action triggered to preview the content
+     * @param content
      */
-    editContent: function(){
-      this.sendAction('onEditContent', this.get('content'));
+    previewContent: function(content) {
+      var model = {
+        content: content
+      };
+      if(this.get('isCourse')){
+        this.send('showModal', 'gru-preview-course', model);
+      }
     }
   },
   // -------------------------------------------------------------------------
