@@ -133,6 +133,9 @@
         width: 80%;
         @include align-items(center);
         padding: 0 0 0 10px;
+        button {
+          margin: 0 10px 0 0;
+        }
       }
       .actions {
         .btn {
