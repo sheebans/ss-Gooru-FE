@@ -14,7 +14,8 @@
   }
 
   .panel {
-    height: 290px;
+    height: auto;
+    min-height: 290px;
     overflow-y: auto;
   }
 
@@ -40,12 +41,16 @@
         $line-height: 1.1;
         $lines-to-show: 2;
         @include ellipsis($font-size: $font-size-large, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+        @media (min-width: $screen-md) {
+          &:before{
+            width: 0;
+          }
+        }
       }
     }
 
     .course-title {
       color: $blue-300;
-      cursor: pointer;
       font-size: $font-size-large;
       height: 50px;
       margin: 0;
@@ -198,7 +203,7 @@
         padding: 5px;
         margin-left: 5px;
         height: 64px;
-        width: 140px;
+        width: 154px;
         .course-title {
           height: auto;
         }

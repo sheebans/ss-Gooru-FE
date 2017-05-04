@@ -37,14 +37,33 @@ export function aggregateClassActivityPerformanceSummaryItems(activityPerformanc
  * @returns {CollectionPerformanceSummary}
  */
 export function aggregateCollectionPerformanceSummaryItems(collectionPerformanceSummaryItems) {
-  const timeSpentValues = collectionPerformanceSummaryItems.map((a) => a.get('timeSpent') || 0);
-  const scoreValues = collectionPerformanceSummaryItems.map((a) => a.get('score') || 0);
-  const attempts = collectionPerformanceSummaryItems.map((a) => a.get('attempts') || 0);
+
+  const timeSpentValues = collectionPerformanceSummaryItems.map(function(item){
+    var timeSpent = item.get('timeSpent');
+    return timeSpent;
+  }).filter(function(timeSpent){
+    return (timeSpent !== undefined); // throw away any instances which are not undefined
+  });
+
+  const scoreValues = collectionPerformanceSummaryItems.map(function(item){
+    var score = item.get('score');
+    return score;
+  }).filter(function(score){
+    return (score !== undefined); // throw away any instances which are not undefined
+  });
+
+  const attempts = collectionPerformanceSummaryItems.map(function(item){
+    var attempts = item.get('attempts');
+    return attempts;
+  }).filter(function(attempts){
+    return (attempts !== undefined); // throw away any instances which are not undefined
+  });
+
   const collectionId = collectionPerformanceSummaryItems[0].get("collectionId");
   return CollectionPerformanceSummary.create({
     collectionId: collectionId,
-    timeSpent: sumAll(timeSpentValues),
-    score: average(scoreValues),
-    attempts: sumAll(attempts)
+    timeSpent: (timeSpentValues.length > 0) ? sumAll(timeSpentValues) : null,
+    score: (scoreValues.length > 0) ? average(scoreValues) : null,
+    attempts: (attempts.length > 0) ? sumAll(attempts) : null
   });
 }

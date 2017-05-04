@@ -158,7 +158,8 @@ export default StudentCollection.extend({
     courseMapService.createNewPath(context, suggestion)
     .then(function() {
       const queryParams = {
-        role: ROLES.STUDENT
+        role: ROLES.STUDENT,
+        source: controller.get('source')
       };
       controller.transitionToRoute('study-player',
         context.get('classId'),

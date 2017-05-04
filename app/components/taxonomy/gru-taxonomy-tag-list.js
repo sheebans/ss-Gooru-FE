@@ -11,7 +11,7 @@ export default Ember.Component.extend({
 
   classNames: ['taxonomy', 'gru-taxonomy-tag-list'],
 
-  classNameBindings: ['isInCard:in-card'],
+  classNameBindings: ['isInCard:in-card','showDescription:show-description'],
 
   // --------------------------------------------
   // Actions
@@ -57,6 +57,10 @@ export default Ember.Component.extend({
    * @property {boolean} Is the taxonomy tag list called from search
    */
   isInSearch: false,
+  /**
+   * @property {boolean} Indicate if show taxonomy description in the popover
+   */
+  showDescription:false,
 
   /**
    * @property {TaxonomyTag[]} taxonomy tag

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { ROLES } from 'gooru-web/config/config';
+import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
 
@@ -119,13 +119,16 @@ export default Ember.Route.extend({
     const collectionType = collection.get('collectionType');
 
     const queryParams = {
-      unitId: unitId,
-      lessonId: lessonId,
-      collectionId: collectionId,
+      unitId,
+      lessonId,
+      collectionId,
       type: collectionType,
-      role: role
+      role,
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+      subtype: collection.collectionSubType,
+      pathId: collection.pathId
     };
-    route.transitionTo('study-player', classId, courseId, { queryParams: queryParams });
+    route.transitionTo('study-player', classId, courseId, { queryParams });
   },
 
   /**
@@ -139,11 +142,12 @@ export default Ember.Route.extend({
     const route = this;
     const role = ROLES.STUDENT;
     const queryParams = {
-      unitId: unitId,
-      lessonId: lessonId,
-      role: role
+      unitId,
+      lessonId,
+      role,
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
-    route.transitionTo('study-player', classId, courseId, { queryParams: queryParams });
+    route.transitionTo('study-player', classId, courseId, { queryParams });
   },
 
   /**
@@ -154,8 +158,9 @@ export default Ember.Route.extend({
   continueCourseStudyPlayer: function (classId, courseId) {
     const route = this;
     const queryParams = {
-      role: ROLES.STUDENT
+      role: ROLES.STUDENT,
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
-    route.transitionTo('study-player', classId, courseId, { queryParams: queryParams });
+    route.transitionTo('study-player', classId, courseId, { queryParams });
   }
 });

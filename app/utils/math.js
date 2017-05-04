@@ -44,5 +44,5 @@ export function average(values) {
   } else {
     Ember.Logger.warn('Unable to compute average on param: ', values);
   }
-  return result;
+  return roundFloat(result);
 }

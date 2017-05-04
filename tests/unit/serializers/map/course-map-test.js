@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 import CollectionModel from 'gooru-web/models/content/collection';
+import AssessmentModel from 'gooru-web/models/content/assessment';
 
 moduleFor('serializer:map/course-map', 'Unit | Serializer | map/course-map');
 
@@ -30,6 +31,14 @@ test('normalizeLessonInfo', function(assert) {
       return CollectionModel.create({
         title: `normalized-collection-${collection}`,
         collectionSubType: collection
+      });
+    }
+  });
+  serializer.set('assessmentSerializer', {
+    normalizeReadAssessment: assessment => {
+      return AssessmentModel.create({
+        title: `normalized-collection-${assessment}`,
+        collectionSubType: assessment
       });
     }
   });

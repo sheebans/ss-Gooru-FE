@@ -248,3 +248,8 @@ export const SUGGESTION_TYPE = {
   backFill:'backfill-pretest',
   benchmark:'benchmark'
 };
+
+export const PLAYER_EVENT_SOURCE = {
+  COURSE_MAP: 'coursemap',
+  DAILY_CLASS: 'dailyclassactivity'
+};

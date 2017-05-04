@@ -2,7 +2,6 @@
   .gru-resource-options {
     $optionsHeightXS: 70px;
     $optionsHeightSM: 53px;
-    margin-left: -15px;
     padding: 0;
     width: 100vw;
     .options {
@@ -10,18 +9,17 @@
       height: $optionsHeightXS;
       background-color: $light-100;
       margin-left: -15px;
-      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.20);
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.20);
       text-align: center;
       padding: 0 0 0 3%;
       @media (min-width: $screen-sm) {
-        padding: 0 0 0 35px;
+        padding: 0 0 0 15px;
         height: $optionsHeightSM;
       }
       ul {
         padding: 0;
         list-style: none;
         @include flexbox;
-        height: inherit;
         margin: 0;
         height: $optionsHeightXS;
         overflow: hidden;
@@ -30,8 +28,12 @@
           height: $optionsHeightSM;
         }
         li {
-          display: table;
-          margin: 0 0.7em;
+          margin: 0 20px;
+          text-align: left;
+          width: 118px;
+          @media (max-width: $screen-xs-max) {
+            margin: 0 5px;
+          }
           .btn-option {
             color: $green-300;
             padding: 0 5px;
@@ -40,7 +42,7 @@
             height: $optionsHeightXS;
             background-color: $light-100;
             display: table-cell;
-            span {
+              span {
               vertical-align: middle;
               display: inline-block;
               font-size: $font-size-h6;
@@ -50,13 +52,18 @@
               }
               &.icon-container {
                 height: 30px;
-                margin: 0 0 5px 0;
+                margin: 3px 5px 0 0;
+                .icon{
+                  background-size: 30px 20px;
+                  height: 20px;
+                }
               }
               &.text {
                 line-height: 14px;
                 text-align: left;
                 @media (max-width: $screen-xs-max) {
                   display: block;
+                  font-size: 12px;
                 }
               }
             }
@@ -69,45 +76,48 @@
           }
           .video {
             .icon {
-              background: url("gooru/images/video-resource-green.svg");
-              width: 30px;
-              height: 30px;
+              background: url(gooru/images/video-resource-green.svg) no-repeat;
+              width: 25px;
             }
           }
           .web-page {
             .icon {
-              background: url("gooru/images/website-resource-green.svg");
-              width: 24px;
-              height: 24px;
+              background: url("gooru/images/website-resource-green.svg") no-repeat;
+              width: 25px;
             }
           }
           .interactive {
             .icon {
-              background: url("gooru/images/interactive-resource-green.svg");
-              width: 33px;
-              height: 30px;
+              background: url("gooru/images/interactive-resource-green.svg") no-repeat;
+              width: 26px;
             }
           }
           .image {
             .icon {
-              background: url("gooru/images/image-resource-green.svg");
-              width: 30px;
-              height: 30px;
+              background: url("gooru/images/image-resource-green.svg") no-repeat;
+              width: 25px;
             }
           }
 
           .text {
             .icon {
-              background: url("gooru/images/text-resource-green.svg");
-              width: 31px;
-              height: 30px;
+              background: url("gooru/images/text-resource-green.svg") no-repeat;
+              width: 25px;
             }
           }
           .audio {
             .icon {
-              background: url("gooru/images/audio-resource-green.svg");
-              width: 35px;
-              height: 30px;
+              background: url("gooru/images/audio-resource-green.svg") no-repeat;
+              width: 26px;
+            }
+          }
+          &.web-page{
+            margin-left: 5px;
+          }
+          &.interactive{
+            margin-right: 35px;
+            @media (max-width: $screen-xs-max) {
+              margin-right: 5px
             }
           }
         }

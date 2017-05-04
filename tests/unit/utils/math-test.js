@@ -57,7 +57,7 @@ test('isNumeric with non-numeric values', function (assert) {
 test('Average on array of values', function (assert) {
   assert.equal(average([2]), 2, 'Array with one number');
   assert.equal(average([2, 4]), 3, 'Array with two numbers');
-  assert.equal(average([3, 4]), 3.5, 'Array with two numbers -decimal point');
+  assert.equal(average([3, 4]), 4, 'Array with two numbers -decimal point');
   assert.equal(average([1, 2, 3, 4, 5]), 3, 'Array with more than two numbers');
 });
 

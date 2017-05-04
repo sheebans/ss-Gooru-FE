@@ -1,0 +1,83 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="header">
+            <div class="image">
+                {{#if isRubric}}
+                    <i class="rubric-icon"></i>
+                {{else}}
+                  {{#if editEnabled}}
+                    {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id}}
+                        <i class="{{resource.format}}-icon"></i>
+                    {{/link-to}}
+                  {{else}}
+                    {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
+                        <i class="{{resource.format}}-icon"></i>
+                    {{/link-to}}
+                  {{/if}}
+                {{/if}}
+            </div>
+            <div class="resource-info">
+                <div class="title-section">
+                    {{#if isRubric}}
+                      {{#if editEnabled}}
+                        {{#link-to 'content.rubric.edit' resource.id tagName="h3" class="title rubric" alt=resource.title}}{{{truncate text=resource.title maxLength=30}}}{{/link-to}}
+                      {{else}}
+                        {{#link-to 'content.rubric.edit'  resource.id tagName="h3" class="title rubric" alt=resource.title}}{{{truncate text=resource.title maxLength=30}}}{{/link-to}}
+                      {{/if}}
+                    {{else}}
+                      {{#if editEnabled}}
+                        {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id tagName="h3" class="title" alt=resource.title}}{{{truncate text=resource.title maxLength=30}}}{{/link-to}}
+                      {{else}}
+                        {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h3" class="title" alt=resource.title}}{{{truncate text=resource.title maxLength=30}}}{{/link-to}}
+                      {{/if}}
+                    {{/if}}
+                </div>
+              {{#unless isRubric}}
+                {{#if isQuestion}}
+                    <div class="question-type">
+                        <span>{{t (concat "common.question-type." resource.type)}}</span>
+                    </div>
+                {{else}}
+                    <div class="resource-type">
+                        <span>{{t (concat "common.resource-format." resource.format)}}</span>
+                    </div>
+                {{/if}}
+              {{/unless}}
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+      {{#if tags.length}}
+        {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
+      {{/if}}
+        <div class="publisher">
+          {{#if showPublisher}}
+              <b class="publisher-name">{{resource.publisher}}</b>
+          {{else}}
+              <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
+          <span class="owner">
+            {{#if allowProfileNavigation}}
+              {{#link-to 'profile.content.courses' resource.owner.id class="pointer enable"}}
+                {{resource.owner.displayName}}
+              {{/link-to}}
+            {{else}}
+                <a class="disabled">{{resource.owner.displayName}}</a>
+            {{/if}}
+          </span>
+          {{/if}}
+        </div>
+        <div class="description">
+            <p class="truncate">{{gru-math-text text=(if resource.isFIB resource.fibText resource.description)}}</p>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="options">
+            <div>
+                <button class="study-btn btn btn-success btn-sm">{{t "common.study"}}</button>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="btn share-btn no-bgd" title="{{t 'common.share'}}" data-toggle="tooltip" data-placement="auto"  data-trigger="hover" disabled={{disabledActions}}>{{gru-icon name="share"}}</button>
+        </div>
+    </div>
+</div>

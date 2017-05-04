@@ -22,24 +22,34 @@ export default (function() {
     id: null,
 
     /**
+     * @property {string} pathId only used for suggestions
+     */
+    pathId: null,
+
+    /**
+     * @property {string} indicates the sub-type if it has one
+     */
+    collectionSubType: null,
+
+    /**
      * @property {String} category - Category the course belongs to
      */
     category: Ember.computed('subject', function() {
-    var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
-    if (this.get('subject')) {
-      let keys = this.get('subject').split('.');
-      if (keys.length > 1) {
-        for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
-          // The second part of the subjectId represents the category
-          if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
-            category = TAXONOMY_CATEGORIES[i].value;
-            break;
+      var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
+      if (this.get('subject')) {
+        let keys = this.get('subject').split('.');
+        if (keys.length > 1) {
+          for (var i = TAXONOMY_CATEGORIES.length - 1; i >= 0; i--) {
+            // The second part of the subjectId represents the category
+            if (keys[1] === TAXONOMY_CATEGORIES[i].apiCode) {
+              category = TAXONOMY_CATEGORIES[i].value;
+              break;
+            }
           }
         }
       }
-    }
-    return category;
-  }),
+      return category;
+    }),
 
     /**
      * @property {Ember.Array} children - List of collections/assessments
@@ -87,7 +97,7 @@ export default (function() {
     /**
      * @property {Boolean} isPublished
      */
-    isPublished: Ember.computed.equal("publishStatus", "published"),
+    isPublished: Ember.computed.equal('publishStatus', 'published'),
 
     /**
      * @property {Boolean} isVisibleOnProfile
@@ -168,12 +178,8 @@ export default (function() {
      * When the owner and the creator are the same
      * @property {boolean}
      */
-    sameOwnerAndCreator: Ember.computed("owner.id", "originalCreatorId", function(){
-      if( !this.get('originalCreatorId')){
-        return true;
-      }else if(this.get('owner.id') === this.get('originalCreatorId')){
-        return true;
-      }
+    sameOwnerAndCreator: Ember.computed('owner.id', 'creator.id', function(){
+      return !this.get('creator.id') || this.get('owner.id') === this.get('creator.id');
     }),
 
     /**
@@ -184,12 +190,12 @@ export default (function() {
     /**
      * @property {boolean}
      */
-    isCollection: Ember.computed.equal("collectionType", "collection"),
+    isCollection: Ember.computed.equal('collectionType', 'collection'),
 
     /**
      * @property {boolean}
      */
-    isAssessment: Ember.computed.not("isCollection"),
+    isAssessment: Ember.computed.not('isCollection'),
 
     /**
      * @property {Ember.Array} resources - An children alias property
@@ -220,8 +226,8 @@ export default (function() {
 
       var audience = this.get('audience');
       var depthOfknowledge = this.get('depthOfknowledge');
-      var standards = this.get("standards");
-      var centurySkills = this.get("centurySkills");
+      var standards = this.get('standards');
+      var centurySkills = this.get('centurySkills');
 
       // Copy array values
       properties.audience = audience.slice(0);
@@ -250,30 +256,30 @@ export default (function() {
     toPlayerCollection: function(){
       const model = this;
       return PlayerCollection.create({
-        id: model.get("id"),
-        collectionType: model.get("collectionType"),
-        title: model.get("title"),
-        remixes: model.get("remixCount"),
+        id: model.get('id'),
+        collectionType: model.get('collectionType'),
+        title: model.get('title'),
+        remixes: model.get('remixCount'),
         views: null, //TODO missing
-        imageUrl: model.get("thumbnailUrl"),
+        imageUrl: model.get('thumbnailUrl'),
         url: null, //TODO missing
-        author: model.get("owner.displayName"),
-        authorId: model.get("owner.id"),
+        author: model.get('owner.displayName'),
+        authorId: model.get('owner.id'),
         remixedBy: Ember.A(), //TODO missing
-        course: model.get("course"),
-        courseId: model.get("courseId"),
-        avatarUrl: model.get("owner.avatarUrl"), //TODO missing
+        course: model.get('course'),
+        courseId: model.get('courseId'),
+        avatarUrl: model.get('owner.avatarUrl'), //TODO missing
         profilePageUrl: null, //TODO missing
-        description: model.get("description"),
-        resourceCount: model.get("resourceCount"),
-        questionCount: model.get("questionCount"),
+        description: model.get('description'),
+        resourceCount: model.get('resourceCount'),
+        questionCount: model.get('questionCount'),
         hasTeam: null, //TODO missing
         visibility: null, //TODO missing
         libraries: Ember.A(), //TODO missing
-        resources: model.get("children").map(function(child){
+        resources: model.get('children').map(function(child){
           return child.toPlayerResource();
         }),
-        standards: model.get("standards")
+        standards: model.get('standards')
       });
     },
 

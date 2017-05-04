@@ -16,9 +16,8 @@
       ul {
         @include flexbox;
         list-style: none;
-        height: inherit;
         height: 80px;
-        margin: 0;
+        margin: 0 0 0 10px;
         padding: 0 0 85px;
         overflow: hidden;
         overflow-x: auto;
@@ -37,15 +36,16 @@
           }
           .btn-option {
             color: $green-300;
-            padding: 0 5px;
+            margin: 0 3px;
             border-radius: 0;
             border-bottom: $light-100 3px solid;
             height: $optionsHeightXS;
             background-color: $light-100;
             display: table-cell;
             @media (min-width: $screen-sm) {
-              padding: 0 1em;
+              padding: 0 0.5em;
               height: $optionsHeightSM;
+              max-width: 116px;
             }
             &.true-false {
               .text {
@@ -56,7 +56,9 @@
               vertical-align: middle;
               display: inline-block;
               font-size: $font-size-h6;
-              margin: 0 5px 0 0;
+              &.icon{
+                margin: 0 5px 0 0;
+              }
               i {
                 font-size: $font-size-h5;
                 line-height: 26px;
@@ -65,7 +67,6 @@
                 line-height: 14px;
                 text-align: left;
                 white-space: pre-wrap;
-                width: 65px;
                 @media (max-width: $screen-xs-max) {
                   display: block;
                   text-align: center;
@@ -78,34 +79,63 @@
             border-bottom-color: $green-300;
           }
           .multiple-choice {
+            .text{
+              width:65px;
+            }
             .icon {
-              background: url("gooru/images/navigation_multiple_choice.svg");
-              width: 51px;
-              height: 15px;
+              background: url("gooru/images/navigation_multiple_choice_green.svg");
+              -webkit-background-size: 40px 20px;
+              width: 40px;
+              height: 20px;
             }
           }
           .multiple-answer {
+            .text{
+              width:65px;
+            }
             .icon {
-              background: url("gooru/images/navigation_multiple_answer.svg");
-              width: 52px;
-              height: 15px;
+              background: url("gooru/images/navigation_multiple_answer_green.svg");
+              -webkit-background-size: 50px 20px;
+              width: 50px;
+              height: 20px;
             }
           }
           .true-false {
+            .text{
+              width:65px;
+            }
             .icon {
-              background: url("gooru/images/navigation_true_false.svg");
-              width: 28px;
-              height: 14px;
+              background: url("gooru/images/navigation_true_false_green.svg");
+              -webkit-background-size: 25px 25px;
+              width: 25px;
+              height: 25px;
             }
           }
           .fib {
+            .text{
+              width:65px;
+            }
             .icon {
               background: url("gooru/images/navigation_fib.svg");
               width: 31px;
               height: 19px;
             }
           }
+          .free-response {
+            .text{
+              width:65px;
+            }
+            .icon {
+              background: url("gooru/images/navigation_free_response_green.svg");
+              -webkit-background-size: 30px 30px;
+              width: 30px;
+              height: 30px;
+            }
+          }
           .ht-reorder {
+            .text{
+              width:65px;
+            }
             .icon {
               background: url("gooru/images/navigation_ht_reorder.svg");
               width: 24px;
@@ -113,6 +143,9 @@
             }
           }
           .ht-highlight {
+            .text{
+              width:65px;
+            }
             .icon {
               background: url("gooru/images/navigation_ht_highlight.svg");
               width: 20px;
@@ -120,6 +153,10 @@
             }
           }
           .hs-text {
+            max-width: 142px;
+            .text{
+              width: 93px;
+            }
             .icon {
               background: url("gooru/images/navigation_hs_text.svg");
               width: 52px;
@@ -127,6 +164,10 @@
             }
           }
           .hs-images {
+            max-width: 142px;
+            .text{
+              width:93px;
+            }
             .icon {
               background: url("gooru/images/navigation_hs_images.svg");
               width: 25px;

@@ -1,4 +1,6 @@
 .resource-results {
+  @include flexbox;
+  @include justify-content(center);
   .search-results {
     height: 35px;
   }
@@ -7,16 +9,10 @@
     color:$white;
   }
   .results{
-    margin: 18px auto;
-    float: none;
-    @media (min-width: $screen-sm) {
-      padding-left: 0;
-      padding-right: 0;
-    }
-    @media (min-width: $screen-lg) {
-      padding-left: $grid-gutter-width;
-      padding-right: $grid-gutter-width;
-    }
+    margin: 20px 126px;
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include justify-content(space-around);
   }
   .gru-resource-card{
     display:inline-block;

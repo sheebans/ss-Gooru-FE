@@ -13,6 +13,13 @@
       hasTooltip=false
       onRemove=(action 'removeTag' taxonomyTag)
       }}
+      {{#if showDescription}}
+        <div class="panel panel-default description-tag">
+            <div class="panel-body">
+              {{truncate text=taxonomyTag.data.title maxLength=80}}
+            </div>
+        </div>
+      {{/if}}
     {{/each}}
   </div>
 {{/if}}
