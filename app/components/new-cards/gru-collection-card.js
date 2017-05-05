@@ -12,7 +12,15 @@ import ModalMixin from 'gooru-web/mixins/modal';
 export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
+  /**
+   * @requires service:api-sdk/session
+   */
   session: Ember.inject.service('session'),
+
+  /**
+   * @requires service:api-sdk/course
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -42,14 +50,19 @@ export default Ember.Component.extend(ModalMixin,{
      * @param content
      */
     previewContent: function(content) {
-      var model = {
+      let component = this;
+      var model = Ember.Object.create({
         content: content,
         remixCourse: function () {
           return this.remixCourse();
         }.bind(this)
-      };
+      });
       if(this.get('isCourse')){
-        this.send('showModal', 'gru-preview-course', model);
+        component.get('courseService').fetchById(content.get('id')).then(function (course) {
+          model.set('content.children',course.children);
+        }).then(function() {
+          component.send('showModal', 'gru-preview-course', model);
+        });
       }
     }
   },

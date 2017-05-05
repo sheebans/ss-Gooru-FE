@@ -3,38 +3,9 @@ import hbs from 'htmlbars-inline-precompile';
 import Course from 'gooru-web/models/content/course';
 import Ember from 'ember';
 
-const courseServiceStub = Ember.Service.extend({
-
-  fetchById(courseId) {
-    if (courseId) {
-      let course = Course.create(Ember.getOwner(this).ownerInjection(), {
-        id:'123',
-        children:[
-          Ember.Object.create({
-            id: 'unit-123',
-            sequence: 1,
-            title: 'Unit Title A'
-          }),
-          Ember.Object.create({
-            id: 'unit-456',
-            sequence: 2,
-            title: 'Unit Title B'
-          })
-        ]
-      });
-      return Ember.RSVP.resolve(course);
-    } else {
-      return Ember.RSVP.reject('Fetch failed');
-    }
-  }
-});
 
 moduleForComponent('gru-preview-course', 'Integration | Component | gru preview course', {
-  integration: true,
-  beforeEach: function () {
-    this.register('service:api-sdk/course', courseServiceStub);
-    this.inject.service('api-sdk/course');
-  }
+  integration: true
 });
 
 test('Preview Course Layout', function(assert) {
@@ -60,7 +31,19 @@ test('Preview Course Layout', function(assert) {
       }),Ember.Object.create({
         description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
         code:'CCSS.Math.Content.5.NBT.A.2'
-      })])
+      })]),
+      children: [
+        Ember.Object.create({
+          id: 'unit-123',
+          sequence: 1,
+          title: 'Unit Title A'
+        }),
+        Ember.Object.create({
+          id: 'unit-456',
+          sequence: 2,
+          title: 'Unit Title B'
+        })
+      ]
     })
   };
 

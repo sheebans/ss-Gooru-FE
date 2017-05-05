@@ -3,15 +3,6 @@ import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
-  // Dependencies
-
-  /**
-   * @requires service:api-sdk/course
-   */
-  courseService: Ember.inject.service('api-sdk/course'),
-
-
-  // -------------------------------------------------------------------------
   // Attributes
 
   classNames:['gru-preview-course'],
@@ -35,9 +26,6 @@ export default Ember.Component.extend({
     var component = this;
     component._super(...arguments);
     component.set('course',component.get('model.content'));
-    component.get('courseService').fetchById(component.get('model.content.id')).then(function (course) {
-      component.set('course.children',course.children);
-    });
   },
 
   // -------------------------------------------------------------------------
