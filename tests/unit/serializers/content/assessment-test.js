@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
-import { ASSESSMENT_SHOW_VALUES } from "gooru-web/config/config";
+import { ASSESSMENT_SHOW_VALUES, ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 
 moduleFor('serializer:content/assessment', 'Unit | Serializer | content/assessment');
@@ -128,7 +128,7 @@ test('normalizeReadAssessment for alternate paths', function(assert) {
     target_unit_id: 'unit-id',
     target_lesson_id: 'lesson-id',
     target_collection_id: 'assessment-id',
-    target_content_subtype: 'pre-test',
+    target_content_subtype: ASSESSMENT_SUB_TYPES.PRE_TEST,
     target_content_type: 'assessment',
     title: 'assessment-title',
     'learning_objective': 'learning-objectives',

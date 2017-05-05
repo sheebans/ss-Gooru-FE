@@ -10,7 +10,7 @@
 }}
 
 <div class="report-container {{if toggleState 'expanded' 'collapsed'}}">
-  {{#if  (and isPreTest showSuggestion)}}
+  {{#if  (and hasBackFillSuggestions showSuggestion)}}
     <div class="suggestion-panel">
       {{player.gru-suggest-test type=backFillType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playBackFillSuggestion'}}
     </div>

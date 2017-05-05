@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { SUGGESTION_TYPE } from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -25,7 +25,7 @@ export default Ember.Component.extend({
    * Indicate if the suggestion is a back fill after a pre test
    * @param {Boolean} isBackFill
    */
-  isBackFill: Ember.computed.equal('type', SUGGESTION_TYPE.backFill),
+  isBackFill: Ember.computed.equal('type', ASSESSMENT_SUB_TYPES.BACKFILL),
   /**
    * Suggested assessment
    * @param {Assessment} assessment
@@ -36,7 +36,7 @@ export default Ember.Component.extend({
    * @property {Number} Resource count
    */
   resourceCount: Ember.computed('assessment.resources', function() {
-   return this.get('assessment.resources').filter(item => item.get('isResource')).length;
+    return this.get('assessment.resources').filter(item => item.get('isResource')).length;
   }),
 
   /**

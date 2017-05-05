@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import CollectionModel from 'gooru-web/models/content/collection';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 moduleFor('serializer:content/collection', 'Unit | Serializer | content/collection');
 
@@ -111,7 +112,7 @@ test('normalizeReadCollection for alternate paths', function(assert) {
     target_unit_id: 'unit-id',
     target_lesson_id: 'lesson-id',
     target_collection_id: 'collection-id',
-    target_content_subtype: 'pre-test',
+    target_content_subtype: ASSESSMENT_SUB_TYPES.PRE_TEST,
     target_content_type: 'collection',
     title: 'collection-title',
     question_count:1,

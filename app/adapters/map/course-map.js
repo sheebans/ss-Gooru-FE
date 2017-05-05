@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ApplicationAdapter from 'gooru-web/adapters/application';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 /**
  * Adapter to support the course map operations
@@ -60,7 +61,7 @@ export default ApplicationAdapter.extend({
         'ctx_unit_id': context.get('unitId'),
         'ctx_lesson_id': context.get('lessonId'),
         'ctx_collection_id': context.get('collectionId'),
-        'path_id': context.get('pathId') || undefined,
+        'parent_path_id': context.get('pathId') || undefined,
         //same as the current context
         //TODO: we need more clarification about when to use these values, for now are not needed
 //      'target_course_id': context.get('courseId'),
@@ -68,7 +69,7 @@ export default ApplicationAdapter.extend({
 //      'target_lesson_id': context.get('lessonId'),
         //suggestion information
         'target_content_type': suggestion.get('type'),
-        'target_content_subtype': suggestion.get('subType'),
+        'target_content_subtype': suggestion.get('subType') === ASSESSMENT_SUB_TYPES.BACKFILL  ? null : suggestion.get('subType'),
         'target_collection_id': suggestion.get('id')
       })
     };

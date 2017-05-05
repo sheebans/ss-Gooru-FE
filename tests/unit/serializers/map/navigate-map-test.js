@@ -1,5 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 import MapContext from 'gooru-web/models/map/map-context';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 moduleFor('serializer:map/navigate-map', 'Unit | Serializer | map/navigate-map');
 
@@ -73,7 +74,7 @@ test('normalizeMapSuggestion', function (assert) {
     id: '123',
     title: 'Title',
     format: 'assessment',
-    subformat: 'pre-test'
+    subformat: ASSESSMENT_SUB_TYPES.PRE_TEST
   };
   const model = serializer.normalizeMapSuggestion(payload);
   assert.equal(model.get('id'), payload.id, 'Wrong id');
@@ -89,13 +90,13 @@ test('normalizeMapSuggestions', function (assert) {
       id: '123',
       title: 'Title',
       format: 'assessment',
-      subformat: 'pre-test'
+      subformat: ASSESSMENT_SUB_TYPES.PRE_TEST
     },
     {
       id: '1234',
       title: 'Title',
       format: 'assessment',
-      subformat: 'pre-test'
+      subformat: ASSESSMENT_SUB_TYPES.PRE_TEST
     }
   ];
   const models = serializer.normalizeMapSuggestions(payload);
