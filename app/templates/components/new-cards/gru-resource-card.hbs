@@ -73,7 +73,11 @@
     <div class="panel-footer">
         <div class="options">
             <div>
+              {{#unless profile.isTeacher}}
                 <button class="study-btn btn btn-success btn-sm">{{t "common.study"}}</button>
+              {{else}}
+                <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+              {{/unless}}
             </div>
         </div>
         <div class="actions">

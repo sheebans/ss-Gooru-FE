@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ModalMixin from 'gooru-web/mixins/modal';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 /**
@@ -7,7 +8,7 @@ import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
  * Component responsible of showing the question ,resource or rubric information in cards, so that most useful information is summarized there.
  * @module
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -41,6 +42,29 @@ export default Ember.Component.extend({
      */
     playResource:function(){
       this.sendAction('onPlayResource', this.get('resource'));
+    },
+
+    /**
+     * Action triggered to add to collection
+     */
+    addToCollection: function(){
+      const component = this;
+      if (component.get('session.isAnonymous')) {
+        component.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        let assessmentsPromise = Ember.RSVP.resolve(null);
+        if(component.get('isQuestion')) {
+          assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
+        }
+        assessmentsPromise.then(function(assessments) {
+          return component.get('profileService').readCollections(component.get('session.userId'))
+            .then(function(collections) {
+              return { content: component.get('resource'), collections, assessments };
+            });
+        }).then(
+          model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
+        );
+      }
     }
   },
 
@@ -53,6 +77,12 @@ export default Ember.Component.extend({
   },
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Profile information
+   * @property {Profile} profile
+   */
+  profile: null,
+
   /**
    * Indicates if it allow profile navigation or not in the cards
    * @property {boolean} allowProfileNavigation
