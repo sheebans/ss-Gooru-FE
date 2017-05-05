@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 moduleForService('service:api-sdk/navigate-map', 'Unit | Service | api-sdk/navigate-map', {
 });
@@ -122,10 +123,10 @@ test('startSuggestion', function(assert) {
       assert.equal(mapContext.get('lessonId'), 'lesson-id', 'Wrong lesson id');
       assert.equal(mapContext.get('collectionId'), 'collection-id', 'Wrong collection id');
       assert.equal(mapContext.get('collectionType'), 'collection-type', 'Wrong collection type');
-      assert.equal(mapContext.get('collectionSubType'), 'pre-test', 'Wrong collection sub type');
+      assert.equal(mapContext.get('collectionSubType'), ASSESSMENT_SUB_TYPES.PRE_TEST, 'Wrong collection sub type');
       assert.equal(mapContext.get('itemId'), 'collection-id', 'Wrong item id');
       assert.equal(mapContext.get('itemType'), 'collection-type', 'Wrong item type');
-      assert.equal(mapContext.get('itemSubType'), 'pre-test', 'Wrong item sub type');
+      assert.equal(mapContext.get('itemSubType'), ASSESSMENT_SUB_TYPES.PRE_TEST, 'Wrong item sub type');
       assert.equal(mapContext.get('classId'), 'class-id', 'Wrong class id');
       assert.equal(mapContext.get('pathId'), 1, 'Wrong path id');
       assert.equal(mapContext.get('status'), 'start', 'Wrong status');
@@ -135,7 +136,7 @@ test('startSuggestion', function(assert) {
   assert.expect(13);
 
   var done = assert.async();
-  service.startSuggestion('course-id', 'unit-id', 'lesson-id', 'collection-id', 'collection-type', 'pre-test', 1, 'class-id')
+  service.startSuggestion('course-id', 'unit-id', 'lesson-id', 'collection-id', 'collection-type', ASSESSMENT_SUB_TYPES.PRE_TEST, 1, 'class-id')
     .then(function(response) {
       assert.equal(response, 'fake-response', 'Wrong response');
       done();

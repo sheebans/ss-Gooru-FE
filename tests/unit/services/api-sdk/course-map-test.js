@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 moduleFor('service:api-sdk/course-map', 'Unit | Service | api sdk/course map', {
   // Specify the other units that are required for this test.
@@ -50,7 +51,7 @@ test('createNewPath', function(assert) {
   });
   let expectedSuggestion = Ember.Object.create({
     type: 'collection',
-    subType: 'pre-test'
+    subType: ASSESSMENT_SUB_TYPES.PRE_TEST
   });
   let expectedPathId = 1;
 
