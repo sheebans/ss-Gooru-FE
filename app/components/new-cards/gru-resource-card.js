@@ -58,7 +58,7 @@ export default Ember.Component.extend(ModalMixin,{
           assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
         }
         assessmentsPromise.then(function() {
-          return component.get('profileService').readCollections(component.get('session.userId'))
+          return component.get('profileService').readCollections(component.get('session.userId'));
         }).then(function(collections, assessments) {
           return { content: component.get('resource'), collections, assessments };
         }).then(
