@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import StudentCollection from 'gooru-web/controllers/reports/student-collection';
-import { SUGGESTION_TYPE, ROLES } from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES, ROLES } from 'gooru-web/config/config';
 
 /**
  *
@@ -89,13 +89,13 @@ export default StudentCollection.extend({
    *Back fill pre test suggestion
    * @property {String} typeSuggestion
    */
-  backFillType: SUGGESTION_TYPE.backFill,
+  backFillType: ASSESSMENT_SUB_TYPES.BACKFILL,
 
   /**
    *Post Test pre test suggestion
    * @property {String} typeSuggestion
    */
-  postTestType: SUGGESTION_TYPE.postTest,
+  postTestType: ASSESSMENT_SUB_TYPES.POST_TEST,
 
   /**
    * Indicate if show pre test suggestion
@@ -114,6 +114,10 @@ export default StudentCollection.extend({
    */
   hasPostTestSuggestions: Ember.computed.alias('mapLocation.hasPostTestSuggestions'),
 
+  /**
+   * @property {boolean}
+   */
+  hasBackFillSuggestions: Ember.computed.alias('mapLocation.hasBackFillSuggestions'),
 
   /**
    * Shows the breadcrumbs info of the collection

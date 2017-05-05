@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { SUGGESTION_TYPE } from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
 
 
@@ -118,7 +118,7 @@ export default PlayerController.extend({
    * Pre test suggestion
    * @property {String} typeSuggestion
    */
-  typeSuggestion: SUGGESTION_TYPE.preTest,
+  typeSuggestion: ASSESSMENT_SUB_TYPES.PRE_TEST,
 
   /**
    * Shows the breadcrumbs info of the collection

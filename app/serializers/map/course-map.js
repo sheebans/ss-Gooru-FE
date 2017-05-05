@@ -64,9 +64,15 @@ export default Ember.Object.extend({
    */
   normalizeAlternatePaths: function (data) {
     return Ember.isArray(data) ? data.map(
-      path => path.target_content_type === 'collection' ?
-        this.get('collectionSerializer').normalizeReadCollection(path) :
-        this.get('assessmentSerializer').normalizeReadAssessment(path)
+      path => {
+        let normalizedPath = path.target_content_type === 'collection' ?
+          this.get('collectionSerializer').normalizeReadCollection(path) :
+          this.get('assessmentSerializer').normalizeReadAssessment(path);
+        if(!normalizedPath.get('collectionSubType')) {
+          normalizedPath.set('collectionSubType', ASSESSMENT_SUB_TYPES.BACKFILL);
+        }
+        return normalizedPath;
+      }
     ) : [];
   }
 });
