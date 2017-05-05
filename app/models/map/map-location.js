@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {ASSESSMENT_SUB_TYPES} from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 /**
  * MapLocation model

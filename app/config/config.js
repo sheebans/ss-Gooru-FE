@@ -73,7 +73,7 @@ export const CONTENT_TYPES = {
 export const ASSESSMENT_SUB_TYPES = {
   PRE_TEST: 'pre-test',
   POST_TEST: 'post-test',
-  BACKFILL: 'backfill-pretest',
+  BACKFILL: 'backfill',
   BENCHMARK: 'benchmark'
 };
 
@@ -240,12 +240,6 @@ export const GOAL_STATUS = {
 export const RUBRIC_TYPE = {
   _1xN: '1xN',
   NxN: 'NxN'
-};
-
-export const SUGGESTION_TYPE = {
-  preTest: 'pre-test',
-  postTest: 'post-test',
-  backFill:'backfill-pretest'
 };
 
 export const PLAYER_EVENT_SOURCE = {

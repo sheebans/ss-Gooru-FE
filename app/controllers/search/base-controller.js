@@ -78,6 +78,12 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
+   * Profile information
+   * @property {Profile} profile
+   */
+  profile: Ember.computed.alias("appController.profile"),
+
+  /**
    * Types of question selected
    *  @property {array} selectedOptionTypes
    *

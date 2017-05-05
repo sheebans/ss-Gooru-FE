@@ -40,6 +40,12 @@ export default Ember.Component.extend(ModalMixin, {
   // Properties
 
   /**
+   * Profile information
+   * @property {Profile} profile
+   */
+  profile: null,
+
+  /**
    * @property {array} Resource results for the search
    */
   resourceResults: null,
