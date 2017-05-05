@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Course from 'gooru-web/models/content/course';
+import Ember from 'ember';
 
 const courseServiceStub = Ember.Service.extend({
 
