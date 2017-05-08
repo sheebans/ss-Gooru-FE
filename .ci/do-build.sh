@@ -32,8 +32,8 @@ info "Running build inside a custom docker image..."
 
 mkdir /tmp/yarn-cache-bamboo
 chmod 0777 /tmp/yarn-cache-bamboo
-rm -rf /tmp/yarn-cache-bamboo/npm-quizzes-addon*
-rm -rf /tmp/yarn-cache-bamboo/.tmp
+rm -rf /tmp/yarn-cache-bamboo/v1/npm-quizzes-addon*
+rm -rf /tmp/yarn-cache-bamboo/v1/.tmp
 
 docker login \
   -u $ARTIFACTORY_USERNAME \
@@ -47,4 +47,3 @@ docker run -t --rm \
   -e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
   -e QUIZZES_VERSION=${QUIZZES_VERSION} \
   -w /build edify-dkr.jfrog.io/gooru-fe-builder ./.ci/build.sh
-
