@@ -1,5 +1,5 @@
 import GruInput from 'gooru-web/components/validation/gru-input';
-import Ember from "ember";
+import Ember from 'ember';
 
 /**
  * Number field with validation (It only accepts integers)
