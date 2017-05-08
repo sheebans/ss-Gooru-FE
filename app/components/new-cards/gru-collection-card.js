@@ -57,7 +57,7 @@ export default Ember.Component.extend(ModalMixin,{
           return this.remixCourse();
         }.bind(this)
       });
-      if(this.get('isCourse')){
+      if(this.get('isCourse') && this.get('isTeacher')){
         component.get('courseService').fetchById(content.get('id')).then(function (course) {
           model.set('content.children',course.children);
         }).then(function() {
@@ -128,15 +128,24 @@ export default Ember.Component.extend(ModalMixin,{
   isCourse:false,
 
   /**
+   * Indicates if the student is seen the card
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed.equal('profile.role', 'teacher'),
+
+  /**
    * @property {string} edit action
    */
   onEditContent: null,
-
 
   /**
    * @property {string} on content player action
    */
   onOpenContentPlayer: null,
+  /**
+   * @property {Profile} user profile
+   */
+  profile:null,
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */

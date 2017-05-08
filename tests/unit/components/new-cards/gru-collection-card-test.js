@@ -75,6 +75,8 @@ test('previewContent', function(assert) {
   });
   component.set('isCourse', true);
 
+  component.set('isTeacher', true);
+
   let done = assert.async();
   component.set('actions.showModal', function(componentName, model) {
     assert.deepEqual(model, expectedModel, 'Model should match');
