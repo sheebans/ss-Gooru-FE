@@ -42,6 +42,14 @@ test('normalizeLessonInfo', function(assert) {
       });
     }
   });
+  serializer.set('alternatePathSerializer', {
+    normalizeAlternatePath: alternatePath => {
+      return AlternatePathModel.create({
+        title: `normalized-alternate-path-${alternatePath.targetResourceId}`,
+        collectionSubType: null
+      });
+    }
+  });
   const serializedData = serializer.normalizeLessonInfo(data);
   assert.deepEqual(serializedData.get('title'), 'normalized-lesson', 'Returned data should match');
   assert.deepEqual(serializedData.get('children').length, 4, 'Returned data length should match');
