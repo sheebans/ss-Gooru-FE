@@ -19,12 +19,19 @@ export default GruInput.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions:{
+
     inputValueChange: function() {
       this.set('rawInputValue', this.get('rawInputValue') ? +this.get('rawInputValue') : null);
       this.set('value', this.get('rawInputValue'));
       this.set('isTyping', false);
       if (this.get('onFocusOut')){
         this.sendAction('onFocusOut');
+      }
+    },
+
+    focusIn: function() {
+      if (this.get('onFocusIn')){
+        this.sendAction('onFocusIn');
       }
     },
 
@@ -104,7 +111,7 @@ export default GruInput.extend({
   /**
    * Check every time the score change in order to convert the value to number.
    */
-  modalChange:  Ember.observer('model.minScore', function() {
+  modelChange:  Ember.observer('model.minScore', function() {
     var component = this;
     component.set('model.minScore',+this.get('model.minScore'));
   })

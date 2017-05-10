@@ -3,6 +3,7 @@ import { moduleFor, test } from 'ember-qunit';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 import CollectionModel from 'gooru-web/models/content/collection';
 import AssessmentModel from 'gooru-web/models/content/assessment';
+import AlternatePathModel from 'gooru-web/models/content/alternate-path';
 
 moduleFor('serializer:map/course-map', 'Unit | Serializer | map/course-map');
 
@@ -39,6 +40,14 @@ test('normalizeLessonInfo', function(assert) {
       return AssessmentModel.create({
         title: `normalized-collection-${assessment}`,
         collectionSubType: assessment
+      });
+    }
+  });
+  serializer.set('alternatePathSerializer', {
+    normalizeAlternatePath: alternatePath => {
+      return AlternatePathModel.create({
+        title: `normalized-alternate-path-${alternatePath.targetResourceId}`,
+        collectionSubType: null
       });
     }
   });
