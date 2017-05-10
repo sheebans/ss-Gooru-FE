@@ -76,12 +76,18 @@ export default Ember.Controller.extend(ModalMixin, {
      */
     editScore: function(state=false) {
       let controller = this;
+      controller.set('editingScore', true);
+    },
 
-      controller.set('editingScore', state);
+    /**
+     *
+     * Triggered when a edit save score option is selected
+     */
+    saveScore: function() {
+      let controller = this;
 
-      if(!state){
-        controller.saveClass();
-      }
+      controller.set('editingScore', false);
+      controller.saveClass();
     }
   },
 
