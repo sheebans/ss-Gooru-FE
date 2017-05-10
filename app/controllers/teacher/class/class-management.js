@@ -74,7 +74,7 @@ export default Ember.Controller.extend(ModalMixin, {
      *
      * Triggered when a edit min score class option is selected
      */
-    editScore: function(state=false) {
+    editScore: function() {
       let controller = this;
       controller.set('editingScore', true);
     },
