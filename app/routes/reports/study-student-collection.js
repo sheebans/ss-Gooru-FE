@@ -59,6 +59,25 @@ export default StudentCollection.extend({
             lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
             mapLocation: navigateMapService.next(currentContext)
           }).then(function (hash) {
+            // Set the correct unit sequence number
+            hash.course.children.find((child, index) => {
+              let found = false;
+              if (child.get('id') === hash.unit.get('id')) {
+                found = true;
+                hash.unit.set('sequence', index + 1);
+              }
+              return found;
+            });
+
+            // Set the correct lesson sequence number
+            hash.unit.children.find((child, index) => {
+              let found = false;
+              if (child.get('id') === hash.lesson.get('id')) {
+                found = true;
+                hash.lesson.set('sequence', index + 1);
+              }
+              return found;
+            });
             return Object.assign(studentCollectionModel, hash);
           });
         });
