@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 moduleForComponent('player/gru-suggest-test', 'Integration | Component | player/gru suggest test', {
   integration: true,
@@ -13,7 +14,7 @@ moduleForComponent('player/gru-suggest-test', 'Integration | Component | player/
 
 test('Layout', function(assert) {
 
-  this.set('type', 'pre-test');
+  this.set('type', ASSESSMENT_SUB_TYPES.PRE_TEST);
   this.render(hbs`{{player/gru-suggest-test type=type}}`);
   const $component = this.$();
   assert.ok($component.find('.player.gru-suggest-test').length, 'Missing suggest test panel');
@@ -27,8 +28,11 @@ test('Layout', function(assert) {
 
 test('Layout BackFill Pre test', function(assert) {
 
-  this.set('type', 'backfill-pretest');
-  this.set('assessment',{isCollection:true,resources:Ember.A([])});
+  this.set('type', ASSESSMENT_SUB_TYPES.BACKFILL);
+  this.set('assessment', {
+    isCollection: true,
+    resources: Ember.A([])
+  });
   this.render(hbs`{{player/gru-suggest-test type=type assessment=assessment}}`);
   const $component = this.$();
   assert.ok($component.find('.player.gru-suggest-test').length, 'Missing suggest test panel');

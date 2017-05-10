@@ -3,6 +3,7 @@ import NavigateMapSerializer from 'gooru-web/serializers/map/navigate-map';
 import NavigateMapAdapter from 'gooru-web/adapters/map/navigate-map';
 import MapContext from 'gooru-web/models/map/map-context';
 import MapLocation from 'gooru-web/models/map/map-location';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 /**
  * Navigate Map Service
@@ -117,16 +118,17 @@ export default Ember.Service.extend({
    */
   startSuggestion: function (courseId, unitId, lessonId, collectionId, collectionType, collectionSubType, pathId, classId) {
     const service = this;
+    let subType = collectionSubType === ASSESSMENT_SUB_TYPES.BACKFILL ? null : collectionSubType;
     const mapContext = MapContext.create({
       courseId,
       unitId,
       lessonId,
       collectionId,
       collectionType,
-      collectionSubType,
+      collectionSubType: subType,
       itemId: collectionId,
       itemType: collectionType,
-      itemSubType: collectionSubType,
+      itemSubType: subType,
       pathId: +pathId,
       classId,
       status: 'start'

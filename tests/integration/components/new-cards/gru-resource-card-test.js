@@ -42,6 +42,23 @@ test('Resource Card Layout', function(assert) {
   assert.ok($resourceCard.find('.panel-footer .actions .share-btn').length, 'Missing share button');
 });
 
+test('Resource Card - Button for teachers', function(assert) {
+  const resource = ResourceModel.create({
+    title: 'Resource Title'
+  });
+
+  const profile = Ember.Object.create({
+    isTeacher: true
+  });
+
+  this.set('resource', resource);
+  this.set('profile', profile);
+  this.render(hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true profile=profile}}`);
+  const $component = this.$();
+  const $resourceCard = $component.find('.gru-resource-card');
+  assert.ok($resourceCard.find('.panel-footer button.add-to-btn').length, 'Missing Add-to Button');
+});
+
 test('Question Card Layout', function(assert) {
   var question = QuestionModel.create({
     title: 'Question Title',
@@ -74,6 +91,23 @@ test('Question Card Layout', function(assert) {
   assert.ok($resourceCard.find('.panel-body .description p').length, 'Missing Description');
   assert.ok($resourceCard.find('.panel-footer button.study-btn').length, 'Missing Study Button');
   assert.ok($resourceCard.find('.panel-footer .actions .share-btn').length, 'Missing share button');
+});
+
+test('Question Card - Button for teachers', function(assert) {
+  const question = QuestionModel.create({
+    title: 'Question Title'
+  });
+
+  const profile = Ember.Object.create({
+    isTeacher: true
+  });
+
+  this.set('question', question);
+  this.set('profile', profile);
+  this.render(hbs`{{new-cards/gru-resource-card resource=question allowProfileNavigation=true profile=profile}}`);
+  const $component = this.$();
+  const $resourceCard = $component.find('.gru-resource-card');
+  assert.ok($resourceCard.find('.panel-footer button.add-to-btn').length, 'Missing Add-to Button');
 });
 
 test('Resource Card with publisher', function(assert) {

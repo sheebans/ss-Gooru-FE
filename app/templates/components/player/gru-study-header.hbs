@@ -37,7 +37,9 @@
     <div class="resources">
       {{#unless isPreTest}}
         {{#if collectionUrl}}
-          <button class="btn btn-default btn-back" {{action 'backToCollection'}}>{{t "common.back-to-collection"}}</button>
+          <button class="btn btn-default btn-back" {{action 'backToCollection'}}>
+            {{t (if collection.isCollection "common.back-to-collection" "common.back-to-assessment")}}
+          </button>
         {{else}}
           <div class="count-resources">
             {{#if fromReport}}

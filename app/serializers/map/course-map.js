@@ -2,6 +2,7 @@ import Ember from 'ember';
 import LessonSerializer from 'gooru-web/serializers/content/lesson';
 import CollectionSerializer from 'gooru-web/serializers/content/collection';
 import AssessmentSerializer from 'gooru-web/serializers/content/assessment';
+import AlternatePathSerializer from 'gooru-web/serializers/content/alternate-path';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 /**
@@ -31,6 +32,7 @@ export default Ember.Object.extend({
     this.set('lessonSerializer', LessonSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('assessmentSerializer', AssessmentSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('alternatePathSerializer', AlternatePathSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -42,7 +44,9 @@ export default Ember.Object.extend({
     let alternatePaths = this.normalizeAlternatePaths(data.alternate_paths);
     let lesson = this.get('lessonSerializer').normalizeLesson(data.course_path);
     let alternatePathsMap = alternatePaths.reduce((mapping, path) => {
-      mapping[path.get('collectionSubType')].push(path);
+      if (path.get('collectionSubType')) {
+        mapping[path.get('collectionSubType')].push(path);
+      }
       return mapping;
     }, {
       [ASSESSMENT_SUB_TYPES.BACKFILL]: [],
@@ -63,10 +67,18 @@ export default Ember.Object.extend({
    * @returns {Collection[]} alternate paths list
    */
   normalizeAlternatePaths: function (data) {
-    return Ember.isArray(data) ? data.map(
-      path => path.target_content_type === 'collection' ?
-        this.get('collectionSerializer').normalizeReadCollection(path) :
-        this.get('assessmentSerializer').normalizeReadAssessment(path)
-    ) : [];
+    return Ember.isArray(data) ? data.map(path => {
+      if (path.target_content_type === 'resource') {
+        return this.get('alternatePathSerializer').normalizeAlternatePaths(path);
+      } else {
+        let normalizedPath = path.target_content_type === 'collection' ?
+          this.get('collectionSerializer').normalizeReadCollection(path) :
+          this.get('assessmentSerializer').normalizeReadAssessment(path);
+        if (!normalizedPath.get('collectionSubType')) {
+          normalizedPath.set('collectionSubType', ASSESSMENT_SUB_TYPES.BACKFILL);
+        }
+        return normalizedPath;
+      }
+    }) : [];
   }
 });
