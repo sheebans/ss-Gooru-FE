@@ -111,7 +111,7 @@ export default GruInput.extend({
   /**
    * Check every time the score change in order to convert the value to number.
    */
-  modalChange:  Ember.observer('model.minScore', function() {
+  modelChange:  Ember.observer('model.minScore', function() {
     var component = this;
     component.set('model.minScore',+this.get('model.minScore'));
   })
