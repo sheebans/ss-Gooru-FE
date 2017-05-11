@@ -53,9 +53,7 @@ export default Ember.Component.extend(ModalMixin,{
       let component = this;
       var model = Ember.Object.create({
         content: content,
-        remixCourse: function () {
-          return this.remixCourse();
-        }.bind(this)
+        remixCourse: () => component.remixCourse()
       });
       if(this.get('isCourse') && this.get('isTeacher')){
         component.get('courseService').fetchById(content.get('id')).then(function (course) {

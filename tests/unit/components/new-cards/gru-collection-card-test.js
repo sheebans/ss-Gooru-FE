@@ -30,7 +30,10 @@ test('previewContent', function(assert) {
           })
           );
         }
-      }}
+      },
+    remixCourse:function(){
+      return true;
+    }}
   );
 
   let course = Course.create(Ember.getOwner(this).ownerInjection(),{
@@ -69,17 +72,17 @@ test('previewContent', function(assert) {
   });
   var expectedModel = Ember.Object.create({
     content: course,
-    remixCourse: function () {
-      return this.remixCourse();
-    }.bind(this)
+    remixCourse: () => component.remixCourse()
   });
+
   component.set('isCourse', true);
 
   component.set('isTeacher', true);
 
   let done = assert.async();
   component.set('actions.showModal', function(componentName, model) {
-    assert.deepEqual(model, expectedModel, 'Model should match');
+    assert.deepEqual(model.remixCourse(), expectedModel.remixCourse(), 'Model function should match');
+    assert.deepEqual(model.content, expectedModel.content, 'Model content  should match');
     assert.equal(componentName, 'gru-preview-course', 'Component name should match');
     done();
   });
