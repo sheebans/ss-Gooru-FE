@@ -1885,6 +1885,7 @@ export default Object.assign(quizzesTranslations, {
     "post-test-lead":"You are almost done with this lesson! Student usually take a post-test to know how well they’ve learned.",
     "backfill-lead":"You completed the Pre-Test! Student like you would like to take a collection below to improve the knowledge before starting this course. Estimated time to take this post-test is 30 minutes.",
     "no":"No, thanks",
+    "no-suggestions":"You did a good job. Keep working at it!",
     "take":"Take {{type}}",
     "take-backfill-pretest":"Study Suggested Collection"
   }

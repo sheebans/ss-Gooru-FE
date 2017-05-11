@@ -120,6 +120,15 @@ export default StudentCollection.extend({
   hasBackFillSuggestions: Ember.computed.alias('mapLocation.hasBackFillSuggestions'),
 
   /**
+   * @property {boolean}
+   */
+  hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'showSuggestion', function() {
+
+    return (this.get('hasBackFillSuggestions') && this.get('showSuggestion')) || (this.get('hasPostTestSuggestions') && this.get('showSuggestion'));
+
+  }),
+
+  /**
    * Shows the breadcrumbs info of the collection
    * @property {Array[]}
    */
