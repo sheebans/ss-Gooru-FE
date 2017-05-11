@@ -22,7 +22,7 @@
                 <span class='class-title'>{{class.title}}</span>
                 <span class='edit-icon' {{action "editTitle" true}}>{{gru-icon name='edit'}}</span>
               {{else}}
-                {{validation.gru-input model=tempClass valuePath='title' didValidate=didValidate onFocusOut="editTitle" autofocus=true}}
+                {{validation.gru-input model=tempClass valuePath='title' didValidate=didValidate onFocusOut="editTitle" autofocus=true maxLength=25}}
               {{/unless}}
             </div>
           </div>
@@ -68,9 +68,9 @@
                 <div class="edit-text">
                   {{#unless editingScore}}
                     <span>{{if class.minScore class.minScore '--'}} % </span>
-                    <span {{action "editScore" true}}>{{gru-icon name='edit'}}</span>
+                    <span {{action "editScore"}}>{{gru-icon name='edit'}}</span>
                   {{else}}
-                    {{validation.gru-input-number model=tempClass valuePath='minScore' min=1 max=100 step=1 didValidate=didValidate onFocusOut="editScore" autofocus=true}}
+                    {{validation.gru-input-number model=tempClass valuePath='minScore' min=1 max=100 step=1 didValidate=didValidate onFocusOut="saveScore" onFocusIn="editScore" autofocus=true}}
                   {{/unless}}
                 </div>
               </div>

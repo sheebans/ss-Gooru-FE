@@ -98,6 +98,12 @@ export default PlayerController.extend({
   toggleState: true,
 
   /**
+   * Indicates if it should show the back button
+   * @property {boolean}
+   */
+  showBackButton: false,
+
+  /**
    * Indicate if show pre test suggestion
    * @property {Boolean} showSuggestion
    */
@@ -131,10 +137,10 @@ export default PlayerController.extend({
     let titles = Ember.A([]);
 
     if (unit) {
-      titles.push(unit.get('title'));
+      titles.push(`${unit.get('sequence')}. ${unit.get('title')}`);
     }
     if (lesson) {
-      titles.push(lesson.get('title'));
+      titles.push(`${lesson.get('sequence')}. ${lesson.get('title')}`);
     }
     if (collection) {
       titles.push(collection.get('title'));

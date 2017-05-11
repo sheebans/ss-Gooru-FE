@@ -15,7 +15,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // Methods
 
   model: function (params) {
-    var rubric = RubricModel.create( {id:'id-for-test',title: 'Rubric for testing',categories:[
+    var rubric = RubricModel.create( {id:'id-for-test',title: '',categories:[
     Category.create({title:'Category testing'})
     ]});
     const isEditing = params.editing;

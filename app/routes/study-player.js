@@ -113,6 +113,26 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         params.lessonId = params.lessonId || mapLocation.get('context.lessonId');
         params.pathId = params.pathId || mapLocation.get('context.pathId');
 
+        // Set the correct unit sequence number
+        hash.course.children.find((child, index) => {
+          let found = false;
+          if (child.get('id') === hash.unit.get('id')) {
+            found = true;
+            hash.unit.set('sequence', index + 1);
+          }
+          return found;
+        });
+
+        // Set the correct lesson sequence number
+        hash.unit.children.find((child, index) => {
+          let found = false;
+          if (child.get('id') === hash.lesson.get('id')) {
+            found = true;
+            hash.lesson.set('sequence', index + 1);
+          }
+          return found;
+        });
+
         //loads the player model if it has no suggestions
         return route.playerModel(params).then(function (model) {
           return Object.assign(model, {
