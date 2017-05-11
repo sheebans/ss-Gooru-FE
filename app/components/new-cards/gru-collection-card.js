@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * Collection, Assessment and Course card
@@ -8,10 +9,18 @@ import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
  * Component responsible of showing the collection assessment or rubric information in cards, so that most useful information is summarized there.
  * @module
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
+  /**
+   * @requires service:api-sdk/session
+   */
   session: Ember.inject.service('session'),
+
+  /**
+   * @requires service:api-sdk/course
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -23,26 +32,35 @@ export default Ember.Component.extend({
 
   actions: {
     /**
-     * Action triggered to open the content player
-     * @param {string} content identifier
-     */
-    openContentPlayer: function(content) {
-      this.sendAction('onOpenContentPlayer', content);
-    },
-    /**
      * Action triggered to edit content
      */
     editContent: function(){
       this.sendAction('onEditContent', this.get('content'));
     },
     /**
-     *Action triggered when select remix the course
+     * Action triggered to open the content player
+     * @param {string} content identifier
      */
-    remixCourse:function(){
-      if (this.get('session.isAnonymous')) {
-        this.send('showModal', 'content.modals.gru-login-prompt');
-      } else {
-        this.sendAction('onRemixCourse', this.get('content'));
+    openContentPlayer: function(content) {
+      this.sendAction('onOpenContentPlayer', content);
+    },
+
+    /**
+     * Action triggered to preview the content
+     * @param content
+     */
+    previewContent: function(content) {
+      let component = this;
+      var model = Ember.Object.create({
+        content: content,
+        remixCourse: () => component.remixCourse()
+      });
+      if(this.get('isCourse') && this.get('isTeacher')){
+        component.get('courseService').fetchById(content.get('id')).then(function (course) {
+          model.set('content.children',course.children);
+        }).then(function() {
+          component.send('showModal', 'gru-preview-course', model);
+        });
       }
     }
   },
@@ -108,29 +126,24 @@ export default Ember.Component.extend({
   isCourse:false,
 
   /**
+   * Indicates if the student is seen the card
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed.equal('profile.role', 'teacher'),
+
+  /**
    * @property {string} edit action
    */
   onEditContent: null,
-
 
   /**
    * @property {string} on content player action
    */
   onOpenContentPlayer: null,
-
   /**
-   * Indicates if the edit functionality is enabled
-   * @property {boolean}
+   * @property {Profile} user profile
    */
-  remixEnabled: Ember.computed('editEnabled', 'content', function(){
-    const isEditing = this.get('editEnabled');
-    if (this.get('iscontent')) {
-      return !isEditing;
-    }
-    else {
-      return !isEditing && !this.get('isExternalAssessment');
-    }
-  }),
+  profile:null,
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
@@ -145,5 +158,18 @@ export default Ember.Component.extend({
     } else {
       return TaxonomyTag.getTaxonomyTags(this.get('content.taxonomy'));
     }
-  })
+  }),
+  // -------------------------------------------------------------------------
+  // Methods
+
+  remixCourse:function(){
+    if (this.get('session.isAnonymous')) {
+      this.send('showModal', 'content.modals.gru-login-prompt');
+    } else {
+      var remixModel = {
+        content: this.get('content')
+      };
+      this.send('showModal', 'content.modals.gru-course-remix', remixModel);
+    }
+  }
 });
