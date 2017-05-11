@@ -12,9 +12,30 @@
                     <div class="title">
                         <label>
                             <span class="required">{{t "common.rubric-title"}}</span>
-                          {{validation.gru-input model=assessment valuePath='title' maxLength=50}}
+                          {{validation.gru-input model=rubric valuePath='title' maxLength=50}}
                         </label>
                     </div>
+                  {{taxonomy.gru-taxonomy-selector
+                    isEditing=isEditing
+                    onSubjectSelected="selectSubject"
+                    onCategorySelected="selectCategory"
+                    selectedSubject=selectedSubject
+                    subjectLabelKey='common.subject-and-framework'
+                    onlySubjectsWithStandards=true
+                    }}
+                    <div class="standards">
+                        <label>
+                            <span>{{t standardLabelKey}}</span>
+                            <button type="button" class="btn btn-primary taxonomy" {{action 'openTaxonomyModal'}} disabled={{standardDisabled}}>
+                              {{gru-icon name="open_in_new"}} {{t "common.select"}}
+                            </button>
+                            <div class="tags">
+                              {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
+                            </div>
+
+                        </label>
+                    </div>
+                  {{content.gru-audience isEditing=isEditing srcSelectedAudiences=rubric.audience editSelectedAudiences=rubric.audience}}
                 </div>
             </div>
         </div>
