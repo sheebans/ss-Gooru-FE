@@ -9,7 +9,7 @@ export default Ember.Service.extend({
 
   store: Ember.inject.service(),
 
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   classSerializer: null,
 
@@ -56,7 +56,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classAdapter').updateClass({
         classId: classModel.get('id'),
-        "class": classData
+        'class': classData
       }).then(function () {
         resolve(classModel);
       }, function(error) {
@@ -133,12 +133,17 @@ export default Ember.Service.extend({
           .then(function(response) {
             var classesModel = service.get('classSerializer').normalizeClasses(response);
             if (profile) {
-              Ember.$.each(classesModel.get("classes"), function(index, aClass){
+              Ember.$.each(classesModel.get('classes'), function(index, aClass){
                 //when it has no owner we asume is the provided profile
-                if (!aClass.get("owner")){
-                  aClass.set("owner", profile);
+                if (!aClass.get('owner')){
+                  aClass.set('owner', profile);
                 }
               });
+              if(profile.get('isTeacher')){
+                classesModel.set('classes',service.sortClasses(classesModel.get('classes'),classesModel.get('ownerList')));
+              }else{
+                classesModel.set('classes',service.sortClasses(classesModel.get('classes'),classesModel.get('memberList')));
+              }
             }
             resolve(classesModel);
           }, function(error) {
@@ -254,14 +259,14 @@ export default Ember.Service.extend({
    */
   storeClassReportStatus: function(classId, status) {
     const localStorage = this.getLocalStorage();
-    const userId = this.get("session.userId");
+    const userId = this.get('session.userId');
     if (localStorage) {
-      const reportInfo = JSON.parse(localStorage.getItem("report-info") || "{}");
+      const reportInfo = JSON.parse(localStorage.getItem('report-info') || '{}');
       const userInfo = reportInfo[userId] || { classes: {} };
       userInfo.classes[classId] = status;
 
       reportInfo[userId] = userInfo;
-      localStorage.setItem("report-info", JSON.stringify(reportInfo));
+      localStorage.setItem('report-info', JSON.stringify(reportInfo));
     }
   },
 
@@ -273,7 +278,7 @@ export default Ember.Service.extend({
   getReportClassesStatusFromStore: function (userId) {
     const localStorage = this.getLocalStorage();
     if (localStorage) {
-      const reportInfo = JSON.parse(localStorage.getItem("report-info") || "{}");
+      const reportInfo = JSON.parse(localStorage.getItem('report-info') || '{}');
       const userInfo = reportInfo[userId] || { classes: {} };
       return userInfo.classes;
     }
@@ -338,6 +343,17 @@ export default Ember.Service.extend({
    */
   findById: function (id) {
     return this.get('store').findRecord('class/class', id);
+  },
+  /**
+   * Returns sorted array of classess
+   * @param {[Classes]} classes
+   * @param {[String]} orderArray
+   * @returns {[Classes]}
+   */
+  sortClasses:function(classes,orderArray){
+    return classes.sort(function(class1,class2){
+      return orderArray.indexOf(class1.id) - orderArray.indexOf(class2.id);
+    });
   }
 
 });

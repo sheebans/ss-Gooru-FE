@@ -9,7 +9,7 @@ moduleForAcceptance('Acceptance | Student Home Landing page', {
       isAnonymous: false,
       'token-api3': 'user-token',
       user: {
-        gooruUId: 'id-for-pochita'
+        gooruUId: 'param-123'
       }
     });
   }
@@ -27,7 +27,7 @@ test('Layout', function(assert) {
     T.exists(assert, find('.announcements .warning i'),'Missing warning icon');
     T.exists(assert, find('.announcements .warning span.announcements-lead'),'Missing warning announcements lead');
     assert.equal(find('.announcements .classes-announcements ul li').length,5,'Missing announcements lust');
-    T.exists(assert, find('.more-classes'),'Missing more classes indetifier');
+    T.exists(assert, find('.more-classes'),'Missing more classes identifier');
 
     const $userContainer = find('.controller.student-landing');
     T.exists(assert, $userContainer, 'Missing student container');
@@ -35,7 +35,7 @@ test('Layout', function(assert) {
     const $leftUserContainer = $userContainer.find('.student-left-panel');
     T.exists(assert, $leftUserContainer.find('.greetings'), 'Missing student greetings');
     T.exists(assert, $leftUserContainer.find('.greetings .title'), 'Missing student name');
-    assert.equal( $leftUserContainer.find('.greetings .title span').text(),'Hello, Pochita!','Incorrect student name text');
+    assert.equal( $leftUserContainer.find('.greetings .title span').text(),'Hello, Student!','Incorrect student name text');
     T.exists(assert, $leftUserContainer.find('.greetings p'), 'Missing count classrooms');
     assert.equal( $leftUserContainer.find('.greetings p').text(), "You're currently enrolled in 7 classrooms",'Incorrect count classrooms text');
 
@@ -88,7 +88,7 @@ test('Go to course map from announcement', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
+    const $announcement = find('.announcements .classes-announcements ul li:eq(0) a');
     click($announcement);
     andThen(function() {
       assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/course-map?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id', 'Wrong route');
@@ -101,7 +101,7 @@ test('Go to course map from class card', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    const $card = find('.gru-student-class-card:eq(0) a');
+    const $card = find('.gru-student-class-card:eq(0)  a');
     click($card);
     andThen(function() {
       assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/course-map?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id', 'Wrong route');
@@ -149,5 +149,15 @@ test('Valid completed chart when the class has not started', function(assert) {
     assert.equal(currentURL(), '/student-home');
     let $chart = find('.gru-student-class-card:eq(1) .gru-radial-chart .radial-svg .labels');
     assert.equal($chart.text(),'--','Incorrect label');
+  });
+});
+
+test('Class order', function(assert) {
+  visit('/student-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-home');
+    let $title = find('.gru-student-class-card:eq(0) h5');
+    assert.equal($title.text().trim(),'First Class Pochita as Student','Incorrect first class');
   });
 });
