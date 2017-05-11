@@ -1,6 +1,7 @@
 {
   "owner": [
-    "462bcc67-1717-4140-bdc0-672e7bf4cdb1",
+    "class-for-pochita-as-teacher",
+    "class-for-pochita-as-teacher-no-course",
     "9878e75c-d67d-4a05-a492-209c5acfc2e2",
     "6f888262-9823-4c04-bc46-6d6ceff40cb1",
     "02765483-b6ed-435e-9bd1-756c627ba90b",
@@ -25,7 +26,7 @@
     "73356423-8bb0-4319-8e77-c8163a19478e"
   ],
   "member_count": {
-    "73356423-8bb0-4319-8e77-c8163a19478e": 1,
+    "class-for-pochita-as-student": 1,
     "45d31470-c9cd-4ebd-bcba-560bb2346c4a": 1,
     "9f93a183-ec5e-4b95-a616-9fe935271834": 1,
     "ca54e54a-f2e0-45f3-9eb8-dde83fbc1472": 2,
@@ -40,7 +41,7 @@
     {
       "id": "class-for-pochita-as-student",
       "creator_id": "a9abf5c5-f64e-41c8-9ade-dccb100ce0da",
-      "title": "Pochita as Student",
+      "title": "First Class Pochita as Student",
       "description": null,
       "greeting": null,
       "grade": null,
@@ -81,7 +82,7 @@
     {
       "id": "class-for-pochita-as-teacher",
       "creator_id": "id-for-pochita",
-      "title": "Pochita As Teacher",
+      "title": "Last Class Pochita as Teacher",
       "description": null,
       "greeting": null,
       "grade": null,
@@ -302,7 +303,7 @@
     {
       "id": "45d31470-c9cd-4ebd-bcba-560bb2346c4a",
       "creator_id": "f9c310f1-02b5-458f-80c5-4bac7af3eddb",
-      "title": "Another one",
+      "title": "Second class as student",
       "description": null,
       "greeting": null,
       "grade": null,
@@ -420,9 +421,9 @@
       "updated_at": "2016-04-19T22:35:40Z"
     },
     {
-      "id": "d788b7f6-7d96-4a57-8c6d-049671078a3a",
+      "id": "9878e75c-d67d-4a05-a492-209c5acfc2e2",
       "creator_id": "id-for-pochita",
-      "title": "Jeff Class 05",
+      "title": "Last Class Pochita",
       "description": null,
       "greeting": null,
       "grade": null,
