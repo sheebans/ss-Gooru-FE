@@ -95,7 +95,8 @@ export default AddToModal.extend({
     this.triggerAction({ action: 'closeModal' });
     this.get('notifications').setOptions({
       positionClass: 'toast-top-full-width',
-      toastClass: 'gooru-toast'
+      toastClass: 'gooru-toast',
+      timeOut: 10000
     });
     var contentEditUrl = this.get('router').generate('content.collections.edit', this.get('selectedCollection.id'));
     var successMsg = this.get('i18n').t('common.add-to-collection-success', {

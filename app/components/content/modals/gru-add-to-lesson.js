@@ -71,7 +71,8 @@ export default AddToModal.extend({
     this.triggerAction({ action: 'closeModal' });
     this.get('notifications').setOptions({
       positionClass: 'toast-top-full-width',
-      toastClass: 'gooru-toast'
+      toastClass: 'gooru-toast',
+      timeOut: 10000
     });
     var editRoute = this.get('isCollection') ? 'content.collections.edit' : 'content.assessments.edit';
     var contentEditUrl = this.get('router').generate(editRoute, this.get('selectedCollection.id'));
