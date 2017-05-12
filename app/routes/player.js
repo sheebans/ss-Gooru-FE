@@ -54,7 +54,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     /**
      * When closing the player
      */
-    closePlayer: function(){
+    onClosePlayer: function() {
       const $appContainer = Ember.$( '.app-container' );
       if ($appContainer.hasClass( 'navigator-on' )){
         $appContainer.removeClass( 'navigator-on' );

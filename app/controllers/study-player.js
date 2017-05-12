@@ -98,6 +98,12 @@ export default PlayerController.extend({
   toggleState: true,
 
   /**
+   * Indicates if it should show the back button
+   * @property {boolean}
+   */
+  showBackButton: false,
+
+  /**
    * Indicate if show pre test suggestion
    * @property {Boolean} showSuggestion
    */

@@ -37,7 +37,7 @@ export default Ember.Object.extend({
   /**
    * @property {Number[]} Array with the audience ids
    */
-  audience:[],
+  audience:Ember.A([]),
 
   /**
    * @property {boolean}
@@ -58,7 +58,7 @@ export default Ember.Object.extend({
   /**
    * @property {RubricCategory[]}
    */
-  categories: [],
+  categories: Ember.A([]),
 
   /**
    * @property {boolean}
@@ -79,6 +79,11 @@ export default Ember.Object.extend({
    * @property {string} feedback guidance
    */
   feedback: null,
+
+  /**
+   * @property {TaxonomyTagData[]} Rubric standards array
+   */
+  standards: Ember.A([]),
 
  /**
    * @property {number} total points

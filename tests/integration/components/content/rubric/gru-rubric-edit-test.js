@@ -3,13 +3,69 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import RubricModel from 'gooru-web/models/rubric/rubric';
 import Category from 'gooru-web/models/rubric/rubric-category';
+import Ember from 'ember';
+import DS from 'ember-data';
+import AudienceModel from 'gooru-web/models/audience';
+
+const lookupServiceStub = Ember.Service.extend({
+
+  readAudiences() {
+    var promiseResponse;
+    var response = [
+      AudienceModel.create({ id: 1, name: 'all students', order: 1 }),
+      AudienceModel.create({ id: 4, name: 'none students', order: 2 })
+    ];
+
+    promiseResponse = new Ember.RSVP.Promise(function(resolve) {
+      Ember.run.next(this, function() {
+        resolve(response);
+      });
+    });
+
+    return DS.PromiseArray.create({
+      promise: promiseResponse
+    });
+  }});
+
+const taxonomyServiceStub = Ember.Service.extend({
+
+  getSubjects(category) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (!category) {
+        reject({status: 500});
+      } else {
+        resolve({
+          "subjects": [{
+            "id": "GDF.K12.CS",
+            "title": "Computer Science",
+            "description": null,
+            "code": "GDF.K12.CS",
+            "standard_framework_id": "GDF"
+          }]
+        });
+      }
+    });
+  }
+
+});
 
 moduleForComponent('content/rubric/gru-rubric-edit', 'Integration | Component | content/rubric/gru rubric edit', {
-  integration: true
+  integration: true,
+  beforeEach: function () {
+    this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
+    this.inject.service('api-sdk/taxonomy');
+    this.register('service:api-sdk/lookup', lookupServiceStub);
+    this.inject.service('api-sdk/lookup');
+  }
 });
 
 test('it renders', function(assert) {
-  this.render(hbs`{{content/rubric/gru-rubric-edit}}`);
+  let rubric = RubricModel.create( {id:'id-for-test',title: 'Rubric for testing',categories:[
+    Category.create({title:'Category testing'})
+  ]});
+  this.set('rubric',rubric);
+
+  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
   const $component = this.$();
   assert.ok($component.find('.gru-rubric-edit').length, 'Missing rubric edit component');
   assert.ok($component.find('.content.gru-header').length, 'Missing rubric header');
@@ -17,6 +73,9 @@ test('it renders', function(assert) {
   assert.ok($component.find('section#information .header').length,'Missing information header');
   assert.ok($component.find('section#information .header h2').length,'Missing information header title');
   assert.ok($component.find('section#information .title label .gru-input').length,'Missing assessment title input');
+  assert.ok($component.find('section#information .gru-taxonomy-selector').length,'Missing taxonomy selector');
+  assert.ok($component.find('section#information .standards').length,'Missing taxonomy selector');
+  assert.ok($component.find('section#information .content.gru-audience').length,'Missing audience');
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();
   return wait().then(function () {
@@ -32,7 +91,11 @@ test('it renders', function(assert) {
 });
 
 test('Add Category', function(assert) {
-  this.render(hbs`{{content/rubric/gru-rubric-edit}}`);
+  let rubric = RubricModel.create( {id:'id-for-test',title: 'Rubric for testing',categories:[
+    Category.create({title:'Category testing'})
+  ]});
+  this.set('rubric',rubric);
+  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();

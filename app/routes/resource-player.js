@@ -68,6 +68,26 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
         lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
         collection: this.loadCollection(collectionId, collectionType)
       }).then(hash => {
+        // Set the correct unit sequence number
+        hash.course.children.find((child, index) => {
+          let found = false;
+          if (child.get('id') === hash.unit.get('id')) {
+            found = true;
+            hash.unit.set('sequence', index + 1);
+          }
+          return found;
+        });
+
+        // Set the correct lesson sequence number
+        hash.unit.children.find((child, index) => {
+          let found = false;
+          if (child.get('id') === hash.lesson.get('id')) {
+            found = true;
+            hash.lesson.set('sequence', index + 1);
+          }
+          return found;
+        });
+
         let { course, unit, lesson, collection } = hash;
         return this.quizzesModel(params).then(
           quizzesModel => Object.assign(quizzesModel, {

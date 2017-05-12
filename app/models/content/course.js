@@ -195,6 +195,14 @@ export default Ember.Object.extend(Validations, {
   },
 
   /**
+   * When the owner and the creator are the same
+   * @property {boolean}
+   */
+  sameOwnerAndCreator: Ember.computed('owner.id', 'creatorId', function(){
+    return !this.get('creatorId') || this.get('owner.id') === this.get('creatorId');
+  }),
+
+  /**
    * Get an specific unit index of the children
    *
    * @function

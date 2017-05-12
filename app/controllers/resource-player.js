@@ -33,10 +33,10 @@ export default Ember.Controller.extend({
     let titles = Ember.A([]);
 
     if (unit) {
-      titles.push(unit.get('title'));
+      titles.push(`${unit.get('sequence')}. ${unit.get('title')}`);
     }
     if (lesson) {
-      titles.push(lesson.get('title'));
+      titles.push(`${lesson.get('sequence')}. ${lesson.get('title')}`);
     }
     if (collection) {
       titles.push(collection.get('title'));
