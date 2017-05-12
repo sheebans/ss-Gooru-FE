@@ -60,7 +60,7 @@ moduleForComponent('content/rubric/gru-rubric-edit', 'Integration | Component | 
 });
 
 test('it renders', function(assert) {
-  let rubric = RubricModel.create( {id:'id-for-test',title: 'Rubric for testing',categories:[
+  let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
     Category.create({title:'Category testing'})
   ]});
   this.set('rubric',rubric);
@@ -91,7 +91,7 @@ test('it renders', function(assert) {
 });
 
 test('Add Category', function(assert) {
-  let rubric = RubricModel.create( {id:'id-for-test',title: 'Rubric for testing',categories:[
+  let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
     Category.create({title:'Category testing'})
   ]});
   this.set('rubric',rubric);
@@ -110,7 +110,7 @@ test('Add Category', function(assert) {
 });
 
 test('Copy Category', function(assert) {
-  let rubric = RubricModel.create( {id:'id-for-test',title: 'Rubric for testing',categories:[
+  let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
     Category.create({title:'Category testing'})
   ]});
   this.set('rubric',rubric);
@@ -129,7 +129,7 @@ test('Copy Category', function(assert) {
   });
 });
 test('Delete Category', function(assert) {
-  let rubric = RubricModel.create( {id:'id-for-test',title: 'Rubric for testing',categories:[
+  let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
     Category.create({title:'Category testing'})
   ]});
   this.set('rubric',rubric);

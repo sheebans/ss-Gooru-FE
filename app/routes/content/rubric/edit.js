@@ -1,7 +1,5 @@
 import Ember from 'ember';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
-import RubricModel from 'gooru-web/models/rubric/rubric';
-import Category from 'gooru-web/models/rubric/rubric-category';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
@@ -12,19 +10,27 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   },
 
   // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @property {Service} rubricService
+   */
+  rubricService: Ember.inject.service('api-sdk/rubric'),
+
+  // -------------------------------------------------------------------------
   // Methods
 
   model: function (params) {
-    var rubric = RubricModel.create( {id:'id-for-test',title: '',categories:[
-    Category.create({title:'Category testing'})
-    ]});
-    const isEditing = params.editing;
-    const editingContent = params.editingContent ? params.editingContent : null;
-    return Ember.RSVP.hash({
-      rubric,
-      isEditing: !!isEditing,
-      editingContent: editingContent
-    });
+    const route = this;
+    return route.get('rubricService').getRubric(params.rubricId)
+      .then(function(rubric) {
+        const isEditing = params.editing;
+        const editingContent = params.editingContent ? params.editingContent : null;
+        return Ember.RSVP.hash({
+          rubric:rubric,
+          isEditing: !!isEditing,
+          editingContent: editingContent
+        });
+      });
   },
 
   setupController(controller, model) {
