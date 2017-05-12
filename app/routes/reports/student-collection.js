@@ -76,7 +76,7 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
    * @param {{ assessmentId: string, resourceId: string }} params
    */
   model(params) {
-    this.studentCollectionModel(params);
+    return this.studentCollectionModel(params);
   },
 
   /**
