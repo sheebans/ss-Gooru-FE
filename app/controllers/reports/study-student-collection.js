@@ -124,7 +124,7 @@ export default StudentCollection.extend({
    */
   hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'showSuggestion', function() {
 
-    return (this.get('hasBackFillSuggestions') && this.get('showSuggestion')) || (this.get('hasPostTestSuggestions') && this.get('showSuggestion'));
+    return return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions')) && this.get('showSuggestion');
 
   }),
 

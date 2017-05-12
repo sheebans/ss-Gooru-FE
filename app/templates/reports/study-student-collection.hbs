@@ -11,12 +11,12 @@
 
 <div class="report-container {{if toggleState 'expanded' 'collapsed'}}">
   {{#if hasAnySuggestion}}
-    {{#if  (and hasBackFillSuggestions showSuggestion)}}
+    {{#if  (and hasBackFillSuggestions)}}
       <div class="suggestion-panel">
         {{player.gru-suggest-test type=backFillType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playBackFillSuggestion'}}
       </div>
     {{/if}}
-    {{#if (and hasPostTestSuggestions showSuggestion)}}
+    {{#if (and hasPostTestSuggestions)}}
       <div class="suggestion-panel">
         {{player.gru-suggest-test type=postTestType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playPostTestSuggestion'}}
       </div>
