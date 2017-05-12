@@ -2,7 +2,7 @@ import { RUBRIC_TYPE } from 'gooru-web/config/config';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('model:rubric/rubric', 'Unit | Model | rubric/rubric', {
-  unit: true
+  integration: true
 });
 
 test('is1xN', function (assert) {
