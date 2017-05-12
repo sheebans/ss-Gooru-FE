@@ -10,8 +10,8 @@ test('is1xN', function (assert) {
     type: RUBRIC_TYPE._1xN
   });
 
-  assert.ok(model.get("is1xN"), "wrong type");
-  assert.ok(!model.get("isNxN"), "wrong type");
+  assert.ok(model.get('is1xN'), 'wrong type');
+  assert.ok(!model.get('isNxN'), 'wrong type');
 });
 
 test('isNxN', function (assert) {
@@ -19,24 +19,24 @@ test('isNxN', function (assert) {
     type: RUBRIC_TYPE.NxN
   });
 
-  assert.ok(model.get("isNxN"), "wrong type");
-  assert.ok(!model.get("is1xN"), "wrong type");
+  assert.ok(model.get('isNxN'), 'wrong type');
+  assert.ok(!model.get('is1xN'), 'wrong type');
 });
 
 test('hasAudience', function (assert) {
   var model = this.subject({});
 
-  assert.ok(!model.get("hasAudience"), "It should has no audience");
+  assert.ok(!model.get('hasAudience'), 'It should has no audience');
 
   model.set('audience', [1]);
-  assert.ok(model.get("hasAudience"), "It should has audience");
+  assert.ok(model.get('hasAudience'), 'It should has audience');
 });
 
 test('hasCategories', function (assert) {
   var model = this.subject({});
 
-  assert.ok(!model.get("hasCategories"), "It should has no categories");
+  assert.ok(!model.get('hasCategories'), 'It should has no categories');
 
   model.set('categories', [1]);
-  assert.ok(model.get("hasCategories"), "It should has categories");
+  assert.ok(model.get('hasCategories'), 'It should has categories');
 });
