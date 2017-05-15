@@ -15,7 +15,7 @@ test('serializeCreateRubric', function(assert) {
     }
   }));
 
-  const rubric = Rubric.create({
+  const rubric = Rubric.create(Ember.getOwner(this).ownerInjection(),{
     title: 'rubric-title',
     description: 'rubric-description',
     type: 'rubric-type',

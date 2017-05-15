@@ -37,12 +37,12 @@ export default Ember.Object.extend({
       'title': model.get('title'),
       'description': model.get('description'),
       'type': model.get('type'),
+      'is_rubric':true,
       'thumbnail': cleanFilename(model.get('thumbnail'), this.get('session.cdnUrls')),
       'metadata': {
-        'audience': model.get('hasAudience') ? model.get('audience') : undefined
+        'audience': model.get('hasAudience') ? model.get('audience') : []
       },
       'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(model.get('taxonomy'))
-
     };
   },
 
@@ -123,7 +123,7 @@ export default Ember.Object.extend({
     const appRootPath = serializer.get('appRootPath'); //configuration appRootPath
     const thumbnail = data.thumbnail ? basePath + data.thumbnail : appRootPath + DEFAULT_IMAGES.RUBRIC;
 
-    return Rubric.create({
+    return Rubric.create(Ember.getOwner(this).ownerInjection(),{
       id: data.id,
       title: data.title,
       description: data.description,

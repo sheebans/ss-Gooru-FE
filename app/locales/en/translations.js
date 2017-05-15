@@ -245,6 +245,7 @@ export default Object.assign(quizzesTranslations, {
       "resource-not-updated": "Oops! Unable to update resource right now. Please try again shortly.",
       "resource-same-host-url": "Resources cannot be Gooru URLs.",
       "resource-title-length": "The title cannot be longer than 50 characters.",
+      "rubric-title-presence": "Please enter the rubric title.",
       "select-correct-answer": "Please select the correct answer.",
       "search-collections-length": "Please enter at least 3 characters.",
       "sign-in-credentials-not-valid": "Uh oh! Something's not right. Please double check your username and password and try again.",
