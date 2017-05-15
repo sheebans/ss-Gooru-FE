@@ -52,7 +52,6 @@ export default Ember.Component.extend({
         this.set('didValidate', true);
       }.bind(this));
     }
-
   },
   // -------------------------------------------------------------------------
   // Methods
@@ -99,7 +98,7 @@ export default Ember.Component.extend({
   rubric: null,
 
   /**
-   * Indicate if it's waiting for createCollection callback
+   * Indicate if it's waiting for createRubric callback
    */
   isLoading: false
 
