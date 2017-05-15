@@ -9,6 +9,7 @@ import { NETWORK_TYPE, DEFAULT_IMAGES } from 'gooru-web/config/config';
 import { cleanFilename, nullIfEmpty } from 'gooru-web/utils/utils';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import RubricSerializer from 'gooru-web/serializers/rubric/rubric';
 
 /**
  * Serializer to support the Profile CRUD operations for API 3.0
@@ -24,9 +25,15 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   taxonomySerializer: null,
 
+  /**
+   * @property {RubricSerializer} rubricSerializer
+   */
+  rubricSerializer: null,
+
   init: function () {
     this._super(...arguments);
     this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('rubricSerializer', RubricSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -190,6 +197,20 @@ export default Ember.Object.extend(ConfigurationMixin, {
 
     return assessments.map(function(assessmentData){
       return serializer.normalizeAssessment(assessmentData, owners);
+    });
+  },
+
+  /**
+   * Normalize the assessments
+   * @param payload
+   * @returns {Assessment[]}
+   */
+  normalizeReadRubrics: function(payload){
+    const rubrics = payload.rubrics || [];
+    const serializer = this;
+    const owners = serializer.normalizeOwners(payload.owner_details || []);
+    return rubrics.map(function(rubricData){
+      return serializer.get('rubricSerializer').normalizeRubric(rubricData,owners);
     });
   },
 

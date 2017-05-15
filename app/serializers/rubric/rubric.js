@@ -115,9 +115,11 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {Rubric}
    */
-  normalizeRubric: function (data) {
+  normalizeRubric: function (data,owners) {
     const serializer = this;
     const metadata = data.metadata || {};
+    const ownerId = data.creator_id;
+    const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
     const categories = data.categories || [];
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = serializer.get('appRootPath'); //configuration appRootPath
@@ -132,18 +134,20 @@ export default Ember.Object.extend({
       taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(data.taxonomy, TAXONOMY_LEVELS.COURSE),
       audience: metadata.audience,
       url: data.url,
+      isPublished: data.publishStatus === 'published',
       uploaded: data.is_remote === true,
       feedback: data.feedback_guidance,
       totalPoints: data.total_points,
       requiresFeedback: data.overall_feedback_required === true,
       categories: categories.map(function(category){
         return serializer.normalizeRubricCategory(category);
-      })
+      }),
+      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : null
     });
   },
 
   /**
-   * Normalizes a rubric categorys
+   * Normalizes a rubric category
    * @param {*} data
    * @return {RubricCategory}
    *

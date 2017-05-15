@@ -204,27 +204,27 @@ test('normalizeRubricCategory', function(assert) {
   const serializer = this.subject();
 
   const category = {
-    "category_title": "Thesis and Sub-claims",
-    "narrative_feedback": "any feedback",
-    "required_feedback": true,
-    "level": true,
-    "scoring": false,
-    "levels": [
+    category_title: 'Thesis and Sub-claims',
+    narrative_feedback: 'any feedback',
+    required_feedback: true,
+    level: true,
+    scoring: false,
+    levels: [
       {
-        "level_name": "Exemplary",
-        "level_score": 4
+        level_name: 'Exemplary',
+        level_score: 4
       },
       {
-        "level_name": "Proficient",
-        "level_score": 3
+        level_name: 'Proficient',
+        level_score: 3
       },
       {
-        "level_name": "Basic",
-        "level_score": 2
+        level_name: 'Basic',
+        level_score: 2
       },
       {
-        "level_name": "Below Basic",
-        "level_score": 1
+        level_name: 'Below Basic',
+        level_score: 1
       }
     ]
   };
@@ -250,41 +250,52 @@ test('normalizeRubric', function(assert) {
   }));
 
   const rubricData = {
-    "id": "2c185398-d0e6-42d8-9926-572939fc0784",
-    "title": "Rubric - 1",
-    "description": "This is the example question for the rubrics association",
-    "type": "1xN",
-    "thumbnail": "2c185398-d0e6-42d8-9926-572939fc0784.png",
-    "metadata": {
-      "audience": [12, 45]
+    id: '2c185398-d0e6-42d8-9926-572939fc0784',
+    title: 'Rubric - 1',
+    description: 'This is the example question for the rubrics association',
+    type: '1xN',
+    thumbnail: '2c185398-d0e6-42d8-9926-572939fc0784.png',
+    publishStatus:'published',
+    metadata: {
+      audience: [12, 45]
     },
-    "taxonomy": {},
-    "url": "https://en.wikipedia.org/wiki/Rubric_(academic)",
-    "is_remote": true,
-    "feedback_guidance": "Summarize your feedback on the essay as a whole",
-    "total_points": 4,
-    "overall_feedback_required": true,
-    "categories": [{
-        "category_title": "Thesis and Sub-claims"
+    taxonomy: {},
+    url: 'https://en.wikipedia.org/wiki/Rubric_(academic)',
+    is_remote: true,
+    feedback_guidance: 'Summarize your feedback on the essay as a whole',
+    total_points: 4,
+    creator_id:'852f9814-0eb4-461d-bd3b-aca9c2500595',
+    overall_feedback_required: true,
+    categories: [{
+        category_title: 'Thesis and Sub-claims'
       },
       {
-        "category_title": "Thesis and Sub-claims"
+        category_title: 'Thesis and Sub-claims'
       }
     ]
   };
 
-  const rubric = serializer.normalizeRubric(rubricData);
+  const owners = [Ember.Object.create({
+    id: '852f9814-0eb4-461d-bd3b-aca9c2500595',
+    first_name: 'Sachin',
+    last_name: 'Zope',
+    thumbnail: 'any'
+  })];
+
+  const rubric = serializer.normalizeRubric(rubricData,owners);
   assert.equal(rubric.get('id'), '2c185398-d0e6-42d8-9926-572939fc0784', 'Wrong id');
   assert.equal(rubric.get('title'), 'Rubric - 1', 'Wrong title');
   assert.equal(rubric.get('description'), 'This is the example question for the rubrics association', 'Wrong description');
   assert.equal(rubric.get('type'), '1xN', 'Wrong type');
   assert.equal(rubric.get('thumbnail'), contentCdnUrl + '2c185398-d0e6-42d8-9926-572939fc0784.png', 'Wrong thumbnail');
   assert.deepEqual(rubric.get('audience'), [12, 45], 'Wrong audience');
-  assert.equal(rubric.get("taxonomy.length"), 0, 'Wrong taxonomy');
+  assert.equal(rubric.get('taxonomy.length'), 0, 'Wrong taxonomy');
   assert.equal(rubric.get('url'), 'https://en.wikipedia.org/wiki/Rubric_(academic)', 'Wrong url');
   assert.equal(rubric.get('uploaded'), true, 'Wrong url');
   assert.equal(rubric.get('feedback'), 'Summarize your feedback on the essay as a whole', 'Wrong feedback');
   assert.equal(rubric.get('totalPoints'), 4, 'Wrong total points');
+  assert.equal(rubric.get('isPublished'), true, 'Should be published');
   assert.equal(rubric.get('requiresFeedback'), true, 'Wrong requires feedback');
   assert.equal(rubric.get('categories.length'), 2, 'Wrong categories length');
+  assert.equal(rubric.get('owner.id'), '852f9814-0eb4-461d-bd3b-aca9c2500595', 'Wrong owner id');
 });
