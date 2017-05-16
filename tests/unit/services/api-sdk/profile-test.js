@@ -100,7 +100,7 @@ test('readMultipleProfiles', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     readMultipleProfiles: function() {
-      assert.ok(true, "readUserProfile() function was called" );
+      assert.ok(true, 'readUserProfile() function was called' );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -108,12 +108,12 @@ test('readMultipleProfiles', function(assert) {
   service.set('profileSerializer', Ember.Object.create({
     normalizeReadMultipleProfiles: function(profilePayload) {
       assert.deepEqual({}, profilePayload, 'Wrong profile payload');
-      return ["user-1","user-2","user-3","user-4","user-5"];
+      return ['user-1','user-2','user-3','user-4','user-5'];
     }
   }));
 
   var done = assert.async();
-  service.readMultipleProfiles(["user-1","user-2","user-3","user-4","user-5"],2)
+  service.readMultipleProfiles(['user-1','user-2','user-3','user-4','user-5'],2)
     .then(function() {
       done();
     });
@@ -124,7 +124,7 @@ test('readUserProfileByUsername', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     readUserProfileByUsername: function(username) {
-      assert.equal(username, "username", "readUserProfileByUsername() function was called" );
+      assert.equal(username, 'username', 'readUserProfileByUsername() function was called' );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -137,7 +137,7 @@ test('readUserProfileByUsername', function(assert) {
   }));
 
   var done = assert.async();
-  service.readUserProfileByUsername("username")
+  service.readUserProfileByUsername('username')
     .then(function() {
       done();
     });
@@ -149,7 +149,7 @@ test('followUserProfile', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     followUserProfile: function() {
-      assert.ok(true, "followUserProfile() function was called" );
+      assert.ok(true, 'followUserProfile() function was called' );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -167,7 +167,7 @@ test('unfollowUserProfile', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     unfollowUserProfile: function() {
-      assert.ok(true, "unfollowUserProfile() function was called" );
+      assert.ok(true, 'unfollowUserProfile() function was called' );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -510,15 +510,15 @@ test('readResources', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     readResources: function(userId, params) {
-      assert.equal(userId, 1, "readResources(1) function was called" );
-      assert.equal(params.page, 1, "Wrong page number" );
+      assert.equal(userId, 1, 'readResources(1) function was called' );
+      assert.equal(params.page, 1, 'Wrong page number' );
       return Ember.RSVP.resolve({});
     }
   }));
 
   service.set('profileSerializer', Ember.Object.create({
     normalizeReadResources: function(response) {
-      assert.deepEqual(response, {}, "normalizeReadResources() function was called" );
+      assert.deepEqual(response, {}, 'normalizeReadResources() function was called' );
       return [];
     }
   }));
@@ -533,15 +533,15 @@ test('readQuestions', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     readQuestions: function(userId, params) {
-      assert.equal(userId, 1, "readQuestions(1) function was called" );
-      assert.equal(params.page, 1, "Wrong page number" );
+      assert.equal(userId, 1, 'readQuestions(1) function was called' );
+      assert.equal(params.page, 1, 'Wrong page number' );
       return Ember.RSVP.resolve({});
     }
   }));
 
   service.set('profileSerializer', Ember.Object.create({
     normalizeReadQuestions: function(response) {
-      assert.deepEqual(response, {}, "normalizeReadQuestions() function was called" );
+      assert.deepEqual(response, {}, 'normalizeReadQuestions() function was called' );
       return [];
     }
   }));
@@ -556,15 +556,15 @@ test('readCollections', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     readCollections: function(userId, params) {
-      assert.equal(userId, 1, "readCollections(1) function was called" );
-      assert.equal(params.page, 1, "Wrong page number" );
+      assert.equal(userId, 1, 'readCollections(1) function was called' );
+      assert.equal(params.page, 1, 'Wrong page number' );
       return Ember.RSVP.resolve({});
     }
   }));
 
   service.set('profileSerializer', Ember.Object.create({
     normalizeReadCollections: function(response) {
-      assert.deepEqual(response, {}, "normalizeReadCollections() function was called" );
+      assert.deepEqual(response, {}, 'normalizeReadCollections() function was called' );
       return [];
     }
   }));
@@ -579,21 +579,44 @@ test('readAssessments', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     readAssessments: function(userId, params) {
-      assert.equal(userId, 1, "readAssessments(1) function was called" );
-      assert.equal(params.page, 1, "Wrong page number" );
+      assert.equal(userId, 1, 'readAssessments(1) function was called' );
+      assert.equal(params.page, 1, 'Wrong page number' );
       return Ember.RSVP.resolve({});
     }
   }));
 
   service.set('profileSerializer', Ember.Object.create({
     normalizeReadAssessments: function(response) {
-      assert.deepEqual(response, {}, "normalizeReadAssessments() function was called" );
+      assert.deepEqual(response, {}, 'normalizeReadAssessments() function was called' );
       return [];
     }
   }));
 
   var done = assert.async();
   service.readAssessments(1, { page:1 }).then(function() { done(); });
+});
+
+test('readRubrics', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('profileAdapter', Ember.Object.create({
+    readRubrics: function(userId, params) {
+      assert.equal(userId, 1, 'readRubrics function was called' );
+      assert.equal(params.page, 1, 'Wrong page number' );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('profileSerializer', Ember.Object.create({
+    normalizeReadRubrics: function(response) {
+      assert.deepEqual(response, {}, 'normalizeReadRubrics function was called' );
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.readRubrics(1, { page:1 }).then(function() { done(); });
 });
 
 test('forgotPassword', function(assert) {
@@ -603,7 +626,7 @@ test('forgotPassword', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     forgotPassword: function(email) {
-      assert.equal(email, expectedEmail, "Wrong email");
+      assert.equal(email, expectedEmail, 'Wrong email');
       return Ember.RSVP.resolve({});
     }
   }));
@@ -623,8 +646,8 @@ test('resetPassword', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     resetPassword: function(password, token) {
-      assert.equal(password, expectedPassword, "Wrong password");
-      assert.equal(token, expectedToken, "Wrong token");
+      assert.equal(password, expectedPassword, 'Wrong password');
+      assert.equal(token, expectedToken, 'Wrong token');
       return Ember.RSVP.resolve({});
     }
   }));
@@ -642,15 +665,15 @@ test('readFollowing', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     readNetwork: function(userId, type) {
-      assert.equal(userId, 1, "Wrong user id" );
-      assert.equal(type, NETWORK_TYPE.FOLLOWING, "Wrong type" );
+      assert.equal(userId, 1, 'Wrong user id' );
+      assert.equal(type, NETWORK_TYPE.FOLLOWING, 'Wrong type' );
       return Ember.RSVP.resolve({});
     }
   }));
 
   service.set('profileSerializer', Ember.Object.create({
     normalizeReadNetwork: function(response) {
-      assert.deepEqual(response, {}, "Wrong response" );
+      assert.deepEqual(response, {}, 'Wrong response' );
       return [];
     }
   }));
@@ -665,15 +688,15 @@ test('readFollowers', function(assert) {
 
   service.set('profileAdapter', Ember.Object.create({
     readNetwork: function(userId, type) {
-      assert.equal(userId, 1, "Wrong user id" );
-      assert.equal(type, NETWORK_TYPE.FOLLOWERS, "Wrong type" );
+      assert.equal(userId, 1, 'Wrong user id' );
+      assert.equal(type, NETWORK_TYPE.FOLLOWERS, 'Wrong type' );
       return Ember.RSVP.resolve({});
     }
   }));
 
   service.set('profileSerializer', Ember.Object.create({
     normalizeReadNetwork: function(response) {
-      assert.deepEqual(response, {}, "Wrong response" );
+      assert.deepEqual(response, {}, 'Wrong response' );
       return [];
     }
   }));
