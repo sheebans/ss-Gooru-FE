@@ -267,6 +267,31 @@ test('readAssessments', function(assert) {
     });
 });
 
+test('readRubrics', function(assert) {
+  const adapter = this.subject();
+  const userId = "user-id";
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  const routes = function() {
+    this.get('/api/nucleus/v2/profiles/user-id/rubrics', function(request) {
+      assert.equal(request.queryParams['limit'], '50', 'Wrong limit');
+      assert.equal(request.queryParams['offset'], '50', 'Wrong offset');
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  };
+
+  this.pretender.map(routes);
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  adapter.readRubrics(userId, { page: 1 })
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});
+
 test('readNetwork', function(assert) {
   const adapter = this.subject();
   const userId = "user-id";

@@ -43,6 +43,7 @@ export default Object.assign(quizzesTranslations, {
     "a-course": "a course",
     "a-question": "a question",
     "a-resource": "a resource",
+    "a-rubric": "a rubric",
     "all-completed": "All Completed",
     "an-assessment": "an assessment",
     "about": "About",
@@ -333,6 +334,7 @@ export default Object.assign(quizzesTranslations, {
     "no-courses-to-display": "No <span>courses</span> to display.",
     "no-questions-to-display": "No <span>questions</span> to display.",
     "no-resources-to-display": "No <span>resources</span> to display.",
+    "no-rubrics-to-display": "No <span>rubrics</span> to display.",
     "no-followers": "You don't have followers yet.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
@@ -370,6 +372,7 @@ export default Object.assign(quizzesTranslations, {
     "published-tooltip": "Badged Content",
     "publisher": "Publisher",
     "question": "Question",
+    "rubrics":"Rubrics",
     "questions": "Questions",
     "questions-OE": "Free Response Questions",
     "question-pl": {

@@ -367,6 +367,23 @@ export default Ember.Service.extend({
       );
     });
   },
+  /**
+   * Return the list of rubrics related to a user
+   * @param {string} userId
+   * @param {*} params
+   * @returns {RSVP.Promise.<Rubric>}
+   */
+  readRubrics: function(userId, params) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('profileAdapter').readRubrics(userId, params).then(
+        function(response) {
+          resolve(service.get('profileSerializer').normalizeReadRubrics(response));
+        },
+        reject
+      );
+    });
+  },
 
   /**
    * Starts the forgot password workflow

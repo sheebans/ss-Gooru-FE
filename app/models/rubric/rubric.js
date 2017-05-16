@@ -67,6 +67,11 @@ export default Ember.Object.extend(Validations,{
   isNxN: Ember.computed.equal('type', RUBRIC_TYPE.NxN),
 
   /**
+   * @property {Boolean} isPublished
+   */
+  isPublished: null,
+
+  /**
    * @property {RubricCategory[]}
    */
   categories: Ember.A([]),
@@ -109,5 +114,10 @@ export default Ember.Object.extend(Validations,{
   /**
    * @property {string} mimeType
    */
-  mimeType:'application/pdf,image/*'
+  mimeType:'application/pdf,image/*',
+
+  /**
+   * @property {Profile} owner
+   */
+  owner:null
 });
