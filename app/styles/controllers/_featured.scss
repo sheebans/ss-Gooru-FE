@@ -44,12 +44,12 @@
           display: block;
         }
         i{
-          font-size: 86px;
+          font-size: $font-size-large-icon;
           color:$gray-dark;
           margin: 25px 0;
         }
         .title{
-          font-size: 18px;
+          font-size: $font-size-large;
         }
       }
     }
