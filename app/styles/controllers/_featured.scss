@@ -26,5 +26,32 @@
       @include justify-content(space-around);
       margin: 40px 110px;
     }
+    .no-results-found{
+      width:292px;
+      height:362px;
+      display: inline-block;
+      border-radius: 6px;
+      .panel-body{
+        height:inherit;
+        @include flexbox;
+        @include align-items(center);
+      }
+      .no-results-content{
+        margin: 0 auto;
+        text-align: center;
+        vertical-align: middle;
+        > *{
+          display: block;
+        }
+        i{
+          font-size: 86px;
+          color:$gray-dark;
+          margin: 25px 0;
+        }
+        .title{
+          font-size: 18px;
+        }
+      }
+    }
   }
 }
