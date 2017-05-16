@@ -274,7 +274,7 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
   /**
-   * Gets assessments by user id
+   * Gets Rubrics by user id
    *
    * @param {string} userId
    * @param {*} params

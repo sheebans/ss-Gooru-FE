@@ -201,9 +201,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
   },
 
   /**
-   * Normalize the assessments
+   * Normalize the rubrics
    * @param payload
-   * @returns {Assessment[]}
+   * @returns {Rubric[]}
    */
   normalizeReadRubrics: function(payload){
     const rubrics = payload.rubrics || [];
