@@ -116,7 +116,7 @@ export default Ember.Service.extend({
 
   /**
    * Search for courses
-
+   * 
    * @param term the term to search
    * @returns {Promise.<Question[]>}
    */
