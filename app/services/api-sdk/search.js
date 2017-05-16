@@ -97,16 +97,34 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Search for courses
+   * Search for featured courses
    *
    * @param term the term to search
-   * @param types is an array with the values to filter the search
    * @returns {Promise.<Question[]>}
    */
   searchFeaturedCourses: function(term) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('searchAdapter').searchFeaturedCourses(term)
+        .then(function(response) {
+          resolve(service.get('searchSerializer').normalizeSearchCourses(response));
+        }, function(error) {
+          reject(error);
+        });
+    });
+  },
+
+
+  /**
+   * Search for courses
+   *
+   * @param term the term to search
+   * @returns {Promise.<Question[]>}
+   */
+  searchCourses: function(term) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('searchAdapter').searchCourses(term)
         .then(function(response) {
           resolve(service.get('searchSerializer').normalizeSearchCourses(response));
         }, function(error) {
