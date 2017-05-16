@@ -1,15 +1,19 @@
 <div class="controller featured">
-    <div class="courses-results">
-        <div class="results">
-          {{#each courses as |course|}}
-            {{new-cards.gru-collection-card
+  <div class="courses-results">
+    <div class="results">
+      {{#if courses}}
+        {{#each courses as |course|}}
+          {{new-cards.gru-collection-card
             content=course
             profile=profile
             isCourse=true
             onOpenContentPlayer="openContentPlayer"
             onRemixCourse="remixCourse"
-            }}
-          {{/each}}
-        </div>
+          }}
+        {{/each}}
+      {{else}}
+        {{partial 'partials/no-results-found'}}
+      {{/if}}
     </div>
+  </div>
 </div>
