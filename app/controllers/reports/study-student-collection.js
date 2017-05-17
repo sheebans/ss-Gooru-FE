@@ -59,7 +59,7 @@ export default StudentCollection.extend({
      * If the user want to continue playing the resource suggestion
      */
     playResourceSuggestion: function() {
-      this.playSuggestion(this.get('mapLocation.resourceSuggestion'));
+      //this.playSuggestion(this.get('mapLocation.resourceSuggestion'));
     }
   },
 

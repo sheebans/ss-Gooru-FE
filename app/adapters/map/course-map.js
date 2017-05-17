@@ -70,7 +70,7 @@ export default ApplicationAdapter.extend({
         //suggestion information
         'target_content_type': suggestion.get('type'),
         'target_content_subtype': isBackfillOrResource ? null : suggestion.get('subType'),
-        'target_collection_id': suggestion.get('isResource') ? context.get('collectionId') : suggestion.get('id'),
+        'target_collection_id': suggestion.get('isResource') ? null : suggestion.get('id'),
         'target_resource_id': suggestion.get('isResource') ? suggestion.get('id') : null
       })
     };
