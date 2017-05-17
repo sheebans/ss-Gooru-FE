@@ -41,19 +41,33 @@ export default Ember.Object.extend({
    * @returns {Object} lesson and alternate paths
    */
   normalizeLessonInfo: function (data) {
+    var serializer = this;
     let alternatePaths = this.normalizeAlternatePaths(data.alternate_paths);
     let lesson = this.get('lessonSerializer').normalizeLesson(data.course_path);
     let alternatePathsMap = alternatePaths.reduce((mapping, path) => {
-      if (path.get('collectionSubType')) {
-        mapping[path.get('collectionSubType')].push(path);
+      var subType= path.get('collectionSubType') || path.get('targetContentType');
+      if (subType) {
+        mapping[subType].push(path);
       }
       return mapping;
     }, {
       [ASSESSMENT_SUB_TYPES.BACKFILL]: [],
       [ASSESSMENT_SUB_TYPES.BENCHMARK]: [],
       [ASSESSMENT_SUB_TYPES.PRE_TEST]: [],
-      [ASSESSMENT_SUB_TYPES.POST_TEST]: []
+      [ASSESSMENT_SUB_TYPES.POST_TEST]: [],
+      [ASSESSMENT_SUB_TYPES.RESOURCE]: []
     });
+
+    alternatePathsMap[ASSESSMENT_SUB_TYPES.RESOURCE].forEach(function(resourceData) {
+      var assessmentId = resourceData.contextCollectionId;
+      var lessonChildren = lesson.get('children');
+      if (assessmentId) {
+        var assessmentIndex = lessonChildren.findIndex(child => child.id === assessmentId);
+        var resource = serializer.get('alternatePathSerializer').normalizeReadResource(resourceData);
+        lessonChildren.splice(assessmentIndex+1, 0, resource);
+      }
+    });
+
     lesson.get('children').unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BACKFILL]);
     lesson.get('children').unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.PRE_TEST]);
     lesson.get('children').push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.POST_TEST]);
