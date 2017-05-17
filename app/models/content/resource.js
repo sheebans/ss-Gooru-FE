@@ -15,6 +15,11 @@ const ResourceModel = Ember.Object.extend({
   id: 0,
 
   /**
+   * @property {Number} assessmentId - if has a linked assessment in the study player
+   */
+  assessmentId: 0,
+
+  /**
    * @property {String} url
    */
   url: null,
