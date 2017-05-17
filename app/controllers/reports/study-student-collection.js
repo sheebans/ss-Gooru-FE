@@ -44,15 +44,22 @@ export default StudentCollection.extend({
     /**
      * If the user want to continue playing the post-test suggestion
      */
-    playPostTestSuggestion: function(){
+    playPostTestSuggestion: function() {
       this.playSuggestion(this.get('mapLocation.postTestSuggestion'));
     },
 
     /**
      * If the user want to continue playing the backfill suggestion
      */
-    playBackFillSuggestion: function(){
+    playBackFillSuggestion: function() {
       this.playSuggestion(this.get('mapLocation.backFillSuggestion'));
+    },
+
+    /**
+     * If the user want to continue playing the resource suggestion
+     */
+    playResourceSuggestion: function() {
+      this.playSuggestion(this.get('mapLocation.resourceSuggestion'));
     }
   },
 
@@ -86,16 +93,22 @@ export default StudentCollection.extend({
   toggleState: true,
 
   /**
-   *Back fill pre test suggestion
+   *Back fill backfill suggestion
    * @property {String} typeSuggestion
    */
   backFillType: ASSESSMENT_SUB_TYPES.BACKFILL,
 
   /**
-   *Post Test pre test suggestion
+   *Post Test post test suggestion
    * @property {String} typeSuggestion
    */
   postTestType: ASSESSMENT_SUB_TYPES.POST_TEST,
+
+  /**
+   *Post Test resource suggestion
+   * @property {String} typeSuggestion
+   */
+  resourceType: ASSESSMENT_SUB_TYPES.RESOURCE,
 
   /**
    * Indicate if show pre test suggestion
@@ -122,10 +135,13 @@ export default StudentCollection.extend({
   /**
    * @property {boolean}
    */
-  hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'showSuggestion', function() {
+  hasResourceSuggestions: Ember.computed.alias('mapLocation.hasResourceSuggestions'),
 
-    return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions')) && this.get('showSuggestion');
-
+  /**
+   * @property {boolean}
+   */
+  hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'hasResourceSuggestions', 'showSuggestion', function() {
+    return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions') || this.get('hasResourceSuggestions')) && this.get('showSuggestion');
   }),
 
   /**

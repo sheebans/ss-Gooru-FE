@@ -69,7 +69,7 @@ export default Ember.Object.extend({
   normalizeAlternatePaths: function (data) {
     return Ember.isArray(data) ? data.map(path => {
       if (path.target_content_type === 'resource') {
-        return this.get('alternatePathSerializer').normalizeAlternatePaths(path);
+        return this.get('alternatePathSerializer').normalizeAlternatePath(path);
       } else {
         let normalizedPath = path.target_content_type === 'collection' ?
           this.get('collectionSerializer').normalizeReadCollection(path) :

@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ApplicationAdapter from 'gooru-web/adapters/application';
-import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 /**
  * Adapter to support the course map operations
@@ -49,6 +48,7 @@ export default ApplicationAdapter.extend({
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/paths`;
+    let isBackfillOrResource = suggestion.get('isBackFill') || suggestion.get('isResource');
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
@@ -69,8 +69,9 @@ export default ApplicationAdapter.extend({
 //      'target_lesson_id': context.get('lessonId'),
         //suggestion information
         'target_content_type': suggestion.get('type'),
-        'target_content_subtype': suggestion.get('subType') === ASSESSMENT_SUB_TYPES.BACKFILL  ? null : suggestion.get('subType'),
-        'target_collection_id': suggestion.get('id')
+        'target_content_subtype': isBackfillOrResource ? null : suggestion.get('subType'),
+        'target_collection_id': suggestion.get('isResource') ? context.get('collectionId') : suggestion.get('id'),
+        'target_resource_id': suggestion.get('isResource') ? suggestion.get('id') : null
       })
     };
     return new Ember.RSVP.Promise(function (resolve, reject) {

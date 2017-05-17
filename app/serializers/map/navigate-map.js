@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import MapContext from 'gooru-web/models/map/map-context';
 import MapSuggestion from 'gooru-web/models/map/map-suggestion';
-import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES, CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the navigate map operations
@@ -86,7 +86,7 @@ export default Ember.Object.extend({
       id: data.id,
       title: data.title,
       type: data.format,
-      subType: data.subformat || ASSESSMENT_SUB_TYPES.BACKFILL
+      subType: data.subformat || (data.format === CONTENT_TYPES.RESOURCE) ? ASSESSMENT_SUB_TYPES.RESOURCE : ASSESSMENT_SUB_TYPES.BACKFILL
     });
   }
 
