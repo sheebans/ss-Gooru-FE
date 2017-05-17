@@ -86,7 +86,7 @@ export default Ember.Object.extend({
       id: data.id,
       title: data.title,
       type: data.format,
-      subType: data.subformat || (data.format === CONTENT_TYPES.RESOURCE) ? ASSESSMENT_SUB_TYPES.RESOURCE : ASSESSMENT_SUB_TYPES.BACKFILL
+      subType: data.subformat || (data.format === CONTENT_TYPES.RESOURCE ? ASSESSMENT_SUB_TYPES.RESOURCE : ASSESSMENT_SUB_TYPES.BACKFILL)
     });
   }
 
