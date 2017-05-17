@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Context from 'gooru-web/models/result/context';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 /**
  *
  * Analytics data for a student related to a collection of resources
@@ -14,32 +14,32 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   /**
    * @property {Ember.Service} Service to retrieve an assessment result
    */
-  userSessionService: Ember.inject.service("api-sdk/user-session"),
+  userSessionService: Ember.inject.service('api-sdk/user-session'),
 
   /**
    * @property {AssessmentService} Service to retrieve an assessment
    */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   /**
    * @property {CollectionService} Service to retrieve a collection
    */
-  collectionService: Ember.inject.service("api-sdk/collection"),
+  collectionService: Ember.inject.service('api-sdk/collection'),
 
   /**
    * @property {LessonService} Service to retrieve a lesson
    */
-  lessonService: Ember.inject.service("api-sdk/lesson"),
+  lessonService: Ember.inject.service('api-sdk/lesson'),
 
   /**
    * @property {Ember.Service} Service to retrieve an assessment result
    */
-  performanceService: Ember.inject.service("api-sdk/performance"),
+  performanceService: Ember.inject.service('api-sdk/performance'),
 
 
   // -------------------------------------------------------------------------
@@ -47,11 +47,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   actions: {
     goBack: function() {
       const route = this;
-      const controller = route.get("controller");
-      const context = controller.get("context");
-      let toRoute = controller.get("backUrl");
-      if (context.get("lessonId")){
-        if (controller.get("isTeacher")) {
+      const controller = route.get('controller');
+      const context = controller.get('context');
+      let toRoute = controller.get('backUrl');
+      if (context.get('lessonId')){
+        if (controller.get('isTeacher')) {
           toRoute ? route.transitionTo(toRoute) : route.backToCourseMap();
         }
         else {
@@ -74,18 +74,18 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   model(params) {
     const route = this;
     const context = route.getContext(params);
-    const type = params.type || "collection";
+    const type = params.type || 'collection';
 
-    const lessonPromise = context.get("courseId") ?
-      route.get("lessonService").fetchById(context.get("courseId"), context.get("unitId"), context.get("lessonId")) :
+    const lessonPromise = context.get('courseId') ?
+      route.get('lessonService').fetchById(context.get('courseId'), context.get('unitId'), context.get('lessonId')) :
       null;
 
-    const isCollection = (type === "collection");
+    const isCollection = (type === 'collection');
     const collectionPromise = (isCollection) ?
-      route.get("collectionService").readCollection(params.collectionId) :
-      route.get("assessmentService").readAssessment(params.collectionId);
+      route.get('collectionService').readCollection(params.collectionId) :
+      route.get('assessmentService').readAssessment(params.collectionId);
     const completedSessionsPromise = (isCollection) ? [] :
-      route.get("userSessionService").getCompletedSessions(context);
+      route.get('userSessionService').getCompletedSessions(context);
     return Ember.RSVP.hash({
       collection: collectionPromise,
       completedSessions : completedSessionsPromise,
@@ -102,10 +102,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const session = totalSessions ? completedSessions[totalSessions - 1] : null;
 
     if (session){ //collections has no session
-      context.set("sessionId", session.sessionId);
+      context.set('sessionId', session.sessionId);
     }
-    const performanceService = controller.get("performanceService");
-    const loadStandards = session && context.get("isInContext");
+    const performanceService = controller.get('performanceService');
+    const loadStandards = session && context.get('isInContext');
     return performanceService.findAssessmentResultByCollectionAndStudent(context, loadStandards)
       .then(function(assessmentResult) {
         model.assessmentResult = assessmentResult;
@@ -119,10 +119,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @returns {Promise.<T>}
    */
   setupController: function(controller, model){
-    controller.set("collection", model.collection.toPlayerCollection());
-    controller.set("lesson", model.lesson);
-    controller.set("completedSessions", model.completedSessions);
-    controller.set("context", model.context);
+    controller.set('collection', model.collection.toPlayerCollection());
+    controller.set('lesson', model.lesson);
+    controller.set('completedSessions', model.completedSessions);
+    controller.set('context', model.context);
     controller.setAssessmentResult(model.assessmentResult);
   },
 
@@ -163,14 +163,13 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   backToData: function () {
     const route = this;
-    const controller = route.get("controller");
-    const context = controller.get("context");
+    const controller = route.get('controller');
+    const context = controller.get('context');
 
-    route.transitionTo("class.analytics.performance.student", context.get("classId"),
+    route.transitionTo('student.class.performance', context.get('classId'),
     {
       queryParams: {
-        unitId: context.get("unitId"),
-        lessonId: context.get("lessonId")
+        filterBy: 'assessment'
       }
     });
   },
@@ -180,11 +179,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   backToCourseMap: function () {
     const route = this;
-    const controller = route.get("controller");
-    const context = controller.get("context");
-    const unitId = context.get("unitId");
-    const lessonId = context.get("lessonId");
-    route.transitionTo("class.overview", context.get("classId"),
+    const controller = route.get('controller');
+    const context = controller.get('context');
+    const unitId = context.get('unitId');
+    const lessonId = context.get('lessonId');
+    route.transitionTo('class.overview', context.get('classId'),
     {
       queryParams: {
         location: `${unitId}+${lessonId}`
@@ -193,7 +192,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   },
 
   deactivate: function(){
-    this.get("controller").resetValues();
+    this.get('controller').resetValues();
   }
 
 

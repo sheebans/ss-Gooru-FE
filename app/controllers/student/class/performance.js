@@ -89,26 +89,37 @@ export default Ember.Controller.extend({
       'value': this.get('collectionType'),
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': true,
       'index': -1
     }),Ember.Object.create({
       'value': 'score',
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': false,
       'index':0
+    }),Ember.Object.create({
+      'value': 'report',
+      'sorted': false,
+      'isAsc': false,
+      'hasSorting': false,
+      'visible': false,
+      'index':1
     }),Ember.Object.create({
       'value': 'completion',
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': false,
-      'index':1
+      'index':2
     }),Ember.Object.create({
       'value': 'study-time',
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': false,
-      'index':2
+      'index':3
     })]);
   }),
 
@@ -148,6 +159,29 @@ export default Ember.Controller.extend({
      */
     updateReport: function () {
       this.loadData();
+    },
+    /**
+     * View Analytics Report
+     * Triggered by gru-performance-table
+     */
+    viewReport:function(assessmentId){
+      const controller = this;
+      const courseId = controller.get('course.id');
+      const unitId = controller.get('unitId');
+      const lessonId = controller.get('lessonId');
+      const userId = controller.get('profile.id');
+      const classId =  controller.get('classId');
+      const collectionType = controller.get('collectionType');
+      controller.transitionToRoute('reports.student-collection-analytics', { queryParams: {
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId,
+        collectionId: assessmentId,
+        userId: userId,
+        type: collectionType,
+        role: 'student'
+      }});
     }
   },
 

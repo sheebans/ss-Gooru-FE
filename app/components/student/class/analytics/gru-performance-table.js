@@ -23,6 +23,9 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
     actions:{
+      /**
+       * Sort metric by criteria
+       */
       sort:function(metric){
         this.sortByMetrics(metric);
         var metricsIndex = metric.get('index');
@@ -42,6 +45,12 @@ export default Ember.Component.extend({
           newSortCriteria.order = this.get('defaultSortOrder');
           this.set('sortCriteria', newSortCriteria);
         }
+      },
+      /**
+       * View analytics report
+       */
+      viewReport:function(assessmentId){
+        this.sendAction('onViewReport',assessmentId);
       }
     },
   // -------------------------------------------------------------------------
@@ -128,32 +137,42 @@ export default Ember.Component.extend({
     'value': 'assessment',
     'sorted': false,
     'isAsc': false,
+    'hasSorting': true,
     'visible': true,
     'index': -1
   }),Ember.Object.create({
     'value': 'score',
     'sorted':false,
     'isAsc':false,
+    'hasSorting': true,
     'visible': false,
     'index':0
   }),Ember.Object.create({
     'value': 'completion',
     'sorted':false,
     'isAsc':false,
+    'hasSorting': true,
     'visible': false,
     'index':1
   }),Ember.Object.create({
     'value': 'study-time',
     'sorted':false,
     'isAsc':false,
+    'hasSorting': true,
     'visible': false,
     'index':2
   })]),
 
-  /*
-   * @prop { Number } defaultSortOrder - Default sort order for values in columns (1 = ascending; -1 = descending)
+  /**
+   * Default sort order for values in columns (1 = ascending; -1 = descending)
+   *  * @property {number} defaultSortOrder
    */
   defaultSortOrder: 1,
+
+  /**
+   * Indicate if show report column
+   */
+  showReportColumn:false,
 
   /**
    * metric sent by the sort function
