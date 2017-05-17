@@ -14,8 +14,6 @@ import QuizzesReport from 'quizzes-addon/routes/reports/context';
  */
 export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
 
-  templateName: 'reports/context',
-
   // -------------------------------------------------------------------------
   // Dependencies
 
