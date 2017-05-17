@@ -83,6 +83,36 @@ test('normalizeMapSuggestion', function (assert) {
   assert.equal(model.get('subType'), payload.subformat, 'Wrong type');
 });
 
+test('normalizeMapSuggestion backfill', function (assert) {
+  const serializer = this.subject();
+  const payload = {
+    id: '123',
+    title: 'Title',
+    format: 'assessment',
+    subformat: null
+  };
+  const model = serializer.normalizeMapSuggestion(payload);
+  assert.equal(model.get('id'), payload.id, 'Wrong id');
+  assert.equal(model.get('title'), payload.title, 'Wrong title');
+  assert.equal(model.get('type'), payload.format, 'Wrong type');
+  assert.equal(model.get('subType'), ASSESSMENT_SUB_TYPES.BACKFILL, 'Wrong type');
+});
+
+test('normalizeMapSuggestion resource', function (assert) {
+  const serializer = this.subject();
+  const payload = {
+    id: '123',
+    title: 'Title',
+    format: 'resource',
+    subformat: ASSESSMENT_SUB_TYPES.PRE_TEST
+  };
+  const model = serializer.normalizeMapSuggestion(payload);
+  assert.equal(model.get('id'), payload.id, 'Wrong id');
+  assert.equal(model.get('title'), payload.title, 'Wrong title');
+  assert.equal(model.get('type'), payload.format, 'Wrong type');
+  assert.equal(model.get('subType'), ASSESSMENT_SUB_TYPES.RESOURCE, 'Wrong type');
+});
+
 test('normalizeMapSuggestions', function (assert) {
   const serializer = this.subject();
   const payload = [
