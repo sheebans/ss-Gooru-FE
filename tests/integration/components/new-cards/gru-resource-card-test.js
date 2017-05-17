@@ -185,7 +185,8 @@ test('Rubric Layout', function(assert) {
 
 
   this.set('rubric', rubric);
-  this.render(hbs`{{new-cards/gru-resource-card resource=rubric allowProfileNavigation=true isRubric=true}}`);
+  this.set('editEnabled',false);
+  this.render(hbs`{{new-cards/gru-resource-card resource=rubric allowProfileNavigation=true isRubric=true editEnabled=editEnabled}}`);
   var $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
   assert.ok($resourceCard.find('.panel-heading h3.title').length, 'Missing Title');
@@ -196,4 +197,31 @@ test('Rubric Layout', function(assert) {
   assert.ok($resourceCard.find('.panel-body .description p').length, 'Missing Description');
   assert.ok($resourceCard.find('.panel-footer button.study-btn').length, 'Missing Study Button');
   assert.ok($resourceCard.find('.panel-footer .actions .share-btn').length, 'Missing share button');
+});
+
+test('Rubric Layout and My profile', function(assert) {
+  var rubric = RubricModel.create({
+    title: 'rubric-title',
+    description: 'rubric-description',
+    type: 'rubric-type',
+    thumbnail: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
+    taxonomy: Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    audience: [1]
+  });
+
+
+  this.set('rubric', rubric);
+  this.set('editEnabled',true);
+  this.render(hbs`{{new-cards/gru-resource-card resource=rubric allowProfileNavigation=true isRubric=true editEnabled=editEnabled}}`);
+  var $component = this.$();
+  const $resourceCard = $component.find('.gru-resource-card');
+  assert.ok($resourceCard.find('.panel-footer button.edit-btn').length, 'Missing edit button');
+  assert.notOk($resourceCard.find('.panel-footer button.study-btn').length, 'Study button should not appear');
+  assert.notOk($resourceCard.find('.panel-footer .actions .share-btn').length, 'Share button should not appear');
 });

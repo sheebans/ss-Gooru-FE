@@ -148,3 +148,30 @@ test('searchFeaturedCourses', function(assert) {
       done();
     });
 });
+
+test('searchCourses', function(assert) {
+  const service = this.subject();
+
+  assert.expect(3);
+
+  service.set('searchAdapter', Ember.Object.create({
+    searchCourses: function(term) {
+      assert.equal(term, 'the-term', 'Wrong search course term');
+      assert.ok(true, 'searchCourses() function was called' );
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  service.set('searchSerializer', Ember.Object.create({
+    normalizeSearchCourses: function(payload) {
+      assert.deepEqual({}, payload, 'Wrong search courses payload');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.searchCourses('the-term')
+    .then(function() {
+      done();
+    });
+});

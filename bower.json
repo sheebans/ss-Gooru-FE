@@ -28,6 +28,7 @@
     "mathquill": "mathquill#^0.10.1",
     "KaTeX": "katex#^0.6.0",
     "intro.js": "2.2.0",
-    "firebase": "^3.0.0"
+    "firebase": "^3.0.0",
+    "moment-timezone": "^0.5.13"
   }
 }
