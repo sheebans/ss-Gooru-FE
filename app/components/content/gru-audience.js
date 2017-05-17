@@ -42,10 +42,12 @@ export default Ember.Component.extend({
     var component = this;
     component._super( ...arguments );
 
-    component.get("lookupService").readAudiences()
+    component.get('lookupService').readAudiences()
       .then(function(audiences) {
-        component.set('audiences', audiences);
-        component.set('editAudiences', component.getOptionsArray(audiences, component.get('srcSelectedAudiences')));
+        if(!component.isDestroyed) {
+          component.set('audiences', audiences);
+          component.set('editAudiences', component.getOptionsArray(audiences, component.get('srcSelectedAudiences')));
+        }
       });
   },
 

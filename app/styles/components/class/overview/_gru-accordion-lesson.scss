@@ -19,7 +19,7 @@
     width: 100%;
     height: auto;
 
-    .title, .score, .gru-user-icons, .gru-completion-chart, .content-count {
+    .title, .score, .gru-user-icons, .gru-completion-chart, .content-count, .time-spent {
       display: inline-block;
       vertical-align: middle;
       padding: 0;
@@ -31,6 +31,7 @@
     .panel-title {
       width: 100%;
       float: left;
+      height: inherit;
       @media (min-width: $screen-sm) {
         width: 34%;
       }
@@ -57,6 +58,7 @@
     .info {
       width: 100%;
       float: left;
+      height: inherit;
       @media (min-width: $screen-sm) {
         width: 66%;
         float: right;
@@ -68,6 +70,9 @@
       .content-count {
         font-size: $font-size-large;
         margin: 0 5px 0 0;
+        span {
+          vertical-align: middle;
+        }
         @media (min-width: $screen-md) {
           margin: 0 10px 0 0;
         }
@@ -98,7 +103,7 @@
             line-height: 36px;
           }
         }
-        .score {
+        .score, .time-spent {
           padding: 0 3px;
           font-size: $font-size-lead;
           font-weight: bold;
@@ -239,6 +244,92 @@
             }
           }
         }
+
+        &.resource {
+          .panel-heading {
+            background-color: $sky-50;
+            .panel-title {
+              .resource-icon-type {
+                padding: 0 0 0 15px;
+              }
+              &.webpage {
+                .icon {
+                  background: url("gooru/images/website-resource-green.svg") no-repeat;
+                  width: 30px;
+                  height: 30px;
+                  background-size: 30px;
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+              }
+
+              &.video {
+                .icon {
+                  background: url(gooru/images/video-resource-green.svg) no-repeat;
+                  width: 30px;
+                  height: 30px;
+                  background-size: 30px;
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+              }
+              &.interactive {
+                .icon {
+                  background: url("gooru/images/interactive-resource-green.svg") no-repeat;
+                  width: 30px;
+                  height: 30px;
+                  background-size: 30px;
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+              }
+              &.image {
+                .icon {
+                  background: url("gooru/images/image-resource-green.svg") no-repeat;
+                  width: 30px;
+                  height: 30px;
+                  background-size: 30px;
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+              }
+
+              &.text {
+                .icon {
+                  background: url("gooru/images/text-resource-green.svg") no-repeat;
+                  width: 30px;
+                  height: 30px;
+                  background-size: 30px;
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+              }
+              &.audio {
+                .icon {
+                  background: url("gooru/images/audio-resource-green.svg") no-repeat;
+                  width: 30px;
+                  height: 30px;
+                  background-size: 30px;
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+              }
+              .title {
+                padding-left: 5px;
+              }
+            }
+            .info {
+              .left-info {
+                height: inherit;
+              }
+            }
+          }
+        }
+        &.study-active {
+          .panel-heading {
+            background-color: $blue-400;
+          }
+        }
       }
 
       .panel-heading {
@@ -282,6 +373,7 @@
         }
         .panel-title{
           padding-left: 10px;
+          height: inherit;
         }
         .icon-container {
           i {
@@ -317,7 +409,7 @@
           }
         }
 
-        .title, .score, .gru-user-icons, .state, .content-count, .icon-container {
+        .title, .score, .gru-user-icons, .state, .content-count, .icon-container, .time-spent {
           display: inline-block;
           vertical-align: middle;
           padding: 0;
@@ -388,6 +480,7 @@
         .info {
           width: 100%;
           float: left;
+          height: inherit;
           @media (min-width: $screen-sm) {
             width: 50%;
             float: right;
@@ -399,6 +492,9 @@
           .content-count {
             font-size: $font-size-large;
             margin: 0 5px 0 0;
+            span {
+              vertical-align: middle;
+            }
             @media (min-width: $screen-md) {
               margin: 0 10px 0 0;
             }
@@ -425,7 +521,7 @@
                 color: $light-300;
               }
             }
-            .score {
+            .score, .time-spent {
               padding: 10px 3px;
               font-size: $font-size-lead;
               font-weight: bold;
@@ -451,16 +547,17 @@
       margin: -6px 0;
     }
   }
-  .study-active{
+  .study-active {
     .panel-title .title .lesson-prefix {
       color: $white;
     }
-    .left-info{
+    .left-info {
       padding-left: 30px;
-      .btn.study-now{
+      .btn.study-now {
         height: 41px;
         font-size: $font-size-h6;
-        i{
+        margin: 10px 0;
+        i {
           font-size: $font-size-h4;
           vertical-align: bottom
         }

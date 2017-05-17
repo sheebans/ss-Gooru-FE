@@ -55,7 +55,7 @@ Router.map(function() {
     });
 
     this.route('rubric', function() {
-      this.route('edit');
+      this.route('edit',{path:'edit/:rubricId'});
     });
   });
 
@@ -147,6 +147,7 @@ Router.map(function() {
       this.route('questions');
       this.route('collections');
       this.route('assessments');
+      this.route('rubrics');
     });
 
     this.route('network', function() {

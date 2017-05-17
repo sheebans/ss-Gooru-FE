@@ -15,10 +15,10 @@ moduleForAcceptance('Acceptance | Edit Rubric', {
 });
 
 test('Layout', function (assert) {
-  visit('/content/rubric/edit');
+  visit('/content/rubric/edit/123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/rubric/edit');
+    assert.equal(currentURL(), '/content/rubric/edit/123');
 
     var $container = find('.rubric.edit');
     assert.ok($container.length, 'Missing rubric controller');
@@ -28,10 +28,10 @@ test('Layout', function (assert) {
 });
 
 test('Cancel edit', function (assert) {
-  visit('/content/rubric/edit');
+  visit('/content/rubric/edit/123');
 
   andThen(function () {
-    assert.equal(currentURL(), '/content/rubric/edit');
+    assert.equal(currentURL(), '/content/rubric/edit/123');
 
     var $container = find('.rubric.edit');
     var $cancel = $container.find('.gru-fixed-footer button.cancel');

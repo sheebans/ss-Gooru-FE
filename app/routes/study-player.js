@@ -112,6 +112,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         params.unitId = params.unitId || mapLocation.get('context.unitId');
         params.lessonId = params.lessonId || mapLocation.get('context.lessonId');
         params.pathId = params.pathId || mapLocation.get('context.pathId');
+        params.collectionSubType = params.subtype || mapLocation.get('context.collectionSubType');
 
         // Set the correct unit sequence number
         hash.course.children.find((child, index) => {

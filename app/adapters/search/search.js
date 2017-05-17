@@ -194,6 +194,30 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Fetches courses that match with the term
+   *
+   * @param term the term to search
+   * @returns {Promise.<Course[]>}
+   */
+  searchCourses: function(term) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/course`;
+    let options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      headers: adapter.defineHeaders(),
+      data: {
+        "q": term,
+        "start": 1,
+        "length": 20
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

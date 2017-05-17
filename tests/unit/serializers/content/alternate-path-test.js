@@ -1,4 +1,5 @@
 import { moduleFor, test } from 'ember-qunit';
+import Ember from 'ember';
 
 moduleFor('serializer:content/alternate-path', 'Unit | Serializer | content/alternate-path');
 
@@ -28,4 +29,29 @@ test('normalizeAlternatePath', function(assert) {
   assert.equal(assessment.get('contextUnitId'), '1ddc6f53-16c1-4092-9cd9-62ee9c9c8fdb', 'Wrong context unit id');
   assert.equal(assessment.get('contextLessonId'), '87dc6f53-16c1-4092-9cd9-62ee9c9c8fdb', 'Wrong context lesson id');
   assert.equal(assessment.get('contextCollectionId'), '97dc6f53-16c1-4092-9cd9-62ee9c9c8fdb', 'Wrong context collection id');
+});
+
+test('normalizeReadResourse for alternate paths', function(assert) {
+  const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
+  const resourceData = {
+    pathId: 1,
+    contextCourseId: 'course-id',
+    contextUnitId: 'unit-id',
+    contextLessonId: 'lesson-id',
+    contextCollectionId: 'assessment-id',
+    targetResourceId: 'resource-id',
+    targetContentSubtype: 'webpage_resource',
+    targetContentType: 'resource',
+    title: 'resource-title'
+  };
+  const resource = serializer.normalizeReadResource(resourceData);
+  assert.equal(resource.get('id'), 'resource-id', 'Wrong resource id');
+  assert.equal(resource.get('assessmentId'), 'assessment-id', 'Wrong assessmentId');
+  assert.equal(resource.get('format'), 'webpage', 'Wrong path id');
+  assert.equal(resource.get('title'), 'resource-title', 'Wrong title');
 });

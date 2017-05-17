@@ -41,6 +41,7 @@
 @import 'controllers/profile/content/collections';
 @import 'controllers/profile/content/questions';
 @import 'controllers/profile/content/resources';
+@import 'controllers/profile/content/rubrics';
 @import 'controllers/profile/about';
 @import 'controllers/profile/edit';
 @import 'controllers/profile/courses';
@@ -113,6 +114,7 @@
 @import 'components/gru-view-layout-picker';
 @import 'components/gru-spinner-button';
 @import 'components/gru-icon-popover';
+@import 'components/gru-preview-course';
 
 @import 'components/cards/gru-class-card';
 @import 'components/cards/gru-student-class-card';

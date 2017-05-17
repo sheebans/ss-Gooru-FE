@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AlternatePathModel from 'gooru-web/models/content/alternate-path';
+import ResourceModel from 'gooru-web/models/content/resource';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
@@ -35,6 +36,22 @@ export default Ember.Object.extend(ConfigurationMixin, {
       openEndedQuestionCount: payload.oe_question_count,
       resourceCount: payload.resource_count
     });
-  }
+  },
 
+  /**
+   * Normalize the resource data from alternate path into a Resource object
+   * @param resourceData
+   * @returns {Resource}
+   */
+  normalizeReadResource: function(resourceData) {
+    const serializer = this;
+    const format = ResourceModel.normalizeResourceFormat(resourceData.targetContentSubtype);
+    const resource = ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
+      id: resourceData.targetResourceId,
+      title: resourceData.title,
+      format: format,
+      assessmentId: resourceData.contextCollectionId
+    });
+    return resource;
+  }
 });

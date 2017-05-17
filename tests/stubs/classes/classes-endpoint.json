@@ -124,7 +124,7 @@
     }
   },
   {
-    "description": "Get a specific class visibility where pochita is a teacher",
+    "description": "Get a specific class visibility where pochita is a student",
     "request": {
       "url": "^/api/nucleus/v1/classes/class-for-pochita-as-student/courses$",
       "method": "GET",

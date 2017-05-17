@@ -1,13 +1,24 @@
 import Ember from 'ember';
 import { RUBRIC_TYPE } from 'gooru-web/config/config';
+import { validator, buildValidations } from 'ember-cp-validations';
 
-
+const Validations = buildValidations({
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.rubric-title-presence'
+      })
+    ]
+  }
+});
 /**
  * Rubric model
  *
  * @typedef {Object} Rubric
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(Validations,{
 
   /**
    * @property {String} id
@@ -37,7 +48,7 @@ export default Ember.Object.extend({
   /**
    * @property {Number[]} Array with the audience ids
    */
-  audience:[],
+  audience:Ember.A([]),
 
   /**
    * @property {boolean}
@@ -56,9 +67,14 @@ export default Ember.Object.extend({
   isNxN: Ember.computed.equal('type', RUBRIC_TYPE.NxN),
 
   /**
+   * @property {Boolean} isPublished
+   */
+  isPublished: null,
+
+  /**
    * @property {RubricCategory[]}
    */
-  categories: [],
+  categories: Ember.A([]),
 
   /**
    * @property {boolean}
@@ -80,6 +96,11 @@ export default Ember.Object.extend({
    */
   feedback: null,
 
+  /**
+   * @property {TaxonomyTagData[]} Rubric standards array
+   */
+  standards: Ember.A([]),
+
  /**
    * @property {number} total points
    */
@@ -93,5 +114,10 @@ export default Ember.Object.extend({
   /**
    * @property {string} mimeType
    */
-  mimeType:'application/pdf,image/*'
+  mimeType:'application/pdf,image/*',
+
+  /**
+   * @property {Profile} owner
+   */
+  owner:null
 });

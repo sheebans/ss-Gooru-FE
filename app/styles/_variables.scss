@@ -37,11 +37,13 @@ $teal-300:              #57B2A9 !default;
 $teal-400:              #159488 !default;
 $teal-500:              #0E8075 !default;
 //** Sky
+$sky-50:                #ECF4F9 !default;
 $sky-100:               #BDDEED !default;
 $sky-200:               #92CBE4 !default;
 $sky-300:               #58BEEB !default;
 $sky-400:               #1AA9EB !default;
 $sky-500:               #0C8FCB !default;
+
 //** Yellow
 $yellow-100:            #ECE0CE !default;
 $yellow-200:            #EEC87D !default;
@@ -121,7 +123,7 @@ $font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
 $font-size-xsmall:        ceil(($font-size-base * 0.77)) !default; // ~10px
 
-
+$font-size-large-icon:    86px !default;
 
 $font-size-h1:            56px !default;
 $font-size-h2:            45px !default;

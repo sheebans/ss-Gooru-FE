@@ -188,7 +188,7 @@ span.validation.warning {
   clear: both;
 }
 
-.cards, .new-cards {
+.cards, .new-cards, .gru-preview-course {
   i.video-icon {
     background-image: url("gooru/images/video-resource.svg");
   }
@@ -233,7 +233,7 @@ span.validation.warning {
 
 .category-menu {
   height:100%;
-  @media (max-width: $screen-sm-max) {width: 100%;}
+  @media (max-width: $screen-sm-max) {width: auto;}
 
 
   .standards {
@@ -349,6 +349,28 @@ span.validation.warning {
       &.active {
         i {
           background: url("gooru/images/navigation_resource_selected.svg");
+        }
+      }
+    }
+    &.rubrics {
+      a{
+        padding: 2px 0 0 0;
+        line-height: 20px;
+
+      }
+      i{
+        background: url("gooru/images/add_rubric_white.svg") no-repeat;
+        background-size: 22px 19px;
+        min-height: 19px;
+        width: 23px;
+        @media (min-width: $screen-md) {
+          background-size: contain;
+          min-height: 16px;
+        }
+      }
+      &.active {
+        i {
+          background: url("gooru/images/add_rubric_white.svg");
         }
       }
     }

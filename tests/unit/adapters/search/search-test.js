@@ -314,3 +314,22 @@ test('searchFeaturedCourses', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('searchCourses', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/gooru-search/rest/v2/search/course', function(request) {
+      assert.equal(request.queryParams['q'], 'any-term', 'Wrong term');
+      assert.equal(request.queryParams['start'], 1, 'Wrong default start');
+      assert.equal(request.queryParams['length'], 20, 'Wrong default length');
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  adapter.searchCourses('any-term')
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});

@@ -14,8 +14,6 @@ import { ROLES } from 'gooru-web/config/config';
  */
 export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
 
-  templateName: 'reports/student-context',
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -52,20 +50,14 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
     goBack: function() {
       const route = this;
       const controller = route.get("controller");
-      const context = controller.get("context");
-      let toRoute = controller.get("backUrl");
-      if (context.get("lessonId")){
-        if (controller.get("isTeacher")) {
-          toRoute ? route.transitionTo(toRoute) : route.backToCourseMap();
-        }
-        else {
-          route.backToData();
-        }
-      }
-      else {
-        toRoute = toRoute || 'index'; //index when refreshing the page, TODO fix
-        route.transitionTo(toRoute);
-      }
+      const collectionId = controller.get('collection.id');
+      const collectionType = controller.get('type');
+      const role = controller.get('role');
+      const queryParams = {
+        type: collectionType,
+        role: role
+      };
+      route.transitionTo('player', collectionId, { queryParams });
     }
   },
 
@@ -76,7 +68,7 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
    * @param {{ assessmentId: string, resourceId: string }} params
    */
   model(params) {
-    this.studentCollectionModel(params);
+    return this.studentCollectionModel(params);
   },
 
   /**

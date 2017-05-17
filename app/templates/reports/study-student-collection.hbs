@@ -10,14 +10,27 @@
 }}
 
 <div class="report-container {{if toggleState 'expanded' 'collapsed'}}">
-  {{#if  (and hasBackFillSuggestions showSuggestion)}}
-    <div class="suggestion-panel">
-      {{player.gru-suggest-test type=backFillType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playBackFillSuggestion'}}
-    </div>
-  {{/if}}
-  {{#if (and hasPostTestSuggestions showSuggestion)}}
-    <div class="suggestion-panel">
-      {{player.gru-suggest-test type=postTestType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playPostTestSuggestion'}}
+  {{#if hasAnySuggestion}}
+    {{#if hasBackFillSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=backFillType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playBackFillSuggestion'}}
+      </div>
+    {{/if}}
+    {{#if hasPostTestSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=postTestType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playPostTestSuggestion'}}
+      </div>
+    {{/if}}
+  {{else}}
+    <div class="suggestion-panel no-suggestions">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="description">{{t 'gru-suggest-test.no-suggestions'}}</div>
+          <div class="actions right">
+            <button class="btn btn-primary btn-next">{{t 'common.next'}}</button>
+          </div>
+        </div>
+      </div>
     </div>
   {{/if}}
   {{#if (and hasBenchmarkSuggestions showSuggestion)}}
