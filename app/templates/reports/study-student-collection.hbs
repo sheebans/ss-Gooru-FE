@@ -26,6 +26,11 @@
         {{player.gru-suggest-test type=resourceType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playResourceSuggestion'}}
       </div>
     {{/if}}
+    {{#if hasBenchmarkSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=benchmarkType assessment=collection}}
+      </div>
+    {{/if}}
   {{else}}
     <div class="suggestion-panel no-suggestions">
       <div class="panel panel-default">
@@ -36,11 +41,6 @@
           </div>
         </div>
       </div>
-    </div>
-  {{/if}}
-  {{#if (and hasBenchmarkSuggestions showSuggestion)}}
-    <div class="suggestion-panel">
-      {{player.gru-suggest-test type=benchmarkType assessment=collection}}
     </div>
   {{/if}}
   {{reports.qz-student-report attemptData=attemptData}}
