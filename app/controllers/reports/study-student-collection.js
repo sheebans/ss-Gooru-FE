@@ -99,7 +99,7 @@ export default StudentCollection.extend({
   backFillType: ASSESSMENT_SUB_TYPES.BACKFILL,
 
   /**
-   *Post Test post test suggestion
+   *Post test suggestion
    * @property {String} typeSuggestion
    */
   postTestType: ASSESSMENT_SUB_TYPES.POST_TEST,
@@ -109,6 +109,12 @@ export default StudentCollection.extend({
    * @property {String} typeSuggestion
    */
   resourceType: ASSESSMENT_SUB_TYPES.RESOURCE,
+
+  /**
+   *Benchmark suggestion
+   * @property {String} benchmarkType
+   */
+  benchmarkType: ASSESSMENT_SUB_TYPES.BENCHMARK,
 
   /**
    * Indicate if show pre test suggestion
@@ -140,9 +146,14 @@ export default StudentCollection.extend({
   /**
    * @property {boolean}
    */
-  hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'hasResourceSuggestions', 'showSuggestion', function() {
-    return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions') || this.get('hasResourceSuggestions')) && this.get('showSuggestion');
+  hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'hasResourceSuggestions', 'hasBenchmarkSuggestions', 'showSuggestion', function() {
+    return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions') || this.get('hasResourceSuggestions') || this.get('hasBenchmarkSuggestions')) && this.get('showSuggestion');
   }),
+
+  /**
+   * @property {boolean}
+   */
+  hasBenchmarkSuggestions: Ember.computed.alias('mapLocation.hasBenchmarkSuggestions'),
 
   /**
    * Shows the breadcrumbs info of the collection

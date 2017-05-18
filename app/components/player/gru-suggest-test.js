@@ -26,6 +26,13 @@ export default Ember.Component.extend({
    * @param {Boolean} isBackFill
    */
   isBackFill: Ember.computed.equal('type', ASSESSMENT_SUB_TYPES.BACKFILL),
+
+  /**
+   * Indicate if the suggestion is a benchmark after a post test
+   * @param {Boolean} isBenchmark
+   */
+  isBenchmark: Ember.computed.equal('type', ASSESSMENT_SUB_TYPES.BENCHMARK),
+
   /**
    * Suggested assessment
    * @param {Assessment} assessment
