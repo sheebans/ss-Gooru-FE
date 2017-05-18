@@ -394,7 +394,7 @@ export default Ember.Component.extend(AccordionMixin, {
           const promises = collections.map(function(collection) {
             const collectionId = collection.get('id');
             const isAssessment = collection.get('format') === 'assessment';
-            const isResource = collection.get('format') !== 'assessment' && collection.get('format') !== 'collection';
+            const isResource = collection.get('format') !== 'assessment' && collection.get('format') !== 'assessment-external' && collection.get('format') !== 'collection';
             const peer = lessonPeers.findBy('id', collectionId);
             if (peer) {
               component.get('profileService').readMultipleProfiles(peer.get('peerIds'))

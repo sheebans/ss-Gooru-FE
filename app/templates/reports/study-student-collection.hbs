@@ -21,6 +21,11 @@
         {{player.gru-suggest-test type=postTestType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playPostTestSuggestion'}}
       </div>
     {{/if}}
+    {{#if hasResourceSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=resourceType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playResourceSuggestion'}}
+      </div>
+    {{/if}}
   {{else}}
     <div class="suggestion-panel no-suggestions">
       <div class="panel panel-default">
