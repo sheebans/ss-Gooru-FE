@@ -67,10 +67,11 @@ export default Ember.Component.extend(ModalMixin,{
         if(component.get('isQuestion')) {
           assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
         }
-        assessmentsPromise.then(function() {
-          return component.get('profileService').readCollections(component.get('session.userId'));
-        }).then(function(collections, assessments) {
-          return { content: component.get('resource'), collections, assessments };
+        assessmentsPromise.then(function(assessments) {
+          return component.get('profileService').readCollections(component.get('session.userId'))
+            .then(function(collections) {
+              return { content: component.get('resource'), collections, assessments };
+            });
         }).then(
           model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
         );
