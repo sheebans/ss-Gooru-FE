@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import QuestionResult from './question';
 import ResourceResult from './resource';
 
@@ -52,8 +52,8 @@ export default Ember.Object.extend({
   /**
    * @property {QuestionResult[]} questionResults
    */
-  questionResults: Ember.computed("resourceResults.[]", function(){
-    return this.get("resourceResults").filter(function(resourceResult){
+  questionResults: Ember.computed('resourceResults.[]', function(){
+    return this.get('resourceResults').filter(function(resourceResult){
       return resourceResult instanceof QuestionResult;
     });
   }),
@@ -61,26 +61,26 @@ export default Ember.Object.extend({
   /**
    * @property {QuestionResult[]} nonOpenEndedQuestionResults
    */
-  nonOpenEndedQuestionResults: Ember.computed("questionResults.[]", function(){
-    return this.get("questionResults").filter(function(questionResult){
-      return !questionResult.get("question.isOpenEnded");
+  nonOpenEndedQuestionResults: Ember.computed('questionResults.[]', function(){
+    return this.get('questionResults').filter(function(questionResult){
+      return !questionResult.get('question.isOpenEnded');
     });
   }),
 
   /**
    * @property {QuestionResult[]} openEndedQuestionResults
    */
-  openEndedQuestionResults: Ember.computed("questionResults.[]", function(){
-    return this.get("questionResults").filter(function(questionResult){
-      return questionResult.get("question.isOpenEnded");
+  openEndedQuestionResults: Ember.computed('questionResults.[]', function(){
+    return this.get('questionResults').filter(function(questionResult){
+      return questionResult.get('question.isOpenEnded');
     });
   }),
 
   /**
    * @property {QuestionResult[]} questionResults
    */
-  resources: Ember.computed("resourceResults.[]", function(){
-    return this.get("resourceResults").filter(function(resourceResult){
+  resources: Ember.computed('resourceResults.[]', function(){
+    return this.get('resourceResults').filter(function(resourceResult){
       return !(resourceResult instanceof QuestionResult);
     });
   }),
@@ -88,8 +88,8 @@ export default Ember.Object.extend({
   /**
    * @property {QuestionResult[]} questionResults
    */
-  sortedResourceResults: Ember.computed("resourceResults.[]", function(){
-    return this.get("resourceResults").sortBy("resource.order");
+  sortedResourceResults: Ember.computed('resourceResults.[]', function(){
+    return this.get('resourceResults').sortBy('resource.order');
   }),
 
   /**
@@ -108,7 +108,7 @@ export default Ember.Object.extend({
    * Indicates if it has mastery
    * @property {boolean} hasMastery
    */
-  hasMastery: Ember.computed.bool("mastery.length"),
+  hasMastery: Ember.computed.bool('mastery.length'),
 
   /**
    * @property {Date} submittedAt - Date in which the attempt was submitted
@@ -123,7 +123,7 @@ export default Ember.Object.extend({
   /**
    * @property {string} title - Title of the assessment
    */
-  title: Ember.computed.alias("collection.title"),
+  title: Ember.computed.alias('collection.title'),
 
   /**
    * @property {number} totalAttempts - Number of attempts the user has made for this assessment
@@ -133,18 +133,18 @@ export default Ember.Object.extend({
   /**
    * @property {number}
    */
-  totalResources: Ember.computed.alias("resourceResults.length"),
+  totalResources: Ember.computed.alias('resourceResults.length'),
 
   /**
    * @property {number}
    */
-  totalNonOpenEndedQuestions: Ember.computed.alias("nonOpenEndedQuestionResults.length"),
+  totalNonOpenEndedQuestions: Ember.computed.alias('nonOpenEndedQuestionResults.length'),
 
 
   /**
    * @property {boolean}
    */
-  hasNonOpenEndedQuestions: Ember.computed.bool("totalNonOpenEndedQuestions"),
+  hasNonOpenEndedQuestions: Ember.computed.bool('totalNonOpenEndedQuestions'),
 
   /**
    * @property {boolean} submitted
@@ -154,7 +154,7 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} started
    */
-  started: Ember.computed.bool("startedAt"),
+  started: Ember.computed.bool('startedAt'),
 
   /**
    * @property {boolean} is a real time result
@@ -166,11 +166,11 @@ export default Ember.Object.extend({
    * @property {Resource} lastVisitedResource
    */
   lastVisitedResource: function() {
-    const resourceResults = this.get("sortedResourceResults");
+    const resourceResults = this.get('sortedResourceResults');
     let result = resourceResults
-      .filterBy("started", true)
-      .get("lastObject");
-    return result ? result.get("resource") : resourceResults.get("firstObject").get("resource");
+      .filterBy('started', true)
+      .get('lastObject');
+    return result ? result.get('resource') : resourceResults.get('firstObject').get('resource');
   }.property(),
 
 
@@ -191,9 +191,9 @@ export default Ember.Object.extend({
    * @prop {number}
    */
   correctPercentage:Ember.computed('nonOpenEndedQuestionResults.[]',function(){
-    const score = this.get("score");
+    const score = this.get('score');
 
-    return score ? score : correctPercentage(this.get('nonOpenEndedQuestionResults'), !this.get("isRealTime"));
+    return score ? score : correctPercentage(this.get('nonOpenEndedQuestionResults'), !this.get('isRealTime'));
   }),
 
   /**
@@ -201,7 +201,7 @@ export default Ember.Object.extend({
    * @prop {number}
    */
   totalTimeSpent:Ember.computed('resourceResults.[]',function(){
-    const timeSpent = this.get("timeSpent");
+    const timeSpent = this.get('timeSpent');
     return timeSpent ? timeSpent: totalTimeSpent(this.get('resourceResults'));
   }),
 
@@ -226,8 +226,8 @@ export default Ember.Object.extend({
    * @return {QuestionResult[]}
    */
   pendingQuestionResults: Ember.computed('questionResults.[]',function(){
-    let questionResults = this.get("questionResults");
-    return questionResults.filterBy("pending", true);
+    let questionResults = this.get('questionResults');
+    return questionResults.filterBy('pending', true);
   }),
 
 
@@ -238,10 +238,10 @@ export default Ember.Object.extend({
    * @param {Collection} collection
    */
   merge: function(collection){
-    var resourceResults = this.get("resourceResults");
-    const resources = collection.get("resources");
+    var resourceResults = this.get('resourceResults');
+    const resources = collection.get('resources');
 
-    this.set("collection", collection);
+    this.set('collection', collection);
 
     if (resources.get('length')) {
       this.addMissingResource(resources, resourceResults);
@@ -261,15 +261,15 @@ export default Ember.Object.extend({
   addMissingResource: function(resources, resourceResults){
     resources.forEach(function (resource) {
       let resourceId = resource.get('id');
-      let found = resourceResults.findBy("resourceId", resourceId);
+      let found = resourceResults.findBy('resourceId', resourceId);
       if (!found) {
-        let result = (resource.get("isQuestion")) ?
+        let result = (resource.get('isQuestion')) ?
           QuestionResult.create({resourceId: resourceId, resource: resource}) :
           ResourceResult.create({resourceId: resourceId, resource: resource});
         resourceResults.pushObject(result);
       }
       else {
-        found.set("resource", resource);
+        found.set('resource', resource);
       }
     });
   },
@@ -283,7 +283,7 @@ export default Ember.Object.extend({
     if (resourceResults.get('length')) {
       var extraResources = resourceResults.filter(function(resource) {
         let resourceResultId = resource.get('resourceId');
-        return !resources.findBy("id", resourceResultId);
+        return !resources.findBy('id', resourceResultId);
       });
 
       resourceResults.removeObjects(extraResources);
@@ -297,16 +297,18 @@ export default Ember.Object.extend({
    * @returns {ResourceResult}
    */
   getResultByResourceId: function(resourceId){
-    return this.get("resourceResults").findBy("resourceId", resourceId);
+    return this.get('resourceResults').findBy('resourceId', resourceId);
   },
   /**
-   * Fix the order of the resouceResults list
+   * Fix the order of the resourceResults list
    * @param {A[]} resourceResults
    * @returns {ResourceResult}
    */
   fixResultsOrder: function () {
     this.get('sortedResourceResults').forEach(function (resourceResult,index) {
-      resourceResult.set('resource.order',index+1);
+      if(resourceResult.get('resource')){
+        resourceResult.set('resource.order',index+1);
+      }
     });
   }
 });

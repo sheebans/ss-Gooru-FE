@@ -226,7 +226,7 @@ export default Ember.Component.extend({
    *
    */
   sortByMetrics(metric){
-    var component =this;
+    var component = this;
     var metrics = component.get('metrics');
     metrics.forEach(function(option){
       if (option.get('value') === metric.get('value')){

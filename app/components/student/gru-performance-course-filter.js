@@ -71,9 +71,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
     if (component.get('filterCriteria')) {
       component.setProperties({
-        courseId: component.get('filterCriteria.courseId'),
-        unitId: component.get('filterCriteria.unitId'),
-        lessonId: component.get('filterCriteria.lessonId')
+        courseId: component.get('filterCriteria.courseId')
       });
     }
   },
@@ -153,5 +151,4 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @property {string}
    */
   unitId: null
-
 });
