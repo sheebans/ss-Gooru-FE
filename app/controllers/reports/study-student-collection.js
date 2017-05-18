@@ -28,17 +28,17 @@ export default StudentCollection.extend({
 
   actions: {
     /**
+     * Action triggered for the next button
+     */
+    next: function () {
+      this.toPlayer();
+    },
+
+    /**
      * Action triggered when the performance information panel is expanded/collapsed
      */
     toggleHeader: function (toggleState) {
       this.set('toggleState', toggleState);
-    },
-
-    /**
-     * If the user want to continue playing the collection
-     */
-    playActualCollection:function(){
-      this.set('showSuggestion', false);
     },
 
     /**
@@ -180,22 +180,32 @@ export default StudentCollection.extend({
   // -------------------------------------------------------------------------
   // Methods
 
+  /**
+   * @param suggestion
+   */
   playSuggestion: function(suggestion) {
     const controller = this;
     controller.set('showSuggestion', false);
     const courseMapService = controller.get('courseMapService');
     const context = controller.get('mapLocation.context');
     courseMapService.createNewPath(context, suggestion)
-    .then(function() {
-      const queryParams = {
-        role: ROLES.STUDENT,
-        source: controller.get('source')
-      };
-      controller.transitionToRoute('study-player',
-        context.get('classId'),
-        context.get('courseId'),
-        { queryParams }
-      );
-    });
+      .then(() => controller.toPlayer());
+  },
+
+  /**
+   * Navigate to study player to play next collection/assessment
+   */
+  toPlayer: function() {
+    const controller = this;
+    const context = controller.get('mapLocation.context');
+    const queryParams = {
+      role: ROLES.STUDENT,
+      source: controller.get('source')
+    };
+    controller.transitionToRoute('study-player',
+      context.get('classId'),
+      context.get('courseId'),
+      { queryParams }
+    );
   }
 });
