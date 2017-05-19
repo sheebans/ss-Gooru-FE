@@ -28,6 +28,13 @@ export default StudentCollection.extend({
 
   actions: {
     /**
+     * Action triggered for the next button
+     */
+    next: function () {
+      this.toPlayer();
+    },
+
+    /**
      * Action triggered when the performance information panel is expanded/collapsed
      */
     toggleHeader: function (toggleState) {
@@ -35,24 +42,24 @@ export default StudentCollection.extend({
     },
 
     /**
-     * If the user want to continue playing the collection
-     */
-    playActualCollection:function(){
-      this.set('showSuggestion', false);
-    },
-
-    /**
      * If the user want to continue playing the post-test suggestion
      */
-    playPostTestSuggestion: function(){
+    playPostTestSuggestion: function() {
       this.playSuggestion(this.get('mapLocation.postTestSuggestion'));
     },
 
     /**
      * If the user want to continue playing the backfill suggestion
      */
-    playBackFillSuggestion: function(){
+    playBackFillSuggestion: function() {
       this.playSuggestion(this.get('mapLocation.backFillSuggestion'));
+    },
+
+    /**
+     * If the user want to continue playing the resource suggestion
+     */
+    playResourceSuggestion: function() {
+      //this.playSuggestion(this.get('mapLocation.resourceSuggestion'));
     }
   },
 
@@ -86,16 +93,28 @@ export default StudentCollection.extend({
   toggleState: true,
 
   /**
-   *Back fill pre test suggestion
+   *Back fill backfill suggestion
    * @property {String} typeSuggestion
    */
   backFillType: ASSESSMENT_SUB_TYPES.BACKFILL,
 
   /**
-   *Post Test pre test suggestion
+   *Post test suggestion
    * @property {String} typeSuggestion
    */
   postTestType: ASSESSMENT_SUB_TYPES.POST_TEST,
+
+  /**
+   *Post Test resource suggestion
+   * @property {String} typeSuggestion
+   */
+  resourceType: ASSESSMENT_SUB_TYPES.RESOURCE,
+
+  /**
+   *Benchmark suggestion
+   * @property {String} benchmarkType
+   */
+  benchmarkType: ASSESSMENT_SUB_TYPES.BENCHMARK,
 
   /**
    * Indicate if show pre test suggestion
@@ -122,11 +141,19 @@ export default StudentCollection.extend({
   /**
    * @property {boolean}
    */
-  hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'showSuggestion', function() {
+  hasResourceSuggestions: Ember.computed.alias('mapLocation.hasResourceSuggestions'),
 
-    return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions')) && this.get('showSuggestion');
-
+  /**
+   * @property {boolean}
+   */
+  hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'hasResourceSuggestions', 'hasBenchmarkSuggestions', 'showSuggestion', function() {
+    return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions') || this.get('hasResourceSuggestions') || this.get('hasBenchmarkSuggestions')) && this.get('showSuggestion');
   }),
+
+  /**
+   * @property {boolean}
+   */
+  hasBenchmarkSuggestions: Ember.computed.alias('mapLocation.hasBenchmarkSuggestions'),
 
   /**
    * Shows the breadcrumbs info of the collection
@@ -153,22 +180,32 @@ export default StudentCollection.extend({
   // -------------------------------------------------------------------------
   // Methods
 
+  /**
+   * @param suggestion
+   */
   playSuggestion: function(suggestion) {
     const controller = this;
     controller.set('showSuggestion', false);
     const courseMapService = controller.get('courseMapService');
     const context = controller.get('mapLocation.context');
     courseMapService.createNewPath(context, suggestion)
-    .then(function() {
-      const queryParams = {
-        role: ROLES.STUDENT,
-        source: controller.get('source')
-      };
-      controller.transitionToRoute('study-player',
-        context.get('classId'),
-        context.get('courseId'),
-        { queryParams }
-      );
-    });
+      .then(() => controller.toPlayer());
+  },
+
+  /**
+   * Navigate to study player to play next collection/assessment
+   */
+  toPlayer: function() {
+    const controller = this;
+    const context = controller.get('mapLocation.context');
+    const queryParams = {
+      role: ROLES.STUDENT,
+      source: controller.get('source')
+    };
+    controller.transitionToRoute('study-player',
+      context.get('classId'),
+      context.get('courseId'),
+      { queryParams }
+    );
   }
 });

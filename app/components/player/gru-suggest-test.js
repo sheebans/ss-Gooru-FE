@@ -21,11 +21,25 @@ export default Ember.Component.extend({
    * @param {String} (pre-test/post-test/backfill-pretest)
    */
   type:'',
+
   /**
    * Indicate if the suggestion is a back fill after a pre test
    * @param {Boolean} isBackFill
    */
   isBackFill: Ember.computed.equal('type', ASSESSMENT_SUB_TYPES.BACKFILL),
+
+  /**
+   * Indicate if the suggestion is a benchmark after a post test
+   * @param {Boolean} isBenchmark
+   */
+  isBenchmark: Ember.computed.equal('type', ASSESSMENT_SUB_TYPES.BENCHMARK),
+
+  /**
+   * Indicate if the suggestion is a resource
+   * @param {Boolean} isResource
+   */
+  isResource: Ember.computed.equal('type', ASSESSMENT_SUB_TYPES.RESOURCE),
+
   /**
    * Suggested assessment
    * @param {Assessment} assessment

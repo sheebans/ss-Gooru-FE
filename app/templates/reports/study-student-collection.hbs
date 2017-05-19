@@ -13,12 +13,22 @@
   {{#if hasAnySuggestion}}
     {{#if hasBackFillSuggestions}}
       <div class="suggestion-panel">
-        {{player.gru-suggest-test type=backFillType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playBackFillSuggestion'}}
+        {{player.gru-suggest-test type=backFillType assessment=collection onPlayCollection='next' onPlaySuggestion='playBackFillSuggestion'}}
       </div>
     {{/if}}
     {{#if hasPostTestSuggestions}}
       <div class="suggestion-panel">
-        {{player.gru-suggest-test type=postTestType assessment=collection onPlayCollection='playActualCollection' onPlaySuggestion='playPostTestSuggestion'}}
+        {{player.gru-suggest-test type=postTestType assessment=collection onPlayCollection='next' onPlaySuggestion='playPostTestSuggestion'}}
+      </div>
+    {{/if}}
+    {{#if hasResourceSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=resourceType suggestion=mapLocation.resourceSuggestion onPlayCollection='playActualCollection' onPlaySuggestion='playResourceSuggestion'}}
+      </div>
+    {{/if}}
+    {{#if hasBenchmarkSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=benchmarkType assessment=collection  onPlayCollection='next'}}
       </div>
     {{/if}}
   {{else}}
@@ -27,7 +37,7 @@
         <div class="panel-body">
           <div class="description">{{t 'gru-suggest-test.no-suggestions'}}</div>
           <div class="actions right">
-            <button class="btn btn-primary btn-next">{{t 'common.next'}}</button>
+            <button class="btn btn-primary btn-next" {{action 'next'}}>{{t 'common.next'}}</button>
           </div>
         </div>
       </div>

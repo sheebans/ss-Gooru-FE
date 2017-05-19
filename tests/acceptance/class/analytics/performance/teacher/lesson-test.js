@@ -56,22 +56,23 @@ test('Navigate to collection', function(assert) {
     });
   });
 });
-//
-//test('Navigate to student report and go back to data', function(assert) {
-//  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id/lesson/first-lesson-id');
-//
-//  andThen(function() {
-//    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id/lesson/first-lesson-id');
-//
-//    const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-lesson");
-//    const $metricTable = $performanceContainer.find(".gru-metrics-table");
-//
-//    click($metricTable.find("tbody tr:eq(2) td:eq(1) .score"));
-//    andThen(function(){
-//      assert.equal(currentURL(), '/reports/student-collection?classId=462bcc67-1717-4140-bdc0-672e7bf4cdb1&collectionId=first-assessment-id&courseId=course-123&lessonId=first-lesson-id&role=teacher&type=assessment&unitId=first-unit-id&userId=c4176d77-2507-4bd0-b1a1-308ad98526e5');
-//      //menu is still selected
-//      const $container = find(".controller.class.analytics.collection.student");
-//      T.exists(assert, $container, "Missing container");
-//    });
-//  });
-//});
+
+test('Navigate to student report and go back to data', function(assert) {
+  visit('/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id/lesson/first-lesson-id');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/class/class-for-pochita-as-teacher/analytics/performance/teacher/unit/first-unit-id/lesson/first-lesson-id');
+
+    const $performanceContainer = find(".controller.class .controller.analytics-performance-teacher-lesson");
+    const $metricTable = $performanceContainer.find(".gru-metrics-table");
+
+    click($metricTable.find("tbody tr:eq(2) td:eq(1) .score"));
+    andThen(function(){
+      assert.equal(currentURL(), '/reports/student-collection?classId=462bcc67-1717-4140-bdc0-672e7bf4cdb1&collectionId=first-assessment-id&courseId=course-123&lessonId=first-lesson-id&role=teacher&type=assessment&unitId=first-unit-id&userId=c4176d77-2507-4bd0-b1a1-308ad98526e5');
+      //menu is still selected
+      const $container = find(".controller.analytics.collection.student");
+      T.exists(assert, $container, "Missing container");
+    });
+  });
+});
+

@@ -74,7 +74,8 @@ export const ASSESSMENT_SUB_TYPES = {
   PRE_TEST: 'pre-test',
   POST_TEST: 'post-test',
   BACKFILL: 'backfill',
-  BENCHMARK: 'benchmark'
+  BENCHMARK: 'benchmark',
+  RESOURCE: 'resource'
 };
 
 export const KEY_CODES = {

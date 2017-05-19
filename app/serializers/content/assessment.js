@@ -123,7 +123,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       thumbnailUrl: thumbnailUrl,
       classroom_play_enabled: settings.classroom_play_enabled !== undefined ? settings.classroom_play_enabled : true,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy),
-      format: assessmentData.format,
+      format: assessmentData.format || assessmentData.target_content_type,
       url: assessmentData.url,
       metadata: metadata,
       audience: metadata.audience && metadata.audience.length > 0 ? metadata.audience : [],

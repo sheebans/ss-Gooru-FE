@@ -53,6 +53,13 @@ const MapLocationModel = Ember.Object.extend({
   }),
 
   /**
+   * @property {boolean}
+   */
+  hasResourceSuggestions: Ember.computed('suggestions.[]', function(){
+    return this.get('suggestions').filterBy('isResource').get('length');
+  }),
+
+  /**
    * Returns the post test suggestion for this location
    * @property {MapSuggestion}
    */
@@ -72,16 +79,24 @@ const MapLocationModel = Ember.Object.extend({
    * Returns the backfill test suggestion for this location
    * @property {MapSuggestion}
    */
-  backFillSuggestion: Ember.computed('hasPostTestSuggestions', function(){
+  backFillSuggestion: Ember.computed('hasBackFillSuggestions', function(){
     return this.get('hasBackFillSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.BACKFILL) : undefined;
   }),
 
   /**
-   * Returns the pre test suggestion for this location
+   * Returns the benchmark suggestion for this location
    * @property {MapSuggestion}
    */
-  benchmarkSuggestion: Ember.computed('hasPreTestSuggestions', function(){
+  benchmarkSuggestion: Ember.computed('hasBenchmarkSuggestions', function(){
     return this.get('hasBenchmarkSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.BENCHMARK) : undefined;
+  }),
+
+  /**
+   * Returns the resource suggestion for this location
+   * @property {MapSuggestion}
+   */
+  resourceSuggestion: Ember.computed('hasResourceSuggestions', function(){
+    return this.get('hasResourceSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.RESOURCE) : undefined;
   }),
 
   /**

@@ -118,7 +118,9 @@ export default Ember.Service.extend({
    */
   startSuggestion: function (courseId, unitId, lessonId, collectionId, collectionType, collectionSubType, pathId, classId) {
     const service = this;
-    let subType = collectionSubType === ASSESSMENT_SUB_TYPES.BACKFILL ? null : collectionSubType;
+    let isBackfillOrResource = collectionSubType === ASSESSMENT_SUB_TYPES.BACKFILL ||
+      collectionSubType === ASSESSMENT_SUB_TYPES.RESOURCE;
+    let subType = isBackfillOrResource ? null : collectionSubType;
     const mapContext = MapContext.create({
       courseId,
       unitId,
