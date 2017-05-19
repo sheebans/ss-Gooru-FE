@@ -6,6 +6,7 @@ import CollectionPerformanceSummaryAdapter from 'gooru-web/adapters/performance/
 import ActivityPerformanceSummarySerializer from 'gooru-web/serializers/performance/activity-performance-summary';
 import ActivityPerformanceSummaryAdapter from 'gooru-web/adapters/performance/activity-performance-summary';
 import { aggregateClassActivityPerformanceSummaryItems } from 'gooru-web/utils/performance-summary';
+
 /**
  * @typedef {Object} PerformanceService
  */
@@ -93,18 +94,20 @@ export default Ember.Service.extend({
       params.unitId = context.unitId;
       params.lessonId = context.lessonId;
     }
-    return new Ember.RSVP.Promise(function(resolve) {
-      service.get('studentCollectionAdapter').queryRecord(params).then(function (payload) {
-        const assessmentResult = service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
-        if (loadStandards){
-          service.loadStandardsSummary(assessmentResult, context).then(function(){
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+        return service.get('studentCollectionAdapter').queryRecord(params).then(function (payload) {
+          const assessmentResult = service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
+          if (loadStandards) {
+            service.loadStandardsSummary(assessmentResult, context).then(function () {
+              resolve(assessmentResult);
+            });
+          }
+          else {
             resolve(assessmentResult);
-          });
-        }
-        else {
-          resolve(assessmentResult);
-        }
-      });
+          }
+        }, function() {
+          resolve(undefined);
+        });
     });
   },
 
