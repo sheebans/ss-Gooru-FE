@@ -94,7 +94,7 @@ export default Ember.Service.extend({
       params.unitId = context.unitId;
       params.lessonId = context.lessonId;
     }
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
         return service.get('studentCollectionAdapter').queryRecord(params).then(function (payload) {
           const assessmentResult = service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
           if (loadStandards) {
