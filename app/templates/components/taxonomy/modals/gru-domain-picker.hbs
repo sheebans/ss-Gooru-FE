@@ -4,7 +4,7 @@
 <div class="modal-body">
 
   {{taxonomy.gru-taxonomy-picker
-    browseSelectorText=(t "taxonomy.modals.gru-domain-picker.browseSelectorText")
+    browseSelectorText="taxonomy.modals.gru-domain-picker.browseSelectorText"
     maxLevels=2
     onSave=(action 'updateSelectedTags')
     onSearchPath=(action 'loadTaxonomyData')
@@ -16,5 +16,3 @@
     subject=model.subject }}
 
 </div>
-
-
