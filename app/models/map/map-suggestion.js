@@ -27,6 +27,11 @@ const MapSuggestionModel = Ember.Object.extend({
    */
   subType: null,
 
+   /**
+    * @property {String} resource subformat
+    */
+  resourceFormat: null,
+
   /**
    * @property {boolean}
    */

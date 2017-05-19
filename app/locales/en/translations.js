@@ -1891,10 +1891,11 @@ export default Object.assign(quizzesTranslations, {
     "post-test-lead":"You are almost done with this lesson! Student usually take a post-test to know how well they’ve learned.",
     "backfill-lead":"You completed the Pre-Test! Student like you would like to take a collection below to improve the knowledge before starting this course. Estimated time to take this collection is 30 minutes.",
     "benchmark-lead":"You’re now ready to demonstrate your understanding by taking a benchmark assessment. You will eran a badge for successfully completing the benchmark. The benchmark will not affect your course performance score.",
-    "resource-lead":"Based on your performance on this course, the following resource may enhance yor understanding.",
+    "resource-lead":"Based on your performance on this course, the following resource may enhance your understanding.",
     "no":"No, thanks",
     "no-suggestions":"You did a good job. Keep working at it!",
     "take":"Take {{type}}",
-    "take-backfill-pretest":"Study Suggested Collection"
+    "take-backfill-pretest":"Study Suggested Collection",
+    "take-resource":"Study Resource"
   }
 });

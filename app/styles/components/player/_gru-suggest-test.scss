@@ -18,7 +18,7 @@
       @include flex-direction(column);
 
       .lead {
-        color:$gray-base;
+        color: $gray-base;
       }
       .description {
         font-size: $font-navigator;
@@ -26,6 +26,105 @@
       .bottom-info {
         @include flexbox;
         @include justify-content(space-between);
+        .resource-info {
+          @include flexbox;
+          height: 50px;
+          width: 220px;
+          border: 2px solid $gray-lighter;
+          border-radius: 6px;
+          padding: 5px 10px;
+          margin-top: 5px;
+          background-color: $light-100;
+          .info {
+            @include flexbox;
+            @include flex-direction(column);
+            margin-left: 10px;
+            line-height: 1.2;
+            width: 150px;
+            .title{
+              display: inline-block;
+              width: 100%;
+              color: $text-color;
+              font-size: 13px;
+              font-weight: bold;
+              margin: 4px 5px 2px 0;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+            .format {
+              span {
+                color: $text-color;
+                font-size: 11px;
+                margin: 0 5px 5px 0;
+              }
+            }
+          }
+          .image {
+            @include flex-shrink(0);
+            display: inline-block;
+            vertical-align: top;
+          }
+          i {
+              display: block;
+              height: 36px;
+              width: 28px;
+              margin: 0 auto;
+              vertical-align: top;
+              margin: 5px 0 0 0;
+              &.video-icon {
+                background: url("gooru/images/video-resource-green.svg");
+                -webkit-background-size: 31px 30px;
+                background-size: 31px 30px;
+                height: 30px;
+                width: 31px;
+              }
+              &.webpage-icon {
+                background: url("gooru/images/website-resource-green.svg");
+                -webkit-background-size: 29px 30px;
+                background-size: 29px 30px;
+                height: 30px;
+                width: 29px;
+              }
+              &.interactive-icon {
+                background: url("gooru/images/interactive-resource-green.svg");
+                -webkit-background-size: 34px 30px;
+                background-size: 34px 30px;
+                height: 30px;
+                width: 34px;
+                vertical-align: top;
+                margin: 5px 0 0 0;
+              }
+              &.question-icon {
+                background: url("gooru/images/question-resource-green.svg");
+                -webkit-background-size: 30px 30px;
+                background-size: 30px 30px;
+                height: 30px;
+                width: 30px;
+              }
+              &.image-icon {
+                background: url("gooru/images/image-resource-green.svg");
+                -webkit-background-size: 30px 30px;
+                background-size: 30px 30px;
+                height: 30px;
+                width: 30px;
+              }
+              &.text-icon {
+                background: url("gooru/images/text-resource-green.svg");
+                -webkit-background-size: 31px 30px;
+                background-size: 31px 30px;
+                height: 30px;
+                width: 31px;
+              }
+              &.audio-icon {
+                background: url("gooru/images/audio-resource-green.svg");
+                -webkit-background-size: 34px 30px;
+                background-size: 34px 30px;
+                height: 30px;
+                width: 34px;
+              }
+            }
+        }
         .assessment-info {
           @include flexbox;
           > * {

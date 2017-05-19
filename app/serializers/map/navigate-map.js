@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import MapContext from 'gooru-web/models/map/map-context';
 import MapSuggestion from 'gooru-web/models/map/map-suggestion';
+import ResourceModel from 'gooru-web/models/content/resource';
 import { ASSESSMENT_SUB_TYPES, CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
@@ -87,6 +88,7 @@ export default Ember.Object.extend({
       id: data.id,
       title: data.title,
       type: data.format,
+      resourceFormat: ResourceModel.normalizeResourceFormat(data.subformat),
       subType
     });
   }
