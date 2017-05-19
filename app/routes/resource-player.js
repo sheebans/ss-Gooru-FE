@@ -122,7 +122,7 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
       collection: loadCollection ? route.get('collectionService').readCollection(collectionId) : false
     }).then(function (hash) {
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
-      return collectionFound ? hash.collection.value.toPlayerCollection() : hash.assessment.value.toPlayerCollection();
+      return collectionFound ? (hash.collection.value ? hash.collection.value.toPlayerCollection() : undefined) : (hash.assessment.value ? hash.assessment.value.toPlayerCollection() : undefined);
     });
   }
 });
