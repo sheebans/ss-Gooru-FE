@@ -44,9 +44,9 @@ test('Performance Table Layout', function(assert) {
   this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table 
+  this.render(hbs`{{student/class/analytics/gru-performance-table
     contentTitle=contentTitle
-    assessments=assessmentsMock 
+    assessments=assessmentsMock
     collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
 
   const $component = this.$(); //component dom element
@@ -72,6 +72,9 @@ test('Performance Table Layout', function(assert) {
   const $score = $thead.find('.score');
   T.exists(assert, $score, 'Missing score header');
 
+  const $report = $thead.find('.report');
+  T.notExists(assert, $report, 'Report header should not appear');
+
   const $completion = $thead.find('.completion');
   T.exists(assert, $completion, 'Missing completion header');
 
@@ -95,6 +98,105 @@ test('Performance Table Layout', function(assert) {
   assert.equal(T.text($summaryRow.find('.assessment-title')), 'Any content title', 'Wrong summary title');
   assert.equal(T.text($summaryRow.find('.performance-score')), '90%', 'Wrong summary score');
   assert.equal(T.text($summaryRow.find('.performance-time')), '4h 16m', 'Wrong summary time spent');
+  assert.notOk($summaryRow.find('.performance-report').length,'Report column should not appear');
+  assert.notOk($summaryRow.find('.performance-report .report-icon').length,'Report icon should not appear');
+
+  const $columns = $table.find('tbody');
+  assert.notOk($columns.find('.performance-report').length,'Report column should not appear');
+  assert.notOk($columns.find('.performance-report a span.report-icon').length,'Report icon should not appear');
+
+});
+test('Performance Table Layout with Report Column', function(assert) {
+
+  const assessmentsMock = [
+    AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
+    AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
+    AssessmentModel.create({id: '3', title: 'Pre Assessment Human Impact on Earth'}),
+    AssessmentModel.create({id: '4', title: 'Assessment having no performance'}) //assessment without performance
+  ];
+
+  var collectionPerformanceSummaryItems = Ember.A([
+    CollectionPerformanceSummary.create({
+      id: '1',
+      score : 100,
+      timeSpent: 5000000
+    }),
+    CollectionPerformanceSummary.create({
+      id: '2',
+      score : 90,
+      timeSpent: 5100000
+    }),
+    CollectionPerformanceSummary.create({
+      id: '3',
+      score : 80,
+      timeSpent: 5300000
+    })
+  ]);
+
+  let metrics =  Ember.A([Ember.Object.create({
+    'value': 'assessment',
+    'sorted': false,
+    'isAsc': false,
+    'hasSorting': true,
+    'visible': true,
+    'index': -1
+  }),Ember.Object.create({
+    'value': 'score',
+    'sorted': false,
+    'isAsc': false,
+    'hasSorting': true,
+    'visible': false,
+    'index':0
+  }),Ember.Object.create({
+    'value': 'report',
+    'sorted': false,
+    'isAsc': false,
+    'hasSorting': false,
+    'visible': false,
+    'index':1
+  }),Ember.Object.create({
+    'value': 'completion',
+    'sorted': false,
+    'isAsc': false,
+    'hasSorting': true,
+    'visible': false,
+    'index':2
+  }),Ember.Object.create({
+    'value': 'study-time',
+    'sorted': false,
+    'isAsc': false,
+    'hasSorting': true,
+    'visible': false,
+    'index':3
+  })]);
+
+  this.set('contentTitle', 'Any content title');
+  this.set('showReportColumn', true);
+  this.set('metrics', metrics);
+  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
+  this.set('assessmentsMock', assessmentsMock);
+
+  this.render(hbs`{{student/class/analytics/gru-performance-table
+    contentTitle=contentTitle
+    assessments=assessmentsMock
+    collectionPerformanceSummaryItems=collectionPerformanceSummaryItems
+    showReportColumn=showReportColumn
+    metrics=metrics}}`);
+
+  const $component = this.$(); //component dom element
+  const $performanceTable = $component.find('.gru-performance-table');
+
+  T.exists(assert, $performanceTable, 'Missing student performance table');
+
+  const $table = $performanceTable.find('.table');
+  const $thead = $table.find('thead');
+
+  const $report = $thead.find('.report');
+  T.exists(assert, $report, 'Missing report header');
+
+  const $columns = $table.find('tbody');
+  assert.ok($columns.find('.performance-report').length,'Missing report column');
+  assert.ok($columns.find('.performance-report a span.report-icon').length,'Missing report icon');
 
 });
 

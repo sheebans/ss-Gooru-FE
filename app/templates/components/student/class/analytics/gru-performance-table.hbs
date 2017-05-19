@@ -6,18 +6,22 @@
             {{#each metrics as |metric|}}
                 <th class="{{metric.value}}">
                     <div>
-                        <a {{action 'sort' metric}}>
-                          {{t (concat 'gru-performance-metrics.' metric.value) }}
-                          {{#if metric.sorted}}
-                            {{#if metric.isAsc}}
-                                <span>{{gru-icon name='arrow_upward'}}</span>
-                            {{else}}
-                                <span>{{gru-icon name='arrow_downward'}}</span>
-                            {{/if}}
+                        {{#if metric.hasSorting}}
+                            <a {{action 'sort' metric}}>
+                              {{t (concat 'gru-performance-metrics.' metric.value) }}
+                              {{#if metric.sorted}}
+                                {{#if metric.isAsc}}
+                                    <span>{{gru-icon name='arrow_upward'}}</span>
+                                {{else}}
+                                    <span>{{gru-icon name='arrow_downward'}}</span>
+                                {{/if}}
+                              {{else}}
+                                  <span>{{gru-icon name='swap_vert'}}</span>
+                              {{/if}}
+                            </a>
                           {{else}}
-                              <span>{{gru-icon name='swap_vert'}}</span>
-                          {{/if}}
-                        </a>
+                          <a>{{t (concat 'gru-performance-metrics.' metric.value) }}</a>
+                        {{/if}}
                     </div>
                 </th>
             {{/each}}
@@ -34,6 +38,12 @@
                       <span>{{aggregatedPerformanceSummary.score}}%</span>
                   </div>
               </td>
+            {{#if showReportColumn}}
+              <td class="performance-info performance-report">
+                  <div class="report">
+                  </div>
+              </td>
+            {{/if}}
               <td class="performance-info performance-completion">
                 {{charts.gru-radial-chart
                 value=assessmentsCompleted
@@ -55,6 +65,15 @@
                           <span>{{{studentPerformance.performanceData.score}}}%</span>
                       </div>
                   </td>
+                {{#if showReportColumn}}
+                  <td class="performance-info performance-report">
+                      <div class="report">
+                          <a {{action 'viewReport' studentPerformance.assessment.id}}>
+                              <span class="report-icon">{{gru-icon name='library_books'}}</span>
+                          </a>
+                      </div>
+                  </td>
+                {{/if}}
                   <td class="performance-info performance-completion">
                     <span class="completion {{if (eq studentPerformance.performanceData.status 'complete') 'visible' 'hidden'}}">
                       {{gru-icon name='done'}}

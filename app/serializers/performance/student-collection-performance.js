@@ -9,11 +9,11 @@ export default AnalyticsSerializer.extend({
    * @param payload
    * @returns {AssessmentResult}
    */
-  normalizeStudentCollection: function(payload) {
+  normalizeStudentCollection: function (payload) {
     const serializer = this;
     const found = payload && payload.content && payload.content.length;
 
-    if (found){
+    if (found) {
       let content = payload.content[0];
       let collection = content.collection || content.assessment;
       let resources = content.resources || content.questions;
