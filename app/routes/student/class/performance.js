@@ -17,12 +17,12 @@ export default Ember.Route.extend({
       const classId =  controller.get('classId');
       const collectionType = controller.get('collectionType');
       route.transitionTo('reports.student-collection-analytics', { queryParams: {
-        classId: classId,
-        courseId: courseId,
-        unitId: unitId,
-        lessonId: lessonId,
+        classId,
+        courseId,
+        unitId,
+        lessonId,
         collectionId: assessmentId,
-        userId: userId,
+        userId,
         type: collectionType,
         role: 'student'
       }});

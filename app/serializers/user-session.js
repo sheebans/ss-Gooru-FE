@@ -9,9 +9,7 @@ export default Ember.Object.extend({
    */
   serializeSessionAssessments: function (payload) {
     let content = payload.content;
-    return content.filter(function (session) {
-      return session.sessionId;
-    });
+    return content.filter(session => session.sessionId);
   },
 
   /**
