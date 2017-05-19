@@ -45,9 +45,9 @@ export default Ember.Route.extend({
      * @function actions:playItem
      * @param {string} unitId - Identifier for a unit
      * @param {string} lessonId - Identifier for lesson
-     * @param {string} collection - collection or assessment
+     * @param {string} item - collection, assessment, lesson or resource
      */
-    studyPlayer: function (type, unitId, lessonId, collection) {
+    studyPlayer: function (type, unitId, lessonId, item) {
       const route = this;
       const currentClass = route.modelFor('student.class').class;
       const classId = currentClass.get('id');
@@ -55,9 +55,11 @@ export default Ember.Route.extend({
 
       if (type === 'lesson') {
         route.startLessonStudyPlayer(classId, courseId, unitId, lessonId);
+      } else if (type === 'resource') {
+        route.startResourceStudyPlayer(classId, courseId, item);
       }
       else {
-        route.startCollectionStudyPlayer(classId, courseId, unitId, lessonId, collection);
+        route.startCollectionStudyPlayer(classId, courseId, unitId, lessonId, item);
       }
     }
 
@@ -162,5 +164,16 @@ export default Ember.Route.extend({
       source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
     route.transitionTo('study-player', classId, courseId, { queryParams });
+  },
+
+  /**
+   * Navigates to resourse
+   * @param {string} classId
+   * @param {string} courseId
+   * @param {Resource} resource
+   */
+  startResourceStudyPlayer:function(classId, courseId, resource) {
+    const route = this;
+    route.transitionTo('resource-player', classId, courseId, resource.id);
   }
 });
