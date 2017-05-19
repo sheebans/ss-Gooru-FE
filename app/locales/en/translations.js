@@ -1895,6 +1895,7 @@ export default Object.assign(quizzesTranslations, {
     "no":"No, thanks",
     "no-suggestions":"You did a good job. Keep working at it!",
     "take":"Take {{type}}",
-    "take-backfill-pretest":"Study Suggested Collection"
+    "take-backfill-pretest":"Study Suggested Collection",
+    "take-resource":"Study Resource"
   }
 });
