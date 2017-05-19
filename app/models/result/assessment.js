@@ -237,7 +237,7 @@ export default Ember.Object.extend({
    * Initializes the assessment results
    * @param {Collection} collection
    */
-  merge: function(collection){
+  merge: function (collection) {
     var resourceResults = this.get('resourceResults');
     const resources = collection.get('resources');
 
@@ -245,7 +245,6 @@ export default Ember.Object.extend({
 
     if (resources.get('length')) {
       this.addMissingResource(resources, resourceResults);
-
     } else {
       Ember.Logger.error('Collection with ID: ' + collection.get('id') + ' does not have any resources. No resource results were set.');
     }
@@ -258,7 +257,12 @@ export default Ember.Object.extend({
    * @param {QuestionResult[]} resources
    * @param {QuestionResult[]} resourceResults
    */
-  addMissingResource: function(resources, resourceResults){
+  addMissingResource: function (resources, resourceResults) {
+    resourceResults.forEach(function (resourceResult) {
+      let collectionResource = resources.findBy('id', resourceResult.get('resourceId'));
+      resourceResult.set('resource', collectionResource);
+    });
+
     resources.forEach(function (resource) {
       let resourceId = resource.get('id');
       let found = resourceResults.findBy('resourceId', resourceId);
@@ -311,4 +315,5 @@ export default Ember.Object.extend({
       }
     });
   }
+
 });
