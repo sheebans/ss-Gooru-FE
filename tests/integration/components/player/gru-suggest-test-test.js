@@ -62,3 +62,22 @@ test('Layout Benchmark Post test', function(assert) {
   assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-no').length, 'Missing no thanks button');
   assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-benchmark').length, 'Missing suggestion benchmark button');
 });
+
+test('Layout resource', function(assert) {
+
+  this.set('type', 'resource');
+  this.set('resource',{ title:'resource-title', resourceFormat: 'webpage' });
+  this.render(hbs`{{player/gru-suggest-test type=type suggestion=resource}}`);
+  const $component = this.$();
+  assert.ok($component.find('.player.gru-suggest-test').length, 'Missing suggest test panel');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .lead').length, 'Missing lead');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .lead').text(), this.get('i18n').t(`gru-suggest-test.${this.get('type')}-header`).string, 'Wrong lead text');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .description').length, 'Missing description');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .description').text(), this.get('i18n').t(`gru-suggest-test.${this.get('type')}-lead`).string, 'Wrong description text');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .resource-info').length, 'Missing resource info section');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .resource-info .image i').length, 'Missing resource icon');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .resource-info .info .title').length, 'Missing resource title');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .resource-info .info .format').length, 'Missing resource type');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-no').length, 'Missing no thanks button');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-resource').length, 'Missing suggestion resource button');
+});
