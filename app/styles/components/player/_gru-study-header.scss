@@ -185,7 +185,7 @@
         margin: 0 0 0 5px;
         font-size: $font-size-small;
         @media (min-width: $screen-sm) {
-          border-right: 1px solid #CDD2D6;
+          border-right: 1px solid $light-300;
           margin: 0 0 0 15px;
           width: 35%;
         }
