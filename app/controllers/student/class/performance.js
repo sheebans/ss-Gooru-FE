@@ -89,26 +89,37 @@ export default Ember.Controller.extend({
       'value': this.get('collectionType'),
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': true,
       'index': -1
     }),Ember.Object.create({
       'value': 'score',
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': false,
       'index':0
+    }),Ember.Object.create({
+      'value': 'report',
+      'sorted': false,
+      'isAsc': false,
+      'hasSorting': false,
+      'visible': false,
+      'index':1
     }),Ember.Object.create({
       'value': 'completion',
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': false,
-      'index':1
+      'index':2
     }),Ember.Object.create({
       'value': 'study-time',
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': false,
-      'index':2
+      'index':3
     })]);
   }),
 
@@ -123,6 +134,7 @@ export default Ember.Controller.extend({
      */
     selectContentType: function (collectionType) {
       this.set('collectionType', collectionType);
+      this.set('lessonId', null);
       this.loadData();
     },
 
@@ -173,18 +185,27 @@ export default Ember.Controller.extend({
         collectionType
       };
       controller.set('filterCriteria', criteria);
-      Ember.RSVP.hash({
-        course: controller.get('courseService').getCourseStructure(courseId, collectionType),
-        items: controller.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
-      }).then(function(hash){
-        const course = hash.course;
-        const items = hash.items;
-        controller.setProperties({
-          course,
-          collectionPerformanceSummaryItems: items,
-          collections: course.getCollectionsByType(collectionType, unitId, lessonId)
+      controller.get('courseService').getCourseStructure(courseId, collectionType).then(function(course){
+        if(!lessonId){
+          let lesson = course.get('children').findBy('id',unitId).get('children')[0].get('id');
+          Ember.run(function() {
+            controller.set('lessonId',lesson);
+          });
+          criteria.lessonId = controller.get('lessonId');
+        }
+        Ember.RSVP.hash({
+          course:course,
+          items: controller.get('performanceService').searchStudentCollectionPerformanceSummary(userId, criteria)
+        }).then(function(hash){
+          const course = hash.course;
+          const items = hash.items;
+          controller.setProperties({
+            course,
+            collectionPerformanceSummaryItems: items,
+            collections: course.getCollectionsByType(collectionType, unitId, lessonId)
+          });
+          controller.set('contentTitle', controller.getContentTitle());
         });
-        controller.set('contentTitle', controller.getContentTitle());
       });
     }
   },

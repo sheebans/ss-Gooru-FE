@@ -92,6 +92,7 @@ Router.map(function() {
     this.route('collection', {path: '/class/:classId/collection/:collectionId'});
     this.route('student-collection');
     this.route('study-student-collection');
+    this.route('student-collection-analytics');
   });
 
   this.route('goals', function() {

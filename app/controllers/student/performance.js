@@ -117,24 +117,28 @@ export default Ember.Controller.extend({
       'value': this.get('collectionType'),
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': true,
       'index': -1
     }),Ember.Object.create({
       'value': 'score',
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': false,
       'index':0
     }),Ember.Object.create({
       'value': 'completion',
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': false,
       'index':1
     }),Ember.Object.create({
       'value': 'study-time',
       'sorted': false,
       'isAsc': false,
+      'hasSorting': true,
       'visible': false,
       'index':2
     })]);

@@ -113,6 +113,11 @@
               }
             }
           }
+          &.performance-report{
+            a {
+              color:$gray-icon;
+            }
+          }
         }
       }
     }

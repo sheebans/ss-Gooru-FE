@@ -75,3 +75,4 @@ test('Navigate to student report and go back to data', function(assert) {
     });
   });
 });
+

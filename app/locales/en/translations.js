@@ -1353,11 +1353,12 @@ export default Object.assign(quizzesTranslations, {
     "no-content": "No content available"
   },
   "gru-performance-metrics": {
-    "collection":"Collection",
     "assessment": "Assessment",
+    "collection":"Collection",
+    "completion": "Completion",
+    "report": "Report",
     "student": "Student",
     "score": "Score",
-    "completion": "Completion",
     "study-time": "Time Spent"
   },
   "gru-metrics-sub-header": {

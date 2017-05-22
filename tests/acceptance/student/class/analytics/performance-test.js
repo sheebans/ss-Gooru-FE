@@ -34,16 +34,16 @@ test('Layout', function(assert) {
   });
 });
 test('Navigating from class navigation', function(assert) {
-  visit('/student/class/class-for-pochita-as-student');
+  visit('/student/class/class-for-pochita-as-student/analytics/performance');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student/class/class-for-pochita-as-student');
+    assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/analytics/performance');
 
     const $performanceMenuItem = find('.nav .performance a');
 
     click($performanceMenuItem);
     andThen(function() {
-      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/performance');
+      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/analytics/performance');
 
     });
   });
