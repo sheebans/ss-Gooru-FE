@@ -54,9 +54,7 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
     const route = this;
     const { classId, courseId, collectionUrl } = params;
 
-    const navigateMapService = route.get('navigateMapService');
-
-    return navigateMapService.getCurrentMapContext(courseId, classId).then(currentContext => {
+    return route.getMapLocation(params, !collectionUrl).then(currentContext => {
       const unitId = currentContext.get('unitId');
       const lessonId = currentContext.get('lessonId');
       const collectionId = currentContext.get('collectionId');
@@ -108,6 +106,25 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
       collectionUrl: model.collectionUrl
     });
     this._super(...arguments);
+  },
+
+  getMapLocation(params, sendToAnalytics) {
+    const navigateMapService = this.get('navigateMapService');
+    const { classId, courseId, unitId, pathId, lessonId, collectionId, collectionType, collectionSubType } = params;
+    let mapLocationPromise = null;
+    if(!sendToAnalytics) {
+      mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId);
+    } else if (pathId) {
+      mapLocationPromise = navigateMapService.startSuggestion(
+        courseId, unitId, lessonId, collectionId, collectionType,
+        collectionSubType, pathId, classId
+      ).then(mapLocation => mapLocation.get('context'));
+    } else {
+      mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId)
+        .then(mapContext => navigateMapService.next(mapContext))
+        .then(mapLocation => mapLocation.get('context'));
+    }
+    return mapLocationPromise;
   },
 
   loadCollection: function(collectionId, type) {

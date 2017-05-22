@@ -59,7 +59,7 @@ export default StudentCollection.extend({
      * If the user want to continue playing the resource suggestion
      */
     playResourceSuggestion: function() {
-      //this.playSuggestion(this.get('mapLocation.resourceSuggestion'));
+      this.playSuggestion(this.get('mapLocation.resourceSuggestion'));
     }
   },
 
@@ -189,23 +189,32 @@ export default StudentCollection.extend({
     const courseMapService = controller.get('courseMapService');
     const context = controller.get('mapLocation.context');
     courseMapService.createNewPath(context, suggestion)
-      .then(() => controller.toPlayer());
+      .then(() => controller.toPlayer(suggestion));
   },
 
   /**
    * Navigate to study player to play next collection/assessment
    */
-  toPlayer: function() {
+  toPlayer: function(suggestion) {
     const controller = this;
     const context = controller.get('mapLocation.context');
-    const queryParams = {
+    let queryParams = {
       role: ROLES.STUDENT,
       source: controller.get('source')
     };
-    controller.transitionToRoute('study-player',
-      context.get('classId'),
-      context.get('courseId'),
-      { queryParams }
-    );
+    if (suggestion.get('isResource')) {
+      controller.transitionToRoute('resource-player',
+        context.get('classId'),
+        context.get('courseId'),
+        suggestion.get('id'),
+        { queryParams }
+      );
+    } else {
+      controller.transitionToRoute('study-player',
+        context.get('classId'),
+        context.get('courseId'),
+        { queryParams }
+      );
+    }
   }
 });

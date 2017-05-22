@@ -125,7 +125,8 @@ export default Ember.Component.extend({
    * @property {Resource} nextResource - Return the next resource
    */
   nextResource:Ember.computed('actualResource','collection',function(){
-    return this.get('collection').nextResource(this.get('actualResource'));
+    const collection = this.get('collection');
+    return collection && collection.nextResource ? this.get('collection').nextResource(this.get('actualResource')) : null;
   }),
 
   /**
