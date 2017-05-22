@@ -72,7 +72,7 @@
               <div class="info">
                 <div class="left-info">
                   {{#if (eq activeElement item.id)}}
-                    <button class="btn btn-info study-now">
+                    <button {{action "studyNow" 'resource' item}} class="btn btn-info study-now">
                       {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
                     </button>
                   {{else}}

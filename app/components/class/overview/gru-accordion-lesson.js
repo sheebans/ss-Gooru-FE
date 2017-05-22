@@ -115,8 +115,13 @@ export default Ember.Component.extend(AccordionMixin, {
     setOnAir: function (collectionId) {
       this.get('onLaunchOnAir')(collectionId);
     },
+
     /**
-     * Go to study player
+     * Opens the study player
+     *
+     * @function actions:studyNow
+     * @param {string} type - collection or assessment
+     * @param {string} item - collection, assessment, lesson or resource
      */
     studyNow: function (type, item ) {
       let lessonId = this.get('model.id');
