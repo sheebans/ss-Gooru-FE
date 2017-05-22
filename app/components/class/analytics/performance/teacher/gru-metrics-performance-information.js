@@ -17,9 +17,9 @@ export default Ember.Component.extend({
     /**
      * When the user clicks at the score
      */
-    clickScore: function (performance) {
-      if (this.get("onClickScore")){
-        this.sendAction("onClickScore", performance, this.get("userPerformance"));
+    clickReport: function (performance) {
+      if (this.get("onClickReport")){
+        this.sendAction("onClickReport", performance, this.get("userPerformance"));
       }
     }
   },
@@ -77,6 +77,11 @@ export default Ember.Component.extend({
     }
     return classScore;
   }),
+  /**
+   * Indicate if show Report column
+   * @property {Boolean}
+   */
+  showReport:false,
 
   /**
    * If score option is selected

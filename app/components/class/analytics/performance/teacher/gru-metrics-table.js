@@ -50,11 +50,11 @@ export default Ember.Component.extend({
       },
 
       /**
-       * When the user clicks at the score
+       * When the user clicks at the report
        */
-      clickScore: function (performance, userPerformance) {
-        if (this.get("onClickScore")){
-          this.sendAction("onClickScore", performance, userPerformance);
+      clickReport: function (performance, userPerformance) {
+        if (this.get('onClickReport')){
+          this.sendAction('onClickReport', performance, userPerformance);
         }
       }
     },
@@ -165,7 +165,13 @@ export default Ember.Component.extend({
    * List of selected options from the data picker.
    * @property {Array}
    */
-  dataPickerOptions: Ember.A(["score"]),
+  dataPickerOptions: Ember.A(['score']),
+
+  /**
+   * Indicate if the table is on collection level
+   * @property {Boolean}
+   */
+  isCollection:Ember.computed.equal('headerType', 'collection'),
 
   /*
    * @prop { Number } defaultSortOrder - Default sort order for values in columns (1 = ascending; -1 = descending)
@@ -181,7 +187,7 @@ export default Ember.Component.extend({
    * Action name when the user clicks at any score box
    * @property {string}
    */
-  onClickScore: null,
+  onClickReport: null,
 
   // -------------------------------------------------------------------------
   // Methods

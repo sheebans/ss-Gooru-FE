@@ -15,7 +15,7 @@ export default Ember.Component.extend({
   actions:{
     sort: function (metric) {
       this.sortByMetric(metric);
-      this.sendAction("onSortChange", metric);
+      this.sendAction('onSortChange', metric);
     }
   },
   // -------------------------------------------------------------------------
@@ -54,20 +54,26 @@ export default Ember.Component.extend({
     'sorted':false,
     'isAsc':false,
     'visible': false,
-    'index':1
+    'index':2
   }),Ember.Object.create({
     'value': 'study-time',
     'sorted':false,
     'isAsc':false,
     'visible': false,
-    'index':2
+    'index':3
   })]),
 
   /**
    * List of selected options from the data picker.
    * @property {Array}
    */
-  dataPickerOptions: Ember.A(["score"]),
+  dataPickerOptions: Ember.A(['score']),
+
+  /**
+   * Indicate if show Report column
+   * @property {Boolean}
+   */
+  showReport:false,
 
   /**
    * List of  visible metrics to be displayed
@@ -76,7 +82,7 @@ export default Ember.Component.extend({
   visibleMetrics: Ember.computed('dataPickerOptions.[]', function() {
     var dataPickerOptions = this.get('dataPickerOptions');
 
-    var metrics = this.get("metrics");
+    var metrics = this.get('metrics');
 
     metrics.forEach(function(metric) {
       if(metric.get('value')!== 'student'){
@@ -107,14 +113,14 @@ export default Ember.Component.extend({
    */
   sortByMetric(metric){
     var component =this;
-    var metrics = component.get("metrics");
+    var metrics = component.get('metrics');
     metrics.forEach(function(option){
-      if (option.get("value") === metric.get("value")){
-        metric.set("sorted", true);
+      if (option.get('value') === metric.get('value')){
+        metric.set('sorted', true);
         component.changeTypeSort(metric);
       }else{
-        option.set("isAsc", null);
-        option.set("sorted", false);
+        option.set('isAsc', null);
+        option.set('sorted', false);
       }
     });
   },
@@ -125,15 +131,15 @@ export default Ember.Component.extend({
    *
    */
   changeTypeSort(metric){
-    metric.set("isAsc",!metric.get("isAsc"));
+    metric.set('isAsc',!metric.get('isAsc'));
   },
 
   resetSortByMetrics(){
     var component =this;
-    var metrics = component.get("metrics");
+    var metrics = component.get('metrics');
     metrics.forEach(function(option){
-      option.set("isAsc", null);
-      option.set("sorted", false);
+      option.set('isAsc', null);
+      option.set('sorted', false);
     });
   }
 });

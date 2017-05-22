@@ -42,7 +42,7 @@
           </th>
           {{#each headers as |header|}}
             <th>
-              {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions}}
+              {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showReport=isCollection}}
             </th>
           {{/each}}
         </tr>
@@ -50,9 +50,13 @@
           <th class="header fixed" scope="row">
             {{t "class.analytics.performance.teacher.metricsTable.class-average"}}
           </th>
-          {{#each averageHeaders.performanceData as |average|}}
+          {{#each averageHeaders.performanceData as |average index|}}
             <th class="performance-information">
+            {{#if (eq index 0)}}
               {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions}}
+            {{else}}
+              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions  showReport=isCollection}}
+            {{/if}}
             </th>
           {{/each}}
         </tr>
@@ -63,13 +67,23 @@
             <th class="header user-info fixed" scope="row">
               <span>{{{userPerformance.user}}}</span>
             </th>
-            {{#each userPerformance.performanceData as |data|}}
-              <td class="performance-information">
-                {{class.analytics.performance.teacher.gru-metrics-performance-information
+            {{#each userPerformance.performanceData as |data index|}}
+              {{#if (eq index 0)}}
+                  <td class="performance-information">
+                    {{class.analytics.performance.teacher.gru-metrics-performance-information
                     userPerformance=userPerformance
-                    onClickScore='clickScore'
+                    onClickReport='clickScore'
                     performanceData=data dataPickerOptions=dataPickerOptions}}
-              </td>
+                  </td>
+                {{else}}
+                  <td class="performance-information">
+                    {{class.analytics.performance.teacher.gru-metrics-performance-information
+                    userPerformance=userPerformance
+                    onClickReport='clickReport'
+                    performanceData=data dataPickerOptions=dataPickerOptions
+                    showReport=isCollection}}
+                  </td>
+              {{/if}}
             {{/each}}
           </tr>
         {{/each}}
