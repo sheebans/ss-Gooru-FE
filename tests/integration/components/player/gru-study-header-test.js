@@ -157,7 +157,7 @@ test('Layout', function(assert) {
   T.exists(assert, $performanceInfo.find('.suggestions .suggested-resources .btn-resource:eq(0) .title'), 'Missing resource title');
   assert.equal(T.text($performanceInfo.find('.suggestions .suggested-resources .btn-resource:eq(0) .title')), 'resource1', 'Wrong title text');
 
-  T.exists(assert, $performanceInfo.find('.suggestions .collapse-expand'), 'Missing collapse-expand link');
+  T.exists(assert, $performanceInfo.find('a.collapse-expand'), 'Missing collapse-expand link');
 });
 
 test('Layout-Resources in Assessment', function(assert) {
@@ -383,7 +383,7 @@ test('Collapse-expand performance information', function(assert) {
   const $header = $component.find('.gru-study-header');
   const $courseInfo = $header.find('.course-info');
   const $performanceInfo = $header.find('.performance-info');
-  const $performanceInfoButton = $performanceInfo.find('.suggestions a.collapse-expand');
+  const $performanceInfoButton = $performanceInfo.find('a.collapse-expand');
 
   assert.ok($performanceInfo.hasClass('visible'), 'Performance Info container has visible class by default');
   assert.ok($performanceInfoButton, 'Missing expand-collapse button');

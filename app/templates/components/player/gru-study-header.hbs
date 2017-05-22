@@ -86,30 +86,29 @@
       {{else}}
         <div class="lesson-info">{{t "gru-study-header.lesson-legend"}} {{lessonTitle}}</div>
       {{/unless}}
-
     </div>
-    <div class="suggestions">
-    {{#if collectionUrl}}
-      <div class="description">{{t 'gru-study-header.resource-legend'}}</div>
-      <div class="resource-title">
-        <i class="{{resource.type}}-icon"></i>
-        <span class="title ellipsis">{{resource.title}}</span>
-      </div>
-    {{else}}
+    <div class="suggestions out-of-scope">
+      {{#if collectionUrl}}
+        <div class="description">{{t 'gru-study-header.resource-legend'}}</div>
+        <div class="resource-title">
+          <i class="{{resource.type}}-icon"></i>
+          <span class="title ellipsis">{{resource.title}}</span>
+        </div>
+      {{else}}
         <div class="description">{{t 'gru-study-header.suggestions-legend'}}</div>
         <div class="suggested-resources">
-        {{#each suggestedResources as |resource|}}
-          <button class="btn-resource" {{action 'playSuggested' resource}}>
-            <i class="{{resource.format}}-icon"></i>
-            <span class="title ellipsis">{{resource.title}}</span>
-          </button>
-        {{/each}}
+          {{#each suggestedResources as |resource|}}
+            <button class="btn-resource" {{action 'playSuggested' resource}}>
+              <i class="{{resource.format}}-icon"></i>
+              <span class="title ellipsis">{{resource.title}}</span>
+            </button>
+          {{/each}}
         </div>
-    {{/if}}
-      <a {{action 'toggleHeader'}} class="collapse-expand {{if toggleState 'visible' 'hidden'}}">
-        {{gru-icon name='expand_less'}}
-        {{gru-icon name='expand_less'}}
-      </a>
+      {{/if}}
     </div>
+    <a {{action 'toggleHeader'}} class="collapse-expand {{if toggleState 'visible' 'hidden'}}">
+      {{gru-icon name='expand_less'}}
+      {{gru-icon name='expand_less'}}
+    </a>
   </div>
 </div>
