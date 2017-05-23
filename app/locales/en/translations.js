@@ -1894,7 +1894,7 @@ export default Object.assign(quizzesTranslations, {
     "benchmark-lead":"You’re now ready to demonstrate your understanding by taking a benchmark assessment. You will eran a badge for successfully completing the benchmark. The benchmark will not affect your course performance score.",
     "resource-lead":"Based on your performance on this course, the following resource may enhance your understanding.",
     "no":"No, thanks",
-    "no-suggestions":"You did a good job. Keep working at it!",
+    "no-suggestions":"Here's a summary of your performance.",
     "take":"Take {{type}}",
     "take-backfill-pretest":"Study Suggested Collection",
     "take-resource":"Study Resource"
