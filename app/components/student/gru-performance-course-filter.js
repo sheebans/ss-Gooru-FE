@@ -108,16 +108,16 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Selected lesson
    * @property {Lesson}
    */
-  lesson: Ember.computed('unit.children.[]', 'lessonId', function() {
-    const lessons = this.get('unit.children') || [];
+  lesson: Ember.computed('unit.sortedLessonResults.[]', 'lessonId', function() {
+    const lessons = this.get('unit.sortedLessonResults') || [];
     return lessons.findBy('id', this.get('lessonId'));
   }),
 
   /**
    * @property {Lesson[]}
    */
-  lessons: Ember.computed('unit.children.[]', 'lessonId', function() {
-    return this.get('unit.children');
+  lessons: Ember.computed('unit.sortedLessonResults.[]', 'lessonId', function() {
+    return this.get('unit.sortedLessonResults');
   }),
 
   /**
@@ -135,16 +135,16 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Selected unit
    * @property {Unit}
    */
-  unit: Ember.computed('selectedCourse.children.[]', 'unitId', function() {
-    const units = this.get('selectedCourse.children') || [];
+  unit: Ember.computed('selectedCourse.sortedUnitResults.[]', 'unitId', function() {
+    const units = this.get('selectedCourse.sortedUnitResults') || [];
     return units.findBy('id', this.get('unitId'));
   }),
 
   /**
    * @property {Unit[]}
    */
-  units: Ember.computed('selectedCourse.children.[]', function() {
-    return this.get('selectedCourse.children');
+  units: Ember.computed('selectedCourse.sortedUnitResults.[]', function() {
+    return this.get('selectedCourse.sortedUnitResults');
   }),
 
   /**

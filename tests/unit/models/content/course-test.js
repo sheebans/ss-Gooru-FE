@@ -103,3 +103,29 @@ test('getCollectionsByType', function (assert) {
   assert.equal(model.getCollectionsByType('assessment', 2, 21).length, 1, "Wrong total assessments for unit 2 and lesson 21");
   assert.equal(model.getCollectionsByType('collection', 2, 21).length, 0, "Wrong total collections for unit 2 and lesson 21");
 });
+
+test('sortedUnitResults', function (assert) {
+  var model = this.subject({
+    children: Ember.A([
+      Unit.create({
+        id: '123',
+        title: 'Unit#1',
+        sequence: 1
+      }),
+      Unit.create({
+        id: '789',
+        title: 'Unit#3',
+        sequence: 3
+      }),
+      Unit.create({
+        id: '456',
+        title: 'Unit#2',
+        sequence: 2
+      })
+    ])
+  });
+
+  assert.equal(model.get('sortedUnitResults')[0].title, 'Unit#1', "Wrong sorted units");
+  assert.equal(model.get('sortedUnitResults')[1].title, 'Unit#2', "Wrong sorted units");
+  assert.equal(model.get('sortedUnitResults')[2].title, 'Unit#3', "Wrong sorted units");
+});
