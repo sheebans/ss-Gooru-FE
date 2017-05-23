@@ -101,7 +101,7 @@ export default Ember.Component.extend(AccordionMixin, {
      * @function studyNow
      * @param {string} type - lesson or collection
      * @param {string} lesson - lesson id
-     * @param {string} item - collection or assessment
+     * @param {string} item - collection, assessment, lesson or resource
      * @see components/class/overview/gru-accordion-lesson
      */
     studyNow: function (type, lesson, item) {
