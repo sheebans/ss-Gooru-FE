@@ -11,7 +11,7 @@ moduleForComponent('/class/analytics/performance/teacher/gru-metrics-performance
   }
 });
 test('Metrics performance information Layout', function(assert) {
-  assert.expect(4);
+  assert.expect(5);
 
   const dataPickerOptionsMock = Ember.A(['score','completion']);
   const performanceDataMock = Ember.Object.create({
