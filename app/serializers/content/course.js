@@ -173,6 +173,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       return Unit.create({
         id: unitPayload.id,
         title: unitPayload.title,
+        sequence: unitPayload.sequence_id,
         children: serializer.normalizeCourseStructureLessons(unitPayload.lessons || [], collectionType)
       });
     });
@@ -193,6 +194,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       return Lesson.create({
         id: lessonPayload.id,
         title: lessonPayload.title,
+        sequence: lessonPayload.sequence_id,
         children: serializer.normalizeCourseStructureLessonItems(items || [])
       });
     });
@@ -209,6 +211,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       return LessonItem.create({
         id: lessonItemPayload.id,
         title: lessonItemPayload.title,
+        sequence: lessonItemPayload.sequence_id,
         format: lessonItemPayload.format
       });
     });

@@ -125,6 +125,13 @@ export default Ember.Object.extend(Validations, {
   }),
 
   /**
+   * @property {sortedUnitResults[]} Units sorted by sequence
+   */
+  sortedUnitResults: Ember.computed('children.[]', function(){
+    return this.get('children').sortBy('sequence');
+  }),
+
+  /**
    * Return a copy of the course
    *
    * @function
