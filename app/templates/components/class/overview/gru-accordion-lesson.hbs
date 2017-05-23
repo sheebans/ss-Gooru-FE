@@ -220,24 +220,29 @@
                       {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
                     </button>
                   {{else}}
-                    <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
-                      {{if item.performance.hasStarted item.performance.score '--'}}%
-                    </span>
-                    <span class="state">
-                      {{#if item.isAssessment}}
-                        {{#if item.performance.isCompleted}}
-                          {{t 'common.completed'}}
-                        {{else}}
-                          {{#if item.performance.hasStarted}}
-                            {{t 'common.in-progress'}}
+                    {{#if (and item.isAssessment item.collectionSubType) }}
+                      <span class="score" style={{safe-html (concat "color:" (grade-color 'NA'))}}> --% </span>
+                      <span class="state"><span class="not-started">&dash;&dash;</span></span>
+                    {{else}}
+                      <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
+                        {{if item.performance.hasStarted item.performance.score '--'}}%
+                      </span>
+                      <span class="state">
+                        {{#if item.isAssessment}}
+                          {{#if item.performance.isCompleted}}
+                            {{t 'common.completed'}}
                           {{else}}
-                            <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{#if item.performance.hasStarted}}
+                              {{t 'common.in-progress'}}
+                            {{else}}
+                              <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{/if}}
                           {{/if}}
+                        {{else}}
+                          <span class="not-started">&dash;&dash;</span>
                         {{/if}}
-                      {{else}}
-                        <span class="not-started">&dash;&dash;</span>
-                      {{/if}}
-                    </span>
+                      </span>
+                    {{/if}}
                   {{/if}}
                 </div>
               </div>
