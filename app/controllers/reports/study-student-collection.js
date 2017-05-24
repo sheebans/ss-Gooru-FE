@@ -164,7 +164,7 @@ export default StudentCollection.extend({
     let lesson = this.get('lesson');
     let collection = this.get('collection');
     let collectionSequence;
-    lesson.children.find((child) => {
+    lesson.children.forEach((child) => {
       if (child.id === collection.id) {
         collectionSequence = child.sequence;
       }
