@@ -23,7 +23,7 @@
     {{/if}}
     {{#if hasResourceSuggestions}}
       <div class="suggestion-panel">
-        {{player.gru-suggest-test type=resourceType suggestion=mapLocation.resourceSuggestion onPlayCollection='playActualCollection' onPlaySuggestion='playResourceSuggestion'}}
+        {{player.gru-suggest-test type=resourceType suggestion=mapLocation.resourceSuggestion onPlayCollection='next' onPlaySuggestion='playResourceSuggestion'}}
       </div>
     {{/if}}
     {{#if hasBenchmarkSuggestions}}

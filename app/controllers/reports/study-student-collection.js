@@ -201,7 +201,7 @@ export default StudentCollection.extend({
       role: ROLES.STUDENT,
       source: controller.get('source')
     };
-    if (suggestion.get('isResource')) {
+    if (suggestion && suggestion.get('isResource')) {
       controller.transitionToRoute('resource-player',
         context.get('classId'),
         context.get('courseId'),
