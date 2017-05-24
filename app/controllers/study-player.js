@@ -135,11 +135,11 @@ export default PlayerController.extend({
     let lesson = this.get('lesson');
     let collection = this.get('collection');
     let collectionSequence;
-    for (let child of lesson.children) {
+    lesson.children.find((child) => {
       if (child.id === collection.id) {
         collectionSequence = child.sequence;
       }
-    }
+    });
     let titles = Ember.A([]);
 
     if (unit) {
