@@ -19,7 +19,7 @@ test('normalizeResponse', function(assert) {
             'questionType': 'MC',
             'answerObject': [
               {
-                answerId: "answer_1"
+                answerId: 'answer_1'
               }
             ]
           },
@@ -75,6 +75,59 @@ test('normalizeResponse', function(assert) {
   assert.equal(secondResource.get('userAnswer'), null, 'Wrong user answer value');
   const thirdResource = resourceResults.objectAt(2);
   assert.notOk(thirdResource.get('submittedAnswer'), 'Wrong submitted answer value');
+});
+
+test('normalizeGetStandardsSummary', function(assert) {
+  const serializer = this.subject();
+  const payload = {
+    'content':[
+      {
+        displayCode: 'NU.M12A.1.A',
+        learningTargetId: 'NU.HE.MA-M12A-EE-01-01',
+        questions:[{
+          answerStatus: 'correct',
+          attempts: 0,
+          questionId: '3a6b0f65-c47c-44d9-b9ad-590b6dd985ca',
+          questionType: 'FIB',
+          reaction: 0,
+          score: 100,
+          timespent: 5000
+        }],
+        reaction: 0,
+        score: 40,
+        timespent: 15000
+      },
+      {
+        displayCode: 'NU.M12A.1.A.2',
+        standardsId: 'NU.HE.MA-M12A-EE-01-02',
+        questions:[{
+          answerStatus: 'correct',
+          attempts: 0,
+          questionId: 'test',
+          questionType: 'FIB',
+          reaction: 0,
+          score: 100,
+          timespent: 5000
+        }],
+        reaction: 0,
+        score: 50,
+        timespent: 15000
+      }
+    ]
+  };
+  const response = serializer.normalizeGetStandardsSummary(payload);
+
+  assert.equal(response.get('length'), 2, 'Missing standards');
+  const learningTarget = response.get('firstObject');
+  assert.equal(learningTarget.get('id'), 'NU.HE.MA-M12A-EE-01-01', 'Wrong id');
+  assert.equal(learningTarget.get('standard'), 'NU.M12A.1.A', 'Wrong standard');
+  assert.equal(learningTarget.get('mastery'), 40, 'Wrong mastery');
+  assert.equal(learningTarget.get('relatedQuestions').get('firstObject'), '3a6b0f65-c47c-44d9-b9ad-590b6dd985ca', 'Wrong related questions');
+  const standard = response.get('lastObject');
+  assert.equal(standard.get('id'), 'NU.HE.MA-M12A-EE-01-02', 'Wrong id');
+  assert.equal(standard.get('standard'), 'NU.M12A.1.A.2', 'Wrong standard');
+  assert.equal(standard.get('mastery'), 50, 'Wrong mastery');
+  assert.equal(standard.get('relatedQuestions').get('firstObject'), 'test', 'Wrong related questions');
 });
 
 
