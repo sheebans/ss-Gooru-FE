@@ -118,7 +118,7 @@ export default Ember.Object.extend({
     if (Ember.isArray(content)) {
       result = content.map(function(standard) {
         return LearningTarget.create({
-          id: standard.standardsId ? standard.standardsId : standard.learningTargetsId,
+          id: standard.standardsId || standard.learningTargetId,
           standard: standard.displayCode,
           mastery: standard.score,
           relatedQuestions: serializer.normalizeQuestions(standard.questions)
