@@ -146,6 +146,11 @@ export default StudentCollection.extend({
   /**
    * @property {boolean}
    */
+  isDone: Ember.computed.equal('mapLocation.context.state','Done'),
+
+  /**
+   * @property {boolean}
+   */
   hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'hasResourceSuggestions', 'hasBenchmarkSuggestions', 'showSuggestion', function() {
     return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions') || this.get('hasResourceSuggestions') || this.get('hasBenchmarkSuggestions')) && this.get('showSuggestion');
   }),

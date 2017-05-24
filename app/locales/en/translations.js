@@ -267,6 +267,7 @@ export default Object.assign(quizzesTranslations, {
       "forgot-password-gmail": "Please use Google signin. We can't reset your password."
     },
     "essential-questions": "Essential Questions",
+    "exit": "Exit",
     "explanation": "Explanation",
     "false": "False",
     "featured-courses": "Featured&ensp;Courses",
@@ -1897,6 +1898,7 @@ export default Object.assign(quizzesTranslations, {
     "no-suggestions":"Here's a summary of your performance.",
     "take":"Take {{type}}",
     "take-backfill-pretest":"Study Suggested Collection",
-    "take-resource":"Study Resource"
+    "take-resource":"Study Resource",
+    "end-of-course" : "You've completed this course. Great Job!"
   }
 });
