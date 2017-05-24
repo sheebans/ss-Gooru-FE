@@ -134,16 +134,26 @@ export default PlayerController.extend({
     let unit = this.get('unit');
     let lesson = this.get('lesson');
     let collection = this.get('collection');
+    let collectionSequence;
+    for (let child of lesson.children) {
+      if (child.id === collection.id) {
+        collectionSequence = child.sequence;
+      }
+    }
     let titles = Ember.A([]);
 
     if (unit) {
-      titles.push(`${unit.get('sequence')}. ${unit.get('title')}`);
+      titles.push(`U${unit.get('sequence')}. ${unit.get('title')}`);
     }
     if (lesson) {
-      titles.push(`${lesson.get('sequence')}. ${lesson.get('title')}`);
+      titles.push(`L${lesson.get('sequence')}. ${lesson.get('title')}`);
     }
     if (collection) {
-      titles.push(collection.get('title'));
+      if (collection.isCollection) {
+        titles.push(`C${collectionSequence}. ${collection.get('title')}`);
+      } else {
+        titles.push(`A${collectionSequence}. ${collection.get('title')}`);
+      }
     }
     return titles;
   }),

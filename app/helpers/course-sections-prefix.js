@@ -11,7 +11,7 @@ import { courseSectionsPrefix } from 'gooru-web/utils/utils';
  *
  * @param title {String}
  * @param index {Number}
- * @param trype {String} "unit","lesson","collection" and "assessment"
+ * @param type {String} "unit","lesson","collection" and "assessment"
  * @returns {String}
  */
 export default Ember.Helper.extend({
