@@ -185,7 +185,6 @@ export default StudentCollection.extend({
    */
   playSuggestion: function(suggestion) {
     const controller = this;
-    controller.set('showSuggestion', false);
     const courseMapService = controller.get('courseMapService');
     const context = controller.get('mapLocation.context');
     courseMapService.createNewPath(context, suggestion)
