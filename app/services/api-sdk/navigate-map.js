@@ -52,13 +52,13 @@ export default Ember.Service.extend({
    * @param {MapContext} mapContext the current map context returned by the API
    * @returns {Promise.<MapLocation>}
    */
-  next: function (mapContext, saveToLocalStorage) {
+  next: function (mapContext, saveToLocalStorage=true) {
     const service = this;
     const mapSerializer = service.get('serializer');
     const serializedMap = mapSerializer.serializeMapContext(mapContext);
-    // Store the serialized map for using it later when coming back
+    // Store the serialized context later use
     if(saveToLocalStorage) {
-      localStorage.setItem(this.generateKey(), JSON.stringify(serializedMap));
+      this.getLocalStorage().setItem(this.generateKey(), JSON.stringify(serializedMap));
     }
     return service.get('adapter').next(serializedMap)
       .then(payload => MapLocation.create({
@@ -177,16 +177,27 @@ export default Ember.Service.extend({
     const service = this;
     const mapSerializer = service.get('serializer');
     // Get the stored context and return it if found
-    const storedContext = localStorage.getItem(this.generateKey());
+    const storedContext = this.getLocalStorage().getItem(this.generateKey());
     return (storedContext ? Ember.RSVP.resolve(JSON.parse(storedContext)) :
       service.get('adapter').getCurrentMapContext(courseId, classId)).then(
         payload => mapSerializer.normalizeMapContext(payload)
       );
   },
 
+  /**
+   * Generate a key based on user id and url
+   */
   generateKey: function() {
     const userId = this.get('session.userId');
     const url = location.href;
     return btoa(`${userId}:${url}`);
+  },
+
+  /**
+   * Returns the local storage
+   * @returns {Storage}
+   */
+  getLocalStorage: function(){
+    return window.localStorage;
   }
 });

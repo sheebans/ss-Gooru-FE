@@ -3,12 +3,11 @@ import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
-moduleForService('service:api-sdk/navigate-map', 'Unit | Service | api-sdk/navigate-map', {
-});
+moduleForService('service:api-sdk/navigate-map', 'Unit | Service | api-sdk/navigate-map');
 
 test('next', function(assert) {
   const service = this.subject();
-  assert.expect(6);
+  assert.expect(8);
 
   service.set('serializer', Ember.Object.create({
     serializeMapContext: function(data) {
@@ -32,6 +31,14 @@ test('next', function(assert) {
         context: 'next-map-context',
         suggestions: 'suggested-content'
       });
+    }
+  }));
+
+  service.set('generateKey', () => 'local-storage-key');
+  service.set('getLocalStorage', () => ({
+    setItem: (key, value) => {
+      assert.equal(key, 'local-storage-key', 'Stored key should match');
+      assert.equal(value, JSON.stringify('serialized-map-context'), 'Stored context should match');
     }
   }));
 
@@ -60,6 +67,33 @@ test('getCurrentMapContext', function(assert) {
       assert.equal(courseId, 123, 'Wrong course id');
       assert.equal(classId, 321, 'Wrong class id');
       return Ember.RSVP.resolve('next-map-context');
+    }
+  }));
+
+  var done = assert.async();
+  service.getCurrentMapContext(123, 321)
+    .then(function(response) {
+      assert.equal(response , 'normalized-map-context', 'Wrong map context');
+      done();
+    });
+});
+
+test('getCurrentMapContext from local storage', function(assert) {
+  const service = this.subject();
+  assert.expect(3);
+
+  service.set('serializer', Ember.Object.create({
+    normalizeMapContext: function(payload) {
+      assert.deepEqual(payload, { context: 'next-map-context' }, 'Wrong payload');
+      return 'normalized-map-context';
+    }
+  }));
+
+  service.set('generateKey', () => 'local-storage-key');
+  service.set('getLocalStorage', () => ({
+    getItem: key => {
+      assert.equal(key, 'local-storage-key', 'Stored key should match');
+      return '{ "context": "next-map-context" }';
     }
   }));
 
@@ -162,4 +196,12 @@ test('startLesson', function(assert) {
       assert.equal(response, 'fake-response', 'Wrong response');
       done();
     });
+});
+
+test('generateKey', function(assert) {
+  const service = this.subject();
+  service.set('session',{ userId: 'user-id' });
+  assert.expect(1);
+  var key = service.generateKey();
+  assert.equal(key, btoa(`user-id:${location.href}`), 'Wrong response');
 });
