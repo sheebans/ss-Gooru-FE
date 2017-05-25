@@ -502,3 +502,44 @@ test('Next for the summary report and the usage report', function(assert) {
   T.notExists(assert, $performanceInfo.find('.resources .navigation .next-resource .usage-report'), 'Usage report label should not appear');
   T.notExists(assert, $performanceInfo.find('.resources .navigation .next-resource .summary-report'), 'Summary report label should not appear');
 });
+
+test('Layout-Resource from resource player', function(assert) {
+
+  this.set('session', {
+    userId: 'user-id'
+  });
+
+  let resource = Ember.Object.create({
+    id: 'resource-1',
+    sequence:1,
+    title: 'resource1',
+    type: 'image_resource'
+  });
+
+  this.set('collection',Collection.create({
+    id: 'collection-id',
+    isCollection: false,
+    resources:Ember.A([
+      resource
+    ])
+  }));
+
+  this.set('classId', 'class-1');
+
+  this.set('courseId', 'course-1');
+
+  this.set('resource', resource);
+
+  this.render(hbs`{{player/gru-study-header classId=classId courseId=courseId collection=collection session=session resource=resource}}`);
+
+  var $component = this.$(); //component dom element
+  const $header = $component.find('.gru-study-header');
+
+  const $performanceInfo = $header.find('.performance-info');
+
+  T.exists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
+  T.exists(assert, $performanceInfo.find('.resources .resource-title'), 'Missing resource title');
+  T.exists(assert, $performanceInfo.find('.resources .resource-title .image_resource-icon'), 'Missing resource icon');
+  assert.equal(T.text($performanceInfo.find('.resources .resource-title .title')), 'resource1', 'Wrong resource title text');
+
+});
