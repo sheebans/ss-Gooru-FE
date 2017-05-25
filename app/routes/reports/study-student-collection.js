@@ -78,6 +78,7 @@ export default StudentCollection.extend({
               }
               return found;
             });
+
             return Object.assign(studentCollectionModel, hash);
           });
         });
