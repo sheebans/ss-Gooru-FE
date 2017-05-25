@@ -36,10 +36,17 @@
     </div>
     <div class="resources">
       {{#unless isPreTest}}
-        {{#if collectionUrl}}
-          <button class="btn btn-default btn-back" {{action 'backToCollection'}}>
-            {{t (if collection.isCollection "common.back-to-collection" "common.back-to-assessment")}}
-          </button>
+        {{#if resource}}
+          {{#if collectionUrl}}
+            <button class="btn btn-default btn-back" {{action 'backToCollection'}}>
+              {{t (if collection.isCollection "common.back-to-collection" "common.back-to-assessment")}}
+            </button>
+          {{else}}
+            <div class="resource-title">
+              <i class="{{resource.type}}-icon"></i>
+              <span class="title ellipsis">{{resource.title}}</span>
+            </div>
+          {{/if}}
         {{else}}
           <div class="count-resources">
             {{#if fromReport}}
@@ -66,7 +73,7 @@
             {{/if}}
           </div>
           <div class="navigation">
-            <span class="next">Next:</span>
+            <span class="next">{{t 'common.next'}}:</span>
             <span class="next-resource">
                {{#unless fromReport}}
                  {{#if nextResource}}

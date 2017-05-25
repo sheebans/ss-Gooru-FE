@@ -355,10 +355,14 @@
         }
       }
       .next-resource, .resource-title {
+        i, span.title {
+          vertical-align: middle;
+        }
         i {
           height: 20px;
           width: 22px;
           margin-right: 5px;
+          display: inline-block;
           &.question-icon {
             background: url("quizzes-addon/quizzes/images/question-resource.svg");
             -webkit-background-size: 22px 20px;
