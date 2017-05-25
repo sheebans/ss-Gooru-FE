@@ -1899,6 +1899,6 @@ export default Object.assign(quizzesTranslations, {
     "take":"Take {{type}}",
     "take-backfill-pretest":"Study Suggested Collection",
     "take-resource":"Study Resource",
-    "end-of-course" : "You've completed this course. Great Job!"
+    "end-of-course" : "You have reached the end of the course."
   }
 });
