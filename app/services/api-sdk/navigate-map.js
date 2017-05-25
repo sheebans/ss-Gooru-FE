@@ -27,6 +27,7 @@ export default Ember.Service.extend({
     this._super(...arguments);
     this.set('serializer', NavigateMapSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('adapter', NavigateMapAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('router', Ember.getOwner(this).lookup('router:main'));
   },
 
 
@@ -43,6 +44,10 @@ export default Ember.Service.extend({
    */
   adapter: null,
 
+  /**
+   * @property {Router} router
+   */
+  router: null,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -185,12 +190,22 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Generate a key based on user id and url
+   * Generate a key based on user id and route info
    */
   generateKey: function() {
     const userId = this.get('session.userId');
-    const url = location.href;
-    return btoa(`${userId}:${url}`);
+    const routerTransition = this.get('router').get('router.activeTransition');
+    // Get route info for context key generation
+    const targetName = routerTransition.targetName;
+    // Sorting and removing empty params to make the key the same everytime
+    let params = routerTransition.params[targetName];
+    params = Object.keys(params).sort().filter(key => !!params[key])
+      .map(key => `${key}:${params[key]}`).join(',');
+    // Sorting and removing empty query params to make the key the same everytime
+    let queryParams = routerTransition.queryParams;
+    queryParams = Object.keys(queryParams).sort().filter(key => !!queryParams[key])
+      .map(key => `${key}:${queryParams[key]}`).join(',');
+    return btoa(`${userId};$${targetName};${params};${queryParams}`);
   },
 
   /**
