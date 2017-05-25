@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import MapContext from 'gooru-web/models/map/map-context';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
