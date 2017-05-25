@@ -8,9 +8,11 @@ export default Ember.Component.extend({
 
   actions:{
     playCollection:function(){
+      this.set('disabledButtons', true);
       this.sendAction('onPlayCollection');
     },
     playSuggestion:function(){
+      this.set('disabledButtons', true);
       this.sendAction('onPlaySuggestion');
     }
   },
@@ -45,6 +47,12 @@ export default Ember.Component.extend({
    * @param {Assessment} assessment
    */
   assessment:null,
+
+  /**
+   * Disables next and no thanks buttons
+   * @property {Boolean} disabledButtons
+   */
+  disabledButtons: false,
 
   /**
    * @property {Number} Resource count

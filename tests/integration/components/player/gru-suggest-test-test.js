@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
@@ -80,4 +81,22 @@ test('Layout resource', function(assert) {
   assert.ok($component.find('.player.gru-suggest-test .panel-body .resource-info .info .format').length, 'Missing resource type');
   assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-no').length, 'Missing no thanks button');
   assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-resource').length, 'Missing suggestion resource button');
+});
+
+test('Layout disabled buttons on click', function(assert) {
+  assert.expect(4);
+  this.set('type', 'resource');
+  this.set('resource',{ title:'resource-title', resourceFormat: 'webpage' });
+  this.render(hbs`{{player/gru-suggest-test type=type suggestion=resource}}`);
+  const $component = this.$();
+  assert.notOk($component.find('.player.gru-suggest-test .panel-body .actions .btn-no').attr('disabled'), 'No button should not be disabled');
+  assert.notOk($component.find('.player.gru-suggest-test .panel-body .actions .btn-resource').attr('disabled'), 'Resource button should not be disabled');
+  $component.find('.player.gru-suggest-test .panel-body .actions .btn-resource').click();
+
+  let done = assert.async();
+  return wait().then(() => {
+    assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-no').attr('disabled'), 'No button should be disabled');
+    assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-resource').attr('disabled'), 'Resource button should not be disabled');
+    done();
+  });
 });
