@@ -72,7 +72,7 @@
             width: 28px;
             margin: 0 auto;
             vertical-align: top;
-            margin: 5px 0 0 0;
+            margin: 5px 0 0;
             &.video-icon {
               background: url("gooru/images/video-resource-green.svg");
               -webkit-background-size: 31px 30px;
@@ -134,7 +134,7 @@
           }
           .image {
             display: inline-block;
-            margin: 0 5px 0;
+            margin: 0 5px;
             img {
               border-top-left-radius: 4px;
               border-bottom-left-radius: 4px;
