@@ -2,7 +2,7 @@ import Ember from 'ember';
 import MapContext from 'gooru-web/models/map/map-context';
 import MapSuggestion from 'gooru-web/models/map/map-suggestion';
 import ResourceModel from 'gooru-web/models/content/resource';
-import { ASSESSMENT_SUB_TYPES, CONTENT_TYPES } from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES, CONTENT_TYPES, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the navigate map operations
@@ -10,6 +10,10 @@ import { ASSESSMENT_SUB_TYPES, CONTENT_TYPES } from 'gooru-web/config/config';
  * @typedef {Object} NavigateMapSerializer
  */
 export default Ember.Object.extend({
+  /**
+   * @property {Service} session
+   */
+  session: Ember.inject.service('session'),
 
 
   /**
@@ -83,11 +87,15 @@ export default Ember.Object.extend({
    * @return {MapSuggestion}
    */
   normalizeMapSuggestion: function (data) {
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
     let subType = data.format === CONTENT_TYPES.RESOURCE ? ASSESSMENT_SUB_TYPES.RESOURCE : (data.subformat || ASSESSMENT_SUB_TYPES.BACKFILL);
     return MapSuggestion.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
       title: data.title,
       type: data.format,
+      thumbnail:data.thumbnail ? basePath + data.thumbnail :  appRootPath + DEFAULT_IMAGES.COLLECTION,
       resourceFormat: ResourceModel.normalizeResourceFormat(data.subformat),
       subType
     });

@@ -70,15 +70,22 @@ test('normalizeMapContext', function (assert) {
 
 test('normalizeMapSuggestion', function (assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: '//basepath/'
+    }
+  }));
   const payload = {
     id: '123',
     title: 'Title',
     format: 'assessment',
+    thumbnail:'image',
     subformat: ASSESSMENT_SUB_TYPES.PRE_TEST
   };
   const model = serializer.normalizeMapSuggestion(payload);
   assert.equal(model.get('id'), payload.id, 'Wrong id');
   assert.equal(model.get('title'), payload.title, 'Wrong title');
+  assert.equal(model.get('thumbnail'), '//basepath/'+payload.thumbnail, 'Wrong thumbnail');
   assert.equal(model.get('type'), payload.format, 'Wrong type');
   assert.equal(model.get('subType'), payload.subformat, 'Wrong type');
 });

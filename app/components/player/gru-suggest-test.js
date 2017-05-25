@@ -43,7 +43,6 @@ export default Ember.Component.extend({
   isResource: Ember.computed.equal('type', ASSESSMENT_SUB_TYPES.RESOURCE),
 
   /**
-   * Suggested assessment
    * @param {Assessment} assessment
    */
   assessment:null,
@@ -60,6 +59,11 @@ export default Ember.Component.extend({
   resourceCount: Ember.computed('assessment.resources', function() {
     return this.get('assessment.resources').filter(item => item.get('isResource')).length;
   }),
+  /**
+   * Suggested assessment
+   * @param {Assessment/Collection} suggestion
+   */
+  suggestion: null,
 
   /**
    * @property {Number} Question count

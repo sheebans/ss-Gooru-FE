@@ -5,10 +5,16 @@
         <div class="bottom-info">
             {{#if isBackFill}}
                 <div class="assessment-info">
-                    <div class="collection-icon {{if assessment.isCollection 'collection' 'assessment'}}"></div>
-                    <span class="title">{{assessment.title}}</span>
-                    <span class="resource border-gray"><b>{{resourceCount}}</b> {{t "common.resource-pl" count=resourceCount}}</span>
-                    <span class="resource question"><b>{{questionCount}}</b> {{t "common.question-pl" count=questionCount}}</span>
+                    <div class="image">
+                        <img class="img-responsive" src="{{suggestion.thumbnail}}"/>
+                    </div>
+                    <div class="descriptions">
+                        <span class="title">{{suggestion.title}}</span>
+                        <div class="collection-resources out-of-scope">
+                            <span class="resource border-gray"><b>{{suggestion.resourcesCount}}</b> {{t "common.resource-pl" count=resourceCount}}</span>
+                            <span class="resource question"><b>{{suggestion.questionCount}}</b> {{t "common.question-pl" count=questionCount}}</span>
+                        </div>
+                    </div>
                 </div>
             {{/if}}
             {{#if isResource}}
