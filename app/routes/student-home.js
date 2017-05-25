@@ -71,11 +71,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         title: route.get('i18n').t('gru-take-tour.student-home.stepNine.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepNine.description')
       },
-      {
+      /*{
         elementSelector: '.gru-header .menu-navbar .performance-link',
         title: route.get('i18n').t('gru-take-tour.student-home.stepTen.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepTen.description')
-      },
+      },*/
       {
         elementSelector: '.gru-header .profile-link .profile',
         title: route.get('i18n').t('gru-take-tour.student-home.stepThirteen.title'),
