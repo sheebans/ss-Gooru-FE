@@ -13,7 +13,7 @@
   {{#if hasAnySuggestion}}
     {{#if hasBackFillSuggestions}}
       <div class="suggestion-panel">
-        {{player.gru-suggest-test type=backFillType assessment=collection onPlayCollection='next' onPlaySuggestion='playBackFillSuggestion'}}
+        {{player.gru-suggest-test type=backFillType assessment=mapLocation.backFillSuggestion onPlayCollection='next' onPlaySuggestion='playBackFillSuggestion'}}
       </div>
     {{/if}}
     {{#if hasPostTestSuggestions}}
