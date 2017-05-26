@@ -28,7 +28,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     this.get('firebase').signOut();
     const isProd = Env.environment === 'production';
     if (isProd) {
-      window.location.assign(Env.marketingSiteUrl);
+      setTimeout( "location.replace(Env.marketingSiteUrl);", 0 );
+    }else{
+
     }
   }
 });
