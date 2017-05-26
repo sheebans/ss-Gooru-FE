@@ -205,7 +205,7 @@ export default Ember.Service.extend({
     let queryParams = routerTransition.queryParams;
     queryParams = Object.keys(queryParams).sort().filter(key => !!queryParams[key])
       .map(key => `${key}:${queryParams[key]}`).join(',');
-    return btoa(`${userId};$${targetName};${params};${queryParams}`);
+    return btoa(`${userId};${targetName};${params};${queryParams}`);
   },
 
   /**
