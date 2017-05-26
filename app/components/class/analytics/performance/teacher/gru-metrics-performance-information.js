@@ -18,7 +18,7 @@ export default Ember.Component.extend({
      * When the user clicks at the score
      */
     clickReport: function (performance) {
-      if (this.get('clickReport')){
+      if (this.get('onClickReport')){
         this.sendAction('onClickReport', performance, this.get('userPerformance'));
       }
     }
