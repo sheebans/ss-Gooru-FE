@@ -37,9 +37,7 @@ export default DS.JSONAPISerializer.extend({
     var results = payload.usageData;
 
     if (payload.alternatePath) {
-      Ember.$.each(payload.alternatePath, function(index, alternatePath){
-        results.push(alternatePath);
-      });
+      Ember.$.each(payload.alternatePath, (index, alternatePath) => results.push(alternatePath));
     }
 
     var model = { data: [] };
