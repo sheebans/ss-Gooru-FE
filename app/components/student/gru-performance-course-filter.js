@@ -132,6 +132,12 @@ export default Ember.Component.extend(ConfigurationMixin, {
   selectedCourse: null,
 
   /**
+   * Indicate if show course tab
+   * @property {Boolean}
+   */
+  showCourse:true,
+
+  /**
    * Selected unit
    * @property {Unit}
    */

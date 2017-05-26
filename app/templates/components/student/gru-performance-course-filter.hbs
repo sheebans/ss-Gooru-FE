@@ -2,19 +2,21 @@
     <div class="title">{{t 'student-landing.my-performance.filter'}}</div>
 </div>
 <div class="body">
-    <div class="filter-type course">
-        <span>{{t 'common.course'}}</span>
-        <a class="arrow" {{action 'expandPanel' 'course'}}>
-          {{#if isCourseFiltersExpanded}}
-            {{gru-icon name='arrow_drop_up'}}
-          {{else}}
-            {{gru-icon name='arrow_drop_down'}}
-          {{/if}}
-        </a>
-    </div>
-    <div class="content-panel course {{if isCourseFiltersExpanded 'visible' 'hidden'}}">
-        <span>{{selectedCourse.title}}</span>
-    </div>
+    {{#if showCourse}}
+        <div class="filter-type course">
+            <span>{{t 'common.course'}}</span>
+            <a class="arrow" {{action 'expandPanel' 'course'}}>
+              {{#if isCourseFiltersExpanded}}
+                {{gru-icon name='arrow_drop_up'}}
+              {{else}}
+                {{gru-icon name='arrow_drop_down'}}
+              {{/if}}
+            </a>
+        </div>
+        <div class="content-panel course {{if isCourseFiltersExpanded 'visible' 'hidden'}}">
+            <span>{{selectedCourse.title}}</span>
+        </div>
+    {{/if}}
     <div class="filter-type unit">
         <span>{{t 'common.unit'}}</span>
         <a class="arrow" {{action 'expandPanel' 'unit'}}>
