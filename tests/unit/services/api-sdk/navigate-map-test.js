@@ -70,6 +70,8 @@ test('getCurrentMapContext', function(assert) {
     }
   }));
 
+  service.set('generateKey', () => 'local-storage-key');
+
   var done = assert.async();
   service.getCurrentMapContext(123, 321)
     .then(function(response) {
@@ -201,7 +203,21 @@ test('startLesson', function(assert) {
 test('generateKey', function(assert) {
   const service = this.subject();
   service.set('session',{ userId: 'user-id' });
+  service.set('router', Ember.Object.create({
+    router: {
+      activeTransition: {
+        targetName: 'target',
+        params: {
+          target: { param1: '1' }
+        },
+        queryParams: {
+          param2: '2',
+          param1: '1'
+        }
+      }
+    }
+  }));
   assert.expect(1);
   var key = service.generateKey();
-  assert.equal(key, btoa(`user-id:${location.href}`), 'Wrong response');
+  assert.equal(key, btoa('user-id;target;param1:1;param1:1,param2:2'), 'Wrong response');
 });
