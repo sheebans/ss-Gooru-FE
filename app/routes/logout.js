@@ -22,14 +22,13 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   beforeModel: function() {
     this._super(...arguments);
 
-    this.get("authenticationService").signOut();
     this.get("session").invalidate();
+    this.get("authenticationService").signOut();
     //Signing the user out of firebase
     this.get('firebase').signOut();
     const isProd = Env.environment === 'production';
     if (isProd) {
-      window.location = Env.marketingSiteUrl; //this is not an ember route, see nginx.conf
-      return true;
+      window.location.assign(Env.marketingSiteUrl);
     }
   }
 });
