@@ -5,10 +5,16 @@
         <div class="bottom-info">
             {{#if isBackFill}}
                 <div class="assessment-info">
-                    <div class="collection-icon {{if assessment.isCollection 'collection' 'assessment'}}"></div>
-                    <span class="title">{{assessment.title}}</span>
-                    <span class="resource border-gray"><b>{{resourceCount}}</b> {{t "common.resource-pl" count=resourceCount}}</span>
-                    <span class="resource question"><b>{{questionCount}}</b> {{t "common.question-pl" count=questionCount}}</span>
+                    <div class="image">
+                        <img class="img-responsive" src="{{suggestion.thumbnail}}"/>
+                    </div>
+                    <div class="descriptions">
+                        <span class="title">{{suggestion.title}}</span>
+                        <div class="collection-resources out-of-scope">
+                            <span class="resource border-gray"><b>{{suggestion.resourcesCount}}</b> {{t "common.resource-pl" count=resourceCount}}</span>
+                            <span class="resource question"><b>{{suggestion.questionCount}}</b> {{t "common.question-pl" count=questionCount}}</span>
+                        </div>
+                    </div>
                 </div>
             {{/if}}
             {{#if isResource}}
@@ -25,15 +31,15 @@
               </div>
             {{/if}}
             <div class="actions">
-                <button class="btn btn-default btn-no" {{action 'playCollection'}}>{{t 'gru-suggest-test.no'}}</button>
+                <button class="btn btn-default btn-no" disabled={{disabledButtons}} {{action 'playCollection'}}>{{t 'gru-suggest-test.no'}}</button>
               {{#if isBackFill}}
-                  <button class="btn btn-primary btn-backfill" {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-backfill-pretest'}}</button>
+                  <button class="btn btn-primary btn-backfill" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-backfill-pretest'}}</button>
               {{else if isBenchmark }}
-                  <button class="btn btn-primary btn-benchmark">{{t 'gru-suggest-test.take' type='post-test'}}</button>
+                  <button class="btn btn-primary btn-benchmark" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take' type='post-test'}}</button>
               {{else if isResource}}
-                  <button class="btn btn-primary btn-resource" {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-resource'}}</button>
+                  <button class="btn btn-primary btn-resource" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-resource'}}</button>
               {{else}}
-                  <button class="btn btn-primary btn-suggestion" {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take' type=type}}</button>
+                  <button class="btn btn-primary btn-suggestion" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take' type=type}}</button>
               {{/if}}
             </div>
         </div>

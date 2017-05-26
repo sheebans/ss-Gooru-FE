@@ -8,9 +8,11 @@ export default Ember.Component.extend({
 
   actions:{
     playCollection:function(){
+      this.set('disabledButtons', true);
       this.sendAction('onPlayCollection');
     },
     playSuggestion:function(){
+      this.set('disabledButtons', true);
       this.sendAction('onPlaySuggestion');
     }
   },
@@ -41,10 +43,15 @@ export default Ember.Component.extend({
   isResource: Ember.computed.equal('type', ASSESSMENT_SUB_TYPES.RESOURCE),
 
   /**
-   * Suggested assessment
    * @param {Assessment} assessment
    */
   assessment:null,
+
+  /**
+   * Disables next and no thanks buttons
+   * @property {Boolean} disabledButtons
+   */
+  disabledButtons: false,
 
   /**
    * @property {Number} Resource count
@@ -52,6 +59,11 @@ export default Ember.Component.extend({
   resourceCount: Ember.computed('assessment.resources', function() {
     return this.get('assessment.resources').filter(item => item.get('isResource')).length;
   }),
+  /**
+   * Suggested assessment
+   * @param {Assessment/Collection} suggestion
+   */
+  suggestion: null,
 
   /**
    * @property {Number} Question count

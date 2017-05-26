@@ -15,6 +15,11 @@ import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
  */
 export default Ember.Service.extend({
 
+  /**
+   * @type {SessionService} Service to retrieve session information
+   */
+  session: Ember.inject.service('session'),
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -47,16 +52,19 @@ export default Ember.Service.extend({
    * @param {MapContext} mapContext the current map context returned by the API
    * @returns {Promise.<MapLocation>}
    */
-  next: function (mapContext) {
+  next: function (mapContext, saveToLocalStorage=true) {
     const service = this;
     const mapSerializer = service.get('serializer');
-    return service.get('adapter').next(mapSerializer.serializeMapContext(mapContext))
-      .then(function (payload) {
-        return MapLocation.create({
-          context: mapSerializer.normalizeMapContext(payload.context),
-          suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions)
-        });
-      });
+    const serializedMap = mapSerializer.serializeMapContext(mapContext);
+    // Store the serialized context later use
+    if(saveToLocalStorage) {
+      this.getLocalStorage().setItem(this.generateKey(), JSON.stringify(serializedMap));
+    }
+    return service.get('adapter').next(serializedMap)
+      .then(payload => MapLocation.create({
+        context: mapSerializer.normalizeMapContext(payload.context),
+        suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions)
+      }));
   },
 
   /**
@@ -73,7 +81,7 @@ export default Ember.Service.extend({
       classId: classId,
       status: 'continue'
     });
-    return service.next(mapContext);
+    return service.next(mapContext, false);
   },
 
   /**
@@ -168,11 +176,28 @@ export default Ember.Service.extend({
   getCurrentMapContext: function (courseId, classId = undefined) {
     const service = this;
     const mapSerializer = service.get('serializer');
-    return service.get('adapter').getCurrentMapContext(courseId, classId)
-      .then(function (payload) {
-        return mapSerializer.normalizeMapContext(payload);
-      });
+    // Get the stored context and return it if found
+    const storedContext = this.getLocalStorage().getItem(this.generateKey());
+    return (storedContext ? Ember.RSVP.resolve(JSON.parse(storedContext)) :
+      service.get('adapter').getCurrentMapContext(courseId, classId)).then(
+        payload => mapSerializer.normalizeMapContext(payload)
+      );
+  },
+
+  /**
+   * Generate a key based on user id and url
+   */
+  generateKey: function() {
+    const userId = this.get('session.userId');
+    const url = location.href;
+    return btoa(`${userId}:${url}`);
+  },
+
+  /**
+   * Returns the local storage
+   * @returns {Storage}
+   */
+  getLocalStorage: function(){
+    return window.localStorage;
   }
-
-
 });

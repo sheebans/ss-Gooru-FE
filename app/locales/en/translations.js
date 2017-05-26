@@ -267,6 +267,7 @@ export default Object.assign(quizzesTranslations, {
       "forgot-password-gmail": "Please use Google signin. We can't reset your password."
     },
     "essential-questions": "Essential Questions",
+    "exit": "Exit",
     "explanation": "Explanation",
     "false": "False",
     "featured-courses": "Featured&ensp;Courses",
@@ -1890,15 +1891,16 @@ export default Object.assign(quizzesTranslations, {
     "backfill-header":"Suggested Collection (Optional)",
     "benchmark-header":"Benchmark-Test (Optional)",
     "resource-header":"Suggested Resource (Optional)",
-    "pre-test-lead":"Students are more prepared for this lesson by taken a pre-test",
-    "post-test-lead":"You are almost done with this lesson! Student usually take a post-test to know how well they’ve learned.",
-    "backfill-lead":"You completed the Pre-Test! Student like you would like to take a collection below to improve the knowledge before starting this course. Estimated time to take this collection is 30 minutes.",
-    "benchmark-lead":"You’re now ready to demonstrate your understanding by taking a benchmark assessment. You will eran a badge for successfully completing the benchmark. The benchmark will not affect your course performance score.",
+    "pre-test-lead":"A pre-test is suggested to measure your current understanding of the concepts in this lesson. The pre-test can help prepare you for the content in the lesson. The pre-test will not affect your course performance score.",
+    "post-test-lead":"The following post-test is suggested to measure your understanding of the information presented. The post-test will not affect your course performance score.",
+    "backfill-lead":"Based on the responses from your pre-test, it may be helpful to review additional material before beginning the lesson. Reviewing supporting material can help prepare students for learning new material.",
+    "benchmark-lead":"You’re now ready to demonstrate your understanding by taking a benchmark assessment. You will earn a badge for successfully completing the benchmark. The benchmark will not affect your course performance score.",
     "resource-lead":"Based on your performance on this course, the following resource may enhance your understanding.",
     "no":"No, thanks",
-    "no-suggestions":"You did a good job. Keep working at it!",
+    "no-suggestions":"Here's a summary of your performance.",
     "take":"Take {{type}}",
     "take-backfill-pretest":"Study Suggested Collection",
-    "take-resource":"Study Resource"
+    "take-resource":"Study Resource",
+    "end-of-course" : "You have reached the end of the course."
   }
 });

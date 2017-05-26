@@ -27,10 +27,10 @@
     </div>
     <div class="content-panel unit {{if isUnitFiltersExpanded 'visible' 'hidden'}}">
         <div class="items">
-          {{#each units as |unit|}}
+          {{#each units as |unit index|}}
               <div class="item ellipsis">
                   <input type="radio" name="unitOption" checked="{{if (eq unit.id unitId) 'checked'}}"
-                    {{action 'selectUnit' unit.id preventDefault=false}}/> {{unit.title}}</div>
+                    {{action 'selectUnit' unit.id preventDefault=false}}/>{{course-sections-prefix index=index type='unit' longName=false}}:&nbsp;{{unit.title}}</div>
           {{else}}
             {{t 'common.no-content'}}
           {{/each}}
@@ -48,10 +48,10 @@
     </div>
     <div class="content-panel lesson {{if isLessonFiltersExpanded 'visible' 'hidden'}}">
         <div class="items">
-          {{#each lessons as |lesson|}}
+          {{#each lessons as |lesson index|}}
               <div class="item ellipsis">
                   <input type="radio" name="lessonOption" checked="{{if (eq lesson.id lessonId) 'checked'}}"
-                    {{action 'selectLesson' lesson.id preventDefault=false}}/> {{lesson.title}}</div>
+                    {{action 'selectLesson' lesson.id preventDefault=false}}/>{{course-sections-prefix index=index type='lesson' longName=false}}:&nbsp;{{lesson.title}}</div>
           {{else}}
             {{t 'common.no-content'}}
           {{/each}}

@@ -59,7 +59,7 @@ export default StudentCollection.extend({
      * If the user want to continue playing the resource suggestion
      */
     playResourceSuggestion: function() {
-      //this.playSuggestion(this.get('mapLocation.resourceSuggestion'));
+      this.playSuggestion(this.get('mapLocation.resourceSuggestion'));
     }
   },
 
@@ -146,6 +146,13 @@ export default StudentCollection.extend({
   /**
    * @property {boolean}
    */
+  isDone: Ember.computed('mapLocation.context.status', function() {
+    return this.get('mapLocation.context.status').toLowerCase() === 'done';
+  }),
+
+  /**
+   * @property {boolean}
+   */
   hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'hasResourceSuggestions', 'hasBenchmarkSuggestions', 'showSuggestion', function() {
     return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions') || this.get('hasResourceSuggestions') || this.get('hasBenchmarkSuggestions')) && this.get('showSuggestion');
   }),
@@ -163,16 +170,26 @@ export default StudentCollection.extend({
     let unit = this.get('unit');
     let lesson = this.get('lesson');
     let collection = this.get('collection');
+    let collectionSequence;
+    lesson.children.forEach((child, index) => {
+      if (child.id === collection.id) {
+        collectionSequence = index + 1;
+      }
+    });
     let titles = Ember.A([]);
 
     if (unit) {
-      titles.push(`${unit.get('sequence')}. ${unit.get('title')}`);
+      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
     }
     if (lesson) {
-      titles.push(`${lesson.get('sequence')}. ${lesson.get('title')}`);
+      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
     }
     if (collection) {
-      titles.push(collection.get('title'));
+      if (collection.isCollection) {
+        titles.push(`C${collectionSequence}: ${collection.get('title')}`);
+      } else {
+        titles.push(`A${collectionSequence}: ${collection.get('title')}`);
+      }
     }
     return titles;
   }),
@@ -185,27 +202,35 @@ export default StudentCollection.extend({
    */
   playSuggestion: function(suggestion) {
     const controller = this;
-    controller.set('showSuggestion', false);
     const courseMapService = controller.get('courseMapService');
     const context = controller.get('mapLocation.context');
     courseMapService.createNewPath(context, suggestion)
-      .then(() => controller.toPlayer());
+      .then(() => controller.toPlayer(suggestion));
   },
 
   /**
    * Navigate to study player to play next collection/assessment
    */
-  toPlayer: function() {
+  toPlayer: function(suggestion) {
     const controller = this;
     const context = controller.get('mapLocation.context');
-    const queryParams = {
+    let queryParams = {
       role: ROLES.STUDENT,
       source: controller.get('source')
     };
-    controller.transitionToRoute('study-player',
-      context.get('classId'),
-      context.get('courseId'),
-      { queryParams }
-    );
+    if (suggestion && suggestion.get('isResource')) {
+      controller.transitionToRoute('resource-player',
+        context.get('classId'),
+        context.get('courseId'),
+        suggestion.get('id'),
+        { queryParams }
+      );
+    } else {
+      controller.transitionToRoute('study-player',
+        context.get('classId'),
+        context.get('courseId'),
+        { queryParams }
+      );
+    }
   }
 });

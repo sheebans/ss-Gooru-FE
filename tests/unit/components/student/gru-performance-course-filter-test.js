@@ -30,24 +30,28 @@ test('unit', function(assert) {
   const selectedCourse = Ember.Object.create({
     id: '0101',
     title: 'Course 1',
-    children: [
+    sortedUnitResults: [
       Ember.Object.create({
         id: '0102',
         title: 'Unit 1',
-        children: [
+        sequence: 1,
+        sortedLessonResults: [
           Ember.Object.create({
             id: '0103',
-            title: 'Lesson 1'
+            title: 'Lesson 1',
+            sequence: 1
           })
         ]
       }),
       Ember.Object.create({
         id: '0202',
         title: 'Unit 2',
-        children: [
+        sequence: 2,
+        sortedLessonResults: [
           Ember.Object.create({
             id: '0203',
-            title: 'Lesson 1'
+            title: 'Lesson 1',
+            sequence: 1
           })
         ]
       })
@@ -64,10 +68,12 @@ test('lesson', function(assert) {
   const selectedUnit = Ember.Object.create({
     id: '0102',
     title: 'Unit 1',
-    children: [
+    sequence: 1,
+    sortedLessonResults: [
       Ember.Object.create({
         id: '0103',
-        title: 'Lesson 1'
+        title: 'Lesson 1',
+        sequence: 1
       })
     ]
   });
@@ -82,10 +88,12 @@ test('units', function(assert) {
   const selectedUnit = Ember.Object.create({
     id: '0102',
     title: 'Unit 1',
-    children: [
+    sequence: 1,
+    sortedLessonResults: [
       Ember.Object.create({
         id: '0103',
-        title: 'Lesson 1'
+        title: 'Lesson 1',
+        sequence: 1
       })
     ]
   });
@@ -101,24 +109,28 @@ test('units', function(assert) {
   const selectedCourse = Ember.Object.create({
     id: '0101',
     title: 'Course 1',
-    children: [
+    sortedUnitResults: [
       Ember.Object.create({
         id: '0102',
         title: 'Unit 1',
-        children: [
+        sequence: 1,
+        sortedLessonResults: [
           Ember.Object.create({
             id: '0103',
-            title: 'Lesson 1'
+            title: 'Lesson 1',
+            sequence: 1
           })
         ]
       }),
       Ember.Object.create({
         id: '0202',
         title: 'Unit 2',
-        children: [
+        sequence: 2,
+        sortedLessonResults: [
           Ember.Object.create({
             id: '0203',
-            title: 'Lesson 1'
+            title: 'Lesson 1',
+            sequence: 1
           })
         ]
       })
@@ -135,10 +147,11 @@ test('lessons', function(assert) {
   const selectedUnit = Ember.Object.create({
     id: '0102',
     title: 'Unit 1',
-    children: [
+    sortedLessonResults: [
       Ember.Object.create({
         id: '0103',
-        title: 'Lesson 1'
+        title: 'Lesson 1',
+        sequence: 1
       })
     ]
   });

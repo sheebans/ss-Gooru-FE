@@ -13,7 +13,7 @@
   {{#if hasAnySuggestion}}
     {{#if hasBackFillSuggestions}}
       <div class="suggestion-panel">
-        {{player.gru-suggest-test type=backFillType assessment=collection onPlayCollection='next' onPlaySuggestion='playBackFillSuggestion'}}
+        {{player.gru-suggest-test type=backFillType assessment=collection suggestion=mapLocation.backFillSuggestion onPlayCollection='next' onPlaySuggestion='playBackFillSuggestion'}}
       </div>
     {{/if}}
     {{#if hasPostTestSuggestions}}
@@ -23,7 +23,7 @@
     {{/if}}
     {{#if hasResourceSuggestions}}
       <div class="suggestion-panel">
-        {{player.gru-suggest-test type=resourceType suggestion=mapLocation.resourceSuggestion onPlayCollection='playActualCollection' onPlaySuggestion='playResourceSuggestion'}}
+        {{player.gru-suggest-test type=resourceType suggestion=mapLocation.resourceSuggestion onPlayCollection='next' onPlaySuggestion='playResourceSuggestion'}}
       </div>
     {{/if}}
     {{#if hasBenchmarkSuggestions}}
@@ -35,10 +35,17 @@
     <div class="suggestion-panel no-suggestions">
       <div class="panel panel-default">
         <div class="panel-body">
-          <div class="description">{{t 'gru-suggest-test.no-suggestions'}}</div>
-          <div class="actions right">
-            <button class="btn btn-primary btn-next" {{action 'next'}}>{{t 'common.next'}}</button>
-          </div>
+          {{#if isDone}}
+            <div class="description">{{t 'gru-suggest-test.end-of-course'}}</div>
+            <div class="actions right">
+              {{#link-to 'student.class.course-map' classId class="btn btn-primary btn-exit" tagName='button'}} {{t 'common.exit'}} {{/link-to}}
+            </div>
+          {{else}}
+            <div class="description">{{t 'gru-suggest-test.no-suggestions'}}</div>
+            <div class="actions right">
+              <button class="btn btn-primary btn-next" {{action 'next'}}>{{t 'common.next'}}</button>
+            </div>
+          {{/if}}
         </div>
       </div>
     </div>
