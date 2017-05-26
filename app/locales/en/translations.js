@@ -1330,6 +1330,7 @@ export default Object.assign(quizzesTranslations, {
 
   "gru-data-picker": {
     "score": "Score",
+    "report":"Report",
     "completion": "Completion",
     "timeSpent": "Time",
     "study-time": "Study Time",
@@ -1366,6 +1367,7 @@ export default Object.assign(quizzesTranslations, {
     "assessment": "Assessment",
     "student": "Student",
     "score": "Score",
+    "report": "Report",
     "completion": "Completion",
     "study-time": "Time"
   },

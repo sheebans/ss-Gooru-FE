@@ -69,26 +69,25 @@ export default Ember.Route.extend({
      * Navigates to the assessment report
      */
     navigateToReport: function (performance, userPerformance){
-      if (!performance.get("isAverage")) {
+      if (!performance.get('isAverage')) {
         const route = this;
 
         const queryParams = {
-          collectionId: performance.get("id"),
+          collectionId: performance.get('id'),
           userId: userPerformance.get('userId'),
-          type: performance.get("collectionType"),
-          role: "teacher",
-          classId: route.get("controller.class.id"),
-          unitId: route.get("controller.unit.id"),
-          lessonId: route.get("controller.lesson.id"),
-          courseId: route.get("controller.course.id")
+          type: performance.get('collectionType'),
+          role: 'teacher',
+          classId: route.get('controller.class.id'),
+          unitId: route.get('controller.unit.id'),
+          lessonId: route.get('controller.lesson.id'),
+          courseId: route.get('controller.course.id')
         };
 
-        const reportController = route.controllerFor('reports.student-collection');
+        const reportController = route.controllerFor('reports.student-collection-analytics');
 
-        //this doesn't work when refreshing the page, TODO
-        var currentUrl = route.router.get("url");
-        reportController.set("backUrl",currentUrl);
-        route.transitionTo('reports.student-collection', { queryParams: queryParams});
+        var currentUrl = route.router.get('url');
+        reportController.set('backUrl',currentUrl);
+        route.transitionTo('reports.student-collection-analytics', { queryParams: queryParams});
       }
     }
 
@@ -125,12 +124,12 @@ export default Ember.Route.extend({
     controller.set('unit', model.unit);
     controller.set('lesson', model.lesson);
     controller.set('collection', model.collection ? model.collection.toPlayerCollection() : undefined);
-    controller.updateBreadcrumb(controller.get("course"), "course");
-    if (controller.get("unit")) {
-      controller.updateBreadcrumb(controller.get("unit"), "unit");
+    controller.updateBreadcrumb(controller.get('course'), 'course');
+    if (controller.get('unit')) {
+      controller.updateBreadcrumb(controller.get('unit'), 'unit');
     }
-    if (controller.get("lesson")) {
-      controller.updateBreadcrumb(controller.get("lesson"), "lesson");
+    if (controller.get('lesson')) {
+      controller.updateBreadcrumb(controller.get('lesson'), 'lesson');
     }
 
     route.loadData(controller);
@@ -193,7 +192,7 @@ export default Ember.Route.extend({
     const lessons = controller.get('unit.children') || [];
     controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
       .then(function(classPerformanceData) {
-        route.fixLessonTotalCounts(controller, unitId, classPerformanceData, controller.get("filteredByAssessment"));
+        route.fixLessonTotalCounts(controller, unitId, classPerformanceData, controller.get('filteredByAssessment'));
         const performanceData = createDataMatrix(lessons, classPerformanceData, 'unit');
         controller.set('performanceDataMatrix', performanceData);
         controller.set('performanceDataHeaders', lessons);
@@ -246,7 +245,7 @@ export default Ember.Route.extend({
           resources: controller.get('collection.resources')
         });
         reportData.merge(userResourcesResults);
-        controller.set("reportData", reportData);
+        controller.set('reportData', reportData);
       });
   },
   /**
@@ -255,15 +254,15 @@ export default Ember.Route.extend({
    * @param filteredByAssessment
      */
   fixUnitsTotalCounts: function(controller, classPerformanceData, filteredByAssessment) {
-    const contentVisibility = controller.get("contentVisibility");
+    const contentVisibility = controller.get('contentVisibility');
     const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
     studentPerformanceData.forEach(function(studentPerformance) {
-      const performanceData = studentPerformance.get("performanceData");
+      const performanceData = studentPerformance.get('performanceData');
       performanceData.forEach(function(performance) {
         const totals = filteredByAssessment ?
-          contentVisibility.getTotalAssessmentsByUnit(performance.get("realId")) :
-          contentVisibility.getTotalCollectionsByUnit(performance.get("realId"));
-        performance.set("completionTotal", totals);
+          contentVisibility.getTotalAssessmentsByUnit(performance.get('realId')) :
+          contentVisibility.getTotalCollectionsByUnit(performance.get('realId'));
+        performance.set('completionTotal', totals);
       });
     });
   },
@@ -275,15 +274,15 @@ export default Ember.Route.extend({
    * @param filterBy
      */
   fixLessonTotalCounts: function(controller, unitId, classPerformanceData, filteredByAssessment) {
-    const contentVisibility = controller.get("contentVisibility");
+    const contentVisibility = controller.get('contentVisibility');
     const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
     studentPerformanceData.forEach(function(studentPerformance) {
-      const performanceData = studentPerformance.get("performanceData");
+      const performanceData = studentPerformance.get('performanceData');
       performanceData.forEach(function(performance) {
         const totals = filteredByAssessment ?
-          contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, performance.get("realId")) :
-          contentVisibility.getTotalCollectionsByUnitAndLesson(unitId, performance.get("realId"));
-        performance.set("completionTotal", totals);
+          contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, performance.get('realId')) :
+          contentVisibility.getTotalCollectionsByUnitAndLesson(unitId, performance.get('realId'));
+        performance.set('completionTotal', totals);
       });
     });
   },
@@ -293,6 +292,6 @@ export default Ember.Route.extend({
    * Cleanse the controller values
    */
   deactivate: function(){
-    this.get("controller").resetValues();
+    this.get('controller').resetValues();
   }
 });
