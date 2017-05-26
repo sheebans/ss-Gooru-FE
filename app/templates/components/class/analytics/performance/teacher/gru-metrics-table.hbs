@@ -11,12 +11,14 @@
             {{#if (eq header.collectionType 'collection')}}
                 <th id="{{{header.id}}}" class="header" scope="col">
                     <div class="header-title">
-                      {{#if header.collectionType}}
-                          <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>
-                      {{else}}
-                          <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
-                      {{/if}}
-                        <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
+                        <div class="column">
+                            {{#if header.collectionType}}
+                                <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>
+                            {{else}}
+                                <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
+                            {{/if}}
+                              <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
+                        </div>
                         <div class="small-icon">{{gru-icon "play_arrow"}}</div>
                     </div>
                 </th>
