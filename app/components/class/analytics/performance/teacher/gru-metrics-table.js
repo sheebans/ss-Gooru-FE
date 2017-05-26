@@ -56,7 +56,7 @@ export default Ember.Component.extend({
         if (this.get('onClickReport')){
           this.sendAction('onClickReport', performance, userPerformance);
         }
-      },
+      }
     },
   // -------------------------------------------------------------------------
   // Events
