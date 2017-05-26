@@ -47,9 +47,9 @@
           height: 54px!important;
         }
         .header-title {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
+          @include flexbox;
+          @include flex-direction(row);
+          @include align-items(center);
           text-align: left;
           div {
             line-height: $font-size-lead;
@@ -59,8 +59,8 @@
             @include text-overflow();
           }
           .column {
-            display: flex;
-            flex-direction: column;
+            @include flexbox;
+            @include flex-direction(column);
           }
           .small-icon {
             i {
