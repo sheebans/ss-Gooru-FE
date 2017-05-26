@@ -77,7 +77,11 @@
                     </button>
                   {{else}}
                     <span class="time-spent">
-                      10s
+                      {{#if item.performance.timeSpent}}
+                        {{format-time item.performance.timeSpent}}
+                      {{else}}
+                        &dash;&dash;
+                      {{/if}}
                     </span>
                   {{/if}}
                 </div>

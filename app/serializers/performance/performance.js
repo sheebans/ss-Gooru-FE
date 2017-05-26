@@ -35,6 +35,13 @@ export default DS.JSONAPISerializer.extend({
   getSingleRecord: function(payload){
     const serializer = this;
     var results = payload.usageData;
+
+    if (payload.alternatePath) {
+      Ember.$.each(payload.alternatePath, function(index, alternatePath){
+        results.push(alternatePath);
+      });
+    }
+
     var model = { data: [] };
     Ember.$.each(results, function(index, result){
       model.data.push(serializer.normalizePerformanceAttributes(result));

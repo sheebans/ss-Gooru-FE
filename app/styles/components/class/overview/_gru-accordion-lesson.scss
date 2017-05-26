@@ -103,7 +103,7 @@
             line-height: 36px;
           }
         }
-        .score, .time-spent {
+        .score {
           padding: 0 3px;
           font-size: $font-size-lead;
           font-weight: bold;
@@ -249,6 +249,7 @@
           .panel-heading {
             background-color: $sky-50;
             .panel-title {
+              width: 80%;
               .resource-icon-type {
                 padding: 0 0 0 15px;
               }
@@ -319,6 +320,7 @@
               }
             }
             .info {
+              width: 20%;
               .left-info {
                 height: inherit;
               }
@@ -521,7 +523,7 @@
                 color: $light-300;
               }
             }
-            .score, .time-spent {
+            .score {
               padding: 10px 3px;
               font-size: $font-size-lead;
               font-weight: bold;
@@ -530,6 +532,15 @@
               @media (min-width: $screen-lg) {
                 padding: 10px 20px 10px 10px;
                 width: 80px;
+              }
+            }
+            .time-spent {
+              padding: 10px 20px 10px 15px;
+              font-size: $font-size-lead;
+              font-weight: bold;
+              width: 100%;
+              @media (min-width: $screen-lg) {
+                padding-left: 20px;
               }
             }
           }

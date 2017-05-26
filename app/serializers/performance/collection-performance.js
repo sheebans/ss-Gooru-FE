@@ -11,8 +11,12 @@ export default PerformanceSerializer.extend({
     return !!payload.collectionId;
   },
 
+  isResource: function(payload) {
+    return !!payload.resourceId;
+  },
+
   getModelId: function(payload) {
-    return this.isCollection(payload) ? payload.collectionId : payload.assessmentId;
+    return this.isCollection(payload) ? payload.collectionId : this.isResource(payload) ? payload.resourceId : payload.assessmentId;
   },
 
   getModelType: function() {
@@ -20,7 +24,7 @@ export default PerformanceSerializer.extend({
   },
 
   getObjectType: function(payload) {
-    return this.isCollection(payload) ? 'collection' : 'assessment';
+    return this.isCollection(payload) ? 'collection' : this.isResource(payload) ? 'resource' : 'assessment';
   }
 
 });
