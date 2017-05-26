@@ -17,9 +17,9 @@ export default Ember.Component.extend({
     /**
      * When the user clicks at the score
      */
-    clickScore: function (performance) {
-      if (this.get('onClickScore')){
-        this.sendAction('onClickScore', performance, this.get('userPerformance'));
+    clickReport: function (performance) {
+      if (this.get('clickReport')){
+        this.sendAction('onClickReport', performance, this.get('userPerformance'));
       }
     }
   },
@@ -105,10 +105,10 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * Action name when the user clicks at any score box
+   * Action name when the user clicks at any report icon
    * @property {string}
    */
-  onClickScore: null
+  onClickReport: null
 
   // -------------------------------------------------------------------------
 
