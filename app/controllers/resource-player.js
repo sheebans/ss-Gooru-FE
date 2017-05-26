@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { ROLES } from 'gooru-web/config/config';
 
 /**
  * Study Player Controller
@@ -16,6 +17,22 @@ export default Ember.Controller.extend({
      */
     toggleHeader: function (toggleState) {
       this.set('toggleState', toggleState);
+    },
+
+    /**
+     * When the user clicks next
+     */
+    onNext: function() {
+      let controller = this;
+      let queryParams = {
+        role: ROLES.STUDENT,
+        source: controller.get('source')
+      };
+      controller.transitionToRoute('study-player',
+        this.get('classId'),
+        this.get('course.id'),
+        { queryParams }
+      );
     }
   },
 
@@ -48,6 +65,12 @@ export default Ember.Controller.extend({
    * Shows the performance information
    * @property {Boolean} toggleState
    */
-  toggleState: true
+  toggleState: true,
+
+  /**
+   * Show the next button and send events
+   * @property {Boolean} sendEvents
+   */
+  sendEvents: Ember.computed.not('collectionUrl')
 
 });
