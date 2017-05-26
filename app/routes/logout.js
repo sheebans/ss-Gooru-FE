@@ -29,8 +29,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const isProd = Env.environment === 'production';
     if (isProd) {
       setTimeout( "location.replace(Env.marketingSiteUrl);", 0 );
-    }else{
-
     }
   }
 });
