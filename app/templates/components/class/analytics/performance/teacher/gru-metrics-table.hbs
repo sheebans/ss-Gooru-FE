@@ -17,17 +17,21 @@
                           <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
                       {{/if}}
                         <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
+                        <div class="small-icon">{{gru-icon "play_arrow"}}</div>
                     </div>
                 </th>
             {{else}}
                 <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
                     <div class="header-title">
-                      {{#if header.collectionType}}
-                          <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>
-                      {{else}}
-                          <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
-                      {{/if}}
-                        <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
+                        <div class="column">
+                            {{#if header.collectionType}}
+                                <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>
+                            {{else}}
+                                <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
+                            {{/if}}
+                            <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
+                        </div>
+                        <div class="small-icon">{{gru-icon name="play_arrow"}}</div>
                     </div>
                 </th>
             {{/if}}
@@ -46,7 +50,7 @@
             </th>
           {{/each}}
         </tr>
-        <tr>
+        <tr class="average">
           <th class="header fixed" scope="row">
             {{t "class.analytics.performance.teacher.metricsTable.class-average"}}
           </th>
@@ -62,30 +66,56 @@
         </tr>
       </thead>
       <tbody>
-        {{#each performanceData as |userPerformance|}}
-          <tr>
-            <th class="header user-info fixed" scope="row">
-              <span>{{{userPerformance.user}}}</span>
-            </th>
-            {{#each userPerformance.performanceData as |data index|}}
-              {{#if (eq index 0)}}
-                  <td class="performance-information">
-                    {{class.analytics.performance.teacher.gru-metrics-performance-information
-                    userPerformance=userPerformance
-                    onClickReport='clickReport'
-                    performanceData=data dataPickerOptions=dataPickerOptions}}
-                  </td>
-                {{else}}
-                  <td class="performance-information">
-                    {{class.analytics.performance.teacher.gru-metrics-performance-information
-                    userPerformance=userPerformance
-                    onClickReport='clickReport'
-                    performanceData=data dataPickerOptions=dataPickerOptions
-                    showReport=isCollection}}
-                  </td>
-              {{/if}}
-            {{/each}}
-          </tr>
+        {{#each performanceData as |userPerformance index|}}
+          {{#if (is-even index)}}
+            <tr class="even">
+              <th class="header user-info fixed" scope="row">
+                <span>{{{userPerformance.user}}}</span>
+              </th>
+              {{#each userPerformance.performanceData as |data index|}}
+                {{#if (eq index 0)}}
+                    <td class="performance-information">
+                      {{class.analytics.performance.teacher.gru-metrics-performance-information
+                      userPerformance=userPerformance
+                      onClickReport='clickReport'
+                      performanceData=data dataPickerOptions=dataPickerOptions}}
+                    </td>
+                  {{else}}
+                    <td class="performance-information">
+                      {{class.analytics.performance.teacher.gru-metrics-performance-information
+                      userPerformance=userPerformance
+                      onClickReport='clickReport'
+                      performanceData=data dataPickerOptions=dataPickerOptions
+                      showReport=isCollection}}
+                    </td>
+                {{/if}}
+              {{/each}}
+            </tr>
+          {{else}}
+            <tr class="odd">
+              <th class="header user-info fixed" scope="row">
+                <span>{{{userPerformance.user}}}</span>
+              </th>
+              {{#each userPerformance.performanceData as |data index|}}
+                {{#if (eq index 0)}}
+                    <td class="performance-information">
+                      {{class.analytics.performance.teacher.gru-metrics-performance-information
+                      userPerformance=userPerformance
+                      onClickReport='clickReport'
+                      performanceData=data dataPickerOptions=dataPickerOptions}}
+                    </td>
+                  {{else}}
+                    <td class="performance-information">
+                      {{class.analytics.performance.teacher.gru-metrics-performance-information
+                      userPerformance=userPerformance
+                      onClickReport='clickReport'
+                      performanceData=data dataPickerOptions=dataPickerOptions
+                      showReport=isCollection}}
+                    </td>
+                {{/if}}
+              {{/each}}
+            </tr>
+          {{/if}}
         {{/each}}
       </tbody>
     </table>

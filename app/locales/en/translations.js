@@ -890,6 +890,7 @@ export default Object.assign(quizzesTranslations, {
       "click-to-copy": "Click to copy class code",
       "course-map": "Course Map",
       "management": "Roster Management",
+      "report": "Report",
       "performance": "Performance",
       "performance-tab": {
         "assessments": "Assessments",
