@@ -20,22 +20,17 @@
     font-size: $font-size-h6;
     background: $white;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
-    border-top: 15px solid $dark-400;
+    border-top: 3px solid $dark-400;
     border-radius: 0 5px 5px 0;
     border-collapse: inherit;
     display: table-cell;
-
-    thead, tbody
-    {
-      display: block;
-    }
 
     thead {
       tr {
         th, td {
           background-color: $dark-300;
           color: $white;
-          border-right: 1px solid $dark-200;
+          border-right: 1px solid $light-300;
           &:first-child {
             border-right: 0;
           }
@@ -43,7 +38,7 @@
       }
       .headers {
         td, th {
-          border-bottom: 1px solid $dark-200;
+          background-color: $dark-400;
         }
         > td {
           border-top: 15px solid $dark-400!important;
@@ -52,14 +47,26 @@
           height: 54px!important;
         }
         .header-title {
+          @include flexbox;
+          @include flex-direction(row);
+          @include align-items(center);
           text-align: left;
-          width: inherit;
           div {
             line-height: $font-size-lead;
           }
           .title {
             width: inherit;
             @include text-overflow();
+          }
+          .column {
+            @include flexbox;
+            @include flex-direction(column);
+          }
+          .small-icon {
+            i {
+              font-size: 0.8em;
+              padding-right: 0.2em;
+            }
           }
         }
       }
@@ -70,14 +77,33 @@
           padding: 0 0 0 2px;
         }
       }
+      .average {
+        th {
+          background-color: $white;
+          border-bottom: 2px solid $light-300;
+          color: $gray;
+        }
+        .header {
+          border-left: 1px solid $light-300;
+        }
+      }
     }
-    tbody
-    {
+    tbody {
       tr {
         &:last-child {
           th.fixed {
             box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.07)
           }
+        }
+      }
+      .even {
+        td, th {
+          background-color: $gray-lighter;
+        }
+      }
+      .odd {
+        td, th {
+          background-color: $white;
         }
       }
       th {
@@ -89,7 +115,6 @@
           @include text-overflow();
         }
         &.header.fixed {
-          background-color: $white;
           border-left: 1px solid $light-300;
         }
       }
@@ -172,4 +197,3 @@
     }
   }
 }
-
