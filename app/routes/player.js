@@ -47,7 +47,6 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
    */
   session: Ember.inject.service('session'),
 
-
   // -------------------------------------------------------------------------
   // Actions
   actions:{
