@@ -4,9 +4,9 @@ import { module, test } from 'qunit';
 module('Unit | Helper | is-even');
 
 test('Is Even Helper', function(assert) {
-  let result = isEven(0);
-  assert.equal(result, true);
+  let evenResult = isEven(0);
+  assert.equal(evenResult, true);
 
-  let result = isEven(1);
-  assert.equal(result, false);
+  let oddResult = isEven(1);
+  assert.equal(oddResult, false);
 });
