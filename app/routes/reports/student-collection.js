@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
-import ContextMixin from "gooru-web/mixins/quizzes/context";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import ContextMixin from 'gooru-web/mixins/quizzes/context';
 import QuizzesReport from 'quizzes-addon/routes/reports/student-context';
 import { ROLES } from 'gooru-web/config/config';
 
@@ -17,47 +17,27 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
-  session: Ember.inject.service("session"),
-
-  /**
-   * @property {Ember.Service} Service to retrieve an assessment result
-   */
-  userSessionService: Ember.inject.service("api-sdk/user-session"),
+  session: Ember.inject.service('session'),
 
   /**
    * @property {AssessmentService} Service to retrieve an assessment
    */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   /**
    * @property {CollectionService} Service to retrieve a collection
    */
-  collectionService: Ember.inject.service("api-sdk/collection"),
-
-  /**
-   * @property {LessonService} Service to retrieve a lesson
-   */
-  lessonService: Ember.inject.service("api-sdk/lesson"),
-
-  /**
-   * @property {Ember.Service} Service to retrieve an assessment result
-   */
-  performanceService: Ember.inject.service("api-sdk/performance"),
+  collectionService: Ember.inject.service('api-sdk/collection'),
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
     goBack: function() {
       const route = this;
-      const controller = route.get("controller");
-      const collectionId = controller.get('collection.id');
-      const collectionType = controller.get('type');
-      const role = controller.get('role');
-      const queryParams = {
-        type: collectionType,
-        role: role
-      };
-      route.transitionTo('player', collectionId, { queryParams });
+      const controller = route.get('controller');
+      let toRoute = controller.get('backUrl');
+      toRoute = toRoute || 'index'; //index when refreshing the page, TODO fix
+      route.transitionTo(toRoute);
     }
   },
 
@@ -69,40 +49,6 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
    */
   model(params) {
     return this.studentCollectionModel(params);
-  },
-
-  /**
-   * Take the user back to data page
-   */
-  backToData: function () {
-    const route = this;
-    const controller = route.get("controller");
-    const context = controller.get("context");
-
-    route.transitionTo("class.analytics.performance.student", context.get("classId"),
-    {
-      queryParams: {
-        unitId: context.get("unitId"),
-        lessonId: context.get("lessonId")
-      }
-    });
-  },
-
-  /**
-   * Take the user back to course map page
-   */
-  backToCourseMap: function () {
-    const route = this;
-    const controller = route.get("controller");
-    const context = controller.get("context");
-    const unitId = context.get("unitId");
-    const lessonId = context.get("lessonId");
-    route.transitionTo("class.overview", context.get("classId"),
-    {
-      queryParams: {
-        location: `${unitId}+${lessonId}`
-      }
-    });
   },
 
   /**

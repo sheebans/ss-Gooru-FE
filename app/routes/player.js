@@ -74,6 +74,10 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
         classId: controller.get('classId'),
         contextId: controller.get('contextResult.contextId')
       };
+      const reportController = this.controllerFor('reports.student-collection');
+
+        //this doesn't work when refreshing the page, TODO
+      reportController.set('backUrl', this.get('history.lastRoute.url'));
       this.transitionTo(
         'reports.student-collection',
         { queryParams }
