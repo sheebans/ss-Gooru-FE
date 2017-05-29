@@ -51,11 +51,13 @@ export default Ember.Component.extend(ModalMixin,{
      */
     previewContent: function(content) {
       let component = this;
+      let isTeacher = this.get('isTeacher');
       var model = Ember.Object.create({
         content: content,
+        isTeacher,
         remixCourse: () => component.remixCourse()
       });
-      if(this.get('isCourse') && this.get('isTeacher')){
+      if(this.get('isCourse') && (this.get('isTeacher') || this.get('isStudent'))){
         component.get('courseService').fetchById(content.get('id')).then(function (course) {
           model.set('content.children',course.children);
         }).then(function() {
@@ -126,10 +128,16 @@ export default Ember.Component.extend(ModalMixin,{
   isCourse:false,
 
   /**
-   * Indicates if the student is seen the card
+   * Indicates if the teacher is seeing the card
    * @property {boolean}
    */
   isTeacher: Ember.computed.equal('profile.role', 'teacher'),
+
+  /**
+   * Indicates if the student is seeing the card
+   * @property {boolean}
+   */
+  isStudent: Ember.computed.equal('profile.role', 'student'),
 
   /**
    * @property {string} edit action

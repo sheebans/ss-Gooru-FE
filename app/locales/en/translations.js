@@ -1418,7 +1418,8 @@ export default Object.assign(quizzesTranslations, {
         zero: "{{count}} Questions",
         one: "{{count}} Question",
         other: "{{count}} Questions"
-      }
+      },
+      "start-studying": "Start studying"
     },
     "gru-collection-card":{
       "courses": {
