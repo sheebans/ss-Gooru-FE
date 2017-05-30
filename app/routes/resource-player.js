@@ -118,7 +118,7 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
 
   getMapLocation(params) {
     const navigateMapService = this.get('navigateMapService');
-    const { classId, courseId, unitId, pathId, lessonId, collectionId, resourceId } = params;
+    const { classId, courseId, pathId } = params;
     let mapLocationPromise = null;
     if (pathId) {
       // Commenting these lines until BE confirms that we don't need them
