@@ -98,11 +98,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @property {Boolean} isUnitFiltersExpanded
    */
-  isUnitFiltersExpanded: false,
+  isUnitFiltersExpanded: true,
   /**
    * @property {Boolean} isLessonFiltersExpanded
    */
-  isLessonFiltersExpanded: false,
+  isLessonFiltersExpanded: true,
 
   /**
    * Selected lesson
