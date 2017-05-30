@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import PublicRouteMixin from 'gooru-web/mixins/public-route-mixin';
 import ContextMixin from 'gooru-web/mixins/quizzes/context';
 import QuizzesReport from 'quizzes-addon/routes/reports/student-context';
 import { ROLES } from 'gooru-web/config/config';
@@ -12,7 +12,7 @@ import { ROLES } from 'gooru-web/config/config';
  * @module
  * @augments ember/Route
  */
-export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
+export default QuizzesReport.extend(PublicRouteMixin, ContextMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
