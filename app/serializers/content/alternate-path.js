@@ -21,6 +21,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       pathId: payload.id,
       title: payload.title,
       thumbnail: payload.thumbnail,
+      contextClassId: payload.ctx_class_id,
       contextCourseId: payload.ctx_course_id,
       contextUnitId: payload.ctx_unit_id,
       contextLessonId: payload.ctx_lesson_id,
@@ -49,8 +50,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const resource = ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: resourceData.targetResourceId,
       title: resourceData.title,
-      format: format,
-      assessmentId: resourceData.contextCollectionId
+      format,
+      assessmentId: resourceData.contextCollectionId,
+      classId: resourceData.contextClassId,
+      courseId: resourceData.contextCourseId,
+      unitId: resourceData.contextUnitId,
+      lessonId: resourceData.contextLessonId,
+      pathId: resourceData.pathId
     });
     return resource;
   }
