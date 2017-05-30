@@ -83,11 +83,11 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         title: route.get('i18n').t('gru-take-tour.study-player.stepFive.title'),
         description: route.get('i18n').t('gru-take-tour.study-player.stepFive.description')
       },
-      {
+      /*{
         elementSelector: '.header-panel .performance-info .suggestions',
         title: route.get('i18n').t('gru-take-tour.study-player.stepSeven.title'),
         description: route.get('i18n').t('gru-take-tour.study-player.stepSeven.description')
-      },
+      },*/
       {
         title: route.get('i18n').t('gru-take-tour.study-player.stepEight.title'),
         description: route.get('i18n').t('gru-take-tour.study-player.stepEight.description')
