@@ -39,16 +39,22 @@
       width: 65%;
       .title-section {
         i {
-          color: $dark-300;
           margin: 0 5px 0 0;
-          vertical-align: top;
-          line-height: $font-size-h5;
+          width: 22px;
+          height: 17px;
+          vertical-align: middle;
+          background-repeat: no-repeat;
+          background-position: center center;
+          display: inline-block;
+          &.collection { background-image: url("gooru/images/add_collection.svg"); }
+          &.assessment { background-image: url("gooru/images/add_assessment.svg"); }
         }
         .title {
           display: inline-block;
           color:$blue-400;
           font-size: $font-title;
           margin:0;
+          vertical-align: middle;
         }
       }
       .question-resources {
@@ -62,8 +68,8 @@
       }
       .remixed-by {
         img{
-          width: 30px;
-          height: 30px;
+          width: 20px;
+          height: 20px;
           border-radius: 50px;
           cursor: pointer;
         }

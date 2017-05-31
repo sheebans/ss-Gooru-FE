@@ -7,11 +7,7 @@
   </div>
   <div class="collection-info">
     <div class="title-section">
-      {{#if collection.isAssessment}}
-        {{gru-icon name='playlist_add_check'}}
-      {{else}}
-        {{gru-icon name='view_comfy'}}
-      {{/if}}
+      <i class="{{if collection.isAssessment 'assessment' 'collection'}}"></i>
       <h3 class="title">{{collection.title}}</h3>
     </div>
     <div class="question-resources">
