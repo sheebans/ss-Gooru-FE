@@ -53,7 +53,7 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
   model(params) {
     const route = this;
     const { classId, courseId, collectionUrl } = params;
-    return route.getMapLocation(params).then(currentContext => {
+    return route.getMapLocation(params, !collectionUrl).then(currentContext => {
       const unitId = currentContext.get('unitId');
       const lessonId = currentContext.get('lessonId');
       const collectionId = currentContext.get('collectionId');
