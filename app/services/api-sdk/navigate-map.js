@@ -152,6 +152,34 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Starts a resource
+   *
+   * @param {string} courseId
+   * @param {string} unitId
+   * @param {string} lessonId
+   * @param {string} collectionId
+   * @param {string} resourceId
+   * @param {string} pathId
+   * @param {string} classId
+   * @returns {Promise.<MapLocation>}
+   */
+  startResource: function (courseId, unitId, lessonId, collectionId, resourceId, pathId, classId) {
+    const service = this;
+    const mapContext = MapContext.create({
+      courseId,
+      unitId,
+      lessonId,
+      collectionId,
+      itemId: resourceId,
+      itemType: 'resource',
+      pathId: +pathId,
+      classId,
+      status: 'start'
+    });
+    return service.next(mapContext);
+  },
+
+  /**
    * Starts a lesson
    *
    * @param {string} courseId

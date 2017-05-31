@@ -9,7 +9,7 @@ import { ROLES } from 'gooru-web/config/config';
  */
 export default Ember.Controller.extend({
 
-  queryParams: ['collectionUrl'],
+  queryParams: ['collectionUrl', 'unitId', 'lessonId', 'collectionId', 'pathId', 'source', 'collectionType'],
 
   actions: {
     /**

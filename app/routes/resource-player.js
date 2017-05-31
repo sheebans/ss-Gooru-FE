@@ -53,12 +53,15 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
   model(params) {
     const route = this;
     const { classId, courseId, collectionUrl } = params;
-
     return route.getMapLocation(params, !collectionUrl).then(currentContext => {
       const unitId = currentContext.get('unitId');
       const lessonId = currentContext.get('lessonId');
       const collectionId = currentContext.get('collectionId');
       const collectionType = currentContext.get('collectionType');
+      params.unitId = unitId;
+      params.lessonId = lessonId;
+      params.collectionId = collectionId;
+      params.pathId = currentContext.get('pathId');
 
       return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
         course: route.get('courseService').fetchById(courseId),
@@ -110,15 +113,22 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
 
   getMapLocation(params, sendToAnalytics) {
     const navigateMapService = this.get('navigateMapService');
-    const { classId, courseId, unitId, pathId, lessonId, collectionId, collectionType, collectionSubType } = params;
+    const { classId, courseId, pathId } = params;
     let mapLocationPromise = null;
     if(!sendToAnalytics) {
       mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId);
     } else if (pathId) {
-      mapLocationPromise = navigateMapService.startSuggestion(
-        courseId, unitId, lessonId, collectionId, collectionType,
-        collectionSubType, pathId, classId
-      ).then(mapLocation => mapLocation.get('context'));
+      // Commenting these lines until BE confirms that we don't need them
+      /* mapLocationPromise = navigateMapService.startResource(
+        courseId, unitId, lessonId, collectionId, resourceId, pathId, classId
+      ).then(mapLocation => mapLocation.get('context')); */
+      // Don't call next when the resource is played from the course map, use params
+      mapLocationPromise = Ember.RSVP.resolve(Ember.Object.create({
+        unitId: params.unitId,
+        lessonId: params.lessonId,
+        collectionId: params.collectionId,
+        pathId: params.pathId
+      }));
     } else {
       mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId)
         .then(mapContext => navigateMapService.next(mapContext))
