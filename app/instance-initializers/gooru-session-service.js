@@ -46,6 +46,11 @@ export function initialize(application) {
     tenantId: Ember.computed.alias("data.authenticated.tenant.tenantId"),
 
     /**
+     * @property {string} session partner id
+     */
+    partnerId: Ember.computed.alias('data.authenticated.partnerId'),
+
+    /**
      * This method authenticates using the default authenticator for an anonymous user
      * @returns {*|Ember.RSVP.Promise}
      */
