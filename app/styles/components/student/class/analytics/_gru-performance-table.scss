@@ -15,7 +15,7 @@
     box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
     border-top: 2px solid $white;
     thead {
-      background-color: $performance-table-header;
+      background-color: $dark-400;
       tr {
         th {
           border: 0;
@@ -123,4 +123,3 @@
     }
   }
 }
-
