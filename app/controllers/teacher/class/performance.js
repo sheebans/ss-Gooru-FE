@@ -289,12 +289,12 @@ export default Ember.Controller.extend({
     'value': 'score',
     'selected':false,
     'readOnly':false,
-    'isDisabled':true
+    'isDisabled':false
   }),Ember.Object.create({
     'value': 'completion',
     'selected':false,
     'readOnly':false,
-    'isDisabled':true
+    'isDisabled':false
   }),Ember.Object.create({
     'value': 'study-time',
     'selected':true,

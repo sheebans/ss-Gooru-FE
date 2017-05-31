@@ -59,9 +59,9 @@
           {{#each averageHeaders.performanceData as |average index|}}
             <th class="performance-information">
             {{#if (eq index 0)}}
-              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions}}
+              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
             {{else}}
-              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions  showReport=isCollection}}
+              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions  showReport=false}}
             {{/if}}
             </th>
           {{/each}}
