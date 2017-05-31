@@ -18,6 +18,15 @@ export default Ember.Component.extend(ModalMixin,{
   session: Ember.inject.service('session'),
 
   /**
+   * @property {Ember.Service} Service to retrieve an assessment
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+  /**
+   * @property {Ember.Service} Service to retrieve a collection
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
+  /**
    * @requires service:api-sdk/course
    */
   courseService: Ember.inject.service('api-sdk/course'),
@@ -52,17 +61,30 @@ export default Ember.Component.extend(ModalMixin,{
     previewContent: function(content) {
       let component = this;
       let isTeacher = this.get('isTeacher');
+      let isStudent = this.get('isStudent');
+      let isCourse = this.get('isCourse');
+      let isCollection = content.get('isCollection');
+      let contentId = content.get('id');
+
       var model = Ember.Object.create({
         content: content,
         isTeacher,
         remixCourse: () => component.remixCourse()
       });
-      if(this.get('isCourse') && (this.get('isTeacher') || this.get('isStudent'))){
-        component.get('courseService').fetchById(content.get('id')).then(function (course) {
-          model.set('content.children',course.children);
-        }).then(function() {
-          component.send('showModal', 'gru-preview-course', model);
-        });
+
+      if(isTeacher || isStudent) {
+        if (isCourse) {
+          component.get('courseService').fetchById(contentId).then(function (course) {
+            model.set('content.children', course.children);
+          }).then(function () {
+            component.send('showModal', 'gru-preview-course', model);
+          });
+        }
+        else {
+          component.loadCollection(contentId, isCollection, model).then(function() {
+            component.send('showModal', 'gru-preview-collection', model);
+          });
+        }
       }
     }
   },
@@ -179,5 +201,25 @@ export default Ember.Component.extend(ModalMixin,{
       };
       this.send('showModal', 'content.modals.gru-course-remix', remixModel);
     }
+  },
+
+  /**
+   * Loads the collection/assessment
+   * @param {string} contentId
+   * @param {boolean} isCollection
+   * @param {Object} model
+   * @returns {Promise.<Collection>}
+   */
+  loadCollection: function(contentId, isCollection, model) {
+    const component = this;
+
+    if (isCollection) {
+      return component.get('collectionService').readCollection(contentId).then(function (collection) {
+        model.set('content.children', collection.children);
+      });
+    }
+    return component.get('assessmentService').readAssessment(contentId).then(function (collection) {
+      model.set('content.children', collection.children);
+    });
   }
 });

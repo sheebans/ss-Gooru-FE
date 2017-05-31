@@ -6,6 +6,7 @@
                   {{#each collectionResults as |collection|}}
                     {{new-cards.gru-collection-card
                       content=collection
+                      profile=profile
                       onOpenContentPlayer="openContentPlayer"
                       }}
                   {{/each}}

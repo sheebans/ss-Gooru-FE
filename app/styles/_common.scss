@@ -188,7 +188,10 @@ span.validation.warning {
   clear: both;
 }
 
-.cards, .new-cards, .gru-preview-course {
+.cards,
+.new-cards,
+.gru-preview-course,
+.gru-preview-collection {
   i.video-icon {
     background-image: url("gooru/images/video-resource.svg");
   }
