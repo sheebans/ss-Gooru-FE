@@ -53,55 +53,50 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
   model(params) {
     const route = this;
     const { classId, courseId, collectionUrl } = params;
+    return route.getMapLocation(params).then(currentContext => {
+      const unitId = currentContext.get('unitId');
+      const lessonId = currentContext.get('lessonId');
+      const collectionId = currentContext.get('collectionId');
+      const collectionType = currentContext.get('collectionType');
+      params.unitId = unitId;
+      params.lessonId = lessonId;
+      params.collectionId = collectionId;
+      params.pathId = currentContext.get('pathId');
 
-    if(collectionUrl) {
-      return this.quizzesModel(params);
-    } else {
-      return route.getMapLocation(params).then(currentContext => {
-        const unitId = currentContext.get('unitId');
-        const lessonId = currentContext.get('lessonId');
-        const collectionId = currentContext.get('collectionId');
-        const collectionType = currentContext.get('collectionType');
-        params.unitId = unitId;
-        params.lessonId = lessonId;
-        params.collectionId = collectionId;
-        params.pathId = currentContext.get('pathId');
-
-        return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
-          course: route.get('courseService').fetchById(courseId),
-          unit: route.get('unitService').fetchById(courseId, unitId),
-          lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
-          collection: this.loadCollection(collectionId, collectionType)
-        }).then(hash => {
-          // Set the correct unit sequence number
-          hash.course.children.find((child, index) => {
-            let found = false;
-            if (child.get('id') === hash.unit.get('id')) {
-              found = true;
-              hash.unit.set('sequence', index + 1);
-            }
-            return found;
-          });
-
-          // Set the correct lesson sequence number
-          hash.unit.children.find((child, index) => {
-            let found = false;
-            if (child.get('id') === hash.lesson.get('id')) {
-              found = true;
-              hash.lesson.set('sequence', index + 1);
-            }
-            return found;
-          });
-
-          let { course, unit, lesson, collection } = hash;
-          return this.quizzesModel(params).then(
-            quizzesModel => Object.assign(quizzesModel, {
-              course, unit, lesson, collection, classId, collectionUrl
-            })
-          );
+      return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
+        course: route.get('courseService').fetchById(courseId),
+        unit: route.get('unitService').fetchById(courseId, unitId),
+        lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
+        collection: this.loadCollection(collectionId, collectionType)
+      }).then(hash => {
+        // Set the correct unit sequence number
+        hash.course.children.find((child, index) => {
+          let found = false;
+          if (child.get('id') === hash.unit.get('id')) {
+            found = true;
+            hash.unit.set('sequence', index + 1);
+          }
+          return found;
         });
+
+        // Set the correct lesson sequence number
+        hash.unit.children.find((child, index) => {
+          let found = false;
+          if (child.get('id') === hash.lesson.get('id')) {
+            found = true;
+            hash.lesson.set('sequence', index + 1);
+          }
+          return found;
+        });
+
+        let { course, unit, lesson, collection } = hash;
+        return this.quizzesModel(params).then(
+          quizzesModel => Object.assign(quizzesModel, {
+            course, unit, lesson, collection, classId, collectionUrl
+          })
+        );
       });
-    }
+    });
   },
 
   setupController(controller, model) {
@@ -116,11 +111,13 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
     this._super(...arguments);
   },
 
-  getMapLocation(params) {
+  getMapLocation(params, sendToAnalytics) {
     const navigateMapService = this.get('navigateMapService');
     const { classId, courseId, pathId } = params;
     let mapLocationPromise = null;
-    if (pathId) {
+    if(!sendToAnalytics) {
+      mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId);
+    } else if (pathId) {
       // Commenting these lines until BE confirms that we don't need them
       /* mapLocationPromise = navigateMapService.startResource(
         courseId, unitId, lessonId, collectionId, resourceId, pathId, classId
