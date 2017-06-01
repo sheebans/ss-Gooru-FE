@@ -40,7 +40,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       isAnonymous: isAnonymous,
       tenant: {
         tenantId: payload.tenant ? payload.tenant.tenant_id : undefined
-      }
+      },
+      partnerId: payload.partner_id
     };
   }
 });

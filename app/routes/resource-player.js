@@ -15,6 +15,11 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
   templateName: 'resource-player',
 
   /**
+   * @type {SessionService} Service to retrieve session information
+   */
+  session: Ember.inject.service('session'),
+
+  /**
    * @property {NavigateMapService}
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
@@ -62,6 +67,9 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
       params.lessonId = lessonId;
       params.collectionId = collectionId;
       params.pathId = currentContext.get('pathId');
+      params.sourceUrl = location.host;
+      params.partnerId = this.get('session.partnerId');
+      params.tenantId = this.get('session.tenantId');
 
       return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
         course: route.get('courseService').fetchById(courseId),

@@ -26,7 +26,8 @@ test('normalizeResponse for anonymous account', function(assert) {
     'provided_at': 0,
     'tenant' : {
       'tenant_id': 1
-    }
+    },
+    partner_id: 2
   };
   const expected = {
     token: Env['API-3.0']['anonymous-token-api-2.0'],
@@ -45,7 +46,8 @@ test('normalizeResponse for anonymous account', function(assert) {
     isAnonymous: true,
     tenant: {
       tenantId: 1
-    }
+    },
+    partnerId: 2
   };
   const response = serializer.normalizeResponse(payload, true);
   assert.deepEqual(expected, response, 'Wrong normalized response');
@@ -65,7 +67,8 @@ test('normalizeResponse for normal account', function(assert) {
     'provided_at': 1,
     'tenant' : {
       'tenant_id': 1
-    }
+    },
+    partner_id: 2
   };
   const expected = {
     token: Env['API-3.0']['user-token-api-2.0'],
@@ -84,7 +87,8 @@ test('normalizeResponse for normal account', function(assert) {
     isAnonymous: false,
     tenant: {
       tenantId: 1
-    }
+    },
+    partnerId: 2
   };
   const response = serializer.normalizeResponse(payload, false);
   assert.deepEqual(expected, response, 'Wrong normalized response');
@@ -104,7 +108,8 @@ test('normalizeResponse for google account', function(assert) {
     'provided_at': 2,
     'tenant' : {
       'tenant_id': 1
-    }
+    },
+    partner_id: 2
   };
   const expected = {
     token: Env['API-3.0']['user-token-api-2.0'],
@@ -123,7 +128,8 @@ test('normalizeResponse for google account', function(assert) {
     isAnonymous: false,
     tenant: {
       tenantId: 1
-    }
+    },
+    partnerId: 2
   };
   const response = serializer.normalizeResponse(payload, false, 'token-api-3.0');
   assert.deepEqual(expected, response, 'Wrong normalized response');
@@ -144,7 +150,8 @@ test('normalizeResponse for google account containing user category', function(a
     'provided_at': 3,
     'tenant' : {
       'tenant_id': 1
-    }
+    },
+    partner_id: 2
   };
   const expected = {
     token: Env['API-3.0']['user-token-api-2.0'],
@@ -163,7 +170,8 @@ test('normalizeResponse for google account containing user category', function(a
     isAnonymous: false,
     tenant: {
       tenantId: 1
-    }
+    },
+    partnerId: 2
   };
   const response = serializer.normalizeResponse(payload, false, 'token-api-3.0');
   assert.deepEqual(expected, response, 'Wrong normalized response');

@@ -19,6 +19,11 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   // Dependencies
 
   /**
+   * @type {SessionService} Service to retrieve session information
+   */
+  session: Ember.inject.service('session'),
+
+  /**
    * @property {NavigateMapService}
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
@@ -113,6 +118,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         params.lessonId = params.lessonId || mapLocation.get('context.lessonId');
         params.pathId = params.pathId || mapLocation.get('context.pathId');
         params.collectionSubType = params.subtype || mapLocation.get('context.collectionSubType');
+        params.sourceUrl = location.host;
+        params.partnerId = route.get('session.partnerId');
+        params.tenantId = route.get('session.tenantId');
 
         // Set the correct unit sequence number
         hash.course.children.find((child, index) => {
@@ -151,6 +159,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   },
 
   setupController(controller, model) {
+    this._super(...arguments);
     const isAnonymous = model.isAnonymous;
     const mapLocation = model.mapLocation;
     controller.setProperties({
@@ -167,8 +176,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       collectionId: model.collectionId,
       type: model.type
     });
-
-    this._super(...arguments);
   },
 
   /**
