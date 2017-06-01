@@ -48,13 +48,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
     return result;
   },
 
-  normalizeBookmark: function(subjectPayload) {
+  normalizeBookmark: function(bookmarkPayload) {
     var serializer = this;
     return BookmarkModel.create(Ember.getOwner(serializer).ownerInjection(), {
-      id: subjectPayload.id,
-      title: subjectPayload.title,
-      contentId: subjectPayload.content_id,
-      contentType: subjectPayload.content_type
+      id: bookmarkPayload.id,
+      title: bookmarkPayload.title,
+      contentId: bookmarkPayload.content_id,
+      contentType: bookmarkPayload.content_type
     });
   }
 });
