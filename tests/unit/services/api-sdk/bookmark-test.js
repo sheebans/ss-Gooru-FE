@@ -34,3 +34,30 @@ test('createBookmark', function(assert) {
       done();
     });
 });
+
+test('fetchBookmarks', function(assert) {
+  const service = this.subject();
+
+  assert.expect(3);
+
+  service.set('bookmarkAdapter', Ember.Object.create({
+    fetchBookmarks: function(offset = 0, limit) {
+      assert.deepEqual(offset, 0, 'Wrong default offset');
+      assert.deepEqual(limit, 20, 'Wrong default limit');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  service.set('bookmarkSerializer', Ember.Object.create({
+    normalizeFetchBookmarks: function(bookmarksPayload) {
+      assert.deepEqual(bookmarksPayload, [], 'Wrong bookmarks payload');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.fetchBookmarks()
+    .then(function() {
+      done();
+    });
+});

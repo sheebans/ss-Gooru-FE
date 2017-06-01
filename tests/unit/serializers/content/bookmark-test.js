@@ -16,3 +16,34 @@ test('serializeCreateBookmark', function(assert) {
   assert.equal(response.content_type, 'any-type', "Wrong content type");
 });
 
+test('normalizeFetchBookmarks', function(assert) {
+  const serializer = this.subject();
+  const bookmarksPayload = {
+    "bookmarks": [{
+      "id": "aaa-bbb",
+      "content_id": "123",
+      "content_type": "assessment",
+      "title": "Title 1"
+    }, {
+      "id": "ccc-ddd",
+      "title": "Title 2",
+      "content_id": "456",
+      "content_type": "assessment"
+    }, {
+      "id": "eee-fff",
+      "content_id": "789",
+      "content_type": "assessment",
+      "title": "Title 3"
+    }]
+  };
+  const normalizedBookmarks = serializer.normalizeFetchBookmarks(bookmarksPayload);
+
+  assert.equal(normalizedBookmarks.length, 3, 'Wrong number of bookmarks');
+  const bookmark1 = normalizedBookmarks.objectAt(0);
+
+  assert.equal(bookmark1.get('id'), 'aaa-bbb', 'Wrong bookmark id');
+  assert.equal(bookmark1.get('contentId'), '123', 'Wrong content Id');
+  assert.equal(bookmark1.get('contentType'), 'assessment', 'Wrong content type');
+  assert.equal(bookmark1.get('title'), 'Title 1', 'Wrong bookmark title');
+
+});

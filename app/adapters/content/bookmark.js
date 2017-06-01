@@ -31,6 +31,28 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Fetches bookmarks
+   *
+   * @param {number} offset - for paginated listing of bookmarks
+   * @param {number} limit - number of records to fetch
+   * @returns {Promise}
+   */
+  fetchBookmarks: function(offset, limit) {
+    const adapter = this;
+    const url = adapter.get('namespace');
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders(),
+      data: {
+        offset: offset,
+        limit: limit
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
