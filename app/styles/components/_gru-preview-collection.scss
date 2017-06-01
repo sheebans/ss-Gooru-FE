@@ -115,7 +115,7 @@
       .resource {
         @include flexbox();
         @include align-items(center);
-        padding: 5px 10px;
+        padding: 5px;
         border-bottom: 1px solid $gray-lighter;
         span.number {
           width: 22px;
@@ -177,7 +177,7 @@
           font-size: $font-size-xsmall;
           line-height: $font-size-xsmall;
           margin: 0 10px;
-          width: 16%;
+          width: 10%;
         }
         .resource-title {
           width: 58%;
@@ -192,6 +192,20 @@
               text-overflow: ellipsis;
               margin: 0;
             }
+          }
+        }
+        .gru-preview-taxonomy-tag-list {
+          width: 20%;
+          text-align: right;
+          .gru-taxonomy-tag {
+            max-width: 80px;
+            .tag-caption {
+              display: none;
+            }
+          }
+          .counter {
+            width: 22px;
+            display: inline-block;
           }
         }
         &:last-child {
