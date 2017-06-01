@@ -148,12 +148,13 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
   },
 
   setupController(controller, model) {
+    this._super(...arguments);
     const isAnonymous = model.isAnonymous;
     const isTeacher = model.role === ROLES.TEACHER;
 
     controller.set('isTeacher',isTeacher);
     controller.set('isAnonymous',isAnonymous);
-    this._super(...arguments);
+    controller.set('showConfirmation', false);
   },
 
   /**

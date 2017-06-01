@@ -159,6 +159,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   },
 
   setupController(controller, model) {
+    this._super(...arguments);
     const isAnonymous = model.isAnonymous;
     const mapLocation = model.mapLocation;
     controller.setProperties({
@@ -175,8 +176,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       collectionId: model.collectionId,
       type: model.type
     });
-
-    this._super(...arguments);
   },
 
   /**
