@@ -10,10 +10,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
 
   session: Ember.inject.service('session'),
 
-  init: function () {
-    this._super(...arguments);
-  },
-
   /**
    * Serialize a Bookmark object into a JSON representation required by the Create Bookmark endpoint
    *
