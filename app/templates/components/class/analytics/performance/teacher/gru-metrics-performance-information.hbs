@@ -17,6 +17,10 @@
       <div class="table-cell report pointer">
           <span {{action 'clickReport' performanceData}} title="{{performanceData.headerTitle}}" data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
       </div>
+  {{else}}
+      <div class="table-cell report">
+          <span class="out-of-scope" title="{{performanceData.headerTitle}}"  data-placement="auto"></span>
+      </div>
   {{/if}}
   {{#if showCompletion}}
     <div class="table-cell">
