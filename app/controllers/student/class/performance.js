@@ -187,14 +187,17 @@ export default Ember.Controller.extend({
       controller.set('filterCriteria', criteria);
       controller.get('courseService').getCourseStructure(courseId, collectionType).then(function(course){
         if(!lessonId){
-          let unitLessons = course.get('children').findBy('id',unitId);
+
+          let unitLessons = course.get('children').findBy('id',unitId).get('children');
+
           if(unitLessons.length > 0) {
             var lesson = unitLessons[0].get('id');
             Ember.run(function() {
               controller.set('lessonId',lesson);
-              criteria.lessonId = lesson;
             });
           }
+
+          criteria.lessonId = controller.get('lessonId');
         }
         Ember.RSVP.hash({
           course:course,
