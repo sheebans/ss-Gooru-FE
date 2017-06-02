@@ -11,26 +11,14 @@
   isPreTest=(and hasPreTestSuggestions showSuggestion)
 }}
 <div class="player-container {{if toggleState 'expanded' 'collapsed'}} {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
-  {{gru-take-tour steps=steps containerClass='study-player-tour'}}
+
+  {{#unless showConfirmation}}
+    {{gru-take-tour steps=steps containerClass='study-player-tour'}}
+  {{/unless}}
+
   {{#if (and hasPreTestSuggestions showSuggestion)}}
       {{player.gru-suggest-test type=typeSuggestion onPlayCollection='playActualCollection' onPlaySuggestion='playSuggestion'}}
   {{else}}
-    {{player.qz-player
-    showConfirmation=showConfirmation
-    resource=resource
-    resourceId=resourceId
-    role=role
-    type=type
-    reportURL=reportURL
-    startContextFunction=startContextFunction
-    contextResult=contextResult
-    isAnonymous=isAnonymous
-    onFinish='onFinish'
-    source=source
-    collectionSubType=collectionSubType
-    pathId=pathId
-    onClosePlayer="onClosePlayer"
-    showBackButton=showBackButton
-    }}
+    {{partial 'partials/qz-player'}}
   {{/if}}
 </div>

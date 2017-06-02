@@ -35,7 +35,7 @@
               {{#if isBackFill}}
                   <button class="btn btn-primary btn-backfill" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-backfill-pretest'}}</button>
               {{else if isBenchmark }}
-                  <button class="btn btn-primary btn-benchmark" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take' type='post-test'}}</button>
+                  <button class="btn btn-primary btn-benchmark" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take' type=type}}</button>
               {{else if isResource}}
                   <button class="btn btn-primary btn-resource" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-resource'}}</button>
               {{else}}

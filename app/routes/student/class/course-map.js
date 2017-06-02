@@ -175,6 +175,13 @@ export default Ember.Route.extend({
    */
   startResourceStudyPlayer:function(classId, courseId, resource) {
     const route = this;
-    route.transitionTo('resource-player', classId, courseId, resource.id);
+    let queryParams = {
+      unitId: resource.get('unitId'),
+      lessonId: resource.get('lessonId'),
+      collectionId: resource.get('assessmentId'),
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+      pathId: resource.get('pathId')
+    };
+    route.transitionTo('resource-player', classId, courseId, resource.id, { queryParams });
   }
 });

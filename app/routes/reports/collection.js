@@ -33,9 +33,12 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
   actions: {
 
     navigateBack: function () {
-      window.history.back();
+      let classId = this.controller.get('classId');
+      this.transitionTo(
+        'teacher.class.class-activities',
+        classId
+      );
     }
-
   },
 
 
@@ -45,6 +48,7 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
   model: function (params) {
     const route = this;
     const collectionId = params.collectionId;
+    const classId = params.classId;
     const anonymous = params.anonymous;
     let collection;
 
@@ -56,8 +60,15 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
       params.type = collection.get('collectionType');
       params.contextId = id;
       params.anonymous = anonymous;
-      return route.quizzesModel(params);
+      return route.quizzesModel(params).then(
+        model => Object.assign(model, { classId })
+      );
     });
+  },
+
+  setupController: function(controller, model) {
+    this._super(...arguments);
+    controller.set('classId', model.classId);
   }
 
 });

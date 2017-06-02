@@ -10,5 +10,5 @@
   collectionUrl=collectionUrl
 }}
 <div class="resource-player {{if toggleState 'expanded' 'collapsed'}}">
-  {{player.qz-resource-viewer resource=resource sendEvents=sendEvents onNext="onNext"}}
+  {{partial 'partials/qz-resource-player'}}
 </div>

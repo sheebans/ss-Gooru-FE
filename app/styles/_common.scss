@@ -188,7 +188,10 @@ span.validation.warning {
   clear: both;
 }
 
-.cards, .new-cards, .gru-preview-course {
+.cards,
+.new-cards,
+.gru-preview-course,
+.gru-preview-collection {
   i.video-icon {
     background-image: url("gooru/images/video-resource.svg");
   }
@@ -211,7 +214,8 @@ span.validation.warning {
     background: url("gooru/images/audio-resource.svg");
   }
 
-  .gru-taxonomy-tag-list.in-card {
+  .gru-taxonomy-tag-list.in-card,
+  .gru-preview-taxonomy-tag-list {
     .gru-taxonomy-tag {
       background-color: $blue-400;
       border: 0 none;
@@ -227,6 +231,11 @@ span.validation.warning {
           @include text-overflow;
         }
       }
+    }
+  }
+  .gru-preview-taxonomy-tag-list {
+    .tag-caption {
+      display: none;
     }
   }
 }

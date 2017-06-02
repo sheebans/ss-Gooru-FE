@@ -14,6 +14,11 @@ export default Ember.Object.extend({
   /**
    * @property {string}
    */
+  contextClassId: null,
+
+  /**
+   * @property {string}
+   */
   contextCourseId: null,
 
   /**

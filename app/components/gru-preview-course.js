@@ -26,6 +26,7 @@ export default Ember.Component.extend({
     var component = this;
     component._super(...arguments);
     component.set('course',component.get('model.content'));
+    component.set('isTeacher',component.get('model.isTeacher'));
   },
 
   // -------------------------------------------------------------------------
@@ -39,6 +40,12 @@ export default Ember.Component.extend({
    */
   tags: Ember.computed('course.taxonomy.[]', function() {
     return TaxonomyTag.getTaxonomyTags(this.get('course.taxonomy'));
-  })
+  }),
+
+  /**
+   * Indicates if the teacher is seeing the course card
+   * @property {boolean}
+   */
+  isTeacher: null
 
 });
