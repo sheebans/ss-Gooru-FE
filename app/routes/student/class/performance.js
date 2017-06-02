@@ -2,6 +2,16 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  // -------------------------------------------------------------------------
+  // Dependencies
+
+  session: Ember.inject.service('session'),
+
+  /**
+   * @requires service:api-sdk/analytics
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
   actions:{
     /**
      * View Analytics Report
@@ -34,10 +44,15 @@ export default Ember.Route.extend({
   model: function() {
     const route = this;
     const course = route.modelFor('student.class').course;
+    const currentClass = route.modelFor('student.class').class;
+    const userId = route.get('session.userId');
+    const userLocation = route.get('analyticsService').
+      getUserCurrentLocation(currentClass.get('id'), userId);
     let classId = route.modelFor('student.class').class.id;
     let firstUnit = course.get('children')[0];
     let firstLesson = firstUnit.get('children')[0];
     return Ember.RSVP.hash({
+      userLocation,
       course,
       classId,
       unitId: firstUnit ? firstUnit.get('id') : null,
@@ -50,6 +65,10 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller,model) {
+    if (model.userLocation) {
+      controller.set('currentUnitId', model.userLocation.get('unitId'));
+      controller.set('currentLessonId', model.userLocation.get('lessonId'));
+    }
     controller.set('course', model.course);
     controller.set('unitId', model.unitId);
     controller.set('lessonId', model.lessonId);

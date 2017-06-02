@@ -15,14 +15,14 @@ test('expandPanel', function(assert) {
   assert.ok(component.get('isCourseFiltersExpanded'),'Incorrect value of isCourseFiltersExpanded');
 
   component.send('expandPanel', 'unit');
-  assert.ok(component.get('isUnitFiltersExpanded'),'Incorrect value of isUnitFiltersExpanded');
-  component.send('expandPanel', 'unit');
   assert.notOk(component.get('isUnitFiltersExpanded'),'Incorrect value of isUnitFiltersExpanded');
+  component.send('expandPanel', 'unit');
+  assert.ok(component.get('isUnitFiltersExpanded'),'Incorrect value of isUnitFiltersExpanded');
 
   component.send('expandPanel', 'lesson');
-  assert.ok(component.get('isLessonFiltersExpanded'),'Incorrect value of isLessonFiltersExpanded');
-  component.send('expandPanel', 'lesson');
   assert.notOk(component.get('isLessonFiltersExpanded'),'Incorrect value of isLessonFiltersExpanded');
+  component.send('expandPanel', 'lesson');
+  assert.ok(component.get('isLessonFiltersExpanded'),'Incorrect value of isLessonFiltersExpanded');
 });
 
 test('unit', function(assert) {
@@ -158,4 +158,46 @@ test('lessons', function(assert) {
 
   component.set('unit', selectedUnit);
   assert.equal(component.get('lessons').length, 1 , 'Incorrect number of lessons');
+});
+
+test('lessonId', function(assert) {
+  let component = this.subject();
+  const selectedUnit = Ember.Object.create({
+    id: '0102',
+    title: 'Unit 1',
+    sortedLessonResults: [
+      Ember.Object.create({
+        id: '0103',
+        title: 'Lesson 1',
+        sequence: 1
+      })
+    ]
+  });
+
+  component.set('unit', selectedUnit);
+  component.set('currentLessonId', '0104');
+  assert.equal(component.get('lessonId'), '0104', 'Incorrect lesson id');
+  component.set('currentLessonId', null);
+  assert.equal(component.get('lessonId'), '0103', 'Incorrect lesson id');
+});
+
+test('unitId', function(assert) {
+  let component = this.subject();
+  const selectedCourse = Ember.Object.create({
+    id: '0101',
+    title: 'Course 1',
+    sortedUnitResults: [
+      Ember.Object.create({
+        id: '0102',
+        title: 'Unit 1',
+        sequence: 1
+      })
+    ]
+  });
+
+  component.set('selectedCourse', selectedCourse);
+  component.set('currentUnitId', '0103');
+  assert.equal(component.get('unitId'), '0103', 'Incorrect unit id');
+  component.set('currentUnitId', null);
+  assert.equal(component.get('unitId'), '0102', 'Incorrect unit id');
 });

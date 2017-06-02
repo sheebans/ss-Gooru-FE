@@ -74,7 +74,8 @@ export default Ember.Route.extend({
     const units = route.modelFor('student.class').units;
     const userId = route.get('session.userId');
     const classMembers = currentClass.get('members');
-    const userLocation = route.get('analyticsService').getUserCurrentLocation(currentClass.get('id'), userId);
+    const userLocation = route.get('analyticsService').
+      getUserCurrentLocation(currentClass.get('id'), userId);
 
     return Ember.RSVP.hash({
       userLocation: userLocation,
