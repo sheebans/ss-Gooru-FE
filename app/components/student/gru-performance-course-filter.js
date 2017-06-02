@@ -124,7 +124,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @property {string}
    */
   lessonId: Ember.computed('unit.sortedLessonResults.[]', 'currentLessonId', function() {
-    return this.currentLessonId || this.get('unit.sortedLessonResults.firstObject.id');
+    return this.get('currentLessonId') || this.get('unit.sortedLessonResults.firstObject.id');
   }),
 
   /**
@@ -164,7 +164,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @property {string}
    */
   unitId: Ember.computed('selectedCourse.sortedUnitResults.[]', 'currentUnitId', function() {
-    return this.currentUnitId || this.get('selectedCourse.sortedUnitResults.firstObject.id');
+    return this.get('currentUnitId') || this.get('selectedCourse.sortedUnitResults.firstObject.id');
   }),
 
   /**

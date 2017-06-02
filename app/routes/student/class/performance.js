@@ -52,7 +52,7 @@ export default Ember.Route.extend({
     let firstUnit = course.get('children')[0];
     let firstLesson = firstUnit.get('children')[0];
     return Ember.RSVP.hash({
-      userLocation: userLocation,
+      userLocation,
       course,
       classId,
       unitId: firstUnit ? firstUnit.get('id') : null,
