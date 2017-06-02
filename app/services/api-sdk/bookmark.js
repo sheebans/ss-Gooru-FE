@@ -62,11 +62,10 @@ export default Ember.Service.extend({
     const limit = service.get('limit');
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('bookmarkAdapter').fetchBookmarks(offset, limit)
-        .then(function(response) {
-          resolve(service.get('bookmarkSerializer').normalizeFetchBookmarks(response));
-        }, function(error) {
-          reject(error);
-        });
+      .then(
+        response => resolve(service.get('bookmarkSerializer').normalizeFetchBookmarks(response)),
+        reject
+      );
     });
   }
 });

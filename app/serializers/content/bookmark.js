@@ -41,9 +41,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const bookmarks = payload.bookmarks;
     if (Ember.isArray(bookmarks)) {
-      result = bookmarks.map(function(bookmark) {
-        return serializer.normalizeBookmark(bookmark);
-      });
+      result = bookmarks.map(bookmark => serializer.normalizeBookmark(bookmark));
     }
     return result;
   },

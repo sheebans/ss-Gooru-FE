@@ -45,10 +45,7 @@ export default Ember.Object.extend({
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders(),
-      data: {
-        offset: offset,
-        limit: limit
-      }
+      data: { offset, limit }
     };
     return Ember.$.ajax(url, options);
   },
