@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import BookmarkModel from 'gooru-web/models/content/bookmark';
 
 /**
  * Serializer to support the Bookmark CRUD operations for API 3.0
@@ -27,6 +28,31 @@ export default Ember.Object.extend(ConfigurationMixin, {
       content_type: bookmarkModel.get('contentType')
     };
     return serializedBookmark;
-  }
+  },
 
+  /**
+   * Normalize the Fetch Bookmarks endpoint's response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Bookmarks[]} an array of bookmarks
+   */
+  normalizeFetchBookmarks: function(payload) {
+    var result = [];
+    const serializer = this;
+    const bookmarks = payload.bookmarks;
+    if (Ember.isArray(bookmarks)) {
+      result = bookmarks.map(bookmark => serializer.normalizeBookmark(bookmark));
+    }
+    return result;
+  },
+
+  normalizeBookmark: function(bookmarkPayload) {
+    var serializer = this;
+    return BookmarkModel.create(Ember.getOwner(serializer).ownerInjection(), {
+      id: bookmarkPayload.id,
+      title: bookmarkPayload.title,
+      contentId: bookmarkPayload.content_id,
+      contentType: bookmarkPayload.content_type
+    });
+  }
 });
