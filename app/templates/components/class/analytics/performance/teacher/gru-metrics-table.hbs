@@ -61,7 +61,8 @@
             {{#if (eq index 0)}}
               {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
             {{else}}
-              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions  showReport=false}}
+              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions  showReport=false
+              isAverage=true}}
             {{/if}}
             </th>
           {{/each}}
