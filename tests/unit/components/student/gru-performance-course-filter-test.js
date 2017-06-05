@@ -175,9 +175,6 @@ test('lessonId', function(assert) {
   });
 
   component.set('unit', selectedUnit);
-  component.set('currentLessonId', '0104');
-  assert.equal(component.get('lessonId'), '0104', 'Incorrect lesson id');
-  component.set('currentLessonId', null);
   assert.equal(component.get('lessonId'), '0103', 'Incorrect lesson id');
 });
 
@@ -196,8 +193,5 @@ test('unitId', function(assert) {
   });
 
   component.set('selectedCourse', selectedCourse);
-  component.set('currentUnitId', '0103');
-  assert.equal(component.get('unitId'), '0103', 'Incorrect unit id');
-  component.set('currentUnitId', null);
   assert.equal(component.get('unitId'), '0102', 'Incorrect unit id');
 });
