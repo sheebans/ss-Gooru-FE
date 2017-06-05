@@ -129,10 +129,6 @@ export default Ember.Component.extend({
     }));
   },
 
-  didRender: function(){
-    $('.copy-btn').tooltip({trigger: 'hover'});
-  },
-
   /**
    * Overwrites willDestroyElement hook. Destroys popover instance
    */
