@@ -31,8 +31,11 @@ export default Ember.Component.extend({
    * @property {string} type
    */
   url:null,
-
-
+  /**
+   * @property {string} contentId
+   * Used to share content from search
+   */
+  contentId:null,
 
 
   /**
@@ -59,21 +62,26 @@ export default Ember.Component.extend({
    </div>`;
  }),
 
-  shareUrl: Ember.computed('type', function(){
+  shareUrl: Ember.computed('type','contentId', function(){
     var params = this.get('router.router.state.params');
-    params = params[Object.keys(params)[3]];
-    const type = this.get("type");
+    params = params ? params[Object.keys(params)[3]] : null;
+    const type = this.get('type');
+    let collectionId =  params ? params.collectionId : this.get('contentId');
+    let assessmentId =  params ? params.assessmentId : this.get('contentId');
+    let courseId =  params ? params.courseId : this.get('contentId');
+    let resourceId =  params ? params.resourceId : this.get('contentId');
+    let questionId =  params ? params.questionId : this.get('contentId');
     switch(type) {
       case 'course':
-        return `${window.location.protocol}//${window.location.host}/content/courses/play/${params.courseId}`;
+        return `${window.location.protocol}//${window.location.host}/content/courses/play/${courseId}`;
       case 'assessment':
-        return `${window.location.protocol}//${window.location.host}/player/${params.assessmentId}?type=${type}`;
+        return `${window.location.protocol}//${window.location.host}/player/${assessmentId}?type=${type}`;
       case 'collection':
-        return `${window.location.protocol}//${window.location.host}/player/${params.collectionId}?type=${type}`;
+        return `${window.location.protocol}//${window.location.host}/player/${collectionId}?type=${type}`;
       case 'resource':
-        return `${window.location.protocol}//${window.location.host}/content/resources/play/${params.resourceId}`;
+        return `${window.location.protocol}//${window.location.host}/content/resources/play/${resourceId}`;
       case 'question':
-        return `${window.location.protocol}//${window.location.host}/content/questions/play/${params.questionId}`;
+        return `${window.location.protocol}//${window.location.host}/content/questions/play/${questionId}`;
       default:
         break;
     }
@@ -119,11 +127,7 @@ export default Ember.Component.extend({
 
       $('.copy-btn').tooltip('show');
     }));
-
-
   },
-  // -------------------------------------------------------------------------
-  // Events
 
   /**
    * Overwrites willDestroyElement hook. Destroys popover instance
