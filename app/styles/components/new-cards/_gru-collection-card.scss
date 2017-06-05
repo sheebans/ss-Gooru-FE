@@ -4,7 +4,7 @@
 
   .panel-body, .information, .panel-footer,.actions,
   .options, .course, .statistics, .collection-counts,
-  .students, .classrooms {
+  .students, .classrooms, .share-box {
     @include flexbox;
   }
 
@@ -160,6 +160,20 @@
           padding: 7px 5px;
           i {
             color: $gray;
+          }
+        }
+        .share-btn.gru-share-pop-over{
+          cursor: pointer;
+          background-color: transparent;
+        }
+        .gru-share-pop-over-window {
+          .gru-share-pop-over-content{
+            .share-actions {
+              .btn-primary.btn.copy-btn {
+                border:none;
+                padding: 6px 16px;
+              }
+            }
           }
         }
       }
