@@ -54,7 +54,5 @@ test('deleteBookmark', function(assert) {
     }, false);
   });
   adapter.deleteBookmark('bookmark-id')
-    .then(function() {
-      assert.ok(true);
-    });
+    .then(() => assert.ok(true));
 });

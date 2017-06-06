@@ -77,7 +77,5 @@ test('deleteBookmark', function(assert) {
 
   var done = assert.async();
   service.deleteBookmark('bookmark-id')
-    .then(function() {
-      done();
-    });
+    .then(done());
 });
