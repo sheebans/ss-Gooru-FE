@@ -74,7 +74,7 @@ export default Ember.Service.extend({
    * @param {String} bookmarkId
    * @returns {Promise|boolean} returns true if deleted
    */
-  deleteRubric: function (bookmarkId) {
+  deleteBookmark: function (bookmarkId) {
     const service = this;
     return new Ember.RSVP.Promise(function (resolve, reject) {
       service.get('bookmarkAdapter').deleteBookmark(bookmarkId)
