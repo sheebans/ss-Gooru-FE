@@ -32,6 +32,11 @@ export default (function() {
     collectionSubType: null,
 
     /**
+     * @property {string} format - assessment/collection
+     */
+    format: null,
+
+    /**
      * @property {String} category - Category the course belongs to
      */
     category: Ember.computed('subject', function() {

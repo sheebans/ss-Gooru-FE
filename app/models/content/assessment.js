@@ -30,11 +30,6 @@ export default Ember.Object.extend(Validations, CollectionBase, {
   /**
    * @property {string}
    */
-  format: null,
-
-  /**
-   * @property {string}
-   */
   url: null,
 
   /**

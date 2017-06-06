@@ -122,7 +122,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       metadata,
       centurySkills: metadata['21_century_skills'] &&
         metadata['21_century_skills'].length ?
-        metadata['21_century_skills'] : []
+        metadata['21_century_skills'] : [],
+      format: payload.format || payload.target_content_type
     });
   },
 
