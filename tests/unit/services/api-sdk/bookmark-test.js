@@ -61,3 +61,23 @@ test('fetchBookmarks', function(assert) {
       done();
     });
 });
+
+test('deleteBookmark', function(assert) {
+  const expectedBookmarkId = 'bookmark-id';
+  const service = this.subject();
+
+  assert.expect(1);
+
+  service.set('bookmarkAdapter', Ember.Object.create({
+    deleteBookmark: function(bookmarkId) {
+      assert.equal(bookmarkId, expectedBookmarkId, 'Wrong bookmark id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.deleteBookmark('bookmark-id')
+    .then(function() {
+      done();
+    });
+});

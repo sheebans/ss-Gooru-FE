@@ -42,3 +42,19 @@ test('fetchBookmarks', function(assert) {
       assert.deepEqual({}, response, 'Wrong response');
     });
 });
+
+test('deleteBookmark', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.delete('/api/nucleus/v2/bookmarks/bookmark-id', function() {
+      return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    }, false);
+  });
+  adapter.deleteBookmark('bookmark-id')
+    .then(function() {
+      assert.ok(true);
+    });
+});
