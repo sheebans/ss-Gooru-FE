@@ -14,14 +14,15 @@
     </div>
   {{/if}}
   {{#if showReport}}
-      <div class="table-cell report pointer">
-          <span {{action 'clickReport' performanceData}} title="{{performanceData.headerTitle}}" data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
-      </div>
-  {{/if}}
-  {{#if isAverage}}
-      <div class="table-cell">
-          <span title="{{performanceData.headerTitle}}"></span>
-      </div>
+      {{#if isAverage}}
+          <div class="table-cell">
+              <span title="{{performanceData.headerTitle}}"></span>
+          </div>
+      {{else}}
+          <div class="table-cell report pointer">
+              <span {{action 'clickReport' performanceData}} title="{{performanceData.headerTitle}}" data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
+          </div>
+      {{/if}}
   {{/if}}
   {{#if showCompletion}}
     <div class="table-cell">
