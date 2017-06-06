@@ -130,6 +130,7 @@ test('normalizeReadCollection for alternate paths', function(assert) {
   assert.equal(collection.get('lessonId'), 'lesson-id', 'Wrong lesson id');
   assert.equal(collection.get('questionCount'), 1, 'Wrong question count');
   assert.equal(collection.get('resourceCount'), 5, 'Wrong resource count');
+  assert.equal(collection.get('format'), 'collection', 'Wrong format');
 });
 
 test('serializeReorderCollection', function(assert) {
