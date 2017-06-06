@@ -92,7 +92,11 @@
         </div>
       {{#unless editEnabled}}
         <div class="actions">
-            <button class="btn share-btn no-bgd" title="{{t 'common.share'}}" data-toggle="tooltip" data-placement="auto"  data-trigger="hover" disabled={{disabledActions}}>{{gru-icon name="share"}}</button>
+            <div class="share-box" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
+              {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
+                {{gru-icon name="share"}}
+              {{/gru-share-pop-over}}
+            </div>
         </div>
       {{/unless}}
     </div>

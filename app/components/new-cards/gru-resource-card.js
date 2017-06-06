@@ -94,10 +94,7 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {boolean}
    */
   editEnabled: false,
-  /**
-   * @property {boolean} Indicate if disabled share option
-   */
-  disabledActions:true,
+
   /**
    * Indicates if this resource is a question
    * @property {boolean}

@@ -123,14 +123,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @property {string}
    */
-  lessonId: Ember.computed('unit.sortedLessonResults.[]', 'currentLessonId', function() {
-    return this.get('currentLessonId') || this.get('unit.sortedLessonResults.firstObject.id');
+  lessonId: Ember.computed('unit.sortedLessonResults.[]', function() {
+    return this.get('unit.sortedLessonResults.firstObject.id');
   }),
-
-  /**
-   * @property {string}
-   */
-  currentLessonId: null,
 
   /**
    * Selected course
@@ -163,12 +158,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @property {string}
    */
-  unitId: Ember.computed('selectedCourse.sortedUnitResults.[]', 'currentUnitId', function() {
-    return this.get('currentUnitId') || this.get('selectedCourse.sortedUnitResults.firstObject.id');
-  }),
-
-  /**
-   * @property {string}
-   */
-  currentUnitId: null
+  unitId: Ember.computed('selectedCourse.sortedUnitResults.[]', function() {
+    return this.get('selectedCourse.sortedUnitResults.firstObject.id');
+  })
 });
