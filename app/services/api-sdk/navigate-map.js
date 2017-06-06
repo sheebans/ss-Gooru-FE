@@ -86,7 +86,7 @@ export default Ember.Service.extend({
       classId: classId,
       status: 'continue'
     });
-    return service.next(mapContext, false);
+    return service.next(mapContext);
   },
 
   /**
