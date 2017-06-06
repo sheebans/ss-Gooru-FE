@@ -170,13 +170,10 @@ export default StudentCollection.extend({
     let unit = this.get('unit');
     let lesson = this.get('lesson');
     let collection = this.get('collection');
-    let collectionSequence;
-    lesson.children.forEach((child, index) => {
-      if (child.id === collection.id) {
-        collectionSequence = index + 1;
-      }
-    });
+    let lessonChildren = lesson.children;
     let titles = Ember.A([]);
+
+    let isChild = lessonChildren.findBy("id", collection.id);
 
     if (unit) {
       titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
@@ -184,12 +181,26 @@ export default StudentCollection.extend({
     if (lesson) {
       titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
     }
-    if (collection) {
+    if (collection && isChild) {
       if (collection.isCollection) {
-        titles.push(`C${collectionSequence}: ${collection.get('title')}`);
+        let collections = lessonChildren.filter(collection => collection.format === 'collection');
+        collections.forEach((child, index) => {
+          if (child.id === collection.id) {
+            let collectionSequence = index + 1;
+            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
+          }
+        });
       } else {
-        titles.push(`A${collectionSequence}: ${collection.get('title')}`);
+        let assessments = lessonChildren.filter(assessment => assessment.format === 'assessment');
+        assessments.forEach((child, index) => {
+          if (child.id === collection.id) {
+            let assessmentSequence = index + 1;
+            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
+          }
+        });
       }
+    } else {
+      titles.push(collection.get('title'));
     }
     return titles;
   }),
