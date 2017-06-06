@@ -98,8 +98,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         description: route.get('i18n').t('gru-take-tour.study-player.stepEight.description')
       }
     ]);
-
-    return route.getMapLocation(params).then(function (mapLocation) {
+    return route.get('navigateMapService').getStoredNext().then(function (mapLocation) {
       const courseId = mapLocation.get('context.courseId');
       const unitId = mapLocation.get('context.unitId');
       const lessonId = mapLocation.get('context.lessonId');
