@@ -67,5 +67,18 @@ export default Ember.Service.extend({
         reject
       );
     });
+  },
+
+  /**
+   * Deletes a bookmark
+   * @param {String} bookmarkId
+   * @returns {Promise|boolean} returns true if deleted
+   */
+  deleteBookmark: function (bookmarkId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      service.get('bookmarkAdapter').deleteBookmark(bookmarkId)
+        .then(resolve, reject);
+    });
   }
 });

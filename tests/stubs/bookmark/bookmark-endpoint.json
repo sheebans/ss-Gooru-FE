@@ -38,5 +38,22 @@
       "body": "File not found!",
       "file": "fetch-bookmarks-200-response.json"
     }
+  },
+
+  {
+    "description": "Delete bookmark",
+    "request": {
+      "url": "^/api/nucleus/v2/bookmarks/(.+)$",
+      "method": "DELETE",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
   }
 ]
