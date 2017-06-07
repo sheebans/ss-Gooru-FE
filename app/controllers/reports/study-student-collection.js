@@ -254,7 +254,7 @@ export default StudentCollection.extend({
 
   quizzesAttemptDataObserver: Ember.observer('attemptData', function() {
     let learningTargets = this.get('attemptData.mastery');
-    if (learningTargets) {
+    if (learningTargets.length) {
       let taxonomyIds = learningTargets.mapBy('id');
       let taxonomyService = this.get('taxonomyService');
       taxonomyService.fetchCodesByIds(taxonomyIds).then(function (taxonomyStandards) {
