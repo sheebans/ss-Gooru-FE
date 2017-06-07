@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import QuizzesResourcePlayer from 'quizzes-addon/routes/resource-player';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import { ROLES } from 'gooru-web/config/config';
 
 /**
  * Study Player Route
@@ -48,6 +49,36 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
    * @type {CollectionService} Service to retrieve collection information
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
+
+  // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    /**
+     * When the next button is clicked
+     */
+    onNext: function() {
+      let controller = this.get('controller');
+      let queryParams = {
+        role: ROLES.STUDENT,
+        source: controller.get('source')
+      };
+      const navigateMapService = this.get('navigateMapService');
+      navigateMapService.getStoredNext()
+        .then(mapLocation => navigateMapService.next(mapLocation.context))
+        .then(mapLocation => {
+          let status = (mapLocation.get('context.status') || '').toLowerCase();
+          if(status === 'done') {
+            controller.set('isDone', true);
+          } else {
+            this.transitionTo('study-player',
+              controller.get('classId'),
+              controller.get('course.id'),
+              { queryParams }
+            );
+          }
+        });
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Methods

@@ -2,7 +2,6 @@ import Ember from 'ember';
 import PlayerRoute from 'gooru-web/routes/player';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
-
 /**
  * Study Player Route
  *
@@ -38,7 +37,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    * @dependency {i18nService} Service to retrieve translations information
    */
   i18n: Ember.inject.service(),
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -80,6 +78,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         ));
     },
 
+    /**
+     * When a pre-test needs to be loaded
+     */
     loadPreTest: function() {
       const navigateMapService = this.get('navigateMapService');
       navigateMapService.getStoredNext()
