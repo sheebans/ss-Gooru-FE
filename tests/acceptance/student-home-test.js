@@ -23,11 +23,6 @@ test('Layout', function(assert) {
     assert.equal(currentURL(), '/student-home');
 
     T.exists(assert, find('header.gru-header'), 'Header component not found');
-    T.exists(assert, find('.announcements'),'Missing announcements panel');
-    T.exists(assert, find('.announcements .warning i'),'Missing warning icon');
-    T.exists(assert, find('.announcements .warning span.announcements-lead'),'Missing warning announcements lead');
-    assert.equal(find('.announcements .classes-announcements ul li').length,5,'Missing announcements lust');
-    T.exists(assert, find('.more-classes'),'Missing more classes identifier');
 
     const $userContainer = find('.controller.student-landing');
     T.exists(assert, $userContainer, 'Missing student container');
@@ -79,19 +74,6 @@ test('Go to manage goals page', function(assert) {
     click($navigatorContainer.find('.actions .manage-goals-cta'));
     andThen(function() {
       assert.equal(currentURL(), '/goals/manage', 'Wrong route');
-    });
-  });
-});
-
-test('Go to course map from announcement', function(assert) {
-  visit('/student-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/student-home');
-    const $announcement = find('.announcements .classes-announcements ul li:eq(0) a');
-    click($announcement);
-    andThen(function() {
-      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/course-map?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id', 'Wrong route');
     });
   });
 });

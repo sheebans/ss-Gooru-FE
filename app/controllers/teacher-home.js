@@ -90,23 +90,6 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   toolkitSiteUrl: Ember.computed(function(){
     return Env.toolkitSiteUrl;
-  }),
-
-  /**
-   * @property {Class[]} Active classes for announcements
-   */
-  announcementsClasses:Ember.computed('activeClasses',function(){
-    return this.get('activeClasses').slice(0,5);
-  }),
-
-  /**
-   * @property {Boolean} Indicate if has more announcements to show
-   */
-  hasMoreAnnouncementes:Ember.computed('activeClasses','announcementsClasses',function(){
-    return this.get('activeClasses').length > this.get('announcementsClasses').length;
   })
-
-// -------------------------------------------------------------------------
-// Methods
 
 });

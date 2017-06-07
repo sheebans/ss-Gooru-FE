@@ -7,32 +7,6 @@
         <span>{{t 'user.hi'}} {{profile.firstName}}!</span>
       </div>
     </div>
-    <div class="teacher-header row">
-      <div class="col-sm-6 col-xs-12">
-        <div class="panel announcements">
-          <div class="panel-heading">
-            <div class="title">
-              {{t 'common.announcements'}}
-            </div>
-          </div>
-          <div class="panel-body">
-            <div class="classes-announcements">
-              <ul>
-                {{#each announcementsClasses as |class| }}
-                    <li>
-                      {{#link-to 'teacher.class.course-map' class.id}}{{class.title}}{{/link-to}}
-                        <span class="greeting">{{truncate text=class.greeting maxLength=40}}</span>
-                    </li>
-                {{/each}}
-              </ul>
-              {{#if hasMoreAnnouncementes}}
-                  <span class="more-classes">...</span>
-              {{/if}}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="teacher-navigator">
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active active-classes tab hidden-xs">

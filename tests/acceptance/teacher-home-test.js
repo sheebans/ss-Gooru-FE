@@ -16,7 +16,7 @@ moduleForAcceptance('Acceptance | Teacher Home Landing page', {
 });
 
 test('Layout', function(assert) {
-  assert.expect(10);
+  assert.expect(9);
   visit('/teacher-home');
 
   andThen(function() {
@@ -28,7 +28,6 @@ test('Layout', function(assert) {
     T.exists(assert, $teacherContainer, 'Missing teacher container');
     const $teacherPanel = $teacherContainer.find('.teacher-panel');
     T.exists(assert, $teacherPanel.find('.greetings'), 'Missing teacher greetings');
-    T.exists(assert, $teacherPanel.find('.teacher-header .panel.announcements'), 'Missing announcements panel in header');
     const $navigatorContainer = $teacherPanel.find('.teacher-navigator');
     T.exists(assert, $navigatorContainer, 'Missing teacher navigator');
     T.exists(assert, $teacherPanel.find('.actions .create-class-cta'), 'Missing create class button');
@@ -53,32 +52,6 @@ test('Take A Tour', function(assert){
 
       T.exists(assert, $tooltip, 'First step of the tour should display a tooltip');
       assert.equal(T.text($tooltip.find('.tour-header h2')), 'Your Homepage', 'First step title should be "Your Homepage"');
-    });
-  });
-});
-
-test('Go to class with no content', function(assert) {
-  visit('/teacher-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/teacher-home');
-    const $announcement = find('.announcements .classes-announcements ul li:nth-child(2) a');
-    click($announcement);
-    andThen(function() {
-      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher-no-course/quick-start', 'Wrong route');
-    });
-  });
-});
-
-test('Go to class with content', function(assert) {
-  visit('/teacher-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/teacher-home');
-    const $announcement = find('.announcements .classes-announcements ul li:nth-child(1) a');
-    click($announcement);
-    andThen(function() {
-      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/course-map', 'Wrong route');
     });
   });
 });

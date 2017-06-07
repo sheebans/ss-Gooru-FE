@@ -7,39 +7,6 @@
       </div>
       <p>{{t 'user.joined-classes' count=totalJoinedClasses}}</p>
     </div>
-    <div class="row">
-        <div class="col-sm-6 col-xs-12">
-            <div class="panel panel-default panel-primary announcements">
-                <div class="panel-heading">{{t 'common.announcements'}}</div>
-                <div class="panel-body">
-                    <div class="warning">
-                      <span>{{gru-icon name='volume_up'}}</span>
-                      {{#if announcementsClasses}}
-                          <span class="announcements-lead">{{t 'student-landing.announcements'}}</span>
-                        {{else}}
-                          <span class="announcements-lead welcome">{{t 'student-landing.welcome'}}</span>
-                      {{/if}}
-                    </div>
-                    <div class="classes-announcements">
-                      <ul>
-                        {{#each announcementsClasses as |class| }}
-                            <li>
-                              {{#link-to 'student.class.course-map' class.id}}{{class.title}}{{/link-to}}
-                                <span class="greeting">{{truncate text=class.greeting maxLength=40}}</span>
-                            </li>
-                        {{/each}}
-                      </ul>
-                        {{#if hasMoreAnnouncements}}
-                            <span class="more-classes">...</span>
-                        {{/if}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xs-12">
-            {{!--"TO DO" BOX SHOULD BE HERE--}}
-        </div>
-    </div>
     <div class="student-navigator">
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active active-classes tab hidden-xs">

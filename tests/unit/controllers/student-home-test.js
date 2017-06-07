@@ -42,15 +42,3 @@ test('hasClasses', function(assert) {
   let controller = this.subject({applicationController});
   assert.equal(controller.get('hasClasses'),true, 'Should have classes');
 });
-
-test('announcementsClasses', function(assert) {
-  assert.expect(1);
-  let controller = this.subject({applicationController});
-  assert.equal(controller.get('announcementsClasses').length,1, 'Should have 1 announcement');
-});
-
-test('hasMoreAnnouncements', function(assert) {
-  assert.expect(1);
-  let controller = this.subject({applicationController});
-  assert.equal(controller.get('hasMoreAnnouncements'),false, 'Should not have more announcements');
-});
