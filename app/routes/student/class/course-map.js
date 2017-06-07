@@ -137,7 +137,7 @@ export default Ember.Route.extend({
     // Verifies if it is a suggested Collection/Assessment
     if (collectionSubType) {
       suggestionPromise = route.get('navigateMapService').startSuggestion(courseId, unitId, lessonId, collectionId,
-        collectionType, collectionSubType, pathId, classId)
+        collectionType, collectionSubType, pathId, classId);
     } else {
       suggestionPromise = route.get('navigateMapService').startCollection(courseId, unitId, lessonId, collectionId,
         collectionType, classId);
