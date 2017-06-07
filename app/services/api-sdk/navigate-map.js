@@ -68,7 +68,7 @@ export default Ember.Service.extend({
         return MapLocation.create({
           context: mapSerializer.normalizeMapContext(payload.context),
           suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions)
-        })
+        });
       });
   },
 
@@ -237,7 +237,7 @@ export default Ember.Service.extend({
    */
   generateKey: function() {
     const userId = this.get('session.userId');
-    return `${userId}_next`
+    return `${userId}_next`;
   },
 
   /**

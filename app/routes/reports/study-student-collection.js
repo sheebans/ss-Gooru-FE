@@ -44,16 +44,19 @@ export default StudentCollection.extend({
    */
   model(params) {
     let route = this;
-    let classId = params.classId;
     let courseId = params.courseId;
     let unitId = params.unitId;
     let lessonId = params.lessonId;
     let navigateMapService = route.get('navigateMapService');
-    Ember.RSVP.hash({
-      course: route.get('courseService').fetchById(courseId),
-      unit: route.get('unitService').fetchById(courseId, unitId),
-      lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
-      mapLocation: navigateMapService.getStoredNext()
+    let studentCollectionModel;
+    return route.studentCollectionModel(params).then(collectionModel => {
+      studentCollectionModel = collectionModel;
+      return Ember.RSVP.hash({
+        course: route.get('courseService').fetchById(courseId),
+        unit: route.get('unitService').fetchById(courseId, unitId),
+        lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
+        mapLocation: navigateMapService.getStoredNext()
+      });
     }).then(function (hash) {
       // Set the correct unit sequence number
       hash.course.children.find((child, index) => {

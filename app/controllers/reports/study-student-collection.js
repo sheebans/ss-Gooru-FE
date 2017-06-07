@@ -147,7 +147,7 @@ export default StudentCollection.extend({
    * @property {boolean}
    */
   isDone: Ember.computed('mapLocation.context.status', function() {
-    return this.get('mapLocation.context.status').toLowerCase() === 'done';
+    return (this.get('mapLocation.context.status') || '').toLowerCase() === 'done';
   }),
 
   /**
