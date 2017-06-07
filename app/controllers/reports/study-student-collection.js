@@ -31,7 +31,7 @@ export default StudentCollection.extend({
      * Action triggered for the next button
      */
     next: function () {
-      this.toPlayer();
+      this.toNextStudyPlayer();
     },
 
     /**
@@ -232,5 +232,21 @@ export default StudentCollection.extend({
         { queryParams }
       );
     }
+  },
+
+  toNextStudyPlayer: function() {
+    let controller = this;
+    let navigateMapService = controller.get('navigateMapService');
+    navigateMapService.getStoredNext().then(function (mapLocation) {
+      let context = mapLocation.context;
+      let queryParams = {
+        role: ROLES.STUDENT,
+        source: controller.get('source')
+      };
+      navigateMapService.continueCourse(context.get('courseId'), context.get('classId')).then(function () {
+        controller.transitionToRoute('study-player', context.get('classId'), context.get('courseId'), { queryParams });
+      });
+    });
   }
+
 });
