@@ -226,11 +226,10 @@ export default StudentCollection.extend({
     const navigateMapService = this.get('navigateMapService');
     const context = this.get('mapLocation.context');
     navigateMapService.getStoredNext()
-      .then(mapLocation => Ember.RSVP.hash({
-        hasContent: mapLocation.get('hasContent'),
-        mapLocation: mapLocation.get('hasContent') ? mapLocation : navigateMapService.next(context)
-      }))
-      .then(({ mapLocation }) => {
+      .then(mapLocation =>
+        mapLocation.get('hasContent') ? Ember.RSVP.resolve(mapLocation) : navigateMapService.next(context)
+      )
+      .then((mapLocation) => {
         let status = (mapLocation.get('context.status') || '').toLowerCase();
         if(status === 'done') {
           this.setProperties({
