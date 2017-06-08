@@ -53,7 +53,7 @@ export default Ember.Component.extend({
   /**
    * Determine the column class name based on the length of items
    */
-  itemClassName: Ember.computed('items.[]', function(){
+  itemClassName: Ember.computed('items.[]', function() {
     const length = this.get("items.length");
     return `breadcrumb-col-${length}`;
   })

@@ -1,5 +1,11 @@
 <div class="btn-group" role="group">
   {{#each items as |item|}}
-    <button class="btn btn-info {{itemClassName}} breadcrumb-item" {{action 'selectItem' item}}>{{{item.label}}}</button>
+    <button class="btn btn-info {{itemClassName}} breadcrumb-item" {{action 'selectItem' item}}>
+      {{#if item.prefix}}
+        {{item.prefix}}{{item.label}}
+      {{else}}
+        {{item.label}}
+      {{/if}}
+    </button>
   {{/each}}
 </div>

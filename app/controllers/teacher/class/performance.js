@@ -94,7 +94,7 @@ export default Ember.Controller.extend({
       const controller = this;
       const performanceDataHeaders = controller.get('performanceDataHeaders');
       const performanceDataMatrix = controller.get('performanceDataMatrix');
-      const date=formatDate(new Date(),'MM-DD-YY');
+      const date = formatDate(new Date(),'MM-DD-YY');
       const classTitle = controller.get('class.title');
       const courseTitle = controller.get('course.title');
       var fileNameString = `${classTitle}_${courseTitle}`;
@@ -314,11 +314,17 @@ export default Ember.Controller.extend({
   updateBreadcrumb: function(item, type){
     const controller = this;
     let breadcrumb = controller.get('breadcrumb');
+    let prefix;
+
+    if(type !== "course") {
+      prefix = type[0].toUpperCase() + item.get('sequence') + ": ";
+    }
 
     const value = Ember.Object.create({id: item.get("id"), type: type});
     const breadcrumbObject = Ember.Object.create({
       label: item.get("title"),
-      value: value
+      value,
+      prefix
     });
 
     //removes all items
