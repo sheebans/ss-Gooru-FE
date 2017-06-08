@@ -11,11 +11,11 @@
                     <div class="descriptions">
                         <span class="title">{{suggestion.title}}</span>
                         <div class="collection-resources">
-                            {{#if resourceCount}}
-                                <span class="bars"></span><span class="resource"><b>{{resourcesCount}}</b> {{t "common.resource-pl" count=resourceCount}}</span>
+                            {{#if suggestion.resourceCount}}
+                                <span class="bars"></span><span class="resource"><b>{{suggestion.resourceCount}}</b> {{t "common.resource-pl" count=resourceCount}}</span>
                             {{/if}}
-                            {{#if questionCount}}
-                                <span class="bars"></span><span class="resource question"><b>{{questionCount}}</b> {{t "common.question-pl" count=questionCount}}</span>
+                            {{#if suggestion.questionCount}}
+                                <span class="bars"></span><span class="resource question"><b>{{suggestion.questionCount}}</b> {{t "common.question-pl" count=questionCount}}</span>
                             {{/if}}
                         </div>
                     </div>
