@@ -2,7 +2,6 @@ import Ember from 'ember';
 import PlayerRoute from 'gooru-web/routes/player';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
-
 /**
  * Study Player Route
  *
@@ -29,10 +28,15 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
   /**
+   * @type {AttemptService} attemptService
+   * @property {Ember.Service} Service to send attempt related events
+   */
+  quizzesAttemptService: Ember.inject.service('quizzes/attempt'),
+
+  /**
    * @dependency {i18nService} Service to retrieve translations information
    */
   i18n: Ember.inject.service(),
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -42,23 +46,46 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
      */
     onFinish: function () {
       let controller = this.get('controller');
+      let profileId = this.get('session.userData.gooruUId');
+      let contextId = controller.get('contextResult.contextId');
       let queryParams = {
         courseId: controller.get('course.id'),
         collectionId: controller.get('collection.id'),
         type: controller.get('type'),
         role: controller.get('role'),
+        lessonId: controller.get('lessonId'),
+        unitId: controller.get('unitId'),
         classId: controller.get('classId'),
-        contextId: controller.get('contextResult.contextId'),
+        contextId,
         source: controller.get('source')
       };
-      this.transitionTo(
-        'reports.study-student-collection',
-        { queryParams }
-      );
+      const navigateMapService = this.get('navigateMapService');
+      this.get('quizzesAttemptService').getAttemptIds(contextId, profileId)
+        .then(attemptIds => !attemptIds || !attemptIds.length ? {} :
+          this.get('quizzesAttemptService').getAttemptData(attemptIds[attemptIds.length - 1])
+        )
+        .then(attemptData => Ember.RSVP.hash({
+          attemptData,
+          mapLocation: navigateMapService.getStoredNext()
+        }))
+        .then(({ mapLocation, attemptData }) => {
+          mapLocation.context.set('score', attemptData.get('averageScore'));
+          return navigateMapService.next(mapLocation.context);
+        })
+        .then(() =>  this.transitionTo(
+          'reports.study-student-collection',
+          { queryParams }
+        ));
     },
 
+    /**
+     * When a pre-test needs to be loaded
+     */
     loadPreTest: function() {
-      this.refresh();
+      const navigateMapService = this.get('navigateMapService');
+      navigateMapService.getStoredNext()
+        .then(mapLocation => navigateMapService.next(mapLocation.context))
+        .then(() => this.refresh());
     }
   },
 
@@ -98,8 +125,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         description: route.get('i18n').t('gru-take-tour.study-player.stepEight.description')
       }
     ]);
-
-    return route.getMapLocation(params).then(function (mapLocation) {
+    return route.get('navigateMapService').getStoredNext().then(function (mapLocation) {
       const courseId = mapLocation.get('context.courseId');
       const unitId = mapLocation.get('context.unitId');
       const lessonId = mapLocation.get('context.lessonId');

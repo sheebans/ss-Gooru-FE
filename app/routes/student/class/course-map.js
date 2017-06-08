@@ -115,22 +115,37 @@ export default Ember.Route.extend({
    * @param {Collection} collection
      */
   startCollectionStudyPlayer:function(classId, courseId, unitId, lessonId, collection) {
-    const route = this;
-    const role = ROLES.STUDENT;
-    const collectionId = collection.get('id');
-    const collectionType = collection.get('collectionType');
-
-    const queryParams = {
+    let route = this;
+    let role = ROLES.STUDENT;
+    let source = PLAYER_EVENT_SOURCE.COURSE_MAP;
+    let collectionId = collection.get('id');
+    let collectionType = collection.get('collectionType');
+    let collectionSubType = collection.get('collectionSubType');
+    let pathId = collection.get('pathId') || 0;
+    let queryParams = {
       unitId,
       lessonId,
       collectionId,
-      type: collectionType,
       role,
-      source: PLAYER_EVENT_SOURCE.COURSE_MAP,
-      subtype: collection.collectionSubType,
-      pathId: collection.pathId || 0
+      source,
+      type: collectionType,
+      subtype: collectionSubType,
+      pathId
     };
-    route.transitionTo('study-player', classId, courseId, { queryParams });
+
+    let suggestionPromise = null;
+    // Verifies if it is a suggested Collection/Assessment
+    if (collectionSubType) {
+      suggestionPromise = route.get('navigateMapService').startSuggestion(courseId, unitId, lessonId, collectionId,
+        collectionType, collectionSubType, pathId, classId);
+    } else {
+      suggestionPromise = route.get('navigateMapService').startCollection(courseId, unitId, lessonId, collectionId,
+        collectionType, classId);
+    }
+
+    suggestionPromise.then(function () {
+      route.transitionTo('study-player', classId, courseId, { queryParams });
+    });
   },
 
   /**
@@ -149,7 +164,10 @@ export default Ember.Route.extend({
       role,
       source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
-    route.transitionTo('study-player', classId, courseId, { queryParams });
+    route.get('navigateMapService').startLesson(courseId, unitId, lessonId, classId)
+      .then(function () {
+        route.transitionTo('study-player', classId, courseId, { queryParams });
+      });
   },
 
   /**
@@ -163,7 +181,10 @@ export default Ember.Route.extend({
       role: ROLES.STUDENT,
       source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
-    route.transitionTo('study-player', classId, courseId, { queryParams });
+    route.get('navigateMapService').continueCourse(courseId, classId)
+      .then(function () {
+        route.transitionTo('study-player', classId, courseId, { queryParams });
+      });
   },
 
   /**
@@ -181,6 +202,10 @@ export default Ember.Route.extend({
       source: PLAYER_EVENT_SOURCE.COURSE_MAP,
       pathId: resource.get('pathId')
     };
-    route.transitionTo('resource-player', classId, courseId, resource.id, { queryParams });
+    route.get('navigateMapService').startResource(courseId, queryParams.unitId, queryParams.lessonId,
+      queryParams.collectionId, resource.get('id'), queryParams.pathId, classId)
+      .then(function () {
+        route.transitionTo('resource-player', classId, courseId, resource.id, { queryParams });
+      });
   }
 });

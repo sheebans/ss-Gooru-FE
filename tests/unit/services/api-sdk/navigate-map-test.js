@@ -8,6 +8,10 @@ moduleForService('service:api-sdk/navigate-map', 'Unit | Service | api-sdk/navig
 test('next', function(assert) {
   const service = this.subject();
   assert.expect(8);
+  const expectedLocation = {
+    context: 'next-map-context',
+    suggestions: 'suggested-content'
+  };
 
   service.set('serializer', Ember.Object.create({
     serializeMapContext: function(data) {
@@ -27,10 +31,7 @@ test('next', function(assert) {
   service.set('adapter', Ember.Object.create({
     next: function(mapContext) {
       assert.equal(mapContext, 'serialized-map-context', 'Wrong map context');
-      return Ember.RSVP.resolve({
-        context: 'next-map-context',
-        suggestions: 'suggested-content'
-      });
+      return Ember.RSVP.resolve(expectedLocation);
     }
   }));
 
@@ -38,7 +39,7 @@ test('next', function(assert) {
   service.set('getLocalStorage', () => ({
     setItem: (key, value) => {
       assert.equal(key, 'local-storage-key', 'Stored key should match');
-      assert.equal(value, JSON.stringify('serialized-map-context'), 'Stored context should match');
+      assert.deepEqual(JSON.parse(value), expectedLocation, 'Stored context should match');
     }
   }));
 
@@ -71,33 +72,6 @@ test('getCurrentMapContext', function(assert) {
   }));
 
   service.set('generateKey', () => 'local-storage-key');
-
-  var done = assert.async();
-  service.getCurrentMapContext(123, 321)
-    .then(function(response) {
-      assert.equal(response , 'normalized-map-context', 'Wrong map context');
-      done();
-    });
-});
-
-test('getCurrentMapContext from local storage', function(assert) {
-  const service = this.subject();
-  assert.expect(3);
-
-  service.set('serializer', Ember.Object.create({
-    normalizeMapContext: function(payload) {
-      assert.deepEqual(payload, { context: 'next-map-context' }, 'Wrong payload');
-      return 'normalized-map-context';
-    }
-  }));
-
-  service.set('generateKey', () => 'local-storage-key');
-  service.set('getLocalStorage', () => ({
-    getItem: key => {
-      assert.equal(key, 'local-storage-key', 'Stored key should match');
-      return '{ "context": "next-map-context" }';
-    }
-  }));
 
   var done = assert.async();
   service.getCurrentMapContext(123, 321)
@@ -224,24 +198,45 @@ test('startResource', function(assert) {
     });
 });
 
+test('getStoredNext', function(assert) {
+  const service = this.subject();
+  assert.expect(5);
+
+  service.set('serializer', Ember.Object.create({
+    normalizeMapContext: function(payload) {
+      assert.deepEqual(payload, 'next-map-context', 'Wrong payload');
+      return 'normalized-map-context';
+    },
+    normalizeMapSuggestions: function (payload) {
+      assert.equal(payload, 'suggested-content', 'Wrong payload');
+      return 'normalized-map-suggestions';
+    }
+  }));
+
+  service.set('generateKey', () => 'local-storage-key');
+  service.set('getLocalStorage', () => ({
+    getItem: key => {
+      assert.equal(key, 'local-storage-key', 'Stored key should match');
+      return `{
+        "context": "next-map-context",
+        "suggestions": "suggested-content"
+      }`;
+    }
+  }));
+
+  var done = assert.async();
+  service.getStoredNext()
+    .then(function(response) {
+      assert.equal(response.get('context') , 'normalized-map-context', 'Wrong map context');
+      assert.equal(response.get('suggestions'), 'normalized-map-suggestions', 'Wrong map suggestions');
+      done();
+    });
+});
+
 test('generateKey', function(assert) {
   const service = this.subject();
   service.set('session',{ userId: 'user-id' });
-  service.set('router', Ember.Object.create({
-    router: {
-      activeTransition: {
-        targetName: 'target',
-        params: {
-          target: { param1: '1' }
-        },
-        queryParams: {
-          param2: '2',
-          param1: '1'
-        }
-      }
-    }
-  }));
   assert.expect(1);
   var key = service.generateKey();
-  assert.equal(key, btoa('user-id;target;param1:1;param1:1,param2:2'), 'Wrong response');
+  assert.equal(key, 'user-id_next', 'Wrong response');
 });
