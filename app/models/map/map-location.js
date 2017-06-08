@@ -20,6 +20,11 @@ const MapLocationModel = Ember.Object.extend({
   suggestions: null,
 
   /**
+   * @property {Boolean} hasContent
+   */
+  hasContent: true,
+
+  /**
    * @property {boolean}
    */
   hasSuggestions: Ember.computed.bool('suggestions.length'),

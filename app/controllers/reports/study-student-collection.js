@@ -198,35 +198,23 @@ export default StudentCollection.extend({
   // Methods
 
   /**
-   * @param suggestion
-   */
-  playSuggestion: function(suggestion) {
-    const controller = this;
-    const courseMapService = controller.get('courseMapService');
-    const context = controller.get('mapLocation.context');
-    courseMapService.createNewPath(context, suggestion)
-      .then(() => controller.toPlayer(suggestion));
-  },
-
-  /**
    * Navigate to study player to play next collection/assessment
    */
   toPlayer: function(suggestion) {
-    const controller = this;
-    const context = controller.get('mapLocation.context');
+    const context = this.get('mapLocation.context');
     let queryParams = {
       role: ROLES.STUDENT,
-      source: controller.get('source')
+      source: this.get('source')
     };
     if (suggestion && suggestion.get('isResource')) {
-      controller.transitionToRoute('resource-player',
+      this.transitionToRoute('resource-player',
         context.get('classId'),
         context.get('courseId'),
         suggestion.get('id'),
         { queryParams }
       );
     } else {
-      controller.transitionToRoute('study-player',
+      this.transitionToRoute('study-player',
         context.get('classId'),
         context.get('courseId'),
         { queryParams }
@@ -235,53 +223,36 @@ export default StudentCollection.extend({
   },
 
   playNextContent: function() {
-    let controller = this;
-    let navigateMapService = controller.get('navigateMapService');
-    navigateMapService.getStoredNext().then(function (mapLocation) {
-      let context = mapLocation.context;
-      let queryParams = {
-        role: ROLES.STUDENT,
-        source: controller.get('source')
-      };
-      navigateMapService.continueCourse(context.get('courseId'), context.get('classId')).then(function () {
-        controller.transitionToRoute('study-player', context.get('classId'), context.get('courseId'), { queryParams });
+    const navigateMapService = this.get('navigateMapService');
+    const context = this.get('mapLocation.context');
+    navigateMapService.getStoredNext()
+      .then(mapLocation => Ember.RSVP.hash({
+        hasContent: mapLocation.get('hasContent'),
+        mapLocation: mapLocation.get('hasContent') ? mapLocation : navigateMapService.next(context)
+      }))
+      .then(({ mapLocation }) => {
+        let status = (mapLocation.get('context.status') || '').toLowerCase();
+        if(status === 'done') {
+          this.setProperties({
+            isDone: true,
+            hasAnySuggestion: false
+          });
+        } else {
+          this.toPlayer();
+        }
       });
-    });
   },
 
   playSuggestedContent: function(suggestion) {
-    let controller = this;
-    let navigateMapService = controller.get('navigateMapService');
-    let courseMapService = controller.get('courseMapService');
-    let isResource = suggestion.get('isResource');
-
-    navigateMapService.getStoredNext().then(function (mapLocation) {
-      let context = mapLocation.context;
-      courseMapService.createNewPath(context, suggestion).then(function (pathId) {
-        let queryParams = {
-          role: ROLES.STUDENT,
-          source: controller.get('source'),
-          courseId: context.get('courseId'),
-          unitId: context.get('unitId'),
-          lessonId: context.get('lessonId'),
-          collectionId: isResource ? context.get('collectionId') : suggestion.get('id'),
-          type: suggestion.get('type'),
-          subtype: suggestion.get('subType'),
-          pathId,
-          classId: context.get('classId')
-        };
-        navigateMapService.startSuggestion(queryParams.courseId, queryParams.unitId, queryParams.lessonId,
-          queryParams.collectionId, queryParams.type, queryParams.subtype, queryParams.pathId, queryParams.classId)
-          .then(function () {
-            if (isResource) {
-              controller.transitionToRoute('resource-player', queryParams.classId, queryParams.courseId,
-                suggestion.get('id'), {queryParams});
-            } else {
-              controller.transitionToRoute('study-player', queryParams.classId, queryParams.courseId, { queryParams });
-            }
-          });
-      });
-    });
+    const navigateMapService = this.get('navigateMapService');
+    const courseMapService = this.get('courseMapService');
+    navigateMapService.getStoredNext()
+      .then(mapLocation => Ember.RSVP.hash({
+        context: mapLocation.get('context'),
+        pathId: courseMapService.createNewPath(mapLocation.get('context'), suggestion)
+      }))
+      .then(({ context }) => navigateMapService.next(context))
+      .then(() => this.toPlayer(suggestion));
   }
 
 });

@@ -67,7 +67,8 @@ export default Ember.Service.extend({
         this.getLocalStorage().setItem(this.generateKey(), JSON.stringify(payload));
         return MapLocation.create({
           context: mapSerializer.normalizeMapContext(payload.context),
-          suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions)
+          suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions),
+          hasContent: !!Object.keys(payload.content).length
         });
       });
   },
@@ -82,8 +83,8 @@ export default Ember.Service.extend({
   continueCourse: function (courseId, classId = undefined) {
     const service = this;
     const mapContext = MapContext.create({
-      courseId: courseId,
-      classId: classId,
+      courseId,
+      classId,
       status: 'continue'
     });
     return service.next(mapContext);
@@ -227,7 +228,8 @@ export default Ember.Service.extend({
     }
     return Ember.RSVP.resolve(MapLocation.create({
       context: mapSerializer.normalizeMapContext(parsedResponse.context),
-      suggestions: mapSerializer.normalizeMapSuggestions(parsedResponse.suggestions)
+      suggestions: mapSerializer.normalizeMapSuggestions(parsedResponse.suggestions),
+      hasContent: !!Object.keys(parsedResponse.content).length
     }));
   },
 
