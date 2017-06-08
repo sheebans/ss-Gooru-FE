@@ -16,7 +16,7 @@ export default Ember.Object.extend({
   /**
    * Archive class
    *
-   * @param data class data to be sent in the request body
+   * @param classId Identifier of the class to be archive
    * @returns {Promise}
    */
   archiveClass: function(classId) {
