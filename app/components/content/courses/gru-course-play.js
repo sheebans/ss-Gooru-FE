@@ -11,6 +11,8 @@ export default Ember.Component.extend(ModalMixin, {
 
   classNames: ['content', 'courses', 'gru-course-play'],
 
+  classNameBindings: ['view'],
+
   tagName: 'article',
 
 
@@ -18,6 +20,9 @@ export default Ember.Component.extend(ModalMixin, {
   // Actions
 
   actions:  {
+    view: function(viewName) {
+      this.set('view', viewName);
+    },
 
     remix: function() {
       if (this.get('session.isAnonymous')) {
@@ -37,15 +42,12 @@ export default Ember.Component.extend(ModalMixin, {
      */
     setLocation: function (unitId, lessonId = undefined) {
       this.sendAction("onLocationChange", unitId, lessonId);
-    },
-
-    viewDetails: function () {
-      this.toggleProperty('viewCourseDetails');
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -75,7 +77,7 @@ export default Ember.Component.extend(ModalMixin, {
 
   isOwner: null,
 
- /**
+  /**
    * @property {string} action name when the location is changed
    */
   onLocationChange: null,
@@ -83,11 +85,7 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @property {string} selected lesson id
    */
-  selectedLessonId:null,
+  selectedLessonId:null
 
-  /**
-   * @property {Boolean} view course details
-   */
-  viewCourseDetails: false
 
 });

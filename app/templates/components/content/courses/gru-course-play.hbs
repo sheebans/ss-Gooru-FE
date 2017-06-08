@@ -1,11 +1,25 @@
-<section id="viewDetails" class="align-center details {{if viewCourseDetails 'hidden' 'visible'}}">
-  <a href="#" {{action 'viewDetails'}}>
-    <span>{{t "gru-course-play.view-course-details"}}</span>
-    {{gru-icon name='keyboard_arrow_down'}}
-  </a>
-</section>
+<header>
+  <h1>{{course.title}}</h1>
 
-<section id="information" class="{{if viewCourseDetails 'visible' 'hidden'}}">
+  <div class="actions">
+    {{#gru-share-pop-over tagName="button" type="course"}}
+      {{gru-icon name="insert_link"}}
+    {{/gru-share-pop-over}}
+    <button class="btn btn-default remix" {{action 'remix'}}>{{t "common.remix"}}</button>
+    {{#if isOwner}}
+      {{#link-to 'content.courses.edit' course.id class="btn btn-default edit" tagName="button"}}{{t "common.edit"}}{{/link-to}}
+    {{/if}}
+    <button class="btn btn-default play btn-success out-of-scope">{{t "common.play"}}</button>
+  </div>
+
+  <nav class="hidden-md hidden-lg">
+    <a href="#" {{action 'view' 'content-view'}} class="{{if (eq view 'content-view') 'selected' ''}}">{{t "common.content"}}</a>
+    <a href="#" {{action 'view' 'information-view'}} class="{{if (eq view 'information-view') 'selected' ''}}">{{t "common.information"}}</a>
+  </nav>
+
+</header>
+
+<section id="information">
   <div class="content">
 
     {{content.gru-image isEditing=isEditing srcImage=course.thumbnailUrl editImage=tempCourse.thumbnailUrl}}
@@ -24,26 +38,23 @@
     </div>
   </div>
 
-  <div class="panel panel-default aside">
-    <div class="panel-body">
-      {{partial 'content/partials/course-information'}}
-    </div>
-  </div>
+  <hr class="hidden-sm hidden-xs">
 
-  <div class="align-center details">
-    <a href="#" {{action 'viewDetails'}}>
-      <span>{{t "gru-course-play.hide-course-details"}}</span>
-      {{gru-icon name='keyboard_arrow_up'}}
-    </a>
+  <div class="panel panel-default aside hidden-md hidden-lg">
+    <div class="panel-body">
+
+      {{partial 'content/partials/course-information'}}
+
+    </div>
   </div>
 
 </section>
 
 <section id="content">
   {{content.courses.play.gru-accordion-course
-  model=course
-  items=course.children
-  selectedLessonId=selectedLessonId
-  onLocationChange='setLocation'
+    model=course
+    items=course.children
+    selectedLessonId=selectedLessonId
+    onLocationChange='setLocation'
   }}
 </section>

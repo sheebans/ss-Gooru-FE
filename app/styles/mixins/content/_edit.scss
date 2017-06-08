@@ -119,6 +119,13 @@
     > section {
       padding-left: 5%;
       padding-right: 5%;
+      margin-top: 150px;
+      @media (min-width: $screen-sm) {
+        margin-top: 120px;
+      }
+      @media (min-width: $screen-md) {
+        margin-top: 100px;
+      }
 
       h2 {
         display: inline-block;
@@ -174,7 +181,7 @@
         }
 
         .panel-body {
-          padding-bottom: 15px;
+          padding-bottom: 25px;
         }
 
         label span.required:after,
@@ -187,7 +194,7 @@
 
   > aside {
     background-color: $white;
-    width: 260px;
+    width: 18%;
     padding: ($aside-padding - 10) 0 0 $aside-padding;
 
     > div {
