@@ -31,7 +31,7 @@ export default StudentCollection.extend({
      * Action triggered for the next button
      */
     next: function () {
-      this.toNextStudyPlayer();
+      this.playNextContent();
     },
 
     /**
@@ -45,21 +45,21 @@ export default StudentCollection.extend({
      * If the user want to continue playing the post-test suggestion
      */
     playPostTestSuggestion: function() {
-      this.playSuggestion(this.get('mapLocation.postTestSuggestion'));
+      this.playSuggestedContent(this.get('mapLocation.postTestSuggestion'));
     },
 
     /**
      * If the user want to continue playing the backfill suggestion
      */
     playBackFillSuggestion: function() {
-      this.playSuggestion(this.get('mapLocation.backFillSuggestion'));
+      this.playSuggestedContent(this.get('mapLocation.backFillSuggestion'));
     },
 
     /**
      * If the user want to continue playing the resource suggestion
      */
     playResourceSuggestion: function() {
-      this.playSuggestion(this.get('mapLocation.resourceSuggestion'));
+      this.playSuggestedContent(this.get('mapLocation.resourceSuggestion'));
     }
   },
 
@@ -234,7 +234,7 @@ export default StudentCollection.extend({
     }
   },
 
-  toNextStudyPlayer: function() {
+  playNextContent: function() {
     let controller = this;
     let navigateMapService = controller.get('navigateMapService');
     navigateMapService.getStoredNext().then(function (mapLocation) {
@@ -245,6 +245,41 @@ export default StudentCollection.extend({
       };
       navigateMapService.continueCourse(context.get('courseId'), context.get('classId')).then(function () {
         controller.transitionToRoute('study-player', context.get('classId'), context.get('courseId'), { queryParams });
+      });
+    });
+  },
+
+  playSuggestedContent: function(suggestion) {
+    let controller = this;
+    let navigateMapService = controller.get('navigateMapService');
+    let courseMapService = controller.get('courseMapService');
+    let isResource = suggestion.get('isResource');
+
+    navigateMapService.getStoredNext().then(function (mapLocation) {
+      let context = mapLocation.context;
+      courseMapService.createNewPath(context, suggestion).then(function (pathId) {
+        let queryParams = {
+          role: ROLES.STUDENT,
+          source: controller.get('source'),
+          courseId: context.get('courseId'),
+          unitId: context.get('unitId'),
+          lessonId: context.get('lessonId'),
+          collectionId: isResource ? context.get('collectionId') : suggestion.get('id'),
+          type: suggestion.get('type'),
+          subtype: suggestion.get('subType'),
+          pathId,
+          classId: context.get('classId')
+        };
+        navigateMapService.startSuggestion(queryParams.courseId, queryParams.unitId, queryParams.lessonId,
+          queryParams.collectionId, queryParams.type, queryParams.subtype, queryParams.pathId, queryParams.classId)
+          .then(function () {
+            if (isResource) {
+              controller.transitionToRoute('resource-player', queryParams.classId, queryParams.courseId,
+                suggestion.get('id'), {queryParams});
+            } else {
+              controller.transitionToRoute('study-player', queryParams.classId, queryParams.courseId, { queryParams });
+            }
+          });
       });
     });
   }
