@@ -47,8 +47,8 @@ test('Layout BackFill Pre test', function(assert) {
   assert.ok($component.find('.player.gru-suggest-test .panel-body .description').text(), this.get('i18n').t(`gru-suggest-test.${this.get('type')}-lead`).string, 'Wrong description text');
   assert.ok($component.find('.player.gru-suggest-test .panel-body .assessment-info .image img').length, 'Missing backfill image');
   assert.ok($component.find('.player.gru-suggest-test .panel-body .assessment-info .title').length, 'Missing collection title');
-  assert.ok($component.find('.player.gru-suggest-test .panel-body .assessment-info .resource.border-gray').length, 'Missing collection resources');
-  assert.ok($component.find('.player.gru-suggest-test .panel-body .assessment-info .resource.question').length, 'Missing collection questions');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .assessment-info .resource'), 'Missing collection resources');
+  assert.ok($component.find('.player.gru-suggest-test .panel-body .assessment-info .resource.question'), 'Missing collection questions');
   assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-no').length, 'Missing no thanks button');
   assert.ok($component.find('.player.gru-suggest-test .panel-body .actions .btn-backfill').length, 'Missing suggestion backfill button');
 });
