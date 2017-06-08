@@ -15,7 +15,6 @@ export default Ember.Component.extend(ModalMixin, {
 
   tagName: 'article',
 
-
   // -------------------------------------------------------------------------
   // Actions
 
@@ -75,6 +74,9 @@ export default Ember.Component.extend(ModalMixin, {
     return TaxonomyTag.getTaxonomyTags(this.get("course.taxonomy"), false);
   }),
 
+  /**
+   * @property {Boolean} isOwner
+   */
   isOwner: null,
 
   /**
@@ -86,6 +88,5 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {string} selected lesson id
    */
   selectedLessonId:null
-
 
 });
