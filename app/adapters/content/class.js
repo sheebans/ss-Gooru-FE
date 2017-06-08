@@ -14,6 +14,27 @@ export default Ember.Object.extend({
   reportNamespace: '/api/nucleus-download-reports/v1',
 
   /**
+   * Archive class
+   *
+   * @param data class data to be sent in the request body
+   * @returns {Promise}
+   */
+  archiveClass: function(classId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${classId}/archive`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Posts a new class
    *
    * @param data class data to be sent in the request body

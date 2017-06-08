@@ -6,6 +6,25 @@ moduleForAdapter('adapter:content/class', 'Unit | Adapter | content/class', {
   // needs: []
 });
 
+test('archive class', function (assert) {
+  assert.expect(0);
+
+  this.pretender.map(function () {
+    this.put('/api/nucleus/v1/classes/class-id/archive', function () {
+      return [204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    });
+  });
+  const classId = 'class-id';
+
+  const adapter = this.subject();
+
+  var done = assert.async();
+  adapter.archiveClass(classId)
+    .then(function () {
+      done();
+    });
+});
+
 test('createClass', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -38,7 +57,7 @@ test('Update class', function (assert) {
 
   const classData = {
     classId: 'class-id',
-    "class": {
+    'class': {
       title: 'Class Title'
     }
   };
@@ -92,7 +111,7 @@ test('joinClass', function(assert) {
       return [204, {'Content-Type': 'text/plain'}, ''];
     }, false);
   });
-  adapter.joinClass("any")
+  adapter.joinClass('any')
     .then(function() {
       assert.ok(true, 'This should be called');
     });
@@ -122,7 +141,7 @@ test('getMyClasses', function(assert) {
 
 test('readClassInfo', function(assert) {
   const adapter = this.subject();
-  const classId = "class-id";
+  const classId = 'class-id';
   adapter.set('session', Ember.Object.create({
     'token-api3': 'token-api-3'
   }));
@@ -173,9 +192,9 @@ test('readClassContentVisibility', function(assert) {
 test('updateContentVisibility', function(assert) {
   const adapter = this.subject();
   const content = {
-      "assessments": [{
-        "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
-        "visible": "on"
+      'assessments': [{
+        'id': '59f7b7df-cef2-4f09-8012-1e58cb27b95a',
+        'visible': 'on'
       }]
     };
   const classId = 'class-id';
