@@ -53,7 +53,7 @@
   <button type="button" class="btn btn-default btn-sm cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
     <span aria-hidden="true">{{t 'common.cancel'}}</span>
   </button>
-  {{#if isTeacher}}
+  {{#if (or isTeacher session.isAnonymous)}}
     <button class="remix-btn btn btn-success btn-sm" {{action 'remixCourse' course}}>{{t 'common.remix'}}</button>
   {{else}}
     <button class="study-btn btn btn-success btn-sm">{{t 'common.study'}}</button>

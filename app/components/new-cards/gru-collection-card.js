@@ -72,19 +72,17 @@ export default Ember.Component.extend(ModalMixin,{
         remixCourse: () => component.remixCourse()
       });
 
-      if(isTeacher || isStudent) {
-        if (isCourse) {
-          component.get('courseService').fetchById(contentId).then(function (course) {
-            model.set('content.children', course.children);
-          }).then(function () {
-            component.send('showModal', 'gru-preview-course', model);
-          });
-        }
-        else {
-          component.loadCollection(contentId, isCollection, model).then(function() {
-            component.send('showModal', 'gru-preview-collection', model);
-          });
-        }
+      if (isCourse) {
+        component.get('courseService').fetchById(contentId).then(function (course) {
+          model.set('content.children', course.children);
+        }).then(function () {
+          component.send('showModal', 'gru-preview-course', model);
+        });
+      }
+      else {
+        component.loadCollection(contentId, isCollection, model).then(function() {
+          component.send('showModal', 'gru-preview-collection', model);
+        });
       }
     }
   },
