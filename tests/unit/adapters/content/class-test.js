@@ -6,7 +6,7 @@ moduleForAdapter('adapter:content/class', 'Unit | Adapter | content/class', {
   // needs: []
 });
 
-test('archive class', function (assert) {
+test('Archive class', function (assert) {
   assert.expect(0);
 
   this.pretender.map(function () {
@@ -19,10 +19,7 @@ test('archive class', function (assert) {
   const adapter = this.subject();
 
   var done = assert.async();
-  adapter.archiveClass(classId)
-    .then(function () {
-      done();
-    });
+  adapter.archiveClass(classId).then(done);
 });
 
 test('createClass', function(assert) {

@@ -25,10 +25,7 @@ test('archiveClass', function(assert) {
   }));
 
   var done = assert.async();
-  service.archiveClass(classId)
-    .then(function() {
-      done();
-    });
+  service.archiveClass(classId).then(done);
 });
 
 test('createClass', function(assert) {
