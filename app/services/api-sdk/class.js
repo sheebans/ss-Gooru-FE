@@ -23,6 +23,23 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Update existing class
+   *
+   * @param classId The Class id to archive
+   * @returns {Promise}
+   */
+  archiveClass: function (classId) {
+    var service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').archiveClass(classId).then(function () {
+        resolve(classId);
+      }, function(error) {
+        reject(error);
+      });
+    });
+  },
+
+  /**
    * Creates a new class
    *
    * @param classData object with the class data

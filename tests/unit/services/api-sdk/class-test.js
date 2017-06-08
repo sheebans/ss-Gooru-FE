@@ -11,6 +11,23 @@ moduleForService('service:api-sdk/class', 'Unit | Service | api-sdk/class', {
   ]
 });
 
+test('archiveClass', function(assert) {
+  const service = this.subject();
+  let classId = 'class-id';
+
+  assert.expect(1);
+
+  service.set('classAdapter', Ember.Object.create({
+    archiveClass: function(classId) {
+      assert.equal(classId, 'class-id', 'Wrong class id');
+      return Ember.RSVP.resolve({});
+    }
+  }));
+
+  var done = assert.async();
+  service.archiveClass(classId).then(done);
+});
+
 test('createClass', function(assert) {
   const service = this.subject();
   let classModel = Ember.Object.create();
@@ -126,7 +143,7 @@ test('joinClass successful', function(assert) {
   });
 
   var done = assert.async();
-  service.joinClass("any")
+  service.joinClass('any')
       .then(function(classId) {
         assert.equal(classId, 'class-id', 'Joined should be true');
         done();
@@ -146,13 +163,13 @@ test('joinClass restricted', function(assert) {
   });
 
   var done = assert.async();
-  service.joinClass("any")
+  service.joinClass('any')
       .then(function() {
         assert.ok(false, 'Success callback should not be called');
         done();
       }, function (error){
-        assert.equal(error.status, 400, "Wrong error status");
-        assert.equal(error.code, 'restricted', "Wrong error code");
+        assert.equal(error.status, 400, 'Wrong error status');
+        assert.equal(error.code, 'restricted', 'Wrong error code');
         done();
       });
 });
@@ -170,13 +187,13 @@ test('joinClass not found', function(assert) {
   });
 
   var done = assert.async();
-  service.joinClass("any")
+  service.joinClass('any')
       .then(function() {
         assert.ok(false, 'Success callback should not be called');
         done();
       }, function (error){
-        assert.equal(error.status, 404, "Wrong error status");
-        assert.equal(error.code, 'not-found', "Wrong error code");
+        assert.equal(error.status, 404, 'Wrong error status');
+        assert.equal(error.code, 'not-found', 'Wrong error code');
         done();
       });
 });
@@ -187,7 +204,7 @@ test('findMyClasses', function(assert) {
 
   service.set('classAdapter', Ember.Object.create({
     getMyClasses: function() {
-      assert.ok(true, "getMyClasses() function was called" );
+      assert.ok(true, 'getMyClasses() function was called' );
       return Ember.RSVP.resolve({});
     }
   }));
@@ -196,7 +213,7 @@ test('findMyClasses', function(assert) {
     normalizeClasses: function(classesPayload) {
       assert.deepEqual({}, classesPayload, 'Wrong my classes payload');
       return Ember.Object.create({
-        "classes": []
+        'classes': []
       });
     }
   }));
@@ -260,7 +277,7 @@ test('updateContentVisibility', function(assert) {
   const service = this.subject();
   let classId = 'class-id';
 
-  let contentId = "59f7b7df-cef2-4f09-8012-1e58cb27b95a";
+  let contentId = '59f7b7df-cef2-4f09-8012-1e58cb27b95a';
   let visibility = true;
   let type = 'assessments';
 
@@ -271,15 +288,15 @@ test('updateContentVisibility', function(assert) {
       assert.deepEqual('59f7b7df-cef2-4f09-8012-1e58cb27b95a', contentId, 'Wrong content id');
       assert.deepEqual(true, visibility, 'Wrong visibility');
       assert.deepEqual('assessments', type, 'Wrong visibility');
-      return  { "assessments":[{id:contentId, visible: visibility ? 'on' : 'off'}]};
+      return  { 'assessments':[{id:contentId, visible: visibility ? 'on' : 'off'}]};
     }
   }));
 
   service.set('classAdapter', Ember.Object.create({
     updateContentVisibility: function(classId,content) {
       assert.deepEqual(content.assessments, [{
-        "id": "59f7b7df-cef2-4f09-8012-1e58cb27b95a",
-        "visible": "on"
+        'id': '59f7b7df-cef2-4f09-8012-1e58cb27b95a',
+        'visible': 'on'
       }], 'Wrong content object');
       assert.equal(classId, 'class-id', 'Wrong class id');
       return Ember.RSVP.resolve({});
@@ -505,7 +522,7 @@ test('readClassReportStatus', function(assert) {
   var done = assert.async();
   service.readClassReportStatus(expectedClassId, expectedCourseId, 'user-id')
     .then(function(response) {
-      assert.equal(response, "available", "Wrong status");
+      assert.equal(response, 'available', 'Wrong status');
       done();
     });
 });
@@ -526,14 +543,14 @@ test('requestClassReport', function(assert) {
   }));
 
   service.storeClassReportStatus = function(classId, status){
-    assert.equal(status, "available", 'Wrong status');
+    assert.equal(status, 'available', 'Wrong status');
     assert.equal(classId, expectedClassId, 'Wrong class id');
   };
 
   var done = assert.async();
   service.requestClassReport(expectedClassId, expectedCourseId, 'user-id')
     .then(function(response) {
-      assert.equal(response, "available", "Wrong status");
+      assert.equal(response, 'available', 'Wrong status');
       done();
     });
 });
@@ -544,32 +561,32 @@ test('storeClassReportStatus', function(assert) {
   const expectedClassIdB = 'class-id-b';
 
   service.set('session', Ember.Object.create({
-    "userId": "1"
+    'userId': '1'
   }));
 
-  service.storeClassReportStatus(expectedClassIdA, "available");
-  service.storeClassReportStatus(expectedClassIdB, "queued");
+  service.storeClassReportStatus(expectedClassIdA, 'available');
+  service.storeClassReportStatus(expectedClassIdB, 'queued');
 
   const storage = window.localStorage;
-  const reportInfo = JSON.parse(storage.getItem("report-info"));
-  const userInfo = reportInfo["1"];
-  assert.ok(userInfo, "Missing user info");
-  assert.equal(userInfo.classes[expectedClassIdA], "available", "wrong class status");
-  assert.equal(userInfo.classes[expectedClassIdB], "queued", "wrong class status");
+  const reportInfo = JSON.parse(storage.getItem('report-info'));
+  const userInfo = reportInfo['1'];
+  assert.ok(userInfo, 'Missing user info');
+  assert.equal(userInfo.classes[expectedClassIdA], 'available', 'wrong class status');
+  assert.equal(userInfo.classes[expectedClassIdB], 'queued', 'wrong class status');
 });
 
 test('getReportClassesStatusFromStore', function(assert) {
-  window.localStorage.removeItem("report-info");
+  window.localStorage.removeItem('report-info');
 
   const service = this.subject();
   service.set('session', Ember.Object.create({
-    "userId": "2"
+    'userId': '2'
   }));
 
-  let classesStatus = service.getReportClassesStatusFromStore("2");
-  assert.deepEqual(classesStatus, {}, "Status should be empty");
+  let classesStatus = service.getReportClassesStatusFromStore('2');
+  assert.deepEqual(classesStatus, {}, 'Status should be empty');
 
-  service.storeClassReportStatus("2", "available");
-  classesStatus = service.getReportClassesStatusFromStore("2");
-  assert.equal(classesStatus["2"], "available", "Wrong status");
+  service.storeClassReportStatus('2', 'available');
+  classesStatus = service.getReportClassesStatusFromStore('2');
+  assert.equal(classesStatus['2'], 'available', 'Wrong status');
 });
