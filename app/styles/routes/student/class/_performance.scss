@@ -23,7 +23,7 @@
     padding: 20px;
     width: 100%;
     .panel-header{
-      height: 115px;
+      height: 45px;
       h1{
         float: left;
         font-size: $font-size-h4;
@@ -73,6 +73,8 @@
       .performance-scale {
         float: right;
         margin: 5px 0 0 0;
+        right: 15px;
+        position: absolute;
       }
     }
   }
