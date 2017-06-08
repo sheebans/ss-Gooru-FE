@@ -97,12 +97,16 @@ test('normalizeMapSuggestion backfill', function (assert) {
     id: '123',
     title: 'Title',
     format: 'assessment',
+    questionCount: '15',
+    resourceCount: '3',
     subformat: null
   };
   const model = serializer.normalizeMapSuggestion(payload);
   assert.equal(model.get('id'), payload.id, 'Wrong id');
   assert.equal(model.get('title'), payload.title, 'Wrong title');
   assert.equal(model.get('type'), payload.format, 'Wrong type');
+  assert.equal(model.get('questionCount'), payload.questionCount, 'Wrong question count');
+  assert.equal(model.get('resourceCount'), payload.resourceCount, 'Wrong resource count');
   assert.equal(model.get('subType'), ASSESSMENT_SUB_TYPES.BACKFILL, 'Wrong type');
 });
 

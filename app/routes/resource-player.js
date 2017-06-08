@@ -121,22 +121,14 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
 
   getMapLocation(params, sendToAnalytics) {
     const navigateMapService = this.get('navigateMapService');
-    const { classId, courseId, pathId } = params;
+    const { classId, courseId, pathId, unitId, lessonId, collectionId, resourceId } = params;
     let mapLocationPromise = null;
     if(!sendToAnalytics) {
       mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId);
     } else if (pathId) {
-      // Commenting these lines until BE confirms that we don't need them
-      /* mapLocationPromise = navigateMapService.startResource(
+      mapLocationPromise = navigateMapService.startResource(
         courseId, unitId, lessonId, collectionId, resourceId, pathId, classId
-      ).then(mapLocation => mapLocation.get('context')); */
-      // Don't call next when the resource is played from the course map, use params
-      mapLocationPromise = Ember.RSVP.resolve(Ember.Object.create({
-        unitId: params.unitId,
-        lessonId: params.lessonId,
-        collectionId: params.collectionId,
-        pathId: params.pathId
-      }));
+      ).then(mapLocation => mapLocation.get('context'));
     } else {
       mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId)
         .then(mapContext => navigateMapService.next(mapContext))

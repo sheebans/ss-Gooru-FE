@@ -831,7 +831,7 @@ export default Object.assign(quizzesTranslations, {
       "filter": "Filter",
       "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
       "subject":"Subject",
-      "title": "Analyze your performance.",
+      "title": "Analyze your performance",
       "time-period":"Time Period",
       "update-report": "Update Report"
     },

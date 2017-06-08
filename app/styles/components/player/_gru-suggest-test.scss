@@ -160,6 +160,10 @@
               font-size: $font-size-h6;
               padding-right: 5px;
             }
+            .bars {
+              border-left: 2px solid $gray-base;
+              margin-right: 5px;
+            }
           }
         }
         .actions {

@@ -30,6 +30,11 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   /**
+   * @type {CourseService}
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
+  /**
    * @type {UnitService}
    */
   unitService: Ember.inject.service('api-sdk/unit'),
@@ -106,6 +111,7 @@ export default Ember.Route.extend({
     const filterBy = params.filterBy;
     const isAssessment = !filterBy || filterBy === 'assessment';
     return Ember.RSVP.hash({
+      course: courseId ? route.get('courseService').fetchById(courseId) : undefined,
       unit: unitId ? route.get('unitService').fetchById(courseId, unitId) : undefined,
       lesson: lessonId ? route.get('lessonService').fetchById(courseId, unitId, lessonId) : undefined,
       collection: collectionId ?
@@ -124,12 +130,27 @@ export default Ember.Route.extend({
     controller.set('unit', model.unit);
     controller.set('lesson', model.lesson);
     controller.set('collection', model.collection ? model.collection.toPlayerCollection() : undefined);
-    controller.updateBreadcrumb(controller.get('course'), 'course');
-    if (controller.get('unit')) {
-      controller.updateBreadcrumb(controller.get('unit'), 'unit');
+
+    const course = controller.get('course');
+    const unit = controller.get('unit');
+    const lesson = controller.get('lesson');
+
+    controller.updateBreadcrumb(course, 'course');
+    if (unit) {
+      course.children.find((child) => {
+        if(unit.id === child.id) {
+          unit.sequence = child.sequence;
+        }
+      });
+      controller.updateBreadcrumb(unit, 'unit');
     }
-    if (controller.get('lesson')) {
-      controller.updateBreadcrumb(controller.get('lesson'), 'lesson');
+    if (lesson) {
+      unit.children.find((child) => {
+        if(lesson.id === child.id) {
+          lesson.sequence = child.sequence;
+        }
+      });
+      controller.updateBreadcrumb(lesson, 'lesson');
     }
 
     route.loadData(controller);
@@ -165,7 +186,10 @@ export default Ember.Route.extend({
     const classId = controller.get('class.id');
     const courseId = controller.get('class.courseId');
     const members = controller.get('class.members');
-    const units = controller.get('course.children') || [];
+    let units = controller.get('course.children');
+    units.forEach((child, index) => {
+      child.set('sequence', index + 1);
+    });
     if(courseId) {
       controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
         .then(function(classPerformanceData) {
@@ -189,7 +213,10 @@ export default Ember.Route.extend({
     const courseId = controller.get('class.courseId');
     const members = controller.get('class.members');
     const unitId = controller.get('unit.id');
-    const lessons = controller.get('unit.children') || [];
+    let lessons = controller.get('unit.children');
+    lessons.forEach((child, index) => {
+      child.set('sequence', index + 1);
+    });
     controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
       .then(function(classPerformanceData) {
         route.fixLessonTotalCounts(controller, unitId, classPerformanceData, controller.get('filteredByAssessment'));

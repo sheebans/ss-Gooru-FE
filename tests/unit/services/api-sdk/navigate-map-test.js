@@ -200,6 +200,30 @@ test('startLesson', function(assert) {
     });
 });
 
+test('startResource', function(assert) {
+  const service = this.subject({
+    next: function(mapContext) {
+      assert.equal(mapContext.get('courseId'), 'course-id', 'Wrong course id');
+      assert.equal(mapContext.get('unitId'), 'unit-id', 'Wrong unit id');
+      assert.equal(mapContext.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+      assert.equal(mapContext.get('collectionId'), 'collection-id', 'Wrong collection id');
+      assert.equal(mapContext.get('pathId'), 1, 'Wrong path id');
+      assert.equal(mapContext.get('itemId'), 'resource-id', 'Wrong item id');
+      assert.equal(mapContext.get('classId'), 'class-id', 'Wrong class id');
+      assert.equal(mapContext.get('status'), 'start', 'Wrong status');
+      return Ember.RSVP.resolve('fake-response');
+    }
+  });
+  assert.expect(9);
+
+  var done = assert.async();
+  service.startResource('course-id', 'unit-id', 'lesson-id', 'collection-id', 'resource-id', '1', 'class-id')
+    .then(function(response) {
+      assert.equal(response, 'fake-response', 'Wrong response');
+      done();
+    });
+});
+
 test('generateKey', function(assert) {
   const service = this.subject();
   service.set('session',{ userId: 'user-id' });

@@ -23,6 +23,11 @@ export default StudentCollection.extend({
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  /**
+   * @requires service:api-sdk/taxonomy
+   */
+  taxonomyService: Ember.inject.service('api-sdk/taxonomy'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -243,5 +248,24 @@ export default StudentCollection.extend({
         { queryParams }
       );
     }
-  }
+  },
+  // -------------------------------------------------------------------------
+  // Observers
+
+  quizzesAttemptDataObserver: Ember.observer('attemptData', function() {
+    let learningTargets = this.get('attemptData.mastery') ? this.get('attemptData.mastery') : [];
+    if (learningTargets.length) {
+      let taxonomyIds = learningTargets.mapBy('id');
+      let taxonomyService = this.get('taxonomyService');
+      taxonomyService.fetchCodesByIds(taxonomyIds).then(function (taxonomyStandards) {
+        learningTargets.forEach(function(learningTarget) {
+          let learningTargetInfo = taxonomyStandards.findBy('id',learningTarget.id);
+          learningTarget.setProperties({
+            displayCode:learningTargetInfo.code,
+            description:learningTargetInfo.title
+          });
+        });
+      });
+    }
+  })
 });
