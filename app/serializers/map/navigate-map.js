@@ -95,6 +95,8 @@ export default Ember.Object.extend({
       id: data.id,
       title: data.title,
       type: data.format,
+      questionCount: data.questionCount,
+      resourceCount: data.resourceCount,
       thumbnail:data.thumbnail ? basePath + data.thumbnail :  appRootPath + DEFAULT_IMAGES.COLLECTION,
       resourceFormat: ResourceModel.normalizeResourceFormat(data.subformat),
       subType

@@ -59,6 +59,7 @@ export default StudentCollection.extend({
             lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
             mapLocation: navigateMapService.next(currentContext)
           }).then(function (hash) {
+
             // Set the correct unit sequence number
             hash.course.children.find((child, index) => {
               let found = false;
