@@ -188,6 +188,7 @@ export default Object.assign(quizzesTranslations, {
       "emotion-5": "I can explain"
     },
     "enter-url": "Enter URL",
+    "enrolled-students": "Enrolled Students",
     "errors": {
       "join-class-code": "Please enter the classroom code.",
       "answer-has-no-image": "Please upload an answer image.",
@@ -289,6 +290,7 @@ export default Object.assign(quizzesTranslations, {
     "if_questions": "If you have any questions,",
     "information": "Information",
     "in-progress": "In Progress",
+    "instructor": "Instructor",
     "last-name": "Last Name",
     "last-updated": "Last Updated",
     "latest-attempt":"Latest attempt",
@@ -819,7 +821,6 @@ export default Object.assign(quizzesTranslations, {
   },
   "student-landing":{
     "announcement":"Announcement",
-    "announcements":"Please be aware that the school is operating under an early release schedule due to the threat of inclement weather",
     "my-performance":{
       "activity":"Activity",
       "activities":{
@@ -838,10 +839,11 @@ export default Object.assign(quizzesTranslations, {
     "class":{
       "back-to": "Back to My Classes",
       "performance": "Performance",
-      "classmates": "Classroom Information",
+      "classroom": "Classroom Information",
+      "course-info": "Course Info",
       "course-map": "Course Map",
       "unit": "Unit",
-      "leson": "Leson",
+      "lesson": "Lesson",
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
         "today": "Today"

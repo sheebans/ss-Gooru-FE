@@ -109,7 +109,6 @@ Router.map(function() {
       this.route('analytics', function() {
         this.route('performance');
       });
-      this.route('classmates');
       this.route('course-map');
       this.route('class-activities');
       this.route('performance');

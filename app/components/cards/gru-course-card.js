@@ -71,6 +71,12 @@ export default Ember.Component.extend(ModalMixin, {
   onRemixCourse: null,
 
   /**
+   * default tagsVisible
+   * @property {number}
+   */
+  tagsVisible: 2,
+
+  /**
    * flag that tells if you are owner of card or not.
    * @property {Boolean}
    */
@@ -102,6 +108,12 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {boolean}
    */
   isSmall: false,
+
+  /**
+   * Show if the taxonomy tags are visible or not.
+   * @property {Boolean}
+   */
+  showTaxonomy: true,
 
   /**
    * @property {Array} users

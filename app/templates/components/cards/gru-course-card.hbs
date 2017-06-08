@@ -59,13 +59,15 @@
         {{/unless}}
       </div>
     </div>
-    {{#unless isSmall}}
-      <div class="card-content">
+    <div class="card-content">
+      {{#if showTaxonomy}}
         <div class="taxonomy-standards">
           {{#if tags.length}}
-            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true hasTooltips=false}}
+            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=tagsVisible isInCard=true hasTooltips=false}}
           {{/if}}
         </div>
+      {{/if}}
+      {{#unless isSmall}}
         <div class="course-description">
           {{#if course.description}}
             {{truncate text=(no-tags text=course.description) maxLength=190}}
@@ -96,7 +98,7 @@
             </div>
           {{/unless}}
         {{/if}}
-      </div>
-    {{/unless}}
+      {{/unless}}
+    </div>
   </div>
 </div>

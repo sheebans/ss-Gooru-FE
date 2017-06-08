@@ -12,7 +12,7 @@ moduleForComponent('student/class/gru-class-navigation', 'Integration | Componen
 });
 
 test('Class Navigation', function(assert) {
-  assert.expect(7);
+  assert.expect(6);
 
   const classMock = Ember.Object.create({
     id: '1',
@@ -30,9 +30,8 @@ test('Class Navigation', function(assert) {
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find('.gru-class-navigation');
-  assert.equal($navigation.find('.nav a').length, 4, 'Number of class navigator links');
+  assert.equal($navigation.find('.nav a').length, 3, 'Number of class navigator links');
   T.exists(assert, $navigation.find('.nav .class-activities'), 'Missing class activities link');
-  T.exists(assert, $navigation.find('.nav .classmates'), 'Missing classmates link');
   T.exists(assert, $navigation.find('.nav .course-map'), 'Missing content map link');
   T.exists(assert, $navigation.find('.nav .performance'), 'Missing performance link');
 
@@ -54,12 +53,12 @@ test('Layout when a menu Item is selected', function(assert) {
   var $navigation = this.$(); //component dom element
 
   const $performanceMenuItem = $navigation.find('.nav .performance a');
-  const $classmatesMenuItem = $navigation.find('.nav .classmates a');
+  const $courseMapMenuItem = $navigation.find('.nav .course-map a');
 
   assert.ok($performanceMenuItem, 'Missing performance item in the class menu');
-  assert.ok($classmatesMenuItem, 'Missing classmates item in the class menu');
+  assert.ok($courseMapMenuItem, 'Missing course map item in the class menu');
   $performanceMenuItem.click();
-  $classmatesMenuItem.click();
+  $courseMapMenuItem.click();
   assert.equal($navigation.find('.nav .tab.active').length, 1, 'The class menu should have only one item selected');
 });
 
