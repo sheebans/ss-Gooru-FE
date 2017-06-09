@@ -837,10 +837,10 @@ export default Object.assign(quizzesTranslations, {
     },
     "my-study": "My Study",
     "class":{
+      "assigned-course": "Assigned Course",
       "back-to": "Back to My Classes",
       "performance": "Performance",
       "classroom": "Classroom Information",
-      "course-info": "Course Info",
       "course-map": "Course Map",
       "unit": "Unit",
       "lesson": "Lesson",
