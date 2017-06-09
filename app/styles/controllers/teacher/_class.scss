@@ -7,11 +7,11 @@
     margin-top: 15px;
   }
   .header {
-    .go-back-container{
+    .go-back-container {
       margin: 0 0 25px 0;
-      .back-to{
+      .back-to {
         font-size: 19px;
-        i{
+        i {
           font-size: 20px;
           height: 24px;
           vertical-align: middle;
@@ -25,13 +25,10 @@
       color: $dark-500;
       margin: 0 0 5px 0;
     }
-    .panel {
+    .panel.classroom-information {
       float: left;
       width: 100%;
       margin: 15px 20px 0 0;
-      &:last-child {
-        margin-right: 0;
-      }
       .panel-heading {
         font-size: $font-size-large;
         line-height: $font-size-large;
@@ -40,56 +37,128 @@
         padding: 5px 10px 6px;
       }
       .panel-body {
-        padding: 10px;
-        height: 180px;
-      }
-      @media (min-width: $screen-xs) {
-        width: 60%;
-      }
-      @media (min-width: $screen-md) {
-        width: 40%;
-      }
-      @media (min-width: $screen-lg) {
-        width: 32%;
-      }
-      &.graphics {
-        .graphic {
-          margin: 3px 18px 0 10px;
-          float: left;
-          .charts.gru-radial-chart,
-          .charts.gru-bubble-chart {
-            width: 90px;
-            height: 90px;
-            margin: 20px auto 0;
-          }
-          .legend {
-            display: block;
-            text-align: center;
-            padding: 10px 0 0 0;
-          }
-          &.completed {
-            .charts.gru-radial-chart .radial-svg {
-              width: inherit!important;
-              height: inherit!important;
+        padding: 5px;
+        min-height: 185px;
+        @include flexbox();
+        .legend {
+          display: block;
+          font-size: $font-navigator;
+        }
+        .course-info {
+          width: 33%;
+          padding: 0 40px;
+          .gru-course-card {
+            width: 100%;
+            .panel {
+              width: 100%;
+              height: 135px;
+              min-height: 135px;
+              border-radius: 0;
+              border: none;
+              box-shadow: none;
+              overflow: hidden;
+              .panel-body {
+                height: inherit;
+                padding: 0;
+                display: inline-block;
+                width: 100%;
+                .card-header {
+                  .header-content {
+                    padding: 0;
+                    margin-left: 10px;
+                    width: 85%;
+                    h3 {
+                      font-size: $font-navigator;
+                      color: $gray;
+                      height: 20px;
+                    }
+                  }
+                }
+                .card-content {
+                  position: inherit;
+                  margin-top: 8px;
+                  padding: 0;
+                  .taxonomy-standards {
+                    .gru-taxonomy-tag {
+                      padding: 0 3px 3px 2px;
+                      max-width: 75px;
+                      .tag-label {
+                        text-transform: uppercase;
+                        font-size: $font-size-h6;
+                      }
+                      .tag-caption {
+                        font-size: $font-size-xsmall;
+                        font-weight: 100;
+                      }
+                    }
+                    .non-visible-tags {
+                      display: none;
+                    }
+                  }
+                }
+              }
             }
           }
         }
-      }
-      &.announcements {
-        .edit {
-          height: 100%;
-          float: left;
-          .btn-edit {
-            background-color: $white;
-            color: $dark-500;
-            font-size: $font-navigator;
-            line-height: $font-navigator;
-            padding: 0 5px 0 0;
+        .graphics {
+          width: 33%;
+          border-right: 1px solid $light-300;
+          border-left: 1px solid $light-300;
+          padding: 0 45px;
+          .graphic {
+            margin: 0 10px;
+            float: left;
+            .charts.gru-radial-chart,
+            .charts.gru-bubble-chart {
+              width: 100px;
+              height: 100px;
+              margin: 18px auto 0;
+              .bubble-circle span {
+                font-size: $font-size-h4;
+              }
+            }
+            .legend {
+              text-align: center;
+            }
+            &.performance {
+              margin-right: 48px;
+            }
+            &.completed {
+              .charts.gru-radial-chart .radial-svg {
+                width: inherit !important;
+                height: inherit !important;
+              }
+            }
           }
         }
-        .greeting {
-          height: 100%;
-          overflow-y: auto;
+        .students {
+          padding: 0 15px;
+          width: 34%;
+          .row {
+            margin: 0;
+            .instructor {
+              img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50px;
+                cursor: pointer;
+                margin: 10px 0;
+              }
+              .owner {
+                font-size: $font-navigator;
+                line-height: $font-navigator;
+              }
+            }
+            .members {
+              i {
+                font-size: $expand-arrow;
+              }
+              span {
+                vertical-align: top;
+                font-size: $font-navigator;
+              }
+            }
+          }
         }
       }
     }

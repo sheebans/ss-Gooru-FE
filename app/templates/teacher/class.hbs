@@ -12,36 +12,52 @@
       {{gru-copy-value value=class.code tooltipCode="teacher-landing.class.click-to-copy"}}
     </div>
 
-    <div class="panel panel-default panel-primary announcements">
-      <div class="panel-heading">{{t 'common.announcements'}}</div>
+    <div class="panel panel-default panel-primary classroom-information">
+      <div class="panel-heading">{{t 'student-landing.class.classroom'}}</div>
       <div class="panel-body">
-        <div class="edit">
-          <button class="btn btn-edit"> {{gru-icon name='edit'}}</button>
+        <div class="course-info">
+          <span class="legend">{{t 'student-landing.class.course-info'}}</span>
+          {{#if course}}
+            {{cards.gru-course-card course=course isSmall=true tagsVisible=3}}
+          {{/if}}
         </div>
-        <div class="greeting">
-          <span>{{class.greeting}}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel panel-default panel-primary graphics">
-      <div class="panel-heading">{{t 'common.overall-performance'}}</div>
-      <div class="panel-body">
-        <div class="graphic performance">
-          {{charts.gru-bubble-chart
+        <div class="graphics">
+          <div class="graphic performance">
+            <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
+            {{charts.gru-bubble-chart
             content= (if class.performanceSummary (concat class.performanceSummary.score '%') '--')
             color=(grade-color class.performanceSummary.score)
-          }}
-          <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
+            }}
+          </div>
+          <div class="graphic completed">
+            <span class="legend">{{t "common.completion"}}</span>
+            {{charts.gru-radial-chart
+            value=class.performanceSummary.totalCompleted
+            minValue=0
+            maxValue=class.performanceSummary.total}}
+          </div>
         </div>
-        <div class="graphic completed">
-          {{charts.gru-radial-chart
-          value=class.performanceSummary.totalCompleted
-          minValue=0
-          maxValue=class.performanceSummary.total}}
-          <span class="legend">{{t "common.completed"}}</span>
-        </div>
-        <div class="graphic improvement">
+        <div class="students">
+          <div class="row">
+            <div class="col-md-6 instructor">
+              <span class="legend">{{t "common.instructor"}}</span>
+              {{#if class.owner}}
+                <img class="img-responsive" src="{{class.owner.avatarUrl}}">
+                <div class="owner">
+                  {{#if class.owner.firstName}}
+                    {{truncate text=class.owner.firstName maxLength=10}}&nbsp;{{truncate text=class.owner.lastName maxLength=10}}
+                  {{else}}
+                    {{class.owner.username}}
+                  {{/if}}
+                </div>
+              {{/if}}
+            </div>
+            <div class="col-md-6 members">
+              <span class="legend">{{t "common.enrolled-students"}}</span>
+              {{gru-icon name="people"}}
+              <span>{{class.countMembers}}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
