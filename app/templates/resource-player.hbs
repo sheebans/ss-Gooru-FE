@@ -9,10 +9,10 @@
   breadcrumbs=breadcrumbs
   collectionUrl=collectionUrl
 }}
-{{#if isDone}}
-  {{player.gru-player-done classId=classId}}
-{{else}}
-  <div class="resource-player {{if toggleState 'expanded' 'collapsed'}}">
+<div class="resource-player {{if toggleState 'expanded' 'collapsed'}}">
+  {{#if isDone}}
+    {{player.gru-player-done classId=classId}}
+  {{else}}
     {{partial 'partials/qz-resource-player'}}
-  </div>
-{{/if}}
+  {{/if}}
+</div>
