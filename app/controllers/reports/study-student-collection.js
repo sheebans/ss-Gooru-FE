@@ -131,6 +131,11 @@ export default StudentCollection.extend({
   /**
    * @property {boolean}
    */
+  hasPreTestSuggestions: Ember.computed.alias('mapLocation.hasPreTestSuggestions'),
+
+  /**
+   * @property {boolean}
+   */
   hasPostTestSuggestions: Ember.computed.alias('mapLocation.hasPostTestSuggestions'),
 
   /**
@@ -227,7 +232,8 @@ export default StudentCollection.extend({
     const context = this.get('mapLocation.context');
     navigateMapService.getStoredNext()
       .then(mapLocation =>
-        mapLocation.get('hasContent') ? Ember.RSVP.resolve(mapLocation) : navigateMapService.next(context)
+        mapLocation.get('hasContent') || this.get('hasPreTestSuggestions') ?
+          Ember.RSVP.resolve(mapLocation) : navigateMapService.next(context)
       )
       .then((mapLocation) => {
         let status = (mapLocation.get('context.status') || '').toLowerCase();
