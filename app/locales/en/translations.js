@@ -1808,9 +1808,7 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   "gru-course-play":{
-    "hide-course-details": "Hide Course Details",
     "hide-unit-details": "Hide Unit Metadata",
-    "view-course-details": "View Course Details",
     "view-unit-details": "View Unit Metadata",
     "performance": "Performance"
   },
