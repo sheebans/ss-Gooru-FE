@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  classNames: ['player','gru-player-done'],
   // -------------------------------------------------------------------------
   // Properties
 

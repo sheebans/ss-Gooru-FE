@@ -33,18 +33,18 @@
     {{/if}}
   {{else}}
     <div class="suggestion-panel no-suggestions">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          {{#if isDone}}
-            {{player.gru-player-done classId=classId}}
-          {{else}}
+      {{#if isDone}}
+        {{player.gru-player-done classId=classId}}
+      {{else}}
+        <div class="panel panel-default">
+          <div class="panel-body">
             <div class="description">{{t 'gru-suggest-test.no-suggestions'}}</div>
             <div class="actions right">
               <button class="btn btn-primary btn-next" {{action 'next'}}>{{t 'common.next'}}</button>
             </div>
-          {{/if}}
+          </div>
         </div>
-      </div>
+      {{/if}}
     </div>
   {{/if}}
   {{reports.qz-student-report attemptData=attemptData}}
