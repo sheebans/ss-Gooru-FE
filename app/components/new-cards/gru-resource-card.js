@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
+import SessionMixin from 'gooru-web/mixins/session';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 /**
@@ -8,7 +9,7 @@ import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
  * Component responsible of showing the question ,resource or rubric information in cards, so that most useful information is summarized there.
  * @module
  */
-export default Ember.Component.extend(ModalMixin,{
+export default Ember.Component.extend(ModalMixin,SessionMixin,{
   // -------------------------------------------------------------------------
   // Dependencies
 

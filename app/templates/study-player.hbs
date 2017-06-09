@@ -13,7 +13,9 @@
 <div class="player-container {{if toggleState 'expanded' 'collapsed'}} {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
 
   {{#unless showConfirmation}}
-    {{gru-take-tour steps=steps containerClass='study-player-tour'}}
+    {{#if toggleState}}
+      {{gru-take-tour steps=steps containerClass='study-player-tour'}}
+    {{/if}}
   {{/unless}}
 
   {{#if (and hasPreTestSuggestions showSuggestion)}}
