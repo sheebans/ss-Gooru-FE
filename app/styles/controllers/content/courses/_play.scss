@@ -11,7 +11,7 @@
       }
       nav {
         height: 25px;
-        padding: 10px 0 0 0;
+        padding: 10px 0 0;
         a {
           color: $white;
           border-bottom: none;
@@ -57,8 +57,8 @@
           ul {
             @media (max-width: $screen-xs-max) {
               border-bottom: 1px solid $gray-lighter;
-              padding: 0 0 30px 0;
-              margin: 0 0 30px 0;
+              padding: 0 0 30px;
+              margin: 0 0 30px;
             }
           }
 
