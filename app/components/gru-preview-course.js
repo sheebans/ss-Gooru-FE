@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import SessionMixin from '../mixins/session';
+import SessionMixin from 'gooru-web/mixins/session';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Component.extend(SessionMixin,{

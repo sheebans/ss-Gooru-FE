@@ -60,6 +60,27 @@ test('Resource Card - Button for teachers', function(assert) {
   assert.ok($resourceCard.find('.panel-footer button.add-to-btn').length, 'Missing Add-to Button');
 });
 
+test('Resource/Question Card - Button for anonymous', function(assert) {
+  const resource = ResourceModel.create({
+    title: 'Resource Title'
+  });
+
+  const profile = Ember.Object.create({
+    isTeacher: true
+  });
+
+  this.set('session', Ember.Object.create({
+    isAnonymous: true
+  }));
+
+  this.set('resource', resource);
+  this.set('profile', profile);
+  this.render(hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true profile=profile session=session}}`);
+  const $component = this.$();
+  const $resourceCard = $component.find('.gru-resource-card');
+  assert.ok($resourceCard.find('.panel-footer button.add-to-btn').length, 'Missing Add-to Button');
+});
+
 test('Question Card Layout', function(assert) {
   var question = QuestionModel.create({
     title: 'Question Title',

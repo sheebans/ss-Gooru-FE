@@ -82,11 +82,11 @@
               {{#if editEnabled}}
                   <button class="edit-btn btn btn-success btn-sm">{{t "common.edit"}}</button>
               {{else}}
-                {{#unless profile.isTeacher}}
-                    <button class="study-btn btn btn-success btn-sm">{{t "common.study"}}</button>
-                {{else}}
+                {{#if (or profile.isTeacher session.isAnonymous)}}
                     <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
-                {{/unless}}
+                {{else}}
+                    <button class="study-btn btn btn-success btn-sm">{{t "common.study"}}</button>
+                {{/if}}
               {{/if}}
             </div>
         </div>
