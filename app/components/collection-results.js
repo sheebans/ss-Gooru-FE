@@ -14,9 +14,14 @@ export default Ember.Component.extend(ModalMixin, {
   term: '',
 
   /**
+   * @property {string} bookmark content action
+   */
+  onBookmarkContent: 'onBookmarkContent',
+
+  /**
    * @property {string} on content player action
    */
-  onOpenContentPlayer: "onOpenContentPlayer",
+  onOpenContentPlayer: 'onOpenContentPlayer',
 
 
   /**
@@ -29,11 +34,19 @@ export default Ember.Component.extend(ModalMixin, {
   actions:{
 
     /**
+     * Action triggered to bookmark a collection or assessment
+     * @param {string} collectionId collection identifier
+     */
+    onBookmarkContent: function(collection) {
+      this.sendAction('onBookmarkContent', collection);
+    },
+
+    /**
      * Action triggered to open the content player
      * @param {string} collectionId collection identifier
      */
     openContentPlayer: function(collectionId) {
-      this.sendAction("onOpenContentPlayer", collectionId);
+      this.sendAction('onOpenContentPlayer', collectionId);
     },
 
     /**

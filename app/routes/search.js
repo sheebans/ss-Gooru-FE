@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
+import Bookmark from "gooru-web/models/content/bookmark";
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * @typedef {object} SearchCollectionsController
@@ -22,6 +24,21 @@ export default Ember.Route.extend(PublicRouteMixin, {
    * @requires service:api-sdk/taxonomy
    */
   taxonomySdkService: Ember.inject.service('api-sdk/taxonomy'),
+
+  /**
+   * @requires service:api-sdk/bookmark
+   */
+  bookmarkService: Ember.inject.service('api-sdk/bookmark'),
+
+  /**
+   * @requires service:notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
+   * @property {Service} I18N service
+   */
+  i18n: Ember.inject.service(),
 
   queryParams: {
     term: {
@@ -64,6 +81,20 @@ export default Ember.Route.extend(PublicRouteMixin, {
     controller.reloadTaxonomyTags();
   },
 
+  createBookmark: function(bookmark) {
+    this.get('bookmarkService').createBookmark(bookmark).then(() => {
+      var successMsg = this.get('i18n').t(
+        'common.bookmarked-content-success',
+        { contentType: bookmark.get('contentType') }
+      );
+      var independentLearningURL = '#';
+      var buttonText = this.get('i18n').t('common.take-me-there');
+      this.get('notifications').success(
+        `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`
+      );
+    });
+  },
+
   // -------------------------------------------------------------------------
   // Actions - only transition actions should be placed at the route
   actions: {
@@ -78,6 +109,32 @@ export default Ember.Route.extend(PublicRouteMixin, {
       else {
         this.transitionTo('player', collection.get("id"), { queryParams: { type: collection.get("collectionType") } });
       }
+    },
+
+    /**
+     * Action triggered to bookmark a collection or assessment
+     * @param {Collection/Assessment} content
+     */
+    onBookmarkContent: function({ title, id, collectionType }) {
+      let bookmark = Bookmark.create(Ember.getOwner(this).ownerInjection(), {
+        title,
+        contentId: id,
+        contentType: collectionType
+      });
+      this.createBookmark(bookmark);
+    },
+
+    /**
+     * Action triggered to bookmark a course
+     * @param {Course} course
+     */
+    onBookmarkCourse: function({ title, id }) {
+      let bookmark = Bookmark.create(Ember.getOwner(this).ownerInjection(), {
+        title,
+        contentId: id,
+        contentType: CONTENT_TYPES.COURSE
+      });
+      this.createBookmark(bookmark);
     }
   }
 
