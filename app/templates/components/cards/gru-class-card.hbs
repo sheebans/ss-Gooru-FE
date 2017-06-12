@@ -1,4 +1,4 @@
-<div class="panel {{if (is-teacher class profile.id) 'teacher' 'student' }}">
+<div class="panel {{if (is-teacher class profile.id) 'teacher' 'student' }} {{if class.isArchived 'archive'}}">
   {{#if class.isArchived}}
     <div class="panel-heading">
       <div class="title">
