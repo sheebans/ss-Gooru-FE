@@ -37,7 +37,6 @@ test('Layout', function(assert) {
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
     T.exists(assert, $navigatorContainer.find('.actions .join-class-cta'), 'Missing join class button');
-    T.exists(assert, $navigatorContainer.find('.actions .manage-goals-cta'), 'Missing manage goals button');
 
     assert.ok($('#active-classes').hasClass('active'), 'Active classes should be visible');
 
@@ -57,23 +56,6 @@ test('Take A Tour', function(assert){
 
       T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
       assert.equal(T.text($tooltip.find('.tour-header h2')), 'Take a Tour Icon', 'First step title should be "Take a Tour Icon"');
-    });
-  });
-});
-
-test('Go to manage goals page', function(assert) {
-  visit('/student-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/student-home');
-
-    const $userContainer = find('.controller.student-landing');
-    const $leftUserContainer = $userContainer.find('.student-left-panel');
-    const $navigatorContainer = $leftUserContainer.find('.student-navigator');
-
-    click($navigatorContainer.find('.actions .manage-goals-cta'));
-    andThen(function() {
-      assert.equal(currentURL(), '/goals/manage', 'Wrong route');
     });
   });
 });

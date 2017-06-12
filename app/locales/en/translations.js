@@ -800,6 +800,7 @@ export default Object.assign(quizzesTranslations, {
   "user": {
     "active-classes": "Active Classrooms",
     "archived-classes": "Archived Classes",
+    "classrooms": "Classrooms",
     "create-class": "Create Classroom",
     "hello":"Hello, {{name}}!",
     "hi": "Hi",
@@ -821,21 +822,6 @@ export default Object.assign(quizzesTranslations, {
   },
   "student-landing":{
     "announcement":"Announcement",
-    "my-performance":{
-      "activity":"Activity",
-      "activities":{
-        "study":"Study"
-      },
-      "assessments": "Assessments",
-      "collections": "Collections",
-      "filter": "Filter",
-      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
-      "subject":"Subject",
-      "title": "Analyze your performance",
-      "time-period":"Time Period",
-      "update-report": "Update Report"
-    },
-    "my-study": "My Study",
     "class":{
       "assigned-course": "Assigned Course",
       "back-to": "Back to My Classes",
@@ -851,6 +837,22 @@ export default Object.assign(quizzesTranslations, {
       "my-report":"My Report"
     },
     "current-activity":"Current activity",
+    "my-performance":{
+      "activity":"Activity",
+      "activities":{
+        "study":"Study"
+      },
+      "assessments": "Assessments",
+      "collections": "Collections",
+      "filter": "Filter",
+      "primary-text": "Choose the things you want to analyze and we will generate a customized performance report.",
+      "subject":"Subject",
+      "title": "Analyze your performance",
+      "time-period":"Time Period",
+      "update-report": "Update Report"
+    },
+    "my-study": "My Study",
+    "no-classrooms": "You have not yet joined any classrooms. Click on “Join </br> Classroom” to add your teacher’s class. You can also search for </br> a featured course under the Library tab.",
     "welcome":"Welcome to Gooru."
   },
   "teacher-landing": {
