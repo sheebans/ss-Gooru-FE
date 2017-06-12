@@ -139,7 +139,7 @@
               {{t "teacher-landing.class.class-management-tab.view-report"}}
             </button>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 student-actions">
             <button class="btn btn-default">
               {{gru-icon name='message'}}
               {{t "teacher-landing.class.class-management-tab.message"}}
@@ -148,7 +148,7 @@
               {{gru-icon name='archive'}}
               {{t "teacher-landing.class.class-management-tab.archive"}}
             </button>
-            <button class="btn btn-default">
+            <button class="btn btn-default delete-btn" {{action 'removeStudent' student}}>
               {{gru-icon name='delete'}}
               {{t "teacher-landing.class.class-management-tab.delete"}}
             </button>
