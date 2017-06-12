@@ -6,28 +6,28 @@ import Ember from 'ember';
 moduleForComponent('cards/gru-class-card', 'Integration | Component | cards/gru class card', {
   integration: true,
   beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale", "en");
+    this.container.lookup('service:i18n').set('locale', 'en');
     this.inject.service('i18n');
     this.inject.service('api-sdk/course');
   }
 });
 
 var mockClass = Ember.Object.create({
-  id: "class-id",
-  creatorId: "creator-id",
-  title: "My class - 1",
-  description: "This class is intended to make awareness of good habits",
-  greeting: "Hi! Welcome to my class",
+  id: 'class-id',
+  creatorId: 'creator-id',
+  title: 'My class - 1',
+  description: 'This class is intended to make awareness of good habits',
+  greeting: 'Hi! Welcome to my class',
   grade: [4, 5],
-  classSharing: "open",
-  coverImage: "cover.png",
-  code: "VZFMEWH",
+  classSharing: 'open',
+  coverImage: 'cover.png',
+  code: 'VZFMEWH',
   minScore: 75,
-  endDate: "2016-12-31",
-  courseId: "course-123",
+  endDate: '2016-12-31',
+  courseId: 'course-123',
   collaborator: [
-    "collaborator-1",
-    "collaborator-2"
+    'collaborator-1',
+    'collaborator-2'
   ],
   creatorSystem: null,
   contentVisibility: null,
@@ -37,8 +37,8 @@ var mockClass = Ember.Object.create({
 
 var mockProfile = Ember.Object.create({
   id: 'test-profile',
-  displayName: "test",
-  role: "student"
+  displayName: 'test',
+  role: 'student'
 });
 
 var classStudentCount = Ember.Object.create({
@@ -51,26 +51,25 @@ test('Class Card Layout', function(assert) {
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
-  assert.expect(11);
+  assert.expect(10);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
 
   var $component = this.$(); //component dom element
 
-  const $classCard = $component.find(".gru-class-card");
-  const $panel = $classCard.find(".panel");
+  const $classCard = $component.find('.gru-class-card');
+  const $panel = $classCard.find('.panel');
 
-  T.exists(assert, $classCard, "Missing class card section");
-  T.exists(assert, $panel, "Missing class card panel");
-  assert.ok($panel.hasClass("teacher"), "Must be a teacher class card");
-  T.exists(assert, $classCard.find("h5"), "Missing class card title");
-  T.exists(assert, $classCard.find(".side-info .code"), "Missing class card code");
-  T.exists(assert, $classCard.find(".side-info .action"), "Missing class card action link");
-  T.exists(assert, $classCard.find(".collaborators .collaborator-avatar"), "Missing collaborator avatar");
-  T.exists(assert, $classCard.find(".collaborators .name"), "Missing collaborator name");
-  T.exists(assert, $classCard.find(".students-info"), "Missing students info");
-  T.exists(assert, $classCard.find(".description div"), "Missing class info");
-  T.notExists(assert, $classCard.find(".download-report"), "Download report shouldn't be visible");
+  T.exists(assert, $classCard, 'Missing class card section');
+  T.exists(assert, $panel, 'Missing class card panel');
+  assert.ok($panel.hasClass('teacher'), 'Must be a teacher class card');
+  T.exists(assert, $classCard.find('h5'), 'Missing class card title');
+  T.exists(assert, $classCard.find('.side-info .code'), 'Missing class card code');
+  T.exists(assert, $classCard.find('.side-info .action'), 'Missing class card action link');
+  T.exists(assert, $classCard.find('.collaborators .collaborator-avatar'), 'Missing collaborator avatar');
+  T.exists(assert, $classCard.find('.collaborators .name'), 'Missing collaborator name');
+  T.exists(assert, $classCard.find('.students-info'), 'Missing students info');
+  T.exists(assert, $classCard.find('.description div'), 'Missing class info');
 
 });
 
@@ -88,13 +87,13 @@ test('Student class card', function (assert) {
 
   var $component = this.$(); //component dom element
 
-  const $panel = $component.find(".panel");
-  assert.ok($panel.hasClass("student"), "Must be a student class card");
+  const $panel = $component.find('.panel');
+  assert.ok($panel.hasClass('student'), 'Must be a student class card');
 
 });
 
 test('Class with just one collaborator', function (assert) {
-  mockClass.set('collaborator', ["collaborator-1"]);
+  mockClass.set('collaborator', ['collaborator-1']);
   this.set('class', mockClass);
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
@@ -105,234 +104,38 @@ test('Class with just one collaborator', function (assert) {
 
   var $component = this.$(); //component dom element
 
-  const $classCard = $component.find(".gru-class-card");
-  T.exists(assert, $classCard, "Missing class card section");
-  T.notExists(assert, $classCard.find(".collaborators-count"), "Collaborators count should not exist");
+  const $classCard = $component.find('.gru-class-card');
+  T.exists(assert, $classCard, 'Missing class card section');
+  T.notExists(assert, $classCard.find('.collaborators-count'), 'Collaborators count should not exist');
 
-});
-
-test('Class Card Layout for archived class, report available', function(assert) {
-
-  this.set('class', Ember.Object.create({
-    id: "class-id",
-    creatorId: "creator-id",
-    title: "My class - 1",
-    description: "This class is intended to make awareness of good habits",
-    greeting: "Hi! Welcome to my class",
-    grade: [4, 5],
-    classSharing: "open",
-    coverImage: "cover.png",
-    code: "VZFMEWH",
-    minScore: 75,
-    endDate: "2016-12-31",
-    courseId: 1,
-    collaborator: [
-      "collaborator-1",
-      "collaborator-2"
-    ],
-    creatorSystem: null,
-    contentVisibility: null,
-    isArchived: true,
-    isReportAvailable: true,
-    isReportInProgress: false,
-    hasCourse: true,
-    isTeacher: function () { return true; }
-  }));
-  this.set('profile', mockProfile);
-  this.set('classStudentCount', classStudentCount);
-  this.on('downloadReport', function(){
-    assert.ok(true, "Action should be called");
-  });
-
-  assert.expect(14);
-
-  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount onDownloadReport='downloadReport'}}`);
-
-  var $component = this.$(); //component dom element
-
-  const $classCard = $component.find(".gru-class-card");
-  const $panel = $classCard.find(".panel");
-
-  T.exists(assert, $classCard, "Missing class card section");
-  T.exists(assert, $panel, "Missing class card panel");
-  assert.ok($panel.hasClass("teacher"), "Must be a teacher class card");
-  T.exists(assert, $classCard.find("h5"), "Missing class card title");
-  T.notExists(assert, $classCard.find(".side-info"), "side info shouldn't be visible");
-  T.exists(assert, $classCard.find(".collaborators .collaborator-avatar"), "Missing collaborator avatar");
-  T.exists(assert, $classCard.find(".collaborators .name"), "Missing collaborator name");
-  T.exists(assert, $classCard.find(".students-info"), "Missing students info");
-  T.exists(assert, $classCard.find(".description div"), "Missing class info");
-  T.exists(assert, $classCard.find(".download-report"), "Download report should be visible");
-  T.notExists(assert, $classCard.find(".report-in-progress"), "Report in progress should not be visible");
-  T.notExists(assert, $classCard.find(".request-report"), "Request report should not be visible");
-  T.notExists(assert, $classCard.find(".report-not-available"), "Report not available should not be visible");
-
-  $classCard.find(".download-report").click();
-
-});
-
-test('Class Card Layout for archived class, report in progress', function(assert) {
-
-  this.set('class', Ember.Object.create({
-    id: "class-id",
-    creatorId: "creator-id",
-    title: "My class - 1",
-    description: "This class is intended to make awareness of good habits",
-    greeting: "Hi! Welcome to my class",
-    grade: [4, 5],
-    classSharing: "open",
-    coverImage: "cover.png",
-    code: "VZFMEWH",
-    minScore: 75,
-    endDate: "2016-12-31",
-    courseId: 1,
-    collaborator: [
-      "collaborator-1",
-      "collaborator-2"
-    ],
-    creatorSystem: null,
-    contentVisibility: null,
-    isArchived: true,
-    isReportAvailable: false,
-    isReportInProgress: true,
-    hasCourse: true,
-    isTeacher: function () { return true; }
-  }));
-  this.set('profile', mockProfile);
-  this.set('classStudentCount', classStudentCount);
-
-  assert.expect(4);
-
-  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
-
-  var $component = this.$(); //component dom element
-
-  const $classCard = $component.find(".gru-class-card");
-  T.notExists(assert, $classCard.find(".download-report"), "Download report should not be visible");
-  T.exists(assert, $classCard.find(".report-in-progress"), "Report in progress should be visible");
-  T.notExists(assert, $classCard.find(".report-not-available"), "Report not available should not be visible");
-  T.notExists(assert, $classCard.find(".request-report"), "Request report should not be visible");
-});
-
-test('Class Card Layout for archived class, request report', function(assert) {
-
-  this.set('class', Ember.Object.create({
-    id: "class-id",
-    creatorId: "creator-id",
-    title: "My class - 1",
-    description: "This class is intended to make awareness of good habits",
-    greeting: "Hi! Welcome to my class",
-    grade: [4, 5],
-    classSharing: "open",
-    coverImage: "cover.png",
-    code: "VZFMEWH",
-    minScore: 75,
-    endDate: "2016-12-31",
-    courseId: 1,
-    collaborator: [
-      "collaborator-1",
-      "collaborator-2"
-    ],
-    creatorSystem: null,
-    contentVisibility: null,
-    isArchived: true,
-    isReportAvailable: false,
-    isReportInProgress: false,
-    hasCourse: true,
-    canRequestReport: true,
-    isTeacher: function () { return true; }
-  }));
-  this.set('profile', mockProfile);
-  this.set('classStudentCount', classStudentCount);
-  this.on('requestReport', function(){
-    assert.ok(true, "Action should be called");
-  });
-
-  assert.expect(5);
-
-  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount onRequestReport='requestReport'}}`);
-
-  var $component = this.$(); //component dom element
-
-  const $classCard = $component.find(".gru-class-card");
-  T.notExists(assert, $classCard.find(".download-report"), "Download report should not be visible");
-  T.notExists(assert, $classCard.find(".report-in-progress"), "Report in progress should not be visible");
-  T.notExists(assert, $classCard.find(".report-not-available"), "Report not available should not be visible");
-  T.exists(assert, $classCard.find(".request-report"), "Request report should be visible");
-
-  $classCard.find(".request-report").click();
-});
-
-test('Class Card Layout for archived class, not available', function(assert) {
-
-  this.set('class', Ember.Object.create({
-    id: "class-id",
-    creatorId: "creator-id",
-    title: "My class - 1",
-    description: "This class is intended to make awareness of good habits",
-    greeting: "Hi! Welcome to my class",
-    grade: [4, 5],
-    classSharing: "open",
-    coverImage: "cover.png",
-    code: "VZFMEWH",
-    minScore: 75,
-    endDate: "2016-12-31",
-    courseId: null, //no course, so no report available
-    collaborator: [
-      "collaborator-1",
-      "collaborator-2"
-    ],
-    creatorSystem: null,
-    contentVisibility: null,
-    isArchived: true,
-    isReportAvailable: false,
-    isReportInProgress: false,
-    hasCourse: false,
-    canRequestReport: false,
-    isTeacher: function () { return true; }
-  }));
-  this.set('profile', mockProfile);
-  this.set('classStudentCount', classStudentCount);
-
-  assert.expect(4);
-
-  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
-
-  var $component = this.$(); //component dom element
-
-  const $classCard = $component.find(".gru-class-card");
-  T.notExists(assert, $classCard.find(".download-report"), "Download report should not be visible");
-  T.notExists(assert, $classCard.find(".report-in-progress"), "Report in progress should not be visible");
-  T.notExists(assert, $classCard.find(".request-report"), "Request report should not be visible");
-  T.exists(assert, $classCard.find(".report-not-available"), "Report not available should be visible");
 });
 
 
 test('Class Card Student with location', function(assert) {
 
   this.set('class', Ember.Object.create({
-    id: "class-id",
-    creatorId: "creator-id",
-    title: "My class - 1",
-    description: "This class is intended to make awareness of good habits",
-    greeting: "Hi! Welcome to my class",
+    id: 'class-id',
+    creatorId: 'creator-id',
+    title: 'My class - 1',
+    description: 'This class is intended to make awareness of good habits',
+    greeting: 'Hi! Welcome to my class',
     currentLocation: {
       unitIndex: 2,
       lessonIndex: 3,
       collection: {
-        title: "Equations"
+        title: 'Equations'
       }
     },
     grade: [4, 5],
-    classSharing: "open",
-    coverImage: "cover.png",
-    code: "VZFMEWH",
+    classSharing: 'open',
+    coverImage: 'cover.png',
+    code: 'VZFMEWH',
     minScore: 75,
-    endDate: "2016-12-31",
+    endDate: '2016-12-31',
     courseId: null,
     collaborator: [
-      "collaborator-1",
-      "collaborator-2"
+      'collaborator-1',
+      'collaborator-2'
     ],
     creatorSystem: null,
     contentVisibility: null,
@@ -348,19 +151,19 @@ test('Class Card Student with location', function(assert) {
 
   var $component = this.$(); //component dom element
 
-  const $classCard = $component.find(".gru-class-card");
-  const $panel = $classCard.find(".panel");
+  const $classCard = $component.find('.gru-class-card');
+  const $panel = $classCard.find('.panel');
 
-  T.exists(assert, $classCard, "Missing class card section");
-  T.exists(assert, $panel, "Missing class card panel");
-  assert.ok($panel.hasClass("student"), "Must be a student class card");
-  T.exists(assert, $classCard.find("h5"), "Missing class card title");
-  T.exists(assert, $classCard.find(".side-info"), "side info should be visible");
-  T.exists(assert, $classCard.find(".collaborators .collaborator-avatar"), "Missing collaborator avatar");
-  T.exists(assert, $classCard.find(".collaborators .name"), "Missing collaborator name");
-  T.exists(assert, $classCard.find(".students-info"), "Missing students info");
-  T.exists(assert, $classCard.find(".description div"), "Missing class info");
-  T.exists(assert, $classCard.find(".description p"), "Missing current location class info");
+  T.exists(assert, $classCard, 'Missing class card section');
+  T.exists(assert, $panel, 'Missing class card panel');
+  assert.ok($panel.hasClass('student'), 'Must be a student class card');
+  T.exists(assert, $classCard.find('h5'), 'Missing class card title');
+  T.exists(assert, $classCard.find('.side-info'), 'side info should be visible');
+  T.exists(assert, $classCard.find('.collaborators .collaborator-avatar'), 'Missing collaborator avatar');
+  T.exists(assert, $classCard.find('.collaborators .name'), 'Missing collaborator name');
+  T.exists(assert, $classCard.find('.students-info'), 'Missing students info');
+  T.exists(assert, $classCard.find('.description div'), 'Missing class info');
+  T.exists(assert, $classCard.find('.description p'), 'Missing current location class info');
 
 });
 
@@ -375,20 +178,20 @@ test('Teacher class card pannel', function (assert) {
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
 
   const $component = this.$(); //component dom element
-  const $panel = $component.find(".panel.teacher");
-  T.exists(assert, $panel, "Must be a teacher class card");
+  const $panel = $component.find('.panel.teacher');
+  T.exists(assert, $panel, 'Must be a teacher class card');
 });
 
 test('Teacher class card with no course', function (assert) {
   this.set('class', Ember.Object.create({
-    id: "class-id",
+    id: 'class-id',
     unitsCount: 0,
-    creatorId: "creator-id",
-    title: "My empty class",
-    code: "VZFMEWH",
+    creatorId: 'creator-id',
+    title: 'My empty class',
+    code: 'VZFMEWH',
     courseId: null,
     collaborator: [
-      "collaborator-1"
+      'collaborator-1'
     ],
     isArchived: false,
     isTeacher: function () { return true; }
@@ -401,19 +204,19 @@ test('Teacher class card with no course', function (assert) {
 
   const $component = this.$(); //component dom element
   const $unitsInfo = $component.find('.panel .units-info');
-  assert.equal(T.text($unitsInfo), 'No course', 'The "No Course" text should be visible');
+  assert.equal(T.text($unitsInfo), 'No course', 'The No Course text should be visible');
 });
 
 test('Teacher class card with a course with 4 units', function (assert) {
   this.set('class', Ember.Object.create({
-    id: "class-id",
+    id: 'class-id',
     unitsCount: 4,
-    creatorId: "creator-id",
-    title: "My 4 units class",
-    code: "VZFMEWH",
-    courseId: "123",
+    creatorId: 'creator-id',
+    title: 'My 4 units class',
+    code: 'VZFMEWH',
+    courseId: '123',
     collaborator: [
-      "collaborator-1"
+      'collaborator-1'
     ],
     isArchived: false,
     isTeacher: function () { return true; }
@@ -426,19 +229,19 @@ test('Teacher class card with a course with 4 units', function (assert) {
 
   const $component = this.$(); //component dom element
   const $unitsInfo = $component.find('.panel .units-info');
-  assert.equal(T.text($unitsInfo), '4 Units', 'The message should read "4 Units"');
+  assert.equal(T.text($unitsInfo), '4 Units', 'The message should read 4 Units');
 });
 
 test('Teacher class card with a course with 1 unit', function (assert) {
   this.set('class', Ember.Object.create({
-    id: "class-id",
+    id: 'class-id',
     unitsCount: 1,
-    creatorId: "creator-id",
-    title: "My 4 units class",
-    code: "VZFMEWH",
-    courseId: "123",
+    creatorId: 'creator-id',
+    title: 'My 4 units class',
+    code: 'VZFMEWH',
+    courseId: '123',
     collaborator: [
-      "collaborator-1"
+      'collaborator-1'
     ],
     isArchived: false,
     isTeacher: function () { return true; }
@@ -450,5 +253,30 @@ test('Teacher class card with a course with 1 unit', function (assert) {
 
   const $component = this.$(); //component dom element
   const $unitsInfo = $component.find('.panel .units-info');
-  assert.equal(T.text($unitsInfo), '1 Unit', 'The message should read "1 Unit", in singular');
+  assert.equal(T.text($unitsInfo), '1 Unit', 'The message should read 1 Unit, in singular');
+});
+
+
+test('Is Archived', function (assert) {
+  this.set('class', Ember.Object.create({
+    id: 'class-id',
+    unitsCount: 1,
+    creatorId: 'creator-id',
+    title: 'My 4 units class',
+    code: 'VZFMEWH',
+    courseId: '123',
+    collaborator: [
+      'collaborator-1'
+    ],
+    isArchived: true,
+    isTeacher: function () { return true; }
+  }));
+
+  this.set('profile', mockProfile);
+
+  this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`);
+
+  const $component = this.$(); //component dom element
+  const $isArchived = $component.find('.panel.archive');
+  assert.ok($isArchived.length, 'This class should be archive');
 });

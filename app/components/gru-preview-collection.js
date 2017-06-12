@@ -11,6 +11,15 @@ export default Ember.Component.extend(SessionMixin,{
 
   // -------------------------------------------------------------------------
   // Actions
+  actions:{
+    /**
+     * Action triggered to remix the collection
+     * @param content
+     */
+    remixCollection:function(){
+      this.get('model').remixCollection();
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events

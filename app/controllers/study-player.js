@@ -38,8 +38,11 @@ export default PlayerController.extend({
     /**
      * If the user want to continue playing the collection
      */
-    playActualCollection:function(){
-      this.set('showSuggestion', false);
+    playActualCollection: function() {
+      const navigateMapService = this.get('navigateMapService');
+      navigateMapService.getStoredNext()
+        .then(mapLocation => navigateMapService.next(mapLocation.context))
+        .then(() => this.set('showSuggestion', false));
     },
 
     /**

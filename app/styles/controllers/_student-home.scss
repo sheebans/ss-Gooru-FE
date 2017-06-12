@@ -54,34 +54,6 @@
         .tab-pane {
           margin: 0;
         }
-
-        .no-classes-found {
-          @include flexbox;
-          @include flex-wrap(wrap);
-          @include justify-content(center);
-          .create-class, .join-class, .featured-courses, .teacher-toolkit {
-            margin: 0 15px;
-
-            @media (min-width: $screen-sm) {
-              width: 42%;
-            }
-            @media (min-width: $screen-md) {
-              width: 45%;
-            }
-          }
-          .panel {
-            width: 300px;
-            @media (min-width: $screen-sm) {
-              width: 100%;
-            }
-            button.btn-info, a {
-              margin-top: 20px;
-            }
-            p {
-              font-size: 19px;
-            }
-          }
-        }
       }
     }
   }
@@ -93,15 +65,15 @@
       }
       li{
         margin-right: 15px;
-        a{
-          padding: 10px 0;
+        a {
+          padding: 10px 0 5px;
         }
       }
     }
 
     li {
       display: none;
-      height: 50px;
+      height: 46px;
       margin-bottom: 0;
 
       @media (min-width: $screen-sm) {
@@ -142,6 +114,12 @@
           font-weight: bold;
         }
       }
+    }
+
+    .no-classes-found {
+      font-size: $font-navigator;
+      line-height: $font-size-h5;
+      margin: 15px 0;
     }
 
     .actions {

@@ -51,25 +51,26 @@ export default Ember.Service.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   /**
    * Returns the next map location based on a specific map context
    * This method is used to know what is next based on where the user is right now
    * @param {MapContext} mapContext the current map context returned by the API
    * @returns {Promise.<MapLocation>}
    */
-  next: function (mapContext, saveToLocalStorage=true) {
+  next: function (mapContext) {
     const service = this;
     const mapSerializer = service.get('serializer');
     const serializedMap = mapSerializer.serializeMapContext(mapContext);
-    // Store the serialized context later use
-    if(saveToLocalStorage) {
-      this.getLocalStorage().setItem(this.generateKey(), JSON.stringify(serializedMap));
-    }
     return service.get('adapter').next(serializedMap)
-      .then(payload => MapLocation.create({
-        context: mapSerializer.normalizeMapContext(payload.context),
-        suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions)
-      }));
+      .then(payload => {
+        this.getLocalStorage().setItem(this.generateKey(), JSON.stringify(payload));
+        return MapLocation.create({
+          context: mapSerializer.normalizeMapContext(payload.context),
+          suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions),
+          hasContent: payload.content && !!Object.keys(payload.content).length
+        });
+      });
   },
 
   /**
@@ -82,11 +83,11 @@ export default Ember.Service.extend({
   continueCourse: function (courseId, classId = undefined) {
     const service = this;
     const mapContext = MapContext.create({
-      courseId: courseId,
-      classId: classId,
+      courseId,
+      classId,
       status: 'continue'
     });
-    return service.next(mapContext, false);
+    return service.next(mapContext);
   },
 
   /**
@@ -191,10 +192,10 @@ export default Ember.Service.extend({
   startLesson: function (courseId, unitId, lessonId, classId = undefined) {
     const service = this;
     const mapContext = MapContext.create({
-      courseId: courseId,
-      unitId: unitId,
-      lessonId: lessonId,
-      classId: classId,
+      courseId,
+      unitId,
+      lessonId,
+      classId,
       status: 'start'
     });
     return service.next(mapContext);
@@ -209,31 +210,36 @@ export default Ember.Service.extend({
   getCurrentMapContext: function (courseId, classId = undefined) {
     const service = this;
     const mapSerializer = service.get('serializer');
-    // Get the stored context and return it if found
-    const storedContext = this.getLocalStorage().getItem(this.generateKey());
-    return (storedContext ? Ember.RSVP.resolve(JSON.parse(storedContext)) :
-      service.get('adapter').getCurrentMapContext(courseId, classId)).then(
-        payload => mapSerializer.normalizeMapContext(payload)
-      );
+    return service.get('adapter').getCurrentMapContext(courseId, classId).then(
+      payload => mapSerializer.normalizeMapContext(payload)
+    );
+  },
+
+  /**
+   * Returns the stored next response
+   * @returns {Promise.<MapLocation>}
+   */
+  getStoredNext: function() {
+    const mapSerializer = this.get('serializer');
+    const storedResponse = this.getLocalStorage().getItem(this.generateKey());
+    let parsedResponse = { context: {} };
+    if (storedResponse) {
+      parsedResponse = JSON.parse(storedResponse);
+    }
+    return Ember.RSVP.resolve(MapLocation.create({
+      context: mapSerializer.normalizeMapContext(parsedResponse.context),
+      suggestions: mapSerializer.normalizeMapSuggestions(parsedResponse.suggestions),
+      hasContent: parsedResponse.content && !!Object.keys(parsedResponse.content).length
+    }));
   },
 
   /**
    * Generate a key based on user id and route info
+   * @returns {String}
    */
   generateKey: function() {
     const userId = this.get('session.userId');
-    const routerTransition = this.get('router').get('router.activeTransition');
-    // Get route info for context key generation
-    const targetName = routerTransition.targetName;
-    // Sorting and removing empty params to make the key the same everytime
-    let params = routerTransition.params[targetName];
-    params = Object.keys(params).sort().filter(key => !!params[key])
-      .map(key => `${key}:${params[key]}`).join(',');
-    // Sorting and removing empty query params to make the key the same everytime
-    let queryParams = routerTransition.queryParams;
-    queryParams = Object.keys(queryParams).sort().filter(key => !!queryParams[key])
-      .map(key => `${key}:${queryParams[key]}`).join(',');
-    return btoa(`${userId};${targetName};${params};${queryParams}`);
+    return `${userId}_next`;
   },
 
   /**

@@ -94,6 +94,12 @@
         }
       }
     }
+    #archived-classes{
+      padding:16px;
+      span.no-archived{
+        font-size:$font-size-lead;
+      }
+    }
   }
 }
 
@@ -104,15 +110,15 @@
     }
     li{
       margin-right: 15px;
-      a{
-        padding: 10px 0;
+      a {
+        padding: 10px 0 5px;
       }
     }
   }
 
   li {
     display: none;
-    height: 50px;
+    height: 46px;
     margin-bottom: 0;
 
     @media (min-width: $screen-sm) {

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import QuizzesResourcePlayer from 'quizzes-addon/routes/resource-player';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import { ROLES } from 'gooru-web/config/config';
 
 /**
  * Study Player Route
@@ -50,6 +51,36 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
   collectionService: Ember.inject.service('api-sdk/collection'),
 
   // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    /**
+     * When the next button is clicked
+     */
+    onNext: function() {
+      let controller = this.get('controller');
+      let queryParams = {
+        role: ROLES.STUDENT,
+        source: controller.get('source')
+      };
+      const navigateMapService = this.get('navigateMapService');
+      navigateMapService.getStoredNext()
+        .then(mapLocation => navigateMapService.next(mapLocation.context))
+        .then(mapLocation => {
+          let status = (mapLocation.get('context.status') || '').toLowerCase();
+          if(status === 'done') {
+            controller.set('isDone', true);
+          } else {
+            this.transitionTo('study-player',
+              controller.get('classId'),
+              controller.get('course.id'),
+              { queryParams }
+            );
+          }
+        });
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Methods
 
   /**
@@ -58,7 +89,7 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
   model(params) {
     const route = this;
     const { classId, courseId, collectionUrl } = params;
-    return route.getMapLocation(params, !collectionUrl).then(currentContext => {
+    return route.getMapLocation().then(currentContext => {
       const unitId = currentContext.get('unitId');
       const lessonId = currentContext.get('lessonId');
       const collectionId = currentContext.get('collectionId');
@@ -119,22 +150,9 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
     this._super(...arguments);
   },
 
-  getMapLocation(params, sendToAnalytics) {
-    const navigateMapService = this.get('navigateMapService');
-    const { classId, courseId, pathId, unitId, lessonId, collectionId, resourceId } = params;
-    let mapLocationPromise = null;
-    if(!sendToAnalytics) {
-      mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId);
-    } else if (pathId) {
-      mapLocationPromise = navigateMapService.startResource(
-        courseId, unitId, lessonId, collectionId, resourceId, pathId, classId
-      ).then(mapLocation => mapLocation.get('context'));
-    } else {
-      mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId)
-        .then(mapContext => navigateMapService.next(mapContext))
-        .then(mapLocation => mapLocation.get('context'));
-    }
-    return mapLocationPromise;
+  getMapLocation() {
+    return this.get('navigateMapService').getStoredNext()
+      .then(mapLocation => mapLocation.get('context'));
   },
 
   loadCollection: function(collectionId, type) {
