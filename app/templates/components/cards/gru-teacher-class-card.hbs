@@ -19,15 +19,13 @@
         <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
       </div>
     </div>
-    <div class="greeting col-md-8 col-sm-8 col-xs-8">
-      <span>{{t "teacher-landing.latest-announcement"}}</span>
-      <div class="announcement">
-        {{#if class.greeting}}
-          {{class.greeting}}
-        {{else}}
-          {{t "common.not-applicable"}}
-        {{/if}}
-      </div>
+    <div class="course-info col-md-8 col-sm-8 col-xs-8">
+      {{#if course}}
+        <div class="legend">{{t 'student-landing.class.assigned-course'}}</div>
+        {{cards.gru-course-card course=course isSmall=true showTaxonomy=false}}
+      {{else}}
+        <div class="legend">{{t 'teacher-landing.no-course'}}</div>
+      {{/if}}
     </div>
   </div>
 </div>

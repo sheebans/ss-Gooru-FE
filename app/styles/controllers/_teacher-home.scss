@@ -2,7 +2,6 @@
   .teacher-landing {
     padding-top: 30px;
     width: 100vw;
-
     >* {
       margin: 0 auto;
       width: 97%;
@@ -13,7 +12,6 @@
         width: 90%;
       }
     }
-
     .title {
       >* {
         display: inline-block;
@@ -27,25 +25,19 @@
     span {
       color: $gray-base;
       font-size: $font-size-h4;
-      @media (min-width: $screen-sm) {
-        font-size: $font-size-h3;
-      }
-      @media (min-width: $screen-md) {
-        font-size: $font-size-h2;
-      }
+      line-height: $font-size-h4;
     }
-
     p {
       font-weight: lighter;
       @media (min-width: $screen-sm) {
-        font-size: $font-size-lead;
+        font-size: $font-navigator;
       }
     }
   }
-  .teacher-header{
-    .panel{
+  .teacher-header {
+    .panel {
       min-height: 300px;
-      .panel-heading{
+      .panel-heading {
         background-color: $blue-400;
         font-size: $font-size-lead;
         padding: 0 15px;
@@ -58,7 +50,8 @@
     }
   }
   .tab-content {
-    padding-top: 25px;
+    padding: 10px 0 0;
+    clear: both;
     @include transition(width .3s ease-out);
     @media (min-width: $screen-sm) {
       width: 100%;
@@ -66,33 +59,8 @@
     @media (min-width: $screen-md) {
       width: 100%;
     }
-
-    .no-classes-found {
-      @include flexbox;
-      @include flex-wrap(wrap);
-      @include justify-content(center);
-      .create-class, .join-class, .featured-courses, .teacher-toolkit {
-        margin: 0 15px;
-
-        @media (min-width: $screen-sm) {
-          width: 42%;
-        }
-        @media (min-width: $screen-md) {
-          width: 45%;
-        }
-      }
-      .panel {
-        width: 300px;
-        @media (min-width: $screen-sm) {
-          width: 100%;
-        }
-        button.btn-info, a {
-          margin-top: 20px;
-        }
-        p {
-          font-size: 19px;
-        }
-      }
+    .tab-pane {
+      margin: -10px;
     }
   }
 }
@@ -109,58 +77,51 @@
       }
     }
   }
-
   li {
     display: none;
     height: 46px;
     margin-bottom: 0;
-
     @media (min-width: $screen-sm) {
       display: block;
     }
-
     &.active {
       display: block;
-
       a {
         box-shadow: inset 0 -4px 0 $gray;
         padding-left: 0;
         padding-right: 0;
-
         &:focus {
           box-shadow: inset 0 -4px 0 $gray;
         }
-
         &:active {
           box-shadow: inset 0 -4px 0 $gray;
         }
-
       }
     }
-
     &:not(.active) {
-
       a {
         box-shadow: none;
       }
     }
-
-    &.actions {
-      @include flexbox;
-      @include align-items(flex-end);
-      @include justify-content(space-between);
-      height: 39px;
-    }
-
     a {
-
       &:hover {
         color: initial;
       }
-
       span {
         font-weight: bold;
       }
     }
+  }
+  .no-classes-found {
+    font-size: $font-navigator;
+    line-height: $font-size-h5;
+    margin: 15px 0;
+  }
+  .actions {
+    @include flexbox;
+    @include align-items(flex-end);
+    @include justify-content(space-between);
+    height: 35px;
+    margin: 8px 0 0;
   }
 }

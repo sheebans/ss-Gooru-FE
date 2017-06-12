@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import ClassModel from 'gooru-web/models/content/resource';
 import Ember from 'ember';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('cards/gru-teacher-class-card', 'Integration | Component | cards/gru teacher class card', {
   integration: true,
@@ -79,7 +80,9 @@ test('Class Card Layout', function(assert) {
   assert.equal(T.text($panelBody.find('.chart .charts.gru-bubble-chart .bubble-circle span')), '90%', 'Wrong performance score of the chart');
   assert.equal(T.text($panelBody.find('.chart .legend')), this.get('i18n').t('teacher-landing.class.performance').string, 'Wrong legend of the chart');
 
-  T.exists(assert, $panelBody.find('.greeting'), 'Missing class greeting');
-  assert.equal(T.text($panelBody.find('.greeting span')), this.get('i18n').t('teacher-landing.latest-announcement').string, 'Wrong legend of the greeting');
-  assert.equal(T.text($panelBody.find('.greeting .announcement')), 'Hi! Welcome to my class', 'Wrong legend of the greeting');
+  return wait().then(function () {
+    T.exists(assert, $panelBody.find('.course-info'), 'Missing class course-info');
+    T.exists(assert, $panelBody.find('.course-info .legend'), 'Missing legend of the course');
+    T.exists(assert, $panelBody.find('.course-info .gru-course-card'), 'Missing gru-course-card component');
+  });
 });

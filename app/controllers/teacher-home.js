@@ -91,5 +91,4 @@ export default Ember.Controller.extend(ModalMixin, {
   toolkitSiteUrl: Ember.computed(function(){
     return Env.toolkitSiteUrl;
   })
-
 });
