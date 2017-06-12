@@ -5,6 +5,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
 export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+  classService: Ember.inject.service('api-sdk/class'),
 
   applicationController: Ember.inject.controller('application'),
 

@@ -331,6 +331,7 @@ export default Object.assign(quizzesTranslations, {
     "new-resource": "New Resource",
     "next": "Next",
     "no": "No",
+    "no-archived":"You do not have any archived classrooms.",
     "no-content": "No content available",
     "no-assessments-to-display": "No <span>assessments</span> to display.",
     "no-collections-to-display": "No <span>collections</span> to display.",
