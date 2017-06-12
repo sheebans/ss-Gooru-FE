@@ -53,18 +53,6 @@
       }
     }
 
-    //.title {
-    //  @include flex-basis(332px);
-    //
-    //  h5 {
-    //    @include ellipsis($font-size-h5, 1.5, 2);
-    //    display: inline-block;
-    //    margin: 0;
-    //    max-width: 316px;
-    //    word-break: break-word;
-    //  }
-    //}
-
     .action {
       @include flexbox;
       @include align-items(center);
