@@ -119,7 +119,7 @@ export default Ember.Component.extend(ModalMixin,{
    * Indicates if bookmark action is disabled
    * @property {boolean}
    */
-  disabledBookmark: Ember.computed(function() {
+  disabledBookmark: Ember.computed('isTeacher', 'session.isAnonymous', function() {
     return this.get('session.isAnonymous') || this.get('isTeacher');
   }),
 

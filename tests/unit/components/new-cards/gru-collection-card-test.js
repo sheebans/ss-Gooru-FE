@@ -2,10 +2,25 @@ import Ember from "ember";
 import { moduleForComponent, test } from 'ember-qunit';
 import Course from 'gooru-web/models/content/course';
 
-
-
 moduleForComponent('new-cards/gru-collection-card', 'Unit | Component | new-cards/gru collection card', {
   integration: false
+});
+
+test('disabledBookmark', function(assert) {
+  let component = this.subject({
+    session: {
+      isAnonymous: false
+    },
+    isTeacher: false
+  });
+  assert.notOk(component.get('disabledBookmark'), 'Wrong value of disabled bookmark');
+
+  component.set('isTeacher', true);
+  assert.ok(component.get('disabledBookmark'), 'Wrong value of disabled bookmark');
+
+  component.set('isTeacher', false);
+  component.set('session.isAnonymous', true);
+  assert.ok(component.get('disabledBookmark'), 'Wrong value of disabled bookmark');
 });
 
 test('previewContent', function(assert) {
