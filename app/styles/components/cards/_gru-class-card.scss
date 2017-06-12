@@ -8,6 +8,11 @@
       a{
         padding: 0;
       }
+      &.archive{
+        .panel-heading{
+          background-color: $light-400;
+        }
+      }
     }
 
     .panel-body {
@@ -18,39 +23,19 @@
         padding: 20px;
       }
     }
-
-    .teacher {
-      .panel-heading {
-        background-color: $teal-300;
-        .action {
-          background-color: $teal-400;
-        }
-      }
-    }
-
-    .student {
-      .panel-heading {
-        background-color: $sky-300;
-
-        .action {
-          background-color: $sky-400;
-        }
-      }
-    }
-
-    .panel-heading {
+    .panel-heading{
       @include flexbox;
       @include align-items(center);
       @include justify-content(space-between);
       @include border-top-radius(4px);
-      height: 88px;
-      padding: 0 0 0 15px;
-      width: 100%;
-
-      * {
-        color: $white;
+      background-color: $sky-300;
+      .title{
+        h5{
+          color: $white;
+          font-size: $font-size-lead;
+          margin: 5px 0;
+        }
       }
-
       .side-info {
         @include flexbox;
         @include align-items(center);
@@ -68,17 +53,17 @@
       }
     }
 
-    .title {
-      @include flex-basis(332px);
-
-      h5 {
-        @include ellipsis($font-size-h5, 1.5, 2);
-        display: inline-block;
-        margin: 0;
-        max-width: 316px;
-        word-break: break-word;
-      }
-    }
+    //.title {
+    //  @include flex-basis(332px);
+    //
+    //  h5 {
+    //    @include ellipsis($font-size-h5, 1.5, 2);
+    //    display: inline-block;
+    //    margin: 0;
+    //    max-width: 316px;
+    //    word-break: break-word;
+    //  }
+    //}
 
     .action {
       @include flexbox;
