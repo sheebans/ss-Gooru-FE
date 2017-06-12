@@ -10,5 +10,9 @@
   collectionUrl=collectionUrl
 }}
 <div class="resource-player {{if toggleState 'expanded' 'collapsed'}}">
-  {{partial 'partials/qz-resource-player'}}
+  {{#if isDone}}
+    {{player.gru-player-done classId=classId}}
+  {{else}}
+    {{partial 'partials/qz-resource-player'}}
+  {{/if}}
 </div>

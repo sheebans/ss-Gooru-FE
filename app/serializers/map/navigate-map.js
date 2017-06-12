@@ -50,9 +50,9 @@ export default Ember.Object.extend({
     const serializer = this;
     let suggestions = [];
     if (payload && Ember.isArray(payload)) {
-      suggestions = payload.map(function(suggestion) {
-        return serializer.normalizeMapSuggestion(suggestion);
-      });
+      suggestions = payload.map(
+        suggestion => serializer.normalizeMapSuggestion(suggestion)
+      );
     }
 
     return suggestions;
