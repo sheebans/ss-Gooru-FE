@@ -1,4 +1,4 @@
-<div class="panel {{if (is-teacher class profile.id) 'teacher' 'student' }}">
+<div class="panel {{if (is-teacher class profile.id) 'teacher' 'student' }} {{if class.isArchived 'archive'}}">
   {{#if class.isArchived}}
     <div class="panel-heading">
       <div class="title">
@@ -53,22 +53,6 @@
         {{/if}}
       {{else}}
           <div>{{class.greeting}}</div>
-      {{/if}}
-      {{#if class.isArchived}}
-          <span class="archived-actions">
-            {{#if class.isReportAvailable}}
-              <button class="btn btn-success download-report" {{action 'downloadReport'}}>{{gru-icon name="get_app"}} {{t "common.download-report"}}</button>
-            {{/if}}
-            {{#unless class.hasCourse}}
-              {{gru-icon name="highlight_off"}}<span class="report-not-available">{{t "common.no-content"}}</span>
-            {{/unless}}
-            {{#if class.isReportInProgress}}
-              {{gru-icon name="schedule"}}<span class="report-in-progress">{{t "common.report-in-progress"}}</span>
-            {{/if}}
-            {{#if class.canRequestReport}}
-                <button class="btn btn-info request-report" {{action 'requestReport'}}>{{gru-icon name="timeline"}} {{t "common.request-report"}}</button>
-            {{/if}}
-          </span>
       {{/if}}
 
       <p>
