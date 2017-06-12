@@ -36,6 +36,7 @@ test('Layout', function(assert) {
     assert.equal($tabContent.find('#active-classes .gru-teacher-class-card').length, 13 ,'Wrong number of current class cards');
     click('#archived-classes');
     andThen(function() {
+      assert.ok($('span.no-archived'), 'Missing no archived available lead');
       assert.equal($tabContent.find('#archived-classes .gru-class-card').length, 0 ,'Wrong number of archived class cards');
     });
   });
