@@ -5,6 +5,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
 export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+  classService: Ember.inject.service('api-sdk/class'),
 
   applicationController: Ember.inject.controller('application'),
 
@@ -20,6 +21,24 @@ export default Ember.Controller.extend(ModalMixin, {
     showClasses: function (type) {
       this.set('showActiveClasses', type === 'active');
       this.set('showArchivedClasses', type === 'archived');
+    },
+    downloadReport: function (aClass) {
+      const classId = aClass.get('id');
+      const courseId = aClass.get('courseId');
+      const basePath = `${window.location.protocol}//${window.location.host}`;
+      const userId = this.get('session.userId');
+      const sessionToken = encodeURIComponent(this.get('session.token-api3'));
+      const url = `${basePath}/api/nucleus-download-reports/v1/class/${classId}/course/${courseId}/download/file?sessionToken=${sessionToken}&userId=${userId}`;
+      Ember.$('#download_iframe').attr('src', url);
+    },
+
+    requestReport: function (aClass) {
+      const classId = aClass.get('id');
+      const courseId = aClass.get('courseId');
+      const userId = this.get('session.userId');
+      this.get('classService').requestClassReport(classId, courseId, userId).then(function(status){
+        aClass.set('reportStatus', status);
+      });
     }
   },
 
