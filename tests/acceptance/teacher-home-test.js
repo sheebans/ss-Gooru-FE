@@ -16,7 +16,7 @@ moduleForAcceptance('Acceptance | Teacher Home Landing page', {
 });
 
 test('Layout', function(assert) {
-  assert.expect(9);
+  assert.expect(10);
   visit('/teacher-home');
 
   andThen(function() {
