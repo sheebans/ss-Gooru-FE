@@ -1,4 +1,5 @@
 .gru-student-class-card {
+  padding-right: 0;
   .panel{
     @include border-top-radius(4px);
     @include border-bottom-radius(4px);
@@ -12,6 +13,8 @@
       .title{
         h5{
           color: $white;
+          line-height: $font-size-h4;
+          margin: 0;
         }
       }
       .code {
@@ -26,19 +29,52 @@
           text-transform: uppercase;
           color: $white;
           @media (min-width: $screen-xs) {
-            font-size: $font-size-large;
+            font-size: $font-size-h6;
           }
         }
       }
     }
-    .panel-body{
+    .panel-body {
+      padding: 10px;
+      height: 140px;
+      &.border-between > [class*='col-']:before {
+        background: $light-400;
+        width: 1px;
+      }
+      .information {
+        height: 125px;
+        span {
+          color: $gray-base;
+        }
+        .current-activity {
+          i {
+            margin: 0 2px 0 0;
+            width: 22px;
+            height: 17px;
+            vertical-align: middle;
+            background-repeat: no-repeat;
+            background-position: center center;
+            display: inline-block;
+            &.collection { background-image: url("gooru/images/add_collection.svg"); }
+            &.assessment { background-image: url("gooru/images/add_assessment.svg"); }
+          }
+        }
+      }
       .charts{
         text-align: center;
-        .charts.gru-radial-chart,
-        .charts.gru-bubble-chart{
-          width: 75px;
-          height: 75px;
-          margin: 20px auto 0;
+        margin: 10px 0 0;
+        .row {
+          margin: 0;
+          .performance,
+          .completed {
+            padding: 0;
+          }
+          .charts.gru-radial-chart,
+          .charts.gru-bubble-chart{
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 5px;
+          }
         }
       }
     }

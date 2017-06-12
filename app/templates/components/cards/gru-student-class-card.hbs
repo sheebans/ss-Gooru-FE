@@ -10,13 +10,13 @@
     </div>
   {{/link-to}}
   <div class="panel-body border-between">
-    <div class="charts col-md-6">
+    <div class="charts col-md-5">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 performance">
           {{charts.gru-bubble-chart content= (if class.performanceSummary (concat class.performanceSummary.score '%') '--') color=(grade-color class.performanceSummary.score)}}
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 completed">
           {{charts.gru-radial-chart
           value=class.performanceSummary.totalCompleted
           minValue=0
@@ -25,20 +25,12 @@
         </div>
       </div>
     </div>
-    <div class="information col-md-6">
-      <span>{{t "student-landing.announcement"}}</span>
-      <div class="announcement">
-        {{#if class.greeting}}
-          {{class.greeting}}
-        {{else}}
-          {{t "common.not-applicable"}}
-        {{/if}}
-      </div>
-      <br>
+    <div class="information col-md-7">
       <span>{{t "student-landing.current-activity"}}</span>
       <div class="current-activity ellipsis">
         {{#if class.currentLocation}}
-          {{t "student-landing.class.unit"}} {{plus-one class.currentLocation.unitIndex}}, {{t "student-landing.class.lesson" }} {{plus-one class.currentLocation.lessonIndex}}, {{class.currentLocation.collection.title}}
+          <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
+          {{class.currentLocation.collection.title}}, {{t "student-landing.class.unit"}} {{plus-one class.currentLocation.unitIndex}}, {{t "student-landing.class.lesson" }} {{plus-one class.currentLocation.lessonIndex}}
         {{else}}
           {{t "common.not-applicable"}}
         {{/if}}

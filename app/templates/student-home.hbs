@@ -11,7 +11,7 @@
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active active-classes tab hidden-xs">
           <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab">
-            <span class="lead">{{t 'user.my-classes'}}</span>
+            <span class="lead">{{t 'user.classrooms'}}</span>
           </a>
         </li>
         <li role="presentation" class="independent-learning tab hidden-xs">
@@ -20,11 +20,12 @@
           </a>
         </li>
       </ul>
+      {{#unless hasClasses}}
+        <div class="pull-left no-classes-found">
+          {{t 'student-landing.no-classrooms'}}
+        </div>
+      {{/unless}}
       <div class="pull-right actions">
-        {{#link-to 'goals.manage' class="btn btn-info manage-goals-cta" tagName='button'}}
-          {{t 'user.manage-goals'}}
-        {{/link-to}}
-
         {{#link-to 'content.classes.join' class="btn btn-success join-class-cta" tagName='button'}}
           {{t 'user.join-class'}}
         {{/link-to}}
@@ -45,8 +46,6 @@
               {{/each}}
             </div>
           {{/each}}
-        {{else}}
-          {{partial 'partials/student-no-classes-found'}}
         {{/if}}
       </div>
     </div>

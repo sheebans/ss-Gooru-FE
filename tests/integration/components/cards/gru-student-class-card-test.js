@@ -76,8 +76,6 @@ test('Class Card Layout', function(assert) {
   assert.equal(T.text($panelBody.find('.charts .col-md-6:eq(1) span:eq(0)')), this.get('i18n').t('common.completed').string, 'Wrong legend of the completed chart');
 
   T.exists(assert, $panelBody.find('.information'), 'Missing class information');
-  assert.equal(T.text($panelBody.find('.information span:eq(0)')), this.get('i18n').t('student-landing.announcement').string, 'Wrong legend of the announcement');
-  assert.equal(T.text($panelBody.find('.information .announcement')), 'Hi! Welcome to my class', 'Wrong legend of the announcement');
-  assert.equal(T.text($panelBody.find('.information span:eq(1)')), this.get('i18n').t('student-landing.current-activity').string, 'Wrong legend of the current activity');
+  assert.equal(T.text($panelBody.find('.information span:eq(0)')), this.get('i18n').t('student-landing.current-activity').string, 'Wrong legend of the current activity');
   assert.equal(T.text($panelBody.find('.information .current-activity')), this.get('i18n').t('common.not-applicable').string, 'Wrong legend of the current activity');
 });
