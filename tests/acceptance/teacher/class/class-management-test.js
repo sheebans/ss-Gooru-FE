@@ -163,29 +163,21 @@ test('Remove class', function(assert) {
 test('Delete Student', function (assert) {
   visit('/teacher/class/class-for-pochita-as-teacher/class-management');
   andThen(function() {
-
     assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
-
     let $container = find('.teacher.class .controller.teacher.class.class-management');
-
     let $studentsPanel = $container.find('.students-panel .panel-body');
-
     let $delete = $studentsPanel.find('.row:nth-child(1) .student-actions .delete-btn');
     click($delete);
-
     andThen(function () {
       let $deleteModal = find('.gru-remove-student');
       var $check1 = $deleteModal.find('ul li:eq(0) input');
       click($check1);
-
       andThen(function () {
         var $check2 = $deleteModal.find('ul li:eq(1) input');
         click($check2);
-
         andThen(function () {
           var $check3 = $deleteModal.find('ul li:eq(2) input');
           click($check3);
-
           andThen(function () {
             var $input = $deleteModal.find('.delete-input');
             $input.val('delete');
@@ -194,9 +186,7 @@ test('Delete Student', function (assert) {
             andThen(function () {
               var $deleteButton = $deleteModal.find('button.delete');
               click($deleteButton);
-
               andThen(function () {
-
                 assert.equal($studentsPanel.find('.row').length, 6, 'The students panel must have 6 students');
               });
             });
