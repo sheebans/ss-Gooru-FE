@@ -108,18 +108,22 @@
       </div>
     </div>
     <div class="actions">
-        <div class="share-box" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover" >
-          {{#if isCourse}}
-            {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type="course" contentId=content.id}}
-              {{gru-icon name="share"}}
-            {{/gru-share-pop-over}}
-          {{else}}
-            {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type=(if isAssessment 'assessment' 'collection') contentId=content.id}}
-              {{gru-icon name="share"}}
-            {{/gru-share-pop-over}}
-          {{/if}}
-        </div>
-      <button class="btn bookmark-btn no-bgd" title="{{t 'common.bookmark'}}" data-toggle="tooltip" data-placement="auto" data-trigger="hover" disabled={{disabledActions}}> {{gru-icon name="turned_in_not"}}</button>
+      <div class="share-box" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover" >
+        {{#if isCourse}}
+          {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type="course" contentId=content.id}}
+            {{gru-icon name="share"}}
+          {{/gru-share-pop-over}}
+        {{else}}
+          {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type=(if isAssessment 'assessment' 'collection') contentId=content.id}}
+            {{gru-icon name="share"}}
+          {{/gru-share-pop-over}}
+        {{/if}}
+      </div>
+      <button class="btn bookmark-btn no-bgd {{if disabledBookmark 'btn-disabled'}}" title="{{t 'common.bookmark'}}"
+        {{action 'bookmarkContent' content}} data-toggle="tooltip"
+        data-placement="auto" data-trigger="hover" disabled={{disabledBookmark}}>
+          {{gru-icon name="turned_in_not"}}
+      </button>
     </div>
   </div>
 </div>
