@@ -162,6 +162,18 @@
             color: $gray;
           }
         }
+        .bookmark-btn {
+          cursor: pointer;
+          &:hover {
+            cursor: pointer;
+          }
+          &.btn-disabled {
+            cursor: default;
+            &:hover {
+              cursor: default;
+            }
+          }
+        }
         .share-btn.gru-share-pop-over{
           cursor: pointer;
           background-color: transparent;

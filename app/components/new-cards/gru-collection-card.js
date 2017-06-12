@@ -41,11 +41,20 @@ export default Ember.Component.extend(ModalMixin,{
 
   actions: {
     /**
+     * Action triggered to bookmark content
+     * @param content
+     */
+    bookmarkContent: function(content) {
+      this.sendAction('onBookmarkContent', content);
+    },
+
+    /**
      * Action triggered to edit content
      */
     editContent: function(){
       this.sendAction('onEditContent', this.get('content'));
     },
+
     /**
      * Action triggered to open the content player
      * @param {string} content identifier
@@ -101,15 +110,19 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {boolean}
    */
   addEnabled: true,
+
   /**
    * @property {Course,Collection,Assessment} content
    */
   content: null,
+
   /**
-   * Indicates if disable share and bookmark actions
+   * Indicates if bookmark action is disabled
    * @property {boolean}
    */
-  disabledActions:true,
+  disabledBookmark: Ember.computed('isTeacher', 'session.isAnonymous', function() {
+    return this.get('session.isAnonymous') || this.get('isTeacher');
+  }),
 
   /**
    * Indicates if the edit functionality is enabled
@@ -160,6 +173,11 @@ export default Ember.Component.extend(ModalMixin,{
   isStudent: Ember.computed.equal('profile.role', 'student'),
 
   /**
+   * @property {string} bookmark content action
+   */
+  onBookmarkContent: null,
+
+  /**
    * @property {string} edit action
    */
   onEditContent: null,
@@ -168,10 +186,12 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {string} on content player action
    */
   onOpenContentPlayer: null,
+
   /**
    * @property {Profile} user profile
    */
-  profile:null,
+  profile: null,
+
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
