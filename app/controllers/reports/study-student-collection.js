@@ -60,6 +60,13 @@ export default StudentCollection.extend({
      */
     playResourceSuggestion: function() {
       this.playSuggestedContent(this.get('mapLocation.resourceSuggestion'));
+    },
+
+    /**
+     * If the user want to continue playing the benchmark suggestion
+     */
+    playBenchmarkSuggestion: function() {
+      this.playSuggestedContent(this.get('mapLocation.benchmarkSuggestion'));
     }
   },
 
