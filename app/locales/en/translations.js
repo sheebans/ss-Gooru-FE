@@ -115,6 +115,7 @@ export default Object.assign(quizzesTranslations, {
     "biography": "Biography",
     "bookmark":"Bookmark",
     "bookmarked-content-success": "This bookmarked {{contentType}} will be added to your Independent Learning Page.",
+    "bookmarked-success": "All bookmarked content will be added to the Independent learning page.",
     "builder": "Editor",
     "cancel": "Cancel",
     "categories": "Categories",

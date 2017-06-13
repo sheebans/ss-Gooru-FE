@@ -81,14 +81,19 @@ export default Ember.Route.extend(PublicRouteMixin, {
     controller.reloadTaxonomyTags();
   },
 
-  createBookmark: function(bookmark) {
+  createBookmark: function(bookmark, showType) {
     this.get('bookmarkService').createBookmark(bookmark).then(() => {
-      var successMsg = this.get('i18n').t(
+      this.get('notifications').setOptions({
+        positionClass: 'toast-top-full-width',
+        toastClass: 'gooru-toast',
+        timeOut: 10000
+      });
+      const successMsg = showType ? this.get('i18n').t(
         'common.bookmarked-content-success',
         { contentType: bookmark.get('contentType') }
-      );
-      var independentLearningURL = '#';
-      var buttonText = this.get('i18n').t('common.take-me-there');
+      ) : this.get('i18n').t('common.bookmarked-success');
+      const independentLearningURL = '#';
+      const buttonText = this.get('i18n').t('common.take-me-there');
       this.get('notifications').success(
         `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`
       );
@@ -115,26 +120,26 @@ export default Ember.Route.extend(PublicRouteMixin, {
      * Action triggered to bookmark a collection or assessment
      * @param {Collection/Assessment} content
      */
-    onBookmarkContent: function({ title, id, collectionType }) {
+    onBookmarkContent: function({ title, id, collectionType }, showType) {
       let bookmark = Bookmark.create(Ember.getOwner(this).ownerInjection(), {
         title,
         contentId: id,
         contentType: collectionType
       });
-      this.createBookmark(bookmark);
+      this.createBookmark(bookmark, showType);
     },
 
     /**
      * Action triggered to bookmark a course
      * @param {Course} course
      */
-    onBookmarkCourse: function({ title, id }) {
+    onBookmarkCourse: function({ title, id }, showType) {
       let bookmark = Bookmark.create(Ember.getOwner(this).ownerInjection(), {
         title,
         contentId: id,
         contentType: CONTENT_TYPES.COURSE
       });
-      this.createBookmark(bookmark);
+      this.createBookmark(bookmark, showType);
     }
   }
 
