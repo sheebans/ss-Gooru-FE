@@ -1,8 +1,14 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
   // -------------------------------------------------------------------------
   // Dependencies
+
+  /**
+   * @type {CourseService} Service to retrieve course information
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -14,12 +20,32 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  init(){
+    var component = this;
+    component._super(...arguments);
+
+    const aClass = component.get('class');
+    const courseId = aClass.get('courseId');
+
+    if (courseId) {
+      component.get('courseService').fetchById(courseId).then(function(course) {
+        component.set('course', course);
+      });
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {Class} class information
    */
   class: null,
+
+  /**
+   * The course of the class
+   * @property {Course}
+   */
+  course: null,
 
   /**
    * @property {Object} Object containing student count by class

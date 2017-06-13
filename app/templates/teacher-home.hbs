@@ -4,28 +4,33 @@
   <div class="teacher-panel">
     <div class="greetings">
       <div class="title">
-        <span>{{t 'user.hi'}} {{profile.firstName}}!</span>
+        <span>{{t 'user.hello' name=profile.firstName}}</span>
       </div>
+      <p>{{t 'user.teaching-classes' count=totalTeachingClasses}}</p>
     </div>
     <div class="teacher-navigator">
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active active-classes tab hidden-xs">
           <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'active'}}>
-            <span class="lead">{{t 'user.my-current-classes'}}</span>
+            <span class="lead">{{t 'user.active-classrooms'}}</span>
           </a>
         </li>
         <li role="presentation" class="archived-classes tab hidden-xs">
           <a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'archived'}}>
-            <span class="lead">{{t 'user.archived-classes'}}</span>
+            <span class="lead">{{t 'user.archived-classrooms'}}</span>
           </a>
         </li>
-
-        <li class="pull-right actions">
-          {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
-            {{t 'user.create-class'}}
-          {{/link-to}}
-        </li>
       </ul>
+      {{#unless hasClasses}}
+        <div class="pull-left no-classes-found">
+          {{t 'teacher-landing.no-classrooms'}}
+        </div>
+      {{/unless}}
+      <div class="pull-right actions">
+        {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
+          {{t 'user.create-class'}}
+        {{/link-to}}
+      </div>
     </div>
     <div class="content tab-content">
       <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
@@ -35,8 +40,6 @@
               class=class
               classStudentCount=myClasses.memberCount}}
           {{/each}}
-        {{else}}
-          {{partial 'partials/teacher-no-classes-found'}}
         {{/if}}
       </div>
       <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">

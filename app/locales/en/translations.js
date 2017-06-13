@@ -801,12 +801,11 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   "user": {
-    "active-classes": "Active Classrooms",
-    "archived-classes": "Archived Classes",
+    "active-classrooms": "Active Classrooms",
+    "archived-classrooms": "Archived Classrooms",
     "classrooms": "Classrooms",
     "create-class": "Create Classroom",
     "hello":"Hello, {{name}}!",
-    "hi": "Hi",
     "independent-learning": "Independent Learning",
     "join-class": "Join Classroom",
     "joined-classes": {
@@ -818,9 +817,9 @@ export default Object.assign(quizzesTranslations, {
     "manage-goals": "Manage Goals",
     "my-classes":"My Classes",
     "teaching-classes": {
-      zero: " and teaching {{count}} classrooms",
-      one: " and teaching 1 classroom",
-      other: " and teaching {{count}} classrooms"
+      zero: "You're currently teaching {{count}} classrooms",
+      one: "You're currently teaching 1 classroom",
+      other: "You're currently teaching {{count}} classrooms"
     }
   },
   "student-landing":{
@@ -903,7 +902,9 @@ export default Object.assign(quizzesTranslations, {
         "assessments": "Assessments",
         "collections": "Collections"
       }
-    }
+    },
+    "no-classrooms": "You have not yet created any classrooms. Click on “Create Classroom” or search </br> for a featured course under the Library tab.",
+    "no-course": "You have not assigned a course to this </br> classroom yet."
   },
   "goals":{
     "manage":{
