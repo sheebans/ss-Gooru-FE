@@ -43,3 +43,20 @@ test('Delete Student', function(assert) {
   });
   component.send('removeStudent', Ember.Object.create({id:'student-id'}));
 });
+
+test('Archive Class', function(assert) {
+  let component = this.subject({
+      classService: {
+        archiveClass: (classId) => {
+          assert.equal(classId, 'class-id', 'Class id should match');
+          return true;
+        }
+      },
+      class: Ember.Object.create({
+        id:'class-id'
+      })
+    }
+  );
+
+  component.send('archiveClass');
+});
