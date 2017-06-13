@@ -74,21 +74,24 @@ export default Ember.Component.extend(ModalMixin,{
       let isCollection = content.get('isCollection');
       let contentId = content.get('id');
 
-      var model = Ember.Object.create({
-        content: content,
-        isTeacher
+      let model = Ember.Object.create({
+        content,
+        isTeacher,
+        disabledBookmark: this.get('disabledBookmark')
       });
 
       if (isCourse) {
         component.get('courseService').fetchById(contentId).then(function (course) {
           model.set('content.children', course.children);
           model.set('remixCourse',() => component.remixCourse());
+          model.set('bookmarkCourse', () => component.send('bookmarkContent', content, true));
         }).then(function () {
           component.send('showModal', 'gru-preview-course', model);
         });
       }
       else {
         model.set('remixCollection',() => component.remixCollection());
+        model.set('bookmarkCollection', () => component.send('bookmarkContent', content, true));
         component.loadCollection(contentId, isCollection, model).then(function() {
           component.send('showModal', 'gru-preview-collection', model);
         });

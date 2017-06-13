@@ -17,6 +17,14 @@ export default Ember.Component.extend(SessionMixin,{
      */
     remixCourse:function(){
       this.get('model').remixCourse();
+    },
+
+    /**
+     * Action triggered to bookmark the course
+     * @param content
+     */
+    bookmarkCourse:function(){
+      this.get('model').bookmarkCourse();
     }
   },
 
