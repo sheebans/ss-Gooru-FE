@@ -110,6 +110,15 @@ export default Ember.Controller.extend(ModalMixin, {
       this.actions.showModal.call(this,
         'content.modals.gru-remove-student',
         model, null, null, null, false);
+    },
+
+    /**
+     * Archive class
+     **/
+    archiveClass: function(){
+      let controller = this;
+      const classId = controller.get('class.id');
+      controller.get('classService').archiveClass(classId);
     }
   },
 
