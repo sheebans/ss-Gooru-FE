@@ -18,6 +18,46 @@
       }
     }
   }
+  .filter-date-asc{
+    padding-top: 25px;
+    bottom: 5px;
+    float: right;
+
+    button.filter-date, button.filter-asc {
+      margin: 1px;
+      padding: 5px 18px;
+      i {
+        font-size: $font-size-h4;
+      }
+      .arrow {
+        position: absolute;
+        top: 50%;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        height: 0;
+        width: 0;
+      }
+      .arrow-down {
+        border-top: 4px solid white;
+      }
+      .arrow-up {
+        border-bottom: 4px solid white;
+      }
+    }
+    button.filter-asc {
+      .arrow-up,.arrow-down {
+        right: 8px;
+        margin-left: 5px;
+      }
+    }
+
+    button.filter-date {
+      .arrow-up,.arrow-down {
+        left: 8px;
+        margin-right: 5px;
+      }
+    }
+  }
 }
 
 .teacher-landing {
@@ -131,3 +171,4 @@
     margin: 8px 0 0;
   }
 }
+
