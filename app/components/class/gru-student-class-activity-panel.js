@@ -10,8 +10,6 @@ import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-  // -------------------------------------------------------------------------
-  // Dependencies
 
   // -------------------------------------------------------------------------
   // Attributes
