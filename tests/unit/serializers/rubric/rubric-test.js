@@ -165,7 +165,7 @@ test('serializedUpdateRubricCategory', function(assert) {
 
   const rubricCategory = RubricCategory.create({
     title: 'any-title',
-    narrativeFeedback: 'any-feedback',
+    feedbackGuidance: 'any-feedback',
     requiresFeedback: true,
     allowsLevels: true,
     allowsScoring: false,
@@ -177,7 +177,7 @@ test('serializedUpdateRubricCategory', function(assert) {
 
   const categoryObject = serializer.serializedUpdateRubricCategory(rubricCategory);
   assert.equal(categoryObject.category_title, 'any-title', 'Wrong category_title');
-  assert.equal(categoryObject.narrative_feedback, 'any-feedback', 'Wrong narrative_feedback');
+  assert.equal(categoryObject.feedback_guidance, 'any-feedback', 'Wrong feedback_guidance');
   assert.equal(categoryObject.required_feedback, true, 'Wrong required_feedback');
   assert.equal(categoryObject.level, true, 'Wrong level');
   assert.equal(categoryObject.scoring, false, 'Wrong scoring');
@@ -192,12 +192,12 @@ test('serializedUpdateRubricCategory empty properties', function(assert) {
 
   const rubricCategory = RubricCategory.create({
     title: '',
-    narrativeFeedback: ''
+    feedbackGuidance: ''
   });
 
   const categoryObject = serializer.serializedUpdateRubricCategory(rubricCategory);
   assert.equal(categoryObject.category_title, null, 'Wrong category_title');
-  assert.equal(categoryObject.narrative_feedback, null, 'Wrong narrative_feedback');
+  assert.equal(categoryObject.feedback_guidance, null, 'Wrong feedback_guidance');
 });
 
 test('normalizeRubricCategory', function(assert) {
@@ -205,7 +205,7 @@ test('normalizeRubricCategory', function(assert) {
 
   const category = {
     category_title: 'Thesis and Sub-claims',
-    narrative_feedback: 'any feedback',
+    feedback_guidance: 'any feedback',
     required_feedback: true,
     level: true,
     scoring: false,
@@ -231,7 +231,7 @@ test('normalizeRubricCategory', function(assert) {
 
   const rubricCategory = serializer.normalizeRubricCategory(category);
   assert.equal(rubricCategory.get('title'), 'Thesis and Sub-claims', 'Wrong title');
-  assert.equal(rubricCategory.get('narrativeFeedback'), 'any feedback', 'Wrong feedback');
+  assert.equal(rubricCategory.get('feedbackGuidance'), 'any feedback', 'Wrong feedback');
   assert.equal(rubricCategory.get('requiresFeedback'), true, 'Wrong requiresFeedback');
   assert.equal(rubricCategory.get('allowsLevels'), true, 'Wrong allowsLevels');
   assert.equal(rubricCategory.get('allowsScoring'), false, 'Wrong allowsScoring');

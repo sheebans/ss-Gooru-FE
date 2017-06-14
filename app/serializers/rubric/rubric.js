@@ -58,7 +58,6 @@ export default Ember.Object.extend({
     return {
       'title': nullIfEmpty(model.get('title')),
       'description': nullIfEmpty(model.get('description')),
-      'type': model.get('type'),
       'thumbnail': cleanFilename(model.get('thumbnail'), this.get('session.cdnUrls')),
       'metadata': {
         'audience': model.get('hasAudience') ? model.get('audience') : undefined
@@ -83,7 +82,7 @@ export default Ember.Object.extend({
   serializedUpdateRubricCategory: function (model) {
     return {
       'category_title': nullIfEmpty(model.get('title')),
-      'narrative_feedback': nullIfEmpty(model.get('narrativeFeedback')),
+      'feedback_guidance': nullIfEmpty(model.get('feedbackGuidance')),
       'required_feedback': model.get('requiresFeedback') === true,
       'level': model.get('allowsLevels') === true,
       'scoring': model.get('allowsScoring') === true,
@@ -156,7 +155,7 @@ export default Ember.Object.extend({
     const levels = data.levels || [];
     return RubricCategory.create({
       title: data.category_title,
-      narrativeFeedback: data.narrative_feedback,
+      feedbackGuidance: data.feedback_guidance,
       requiresFeedback: data.required_feedback,
       allowsLevels: data.level === true,
       allowsScoring: data.scoring === true,

@@ -23,7 +23,7 @@
   "overall_feedback_required": true,
   "categories": [{
     "category_title": "Thesis and Sub-claims",
-    "narrative_feedback": "pay careful attention to the author's response",
+    "feedback_guidance": "pay careful attention to the author's response",
     "required_feedback": true,
     "level": true,
     "scoring": true,
