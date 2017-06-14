@@ -18,6 +18,14 @@ export default Ember.Component.extend(SessionMixin,{
      */
     remixCollection:function(){
       this.get('model').remixCollection();
+    },
+
+    /**
+     * Action triggered to bookmark the collection
+     * @param content
+     */
+    bookmarkCollection:function(){
+      this.get('model').bookmarkCollection();
     }
   },
 

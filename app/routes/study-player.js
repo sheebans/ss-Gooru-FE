@@ -144,9 +144,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         params.lessonId = params.lessonId || mapLocation.get('context.lessonId');
         params.pathId = params.pathId || mapLocation.get('context.pathId');
         params.collectionSubType = params.subtype || mapLocation.get('context.collectionSubType');
-        params.sourceUrl = location.host;
-        params.partnerId = route.get('session.partnerId');
-        params.tenantId = route.get('session.tenantId');
 
         // Set the correct unit sequence number
         hash.course.children.find((child, index) => {

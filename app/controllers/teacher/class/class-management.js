@@ -26,11 +26,12 @@ export default Ember.Controller.extend(ModalMixin, {
   actions: {
 
     /**
-     *
-     * Triggered when a update class option is selected
-     */
-    updateClass: function(){
-      this.saveClass();
+     * Archive class
+     **/
+    archiveClass: function(){
+      let controller = this;
+      const classId = controller.get('class.id');
+      controller.get('classService').archiveClass(classId);
     },
 
     /**
@@ -80,17 +81,6 @@ export default Ember.Controller.extend(ModalMixin, {
     },
 
     /**
-     *
-     * Triggered when a edit save score option is selected
-     */
-    saveScore: function() {
-      let controller = this;
-
-      controller.set('editingScore', false);
-      controller.saveClass();
-    },
-
-    /**
      *Remove student
      */
     removeStudent: function (student) {
@@ -102,7 +92,7 @@ export default Ember.Controller.extend(ModalMixin, {
         },
         callback:{
           success:function(){
-            controller.get('class.members').removeObject(student);
+            controller.get('sortedMembers').removeObject(student);
           }
         }
       };
@@ -110,6 +100,34 @@ export default Ember.Controller.extend(ModalMixin, {
       this.actions.showModal.call(this,
         'content.modals.gru-remove-student',
         model, null, null, null, false);
+    },
+    /**
+     *
+     * Triggered when a edit save score option is selected
+     */
+    saveScore: function() {
+      let controller = this;
+
+      controller.set('editingScore', false);
+      controller.saveClass();
+    },
+    /**
+     *Sort student list by criteria
+     */
+    sortStudents: function(criteria){
+      if(this.get('sortBy') !== criteria){
+        this.set('sortBy',criteria);
+        this.set('reverseSort',false);
+      }else{
+        this.set('reverseSort',!this.get('reverseSort'));
+      }
+    },
+    /**
+     *
+     * Triggered when a update class option is selected
+     */
+    updateClass: function(){
+      this.saveClass();
     }
   },
 
@@ -129,12 +147,6 @@ export default Ember.Controller.extend(ModalMixin, {
   course: Ember.computed.alias('classController.course'),
 
   /**
-   * Copy of the class model used for editing.
-   * @property {Class}
-   */
-  tempClass: null,
-
-  /**
    * @param {Boolean } didValidate - value used to check if input has been validated or not
    */
   didValidate: false,
@@ -150,6 +162,34 @@ export default Ember.Controller.extend(ModalMixin, {
   editingScore: null,
 
   /**
+   * @property {boolean} isAttendClassWithCode
+   */
+  isAttendClassWithCode: Ember.computed.equal('class.classSharing', 'open'),
+
+  /**
+   * @param {Boolean} reverseSort - default sort in ascending order
+   */
+  reverseSort: false,
+
+  /**
+   * @param {String} sortBy - sort criteria
+   */
+  sortBy: '',
+
+  /**
+   * @param {String} sortDefinition - List of sort criteria
+   */
+  sortDefinition: Ember.computed('sortBy', 'reverseSort', function() {
+    let sortOrder = this.get('reverseSort') ? 'desc' : 'asc';
+    return [ `${this.get('sortBy')}:${sortOrder}` ];
+  }),
+
+  /**
+   * @param {[Student]} sortedMembers - Class members sorted
+   */
+  sortedMembers: Ember.computed.sort('class.members', 'sortDefinition'),
+
+  /**
    * Toggle Options
    * @property {Ember.Array}
    */
@@ -160,11 +200,11 @@ export default Ember.Controller.extend(ModalMixin, {
     'label': 'Off',
     'value': false
   })]),
-
   /**
-   * @property {boolean} isAttendClassWithCode
+   * Copy of the class model used for editing.
+   * @property {Class}
    */
-  isAttendClassWithCode: Ember.computed.equal('class.classSharing', 'open'),
+  tempClass: null,
 
   // -------------------------------------------------------------------------
   // Observers

@@ -251,8 +251,10 @@ export default Ember.Component.extend(AccordionMixin, {
     let component = this;
     component.set("loading", true);
     component.getLessons().then(function(lessons) {
-      component.set('items', lessons);
-      component.set("loading", false);
+      if (!component.isDestroyed) {
+        component.set('items', lessons);
+        component.set("loading", false);
+      }
     });
   },
 
