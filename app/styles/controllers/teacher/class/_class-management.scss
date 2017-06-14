@@ -144,23 +144,62 @@
   }
 
   .students-panel {
-    .panel-body {
-      max-height: 300px;
-      overflow: auto;
-      p {
-        color: $gray-base;
+    min-height: 0;
+    padding:0;
+    p {
+      color: $gray-base;
+    }
+    button {
+      border: 1px solid $table-border-color;
+      padding: 6px 20px;
+    }
+    .panel-heading{
+      @include flexbox();
+      background-color: $dark-200;
+      color:$white;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      div {
+        @include flexbox();
+        @include align-items(center);
+        width: 12%;
+        @media (max-width: $screen-xs) {
+          width: 25%;
+        }
       }
-      button {
-        border: 1px solid $gray-lighter;
-        padding: 5px 7px;
-        @media (min-width: $screen-xs) {
-          padding: 6px 16px;
+    }
+    .panel-body{
+      padding: 0;
+      max-height: 322px;
+      overflow-y: auto;
+      table{
+        width: 100%;
+        margin-bottom: 0;
+        td{
+          padding: 10px;
+          border-top: none;
+          border-bottom: 2px solid $table-border-color;
         }
-        @media (min-width: $screen-md) {
-          padding: 5px 2px;
+        .student-id{
+          width: 63%;
         }
-        @media (min-width: $screen-lg) {
-          padding: 6px 16px;
+        .student{
+          span{
+            font-size: 16px;
+            color: $gray-base;
+          }
+        }
+        tr:last-child{
+          td{
+            border-bottom: none;
+          }
+        }
+      }
+      .border-right{
+        width: 12%;
+        border-right: 1px solid $table-border-color;
+        @media (max-width: $screen-xs) {
+          width: 40%;
         }
       }
     }

@@ -100,61 +100,39 @@
     </div>
   </div>
   <div class="panel students-panel">
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-md-3">
-          <span>{{t "teacher-landing.class.class-management-tab.student-name"}}</span>
-        </div>
-        <div class="col-md-3">
-          <span>{{t "teacher-landing.class.class-management-tab.student-id"}}</span>
-        </div>
-        <div class="col-md-3">
-          <span>{{t "teacher-landing.class.class-management-tab.email-address"}}</span>
-        </div>
-        <!-- when this is not hidden, assign 2, 2, 2, 2, 4 as sizing -->
-        <div class="col-md-2 hidden">
-          <span>{{t "teacher-landing.class.class-management-tab.performance"}}</span>
-        </div>
-        <div class="col-md-3">
-          <span>{{t "teacher-landing.class.class-management-tab.actions"}}</span>
-        </div>
-      </div>
-    </div>
-    <div class="panel-body border-below">
-      {{#each class.members as |student|}}
-        <div class="row">
-          <div class="col-md-3">
-            <p>{{student.firstName}} {{student.lastName}}</p>
+            <div class="panel-heading">
+                <div>
+                    <span>{{t "teacher-landing.class.class-management-tab.first-name"}}</span>
+                  {{gru-icon name='swap_vert'}}
+                </div>
+
+                <div>
+                    <span>{{t "teacher-landing.class.class-management-tab.last-name"}}</span>
+                  {{gru-icon name='swap_vert'}}
+                </div>
+
+                <div>
+                    <span>{{t "teacher-landing.class.class-management-tab.student-id"}}</span>
+                </div>
+            </div>
+          <div class="panel-body">
+              <table>
+                  <tbody>
+                  {{#each class.members as |student|}}
+                      <tr class="student">
+                          <td class="border-right"><span>{{student.firstName}}</span></td>
+                          <td class="border-right"><span>{{student.lastName}}</span></td>
+                          <td class="student-id"><span>{{student.studentId}}</span></td>
+                          <td class="student-actions">
+                          <button class="btn btn-default btn-sm delete-btn right" {{action 'removeStudent' student}}>
+                            {{gru-icon name='delete'}}
+                            {{t "teacher-landing.class.class-management-tab.delete"}}
+                          </button>
+                          </td>
+                      </tr>
+                  {{/each}}
+                  </tbody>
+              </table>
           </div>
-          <div class="col-md-3">
-            <p>{{student.studentId}}</p>
-          </div>
-          <div class="col-md-3">
-            <p>{{student.email}}</p>
-          </div>
-          <!-- when this is not hidden, assign 2, 2, 2, 2, 4 as sizing -->
-          <div class="col-md-2 hidden">
-            <button class="btn btn-default">
-              {{gru-icon name='assessment'}}
-              {{t "teacher-landing.class.class-management-tab.view-report"}}
-            </button>
-          </div>
-          <div class="col-md-3 student-actions">
-            <button class="btn btn-default">
-              {{gru-icon name='message'}}
-              {{t "teacher-landing.class.class-management-tab.message"}}
-            </button>
-            <button class="btn btn-default">
-              {{gru-icon name='archive'}}
-              {{t "teacher-landing.class.class-management-tab.archive"}}
-            </button>
-            <button class="btn btn-default delete-btn" {{action 'removeStudent' student}}>
-              {{gru-icon name='delete'}}
-              {{t "teacher-landing.class.class-management-tab.delete"}}
-            </button>
-          </div>
-        </div>
-      {{/each}}
-    </div>
   </div>
 </div>
