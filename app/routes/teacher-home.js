@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Teacher route
@@ -7,7 +8,7 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
  * @module
  * @augments Ember.Route
  */
-export default Ember.Route.extend(PrivateRouteMixin, {
+export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -36,6 +37,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model: function() {
     let route = this;
+    const configuration = this.get('configurationService.configuration');
 
     //Steps for Take a Tour functionality
     let tourSteps = Ember.A([
@@ -63,12 +65,33 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
     let myClasses = route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
       route.controllerFor('application').get('myClasses'); //after login the variable is refreshed at the controller
+    let firstCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+    let secondCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     const myId = route.get('session.userId');
     const activeClasses = myClasses.getTeacherActiveClasses(myId);
+    const firstCourseId = configuration.get("exploreFeaturedCourses.firstCourseId");
+    const secondCourseId = configuration.get("exploreFeaturedCourses.secondCourseId");
+
+    if (firstCourseId) {
+      firstCoursePromise = route.get('courseService').fetchById(firstCourseId);
+    }
+    if (secondCourseId) {
+      secondCoursePromise = route.get('courseService').fetchById(secondCourseId);
+    }
 
     return Ember.RSVP.hash({
-      activeClasses: activeClasses,
-      tourSteps: tourSteps
+      firstCourse: firstCoursePromise,
+      secondCourse: secondCoursePromise
+    }).then(function (hash) {
+      const firstFeaturedCourse = hash.firstCourse;
+      const secondFeaturedCourse = hash.secondCourse;
+
+      return {
+        activeClasses,
+        firstFeaturedCourse,
+        secondFeaturedCourse,
+        tourSteps
+      };
     });
   },
 
@@ -99,6 +122,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
+    controller.set('firstFeaturedCourse', model.firstFeaturedCourse);
+    controller.set('secondFeaturedCourse', model.secondFeaturedCourse);
   },
   /**
    * Reset controller properties
