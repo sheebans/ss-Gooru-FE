@@ -1,4 +1,4 @@
-{{#if class.courseId}}
+{{#if showPerformanceData}}
 <div class="controller teacher class performance container-fluid">
   <div class="row">
     <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
@@ -50,7 +50,7 @@
     <div class="row gru-content">
       <div class="col-md-12 col-sm-12 col-xs-12">
         {{#if (and isAtCollectionLevel reportData)}}
-          {{ reports.gru-class-assessment-report
+          {{reports.gru-class-assessment-report
             assessment=collection
             students=class.members
             reportData=reportData
@@ -71,5 +71,5 @@
     </div>
 </div>
 {{else}}
-  <div class="no-content">This classroom does not have a related course and it has no content</div>
+  <div class="no-content">{{t 'class.analytics.performance.no-content'}}</div>
 {{/if}}
