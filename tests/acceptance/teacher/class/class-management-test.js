@@ -59,9 +59,9 @@ test('Layout', function (assert) {
 
     const $studentsPanel = $container.find('.students-panel');
     assert.ok($studentsPanel.find('.panel-heading').length, 'Missing student panel heading');
-    assert.equal($studentsPanel.find('.panel-heading div[class*="col-"]').length, 5, 'The student panel must have 5 columns');
+    assert.equal($studentsPanel.find('.panel-heading div').length, 3, 'The student panel must have 3 columns');
     assert.ok($studentsPanel.find('.panel-body').length, 'Missing student panel body');
-    assert.equal($studentsPanel.find('.panel-body .row').length, 7, 'The students panel must have 7 students');
+    assert.equal($studentsPanel.find('.panel-body tr').length, 7, 'The students panel must have 7 students');
   });
 });
 
@@ -166,7 +166,7 @@ test('Delete Student', function (assert) {
     assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
     let $container = find('.teacher.class .controller.teacher.class.class-management');
     let $studentsPanel = $container.find('.students-panel .panel-body');
-    let $delete = $studentsPanel.find('.row:nth-child(1) .student-actions .delete-btn');
+    let $delete = $studentsPanel.find('table tbody tr:nth-child(1) .student-actions .delete-btn');
     click($delete);
     andThen(function () {
       let $deleteModal = find('.gru-remove-student');
@@ -187,7 +187,7 @@ test('Delete Student', function (assert) {
               var $deleteButton = $deleteModal.find('button.delete');
               click($deleteButton);
               andThen(function () {
-                assert.equal($studentsPanel.find('.row').length, 6, 'The students panel must have 6 students');
+                assert.equal($studentsPanel.find('tr').length, 6, 'The students panel must have 6 students');
               });
             });
           });
