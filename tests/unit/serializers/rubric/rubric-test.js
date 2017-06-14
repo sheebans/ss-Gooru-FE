@@ -27,7 +27,6 @@ test('serializeCreateRubric', function(assert) {
   const rubricObject = serializer.serializeCreateRubric(rubric);
   assert.equal(rubricObject.title, 'rubric-title', 'Wrong title');
   assert.equal(rubricObject.description, 'rubric-description', 'Wrong description');
-  assert.equal(rubricObject.type, 'rubric-type', 'Wrong type');
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
@@ -67,7 +66,6 @@ test('serializeUpdateRubric uploaded and no feedback required', function(assert)
   const rubricObject = serializer.serializeUpdateRubric(rubric);
   assert.equal(rubricObject.title, 'rubric-title', 'Wrong title');
   assert.equal(rubricObject.description, 'rubric-description', 'Wrong description');
-  assert.equal(rubricObject.type, 'rubric-type', 'Wrong type');
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
@@ -107,7 +105,6 @@ test('serializeUpdateRubric not uploaded and feedback required', function(assert
   const rubricObject = serializer.serializeUpdateRubric(rubric);
   assert.equal(rubricObject.title, 'rubric-title', 'Wrong title');
   assert.equal(rubricObject.description, 'rubric-description', 'Wrong description');
-  assert.equal(rubricObject.type, 'rubric-type', 'Wrong type');
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
@@ -147,7 +144,6 @@ test('serializeUpdateRubric with empty strings', function(assert) {
   const rubricObject = serializer.serializeUpdateRubric(rubric);
   assert.equal(rubricObject.title, null, 'Wrong title');
   assert.equal(rubricObject.description, null, 'Wrong description');
-  assert.equal(rubricObject.type, 'rubric-type', 'Wrong type');
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
@@ -165,7 +161,7 @@ test('serializedUpdateRubricCategory', function(assert) {
 
   const rubricCategory = RubricCategory.create({
     title: 'any-title',
-    narrativeFeedback: 'any-feedback',
+    feedbackGuidance: 'any-feedback',
     requiresFeedback: true,
     allowsLevels: true,
     allowsScoring: false,
@@ -177,7 +173,7 @@ test('serializedUpdateRubricCategory', function(assert) {
 
   const categoryObject = serializer.serializedUpdateRubricCategory(rubricCategory);
   assert.equal(categoryObject.category_title, 'any-title', 'Wrong category_title');
-  assert.equal(categoryObject.narrative_feedback, 'any-feedback', 'Wrong narrative_feedback');
+  assert.equal(categoryObject.feedback_guidance, 'any-feedback', 'Wrong feedback_guidance');
   assert.equal(categoryObject.required_feedback, true, 'Wrong required_feedback');
   assert.equal(categoryObject.level, true, 'Wrong level');
   assert.equal(categoryObject.scoring, false, 'Wrong scoring');
@@ -192,12 +188,12 @@ test('serializedUpdateRubricCategory empty properties', function(assert) {
 
   const rubricCategory = RubricCategory.create({
     title: '',
-    narrativeFeedback: ''
+    feedbackGuidance: ''
   });
 
   const categoryObject = serializer.serializedUpdateRubricCategory(rubricCategory);
   assert.equal(categoryObject.category_title, null, 'Wrong category_title');
-  assert.equal(categoryObject.narrative_feedback, null, 'Wrong narrative_feedback');
+  assert.equal(categoryObject.feedback_guidance, null, 'Wrong feedback_guidance');
 });
 
 test('normalizeRubricCategory', function(assert) {
@@ -205,7 +201,7 @@ test('normalizeRubricCategory', function(assert) {
 
   const category = {
     category_title: 'Thesis and Sub-claims',
-    narrative_feedback: 'any feedback',
+    feedback_guidance: 'any feedback',
     required_feedback: true,
     level: true,
     scoring: false,
@@ -231,7 +227,7 @@ test('normalizeRubricCategory', function(assert) {
 
   const rubricCategory = serializer.normalizeRubricCategory(category);
   assert.equal(rubricCategory.get('title'), 'Thesis and Sub-claims', 'Wrong title');
-  assert.equal(rubricCategory.get('narrativeFeedback'), 'any feedback', 'Wrong feedback');
+  assert.equal(rubricCategory.get('feedbackGuidance'), 'any feedback', 'Wrong feedback');
   assert.equal(rubricCategory.get('requiresFeedback'), true, 'Wrong requiresFeedback');
   assert.equal(rubricCategory.get('allowsLevels'), true, 'Wrong allowsLevels');
   assert.equal(rubricCategory.get('allowsScoring'), false, 'Wrong allowsScoring');
@@ -286,7 +282,6 @@ test('normalizeRubric', function(assert) {
   assert.equal(rubric.get('id'), '2c185398-d0e6-42d8-9926-572939fc0784', 'Wrong id');
   assert.equal(rubric.get('title'), 'Rubric - 1', 'Wrong title');
   assert.equal(rubric.get('description'), 'This is the example question for the rubrics association', 'Wrong description');
-  assert.equal(rubric.get('type'), '1xN', 'Wrong type');
   assert.equal(rubric.get('thumbnail'), contentCdnUrl + '2c185398-d0e6-42d8-9926-572939fc0784.png', 'Wrong thumbnail');
   assert.deepEqual(rubric.get('audience'), [12, 45], 'Wrong audience');
   assert.equal(rubric.get('taxonomy.length'), 0, 'Wrong taxonomy');
