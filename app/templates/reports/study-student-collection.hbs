@@ -28,7 +28,7 @@
     {{/if}}
     {{#if hasBenchmarkSuggestions}}
       <div class="suggestion-panel">
-        {{player.gru-suggest-test type=benchmarkType assessment=collection  onPlayCollection='next'}}
+        {{player.gru-suggest-test type=benchmarkType assessment=collection onPlayCollection='next' onPlaySuggestion='playBenchmarkSuggestion'}}
       </div>
     {{/if}}
   {{else}}
