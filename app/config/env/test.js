@@ -52,5 +52,10 @@ export default {
       "webSocketUrl": "realtimeURL",
       "webSocketUri": "/realtimeURI"
     }
+  },
+
+  "exploreFeaturedCourses": {
+    "firstCourseId": "1d91657f-694b-43dc-9306-bca17b107c7d",
+    "secondCourseId": "7b58ac43-075b-46c4-a7f4-a1ce2b346e85"
   }
 };

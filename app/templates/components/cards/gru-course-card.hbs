@@ -2,16 +2,22 @@
   <div class="panel-body">
     <div class="card-header">
       <div class="image-container">
-        {{#if isOwner}}
-          {{#if isEditEnabled}}
-            {{#link-to "content.courses.edit" course.id class="course-image"}}
+        {{#if isFromLandingPage}}
+          <a class="course-image" {{action 'previewCourse' course}}>
+            <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
+          </a>
+        {{else}}
+          {{#if isOwner}}
+            {{#if isEditEnabled}}
+              {{#link-to "content.courses.edit" course.id class="course-image"}}
+                <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
+              {{/link-to}}
+            {{/if}}
+          {{else}}
+            {{#link-to "content.courses.play" course.id class="course-image"}}
               <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
             {{/link-to}}
           {{/if}}
-        {{else}}
-          {{#link-to "content.courses.play" course.id class="course-image"}}
-            <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
-          {{/link-to}}
         {{/if}}
       </div>
       <div class="header-content">
@@ -29,7 +35,11 @@
               {{/link-to}}
             {{/if}}
           {{else}}
-            <h3 class="course-title ellipsis">{{course.title}}</h3>
+            {{#if isFromLandingPage}}
+              <h3 class="course-title ellipsis pointer" {{action 'previewCourse' course}}>{{course.title}}</h3>
+            {{else}}
+              <h3 class="course-title ellipsis">{{course.title}}</h3>
+            {{/if}}
           {{/unless}}
         </div>
         <p class="subject ellipsis">

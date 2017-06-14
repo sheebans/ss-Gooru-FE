@@ -34,6 +34,21 @@ test('Layout', function(assert) {
     T.exists(assert, $leftUserContainer.find('.greetings p'), 'Missing count classrooms');
     assert.equal( $leftUserContainer.find('.greetings p').text(), "You're currently enrolled in 7 classrooms",'Incorrect count classrooms text');
 
+    const $panelsContainer = $leftUserContainer.find('.panels');
+    T.exists(assert, $panelsContainer, 'Missing panels container');
+
+    const $featuredCourses = $panelsContainer.find('.featured-courses');
+    T.exists(assert, $featuredCourses, 'Missing featured courses panel');
+
+    T.exists(assert, $featuredCourses.find('.panel-heading'), 'Missing featured courses panel-heading');
+    T.exists(assert, $featuredCourses.find('.panel-body'), 'Missing featured courses panel-body');
+
+    T.exists(assert, $featuredCourses.find('.panel-body .legend'), 'Missing panel body legend');
+    T.exists(assert, $featuredCourses.find('.panel-body .courses'), 'Missing courses');
+    assert.equal($featuredCourses.find('.panel-body .courses .gru-course-card').length, 2 ,'Wrong number of featured course cards');
+    T.exists(assert, $featuredCourses.find('.panel-body .actions .library'), 'Missing library button');
+    T.exists(assert, $featuredCourses.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
+
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
     T.exists(assert, $navigatorContainer.find('.actions .join-class-cta'), 'Missing join class button');
@@ -42,6 +57,21 @@ test('Layout', function(assert) {
 
     const $tabContent = $leftUserContainer.find('.tab-content');
     assert.equal($tabContent.find('.gru-student-class-card').length, 7 ,'Wrong number of class cards');
+  });
+});
+
+test('Go to library from featured-courses panel', function(assert) {
+  visit('/student-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-home');
+    const $featuredCourses = find('.panel.featured-courses');
+    const $featuredCoursesButton = $featuredCourses.find('.actions button.library');
+
+    click($featuredCoursesButton);
+    andThen(function() {
+      assert.equal(currentURL(), '/library', 'Wrong route');
+    });
   });
 });
 

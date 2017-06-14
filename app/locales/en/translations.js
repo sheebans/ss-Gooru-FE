@@ -271,6 +271,7 @@ export default Object.assign(quizzesTranslations, {
     "essential-questions": "Essential Questions",
     "exit": "Exit",
     "explanation": "Explanation",
+    "explore": "Explore",
     "false": "False",
     "featured-courses": "Featured&ensp;Courses",
     "file-name": "File name",
@@ -527,6 +528,7 @@ export default Object.assign(quizzesTranslations, {
       "on-air-connection-lost": "The Go Live dashboard has lost connection and is retrying automatically. It's tempting, but please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
     },
+    "will-disappear": "This will disappear after 5 logins",
     "word": "Word",
     "yes": "Yes"
   },
@@ -809,7 +811,7 @@ export default Object.assign(quizzesTranslations, {
     "independent-learning": "Independent Learning",
     "join-class": "Join Classroom",
     "joined-classes": {
-      zero: "You're currently not enrolled in classrooms",
+      zero: "You're currently enrolled in {{count}} classrooms",
       one: "You're currently enrolled in 1 classroom",
       other: "You're currently enrolled in {{count}} classrooms"
     },
@@ -824,6 +826,7 @@ export default Object.assign(quizzesTranslations, {
   },
   "student-landing":{
     "announcement":"Announcement",
+    "browse-featured-courses": 'Browse our featured courses',
     "class":{
       "assigned-course": "Assigned Course",
       "back-to": "Back to My Classes",
@@ -1630,7 +1633,7 @@ export default Object.assign(quizzesTranslations, {
         "description": 'Here you will see announcements that your teacher or school would like you to know about.'
       },
       "stepFour":{
-        "title": "My Classes",
+        "title": "Classrooms",
         "description": "See all of the classes in which you are enrolled."
       },
       "stepFive":{
