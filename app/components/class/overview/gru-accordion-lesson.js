@@ -339,11 +339,13 @@ export default Ember.Component.extend(AccordionMixin, {
               component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) :
               component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections);
             loadDataPromise.then(function() {
-              collections.forEach(function(collection){
-                component.setVisibility(collection);
-              });
-              component.set('items', collections);
-              component.set('loading', false);
+              if (!component.isDestroyed) {
+                collections.forEach(function(collection){
+                  component.setVisibility(collection);
+                });
+                component.set('items', collections);
+                component.set('loading', false);
+              }
             });
           });
       });

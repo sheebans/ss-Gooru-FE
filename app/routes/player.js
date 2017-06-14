@@ -22,6 +22,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
    * @property {Ember.Service} Service to retrieve an assessment
    */
   assessmentService: Ember.inject.service('api-sdk/assessment'),
+
   /**
    * @property {Ember.Service} Service to retrieve a collection
    */
@@ -154,7 +155,6 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
 
     controller.set('isTeacher',isTeacher);
     controller.set('isAnonymous',isAnonymous);
-    controller.set('showConfirmation', false);
   },
 
   /**
@@ -167,6 +167,9 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     const collectionId = params.collectionId;
     const type = params.type;
     const role = params.role || ROLES.TEACHER;
+    params.sourceUrl = location.host;
+    params.partnerId = this.get('session.partnerId');
+    params.tenantId = this.get('session.tenantId');
 
     return route.loadCollection(collectionId, type).then(function(collection) {
       params.type = collection.get('collectionType');
