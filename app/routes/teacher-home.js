@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 /**
  * Teacher route
@@ -12,12 +12,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
-  performanceService: Ember.inject.service("api-sdk/performance"),
+  performanceService: Ember.inject.service('api-sdk/performance'),
 
   /**
    * @requires service:api-sdk/course
    */
-  courseService: Ember.inject.service("api-sdk/course"),
+  courseService: Ember.inject.service('api-sdk/course'),
 
   /**
    * @type {I18nService} Service to retrieve translations information
@@ -62,8 +62,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     ]);
 
     let myClasses = route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
-      route.controllerFor("application").get("myClasses"); //after login the variable is refreshed at the controller
-    const myId = route.get("session.userId");
+      route.controllerFor('application').get('myClasses'); //after login the variable is refreshed at the controller
+    const myId = route.get('session.userId');
     const activeClasses = myClasses.getTeacherActiveClasses(myId);
 
     return Ember.RSVP.hash({
@@ -75,19 +75,19 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   afterModel(resolvedModel) {
     let route = this;
     let activeClasses = resolvedModel.activeClasses;
-    let classIds = activeClasses.mapBy("id");
+    let classIds = activeClasses.mapBy('id');
 
-    route.get("performanceService").findClassPerformanceSummaryByClassIds(classIds)
+    route.get('performanceService').findClassPerformanceSummaryByClassIds(classIds)
       .then(function (classPerformanceSummaryItems) {
         activeClasses.forEach(function (activeClass) {
-          let classId = activeClass.get("id");
+          let classId = activeClass.get('id');
           let courseId = activeClass.get('courseId');
           if (courseId) {
             route.get('courseService').fetchById(courseId).then((course) => {
               activeClass.set('unitsCount', course.get('unitCount'));
             });
           }
-          activeClass.set("performanceSummary", classPerformanceSummaryItems.findBy("classId", classId));
+          activeClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
         });
       });
   },
@@ -99,6 +99,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
+  },
+  /**
+   * Reset controller properties
+   */
+  deactivate: function() {
+    this.get('controller').resetValues();
   }
 
 });

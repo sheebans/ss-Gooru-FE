@@ -26,11 +26,13 @@
           {{t 'teacher-landing.no-classrooms'}}
         </div>
       {{/unless}}
-      <div class="pull-right actions">
-        {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
-          {{t 'user.create-class'}}
-        {{/link-to}}
-      </div>
+      {{#if showActiveClasses }}
+          <div class="pull-right actions">
+            {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
+              {{t 'user.create-class'}}
+            {{/link-to}}
+          </div>
+      {{/if}}
     </div>
     <div class="content tab-content">
       <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
