@@ -27,7 +27,6 @@ test('serializeCreateRubric', function(assert) {
   const rubricObject = serializer.serializeCreateRubric(rubric);
   assert.equal(rubricObject.title, 'rubric-title', 'Wrong title');
   assert.equal(rubricObject.description, 'rubric-description', 'Wrong description');
-  assert.equal(rubricObject.type, 'rubric-type', 'Wrong type');
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
@@ -67,7 +66,6 @@ test('serializeUpdateRubric uploaded and no feedback required', function(assert)
   const rubricObject = serializer.serializeUpdateRubric(rubric);
   assert.equal(rubricObject.title, 'rubric-title', 'Wrong title');
   assert.equal(rubricObject.description, 'rubric-description', 'Wrong description');
-  assert.equal(rubricObject.type, 'rubric-type', 'Wrong type');
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
@@ -107,7 +105,6 @@ test('serializeUpdateRubric not uploaded and feedback required', function(assert
   const rubricObject = serializer.serializeUpdateRubric(rubric);
   assert.equal(rubricObject.title, 'rubric-title', 'Wrong title');
   assert.equal(rubricObject.description, 'rubric-description', 'Wrong description');
-  assert.equal(rubricObject.type, 'rubric-type', 'Wrong type');
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
@@ -147,7 +144,6 @@ test('serializeUpdateRubric with empty strings', function(assert) {
   const rubricObject = serializer.serializeUpdateRubric(rubric);
   assert.equal(rubricObject.title, null, 'Wrong title');
   assert.equal(rubricObject.description, null, 'Wrong description');
-  assert.equal(rubricObject.type, 'rubric-type', 'Wrong type');
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
@@ -286,7 +282,6 @@ test('normalizeRubric', function(assert) {
   assert.equal(rubric.get('id'), '2c185398-d0e6-42d8-9926-572939fc0784', 'Wrong id');
   assert.equal(rubric.get('title'), 'Rubric - 1', 'Wrong title');
   assert.equal(rubric.get('description'), 'This is the example question for the rubrics association', 'Wrong description');
-  assert.equal(rubric.get('type'), '1xN', 'Wrong type');
   assert.equal(rubric.get('thumbnail'), contentCdnUrl + '2c185398-d0e6-42d8-9926-572939fc0784.png', 'Wrong thumbnail');
   assert.deepEqual(rubric.get('audience'), [12, 45], 'Wrong audience');
   assert.equal(rubric.get('taxonomy.length'), 0, 'Wrong taxonomy');
