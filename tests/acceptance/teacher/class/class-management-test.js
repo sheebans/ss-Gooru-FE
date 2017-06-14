@@ -197,3 +197,45 @@ test('Delete Student', function (assert) {
   });
 });
 
+test('Sort Student by First Name', function (assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher/class-management');
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
+    let $container = find('.teacher.class .controller.teacher.class.class-management');
+    let $studentsHeader = $container.find('.students-panel .panel-heading');
+    let $studentsPanel = $container.find('.students-panel .panel-body');
+    let $sortByFirstName = $studentsHeader.find('.sortable.first-name');
+    click($sortByFirstName);
+    andThen(function () {
+      assert.equal($studentsPanel.find('tr:first-child td.first-name').text(),'Ashish', 'Incorrect first member');
+      assert.equal($studentsPanel.find('tr:last-child td.first-name').text(),'Yalu', 'Incorrect last member');
+      click($sortByFirstName);
+      andThen(function () {
+        assert.equal($studentsPanel.find('tr:first-child td.first-name').text(),'Yalu', 'Incorrect first member');
+        assert.equal($studentsPanel.find('tr:last-child td.first-name').text(),'Ashish', 'Incorrect last member');
+      });
+    });
+  });
+});
+
+test('Sort Student by Last Name', function (assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher/class-management');
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
+    let $container = find('.teacher.class .controller.teacher.class.class-management');
+    let $studentsHeader = $container.find('.students-panel .panel-heading');
+    let $studentsPanel = $container.find('.students-panel .panel-body');
+    let $sortByLastName = $studentsHeader.find('.sortable.last-name');
+    click($sortByLastName);
+    andThen(function () {
+      assert.equal($studentsPanel.find('tr:first-child td.last-name').text(),'Ashish', 'Incorrect first member');
+      assert.equal($studentsPanel.find('tr:last-child td.last-name').text(),'Ye', 'Incorrect last member');
+      click($sortByLastName);
+      andThen(function () {
+        assert.equal($studentsPanel.find('tr:first-child td.last-name').text(),'Ye', 'Incorrect first member');
+        assert.equal($studentsPanel.find('tr:last-child td.last-name').text(),'Ashish', 'Incorrect last member');
+      });
+    });
+  });
+});
+

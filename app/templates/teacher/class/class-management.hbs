@@ -101,12 +101,12 @@
   </div>
   <div class="panel students-panel">
             <div class="panel-heading">
-                <div>
+                <div class='sortable first-name' {{action 'sortStudents' 'firstName'}}>
                     <span>{{t "teacher-landing.class.class-management-tab.first-name"}}</span>
                   {{gru-icon name='swap_vert'}}
                 </div>
 
-                <div>
+                <div class='sortable last-name' {{action 'sortStudents' 'lastName'}}>
                     <span>{{t "teacher-landing.class.class-management-tab.last-name"}}</span>
                   {{gru-icon name='swap_vert'}}
                 </div>
@@ -118,10 +118,10 @@
           <div class="panel-body">
               <table>
                   <tbody>
-                  {{#each class.members as |student|}}
+                  {{#each sortedMembers as |student|}}
                       <tr class="student">
-                          <td class="border-right"><span>{{student.firstName}}</span></td>
-                          <td class="border-right"><span>{{student.lastName}}</span></td>
+                          <td class="first-name border-right"><span>{{student.firstName}}</span></td>
+                          <td class="last-name border-right"><span>{{student.lastName}}</span></td>
                           <td class="student-id"><span>{{student.studentId}}</span></td>
                           <td class="student-actions">
                           <button class="btn btn-default btn-sm delete-btn right" {{action 'removeStudent' student}}>
