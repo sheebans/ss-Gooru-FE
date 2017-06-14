@@ -166,6 +166,9 @@
         @media (max-width: $screen-xs) {
           width: 25%;
         }
+        &.sortable{
+          cursor:pointer;
+        }
       }
     }
     .panel-body{
