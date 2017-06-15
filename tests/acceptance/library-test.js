@@ -15,7 +15,7 @@ moduleForAcceptance('Acceptance | library', {
 });
 
 test('Library Controller Layout', function (assert) {
-  assert.expect(5);
+  assert.expect(7);
   visit('/library');
 
   andThen(function () {
@@ -26,7 +26,13 @@ test('Library Controller Layout', function (assert) {
     assert.ok($libraries.find('.content.gru-header'),'Missing library header');
 
     let $options = $libraries.find('.tab');
-    assert.ok($options.filter('.featured-courses').length, 'Browse Library tab is missing');
-    assert.ok($libraries.find('#featured-courses'),'Missing Browse Library Section');
+    assert.ok($options.filter('.featured-courses').length, 'Featured Courses tab is missing');
+    assert.ok($options.filter('.other-libraries').length, 'Other Libraries tab is missing');
+    assert.ok($libraries.find('#featured-courses'),'Missing Featured Courses Section');
+
+    $libraries.find('a.other-libraries').click();
+    andThen(function() {
+      assert.ok($libraries.find('#other-libraries'),'Missing Other Libraries Section');
+    });
   });
 });
