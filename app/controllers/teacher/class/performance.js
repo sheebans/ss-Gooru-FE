@@ -233,8 +233,8 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showPerformanceData: Ember.computed('performanceDataMatrix', function() {
-    return (this.get('performanceDataMatrix').length > 1);
+  showPerformanceData: Ember.computed('performanceDataMatrix', 'class.courseId', function() {
+    return this.get('performanceDataMatrix').length > 1 && this.get('class.courseId') !== '';
   }),
 
   /**
