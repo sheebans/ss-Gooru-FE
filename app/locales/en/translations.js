@@ -620,6 +620,7 @@ export default Object.assign(quizzesTranslations, {
       "performance": {
         "title": "View Performance",
         "better-experience-message": "For a better Gooru experience, view full Classroom Analytics in tablet or desktop.",
+        "no-content": "Your students have not yet started studying a course.",
         "actions": {
           "share": "Share",
           "edit": "Edit Content",

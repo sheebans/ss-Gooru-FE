@@ -4,7 +4,9 @@
     padding: 35px 47px;
   }
   .content .no-content {
-    margin-top: 15px;
+    font-size: $font-size-lead;
+    margin: 100px 0 0 0;
+    text-align: center;
   }
   .header {
     .go-back-container {
