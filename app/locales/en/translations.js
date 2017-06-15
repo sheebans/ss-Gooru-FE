@@ -843,6 +843,8 @@ export default Object.assign(quizzesTranslations, {
       "my-report":"My Report"
     },
     "current-activity":"Current activity",
+    "join-classroom": "Join your teacher's classroom to start learning",
+    "learn": "Learn with a Gooru classroom",
     "my-performance":{
       "activity":"Activity",
       "activities":{
@@ -864,6 +866,7 @@ export default Object.assign(quizzesTranslations, {
   "teacher-landing": {
     "latest-announcement":"Latest Announcement",
     "latest-assessment":"Latest Assessment",
+    "create-classroom": "Create a classroom, assign contents, invite students",
     "class": {
       "back-to": "Back to Classrooms",
       "class-management": "Class Management",
@@ -910,7 +913,8 @@ export default Object.assign(quizzesTranslations, {
       }
     },
     "no-classrooms": "You have not yet created any classrooms. Click on “Create Classroom” or search </br> for a featured course under the Library tab.",
-    "no-course": "You have not assigned a course to this </br> classroom yet."
+    "no-course": "You have not assigned a course to this </br> classroom yet.",
+    "teach": "Teach with a Gooru classroom"
   },
   "goals":{
     "manage":{

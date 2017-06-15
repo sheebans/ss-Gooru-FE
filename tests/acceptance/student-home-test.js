@@ -49,6 +49,17 @@ test('Layout', function(assert) {
     T.exists(assert, $featuredCourses.find('.panel-body .actions .library'), 'Missing library button');
     T.exists(assert, $featuredCourses.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
 
+    const $joinClass = $panelsContainer.find('.join-class');
+    T.exists(assert, $joinClass, 'Missing join class panel');
+
+    T.exists(assert, $joinClass.find('.panel-heading'), 'Missing join class panel-heading');
+    T.exists(assert, $joinClass.find('.panel-body'), 'Missing join class panel-body');
+
+    T.exists(assert, $joinClass.find('.panel-body .legend'), 'Missing panel body legend');
+    T.exists(assert, $joinClass.find('.panel-body .actions .join'), 'Missing join class button');
+    T.exists(assert, $joinClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
+
+
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
     T.exists(assert, $navigatorContainer.find('.actions .join-class-cta'), 'Missing join class button');
@@ -71,6 +82,23 @@ test('Go to library from featured-courses panel', function(assert) {
     click($featuredCoursesButton);
     andThen(function() {
       assert.equal(currentURL(), '/library', 'Wrong route');
+    });
+  });
+});
+
+test('Go to join from join class panel', function(assert) {
+  visit('/student-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-home');
+
+    const $joinClass = find('.panel.join-class');
+
+    const $joinClassButton = $joinClass.find('.actions button.join');
+
+    click($joinClassButton);
+    andThen(function() {
+      assert.equal(currentURL(), '/content/classes/join', 'Wrong route');
     });
   });
 });

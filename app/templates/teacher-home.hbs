@@ -35,6 +35,24 @@
           </div>
         </div>
       </div>
+      <div class="col-sm-6 col-xs-12">
+        <div class="panel create-class">
+          <div class="panel-heading">{{t 'teacher-landing.teach'}}</div>
+          <div class="panel-body">
+            <div class="legend">
+              {{t 'teacher-landing.create-classroom'}}
+            </div>
+            <div class="actions">
+              {{#link-to 'content.classes.create' class="btn btn-info create" tagName='button'}}
+                {{t 'user.create-class'}}
+              {{/link-to}}
+            </div>
+            <div class="pull-right will-disappear">
+              {{t 'common.will-disappear'}}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="teacher-navigator">
       <ul class="nav nav-tabs" role="tablist">
@@ -74,7 +92,7 @@
       </div>
       <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">
         {{#each archivedClasses as |class|}}
-            {{cards.gru-class-card
+          {{cards.gru-class-card
             class=class
             profile=profile
             classStudentCount=myClasses.memberCount}}

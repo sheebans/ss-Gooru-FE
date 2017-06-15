@@ -43,6 +43,16 @@ test('Layout', function(assert) {
     T.exists(assert, $featuredCourses.find('.panel-body .actions .library'), 'Missing library button');
     T.exists(assert, $featuredCourses.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
 
+    const $createClass = $panelsContainer.find('.create-class');
+    T.exists(assert, $createClass, 'Missing create class panel');
+
+    T.exists(assert, $createClass.find('.panel-heading'), 'Missing create class panel-heading');
+    T.exists(assert, $createClass.find('.panel-body'), 'Missing create class panel-body');
+
+    T.exists(assert, $createClass.find('.panel-body .legend'), 'Missing panel body legend');
+    T.exists(assert, $createClass.find('.panel-body .actions .create'), 'Missing create class button');
+    T.exists(assert, $createClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
+
     const $navigatorContainer = $teacherPanel.find('.teacher-navigator');
     T.exists(assert, $navigatorContainer, 'Missing teacher navigator');
     T.exists(assert, $teacherPanel.find('.actions .create-class-cta'), 'Missing create class button');
@@ -53,6 +63,23 @@ test('Layout', function(assert) {
     andThen(function() {
       assert.ok($('span.no-archived'), 'Missing no archived available lead');
       assert.equal($tabContent.find('#archived-classes .gru-class-card').length, 0 ,'Wrong number of archived class cards');
+    });
+  });
+});
+
+test('Go to create from create class panel', function(assert) {
+  visit('/teacher-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher-home');
+
+    const $createClass = find('.panel.create-class');
+
+    const $createClassButton = $createClass.find('.actions button.create');
+
+    click($createClassButton);
+    andThen(function() {
+      assert.equal(currentURL(), '/content/classes/create', 'Wrong route');
     });
   });
 });
