@@ -1871,12 +1871,11 @@ export default Object.assign(quizzesTranslations, {
   },
   "library":{
     "browse-library":"Browse Library",
-    "gru-browse-library":{
-      "featured-libraries": "Featured Libraries"
-    },
+    "featured-courses": "Featured Courses",
     "gru-library-card":{
       "featured-course":"Featured Course"
-    }
+    },
+    "other-libraries": "Other Libraries"
   },
   "gru-study-header": {
     "lesson-legend": "You are currently on lesson",

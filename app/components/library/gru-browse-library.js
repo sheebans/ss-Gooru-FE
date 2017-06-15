@@ -14,19 +14,8 @@ export default Ember.Component.extend({
 
   classNames: ['library', 'gru-browse-library'],
 
-  // -------------------------------------------------------------------------
-  // Properties
   /**
-   * @property {Object[]} options List of tab options to show
+   * @property {Courses[]} courses to show
    */
-  options: Ember.computed(function(){
-    return [{
-      name: 'featured-libraries',
-      text: this.get('i18n').t('library.gru-browse-library.featured-libraries')
-    }];
-  }),
-  /**
-   * @property {String} selected Current option selected
-   */
-  selected: 'featured-libraries'
+  courses: null
 });

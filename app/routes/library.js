@@ -20,11 +20,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // Methods
 
   model: function() {
-    let route = this;
-    return route.get('searchService').searchFeaturedCourses('*').then(function (result) {
-      return Ember.RSVP.hash({
-        courses: result
-      });
+    return Ember.RSVP.hash({
+      courses: this.get('searchService').searchFeaturedCourses('*')
     });
   },
   setupController: function (controller, model) {
