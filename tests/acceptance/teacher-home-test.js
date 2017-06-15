@@ -37,7 +37,7 @@ test('Layout', function(assert) {
     click('#archived-classes');
     andThen(function() {
       assert.ok($('span.no-archived'), 'Missing no archived available lead');
-      assert.equal($tabContent.find('#archived-classes .gru-class-card').length, 0 ,'Wrong number of archived class cards');
+      assert.equal($tabContent.find('#archived-classes .gru-class-card').length, 2 ,'Wrong number of archived class cards');
     });
   });
 });
@@ -75,5 +75,67 @@ test('Class order', function(assert) {
     assert.equal(currentURL(), '/teacher-home');
     let $title = find('.gru-teacher-class-card:nth-child(1) h5');
     assert.equal($title.text().trim(),'Last Class Pochita as Teacher','Incorrect first class');
+  });
+});
+
+test('Sort Archive Classes by Date Asc and Desc', function(assert) {
+  assert.expect(5);
+  visit('/teacher-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher-home');
+    click('.gru-welcome-message .actions .cancel');
+    andThen(function() {
+      let $archived = find('.teacher-navigator li.archived-classes a');
+      click($archived);
+      andThen(function() {
+        let $sortByDate = find('.sort .filter-date-asc .filter-date');
+        click($sortByDate);
+        andThen(function() {
+          let $class1 = find('.gru-class-card:first-child h5');
+          assert.equal($class1.text().trim(),'Archive Class-2','Incorrect first class');
+          let $class2 = find('.gru-class-card:last-child h5');
+          assert.equal($class2.text().trim(),'1-Archive Class','Incorrect last class');
+          click($sortByDate);
+          andThen(function() {
+            let $class1 = find('.gru-class-card:first-child h5');
+            assert.equal($class1.text().trim(),'1-Archive Class','Incorrect first class');
+            let $class2 = find('.gru-class-card:last-child h5');
+            assert.equal($class2.text().trim(),'Archive Class-2','Incorrect last class');
+          });
+        });
+      });
+    });
+  });
+});
+
+test('Sort Archive Classes by Title Asc and Desc', function(assert) {
+  assert.expect(5);
+  visit('/teacher-home');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher-home');
+    click('.gru-welcome-message .actions .cancel');
+    andThen(function() {
+      let $archived = find('.teacher-navigator li.archived-classes a');
+      click($archived);
+      andThen(function() {
+        let $sortByTitle = find('.sort .filter-date-asc .filter-asc');
+        click($sortByTitle);
+        andThen(function() {
+          let $class1 = find('.gru-class-card:first-child h5');
+          assert.equal($class1.text().trim(),'1-Archive Class','Incorrect first class');
+          let $class2 = find('.gru-class-card:last-child h5');
+          assert.equal($class2.text().trim(),'Archive Class-2','Incorrect last class');
+          click($sortByTitle);
+          andThen(function() {
+            let $class1 = find('.gru-class-card:first-child h5');
+            assert.equal($class1.text().trim(),'Archive Class-2','Incorrect first class');
+            let $class2 = find('.gru-class-card:last-child h5');
+            assert.equal($class2.text().trim(),'1-Archive Class','Incorrect last class');
+          });
+        });
+      });
+    });
   });
 });

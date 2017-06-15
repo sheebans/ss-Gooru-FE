@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 /**
  * Class management controller
@@ -16,7 +16,7 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @requires service:api-sdk/class
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -88,6 +88,37 @@ export default Ember.Controller.extend(ModalMixin, {
 
       controller.set('editingScore', false);
       controller.saveClass();
+    },
+
+    /**
+     *Remove student
+     */
+    removeStudent: function (student) {
+      let controller = this;
+      var model = {
+        content: student,
+        deleteMethod: function () {
+          return controller.get('classService').removeStudentFromClass(controller.get('class.id'),student.get('id'));
+        },
+        callback:{
+          success:function(){
+            controller.get('class.members').removeObject(student);
+          }
+        }
+      };
+
+      this.actions.showModal.call(this,
+        'content.modals.gru-remove-student',
+        model, null, null, null, false);
+    },
+
+    /**
+     * Archive class
+     **/
+    archiveClass: function(){
+      let controller = this;
+      const classId = controller.get('class.id');
+      controller.get('classService').archiveClass(classId);
     }
   },
 
@@ -132,10 +163,10 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Ember.Array}
    */
   switchOptions: Ember.A([Ember.Object.create({
-    'label': "On",
+    'label': 'On',
     'value': true
   }),Ember.Object.create({
-    'label': "Off",
+    'label': 'Off',
     'value': false
   })]),
 

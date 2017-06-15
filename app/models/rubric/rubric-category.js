@@ -18,9 +18,9 @@ export default Ember.Object.extend({
   title: '',
 
   /**
-   * @property {String} narrativeFeedback
+   * @property {String} feedbackGuidance
    */
-  narrativeFeedback: '',
+  feedbackGuidance: '',
 
   /**
    * @property {boolean} requiresFeedback

@@ -18,6 +18,28 @@ export default Ember.Controller.extend(ModalMixin, {
   // Actions
 
   actions: {
+    /**
+     *Filter by most recent
+     */
+    filterByDate:function(){
+      if(this.get('sortOn')==='title'){
+        this.set('order','desc');
+        this.set('sortOn','startDate');
+      }else{
+        this.set('order',(this.get('order') === 'asc') ?'desc': 'asc');
+      }
+    },
+    /**
+     *Filter by alphanumeric
+     */
+    filterByTitle:function(){
+      if(this.get('sortOn')==='startDate'){
+        this.set('order','asc');
+        this.set('sortOn','title');
+      }else{
+        this.set('order',(this.get('order') === 'desc') ?'asc': 'desc');
+      }
+    },
     showClasses: function (type) {
       this.set('showActiveClasses', type === 'active');
       this.set('showArchivedClasses', type === 'archived');
@@ -86,11 +108,36 @@ export default Ember.Controller.extend(ModalMixin, {
   hasClasses: Ember.computed.bool('totalTeachingClasses'),
 
   /**
+   * @property {string} Indicates the order of the sorting
+   */
+  order:'desc',
+
+  /**
+   * @property {string} Indicates the sorting criteria
+   */
+  sortOn:'startDate',
+  /**
+   * @property {[Class]} Sorted archived classrooms
+   */
+  sortedArchivedClassrooms: Ember.computed.sort('archivedClasses', 'sortDefinition'),
+  /**
+   * sort Definition
+   */
+  sortDefinition: Ember.computed('sortOn','order', function() {
+    return [ `${this.get('sortOn')}:${this.get('order')}`];
+  }),
+
+  /**
    * Toolkit site url
    * @property {string}
    */
   toolkitSiteUrl: Ember.computed(function(){
     return Env.toolkitSiteUrl;
-  })
-
+  }),
+  /**
+   * Reset to default values
+   */
+  resetValues: function() {
+    this.set('showActiveClasses',true);
+  }
 });

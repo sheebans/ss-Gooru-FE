@@ -54,15 +54,15 @@
       {{else}}
           <div>{{class.greeting}}</div>
       {{/if}}
-
-      <p>
-        {{#if class.currentLocation}}
-          U{{plus-one class.currentLocation.unitIndex}} / L{{plus-one class.currentLocation.lessonIndex}} / {{class.currentLocation.collection.title}}
-        {{else}}
-          {{t "cards.gru-class-card.student.not-started"}}
-        {{/if}}
-      </p>
-
+      {{#unless class.isArchived}}
+          <p class="current-location">
+            {{#if class.currentLocation}}
+                U{{plus-one class.currentLocation.unitIndex}} / L{{plus-one class.currentLocation.lessonIndex}} / {{class.currentLocation.collection.title}}
+            {{else}}
+              {{t "cards.gru-class-card.student.not-started"}}
+            {{/if}}
+          </p>
+      {{/unless}}
     </div>
   </div>
 </div>

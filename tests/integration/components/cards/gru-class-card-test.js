@@ -51,7 +51,7 @@ test('Class Card Layout', function(assert) {
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
-  assert.expect(10);
+  assert.expect(11);
 
   this.render(hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`);
 
@@ -70,7 +70,7 @@ test('Class Card Layout', function(assert) {
   T.exists(assert, $classCard.find('.collaborators .name'), 'Missing collaborator name');
   T.exists(assert, $classCard.find('.students-info'), 'Missing students info');
   T.exists(assert, $classCard.find('.description div'), 'Missing class info');
-
+  T.exists(assert, $classCard.find('.current-location'), 'Missing location label');
 });
 
 test('Student class card', function (assert) {
@@ -279,4 +279,5 @@ test('Is Archived', function (assert) {
   const $component = this.$(); //component dom element
   const $isArchived = $component.find('.panel.archive');
   assert.ok($isArchived.length, 'This class should be archive');
+  assert.ok($isArchived.find('.current-location'), 'Archive classes should not have current location');
 });

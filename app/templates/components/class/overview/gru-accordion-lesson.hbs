@@ -224,10 +224,6 @@
                       {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
                     </button>
                   {{else}}
-                    {{#if (and item.isAssessment item.collectionSubType) }}
-                      <span class="score" style={{safe-html (concat "color:" (grade-color 'NA'))}}> --% </span>
-                      <span class="state"><span class="not-started">&dash;&dash;</span></span>
-                    {{else}}
                       <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
                         {{if item.performance.hasStarted item.performance.score '--'}}%
                       </span>
@@ -246,7 +242,6 @@
                           <span class="not-started">&dash;&dash;</span>
                         {{/if}}
                       </span>
-                    {{/if}}
                   {{/if}}
                 </div>
               </div>

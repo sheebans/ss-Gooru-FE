@@ -7,9 +7,9 @@ moduleForComponent('library/gru-browse-library', 'Unit | Component | library/gru
 test('options', function(assert) {
   let component = this.subject();
   component.set('options',[{
-    name: 'featured-libraries',
-    text: 'Featured Libraries'
+    name: 'featured-courses',
+    text: 'Featured Courses'
   }]);
 
-  assert.equal(component.get('options')[0].name, 'featured-libraries', 'First option incorrect');
+  assert.equal(component.get('options')[0].name, 'featured-courses', 'First option incorrect');
 });
