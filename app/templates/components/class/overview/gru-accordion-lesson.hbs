@@ -27,7 +27,7 @@
       <div class="left-info">
         {{#if isLessonSelected}}
           <button {{action "studyNow" 'lesson' model}} class="btn btn-info study-now">
-            {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
+            {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
           </button>
         {{else}}
             <span class="score" style={{safe-html (concat "color:" (grade-color (if model.performance.hasStarted model.performance.score 'NA')))}}>
@@ -73,7 +73,7 @@
                 <div class="left-info">
                   {{#if (eq activeElement item.id)}}
                     <button {{action "studyNow" 'resource' item}} class="btn btn-info study-now">
-                      {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
+                      {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
                     </button>
                   {{else}}
                     <span class="time-spent">
@@ -221,12 +221,17 @@
                 <div class="left-info">
                   {{#if (eq activeElement item.id)}}
                     <button {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
-                      {{gru-icon name='play_arrow'}}<span>{{t 'common.study-now'}}</span>
+                      {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
                     </button>
                   {{else}}
                       <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
                         {{if item.performance.hasStarted item.performance.score '--'}}%
                       </span>
+                    {{#if (and item.performance.hasTrophy isStudent)}}
+                      <div class="trophy" style={{safe-html (concat "background-color:" (grade-color item.performance.score))}}>
+                        <i></i>
+                      </div>
+                      {{else}}
                       <span class="state">
                         {{#if item.isAssessment}}
                           {{#if item.performance.isCompleted}}
@@ -242,6 +247,7 @@
                           <span class="not-started">&dash;&dash;</span>
                         {{/if}}
                       </span>
+                    {{/if}}
                   {{/if}}
                 </div>
               </div>
