@@ -480,6 +480,7 @@ export default Object.assign(quizzesTranslations, {
     "signUp": "Sign Up",
     "sortAlphabetical": "Sort Alphabetically",
     "sortAverage": "Sort by Average",
+    "sort-most-recently":"Sort by Most Recently Updated",
     "state": "State or Territory",
     "standard": "Standard",
     "standards": "Standards",
