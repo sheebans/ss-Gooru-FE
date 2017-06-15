@@ -24,7 +24,6 @@ test('Layout', function (assert) {
     const $container = find('.teacher.class .controller.teacher.class.class-activities');
     assert.ok($container.length, 'Missing class activities tab container');
 
-    T.exists(assert, $container.find('.today'), 'Missing today title');
     T.exists(assert, $container.find('.collections'), 'Missing activities collections');
   });
 });
