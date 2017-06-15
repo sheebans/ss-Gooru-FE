@@ -186,7 +186,7 @@ export default Ember.Route.extend({
     const classId = controller.get('class.id');
     const courseId = controller.get('class.courseId');
     const members = controller.get('class.members');
-    let units = controller.get('course.children');
+    let units = controller.get('course.children') || [];
     units.forEach((child, index) => {
       child.set('sequence', index + 1);
     });

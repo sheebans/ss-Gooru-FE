@@ -101,7 +101,7 @@ test('Test data picker options selected', function(assert) {
   });
 });
 
-test('Test collections/assessments filter radio button selected', function(assert) {
+test('Test collections filter radio button selected', function(assert) {
 
   visit('/teacher/class/class-for-pochita-as-teacher/performance');
 
@@ -110,17 +110,11 @@ test('Test collections/assessments filter radio button selected', function(asser
 
     const $performanceContainer = find('.controller.teacher.class.performance');
     const $actions = $performanceContainer.find('.actions');
-    const $assessmentRadioButton = $actions.find('.radios-container .assessment');
-    const $collectionRadioButton = $actions.find('.radios-container .collection');
+    const $collectionRadioButton = $actions.find('.radios-container .collection input');
 
     click($collectionRadioButton); //click on collections filter radio button
     andThen(function(){
       assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/performance?filterBy=collection');
-
-      click($assessmentRadioButton); //click on assessments filter radio button
-      andThen(function(){
-        assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/performance');
-      });
     });
   });
 });
@@ -228,5 +222,21 @@ test('Navigate to student report and go back to data', function(assert) {
       const $container = find('.controller.analytics.collection.student');
       T.exists(assert, $container, 'Missing container');
     });
+  });
+});
+
+test('Show message when there is no performance data', function(assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher-no-course/performance');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher-no-course/performance');
+
+    const $performanceContainer = find('.controller.teacher.class.performance');
+    T.notExists(assert, $performanceContainer, 'Should not be visible');
+
+    const $noContentMessage = find('.no-content');
+    T.exists(assert, $noContentMessage, 'No content message should be displayed');
+    assert.equal($noContentMessage.text(), 'Your students have not yet started studying a course.', 'Correct no content message');
+
   });
 });
