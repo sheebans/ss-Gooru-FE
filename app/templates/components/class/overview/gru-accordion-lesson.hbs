@@ -227,7 +227,7 @@
                       <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
                         {{if item.performance.hasStarted item.performance.score '--'}}%
                       </span>
-                    {{#if (and item.performance.hasTrophy isStudent)}}
+                    {{#if (and (and item.performance.hasTrophy isStudent) (not item.collectionSubType))}}
                       <div class="trophy" style={{safe-html (concat "background-color:" (grade-color item.performance.score))}}>
                         <i></i>
                       </div>
