@@ -1,8 +1,3 @@
-{{content.gru-header options=options selected=selected}}
-{{#if (eq selected 'featured-libraries')}}
-    <div id="featured-libraries">
-        {{#each courses as |course|}}
-          {{library.gru-library-card model=course}}
-        {{/each}}
-    </div>
-{{/if}}
+{{#each courses as |course|}}
+  {{library.gru-library-card model=course}}
+{{/each}}

@@ -26,7 +26,7 @@ test('Library Controller Layout', function (assert) {
     assert.ok($libraries.find('.content.gru-header'),'Missing library header');
 
     let $options = $libraries.find('.tab');
-    assert.ok($options.filter('.browse-library').length, 'Browse Library tab is missing');
-    assert.ok($libraries.find('#browse-library'),'Missing Browse Library Section');
+    assert.ok($options.filter('.featured-courses').length, 'Browse Library tab is missing');
+    assert.ok($libraries.find('#featured-courses'),'Missing Browse Library Section');
   });
 });

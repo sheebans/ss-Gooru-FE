@@ -1,9 +1,12 @@
 <div class="libraries">
   {{content.gru-header options=options selected=selected}}
-  {{#if (eq selected 'browse-library')}}
-      <div id="browse-library">
-          {{library.gru-browse-library courses=courses}}
-      </div>
+  {{#if (eq selected 'featured-courses')}}
+    <div id="featured-courses">
+      {{library.gru-browse-library courses=courses}}
+    </div>
+  {{/if}}
+  {{#if (eq selected 'other-libraries')}}
+    <div id="other-libraries">
+    </div>
   {{/if}}
 </div>
-

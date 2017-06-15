@@ -25,6 +25,6 @@ test('Browse Library Test', function(assert) {
   const $component = this.$();
   let $options = $component.find('.tab');
   assert.equal($options.filter(':first-child').text().trim(), 'Featured Libraries', 'Featured Libraries tab is missing');
-  assert.ok($component.find('#featured-libraries'),'Missing featured libraries section');
+  assert.ok($component.find('#featured-courses'),'Missing featured libraries section');
   assert.equal($component.find('.gru-library-card').length, 2, 'Should appear 2 cards');
 });
