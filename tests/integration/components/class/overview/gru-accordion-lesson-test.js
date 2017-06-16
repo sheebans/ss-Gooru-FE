@@ -256,7 +256,8 @@ test('Show trophy', function(assert) {
       performance:Ember.Object.create({
         hasTrophy:true
       }),
-      isAssessment:true
+      isAssessment:true,
+      showTrophy:true
     }),
     Ember.Object.create({
       id:'123',
