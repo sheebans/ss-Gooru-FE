@@ -249,8 +249,8 @@ test('normalizeRubric', function(assert) {
     id: '2c185398-d0e6-42d8-9926-572939fc0784',
     title: 'Rubric - 1',
     description: 'This is the example question for the rubrics association',
-    type: '1xN',
     thumbnail: '2c185398-d0e6-42d8-9926-572939fc0784.png',
+    publish_date: '2017-02-24T05:55:42Z',
     publishStatus:'published',
     metadata: {
       audience: [12, 45]
@@ -258,6 +258,7 @@ test('normalizeRubric', function(assert) {
     taxonomy: {},
     url: 'https://en.wikipedia.org/wiki/Rubric_(academic)',
     is_remote: true,
+    is_rubric:false,
     feedback_guidance: 'Summarize your feedback on the essay as a whole',
     total_points: 4,
     creator_id:'852f9814-0eb4-461d-bd3b-aca9c2500595',
@@ -268,17 +269,14 @@ test('normalizeRubric', function(assert) {
       {
         category_title: 'Thesis and Sub-claims'
       }
-    ]
+    ],
+    created_at: '2017-02-24T05:55:42Z',
+    updated_at: '2017-02-24T05:55:42Z',
+    tenant: 'ba956a97-ae15-11e5-a302-f8a963065976'
   };
 
-  const owners = [Ember.Object.create({
-    id: '852f9814-0eb4-461d-bd3b-aca9c2500595',
-    first_name: 'Sachin',
-    last_name: 'Zope',
-    thumbnail: 'any'
-  })];
+  const rubric = serializer.normalizeRubric(rubricData);
 
-  const rubric = serializer.normalizeRubric(rubricData,owners);
   assert.equal(rubric.get('id'), '2c185398-d0e6-42d8-9926-572939fc0784', 'Wrong id');
   assert.equal(rubric.get('title'), 'Rubric - 1', 'Wrong title');
   assert.equal(rubric.get('description'), 'This is the example question for the rubrics association', 'Wrong description');
@@ -290,7 +288,9 @@ test('normalizeRubric', function(assert) {
   assert.equal(rubric.get('feedback'), 'Summarize your feedback on the essay as a whole', 'Wrong feedback');
   assert.equal(rubric.get('totalPoints'), 4, 'Wrong total points');
   assert.equal(rubric.get('isPublished'), true, 'Should be published');
+  assert.equal(rubric.get('publishDate'), '2017-02-24T05:55:42Z', 'Incorrect publish date');
   assert.equal(rubric.get('requiresFeedback'), true, 'Wrong requires feedback');
   assert.equal(rubric.get('categories.length'), 2, 'Wrong categories length');
-  assert.equal(rubric.get('owner.id'), '852f9814-0eb4-461d-bd3b-aca9c2500595', 'Wrong owner id');
+  assert.equal(rubric.get('owner'), '852f9814-0eb4-461d-bd3b-aca9c2500595', 'Wrong owner id');
+  assert.equal(rubric.get('rubricOn'), false, 'Rubric should be off');
 });

@@ -561,6 +561,7 @@ test('normalizeReadRubrics', function(assert) {
         taxonomy: {},
         url: 'https://en.wikipedia.org/wiki/Rubric_(academic)',
         is_remote: true,
+        is_rubric:true,
         feedback_guidance: 'Summarize your feedback on the essay as a whole',
         total_points: 4,
         creator_id:'852f9814-0eb4-461d-bd3b-aca9c2500595',
