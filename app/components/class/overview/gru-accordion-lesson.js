@@ -444,8 +444,6 @@ export default Ember.Component.extend(AccordionMixin, {
               return Ember.RSVP.resolve(true);
             }
           });
-
-
           Ember.RSVP.all(promises).then(resolve, reject);
         });
     });
