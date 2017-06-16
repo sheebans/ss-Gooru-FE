@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 import T from 'gooru-web/tests/helpers/assert';
-import tHelper from "ember-i18n/helper";
+import tHelper from 'ember-i18n/helper';
 
 moduleForComponent('class/overview/gru-accordion-lesson', 'Integration | Component | class/overview/gru accordion lesson', {
   integration: true,
@@ -19,13 +19,13 @@ test('it renders', function(assert) {
 
   // Class with no collections per stub
   const currentClass = Ember.Object.create({
-    id: "111-111-111",
-    courseId: "999-999-999"
+    id: '111-111-111',
+    courseId: '999-999-999'
   });
 
   // Lesson model
   const lesson = Ember.Object.create({
-    id: "888-000",
+    id: '888-000',
     title: 'Lesson Title',
     completed: 5,
     total: 10,
@@ -46,8 +46,8 @@ test('it renders', function(assert) {
 
   const $component = this.$('.gru-accordion-lesson');
   assert.ok($component.length, 'Component does not have the component class');
-  assert.ok($component.hasClass('panel'), 'Component should have the class "panel"');
-  assert.ok($component.hasClass('panel-default'), 'Component should have the class "panel-default"');
+  assert.ok($component.hasClass('panel'), 'Component should have the class panel');
+  assert.ok($component.hasClass('panel-default'), 'Component should have the class panel-default');
 
   const $lessonHeading = $component.find('> .panel-heading');
   assert.ok($lessonHeading.length, 'Panel heading element is missing');
@@ -59,14 +59,14 @@ test('it renders', function(assert) {
   assert.ok($lessonTitleAnchor.length, 'Title anchor element is missing');
   assert.ok($lessonTitleAnchor.hasClass('collapsed'), 'Panel should be collapsed by default');
   assert.equal(T.text($lessonTitleAnchor), 'Lesson 1Lesson Title', 'Wrong title text');
-  //assert.equal($lessonTitleAnchor.html().replace(/&nbsp;/g, " ").trim(), 'Lesson 1  Lesson Title', 'Wrong title text');
+  //assert.equal($lessonTitleAnchor.html().replace(/&nbsp;/g, ' ').trim(), 'Lesson 1  Lesson Title', 'Wrong title text');
 
   const $lessonInfo = $lessonHeading.find('> .info');
   assert.ok($lessonInfo.length, 'Panel info element is missing');
 
   const $lessonContentCount = $lessonInfo.find('> .content-count');
-  assert.equal(T.text($lessonContentCount.find(".assessment-count")), '1 Assessment', 'Wrong text assessment count');
-  assert.equal(T.text($lessonContentCount.find(".collection-count")), '2 Collections', 'Wrong text collection count');
+  assert.equal(T.text($lessonContentCount.find('.assessment-count')), '1 Assessment', 'Wrong text assessment count');
+  assert.equal(T.text($lessonContentCount.find('.collection-count')), '2 Collections', 'Wrong text collection count');
 
   assert.ok($lessonHeading.find('.gru-user-icons').length, 'gru-user-icons component is missing');
   assert.ok($lessonHeading.find('.score').length, 'Score info element is missing');
@@ -75,7 +75,7 @@ test('it renders', function(assert) {
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
-  assert.ok($collapsePanel.hasClass('collapse'), 'Panel is missing class "collapse"');
+  assert.ok($collapsePanel.hasClass('collapse'), 'Panel is missing class collapse');
   assert.ok(!$collapsePanel.hasClass('in'), 'Panel should not be visible by default');
   assert.equal('#' + $collapsePanel.attr('id'), $lessonTitleAnchor.attr('href'), 'Panel element should be tied to the title anchor element');
 
@@ -96,20 +96,20 @@ test('it renders correctly when there are no collections/assessments to load aft
 
   // Class with no lessons per stub
   const currentClass = Ember.Object.create({
-    id: "111-111-111",
-    courseId: "999-999-999"
+    id: '111-111-111',
+    courseId: '999-999-999'
   });
 
   // Lesson model
   const lesson = Ember.Object.create({
-    id: "lesson-with-out-collections-id",
+    id: 'lesson-with-out-collections-id',
     title: 'Lesson Title',
     completed: 5,
     total: 10
   });
 
   this.on('externalAction', function () {
-    assert.ok(true, "This should be called");
+    assert.ok(true, 'This should be called');
   });
 
   this.set('currentClass', currentClass);
@@ -161,19 +161,19 @@ test('Study now', function(assert) {
   });
 
   const currentClass = Ember.Object.create({
-    id: "111-111-111",
-    courseId: "999-999-999"
+    id: '111-111-111',
+    courseId: '999-999-999'
   });
 
   const lesson = Ember.Object.create({
-    id: "lesson-with-out-collections-id",
+    id: 'lesson-with-out-collections-id',
     title: 'Lesson Title',
     completed: 5,
     total: 10
   });
 
   this.on('externalAction', function () {
-    assert.ok(true, "This should be called");
+    assert.ok(true, 'This should be called');
   });
 
 
@@ -227,20 +227,20 @@ test('Show trophy', function(assert) {
   assert.expect(4);
 
   const currentClass = Ember.Object.create({
-    id: "111-111-111",
-    courseId: "999-999-999",
+    id: '111-111-111',
+    courseId: '999-999-999',
     minScore:10
   });
 
   const lesson = Ember.Object.create({
-    id: "lesson-with-out-collections-id",
+    id: 'lesson-with-out-collections-id',
     title: 'Lesson Title',
     completed: 5,
     total: 10
   });
 
   this.on('selectLesson', function () {
-    assert.ok(true, "This should be called");
+    assert.ok(true, 'This should be called');
   });
 
   this.set('currentClass', currentClass);
