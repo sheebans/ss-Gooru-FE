@@ -49,6 +49,19 @@ export default Ember.Component.extend(ModalMixin, {
       } else {
         this.sendAction("onRemixCourse", this.get("course"));
       }
+    },
+
+    /**
+     * Action triggered to preview the course
+     * @param course
+     */
+    previewCourse: function(course) {
+      let component = this;
+      var model = Ember.Object.create({
+        content: course
+      });
+
+      component.send('showModal', 'gru-preview-course', model);
     }
   },
   // -------------------------------------------------------------------------
@@ -108,6 +121,12 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {boolean}
    */
   isSmall: false,
+
+  /**
+   * Indicates if it is from student/teacher landing page
+   * @property {boolean}
+   */
+  isFromLandingPage: false,
 
   /**
    * Show if the taxonomy tags are visible or not.

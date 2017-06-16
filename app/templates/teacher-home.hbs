@@ -8,6 +8,52 @@
       </div>
       <p>{{t 'user.teaching-classes' count=totalTeachingClasses}}</p>
     </div>
+    <div class="row panels">
+      <div class="col-sm-6 col-xs-12">
+        <div class="panel featured-courses">
+          <div class="panel-heading">{{t 'common.explore'}}</div>
+          <div class="panel-body">
+            <div class="legend">
+              {{t 'student-landing.browse-featured-courses'}}
+            </div>
+            <div class="courses">
+              {{#if firstFeaturedCourse}}
+                {{cards.gru-course-card course=firstFeaturedCourse isFromLandingPage=true isSmall=true showTaxonomy=false}}
+              {{/if}}
+              {{#if secondFeaturedCourse}}
+                {{cards.gru-course-card course=secondFeaturedCourse isFromLandingPage=true isSmall=true showTaxonomy=false}}
+              {{/if}}
+            </div>
+            <div class="actions">
+              {{#link-to 'library' class="btn btn-info library" tagName='button'}}
+                {{t 'common.featured-courses'}}
+              {{/link-to}}
+            </div>
+            <div class="pull-right will-disappear">
+              {{t 'common.will-disappear'}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xs-12">
+        <div class="panel create-class">
+          <div class="panel-heading">{{t 'teacher-landing.teach'}}</div>
+          <div class="panel-body">
+            <div class="legend">
+              {{t 'teacher-landing.create-classroom'}}
+            </div>
+            <div class="actions">
+              {{#link-to 'content.classes.create' class="btn btn-info create" tagName='button'}}
+                {{t 'user.create-class'}}
+              {{/link-to}}
+            </div>
+            <div class="pull-right will-disappear">
+              {{t 'common.will-disappear'}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="teacher-navigator">
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active active-classes tab hidden-xs">

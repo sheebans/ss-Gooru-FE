@@ -231,6 +231,13 @@ export default Ember.Controller.extend({
   contentVisibility: Ember.computed.alias('classController.contentVisibility'),
 
   /**
+   * @property {boolean}
+   */
+  showPerformanceData: Ember.computed('performanceDataMatrix', 'class.courseId', function() {
+    return this.get('performanceDataMatrix').length > 1 && this.get('class.courseId') !== '';
+  }),
+
+  /**
    * @property {string} indicates the header type unit/lesson/assessment
    */
   headerType: null,

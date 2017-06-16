@@ -25,6 +25,11 @@ export default Ember.Service.extend(StoreMixin, {
    */
   unitService: Ember.inject.service('api-sdk/unit'),
 
+  /**
+   * @property {Service} profileService
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
 
   init: function () {
     this._super(...arguments);
@@ -57,10 +62,16 @@ export default Ember.Service.extend(StoreMixin, {
    * @returns {Promise|Content/Course}
    */
   fetchById: function (courseId) {
-    return this.get('adapter').getCourseById(courseId)
+    const service = this;
+    return service.get('adapter').getCourseById(courseId)
       .then(function (courseData) {
-        return this.get('serializer').normalizeCourse(courseData);
-      }.bind(this))
+        let course = service.get('serializer').normalizeCourse (courseData);
+        return service.get('profileService').readUserProfile(courseData.owner_id)
+          .then(function(profile) {
+            course.set('owner', profile);
+            return course;
+          });
+      })
       .catch(function (error) {
         return error;
       });

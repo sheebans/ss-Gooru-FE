@@ -16,16 +16,18 @@
       {{/if}}
     </div>
     {{#if visible}}
-      {{#link-to 'study-player'
+      {{#link-to 'context-player'
       class.id
       classActivity.context.courseId
+      classActivity.context.unitId
+      classActivity.context.lessonId
+      item.id
       (query-params
-        unitId=classActivity.context.unitId
-        lessonId=classActivity.context.lessonId
-        collectionId=item.id
         type=item.collectionType
         role='student'
         source=source
+        tenantId=session.tenantId
+        partnerId=session.partnerId
       )
       class="title"}}
           <div class="ellipsis text">{{item.title}}</div>
