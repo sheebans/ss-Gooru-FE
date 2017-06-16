@@ -425,6 +425,10 @@ export default Ember.Component.extend(AccordionMixin, {
             collectionPerformanceData.set('isCompleted', isCompleted);
 
             collection.set('performance', collectionPerformanceData);
+
+            let showTrophy = collection.get('performance.hasTrophy') && component.get('isStudent')  && !collection.get('collectionSubType');
+            collection.set('showTrophy',showTrophy);
+
             const attempts = collectionPerformanceData.get('attempts');
             if(isAssessment) {
               return component.get('assessmentService').readAssessment(collectionId)
