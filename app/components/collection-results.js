@@ -35,10 +35,11 @@ export default Ember.Component.extend(ModalMixin, {
 
     /**
      * Action triggered to bookmark a collection or assessment
-     * @param {string} collectionId collection identifier
+     * @param {Collection} collection
+     * @param {Boolean} showType
      */
-    onBookmarkContent: function(collection) {
-      this.sendAction('onBookmarkContent', collection);
+    onBookmarkContent: function(collection, showType) {
+      this.sendAction('onBookmarkContent', collection, showType);
     },
 
     /**
