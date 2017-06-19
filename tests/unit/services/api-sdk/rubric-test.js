@@ -164,10 +164,9 @@ test('copyRubric', function(assert) {
     });
 });
 
-
 test('associateRubricToQuestion', function(assert) {
   const service = this.subject();
-  assert.expect(3);
+  assert.expect(2);
 
   service.set('adapter', Ember.Object.create({
     associateRubricToQuestion: function(rubricId, questionId) {
@@ -179,10 +178,6 @@ test('associateRubricToQuestion', function(assert) {
 
   var done = assert.async();
   service.associateRubricToQuestion(123, 312)
-    .then(function(associated) {
-      assert.equal(associated, true, 'Wrong response');
-      done();
-    });
+  .then(done());
+
 });
-
-

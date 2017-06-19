@@ -78,7 +78,7 @@
       }
     },
     "response": {
-      "status": 201,
+      "status": 204,
       "headers": {
         "Content-Type": "text/plain"
       }
