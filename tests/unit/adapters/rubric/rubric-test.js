@@ -194,7 +194,7 @@ test('Associate rubric with question, success', function (assert) {
       assert.deepEqual(requestBodyJson, {}, "Missing empty body");
       assert.equal(request.requestHeaders['Authorization'], "Token token-api-3", "Wrong token");
       return [
-        201,
+        204,
         {
           'Content-Type': 'text/plain'
         },
@@ -208,8 +208,5 @@ test('Associate rubric with question, success', function (assert) {
   const adapter = this.subject();
 
   adapter.associateRubricToQuestion(123, 321)
-    .then(function (associated) {
-      assert.ok(associated === true, 'Wrong response');
-    });
+    .then(() => assert.ok(true));
 });
-
