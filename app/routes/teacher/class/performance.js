@@ -135,25 +135,28 @@ export default Ember.Route.extend({
     const unit = controller.get('unit');
     const lesson = controller.get('lesson');
 
+    route.loadData(controller);
+
     controller.updateBreadcrumb(course, 'course');
     if (unit) {
-      course.children.find((child) => {
+      course.children.find((child, index) => {
         if(unit.id === child.id) {
-          unit.sequence = child.sequence;
+          unit.set('sequence', index + 1);
+          return true;
         }
       });
       controller.updateBreadcrumb(unit, 'unit');
     }
     if (lesson) {
-      unit.children.find((child) => {
+      unit.children.find((child, index) => {
         if(lesson.id === child.id) {
-          lesson.sequence = child.sequence;
+          lesson.set('sequence', index + 1);
+          return true;
         }
       });
       controller.updateBreadcrumb(lesson, 'lesson');
     }
 
-    route.loadData(controller);
     controller.get('classController').selectMenuItem('performance');
   },
 
@@ -186,10 +189,8 @@ export default Ember.Route.extend({
     const classId = controller.get('class.id');
     const courseId = controller.get('class.courseId');
     const members = controller.get('class.members');
-    let units = controller.get('course.children') || [];
-    units.forEach((child, index) => {
-      child.set('sequence', index + 1);
-    });
+    const units = controller.get('course.children') || [];
+
     if(courseId) {
       controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
         .then(function(classPerformanceData) {
@@ -205,7 +206,7 @@ export default Ember.Route.extend({
   /**
    * Loads unit data
    * @param controller
-     */
+   */
   loadUnitData: function(controller) {
     const route = this;
     const filterBy = controller.get('filterBy');
@@ -213,10 +214,8 @@ export default Ember.Route.extend({
     const courseId = controller.get('class.courseId');
     const members = controller.get('class.members');
     const unitId = controller.get('unit.id');
-    let lessons = controller.get('unit.children');
-    lessons.forEach((child, index) => {
-      child.set('sequence', index + 1);
-    });
+    const lessons = controller.get('unit.children') || [];
+
     controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
       .then(function(classPerformanceData) {
         route.fixLessonTotalCounts(controller, unitId, classPerformanceData, controller.get('filteredByAssessment'));
@@ -279,7 +278,7 @@ export default Ember.Route.extend({
    * Fixes total counts using data from core
    * @param classPerformanceData
    * @param filteredByAssessment
-     */
+   */
   fixUnitsTotalCounts: function(controller, classPerformanceData, filteredByAssessment) {
     const contentVisibility = controller.get('contentVisibility');
     const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
@@ -299,7 +298,7 @@ export default Ember.Route.extend({
    * @param unitId
    * @param classPerformanceData
    * @param filterBy
-     */
+   */
   fixLessonTotalCounts: function(controller, unitId, classPerformanceData, filteredByAssessment) {
     const contentVisibility = controller.get('contentVisibility');
     const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
