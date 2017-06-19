@@ -1,6 +1,6 @@
-.student-home {
+.student-independent-learning {
   .container-fluid {
-    .student-landing {
+    .student-independent {
       padding-top: 30px;
       >* {
         margin: 0 auto;
@@ -20,7 +20,7 @@
       }
     }
   }
-  .student-landing {
+  .student-independent {
     .student-left-panel {
       float:left;
       .greetings {
@@ -136,17 +136,19 @@
         }
       }
     }
-    .no-classes-found {
-      font-size: $font-navigator;
-      line-height: $font-size-h5;
-      margin: 15px 0;
-    }
-    .actions {
-      @include flexbox;
-      @include align-items(flex-end);
-      @include justify-content(space-between);
-      height: 35px;
-      margin: 8px 0 0;
+  }
+
+  .content {
+    margin: 22px 0;
+    .panel.bookmarks {
+      border-radius: 5px;
+      padding: 7px 30px;
+      .panel-heading {
+        font-size: $font-navigator;
+        line-height: $font-navigator;
+        color: $gray-base;
+        padding: 0 0 10px;
+      }
     }
   }
 }

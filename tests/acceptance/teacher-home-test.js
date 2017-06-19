@@ -32,16 +32,7 @@ test('Layout', function(assert) {
     T.exists(assert, $panelsContainer, 'Missing panels container');
 
     const $featuredCourses = $panelsContainer.find('.featured-courses');
-    T.exists(assert, $featuredCourses, 'Missing featured courses panel');
-
-    T.exists(assert, $featuredCourses.find('.panel-heading'), 'Missing featured courses panel-heading');
-    T.exists(assert, $featuredCourses.find('.panel-body'), 'Missing featured courses panel-body');
-
-    T.exists(assert, $featuredCourses.find('.panel-body .legend'), 'Missing panel body legend');
-    T.exists(assert, $featuredCourses.find('.panel-body .courses'), 'Missing courses');
-    assert.equal($featuredCourses.find('.panel-body .courses .gru-course-card').length, 2 ,'Wrong number of featured course cards');
-    T.exists(assert, $featuredCourses.find('.panel-body .actions .library'), 'Missing library button');
-    T.exists(assert, $featuredCourses.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
+    T.exists(assert, $featuredCourses, 'Missing featured courses component');
 
     const $createClass = $panelsContainer.find('.create-class');
     T.exists(assert, $createClass, 'Missing create class panel');

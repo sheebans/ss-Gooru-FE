@@ -134,6 +134,12 @@ export default Ember.Controller.extend(ModalMixin, {
   toolkitSiteUrl: Ember.computed(function(){
     return Env.toolkitSiteUrl;
   }),
+
+  /**
+   * @property {Array[]} - featuredCourses
+   */
+  featuredCourses: null,
+
   /**
    * Reset to default values
    */
