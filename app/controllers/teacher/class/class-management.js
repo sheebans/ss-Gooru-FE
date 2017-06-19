@@ -32,6 +32,7 @@ export default Ember.Controller.extend(ModalMixin, {
       let controller = this;
       const classId = controller.get('class.id');
       controller.get('classService').archiveClass(classId);
+      controller.saveClass();
     },
 
     /**
