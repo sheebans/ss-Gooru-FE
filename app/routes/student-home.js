@@ -98,6 +98,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     const firstCourseId = configuration.get("exploreFeaturedCourses.firstCourseId");
     const secondCourseId = configuration.get("exploreFeaturedCourses.secondCourseId");
     const activeClasses = myClasses.getStudentActiveClasses(myId);
+    var featuredCourses = Ember.A([]);
 
     if (firstCourseId) {
       firstCoursePromise = route.get('courseService').fetchById(firstCourseId);
@@ -105,7 +106,6 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     if (secondCourseId) {
       secondCoursePromise = route.get('courseService').fetchById(secondCourseId);
     }
-
     return Ember.RSVP.hash({
       firstCourse: firstCoursePromise,
       secondCourse: secondCoursePromise
@@ -113,10 +113,12 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       const firstFeaturedCourse = hash.firstCourse;
       const secondFeaturedCourse = hash.secondCourse;
 
+      featuredCourses.push(firstFeaturedCourse);
+      featuredCourses.push(secondFeaturedCourse);
+
       return {
         activeClasses,
-        firstFeaturedCourse,
-        secondFeaturedCourse,
+        featuredCourses,
         tourSteps
       };
     });
@@ -145,8 +147,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
-    controller.set('firstFeaturedCourse', model.firstFeaturedCourse);
-    controller.set('secondFeaturedCourse', model.secondFeaturedCourse);
+    controller.set('featuredCourses', model.featuredCourses);
   }
 
 });
