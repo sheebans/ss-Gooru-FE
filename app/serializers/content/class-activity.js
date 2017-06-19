@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ClassActivity from 'gooru-web/models/content/class-activity';
 import Collection from 'gooru-web/models/content/collection';
 import Assessment from 'gooru-web/models/content/assessment';
-import { formatDate } from 'gooru-web/utils/utils';
+import { parseDate } from 'gooru-web/utils/utils';
 
 /**
  * Serializer to support the Class Activity operations
@@ -38,7 +38,7 @@ export default Ember.Object.extend({
     const content =  serializer.normalizeClassActivityContent(data);
     return ClassActivity.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
-      date: data.activation_date ? formatDate(data.activation_date, 'MMMM Do, YYYY') : null,
+      date: data.activation_date ? parseDate(data.activation_date, 'YYYY-MM-DD') : null,
       context: {
         courseId: data.ctx_course_id,
         unitId: data.ctx_unit_id,

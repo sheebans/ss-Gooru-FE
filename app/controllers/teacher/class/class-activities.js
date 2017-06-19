@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import { formatDate } from 'gooru-web/utils/utils';
 /**
  * Class activities controller
@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
   /**
    * @requires service:api-sdk/class-activity
    */
-  classActivityService: Ember.inject.service("api-sdk/class-activity"),
+  classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -33,10 +33,10 @@ export default Ember.Controller.extend({
     changeVisibility: function(classActivityId) {
       const controller = this;
       const currentClass = controller.get('classController.class');
-      const classId = currentClass.get("id");
+      const classId = currentClass.get('id');
       const date = new Date();
       controller.get('classActivityService').enableClassActivity(classId, classActivityId, date).then(function() {
-        const classActivity = controller.get('classActivities')[0].classActivities.findBy("id", classActivityId);
+        const classActivity = controller.get('classActivities')[0].classActivities.findBy('id', classActivityId);
         classActivity.set('date', date);
       });
     },
@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
       const startDate = new Date(year, month, 1);
       const endDate = new Date(year, month + 1, 0);
       controller.get('classActivityService').findClassActivities(currentClass.get("id"), undefined, startDate, endDate).then(function(classActivities) {
-        controller.get('classActivities').push({
+        controller.get('classActivities').pushObject({
           classActivities: classActivities,
           date: formatDate(startDate, 'MMMM, YYYY')
         });
@@ -63,7 +63,6 @@ export default Ember.Controller.extend({
           controller.set('month', 11);
           controller.set('year', year - 1);
         }
-        controller.notifyPropertyChange('classActivities');
       });
     }
   },
