@@ -6,7 +6,12 @@
     </div>
     <div class="courses">
       {{#each courses as |course index|}}
-        {{cards.gru-course-card course=course isFromLandingPage=true isSmall=true showTaxonomy=false}}
+        {{cards.gru-course-card
+          course=course
+          isFromLandingPage=true
+          isSmall=true
+          showTaxonomy=false
+          profile=profile}}
       {{/each}}
     </div>
     <div class="actions">

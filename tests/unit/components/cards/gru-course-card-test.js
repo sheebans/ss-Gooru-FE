@@ -7,7 +7,6 @@ moduleForComponent('cards/gru-course-card', 'Unit | Component | cards/gru course
 });
 
 test('previewCourse', function(assert) {
-  let component = this.subject();
 
   let course = Course.create(Ember.getOwner(this).ownerInjection(),{
     id:'123',
@@ -43,12 +42,24 @@ test('previewCourse', function(assert) {
       })
     ]
   });
-  var expectedModel = Ember.Object.create({
-    content: course
+
+  let component = this.subject({
+    course: course,
+    remixCourse:function(){
+      return true;
+    }
   });
+
+  var expectedModel = Ember.Object.create({
+    content: course,
+    remixCourse: () => component.remixCourse()
+  });
+
+  component.set('isTeacher', true);
 
   let done = assert.async();
   component.set('actions.showModal', function(componentName, model) {
+    assert.deepEqual(model.remixCourse(), expectedModel.remixCourse(), 'Model function should match');
     assert.deepEqual(model.content, expectedModel.content, 'Model content  should match');
     assert.equal(componentName, 'gru-preview-course', 'Component name should match');
     done();

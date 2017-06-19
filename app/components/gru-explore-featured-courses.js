@@ -22,6 +22,11 @@ export default Ember.Component.extend({
   /**
    * @property {Array[]} - courses
    */
-  courses: null
+  courses: null,
+
+  /**
+   * @property {Profile} user profile
+   */
+  profile: null
 
 });
