@@ -98,7 +98,7 @@ export default Ember.Component.extend(ModalMixin,{
    * Indicates if this resource is a question
    * @property {boolean}
    */
-  isQuestion: Ember.computed.equal("resource.format", "question"),
+  isQuestion: Ember.computed.equal('resource.format', 'question'),
 
   /**
    * Indicates if the edit functionality is enabled

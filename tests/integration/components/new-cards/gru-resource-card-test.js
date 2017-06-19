@@ -40,6 +40,7 @@ test('Resource Card Layout', function(assert) {
   assert.ok($resourceCard.find('.panel-body .publisher .owner a').length, 'Missing Owner Name');
   assert.ok($resourceCard.find('.panel-body .description p').length, 'Missing Description');
   assert.ok($resourceCard.find('.panel-footer button.study-btn').length, 'Missing Study Button');
+  assert.notOk($resourceCard.find('.panel-footer button.remix-btn').length, 'Remix Button should not appear');
   assert.ok($resourceCard.find('.panel-footer .actions .share-btn').length, 'Missing share button');
 });
 
@@ -130,6 +131,7 @@ test('Question Card - Button for teachers', function(assert) {
   const $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
   assert.ok($resourceCard.find('.panel-footer button.add-to-btn').length, 'Missing Add-to Button');
+  assert.ok($resourceCard.find('.panel-footer button.remix-btn').length, 'Missing Remix Button');
 });
 
 test('Resource Card with publisher', function(assert) {
@@ -291,4 +293,44 @@ test('Share question', function(assert) {
   return wait().then(function () {
     assert.ok($component.find('.gru-share-pop-over-window').length, 'Share pop up missing');
   });
+});
+
+test('Remix question, only for teachers or anonymous', function(assert) {
+  assert.expect(1);
+
+
+  const profile = Ember.Object.create({
+    isTeacher: true
+  });
+
+  var questionMock = QuestionModel.create({
+    title: 'Question Title',
+    format:'question',
+    type:'MC',
+    text:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    owner:Ember.Object.create({
+      firstName:'Publisher'
+    }),
+    standards:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    isVisibleOnProfile: true
+  });
+
+  this.set('question', questionMock);
+
+  this.set('profile',profile);
+
+  this.on('parentAction', function(question){
+    assert.deepEqual(question, questionMock, 'Incorrect question');
+  });
+
+  this.render(hbs`{{new-cards/gru-resource-card resource=question onRemixQuestion='parentAction' profile=profile}}`);
+  var $component = this.$();
+  let $remix = $component.find('.panel-footer .options .remix-btn');
+  $remix.click();
 });

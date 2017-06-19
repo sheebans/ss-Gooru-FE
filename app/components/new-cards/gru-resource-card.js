@@ -67,6 +67,16 @@ export default Ember.Component.extend(ModalMixin,SessionMixin,{
           model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
         );
       }
+    },
+    /**
+     * Action triggered to remix the question
+     */
+    remixQuestion: function(){
+      if (this.get('session.isAnonymous')) {
+        this.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        this.sendAction('onRemixQuestion', this.get('resource'));
+      }
     }
   },
 
