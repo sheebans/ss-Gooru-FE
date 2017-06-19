@@ -281,7 +281,7 @@ export default Ember.Controller.extend({
     'readOnly':false,
     'isDisabled':false
   }),Ember.Object.create({
-    'value': 'study-time',
+    'value': 'time-spent',
     'selected':false,
     'readOnly':false,
     'isDisabled':false
@@ -303,7 +303,7 @@ export default Ember.Controller.extend({
     'readOnly':false,
     'isDisabled':false
   }),Ember.Object.create({
-    'value': 'study-time',
+    'value': 'time-spent',
     'selected':true,
     'readOnly':true,
     'isDisabled':false

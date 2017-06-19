@@ -56,7 +56,7 @@ export default Ember.Component.extend({
     'visible': false,
     'index':2
   }),Ember.Object.create({
-    'value': 'study-time',
+    'value': 'time-spent',
     'sorted':false,
     'isAsc':false,
     'visible': false,

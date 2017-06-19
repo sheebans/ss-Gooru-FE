@@ -30,7 +30,7 @@ export default Ember.Route.extend({
      */
     navigateToLessons: function (lessonId) {
 
-      const unitId = this.get("controller.unit").get('id');
+      const unitId = this.get('controller.unit').get('id');
 
       this.transitionTo('class.analytics.performance.teacher.lesson', unitId, lessonId);
     }
@@ -70,26 +70,26 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("active", true);
+    controller.set('active', true);
     this.setupDataPickerOptions(controller);
 
     const classPerformanceData = model.classPerformanceData;
-    controller.fixTotalCounts(model.unit.get("id"), classPerformanceData, model.filterBy);
+    controller.fixTotalCounts(model.unit.get('id'), classPerformanceData, model.filterBy);
     const performanceData = createDataMatrix(model.lessons, classPerformanceData, 'unit');
-    controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
+    controller.get('teacherController').updateBreadcrumb(model.unit, 'unit');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('lessons', model.lessons);
     controller.set('unit', model.unit);
 
     //updating the unit in the teacher controller
-    controller.set("teacherController.unit", model.unit);
+    controller.set('teacherController.unit', model.unit);
     //updating the collectionLevel to show or not the launch anonymous button
-    controller.set("teacherController.collectionLevel", false);
+    controller.set('teacherController.collectionLevel', false);
     //updating the lessonLevel to show or not filters
-    controller.set("teacherController.lessonLevel", false);
+    controller.set('teacherController.lessonLevel', false);
     //updating the performanceDataHeaders and performanceDataMatrix to download implementation
-    controller.set("teacherController.performanceDataHeaders", model.lessons);
-    controller.set("teacherController.performanceDataMatrix", performanceData);
+    controller.set('teacherController.performanceDataHeaders', model.lessons);
+    controller.set('teacherController.performanceDataMatrix', performanceData);
 
     this.setupDataPickerOptions(controller);
   },
@@ -109,7 +109,7 @@ export default Ember.Route.extend({
       'readOnly':false,
       'isDisabled':true
     }),Ember.Object.create({
-      'value': 'study-time',
+      'value': 'time-spent',
       'selected':true,
       'readOnly':false,
       'isDisabled':true
@@ -125,15 +125,15 @@ export default Ember.Route.extend({
       'readOnly':false,
       'isDisabled':true
     }),Ember.Object.create({
-      'value': 'study-time',
+      'value': 'time-spent',
       'selected':true,
       'readOnly':false,
       'isDisabled':true
     })]));
-    controller.get("teacherController").restoreSelectedOptions();
+    controller.get('teacherController').restoreSelectedOptions();
   },
 
   deactivate: function() {
-    this.set("controller.active", false);
+    this.set('controller.active', false);
   }
 });

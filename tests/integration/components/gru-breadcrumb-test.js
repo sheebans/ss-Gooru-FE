@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
@@ -8,7 +8,7 @@ moduleForComponent('gru-breadcrumb', 'Integration | Component | gru breadcrumb',
 });
 
 test('Layout and click', function(assert) {
-  assert.expect(3);
+  assert.expect(5);
 
   const breadcrumb = Ember.A([
     {
@@ -31,16 +31,18 @@ test('Layout and click', function(assert) {
 
   this.set('breadcrumb', breadcrumb);
   this.on('mySelectItem', function(item) {
-    assert.equal(item.value.id, '111', "Wrong id");
+    assert.equal(item.value.id, '111', 'Wrong id');
   });
 
   this.render(hbs`{{gru-breadcrumb items=breadcrumb onSelectedItem='mySelectItem'}}`);
 
   const $component = this.$();
 
-  assert.ok($component.find(".breadcrumb-item.breadcrumb-item").length, 4, "Missing breadcrumb items");
-  assert.equal(T.text($component.find(".breadcrumb-item:eq(0)")), 'Course Name', "Wrong item label");
+  assert.ok($component.find('.item').length, 4, 'Missing breadcrumb items');
+  assert.ok($component.find('.item:first-child .greater-than').length,'Missing >');
+  assert.notOk($component.find('.item:last-child .greater-than:visible').length,'Last element should not have >');
+  assert.equal(T.text($component.find('.item:eq(0) .breadcrumb-item')), 'Course Name', 'Wrong item label');
 
-  $component.find(".breadcrumb-item:eq(0)").click();
+  $component.find('.item:eq(0) .breadcrumb-item').click();
 
 });

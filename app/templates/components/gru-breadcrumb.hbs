@@ -1,11 +1,14 @@
 <div class="btn-group" role="group">
   {{#each items as |item|}}
-    <button class="btn btn-info {{itemClassName}} breadcrumb-item" {{action 'selectItem' item}}>
-      {{#if item.prefix}}
-        {{item.prefix}}{{item.label}}
-      {{else}}
-        {{item.label}}
-      {{/if}}
-    </button>
+    <div class="item" {{itemClassName}}>
+      <button class="btn btn-info breadcrumb-item" {{action 'selectItem' item}}>
+        {{#if item.prefix}}
+          {{item.prefix}}{{item.label}}
+        {{else}}
+          {{item.label}}
+        {{/if}}
+      </button>
+      <span class="greater-than">{{gru-icon name='keyboard_arrow_left'}}</span>
+    </div>
   {{/each}}
 </div>
