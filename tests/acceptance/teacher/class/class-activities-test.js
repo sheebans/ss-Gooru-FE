@@ -23,6 +23,7 @@ test('Layout', function (assert) {
 
     const $container = find('.teacher.class .controller.teacher.class.class-activities');
     assert.ok($container.length, 'Missing class activities tab container');
+    assert.ok($container.find('.class-activity-accordion').length, 'Missing class activity accordion');
 
     T.exists(assert, $container.find('.collections'), 'Missing activities collections');
   });

@@ -43,18 +43,22 @@ test('Layout', function(assert) {
     collection: collectionMock,
     activityPerformanceSummary: ActivityPerformanceSummary.create({
       collectionPerformanceSummary: performance
-    })
+    }),
+    isActive: true
   });
 
   this.set('classActivity', classActivity);
 
-  this.render(hbs`{{class.gru-class-activity-panel classActivity=classActivity}}`);
+  this.render(hbs`{{class.gru-class-activity-panel classActivity=classActivity index=0 }}`);
 
   var $component = this.$(); //component dom element
   const $collectionPanel = $component.find('.gru-class-activity-panel.panel');
   T.exists(assert, $collectionPanel, 'Missing class collection panel');
-  T.exists(assert, $collectionPanel.find('.actions'), 'Missing actions');
-  
+  const $actions = $collectionPanel.find('.panel-heading').find('.actions');
+  T.exists(assert, $actions, 'Missing actions');
+  T.exists(assert, $actions.find('.item-visible'), 'Missing visibility icon');
+  T.exists(assert, $actions.find('.on-air'), 'Missing go live button');
+
   const $collectionTitle = $collectionPanel.find('.panel-title');
   assert.ok($collectionTitle.length, 'Panel title element is missing');
 
@@ -80,7 +84,6 @@ test('Layout', function(assert) {
   assert.equal(T.text($collectionContentCount.find('.question-count')), '4 Questions', 'Wrong  question count text');
 
   assert.ok($collectionInfo.find('.left-info .score').length, 'Score info element is missing');
-
 });
 
 test('Layout - collection', function(assert) {
@@ -117,16 +120,19 @@ test('Layout - collection', function(assert) {
     collection: collectionMock,
     activityPerformanceSummary: ActivityPerformanceSummary.create({
       collectionPerformanceSummary: performance
-    })
+    }),
+    isActive: false
   });
 
   this.set('classActivity', classActivity);
 
-  this.render(hbs`{{class.gru-class-activity-panel classActivity=classActivity}}`);
+  this.render(hbs`{{class.gru-class-activity-panel classActivity=classActivity index=0}}`);
 
   var $component = this.$(); //component dom element
   const $collectionPanel = $component.find('.gru-class-activity-panel.panel');
   T.notExists(assert, $collectionPanel.find('.actions .on-air'), 'on-air button should not be visible');
+  const $actions = $collectionPanel.find('.panel-heading').find('.actions');
+  T.exists(assert, $actions.find('.item-not-visible'), 'Missing visibility icon');
 
   const $collectionInfo = $collectionPanel.find('.info');
   assert.ok($collectionInfo.length, 'Collection Info element is missing');
