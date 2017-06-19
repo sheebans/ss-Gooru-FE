@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { RUBRIC_TYPE } from 'gooru-web/config/config';
 import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
