@@ -53,11 +53,12 @@ test('Layout', function(assert) {
 
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
-    T.exists(assert, $navigatorContainer.find('.actions .join-class-cta'), 'Missing join class button');
+    T.exists(assert, $navigatorContainer.find('.active-classes'), 'Missing active-classes tab');
+    T.exists(assert, $navigatorContainer.find('.independent-learning'), 'Missing independent-learning tab');
 
     assert.ok($('.independent-learning').hasClass('active'), 'Active independent-learning tab should be visible');
 
-    const $bookmarksPanel = $leftUserContainer.find('.content panel.bookmarks');
+    const $bookmarksPanel = $leftUserContainer.find('.content .panel.bookmarks');
     T.exists(assert, $bookmarksPanel, 'Missing bookmarks panel');
     T.exists(assert, $bookmarksPanel.find('.panel-heading'), 'Missing bookmarks panel-heading');
     T.exists(assert, $bookmarksPanel.find('.panel-body'), 'Missing bookmarks panel-body');
