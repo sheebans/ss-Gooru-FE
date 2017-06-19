@@ -22,22 +22,24 @@ test('viewMore', function(assert) {
     year: 2020,
     month: 10,
     classActivityService: {
-      findClassActivities: (classId, contentType, startDate, endDate) => {
+      findClassActivities: () => {
         return Ember.RSVP.resolve(activities);
       }
     }
   });
 
+  assert.expect(4);
+
   controller.send('viewMore');
   return wait().then(function () {
     assert.equal(controller.get('classActivities').length, 1, 'Should have one daily activity');
     assert.equal(controller.get('month'), 9, 'Incorrect month');
-  });
 
-  controller.set('month', 0);
-  controller.send('viewMore');
-  return wait().then(function () {
-    assert.equal(controller.get('month'), 11, 'Incorrect month');
-    assert.equal(controller.get('year'), 2019, 'Incorrect year');
+    controller.set('month', 0);
+    controller.send('viewMore');
+    return wait().then(function () {
+      assert.equal(controller.get('month'), 11, 'Incorrect month');
+      assert.equal(controller.get('year'), 2019, 'Incorrect year');
+    });
   });
 });

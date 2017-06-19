@@ -63,7 +63,7 @@ export default Ember.Route.extend({
           classActivities: hash.yesterdayActivities,
           date: formatDate(yesterday, 'MMMM Do, YYYY')
         }
-      ]
+      ];
     });
   },
 
