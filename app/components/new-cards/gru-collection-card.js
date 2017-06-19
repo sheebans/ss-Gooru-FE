@@ -42,10 +42,11 @@ export default Ember.Component.extend(ModalMixin,{
   actions: {
     /**
      * Action triggered to bookmark content
-     * @param content
+     * @param {Collection/Assessment} content
+     * @param {Boolean} showType
      */
-    bookmarkContent: function(content) {
-      this.sendAction('onBookmarkContent', content);
+    bookmarkContent: function(content, showType) {
+      this.sendAction('onBookmarkContent', content, showType);
     },
 
     /**
@@ -84,14 +85,14 @@ export default Ember.Component.extend(ModalMixin,{
         component.get('courseService').fetchById(contentId).then(function (course) {
           model.set('content.children', course.children);
           model.set('remixCourse',() => component.remixCourse());
-          model.set('bookmarkCourse', () => component.send('bookmarkContent', content, true));
+          model.set('bookmarkCourse', () => component.send('bookmarkContent', content, false));
         }).then(function () {
           component.send('showModal', 'gru-preview-course', model);
         });
       }
       else {
         model.set('remixCollection',() => component.remixCollection());
-        model.set('bookmarkCollection', () => component.send('bookmarkContent', content, true));
+        model.set('bookmarkCollection', () => component.send('bookmarkContent', content, false));
         component.loadCollection(contentId, isCollection, model).then(function() {
           component.send('showModal', 'gru-preview-collection', model);
         });
