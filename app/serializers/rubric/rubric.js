@@ -128,20 +128,24 @@ export default Ember.Object.extend({
       id: data.id,
       title: data.title,
       description: data.description,
-      type: data.type,
       thumbnail: thumbnail,
       taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(data.taxonomy, TAXONOMY_LEVELS.COURSE),
       audience: metadata.audience,
       url: data.url,
       isPublished: data.publishStatus === 'published',
-      uploaded: data.is_remote === true,
+      publishDate: data.publish_date,
+      rubricOn:data.is_rubric,
+      uploaded: data.is_remote,
       feedback: data.feedback_guidance,
       totalPoints: data.total_points,
-      requiresFeedback: data.overall_feedback_required === true,
+      requiresFeedback: data.overall_feedback_required,
       categories: categories.map(function(category){
         return serializer.normalizeRubricCategory(category);
       }),
-      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : null
+      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : ownerId,
+      createdDate:data.created_at,
+      updatedDate:data.updated_at,
+      tenant:data.tenant
     });
   },
 

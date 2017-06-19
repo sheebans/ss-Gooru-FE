@@ -10,6 +10,7 @@
   "taxonomy": {},
   "url": "https://en.wikipedia.org/wiki/Rubric_(academic)",
   "is_remote": true,
+  "is_rubric":true,
   "owner_id": "8c2551be-48c3-41e9-89fe-97a59b703e84",
   "creator_id": "8c2551be-48c3-41e9-89fe-97a59b703e84",
   "modifier_id": "8c2551be-48c3-41e9-89fe-97a59b703e84",

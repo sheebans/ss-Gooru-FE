@@ -55,21 +55,15 @@ export default Ember.Object.extend(Validations,{
    */
   hasAudience: Ember.computed.bool('audience.length'),
 
-
-  /**
-   * @property {boolean}
-   */
-  is1xN: Ember.computed.equal('type', RUBRIC_TYPE._1xN),
-
-  /**
-   * @property {boolean}
-   */
-  isNxN: Ember.computed.equal('type', RUBRIC_TYPE.NxN),
-
   /**
    * @property {Boolean} isPublished
    */
   isPublished: null,
+
+  /**
+   * @property {Date} Date in which the rubric was published
+   */
+  publishDate:null,
 
   /**
    * @property {RubricCategory[]}
@@ -112,12 +106,32 @@ export default Ember.Object.extend(Validations,{
   requiresFeedback: true,
 
   /**
+   * @property {boolean} Indicate if a Rubric at question level is ON or not
+   */
+  rubricOn:false,
+
+  /**
    * @property {string} mimeType
    */
   mimeType:'application/pdf,image/*',
 
   /**
-   * @property {Profile} owner
+   * @property {String} owner id
    */
-  owner:null
+  owner:null,
+
+  /**
+   * @property {Date} Date in which the rubric was created
+   */
+  createdDate:null,
+
+  /**
+   * @property {Date} Date in which the rubric was updated
+   */
+  updatedDate:null,
+  /**
+   * @property {String} Rubric tenant id
+   */
+  tenant:null
+
 });
