@@ -903,7 +903,7 @@ export default Object.assign(quizzesTranslations, {
       },
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
-        "today": "Today"
+        "today": "Today, "
       },
       "click-to-copy": "Click to copy class code",
       "course-map": "Course Map",
@@ -913,7 +913,8 @@ export default Object.assign(quizzesTranslations, {
       "performance-tab": {
         "assessments": "Assessments",
         "collections": "Collections"
-      }
+      },
+      "view-more": "View more"
     },
     "no-classrooms": "You have not yet created any classrooms. Click on “Create Classroom” or search </br> for a featured course under the Library tab.",
     "no-course": "You have not assigned a course to this </br> classroom yet.",

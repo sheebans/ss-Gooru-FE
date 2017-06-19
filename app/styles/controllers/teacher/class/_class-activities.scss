@@ -1,11 +1,31 @@
 .controller.teacher.class.class-activities {
   padding: 0;
-  margin: 35px 0 0 0;
+  margin: 35px 0 20px 0;
 
-  .today {
-    border-bottom: 1px solid #CDD2D6;
-    padding: 0 0 15px 0;
-    font-size: $font-size-lead;
+  .class-activity-accordion {
+    height: 60px;
+    margin-top: 25px;
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    &:before {
+      border: 1px solid #C6C7CC;
+      content: "";
+      height: 1px;
+      width: 35vw;
+    }
+
+    &:after {
+      border: 1px solid #C6C7CC;
+      content: "";
+      height: 1px;
+      width: 35vw;
+    }
+
+    .title {
+      font-size: 19px;
+    }
   }
 
   .collections {

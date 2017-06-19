@@ -1,23 +1,31 @@
 <div class="panel-heading">
   <div class="actions">
-        {{#if visible}}
+    {{#if (eq index 0)}}
+      {{#if visible}}
         <span class='visibility-panel item-visible hidden-xs'>
           {{gru-icon name='visibility'}}
         </span>
-        {{else}}
+      {{else}}
         <span class='visibility-panel item-not-visible hidden-xs pointer'
           {{action 'changeVisibility' classActivity.id}}
               data-toggle="tooltip" data-html="true" data-placement="top"
               title="{{t "common.assign"}}">
           {{gru-icon name='visibility_off'}}
         </span>
-        {{/if}}
-    {{#if item.isAssessment}}
-      <button {{action 'goLive' item.id}}
-        data-toggle="tooltip" data-html="true" data-placement="bottom"
-        title="{{t "common.launch-on-air"}}"
-        class="on-air hidden-xs">{{t "common.launch-on-air"}}
-      </button>
+      {{/if}}
+      {{#if item.isAssessment}}
+        <button {{action 'goLive' item.id}}
+          data-toggle="tooltip" data-html="true" data-placement="bottom"
+          title="{{t "common.launch-on-air"}}"
+          class="on-air hidden-xs enabled">{{t "common.launch-on-air"}}
+        </button>
+      {{/if}}
+    {{else}}
+      {{#if visible}}
+        <span class='visibility-panel hidden-xs'>
+          {{gru-icon name='visibility'}}
+        </span>
+      {{/if}}
     {{/if}}
   </div>
   <div class="panel-title">
