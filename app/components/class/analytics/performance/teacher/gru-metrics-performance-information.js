@@ -101,7 +101,7 @@ export default Ember.Component.extend({
    */
   showStudyTime: Ember.computed('dataPickerOptions.[]', function() {
     const dataPickerOptions = this.get('dataPickerOptions');
-    return dataPickerOptions.includes('study-time');
+    return dataPickerOptions.includes('time-spent');
   }),
 
   /**

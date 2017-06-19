@@ -155,7 +155,7 @@ export default Ember.Route.extend({
       'readOnly':false,
       'isDisabled':true
     }),Ember.Object.create({
-      'value': 'study-time',
+      'value': 'time-spent',
       'selected':true,
       'readOnly':false,
       'isDisabled':false
@@ -172,15 +172,15 @@ export default Ember.Route.extend({
       'readOnly':false,
       'isDisabled':true
     }),Ember.Object.create({
-      'value': 'study-time',
+      'value': 'time-spent',
       'selected':false,
       'readOnly':false,
       'isDisabled':false
     })]));
-    controller.get("teacherController").restoreSelectedOptions(true);
+    controller.get('teacherController').restoreSelectedOptions(true);
   },
 
   deactivate: function () {
-    this.set("controller.active", false);
+    this.set('controller.active', false);
   }
 });

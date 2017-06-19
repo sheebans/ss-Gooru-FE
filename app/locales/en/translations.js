@@ -173,6 +173,7 @@ export default Object.assign(quizzesTranslations, {
     "district": "District",
     "domain": "Domain",
     "domains": "Domains",
+    "download": "Download",
     "download-print": "Download/Print",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
     "download-report": "Download Report",
@@ -1356,6 +1357,7 @@ export default Object.assign(quizzesTranslations, {
     "report":"Report",
     "completion": "Completion",
     "timeSpent": "Time",
+    "time-spent": "Time Spent",
     "study-time": "Study Time",
     "reaction": "Reaction",
     "attempts": "Attempt"
@@ -1392,7 +1394,7 @@ export default Object.assign(quizzesTranslations, {
     "score": "Score",
     "report": "Report",
     "completion": "Completion",
-    "study-time": "Time"
+    "time-spent": "Time"
   },
   "gru-resource-new": {
     "resource-already-exist": "This resource already exists in Gooru!"
