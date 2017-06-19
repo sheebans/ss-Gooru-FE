@@ -1,4 +1,5 @@
 import Ember from "ember";
+import { formatDate } from 'gooru-web/utils/utils';
 /**
  * Class activities controller
  *
@@ -36,6 +37,8 @@ export default Ember.Controller.extend({
    * @property {classActivity[]} classActivities
    */
   classActivities: null,
+
+  date: formatDate(new Date(), 'MMM. Do. YYYY'),
 
   /**
    * @property {Class}
