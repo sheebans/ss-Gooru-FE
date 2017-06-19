@@ -178,6 +178,5 @@ test('associateRubricToQuestion', function(assert) {
 
   var done = assert.async();
   service.associateRubricToQuestion(123, 312)
-  .then(done());
-
+    .then(done);
 });
