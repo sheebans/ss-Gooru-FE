@@ -252,7 +252,7 @@ test('Archive Class', function(assert) {
     const $archiveButton =$classPanelHeader.find('.actions .archive-btn');
     click($archiveButton);
     andThen(function () {
-      assert.equal(currentURL(), '/teacher-home');
+      assert.equal(currentURL(), '/teacher-home', 'Wrong route');
     });
   });
 });
