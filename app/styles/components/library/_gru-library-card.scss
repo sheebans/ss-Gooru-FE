@@ -2,13 +2,10 @@
   width: 100%;
 
   @media(min-width: $screen-sm-min) {
-    width: 345px;
+    width: 49%;
   }
   @media(min-width: $screen-sm-max) {
-    width: 315px;
-  }
-  @media(min-width: $screen-lg) {
-    width: 370px;
+    width: 32%;
   }
 
   .panel-body, .information, .panel-footer,.actions,.type {

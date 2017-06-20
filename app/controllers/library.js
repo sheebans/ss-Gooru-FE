@@ -16,6 +16,7 @@ export default Ember.Controller.extend({
       text: this.get('i18n').t('library.other-libraries')
     }];
   }),
+
   /**
    * @property {String} selected Current option selected
    */

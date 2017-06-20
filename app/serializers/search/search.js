@@ -285,7 +285,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const taxonomyInfo = result.taxonomy &&
                           result.taxonomy.curriculum &&
                             result.taxonomy.curriculum.curriculumInfo || [];
-
     return CourseModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.id,
       title: result.title,

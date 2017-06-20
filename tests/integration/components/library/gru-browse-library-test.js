@@ -11,12 +11,14 @@ test('Browse Library Test', function(assert) {
       id:12345,
       title:'Course title',
       unitCount:3,
-      thumbnailUrl:'url-image.jpg'
+      thumbnailUrl:'url-image.jpg',
+      subjectName: null
     },{
       id:12345,
       title:'Course title',
       unitCount:3,
-      thumbnailUrl:'url-image.jpg'
+      thumbnailUrl:'url-image.jpg',
+      subjectName: null
     }
   ];
   this.set('courses',courses);
