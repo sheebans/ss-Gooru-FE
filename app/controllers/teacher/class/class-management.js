@@ -31,8 +31,9 @@ export default Ember.Controller.extend(ModalMixin, {
     archiveClass: function(){
       let controller = this;
       const classId = controller.get('class.id');
-      controller.get('classService').archiveClass(classId);
-      controller.saveClass();
+      return controller.get('classService').archiveClass(classId).then(function(){
+        //controller.transitionToRoute('teacher-home');
+      });
     },
 
     /**
