@@ -31,7 +31,7 @@ export default Ember.Component.extend(BuilderMixin, {
   /**
    * @requires service:api-sdk/unit
    */
-  unitService: Ember.inject.service("api-sdk/unit"),
+  unitService: Ember.inject.service('api-sdk/unit'),
 
 
   // -------------------------------------------------------------------------
@@ -61,10 +61,6 @@ export default Ember.Component.extend(BuilderMixin, {
     expandLesson: function (lessonId, expanded) {
       const id = this.get('model.data.id');
       this.get('onExpandLesson')(id, lessonId, expanded);
-    },
-
-    viewDetails: function () {
-      this.toggleProperty('viewUnitDetails');
     }
 
   },
@@ -72,8 +68,8 @@ export default Ember.Component.extend(BuilderMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  onDidInsertElement: Ember.on("didInsertElement", function(){
-    const expanded = this.get("model.isExpanded");
+  onDidInsertElement: Ember.on('didInsertElement', function(){
+    const expanded = this.get('model.isExpanded');
     if (expanded) {
       this.scrollHere();
       this.loadData();
@@ -117,7 +113,7 @@ export default Ember.Component.extend(BuilderMixin, {
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   tags: Ember.computed('unit.taxonomy.[]', function() {
-    return TaxonomyTag.getTaxonomyTags(this.get("unit.taxonomy"), false);
+    return TaxonomyTag.getTaxonomyTags(this.get('unit.taxonomy'), false);
   }),
 
   /**
@@ -150,7 +146,7 @@ export default Ember.Component.extend(BuilderMixin, {
           var children = unit.get('children').map(function (lesson) {
             return BuilderItem.create({
               data: lesson,
-              isExpanded: lessonId === lesson.get("id")
+              isExpanded: lessonId === lesson.get('id')
             });
           });
           component.set('items', children);
@@ -168,7 +164,7 @@ export default Ember.Component.extend(BuilderMixin, {
   },
 
   scrollHere: function() {
-    const $component = Ember.$(this.get("element"));
+    const $component = Ember.$(this.get('element'));
     Ember.$('html, body').animate({
       scrollTop: $component.offset().top - 200
     }, 100);
