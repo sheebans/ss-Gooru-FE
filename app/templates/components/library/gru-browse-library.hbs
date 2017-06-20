@@ -25,7 +25,12 @@
 
       <div class="library-cards">
         {{#each content.courses as |course|}}
-          {{library.gru-library-card model=course}}
+          {{new-cards.gru-collection-card
+            content=course
+            profile=profile
+            isCourse=true
+            onBookmarkContent="onBookmarkCourse"
+          }}
         {{/each}}
       </div>
     </div>
