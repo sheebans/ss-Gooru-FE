@@ -214,7 +214,7 @@ export default Ember.Controller.extend({
       const unitId = controller.get('unitId');
       const lessonId = controller.get('lessonId');
       const criteria = {
-        courseId: controller.get('courseId'),
+        courseId: courseId,
         unitId: unitId,
         lessonId: lessonId,
         collectionType: collectionType
