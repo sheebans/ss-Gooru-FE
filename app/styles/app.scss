@@ -56,6 +56,7 @@
 @import 'controllers/home';
 @import 'controllers/teacher-home';
 @import 'controllers/student-home';
+@import 'controllers/student-independent-learning';
 @import 'controllers/forgot-password';
 @import 'controllers/reset-password';
 @import 'controllers/featured';
@@ -115,6 +116,7 @@
 @import 'components/gru-icon-popover';
 @import 'components/gru-preview-course';
 @import 'components/gru-preview-collection';
+@import 'components/gru-explore-featured-courses';
 
 @import 'components/cards/gru-class-card';
 @import 'components/cards/gru-student-class-card';

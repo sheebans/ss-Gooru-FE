@@ -82,8 +82,14 @@
           background-color: $white;
           border-bottom: 2px solid $light-300;
           color: $gray;
+          height: 50px;
+          .class-average{
+            font-weight: bold;
+          }
         }
         .header {
+          @include flexbox;
+          @include align-items(center);
           border-left: 1px solid $light-300;
         }
       }

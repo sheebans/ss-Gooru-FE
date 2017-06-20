@@ -10,6 +10,7 @@ import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
  * @see controllers/profile/about.js
  */
 export default Ember.Component.extend(ModalMixin, {
+
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service('session'),
@@ -57,10 +58,14 @@ export default Ember.Component.extend(ModalMixin, {
      */
     previewCourse: function(course) {
       let component = this;
+      let isTeacher = this.get('isTeacher');
+
       var model = Ember.Object.create({
-        content: course
+        content: course,
+        isTeacher
       });
 
+      model.set('remixCourse',() => component.remixCourse());
       component.send('showModal', 'gru-preview-course', model);
     }
   },
@@ -163,11 +168,36 @@ export default Ember.Component.extend(ModalMixin, {
     return TaxonomyTag.getTaxonomyTags(this.get('course.taxonomy'));
   }),
 
-  /*
-  * Events
-  */
+  /**
+   * Indicates if the teacher is seeing the card
+   * @property {boolean}
+   */
+  isTeacher: Ember.computed.equal('profile.role', 'teacher'),
+
+  /**
+   * @property {Profile} user profile
+   */
+  profile: null,
+
+  // -------------------------------------------------------------------------
+  // Events
+
   didRender(){
     $('[data-toggle="tooltip"]').tooltip();
+  },
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  remixCourse:function(){
+    if (this.get('session.isAnonymous')) {
+      this.send('showModal', 'content.modals.gru-login-prompt');
+    } else {
+      var remixModel = {
+        content: this.get('course')
+      };
+      this.send('showModal', 'content.modals.gru-course-remix', remixModel);
+    }
   }
 
 });

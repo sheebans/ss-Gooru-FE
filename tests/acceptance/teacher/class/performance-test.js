@@ -36,9 +36,9 @@ test('Layout at course level', function(assert) {
 
     const $info = $performanceContainer.find('.info');
     const $breadcrumb = $info.find('.teacher-breadcrumb');
-    const $breadcrumbItems = $breadcrumb.find('button');
+    const $breadcrumbItems = $breadcrumb.find('.item');
     assert.equal($breadcrumbItems.length, 1, 'Incorrect number of breadcrumb items');
-    assert.equal(T.text($breadcrumb.find('button:last-child')), 'Release time! - Course 1', 'Wrong breadcrumb item label');
+    assert.equal(T.text($breadcrumb.find('.item:last-child button')), 'Release time! - Course 1', 'Wrong breadcrumb item label');
     const $legend = $performanceContainer.find('.info .grading-scale-legend');
     assert.ok($legend.length, 'Missing grading scale legend');
 
@@ -140,9 +140,9 @@ test('Layout at unit level', function(assert) {
     //assert breadcrumb text
     const $info = $performanceContainer.find('.info');
     const $breadcrumb = $info.find('.teacher-breadcrumb');
-    const $breadcrumbItems = $breadcrumb.find('button');
+    const $breadcrumbItems = $breadcrumb.find('.item');
     assert.equal($breadcrumbItems.length, 2, 'Incorrect number of breadcrumb items');
-    assert.equal(T.text($breadcrumb.find('button:last-child')), 'U1: Food', 'Wrong breadcrumb item label');
+    assert.equal(T.text($breadcrumb.find('.item:last-child button')), 'U1: Food', 'Wrong breadcrumb item label');
     const $legend = $performanceContainer.find('.info .grading-scale-legend');
     assert.ok($legend.length, 'Missing grading scale legend');
   });
@@ -182,9 +182,9 @@ test('Layout for lesson', function(assert) {
     //assert breadcrumb text
     const $info = $performanceContainer.find('.info');
     const $breadcrumb = $info.find('.teacher-breadcrumb');
-    const $breadcrumbItems = $breadcrumb.find('button');
+    const $breadcrumbItems = $breadcrumb.find('.item');
     assert.equal($breadcrumbItems.length, 3, 'Incorrect number of breadcrumb items');
-    assert.equal(T.text($breadcrumb.find('button:last-child')), 'L3: Release Day Quiz', 'Wrong breadcrumb item label');
+    assert.equal(T.text($breadcrumb.find('.item:last-child button')), 'L3: Release Day Quiz', 'Wrong breadcrumb item label');
     const $legend = $performanceContainer.find('.info .grading-scale-legend');
     assert.ok($legend.length, 'Missing grading scale legend');
   });

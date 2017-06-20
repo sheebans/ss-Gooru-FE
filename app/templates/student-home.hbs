@@ -9,30 +9,10 @@
     </div>
     <div class="row panels">
       <div class="col-sm-6 col-xs-12">
-        <div class="panel featured-courses">
-          <div class="panel-heading">{{t 'common.explore'}}</div>
-          <div class="panel-body">
-            <div class="legend">
-              {{t 'student-landing.browse-featured-courses'}}
-            </div>
-            <div class="courses">
-              {{#if firstFeaturedCourse}}
-                {{cards.gru-course-card course=firstFeaturedCourse isFromLandingPage=true isSmall=true showTaxonomy=false}}
-              {{/if}}
-              {{#if secondFeaturedCourse}}
-                {{cards.gru-course-card course=secondFeaturedCourse isFromLandingPage=true isSmall=true showTaxonomy=false}}
-              {{/if}}
-            </div>
-            <div class="actions">
-              {{#link-to 'library' class="btn btn-info library" tagName='button'}}
-                {{t 'common.featured-courses'}}
-              {{/link-to}}
-            </div>
-            <div class="pull-right will-disappear">
-              {{t 'common.will-disappear'}}
-            </div>
-          </div>
-        </div>
+        {{gru-explore-featured-courses
+          courses=featuredCourses
+          profile=profile
+        }}
       </div>
       <div class="col-sm-6 col-xs-12">
         <div class="panel join-class">
@@ -56,14 +36,14 @@
     <div class="student-navigator">
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active active-classes tab hidden-xs">
-          <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab">
+          {{#link-to 'student-home'}}
             <span class="lead">{{t 'user.classrooms'}}</span>
-          </a>
+          {{/link-to}}
         </li>
         <li role="presentation" class="independent-learning tab hidden-xs">
-          <a href="#independent-learning" aria-controls="independentLearning" role="tab" data-toggle="tab">
+          {{#link-to 'student-independent-learning'}}
             <span class="lead">{{t 'user.independent-learning'}}</span>
-          </a>
+          {{/link-to}}
         </li>
       </ul>
       {{#unless hasClasses}}
@@ -78,7 +58,7 @@
       </div>
     </div>
     <div class="content tab-content">
-      <div role="tabpanel" class="tab-pane row active" id="active-classes">
+      <div role="tabpanel" class="tab-pane row active">
         {{#if hasClasses}}
         <!-- TODO: delete unnecesary dependencies -->
           <!-- {{cards.gru-class-card

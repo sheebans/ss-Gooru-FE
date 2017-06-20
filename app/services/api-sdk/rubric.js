@@ -117,6 +117,4 @@ export default Ember.Service.extend({
     return this.get('adapter').associateRubricToQuestion(rubricId, questionId);
   }
 
-
-
 });

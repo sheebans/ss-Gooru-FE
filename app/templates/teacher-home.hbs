@@ -10,30 +10,10 @@
     </div>
     <div class="row panels">
       <div class="col-sm-6 col-xs-12">
-        <div class="panel featured-courses">
-          <div class="panel-heading">{{t 'common.explore'}}</div>
-          <div class="panel-body">
-            <div class="legend">
-              {{t 'student-landing.browse-featured-courses'}}
-            </div>
-            <div class="courses">
-              {{#if firstFeaturedCourse}}
-                {{cards.gru-course-card course=firstFeaturedCourse isFromLandingPage=true isSmall=true showTaxonomy=false}}
-              {{/if}}
-              {{#if secondFeaturedCourse}}
-                {{cards.gru-course-card course=secondFeaturedCourse isFromLandingPage=true isSmall=true showTaxonomy=false}}
-              {{/if}}
-            </div>
-            <div class="actions">
-              {{#link-to 'library' class="btn btn-info library" tagName='button'}}
-                {{t 'common.featured-courses'}}
-              {{/link-to}}
-            </div>
-            <div class="pull-right will-disappear">
-              {{t 'common.will-disappear'}}
-            </div>
-          </div>
-        </div>
+        {{gru-explore-featured-courses
+          courses=featuredCourses
+          profile=profile
+        }}
       </div>
       <div class="col-sm-6 col-xs-12">
         <div class="panel create-class">
@@ -73,11 +53,29 @@
         </div>
       {{/unless}}
       {{#if showActiveClasses }}
-          <div class="pull-right actions">
-            {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
-              {{t 'user.create-class'}}
-            {{/link-to}}
+        <div class="pull-right actions">
+          {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
+            {{t 'user.create-class'}}
+          {{/link-to}}
+        </div>
+      {{/if}}
+      {{#if showArchivedClasses}}
+        <div class="pull-right sort">
+          <div class="filter-date-asc btn-group" role="group">
+            <button type="button" title={{t 'common.sort-most-recently'}} data-toggle="tooltip" {{action 'filterByDate'}} class="filter-date btn {{if (eq sortOn 'startDate') 'btn-primary' 'btn-info'}}">
+              {{#if (eq sortOn 'startDate')}}
+                <div class="arrow {{if (eq order 'asc') 'arrow-up' 'arrow-down'}}"></div>
+              {{/if}}
+              {{gru-icon name='timer'}}
+            </button>
+            <button type="button" title={{t 'common.sortAlphabetical'}}  data-toggle="tooltip" {{action 'filterByTitle'}} class="filter-asc btn {{if (eq sortOn 'title') 'btn-primary' 'btn-info'}}">
+              {{gru-icon name='sort_by_alpha'}}
+              {{#if (eq sortOn 'title')}}
+                <div class="arrow {{if (eq order 'desc') 'arrow-up' 'arrow-down'}}"></div>
+              {{/if}}
+            </button>
           </div>
+        </div>
       {{/if}}
     </div>
     <div class="content tab-content">
@@ -85,17 +83,17 @@
         {{#if hasClasses}}
           {{#each activeClasses as |class|}}
             {{cards.gru-teacher-class-card
-              class=class
-              classStudentCount=myClasses.memberCount}}
+            class=class
+            classStudentCount=myClasses.memberCount}}
           {{/each}}
         {{/if}}
       </div>
       <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">
-        {{#each archivedClasses as |class|}}
+        {{#each sortedArchivedClassrooms as |class|}}
           {{cards.gru-class-card
-            class=class
-            profile=profile
-            classStudentCount=myClasses.memberCount}}
+          class=class
+          profile=profile
+          classStudentCount=myClasses.memberCount}}
         {{else}}
           <span class="no-archived">{{t 'common.no-archived'}}</span>
         {{/each}}

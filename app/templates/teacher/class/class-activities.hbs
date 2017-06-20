@@ -1,17 +1,46 @@
 <div class="controller teacher class class-activities">
-  <div class="today">
-    {{t "teacher-landing.class.class-activities-tab.today"}}
-  </div>
-
-  <ol class="collections">
-    {{#each classActivities as |classActivity|}}
-      {{class.gru-class-activity-panel
-        classActivity=classActivity
-        onGoLive='goLive'
-        onChangeVisibility='changeVisibility'
-      }}
-    {{else}}
-      <li class="no-content">{{t "common.contentUnavailable"}}</li>
+  {{#if classActivities}}
+    {{#each classActivities as |activities index|}}
+      <div class="class-activity-accordion" role="tab" id="{{index}}-heading">
+        <div class="panel-title">
+          <a class="title" role="button" data-toggle="collapse" href="#{{index}}-content"
+             aria-expanded="true" aria-controls="{{index}}-content">
+             <span>
+               {{#if (eq index 0)}}
+                  {{t "teacher-landing.class.class-activities-tab.today"}}{{activities.date}}
+               {{else}}
+                  {{activities.date}}
+               {{/if}}
+             </span>
+          </a>
+        </div>
+      </div>
+      <div id="{{index}}-content"
+           class="panel-collapse collapse in"
+           role="tabpanel"
+           aria-labelledby="{{index}}-heading">
+        {{#each activities.classActivities as |classActivity|}}
+          <ol class="panel-group collections" role="tablist" aria-multiselectable="true">
+            {{class.gru-class-activity-panel
+              classActivity=classActivity
+              onGoLive='goLive'
+              onChangeVisibility='changeVisibility'
+              index=index
+            }}
+          </ol>
+        {{else}}
+          <div class="no-content">{{t "common.contentUnavailable"}}</div>
+        {{/each}}
+      </div>
     {{/each}}
-  </ol>
+    <div class="class-activity-accordion">
+      <a class="title" role="button" {{action "viewMore"}}>
+         <span>
+           {{t "teacher-landing.class.view-more"}}
+         </span>
+      </a>
+    </div>
+  {{else}}
+    <div class="no-content">{{t "common.contentUnavailable"}}</div>
+  {{/if}}
 </div>

@@ -39,7 +39,7 @@
         <div class="feedback">
             <label>
                 <span>{{t "gru-rubric-creation.feedback-guidance"}}</span>
-              {{validation.gru-textarea rawTextareaValue=category.narrativeFeedback model=category valuePath='narrativeFeedback' maxLength=500 rows=5 placeholder=(t 'gru-rubric-creation.gru-category.category-feedback')}}
+              {{validation.gru-textarea rawTextareaValue=category.feedbackGuidance model=category valuePath='feedbackGuidance' maxLength=500 rows=5 placeholder=(t 'gru-rubric-creation.gru-category.category-feedback')}}
             </label>
         </div>
         <label class="required-feedback">
@@ -55,4 +55,3 @@
         {{content.rubric.gru-scoring-levels}}
     </div>
 </div>
-

@@ -62,5 +62,10 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   hasClasses:Ember.computed('totalJoinedClasses',function(){
     return this.get('totalJoinedClasses') > 0;
-  })
+  }),
+
+  /**
+   * @property {Array[]} - featuredCourses
+   */
+  featuredCourses: null
 });

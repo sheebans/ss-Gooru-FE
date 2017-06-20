@@ -114,6 +114,7 @@ export default Object.assign(quizzesTranslations, {
     "big-ideas": "Big Ideas",
     "biography": "Biography",
     "bookmark":"Bookmark",
+    "bookmarks":"Bookmarks",
     "bookmarked-content-success": "This bookmarked {{contentType}} will be added to your Independent Learning Page.",
     "bookmarked-success": "All bookmarked content will be added to the Independent learning page.",
     "builder": "Editor",
@@ -172,6 +173,7 @@ export default Object.assign(quizzesTranslations, {
     "district": "District",
     "domain": "Domain",
     "domains": "Domains",
+    "download": "Download",
     "download-print": "Download/Print",
     "drag-drop-suggestions": "Or Drag and Drop Suggestions ...",
     "download-report": "Download Report",
@@ -481,6 +483,7 @@ export default Object.assign(quizzesTranslations, {
     "signUp": "Sign Up",
     "sortAlphabetical": "Sort Alphabetically",
     "sortAverage": "Sort by Average",
+    "sort-most-recently":"Sort by Most Recently Updated",
     "state": "State or Territory",
     "standard": "Standard",
     "standards": "Standards",
@@ -901,7 +904,7 @@ export default Object.assign(quizzesTranslations, {
       },
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
-        "today": "Today"
+        "today": "Today, "
       },
       "click-to-copy": "Click to copy class code",
       "course-map": "Course Map",
@@ -911,7 +914,8 @@ export default Object.assign(quizzesTranslations, {
       "performance-tab": {
         "assessments": "Assessments",
         "collections": "Collections"
-      }
+      },
+      "view-more": "View more"
     },
     "no-classrooms": "You have not yet created any classrooms. Click on “Create Classroom” or search </br> for a featured course under the Library tab.",
     "no-course": "You have not assigned a course to this </br> classroom yet.",
@@ -1353,6 +1357,7 @@ export default Object.assign(quizzesTranslations, {
     "report":"Report",
     "completion": "Completion",
     "timeSpent": "Time",
+    "time-spent": "Time Spent",
     "study-time": "Study Time",
     "reaction": "Reaction",
     "attempts": "Attempt"
@@ -1389,7 +1394,7 @@ export default Object.assign(quizzesTranslations, {
     "score": "Score",
     "report": "Report",
     "completion": "Completion",
-    "study-time": "Time"
+    "time-spent": "Time"
   },
   "gru-resource-new": {
     "resource-already-exist": "This resource already exists in Gooru!"
@@ -1878,12 +1883,11 @@ export default Object.assign(quizzesTranslations, {
   },
   "library":{
     "browse-library":"Browse Library",
-    "gru-browse-library":{
-      "featured-libraries": "Featured Libraries"
-    },
+    "featured-courses": "Featured Courses",
     "gru-library-card":{
       "featured-course":"Featured Course"
-    }
+    },
+    "other-libraries": "Other Libraries"
   },
   "gru-study-header": {
     "lesson-legend": "You are currently on lesson",

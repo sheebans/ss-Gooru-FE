@@ -42,14 +42,6 @@
           &.join-class {
             min-height: 235px;
           }
-          &.featured-courses {
-            .panel-body {
-              .courses {
-                height: 80px;
-                overflow-y: auto;
-              }
-            }
-          }
           &.join-class {
             .panel-body {
               .legend {
@@ -67,44 +59,7 @@
             .legend {
               font-size: $font-size-lead;
             }
-            .courses {
-              @media (min-width: $screen-lg) {
-                @include flexbox;
-              }
-              .gru-course-card.small {
-                padding: 0;
-                margin: 12px 20px 0 0;
-                width: 230px;
-                float: left;
-                @media (max-width: $screen-lg) {
-                  width: 100%;
-                  float: none;
-                }
-                .panel {
-                  padding: 0;
-                  overflow: hidden;
-                  box-shadow: none;
-                  border: 1px solid $light-400;
-                  min-height: 65px;
-                  .panel-body {
-                    padding: 0;
-                    .card-header {
-                      .header-content {
-                        @media (max-width: $screen-lg) {
-                          width: 100%;
-                        }
-                        .course-title {
-                          width: 100%;
-                        }
-                        .subject {
-                          margin: 15px 0 0;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+
             .actions {
               margin: 22px 0 0;
               button {

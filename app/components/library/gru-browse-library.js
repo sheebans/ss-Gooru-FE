@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { sortFeaturedCourses, getSubjects } from 'gooru-web/utils/sort-featured-courses';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -14,19 +15,21 @@ export default Ember.Component.extend({
 
   classNames: ['library', 'gru-browse-library'],
 
-  // -------------------------------------------------------------------------
-  // Properties
   /**
-   * @property {Object[]} options List of tab options to show
+   * @property {Courses[]} courses to show
    */
-  options: Ember.computed(function(){
-    return [{
-      name: 'featured-libraries',
-      text: this.get('i18n').t('library.gru-browse-library.featured-libraries')
-    }];
-  }),
+  courses: null,
+
   /**
-   * @property {String} selected Current option selected
+   * @property {Object[]} group courses by subject
    */
-  selected: 'featured-libraries'
+  formattedContent: Ember.computed('courses', function(){
+    return getSubjects(this.get('courses')).map(
+      (subjectBucket, index) => Ember.Object.create({
+        'category': subjectBucket.subject.slice(subjectBucket.subject.indexOf('.')+1,subjectBucket.subject.lastIndexOf('.')),
+        'subject': subjectBucket.taxonomySubject,
+        'courses': sortFeaturedCourses(this.get('courses'))[index]
+      })
+    );
+  })
 });

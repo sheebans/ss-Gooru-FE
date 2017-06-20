@@ -58,7 +58,6 @@ export default Ember.Object.extend({
     return {
       'title': nullIfEmpty(model.get('title')),
       'description': nullIfEmpty(model.get('description')),
-      'type': model.get('type'),
       'thumbnail': cleanFilename(model.get('thumbnail'), this.get('session.cdnUrls')),
       'metadata': {
         'audience': model.get('hasAudience') ? model.get('audience') : undefined
@@ -83,7 +82,7 @@ export default Ember.Object.extend({
   serializedUpdateRubricCategory: function (model) {
     return {
       'category_title': nullIfEmpty(model.get('title')),
-      'narrative_feedback': nullIfEmpty(model.get('narrativeFeedback')),
+      'feedback_guidance': nullIfEmpty(model.get('feedbackGuidance')),
       'required_feedback': model.get('requiresFeedback') === true,
       'level': model.get('allowsLevels') === true,
       'scoring': model.get('allowsScoring') === true,
@@ -129,20 +128,24 @@ export default Ember.Object.extend({
       id: data.id,
       title: data.title,
       description: data.description,
-      type: data.type,
       thumbnail: thumbnail,
       taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(data.taxonomy, TAXONOMY_LEVELS.COURSE),
       audience: metadata.audience,
       url: data.url,
       isPublished: data.publishStatus === 'published',
-      uploaded: data.is_remote === true,
+      publishDate: data.publish_date,
+      rubricOn:data.is_rubric,
+      uploaded: data.is_remote,
       feedback: data.feedback_guidance,
       totalPoints: data.total_points,
-      requiresFeedback: data.overall_feedback_required === true,
+      requiresFeedback: data.overall_feedback_required,
       categories: categories.map(function(category){
         return serializer.normalizeRubricCategory(category);
       }),
-      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : null
+      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : ownerId,
+      createdDate:data.created_at,
+      updatedDate:data.updated_at,
+      tenant:data.tenant
     });
   },
 
@@ -156,7 +159,7 @@ export default Ember.Object.extend({
     const levels = data.levels || [];
     return RubricCategory.create({
       title: data.category_title,
-      narrativeFeedback: data.narrative_feedback,
+      feedbackGuidance: data.feedback_guidance,
       requiresFeedback: data.required_feedback,
       allowsLevels: data.level === true,
       allowsScoring: data.scoring === true,

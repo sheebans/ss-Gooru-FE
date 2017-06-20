@@ -9,12 +9,16 @@ export default Ember.Controller.extend({
    */
   options: Ember.computed(function(){
     return [{
-      name: 'browse-library',
-      text: this.get('i18n').t('library.browse-library')
+      name: 'featured-courses',
+      text: this.get('i18n').t('library.featured-courses')
+    }, {
+      name: 'other-libraries',
+      text: this.get('i18n').t('library.other-libraries')
     }];
   }),
+
   /**
    * @property {String} selected Current option selected
    */
-  selected: 'browse-library'
+  selected: 'featured-courses'
 });
