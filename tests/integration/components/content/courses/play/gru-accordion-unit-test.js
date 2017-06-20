@@ -295,8 +295,8 @@ test('when lesson is expanded, the event is notified', function (assert) {
 
 });
 
-test('it expands/collapses the unit metadata', function (assert) {
-  assert.expect(4);
+test('Overview is visible on unit metadata', function (assert) {
+  assert.expect(2);
   const unit = BuilderItem.create({
     data: Unit.create(Ember.getOwner(this).ownerInjection(), {
       id: '123',
@@ -322,13 +322,5 @@ test('it expands/collapses the unit metadata', function (assert) {
   const $overview = $container.find('.overview');
   assert.ok($container.length, 'Container');
 
-  assert.ok($overview.hasClass('hidden'), 'Overview hidden by default');
-
-  $container.find('.panel-body > .details > a').click();
-  assert.ok($overview.hasClass('visible'), 'Overview visible after clicking view details link');
-
-
-  $overview.find('.details > a').click();
-  assert.ok($overview.hasClass('hidden'), 'Overview hidden after clicking hide details link');
-
+  assert.ok($overview.length, 'Overview hidden by default');
 });
