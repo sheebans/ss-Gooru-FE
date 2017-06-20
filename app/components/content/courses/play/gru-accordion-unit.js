@@ -61,10 +61,6 @@ export default Ember.Component.extend(BuilderMixin, {
     expandLesson: function (lessonId, expanded) {
       const id = this.get('model.data.id');
       this.get('onExpandLesson')(id, lessonId, expanded);
-    },
-
-    viewDetails: function () {
-      this.toggleProperty('viewUnitDetails');
     }
 
   },
