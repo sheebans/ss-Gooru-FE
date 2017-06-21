@@ -67,6 +67,31 @@
                   {{/link-to}}
                 </li>
               {{/unless}}
+              {{#if profile.isTeacher}}
+                <li class="navbar-nav-list visible-md visible-lg tools-link dropdown">
+                  <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="tools">{{t "common.tools"}}{{gru-icon name='arrow_drop_down'}}</span>
+                  </a>
+                  <ul class="tools-menu dropdown-menu pull-left" role="menu" id="tools">
+                    <li class="navbar-nav-list assessments-link out-of-scope">
+                      <a class="navbar-link">
+                        {{t "common.live-assessments"}}
+                      </a>
+                    </li>
+                    <li class="navbar-nav-list content-link">
+                      {{#link-to 'profile.content.courses' session.userData.gooruUId}}
+                        <a class="navbar-link">
+                          {{t "common.content-manager"}}
+                        </a>
+                      {{/link-to}}
+                    </li>
+                    <li class="navbar-nav-list performance-dashboard-link out-of-scope">
+                      <a class="navbar-link">
+                        {{t "common.performance-dashboard"}}
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              {{/if}}
               <li class="navbar-nav-list visible-md visible-lg library-link">
                 {{#link-to 'library'}}
                   <span>{{t "common.library"}}</span>
