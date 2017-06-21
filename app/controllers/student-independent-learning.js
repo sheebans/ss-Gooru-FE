@@ -143,11 +143,6 @@ export default Ember.Controller.extend({
       "contentId": "789",
       "contentType": "course",
       "title": "Title 19"
-    }, {
-      "id": "eee-fff",
-      "contentId": "789",
-      "contentType": "assessment",
-      "title": "Title 20"
     }
   ]
 });
