@@ -3,14 +3,14 @@
     {{#if (eq index 0)}}
       {{#if visible}}
         <span class='visibility-panel item-visible hidden-xs'>
-          {{gru-icon name='visibility'}}
+          {{gru-icon name='assignment_turned_in'}}
         </span>
       {{else}}
         <span class='visibility-panel item-not-visible hidden-xs pointer'
           {{action 'changeVisibility' classActivity.id}}
               data-toggle="tooltip" data-html="true" data-placement="top"
               title="{{t "common.assign"}}">
-          {{gru-icon name='visibility_off'}}
+          {{gru-icon name='assignment_turned_in'}}
         </span>
       {{/if}}
       {{#if item.isAssessment}}
@@ -22,8 +22,12 @@
       {{/if}}
     {{else}}
       {{#if visible}}
-        <span class='visibility-panel hidden-xs'>
-          {{gru-icon name='visibility'}}
+        <span class='visibility-panel item-visible hidden-xs'>
+          {{gru-icon name='assignment_turned_in'}}
+        </span>
+      {{else}}
+        <span class='visibility-panel item-not-visible hidden-xs'>
+          {{gru-icon name='assignment_turned_in'}}
         </span>
       {{/if}}
     {{/if}}
