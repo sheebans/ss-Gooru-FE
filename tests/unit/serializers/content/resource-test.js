@@ -135,13 +135,18 @@ test('normalizeReadResource for image resource with relative path', function(ass
 
 test('normalizeReadResource for url resource with no full path', function(assert) {
   const serializer = this.subject();
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: 'http://test-bucket01.s3.amazonaws.com/'
+    }
+  }));
   const resourceData = {
     url: 'any',
     content_subformat: 'webpage'
   };
 
   const resource = serializer.normalizeReadResource(resourceData);
-  assert.equal(resource.get("url"), "http://any", 'Wrong url');
+  assert.equal(resource.get("url"), "http://test-bucket01.s3.amazonaws.com/any", 'Wrong url');
 
 });
 
