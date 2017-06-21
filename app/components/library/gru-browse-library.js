@@ -11,6 +11,20 @@ export default Ember.Component.extend({
   i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Action triggered to bookmark a course
+     * @param {Course} course
+     * @param {Boolean} showType
+     */
+    onBookmarkCourse: function(course, showType) {
+      this.sendAction('onBookmarkCourse', course, showType);
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['library', 'gru-browse-library'],
@@ -31,5 +45,10 @@ export default Ember.Component.extend({
         'courses': sortFeaturedCourses(this.get('courses'))[index]
       })
     );
-  })
+  }),
+
+  /**
+   * Action to send when creating a bookmark
+   */
+  onBookmarkCourse: null
 });
