@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ResourceModel from 'gooru-web/models/content/resource';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+import { addProtocolIfNecessary, checkDomains } from 'gooru-web/utils/utils';
 
 /**
  * Serializer to support the Resource CRUD operations for API 3.0
@@ -88,7 +89,7 @@ export default Ember.Object.extend({
     const serializer = this;
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
     const standards = resourceData.taxonomy || {};
-    const basePath = serializer.get('session.cdnUrls.content');
+    const cdnUrl = serializer.get('session.cdnUrls.content');
     const info = resourceData.info || {};
     const metadata = resourceData.metadata || {};
     const resource = ResourceModel.create(Ember.getOwner(serializer).ownerInjection(), {
@@ -112,33 +113,18 @@ export default Ember.Object.extend({
     });
     resource.set('displayGuide', resource.get("displayGuide") || this.checkURLProtocol(resource.url));
 
-    //is full path if it has protocol
-    const isFullPath = resourceData.url ? /^(?:[a-z]+:)?\/\//.exec(resourceData.url) : false;
-
-    if (resource.get("isImageResource") || resource.get("isPDFResource")){
-      if (!isFullPath){ // if it is a relative url, load from content cdn
-        const url = resourceData.url ? basePath + resourceData.url : null;
-        resource.set("url", url);
+    if (resourceData.url) {
+      const protocolPattern = /^((http|https|ftp):\/\/)/;
+      if (!protocolPattern.test(resourceData.url)) {     //if no protocol add it
+        let resourceUrl = resourceData.url;
+        let containsCdnUrl = checkDomains(resourceUrl, cdnUrl);
+        if (!containsCdnUrl) {
+          resourceUrl = cdnUrl + resourceUrl;
+        }
+        resource.set("url", addProtocolIfNecessary(resourceUrl, true));
       }
     }
 
-    if (resource.get("isUrlResource")) {
-      if(resource.get("displayGuide")) {
-        var url = resource.get("url");
-        var pattern = /^((http|https|ftp):\/\/)/;
-
-        if(!pattern.test(url)) {
-          url = "http:" + basePath + url;
-        }
-        resource.set("url", url);
-      }
-      else{
-        if (!isFullPath){ //if no protocol add http as default
-          const url = resourceData.url ? "http://" + resourceData.url : null;
-          resource.set("url", url);
-        }
-      }
-    }
     return resource;
   },
   checkURLProtocol: function(url){
