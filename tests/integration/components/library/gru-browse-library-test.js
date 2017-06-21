@@ -11,16 +11,18 @@ test('Browse Library Test', function(assert) {
       id:12345,
       title:'Course title',
       unitCount:3,
-      thumbnailUrl:'url-image.jpg'
+      thumbnailUrl:'url-image.jpg',
+      subjectName: null
     },{
       id:12345,
       title:'Course title',
       unitCount:3,
-      thumbnailUrl:'url-image.jpg'
+      thumbnailUrl:'url-image.jpg',
+      subjectName: null
     }
   ];
   this.set('courses',courses);
   this.render(hbs`{{library/gru-browse-library courses=courses}}`);
   const $component = this.$();
-  assert.equal($component.find('.gru-library-card').length, 2, 'Should appear 2 cards');
+  assert.equal($component.find('.gru-collection-card').length, 2, 'Should appear 2 cards');
 });
