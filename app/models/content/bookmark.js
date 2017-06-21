@@ -8,6 +8,11 @@ import Ember from 'ember';
 export default Ember.Object.extend({
 
   /**
+   * @property {String} id - The bookmark id
+   */
+  id: null,
+
+  /**
    * @property {String} title
    */
   title: null,

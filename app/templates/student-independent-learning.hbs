@@ -49,7 +49,21 @@
     <div class="content">
       <div class="panel bookmarks">
         <div class="panel-heading">{{t 'common.bookmarks'}}</div>
-        <div class="panel-body">
+        <div class="panel-body {{if toggleState 'expanded' 'collapsed'}}">
+          <a {{action 'togglePanel'}} class="collapse-expand pull-right less {{if toggleState 'visible' 'hidden'}}">
+            {{gru-icon name='expand_less'}}
+            {{gru-icon name='expand_less'}}
+          </a>
+          {{#link-to 'search.collections' tagName="div" class='add-bookmark'}}
+          {{/link-to}}
+          {{#each bookmarks as |bookmark|}}
+            {{cards.gru-bookmark-card
+              bookmark=bookmark}}
+          {{/each}}
+          <a {{action 'togglePanel'}} class="collapse-expand pull-right more {{if toggleState 'hidden' 'visible'}}">
+            {{gru-icon name='expand_more'}}
+            {{gru-icon name='expand_more'}}
+          </a>
         </div>
       </div>
     </div>

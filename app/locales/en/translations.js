@@ -507,6 +507,7 @@ export default Object.assign(quizzesTranslations, {
     "toggle-dropdown": "Toggle Dropdown",
     "true": "True",
     "type": "Type",
+    "unBookmark": "Click to unbookmark",
     "unexpectedError": "An unexpected error has occurred and has been reported. We're sorry for the inconvenience!",
     "unfollow": "Unfollow",
     "unit": "Unit",
