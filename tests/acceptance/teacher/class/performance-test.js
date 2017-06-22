@@ -79,8 +79,8 @@ test('Test data picker options selected', function(assert) {
 
       //data picker score item is selected by default
       T.exists(assert, $performanceInformation.find('.score'), 'Missing data picker score information at course level');
-      T.exists(assert, $performanceInformation.find('.completion'), 'Missing  data picker completion information at course level');
-      T.notExists(assert, $performanceInformation.find('.study-time'), 'Study time item should not be selected at course level');
+      T.notExists(assert, $performanceInformation.find('.completion'), 'Completion should not appear at course level');
+      T.exists(assert, $performanceInformation.find('.study-time'), 'Missing study time picker at course level');
 
       click($metricTable.find('thead tr:eq(0) th:eq(1)'));
       andThen(function(){
@@ -93,8 +93,8 @@ test('Test data picker options selected', function(assert) {
         //data picker score item is selected by default
         T.exists(assert, $unitPerformanceInformation.find('.score'), 'Missing  data picker score information at unit level');
 
-        T.exists(assert, $unitPerformanceInformation.find('.completion'), 'Missing  data picker completion information at unit level');
-        T.notExists(assert, $unitPerformanceInformation.find('.study-time'), 'Study time item should not be selected at unit level');
+        T.notExists(assert, $unitPerformanceInformation.find('.completion'), 'Completion data picker should not appear at unit level');
+        T.exists(assert, $unitPerformanceInformation.find('.study-time'), 'Missing study time picker at unit level');
 
       });
     });

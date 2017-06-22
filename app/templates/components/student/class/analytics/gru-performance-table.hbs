@@ -44,7 +44,7 @@
                   </div>
               </td>
             {{/if}}
-              <td class="performance-info performance-completion">
+              <td class="performance-info performance-completion out-of-scope">
                 {{charts.gru-radial-chart
                 value=assessmentsCompleted
                 minValue=0
@@ -74,7 +74,7 @@
                       </div>
                   </td>
                 {{/if}}
-                  <td class="performance-info performance-completion">
+                  <td class="performance-info performance-completion out-of-scope">
                     <span class="completion {{if (eq studentPerformance.performanceData.status 'complete') 'visible' 'hidden'}}">
                       {{gru-icon name='done'}}
                     </span>
