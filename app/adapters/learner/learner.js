@@ -15,7 +15,7 @@ export default Ember.Object.extend({
    * Fetches independent learner locations
    *
    * @param {number} userId
-   * @param {number} limit - number of records to fetch
+   * @param {number} contentType - type of content to retrieve
    * @param {number} offset - for paginated listing of locations
    * @param {number} limit - number of locations to fetch
    * @returns {Promise}
