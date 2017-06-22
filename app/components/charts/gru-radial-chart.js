@@ -27,8 +27,8 @@ export default Ember.Component.extend({
   didInsertElement: function(){
     const $component = this.$();
     const minValue = this.get('minValue');
-    const maxValue = this.get('maxValue');
     const value = this.get('value');
+    const maxValue = value > this.get('maxValue') ? value : this.get('maxValue');
 
     // Get the component dimensions from the css
     const width = parseInt($component.css('width').split('px')[0]);
@@ -46,7 +46,7 @@ export default Ember.Component.extend({
         radialChart.__textDisplay('--');
       }
       else {
-        radialChart.__textDisplay(value + '/' + maxValue);
+        radialChart.__textDisplay(parseInt((value/maxValue)*100) + '%');
       }
     }
 
@@ -86,8 +86,8 @@ export default Ember.Component.extend({
   value: 0,
 
   renderChart: Ember.observer('value', function () {
-    const maxValue = this.get('maxValue');
     const value = this.get('value');
+    const maxValue = value > this.get('maxValue') ? value : this.get('maxValue');
     const radialChart = this.get('radialChart');
 
     radialChart.value(value);
@@ -97,7 +97,7 @@ export default Ember.Component.extend({
         radialChart.__textDisplay('--');
       }
       else {
-        radialChart.__textDisplay(value + '/' + maxValue);
+        radialChart.__textDisplay(parseInt((value/maxValue)*100) + '%');
       }
     }
 
