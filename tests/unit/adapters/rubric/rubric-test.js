@@ -44,6 +44,25 @@ test('Rubric creation, success', function (assert) {
     });
 });
 
+test('createRubricOff', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  const data = {
+    body: {}
+  };
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v2/rubrics', function() {
+      return [201, {'Content-Type': 'text/plain'}, ''];
+    }, false);
+  });
+  adapter.createRubricOff(data)
+    .then(function(response) {
+      assert.equal('', response, 'Wrong response');
+    });
+});
+
 test('Rubric update, success', function (assert) {
   assert.expect(3);
   // Mock backend response
