@@ -38,14 +38,17 @@ export default Ember.Object.extend(ConfigurationMixin, {
   normalizeLocation: function(payload) {
     var serializer = this;
     return LocationModel.create(Ember.getOwner(serializer).ownerInjection(), {
-      collectionId: payload.collectionId,
+      collectionId: payload.courseId ? null : payload.collectionId,
       courseId: payload.courseId,
       lessonId: payload.lessonId,
       unitId: payload.unitId,
-      type: payload.type || CONTENT_TYPES.COURSE,
-      title: payload.type ? payload.collectionTitle : payload.courseTitle,
+      type: payload.courseId ? CONTENT_TYPES.COURSE : payload.collectionType,
+      title: payload.courseId ? payload.courseTitle : payload.collectionTitle,
       lastAccessed: parseDate(payload.lastAccessed, 'YYYY-MM-DD'),
-      status: payload.status
+      status: payload.status,
+      currentId: payload.courseId ? payload.collectionId : null,
+      currentTitle: payload.courseId ? payload.collectionTitle : null,
+      currentType: payload.courseId ? payload.collectionType : null
     });
   }
 });
