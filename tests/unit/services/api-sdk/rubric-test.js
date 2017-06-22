@@ -36,6 +36,35 @@ test('createRubric', function(assert) {
     });
 });
 
+test('createRubricOff', function(assert) {
+  const service = this.subject();
+  let rubricOffModel = Ember.Object.create();
+
+  assert.expect(1);
+
+  // There is not a Adapter stub in this case
+  // Pretender was included because it is needed to simulate the response Headers including the Location value
+  this.pretender.map(function() {
+    this.post('/api/nucleus/v2/rubrics', function() {
+      return [201, {'Content-Type': 'text/plain', 'Location': 'rubric-off-id'}, ''];
+    }, false);
+  });
+
+  service.set('rubricSerializer', Ember.Object.create({
+    serializeCreateRubricOff: function(rubricOffObject) {
+      assert.deepEqual(rubricOffObject, rubricOffModel, 'Wrong rubric off object');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.createRubricOff(rubricOffModel)
+    .then(function() {
+      assert.equal(rubricOffModel.get('id'), 'rubric-off-id', 'Wrong rubric off id');
+      done();
+    });
+});
+
 test('updateRubric', function(assert) {
   const service = this.subject();
   let rubric = RubricModel.create({

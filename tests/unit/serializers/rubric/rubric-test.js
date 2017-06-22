@@ -34,6 +34,27 @@ test('serializeCreateRubric', function(assert) {
 
 });
 
+test('serializeCreateRubricOff', function(assert) {
+  const serializer = this.subject();
+  const rubricOffObject = Rubric.create({
+    rubricOn: false,
+    requiresFeedback: true,
+    feedback: 'any-feedback',
+    scoring: true,
+    maxScore: 10,
+    increment: 1.25,
+    grader: 'Teacher'
+  });
+  const response = serializer.serializeCreateRubricOff(rubricOffObject);
+  assert.equal(response.is_rubric, false, "Should be false");
+  assert.equal(response.overall_feedback_required, true, "Should be true");
+  assert.equal(response.feedback_guidance, 'any-feedback', "Wrong feedback guidance");
+  assert.equal(response.scoring, true, "Should be true");
+  assert.equal(response.max_score, 10, "Wrong max score");
+  assert.equal(response.increment, 1.25, "Wrong increment");
+  assert.equal(response.grader, 'Teacher', "Wrong grader");
+});
+
 test('serializeUpdateRubric uploaded and no feedback required', function(assert) {
   const serializer = this.subject();
 
