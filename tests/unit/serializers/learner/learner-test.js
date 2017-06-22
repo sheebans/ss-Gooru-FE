@@ -77,6 +77,9 @@ test('normalizeLocation collection/assessment', function(assert) {
   assert.equal(normalizedLocation.get('lessonId'), 'lesson-id', 'Wrong lesson id');
   assert.equal(normalizedLocation.get('unitId'), 'unit-id', 'Wrong unit id');
   assert.notOk(normalizedLocation.get('courseId'), 'Wrong course id');
+  assert.notOk(normalizedLocation.get('currentId'), 'Wrong current id');
+  assert.notOk(normalizedLocation.get('currentTitle'), 'Wrong current title');
+  assert.notOk(normalizedLocation.get('currentType'), 'Wrong current type');
   assert.equal(normalizedLocation.get('status'), 'any-status', 'Wrong status');
   assert.notOk(normalizedLocation.get('isCompleted'), 'Wrong is completed value');
   assert.equal(normalizedLocation.get('title'), 'collection-title', 'Wrong title');
