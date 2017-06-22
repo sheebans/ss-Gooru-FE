@@ -18,6 +18,11 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
    */
   courseService: Ember.inject.service('api-sdk/course'),
 
+  /**
+   * @type {BookmarkService} Service to retrieve bookmark information
+   */
+  bookmarkService: Ember.inject.service('api-sdk/bookmark'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -35,6 +40,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     const firstCourseId = configuration.get("exploreFeaturedCourses.firstCourseId");
     const secondCourseId = configuration.get("exploreFeaturedCourses.secondCourseId");
     const activeClasses = myClasses.getStudentActiveClasses(myId);
+    const bookmarksPromise = route.get('bookmarkService').fetchBookmarks();
     var featuredCourses = Ember.A([]);
 
     if (firstCourseId) {
@@ -45,23 +51,27 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     }
     return Ember.RSVP.hash({
       firstCourse: firstCoursePromise,
-      secondCourse: secondCoursePromise
+      secondCourse: secondCoursePromise,
+      bookmarks: bookmarksPromise
     }).then(function (hash) {
       const firstFeaturedCourse = hash.firstCourse;
       const secondFeaturedCourse = hash.secondCourse;
+      const bookmarks = hash.bookmarks;
 
       featuredCourses.push(firstFeaturedCourse);
       featuredCourses.push(secondFeaturedCourse);
 
       return {
         activeClasses,
-        featuredCourses
+        featuredCourses,
+        bookmarks
       };
     });
   },
 
   setupController: function(controller, model) {
     controller.set('featuredCourses', model.featuredCourses);
+    controller.set('bookmarks', model.bookmarks);
   }
 
 });
