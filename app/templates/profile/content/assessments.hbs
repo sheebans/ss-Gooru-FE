@@ -1,13 +1,14 @@
 <div class="controller content-assessments">
-  <div class="assessments clearfix">
+  <div class="assessments">
     {{#each assessments as |assessment|}}
       <div class="card">
-        {{cards.gru-collection-card
-        collection=assessment
-        editEnabled=isMyProfile
-        onEditCollection="editAssessment"
-        onRemixCollection="remixAssessment"
-        onOpenContentPlayer="openContentPlayer"}}
+        {{new-cards.gru-collection-card
+        profile=sessionProfile
+        content=assessment
+        isMyProfile=isMyProfile
+        isOnProfile=true
+        onOpenContentPlayer="openContentPlayer"
+        onEditContent="editAssessment"}}
       </div>
 
     {{else}}

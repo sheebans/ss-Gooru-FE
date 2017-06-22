@@ -21,7 +21,7 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Collection} collection
      */
     editCollection: function (collection) {
-      this.transitionTo("content.collections.edit", collection.get("id"));
+      this.transitionTo('content.collections.edit', collection.get('id'));
     },
 
     /**
@@ -40,7 +40,7 @@ export default Ember.Route.extend(ModalMixin, {
   // Methods
 
   model: function (){
-    const profile = this.modelFor("profile").profile;
+    const profile = this.modelFor('profile').profile;
 
     const params={
       pageSize:DEFAULT_PAGE_SIZE,
@@ -48,17 +48,15 @@ export default Ember.Route.extend(ModalMixin, {
       sortOn: this.paramsFor('profile.content').sortOn,
       order:this.paramsFor('profile.content').order
     };
-    return this.get("profileService").readCollections(profile.get("id"),params);
+    return this.get('profileService').readCollections(profile.get('id'),params);
   },
 
   setupController: function (controller , model) {
-    controller.set("collections", model);
+    controller.set('collections', model);
   },
 
   deactivate: function() {
-    this.get("controller").resetValues();
+    this.get('controller').resetValues();
   }
-
-
 
 });
