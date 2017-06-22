@@ -299,7 +299,7 @@ test('Share course', function(assert) {
   });
 });
 
-test('Functions when Teacher is in his own profile', function(assert) {
+test('Functions when Teacher is in their own profile', function(assert) {
   assert.expect(13);
   var collection = Ember.Object.create({
     id:'123',
@@ -359,7 +359,7 @@ test('Functions when Teacher is in his own profile', function(assert) {
   let $image = $collectionCard.find('.panel-heading .image .edit-content');
   $image.click();
 });
-test('Functions when Student is in his own profile', function(assert) {
+test('Functions when Student is in their own profile', function(assert) {
   assert.expect(13);
   var collection = Ember.Object.create({
     id:'123',
