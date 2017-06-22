@@ -3,7 +3,7 @@ import LearnerSerializer from 'gooru-web/serializers/learner/learner';
 import LearnerAdapter from 'gooru-web/adapters/learner/learner';
 
 /**
- * @typedef {Object} BookmarkService
+ * @typedef {Object} LearnerService
  */
 export default Ember.Service.extend({
 

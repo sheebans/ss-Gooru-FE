@@ -5,19 +5,19 @@ import { CONTENT_TYPES } from 'gooru-web/config/config';
 import LocationModel from 'gooru-web/models/learner/location';
 
 /**
- * Serializer to support the Bookmark CRUD operations for API 3.0
+ * Serializer to support the Learner CRUD operations for API 3.0
  *
- * @typedef {Object} BookmarkSerializer
+ * @typedef {Object} LearnerSerializer
  */
 export default Ember.Object.extend(ConfigurationMixin, {
 
   session: Ember.inject.service('session'),
 
   /**
-   * Normalize the Fetch Bookmarks endpoint's response
+   * Normalize the Fetch Locations endpoint's response
    *
    * @param payload is the endpoint response in JSON format
-   * @returns {Bookmarks[]} an array of bookmarks
+   * @returns {Location[]} an array of learner locations
    */
   normalizeLocations: function(payload) {
     var result = [];
@@ -29,6 +29,12 @@ export default Ember.Object.extend(ConfigurationMixin, {
     return result;
   },
 
+  /**
+   * Normalize the one Location from the endpoint's response
+   *
+   * @param payload is part of the response in JSON format
+   * @returns {Location}
+   */
   normalizeLocation: function(payload) {
     var serializer = this;
     return LocationModel.create(Ember.getOwner(serializer).ownerInjection(), {

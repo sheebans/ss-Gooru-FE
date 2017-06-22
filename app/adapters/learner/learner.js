@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 /**
- * Adapter to support the Bookmark CRUD operations in the API 3.0
+ * Adapter to support the Learner CRUD operations in the API 3.0
  *
- * @typedef {Object} BookmarkAdapter
+ * @typedef {Object} LearnerAdapter
  */
 export default Ember.Object.extend({
 
