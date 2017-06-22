@@ -1,0 +1,74 @@
+[
+  {
+    "description": "Fetch course learner locations",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/learner/location",
+      "query": {
+        "userId": ".+",
+        "contentType": "course",
+        "offset": 0,
+        "limit": 20
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-locations-course-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch course learner locations",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/learner/location",
+      "query": {
+        "userId": ".+",
+        "contentType": "collection",
+        "offset": 0,
+        "limit": 20
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-locations-collection-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch assessment learner locations",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/learner/location",
+      "query": {
+        "userId": ".+",
+        "contentType": "assessment",
+        "offset": 0,
+        "limit": 20
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-locations-assessment-200-response.json"
+    }
+  }
+]

@@ -150,7 +150,7 @@ test('Valid completed chart when the class has started', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
     let $chart = find('.gru-student-class-card:eq(0) .gru-radial-chart .radial-svg .labels');
-    assert.equal($chart.text(),'1/3','Incorrect label');
+    assert.equal($chart.text(),'33%','Incorrect label');
   });
 });
 
