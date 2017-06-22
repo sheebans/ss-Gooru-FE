@@ -239,3 +239,20 @@ test('Sort Student by Last Name', function (assert) {
   });
 });
 
+test('Archive Class', function(assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher/class-management');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-management');
+
+    const $container = find('.teacher.class .controller.teacher.class.class-management');
+    const $classPanel = $container.find('.class-panel');
+    const $classPanelHeader = $classPanel.find('.panel-header');
+
+    const $archiveButton =$classPanelHeader.find('.actions .archive-btn');
+    click($archiveButton);
+    andThen(function () {
+      assert.equal(currentURL(), '/teacher-home', 'Wrong route');
+    });
+  });
+});

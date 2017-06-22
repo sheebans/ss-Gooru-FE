@@ -62,14 +62,15 @@ test('Layout', function(assert) {
     T.exists(assert, $bookmarksPanel, 'Missing bookmarks panel');
     T.exists(assert, $bookmarksPanel.find('.panel-heading'), 'Missing bookmarks panel-heading');
     T.exists(assert, $bookmarksPanel.find('.panel-body'), 'Missing bookmarks panel-body');
+    T.exists(assert, $bookmarksPanel.find('.panel-body .add-bookmark'), 'Missing add-bookmark link');
   });
 });
 
 test('Go to library from featured-courses panel', function(assert) {
-  visit('/student-home');
+  visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-home');
+    assert.equal(currentURL(), '/student-independent-learning');
     const $featuredCourses = find('.panel.featured-courses');
     const $featuredCoursesButton = $featuredCourses.find('.actions button.library');
 
@@ -81,10 +82,10 @@ test('Go to library from featured-courses panel', function(assert) {
 });
 
 test('Go to join from join class panel', function(assert) {
-  visit('/student-home');
+  visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-home');
+    assert.equal(currentURL(), '/student-independent-learning');
 
     const $joinClass = find('.panel.join-class');
 
@@ -93,6 +94,24 @@ test('Go to join from join class panel', function(assert) {
     click($joinClassButton);
     andThen(function() {
       assert.equal(currentURL(), '/content/classes/join', 'Wrong route');
+    });
+  });
+});
+
+test('Go to search/collections from bookmarks panel', function(assert) {
+  visit('/student-independent-learning');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-independent-learning');
+
+    const $bookmarksPanel = find('.content .panel.bookmarks');
+    T.exists(assert, $bookmarksPanel.find('.panel-body .add-bookmark'), 'Missing add-bookmark link');
+
+    const $addBookmarkButton = $bookmarksPanel.find('.panel-body .add-bookmark');
+
+    click($addBookmarkButton);
+    andThen(function() {
+      assert.equal(currentURL(), '/search/collections', 'Wrong route');
     });
   });
 });

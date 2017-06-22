@@ -142,12 +142,68 @@
     margin: 22px 0;
     .panel.bookmarks {
       border-radius: 5px;
-      padding: 7px 30px;
+      padding: 7px 0 10px 30px;
+      min-height: 175px;
+      position: relative;
       .panel-heading {
         font-size: $font-navigator;
         line-height: $font-navigator;
         color: $gray-base;
-        padding: 0 0 10px;
+        padding: 0;
+      }
+      .panel-body {
+        padding: 0;
+        &.collapsed {
+          height: 125px;
+          overflow: hidden;
+        }
+        &.expanded {
+          height: 263px;
+          overflow-y: auto;
+        }
+        .add-bookmark {
+          float: left;
+          border: 1px dashed $light-500;
+          padding: 20px;
+          border-radius: 6px;
+          color: $gray;
+          text-align: center;
+          height: 100px;
+          width: 85px;
+          margin: 20px 21px 0 0;
+          cursor: pointer;
+          &:before {
+            content: '+ ';
+            font-size: $font-add-bookmark;
+            line-height: $font-add-bookmark;
+          }
+        }
+        .collapse-expand {
+          color: $light-500;
+          margin: 0 10px;
+          position: absolute;
+          right: 10px;
+          &.less {
+            top: 0;
+          }
+          &.more {
+            top: 145px;
+          }
+          i {
+            float: left;
+            clear: left;
+            display: inline-block;
+            -webkit-transform:scale(2,1);
+            -moz-transform:scale(2,1);
+            -ms-transform:scale(2,1);
+            -o-transform:scale(2,1);
+            transform:scale(2,1);
+            &:nth-child(2){
+              position: relative;
+              top: -19px;
+            }
+          }
+        }
       }
     }
   }

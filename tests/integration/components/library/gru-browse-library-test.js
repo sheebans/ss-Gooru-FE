@@ -24,5 +24,5 @@ test('Browse Library Test', function(assert) {
   this.set('courses',courses);
   this.render(hbs`{{library/gru-browse-library courses=courses}}`);
   const $component = this.$();
-  assert.equal($component.find('.gru-library-card').length, 2, 'Should appear 2 cards');
+  assert.equal($component.find('.gru-collection-card').length, 2, 'Should appear 2 cards');
 });

@@ -600,3 +600,18 @@ test('Functions when student user is on a another person profile (Teacher or Stu
   $image.click();
 });
 
+test('Bookmark content from card', function(assert) {
+  assert.expect(3);
+  let done = assert.async();
+  this.on('onBookmarkContent', function(content, showType) {
+    assert.ok(showType, 'The type should be shown');
+    assert.equal(content, 'test-content', 'Content should match');
+    done();
+  });
+  this.set('content', 'test-content');
+  this.render(hbs`{{new-cards/gru-collection-card content=content isCourse=true onBookmarkContent='onBookmarkContent'}}`);
+  const $component = this.$();
+  const $btn = $component.find('.bookmark-btn');
+  assert.ok($btn.length, 'Bookmark button should appear');
+  $btn.click();
+});

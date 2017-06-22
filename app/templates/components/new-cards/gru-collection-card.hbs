@@ -121,7 +121,7 @@
           {{/if}}
         </div>
         <button class="btn bookmark-btn no-bgd {{if disabledBookmark 'btn-disabled'}}" title="{{t 'common.bookmark'}}"
-          {{action 'bookmarkContent' content}} data-toggle="tooltip"
+          {{action 'bookmarkContent' content true}} data-toggle="tooltip"
                 data-placement="bottom" data-trigger="hover" disabled={{disabledBookmark}}>
           {{gru-icon name="turned_in_not"}}
         </button>

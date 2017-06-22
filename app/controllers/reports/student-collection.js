@@ -14,6 +14,12 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @requires service:api-sdk/taxonomy
+   */
+  taxonomyService: Ember.inject.service('api-sdk/taxonomy'),
+
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -37,5 +43,28 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * Indicates the component of the application that is originating the events
    * @property {String} source
    */
-  source: null
+  source: null,
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  /**
+   * Fill standards info when the report data changes
+   */
+  quizzesAttemptDataObserver: Ember.observer('attemptData', function() {
+    let learningTargets = this.get('attemptData.mastery') ? this.get('attemptData.mastery') : [];
+    if (learningTargets.length) {
+      let taxonomyIds = learningTargets.mapBy('id');
+      let taxonomyService = this.get('taxonomyService');
+      taxonomyService.fetchCodesByIds(taxonomyIds).then(function (taxonomyStandards) {
+        learningTargets.forEach(function(learningTarget) {
+          let learningTargetInfo = taxonomyStandards.findBy('id',learningTarget.id);
+          learningTarget.setProperties({
+            displayCode:learningTargetInfo.code,
+            description:learningTargetInfo.title
+          });
+        });
+      });
+    }
+  })
 });
