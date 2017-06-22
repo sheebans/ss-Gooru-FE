@@ -27,6 +27,21 @@ const LearnerLocationModel = Ember.Object.extend({
   unitId: null,
 
   /**
+   * @property {String} currentId - current activity id
+   */
+  currentId: null,
+
+  /**
+   * @property {String} currentTitle - current activity title
+   */
+  currentTitle: null,
+
+  /**
+   * @property {String} currentType - current activity type
+   */
+  currentType: null,
+
+  /**
    * @property {Boolean} isCompleted - if the content has been completed
    */
   isCompleted: Ember.computed.equal('status', 'complete'),
