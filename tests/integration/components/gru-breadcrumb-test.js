@@ -8,7 +8,7 @@ moduleForComponent('gru-breadcrumb', 'Integration | Component | gru breadcrumb',
 });
 
 test('Layout and click', function(assert) {
-  assert.expect(5);
+  assert.expect(6);
 
   const breadcrumb = Ember.A([
     {
@@ -40,6 +40,7 @@ test('Layout and click', function(assert) {
 
   assert.ok($component.find('.item').length, 4, 'Missing breadcrumb items');
   assert.ok($component.find('.item:first-child .greater-than').length,'Missing >');
+  assert.ok($component.find('.item:first-child .greater-than .chevron_right').length,'Incorrect icon');
   assert.notOk($component.find('.item:last-child .greater-than:visible').length,'Last element should not have >');
   assert.equal(T.text($component.find('.item:eq(0) .breadcrumb-item')), 'Course Name', 'Wrong item label');
 
