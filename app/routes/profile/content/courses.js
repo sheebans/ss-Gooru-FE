@@ -55,8 +55,7 @@ export default Ember.Route.extend(ModalMixin, {
     };
     let courses = this.get('profileService').getCourses(profile,params);
     return Ember.RSVP.hash({
-      courses,
-      profile: this.get('applicationController.profile')
+      courses
     });
   },
 
