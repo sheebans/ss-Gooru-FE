@@ -8,7 +8,9 @@ moduleForComponent('new-cards/gru-collection-card', 'Integration | Component | n
 });
 
 test('Collection Card Layout', function(assert) {
+  assert.expect(19);
   var collection = Ember.Object.create({
+    id:'123',
     title: 'Collection Title',
     questionCount:4,
     isAssessment:false,
@@ -30,11 +32,20 @@ test('Collection Card Layout', function(assert) {
   });
 
   this.set('collection', collection);
-  this.render(hbs`{{new-cards/gru-collection-card content=collection}}`);
+
+  this.on('parentAction', function(content){
+    assert.ok(content.id, '123','Incorrect content to play');
+  });
+
+  this.render(hbs`{{new-cards/gru-collection-card content=collection onOpenContentPlayer='parentAction'}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
   assert.ok($collectionCard.find('.panel-heading h3.title').length, 'Missing Title');
+  assert.ok($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should open the player');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should not open the edit');
   assert.ok($collectionCard.find('.panel-heading .image img').length, 'Missing Collection Image');
+  assert.notOk($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should not open the edit');
+  assert.ok($collectionCard.find('.panel-heading .image .play-content').length, 'Image should open the player');
   assert.ok($collectionCard.find('.panel-heading .question-resources').length, 'Missing Question and Resource Label section');
   assert.ok($collectionCard.find('.panel-heading .question-resources .question-count').length, 'Missing Question count');
   assert.notOk($collectionCard.find('.panel-heading .question-resources .resource-count').length, 'Resource count should not appear');
@@ -46,6 +57,12 @@ test('Collection Card Layout', function(assert) {
   assert.ok($collectionCard.find('.panel-footer .share-btn').length, 'Missing share button');
   assert.ok($collectionCard.find('.panel-footer .bookmark-btn').length, 'Missing bookmark button');
   assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
+
+  let $title = $collectionCard.find('.panel-heading .title-section .play-content');
+  $title.click();
+
+  let $image = $collectionCard.find('.panel-heading .image .play-content');
+  $image.click();
 });
 
 test('Assessment Card Layout', function(assert) {
@@ -143,6 +160,7 @@ test('Course Card Layout', function(assert) {
   const $collectionCard = $component.find('.gru-collection-card');
   assert.ok($collectionCard.find('.panel-heading h3.title').length, 'Missing Title');
   assert.ok($collectionCard.find('.panel-heading .image img').length, 'Missing Assessment Image');
+  assert.ok($collectionCard.find('.panel-heading .unit-count').length, 'Missing unit count');
   assert.ok($collectionCard.find('.panel-heading .question-resources').length, 'Missing Question and Resource Label section');
   assert.notOk($collectionCard.find('.panel-heading .question-resources .question-count').length, 'Question count should not appear');
   assert.notOk($collectionCard.find('.panel-heading .question-resources .resource-count').length, 'Resource count should not appear');
@@ -279,6 +297,307 @@ test('Share course', function(assert) {
   return wait().then(function () {
     assert.ok($component.find('.gru-share-pop-over-window').length, 'Share pop up missing');
   });
+});
+
+test('Functions when Teacher is in their own profile', function(assert) {
+  assert.expect(13);
+  var collection = Ember.Object.create({
+    id:'123',
+    title: 'Collection Title',
+    questionCount:4,
+    isAssessment:false,
+    standards:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
+    course: 'Any course title',
+    remixedBy:['James','Andrea','Patric'],
+    isVisibleOnProfile:false
+  });
+
+  this.set('collection', collection);
+
+  var profile =  Ember.Object.create({
+    role:'teacher'
+  });
+
+  this.set('profile',profile);
+
+  this.set('isMyProfile', true);
+  this.set('isOnProfile', true);
+
+  this.on('parentAction', function(content){
+    assert.ok(content.id, '123','Incorrect content to edit');
+  });
+
+  this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onEditContent='parentAction'}}`);
+  var $component = this.$();
+  const $collectionCard = $component.find('.gru-collection-card');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should not open the player');
+  assert.ok($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should open the edit');
+  assert.notOk($collectionCard.find('.panel-heading .image .play-content').length, 'Image should not open the player');
+  assert.ok($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should  open the edit');
+  assert.ok($collectionCard.find('.panel-footer .edit-btn').length, 'Missing edit button');
+  assert.ok($collectionCard.find('.panel-footer .play-btn').length, 'Missing play button');
+  assert.notOk($collectionCard.find('.panel-footer .share-btn').length, 'Share button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .preview-btn').length, 'Preview button should not appear');
+  assert.ok($collectionCard.find('.panel-footer .visibility').length, 'Not visible icon should appear');
+  assert.ok($collectionCard.find('.panel-footer .add-btn').length, 'Missing add to button');
+
+  let $title = $collectionCard.find('.panel-heading .title-section .edit-content');
+  $title.click();
+
+  let $image = $collectionCard.find('.panel-heading .image .edit-content');
+  $image.click();
+});
+test('Functions when Student is in their own profile', function(assert) {
+  assert.expect(13);
+  var collection = Ember.Object.create({
+    id:'123',
+    title: 'Collection Title',
+    questionCount:4,
+    isAssessment:false,
+    standards:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
+    course: 'Any course title',
+    remixedBy:['James','Andrea','Patric'],
+    isVisibleOnProfile:false
+  });
+
+  this.set('collection', collection);
+
+  var profile =  Ember.Object.create({
+    role:'student'
+  });
+
+  this.set('profile',profile);
+
+  this.set('isMyProfile', true);
+  this.set('isOnProfile', true);
+
+  this.on('parentAction', function(content){
+    assert.ok(content.id, '123','Incorrect content to edit');
+  });
+
+  this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onEditContent='parentAction'}}`);
+  var $component = this.$();
+  const $collectionCard = $component.find('.gru-collection-card');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .grplay-content').length, 'Title should not open the player');
+  assert.ok($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should open the edit');
+  assert.notOk($collectionCard.find('.panel-heading .image .play-content').length, 'Image should not open the player');
+  assert.ok($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should  open the edit');
+  assert.notOk($collectionCard.find('.panel-footer .share-btn').length, 'Share button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .preview-btn').length, 'Preview button should not appear');
+  assert.ok($collectionCard.find('.panel-footer .visibility').length, 'Not visible icon should appear');
+  assert.notOk($collectionCard.find('.panel-footer .add-btn').length, 'Add to button should not appear');
+  assert.ok($collectionCard.find('.panel-footer .edit-btn').length, 'Edit button should appear');
+  assert.ok($collectionCard.find('.panel-footer .play-btn').length, 'Play button should appear');
+
+  let $title = $collectionCard.find('.panel-heading .title-section .edit-content');
+  $title.click();
+
+  let $image = $collectionCard.find('.panel-heading .image .edit-content');
+  $image.click();
+});
+test('Visibility icon when the content is visible on profile', function(assert) {
+  assert.expect(11);
+  var assessment = Ember.Object.create({
+    id:'123',
+    title: 'Biodiversity at All Three Levels',
+    resourceCount: 3,
+    questionCount:4,
+    isAssessment:true,
+    standards:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    author:'dara.weiner',
+    description:'Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound.',
+    course: 'Any course title',
+    isVisibleOnProfile:true
+  });
+
+  this.set('assessment', assessment);
+
+  var profile =  Ember.Object.create({
+    role:'teacher'
+  });
+
+  this.set('profile',profile);
+
+  this.set('isMyProfile', true);
+  this.set('isOnProfile', true);
+
+  this.on('parentAction', function(content){
+    assert.ok(content.id, '123','Incorrect content to edit');
+  });
+
+  this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=assessment onEditContent='parentAction'}}`);
+  var $component = this.$();
+  const $collectionCard = $component.find('.gru-collection-card');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should not open the player');
+  assert.ok($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should open the edit');
+  assert.notOk($collectionCard.find('.panel-heading .image .play-content').length, 'Image should not open the player');
+  assert.ok($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should open the edit');
+  assert.notOk($collectionCard.find('.panel-footer .share-btn').length, 'Share button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .preview-btn').length, 'Preview button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .visibility').length, 'Not visible icon should not appear');
+  assert.ok($collectionCard.find('.panel-footer .add-btn').length, 'Missing add to button');
+
+  let $title = $collectionCard.find('.panel-heading .title-section .edit-content');
+  $title.click();
+
+  let $image = $collectionCard.find('.panel-heading .image .edit-content');
+  $image.click();
+});
+
+test('Functions when anonymous is on a another person profile (Teacher or Student)', function(assert) {
+  assert.expect(13);
+  var collection = Ember.Object.create({
+    id:'123',
+    title: 'Collection Title',
+    questionCount:4,
+    isAssessment:false,
+    standards:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
+    course: 'Any course title',
+    remixedBy:['James','Andrea','Patric'],
+    isVisibleOnProfile:true
+  });
+
+
+  this.set('collection', collection);
+
+  this.set('isMyProfile', false);
+
+  this.set('profile', null);
+
+  this.set('isOnProfile', true);
+
+  this.on('parentAction', function(content){
+    assert.ok(content.id, '123','Incorrect content to play');
+  });
+
+  this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onOpenContentPlayer='parentAction'}}`);
+  var $component = this.$();
+  const $collectionCard = $component.find('.gru-collection-card');
+  assert.ok($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should open the player');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should not open the edit');
+  assert.ok($collectionCard.find('.panel-heading .image .play-content').length, 'Image should open the player');
+  assert.notOk($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should not open the edit');
+  assert.notOk($collectionCard.find('.panel-footer .share-btn').length, 'Share button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
+  assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
+  assert.notOk($collectionCard.find('.panel-footer .visibility').length, 'Not visible icon should appear');
+  assert.notOk($collectionCard.find('.panel-footer .add-btn').length, 'Add to button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .edit-btn').length, 'Edit button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .play-btn').length, 'Play button should not appear');
+
+  let $title = $collectionCard.find('.panel-heading .title-section .play-content');
+  $title.click();
+
+  let $image = $collectionCard.find('.panel-heading .image .play-content');
+  $image.click();
+});
+
+test('Functions when student user is on a another person profile (Teacher or Student)', function(assert) {
+  assert.expect(13);
+  var collection = Ember.Object.create({
+    id:'123',
+    title: 'Collection Title',
+    questionCount:4,
+    isAssessment:false,
+    standards:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
+    course: 'Any course title',
+    remixedBy:['James','Andrea','Patric'],
+    isVisibleOnProfile:true
+  });
+
+
+  this.set('collection', collection);
+
+  this.set('isMyProfile', false);
+
+  var profile =  Ember.Object.create({
+    role:'student'
+  });
+
+  this.set('profile', profile);
+
+  this.set('isOnProfile', true);
+
+  this.on('parentAction', function(content){
+    assert.ok(content.id, '123','Incorrect content to play');
+  });
+
+  this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onOpenContentPlayer='parentAction'}}`);
+  var $component = this.$();
+  const $collectionCard = $component.find('.gru-collection-card');
+  assert.ok($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should open the player');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should not open the edit');
+  assert.ok($collectionCard.find('.panel-heading .image .play-content').length, 'Image should open the player');
+  assert.notOk($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should not open the edit');
+  assert.notOk($collectionCard.find('.panel-footer .share-btn').length, 'Share button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
+  assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
+  assert.notOk($collectionCard.find('.panel-footer .visibility').length, 'Not visible icon should appear');
+  assert.notOk($collectionCard.find('.panel-footer .add-btn').length, 'Add to button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .edit-btn').length, 'Edit button should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .play-btn').length, 'Play button should not appear');
+
+  let $title = $collectionCard.find('.panel-heading .title-section .play-content');
+  $title.click();
+
+  let $image = $collectionCard.find('.panel-heading .image .play-content');
+  $image.click();
 });
 
 test('Bookmark content from card', function(assert) {

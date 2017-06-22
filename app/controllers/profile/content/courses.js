@@ -11,6 +11,11 @@ export default Ember.Controller.extend({
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
+  /**
+   * @type {Controller} Application controller
+   */
+  appController: Ember.inject.controller('application'),
+
 
   // -------------------------------------------------------------------------
   // Properties
@@ -23,12 +28,17 @@ export default Ember.Controller.extend({
   /**
    * @property {Profile}
    */
-  profile: Ember.computed.alias("profileController.profile"),
+  profile: Ember.computed.alias('profileController.profile'),
 
   /**
    * @property {boolean} isMyProfile
    */
-  isMyProfile: Ember.computed.alias("profileController.isMyProfile"),
+  isMyProfile: Ember.computed.alias('profileController.isMyProfile'),
+
+  /**
+   * @property {Profile} Session Profile
+   */
+  sessionProfile: Ember.computed.alias('appController.profile'),
 
   /**
    * @property {*}
@@ -41,9 +51,9 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed("courses.[]", function(){
-    return this.get("courses.length") &&
-      (this.get("courses.length") % this.get("pagination.pageSize") === 0);
+  showMoreResultsButton: Ember.computed('courses.[]', function(){
+    return this.get('courses.length') &&
+      (this.get('courses.length') % this.get('pagination.pageSize') === 0);
   }),
 
   // -------------------------------------------------------------------------
@@ -58,20 +68,20 @@ export default Ember.Controller.extend({
   // Methods
   showMoreResults: function(){
     const controller = this;
-    const profile = this.get("profile");
-    const pagination = this.get("pagination");
+    const profile = this.get('profile');
+    const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
     pagination.pageSize = pagination.pageSize;
 
     controller.get('profileService')
       .getCourses(profile, null, pagination)
       .then(function(courses){
-        controller.get("courses").pushObjects(courses.toArray());
+        controller.get('courses').pushObjects(courses.toArray());
     });
   },
 
   resetValues: function(){
-    this.set("pagination", {
+    this.set('pagination', {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });

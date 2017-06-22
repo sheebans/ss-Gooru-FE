@@ -129,10 +129,16 @@ export default Ember.Component.extend(ModalMixin,{
   }),
 
   /**
-   * Indicates if the edit functionality is enabled
+   * Indicates if is on the user Profile in order to enable edit functions
    * @property {boolean}
    */
-  editEnabled: false,
+  isMyProfile: false,
+
+  /**
+   * Indicates if is the card is showing on profile
+   * @property {boolean}
+   */
+  isOnProfile: false,
 
   /**
    * @property {boolean} Indicates if collection has 1 or more resources

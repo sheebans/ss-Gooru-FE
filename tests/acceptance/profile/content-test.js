@@ -2,7 +2,7 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
-import {KEY_CODES} from "gooru-web/config/config";
+import {KEY_CODES} from 'gooru-web/config/config';
 
 moduleForAcceptance('Acceptance | profile content', {
   beforeEach: function() {
@@ -22,27 +22,27 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/');
 
-    const $contentContainer = find(".controller.profile .content");
-    T.exists(assert, $contentContainer, "Missing content container");
+    const $contentContainer = find('.controller.profile .content');
+    T.exists(assert, $contentContainer, 'Missing content container');
 
-    const $contentNavContainer = find(".controller.profile .content .content-navigation");
-    T.exists(assert, $contentNavContainer, "Missing content navigator container");
+    const $contentNavContainer = find('.controller.profile .content .content-navigation');
+    T.exists(assert, $contentNavContainer, 'Missing content navigator container');
 
-    T.exists(assert, $contentNavContainer.find("li.courses"), "Missing courses link");
-    T.exists(assert, $contentNavContainer.find("li.collections"), "Missing collections link");
-    T.exists(assert, $contentNavContainer.find("li.assessments"), "Missing assessments link");
-    T.exists(assert, $contentNavContainer.find("li.resources"), "Missing resources link");
-    T.exists(assert, $contentNavContainer.find("li.questions"), "Missing questions link");
+    T.exists(assert, $contentNavContainer.find('li.courses'), 'Missing courses link');
+    T.exists(assert, $contentNavContainer.find('li.collections'), 'Missing collections link');
+    T.exists(assert, $contentNavContainer.find('li.assessments'), 'Missing assessments link');
+    T.exists(assert, $contentNavContainer.find('li.resources'), 'Missing resources link');
+    T.exists(assert, $contentNavContainer.find('li.questions'), 'Missing questions link');
 
-    const $addToBtn = $contentNavContainer.find(".btn-group");
-    T.exists(assert, $addToBtn, "Missing add to button group");
+    const $addToBtn = $contentNavContainer.find('.btn-group');
+    T.exists(assert, $addToBtn, 'Missing add to button group');
   });
 });
 
 test('\'Add\' button not present in others profile', function(assert) {
   visit('/param-123/content');
   andThen(function() {
-    const $btnGroup = find(".controller.profile .content .content-navigation .btn-group");
+    const $btnGroup = find('.controller.profile .content .content-navigation .btn-group');
     assert.notOk($btnGroup.length, '\'Add\' button present on other\'s profile');
   });
 });
@@ -53,26 +53,26 @@ test('Navigation links', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/');
 
-    const $contentNavContainer = find(".controller.profile .content .content-navigation");
-    T.exists(assert, $contentNavContainer.find("li.courses"), "Missing courses link");
-    T.exists(assert, $contentNavContainer.find("li.collections"), "Missing collections link");
-    T.exists(assert, $contentNavContainer.find("li.assessments"), "Missing assessments link");
-    T.exists(assert, $contentNavContainer.find("li.resources"), "Missing resources link");
-    T.exists(assert, $contentNavContainer.find("li.questions"), "Missing questions link");
+    const $contentNavContainer = find('.controller.profile .content .content-navigation');
+    T.exists(assert, $contentNavContainer.find('li.courses'), 'Missing courses link');
+    T.exists(assert, $contentNavContainer.find('li.collections'), 'Missing collections link');
+    T.exists(assert, $contentNavContainer.find('li.assessments'), 'Missing assessments link');
+    T.exists(assert, $contentNavContainer.find('li.resources'), 'Missing resources link');
+    T.exists(assert, $contentNavContainer.find('li.questions'), 'Missing questions link');
 
-    click($contentNavContainer.find("li.courses"));
+    click($contentNavContainer.find('li.courses'));
     andThen(function(){
       assert.equal(currentURL(), '/id-for-pochita/content/courses');
-      click($contentNavContainer.find("li.collections"));
+      click($contentNavContainer.find('li.collections'));
       andThen(function(){
         assert.equal(currentURL(), '/id-for-pochita/content/collections');
-        click($contentNavContainer.find("li.assessments"));
+        click($contentNavContainer.find('li.assessments'));
         andThen(function(){
           assert.equal(currentURL(), '/id-for-pochita/content/assessments');
-          click($contentNavContainer.find("li.resources"));
+          click($contentNavContainer.find('li.resources'));
           andThen(function(){
             assert.equal(currentURL(), '/id-for-pochita/content/resources');
-            click($contentNavContainer.find("li.questions"));
+            click($contentNavContainer.find('li.questions'));
             andThen(function(){
               assert.equal(currentURL(), '/id-for-pochita/content/questions');
             });
@@ -88,7 +88,7 @@ test('Navigate to course edit by clicking course title', function(assert) {
   andThen(function() {
 
     assert.equal(currentURL(), '/id-for-pochita/content/courses');
-    var $courseTitle = find('.gru-course-card:first-of-type .card-header .course-title');
+    var $courseTitle = find('.gru-collection-card:first-child .title-section a');
     click($courseTitle);
     andThen(function() {
      assert.equal(currentRouteName(), 'content.courses.edit');
@@ -101,7 +101,7 @@ test('Navigate to course edit by clicking course image', function(assert) {
   andThen(function() {
 
     assert.equal(currentURL(), '/id-for-pochita/content/courses');
-    var $courseTitle = find('.gru-course-card:first-of-type .card-header .course-image');
+    var $courseTitle = find('.gru-collection-card:first-child .image a');
     click($courseTitle);
     andThen(function() {
       assert.equal(currentRouteName(), 'content.courses.edit');
@@ -190,7 +190,7 @@ test('Search content by term', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections');
 
-    const $searchInput = find(".search-keyword .gru-input input");
+    const $searchInput = find('.search-keyword .gru-input input');
 
     fillIn($searchInput, 'any');
     $searchInput.val('any');
@@ -208,7 +208,7 @@ test('Changing term should filter the current result without changing the root u
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections?term=any');
 
-    const $searchInput = find(".search-keyword .gru-input input");
+    const $searchInput = find('.search-keyword .gru-input input');
 
     fillIn($searchInput, 'europe');
     $searchInput.val('europe');
@@ -224,7 +224,7 @@ test('Search content by term and navigate into profile content options', functio
   visit('/id-for-pochita/content/collections');
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections');
-    const $searchInput = find(".search-keyword .gru-input input");
+    const $searchInput = find('.search-keyword .gru-input input');
 
     fillIn($searchInput, 'any');
     $searchInput.val('any');
@@ -232,14 +232,14 @@ test('Search content by term and navigate into profile content options', functio
     keyEvent($searchInput, 'keyup', KEY_CODES.ENTER);
     andThen(function(){
       assert.equal(currentURL(), '/id-for-pochita/content/collections?term=any');
-      const $contentNavContainer = find(".controller.profile .content .content-navigation");
-      click($contentNavContainer.find("li.assessments"));
+      const $contentNavContainer = find('.controller.profile .content .content-navigation');
+      click($contentNavContainer.find('li.assessments'));
       andThen(function(){
         assert.equal(currentURL(), '/id-for-pochita/content/assessments?term=any');
-        click($contentNavContainer.find("li.resources"));
+        click($contentNavContainer.find('li.resources'));
         andThen(function(){
           assert.equal(currentURL(), '/id-for-pochita/content/resources?term=any');
-          click($contentNavContainer.find("li.questions"));
+          click($contentNavContainer.find('li.questions'));
           andThen(function(){
             assert.equal(currentURL(), '/id-for-pochita/content/questions?term=any');
           });
@@ -253,7 +253,7 @@ test('Filter content by most recent and descending/Filter content by most recent
   visit('/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
-    const $filterDateButton = find(".filter-date");
+    const $filterDateButton = find('.filter-date');
     click($filterDateButton);
     andThen(function(){
       assert.equal(currentURL(), '/id-for-pochita/content/collections?order=asc');
@@ -269,7 +269,7 @@ test('Sort by Alphanumeric and ascending/Sort by Alphanumeric and descending', f
   visit('/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
-    const $filterDateButton = find(".filter-date");
+    const $filterDateButton = find('.filter-date');
     click($filterDateButton);
     andThen(function(){
       assert.equal(currentURL(), '/id-for-pochita/content/collections?order=asc');
@@ -285,14 +285,14 @@ test('Sort by Alphanumeric and navigate into profile content options', function(
   visit('/id-for-pochita/content/collections?order=asc&sortOn=title');
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections?order=asc&sortOn=title');
-    const $contentNavContainer = find(".controller.profile .content .content-navigation");
-    click($contentNavContainer.find("li.assessments"));
+    const $contentNavContainer = find('.controller.profile .content .content-navigation');
+    click($contentNavContainer.find('li.assessments'));
     andThen(function(){
       assert.equal(currentURL(), '/id-for-pochita/content/assessments?order=asc&sortOn=title');
-      click($contentNavContainer.find("li.resources"));
+      click($contentNavContainer.find('li.resources'));
       andThen(function(){
         assert.equal(currentURL(), '/id-for-pochita/content/resources?order=asc&sortOn=title');
-        click($contentNavContainer.find("li.questions"));
+        click($contentNavContainer.find('li.questions'));
         andThen(function(){
           assert.equal(currentURL(), '/id-for-pochita/content/questions?order=asc&sortOn=title');
         });
@@ -305,7 +305,7 @@ test('Search content by term and clear term', function(assert) {
   visit('/id-for-pochita/content/collections');
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/collections');
-    const $searchInput = find(".search-keyword .gru-input input");
+    const $searchInput = find('.search-keyword .gru-input input');
 
     fillIn($searchInput, 'any');
     $searchInput.val('any');
