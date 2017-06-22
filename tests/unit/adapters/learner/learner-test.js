@@ -5,17 +5,17 @@ import moduleForAdapter from 'gooru-web/tests/helpers/module-for-adapter';
 moduleForAdapter('adapter:learner/learner', 'Unit | Adapter | learner/learner');
 
 test('fetchLocations', function(assert) {
+  assert.expect(5);
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
     'token-api3': 'token-api-3'
   }));
   this.pretender.map(function() {
     this.get('/api/nucleus-insights/v2/learner/location', request => {
-      let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(requestBodyJson.userId, 'user-id', 'Wrong user id');
-      assert.equal(requestBodyJson.contentType, 'collection', 'Wrong content type');
-      assert.equal(requestBodyJson.offset, 0, 'Wrong offset');
-      assert.equal(requestBodyJson.limit, 20, 'Wrong limit');
+      assert.equal(request.queryParams.userId, 'user-id', 'Wrong user id');
+      assert.equal(request.queryParams.contentType, 'collection', 'Wrong content type');
+      assert.equal(request.queryParams.offset, 0, 'Wrong offset');
+      assert.equal(request.queryParams.limit, 20, 'Wrong limit');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
