@@ -83,10 +83,10 @@
           <button class="edit-btn btn btn-success btn-sm">{{t "common.edit"}}</button>
         {{else}}
           {{#if (or profile.isTeacher session.isAnonymous)}}
+            <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
             {{#if isQuestion}}
                 <button class="remix-btn btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
             {{/if}}
-            <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
           {{else}}
             <button class="study-btn btn btn-success btn-sm">{{t "common.study"}}</button>
           {{/if}}
