@@ -72,6 +72,7 @@ export default Object.assign(quizzesTranslations, {
     "add-standards": "Add Standards",
     "add-standards-to-collection": "Add Standards to Collection",
     "add-to": "Add To",
+    "add-to-classroom":"Add to Classroom",
     "add-to-collection-success": "You've added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that {{collectionType}}?",
     "add-to-lesson-success": "You've added {{collectionTitle}} to {{lessonTitle}}. Do you want to edit that {{collectionType}}?",
     "add-type-question": "What type of question would you like to add?",

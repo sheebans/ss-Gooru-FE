@@ -4,7 +4,7 @@
 
   .panel-body, .information, .panel-footer,.actions,
   .options, .course, .statistics, .collection-counts,
-  .students, .classrooms, .share-box {
+  .students, .classrooms, .share-box, .visibility {
     @include flexbox;
   }
 
@@ -61,7 +61,7 @@
       @include justify-content(space-between);
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
-      min-height: 144px;
+      height: 151px;
       padding-bottom: 2px;
       .standards{
         .gru-taxonomy-tag-list {
@@ -131,7 +131,7 @@
       padding: 0;
       height: 62px;
       .options {
-        width: 80%;
+        width: 100%;
         @include align-items(center);
         padding: 0 0 0 10px;
         button {
@@ -139,6 +139,10 @@
         }
       }
       .actions {
+        .visibility {
+          @include align-items(center);
+          padding: 7px 5px;
+        }
         .btn {
           border-left: 1px solid $gray-lighter;
           margin: 0;
@@ -150,7 +154,7 @@
             background-color: $dark-300;
           }
           &:hover {
-            cursor: default;
+            cursor: pointer;
           }
         }
         .no-bgd {

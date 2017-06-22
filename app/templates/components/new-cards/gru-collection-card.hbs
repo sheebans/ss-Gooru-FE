@@ -1,50 +1,34 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="image">
-      {{#if editEnabled}}
-        {{#if isCourse}}
-          {{#link-to "content.courses.edit" content.id }}
-            <img class="img-responsive" src="{{content.thumbnailUrl}}"/>
-          {{/link-to}}
-        {{else}}
-          <a {{action "editCollection" }}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
-        {{/if}}
+      {{#if (and isOnProfile isMyProfile)}}
+        <a class="edit-content" {{action "editContent" }}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
       {{else}}
-        {{#if isCourse}}
-          {{#link-to "content.courses.play" content.id }}
-            <img class="img-responsive" src="{{content.thumbnailUrl}}"/>
-          {{/link-to}}
-          {{else}}
-            <a {{action "openContentPlayer" content}}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
-        {{/if}}
+        <a class="play-content" {{action "openContentPlayer" content}}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
       {{/if}}
     </div>
     <div class="collection-info">
       <div class="title-section">
-        {{#if editEnabled}}
-          {{#if isCourse}}
-            {{#link-to "content.courses.edit" content.id class="title" tagName="h3"}}
-              {{content.title}}
-            {{/link-to}}
-          {{else}}
-            <a {{action "editContent"}}> <h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
-          {{/if}}
+        {{#if (and isOnProfile isMyProfile)}}
+          <a class="edit-content" {{action "editContent"}}> <h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
         {{else}}
-          {{#if isCourse}}
-            {{#link-to "content.courses.play" content.id class="title" tagName="h3"}}
-              {{content.title}}
-            {{/link-to}}
-          {{else}}
-            <a {{action "openContentPlayer" content}}> <h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
-          {{/if}}
+          <a class="play-content" {{action "openContentPlayer" content}}> <h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
         {{/if}}
       </div>
       <span class="question-resources">
-        {{#if hasResources}}
-          <span class="bar resource-count">| </span><p>{{t "cards.gru-course-card.resource" count=content.resourceCount}}</p>
-        {{/if}}
-        {{#if hasQuestions}}
-          <span class="bar question-count">| </span><p>{{t "cards.gru-course-card.question" count=content.questionCount}}</p>
+        {{#if isCourse}}
+          {{#if content.unitCount}}
+            <span class="bar unit-count">| </span><span class="total-units">{{t "cards.gru-course-card.units" count=content.unitCount}}</span>
+          {{else}}
+            <span class="bar unit-count">| </span><span class="total-units">{{t "cards.gru-course-card.units" count=0}}</span>
+          {{/if}}
+        {{else}}
+          {{#if hasResources}}
+            <span class="bar resource-count">| </span><p>{{t "cards.gru-course-card.resource" count=content.resourceCount}}</p>
+          {{/if}}
+          {{#if hasQuestions}}
+            <span class="bar question-count">| </span><p>{{t "cards.gru-course-card.question" count=content.questionCount}}</p>
+          {{/if}}
         {{/if}}
       </span>
     </div>
@@ -92,7 +76,7 @@
       {{else}}
         <div class="course">
           {{gru-icon name="chrome_reader_mode"}}
-            <span>{{t 'cards.gru-collection-card.courses' count=content.totalCourses }}</span>
+          <span>{{t 'cards.gru-collection-card.courses' count=content.totalCourses }}</span>
         </div>
       {{/if}}
       <div class="students">
@@ -103,27 +87,45 @@
   </div>
   <div class="panel-footer">
     <div class="options">
-      <div>
-        <button class="preview-btn btn btn-success btn-sm" {{action 'previewContent' content}}>{{t "common.preview"}}</button>
-      </div>
+      {{#if (and isOnProfile isMyProfile isTeacher)}}
+        <button class="edit-btn btn btn-success btn-sm" {{action "editContent"}}>{{t "common.edit"}}</button>
+        <button class="play-btn btn btn-sm btn-success" {{action "openContentPlayer" content}}>{{t "common.play"}}</button>
+      {{else}}
+        <div>
+          <button class="preview-btn btn btn-success btn-sm" {{action 'previewContent' content}}>{{t "common.preview"}}</button>
+        </div>
+      {{/if}}
     </div>
     <div class="actions">
-      <div class="share-box" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover" >
-        {{#if isCourse}}
-          {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type="course" contentId=content.id}}
-            {{gru-icon name="share"}}
-          {{/gru-share-pop-over}}
-        {{else}}
-          {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type=(if isAssessment 'assessment' 'collection') contentId=content.id}}
-            {{gru-icon name="share"}}
-          {{/gru-share-pop-over}}
+      {{#if isOnProfile}}
+        {{#if (and isTeacher isMyProfile)}}
+          {{#unless content.isVisibleOnProfile }}
+            <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+              {{gru-icon name="visibility_off" class='pull-right'}}
+            </div>
+          {{/unless}}
+          <button class="btn add-btn no-bgd" title="{{t 'common.add-to-classroom'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+            {{gru-icon name="add"}}
+          </button>
         {{/if}}
-      </div>
-      <button class="btn bookmark-btn no-bgd {{if disabledBookmark 'btn-disabled'}}" title="{{t 'common.bookmark'}}"
-        {{action 'bookmarkContent' content}} data-toggle="tooltip"
-        data-placement="auto" data-trigger="hover" disabled={{disabledBookmark}}>
+      {{else}}
+        <div class="share-box" title={{t 'common.share'}} data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+          {{#if isCourse}}
+            {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type="course" contentId=content.id}}
+              {{gru-icon name="share"}}
+            {{/gru-share-pop-over}}
+          {{else}}
+            {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type=(if isAssessment 'assessment' 'collection') contentId=content.id}}
+              {{gru-icon name="share"}}
+            {{/gru-share-pop-over}}
+          {{/if}}
+        </div>
+        <button class="btn bookmark-btn no-bgd {{if disabledBookmark 'btn-disabled'}}" title="{{t 'common.bookmark'}}"
+          {{action 'bookmarkContent' content}} data-toggle="tooltip"
+                data-placement="bottom" data-trigger="hover" disabled={{disabledBookmark}}>
           {{gru-icon name="turned_in_not"}}
-      </button>
+        </button>
+      {{/if}}
     </div>
   </div>
 </div>

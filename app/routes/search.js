@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
-import Bookmark from "gooru-web/models/content/bookmark";
+import PublicRouteMixin from 'gooru-web/mixins/public-route-mixin';
+import Bookmark from 'gooru-web/models/content/bookmark';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
@@ -108,12 +108,19 @@ export default Ember.Route.extend(PublicRouteMixin, {
      * @param {string} collection collection identifier
      */
     onOpenContentPlayer: function(collection) {
-      if (collection.get("isExternalAssessment")){
-        window.open(collection.get("url")); //TODO url?
+      if (collection.get('isExternalAssessment')){
+        window.open(collection.get('url')); //TODO url?
       }
       else {
-        this.transitionTo('player', collection.get("id"), { queryParams: { type: collection.get("collectionType") } });
+        this.transitionTo('player', collection.get('id'), { queryParams: { type: collection.get('collectionType') } });
       }
+    },
+    /**
+     * Edit course action, when clicking Play at the course card
+     * @param {Content/Course}
+     */
+    playCourse: function(course){
+      this.transitionTo('content.courses.play', course.get('id'));
     },
 
     /**

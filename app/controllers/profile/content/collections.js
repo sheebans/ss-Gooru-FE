@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
 
   actions: {
     openContentPlayer: function(collection) {
-      this.transitionToRoute('player', collection.id, { queryParams: { type: collection.get("collectionType")}});
+      this.transitionToRoute('player', collection.id, { queryParams: { type: collection.get('collectionType')}});
     },
 
     showMoreResults: function(){
@@ -33,17 +33,17 @@ export default Ember.Controller.extend({
   /**
    * @property {string} term filter
    */
-  term: Ember.computed.alias("contentController.term"),
+  term: Ember.computed.alias('contentController.term'),
 
   /**
    * @property {string} sortOn filter
    */
-  sortOn: Ember.computed.alias("contentController.sortOn"),
+  sortOn: Ember.computed.alias('contentController.sortOn'),
 
   /**
    * @property {string} order filter
    */
-  order: Ember.computed.alias("contentController.order"),
+  order: Ember.computed.alias('contentController.order'),
 
   /**
    * @property {Collection[]} collections
@@ -53,12 +53,12 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean} isMyProfile
    */
-  isMyProfile: Ember.computed.alias("profileController.isMyProfile"),
+  isMyProfile: Ember.computed.alias('profileController.isMyProfile'),
 
   /**
    * @property {Profile}
    */
-  profile: Ember.computed.alias("profileController.profile"),
+  profile: Ember.computed.alias('profileController.profile'),
 
   /**
    * @property {*}
@@ -71,9 +71,9 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed("collections.[]", function(){
-    return this.get("collections.length") &&
-      (this.get("collections.length") % this.get("pagination.pageSize") === 0);
+  showMoreResultsButton: Ember.computed('collections.[]', function(){
+    return this.get('collections.length') &&
+      (this.get('collections.length') % this.get('pagination.pageSize') === 0);
   }),
 
   // Methods
@@ -88,14 +88,14 @@ export default Ember.Controller.extend({
     pagination.order = this.get('order');
 
     controller.get('profileService')
-      .readCollections(profile.get("id"), pagination)
+      .readCollections(profile.get('id'), pagination)
       .then(function(collections){
-        controller.get("collections").pushObjects(collections.toArray());
+        controller.get('collections').pushObjects(collections.toArray());
       });
   },
 
   resetValues: function(){
-    this.set("pagination", {
+    this.set('pagination', {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });

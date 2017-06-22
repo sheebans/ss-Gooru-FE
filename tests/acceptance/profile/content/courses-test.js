@@ -21,9 +21,9 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/courses');
 
-    const $contentCourseContainer = find(".controller.profile-courses");
-    T.exists(assert, $contentCourseContainer, "Missing content courses container");
-    T.exists(assert, $contentCourseContainer.find(".course-content >div.gru-course-card:first-child"), "Missing first course card");
-    assert.equal(T.text($contentCourseContainer.find(".course-content >div:first-child .card-header .course-title")), "Test Course", "Incorrect course card title text");
+    const $contentCourseContainer = find('.controller.profile-courses');
+    T.exists(assert, $contentCourseContainer, 'Missing content courses container');
+    T.exists(assert, $contentCourseContainer.find('.course-content >div.gru-collection-card:first-child'), 'Missing first course card');
+    assert.equal(T.text($contentCourseContainer.find('.course-content >div.gru-collection-card:first-child .title-section h3')), 'Test Course', "Incorrect course card title text");
   });
 });

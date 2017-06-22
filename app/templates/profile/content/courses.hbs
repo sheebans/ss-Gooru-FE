@@ -5,7 +5,15 @@
   </div>
   <div class="course-content">
     {{#each courses as |course|}}
-      {{cards.gru-course-card course=course isEditEnabled=isMyProfile isOwner=isMyProfile onPlayCourse="playCourse" onEditCourse="editCourse" onRemixCourse="remixCourse"}}
+      {{new-cards.gru-collection-card
+      profile=sessionProfile
+      isCourse=true
+      content=course
+      isMyProfile=isMyProfile
+      isOnProfile=true
+      onOpenContentPlayer="playCourse"
+      onEditContent="editCourse"
+      }}
     {{else}}
 
       <div class="panel add-content panel-default">

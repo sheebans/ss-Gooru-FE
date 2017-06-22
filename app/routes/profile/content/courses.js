@@ -20,7 +20,7 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Content/Course}
      */
     editCourse: function(course){
-      this.transitionTo("content.courses.edit", course.get("id"));
+      this.transitionTo('content.courses.edit', course.get('id'));
     },
 
     /**
@@ -28,7 +28,7 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Content/Course}
      */
     playCourse: function(course){
-      this.transitionTo("content.courses.play", course.get("id"));
+      this.transitionTo('content.courses.play', course.get('id'));
     },
 
     /**
@@ -55,7 +55,8 @@ export default Ember.Route.extend(ModalMixin, {
     };
     let courses = this.get('profileService').getCourses(profile,params);
     return Ember.RSVP.hash({
-      courses: courses
+      courses,
+      profile: this.get('applicationController.profile')
     });
   },
 
@@ -66,7 +67,7 @@ export default Ember.Route.extend(ModalMixin, {
   },
 
   deactivate: function() {
-    this.get("controller").resetValues();
+    this.get('controller').resetValues();
   }
 
 });
