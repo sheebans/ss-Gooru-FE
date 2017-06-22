@@ -87,7 +87,7 @@
   </div>
   <div class="panel-footer">
     <div class="options">
-      {{#if (and isOnProfile isMyProfile isTeacher)}}
+      {{#if (and isOnProfile isMyProfile)}}
         <button class="edit-btn btn btn-success btn-sm" {{action "editContent"}}>{{t "common.edit"}}</button>
         <button class="play-btn btn btn-sm btn-success" {{action "openContentPlayer" content}}>{{t "common.play"}}</button>
       {{else}}
@@ -98,15 +98,17 @@
     </div>
     <div class="actions">
       {{#if isOnProfile}}
-        {{#if (and isTeacher isMyProfile)}}
+        {{#if (and profile isMyProfile)}}
           {{#unless content.isVisibleOnProfile }}
             <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
               {{gru-icon name="visibility_off" class='pull-right'}}
             </div>
           {{/unless}}
-          <button class="btn add-btn no-bgd" title="{{t 'common.add-to-classroom'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
-            {{gru-icon name="add"}}
-          </button>
+          {{#unless isStudent}}
+            <button class="btn add-btn no-bgd" title="{{t 'common.add-to-classroom'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+              {{gru-icon name="add"}}
+            </button>
+          {{/unless}}
         {{/if}}
       {{else}}
         <div class="share-box" title={{t 'common.share'}} data-toggle="tooltip" data-placement="bottom" data-trigger="hover">

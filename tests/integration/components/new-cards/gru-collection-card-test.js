@@ -407,11 +407,11 @@ test('Functions when Student is in their own profile', function(assert) {
   assert.ok($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should  open the edit');
   assert.notOk($collectionCard.find('.panel-footer .share-btn').length, 'Share button should not appear');
   assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
-  assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
-  assert.notOk($collectionCard.find('.panel-footer .visibility').length, 'Not visible icon should not appear');
+  assert.notOk($collectionCard.find('.panel-footer .preview-btn').length, 'Preview button should not appear');
+  assert.ok($collectionCard.find('.panel-footer .visibility').length, 'Not visible icon should appear');
   assert.notOk($collectionCard.find('.panel-footer .add-btn').length, 'Add to button should not appear');
-  assert.notOk($collectionCard.find('.panel-footer .edit-btn').length, 'Edit button should not appear');
-  assert.notOk($collectionCard.find('.panel-footer .play-btn').length, 'Play button should not appear');
+  assert.ok($collectionCard.find('.panel-footer .edit-btn').length, 'Edit button should appear');
+  assert.ok($collectionCard.find('.panel-footer .play-btn').length, 'Play button should appear');
 
   let $title = $collectionCard.find('.panel-heading .title-section .edit-content');
   $title.click();
