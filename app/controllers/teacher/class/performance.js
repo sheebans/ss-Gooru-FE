@@ -279,7 +279,7 @@ export default Ember.Controller.extend({
     'value': 'completion',
     'selected':false,
     'readOnly':false,
-    'isDisabled':false
+    'isDisabled':true
   }),Ember.Object.create({
     'value': 'time-spent',
     'selected':false,
@@ -301,7 +301,7 @@ export default Ember.Controller.extend({
     'value': 'completion',
     'selected':false,
     'readOnly':false,
-    'isDisabled':false
+    'isDisabled':true
   }),Ember.Object.create({
     'value': 'time-spent',
     'selected':true,

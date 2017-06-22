@@ -107,13 +107,6 @@ export default Ember.Controller.extend({
       'visible': false,
       'index':1
     }),Ember.Object.create({
-      'value': 'completion',
-      'sorted': false,
-      'isAsc': false,
-      'hasSorting': true,
-      'visible': false,
-      'index':2
-    }),Ember.Object.create({
       'value': 'study-time',
       'sorted': false,
       'isAsc': false,
