@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
-import { CONTENT_TYPES } from 'gooru-web/config/config';
+import { CONTENT_TYPES, PLAYER_EVENT_SOURCE, ROLES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend(ModalMixin, {
 
@@ -25,6 +25,12 @@ export default Ember.Component.extend(ModalMixin, {
       let bookmark = this.get('bookmark');
       if (bookmark.get('contentType') === CONTENT_TYPES.COURSE) {
         this.get('router').transitionTo('student.independent', bookmark.get('contentId'));
+      } else {
+        let queryParams = {
+          role: ROLES.STUDENT,
+          source: PLAYER_EVENT_SOURCE.INDEPENDENT_COURSE_MAP
+        };
+        this.get('router').transitionTo('player', bookmark.get('contentId'), { queryParams });
       }
     },
 
