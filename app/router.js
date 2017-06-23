@@ -61,7 +61,7 @@ Router.map(function() {
 
   this.route('player', {path: '/player/:collectionId'});
 
-  this.route('study-player', {path: '/study-player/class/:classId/course/:courseId'});
+  this.route('study-player', {path: '/study-player/course/:courseId'});
   this.route('resource-player', {path: '/study-player/class/:classId/course/:courseId/resource/:resourceId'});
 
   this.route('context-player', {path: '/player/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
@@ -113,6 +113,9 @@ Router.map(function() {
       this.route('course-map');
       this.route('class-activities');
       this.route('performance');
+    });
+    this.route('independent', { path: '/course/:courseId' }, function() {
+      this.route('course-map');
     });
   });
 

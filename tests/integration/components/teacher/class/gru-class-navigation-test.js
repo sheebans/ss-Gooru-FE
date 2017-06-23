@@ -70,7 +70,7 @@ test('Toggle header collapse expand click', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{student.class.gru-class-navigation onCollapseExpandClicked='toggleHeader'}}`);
+  this.render(hbs`{{student.class.gru-class-navigation class='class' onCollapseExpandClicked='toggleHeader'}}`);
   var $navigation = this.$(); //component dom element
 
   const $collapseExpand = $navigation.find('.extra-buttons a.collapse-expand');
