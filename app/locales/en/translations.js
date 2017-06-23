@@ -133,6 +133,7 @@ export default Object.assign(quizzesTranslations, {
     "choose-file":"Choose a file",
     "class": "Classroom",
     "classScores": "Class Scores",
+    "click-unBookmark": "Click to unbookmark",
     "close": "Close",
     "collection": "Collection",
     "collection-pl": {
@@ -148,6 +149,7 @@ export default Object.assign(quizzesTranslations, {
     "completed": "Completed",
     "completion": "Completion",
     "community": "Community",
+    "confirm":"Confirm",
     "confirm-copy":"Confirm & Copy",
     "content": "Content",
     "content-manager": "Content Manager",
@@ -513,7 +515,7 @@ export default Object.assign(quizzesTranslations, {
     "tools": "Tools",
     "true": "True",
     "type": "Type",
-    "unBookmark": "Click to unbookmark",
+    "unBookmark": "Unbookmark",
     "unexpectedError": "An unexpected error has occurred and has been reported. We're sorry for the inconvenience!",
     "unfollow": "Unfollow",
     "unit": "Unit",
@@ -759,6 +761,10 @@ export default Object.assign(quizzesTranslations, {
       }
     },
     "modals":{
+      "delete-bookmark":{
+        "confirmation": "Do you want to unbookmark this {{type}}?",
+        "delete-error": "Oops! Unable to unbookmark this {{type}} right now. Please try again shortly."
+      },
       "delete-class":{
         "legend": "You're about to delete your classroom",
         "student-access": "Students won't be able to access the classroom",
