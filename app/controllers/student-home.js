@@ -23,10 +23,15 @@ export default Ember.Controller.extend(ModalMixin, {
   init: function () {
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
-    const localStorageItem = userId+'_dontShowWelcomeModal';
+    const localStorageItem = userId + '_dontShowWelcomeModal';
+    const localStorageLogins = userId + '_logins';
 
-    if(!localStorage.getItem(localStorageItem)){
+    if(!localStorage.getItem(localStorageItem)) {
       this.send('showModal', 'content.modals.gru-welcome-message');
+    }
+    let loginCount = localStorage.getItem(localStorageLogins);
+    if(loginCount) {
+      this.set('loginCount', +loginCount);
     }
   },
 
@@ -67,5 +72,10 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @property {Array[]} - featuredCourses
    */
-  featuredCourses: null
+  featuredCourses: null,
+
+  /**
+   * @property {Number} - Amount of logins by the user
+   */
+  loginCount: null
 });
