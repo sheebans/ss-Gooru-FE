@@ -57,7 +57,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise((resolve, reject) => {
       service.get('learnerAdapter').fetchPerformance(userId, contentType, offset, limit)
         .then(
-          response => resolve(service.get('learnerSerializer').normalizePerformance(response)),
+          response => resolve(service.get('learnerSerializer').normalizePerformances(response)),
           reject
         );
     });
