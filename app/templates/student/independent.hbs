@@ -1,0 +1,10 @@
+<div class="student class">
+  {{student.class.gru-class-navigation
+    onItemSelected="selectMenuItem"
+    onCollapseExpandClicked="toggleHeader"
+    selectedMenuItem=menuItem}}
+
+  <div class="content">
+    {{outlet}}
+  </div>
+</div>

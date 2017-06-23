@@ -49,8 +49,12 @@ export default Ember.Component.extend({
     /**
      * Redirect to course map
      */
-    redirectCourseMap(){
-      this.get('router').transitionTo('student.class.course-map', this.get('classId'), { queryParams: { refresh: true } });
+    redirectCourseMap() {
+      if(this.get('classId')) {
+        this.get('router').transitionTo('student.class.course-map', this.get('classId'), { queryParams: { refresh: true } });
+      } else {
+        this.get('router').transitionTo('student.independent.course-map', this.get('courseId'), { queryParams: { refresh: true } });
+      }
     },
 
     /**
@@ -216,14 +220,15 @@ export default Ember.Component.extend({
     const totalResources = (component.get('collection.resources')) ? component.get('collection.resources').length : null;
 
     component.set('totalResources', totalResources);
-
-    component.get('classService').readClassInfo(classId).then(function(aClass) {
-      component.get('performanceService').findClassPerformanceSummaryByStudentAndClassIds(myId,[classId])
-        .then(function(classPerformanceSummaryItems) {
-          aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
-          component.set('class', aClass);
-        });
-    });
+    if (classId) {
+      component.get('classService').readClassInfo(classId).then(function(aClass) {
+        component.get('performanceService').findClassPerformanceSummaryByStudentAndClassIds(myId,[classId])
+          .then(function(classPerformanceSummaryItems) {
+            aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
+            component.set('class', aClass);
+          });
+      });
+    }
 
     component.get('suggestService')
       .suggestResourcesForCollection(component.get('session.userId'), collectionId)

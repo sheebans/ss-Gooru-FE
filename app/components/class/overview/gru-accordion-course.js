@@ -107,7 +107,12 @@ export default Ember.Component.extend(AccordionMixin, {
    * Load the units and users in the course when the component is instantiated
    */
   initAccordionCourse: Ember.on('init', function() {
-    this.setupAccordionCourse();
+    if(this.get('currentClass')) {
+      this.setupAccordionCourse();
+    } else {
+      this.set("loading", false);
+      this.set('items', this.get('units'));
+    }
   }),
 
   // -------------------------------------------------------------------------

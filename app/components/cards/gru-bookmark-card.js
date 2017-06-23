@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend(ModalMixin, {
 
@@ -12,13 +13,23 @@ export default Ember.Component.extend(ModalMixin, {
   bookmarkService: Ember.inject.service('api-sdk/bookmark'),
 
   // -------------------------------------------------------------------------
-  // Actions
+  // Events
 
+  // -------------------------------------------------------------------------
+  // Actions
   actions: {
+    /**
+    * When a bookmark title is clicked
+    */
+    click: function() {
+      let bookmark = this.get('bookmark');
+      if (bookmark.get('contentType') === CONTENT_TYPES.COURSE) {
+        this.get('router').transitionTo('student.independent', bookmark.get('contentId'));
+      }
+    },
 
     /**
      * Remove bookmark
-     *
      */
     removeBookmark: function () {
       let component = this;
@@ -37,9 +48,6 @@ export default Ember.Component.extend(ModalMixin, {
       this.actions.showModal.call(this, 'content.modals.gru-delete-bookmark', model);
     }
   },
-
-  // -------------------------------------------------------------------------
-  // Events
 
   // -------------------------------------------------------------------------
   // Attributes

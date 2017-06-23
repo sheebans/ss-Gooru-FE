@@ -48,6 +48,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       let controller = this.get('controller');
       let profileId = this.get('session.userData.gooruUId');
       let contextId = controller.get('contextResult.contextId');
+      let classId = controller.get('classId');
       let queryParams = {
         courseId: controller.get('course.id'),
         collectionId: controller.get('collection.id'),
@@ -55,10 +56,12 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         role: controller.get('role'),
         lessonId: controller.get('lessonId'),
         unitId: controller.get('unitId'),
-        classId: controller.get('classId'),
         contextId,
         source: controller.get('source')
       };
+      if (classId) {
+        queryParams.classId = classId;
+      }
       const navigateMapService = this.get('navigateMapService');
       this.get('quizzesAttemptService').getAttemptIds(contextId, profileId)
         .then(attemptIds => !attemptIds || !attemptIds.length ? {} :

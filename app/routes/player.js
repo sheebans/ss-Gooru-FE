@@ -106,6 +106,8 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
       };
       if (context.get('classId')) {
         queryParams.classId = context.get('classId');
+      }
+      if (context.get('courseId')) {
         queryParams.courseId = context.get('courseId');
         queryParams.unitId = context.get('unitId');
         queryParams.lessonId = context.get('lessonId');

@@ -9,14 +9,14 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  studentClassController: Ember.inject.controller('student.class'),
+  studentIndependentController: Ember.inject.controller('student.independent'),
 
   // -------------------------------------------------------------------------
   // Attributes
 
   queryParams: ['location'],
 
-  /**
+  /**.
    * Combination of unit, lesson and resource (collection or assessment)
    * separated by a plus sign
    * @example
@@ -70,19 +70,12 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  'class': Ember.computed.alias('studentClassController.class'),
+  course: Ember.computed.alias('studentIndependentController.course'),
 
   /**
    *Show the current location
    */
   showLocation:true,
-
-  /**
-   * A link to the content visibility from class controller
-   * @see controllers/class.js
-   * @property {ClassContentVisibility}
-   */
-  contentVisibility: Ember.computed.alias('studentClassController.contentVisibility'),
 
   openingLocation: Ember.computed('location', function() {
     if (this.get('isFirstLoad')) {
@@ -100,6 +93,5 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
 
 });

@@ -1,0 +1,107 @@
+import Ember from 'ember';
+import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
+
+export default Ember.Route.extend({
+
+  // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @property {NavigateMapService}
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
+  // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    /**
+     * Open the player with the specific collection/assessment
+     *
+     * @function actions:playItem
+     * @param {string} unitId - Identifier for a unit
+     * @param {string} lessonId - Identifier for lesson
+     * @param {string} item - collection, assessment, lesson or resource
+     */
+    studyPlayer: function (type, unitId, lessonId, item) {
+      const route = this;
+      const currentCourse = route.modelFor('student.independent').course;
+      const courseId = currentCourse.get('id');
+
+      if (type === 'lesson') {
+        route.startLessonStudyPlayer(courseId, unitId, lessonId);
+      } else {
+        route.startCollectionStudyPlayer(courseId, unitId, lessonId, item);
+      }
+    }
+
+  },
+
+  // -------------------------------------------------------------------------
+  // Methods
+  model: function() {
+    const course = this.modelFor('student.independent').course;
+    const units = course.get('children') || [];
+
+    return Ember.RSVP.hash({
+      course: course,
+      units: units
+    });
+  },
+
+  /**
+   * Set all controller properties from the model
+   * @param controller
+   * @param model
+   */
+  setupController: function (controller, model) {
+    controller.set('userLocation', '');
+    controller.set('units', model.units);
+    controller.set('course', model.course);
+    controller.get('studentIndependentController').selectMenuItem('course-map');
+  },
+
+  /**
+   * Navigates to collection
+   * @param {string} courseId
+   * @param {string} unitId
+   * @param {string} lessonId
+   * @param {Collection} collection
+     */
+  startCollectionStudyPlayer:function(courseId, unitId, lessonId, collection) {
+    let role = ROLES.STUDENT;
+    let source = PLAYER_EVENT_SOURCE.INDEPENDENT_COURSE_MAP;
+    let collectionId = collection.get('id');
+    let collectionType = collection.get('collectionType');
+    let queryParams = {
+      classId: null,
+      unitId,
+      lessonId,
+      collectionId,
+      role,
+      source,
+      type: collectionType
+    };
+
+    this.get('navigateMapService')
+      .startCollection(courseId, unitId, lessonId, collectionId, collectionType)
+      .then(() => this.transitionTo('study-player', courseId, { queryParams }));
+  },
+
+  /**
+   * Navigates to the next lesson collection
+   * @param {string} courseId
+   * @param {string} unitId
+   * @param {string} lessonId
+     */
+  startLessonStudyPlayer: function(courseId, unitId, lessonId) {
+    const role = ROLES.STUDENT;
+    const queryParams = {
+      unitId,
+      lessonId,
+      role,
+      source: PLAYER_EVENT_SOURCE.INDEPENDENT_COURSE_MAP
+    };
+    this.get('navigateMapService')
+      .startLesson(courseId, unitId, lessonId)
+      .then(() => this.transitionTo('study-player', courseId, { queryParams }));
+  }
+});
