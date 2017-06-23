@@ -12,6 +12,13 @@ export default Ember.Controller.extend({
   actions: {
 
     /**
+     * Remove a bookmark from a list of bookmarks
+     */
+    removeBookmark: function (bookmark) {
+      this.get('bookmarks').removeObject(bookmark);
+    },
+
+    /**
      * Triggered when the expand/collapse arrows are selected.
      */
     togglePanel: function () {

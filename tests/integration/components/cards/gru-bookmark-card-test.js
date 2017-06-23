@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
-import Ember from 'ember';
+import Bookmark from 'gooru-web/models/content/bookmark';
 
 moduleForComponent('cards/gru-bookmark-card', 'Integration | Component | cards/gru bookmark card', {
   integration: true,
@@ -12,7 +12,7 @@ moduleForComponent('cards/gru-bookmark-card', 'Integration | Component | cards/g
   }
 });
 
-var mockBookmark = Ember.Object.create({
+var mockBookmark = Bookmark.create({
     id: "aaa-bbb",
     contentId: "123",
     contentType: "course",
