@@ -30,10 +30,10 @@ moduleForAcceptance('Acceptance | study-player', {
 });
 
 test('Layout - default to collection since parameter is not sent', function (assert) {
-  visit('/study-player/class/class-for-pochita-as-teacher/course/course-123?unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id');
+  visit('/study-player/course/course-123?unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id&classId=class-for-pochita-as-student');
 
   andThen(function () {
-    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-teacher/course/course-123?collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id');
+    assert.equal(currentURL(), '/study-player/course/course-123?classId=class-for-pochita-as-student&collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id');
 
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');
@@ -44,10 +44,10 @@ test('Layout - default to collection since parameter is not sent', function (ass
 });
 
 test('Redirect to Course Map', function (assert) {
-  visit('/study-player/class/class-for-pochita-as-student/course/course-123?unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id');
+  visit('/study-player/course/course-123?unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id&classId=class-for-pochita-as-student');
 
   andThen(function () {
-    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-student/course/course-123?collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id');
+    assert.equal(currentURL(), '/study-player/course/course-123?classId=class-for-pochita-as-student&collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id');
 
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');
@@ -62,10 +62,9 @@ test('Redirect to Course Map', function (assert) {
 
 test('Take A Tour button hidden', function(assert){
   assert.expect(2);
-  visit('/study-player/class/class-for-pochita-as-student/course/course-123?unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id');
-
+  visit('/study-player/course/course-123?unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id&classId=class-for-pochita-as-student');
   andThen(function() {
-    assert.equal(currentURL(), '/study-player/class/class-for-pochita-as-student/course/course-123?collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id');
+    assert.equal(currentURL(), '/study-player/course/course-123?classId=class-for-pochita-as-student&collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id');
 
     const $showConfirmationContainer = find('.app-container .show-confirmation');
     const $takeTourButton = $showConfirmationContainer.find('.gru-take-tour button.start-tour');

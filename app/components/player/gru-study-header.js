@@ -217,16 +217,23 @@ export default Ember.Component.extend({
     const myId = component.get('session.userId');
     const classId = component.get('classId');
     const collectionId = component.get('collection.id');
-    const totalResources = (component.get('collection.resources')) ? component.get('collection.resources').length : null;
+    const totalResources = (component.get('collection.resources')) ?
+      component.get('collection.resources').length : null;
 
     component.set('totalResources', totalResources);
     if (classId) {
-      component.get('classService').readClassInfo(classId).then(function(aClass) {
-        component.get('performanceService').findClassPerformanceSummaryByStudentAndClassIds(myId,[classId])
-          .then(function(classPerformanceSummaryItems) {
-            aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
-            component.set('class', aClass);
-          });
+      Ember.RSVP.hash({
+        aClass: component.get('classService').readClassInfo(classId),
+        classPerformanceSummaryItems:
+          component.get('performanceService')
+            .findClassPerformanceSummaryByStudentAndClassIds(myId, [ classId ])
+      })
+      .then(({ aClass, classPerformanceSummaryItems }) => {
+        aClass.set(
+          'performanceSummary',
+          classPerformanceSummaryItems.findBy('classId', classId)
+        );
+        component.set('class', aClass);
       });
     }
 

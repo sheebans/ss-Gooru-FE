@@ -124,6 +124,7 @@ export default Ember.Route.extend({
     let collectionSubType = collection.get('collectionSubType');
     let pathId = collection.get('pathId') || 0;
     let queryParams = {
+      classId,
       unitId,
       lessonId,
       collectionId,
@@ -144,9 +145,7 @@ export default Ember.Route.extend({
         collectionType, classId);
     }
 
-    suggestionPromise.then(function () {
-      route.transitionTo('study-player', classId, courseId, { queryParams });
-    });
+    suggestionPromise.then(() => route.transitionTo('study-player', courseId, { queryParams }));
   },
 
   /**
@@ -160,15 +159,14 @@ export default Ember.Route.extend({
     const route = this;
     const role = ROLES.STUDENT;
     const queryParams = {
+      classId,
       unitId,
       lessonId,
       role,
       source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
     route.get('navigateMapService').startLesson(courseId, unitId, lessonId, classId)
-      .then(function () {
-        route.transitionTo('study-player', classId, courseId, { queryParams });
-      });
+      .then(() => route.transitionTo('study-player', courseId, { queryParams }));
   },
 
   /**
@@ -180,12 +178,11 @@ export default Ember.Route.extend({
     const route = this;
     const queryParams = {
       role: ROLES.STUDENT,
-      source: PLAYER_EVENT_SOURCE.COURSE_MAP
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+      classId
     };
     route.get('navigateMapService').continueCourse(courseId, classId)
-      .then(function () {
-        route.transitionTo('study-player', classId, courseId, { queryParams });
-      });
+      .then(() => route.transitionTo('study-player', courseId, { queryParams }));
   },
 
   /**
