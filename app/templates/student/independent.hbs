@@ -1,4 +1,12 @@
 <div class="student class">
+  <div class="header clearfix">
+    <div class="go-back-container">
+      {{#link-to 'student-independent-learning' class="back-to"}}
+        {{gru-icon name='arrow_back'}}
+        {{t 'student-landing.class.back-to'}}
+      {{/link-to}}
+    </div>
+  </div>
   {{student.class.gru-class-navigation
     onItemSelected="selectMenuItem"
     onCollapseExpandClicked="toggleHeader"

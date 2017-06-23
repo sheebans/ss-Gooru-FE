@@ -254,7 +254,7 @@ test('Layout - Pre Test', function(assert) {
 
   T.exists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
   T.exists(assert, $performanceInfo.find('.resources .lesson-info'), 'Missing lesson info');
-  assert.equal(T.text($performanceInfo.find('.resources .lesson-info')), this.get('i18n').t('gru-study-header.lesson-legend').string+' lesson 1', 'Wrong lesson title');
+  assert.equal(T.text($performanceInfo.find('.resources .lesson-info')), `${this.get('i18n').t('gru-study-header.lesson-legend').string} lesson 1`, 'Wrong lesson title');
 
   T.notExists(assert, $performanceInfo.find('.resources .count-resources'), 'Counter of resources should not be visible');
   T.notExists(assert, $performanceInfo.find('.resources .navigation'), 'Resources navigation should not be visible');
@@ -434,7 +434,7 @@ test('Next when is the last question of an assessment', function(assert) {
   assert.equal(T.text($performanceInfo.find('.resources .navigation .next-resource .summary-report')), 'Check your summary report', 'Wrong summary report message');
 });
 
-test('Next when is the last resource of an collection', function(assert) {
+test('Next when is the last resource of a collection', function(assert) {
 
   let resourceA = Ember.Object.create({
     id: 'resource-1',
@@ -470,7 +470,6 @@ test('Next when is the last resource of an collection', function(assert) {
 });
 
 test('Next for the summary report and the usage report', function(assert) {
-
   let resourceA = Ember.Object.create({
     id: 'resource-1',
     sequence:1,
@@ -541,5 +540,4 @@ test('Layout-Resource from resource player', function(assert) {
   T.exists(assert, $performanceInfo.find('.resources .resource-title'), 'Missing resource title');
   T.exists(assert, $performanceInfo.find('.resources .resource-title .image_resource-icon'), 'Missing resource icon');
   assert.equal(T.text($performanceInfo.find('.resources .resource-title .title')), 'resource1', 'Wrong resource title text');
-
 });

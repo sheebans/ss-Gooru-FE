@@ -40,11 +40,7 @@ export default Ember.Route.extend({
   model: function() {
     const course = this.modelFor('student.independent').course;
     const units = course.get('children') || [];
-
-    return Ember.RSVP.hash({
-      course: course,
-      units: units
-    });
+    return Ember.RSVP.hash({ course, units });
   },
 
   /**
