@@ -108,7 +108,5 @@ test('Assessment Bookmark Card on click', function(assert) {
   T.exists(assert, $title, 'Missing bookmark title');
   $title.click();
 
-  return wait().then(() => {
-    2;
-  });
+  return wait();
 });
