@@ -65,7 +65,8 @@
           {{/link-to}}
           {{#each bookmarks as |bookmark|}}
             {{cards.gru-bookmark-card
-              bookmark=bookmark}}
+              bookmark=bookmark
+              onDeleteBookmark=(action 'removeBookmark')}}
           {{/each}}
           <a {{action 'togglePanel'}} class="collapse-expand pull-right more {{if toggleState 'hidden' 'visible'}}">
             {{gru-icon name='expand_more'}}

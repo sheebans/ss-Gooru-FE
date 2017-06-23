@@ -39,7 +39,10 @@ test('normalizeLocation course', function(assert) {
     courseId: 'course-id',
     courseTitle: 'course-title',
     status: 'complete',
-    lastAccessed: '2017-03-07 18:44:04.798'
+    lastAccessed: '2017-03-07 18:44:04.798',
+    collectionId: 'collection-id',
+    collectionTitle: 'collection-title',
+    collectionType: CONTENT_TYPES.COLLECTION
   };
   const normalizedLocation = serializer.normalizeLocation(locationPayload);
 
@@ -47,6 +50,9 @@ test('normalizeLocation course', function(assert) {
   assert.notOk(normalizedLocation.get('collectionId'), 'Wrong collection id');
   assert.notOk(normalizedLocation.get('lessonId'), 'Wrong lesson id');
   assert.notOk(normalizedLocation.get('unitId'), 'Wrong unit id');
+  assert.equal(normalizedLocation.get('currentId'), 'collection-id', 'Wrong current id');
+  assert.equal(normalizedLocation.get('currentTitle'), 'collection-title','Wrong current title');
+  assert.equal(normalizedLocation.get('currentType'), CONTENT_TYPES.COLLECTION, 'Wrong current type');
   assert.equal(normalizedLocation.get('status'), 'complete', 'Wrong status');
   assert.ok(normalizedLocation.get('isCompleted'), 'Wrong is completed value');
   assert.equal(normalizedLocation.get('title'), 'course-title', 'Wrong title');
@@ -59,9 +65,9 @@ test('normalizeLocation collection/assessment', function(assert) {
   const locationPayload = {
     collectionId: 'collection-id',
     collectionTitle: 'collection-title',
+    collectionType: CONTENT_TYPES.COLLECTION,
     lessonId: 'lesson-id',
     unitId: 'unit-id',
-    type: CONTENT_TYPES.COLLECTION,
     status: 'any-status',
     lastAccessed: '2017-03-07 18:44:04.798'
   };
@@ -71,6 +77,9 @@ test('normalizeLocation collection/assessment', function(assert) {
   assert.equal(normalizedLocation.get('lessonId'), 'lesson-id', 'Wrong lesson id');
   assert.equal(normalizedLocation.get('unitId'), 'unit-id', 'Wrong unit id');
   assert.notOk(normalizedLocation.get('courseId'), 'Wrong course id');
+  assert.notOk(normalizedLocation.get('currentId'), 'Wrong current id');
+  assert.notOk(normalizedLocation.get('currentTitle'), 'Wrong current title');
+  assert.notOk(normalizedLocation.get('currentType'), 'Wrong current type');
   assert.equal(normalizedLocation.get('status'), 'any-status', 'Wrong status');
   assert.notOk(normalizedLocation.get('isCompleted'), 'Wrong is completed value');
   assert.equal(normalizedLocation.get('title'), 'collection-title', 'Wrong title');

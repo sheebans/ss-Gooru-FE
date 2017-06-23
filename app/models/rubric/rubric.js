@@ -128,9 +128,30 @@ export default Ember.Object.extend(Validations,{
    * @property {Date} Date in which the rubric was updated
    */
   updatedDate:null,
+
   /**
    * @property {String} Rubric tenant id
    */
-  tenant:null
+  tenant: null,
+
+  /**
+   * @property {Boolean} Is scoring allowed
+   */
+  scoring: null,
+
+  /**
+   * @property {Integer} Max score for the rubric
+   */
+  maxScore: null,
+
+  /**
+   * @property {Number} Increment factor for score
+   */
+  increment: null,
+
+  /**
+   * @property {String} Self or Teacher
+   */
+  grader: null
 
 });

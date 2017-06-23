@@ -45,6 +45,26 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Posts a new rubric off
+   *
+   * @param data - rubric off data to be sent in the request body
+   * @returns {Promise}
+   */
+  createRubricOff: function(data) {
+    const adapter = this;
+    const url = this.get('namespace');
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data.body)
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Updates a rubric
    *
    * @param params - data to send in the request

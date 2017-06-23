@@ -38,6 +38,11 @@ export default Ember.Controller.extend({
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
+  /**
+   * @type {Controller} Application controller
+   */
+  appController: Ember.inject.controller('application'),
+
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -69,6 +74,11 @@ export default Ember.Controller.extend({
    * @property {Profile}
    */
   profile: Ember.computed.alias('profileController.profile'),
+
+  /**
+   * @property {Profile} Session Profile
+   */
+  sessionProfile: Ember.computed.alias('appController.profile'),
 
   /**
    * @property {*}
