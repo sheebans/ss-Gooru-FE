@@ -1,8 +1,7 @@
 import Ember from 'ember';
 
 /**
- * Learner performnace model
- *
+ * Learner performance model
  */
 const LearnerPerformanceModel = Ember.Object.extend({
 

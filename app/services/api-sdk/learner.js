@@ -41,5 +41,25 @@ export default Ember.Service.extend({
         reject
       );
     });
+  },
+
+  /**
+   * Fetches the learner performance
+   *
+   * @param userId - user to fetch the learner performance
+   * @param contentType - one of course, collection or assessment
+   * @param offset - for paginated listing of learner performance
+   * @param limit - for paginated listing of learner performance
+   * @returns {Promise}
+   */
+  fetchPerformance: function(userId, contentType, offset = 0, limit = 20) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service.get('learnerAdapter').fetchPerformance(userId, contentType, offset, limit)
+        .then(
+          response => resolve(service.get('learnerSerializer').normalizePerformance(response)),
+          reject
+        );
+    });
   }
 });
