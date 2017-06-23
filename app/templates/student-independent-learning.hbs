@@ -6,32 +6,39 @@
       </div>
       <p>{{t 'user.joined-classes' count=totalJoinedClasses}}</p>
     </div>
-    <div class="row panels">
-      <div class="col-sm-6 col-xs-12">
-        {{gru-explore-featured-courses
-          courses=featuredCourses
-          profile=profile
-        }}
-      </div>
-      <div class="col-sm-6 col-xs-12">
-        <div class="panel join-class">
-          <div class="panel-heading">{{t 'student-landing.learn'}}</div>
-          <div class="panel-body">
-            <div class="legend">
-              {{t 'student-landing.join-classroom'}}
-            </div>
-            <div class="actions">
-              {{#link-to 'content.classes.join' class="btn btn-info join" tagName='button'}}
-                {{t 'user.join-class'}}
-              {{/link-to}}
-            </div>
-            <div class="pull-right will-disappear">
-              {{t 'common.will-disappear'}}
+    {{#unless (gt loginCount 5)}}
+      <div class="row panels">
+        <div class="col-sm-6 col-xs-12">
+          {{gru-explore-featured-courses
+            courses=featuredCourses
+            profile=profile
+            loginCount=loginCount
+          }}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <div class="panel join-class">
+            <div class="panel-heading">{{t 'student-landing.learn'}}</div>
+            <div class="panel-body">
+              <div class="legend">
+                {{t 'student-landing.join-classroom'}}
+              </div>
+              <div class="actions">
+                {{#link-to 'content.classes.join' class="btn btn-info join" tagName='button'}}
+                  {{t 'user.join-class'}}
+                {{/link-to}}
+              </div>
+              <div class="pull-right will-disappear">
+                {{#if (eq loginCount 5)}}
+                  {{t 'common.disappear-next-login'}}
+                {{else}}
+                  {{t 'common.disappear-after-login' loginNumber=(sub 6 loginCount)}}
+                {{/if}}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    {{/unless}}
     <div class="student-navigator">
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active-classes tab hidden-xs">

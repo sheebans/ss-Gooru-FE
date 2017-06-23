@@ -1,6 +1,7 @@
 export function initialize(instance) {
-  const applicationRoute = instance.container.lookup('route:application');
-  const session          = instance.container.lookup('service:session');
+  const applicationRoute      = instance.container.lookup('route:application');
+  const session               = instance.container.lookup('service:session');
+  const applicationController = instance.container.lookup('controller:application');
   session.on('authenticationSucceeded', function() {
     // It does nothing because the event is triggered when authenticating as anonymous
     // ans sign-in is already transitioning by itself

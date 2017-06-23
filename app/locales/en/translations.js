@@ -172,6 +172,8 @@ export default Object.assign(quizzesTranslations, {
     },
     "depth-of-knowledge": "Depth of Knowledge",
     "description": "Description",
+    "disappear-after-login": "This will disappear after {{loginNumber}} logins",
+    "disappear-next-login": "This will not appear on the next login",
     "district": "District",
     "domain": "Domain",
     "domains": "Domains",
@@ -538,7 +540,6 @@ export default Object.assign(quizzesTranslations, {
       "on-air-connection-lost": "The Go Live dashboard has lost connection and is retrying automatically. It's tempting, but please don't refresh your screen!",
       "character-limit": "You've reached the character limit."
     },
-    "will-disappear": "This will disappear after 5 logins",
     "word": "Word",
     "yes": "Yes"
   },
