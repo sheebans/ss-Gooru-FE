@@ -37,10 +37,10 @@ export default Ember.Object.extend({
         class_id: classId,
         content_id: contentId,
         content_type: contentType,
-        ctx_course_id: context.courseId,
-        ctx_unit_id: context.unitId,
-        ctx_lesson_id: context.lessonId,
-        ctx_collection_id: context.collectionId
+        ctx_course_id: context ? context.courseId : null,
+        ctx_unit_id: context ? context.unitId : null,
+        ctx_lesson_id: context ? context.lessonId: null,
+        ctx_collection_id: context ? context.collectionId : null
       })
     };
     return Ember.$.ajax(url, options);

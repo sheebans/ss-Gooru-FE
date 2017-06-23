@@ -1,5 +1,7 @@
   .add-to {
-
+    .modals{
+      background-color:$white;
+    }
   &.fade {
     .modal-dialog {
       -webkit-transform: translate3d(125%, 0, 0);

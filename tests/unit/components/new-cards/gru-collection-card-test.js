@@ -134,7 +134,7 @@ test('previewContent - Collection', function(assert) {
       }}
   );
 
-  let collection = Ember.Object.create({
+  let collection = Collection.create({
     id:'collection-123',
     title: 'Collection Title',
     questionCount:4,
@@ -203,7 +203,7 @@ test('previewContent - Assessment', function(assert) {
       }}
   );
 
-  let assessment = Ember.Object.create({
+  let assessment = Assessment.create({
     id:'assessment-123',
     title: 'Assessment Title',
     questionCount:4,
@@ -243,4 +243,103 @@ test('previewContent - Assessment', function(assert) {
     done();
   });
   component.send('previewContent', assessment);
+});
+
+test('addToClassroom - Collection', function(assert) {
+
+  let collection = Ember.Object.create({
+    id:'collection-123',
+    title: 'Collection Title',
+    questionCount:4,
+    isCollection:true,
+    standards:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
+    course: 'Any course title',
+    remixedBy:['James','Andrea','Patric'],
+    isVisibleOnProfile:false
+  });
+
+  let component = this.subject({
+    classroomList:[Ember.Object.create({id:'class1',title:'class-1'})],
+    content:collection
+  });
+
+  var expectedModel = Ember.Object.create({
+    classroomList:[Ember.Object.create({id:'class1',title:'class-1', studentCount: 0})],
+    classActivity:true,
+    content:collection
+  });
+
+  component.set('isCourse', false);
+
+  component.set('isTeacher', true);
+
+  let done = assert.async();
+  component.set('actions.showModal', function(componentName, model) {
+    assert.deepEqual(model.classroomList, expectedModel.classroomList, 'Incorrect classroom list');
+    assert.deepEqual(model.content, expectedModel.content, 'Model content  should match');
+    assert.equal(componentName, 'content.modals.gru-add-to-classroom', 'Component name should match');
+    done();
+  });
+  component.send('addToClassroom');
+});
+
+
+test('addToClassroom - Assessment', function(assert) {
+  let assessment = Ember.Object.create({
+    id:'assessment-123',
+    title: 'Assessment Title',
+    questionCount:4,
+    isAssessment:true,
+    isCollection:false,
+    standards:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
+    course: 'Any course title',
+    remixedBy:['James','Andrea','Patric'],
+    isVisibleOnProfile:false
+  });
+
+  let component = this.subject({
+    classroomList:[Ember.Object.create({id:'class1',title:'class-1'})],
+    content:assessment
+  });
+
+  var expectedModel = Ember.Object.create({
+    classroomList:[Ember.Object.create({id:'class1',title:'class-1', studentCount: 0})],
+    classActivity:true,
+    content:assessment
+  });
+
+  component.set('isCourse', false);
+
+  component.set('isTeacher', true);
+
+  let done = assert.async();
+  component.set('actions.showModal', function(componentName, model) {
+    assert.deepEqual(model.classroomList, expectedModel.classroomList, 'Incorrect classroom list');
+    assert.deepEqual(model.content, expectedModel.content, 'Model content  should match');
+    assert.equal(componentName, 'content.modals.gru-add-to-classroom', 'Component name should match');
+    done();
+  });
+  component.send('addToClassroom');
 });
