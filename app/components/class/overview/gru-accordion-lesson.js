@@ -323,32 +323,43 @@ export default Ember.Component.extend(AccordionMixin, {
     const component = this;
     const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
-    const courseId = component.get('currentClass.courseId');
+    const courseId = component.get('currentClass.courseId') || component.get('currentCourse.id');
     const unitId = component.get('unitId');
     const lessonId = component.get('model.id');
     const classMembers = component.get('classMembers');
     const isTeacher = component.get('isTeacher');
+    let collections = Ember.A();
+    let lessonPeers = Ember.A();
 
     component.set('loading', true);
-    component.get('courseMapService').getLessonInfo(classId, courseId, unitId, lessonId)
-      .then(function(lesson) {
-        const collections = lesson.get('children');
-        component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId)
-          .then(function(lessonPeers) {
-            const loadDataPromise = isTeacher ?
-              component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) :
-              component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections);
-            loadDataPromise.then(function() {
-              if (!component.isDestroyed) {
-                collections.forEach(function(collection){
-                  component.setVisibility(collection);
-                });
-                component.set('items', collections);
-                component.set('loading', false);
-              }
-            });
-          });
-      });
+
+    let peersPromise = classId ?
+      component.get('analyticsService').getLessonPeers(classId, courseId, unitId, lessonId) :
+      Ember.RSVP.resolve(lessonPeers);
+
+    return Ember.RSVP.hash({
+      lesson: component.get('courseMapService').getLessonInfo(classId, courseId, unitId, lessonId),
+      peers: peersPromise
+    })
+    .then(({ lesson, peers }) => {
+      collections = lesson.get('children');
+      lessonPeers = peers;
+
+      let loadDataPromise = Ember.RSVP.resolve();
+      if(classId) {
+        loadDataPromise = isTeacher ?
+          component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) :
+          component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections);
+      }
+      return loadDataPromise;
+    })
+    .then(() => {
+      if (!component.isDestroyed) {
+        collections.forEach(collection => component.setVisibility(collection));
+        component.set('items', collections);
+        component.set('loading', false);
+      }
+    });
   },
 
   loadTeacherData: function(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) {
@@ -464,8 +475,12 @@ export default Ember.Component.extend(AccordionMixin, {
     }
   },
   setVisibility: function(collection){
-    const isAssessment = collection.get('isAssessment');
-    const visible = isAssessment ? this.get('contentVisibility').isVisible(collection.id) : true;
-    collection.set('visible', visible);
+    if (this.get('currentClass')) {
+      const isAssessment = collection.get('isAssessment');
+      const visible = isAssessment ? this.get('contentVisibility').isVisible(collection.id) : true;
+      collection.set('visible', visible);
+    } else {
+      collection.set('visible', true);
+    }
   }
 });

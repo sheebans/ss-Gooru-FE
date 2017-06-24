@@ -32,6 +32,27 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Fetches independent learner performance
+   *
+   * @param {number} userId
+   * @param {number} contentType - type of content to retrieve
+   * @param {number} offset - for paginated listing of performance
+   * @param {number} limit - number of performance to fetch
+   * @returns {Promise}
+   */
+  fetchPerformance: function(userId, contentType, offset=0, limit=20) {
+    const adapter = this;
+    const url = `${adapter.get('namespace')}/performance`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders(),
+      data: { userId, contentType, offset, limit }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': `Token ${this.get('session.token-api3')}`

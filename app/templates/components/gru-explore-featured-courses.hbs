@@ -20,7 +20,11 @@
       {{/link-to}}
     </div>
     <div class="pull-right will-disappear">
-      {{t 'common.will-disappear'}}
+      {{#if (eq loginCount 5)}}
+        {{t 'common.disappear-next-login'}}
+      {{else}}
+        {{t 'common.disappear-after-login' loginNumber=(sub 6 loginCount)}}
+      {{/if}}
     </div>
   </div>
 </div>

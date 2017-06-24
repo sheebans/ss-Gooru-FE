@@ -78,7 +78,7 @@ export default Ember.Component.extend(AccordionMixin, {
      * @function actions:selectUnit
      */
     selectUnit: function(unitId) {
-      const courseId = this.get('currentClass.courseId');
+      const courseId = this.get('currentClass.courseId') || this.get('currentCourse.id');
       if (!isUpdatingLocation) {
         let newLocation = this.get('isExpanded') ? '' : unitId;
         this.get('onLocationUpdate')(newLocation);
@@ -269,42 +269,56 @@ export default Ember.Component.extend(AccordionMixin, {
     const component = this;
     const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
-    const courseId = component.get('currentClass.courseId');
+    const courseId = component.get('currentClass.courseId') || component.get('currentCourse.id');
     const unitId = component.get('model.id');
     const classMembers = component.get('classMembers');
     const isTeacher = component.get('isTeacher');
     const contentVisibility = component.get('contentVisibility');
+    let lessons = Ember.A();
+    let unitPeers = Ember.A();
 
-    return component.get('unitService').fetchById(courseId, unitId)
-      .then(function(unit) {
-        const lessons = unit.get('children');
-        return component.get('analyticsService').getUnitPeers(classId, courseId, unitId)
-          .then(function(unitPeers) {
-            const performancePromise = isTeacher ?
-              component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
-              component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
-            return performancePromise.then(function(performance) {
-              lessons.forEach(function(lesson) {
-                const peer = unitPeers.findBy('id', lesson.get('id'));
-                if (peer) {
-                  lesson.set('membersCount', peer.get('peerCount'));
-                }
-                if (isTeacher) {
-                  const averageScore = performance.calculateAverageScoreByItem(lesson.get('id'));
-                  lesson.set('performance', Ember.Object.create({
-                    score: averageScore,
-                    hasStarted: averageScore > 0
-                  }));
-                } else {
-                  const lessonPerformance = performance.findBy('id', lesson.get('id'));
-                  lesson.set('performance', lessonPerformance);
-                }
-                lesson.set('performance.completionTotal', contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get("id")));
-              });
-              return lessons;
-            });
-          });
+    let peersPromise = classId ?
+      component.get('analyticsService').getUnitPeers(classId, courseId, unitId) :
+      Ember.RSVP.resolve(unitPeers);
+    return Ember.RSVP.hash({
+      unit: component.get('unitService').fetchById(courseId, unitId),
+      peers: peersPromise
+    })
+    .then(({ unit, peers }) => {
+      lessons = unit.get('children');
+      unitPeers = peers;
+
+      let performancePromise = Ember.RSVP.resolve();
+      if(classId) {
+        performancePromise = isTeacher ?
+          component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
+          component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+      }
+
+      return performancePromise;
+    })
+    .then(performance => {
+      lessons.forEach(function(lesson) {
+        const peer = unitPeers.findBy('id', lesson.get('id'));
+        if (peer) {
+          lesson.set('membersCount', peer.get('peerCount'));
+        }
+        if(performance) {
+          if (isTeacher) {
+            const averageScore = performance.calculateAverageScoreByItem(lesson.get('id'));
+            lesson.set('performance', Ember.Object.create({
+              score: averageScore,
+              hasStarted: averageScore > 0
+            }));
+          } else {
+            const lessonPerformance = performance.findBy('id', lesson.get('id'));
+            lesson.set('performance', lessonPerformance);
+          }
+          lesson.set('performance.completionTotal', contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get("id")));
+        }
       });
+      return lessons;
+    });
   }
 
 });

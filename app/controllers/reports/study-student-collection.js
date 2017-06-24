@@ -237,8 +237,11 @@ export default StudentCollection.extend({
         { queryParams }
       );
     } else {
+      let classId = context.get('classId');
+      if (classId) {
+        queryParams.classId = classId;
+      }
       this.transitionToRoute('study-player',
-        context.get('classId'),
         context.get('courseId'),
         { queryParams }
       );
