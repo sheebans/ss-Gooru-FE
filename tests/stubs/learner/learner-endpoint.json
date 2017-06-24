@@ -24,7 +24,7 @@
     }
   },
   {
-    "description": "Fetch course learner locations",
+    "description": "Fetch collection learner locations",
     "request": {
       "url": "^/api/nucleus-insights/v2/learner/location",
       "query": {
@@ -69,6 +69,78 @@
       },
       "body": "File not found!",
       "file": "fetch-locations-assessment-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch course learner performance",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/learner/performance",
+      "query": {
+        "userId": ".+",
+        "contentType": "course",
+        "offset": 0,
+        "limit": 20
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-performance-course-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch collection learner performance",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/learner/performance",
+      "query": {
+        "userId": ".+",
+        "contentType": "collection",
+        "offset": 0,
+        "limit": 20
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-performance-collection-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch assessment learner performance",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/learner/performance",
+      "query": {
+        "userId": ".+",
+        "contentType": "assessment",
+        "offset": 0,
+        "limit": 20
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-performance-assessment-200-response.json"
     }
   }
 ]
