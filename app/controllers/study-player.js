@@ -73,6 +73,10 @@ export default PlayerController.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * @property {string}
+   */
+  classId: null,
 
   /**
    * @property {string}
