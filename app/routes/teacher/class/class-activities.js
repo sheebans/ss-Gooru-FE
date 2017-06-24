@@ -36,13 +36,6 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  beforeModel: function() {
-    const currentClass = this.modelFor('teacher.class').class;
-    const userId = this.get('session.userId');
-    if (currentClass.isTeacher(userId) && !currentClass.get('courseId')) {
-      this.transitionTo('teacher.class.course-map');
-    }
-  },
 
   model: function() {
     const route = this;

@@ -37,6 +37,22 @@ export default Ember.Component.extend(ModalMixin,{
   classNames:['new-cards','gru-collection-card'],
 
   // -------------------------------------------------------------------------
+  // Events
+
+  init() {
+    let component = this;
+    component._super(...arguments);
+    let classStudentCount = component.get('classStudentCount');
+    let classRoomList =  component.get('classroomList');
+    if (classRoomList) {
+      classRoomList.forEach(function(classroom){
+        let studentCount = component.studentCount(classStudentCount,classroom);
+        classroom.set('studentCount',studentCount);
+      });
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Actions
 
   actions: {
@@ -47,6 +63,22 @@ export default Ember.Component.extend(ModalMixin,{
      */
     bookmarkContent: function(content, showType) {
       this.sendAction('onBookmarkContent', content, showType);
+    },
+
+    /**
+     * Action triggered to add to classroom or daily class activities
+     */
+    addToClassroom: function(){
+      const component = this;
+
+      let model = Ember.Object.create({
+        classroomList:this.get('classroomList'),
+        classActivity:true,
+        content:this.get('content')
+      });
+      if(!this.get('isCourse')){
+        component.send('showModal', 'content.modals.gru-add-to-classroom', model, null, 'add-to');
+      }
     },
 
     /**
@@ -114,6 +146,11 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {boolean}
    */
   addEnabled: true,
+
+  /**
+   * @property {Object} Object containing student count by class
+   */
+  classStudentCount: null,
 
   /**
    * @property {Course,Collection,Assessment} content
@@ -264,5 +301,13 @@ export default Ember.Component.extend(ModalMixin,{
     return component.get('assessmentService').readAssessment(contentId).then(function (collection) {
       model.set('content.children', collection.children);
     });
+  },
+  /**
+   * @property {Number} Count of students in the class
+   */
+  studentCount: function(studentCount,classroom) {
+    let classStudentCount = studentCount;
+    return (classStudentCount && Ember.keys(classStudentCount).length) ?
+      (classStudentCount[classroom.get('id')] ? classStudentCount[classroom.get('id')] : 0) : 0;
   }
 });
