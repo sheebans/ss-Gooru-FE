@@ -848,7 +848,7 @@ export default Object.assign(quizzesTranslations, {
     "browse-featured-courses": 'Browse our featured courses',
     "class":{
       "assigned-course": "Assigned Course",
-      "back-to": "Back to My Classes",
+      "back-to": "Back to Classrooms",
       "performance": "Performance",
       "classroom": "Classroom Information",
       "course-map": "Course Map",
