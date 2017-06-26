@@ -72,7 +72,7 @@
     }
   },
   {
-    "description": "Fetch performance course by id",
+    "description": "Fetch assessment performance course by id",
     "request": {
       "url": "^/api/nucleus-insights/v2/learner/course/assessments/performance",
       "method": "GET",
