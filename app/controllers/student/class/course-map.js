@@ -4,9 +4,6 @@ import Ember from 'ember';
  *
  * Controller responsible of the logic for the course map page
  */
-
-
-
 export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------

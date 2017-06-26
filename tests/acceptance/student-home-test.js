@@ -12,11 +12,13 @@ moduleForAcceptance('Acceptance | Student Home Landing page', {
         gooruUId: 'param-123'
       }
     });
+    window.localStorage.setItem('param-123_logins', 1);
   }
 });
 
 
 test('Layout', function(assert) {
+  window.localStorage.setItem('param-123_logins', 3);
   visit('/student-home');
 
   andThen(function() {
@@ -30,9 +32,9 @@ test('Layout', function(assert) {
     const $leftUserContainer = $userContainer.find('.student-left-panel');
     T.exists(assert, $leftUserContainer.find('.greetings'), 'Missing student greetings');
     T.exists(assert, $leftUserContainer.find('.greetings .title'), 'Missing student name');
-    assert.equal( $leftUserContainer.find('.greetings .title span').text(),'Hello, Student!','Incorrect student name text');
+    assert.equal( $leftUserContainer.find('.greetings .title span').text(), 'Hello, Student!', 'Incorrect student name text');
     T.exists(assert, $leftUserContainer.find('.greetings p'), 'Missing count classrooms');
-    assert.equal( $leftUserContainer.find('.greetings p').text(), "You're currently enrolled in 7 classrooms",'Incorrect count classrooms text');
+    assert.equal($leftUserContainer.find('.greetings p').text(), "You're currently enrolled in 7 classrooms", 'Incorrect count classrooms text');
 
     const $panelsContainer = $leftUserContainer.find('.panels');
     T.exists(assert, $panelsContainer, 'Missing panels container');
@@ -49,7 +51,7 @@ test('Layout', function(assert) {
     T.exists(assert, $joinClass.find('.panel-body .legend'), 'Missing panel body legend');
     T.exists(assert, $joinClass.find('.panel-body .actions .join'), 'Missing join class button');
     T.exists(assert, $joinClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
-
+    assert.equal($joinClass.find('.panel-body .will-disappear').text().trim(), 'This will disappear after 3 logins', 'Incorrect login count for will disappear text');
 
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
@@ -59,6 +61,39 @@ test('Layout', function(assert) {
 
     const $tabContent = $leftUserContainer.find('.tab-content');
     assert.equal($tabContent.find('.gru-student-class-card').length, 7 ,'Wrong number of class cards');
+  });
+});
+
+test('Will disappear next login', function(assert) {
+  window.localStorage.setItem('param-123_logins', 5);
+  visit('/student-home');
+
+  andThen(function() {
+    const $userContainer = find('.controller.student-landing');
+    const $leftUserContainer = $userContainer.find('.student-left-panel');
+    const $panelsContainer = $leftUserContainer.find('.panels');
+    T.exists(assert, $panelsContainer, 'Missing panels container');
+
+    const $featuredCourses = $panelsContainer.find('.featured-courses');
+    T.exists(assert, $featuredCourses, 'Missing featured courses component');
+
+    const $joinClass = $panelsContainer.find('.join-class');
+    T.exists(assert, $joinClass, 'Missing join class panel');
+    T.exists(assert, $joinClass.find('.panel-body .actions .join'), 'Missing join class button');
+    T.exists(assert, $joinClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
+    assert.equal($joinClass.find('.panel-body .will-disappear').text().trim(), 'This will not appear on the next login', 'Incorrect message for will disappear text');
+  });
+});
+
+test('Layout without panels', function(assert) {
+  window.localStorage.setItem('param-123_logins', 6);
+  visit('/student-home');
+
+  andThen(function() {
+    const $userContainer = find('.controller.student-landing');
+    const $leftUserContainer = $userContainer.find('.student-left-panel');
+    const $panelsContainer = $leftUserContainer.find('.panels');
+    T.notExists(assert, $panelsContainer, 'Panels container should not appear');
   });
 });
 

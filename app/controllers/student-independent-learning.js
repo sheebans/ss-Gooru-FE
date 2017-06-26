@@ -9,6 +9,11 @@ export default Ember.Controller.extend({
   applicationController: Ember.inject.controller('application'),
 
   /**
+   * @property {Service} Session service
+   */
+  session: Ember.inject.service('session'),
+
+  /**
    * @type {BookmarkService} Service to retrieve bookmark information
    */
   bookmarkService: Ember.inject.service('api-sdk/bookmark'),
@@ -42,6 +47,16 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  init: function () {
+    let localStorage = this.get('applicationController').getLocalStorage();
+    const userId = this.get('session.userId');
+    const localStorageLogins = userId + '_logins';
+    let loginCount = localStorage.getItem(localStorageLogins);
+    if(loginCount) {
+      this.set('loginCount', +loginCount);
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -66,6 +81,11 @@ export default Ember.Controller.extend({
    * @property {Array[]} - featuredCourses
    */
   featuredCourses: null,
+
+  /**
+   * @property {Number} - Amount of logins by the user
+   */
+  loginCount: null,
 
   /*
    * @property {Array[]} - bookmarks

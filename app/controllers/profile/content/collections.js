@@ -35,6 +35,22 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+
+  /**
+   * @property {Class[]}
+   */
+  activeClasses: Ember.computed('appController.myClasses.classes.[]', function(){
+    return this.get('appController.myClasses').getTeacherActiveClasses(this.get('sessionProfile.id'));
+  }),
+
+  /**
+   * A link to the parent application controller
+   * @see controllers/application.js
+   * @property {ClassesModel}
+   */
+  myClasses: Ember.computed.alias('appController.myClasses'),
+
   /**
    * @property {string} term filter
    */

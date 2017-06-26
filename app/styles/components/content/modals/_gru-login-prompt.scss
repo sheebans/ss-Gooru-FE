@@ -22,6 +22,7 @@
 
   .modal-header {
     @include flexbox;
+    background-color: $white;
     border: 0;
     height: 125px;
     padding: 30px 15px 0;
@@ -36,10 +37,11 @@
     }
 
     .lead {
+      color: $dark-400;
+      font-size: $font-size-h5;
       display: inline-block;
       line-height: 20px;
-      margin-bottom: 5px;
-
+      margin: 0 0 5px;
     }
 
     p {

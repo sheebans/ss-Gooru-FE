@@ -16,9 +16,9 @@ test('next with content', function (assert) {
   });
   let controller = this.subject({
     mapLocation,
-    transitionToRoute: (transition, classId, courseId) => {
+    transitionToRoute: (transition, courseId, { queryParams }) => {
       assert.equal(transition, 'study-player', 'Transition route should match');
-      assert.equal(classId,'class-id', 'Class id should match');
+      assert.equal(queryParams.classId,'class-id', 'Class id should match');
       assert.equal(courseId,'course-id', 'Course id should match');
       done();
     },
@@ -44,9 +44,9 @@ test('next without content', function (assert) {
   });
   let controller = this.subject({
     mapLocation,
-    transitionToRoute: (transition, classId, courseId) => {
+    transitionToRoute: (transition, courseId, { queryParams }) => {
       assert.equal(transition, 'study-player', 'Transition route should match');
-      assert.equal(classId,'class-id', 'Class id should match');
+      assert.equal(queryParams.classId,'class-id', 'Class id should match');
       assert.equal(courseId,'course-id', 'Course id should match');
       done();
     },
@@ -76,7 +76,7 @@ test('playPostTestSuggestion', function (assert) {
   });
   let controller = this.subject({
     mapLocation,
-    transitionToRoute: (transition, classId,courseId,id) => {
+    transitionToRoute: (transition, classId, courseId, id) => {
       assert.equal(transition, 'resource-player', 'Transition route should match');
       assert.equal(classId,'class-id', 'Class id should match');
       assert.equal(courseId,'course-id', 'Course id should match');
@@ -115,7 +115,7 @@ test('playBackFillSuggestion', function (assert) {
   });
   let controller = this.subject({
     mapLocation,
-    transitionToRoute: (transition, classId,courseId,id) => {
+    transitionToRoute: (transition, classId, courseId, id) => {
       assert.equal(transition, 'resource-player', 'Transition route should match');
       assert.equal(classId,'class-id', 'Class id should match');
       assert.equal(courseId,'course-id', 'Course id should match');
@@ -154,7 +154,7 @@ test('playResourceSuggestion', function (assert) {
   });
   let controller = this.subject({
     mapLocation,
-    transitionToRoute: (transition, classId,courseId,id) => {
+    transitionToRoute: (transition, classId, courseId, id) => {
       assert.equal(transition, 'resource-player', 'Transition route should match');
       assert.equal(classId,'class-id', 'Class id should match');
       assert.equal(courseId,'course-id', 'Course id should match');

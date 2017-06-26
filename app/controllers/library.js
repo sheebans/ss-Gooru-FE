@@ -20,6 +20,11 @@ export default Ember.Controller.extend({
    */
   i18n: Ember.inject.service(),
 
+  /**
+   * @property {Controller} Application controller
+   */
+  appController: Ember.inject.controller('application'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -39,6 +44,12 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Profile information
+   * @property {Profile} profile
+   */
+  profile: Ember.computed.alias('appController.profile'),
+
   /**
    * @property {Object[]} options List of tab options to show
    */
@@ -74,7 +85,7 @@ export default Ember.Controller.extend({
         'common.bookmarked-content-success',
         { contentType: bookmark.get('contentType') }
       ) : this.get('i18n').t('common.bookmarked-success');
-      const independentLearningURL = '#';
+      const independentLearningURL = this.get('target.router').generate('student-independent-learning');
       const buttonText = this.get('i18n').t('common.take-me-there');
       this.get('notifications').success(
         `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`

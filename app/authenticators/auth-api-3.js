@@ -15,15 +15,27 @@ export default BaseAuthenticator.extend({
   },
 
   authenticate: function(options) {
+    let promise;
     if (options.isAnonymous) {
       return this.get('authenticationService').authenticateAsAnonymous();
     } else if(options.hasAccessToken) {
-      return this.get('authenticationService').authenticateWithToken(options.accessToken);
+      promise = this.get('authenticationService').authenticateWithToken(options.accessToken);
     } else if(options.hasUserData) {
-      return new Ember.RSVP.Promise(function(resolve) {resolve(options.user);});
+      promise = new Ember.RSVP.Promise(function(resolve) {resolve(options.user);});
     } else {
-      return this.get('authenticationService').authenticateWithCredentials(options.username, options.password);
+      promise = this.get('authenticationService').authenticateWithCredentials(options.username, options.password);
     }
+    return promise.then(response => {
+      let localStorage = window.localStorage;
+      let itemId = response.user.gooruUId + '_logins';
+      let localStorageItem = localStorage.getItem(itemId);
+      if(!localStorageItem) {
+        localStorage.setItem(itemId, 1);
+      } else {
+        localStorage.setItem(itemId, +localStorageItem + 1);
+      }
+      return response;
+    });
   }
 
 });

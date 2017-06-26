@@ -100,41 +100,70 @@ test('redirectCourseMap', function(assert) {
     })
   ];
   Ember.run(() =>
-      component = this.subject({
-          classId: classID,
-          session: {
-            userId: 'user-id'
-          },
-          collection: {
-            id: 'collection-id'
-          },
-          classService: {
-            readClassInfo: (classId) => {
-              assert.equal(classId, 'class-id', 'Class id should match');
-              return Ember.RSVP.resolve(aClass);
-            }
-          },
-          performanceService: {
-            findClassPerformanceSummaryByStudentAndClassIds: (userId, classId)=> {
-              assert.equal(classId[0], 'class-id', 'Class id should match');
-              return Ember.RSVP.resolve(classPerformanceSummary);
-          }
-        },
-          router:{
-            transitionTo(route, classId) {
-              assert.equal(classId,classID,'Incorrect Class ID');
-              assert.equal(route,'student.class.course-map','Incorrect Class ID');
-            }
-          },
-          suggestService: {
-            suggestResourcesForCollection: (userId, collectionId)=> {
-              assert.equal(userId, 'user-id', 'User id should match');
-              assert.equal(collectionId, 'collection-id', 'Collection id should match');
-              return Ember.RSVP.resolve(suggestedResources);
-            }
-          }
+    component = this.subject({
+      classId: classID,
+      session: {
+        userId: 'user-id'
+      },
+      collection: {
+        id: 'collection-id'
+      },
+      classService: {
+        readClassInfo: (classId) => {
+          assert.equal(classId, 'class-id', 'Class id should match');
+          return Ember.RSVP.resolve(aClass);
         }
-      )
+      },
+      performanceService: {
+        findClassPerformanceSummaryByStudentAndClassIds: (userId, classId)=> {
+          assert.equal(classId[0], 'class-id', 'Class id should match');
+          return Ember.RSVP.resolve(classPerformanceSummary);
+        }
+      },
+      router:{
+        transitionTo(route, classId) {
+          assert.equal(classId,classID,'Incorrect Class ID');
+          assert.equal(route,'student.class.course-map','Incorrect Class ID');
+        }
+      },
+      suggestService: {
+        suggestResourcesForCollection: (userId, collectionId)=> {
+          assert.equal(userId, 'user-id', 'User id should match');
+          assert.equal(collectionId, 'collection-id', 'Collection id should match');
+          return Ember.RSVP.resolve(suggestedResources);
+        }
+      }
+    })
+  );
+  component.send('redirectCourseMap');
+});
+
+test('redirectCourseMap no class', function(assert) {
+  let component ;
+  let suggestedResources = [];
+  Ember.run(() =>
+    component = this.subject({
+      courseId: 'course-id',
+      session: {
+        userId: 'user-id'
+      },
+      collection: {
+        id: 'collection-id'
+      },
+      router: {
+        transitionTo(route, courseId) {
+          assert.equal(courseId, 'course-id', 'Incorrect Class ID');
+          assert.equal(route,'student.independent.course-map','Incorrect route');
+        }
+      },
+      suggestService: {
+        suggestResourcesForCollection: (userId, collectionId) => {
+          assert.equal(userId, 'user-id', 'User id should match');
+          assert.equal(collectionId, 'collection-id', 'Collection id should match');
+          return Ember.RSVP.resolve(suggestedResources);
+        }
+      }
+    })
   );
   component.send('redirectCourseMap');
 });
@@ -256,40 +285,40 @@ test('nextResource', function(assert) {
   let resourceA = Ember.Object.create({id: 1});
   let resourceB = Ember.Object.create({id: 2});
   Ember.run(() =>
-      component = this.subject({
-        classId: 'class-1',
-        breadcrumbs: ['unit 1', 'lesson 1', 'collection 1'],
-        session: {
-          userId: 'user-id'
-        },
-        actualResource: resourceA,
-        collection: Collection.create({
-          id: 'collection-id',
-          resources:Ember.A([
-            resourceA,
-            resourceB
-          ])
-        }),
-        classService: {
-          readClassInfo: (classId) => {
-            assert.equal(classId, 'class-1', 'Class id should match');
-            return Ember.RSVP.resolve(aClass);
-          }
-        },
-        performanceService: {
-          findClassPerformanceSummaryByStudentAndClassIds: (userId, classId)=> {
-            assert.equal(classId[0], 'class-1', 'Class id should match');
-            return Ember.RSVP.resolve(classPerformanceSummary);
-          }
-        },
-        suggestService: {
-          suggestResourcesForCollection: (userId, collectionId)=> {
-            assert.equal(userId, 'user-id', 'User id should match');
-            assert.equal(collectionId, 'collection-id', 'Collection id should match');
-            return Ember.RSVP.resolve(suggestedResources);
-          }
+    component = this.subject({
+      classId: 'class-1',
+      breadcrumbs: ['unit 1', 'lesson 1', 'collection 1'],
+      session: {
+        userId: 'user-id'
+      },
+      actualResource: resourceA,
+      collection: Collection.create({
+        id: 'collection-id',
+        resources:Ember.A([
+          resourceA,
+          resourceB
+        ])
+      }),
+      classService: {
+        readClassInfo: (classId) => {
+          assert.equal(classId, 'class-1', 'Class id should match');
+          return Ember.RSVP.resolve(aClass);
         }
-      })
+      },
+      performanceService: {
+        findClassPerformanceSummaryByStudentAndClassIds: (userId, classId)=> {
+          assert.equal(classId[0], 'class-1', 'Class id should match');
+          return Ember.RSVP.resolve(classPerformanceSummary);
+        }
+      },
+      suggestService: {
+        suggestResourcesForCollection: (userId, collectionId)=> {
+          assert.equal(userId, 'user-id', 'User id should match');
+          assert.equal(collectionId, 'collection-id', 'Collection id should match');
+          return Ember.RSVP.resolve(suggestedResources);
+        }
+      }
+    })
   );
 
   assert.equal(component.get('nextResource'), resourceB , 'Incorrect next resource');

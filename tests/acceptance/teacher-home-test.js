@@ -12,10 +12,12 @@ moduleForAcceptance('Acceptance | Teacher Home Landing page', {
         gooruUId: 'id-for-pochita'
       }
     });
+    window.localStorage.setItem('id-for-pochita_logins', 1);
   }
 });
 
 test('Layout', function(assert) {
+  window.localStorage.setItem('id-for-pochita_logins', 3);
   visit('/teacher-home');
 
   andThen(function() {
@@ -43,6 +45,7 @@ test('Layout', function(assert) {
     T.exists(assert, $createClass.find('.panel-body .legend'), 'Missing panel body legend');
     T.exists(assert, $createClass.find('.panel-body .actions .create'), 'Missing create class button');
     T.exists(assert, $createClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
+    assert.equal($createClass.find('.panel-body .will-disappear').text().trim(), 'This will disappear after 3 logins', 'Incorrect login count for will disappear text');
 
     const $navigatorContainer = $teacherPanel.find('.teacher-navigator');
     T.exists(assert, $navigatorContainer, 'Missing teacher navigator');
@@ -55,6 +58,39 @@ test('Layout', function(assert) {
       assert.ok($('span.no-archived'), 'Missing no archived available lead');
       assert.equal($tabContent.find('#archived-classes .gru-class-card').length, 2 ,'Wrong number of archived class cards');
     });
+  });
+});
+
+test('Will disappear next login', function(assert) {
+  window.localStorage.setItem('id-for-pochita_logins', 5);
+  visit('/teacher-home');
+
+  andThen(function() {
+    const $teacherContainer = find('.controller.teacher-landing');
+    const $teacherPanel = $teacherContainer.find('.teacher-panel');
+    const $panelsContainer = $teacherPanel.find('.panels');
+    T.exists(assert, $panelsContainer, 'Missing panels container');
+
+    const $featuredCourses = $panelsContainer.find('.featured-courses');
+    T.exists(assert, $featuredCourses, 'Missing featured courses component');
+
+    const $createClass = $panelsContainer.find('.create-class');
+    T.exists(assert, $createClass, 'Missing create class panel');
+    T.exists(assert, $createClass.find('.panel-body .actions .create'), 'Missing create class button');
+    T.exists(assert, $createClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
+    assert.equal($createClass.find('.panel-body .will-disappear').text().trim(), 'This will not appear on the next login', 'Incorrect message for will disappear text');
+  });
+});
+
+test('Layout without panels', function(assert) {
+  window.localStorage.setItem('id-for-pochita_logins', 6);
+  visit('/teacher-home');
+
+  andThen(function() {
+    const $teacherContainer = find('.controller.teacher-landing');
+    const $teacherPanel = $teacherContainer.find('.teacher-panel');
+    const $panelsContainer = $teacherPanel.find('.panels');
+    T.notExists(assert, $panelsContainer, 'Panels container should not appear');
   });
 });
 

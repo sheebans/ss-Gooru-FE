@@ -33,3 +33,33 @@ test('fetchLocations', function(assert) {
       done();
     });
 });
+
+test('fetchPerformance', function(assert) {
+  const service = this.subject();
+
+  assert.expect(6);
+
+  service.set('learnerAdapter', Ember.Object.create({
+    fetchPerformance: function(userId, contentType, offset, limit) {
+      assert.deepEqual(userId, 'user-id', 'Wrong user id');
+      assert.deepEqual(contentType, 'collection', 'Wrong content type');
+      assert.deepEqual(offset, 0, 'Wrong default offset');
+      assert.deepEqual(limit, 20, 'Wrong default limit');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  service.set('learnerSerializer', Ember.Object.create({
+    normalizePerformances: function(payload) {
+      assert.deepEqual(payload, [], 'Wrong performance payload');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.fetchPerformance('user-id', 'collection')
+    .then(response => {
+      assert.deepEqual(response, [], 'Wrong response');
+      done();
+    });
+});
