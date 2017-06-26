@@ -17,12 +17,6 @@ export default Ember.Service.extend({
    */
   bookmarkAdapter: null,
 
-  /**
-   * @property {number} Number of records to fetch
-   */
-  limit: 20,
-
-
   init: function () {
     this._super(...arguments);
     this.set('bookmarkSerializer', BookmarkSerializer.create(Ember.getOwner(this).ownerInjection()));
@@ -53,15 +47,15 @@ export default Ember.Service.extend({
 
   /**
    * Fetches the Bookmarks
-   *
-   * @param offset - for paginated listing of bookmarks
+   * @param resetPagination indicates if the pagination needs a reset
+   * @param pagination - pagination values to list bookmarks
    * @returns {Promise}
    */
-  fetchBookmarks: function(offset = 0) {
+  fetchBookmarks: function(pagination, resetPagination = false) {
     const service = this;
-    const limit = service.get('limit');
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('bookmarkAdapter').fetchBookmarks(offset, limit)
+      service.get('bookmarkAdapter').fetchBookmarks(pagination, resetPagination)
       .then(
         response => resolve(service.get('bookmarkSerializer').normalizeFetchBookmarks(response)),
         reject

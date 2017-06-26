@@ -68,10 +68,13 @@
               bookmark=bookmark
               onDeleteBookmark=(action 'removeBookmark')}}
           {{/each}}
-          <a {{action 'togglePanel'}} class="collapse-expand pull-right more {{if toggleState 'hidden' 'visible'}}">
-            {{gru-icon name='expand_more'}}
-            {{gru-icon name='expand_more'}}
-          </a>
+          {{#if showExpandIcon}}
+            <a {{action 'togglePanel'}} class="collapse-expand pull-right more {{if toggleState 'hidden' 'visible'}}">
+              {{gru-icon name='expand_more'}}
+              {{gru-icon name='expand_more'}}
+            </a>
+            <a class="show-more" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</a>
+          {{/if}}
         </div>
       </div>
     </div>

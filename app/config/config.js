@@ -162,6 +162,8 @@ export const COUNTRY_CODES = {
 
 export const DEFAULT_PAGE_SIZE = 50;
 
+export const DEFAULT_BOOKMARK_PAGE_SIZE = 19;
+
 export const DEFAULT_SEARCH_PAGE_SIZE = 20;
 
 export const TAXONOMY_LEVELS = {
