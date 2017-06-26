@@ -72,6 +72,24 @@
     }
   },
   {
+    "description": "Fetch performance course by id",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/learner/course/assessments/performance",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-performance-course-200-response.json"
+    }
+  },
+  {
     "description": "Fetch course learner performance",
     "request": {
       "url": "^/api/nucleus-insights/v2/learner/performance",
