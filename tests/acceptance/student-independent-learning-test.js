@@ -63,7 +63,18 @@ test('Layout', function(assert) {
     T.exists(assert, $bookmarksPanel.find('.panel-heading'), 'Missing bookmarks panel-heading');
     T.exists(assert, $bookmarksPanel.find('.panel-body'), 'Missing bookmarks panel-body');
     T.exists(assert, $bookmarksPanel.find('.panel-body .add-bookmark'), 'Missing add-bookmark link');
-    assert.equal($bookmarksPanel.find('.panel-body .gru-bookmark-card').length,2, 'Should have 2  bookmark cards');
+    assert.equal($bookmarksPanel.find('.panel-body .gru-bookmark-card').length, 20, 'Should have 20 bookmark cards');
+
+    const $expandLink = $bookmarksPanel.find('.panel-body .collapse-expand.more');
+    click($expandLink);
+    andThen(function() {
+      const $showMore = $bookmarksPanel.find('.panel-body .show-more');
+      T.exists(assert, $showMore, 'Missing show-more link');
+      click($showMore);
+      andThen(function() {
+        assert.equal($bookmarksPanel.find('.panel-body .gru-bookmark-card').length, 40, 'Should have 40 bookmark cards');
+      });
+    });
   });
 });
 
