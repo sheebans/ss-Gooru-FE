@@ -35,9 +35,11 @@ test('fetchBookmarks', function(assert) {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
-  let offset = 0;
-  let limit = 20;
-  adapter.fetchBookmarks(offset, limit)
+  const pagination = {
+    offset: 0,
+    pageSize: 20
+  };
+  adapter.fetchBookmarks(pagination)
     .then(function(response) {
       assert.deepEqual({}, response, 'Wrong response');
     });

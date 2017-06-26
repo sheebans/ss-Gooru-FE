@@ -37,13 +37,16 @@ test('createBookmark', function(assert) {
 
 test('fetchBookmarks', function(assert) {
   const service = this.subject();
-
+  const pagination = {
+    offset: 0,
+    pageSize: 20
+  };
   assert.expect(3);
 
   service.set('bookmarkAdapter', Ember.Object.create({
-    fetchBookmarks: function(offset = 0, limit) {
-      assert.deepEqual(offset, 0, 'Wrong default offset');
-      assert.deepEqual(limit, 20, 'Wrong default limit');
+    fetchBookmarks: function(pagination){
+      assert.deepEqual(pagination.offset, 0, 'Wrong default offset');
+      assert.deepEqual(pagination.pageSize, 20, 'Wrong default limit');
       return Ember.RSVP.resolve([]);
     }
   }));
