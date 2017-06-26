@@ -48,6 +48,12 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Profile information
+   * @property {Profile} profile
+   */
+  profile: null,
+
+  /**
    * Action to send when creating a bookmark
    */
   onBookmarkCourse: null

@@ -36,6 +36,17 @@
           @include flex-basis(32%);
         }
       }
+      .gru-collection-card {
+        width: 100%;
+        margin: 0;
+
+        @media(min-width: $screen-sm-min) {
+          width: 49%;
+        }
+        @media(min-width: $screen-sm-max) {
+          width: 32%;
+        }
+      }
     }
   }
   .navbar {

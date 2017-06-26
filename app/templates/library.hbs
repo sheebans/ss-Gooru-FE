@@ -2,7 +2,11 @@
   {{content.gru-header options=options selected=selected}}
   {{#if (eq selected 'featured-courses')}}
     <div id="featured-courses">
-      {{library.gru-browse-library courses=courses onBookmarkCourse='onBookmarkCourse'}}
+      {{library.gru-browse-library
+        courses=courses
+        onBookmarkCourse='onBookmarkCourse'
+        profile=profile
+      }}
     </div>
   {{/if}}
   {{#if (eq selected 'other-libraries')}}
