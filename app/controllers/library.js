@@ -85,7 +85,7 @@ export default Ember.Controller.extend({
         'common.bookmarked-content-success',
         { contentType: bookmark.get('contentType') }
       ) : this.get('i18n').t('common.bookmarked-success');
-      const independentLearningURL = '#';
+      const independentLearningURL = this.get('target.router').generate('student-independent-learning');
       const buttonText = this.get('i18n').t('common.take-me-there');
       this.get('notifications').success(
         `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`
