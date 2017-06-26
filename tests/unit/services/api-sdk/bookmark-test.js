@@ -37,10 +37,6 @@ test('createBookmark', function(assert) {
 
 test('fetchBookmarks', function(assert) {
   const service = this.subject();
-  const pagination = {
-    offset: 0,
-    pageSize: 20
-  };
   assert.expect(3);
 
   service.set('bookmarkAdapter', Ember.Object.create({
