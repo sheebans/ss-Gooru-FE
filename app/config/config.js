@@ -246,5 +246,5 @@ export const RUBRIC_TYPE = {
 export const PLAYER_EVENT_SOURCE = {
   COURSE_MAP: 'coursemap',
   DAILY_CLASS: 'dailyclassactivity',
-  INDEPENDENT_COURSE_MAP: 'ILActivity'
+  INDEPENDENT_ACTIVITY: 'ILActivity'
 };
