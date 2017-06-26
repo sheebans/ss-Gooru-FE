@@ -20,6 +20,11 @@ export default Ember.Controller.extend({
    */
   i18n: Ember.inject.service(),
 
+  /**
+   * @property {Controller} Application controller
+   */
+  appController: Ember.inject.controller('application'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -39,6 +44,12 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Profile information
+   * @property {Profile} profile
+   */
+  profile: Ember.computed.alias('appController.profile'),
+
   /**
    * @property {Object[]} options List of tab options to show
    */
