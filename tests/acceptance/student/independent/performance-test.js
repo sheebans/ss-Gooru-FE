@@ -12,7 +12,8 @@ moduleForAcceptance('Acceptance | student/independent/performance', {
       }
     });
   }
-})
+});
+
 test('My report', function (assert) {
   visit('/student/course/course-for-pochita-as-student');
   andThen(function() {
