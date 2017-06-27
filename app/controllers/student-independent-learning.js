@@ -50,7 +50,7 @@ export default Ember.Controller.extend({
   init: function () {
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
-    const localStorageLogins = userId + '_logins';
+    const localStorageLogins = `${userId}_logins`;
     let loginCount = localStorage.getItem(localStorageLogins);
     if(loginCount) {
       this.set('loginCount', +loginCount);

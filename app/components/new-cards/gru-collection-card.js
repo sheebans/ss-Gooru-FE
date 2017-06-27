@@ -97,6 +97,14 @@ export default Ember.Component.extend(ModalMixin,{
     },
 
     /**
+     * Action triggered to open the independent content player
+     * @param {string} content identifier
+     */
+    playIndependent: function(content) {
+      this.sendAction('onOpenIndependentPlayer', content);
+    },
+
+    /**
      * Action triggered to preview the content
      * @param content
      */
@@ -118,6 +126,7 @@ export default Ember.Component.extend(ModalMixin,{
           model.set('content.children', course.children);
           model.set('remixCourse',() => component.remixCourse());
           model.set('bookmarkCourse', () => component.send('bookmarkContent', content, false));
+          model.set('playCourse', () => component.send('playIndependent', content, false));
         }).then(function () {
           component.send('showModal', 'gru-preview-course', model);
         });
@@ -125,6 +134,7 @@ export default Ember.Component.extend(ModalMixin,{
       else {
         model.set('remixCollection',() => component.remixCollection());
         model.set('bookmarkCollection', () => component.send('bookmarkContent', content, false));
+        model.set('playCollection', () => component.send('playIndependent', content, false));
         component.loadCollection(contentId, isCollection, model).then(function() {
           component.send('showModal', 'gru-preview-collection', model);
         });
@@ -233,6 +243,11 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {string} on content player action
    */
   onOpenContentPlayer: null,
+
+  /**
+   * @property {string} on independent player action
+   */
+  onOpenIndependentPlayer: null,
 
   /**
    * @property {Profile} user profile
