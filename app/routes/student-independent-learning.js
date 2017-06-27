@@ -28,7 +28,36 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   // Actions
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    /**
+     * Triggered when a class menu item is selected
+     * @param {string} item
+     */
+    selectMenuItem: function (item) {
+      const route = this;
+      const controller = route.get('controller');
+      const currentItem = controller.get('menuItem');
+
+      if (item !== currentItem) {
+        controller.selectMenuItem(item);
+
+        if (item === 'courses') {
+          route.transitionTo('student-independent-learning.courses');
+        } else if (item === 'assessments') {
+          route.transitionTo('student-independent-learning.assessments');
+        } else {
+          route.transitionTo('student-independent-learning.collections');
+        }
+      }
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Methods
+
   model: function () {
     let route = this;
     const configuration = this.get('configurationService.configuration');
@@ -83,6 +112,10 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     controller.set('bookmarks', model.bookmarks);
     controller.set('pagination', model.pagination);
     controller.set('toggleState', false);
+    if(!controller.get('menuItem')) {
+      controller.selectMenuItem('courses');
+      this.transitionTo('student-independent-learning.courses');
+    }
   }
 
 });

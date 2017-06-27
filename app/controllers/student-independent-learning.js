@@ -57,6 +57,14 @@ export default Ember.Controller.extend({
     }
   },
 
+  /**
+   * DidInsertElement ember event
+   */
+  didInsertElement: function() {
+    var item = this.get('menuItem');
+    this.selectItem(item);
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -115,8 +123,22 @@ export default Ember.Controller.extend({
    */
   toggleState: true,
 
+  /**
+   * The menuItem selected
+   * @property {String}
+   */
+  menuItem: null,
+
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Selected the menu item
+   * @param {string} item
+   */
+  selectMenuItem: function(item){
+    this.set('menuItem', item);
+  },
 
   /**
    * show more bookmark results

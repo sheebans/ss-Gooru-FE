@@ -102,7 +102,12 @@ Router.map(function() {
   this.route('home');
 
   this.route('student-home');
-  this.route('student-independent-learning');
+
+  this.route('student-independent-learning', function() {
+    this.route('courses');
+    this.route('assessments');
+    this.route('collections');
+  });
 
   this.route('student', function() {
     this.route('performance');

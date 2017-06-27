@@ -78,5 +78,27 @@
         </div>
       </div>
     </div>
+    <div class="student-independent-learning-navigator">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active courses tab">
+          <a {{action 'selectMenuItem' 'courses'}} role="tab" data-toggle="tab">
+            <i></i><span class="lead">{{t 'common.courses'}}</span>
+          </a>
+        </li>
+        <li class="collections tab">
+          <a {{action 'selectMenuItem' 'collections'}} role="tab" data-toggle="tab">
+            <i></i><span class="lead">{{t 'common.collections'}}</span>
+          </a>
+        </li>
+        <li class="assessments tab">
+          <a {{action 'selectMenuItem' 'assessments'}} role="tab" data-toggle="tab">
+            <i></i><span class="lead">{{t 'common.assessments'}}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="independent-content">
+      {{outlet}}
+    </div>
   </div>
 </div>
