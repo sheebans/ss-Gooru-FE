@@ -43,7 +43,7 @@ test('Click on back link', function(assert) {
 
     click($classHeader.find(".go-back-container .back-to"));
     andThen(function() {
-      assert.equal(currentURL(), '/student-independent-learning');
+      assert.equal(currentURL(), '/student-independent-learning/courses');
     });
   });
 });
