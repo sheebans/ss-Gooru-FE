@@ -15,7 +15,7 @@ export default Ember.Component.extend(SessionMixin,{
      * Action triggered to remix the course
      * @param content
      */
-    remixCourse:function(){
+    remixCourse: function() {
       this.get('model').remixCourse();
     },
 
@@ -23,8 +23,17 @@ export default Ember.Component.extend(SessionMixin,{
      * Action triggered to bookmark the course
      * @param content
      */
-    bookmarkCourse:function(){
+    bookmarkCourse: function() {
       this.get('model').bookmarkCourse();
+    },
+
+    /**
+     * Action triggered to play the course
+     * @param content
+     */
+    playCourse: function() {
+      this.get('model').playCourse();
+      this.triggerAction({ action: 'closeModal' });
     }
   },
 

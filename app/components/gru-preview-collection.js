@@ -26,6 +26,15 @@ export default Ember.Component.extend(SessionMixin,{
      */
     bookmarkCollection:function(){
       this.get('model').bookmarkCollection();
+    },
+
+    /**
+     * Action triggered to play the collection
+     * @param content
+     */
+    playCollection: function() {
+      this.get('model').playCollection();
+      this.triggerAction({ action: 'closeModal' });
     }
   },
 
