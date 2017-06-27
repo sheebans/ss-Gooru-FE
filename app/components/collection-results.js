@@ -23,13 +23,17 @@ export default Ember.Component.extend(ModalMixin, {
    */
   onOpenContentPlayer: 'onOpenContentPlayer',
 
+  /**
+   * @property {string} on independent player action
+   */
+  playIndependentContent: 'playIndependentContent',
 
   /**
    * DidInsertElement ember event
    */
   didInsertElement: function() {
-      var component = this;
-      component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    var component = this;
+    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
   },
   actions:{
 
@@ -48,6 +52,14 @@ export default Ember.Component.extend(ModalMixin, {
      */
     openContentPlayer: function(collectionId) {
       this.sendAction('onOpenContentPlayer', collectionId);
+    },
+
+    /**
+     * Action triggered to open the independent player
+     * @param {string} collectionId collection identifier
+     */
+    onIndependentPlayer: function(collection) {
+      this.sendAction('playIndependentContent', collection);
     },
 
     /**

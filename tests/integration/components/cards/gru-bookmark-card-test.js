@@ -83,7 +83,7 @@ test('Assessment Bookmark Card on click', function(assert) {
       assert.equal(route, 'player', 'The route should match');
       assert.equal(courseId, '123', 'Course Id should match');
       assert.equal(queryParams.role, ROLES.STUDENT, 'Course Id should match');
-      assert.equal(queryParams.source, PLAYER_EVENT_SOURCE.INDEPENDENT_COURSE_MAP, 'Course Id should match');
+      assert.equal(queryParams.source, PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY, 'Course Id should match');
     }
   });
 

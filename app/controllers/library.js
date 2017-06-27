@@ -20,6 +20,11 @@ export default Ember.Controller.extend({
    */
   i18n: Ember.inject.service(),
 
+  /**
+   * @property {Controller} Application controller
+   */
+  appController: Ember.inject.controller('application'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -33,12 +38,33 @@ export default Ember.Controller.extend({
         contentId: id,
         contentType: CONTENT_TYPES.COURSE
       });
-      this.createBookmark(bookmark, showType);
+      this.createBookmark(bookmark)
+        .then(this.notifyBookmarkSuccess(bookmark, showType));
+    },
+
+    /**
+     * Edit course action, when clicking Play at the course card
+     * @param {Content/Course}
+     */
+    playIndependentContent: function({ title, id }) {
+      let bookmark = Bookmark.create(Ember.getOwner(this).ownerInjection(), {
+        title,
+        contentId: id,
+        contentType: CONTENT_TYPES.COURSE
+      });
+      return this.createBookmark(bookmark)
+        .then(() => this.transitionToRoute('student.independent', id));
     }
   },
 
   // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Profile information
+   * @property {Profile} profile
+   */
+  profile: Ember.computed.alias('appController.profile'),
+
   /**
    * @property {Object[]} options List of tab options to show
    */
@@ -61,24 +87,32 @@ export default Ember.Controller.extend({
   // Properties
 
   /**
-   * When a bookmark is created
+   * Send bookmark info to BE for creation
+   * @param bookmark
    */
-  createBookmark: function(bookmark, showType) {
-    this.get('bookmarkService').createBookmark(bookmark).then(() => {
-      this.get('notifications').setOptions({
-        positionClass: 'toast-top-full-width',
-        toastClass: 'gooru-toast',
-        timeOut: 10000
-      });
-      const successMsg = showType ? this.get('i18n').t(
-        'common.bookmarked-content-success',
-        { contentType: bookmark.get('contentType') }
-      ) : this.get('i18n').t('common.bookmarked-success');
-      const independentLearningURL = '#';
-      const buttonText = this.get('i18n').t('common.take-me-there');
-      this.get('notifications').success(
-        `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`
-      );
+  createBookmark: function(bookmark) {
+    return this.get('bookmarkService').createBookmark(bookmark);
+  },
+
+  /**
+   * Show notification on bookmark success
+   * @param bookmark
+   * @param showType
+   */
+  notifyBookmarkSuccess: function(bookmark, showType) {
+    this.get('notifications').setOptions({
+      positionClass: 'toast-top-full-width',
+      toastClass: 'gooru-toast',
+      timeOut: 10000
     });
+    const successMsg = showType ? this.get('i18n').t(
+      'common.bookmarked-content-success',
+      { contentType: bookmark.get('contentType') }
+    ) : this.get('i18n').t('common.bookmarked-success');
+    const independentLearningURL = this.get('target.router').generate('student-independent-learning');
+    const buttonText = this.get('i18n').t('common.take-me-there');
+    this.get('notifications').success(
+      `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`
+    );
   }
 });

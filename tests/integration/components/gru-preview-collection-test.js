@@ -3,7 +3,6 @@ import hbs from 'htmlbars-inline-precompile';
 import Collection from 'gooru-web/models/content/collection';
 import Ember from 'ember';
 
-
 moduleForComponent('gru-preview-collection', 'Integration | Component | gru preview collection', {
   integration: true
 });
@@ -188,4 +187,27 @@ test('Preview Collection Layout - anonymous', function(assert) {
   assert.equal($collectionCard.find('.resources .resource').length,2, 'Should have 2 resources');
   assert.ok($collectionCard.find('.actions .cancel').length, 'Missing cancel button');
   assert.ok($collectionCard.find('.actions .remix-btn').length, 'Missing remix button');
+});
+
+test('Click on Study button', function(assert) {
+  assert.expect(4);
+
+  let model  = {
+    content: Collection.create(),
+    playCollection: () => assert.ok(true, 'Play collection needs to be called.')
+  };
+
+  this.set('model',model);
+
+  this.on('closeModal', function () {
+    assert.ok(true, 'closeModal action triggered');
+  });
+
+  this.render(hbs`{{gru-preview-collection model=model}}`);
+
+  var $component = this.$();
+  const $collectionCard = $component.find('.gru-preview-collection');
+  assert.ok($collectionCard.length, 'Missing Component');
+  assert.ok($collectionCard.find('.actions .study-btn').length, 'Missing study button');
+  $collectionCard.find('.actions .study-btn').click();
 });

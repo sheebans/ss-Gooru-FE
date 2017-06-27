@@ -21,6 +21,14 @@ export default Ember.Component.extend({
      */
     onBookmarkCourse: function(course, showType) {
       this.sendAction('onBookmarkCourse', course, showType);
+    },
+
+    /**
+     * Action triggered to open the independent player
+     * @param {string} collectionId collection identifier
+     */
+    onIndependentPlayer: function(collection) {
+      this.sendAction('onOpenIndependentPlayer', collection);
     }
   },
 
@@ -48,7 +56,18 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Profile information
+   * @property {Profile} profile
+   */
+  profile: null,
+
+  /**
    * Action to send when creating a bookmark
    */
-  onBookmarkCourse: null
+  onBookmarkCourse: null,
+
+  /**
+   * @property {string} on independent player action
+   */
+  onOpenIndependentPlayer: null
 });

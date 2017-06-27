@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {DEFAULT_SEARCH_PAGE_SIZE} from 'gooru-web/config/config';
 
 /**
  * Adapter to support the Bookmark CRUD operations in the API 3.0
@@ -33,19 +34,23 @@ export default Ember.Object.extend({
 
   /**
    * Fetches bookmarks
-   *
-   * @param {number} offset - for paginated listing of bookmarks
-   * @param {number} limit - number of records to fetch
+   * @param resetPagination indicates if the pagination needs a reset
+   * @param pagination - pagination values to list bookmarks
    * @returns {Promise}
    */
-  fetchBookmarks: function(offset, limit) {
+  fetchBookmarks: function(pagination = {}, resetPagination = false) {
     const adapter = this;
     const url = adapter.get('namespace');
+    const offset = (!pagination.offset || resetPagination) ? 0 : pagination.offset;
+    const pageSize = pagination.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders(),
-      data: { offset, limit }
+      data: {
+        offset,
+        limit: pageSize
+      }
     };
     return Ember.$.ajax(url, options);
   },
