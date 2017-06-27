@@ -16,14 +16,19 @@ const LibraryModel = Ember.Object.extend({
   name: null,
 
   /**
-   * @property {String} imageUrl - Library's image url
+   * @property {String} image - Library's image url
    */
-  imageUrl: null,
+  image: null,
 
   /**
    * @property {String} tenantId - Gooru id for the tenant
    */
   tenantId: null,
+
+  /**
+   * @property {String} tenantRoot - The tenant root
+   */
+  tenantRoot: null,
 
   /**
    * @property {Number} courseCount - Count of courses
@@ -56,7 +61,7 @@ const LibraryModel = Ember.Object.extend({
   rubricCount: null,
 
   /**
-   * @property {String} sequence - sequence order among other libraries
+   * @property {Number} sequence - sequence order among other libraries
    */
   sequence: 0
 });
