@@ -108,8 +108,8 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showExpandIcon: Ember.computed("bookmarks.[]", function(){
-    return this.get("bookmarks.length") && this.get("bookmarks.length") > this.get("firstRowLimit");
+  showExpandIcon: Ember.computed('bookmarks.[]', function(){
+    return this.get('bookmarks.length') && this.get('bookmarks.length') > this.get('firstRowLimit');
   }),
 
   /**
@@ -145,13 +145,13 @@ export default Ember.Controller.extend({
    */
   showMoreResults: function(){
     const controller = this;
-    const pagination = this.get("pagination");
+    const pagination = this.get('pagination');
 
     pagination.offset = pagination.offset + pagination.pageSize;
     pagination.pageSize = DEFAULT_SEARCH_PAGE_SIZE;
-    this.set("pagination", pagination);
+    this.set('pagination', pagination);
     controller.get('bookmarkService').fetchBookmarks(pagination, false).then(function(bookmarkResults){
-      controller.get("bookmarks").pushObjects(bookmarkResults);
+      controller.get('bookmarks').pushObjects(bookmarkResults);
     });
   }
 });

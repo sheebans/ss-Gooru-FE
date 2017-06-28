@@ -73,12 +73,17 @@ export default Ember.Component.extend(ModalMixin,{
 
       let model = Ember.Object.create({
         classroomList:this.get('classroomList'),
-        classActivity:true,
+        classActivity:!this.get('isCourse'),
         content:this.get('content')
       });
-      if(!this.get('isCourse')){
-        component.send('showModal', 'content.modals.gru-add-to-classroom', model, null, 'add-to');
+      if (this.get('isCourse')){
+        model.set('callback',{
+          success:function(){
+            component.sendAction('onUpdateUserClasses');
+          }
+        });
       }
+      component.send('showModal', 'content.modals.gru-add-to-classroom', model, null, 'add-to');
     },
 
     /**

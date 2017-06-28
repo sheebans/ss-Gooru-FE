@@ -12,6 +12,7 @@
       @include border-top-radius(4px);
       background-color: $sky-300;
       .title{
+        width:100%;
         h5{
           color: $white;
           line-height: $font-size-h4;
@@ -29,6 +30,11 @@
         &.collection { background-image: url("gooru/images/navigation_collection_selected.svg"); }
         &.assessment { background-image: url("gooru/images/navigation_assessment_selected.svg"); }
         &.course { background-image: url("gooru/images/navigation_course_selected.svg"); }
+      }
+      span.check{
+        @include flexbox();
+        @include align-items(baseline);
+        color: $white;
       }
     }
     .panel-body {

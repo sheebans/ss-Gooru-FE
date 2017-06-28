@@ -64,6 +64,52 @@ test('Layout course', function(assert) {
   T.notExists(assert, $panelBody.find('.information .collection-report'), 'Missing collection report link');
 });
 
+test('Layout course completed', function(assert) {
+
+  this.set('location', Location.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'course-title',
+    type: 'course',
+    currentId: 'collection-id',
+    currentTitle: 'current-title',
+    currentType: 'collection',
+    lastAccessed: '2017-03-07 18:44:04.798',
+    courseId: 'course-id',
+    status:'complete'
+  }));
+
+  this.render(hbs`{{cards/gru-independent-card location=location}}`);
+
+  const $component = this.$(); //component dom element
+  const $card = $component.find('.gru-independent-card');
+  assert.ok($card.find('.panel-heading span.check').length,'Missing check icon');
+  assert.ok($card.find('.information .activity .not-applicable').length,'Activity should be N/A');
+  assert.notOk($card.find('.information .activity .collection-report').length,'Collection report should not appear');
+  assert.notOk($card.find('.information .activity .current-activity').length,'Current activity should not appear');
+});
+
+test('Layout course not completed', function(assert) {
+
+  this.set('location', Location.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'course-title',
+    type: 'course',
+    currentId: 'collection-id',
+    currentTitle: 'current-title',
+    currentType: 'collection',
+    lastAccessed: '2017-03-07 18:44:04.798',
+    courseId: 'course-id',
+    status:''
+  }));
+
+  this.render(hbs`{{cards/gru-independent-card location=location}}`);
+
+  const $component = this.$(); //component dom element
+  const $card = $component.find('.gru-independent-card');
+  assert.notOk($card.find('.panel-heading span.check').length,'Check icon should not appear');
+  assert.notOk($card.find('.information .activity .not-applicable').length,'N/A should not appear');
+  assert.notOk($card.find('.information .activity .collection-report').length,'Collection report should not appear');
+  assert.ok($card.find('.information .activity .current-activity').length,'Current activity should appear');
+});
+
 test('Layout collection/assessment', function(assert) {
 
   this.set('location', Location.create(Ember.getOwner(this).ownerInjection(), {
@@ -100,5 +146,41 @@ test('Layout collection/assessment', function(assert) {
   T.exists(assert, $panelBody.find('.information .activity'), 'Missing activity information');
 
   assert.equal(T.text($panelBody.find('.information .last-access')), '6:44pm Mar. 7 2017', 'Wrong last access');
-  T.exists(assert, $panelBody.find('.information .collection-report'), 'Missing collection report link');
 });
+
+test('Layout collection/assessment completed', function(assert) {
+
+  this.set('location', Location.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'collection-title',
+    type: 'collection',
+    status: 'complete'
+  }));
+
+  this.render(hbs`{{cards/gru-independent-card location=location performance=performance}}`);
+
+  const $component = this.$(); //component dom element
+  const $card = $component.find('.gru-independent-card');
+  assert.ok($card.find('.panel-heading span.check').length,'Missing check icon');
+  assert.notOk($card.find('.information .activity .not-applicable').length,'N/A should not appear');
+  assert.ok($card.find('.information .activity .collection-report').length,'Collection report should appear');
+  assert.notOk($card.find('.information .activity .current-activity').length,'Current activity should not appear');
+});
+
+test('Layout collection/assessment  not completed', function(assert) {
+
+  this.set('location', Location.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'collection-title',
+    type: 'collection',
+    status: ''
+  }));
+
+  this.render(hbs`{{cards/gru-independent-card location=location performance=performance}}`);
+
+  const $component = this.$(); //component dom element
+  const $card = $component.find('.gru-independent-card');
+  assert.notOk($card.find('.panel-heading span.check').length,'Check icon should not');
+  assert.ok($card.find('.information .activity .not-applicable').length,'N/A should not appear');
+  assert.notOk($card.find('.information .activity .collection-report').length,'Collection report should not appear');
+  assert.notOk($card.find('.information .activity .current-activity').length,'Current activity should not appear');
+});
+
