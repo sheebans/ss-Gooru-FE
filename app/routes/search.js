@@ -183,7 +183,8 @@ export default Ember.Route.extend(PublicRouteMixin, {
         contentId: id,
         contentType: CONTENT_TYPES.COURSE
       });
-      this.createBookmark(bookmark, showType);
+      this.createBookmark(bookmark)
+        .then(() => this.notifyBookmarkSuccess(bookmark, showType));
     }
   }
 

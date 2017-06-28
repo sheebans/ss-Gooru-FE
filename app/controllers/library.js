@@ -39,7 +39,7 @@ export default Ember.Controller.extend({
         contentType: CONTENT_TYPES.COURSE
       });
       this.createBookmark(bookmark)
-        .then(this.notifyBookmarkSuccess(bookmark, showType));
+        .then(() => this.notifyBookmarkSuccess(bookmark, showType));
     },
 
     /**
