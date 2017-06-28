@@ -1,17 +1,26 @@
-import Ember from 'ember';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
+import LearningBaseRoute from 'gooru-web/routes/student-independent-learning/learning-base';
 
-export default Ember.Route.extend({
+export default LearningBaseRoute.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
 
   // -------------------------------------------------------------------------
   // Attributes
+  /**
+   * @property {String} the content type
+   */
+  contentType: CONTENT_TYPES.COLLECTION,
+
+  /**
+   * @property {String} the menu item name
+   */
+  item: 'collections'
 
   // -------------------------------------------------------------------------
   // Actions
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

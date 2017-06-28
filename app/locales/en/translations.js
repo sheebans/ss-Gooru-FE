@@ -353,6 +353,7 @@ export default Object.assign(quizzesTranslations, {
     "no-resources-to-display": "No <span>resources</span> to display.",
     "no-rubrics-to-display": "No <span>rubrics</span> to display.",
     "no-followers": "You don't have followers yet.",
+    "no-independent-results": "When you start exploring your bookmarked {{contentType}}, they will appear here.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
     "no-more-attempts": "No more attempts",

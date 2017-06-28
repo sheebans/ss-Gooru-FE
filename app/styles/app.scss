@@ -78,9 +78,7 @@
 
 @import 'controllers/goals/manage';
 
-@import 'controllers/student-independent-learning/courses';
-@import 'controllers/student-independent-learning/assessments';
-@import 'controllers/student-independent-learning/collections';
+@import 'controllers/student-independent-learning/learning-base';
 
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';

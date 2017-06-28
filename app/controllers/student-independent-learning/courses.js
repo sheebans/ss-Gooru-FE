@@ -1,32 +1,15 @@
-import Ember from "ember";
+import LearningBaseController from 'gooru-web/controllers/student-independent-learning/learning-base';
 
 /**
  * Independent Learning Courses controller
  *
  * Controller responsible of the logic for the Independent Learning Courses page
  */
-
-export default Ember.Controller.extend({
-
-  // -------------------------------------------------------------------------
-  // Dependencies
-
-  // -------------------------------------------------------------------------
-  // Attributes
-
-  // -------------------------------------------------------------------------
-  // Actions
-
-  // -------------------------------------------------------------------------
-  // Events
-
+export default LearningBaseController.extend({
   // -------------------------------------------------------------------------
   // Properties
-
-  // -------------------------------------------------------------------------
-  // Observers
-
-  // -------------------------------------------------------------------------
-  // Methods
-
+  /**
+   * @property {String} translation name to use in no results text
+   */
+   contentTypeTranslation: 'common.courses'
 });
