@@ -109,19 +109,15 @@ test('Legacy uri resource-play', function (assert) {
   });
 });
 
-moduleForAcceptance('Acceptance | application', {
-  beforeEach: function() {
-    authenticateSession(this.application, {
-      isAnonymous: false,
-      token: 'token-value',
-      user: {
-        gooruUId: 'anonymous'
-      }
-    });
-  }
-});
-
 test('Legacy uri profile', function (assert) {
+  authenticateSession(this.application, {
+    isAnonymous: false,
+    token: 'token-value',
+    user: {
+      gooruUId: 'anonymous'
+    }
+  });
+
   visit('/#id-for-pochita');
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/courses');
@@ -129,6 +125,13 @@ test('Legacy uri profile', function (assert) {
 });
 
 test('Trying the google sign in url', function (assert) {
+  authenticateSession(this.application, {
+    isAnonymous: false,
+    token: 'token-value',
+    user: {
+      gooruUId: 'anonymous'
+    }
+  });
   visit('/?access_token=google-sign-token');
   andThen(function() {
     assert.ok(Ember.$('.gru-tenant-theme style').length, 'Tenant theme component should be loaded');
