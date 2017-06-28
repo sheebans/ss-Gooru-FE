@@ -1,12 +1,13 @@
 import Ember from 'ember';
 import { formatDate } from 'gooru-web/utils/utils';
+import SessionMixin from 'gooru-web/mixins/session';
 /**
  * Class activities controller
  *
  * Controller responsible of the logic for the teacher class activities tab
  */
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies

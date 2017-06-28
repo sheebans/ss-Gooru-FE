@@ -922,7 +922,9 @@ export default Object.assign(quizzesTranslations, {
       },
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
-        "today": "Today, "
+        "today": "Today, ",
+        "add-activities": "Add Activities from the ",
+        "or": " or "
       },
       "click-to-copy": "Click to copy class code",
       "course-map": "Course Map",
