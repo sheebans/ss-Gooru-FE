@@ -6,6 +6,9 @@
         <div class="title">
           <h5>{{location.title}}</h5>
         </div>
+        {{#if location.isCompleted}}
+          <span class="check">{{gru-icon name='check_circle'}}</span>
+        {{/if}}
       </div>
     {{/link-to}}
   {{else}}
@@ -15,6 +18,9 @@
         <div class="title">
           <h5>{{location.title}}</h5>
         </div>
+        {{#if location.isCompleted}}
+          <span class="check">{{gru-icon name='check_circle'}}</span>
+        {{/if}}
       </div>
     {{/link-to}}
   {{/if}}
@@ -43,20 +49,28 @@
     <div class="information">
         <div class="activity">
           <span>{{t "student-landing.current-activity"}}</span>
-          {{#if location.currentId}}
-            <div class="current-activity ellipsis">
-              <i class="{{if isCurrentAssessment 'assessment' 'collection'}}"></i>
-              <a {{action 'playCurrent'}}>
-                {{location.currentTitle}}
-              </a>
-            </div>
+          {{#if location.isCompleted}}
+            {{#if isCourse}}
+              <div class="not-applicable">{{t 'common.not-applicable'}}</div>
+              {{else}}
+              <div class="collection-report">
+                {{gru-icon name='graphic_eq'}}
+                <a class="report-link" {{action 'toReport'}}>
+                  {{t 'student-landing.course.to-report'}}
+                </a>
+              </div>
+            {{/if}}
           {{else}}
-            <div class="collection-report">
-              {{gru-icon name='graphic_eq'}}
-              <a class="report-link" {{action 'toReport'}}>
-                {{t 'student-landing.course.to-report'}}
-              </a>
-            </div>
+            {{#if isCourse}}
+              <div class="current-activity ellipsis">
+                <i class="{{if isCurrentAssessment 'assessment' 'collection'}}"></i>
+                <a {{action 'playCurrent'}}>
+                  {{location.currentTitle}}
+                </a>
+              </div>
+              {{else}}
+              <div class="not-applicable">{{t 'common.not-applicable'}}</div>
+            {{/if}}
           {{/if}}
         </div>
       <div class="last-access">
