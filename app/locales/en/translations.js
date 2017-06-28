@@ -860,6 +860,10 @@ export default Object.assign(quizzesTranslations, {
       },
       "my-report":"My Report"
     },
+    "course": {
+      "to-report": "Usage summary",
+      "total-time-spent": "Total time spent"
+    },
     "current-activity":"Current activity",
     "join-classroom": "Join your teacher's classroom to start learning",
     "learn": "Learn with a Gooru classroom",
