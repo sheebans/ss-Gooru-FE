@@ -69,12 +69,12 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {Boolean} if the locations is of type course
+   * @property {Boolean} if the location is of type course
    */
   isCourse: Ember.computed.equal('location.type', CONTENT_TYPES.COURSE),
 
   /**
-   * @property {Boolean} if the locations is of type course
+   * @property {Boolean} if the current activity is of type assessment
    */
   isCurrentAssessment: Ember.computed.equal('location.currentType', CONTENT_TYPES.ASSESSMENT),
 
