@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
     /**
      * when loading more items from learner locations
      */
-     loadMore: function () {
+     showMoreResults: function () {
        const userId = this.get('session.userId');
        const contentType = this.get('contentType');
        const offset = this.get('offset');
@@ -46,10 +46,8 @@ export default Ember.Controller.extend({
        })
        .then(hash => {
          this.set('offset', offset + this.get('pageSize'));
-         locations.push(...hash.locations);
-         performance.push(...hash.performance);
-         this.set('locations', locations);
-         this.set('performance', performance);
+         this.set('locations', locations.concat(hash.locations));
+         this.set('performance', performance.concat(hash.performance));
        });
      }
   },
@@ -62,7 +60,7 @@ export default Ember.Controller.extend({
   /**
    * @property {LearnerLocation[]} list of locations to show
    */
-   items: Ember.computed('locations', 'performance', function() {
+   items: Ember.computed('locations.[]', 'performance.[]', function() {
      let locations = this.get('locations');
      let performance = this.get('performance');
      let performanceMap = performance.reduce((result, perfItem) => {
@@ -89,6 +87,14 @@ export default Ember.Controller.extend({
    * @property {Number} number of items loaded, used to load more
    */
   pageSize: 20,
+
+  /**
+   * @property {boolean} if the show more button should be displayed
+   */
+  showMoreResultsButton: Ember.computed('locations.[]', function () {
+    return this.get('locations.length') &&
+      (this.get('locations.length') % this.get('pageSize') === 0);
+  }),
 
   /**
    * @property {Number} number of items loaded, used to load more
