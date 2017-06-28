@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default Ember.Controller.extend(ConfigurationMixin, {
@@ -9,7 +9,7 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   /**
    * @requires service:session
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   /**
    * @type {ProfileService} Service to retrieve profile information
@@ -23,7 +23,7 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   searchController: Ember.inject.controller('search'),
 
 
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   /**
    * @property {TenantService}
@@ -45,7 +45,7 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * This is a link to the search controller so the header is updated
    * @property {string} term
    */
-  term: Ember.computed.alias("searchController.term"),
+  term: Ember.computed.alias('searchController.term'),
 
   /**
    * @property {Tenant} tenant
@@ -109,7 +109,7 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   loadUserClasses: function() {
     const controller = this;
     const profile = controller.get('profile');
-    let profilePromise = (profile) ? Ember.RSVP.resolve(profile) : controller.get('profileService').readUserProfile(controller.get("session.userId"));
+    let profilePromise = (profile) ? Ember.RSVP.resolve(profile) : controller.get('profileService').readUserProfile(controller.get('session.userId'));
 
     return profilePromise.then(function(userProfile) {
       controller.set('profile', userProfile);

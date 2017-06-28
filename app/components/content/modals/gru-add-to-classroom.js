@@ -9,6 +9,11 @@ export default Ember.Component.extend({
    */
   classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
+  /**
+   * @property {classService}
+   */
+  classService: Ember.inject.service('api-sdk/class'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -35,8 +40,14 @@ export default Ember.Component.extend({
       let selectedClassroom = component.get('selectedClassroom');
       let classId = selectedClassroom.get('id');
 
-      if(isClassActivity){
+      if (isClassActivity) {
         component.get('classActivityService').addActivityToClass(classId, content.get('id'), content.get('collectionType'), null).then(function(){
+          component.triggerAction({ action: 'closeModal' });
+        });
+      } else {
+        component.get('classService').associateCourseToClass(content.get('id'),classId).then(function(){
+         let callback = component.get('model.callback');
+          callback.success();
           component.triggerAction({ action: 'closeModal' });
         });
       }
