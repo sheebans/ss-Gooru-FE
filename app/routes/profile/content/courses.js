@@ -40,6 +40,12 @@ export default Ember.Route.extend(ModalMixin, {
         content: course
       };
       this.send('showModal', 'content.modals.gru-course-remix', remixModel);
+    },
+    /**
+     * Triggers the refresh of user classes
+     */
+    updateClass:function(){
+      this.send('updateUserClasses');
     }
 
   },

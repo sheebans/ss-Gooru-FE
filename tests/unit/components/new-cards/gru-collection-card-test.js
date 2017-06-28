@@ -289,6 +289,7 @@ test('addToClassroom - Collection', function(assert) {
     assert.deepEqual(model.classroomList, expectedModel.classroomList, 'Incorrect classroom list');
     assert.deepEqual(model.content, expectedModel.content, 'Model content  should match');
     assert.equal(componentName, 'content.modals.gru-add-to-classroom', 'Component name should match');
+    assert.notOk(model.callback, 'Should not have Callback');
     done();
   });
   component.send('addToClassroom');
@@ -338,6 +339,69 @@ test('addToClassroom - Assessment', function(assert) {
   component.set('actions.showModal', function(componentName, model) {
     assert.deepEqual(model.classroomList, expectedModel.classroomList, 'Incorrect classroom list');
     assert.deepEqual(model.content, expectedModel.content, 'Model content  should match');
+    assert.equal(componentName, 'content.modals.gru-add-to-classroom', 'Component name should match');
+    assert.notOk(model.callback, 'Should not have Callback');
+    done();
+  });
+  component.send('addToClassroom');
+});
+
+test('addToClassroom - Course', function(assert) {
+  let course = Course.create(Ember.getOwner(this).ownerInjection(),{
+    id:'123',
+    title: "Course Title",
+    subject: 'CCSS.K12.Math',
+    category: 'k_12',
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
+    useCase: "Use Case",
+    taxonomy:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    children: [
+      Ember.Object.create({
+        id: 'unit-123',
+        sequence: 1,
+        title: 'Unit Title A'
+      }),
+      Ember.Object.create({
+        id: 'unit-456',
+        sequence: 2,
+        title: 'Unit Title B'
+      })
+    ]
+  });
+
+  let component = this.subject({
+    classroomList:[Ember.Object.create({id:'class1',title:'class-1'})],
+    content:course
+  });
+
+  var expectedModel = Ember.Object.create({
+    classroomList:[Ember.Object.create({id:'class1',title:'class-1', studentCount: 0})],
+    classActivity:false,
+    content:course
+  });
+
+  component.set('isCourse', true);
+
+  component.set('isTeacher', true);
+
+  let done = assert.async();
+  component.set('actions.showModal', function(componentName, model) {
+    assert.deepEqual(model.classroomList, expectedModel.classroomList, 'Incorrect classroom list');
+    assert.deepEqual(model.content, expectedModel.content, 'Model content  should match');
+    assert.ok(model.callback.success, 'Missing Callback');
     assert.equal(componentName, 'content.modals.gru-add-to-classroom', 'Component name should match');
     done();
   });
