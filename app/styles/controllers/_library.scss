@@ -27,4 +27,18 @@
     height: 100%;
     width: 100%;
   }
+
+  #partner-libraries{
+    height: 100%;
+    width: 100%;
+    .libraries-container{
+      @include flexbox;
+      margin: 100px 0 30px;
+      padding: 0 6%;
+    }
+  }
+
+
+
+
 }

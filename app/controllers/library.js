@@ -73,8 +73,8 @@ export default Ember.Controller.extend({
       name: 'featured-courses',
       text: this.get('i18n').t('library.featured-courses')
     }, {
-      name: 'other-libraries',
-      text: this.get('i18n').t('library.other-libraries')
+      name: 'partner-libraries',
+      text: this.get('i18n').t('library.partner-libraries')
     }];
   }),
 
