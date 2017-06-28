@@ -30,3 +30,5 @@ report-xunit.xml
 .sass-lint.yml
 
 gooru-web/
+
+*.iml
