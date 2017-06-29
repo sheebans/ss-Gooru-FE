@@ -1,9 +1,16 @@
+import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('serializer:library/library', 'Unit | Serializer | library/library');
 
 test('normalizeFetchLibraries', function(assert) {
   const serializer = this.subject();
+  const contentCdnUrl = 'content-url/';
+  serializer.set('session', Ember.Object.create({
+    'cdnUrls': {
+      content: contentCdnUrl
+    }
+  }));
   const librariesPayload = {
     "libraries": [{
       "id": 'library-id-1',
@@ -42,7 +49,7 @@ test('normalizeFetchLibraries', function(assert) {
 
   assert.equal(library1.get('id'), 'library-id-1', 'Wrong library id');
   assert.equal(library1.get('name'), 'name-1', 'Wrong library name');
-  assert.equal(library1.get('image'), 'thumbnail-1', 'Wrong image name');
+  assert.equal(library1.get('image'), 'content-url/thumbnail-1', 'Wrong image name');
   assert.equal(library1.get('tenantId'), 'tenant-1', 'Wrong tenant id');
   assert.equal(library1.get('tenantRoot'), null, 'Should be null');
   assert.equal(library1.get('courseCount'), 5, 'Wrong course count');
