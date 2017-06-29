@@ -237,7 +237,7 @@ export default Ember.Object.extend(Validations, {
         lessons.forEach(function(lesson){
           const validLesson = !lessonId || lesson.get('id') === lessonId;
           if (validLesson) {
-            const lessonItems = lesson.get('children');
+            const lessonItems = lesson.get('sortedCollectionResults');
             lessonItems.forEach(function(lessonItem){
               if (lessonItem.get('format') === collectionType) {
                 collections.pushObject(lessonItem);

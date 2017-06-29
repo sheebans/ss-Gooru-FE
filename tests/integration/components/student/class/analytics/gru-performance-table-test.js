@@ -200,6 +200,52 @@ test('Performance Table Layout with Report Column', function(assert) {
 
 });
 
+test('Sort by assessment sequence', function(assert) {
+
+  const assessmentsMock = [
+    AssessmentModel.create({id: '1', sequence: 1, title: 'What is a Fish?'}),
+    AssessmentModel.create({id: '2', sequence: 2, title: 'Global Warming Quiz'}),
+    AssessmentModel.create({id: '3', sequence: 3, title: 'Assessment Human Impact on Earth'})
+  ];
+
+  var collectionPerformanceSummaryItems = Ember.A([
+    CollectionPerformanceSummary.create({
+      id: '1',
+      score : 1,
+      completionDone: 1,
+      completionTotal: 50,
+      timeSpent: 5000000
+    }),
+    CollectionPerformanceSummary.create({
+      id: '2',
+      score : 2,
+      completionDone: 14,
+      completionTotal: 50,
+      timeSpent: 5100000
+    }),
+    CollectionPerformanceSummary.create({
+      id: '3',
+      score : 3,
+      completionDone: 23,
+      completionTotal: 50,
+      timeSpent: 5300000
+    })
+  ]);
+
+  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
+  this.set('assessmentsMock', assessmentsMock);
+
+  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
+
+  const $component = this.$(); //component dom element
+  const $performanceTable = $component.find('.gru-performance-table .table');
+  const $thead = $performanceTable.find('thead');
+  const $assessmentHeader = $thead.find('th.assessment'); //assessments column
+  const $tbody = $performanceTable.find('tbody');
+
+  assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'What is a Fish?', 'First assessment should be What is a Fish?');
+});
+
 test('Sort by assessment title', function(assert) {
 
   const assessmentsMock = [
@@ -243,14 +289,14 @@ test('Sort by assessment title', function(assert) {
   const $assessmentHeader = $thead.find('th.assessment'); //assessments column
   const $tbody = $performanceTable.find('tbody');
 
-  $assessmentHeader.find('a').click(); //descending assessment sort, because is sort ascending by default
+  $assessmentHeader.find('a').click(); //ascending assessment sort, because it is  sorted by sequence by default
 
   return wait().then(function () {
-    assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'What is a Fish?', 'First assessment should be What is a Fish?');
-    $assessmentHeader.find('a').click(); //ascending assessment sort
+    assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'Assessment Human Impact on Earth', 'First assessment should be Assessment Human Impact on Earth');
+    $assessmentHeader.find('a').click(); //descending assessment sort
 
     return wait().then(function () {
-      assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'Assessment Human Impact on Earth', 'First assessment should be Assessment Human Impact on Earth');
+      assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'What is a Fish?', 'First assessment should be What is a Fish?');
     });
   });
 });
@@ -305,7 +351,7 @@ test('Sort by score Metric', function(assert) {
 
     return wait().then(function () {
       assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'What is a Fish?', 'First assessment should be What is a Fish?');
-   });
+    });
   });
 });
 

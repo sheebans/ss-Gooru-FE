@@ -26,7 +26,7 @@ export default Ember.Component.extend({
       /**
        * Sort metric by criteria
        */
-      sort:function(metric){
+      sort:function(metric) {
         this.sortByMetrics(metric);
         var metricsIndex = metric.get('index');
         var sortCriteria = this.get('sortCriteria');
@@ -100,13 +100,7 @@ export default Ember.Component.extend({
     if (sortCriteria) {
       let metricsIndex = sortCriteria.metricsIndex;
       let sortedData = performanceData;
-
-      //alphabeticalStringSort
-      if (metricsIndex === -1) {
-        sortedData.sort(function (a, b) {
-          return alphabeticalStringSort(a.assessment.title, b.assessment.title) * sortCriteria.order;
-        });
-      } else if (metricsIndex >= 0) {
+      if (metricsIndex >= 0) {
         let sortByMetric = this.get('sortByMetric');
         sortedData.sort(function (a, b) {
           if (a.performanceData && b.performanceData){
@@ -114,6 +108,8 @@ export default Ember.Component.extend({
               return numberSort(a.performanceData.score, b.performanceData.score) * sortCriteria.order;
             } else if (sortByMetric === 'completion') {
               return numberSort(a.performanceData.completionDone, b.performanceData.completionDone) * sortCriteria.order;
+            } else if (sortByMetric === 'assessment') {
+              return alphabeticalStringSort(a.assessment.title, b.assessment.title) * sortCriteria.order;
             } else {
               return numberSort(a.performanceData.timeSpent, b.performanceData.timeSpent) * sortCriteria.order;
             }
@@ -139,7 +135,7 @@ export default Ember.Component.extend({
     'isAsc': false,
     'hasSorting': true,
     'visible': true,
-    'index': -1
+    'index': 3
   }),Ember.Object.create({
     'value': 'score',
     'sorted':false,

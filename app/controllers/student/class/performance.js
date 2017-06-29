@@ -91,7 +91,7 @@ export default Ember.Controller.extend({
       'isAsc': false,
       'hasSorting': true,
       'visible': true,
-      'index': -1
+      'index': 3
     }),Ember.Object.create({
       'value': 'score',
       'sorted': false,
@@ -168,7 +168,7 @@ export default Ember.Controller.extend({
       const userId = controller.get('profile.id');
       const collectionType = controller.get('collectionType');
       const unitId = controller.get('unitId');
-      const lessonId = controller.get('lessonId');
+      let lessonId = controller.get('lessonId');
       let classId = controller.get('classId');
       const criteria = {
         courseId,
@@ -185,6 +185,7 @@ export default Ember.Controller.extend({
             var lesson = unitLessons[0].get('id');
             Ember.run(function() {
               controller.set('lessonId',lesson);
+              lessonId = lesson;
             });
           }
           criteria.lessonId = controller.get('lessonId');
