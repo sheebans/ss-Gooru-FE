@@ -82,6 +82,7 @@ test('Layout', function(assert) {
     T.exists(assert, independentLearningNavigator.find(".collections"), "Missing collections item in the navigator");
     T.exists(assert, independentLearningNavigator.find(".assessments"), "Missing collections item in the navigator");
     T.exists(assert, $container.find('.independent-content'), 'Missing independent content');
+    assert.equal(find('.independent-results .gru-independent-card').length, 2, 'Wrong number of cards');
   });
 });
 
@@ -135,7 +136,23 @@ test('Go to search/collections from bookmarks panel', function(assert) {
   });
 });
 
-test('Layout when a menu Item is selected', function(assert) {
+test('Layout assessments', function(assert) {
+  visit('/student-independent-learning');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-independent-learning/courses');
+
+    const $collectionsMenuItem = find(".student-independent-learning-navigator li.assessments a");
+
+    click($collectionsMenuItem);
+    andThen(function() {
+      assert.equal(currentURL(), '/student-independent-learning/assessments', 'Wrong route');
+      assert.equal(find('.independent-results .gru-independent-card').length, 2, 'Wrong number of cards');
+    });
+  });
+});
+
+test('Layout collections', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
@@ -146,7 +163,7 @@ test('Layout when a menu Item is selected', function(assert) {
     click($collectionsMenuItem);
     andThen(function() {
       assert.equal(currentURL(), '/student-independent-learning/collections', 'Wrong route');
+      assert.equal(find('.independent-results .gru-independent-card').length, 2, 'Wrong number of cards');
     });
   });
 });
-
