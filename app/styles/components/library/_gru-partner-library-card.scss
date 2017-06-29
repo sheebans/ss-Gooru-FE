@@ -1,6 +1,15 @@
 .gru-partner-library-card {
-  width: 395px;
-  margin: 10px;
+  width: 100%;
+  margin: 10px auto;
+  @media (min-width: $screen-xs) {
+    width: 80%;
+  }
+  @media (min-width: $screen-md) {
+    width: 45%;
+  }
+  @media (min-width: $screen-lg) {
+    width: 32%;
+  }
   .panel-body, .panel-footer{
     @include flexbox;
   }
@@ -43,9 +52,6 @@
           margin: 0 0 5px;
           font-size: $font-size-small;
           .item{
-            width: 95px;
-          }
-          .item-big{
             width: 112px;
           }
         }
