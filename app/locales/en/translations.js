@@ -1910,7 +1910,39 @@ export default Object.assign(quizzesTranslations, {
     "gru-library-card":{
       "featured-course":"Featured Course"
     },
-    "other-libraries": "Other Libraries"
+    "gru-partner-library-card":{
+      "course": {
+        zero: "{{count}} Course",
+        one: "{{count}} Course",
+        other: "{{count}} Courses"
+      },
+      "collection": {
+        zero: "{{count}} Collection",
+        one: "{{count}} Collection",
+        other: "{{count}} Collections"
+      },
+      "assessment": {
+        zero: "{{count}} Assessment",
+        one: "{{count}} Assessment",
+        other: "{{count}} Assessments"
+      },
+      "resource": {
+        zero: "{{count}} Resource",
+        one: "{{count}} Resource",
+        other: "{{count}} Resources"
+      },
+      "question": {
+        zero: "{{count}} Question",
+        one: "{{count}} Question",
+        other: "{{count}} Questions"
+      },
+      "rubric": {
+        zero: "{{count}} Rubric",
+        one: "{{count}} Rubric",
+        other: "{{count}} Rubrics"
+      }
+    },
+    "partner-libraries": "Partner Libraries"
   },
   "gru-study-header": {
     "lesson-legend": "You are currently on lesson",

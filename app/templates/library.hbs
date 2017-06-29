@@ -10,8 +10,13 @@
       }}
     </div>
   {{/if}}
-  {{#if (eq selected 'other-libraries')}}
-    <div id="other-libraries">
+  {{#if (eq selected 'partner-libraries')}}
+    <div id="partner-libraries">
+      <div class="libraries-container">
+      {{#each libraries as |library|}}
+        {{library.gru-partner-library-card content=library}}
+      {{/each}}
+      </div>
     </div>
   {{/if}}
 </div>
