@@ -107,11 +107,11 @@
           padding: 0 3px;
           font-size: $font-size-lead;
           font-weight: bold;
-          width: 55px;
+          width: 32%;
           text-align: center;
           @media (min-width: $screen-lg) {
             padding: 10px 20px 10px 10px;
-            width: 80px;
+            width: 38%;
           }
         }
       }
@@ -517,11 +517,11 @@
               padding: 10px 3px;
               font-size: $font-size-lead;
               font-weight: bold;
-              width: 55px;
+              width: 32%;
               text-align: center;
               @media (min-width: $screen-lg) {
                 padding: 10px 20px 10px 10px;
-                width: 80px;
+                width: 38%;
               }
             }
             .time-spent {
@@ -576,6 +576,7 @@
         height: 41px;
         font-size: $font-size-h6;
         margin: 10px 0;
+        padding:6px 12px;
         i {
           font-size: $font-size-h4;
           vertical-align: bottom

@@ -153,7 +153,7 @@ test('it renders correctly when there are no collections/assessments to load aft
   });
 });
 test('Study now', function(assert) {
-  assert.expect(7);
+  assert.expect(8);
 
   this.on('parentAction', function(type, item){
     assert.ok(type, 'Should have type');
@@ -216,7 +216,9 @@ test('Study now', function(assert) {
     assert.ok($collapsePanel.find('li'), 'Missing item');
     return wait().then(function() {
       var $studyNowButton = $component.find('.btn.study-now');
+      var $score = $component.find('.left-info .score');
       assert.ok($studyNowButton.length,'Missing study now button');
+      assert.ok($score.length,'Missing study now button');
       assert.notOk($component.find('li.assessment:last-child .trophy').length, 'Trophy should not appear when the study button appear');
       $studyNowButton.click();
     });

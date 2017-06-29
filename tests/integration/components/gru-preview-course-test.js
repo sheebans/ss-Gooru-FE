@@ -183,3 +183,25 @@ test('Preview Course Layout - student', function(assert) {
   assert.ok($collectionCard.find('.actions .cancel').length, 'Missing cancel button');
   assert.ok($collectionCard.find('.actions .study-btn').length, 'Missing study button');
 });
+
+test('Click on Study button', function(assert) {
+  assert.expect(4);
+
+  let model  = {
+    playCourse: () => assert.ok(true, 'Play course needs to be called.')
+  };
+
+  this.set('model',model);
+
+  this.on('closeModal', function () {
+    assert.ok(true, 'closeModal action triggered');
+  });
+
+  this.render(hbs`{{gru-preview-course model=model}}`);
+
+  var $component = this.$();
+  const $collectionCard = $component.find('.gru-preview-course');
+  assert.ok($collectionCard.length, 'Missing Component');
+  assert.ok($collectionCard.find('.actions .study-btn').length, 'Missing study button');
+  $collectionCard.find('.actions .study-btn').click();
+});

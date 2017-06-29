@@ -64,7 +64,7 @@ export default Ember.Route.extend({
      */
   startCollectionStudyPlayer:function(courseId, unitId, lessonId, collection) {
     let role = ROLES.STUDENT;
-    let source = PLAYER_EVENT_SOURCE.INDEPENDENT_COURSE_MAP;
+    let source = PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY;
     let collectionId = collection.get('id');
     let collectionType = collection.get('collectionType');
     let queryParams = {
@@ -94,7 +94,7 @@ export default Ember.Route.extend({
       unitId,
       lessonId,
       role,
-      source: PLAYER_EVENT_SOURCE.INDEPENDENT_COURSE_MAP
+      source: PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY
     };
     this.get('navigateMapService')
       .startLesson(courseId, unitId, lessonId)

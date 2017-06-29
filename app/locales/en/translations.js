@@ -353,6 +353,7 @@ export default Object.assign(quizzesTranslations, {
     "no-resources-to-display": "No <span>resources</span> to display.",
     "no-rubrics-to-display": "No <span>rubrics</span> to display.",
     "no-followers": "You don't have followers yet.",
+    "no-independent-results": "When you start exploring your bookmarked {{contentType}}, they will appear here.",
     "no-results": "No results found",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
     "no-more-attempts": "No more attempts",
@@ -861,6 +862,10 @@ export default Object.assign(quizzesTranslations, {
       },
       "my-report":"My Report"
     },
+    "course": {
+      "to-report": "Usage summary",
+      "total-time-spent": "Total time spent"
+    },
     "current-activity":"Current activity",
     "join-classroom": "Join your teacher's classroom to start learning",
     "learn": "Learn with a Gooru classroom",
@@ -919,7 +924,9 @@ export default Object.assign(quizzesTranslations, {
       },
       "class-activities": "Daily Class Activities",
       "class-activities-tab": {
-        "today": "Today, "
+        "today": "Today, ",
+        "add-activities": "Add Activities from the ",
+        "or": " or "
       },
       "click-to-copy": "Click to copy class code",
       "course-map": "Course Map",
@@ -1904,7 +1911,39 @@ export default Object.assign(quizzesTranslations, {
     "gru-library-card":{
       "featured-course":"Featured Course"
     },
-    "other-libraries": "Other Libraries"
+    "gru-partner-library-card":{
+      "course": {
+        zero: "{{count}} Course",
+        one: "{{count}} Course",
+        other: "{{count}} Courses"
+      },
+      "collection": {
+        zero: "{{count}} Collection",
+        one: "{{count}} Collection",
+        other: "{{count}} Collections"
+      },
+      "assessment": {
+        zero: "{{count}} Assessment",
+        one: "{{count}} Assessment",
+        other: "{{count}} Assessments"
+      },
+      "resource": {
+        zero: "{{count}} Resource",
+        one: "{{count}} Resource",
+        other: "{{count}} Resources"
+      },
+      "question": {
+        zero: "{{count}} Question",
+        one: "{{count}} Question",
+        other: "{{count}} Questions"
+      },
+      "rubric": {
+        zero: "{{count}} Rubric",
+        one: "{{count}} Rubric",
+        other: "{{count}} Rubrics"
+      }
+    },
+    "partner-libraries": "Partner Libraries"
   },
   "gru-study-header": {
     "lesson-legend": "You are currently on lesson",

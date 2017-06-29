@@ -28,7 +28,7 @@ export default Ember.Component.extend(ModalMixin, {
       } else {
         let queryParams = {
           role: ROLES.STUDENT,
-          source: PLAYER_EVENT_SOURCE.INDEPENDENT_COURSE_MAP
+          source: PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY
         };
         this.get('router').transitionTo('player', bookmark.get('contentId'), { queryParams });
       }

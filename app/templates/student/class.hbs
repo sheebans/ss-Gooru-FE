@@ -59,13 +59,20 @@
       </div>
     </div>
   </div>
-
+  {{#if class}}
+    {{student.class.gru-class-navigation
+      class=class
+      onItemSelected="selectMenuItem"
+      onCollapseExpandClicked="toggleHeader"
+      selectedMenuItem=menuItem
+      expand=true}}
+  {{else}}
   {{student.class.gru-class-navigation
     class=class
     onItemSelected="selectMenuItem"
     onCollapseExpandClicked="toggleHeader"
     selectedMenuItem=menuItem}}
-
+  {{/if}}
   <div class="content">
     {{outlet}}
   </div>

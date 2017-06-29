@@ -15,7 +15,7 @@ moduleForAcceptance('Acceptance | library', {
 });
 
 test('Library Controller Layout', function (assert) {
-  assert.expect(8);
+  assert.expect(9);
   visit('/library');
 
   andThen(function () {
@@ -27,13 +27,14 @@ test('Library Controller Layout', function (assert) {
 
     let $options = $libraries.find('.tab');
     assert.ok($options.filter('.featured-courses').length, 'Featured Courses tab is missing');
-    assert.ok($options.filter('.other-libraries').length, 'Other Libraries tab is missing');
+    assert.ok($options.filter('.partner-libraries').length, 'Partner Libraries tab is missing');
     assert.ok($libraries.find('#featured-courses'),'Missing Featured Courses Section');
     assert.equal($libraries.find('#featured-courses .gru-collection-card').length, 2, 'It should show 2 cards');
 
-    $libraries.find('a.other-libraries').click();
+    $libraries.find('a.partner-libraries').click();
     andThen(function() {
-      assert.ok($libraries.find('#other-libraries'),'Missing Other Libraries Section');
+      assert.ok($libraries.find('#partner-libraries'),'Missing Partner Libraries Section');
+      assert.equal($libraries.find('#partner-libraries .gru-partner-library-card').length, 4, 'It should show 4 cards');
     });
   });
 });

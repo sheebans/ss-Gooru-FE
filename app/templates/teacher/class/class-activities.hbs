@@ -1,4 +1,10 @@
 <div class="controller teacher class class-activities">
+  <div class="links">
+    {{t "teacher-landing.class.class-activities-tab.add-activities"}}
+    {{#link-to "teacher.class.course-map" class="pointer course-map"}}{{t "common.course-map"}}{{/link-to}}
+    {{t "teacher-landing.class.class-activities-tab.or"}}
+    {{#link-to "profile.content.courses" session.userData.gooruUId class="pointer my-content"}}{{t "common.myContent"}}{{/link-to}}
+  </div>
   {{#if classActivities}}
     {{#each classActivities as |activities index|}}
       <div class="class-activity-accordion" role="tab" id="{{index}}-heading">

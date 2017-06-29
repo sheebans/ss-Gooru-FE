@@ -25,14 +25,14 @@
     membersCount=model.membersCount
     users=model.users}}
     <div class="left-info">
+      <span class="score" style={{safe-html (concat "color:" (grade-color (if model.performance.hasStarted model.performance.score 'NA')))}}>
+              {{if model.performance.hasStarted model.performance.score '--'}}%
+      </span>
       {{#if isLessonSelected}}
         <button {{action "studyNow" 'lesson' model}} class="btn btn-info study-now">
           {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
         </button>
       {{else}}
-        <span class="score" style={{safe-html (concat "color:" (grade-color (if model.performance.hasStarted model.performance.score 'NA')))}}>
-              {{if model.performance.hasStarted model.performance.score '--'}}%
-            </span>
         {{charts/gru-completion-chart
         completed=model.performance.completionDone
         total=model.performance.completionTotal }}
@@ -219,14 +219,14 @@
                     users=item.members}}
                   {{/unless}}
                   <div class="left-info">
+                     <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
+                        {{if item.performance.hasStarted item.performance.score '--'}}%
+                      </span>
                     {{#if (eq activeElement item.id)}}
                       <button {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
                         {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
                       </button>
                     {{else}}
-                      <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
-                        {{if item.performance.hasStarted item.performance.score '--'}}%
-                      </span>
                       {{#if item.showTrophy}}
                         <div class="trophy" style={{safe-html (concat "background-color:" (grade-color item.performance.score))}}>
                           <i></i>

@@ -137,6 +137,8 @@ export const NO_ANSWER_COLOR = '#FFFFFF';//white
 
 export const STUDY_PLAYER_BAR_COLOR = '#CDD2D6';//$light-300
 
+export const TIME_SPENT_CHART_COLOR = '#0072BC';//blue-400
+
 // Height of the application header in pixels
 export const HEADER_HEIGHT = 50;
 
@@ -161,6 +163,8 @@ export const COUNTRY_CODES = {
 };
 
 export const DEFAULT_PAGE_SIZE = 50;
+
+export const DEFAULT_BOOKMARK_PAGE_SIZE = 19;
 
 export const DEFAULT_SEARCH_PAGE_SIZE = 20;
 
@@ -246,5 +250,5 @@ export const RUBRIC_TYPE = {
 export const PLAYER_EVENT_SOURCE = {
   COURSE_MAP: 'coursemap',
   DAILY_CLASS: 'dailyclassactivity',
-  INDEPENDENT_COURSE_MAP: 'ILActivity'
+  INDEPENDENT_ACTIVITY: 'ILActivity'
 };

@@ -79,6 +79,8 @@
 
 @import 'controllers/goals/manage';
 
+@import 'controllers/student-independent-learning/learning-base';
+
 // TODO: update these components so they follow the naming conventions
 @import 'components/app-dropdown';
 @import 'components/standard-dropdown';
@@ -131,6 +133,7 @@
 @import 'components/cards/gru-resource-result-card';
 @import 'components/cards/gru-goal-card';
 @import 'components/cards/gru-bookmark-card';
+@import 'components/cards/gru-independent-card';
 
 @import 'components/charts/gru-bubble-chart';
 @import 'components/charts/gru-completion-chart';
@@ -205,6 +208,7 @@
 
 @import 'components/library/gru-browse-library';
 @import 'components/library/gru-library-card';
+@import 'components/library/gru-partner-library-card';
 
 @import 'components/new-cards/gru-collection-card';
 @import 'components/new-cards/gru-resource-card';

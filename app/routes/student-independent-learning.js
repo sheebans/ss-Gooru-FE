@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import {DEFAULT_BOOKMARK_PAGE_SIZE} from 'gooru-web/config/config';
 
 /**
  * Student independent learning route
@@ -27,7 +28,36 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   // Actions
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    /**
+     * Triggered when a class menu item is selected
+     * @param {string} item
+     */
+    selectMenuItem: function (item) {
+      const route = this;
+      const controller = route.get('controller');
+      const currentItem = controller.get('menuItem');
+
+      if (item !== currentItem) {
+        controller.selectMenuItem(item);
+
+        if (item === 'courses') {
+          route.transitionTo('student-independent-learning.courses');
+        } else if (item === 'assessments') {
+          route.transitionTo('student-independent-learning.assessments');
+        } else {
+          route.transitionTo('student-independent-learning.collections');
+        }
+      }
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Methods
+
   model: function () {
     let route = this;
     const configuration = this.get('configurationService.configuration');
@@ -39,9 +69,14 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     let secondCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     const firstCourseId = configuration.get("exploreFeaturedCourses.firstCourseId");
     const secondCourseId = configuration.get("exploreFeaturedCourses.secondCourseId");
-    const activeClasses = myClasses.getStudentActiveClasses(myId);
-    const bookmarksPromise = route.get('bookmarkService').fetchBookmarks();
     var featuredCourses = Ember.A([]);
+    const pagination = {
+      offset: 0,
+      pageSize: DEFAULT_BOOKMARK_PAGE_SIZE
+    };
+
+    const activeClasses = myClasses.getStudentActiveClasses(myId);
+    const bookmarksPromise = route.get('bookmarkService').fetchBookmarks(pagination, true);
 
     if (firstCourseId) {
       firstCoursePromise = route.get('courseService').fetchById(firstCourseId);
@@ -52,11 +87,13 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     return Ember.RSVP.hash({
       firstCourse: firstCoursePromise,
       secondCourse: secondCoursePromise,
-      bookmarks: bookmarksPromise
+      bookmarks: bookmarksPromise,
+      pagination
     }).then(function (hash) {
       const firstFeaturedCourse = hash.firstCourse;
       const secondFeaturedCourse = hash.secondCourse;
       const bookmarks = hash.bookmarks;
+      const pagination = hash.pagination;
 
       featuredCourses.push(firstFeaturedCourse);
       featuredCourses.push(secondFeaturedCourse);
@@ -64,7 +101,8 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       return {
         activeClasses,
         featuredCourses,
-        bookmarks
+        bookmarks,
+        pagination
       };
     });
   },
@@ -72,6 +110,12 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   setupController: function(controller, model) {
     controller.set('featuredCourses', model.featuredCourses);
     controller.set('bookmarks', model.bookmarks);
+    controller.set('pagination', model.pagination);
+    controller.set('toggleState', false);
+    if(!controller.get('menuItem')) {
+      controller.selectMenuItem('courses');
+      this.transitionTo('student-independent-learning.courses');
+    }
   }
 
 });

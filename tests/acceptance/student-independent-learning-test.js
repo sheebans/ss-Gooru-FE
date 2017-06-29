@@ -20,14 +20,14 @@ test('Layout', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning');
+    assert.equal(currentURL(), '/student-independent-learning/courses');
 
     T.exists(assert, find('header.gru-header'), 'Header component not found');
 
-    const $userContainer = find('.controller.student-independent');
-    T.exists(assert, $userContainer, 'Missing student independent container');
+    const $container = find('.controller.student-independent');
+    T.exists(assert, $container, 'Missing student independent container');
 
-    const $leftUserContainer = $userContainer.find('.student-left-panel');
+    const $leftUserContainer = $container.find('.student-left-panel');
     T.exists(assert, $leftUserContainer.find('.greetings'), 'Missing student greetings');
     T.exists(assert, $leftUserContainer.find('.greetings .title'), 'Missing student name');
     assert.equal( $leftUserContainer.find('.greetings .title span').text(),'Hello, Student!','Incorrect student name text');
@@ -63,7 +63,26 @@ test('Layout', function(assert) {
     T.exists(assert, $bookmarksPanel.find('.panel-heading'), 'Missing bookmarks panel-heading');
     T.exists(assert, $bookmarksPanel.find('.panel-body'), 'Missing bookmarks panel-body');
     T.exists(assert, $bookmarksPanel.find('.panel-body .add-bookmark'), 'Missing add-bookmark link');
-    assert.equal($bookmarksPanel.find('.panel-body .gru-bookmark-card').length,2, 'Should have 2  bookmark cards');
+    assert.equal($bookmarksPanel.find('.panel-body .gru-bookmark-card').length, 20, 'Should have 20 bookmark cards');
+
+    const $expandLink = $bookmarksPanel.find('.panel-body .collapse-expand.more');
+    click($expandLink);
+    andThen(function() {
+      const $showMore = $bookmarksPanel.find('.panel-body .show-more');
+      T.exists(assert, $showMore, 'Missing show-more link');
+      click($showMore);
+      andThen(function() {
+        assert.equal($bookmarksPanel.find('.panel-body .gru-bookmark-card').length, 40, 'Should have 40 bookmark cards');
+      });
+    });
+
+    const independentLearningNavigator = $container.find('.student-independent-learning-navigator');
+    T.exists(assert, independentLearningNavigator, "Missing independent learning navigator");
+    T.exists(assert, independentLearningNavigator.find(".courses"), "Missing courses item in the navigator");
+    T.exists(assert, independentLearningNavigator.find(".collections"), "Missing collections item in the navigator");
+    T.exists(assert, independentLearningNavigator.find(".assessments"), "Missing collections item in the navigator");
+    T.exists(assert, $container.find('.independent-content'), 'Missing independent content');
+    assert.equal(find('.independent-results .gru-independent-card').length, 2, 'Wrong number of cards');
   });
 });
 
@@ -71,7 +90,7 @@ test('Go to library from featured-courses panel', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning');
+    assert.equal(currentURL(), '/student-independent-learning/courses');
     const $featuredCourses = find('.panel.featured-courses');
     const $featuredCoursesButton = $featuredCourses.find('.actions button.library');
 
@@ -86,7 +105,7 @@ test('Go to join from join class panel', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning');
+    assert.equal(currentURL(), '/student-independent-learning/courses');
 
     const $joinClass = find('.panel.join-class');
 
@@ -103,7 +122,7 @@ test('Go to search/collections from bookmarks panel', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning');
+    assert.equal(currentURL(), '/student-independent-learning/courses');
 
     const $bookmarksPanel = find('.content .panel.bookmarks');
     T.exists(assert, $bookmarksPanel.find('.panel-body .add-bookmark'), 'Missing add-bookmark link');
@@ -113,6 +132,38 @@ test('Go to search/collections from bookmarks panel', function(assert) {
     click($addBookmarkButton);
     andThen(function() {
       assert.equal(currentURL(), '/search/collections', 'Wrong route');
+    });
+  });
+});
+
+test('Layout assessments', function(assert) {
+  visit('/student-independent-learning');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-independent-learning/courses');
+
+    const $collectionsMenuItem = find(".student-independent-learning-navigator li.assessments a");
+
+    click($collectionsMenuItem);
+    andThen(function() {
+      assert.equal(currentURL(), '/student-independent-learning/assessments', 'Wrong route');
+      assert.equal(find('.independent-results .gru-independent-card').length, 2, 'Wrong number of cards');
+    });
+  });
+});
+
+test('Layout collections', function(assert) {
+  visit('/student-independent-learning');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/student-independent-learning/courses');
+
+    const $collectionsMenuItem = find(".student-independent-learning-navigator li.collections a");
+
+    click($collectionsMenuItem);
+    andThen(function() {
+      assert.equal(currentURL(), '/student-independent-learning/collections', 'Wrong route');
+      assert.equal(find('.independent-results .gru-independent-card').length, 2, 'Wrong number of cards');
     });
   });
 });

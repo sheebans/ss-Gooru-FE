@@ -32,10 +32,8 @@ export default Ember.Route.extend(ModalMixin, {
   model: function() {
     let route = this;
     const term = this.paramsFor('search').term;
-    return route.get('searchService').searchCourses(term).then(function(result){
-      return Ember.RSVP.hash({
-        courses:result
-      });
+    return Ember.RSVP.hash({
+      courses: route.get('searchService').searchCourses(term)
     });
   },
 

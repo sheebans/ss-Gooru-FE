@@ -24,7 +24,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  didInsertElement: function(){
+  didRender: function(){
     const $component = this.$();
     const minValue = this.get('minValue');
     const value = this.get('value');
