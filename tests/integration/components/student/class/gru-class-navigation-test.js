@@ -26,7 +26,7 @@ test('Class Navigation', function(assert) {
 
   this.set('class', classMock);
 
-  this.render(hbs`{{student.class.gru-class-navigation class=class selectedMenuItem='performance'}}`);
+  this.render(hbs`{{student.class.gru-class-navigation class=class selectedMenuItem='performance' expand=true}}`);
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find('.gru-class-navigation');
@@ -69,7 +69,7 @@ test('Toggle header collapse expand click', function(assert) {
     assert.ok(true, 'external Action was called!');
   });
 
-  this.render(hbs`{{student.class.gru-class-navigation class='class' onCollapseExpandClicked='toggleHeader'}}`);
+  this.render(hbs`{{student.class.gru-class-navigation class='class' onCollapseExpandClicked='toggleHeader' expand=true}}`);
   var $navigation = this.$(); //component dom element
 
   const $collapseExpand = $navigation.find('.extra-buttons a.collapse-expand');

@@ -9,7 +9,6 @@
     </div>
     <h1>{{class.title}}</h1>
     <div class="code">{{class.code}}</div>
-
     <div class="panel panel-default panel-primary classroom-information">
       <div class="panel-heading">{{t 'student-landing.class.classroom'}}</div>
       <div class="panel-body">
@@ -60,13 +59,20 @@
       </div>
     </div>
   </div>
-
+  {{#if class}}
+    {{student.class.gru-class-navigation
+      class=class
+      onItemSelected="selectMenuItem"
+      onCollapseExpandClicked="toggleHeader"
+      selectedMenuItem=menuItem
+      expand=true}}
+  {{else}}
   {{student.class.gru-class-navigation
     class=class
     onItemSelected="selectMenuItem"
     onCollapseExpandClicked="toggleHeader"
     selectedMenuItem=menuItem}}
-
+  {{/if}}
   <div class="content">
     {{outlet}}
   </div>
