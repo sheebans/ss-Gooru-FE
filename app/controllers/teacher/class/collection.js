@@ -10,19 +10,11 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-
-  classController: Ember.inject.controller('class'),
-
   /**
-   * @property {*} teacher performance controller
+   * @type classController
    */
-  teacherController: Ember.inject.controller('class.analytics.performance.teacher'),
+  classController: Ember.inject.controller('teacher.class'),
 
-  // -------------------------------------------------------------------------
-  // Actions
-
-  // -------------------------------------------------------------------------
-  // Events
 
   // -------------------------------------------------------------------------
   // Properties
@@ -31,7 +23,7 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class'),
+  'class': Ember.computed.reads('classController.class'),
 
   /**
    * @property {User[]} class students
@@ -54,10 +46,4 @@ export default Ember.Controller.extend({
    */
   anonymous: false
 
-  // -------------------------------------------------------------------------
-  // Observers
-
-
-  // -------------------------------------------------------------------------
-  // Methods
 });
