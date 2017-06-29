@@ -239,8 +239,6 @@ test('Sort by assessment sequence', function(assert) {
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table .table');
-  const $thead = $performanceTable.find('thead');
-  const $assessmentHeader = $thead.find('th.assessment'); //assessments column
   const $tbody = $performanceTable.find('tbody');
 
   assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'What is a Fish?', 'First assessment should be What is a Fish?');
