@@ -90,25 +90,14 @@ export default Ember.Route.extend({
     });
     reportData.merge(model.userResults);
 
-    controller.set("collection", collection);
-    controller.set("reportData", reportData);
-    controller.set("showFilters", false);
+    controller.set('collection', collection);
+    controller.set('reportData', reportData);
+    controller.set('showFilters', false);
 
     controller.set('students', model.members);
     controller.set('resources', collection.get('children'));
 
     controller.get('classController').selectMenuItem('performance');
-
-    //updating the breadcrumb with the unit, useful when refreshing the page
-    controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');
-    //updating the breadcrumb with the lesson
-    controller.get("teacherController").updateBreadcrumb(model.lesson, 'lesson');
-    //updating the collection in the teacher controller
-    controller.set("teacherController.collection", model.collection);
-    //updating the unit in the teacher controller
-    controller.set("teacherController.unit", model.unit);
-    //updating the collectionLevel to show or not the launch anonymous button
-    controller.set("teacherController.collectionLevel", true);
   }
 
 });
