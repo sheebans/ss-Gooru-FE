@@ -15,7 +15,7 @@ moduleForAcceptance('Acceptance | library', {
 });
 
 test('Library Controller Layout', function (assert) {
-  assert.expect(8);
+  assert.expect(9);
   visit('/library');
 
   andThen(function () {
@@ -34,6 +34,7 @@ test('Library Controller Layout', function (assert) {
     $libraries.find('a.partner-libraries').click();
     andThen(function() {
       assert.ok($libraries.find('#partner-libraries'),'Missing Partner Libraries Section');
+      assert.equal($libraries.find('#partner-libraries .gru-partner-library-card').length, 4, 'It should show 4 cards');
     });
   });
 });
