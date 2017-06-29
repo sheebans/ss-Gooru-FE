@@ -229,25 +229,11 @@ export default Ember.Object.extend(Validations, {
      */
   getCollectionsByType: function (collectionType, unitId = undefined, lessonId = undefined) {
     const units = this.get('children');
-    const collections = Ember.A([]);
-    units.forEach(function(unit){
-      const validUnit = !unitId || unit.get('id') === unitId;
-      if (validUnit) {
-        const lessons = unit.get('children');
-        lessons.forEach(function(lesson){
-          const validLesson = !lessonId || lesson.get('id') === lessonId;
-          if (validLesson) {
-            const lessonItems = lesson.get('sortedCollectionResults');
-            lessonItems.forEach(function(lessonItem){
-              if (lessonItem.get('format') === collectionType) {
-                collections.pushObject(lessonItem);
-              }
-            });
-          }
-        });
-      }
-    });
-    return collections;
+    return units.filter(unit => !unitId || unit.get('id') === unitId)
+      .reduce((lessons, unit) => lessons.concat(unit.get('children')), [])
+      .filter(lesson => !lessonId || lesson.get('id') === lessonId)
+      .reduce((collections, lesson) => collections.concat(lesson.get('children')), [])
+      .filter(collection => collection.get('format') === collectionType);
   },
 
   // -------------------------------------------------------------

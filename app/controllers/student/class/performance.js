@@ -91,28 +91,28 @@ export default Ember.Controller.extend({
       'isAsc': false,
       'hasSorting': true,
       'visible': true,
-      'index': 3
+      'index': 4
     }),Ember.Object.create({
       'value': 'score',
       'sorted': false,
       'isAsc': false,
       'hasSorting': true,
       'visible': false,
-      'index':0
+      'index': 0
     }),Ember.Object.create({
       'value': 'report',
       'sorted': false,
       'isAsc': false,
       'hasSorting': false,
       'visible': false,
-      'index':1
+      'index': 1
     }),Ember.Object.create({
       'value': 'study-time',
       'sorted': false,
       'isAsc': false,
       'hasSorting': true,
       'visible': false,
-      'index':3
+      'index': 3
     })]);
   }),
 
@@ -127,7 +127,6 @@ export default Ember.Controller.extend({
      */
     selectContentType: function (collectionType) {
       this.set('collectionType', collectionType);
-      this.set('lessonId', null);
       this.loadData();
     },
 

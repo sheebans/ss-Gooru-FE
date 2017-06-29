@@ -108,10 +108,10 @@ export default Ember.Component.extend({
               return numberSort(a.performanceData.score, b.performanceData.score) * sortCriteria.order;
             } else if (sortByMetric === 'completion') {
               return numberSort(a.performanceData.completionDone, b.performanceData.completionDone) * sortCriteria.order;
-            } else if (sortByMetric === 'assessment') {
-              return alphabeticalStringSort(a.assessment.title, b.assessment.title) * sortCriteria.order;
-            } else {
+            } else if (sortByMetric === 'study-time') {
               return numberSort(a.performanceData.timeSpent, b.performanceData.timeSpent) * sortCriteria.order;
+            } else {
+              return alphabeticalStringSort(a.assessment.title, b.assessment.title) * sortCriteria.order;
             }
           }
         });
@@ -135,28 +135,28 @@ export default Ember.Component.extend({
     'isAsc': false,
     'hasSorting': true,
     'visible': true,
-    'index': 3
+    'index': 4
   }),Ember.Object.create({
     'value': 'score',
-    'sorted':false,
-    'isAsc':false,
+    'sorted': false,
+    'isAsc': false,
     'hasSorting': true,
     'visible': false,
-    'index':0
+    'index': 0
   }),Ember.Object.create({
     'value': 'completion',
-    'sorted':false,
-    'isAsc':false,
+    'sorted': false,
+    'isAsc': false,
     'hasSorting': true,
     'visible': false,
-    'index':1
+    'index': 1
   }),Ember.Object.create({
     'value': 'study-time',
-    'sorted':false,
-    'isAsc':false,
+    'sorted': false,
+    'isAsc': false,
     'hasSorting': true,
     'visible': false,
-    'index':2
+    'index': 2
   })]),
 
   /**
