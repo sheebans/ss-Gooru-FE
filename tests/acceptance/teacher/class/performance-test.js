@@ -201,7 +201,7 @@ test('Navigate to collection', function(assert) {
 
     click($metricTable.find('thead tr:eq(0) th:eq(1)'));
     andThen(function(){
-      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/performance?collectionId=first-assessment-id&lessonId=first-lesson-id&unitId=first-unit-id');
+      assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/unit/first-unit-id/lesson/first-lesson-id/collection/first-assessment-id');
     });
   });
 });

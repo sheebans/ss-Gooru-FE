@@ -134,6 +134,7 @@ Router.map(function() {
       this.route('course-map');
       this.route('quick-start');
       this.route('performance');
+      this.route('collection',{ path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
     });
   });
 

@@ -48,7 +48,7 @@ export default Ember.Route.extend({
     const unitId = params.unitId;
     const lessonId = params.lessonId;
     const collectionId = params.collectionId;
-    const classModel = route.modelFor('class').class;
+    const classModel = route.modelFor('teacher.class').class;
     const classId = classModel.get('id');
     const courseId = classModel.get('courseId');
     const members = classModel.get('members');
@@ -96,6 +96,8 @@ export default Ember.Route.extend({
 
     controller.set('students', model.members);
     controller.set('resources', collection.get('children'));
+
+    controller.get('classController').selectMenuItem('performance');
 
     //updating the breadcrumb with the unit, useful when refreshing the page
     controller.get("teacherController").updateBreadcrumb(model.unit, 'unit');

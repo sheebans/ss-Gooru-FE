@@ -10,8 +10,10 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-
-  classController: Ember.inject.controller('class'),
+  /**
+   * @type classController
+   */
+  classController: Ember.inject.controller('teacher.class'),
 
   /**
    * @property {*} teacher performance controller
@@ -60,4 +62,5 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
 });

@@ -38,7 +38,7 @@ export default Ember.Controller.extend({
       }
       else if (this.get('isAtLessonLevel')) {
         this.set('collectionId', id);
-        this.transitionToRoute('class.analytics.performance.teacher.collection',this.get('unitId'), this.get('lessonId'), this.get('collectionId'));
+        this.transitionToRoute('teacher.class.collection', this.get('unitId'), this.get('lessonId'), this.get('collectionId'));
       }
     },
 
