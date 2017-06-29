@@ -47,7 +47,6 @@ export default QuizzesPlayerController.extend({
    * Resets to default values
    */
   resetValues: function() {
-    //TODO: call the parent reset values method
     this.setProperties({
       role: null,
       source: null,
