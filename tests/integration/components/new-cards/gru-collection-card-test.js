@@ -158,8 +158,11 @@ test('Course Card Layout', function(assert) {
   this.render(hbs`{{new-cards/gru-collection-card content=course isCourse=true}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
-  assert.ok($collectionCard.find('.panel-heading h3.title').length, 'Missing Title');
-  assert.ok($collectionCard.find('.panel-heading .image img').length, 'Missing Assessment Image');
+  assert.notOk($collectionCard.find('.panel-heading .image a.play-content img').length, 'Course Image should not open the player');
+  assert.ok($collectionCard.find('.panel-heading .image a.preview-content img').length, 'Course Image should open the preview');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should not open the player');
+  assert.ok($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should open the preview');
+
   assert.ok($collectionCard.find('.panel-heading .unit-count').length, 'Missing unit count');
   assert.ok($collectionCard.find('.panel-heading .question-resources').length, 'Missing Question and Resource Label section');
   assert.notOk($collectionCard.find('.panel-heading .question-resources .question-count').length, 'Question count should not appear');
