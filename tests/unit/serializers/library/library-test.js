@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('serializer:library/library', 'Unit | Serializer | library/library');
