@@ -21,7 +21,7 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.ok(currentURL().includes('/student/course/course-for-pochita-as-student'));
 
-    const $courseContainer = find('.student.class');
+    const $courseContainer = find('.student-independent-container');
     T.exists(assert, $courseContainer, 'Missing course container');
 
     const $classHeader = $courseContainer.find('.header');
@@ -38,7 +38,7 @@ test('Click on back link', function(assert) {
   andThen(function() {
     assert.ok(currentURL().includes('/student/course/course-for-pochita-as-student'));
 
-    const $classContainer = find('.student.class');
+    const $classContainer = find('.student-independent-container');
     const $classHeader = $classContainer.find('.header');
 
     click($classHeader.find(".go-back-container .back-to"));

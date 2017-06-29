@@ -20,7 +20,7 @@ test('Layout as a student', function (assert) {
 
     assert.equal(currentURL(), '/student/course/course-for-pochita-as-student/course-map?location=');
 
-    const $container = find('.student.class .controller.course-map');
+    const $container = find('.student-independent-container .controller.course-map');
     assert.ok($container.length, 'Missing course map container');
 
     const $expandedUnits = find('.gru-accordion-unit.expanded', $container);
