@@ -49,11 +49,9 @@ export default QuizzesPlayerController.extend({
   resetValues: function() {
     //TODO: call the parent reset values method
     this.setProperties({
-      showSuggestion: true,
-      toggleState: true,
-      unitId: null,
-      lessonId: null,
-      collectionId: null,
+      role: null,
+      source: null,
+      sourceId: null,
       resourceId: null,
       type: null
     });
