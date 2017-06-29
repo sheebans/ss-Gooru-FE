@@ -53,7 +53,6 @@
 @import 'controllers/search';
 @import 'controllers/sign-in';
 @import 'controllers/sign-up';
-@import 'controllers/independent';
 @import 'controllers/home';
 @import 'controllers/teacher-home';
 @import 'controllers/student-home';
@@ -66,6 +65,7 @@
 @import 'controllers/resource-player';
 
 @import 'controllers/student/class';
+@import 'controllers/student/independent';
 @import 'controllers/student/performance';
 @import 'controllers/student/class/course-map';
 @import 'controllers/student/class/class-activities';
