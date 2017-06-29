@@ -204,5 +204,9 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
       let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
       return collectionFound ? hash.collection.value : hash.assessment.value;
     });
+  },
+
+  deactivate: function() {
+    this.get('controller').resetValues();
   }
 });

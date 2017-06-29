@@ -39,5 +39,20 @@ export default QuizzesPlayerController.extend({
    * Query param indicating if it is a collection or assessment
    * @property {string}
    */
-  type: null
+  type: null,
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Resets to default values
+   */
+  resetValues: function() {
+    this.setProperties({
+      role: null,
+      source: null,
+      sourceId: null,
+      resourceId: null,
+      type: null
+    });
+  }
 });
