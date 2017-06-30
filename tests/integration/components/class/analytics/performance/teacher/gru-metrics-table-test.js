@@ -464,7 +464,8 @@ test('Metrics Table actions', function(assert) {
           score : 12,
           completionDone: 13,
           completionTotal: 50,
-          timeSpent: 3600
+          timeSpent: 3600,
+          hasStarted: true
         })
       ])
     })
