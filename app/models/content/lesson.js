@@ -65,6 +65,13 @@ export default Ember.Object.extend(Validations, {
   membersCount: 0,
 
   /**
+   * @property {sortedCollectionResults[]} Collections sorted by sequence
+   */
+  sortedCollectionResults: Ember.computed('children.[]', function(){
+    return this.get('children').sortBy('sequence');
+  }),
+
+  /**
    * This property is not always available, it contains the lesson performance information
    * @see components/class/overview/gru-accordion-unit.js
    * @propery {LessonPerformance|Ember.Object}

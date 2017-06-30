@@ -7,7 +7,7 @@ test('normalizeResponse', function(assert) {
   const payload = {
     'content':[
       {
-        'userUId':'602fee94-50cf-4a8b-af2b-6b73e0319bab',
+        'userUid':'602fee94-50cf-4a8b-af2b-6b73e0319bab',
         'usageData':[
           {
             'gooruOId': '46d4a6d4-991b-4c51-a656-f694e037dd68',

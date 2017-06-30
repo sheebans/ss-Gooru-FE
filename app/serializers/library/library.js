@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import LibraryModel from 'gooru-web/models/library/library';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Library CRUD operations for API 3.0
@@ -28,11 +29,14 @@ export default Ember.Object.extend(ConfigurationMixin, {
   },
 
   normalizeLibrary: function(libraryPayload) {
-    var serializer = this;
+    const serializer = this;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const thumbnailUrl = libraryPayload.thumbnail ? basePath + libraryPayload.thumbnail : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
     return LibraryModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: libraryPayload.id,
       name: libraryPayload.name,
-      image: libraryPayload.thumbnail,
+      image: thumbnailUrl,
       tenantId: libraryPayload.tenant,
       tenantRoot: libraryPayload.tenant_root,
       courseCount: libraryPayload.course_count,

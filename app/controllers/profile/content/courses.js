@@ -24,7 +24,10 @@ export default Ember.Controller.extend({
    * @property {Class[]} Active class without course
    */
   activeClasses: Ember.computed('appController.myClasses.classes.[]', function(){
-    return this.get('appController.myClasses').getTeacherActiveClasses(this.get('sessionProfile.id')).filterBy('courseId',null);
+    const classes = this.get('appController.myClasses');
+    return classes ?
+      classes.getTeacherActiveClasses(this.get('sessionProfile.id'))
+        .filterBy('courseId',null) : [];
   }),
   /**
    * @property {Content/Course[]} courses
