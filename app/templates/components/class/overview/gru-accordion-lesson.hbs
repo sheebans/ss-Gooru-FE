@@ -49,7 +49,6 @@
 
   <div class="panel-body">
     <ol class="collections {{if isTeacher 'teacher'}}">
-
       {{#if loading}}
         {{three-bounce-spinner}}
       {{else}}
@@ -219,14 +218,13 @@
                     users=item.members}}
                   {{/unless}}
                   <div class="left-info">
-                     <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
-                        {{if item.performance.hasStarted item.performance.score '--'}}%
-                      </span>
-                    {{#if (eq activeElement item.id)}}
-                      <button {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
-                        {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
-                      </button>
-                    {{else}}
+                    <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
+                      {{if item.performance.hasStarted item.performance.score '--'}}%
+                    </span>
+                    <button {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
+                      {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
+                    </button>
+                    {{#unless (eq activeElement item.id)}}
                       {{#if item.showTrophy}}
                         <div class="trophy" style={{safe-html (concat "background-color:" (grade-color item.performance.score))}}>
                           <i></i>
@@ -248,7 +246,7 @@
                           {{/if}}
                         </span>
                       {{/if}}
-                    {{/if}}
+                    {{/unless}}
                   </div>
                 </div>
               </div>

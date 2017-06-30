@@ -90,6 +90,7 @@ export default Ember.Component.extend(AccordionMixin, {
      * @returns {undefined}
      */
     selectLesson: function (lessonId) {
+      this.set('isResourceSelected', false);
       if (!isUpdatingLocation) {
         let updateValue = this.get('isExpanded') ? '' : lessonId;
         this.get('onSelectLesson')(updateValue);
@@ -109,6 +110,7 @@ export default Ember.Component.extend(AccordionMixin, {
         this.get('onSelectResource')(lessonId, collection);
       } else {
         this.activeStudyPlayer(collection);
+        this.set('isResourceSelected', true);
       }
     },
 
@@ -224,6 +226,7 @@ export default Ember.Component.extend(AccordionMixin, {
    * Will resolve to {Location[]}
    */
   usersLocation: Ember.A([]),
+
   /**
    * @prop {Boolean} isStudent
    *
@@ -231,10 +234,16 @@ export default Ember.Component.extend(AccordionMixin, {
   isStudent: Ember.computed.not('isTeacher'),
 
   /**
+   * @prop {Boolean} isResourceSelected
+   *
+   */
+  isResourceSelected: false,
+
+  /**
    * @prop {Boolean} Indicate if the lesson is selected as active element to study
    */
-  isLessonSelected:Ember.computed('isExpanded','isStudent',function(){
-    return this.get('isStudent') && this.get('isExpanded');
+  isLessonSelected:Ember.computed('isExpanded','isStudent', 'isResourceSelected', 'showLocation', function(){
+    return this.get('isStudent') && this.get('isExpanded') && !this.get('isResourceSelected') && !this.get('showLocation');
   }),
 
   /**
