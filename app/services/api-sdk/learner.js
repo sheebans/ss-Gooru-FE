@@ -38,7 +38,7 @@ export default Ember.Service.extend({
         .then(
           response => resolve(service.get('learnerSerializer').normalizeLocations(response)),
           reject
-      );
+        );
     });
   },
 
@@ -58,7 +58,7 @@ export default Ember.Service.extend({
         .then(
           response => resolve(service.get('learnerSerializer').normalizePerformances(response)),
           reject
-      );
+        );
     });
   },
   /**
@@ -77,7 +77,7 @@ export default Ember.Service.extend({
         .then(
           response => resolve(service.get('learnerSerializer').normalizePerformancesLesson(response)),
           reject
-      );
+        );
     });
   }
 });
