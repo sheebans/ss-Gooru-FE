@@ -125,7 +125,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       completedCount: payload.completedCount,
       scoreInPercentage: payload.scoreInPercentage,
       totalCount: payload.totalCount,
-      collectionId: payload.collectionId ? payload.collectionId : payload.assessmentId,
+      collectionId: payload.collectionId || payload.assessmentId,
       attempts: payload.attempts
     });
   }

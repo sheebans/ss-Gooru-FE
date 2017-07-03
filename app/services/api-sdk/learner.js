@@ -36,8 +36,8 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
       service.get('learnerAdapter').fetchLocations(userId, contentType, offset, limit)
-      .then(
-        response => resolve(service.get('learnerSerializer').normalizeLocations(response)),
+        .then(
+          response => resolve(service.get('learnerSerializer').normalizeLocations(response)),
         reject
       );
     });
@@ -58,8 +58,8 @@ export default Ember.Service.extend({
       service.get('learnerAdapter').fetchPerformance(userId, contentType, offset, limit)
         .then(
           response => resolve(service.get('learnerSerializer').normalizePerformances(response)),
-          reject
-        );
+        reject
+      );
     });
   },
   /**
