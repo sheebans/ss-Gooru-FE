@@ -61,5 +61,23 @@ export default Ember.Service.extend({
           reject
         );
     });
+  },
+
+  /**
+   * Fetches the learner performance for specific courses
+   *
+   * @param userId - user to fetch the learner performance
+   * @param courseIds - list of ids to fetch performance
+   * @returns {Promise}
+   */
+  fetchCoursesPerformance: function(userId, courseIds) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service.get('learnerAdapter').fetchCoursesPerformance(userId, courseIds)
+        .then(
+          response => resolve(service.get('learnerSerializer').normalizePerformances(response)),
+          reject
+        );
+    });
   }
 });

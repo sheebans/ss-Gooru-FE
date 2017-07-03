@@ -166,3 +166,25 @@ test('normalizePerformance assessment/collection', function(assert) {
   assert.equal(normalizedPerformance.get('timeSpent'), 23860, 'Wrong time spent');
   assert.equal(normalizedPerformance.get('scoreInPercentage'), 100, 'Wrong score in percentage');
 });
+
+test('normalizePerformance for course map', function(assert) {
+  const serializer = this.subject();
+  const performancePayload = {
+    courseId: "course-id",
+    timeSpent: 23860,
+    completedCount: 0,
+    scoreInPercentage: 0,
+    totalCount: 10
+  };
+  const normalizedPerformance = serializer.normalizePerformance(performancePayload);
+
+  assert.equal(normalizedPerformance.get('courseId'), 'course-id', 'Wrong course id');
+  assert.notOk(normalizedPerformance.get('courseTitle'), 'Wrong course title');
+  assert.equal(normalizedPerformance.get('timeSpent'), 23860, 'Wrong time spent');
+  assert.equal(normalizedPerformance.get('completedCount'), 0, 'Wrong completed count');
+  assert.equal(normalizedPerformance.get('scoreInPercentage'), 0, 'Wrong score in percentage');
+  assert.equal(normalizedPerformance.get('totalCount'), 10, 'Wrong total count');
+  assert.notOk(normalizedPerformance.get('collectionId'), 'Collection id should be null');
+  assert.notOk(normalizedPerformance.get('collectionTitle'), 'Collection title should be null');
+  assert.notOk(normalizedPerformance.get('attempts'), 'Attempts should be null');
+});

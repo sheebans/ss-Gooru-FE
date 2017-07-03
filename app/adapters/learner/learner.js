@@ -11,6 +11,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus-insights/v2/learner',
 
+  coursesNamespace: '/api/nucleus-insights/v2/courses/learner',
+
   /**
    * Fetches independent learner locations
    *
@@ -49,6 +51,25 @@ export default Ember.Object.extend({
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders(),
       data: { userId, contentType, offset, limit }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Fetches independent learner performance for specific courses
+   *
+   * @param {number} userId
+   * @param {number} courseIds
+   * @returns {Promise}
+   */
+  fetchCoursesPerformance: function(userId, courseIds) {
+    const adapter = this;
+    const url = `${adapter.get('coursesNamespace')}/performance`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({ userId, courseIds })
     };
     return Ember.$.ajax(url, options);
   },
