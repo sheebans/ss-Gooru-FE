@@ -22,7 +22,6 @@ export default Ember.Service.extend({
     this.set('learnerSerializer', LearnerSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('learnerAdapter', LearnerAdapter.create(Ember.getOwner(this).ownerInjection()));
   },
-
   /**
    * Fetches the learner locations
    *
@@ -38,7 +37,7 @@ export default Ember.Service.extend({
       service.get('learnerAdapter').fetchLocations(userId, contentType, offset, limit)
         .then(
           response => resolve(service.get('learnerSerializer').normalizeLocations(response)),
-        reject
+          reject
       );
     });
   },
@@ -58,7 +57,7 @@ export default Ember.Service.extend({
       service.get('learnerAdapter').fetchPerformance(userId, contentType, offset, limit)
         .then(
           response => resolve(service.get('learnerSerializer').normalizePerformances(response)),
-        reject
+          reject
       );
     });
   },
@@ -77,7 +76,7 @@ export default Ember.Service.extend({
       service.get('learnerAdapter').fetchPerformanceLesson(courseId, unitId, lessonId, collectionType)
         .then(
           response => resolve(service.get('learnerSerializer').normalizePerformancesLesson(response)),
-        reject
+          reject
       );
     });
   }
