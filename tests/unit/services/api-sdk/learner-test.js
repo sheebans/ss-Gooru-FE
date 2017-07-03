@@ -63,3 +63,33 @@ test('fetchPerformance', function(assert) {
       done();
     });
 });
+
+test('fetchPerformanceLesson', function(assert) {
+  const service = this.subject();
+
+  assert.expect(6);
+
+  service.set('learnerAdapter', Ember.Object.create({
+    fetchPerformanceLesson: function(courseId, unitId, lessonId, collectionType) {
+      assert.deepEqual(courseId, 'course-id', 'Wrong course id');
+      assert.deepEqual(unitId, 'unit-id', 'Wrong unit id');
+      assert.deepEqual(lessonId, 'lesson-id', 'Wrong lesson id');
+      assert.deepEqual(collectionType, 'collection', 'Wrong collection type');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  service.set('learnerSerializer', Ember.Object.create({
+    normalizePerformancesLesson: function(payload) {
+      assert.deepEqual(payload, [], 'Wrong performance payload');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.fetchPerformanceLesson('course-id','unit-id','lesson-id', 'collection')
+    .then(response => {
+      assert.deepEqual(response, [], 'Wrong response');
+      done();
+    });
+});
