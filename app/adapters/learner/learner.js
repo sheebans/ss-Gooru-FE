@@ -11,8 +11,6 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus-insights/v2/learner',
 
-  coursesNamespace: '/api/nucleus-insights/v2/courses/learner',
-
   /**
    * Fetches independent learner locations
    *
@@ -64,7 +62,7 @@ export default Ember.Object.extend({
    */
   fetchCoursesPerformance: function(userId, courseIds) {
     const adapter = this;
-    const url = `${adapter.get('coursesNamespace')}/performance`;
+    const url = `${adapter.get('namespace')}/courses/learner/performance`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
