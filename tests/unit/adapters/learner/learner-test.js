@@ -50,6 +50,26 @@ test('fetchPerformance', function(assert) {
     .then(response => assert.deepEqual({}, response, 'Wrong response'));
 });
 
+test('fetchPerformanceLesson', function(assert) {
+  assert.expect(2);
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus-insights/v2/course/courseId/unit/unitId/lesson/lessonId/learner/performance', request => {
+      assert.equal(request.queryParams.collectionType, 'collection', 'Wrong collection');
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  let courseId = 'courseId';
+  let unitId = 'unitId';
+  let lessonId = 'lessonId';
+  let collectionType = 'collection';
+  adapter.fetchPerformanceLesson(courseId, unitId, lessonId, collectionType)
+    .then(response => assert.deepEqual({}, response, 'Wrong response'));
+});
+
 test('fetchCoursesPerformance', function(assert) {
   assert.expect(3);
   const adapter = this.subject();

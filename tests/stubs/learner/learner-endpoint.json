@@ -162,6 +162,48 @@
     }
   },
   {
+    "description": "Fetch assessment learner performance in lesson",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/course/(.+)/unit/(.+)/lesson/(.+)/learner/performance",
+      "query": {
+        "collectionType": "assessment"
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-performance-in-lesson-assessment-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch collection learner performance in lesson",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/course/(.+)/unit/(.+)/lesson/(.+)/learner/performance",
+      "query": {
+        "collectionType": "collection"
+      },
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-performance-in-lesson-collection-200-response.json"
+    }
+  },
+  {
     "description": "Fetch courses learner performance",
     "request": {
       "url": "^/api/nucleus-insights/v2/courses/learner/performance$",
