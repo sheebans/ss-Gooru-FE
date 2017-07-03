@@ -76,6 +76,25 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Fetches independent learner performance for specific courses
+   *
+   * @param {number} userId
+   * @param {number} courseIds
+   * @returns {Promise}
+   */
+  fetchCoursesPerformance: function(userId, courseIds) {
+    const adapter = this;
+    const url = `${adapter.get('namespace')}/courses/learner/performance`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({ userId, courseIds })
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': `Token ${this.get('session.token-api3')}`

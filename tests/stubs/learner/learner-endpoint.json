@@ -202,5 +202,23 @@
       "body": "File not found!",
       "file": "fetch-performance-in-lesson-collection-200-response.json"
     }
+  },
+  {
+    "description": "Fetch courses learner performance",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/courses/learner/performance$",
+      "method": "POST",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-performance-courses-200-response.json"
+    }
   }
 ]
