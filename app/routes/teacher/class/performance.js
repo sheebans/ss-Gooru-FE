@@ -245,7 +245,6 @@ export default Ember.Route.extend({
         });
         const performanceData = createDataMatrix(filteredCollections, classPerformanceData, 'lesson');
         controller.set('performanceDataMatrix', performanceData);
-        console.log(filteredCollections);
         controller.set('performanceDataHeaders', filteredCollections);
         controller.set('headerType', 'collection');
       });
