@@ -120,7 +120,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Profile[]}
    */
-  remixedBy: Ember.computed('user', function(){
+  remixedBy: Ember.computed('owner', function(){
     return Ember.A([this.get('owner')]); //TODO add also collaborators
   }),
 
