@@ -120,8 +120,8 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Profile[]}
    */
-  remixedBy: Ember.computed("user", function(){
-    return Ember.A([this.get("owner")]); //TODO add also collaborators
+  remixedBy: Ember.computed('owner', function(){
+    return Ember.A([this.get('owner')]); //TODO add also collaborators
   }),
 
   /**
@@ -196,9 +196,9 @@ export default Ember.Object.extend(Validations, {
   },
 
   isOwner: function(id) {
-    const owner = this.get("owner");
-    const creatorId = this.get("creatorId");
-    return (owner && owner.get("id") === id) || (creatorId === id);
+    const owner = this.get('owner');
+    const creatorId = this.get('creatorId');
+    return (owner && owner.get('id') === id) || (creatorId === id);
   },
 
   /**
@@ -217,7 +217,7 @@ export default Ember.Object.extend(Validations, {
    * @return {Number}
    */
   getChildUnitIndex: function(unit) {
-    return this.get("children").mapBy("id").indexOf(unit.get("id"));
+    return this.get('children').mapBy('id').indexOf(unit.get('id'));
   },
 
   /**
@@ -232,7 +232,7 @@ export default Ember.Object.extend(Validations, {
     return units.filter(unit => !unitId || unit.get('id') === unitId)
       .reduce((lessons, unit) => lessons.concat(unit.get('children')), [])
       .filter(lesson => !lessonId || lesson.get('id') === lessonId)
-      .reduce((collections, lesson) => collections.concat(lesson.get('children')), [])
+      .reduce((collections, lesson) => collections.concat(lesson.get('sortedCollectionResults')), [])
       .filter(collection => collection.get('format') === collectionType);
   },
 
