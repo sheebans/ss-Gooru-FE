@@ -89,7 +89,7 @@ test('normalizePerformances', function(assert) {
   const serializer = this.subject();
   const performancePayload = {
     usageData: [{
-      courseId: "course-id1",
+      courseId: 'course-id1',
       courseTitle: 'course-title1',
       timeSpent: 23860,
       completedCount: 0,
@@ -99,7 +99,7 @@ test('normalizePerformances', function(assert) {
       collectionTitle: null,
       attempts: null
     }, {
-      courseId: "course-id1",
+      courseId: 'course-id1',
       courseTitle: 'course-title1',
       timeSpent: 23860,
       completedCount: 0,
@@ -118,7 +118,7 @@ test('normalizePerformances', function(assert) {
 test('normalizePerformance course', function(assert) {
   const serializer = this.subject();
   const performancePayload = {
-    courseId: "course-id",
+    courseId: 'course-id',
     courseTitle: 'course-title',
     timeSpent: 23860,
     completedCount: 0,
@@ -165,4 +165,74 @@ test('normalizePerformance assessment/collection', function(assert) {
   assert.equal(normalizedPerformance.get('attempts'), 4, 'Wrong number of attempts');
   assert.equal(normalizedPerformance.get('timeSpent'), 23860, 'Wrong time spent');
   assert.equal(normalizedPerformance.get('scoreInPercentage'), 100, 'Wrong score in percentage');
+  assert.equal(normalizedPerformance.get('reaction'), null, 'Reaction should be null');
+  assert.equal(normalizedPerformance.get('attemptStatus'), null, 'Attempt status should be null');
+});
+
+test('normalizePerformancesLesson', function(assert) {
+  const serializer = this.subject();
+  const performancePayload = {
+    'content':[{
+      'usageData':[
+        {
+          reaction:0,
+          attemptStatus:'completed',
+          timeSpent:902449,
+          assessmentId:'2d5bcdac-6cf6-485d-8ac2-f51758b672b5',
+          attempts:2,
+          completedCount:1,
+          totalCount:0,
+          scoreInPercentage:0
+        },
+        {
+          reaction:0,
+          attemptStatus:'completed',
+          timeSpent:740,
+          assessmentId:'8e495d4f-d909-4fc5-bc45-36dbf137fe9c',
+          attempts:1,
+          completedCount:1,
+          totalCount:0,
+          scoreInPercentage:0
+        },
+        {
+          reaction:0,
+          attemptStatus:'completed',
+          timeSpent:1057,
+          assessmentId:'9b43c310-aa32-4e86-adfe-843f66c09f9d',
+          attempts:1,
+          completedCount:1,
+          totalCount:0,
+          scoreInPercentage:0
+        }
+      ]
+    }]
+  };
+  const normalizedPerformances = serializer.normalizePerformancesLesson(performancePayload);
+
+  assert.equal(normalizedPerformances.length, 3, 'Wrong number of performance');
+});
+test('normalizePerformanceLesson', function(assert) {
+  const serializer = this.subject();
+  const performancePayload = {
+    reaction:0,
+    attemptStatus:'completed',
+    timeSpent:1057,
+    assessmentId:'assessment-id',
+    attempts:1,
+    completedCount:1,
+    totalCount:0,
+    scoreInPercentage:0
+  };
+  const normalizedPerformance = serializer.normalizePerformanceLesson(performancePayload);
+  assert.equal(normalizedPerformance.get('reaction'), 0, 'Incorrect reaction');
+  assert.equal(normalizedPerformance.get('attemptStatus'), 'completed', 'Incorrect attempt status');
+  assert.equal(normalizedPerformance.get('courseId'), null, 'Course id should be null');
+  assert.equal(normalizedPerformance.get('courseTitle'), null, 'Course title should be null');
+  assert.equal(normalizedPerformance.get('totalCount'), 0, 'Total count should be 0');
+  assert.equal(normalizedPerformance.get('completedCount'), 1, 'Completed count should be 1');
+  assert.equal(normalizedPerformance.get('collectionId'), 'assessment-id', 'Wrong assessment id');
+  assert.equal(normalizedPerformance.get('collectionTitle'), null, 'Assessment title should be null');
+  assert.equal(normalizedPerformance.get('attempts'), 1, 'Wrong number of attempts');
+  assert.equal(normalizedPerformance.get('timeSpent'), 1057, 'Wrong time spent');
+  assert.equal(normalizedPerformance.get('scoreInPercentage'), 0, 'Wrong score in percentage');
 });

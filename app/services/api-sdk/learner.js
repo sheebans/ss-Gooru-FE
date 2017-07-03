@@ -61,5 +61,24 @@ export default Ember.Service.extend({
           reject
         );
     });
+  },
+  /**
+   * Fetches the learner performance in lesson
+   *
+   * @param courseId - course to fetch the learner performance
+   * @param unitId - unit to fetch the learner performance
+   * @param lessonId - lesson to fetch the learner performance
+   *  @param collectionType
+   * @returns {Promise}
+   */
+  fetchPerformanceLesson: function(courseId, unitId, lessonId, collectionType) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service.get('learnerAdapter').fetchPerformanceLesson(courseId, unitId, lessonId, collectionType)
+        .then(
+          response => resolve(service.get('learnerSerializer').normalizePerformancesLesson(response)),
+        reject
+      );
+    });
   }
 });

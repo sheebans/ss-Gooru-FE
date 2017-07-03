@@ -9,7 +9,7 @@ export default Ember.Object.extend({
 
   session: Ember.inject.service('session'),
 
-  namespace: '/api/nucleus-insights/v2/learner',
+  namespace: '/api/nucleus-insights/v2',
 
   /**
    * Fetches independent learner locations
@@ -22,7 +22,7 @@ export default Ember.Object.extend({
    */
   fetchLocations: function(userId, contentType, offset=0, limit=20) {
     const adapter = this;
-    const url = `${adapter.get('namespace')}/location`;
+    const url = `${adapter.get('namespace')}/learner/location`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -43,12 +43,35 @@ export default Ember.Object.extend({
    */
   fetchPerformance: function(userId, contentType, offset=0, limit=20) {
     const adapter = this;
-    const url = `${adapter.get('namespace')}/performance`;
+    const url = `${adapter.get('namespace')}/learner/performance`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders(),
       data: { userId, contentType, offset, limit }
+    };
+    return Ember.$.ajax(url, options);
+  },
+  /**
+   * Fetches independent learner performance in lesson
+   *
+   * @param {string} courseId
+   * @param {string} unitId
+   * @param {string} lessonId
+   * @param {string} collectionType - type of collection to retrieve
+   * @returns {Promise}
+   */
+  fetchPerformanceLesson: function(courseId, unitId, lessonId, collectionType) {
+    const adapter = this;
+
+    const queryParams = (collectionType) ?
+      `collectionType=${collectionType}` : '';
+
+    const url = `${adapter.get('namespace')}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/learner/performance?${queryParams}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
   },

@@ -6,6 +6,11 @@ import Ember from 'ember';
 const LearnerPerformanceModel = Ember.Object.extend({
 
   /**
+   * @property {String} attemptStatus
+   */
+  attemptStatus: null,
+
+  /**
    * @property {String} courseId - Gooru id for the course
    */
   courseId: null,
@@ -24,6 +29,11 @@ const LearnerPerformanceModel = Ember.Object.extend({
    * @property {Number} completedCount - completed count
    */
   completedCount: null,
+
+  /**
+   * @property {Number} reaction
+   */
+  reaction:null,
 
   /**
    * @property {Number} scoreInPercentage - score in percentage
