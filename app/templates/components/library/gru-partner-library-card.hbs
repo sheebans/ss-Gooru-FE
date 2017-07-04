@@ -5,7 +5,7 @@
     </div>
     <div class="library-info">
       <div class="title-section">
-        <h3 class="title" alt="{{content.name }}">{{truncate text=content.name maxLength=40}}</h3>
+        {{#link-to 'partner-library' content.id class="title" alt="{{content.name}}"}} {{truncate text=content.name maxLength=40}} {{/link-to}}
       </div>
       <p class="counts-info">
         <span class="item total-courses">{{t "library.gru-partner-library-card.course" count=content.courseCount}}</span>

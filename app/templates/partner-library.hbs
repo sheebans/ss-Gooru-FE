@@ -1,0 +1,23 @@
+<div class="controller profile row">
+    <div class="navigation">
+      <div class="profile-info clearfix">
+        <div class="avatar">
+          <span class="img-wrapper"><img class="img-responsive" src="{{profile.avatarUrl}}"
+                                         alt="{{t "common.avatarFor"}} {{profile.displayName}}"/></span>
+          <strong>{{profile.displayName}}</strong>
+        </div>
+      </div>
+
+      <div class="md-design hidden-xs hidden-sm">
+        <ul class="profile-menu list-group">
+          <li class="list-group-item profile-menu-item content" {{action 'selectItem' 'content'}}>
+            <h6>{{t "profile.gru-navigation.library"}}</h6>
+            <i class="gru-icon material-icons content"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="content">
+      {{outlet}}
+    </div>
+</div>
