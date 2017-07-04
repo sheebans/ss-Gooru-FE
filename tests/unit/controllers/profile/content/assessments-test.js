@@ -15,7 +15,7 @@ test('activeClasses', function(assert) {
         getTeacherActiveClasses: () => [{
           courseId: null
         }, {
-          courseId: null
+          courseId: 'course-id'
         }]
       }
     },
