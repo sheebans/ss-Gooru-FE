@@ -129,7 +129,47 @@ export default Ember.Object.extend(ConfigurationMixin, {
       attempts: payload.attempts
     });
   },
+  /**
+   * Normalize the Fetch Performances in Unit endpoint's response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Performance[]} an array of learner performances
+   */
+  normalizePerformancesUnit: function(payload) {
+    var result = [];
+    const serializer = this;
+    const content = payload.content;
+    if (Ember.isArray(content)) {
+      content.map(function (content) {
+        const performances = content.usageData;
+        if (Ember.isArray(performances)) {
+          result = performances.map(performance => serializer.normalizePerformanceUnit(performance));
+        }
+      });
+    }
+    return result;
+  },
 
+  /**
+   * Normalize the one performance from the endpoint's response
+   *
+   * @param payload is part of the response in JSON format
+   * @returns {Performance}
+   */
+  normalizePerformanceUnit: function(payload) {
+    var serializer = this;
+    return PerformanceModel.create(Ember.getOwner(serializer).ownerInjection(), {
+      reaction: payload.reaction,
+      attemptStatus: payload.attemptStatus,
+      timeSpent: payload.timeSpent,
+      completedCount: payload.completedCount,
+      scoreInPercentage: payload.scoreInPercentage,
+      totalCount: payload.totalCount,
+      lessonId: payload.lessonId,
+      attempts: payload.attempts,
+      sourceList: payload.sourceList.map(source => serializer.normalizePerformanceLesson(source))
+    });
+  },
   /**
    * Normalize the Fetch Location in Course endpoint's response
    *
