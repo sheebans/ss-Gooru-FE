@@ -293,9 +293,8 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
   },
 
   isGetCollectionWithRefreshRequest: function(settings) {
-    return (settings.type === 'GET' &&
-        settings.url.indexOf('/quizzes/api/v1/collections/') !== -1 &&
-        settings.url.indexOf('&refresh=true') !== -1);
+    let pattern = /\/quizzes\/api\/v1\/collections\/(.*)&refresh=true/;
+    return (settings.type === 'GET' && settings.url.match(pattern));
   },
 
 // -------------------------------------------------------------------------
