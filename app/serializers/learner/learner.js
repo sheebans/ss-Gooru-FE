@@ -88,5 +88,77 @@ export default Ember.Object.extend(ConfigurationMixin, {
       collectionTitle: payload.collectionTitle,
       attempts: payload.attempts
     });
+  },
+  /**
+   * Normalize the Fetch Performances in Lesson endpoint's response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Performance[]} an array of learner performances
+   */
+  normalizePerformancesLesson: function(payload) {
+    var result = [];
+    const serializer = this;
+    const content = payload.content;
+    if (Ember.isArray(content)) {
+      content.map(function (content) {
+        const performances = content.usageData;
+        if (Ember.isArray(performances)) {
+          result = performances.map(performance => serializer.normalizePerformanceLesson(performance));
+        }
+      });
+    }
+    return result;
+  },
+
+  /**
+   * Normalize the one performance from the endpoint's response
+   *
+   * @param payload is part of the response in JSON format
+   * @returns {Performance}
+   */
+  normalizePerformanceLesson: function(payload) {
+    var serializer = this;
+    return PerformanceModel.create(Ember.getOwner(serializer).ownerInjection(), {
+      reaction:payload.reaction,
+      attemptStatus:payload.attemptStatus,
+      timeSpent: payload.timeSpent,
+      completedCount: payload.completedCount,
+      scoreInPercentage: payload.scoreInPercentage,
+      totalCount: payload.totalCount,
+      collectionId: payload.collectionId || payload.assessmentId,
+      attempts: payload.attempts
+    });
+  },
+
+  /**
+   * Normalize the Fetch Location in Course endpoint's response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Location} current location for course
+   */
+  normalizeFetchLocationCourse: function(payload) {
+    const serializer = this;
+    const content = payload.content;
+    if (Ember.isArray(content)) {
+      const locationPayload = content[0];
+      return serializer.normalizeLocationCourse(locationPayload);
+    }
+  },
+
+  /**
+   * Normalize the one location from the endpoint's response
+   *
+   * @param payload is part of the response in JSON format
+   * @returns {Location}
+   */
+  normalizeLocationCourse: function(payload) {
+    const serializer = this;
+    return LocationModel.create(Ember.getOwner(serializer).ownerInjection(), {
+      courseId: payload.courseId,
+      unitId: payload.unitId,
+      lessonId: payload.lessonId,
+      assessmentId: payload.assessmentId,
+      title: payload.assessmentTitle
+    });
   }
 });

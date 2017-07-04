@@ -68,9 +68,11 @@
                 {{#if showReportColumn}}
                   <td class="performance-info performance-report">
                       <div class="report">
+                        {{#if studentPerformance.performanceData.timeSpent}}
                           <a {{action 'viewReport' studentPerformance.assessment.id}}>
                               <span class="report-icon">{{gru-icon name='library_books'}}</span>
                           </a>
+                        {{/if}}
                       </div>
                   </td>
                 {{/if}}
