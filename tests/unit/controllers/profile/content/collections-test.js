@@ -15,7 +15,7 @@ test('activeClasses', function(assert) {
     appController: {
       myClasses: {
         getTeacherActiveClasses: () => [{
-          courseId: null
+          courseId: 'course-id'
         }, {
           courseId: null
         }]
