@@ -80,6 +80,22 @@ export default Ember.Service.extend({
         );
     });
   },
+  /**
+   * Fetches the learner performance in unit
+   *
+   * @param courseId - course to fetch the learner performance
+   * @param unitId - unit to fetch the learner performance
+   */
+  fetchPerformanceUnit: function(courseId, unitId) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service.get('learnerAdapter').fetchPerformanceUnit(courseId, unitId)
+        .then(
+          response => resolve(service.get('learnerSerializer').normalizePerformancesUnit(response)),
+          reject
+        );
+    });
+  },
 
   /**
    * Fetches the learner performance for specific courses
