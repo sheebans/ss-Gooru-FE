@@ -16,6 +16,11 @@ const LibraryModel = Ember.Object.extend({
   name: null,
 
   /**
+   * @property {String} description - Description of the library
+   */
+  description: null,
+
+  /**
    * @property {String} image - Library's image url
    */
   image: null,
