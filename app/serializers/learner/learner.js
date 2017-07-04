@@ -45,7 +45,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       unitId: payload.unitId,
       type: payload.courseId ? CONTENT_TYPES.COURSE : payload.collectionType,
       title: payload.courseId ? payload.courseTitle : payload.collectionTitle,
-      lastAccessed: parseDate(payload.lastAccessed, 'YYYY-MM-DD'),
+      lastAccessed: payload.lastAccessed ? parseDate(payload.lastAccessed, 'YYYY-MM-DD HH:mm') : null,
       status: payload.status,
       currentId: payload.courseId ? payload.collectionId : null,
       currentTitle: payload.courseId ? payload.collectionTitle : null,

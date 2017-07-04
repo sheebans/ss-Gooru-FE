@@ -74,7 +74,9 @@
           {{/if}}
         </div>
       <div class="last-access">
-        {{format-date location.lastAccessed 'h:mma MMM. D YYYY'}}
+        {{#if location.lastAccessed}}
+          {{format-date location.lastAccessed 'h:mma MMM. D YYYY'}}
+        {{/if}}
       </div>
     </div>
   </div>
