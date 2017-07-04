@@ -55,13 +55,11 @@ export default Ember.Component.extend({
         collectionId: location.get('collectionId'),
         userId: this.get('session.userId'),
         type: location.get('type'),
-        role: ROLES.STUDENT,
-        unitId: location.get('unitId'),
-        lessonId: location.get('lessonId')
+        role: ROLES.STUDENT
       };
       const reportController = Ember.getOwner(this)
-        .lookup('controller:reports.student-collection');
-      reportController.set('backUrl', this.get('history.lastRoute.url'));
+        .lookup('controller:reports.student-collection-analytics');
+      reportController.set('backUrl', router.get('currentPath'));
       router.transitionTo('reports.student-collection-analytics', { queryParams });
     }
   },
