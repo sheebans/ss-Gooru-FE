@@ -3,13 +3,18 @@ import Ember from 'ember';
 /**
  * Learner location model
  *
- * @typedef {Object} Goal
+ * @typedef {Object} Location
  */
 const LearnerLocationModel = Ember.Object.extend({
   /**
    * @property {String} collectionId - Gooru id for the collection
    */
   collectionId: null,
+
+  /**
+   * @property {String} assessmentId - Gooru id for the assessment
+   */
+  assessmentId: null,
 
   /**
    * @property {String} courseId - Gooru id for the course

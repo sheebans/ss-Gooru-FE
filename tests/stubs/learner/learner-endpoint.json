@@ -238,5 +238,23 @@
       "body": "File not found!",
       "file": "fetch-performance-courses-200-response.json"
     }
+  },
+  {
+    "description": "Fetch learner current location for course",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/course/(.+)/user/(.+)/learner/current/location",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-current-location-course-200-response.json"
+    }
   }
 ]
