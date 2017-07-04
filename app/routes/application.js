@@ -69,7 +69,7 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     };
 
     Ember.$(document).ajaxError(function(event, jqXHR, settings) {
-      if(jqXHR.status !== 401) {
+      if(jqXHR.status !== 401 && !route.isGetCollectionWithRefreshRequest(settings)) {
         route.trackEndPointError(event, jqXHR, settings);
       }
     });
@@ -292,6 +292,11 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     }
   },
 
+  isGetCollectionWithRefreshRequest: function(settings) {
+    return (settings.type === 'GET' &&
+        settings.url.indexOf('/quizzes/api/v1/collections/') !== -1 &&
+        settings.url.indexOf('&refresh=true') !== -1);
+  },
 
 // -------------------------------------------------------------------------
   // Actions - only transition actions should be placed at the route
