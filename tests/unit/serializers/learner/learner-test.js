@@ -258,3 +258,22 @@ test('normalizePerformance for course map', function(assert) {
   assert.notOk(normalizedPerformance.get('collectionTitle'), 'Collection title should be null');
   assert.notOk(normalizedPerformance.get('attempts'), 'Attempts should be null');
 });
+
+test('normalizeFetchLocationCourse', function(assert) {
+  const serializer = this.subject();
+  const locationPayload = {
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    lessonId: 'lesson-id',
+    assessmentId: 'assessment-id',
+    assessmentTitle: "assessment title"
+  };
+  const normalizedLocation = serializer.normalizeLocationCourse(locationPayload);
+
+  assert.ok(normalizedLocation, 'Wrong number of location');
+  assert.equal(normalizedLocation.get('courseId'), 'course-id', 'Wrong course id');
+  assert.equal(normalizedLocation.get('unitId'), 'unit-id', 'Wrong unit id');
+  assert.equal(normalizedLocation.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+  assert.equal(normalizedLocation.get('assessmentId'), 'assessment-id', 'Wrong assessment id');
+  assert.equal(normalizedLocation.get('title'), 'assessment title', 'Wrong assessment title');
+});

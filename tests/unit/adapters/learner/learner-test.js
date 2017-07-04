@@ -89,3 +89,20 @@ test('fetchCoursesPerformance', function(assert) {
   adapter.fetchCoursesPerformance(expectedUserId, expectedCourseIds)
     .then(response => assert.deepEqual({}, response, 'Wrong response'));
 });
+
+test('fetchLocationCourse', function(assert) {
+  assert.expect(1);
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus-insights/v2/course/course-id/user/user-id/learner/current/location', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+  let courseId = 'course-id';
+  let userId = 'user-id';
+  adapter.fetchLocationCourse(courseId, userId)
+    .then(response => assert.deepEqual({}, response, 'Wrong response'));
+});

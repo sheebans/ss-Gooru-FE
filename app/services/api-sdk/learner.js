@@ -97,5 +97,22 @@ export default Ember.Service.extend({
           reject
         );
     });
+  },
+  /**
+   * Fetches the learner location in course
+   *
+   * @param courseId - course to fetch the learner location
+   * @param userId - user to fetch the learner location
+   * @returns {Promise}
+   */
+  fetchLocationCourse: function(courseId, userId) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service.get('learnerAdapter').fetchLocationCourse(courseId, userId)
+        .then(
+          response => resolve(service.get('learnerSerializer').normalizeFetchLocationCourse(response)),
+          reject
+        );
+    });
   }
 });

@@ -128,5 +128,37 @@ export default Ember.Object.extend(ConfigurationMixin, {
       collectionId: payload.collectionId || payload.assessmentId,
       attempts: payload.attempts
     });
+  },
+
+  /**
+   * Normalize the Fetch Location in Course endpoint's response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Location} current location for course
+   */
+  normalizeFetchLocationCourse: function(payload) {
+    const serializer = this;
+    const content = payload.content;
+    if (Ember.isArray(content)) {
+      const locationPayload = content[0];
+      return serializer.normalizeLocationCourse(locationPayload);
+    }
+  },
+
+  /**
+   * Normalize the one location from the endpoint's response
+   *
+   * @param payload is part of the response in JSON format
+   * @returns {Location}
+   */
+  normalizeLocationCourse: function(payload) {
+    const serializer = this;
+    return LocationModel.create(Ember.getOwner(serializer).ownerInjection(), {
+      courseId: payload.courseId,
+      unitId: payload.unitId,
+      lessonId: payload.lessonId,
+      assessmentId: payload.assessmentId,
+      title: payload.assessmentTitle
+    });
   }
 });
