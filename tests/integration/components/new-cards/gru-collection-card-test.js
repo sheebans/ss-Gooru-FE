@@ -79,14 +79,16 @@ test('Collection Card Layout', function(assert) {
     assert.ok(content.id, '123','Incorrect content to play');
   });
 
-  this.render(hbs`{{new-cards/gru-collection-card content=collection onOpenContentPlayer='parentAction'}}`);
+  this.render(hbs`{{new-cards/gru-collection-card content=collection onOpenContentPlayer='parentAction' isStudent=true}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
   assert.ok($collectionCard.find('.panel-heading h3.title').length, 'Missing Title');
   assert.ok($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should open the preview');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should not open the player');
   assert.notOk($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should not open the edit');
   assert.ok($collectionCard.find('.panel-heading .image img').length, 'Missing Collection Image');
   assert.notOk($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should not open the edit');
+  assert.notOk($collectionCard.find('.panel-heading .image .play-content').length, 'Image should not open the player');
   assert.ok($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should open the preview');
   assert.ok($collectionCard.find('.panel-heading .question-resources').length, 'Missing Question and Resource Label section');
   assert.ok($collectionCard.find('.panel-heading .question-resources .question-count').length, 'Missing Question count');
@@ -147,7 +149,7 @@ test('Assessment Card Layout', function(assert) {
   assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
 });
 
-test('Course Card Layout', function(assert) {
+test('Course Card Layout as a Teacher/anonymous', function(assert) {
   var course = Ember.Object.create({
     'title': 'Water cycle',
     'totalUnits': 8,
@@ -197,11 +199,11 @@ test('Course Card Layout', function(assert) {
   });
 
   this.set('course', course);
-  this.render(hbs`{{new-cards/gru-collection-card content=course isCourse=true}}`);
+  this.render(hbs`{{new-cards/gru-collection-card content=course isCourse=true isStudent=false}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
-  assert.ok($collectionCard.find('.panel-heading .image a.preview-content img').length, 'Course Image should open the preview');
-  assert.ok($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should open the preview');
+  assert.ok($collectionCard.find('.panel-heading .image a.play-content img').length, 'Course Image should open the player');
+  assert.ok($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should open the player');
 
   assert.ok($collectionCard.find('.panel-heading .unit-count').length, 'Missing unit count');
   assert.ok($collectionCard.find('.panel-heading .question-resources').length, 'Missing Question and Resource Label section');
@@ -385,6 +387,7 @@ test('Functions when Teacher is in their own profile', function(assert) {
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
   assert.notOk($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should not open the preview');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should not open the player');
   assert.ok($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should open the edit');
   assert.notOk($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should not open the preview');
   assert.ok($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should  open the edit');
@@ -446,6 +449,7 @@ test('Functions when Student is in their own profile', function(assert) {
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
   assert.notOk($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should not open the preview');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should not open the player');
   assert.ok($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should open the edit');
   assert.notOk($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should not open the preview');
   assert.ok($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should  open the edit');
@@ -562,10 +566,12 @@ test('Functions when anonymous is on a another person profile (Teacher or Studen
   this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onOpenContentPlayer='parentAction'}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
-  assert.ok($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should open the preview');
+  assert.ok($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should open the player');
   assert.notOk($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should not open the edit');
-  assert.ok($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should open the preview');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should not open the preview');
+  assert.ok($collectionCard.find('.panel-heading .image .play-content').length, 'Image should open the player');
   assert.notOk($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should not open the edit');
+  assert.notOk($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should not open the preview');
   assert.notOk($collectionCard.find('.panel-footer .share-btn').length, 'Share button should not appear');
   assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
   assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
