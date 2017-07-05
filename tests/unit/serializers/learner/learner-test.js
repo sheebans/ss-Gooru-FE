@@ -338,8 +338,8 @@ test('normalizeFetchLocationCourse', function(assert) {
     courseId: 'course-id',
     unitId: 'unit-id',
     lessonId: 'lesson-id',
-    assessmentId: 'assessment-id',
-    assessmentTitle: "assessment title"
+    collectionId: 'collection-id',
+    collectionTitle: "collection title"
   };
   const normalizedLocation = serializer.normalizeLocationCourse(locationPayload);
 
@@ -347,6 +347,6 @@ test('normalizeFetchLocationCourse', function(assert) {
   assert.equal(normalizedLocation.get('courseId'), 'course-id', 'Wrong course id');
   assert.equal(normalizedLocation.get('unitId'), 'unit-id', 'Wrong unit id');
   assert.equal(normalizedLocation.get('lessonId'), 'lesson-id', 'Wrong lesson id');
-  assert.equal(normalizedLocation.get('assessmentId'), 'assessment-id', 'Wrong assessment id');
-  assert.equal(normalizedLocation.get('title'), 'assessment title', 'Wrong assessment title');
+  assert.equal(normalizedLocation.get('collectionId'), 'collection-id', 'Wrong collection id');
+  assert.equal(normalizedLocation.get('title'), 'collection title', 'Wrong collection title');
 });

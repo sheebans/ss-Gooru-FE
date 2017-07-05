@@ -14,7 +14,7 @@ export default Ember.Route.extend({
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
   /**
-   * @requires service:api-sdk/analytics
+   * @requires service:api-sdk/learner
    */
   learnerService: Ember.inject.service('api-sdk/learner'),
 
