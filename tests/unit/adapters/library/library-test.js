@@ -24,6 +24,26 @@ test('fetchLibraries', function(assert) {
     });
 });
 
+test('getLibraryById', function(assert) {
+  const adapter = this.subject();
+  const libraryData = {
+    name: 'Library name'
+  };
+
+  this.pretender.map(function () {
+    this.get('/api/nucleus/v2/libraries/1', function () {
+      return [
+        200, { 'Content-Type': 'application/json; charset=utf-8' },
+        JSON.stringify(libraryData)];
+    });
+  });
+
+  adapter.getLibraryById('1')
+    .then(function (response) {
+      assert.deepEqual(response, libraryData, 'Should respond with the corresponding library data');
+    });
+});
+
 test('fetchLibraryContent', function(assert) {
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({

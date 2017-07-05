@@ -30,6 +30,29 @@ test('fetchLibraries', function(assert) {
     });
 });
 
+test('findById', function (assert) {
+  const service = this.subject();
+  const expectedLibraryId = '1';
+  assert.expect(2);
+
+  service.set('libraryAdapter', Ember.Object.create({
+    getLibraryById: function(libraryId) {
+      assert.equal(libraryId, expectedLibraryId, 'Wrong library id');
+      return Ember.RSVP.resolve({ id: libraryId });
+    }
+  }));
+
+  service.set('librarySerializer', Ember.Object.create({
+    normalizeLibrary: function(libraryData) {
+      assert.deepEqual(libraryData, { id: expectedLibraryId }, 'Wrong library data');
+      return {};
+    }
+  }));
+
+  var done = assert.async();
+  service.fetchById(expectedLibraryId).then(function() { done(); });
+});
+
 test('fetchLibraryContent', function(assert) {
   const service = this.subject();
 
@@ -56,4 +79,3 @@ test('fetchLibraryContent', function(assert) {
       done();
     });
 });
-
