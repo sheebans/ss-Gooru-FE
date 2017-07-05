@@ -42,3 +42,21 @@ test('getLibraryById', function(assert) {
       assert.deepEqual(response, libraryData, 'Should respond with the corresponding library data');
     });
 });
+
+test('fetchLibraryContent', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+
+  this.pretender.map(function() {
+    this.get('/api/nucleus/v2/libraries/library-id/contents', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+
+  adapter.fetchLibraryContent('library-id')
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});

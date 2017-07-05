@@ -55,5 +55,24 @@ export default Ember.Service.extend({
         reject
       );
     });
+  },
+
+  /**
+   * Fetches the Library Content
+   * @param libraryId the library id
+   * @param {string} contentType  course, collection, assessment, resource, question, rubric
+   * @param pagination - pagination values to list library content
+   * @returns {Promise}
+   */
+  fetchLibraryContent: function(libraryId, contentType='course', pagination) {
+    const service = this;
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('libraryAdapter').fetchLibraryContent(libraryId, contentType, pagination)
+        .then(
+          response => resolve(service.get('librarySerializer').normalizeFetchLibraryContent(contentType, response)),
+          reject
+        );
+    });
   }
 });
