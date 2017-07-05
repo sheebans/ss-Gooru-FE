@@ -1,10 +1,43 @@
-export default {
+import quizzesTranslations from './quizzes/translations';
 
-  /*
-   * COMMON: Translations used globally in the app or shared between components
-   */
+export default Object.assign(quizzesTranslations, {  
+   "errors":{  
+      "tooShort":"{{description}} es demasiado corta (el mínimo es {{min}} caracteres)",
+      "date":"{{description}} debe ser una fecha válida",
+      "notANumber":"{{description}} debe ser un número",
+      "blank":"{{description}} no puede estar en blanco",
+      "before":"{{description}} debe ser antes de {{before}}",
+      "equalTo":"{{description}} debe ser igual a {{is}}",
+      "description":"Este campo",
+      "exclusion":"{{description}} está reservado",
+      "tooLong":"{{description}} es demasiado largo (el máximo es {{max}} caracteres)",
+      "empty":"{{description}} no puede estar vacío",
+      "inclusion":"{{description}} no está incluido en la lista",
+      "otherThan":"{{description}} debe ser distinto de {{value}}",
+      "lessThan":"{{description}} debe ser menor que {{lt}}",
+      "after":"{{description}} debe ser después de {{after}}",
+      "lessThanOrEqualTo":"{{description}} debe ser menor o igual que {{lte}}",
+      "email":"{{description}} debe ser una dirección de correo electrónico válida",
+      "greaterThan":"{{description}} debe ser mayor que {{gt}}",
+      "greaterThanOrEqualTo":"{{Description}} debe ser mayor o igual que {{gte}}",
+      "accepted":"Se debe aceptar {{description}}",
+      "confirmation":"{{description}} no coincide {{on}}",
+      "collection":"{{description}} debe ser una colección",
+      "notAnInteger":"{{description}} debe ser un entero",
+      "positive":"{{description}} debe ser positivo",
+      "odd":"{{description}} debe ser impar",
+      "url":"{{description}} debe ser una URL válida",
+      "wrongDateFormat":"{{description}} debe tener el formato {{format}}",
+      "even":"{{description}} debe ser par",
+      "phone":"{{description}} debe ser un número de teléfono válido",
+      "wrongLength":"{{description}} es la longitud incorrecta (debería ser {{is}} caracteres)",
+      "invalid":"{{description}} no es válido",
+      "singular":"{{description}} no puede ser una colección",
+      "present":"{{description}} debe estar en blanco"
+   },
    "common":{  
       "assessment-pl":{  
+         "zero":"Evaluaciones",
          "other":"Evaluaciones",
          "one":"Evaluación"
       },
@@ -14,6 +47,7 @@ export default {
          "k12":"K-12"
       },
       "collection-pl":{  
+         "zero":"Colecciones",
          "other":"Colecciones",
          "one":"Colección"
       },
@@ -101,19 +135,23 @@ export default {
          "username-length":"El nombre de usuario debe tener entre 4 y 16 caracteres.",
          "question-not-updated":"¡Vaya! No se puede actualizar la pregunta ahora mismo. Vuelve a intentarlo en breve.",
          "sign-up-first-name":"Por favor, introduzca su nombre de pila.",
+         "rubric-title-presence":"Ingrese el título de la rúbrica.",
          "sign-in-credentials-not-valid":"¡UH oh! Algo no esta bien. Revisa tu nombre de usuario y contraseña y vuelve a intentarlo.",
          "unit-not-loaded":"¡Vaya! No se puede cargar la unidad ahora mismo. Vuelve a intentarlo en breve.",
          "class-min-score":"La puntuación mínima debe ser un número entre 1 y 100"
       },
       "lessonObj":{  
+         "zero":"Lecciones",
          "other":"Lecciones",
          "one":"Lección"
       },
       "numberStudents":{  
+         "zero":"{{count}} Estudiantes",
          "other":"{{count}} Estudiantes",
          "one":"{{count}} Estudiante"
       },
       "question-pl":{  
+         "zero":"Preguntas",
          "other":"Preguntas",
          "one":"Pregunta"
       },
@@ -141,10 +179,12 @@ export default {
          "audio":"Audio"
       },
       "resource-pl":{  
+         "zero":"Recursos",
          "other":"Recursos",
          "one":"Recurso"
       },
       "unitObj":{  
+         "zero":"Unidades",
          "other":"Unidades",
          "one":"Unidad"
       },
@@ -171,6 +211,8 @@ export default {
       "show-more-results":"Mostrar más resultados",
       "state":"Estado o territorio",
       "add-type-question":"¿Qué tipo de pregunta le gustaría agregar?",
+      "bookmarked-content-success":"Este marcador {{contentType}} se agregará a su página de aprendizaje independiente.",
+      "rubrics":"Rúbricas",
       "add-new-lesson":"Crear nueva lección",
       "add-standards-to-collection":"Agregar normas a la recopilación",
       "audience":"Audiencia",
@@ -179,6 +221,8 @@ export default {
       "from-my-resources":"De Mis Recursos",
       "remix-lesson-success":"Has remezclado una lección {{lessonTitle}}.",
       "completed":"Terminado",
+      "add-to-daily-class":"Añadir a las Actividades de la Clase Diaria",
+      "community":"Comunidad",
       "first-name":"Nombre de pila",
       "remaining":"{{number}} Izquierda",
       "enter-url":"Introducir URL",
@@ -192,14 +236,19 @@ export default {
       "domain":"Dominio",
       "answer-key-was-hidden":"Nota: Su profesor ha ocultado la tecla de respuesta.",
       "collectionInitial":"do",
+      "no-independent-results":"Cuando empieces a explorar tu {{contentType}} marcado como favorito, aparecerán aquí.",
       "launch-anonymous":"Lanzamiento Anónimo",
+      "click-unBookmark":"Haga clic para desmarcar",
       "role":"Papel",
+      "search-competency":"Competencia de búsqueda",
       "submit-all":"Enviar todo",
       "show-correct-answer":"Mostrar respuesta correcta",
       "add-collection-item":"Crear recurso o pregunta",
       "request-to":"Solicitud de revisión de una insignia",
       "mastery":"Maestría",
       "new-question":"Nueva pregunta",
+      "create-rubric":"Crear nueva rúbrica",
+      "live-assessments":"Evaluaciones en directo",
       "search":"Buscar",
       "lesson-title":"Título de la Lección",
       "builder":"Editor",
@@ -207,9 +256,9 @@ export default {
       "confirm-copy":"Confirmar y copiar",
       "visibility-tooltip":"No visible para los demás",
       "close":"Cerca",
-      "content-publishing":"Visibilidad del contenido",
       "last-name":"Apellido",
       "remix-assessment-success":"Has remezclado una evaluación {{assessmentTitle}}. ¿Quieres editar esa evaluación?",
+      "completion":"Terminación",
       "remix-question-lead":"Estás a punto de remezclar una pregunta.",
       "add-from-url":"Agregar desde URL",
       "reaction":"Reacción",
@@ -219,9 +268,14 @@ export default {
       "no-questions-to-display":"No hay <span>preguntas</span> para mostrar.",
       "biography":"Biografía",
       "not-provided":"No proporcionado",
+      "in-progress":"En progreso",
+      "confirm":"Confirmar",
       "published-tooltip":"Contenido Badged",
       "back-to-data":"Volver a Datos",
       "answer":"Tu respuesta",
+      "disappear-after-login":"Esto desaparecerá después de los logins de {{loginNumber}}",
+      "download-print":"Descargar / Imprimir",
+      "choose-file":"Escoge un archivo",
       "select-resource-type":"Seleccione el tipo de recurso",
       "information":"Información",
       "show-results":"Mostrar resultados",
@@ -231,12 +285,14 @@ export default {
       "standard":"Estándar",
       "country":"País",
       "correct":"Correcto",
+      "added":"Adicional",
       "add-course":"Crear nuevo curso",
       "remix-lesson-lead":"Estás a punto de remezclar una lección.",
       "add-new-unit":"Crear nueva unidad",
       "questions":"Preguntas",
       "no-assessments-to-display":"No hay <span>evaluaciones</span> que mostrar.",
       "advanced-editing":"Edición avanzada",
+      "bookmarks":"Marcadores",
       "remix-assessment-lead":"Estás a punto de remixar una evaluación.",
       "save-finish":"Guardar y terminar",
       "assessment":"Evaluación",
@@ -248,15 +304,19 @@ export default {
       "edit-collection":"Editar colección",
       "finish":"Terminar",
       "featured-courses":"Cursos destacados",
+      "add-to-classroom":"Añadir al aula",
       "add":"Añadir",
+      "content-manager":"Gestor de contenidos",
       "courses":"Cursos",
-      "search-placeholder":"Buscar...",
+      "search-placeholder":"Buscar",
       "unitInitial":"Tu",
       "if_questions":"Si tienes alguna pregunta,",
       "add-to-lesson-success":"Has añadido {{collectionTitle}} a {{lessonTitle}}. ¿Desea editar ese {{collectionType}}?",
       "collection":"Colección",
+      "bookmark":"Marcador",
       "last-updated":"Última actualización",
       "current-attempt":"Intento actual",
+      "unBookmark":"Unbookmark",
       "district":"Distrito",
       "remix-assessment":"Evaluación Remix",
       "report-in-progress":"Informe en curso",
@@ -272,24 +332,29 @@ export default {
       "avatarFor":"Avatar para",
       "submit":"Enviar",
       "sortAlphabetical":"Ordenar alfabéticamente",
-      "classes":"Aulas",
       "pending":"Pendiente",
       "back":"Espalda",
       "description":"Descripción",
+      "choose":"Escoger",
       "unit-title":"Título de la Unidad",
       "untitled-lesson":"Lección sin título",
       "content":"Contenido",
       "remove":"retirar",
       "course-map":"Mapa del curso",
       "no-results":"No se han encontrado resultados",
+      "back-to-assessment":"Volver a la evaluación",
+      "back-to-collection":"Volver a la colección",
       "remix-resource-success":"Has remezclado un recurso {{resourceTitle}}. ¿Quieres editar ese recurso?",
-      "create-class":"+ Crear un aula",
+      "add-century-skills":"Añadir habilidades del siglo XXI",
+      "disappear-next-login":"Esto no aparecerá en el siguiente inicio de sesión",
       "request-report":"Solicitar informe",
       "class":"Aula",
+      "add-competency":"Añadir Competencia",
       "drag-drop-suggestions":"O Sugerencias de arrastrar y soltar ...",
       "an-assessment":"Una evaluación",
       "yes":"Sí",
       "teach":"Enseñar",
+      "a-rubric":"Una rúbrica",
       "false":"Falso",
       "libraries":"Bibliotecas",
       "valid-extensions":"Las extensiones de archivo válidas son: {{extensions}}",
@@ -300,6 +365,7 @@ export default {
       "home":"Casa",
       "add-standard":"Añadir Estándar",
       "file-name":"Nombre del archivo",
+      "add-rubric":"Añadir nueva rubrica",
       "edit-question":"Editar pregunta",
       "created-by":"Creado por",
       "remix-lesson":"Lección Remix",
@@ -311,12 +377,15 @@ export default {
       "no-followers":"Aún no tienes seguidores.",
       "from-my-questions":"De mis preguntas",
       "best-practices":"Mejores prácticas",
+      "myPerformance":"Mi rendimiento",
       "no-resources-to-display":"No hay <span>recursos</span> para mostrar.",
       "a-course":"un curso",
+      "rubric":"Rúbrica",
       "suggested-resources":"Recursos sugeridos",
       "from-my-assessments":"De mis evaluaciones",
       "type":"Tipo",
       "attempt":"Número de intento",
+      "profile-publishing":"Visibilidad del perfil",
       "signUp":"Regístrate",
       "add-type-resource":"¿Qué tipo de recurso es este?",
       "number":"No.",
@@ -340,19 +409,26 @@ export default {
       "lesson":"Lección",
       "not-added":"No añadido",
       "loading":"Cargando ...",
+      "take-me-there":"Llévame allí",
+      "enrolled-students":"Estudiantes inscritos",
       "save-submit":"Guardar y enviar todo",
+      "exit":"Salida",
       "a-collection":"Una colección",
       "lessonInitial":"L",
       "anonymous_mode":"Modo anónimo",
       "following":"Siguiendo",
+      "read-first":"<b>¡Leé esto primero!</b>",
       "school-info":"Información de la escuela",
       "add-url":"Agregar URL",
-      "link-out-message":"* Si su recurso no está representado en la vista previa anterior, puede que necesite un 'link-out' y no se pueda ver dentro del reproductor Gooru.",
+      "link-out-message":"* Si su recurso aparece en blanco en la vista previa anterior, es posible que necesite un enlace a otra página para ver el contenido.",
       "remix-resource-lead":"Estás a punto de remixar un recurso.",
       "word":"Palabra",
       "remix":"Remix",
       "other":"Otro",
+      "rubric-title":"Título de Rúbrica",
       "study":"Estudiar",
+      "all-completed":"Todo completado",
+      "competency":"Competencia",
       "notStarted":"No empezado",
       "save":"Salvar",
       "remix-unit-success":"Has remixado una unidad {{unitTitle}}.",
@@ -361,30 +437,40 @@ export default {
       "subject-and-framework":"Asignatura y marco",
       "add-assessment":"Crear una nueva evaluación",
       "add-question":"Crear pregunta",
+      "tools":"Herramientas",
       "add-collection":"Crear nueva colección",
       "averageScore":"Puntuación media",
       "untitled-unit":"Untitled Unit",
       "question-title":"Título de la pregunta",
       "forgotPassword":"Se te olvidó tu contraseña",
       "add-domains-to-unit":"Agregar dominios a la unidad",
+      "library":"Biblioteca",
       "course":"Curso",
+      "share":"Compartir",
+      "categories":"Categorías",
       "copy":"Dupdo",
       "add-to-collection-success":"Has añadido {{contentTitle}} a {{collectionTitle}}. ¿Desea editar ese {{collectionType}}?",
+      "explore":"Explorar",
       "question":"Pregunta",
       "course-title":"Título del curso",
       "resource-title":"Título del recurso",
+      "suggestion":"Sugerencia",
       "menu":"Menú",
       "off":"APAGADO",
       "assign-to-course":"Asignar al curso",
       "save-next":"Guardar y Siguiente",
       "search-400-error-message":"Introduzca un término de búsqueda válido",
+      "sort-most-recently":"Ordenar por Actualizaciones más recientes",
       "upload-file":"Subir archivo",
       "classScores":"Puntuaciones de clase",
       "edit-course":"Editar curso",
       "add-standards":"Añadir normas",
       "remix-warning":"¡Aviso! Hay un montón de contenido impresionante en este curso y hacer una copia llevará tiempo. Confirme que desea iniciar el proceso y en 15 minutos encontrará su copia de este curso en su <b>perfil.</b>",
+      "no-rubrics-to-display":"No hay <span>rúbricas</span> para mostrar.",
       "a-question":"una pregunta",
+      "not_started":"No empezado",
       "remix-unit-lead":"Estás a punto de remixar una unidad.",
+      "download":"Descargar",
       "publish-to":"Hacer esto visible para otros en mi biblioteca de perfiles",
       "assessment-disabled":"Usted no puede intentar esta evaluación",
       "student-id":"ID del estudiante (no se muestra en el perfil)",
@@ -392,6 +478,8 @@ export default {
       "create":"Crear",
       "from":"de",
       "please_contact":"Por favor contactar",
+      "questions-OE":"Preguntas de Respuesta Gratuitas",
+      "overall-performance":"Rendimiento global",
       "published-by":"Publicado por",
       "settings":"Ajustes",
       "add-lessons":"Añadir lecciones",
@@ -402,17 +490,25 @@ export default {
       "remix-collection-lead":"Estás a punto de remixar una colección.",
       "myContent":"Mi contenido",
       "edit-resource":"Editar Recurso",
+      "bookmarked-success":"Todos los contenidos marcados se añadirán a la página de aprendizaje independiente.",
       "license":"Licencia",
+      "study-now":"Estudia ahora",
       "unit":"Unidad",
       "followers":"Seguidores",
+      "performance-dashboard":"Panel de rendimiento",
+      "instructor":"Instructor",
       "true":"Cierto",
+      "no-archived":"No tienes aulas archivadas.",
       "publisher":"Editor",
+      "post-message":"Publicar mensaje",
       "remix-course-success":"Has remezclado un curso {{courseTitle}}. ¿Quieres editar ese curso?",
+      "announcements":"Anuncios",
       "big-ideas":"Grandes ideas",
       "no":"No",
       "hide-results":"Ocultar resultados",
       "student":"Estudiante",
       "upload-thumbnail":"Subir miniatura",
+      "link":"Enlazar",
       "remix-course-lead":"Estás a punto de remezclar un curso.",
       "about-you":"Acerca de ti",
       "delete":"Borrar",
@@ -420,6 +516,7 @@ export default {
       "email_support":"Support@gooru.org",
       "teacher":"Profesor",
       "of":"de",
+      "not-applicable":"N / A",
       "beta":"Beta",
       "on":"EN",
       "assessments":"Evaluaciones",
@@ -430,16 +527,19 @@ export default {
       "verified":"Verificado",
       "resources":"Recursos",
       "toggle-dropdown":"Desactivar desplegable",
+      "competencies":"Competencias",
       "follow":"Seguir",
       "use-case":"Caso de uso",
       "learning-target-mobile":"Micro-estándar en estándar",
       "remix-unit":"Unidad Remix",
       "learning-objectives":"Objetivos de aprendizaje",
       "performance":"Mostrar el rendimiento",
+      "century-skills":"Habilidades del siglo XXI",
       "edit-narration":"Editar Narración",
       "narration":"Narración",
       "answer-incorrect":"Eres incorrecto ...",
       "no-courses-to-display":"No hay <span>cursos</span> para mostrar.",
+      "suggestions":"Sugerencias",
       "category":"Categoría",
       "add-new-question":"Crear una nueva pregunta",
       "new-resource":"Nuevo recurso"
@@ -519,8 +619,9 @@ export default {
       },
       "overview":{  
          "locate":"Ubícame",
-         "editContent":"Editar contenido",
-         "title":"Mapa del curso"
+         "title":"Mapa del curso",
+         "add-to-daily-class-activities":"Añadir a las Actividades de la Clase Diaria",
+         "edit-content":"Editar contenido"
       },
       "analytics":{  
          "performance":{  
@@ -536,10 +637,11 @@ export default {
             },
             "teacher":{  
                "metricsTable":{  
-                  "average":"Promedio",
-                  "class-average":"Promedio de clase"
+                  "class-average":"Promedio de clase",
+                  "average":"Promedio"
                }
             },
+            "no-content":"Sus estudiantes aún no han comenzado a estudiar un curso.",
             "title":"Ver rendimiento",
             "better-experience-message":"Para una mejor experiencia de Gooru, vea el análisis de aula completo en tableta o escritorio."
          },
@@ -548,18 +650,19 @@ export default {
          }
       },
       "quick-start":{  
-         "new-collection":"Nueva colección",
          "featured-course":"Ver cursos destacados",
-         "remix-desc":"Copia y personaliza un curso destacado para tus estudiantes.",
+         "remix-desc":"Copia y personaliza un curso destacado para tus estudiantes",
+         "add-existing-course":"Agregar un curso de su biblioteca",
+         "title":"Asignar contenido a este aula.",
+         "remix-from-course":"Remix de un curso destacado",
+         "new-collection":"Nueva colección",
          "remix-a-sample":"Remix una muestra",
          "new-assessment":"Nueva Evaluación",
          "existing-course-desc":"La forma más rápida de comenzar un aula",
-         "new-course-desc":"Comience creando una colección o evaluación",
-         "add-existing-course":"Agregar un curso de su biblioteca",
+         "new-course-desc":"Comience creando un nuevo curso, una colección o una evaluación",
+         "course":"Nuevo curso",
          "choose-course":"Elija Curso",
-         "title":"Asignar contenido a este aula.",
-         "new-course":"Inicio rápido de un nuevo curso",
-         "remix-from-course":"Remix de un curso destacado"
+         "new-course":"Inicio rápido de un nuevo curso"
       }
    },
    "classes":{  
@@ -653,6 +756,10 @@ export default {
          }
       },
       "modals":{  
+         "delete-bookmark":{  
+            "delete-error":"¡Vaya! No se puede desmarcar este {{type}} ahora. Vuelve a intentarlo en breve.",
+            "confirmation":"¿Deseas desmarcar este {{type}}?"
+         },
          "delete-class":{  
             "student-data-deleted":"Se borrarán todos los datos de los estudiantes",
             "legend":"Estás a punto de eliminar tu aula",
@@ -699,8 +806,8 @@ export default {
       "resources":{  
          "edit":{  
             "information":{  
-               "im-publisher":"Soy el editor",
-               "select-a-license":"Seleccione una licencia"
+               "select-a-license":"Seleccione una licencia",
+               "im-publisher":"Soy el editor"
             },
             "best-practices":"<p> Los recursos son contenido multimedia en una variedad de formatos como videos, interactivos, sitios web, imágenes, Google Docs y más. Sea creativo y utilice sus propios recursos o obtenga 'recursos' y busque en nuestra amplia oferta en Gooru. </p><p> Utilice una variedad de tipos de recursos para involucrar a sus estudiantes e incluir narración para que pueda ayudar a guiar a sus estudiantes a través del recurso. </p><p> Recomendamos etiquetar cada pregunta a estándares, micro-estándares y habilidades del siglo XXI. Usted puede ver cómo sus estudiantes están interactuando con los recursos a través del tablero del profesor. </p>",
             "placeholder-message":"Añade un recurso para <span>verlo aquí.</span>",
@@ -710,20 +817,164 @@ export default {
    },
    "user":{  
       "joined-classes":{  
+         "zero":"Actualmente estás inscrito en aulas de {{count}}",
          "other":"Actualmente estás inscrito en aulas de {{count}}",
          "one":"Actualmente estás inscrito en 1 aula"
       },
       "teaching-classes":{  
-         "other":"Y clases de enseñanza {{count}}",
-         "one":"Y la enseñanza de 1 aula"
+         "zero":"Actualmente está enseñando a las salas de clase {{count}}",
+         "other":"Actualmente está enseñando a las salas de clase {{count}}",
+         "one":"Actualmente estás enseñando 1 aula"
       },
-      "archived-classes":"Aulas archivadas",
+      "independent-learning":"Aprendizaje independiente",
+      "active-classrooms":"Aulas Activas",
+      "my-classes":"Mis clases",
+      "manage-goals":"Administrar objetivos",
       "create-class":"Crear un aula",
       "join-class":"Únete al aula",
-      "active-classes":"Aulas Activas"
+      "my-current-classes":"Mis clases actuales",
+      "hello":"Hola, {{name}}!",
+      "archived-classrooms":"Aulas archivadas",
+      "classrooms":"Aulas"
+   },
+   "student-landing":{  
+      "class":{  
+         "class-activities-tab":{  
+            "today":"Hoy"
+         },
+         "unit":"Unidad",
+         "performance":"Actuación",
+         "my-report":"Mi reporte",
+         "lesson":"Lección",
+         "class-activities":"Actividades de Clases Diarias",
+         "assigned-course":"Curso asignado",
+         "classroom":"Información del Aula",
+         "back-to":"Volver a las aulas",
+         "back-to-independent":"Volver a Aprendizaje Independiente",
+         "course-map":"Mapa del curso"
+      },
+      "course":{  
+         "total-time-spent":"Tiempo total dedicado",
+         "to-report":"Resumen de uso"
+      },
+      "my-performance":{  
+         "activities":{  
+            "study":"Estudiar"
+         },
+         "filter":"Filtrar",
+         "assessments":"Evaluaciones",
+         "activity":"Actividad",
+         "collections":"Colecciones",
+         "subject":"Tema",
+         "time-period":"Periodo de tiempo",
+         "update-report":"Actualizar informe",
+         "title":"Analiza tu rendimiento",
+         "primary-text":"Elija las cosas que desea analizar y generaremos un informe de rendimiento personalizado."
+      },
+      "browse-featured-courses":"Navegue por nuestros cursos destacados",
+      "current-activity":"Actividad actual",
+      "learn":"Aprender con un aula de Gooru",
+      "join-classroom":"Únase al salón de clases de su maestro para comenzar a aprender",
+      "welcome":"Bienvenido a Gooru.",
+      "announcement":"Anuncio",
+      "my-study":"Mi estudio",
+      "no-classrooms":"Aún no te has unido a las aulas. Haga clic en 'Join </br> Clase 'para añadir la clase de su profesor. También puede buscar </br> Un curso destacado bajo la pestaña Biblioteca."
+   },
+   "teacher-landing":{  
+      "class":{  
+         "class-management-tab":{  
+            "student-name":"Nombre del estudiante",
+            "archive-class":"Clase de archivo",
+            "class-code":"Código de clase",
+            "students":"Estudiantes",
+            "delete":"Borrar",
+            "attend-class-with-code":"Asistir a clase con código",
+            "teachers":"Maestros",
+            "download-roster":"Descargar Roster",
+            "student-id":"Identificación del Estudiante",
+            "last-name":"Apellido",
+            "email-address":"Dirección de correo electrónico",
+            "edit":"Editar",
+            "view-report":"Vista del informe",
+            "archive":"Archivo",
+            "message":"Mensaje",
+            "first-name":"Nombre de pila",
+            "class-name":"Nombre del aula",
+            "course-information":"Información del curso",
+            "import-roster":"Lista de importación",
+            "performance":"Actuación",
+            "assessment-min-score":"Calificación Puntuación mínima para los trofeos",
+            "assigned-course":"Curso asignado",
+            "class-information":"Información de clase",
+            "click-to-copy-class-code":"Haga clic para copiar el código de la clase",
+            "actions":"Comportamiento",
+            "delete-class":"Eliminar Clase"
+         },
+         "class-activities-tab":{  
+            "add-activities":"Añadir actividades desde el",
+            "or":"o",
+            "today":"Hoy,"
+         },
+         "performance-tab":{  
+            "assessments":"Evaluaciones",
+            "collections":"Colecciones"
+         },
+         "performance":"Actuación",
+         "click-to-copy":"Haga clic para copiar el código de la clase",
+         "management":"Gestión de listas",
+         "view-more":"Ver más",
+         "class-activities":"Actividades de Clases Diarias",
+         "report":"Informe",
+         "back-to":"Volver a las aulas",
+         "class-management":"Gestión de la clase",
+         "course-map":"Mapa del curso"
+      },
+      "latest-announcement":"Último anuncio",
+      "create-classroom":"Crear un aula, asignar contenidos, invitar a los estudiantes",
+      "no-course":"No has asignado un curso a esta </br> Aula todavía.",
+      "latest-assessment":"Evaluación más reciente",
+      "teach":"Enseñar con una clase de Gooru",
+      "no-classrooms":"Todavía no has creado aulas. Haga clic en 'Crear clase' o busque </br> Para un curso destacado en la pestaña Biblioteca."
+   },
+   "goals":{  
+      "manage":{  
+         "type-label":"Tipo de objetivo",
+         "dropped":"Caído",
+         "save":"Salvar",
+         "update":"Actualizar",
+         "completed":"Terminado",
+         "title":"¡Mis metas!",
+         "start-date-label":"Fecha de inicio",
+         "end-date-label":"Fecha final",
+         "add-goal":"Añadir objetivo",
+         "goal-label":"Gol",
+         "not_started":"No empezado",
+         "reflection-label":"Reflexión",
+         "goals-not-found":"Aún no has establecido metas. Puede agregar un objetivo haciendo clic en el botón &quot;Añadir meta&quot;.",
+         "status-label":"Estado",
+         "activated":"Activado"
+      },
+      "create":{  
+         "error-add-title":"Por favor, introduzca la meta",
+         "error-add-end-date":"Ingrese la fecha de finalización",
+         "error-add-start-date":"Introduzca la fecha de inicio",
+         "error-add-status":"Seleccione el estado de objetivo",
+         "created-success-msg":"Has creado el objetivo {{goalTitle}}",
+         "error-length-reflection":"La reflexión debe tener un máximo de 2000 caracteres",
+         "error-length-title":"El objetivo debe tener un máximo de 200 caracteres",
+         "error-greater-end-date":"La fecha de finalización debe ser mayor que la fecha de inicio"
+      },
+      "delete":{  
+         "deleted-success-msg":"Has eliminado el objetivo"
+      },
+      "update":{  
+         "updated-success-msg":"Ha actualizado la meta"
+      }
    },
    "gru-add-to":{  
       "add-to-assessment-lead":"Elija una evaluación que desea agregar {{contentTitle}} a",
+      "add-to-existing-classroom":"Agregar al aula existente",
+      "add-to-existing-classroom-lead":"Elija un aula al que desea agregar",
       "add-collection-to-lesson-lead":"Seleccione una colección para agregar a esta lección.",
       "add-assessment-to-lesson-lead":"Seleccione una evaluación para agregar a esta lección.",
       "add-to-collection-lead":"Elige una colección que quieras agregar {{contentTitle}} a",
@@ -736,12 +987,14 @@ export default {
    },
    "gru-assessment-confirmation":{  
       "attempts-left":{  
+         "zero":"Tienes intentos de {{count}}",
          "other":"Tienes intentos de {{count}}",
          "one":"Tienes 1 intento a la izquierda"
       },
       "setting-forward-backward":"Puede navegar hacia adelante y hacia atrás para responder preguntas",
       "cancel":"Cancelar",
       "setting-forward":"Solo puede navegar hacia adelante",
+      "continue":"Continuar",
       "unlimited-attempts-left":"Tienes intentos ilimitados",
       "start":"¡Comienzo!",
       "description":"En esta evaluación, {{model.title}}",
@@ -750,9 +1003,10 @@ export default {
    },
    "gru-submit-confirmation":{  
       "cancel":"Cancelar",
-      "confirm":"Enviar todo",
+      "confirm":"Concurso de finalización",
+      "finish-description":"Haga clic en 'Finalizar cuestionario' para enviar sus respuestas.",
       "description":"Estás a punto de terminar este intento y presentar todas las respuestas. Cualquier pregunta omitida se contará como incorrecta.",
-      "title":"¿Está seguro de que desea enviar todo?"
+      "title":"Termina esta prueba y envía todos"
    },
    "gru-quick-course-search":{  
       "view-featured-courses":"Ver cursos destacados",
@@ -802,6 +1056,14 @@ export default {
       "information":"Información del Aula",
       "greetings":"Anuncios"
    },
+   "class.gru-class-statistics":{  
+      "completion":"Terminación",
+      "performance":"Actuación",
+      "title":"Estadísticas de la clase",
+      "no-performance":"-",
+      "on-average":"De media",
+      "time-spent":"Tiempo usado"
+   },
    "gru-user-registration":{  
       "signUpEmail":"Regístrese con su dirección de correo electrónico",
       "joinTitle":"¡Únase a la comunidad de Gooru!",
@@ -813,6 +1075,24 @@ export default {
       "whyGoogle":"¿Por qué registrarse en Google?",
       "descriptionWhyGoogle":"Es rápido y fácil. Utiliza tu cuenta de Google existente para iniciar sesión sin contraseña.",
       "haveAccount":"¿Ya tienes una cuenta?"
+   },
+   "gru-welcome-message":{  
+      "text-two":{  
+         "subtitle":"Hacer un tour",
+         "text":": Ofrece visitas guiadas sobre cómo utilizar nuestras funciones."
+      },
+      "text-three":{  
+         "subtitle":"Ayuda",
+         "text":": Apoyo a su alcance para preguntas adicionales."
+      },
+      "text-four":{  
+         "subtitle":"Nuevo",
+         "text":": Identifica las nuevas características que puede probar."
+      },
+      "text-five":"En cualquier momento si desea volver a su página de inicio, simplemente haga clic en",
+      "text-one":"A medida que se desplaza por el Navegador de Aprendizaje, estamos felices de apoyar su viaje de las siguientes maneras:",
+      "title":"Bienvenido a Gooru's Learning Navigator!",
+      "dont-show-again":"No mostrar de nuevo"
    },
    "sign-up":{  
       "dateOfBirth":{  
@@ -952,6 +1232,7 @@ export default {
          "MA":"Respuesta múltiple",
          "HS_IMG":"Selección múltiple - Imagen",
          "MC":"Opción multiple",
+         "OE":"Respuesta libre",
          "HS_TXT":"Selección múltiple - Texto",
          "HT_HL":"Texto en caliente",
          "T/F":"Verdadero Falso",
@@ -962,6 +1243,7 @@ export default {
          "placeholder":"Autor"
       },
       "courses":"Cursos",
+      "rubrics":"Rúbricas",
       "assessments":"Evaluaciones",
       "collections":"Colecciones",
       "questions":"Preguntas",
@@ -1070,6 +1352,8 @@ export default {
       "study-time":"Tiempo de estudio",
       "reaction":"Reacción",
       "timeSpent":"Hora",
+      "report":"Informe",
+      "time-spent":"Tiempo usado",
       "attempts":"Intento"
    },
    "gru-performance-summary":{  
@@ -1089,11 +1373,22 @@ export default {
    "gru-performance":{  
       "no-content":"No hay contenido disponible"
    },
+   "gru-performance-metrics":{  
+      "assessment":"Evaluación",
+      "completion":"Terminación",
+      "score":"Puntuación",
+      "study-time":"Tiempo usado",
+      "student":"Estudiante",
+      "report":"Informe",
+      "collection":"Colección"
+   },
    "gru-metrics-sub-header":{  
+      "assessment":"Evaluación",
       "score":"Puntuación",
       "completion":"Terminación",
-      "study-time":"Tiempo de estudio",
-      "student":"Estudiante"
+      "student":"Estudiante",
+      "report":"Informe",
+      "time-spent":"Hora"
    },
    "gru-resource-new":{  
       "resource-already-exist":"Este recurso ya existe en Gooru!"
@@ -1107,8 +1402,15 @@ export default {
    "cards":{  
       "gru-class-card":{  
          "student":{  
+            "zero":"{{count}} Estudiante",
             "other":"{{count}} Estudiantes",
-            "one":"{{count}} Estudiante"
+            "one":"{{count}} Estudiante",
+            "not-started":"No empezado"
+         },
+         "unit":{  
+            "zero":"Sin curso",
+            "other":"Unidades {{count}}",
+            "one":"Unidad {{count}}"
          },
          "archived":{  
             "download-report":"Descargue sus datos para esta clase.",
@@ -1119,19 +1421,48 @@ export default {
       },
       "gru-course-card":{  
          "units":{  
+            "zero":"Unidades {{count}}",
             "other":"Unidades {{count}}",
             "one":"Unidad {{count}}"
          },
          "resource":{  
+            "zero":"{{Count}} Recursos",
             "other":"{{Count}} Recursos",
             "one":"{{Count}} Recurso"
          },
          "question":{  
+            "zero":"{{Count}} Preguntas",
             "other":"{{Count}} Preguntas",
             "one":"{{Count}} Pregunta"
          },
          "in":"en",
+         "start-studying":"Empezar a estudiar",
          "and":"y"
+      },
+      "gru-collection-card":{  
+         "courses":{  
+            "zero":"{{count}} Cursos",
+            "other":"{{count}} Cursos",
+            "one":"{{count}} Curso"
+         },
+         "students":{  
+            "zero":"{{count}} Estudiantes",
+            "other":"{{count}} Estudiantes",
+            "one":"{{count}} Estudiante"
+         },
+         "collections":{  
+            "other":"{{count}} Colecciones",
+            "one":"{{count}} Colección"
+         },
+         "assessments":{  
+            "other":"{{count}} Evaluaciones",
+            "one":"{{count}} Evaluación"
+         },
+         "classrooms":{  
+            "zero":"Aulas",
+            "other":"Aulas",
+            "one":"Sala de clase"
+         }
       },
       "gru-resource-card":{  
          "add":"Añadir"
@@ -1155,6 +1486,7 @@ export default {
       "scores":"Puntuaciones",
       "first-tier-header-prefix":"Q",
       "reactions":"Reacciones",
+      "time":"Hora",
       "totals":"Total",
       "time-spent":"Tiempo usado"
    },
@@ -1189,6 +1521,7 @@ export default {
       "gru-taxonomy-selector":{  
          "primary-subject-and-course":"Marco y Curso de Normas",
          "add-secondary":"Agregar secundario",
+         "competency-subject-and-course":"Marco y Curso de Competencias",
          "choose-subject":"Elija el asunto"
       }
    },
@@ -1202,6 +1535,7 @@ export default {
    "taxonomy.modals":{  
       "gru-domain-picker":{  
          "selectedText":{  
+            "zero":"{{Count}} dominios seleccionados",
             "other":"{{Count}} dominios seleccionados",
             "one":"{{Count}} dominio seleccionado"
          },
@@ -1210,9 +1544,16 @@ export default {
       },
       "gru-standard-picker":{  
          "selectedText":{  
+            "zero":"{{Count}} estándares seleccionados",
             "other":"{{Count}} estándares seleccionados",
             "one":"{{Count}} estándar seleccionado"
          },
+         "selectedCompetencyText":{  
+            "zero":"{{count}} competencias seleccionadas",
+            "other":"{{count}} competencias seleccionadas",
+            "one":"{{count}} competencia seleccionada"
+         },
+         "browseCompetencySelectorText":"¿Qué competencias serán cubiertas?",
          "shortcutText":"La unidad está etiquetada como",
          "browseSelectorText":"¿Qué estándares serán cubiertos?"
       }
@@ -1261,7 +1602,166 @@ export default {
       "attempts":"Intentos",
       "attempts-unlimited":"Ilimitado"
    },
+   "gru-icon-popover":{  
+      "settings-visibility-content":"Esta configuración hace que su contenido sea visible a través de su perfil de usuario. Si desea compartir los cursos, las colecciones, las evaluaciones, los recursos y / o las preguntas que cree con los colegas, le sugerimos que active esta función.",
+      "settings-visibility-title":"Haga visible su contenido"
+   },
+   "gru-take-tour":{  
+      "teacher-home":{  
+         "stepOne":{  
+            "description":"¡Bienvenidos a la página de inicio de Gooru! Aquí puede encontrar una lista de las aulas que usted crea en Gooru. Las aulas le permiten compartir contenido directamente con los estudiantes. Siempre puedes volver a tu página principal haciendo clic en el icono de Gooru.",
+            "title":"Su Página de Inicio"
+         },
+         "stepTwo":{  
+            "description":"Todas las aulas que enseña o se une a este año escolar aparecerán aquí bajo Aulas Activas.",
+            "title":"Clases en las que enseña o se une"
+         },
+         "stepThree":{  
+            "description":"Haga clic aquí para crear un nuevo aula. Una vez que tenga contenido para compartir con los estudiantes, se lo asignará a través de un aula.",
+            "title":"Crear un aula"
+         },
+         "stepFour":{  
+            "description":"Este es tu perfil. Haz clic en tu perfil en cualquier momento para acceder al contenido que creas o remixas en Gooru.",
+            "title":"Tu perfil"
+         }
+      },
+      "student-home":{  
+         "stepOne":{  
+            "description":"Bienvenido a Tome un Tour! Esta es tu página personal. Recuerde que siempre puede volver a su página haciendo clic en el logotipo de Gooru. Ahora vamos a empezar!",
+            "title":"Tome un Tour Icon"
+         },
+         "stepTwo":{  
+            "description":"Aquí verá anuncios que su maestro o escuela le gustaría que conociera.",
+            "title":"Anuncios"
+         },
+         "stepFour":{  
+            "description":"Vea todas las clases en las que está inscrito.",
+            "title":"Aulas"
+         },
+         "stepFive":{  
+            "description":"Para unirse a un nuevo aula, ingrese el código de la clase y se mostrará en &quot;Mis clases&quot;.",
+            "title":"Únete al aula"
+         },
+         "stepSix":{  
+            "description":"Explorar y marcar temas que le interesen y que desea obtener más información.",
+            "title":"Aprendizaje independiente"
+         },
+         "stepSeven":{  
+            "description":"Busque en nuestro catálogo de contenido los temas que le interesan.",
+            "title":"Barra de búsqueda"
+         },
+         "stepEight":{  
+            "description":"Vuelva a su página de inicio.",
+            "title":"Su Página de Inicio"
+         },
+         "stepNine":{  
+            "description":"Navegue por nuestros cursos destacados.",
+            "title":"Biblioteca"
+         },
+         "stepTen":{  
+            "description":"Vea un resumen de su rendimiento en los cursos en los que está inscrito.",
+            "title":"Actuación"
+         },
+         "stepThirteen":{  
+            "description":"Acceda y actualice su perfil de usuario.",
+            "title":"Nombre de usuario"
+         },
+         "stepFourteen":{  
+            "description":"Ahora siga adelante y haga clic en un curso en el que se haya inscrito, únase a un aula o busque contenido que le sea de interés.",
+            "title":"¡Terminado!"
+         }
+      },
+      "student-performance":{  
+         "stepOne":{  
+            "description":"Bienvenido a su Panel de rendimiento. Puede ver cómo se desempeña en todas las clases y cursos.",
+            "title":"¡Bienvenido!"
+         },
+         "stepTwo":{  
+            "description":"Haga clic en la flecha para filtrar su rendimiento por actividad, período de tiempo, tema y curso.",
+            "title":"Ficha Filtrar"
+         },
+         "stepThree":{  
+            "description":"Una vez que haya seleccionado sus filtros, haga clic en el informe de actualización para mostrar los resultados.",
+            "title":"Actualizar informe"
+         },
+         "stepFour":{  
+            "description":"Descargue su informe.",
+            "title":"Descargar / Imprimir"
+         },
+         "stepFive":{  
+            "description":"Adelante y analice su rendimiento!",
+            "title":"¡Terminado!"
+         }
+      },
+      "student-class":{  
+         "stepOne":{  
+            "description":"Bienvenido a la página del curso. Aquí encontrará sus actividades diarias, el mapa del curso y los datos de rendimiento. ¡Empecemos!",
+            "title":"¡Bienvenido!"
+         },
+         "stepTwo":{  
+            "description":"Acceda a una lista de actividades asignadas por su maestro. Seleccione las actividades que desea estudiar.",
+            "title":"Actividades de Clases Diarias"
+         },
+         "stepThree":{  
+            "description":"Haga clic en las unidades y lecciones para completar las colecciones y evaluaciones en el curso.",
+            "title":"Mapa del curso"
+         },
+         "stepFour":{  
+            "description":"Echa un vistazo a su rendimiento general de clase.",
+            "title":"Mi reporte"
+         },
+         "stepFive":{  
+            "description":"Para empezar, haga clic en la ficha Mapa del curso o Actividades diarias para comenzar a estudiar.",
+            "title":"¡Terminado!"
+         }
+      },
+      "study-player":{  
+         "stepOne":{  
+            "description":"Este es tu Jugador de Estudio. Vamos a caminar a través de las funciones disponibles para usted.",
+            "title":"¡Bienvenido!"
+         },
+         "stepTwo":{  
+            "description":"Indica dónde se encuentra la colección o evaluación en su curso.",
+            "title":"Unidad / curso / encabezado de la lección"
+         },
+         "stepThree":{  
+            "description":"Indica cómo se está realizando y cuánto del curso ha completado.",
+            "title":"Rendimiento / Finalización"
+         },
+         "stepFour":{  
+            "description":"Deje a su profesor saber lo que usted piensa acerca de este recurso.",
+            "title":"Reaccionar al recurso"
+         },
+         "stepFive":{  
+            "description":"Regrese a su mapa de cursos para ver el contenido adicional del curso.",
+            "title":"Mapa del curso"
+         },
+         "stepSix":{  
+            "description":"Estos son recursos que puede que desee explorar basados ​​en lo que está estudiando actualmente.",
+            "title":"Sugerencias"
+         },
+         "stepSeven":{  
+            "description":"",
+            "title":"Echa un vistazo a estos recursos"
+         },
+         "stepEight":{  
+            "description":"Empezar a estudiar!",
+            "title":"¡Terminado!"
+         }
+      },
+      "text":"Hacer un tour"
+   },
    "gru-tour":{  
+      "assessments-settings":{  
+         "stepOne":{  
+            "description":"Este ajuste determina cómo los estudiantes pueden pasar a través de una evaluación y muestra si sus respuestas son correctas o incorrectas. No les muestra una clave de respuesta.",
+            "title":"Navegación y Puntuación"
+         },
+         "stepTwo":{  
+            "description":"Esta configuración permite revelar una clave de respuesta y establece el número de intentos que los estudiantes tienen en la evaluación.",
+            "title":"Clave de respuesta y número de intentos"
+         }
+      },
       "overview":{  
          "stepOne":{  
             "description":"El mapa de cursos proporciona a sus estudiantes acceso a todas las evaluaciones y colecciones que les asignan.",
@@ -1298,27 +1798,154 @@ export default {
             "title":"¿Empezando? Crear una evaluación!"
          }
       },
-      "home":{  
+      "real-time":{  
          "stepOne":{  
-            "description":"¡Bienvenidos a la página de inicio de Gooru! Aquí puede encontrar una lista de las aulas que usted crea en Gooru. Las aulas le permiten compartir contenido directamente con los estudiantes. Siempre puedes volver a tu página principal haciendo clic en el icono de Gooru.",
-            "title":"Su Página de Inicio"
+            "description":"Haga clic en cada pregunta para ver un desglose de cómo respondieron los estudiantes.",
+            "title":"Desglose de las respuestas"
          },
          "stepTwo":{  
-            "description":"Todas las aulas que enseña o se une a este año escolar aparecerán aquí bajo Aulas Activas.",
-            "title":"Clases en las que enseña o se une"
+            "description":"Seleccione cada mosaico de estudiantes para ver los informes individuales de datos de los estudiantes.",
+            "title":"Datos Individuales del Estudiante"
          },
          "stepThree":{  
-            "description":"Todas las aulas que creó o se unió en los últimos años escolares se pueden encontrar en aulas archivadas. El contenido que se usa en estas aulas se puede encontrar en su perfil y se puede volver a asignar a nuevas aulas para este año escolar.",
-            "title":"Clases anteriores"
+            "description":"Seleccione &quot;vista de título&quot; o &quot;vista de lista&quot; para ver las opciones de visualización de datos.",
+            "title":"Seleccione una vista"
          },
          "stepFour":{  
-            "description":"Haga clic aquí para crear un nuevo aula. Una vez que tenga contenido para compartir con los estudiantes, se lo asignará a través de un aula.",
-            "title":"Crear un aula"
+            "description":"Ver el promedio de la clase calculado en tiempo real para todas las respuestas.",
+            "title":"Puntuación media"
          },
          "stepFive":{  
-            "description":"Este es tu perfil. Haz clic en tu perfil en cualquier momento para acceder al contenido que creas o remixas en Gooru.",
-            "title":"Tu perfil"
+            "description":"Utilice esta opción para proyectar una vista anónima de los datos del estudiante.",
+            "title":"Datos anónimos del proyecto"
          }
       }
+   },
+   "gru-course-play":{  
+      "performance":"Actuación",
+      "view-unit-details":"Ver metadatos de la unidad",
+      "hide-unit-details":"Ocultar metadatos de la unidad"
+   },
+   "gru-century-skills":{  
+      "legends":{  
+         "conley":"Conley Cuatro Llaves",
+         "hewlett":"Modelo de aprendizaje más profundo de Hewlett",
+         "framework":"Marco P21",
+         "national":"Centro Nacional de Investigación para la Vida y el Trabajo"
+      },
+      "content":{  
+         "groups":{  
+            "cognitive":"Principales Habilidades Cognitivas y Estrategias",
+            "learning":"Habilidades y técnicas clave de aprendizaje",
+            "content":"Conocimiento de Contenido Clave"
+         }
+      }
+   },
+   "gru-rubric-edit":{  
+      "upload-rubric":"Rúbrica de subida"
+   },
+   "gru-rubric-creation":{  
+      "gru-preview-url":{  
+         "preview":"Añadir rúbrica anterior y vista previa aquí"
+      },
+      "gru-category":{  
+         "gru-scoring-levels":{  
+            "0":"ex. Competente",
+            "1":"ex. Ejemplar",
+            "2":"ex. BASIC",
+            "scoring":"Tanteo",
+            "3":"ex. Debajo de Básico",
+            "new-level":"Agregar nuevo nivel",
+            "best":"Mejor",
+            "worst":"Peor",
+            "levels":"Nivel"
+         },
+         "category-feedback":"ex. Al revisar esta categoría, preste mucha atención al propósito del autor.",
+         "category-title":"Categoría Título"
+      },
+      "add-category":"Añadir nueva categoria",
+      "required-feedback":"Requiere retroalimentación",
+      "upload-file":"Subir archivo",
+      "overall-narrative":"Retroalimentación narrativa general",
+      "feedback-guidance-placeholder":"Resuma sus comentarios sobre el ensayo como un todo.",
+      "url":"URL",
+      "feedback-guidance":"Guía de retroalimentación"
+   },
+   "library":{  
+      "gru-library-card":{  
+         "featured-course":"Curso destacado"
+      },
+      "gru-partner-library-card":{  
+         "course":{  
+            "zero":"{{count}} Curso",
+            "other":"{{count}} Cursos",
+            "one":"{{count}} Curso"
+         },
+         "collection":{  
+            "zero":"{{count}} Colección",
+            "other":"{{count}} Colecciones",
+            "one":"{{count}} Colección"
+         },
+         "assessment":{  
+            "zero":"{{count}} Evaluación",
+            "other":"{{count}} Evaluaciones",
+            "one":"{{count}} Evaluación"
+         },
+         "resource":{  
+            "zero":"{{Count}} Recurso",
+            "other":"{{Count}} Recursos",
+            "one":"{{Count}} Recurso"
+         },
+         "question":{  
+            "zero":"{{Count}} Pregunta",
+            "other":"{{Count}} Preguntas",
+            "one":"{{Count}} Pregunta"
+         },
+         "rubric":{  
+            "zero":"Rúbrica {{count}}",
+            "other":"Rúbricas {{count}}",
+            "one":"Rúbrica {{count}}"
+         }
+      },
+      "partner-libraries":"Bibliotecas asociadas",
+      "browse-library":"Explorar la biblioteca",
+      "featured-courses":"Cursos destacados"
+   },
+   "gru-study-header":{  
+      "resource":{  
+         "zero":"Recurso",
+         "other":"Recursos",
+         "one":"Recurso"
+      },
+      "question":{  
+         "zero":"Pregunta",
+         "other":"Preguntas",
+         "one":"Pregunta"
+      },
+      "lesson-legend":"Actualmente estás en la lección",
+      "check-usage":"Compruebe su informe de uso",
+      "resources-collection-report":"Informe de uso de la colección",
+      "check-summary":"Revise su informe de resumen",
+      "resources-assessment-report":"Informe de resumen de la evaluación",
+      "suggestions-legend":"Para obtener más información, consulte estos recursos.",
+      "resource-legend":"Está revisando este recurso."
+   },
+   "gru-suggest-test":{  
+      "resource-header":"Recursos sugeridos (Opcional)",
+      "no":"No, gracias",
+      "pre-test-header":"Pre-prueba (opcional)",
+      "resource-lead":"Sobre la base de su rendimiento en este curso, el siguiente recurso puede mejorar su comprensión.",
+      "take-resource":"Recurso de estudio",
+      "post-test-header":"Post-prueba (opcional)",
+      "no-suggestions":"He aquí un resumen de su rendimiento.",
+      "take-backfill-pretest":"Estudio de la colección sugerida",
+      "backfill-lead":"Sobre la base de las respuestas de su pre-prueba, puede ser útil revisar material adicional antes de comenzar la lección. Revisar el material de apoyo puede ayudar a preparar a los estudiantes para aprender material nuevo.",
+      "backfill-header":"Colección Sugerida (Opcional)",
+      "take":"Toma {{type}}",
+      "post-test-lead":"Se sugiere el siguiente post-test para medir su comprensión de la información presentada. La post-prueba no afectará la puntuación de rendimiento de su curso.",
+      "pre-test-lead":"Se sugiere una pre-prueba para medir su comprensión actual de los conceptos de esta lección. El pre-test puede ayudarlo a prepararse para el contenido de la lección. El pre-test no afectará la puntuación de rendimiento de su curso.",
+      "end-of-course":"Has llegado al final del curso.",
+      "benchmark-header":"Prueba de referencia (opcional)",
+      "benchmark-lead":"Ahora está listo para demostrar su comprensión tomando una evaluación de referencia. Obtendrá una insignia para completar satisfactoriamente el punto de referencia. El punto de referencia no afectará la puntuación de rendimiento del curso."
    }
-};
+});
