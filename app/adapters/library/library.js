@@ -27,6 +27,22 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Returns a library by id
+   * @param {string} libraryId - library ID to search for
+   * @returns {Promise}
+   */
+  getLibraryById: function(libraryId) {
+    const adapter = this;
+    const url = adapter.get('namespace') + `/${libraryId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

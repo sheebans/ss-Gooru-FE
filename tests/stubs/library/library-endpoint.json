@@ -16,5 +16,23 @@
       "body": "File not found!",
       "file": "fetch-libraries-200-response.json"
     }
+  },
+  {
+    "description": "Gets library data for a specific id",
+    "request": {
+      "url": "^/api/nucleus/v2/libraries/(.+)$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-library-200-response.json"
+    }
   }
 ]

@@ -38,5 +38,22 @@ export default Ember.Service.extend({
         reject
       );
     });
+  },
+
+  /**
+   * Returns a library by id
+   * @param {string} libraryId - library ID to search for
+   * @returns {Promise}
+   */
+  fetchById: function(libraryId) {
+    const service = this;
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('libraryAdapter').getLibraryById(libraryId)
+      .then(
+        response => resolve(service.get('librarySerializer').normalizeLibrary(response)),
+        reject
+      );
+    });
   }
 });
