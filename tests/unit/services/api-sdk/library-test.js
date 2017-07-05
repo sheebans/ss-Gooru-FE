@@ -29,3 +29,31 @@ test('fetchLibraries', function(assert) {
       done();
     });
 });
+
+test('fetchLibraryContent', function(assert) {
+  const service = this.subject();
+
+  assert.expect(4);
+  service.set('libraryAdapter', Ember.Object.create({
+    fetchLibraryContent: function(libraryId, contentType){
+      assert.equal(libraryId, 1, 'Wrong library id');
+      assert.equal(contentType, 'course', 'Wrong content type');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  service.set('librarySerializer', Ember.Object.create({
+    normalizeFetchLibraryContent: function(contentType, librariesPayload) {
+      assert.deepEqual(librariesPayload, [], 'Wrong library content payload');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.fetchLibraryContent(1, 'course')
+    .then(function(response) {
+      assert.ok(response, 'fake-response', 'Wrong response');
+      done();
+    });
+});
+

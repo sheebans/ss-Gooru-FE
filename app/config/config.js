@@ -67,7 +67,8 @@ export const CONTENT_TYPES = {
   UNIT: 'unit',
   LESSON: 'lesson',
   RESOURCE:'resource',
-  QUESTION:'question'
+  QUESTION:'question',
+  RUBRIC:'rubric'
 };
 
 export const ASSESSMENT_SUB_TYPES = {
