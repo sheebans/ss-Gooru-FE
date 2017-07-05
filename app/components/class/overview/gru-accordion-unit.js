@@ -22,27 +22,32 @@ export default Ember.Component.extend(AccordionMixin, {
   /**
    * @requires service:session
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   /**
    * @requires service:api-sdk/lesson
    */
-  lessonService: Ember.inject.service("api-sdk/lesson"),
+  lessonService: Ember.inject.service('api-sdk/lesson'),
 
   /**
    * @requires service:api-sdk/unit
    */
-  unitService: Ember.inject.service("api-sdk/unit"),
+  unitService: Ember.inject.service('api-sdk/unit'),
 
   /**
    * @requires service:api-sdk/course-location
    */
-  courseLocationService: Ember.inject.service("api-sdk/course-location"),
+  courseLocationService: Ember.inject.service('api-sdk/course-location'),
 
   /**
    * @requires service:api-sdk/performance
    */
-  performanceService: Ember.inject.service("api-sdk/performance"),
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
+  /**
+   * @requires service:api-sdk/learner
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
 
   /**
    * @requires service:api-sdk/analytics
@@ -206,7 +211,7 @@ export default Ember.Component.extend(AccordionMixin, {
     if (this.get('items.length')) {
       let component = this;
       let visibleItems = this.get('items');
-      let usersLocation = component.get("usersLocation");
+      let usersLocation = component.get('usersLocation');
       visibleItems.forEach((item) => {
         // Get the users for a specific unit
         let entity = usersLocation.findBy('lesson', item.get('id'));
@@ -249,11 +254,11 @@ export default Ember.Component.extend(AccordionMixin, {
   loadData: function() {
     // Load the lessons and users in the course when the component is instantiated
     let component = this;
-    component.set("loading", true);
+    component.set('loading', true);
     component.getLessons().then(function(lessons) {
       if (!component.isDestroyed) {
         component.set('items', lessons);
-        component.set("loading", false);
+        component.set('loading', false);
       }
     });
   },
@@ -293,8 +298,16 @@ export default Ember.Component.extend(AccordionMixin, {
         performancePromise = isTeacher ?
           component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
           component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+      } else {
+        component.get('learnerService').fetchPerformanceUnit(courseId,unitId,'assessment')
+        .then(function(assessmentPerformance){
+            component.get('learnerService').fetchPerformanceUnit(courseId,unitId,'collection')
+              .then(function(collectionPerformance){
+                performancePromise = assessmentPerformance.concat(collectionPerformance);
+              });
+          }
+        );
       }
-
       return performancePromise;
     })
     .then(performance => {
@@ -314,7 +327,7 @@ export default Ember.Component.extend(AccordionMixin, {
             const lessonPerformance = performance.findBy('id', lesson.get('id'));
             lesson.set('performance', lessonPerformance);
           }
-          lesson.set('performance.completionTotal', contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get("id")));
+          contentVisibility ? lesson.set('performance.completionTotal',contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get('id'))) : null;
         }
       });
       return lessons;

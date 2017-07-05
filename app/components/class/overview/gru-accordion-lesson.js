@@ -41,6 +41,11 @@ export default Ember.Component.extend(AccordionMixin, {
   performanceService: Ember.inject.service('api-sdk/performance'),
 
   /**
+   * @requires service:api-sdk/learner
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
+
+  /**
    * @requires service:api-sdk/course-map
    */
   courseMapService:  Ember.inject.service('api-sdk/course-map'),
@@ -359,6 +364,8 @@ export default Ember.Component.extend(AccordionMixin, {
         loadDataPromise = isTeacher ?
           component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) :
           component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections);
+      } else {
+        loadDataPromise = component.loadLearnerData(courseId, unitId, lessonId, classMembers, lessonPeers, collections);
       }
       return loadDataPromise;
     })
@@ -467,6 +474,70 @@ export default Ember.Component.extend(AccordionMixin, {
             }
           });
           Ember.RSVP.all(promises).then(resolve, reject);
+        });
+    });
+  },
+  loadLearnerData: function(courseId, unitId, lessonId, classMembers, lessonPeers, collections) {
+    const component = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      const classMinScore = component.get('currentClass.minScore');
+      component.get('learnerService').fetchPerformanceLesson(courseId, unitId, lessonId, 'assessment')
+        .then(function(performanceAssessment) {
+          component.get('learnerService').fetchPerformanceLesson(courseId, unitId, lessonId, 'collection')
+            .then(function(performanceCollection) {
+              let performance = performanceAssessment.concat(performanceCollection);
+              const promises = collections.map(function(collection) {
+                const collectionId = collection.get('id');
+                const isAssessment = collection.get('format') === 'assessment';
+                const isResource = collection.get('format') !== 'assessment' && collection.get('format') !== 'assessment-external' && collection.get('format') !== 'collection';
+                const peer = lessonPeers.findBy('id', collectionId);
+                if (peer) {
+                  component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
+                    .then(function (profiles) {
+                      collection.set('members', profiles);
+                    });
+                }
+
+                collection.set('isResource', isResource);
+
+                const collectionPerformanceData = performance.findBy('id', collectionId);
+                if (collectionPerformanceData) {
+                  const score = collectionPerformanceData.get('score');
+                  const timeSpent = collectionPerformanceData.get('timeSpent');
+                  const completionDone = collectionPerformanceData.get('completionDone');
+                  const completionTotal = collectionPerformanceData.get('completionTotal');
+
+                  const hasStarted = score > 0 || timeSpent > 0;
+                  const isCompleted = completionDone > 0 && completionDone >= completionTotal;
+                  const hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
+
+                  collectionPerformanceData.set('hasTrophy', hasTrophy);
+                  collectionPerformanceData.set('hasStarted', hasStarted);
+                  collectionPerformanceData.set('isCompleted', isCompleted);
+
+                  collection.set('performance', collectionPerformanceData);
+
+                  let showTrophy = collection.get('performance.hasTrophy') && component.get('isStudent')  && !collection.get('collectionSubType');
+                  collection.set('showTrophy',showTrophy);
+
+                  const attempts = collectionPerformanceData.get('attempts');
+                  if(isAssessment) {
+                    return component.get('assessmentService').readAssessment(collectionId)
+                      .then(function (assessment) {
+                        const attemptsSettings = assessment.get('attempts');
+                        if (attemptsSettings) {
+                          const noMoreAttempts = attempts && attemptsSettings > 0 && attempts >= attemptsSettings;
+                          collectionPerformanceData.set('noMoreAttempts', noMoreAttempts);
+                          collectionPerformanceData.set('isDisabled', !assessment.get('classroom_play_enabled'));
+                        }
+                      });
+                  } else {
+                    return Ember.RSVP.resolve(true);
+                  }
+                }
+              });
+              Ember.RSVP.all(promises).then(resolve, reject);
+            });
         });
     });
   },
