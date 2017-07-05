@@ -41,10 +41,10 @@ test('Layout as a student', function (assert) {
     $accordion = find('.gru-accordion-lesson:eq(2)', $accordion);
     assert.ok($accordion.hasClass('expanded'), '3rd lesson in the second unit should be expanded');
 
-    /*const $resource = find('.collections .panel:eq(0)', $accordion);
-    assert.ok($resource.hasClass('study-active'), 'First collection should be marked as selected');
+    const $resource = find('.collections .panel:eq(1)', $accordion);
+    assert.ok($resource.hasClass('study-active'), 'Second collection should be marked as selected');
 
     const $resourceTitle = $resource.find('.panel-title .title');
-    assert.notOk($resourceTitle.hasClass('disabled'),'Second resource should not be disabled');*/
+    assert.notOk($resourceTitle.hasClass('disabled'),'First resource should not be disabled');
   });
 });

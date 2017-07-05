@@ -197,8 +197,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       courseId: payload.courseId,
       unitId: payload.unitId,
       lessonId: payload.lessonId,
-      collectionId: payload.collectionId,
-      title: payload.collectionTitle
+      collectionId: payload.collectionId || payload.assessmentId,
+      title: payload.collectionTitle || payload.assessmentTitle
     });
   }
 });
