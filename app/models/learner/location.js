@@ -12,11 +12,6 @@ const LearnerLocationModel = Ember.Object.extend({
   collectionId: null,
 
   /**
-   * @property {String} assessmentId - Gooru id for the assessment
-   */
-  assessmentId: null,
-
-  /**
    * @property {String} courseId - Gooru id for the course
    */
   courseId: null,

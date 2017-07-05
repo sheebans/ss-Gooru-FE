@@ -49,7 +49,10 @@ const LearnerPerformanceModel = Ember.Object.extend({
    * @property {String} collectionId - Gooru id for the collection
    */
   collectionId: null,
-
+  /**
+   * @property {String} lessonId - Gooru id for the lesson
+   */
+  lessonId: null,
   /**
    * @property {String} collectionTitle - collection title
    */

@@ -230,11 +230,10 @@ export default Ember.Service.extend({
    * Notify a collection change at quizzes
    * @param {string} collectionId
    */
-  notifyQuizzesCollectionChange: function(collectionId){
+  notifyQuizzesCollectionChange: function (collectionId) {
     const quizzesCollectionService = this.get('quizzesCollectionService');
     Ember.Logger.info('Notifying collection change');
     return quizzesCollectionService.notifyCollectionChange(collectionId, 'collection');
   }
-
 
 });

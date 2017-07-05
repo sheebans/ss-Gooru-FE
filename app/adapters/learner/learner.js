@@ -53,6 +53,24 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
   /**
+   * Fetches independent learner performance in unit
+   *
+   * @param {string} courseId
+   * @param {string} unitId
+   * @returns {Promise}
+   */
+  fetchPerformanceUnit: function(courseId, unitId) {
+    const adapter = this;
+
+    const url = `${adapter.get('namespace')}/course/${courseId}/unit/${unitId}/learner/performance`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+  /**
    * Fetches independent learner performance in lesson
    *
    * @param {string} courseId

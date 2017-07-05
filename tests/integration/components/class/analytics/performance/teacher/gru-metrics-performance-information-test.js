@@ -89,7 +89,8 @@ test('When clicking the report', function(assert) {
     timeSpent: 3600,
     completionDone: 16,
     completionTotal: 32,
-    headerTitle: 'header test'
+    headerTitle: 'header test',
+    hasStarted: true
   });
 
   this.set('dataPickerOptions', dataPickerOptionsMock);

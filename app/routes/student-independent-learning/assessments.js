@@ -11,7 +11,7 @@ export default LearningBaseRoute.extend({
   /**
    * @property {String} the content type
    */
-  contentType: CONTENT_TYPES.ASSESSMENTS,
+  contentType: CONTENT_TYPES.ASSESSMENT,
 
   /**
    * @property {String} the menu item name

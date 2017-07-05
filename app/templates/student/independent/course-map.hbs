@@ -1,5 +1,11 @@
 {{#if course.id}}
   <div class="controller student course-map">
+    <div class="actions">
+      <button {{action "locateMe" userLocation}} class="btn btn-info locate">
+        <span>{{gru-icon name='near_me'}}{{t "class.overview.locate"}}</span>
+      </button>
+    </div>
+
     {{class.overview.gru-accordion-course
       currentCourse=course
       onSelectResource="playResource"

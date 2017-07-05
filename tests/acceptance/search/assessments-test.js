@@ -46,20 +46,6 @@ test('Changing term should filter the current result without changing the root u
   });
 });
 
-
-test('onOpenContentPlayer: When opening a assessment', function(assert) {
-  assert.expect(2);
-  visit('/search/assessments?term=any');
-  andThen(function() {
-    const $firstCollectionLink = find(".results div:eq(0) .collection-info a");
-    T.exists(assert, $firstCollectionLink, "Missing collection link");
-    click($firstCollectionLink); //clicking first collection title
-    andThen(function() {
-      assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment');
-    });
-  });
-});
-
 test('Apply taxonomy filter', function(assert) {
   visit('/search/assessments?taxonomies=["TEKS.K12.SC-K-SIR-01","TEKS.K12.SC-K-SIR-02"]&term=any');
 

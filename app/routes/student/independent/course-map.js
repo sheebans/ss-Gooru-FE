@@ -5,10 +5,18 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
+  session: Ember.inject.service('session'),
+
   /**
    * @property {NavigateMapService}
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
+  /**
+   * @requires service:api-sdk/learner
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -38,9 +46,16 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
   model: function() {
+    const route = this;
+    const userId = route.get('session.userId');
     const course = this.modelFor('student.independent').course;
     const units = course.get('children') || [];
-    return Ember.RSVP.hash({ course, units });
+    let userLocation = route.get('learnerService').fetchLocationCourse(course.get('id'), userId);
+    return Ember.RSVP.hash({
+      course,
+      units,
+      userLocation
+    });
   },
 
   /**
@@ -49,7 +64,14 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function (controller, model) {
-    controller.set('userLocation', '');
+    let userLocation = '';
+    if(model.userLocation) {
+      let unitId = model.userLocation.get('unitId');
+      let lessonId = model.userLocation.get('lessonId');
+      let collectionId = model.userLocation.get('collectionId');
+      userLocation = `${unitId}+${lessonId}+${collectionId}`;
+    }
+    controller.set('userLocation', userLocation);
     controller.set('units', model.units);
     controller.set('course', model.course);
     controller.get('studentIndependentController').selectMenuItem('course-map');

@@ -11,6 +11,7 @@ test('fetchLibraries', function(assert) {
   adapter.set('session', Ember.Object.create({
     'token-api3': 'token-api-3'
   }));
+
   this.pretender.map(function() {
     this.get('/api/nucleus/v2/libraries', function() {
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];

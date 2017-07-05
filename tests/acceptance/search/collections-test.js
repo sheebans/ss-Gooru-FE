@@ -48,20 +48,6 @@ test('Changing term should filter the current result without changing the root u
   });
 });
 
-
-test('onOpenContentPlayer: When opening a collection', function(assert) {
-  assert.expect(2);
-  visit('/search/collections?term=any');
-  andThen(function() {
-    const $firstCollectionLink = find(".results div:eq(0) .collection-info a");
-    T.exists(assert, $firstCollectionLink, "Missing collection link");
-    click($firstCollectionLink); //clicking first collection title
-    andThen(function() {
-      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
-    });
-  });
-});
-
 test('No results found', function(assert) {
   assert.expect(5);
   visit('/search/collections?term=noResultFound');
