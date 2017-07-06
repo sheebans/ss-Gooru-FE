@@ -335,6 +335,38 @@ test('normalizePerformance for course map', function(assert) {
 test('normalizeFetchLocationCourse', function(assert) {
   const serializer = this.subject();
   const locationPayload = {
+    content: [{
+      courseId: 'course-id',
+      unitId: 'unit-id',
+      lessonId: 'lesson-id',
+      collectionId: 'collection-id',
+      collectionTitle: "collection title"
+    }]
+  };
+  const normalizedLocation = serializer.normalizeFetchLocationCourse(locationPayload);
+  assert.ok(normalizedLocation, 'Invalid location');
+  assert.equal(normalizedLocation.get('courseId'), 'course-id', 'Wrong course id');
+  assert.equal(normalizedLocation.get('unitId'), 'unit-id', 'Wrong unit id');
+  assert.equal(normalizedLocation.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+  assert.equal(normalizedLocation.get('collectionId'), 'collection-id', 'Wrong collection id');
+  assert.equal(normalizedLocation.get('title'), 'collection title', 'Wrong collection title');
+});
+
+test('normalizeFetchLocationCourse empty content', function(assert) {
+  const serializer = this.subject();
+
+  let locationPayload = { content: [] };
+  let normalizedLocation = serializer.normalizeFetchLocationCourse(locationPayload);
+  assert.notOk(normalizedLocation, 'Invalid location');
+
+  locationPayload = {};
+  normalizedLocation = serializer.normalizeFetchLocationCourse(locationPayload);
+  assert.notOk(normalizedLocation, 'Invalid location');
+});
+
+test('normalizeLocationCourse', function(assert) {
+  const serializer = this.subject();
+  const locationPayload = {
     courseId: 'course-id',
     unitId: 'unit-id',
     lessonId: 'lesson-id',
@@ -343,7 +375,7 @@ test('normalizeFetchLocationCourse', function(assert) {
   };
   const normalizedLocation = serializer.normalizeLocationCourse(locationPayload);
 
-  assert.ok(normalizedLocation, 'Wrong number of location');
+  assert.ok(normalizedLocation, 'Invalid location');
   assert.equal(normalizedLocation.get('courseId'), 'course-id', 'Wrong course id');
   assert.equal(normalizedLocation.get('unitId'), 'unit-id', 'Wrong unit id');
   assert.equal(normalizedLocation.get('lessonId'), 'lesson-id', 'Wrong lesson id');
