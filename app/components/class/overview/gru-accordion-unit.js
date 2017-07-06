@@ -291,23 +291,25 @@ export default Ember.Component.extend(AccordionMixin, {
       peers: peersPromise
     })
     .then(({ unit, peers }) => {
-      lessons = unit.get('children');
-      unitPeers = peers;
-
-      let performancePromise = Ember.RSVP.resolve();
-      if(classId) {
-        performancePromise = isTeacher ?
-          component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
-          component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
-      } else {
-        Ember.RSVP.hash({
-          assessmentPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.ASSESSMENT),
-          collectionPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.COLLECTION)
-        }).then(function(assessmentPerformance, collectionPerformance){
-          performancePromise = assessmentPerformance.concat(collectionPerformance);
+        lessons = unit.get('children');
+        unitPeers = peers;
+        return new Ember.RSVP.Promise(function(resolve, reject) {
+          let performancePromise = Ember.RSVP.resolve();
+          if(classId) {
+            performancePromise = isTeacher ?
+              component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
+              component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+            Ember.RSVP.resolve(performancePromise).then(resolve, reject);
+          } else {
+            Ember.RSVP.hash({
+              assessmentPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.ASSESSMENT),
+              collectionPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.COLLECTION)
+            }).then(({assessmentPerformance, collectionPerformance}) => {
+              performancePromise = assessmentPerformance.concat(collectionPerformance);
+              Ember.RSVP.resolve(performancePromise).then(resolve, reject);
+            });
+          }
         });
-      }
-      return performancePromise;
     })
     .then(performance => {
       lessons.forEach(function(lesson) {
@@ -323,10 +325,30 @@ export default Ember.Component.extend(AccordionMixin, {
               hasStarted: averageScore > 0
             }));
           } else {
-            const lessonPerformance = performance.findBy('id', lesson.get('id'));
+            let lessonPerformance;
+            if (classId) {
+              lessonPerformance = performance.findBy('id', lesson.get('id'));
+            } else {
+              lessonPerformance = performance.findBy('lessonId', lesson.get('id'));
+
+              if(lessonPerformance){
+                const score = lessonPerformance.get('scoreInPercentage');
+                const timeSpent = lessonPerformance.get('timeSpent');
+                const completionDone = lessonPerformance.get('completedCount');
+                const completionTotal = lessonPerformance.get('totalCount');
+                const hasStarted = score > 0 || timeSpent > 0;
+                const isCompleted = completionDone > 0 && completionDone >= completionTotal;
+                lessonPerformance.set('hasStarted', hasStarted);
+                lessonPerformance.set('isCompleted', isCompleted);
+                lessonPerformance.set('completionDone', completionDone);
+                lessonPerformance.set('completionTotal', completionTotal);
+              }
+            }
             lesson.set('performance', lessonPerformance);
           }
-          contentVisibility ? lesson.set('performance.completionTotal',contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get('id'))) : null;
+          if(classId) {
+            lesson.set('performance.completionTotal',contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get('id')));
+          }
         }
       });
       return lessons;

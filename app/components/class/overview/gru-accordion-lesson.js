@@ -485,7 +485,7 @@ export default Ember.Component.extend(AccordionMixin, {
       Ember.RSVP.hash({
         performanceAssessment: component.get('learnerService').fetchPerformanceLesson(courseId, unitId, lessonId, CONTENT_TYPES.ASSESSMENT),
         performanceCollection: component.get('learnerService').fetchPerformanceLesson(courseId, unitId, lessonId, CONTENT_TYPES.COLLECTION)
-      }).then(function(performanceAssessment,performanceCollection){
+      }).then(({performanceAssessment,performanceCollection}) => {
         let performance = performanceAssessment.concat(performanceCollection);
         const promises = collections.map(function(collection) {
           const collectionId = collection.get('id');
@@ -501,13 +501,12 @@ export default Ember.Component.extend(AccordionMixin, {
 
           collection.set('isResource', isResource);
 
-          const collectionPerformanceData = performance.findBy('id', collectionId);
+          const collectionPerformanceData = performance.findBy('collectionId', collectionId);
           if (collectionPerformanceData) {
-            const score = collectionPerformanceData.get('score');
+            const score = collectionPerformanceData.get('scoreInPercentage');
             const timeSpent = collectionPerformanceData.get('timeSpent');
-            const completionDone = collectionPerformanceData.get('completionDone');
-            const completionTotal = collectionPerformanceData.get('completionTotal');
-
+            const completionDone = collectionPerformanceData.get('completedCount');
+            const completionTotal = collectionPerformanceData.get('totalCount');
             const hasStarted = score > 0 || timeSpent > 0;
             const isCompleted = completionDone > 0 && completionDone >= completionTotal;
             const hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
