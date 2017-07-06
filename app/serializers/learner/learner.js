@@ -183,6 +183,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       const locationPayload = content[0];
       return serializer.normalizeLocationCourse(locationPayload);
     }
+    return '';
   },
 
   /**
