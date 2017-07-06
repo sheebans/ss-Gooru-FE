@@ -502,6 +502,7 @@
             text-align: center;
             width: 131px;
             display: inline-block;
+            height: inherit;
             @media (min-width: $screen-lg) {
               width: 160px;
             }
@@ -585,6 +586,9 @@
           font-size: $font-size-h4;
           vertical-align: bottom
         }
+      }
+      .state {
+        display: none!important;
       }
     }
   }

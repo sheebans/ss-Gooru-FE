@@ -413,6 +413,10 @@ export default Ember.Component.extend(AccordionMixin, {
 
   loadStudentData: function(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) {
     const component = this;
+    const isResourceSelected = (collections.findBy('id', this.get('activeElement'))) || false;
+
+    component.set('isResourceSelected', isResourceSelected);
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
       const classMinScore = component.get('currentClass.minScore');
       component.get('performanceService')
