@@ -49,6 +49,8 @@ export default Ember.Route.extend({
   },
 
   setupController: function (controller, model) {
+    console.log(model.performance);
+    console.log(model.locations);
     controller.set('locations', model.locations);
     controller.set('performance', model.performance);
     controller.set('contentType', this.get('contentType'));
