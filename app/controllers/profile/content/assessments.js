@@ -51,9 +51,7 @@ export default Ember.Controller.extend({
    */
   activeClasses: Ember.computed('appController.myClasses.classes.[]', function(){
     const classes = this.get('appController.myClasses');
-    return classes ?
-      classes.getTeacherActiveClasses(this.get('sessionProfile.id'))
-        .filterBy('courseId', null) : [];
+    return classes ? classes.getTeacherActiveClasses(this.get('sessionProfile.id')) : [];
   }),
 
   /**

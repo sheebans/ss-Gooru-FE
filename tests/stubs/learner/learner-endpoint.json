@@ -204,6 +204,24 @@
     }
   },
   {
+    "description": "Fetch collection learner performance in unit",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/course/(.+)/unit/(.+)/learner/performance",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-performance-in-unit-200-response.json"
+    }
+  },
+  {
     "description": "Fetch courses learner performance",
     "request": {
       "url": "^/api/nucleus-insights/v2/courses/learner/performance$",
@@ -219,6 +237,24 @@
       },
       "body": "File not found!",
       "file": "fetch-performance-courses-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch learner current location for course",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/course/(.+)/user/(.+)/learner/current/location",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-current-location-course-200-response.json"
     }
   }
 ]

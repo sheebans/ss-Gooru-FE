@@ -13,11 +13,6 @@ export default Ember.Route.extend({
     }
   },
 
-  setupController: function(controller) {
-    controller.resetProperties();
-    controller.get('parentController').selectMenuItem('content');
-  },
-
   // -------------------------------------------------------------------------
   // Events
   resetController(controller) {
@@ -25,7 +20,7 @@ export default Ember.Route.extend({
     queryParams.forEach(function (param) {
       if(param === 'sortOn') {
         controller.set(param, 'updated_at');
-      } else if(param === 'order'){
+      } else if(param === 'order') {
         controller.set(param, 'desc');
       } else {
         controller.set(param, null);

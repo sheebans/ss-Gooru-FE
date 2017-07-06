@@ -237,10 +237,83 @@ test('normalizePerformanceLesson', function(assert) {
   assert.equal(normalizedPerformance.get('scoreInPercentage'), 0, 'Wrong score in percentage');
 });
 
+test('normalizePerformancesUnit', function(assert) {
+  const serializer = this.subject();
+  const performancePayload = {
+    'content':[{
+      'usageData':[{
+        reaction:0,
+        attemptStatus:'completed',
+        timeSpent:28348,
+        lessonId:'78b338d1-8d9b-49ce-94a4-e45869086cfc',
+        attempts:1,
+        completedCount:1,
+        scoreInPercentage:0.0,
+        totalCount:0,
+        sourceList:[
+          {
+            reaction:0,
+            attemptStatus:'completed',
+            timeSpent:28348,
+            assessmentId:'1af2e4e7-2971-40e7-ac62-52f70aa1364f',
+            attempts:1,
+            completedCount:1,
+            totalCount:0,
+            scoreInPercentage:0
+          }
+        ]
+
+      }]
+    }]
+  };
+  const normalizedPerformances = serializer.normalizePerformancesUnit(performancePayload);
+
+  assert.equal(normalizedPerformances.length, 1, 'Wrong number of performance');
+});
+test('normalizePerformanceLesson', function(assert) {
+  const serializer = this.subject();
+  const performancePayload = {
+    reaction:0,
+    attemptStatus:'completed',
+    timeSpent:28348,
+    lessonId:'Lesson-id',
+    attempts:1,
+    completedCount:1,
+    scoreInPercentage:0.0,
+    totalCount:0,
+    sourceList:[
+      {
+        reaction:0,
+        attemptStatus:'completed',
+        timeSpent:28348,
+        assessmentId:'1af2e4e7-2971-40e7-ac62-52f70aa1364f',
+        attempts:1,
+        completedCount:1,
+        totalCount:0,
+        scoreInPercentage:0
+      }
+    ]
+
+  };
+  const normalizedPerformance = serializer.normalizePerformanceUnit(performancePayload);
+  assert.equal(normalizedPerformance.get('reaction'), 0, 'Incorrect reaction');
+  assert.equal(normalizedPerformance.get('attemptStatus'), 'completed', 'Incorrect attempt status');
+  assert.equal(normalizedPerformance.get('courseId'), null, 'Course id should be null');
+  assert.equal(normalizedPerformance.get('courseTitle'), null, 'Course title should be null');
+  assert.equal(normalizedPerformance.get('totalCount'), 0, 'Total count should be 0');
+  assert.equal(normalizedPerformance.get('completedCount'), 1, 'Completed count should be 1');
+  assert.equal(normalizedPerformance.get('lessonId'), 'Lesson-id', 'Wrong lesson id');
+  assert.equal(normalizedPerformance.get('collectionTitle'), null, 'Assessment title should be null');
+  assert.equal(normalizedPerformance.get('attempts'), 1, 'Wrong number of attempts');
+  assert.equal(normalizedPerformance.get('timeSpent'), 28348, 'Wrong time spent');
+  assert.equal(normalizedPerformance.get('scoreInPercentage'), 0.0, 'Wrong score in percentage');
+  assert.equal(normalizedPerformance.get('sourceList').length, 1, 'Source List incorrect');
+});
+
 test('normalizePerformance for course map', function(assert) {
   const serializer = this.subject();
   const performancePayload = {
-    courseId: "course-id",
+    courseId: 'course-id',
     timeSpent: 23860,
     completedCount: 0,
     scoreInPercentage: 0,
@@ -257,4 +330,23 @@ test('normalizePerformance for course map', function(assert) {
   assert.notOk(normalizedPerformance.get('collectionId'), 'Collection id should be null');
   assert.notOk(normalizedPerformance.get('collectionTitle'), 'Collection title should be null');
   assert.notOk(normalizedPerformance.get('attempts'), 'Attempts should be null');
+});
+
+test('normalizeFetchLocationCourse', function(assert) {
+  const serializer = this.subject();
+  const locationPayload = {
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    lessonId: 'lesson-id',
+    collectionId: 'collection-id',
+    collectionTitle: "collection title"
+  };
+  const normalizedLocation = serializer.normalizeLocationCourse(locationPayload);
+
+  assert.ok(normalizedLocation, 'Wrong number of location');
+  assert.equal(normalizedLocation.get('courseId'), 'course-id', 'Wrong course id');
+  assert.equal(normalizedLocation.get('unitId'), 'unit-id', 'Wrong unit id');
+  assert.equal(normalizedLocation.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+  assert.equal(normalizedLocation.get('collectionId'), 'collection-id', 'Wrong collection id');
+  assert.equal(normalizedLocation.get('title'), 'collection title', 'Wrong collection title');
 });

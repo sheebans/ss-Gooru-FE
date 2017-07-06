@@ -15,7 +15,7 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     controller.get('parentController').selectMenuItem('about');
-    controller.set("profile", model.profile);
+    controller.set('profile', model.profile);
   }
 
 });

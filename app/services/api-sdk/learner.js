@@ -80,6 +80,22 @@ export default Ember.Service.extend({
         );
     });
   },
+  /**
+   * Fetches the learner performance in unit
+   *
+   * @param courseId - course to fetch the learner performance
+   * @param unitId - unit to fetch the learner performance
+   */
+  fetchPerformanceUnit: function(courseId, unitId) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service.get('learnerAdapter').fetchPerformanceUnit(courseId, unitId)
+        .then(
+          response => resolve(service.get('learnerSerializer').normalizePerformancesUnit(response)),
+          reject
+        );
+    });
+  },
 
   /**
    * Fetches the learner performance for specific courses
@@ -94,6 +110,23 @@ export default Ember.Service.extend({
       service.get('learnerAdapter').fetchCoursesPerformance(userId, courseIds)
         .then(
           response => resolve(service.get('learnerSerializer').normalizePerformances(response)),
+          reject
+        );
+    });
+  },
+  /**
+   * Fetches the learner location in course
+   *
+   * @param courseId - course to fetch the learner location
+   * @param userId - user to fetch the learner location
+   * @returns {Promise}
+   */
+  fetchLocationCourse: function(courseId, userId) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service.get('learnerAdapter').fetchLocationCourse(courseId, userId)
+        .then(
+          response => resolve(service.get('learnerSerializer').normalizeFetchLocationCourse(response)),
           reject
         );
     });

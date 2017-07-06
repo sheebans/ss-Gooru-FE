@@ -53,6 +53,24 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
   /**
+   * Fetches independent learner performance in unit
+   *
+   * @param {string} courseId
+   * @param {string} unitId
+   * @returns {Promise}
+   */
+  fetchPerformanceUnit: function(courseId, unitId) {
+    const adapter = this;
+
+    const url = `${adapter.get('namespace')}/course/${courseId}/unit/${unitId}/learner/performance`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+  /**
    * Fetches independent learner performance in lesson
    *
    * @param {string} courseId
@@ -99,6 +117,24 @@ export default Ember.Object.extend({
     return {
       'Authorization': `Token ${this.get('session.token-api3')}`
     };
-  }
+  },
 
+  /**
+   * Fetches independent learner location in course
+   *
+   * @param {string} courseId
+   * @param {string} userId
+   * @returns {Promise}
+   */
+  fetchLocationCourse: function(courseId, userId) {
+    const adapter = this;
+
+    const url = `${adapter.get('namespace')}/course/${courseId}/user/${userId}/learner/current/location`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  }
 });

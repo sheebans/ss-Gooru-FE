@@ -20,7 +20,7 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Assessment} assessment
      */
     editAssessment: function (assessment) {
-      this.transitionTo("content.assessments.edit", assessment.get("id"), { queryParams: { editingContent: true } });
+      this.transitionTo('content.assessments.edit', assessment.get('id'), { queryParams: { editingContent: true } });
     },
 
     /**
@@ -31,7 +31,7 @@ export default Ember.Route.extend(ModalMixin, {
       var remixModel = {
         content: assessment
       };
-      this.send('showModal', "content.modals.gru-assessment-remix", remixModel);
+      this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
     }
   },
 
@@ -39,7 +39,7 @@ export default Ember.Route.extend(ModalMixin, {
   // Methods
 
   model: function (){
-    const profile = this.modelFor("profile").profile;
+    const profile = this.modelFor('profile').profile;
     const params={
       pageSize:DEFAULT_PAGE_SIZE,
       searchText:  this.paramsFor('profile.content').term,
@@ -47,15 +47,15 @@ export default Ember.Route.extend(ModalMixin, {
       order:this.paramsFor('profile.content').order
     };
 
-    return this.get("profileService").readAssessments(profile.get("id"),params);
+    return this.get('profileService').readAssessments(profile.get('id'),params);
   },
 
   setupController: function (controller , model) {
-    controller.set("assessments", model);
+    controller.set('assessments', model);
   },
 
   deactivate: function() {
-    this.get("controller").resetValues();
+    this.get('controller').resetValues();
   }
 
 });

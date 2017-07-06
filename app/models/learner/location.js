@@ -3,7 +3,7 @@ import Ember from 'ember';
 /**
  * Learner location model
  *
- * @typedef {Object} Goal
+ * @typedef {Object} Location
  */
 const LearnerLocationModel = Ember.Object.extend({
   /**

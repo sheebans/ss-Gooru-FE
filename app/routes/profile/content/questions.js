@@ -20,14 +20,14 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Question} question
      */
     editQuestion: function (question) {
-      this.transitionTo("content.questions.edit", question.get("id"));
+      this.transitionTo('content.questions.edit', question.get('id'));
     },
     /**
      * On card play question button click
      * @param {Question} question
      */
     playQuestion: function (question) {
-      this.transitionTo("content.questions.play", question.get("id"));
+      this.transitionTo('content.questions.play', question.get('id'));
     },
 
     /**
@@ -46,7 +46,7 @@ export default Ember.Route.extend(ModalMixin, {
   // Methods
 
   model: function (){
-    const profile = this.modelFor("profile").profile;
+    const profile = this.modelFor('profile').profile;
 
     const params={
       pageSize:DEFAULT_PAGE_SIZE,
@@ -55,15 +55,15 @@ export default Ember.Route.extend(ModalMixin, {
       order: this.paramsFor('profile.content').order
     };
 
-    return this.get("profileService").readQuestions(profile.get("id"),params);
+    return this.get('profileService').readQuestions(profile.get('id'),params);
   },
 
   setupController: function (controller , model) {
-    controller.set("questions", model);
+    controller.set('questions', model);
   },
 
   deactivate: function() {
-    this.get("controller").resetValues();
+    this.get('controller').resetValues();
   }
 
 

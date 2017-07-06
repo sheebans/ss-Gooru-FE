@@ -20,14 +20,14 @@ export default Ember.Route.extend(ModalMixin, {
      * @param {Resource} resource
      */
     editResource: function (resource) {
-      this.transitionTo("content.resources.edit", resource.get("id"));
+      this.transitionTo('content.resources.edit', resource.get('id'));
     },
     /**
      * On card play resource button click
      * @param {Resource} resource
      */
     playResource: function (resource) {
-      this.transitionTo("content.resources.play", resource.get("id"));
+      this.transitionTo('content.resources.play', resource.get('id'));
     }
   },
 
@@ -35,7 +35,7 @@ export default Ember.Route.extend(ModalMixin, {
   // Methods
 
   model: function (){
-    const profile = this.modelFor("profile").profile;
+    const profile = this.modelFor('profile').profile;
     const params={
       pageSize:DEFAULT_PAGE_SIZE,
       searchText:  this.paramsFor('profile.content').term,
@@ -43,15 +43,15 @@ export default Ember.Route.extend(ModalMixin, {
       order:this.paramsFor('profile.content').order
     };
 
-    return this.get("profileService").readResources(profile.get("id"),params);
+    return this.get('profileService').readResources(profile.get('id'),params);
   },
 
   setupController: function (controller , model) {
-    controller.set("resources", model);
+    controller.set('resources', model);
   },
 
   deactivate: function() {
-    this.get("controller").resetValues();
+    this.get('controller').resetValues();
   }
 
 

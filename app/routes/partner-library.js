@@ -9,6 +9,13 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
  */
 
 export default Ember.Route.extend(PrivateRouteMixin, {
+
+  queryParams: {
+    refresh: {
+      refreshModel: true
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -20,10 +27,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function() {
-
+  model: function(params) {
+    const libraryId = params.id;
     return Ember.RSVP.hash({
-      library: this.get('libraryService').fetchLibraryById()
+      library: this.get('libraryService').fetchById(libraryId)
     });
   },
 

@@ -95,6 +95,33 @@ test('fetchPerformanceLesson', function(assert) {
     });
 });
 
+test('fetchPerformanceUnit', function(assert) {
+  const service = this.subject();
+  assert.expect(4);
+
+  service.set('learnerAdapter', Ember.Object.create({
+    fetchPerformanceUnit: function(courseId, unitId) {
+      assert.deepEqual(courseId, 'course-id', 'Wrong course id');
+      assert.deepEqual(unitId, 'unit-id', 'Wrong unit id');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  service.set('learnerSerializer', Ember.Object.create({
+    normalizePerformancesUnit: function(payload) {
+      assert.deepEqual(payload, [], 'Wrong performance payload');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.fetchPerformanceUnit('course-id','unit-id')
+    .then(response => {
+      assert.deepEqual(response, [], 'Wrong response');
+      done();
+    });
+});
+
 test('fetchPerformance', function(assert) {
   const service = this.subject();
 
@@ -118,6 +145,34 @@ test('fetchPerformance', function(assert) {
 
   var done = assert.async();
   service.fetchCoursesPerformance('user-id', expectedCourseIds)
+    .then(response => {
+      assert.deepEqual(response, [], 'Wrong response');
+      done();
+    });
+});
+
+test('fetchLocationCourse', function(assert) {
+  const service = this.subject();
+
+  assert.expect(4);
+
+  service.set('learnerAdapter', Ember.Object.create({
+    fetchLocationCourse: function(courseId, userId) {
+      assert.deepEqual(courseId, 'course-id', 'Wrong course id');
+      assert.deepEqual(userId, 'user-id', 'Wrong user id');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  service.set('learnerSerializer', Ember.Object.create({
+    normalizeFetchLocationCourse: function(payload) {
+      assert.deepEqual(payload, [], 'Wrong performance payload');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.fetchLocationCourse('course-id','user-id')
     .then(response => {
       assert.deepEqual(response, [], 'Wrong response');
       done();

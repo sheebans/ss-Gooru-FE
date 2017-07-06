@@ -50,15 +50,13 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const controller = route.get('controller');
       const context = controller.get('context');
       let toRoute = controller.get('backUrl');
-      if (context.get('lessonId')){
+      if (context.get('lessonId')) {
         if (controller.get('isTeacher')) {
           toRoute ? route.transitionTo(toRoute) : route.backToCourseMap();
-        }
-        else {
+        } else {
           route.backToData();
         }
-      }
-      else {
+      } else {
         toRoute = toRoute || 'index'; //index when refreshing the page, TODO fix
         route.transitionTo(toRoute);
       }

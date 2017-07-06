@@ -141,7 +141,15 @@ Router.map(function() {
   this.route('featured');
 
   this.route('library');
-  this.route('partner-library', { path: '/library/:id'});
+  this.route('partner-library', { path: '/library/:id'}, function() {
+    this.route('content', function() {
+      this.route('courses');
+      this.route('resources');
+      this.route('questions');
+      this.route('collections');
+      this.route('assessments');
+    });
+  });
 
   this.route('account-settings', { path: '/account-settings/:userId'});
 

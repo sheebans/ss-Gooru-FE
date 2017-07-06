@@ -25,12 +25,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // Methods
 
   model: function() {
-
     return Ember.RSVP.hash({
       courses: this.get('searchService').searchFeaturedCourses('*'),
       libraries: this.get('libraryService').fetchLibraries()
     });
   },
+  
   setupController: function (controller, model) {
     console.log(model.libraries);
     controller.set('courses', model.courses);
