@@ -568,12 +568,8 @@ test('Functions when anonymous is on a another person profile (Teacher or Studen
   const $collectionCard = $component.find('.gru-collection-card');
   assert.ok($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should open the preview');
   assert.notOk($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should not open the edit');
-<<<<<<< HEAD
-  assert.ok($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should open the preview');
-=======
   assert.notOk($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should not open the preview');
   assert.ok($collectionCard.find('.panel-heading .image .play-content').length, 'Image should open the player');
->>>>>>> release/NILE-1327
   assert.notOk($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should not open the edit');
   assert.notOk($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should not open the preview');
   assert.notOk($collectionCard.find('.panel-footer .share-btn').length, 'Share button should not appear');

@@ -30,9 +30,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       libraries: this.get('libraryService').fetchLibraries()
     });
   },
-  
+
   setupController: function (controller, model) {
-    console.log(model.libraries);
     controller.set('courses', model.courses);
     controller.set('libraries', model.libraries);
   }
