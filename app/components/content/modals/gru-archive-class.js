@@ -54,13 +54,13 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * This is the model used to delete.
+   * This is the model used to archive.
    * @property {model}
    */
   model: null,
 
   /**
-   * Object to control when the delete button becomes enabled
+   * Object to control when the archive button becomes enabled
    * @property {model}
    */
   validator: null,
