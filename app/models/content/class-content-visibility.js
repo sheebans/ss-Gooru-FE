@@ -69,7 +69,7 @@ const ClassContentVisibility = Ember.Object.extend({
   totals: null,
 
   /**
-   * All sssessments ids
+   * All assessments ids
    * @property [string]
    */
   assessments: Ember.A([]),

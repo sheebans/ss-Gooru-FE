@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AccordionMixin from 'gooru-web/mixins/gru-accordion';
+import { CONTENT_TYPES} from 'gooru-web/config/config';
 // Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the units should not update the location
 var isUpdatingLocation = false;
@@ -299,14 +300,12 @@ export default Ember.Component.extend(AccordionMixin, {
           component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
           component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
       } else {
-        component.get('learnerService').fetchPerformanceUnit(courseId,unitId,'assessment')
-        .then(function(assessmentPerformance){
-            component.get('learnerService').fetchPerformanceUnit(courseId,unitId,'collection')
-              .then(function(collectionPerformance){
-                performancePromise = assessmentPerformance.concat(collectionPerformance);
-              });
-          }
-        );
+        Ember.RSVP.hash({
+          assessmentPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.ASSESSMENT),
+          collectionPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.COLLECTION)
+        }).then(function(assessmentPerformance, collectionPerformance){
+          performancePromise = assessmentPerformance.concat(collectionPerformance);
+        });
       }
       return performancePromise;
     })
