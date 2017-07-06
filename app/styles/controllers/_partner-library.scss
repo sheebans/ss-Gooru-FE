@@ -1,7 +1,6 @@
 .partner-library {
   @include flexbox;
   @include flex-direction(row);
-
   width: 100vw;
 
   .side-panel {
@@ -11,7 +10,6 @@
     background: linear-gradient(-90deg, $blue-500 0%, $blue-400 100%);
     box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
     height: calc(100vh - 63px);
-
     width: 20vw;
 
     .partner-library-info {
@@ -29,7 +27,8 @@
 
       .partner-library-name {
         color: $white;
-        font-size: 1.2rem;
+        font-size: $font-size-lead;
+        font-weight: bold;
         overflow: hidden;
         padding-left: 2rem;
         padding-right: 2rem;
