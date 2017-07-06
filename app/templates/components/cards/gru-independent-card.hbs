@@ -39,6 +39,11 @@
           }}
           <span>{{t "common.completed"}}</span>
         </div>
+      {{else if isAssessment}}
+        <div class="assessment-performance">
+          {{charts.gru-bubble-chart content= (if performance.scoreInPercentage (concat performance.scoreInPercentage '%') '--') color=(grade-color performance.scoreInPercentage)}}
+          <span>{{t 'student-landing.class.performance'}}</span>
+        </div>
       {{else}}
         <div class="time-spent">
           {{charts.gru-bubble-chart content=(format-time performance.timeSpent) color=timeSpentColor}}
