@@ -566,7 +566,7 @@ test('Functions when anonymous is on a another person profile (Teacher or Studen
   this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onOpenContentPlayer='parentAction'}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
-  assert.ok($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should open the preview');
+  assert.ok($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should open the player');
   assert.notOk($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should not open the edit');
   assert.notOk($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should not open the preview');
   assert.ok($collectionCard.find('.panel-heading .image .play-content').length, 'Image should open the player');

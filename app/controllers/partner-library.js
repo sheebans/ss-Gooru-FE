@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import Bookmark from 'gooru-web/models/content/bookmark';
-import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
@@ -28,5 +26,5 @@ export default Ember.Controller.extend({
    * The library presented to the user
    * @property {Object}
    */
-  library: null,
+  library: null
 });
