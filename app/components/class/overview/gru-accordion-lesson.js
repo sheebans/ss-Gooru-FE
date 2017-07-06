@@ -413,7 +413,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   loadStudentData: function(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) {
     const component = this;
-    const isResourceSelected = (collections.findBy('id', this.get('activeElement'))) || false;
+    const isResourceSelected = (collections.findBy('id', this.get('activeElement')));
 
     component.set('isResourceSelected', isResourceSelected);
 
