@@ -193,6 +193,14 @@ const ClassContentVisibility = Ember.Object.extend({
     return this.get(`totals.units.${unitId}.lessons.${lessonId}.assessments`) || 0;
   },
   /**
+   * Retrieves the total assessments and collections per lesson
+   * @param unitId
+   * @param lessonId
+   */
+  getTotalElementsByUnitAndLesson: function(unitId, lessonId) {
+    return this.get(`totals.units.${unitId}.lessons.${lessonId}.assessments`) + this.get(`totals.units.${unitId}.lessons.${lessonId}.collections`) || 0;
+  },
+  /**
    * Retrieves the total assessments per unit
    * @param unitId
    */

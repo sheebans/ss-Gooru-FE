@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AccordionMixin from 'gooru-web/mixins/gru-accordion';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 // Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the units should not update the location
 var isUpdatingLocation = false;
@@ -291,8 +292,7 @@ export default Ember.Component.extend(AccordionMixin, {
       let performancePromise = Ember.RSVP.resolve();
       if(classId) {
         performancePromise = isTeacher ?
-          component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
-          component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+          component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) : component.findStudentPerformance(userId, classId, courseId, unitId, lessons);
       }
 
       return performancePromise;
@@ -314,10 +314,26 @@ export default Ember.Component.extend(AccordionMixin, {
             const lessonPerformance = performance.findBy('id', lesson.get('id'));
             lesson.set('performance', lessonPerformance);
           }
-          lesson.set('performance.completionTotal', contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get("id")));
+          lesson.set('performance.completionTotal', contentVisibility.getTotalElementsByUnitAndLesson(unitId, lesson.get("id")));
         }
       });
       return lessons;
+    });
+  },
+  /**
+   * Find student performance by course and assessment
+   */
+  findStudentPerformance: function(userId, classId, courseId, unitId, lessons){
+    const component = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      let performancePromise = Ember.RSVP.resolve();
+      Ember.RSVP.hash({
+        assessment: component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons, {collectionType: CONTENT_TYPES.ASSESSMENT}),
+        collection: component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons, {collectionType: CONTENT_TYPES.COLLECTION})
+      }).then(({ assessment, collection }) => {
+        let studentPerformance = assessment.concat(collection);
+        Ember.RSVP.resolve(studentPerformance).then(resolve, reject);
+      });
     });
   }
 
