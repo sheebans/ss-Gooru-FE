@@ -1368,7 +1368,6 @@ export default Object.assign(quizzesTranslations, {
     "gru-navigation": {
       "about": "About",
       "about-me": "About Me",
-      "about-you": "About You",
       "content": "Content",
       "followers": "Followers",
       "library": "Library",
