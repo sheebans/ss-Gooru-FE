@@ -248,11 +248,27 @@ test('Archive Class', function(assert) {
     const $container = find('.teacher.class .controller.teacher.class.class-management');
     const $classPanel = $container.find('.class-panel');
     const $classPanelHeader = $classPanel.find('.panel-header');
-
     const $archiveButton =$classPanelHeader.find('.actions .archive-btn');
     click($archiveButton);
     andThen(function () {
-      assert.equal(currentURL(), '/teacher-home', 'Wrong route');
+      const $archiveModal = find('.gru-modal .gru-archive-class');
+      let $check1 = $archiveModal.find('ul li:eq(0) input');
+      click($check1);
+      andThen(function () {
+        let $check2 = $archiveModal.find('ul li:eq(1) input');
+        click($check2);
+        andThen(function () {
+          let $check3 = $archiveModal.find('ul li:eq(2) input');
+          click($check3);
+          andThen(function () {
+            let $archiveButton = $archiveModal.find('button.archive');
+            click($archiveButton);
+            andThen(function () {
+              assert.equal(currentURL(), '/teacher-home');
+            });
+          });
+        });
+      });
     });
   });
 });

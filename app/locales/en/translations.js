@@ -88,6 +88,7 @@ export default Object.assign(quizzesTranslations, {
     "answer-incorrect": "You are incorrect...",
     "answer-key-was-hidden": "Note: Your teacher has hidden the answer key.",
     "approved": "Approved",
+    "archive": "Archive",
     "assessment": "Assessment",
     "assessment-disabled": "You can't attempt this assessment",
     "assessment-external": "Assessment-External",
@@ -771,6 +772,14 @@ export default Object.assign(quizzesTranslations, {
         "legend": "You're about to delete your classroom",
         "student-access": "Students won't be able to access the classroom",
         "student-data-deleted": "All student data will be deleted"
+      },
+      "archive-class":{
+        "title": "Archive classroom",
+        "legend": "You are about to archive your classroom",
+        "links-not-accessible": "All shared links will be inaccessible",
+        "students-no-access": "Students will not be able to access the classroom",
+        "not-add-students": "You will not be able to add more students to the class",
+        "confirmation": "Are you sure you want to archive?"
       },
       "delete-content": {
         "legend": "You are about to delete",
