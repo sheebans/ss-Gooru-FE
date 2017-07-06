@@ -2,19 +2,22 @@ import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 /**
- * Library route
+ * Partner library route
  *
  * @module
  * @augments Ember.Route
  */
 
 export default Ember.Route.extend(PrivateRouteMixin, {
+
+  queryParams: {
+    refresh: {
+      refreshModel: true
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Dependencies
-  /**
-   * @type {searchService} Search service object
-   */
-  searchService: Ember.inject.service('api-sdk/search'),
 
   /**
    * @type {libraryService} Library service object
@@ -24,15 +27,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function() {
+  model: function(params) {
+    const libraryId = params.id;
     return Ember.RSVP.hash({
-      courses: this.get('searchService').searchFeaturedCourses('*'),
-      libraries: this.get('libraryService').fetchLibraries()
+      library: this.get('libraryService').fetchById(libraryId)
     });
   },
 
   setupController: function (controller, model) {
-    controller.set('courses', model.courses);
-    controller.set('libraries', model.libraries);
+    controller.set('library', model.library);
   }
 });

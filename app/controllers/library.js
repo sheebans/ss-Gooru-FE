@@ -83,9 +83,6 @@ export default Ember.Controller.extend({
    */
   selected: 'featured-courses',
 
-  // -------------------------------------------------------------------------
-  // Properties
-
   /**
    * Send bookmark info to BE for creation
    * @param bookmark
