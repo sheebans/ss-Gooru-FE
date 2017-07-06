@@ -1,14 +1,12 @@
-<div class="modal-header delete">
-  <h4 class="modal-title">Archive classroom</h4>
+<div class="modal-header archive">
+  <h4 class="modal-title">{{t "content.modals.archive-class.title"}}</h4>
 </div>
 <div class="modal-body">
   <form>
     <p class="legend">{{t "content.modals.archive-class.legend"}}
-        <b>
-          {{model.content.title}}
-        </b>
+      <b>{{model.content.title}}</b>
     </p>
-    <div class="delete-info">
+    <div class="archive-info">
       <ul>
         <li>
           <label>
@@ -34,13 +32,13 @@
     </div>
     <p class="confirmation">{{t "content.modals.archive-class.confirmation"}}</p>
 
-    <div class="actions delete">
+    <div class="actions archive">
       <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
         <span aria-hidden="true">{{t 'common.cancel'}}</span>
       </button>
-      {{#gru-spinner-button classes='btn btn-warning delete' text=(t 'common.loading') isLoading=isLoading}}
-          <button class="btn btn-warning archive" disabled={{isDisabled}} {{action "archiveClass" model}}>{{t 'common.archive'}}</button>
-      {{/gru-spinner-button}}
+      <button class="btn btn-warning archive" disabled={{isDisabled}} {{action "archiveClass" model}}>
+        {{t 'common.archive'}}
+      </button>
     </div>
   </form>
 </div>

@@ -774,6 +774,7 @@ export default Object.assign(quizzesTranslations, {
         "student-data-deleted": "All student data will be deleted"
       },
       "archive-class":{
+        "title": "Archive classroom",
         "legend": "You are about to archive your classroom",
         "links-not-accessible": "All shared links will be inaccessible",
         "students-no-access": "Students will not be able to access the classroom",

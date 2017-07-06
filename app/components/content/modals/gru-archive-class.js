@@ -38,7 +38,6 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * Archive Class
      */
