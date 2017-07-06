@@ -6,11 +6,16 @@
         <ul class="dropdown-menu">
           <li class="profile-menu-item close"> <button class="btn dropdown-toggle" data-toggle="dropdown">{{gru-icon name='close'}}</button></li>
           <li class="profile-menu-item content" {{action 'selectItem' 'content'}}>
-            <h6>{{t "profile.gru-navigation.library"}}</h6><i class="gru-icon material-icons content"></i>
+            {{#if isMyProfile}}
+            <h6>{{t "profile.gru-navigation.my-content"}}</h6>
+            {{else}}
+            <h6>{{t "profile.gru-navigation.content"}}</h6>
+            {{/if}}
+            <i class="gru-icon material-icons content"></i>
           </li>
           <li class="profile-menu-item about" {{action 'selectItem' 'about'}}>
             {{#if isMyProfile}}
-              <h6>{{t "profile.gru-navigation.about-you"}}</h6>
+              <h6>{{t "profile.gru-navigation.about-me"}}</h6>
             {{else}}
               <h6>{{t "profile.gru-navigation.about"}}</h6>
             {{/if}}
@@ -43,12 +48,16 @@
 <div class="md-design hidden-xs hidden-sm">
   <ul class="profile-menu list-group">
     <li class="list-group-item profile-menu-item content" {{action 'selectItem' 'content'}}>
-      <h6>{{t "profile.gru-navigation.library"}}</h6>
+      {{#if isMyProfile}}
+      <h6>{{t "profile.gru-navigation.my-content"}}</h6>
+      {{else}}
+      <h6>{{t "profile.gru-navigation.content"}}</h6>
+      {{/if}}
       <i class="gru-icon material-icons content"></i>
     </li>
     <li class="list-group-item profile-menu-item about" {{action 'selectItem' 'about'}}>
       {{#if isMyProfile}}
-        <h6>{{t "profile.gru-navigation.about-you"}}</h6>
+        <h6>{{t "profile.gru-navigation.about-me"}}</h6>
       {{else}}
         <h6>{{t "profile.gru-navigation.about"}}</h6>
       {{/if}}

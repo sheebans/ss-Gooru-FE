@@ -1367,9 +1367,11 @@ export default Object.assign(quizzesTranslations, {
   "profile": {
     "gru-navigation": {
       "about": "About",
-      "about-you": "About You",
+      "about-me": "About Me",
+      "content": "Content",
+      "followers": "Followers",
       "library": "Library",
-      "followers": "Followers"
+      "my-content": "My Content"
     },
     "edit": {
       "select-district": "Select a district..."
