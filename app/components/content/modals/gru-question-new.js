@@ -97,7 +97,6 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     var component = this;
-    //const type = component.model.collectionType;
     if (component && component.$() && component.$().length) {
       setTimeout(function() {
         if (component && component.$() && component.$().length) {
