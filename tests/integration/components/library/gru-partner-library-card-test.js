@@ -35,7 +35,7 @@ test('Partner Library card', function(assert) {
 
   const $info = $header.find('.library-info');
   assert.ok($info.length, 'Missing library info container');
-  assert.ok($info.find('.title-section h3').length, 'Missing name');
+  assert.ok($info.find('.title-section').length, 'Missing name');
 
   const $countsContainer = $info.find('.counts-info');
   assert.equal($countsContainer.length, 2, 'Wrong number of counts container');

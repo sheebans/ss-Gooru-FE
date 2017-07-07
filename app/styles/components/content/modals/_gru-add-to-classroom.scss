@@ -2,17 +2,22 @@
   .modal-header{
     text-align: left;
   }
+  .modal-body{
+    padding: 30px;
+  }
   .list{
     @include flexbox;
     @include flex-wrap(wrap);
-    @include justify-content(space-around);
+    @include justify-content(flex-start);
+    padding: 0 5px;
 
     max-height: 460px;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     .panel{
-      width: 48%;
+      width: 46%;
       border-radius:6px;
+      margin-right: 16px;
       .panel-heading{
         padding: 5px 15px;
         border-top-left-radius: 6px;

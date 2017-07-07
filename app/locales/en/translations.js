@@ -88,6 +88,7 @@ export default Object.assign(quizzesTranslations, {
     "answer-incorrect": "You are incorrect...",
     "answer-key-was-hidden": "Note: Your teacher has hidden the answer key.",
     "approved": "Approved",
+    "archive": "Archive",
     "assessment": "Assessment",
     "assessment-disabled": "You can't attempt this assessment",
     "assessment-external": "Assessment-External",
@@ -776,6 +777,14 @@ export default Object.assign(quizzesTranslations, {
         "student-access": "Students won't be able to access the classroom",
         "student-data-deleted": "All student data will be deleted"
       },
+      "archive-class":{
+        "title": "Archive classroom",
+        "legend": "You are about to archive your classroom",
+        "links-not-accessible": "All shared links will be inaccessible",
+        "students-no-access": "Students will not be able to access the classroom",
+        "not-add-students": "You will not be able to add more students to the class",
+        "confirmation": "Are you sure you want to archive?"
+      },
       "delete-content": {
         "legend": "You are about to delete",
         "content-legend": "<span>{{type}}</span> {{index}} - {{title}} from {{parentName}}",
@@ -1371,9 +1380,11 @@ export default Object.assign(quizzesTranslations, {
   "profile": {
     "gru-navigation": {
       "about": "About",
-      "about-you": "About You",
+      "about-me": "About Me",
+      "content": "Content",
+      "followers": "Followers",
       "library": "Library",
-      "followers": "Followers"
+      "my-content": "My Content"
     },
     "edit": {
       "select-district": "Select a district..."

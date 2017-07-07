@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { COUNTRY_CODES } from "gooru-web/config/config";
+import { COUNTRY_CODES } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
 
@@ -42,7 +42,7 @@ export default Ember.Route.extend({
   // Methods
   beforeModel: function(transition) {
     const userId = transition.params.profile.userId;
-    const myId = this.get("session.userId");
+    const myId = this.get('session.userId');
     if (userId !== myId) {
       transition.abort();
       this.transitionTo('profile.about', userId);
@@ -56,12 +56,12 @@ export default Ember.Route.extend({
 
     return route.get("lookupService").readCountries()
       .then(function(countries) {
-        var usCountryId = countries.findBy("code", COUNTRY_CODES.US).id;
-        var usStates = route.get("lookupService").readStates(usCountryId);
+        var usCountryId = countries.findBy('code', COUNTRY_CODES.US).id;
+        var usStates = route.get('lookupService').readStates(usCountryId);
         var usDistricts = null;
 
         if(profileStateId && profileStateId !=='') {
-          usDistricts = route.get("lookupService").readDistricts(profileStateId);
+          usDistricts = route.get('lookupService').readDistricts(profileStateId);
         }
 
         return Ember.RSVP.hash({
@@ -84,10 +84,10 @@ export default Ember.Route.extend({
     if (profile.get('schoolDistrictId')) {
       profile.set('schoolDistrict', null);
     }
-    controller.set("existingUsername", false);
-    controller.set("profile", profile);
-    controller.set("tempProfile", profile.copy());
-    controller.set("countries", model.countries);
+    controller.set('existingUsername', false);
+    controller.set('profile', profile);
+    controller.set('tempProfile', profile.copy());
+    controller.set('countries', model.countries);
     controller.set('states', model.states);
     controller.set('districts', model.districts);
   }

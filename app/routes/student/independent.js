@@ -67,6 +67,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   },
 
   /**
+   * Run after model is set
+   */
+  afterModel: function(user, transition) {
+    if(transition.targetName === `${this.routeName}.index`) {
+      this.transitionTo('student.independent.course-map');
+    }
+  },
+
+  /**
    * Set all controller properties from the model
    * @param controller
    * @param model
@@ -74,9 +83,5 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   setupController: function(controller, model) {
     controller.set('course', model.course);
     controller.set('units', model.course.get('children') || []);
-    if(!controller.get('menuItem')) {
-      controller.selectMenuItem('course-map');
-      this.transitionTo('student.independent.course-map');
-    }
   }
 });
