@@ -36,7 +36,8 @@ export default Ember.Service.extend({
   addActivityToClass: function (classId, contentId, contentType, context = {}) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classActivityAdapter').addActivityToClass(classId, contentId, contentType, context).then(function() {
+      service.get('classActivityAdapter').addActivityToClass(classId, contentId,
+        contentType, context).then(function() {
         resolve(true);
       }, reject);
     });
@@ -74,7 +75,8 @@ export default Ember.Service.extend({
       service.get('classActivityAdapter')
         .findClassActivities(classId, contentType, startDate, endDate).then(function(payload) {
         const classActivities = service.get('classActivitySerializer').normalizeFindClassActivities(payload);
-        service.findClassActivitiesPerformanceSummary(classId, classActivities, startDate, endDate).then(resolve, reject);
+        service.findClassActivitiesPerformanceSummary(classId, classActivities,
+          startDate, endDate).then(resolve, reject);
       });
     });
   },
@@ -89,7 +91,8 @@ export default Ember.Service.extend({
    * @param {Date} endDate optional end date, default is now
    * @returns {Promise.<ClassActivity[]>}
    */
-  findStudentClassActivities: function(userId, classId, contentType = undefined, startDate = new Date(), endDate = new Date()) {
+  findStudentClassActivities: function(userId, classId, contentType = undefined,
+    startDate = new Date(), endDate = new Date()) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classActivityAdapter')
@@ -117,9 +120,11 @@ export default Ember.Service.extend({
       const performanceService = service.get('performanceService');
       Ember.RSVP.hash({
         activityCollectionPerformanceSummaryItems: collectionIds.length ?
-          performanceService.findStudentActivityPerformanceSummaryByIds(userId, classId, collectionIds, 'collection', startDate, endDate) : [],
+          performanceService.findStudentActivityPerformanceSummaryByIds(userId,
+            classId, collectionIds, 'collection', startDate, endDate) : [],
         activityAssessmentPerformanceSummaryItems: assessmentIds.length ?
-          performanceService.findStudentActivityPerformanceSummaryByIds(userId, classId, assessmentIds, 'assessment', startDate, endDate) : []
+          performanceService.findStudentActivityPerformanceSummaryByIds(userId,
+            classId, assessmentIds, 'assessment', startDate, endDate) : []
       }).then(function(hash){
         const activityCollectionPerformanceSummaryItems = hash.activityCollectionPerformanceSummaryItems;
         const activityAssessmentPerformanceSummaryItems = hash.activityAssessmentPerformanceSummaryItems;
@@ -145,7 +150,8 @@ export default Ember.Service.extend({
    * @param {Date} endDate optional end date, default is now
    * @returns {Promise.<ClassActivity[]>}
    */
-  findClassActivitiesPerformanceSummary: function(classId, classActivities, startDate = new Date(), endDate = new Date()) {
+  findClassActivitiesPerformanceSummary: function(classId, classActivities,
+    startDate = new Date(), endDate = new Date()) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       const assessmentIds = classActivities.filterBy('collection.isAssessment').mapBy('collection.id');
@@ -153,9 +159,11 @@ export default Ember.Service.extend({
       const performanceService = service.get('performanceService');
       Ember.RSVP.hash({
         activityCollectionPerformanceSummaryItems: collectionIds.length ?
-          performanceService.findClassActivityPerformanceSummaryByIds(classId, collectionIds, 'collection', startDate, endDate) : [],
+          performanceService.findClassActivityPerformanceSummaryByIds(classId,
+            collectionIds, 'collection', startDate, endDate) : [],
         activityAssessmentPerformanceSummaryItems: assessmentIds.length ?
-          performanceService.findClassActivityPerformanceSummaryByIds(classId, assessmentIds, 'assessment', startDate, endDate) : []
+          performanceService.findClassActivityPerformanceSummaryByIds(classId,
+            assessmentIds, 'assessment', startDate, endDate) : []
       }).then(function(hash){
         const activityCollectionPerformanceSummaryItems = hash.activityCollectionPerformanceSummaryItems;
         const activityAssessmentPerformanceSummaryItems = hash.activityAssessmentPerformanceSummaryItems;

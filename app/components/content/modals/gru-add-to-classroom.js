@@ -45,7 +45,7 @@ export default Ember.Component.extend({
           component.triggerAction({ action: 'closeModal' });
         });
       } else {
-        component.get('classService').associateCourseToClass(content.get('id'),classId).then(function(){
+        component.get('classService').associateCourseToClass(content.get('id'), classId).then(function(){
          let callback = component.get('model.callback');
           callback.success();
           component.triggerAction({ action: 'closeModal' });
@@ -59,5 +59,5 @@ export default Ember.Component.extend({
   /**
    * Model with the values to use in the modal
    */
-  model:null
+  model: null
 });
