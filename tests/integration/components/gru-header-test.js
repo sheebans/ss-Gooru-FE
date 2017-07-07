@@ -179,7 +179,7 @@ test('Links as student', function(assert) {
 });
 
 test('hidden links as teacher', function(assert) {
-  assert.expect(3); //making sure all asserts are called
+  assert.expect(5); //making sure all asserts are called
 
   let profile = Ember.Object.create({
     isTeacher:true
@@ -191,6 +191,10 @@ test('hidden links as teacher', function(assert) {
 
   const $component = this.$(); //component dom element
 
+  const $classroomsLink = $component.find('.classrooms-link');
+  assert.ok($classroomsLink.length, 'Missing classrooms link');
+  const $toolsTab = $component.find('.tools-link');
+  assert.ok($toolsTab.length, 'Missing tools tab');
   const $performanceLink = $component.find('.performance-link');
   assert.notOk($performanceLink.length, 'Performance link should not appear');
   const $communityLink = $component.find('.community-link');

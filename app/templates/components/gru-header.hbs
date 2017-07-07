@@ -66,8 +66,12 @@
                     <span>{{t "student-landing.my-study"}}</span>
                   {{/link-to}}
                 </li>
-              {{/unless}}
-              {{#if profile.isTeacher}}
+              {{else}}
+                <li class="navbar-nav-list visible-md visible-lg classrooms-link">
+                  {{#link-to 'teacher-home'}}
+                    <span>{{t "user.classrooms"}}</span>
+                  {{/link-to}}
+                </li>
                 <li class="navbar-nav-list visible-md visible-lg tools-link dropdown">
                   <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="tools">{{t "common.tools"}}{{gru-icon name='arrow_drop_down'}}</span>
                   </a>
@@ -91,7 +95,7 @@
                     </li>
                   </ul>
                 </li>
-              {{/if}}
+              {{/unless}}
               <li class="navbar-nav-list visible-md visible-lg library-link">
                 {{#link-to 'library'}}
                   <span>{{t "common.library"}}</span>
@@ -147,6 +151,12 @@
                     <li class="navbar-nav-list">
                       {{#link-to 'student-home'}}
                         <span>{{t "student-landing.my-study"}}</span>
+                      {{/link-to}}
+                    </li>
+                  {{else}}
+                    <li class="navbar-nav-list">
+                      {{#link-to 'teacher-home'}}
+                        <span>{{t "user.classrooms"}}</span>
                       {{/link-to}}
                     </li>
                   {{/unless}}
