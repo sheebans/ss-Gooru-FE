@@ -139,7 +139,7 @@ export default Ember.Component.extend({
     const component = this;
     const isCollection = component.get('model.isCollection');
     let questionTypes =  Ember.A(Object.keys(QUESTION_CONFIG));
-    if (isCollection === false){
+    if (!isCollection){
       questionTypes = questionTypes.removeObject('OE');
     }
     return questionTypes;
