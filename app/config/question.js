@@ -15,7 +15,7 @@ export const QUESTION_TYPES = {
   multipleChoice: "MC",
   multipleAnswer: "MA",
   trueFalse: "T/F",
-  //openEnded: "OE",
+  openEnded: "OE",
   fib: "FIB",
   hotSpotText: "HS_TXT",
   hotSpotImage: "HS_IMG",
