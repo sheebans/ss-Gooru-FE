@@ -511,6 +511,7 @@ export default Ember.Component.extend(AccordionMixin, {
             const isCompleted = completionDone > 0 && completionDone >= completionTotal;
             const hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
 
+            collectionPerformanceData.set('timeSpent', timeSpent);
             collectionPerformanceData.set('hasTrophy', hasTrophy);
             collectionPerformanceData.set('hasStarted', hasStarted);
             collectionPerformanceData.set('isCompleted', isCompleted);
