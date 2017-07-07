@@ -48,7 +48,7 @@ test('Question New Layout', function(assert) {
   assert.ok($component.find('h4.modal-title'), 'Missing Title');
   assert.equal($component.find('h4.modal-title').text(), this.get('i18n').t('common.add-new-question').string, 'Incorrect Title');
   assert.equal($component.find('label.type span.required').text(), this.get('i18n').t('common.add-type-question').string, 'Incorrect Question Type Label');
-  assert.equal($component.find('.question-types .panel').length, 9, 'Incorrect Number of Question Types');
+  assert.equal($component.find('.question-types .panel').length, 8, 'Incorrect Number of Question Types');
   assert.ok($component.find('.question-type-MC'), 'Missing Multiple Choice Type');
   assert.ok($component.find('.question-type-MA'), 'Missing Multiple Answer Type');
   assert.ok($component.find('.question-type-OE'), 'Missing Open Ended Type');

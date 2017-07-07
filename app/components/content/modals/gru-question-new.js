@@ -136,8 +136,15 @@ export default Ember.Component.extend({
    * @type {Array[]} questionTypes
    */
   questionTypes: Ember.computed(function() {
-    return Ember.A(Object.keys(QUESTION_CONFIG));
+    const component = this;
+    const isCollection = component.get('model.isCollection');
+    let questionTypes =  Ember.A(Object.keys(QUESTION_CONFIG));
+    if (!isCollection){
+      questionTypes = questionTypes.removeObject('OE');
+    }
+    return questionTypes;
   }),
+
   /**
    * Indicate if it's waiting for createQuestion callback
    */
