@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { formatDate } from 'gooru-web/utils/utils';
+import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from 'gooru-web/mixins/session';
 /**
  * Class activities controller
@@ -7,7 +8,7 @@ import SessionMixin from 'gooru-web/mixins/session';
  * Controller responsible of the logic for the teacher class activities tab
  */
 
-export default Ember.Controller.extend(SessionMixin, {
+export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -65,6 +66,29 @@ export default Ember.Controller.extend(SessionMixin, {
           controller.set('year', year - 1);
         }
       });
+    },
+
+    /**
+     *
+     * @function actions:removeClassActivity
+     */
+    removeClassActivity: function (classActivity) {
+      let controller = this;
+      let currentClassId = controller.get('classController.class.id');
+      let classActivityId = classActivity.get('id');
+      let classActivityType = classActivity.get('collection.collectionType');
+      var model = {
+        type: classActivityType,
+        deleteMethod: function () {
+          return controller.get('classActivityService').removeClassActivity(currentClassId, classActivityId);
+        },
+        callback: {
+          success:function(){
+            controller.removeClassActivity(classActivity);
+          }
+        }
+      };
+      this.actions.showModal.call(this, 'content.modals.gru-remove-class-activity', model);
     }
   },
 
@@ -90,7 +114,7 @@ export default Ember.Controller.extend(SessionMixin, {
    * Contains current year
    * @property {int} year
    */
-  year: null
+  year: null,
 
   // -------------------------------------------------------------------------
   // Observers
@@ -98,4 +122,14 @@ export default Ember.Controller.extend(SessionMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
+  /**
+   * Removes a class activity from a list of classActivities
+   * @param {classActivity} classActivity
+   */
+  removeClassActivity: function (classActivity) {
+    let allClassActivities = this.get('classActivities');
+    allClassActivities.forEach((classActivities) => {
+      classActivities.classActivities.removeObject(classActivity);
+    });
+  }
 });

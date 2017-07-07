@@ -767,6 +767,10 @@ export default Object.assign(quizzesTranslations, {
         "confirmation": "Do you want to unbookmark this {{type}}?",
         "delete-error": "Oops! Unable to unbookmark this {{type}} right now. Please try again shortly."
       },
+      "remove-class-activity":{
+        "confirmation": "Are you sure you want to remove this {{type}} from your Daily Class Activities?",
+        "delete-error": "Oops! Unable to remove this {{type}} right now. Please try again shortly."
+      },
       "delete-class":{
         "legend": "You're about to delete your classroom",
         "student-access": "Students won't be able to access the classroom",

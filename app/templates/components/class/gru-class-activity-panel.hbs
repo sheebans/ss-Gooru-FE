@@ -69,6 +69,7 @@
       <span class="score" style={{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.score collectionPerformanceSummary.score 'NA')))}}>
         {{if collectionPerformanceSummary.score collectionPerformanceSummary.score '--'}}%
       </span>
+      <button title="{{t 'common.remove'}}" class="btn no-bgd remove-item" {{action 'removeClassActivity' classActivity}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="remove_circle"}}</button>
     </div>
   </div>
 </div>

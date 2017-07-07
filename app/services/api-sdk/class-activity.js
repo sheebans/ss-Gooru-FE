@@ -42,7 +42,6 @@ export default Ember.Service.extend({
     });
   },
 
-
   /**
    * Enables the class content
    *
@@ -59,7 +58,6 @@ export default Ember.Service.extend({
       }, reject);
     });
   },
-
 
   /**
    * Gets all class activity for the authorized user (student|teacher)
@@ -172,6 +170,20 @@ export default Ember.Service.extend({
 
         resolve(classActivities);
       }, reject);
+    });
+  },
+
+  /**
+   * Remove class activity from class which is added
+   * @param {string} classId The class id to delete
+   * @param {string} contentId The content id to delete
+   * @returns {Promise}
+   */
+  removeClassActivity: function (classId, contentId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classActivityAdapter').removeClassActivity(classId, contentId)
+        .then(resolve, reject);
     });
   }
 });

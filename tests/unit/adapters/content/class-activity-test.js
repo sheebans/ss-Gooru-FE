@@ -128,3 +128,18 @@ test('findClassActivities with content type and dates', function(assert) {
     });
 });
 
+test('removeClassActivity', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.delete('/api/nucleus/v2/classes/class-id/contents/content-id', function() {
+      return [ 204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
+    }, false);
+  });
+  adapter.removeClassActivity('class-id','content-id')
+    .then(function() {
+      assert.ok(true);
+    });
+});
