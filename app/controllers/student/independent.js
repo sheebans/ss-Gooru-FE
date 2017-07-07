@@ -43,6 +43,12 @@ export default Ember.Controller.extend({
   course: null,
 
   /**
+   * The performance for the presented course
+   * @property {Performance}
+   */
+  performance: null,
+
+  /**
    * The units presented to the user
    * @property {Unit}
    */
