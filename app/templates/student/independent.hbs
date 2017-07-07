@@ -13,13 +13,15 @@
         <div class="graphics">
           <div class="graphic performance">
             {{charts.gru-bubble-chart
-            content='--'
-            color='gray'
-            }}
+              content=(if performance.scoreInPercentage (concat performance.scoreInPercentage '%') '--') 
+              color=(grade-color performance.scoreInPercentage)}}
             <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
           </div>
           <div class="graphic completed">
-            {{charts.gru-radial-chart}}
+            {{charts.gru-radial-chart
+              value=performance.completedCount
+              minValue=0
+              maxValue=performance.totalCount}}
             <span class="legend">{{t "common.completion"}}</span>
           </div>
         </div>
