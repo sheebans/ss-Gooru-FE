@@ -97,6 +97,7 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     var component = this;
+    //const type = component.model.collectionType;
     if (component && component.$() && component.$().length) {
       setTimeout(function() {
         if (component && component.$() && component.$().length) {
@@ -136,8 +137,15 @@ export default Ember.Component.extend({
    * @type {Array[]} questionTypes
    */
   questionTypes: Ember.computed(function() {
-    return Ember.A(Object.keys(QUESTION_CONFIG));
+    const component = this;
+    const isCollection = component.get('model.isCollection');
+    let questionTypes =  Ember.A(Object.keys(QUESTION_CONFIG));
+    if (isCollection === false){
+      questionTypes = questionTypes.removeObject('OE');
+    }
+    return questionTypes;
   }),
+
   /**
    * Indicate if it's waiting for createQuestion callback
    */
