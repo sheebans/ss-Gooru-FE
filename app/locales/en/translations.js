@@ -1798,6 +1798,32 @@ export default Object.assign(quizzesTranslations, {
         "title": "Finished!",
         "description": "Start studying!"
       }
+    },
+    "library":{
+      "stepOne": {
+        "title": "Welcome!",
+        "description": "Welcome to Libraries in the Learning Navigator."
+      },
+      "stepTwo": {
+        "title": "Featured Courses",
+        "description": "Explore courses developed and implemented in classrooms by educators."
+      },
+      "stepThree": {
+        "title": "Other Libraries",
+        "description": "Explore content developed by Gooru’s partners."
+      },
+      "stepFour": {
+        "title": "Preview",
+        "description": "Preview the course to see if it is of interest to you."
+      },
+      "stepFive": {
+        "title": "Share",
+        "description": "Share this course with others."
+      },
+      "stepSix": {
+        "title": "Bookmark",
+        "description": "Bookmark this course to review it later."
+      }
     }
   },
   "gru-tour": {
