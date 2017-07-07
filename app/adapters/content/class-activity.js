@@ -96,7 +96,7 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Removes a class activity from class by id
+   * Removes a class activity from class
    *
    * @param classId class id to be sent
    * @param contentId content id to be sent

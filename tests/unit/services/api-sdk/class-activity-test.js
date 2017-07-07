@@ -240,7 +240,7 @@ test('removeClassActivity', function(assert) {
 
   assert.expect(2);
 
-  service.set('classAdapter', Ember.Object.create({
+  service.set('classActivityAdapter', Ember.Object.create({
     removeClassActivity: function(classId,contentId) {
       assert.equal(classId, expectedClassId, 'Wrong class id');
       assert.equal(contentId, expectedContentId, 'Wrong content id');
