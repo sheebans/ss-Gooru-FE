@@ -218,9 +218,16 @@
                     users=item.members}}
                   {{/unless}}
                   <div class="left-info">
-                    <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
+                    {{#if item.isAssessment}}
+                      <span class="score" style={{safe-html (concat "color:" (grade-color (if item.performance.hasStarted item.performance.score 'NA')))}}>
                       {{if item.performance.hasStarted item.performance.score '--'}}%
-                    </span>
+                      </span>
+                      {{else}}
+                      <span class="time-spent">
+                        {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
+                      </span>
+                    {{/if}}
+
                     <button {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
                       {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
                     </button>
@@ -230,8 +237,8 @@
                           <i></i>
                         </div>
                       {{else}}
-                        <span class="state">
-                          {{#if item.isAssessment}}
+                        {{#if item.isAssessment}}
+                          <span class="state">
                             {{#if item.performance.isCompleted}}
                               {{t 'common.completed'}}
                             {{else}}
@@ -241,10 +248,8 @@
                                 <span class="not-started">{{t 'common.not_started'}}</span>
                               {{/if}}
                             {{/if}}
-                          {{else}}
-                            <span class="not-started">&dash;&dash;</span>
-                          {{/if}}
-                        </span>
+                          </span>
+                        {{/if}}
                       {{/if}}
                     {{/unless}}
                   </div>

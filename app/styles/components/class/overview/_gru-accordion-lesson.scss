@@ -528,13 +528,9 @@
               }
             }
             .time-spent {
-              padding: 10px 20px 10px 15px;
-              font-size: $font-size-lead;
+              font-size: $font-title;
               font-weight: bold;
-              width: 100%;
-              @media (min-width: $screen-lg) {
-                padding-left: 20px;
-              }
+              padding: 10px;
             }
             .trophy {
               border-radius: 4px;

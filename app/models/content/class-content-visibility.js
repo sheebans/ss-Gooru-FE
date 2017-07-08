@@ -69,7 +69,7 @@ const ClassContentVisibility = Ember.Object.extend({
   totals: null,
 
   /**
-   * All assessments ids
+   * All ssessments ids
    * @property [string]
    */
   assessments: Ember.A([]),
@@ -191,14 +191,6 @@ const ClassContentVisibility = Ember.Object.extend({
    */
   getTotalAssessmentsByUnitAndLesson: function(unitId, lessonId) {
     return this.get(`totals.units.${unitId}.lessons.${lessonId}.assessments`) || 0;
-  },
-  /**
-   * Retrieves the total assessments and collections per lesson
-   * @param unitId
-   * @param lessonId
-   */
-  getTotalElementsByUnitAndLesson: function(unitId, lessonId) {
-    return this.get(`totals.units.${unitId}.lessons.${lessonId}.assessments`) + this.get(`totals.units.${unitId}.lessons.${lessonId}.collections`) || 0;
   },
   /**
    * Retrieves the total assessments per unit

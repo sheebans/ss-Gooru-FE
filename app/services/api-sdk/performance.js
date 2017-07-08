@@ -17,17 +17,17 @@ export default Ember.Service.extend({
   /**
    * @property {Ember.Service} Service to retrieve analytics data
    */
-  analyticsService: Ember.inject.service("api-sdk/analytics"),
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
 
   /**
    * @property {Ember.Service} Service to search for resources
    */
-  searchService: Ember.inject.service("api-sdk/search"),
+  searchService: Ember.inject.service('api-sdk/search'),
 
   /**
    * @property {Ember.Service} Service to get the Taxonomy data
    */
-  taxonomyService: Ember.inject.service("api-sdk/taxonomy"),
+  taxonomyService: Ember.inject.service('api-sdk/taxonomy'),
 
   /**
    * @property {ClassPerformanceSummarySerializer}
@@ -118,7 +118,7 @@ export default Ember.Service.extend({
     const searchService = service.get('searchService');
     const courseId = context.courseId;
     return new Ember.RSVP.Promise(function(resolve) {
-      analyticsService.getStandardsSummary(context.get('sessionId'), context.get("userId"))
+      analyticsService.getStandardsSummary(context.get('sessionId'), context.get('userId'))
         .then(function (standardsSummary) {
           assessmentResult.set('mastery', standardsSummary);
           let standardsIds = standardsSummary.map(function (standardSummary) {
@@ -218,8 +218,7 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<CollectionPerformance[]>}
    */
-  findStudentPerformanceByLesson: function (userId, classId, courseId, unitId, lessonId, collections,
-                                            options = { collectionType: 'assessment' }) {
+  findStudentPerformanceByLesson: function (userId, classId, courseId, unitId, lessonId, collections, options = { collectionType: 'assessment' }) {
     const service = this;
     service.get('store').unloadAll('performance/collection-performance');
     return service.get('store').query('performance/collection-performance', {
@@ -278,19 +277,19 @@ export default Ember.Service.extend({
    * @returns {Promise.<performance[]>}
    */
   getPerformanceRecordByType: function(type, object){
-    const id = object.get("id");
+    const id = object.get('id');
     const store = this.get('store');
     let modelName = null;
     let record = this.getPerformanceRecord(type, object);
 
     if(type === 'unit') {
-      modelName = "performance/unit-performance";
+      modelName = 'performance/unit-performance';
     }
     else if(type === 'lesson'){
-      modelName = "performance/lesson-performance";
+      modelName = 'performance/lesson-performance';
     }
     else {
-      modelName = "performance/collection-performance";
+      modelName = 'performance/collection-performance';
     }
 
     const found = store.recordIsLoaded(modelName, id);
@@ -300,7 +299,7 @@ export default Ember.Service.extend({
     }
     let newRecord = store.createRecord(modelName, record);
     if (type === 'collection') {
-      newRecord.set("collectionType", object.get("collectionType"));
+      newRecord.set('collectionType', object.get('collectionType'));
     }
 
     return newRecord;
@@ -319,7 +318,7 @@ export default Ember.Service.extend({
       type: type,
       completionTotal: 0,
       completionDone: 0,
-      url: object.get("url"),
+      url: object.get('url'),
       attempts: 0
     };
   },
@@ -369,7 +368,6 @@ export default Ember.Service.extend({
       return service.matchStudentsWithPerformances(students, lessonPerformances);
     });
   },
-
   /**
    * Gets the lesson teacher performance data for a specific class, course and unit.
    * @param classId
