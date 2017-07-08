@@ -48,6 +48,7 @@ export default Object.assign(quizzesTranslations, {
     "an-assessment": "an assessment",
     "about": "About",
     "about-you": "About You",
+    "about-me": "About Me",
     "add": "Add",
     "add-assessment": "Create New Assessment",
     "add-century-skills": "Add 21st Century Skills",
@@ -1797,6 +1798,58 @@ export default Object.assign(quizzesTranslations, {
       "stepEight": {
         "title": "Finished!",
         "description": "Start studying!"
+      }
+    },
+    "library":{
+      "stepOne": {
+        "title": "Welcome!",
+        "description": "Welcome to Libraries in the Learning Navigator."
+      },
+      "stepTwo": {
+        "title": "Featured Courses",
+        "description": "Explore courses developed and implemented in classrooms by educators."
+      },
+      "stepThree": {
+        "title": "Other Libraries",
+        "description": "Explore content developed by Gooru’s partners."
+      },
+      "stepFour": {
+        "title": "Preview",
+        "description": "Preview the course to see if it is of interest to you."
+      },
+      "stepFive": {
+        "title": "Share",
+        "description": "Share this course with others."
+      },
+      "stepSix": {
+        "title": "Bookmark",
+        "description": "Bookmark this course to review it later."
+      }
+    },
+    "profile":{
+      "stepOne": {
+        "title": "Welcome!",
+        "description": "Welcome to your Profile. Here you can access your content and personal information."
+      },
+      "stepTwo": {
+        "title": "My Content",
+        "description": "Review the content you have remixed and created."
+      },
+      "stepThree": {
+        "title": "About Me",
+        "description": "Update your personal information, school information, your profile picture, email, and password."
+      },
+      "stepFour": {
+        "title": "Goals",
+        "description": "Set and track goals to help you achieve your learning milestones."
+      },
+      "stepFive": {
+        "title": "Followers",
+        "description": "If you like someone’s content, you can follow them. You can also view who is following you."
+      },
+      "stepSix": {
+        "title": "Badges",
+        "description": "Review the badges you have received. You receive a badge if you complete a benchmark assessment assigned by your teacher."
       }
     }
   },
