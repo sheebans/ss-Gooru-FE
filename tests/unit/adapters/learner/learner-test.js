@@ -78,13 +78,14 @@ test('fetchPerformanceUnit', function(assert) {
   }));
   this.pretender.map(function() {
     this.get('/api/nucleus-insights/v2/course/courseId/unit/unitId/learner/performance', request => {
-      assert.ok(request,'Wrong request');
+      assert.equal(request.queryParams.collectionType, 'collection', 'Wrong collection');
       return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
     }, false);
   });
   let courseId = 'courseId';
   let unitId = 'unitId';
-  adapter.fetchPerformanceUnit(courseId, unitId)
+  let collectionType = 'collection';
+  adapter.fetchPerformanceUnit(courseId, unitId, collectionType)
     .then(response => assert.deepEqual({}, response, 'Wrong response'));
 });
 
