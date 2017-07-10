@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
-import { parseDate } from 'gooru-web/utils/utils';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 import LocationModel from 'gooru-web/models/learner/location';
 import PerformanceModel from 'gooru-web/models/learner/performance';
