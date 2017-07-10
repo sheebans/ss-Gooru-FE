@@ -3,5 +3,12 @@
     @include flexbox;
     @include flex-wrap(wrap);
     @include justify-content(center);
+    .new-cards.gru-collection-card {
+      .panel-heading {
+        .collection-info {
+          width: 58%;
+        }
+      }
+    }
   }
 }

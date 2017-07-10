@@ -187,6 +187,12 @@ export default Ember.Component.extend(ModalMixin,{
   isMyProfile: false,
 
   /**
+   * Indicates if the publish icon is visible
+   * @property {boolean}
+   */
+  publishVisible: false,
+
+  /**
    * Indicates if is the card is showing on profile
    * @property {boolean}
    */

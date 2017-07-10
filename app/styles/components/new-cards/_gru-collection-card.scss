@@ -37,6 +37,7 @@
             color:$blue-400;
             cursor: pointer;
             font-size: $font-title;
+            line-height: $font-size-h5;
             margin: 0;
           }
           $line-height: 1.3;
@@ -54,6 +55,17 @@
           color:$gray-dark;
           margin: 0 2px;
         }
+      }
+      .publish-icon {
+        display: inline-block;
+        float: right;
+        vertical-align: top;
+        margin-top: 2px;
+        background: url("gooru/badge-01.png");
+        -webkit-background-size: 17px 17px;
+        background-size: 17px 17px;
+        height: 17px;
+        width: 17px;
       }
     }
     .panel-body{

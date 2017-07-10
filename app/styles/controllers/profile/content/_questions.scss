@@ -7,6 +7,13 @@
     .card {
       margin: 0 12px;
       float: left;
+      .gru-resource-card {
+        .panel-heading {
+          .resource-info {
+            width: 70%;
+          }
+        }
+      }
     }
   }
 

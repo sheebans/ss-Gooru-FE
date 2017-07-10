@@ -27,5 +27,13 @@
     .cards {
       margin: 5px;
     }
+
+    .new-cards.gru-collection-card {
+      .panel-heading {
+        .collection-info {
+          width: 58%;
+        }
+      }
+    }
   }
 }

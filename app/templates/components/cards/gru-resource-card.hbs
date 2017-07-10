@@ -43,6 +43,11 @@
         </div>
         {{/if}}
       </div>
+      {{#if publishVisible}}
+        {{#if resource.isPublished}}
+          <div class="publish-icon" title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
+        {{/if}}
+      {{/if}}
     </div>
   </div>
   <div class="panel-body">
