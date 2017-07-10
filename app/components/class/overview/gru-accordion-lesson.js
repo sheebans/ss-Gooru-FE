@@ -441,38 +441,41 @@ export default Ember.Component.extend(AccordionMixin, {
           collection.set('isResource', isResource);
 
           const collectionPerformanceData = performance.findBy('id', collectionId);
-          const score = collectionPerformanceData.get('score');
-          const timeSpent = collectionPerformanceData.get('timeSpent');
-          const completionDone = collectionPerformanceData.get('completionDone');
-          const completionTotal = collectionPerformanceData.get('completionTotal');
+          if (collectionPerformanceData) {
+            const score = collectionPerformanceData.get('score');
+            const timeSpent = collectionPerformanceData.get('timeSpent');
+            const completionDone = collectionPerformanceData.get('completionDone');
+            const completionTotal = collectionPerformanceData.get('completionTotal');
 
-          const hasStarted = score > 0 || timeSpent > 0;
-          const isCompleted = completionDone > 0 && completionDone >= completionTotal;
-          const hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
+            const hasStarted = score > 0 || timeSpent > 0;
+            const isCompleted = completionDone > 0 && completionDone >= completionTotal;
+            const hasTrophy = (score && score > 0 && classMinScore && score >= classMinScore);
 
-          collectionPerformanceData.set('timeSpent', timeSpent);
-          collectionPerformanceData.set('hasTrophy', hasTrophy);
-          collectionPerformanceData.set('hasStarted', hasStarted);
-          collectionPerformanceData.set('isCompleted', isCompleted);
+            collectionPerformanceData.set('timeSpent', timeSpent);
+            collectionPerformanceData.set('hasTrophy', hasTrophy);
+            collectionPerformanceData.set('hasStarted', hasStarted);
+            collectionPerformanceData.set('isCompleted', isCompleted);
 
-          collection.set('performance', collectionPerformanceData);
+            collection.set('performance', collectionPerformanceData);
 
-          let showTrophy = collection.get('performance.hasTrophy') && component.get('isStudent')  && !collection.get('collectionSubType');
-          collection.set('showTrophy',showTrophy);
+            let showTrophy = collection.get('performance.hasTrophy') && component.get('isStudent')  && !collection.get('collectionSubType');
+            collection.set('showTrophy',showTrophy);
 
-          const attempts = collectionPerformanceData.get('attempts');
-          if(isAssessment) {
-            return component.get('assessmentService').readAssessment(collectionId)
-              .then(function (assessment) {
-                const attemptsSettings = assessment.get('attempts');
-                if (attemptsSettings) {
-                  const noMoreAttempts = attempts && attemptsSettings > 0 && attempts >= attemptsSettings;
-                  collectionPerformanceData.set('noMoreAttempts', noMoreAttempts);
-                  collectionPerformanceData.set('isDisabled', !assessment.get('classroom_play_enabled'));
-                }
-              });
-          } else {
-            return Ember.RSVP.resolve(true);
+            const attempts = collectionPerformanceData.get('attempts');
+
+            if(isAssessment) {
+              return component.get('assessmentService').readAssessment(collectionId)
+                .then(function (assessment) {
+                  const attemptsSettings = assessment.get('attempts');
+                  if (attemptsSettings) {
+                    const noMoreAttempts = attempts && attemptsSettings > 0 && attempts >= attemptsSettings;
+                    collectionPerformanceData.set('noMoreAttempts', noMoreAttempts);
+                    collectionPerformanceData.set('isDisabled', !assessment.get('classroom_play_enabled'));
+                  }
+                });
+            } else {
+              return Ember.RSVP.resolve(true);
+            }
           }
         });
         Ember.RSVP.all(promises).then(resolve, reject);
