@@ -84,6 +84,7 @@ test('Layout', function(assert) {
   assert.equal(T.text($collectionContentCount.find('.question-count')), '4 Questions', 'Wrong  question count text');
 
   assert.ok($collectionInfo.find('.left-info .score').length, 'Score info element is missing');
+  assert.ok($collectionInfo.find('.left-info button.remove-item').length, 'remove-item button is missing');
 });
 
 test('Layout - collection', function(assert) {

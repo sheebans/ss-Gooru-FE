@@ -40,6 +40,13 @@ export default Ember.Component.extend({
      */
     goLive: function (collectionId) {
       this.sendAction('onGoLive', collectionId);
+    },
+
+    /**
+     * @function removeClassActivity
+     */
+    removeClassActivity: function (classActivity) {
+      this.sendAction('onRemoveClassActivity', classActivity);
     }
   },
 

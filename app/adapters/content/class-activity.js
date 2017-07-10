@@ -13,7 +13,6 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v2/classes',
 
-
   /**
    * Adds a new content to class
    *
@@ -96,11 +95,31 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Removes a class activity from class
+   *
+   * @param classId class id to be sent
+   * @param contentId content id to be sent
+   * @returns {Promise}
+   */
+  removeClassActivity: function(classId, contentId) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${classId}/contents/${contentId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')
     };
   }
-
-
 });

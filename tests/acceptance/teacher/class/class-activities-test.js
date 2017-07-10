@@ -59,3 +59,25 @@ test('Go to my content from links panel', function(assert) {
     });
   });
 });
+
+test('Delete class activity', function (assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher/class-activities');
+
+  andThen(function () {
+    assert.equal(currentURL(), '/teacher/class/class-for-pochita-as-teacher/class-activities');
+
+    const $container = find('.teacher.class .controller.teacher.class.class-activities');
+
+    assert.equal($container.find('.collections .gru-class-activity-panel').length, 6, 'Should have 6 class activities');
+    var $collection = $container.find('.collections .gru-class-activity-panel:eq(0)');
+    click($collection.find('.panel-heading .info .left-info button.remove-item')); //remove class activity
+    andThen(function () {
+      var $removeClassActivityModal = find('.gru-modal .gru-remove-class-activity');
+      var $deleteButton = $removeClassActivityModal.find('button.delete');
+      click($deleteButton);
+      andThen(function () {
+        assert.equal($container.find('.collections .gru-class-activity-panel').length, 5, 'Should have 5 class activities');
+      });
+    });
+  });
+});

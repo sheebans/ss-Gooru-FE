@@ -21,6 +21,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   i18n: Ember.inject.service(),
 
+  /**
+   * @type {LearnerService} Service to retrieve learner information
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
+
+  /**
+   * @type {SessionService} Service to retrieve session information
+   */
+  session: Ember.inject.service('session'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -61,9 +71,21 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model: function(params) {
     const courseId = params.courseId;
+    const userId = this.get('session.userId');
     return Ember.RSVP.hash({
-      course: this.get('courseService').fetchById(courseId)
+      course: this.get('courseService').fetchById(courseId),
+      performance: this.get('learnerService').fetchCoursesPerformance(userId,
+        [courseId])
     });
+  },
+
+  /**
+   * Run after model is set
+   */
+  afterModel: function(user, transition) {
+    if(transition.targetName === `${this.routeName}.index`) {
+      this.transitionTo('student.independent.course-map');
+    }
   },
 
   /**
@@ -72,11 +94,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
+    controller.set('performance', model.performance[0]);
     controller.set('course', model.course);
     controller.set('units', model.course.get('children') || []);
-    if(!controller.get('menuItem')) {
-      controller.selectMenuItem('course-map');
-      this.transitionTo('student.independent.course-map');
-    }
   }
 });

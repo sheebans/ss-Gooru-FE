@@ -41,6 +41,11 @@ const LearnerPerformanceModel = Ember.Object.extend({
   scoreInPercentage: null,
 
   /**
+   * @property {Number} score - score in percentage
+   */
+  score:Ember.computed.alias('scoreInPercentage'),
+
+  /**
    * @property {Number} totalCount - total count
    */
   totalCount: null,

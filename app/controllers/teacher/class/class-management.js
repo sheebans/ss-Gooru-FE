@@ -29,13 +29,17 @@ export default Ember.Controller.extend(ModalMixin, {
      * Archive class
      **/
     archiveClass: function(){
-      let controller = this;
-      const classId = controller.get('class.id');
-      return controller.get('classService').archiveClass(classId).then( ()=>
-        controller.send('updateUserClasses')
-      ).then( () =>
-        controller.transitionToRoute('teacher-home')
-      );
+      const classId = this.get('class.id');
+      var model = {
+        content: this.get('class'),
+        archiveMethod: () =>
+          this.get('classService').archiveClass(classId)
+            .then( () => this.send('updateUserClasses'))
+            .then( () => this.transitionToRoute('teacher-home'))
+      };
+
+      this.actions.showModal.call(this, 'content.modals.gru-archive-class',
+        model, null, null, null, false);
     },
 
     /**

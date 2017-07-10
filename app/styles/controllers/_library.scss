@@ -1,4 +1,7 @@
 .application.library{
+  .gru-take-tour{
+    z-index: 1005;
+  }
   overflow: auto;
   > .ember-view,
   .gooru{

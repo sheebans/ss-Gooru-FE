@@ -179,10 +179,11 @@ export default Ember.Object.extend(ConfigurationMixin, {
   normalizeFetchLocationCourse: function(payload) {
     const serializer = this;
     const content = payload.content;
-    if (Ember.isArray(content)) {
+    if (Ember.isArray(content) && content.length) {
       const locationPayload = content[0];
       return serializer.normalizeLocationCourse(locationPayload);
     }
+    return '';
   },
 
   /**

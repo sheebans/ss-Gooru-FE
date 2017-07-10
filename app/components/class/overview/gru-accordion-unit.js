@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AccordionMixin from 'gooru-web/mixins/gru-accordion';
+import { CONTENT_TYPES} from 'gooru-web/config/config';
 // Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the units should not update the location
 var isUpdatingLocation = false;
@@ -45,6 +46,11 @@ export default Ember.Component.extend(AccordionMixin, {
   performanceService: Ember.inject.service('api-sdk/performance'),
 
   /**
+   * @requires service:api-sdk/learner
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
+
+  /**
    * @requires service:api-sdk/analytics
    */
   analyticsService: Ember.inject.service('api-sdk/analytics'),
@@ -52,9 +58,9 @@ export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-accordion-unit'],
+  classNames:['gru-accordion-unit'],
 
-  classNameBindings: ['isExpanded:expanded'],
+  classNameBindings:['isExpanded:expanded'],
 
   tagName: 'li',
 
@@ -77,12 +83,12 @@ export default Ember.Component.extend(AccordionMixin, {
      *
      * @function actions:selectUnit
      */
-    selectUnit: function (unitId) {
+    selectUnit: function(unitId) {
       const courseId = this.get('currentClass.courseId') || this.get('currentCourse.id');
       if (!isUpdatingLocation) {
         let newLocation = this.get('isExpanded') ? '' : unitId;
         this.get('onLocationUpdate')(newLocation);
-      } else if (!this.get('isExpanded')) {
+      } else if(!this.get('isExpanded')) {
         this.loadData(courseId, unitId);
       }
     },
@@ -106,7 +112,7 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     studyNow: function (type, lesson, item) {
       let unitId = this.get('model.id');
-      this.get('onStudyNow')(type, unitId, lesson, item);
+      this.get('onStudyNow')(type,unitId, lesson, item);
     },
 
     /**
@@ -121,8 +127,8 @@ export default Ember.Component.extend(AccordionMixin, {
     /**
      * Trigger action to update content visibility list
      */
-    updateContentVisibility: function (contentId, visible) {
-      this.sendAction('onUpdateContentVisibility', contentId, visible);
+    updateContentVisibility:function(contentId, visible){
+      this.sendAction('onUpdateContentVisibility',contentId, visible);
     }
   },
 
@@ -131,12 +137,12 @@ export default Ember.Component.extend(AccordionMixin, {
   setupComponent: Ember.on('didInsertElement', function () {
     const component = this;
 
-    this.$().on('hide.bs.collapse', function (e) {
+    this.$().on('hide.bs.collapse', function(e) {
       e.stopPropagation();
       component.set('isExpanded', false);
     });
 
-    this.$().on('show.bs.collapse', function (e) {
+    this.$().on('show.bs.collapse', function(e) {
       e.stopPropagation();
       component.set('isExpanded', true);
     });
@@ -144,7 +150,7 @@ export default Ember.Component.extend(AccordionMixin, {
     Ember.run.scheduleOnce('afterRender', this, this.parsedLocationChanged);
   }),
 
-  removeSubscriptions: Ember.on('willDestroyElement', function () {
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
     this.$().off('hide.bs.collapse');
     this.$().off('show.bs.collapse');
   }),
@@ -202,7 +208,7 @@ export default Ember.Component.extend(AccordionMixin, {
    * corresponding users information (coming from a separate service) to each
    * one of the items so they are resolved in one single loop in the template.
    */
-  addUsersToItems: Ember.observer('items', 'usersLocation', function () {
+  addUsersToItems: Ember.observer('items', 'usersLocation', function() {
     if (this.get('items.length')) {
       let component = this;
       let visibleItems = this.get('items');
@@ -246,11 +252,11 @@ export default Ember.Component.extend(AccordionMixin, {
    * @function actions:loadData
    * @returns {undefined}
    */
-  loadData: function () {
+  loadData: function() {
     // Load the lessons and users in the course when the component is instantiated
     let component = this;
     component.set('loading', true);
-    component.getLessons().then(function (lessons) {
+    component.getLessons().then(function(lessons) {
       if (!component.isDestroyed) {
         component.set('items', lessons);
         component.set('loading', false);
@@ -265,7 +271,7 @@ export default Ember.Component.extend(AccordionMixin, {
    * @requires api-sdk/lesson#findByClassAndCourseAndUnit
    * @returns {Lesson[]}
    */
-  getLessons: function () {
+  getLessons: function() {
     const component = this;
     const userId = component.get('session.userId');
     const classId = component.get('currentClass.id');
@@ -287,22 +293,31 @@ export default Ember.Component.extend(AccordionMixin, {
       .then(({ unit, peers }) => {
         lessons = unit.get('children');
         unitPeers = peers;
-
-        let performancePromise = Ember.RSVP.resolve();
-        if(classId) {
-          performancePromise = isTeacher ?
-            component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
-            component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
-        }
-        return performancePromise;
+        return new Ember.RSVP.Promise(function(resolve, reject) {
+          let performancePromise = Ember.RSVP.resolve();
+          if(classId) {
+            performancePromise = isTeacher ?
+              component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
+              component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+            Ember.RSVP.resolve(performancePromise).then(resolve, reject);
+          } else {
+            Ember.RSVP.hash({
+              assessmentPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.ASSESSMENT),
+              collectionPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.COLLECTION)
+            }).then(({assessmentPerformance, collectionPerformance}) => {
+              performancePromise = assessmentPerformance.concat(collectionPerformance);
+              Ember.RSVP.resolve(performancePromise).then(resolve, reject);
+            });
+          }
+        });
       })
       .then(performance => {
-        lessons.forEach(function (lesson) {
+        lessons.forEach(function(lesson) {
           const peer = unitPeers.findBy('id', lesson.get('id'));
           if (peer) {
             lesson.set('membersCount', peer.get('peerCount'));
           }
-          if (performance) {
+          if(performance) {
             if (isTeacher) {
               const averageScore = performance.calculateAverageScoreByItem(lesson.get('id'));
               lesson.set('performance', Ember.Object.create({
@@ -310,13 +325,34 @@ export default Ember.Component.extend(AccordionMixin, {
                 hasStarted: averageScore > 0
               }));
             } else {
-              const lessonPerformance = performance.findBy('id', lesson.get('id'));
+              let lessonPerformance;
+              if (classId) {
+                lessonPerformance = performance.findBy('id', lesson.get('id'));
+              } else {
+                lessonPerformance = performance.findBy('lessonId', lesson.get('id'));
+
+                if(lessonPerformance){
+                  const score = lessonPerformance.get('scoreInPercentage');
+                  const timeSpent = lessonPerformance.get('timeSpent');
+                  const completionDone = lessonPerformance.get('completedCount');
+                  const completionTotal = lessonPerformance.get('totalCount');
+                  const hasStarted = score > 0 || timeSpent > 0;
+                  const isCompleted = completionDone > 0 && completionDone >= completionTotal;
+                  lessonPerformance.set('hasStarted', hasStarted);
+                  lessonPerformance.set('isCompleted', isCompleted);
+                  lessonPerformance.set('completionDone', completionDone);
+                  lessonPerformance.set('completionTotal', completionTotal);
+                }
+              }
               lesson.set('performance', lessonPerformance);
             }
-            lesson.set('performance.completionTotal', contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get('id')));
+            if(classId) {
+              lesson.set('performance.completionTotal',contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, lesson.get('id')));
+            }
           }
         });
         return lessons;
       });
   }
+
 });

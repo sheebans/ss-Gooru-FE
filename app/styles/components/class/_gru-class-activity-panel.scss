@@ -145,9 +145,6 @@
           width: 146px;
           display: inline-block;
         }
-        @media (min-width: $screen-lg) {
-          width: 172px;
-        }
         .score {
           padding: 0;
           font-size: $font-size-lead;
@@ -162,6 +159,14 @@
           @media (min-width: $screen-lg) {
             padding: 10px 20px 10px 10px;
             width: 80px;
+          }
+        }
+        button.no-bgd {
+          background-color: transparent;
+          font-size: $font-size-h5;
+          padding: 0;
+          i {
+            color: $gray;
           }
         }
       }

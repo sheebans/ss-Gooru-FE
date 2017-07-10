@@ -1,6 +1,7 @@
 {
   "class_contents":[
     {
+      "id":"collection-1",
       "content_id":"all-resource-types-collection-id",
       "content_type":"collection",
       "ctx_course_id":"course-1",
@@ -14,6 +15,7 @@
       "oe_question_count":1
     },
     {
+      "id":"assessment-1",
       "content_id":"all-question-types-assessment-id",
       "content_type":"assessment",
       "ctx_course_id":"course-1",
@@ -27,6 +29,7 @@
       "oe_question_count":1
     },
     {
+      "id":"assessment-2",
       "content_id":"123456",
       "content_type":"assessment",
       "ctx_course_id":"course-1",

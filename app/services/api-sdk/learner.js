@@ -67,7 +67,7 @@ export default Ember.Service.extend({
    * @param courseId - course to fetch the learner performance
    * @param unitId - unit to fetch the learner performance
    * @param lessonId - lesson to fetch the learner performance
-   *  @param collectionType
+   * @param collectionType
    * @returns {Promise}
    */
   fetchPerformanceLesson: function(courseId, unitId, lessonId, collectionType) {
@@ -85,11 +85,12 @@ export default Ember.Service.extend({
    *
    * @param courseId - course to fetch the learner performance
    * @param unitId - unit to fetch the learner performance
+   * @param collectionType
    */
-  fetchPerformanceUnit: function(courseId, unitId) {
+  fetchPerformanceUnit: function(courseId, unitId, collectionType) {
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('learnerAdapter').fetchPerformanceUnit(courseId, unitId)
+      service.get('learnerAdapter').fetchPerformanceUnit(courseId, unitId, collectionType)
         .then(
           response => resolve(service.get('learnerSerializer').normalizePerformancesUnit(response)),
           reject

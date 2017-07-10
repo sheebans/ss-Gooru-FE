@@ -232,3 +232,25 @@ test('findStudentActivitiesPerformanceSummary', function(assert) {
       done();
     });
 });
+
+test('removeClassActivity', function(assert) {
+  const expectedClassId = 'class-id';
+  const expectedContentId = 'content-id';
+  const service = this.subject();
+
+  assert.expect(2);
+
+  service.set('classActivityAdapter', Ember.Object.create({
+    removeClassActivity: function(classId,contentId) {
+      assert.equal(classId, expectedClassId, 'Wrong class id');
+      assert.equal(contentId, expectedContentId, 'Wrong content id');
+      return Ember.RSVP.resolve();
+    }
+  }));
+
+  var done = assert.async();
+  service.removeClassActivity('class-id','content-id')
+    .then(function() {
+      done();
+    });
+});

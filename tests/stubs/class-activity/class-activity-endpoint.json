@@ -32,5 +32,21 @@
         "Content-Type": "text/plain"
       }
     }
+  },
+  {
+    "description": "remove class activity",
+    "request": {
+      "url": "/api/nucleus/v2/classes/(.+)/contents/(.+)",
+      "method": "DELETE",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
   }
 ]

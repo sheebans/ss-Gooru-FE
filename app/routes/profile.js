@@ -11,6 +11,10 @@ export default Ember.Route.extend({
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
+  /**
+   * @dependency {i18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -24,6 +28,30 @@ export default Ember.Route.extend({
    */
   model: function(params) {
     let route = this;
+
+    //Steps for Take a Tour functionality
+    const tourSteps = Ember.A([
+      {
+        title: route.get('i18n').t('gru-take-tour.profile.stepOne.title'),
+        description: route.get('i18n').t('gru-take-tour.profile.stepOne.description')
+      },
+      {
+        elementSelector: '.navigation .profile-menu .content',
+        title: route.get('i18n').t('gru-take-tour.profile.stepTwo.title'),
+        description: route.get('i18n').t('gru-take-tour.profile.stepTwo.description')
+      },
+      {
+        elementSelector: '.navigation .profile-menu .about',
+        title: route.get('i18n').t('gru-take-tour.profile.stepThree.title'),
+        description: route.get('i18n').t('gru-take-tour.profile.stepThree.description')
+      },
+      {
+        elementSelector: '.navigation .profile-menu .network',
+        title: route.get('i18n').t('gru-take-tour.profile.stepFive.title'),
+        description: route.get('i18n').t('gru-take-tour.profile.stepFive.description')
+      }
+      ]);
+
     let userId = params.userId;
     if (userId) {
       let isUsername = !/-.*-/.exec(userId);
@@ -36,13 +64,15 @@ export default Ember.Route.extend({
           var editProfile = EditProfileValidation.create(Ember.getOwner(route).ownerInjection());
           editProfile.merge(profile, profile.modelProperties());
           return Ember.RSVP.hash({
-            profile: editProfile
+            profile: editProfile,
+            tourSteps: tourSteps
           });
         });
     }
 
     return Ember.RSVP.hash({
-      profile: null
+      profile: null,
+      tourSteps: tourSteps
     });
   },
 
@@ -61,6 +91,7 @@ export default Ember.Route.extend({
    */
   setupController: function(controller, model) {
     controller.set('profile', model.profile);
+    controller.set('steps', model.tourSteps);
   },
 
   // -------------------------------------------------------------------------

@@ -57,12 +57,16 @@ export default Ember.Object.extend({
    *
    * @param {string} courseId
    * @param {string} unitId
+   * @param {string} collectionType - type of collection to retrieve
    * @returns {Promise}
    */
-  fetchPerformanceUnit: function(courseId, unitId) {
+  fetchPerformanceUnit: function(courseId, unitId, collectionType) {
     const adapter = this;
 
-    const url = `${adapter.get('namespace')}/course/${courseId}/unit/${unitId}/learner/performance`;
+    const queryParams = (collectionType) ?
+      `collectionType=${collectionType}` : '';
+
+    const url = `${adapter.get('namespace')}/course/${courseId}/unit/${unitId}/learner/performance?${queryParams}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
