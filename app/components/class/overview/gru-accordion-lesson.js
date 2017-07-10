@@ -357,9 +357,9 @@ export default Ember.Component.extend(AccordionMixin, {
 
       let loadDataPromise = Ember.RSVP.resolve();
       if(classId) {
-        loadDataPromise = isTeacher ?
-          component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) :
-          component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections);
+          isTeacher ? component.loadTeacherData(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections).then(function(){
+            loadDataPromise =  component.loadCollectionData(classId, courseId, unitId, lessonId, classMembers,collections);
+          }) : loadDataPromise = component.loadStudentData(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections);
       }
       return loadDataPromise;
     })
@@ -371,33 +371,33 @@ export default Ember.Component.extend(AccordionMixin, {
       }
     });
   },
-
   loadTeacherData: function(classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) {
     const component = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-        Ember.RSVP.hash({
-          performanceAssessment: component.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers,{collectionType : CONTENT_TYPES.ASSESSMENT}),
-          performanceCollection: component.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers,{collectionType : CONTENT_TYPES.COLLECTION})
-        }).then(({performanceAssessment,performanceCollection}) => {
+      component.get('performanceService')
+        .findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers)
+        .then(function(performance) {
+
           const promises = collections.map(function(collection) {
             const isAssessment = collection.get('format') === 'assessment';
             const collectionId = collection.get('id');
             const peer = lessonPeers.findBy('id', collectionId);
-            const assessmentDataPromise = isAssessment ? component.get('assessmentService').readAssessment(collectionId):
-              Ember.RSVP.resolve({});
+            const assessmentDataPromise = isAssessment ?
+              component.get('assessmentService').readAssessment(collectionId):
+              Ember.RSVP.resolve(true);
 
             return assessmentDataPromise.then(function(assessmentData){
-              const averageScore = performanceAssessment.calculateAverageScoreByItem(collectionId);
-              const timeSpent = isAssessment ? performanceAssessment.calculateAverageTimeSpentByItem(collectionId) : performanceCollection.calculateAverageTimeSpentByItem(collectionId);
-              const completionDone = performanceAssessment.calculateSumCompletionDoneByItem(collectionId);
-              const completionTotal = performanceAssessment.calculateSumCompletionTotalByItem(collectionId);
+              const averageScore = performance.calculateAverageScoreByItem(collectionId);
+              const timeSpent = performance.calculateAverageTimeSpentByItem(collectionId);
+              const completionDone = performance.calculateSumCompletionDoneByItem(collectionId);
+              const completionTotal = performance.calculateSumCompletionTotalByItem(collectionId);
               collection.set('performance', Ember.Object.create({
                 score: averageScore,
-                timeSpent:timeSpent,
                 hasStarted: averageScore > 0 || timeSpent > 0,
                 isDisabled: isAssessment ? !assessmentData.get('classroom_play_enabled') : undefined,
                 isCompleted: completionDone > 0 && completionDone >= completionTotal
               }));
+
               if (peer) {
                 return component.get('profileService').readMultipleProfiles(peer.get('peerIds'))
                   .then(function(profiles) {
@@ -410,6 +410,26 @@ export default Ember.Component.extend(AccordionMixin, {
         });
     });
   },
+
+  loadCollectionData: function(classId, courseId, unitId, lessonId,classMembers,collections) {
+    const component = this;
+    return new Ember.RSVP.Promise(function() {
+      component.get('performanceService')
+        .findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, classMembers,{collectionType : CONTENT_TYPES.COLLECTION})
+        .then(function(performance) {
+          collections.map(function(collection) {
+            const isCollection = collection.get('format') === 'collection';
+              const timeSpent = performance.calculateAverageTimeSpentByItem(collection.get('id'));
+            if(isCollection){
+              collection.set('performance.timeSpent', timeSpent);
+              collection.set('performance.hasStarted', timeSpent > 0);
+            }
+          });
+          Ember.RSVP.resolve(true);
+        });
+    });
+  },
+
 
   loadStudentData: function(userId, classId, courseId, unitId, lessonId, classMembers, lessonPeers, collections) {
     const component = this;
