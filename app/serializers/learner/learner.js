@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
-import { parseDate } from 'gooru-web/utils/utils';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 import LocationModel from 'gooru-web/models/learner/location';
 import PerformanceModel from 'gooru-web/models/learner/performance';
@@ -38,6 +37,12 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   normalizeLocation: function(payload) {
     var serializer = this;
+    var date;
+    if(payload.lastAccessed) {
+      date = new Date(payload.lastAccessed);
+      var offset = new Date().getTimezoneOffset();
+      date.setMinutes(date.getMinutes() - offset);
+    }
     return LocationModel.create(Ember.getOwner(serializer).ownerInjection(), {
       collectionId: payload.courseId ? null : payload.collectionId,
       courseId: payload.courseId,
@@ -45,7 +50,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       unitId: payload.unitId,
       type: payload.courseId ? CONTENT_TYPES.COURSE : payload.collectionType,
       title: payload.courseId ? payload.courseTitle : payload.collectionTitle,
-      lastAccessed: payload.lastAccessed ? parseDate(payload.lastAccessed, 'YYYY-MM-DD HH:mm') : null,
+      lastAccessed: payload.lastAccessed ? date : null,
       status: payload.status,
       currentId: payload.courseId ? payload.collectionId : null,
       currentTitle: payload.courseId ? payload.collectionTitle : null,
