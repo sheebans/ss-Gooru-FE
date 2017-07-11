@@ -14,7 +14,7 @@
     i{
       @include transition(all 0.7s ease);
       color: $white;
-      font-size: 25px;
+      font-size: $font-size-tour-icon;
       height: 16px;
       width: 25px;
     }

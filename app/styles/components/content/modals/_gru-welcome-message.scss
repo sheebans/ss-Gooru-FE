@@ -28,8 +28,8 @@
         margin: 0 2px 0 0;
       }
       i {
-        float: left;
-        font-size: 25px;
+        font-size: $font-size-tour-icon;
+        vertical-align: bottom;
       }
     }
     .last-text{

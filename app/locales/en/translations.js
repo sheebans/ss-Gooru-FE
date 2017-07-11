@@ -1103,6 +1103,8 @@ export default Object.assign(quizzesTranslations, {
   },
   "gru-welcome-message": {
     "title": "Welcome to Gooru’s Learning Navigator!",
+    "text-temporary-one": "As you move throughout the Learning Navigator, we are happy to support your journey. Look for the Take a Tour icon ",
+    "text-temporary-two": " for guided tours on how to use our features.",
     "text-one": "As you move throughout the Learning Navigator, we are happy to support your journey in the following ways:",
     "text-two": {
       "subtitle": "Take a Tour",
