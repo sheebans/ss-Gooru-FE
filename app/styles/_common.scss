@@ -119,25 +119,25 @@ span.validation.warning {
 .text-white {
   color: $white;
 }
-.bg-gray{
+.bg-gray {
   background-color: $gray
 }
-.bg-gray-light{
+.bg-gray-light {
   background-color: $gray-light;
 }
-.bg-gray-light-2{
+.bg-gray-light-2 {
   background-color: $gray-lighter;
 }
 .bg-blue {
   background-color: $brand-primary;
 }
-.bg-white{
+.bg-white {
   background-color: $white;
 }
-.text-blue{
+.text-blue {
   color:$brand-primary;
 }
-.italic{
+.italic {
   font-style: italic;
 }
 
@@ -273,7 +273,7 @@ span.validation.warning {
     width: 100%;
     margin-left: 20px;
   }
-  li{
+  li {
     display: inline-block;
     margin: 0 10px;
     height:100%;
@@ -362,12 +362,12 @@ span.validation.warning {
       }
     }
     &.rubrics {
-      a{
+      a {
         padding: 2px 0 0 0;
         line-height: 20px;
 
       }
-      i{
+      i {
         background: url("gooru/images/add_rubric_white.svg") no-repeat;
         background-size: 22px 19px;
         min-height: 19px;
