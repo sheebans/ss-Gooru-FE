@@ -7,13 +7,13 @@
   z-index: 10;
   button {
     @include transition(all 0.7s ease);
-    background-color: $light-100;
+    background-color: $green-400;
     height: 28px;
     padding: 0;
     width: 32px;
     i{
       @include transition(all 0.7s ease);
-      color: $gray-icon;
+      color: $white;
       font-size: 25px;
       height: 16px;
       width: 25px;
@@ -26,8 +26,9 @@
       top: 0;
       width: 72px;
       p{
-        color: $gray-icon;
+        color: $white;
         margin: 2px 0 0;
+        font-weight: bold;
       }
     }
 
