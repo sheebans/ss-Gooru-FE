@@ -183,13 +183,13 @@
       .resources {
         @include flexbox;
         @include flex-direction(column);
-        @include justify-content(space-between);
+        @include justify-content(center);
+        @include align-items(center);
         width: 100%;
         margin: 0 0 0 5px;
         font-size: $font-size-small;
         @media (min-width: $screen-sm) {
           border-right: 1px solid $light-300;
-          margin: 0 0 0 15px;
           width: 35%;
         }
         @media (min-width: $screen-lg) {
@@ -244,8 +244,7 @@
         .btn-back {
           color: $white;
           border-radius: 5px;
-          border: 1px solid $white;
-          background-color: transparent;
+          background-color: $gray-icon;
           width: 118px;
           height: 36px;
           padding: 5px;
