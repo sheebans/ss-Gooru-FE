@@ -1660,7 +1660,7 @@ export default Object.assign(quizzesTranslations, {
     "text": "Take a Tour",
     "teacher-home":{
       "stepOne":{
-        "title": "Take Tour",
+        "title": "Take a Tour",
         "description": "Welcome to Take a Tour and your homepage! Now let’s get started!"
       },
       "stepTwo":{

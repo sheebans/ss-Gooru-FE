@@ -73,9 +73,9 @@
               max-width: 215px;
             }
           }
-        }
-        .course-title.introjs-showElement{
-          color:$dark-400;
+          &.introjs-showElement{
+            color:$dark-400;
+          }
         }
         .breadcrumbs {
           display: block;
