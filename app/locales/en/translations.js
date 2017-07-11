@@ -1660,66 +1660,90 @@ export default Object.assign(quizzesTranslations, {
     "text": "Take a Tour",
     "teacher-home":{
       "stepOne":{
-        "title": "Your Homepage",
-        "description": "Welcome to your Gooru homepage! Here you can find a list of the classrooms you create in Gooru. Classrooms allow you to share content directly with students. You can always come back to your homepage by clicking on the Gooru icon."
+        "title": "Take Tour",
+        "description": "Welcome to Take a Tour and your homepage! Now let’s get started!"
       },
       "stepTwo":{
-        "title": "Classes You Teach or Join",
-        "description": 'Any classrooms you teach or join this school year will appear here under Active Classrooms.'
+        "title": "Gooru Logo",
+        "description": 'Clicking on the Gooru logo at any time during your session returns you to your homepage.'
       },
       "stepThree":{
-        "title": "Create a Classroom",
-        "description": "Click here to create a new classroom. Once you have content to share with students, you will assign it to them via a classroom."
+        "title": "Search Bar",
+        "description": 'Search our content catalog for topics that interest to you.'
       },
       "stepFour":{
+        "title": "Library",
+        "description": 'Browse our featured courses.'
+      },
+      "stepFive":{
         "title": "Your Profile",
-        "description": "This is your Profile. Click on your profile at any time to access content you create or remix in Gooru."
+        "description": "Access and update your content, user profile, and settings."
+      },
+      "stepSix":{
+        "title": "Support",
+        "description": "Access the support center or logout."
+      },
+      "stepSeven":{
+        "title": "Classrooms",
+        "description": "View a list of classes you are currently teaching."
+      },
+      "stepEight":{
+        "title": "Archived Classes",
+        "description": "View a list of classes you taught in the past."
+      },
+      "stepNine":{
+        "title": "Create Classroom",
+        "description": "Click the button to create a new classroom for your course, collection, or assessment."
       }
     },
     "student-home":{
       "stepOne":{
-        "title": "Take a Tour Icon",
-        "description": "Welcome to Take a Tour! This is your personal home page. Remember you can always get back to your page by clicking on the Gooru logo. Now let’s get started!"
+        "title": "Take a Tour",
+        "description": "Welcome to Take a Tour and your Gooru homepage! Now let’s get started!"
       },
       "stepTwo":{
-        "title": "Announcements",
-        "description": 'Here you will see announcements that your teacher or school would like you to know about.'
+        "title": "Gooru Logo",
+        "description": 'Clicking on the Gooru logo at any time during your session returns you to your homepage.'
       },
-      "stepFour":{
-        "title": "Classrooms",
-        "description": "See all of the classes in which you are enrolled."
-      },
-      "stepFive":{
-        "title": "Join Classroom",
-        "description": 'To join a new classroom, enter the class code and it will be displayed under “My Classes.”'
-      },
-      "stepSix":{
-        "title": "Independent Learning",
-        "description": 'Explore and bookmark topics that interest you and that you want learn more about.'
-      },
-      "stepSeven":{
+      "stepThree":{
         "title": "Search Bar",
         "description": 'Search our content catalog for topics that interest to you.'
       },
-      "stepEight":{
-        "title": "Your Homepage",
-        "description": 'Return to your home page.'
-      },
-      "stepNine":{
+      "stepFour":{
         "title": "Library",
         "description": 'Browse our featured courses.'
       },
-      "stepTen":{
+      "stepFive":{
         "title": "Performance",
         "description": 'See a summary of your performance in the courses you are enrolled in.'
       },
-      "stepThirteen":{
-        "title": "User Name",
-        "description": 'Access and update your user profile.'
+      "stepSix":{
+        "title": "Your Profile",
+        "description": 'Access and update your user profile and settings.'
       },
-      "stepFourteen":{
+      "stepSeven":{
+        "title": "Support",
+        "description": 'Access the support center or logout.'
+      },
+      "stepEight":{
+        "title": "Announcements",
+        "description": 'Here you will see announcements that your teacher or school would like you to know about.'
+      },
+      "stepNine":{
+        "title": "Classrooms",
+        "description": "See all of the classes in which you are enrolled."
+      },
+      "stepTen":{
+        "title": "Independent Learning",
+        "description": 'Explore and bookmark topics that interest you and that you want learn more about. To start exploring click, on the plus sign to search for a topic or view featured courses.'
+      },
+      "stepEleven":{
+        "title": "Join Classroom",
+        "description": 'To join a new classroom, enter the class code and it will be displayed under “My Classes.”'
+      },
+      "stepTwelve":{
         "title": "Finished!",
-        "description": 'Now go ahead and click on a course you have enrolled in, join a classroom, or search for content that is of interest to you. '
+        "description": 'Now go ahead and click on a course you have enrolled in, join a classroom, or search for content that is of interest to you.'
       }
     },
     "student-performance":{
@@ -1747,7 +1771,7 @@ export default Object.assign(quizzesTranslations, {
     "student-class":{
       "stepOne":{
         "title": "Welcome!",
-        "description": "Welcome to your Course Page. Here you will find your daily activities, course map, and performance data. Let’s get started!"
+        "description": "Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let’s get started!"
       },
       "stepTwo":{
         "title": "Daily Class Activities",
@@ -1769,15 +1793,15 @@ export default Object.assign(quizzesTranslations, {
     "study-player":{
       "stepOne": {
         "title": "Welcome!",
-        "description": "This is your Study Player. Let’s walk through the features available to you."
+        "description": "This is your study player. Let’s walk through the features available to you."
       },
       "stepTwo": {
-        "title": "Unit/Course/Lesson Header",
-        "description": "Indicates where the collection or assessment are located in your course."
+        "title": "Unit, Course and Lesson",
+        "description": "This indicates where the collection or assessment is located in your course."
       },
       "stepThree": {
-        "title": "Performance/Completion",
-        "description": "Indicates how you are performing and how much of the course you have completed."
+        "title": "Performance",
+        "description": "This indicates how you are performing and how much of the course you have completed."
       },
       "stepFour": {
         "title": "React to Resource",
