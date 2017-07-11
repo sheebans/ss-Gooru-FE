@@ -56,13 +56,13 @@ export default Ember.Component.extend({
           let html = katex.renderToString(latex);
           source.text(latex);
           component.get('editingExpression').find('.katex').replaceWith(html);
-          var editorElement = component.$(editorClass);
-          component.set('content', editorElement.html());
-          component.makeExpressionsReadOnly();
-          component.setCursor();
-          this.cancelExpression();
-          this.toggleProperty('showExpressionsPanel');
         }
+        var editorElement = component.$(editorClass);
+        component.set('content', editorElement.html());
+        component.makeExpressionsReadOnly();
+        component.setCursor();
+        this.cancelExpression();
+        this.toggleProperty('showExpressionsPanel');
       }
     }
   },
@@ -136,11 +136,11 @@ export default Ember.Component.extend({
     });
 
     // Go to edit mode of existing expression
-    component.$().on('click', mathExp, function(e) {
+    component.$().on('click', '.gru-math-expression', function(e) {
       e.preventDefault();
-      var sourceLatex = $(mathExp).find('.source').text();
+      var sourceLatex = $(this).find('.source').text();
       if (sourceLatex && sourceLatex !== "") {
-        component.set('editingExpression', $(mathExp).closest(mathExp));
+        component.set('editingExpression', $(this).closest(mathExp));
         component.set('showExpressionsPanel', true);
         Ember.run.later(function() {
           component.get('mathField').latex(sourceLatex).reflow().focus();
