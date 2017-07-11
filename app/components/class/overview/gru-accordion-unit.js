@@ -289,29 +289,27 @@ export default Ember.Component.extend(AccordionMixin, {
     return Ember.RSVP.hash({
       unit: component.get('unitService').fetchById(courseId, unitId),
       peers: peersPromise
-    })
-    .then(({ unit, peers }) => {
-        lessons = unit.get('children');
-        unitPeers = peers;
-        return new Ember.RSVP.Promise(function(resolve, reject) {
-          let performancePromise = Ember.RSVP.resolve();
-          if(classId) {
-            performancePromise = isTeacher ?
-              component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
-              component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+    }).then(({ unit, peers }) => {
+      lessons = unit.get('children');
+      unitPeers = peers;
+      return new Ember.RSVP.Promise(function(resolve, reject) {
+        let performancePromise = Ember.RSVP.resolve();
+        if(classId) {
+          performancePromise = isTeacher ?
+            component.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, classMembers) :
+            component.get('performanceService').findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons);
+          Ember.RSVP.resolve(performancePromise).then(resolve, reject);
+        } else {
+          Ember.RSVP.hash({
+            assessmentPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.ASSESSMENT),
+            collectionPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.COLLECTION)
+          }).then(({assessmentPerformance, collectionPerformance}) => {
+            performancePromise = assessmentPerformance.concat(collectionPerformance);
             Ember.RSVP.resolve(performancePromise).then(resolve, reject);
-          } else {
-            Ember.RSVP.hash({
-              assessmentPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.ASSESSMENT),
-              collectionPerformance: component.get('learnerService').fetchPerformanceUnit(courseId,unitId,CONTENT_TYPES.COLLECTION)
-            }).then(({assessmentPerformance, collectionPerformance}) => {
-              performancePromise = assessmentPerformance.concat(collectionPerformance);
-              Ember.RSVP.resolve(performancePromise).then(resolve, reject);
-            });
-          }
-        });
-    })
-    .then(performance => {
+          });
+        }
+      });
+    }).then(performance => {
       lessons.forEach(function(lesson) {
         const peer = unitPeers.findBy('id', lesson.get('id'));
         if (peer) {
@@ -354,5 +352,4 @@ export default Ember.Component.extend(AccordionMixin, {
       return lessons;
     });
   }
-
 });
