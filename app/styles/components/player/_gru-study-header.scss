@@ -73,6 +73,9 @@
               max-width: 215px;
             }
           }
+          &.introjs-showElement{
+            color:$dark-400;
+          }
         }
         .breadcrumbs {
           display: block;

@@ -139,7 +139,7 @@ test('Take A Tour', function(assert){
       $tooltip = $("div.introjs-tooltip");
 
       T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
-      assert.equal(T.text($tooltip.find('.tour-header h2')), 'Take a Tour Icon', 'First step title should be "Take a Tour Icon"');
+      assert.equal(T.text($tooltip.find('.tour-header h2')), 'Take a Tour', 'First step title should be "Take a Tour"');
     });
   });
 });
