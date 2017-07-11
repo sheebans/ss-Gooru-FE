@@ -129,6 +129,12 @@ export default Ember.Component.extend(ModalMixin,{
   onRemixQuestion: null,
 
   /**
+   * Indicates if the publish icon is visible
+   * @property {boolean}
+   */
+  publishVisible: false,
+
+  /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   tags: Ember.computed('resource.standards.[]', function() {

@@ -2,7 +2,9 @@
     <div class="resources clearfix">
       {{#each resources as |resource|}}
           <div class="card">
-            {{cards.gru-resource-card resource=resource
+            {{cards.gru-resource-card
+              resource=resource
+              publishVisible=true
               editEnabled=(eq resource.owner.id currentUserId)
               onEditResource="editResource"
               onPlayResource="playResource"}}

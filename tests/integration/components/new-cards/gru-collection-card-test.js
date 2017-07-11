@@ -664,3 +664,46 @@ test('Bookmark content from card', function(assert) {
   assert.ok($btn.length, 'Bookmark button should appear');
   $btn.click();
 });
+
+test('Collection Card Published', function(assert) {
+
+  var collection = Ember.Object.create({
+    id:'123',
+    title: 'Collection Title',
+    questionCount:4,
+    isAssessment:false,
+    standards:Ember.A([Ember.Object.create({
+      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code:'CCSS.Math.Content.7.RP.A.3'
+    }),Ember.Object.create({
+      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code:'CCSS.Math.Content.5.NBT.A.2'
+    })]),
+    owner: Ember.Object.create({
+      id: 'owner-id',
+      username: 'dara.weiner',
+      avatarUrl: 'avatar-url'
+    }),
+    course: 'Any course title',
+    remixedBy:['James','Andrea','Patric'],
+    isVisibleOnProfile: true,
+    isPublished: true
+  });
+
+  this.set('collection', collection);
+
+  var profile =  Ember.Object.create({
+    role:'teacher'
+  });
+
+  this.set('profile',profile);
+
+  this.set('isMyProfile', true);
+  this.set('isOnProfile', true);
+
+  this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection publishVisible=true}}`);
+
+  const $component = this.$();
+  const $collectionCard = $component.find('.gru-collection-card');
+  assert.ok(assert, $collectionCard.find(".panel-heading .publish-icon").length, "Missing publish icon");
+});

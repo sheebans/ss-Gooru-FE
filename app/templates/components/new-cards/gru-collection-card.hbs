@@ -40,6 +40,11 @@
         {{/if}}
       </span>
     </div>
+    {{#if publishVisible}}
+      {{#if content.isPublished}}
+        <div class="publish-icon" title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
+      {{/if}}
+    {{/if}}
   </div>
   <div class="panel-body">
     <div class="standards">
