@@ -43,6 +43,7 @@ test('Layout course', function(assert) {
   T.exists(assert, $card, 'Missing course card section');
   T.exists(assert, $panel, 'Missing course card panel');
   T.exists(assert, $panelHeading, 'Missing course card panel heading');
+  T.notExists(assert, $panelHeading.find('.check'), 'Check should not appear when the course is incompleted');
   T.exists(assert, $panelBody, 'Missing course card panel body');
   assert.equal(T.text($panelHeading.find('h5')), 'course-title', 'Wrong course title text');
 
@@ -77,7 +78,14 @@ test('Layout course completed', function(assert) {
     status:'complete'
   }));
 
-  this.render(hbs`{{cards/gru-independent-card location=location}}`);
+  this.set('performance', Performance.create(Ember.getOwner(this).ownerInjection(), {
+    completedCount: 10,
+    totalCount: 10,
+    scoreInPercentage: 90,
+    timeSpent: 4000
+  }));
+
+  this.render(hbs`{{cards/gru-independent-card location=location performance=performance}}`);
 
   const $component = this.$(); //component dom element
   const $card = $component.find('.gru-independent-card');

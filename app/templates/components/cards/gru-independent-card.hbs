@@ -6,7 +6,7 @@
         <div class="title">
           <h5>{{location.title}}</h5>
         </div>
-        {{#if location.isCompleted}}
+        {{#if performance.isCompleted}}
           <span class="check">{{gru-icon name='check_circle'}}</span>
         {{/if}}
       </div>
@@ -29,7 +29,7 @@
       {{#if isCourse}}
         <div class="performance">
           {{charts.gru-bubble-chart
-            content=(if performance.scoreInPercentage (concat performance.scoreInPercentage '%') '--') 
+            content=(if performance.scoreInPercentage (concat performance.scoreInPercentage '%') '--')
             color=(grade-color performance.scoreInPercentage)}}
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>
