@@ -58,6 +58,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
       intro.setOptions(options);
       component.registerCallbacksWithIntroJS();
       component._setCurrentStep(0);
+      $('.application').addClass('no-vertical-scroll');
       intro.start();
       $('.introjs-skipbutton').hide();
       $('.introjs-prevbutton').hide();
@@ -236,7 +237,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
       skipElement.hide();
       nextElement.show();
     }
-    $(`.introjs-tooltip`).on('click','.exit-button', function(){
+    $(`.introjs-tooltip`).on('click','.exit-button, .introjs-skipbutton', function(){
       component._onExit();
       intro.exit();
     });
@@ -245,6 +246,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   _onExit: function(){
     this.sendAction('on-exit', this.get('currentStep'), this);
+    $(`.application`).removeClass('no-vertical-scroll');
   },
 
   exitIntroJS: Ember.on('willDestroyElement', function(){

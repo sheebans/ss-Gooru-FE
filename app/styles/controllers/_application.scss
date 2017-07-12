@@ -1,5 +1,8 @@
 .application{
   overflow-x: hidden;
+  &.no-vertical-scroll{
+    overflow-y: hidden;
+  }
 }
 .app-container {
   height: 100vh;

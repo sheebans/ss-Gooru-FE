@@ -250,6 +250,11 @@
               }
             }
           }
+          &.introjs-showElement{
+            a{
+              color: $dark-400;
+            }
+          }
         }
         .no-hover {
           &:hover,
@@ -272,6 +277,9 @@
             border-radius: 5px;
             background-color: $gray-lighter;
             color: $gray;
+          }
+          &.introjs-showElement{
+            color: $dark-400;
           }
         }
 
@@ -300,7 +308,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             display: block;
-            color:rgba(0,0,0,0.3);
           }
         }
       }
