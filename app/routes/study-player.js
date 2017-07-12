@@ -109,7 +109,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         description: route.get('i18n').t('gru-take-tour.study-player.stepTwo.description')
       },
       {
-        elementSelector: '.header-panel .performance-info .graphic',
+        elementSelector: '.header-panel .performance-info .performance',
         title: route.get('i18n').t('gru-take-tour.study-player.stepThree.title'),
         description: route.get('i18n').t('gru-take-tour.study-player.stepThree.description')
       },

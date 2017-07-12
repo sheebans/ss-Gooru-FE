@@ -60,12 +60,12 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         description: route.get('i18n').t('gru-take-tour.student-home.stepFour.description')
       },
       {
-        elementSelector: '.gru-header .profile-link .profile',
+        elementSelector: '.gru-header .menu-navbar .profile-link',
         title: route.get('i18n').t('gru-take-tour.student-home.stepSix.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepSix.description')
       },
       {
-        elementSelector: '.gru-header .dropdown .profile-more',
+        elementSelector: '.gru-header .menu-navbar .dropdown .profile-more',
         title: route.get('i18n').t('gru-take-tour.student-home.stepSeven.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepSeven.description')
       },

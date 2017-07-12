@@ -74,7 +74,7 @@
             }
           }
           &.introjs-showElement{
-            color:$dark-400;
+            color: $dark-400;
           }
         }
         .breadcrumbs {
@@ -142,6 +142,9 @@
           .gru-bubble-chart {
             width: 60px;
             height: 60px;
+          }
+          &.introjs-showElement{
+            color: $dark-400;
           }
         }
         .bar-charts {
