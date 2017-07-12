@@ -4,11 +4,7 @@
       {{#if (and isOnProfile isMyProfile)}}
         <a class="edit-content" {{action "editContent" }}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
       {{else}}
-        {{#unless isStudent}}
-          <a class="play-content" {{action "openContentPlayer" content}}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
-        {{else}}
           <a class="preview-content" {{action "previewContent" content}}><img class="img-responsive" src="{{content.thumbnailUrl}}"></a>
-        {{/unless}}
       {{/if}}
     </div>
     <div class="collection-info">
@@ -16,11 +12,7 @@
         {{#if (and isOnProfile isMyProfile)}}
           <a class="edit-content" {{action "editContent"}}> <h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
         {{else}}
-          {{#unless isStudent}}
-            <a class="play-content" {{action "openContentPlayer" content}}><h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
-          {{else}}
-            <a class="preview-content" {{action 'previewContent' content}}><h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
-          {{/unless}}
+            <a class="preview-content" {{action "previewContent" content}}><h3 class="title" alt="{{ content.title }}">{{truncate text=content.title maxLength=40}}</h3></a>
         {{/if}}
       </div>
       <span class="question-resources">
