@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 /**
  * Library route
@@ -8,7 +7,7 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
  * @augments Ember.Route
  */
 
-export default Ember.Route.extend(PrivateRouteMixin, {
+export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   /**
