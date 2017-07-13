@@ -45,9 +45,9 @@ export default Ember.Route.extend({
 
     return Ember.RSVP.hash({
       todayActivities: route.get('classActivityService').findClassActivities(currentClass.get('id'),
-      undefined, moment.utc(today).toISOString(), moment.utc(today).toISOString()),
+      undefined, moment(today).format('YYYY-MM-DD'), moment.utc(today).format('YYYY-MM-DD')),
       yesterdayActivities: route.get('classActivityService').findClassActivities(currentClass.get('id'),
-      undefined, moment.utc(yesterday).toISOString(), moment.utc(yesterday).toISOString())
+      undefined, moment(yesterday).format('YYYY-MM-DD'), moment(yesterday).format('YYYY-MM-DD'))
     }).then(function(hash) {
       return [
         {
