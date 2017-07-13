@@ -116,8 +116,8 @@ test('findClassActivities with content type and dates', function(assert) {
   this.pretender.map(function() {
     this.get('/api/nucleus/v2/classes/123/contents', function(request) {
       assert.equal(request.queryParams.content_type, 'assessment', 'Content type should be assessment');
-      assert.equal(request.queryParams.date_from, '2012-01-20', 'Wrong start date');
-      assert.equal(request.queryParams.date_to, '2012-01-30', 'Wrong end date');
+      assert.equal(request.queryParams.date_from, 'Fri Jan 20 2012 00:00:00 GMT-0600 (CST)', 'Wrong start date');
+      assert.equal(request.queryParams.date_to, 'Mon Jan 30 2012 00:00:00 GMT-0600 (CST)', 'Wrong end date');
       assert.equal(request.requestHeaders['Authorization'], 'Token token-api-3', 'Wrong token');
       return [201, {'Content-Type': 'application/json'}, JSON.stringify('fake-response')];
     }, false);
