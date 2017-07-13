@@ -35,34 +35,34 @@ export default Object.assign(quizzesTranslations, {
       "singular":"{{description}} لا يمكن أن يكون مجموعة",
       "present":"يجب أن يكون {{description}} فارغا"
    },
-   "common":{  
-      "assessment-pl":{  
+   "common":{
+      "assessment-pl":{
          "zero":"تقييم",
          "other":"تقييم",
          "one":"تقدير"
       },
-      "categoryOptions":{  
+      "categoryOptions":{
          "professional-dev":"التطوير المهني",
          "higher-ed":"تعليم عالى",
          "k12":"K-12"
       },
-      "collection-pl":{  
+      "collection-pl":{
          "zero":"مجموعات",
          "other":"مجموعات",
          "one":"مجموعة"
       },
-      "delete-instructions":{  
+      "delete-instructions":{
          "links-inaccessible":"جميع روابط الأسهم ستكون غير قابلة للوصول",
          "content-inaccessible":"جميع المحتويات سوف تكون غير قابلة للوصول إلى الفصول الدراسية المرتبطة به"
       },
-      "emotions":{  
+      "emotions":{
          "emotion-3":"مه...",
          "emotion-2":"أنا لا أفهم",
          "emotion-5":"أستطيع أن أشرح",
          "emotion-4":"أفهم",
          "emotion-1":"انا بحاجة الى مساعدة"
       },
-      "errors":{  
+      "errors":{
          "class-title-presence":"يرجى إعطاء اسم صفك.",
          "add-question-description":"الرجاء إدخال السؤال.",
          "lesson-not-created":"وجه الفتاة! تعذر إنشاء الدرس في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.",
@@ -140,22 +140,22 @@ export default Object.assign(quizzesTranslations, {
          "unit-not-loaded":"وجه الفتاة! تعذر تحميل الوحدة الآن. الرجاء إعادة المحاولة بعد قليل.",
          "class-min-score":"يجب أن يكون الحد الأدنى للصف رقم بين 1 و 100"
       },
-      "lessonObj":{  
+      "lessonObj":{
          "zero":"الدروس",
          "other":"الدروس",
          "one":"درس"
       },
-      "numberStudents":{  
+      "numberStudents":{
          "zero":"{{count}} الطلاب",
          "other":"{{count}} الطلاب",
          "one":"{{count}} طالب"
       },
-      "question-pl":{  
+      "question-pl":{
          "zero":"الأسئلة",
          "other":"الأسئلة",
          "one":"سؤال"
       },
-      "question-type":{  
+      "question-type":{
          "HT_TO":"سحب وإسقاط النظام",
          "MA":"إجابة متعددة",
          "HS_IMG":"متعددة حدد - صورة",
@@ -169,7 +169,7 @@ export default Object.assign(quizzesTranslations, {
          "FIB":"املاء الفراغ",
          "HT_RO":"سحب وإسقاط النظام"
       },
-      "resource-format":{  
+      "resource-format":{
          "image":"صورة",
          "question":"سؤال",
          "interactive":"متفاعل",
@@ -178,17 +178,17 @@ export default Object.assign(quizzesTranslations, {
          "webpage":"صفحة ويب",
          "audio":"سمعي"
       },
-      "resource-pl":{  
+      "resource-pl":{
          "zero":"موارد",
          "other":"موارد",
          "one":"مورد"
       },
-      "unitObj":{  
+      "unitObj":{
          "zero":"وحدات",
          "other":"وحدات",
          "one":"وحدة"
       },
-      "warnings":{  
+      "warnings":{
          "on-air-connection-lost":"فقدت لوحة تحكم غو ليف اتصال، وتتم إعادة المحاولة تلقائيا. انها مغرية، ولكن من فضلك لا تحديث الشاشة!",
          "character-limit":"لقد وصلت إلى عدد الأحرف المسموح به."
       },
@@ -544,9 +544,9 @@ export default Object.assign(quizzesTranslations, {
       "add-new-question":"إنشاء سؤال جديد",
       "new-resource":"مورد جديد"
    },
-   "index":{  
-      "browseContent":{  
-         "footer":{  
+   "index":{
+      "browseContent":{
+         "footer":{
             "description_1":"هل لديك حساب بالفعل؟",
             "description_2":"هنا.",
             "login":"تسجيل الدخول"
@@ -559,29 +559,29 @@ export default Object.assign(quizzesTranslations, {
          "grades_missing_message":"يرجى تحديد الدرجة والموضوع.",
          "subjects_missing_message":"الرجاء تحديد الموضوع."
       },
-      "gettingStarted":{  
-         "toolkit":{  
+      "gettingStarted":{
+         "toolkit":{
             "description":"مرحبا بكم في غورو! تحقق من هذه الموارد لمعرفة ما يمكنك القيام به مع غورو وتبدأ بسرعة.",
             "title":"أدوات بدء الاستخدام"
          },
-         "classroom":{  
+         "classroom":{
             "description":"تعلم عن طريق المثال من خلال قصص من المعلمين الذين يقولون غورو قد تحدث فرقا في الفصول الدراسية.",
             "title":"قصص من الفصول الدراسية"
          },
-         "events":{  
+         "events":{
             "description":"نحن نقدم ندوات مجانية والتدريبات لمساعدتك على البدء مع غورو.",
             "title":"تحقق من الأحداث لدينا!"
          },
          "title":"الشروع في العمل مع غورو"
       },
-      "empowerStudents":{  
+      "empowerStudents":{
          "find":"تجد",
          "share":"شارك",
          "monitor":"مراقب",
          "title":"تمكين الطلاب لتعلم طريقهم",
          "remix":"ريميكس"
       },
-      "freeAndOpen":{  
+      "freeAndOpen":{
          "button":"معرفة المزيد عن نهجنا",
          "description":"ونعتقد أن التعليم حق من حقوق الإنسان. سوف غورو تكون دائما خالية من التكلفة والإعلانات للمعلمين والطلاب في جميع أنحاء العالم.",
          "title":"حرة ومفتوحة. <br/> دائما."
@@ -592,8 +592,8 @@ export default Object.assign(quizzesTranslations, {
       "monitorDescription":"قياس مشاركة الطلاب وتقدمهم للتدخل في الوقت الحقيقي.",
       "shareDescription":"تبادل مجموعات مع الطلاب من خلال الفصول الدراسية غورو. تسجيل الدخول غير مطلوب للوصول."
    },
-   "class":{  
-      "info":{  
+   "class":{
+      "info":{
          "edit-info":"تحرير المعلومات",
          "share-class":"مشاركة الفصول الدراسية",
          "teachers":"معلمون",
@@ -607,7 +607,7 @@ export default Object.assign(quizzesTranslations, {
          "class-info":"معلومات الفصول الدراسية",
          "invite-co-teachers":"دعوة المعلمين المشاركين"
       },
-      "edit":{  
+      "edit":{
          "basic-info":"معلومات اساسية",
          "class-greetings":"إعلانات الفصول الدراسية",
          "class-minscore":"التقييم الحد الأدنى لدرجات الجوائز (1-100٪)",
@@ -617,15 +617,15 @@ export default Object.assign(quizzesTranslations, {
          "class-greetings-placeholder":"تحية طلابك أو تحفيزهم أو الإعلان عنها، وما إلى ذلك.",
          "course-map":"خريطة الدورة التدريبية"
       },
-      "overview":{  
+      "overview":{
          "locate":"حدد موقعي",
          "title":"خريطة الدورة التدريبية",
          "add-to-daily-class-activities":"إضافة إلى الأنشطة اليومية الطبقة",
          "edit-content":"تعديل المحتوى"
       },
-      "analytics":{  
-         "performance":{  
-            "actions":{  
+      "analytics":{
+         "performance":{
+            "actions":{
                "assessment":"عرض التقييم",
                "download":"تحميل",
                "edit":"تعديل المحتوى",
@@ -635,8 +635,8 @@ export default Object.assign(quizzesTranslations, {
                "fullScreen":"عرض كامل الشاشة",
                "both":"عرض كلاهما"
             },
-            "teacher":{  
-               "metricsTable":{  
+            "teacher":{
+               "metricsTable":{
                   "class-average":"متوسط ​​الصف",
                   "average":"معدل"
                }
@@ -645,11 +645,11 @@ export default Object.assign(quizzesTranslations, {
             "title":"عرض الأداء",
             "better-experience-message":"للحصول على أفضل تجربة غورو، عرض كامل سلاسروم أناليتيكش في الكمبيوتر اللوحي أو سطح المكتب."
          },
-         "mastery":{  
+         "mastery":{
             "title":"مشاهدة ملف ماستيري"
          }
       },
-      "quick-start":{  
+      "quick-start":{
          "featured-course":"عرض الدورات المميزة",
          "remix-desc":"نسخ وتخصيص بالطبع مميزة لطلابك",
          "add-existing-course":"إضافة دورة من المكتبة",
@@ -665,20 +665,20 @@ export default Object.assign(quizzesTranslations, {
          "new-course":"بدء تشغيل دورة جديدة"
       }
    },
-   "classes":{  
+   "classes":{
       "classesJoined":"الفصول الدراسية لقد انضممت",
       "noClassesJoined":"لم تنضم إلى أي فصل دراسي",
       "classesTaught":"الفصول الدراسية I تعليم",
       "noClassesTaught":"لم يكن لديك أي الفصول الدراسية التي تم إنشاؤها"
    },
-   "content":{  
-      "assessments":{  
-         "edit":{  
+   "content":{
+      "assessments":{
+         "edit":{
             "best-practices":"<p style=';text-align:right;direction:rtl'> التقييم هو مجموعة من الأسئلة التي سجلتها أنت وطلابك يمكن استخدامها لمراقبة الفهم والأداء. </p><p style=';text-align:right;direction:rtl'> استخدام مجموعة متنوعة من أنواع الأسئلة (بما في ذلك عدة استنادا إلى سباك) في التقييم الخاص بك حتى يتمكن الطلاب من إثبات التفاهم بطرق مختلفة. نوصي بوضع علامة على كل سؤال للمعايير، والمعايير الدقيقة، وعمق ويب في المعرفة. </p>"
          }
       },
-      "classes":{  
-         "create":{  
+      "classes":{
+         "create":{
             "condition-prompt":"كيف سينضم الطلاب إلى الفصل الدراسي؟",
             "get-started":"البدء",
             "condition-prompt-invite":"دعوة فقط",
@@ -687,7 +687,7 @@ export default Object.assign(quizzesTranslations, {
             "title":"إنشاء سلاسروم",
             "content":"حيث يتفاعل الطلاب مع المحتوى."
          },
-         "join":{  
+         "join":{
             "already-member":"أنت بالفعل عضو في هذا الفصل الدراسي.",
             "join-not-allowed":"لا يمكنك الانضمام إلى هذا الفصل الدراسي",
             "terms-and-conditions":"من خلال النقر على الانضمام إلى الفصول الدراسية، أوافق على مشاركة تقييمي وبيانات تقدم المجموعة التي تم إنشاؤها من دراسة هذا الفصول الدراسية غورو مع المعلم (ق) من هذا الفصول الدراسية.",
@@ -700,15 +700,15 @@ export default Object.assign(quizzesTranslations, {
             "content":"حيث تبدأ الرحلة."
          }
       },
-      "collections":{  
-         "edit":{  
+      "collections":{
+         "edit":{
             "assign-to-course":"تعيين لدورة",
             "best-practices":"<p style=';text-align:right;direction:rtl'> يتفاعل الطلاب مع المحتوى الخاص بك على مستوى المجموعة. عند إنشاء مجموعة التعلم، تأكد من تضمين أهداف التعلم، والنظر في استخدام مجموعة متنوعة من أنواع الموارد لفضح الطلاب للمفاهيم بطرق متعددة. </p><p style=';text-align:right;direction:rtl'> استخدام تسلسل الموارد للبناء على المفاهيم. وينبغي أن يتدفق التقدم من خلال مجموعة بطريقة منطقية ويأخذ الجمهور المستهدف من مستوى عام إلى أكثر تعقيدا من الفهم إذا كان ذلك مناسبا، أو السماح بشكل كاف لاستكشاف الطلاب. </p><p style=';text-align:right;direction:rtl'> وتشمل الشيكات لفهم على طول الطريق عن طريق أسئلة غورو لدينا أو التفاعلات الأخرى. نوصي بما يكفي من الموارد و / أو مجموعة كافية من الموارد لتحقيق الأهداف في جمع والتأكد من أن كل مورد له دور والغرض. </p>"
          }
       },
-      "courses":{  
-         "edit":{  
-            "information":{  
+      "courses":{
+         "edit":{
+            "information":{
                "course-title":"عنوان الدورة",
                "description":"وصف"
             },
@@ -716,14 +716,14 @@ export default Object.assign(quizzesTranslations, {
             "best-practices":"<p style=';text-align:right;direction:rtl'> دورة هو المجلد الذي يسمح لك لتنظيم المحتوى التعليمي الخاص بك إلى وحدات والدروس. عند إنشاء دورة دراسية النظر في الأسئلة الأساسية التي تتناولها، وأهداف التعلم، وتنظيم المحتوى الخاص بك. </p><p style=';text-align:right;direction:rtl'> يمكنك وضع الدروس معا لخلق تجربة متنوعة لطالبك (على سبيل المثال، هل يمكن تسلسل الوحدات الخاصة بك زمنيا، حسب الموضوع، أو حسب المعيار). </p>"
          }
       },
-      "questions":{  
-         "edit":{  
-            "information":{  
+      "questions":{
+         "edit":{
+            "information":{
                "question-title":"عنوان السؤال",
                "question-type":"نوع السؤال"
             },
-            "builder":{  
-               "answer-instructions":{  
+            "builder":{
+               "answer-instructions":{
                   "HT_HL_WD":"أثناء كتابة السؤال، استخدم الأقواس للكلمات المميزة. يمكن أن تحتوي شريحة واحدة على كلمة واحدة فقط في كل مرة. على سبيل المثال، و [كبير] الذئب سيئة فجر [أسفل] المنزل. عدد الأحرف المسموح به: 5000.",
                   "MA":"يمكنك إضافة ما يصل إلى عشرة إجابات، صورة، شرح، وتصل إلى خمس تلميحات.",
                   "HS_IMG":"يمكنك إضافة ما يصل إلى عشرة إجابة الصور واختيار واحد أو أكثر من الإجابات الصحيحة.",
@@ -735,7 +735,7 @@ export default Object.assign(quizzesTranslations, {
                   "HT_HL_ST":"أثناء كتابة السؤال، استخدم الأقواس للإشارة إلى الجمل المميزة. ولا يمكن أن يحتوي أحد الأقواس إلا على جملة واحدة في كل مرة، وذلك باستخدام فترة داخل القوس. على سبيل المثال، أول خنزير صغير بني منزله من القش. [الذئب السيئ الكبير فجر المنزل.] الخنزير الثاني بني منزله من الخشب. عدد الأحرف المسموح به: 5000.",
                   "HT_RO":"يمكنك إضافة ما يصل إلى عشرة خيارات الإجابة بالترتيب الصحيح. سيتم سارعت النظام للطلاب."
                },
-               "question-instructions":{  
+               "question-instructions":{
                   "MA":"اكتب سؤالك.",
                   "HS_IMG":"اكتب سؤالك.",
                   "MC":"اكتب سؤالك.",
@@ -755,17 +755,17 @@ export default Object.assign(quizzesTranslations, {
             "best-practices":"<p style=';text-align:right;direction:rtl'> والسؤال هو المورد الذي يتطلب إجابة من الطالب، ونحن نقدم مجموعة متنوعة من أنواع الأسئلة لدعم أنواع الأسئلة التي سيشاهدها الطلاب على سباك، بارسك والتقييمات الأخرى. </p><p style=';text-align:right;direction:rtl'> ننصحك بالتناوب مع أنواع الأسئلة التي تستخدمها لتزويد الطلاب بالتعرض لأنواع الأسئلة هذه ولتقديم أشكال متعددة لإظهار المعرفة. </p><p style=';text-align:right;direction:rtl'> ضع علامة على أسئلتك للمعايير، والمعايير الدقيقة، وعمق ويب من المعرفة. يمكنك أن ترى كيف يتفاعل الطلاب مع الأسئلة من خلال لوحة القيادة المعلم. </p>"
          }
       },
-      "modals":{  
-         "delete-bookmark":{  
+      "modals":{
+         "delete-bookmark":{
             "delete-error":"وجه الفتاة! تعذر إلغاء وضع علامة على هذا {{type}} الآن. الرجاء إعادة المحاولة بعد قليل.",
             "confirmation":"هل تريد إلغاء وضع علامة على هذا {{type}}؟"
          },
-         "delete-class":{  
+         "delete-class":{
             "student-data-deleted":"سيتم حذف جميع بيانات الطالب",
             "legend":"أنت على وشك حذف الفصل الدراسي",
             "student-access":"لن يتمكن الطلاب من الوصول إلى الفصول الدراسية"
          },
-         "delete-content":{  
+         "delete-content":{
             "delete-error":"وجه الفتاة! تعذر حذف {{type}} الآن. الرجاء إعادة المحاولة بعد قليل.",
             "legend":"أنت على وشك الحذف",
             "content-legend":"<span>{</span> {Type}} {{index}} - {{title}} فروم {{parentName}}",
@@ -773,7 +773,7 @@ export default Object.assign(quizzesTranslations, {
             "content-legend-header":"{{title}} من {{parentName}}",
             "confirmation":"هل تريد بالتأكيد المتابعة؟ يرجى كتابة &quot;حذف&quot; أدناه وانقر على &quot;حذف&quot;."
          },
-         "delete-resource":{  
+         "delete-resource":{
             "delete-error":"وجه الفتاة! تعذر حذف {{type}} الآن. الرجاء إعادة المحاولة بعد قليل.",
             "legend":"تأكد من رغبتك في حذف <b>{{title}}</b>",
             "second-check":"سيتم حذف نسخ من هذا المورد، في مجموعاتك وأي مجموعة من المستخدمين الآخرين في المجتمع",
@@ -781,12 +781,12 @@ export default Object.assign(quizzesTranslations, {
             "confirmation":"هل تريد بالتأكيد المتابعة؟ يرجى النقر على 'حذف نهائي'.",
             "first-check":"هذا حذف دائم ولا يمكن التراجع عنه"
          },
-         "remove-content":{  
+         "remove-content":{
             "legend":"أنت على وشك إزالة <b>{{title}}</b> من <b>{{parentName}}</b>",
             "remove-error":"وجه الفتاة! يتعذر إزالة {{type}} الآن. الرجاء إعادة المحاولة بعد قليل.",
             "confirmation":"هل تريد بالتأكيد المتابعة؟ يرجى كتابة &quot;إزالة&quot; أدناه وانقر على &quot;إزالة&quot;."
          },
-         "remove-student":{  
+         "remove-student":{
             "data-lost":"في حالة إعادة الانضمام إلى الفصل الدراسي، سيتم فقد جميع البيانات السابقة",
             "legend":"أنت على وشك إزالة {{studentName}} من هذا الفصل الدراسي وحذف جميع بياناتهم.",
             "classroom-access":"لن يتمكنوا من الوصول إلى الفصول الدراسية أو المحتوى",
@@ -795,17 +795,17 @@ export default Object.assign(quizzesTranslations, {
             "confirmation":"هل تريد بالتأكيد المتابعة؟ يرجى كتابة &quot;حذف&quot; أدناه وانقر على &quot;حذف&quot;.",
             "title":"أزل الطالب وحذف بياناته"
          },
-         "quick-remove-content":{  
+         "quick-remove-content":{
             "legend":"تأكد من أنك تريد إزالة <b>{{title}}</b> من <b>{{parentName}}</b> ."
          },
-         "quick-delete-content":{  
+         "quick-delete-content":{
             "legend":"أكد أنك تريد حذف <b>{{title}}</b> <b>نهائيا</b> من <b>{{parentName}}</b> .",
             "delete":"حذف بشكل دائم"
          }
       },
-      "resources":{  
-         "edit":{  
-            "information":{  
+      "resources":{
+         "edit":{
+            "information":{
                "select-a-license":"يرجى تحديد ترخيص",
                "im-publisher":"أنا الناشر"
             },
@@ -815,13 +815,13 @@ export default Object.assign(quizzesTranslations, {
          }
       }
    },
-   "user":{  
-      "joined-classes":{  
+   "user":{
+      "joined-classes":{
          "zero":"أنت مسجل حاليا في {{count}} الفصول الدراسية",
          "other":"أنت مسجل حاليا في {{count}} الفصول الدراسية",
          "one":"أنت مسجل حاليا في فصل واحد"
       },
-      "teaching-classes":{  
+      "teaching-classes":{
          "zero":"أنت تدرس حاليا {{count}} الفصول الدراسية",
          "other":"أنت تدرس حاليا {{count}} الفصول الدراسية",
          "one":"كنت تدرس حاليا 1 الفصول الدراسية"
@@ -837,9 +837,9 @@ export default Object.assign(quizzesTranslations, {
       "archived-classrooms":"الفصول الدراسية المؤرشفة",
       "classrooms":"الفصول الدراسية"
    },
-   "student-landing":{  
-      "class":{  
-         "class-activities-tab":{  
+   "student-landing":{
+      "class":{
+         "class-activities-tab":{
             "today":"اليوم"
          },
          "unit":"وحدة",
@@ -853,12 +853,12 @@ export default Object.assign(quizzesTranslations, {
          "back-to-independent":"العودة إلى التعلم المستقل",
          "course-map":"خريطة الدورة التدريبية"
       },
-      "course":{  
+      "course":{
          "total-time-spent":"إجمالي الوقت المستغرق",
          "to-report":"ملخص الاستخدام"
       },
-      "my-performance":{  
-         "activities":{  
+      "my-performance":{
+         "activities":{
             "study":"دراسة"
          },
          "filter":"منقي",
@@ -880,9 +880,9 @@ export default Object.assign(quizzesTranslations, {
       "my-study":"دراستي",
       "no-classrooms":"لم تنضم بعد إلى أي فصل دراسي. انقر على 'الانضمام' </br> سلاسروم 'لإضافة فئة معلمك. يمكنك أيضا البحث عن </br> دورة مميزة ضمن علامة التبويب المكتبة."
    },
-   "teacher-landing":{  
-      "class":{  
-         "class-management-tab":{  
+   "teacher-landing":{
+      "class":{
+         "class-management-tab":{
             "student-name":"أسم الطالب",
             "archive-class":"فئة الأرشيف",
             "class-code":"رمز الفئة",
@@ -910,12 +910,12 @@ export default Object.assign(quizzesTranslations, {
             "actions":"أفعال",
             "delete-class":"حذف الفئة"
          },
-         "class-activities-tab":{  
+         "class-activities-tab":{
             "add-activities":"إضافة الأنشطة من",
             "or":"أو",
             "today":"اليوم،"
          },
-         "performance-tab":{  
+         "performance-tab":{
             "assessments":"تقييم",
             "collections":"مجموعات"
          },
@@ -936,8 +936,8 @@ export default Object.assign(quizzesTranslations, {
       "teach":"تعلم مع الفصول الدراسية غورو",
       "no-classrooms":"لم تقم بعد بإنشاء أي فصول دراسية. انقر على 'إنشاء الفصول الدراسية' أو البحث </br> للحصول على دورة مميزة ضمن علامة التبويب المكتبة."
    },
-   "goals":{  
-      "manage":{  
+   "goals":{
+      "manage":{
          "type-label":"نوع الهدف",
          "dropped":"إسقاط",
          "save":"حفظ",
@@ -954,7 +954,7 @@ export default Object.assign(quizzesTranslations, {
          "status-label":"الحالة",
          "activated":"مفعل"
       },
-      "create":{  
+      "create":{
          "error-add-title":"الرجاء إدخال الهدف",
          "error-add-end-date":"الرجاء إدخال تاريخ الانتهاء",
          "error-add-start-date":"الرجاء إدخال تاريخ البدء",
@@ -964,14 +964,14 @@ export default Object.assign(quizzesTranslations, {
          "error-length-title":"يجب أن يحتوي الهدف على 200 حرف كحد أقصى",
          "error-greater-end-date":"يجب أن يكون تاريخ الانتهاء أكبر من تاريخ البدء"
       },
-      "delete":{  
+      "delete":{
          "deleted-success-msg":"لقد حذفت الهدف"
       },
-      "update":{  
+      "update":{
          "updated-success-msg":"لقد حدثت الهدف"
       }
    },
-   "gru-add-to":{  
+   "gru-add-to":{
       "add-to-assessment-lead":"اختر تقييما تريد إضافة {{contentTitle}} إليه",
       "add-to-existing-classroom":"إضافة إلى الفصول الدراسية الحالية",
       "add-to-existing-classroom-lead":"اختر فصلا دراسيا تريد إضافته إلى",
@@ -985,8 +985,8 @@ export default Object.assign(quizzesTranslations, {
       "add-assessment-to-lesson":"إضافة من تقييماتي",
       "add-collection-to-lesson":"إضافة من مجموعات بلدي"
    },
-   "gru-assessment-confirmation":{  
-      "attempts-left":{  
+   "gru-assessment-confirmation":{
+      "attempts-left":{
          "zero":"لديك {{count}} من المحاولات",
          "other":"لديك {{count}} من المحاولات",
          "one":"يتبقى لديك محاولة واحدة"
@@ -1001,19 +1001,19 @@ export default Object.assign(quizzesTranslations, {
       "unlimited-attempts":"لديك محاولات غير محدودة",
       "title":"أنت على وشك بدء التقييم ..."
    },
-   "gru-submit-confirmation":{  
+   "gru-submit-confirmation":{
       "cancel":"إلغاء",
       "confirm":"إنهاء مسابقة",
       "finish-description":"انقر على 'إنهاء الاختبار' لإرسال إجاباتك.",
       "description":"أنت على وشك إنهاء هذه المحاولة وتقديم جميع الردود. سيتم احتساب أي أسئلة تخطي كما غير صحيحة.",
       "title":"إنهاء هذا الاختبار وتقديم كل شيء"
    },
-   "gru-quick-course-search":{  
+   "gru-quick-course-search":{
       "view-featured-courses":"عرض الدورات المميزة",
       "add-from-course":"إضافة من الدورة الحالية",
       "assign":"تعيين"
    },
-   "gru-share-pop-over":{  
+   "gru-share-pop-over":{
       "ios-tooltip":"عقد الصنبور لنسخ!",
       "multiarch-tooltip":"اضغط على كترل + C للنسخ!",
       "share-question":"شارك سؤالك مع الرابط",
@@ -1024,30 +1024,30 @@ export default Object.assign(quizzesTranslations, {
       "share-course":"مشاركة الدورة مع الارتباط",
       "share-resource":"مشاركة الموارد الخاصة بك مع الارتباط"
    },
-   "gru-category-panel":{  
-      "teacher":{  
+   "gru-category-panel":{
+      "teacher":{
          "cta":"انظر القصص",
          "title":"للمعلمين",
          "body":"اكتشف المحتوى المتوافق مع المعايير، وتخصيص المحتوى، وتتبع تقدم الطلاب من خلال تحليلات البيانات."
       },
-      "student":{  
+      "student":{
          "cta":"أدخل",
          "text-placeholder":"أدخل رمز الفصل الدراسي",
          "title":"للطلاب",
          "body":"استكشاف الاهتمامات، وبناء ورصد التقدم المحرز من خلال المواد التعليمية."
       },
-      "district":{  
+      "district":{
          "cta":"انظر تأثيرنا",
          "title":"للأقضية",
          "body":"التعاون مع غورو لإطلاق العنان للتعلم شخصية وتبادل المناهج الدراسية فحص حي."
       },
-      "partner":{  
+      "partner":{
          "cta":"أعرف أكثر",
          "title":"بالنسبة إلى الشركاء",
          "body":"التعاون مع الشركاء المنتمين إلى البعثات لزيادة تأثيرنا الجماعي على النظام البيئي للتعليم."
       }
    },
-   "class.gru-class-navigation":{  
+   "class.gru-class-navigation":{
       "analytics":"البيانات",
       "overview":"خريطة الدورة التدريبية",
       "teams":"فرق",
@@ -1056,7 +1056,7 @@ export default Object.assign(quizzesTranslations, {
       "information":"معلومات الفصول الدراسية",
       "greetings":"الإعلانات"
    },
-   "class.gru-class-statistics":{  
+   "class.gru-class-statistics":{
       "completion":"إكمال",
       "performance":"أداء",
       "title":"إحصاءات الفئة",
@@ -1064,7 +1064,7 @@ export default Object.assign(quizzesTranslations, {
       "on-average":"في المتوسط",
       "time-spent":"قضاء الوقت"
    },
-   "gru-user-registration":{  
+   "gru-user-registration":{
       "signUpEmail":"اشترك مع عنوان البريد الإلكتروني الخاص بك",
       "joinTitle":"الانضمام إلى المجتمع غورو!",
       "clickLogIn":"انقر هنا لتسجيل الدخول.",
@@ -1076,16 +1076,16 @@ export default Object.assign(quizzesTranslations, {
       "descriptionWhyGoogle":"انها سريعة وسهلة. استخدم حساب غوغل الحالي لتسجيل الدخول بدون كلمة مرور.",
       "haveAccount":"هل لديك حساب بالفعل؟"
    },
-   "gru-welcome-message":{  
-      "text-two":{  
+   "gru-welcome-message":{
+      "text-two":{
          "subtitle":"خذ جولة",
          "text":": يوفر جولات مصحوبة بمرشدين حول كيفية استخدام ميزاتنا."
       },
-      "text-three":{  
+      "text-three":{
          "subtitle":"مساعدة",
          "text":": في متناول يدك دعم لأسئلة إضافية."
       },
-      "text-four":{  
+      "text-four":{
          "subtitle":"الجديد",
          "text":": يحدد الميزات الجديدة بالنسبة لك لمحاولة الخروج."
       },
@@ -1094,9 +1094,9 @@ export default Object.assign(quizzesTranslations, {
       "title":"مرحبا بكم في المستكشف التعلم غورو!",
       "dont-show-again":"لا تظهر مرة أخرى"
    },
-   "sign-up":{  
-      "dateOfBirth":{  
-         "months":{  
+   "sign-up":{
+      "dateOfBirth":{
+         "months":{
             "november":"شهر نوفمبر",
             "june":"يونيو",
             "september":"سبتمبر",
@@ -1141,14 +1141,14 @@ export default Object.assign(quizzesTranslations, {
       "step-2-title":"معلومات أساسية",
       "username":"اسم المستخدم"
    },
-   "gru-user-sign-up-cancel":{  
+   "gru-user-sign-up-cancel":{
       "registration_incomplete":"لم يكتمل تسجيلك.",
       "exit?":"هل أنت متأكد أنك تريد الخروج؟",
       "leave":"ترك التسجيل",
       "continue":"متابعة التسجيل",
       "title":"ترك التسجيل؟"
    },
-   "login":{  
+   "login":{
       "description-session-ends":"الرجاء تسجيل الدخول.",
       "or":"أو",
       "signUpHere":"سجل هنا!",
@@ -1163,7 +1163,7 @@ export default Object.assign(quizzesTranslations, {
       "log-in":"تسجيل الدخول",
       "usernameOrEmail":"اسم المستخدم أو البريد الالكتروني"
    },
-   "forgot-password":{  
+   "forgot-password":{
       "mail":"support@gooru.org",
       "footer-description-1":"ستتلقى رسالة إلكترونية تتضمن رابطا لإعادة تعيين كلمة المرور.",
       "error-email-not-exists":"عذرا، لا نتعرف على هذه الرسالة الإلكترونية.",
@@ -1175,12 +1175,12 @@ export default Object.assign(quizzesTranslations, {
       "usernameOrEmail":"رجاءا أدخل بريدك الإلكتروني",
       "secondStepTitle":"تحقق من بريدك الالكتروني"
    },
-   "reset-password":{  
+   "reset-password":{
       "new-password-confirm":"أكد رقمك السري",
       "new-password":"أدخل كلمة المرور الجديدة",
       "title":"إعادة تعيين كلمة المرور"
    },
-   "footer":{  
+   "footer":{
       "contactUs":"اتصل بنا",
       "districts":"المناطق",
       "privacy":"الإجمالية",
@@ -1198,7 +1198,7 @@ export default Object.assign(quizzesTranslations, {
       "connect":"الاتصال",
       "events":"أحداث"
    },
-   "grade-dropdown":{  
+   "grade-dropdown":{
       "tenth":"10",
       "eighth":"8",
       "eleventh":"11",
@@ -1220,15 +1220,15 @@ export default Object.assign(quizzesTranslations, {
       "pre-k":"قبل K",
       "first":"1"
    },
-   "standard-dropdown":{  
+   "standard-dropdown":{
       "placeholder":"تصفح حسب المعيار"
    },
-   "subject-dropdown":{  
+   "subject-dropdown":{
       "placeholder":"المواضيع)",
       "prompt":"اختر موضوعا"
    },
-   "search-filter":{  
-      "question-types":{  
+   "search-filter":{
+      "question-types":{
          "MA":"إجابة متعددة",
          "HS_IMG":"متعددة حدد - صورة",
          "MC":"متعدد الخيارات",
@@ -1239,7 +1239,7 @@ export default Object.assign(quizzesTranslations, {
          "FIB":"املاء الفراغ",
          "HT_RO":"سحب وإسقاط النظام"
       },
-      "author":{  
+      "author":{
          "placeholder":"مؤلف"
       },
       "courses":"الدورات",
@@ -1249,7 +1249,7 @@ export default Object.assign(quizzesTranslations, {
       "questions":"الأسئلة",
       "resources":"موارد"
    },
-   "resource":{  
+   "resource":{
       "image":"صورة",
       "question":"سؤال",
       "interactive":"متفاعل",
@@ -1259,7 +1259,7 @@ export default Object.assign(quizzesTranslations, {
       "audio":"سمعي",
       "oer":"OER"
    },
-   "search-result":{  
+   "search-result":{
       "question":"سؤال",
       "in-this-collection":"في هذه المجموعة",
       "resource":"مورد",
@@ -1268,25 +1268,25 @@ export default Object.assign(quizzesTranslations, {
       "resources":"موارد",
       "search-results-for":"نتائج البحث عن"
    },
-   "gru-image-picker":{  
+   "gru-image-picker":{
       "chooseFile":"اختيار ملف ...",
       "submit":"استخدام الصورة",
       "instruction":"حمل صورة من ملف على جهاز الكمبيوتر.",
       "restriction":"يجب أن تكون الصورة ملف جبغ أو جيف أو ينغ أصغر من 5 ميغابايت."
    },
-   "gru-fib":{  
+   "gru-fib":{
       "instructions":"يرجى كتابة الإجابة (الإجابات) في الفراغات التي تم تقديمها، ثم النقر على '{{action}}'."
    },
-   "gru-hs-image":{  
+   "gru-hs-image":{
       "instructions":"يرجى تحديد الصورة الصحيحة، وانقر على '{{action}}'."
    },
-   "gru-hs-text":{  
+   "gru-hs-text":{
       "instructions":"يرجى تحديد الإجابة الصحيحة، وانقر على '{{action}}'."
    },
-   "gru-hot-text":{  
+   "gru-hot-text":{
       "instructions":"يرجى تحديد الإجابة الصحيحة، ثم النقر على '{{action}}'."
    },
-   "gru-login-prompt":{  
+   "gru-login-prompt":{
       "new-user":"جديد هنا؟",
       "instructions":"يجب تسجيل الدخول لإكمال هذا الإجراء.",
       "sign-in":"تسجيل الدخول",
@@ -1294,37 +1294,37 @@ export default Object.assign(quizzesTranslations, {
       "existing-user":"هل لديك حساب بالفعل؟",
       "not-now":"ليس الان"
    },
-   "gru-multiple-answer":{  
+   "gru-multiple-answer":{
       "instructions":"يرجى تحديد الإجابة الصحيحة، ثم النقر على '{{action}}'."
    },
-   "gru-multiple-choice":{  
+   "gru-multiple-choice":{
       "instructions":"يرجى تحديد الإجابة الصحيحة، ثم النقر على '{{action}}'."
    },
-   "gru-open-ended":{  
+   "gru-open-ended":{
       "instructions":"يرجى كتابة إجابتك في الحقل أدناه، ثم النقر على الزر '{{أكتيون}}' لحفظ ردك عند الانتهاء.",
       "characterLimit":"حد الحرف"
    },
-   "gru-question-viewer":{  
+   "gru-question-viewer":{
       "answer":"إجابة",
       "question":"سؤال"
    },
-   "gru-true-false":{  
+   "gru-true-false":{
       "instructions":"يرجى تحديد الإجابة الصحيحة، ثم النقر على '{{action}}'.",
       "true":"صحيح",
       "false":"خاطئة"
    },
-   "gru-reorder":{  
+   "gru-reorder":{
       "instructions":"يرجى إعادة ترتيب الإجابات بالترتيب الصحيح، ثم النقر على '{{action}}'."
    },
-   "player":{  
-      "gru-navigation":{  
+   "player":{
+      "gru-navigation":{
          "view-report":"عرض التقرير"
       },
-      "gru-navigator":{  
+      "gru-navigator":{
          "see-usage-report":"راجع تقرير الاستخدام"
       },
-      "gru-viewer":{  
-         "not-iframe-url":{  
+      "gru-viewer":{
+         "not-iframe-url":{
             "view-resource":"عرض الموارد",
             "header_2":"انقر على الزر أدناه لفتح المورد في علامة تبويب جديدة.",
             "footer_4":"المتطلبات التي تنقلك إلى صفحة أخرى لعرض المحتوى.",
@@ -1335,18 +1335,18 @@ export default Object.assign(quizzesTranslations, {
          }
       }
    },
-   "profile":{  
-      "gru-navigation":{  
+   "profile":{
+      "gru-navigation":{
          "library":"مكتبة",
          "followers":"متابعون",
          "about":"حول",
          "about-you":"حولك"
       },
-      "edit":{  
+      "edit":{
          "select-district":"تحديد منطقة ..."
       }
    },
-   "gru-data-picker":{  
+   "gru-data-picker":{
       "score":"أحرز هدفاً",
       "completion":"إكمال",
       "study-time":"وقت الدراسة",
@@ -1356,7 +1356,7 @@ export default Object.assign(quizzesTranslations, {
       "time-spent":"قضاء الوقت",
       "attempts":"محاولة"
    },
-   "gru-performance-summary":{  
+   "gru-performance-summary":{
       "resume":"استئنف",
       "completion":"إكمال",
       "study":"ادرس الان",
@@ -1370,10 +1370,10 @@ export default Object.assign(quizzesTranslations, {
       "time-spent":"الوقت الكلي",
       "attempts":"محاولات"
    },
-   "gru-performance":{  
+   "gru-performance":{
       "no-content":"لا يتوفر محتوى"
    },
-   "gru-performance-metrics":{  
+   "gru-performance-metrics":{
       "assessment":"تقدير",
       "completion":"إكمال",
       "score":"أحرز هدفاً",
@@ -1382,7 +1382,7 @@ export default Object.assign(quizzesTranslations, {
       "report":"أبلغ عن",
       "collection":"مجموعة"
    },
-   "gru-metrics-sub-header":{  
+   "gru-metrics-sub-header":{
       "assessment":"تقدير",
       "score":"أحرز هدفاً",
       "completion":"إكمال",
@@ -1390,47 +1390,47 @@ export default Object.assign(quizzesTranslations, {
       "report":"أبلغ عن",
       "time-spent":"زمن"
    },
-   "gru-resource-new":{  
+   "gru-resource-new":{
       "resource-already-exist":"هذا المورد موجود بالفعل في غورو!"
    },
-   "gru-assessment-report":{  
-      "gru-summary":{  
+   "gru-assessment-report":{
+      "gru-summary":{
          "total-time-spent":"إجمالي الوقت المستغرق"
       },
       "hidden-report":"لقد اختار معلمك إخفاء تقرير الملخص الخاص بك لإجراء هذا التقييم."
    },
-   "cards":{  
-      "gru-class-card":{  
-         "student":{  
+   "cards":{
+      "gru-class-card":{
+         "student":{
             "zero":"{{count}} طالب",
             "other":"{{count}} الطلاب",
             "one":"{{count}} طالب",
             "not-started":"لم يبدأ"
          },
-         "unit":{  
+         "unit":{
             "zero":"لا بالطبع",
             "other":"{{count}} الوحدات",
             "one":"{{count}} الوحدة"
          },
-         "archived":{  
+         "archived":{
             "download-report":"تنزيل بياناتك لهذه الفئة.",
             "report-in-progress":"تقرير جيل يمكن أن يستغرق فترة تصل إلى 20 دقيقة. يرجى التحقق مرة أخرى.",
             "request-report":"تم أرشفة هذه الفئة ولا يمكن تعديلها. يمكن الوصول إلى بيانات الفئة الحالية عبر التقرير.",
             "no-report-available":"لا تحتوي هذه الفئة على محتوى مقرر."
          }
       },
-      "gru-course-card":{  
-         "units":{  
+      "gru-course-card":{
+         "units":{
             "zero":"{{count}} الوحدات",
             "other":"{{count}} الوحدات",
             "one":"{{count}} الوحدة"
          },
-         "resource":{  
+         "resource":{
             "zero":"{{count}} الموارد",
             "other":"{{count}} الموارد",
             "one":"{{count}} مورد"
          },
-         "question":{  
+         "question":{
             "zero":"{{count}} الأسئلة",
             "other":"{{count}} الأسئلة",
             "one":"{{count}} سؤال"
@@ -1439,46 +1439,46 @@ export default Object.assign(quizzesTranslations, {
          "start-studying":"بدء الدراسة",
          "and":"و"
       },
-      "gru-collection-card":{  
-         "courses":{  
+      "gru-collection-card":{
+         "courses":{
             "zero":"{{count}} الدورات التدريبية",
             "other":"{{count}} الدورات التدريبية",
             "one":"{{count}} الدورة التدريبية"
          },
-         "students":{  
+         "students":{
             "zero":"{{count}} الطلاب",
             "other":"{{count}} الطلاب",
             "one":"{{count}} طالب"
          },
-         "collections":{  
+         "collections":{
             "other":"{{count}} المجموعات",
             "one":"{{count}} مجموعة"
          },
-         "assessments":{  
+         "assessments":{
             "other":"{{count}} التقييمات",
             "one":"{{count}} تقييم"
          },
-         "classrooms":{  
+         "classrooms":{
             "zero":"{{count}} الفصول الدراسية",
             "other":"{{count}} الفصول الدراسية",
             "one":"{{count}} قاعة الدراسة"
          }
       },
-      "gru-resource-card":{  
+      "gru-resource-card":{
          "add":"اضف إليه"
       },
-      "gru-resource-result-card":{  
+      "gru-resource-result-card":{
          "skipped":"تخطي"
       },
-      "gru-profile-card":{  
+      "gru-profile-card":{
          "followers":"متابعون",
          "following":"التالية"
       },
-      "gru-user-network-card":{  
+      "gru-user-network-card":{
          "follow":"إتبع"
       }
    },
-   "reports.gru-table-view":{  
+   "reports.gru-table-view":{
       "score":"أحرز هدفاً",
       "study-time":"وقت الدراسة",
       "reaction":"رد فعل",
@@ -1490,51 +1490,51 @@ export default Object.assign(quizzesTranslations, {
       "totals":"مجموع",
       "time-spent":"قضاء الوقت"
    },
-   "gru-emotion-picker":{  
+   "gru-emotion-picker":{
       "react-to-resource":"رد على هذا المورد"
    },
-   "home":{  
-      "no-classes-found":{  
-         "create-class":{  
+   "home":{
+      "no-classes-found":{
+         "create-class":{
             "button-text":"إنشاء الفصول الدراسية",
             "description":"إنشاء فصل دراسي، وتعيين المحتوى، ودعوة الطلاب.",
             "title":"تعلم مع الفصول الدراسية غورو"
          },
-         "join-class":{  
+         "join-class":{
             "button-text":"أدخل رمز الفصل الدراسي",
             "description":"الانضمام إلى الفصول الدراسية المعلم الخاص بك لبدء التعلم.",
             "title":"تعلم مع الفصول الدراسية غورو"
          },
-         "featured-courses":{  
+         "featured-courses":{
             "button-text":"الدورات المتميزة",
             "description":"تصفح الرياضيات والعلوم والدراسات الاجتماعية، ودورات اللغة الإنكليزية.",
             "title":"الدورات المتميزة"
          },
-         "teacher-toolkit":{  
+         "teacher-toolkit":{
             "button-text":"مجموعة أدوات المعلم",
             "description":"تحتوي مجموعة الأدوات هذه على موارد لمساعدتك في البدء.",
             "title":"مجموعة أدوات المعلم"
          }
       }
    },
-   "taxonomy":{  
-      "gru-taxonomy-selector":{  
+   "taxonomy":{
+      "gru-taxonomy-selector":{
          "primary-subject-and-course":"إطار المعايير ودورة",
          "add-secondary":"إضافة ثانوي",
          "competency-subject-and-course":"إطار الكفاءات والدورة التدريبية",
          "choose-subject":"اختر الموضوع"
       }
    },
-   "validations":{  
+   "validations":{
       "unsavedChanges":"لم يتم حفظ التغييرات بعد. هل تريد مغادرة هذه الصفحة؟"
    },
-   "featured":{  
+   "featured":{
       "featured-title":"الدورات المتميزة",
       "featured-description":"ويتم فحص الدورات غورو المميزة واستعراضها، المربعات، التي أنشئت في الفصول الدراسية، ودرس من قبل الطلاب. تم تطويرها وتنفيذها في المدارس المبتكرة، والمقاطعات، والمواثيق، وهي مصممة لدعم التعلم المخلوطة، والفصول الدراسية انقلبت، والتعلم القائم على المشاريع، والعديد من النماذج التعليمية الأخرى. اكتشاف، ريميكس، وتخصيص دورات لتخصيص التعلم وزيادة مشاركة الطلاب! انقر هنا <a href='http://about.gooru.org/courses' target='_blank'>لمعرفة المزيد</a> عن تطوير هذه الدورات."
    },
-   "taxonomy.modals":{  
-      "gru-domain-picker":{  
-         "selectedText":{  
+   "taxonomy.modals":{
+      "gru-domain-picker":{
+         "selectedText":{
             "zero":"تم تحديد {{count}} من النطاقات",
             "other":"تم تحديد {{count}} من النطاقات",
             "one":"تم تحديد نطاق {{count}}"
@@ -1542,13 +1542,13 @@ export default Object.assign(quizzesTranslations, {
          "shortcutText":"الدورة في",
          "browseSelectorText":"ما النطاقات التي ستغطيها هذه الوحدة؟"
       },
-      "gru-standard-picker":{  
-         "selectedText":{  
+      "gru-standard-picker":{
+         "selectedText":{
             "zero":"تم تحديد {{count}} من المعايير",
             "other":"تم تحديد {{count}} من المعايير",
             "one":"تم تحديد معيار {{count}}"
          },
-         "selectedCompetencyText":{  
+         "selectedCompetencyText":{
             "zero":"تم تحديد {{count}} من الكفاءات",
             "other":"تم تحديد {{count}} من الكفاءات",
             "one":"تم تحديد {{count}} الكفاءة"
@@ -1558,7 +1558,7 @@ export default Object.assign(quizzesTranslations, {
          "browseSelectorText":"ما هي المعايير التي سيتم تغطيتها؟"
       }
    },
-   "account-settings":{  
+   "account-settings":{
       "birthday":"عيد الميلاد",
       "email-address":"عنوان البريد الإلكتروني",
       "gender":"جنس",
@@ -1566,9 +1566,9 @@ export default Object.assign(quizzesTranslations, {
       "title":"إعدادت الحساب",
       "private-info":"معلومات خاصة"
    },
-   "gru-rich-text-editor":{  
-      "expressions-panel":{  
-         "tabs":{  
+   "gru-rich-text-editor":{
+      "expressions-panel":{
+         "tabs":{
             "layout":"نسق",
             "trigonometry":"علم المثلثات",
             "set-theory":"نظرية المجموعات",
@@ -1588,7 +1588,7 @@ export default Object.assign(quizzesTranslations, {
       "bold":"بالخط العريض",
       "italic":"مائل"
    },
-   "gru-settings-edit":{  
+   "gru-settings-edit":{
       "feedback":"یرى الطلاب ما إذا کانوا صحیحین / غیر صحیحین",
       "disable-heading":"تفعيل التقييم في خريطة الدورة التدريبية",
       "navigation-scoring":"الملاحة وسجل",
@@ -1602,254 +1602,254 @@ export default Object.assign(quizzesTranslations, {
       "attempts":"محاولات",
       "attempts-unlimited":"غير محدود"
    },
-   "gru-icon-popover":{  
+   "gru-icon-popover":{
       "settings-visibility-content":"يؤدي هذا الإعداد إلى جعل المحتوى مرئيا عبر الملف الشخصي للمستخدم. إذا كنت ترغب في مشاركة الدورات والمجموعات والتقييمات والموارد و / أو الأسئلة التي تنشئها مع الزملاء، نقترح عليك تشغيل هذه الميزة.",
       "settings-visibility-title":"اجعل المحتوى مرئيا"
    },
-   "gru-take-tour":{  
-      "teacher-home":{  
-         "stepOne":{  
+   "gru-take-tour":{
+      "teacher-home":{
+         "stepOne":{
             "description":"مرحبا بكم في موقع غورو الخاص بك! هنا يمكنك العثور على قائمة من الفصول الدراسية التي تقوم بإنشائها في غورو. تتيح لك الفصول الدراسية مشاركة المحتوى مباشرة مع الطلاب. يمكنك دائما العودة إلى صفحتك الرئيسية من خلال النقر على أيقونة غورو.",
             "title":"الصفحة الرئيسية"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"ستظهر أي غرف صفية تدرسها أو تنضم إليها هذا العام الدراسي هنا تحت الفصول الدراسية النشطة.",
             "title":"دروس تعليم أو الانضمام"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"انقر هنا لإنشاء فصل دراسي جديد. بعد أن يكون لديك محتوى لمشاركته مع الطلاب، سوف تقوم بتعيينه لهم عبر الفصول الدراسية.",
             "title":"إنشاء سلاسروم"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"هذا هو ملفك الشخصي. انقر على ملفك الشخصي في أي وقت للوصول إلى المحتوى الذي تقوم بإنشائه أو إعادة تعيينه في غورو.",
             "title":"ملفك الشخصي"
          }
       },
-      "student-home":{  
-         "stepOne":{  
+      "student-home":{
+         "stepOne":{
             "description":"مرحبا بكم في جولة! هذه هي صفحتك الرئيسية الشخصية. تذكر أنه يمكنك دائما الرجوع إلى صفحتك من خلال النقر على شعار غورو. الآن دعونا نبدأ!",
             "title":"تأخذ رمز جولة"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"هنا سترى إعلانات أن معلمك أو المدرسة تود منك أن تعرف عنها.",
             "title":"الإعلانات"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"انظر جميع الفئات التي كنت مسجلا.",
             "title":"الفصول الدراسية"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"للانضمام إلى فصل دراسي جديد، أدخل رمز الفصل وسيتم عرضه ضمن &quot;فصولي&quot;.",
             "title":"الانضمام إلى الفصول الدراسية"
          },
-         "stepSix":{  
+         "stepSix":{
             "description":"استكشاف ومرجعية المواضيع التي تهمك والتي تريد معرفة المزيد عن.",
             "title":"التعلم المستقل"
          },
-         "stepSeven":{  
+         "stepSeven":{
             "description":"بحث كتالوج المحتوى لدينا للمواضيع التي تهمك.",
             "title":"شريط البحث"
          },
-         "stepEight":{  
+         "stepEight":{
             "description":"ارجع إلى صفحتك الرئيسية.",
             "title":"الصفحة الرئيسية"
          },
-         "stepNine":{  
+         "stepNine":{
             "description":"تصفح الدورات لدينا مميزة.",
             "title":"مكتبة"
          },
-         "stepTen":{  
+         "stepTen":{
             "description":"اطلع على ملخص لأدائك في الدورات التي تسجل فيها.",
             "title":"أداء"
          },
-         "stepThirteen":{  
+         "stepThirteen":{
             "description":"الوصول إلى ملف تعريف المستخدم وتحديثه.",
             "title":"اسم المستخدم"
          },
-         "stepFourteen":{  
+         "stepFourteen":{
             "description":"الآن المضي قدما وانقر على دورة كنت قد سجلت في، والانضمام إلى الفصول الدراسية، أو البحث عن المحتوى الذي هو في مصلحة لكم.",
             "title":"تم الانتهاء من!"
          }
       },
-      "student-performance":{  
-         "stepOne":{  
+      "student-performance":{
+         "stepOne":{
             "description":"مرحبا بكم في لوحة الأداء الخاصة بك. يمكنك عرض كيف كنت أداء في جميع الطبقات والدورات.",
             "title":"أهلا بك!"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"انقر على السهم لتصفية أدائك حسب النشاط والفترة الزمنية والموضوع والدورة التدريبية.",
             "title":"علامة تبويب الفلتر"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"بعد تحديد الفلاتر، انقر على تقرير التحديث لعرض النتائج.",
             "title":"تحديث التقرير"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"تنزيل التقرير.",
             "title":"تنزيل / طباعة"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"المضي قدما وتحليل أدائك!",
             "title":"تم الانتهاء من!"
          }
       },
-      "student-class":{  
-         "stepOne":{  
+      "student-class":{
+         "stepOne":{
             "description":"مرحبا بك في صفحة الدورة التدريبية. هنا سوف تجد الأنشطة اليومية، خريطة بالطبع، وبيانات الأداء. هيا بنا نبدأ!",
             "title":"أهلا بك!"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"الوصول إلى قائمة الأنشطة المخصصة من قبل معلمك. حدد الأنشطة التي تريد دراستها.",
             "title":"الأنشطة اليومية"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"انقر على الوحدات والدروس لاستكمال المجموعات والتقييمات في الدورة.",
             "title":"خريطة الدورة التدريبية"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"ألق نظرة على الأداء العام للفئة.",
             "title":"تقريري"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"يمكنك البدء بالنقر على علامة التبويب الدورة التدريبية أو علامة التبويب الأنشطة اليومية لبدء الدراسة.",
             "title":"تم الانتهاء من!"
          }
       },
-      "study-player":{  
-         "stepOne":{  
+      "study-player":{
+         "stepOne":{
             "description":"هذا هو لاعب الدراسة الخاص بك. دعونا المشي من خلال الميزات المتاحة لك.",
             "title":"أهلا بك!"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"يشير إلى مكان وجود المجموعة أو التقييم في الدورة التدريبية.",
             "title":"وحدة / دورة / عنوان الدرس"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"یشیر إلی کیفیة أدائك ومقدار الدورة التي أکملتھا.",
             "title":"أداء / الانتهاء"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"دع معلمك يعرف ما هو رأيك في هذا المورد.",
             "title":"الرد على الموارد"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"ارجع إلى خريطة الدورة التدريبية للاطلاع على محتوى إضافي للدورة التدريبية.",
             "title":"خريطة الدورة التدريبية"
          },
-         "stepSix":{  
+         "stepSix":{
             "description":"هذه هي الموارد التي قد ترغب في استكشافها بناء على ما تدرسه حاليا.",
             "title":"اقتراحات"
          },
-         "stepSeven":{  
+         "stepSeven":{
             "description":"",
             "title":"تحقق من هذه الموارد"
          },
-         "stepEight":{  
+         "stepEight":{
             "description":"بدء الدراسة!",
             "title":"تم الانتهاء من!"
          }
       },
       "text":"خذ جولة"
    },
-   "gru-tour":{  
-      "assessments-settings":{  
-         "stepOne":{  
+   "gru-tour":{
+      "assessments-settings":{
+         "stepOne":{
             "description":"يحدد هذا الإعداد كيف يمكن للطلاب الانتقال من خلال تقييم ويبين ما إذا كانت إجاباتهم صحيحة أو غير صحيحة. أنها لا تظهر لهم مفتاح الإجابة.",
             "title":"الملاحة وسجل"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"يسمح هذا الإعداد لمفتاح الجواب ليتم الكشف عنها ويحدد عدد من المحاولات الطلاب على التقييم.",
             "title":"الإجابة مفتاح وعدد من المحاولات"
          }
       },
-      "overview":{  
-         "stepOne":{  
+      "overview":{
+         "stepOne":{
             "description":"توفر خريطة الدورة للطلاب الوصول إلى جميع التقييمات والمجموعات التي تعين لهم.",
             "title":"خريطة الدورة التدريبية"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"كل فصل تقوم بإنشائه لديه رمز فئة فريدة من نوعها. سوف تعطي هذا الرمز للطلاب عندما كنت على استعداد لهم للانضمام إلى الفصول الدراسية والوصول إلى المحتوى الخاص بك.",
             "title":"رمز الفئة"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"هذا يسمح لك أن ترى فئة وفرادى بيانات تقييم الطلاب عند استكمال الطلاب التقييمات التي هي جزء من دورة.",
             "title":"مراقبة بيانات الطالب والفئة"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"هنا يمكنك تعديل اسم الفصل الدراسي الخاص بك، ونشر الإعلانات لطلابك، انظر أسماء الطلاب المسجلين في صفك، وحذف الفصل الدراسي الخاص بك.",
             "title":"معلومات الفصول الدراسية"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"عندما تكون في فصل دراسي، انقر هنا لتعديل أي من محتوى الدورة المخصصة لطلابك.",
             "title":"تعديل محتوى الدورة التدريبية"
          },
-         "stepSix":{  
+         "stepSix":{
             "description":"استخدام لوحة القيادة في الوقت الحقيقي لرصد التقدم الطبقة على تقييم في الوقت الحقيقي. <br><br> انقر على أيقونة &quot;الذهاب لايف&quot; وجدت إلى يسار كل تقييم لإطلاق تقييم في الوقت الحقيقي للطلاب. <br><br>",
             "title":"رصد التقدم المحرز في الوقت الحقيقي!"
          }
       },
-      "quick-start":{  
-         "stepOne":{  
+      "quick-start":{
+         "stepOne":{
             "description":"هذا هو وجهة نظر من الفصول الدراسية التي تم إنشاؤها حديثا. للرجوع إلى الفصول الدراسية في أي وقت، انقر على &quot;الفصول الدراسية&quot; واستخدم القائمة المنسدلة لتحديد الفصول الدراسية التي ترغب في إدخالها.",
             "title":"التنقل في الفصول الدراسية"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"نقترح إنشاء تقييم كوسيلة للبدء مع غورو وتقييم المستويات الحالية من فهم الطلاب في صفك.",
             "title":"ابدء؟ إنشاء تقييم!"
          }
       },
-      "real-time":{  
-         "stepOne":{  
+      "real-time":{
+         "stepOne":{
             "description":"انقر على كل سؤال لمعرفة تفاصيل كيفية الإجابة على الطلاب.",
             "title":"توزيع الردود"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"حدد كل بلاط طالب للاطلاع على تقارير بيانات الطلاب الفردية.",
             "title":"بيانات الطالب الفردية"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"حدد &quot;عرض العنوان&quot; أو &quot;عرض القائمة&quot; للاطلاع على خيارات عرض البيانات.",
             "title":"حدد طريقة عرض"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"اطلع على متوسط ​​الفصل المحسوب في الوقت الفعلي لجميع الردود.",
             "title":"متوسط ​​درجة"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"استخدم هذا الخيار لعرض عرض مجهول لبيانات الطالب.",
             "title":"بيانات المشروع المجهول"
          }
       }
    },
-   "gru-course-play":{  
+   "gru-course-play":{
       "performance":"أداء",
       "view-unit-details":"عرض وحدة البيانات الوصفية",
       "hide-unit-details":"إخفاء الوحدة الوصفية"
    },
-   "gru-century-skills":{  
-      "legends":{  
+   "gru-century-skills":{
+      "legends":{
          "conley":"كونلي، أربعة، المفاتيح",
          "hewlett":"هيوليت أعمق نموذج التعلم",
          "framework":"P21 الإطار",
          "national":"المركز الوطني للبحوث من أجل الحياة والعمل"
       },
-      "content":{  
-         "groups":{  
+      "content":{
+         "groups":{
             "cognitive":"المهارات والاستراتيجيات المعرفية الرئيسية",
             "learning":"مهارات التعلم الأساسية والتقنيات",
             "content":"المحتوى الرئيسي المعرفة"
          }
       }
    },
-   "gru-rubric-edit":{  
+   "gru-rubric-edit":{
       "upload-rubric":"تحميل روبريك"
    },
-   "gru-rubric-creation":{  
-      "gru-preview-url":{  
+   "gru-rubric-creation":{
+      "gru-preview-url":{
          "preview":"إضافة فوق فوق ومعاينة هنا"
       },
-      "gru-category":{  
-         "gru-scoring-levels":{  
+      "gru-category":{
+         "gru-scoring-levels":{
             "0":"السابق. بارع",
             "1":"السابق. مثالي",
             "2":"السابق. الأساسية",
@@ -1871,37 +1871,37 @@ export default Object.assign(quizzesTranslations, {
       "url":"URL",
       "feedback-guidance":"ردود الفعل الإرشاد"
    },
-   "library":{  
-      "gru-library-card":{  
+   "library":{
+      "gru-library-card":{
          "featured-course":"دورة مميزة"
       },
-      "gru-partner-library-card":{  
-         "course":{  
+      "gru-partner-library-card":{
+         "course":{
             "zero":"{{count}} الدورة التدريبية",
             "other":"{{count}} الدورات التدريبية",
             "one":"{{count}} الدورة التدريبية"
          },
-         "collection":{  
+         "collection":{
             "zero":"{{count}} مجموعة",
             "other":"{{count}} المجموعات",
             "one":"{{count}} مجموعة"
          },
-         "assessment":{  
+         "assessment":{
             "zero":"{{count}} تقييم",
             "other":"{{count}} التقييمات",
             "one":"{{count}} تقييم"
          },
-         "resource":{  
+         "resource":{
             "zero":"{{count}} مورد",
             "other":"{{count}} الموارد",
             "one":"{{count}} مورد"
          },
-         "question":{  
+         "question":{
             "zero":"{{count}} سؤال",
             "other":"{{count}} الأسئلة",
             "one":"{{count}} سؤال"
          },
-         "rubric":{  
+         "rubric":{
             "zero":"{{count}} روبريك",
             "other":"{{count}} النتائج",
             "one":"{{count}} روبريك"
@@ -1911,13 +1911,13 @@ export default Object.assign(quizzesTranslations, {
       "browse-library":"تصفح المكتبة",
       "featured-courses":"الدورات المتميزة"
    },
-   "gru-study-header":{  
-      "resource":{  
+   "gru-study-header":{
+      "resource":{
          "zero":"مورد",
          "other":"موارد",
          "one":"مورد"
       },
-      "question":{  
+      "question":{
          "zero":"سؤال",
          "other":"الأسئلة",
          "one":"سؤال"
@@ -1930,7 +1930,7 @@ export default Object.assign(quizzesTranslations, {
       "suggestions-legend":"لمعرفة المزيد، راجع هذه الموارد.",
       "resource-legend":"أنت تقوم بفحص هذا المورد."
    },
-   "gru-suggest-test":{  
+   "gru-suggest-test":{
       "resource-header":"المورد المقترح (اختياري)",
       "no":"لا شكرا",
       "pre-test-header":"اختبار ما قبل الاختبار (اختياري)",

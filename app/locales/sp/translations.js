@@ -35,34 +35,34 @@ export default Object.assign(quizzesTranslations, {
       "singular":"{{description}} no puede ser una colección",
       "present":"{{description}} debe estar en blanco"
    },
-   "common":{  
-      "assessment-pl":{  
+   "common":{
+      "assessment-pl":{
          "zero":"Evaluaciones",
          "other":"Evaluaciones",
          "one":"Evaluación"
       },
-      "categoryOptions":{  
+      "categoryOptions":{
          "professional-dev":"Desarrollo profesional",
          "higher-ed":"Educación más alta",
          "k12":"K-12"
       },
-      "collection-pl":{  
+      "collection-pl":{
          "zero":"Colecciones",
          "other":"Colecciones",
          "one":"Colección"
       },
-      "delete-instructions":{  
+      "delete-instructions":{
          "links-inaccessible":"Todos los enlaces compartidos serán inaccesibles",
          "content-inaccessible":"Todo el contenido será inaccesible a las aulas vinculadas a él"
       },
-      "emotions":{  
+      "emotions":{
          "emotion-3":"Meh ...",
          "emotion-2":"No entiendo",
          "emotion-5":"puedo explicarlo",
          "emotion-4":"entiendo",
          "emotion-1":"necesito ayuda"
       },
-      "errors":{  
+      "errors":{
          "class-title-presence":"Por favor dé un nombre a su salón de clases.",
          "add-question-description":"Ingrese la pregunta.",
          "lesson-not-created":"¡Vaya! No se puede crear lección ahora mismo. Vuelve a intentarlo en breve.",
@@ -140,22 +140,22 @@ export default Object.assign(quizzesTranslations, {
          "unit-not-loaded":"¡Vaya! No se puede cargar la unidad ahora mismo. Vuelve a intentarlo en breve.",
          "class-min-score":"La puntuación mínima debe ser un número entre 1 y 100"
       },
-      "lessonObj":{  
+      "lessonObj":{
          "zero":"Lecciones",
          "other":"Lecciones",
          "one":"Lección"
       },
-      "numberStudents":{  
+      "numberStudents":{
          "zero":"{{count}} Estudiantes",
          "other":"{{count}} Estudiantes",
          "one":"{{count}} Estudiante"
       },
-      "question-pl":{  
+      "question-pl":{
          "zero":"Preguntas",
          "other":"Preguntas",
          "one":"Pregunta"
       },
-      "question-type":{  
+      "question-type":{
          "HT_TO":"Arrastrar y soltar orden",
          "MA":"Respuesta múltiple",
          "HS_IMG":"Selección múltiple - Imagen",
@@ -169,7 +169,7 @@ export default Object.assign(quizzesTranslations, {
          "FIB":"Llena el espacio en blanco",
          "HT_RO":"Arrastrar y soltar orden"
       },
-      "resource-format":{  
+      "resource-format":{
          "image":"Imagen",
          "question":"Pregunta",
          "interactive":"Interactivo",
@@ -178,17 +178,17 @@ export default Object.assign(quizzesTranslations, {
          "webpage":"Página web",
          "audio":"Audio"
       },
-      "resource-pl":{  
+      "resource-pl":{
          "zero":"Recursos",
          "other":"Recursos",
          "one":"Recurso"
       },
-      "unitObj":{  
+      "unitObj":{
          "zero":"Unidades",
          "other":"Unidades",
          "one":"Unidad"
       },
-      "warnings":{  
+      "warnings":{
          "on-air-connection-lost":"El panel de Go Live ha perdido la conexión y está intentando de nuevo automáticamente. Es tentador, pero por favor no actualice su pantalla!",
          "character-limit":"Has alcanzado el límite de caracteres."
       },
@@ -544,9 +544,9 @@ export default Object.assign(quizzesTranslations, {
       "add-new-question":"Crear una nueva pregunta",
       "new-resource":"Nuevo recurso"
    },
-   "index":{  
-      "browseContent":{  
-         "footer":{  
+   "index":{
+      "browseContent":{
+         "footer":{
             "description_1":"¿Ya tienes una cuenta?",
             "description_2":"aquí.",
             "login":"Iniciar sesión"
@@ -559,29 +559,29 @@ export default Object.assign(quizzesTranslations, {
          "grades_missing_message":"Seleccione Grado y Asunto.",
          "subjects_missing_message":"Por favor, seleccione Asunto."
       },
-      "gettingStarted":{  
-         "toolkit":{  
+      "gettingStarted":{
+         "toolkit":{
             "description":"¡Bienvenido a Gooru! Echa un vistazo a estos recursos para aprender lo que puedes hacer con Gooru y empezar rápidamente.",
             "title":"Kit de herramientas de introducción"
          },
-         "classroom":{  
+         "classroom":{
             "description":"Aprenda con ejemplos a través de historias de maestros que dicen que Gooru ha hecho una diferencia en su salón de clases.",
             "title":"Historias del aula"
          },
-         "events":{  
+         "events":{
             "description":"Ofrecemos seminarios y seminarios gratuitos para ayudarle a comenzar con Gooru.",
             "title":"Echa un vistazo a nuestros eventos!"
          },
          "title":"Introducción a Gooru"
       },
-      "empowerStudents":{  
+      "empowerStudents":{
          "find":"Encontrar",
          "share":"Compartir",
          "monitor":"Monitor",
          "title":"Capacitar a los estudiantes para que aprendan a su manera",
          "remix":"Remix"
       },
-      "freeAndOpen":{  
+      "freeAndOpen":{
          "button":"Más información sobre nuestro enfoque",
          "description":"Creemos que la educación es un derecho humano. Gooru siempre estará libre de costo y anuncios para educadores y estudiantes de todo el mundo.",
          "title":"Libre y abierto. <br/> Siempre."
@@ -592,8 +592,8 @@ export default Object.assign(quizzesTranslations, {
       "monitorDescription":"Mida el compromiso y el progreso de sus estudiantes para que intervengan en tiempo real.",
       "shareDescription":"Compartir colecciones con estudiantes a través de las aulas de Gooru. El acceso no es necesario para acceder."
    },
-   "class":{  
-      "info":{  
+   "class":{
+      "info":{
          "edit-info":"editar informacion",
          "share-class":"Compartir Clase",
          "teachers":"Maestros",
@@ -607,7 +607,7 @@ export default Object.assign(quizzesTranslations, {
          "class-info":"Información del Aula",
          "invite-co-teachers":"Invitar a los Co-maestros"
       },
-      "edit":{  
+      "edit":{
          "basic-info":"Información básica",
          "class-greetings":"Anuncios de aula",
          "class-minscore":"Calificación Puntuación mínima para los trofeos (1-100%)",
@@ -617,15 +617,15 @@ export default Object.assign(quizzesTranslations, {
          "class-greetings-placeholder":"Salude a sus estudiantes, motivarlos, hacer un anuncio, etc.",
          "course-map":"Mapa del curso"
       },
-      "overview":{  
+      "overview":{
          "locate":"Ubícame",
          "title":"Mapa del curso",
          "add-to-daily-class-activities":"Añadir a las Actividades de la Clase Diaria",
          "edit-content":"Editar contenido"
       },
-      "analytics":{  
-         "performance":{  
-            "actions":{  
+      "analytics":{
+         "performance":{
+            "actions":{
                "assessment":"Ver evaluación",
                "download":"Descargar",
                "edit":"Editar contenido",
@@ -635,8 +635,8 @@ export default Object.assign(quizzesTranslations, {
                "fullScreen":"Ver en pantalla completa",
                "both":"Ver ambos"
             },
-            "teacher":{  
-               "metricsTable":{  
+            "teacher":{
+               "metricsTable":{
                   "class-average":"Promedio de clase",
                   "average":"Promedio"
                }
@@ -645,11 +645,11 @@ export default Object.assign(quizzesTranslations, {
             "title":"Ver rendimiento",
             "better-experience-message":"Para una mejor experiencia de Gooru, vea el análisis de aula completo en tableta o escritorio."
          },
-         "mastery":{  
+         "mastery":{
             "title":"Ver dominio"
          }
       },
-      "quick-start":{  
+      "quick-start":{
          "featured-course":"Ver cursos destacados",
          "remix-desc":"Copia y personaliza un curso destacado para tus estudiantes",
          "add-existing-course":"Agregar un curso de su biblioteca",
@@ -665,20 +665,20 @@ export default Object.assign(quizzesTranslations, {
          "new-course":"Inicio rápido de un nuevo curso"
       }
    },
-   "classes":{  
+   "classes":{
       "classesJoined":"Aulas a las que me he unido",
       "noClassesJoined":"No te has unido a ninguna clase",
       "classesTaught":"Aulas que enseño",
       "noClassesTaught":"No tienes clases creadas"
    },
-   "content":{  
-      "assessments":{  
-         "edit":{  
+   "content":{
+      "assessments":{
+         "edit":{
             "best-practices":"<p> Una evaluación es un conjunto de preguntas puntuadas que usted y sus alumnos pueden usar para monitorear el entendimiento y el desempeño. </p><p> Use una variedad de tipos de preguntas (incluyendo varias basadas en SBAC) en su evaluación para que los estudiantes puedan demostrar comprensión de diferentes maneras. Recomendamos etiquetar cada pregunta a estándares, micro-estándares y Profundidad de conocimiento de Webb. </p>"
          }
       },
-      "classes":{  
-         "create":{  
+      "classes":{
+         "create":{
             "condition-prompt":"¿Cómo se unirán los estudiantes a su aula?",
             "get-started":"Empezar",
             "condition-prompt-invite":"Sólo invitados",
@@ -687,7 +687,7 @@ export default Object.assign(quizzesTranslations, {
             "title":"Crear un aula",
             "content":"Donde los estudiantes se involucran con el contenido."
          },
-         "join":{  
+         "join":{
             "already-member":"Ya eres miembro de este salón de clases.",
             "join-not-allowed":"No puedes unirte a este aula",
             "terms-and-conditions":"Al hacer clic en Unirse al aula, estoy de acuerdo en compartir mis datos de evaluación y recopilación de datos generados a partir del estudio de este salón Gooru con el (los) maestro (s) de este salón.",
@@ -700,15 +700,15 @@ export default Object.assign(quizzesTranslations, {
             "content":"Donde comienza el viaje."
          }
       },
-      "collections":{  
-         "edit":{  
+      "collections":{
+         "edit":{
             "assign-to-course":"Asignar al curso",
             "best-practices":"<p> Los estudiantes interactúan con su contenido en el nivel de colección. Al crear una colección de aprendizaje, asegúrese de incluir los objetivos de aprendizaje y considere el uso de una variedad de tipos de recursos para exponer a los estudiantes a los conceptos de múltiples maneras. </p><p> Utilice la secuenciación de los recursos para desarrollar conceptos. La progresión a través de una colección debe fluir de una manera lógica y llevar a la audiencia prevista de un nivel general a un nivel más complejo de comprensión si es apropiado, o permitir adecuadamente para la exploración del estudiante. </p><p> Incluya chequeos de comprensión a lo largo del camino a través de nuestras preguntas Gooru u otros interactivos. Recomendamos recursos suficientes y / o suficientes recursos para lograr los objetivos de la recolección y asegurar que cada recurso tenga un papel y propósito. </p>"
          }
       },
-      "courses":{  
-         "edit":{  
-            "information":{  
+      "courses":{
+         "edit":{
+            "information":{
                "course-title":"Título del curso",
                "description":"Descripción"
             },
@@ -716,14 +716,14 @@ export default Object.assign(quizzesTranslations, {
             "best-practices":"<p> Un curso es una carpeta que le permite organizar su contenido de aprendizaje en unidades y lecciones. Al crear un curso, considere las preguntas esenciales que está abordando, los objetivos de aprendizaje y la organización de su contenido. </p><p> Puede juntar las lecciones para crear una experiencia diversa para su población estudiantil (por ejemplo, puede ordenar sus unidades cronológicamente, por tema o por estándar). </p>"
          }
       },
-      "questions":{  
-         "edit":{  
-            "information":{  
+      "questions":{
+         "edit":{
+            "information":{
                "question-title":"Título de la pregunta",
                "question-type":"tipo de pregunta"
             },
-            "builder":{  
-               "answer-instructions":{  
+            "builder":{
+               "answer-instructions":{
                   "HT_HL_WD":"Al escribir la pregunta, utilice los corchetes para las palabras resaltadas. Un soporte sólo puede contener una palabra a la vez. Por ejemplo, el [grande] lobo malo sopló [hacia abajo] la casa. Límite de caracteres: 5000.",
                   "MA":"Puede agregar hasta diez respuestas, una imagen, una explicación y hasta cinco sugerencias.",
                   "HS_IMG":"Puede agregar hasta diez imágenes de respuesta y seleccionar una o más respuestas correctas.",
@@ -735,7 +735,7 @@ export default Object.assign(quizzesTranslations, {
                   "HT_HL_ST":"Al escribir la pregunta, utilice los corchetes para indicar las oraciones resaltadas. Un soporte sólo puede contener una oración a la vez, utilizando un período dentro del corchete. Por ejemplo, El primer pequeño cerdo construyó su casa de paja. El gran lobo arruinó la casa. El segundo cerdo construyó su casa de madera. Límite de caracteres: 5000.",
                   "HT_RO":"Puede agregar hasta diez opciones de respuesta en el orden correcto. La orden será codificada para los estudiantes."
                },
-               "question-instructions":{  
+               "question-instructions":{
                   "MA":"Escriba su pregunta.",
                   "HS_IMG":"Escriba su pregunta.",
                   "MC":"Escriba su pregunta.",
@@ -755,17 +755,17 @@ export default Object.assign(quizzesTranslations, {
             "best-practices":"<p> Una pregunta es un recurso que requiere una respuesta del estudiante, y ofrecemos una variedad de tipos de preguntas para apoyar el tipo de preguntas que sus estudiantes verán en SBAC, PARCC y otras evaluaciones. </p><p> Considere la posibilidad de alternar los tipos de preguntas que usted utiliza para ofrecer a los estudiantes la exposición a estos tipos de preguntas y para proporcionar múltiples formatos para demostrar el conocimiento. </p><p> Etiquetar sus preguntas a las normas, micro-estándares, y Profundidad del conocimiento de Webb. Usted puede ver cómo sus estudiantes están interactuando con preguntas a través del tablero del profesor. </p>"
          }
       },
-      "modals":{  
-         "delete-bookmark":{  
+      "modals":{
+         "delete-bookmark":{
             "delete-error":"¡Vaya! No se puede desmarcar este {{type}} ahora. Vuelve a intentarlo en breve.",
             "confirmation":"¿Deseas desmarcar este {{type}}?"
          },
-         "delete-class":{  
+         "delete-class":{
             "student-data-deleted":"Se borrarán todos los datos de los estudiantes",
             "legend":"Estás a punto de eliminar tu aula",
             "student-access":"Los estudiantes no podrán acceder al aula"
          },
-         "delete-content":{  
+         "delete-content":{
             "delete-error":"¡Vaya! No se puede eliminar {{type}} ahora mismo. Vuelve a intentarlo en breve.",
             "legend":"Estás a punto de eliminar",
             "content-legend":"<span>{{Type}}</span> {{index}} - {{title}} de {{parentName}}",
@@ -773,7 +773,7 @@ export default Object.assign(quizzesTranslations, {
             "content-legend-header":"{{title}} de {{parentName}}",
             "confirmation":"Estás seguro de que quieres continuar? Por favor, escriba &quot;eliminar&quot; a continuación y haga clic en &quot;eliminar&quot;."
          },
-         "delete-resource":{  
+         "delete-resource":{
             "delete-error":"¡Vaya! No se puede eliminar {{type}} ahora mismo. Vuelve a intentarlo en breve.",
             "legend":"Confirma que deseas eliminar permanentemente <b>{{title}}</b>",
             "second-check":"Se eliminarán copias de este recurso, en sus colecciones y en cualquier colección de otros usuarios de la comunidad",
@@ -781,12 +781,12 @@ export default Object.assign(quizzesTranslations, {
             "confirmation":"Estás seguro de que quieres continuar? Haga clic en 'Eliminar permanentemente'.",
             "first-check":"Se trata de una eliminación permanente y no se puede deshacer"
          },
-         "remove-content":{  
+         "remove-content":{
             "legend":"Estás a punto de eliminar <b>{{title}}</b> de <b>{{parentName}}</b>",
             "remove-error":"¡Vaya! No se puede eliminar {{type}} ahora mismo. Vuelve a intentarlo en breve.",
             "confirmation":"Estás seguro de que quieres continuar? Por favor escriba &quot;remove&quot; y haga clic en &quot;remove&quot;."
          },
-         "remove-student":{  
+         "remove-student":{
             "data-lost":"Si vuelven a unirse a la clase, todos los datos pasados ​​se perderán",
             "legend":"Estás a punto de eliminar {{studentName}} de este salón y eliminar todos sus datos.",
             "classroom-access":"No tendrán acceso al aula ni al contenido",
@@ -795,17 +795,17 @@ export default Object.assign(quizzesTranslations, {
             "confirmation":"Estás seguro de que quieres continuar? Por favor, escriba &quot;eliminar&quot; a continuación y haga clic en &quot;eliminar&quot;.",
             "title":"Eliminar al estudiante y eliminar sus datos"
          },
-         "quick-remove-content":{  
+         "quick-remove-content":{
             "legend":"Confirma que deseas eliminar <b>{{title}}</b> de <b>{{parentName}}</b> ."
          },
-         "quick-delete-content":{  
+         "quick-delete-content":{
             "legend":"Confirma que deseas eliminar permanentemente <b>{{title}}</b> de <b>{{parentName}}</b> .",
             "delete":"Borrar permanentemente"
          }
       },
-      "resources":{  
-         "edit":{  
-            "information":{  
+      "resources":{
+         "edit":{
+            "information":{
                "select-a-license":"Seleccione una licencia",
                "im-publisher":"Soy el editor"
             },
@@ -815,13 +815,13 @@ export default Object.assign(quizzesTranslations, {
          }
       }
    },
-   "user":{  
-      "joined-classes":{  
+   "user":{
+      "joined-classes":{
          "zero":"Actualmente estás inscrito en aulas de {{count}}",
          "other":"Actualmente estás inscrito en aulas de {{count}}",
          "one":"Actualmente estás inscrito en 1 aula"
       },
-      "teaching-classes":{  
+      "teaching-classes":{
          "zero":"Actualmente está enseñando a las salas de clase {{count}}",
          "other":"Actualmente está enseñando a las salas de clase {{count}}",
          "one":"Actualmente estás enseñando 1 aula"
@@ -837,9 +837,9 @@ export default Object.assign(quizzesTranslations, {
       "archived-classrooms":"Aulas archivadas",
       "classrooms":"Aulas"
    },
-   "student-landing":{  
-      "class":{  
-         "class-activities-tab":{  
+   "student-landing":{
+      "class":{
+         "class-activities-tab":{
             "today":"Hoy"
          },
          "unit":"Unidad",
@@ -853,12 +853,12 @@ export default Object.assign(quizzesTranslations, {
          "back-to-independent":"Volver a Aprendizaje Independiente",
          "course-map":"Mapa del curso"
       },
-      "course":{  
+      "course":{
          "total-time-spent":"Tiempo total dedicado",
          "to-report":"Resumen de uso"
       },
-      "my-performance":{  
-         "activities":{  
+      "my-performance":{
+         "activities":{
             "study":"Estudiar"
          },
          "filter":"Filtrar",
@@ -880,9 +880,9 @@ export default Object.assign(quizzesTranslations, {
       "my-study":"Mi estudio",
       "no-classrooms":"Aún no te has unido a las aulas. Haga clic en 'Join </br> Clase 'para añadir la clase de su profesor. También puede buscar </br> Un curso destacado bajo la pestaña Biblioteca."
    },
-   "teacher-landing":{  
-      "class":{  
-         "class-management-tab":{  
+   "teacher-landing":{
+      "class":{
+         "class-management-tab":{
             "student-name":"Nombre del estudiante",
             "archive-class":"Clase de archivo",
             "class-code":"Código de clase",
@@ -910,12 +910,12 @@ export default Object.assign(quizzesTranslations, {
             "actions":"Comportamiento",
             "delete-class":"Eliminar Clase"
          },
-         "class-activities-tab":{  
+         "class-activities-tab":{
             "add-activities":"Añadir actividades desde el",
             "or":"o",
             "today":"Hoy,"
          },
-         "performance-tab":{  
+         "performance-tab":{
             "assessments":"Evaluaciones",
             "collections":"Colecciones"
          },
@@ -936,8 +936,8 @@ export default Object.assign(quizzesTranslations, {
       "teach":"Enseñar con una clase de Gooru",
       "no-classrooms":"Todavía no has creado aulas. Haga clic en 'Crear clase' o busque </br> Para un curso destacado en la pestaña Biblioteca."
    },
-   "goals":{  
-      "manage":{  
+   "goals":{
+      "manage":{
          "type-label":"Tipo de objetivo",
          "dropped":"Caído",
          "save":"Salvar",
@@ -954,7 +954,7 @@ export default Object.assign(quizzesTranslations, {
          "status-label":"Estado",
          "activated":"Activado"
       },
-      "create":{  
+      "create":{
          "error-add-title":"Por favor, introduzca la meta",
          "error-add-end-date":"Ingrese la fecha de finalización",
          "error-add-start-date":"Introduzca la fecha de inicio",
@@ -964,14 +964,14 @@ export default Object.assign(quizzesTranslations, {
          "error-length-title":"El objetivo debe tener un máximo de 200 caracteres",
          "error-greater-end-date":"La fecha de finalización debe ser mayor que la fecha de inicio"
       },
-      "delete":{  
+      "delete":{
          "deleted-success-msg":"Has eliminado el objetivo"
       },
-      "update":{  
+      "update":{
          "updated-success-msg":"Ha actualizado la meta"
       }
    },
-   "gru-add-to":{  
+   "gru-add-to":{
       "add-to-assessment-lead":"Elija una evaluación que desea agregar {{contentTitle}} a",
       "add-to-existing-classroom":"Agregar al aula existente",
       "add-to-existing-classroom-lead":"Elija un aula al que desea agregar",
@@ -985,8 +985,8 @@ export default Object.assign(quizzesTranslations, {
       "add-assessment-to-lesson":"Añadir de mis evaluaciones",
       "add-collection-to-lesson":"Añadir de mis colecciones"
    },
-   "gru-assessment-confirmation":{  
-      "attempts-left":{  
+   "gru-assessment-confirmation":{
+      "attempts-left":{
          "zero":"Tienes intentos de {{count}}",
          "other":"Tienes intentos de {{count}}",
          "one":"Tienes 1 intento a la izquierda"
@@ -1001,19 +1001,19 @@ export default Object.assign(quizzesTranslations, {
       "unlimited-attempts":"Tienes intentos ilimitados",
       "title":"Estás a punto de comenzar una evaluación ..."
    },
-   "gru-submit-confirmation":{  
+   "gru-submit-confirmation":{
       "cancel":"Cancelar",
       "confirm":"Concurso de finalización",
       "finish-description":"Haga clic en 'Finalizar cuestionario' para enviar sus respuestas.",
       "description":"Estás a punto de terminar este intento y presentar todas las respuestas. Cualquier pregunta omitida se contará como incorrecta.",
       "title":"Termina esta prueba y envía todos"
    },
-   "gru-quick-course-search":{  
+   "gru-quick-course-search":{
       "view-featured-courses":"Ver cursos destacados",
       "add-from-course":"Agregar desde el curso existente",
       "assign":"Asignar"
    },
-   "gru-share-pop-over":{  
+   "gru-share-pop-over":{
       "ios-tooltip":"Mantenga pulsado para copiar!",
       "multiarch-tooltip":"Presiona Ctrl + C para copiar!",
       "share-question":"Comparta su pregunta con el enlace",
@@ -1024,30 +1024,30 @@ export default Object.assign(quizzesTranslations, {
       "share-course":"Comparte tu curso con el enlace",
       "share-resource":"Comparte tu recurso con el enlace"
    },
-   "gru-category-panel":{  
-      "teacher":{  
+   "gru-category-panel":{
+      "teacher":{
          "cta":"Ver historias",
          "title":"Para maestros",
          "body":"Descubra el contenido alineado con las normas, personalice el contenido y realice el seguimiento del progreso de los estudiantes a través del análisis de datos."
       },
-      "student":{  
+      "student":{
          "cta":"Entrar",
          "text-placeholder":"Introduzca el código del salón de clases",
          "title":"Para estudiantes",
          "body":"Explore los intereses, construya y monitoree el progreso a través de materiales de aprendizaje."
       },
-      "district":{  
+      "district":{
          "cta":"Vea Nuestro Impacto",
          "title":"Para Distritos",
          "body":"Colabore con Gooru para dar rienda suelta al aprendizaje personalizado y compartir un plan de estudios aprobado por el distrito."
       },
-      "partner":{  
+      "partner":{
          "cta":"Aprende más",
          "title":"Para socios",
          "body":"Colaborar con socios de misión para aumentar nuestro impacto colectivo en el ecosistema educativo."
       }
    },
-   "class.gru-class-navigation":{  
+   "class.gru-class-navigation":{
       "analytics":"Datos",
       "overview":"Mapa del curso",
       "teams":"Equipos",
@@ -1056,7 +1056,7 @@ export default Object.assign(quizzesTranslations, {
       "information":"Información del Aula",
       "greetings":"Anuncios"
    },
-   "class.gru-class-statistics":{  
+   "class.gru-class-statistics":{
       "completion":"Terminación",
       "performance":"Actuación",
       "title":"Estadísticas de la clase",
@@ -1064,7 +1064,7 @@ export default Object.assign(quizzesTranslations, {
       "on-average":"De media",
       "time-spent":"Tiempo usado"
    },
-   "gru-user-registration":{  
+   "gru-user-registration":{
       "signUpEmail":"Regístrese con su dirección de correo electrónico",
       "joinTitle":"¡Únase a la comunidad de Gooru!",
       "clickLogIn":"Haga clic aquí para ingresar.",
@@ -1076,16 +1076,16 @@ export default Object.assign(quizzesTranslations, {
       "descriptionWhyGoogle":"Es rápido y fácil. Utiliza tu cuenta de Google existente para iniciar sesión sin contraseña.",
       "haveAccount":"¿Ya tienes una cuenta?"
    },
-   "gru-welcome-message":{  
-      "text-two":{  
+   "gru-welcome-message":{
+      "text-two":{
          "subtitle":"Hacer un tour",
          "text":": Ofrece visitas guiadas sobre cómo utilizar nuestras funciones."
       },
-      "text-three":{  
+      "text-three":{
          "subtitle":"Ayuda",
          "text":": Apoyo a su alcance para preguntas adicionales."
       },
-      "text-four":{  
+      "text-four":{
          "subtitle":"Nuevo",
          "text":": Identifica las nuevas características que puede probar."
       },
@@ -1094,9 +1094,9 @@ export default Object.assign(quizzesTranslations, {
       "title":"Bienvenido a Gooru's Learning Navigator!",
       "dont-show-again":"No mostrar de nuevo"
    },
-   "sign-up":{  
-      "dateOfBirth":{  
-         "months":{  
+   "sign-up":{
+      "dateOfBirth":{
+         "months":{
             "november":"noviembre",
             "june":"junio",
             "september":"septiembre",
@@ -1141,14 +1141,14 @@ export default Object.assign(quizzesTranslations, {
       "step-2-title":"Información básica",
       "username":"Nombre de usuario"
    },
-   "gru-user-sign-up-cancel":{  
+   "gru-user-sign-up-cancel":{
       "registration_incomplete":"Su registro no está completo.",
       "exit?":"¿Seguro que quieres salir?",
       "leave":"Dejar el registro",
       "continue":"Continuar con Registro",
       "title":"¿Dejar el registro?"
    },
-   "login":{  
+   "login":{
       "description-session-ends":"Por Favor regístrese.",
       "or":"O",
       "signUpHere":"¡Registrate aquí!",
@@ -1163,7 +1163,7 @@ export default Object.assign(quizzesTranslations, {
       "log-in":"Iniciar sesión",
       "usernameOrEmail":"Nombre de usuario o correo electrónico"
    },
-   "forgot-password":{  
+   "forgot-password":{
       "mail":"Support@gooru.org",
       "footer-description-1":"Recibirá un correo electrónico con un enlace para restablecer su contraseña.",
       "error-email-not-exists":"Lo sentimos, no reconocemos este correo electrónico.",
@@ -1175,12 +1175,12 @@ export default Object.assign(quizzesTranslations, {
       "usernameOrEmail":"Por favor introduzca su correo electrónico",
       "secondStepTitle":"Consultar su correo electrónico"
    },
-   "reset-password":{  
+   "reset-password":{
       "new-password-confirm":"Confirmar la contraseña",
       "new-password":"Introduzca su nueva contraseña",
       "title":"Restablecer la contraseña"
    },
-   "footer":{  
+   "footer":{
       "contactUs":"Contáctenos",
       "districts":"Distritos",
       "privacy":"Intimidad",
@@ -1198,7 +1198,7 @@ export default Object.assign(quizzesTranslations, {
       "connect":"Conectar",
       "events":"Eventos"
    },
-   "grade-dropdown":{  
+   "grade-dropdown":{
       "tenth":"10",
       "eighth":"8",
       "eleventh":"11",
@@ -1220,15 +1220,15 @@ export default Object.assign(quizzesTranslations, {
       "pre-k":"Pre-k",
       "first":"1"
    },
-   "standard-dropdown":{  
+   "standard-dropdown":{
       "placeholder":"Navegar por Estándar"
    },
-   "subject-dropdown":{  
+   "subject-dropdown":{
       "placeholder":"asignaturas)",
       "prompt":"Seleccione un tema"
    },
-   "search-filter":{  
-      "question-types":{  
+   "search-filter":{
+      "question-types":{
          "MA":"Respuesta múltiple",
          "HS_IMG":"Selección múltiple - Imagen",
          "MC":"Opción multiple",
@@ -1239,7 +1239,7 @@ export default Object.assign(quizzesTranslations, {
          "FIB":"Llena el espacio en blanco",
          "HT_RO":"Arrastrar y soltar orden"
       },
-      "author":{  
+      "author":{
          "placeholder":"Autor"
       },
       "courses":"Cursos",
@@ -1249,7 +1249,7 @@ export default Object.assign(quizzesTranslations, {
       "questions":"Preguntas",
       "resources":"Recursos"
    },
-   "resource":{  
+   "resource":{
       "image":"Imagen",
       "question":"Pregunta",
       "interactive":"Interactivo",
@@ -1259,7 +1259,7 @@ export default Object.assign(quizzesTranslations, {
       "audio":"Audio",
       "oer":"REA"
    },
-   "search-result":{  
+   "search-result":{
       "question":"Pregunta",
       "in-this-collection":"En esta colección",
       "resource":"Recurso",
@@ -1268,25 +1268,25 @@ export default Object.assign(quizzesTranslations, {
       "resources":"Recursos",
       "search-results-for":"Buscar resultados para"
    },
-   "gru-image-picker":{  
+   "gru-image-picker":{
       "chooseFile":"Escoge un archivo ...",
       "submit":"Usar la imagen",
       "instruction":"Cargue una imagen de un archivo en su computadora.",
       "restriction":"La imagen debe ser un archivo JPG, GIF o PNG inferior a 5 MB."
    },
-   "gru-fib":{  
+   "gru-fib":{
       "instructions":"Escriba su respuesta en el espacio en blanco proporcionado y haga clic en '{{action}}'."
    },
-   "gru-hs-image":{  
+   "gru-hs-image":{
       "instructions":"Seleccione la imagen correcta y haga clic en '{{action}}'."
    },
-   "gru-hs-text":{  
+   "gru-hs-text":{
       "instructions":"Seleccione la respuesta correcta y haga clic en '{{action}}'."
    },
-   "gru-hot-text":{  
+   "gru-hot-text":{
       "instructions":"Seleccione la respuesta correcta y haga clic en '{{action}}'."
    },
-   "gru-login-prompt":{  
+   "gru-login-prompt":{
       "new-user":"¿Nuevo aquí?",
       "instructions":"Debe iniciar sesión para completar esta acción.",
       "sign-in":"Registrarse",
@@ -1294,37 +1294,37 @@ export default Object.assign(quizzesTranslations, {
       "existing-user":"¿Ya tienes una cuenta?",
       "not-now":"Ahora no"
    },
-   "gru-multiple-answer":{  
+   "gru-multiple-answer":{
       "instructions":"Seleccione la respuesta correcta y haga clic en '{{action}}'."
    },
-   "gru-multiple-choice":{  
+   "gru-multiple-choice":{
       "instructions":"Seleccione la respuesta correcta y haga clic en '{{action}}'."
    },
-   "gru-open-ended":{  
+   "gru-open-ended":{
       "instructions":"Escribe tu respuesta en el campo siguiente y haz clic en el botón '{{action}}' para guardar tu respuesta cuando hayas terminado.",
       "characterLimit":"Límite de caracteres"
    },
-   "gru-question-viewer":{  
+   "gru-question-viewer":{
       "answer":"Responder",
       "question":"Pregunta"
    },
-   "gru-true-false":{  
+   "gru-true-false":{
       "instructions":"Seleccione la respuesta correcta y haga clic en '{{action}}'.",
       "true":"Cierto",
       "false":"Falso"
    },
-   "gru-reorder":{  
+   "gru-reorder":{
       "instructions":"Reorganice las respuestas en el orden correcto y haga clic en '{{action}}'."
    },
-   "player":{  
-      "gru-navigation":{  
+   "player":{
+      "gru-navigation":{
          "view-report":"Vista del informe"
       },
-      "gru-navigator":{  
+      "gru-navigator":{
          "see-usage-report":"Ver el informe de uso"
       },
-      "gru-viewer":{  
-         "not-iframe-url":{  
+      "gru-viewer":{
+         "not-iframe-url":{
             "view-resource":"Ver Recurso",
             "header_2":"Haga clic en el botón de abajo para abrir el recurso en una nueva pestaña.",
             "footer_4":"Requisitos que lo llevan a otra página para ver el contenido.",
@@ -1335,18 +1335,18 @@ export default Object.assign(quizzesTranslations, {
          }
       }
    },
-   "profile":{  
-      "gru-navigation":{  
+   "profile":{
+      "gru-navigation":{
          "library":"Biblioteca",
          "followers":"Seguidores",
          "about":"Acerca de",
          "about-you":"Acerca de ti"
       },
-      "edit":{  
+      "edit":{
          "select-district":"Seleccione un distrito ..."
       }
    },
-   "gru-data-picker":{  
+   "gru-data-picker":{
       "score":"Puntuación",
       "completion":"Terminación",
       "study-time":"Tiempo de estudio",
@@ -1356,7 +1356,7 @@ export default Object.assign(quizzesTranslations, {
       "time-spent":"Tiempo usado",
       "attempts":"Intento"
    },
-   "gru-performance-summary":{  
+   "gru-performance-summary":{
       "resume":"Currículum",
       "completion":"Terminación",
       "study":"Estudia ahora",
@@ -1370,10 +1370,10 @@ export default Object.assign(quizzesTranslations, {
       "time-spent":"Tiempo Total",
       "attempts":"Intentos"
    },
-   "gru-performance":{  
+   "gru-performance":{
       "no-content":"No hay contenido disponible"
    },
-   "gru-performance-metrics":{  
+   "gru-performance-metrics":{
       "assessment":"Evaluación",
       "completion":"Terminación",
       "score":"Puntuación",
@@ -1382,7 +1382,7 @@ export default Object.assign(quizzesTranslations, {
       "report":"Informe",
       "collection":"Colección"
    },
-   "gru-metrics-sub-header":{  
+   "gru-metrics-sub-header":{
       "assessment":"Evaluación",
       "score":"Puntuación",
       "completion":"Terminación",
@@ -1390,47 +1390,47 @@ export default Object.assign(quizzesTranslations, {
       "report":"Informe",
       "time-spent":"Hora"
    },
-   "gru-resource-new":{  
+   "gru-resource-new":{
       "resource-already-exist":"Este recurso ya existe en Gooru!"
    },
-   "gru-assessment-report":{  
-      "gru-summary":{  
+   "gru-assessment-report":{
+      "gru-summary":{
          "total-time-spent":"Tiempo total gastado"
       },
       "hidden-report":"Su profesor ha seleccionado ocultar su informe de resumen para esta evaluación."
    },
-   "cards":{  
-      "gru-class-card":{  
-         "student":{  
+   "cards":{
+      "gru-class-card":{
+         "student":{
             "zero":"{{count}} Estudiante",
             "other":"{{count}} Estudiantes",
             "one":"{{count}} Estudiante",
             "not-started":"No empezado"
          },
-         "unit":{  
+         "unit":{
             "zero":"Sin curso",
             "other":"Unidades {{count}}",
             "one":"Unidad {{count}}"
          },
-         "archived":{  
+         "archived":{
             "download-report":"Descargue sus datos para esta clase.",
             "report-in-progress":"La generación de informes puede tardar hasta 20 min. Por favor, vuelva.",
             "request-report":"Esta clase está archivada y no se puede modificar. Se puede acceder a los datos de clase existentes mediante el informe.",
             "no-report-available":"Esta clase no tiene contenido de curso asignado."
          }
       },
-      "gru-course-card":{  
-         "units":{  
+      "gru-course-card":{
+         "units":{
             "zero":"Unidades {{count}}",
             "other":"Unidades {{count}}",
             "one":"Unidad {{count}}"
          },
-         "resource":{  
+         "resource":{
             "zero":"{{Count}} Recursos",
             "other":"{{Count}} Recursos",
             "one":"{{Count}} Recurso"
          },
-         "question":{  
+         "question":{
             "zero":"{{Count}} Preguntas",
             "other":"{{Count}} Preguntas",
             "one":"{{Count}} Pregunta"
@@ -1439,46 +1439,46 @@ export default Object.assign(quizzesTranslations, {
          "start-studying":"Empezar a estudiar",
          "and":"y"
       },
-      "gru-collection-card":{  
-         "courses":{  
+      "gru-collection-card":{
+         "courses":{
             "zero":"{{count}} Cursos",
             "other":"{{count}} Cursos",
             "one":"{{count}} Curso"
          },
-         "students":{  
+         "students":{
             "zero":"{{count}} Estudiantes",
             "other":"{{count}} Estudiantes",
             "one":"{{count}} Estudiante"
          },
-         "collections":{  
+         "collections":{
             "other":"{{count}} Colecciones",
             "one":"{{count}} Colección"
          },
-         "assessments":{  
+         "assessments":{
             "other":"{{count}} Evaluaciones",
             "one":"{{count}} Evaluación"
          },
-         "classrooms":{  
+         "classrooms":{
             "zero":"Aulas",
             "other":"Aulas",
             "one":"Sala de clase"
          }
       },
-      "gru-resource-card":{  
+      "gru-resource-card":{
          "add":"Añadir"
       },
-      "gru-resource-result-card":{  
+      "gru-resource-result-card":{
          "skipped":"Omitido"
       },
-      "gru-profile-card":{  
+      "gru-profile-card":{
          "followers":"Seguidores",
          "following":"Siguiendo"
       },
-      "gru-user-network-card":{  
+      "gru-user-network-card":{
          "follow":"Seguir"
       }
    },
-   "reports.gru-table-view":{  
+   "reports.gru-table-view":{
       "score":"Puntuación",
       "study-time":"Tiempo de estudio",
       "reaction":"Reacción",
@@ -1490,51 +1490,51 @@ export default Object.assign(quizzesTranslations, {
       "totals":"Total",
       "time-spent":"Tiempo usado"
    },
-   "gru-emotion-picker":{  
+   "gru-emotion-picker":{
       "react-to-resource":"Reaccionar a este recurso"
    },
-   "home":{  
-      "no-classes-found":{  
-         "create-class":{  
+   "home":{
+      "no-classes-found":{
+         "create-class":{
             "button-text":"Crear un aula",
             "description":"Crear un aula, asignar contenido e invitar a los estudiantes.",
             "title":"Enseñar con una clase de Gooru"
          },
-         "join-class":{  
+         "join-class":{
             "button-text":"Introduzca el código del salón de clases",
             "description":"Únase al salón de clases de su maestro para comenzar a aprender.",
             "title":"Aprender con un aula de Gooru"
          },
-         "featured-courses":{  
+         "featured-courses":{
             "button-text":"Cursos destacados",
             "description":"Examine los cursos de matemáticas, ciencias, estudios sociales y ELA.",
             "title":"Cursos destacados"
          },
-         "teacher-toolkit":{  
+         "teacher-toolkit":{
             "button-text":"Kit de herramientas del profesor",
             "description":"Este juego de herramientas tiene recursos para ayudarle a empezar.",
             "title":"Kit de herramientas del profesor"
          }
       }
    },
-   "taxonomy":{  
-      "gru-taxonomy-selector":{  
+   "taxonomy":{
+      "gru-taxonomy-selector":{
          "primary-subject-and-course":"Marco y Curso de Normas",
          "add-secondary":"Agregar secundario",
          "competency-subject-and-course":"Marco y Curso de Competencias",
          "choose-subject":"Elija el asunto"
       }
    },
-   "validations":{  
+   "validations":{
       "unsavedChanges":"Tus cambios aún no se han guardado. ¿Quieres dejar esta página?"
    },
-   "featured":{  
+   "featured":{
       "featured-title":"Cursos destacados",
       "featured-description":"Los cursos ofrecidos por Gooru son examinados y revisados, educados por el educador, creados en las aulas y estudiados por los estudiantes. Ellos fueron desarrollados e implementados en escuelas, distritos y charters innovadores, y están diseñados para apoyar el aprendizaje combinado, las aulas volteadas, el aprendizaje basado en proyectos y muchos otros modelos de instrucción. Descubre, remezcla y personaliza cursos para personalizar el aprendizaje y aumentar el compromiso estudiantil. Haga clic aquí para <a href='http://about.gooru.org/courses' target='_blank'>obtener más información</a> sobre el desarrollo de estos cursos."
    },
-   "taxonomy.modals":{  
-      "gru-domain-picker":{  
-         "selectedText":{  
+   "taxonomy.modals":{
+      "gru-domain-picker":{
+         "selectedText":{
             "zero":"{{Count}} dominios seleccionados",
             "other":"{{Count}} dominios seleccionados",
             "one":"{{Count}} dominio seleccionado"
@@ -1542,13 +1542,13 @@ export default Object.assign(quizzesTranslations, {
          "shortcutText":"Curso está en",
          "browseSelectorText":"¿Qué dominios cubrirá esta unidad?"
       },
-      "gru-standard-picker":{  
-         "selectedText":{  
+      "gru-standard-picker":{
+         "selectedText":{
             "zero":"{{Count}} estándares seleccionados",
             "other":"{{Count}} estándares seleccionados",
             "one":"{{Count}} estándar seleccionado"
          },
-         "selectedCompetencyText":{  
+         "selectedCompetencyText":{
             "zero":"{{count}} competencias seleccionadas",
             "other":"{{count}} competencias seleccionadas",
             "one":"{{count}} competencia seleccionada"
@@ -1558,7 +1558,7 @@ export default Object.assign(quizzesTranslations, {
          "browseSelectorText":"¿Qué estándares serán cubiertos?"
       }
    },
-   "account-settings":{  
+   "account-settings":{
       "birthday":"Cumpleaños",
       "email-address":"Dirección de correo electrónico",
       "gender":"Género",
@@ -1566,9 +1566,9 @@ export default Object.assign(quizzesTranslations, {
       "title":"Configuraciones de la cuenta",
       "private-info":"Información Privada"
    },
-   "gru-rich-text-editor":{  
-      "expressions-panel":{  
-         "tabs":{  
+   "gru-rich-text-editor":{
+      "expressions-panel":{
+         "tabs":{
             "layout":"Diseño",
             "trigonometry":"Trigonometría",
             "set-theory":"Teoría de conjuntos",
@@ -1588,7 +1588,7 @@ export default Object.assign(quizzesTranslations, {
       "bold":"Negrita",
       "italic":"Itálico"
    },
-   "gru-settings-edit":{  
+   "gru-settings-edit":{
       "feedback":"Los estudiantes verán si son correctos / incorrectos",
       "disable-heading":"Activar evaluación en el mapa del curso",
       "navigation-scoring":"Navegación y Puntuación",
@@ -1602,254 +1602,254 @@ export default Object.assign(quizzesTranslations, {
       "attempts":"Intentos",
       "attempts-unlimited":"Ilimitado"
    },
-   "gru-icon-popover":{  
+   "gru-icon-popover":{
       "settings-visibility-content":"Esta configuración hace que su contenido sea visible a través de su perfil de usuario. Si desea compartir los cursos, las colecciones, las evaluaciones, los recursos y / o las preguntas que cree con los colegas, le sugerimos que active esta función.",
       "settings-visibility-title":"Haga visible su contenido"
    },
-   "gru-take-tour":{  
-      "teacher-home":{  
-         "stepOne":{  
+   "gru-take-tour":{
+      "teacher-home":{
+         "stepOne":{
             "description":"¡Bienvenidos a la página de inicio de Gooru! Aquí puede encontrar una lista de las aulas que usted crea en Gooru. Las aulas le permiten compartir contenido directamente con los estudiantes. Siempre puedes volver a tu página principal haciendo clic en el icono de Gooru.",
             "title":"Su Página de Inicio"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"Todas las aulas que enseña o se une a este año escolar aparecerán aquí bajo Aulas Activas.",
             "title":"Clases en las que enseña o se une"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"Haga clic aquí para crear un nuevo aula. Una vez que tenga contenido para compartir con los estudiantes, se lo asignará a través de un aula.",
             "title":"Crear un aula"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"Este es tu perfil. Haz clic en tu perfil en cualquier momento para acceder al contenido que creas o remixas en Gooru.",
             "title":"Tu perfil"
          }
       },
-      "student-home":{  
-         "stepOne":{  
+      "student-home":{
+         "stepOne":{
             "description":"Bienvenido a Tome un Tour! Esta es tu página personal. Recuerde que siempre puede volver a su página haciendo clic en el logotipo de Gooru. Ahora vamos a empezar!",
             "title":"Tome un Tour Icon"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"Aquí verá anuncios que su maestro o escuela le gustaría que conociera.",
             "title":"Anuncios"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"Vea todas las clases en las que está inscrito.",
             "title":"Aulas"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"Para unirse a un nuevo aula, ingrese el código de la clase y se mostrará en &quot;Mis clases&quot;.",
             "title":"Únete al aula"
          },
-         "stepSix":{  
+         "stepSix":{
             "description":"Explorar y marcar temas que le interesen y que desea obtener más información.",
             "title":"Aprendizaje independiente"
          },
-         "stepSeven":{  
+         "stepSeven":{
             "description":"Busque en nuestro catálogo de contenido los temas que le interesan.",
             "title":"Barra de búsqueda"
          },
-         "stepEight":{  
+         "stepEight":{
             "description":"Vuelva a su página de inicio.",
             "title":"Su Página de Inicio"
          },
-         "stepNine":{  
+         "stepNine":{
             "description":"Navegue por nuestros cursos destacados.",
             "title":"Biblioteca"
          },
-         "stepTen":{  
+         "stepTen":{
             "description":"Vea un resumen de su rendimiento en los cursos en los que está inscrito.",
             "title":"Actuación"
          },
-         "stepThirteen":{  
+         "stepThirteen":{
             "description":"Acceda y actualice su perfil de usuario.",
             "title":"Nombre de usuario"
          },
-         "stepFourteen":{  
+         "stepFourteen":{
             "description":"Ahora siga adelante y haga clic en un curso en el que se haya inscrito, únase a un aula o busque contenido que le sea de interés.",
             "title":"¡Terminado!"
          }
       },
-      "student-performance":{  
-         "stepOne":{  
+      "student-performance":{
+         "stepOne":{
             "description":"Bienvenido a su Panel de rendimiento. Puede ver cómo se desempeña en todas las clases y cursos.",
             "title":"¡Bienvenido!"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"Haga clic en la flecha para filtrar su rendimiento por actividad, período de tiempo, tema y curso.",
             "title":"Ficha Filtrar"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"Una vez que haya seleccionado sus filtros, haga clic en el informe de actualización para mostrar los resultados.",
             "title":"Actualizar informe"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"Descargue su informe.",
             "title":"Descargar / Imprimir"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"Adelante y analice su rendimiento!",
             "title":"¡Terminado!"
          }
       },
-      "student-class":{  
-         "stepOne":{  
+      "student-class":{
+         "stepOne":{
             "description":"Bienvenido a la página del curso. Aquí encontrará sus actividades diarias, el mapa del curso y los datos de rendimiento. ¡Empecemos!",
             "title":"¡Bienvenido!"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"Acceda a una lista de actividades asignadas por su maestro. Seleccione las actividades que desea estudiar.",
             "title":"Actividades de Clases Diarias"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"Haga clic en las unidades y lecciones para completar las colecciones y evaluaciones en el curso.",
             "title":"Mapa del curso"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"Echa un vistazo a su rendimiento general de clase.",
             "title":"Mi reporte"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"Para empezar, haga clic en la ficha Mapa del curso o Actividades diarias para comenzar a estudiar.",
             "title":"¡Terminado!"
          }
       },
-      "study-player":{  
-         "stepOne":{  
+      "study-player":{
+         "stepOne":{
             "description":"Este es tu Jugador de Estudio. Vamos a caminar a través de las funciones disponibles para usted.",
             "title":"¡Bienvenido!"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"Indica dónde se encuentra la colección o evaluación en su curso.",
             "title":"Unidad / curso / encabezado de la lección"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"Indica cómo se está realizando y cuánto del curso ha completado.",
             "title":"Rendimiento / Finalización"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"Deje a su profesor saber lo que usted piensa acerca de este recurso.",
             "title":"Reaccionar al recurso"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"Regrese a su mapa de cursos para ver el contenido adicional del curso.",
             "title":"Mapa del curso"
          },
-         "stepSix":{  
+         "stepSix":{
             "description":"Estos son recursos que puede que desee explorar basados ​​en lo que está estudiando actualmente.",
             "title":"Sugerencias"
          },
-         "stepSeven":{  
+         "stepSeven":{
             "description":"",
             "title":"Echa un vistazo a estos recursos"
          },
-         "stepEight":{  
+         "stepEight":{
             "description":"Empezar a estudiar!",
             "title":"¡Terminado!"
          }
       },
       "text":"Hacer un tour"
    },
-   "gru-tour":{  
-      "assessments-settings":{  
-         "stepOne":{  
+   "gru-tour":{
+      "assessments-settings":{
+         "stepOne":{
             "description":"Este ajuste determina cómo los estudiantes pueden pasar a través de una evaluación y muestra si sus respuestas son correctas o incorrectas. No les muestra una clave de respuesta.",
             "title":"Navegación y Puntuación"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"Esta configuración permite revelar una clave de respuesta y establece el número de intentos que los estudiantes tienen en la evaluación.",
             "title":"Clave de respuesta y número de intentos"
          }
       },
-      "overview":{  
-         "stepOne":{  
+      "overview":{
+         "stepOne":{
             "description":"El mapa de cursos proporciona a sus estudiantes acceso a todas las evaluaciones y colecciones que les asignan.",
             "title":"Mapa del curso"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"Cada aula que crees tiene un código de clase único. Le dará este código a los estudiantes cuando esté listo para que se unan a su salón de clases y accedan a su contenido.",
             "title":"Código de clase"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"Esto le permite ver los datos de evaluación de la clase y los estudiantes individuales cuando los estudiantes completan las evaluaciones que son parte de un curso.",
             "title":"Monitorear Datos de Estudiantes y Clases"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"Aquí puede editar su nombre de salón de clases, publicar anuncios para sus estudiantes, ver los nombres de los estudiantes matriculados en su clase y eliminar su salón de clases.",
             "title":"Información del Aula"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"Cuando usted está en un salón de clases, haga clic aquí para editar cualquier contenido del curso asignado a sus estudiantes.",
             "title":"Edición del contenido del curso"
          },
-         "stepSix":{  
+         "stepSix":{
             "description":"Utilice el panel de control en tiempo real para supervisar el progreso de la clase en una evaluación en tiempo real. <br><br> Haga clic en el icono &quot;Go Live&quot; que se encuentra a la izquierda de cada evaluación para lanzar una evaluación en tiempo real para los estudiantes. <br><br>",
             "title":"¡Supervise el progreso en tiempo real!"
          }
       },
-      "quick-start":{  
-         "stepOne":{  
+      "quick-start":{
+         "stepOne":{
             "description":"Esta es una vista de un aula recién creada. Para regresar a un aula en cualquier momento, haga clic en &quot;Aulas&quot; y use el menú desplegable para seleccionar el aula que desea ingresar.",
             "title":"Navegando por sus aulas"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"Sugerimos crear una evaluación como una forma de empezar con Gooru y evaluar los niveles actuales de comprensión del estudiante en su clase.",
             "title":"¿Empezando? Crear una evaluación!"
          }
       },
-      "real-time":{  
-         "stepOne":{  
+      "real-time":{
+         "stepOne":{
             "description":"Haga clic en cada pregunta para ver un desglose de cómo respondieron los estudiantes.",
             "title":"Desglose de las respuestas"
          },
-         "stepTwo":{  
+         "stepTwo":{
             "description":"Seleccione cada mosaico de estudiantes para ver los informes individuales de datos de los estudiantes.",
             "title":"Datos Individuales del Estudiante"
          },
-         "stepThree":{  
+         "stepThree":{
             "description":"Seleccione &quot;vista de título&quot; o &quot;vista de lista&quot; para ver las opciones de visualización de datos.",
             "title":"Seleccione una vista"
          },
-         "stepFour":{  
+         "stepFour":{
             "description":"Ver el promedio de la clase calculado en tiempo real para todas las respuestas.",
             "title":"Puntuación media"
          },
-         "stepFive":{  
+         "stepFive":{
             "description":"Utilice esta opción para proyectar una vista anónima de los datos del estudiante.",
             "title":"Datos anónimos del proyecto"
          }
       }
    },
-   "gru-course-play":{  
+   "gru-course-play":{
       "performance":"Actuación",
       "view-unit-details":"Ver metadatos de la unidad",
       "hide-unit-details":"Ocultar metadatos de la unidad"
    },
-   "gru-century-skills":{  
-      "legends":{  
+   "gru-century-skills":{
+      "legends":{
          "conley":"Conley Cuatro Llaves",
          "hewlett":"Modelo de aprendizaje más profundo de Hewlett",
          "framework":"Marco P21",
          "national":"Centro Nacional de Investigación para la Vida y el Trabajo"
       },
-      "content":{  
-         "groups":{  
+      "content":{
+         "groups":{
             "cognitive":"Principales Habilidades Cognitivas y Estrategias",
             "learning":"Habilidades y técnicas clave de aprendizaje",
             "content":"Conocimiento de Contenido Clave"
          }
       }
    },
-   "gru-rubric-edit":{  
+   "gru-rubric-edit":{
       "upload-rubric":"Rúbrica de subida"
    },
-   "gru-rubric-creation":{  
-      "gru-preview-url":{  
+   "gru-rubric-creation":{
+      "gru-preview-url":{
          "preview":"Añadir rúbrica anterior y vista previa aquí"
       },
-      "gru-category":{  
-         "gru-scoring-levels":{  
+      "gru-category":{
+         "gru-scoring-levels":{
             "0":"ex. Competente",
             "1":"ex. Ejemplar",
             "2":"ex. BASIC",
@@ -1871,37 +1871,37 @@ export default Object.assign(quizzesTranslations, {
       "url":"URL",
       "feedback-guidance":"Guía de retroalimentación"
    },
-   "library":{  
-      "gru-library-card":{  
+   "library":{
+      "gru-library-card":{
          "featured-course":"Curso destacado"
       },
-      "gru-partner-library-card":{  
-         "course":{  
+      "gru-partner-library-card":{
+         "course":{
             "zero":"{{count}} Curso",
             "other":"{{count}} Cursos",
             "one":"{{count}} Curso"
          },
-         "collection":{  
+         "collection":{
             "zero":"{{count}} Colección",
             "other":"{{count}} Colecciones",
             "one":"{{count}} Colección"
          },
-         "assessment":{  
+         "assessment":{
             "zero":"{{count}} Evaluación",
             "other":"{{count}} Evaluaciones",
             "one":"{{count}} Evaluación"
          },
-         "resource":{  
+         "resource":{
             "zero":"{{Count}} Recurso",
             "other":"{{Count}} Recursos",
             "one":"{{Count}} Recurso"
          },
-         "question":{  
+         "question":{
             "zero":"{{Count}} Pregunta",
             "other":"{{Count}} Preguntas",
             "one":"{{Count}} Pregunta"
          },
-         "rubric":{  
+         "rubric":{
             "zero":"Rúbrica {{count}}",
             "other":"Rúbricas {{count}}",
             "one":"Rúbrica {{count}}"
@@ -1911,13 +1911,13 @@ export default Object.assign(quizzesTranslations, {
       "browse-library":"Explorar la biblioteca",
       "featured-courses":"Cursos destacados"
    },
-   "gru-study-header":{  
-      "resource":{  
+   "gru-study-header":{
+      "resource":{
          "zero":"Recurso",
          "other":"Recursos",
          "one":"Recurso"
       },
-      "question":{  
+      "question":{
          "zero":"Pregunta",
          "other":"Preguntas",
          "one":"Pregunta"
@@ -1930,7 +1930,7 @@ export default Object.assign(quizzesTranslations, {
       "suggestions-legend":"Para obtener más información, consulte estos recursos.",
       "resource-legend":"Está revisando este recurso."
    },
-   "gru-suggest-test":{  
+   "gru-suggest-test":{
       "resource-header":"Recursos sugeridos (Opcional)",
       "no":"No, gracias",
       "pre-test-header":"Pre-prueba (opcional)",
