@@ -37,8 +37,7 @@ export default Ember.Component.extend({
         newClass.validate().then(function ({validations }) {
           if (validations.get('isValid')) {
             component.set('isLoading', true);
-            component.get('classService')
-              .createClass(newClass)
+            component.get('classService').createClass(newClass)
               .then(function(newClass) {
                 component.sendAction('onUpdateUserClasses',newClass.id);  // Triggers the refresh of user classes in top header
               }, function() {

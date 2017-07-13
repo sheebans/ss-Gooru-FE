@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
     updateClass: function(classId) {
       const controller = this;
       controller.send('updateUserClasses'); // Triggers the refresh of user classes in top header
-      controller.transitionToRoute('teacher.class.class-activities', classId);
+      controller.transitionToRoute('teacher.class.course-map', classId);
     }
   }
 });
