@@ -1,7 +1,7 @@
 import quizzesTranslations from './quizzes/translations';
 
-export default Object.assign(quizzesTranslations, {  
-   "errors":{  
+export default Object.assign(quizzesTranslations, {
+   "errors":{
       "tooShort":"{{description}} قصير جدا (الحد الأدنى هو {{min}} حرفا)",
       "date":"يجب أن يكون {{description}} تاريخا صالحا",
       "notANumber":"يجب أن يكون {{description}} رقما",
