@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Bookmark from 'gooru-web/models/content/bookmark';
-import { CONTENT_TYPES, ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * explore featured courses component
