@@ -6,16 +6,18 @@
   <div class="course-content">
     {{#each courses as |course|}}
       {{new-cards.gru-collection-card
-      profile=sessionProfile
-      isCourse=true
-      content=course
-      classroomList=activeClasses
-      isMyProfile=isMyProfile
-      isOnProfile=true
-      publishVisible=true
-      onOpenContentPlayer="playCourse"
-      onEditContent="editCourse"
-      onUpdateUserClasses="updateClass"
+        profile=sessionProfile
+        isCourse=true
+        content=course
+        classroomList=activeClasses
+        isMyProfile=isMyProfile
+        isOnProfile=true
+        publishVisible=true
+        onOpenContentPlayer="playCourse"
+        onEditContent="editCourse"
+        onUpdateUserClasses="updateClass"
+        onOpenIndependentPlayer="playIndependentContent"
+        onBookmarkContent="onBookmarkCourse"
       }}
     {{else}}
 
