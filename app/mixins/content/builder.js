@@ -19,6 +19,9 @@ export default Ember.Mixin.create({
       var $sortable = this.$(this.get('sortableSelector'));
       this.set('model.isExpanded', true);
       this.set('model.isSorting', true);
+      $sortable.sortable({
+        scroll: false
+      });
       $sortable.addClass('sorting').sortable('enable');
     },
 
