@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import { formatDate } from 'gooru-web/utils/utils';
-
 
 /**
  * Adapter to support the class activity CRUD operations
@@ -88,8 +86,8 @@ export default Ember.Object.extend({
         headers: adapter.defineHeaders(),
         data: {
           content_type : contentType,
-          date_from: formatDate(startDate, 'YYYY-MM-DD'),
-          date_to: formatDate(endDate, 'YYYY-MM-DD')
+          date_from: startDate,
+          date_to: endDate
         }
       };
     return Ember.$.ajax(url, options);
