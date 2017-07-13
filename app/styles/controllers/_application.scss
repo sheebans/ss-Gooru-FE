@@ -27,7 +27,7 @@
 
     > .navigation {
       @media (min-width: $screen-md) {
-        height: calc(100vh - 63px);
+        height: 100%;
         width: 20%;
       }
       @include linear-gradient($blue-500, $blue-400);

@@ -3,15 +3,18 @@
     {{#each collections as |collection|}}
       <div class="card">
         {{new-cards.gru-collection-card
-        profile=sessionProfile
-        content=collection
-        isMyProfile=isMyProfile
-        classroomList=activeClasses
-        classStudentCount=myClasses.memberCount
-        isOnProfile=true
-        publishVisible=true
-        onOpenContentPlayer="openContentPlayer"
-        onEditContent="editCollection"}}
+          profile=sessionProfile
+          content=collection
+          isMyProfile=isMyProfile
+          classroomList=activeClasses
+          classStudentCount=myClasses.memberCount
+          isOnProfile=true
+          publishVisible=true
+          onOpenContentPlayer="openContentPlayer"
+          onEditContent="editCollection"
+          onOpenIndependentPlayer="playIndependentContent"
+          onBookmarkContent="onBookmarkContent"
+        }}
       </div>
 
     {{else}}
