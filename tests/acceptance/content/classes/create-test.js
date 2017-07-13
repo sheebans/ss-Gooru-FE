@@ -87,7 +87,7 @@ test('Create Class', function (assert) {
     $createClassContainer.find("button.get-started-btn").click();
 
     return wait().then(function () {
-      assert.equal(currentURL(), '/teacher/class/2d84ab6c-10ee-4578-b89a-6b41c87dc9fc/class-activities');
+      assert.equal(currentURL(), '/teacher/class/2d84ab6c-10ee-4578-b89a-6b41c87dc9fc/course-map');
     });
   });
 });
