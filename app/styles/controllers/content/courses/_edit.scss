@@ -221,6 +221,7 @@
     }
 
     .gru-accordion-unit {
+
       .panel-body {
         padding: 10px 15px 15px;
 
@@ -354,10 +355,12 @@
             }
           }
         }
+
         > .expanded > .panel-body {
           background-color: $dark-300;
         }
         .accordion-lesson {
+          
           > li.gru-accordion-lesson-item {
 
             .panel-heading {
