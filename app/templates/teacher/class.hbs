@@ -1,10 +1,17 @@
 <div class="teacher class">
   <div class="header clearfix">
     <div class="go-back-container">
-      {{#link-to 'teacher-home' class="back-to"}}
-        {{gru-icon name='arrow_back'}}
-        {{t 'teacher-landing.class.back-to'}}
-      {{/link-to}}
+      {{#if class.isArchived}}
+        {{#link-to 'teacher-home' (query-params showArchivedClasses="true" showActiveClasses="false") class="back-to"}}
+          {{gru-icon name='arrow_back'}}
+          {{t 'teacher-landing.class.back-to-archived'}}
+        {{/link-to}}
+      {{else}}
+        {{#link-to 'teacher-home' class="back-to"}}
+          {{gru-icon name='arrow_back'}}
+          {{t 'teacher-landing.class.back-to'}}
+        {{/link-to}}
+      {{/if}}
     </div>
     <h1>{{class.title}}</h1>
     <div class="code">
