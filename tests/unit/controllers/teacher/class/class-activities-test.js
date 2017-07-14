@@ -93,7 +93,7 @@ test('removeClassActivity', function(assert) {
     collection:Ember.Object.create({
       collectionType:'collection'
     })
-  })
+  });
 
   assert.equal(controller.get('classActivities').length, 1, 'Should have only one class activity section');
   controller.send('viewMore');
