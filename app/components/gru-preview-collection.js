@@ -46,6 +46,7 @@ export default Ember.Component.extend(SessionMixin,{
     component._super(...arguments);
     component.set('collection',component.get('model.content'));
     component.set('isTeacher',component.get('model.isTeacher'));
+    component.set('isStudent',component.get('model.isStudent'));
   },
 
   // -------------------------------------------------------------------------
@@ -71,6 +72,12 @@ export default Ember.Component.extend(SessionMixin,{
    * @property {boolean}
    */
   isTeacher: null,
+
+  /**
+   * Indicates if the student is seeing the collection/assessment card
+   * @property {boolean}
+   */
+  isStudent: null,
 
   /**
    * @property {boolean} Indicates if collection has 1 or more resources

@@ -56,7 +56,7 @@ test('Preview Collection Layout - teacher', function(assert) {
   var $component = this.$();
   const $collectionCard = $component.find('.gru-preview-collection');
   assert.ok($collectionCard.length, 'Missing Component');
-  assert.ok($collectionCard.find('.header-action .bookmark-btn').length, 'Missing Bookmark button');
+  assert.notOk($collectionCard.find('.header-action .bookmark-btn').length, 'Bookmark should not appear');
   assert.ok($collectionCard.find('.collection-information .image img').length, 'Missing Image');
   assert.ok($collectionCard.find('.collection-information .collection-info .title-section h3.title').length, 'Missing Title');
   assert.ok($collectionCard.find('.collection-information .collection-info .standards .gru-taxonomy-tag-list').length, 'Missing Standards');
@@ -175,7 +175,7 @@ test('Preview Collection Layout - anonymous', function(assert) {
   var $component = this.$();
   const $collectionCard = $component.find('.gru-preview-collection');
   assert.ok($collectionCard.length, 'Missing Component');
-  assert.ok($collectionCard.find('.header-action .bookmark-btn').length, 'Missing Bookmark button');
+  assert.notOk($collectionCard.find('.header-action .bookmark-btn').length, 'Bookmark button should not appear');
   assert.ok($collectionCard.find('.collection-information .image img').length, 'Missing Image');
   assert.ok($collectionCard.find('.collection-information .collection-info .title-section h3.title').length, 'Missing Title');
   assert.ok($collectionCard.find('.collection-information .collection-info .standards .gru-taxonomy-tag-list').length, 'Missing Standards');

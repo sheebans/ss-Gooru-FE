@@ -45,6 +45,7 @@ export default Ember.Component.extend(SessionMixin,{
     component._super(...arguments);
     component.set('course',component.get('model.content'));
     component.set('isTeacher',component.get('model.isTeacher'));
+    component.set('isStudent',component.get('model.isStudent'));
   },
 
   // -------------------------------------------------------------------------
@@ -64,6 +65,12 @@ export default Ember.Component.extend(SessionMixin,{
    * Indicates if the teacher is seeing the course card
    * @property {boolean}
    */
-  isTeacher: null
+  isTeacher: null,
+
+  /**
+   * Indicates if the student is seeing the course card
+   * @property {boolean}
+   */
+  isStudent: null
 
 });
