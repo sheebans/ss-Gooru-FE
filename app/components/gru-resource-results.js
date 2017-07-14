@@ -16,6 +16,16 @@ export default Ember.Component.extend(ModalMixin, {
   // Actions
 
   actions: {
+    /**
+     * Action triggered to play the resource/question
+     */
+    playQuestion: function(question) {
+      this.get('router').transitionTo('content.resources.play', question.get('id'));
+    },
+
+    /**
+     * Action triggered to remix the question
+     */
     remixQuestion: function(question) {
       var remixModel = {
         content: question
