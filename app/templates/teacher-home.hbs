@@ -43,12 +43,12 @@
     {{/unless}}
     <div class="teacher-navigator">
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active active-classes tab hidden-xs">
+        <li role="presentation" class="{{if showActiveClasses 'active'}} active-classes tab hidden-xs">
           <a href="#active-classes" aria-controls="activeClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'active'}}>
             <span class="lead">{{t 'user.active-classrooms'}}</span>
           </a>
         </li>
-        <li role="presentation" class="archived-classes tab hidden-xs">
+        <li role="presentation" class="{{if showArchivedClasses 'active'}} archived-classes tab hidden-xs">
           <a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'archived'}}>
             <span class="lead">{{t 'user.archived-classrooms'}}</span>
           </a>
