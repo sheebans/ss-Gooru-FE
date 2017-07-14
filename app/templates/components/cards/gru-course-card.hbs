@@ -14,9 +14,13 @@
               {{/link-to}}
             {{/if}}
           {{else}}
-            {{#link-to "content.courses.play" course.id class="course-image"}}
+            {{#if isTeacher}}
+              {{#link-to "content.courses.play" course.id class="course-image"}}
+                <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
+              {{/link-to}}
+            {{else}}
               <img class="img-responsive" src="{{course.thumbnailUrl}}"/>
-            {{/link-to}}
+            {{/if}}
           {{/if}}
         {{/if}}
       </div>
