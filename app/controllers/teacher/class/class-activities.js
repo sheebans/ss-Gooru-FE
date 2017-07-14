@@ -55,11 +55,11 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       const startDate = new Date(year, month, 1);
       const endDate = new Date(year, month + 1, 0);
       controller.get('classActivityService').findClassActivities(
-        currentClass.get("id"), undefined, moment.utc(startDate).format('YYYY-MM-DD'), moment.utc(endDate).format('YYYY-MM-DD')).then(function(classActivities) {
-        controller.get('classActivities').pushObject({
+        currentClass.get('id'), undefined, moment.utc(startDate).format('YYYY-MM-DD'), moment.utc(endDate).format('YYYY-MM-DD')).then(function(classActivities) {
+        controller.get('classActivities').pushObject(Ember.Object.create({
           classActivities: classActivities,
           date: formatDate(startDate, 'MMMM, YYYY')
-        });
+        }));
         if((month - 1) >= 0) {
           controller.set('month', month - 1);
         } else {
@@ -130,7 +130,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   removeClassActivity: function (classActivity) {
     let allClassActivities = this.get('classActivities');
     allClassActivities.forEach((classActivities) => {
-      classActivities.classActivities.removeObject(classActivity);
+      let activityToDelete = classActivities.classActivities.findBy('id',classActivity.get('id'));
+      classActivities.classActivities.removeObject(activityToDelete);
     });
   }
 });

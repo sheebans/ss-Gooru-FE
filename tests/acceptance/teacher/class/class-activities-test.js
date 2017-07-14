@@ -76,7 +76,7 @@ test('Delete class activity', function (assert) {
       var $deleteButton = $removeClassActivityModal.find('button.delete');
       click($deleteButton);
       andThen(function () {
-        assert.equal($container.find('.collections .gru-class-activity-panel').length, 5, 'Should have 5 class activities');
+        assert.equal($container.find('.collections .gru-class-activity-panel').length, 4, 'Should have 4 class activities');
       });
     });
   });
