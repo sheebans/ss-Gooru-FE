@@ -27,10 +27,6 @@ export default Ember.Controller.extend({
    */
   sessionService: Ember.inject.service('api-sdk/session'),
 
-  firebaseApp: Ember.inject.service(),
-
-  firebase: Ember.inject.service('firebase'),
-
   // -------------------------------------------------------------------------
   // Actions
 
@@ -88,8 +84,6 @@ export default Ember.Controller.extend({
           .then(()  => {
             let session = controller.get('session');
             session.set('userData.isNew', false);
-            //Validating user and generating JWT
-            controller.get('firebase').generateJWT();
             controller.send('signUpFinish', role);
           }, () => Ember.Logger.error('Error updating user'));
       }
