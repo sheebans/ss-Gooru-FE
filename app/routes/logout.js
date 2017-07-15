@@ -9,8 +9,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   session: Ember.inject.service(),
 
-  firebase: Ember.inject.service('firebase'),
-
   /**
    * Authentication (api-sdk/authentication) service.
    * @property {AuthenticationService} authService
@@ -24,8 +22,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
     this.get("session").invalidate();
     this.get("authenticationService").signOut();
-    //Signing the user out of firebase
-    this.get('firebase').signOut();
     const isProd = Env.environment === 'production';
     if (isProd) {
       setTimeout( "location.replace(Env.marketingSiteUrl);", 0 );

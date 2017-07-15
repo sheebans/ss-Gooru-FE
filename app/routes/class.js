@@ -32,13 +32,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   unitService: Ember.inject.service('api-sdk/unit'),
 
-  /**
-  * @type {FirebaseService} Service to utilize firebase features
-  */
-  firebaseApp: Ember.inject.service(),
-
-  firebase: Ember.inject.service('firebase'),
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -68,14 +61,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       if (courseId) {
         visibilityPromise = route.get('classService').readClassContentVisibility(classId);
         coursePromise = route.get('courseService').fetchById(courseId);
-      }
-      //Retrieve the current representation of the user logged into firebase
-      const user = route.get('firebase').getUser();
-      if(user){
-        //create class representation and add users as needed
-        route.get('firebase').createClassRepresentation(classId,aClass,userInfo);
-        //Now creating a listener to the classes' channel table; we will be notified if a new channel is added.
-        route.get('firebase').generateClassListeners(classId,messages,channels);
       }
       return Ember.RSVP.hash({
         contentVisibility: visibilityPromise,
