@@ -112,10 +112,6 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     controller.set('bookmarks', model.bookmarks);
     controller.set('pagination', model.pagination);
     controller.set('toggleState', false);
-    if(!controller.get('menuItem')) {
-      controller.selectMenuItem('courses');
-      this.transitionTo('student-independent-learning.courses');
-    }
   }
 
 });

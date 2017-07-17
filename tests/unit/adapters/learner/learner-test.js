@@ -125,3 +125,66 @@ test('fetchLocationCourse', function(assert) {
   adapter.fetchLocationCourse(courseId, userId)
     .then(response => assert.deepEqual({}, response, 'Wrong response'));
 });
+
+test('fetchCollectionPerformance', function(assert) {
+  assert.expect(4);
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+
+  this.pretender.map(function() {
+    this.get('/api/nucleus-insights/v2/collection/collectionId/learner/userId', request => {
+      assert.equal(request.queryParams.courseGooruId, 'courseId', 'Wrong courseId');
+      assert.equal(request.queryParams.unitGooruId, 'unitId', 'Wrong unitId');
+      assert.equal(request.queryParams.lessonGooruId, 'lessonId', 'Wrong lessonId');
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+
+  const params = {
+    collectionType: 'collection',
+    contentId: 'collectionId',
+    userId: 'userId',
+    courseId: 'courseId',
+    unitId: 'unitId',
+    lessonId: 'lessonId'
+  };
+
+  adapter.fetchCollectionPerformance(params)
+    .then(response => assert.deepEqual({}, response, 'Wrong response'));
+});
+
+test('fetchLearnerSessions', function(assert) {
+  assert.expect(6);
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+
+  this.pretender.map(function() {
+    this.get('/api/nucleus-insights/v2/learner/collection/collectionId/sessions', request => {
+      assert.equal(request.queryParams.userUid, 'userId', 'Wrong userId');
+      assert.equal(request.queryParams.courseGooruId, 'courseId', 'Wrong courseId');
+      assert.equal(request.queryParams.unitGooruId, 'unitId', 'Wrong unitId');
+      assert.equal(request.queryParams.lessonGooruId, 'lessonId', 'Wrong lessonId');
+      assert.equal(request.queryParams.openSession, 'false', 'Wrong openSession');
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+
+  const params = {
+    collectionType: 'collection',
+    contentId: 'collectionId',
+    userId: 'userId',
+    courseId: 'courseId',
+    unitId: 'unitId',
+    lessonId: 'lessonId',
+    openSession: false
+  };
+
+  adapter.fetchLearnerSessions(params)
+    .then(function(response) {
+      assert.deepEqual({}, response, 'Wrong response');
+    });
+});

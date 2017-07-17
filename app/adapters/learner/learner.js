@@ -140,5 +140,60 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Given a Content ID, User ID and Collection Type, returns performance data of each resource/question in Content
+   * @param params
+   * @returns {Promise}
+   */
+  fetchCollectionPerformance: function(params) {
+    const adapter = this;
+    const contentId = params.contentId;
+    const collectionType = params.collectionType;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
+    const userId = params.userId;
+    const courseId = params.courseId;
+    const sessionId = params.sessionId;
+
+    let queryParams = sessionId ? `sessionId=${sessionId}` :
+      ((courseId) ? `courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}`: '');
+
+    const url = `${adapter.get('namespace')}/${collectionType}/${contentId}/learner/${userId}?${queryParams}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Given a Content ID, User ID, Unit ID, Lesson ID, Course ID and Collection Type, returns the session(s) for a specific user.
+   * @param params
+   * @returns {string}
+   */
+  fetchLearnerSessions: function(params) {
+    const adapter = this;
+    const contentId = params.contentId;
+    const collectionType = params.collectionType;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
+    const userId = params.userId;
+    const courseId = params.courseId;
+    const openSession = params.openSession;
+
+    const queryParams = (courseId) ?
+      `userUid=${userId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}` :
+      `userUid=${userId}&openSession=${openSession}`;
+
+    const url = `${adapter.get('namespace')}/learner/${collectionType}/${contentId}/sessions?${queryParams}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
   }
 });

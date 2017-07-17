@@ -357,6 +357,7 @@ export default Object.assign(quizzesTranslations, {
     "no-followers": "You don't have followers yet.",
     "no-independent-results": "When you start exploring your bookmarked {{contentType}}, they will appear here.",
     "no-results": "No results found",
+    "no-available-results": "Not available results",
     "no-results-message": "Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.",
     "no-more-attempts": "No more attempts",
     "notStarted": "Not started",

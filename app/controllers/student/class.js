@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
    */
   didInsertElement: function() {
     var item = this.get("menuItem");
-    this.selectItem(item);
+    this.selectMenuItem(item);
   },
 
   // -------------------------------------------------------------------------
