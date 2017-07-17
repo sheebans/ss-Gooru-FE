@@ -1,9 +1,11 @@
 <div class="header-action">
-  <button class="btn bookmark-btn no-bgd" title="{{t 'common.bookmark'}}"
-    data-toggle="tooltip" data-placement="auto" data-trigger="hover"
-    {{action 'bookmarkCourse' content}}  disabled={{model.disabledBookmark}}>
+  {{#if isStudent}}
+    <button class="btn bookmark-btn no-bgd" title="{{t 'common.bookmark'}}"
+            data-toggle="tooltip" data-placement="auto" data-trigger="hover"
+      {{action 'bookmarkCourse' content}}  disabled={{model.disabledBookmark}}>
       {{gru-icon name="turned_in_not"}}
-  </button>
+    </button>
+  {{/if}}
 </div>
 <div class="course-information">
   <div class="image">

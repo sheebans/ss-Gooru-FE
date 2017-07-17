@@ -346,7 +346,7 @@ export default Object.assign(quizzesTranslations, {
     "new-resource": "New Resource",
     "next": "Next",
     "no": "No",
-    "no-archived":"You do not have any archived classrooms.",
+    "no-archived": "You do not have any archived classrooms.",
     "no-content": "No content available",
     "no-assessments-to-display": "No <span>assessments</span> to display.",
     "no-collections-to-display": "No <span>collections</span> to display.",
@@ -908,6 +908,7 @@ export default Object.assign(quizzesTranslations, {
     "create-classroom": "Create a classroom, assign contents, invite students",
     "class": {
       "back-to": "Back to Classrooms",
+      "back-to-archived": "Back to Archived Classrooms",
       "class-management": "Class Management",
       "class-management-tab": {
         "actions": "Actions",

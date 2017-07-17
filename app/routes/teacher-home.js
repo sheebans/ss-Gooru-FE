@@ -152,6 +152,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     controller.set('steps', model.tourSteps);
     controller.set('featuredCourses', model.featuredCourses);
   },
+
   /**
    * Reset controller properties
    */

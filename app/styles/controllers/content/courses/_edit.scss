@@ -1,5 +1,11 @@
 .controller.content.courses.edit {
 
+  .gru-accordion {
+    ol .panel {
+      position: initial;
+    }
+  }
+
   .gru-accordion-course {
     > .header > .detail > .drag-options {
       display: inline-block;
@@ -352,9 +358,7 @@
         > .expanded > .panel-body {
           background-color: $dark-300;
         }
-
         .accordion-lesson {
-
           > li.gru-accordion-lesson-item {
 
             .panel-heading {

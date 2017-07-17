@@ -3,6 +3,9 @@ import Env from 'gooru-web/config/environment';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Controller.extend(ModalMixin, {
+
+  queryParams: ['showArchivedClasses', 'showActiveClasses'],
+
   // -------------------------------------------------------------------------
   // Dependencies
   classService: Ember.inject.service('api-sdk/class'),
@@ -154,6 +157,6 @@ export default Ember.Controller.extend(ModalMixin, {
    * Reset to default values
    */
   resetValues: function() {
-    this.set('showActiveClasses',true);
+    this.set('showActiveClasses', true);
   }
 });

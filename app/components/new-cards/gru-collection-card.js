@@ -116,6 +116,7 @@ export default Ember.Component.extend(ModalMixin,{
     previewContent: function(content) {
       let component = this;
       let isTeacher = this.get('isTeacher');
+      let isStudent = this.get('isStudent');
       let isCourse = this.get('isCourse');
       let isCollection = content.get('isCollection');
       let contentId = content.get('id');
@@ -123,6 +124,7 @@ export default Ember.Component.extend(ModalMixin,{
       let model = Ember.Object.create({
         content,
         isTeacher,
+        isStudent,
         disabledBookmark: this.get('disabledBookmark')
       });
 

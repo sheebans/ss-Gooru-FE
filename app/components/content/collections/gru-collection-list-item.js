@@ -22,17 +22,17 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   /**
    * @requires service:api-sdk/resource
    */
-  resourceService: Ember.inject.service("api-sdk/resource"),
+  resourceService: Ember.inject.service('api-sdk/resource'),
 
   /**
    * @requires service:api-sdk/question
    */
-  questionService: Ember.inject.service("api-sdk/question"),
+  questionService: Ember.inject.service('api-sdk/question'),
 
   /**
    * @requires service:api-sdk/media
    */
-  mediaService: Ember.inject.service("api-sdk/media"),
+  mediaService: Ember.inject.service('api-sdk/media'),
 
   /**
    * @property {Service} profile service
@@ -104,7 +104,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
         component.send('showModal', 'content.modals.gru-login-prompt');
       } else {
         let assessmentsPromise = Ember.RSVP.resolve(null);
-        if(builderItem.format === "question") {
+        if(builderItem.format === 'question') {
           assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
         }
         assessmentsPromise.then(function(assessments) {
@@ -113,7 +113,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
               return { content: builderItem, collections, assessments };
             });
         }).then(
-            model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
+            model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, 'add-to')
         );
       }
     },
@@ -123,14 +123,14 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     */
     edit: function(item) {
       const component = this;
-      const route = item.get('format') ==='question' ? "content.questions.edit" : "content.resources.edit";
+      const route = item.get('format') ==='question' ? 'content.questions.edit' : 'content.resources.edit';
       const queryParams = {
         queryParams: {
           collectionId: component.get('collection.id'),
           isCollection: component.get('isCollection')
         }
       };
-      component.get('router').transitionTo(route, item.get("id"), queryParams);
+      component.get('router').transitionTo(route, item.get('id'), queryParams);
     },
 
     copy: function(builderItem) {
@@ -367,10 +367,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    * @property {Ember.Array}
    */
   switchOptions: Ember.A([Ember.Object.create({
-    'label': "On",
+    'label': 'On',
     'value': true
   }),Ember.Object.create({
-    'label': "Off",
+    'label': 'Off',
     'value': false
   })]),
 
@@ -467,7 +467,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
                 component.set('editingContent', null);
               }
 
-              question.merge(editedQuestion, ['title', 'narration', 'thumbnail']);
+              question.merge(editedQuestion, ['title', 'narration', 'thumbnail','text']);
             }).catch(function (error) {
               var message = component.get('i18n').t('common.errors.question-not-updated').string;
               component.get('notifications').error(message);

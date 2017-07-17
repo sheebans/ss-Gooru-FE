@@ -21,8 +21,6 @@ export default Ember.Controller.extend({
    */
   notifications: Ember.inject.service(),
 
-  firebaseApp: Ember.inject.service(),
-
   // -------------------------------------------------------------------------
   // Actions
 

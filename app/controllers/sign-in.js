@@ -29,13 +29,6 @@ export default Ember.Controller.extend({
    */
   i18n: Ember.inject.service(),
 
-  /**
-  * @property {Service} Firebase service
-  */
-  firebaseApp: Ember.inject.service(),
-
-  firebase: Ember.inject.service("firebase"),
-
   // -------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------
@@ -69,9 +62,6 @@ export default Ember.Controller.extend({
                 controller.set('didValidate', true);
                 // Trigger action in parent
                 controller.send('signIn');
-                //Need to move this out into a seperate service
-                //Validating user and generating JWT
-                controller.get('firebase').generateJWT();
               }, function(){
                 controller.get("notifications").warning(errorMessage);
                 // Authenticate as anonymous if it fails to mantain session

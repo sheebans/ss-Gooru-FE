@@ -79,7 +79,7 @@ test('Collection Card Layout', function(assert) {
     assert.ok(content.id, '123','Incorrect content to play');
   });
 
-  this.render(hbs`{{new-cards/gru-collection-card content=collection onOpenContentPlayer='parentAction' isStudent=true}}`);
+  this.render(hbs`{{new-cards/gru-collection-card content=collection onOpenContentPlayer='parentAction' isStudent=false}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
   assert.ok($collectionCard.find('.panel-heading h3.title').length, 'Missing Title');
@@ -99,7 +99,7 @@ test('Collection Card Layout', function(assert) {
   assert.ok($collectionCard.find('.panel-body .description .learning-objective').length, 'Missing Collection Learning objective');
   assert.notOk($collectionCard.find('.panel-body .description .content-description').length, 'Collection Description should not appear');
   assert.ok($collectionCard.find('.panel-footer .share-btn').length, 'Missing share button');
-  assert.ok($collectionCard.find('.panel-footer .bookmark-btn').length, 'Missing bookmark button');
+  assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
   assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
 
   let $title = $collectionCard.find('.panel-heading .title-section .preview-content');
@@ -131,7 +131,7 @@ test('Assessment Card Layout', function(assert) {
   });
 
   this.set('assessment', assessment);
-  this.render(hbs`{{new-cards/gru-collection-card content=assessment}}`);
+  this.render(hbs`{{new-cards/gru-collection-card content=assessment isStudent=false}}`);
   var $component = this.$(); //component dom element
   const $collectionCard = $component.find('.gru-collection-card');
   assert.ok($collectionCard.find('.panel-heading h3.title').length, 'Missing Title');
@@ -145,7 +145,7 @@ test('Assessment Card Layout', function(assert) {
   assert.ok($collectionCard.find('.panel-body .description .learning-objective').length, 'Missing Collection Learning objective');
   assert.notOk($collectionCard.find('.panel-body .description .content-description').length, 'Collection Description should not appear');
   assert.ok($collectionCard.find('.panel-footer .share-btn').length, 'Missing share button');
-  assert.ok($collectionCard.find('.panel-footer .bookmark-btn').length, 'Missing bookmark button');
+  assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
   assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
 });
 
@@ -215,7 +215,7 @@ test('Course Card Layout as a Teacher/anonymous', function(assert) {
   assert.notOk($collectionCard.find('.panel-body .description .learning-objective').length, 'Collection Learning objective should not appear');
   assert.ok($collectionCard.find('.panel-body .description .content-description').length, 'Collection Description should appear');
   assert.ok($collectionCard.find('.panel-footer .share-btn').length, 'Missing share button');
-  assert.ok($collectionCard.find('.panel-footer .bookmark-btn').length, 'Missing bookmark button');
+  assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
   assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
 });
 
@@ -658,7 +658,7 @@ test('Bookmark content from card', function(assert) {
     done();
   });
   this.set('content', 'test-content');
-  this.render(hbs`{{new-cards/gru-collection-card content=content isCourse=true onBookmarkContent='onBookmarkContent'}}`);
+  this.render(hbs`{{new-cards/gru-collection-card content=content isCourse=true isStudent=true onBookmarkContent='onBookmarkContent'}}`);
   const $component = this.$();
   const $btn = $component.find('.bookmark-btn');
   assert.ok($btn.length, 'Bookmark button should appear');

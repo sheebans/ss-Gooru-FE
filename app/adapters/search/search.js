@@ -33,7 +33,7 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        q: term,
+        q: term || '*',
         'flt.collectionType': 'collection',
         'flt.publishStatus': 'published',
         start: page + 1,
@@ -68,7 +68,7 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        q: term,
+        q: term || '*',
         'flt.collectionType': 'assessment',
         'flt.publishStatus': 'published',
         start: page + 1, //page starts at one
@@ -102,7 +102,7 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        "q": term,
+        "q": term || '*',
         "start": page + 1,
         "length": pageSize,
         "flt.contentFormat": "resource",
@@ -149,7 +149,7 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        "q": term,
+        "q": term || '*',
         "start": page + 1,
         "length": pageSize,
         "flt.resourceFormat": "question",
@@ -185,7 +185,7 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        "q": term,
+        "q": term || '*',
         "start": 1,
         "length": 50,
         "flt.courseType": "featured"
@@ -210,7 +210,7 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        "q": term,
+        "q": term || '*',
         "start": 1,
         "length": 20
       }

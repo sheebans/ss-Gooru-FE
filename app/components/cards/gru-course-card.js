@@ -31,14 +31,14 @@ export default Ember.Component.extend(ModalMixin, {
      *Action triggered when select edit the course
      */
     editCourse:function(){
-      this.sendAction("onEditCourse", this.get("course"));
+      this.sendAction('onEditCourse', this.get('course'));
     },
 
     /**
      *Action triggered when select play the course
      */
     playCourse:function(){
-      this.sendAction("onPlayCourse", this.get("course"));
+      this.playCourse();
     },
 
     /**
@@ -48,7 +48,7 @@ export default Ember.Component.extend(ModalMixin, {
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
-        this.sendAction("onRemixCourse", this.get("course"));
+        this.sendAction('onRemixCourse', this.get('course'));
       }
     },
 
@@ -66,6 +66,8 @@ export default Ember.Component.extend(ModalMixin, {
       });
 
       model.set('remixCourse',() => component.remixCourse());
+      model.set('playCourse',() => component.playCourse());
+      model.set('bookmarkCourse',() => component.bookmarkCourse());
       component.send('showModal', 'gru-preview-course', model);
     }
   },
@@ -75,6 +77,12 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {Course} course
    */
   course: null,
+
+  /**
+   * Bookmark course action
+   * @property {string}
+   */
+  onBookmarkCourse: null,
 
   /**
    * Edit course action
@@ -143,7 +151,7 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {Array} users
    */
   users:Ember.computed('course', function() {
-    return this.get("course.remixedBy");
+    return this.get('course.remixedBy');
   }),
   /**
    * @property {String} subjects
@@ -158,7 +166,7 @@ export default Ember.Component.extend(ModalMixin, {
     });
     return subjects.substr(0, subjects.length-1);
     */
-    return "";
+    return '';
   }),
 
   /**
@@ -188,7 +196,23 @@ export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
+  /**
+   * Selecting to bookmark a course
+   */
+  bookmarkCourse: function () {
+    this.sendAction('onBookmarkCourse', this.get('course'));
+  },
 
+  /**
+   * Selecting to play a course
+   */
+  playCourse:function(){
+    this.sendAction('onPlayCourse', this.get('course'));
+  },
+
+  /**
+   * Selecting to remix a course
+   */
   remixCourse:function(){
     if (this.get('session.isAnonymous')) {
       this.send('showModal', 'content.modals.gru-login-prompt');

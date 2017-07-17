@@ -39,6 +39,11 @@
         <div class="navbar-collapse">
           <ul class="nav navbar-nav menu-navbar">
             {{#if session.isAnonymous}}
+              <li class="navbar-nav-list visible-md visible-lg library-link">
+                {{#link-to 'library'}}
+                  <span>{{t "common.library"}}</span>
+                {{/link-to}}
+              </li>
               <li class="navbar-nav-list visible-md visible-lg">
                 {{#link-to 'sign-in' class="btn btn-info sign-in-button" tagName='button'}} {{t "common.login"}} {{/link-to}}
               </li>

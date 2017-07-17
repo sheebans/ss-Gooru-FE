@@ -12,8 +12,8 @@ moduleForComponent('gru-header', 'Integration | Component | Header', {
   }
 });
 
-test('header layout', function(assert) {
-  assert.expect(8); //making sure all asserts are called
+test('header layout for anonymous', function(assert) {
+  assert.expect(10); //making sure all asserts are called
 
   this.set('session', Ember.Object.create({isAnonymous: true}));
 
@@ -37,6 +37,8 @@ test('header layout', function(assert) {
 
   var $navMenu = $component.find('.menu-navbar');
   T.notExists(assert, $navMenu.find('.home-link'), 'Link should be available for authenticated users only');
+  T.exists(assert, $navMenu.find('.library-link'), 'Missing library link');
+  T.exists(assert, $navMenu.find('.sign-in-button'), 'Missing sign in button');
   T.exists(assert, $navMenu.find('.sign-up-button'), 'Missing sign up button');
   T.notExists(assert, $navMenu.find('.user-logged'), 'User info should not be present');
 
@@ -158,7 +160,7 @@ test('Search terms under 3 letters', function(assert) {
 });
 
 test('Links as student', function(assert) {
-  assert.expect(3); //making sure all asserts are called
+  assert.expect(4); //making sure all asserts are called
 
   let profile = Ember.Object.create({
     isTeacher:false
@@ -176,6 +178,8 @@ test('Links as student', function(assert) {
   assert.ok($communityLink.length, 'Missing community link');
   const $notificationsLink = $component.find('.notifications-link');
   assert.ok($notificationsLink.length, 'Missing notifications link');
+  const $libraryLink = $component.find('.library-link');
+  assert.ok($libraryLink.length, 'Missing library link');
 });
 
 test('hidden links as teacher', function(assert) {
