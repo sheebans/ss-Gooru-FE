@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Context from 'gooru-web/models/result/context';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 /**
  *
  * Analytics data for a student related to a collection of resources
@@ -186,7 +187,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       route.transitionTo('student.class.performance', context.get('classId'),
       {
         queryParams: {
-          filterBy: 'assessment'
+          filterBy: CONTENT_TYPES.ASSESSMENT
         }
       });
     }
@@ -194,7 +195,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       route.transitionTo('student.independent.performance', context.get('courseId'),
         {
           queryParams: {
-            filterBy: 'assessment'
+            filterBy: CONTENT_TYPES.ASSESSMENT
           }
         });
     }

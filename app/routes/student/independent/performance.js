@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { ROLES} from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
@@ -33,7 +34,7 @@ export default Ember.Route.extend({
         collectionId: assessmentId,
         userId,
         type: collectionType,
-        role: 'student'
+        role: ROLES.STUDENT
       }});
     }
   },

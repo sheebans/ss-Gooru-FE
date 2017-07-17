@@ -172,7 +172,7 @@ export default Ember.Service.extend({
           resolve(assessmentResult);
         }
       }, function() {
-        resolve(undefined);
+        resolve();
       });
     });
   },
