@@ -9,12 +9,27 @@ import wait from 'ember-test-helpers/wait';
 import T from 'gooru-web/tests/helpers/assert';
 import Answer from 'gooru-web/models/content/answer';
 
+const questionServiceStub = Ember.Service.extend({
+
+  updateQuestion(questionID, editedQuestion,collection) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (questionID === 'question-id-fail' || !editedQuestion || !collection) {
+        reject({status: 500});
+      } else {
+        resolve(editedQuestion);
+      }
+    });
+  }
+
+});
+
 moduleForComponent('content/collections/gru-collection-list-item', 'Integration | Component | content/collections/gru collection list item', {
   integration: true,
-
   beforeEach: function () {
-    this.container.lookup('service:i18n').set("locale", "en");
+    this.container.lookup('service:i18n').set('locale', 'en');
     this.inject.service('i18n');
+    this.register('service:api-sdk/question', questionServiceStub);
+    this.inject.service('api-sdk/question');
   }
 });
 
@@ -165,11 +180,11 @@ test('it expands/collapses the edit question inline panel', function (assert) {
 
   assert.ok($panelBody.length, 'panel body');
 
-  assert.ok($panelBody.find('.question h3').length, "Missing Question label");
-  assert.ok($panelBody.find('.question textarea').length, "Missing text area");
-  assert.ok($panelBody.find('.question .add-image').length, "Missing add image button");
-  assert.ok($panelBody.find('.answers h3').length, "Missing Answer label");
-  assert.ok($panelBody.find('.answers .instructions').length, "Missing Answer Instructions");
+  assert.ok($panelBody.find('.question h3').length, 'Missing Question label');
+  assert.ok($panelBody.find('.question textarea').length, 'Missing text area');
+  assert.ok($panelBody.find('.question .add-image').length, 'Missing add image button');
+  assert.ok($panelBody.find('.answers h3').length, 'Missing Answer label');
+  assert.ok($panelBody.find('.answers .instructions').length, 'Missing Answer Instructions');
 
   const $actions = $panelBody.find('.actions');
   assert.ok($actions.length, 'Actions container');
@@ -198,7 +213,7 @@ test('Question inline panel for FIB has no answers', function (assert) {
   $panel.find('.detail.visible .actions button.edit-item i').click();
   const $panelBody = $panel.find('> .panel-body');
   assert.ok($panelBody.length, 'panel body');
-  assert.ok(!$panelBody.find('.answers').length, "Answers section should not be visible");
+  assert.ok(!$panelBody.find('.answers').length, 'Answers section should not be visible');
 });
 
 test('it expands/collapses the edit resource inline panel', function (assert) {
@@ -298,7 +313,7 @@ test('Save on edit inline panel with description empty', function (assert) {
     assert.ok($saveButton.length, 'Panel');
     $saveButton.click();
     return wait().then(function () {
-      T.exists(assert, $panel.find(".question .validation .error"), "error message should be visible");
+      T.exists(assert, $panel.find('.question .validation .error'), 'error message should be visible');
     });
   });
 });
@@ -312,7 +327,7 @@ test('Save on edit inline panel with HL text question', function (assert) {
     description:'decription',
     type:'HT_HL',
     answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
-      'text': "Option A",
+      'text': 'Option A',
       'isCorrect': true
     })])
   });
@@ -334,7 +349,45 @@ test('Save on edit inline panel with HL text question', function (assert) {
     assert.ok($saveButton.length, 'Panel');
     $saveButton.click();
     return wait().then(function () {
-      T.notExists(assert, $panel.find(".question .validation .error"), "error message should be visible");
+      T.notExists(assert, $panel.find('.question .validation .error'), 'error message should be visible');
+    });
+  });
+});
+
+test('Update on edit inline panel ', function (assert) {
+
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'e7460e72-7708-4892-afcc-63756ffa410f',
+    title: 'Question Title',
+    format: 'question',
+    description:'description',
+    type:'T/F'
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{content/collections/gru-collection-list-item model=question}}`);
+
+  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  assert.ok($panel.length, 'Panel');
+
+  const $actions= $panel.find('.actions .item-actions');
+
+  $actions.find('.edit-item').click();
+
+  return wait().then(function () {
+    assert.ok($panel.find('.question').length,'Missing question section');
+
+    let $mathEditor = $panel.find('.rich-editor');
+    $mathEditor.text("<span class='gru-math-expression'>testing</span>");
+    const $saveButton= $panel.find('.detail .actions .item-actions .save');
+    assert.ok($saveButton.length, 'Panel');
+    $saveButton.click();
+    return wait().then(function () {
+      $actions.find('.edit-item').click();
+      return wait().then(function () {
+        assert.ok($panel.find('.rich-editor .gru-math-expression'),'Missing math');
+      });
     });
   });
 });
