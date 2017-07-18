@@ -1676,26 +1676,34 @@ export default Object.assign(quizzesTranslations, {
         "description": 'Search our content catalog for topics that interest to you.'
       },
       "stepFour":{
-        "title": "Library",
-        "description": 'Browse our featured courses.'
+        "title": "Classrooms",
+        "description": "Return to your homepage."
       },
       "stepFive":{
+        "title": "Tools",
+        "description": "Quicklink to launch assessments live, build content or view student performance data."
+      },
+      "stepSix":{
+        "title": "Library",
+        "description": "Browse our featured courses."
+      },
+      "stepSeven":{
         "title": "Your Profile",
         "description": "Access and update your content, user profile, and settings."
       },
-      "stepSix":{
+      "stepEight":{
         "title": "Support",
         "description": "Access the support center or logout."
       },
-      "stepSeven":{
+      "stepNine":{
         "title": "Classrooms",
         "description": "View a list of classes you are currently teaching."
       },
-      "stepEight":{
+      "stepTen":{
         "title": "Archived Classes",
         "description": "View a list of classes you taught in the past."
       },
-      "stepNine":{
+      "stepEleven":{
         "title": "Create Classroom",
         "description": "Click the button to create a new classroom for your course, collection, or assessment."
       }
@@ -1714,38 +1722,42 @@ export default Object.assign(quizzesTranslations, {
         "description": 'Search our content catalog for topics that interest to you.'
       },
       "stepFour":{
+        "title": "My Study",
+        "description": 'Return to your homepage.'
+      },
+      "stepFive":{
         "title": "Library",
         "description": 'Browse our featured courses.'
       },
-      "stepFive":{
+      "stepSix":{
         "title": "Performance",
         "description": 'See a summary of your performance in the courses you are enrolled in.'
       },
-      "stepSix":{
+      "stepSeven":{
         "title": "Your Profile",
         "description": 'Access and update your user profile and settings.'
       },
-      "stepSeven":{
+      "stepEight":{
         "title": "Support",
         "description": 'Access the support center or logout.'
       },
-      "stepEight":{
+      "stepNine":{
         "title": "Announcements",
         "description": 'Here you will see announcements that your teacher or school would like you to know about.'
       },
-      "stepNine":{
+      "stepTen":{
         "title": "Classrooms",
         "description": "See all of the classes in which you are enrolled."
       },
-      "stepTen":{
+      "stepEleven":{
         "title": "Independent Learning",
         "description": 'Explore and bookmark topics that interest you and that you want learn more about. To start exploring click, on the plus sign to search for a topic or view featured courses.'
       },
-      "stepEleven":{
-        "title": "Join Classroom",
-        "description": 'To join a new classroom, enter the class code and it will be displayed under “My Classes.”'
-      },
       "stepTwelve":{
+        "title": "Join Classroom",
+        "description": 'To join a new classroom, enter the class code.'
+      },
+      "stepThirteen":{
         "title": "Finished!",
         "description": 'Now go ahead and click on a course you have enrolled in, join a classroom, or search for content that is of interest to you.'
       }

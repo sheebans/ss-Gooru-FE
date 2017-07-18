@@ -55,38 +55,43 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         description: route.get('i18n').t('gru-take-tour.student-home.stepThree.description')
       },
       {
-        elementSelector: '.gru-header .menu-navbar .library-link',
+        elementSelector: '.gru-header .menu-navbar .study-link',
         title: route.get('i18n').t('gru-take-tour.student-home.stepFour.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepFour.description')
       },
       {
-        elementSelector: '.gru-header .menu-navbar .profile-link',
-        title: route.get('i18n').t('gru-take-tour.student-home.stepSix.title'),
-        description: route.get('i18n').t('gru-take-tour.student-home.stepSix.description')
+        elementSelector: '.gru-header .menu-navbar .library-link',
+        title: route.get('i18n').t('gru-take-tour.student-home.stepFive.title'),
+        description: route.get('i18n').t('gru-take-tour.student-home.stepFive.description')
       },
       {
-        elementSelector: '.gru-header .menu-navbar .dropdown .profile-more',
+        elementSelector: '.gru-header .menu-navbar .profile-link',
         title: route.get('i18n').t('gru-take-tour.student-home.stepSeven.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepSeven.description')
       },
       {
-        elementSelector: '.student-navigator .active-classes a',
-        title: route.get('i18n').t('gru-take-tour.student-home.stepNine.title'),
-        description: route.get('i18n').t('gru-take-tour.student-home.stepNine.description')
+        elementSelector: '.gru-header .menu-navbar .dropdown .profile-more',
+        title: route.get('i18n').t('gru-take-tour.student-home.stepEight.title'),
+        description: route.get('i18n').t('gru-take-tour.student-home.stepEight.description')
       },
       {
-        elementSelector: '.student-navigator .independent-learning a',
+        elementSelector: '.student-navigator .active-classes a',
         title: route.get('i18n').t('gru-take-tour.student-home.stepTen.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepTen.description')
       },
       {
-        elementSelector: '.student-navigator .actions .join-class-cta',
+        elementSelector: '.student-navigator .independent-learning a',
         title: route.get('i18n').t('gru-take-tour.student-home.stepEleven.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepEleven.description')
       },
       {
+        elementSelector: '.student-navigator .actions .join-class-cta',
         title: route.get('i18n').t('gru-take-tour.student-home.stepTwelve.title'),
         description: route.get('i18n').t('gru-take-tour.student-home.stepTwelve.description')
+      },
+      {
+        title: route.get('i18n').t('gru-take-tour.student-home.stepThirteen.title'),
+        description: route.get('i18n').t('gru-take-tour.student-home.stepThirteen.description')
       }
     ]);
 
