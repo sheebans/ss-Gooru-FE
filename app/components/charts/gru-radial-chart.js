@@ -33,7 +33,6 @@ export default Ember.Component.extend({
     // Get the component dimensions from the css
     const width = parseInt($component.css('width').split('px')[0]);
     const height = parseInt($component.css('height').split('px')[0]);
-
     var radialChart = radialProgress(this.element)
       .margin({top: 0, right: 0, bottom: 0, left: 0})
       .diameter(Math.min(height, width))
@@ -83,25 +82,6 @@ export default Ember.Component.extend({
    * @property {String} value - Value to graph
    * It should be between minValue and maxValue
    */
-  value: 0,
-
-  renderChart: Ember.observer('value', function () {
-    const value = this.get('value');
-    const maxValue = value > this.get('maxValue') ? value : this.get('maxValue');
-    const radialChart = this.get('radialChart');
-
-    radialChart.value(value);
-
-    if (!this.get('showPercentageLabel')) {
-      if(!value || !maxValue){
-        radialChart.__textDisplay('--');
-      }
-      else {
-        radialChart.__textDisplay(parseInt((value/maxValue)*100) + '%');
-      }
-    }
-
-    radialChart.render();
-  })
+  value: 0
 
 });
