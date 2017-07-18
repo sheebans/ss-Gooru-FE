@@ -4,7 +4,7 @@ Introducing Gooru Web  - a solution to help teachers faciliate personalized lear
 
 ## Introduction
 Gooru Web is the front-end of the Gooru application. Gooru’s free solution enables teachers to create, curate, and share collections of web resources on any K-12 topic. With millions of multimedia resources and quiz questions, Gooru makes it easy to discover topic-relevant and standards-aligned content to address specific students’ needs.  At Gooru, we believe education is a human right.  Now, with access to this Git repository, open-sourced under the MIT license, you can build along side us to support this mission and help students around the world reach their full potential.
- 
+
 ## Prerequisites
 
 See [Environment Setup](./docs/environment-setup.md)
@@ -38,7 +38,7 @@ This project is built on top of EmberJS 2.x and Ember CLI
 This project follows the project structure suggested by Ember CLI
 
 #### Communication Layer - Custom Adapters and Serializers
-EmberJS 2.x implements by default json:api specification for REST communication, custom EmberJS adapters and serializers are necessary to communitate and match the current Gooru's API end points convention. 
+EmberJS 2.x implements by default json:api specification for REST communication, custom EmberJS adapters and serializers are necessary to communitate and match the current Gooru's API end points convention.
 
 #### API-SDK Layer
 The SDK layer is defined with intention to create an abstraction layer or abstraction level to hide the implementation details of the use of Ember Data. As part of this idea is to encapsulate the use of Ember Data in order to avoid as much as possible the use of Ember Data everywhere in code, so we can have a single entrance point to communicate with Gooru's API end-points.
@@ -47,21 +47,21 @@ The SDK layer is defined with intention to create an abstraction layer or abstra
 The library ember-simple-auth is used for authentication and authorization, it also track the user client session. See [Ember Simple Auth](http://ember-simple-auth.com/)
 
 #### Internationalization
-The library ember-i18n is used for internationalization, it is fully integrated with Ember-CLI. 
+The library ember-i18n is used for internationalization, it is fully integrated with Ember-CLI.
 
 See [ember-i18n](https://github.com/jamesarosen/ember-i18n/wiki)
 
 #### Application Logger
  Ember.Logger is used for logging application messages.
- 
- See 
+
+ See
  * [Ember Logger](http://emberjs.com/api/classes/Ember.Logger.html)
  * [Ember Debugging](http://guides.emberjs.com/v2.0.0/configuring-ember/debugging/)
 
 ## Installation
 
-* `git clone https://github.com/Gooru/Gooru-FE.git` this repository 
-* Install dependencies `npm install` and `bower install` 
+* `git clone https://github.com/Gooru/Gooru-FE.git` this repository
+* Install dependencies `npm install` and `bower install`
 
 ## Running / Development
 
@@ -88,19 +88,17 @@ It's required to run a grunt task that builds the SVG Sprite Sheets that the app
 
 ### Running the app with ember
 * `grunt generateSVG && ember server --proxy http://localhost:8882` to run it using the stubby server
-* Visit your app at [http://localhost:4200](http://localhost:4200). 
+* Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ### Running the app with grunt tasks
 * `grunt run:stubby` to run it using the stubby server, this task starts up stubby server and proxy ember to it
-* `grunt run` or `grunt run:nginx` to run it proxying to the nginx server.
-
-Note: If you get some errors with `grunt run` is because the nginx server is down, then run this `grunt run --force`. 
+* `grunt run` to run it.
 
 ### Coding standards
 This application follows [Ember CLI standards and conventions](http://www.ember-cli.com/user-guide/#naming-conventions) and it also uses JSHint (http://jshint.com/) _"JSHint is a program that flags suspicious usage in programs written in JavaScript."_
 
-See 
-* [JSHint Options](http://jshint.com/docs/options/). 
+See
+* [JSHint Options](http://jshint.com/docs/options/).
 * A new project has been started [JSCS](http://jscs.info/rules) for javascript code style validations, this project would move to it once it is fully integrated with ember cli
 
 JSHint rules will be enforced while running application tests.
@@ -120,8 +118,8 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Running Tests
 This project uses Ember Tests
-See 
-* [Ember Tests](http://guides.emberjs.com/v2.0.0/testing/) 
+See
+* [Ember Tests](http://guides.emberjs.com/v2.0.0/testing/)
 * [QUnit](https://api.qunitjs.com/)
 * [Testem](https://github.com/airportyh/testem)
 * [Ember QUnit](https://github.com/rwjblue/ember-qunit)
@@ -138,21 +136,21 @@ You can also execute the test using grunt tasks
  * `grunt test` which starts the stubby and run the test by using `ember test`
  * `grunt test --server` which starts the stubby and run the test by using `ember test --server`
  * `grunt test --no-stubby` to do not start up stubby   
- * `grunt test:cli` which start the stubby and run the test by using `ember test --silent --reporter xunit` 
- 
+ * `grunt test:cli` which start the stubby and run the test by using `ember test --silent --reporter xunit`
+
 ### Running a single test file/module
  * `ember test --m 'your module here'` to run your test file/module
 
 ### Running a single test file/module with stubby
  * `grunt stubby:server &` to start up the stubby server at background, you need to stop the process manually when done
  * `ember test --m 'your module here'` to run your test file/module
- 
+
 ### Running linter
  * `grunt eslint` to run eslint in all javascript files
  * `grunt eslint --quiet` to hide warnings
 
 ### Code Coverage
-More than 80% of coverage is mandatory for this project 
+More than 80% of coverage is mandatory for this project
 
 ### Mocking the api server - Stubby
 * `grunt stubby:server` To startup a mocked API Server. Then make sure to run ember with the --proxy option to point to the Stubby server.
@@ -168,10 +166,10 @@ It is possible to proxy a server so you can connect to a different environment
 * `grunt build:prod` (production)
 
 ### Embedded application
-The gooru application can run as a normal ember application or it could be embedded into a 3rd party application. 
+The gooru application can run as a normal ember application or it could be embedded into a 3rd party application.
 This was made with the intention of sharing some screens/functionality with Gooru partners
 
-#### Build it as embedded 
+#### Build it as embedded
 To build the application as a embedded app do
 
 * `GOORU_EMBEDDED=true ember build --environment=development` an environment variable controls when the package should be build as embedded app
@@ -198,7 +196,7 @@ At this point develop branch is deployed by Bamboo to the configured QA servers
 Release candidates, hot fixes and master build are deployed by Bamboo to Nucleus QA
 
 *Production deployment*
-The production package is archived at [Edify Artifactory](edify.artifactoryonline.com/edify/webapp/#/artifacts/browse/tree/General/gooruweb-releases-local), 
+The production package is archived at [Edify Artifactory](edify.artifactoryonline.com/edify/webapp/#/artifacts/browse/tree/General/gooruweb-releases-local),
 it is also sent to Gooru Netops, they deploy it to production environment
 
 
@@ -207,9 +205,9 @@ it is also sent to Gooru Netops, they deploy it to production environment
 
 ### RealTime Module
 
-The RealTime is the module used by the teachers to see "in live" the results for any assessment taken by the students. 
-This module uses a WebSocket connection with a sub-domain of the backend application. 
- 
+The RealTime is the module used by the teachers to see "in live" the results for any assessment taken by the students.
+This module uses a WebSocket connection with a sub-domain of the backend application.
+
 ##### Important:
 It is required that the sub-domain that gives the support to the RealTime needs to be configured to use a SSL (HTTPS)
 connection, otherwise the RealTime module will not be able to communicate with the backend server.
