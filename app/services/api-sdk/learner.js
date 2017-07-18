@@ -1,6 +1,9 @@
 import Ember from 'ember';
 import LearnerSerializer from 'gooru-web/serializers/learner/learner';
 import LearnerAdapter from 'gooru-web/adapters/learner/learner';
+import StudentCollectionPerformanceSerializer from 'gooru-web/serializers/performance/student-collection-performance';
+import UserSessionSerializer from 'gooru-web/serializers/user-session';
+import PerformanceService from 'gooru-web/services/api-sdk/performance';
 
 /**
  * @typedef {Object} LearnerService
@@ -21,6 +24,9 @@ export default Ember.Service.extend({
     this._super(...arguments);
     this.set('learnerSerializer', LearnerSerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('learnerAdapter', LearnerAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('studentCollectionPerformanceSerializer', StudentCollectionPerformanceSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('userSessionSerializer', UserSessionSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set('performanceService', PerformanceService.create(Ember.getOwner(this).ownerInjection()));
   },
   /**
    * Fetches the learner locations
@@ -128,6 +134,77 @@ export default Ember.Service.extend({
       service.get('learnerAdapter').fetchLocationCourse(courseId, userId)
         .then(
           response => resolve(service.get('learnerSerializer').normalizeFetchLocationCourse(response)),
+          reject
+        );
+    });
+  },
+
+  /**
+   * Fetches the performance summary data of each resource/question in Collection/Assessment.
+   * @param context
+   * @param loadStandards
+   * @returns {Promise.<AssessmentResult>}
+   */
+  fetchCollectionPerformance: function (context, loadStandards) {
+    const service = this;
+
+    const params = {
+      collectionType: context.collectionType,
+      contentId: context.collectionId,
+      userId: context.userId,
+      sessionId: context.sessionId
+    };
+    if (context.courseId) {
+      params.courseId = context.courseId;
+      params.unitId = context.unitId;
+      params.lessonId = context.lessonId;
+    }
+
+    return new Ember.RSVP.Promise(function(resolve) {
+      return service.get('learnerAdapter').fetchCollectionPerformance(params).then(function (payload) {
+        const assessmentResult = service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
+        if (loadStandards) {
+          service.get('performanceService').loadStandardsSummary(assessmentResult, context).then(function () {
+            resolve(assessmentResult);
+          });
+        }
+        else {
+          resolve(assessmentResult);
+        }
+      }, function() {
+        resolve();
+      });
+    });
+  },
+
+  /**
+   * Gets all the session that were completed.
+   * @param context
+   * @returns {Promise.<Object>}
+   */
+  fetchLearnerSessions: function(context) {
+    const service = this;
+    const params = {
+      collectionType: context.collectionType,
+      contentId: context.collectionId,
+      userId: context.userId,
+      openSession: false
+    };
+
+    if (context.sessionId) {
+      params.sessionId = context.sessionId;
+    }
+
+    if (context.courseId) {
+      params.courseId = context.courseId;
+      params.unitId = context.unitId;
+      params.lessonId = context.lessonId;
+    }
+
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service.get('learnerAdapter').fetchLearnerSessions(params)
+        .then(
+          response => resolve(service.get('userSessionSerializer').serializeSessionAssessments(response)),
           reject
         );
     });

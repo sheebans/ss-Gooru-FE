@@ -20,7 +20,7 @@ test('Layout', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning/courses');
+    assert.equal(currentURL(), '/student-independent-learning');
 
     T.exists(assert, find('header.gru-header'), 'Header component not found');
 
@@ -76,13 +76,9 @@ test('Layout', function(assert) {
       });
     });
 
-    const independentLearningNavigator = $container.find('.student-independent-learning-navigator');
-    T.exists(assert, independentLearningNavigator, "Missing independent learning navigator");
-    T.exists(assert, independentLearningNavigator.find(".courses"), "Missing courses item in the navigator");
-    T.exists(assert, independentLearningNavigator.find(".collections"), "Missing collections item in the navigator");
-    T.exists(assert, independentLearningNavigator.find(".assessments"), "Missing collections item in the navigator");
+    const independentLearningNavigator = $container.find('.gru-independent-learning-navigation');
+    T.exists(assert, independentLearningNavigator, 'Missing gru-independent-learning-navigation component');
     T.exists(assert, $container.find('.independent-content'), 'Missing independent content');
-    assert.equal(find('.independent-results .gru-independent-card').length, 2, 'Wrong number of cards');
   });
 });
 
@@ -90,7 +86,7 @@ test('Go to library from featured-courses panel', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning/courses');
+    assert.equal(currentURL(), '/student-independent-learning');
     const $featuredCourses = find('.panel.featured-courses');
     const $featuredCoursesButton = $featuredCourses.find('.actions button.library');
 
@@ -105,7 +101,7 @@ test('Go to join from join class panel', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning/courses');
+    assert.equal(currentURL(), '/student-independent-learning');
 
     const $joinClass = find('.panel.join-class');
 
@@ -122,7 +118,7 @@ test('Go to search/collections from bookmarks panel', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning/courses');
+    assert.equal(currentURL(), '/student-independent-learning');
 
     const $bookmarksPanel = find('.content .panel.bookmarks');
     T.exists(assert, $bookmarksPanel.find('.panel-body .add-bookmark'), 'Missing add-bookmark link');
@@ -140,9 +136,9 @@ test('Layout assessments', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning/courses');
+    assert.equal(currentURL(), '/student-independent-learning');
 
-    const $collectionsMenuItem = find(".student-independent-learning-navigator li.assessments a");
+    const $collectionsMenuItem = find('.gru-independent-learning-navigation li.assessments a');
 
     click($collectionsMenuItem);
     andThen(function() {
@@ -156,9 +152,9 @@ test('Layout collections', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning/courses');
+    assert.equal(currentURL(), '/student-independent-learning');
 
-    const $collectionsMenuItem = find(".student-independent-learning-navigator li.collections a");
+    const $collectionsMenuItem = find('.gru-independent-learning-navigation li.collections a');
 
     click($collectionsMenuItem);
     andThen(function() {

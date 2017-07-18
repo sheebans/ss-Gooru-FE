@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
+import Context from 'gooru-web/models/result/context';
 
 moduleForService('service:api-sdk/learner', 'Unit | Service | api-sdk/learner');
 
@@ -178,4 +179,142 @@ test('fetchLocationCourse', function(assert) {
       assert.deepEqual(response, [], 'Wrong response');
       done();
     });
+});
+
+test('fetchCollectionPerformance', function(assert) {
+  const service = this.subject();
+
+  const context = {
+    collectionId: '45f38f1b-2a81-48a0-b738-34ac2a74e2fd',
+    collectionType: 'assessment',
+    courseId: '7b58ac43-075b-46c4-a7f4-a1ce2b346e85',
+    lessonId: '111b0322-d17f-470c-bc56-c5cca0356657',
+    sessionId: '16aec613-54be-4f7a-bea8-cbd8f2859d3b',
+    unitId: '390fa450-a4d9-4c28-a259-aa3de2a3081b',
+    userId: 'f90278ce-e008-4355-868f-59738699ba52'
+  };
+
+  assert.expect(8);
+
+  service.set('learnerAdapter', Ember.Object.create({
+    fetchCollectionPerformance: function(params) {
+      assert.deepEqual(params.collectionType, 'assessment', 'Wrong collection type');
+      assert.deepEqual(params.contentId, '45f38f1b-2a81-48a0-b738-34ac2a74e2fd', 'Wrong content id');
+      assert.deepEqual(params.userId, 'f90278ce-e008-4355-868f-59738699ba52', 'Wrong user id');
+      assert.deepEqual(params.courseId, '7b58ac43-075b-46c4-a7f4-a1ce2b346e85', 'Wrong course id');
+      assert.deepEqual(params.unitId, '390fa450-a4d9-4c28-a259-aa3de2a3081b', 'Wrong unit id');
+      assert.deepEqual(params.lessonId, '111b0322-d17f-470c-bc56-c5cca0356657', 'Wrong lesson id');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  service.set('studentCollectionPerformanceSerializer', Ember.Object.create({
+    normalizeStudentCollection: function(payload) {
+      assert.deepEqual(payload, [], 'Wrong performance payload');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.fetchCollectionPerformance(context, false)
+    .then(response => {
+      assert.deepEqual(response, [], 'Wrong response');
+      done();
+    });
+});
+
+test('fetchCollectionPerformance', function(assert) {
+  const service = this.subject();
+
+  const context = Context.create({
+    collectionId: '45f38f1b-2a81-48a0-b738-34ac2a74e2fd',
+    collectionType: 'assessment',
+    courseId: '7b58ac43-075b-46c4-a7f4-a1ce2b346e85',
+    lessonId: '111b0322-d17f-470c-bc56-c5cca0356657',
+    sessionId: '16aec613-54be-4f7a-bea8-cbd8f2859d3b',
+    unitId: '390fa450-a4d9-4c28-a259-aa3de2a3081b',
+    userId: 'f90278ce-e008-4355-868f-59738699ba52'
+  });
+
+  assert.expect(8);
+
+  service.set('learnerAdapter', Ember.Object.create({
+    fetchCollectionPerformance: function(params) {
+      assert.deepEqual(params.collectionType, 'assessment', 'Wrong collection type');
+      assert.deepEqual(params.contentId, '45f38f1b-2a81-48a0-b738-34ac2a74e2fd', 'Wrong content id');
+      assert.deepEqual(params.userId, 'f90278ce-e008-4355-868f-59738699ba52', 'Wrong user id');
+      assert.deepEqual(params.courseId, '7b58ac43-075b-46c4-a7f4-a1ce2b346e85', 'Wrong course id');
+      assert.deepEqual(params.unitId, '390fa450-a4d9-4c28-a259-aa3de2a3081b', 'Wrong unit id');
+      assert.deepEqual(params.lessonId, '111b0322-d17f-470c-bc56-c5cca0356657', 'Wrong lesson id');
+      return Ember.RSVP.resolve([]);
+    }
+  }));
+
+  service.set('studentCollectionPerformanceSerializer', Ember.Object.create({
+    normalizeStudentCollection: function(payload) {
+      assert.deepEqual(payload, [], 'Wrong performance payload');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  service.fetchCollectionPerformance(context, false)
+    .then(response => {
+      assert.deepEqual(response, [], 'Wrong response');
+      done();
+    });
+});
+
+test('fetchLearnerSessions', function (assert) {
+  const service = this.subject();
+  const response = {
+    'content':[
+      {
+        'sequence':1,
+        'eventTime':1,
+        'sessionId':'session-1'
+      },
+      {
+        'sequence':2,
+        'eventTime':1,
+        'sessionId':'session-2'
+      }
+    ]
+  };
+  const expectedParams = {
+    collectionType: 'collectionType',
+    courseId: 'courseId',
+    userId: 'userId',
+    unitId: 'unitId',
+    lessonId: 'lessonId',
+    contentId: 'contentId',
+    openSession: false
+  };
+
+  service.set('learnerAdapter', Ember.Object.create({
+    fetchLearnerSessions: function(params){
+      assert.deepEqual(expectedParams, params, 'Wrong queryRecord query parameters');
+      return Ember.RSVP.resolve(response);
+    }
+  }));
+
+  service.set('userSessionSerializer', Ember.Object.create({
+    serializeSessionAssessments: function(payload) {
+      assert.deepEqual(response, payload, 'Wrong assessments payload');
+      return [];
+    }
+  }));
+
+  var done = assert.async();
+  const promise = service.fetchLearnerSessions(Context.create({
+    collectionType: 'collectionType',
+    courseId: 'courseId',
+    userId: 'userId',
+    unitId: 'unitId',
+    lessonId: 'lessonId',
+    collectionId: 'contentId'
+  }));
+  promise.then(function(){
+    done();
+  });
 });

@@ -256,5 +256,41 @@
       "body": "File not found!",
       "file": "fetch-current-location-course-200-response.json"
     }
+  },
+  {
+    "description": "Fetch Collection Performance",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/(.+)/(.+)/learner/(.+)",
+      "method": "GET",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "fetch-learner-collection-performance-200-response.json"
+    }
+  },
+  {
+    "description": "Fetch Learner Sessions",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/learner/(.+)/(.+)/sessions",
+      "method": "GET",
+      "query": {
+        "openSession": false
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "learner-sessions-200-response.json"
+    }
   }
 ]

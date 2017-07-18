@@ -128,7 +128,7 @@ export default Ember.Controller.extend({
       'visible': false,
       'index':0
     }),Ember.Object.create({
-      'value': 'completion',
+      'value': 'report',
       'sorted': false,
       'isAsc': false,
       'hasSorting': true,

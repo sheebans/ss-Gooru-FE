@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { ROLES} from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
@@ -12,6 +13,31 @@ export default Ember.Route.extend({
    * @type {CourseService}
    */
   courseService: Ember.inject.service('api-sdk/course'),
+
+  actions:{
+    /**
+     * View Analytics Report
+     * Triggered by gru-performance-table
+     */
+    viewReport:function(assessmentId){
+      const route = this;
+      let controller = route.get('controller');
+      const courseId = controller.get('course.id');
+      const unitId = controller.get('unitId');
+      const lessonId = controller.get('lessonId');
+      const userId = controller.get('profile.id');
+      const collectionType = controller.get('collectionType');
+      route.transitionTo('reports.student-collection-analytics', { queryParams: {
+        courseId,
+        unitId,
+        lessonId,
+        collectionId: assessmentId,
+        userId,
+        type: collectionType,
+        role: ROLES.STUDENT
+      }});
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Methods

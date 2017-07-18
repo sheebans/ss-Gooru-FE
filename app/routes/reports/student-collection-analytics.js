@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Context from 'gooru-web/models/result/context';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 /**
  *
  * Analytics data for a student related to a collection of resources
@@ -40,6 +41,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @property {Ember.Service} Service to retrieve an assessment result
    */
   performanceService: Ember.inject.service('api-sdk/performance'),
+
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment result from LI
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
 
 
   // -------------------------------------------------------------------------
@@ -83,7 +89,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       route.get('collectionService').readCollection(params.collectionId) :
       route.get('assessmentService').readAssessment(params.collectionId);
     const completedSessionsPromise = (isCollection) ? [] :
-      route.get('userSessionService').getCompletedSessions(context);
+      (context.get('classId')) ?  route.get('userSessionService').getCompletedSessions(context) :
+        route.get('learnerService').fetchLearnerSessions(context);
     return Ember.RSVP.hash({
       collection: collectionPromise,
       completedSessions : completedSessionsPromise,
@@ -98,17 +105,26 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     var completedSessions = model.completedSessions;
     const totalSessions = completedSessions.length;
     const session = totalSessions ? completedSessions[totalSessions - 1] : null;
+    const loadStandards = session && context.get('isInContext');
 
     if (session) { //collections has no session
       context.set('sessionId', session.sessionId);
     }
 
-    const performanceService = controller.get('performanceService');
-    const loadStandards = session && context.get('isInContext');
-    return performanceService.findAssessmentResultByCollectionAndStudent(context, loadStandards)
-      .then(function(assessmentResult) {
-        model.assessmentResult = assessmentResult;
-      });
+    if (context.get('classId')) {
+      const performanceService = controller.get('performanceService');
+      return performanceService.findAssessmentResultByCollectionAndStudent(context, loadStandards)
+        .then(function(assessmentResult) {
+          model.assessmentResult = assessmentResult;
+        });
+    }
+    else {
+      const learnerService = controller.get('learnerService');
+      return learnerService.fetchCollectionPerformance(context, loadStandards)
+        .then(function(assessmentResult) {
+          model.assessmentResult = assessmentResult;
+        });
+    }
   },
 
   /**
@@ -167,12 +183,22 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const controller = route.get('controller');
     const context = controller.get('context');
 
-    route.transitionTo('student.class.performance', context.get('classId'),
-    {
-      queryParams: {
-        filterBy: 'assessment'
-      }
-    });
+    if (context.get('classId')) {
+      route.transitionTo('student.class.performance', context.get('classId'),
+      {
+        queryParams: {
+          filterBy: CONTENT_TYPES.ASSESSMENT
+        }
+      });
+    }
+    else {
+      route.transitionTo('student.independent.performance', context.get('courseId'),
+        {
+          queryParams: {
+            filterBy: CONTENT_TYPES.ASSESSMENT
+          }
+        });
+    }
   },
 
   /**
@@ -195,6 +221,4 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   deactivate: function(){
     this.get('controller').resetValues();
   }
-
-
 });

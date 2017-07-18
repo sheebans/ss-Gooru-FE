@@ -2,19 +2,19 @@
   <div class="row">
     {{#if showBackLink}}
       <div class="col-sm-12 navigation">
-        <button {{action "goBack"}} class="btn btn-info back">
-            <span>
-              {{gru-icon name='keyboard_arrow_left'}}
-              {{#if lesson}}
-                {{#if isStudent}}
-                  {{t "common.back-to-data"}}
-                {{else}}
-                  {{t (if backUrl "common.back-to-data" "common.back-to-course-map")}}
-                {{/if}}
+        <button {{action 'goBack'}} class="btn btn-info back">
+          <span>
+            {{gru-icon name='keyboard_arrow_left'}}
+            {{#if lesson}}
+              {{#if isStudent}}
+                {{t 'common.back-to-data'}}
               {{else}}
-                {{t 'common.back'}}
+                {{t (if backUrl 'common.back-to-data' 'common.back-to-course-map')}}
               {{/if}}
-            </span>
+            {{else}}
+              {{t 'common.back'}}
+            {{/if}}
+          </span>
         </button>
       </div>
     {{/if}}
@@ -27,7 +27,7 @@
           onSelectAttempt='selectAttempt'
         }}
       {{else}}
-        Not available results
+        {{t 'common.no-available-results'}}
       {{/if}}
     </div>
   </div>

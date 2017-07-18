@@ -54,32 +54,32 @@
       {{/if}}
     </div>
     <div class="information">
-        <div class="activity">
-          <span>{{t "student-landing.current-activity"}}</span>
-          {{#if location.isCompleted}}
-            {{#if isCourse}}
-              <div class="not-applicable">{{t 'common.not-applicable'}}</div>
-              {{else}}
-              <div class="collection-report">
-                {{gru-icon name='graphic_eq'}}
-                <a class="report-link" {{action 'toReport'}}>
-                  {{t 'student-landing.course.to-report'}}
-                </a>
-              </div>
-            {{/if}}
+      <div class="activity">
+        <span>{{t "student-landing.current-activity"}}</span>
+        {{#if location.isCompleted}}
+          {{#if isCourse}}
+            <div class="not-applicable">{{t 'common.not-applicable'}}</div>
           {{else}}
-            {{#if isCourse}}
-              <div class="current-activity ellipsis">
-                <i class="{{if isCurrentAssessment 'assessment' 'collection'}}"></i>
-                <a {{action 'playCurrent'}}>
-                  {{location.currentTitle}}
-                </a>
-              </div>
-              {{else}}
-              <div class="not-applicable">{{t 'common.not-applicable'}}</div>
-            {{/if}}
+            <div class="collection-report">
+              {{gru-icon name='graphic_eq'}}
+              <a class="report-link" {{action 'toReport'}}>
+                {{t 'student-landing.course.to-report'}}
+              </a>
+            </div>
           {{/if}}
-        </div>
+        {{else}}
+          {{#if isCourse}}
+            <div class="current-activity ellipsis">
+              <i class="{{if isCurrentAssessment 'assessment' 'collection'}}"></i>
+              <a {{action 'playCurrent'}}>
+                {{location.currentTitle}}
+              </a>
+            </div>
+          {{else}}
+            <div class="not-applicable">{{t 'common.not-applicable'}}</div>
+          {{/if}}
+        {{/if}}
+      </div>
       <div class="last-access">
         {{#if location.lastAccessed}}
           {{format-date location.lastAccessed 'h:mma MMM. D YYYY'}}
