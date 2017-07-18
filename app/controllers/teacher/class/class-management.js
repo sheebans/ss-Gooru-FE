@@ -182,7 +182,7 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @param {String} sortBy - sort criteria
    */
-  sortBy: '',
+  sortBy: 'firstName',
 
   /**
    * @param {String} sortDefinition - List of sort criteria
@@ -253,7 +253,5 @@ export default Ember.Controller.extend(ModalMixin, {
     this.set('editingTitle', null);
     this.set('editingScore', null);
     this.set('didValidate', false);
-    let members = this.get('class.members');
-    this.set('class.members', members);
   }
 });
