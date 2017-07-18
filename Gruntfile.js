@@ -12,9 +12,7 @@ module.exports = function (grunt) {
       },
       "ember-server-stubby": 'ember serve --proxy http://localhost:8882',
       "ember-server-qa": 'ember serve --proxy http://nile-qa.gooru.org',
-      "ember-server-nginx": 'ember serve',
-      "nginx-start-server": 'sudo nginx -p ./ -c ./nginx.conf',
-      'nginx-stop-server': 'sudo nginx -s stop',
+      "ember-server-dev": 'ember serve',
 
       'build-dev': 'ember build',
       'build-prod': 'ember build --environment=production',
@@ -107,14 +105,12 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('run', function (target) {
-    target = target || 'nginx';
+    target = target || 'dev';
     var serverExecTask = 'exec:ember-server-' + (target);
 
     var tasks = ['generateSVG', 'stubby:test'];
-    if (target === 'nginx') {
+    if (target === 'dev') {
       tasks = ['generateSVG'];
-      tasks.push('exec:nginx-stop-server');
-      tasks.push('exec:nginx-start-server');
     }
     tasks.push(serverExecTask);
     grunt.task.run(tasks);
