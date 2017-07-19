@@ -1,19 +1,7 @@
 import Ember from 'ember';
-import PlayerRoute from 'gooru-web/routes/player';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
-import { CONTENT_TYPES} from 'gooru-web/config/config';
 
-/**
- * Study Player Route
- *
- * The context player route extends the player route to provide the study player
- * controller with additional information available only to signed-in users
- *
- * @module
- * @extends PlayerRoute
- */
-export default PlayerRoute.extend(PrivateRouteMixin, {
-  templateName: 'study-player',
+export default Ember.Route.extend(PrivateRouteMixin,{
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -29,69 +17,35 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
   /**
-   * @type {AttemptService} attemptService
-   * @property {Ember.Service} Service to send attempt related events
+   * @property {Ember.Service} Service to retrieve an assessment
    */
-  quizzesAttemptService: Ember.inject.service('quizzes/attempt'),
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
+   * @property {Ember.Service} Service to retrieve a collection
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
+  /**
+   * @type {UnitService} Service to retrieve course information
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
+  /**
+   * @type {UnitService} Service to retrieve unit information
+   */
+  unitService: Ember.inject.service('api-sdk/unit'),
+
+  /**
+   * @type {LessonService} Service to retrieve lesson information
+   */
+  lessonService: Ember.inject.service('api-sdk/lesson'),
 
   /**
    * @dependency {i18nService} Service to retrieve translations information
    */
   i18n: Ember.inject.service(),
 
-  // -------------------------------------------------------------------------
-  // Actions
-  actions: {
-    /**
-     * When the submission is complete
-     */
-    onFinish: function () {
-      let controller = this.get('controller');
-      let profileId = this.get('session.userData.gooruUId');
-      let contextId = controller.get('contextResult.contextId');
-      let classId = controller.get('classId');
-      let queryParams = {
-        courseId: controller.get('course.id'),
-        collectionId: controller.get('collection.id'),
-        type: controller.get('type'),
-        role: controller.get('role'),
-        lessonId: controller.get('lessonId'),
-        unitId: controller.get('unitId'),
-        contextId,
-        source: controller.get('source')
-      };
-      if (classId) {
-        queryParams.classId = classId;
-      }
-      const navigateMapService = this.get('navigateMapService');
-      this.get('quizzesAttemptService').getAttemptIds(contextId, profileId)
-        .then(attemptIds => !attemptIds || !attemptIds.length ? {} :
-          this.get('quizzesAttemptService').getAttemptData(attemptIds[attemptIds.length - 1])
-        )
-        .then(attemptData => Ember.RSVP.hash({
-          attemptData,
-          mapLocation: navigateMapService.getStoredNext()
-        }))
-        .then(({ mapLocation, attemptData }) => {
-          mapLocation.context.set('score', attemptData.get('averageScore'));
-          return navigateMapService.next(mapLocation.context);
-        })
-        .then(() =>  this.transitionTo(
-          'reports.study-student-collection',
-          { queryParams }
-        ));
-    },
-
-    /**
-     * When a pre-test needs to be loaded
-     */
-    loadPreTest: function() {
-      const navigateMapService = this.get('navigateMapService');
-      navigateMapService.getStoredNext()
-        .then(mapLocation => navigateMapService.next(mapLocation.context))
-        .then(() => this.refresh());
-    }
-  },
 
   // -------------------------------------------------------------------------
   // Methods
@@ -120,10 +74,10 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         description: route.get('i18n').t('gru-take-tour.study-player.stepFive.description')
       },
       /*{
-        elementSelector: '.header-panel .performance-info .suggestions',
-        title: route.get('i18n').t('gru-take-tour.study-player.stepSeven.title'),
-        description: route.get('i18n').t('gru-take-tour.study-player.stepSeven.description')
-      },*/
+       elementSelector: '.header-panel .performance-info .suggestions',
+       title: route.get('i18n').t('gru-take-tour.study-player.stepSeven.title'),
+       description: route.get('i18n').t('gru-take-tour.study-player.stepSeven.description')
+       },*/
       {
         title: route.get('i18n').t('gru-take-tour.study-player.stepEight.title'),
         description: route.get('i18n').t('gru-take-tour.study-player.stepEight.description')
@@ -134,12 +88,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       const unitId = mapLocation.get('context.unitId');
       const lessonId = mapLocation.get('context.lessonId');
 
-      params.type = mapLocation.get('context.itemType') || mapLocation.get('context.collectionType');
-
-      if (params.type === CONTENT_TYPES.EXTERNAL_ASSESSMENT) {
-        route.transitionTo('study-player-external');
-      }
-
       return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
         course: route.get('courseService').fetchById(courseId),
         unit: route.get('unitService').fetchById(courseId, unitId),
@@ -148,6 +96,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
 
         //setting query params using the map location
         params.collectionId = mapLocation.get('context.itemId') || mapLocation.get('context.collectionId');
+        params.type = mapLocation.get('context.itemType') || mapLocation.get('context.collectionType');
         params.classId = params.classId || mapLocation.get('context.classId');
         params.unitId = params.unitId || mapLocation.get('context.unitId');
         params.lessonId = params.lessonId || mapLocation.get('context.lessonId');
@@ -173,18 +122,14 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
           }
           return found;
         });
-
-        //loads the player model if it has no suggestions
-        return route.playerModel(params).then(function (model) {
-          return Object.assign(model, {
-            tourSteps: tourSteps,
-            course: hash.course,
-            unit: hash.unit,
-            lesson: hash.lesson,
-            mapLocation,
-            collectionId: params.collectionId,
-            type: params.type
-          });
+        return Ember.RSVP.hash({
+          ourSteps: tourSteps,
+          course: hash.course,
+          unit: hash.unit,
+          lesson: hash.lesson,
+          mapLocation,
+          collectionId: params.collectionId,
+          type: params.type
         });
       });
     });
@@ -206,7 +151,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       unitId: mapLocation.get('context.unitId'),
       lessonId: mapLocation.get('context.lessonId'),
       collectionId: model.collectionId,
-      type: model.type
+      type: model.type,
+      content:mapLocation.content
     });
   },
 
@@ -214,7 +160,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    * Gets the map location for the study player based on parameters
    * @param params
    * @returns {*}
-     */
+   */
   getMapLocation: function(params) {
     const route = this;
     const classId = params.classId;

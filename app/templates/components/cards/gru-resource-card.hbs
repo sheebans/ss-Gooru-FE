@@ -2,46 +2,60 @@
   <div class="panel-heading">
     <div class="header">
       <div class="image">
+        {{#if externalAssessment}}
+          <a href={{resource.url}}  target="_blank" class="external-assessment">
+            <img class="img-responsive" src="{{resource.thumbnail}}">
+          </a>
+        {{else}}
           {{#if isLinkOut}}
-              <i class="{{resource.format}}-icon"></i>
+            <i class="{{resource.format}}-icon"></i>
           {{else}}
             {{#if editEnabled}}
               {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id}}
-                  <i class="{{resource.format}}-icon"></i>
+                <i class="{{resource.format}}-icon"></i>
               {{/link-to}}
-              {{else}}
+            {{else}}
               {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
-                  <i class="{{resource.format}}-icon"></i>
+                <i class="{{resource.format}}-icon"></i>
               {{/link-to}}
             {{/if}}
           {{/if}}
+        {{/if}}
       </div>
       <div class="resource-info">
         <div class="title-section">
-          {{#if isLinkOut}}
-            <h6 class="title truncate">{{{resource.title}}}</h6>
+          {{#if externalAssessment}}
+            <a href={{resource.url}} target="_blank">
+              <h6 class="title truncate">{{{resource.title}}}</h6>
+            </a>
           {{else}}
-            {{#if editEnabled}}
-              {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+            {{#if isLinkOut}}
+              <h6 class="title truncate">{{{resource.title}}}</h6>
             {{else}}
-              {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+              {{#if editEnabled}}
+                {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+              {{else}}
+                {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+              {{/if}}
             {{/if}}
+            {{#unless publishVisible}}
+              {{#if resource.isPublished}}
+                <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
+              {{/if}}
+            {{/unless}}
           {{/if}}
-          {{#unless publishVisible}}
-            {{#if resource.isPublished}}
-              <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
-            {{/if}}
-          {{/unless}}
         </div>
-        {{#if isQuestion}}
-          <div class="question-type">
-            <span>{{t (concat "common.question-type." resource.type)}}</span>
-          </div>
-        {{else}}
-        <div class="resource-type">
-          <span>{{t (concat "common.resource-format." resource.format)}}</span>
-        </div>
-        {{/if}}
+        {{#unless externalAssessment}}
+          {{#if isQuestion}}
+            <div class="question-type">
+              <span>{{t (concat "common.question-type." resource.type)}}</span>
+            </div>
+          {{else}}
+            <div class="resource-type">
+              <span>{{t (concat "common.resource-format." resource.format)}}</span>
+            </div>
+          {{/if}}
+        {{/unless}}
       </div>
       {{#if publishVisible}}
         {{#if resource.isPublished}}
@@ -54,7 +68,8 @@
     {{#if tags.length}}
       {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true}}
     {{/if}}
-    <div class="publisher">
+    {{#unless externalAssessment}}
+      <div class="publisher">
         {{#if showPublisher}}
           <b class="publisher-name">{{resource.publisher}}</b>
         {{else}}
@@ -69,13 +84,14 @@
             {{/if}}
           </span>
         {{/if}}
-    </div>
+      </div>
+    {{/unless}}
     <div class="description">
       <p class="truncate">{{gru-math-text text=(if resource.isFIB resource.fibText resource.description)}}</p>
     </div>
   </div>
   <div class="panel-footer">
-    {{#if isLinkOut}}
+    {{#if (or isLinkOut externalAssessment)}}
         <div class="buttons">
             <a class="play-btn btn btn-success btn-sm" href="{{{resource.url}}}" target="_blank">{{t "common.play"}}</a>
         </div>
