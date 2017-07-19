@@ -56,13 +56,13 @@
       padding:0;
 
       @media (min-width: $screen-sm-min) {
-        width: 36%;
+        width: 44%;
       }
       @media (min-width: $screen-sm-max) {
-        width: 35%;
+        width: 32%;
       }
       @media (min-width: $screen-md-max) {
-        width: 45%;
+        width: 26%;
       }
       div{
         display: inherit;
