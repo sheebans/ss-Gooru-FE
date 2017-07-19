@@ -541,3 +541,55 @@ test('Layout-Resource from resource player', function(assert) {
   T.exists(assert, $performanceInfo.find('.resources .resource-title .image_resource-icon'), 'Missing resource icon');
   assert.equal(T.text($performanceInfo.find('.resources .resource-title .title')), 'resource1', 'Wrong resource title text');
 });
+
+test('Layout - External Assessment', function(assert) {
+
+  this.set('session', {
+    userId: 'user-id'
+  });
+
+  let resourceA = Ember.Object.create({
+    id: 'resource-1',
+    sequence:1,
+    title: 'resource1',
+    format: 'image_resource'});
+
+  let resourceB = Ember.Object.create({
+    id: 'resource-2',
+    sequence:2,
+    title: 'resource1',
+    format: 'video_resource'
+  });
+
+  this.set('collection',Collection.create({
+    id: 'collection-id',
+    isCollection: true,
+    resources:Ember.A([
+      resourceA,
+      resourceB
+    ])
+  }));
+
+  this.set('breadcrumbs', ['unit 1', 'lesson 1', 'collection 1']);
+
+  this.set('classId', 'class-1');
+
+  this.set('courseTitle', 'Marine Biology');
+
+  this.set('actualResource', resourceA);
+
+  this.render(hbs`{{player/gru-study-header classId=classId collection=collection  actualResource=actualResource session=session courseTitle=courseTitle breadcrumbs=breadcrumbs isExternalAssessment=true}}`);
+
+  var $component = this.$(); //component dom element
+  const $header = $component.find('.gru-study-header');
+  T.exists(assert, $header, 'Missing header section');
+
+  const $performanceInfo = $header.find('.performance-info');
+  T.exists(assert, $performanceInfo, 'Missing performance-info');
+
+  T.notExists(assert, $performanceInfo.find('.resources'), 'Missing resources section');
+  T.notExists(assert, $performanceInfo.find('.resources .lesson-info'), 'Missing lesson info');
+
+  T.notExists(assert, $performanceInfo.find('.resources .count-resources'), 'Counter of resources should not be visible');
+  T.notExists(assert, $performanceInfo.find('.resources .navigation'), 'Resources navigation should not be visible');
+});

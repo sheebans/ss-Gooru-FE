@@ -1371,6 +1371,7 @@ export default Object.assign(quizzesTranslations, {
     "gru-viewer": {
       "not-iframe-url": {
         "header_1": "This resource cannot be viewed within Gooru.",
+        "header_external_assessment_1": "This assessment cannot be viewed within Gooru.",
         "header_2": "Click the button below to open the resource in a new tab.",
         "view-resource": "View Resource",
         "footer_1": "Why am I seeing this blank page?",

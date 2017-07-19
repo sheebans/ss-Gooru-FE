@@ -226,10 +226,12 @@ export default Ember.Service.extend({
     if (storedResponse) {
       parsedResponse = JSON.parse(storedResponse);
     }
+    let  hasContent = parsedResponse.content && !!Object.keys(parsedResponse.content).length;
     return Ember.RSVP.resolve(MapLocation.create({
       context: mapSerializer.normalizeMapContext(parsedResponse.context),
       suggestions: mapSerializer.normalizeMapSuggestions(parsedResponse.suggestions),
-      hasContent: parsedResponse.content && !!Object.keys(parsedResponse.content).length
+      hasContent,
+      content : hasContent ?  mapSerializer.normalizeMapContent(parsedResponse.content) : null
     }));
   },
 

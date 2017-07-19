@@ -152,7 +152,7 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {boolean}
    */
   showPublisher:Ember.computed('resource', function(){
-    return this.get('resource').isPublished && this.get('resource').publisher;
+    return this.get('resource') ? this.get('resource').isPublished && this.get('resource').publisher : false;
   }),
 
   /**
