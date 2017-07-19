@@ -3,15 +3,15 @@
     name=name
     value=valuePath
     groupValue=groupValue
-    changed=onChange
+    changed='changed'
   }}
     {{t translationPath}}
   {{/radio-button}}
-    <div class="error-messages">
-      {{#if showMessage}}
-          <span class="error">
-            {{v-get model valuePath 'message'}}
-          </span>
-      {{/if}}
-    </div>
+  <div class="error-messages">
+    {{#if showMessage}}
+      <span class="error">
+        {{v-get model valuePath 'message'}}
+      </span>
+    {{/if}}
+  </div>
 </div>

@@ -32,14 +32,13 @@
               <span>{{t "gru-settings-edit.feedback"}}</span>
               <div class="feedback-options">
                 {{#each-in feedbackItems as |key value|}}
-                  {{
-                  validation.gru-radio
-                  model=model
-                  groupValue=model.showFeedback
-                  valuePath=value
-                  name='showFeedback'
-                  translationPath=(concat 'gru-settings-edit.feedback-' value)
-                  onChange=(action 'onGenericChange')
+                  {{validation.gru-radio
+                    model=model
+                    groupValue=model.showFeedback
+                    valuePath=value
+                    name='showFeedback'
+                    translationPath=(concat 'gru-settings-edit.feedback-' value)
+                    onChange='onGenericChange'
                   }}
                 {{/each-in}}
               </div>
