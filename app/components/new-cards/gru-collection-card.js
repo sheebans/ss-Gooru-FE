@@ -179,7 +179,7 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {contentType} content type
    */
   contentType: Ember.computed('content', function() {
-    return this.get('content').get('isCollection') ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT;
+    return this.get('content.isCollection') ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT;
   }),
 
   /**
