@@ -5,7 +5,6 @@ import wait from 'ember-test-helpers/wait';
 import { registerQuizzesServices } from 'gooru-web/tests/helpers/quizzes';
 
 const collectionServiceStub = Ember.Service.extend({
-
   readCollection(collectionId) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
       if (!collectionId) {
@@ -22,7 +21,6 @@ const collectionServiceStub = Ember.Service.extend({
 });
 
 const assessmentServiceStub = Ember.Service.extend({
-
   readAssessment(assessmentId) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
       if (!assessmentId) {
@@ -52,16 +50,16 @@ moduleForComponent('new-cards/gru-collection-card', 'Integration | Component | n
 test('Collection Card Layout', function(assert) {
 
   var collection = Ember.Object.create({
-    id:'123',
+    id: '123',
     title: 'Collection Title',
-    questionCount:4,
-    isAssessment:false,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    questionCount: 4,
+    isCollection: true,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
     owner: Ember.Object.create({
       id: 'owner-id',
@@ -69,27 +67,27 @@ test('Collection Card Layout', function(assert) {
       avatarUrl: 'avatar-url'
     }),
     course: 'Any course title',
-    remixedBy:['James','Andrea','Patric'],
-    isVisibleOnProfile:false
+    remixedBy: ['James', 'Andrea', 'Patric'],
+    isVisibleOnProfile: false
   });
 
   this.set('collection', collection);
 
   this.on('parentAction', function(content){
-    assert.ok(content.id, '123','Incorrect content to play');
+    assert.ok(content.id, '123', 'Incorrect content to play');
   });
 
   this.render(hbs`{{new-cards/gru-collection-card content=collection onOpenContentPlayer='parentAction' isStudent=false}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
   assert.ok($collectionCard.find('.panel-heading h3.title').length, 'Missing Title');
-  assert.ok($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should open the preview');
-  assert.notOk($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should not open the player');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should not open the preview');
+  assert.ok($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should open the player');
   assert.notOk($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should not open the edit');
   assert.ok($collectionCard.find('.panel-heading .image img').length, 'Missing Collection Image');
   assert.notOk($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should not open the edit');
-  assert.notOk($collectionCard.find('.panel-heading .image .play-content').length, 'Image should not open the player');
-  assert.ok($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should open the preview');
+  assert.ok($collectionCard.find('.panel-heading .image .play-content').length, 'Image should open the player');
+  assert.notOk($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should not open the preview');
   assert.ok($collectionCard.find('.panel-heading .question-resources').length, 'Missing Question and Resource Label section');
   assert.ok($collectionCard.find('.panel-heading .question-resources .question-count').length, 'Missing Question count');
   assert.notOk($collectionCard.find('.panel-heading .question-resources .resource-count').length, 'Resource count should not appear');
@@ -101,32 +99,26 @@ test('Collection Card Layout', function(assert) {
   assert.ok($collectionCard.find('.panel-footer .share-btn').length, 'Missing share button');
   assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
   assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
-
-  let $title = $collectionCard.find('.panel-heading .title-section .preview-content');
-  $title.click();
-
-  let $image = $collectionCard.find('.panel-heading .image .preview-content');
-  $image.click();
 });
 
 test('Assessment Card Layout', function(assert) {
   var assessment = Ember.Object.create({
     title: 'Biodiversity at All Three Levels',
     resourceCount: 3,
-    questionCount:4,
-    isAssessment:true,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    questionCount: 4,
+    isAssessment: true,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
-    author:'dara.weiner',
-    description:'Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound.',
+    author: 'dara.weiner',
+    description: 'Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound.',
     course: 'Any course title'
   });
 
@@ -155,13 +147,13 @@ test('Course Card Layout as a Teacher/anonymous', function(assert) {
     'totalUnits': 8,
     'subjects': ['Science'],
     'imageUrl': 'assets/gooru/profile.png',
-    'isPublished':true,
-    'isVisibleOnProfile':false,
-    'originalCreatorId':'some-id',
+    'isPublished': true,
+    'isVisibleOnProfile': false,
+    'originalCreatorId': 'some-id',
     'owner': Ember.Object.create({
-      id:'some-id'
+      id: 'some-id'
     }),
-    'remixedBy':  Ember.A([Ember.Object.create({
+    'remixedBy': Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
       'fullName': 'lastname-1 firstname-1',
@@ -169,7 +161,7 @@ test('Course Card Layout as a Teacher/anonymous', function(assert) {
       'lastName': 'lastname-1',
       'avatarUrl': 'assets/gooru/profile.png',
       'username': 'username-1'
-    }),Ember.Object.create({
+    }), Ember.Object.create({
       'email': 'user_2@test.com',
       'firstName': 'firstname-2',
       'fullName': 'lastname-2 firstname-2',
@@ -177,7 +169,7 @@ test('Course Card Layout as a Teacher/anonymous', function(assert) {
       'lastName': 'lastname-2',
       'avatarUrl': 'assets/gooru/profile.png',
       'username': 'username-2'
-    }),Ember.Object.create({
+    }), Ember.Object.create({
       'email': 'user_3@test.com',
       'firstName': 'firstname-3',
       'fullName': 'lastname-3 firstname-3',
@@ -186,15 +178,15 @@ test('Course Card Layout as a Teacher/anonymous', function(assert) {
       'avatarUrl': 'assets/gooru/profile.png',
       'username': 'username-3'
     })]),
-    taxonomy:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    taxonomy: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })])
   });
 
@@ -202,8 +194,8 @@ test('Course Card Layout as a Teacher/anonymous', function(assert) {
   this.render(hbs`{{new-cards/gru-collection-card content=course isCourse=true isStudent=false}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
-  assert.ok($collectionCard.find('.panel-heading .image a.preview-content img').length, 'Course Image should open the preview');
-  assert.ok($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should open the preview');
+  assert.notOk($collectionCard.find('.panel-heading .image a.preview-content img').length, 'Course Image should not open the preview');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should not open the preview');
 
   assert.ok($collectionCard.find('.panel-heading .unit-count').length, 'Missing unit count');
   assert.ok($collectionCard.find('.panel-heading .question-resources').length, 'Missing Question and Resource Label section');
@@ -222,14 +214,14 @@ test('Course Card Layout as a Teacher/anonymous', function(assert) {
 test('Share Collection', function(assert) {
   var collection = Ember.Object.create({
     title: 'Collection Title',
-    questionCount:4,
-    isAssessment:false,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    questionCount: 4,
+    isAssessment: false,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
     owner: Ember.Object.create({
       id: 'owner-id',
@@ -237,8 +229,8 @@ test('Share Collection', function(assert) {
       avatarUrl: 'avatar-url'
     }),
     course: 'Any course title',
-    remixedBy:['James','Andrea','Patric'],
-    isVisibleOnProfile:false
+    remixedBy: ['James', 'Andrea', 'Patric'],
+    isVisibleOnProfile: false
   });
 
   this.set('collection', collection);
@@ -256,20 +248,20 @@ test('Share Assessment', function(assert) {
   var assessment = Ember.Object.create({
     title: 'Biodiversity at All Three Levels',
     resourceCount: 3,
-    questionCount:4,
-    isAssessment:true,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    questionCount: 4,
+    isAssessment: true,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
-    author:'dara.weiner',
-    description:'Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound.',
+    author: 'dara.weiner',
+    description: 'Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound.',
     course: 'Any course title'
   });
 
@@ -290,13 +282,13 @@ test('Share course', function(assert) {
     'totalUnits': 8,
     'subjects': ['Science'],
     'imageUrl': 'assets/gooru/profile.png',
-    'isPublished':true,
-    'isVisibleOnProfile':false,
-    'originalCreatorId':'some-id',
+    'isPublished': true,
+    'isVisibleOnProfile': false,
+    'originalCreatorId': 'some-id',
     'owner': Ember.Object.create({
-      id:'some-id'
+      id: 'some-id'
     }),
-    'remixedBy':  Ember.A([Ember.Object.create({
+    'remixedBy': Ember.A([Ember.Object.create({
       'email': 'user_1@test.com',
       'firstName': 'firstname-1',
       'fullName': 'lastname-1 firstname-1',
@@ -304,7 +296,7 @@ test('Share course', function(assert) {
       'lastName': 'lastname-1',
       'avatarUrl': 'assets/gooru/profile.png',
       'username': 'username-1'
-    }),Ember.Object.create({
+    }), Ember.Object.create({
       'email': 'user_2@test.com',
       'firstName': 'firstname-2',
       'fullName': 'lastname-2 firstname-2',
@@ -312,7 +304,7 @@ test('Share course', function(assert) {
       'lastName': 'lastname-2',
       'avatarUrl': 'assets/gooru/profile.png',
       'username': 'username-2'
-    }),Ember.Object.create({
+    }), Ember.Object.create({
       'email': 'user_3@test.com',
       'firstName': 'firstname-3',
       'fullName': 'lastname-3 firstname-3',
@@ -321,15 +313,15 @@ test('Share course', function(assert) {
       'avatarUrl': 'assets/gooru/profile.png',
       'username': 'username-3'
     })]),
-    taxonomy:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    taxonomy: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })])
   });
 
@@ -347,16 +339,16 @@ test('Share course', function(assert) {
 test('Functions when Teacher is in their own profile', function(assert) {
 
   var collection = Ember.Object.create({
-    id:'123',
+    id: '123',
     title: 'Collection Title',
-    questionCount:4,
-    isAssessment:false,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    questionCount: 4,
+    isAssessment: false,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
     owner: Ember.Object.create({
       id: 'owner-id',
@@ -364,14 +356,14 @@ test('Functions when Teacher is in their own profile', function(assert) {
       avatarUrl: 'avatar-url'
     }),
     course: 'Any course title',
-    remixedBy:['James','Andrea','Patric'],
-    isVisibleOnProfile:false
+    remixedBy: ['James', 'Andrea', 'Patric'],
+    isVisibleOnProfile: false
   });
 
   this.set('collection', collection);
 
   var profile =  Ember.Object.create({
-    role:'teacher'
+    role: 'teacher'
   });
 
   this.set('profile',profile);
@@ -380,7 +372,7 @@ test('Functions when Teacher is in their own profile', function(assert) {
   this.set('isOnProfile', true);
 
   this.on('parentAction', function(content){
-    assert.ok(content.id, '123','Incorrect content to edit');
+    assert.ok(content.id, '123', 'Incorrect content to edit');
   });
 
   this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onEditContent='parentAction'}}`);
@@ -409,16 +401,16 @@ test('Functions when Teacher is in their own profile', function(assert) {
 test('Functions when Student is in their own profile', function(assert) {
 
   var collection = Ember.Object.create({
-    id:'123',
+    id: '123',
     title: 'Collection Title',
-    questionCount:4,
-    isAssessment:false,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    questionCount: 4,
+    isAssessment: false,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
     owner: Ember.Object.create({
       id: 'owner-id',
@@ -426,14 +418,14 @@ test('Functions when Student is in their own profile', function(assert) {
       avatarUrl: 'avatar-url'
     }),
     course: 'Any course title',
-    remixedBy:['James','Andrea','Patric'],
-    isVisibleOnProfile:false
+    remixedBy: ['James', 'Andrea', 'Patric'],
+    isVisibleOnProfile: false
   });
 
   this.set('collection', collection);
 
   var profile =  Ember.Object.create({
-    role:'student'
+    role: 'student'
   });
 
   this.set('profile',profile);
@@ -442,7 +434,7 @@ test('Functions when Student is in their own profile', function(assert) {
   this.set('isOnProfile', true);
 
   this.on('parentAction', function(content){
-    assert.ok(content.id, '123','Incorrect content to edit');
+    assert.ok(content.id, '123', 'Incorrect content to edit');
   });
 
   this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onEditContent='parentAction'}}`);
@@ -471,40 +463,40 @@ test('Functions when Student is in their own profile', function(assert) {
 test('Visibility icon when the content is visible on profile', function(assert) {
 
   var assessment = Ember.Object.create({
-    id:'123',
+    id: '123',
     title: 'Biodiversity at All Three Levels',
     resourceCount: 3,
-    questionCount:4,
-    isAssessment:true,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    questionCount: 4,
+    isAssessment: true,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
-    author:'dara.weiner',
-    description:'Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound.',
+    author: 'dara.weiner',
+    description: 'Students will be able to break salt down into its basic chemical components (NaCl) and describe how these atoms come together to form this important compound.',
     course: 'Any course title',
-    isVisibleOnProfile:true
+    isVisibleOnProfile: true
   });
 
   this.set('assessment', assessment);
 
   var profile =  Ember.Object.create({
-    role:'teacher'
+    role: 'teacher'
   });
 
-  this.set('profile',profile);
+  this.set('profile', profile);
 
   this.set('isMyProfile', true);
   this.set('isOnProfile', true);
 
   this.on('parentAction', function(content){
-    assert.ok(content.id, '123','Incorrect content to edit');
+    assert.ok(content.id, '123', 'Incorrect content to edit');
   });
 
   this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=assessment onEditContent='parentAction'}}`);
@@ -530,16 +522,16 @@ test('Visibility icon when the content is visible on profile', function(assert) 
 test('Functions when anonymous is on a another person profile (Teacher or Student)', function(assert) {
 
   var collection = Ember.Object.create({
-    id:'123',
+    id: '123',
     title: 'Collection Title',
-    questionCount:4,
-    isAssessment:false,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
+    questionCount: 4,
+    isCollection: true,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
     }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
     owner: Ember.Object.create({
       id: 'owner-id',
@@ -547,8 +539,8 @@ test('Functions when anonymous is on a another person profile (Teacher or Studen
       avatarUrl: 'avatar-url'
     }),
     course: 'Any course title',
-    remixedBy:['James','Andrea','Patric'],
-    isVisibleOnProfile:true
+    remixedBy: ['James', 'Andrea', 'Patric'],
+    isVisibleOnProfile: true
   });
 
   this.set('collection', collection);
@@ -560,18 +552,18 @@ test('Functions when anonymous is on a another person profile (Teacher or Studen
   this.set('isOnProfile', true);
 
   this.on('parentAction', function(content){
-    assert.ok(content.id, '123','Incorrect content to play');
+    assert.ok(content.id, '123', 'Incorrect content to play');
   });
 
   this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onOpenContentPlayer='parentAction'}}`);
   var $component = this.$();
   const $collectionCard = $component.find('.gru-collection-card');
-  assert.ok($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should open the preview');
+  assert.notOk($collectionCard.find('.panel-heading .title-section .preview-content').length, 'Title should not open the preview');
   assert.notOk($collectionCard.find('.panel-heading .title-section .edit-content').length, 'Title should not open the edit');
-  assert.notOk($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should not open the play content');
-  assert.notOk($collectionCard.find('.panel-heading .image .play-content').length, 'Image should not open the player');
+  assert.ok($collectionCard.find('.panel-heading .title-section .play-content').length, 'Title should open the play content');
+  assert.ok($collectionCard.find('.panel-heading .image .play-content').length, 'Image should open the player');
   assert.notOk($collectionCard.find('.panel-heading .image .edit-content').length, 'Image should not open the edit');
-  assert.ok($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should open the preview');
+  assert.notOk($collectionCard.find('.panel-heading .image .preview-content').length, 'Image should not open the preview');
   assert.notOk($collectionCard.find('.panel-footer .share-btn').length, 'Share button should not appear');
   assert.notOk($collectionCard.find('.panel-footer .bookmark-btn').length, 'Bookmark button should not appear');
   assert.ok($collectionCard.find('.panel-footer .preview-btn').length, 'Missing preview button');
@@ -579,27 +571,21 @@ test('Functions when anonymous is on a another person profile (Teacher or Studen
   assert.notOk($collectionCard.find('.panel-footer .add-btn').length, 'Add to button should not appear');
   assert.notOk($collectionCard.find('.panel-footer .edit-btn').length, 'Edit button should not appear');
   assert.notOk($collectionCard.find('.panel-footer .play-btn').length, 'Play button should not appear');
-
-  let $title = $collectionCard.find('.panel-heading .title-section .preview-content');
-  $title.click();
-
-  let $image = $collectionCard.find('.panel-heading .image .preview-content');
-  $image.click();
 });
 
 test('Functions when student user is on a another person profile (Teacher or Student)', function(assert) {
 
   var collection = Ember.Object.create({
-    id:'123',
+    id: '123',
     title: 'Collection Title',
-    questionCount:4,
-    isAssessment:false,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    questionCount: 4,
+    isAssessment: false,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
     owner: Ember.Object.create({
       id: 'owner-id',
@@ -607,8 +593,8 @@ test('Functions when student user is on a another person profile (Teacher or Stu
       avatarUrl: 'avatar-url'
     }),
     course: 'Any course title',
-    remixedBy:['James','Andrea','Patric'],
-    isVisibleOnProfile:true
+    remixedBy: ['James', 'Andrea', 'Patric'],
+    isVisibleOnProfile: true
   });
 
   this.set('collection', collection);
@@ -616,7 +602,7 @@ test('Functions when student user is on a another person profile (Teacher or Stu
   this.set('isMyProfile', false);
 
   var profile =  Ember.Object.create({
-    role:'student'
+    role: 'student'
   });
 
   this.set('profile', profile);
@@ -624,7 +610,7 @@ test('Functions when student user is on a another person profile (Teacher or Stu
   this.set('isOnProfile', true);
 
   this.on('parentAction', function(content){
-    assert.ok(content.id, '123','Incorrect content to preview');
+    assert.ok(content.id, '123', 'Incorrect content to preview');
   });
 
   this.render(hbs`{{new-cards/gru-collection-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onOpenContentPlayer='parentAction'}}`);
@@ -668,16 +654,16 @@ test('Bookmark content from card', function(assert) {
 test('Collection Card Published', function(assert) {
 
   var collection = Ember.Object.create({
-    id:'123',
+    id: '123',
     title: 'Collection Title',
-    questionCount:4,
-    isAssessment:false,
-    standards:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
+    questionCount: 4,
+    isAssessment: false,
+    standards: Ember.A([Ember.Object.create({
+      description: 'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+      code: 'CCSS.Math.Content.7.RP.A.3'
+    }), Ember.Object.create({
+      description: 'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+      code: 'CCSS.Math.Content.5.NBT.A.2'
     })]),
     owner: Ember.Object.create({
       id: 'owner-id',
@@ -685,7 +671,7 @@ test('Collection Card Published', function(assert) {
       avatarUrl: 'avatar-url'
     }),
     course: 'Any course title',
-    remixedBy:['James','Andrea','Patric'],
+    remixedBy: ['James', 'Andrea', 'Patric'],
     isVisibleOnProfile: true,
     isPublished: true
   });
@@ -693,10 +679,10 @@ test('Collection Card Published', function(assert) {
   this.set('collection', collection);
 
   var profile =  Ember.Object.create({
-    role:'teacher'
+    role: 'teacher'
   });
 
-  this.set('profile',profile);
+  this.set('profile', profile);
 
   this.set('isMyProfile', true);
   this.set('isOnProfile', true);

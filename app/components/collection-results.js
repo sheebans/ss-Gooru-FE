@@ -35,6 +35,7 @@ export default Ember.Component.extend(ModalMixin, {
     var component = this;
     component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
   },
+
   actions:{
 
     /**

@@ -40,7 +40,7 @@ export default Ember.Controller.extend({
       var selectedTags = this.get('selectedTags');
       selectedTags.removeObject(taxonomyTag);
       var taxonomyMap =  selectedTags.map(function(taxonomyTagData) {
-        return taxonomyTagData.get("data.id");
+        return taxonomyTagData.get('data.id');
       });
       this.set('taxonomies', taxonomyMap);
     },
@@ -62,7 +62,7 @@ export default Ember.Controller.extend({
       const params = controller.getSearchParams();
       controller.resetPagination();
       controller.doSearch(term, params, function(searchResults){
-        controller.set("searchResults", searchResults);
+        controller.set('searchResults', searchResults);
       }, true);
     }
 
@@ -81,7 +81,7 @@ export default Ember.Controller.extend({
    * Profile information
    * @property {Profile} profile
    */
-  profile: Ember.computed.alias("appController.profile"),
+  profile: Ember.computed.alias('appController.profile'),
 
   /**
    * Types of question selected
@@ -93,7 +93,7 @@ export default Ember.Controller.extend({
   /**
    * @property {string} term filter
    */
-  term: Ember.computed.alias("searchController.term"),
+  term: Ember.computed.alias('searchController.term'),
 
   /**
    * These are the search results
@@ -104,9 +104,9 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed("searchResults.[]", function(){
-    return this.get("searchResults.length") &&
-      (this.get("searchResults.length") % this.get("pagination.pageSize") === 0);
+  showMoreResultsButton: Ember.computed('searchResults.[]', function(){
+    return this.get('searchResults.length') &&
+      (this.get('searchResults.length') % this.get('pagination.pageSize') === 0);
   }),
 
   /**
@@ -120,35 +120,35 @@ export default Ember.Controller.extend({
   /**
    * @property {selectedTags[]} selected tags
    */
-  selectedTags: Ember.computed.alias("searchController.selectedTags"),
+  selectedTags: Ember.computed.alias('searchController.selectedTags'),
 
   /**
    * @property {string[]} standards
    */
-  taxonomies: Ember.computed.alias("searchController.taxonomies"),
+  taxonomies: Ember.computed.alias('searchController.taxonomies'),
 
   // -------------------------------------------------------------------------
   // Methods
 
   showMoreResults: function(){
     const controller = this;
-    const pagination = this.get("pagination");
+    const pagination = this.get('pagination');
     const params = controller.getSearchParams();
 
     pagination.page = pagination.page + 1;
-    controller.doSearch(controller.get("term"), params, function(searchResults){
-      controller.get("searchResults").pushObjects(searchResults);
+    controller.doSearch(controller.get('term'), params, function(searchResults){
+      controller.get('searchResults').pushObjects(searchResults);
     }, false);
   },
 
   getSearchParams: function(){
     const controller = this;
-    const pagination = controller.get("pagination");
+    const pagination = controller.get('pagination');
     return {
-      formats: controller.get("selectedOptionTypes"),
+      formats: controller.get('selectedOptionTypes'),
       page: pagination.page,
       pageSize: pagination.pageSize,
-      taxonomies: controller.get("taxonomies")
+      taxonomies: controller.get('taxonomies')
     };
   },
 
@@ -160,7 +160,7 @@ export default Ember.Controller.extend({
    * Resets the pagination values
    */
   resetPagination: function () {
-    this.set("pagination", {
+    this.set('pagination', {
       page: 1,
       pageSize: DEFAULT_SEARCH_PAGE_SIZE
     });
