@@ -2,6 +2,7 @@ import Ember from 'ember';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import ModalMixin from 'gooru-web/mixins/modal';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Collection, Assessment and Course card
@@ -173,6 +174,13 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {Course,Collection,Assessment} content
    */
   content: null,
+
+  /**
+   * @property {contentType} content type
+   */
+  contentType: Ember.computed('content', function() {
+    return this.get('content').get('isCollection') ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT;
+  }),
 
   /**
    * Indicates if bookmark action is disabled
