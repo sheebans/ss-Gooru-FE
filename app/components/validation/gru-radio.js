@@ -40,9 +40,15 @@ export default Ember.Component.extend({
    */
   actions:{
     setValue:function(value){
-      this.set("model."+this.valuePath, value);
-    }
+      this.set(`model.${this.valuePath}`, value);
+    },
 
+    /**
+     * Change event
+     */
+    changed: function() {
+      this.sendAction('onChange');
+    }
   },
 
   // -------------------------------------------------------------------------
