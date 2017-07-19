@@ -73,10 +73,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const route = this;
     const courseId = params.courseId;
     const userId = this.get('session.userId');
-    let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
-    coursePromise = route.get('courseService').fetchById(courseId);
-    let performancePromise = Ember.RSVP.resolve(Ember.Object.create({}));
-    performancePromise = route.get('learnerService').fetchCoursesPerformance(userId, [courseId]);
+    let coursePromise = route.get('courseService').fetchById(courseId);
+    let performancePromise = route.get('learnerService').fetchCoursesPerformance(userId, [courseId]);
 
     return Ember.RSVP.hash({
       course: coursePromise,

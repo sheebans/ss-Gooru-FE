@@ -233,7 +233,7 @@ export default Ember.Controller.extend({
           criteria.lessonId = controller.get('lessonId');
         }
         Ember.RSVP.hash({
-          course:course,
+          course,
           items: controller.get('performanceService').findMyPerformance(userId, courseId, lessonId, unitId, collectionType)
         }).then(function(hash){
           const course = hash.course;
