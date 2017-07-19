@@ -68,6 +68,8 @@ export default CollectionEdit.extend({
      * Save setting for visibility of collection in profile
      */
     publishToProfile: function() {
+      var collectionForEditing = this.get('collection').copy();
+      this.set('tempCollection', collectionForEditing);
       this.actions.updateContent.call(this);
     },
 
@@ -96,10 +98,5 @@ export default CollectionEdit.extend({
         'content.modals.gru-delete-content',
         model, null, null, null, false);
     }
-  },
-
-  init: function(){
-    this._super(...arguments);
-    this.set('tempCollection', this.get('collection').copy());
   }
 });
