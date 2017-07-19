@@ -19,6 +19,15 @@
         .image {
           display: inline-block;
           vertical-align: top;
+
+          .external-assessment {
+            img{
+              -webkit-background-size: 31px 30px;
+              background-size: 31px 30px;
+              height: 30px;
+              width: 31px;
+            }
+          }
         }
         i {
             display: block;

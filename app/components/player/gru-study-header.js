@@ -182,6 +182,12 @@ export default Ember.Component.extend({
   isPreTest: false,
 
   /**
+   * Indicates if an external assessment is showing
+   * @property {Boolean} isExternalAssessment
+   */
+  isExternalAssessment: false,
+
+  /**
    * @property {Number} barChartData
    */
   barChartData: Ember.computed('class.performanceSummary', function () {
@@ -236,9 +242,10 @@ export default Ember.Component.extend({
         component.set('class', aClass);
       });
     }
-
-    component.get('suggestService')
-      .suggestResourcesForCollection(component.get('session.userId'), collectionId)
-      .then(suggestedResources => component.set('suggestedResources', suggestedResources));
+    if (collectionId) {
+      component.get('suggestService')
+        .suggestResourcesForCollection(component.get('session.userId'), collectionId)
+        .then(suggestedResources => component.set('suggestedResources', suggestedResources));
+    }
   }
 });
