@@ -26,9 +26,14 @@ export default Ember.Route.extend({
     const route = this;
     const currentClass = route.modelFor('student.class').class;
     const userId = route.get('session.userId');
+    const today = new Date();
+    const formattedToday = moment(today).format('YYYY-MM-DD');
+    const utcToday = moment.utc(today).format('YYYY-MM-DD');
 
     return Ember.RSVP.hash({
-      classActivities: route.get('classActivityService').findStudentClassActivities(userId, currentClass.get('id'))
+      classActivities: route.get('classActivityService').findStudentClassActivities(
+        userId, currentClass.get('id'), undefined, formattedToday, utcToday
+      )
     });
   },
 
