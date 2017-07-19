@@ -78,9 +78,12 @@ export default Ember.Controller.extend({
    */
   options: Ember.computed(function(){
     return [{
-      name: 'featured-courses',
-      text: this.get('i18n').t('library.featured-courses')
-    }];
+        name: 'featured-courses',
+        text: this.get('i18n').t('library.featured-courses')
+      }, {
+        name: 'partner-libraries',
+        text: this.get('i18n').t('library.partner-libraries')
+      }];
   }),
 
   /**
