@@ -28,14 +28,14 @@ test('Library Controller Layout', function (assert) {
 
     let $options = $libraries.find('.tab');
     assert.ok($options.filter('.featured-courses').length, 'Featured Courses tab is missing');
-    assert.notOk($options.filter('.partner-libraries').length, 'Partner Libraries tab should not appear');
+    assert.ok($options.filter('.partner-libraries').length, 'Partner Libraries tab should appear');
     assert.ok($libraries.find('#featured-courses'),'Missing Featured Courses Section');
     assert.equal($libraries.find('#featured-courses .gru-collection-card').length, 2, 'It should show 2 cards');
 
     $libraries.find('a.partner-libraries').click();
     andThen(function() {
       assert.ok($libraries.find('#partner-libraries'),'Missing Partner Libraries Section');
-      assert.equal($libraries.find('#partner-libraries .gru-partner-library-card').length, 0, "It shouldn't show any cards");
+      assert.equal($libraries.find('#partner-libraries .gru-partner-library-card').length, 4, "It should show 4 cards");
     });
   });
 });
