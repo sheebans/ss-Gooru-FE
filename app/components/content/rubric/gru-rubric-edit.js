@@ -162,7 +162,7 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
       text: this.get('i18n').t('common.information')
     },{
       name: 'rubric',
-      text: this.get('i18n').t('common.rubric')
+      text: this.get('i18n').t('common.rubric-creation')
     }];
   }),
   /**

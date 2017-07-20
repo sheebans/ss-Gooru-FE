@@ -80,7 +80,7 @@
     <div class="options">
       <div>
         {{#if editEnabled}}
-          <button class="edit-btn btn btn-success btn-sm">{{t "common.edit"}}</button>
+          <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
         {{else}}
           {{#if (or profile.isTeacher session.isAnonymous)}}
             <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
