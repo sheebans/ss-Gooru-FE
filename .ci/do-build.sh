@@ -9,7 +9,9 @@
 
 source .ci/common.sh
 
-QUIZZES_VERSION="1.0.0"
+QUIZZES_VERSION=$(docker run -v $PWD:/app \
+  --workdir /app \
+  --user node node:6 node -e "console.log(require('./package.json').dependencies['quizzes-addon']);")
 
 if [ -z "$S3_BUCKET" ]; then
   error "No S3 bucket specified."
