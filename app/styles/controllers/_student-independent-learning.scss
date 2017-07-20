@@ -178,7 +178,7 @@
         color: $gray-base;
         padding: 0;
       }
-      .panel-body {
+      .panel-body.bookmarks-list {
         padding: 0;
         &.collapsed {
           height: 125px;

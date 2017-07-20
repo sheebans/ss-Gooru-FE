@@ -1,8 +1,8 @@
 .gru-bookmark-card {
   height: 100px;
-  width: 85px;
+  width: 88px;
   float: left;
-  margin: 20px 21px 0 0;
+  margin: 20px 20px 0 0;
   .panel.bookmark {
     border-radius: 5px;
     height: inherit;
@@ -40,10 +40,10 @@
       }
     }
     .panel-body {
-      padding: 5px!important;
-      .title {
+      padding: 5px 4px;
+      .title{
+        font-size:$font-size-small;
         color: $white;
-        @include ellipsis($font-size-small, 1, 2);
       }
     }
   }
