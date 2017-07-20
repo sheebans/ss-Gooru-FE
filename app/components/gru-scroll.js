@@ -43,7 +43,7 @@ export default Ember.Component.extend({
     }
 
     if ($el) {
-      Ember.$('html, body').animate({
+      Ember.$(this.get('scrollSection')).animate({
         scrollTop: $el.offset().top - offsetVal
       }, this.get('speed'));
     }
@@ -69,6 +69,11 @@ export default Ember.Component.extend({
    * @private
    */
   offsetVal: 0,
+
+  /**
+   * @prop { String } scrollSection - section where the component  will scroll
+   */
+  scrollSection:'html, body',
 
   /**
    * @prop { Number } speed - animation length in seconds
