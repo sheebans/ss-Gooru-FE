@@ -394,7 +394,6 @@ export default Object.assign(quizzesTranslations, {
     "published-tooltip": "Badged Content",
     "publisher": "Publisher",
     "question": "Question",
-    "rubrics":"Rubrics",
     "questions": "Questions",
     "questions-OE": "Free Response Questions",
     "question-pl": {
@@ -468,6 +467,8 @@ export default Object.assign(quizzesTranslations, {
     "resource-url": "Resource URL",
     "role": "Role",
     "rubric":"Rubric",
+    "rubric-creation":"Rubric Creation",
+    "rubrics":"Rubrics",
     "rubric-title": "Rubric Title",
     "save": "Save",
     "save-next": "Save and Next",
