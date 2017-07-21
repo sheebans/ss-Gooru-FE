@@ -107,7 +107,7 @@ export default Ember.Object.extend({
       answerObjects = [];
     }
     return answerObjects.map(function(answerObject){
-      if(questionType!=='MA' && questionType!=='HS_TXT' && answerObject.text){
+      if(questionType!=='MA' && answerObject.text){
         answerObject.answerId = window.btoa(encodeURIComponent(answerObject.text));
       }
       return AnswerObject.create(answerObject);
