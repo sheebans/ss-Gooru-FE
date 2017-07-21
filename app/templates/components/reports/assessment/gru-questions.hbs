@@ -1,6 +1,6 @@
 <div class="questions-header">
   <div class="title">
-      <h4>{{if isOpenEnded (t "common.questions-OE") (t "common.questions")}}</h4>
+    <h4>{{if isOpenEnded (t "common.questions-OE") (t "common.questions")}}</h4>
   </div>
   {{#if isAnswerKeyHidden}}
     <em>{{t "common.answer-key-was-hidden"}}</em>
@@ -62,13 +62,13 @@
           {{{component (question-config result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
         {{/if}}
       </td>
-     {{#unless result.question.isOpenEnded}}
+      {{#unless result.question.isOpenEnded}}
         <td class="question-score {{if showPerformance 'visible' 'hide'}}">
           <span class="{{if result.correct 'correct' 'incorrect'}}">
             {{gru-icon name='radio_button_checked'}}
           </span>
         </td>
-     {{/unless}}
+      {{/unless}}
       <td class="question-time {{if showPerformance 'visible' 'hide'}}">
         {{format-time result.timeSpent}}
       </td>

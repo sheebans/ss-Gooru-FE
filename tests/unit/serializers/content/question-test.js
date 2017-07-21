@@ -231,8 +231,28 @@ test('normalizeAnswer', function(assert) {
     'answer_text': 'Answer #1 text',
     'answer_type': 'text'
   };
-  const answer = serializer.normalizeAnswer(answerData);
+  const answer = serializer.normalizeAnswer(answerData, 'MC');
+  const id = window.btoa(encodeURIComponent(answerData.answer_text));
 
+  assert.equal(answer.get('id'), id, 'Wrong id');
+  assert.equal(answer.get('sequence'), 1, 'Wrong sequence');
+  assert.equal(answer.get('isCorrect'), false, 'Wrong isCorrect');
+  assert.equal(answer.get('text'), 'Answer #1 text', 'Wrong text');
+  assert.equal(answer.get('type'), 'text', 'Wrong type');
+});
+
+test('normalizeAnswer - MA type', function(assert) {
+  const serializer = this.subject();
+  const answerData = {
+    'sequence': 1,
+    'is_correct': 0,
+    'answer_text': 'Answer #1 text',
+    'answer_type': 'text'
+  };
+  const answer = serializer.normalizeAnswer(answerData, 'MA');
+  const id = `answer_${answerData.sequence}`;
+
+  assert.equal(answer.get('id'), id, 'Wrong id');
   assert.equal(answer.get('sequence'), 1, 'Wrong sequence');
   assert.equal(answer.get('isCorrect'), false, 'Wrong isCorrect');
   assert.equal(answer.get('text'), 'Answer #1 text', 'Wrong text');
