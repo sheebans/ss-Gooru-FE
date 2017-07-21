@@ -38,7 +38,7 @@ export default DS.Model.extend({
    * @property {Number} Computed property with the average score for all student data.
    */
   averageScore: Ember.computed('filteredPerformanceData', function() {
-    return this.calculateAverage('score', this.get("filteredPerformanceData"));
+    return this.calculateAverage('score', this.get("performanceData"));
   }),
 
   /**

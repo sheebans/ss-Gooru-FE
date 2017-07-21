@@ -279,6 +279,24 @@ export default StudentCollection.extend({
       }))
       .then(({ context }) => navigateMapService.next(context))
       .then(() => this.toPlayer(suggestion));
+  },
+
+  /**
+   * Resets to default values
+   */
+  resetValues: function() {
+    this.setProperties({
+      courseId: null,
+      userId: null,
+      role: null,
+      contextId: null,
+      source: null,
+      classId: '',
+      unitId: null,
+      lessonId: null,
+      collectionId: null,
+      type: null
+    });
   }
 
 });
