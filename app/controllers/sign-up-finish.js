@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Profile from 'gooru-web/models/profile/profile';
-import { COUNTRY_CODES } from "gooru-web/config/config";
+import { COUNTRY_CODES } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
 
@@ -10,12 +10,12 @@ export default Ember.Controller.extend({
   /**
    * @property {Service} Session service
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   /**
    * @property {Service} Profile service
    */
-  profileService: Ember.inject.service("api-sdk/profile"),
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   /**
    * @property {Ember.Service} Service to do retrieve states, districts
@@ -27,6 +27,11 @@ export default Ember.Controller.extend({
    */
   sessionService: Ember.inject.service('api-sdk/session'),
 
+  /**
+   * @property {Controller} Application Controller
+   */
+  applicationController: Ember.inject.controller('application'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -34,8 +39,8 @@ export default Ember.Controller.extend({
 
     next: function() {
       var controller = this;
-      var userId = controller.get("session.userId");
-      var profile = controller.get("profile");
+      var userId = controller.get('session.userId');
+      var profile = controller.get('profile');
       var role = controller.get('profile.role');
       var countrySelected = controller.get('countrySelected');
       var stateSelected = controller.get('stateSelected');
@@ -83,6 +88,7 @@ export default Ember.Controller.extend({
         controller.get('profileService').updateMyProfile(profile)
           .then(()  => {
             let session = controller.get('session');
+            controller.get('applicationController').loadSessionProfile(profile);
             session.set('userData.isNew', false);
             controller.send('signUpFinish', role);
           }, () => Ember.Logger.error('Error updating user'));
@@ -120,7 +126,7 @@ export default Ember.Controller.extend({
       controller.set('districts', null);
       controller.set('stateSelected', id);
       controller.set('state', states.findBy('id', id).name);
-      controller.get("lookupService").readDistricts(id)
+      controller.get('lookupService').readDistricts(id)
         .then(districts => controller.set('districts', districts));
     },
 
