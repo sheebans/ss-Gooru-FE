@@ -29,7 +29,7 @@
       {{#if isCourse}}
         <div class="performance">
           {{charts.gru-bubble-chart
-            content=(if performance.scoreInPercentage (concat performance.scoreInPercentage '%') '--')
+            content=percentageToShow
             color=(grade-color performance.scoreInPercentage)}}
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>

@@ -92,6 +92,15 @@ export default Ember.Component.extend({
   performance: null,
 
   /**
+  * Percentage value for the score chart
+  * @property {String}
+  */
+ percentageToShow: Ember.computed('performance.scoreInPercentage', function() {
+   const score = this.get('performance.scoreInPercentage');
+   return score || score === 0 ? `${score}%` : '--';
+ }),
+
+  /**
    * @property {String} source value when playing a collection/assessment
    */
   source: PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY,
