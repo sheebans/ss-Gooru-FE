@@ -223,6 +223,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
     let skipElement = $('.introjs-skipbutton');
     let prevElement = $('.introjs-prevbutton');
 
+    //This is for a specific step on the library page tour
+    if(component.get('containerClass') === 'library' && currentStepIndex === 2){
+      $('body').scrollTop(0);
+    }
+
     if(currentStepIndex === 1){
       prevElement.hide();
     }else{
