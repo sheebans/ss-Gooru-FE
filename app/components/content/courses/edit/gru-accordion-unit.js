@@ -49,11 +49,13 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
         data: lesson
       });
       this.get('items').pushObject(builderItem);
+      this.refreshOrderList();
     },
 
     cancelAddLesson: function (builderItem) {
       this.get('items').removeObject(builderItem);
       builderItem.destroy();
+      this.refreshOrderList();
     },
 
     /**
@@ -145,6 +147,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
      */
     removeLesson: function (builderItem) {
       this.get('items').removeObject(builderItem);
+      this.refreshOrderList();
     },
 
     /**
@@ -164,6 +167,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
         data: lesson
       });
       this.get('items').pushObject(builderItem);
+      this.refreshOrderList();
     },
 
     saveUnit: function () {
