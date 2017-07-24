@@ -38,15 +38,18 @@ export default PlayerAccordionCourse.extend({
       // Close all units before presenting the form for the new unit
       this.actions.closeAllUnits.apply(this);
       this.get('items').pushObject(builderItem);
+      this.refreshOrderList();
     },
 
     cancelAddUnit: function (builderItem) {
       this.get('items').removeObject(builderItem);
       builderItem.destroy();
+      this.refreshOrderList();
     },
 
     removeUnit: function (builderItem) {
       this.get('items').removeObject(builderItem);
+      this.refreshOrderList();
     },
 
     remixUnit: function (unit) {
@@ -56,6 +59,7 @@ export default PlayerAccordionCourse.extend({
       });
       this.actions.closeAllUnits.apply(this);
       this.get('items').pushObject(builderItem);
+      this.refreshOrderList();
     },
 
     sortUnits: function() {

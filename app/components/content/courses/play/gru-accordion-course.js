@@ -75,7 +75,4 @@ export default Ember.Component.extend(BuilderMixin, {
       builderItem.set('isExpanded', false);
     });
   }
-
-
-
 });

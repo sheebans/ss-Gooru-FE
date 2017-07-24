@@ -31,7 +31,8 @@ export default Ember.Mixin.create({
     cancelSort:function() {
       var $sortable = this.$(this.get('sortableSelector'));
       this.set('model.isSorting', false);
-      $sortable.removeClass('sorting').sortable('cancel').sortable('disable');
+      this.cancelSort();
+      $sortable.removeClass('sorting').sortable('disable');
     },
 
     /**
@@ -56,14 +57,7 @@ export default Ember.Mixin.create({
 
     this.$(sortableSelector).sortable({
       disabled: true,
-      update: function() {
-        const $items = component.$(sortableSelector).find('> li');
-        const orderList = $items.map(function(idx, item) {
-          // Note: all child elements must have a data-id attribute for the .sortable plugin to work
-          return $(item).data('id');
-        }).toArray();
-        component.set('orderList', orderList);
-      }
+      update: () => component.refreshOrderList()
     });
   }),
 
@@ -141,12 +135,37 @@ export default Ember.Mixin.create({
   // Methods
 
   /**
+   * Refresh the order list when changing items
+   */
+  refreshOrderList: function() {
+    const items = this.get('items');
+    let findById;
+    if (items.length && items[0] instanceof BuilderItem) {
+      findById = id => items.findBy('data.id', id);
+    } else {
+      findById = id => items.findBy('id', id);
+    }
+    const $items = this.$(this.get('sortableSelector')).find('> li');
+    // Only use DOM elements that have a corresponding item in the list
+    const orderList = $items
+      .filter((idx, item) => !!findById($(item).data('id')))
+      .map((idx, item) => $(item).data('id'))
+      .toArray();
+    this.set('orderList', orderList);
+    // Remove DOM elements that have no corresponding item in the list
+    const toRemove = $items.filter((idx, item) => {
+      let dataId = $(item).data('id');
+      return !!dataId && !findById(dataId);
+    });
+    toRemove.each((idx, item) => $(item).remove());
+  },
+
+  /**
    * Refresh the item list after save reorder
    */
   refreshList: function() {
     var orderList = this.get('orderList');
     var items = this.get('items');
-
     if (orderList){
       let filterFunc;
 
@@ -165,5 +184,32 @@ export default Ember.Mixin.create({
       items.clear();
       items.addObjects(sortedItems);
     }
+  },
+
+  /**
+   * Return elements to their original positions
+   */
+  cancelSort: function() {
+    const sortableSelector = this.get('sortableSelector');
+    const items = this.get('items');
+    const $sortable = this.$(sortableSelector);
+    const $items = $sortable.find('> li');
+    // Create map of dom elements with the id as key
+    const itemsMap = $items.toArray().reduce((itemsMap, item) => {
+      itemsMap[$(item).data('id')] = item;
+      return itemsMap;
+    }, {});
+    let getId;
+    if (items.length && items[0] instanceof BuilderItem) {
+      getId = item => item.get('data.id');
+    } else {
+      getId = item => item.get('id');
+    }
+    // Send an update event to move every element to its original position
+    items.map(item => itemsMap[getId(item)]).forEach((item, index) => {
+      $sortable.sortable('option','update')(null, {
+        item: $sortable.find(`> li:eq(${index})`).after($(item))
+      });
+    });
   }
 });
