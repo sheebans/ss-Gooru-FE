@@ -32,6 +32,12 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
       categories.addObject(newCategory);
     },
     /**
+     * Cancel Rubric Edition
+     */
+    cancelEdit:function(){
+      this.cancel();
+    },
+    /**
      * Triggered by gru-category
      *Copy category
      */
@@ -195,7 +201,7 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
    * Cancel function for footer
    */
   cancel:function(){
-    this.get('router').transitionTo('profile.content.courses', this.get('session.userData.gooruUId'));
+    this.get('router').transitionTo('profile.content.rubrics', this.get('session.userData.gooruUId'));
   },
   /**
    * Save function for footer
