@@ -1,6 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Category from 'gooru-web/models/rubric/rubric-category';
+import wait from 'ember-test-helpers/wait';
+import Ember from 'ember';
 
 moduleForComponent('content/rubric/gru-category', 'Integration | Component | content/rubric/gru category', {
   integration: true
@@ -8,7 +10,7 @@ moduleForComponent('content/rubric/gru-category', 'Integration | Component | con
 
 test('Category collapsed', function(assert) {
 
-  let category = Category.create({
+  let category = Category.create(Ember.getOwner(this).ownerInjection(),{
     title : 'Category Title'
   });
 
@@ -27,7 +29,7 @@ test('Category collapsed', function(assert) {
 });
 test('Category expanded', function(assert) {
 
-  let category = Category.create({
+  let category = Category.create(Ember.getOwner(this).ownerInjection(),{
     title : 'Category Title'
   });
 
@@ -51,7 +53,7 @@ test('Delete Category', function(assert) {
     assert.ok(categoryDelete, category);
   });
 
-  var categoryDelete = Category.create({
+  var categoryDelete = Category.create(Ember.getOwner(this).ownerInjection(),{
     title:'Category for test'
   });
 
@@ -70,7 +72,7 @@ test('Copy Category', function(assert) {
     assert.ok(categoryCopy, category);
   });
 
-  var categoryCopy = Category.create({
+  var categoryCopy = Category.create(Ember.getOwner(this).ownerInjection(),{
     title:'Category for test'
   });
 
@@ -80,4 +82,194 @@ test('Copy Category', function(assert) {
   var $component = this.$();
   var $copy = $component.find('.btn.copy');
   $copy.click();
+});
+
+test('Edit Category', function(assert) {
+  assert.expect(3);
+
+  var category = Category.create(Ember.getOwner(this).ownerInjection(),{
+    title:'Category for test',
+    levels:Ember.A([
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },{
+        name:'',
+        score:null
+      }])
+  });
+
+  this.set('category',category);
+  this.render(hbs`{{content/rubric/gru-category category=category}}`);
+
+  var $component = this.$();
+  var $edit = $component.find('.btn.edit');
+  $edit.click();
+  return wait().then(function () {
+    var $scoringLevels = $component.find('.gru-scoring-levels');
+    assert.ok($scoringLevels.length,'Missing scoring levels');
+    const $titleField =  $component.find('.edit-title .input .gru-input');
+    $titleField.find('input').val('Category 1');
+    $titleField.find('input').blur();
+    const $levelField =  $component.find('.gru-scoring-levels .level-list .gru-input:first-child');
+    $levelField.find('input').val('Level 1');
+    $levelField.find('input').blur();
+
+    const $save = $component.find('.detail .actions .save');
+    $save.click();
+    return wait().then(function () {
+      assert.equal($component.find('.title h2').text(),'Category 1','Incorrect Title');
+      $edit.click();
+      return wait().then(function () {
+        assert.equal($levelField.find('input').val(),'Level 1','Incorrect Level');
+      });
+    });
+  });
+});
+
+test('Validate if the category title field is left blank', function (assert) {
+  assert.expect(2);
+
+  var category = Category.create(Ember.getOwner(this).ownerInjection(),{
+    title:'',
+    levels:Ember.A([
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },{
+        name:'',
+        score:null
+      }])
+  });
+
+  this.set('category',category);
+  this.render(hbs`{{content/rubric/gru-category category=category}}`);
+
+  const $component = this.$();
+  var $edit = $component.find('.btn.edit');
+  $edit.click();
+  return wait().then(function () {
+    const $titleField =  $component.find('.edit-title .input .gru-input');
+
+    const $save = $component.find('.detail .actions .save');
+    $save.click();
+    return wait().then(function () {
+
+      assert.ok($titleField.find('.error-messages .error').length, 'Title error should be visible');
+      $titleField.find('input').val('Category');
+      $titleField.find('input').blur();
+
+      return wait().then(function () {
+        assert.ok(!$titleField.find('.error-messages .error').length, 'Title error message was hidden');
+      });
+    });
+  });
+});
+test('Validate if the rubric title field has only whitespaces', function (assert) {
+  assert.expect(2);
+
+  var category = Category.create(Ember.getOwner(this).ownerInjection(),{
+    title:'',
+    levels:Ember.A([
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },{
+        name:'',
+        score:null
+      }])
+  });
+
+  this.set('category',category);
+  this.render(hbs`{{content/rubric/gru-category category=category}}`);
+
+  const $component = this.$();
+  var $edit = $component.find('.btn.edit');
+  $edit.click();
+  return wait().then(function () {
+    const $titleField =  $component.find('.edit-title .input .gru-input');
+    const $save = $component.find('.detail .actions .save');
+    $save.click();
+    return wait().then(function () {
+      assert.ok($titleField.find('.error-messages .error').length, 'Category Title error should be visible');
+      $titleField.find('input').val(' ');
+      $save.click();
+      return wait().then(function () {
+        assert.ok($titleField.find('.error-messages .error').length, 'Category Title error message should be visible');
+      });
+    });
+  });
+});
+
+test('Validate the character limit in the category title field', function (assert) {
+  var category = Category.create(Ember.getOwner(this).ownerInjection(),{
+    title:'Category for test',
+    levels:Ember.A([
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },{
+        name:'',
+        score:null
+      }])
+  });
+
+  this.set('category',category);
+  this.render(hbs`{{content/rubric/gru-category category=category}}`);
+
+  const $component = this.$();
+  var $edit = $component.find('.btn.edit');
+  $edit.click();
+  return wait().then(function () {
+    const maxLenValue = $component.find('.gru-category .edit-title .input .gru-input input').prop('maxlength');
+    assert.equal(maxLenValue, 50, 'Incorrect input max length');
+  });
 });

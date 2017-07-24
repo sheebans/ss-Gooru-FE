@@ -36,13 +36,13 @@
     </div>
 
     <div class="panel-body">
-        <div class="feedback">
+        <div class="feedback out-of-scope">
             <label>
                 <span>{{t "gru-rubric-creation.feedback-guidance"}}</span>
               {{validation.gru-textarea rawTextareaValue=category.feedbackGuidance model=category valuePath='feedbackGuidance' maxLength=500 rows=5 placeholder=(t 'gru-rubric-creation.gru-category.category-feedback')}}
             </label>
         </div>
-        <label class="required-feedback">
+        <label class="required-feedback out-of-scope">
             <span {{action 'setFeedBack'}}>
               {{#if category.requiresFeedback}}
                 {{gru-icon name='check_box'}}
@@ -52,6 +52,6 @@
             </span>
           {{t 'gru-rubric-creation.required-feedback'}}
         </label>
-        {{content.rubric.gru-scoring-levels}}
+        {{content.rubric.gru-scoring-levels scoringLevels=tempCategory.levels}}
     </div>
 </div>

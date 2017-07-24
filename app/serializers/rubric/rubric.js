@@ -180,7 +180,7 @@ export default Ember.Object.extend({
    */
   normalizeRubricCategory(data) {
     const levels = data.levels || [];
-    return RubricCategory.create({
+    return RubricCategory.create(Ember.getOwner(this).ownerInjection(),{
       title: data.category_title,
       feedbackGuidance: data.feedback_guidance,
       requiresFeedback: data.required_feedback,

@@ -31,10 +31,22 @@ export default Ember.Component.extend({
      */
     onLevelChange: function(isChecked){
       this.set('showLevel',isChecked);
+      if (!this.get('showLevel') ){
+        this.set('showScore',false);
+        this.set('disabledScoring',true);
+      } else {
+        this.set('disabledScoring',false);
+      }
     }
   },
   //// -------------------------------------------------------------------------
   // Properties
+  /**
+   *Disabled Score Switch
+   *
+   * @property {Boolean}
+   */
+  disabledScoring:false,
   /**
    * @property {[]} scoringLevels
    * Should have 4 levels as default
@@ -53,6 +65,9 @@ export default Ember.Component.extend({
       score:null
     },
     {
+      name:'',
+      score:null
+    },{
       name:'',
       score:null
     }]),
