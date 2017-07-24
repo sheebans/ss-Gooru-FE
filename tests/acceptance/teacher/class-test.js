@@ -104,3 +104,18 @@ test('Click the toggle button to collapse and expand header', function(assert) {
     }, 500);
   });
 });
+
+test('Take A Tour', function(assert){
+  assert.expect(2);
+  visit('/teacher/class/class-for-pochita-as-teacher');
+  andThen(function() {
+    let $tooltip;
+    click(".app-container .gru-take-tour button.start-tour");
+    andThen(function() {
+      $tooltip = $("div.introjs-tooltip");
+
+      T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
+      assert.equal(T.text($tooltip.find('.tour-header h2')), 'Welcome!', 'First step title should be "Welcome!"');
+    });
+  });
+});
