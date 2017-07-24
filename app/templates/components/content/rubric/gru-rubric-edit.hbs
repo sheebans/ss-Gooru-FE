@@ -3,6 +3,7 @@
   <div id="information">
     <div class="header">
       <h2>{{t 'common.information'}}</h2>
+      {{partial 'content/partials/information-actions'}}
     </div>
     <div class="content">
       {{content.gru-image isEditing=true}}
@@ -85,4 +86,3 @@
     </div>
   </div>
 </section>
-{{content.rubric.gru-fixed-footer footerActions=footerActions}}
