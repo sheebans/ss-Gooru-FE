@@ -31,7 +31,8 @@ export default Ember.Mixin.create({
     cancelSort:function() {
       var $sortable = this.$(this.get('sortableSelector'));
       this.set('model.isSorting', false);
-      $sortable.removeClass('sorting').sortable('cancel').sortable('disable');
+      this.cancelSort();
+      $sortable.removeClass('sorting').sortable('disable');
     },
 
     /**
@@ -165,5 +166,32 @@ export default Ember.Mixin.create({
       items.clear();
       items.addObjects(sortedItems);
     }
+  },
+
+  /**
+   * Return elements to their original positions
+   */
+  cancelSort: function() {
+    const sortableSelector = this.get('sortableSelector');
+    const items = this.get('items');
+    const $sortable = this.$(sortableSelector);
+    const $items = $sortable.find('> li');
+    // Create map of dom elements with the id as key
+    const itemsMap = $items.toArray().reduce((itemsMap, item) => {
+      itemsMap[$(item).data('id')] = item;
+      return itemsMap;
+    }, {});
+    let getId;
+    if (items.length && items[0] instanceof BuilderItem) {
+      getId = item => item.get('data.id');
+    } else {
+      getId = item => item.get('id');
+    }
+    // Send an update event to move every element to its original position
+    items.map(item => itemsMap[getId(item)]).forEach((item, index) => {
+      $sortable.sortable('option','update')(null, {
+        item: $sortable.find(`> li:eq(${index})`).after($(item))
+      });
+    });
   }
 });
