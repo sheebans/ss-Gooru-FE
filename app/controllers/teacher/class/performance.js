@@ -189,6 +189,11 @@ export default Ember.Controller.extend({
   reportData: null,
 
   /**
+   * @property {boolean} indicates if the loading icon should be shown
+   */
+  loading: false,
+
+  /**
    * @property {boolean}
    */
   filteredByAssessment: Ember.computed.not('filteredByCollection'),
