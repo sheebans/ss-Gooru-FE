@@ -47,13 +47,18 @@ export default Ember.Component.extend({
      *Save category
      */
     saveCategory: function () {
-      let tempCategory = this.get('tempCategory');
-      let category = this.get('category');
-      category.setProperties(tempCategory);
+      const $component = this;
+      let tempCategory = $component.get('tempCategory');
+      tempCategory.validate().then(function ({ validations }) {
+        if (validations.get('isValid')) {
+          let category = $component.get('category');
+          category.setProperties(tempCategory);
 
-      this.setProperties({
-        'isPanelExpanded': false,
-        'isEditingInline': false
+          $component.setProperties({
+            'isPanelExpanded': false,
+            'isEditingInline': false
+          });
+        }
       });
     }
   },

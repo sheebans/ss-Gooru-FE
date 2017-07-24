@@ -27,7 +27,7 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
      * Add new category
      */
     addNewCategory:function(){
-      let newCategory = Category.create({});
+      let newCategory = Category.create(Ember.getOwner(this).ownerInjection(),{}).initLevels();
       let categories = this.get('categories');
       categories.addObject(newCategory);
     },

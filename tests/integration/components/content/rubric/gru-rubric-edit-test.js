@@ -61,7 +61,7 @@ moduleForComponent('content/rubric/gru-rubric-edit', 'Integration | Component | 
 
 test('it renders', function(assert) {
   let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
-    Category.create({title:'Category testing'})
+    Category.create(Ember.getOwner(this).ownerInjection(),{title:'Category testing'})
   ]});
   this.set('rubric',rubric);
 
@@ -93,7 +93,7 @@ test('it renders', function(assert) {
 
 test('Add Category', function(assert) {
   let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
-    Category.create({title:'Category testing'})
+    Category.create(Ember.getOwner(this).ownerInjection(),{title:'Category testing'})
   ]});
   this.set('rubric',rubric);
   this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
@@ -112,7 +112,7 @@ test('Add Category', function(assert) {
 
 test('Copy Category', function(assert) {
   let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
-    Category.create({title:'Category testing'})
+    Category.create(Ember.getOwner(this).ownerInjection(),{title:'Category testing'})
   ]});
   this.set('rubric',rubric);
 
@@ -131,7 +131,7 @@ test('Copy Category', function(assert) {
 });
 test('Delete Category', function(assert) {
   let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
-    Category.create({title:'Category testing'})
+    Category.create(Ember.getOwner(this).ownerInjection(),{title:'Category testing'})
   ]});
   this.set('rubric',rubric);
 
@@ -145,6 +145,46 @@ test('Delete Category', function(assert) {
     $copyCategory.click();
     return wait().then(function () {
       assert.equal($component.find('.category-panel .content.rubric.gru-category').length,0, 'Should not have categories');
+    });
+  });
+});
+
+test('Add two categories, change the content of one category and it doesnt change the second category', function(assert) {
+  let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing'});
+  this.set('rubric',rubric);
+  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  const $component = this.$();
+  var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
+  $rubricTab.click();
+  return wait().then(function () {
+    var $addCategory = $component.find('.category-panel a.add-category');
+    $addCategory.click();
+    return wait().then(function () {
+      assert.ok($component.find('.category-panel .content.rubric.gru-category').length, 'Should add a category');
+      assert.ok($component.find('.category-panel .content.rubric.gru-category .panel.expanded').length, 'The category should be expanded');
+      const $titleField =  $component.find('.gru-category:first-child .edit-title .input .gru-input');
+      $titleField.find('input').val('Category 1');
+      $titleField.find('input').blur();
+      const $levelField =  $component.find('.gru-category:eq(0) .gru-scoring-levels .level-list .gru-input:first-child');
+      $levelField.find('input').val('Level 1');
+      $levelField.find('input').blur();
+
+      var $lastLevelDeleteBtn = $component.find('.gru-category:eq(0) .content.rubric.gru-scoring-levels .point-list div:last-child .btn.delete');
+
+      $lastLevelDeleteBtn.click();
+      return wait().then(function () {
+        assert.ok( $component.find('.gru-category:eq(0) .content.rubric.gru-scoring-levels .point-list div .btn.delete').length,4,'Incorrect number of levels');
+        const $save = $component.find('.detail .actions .save');
+        $save.click();
+        return wait().then(function () {
+          $addCategory.click();
+          return wait().then(function () {
+            const $levelField =  $component.find('.gru-category:eq(1) .gru-scoring-levels .level-list .gru-input:first-child');
+            assert.equal($levelField.find('input').val(),'','New Category level should be empty');
+            assert.ok( $component.find('.gru-category:eq(1) .content.rubric.gru-scoring-levels .point-list div .btn.delete').length,5,'Incorrect number of levels');
+          });
+        });
+      });
     });
   });
 });
