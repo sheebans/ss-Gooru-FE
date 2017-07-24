@@ -153,7 +153,10 @@ export default Ember.Mixin.create({
       .toArray();
     this.set('orderList', orderList);
     // Remove DOM elements that have no corresponding item in the list
-    const toRemove = $items.filter((idx, item) => !findById($(item).data('id')));
+    const toRemove = $items.filter((idx, item) => {
+      let dataId = $(item).data('id');
+      return !!dataId && !findById(dataId);
+    });
     toRemove.each((idx, item) => $(item).remove());
   },
 
