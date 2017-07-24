@@ -52,6 +52,11 @@ export default Ember.Component.extend({
   },
 
   // -------------------------------------------------------------------------
+  /**
+   * Disabled the switch
+   * @property {Boolean} disabled
+   */
+  disabled:false,
   // Properties
   /**
    * List of options to show in the switch
