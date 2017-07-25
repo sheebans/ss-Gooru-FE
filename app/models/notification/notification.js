@@ -38,7 +38,7 @@ export default Ember.Object.extend({
   template: null,
 
   /**
-   * @property {Profile[]} Actors on notification
+   * @property {Object[]} Actors on notification
    */
   actors: [],
 
