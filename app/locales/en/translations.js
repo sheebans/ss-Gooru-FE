@@ -1682,7 +1682,7 @@ export default Object.assign(quizzesTranslations, {
       },
       "stepFive":{
         "title": "Tools",
-        "description": "Quicklink to launch assessments live, build content or view student performance data."
+        "description": "Quick link to create and access your content."
       },
       "stepSix":{
         "title": "Library",
@@ -1786,6 +1786,28 @@ export default Object.assign(quizzesTranslations, {
       }
     },
     "student-class":{
+      "stepOne":{
+        "title": "Welcome!",
+        "description": "Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let’s get started!"
+      },
+      "stepTwo":{
+        "title": "Daily Class Activities",
+        "description": 'Access a list of activities assigned by your teacher. Select the activities you want to study.'
+      },
+      "stepThree":{
+        "title": "Course Map",
+        "description": "Click on the units and lessons to complete the collections and assessments in the course."
+      },
+      "stepFour":{
+        "title": "My Report",
+        "description": 'Take a look at your overall class performance. '
+      },
+      "stepFive":{
+        "title": "Finished!",
+        "description": 'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
+      }
+    },
+    "teacher-class":{
       "stepOne":{
         "title": "Welcome!",
         "description": "Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let’s get started!"

@@ -66,6 +66,14 @@ export default Ember.Controller.extend({
   profile: Ember.computed.alias('appController.profile'),
 
   /**
+   * @property {Object[]} Filtered steps for take a tour
+   */
+  filteredSteps: Ember.computed('steps', function () {
+    const role = this.get('profile.role');
+    return this.get('steps').filter(step => !step.role || step.role === role);
+  }),
+
+  /**
    * @property {Object[]} options List of tab options to show
    */
   options: Ember.computed(function(){
