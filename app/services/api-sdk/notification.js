@@ -11,7 +11,6 @@ export default Ember.Service.extend({
 
   notificationAdapter: null,
 
-
   init: function () {
     this._super(...arguments);
     this.set('notificationSerializer', NotificationSerializer.create(Ember.getOwner(this).ownerInjection()));
