@@ -169,6 +169,8 @@ export const DEFAULT_BOOKMARK_PAGE_SIZE = 19;
 
 export const DEFAULT_SEARCH_PAGE_SIZE = 20;
 
+export const DEFAULT_NOTIFICATION_PAGE_SIZE = 10;
+
 export const TAXONOMY_LEVELS = {
   COURSE:   'course',
   DOMAIN:   'domain',
