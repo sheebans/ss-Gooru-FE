@@ -30,7 +30,8 @@
         <div class="performance">
           {{charts.gru-bubble-chart
             content=percentageToShow
-            color=(grade-color performance.scoreInPercentage)}}
+            color=(grade-color performance.scoreInPercentage)
+          }}
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>
         <div class="completed">
@@ -43,7 +44,10 @@
         </div>
       {{else if isAssessment}}
         <div class="assessment-performance">
-          {{charts.gru-bubble-chart content= (if performance.scoreInPercentage (concat performance.scoreInPercentage '%') '--') color=(grade-color performance.scoreInPercentage)}}
+          {{charts.gru-bubble-chart
+            content=percentageToShow
+            color=(grade-color performance.scoreInPercentage)
+          }}
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>
       {{else}}
@@ -56,23 +60,23 @@
     <div class="information">
       <div class="activity">
         <span>{{t "student-landing.current-activity"}}</span>
-        {{#if location.isCompleted}}
-          {{#if isCourse}}
-            <div class="not-applicable">{{t 'common.not-applicable'}}</div>
-          {{else}}
-            <div class="collection-report">
-              {{gru-icon name='graphic_eq'}}
-              <a class="report-link" {{action 'toReport'}}>
-                {{t 'student-landing.course.to-report'}}
-              </a>
-            </div>
-          {{/if}}
-        {{else}}
-          {{#if isCourse}}
+        {{#if isCourse}}
+          {{#if location.currentTitle}}
             <div class="current-activity ellipsis">
               <i class="{{if isCurrentAssessment 'assessment' 'collection'}}"></i>
               <a {{action 'playCurrent'}}>
                 {{location.currentTitle}}
+              </a>
+            </div>
+          {{else}}
+            <div class="not-applicable">{{t 'common.not-applicable'}}</div>
+          {{/if}}
+        {{else}}
+          {{#if location.isCompleted}}
+            <div class="collection-report">
+              {{gru-icon name='graphic_eq'}}
+              <a class="report-link" {{action 'toReport'}}>
+                {{t 'student-landing.course.to-report'}}
               </a>
             </div>
           {{else}}
