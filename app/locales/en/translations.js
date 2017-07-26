@@ -192,6 +192,7 @@ export default Object.assign(quizzesTranslations, {
     "edit-course": "Edit Course",
     "edit-question": "Edit Question",
     "edit-resource": "Edit Resource",
+    "edit-rubric": "Edit Rubric",
     "email_support": "support@gooru.org",
     "emotions": {
       "emotion-1": "I need help",
