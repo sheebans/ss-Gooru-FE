@@ -31,6 +31,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   unitService: Ember.inject.service('api-sdk/unit'),
 
+  /**
+   * @type {i18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -77,6 +82,34 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model: function(params) {
     const route = this;
+
+    //Steps for Take a Tour functionality
+    let tourSteps = Ember.A([
+      {
+        title: route.get('i18n').t('gru-take-tour.teacher-class.stepOne.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-class.stepOne.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .class-activities',
+        title: route.get('i18n').t('gru-take-tour.teacher-class.stepTwo.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-class.stepTwo.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .course-map',
+        title: route.get('i18n').t('gru-take-tour.teacher-class.stepThree.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-class.stepThree.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .performance',
+        title: route.get('i18n').t('gru-take-tour.teacher-class.stepFour.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-class.stepFour.description')
+      },
+      {
+        title: route.get('i18n').t('gru-take-tour.teacher-class.stepFive.title'),
+        description: route.get('i18n').t('gru-take-tour.teacher-class.stepFive.description')
+      }
+    ]);
+
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
     const membersPromise = route.get('classService').readClassMembers(classId);
@@ -112,7 +145,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           class: aClass,
           course,
           members,
-          contentVisibility
+          contentVisibility,
+          tourSteps
         };
       });
     });
@@ -128,5 +162,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('course', model.course);
     controller.set('members', model.members);
     controller.set('contentVisibility', model.contentVisibility);
+    controller.set('steps', model.tourSteps);
   }
 });

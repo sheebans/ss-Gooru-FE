@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import MapContext from 'gooru-web/models/map/map-context';
+import MapContent from 'gooru-web/models/map/content';
 import MapSuggestion from 'gooru-web/models/map/map-suggestion';
 import ResourceModel from 'gooru-web/models/content/resource';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import { ASSESSMENT_SUB_TYPES, CONTENT_TYPES, DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
@@ -9,7 +11,7 @@ import { ASSESSMENT_SUB_TYPES, CONTENT_TYPES, DEFAULT_IMAGES } from 'gooru-web/c
  *
  * @typedef {Object} NavigateMapSerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin,{
   /**
    * @property {Service} session
    */
@@ -78,6 +80,24 @@ export default Ember.Object.extend({
       status: data.state,
       pathId: data.path_id,
       score: data.score_percent
+    });
+  },
+
+  /**
+   * Normalize a map content
+   * @param {*} data
+   * @return {MapContext}
+   */
+  normalizeMapContent: function (data) {
+    const basePath = this.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const thumbnailUrl = data.thumbnail ? basePath + data.thumbnail : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+    return MapContent.create(Ember.getOwner(this).ownerInjection(), {
+      id: data.id,
+      title: data.title,
+      description: data.learning_objective,
+      url:data.url,
+      thumbnail:thumbnailUrl
     });
   },
 

@@ -81,7 +81,7 @@ test('Layout course completed', function(assert) {
   this.set('performance', Performance.create(Ember.getOwner(this).ownerInjection(), {
     completedCount: 10,
     totalCount: 10,
-    scoreInPercentage: 90,
+    scoreInPercentage: 0,
     timeSpent: 4000
   }));
 
@@ -89,10 +89,13 @@ test('Layout course completed', function(assert) {
 
   const $component = this.$(); //component dom element
   const $card = $component.find('.gru-independent-card');
+  const $panel = $card.find('.panel');
+  const $panelBody = $panel.find('.panel-body');
   assert.ok($card.find('.panel-heading span.check').length,'Missing check icon');
   assert.ok($card.find('.information .activity .not-applicable').length,'Activity should be N/A');
   assert.notOk($card.find('.information .activity .collection-report').length,'Collection report should not appear');
   assert.notOk($card.find('.information .activity .current-activity').length,'Current activity should not appear');
+  assert.equal(T.text($panelBody.find('.charts .performance .charts.gru-bubble-chart .bubble-circle span')), '0%', 'Wrong performance score');
 });
 
 test('Layout course not completed', function(assert) {
@@ -191,4 +194,3 @@ test('Layout collection/assessment  not completed', function(assert) {
   assert.notOk($card.find('.information .activity .collection-report').length,'Collection report should not appear');
   assert.notOk($card.find('.information .activity .current-activity').length,'Current activity should not appear');
 });
-

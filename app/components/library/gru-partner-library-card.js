@@ -38,7 +38,37 @@ export default Ember.Component.extend({
   /**
    * @property {Library} content
    */
-  content: null
+  content: null,
+
+  /**
+   * @property {boolean} Indicates if library has 1 or more courses
+   */
+  hasCourses: Ember.computed.gt('content.courseCount', 0),
+
+  /**
+   * @property {boolean} Indicates if library has 1 or more collections
+   */
+  hasCollections: Ember.computed.gt('content.collectionCount', 0),
+
+  /**
+   * @property {boolean} Indicates if library has 1 or more assessments
+   */
+  hasAssessments: Ember.computed.gt('content.assessmentCount', 0),
+
+  /**
+   * @property {boolean} Indicates if library has 1 or more resources
+   */
+  hasResources: Ember.computed.gt('content.resourceCount', 0),
+
+  /**
+   * @property {boolean} Indicates if library has 1 or more questions
+   */
+  hasQuestions: Ember.computed.gt('content.questionCount', 0),
+
+  /**
+   * @property {boolean} Indicates if library has 1 or more rubrics
+   */
+  hasRubrics: Ember.computed.gt('content.rubricCount', 0)
 
 
   // -------------------------------------------------------------------------

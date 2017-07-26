@@ -1,11 +1,51 @@
 import Ember from 'ember';
+import { validator, buildValidations } from 'ember-cp-validations';
+
+const Validations = buildValidations({
+  title: {
+    validators: [
+      validator('presence', {
+        presence: true,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.category-title-presence'
+      })
+    ]
+  }
+});
 
 /**
  * Rubric Category model
  *
  * @typedef {Object} RubricCategory
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(Validations,{
+
+  /**
+   *Init the scoring levels default on each category
+   */
+  initLevels: function() {
+    this.set('levels',Ember.A([
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },
+      {
+        name:'',
+        score:null
+      },{
+        name:'',
+        score:null
+      }]));
+    return this;
+  },
 
   /**
    * @property {String} id
@@ -51,7 +91,7 @@ export default Ember.Object.extend({
     var properties = this.getProperties(this.modelProperties());
     // Copy array values
     properties.levels = this.get('levels').map(level => JSON.parse(JSON.stringify(level)));
-    return this.get('constructor').create(properties);
+    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(),properties);
   },
 
   /**

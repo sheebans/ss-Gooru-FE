@@ -1,9 +1,13 @@
 <header xmlns="http://www.w3.org/1999/html">
     <h1>{{title}}</h1>
 
-    <nav>
+    <nav class="{{if useScroll 'scrolling-tabs'}}">
       {{#each options as |option|}}
+        {{#if useScroll}}
+          {{#gru-scroll class=(if (eq selected option.name) 'selected') to=(concat '#' option.name) offset='.content.gru-header' scrollSection=scrollSection}}{{option.text}}{{/gru-scroll}}
+        {{else}}
           <a href="#" class="tab {{option.name}} {{if (eq selected option.name) 'selected'}}" {{action 'select' option.name}}>{{option.text}}</a>
+        {{/if}}
       {{/each}}
     </nav>
 

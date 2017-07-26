@@ -12,7 +12,7 @@
   @include flex-direction(column);
   height: 100%;
   .header.content.gru-header{
-    position: fixed !important;
+    position: fixed;
     margin: 55px 0 0;
     z-index: 1000;
     header{

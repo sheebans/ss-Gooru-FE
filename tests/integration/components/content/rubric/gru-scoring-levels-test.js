@@ -70,11 +70,13 @@ test('Disabled scoring', function(assert) {
   var $component = this.$();
   assert.ok($component.find('.content.rubric.gru-scoring-levels').length,'Missing scoring levels component');
   var $scoringSwitch = $component.find('.content.rubric.gru-scoring-levels .points .gru-switch a input');
+  assert.ok($component.find('.content.rubric.gru-scoring-levels .level .levels').length,'Levels should appear');
   $scoringSwitch.prop('checked',false);
   return wait().then(function () {
     $scoringSwitch.change();
     return wait().then(function () {
       assert.notOk($component.find('.content.rubric.gru-scoring-levels .points .point-list .gru-input').length,'Scoring should not appear');
+      assert.ok($component.find('.content.rubric.gru-scoring-levels .level .levels').length,'Levels should appear');
     });
   });
 });
@@ -86,11 +88,17 @@ test('Disabled level', function(assert) {
   assert.ok($component.find('.content.rubric.gru-scoring-levels').length,'Missing scoring levels component');
   var $levelSwitch = $component.find('.content.rubric.gru-scoring-levels .level .gru-switch a input');
   assert.ok($component.find('.content.rubric.gru-scoring-levels .level .levels').length,'Levels should appear');
+  assert.ok($component.find('.content.rubric.gru-scoring-levels .points .point-list .gru-input').length,'Scoring should appear');
+  var $deleteBtn = $component.find('.content.rubric.gru-scoring-levels .point-list div .btn.delete');
+  assert.ok($deleteBtn.length,'Missing delete buttons');
   $levelSwitch.prop('checked',false);
   return wait().then(function () {
     $levelSwitch.change();
     return wait().then(function () {
       assert.notOk($component.find('.content.rubric.gru-scoring-levels .level .levels').length,'Levels should not appear');
+      assert.notOk($component.find('.content.rubric.gru-scoring-levels .points .point-list .gru-input').length,'Scoring should not appear');
+      var $deleteBtn = $component.find('.content.rubric.gru-scoring-levels .point-list div .btn.delete');
+      assert.notOk($deleteBtn.length,'Delete buttons should not appear');
     });
   });
 });

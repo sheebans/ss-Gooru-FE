@@ -36,6 +36,10 @@ export default Ember.Component.extend({
   /**
    * @property {String} title Header title
    */
-  title: ''
+  title: '',
+  /**
+   * @property {Boolean} Indicate if this header work with scroll to an specific section
+   */
+  useScroll:false
 
 });

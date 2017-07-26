@@ -120,6 +120,18 @@ export default Ember.Controller.extend(ConfigurationMixin, {
       });
     });
   },
+  /**
+   * Reload Session Profile Data
+   */
+  loadSessionProfile: function(profile) {
+    const controller = this;
+    const sessionId = controller.get('session.userId');
+    let profilePromise = (profile) ? Ember.RSVP.resolve(profile) : controller.get('profileService').readUserProfile(sessionId) ;
+
+    return profilePromise.then(function(userProfile) {
+      controller.set('profile', userProfile);
+    });
+  },
 
   /**
    * Setups the tenant information

@@ -43,15 +43,14 @@ export default Ember.Route.extend({
   // Methods
 
   model: function() {
-    let route = this;
-
-    const courseId = route.modelFor('student.independent').course.id;
-
-    const course = route.get('courseService').getCourseStructure(courseId, 'assessment');
-
+    const route = this;
+    const course = route.modelFor('student.independent').course;
+    let firstUnit = course.get('sortedUnitResults')[0];
+    let firstLesson = firstUnit.get('sortedLessonResults')[0];
     return Ember.RSVP.hash({
-      courseId,
-      course
+      course,
+      unitId: firstUnit ? firstUnit.get('id') : null,
+      lessonId: firstLesson ? firstLesson.get('id') : null
     });
   },
 
@@ -60,13 +59,11 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function(controller, model) {
-    controller.set('course',model.course);
-    controller.set('courseId', model.courseId);
-    let unit = model.course.get('children')[0];
-    let lesson = unit.get('sortedLessonResults')[0];
-    controller.set('unitId',unit.id);
-    controller.set('lessonId',lesson.id);
+  setupController: function(controller,model) {
+    controller.set('course', model.course);
+    controller.set('courseId', model.course.get('id'));
+    controller.set('unitId', model.unitId);
+    controller.set('lessonId', model.lessonId);
     controller.loadData();
   },
 

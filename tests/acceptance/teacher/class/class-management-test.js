@@ -207,12 +207,12 @@ test('Sort Student by First Name', function (assert) {
     let $sortByFirstName = $studentsHeader.find('.sortable.first-name');
     click($sortByFirstName);
     andThen(function () {
-      assert.equal($studentsPanel.find('tr:first-child td.first-name').text(),'Ashish', 'Incorrect first member');
-      assert.equal($studentsPanel.find('tr:last-child td.first-name').text(),'Yalu', 'Incorrect last member');
+      assert.equal($studentsPanel.find('tr:first-child td.first-name').text(),'Yalu', 'Incorrect first member');
+      assert.equal($studentsPanel.find('tr:last-child td.first-name').text(),'Ashish', 'Incorrect last member');
       click($sortByFirstName);
       andThen(function () {
-        assert.equal($studentsPanel.find('tr:first-child td.first-name').text(),'Yalu', 'Incorrect first member');
-        assert.equal($studentsPanel.find('tr:last-child td.first-name').text(),'Ashish', 'Incorrect last member');
+        assert.equal($studentsPanel.find('tr:first-child td.first-name').text(),'Ashish', 'Incorrect first member');
+        assert.equal($studentsPanel.find('tr:last-child td.first-name').text(),'Yalu', 'Incorrect last member');
       });
     });
   });

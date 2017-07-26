@@ -40,6 +40,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     removeCollectionItem: function (builderItem) {
       this.get('items').removeObject(builderItem);
+      this.refreshOrderList();
     },
 
     /**
@@ -47,6 +48,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     remixCollectionItem: function (builderItem) {
       this.get('items').addObject(builderItem);
+      this.refreshOrderList();
     },
 
     /**

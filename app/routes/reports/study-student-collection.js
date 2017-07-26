@@ -90,5 +90,9 @@ export default StudentCollection.extend({
       lesson: model.lesson,
       mapLocation: model.mapLocation
     });
+  },
+
+  deactivate: function() {
+    this.get('controller').resetValues();
   }
 });

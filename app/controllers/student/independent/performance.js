@@ -212,24 +212,39 @@ export default Ember.Controller.extend({
       const userId = controller.get('profile.id');
       const collectionType = controller.get('collectionType');
       const unitId = controller.get('unitId');
-      const lessonId = controller.get('lessonId');
+      let lessonId = controller.get('lessonId');
       const criteria = {
-        courseId: courseId,
-        unitId: unitId,
-        lessonId: lessonId,
-        collectionType: collectionType
+        courseId,
+        unitId,
+        lessonId,
+        collectionType
       };
       controller.set('filterCriteria', criteria);
-      Ember.RSVP.hash({
-        items: controller.get('performanceService').findMyPerformance(userId, courseId, lessonId, unitId,
-          collectionType)
-      }).then(function (hash) {
-        const items = hash.items;
-        controller.setProperties({
-          collectionPerformanceSummaryItems: items,
-          collections: controller.get('course').getCollectionsByType(collectionType, unitId, lessonId)
+      controller.get('courseService').getCourseStructure(courseId, collectionType).then(function(course){
+        if(!lessonId){
+          let unitLessons = course.get('children').findBy('id', unitId).get('sortedLessonResults');
+          if(unitLessons.length > 0) {
+            var lesson = unitLessons[0].get('id');
+            Ember.run(function() {
+              controller.set('lessonId',lesson);
+              lessonId = lesson;
+            });
+          }
+          criteria.lessonId = controller.get('lessonId');
+        }
+        Ember.RSVP.hash({
+          course,
+          items: controller.get('performanceService').findMyPerformance(userId, courseId, lessonId, unitId, collectionType)
+        }).then(function(hash){
+          const course = hash.course;
+          const items = hash.items;
+          controller.setProperties({
+            course,
+            collectionPerformanceSummaryItems: items,
+            collections: course.getCollectionsByType(collectionType, unitId, lessonId)
+          });
+          controller.set('contentTitle', controller.getContentTitle());
         });
-        controller.set('contentTitle', controller.getContentTitle());
       });
     }
   },

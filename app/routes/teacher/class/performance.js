@@ -135,6 +135,8 @@ export default Ember.Route.extend({
     const unit = controller.get('unit');
     const lesson = controller.get('lesson');
 
+    controller.set('loading', true);
+
     route.loadData(controller);
 
     controller.updateBreadcrumb(course, 'course');
@@ -164,20 +166,21 @@ export default Ember.Route.extend({
     const route = this;
     controller.set('performanceDataMatrix', []);
     controller.set('reportData', null);
-
+    let promise = Ember.RSVP.resolve();
     if (controller.get('isAtCourseLevel')) {
-      route.loadCourseData(controller);
+      promise = route.loadCourseData(controller);
     }
     else if (controller.get('isAtUnitLevel')) {
-      route.loadUnitData(controller);
+      promise = route.loadUnitData(controller);
     }
     else if (controller.get('isAtLessonLevel')) {
-      route.loadLessonData(controller);
+      promise = route.loadLessonData(controller);
     }
     else if (controller.get('isAtCollectionLevel')) {
-      route.loadCollectionData(controller);
+      promise = route.loadCollectionData(controller);
     }
     controller.restoreSelectedOptions();
+    promise.then(() => controller.set('loading', false));
   },
 
   /**
@@ -192,7 +195,7 @@ export default Ember.Route.extend({
     const units = controller.get('course.children') || [];
 
     if(courseId) {
-      controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
+      return controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
         .then(function(classPerformanceData) {
           route.fixUnitsTotalCounts(controller, classPerformanceData, controller.get('filteredByAssessment'));
           const performanceData = createDataMatrix(units, classPerformanceData, 'course');
@@ -201,6 +204,7 @@ export default Ember.Route.extend({
           controller.set('headerType', 'unit');
         });
     }
+    return Ember.RSVP.resolve();
   },
 
   /**
@@ -216,7 +220,7 @@ export default Ember.Route.extend({
     const unitId = controller.get('unit.id');
     const lessons = controller.get('unit.children') || [];
 
-    controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
+    return controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
       .then(function(classPerformanceData) {
         route.fixLessonTotalCounts(controller, unitId, classPerformanceData, controller.get('filteredByAssessment'));
         const performanceData = createDataMatrix(lessons, classPerformanceData, 'unit');
@@ -238,7 +242,7 @@ export default Ember.Route.extend({
     const unitId = controller.get('unit.id');
     const lessonId = controller.get('lesson.id');
     const collections = controller.get('lesson.children') || [];
-    controller.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy})
+    return controller.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy})
       .then(function(classPerformanceData) {
         const filteredCollections = collections.filter(function(collection) {
           return (filterBy === 'both') || (collection.get('format') === filterBy);

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import PlayerRoute from 'gooru-web/routes/player';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import { CONTENT_TYPES} from 'gooru-web/config/config';
 
 /**
  * Study Player Route
@@ -133,6 +134,12 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       const unitId = mapLocation.get('context.unitId');
       const lessonId = mapLocation.get('context.lessonId');
 
+      params.type = mapLocation.get('context.itemType') || mapLocation.get('context.collectionType');
+
+      if (params.type === CONTENT_TYPES.EXTERNAL_ASSESSMENT) {
+        route.transitionTo('study-player-external');
+      }
+
       return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
         course: route.get('courseService').fetchById(courseId),
         unit: route.get('unitService').fetchById(courseId, unitId),
@@ -141,7 +148,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
 
         //setting query params using the map location
         params.collectionId = mapLocation.get('context.itemId') || mapLocation.get('context.collectionId');
-        params.type = mapLocation.get('context.itemType') || mapLocation.get('context.collectionType');
         params.classId = params.classId || mapLocation.get('context.classId');
         params.unitId = params.unitId || mapLocation.get('context.unitId');
         params.lessonId = params.lessonId || mapLocation.get('context.lessonId');

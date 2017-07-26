@@ -122,7 +122,7 @@ test('normalizePerformance course', function(assert) {
     courseTitle: 'course-title',
     timeSpent: 23860,
     completedCount: 0,
-    scoreInPercentage: 0,
+    scoreInPercentage: 0.4,
     totalCount: 10,
     collectionId: null,
     collectionTitle: null,
@@ -152,7 +152,7 @@ test('normalizePerformance assessment/collection', function(assert) {
     collectionTitle: 'assessment-title',
     attempts: 4,
     timeSpent: 23860,
-    scoreInPercentage: 100
+    scoreInPercentage: 99.5
   };
   const normalizedPerformance = serializer.normalizePerformance(performancePayload);
 

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { ROLES} from 'gooru-web/config/config';
 
 /**
  * Library route
@@ -55,7 +56,8 @@ export default Ember.Route.extend({
       {
         elementSelector: '.gru-collection-card .panel-footer .bookmark-btn',
         title: route.get('i18n').t('gru-take-tour.library.stepSix.title'),
-        description: route.get('i18n').t('gru-take-tour.library.stepSix.description')
+        description: route.get('i18n').t('gru-take-tour.library.stepSix.description'),
+        role: ROLES.STUDENT
       }
     ]);
 

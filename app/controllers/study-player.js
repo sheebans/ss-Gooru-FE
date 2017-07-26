@@ -184,6 +184,7 @@ export default PlayerController.extend({
     this.setProperties({
       showSuggestion: true,
       toggleState: true,
+      classId: null,
       unitId: null,
       lessonId: null,
       collectionId: null,

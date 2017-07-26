@@ -7,8 +7,17 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
+    /**
+     * Show more rubrics results
+     */
     showMoreResults: function(){
       this.showMoreResults();
+    },
+    /**
+     * Edit rubric
+     */
+    editRubric:function(resource){
+      this.transitionToRoute('content.rubric.edit',resource.get('id'));
     }
   },
 

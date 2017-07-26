@@ -26,5 +26,10 @@
       "webSocketUrl": "https://rt-nile-qa.gooru.org",
       "webSocketUri": "/ws/quizzes-realtime"
     }
+  },
+
+  "exploreFeaturedCourses": {
+    "firstCourseId": "1d91657f-694b-43dc-9306-bca17b107c7d",
+    "secondCourseId": "1e0fd9ee-71db-4c7d-bc0c-934622c62125"
   }
 }

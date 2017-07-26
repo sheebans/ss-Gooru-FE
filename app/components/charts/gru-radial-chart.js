@@ -36,9 +36,9 @@ export default Ember.Component.extend({
     var radialChart = radialProgress(this.element)
       .margin({top: 0, right: 0, bottom: 0, left: 0})
       .diameter(Math.min(height, width))
-      .value(value)
-      .minValue(minValue)
-      .maxValue(maxValue);
+      .value(value || 0)
+      .minValue(minValue || 0)
+      .maxValue(maxValue || 1);
 
     if (!this.get('showPercentageLabel')) {
       if(!value || !maxValue){

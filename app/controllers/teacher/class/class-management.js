@@ -182,7 +182,7 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @param {String} sortBy - sort criteria
    */
-  sortBy: '',
+  sortBy: 'firstName',
 
   /**
    * @param {String} sortDefinition - List of sort criteria

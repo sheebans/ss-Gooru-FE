@@ -14,12 +14,13 @@ export default Ember.Route.extend({
       taxonomies: taxonomies
     };
 
-    var assessmentResults = this.get('searchService').searchAssessments(term, options, true);
+    var assessmentResults = this.get('searchService').searchAssessments(term,
+      options, true);
     return Ember.RSVP.hash({
       assessmentResults: assessmentResults
     }).catch(function(err){
-       if(err.status===400){
-         return { msg: 'Recovered from rejected promise',error: err };
+       if(err.status === 400){
+         return { msg: 'Recovered from rejected promise', error: err };
        }
     });
   },
@@ -39,7 +40,7 @@ export default Ember.Route.extend({
   },
 
   deactivate: function() {
-    this.get("controller").resetValues();
+    this.get('controller').resetValues();
   }
 
 

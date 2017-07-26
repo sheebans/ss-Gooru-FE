@@ -216,6 +216,7 @@ export default Object.assign(quizzesTranslations, {
       "assessment-not-copied": "Oops! Unable to copy assessment right now. Please try again shortly.",
       "assessment-not-created": "Oops! Unable to create assessment right now. Please try again shortly.",
       "assessment-not-updated": "Oops! Unable to update assessment right now. Please try again shortly.",
+      "category-title-presence": "Please enter the category title.",
       "class-min-score": "The minimum score should be a number between 1 and 100",
       "class-not-created": "Oops! Unable to create classroom right now. Please try again shortly.",
       "class-title-presence": "Please give your classroom a name.",
@@ -394,7 +395,6 @@ export default Object.assign(quizzesTranslations, {
     "published-tooltip": "Badged Content",
     "publisher": "Publisher",
     "question": "Question",
-    "rubrics":"Rubrics",
     "questions": "Questions",
     "questions-OE": "Free Response Questions",
     "question-pl": {
@@ -468,6 +468,8 @@ export default Object.assign(quizzesTranslations, {
     "resource-url": "Resource URL",
     "role": "Role",
     "rubric":"Rubric",
+    "rubric-creation":"Rubric Creation",
+    "rubrics":"Rubrics",
     "rubric-title": "Rubric Title",
     "save": "Save",
     "save-next": "Save and Next",
@@ -1372,6 +1374,7 @@ export default Object.assign(quizzesTranslations, {
     "gru-viewer": {
       "not-iframe-url": {
         "header_1": "This resource cannot be viewed within Gooru.",
+        "header_external_assessment_1": "This assessment cannot be viewed within Gooru.",
         "header_2": "Click the button below to open the resource in a new tab.",
         "view-resource": "View Resource",
         "footer_1": "Why am I seeing this blank page?",
@@ -1681,7 +1684,7 @@ export default Object.assign(quizzesTranslations, {
       },
       "stepFive":{
         "title": "Tools",
-        "description": "Quicklink to launch assessments live, build content or view student performance data."
+        "description": "Quick link to create and access your content."
       },
       "stepSix":{
         "title": "Library",
@@ -1785,6 +1788,28 @@ export default Object.assign(quizzesTranslations, {
       }
     },
     "student-class":{
+      "stepOne":{
+        "title": "Welcome!",
+        "description": "Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let’s get started!"
+      },
+      "stepTwo":{
+        "title": "Daily Class Activities",
+        "description": 'Access a list of activities assigned by your teacher. Select the activities you want to study.'
+      },
+      "stepThree":{
+        "title": "Course Map",
+        "description": "Click on the units and lessons to complete the collections and assessments in the course."
+      },
+      "stepFour":{
+        "title": "My Report",
+        "description": 'Take a look at your overall class performance. '
+      },
+      "stepFive":{
+        "title": "Finished!",
+        "description": 'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
+      }
+    },
+    "teacher-class":{
       "stepOne":{
         "title": "Welcome!",
         "description": "Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let’s get started!"
@@ -2001,10 +2026,11 @@ export default Object.assign(quizzesTranslations, {
       "category-title":"Category Title",
       "category-feedback": "ex. As you are reviewing this category, pay careful attention to the author’s purpose.",
       "gru-scoring-levels":{
-        "0":"ex. Proficient",
-        "1":"ex. Exemplary",
-        "2":"ex. Basic",
-        "3":"ex. Below Basic",
+        "0":"ex. Exceeding Proficiency",
+        "1":"ex. Meeting Proficiency",
+        "2":"ex. Approaching Proficiency",
+        "3":"ex. Beginning Proficiency",
+        "4":"ex. No Evidence of Proficiency",
         "best":"Best",
         "levels":"Level",
         "new-level":"Add New Level",
