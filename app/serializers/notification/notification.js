@@ -19,12 +19,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @returns {Notification[]}
    */
   normalizeNotifications: function(payload) {
+    var result = [];
     const serializer = this;
-    if (Ember.isArray(payload.notifications)) {
-      return payload.notifications.map(function(result) {
-        return serializer.normalizeNotification(result);
-      });
+    const notifications = payload.notifications;
+    if (Ember.isArray(notifications)) {
+      result = notifications.map(notification => serializer.normalizeNotification(notification));
     }
+    return result;
   },
 
   /**
