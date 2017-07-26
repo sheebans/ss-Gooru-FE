@@ -153,7 +153,7 @@ export default Ember.Object.extend({
       depthOfknowledge: metadata["depth_of_knowledge"] && metadata["depth_of_knowledge"].length > 0 ? metadata["depth_of_knowledge"] : []
     });
 
-    const answers = serializer.normalizeAnswerArray(questionData.answer);
+    const answers = serializer.normalizeAnswerArray(questionData.answer, format);
     if (question.get("isHotSpotImage")){
       answers.forEach(function(answer){ //adding the basepath for HS Image
         answer.set("text", basePath + answer.get("text"));
@@ -175,12 +175,12 @@ export default Ember.Object.extend({
    * @param answerArray array of answers coming from the endpoint
    * @returns {AnswerModel[]}
    */
-  normalizeAnswerArray: function(answerArray) {
+  normalizeAnswerArray: function(answerArray, format) {
     const serializer = this;
     let result = Ember.A([]);
     if (answerArray && Ember.isArray(answerArray)) {
       result = answerArray.map(function(answerData) {
-        return serializer.normalizeAnswer(answerData);
+        return serializer.normalizeAnswer(answerData, format);
       });
     }
     return result;
@@ -192,10 +192,10 @@ export default Ember.Object.extend({
    * @param answerData Answer data
    * @returns {Answer}
    */
-  normalizeAnswer: function(answerData) {
-    const id = answerData.sequence; //TODO this is risky the ideal scenario would be to have an id
+  normalizeAnswer: function(answerData, format) {
+    const id = (format!=='MA') ? window.btoa(encodeURIComponent(answerData['answer_text'])) : `answer_${answerData.sequence}`;
     return AnswerModel.create(Ember.getOwner(this).ownerInjection(),{
-      id: `answer_${id}`,
+      id: id,
       sequence: answerData.sequence,
       isCorrect: answerData['is_correct'] === 1 || answerData['is_correct'] === true,
       text: answerData['answer_text'],
@@ -203,5 +203,4 @@ export default Ember.Object.extend({
       highlightType: answerData['highlight_type']
     });
   }
-
 });

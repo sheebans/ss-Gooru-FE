@@ -65,21 +65,20 @@ test('Sort Students By First Name', function(assert) {
       })
     }
   );
-  //Without sorting
-  assert.equal(component.get('sortedMembers')[0].get('firstName'),'Matt','Incorrect first member');
-  assert.equal(component.get('sortedMembers')[2].get('firstName'),'Cristin','Incorrect last member');
-  component.send('sortStudents','firstName');
-  //Sorting asc
-  assert.equal(component.get('sortBy'),'firstName','Incorrect Sort criteria');
-  assert.equal(component.get('reverseSort'),false,'Reverse should be false');
-  assert.equal(component.get('sortedMembers')[0].get('firstName'),'Anthony','Incorrect first member');
-  assert.equal(component.get('sortedMembers')[2].get('firstName'),'Matt','Incorrect last member');
-  component.send('sortStudents','firstName');
+
   //Sorting desc
+  component.send('sortStudents','firstName');
   assert.equal(component.get('sortBy'),'firstName','Incorrect Sort criteria');
-  assert.equal(component.get('reverseSort'),true,'Reverse should be true');
-  assert.equal(component.get('sortedMembers')[0].get('firstName'),'Matt','Incorrect first member');
-  assert.equal(component.get('sortedMembers')[2].get('firstName'),'Anthony','Incorrect last member');
+  assert.equal(component.get('reverseSort'), true, 'Reverse should be false');
+  assert.equal(component.get('sortedMembers')[0].get('firstName'), 'Matt', 'Incorrect first member');
+  assert.equal(component.get('sortedMembers')[2].get('firstName'), 'Anthony', 'Incorrect last member');
+
+  //Sorting asc
+  component.send('sortStudents','firstName');
+  assert.equal(component.get('sortBy'), 'firstName', 'Incorrect Sort criteria');
+  assert.equal(component.get('reverseSort'), false, 'Reverse should be true');
+  assert.equal(component.get('sortedMembers')[0].get('firstName'), 'Anthony', 'Incorrect first member');
+  assert.equal(component.get('sortedMembers')[2].get('firstName'), 'Matt', 'Incorrect last member');
 });
 
 test('Sort Students By Last Name', function(assert) {
@@ -103,17 +102,16 @@ test('Sort Students By Last Name', function(assert) {
       })
     }
   );
-  //Without sorting
-  assert.equal(component.get('sortedMembers')[0].get('lastName'),'Smith','Incorrect first member');
-  assert.equal(component.get('sortedMembers')[2].get('lastName'),'Edwards','Incorrect last member');
-  component.send('sortStudents','lastName');
+
   //Sorting asc
+  component.send('sortStudents','lastName');
   assert.equal(component.get('sortBy'),'lastName','Incorrect Sort criteria');
   assert.equal(component.get('reverseSort'),false,'Reverse should be false');
   assert.equal(component.get('sortedMembers')[0].get('lastName'),'Edwards','Incorrect first member');
   assert.equal(component.get('sortedMembers')[2].get('lastName'),'Williams','Incorrect last member');
-  component.send('sortStudents','lastName');
+
   //Sorting desc
+  component.send('sortStudents','lastName');
   assert.equal(component.get('sortBy'),'lastName','Incorrect Sort criteria');
   assert.equal(component.get('reverseSort'),true,'Reverse should be true');
   assert.equal(component.get('sortedMembers')[0].get('lastName'),'Williams','Incorrect first member');

@@ -26,6 +26,37 @@ test('Layout', function(assert) {
   });
 });
 
+test('Clicking card title should open the player', function(assert) {
+  assert.expect(2); //making sure all asserts are called
+  visit('/search/assessments?term=any');
+  andThen(function() {
+    assert.equal(currentURL(), '/search/assessments?term=any');
+    const $searchResults = find('.collection-results .results');
+    const $firstResult = $searchResults.find('.gru-collection-card:eq(0)');
+    const $cardHeader = $firstResult.find('.panel .panel-heading');
+    const $cardTitle = $cardHeader.find('.collection-info .title-section .play-content');
+    click($cardTitle);
+    andThen(function() {
+      assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment');
+    });
+  });
+});
+
+test('Clicking card image should open the player', function(assert) {
+  assert.expect(2); //making sure all asserts are called
+  visit('/search/assessments?term=any');
+  andThen(function() {
+    assert.equal(currentURL(), '/search/assessments?term=any');
+    const $searchResults = find('.collection-results .results');
+    const $firstResult = $searchResults.find('.gru-collection-card:eq(0)');
+    const $cardHeader = $firstResult.find('.panel .panel-heading');
+    const $cardImage = $cardHeader.find('.image .play-content');
+    click($cardImage);
+    andThen(function() {
+      assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment');
+    });
+  });
+});
 
 test('Changing term should filter the current result without changing the root url', function(assert) {
   assert.expect(2); //making sure all asserts are called

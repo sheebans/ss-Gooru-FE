@@ -31,17 +31,17 @@
   {{#each items as |item index|}}
 
     {{content.courses.edit.gru-accordion-unit
-    course=model
-    model=item
-    index=index
-    isSorting=model.isSorting
-    totalItems=items.length
-    onCancelAddUnit=(action 'cancelAddUnit')
-    onExpandUnit=(action 'expandUnit')
-    onDeleteUnit=(action 'removeUnit')
-    onRemixUnit=(action 'remixUnit')
-    selectedLessonId=selectedLessonId
-    onExpandLesson=(action 'expandLesson')
+      course=model
+      model=item
+      index=index
+      isSorting=model.isSorting
+      totalItems=items.length
+      onCancelAddUnit=(action 'cancelAddUnit')
+      onExpandUnit=(action 'expandUnit')
+      onDeleteUnit=(action 'removeUnit')
+      onRemixUnit=(action 'remixUnit')
+      selectedLessonId=selectedLessonId
+      onExpandLesson=(action 'expandLesson')
     }}
 
   {{/each}}

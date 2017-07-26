@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
+import { roundFloat } from 'gooru-web/utils/math';
 import LocationModel from 'gooru-web/models/learner/location';
 import PerformanceModel from 'gooru-web/models/learner/performance';
 
@@ -87,7 +88,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       courseTitle: payload.courseTitle,
       timeSpent: payload.timeSpent,
       completedCount: payload.completedCount,
-      scoreInPercentage: payload.scoreInPercentage,
+      scoreInPercentage: roundFloat(payload.scoreInPercentage),
       totalCount: payload.totalCount,
       collectionId: payload.collectionId,
       collectionTitle: payload.collectionTitle,
@@ -128,7 +129,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       attemptStatus:payload.attemptStatus,
       timeSpent: payload.timeSpent,
       completedCount: payload.completedCount,
-      scoreInPercentage: payload.scoreInPercentage,
+      scoreInPercentage: roundFloat(payload.scoreInPercentage),
       totalCount: payload.totalCount,
       collectionId: payload.collectionId || payload.assessmentId,
       attempts: payload.attempts
@@ -168,7 +169,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       attemptStatus: payload.attemptStatus,
       timeSpent: payload.timeSpent,
       completedCount: payload.completedCount,
-      scoreInPercentage: payload.scoreInPercentage,
+      scoreInPercentage: roundFloat(payload.scoreInPercentage),
       totalCount: payload.totalCount,
       lessonId: payload.lessonId,
       attempts: payload.attempts,

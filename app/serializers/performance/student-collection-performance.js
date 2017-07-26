@@ -29,9 +29,6 @@ export default AnalyticsSerializer.extend({
         submittedAt: collection.eventTime ? toLocal(collection.eventTime) : null
       });
     }
-
     return false;
   }
-
-
 });

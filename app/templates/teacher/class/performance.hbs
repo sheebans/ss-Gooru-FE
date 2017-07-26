@@ -1,29 +1,31 @@
-{{#if showPerformanceData}}
-<div class="controller teacher class performance container-fluid">
-  <div class="row">
-    <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
-    </div>
-  </div>
-  {{#unless (and isAtCollectionLevel reportData)}}
-    <div class="row actions">
-      <div class="radios-container">
-        <label class="radio-button assessment">
-          <input type="radio" name="filter-radio" tabindex="0" checked={{filteredByAssessment}} {{action "selectFilterBy" "assessment" preventDefault=false}}>
-          {{t 'teacher-landing.class.performance-tab.assessments'}}
-        </label>
-        <label class="radio-button collection">
-          <input type="radio" name="filter-radio" tabindex="0"  checked={{filteredByCollection}} {{action "selectFilterBy" "collection" preventDefault=false}}>
-          {{t 'teacher-landing.class.performance-tab.collections'}}
-        </label>
+{{#if loading}}
+  {{three-bounce-spinner}}
+{{else if showPerformanceData}}
+  <div class="controller teacher class performance container-fluid">
+    <div class="row">
+      <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
       </div>
-      <button class="btn btn-primary report-btn" {{action 'download'}}>
-        {{gru-icon name='file_download'}}
-        <span>{{t 'common.download'}}</span>
-      </button>
     </div>
-  {{/unless}}
+    {{#unless (and isAtCollectionLevel reportData)}}
+      <div class="row actions">
+        <div class="radios-container">
+          <label class="radio-button assessment">
+            <input type="radio" name="filter-radio" tabindex="0" checked={{filteredByAssessment}} {{action "selectFilterBy" "assessment" preventDefault=false}}>
+            {{t 'teacher-landing.class.performance-tab.assessments'}}
+          </label>
+          <label class="radio-button collection">
+            <input type="radio" name="filter-radio" tabindex="0"  checked={{filteredByCollection}} {{action "selectFilterBy" "collection" preventDefault=false}}>
+            {{t 'teacher-landing.class.performance-tab.collections'}}
+          </label>
+        </div>
+        <button class="btn btn-primary report-btn" {{action 'download'}}>
+          {{gru-icon name='file_download'}}
+          <span>{{t 'common.download'}}</span>
+        </button>
+      </div>
+    {{/unless}}
     <div class="row options">
       {{#unless (and isAtCollectionLevel reportData)}}
         <div class="data-picker">
@@ -69,7 +71,7 @@
         {{/if}}
       </div>
     </div>
-</div>
+  </div>
 {{else}}
   <div class="no-content">{{t 'class.analytics.performance.no-content'}}</div>
 {{/if}}

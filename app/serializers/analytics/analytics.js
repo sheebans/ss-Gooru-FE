@@ -42,7 +42,7 @@ export default Ember.Object.extend({
   },
 
   normalizeResourceResult: function(payload) {
-    let answerObjects = this.normalizeAnswerObjects(payload.answerObject);
+    let answerObjects = this.normalizeAnswerObjects(payload.answerObject, payload.questionType);
     let eventTime = payload.eventTime ? toLocal(payload.eventTime) : null;
     let startedAt = payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime());
     let submittedAt = payload.endTime ? toLocal(payload.endTime) : startedAt;
@@ -97,7 +97,7 @@ export default Ember.Object.extend({
    * @param {string|[]} answerObjects
    * @returns {AnswerObject[]}
    */
-  normalizeAnswerObjects: function(answerObjects){
+  normalizeAnswerObjects: function(answerObjects, questionType){
     answerObjects = (!answerObjects || answerObjects === 'N/A' ||  answerObjects === 'NA') ? [] : answerObjects;
     if (typeof answerObjects === 'string'){
       answerObjects = JSON.parse(answerObjects);
@@ -107,6 +107,9 @@ export default Ember.Object.extend({
       answerObjects = [];
     }
     return answerObjects.map(function(answerObject){
+      if(questionType!=='MA' && answerObject.text){
+        answerObject.answerId = window.btoa(encodeURIComponent(answerObject.text));
+      }
       return AnswerObject.create(answerObject);
     });
   },

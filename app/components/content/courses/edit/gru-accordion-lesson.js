@@ -86,9 +86,11 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
      */
     removeLessonItem: function (builderItem) {
       this.get('items').removeObject(builderItem);
+      this.refreshOrderList();
     },
     remixLessonItem: function (builderItem) {
       this.get('items').addObject(builderItem);
+      this.refreshOrderList();
     },
     /**
      * Delete selected lesson
@@ -224,6 +226,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
    */
   onAddItem: function(builderItem) {
     this.get('items').addObject(builderItem);
+    this.refreshOrderList();
   },
 
   // -------------------------------------------------------------------------
