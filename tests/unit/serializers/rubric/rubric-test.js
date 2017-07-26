@@ -20,7 +20,7 @@ test('serializeCreateRubric', function(assert) {
     description: 'rubric-description',
     type: 'rubric-type',
     thumbnail: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
-    taxonomy: 'fake-taxonomy',
+    standards: 'fake-taxonomy',
     audience: [1]
   });
 
@@ -70,7 +70,7 @@ test('serializeUpdateRubric uploaded and no feedback required', function(assert)
     description: 'rubric-description',
     type: 'rubric-type',
     thumbnail: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
-    taxonomy: 'fake-taxonomy',
+    standards: 'fake-taxonomy',
     audience: [1],
     url: 'any-url',
     uploaded: true,
@@ -94,7 +94,6 @@ test('serializeUpdateRubric uploaded and no feedback required', function(assert)
   assert.equal(rubricObject.url, 'any-url', 'Wrong url');
   assert.equal(rubricObject.is_remote, true, 'Wrong is remote');
   assert.equal(rubricObject.feedback_guidance, 'any-feedback', 'Wrong feedback_guidance');
-  assert.equal(rubricObject.total_points, 10, 'Wrong total_points');
   assert.equal(rubricObject.overall_feedback_required, false, 'Wrong overall_feedback_required');
   assert.equal(rubricObject.categories.length, 3, 'Wrong categories length');
 });
@@ -114,7 +113,7 @@ test('serializeUpdateRubric not uploaded and feedback required', function(assert
     description: 'rubric-description',
     type: 'rubric-type',
     thumbnail: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
-    taxonomy: 'fake-taxonomy',
+    standards: 'fake-taxonomy',
     audience: [1],
     url: null,
     uploaded: false,
@@ -133,7 +132,6 @@ test('serializeUpdateRubric not uploaded and feedback required', function(assert
   assert.equal(rubricObject.url, null, 'Wrong url');
   assert.equal(rubricObject.is_remote, false, 'Wrong is remote');
   assert.equal(rubricObject.feedback_guidance, null, 'Wrong feedback_guidance');
-  assert.equal(rubricObject.total_points, 10, 'Wrong total_points');
   assert.equal(rubricObject.overall_feedback_required, true, 'Wrong overall_feedback_required');
 
 });
@@ -153,7 +151,7 @@ test('serializeUpdateRubric with empty strings', function(assert) {
     description: '',
     type: 'rubric-type',
     thumbnail: 'http://test-bucket01.s3.amazonaws.com/image-id.png',
-    taxonomy: 'fake-taxonomy',
+    standards: 'fake-taxonomy',
     audience: [1],
     url: '',
     uploaded: false,
@@ -172,7 +170,6 @@ test('serializeUpdateRubric with empty strings', function(assert) {
   assert.equal(rubricObject.url, null, 'Wrong url');
   assert.equal(rubricObject.is_remote, false, 'Wrong is remote');
   assert.equal(rubricObject.feedback_guidance, null, 'Wrong feedback_guidance');
-  assert.equal(rubricObject.total_points, 10, 'Wrong total_points');
   assert.equal(rubricObject.overall_feedback_required, true, 'Wrong overall_feedback_required');
 
 });
@@ -209,12 +206,34 @@ test('serializedUpdateRubricCategory empty properties', function(assert) {
 
   const rubricCategory = RubricCategory.create({
     title: '',
-    feedbackGuidance: ''
+    feedbackGuidance: '',
+    categories:[]
   });
 
   const categoryObject = serializer.serializedUpdateRubricCategory(rubricCategory);
+  assert.equal(categoryObject.categories, null, 'Wrong categories');
   assert.equal(categoryObject.category_title, null, 'Wrong category_title');
   assert.equal(categoryObject.feedback_guidance, null, 'Wrong feedback_guidance');
+});
+
+test('serializedUpdateRubricCategory with null levels', function(assert) {
+  const serializer = this.subject();
+
+  const rubricCategory = RubricCategory.create({
+    title: 'any-title',
+    feedbackGuidance: 'any-feedback',
+    requiresFeedback: true,
+    allowsLevels: true,
+    allowsScoring: false,
+    levels: [
+      { name: 'level-1', score: null},
+      { name: '', score: 11},
+      { name: '', score: null}
+    ]
+  });
+
+  const categoryObject = serializer.serializedUpdateRubricCategory(rubricCategory);
+  assert.equal(categoryObject.levels.length, 2, 'Wrong category levels');
 });
 
 test('normalizeRubricCategory', function(assert) {
@@ -281,7 +300,6 @@ test('normalizeRubric', function(assert) {
     is_remote: true,
     is_rubric:false,
     feedback_guidance: 'Summarize your feedback on the essay as a whole',
-    total_points: 4,
     creator_id:'852f9814-0eb4-461d-bd3b-aca9c2500595',
     overall_feedback_required: true,
     categories: [{
@@ -303,11 +321,10 @@ test('normalizeRubric', function(assert) {
   assert.equal(rubric.get('description'), 'This is the example question for the rubrics association', 'Wrong description');
   assert.equal(rubric.get('thumbnail'), contentCdnUrl + '2c185398-d0e6-42d8-9926-572939fc0784.png', 'Wrong thumbnail');
   assert.deepEqual(rubric.get('audience'), [12, 45], 'Wrong audience');
-  assert.equal(rubric.get('taxonomy.length'), 0, 'Wrong taxonomy');
+  assert.equal(rubric.get('standards.length'), 0, 'Wrong taxonomy');
   assert.equal(rubric.get('url'), 'https://en.wikipedia.org/wiki/Rubric_(academic)', 'Wrong url');
   assert.equal(rubric.get('uploaded'), true, 'Wrong url');
   assert.equal(rubric.get('feedback'), 'Summarize your feedback on the essay as a whole', 'Wrong feedback');
-  assert.equal(rubric.get('totalPoints'), 4, 'Wrong total points');
   assert.equal(rubric.get('isPublished'), true, 'Should be published');
   assert.equal(rubric.get('publishDate'), '2017-02-24T05:55:42Z', 'Incorrect publish date');
   assert.equal(rubric.get('requiresFeedback'), true, 'Wrong requires feedback');
