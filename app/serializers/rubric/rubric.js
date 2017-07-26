@@ -98,9 +98,7 @@ export default Ember.Object.extend({
    * @returns {*} serialized category
    */
   serializedUpdateRubricCategory: function (model) {
-    let levels = model.get('levels').filter(function(level) {
-      return level.name !== '' || level.score !== null;
-    });
+    let levels = model.get('levels').filter(level => level.name || level.score);
 
     return {
       'category_title': nullIfEmpty(model.get('title')),
@@ -108,9 +106,7 @@ export default Ember.Object.extend({
       'required_feedback': model.get('requiresFeedback') === true,
       'level': model.get('allowsLevels') === true,
       'scoring': model.get('allowsScoring') === true,
-      'levels': levels.map(function(level) {
-        return { 'level_name': level.name, 'level_score': level.score };
-      })
+      'levels': levels.map(level =>({ 'level_name': level.name, 'level_score': level.score }))
     };
   },
 
@@ -160,9 +156,7 @@ export default Ember.Object.extend({
       uploaded: data.is_remote,
       feedback: data.feedback_guidance,
       requiresFeedback: data.overall_feedback_required,
-      categories: categories ? categories.map(function(category){
-        return serializer.normalizeRubricCategory(category);
-      }) : null,
+      categories: categories ? categories.map(category => serializer.normalizeRubricCategory(category)) : null,
       owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : ownerId,
       createdDate:data.created_at,
       updatedDate:data.updated_at,
