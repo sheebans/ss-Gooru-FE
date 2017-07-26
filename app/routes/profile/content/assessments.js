@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
+
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -14,7 +15,9 @@ export default Ember.Route.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
+
     /**
      * On card edit assessment button click
      * @param {Assessment} assessment
@@ -33,6 +36,7 @@ export default Ember.Route.extend(ModalMixin, {
       };
       this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
     }
+
   },
 
   // -------------------------------------------------------------------------

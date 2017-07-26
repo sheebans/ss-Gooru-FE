@@ -40,7 +40,7 @@ test('Library Controller Layout', function (assert) {
   });
 });
 
-test('Take A Tour', function(assert){
+test('Take A Tour', function(assert) {
   assert.expect(2);
   visit('/library');
   andThen(function() {

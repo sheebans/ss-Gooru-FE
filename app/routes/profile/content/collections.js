@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
+
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -11,11 +12,10 @@ export default Ember.Route.extend(ModalMixin, {
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
-
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
     /**
      * On card edit collection button click
      * @param {Collection} collection
@@ -42,16 +42,16 @@ export default Ember.Route.extend(ModalMixin, {
   model: function (){
     const profile = this.modelFor('profile').profile;
 
-    const params={
-      pageSize:DEFAULT_PAGE_SIZE,
-      searchText:  this.paramsFor('profile.content').term,
+    const params = {
+      pageSize: DEFAULT_PAGE_SIZE,
+      searchText: this.paramsFor('profile.content').term,
       sortOn: this.paramsFor('profile.content').sortOn,
-      order:this.paramsFor('profile.content').order
+      order: this.paramsFor('profile.content').order
     };
-    return this.get('profileService').readCollections(profile.get('id'),params);
+    return this.get('profileService').readCollections(profile.get('id'), params);
   },
 
-  setupController: function (controller , model) {
+  setupController: function (controller, model) {
     controller.set('collections', model);
   },
 

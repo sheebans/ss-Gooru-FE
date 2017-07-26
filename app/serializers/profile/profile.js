@@ -49,7 +49,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       email: profileData.get('email'),
       password: profileData.get('password'),
       birth_date: profileData.get('dateOfBirth'),
-      tenant_id: profileData.get("tenantId")
+      tenant_id: profileData.get('tenantId')
     };
   },
 
@@ -225,7 +225,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const format = ResourceModel.normalizeResourceFormat(resourceData.content_subformat);
     const standards = resourceData.taxonomy || [];
     const creatorId = resourceData.creator_id;
-    const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
+    const filteredOwners = Ember.A(owners).filterBy('id', creatorId);
     return ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
       id: resourceData.id,
       title: resourceData.title,
@@ -234,7 +234,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       format: format,
       publishStatus: resourceData.publish_status,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
-      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null,
+      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : null,
       isVisibleOnProfile: typeof resourceData.visible_on_profile !== 'undefined' ? resourceData.visible_on_profile : true
     });
   },
@@ -248,7 +248,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
   normalizeQuestion: function (questionData, owners) {
     const serializer = this;
     const creatorId = questionData.creator_id;
-    const filteredOwners = Ember.A(owners).filterBy("id", creatorId);
+    const filteredOwners = Ember.A(owners).filterBy('id', creatorId);
     const standards = questionData.taxonomy || [];
     const format = QuestionModel.normalizeQuestionType(questionData.content_subformat);
     return QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
@@ -259,7 +259,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       type:format,
       publishStatus: questionData.publish_status,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
-      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null,
+      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : null,
       isVisibleOnProfile: typeof questionData.visible_on_profile !== 'undefined' ? questionData.visible_on_profile : true
     });
   },
@@ -273,7 +273,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
   normalizeCollection: function (collectionData, owners) {
     const serializer = this;
     const ownerId = collectionData.owner_id;
-    const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
+    const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
     const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(collectionData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
@@ -294,7 +294,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       course: collectionData.course ? collectionData.course.title : null,
       courseId: collectionData.course ? collectionData.course.id : null,
       isVisibleOnProfile: typeof collectionData.visible_on_profile !== 'undefined' ? collectionData.visible_on_profile : true,
-      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null
+      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : null
     });
   },
 
@@ -307,7 +307,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
   normalizeAssessment: function (assessmentData, owners) {
     const serializer = this;
     const ownerId = assessmentData.owner_id;
-    const filteredOwners = Ember.A(owners).filterBy("id", ownerId);
+    const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
     const standards = serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy || []);
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
@@ -327,7 +327,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       course: assessmentData.course ? assessmentData.course.title : null,
       courseId: assessmentData.course ? assessmentData.course.id : null,
       isVisibleOnProfile: typeof assessmentData.visible_on_profile !== 'undefined' ? assessmentData.visible_on_profile : true,
-      owner: filteredOwners.get("length") ? filteredOwners.get("firstObject") : null,
+      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : null,
       format: assessmentData.format,
       url: assessmentData.url
     });
@@ -368,15 +368,15 @@ export default Ember.Object.extend(ConfigurationMixin, {
     basePath + networkData['thumbnail'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
-      "id": networkData.id,
-      "firstName": networkData.first_name,
-      "lastName": networkData.last_name,
-      "avatarUrl": thumbnailUrl,
-      "country": networkData.country,
-      "schoolDistrict": networkData.school_district,
-      "followers": networkData.followers_count,
-      "followings": networkData.followings_count,
-      "isFollowing": type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
+      'id': networkData.id,
+      'firstName': networkData.first_name,
+      'lastName': networkData.last_name,
+      'avatarUrl': thumbnailUrl,
+      'country': networkData.country,
+      'schoolDistrict': networkData.school_district,
+      'followers': networkData.followers_count,
+      'followings': networkData.followings_count,
+      'isFollowing': type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
     });
   },
 

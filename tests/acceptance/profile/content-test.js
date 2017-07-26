@@ -134,6 +134,7 @@ test('Navigate to collection edit by clicking collection image', function(assert
     });
   });
 });
+
 test('Navigate to question edit by clicking question title', function(assert) {
   visit('/id-for-pochita/content/questions');
   andThen(function() {
@@ -159,6 +160,7 @@ test('Navigate to question edit by clicking question image', function(assert) {
     });
   });
 });
+
 test('Navigate to resource edit by clicking resource title', function(assert) {
   visit('/id-for-pochita/content/resources');
   andThen(function() {
@@ -184,6 +186,7 @@ test('Navigate to resource edit by clicking resource image', function(assert) {
     });
   });
 });
+
 test('Search content by term', function(assert) {
   assert.expect(2); //making sure all asserts are called
   visit('/id-for-pochita/content/collections');
@@ -219,6 +222,7 @@ test('Changing term should filter the current result without changing the root u
     });
   });
 });
+
 test('Search content by term and navigate into profile content options', function(assert) {
   assert.expect(5); //making sure all asserts are called
   visit('/id-for-pochita/content/collections');
@@ -248,6 +252,7 @@ test('Search content by term and navigate into profile content options', functio
     });
   });
 });
+
 test('Filter content by most recent and descending/Filter content by most recent and ascending', function(assert) {
   assert.expect(3); //making sure all asserts are called
   visit('/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
@@ -264,6 +269,7 @@ test('Filter content by most recent and descending/Filter content by most recent
     });
   });
 });
+
 test('Sort by Alphanumeric and ascending/Sort by Alphanumeric and descending', function(assert) {
   assert.expect(3); //making sure all asserts are called
   visit('/id-for-pochita/content/collections?order=desc&sortOn=updated_at');
@@ -280,6 +286,7 @@ test('Sort by Alphanumeric and ascending/Sort by Alphanumeric and descending', f
     });
   });
 });
+
 test('Sort by Alphanumeric and navigate into profile content options', function(assert) {
   assert.expect(4); //making sure all asserts are called
   visit('/id-for-pochita/content/collections?order=asc&sortOn=title');
@@ -300,6 +307,7 @@ test('Sort by Alphanumeric and navigate into profile content options', function(
     });
   });
 });
+
 test('Search content by term and clear term', function(assert) {
   assert.expect(3);
   visit('/id-for-pochita/content/collections');

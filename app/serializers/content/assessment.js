@@ -125,6 +125,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(assessmentData.taxonomy),
       format: assessmentData.format || assessmentData.target_content_type,
       url: assessmentData.url,
+      ownerId: assessmentData.owner_id,
       metadata: metadata,
       audience: metadata.audience && metadata.audience.length > 0 ? metadata.audience : [],
       depthOfknowledge: metadata.depth_of_knowledge && metadata.depth_of_knowledge.length > 0 ? metadata.depth_of_knowledge : [],
