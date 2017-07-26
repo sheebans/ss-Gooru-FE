@@ -23,7 +23,7 @@
     "realTime": {
       "webServiceUrl": "",
       "webServiceUri": "/",
-      "webSocketUrl": "https://rt-nile.gooru.org",
+      "webSocketUrl": "https://rt.gooru.org",
       "webSocketUri": "/ws/quizzes-realtime"
     }
   },
