@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
@@ -11,10 +11,10 @@ export default Ember.Route.extend(ModalMixin, {
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
     /**
      * On card edit question button click
      * @param {Question} question
@@ -22,6 +22,7 @@ export default Ember.Route.extend(ModalMixin, {
     editQuestion: function (question) {
       this.transitionTo('content.questions.edit', question.get('id'));
     },
+
     /**
      * On card play question button click
      * @param {Question} question
@@ -40,6 +41,7 @@ export default Ember.Route.extend(ModalMixin, {
       };
       this.send('showModal', 'content.modals.gru-question-remix', remixModel);
     }
+
   },
 
   // -------------------------------------------------------------------------
@@ -49,22 +51,21 @@ export default Ember.Route.extend(ModalMixin, {
     const profile = this.modelFor('profile').profile;
 
     const params={
-      pageSize:DEFAULT_PAGE_SIZE,
-      searchText:  this.paramsFor('profile.content').term,
+      pageSize: DEFAULT_PAGE_SIZE,
+      searchText: this.paramsFor('profile.content').term,
       sortOn: this.paramsFor('profile.content').sortOn,
       order: this.paramsFor('profile.content').order
     };
 
-    return this.get('profileService').readQuestions(profile.get('id'),params);
+    return this.get('profileService').readQuestions(profile.get('id'), params);
   },
 
-  setupController: function (controller , model) {
+  setupController: function (controller, model) {
     controller.set('questions', model);
   },
 
   deactivate: function() {
     this.get('controller').resetValues();
   }
-
 
 });

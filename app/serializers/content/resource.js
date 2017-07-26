@@ -101,7 +101,7 @@ export default Ember.Object.extend({
       narration: resourceData.narration,
       publishStatus: resourceData.publish_status,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
-      owner: resourceData.creator_id,
+      ownerId: resourceData.creator_id,
       info: info,
       amIThePublisher: resourceData['is_copyright_owner'] || false,
       publisher: resourceData['copyright_owner'] ? resourceData['copyright_owner'][0] : null,

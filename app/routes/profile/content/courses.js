@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
 
@@ -11,10 +11,10 @@ export default Ember.Route.extend(ModalMixin, {
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
     /**
      * Edit course action, when clicking Edit at the course card
      * @param {Content/Course}
@@ -41,6 +41,7 @@ export default Ember.Route.extend(ModalMixin, {
       };
       this.send('showModal', 'content.modals.gru-course-remix', remixModel);
     },
+
     /**
      * Triggers the refresh of user classes
      */
@@ -55,11 +56,11 @@ export default Ember.Route.extend(ModalMixin, {
 
   model: function() {
     let profile = this.modelFor('profile').profile;
-    const params={
-      pageSize:DEFAULT_PAGE_SIZE,
-      searchText:  this.paramsFor('profile.content').term
+    const params = {
+      pageSize: DEFAULT_PAGE_SIZE,
+      searchText: this.paramsFor('profile.content').term
     };
-    let courses = this.get('profileService').getCourses(profile,params);
+    let courses = this.get('profileService').getCourses(profile, params);
     return Ember.RSVP.hash({
       courses
     });
@@ -68,7 +69,7 @@ export default Ember.Route.extend(ModalMixin, {
   setupController: function (controller, model) {
     controller.get('profileController').selectMenuItem('content');
     controller.set('courses', model.courses);
-    controller.set('disableSearch',true);
+    controller.set('disableSearch', true);
   },
 
   deactivate: function() {

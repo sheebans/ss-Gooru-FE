@@ -171,7 +171,7 @@ export default Ember.Component.extend(ModalMixin,{
   classStudentCount: null,
 
   /**
-   * @property {Course,Collection,Assessment} content
+   * @property {Course, Collection, Assessment} content
    */
   content: null,
 

@@ -2,11 +2,11 @@ import Ember from 'ember';
 import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
+
   // -------------------------------------------------------------------------
   // Dependencies
 
   contentController: Ember.inject.controller('profile.content'),
-
 
   profileController: Ember.inject.controller('profile'),
 

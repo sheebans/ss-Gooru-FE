@@ -72,7 +72,7 @@ test('Clicking card image should open the player', function(assert) {
   });
 });
 
-test('Take A Tour', function(assert){
+test('Take A Tour', function(assert) {
   assert.expect(2);
   visit('/library');
   andThen(function() {

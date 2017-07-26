@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
 
@@ -7,14 +7,16 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
+
     showMoreResults: function(){
       this.showMoreResults();
     }
-  },
 
+  },
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @type {ProfileService} Service to retrieve content controller
    */
@@ -32,20 +34,21 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @property {string} term filter
    */
-  term: Ember.computed.alias("contentController.term"),
+  term: Ember.computed.alias('contentController.term'),
 
   /**
    * @property {string} sortRecent filter
    */
-  sortOn: Ember.computed.alias("contentController.sortOn"),
+  sortOn: Ember.computed.alias('contentController.sortOn'),
 
   /**
    * @property {string} order filter
    */
-  order: Ember.computed.alias("contentController.order"),
+  order: Ember.computed.alias('contentController.order'),
 
   /**
    * @property {Collection[]} resources
@@ -55,17 +58,17 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean} isMyProfile
    */
-  isMyProfile: Ember.computed.alias("profileController.isMyProfile"),
+  isMyProfile: Ember.computed.alias('profileController.isMyProfile'),
 
   /**
    * @property {Profile}
    */
-  profile: Ember.computed.alias("profileController.profile"),
+  profile: Ember.computed.alias('profileController.profile'),
 
   /**
    * Current user id
    */
-  currentUserId: Ember.computed.alias("profileController.currentUserId"),
+  currentUserId: Ember.computed.alias('profileController.currentUserId'),
 
   /**
    * @property {*}
@@ -78,9 +81,9 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed("resources.[]", function(){
-    return this.get("resources.length") &&
-      (this.get("resources.length") % this.get("pagination.pageSize") === 0);
+  showMoreResultsButton: Ember.computed('resources.[]', function(){
+    return this.get('resources.length') &&
+      (this.get('resources.length') % this.get('pagination.pageSize') === 0);
   }),
 
   // Methods
@@ -95,14 +98,14 @@ export default Ember.Controller.extend({
     pagination.order = this.get('order');
 
     controller.get('profileService')
-      .readResources(profile.get("id"), pagination)
+      .readResources(profile.get('id'), pagination)
       .then(function(resources){
-        controller.get("resources").pushObjects(resources.toArray());
+        controller.get('resources').pushObjects(resources.toArray());
       });
   },
 
   resetValues: function(){
-    this.set("pagination", {
+    this.set('pagination', {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
