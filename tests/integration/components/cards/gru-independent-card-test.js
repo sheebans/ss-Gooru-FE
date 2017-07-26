@@ -92,9 +92,39 @@ test('Layout course completed', function(assert) {
   const $panel = $card.find('.panel');
   const $panelBody = $panel.find('.panel-body');
   assert.ok($card.find('.panel-heading span.check').length,'Missing check icon');
+  assert.notOk($card.find('.information .activity .not-applicable').length,'N/A should not appear');
+  assert.notOk($card.find('.information .activity .collection-report').length,'Collection report should not appear');
+  assert.ok($card.find('.information .activity .current-activity').length,'Current activity should appear');
+  assert.equal(T.text($panelBody.find('.charts .performance .charts.gru-bubble-chart .bubble-circle span')), '0%', 'Wrong performance score');
+});
+
+test('Layout course with no activity', function(assert) {
+
+  this.set('location', Location.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'course-title',
+    type: 'course',
+    lastAccessed: '2017-03-07 18:44:04.798',
+    courseId: 'course-id',
+    status:'complete'
+  }));
+
+  this.set('performance', Performance.create(Ember.getOwner(this).ownerInjection(), {
+    completedCount: 10,
+    totalCount: 10,
+    scoreInPercentage: 0,
+    timeSpent: 4000
+  }));
+
+  this.render(hbs`{{cards/gru-independent-card location=location performance=performance}}`);
+
+  const $component = this.$(); //component dom element
+  const $card = $component.find('.gru-independent-card');
+  const $panel = $card.find('.panel');
+  const $panelBody = $panel.find('.panel-body');
+  assert.ok($card.find('.panel-heading span.check').length,'Missing check icon');
   assert.ok($card.find('.information .activity .not-applicable').length,'Activity should be N/A');
   assert.notOk($card.find('.information .activity .collection-report').length,'Collection report should not appear');
-  assert.notOk($card.find('.information .activity .current-activity').length,'Current activity should not appear');
+  assert.notOk($card.find('.information .activity .current-activity').length,'Current activity should appear');
   assert.equal(T.text($panelBody.find('.charts .performance .charts.gru-bubble-chart .bubble-circle span')), '0%', 'Wrong performance score');
 });
 
