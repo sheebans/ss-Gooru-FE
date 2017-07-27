@@ -21,14 +21,14 @@ export default Ember.Controller.extend(ModalMixin, {
    * @see controllers/profile.js
    * @property {Class}
    */
-  'profile': Ember.computed.reads('parentController.profile'),
+  profile: Ember.computed.reads('parentController.profile'),
 
   /**
    * A link to the computed property isMyProfile in profile controller
    * @see controllers/profile.js
    * @property {isMyProfile}
    */
-  'isMyProfile': Ember.computed.reads('parentController.isMyProfile'),
+  isMyProfile: Ember.computed.reads('parentController.isMyProfile'),
 
   /**
    * Search term object

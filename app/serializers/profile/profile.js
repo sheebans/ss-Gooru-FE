@@ -368,15 +368,15 @@ export default Ember.Object.extend(ConfigurationMixin, {
     basePath + networkData['thumbnail'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
-      'id': networkData.id,
-      'firstName': networkData.first_name,
-      'lastName': networkData.last_name,
-      'avatarUrl': thumbnailUrl,
-      'country': networkData.country,
-      'schoolDistrict': networkData.school_district,
-      'followers': networkData.followers_count,
-      'followings': networkData.followings_count,
-      'isFollowing': type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
+      id: networkData.id,
+      firstName: networkData.first_name,
+      lastName: networkData.last_name,
+      avatarUrl: thumbnailUrl,
+      country: networkData.country,
+      schoolDistrict: networkData.school_district,
+      followers: networkData.followers_count,
+      followings: networkData.followings_count,
+      isFollowing: type === NETWORK_TYPE.FOLLOWERS ? following.indexOf(networkData.id) > -1 : true
     });
   },
 

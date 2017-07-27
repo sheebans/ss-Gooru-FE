@@ -61,7 +61,10 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  showMoreResults: function(){
+  /**
+   * Fetch more results from library content
+   */
+  showMoreResults: function() {
     const controller = this;
     const libraryId = this.get('libraryId');
     const pagination = this.get('pagination');
@@ -70,9 +73,7 @@ export default Ember.Controller.extend({
 
     controller.get('libraryService')
     .fetchLibraryContent(libraryId, 'course', pagination)
-    .then(function(courses) {
-        controller.get('courses').pushObjects(courses.toArray());
-    });
+    .then(courses => controller.get('courses').pushObjects(courses.toArray()));
   },
 
   resetValues: function(){

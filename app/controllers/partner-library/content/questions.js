@@ -59,8 +59,13 @@ export default Ember.Controller.extend({
       (this.get('questions.length') % this.get('pagination.pageSize') === 0);
   }),
 
+  // -------------------------------------------------------------------------
   // Methods
-  showMoreResults: function(){
+
+  /**
+   * Fetch more results from library content
+   */
+  showMoreResults: function() {
     const controller = this;
     const libraryId = this.get('libraryId');
     const pagination = this.get('pagination');
@@ -69,9 +74,7 @@ export default Ember.Controller.extend({
 
     controller.get('libraryService')
     .fetchLibraryContent(libraryId, 'question', pagination)
-    .then(function(questions) {
-        controller.get('questions').pushObjects(questions.toArray());
-    });
+    .then(questions => controller.get('questions').pushObjects(questions.toArray()));
   },
 
   resetValues: function(){
