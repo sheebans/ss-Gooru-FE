@@ -150,8 +150,6 @@ export default Ember.Service.extend({
   getQuestionsToGrade: function (userId, classId, courseId) {
     const service = this;
     return service.get('adapter').getQuestionsToGrade(userId, classId, courseId)
-      .then(function (data) {
-        return service.get('serializer').normalizeQuestionsToGrade(data);
-      });
+      .then(data => service.get('serializer').normalizeQuestionsToGrade(data));
   }
 });
