@@ -188,3 +188,83 @@ test('Add two categories, change the content of one category and it doesnt chang
     });
   });
 });
+test('Add Category and cancel before save', function(assert) {
+  let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
+  ]});
+  this.set('rubric',rubric);
+  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  const $component = this.$();
+  var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
+  $rubricTab.click();
+  return wait().then(function () {
+    var $addCategory = $component.find('.category-panel a.add-category');
+    $addCategory.click();
+    return wait().then(function () {
+      assert.equal($component.find('.category-panel .content.rubric.gru-category').length,1, 'Should have 1 category');
+      assert.ok($component.find('.category-panel .content.rubric.gru-category .panel.expanded').length, 'The category should be expanded');
+      let $cancel = $component.find('.category-panel .content.rubric.gru-category .item-actions .cancel');
+      $cancel.click();
+      return wait().then(function () {
+        assert.equal($component.find('.category-panel .content.rubric.gru-category').length,0, 'Should have not categories');
+      });
+    });
+  });
+});
+
+test('Edit Category', function(assert) {
+  let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
+    Category.create(Ember.getOwner(this).ownerInjection(),{title:'Category testing'})
+  ]});
+  this.set('tempRubric',rubric);
+
+  this.render(hbs`{{content/rubric/gru-rubric-edit tempRubric=tempRubric}}`);
+  const $component = this.$();
+  var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
+  $rubricTab.click();
+  return wait().then(function () {
+    const $category = $component.find('.category-panel .content.rubric.gru-category');
+    assert.equal($category.length,1, 'Should have 1 category');
+    assert.equal($category.find('.panel-heading .title').text().trim(),'Category testing','Incorrect Title');
+    let $edit = $component.find('.detail .actions .edit');
+    $edit.click();
+    return wait().then(function () {
+      let $title = $category.find('.panel-heading .edit-title input');
+      $title.val('New category title');
+      $title.blur();
+      let $save = $category.find('.item-actions .save');
+      $save.click();
+      return wait().then(function () {
+        assert.equal($category.find('.panel-heading .title').text().trim(),'New category title','Incorrect Title after update');
+      });
+    });
+  });
+});
+
+test('Edit Existing Category And Cancel', function(assert) {
+  let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
+    Category.create(Ember.getOwner(this).ownerInjection(),{title:'Category testing'})
+  ]});
+  this.set('tempRubric',rubric);
+
+  this.render(hbs`{{content/rubric/gru-rubric-edit tempRubric=tempRubric}}`);
+  const $component = this.$();
+  var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
+  $rubricTab.click();
+  return wait().then(function () {
+    const $category = $component.find('.category-panel .content.rubric.gru-category');
+    assert.equal($category.length,1, 'Should have 1 category');
+    assert.equal($category.find('.panel-heading .title').text().trim(),'Category testing','Incorrect Title');
+    let $edit = $component.find('.detail .actions .edit');
+    $edit.click();
+    return wait().then(function () {
+      let $title = $category.find('.panel-heading .edit-title input');
+      $title.val('New category title');
+      $title.blur();
+      let $save = $category.find('.item-actions .cancel');
+      $save.click();
+      return wait().then(function () {
+        assert.equal($category.find('.panel-heading .title').text().trim(),'Category testing','Incorrect Title after cancel');
+      });
+    });
+  });
+});
