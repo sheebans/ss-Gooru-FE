@@ -20,10 +20,10 @@ export default Ember.Component.extend({
      * Cancel edit inline
      */
     cancel: function (){
-      let $component = this;
-      let category = $component.get('category');
+      let component = this;
+      let category = component.get('category');
       if(category.get('isNew')){
-        $component.sendAction('onCancelNewCategory',category);
+        component.sendAction('onCancelNewCategory',category);
       }
       this.setProperties({
         'isPanelExpanded': false,
