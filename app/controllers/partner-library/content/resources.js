@@ -74,7 +74,7 @@ export default Ember.Controller.extend({
 
     controller.get('libraryService')
     .fetchLibraryContent(libraryId, 'resource', pagination)
-    .then(resources => controller.get('resources').pushObjects(resources.toArray()))
+    .then(resources => controller.get('resources').pushObjects(resources.toArray()));
   },
 
   resetValues: function(){
