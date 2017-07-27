@@ -141,7 +141,7 @@ export default Ember.Object.extend({
       thumbnail: questionData.thumbnail ? (basePath + questionData.thumbnail) : null,
       text: questionData.description,
       publishStatus: questionData.publish_status,
-      ownerId: questionData.creator_id,
+      owner: questionData.creator_id,
       creator: questionData.original_creator_id,
       standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(standards),
       hints: null, //TODO
