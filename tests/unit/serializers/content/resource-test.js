@@ -90,7 +90,7 @@ test('normalizeReadResource', function(assert) {
   assert.equal(resource.get('narration'), 'any narration', 'Wrong narration');
   assert.equal(resource.get('publishStatus'), 'published', 'Wrong publishStatus');
   assert.equal(resource.get('standards.length'), 0, 'Wrong standards');
-  assert.equal(resource.get('ownerId'), 'anyID', 'Wrong owner');
+  assert.equal(resource.get('owner'), 'anyID', 'Wrong owner');
   assert.equal(resource.get('amIThePublisher'), true, 'Wrong amIThePublisher');
   assert.equal(resource.get('publisher'), 'myself', 'Wrong publisher');
   assert.equal(resource.get('isVisibleOnProfile'), true, 'Wrong isVisibleOnProfile');
