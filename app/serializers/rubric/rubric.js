@@ -3,6 +3,8 @@ import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 import { cleanFilename, nullIfEmpty } from 'gooru-web/utils/utils';
 import Rubric from 'gooru-web/models/rubric/rubric';
 import RubricCategory from 'gooru-web/models/rubric/rubric-category';
+import GradeQuestion from 'gooru-web/models/rubric/grade-question';
+import GradeQuestionItem from 'gooru-web/models/rubric/grade-question-item';
 import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from "gooru-web/config/config";
 
 /**
@@ -181,6 +183,40 @@ export default Ember.Object.extend({
       levels: levels.map(function(level){
         return { name: level.level_name, score: level.level_score };
       })
+    });
+  },
+
+  /**
+   * Normalizes Questions To Grade
+   * @param {*} data
+   * @return {GradeQuestion}
+   */
+  normalizeQuestionsToGrade: function (data) {
+    const serializer = this;
+    const gradeItems = data.gradeItems;
+
+    return GradeQuestion.create(Ember.getOwner(this).ownerInjection(),{
+      classId: data.classId,
+      courseId: data.courseId,
+      userId: data.userId,
+      gradeItems: gradeItems ? gradeItems.map(item => serializer.normalizeGradeQuestion(item)) : null
+    });
+  },
+
+  /**
+   * Normalizes a grade question
+   * @param {*} data
+   * @return {GradeQuestionItem}
+   *
+   */
+  normalizeGradeQuestion(data) {
+
+    return GradeQuestionItem.create(Ember.getOwner(this).ownerInjection(),{
+      unitId: data.unitId,
+      lessonId: data.lessonId,
+      collectionId: data.collectionId,
+      resourceId: data.resourceId,
+      studentCount: data.studentCount
     });
   }
 });

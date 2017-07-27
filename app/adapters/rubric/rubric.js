@@ -17,6 +17,8 @@ export default Ember.Object.extend({
 
   questionsNamespace: '/api/nucleus/v2/questions',
 
+  gradingNamespace: '/api/nucleus-insights/v2/rubrics',
+
   /**
    * Posts a new rubric
    *
@@ -212,6 +214,34 @@ export default Ember.Object.extend({
           resolve(true);
         }, reject);
     });
+  },
+
+  /**
+   * Gets Questions pending grading
+   *
+   * @param {string} userId
+   * @param {string} classId
+   * @param {string} courseId
+   * @returns {Promise/Object}
+   */
+  getQuestionsToGrade: function(userId, classId, courseId) {
+    const adapter = this;
+    const namespace = adapter.get('gradingNamespace');
+    const url = `${namespace}/questions`;
+
+    var data = {
+      userId,
+      classId,
+      courseId
+    };
+
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      data,
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
   },
 
   defineHeaders: function () {

@@ -229,3 +229,18 @@ test('Associate rubric with question, success', function (assert) {
   adapter.associateRubricToQuestion(123, 321)
     .then(() => assert.ok(true));
 });
+
+test('getQuestionsToGrade', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus-insights/v2/rubrics/questions', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+
+  adapter.getQuestionsToGrade('123', '456', '789')
+    .then(response => assert.deepEqual({}, response, 'Wrong response'));
+});
