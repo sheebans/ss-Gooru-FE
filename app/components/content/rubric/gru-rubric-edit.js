@@ -142,23 +142,26 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
    * @property {Object[]} headerActions List of action buttons to show
    */
   headerActions: Ember.computed(function(){
-    return [{
-      name: 'delete',
-      text: this.get('i18n').t('common.delete'),
-      icon: 'delete'
-    }, {
-      name: 'copy',
-      text: this.get('i18n').t('common.copy'),
-      icon: 'content_copy'
-    },{
-      name: 'link',
-      text: this.get('i18n').t('common.link'),
-      icon: 'insert_link'
-    }, {
-      name: 'preview',
-      text: this.get('i18n').t('common.preview'),
-      icon: 'remove_red_eye'
-    }];
+    return [
+      // TO DO: This actions will be add
+      //  {
+      //  name: 'delete',
+      //  text: this.get('i18n').t('common.delete'),
+      //  icon: 'delete'
+      // }, {
+      //  name: 'copy',
+      //  text: this.get('i18n').t('common.copy'),
+      //  icon: 'content_copy'
+      // },{
+      //  name: 'link',
+      //  text: this.get('i18n').t('common.link'),
+      //  icon: 'insert_link'
+      // },
+      {
+        name: 'preview',
+        text: this.get('i18n').t('common.preview'),
+        action: () => this.preview()
+      }];
   }),
   /**
    * @property {String} headerTitle
@@ -219,18 +222,26 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
    * Save function for footer
    */
   save:function(){
-    let $component = this;
-    let $tempRubric = $component.get('tempRubric');
-    $tempRubric.set('categories',$component.get('categories'));
-    let $rubric = $component.get('rubric');
-    $tempRubric.validate().then(function({validations}){
+    let component = this;
+    let tempRubric = component.get('tempRubric');
+    tempRubric.set('categories',component.get('categories'));
+    let rubric = component.get('rubric');
+    tempRubric.validate().then(function({validations}){
       if(validations.get('isValid')){
-        $component.get('rubricService').updateRubric($tempRubric).then(function(){
-          $rubric.merge($tempRubric,['title','description','thumbnail','subject','audience','isPublished','categories','url','feedback','standards']);
-          $component.get('router').transitionTo('profile.content.rubrics', $component.get('session.userData.gooruUId'));
+        component.get('rubricService').updateRubric(tempRubric).then(function(){
+          rubric.merge(tempRubric,['title','description','thumbnail','subject','audience','isPublished','categories','url','feedback','standards']);
+          component.get('router').transitionTo('profile.content.rubrics', component.get('session.userData.gooruUId'));
         });
       }
     });
+  },
+  /**
+   * Preview rubric on header action
+   */
+  preview:function(){
+    let component = this;
+    let rubric = component.get('rubric');
+    component.get('router').transitionTo('content.rubric.preview', rubric.id);
   },
   /**
    * Open Taxonomy Modal

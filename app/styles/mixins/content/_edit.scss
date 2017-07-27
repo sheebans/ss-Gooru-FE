@@ -24,7 +24,9 @@
 .controller.content.questions.play,
 .controller.content.resources.edit,
 .controller.content.resources.play,
-.controller.account-settings {
+.controller.content.resources.play,
+.controller.account-settings,
+.content.rubric.preview{
   $aside-padding: 25px;
 
   @include flexbox();
@@ -37,7 +39,6 @@
     > header {
       z-index: $zindex-navbar-fixed;
       background-color: $dark-400;
-      padding: 20px 20px 0 5%;
 
       h1, nav > a {
         color: $white;
@@ -362,7 +363,8 @@
 .controller.content.collections.edit,
 .controller.content.courses.edit,
 .controller.content.courses.play,
-.content.rubric {
+.content.rubric,
+.content.rubric.preview{
   #information .title > label {
     display: block;
 

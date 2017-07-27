@@ -1,7 +1,7 @@
 .controller.content.resources.play {
 
   > article {
-    $content-md-width: 890px;
+    $content-md-width: 90%;
     $content-lg-width: 1100px;
     min-width: 0;
     padding-bottom: 0;
@@ -207,7 +207,7 @@
         @extend .embed-responsive;
         @extend .embed-responsive-16by9;
       }
-      
+
       .not-iframe {
         padding: 25px;
         .panel-header {
