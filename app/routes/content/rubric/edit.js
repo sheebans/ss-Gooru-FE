@@ -37,5 +37,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('rubric', model.rubric);
     controller.set('isEditing', model.isEditing);
     controller.set('editingContent', model.editingContent);
+    controller.set('tempRubric', model.rubric.copy());
   }
 });

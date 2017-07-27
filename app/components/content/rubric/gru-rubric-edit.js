@@ -15,6 +15,12 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
    */
   i18n: Ember.inject.service(),
 
+  /**
+   /**
+   * @property {RubricService} Rubric service API SDK
+   */
+  rubricService: Ember.inject.service('api-sdk/rubric'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -30,6 +36,18 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
       let newCategory = Category.create(Ember.getOwner(this).ownerInjection(),{}).initLevels();
       let categories = this.get('categories');
       categories.addObject(newCategory);
+    },
+    /**
+     * Cancel Rubric Edition
+     */
+    cancelEdit:function(){
+      this.cancel();
+    },
+    /**
+     * Update Rubric
+     */
+    updateContent:function(){
+      this.save();
     },
     /**
      * Triggered by gru-category
@@ -90,18 +108,18 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
   /**
    * @property {Category[]} Temporal categories array
    */
-  categories:Ember.computed('rubric.categories.[]',function(){
+  categories:Ember.computed('tempRubric.categories.[]',function(){
     let categories = Ember.A([]);
-    if(this.get('rubric.categories.length')){
-      categories = this.get('rubric.categories');
+    if(this.get('tempRubric.categories.length')){
+      categories = this.get('tempRubric.categories');
     }
     return categories;
   }),
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
-  editableTags: Ember.computed('rubric.standards.[]', function() {
-    return TaxonomyTag.getTaxonomyTags(this.get('rubric.standards'), false, true);
+  editableTags: Ember.computed('tempRubric.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get('tempRubric.standards'), false, true);
   }),
   /**
    *
@@ -146,7 +164,7 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
    * @property {String} headerTitle
    */
   headerTitle: Ember.computed(function() {
-    return this.get('i18n').t('common.create-rubric');
+    return this.get('i18n').t('common.edit-rubric');
   }),
   /**
    * @property {Boolean} isEditing
@@ -195,21 +213,31 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
    * Cancel function for footer
    */
   cancel:function(){
-    this.get('router').transitionTo('profile.content.courses', this.get('session.userData.gooruUId'));
+    this.get('router').transitionTo('profile.content.rubrics', this.get('session.userData.gooruUId'));
   },
   /**
    * Save function for footer
    */
   save:function(){
-    // TODO: Save rubric
-    Ember.Logger.log('Save rubric');
+    let $component = this;
+    let $tempRubric = $component.get('tempRubric');
+    $tempRubric.set('categories',$component.get('categories'));
+    let $rubric = $component.get('rubric');
+    $tempRubric.validate().then(function({validations}){
+      if(validations.get('isValid')){
+        $component.get('rubricService').updateRubric($tempRubric).then(function(){
+          $rubric.merge($tempRubric,['title','description','thumbnail','subject','audience','isPublished','categories','url','feedback','standards']);
+          $component.get('router').transitionTo('profile.content.rubrics', $component.get('session.userData.gooruUId'));
+        });
+      }
+    });
   },
   /**
    * Open Taxonomy Modal
    */
   openTaxonomyModal: function(){
     var component = this;
-    var standards = component.get('rubric.standards') || [];
+    var standards = component.get('tempRubric.standards') || [];
     var subject = component.get('selectedSubject');
     var subjectStandards = TaxonomyTagData.filterBySubject(subject, standards);
     var notInSubjectStandards = TaxonomyTagData.filterByNotInSubject(subject, standards);
@@ -225,7 +253,7 @@ export default Ember.Component.extend(SessionMixin,ModalMixin,{
           });
           const standards = Ember.A(dataTags);
           standards.pushObjects(notInSubjectStandards.toArray());
-          component.set('rubric.standards', standards);
+          component.set('tempRubric.standards', standards);
         }
       }
     };

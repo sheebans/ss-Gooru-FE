@@ -3,6 +3,7 @@
   <div id="information">
     <div class="header">
       <h2>{{t 'common.information'}}</h2>
+      {{partial 'content/partials/information-actions'}}
     </div>
     <div class="content">
       {{content.gru-image isEditing=true}}
@@ -11,7 +12,7 @@
           <div class="title">
             <label>
               <span class="required">{{t "common.rubric-title"}}</span>
-              {{validation.gru-input model=rubric valuePath='title' maxLength=50}}
+              {{validation.gru-input model=tempRubric valuePath='title' maxLength=50}}
             </label>
           </div>
           {{taxonomy.gru-taxonomy-selector
@@ -33,7 +34,7 @@
               </div>
             </label>
           </div>
-          {{content.gru-audience isEditing=isEditing srcSelectedAudiences=rubric.audience editSelectedAudiences=rubric.audience}}
+          {{content.gru-audience isEditing=isEditing srcSelectedAudiences=tempRubric.audience editSelectedAudiences=tempRubric.audience}}
         </div>
       </div>
     </div>
@@ -49,7 +50,7 @@
         </div>
       </div>
       <div class="panel-body">
-        {{content.rubric.gru-rubric-creation rubric=rubric}}
+        {{content.rubric.gru-rubric-creation rubric=tempRubric}}
       </div>
     </div>
     <div class="panel panel-default overall-score out-of-scope">
@@ -62,12 +63,12 @@
         <div class="feedback">
           <label>
             <span>{{t "gru-rubric-creation.feedback-guidance"}}</span>
-            {{validation.gru-textarea rawTextareaValue=rubric.feedback model=rubric valuePath='feedback' maxLength=500 rows=5 placeholder=(t 'gru-rubric-creation.feedback-guidance-placeholder')}}
+            {{validation.gru-textarea rawTextareaValue=rubric.feedback model=tempRubric valuePath='feedback' maxLength=500 rows=5 placeholder=(t 'gru-rubric-creation.feedback-guidance-placeholder')}}
           </label>
         </div>
         <label class="required-feedback">
                   <span {{action 'setFeedBack'}}>
-                    {{#if rubric.requiresFeedback}}
+                    {{#if tempRubric.requiresFeedback}}
                       {{gru-icon name='check_box'}}
                     {{else}}
                       {{gru-icon name='check_box_outline_blank'}}
@@ -85,4 +86,3 @@
     </div>
   </div>
 </section>
-{{content.rubric.gru-fixed-footer footerActions=footerActions}}

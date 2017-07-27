@@ -53,6 +53,8 @@
       border-bottom: 1px solid $gray-light;
       margin-bottom: 25px;
       padding: 40px 0 20px;
+      @include flexbox();
+      @include justify-content(space-between);
     }
 
     .panel {

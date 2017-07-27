@@ -114,9 +114,9 @@ test('Copy Category', function(assert) {
   let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
     Category.create(Ember.getOwner(this).ownerInjection(),{title:'Category testing'})
   ]});
-  this.set('rubric',rubric);
+  this.set('tempRubric',rubric);
 
-  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  this.render(hbs`{{content/rubric/gru-rubric-edit tempRubric=tempRubric}}`);
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();
@@ -133,9 +133,9 @@ test('Delete Category', function(assert) {
   let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(),{id:'id-for-test',title: 'Rubric for testing',categories:[
     Category.create(Ember.getOwner(this).ownerInjection(),{title:'Category testing'})
   ]});
-  this.set('rubric',rubric);
+  this.set('tempRubric',rubric);
 
-  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  this.render(hbs`{{content/rubric/gru-rubric-edit tempRubric=tempRubric}}`);
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();

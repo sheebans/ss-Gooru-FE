@@ -39,10 +39,8 @@ export default Ember.Object.extend({
       'type': model.get('type'),
       'is_rubric':true,
       'thumbnail': cleanFilename(model.get('thumbnail'), this.get('session.cdnUrls')),
-      'metadata': {
-        'audience': model.get('hasAudience') ? model.get('audience') : []
-      },
-      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(model.get('taxonomy'))
+      'metadata': model.get('hasAudience') ? {'audience': model.get('audience')} :  null,
+      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(model.get('standards'))
     };
   },
 
@@ -82,18 +80,15 @@ export default Ember.Object.extend({
       'title': nullIfEmpty(model.get('title')),
       'description': nullIfEmpty(model.get('description')),
       'thumbnail': cleanFilename(model.get('thumbnail'), this.get('session.cdnUrls')),
-      'metadata': {
-        'audience': model.get('hasAudience') ? model.get('audience') : undefined
-      },
-      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(model.get('taxonomy')),
+      'metadata': model.get('hasAudience') ? {'audience': model.get('audience')} :  null,
+      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(model.get('standards')),
       'url': nullIfEmpty(model.get('url')),
       'is_remote': model.get('uploaded') === true,
       'feedback_guidance': nullIfEmpty(model.get('feedback')),
       'overall_feedback_required': model.get('requiresFeedback') === true,
-      'total_points': model.get('totalPoints'),
-      'categories': model.get('categories').map(function(category){
+      'categories':  model.get('categories').length ? model.get('categories').map(function(category){
         return serializer.serializedUpdateRubricCategory(category);
-      })
+      }) : null
     };
   },
 
@@ -103,15 +98,15 @@ export default Ember.Object.extend({
    * @returns {*} serialized category
    */
   serializedUpdateRubricCategory: function (model) {
+    let levels = model.get('levels').filter(level => level.name || level.score);
+
     return {
       'category_title': nullIfEmpty(model.get('title')),
       'feedback_guidance': nullIfEmpty(model.get('feedbackGuidance')),
       'required_feedback': model.get('requiresFeedback') === true,
       'level': model.get('allowsLevels') === true,
       'scoring': model.get('allowsScoring') === true,
-      'levels': model.get('levels').map(function(level) {
-        return { 'level_name': level.name, 'level_score': level.score };
-      })
+      'levels': levels.map(level =>({ 'level_name': level.name, 'level_score': level.score }))
     };
   },
 
@@ -142,7 +137,7 @@ export default Ember.Object.extend({
     const metadata = data.metadata || {};
     const ownerId = data.creator_id;
     const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
-    const categories = data.categories || [];
+    const categories = data.categories;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = serializer.get('appRootPath'); //configuration appRootPath
     const thumbnail = data.thumbnail ? basePath + data.thumbnail : appRootPath + DEFAULT_IMAGES.RUBRIC;
@@ -152,7 +147,7 @@ export default Ember.Object.extend({
       title: data.title,
       description: data.description,
       thumbnail: thumbnail,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(data.taxonomy, TAXONOMY_LEVELS.COURSE),
+      standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(data.taxonomy, TAXONOMY_LEVELS.COURSE),
       audience: metadata.audience,
       url: data.url,
       isPublished: data.publishStatus === 'published',
@@ -160,11 +155,8 @@ export default Ember.Object.extend({
       rubricOn:data.is_rubric,
       uploaded: data.is_remote,
       feedback: data.feedback_guidance,
-      totalPoints: data.total_points,
       requiresFeedback: data.overall_feedback_required,
-      categories: categories.map(function(category){
-        return serializer.normalizeRubricCategory(category);
-      }),
+      categories: categories ? categories.map(category => serializer.normalizeRubricCategory(category)) : null,
       owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : ownerId,
       createdDate:data.created_at,
       updatedDate:data.updated_at,

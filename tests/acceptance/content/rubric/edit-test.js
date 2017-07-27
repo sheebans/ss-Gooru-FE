@@ -23,7 +23,6 @@ test('Layout', function (assert) {
     var $container = find('.rubric.edit');
     assert.ok($container.length, 'Missing rubric controller');
     assert.ok($container.find('.gru-rubric-edit').length, 'Missing rubric edit component');
-    assert.ok($container.find('.gru-fixed-footer').length, 'Missing footer fixed component');
   });
 });
 
@@ -34,10 +33,10 @@ test('Cancel edit', function (assert) {
     assert.equal(currentURL(), '/content/rubric/edit/123');
 
     var $container = find('.rubric.edit');
-    var $cancel = $container.find('.gru-fixed-footer button.cancel');
+    var $cancel = $container.find('.header button.cancel');
     click($cancel);
     andThen(function () {
-      assert.equal(currentURL(), '/id-for-pochita/content/courses');
+      assert.equal(currentURL(), '/id-for-pochita/content/rubrics');
     });
   });
 });
