@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 import { roundFloat } from 'gooru-web/utils/math';
+import { toLocal } from 'gooru-web/utils/utils';
 import LocationModel from 'gooru-web/models/learner/location';
 import PerformanceModel from 'gooru-web/models/learner/performance';
 
@@ -40,9 +41,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     var serializer = this;
     var date;
     if(payload.lastAccessed) {
-      date = new Date(payload.lastAccessed);
-      var offset = new Date().getTimezoneOffset();
-      date.setMinutes(date.getMinutes() - offset);
+      date = toLocal(payload.lastAccessed);
     }
     return LocationModel.create(Ember.getOwner(serializer).ownerInjection(), {
       collectionId: payload.courseId ? null : payload.collectionId,

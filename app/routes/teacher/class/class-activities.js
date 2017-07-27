@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { formatDate } from 'gooru-web/utils/utils';
+import { formatDate, toUtc } from 'gooru-web/utils/utils';
 
 export default Ember.Route.extend({
 
@@ -44,22 +44,27 @@ export default Ember.Route.extend({
     const yesterday = (d => new Date(d.setDate(d.getDate()-1)))(new Date);
 
     return Ember.RSVP.hash({
-      todayActivities: route.get('classActivityService').findClassActivities(currentClass.get('id'),
-      undefined, moment(today).format('YYYY-MM-DD'), moment.utc(today).format('YYYY-MM-DD')),
-      yesterdayActivities: route.get('classActivityService').findClassActivities(currentClass.get('id'),
-      undefined, moment(yesterday).format('YYYY-MM-DD'), moment(yesterday).format('YYYY-MM-DD'))
-    }).then(function(hash) {
-      return [
-        {
-          classActivities: hash.todayActivities,
-          date: formatDate(today, 'MMMM Do, YYYY')
-        },
-        {
-          classActivities: hash.yesterdayActivities,
-          date: formatDate(yesterday, 'MMMM Do, YYYY')
-        }
-      ];
-    });
+      todayActivities: route.get('classActivityService').findClassActivities(
+        currentClass.get('id'),
+        undefined,
+        formatDate(today, 'YYYY-MM-DD'),
+        toUtc(today).format('YYYY-MM-DD')
+      ),
+      yesterdayActivities: route.get('classActivityService').findClassActivities(
+        currentClass.get('id'),
+        undefined,
+        formatDate(yesterday, 'YYYY-MM-DD'),
+        moment(yesterday).format('YYYY-MM-DD')
+      )
+    }).then(hash =>
+      [{
+        classActivities: hash.todayActivities,
+        date: formatDate(today, 'MMMM Do, YYYY')
+      }, {
+        classActivities: hash.yesterdayActivities,
+        date: formatDate(yesterday, 'MMMM Do, YYYY')
+      }]
+    );
   },
 
   /**
