@@ -82,6 +82,10 @@ export default Ember.Object.extend(Validations,{
    */
   levels: [],
   /**
+   * @property {Boolean} isNew
+   */
+  isNew:false,
+  /**
    * Return a copy of the category
    *
    * @function
