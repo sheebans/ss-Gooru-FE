@@ -80,7 +80,7 @@
     </div>
     <div class="category-panel">
       {{#each categories as |category index|}}
-        {{content.rubric.gru-category category=category index=index onCopyCategory='copyCategory' onDeleteCategory='deleteCategory'}}
+        {{content.rubric.gru-category category=category index=index onCopyCategory='copyCategory' onDeleteCategory='deleteCategory' onCancelNewCategory='deleteCategory'}}
       {{/each}}
       <a class="add-prefix add-category" {{action 'addNewCategory'}}>{{t "gru-rubric-creation.add-category"}}</a>
     </div>
