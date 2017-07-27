@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     }
   },
@@ -48,13 +48,14 @@ export default Ember.Controller.extend({
    */
   pagination: {
     page: 0,
+    offset: 0,
     pageSize: DEFAULT_PAGE_SIZE
   },
 
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed('resources.[]', function(){
+  showMoreResultsButton: Ember.computed('resources.[]', function() {
     return this.get('resources.length') &&
       (this.get('resources.length') % this.get('pagination.pageSize') === 0);
   }),
@@ -70,16 +71,18 @@ export default Ember.Controller.extend({
     const libraryId = this.get('libraryId');
     const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
-    pagination.pageSize = pagination.pageSize;
+    pagination.offset = pagination.page * pagination.pageSize;
 
     controller.get('libraryService')
     .fetchLibraryContent(libraryId, 'resource', pagination)
-    .then(resources => controller.get('resources').pushObjects(resources.toArray()));
+    .then(resources => controller.set('resources', controller.get('resources')
+    .concat(controller.mapOwners(resources.libraryContent.resources, resources.libraryContent.ownerDetails))));
   },
 
-  resetValues: function(){
+  resetValues: function() {
     this.set('pagination', {
       page: 0,
+      offset: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
   },
@@ -95,7 +98,7 @@ export default Ember.Controller.extend({
       ownerMap[owner.id] = owner;
     });
     let mappedResources = resources.map(function (resource) {
-      resource.owner = ownerMap[resource.ownerId];
+      resource.owner = ownerMap[resource.owner];
       return resource;
     });
     return mappedResources;

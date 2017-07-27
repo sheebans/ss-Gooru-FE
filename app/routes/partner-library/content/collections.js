@@ -34,8 +34,11 @@ export default Ember.Route.extend(ModalMixin, {
 
   model: function() {
     const libraryId = this.paramsFor('partner-library').id;
+    const pagination = {
+      pageSize: DEFAULT_PAGE_SIZE
+    };
     return this.get('libraryService').fetchLibraryContent(libraryId,
-      'collection', DEFAULT_PAGE_SIZE).then(function(collections) {
+      'collection', pagination).then(function(collections) {
         return Ember.RSVP.hash({
           libraryId,
           collections: collections.libraryContent.collections,
@@ -48,6 +51,10 @@ export default Ember.Route.extend(ModalMixin, {
     controller.set('libraryId', model.libraryId);
     controller.set('collections', controller.mapOwners(model.collections,
       model.owners));
+  },
+
+  deactivate: function() {
+    this.get('controller').resetValues();
   }
 
 });

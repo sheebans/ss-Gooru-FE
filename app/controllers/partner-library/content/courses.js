@@ -39,13 +39,14 @@ export default Ember.Controller.extend({
    */
   pagination: {
     page: 0,
+    offset: 0,
     pageSize: DEFAULT_PAGE_SIZE
   },
 
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed('courses.[]', function(){
+  showMoreResultsButton: Ember.computed('courses.[]', function() {
     return this.get('courses.length') &&
       (this.get('courses.length') % this.get('pagination.pageSize') === 0);
   }),
@@ -53,7 +54,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     }
   },
@@ -69,16 +70,18 @@ export default Ember.Controller.extend({
     const libraryId = this.get('libraryId');
     const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
-    pagination.pageSize = pagination.pageSize;
+    pagination.offset = pagination.page * pagination.pageSize;
 
     controller.get('libraryService')
     .fetchLibraryContent(libraryId, 'course', pagination)
-    .then(courses => controller.get('courses').pushObjects(courses.toArray()));
+    .then(courses => controller.set('courses', controller.get('courses')
+    .concat(controller.mapOwners(courses.libraryContent.courses, courses.libraryContent.ownerDetails))));
   },
 
-  resetValues: function(){
+  resetValues: function() {
     this.set('pagination', {
       page: 0,
+      offset: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
   },

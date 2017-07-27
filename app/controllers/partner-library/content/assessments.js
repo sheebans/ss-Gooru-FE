@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
   actions: {
 
     openContentPlayer: function(assessment) {
-      if (assessment.get('isExternalAssessment')){
+      if (assessment.get('isExternalAssessment')) {
         window.open(assessment.get('url')); //TODO url?
       }
       else{
@@ -58,13 +58,14 @@ export default Ember.Controller.extend({
    */
   pagination: {
     page: 0,
+    offset: 0,
     pageSize: DEFAULT_PAGE_SIZE
   },
 
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed('assessments.[]', function(){
+  showMoreResultsButton: Ember.computed('assessments.[]', function() {
     return this.get('assessments.length') &&
       (this.get('assessments.length') % this.get('pagination.pageSize') === 0);
   }),
@@ -80,16 +81,18 @@ export default Ember.Controller.extend({
     const libraryId = this.get('libraryId');
     const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
-    pagination.pageSize = pagination.pageSize;
+    pagination.offset = pagination.page * pagination.pageSize;
 
     controller.get('libraryService')
     .fetchLibraryContent(libraryId, 'assessment', pagination)
-    .then(assessments => controller.get('assessments').pushObjects(assessments.toArray()));
+    .then(assessments => controller.set('assessments', controller.get('assessments')
+    .concat(controller.mapOwners(assessments.libraryContent.assessments, assessments.libraryContent.ownerDetails))));
   },
 
-  resetValues: function(){
+  resetValues: function() {
     this.set('pagination', {
       page: 0,
+      offset: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
   },
