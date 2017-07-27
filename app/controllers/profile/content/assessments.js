@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
 
@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
+
     openContentPlayer: function(assessment) {
       if (assessment.get('isExternalAssessment')){
         window.open(assessment.get('url')); //TODO url?
@@ -24,10 +25,12 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @type {ProfileService} Service to retrieve content controller
    */
   contentController: Ember.inject.controller('profile.content'),
+
   /**
    * @type {ProfileService} Service to retrieve profile controller
    */
@@ -60,6 +63,7 @@ export default Ember.Controller.extend({
    * @property {ClassesModel}
    */
   myClasses: Ember.computed.alias('appController.myClasses'),
+
   /**
    * @property {string} term filter
    */
@@ -112,7 +116,7 @@ export default Ember.Controller.extend({
   }),
 
   // Methods
-  showMoreResults: function(){
+  showMoreResults: function() {
     const controller = this;
     const profile = this.get('profile');
     const pagination = this.get('pagination');
@@ -124,7 +128,7 @@ export default Ember.Controller.extend({
 
     controller.get('profileService')
       .readAssessments(profile.get('id'), pagination)
-      .then(function(assessments){
+      .then(function(assessments) {
         controller.get('assessments').pushObjects(assessments.toArray());
       });
   },

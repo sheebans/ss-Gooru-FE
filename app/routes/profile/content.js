@@ -3,6 +3,7 @@ import Bookmark from 'gooru-web/models/content/bookmark';
 import { CONTENT_TYPES, ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
+
   queryParams: {
     term: {
       refreshModel: true
@@ -17,6 +18,7 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @requires service:api-sdk/bookmark
    */
@@ -34,6 +36,7 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   setupController: function(controller) {
     controller.resetProperties();
     controller.get('parentController').selectMenuItem('content');
@@ -73,6 +76,7 @@ export default Ember.Route.extend({
   // Actions
 
   actions: {
+
     /**
      * Edit course action, when clicking Play at the course card
      * @param {Content/Course}
@@ -128,6 +132,7 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Events
+
   resetController(controller) {
     var queryParams = controller.get('queryParams');
     queryParams.forEach(function (param) {

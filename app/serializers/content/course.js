@@ -130,6 +130,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
       isVisibleOnProfile: typeof payload['visible_on_profile'] !== 'undefined' ? payload['visible_on_profile'] : true,
       owner: owner ? serializer.get("profileSerializer").normalizeReadProfile(owner): null,
+      ownerId: payload.owner_id,
       subject: payload.subject_bucket,
       taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
       thumbnailUrl: thumbnailUrl,
