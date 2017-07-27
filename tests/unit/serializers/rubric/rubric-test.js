@@ -46,13 +46,13 @@ test('serializeCreateRubricOff', function(assert) {
     grader: 'Teacher'
   });
   const response = serializer.serializeCreateRubricOff(rubricOffObject);
-  assert.equal(response.is_rubric, false, "Should be false");
-  assert.equal(response.overall_feedback_required, true, "Should be true");
-  assert.equal(response.feedback_guidance, 'any-feedback', "Wrong feedback guidance");
-  assert.equal(response.scoring, true, "Should be true");
-  assert.equal(response.max_score, 10, "Wrong max score");
-  assert.equal(response.increment, 1.25, "Wrong increment");
-  assert.equal(response.grader, 'Teacher', "Wrong grader");
+  assert.equal(response.is_rubric, false, 'Should be false');
+  assert.equal(response.overall_feedback_required, true, 'Should be true');
+  assert.equal(response.feedback_guidance, 'any-feedback', 'Wrong feedback guidance');
+  assert.equal(response.scoring, true, 'Should be true');
+  assert.equal(response.max_score, 10, 'Wrong max score');
+  assert.equal(response.increment, 1.25, 'Wrong increment');
+  assert.equal(response.grader, 'Teacher', 'Wrong grader');
 });
 
 test('serializeUpdateRubric uploaded and no feedback required', function(assert) {
@@ -331,4 +331,55 @@ test('normalizeRubric', function(assert) {
   assert.equal(rubric.get('categories.length'), 2, 'Wrong categories length');
   assert.equal(rubric.get('owner'), '852f9814-0eb4-461d-bd3b-aca9c2500595', 'Wrong owner id');
   assert.equal(rubric.get('rubricOn'), false, 'Rubric should be off');
+});
+
+test('normalizeQuestionsToGrade', function(assert) {
+  const serializer = this.subject();
+
+  const question = {
+    gradeItems: [
+      {
+        unitId: 'unit-1',
+        lessonId: 'lesson-1',
+        collectionId: 'collection-1',
+        resourceId: 'resource-1',
+        studentCount: 10
+      },
+      {
+        unitId: 'unit-2',
+        lessonId: 'lesson-2',
+        collectionId: 'collection-2',
+        resourceId: 'resource-2',
+        studentCount: 20
+      }
+    ],
+    classId: 'class-1',
+    courseId: 'course-2',
+    userId: 'user-1'
+  };
+
+  const gradeQuestion = serializer.normalizeQuestionsToGrade(question);
+  assert.equal(gradeQuestion.get('classId'), 'class-1', 'Wrong classId');
+  assert.equal(gradeQuestion.get('courseId'), 'course-2', 'Wrong courseId');
+  assert.equal(gradeQuestion.get('userId'), 'user-1', 'Wrong userId');
+  assert.equal(gradeQuestion.get('gradeItems').length, 2, 'Wrong gradeItems');
+});
+
+test('normalizeGradeQuestion', function(assert) {
+  const serializer = this.subject();
+
+  const gradeItem = {
+    unitId: 'unit-2',
+    lessonId: 'lesson-2',
+    collectionId: 'collection-2',
+    resourceId: 'resource-2',
+    studentCount: 10
+  };
+
+  const gradeQuestionItem = serializer.normalizeGradeQuestion(gradeItem);
+  assert.equal(gradeQuestionItem.get('unitId'), 'unit-2', 'Wrong unitId');
+  assert.equal(gradeQuestionItem.get('lessonId'), 'lesson-2', 'Wrong lessonId');
+  assert.equal(gradeQuestionItem.get('collectionId'), 'collection-2', 'Wrong collectionId');
+  assert.equal(gradeQuestionItem.get('resourceId'), 'resource-2', 'Wrong resourceId');
+  assert.equal(gradeQuestionItem.get('studentCount'), 10, 'Wrong studentCount');
 });
