@@ -244,3 +244,18 @@ test('getQuestionsToGrade', function(assert) {
   adapter.getQuestionsToGrade('123', '456', '789')
     .then(response => assert.deepEqual({}, response, 'Wrong response'));
 });
+
+test('getStudentsForQuestion', function(assert) {
+  const adapter = this.subject();
+  adapter.set('session', Ember.Object.create({
+    'token-api3': 'token-api-3'
+  }));
+  this.pretender.map(function() {
+    this.get('/api/nucleus-insights/v2/rubrics/questions/123/students', function() {
+      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
+    }, false);
+  });
+
+  adapter.getStudentsForQuestion('123', '456', '789', '193')
+    .then(response => assert.deepEqual({}, response, 'Wrong response'));
+});

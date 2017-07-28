@@ -216,7 +216,7 @@ test('getQuestionsToGrade', function(assert) {
 
   service.set('adapter', Ember.Object.create({
     getQuestionsToGrade: function(userId, classId, courseId) {
-      assert.equal(userId, '123', 'Wrong id');
+      assert.equal(userId, '123', 'Wrong user id');
       assert.equal(classId, '345', 'Wrong class id');
       assert.equal(courseId, '678', 'Wrong course id');
       return Ember.RSVP.resolve(true);
@@ -225,5 +225,24 @@ test('getQuestionsToGrade', function(assert) {
 
   var done = assert.async();
   service.getQuestionsToGrade('123', '345', '678')
+    .then(done);
+});
+
+test('getStudentsForQuestion', function(assert) {
+  const service = this.subject();
+  assert.expect(4);
+
+  service.set('adapter', Ember.Object.create({
+    getStudentsForQuestion: function(questionId, classId, courseId, collectionId) {
+      assert.equal(questionId, '123', 'Wrong question id');
+      assert.equal(classId, '456', 'Wrong class id');
+      assert.equal(courseId, '789', 'Wrong course id');
+      assert.equal(collectionId, '193', 'Wrong collection id');
+      return Ember.RSVP.resolve(true);
+    }
+  }));
+
+  var done = assert.async();
+  service.getStudentsForQuestion('123', '456', '789', '193')
     .then(done);
 });
