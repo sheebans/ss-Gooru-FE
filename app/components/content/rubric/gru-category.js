@@ -106,6 +106,11 @@ export default Ember.Component.extend({
   isPanelExpanded: false,
 
   /**
+   * @property {Boolean} preview
+   */
+  preview: false,
+
+  /**
    * Copy of the category used for editing.
    * @property {Category}
    */

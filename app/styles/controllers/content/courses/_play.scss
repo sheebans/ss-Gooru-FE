@@ -1,6 +1,15 @@
 .controller.content.courses.play {
 
   > article {
+    > section {
+      margin-top: 150px;
+      @media (min-width: $screen-sm) {
+        margin-top: 120px;
+      }
+      @media (min-width: $screen-md) {
+        margin-top: 100px;
+      }
+    }
     > header {
       padding: 20px 20px 8px 70px;
       position: fixed;

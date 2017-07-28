@@ -1,14 +1,12 @@
-.controller.content.questions.play {
-
+.content.rubric.preview{
   > article{
     min-width: 0;
     $content-md-width: 90%;
 
     > header {
-      padding: 0;
       width: 100%;
       margin-bottom: 20px;
-
+      padding: 0;
       @media (min-width: $screen-md) {
         padding-bottom: 0!important;
       }
@@ -68,71 +66,20 @@
 
                 i {
                   display: block;
-                  height: 36px;
-                  width: 28px;
-                  margin: 0 auto;
+                  height: 49px;
+                  width: 30px;
                   vertical-align: top;
-                  &.MC-icon {
-                    background: url("gooru/images/multiple-choice-green.svg");
-                    background-size: 50px 49px;
-                    height: 50px;
-                    width: 49px;
-                  }
-                  &.MA-icon {
-                    background: url("gooru/images/multiple-answer-green.svg");
-                    background-size: 50px 49px;
-                    height: 50px;
-                    width: 49px;
-                  }
-                  &.T_F-icon {
-                    background: url("gooru/images/true-false-green.svg");
-                    background-size: 50px 49px;
-                    height: 50px;
-                    width: 49px;
-                    vertical-align: top;
-                    margin: 5px 0 0 0;
-                  }
-                  &.FIB-icon {
-                    background: url("gooru/images/fill-in-the-blank-green.svg");
-                    background-size: 50px 49px;
-                    height: 50px;
-                    width: 49px;
-                  }
-                  &.HS_IMG-icon {
-                    background: url("gooru/images/hs-image-green.svg");
-                    background-size: 50px 49px;
-                    height: 50px;
-                    width: 49px;
-                  }
-                  &.HS_TXT-icon {
-                    background: url("gooru/images/hs-text-green.svg");
-                    background-size: 54px 53px;
-                    height: 54px;
-                    width: 53px;
-                  }
-                  &.HT_RO-icon {
-                    background: url("gooru/images/hot-text-reorder-green.svg");
-                    background-size: 50px 49px;
-                    height: 50px;
-                    width: 49px;
-                  }
-                  &.HT_HL-icon {
-                    background: url("gooru/images/hot-text-green.svg");
-                    background-size: 50px 49px;
-                    height: 50px;
-                    width: 49px;
-                  }
-                  &.OE-icon {
-                    //TODO Add the correct icon
-                    background: url("gooru/images/hot-text-green.svg");
-                    background-size: 50px 49px;
-                    height: 50px;
-                    width: 49px;
+                  &.rubric-icon {
+                    background: url("gooru/images/rubric-white.svg");
+                    -webkit-background-size: 30px 49px;
+                    background-size: 30px 49px;
+                    height: 49px;
+                    width: 30px;
                   }
                 }
 
                 span {
-                  padding-left: 27px;
+                  padding-left: 15px;
                 }
               }
 
@@ -147,6 +94,10 @@
                   border-color: $dark-300;
                   background-color: $dark-300;
                   color: $white;
+                }
+                .taxonomy.gru-taxonomy-tag-list{
+                  @include flexbox();
+                  @include align-items(flex-end)
                 }
               }
             }
@@ -195,6 +146,73 @@
       @media (min-width: $screen-md) {
         top: 63px;
         padding-bottom: 30px;
+      }
+    }
+    .preview {
+      margin: 24px;
+
+      .preview-panel {
+        h2 {
+          display: inline-block;
+          font-size: $font-size-h4;
+          padding: 0;
+          margin: 0;
+          line-height: 34px; // height of the buttons
+        }
+      }
+      h3 {
+        font-size: $font-size-large;
+      }
+      .preview-panel {
+
+        .header {
+          margin: 0 0 10px 24px;
+        }
+        .panel-body {
+          padding-top: 24px;
+          .gru-preview-url {
+            width: 96%;
+            height: 90%;
+            .preview.show-url{
+              margin: 0 24px;
+            }
+          }
+        }
+        .has-rubric {
+          height: 500px;
+        }
+      }
+      .panel {
+        border-radius: 6px;
+        margin-bottom: 18px;
+        .panel-heading {
+          border-top-right-radius: 6px;
+          border-top-left-radius: 6px;
+          background-color: $white;
+          padding-top: 10px;
+
+          h3 {
+            color:$gray;
+            display: inline-block;
+          }
+          div.border-bottom {
+            padding-bottom: 15px;
+            border-bottom: 1px solid $gray-lighter;
+            margin-bottom: 0;
+          }
+        }
+      }
+      .category-panel {
+        .panel{
+          margin-bottom: 0;
+        }
+        .gru-category {
+          padding: 5px 0;
+          margin:0;
+          .title {
+            cursor:default;
+          }
+        }
       }
     }
   }

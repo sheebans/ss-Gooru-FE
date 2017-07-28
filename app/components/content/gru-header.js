@@ -10,8 +10,17 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+    /**
+     * Select menu tab
+     */
     select: function(value) {
       this.set('selected', value);
+    },
+    /**
+     * Click button action
+     */
+    clickAction:function(action){
+      action();
     }
   },
 

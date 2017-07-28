@@ -24,7 +24,9 @@
 .controller.content.questions.play,
 .controller.content.resources.edit,
 .controller.content.resources.play,
-.controller.account-settings {
+.controller.content.resources.play,
+.controller.account-settings,
+.content.rubric.preview{
   $aside-padding: 25px;
 
   @include flexbox();
@@ -119,13 +121,6 @@
     > section {
       padding-left: 5%;
       padding-right: 5%;
-      margin-top: 150px;
-      @media (min-width: $screen-sm) {
-        margin-top: 120px;
-      }
-      @media (min-width: $screen-md) {
-        margin-top: 100px;
-      }
 
       h2 {
         display: inline-block;
@@ -362,7 +357,8 @@
 .controller.content.collections.edit,
 .controller.content.courses.edit,
 .controller.content.courses.play,
-.content.rubric {
+.content.rubric,
+.content.rubric.preview{
   #information .title > label {
     display: block;
 

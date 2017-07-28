@@ -56,6 +56,7 @@ Router.map(function() {
 
     this.route('rubric', function() {
       this.route('edit',{ path:'edit/:rubricId'});
+      this.route('preview',{ path:'preview/:rubricId'});
     });
   });
 

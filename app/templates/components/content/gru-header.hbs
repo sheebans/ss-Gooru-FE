@@ -11,9 +11,9 @@
       {{/each}}
     </nav>
 
-    <div class="actions out-of-scope">
+    <div class="actions">
       {{#each headerActions as |option|}}
-          <button class="btn btn-default btn-icon {{option.name}}" title="{{option.text}}">{{gru-icon name=option.icon}} {{option.text}}</button>
+          <button class="btn btn-default btn-icon {{option.name}}" title="{{option.text}}"{{action 'clickAction' option.action}}>{{gru-icon name=option.icon}} {{option.text}}</button>
       {{/each}}
     </div>
 </header>
