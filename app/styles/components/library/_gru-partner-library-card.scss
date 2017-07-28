@@ -35,10 +35,11 @@
       .library-info {
         color: $text-color;
         display: inline-block;
-        margin-left: 15px;
+        margin-left: 8px;
         vertical-align: top;
         width: 75%;
         .title-section {
+          padding-left: 8px;
           h3.title {
             display: inline-block;
             font-size: $font-title;
