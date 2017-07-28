@@ -81,13 +81,15 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed('resources.[]', function(){
+  showMoreResultsButton: Ember.computed('resources.[]', function() {
     return this.get('resources.length') &&
       (this.get('resources.length') % this.get('pagination.pageSize') === 0);
   }),
 
+  // -------------------------------------------------------------------------
   // Methods
-  showMoreResults: function(){
+
+  showMoreResults: function() {
     const controller = this;
     const profile = this.get('profile');
     const pagination = this.get('pagination');
@@ -104,7 +106,7 @@ export default Ember.Controller.extend({
       });
   },
 
-  resetValues: function(){
+  resetValues: function() {
     this.set('pagination', {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE

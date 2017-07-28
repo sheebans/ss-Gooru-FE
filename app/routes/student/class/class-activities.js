@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { formatDate, toUtc } from 'gooru-web/utils/utils';
 
 export default Ember.Route.extend({
 
@@ -27,8 +28,8 @@ export default Ember.Route.extend({
     const currentClass = route.modelFor('student.class').class;
     const userId = route.get('session.userId');
     const today = new Date();
-    const formattedToday = moment(today).format('YYYY-MM-DD');
-    const utcToday = moment.utc(today).format('YYYY-MM-DD');
+    const formattedToday = formatDate(today, 'YYYY-MM-DD');
+    const utcToday = toUtc(today).format('YYYY-MM-DD');
 
     return Ember.RSVP.hash({
       classActivities: route.get('classActivityService').findStudentClassActivities(

@@ -138,6 +138,18 @@ export default Ember.Service.extend({
    */
   associateRubricToQuestion: function (rubricId, questionId) {
     return this.get('adapter').associateRubricToQuestion(rubricId, questionId);
-  }
+  },
 
+  /**
+   * Returns grade question
+   * @param {string} userId
+   * @param {string} classId
+   * @param {string} courseId
+   * @returns {Promise|GradeQuestion}
+   */
+  getQuestionsToGrade: function (userId, classId, courseId) {
+    const service = this;
+    return service.get('adapter').getQuestionsToGrade(userId, classId, courseId)
+      .then(data => service.get('serializer').normalizeQuestionsToGrade(data));
+  }
 });

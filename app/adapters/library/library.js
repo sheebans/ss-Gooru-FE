@@ -34,7 +34,7 @@ export default Ember.Object.extend({
    */
   getLibraryById: function(libraryId) {
     const adapter = this;
-    const url = adapter.get('namespace') + `/${libraryId}`;
+    const url = `${adapter.get('namespace')}/${libraryId}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -45,7 +45,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      'Authorization': `Token ${this.get('session.token-api3')}`
     };
   },
 
@@ -60,7 +60,7 @@ export default Ember.Object.extend({
   fetchLibraryContent: function(libraryId, contentType, pagination = {}) {
     const adapter = this;
     const url = `${adapter.get('namespace')}/${libraryId}/contents`;
-    const offset = (!pagination.offset) ? 0 : pagination.offset;
+    const offset = pagination.offset;
     const pageSize = pagination.pageSize;
     const options = {
       type: 'GET',

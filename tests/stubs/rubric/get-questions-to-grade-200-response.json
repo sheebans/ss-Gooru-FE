@@ -1,0 +1,28 @@
+{
+  "gradeItems": [
+    {
+      "unitId": "8c256e4a-4b37-423c-82b6-82fd8a128af2",
+      "lessonId": "8c312e4a-4b37-423c-91b6-82fd8a128af2",
+      "collectionId": "9d213e4a-4b37-423c-82b6-82fd8a128ac2",
+      "resourceId": "8c256e4a-4b37-423c-82b6-82fd8a128af2",
+      "studentCount": 10
+    },
+    {
+      "unitId": "8c256e4a-4b37-423c-82b6-82fd8a128af2",
+      "lessonId": "8c312e4a-4b37-423c-91b6-82fd8a128af2",
+      "collectionId": "9d213e4a-4b37-423c-82b6-82fd8a128ac2",
+      "resourceId": "fsdate4a-4b37-423c-82b6-82fd8a128ac2",
+      "studentCount": 20
+    },
+    {
+      "unitId": "21256e4a-4b37-423c-82b6-82fd8a128aew",
+      "lessonId": "34256e4a-4b37-423c-82b6-82fd8a128w34",
+      "collectionId": "5v256e4a-4b37-423c-82b6-82fd8a128afd",
+      "resourceId": "e4256e4a-4b37-423c-82b6-82fd8a128a5r",
+      "studentCount": 35
+    }
+  ],
+  "classId": "9d256e4a-4b37-423c-82b6-82fd8a128af1",
+  "courseId": "8c256e4a-4b37-423c-82b6-82fd8a128af2",
+  "userId": "95a744e1-631e-4642-875d-8b07a5e3b421"
+}
