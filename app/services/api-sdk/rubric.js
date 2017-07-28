@@ -151,5 +151,19 @@ export default Ember.Service.extend({
     const service = this;
     return service.get('adapter').getQuestionsToGrade(userId, classId, courseId)
       .then(data => service.get('serializer').normalizeQuestionsToGrade(data));
+  },
+
+  /**
+   * Returns the list of Students for a Question to be graded
+   * @param {string} questionId
+   * @param {string} classId
+   * @param {string} courseId
+   * @param {string} collectionId
+   * @returns {Promise|GradeQuestionStudents}
+   */
+  getStudentsForQuestion: function (questionId, classId, courseId, collectionId) {
+    const service = this;
+    return service.get('adapter').getStudentsForQuestion(questionId, classId, courseId, collectionId)
+      .then(data => service.get('serializer').normalizeStudentsForQuestion(data));
   }
 });

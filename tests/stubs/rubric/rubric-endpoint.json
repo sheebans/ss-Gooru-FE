@@ -151,5 +151,23 @@
       "body": "File not found!",
       "file": "get-questions-to-grade-200-response.json"
     }
+  },
+  {
+    "description": "Get list of Students for a Question to be graded",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/questions/(.+)/students$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-question-students-to-grade-200-response.json"
+    }
   }
 ]

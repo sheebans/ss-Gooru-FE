@@ -244,6 +244,35 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Gets the list of Students for a to be graded Question
+   *
+   * @param {string} questionId
+   * @param {string} classId
+   * @param {string} courseId
+   * @param {string} collectionId
+   * @returns {Promise/Object}
+   */
+  getStudentsForQuestion: function(questionId, classId, courseId, collectionId) {
+    const adapter = this;
+    const namespace = adapter.get('gradingNamespace');
+    const url = `${namespace}/questions/${questionId}/students`;
+
+    var data = {
+      collectionId,
+      classId,
+      courseId
+    };
+
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      data,
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function () {
     return {
       'Authorization': 'Token ' + this.get('session.token-api3')

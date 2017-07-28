@@ -383,3 +383,21 @@ test('normalizeGradeQuestion', function(assert) {
   assert.equal(gradeQuestionItem.get('resourceId'), 'resource-2', 'Wrong resourceId');
   assert.equal(gradeQuestionItem.get('studentCount'), 10, 'Wrong studentCount');
 });
+
+test('normalizeStudentsForQuestion', function(assert) {
+  const serializer = this.subject();
+
+  const students = {
+    students: [
+      "student-1",
+      "student-2",
+      "student-3"]
+  };
+
+  const gradeQuestionStudents = serializer.normalizeStudentsForQuestion(students);
+  assert.equal(gradeQuestionStudents.get('students').length, 3, 'Wrong studentCount');
+  assert.equal(gradeQuestionStudents.get('students')[0], 'student-1', 'Wrong student id');
+  assert.equal(gradeQuestionStudents.get('students')[1], 'student-2', 'Wrong student id');
+  assert.equal(gradeQuestionStudents.get('students')[2], 'student-3', 'Wrong student id');
+
+});
