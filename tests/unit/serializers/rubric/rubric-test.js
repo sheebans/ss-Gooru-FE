@@ -389,9 +389,9 @@ test('normalizeStudentsForQuestion', function(assert) {
 
   const students = {
     students: [
-      "student-1",
-      "student-2",
-      "student-3"]
+      'student-1',
+      'student-2',
+      'student-3']
   };
 
   const gradeQuestionStudents = serializer.normalizeStudentsForQuestion(students);
