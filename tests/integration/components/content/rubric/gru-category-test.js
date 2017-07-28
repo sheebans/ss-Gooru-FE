@@ -19,13 +19,13 @@ test('Category collapsed', function(assert) {
   this.render(hbs`{{content/rubric/gru-category category=category index=1}}`);
   const $component = this.$();
 
-  assert.ok($component.find('.category-index'), 'Missing category index');
-  assert.ok($component.find('.required'), 'Missing Category Title Label');
-  assert.ok($component.find('a.title h2'), 'Missing title');
-  assert.ok($component.find('.actions .item-actions.border'), 'Missing category actions');
-  assert.ok($component.find('.actions .item-actions.border .delete'), 'Missing delete category button');
-  assert.ok($component.find('.actions .item-actions.border .edit'), 'Missing edit category button');
-  assert.ok($component.find('.actions .item-actions.border .copy'), 'Missing copy category button');
+  assert.ok($component.find('.category-index').length, 'Missing category index');
+  assert.ok($component.find('.required').length, 'Missing Category Title Label');
+  assert.ok($component.find('a.title h2').length, 'Missing title');
+  assert.ok($component.find('.actions .item-actions.border').length, 'Missing category actions');
+  assert.ok($component.find('.actions .item-actions.border .delete').length, 'Missing delete category button');
+  assert.ok($component.find('.actions .item-actions.border .edit').length, 'Missing edit category button');
+  assert.ok($component.find('.actions .item-actions.border .copy').length, 'Missing copy category button');
 });
 test('Category expanded', function(assert) {
 
@@ -40,11 +40,11 @@ test('Category expanded', function(assert) {
   this.render(hbs`{{content/rubric/gru-category category=category index=1 isEditingInline=isEditingInline isPanelExpanded=isPanelExpanded}}`);
   const $component = this.$();
 
-  assert.ok($component.find('.actions .item-actions'), 'Missing category actions');
-  assert.ok($component.find('.actions .item-actions .cancel'), 'Missing cancel category button');
-  assert.ok($component.find('.actions .item-actions .save'), 'Missing save category button');
-  assert.ok($component.find('.actions .panel-body .feedback label'), 'Missing category feedback');
-  assert.ok($component.find('.actions .panel-body .required-feedback'), 'Missing requires feedback checkbox');
+  assert.ok($component.find('.actions .item-actions').length, 'Missing category actions');
+  assert.ok($component.find('.actions .item-actions .cancel').length, 'Missing cancel category button');
+  assert.ok($component.find('.actions .item-actions .save').length, 'Missing save category button');
+  assert.notOk($component.find('.actions .panel-body .feedback label').length, 'Missing category feedback');
+  assert.notOk($component.find('.actions .panel-body .required-feedback').length, 'Missing requires feedback checkbox');
 });
 test('Delete Category', function(assert) {
   assert.expect(1);
@@ -272,4 +272,25 @@ test('Validate the character limit in the category title field', function (asser
     const maxLenValue = $component.find('.gru-category .edit-title .input .gru-input input').prop('maxlength');
     assert.equal(maxLenValue, 50, 'Incorrect input max length');
   });
+});
+
+test('Category on preview', function(assert) {
+
+  let category = Category.create(Ember.getOwner(this).ownerInjection(),{
+    title : 'Category Title'
+  });
+
+  this.set('category', category);
+  this.set('preview', true);
+
+  this.render(hbs`{{content/rubric/gru-category category=category index=1 preview=preview}}`);
+  const $component = this.$();
+
+  assert.ok($component.find('.category-index').length, 'Missing category index');
+  assert.ok($component.find('.required').length, 'Missing Category Title Label');
+  assert.ok($component.find('a.title h2').length, 'Missing title');
+  assert.notOk($component.find('.actions .item-actions.border').length, 'Category actions should not appear');
+  assert.notOk($component.find('.actions .item-actions.border .delete').length, 'Delete category button should not appear');
+  assert.notOk($component.find('.actions .item-actions.border .edit').length, 'Edit category button should not appear');
+  assert.notOk($component.find('.actions .item-actions.border .copy').length, 'Copy category button should not appear');
 });

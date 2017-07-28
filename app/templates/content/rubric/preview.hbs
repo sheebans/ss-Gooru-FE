@@ -20,7 +20,7 @@
           </div>
           <div class="publisher">
             {{#if rubric.owner}}
-              <span>
+              <span class="created-by">
                 {{t "common.created-by"}}
               </span>
               <img class="img-responsive" src="{{rubric.owner.avatarUrl}}">
@@ -33,10 +33,18 @@
       </div>
     </header>
     <div class="preview">
-      <div class="panel panel-default">
+      <div class="panel preview-panel panel-default">
         <div class="panel-body">
-          <h2>{{t "common.rubric"}}</h2>
+          <div class="header">
+            <h2>{{t "common.rubric"}}</h2>
+          </div>
+          {{content.rubric.gru-preview-url resource=resource}}
         </div>
+      </div>
+      <div class="category-panel">
+        {{#each rubric.categories as |category index|}}
+          {{content.rubric.gru-category category=category index=index preview=true}}
+        {{/each}}
       </div>
     </div>
   </article>
