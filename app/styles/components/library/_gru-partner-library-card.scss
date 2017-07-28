@@ -16,7 +16,10 @@
   }
   .panel {
     border-radius: 6px;
+    min-height: 200px;
     .panel-heading {
+      @include flexbox;
+      @include flex-direction(row);
       background-color: $white;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
@@ -32,10 +35,11 @@
       .library-info {
         color: $text-color;
         display: inline-block;
-        margin-left: 15px;
+        margin-left: 8px;
         vertical-align: top;
         width: 75%;
         .title-section {
+          padding-left: 8px;
           h3.title {
             display: inline-block;
             font-size: $font-title;
@@ -56,9 +60,9 @@
           .item{
             height: 19px;
             margin: 6px 0 0;
-            min-width: 33%;
+            min-width: 50%;
             padding: 0 8px;
-            &:nth-child(2), &:nth-child(3), &:nth-child(5), &:nth-child(6){
+            &:nth-child(2), &:nth-child(4), &:nth-child(6) {
               border-left: 2px solid $gray-dark;
             }
           }
