@@ -169,7 +169,6 @@
           margin: 0 0 10px 24px;
         }
         .panel-body {
-          height: 500px;
           padding-top: 24px;
           .gru-preview-url {
             width: 96%;
@@ -178,6 +177,9 @@
               margin: 0 24px;
             }
           }
+        }
+        .has-rubric {
+          height: 500px;
         }
       }
       .panel {

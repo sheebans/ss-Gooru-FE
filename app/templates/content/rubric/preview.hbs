@@ -34,11 +34,13 @@
     </header>
     <div class="preview">
       <div class="panel preview-panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body {{if resource.url 'has-rubric'}}">
           <div class="header">
             <h2>{{t "common.rubric"}}</h2>
           </div>
-          {{content.rubric.gru-preview-url resource=resource}}
+          {{#if resource.url}}
+            {{content.rubric.gru-preview-url resource=resource}}
+          {{/if}}
         </div>
       </div>
       <div class="category-panel">
