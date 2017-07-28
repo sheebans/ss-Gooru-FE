@@ -40,19 +40,6 @@ export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Events
 
-  init() {
-    let component = this;
-    component._super(...arguments);
-    let classStudentCount = component.get('classStudentCount');
-    let classRoomList =  component.get('classroomList');
-    if (classRoomList) {
-      classRoomList.forEach(function(classroom){
-        let studentCount = component.studentCount(classStudentCount,classroom);
-        classroom.set('studentCount',studentCount);
-      });
-    }
-  },
-
   // -------------------------------------------------------------------------
   // Actions
 
@@ -72,11 +59,14 @@ export default Ember.Component.extend(ModalMixin,{
     addToClassroom: function(){
       const component = this;
 
+      component.addStudentCountToClasses();
+
       let model = Ember.Object.create({
         classroomList:this.get('classroomList'),
         classActivity:!this.get('isCourse'),
         content:this.get('content')
       });
+
       if (this.get('isCourse')){
         model.set('callback',{
           success:function(){
@@ -290,6 +280,7 @@ export default Ember.Component.extend(ModalMixin,{
       return TaxonomyTag.getTaxonomyTags(this.get('content.taxonomy'));
     }
   }),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -338,6 +329,22 @@ export default Ember.Component.extend(ModalMixin,{
       model.set('content.children', collection.children);
     });
   },
+
+  /**
+   * Add student count to classes
+   */
+  addStudentCountToClasses: function() {
+    let component=this;
+    let classStudentCount = component.get('classStudentCount');
+    let classRoomList = component.get('classroomList');
+    if (classRoomList) {
+      classRoomList.forEach(function (classroom) {
+        let studentCount = component.studentCount(classStudentCount, classroom);
+        classroom.set('studentCount', studentCount);
+      });
+    }
+  },
+
   /**
    * @property {Number} Count of students in the class
    */

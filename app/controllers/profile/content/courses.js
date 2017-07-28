@@ -50,6 +50,13 @@ export default Ember.Controller.extend({
   sessionProfile: Ember.computed.alias('appController.profile'),
 
   /**
+   * A link to the parent application controller
+   * @see controllers/application.js
+   * @property {ClassesModel}
+   */
+  myClasses: Ember.computed.alias('appController.myClasses'),
+
+  /**
    * @property {*}
    */
   pagination: {
