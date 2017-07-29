@@ -64,17 +64,17 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
         classId: controller.get('classId')
       };
       const navigateMapService = this.get('navigateMapService');
-      navigateMapService.getStoredNext()
+      navigateMapService
+        .getStoredNext()
         .then(mapLocation => navigateMapService.next(mapLocation.context))
         .then(mapLocation => {
           let status = (mapLocation.get('context.status') || '').toLowerCase();
-          if(status === 'done') {
+          if (status === 'done') {
             controller.set('isDone', true);
           } else {
-            this.transitionTo('study-player',
-              controller.get('course.id'),
-              { queryParams }
-            );
+            this.transitionTo('study-player', controller.get('course.id'), {
+              queryParams
+            });
           }
         });
     }
@@ -102,39 +102,49 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
       params.partnerId = this.get('session.partnerId');
       params.tenantId = this.get('session.tenantId');
 
-      return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
-        course: route.get('courseService').fetchById(courseId),
-        unit: route.get('unitService').fetchById(courseId, unitId),
-        lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
-        collection: this.loadCollection(collectionId, collectionType)
-      }).then(hash => {
-        // Set the correct unit sequence number
-        hash.course.children.find((child, index) => {
-          let found = false;
-          if (child.get('id') === hash.unit.get('id')) {
-            found = true;
-            hash.unit.set('sequence', index + 1);
-          }
-          return found;
-        });
+      return Ember.RSVP
+        .hash({
+          //loading breadcrumb information and navigation info
+          course: route.get('courseService').fetchById(courseId),
+          unit: route.get('unitService').fetchById(courseId, unitId),
+          lesson: route
+            .get('lessonService')
+            .fetchById(courseId, unitId, lessonId),
+          collection: this.loadCollection(collectionId, collectionType)
+        })
+        .then(hash => {
+          // Set the correct unit sequence number
+          hash.course.children.find((child, index) => {
+            let found = false;
+            if (child.get('id') === hash.unit.get('id')) {
+              found = true;
+              hash.unit.set('sequence', index + 1);
+            }
+            return found;
+          });
 
-        // Set the correct lesson sequence number
-        hash.unit.children.find((child, index) => {
-          let found = false;
-          if (child.get('id') === hash.lesson.get('id')) {
-            found = true;
-            hash.lesson.set('sequence', index + 1);
-          }
-          return found;
-        });
+          // Set the correct lesson sequence number
+          hash.unit.children.find((child, index) => {
+            let found = false;
+            if (child.get('id') === hash.lesson.get('id')) {
+              found = true;
+              hash.lesson.set('sequence', index + 1);
+            }
+            return found;
+          });
 
-        let { course, unit, lesson, collection } = hash;
-        return this.quizzesModel(params).then(
-          quizzesModel => Object.assign(quizzesModel, {
-            course, unit, lesson, collection, classId, collectionUrl
-          })
-        );
-      });
+          let { course, unit, lesson, collection } = hash;
+          return this.quizzesModel(params).then(quizzesModel =>
+            Object.assign(quizzesModel, {
+              course,
+              unit,
+              lesson,
+              collection,
+              classId,
+              collectionUrl
+            })
+          );
+        });
     });
   },
 
@@ -151,7 +161,8 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
   },
 
   getMapLocation() {
-    return this.get('navigateMapService').getStoredNext()
+    return this.get('navigateMapService')
+      .getStoredNext()
       .then(mapLocation => mapLocation.get('context'));
   },
 
@@ -162,12 +173,26 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
     const loadAssessment = !type || isAssessment;
     const loadCollection = !type || isCollection;
 
-    return Ember.RSVP.hashSettled({
-      assessment: loadAssessment ? route.get('assessmentService').readAssessment(collectionId) : false,
-      collection: loadCollection ? route.get('collectionService').readCollection(collectionId) : false
-    }).then(function (hash) {
-      let collectionFound = (hash.assessment.state === 'rejected') || (hash.assessment.value === false);
-      return collectionFound ? (hash.collection.value ? hash.collection.value.toPlayerCollection() : undefined) : (hash.assessment.value ? hash.assessment.value.toPlayerCollection() : undefined);
-    });
+    return Ember.RSVP
+      .hashSettled({
+        assessment: loadAssessment
+          ? route.get('assessmentService').readAssessment(collectionId)
+          : false,
+        collection: loadCollection
+          ? route.get('collectionService').readCollection(collectionId)
+          : false
+      })
+      .then(function(hash) {
+        let collectionFound =
+          hash.assessment.state === 'rejected' ||
+          hash.assessment.value === false;
+        return collectionFound
+          ? hash.collection.value
+            ? hash.collection.value.toPlayerCollection()
+            : undefined
+          : hash.assessment.value
+            ? hash.assessment.value.toPlayerCollection()
+            : undefined;
+      });
   }
 });

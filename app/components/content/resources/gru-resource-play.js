@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   /**
    * @requires service:api-sdk/resource
    */
-  resourceService: Ember.inject.service("api-sdk/resource"),
+  resourceService: Ember.inject.service('api-sdk/resource'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -19,7 +19,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:  {
+  actions: {
     /**
      * Performs a back action in the browser history
      */
@@ -46,8 +46,8 @@ export default Ember.Component.extend({
   /**
    * @property {Resource}
    */
-  playerResource: Ember.computed("resource", function(){
-    return this.get("resource").toPlayerResource();
+  playerResource: Ember.computed('resource', function() {
+    return this.get('resource').toPlayerResource();
   }),
 
   /* Calculated height designated for the content area of a resource
@@ -67,9 +67,9 @@ export default Ember.Component.extend({
    * Indicates if the current resource type is resource
    * @property {boolean}
    */
-  isNotIframeUrl: Ember.computed("resource", function(){
-    const resource = this.get("resource");
-    return (resource && resource.displayGuide);
+  isNotIframeUrl: Ember.computed('resource', function() {
+    const resource = this.get('resource');
+    return resource && resource.displayGuide;
   }),
 
   // -------------------------------------------------------------------------
@@ -85,13 +85,13 @@ export default Ember.Component.extend({
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   tags: Ember.computed('resource.standards.[]', function() {
-    return TaxonomyTag.getTaxonomyTags(this.get("resource.standards"), false);
+    return TaxonomyTag.getTaxonomyTags(this.get('resource.standards'), false);
   }),
 
   /**
    * @property {Boolean} Whether or not the currently logged in user is the creator/owner of the resource
    */
-  isCreator: Ember.computed('resource.owner', function(){
+  isCreator: Ember.computed('resource.owner', function() {
     return this.get('resource.owner.id') === this.get('session.userId');
   }),
 
@@ -99,10 +99,9 @@ export default Ember.Component.extend({
    * Show the publisher if the resource has publisher and is publish
    * @property {boolean}
    */
-  showPublisher:Ember.computed('resource', function(){
+  showPublisher: Ember.computed('resource', function() {
     return this.get('resource').isPublished && this.get('resource').publisher;
   }),
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -111,10 +110,11 @@ export default Ember.Component.extend({
    * of the narration -if there is one)
    */
   calculateResourceContentHeight: function() {
-    if (this.get('resource.isUrlResource') ||
-      this.get("resource.isPDFResource") ||
-      this.get("resource.isImageResource")){
-
+    if (
+      this.get('resource.isUrlResource') ||
+      this.get('resource.isPDFResource') ||
+      this.get('resource.isImageResource')
+    ) {
       let $component = this.$();
       let $windowHeight = $(window).outerHeight(true);
       let $mainHeaderHeight = $('.gru-header').outerHeight(true);
@@ -122,7 +122,10 @@ export default Ember.Component.extend({
 
       // The 7 pixels subtracted are to make sure no scroll bar will appear for the content
       // (Users should rely on the iframe scroll bar instead)
-      this.set('calculatedResourceContentHeight', $windowHeight - $mainHeaderHeight - $componentHeaderHeight - 7);
+      this.set(
+        'calculatedResourceContentHeight',
+        $windowHeight - $mainHeaderHeight - $componentHeaderHeight - 7
+      );
     }
   }
 });

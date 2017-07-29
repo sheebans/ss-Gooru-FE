@@ -16,11 +16,9 @@ const Validations = buildValidations({
 /**
  * @typedef {Object} Standard
  */
-export default Ember.Object.extend(Validations,{
-
+export default Ember.Object.extend(Validations, {
   /**
    * @property {string} Search term for collection searcher
    */
   term: ''
-
 });

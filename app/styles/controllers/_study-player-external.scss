@@ -1,6 +1,6 @@
-.study-player-external{
-  .player-container{
-    .gru-take-tour{
+.study-player-external {
+  .player-container {
+    .gru-take-tour {
       top: 60px;
       z-index: 1100;
     }
@@ -23,7 +23,7 @@
         p.description {
           line-height: $font-size-base;
         }
-        p.title{
+        p.title {
           font-size: $font-size-large;
           font-weight: 300;
           margin: 0 0 7px 0;
@@ -32,7 +32,7 @@
           text-align: center;
           background-color: $white;
         }
-        .panel-body{
+        .panel-body {
           display: flex;
           justify-content: center;
           $line-height: 1.2;
@@ -41,29 +41,29 @@
           padding-bottom: 0;
 
           .cards.gru-resource-card {
-            margin:0 auto;
+            margin: 0 auto;
             .panel-heading {
               @include flexbox;
               @include align-items(center);
             }
-            .panel-body{
+            .panel-body {
               padding: 12px 15px 0 15px;
               display: block;
 
-              .publisher{
-                a{
-                  color:$blue-400;
+              .publisher {
+                a {
+                  color: $blue-400;
                 }
               }
             }
-            .panel-footer{
-              margin:0;
+            .panel-footer {
+              margin: 0;
               text-align: left;
             }
           }
         }
       }
-      .btn-next{
+      .btn-next {
         @include align-self(baseline);
       }
     }

@@ -13,22 +13,19 @@ import GruHSTextComponent from './gru-hs-text';
  * @augments components/player/questions/gru-hs-text.js
  */
 export default GruHSTextComponent.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
-  classNames:['gru-hs-image'],
+  classNames: ['gru-hs-image'],
 
   // -------------------------------------------------------------------------
   // Actions
 
-
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -37,8 +34,9 @@ export default GruHSTextComponent.extend({
    * @prop {String} instructions - Question instructions
    */
   instructions: Ember.computed(function() {
-    var action = this.get('i18n').t(this.get('instructionsActionTextKey')).string;
-    return this.get('i18n').t('gru-hs-image.instructions', {action});
+    var action = this.get('i18n').t(this.get('instructionsActionTextKey'))
+      .string;
+    return this.get('i18n').t('gru-hs-image.instructions', { action });
   }),
 
   /*
@@ -53,12 +51,9 @@ export default GruHSTextComponent.extend({
     };
   })
 
-
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 });

@@ -1,10 +1,14 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 import Bookmark from 'gooru-web/models/content/bookmark';
-import { DEFAULT_PAGE_SIZE, ROLES, PLAYER_EVENT_SOURCE, CONTENT_TYPES } from 'gooru-web/config/config';
+import {
+  DEFAULT_PAGE_SIZE,
+  ROLES,
+  PLAYER_EVENT_SOURCE,
+  CONTENT_TYPES
+} from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -22,7 +26,6 @@ export default Ember.Route.extend(ModalMixin, {
   // Actions
 
   actions: {
-
     /**
      * Edit course action, when clicking Play at the assessment card
      * @param {Content}
@@ -46,13 +49,12 @@ export default Ember.Route.extend(ModalMixin, {
      * On card remix assessment button click
      * @param {Assessment} assessment
      */
-    remixAssessment: function (assessment) {
+    remixAssessment: function(assessment) {
       var remixModel = {
         content: assessment
       };
       this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -71,24 +73,26 @@ export default Ember.Route.extend(ModalMixin, {
     const pagination = {
       pageSize: DEFAULT_PAGE_SIZE
     };
-    return this.get('libraryService').fetchLibraryContent(libraryId,
-      'assessment', pagination).then(function(assessments) {
+    return this.get('libraryService')
+      .fetchLibraryContent(libraryId, 'assessment', pagination)
+      .then(function(assessments) {
         return Ember.RSVP.hash({
           libraryId,
           assessments: assessments.libraryContent.assessments,
           owners: assessments.libraryContent.ownerDetails
         });
-    });
+      });
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('libraryId', model.libraryId);
-    controller.set('assessments', controller.mapOwners(model.assessments,
-      model.owners));
+    controller.set(
+      'assessments',
+      controller.mapOwners(model.assessments, model.owners)
+    );
   },
 
   deactivate: function() {
     this.get('controller').resetValues();
   }
-
 });

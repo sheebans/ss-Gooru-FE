@@ -2,16 +2,13 @@ import Ember from 'ember';
 import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -82,8 +79,10 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showMoreResultsButton: Ember.computed('resources.[]', function() {
-    return this.get('resources.length') &&
-      (this.get('resources.length') % this.get('pagination.pageSize') === 0);
+    return (
+      this.get('resources.length') &&
+      this.get('resources.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
   // -------------------------------------------------------------------------
@@ -99,9 +98,10 @@ export default Ember.Controller.extend({
     pagination.sortOn = this.get('sortOn');
     pagination.order = this.get('order');
 
-    controller.get('profileService')
+    controller
+      .get('profileService')
       .readResources(profile.get('id'), pagination)
-      .then(function(resources){
+      .then(function(resources) {
         controller.get('resources').pushObjects(resources.toArray());
       });
   },
@@ -112,5 +112,4 @@ export default Ember.Controller.extend({
       pageSize: DEFAULT_PAGE_SIZE
     });
   }
-
 });

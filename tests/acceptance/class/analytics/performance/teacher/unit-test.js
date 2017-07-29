@@ -17,7 +17,6 @@ moduleForAcceptance('Acceptance | class/analytics/performance/teacher/unit', {
 });
 
 test('Layout', function(assert) {
-
   // TODO Remove this assert and enable the commented code once integration is complete
   assert.ok(true, 'This is a temporal assert!!');
 
@@ -44,9 +43,7 @@ test('Layout', function(assert) {
   */
 });
 
-
 test('Navigate to lesson', function(assert) {
-
   // TODO Remove this assert and enable the commented code once integration is complete
   assert.ok(true, 'This is a temporal assert!!');
 
@@ -71,7 +68,6 @@ test('Navigate to lesson', function(assert) {
 });
 
 test('Test data picker options selected', function(assert) {
-
   // TODO Remove this assert and enable the commented code once integration is complete
   assert.ok(true, 'This is a temporal assert!!');
 

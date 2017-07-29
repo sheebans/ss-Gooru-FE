@@ -2,15 +2,15 @@ import Ember from 'ember';
 import SessionMixin from 'gooru-web/mixins/session';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
-export default Ember.Component.extend(SessionMixin,{
+export default Ember.Component.extend(SessionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-preview-course'],
+  classNames: ['gru-preview-course'],
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     /**
      * Action triggered to remix the course
      * @param content
@@ -43,9 +43,9 @@ export default Ember.Component.extend(SessionMixin,{
   init() {
     var component = this;
     component._super(...arguments);
-    component.set('course',component.get('model.content'));
-    component.set('isTeacher',component.get('model.isTeacher'));
-    component.set('isStudent',component.get('model.isStudent'));
+    component.set('course', component.get('model.content'));
+    component.set('isTeacher', component.get('model.isTeacher'));
+    component.set('isStudent', component.get('model.isStudent'));
   },
 
   // -------------------------------------------------------------------------
@@ -72,5 +72,4 @@ export default Ember.Component.extend(SessionMixin,{
    * @property {boolean}
    */
   isStudent: null
-
 });

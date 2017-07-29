@@ -10,7 +10,6 @@ import { ASSESSMENT_SUB_TYPES, ROLES } from 'gooru-web/config/config';
  */
 
 export default StudentCollection.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -30,14 +29,14 @@ export default StudentCollection.extend({
     /**
      * Action triggered for the next button
      */
-    next: function () {
+    next: function() {
       this.playNextContent();
     },
 
     /**
      * Action triggered when the performance information panel is expanded/collapsed
      */
-    toggleHeader: function (toggleState) {
+    toggleHeader: function(toggleState) {
       this.set('toggleState', toggleState);
     },
 
@@ -138,41 +137,66 @@ export default StudentCollection.extend({
   /**
    * @property {boolean}
    */
-  hasPreTestSuggestions: Ember.computed.alias('mapLocation.hasPreTestSuggestions'),
+  hasPreTestSuggestions: Ember.computed.alias(
+    'mapLocation.hasPreTestSuggestions'
+  ),
 
   /**
    * @property {boolean}
    */
-  hasPostTestSuggestions: Ember.computed.alias('mapLocation.hasPostTestSuggestions'),
+  hasPostTestSuggestions: Ember.computed.alias(
+    'mapLocation.hasPostTestSuggestions'
+  ),
 
   /**
    * @property {boolean}
    */
-  hasBackFillSuggestions: Ember.computed.alias('mapLocation.hasBackFillSuggestions'),
+  hasBackFillSuggestions: Ember.computed.alias(
+    'mapLocation.hasBackFillSuggestions'
+  ),
 
   /**
    * @property {boolean}
    */
-  hasResourceSuggestions: Ember.computed.alias('mapLocation.hasResourceSuggestions'),
+  hasResourceSuggestions: Ember.computed.alias(
+    'mapLocation.hasResourceSuggestions'
+  ),
 
   /**
    * @property {boolean}
    */
   isDone: Ember.computed('mapLocation.context.status', function() {
-    return (this.get('mapLocation.context.status') || '').toLowerCase() === 'done';
+    return (
+      (this.get('mapLocation.context.status') || '').toLowerCase() === 'done'
+    );
   }),
 
   /**
    * @property {boolean}
    */
-  hasAnySuggestion: Ember.computed('hasBackFillSuggestions', 'hasPostTestSuggestions', 'hasResourceSuggestions', 'hasBenchmarkSuggestions', 'showSuggestion', function() {
-    return (this.get('hasBackFillSuggestions') || this.get('hasPostTestSuggestions') || this.get('hasResourceSuggestions') || this.get('hasBenchmarkSuggestions')) && this.get('showSuggestion');
-  }),
+  hasAnySuggestion: Ember.computed(
+    'hasBackFillSuggestions',
+    'hasPostTestSuggestions',
+    'hasResourceSuggestions',
+    'hasBenchmarkSuggestions',
+    'showSuggestion',
+    function() {
+      return (
+        (this.get('hasBackFillSuggestions') ||
+          this.get('hasPostTestSuggestions') ||
+          this.get('hasResourceSuggestions') ||
+          this.get('hasBenchmarkSuggestions')) &&
+        this.get('showSuggestion')
+      );
+    }
+  ),
 
   /**
    * @property {boolean}
    */
-  hasBenchmarkSuggestions: Ember.computed.alias('mapLocation.hasBenchmarkSuggestions'),
+  hasBenchmarkSuggestions: Ember.computed.alias(
+    'mapLocation.hasBenchmarkSuggestions'
+  ),
 
   /**
    * Shows the breadcrumbs info of the collection
@@ -185,7 +209,7 @@ export default StudentCollection.extend({
     let lessonChildren = lesson.children;
     let titles = Ember.A([]);
 
-    let isChild = lessonChildren.findBy("id", collection.id);
+    let isChild = lessonChildren.findBy('id', collection.id);
 
     if (unit) {
       titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
@@ -195,7 +219,9 @@ export default StudentCollection.extend({
     }
     if (collection && isChild) {
       if (collection.isCollection) {
-        let collections = lessonChildren.filter(collection => collection.format === 'collection');
+        let collections = lessonChildren.filter(
+          collection => collection.format === 'collection'
+        );
         collections.forEach((child, index) => {
           if (child.id === collection.id) {
             let collectionSequence = index + 1;
@@ -203,7 +229,9 @@ export default StudentCollection.extend({
           }
         });
       } else {
-        let assessments = lessonChildren.filter(assessment => assessment.format === 'assessment');
+        let assessments = lessonChildren.filter(
+          assessment => assessment.format === 'assessment'
+        );
         assessments.forEach((child, index) => {
           if (child.id === collection.id) {
             let assessmentSequence = index + 1;
@@ -230,7 +258,8 @@ export default StudentCollection.extend({
       source: this.get('source')
     };
     if (suggestion && suggestion.get('isResource')) {
-      this.transitionToRoute('resource-player',
+      this.transitionToRoute(
+        'resource-player',
         context.get('classId'),
         context.get('courseId'),
         suggestion.get('id'),
@@ -241,24 +270,26 @@ export default StudentCollection.extend({
       if (classId) {
         queryParams.classId = classId;
       }
-      this.transitionToRoute('study-player',
-        context.get('courseId'),
-        { queryParams }
-      );
+      this.transitionToRoute('study-player', context.get('courseId'), {
+        queryParams
+      });
     }
   },
 
   playNextContent: function() {
     const navigateMapService = this.get('navigateMapService');
     const context = this.get('mapLocation.context');
-    navigateMapService.getStoredNext()
-      .then(mapLocation =>
-        mapLocation.get('hasContent') || this.get('hasPreTestSuggestions') ?
-          Ember.RSVP.resolve(mapLocation) : navigateMapService.next(context)
+    navigateMapService
+      .getStoredNext()
+      .then(
+        mapLocation =>
+          mapLocation.get('hasContent') || this.get('hasPreTestSuggestions')
+            ? Ember.RSVP.resolve(mapLocation)
+            : navigateMapService.next(context)
       )
-      .then((mapLocation) => {
+      .then(mapLocation => {
         let status = (mapLocation.get('context.status') || '').toLowerCase();
-        if(status === 'done') {
+        if (status === 'done') {
           this.setProperties({
             isDone: true,
             hasAnySuggestion: false
@@ -272,11 +303,17 @@ export default StudentCollection.extend({
   playSuggestedContent: function(suggestion) {
     const navigateMapService = this.get('navigateMapService');
     const courseMapService = this.get('courseMapService');
-    navigateMapService.getStoredNext()
-      .then(mapLocation => Ember.RSVP.hash({
-        context: mapLocation.get('context'),
-        pathId: courseMapService.createNewPath(mapLocation.get('context'), suggestion)
-      }))
+    navigateMapService
+      .getStoredNext()
+      .then(mapLocation =>
+        Ember.RSVP.hash({
+          context: mapLocation.get('context'),
+          pathId: courseMapService.createNewPath(
+            mapLocation.get('context'),
+            suggestion
+          )
+        })
+      )
       .then(({ context }) => navigateMapService.next(context))
       .then(() => this.toPlayer(suggestion));
   },
@@ -298,5 +335,4 @@ export default StudentCollection.extend({
       type: null
     });
   }
-
 });

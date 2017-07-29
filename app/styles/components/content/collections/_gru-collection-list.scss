@@ -1,5 +1,4 @@
 .content.collections.gru-collection-list {
-
   > .header {
     margin-bottom: 15px !important;
   }
@@ -42,8 +41,8 @@
             }
           }
 
-          .add-image{
-            margin-top:20px;
+          .add-image {
+            margin-top: 20px;
           }
 
           .content.gru-image {
@@ -105,7 +104,6 @@
 
       .title,
       .edit-title {
-
         > i {
           display: inline-block;
           position: relative;
@@ -292,11 +290,11 @@
           }
         }
       }
-      .drag-icon{
-        i{
+      .drag-icon {
+        i {
           vertical-align: super;
         }
-        color:$light-500;
+        color: $light-500;
       }
     }
 
@@ -319,7 +317,7 @@
         margin-bottom: 5px;
         white-space: nowrap;
 
-        @media(min-width: $screen-md) {
+        @media (min-width: $screen-md) {
           display: inline-block;
         }
       }
@@ -341,15 +339,17 @@
       }
     }
   }
-  .drag-options{
+  .drag-options {
     display: inline-block;
-      button{
-        font-size: 12px;
-        padding-top: 8px;
-        padding-bottom:8px;
-      }
+    button {
+      font-size: 12px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
   }
-  .sortable.sorting > li { cursor: move; }
+  .sortable.sorting > li {
+    cursor: move;
+  }
 
   .ui-sortable-helper {
     padding-top: 0;

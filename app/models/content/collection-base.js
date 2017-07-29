@@ -13,9 +13,7 @@ import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
  * @see Assessment
  */
 export default (function() {
-
   return {
-
     /**
      * @property {string}
      */
@@ -183,8 +181,11 @@ export default (function() {
      * When the owner and the creator are the same
      * @property {boolean}
      */
-    sameOwnerAndCreator: Ember.computed('owner.id', 'creator.id', function(){
-      return !this.get('creator.id') || this.get('owner.id') === this.get('creator.id');
+    sameOwnerAndCreator: Ember.computed('owner.id', 'creator.id', function() {
+      return (
+        !this.get('creator.id') ||
+        this.get('owner.id') === this.get('creator.id')
+      );
     }),
 
     /**
@@ -213,8 +214,7 @@ export default (function() {
      * @function
      * @return {Collection|Assessment}
      */
-    copy: function () {
-
+    copy: function() {
       var properties = [];
       var enumerableKeys = Object.keys(this);
 
@@ -242,7 +242,10 @@ export default (function() {
 
       properties.children = this.get('children');
 
-      return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+      return this.get('constructor').create(
+        Ember.getOwner(this).ownerInjection(),
+        properties
+      );
     },
 
     /**
@@ -258,7 +261,7 @@ export default (function() {
       this.setProperties(properties);
     },
 
-    toPlayerCollection: function(){
+    toPlayerCollection: function() {
       const model = this;
       return PlayerCollection.create({
         id: model.get('id'),
@@ -281,7 +284,7 @@ export default (function() {
         hasTeam: null, //TODO missing
         visibility: null, //TODO missing
         libraries: Ember.A(), //TODO missing
-        resources: model.get('children').map(function(child){
+        resources: model.get('children').map(function(child) {
           return child.toPlayerResource();
         }),
         standards: model.get('standards')
@@ -299,6 +302,5 @@ export default (function() {
         this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
       }
     }
-
   };
 })();

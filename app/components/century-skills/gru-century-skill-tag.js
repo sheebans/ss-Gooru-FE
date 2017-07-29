@@ -9,7 +9,6 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -19,9 +18,8 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     removeSkill: function(skill) {
-      if (this.get('onRemove')){
+      if (this.get('onRemove')) {
         this.get('onRemove')(skill.get('id'));
       }
     }
@@ -45,5 +43,4 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

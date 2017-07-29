@@ -23,8 +23,21 @@ test('Layout', function(assert) {
 
     const $coursesContainer = find('.profile-courses');
     T.exists(assert, $coursesContainer, 'Missing courses container');
-    T.exists(assert, $coursesContainer.find('.course-content >div.gru-collection-card:first-child'), 'Missing first course card');
-    assert.equal(T.text($coursesContainer.find('.course-content >div.gru-collection-card:first-child .title-section h3')),
-    'Test Course - 1', 'Incorrect course card title text');
+    T.exists(
+      assert,
+      $coursesContainer.find(
+        '.course-content >div.gru-collection-card:first-child'
+      ),
+      'Missing first course card'
+    );
+    assert.equal(
+      T.text(
+        $coursesContainer.find(
+          '.course-content >div.gru-collection-card:first-child .title-section h3'
+        )
+      ),
+      'Test Course - 1',
+      'Incorrect course card title text'
+    );
   });
 });

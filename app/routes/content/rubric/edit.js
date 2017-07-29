@@ -3,8 +3,8 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    editing:{},
-    editingContent:{
+    editing: {},
+    editingContent: {
       refreshModel: true
     }
   },
@@ -19,14 +19,18 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (params) {
+  model: function(params) {
     const route = this;
-    return route.get('rubricService').getRubric(params.rubricId)
+    return route
+      .get('rubricService')
+      .getRubric(params.rubricId)
       .then(function(rubric) {
         const isEditing = params.editing;
-        const editingContent = params.editingContent ? params.editingContent : null;
+        const editingContent = params.editingContent
+          ? params.editingContent
+          : null;
         return Ember.RSVP.hash({
-          rubric:rubric,
+          rubric: rubric,
           isEditing: !!isEditing,
           editingContent: editingContent
         });

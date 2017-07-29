@@ -10,7 +10,6 @@ import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -26,8 +25,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {
-  },
+  actions: {},
 
   // -------------------------------------------------------------------------
   // Events
@@ -47,7 +45,9 @@ export default Ember.Component.extend({
   /**
    * @property {CollectionPerformanceSummary}
    */
-  collectionPerformanceSummary: Ember.computed.alias('classActivity.activityPerformanceSummary.collectionPerformanceSummary'),
+  collectionPerformanceSummary: Ember.computed.alias(
+    'classActivity.activityPerformanceSummary.collectionPerformanceSummary'
+  ),
 
   /**
    * @property {String} source
@@ -58,5 +58,4 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   visible: Ember.computed.alias('classActivity.isActive')
-
 });

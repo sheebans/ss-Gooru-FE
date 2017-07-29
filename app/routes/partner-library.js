@@ -9,7 +9,6 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
  */
 
 export default Ember.Route.extend(PrivateRouteMixin, {
-
   queryParams: {
     refresh: {
       refreshModel: true
@@ -34,7 +33,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     });
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('library', model.library);
   }
 });

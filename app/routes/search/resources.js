@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   /**
    * @property {Ember.Service} Service to do the search
    */
@@ -16,16 +15,22 @@ export default Ember.Route.extend({
       taxonomies: taxonomies
     };
 
-    var resourceResults = this.get('searchService').searchResources(term, options, true);
-    return Ember.RSVP.hash({
-      term:term,
-      resources: resourceResults,
-      selectedOptionTypes: selectedOptionTypes
-    }).catch(function(err){
-       if(err.status===400){
-         return { msg: 'Recovered from rejected promise',error: err };
-       }
-    });
+    var resourceResults = this.get('searchService').searchResources(
+      term,
+      options,
+      true
+    );
+    return Ember.RSVP
+      .hash({
+        term: term,
+        resources: resourceResults,
+        selectedOptionTypes: selectedOptionTypes
+      })
+      .catch(function(err) {
+        if (err.status === 400) {
+          return { msg: 'Recovered from rejected promise', error: err };
+        }
+      });
   },
 
   /**
@@ -38,17 +43,14 @@ export default Ember.Route.extend({
     controller.set('resourceResults', model.resources);
     controller.set('term', model.term);
     controller.resetValues();
-    if(model.error){
+    if (model.error) {
       controller.setInvalidSearchTerm(true);
-    }else{
+    } else {
       controller.set('selectedOptionTypes', model.selectedOptionTypes);
-
     }
   },
 
   deactivate: function() {
-    this.get("controller").resetValues();
+    this.get('controller').resetValues();
   }
-
-
 });

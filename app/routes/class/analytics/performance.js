@@ -40,7 +40,7 @@ export default Ember.Route.extend({
     const route = this;
     const classModel = this.modelFor('class').class;
 
-    if (!classModel.isTeacher(route.get('session.userId'))){
+    if (!classModel.isTeacher(route.get('session.userId'))) {
       route.transitionTo('class.analytics.performance.student', {
         queryParams: route.paramsFor('class.analytics.performance.student')
       });

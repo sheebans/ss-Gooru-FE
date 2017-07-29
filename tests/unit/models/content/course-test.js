@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import Unit from 'gooru-web/models/content/unit';
 import Lesson from 'gooru-web/models/content/lesson';
 import LessonItem from 'gooru-web/models/content/lessonItem';
@@ -9,8 +9,7 @@ moduleFor('model:content/course', 'Unit | Model | content/course', {
   needs: ['validator:presence']
 });
 
-test('get a child unit index', function (assert) {
-
+test('get a child unit index', function(assert) {
   var model = this.subject({
     children: Ember.A([
       Unit.create({
@@ -33,11 +32,10 @@ test('get a child unit index', function (assert) {
     title: 'Unit#2'
   });
 
-  assert.equal(model.getChildUnitIndex(unit), 1, "wrong unit index");
+  assert.equal(model.getChildUnitIndex(unit), 1, 'wrong unit index');
 });
 
-test('getCollectionsByType', function (assert) {
-
+test('getCollectionsByType', function(assert) {
   var model = this.subject({
     children: Ember.A([
       Unit.create({
@@ -94,17 +92,49 @@ test('getCollectionsByType', function (assert) {
     ])
   });
 
-  assert.equal(model.getCollectionsByType('assessment').length, 4, "Wrong total assessments");
-  assert.equal(model.getCollectionsByType('collection').length, 3, "Wrong total collections");
-  assert.equal(model.getCollectionsByType('assessment', 1).length, 3, "Wrong total assessments for unit 1");
-  assert.equal(model.getCollectionsByType('collection', 1).length, 2, "Wrong total collections for unit 1");
-  assert.equal(model.getCollectionsByType('assessment', 1, 12).length, 1, "Wrong total assessments for unit 1 and lesson 12");
-  assert.equal(model.getCollectionsByType('collection', 1, 12).length, 1, "Wrong total collections for unit 1 and lesson 12");
-  assert.equal(model.getCollectionsByType('assessment', 2, 21).length, 1, "Wrong total assessments for unit 2 and lesson 21");
-  assert.equal(model.getCollectionsByType('collection', 2, 21).length, 0, "Wrong total collections for unit 2 and lesson 21");
+  assert.equal(
+    model.getCollectionsByType('assessment').length,
+    4,
+    'Wrong total assessments'
+  );
+  assert.equal(
+    model.getCollectionsByType('collection').length,
+    3,
+    'Wrong total collections'
+  );
+  assert.equal(
+    model.getCollectionsByType('assessment', 1).length,
+    3,
+    'Wrong total assessments for unit 1'
+  );
+  assert.equal(
+    model.getCollectionsByType('collection', 1).length,
+    2,
+    'Wrong total collections for unit 1'
+  );
+  assert.equal(
+    model.getCollectionsByType('assessment', 1, 12).length,
+    1,
+    'Wrong total assessments for unit 1 and lesson 12'
+  );
+  assert.equal(
+    model.getCollectionsByType('collection', 1, 12).length,
+    1,
+    'Wrong total collections for unit 1 and lesson 12'
+  );
+  assert.equal(
+    model.getCollectionsByType('assessment', 2, 21).length,
+    1,
+    'Wrong total assessments for unit 2 and lesson 21'
+  );
+  assert.equal(
+    model.getCollectionsByType('collection', 2, 21).length,
+    0,
+    'Wrong total collections for unit 2 and lesson 21'
+  );
 });
 
-test('sortedUnitResults', function (assert) {
+test('sortedUnitResults', function(assert) {
   var model = this.subject({
     children: Ember.A([
       Unit.create({
@@ -125,7 +155,19 @@ test('sortedUnitResults', function (assert) {
     ])
   });
 
-  assert.equal(model.get('sortedUnitResults')[0].title, 'Unit#1', "Wrong sorted units");
-  assert.equal(model.get('sortedUnitResults')[1].title, 'Unit#2', "Wrong sorted units");
-  assert.equal(model.get('sortedUnitResults')[2].title, 'Unit#3', "Wrong sorted units");
+  assert.equal(
+    model.get('sortedUnitResults')[0].title,
+    'Unit#1',
+    'Wrong sorted units'
+  );
+  assert.equal(
+    model.get('sortedUnitResults')[1].title,
+    'Unit#2',
+    'Wrong sorted units'
+  );
+  assert.equal(
+    model.get('sortedUnitResults')[2].title,
+    'Unit#3',
+    'Wrong sorted units'
+  );
 });

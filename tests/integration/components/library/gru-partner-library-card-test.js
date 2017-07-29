@@ -1,12 +1,15 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('library/gru-partner-library-card', 'Integration | Component | library/gru partner library card', {
-  integration: true
-});
+moduleForComponent(
+  'library/gru-partner-library-card',
+  'Integration | Component | library/gru partner library card',
+  {
+    integration: true
+  }
+);
 
 test('Partner Library card', function(assert) {
-
   var library = {
     id: 1,
     name: 'Partner library',
@@ -40,16 +43,41 @@ test('Partner Library card', function(assert) {
 
   const $countsContainer = $info.find('.counts-info');
   assert.ok($countsContainer.length, 'Missing counts container');
-  assert.equal($countsContainer.find('.total-courses').text().trim(), '5 Courses', 'Wrong label for courses count');
-  assert.equal($countsContainer.find('.total-collections').text().trim(), '15 Collections', 'Wrong label for collections count');
-  assert.equal($countsContainer.find('.total-assessments').text().trim(), '12 Assessments', 'Wrong label for assessments count');
-  assert.notOk($countsContainer.find('.total-resources').length, 'Resources count should not be displayed');
-  assert.equal($countsContainer.find('.total-questions').text().trim(), '45 Questions', 'Wrong label for questions count');
-  assert.notOk($countsContainer.find('.total-rubrics').length, 'Rubrics count should not be displayed');
+  assert.equal(
+    $countsContainer.find('.total-courses').text().trim(),
+    '5 Courses',
+    'Wrong label for courses count'
+  );
+  assert.equal(
+    $countsContainer.find('.total-collections').text().trim(),
+    '15 Collections',
+    'Wrong label for collections count'
+  );
+  assert.equal(
+    $countsContainer.find('.total-assessments').text().trim(),
+    '12 Assessments',
+    'Wrong label for assessments count'
+  );
+  assert.notOk(
+    $countsContainer.find('.total-resources').length,
+    'Resources count should not be displayed'
+  );
+  assert.equal(
+    $countsContainer.find('.total-questions').text().trim(),
+    '45 Questions',
+    'Wrong label for questions count'
+  );
+  assert.notOk(
+    $countsContainer.find('.total-rubrics').length,
+    'Rubrics count should not be displayed'
+  );
 
   const $body = $component.find('.panel-body');
   assert.ok($body.length, 'Missing body');
   assert.ok($body.find('.description').length, 'Missing description');
-  assert.equal($body.find('.description').text().trim(), 'Library description', 'Wrong description displayed');
-
+  assert.equal(
+    $body.find('.description').text().trim(),
+    'Library description',
+    'Wrong description displayed'
+  );
 });

@@ -69,7 +69,7 @@ export default buildValidations({
       message: '{{description}}',
       descriptionKey: 'common.errors.password-required'
     }),
-/*  allowing any character for now
+    /*  allowing any character for now
     validator('format', {
       regex: /^[a-z0-9]+$/i,
       message: '{{description}}',
@@ -84,13 +84,13 @@ export default buildValidations({
     })
   ],
 
-  rePassword:[
+  rePassword: [
     validator('presence', {
       presence: true,
       message: '{{description}}',
       descriptionKey: 'common.errors.password-confirm'
     }),
-/*  allowing any character for now
+    /*  allowing any character for now
     validator('format', {
       regex: /^[a-z0-9]+$/i,
       message: '{{description}}',

@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} ClassActivityAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus/v2/classes',
@@ -20,7 +19,7 @@ export default Ember.Object.extend({
    * @param { { courseId: string, unitId: string, lessonId: string } } context
    * @returns {Promise}
    */
-  addActivityToClass: function (classId, contentId, contentType, context = {}) {
+  addActivityToClass: function(classId, contentId, contentType, context = {}) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents`;
@@ -36,7 +35,7 @@ export default Ember.Object.extend({
         content_type: contentType,
         ctx_course_id: context ? context.courseId : null,
         ctx_unit_id: context ? context.unitId : null,
-        ctx_lesson_id: context ? context.lessonId: null,
+        ctx_lesson_id: context ? context.lessonId : null,
         ctx_collection_id: context ? context.collectionId : null
       })
     };
@@ -50,7 +49,10 @@ export default Ember.Object.extend({
    * @param {string} classActivityId
    * @returns {Promise}
    */
-  enableClassActivity: function (classId, classActivityId/*, activationDate = new Date()*/) {
+  enableClassActivity: function(
+    classId,
+    classActivityId /*, activationDate = new Date()*/
+  ) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents/${classActivityId}`;
@@ -60,9 +62,11 @@ export default Ember.Object.extend({
       dataType: 'text',
       processData: false,
       headers: adapter.defineHeaders(),
-      data: JSON.stringify({
-        //activation_date: formatDate(activationDate,'YYYY-MM-DD') TODO: BE is throwing 400
-      })
+      data: JSON.stringify(
+        {
+          //activation_date: formatDate(activationDate,'YYYY-MM-DD') TODO: BE is throwing 400
+        }
+      )
     };
     return Ember.$.ajax(url, options);
   },
@@ -76,20 +80,25 @@ export default Ember.Object.extend({
    * @param {Date} endDate optional, default is now
    * @returns {Promise}
    */
-  findClassActivities: function(classId, contentType = undefined, startDate = new Date(), endDate = new Date()) {
+  findClassActivities: function(
+    classId,
+    contentType = undefined,
+    startDate = new Date(),
+    endDate = new Date()
+  ) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents`;
     const options = {
-        type: 'GET',
-        contentType: 'application/json; charset=utf-8',
-        headers: adapter.defineHeaders(),
-        data: {
-          content_type : contentType,
-          date_from: startDate,
-          date_to: endDate
-        }
-      };
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders(),
+      data: {
+        content_type: contentType,
+        date_from: startDate,
+        date_to: endDate
+      }
+    };
     return Ember.$.ajax(url, options);
   },
 
@@ -117,7 +126,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
 });

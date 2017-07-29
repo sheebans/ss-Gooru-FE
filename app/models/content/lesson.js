@@ -19,7 +19,6 @@ const Validations = buildValidations({
  * @typedef {Object} Content/Lesson
  */
 export default Ember.Object.extend(Validations, {
-
   /**
    * @property {Number} assessmentCount - total number of assessments in the lesson
    */
@@ -67,7 +66,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {sortedCollectionResults[]} Collections sorted by sequence
    */
-  sortedCollectionResults: Ember.computed('children.[]', function(){
+  sortedCollectionResults: Ember.computed('children.[]', function() {
     return this.get('children').sortBy('sequence');
   }),
 
@@ -85,7 +84,6 @@ export default Ember.Object.extend(Validations, {
    * @return {Content/Lesson}
    */
   copy: function() {
-
     var properties = [];
     var enumerableKeys = Object.keys(this);
 
@@ -94,14 +92,22 @@ export default Ember.Object.extend(Validations, {
       let value = Ember.typeOf(this.get(key));
 
       // Copy null values as well to avoid triggering the validation on empty input fields
-      if (value === 'string' || value === 'number' || value === 'boolean' || value === 'null') {
+      if (
+        value === 'string' ||
+        value === 'number' ||
+        value === 'boolean' ||
+        value === 'null'
+      ) {
         properties.push(key);
       }
     }
 
     // Copy the lesson data
     properties = this.getProperties(properties);
-    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+    return this.get('constructor').create(
+      Ember.getOwner(this).ownerInjection(),
+      properties
+    );
   },
 
   /**
@@ -116,5 +122,4 @@ export default Ember.Object.extend(Validations, {
     var properties = lesson.getProperties(propertyList);
     this.setProperties(properties);
   }
-
 });

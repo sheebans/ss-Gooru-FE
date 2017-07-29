@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -25,7 +24,7 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     }
   },
@@ -74,34 +73,36 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed('questions.[]', function(){
-    return this.get('questions.length') &&
-      (this.get('questions.length') % this.get('pagination.pageSize') === 0);
+  showMoreResultsButton: Ember.computed('questions.[]', function() {
+    return (
+      this.get('questions.length') &&
+      this.get('questions.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
-    // Methods
-  showMoreResults: function(){
+  // Methods
+  showMoreResults: function() {
     const controller = this;
     const profile = this.get('profile');
     const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
     pagination.pageSize = pagination.pageSize;
-    pagination.searchText= this.get('term');
+    pagination.searchText = this.get('term');
     pagination.sortOn = this.get('sortOn');
     pagination.order = this.get('order');
 
-    controller.get('profileService')
+    controller
+      .get('profileService')
       .readQuestions(profile.get('id'), pagination)
-      .then(function(questions){
+      .then(function(questions) {
         controller.get('questions').pushObjects(questions.toArray());
       });
   },
 
-  resetValues: function(){
+  resetValues: function() {
     this.set('pagination', {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
   }
-
 });

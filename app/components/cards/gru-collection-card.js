@@ -9,7 +9,7 @@ import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
  * @module
  */
 
-export default Ember.Component.extend(ModalMixin,{
+export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service('session'),
@@ -17,7 +17,7 @@ export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['cards','gru-collection-card'],
+  classNames: ['cards', 'gru-collection-card'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -28,27 +28,27 @@ export default Ember.Component.extend(ModalMixin,{
      * @param {string} collection collection identifier
      */
     openContentPlayer: function(collection) {
-      this.sendAction("onOpenContentPlayer", collection);
+      this.sendAction('onOpenContentPlayer', collection);
     },
 
-    editCollection: function(){
-      this.sendAction("onEditCollection", this.get("collection"));
+    editCollection: function() {
+      this.sendAction('onEditCollection', this.get('collection'));
     },
 
-    remixCollection: function(){
+    remixCollection: function() {
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
-        this.sendAction("onRemixCollection", this.get("collection"));
+        this.sendAction('onRemixCollection', this.get('collection'));
       }
     }
   },
   // -------------------------------------------------------------------------
   // Events
 
-  didRender(){
+  didRender() {
     var component = this;
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   },
 
   // -------------------------------------------------------------------------
@@ -100,13 +100,12 @@ export default Ember.Component.extend(ModalMixin,{
    * Indicates if the edit functionality is enabled
    * @property {boolean}
    */
-  remixEnabled: Ember.computed('editEnabled', 'collection', function(){
-    const isEditing = this.get("editEnabled");
-    if (this.get("isCollection")) {
+  remixEnabled: Ember.computed('editEnabled', 'collection', function() {
+    const isEditing = this.get('editEnabled');
+    if (this.get('isCollection')) {
       return !isEditing;
-    }
-    else {
-      return !isEditing && !this.get("isExternalAssessment");
+    } else {
+      return !isEditing && !this.get('isExternalAssessment');
     }
   }),
 
@@ -126,7 +125,7 @@ export default Ember.Component.extend(ModalMixin,{
    */
   onRemixCollection: null,
 
-  visibility:null,
+  visibility: null,
 
   isSmall: false,
 
@@ -141,5 +140,4 @@ export default Ember.Component.extend(ModalMixin,{
     });
     return TaxonomyTag.getTaxonomyTags(standards);
   })
-
 });

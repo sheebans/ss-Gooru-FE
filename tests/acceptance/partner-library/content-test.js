@@ -25,14 +25,36 @@ test('Partner Library Content Layout', function(assert) {
     const $contentContainer = find('.partner-library .content');
     T.exists(assert, $contentContainer, 'Missing content container');
 
-    const $contentOptions = $contentContainer.find('.partner-library-content .category-options');
+    const $contentOptions = $contentContainer.find(
+      '.partner-library-content .category-options'
+    );
     T.exists(assert, $contentOptions, 'Missing content options');
 
-    T.exists(assert, $contentOptions.find('li.courses'), 'Missing courses link');
-    T.exists(assert, $contentOptions.find('li.collections'), 'Missing collections link');
-    T.exists(assert, $contentOptions.find('li.assessments'), 'Missing assessments link');
-    T.exists(assert, $contentOptions.find('li.resources'), 'Missing resources link');
-    T.exists(assert, $contentOptions.find('li.questions'), 'Missing questions link');
+    T.exists(
+      assert,
+      $contentOptions.find('li.courses'),
+      'Missing courses link'
+    );
+    T.exists(
+      assert,
+      $contentOptions.find('li.collections'),
+      'Missing collections link'
+    );
+    T.exists(
+      assert,
+      $contentOptions.find('li.assessments'),
+      'Missing assessments link'
+    );
+    T.exists(
+      assert,
+      $contentOptions.find('li.resources'),
+      'Missing resources link'
+    );
+    T.exists(
+      assert,
+      $contentOptions.find('li.questions'),
+      'Missing questions link'
+    );
   });
 });
 
@@ -44,7 +66,9 @@ test('Partner Library Navigation links', function(assert) {
     assert.equal(currentURL(), '/library/1/content');
 
     const $contentContainer = find('.partner-library .content');
-    const $contentOptions = $contentContainer.find('.partner-library-content .category-options');
+    const $contentOptions = $contentContainer.find(
+      '.partner-library-content .category-options'
+    );
 
     click($contentOptions.find('li.courses'));
     andThen(function() {

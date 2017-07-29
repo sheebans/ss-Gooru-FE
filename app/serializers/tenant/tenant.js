@@ -7,13 +7,12 @@ import Tenant from 'gooru-web/models/tenant/tenant';
  * @typedef {Object} TenantSerializer
  */
 export default Ember.Object.extend({
-
   /**
    * Normalizes tenant
    * @param {*} payload
    * @returns {Tenant}
    */
-  normalizeTenant: function (payload) {
+  normalizeTenant: function(payload) {
     return Tenant.create(payload);
   }
 });

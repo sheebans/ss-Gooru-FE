@@ -2,12 +2,10 @@ import Ember from 'ember';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
 import QuestionAdapter from 'gooru-web/adapters/content/question';
 
-
 /**
  * @typedef {Object} QuestionService
  */
 export default Ember.Service.extend({
-
   /**
    * @property {QuestionSerializer} questionSerializer
    */
@@ -28,10 +26,16 @@ export default Ember.Service.extend({
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('questionSerializer', QuestionSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('questionAdapter', QuestionAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'questionSerializer',
+      QuestionSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'questionAdapter',
+      QuestionAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -43,14 +47,19 @@ export default Ember.Service.extend({
   createQuestion: function(questionData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedClassData = service.get('questionSerializer').serializeCreateQuestion(questionData);
-      service.get('questionAdapter').createQuestion({
-        body: serializedClassData
-      }).then(function(responseData, textStatus, request) {
-        let questionId = request.getResponseHeader('location');
-        questionData.set('id', questionId);
-        resolve(questionData);
-      }, reject);
+      let serializedClassData = service
+        .get('questionSerializer')
+        .serializeCreateQuestion(questionData);
+      service
+        .get('questionAdapter')
+        .createQuestion({
+          body: serializedClassData
+        })
+        .then(function(responseData, textStatus, request) {
+          let questionId = request.getResponseHeader('location');
+          questionData.set('id', questionId);
+          resolve(questionData);
+        }, reject);
     });
   },
 
@@ -59,14 +68,16 @@ export default Ember.Service.extend({
    * @param {string} questionId
    * @returns {Ember.RSVP.Promise}
    */
-  readQuestion: function(questionId){
+  readQuestion: function(questionId) {
     const service = this;
     const serializer = service.get('questionSerializer');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('questionAdapter').readQuestion(questionId)
+      service
+        .get('questionAdapter')
+        .readQuestion(questionId)
         .then(function(responseData /*, textStatus, request */) {
           resolve(serializer.normalizeReadQuestion(responseData));
-        }, reject );
+        }, reject);
     });
   },
 
@@ -80,12 +91,17 @@ export default Ember.Service.extend({
    */
   updateQuestion: function(questionId, questionModel, collection = null) {
     const service = this;
-    let serializedData = service.get('questionSerializer').serializeUpdateQuestion(questionModel);
+    let serializedData = service
+      .get('questionSerializer')
+      .serializeUpdateQuestion(questionModel);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('questionAdapter').updateQuestion(questionId, serializedData).then(function() {
-        service.notifyQuizzesCollectionChange(collection);
-        resolve();
-      }, reject);
+      service
+        .get('questionAdapter')
+        .updateQuestion(questionId, serializedData)
+        .then(function() {
+          service.notifyQuizzesCollectionChange(collection);
+          resolve();
+        }, reject);
     });
   },
 
@@ -99,12 +115,17 @@ export default Ember.Service.extend({
    */
   updateQuestionTitle: function(questionId, title, collection = null) {
     const service = this;
-    let serializedData = service.get('questionSerializer').serializeUpdateQuestionTitle(title);
+    let serializedData = service
+      .get('questionSerializer')
+      .serializeUpdateQuestionTitle(title);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('questionAdapter').updateQuestion(questionId, serializedData).then(function() {
-        service.notifyQuizzesCollectionChange(collection);
-        resolve();
-      }, reject);
+      service
+        .get('questionAdapter')
+        .updateQuestion(questionId, serializedData)
+        .then(function() {
+          service.notifyQuizzesCollectionChange(collection);
+          resolve();
+        }, reject);
     });
   },
 
@@ -115,10 +136,12 @@ export default Ember.Service.extend({
    * @param {content/Collection|content/Assessment} collection provided when the question belongs to a collection
    * @returns {Ember.RSVP.Promise}
    */
-  deleteQuestion: function (questionId, collection = null) {
+  deleteQuestion: function(questionId, collection = null) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('questionAdapter').deleteQuestion(questionId)
+      service
+        .get('questionAdapter')
+        .deleteQuestion(questionId)
         .then(function() {
           service.notifyQuizzesCollectionChange(collection);
           resolve();
@@ -131,13 +154,15 @@ export default Ember.Service.extend({
    * @param {string} questionId
    * @returns {Ember.RSVP.Promise}
    */
-  copyQuestion: function(questionId){
+  copyQuestion: function(questionId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('questionAdapter').copyQuestion(questionId)
+      service
+        .get('questionAdapter')
+        .copyQuestion(questionId)
         .then(function(responseData, textStatus, request) {
           resolve(request.getResponseHeader('location'));
-        }, reject );
+        }, reject);
     });
   },
 
@@ -145,14 +170,17 @@ export default Ember.Service.extend({
    * Notifies a change at quizzes for the provided collection
    * @param {content/Collection|content/Assessment} collection
      */
-  notifyQuizzesCollectionChange: function(collection){
+  notifyQuizzesCollectionChange: function(collection) {
     if (collection) {
       const collectionId = collection.get('id');
-      return (collection.get("isAssessment")) ?
-        this.get("assessmentService").notifyQuizzesAssessmentChange(collectionId) :
-        this.get("collectionService").notifyQuizzesCollectionChange(collectionId);
+      return collection.get('isAssessment')
+        ? this.get('assessmentService').notifyQuizzesAssessmentChange(
+          collectionId
+        )
+        : this.get('collectionService').notifyQuizzesCollectionChange(
+          collectionId
+        );
     }
     return Ember.RSVP.resolve(false);
   }
-
 });

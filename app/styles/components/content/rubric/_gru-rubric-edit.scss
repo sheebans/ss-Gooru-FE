@@ -4,7 +4,7 @@
 .rubric.edit {
   height: 100%;
   > .ember-view,
-  .quizzes{
+  .quizzes {
     height: 100%;
   }
 }
@@ -15,7 +15,7 @@
   @include flexbox();
   @include flex-direction(column);
   .gru-header {
-    header{
+    header {
       padding: 20px 20px 0 5%;
     }
   }
@@ -31,7 +31,7 @@
         border-top-right-radius: 6px;
         border-top-left-radius: 6px;
         h3 {
-          color:$gray;
+          color: $gray;
           display: inline-block;
         }
         div.border-bottom {
@@ -63,8 +63,8 @@
     }
 
     .panel {
-
-      .panel-heading, .panel-body {
+      .panel-heading,
+      .panel-body {
         padding-left: 50px;
         padding-right: 50px;
       }
@@ -74,13 +74,11 @@
         padding-top: 10px;
         padding-bottom: 0;
       }
-
     }
   }
   #information {
     height: 100%;
     .content {
-
       @include flexbox;
       .gru-image {
         float: left;
@@ -92,7 +90,6 @@
         border-radius: 6px;
         .title {
           .form-group {
-
             width: 300px;
           }
         }
@@ -122,7 +119,7 @@
       .gru-taxonomy-tag {
         .content {
           @include flex-direction(column);
-          b{
+          b {
             font-size: 17px;
             font-weight: $headings-font-weight;
           }
@@ -132,7 +129,7 @@
   }
   #rubric {
     .header {
-      padding:0;
+      padding: 0;
     }
     .overall-score {
       .panel-body {
@@ -142,7 +139,7 @@
         label {
           @include flexbox;
           @include flex-direction(column);
-          textarea{
+          textarea {
             font-size: $font-size-base;
             height: 150px;
           }
@@ -161,8 +158,8 @@
     }
     .required-feedback {
       @include flexbox;
-      .check_box{
-        color:$blue-500;
+      .check_box {
+        color: $blue-500;
       }
     }
   }

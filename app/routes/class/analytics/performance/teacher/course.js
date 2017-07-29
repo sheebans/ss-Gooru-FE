@@ -30,7 +30,7 @@ export default Ember.Route.extend({
     /**
      * navigateToUnits
     */
-    navigateToUnits: function(unitId){
+    navigateToUnits: function(unitId) {
       this.transitionTo('class.analytics.performance.teacher.unit', unitId);
     }
   },
@@ -44,13 +44,18 @@ export default Ember.Route.extend({
 
   model: function() {
     const route = this;
-    const filterBy = route.paramsFor('class.analytics.performance.teacher').filterBy;
+    const filterBy = route.paramsFor('class.analytics.performance.teacher')
+      .filterBy;
     const classModel = route.modelFor('class').class;
     const units = route.modelFor('class').units;
     const classId = classModel.get('id');
     const courseId = classModel.get('courseId');
     const members = classModel.get('members');
-    const classPerformanceData = route.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy});
+    const classPerformanceData = route
+      .get('performanceService')
+      .findClassPerformance(classId, courseId, members, {
+        collectionType: filterBy
+      });
 
     return Ember.RSVP.hash({
       units: units,
@@ -65,69 +70,88 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    controller.set("active", true);
+    controller.set('active', true);
     this.setupDataPickerOptions(controller);
 
     const classPerformanceData = model.classPerformanceData;
     controller.fixTotalCounts(classPerformanceData, model.filterBy);
-    const performanceData = createDataMatrix(model.units, classPerformanceData, 'course');
+    const performanceData = createDataMatrix(
+      model.units,
+      classPerformanceData,
+      'course'
+    );
     controller.set('performanceDataMatrix', performanceData);
     controller.set('units', model.units);
 
-    if (controller.get("class.hasCourse")){
+    if (controller.get('class.hasCourse')) {
       //updating breadcrumb when navigating back to course
-      controller.get("teacherController").updateBreadcrumb(controller.get("course"), "course");
+      controller
+        .get('teacherController')
+        .updateBreadcrumb(controller.get('course'), 'course');
     }
     //updating the collectionLevel to show or not the launch anonymous button
-    controller.set("teacherController.collectionLevel", false);
+    controller.set('teacherController.collectionLevel', false);
     //updating the lessonLevel to show or not filters
-    controller.set("teacherController.lessonLevel", false);
+    controller.set('teacherController.lessonLevel', false);
     //updating the performanceDataHeaders and performanceDataMatrix to download implementation
-    controller.set("teacherController.performanceDataHeaders", model.units);
-    controller.set("teacherController.performanceDataMatrix", performanceData);
+    controller.set('teacherController.performanceDataHeaders', model.units);
+    controller.set('teacherController.performanceDataMatrix', performanceData);
   },
   /**
    * Setups data picker options for lesson
    * @param controller
    */
-  setupDataPickerOptions: function(controller){
-    controller.set('optionsCollectionsTeacher', Ember.A([Ember.Object.create({
-      'value': 'score',
-      'selected':false,
-      'readOnly':true,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'completion',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'time-spent',
-      'selected':true,
-      'readOnly':false,
-      'isDisabled':true
-    })]));
-    controller.set('mobileOptionsCollectionsTeacher', Ember.A([Ember.Object.create({
-      'value': 'score',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'completion',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'time-spent',
-      'selected':true,
-      'readOnly':false,
-      'isDisabled':true
-    })]));
+  setupDataPickerOptions: function(controller) {
+    controller.set(
+      'optionsCollectionsTeacher',
+      Ember.A([
+        Ember.Object.create({
+          value: 'score',
+          selected: false,
+          readOnly: true,
+          isDisabled: true
+        }),
+        Ember.Object.create({
+          value: 'completion',
+          selected: false,
+          readOnly: false,
+          isDisabled: true
+        }),
+        Ember.Object.create({
+          value: 'time-spent',
+          selected: true,
+          readOnly: false,
+          isDisabled: true
+        })
+      ])
+    );
+    controller.set(
+      'mobileOptionsCollectionsTeacher',
+      Ember.A([
+        Ember.Object.create({
+          value: 'score',
+          selected: false,
+          readOnly: false,
+          isDisabled: true
+        }),
+        Ember.Object.create({
+          value: 'completion',
+          selected: false,
+          readOnly: false,
+          isDisabled: true
+        }),
+        Ember.Object.create({
+          value: 'time-spent',
+          selected: true,
+          readOnly: false,
+          isDisabled: true
+        })
+      ])
+    );
     controller.get('teacherController').restoreSelectedOptions();
   },
 
   deactivate: function() {
     this.set('controller.active', false);
   }
-
 });

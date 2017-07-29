@@ -8,31 +8,31 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'questions','answers', 'gru-multiple-choice'],
+  classNames: ['content', 'questions', 'answers', 'gru-multiple-choice'],
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     //Add new answer choice
-    addNewChoice:function(){
-     var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(),{
-        'text': null,
-        'isCorrect': false,
-        'type':"text"
+    addNewChoice: function() {
+      var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(), {
+        text: null,
+        isCorrect: false,
+        type: 'text'
       });
       this.get('answers').pushObject(newChoice);
     },
     //Remove existing answer
-    removeChoice:function(answer){
+    removeChoice: function(answer) {
       this.get('answers').removeObject(answer);
     },
     //Select correct answer
-    setCorrect:function(answer){
-      var correctAnswer = this.get('answers').findBy('isCorrect',true);
-      if(correctAnswer){
-        Ember.set(correctAnswer,'isCorrect',false);
+    setCorrect: function(answer) {
+      var correctAnswer = this.get('answers').findBy('isCorrect', true);
+      if (correctAnswer) {
+        Ember.set(correctAnswer, 'isCorrect', false);
       }
-      Ember.set(answer,'isCorrect',true);
+      Ember.set(answer, 'isCorrect', true);
     }
   },
   // -------------------------------------------------------------------------
@@ -45,11 +45,11 @@ export default Ember.Component.extend({
   * Multiple Choice Question Answers
   * */
 
-  answers:null,
+  answers: null,
   /**
    * Multiple Choice max answers
    * */
-  maxAnswers:10,
+  maxAnswers: 10,
 
   /**
    * Is in edit mode
@@ -59,13 +59,12 @@ export default Ember.Component.extend({
   /**
    * @property {boolean}
    */
-  disableEditorButtons: Ember.computed.not("showAdvancedEditor"),
+  disableEditorButtons: Ember.computed.not('showAdvancedEditor'),
 
   /**
    * @type {Ember.A}
    */
-  hasLimitAnswers: Ember.computed('answers.[]', function () {
-    return (this.get('answers').length >= this.get('maxAnswers'));
+  hasLimitAnswers: Ember.computed('answers.[]', function() {
+    return this.get('answers').length >= this.get('maxAnswers');
   })
-
 });

@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} LookupAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/config',
@@ -15,7 +14,7 @@ export default Ember.Object.extend({
    * Gets custom configuration
    * @returns {Promise.<[]>}
    */
-  loadConfiguration: function (key, configBaseUrl) {
+  loadConfiguration: function(key, configBaseUrl) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const basePath = configBaseUrl ? configBaseUrl : '';
@@ -23,11 +22,12 @@ export default Ember.Object.extend({
     const options = {
       type: 'GET'
     };
-    return Ember.RSVP.hashSettled({
-      configuration: Ember.$.ajax(url, options)
-    }).then(function(hash) {
-      return hash.configuration.value;
-    });
+    return Ember.RSVP
+      .hashSettled({
+        configuration: Ember.$.ajax(url, options)
+      })
+      .then(function(hash) {
+        return hash.configuration.value;
+      });
   }
-
 });

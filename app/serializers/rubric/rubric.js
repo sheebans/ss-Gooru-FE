@@ -6,7 +6,7 @@ import RubricCategory from 'gooru-web/models/rubric/rubric-category';
 import GradeQuestion from 'gooru-web/models/rubric/grade-question';
 import GradeQuestionItem from 'gooru-web/models/rubric/grade-question-item';
 import GradeQuestionStudents from 'gooru-web/models/rubric/grade-question-students';
-import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from "gooru-web/config/config";
+import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Rubric CRUD operations
@@ -14,8 +14,6 @@ import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from "gooru-web/config/config";
  * @typedef {Object} RubricSerializer
  */
 export default Ember.Object.extend({
-
-
   session: Ember.inject.service('session'),
 
   /**
@@ -23,9 +21,12 @@ export default Ember.Object.extend({
    */
   taxonomySerializer: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'taxonomySerializer',
+      TaxonomySerializer.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -34,16 +35,23 @@ export default Ember.Object.extend({
    * @param {Rubric} model - The rubric model to be serialized
    * @returns {Object} JSON Object representation of the rubric model
    */
-  serializeCreateRubric: function (model) {
+  serializeCreateRubric: function(model) {
     const serializer = this;
     return {
-      'title': model.get('title'),
-      'description': model.get('description'),
-      'type': model.get('type'),
-      'is_rubric':true,
-      'thumbnail': cleanFilename(model.get('thumbnail'), this.get('session.cdnUrls')),
-      'metadata': model.get('hasAudience') ? {'audience': model.get('audience')} :  null,
-      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(model.get('standards'))
+      title: model.get('title'),
+      description: model.get('description'),
+      type: model.get('type'),
+      is_rubric: true,
+      thumbnail: cleanFilename(
+        model.get('thumbnail'),
+        this.get('session.cdnUrls')
+      ),
+      metadata: model.get('hasAudience')
+        ? { audience: model.get('audience') }
+        : null,
+      taxonomy: serializer
+        .get('taxonomySerializer')
+        .serializeTaxonomy(model.get('standards'))
     };
   },
 
@@ -77,21 +85,30 @@ export default Ember.Object.extend({
    * @returns {Object} JSON Object representation of the rubric model
    *
    */
-  serializeUpdateRubric: function (model) {
+  serializeUpdateRubric: function(model) {
     const serializer = this;
     return {
-      'title': nullIfEmpty(model.get('title')),
-      'description': nullIfEmpty(model.get('description')),
-      'thumbnail': cleanFilename(model.get('thumbnail'), this.get('session.cdnUrls')),
-      'metadata': model.get('hasAudience') ? {'audience': model.get('audience')} :  null,
-      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(model.get('standards')),
-      'url': nullIfEmpty(model.get('url')),
-      'is_remote': model.get('uploaded') === true,
-      'feedback_guidance': nullIfEmpty(model.get('feedback')),
-      'overall_feedback_required': model.get('requiresFeedback') === true,
-      'categories':  model.get('categories').length ? model.get('categories').map(function(category){
-        return serializer.serializedUpdateRubricCategory(category);
-      }) : null
+      title: nullIfEmpty(model.get('title')),
+      description: nullIfEmpty(model.get('description')),
+      thumbnail: cleanFilename(
+        model.get('thumbnail'),
+        this.get('session.cdnUrls')
+      ),
+      metadata: model.get('hasAudience')
+        ? { audience: model.get('audience') }
+        : null,
+      taxonomy: serializer
+        .get('taxonomySerializer')
+        .serializeTaxonomy(model.get('standards')),
+      url: nullIfEmpty(model.get('url')),
+      is_remote: model.get('uploaded') === true,
+      feedback_guidance: nullIfEmpty(model.get('feedback')),
+      overall_feedback_required: model.get('requiresFeedback') === true,
+      categories: model.get('categories').length
+        ? model.get('categories').map(function(category) {
+          return serializer.serializedUpdateRubricCategory(category);
+        })
+        : null
     };
   },
 
@@ -100,16 +117,19 @@ export default Ember.Object.extend({
    * @param {RubricCategory} model
    * @returns {*} serialized category
    */
-  serializedUpdateRubricCategory: function (model) {
+  serializedUpdateRubricCategory: function(model) {
     let levels = model.get('levels').filter(level => level.name || level.score);
 
     return {
-      'category_title': nullIfEmpty(model.get('title')),
-      'feedback_guidance': nullIfEmpty(model.get('feedbackGuidance')),
-      'required_feedback': model.get('requiresFeedback') === true,
-      'level': model.get('allowsLevels') === true,
-      'scoring': model.get('allowsScoring') === true,
-      'levels': levels.map(level =>({ 'level_name': level.name, 'level_score': level.score }))
+      category_title: nullIfEmpty(model.get('title')),
+      feedback_guidance: nullIfEmpty(model.get('feedbackGuidance')),
+      required_feedback: model.get('requiresFeedback') === true,
+      level: model.get('allowsLevels') === true,
+      scoring: model.get('allowsScoring') === true,
+      levels: levels.map(level => ({
+        level_name: level.name,
+        level_score: level.score
+      }))
     };
   },
 
@@ -135,7 +155,7 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {Rubric}
    */
-  normalizeRubric: function (data,owners) {
+  normalizeRubric: function(data, owners) {
     const serializer = this;
     const metadata = data.metadata || {};
     const ownerId = data.creator_id;
@@ -143,27 +163,37 @@ export default Ember.Object.extend({
     const categories = data.categories;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = serializer.get('appRootPath'); //configuration appRootPath
-    const thumbnail = data.thumbnail ? basePath + data.thumbnail : appRootPath + DEFAULT_IMAGES.RUBRIC;
+    const thumbnail = data.thumbnail
+      ? basePath + data.thumbnail
+      : appRootPath + DEFAULT_IMAGES.RUBRIC;
 
-    return Rubric.create(Ember.getOwner(this).ownerInjection(),{
+    return Rubric.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
       title: data.title,
       description: data.description,
       thumbnail: thumbnail,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomyObject(data.taxonomy, TAXONOMY_LEVELS.COURSE),
+      standards: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyObject(data.taxonomy, TAXONOMY_LEVELS.COURSE),
       audience: metadata.audience,
       url: data.url,
       isPublished: data.publishStatus === 'published',
       publishDate: data.publish_date,
-      rubricOn:data.is_rubric,
+      rubricOn: data.is_rubric,
       uploaded: data.is_remote,
       feedback: data.feedback_guidance,
       requiresFeedback: data.overall_feedback_required,
-      categories: categories ? categories.map(category => serializer.normalizeRubricCategory(category)) : null,
-      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : ownerId,
-      createdDate:data.created_at,
-      updatedDate:data.updated_at,
-      tenant:data.tenant
+      categories: categories
+        ? categories.map(category =>
+          serializer.normalizeRubricCategory(category)
+        )
+        : null,
+      owner: filteredOwners.get('length')
+        ? filteredOwners.get('firstObject')
+        : ownerId,
+      createdDate: data.created_at,
+      updatedDate: data.updated_at,
+      tenant: data.tenant
     });
   },
 
@@ -175,13 +205,13 @@ export default Ember.Object.extend({
    */
   normalizeRubricCategory(data) {
     const levels = data.levels || [];
-    return RubricCategory.create(Ember.getOwner(this).ownerInjection(),{
+    return RubricCategory.create(Ember.getOwner(this).ownerInjection(), {
       title: data.category_title,
       feedbackGuidance: data.feedback_guidance,
       requiresFeedback: data.required_feedback,
       allowsLevels: data.level === true,
       allowsScoring: data.scoring === true,
-      levels: levels.map(function(level){
+      levels: levels.map(function(level) {
         return { name: level.level_name, score: level.level_score };
       })
     });
@@ -192,15 +222,17 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {GradeQuestion}
    */
-  normalizeQuestionsToGrade: function (data) {
+  normalizeQuestionsToGrade: function(data) {
     const serializer = this;
     const gradeItems = data.gradeItems;
 
-    return GradeQuestion.create(Ember.getOwner(this).ownerInjection(),{
+    return GradeQuestion.create(Ember.getOwner(this).ownerInjection(), {
       classId: data.classId,
       courseId: data.courseId,
       userId: data.userId,
-      gradeItems: gradeItems ? gradeItems.map(item => serializer.normalizeGradeQuestion(item)) : null
+      gradeItems: gradeItems
+        ? gradeItems.map(item => serializer.normalizeGradeQuestion(item))
+        : null
     });
   },
 
@@ -211,8 +243,7 @@ export default Ember.Object.extend({
    *
    */
   normalizeGradeQuestion(data) {
-
-    return GradeQuestionItem.create(Ember.getOwner(this).ownerInjection(),{
+    return GradeQuestionItem.create(Ember.getOwner(this).ownerInjection(), {
       unitId: data.unitId,
       lessonId: data.lessonId,
       collectionId: data.collectionId,
@@ -226,10 +257,10 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {GradeQuestionStudents}
    */
-  normalizeStudentsForQuestion: function (data) {
+  normalizeStudentsForQuestion: function(data) {
     const students = data.students;
 
-    return GradeQuestionStudents.create(Ember.getOwner(this).ownerInjection(),{
+    return GradeQuestionStudents.create(Ember.getOwner(this).ownerInjection(), {
       students: students ? students : null
     });
   }

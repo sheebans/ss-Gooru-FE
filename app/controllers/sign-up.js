@@ -4,19 +4,18 @@ import Env from 'gooru-web/config/environment';
 import signUpValidations from 'gooru-web/validations/sign-up';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   /**
    * @property {Service} Session service
    */
-  sessionService: Ember.inject.service("api-sdk/session"),
+  sessionService: Ember.inject.service('api-sdk/session'),
 
   /**
    * @property {Service} Profile service
    */
-  profileService: Ember.inject.service("api-sdk/profile"),
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   /**
    * @property {Service} I18N service
@@ -28,21 +27,18 @@ export default Ember.Controller.extend({
    */
   notifications: Ember.inject.service(),
 
-
   applicationController: Ember.inject.controller('application'),
-
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
-    next: function () {
+    next: function() {
       const controller = this;
       const profile = controller.get('profile');
       const birthDayDate = controller.validDateSelectPicker();
 
-      if(controller.get('didValidate') === false) {
+      if (controller.get('didValidate') === false) {
         var username = Ember.$('.gru-input.username input').val();
         var email = Ember.$('.gru-input.email input').val();
         var password = Ember.$('.gru-input.password input').val();
@@ -57,38 +53,41 @@ export default Ember.Controller.extend({
         profile.set('lastName', lastName);
       }
 
-      profile.validate().then(function ({ validations }) {
+      profile.validate().then(function({ validations }) {
         if (validations.get('isValid') && birthDayDate !== '') {
           profile.set('dateOfBirth', birthDayDate);
-          controller.get('profileService').createProfile(profile)
-            .then(function (profile) {
-              controller.get('sessionService')
-                .signUp(profile).then(function () {
+          controller.get('profileService').createProfile(profile).then(
+            function(profile) {
+              controller.get('sessionService').signUp(profile).then(function() {
                 controller.set('didValidate', true);
                 // Trigger action in parent
                 controller.send('signUp');
-                controller.get("applicationController").loadUserClasses();
+                controller.get('applicationController').loadUserClasses();
               });
-            }, function(error) {
-              if(error && (error.email || error.username)) {
+            },
+            function(error) {
+              if (error && (error.email || error.username)) {
                 controller.set('emailError', error.email);
                 controller.set('usernameError', error.username);
                 controller.keydownEvents();
               } else {
                 // Unexpected error
-                var message = controller.get('i18n').t('common.errors.sign-up-error').string;
+                var message = controller
+                  .get('i18n')
+                  .t('common.errors.sign-up-error').string;
                 controller.get('notifications').error(message);
                 Ember.Logger.error(error);
               }
-            });
+            }
+          );
         }
         controller.set('dateValidated', true);
       });
     },
 
-    close: function () {
+    close: function() {
       var controller = this;
-      controller.set('showChildLayout',false);
+      controller.set('showChildLayout', false);
       controller.send('closeSignUp');
     },
 
@@ -96,15 +95,14 @@ export default Ember.Controller.extend({
      * Triggered when the gru-select-date-picker options are selected
      * @param {*} item
      */
-    validDate: function(){
+    validDate: function() {
       const controller = this;
       const birthDayDate = controller.validDateSelectPicker();
 
-      if (controller.calculateAge(birthDayDate)>=13){
-        controller.set('showChildLayout',false);
-      }
-      else {
-        controller.set('showChildLayout',true);
+      if (controller.calculateAge(birthDayDate) >= 13) {
+        controller.set('showChildLayout', false);
+      } else {
+        controller.set('showChildLayout', true);
       }
     }
   },
@@ -165,7 +163,7 @@ export default Ember.Controller.extend({
    * terms and conditions url
    * @property {string}
    */
-  termsConditionsUrl: Ember.computed(function(){
+  termsConditionsUrl: Ember.computed(function() {
     return Env.termsConditionsUrl;
   }),
 
@@ -176,7 +174,7 @@ export default Ember.Controller.extend({
    * init and reset all the properties for the validations
    */
 
-  resetProperties(){
+  resetProperties() {
     var controller = this;
     var signUpProfile = Profile.extend(signUpValidations);
     var profile = signUpProfile.create(Ember.getOwner(this).ownerInjection(), {
@@ -188,7 +186,9 @@ export default Ember.Controller.extend({
     });
 
     controller.set('profile', profile);
-    const url = `${window.location.protocol}//${window.location.host}${Env['google-sign-in'].url}`;
+    const url = `${window.location.protocol}//${window.location.host}${Env[
+      'google-sign-in'
+    ].url}`;
     controller.set('googleSignUpUrl', url);
     controller.set('didValidate', false);
     controller.set('emailError', false);
@@ -199,7 +199,7 @@ export default Ember.Controller.extend({
    * validate Date SelectPicker
    * @returns {Boolean}
    */
-  validDateSelectPicker: function(){
+  validDateSelectPicker: function() {
     var controller = this;
     var monthSelected = $('.selectpicker.months option:selected').val();
     var daySelected = $('.selectpicker.days option:selected').val();
@@ -210,8 +210,8 @@ export default Ember.Controller.extend({
     controller.set('daySelected', daySelected);
     controller.set('yearSelected', yearSelected);
 
-    if (monthSelected || daySelected || yearSelected){
-      birthDayDate = monthSelected +'/'+ daySelected +'/'+ yearSelected;
+    if (monthSelected || daySelected || yearSelected) {
+      birthDayDate = `${monthSelected}/${daySelected}/${yearSelected}`;
     }
 
     return birthDayDate;
@@ -222,22 +222,24 @@ export default Ember.Controller.extend({
    * @param {String} monthSelected
    * @returns {String}
    */
-  getMonthName: function (monthSelected){
+  getMonthName: function(monthSelected) {
     const i18n = this.get('i18n');
-    const monthNames = [i18n.t("sign-up.dateOfBirth.months.january"),
-                        i18n.t("sign-up.dateOfBirth.months.february"),
-                        i18n.t("sign-up.dateOfBirth.months.march"),
-                        i18n.t("sign-up.dateOfBirth.months.april"),
-                        i18n.t("sign-up.dateOfBirth.months.may"),
-                        i18n.t("sign-up.dateOfBirth.months.june"),
-                        i18n.t("sign-up.dateOfBirth.months.july"),
-                        i18n.t("sign-up.dateOfBirth.months.august"),
-                        i18n.t("sign-up.dateOfBirth.months.september"),
-                        i18n.t("sign-up.dateOfBirth.months.october"),
-                        i18n.t("sign-up.dateOfBirth.months.november"),
-                        i18n.t("sign-up.dateOfBirth.months.december")];
+    const monthNames = [
+      i18n.t('sign-up.dateOfBirth.months.january'),
+      i18n.t('sign-up.dateOfBirth.months.february'),
+      i18n.t('sign-up.dateOfBirth.months.march'),
+      i18n.t('sign-up.dateOfBirth.months.april'),
+      i18n.t('sign-up.dateOfBirth.months.may'),
+      i18n.t('sign-up.dateOfBirth.months.june'),
+      i18n.t('sign-up.dateOfBirth.months.july'),
+      i18n.t('sign-up.dateOfBirth.months.august'),
+      i18n.t('sign-up.dateOfBirth.months.september'),
+      i18n.t('sign-up.dateOfBirth.months.october'),
+      i18n.t('sign-up.dateOfBirth.months.november'),
+      i18n.t('sign-up.dateOfBirth.months.december')
+    ];
 
-    return monthNames.objectAt(parseInt(monthSelected)-1);
+    return monthNames.objectAt(parseInt(monthSelected) - 1);
   },
 
   /**
@@ -245,7 +247,7 @@ export default Ember.Controller.extend({
    * @param {String} dateOfBirth
    * @returns {Number}
    */
-  calculateAge: function  (dateOfBirth) {
+  calculateAge: function(dateOfBirth) {
     var today = new Date();
     var birthDate = new Date(dateOfBirth);
     var age = today.getFullYear() - birthDate.getFullYear();

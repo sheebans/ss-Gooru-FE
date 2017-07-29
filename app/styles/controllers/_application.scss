@@ -1,6 +1,6 @@
-.application{
+.application {
   overflow-x: hidden;
-  &.no-vertical-scroll{
+  &.no-vertical-scroll {
     overflow-y: hidden;
   }
 }
@@ -48,7 +48,7 @@
       }
     }
 
- > .channel {
+    > .channel {
       @media (min-width: $screen-md) {
         width: 25%;
       }
@@ -59,6 +59,5 @@
         background-color: transparent;
       }
     }
-
   }
 }

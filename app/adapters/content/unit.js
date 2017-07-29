@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} UnitAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service(),
 
   namespace: '/api/nucleus/v1/courses',
@@ -19,7 +18,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Ember.Promise|String} ID of the newly created unit
    */
-  createUnit: function (params) {
+  createUnit: function(params) {
     const courseId = params.courseId;
     const namespace = this.get('namespace');
     const url = `${namespace}/${courseId}/units`;
@@ -32,14 +31,16 @@ export default Ember.Object.extend({
       data: JSON.stringify(params.unit)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData, textStatus, request) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function(responseData, textStatus, request) {
           var unitId = request.getResponseHeader('location');
           resolve(unitId);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -49,7 +50,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Ember.Promise|String} ID
    */
-  updateUnit: function (params) {
+  updateUnit: function(params) {
     const courseId = params.courseId;
     const unitId = params.unitId;
     const namespace = this.get('namespace');
@@ -63,13 +64,15 @@ export default Ember.Object.extend({
       data: JSON.stringify(params.unit)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function () {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function() {
           resolve('');
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -79,7 +82,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Promise|Object}
    */
-  getUnitById: function (params) {
+  getUnitById: function(params) {
     const courseId = params.courseId;
     const unitId = params.unitId;
     const namespace = this.get('namespace');
@@ -90,13 +93,15 @@ export default Ember.Object.extend({
       headers: this.defineHeaders()
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function(responseData) {
           resolve(responseData);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -172,10 +177,9 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
-  defineHeaders: function () {
+  defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

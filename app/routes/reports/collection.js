@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
-import ContextMixin from "gooru-web/mixins/quizzes/context";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import ContextMixin from 'gooru-web/mixins/quizzes/context';
 import QuizzesReport from 'quizzes-addon/routes/reports/context';
 
 /**
@@ -13,7 +13,6 @@ import QuizzesReport from 'quizzes-addon/routes/reports/context';
  * @augments ember/Route
  */
 export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -25,27 +24,22 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
 
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
-    navigateBack: function () {
+    navigateBack: function() {
       let classId = this.controller.get('classId');
-      this.transitionTo(
-        'teacher.class.class-activities',
-        classId
-      );
+      this.transitionTo('teacher.class.class-activities', classId);
     }
   },
-
 
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (params) {
+  model: function(params) {
     const route = this;
     const collectionId = params.collectionId;
     const classId = params.classId;
@@ -53,22 +47,25 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
     let collection;
 
     // Get initialization data from analytics
-    return route.get('assessmentService').readAssessment(collectionId).then(function(assessment) {
-      collection = assessment;
-      return route.createContext(params, collection, true);
-    }).then(function({ id }) {
-      params.type = collection.get('collectionType');
-      params.contextId = id;
-      params.anonymous = anonymous;
-      return route.quizzesModel(params).then(
-        model => Object.assign(model, { classId })
-      );
-    });
+    return route
+      .get('assessmentService')
+      .readAssessment(collectionId)
+      .then(function(assessment) {
+        collection = assessment;
+        return route.createContext(params, collection, true);
+      })
+      .then(function({ id }) {
+        params.type = collection.get('collectionType');
+        params.contextId = id;
+        params.anonymous = anonymous;
+        return route
+          .quizzesModel(params)
+          .then(model => Object.assign(model, { classId }));
+      });
   },
 
   setupController: function(controller, model) {
     this._super(...arguments);
     controller.set('classId', model.classId);
   }
-
 });

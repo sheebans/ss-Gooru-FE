@@ -1,7 +1,11 @@
 import Ember from 'ember';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
-import {download} from 'gooru-web/utils/csv';
-import {prepareStudentFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
+import { download } from 'gooru-web/utils/csv';
+import {
+  prepareStudentFileDataToDownload,
+  formatDate,
+  createFileNameToDownload
+} from 'gooru-web/utils/utils';
 
 /**
  * Student Performance Controller
@@ -33,7 +37,6 @@ export default Ember.Controller.extend({
    * @property {Service} I18N service
    */
   i18n: Ember.inject.service(),
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -89,15 +92,21 @@ export default Ember.Controller.extend({
    * Class courses
    * @property {Course[]}
    */
-  courses: Ember.computed('applicationController.myClasses.classes.[]', 'courseId', function() {
-    const activeClasses = this.get('applicationController.myClasses').getStudentActiveClasses(this.get('profile.id'));
-    return activeClasses.filterBy('hasCourse').map(function(aClass){
-      return {
-        id: aClass.get('courseId'),
-        title: aClass.get('courseTitle')
-      };
-    });
-  }),
+  courses: Ember.computed(
+    'applicationController.myClasses.classes.[]',
+    'courseId',
+    function() {
+      const activeClasses = this.get(
+        'applicationController.myClasses'
+      ).getStudentActiveClasses(this.get('profile.id'));
+      return activeClasses.filterBy('hasCourse').map(function(aClass) {
+        return {
+          id: aClass.get('courseId'),
+          title: aClass.get('courseTitle')
+        };
+      });
+    }
+  ),
 
   /**
    * Last selected content title
@@ -112,48 +121,52 @@ export default Ember.Controller.extend({
    * @visible {Boolean}
    * @constant {Array}
    */
-  metrics: Ember.computed('collectionType',function(){
-    return Ember.A([Ember.Object.create({
-      'value': this.get('collectionType'),
-      'sorted': false,
-      'isAsc': false,
-      'hasSorting': true,
-      'visible': true,
-      'index': -1
-    }),Ember.Object.create({
-      'value': 'score',
-      'sorted': false,
-      'isAsc': false,
-      'hasSorting': true,
-      'visible': false,
-      'index':0
-    }),Ember.Object.create({
-      'value': 'completion',
-      'sorted': false,
-      'isAsc': false,
-      'hasSorting': true,
-      'visible': false,
-      'index':1
-    }),Ember.Object.create({
-      'value': 'study-time',
-      'sorted': false,
-      'isAsc': false,
-      'hasSorting': true,
-      'visible': false,
-      'index':2
-    })]);
+  metrics: Ember.computed('collectionType', function() {
+    return Ember.A([
+      Ember.Object.create({
+        value: this.get('collectionType'),
+        sorted: false,
+        isAsc: false,
+        hasSorting: true,
+        visible: true,
+        index: -1
+      }),
+      Ember.Object.create({
+        value: 'score',
+        sorted: false,
+        isAsc: false,
+        hasSorting: true,
+        visible: false,
+        index: 0
+      }),
+      Ember.Object.create({
+        value: 'completion',
+        sorted: false,
+        isAsc: false,
+        hasSorting: true,
+        visible: false,
+        index: 1
+      }),
+      Ember.Object.create({
+        value: 'study-time',
+        sorted: false,
+        isAsc: false,
+        hasSorting: true,
+        visible: false,
+        index: 2
+      })
+    ]);
   }),
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      * Selects the content type
      * @param collectionType
      */
-    selectContentType: function (collectionType) {
+    selectContentType: function(collectionType) {
       this.set('collectionType', collectionType);
       this.loadData();
     },
@@ -162,7 +175,7 @@ export default Ember.Controller.extend({
      * Selects the course
      * @param courseId
      */
-    selectCourse: function (courseId) {
+    selectCourse: function(courseId) {
       this.set('courseId', courseId);
       this.set('unitId', null);
       this.set('lessonId', null);
@@ -173,7 +186,7 @@ export default Ember.Controller.extend({
      * Selects the unit
      * @param unitId
      */
-    selectUnit: function (unitId) {
+    selectUnit: function(unitId) {
       this.set('unitId', unitId);
       this.set('lessonId', null);
     },
@@ -182,20 +195,20 @@ export default Ember.Controller.extend({
      * Selects the lesson
      * @param lessonId
      */
-    selectLesson: function (lessonId) {
+    selectLesson: function(lessonId) {
       this.set('lessonId', lessonId);
     },
 
     /**
      * Loads report data
      */
-    updateReport: function () {
+    updateReport: function() {
       this.loadData();
     },
     /**
      * When clicking at the download button
      */
-    download: function(){
+    download: function() {
       let reportData = this.prepareReportValues();
       this.downloadFile(reportData[0], reportData[1]);
     }
@@ -205,7 +218,7 @@ export default Ember.Controller.extend({
   /**
    * Loads report data
    */
-  loadData: function () {
+  loadData: function() {
     const controller = this;
     const courseId = controller.get('courseId');
     if (courseId) {
@@ -220,20 +233,35 @@ export default Ember.Controller.extend({
         collectionType: collectionType
       };
       controller.set('filterCriteria', criteria);
-      Ember.RSVP.hash({
-        course: controller.get('courseService').getCourseStructure(courseId, collectionType),
-        items: controller.get('performanceService').findMyPerformance(userId, courseId, lessonId, unitId,
-          collectionType)
-      }).then(function (hash) {
-        const course = hash.course;
-        const items = hash.items;
-        controller.setProperties({
-          course: course,
-          collectionPerformanceSummaryItems: items,
-          collections: course.getCollectionsByType(collectionType, unitId, lessonId)
+      Ember.RSVP
+        .hash({
+          course: controller
+            .get('courseService')
+            .getCourseStructure(courseId, collectionType),
+          items: controller
+            .get('performanceService')
+            .findMyPerformance(
+              userId,
+              courseId,
+              lessonId,
+              unitId,
+              collectionType
+            )
+        })
+        .then(function(hash) {
+          const course = hash.course;
+          const items = hash.items;
+          controller.setProperties({
+            course: course,
+            collectionPerformanceSummaryItems: items,
+            collections: course.getCollectionsByType(
+              collectionType,
+              unitId,
+              lessonId
+            )
+          });
+          controller.set('contentTitle', controller.getContentTitle());
         });
-        controller.set('contentTitle', controller.getContentTitle());
-      });
     }
   },
 
@@ -244,9 +272,12 @@ export default Ember.Controller.extend({
     const controller = this;
     const courseId = controller.get('courseId');
     const collectionType = controller.get('collectionType');
-    controller.get('courseService').getCourseStructure(courseId, collectionType).then(function(course){
-      controller.set('course', course);
-    });
+    controller
+      .get('courseService')
+      .getCourseStructure(courseId, collectionType)
+      .then(function(course) {
+        controller.set('course', course);
+      });
   },
 
   /**
@@ -254,15 +285,15 @@ export default Ember.Controller.extend({
    * @returns {string}
    */
   getContentTitle: function() {
-    let title = this.get('course') ? this.get('course.title'): null;
-    title = this.get('unit') ? this.get('unit.title'): title;
-    return this.get('lesson') ? this.get('lesson.title'): title;
+    let title = this.get('course') ? this.get('course.title') : null;
+    title = this.get('unit') ? this.get('unit.title') : title;
+    return this.get('lesson') ? this.get('lesson.title') : title;
   },
 
   /**
    * Resets values
    */
-  resetValues: function () {
+  resetValues: function() {
     this.setProperties({
       course: null,
       unit: null,
@@ -276,27 +307,40 @@ export default Ember.Controller.extend({
   /**
    * Prepare the report value in order to download as csv file
    */
-  prepareReportValues: function(){
+  prepareReportValues: function() {
     const controller = this;
     const collectionType = controller.getContentTitle();
-    const metrics = [controller.get('i18n').t('gru-performance-metrics.'+controller.get('collectionType')),controller.get('i18n').t('gru-performance-metrics.score'),controller.get('i18n').t('gru-performance-metrics.completion'),controller.get('i18n').t('gru-performance-metrics.study-time')];
-    const performanceSummaryItems = controller.get('collectionPerformanceSummaryItems');
+    const metrics = [
+      controller
+        .get('i18n')
+        .t(`gru-performance-metrics.${controller.get('collectionType')}`),
+      controller.get('i18n').t('gru-performance-metrics.score'),
+      controller.get('i18n').t('gru-performance-metrics.completion'),
+      controller.get('i18n').t('gru-performance-metrics.study-time')
+    ];
+    const performanceSummaryItems = controller.get(
+      'collectionPerformanceSummaryItems'
+    );
     const collections = controller.get('collections');
-    const date=formatDate(new Date(),'MM-DD-YY');
+    const date = formatDate(new Date(), 'MM-DD-YY');
     const courseTitle = controller.get('course.title');
     var fileNameString = `${courseTitle}`;
 
     fileNameString = `${fileNameString}_${date}`;
 
     const fileName = createFileNameToDownload(fileNameString);
-    const fileData = prepareStudentFileDataToDownload(collections, performanceSummaryItems,metrics.map(item => item.string),collectionType);
-    return [fileName,fileData];
+    const fileData = prepareStudentFileDataToDownload(
+      collections,
+      performanceSummaryItems,
+      metrics.map(item => item.string),
+      collectionType
+    );
+    return [fileName, fileData];
   },
   /**
    * Download file
    */
-  downloadFile:function(name,data){
-   return download(name,data);
+  downloadFile: function(name, data) {
+    return download(name, data);
   }
-
 });

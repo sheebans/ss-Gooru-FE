@@ -13,15 +13,13 @@ import QuestionComponent from './gru-question';
  * @augments player/questions/gru-question.js
  */
 export default QuestionComponent.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-reorder'],
+  classNames: ['gru-reorder'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -31,10 +29,10 @@ export default QuestionComponent.extend({
   initSortableList: Ember.on('didInsertElement', function() {
     const component = this;
     component.setAnswers();
-    if(!component.get('hasUserAnswer')){
+    if (!component.get('hasUserAnswer')) {
       component.shuffle();
     }
-    this.set('areAnswersShuffled',true);
+    this.set('areAnswersShuffled', true);
   }),
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {
@@ -48,13 +46,14 @@ export default QuestionComponent.extend({
    * Convenient structure to render the question answer choices
    * @property {*}
    */
-  answers: Ember.computed("question.answers.[]", function(){
-    let answers = this.get("question.answers").sortBy("order");
+  answers: Ember.computed('question.answers.[]', function() {
+    let answers = this.get('question.answers').sortBy('order');
 
-    if (this.get("hasUserAnswer")){ //@see gooru-web/utils/question/reorder.js
-      let userAnswer = this.get("userAnswer");
-      answers = userAnswer.map(function(answerId){
-        return answers.findBy("id", answerId);
+    if (this.get('hasUserAnswer')) {
+      //@see gooru-web/utils/question/reorder.js
+      let userAnswer = this.get('userAnswer');
+      answers = userAnswer.map(function(answerId) {
+        return answers.findBy('id', answerId);
       });
     }
     return answers;
@@ -70,17 +69,17 @@ export default QuestionComponent.extend({
   /**
    * Set answers
    */
-  setAnswers: function(){
+  setAnswers: function() {
     const component = this;
     const sortable = this.$('.sortable');
     const readOnly = component.get('readOnly');
 
     sortable.sortable();
-    if (readOnly){
+    if (readOnly) {
       sortable.sortable('disable');
     }
 
-    if(component.get('hasUserAnswer')) {
+    if (component.get('hasUserAnswer')) {
       component.notify(true);
     }
     // Manually add subscriptions to sortable element -makes it easier to test
@@ -97,15 +96,16 @@ export default QuestionComponent.extend({
     const component = this;
     const questionUtil = this.get('questionUtil');
     const $items = component.$('.sortable').find('li');
-    const answers = $items.map(function(idx, item) {
-      return $(item).data('id');
-    }).toArray();
-
+    const answers = $items
+      .map(function(idx, item) {
+        return $(item).data('id');
+      })
+      .toArray();
 
     const correct = questionUtil.isCorrect(answers);
 
     component.notifyAnswerChanged(answers, correct);
-    if(onLoad) {
+    if (onLoad) {
       component.notifyAnswerLoaded(answers, correct);
     } else {
       component.notifyAnswerCompleted(answers, correct);
@@ -115,21 +115,22 @@ export default QuestionComponent.extend({
   /**
    * Take the list of items and shuffle all his members
    */
-  shuffle: function(){
+  shuffle: function() {
     const component = this;
-    const $items = component.$('.sortable') ;
-    return $items.each(function(){
+    const $items = component.$('.sortable');
+    return $items.each(function() {
       var items = $items.children().clone(true);
-      return (items.length) ? $(this).html(component.disorder(items)) : $items;
-
+      return items.length ? $(this).html(component.disorder(items)) : $items;
     });
   },
   /**
    * Disorder elements
    */
-  disorder: function(list){
-    var j, x, i = list.length;
-    while(i) {
+  disorder: function(list) {
+    var j,
+      x,
+      i = list.length;
+    while (i) {
       j = parseInt(Math.random() * i);
       i -= 1;
       x = list[i];

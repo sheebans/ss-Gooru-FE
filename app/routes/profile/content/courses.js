@@ -3,7 +3,6 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -14,12 +13,11 @@ export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * Edit course action, when clicking Edit at the course card
      * @param {Content/Course}
      */
-    editCourse: function(course){
+    editCourse: function(course) {
       this.transitionTo('content.courses.edit', course.get('id'));
     },
 
@@ -27,7 +25,7 @@ export default Ember.Route.extend(ModalMixin, {
      * Edit course action, when clicking Play at the course card
      * @param {Content/Course}
      */
-    playCourse: function(course){
+    playCourse: function(course) {
       this.transitionTo('content.courses.play', course.get('id'));
     },
 
@@ -35,7 +33,7 @@ export default Ember.Route.extend(ModalMixin, {
      * Remix course action, when clicking remix at the course card
      * @param {Content/Course}
      */
-    remixCourse: function(course){
+    remixCourse: function(course) {
       var remixModel = {
         content: course
       };
@@ -45,10 +43,9 @@ export default Ember.Route.extend(ModalMixin, {
     /**
      * Triggers the refresh of user classes
      */
-    updateClass:function(){
+    updateClass: function() {
       this.send('updateUserClasses');
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -66,7 +63,7 @@ export default Ember.Route.extend(ModalMixin, {
     });
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.get('profileController').selectMenuItem('content');
     controller.set('courses', model.courses);
     controller.set('disableSearch', true);
@@ -75,5 +72,4 @@ export default Ember.Route.extend(ModalMixin, {
   deactivate: function() {
     this.get('controller').resetValues();
   }
-
 });

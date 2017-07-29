@@ -22,18 +22,18 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions:{
+  actions: {
     /**
      * Select classroom
      */
-    selectClassroom:function(classroom){
-      this.set('selectedClassroom',classroom);
+    selectClassroom: function(classroom) {
+      this.set('selectedClassroom', classroom);
     },
 
     /**
      * Add to classroom or daily class activity
      */
-    addTo:function(){
+    addTo: function() {
       let component = this;
       let content = component.get('model.content');
       let isClassActivity = component.get('model.classActivity');
@@ -41,15 +41,26 @@ export default Ember.Component.extend({
       let classId = selectedClassroom.get('id');
 
       if (isClassActivity) {
-        component.get('classActivityService').addActivityToClass(classId, content.get('id'), content.get('collectionType'), null).then(function(){
-          component.triggerAction({ action: 'closeModal' });
-        });
+        component
+          .get('classActivityService')
+          .addActivityToClass(
+            classId,
+            content.get('id'),
+            content.get('collectionType'),
+            null
+          )
+          .then(function() {
+            component.triggerAction({ action: 'closeModal' });
+          });
       } else {
-        component.get('classService').associateCourseToClass(content.get('id'), classId).then(function(){
-         let callback = component.get('model.callback');
-          callback.success();
-          component.triggerAction({ action: 'closeModal' });
-        });
+        component
+          .get('classService')
+          .associateCourseToClass(content.get('id'), classId)
+          .then(function() {
+            let callback = component.get('model.callback');
+            callback.success();
+            component.triggerAction({ action: 'closeModal' });
+          });
       }
     }
   },

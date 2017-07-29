@@ -3,7 +3,6 @@ import Env from 'gooru-web/config/environment';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Controller.extend(ModalMixin, {
-
   queryParams: ['showArchivedClasses', 'showActiveClasses'],
 
   // -------------------------------------------------------------------------
@@ -24,26 +23,26 @@ export default Ember.Controller.extend(ModalMixin, {
     /**
      *Filter by most recent
      */
-    filterByDate:function(){
-      if(this.get('sortOn')==='title'){
-        this.set('order','desc');
-        this.set('sortOn','startDate');
-      }else{
-        this.set('order',(this.get('order') === 'asc') ?'desc': 'asc');
+    filterByDate: function() {
+      if (this.get('sortOn') === 'title') {
+        this.set('order', 'desc');
+        this.set('sortOn', 'startDate');
+      } else {
+        this.set('order', this.get('order') === 'asc' ? 'desc' : 'asc');
       }
     },
     /**
      *Filter by alphanumeric
      */
-    filterByTitle:function(){
-      if(this.get('sortOn')==='startDate'){
-        this.set('order','asc');
-        this.set('sortOn','title');
-      }else{
-        this.set('order',(this.get('order') === 'desc') ?'asc': 'desc');
+    filterByTitle: function() {
+      if (this.get('sortOn') === 'startDate') {
+        this.set('order', 'asc');
+        this.set('sortOn', 'title');
+      } else {
+        this.set('order', this.get('order') === 'desc' ? 'asc' : 'desc');
       }
     },
-    showClasses: function (type) {
+    showClasses: function(type) {
       this.set('showActiveClasses', type === 'active');
       this.set('showArchivedClasses', type === 'archived');
     }
@@ -51,17 +50,17 @@ export default Ember.Controller.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  init: function () {
+  init: function() {
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
-    const localStorageItem = userId+'_dontShowWelcomeModal';
-    const localStorageLogins = userId + '_logins';
+    const localStorageItem = `${userId}_dontShowWelcomeModal`;
+    const localStorageLogins = `${userId}_logins`;
 
-    if(!localStorage.getItem(localStorageItem)) {
+    if (!localStorage.getItem(localStorageItem)) {
       this.send('showModal', 'content.modals.gru-welcome-message');
     }
     let loginCount = localStorage.getItem(localStorageLogins);
-    if(loginCount) {
+    if (loginCount) {
       this.set('loginCount', +loginCount);
     }
   },
@@ -96,14 +95,23 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @property {Class[]}
    */
-  activeClasses: Ember.computed('applicationController.myClasses.classes.[]', function(){
-    return this.get('applicationController.myClasses').getTeacherActiveClasses(this.get('profile.id'));
-  }),
+  activeClasses: Ember.computed(
+    'applicationController.myClasses.classes.[]',
+    function() {
+      return this.get(
+        'applicationController.myClasses'
+      ).getTeacherActiveClasses(this.get('profile.id'));
+    }
+  ),
 
   /**
    * @property {Class[]}
    */
-  archivedClasses: Ember.computed.filterBy('myClasses.classes', 'isArchived', true),
+  archivedClasses: Ember.computed.filterBy(
+    'myClasses.classes',
+    'isArchived',
+    true
+  ),
 
   /**
    * @property {Number} Total of teaching classes
@@ -118,28 +126,31 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @property {string} Indicates the order of the sorting
    */
-  order:'desc',
+  order: 'desc',
 
   /**
    * @property {string} Indicates the sorting criteria
    */
-  sortOn:'startDate',
+  sortOn: 'startDate',
   /**
    * @property {[Class]} Sorted archived classrooms
    */
-  sortedArchivedClassrooms: Ember.computed.sort('archivedClasses', 'sortDefinition'),
+  sortedArchivedClassrooms: Ember.computed.sort(
+    'archivedClasses',
+    'sortDefinition'
+  ),
   /**
    * sort Definition
    */
-  sortDefinition: Ember.computed('sortOn','order', function() {
-    return [ `${this.get('sortOn')}:${this.get('order')}`];
+  sortDefinition: Ember.computed('sortOn', 'order', function() {
+    return [`${this.get('sortOn')}:${this.get('order')}`];
   }),
 
   /**
    * Toolkit site url
    * @property {string}
    */
-  toolkitSiteUrl: Ember.computed(function(){
+  toolkitSiteUrl: Ember.computed(function() {
     return Env.toolkitSiteUrl;
   }),
 

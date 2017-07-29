@@ -11,7 +11,6 @@ import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
  * @typedef {Object} LessonSerializer
  */
 export default Ember.Object.extend(ConfigurationMixin, {
-
   session: Ember.inject.service('session'),
 
   /**
@@ -19,9 +18,12 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   taxonomySerializer: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'taxonomySerializer',
+      TaxonomySerializer.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -30,8 +32,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param lessonModel - The lesson model to be serialized
    * @returns {Object} JSON Object representation of the lesson model
    */
-  serializeCreateLesson: function (lessonModel) {
-    var lessonData =  this.get('serializeUpdateLesson')(lessonModel);
+  serializeCreateLesson: function(lessonModel) {
+    var lessonData = this.get('serializeUpdateLesson')(lessonModel);
     return lessonData;
   },
 
@@ -41,10 +43,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param lessonModel - The lesson model to be serialized
    * @returns {Object} JSON Object representation of the lesson model
    */
-  serializeUpdateLesson: function (lessonModel) {
+  serializeUpdateLesson: function(lessonModel) {
     return {
       title: lessonModel.get('title'),
-      taxonomy: null  // TODO: pending
+      taxonomy: null // TODO: pending
     };
   },
 
@@ -53,17 +55,19 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param lessonData - The endpoint response in JSON format
    * @returns {Content/Lesson} lesson model
    */
-  normalizeLesson: function (lessonData) {
+  normalizeLesson: function(lessonData) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
     return Lesson.create(Ember.getOwner(this).ownerInjection(), {
-      children: function () {
+      children: (function() {
         var lessonItems = [];
 
         if (lessonData.collection_summary) {
-          lessonItems = lessonData.collection_summary.map(function (lessonItemData) {
-            const lessonItem  = LessonItem.create({
+          lessonItems = lessonData.collection_summary.map(function(
+            lessonItemData
+          ) {
+            const lessonItem = LessonItem.create({
               id: lessonItemData.id,
               format: lessonItemData.format,
               url: lessonItemData.url,
@@ -74,19 +78,25 @@ export default Ember.Object.extend(ConfigurationMixin, {
               title: lessonItemData.title
             });
 
-            const defaultImage = (lessonItem.get('isCollection')) ? appRootPath + DEFAULT_IMAGES.COLLECTION : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
-            const thumbnailUrl = lessonItemData.thumbnail ? basePath + lessonItemData.thumbnail : defaultImage;
+            const defaultImage = lessonItem.get('isCollection')
+              ? appRootPath + DEFAULT_IMAGES.COLLECTION
+              : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+            const thumbnailUrl = lessonItemData.thumbnail
+              ? basePath + lessonItemData.thumbnail
+              : defaultImage;
             lessonItem.set('thumbnailUrl', thumbnailUrl);
 
             return lessonItem;
           });
         }
         return Ember.A(lessonItems);
-      }(),
+      })(),
       id: lessonData.lesson_id,
       sequence: lessonData.sequence_id,
       title: lessonData.title,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(lessonData.taxonomy)
+      taxonomy: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyObject(lessonData.taxonomy)
     });
   },
 
@@ -94,14 +104,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * Serialize reorder lesson
    * @param {string[]} collectionIds
    */
-  serializeReorderLesson: function (collectionIds) {
-    const values = collectionIds.map(
-      (id, index) => ({ id, 'sequence_id' : index + 1 })
-    );
+  serializeReorderLesson: function(collectionIds) {
+    const values = collectionIds.map((id, index) => ({
+      id,
+      sequence_id: index + 1
+    }));
     return {
       order: values
     };
   }
-
-
 });

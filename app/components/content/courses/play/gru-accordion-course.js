@@ -11,47 +11,40 @@ import BuilderMixin from 'gooru-web/mixins/content/builder';
  * @mixes mixins/content/builder
  */
 export default Ember.Component.extend(BuilderMixin, {
-
-
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['content', 'courses', 'gru-accordion-course', 'gru-accordion'],
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
-    expandUnit: function (unitId, expanded) {
+    expandUnit: function(unitId, expanded) {
       const component = this;
 
       if (expanded) {
-        component.sendAction("onLocationChange", unitId);
-      }
-      else {
-        component.sendAction("onLocationChange", undefined);
+        component.sendAction('onLocationChange', unitId);
+      } else {
+        component.sendAction('onLocationChange', undefined);
       }
 
       component.closeAllUnits();
     },
 
-    expandLesson: function (unitId, lessonId, expanded) {
+    expandLesson: function(unitId, lessonId, expanded) {
       const component = this;
 
       if (expanded) {
-        component.sendAction("onLocationChange", unitId, lessonId);
-      }
-      else {
-        component.sendAction("onLocationChange", unitId, undefined);
+        component.sendAction('onLocationChange', unitId, lessonId);
+      } else {
+        component.sendAction('onLocationChange', unitId, undefined);
       }
     },
 
-    closeAllUnits: function () {
+    closeAllUnits: function() {
       this.closeAllUnits();
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -67,11 +60,10 @@ export default Ember.Component.extend(BuilderMixin, {
    */
   onLocationChange: null,
 
-
   // -------------------------------------------------------------------------
   // Methods
   closeAllUnits: function() {
-    this.get('items').forEach(function (builderItem) {
+    this.get('items').forEach(function(builderItem) {
       builderItem.set('isExpanded', false);
     });
   }

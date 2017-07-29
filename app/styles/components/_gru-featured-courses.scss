@@ -19,10 +19,9 @@
       background-color: $dark-400;
       left: 0;
       top: 55px;
-      @media(min-width: $screen-md-min) {
+      @media (min-width: $screen-md-min) {
         top: 63px;
       }
-
     }
   }
 
@@ -33,7 +32,7 @@
     margin: 0;
     min-height: 50px;
     width: 95%;
-    @media(min-width: $screen-sm-min) {
+    @media (min-width: $screen-sm-min) {
       font-size: 13px;
       margin: 0 auto;
       width: 75%;
@@ -58,8 +57,7 @@
   }
 
   .subject-menu-option {
-
-    @media(min-width: $screen-sm-min) {
+    @media (min-width: $screen-sm-min) {
       margin-right: 40px;
     }
 
@@ -106,7 +104,7 @@
 
   .content-container {
     width: 95%;
-    @media(min-width: $screen-sm-min) {
+    @media (min-width: $screen-sm-min) {
       width: 75%;
     }
   }
@@ -125,21 +123,18 @@
       color: $gray-base;
       font-size: $font-size-h5;
       padding: 0;
-
     }
-
-
 
     .course-container {
       @include flexbox;
       @include flex-wrap(wrap);
       @include justify-content(center);
 
-      @media(min-width: $screen-md-min) {
+      @media (min-width: $screen-md-min) {
         @include justify-content(space-between);
       }
 
-      >* {
+      > * {
         margin-bottom: 10px;
         margin-right: 10px;
       }

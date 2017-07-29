@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} TaxonomyItem
  */
 export default Ember.Object.extend({
-
   /**
    * @property {TaxonomyItem[]} children - List of item's children
    */
@@ -87,9 +86,11 @@ export default Ember.Object.extend({
           result = this;
         } else {
           let children = this.get('children');
-          for(let i = children.length - 1; i >= 0; --i) {
+          for (let i = children.length - 1; i >= 0; --i) {
             result = children[i].find(path.slice(1));
-            if (result) { break; }
+            if (result) {
+              break;
+            }
           }
         }
       }
@@ -116,7 +117,9 @@ export default Ember.Object.extend({
           let item = children[i].isSimilar(itemId);
           if (item) {
             result = item.findItem(itemId);
-            if (result) { break; }
+            if (result) {
+              break;
+            }
           }
         }
       }
@@ -159,5 +162,4 @@ export default Ember.Object.extend({
     this.set('parent', null);
     this.destroy();
   }
-
 });

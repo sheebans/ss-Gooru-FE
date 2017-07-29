@@ -5,7 +5,6 @@ import DS from 'ember-data';
  * @typedef {Object} Class
  */
 export default DS.Model.extend({
-
   /**
    * @property {string} Student/Teacher name
    */
@@ -71,8 +70,8 @@ export default DS.Model.extend({
    * @param {string} userId user identifier
    * @returns {bool}
    */
-  isTeacher: function(userId){
-    return this.get("teachers").filterBy("id", userId).get("length");
+  isTeacher: function(userId) {
+    return this.get('teachers').filterBy('id', userId).get('length');
   },
 
   /**
@@ -80,8 +79,7 @@ export default DS.Model.extend({
    * @param {string} userId user identifier
    * @returns {bool}
    */
-  isStudent: function(userId){
+  isStudent: function(userId) {
     return !this.isTeacher(userId);
   }
-
 });

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import PlayerRoute from 'gooru-web/routes/player';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
-import { CONTENT_TYPES} from 'gooru-web/config/config';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Study Player Route
@@ -45,7 +45,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     /**
      * When the submission is complete
      */
-    onFinish: function () {
+    onFinish: function() {
       let controller = this.get('controller');
       let profileId = this.get('session.userData.gooruUId');
       let contextId = controller.get('contextResult.contextId');
@@ -64,22 +64,29 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         queryParams.classId = classId;
       }
       const navigateMapService = this.get('navigateMapService');
-      this.get('quizzesAttemptService').getAttemptIds(contextId, profileId)
-        .then(attemptIds => !attemptIds || !attemptIds.length ? {} :
-          this.get('quizzesAttemptService').getAttemptData(attemptIds[attemptIds.length - 1])
+      this.get('quizzesAttemptService')
+        .getAttemptIds(contextId, profileId)
+        .then(
+          attemptIds =>
+            !attemptIds || !attemptIds.length
+              ? {}
+              : this.get('quizzesAttemptService').getAttemptData(
+                attemptIds[attemptIds.length - 1]
+              )
         )
-        .then(attemptData => Ember.RSVP.hash({
-          attemptData,
-          mapLocation: navigateMapService.getStoredNext()
-        }))
+        .then(attemptData =>
+          Ember.RSVP.hash({
+            attemptData,
+            mapLocation: navigateMapService.getStoredNext()
+          })
+        )
         .then(({ mapLocation, attemptData }) => {
           mapLocation.context.set('score', attemptData.get('averageScore'));
           return navigateMapService.next(mapLocation.context);
         })
-        .then(() =>  this.transitionTo(
-          'reports.study-student-collection',
-          { queryParams }
-        ));
+        .then(() =>
+          this.transitionTo('reports.study-student-collection', { queryParams })
+        );
     },
 
     /**
@@ -87,7 +94,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
      */
     loadPreTest: function() {
       const navigateMapService = this.get('navigateMapService');
-      navigateMapService.getStoredNext()
+      navigateMapService
+        .getStoredNext()
         .then(mapLocation => navigateMapService.next(mapLocation.context))
         .then(() => this.refresh());
     }
@@ -102,22 +110,32 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
     const tourSteps = Ember.A([
       {
         title: route.get('i18n').t('gru-take-tour.study-player.stepOne.title'),
-        description: route.get('i18n').t('gru-take-tour.study-player.stepOne.description')
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.description')
       },
       {
         elementSelector: '.header-panel .course-info .course-title',
         title: route.get('i18n').t('gru-take-tour.study-player.stepTwo.title'),
-        description: route.get('i18n').t('gru-take-tour.study-player.stepTwo.description')
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepTwo.description')
       },
       {
         elementSelector: '.header-panel .performance-info .performance',
-        title: route.get('i18n').t('gru-take-tour.study-player.stepThree.title'),
-        description: route.get('i18n').t('gru-take-tour.study-player.stepThree.description')
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.description')
       },
       {
         elementSelector: '.header-panel .course-info .actions .course-map',
         title: route.get('i18n').t('gru-take-tour.study-player.stepFive.title'),
-        description: route.get('i18n').t('gru-take-tour.study-player.stepFive.description')
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.description')
       },
       /*{
         elementSelector: '.header-panel .performance-info .suggestions',
@@ -125,69 +143,87 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         description: route.get('i18n').t('gru-take-tour.study-player.stepSeven.description')
       },*/
       {
-        title: route.get('i18n').t('gru-take-tour.study-player.stepEight.title'),
-        description: route.get('i18n').t('gru-take-tour.study-player.stepEight.description')
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.description')
       }
     ]);
-    return route.get('navigateMapService').getStoredNext().then(function (mapLocation) {
-      const courseId = mapLocation.get('context.courseId');
-      const unitId = mapLocation.get('context.unitId');
-      const lessonId = mapLocation.get('context.lessonId');
+    return route
+      .get('navigateMapService')
+      .getStoredNext()
+      .then(function(mapLocation) {
+        const courseId = mapLocation.get('context.courseId');
+        const unitId = mapLocation.get('context.unitId');
+        const lessonId = mapLocation.get('context.lessonId');
 
-      params.type = mapLocation.get('context.itemType') || mapLocation.get('context.collectionType');
+        params.type =
+          mapLocation.get('context.itemType') ||
+          mapLocation.get('context.collectionType');
 
-      if (params.type === CONTENT_TYPES.EXTERNAL_ASSESSMENT) {
-        route.transitionTo('study-player-external');
-      }
+        if (params.type === CONTENT_TYPES.EXTERNAL_ASSESSMENT) {
+          route.transitionTo('study-player-external');
+        }
 
-      return Ember.RSVP.hash({ //loading breadcrumb information and navigation info
-        course: route.get('courseService').fetchById(courseId),
-        unit: route.get('unitService').fetchById(courseId, unitId),
-        lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId)
-      }).then(function (hash) {
+        return Ember.RSVP
+          .hash({
+            //loading breadcrumb information and navigation info
+            course: route.get('courseService').fetchById(courseId),
+            unit: route.get('unitService').fetchById(courseId, unitId),
+            lesson: route
+              .get('lessonService')
+              .fetchById(courseId, unitId, lessonId)
+          })
+          .then(function(hash) {
+            //setting query params using the map location
+            params.collectionId =
+              mapLocation.get('context.itemId') ||
+              mapLocation.get('context.collectionId');
+            params.classId =
+              params.classId || mapLocation.get('context.classId');
+            params.unitId = params.unitId || mapLocation.get('context.unitId');
+            params.lessonId =
+              params.lessonId || mapLocation.get('context.lessonId');
+            params.pathId = params.pathId || mapLocation.get('context.pathId');
+            params.collectionSubType =
+              params.subtype || mapLocation.get('context.collectionSubType');
 
-        //setting query params using the map location
-        params.collectionId = mapLocation.get('context.itemId') || mapLocation.get('context.collectionId');
-        params.classId = params.classId || mapLocation.get('context.classId');
-        params.unitId = params.unitId || mapLocation.get('context.unitId');
-        params.lessonId = params.lessonId || mapLocation.get('context.lessonId');
-        params.pathId = params.pathId || mapLocation.get('context.pathId');
-        params.collectionSubType = params.subtype || mapLocation.get('context.collectionSubType');
+            // Set the correct unit sequence number
+            hash.course.children.find((child, index) => {
+              let found = false;
+              if (child.get('id') === hash.unit.get('id')) {
+                found = true;
+                hash.unit.set('sequence', index + 1);
+              }
+              return found;
+            });
 
-        // Set the correct unit sequence number
-        hash.course.children.find((child, index) => {
-          let found = false;
-          if (child.get('id') === hash.unit.get('id')) {
-            found = true;
-            hash.unit.set('sequence', index + 1);
-          }
-          return found;
-        });
+            // Set the correct lesson sequence number
+            hash.unit.children.find((child, index) => {
+              let found = false;
+              if (child.get('id') === hash.lesson.get('id')) {
+                found = true;
+                hash.lesson.set('sequence', index + 1);
+              }
+              return found;
+            });
 
-        // Set the correct lesson sequence number
-        hash.unit.children.find((child, index) => {
-          let found = false;
-          if (child.get('id') === hash.lesson.get('id')) {
-            found = true;
-            hash.lesson.set('sequence', index + 1);
-          }
-          return found;
-        });
-
-        //loads the player model if it has no suggestions
-        return route.playerModel(params).then(function (model) {
-          return Object.assign(model, {
-            tourSteps: tourSteps,
-            course: hash.course,
-            unit: hash.unit,
-            lesson: hash.lesson,
-            mapLocation,
-            collectionId: params.collectionId,
-            type: params.type
+            //loads the player model if it has no suggestions
+            return route.playerModel(params).then(function(model) {
+              return Object.assign(model, {
+                tourSteps: tourSteps,
+                course: hash.course,
+                unit: hash.unit,
+                lesson: hash.lesson,
+                mapLocation,
+                collectionId: params.collectionId,
+                type: params.type
+              });
+            });
           });
-        });
       });
-    });
   },
 
   setupController(controller, model) {
@@ -199,7 +235,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       course: model.course,
       unit: model.unit,
       lesson: model.lesson,
-      showConfirmation: model.collection && !(model.collection.get('isCollection') || isAnonymous), //TODO: move to computed
+      showConfirmation:
+        model.collection &&
+        !(model.collection.get('isCollection') || isAnonymous), //TODO: move to computed
       mapLocation: model.mapLocation,
       classId: mapLocation.get('context.classId'),
       //setting query params variables using the map location
@@ -233,20 +271,35 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
 
     let mapLocationPromise = null;
     if (continueCourse) {
-      mapLocationPromise = navigateMapService.getCurrentMapContext(courseId, classId)
+      mapLocationPromise = navigateMapService
+        .getCurrentMapContext(courseId, classId)
         .then(mapContext => navigateMapService.next(mapContext, false));
     } else if (startLesson) {
       mapLocationPromise = navigateMapService.startLesson(
-        courseId, unitId, lessonId, classId
+        courseId,
+        unitId,
+        lessonId,
+        classId
       );
     } else if (collectionSubType) {
       mapLocationPromise = navigateMapService.startSuggestion(
-        courseId, unitId, lessonId, collectionId, collectionType,
-        collectionSubType, pathId, classId
+        courseId,
+        unitId,
+        lessonId,
+        collectionId,
+        collectionType,
+        collectionSubType,
+        pathId,
+        classId
       );
     } else {
       mapLocationPromise = navigateMapService.startCollection(
-        courseId, unitId, lessonId, collectionId, collectionType, classId
+        courseId,
+        unitId,
+        lessonId,
+        collectionId,
+        collectionType,
+        classId
       );
     }
     return mapLocationPromise;

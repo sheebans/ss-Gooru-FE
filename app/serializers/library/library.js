@@ -17,18 +17,38 @@ import { DEFAULT_IMAGES, CONTENT_TYPES } from 'gooru-web/config/config';
  * @typedef {Object} LibrarySerializer
  */
 export default Ember.Object.extend(ConfigurationMixin, {
-
   session: Ember.inject.service('session'),
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('courseSerializer', CourseSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('assessmentSerializer', AssessmentSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('resourceSerializer', ResourceSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('questionSerializer', QuestionSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('rubricSerializer', RubricSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('profileSerializer', ProfileSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'courseSerializer',
+      CourseSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'assessmentSerializer',
+      AssessmentSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'collectionSerializer',
+      CollectionSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'resourceSerializer',
+      ResourceSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'questionSerializer',
+      QuestionSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'rubricSerializer',
+      RubricSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'profileSerializer',
+      ProfileSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -51,7 +71,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const thumbnailUrl = libraryPayload.thumbnail ? basePath + libraryPayload.thumbnail : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const thumbnailUrl = libraryPayload.thumbnail
+      ? basePath + libraryPayload.thumbnail
+      : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
     return LibraryModel.create(Ember.getOwner(serializer).ownerInjection(), {
       id: libraryPayload.id,
       name: libraryPayload.name,
@@ -75,41 +97,57 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param {*} payload
    * @return {LibraryContent}
    */
-  normalizeFetchLibraryContent: function (contentType, payload) {
+  normalizeFetchLibraryContent: function(contentType, payload) {
     var serializer = this;
     let libraryContent = null;
     let owner = null;
     let ownerDetailsArray = payload.library_contents.owner_details;
 
     if (ownerDetailsArray) {
-      owner = ownerDetailsArray.map(function (profileData) {
-        return serializer.get('profileSerializer').normalizeReadProfile(profileData);
+      owner = ownerDetailsArray.map(function(profileData) {
+        return serializer
+          .get('profileSerializer')
+          .normalizeReadProfile(profileData);
       });
     }
 
     const contentData = {
       [CONTENT_TYPES.ASSESSMENT]: {
-        normalizer: contentData => serializer.get('assessmentSerializer').normalizeReadAssessment (contentData),
+        normalizer: contentData =>
+          serializer
+            .get('assessmentSerializer')
+            .normalizeReadAssessment(contentData),
         type: 'assessments'
       },
       [CONTENT_TYPES.COLLECTION]: {
-        normalizer: contentData => serializer.get('collectionSerializer').normalizeReadCollection (contentData),
+        normalizer: contentData =>
+          serializer
+            .get('collectionSerializer')
+            .normalizeReadCollection(contentData),
         type: 'collections'
       },
       [CONTENT_TYPES.RESOURCE]: {
-        normalizer: contentData => serializer.get('resourceSerializer').normalizeReadResource (contentData),
+        normalizer: contentData =>
+          serializer
+            .get('resourceSerializer')
+            .normalizeReadResource(contentData),
         type: 'resources'
       },
       [CONTENT_TYPES.QUESTION]: {
-        normalizer: contentData => serializer.get('questionSerializer').normalizeReadQuestion (contentData),
+        normalizer: contentData =>
+          serializer
+            .get('questionSerializer')
+            .normalizeReadQuestion(contentData),
         type: 'questions'
       },
       [CONTENT_TYPES.RUBRIC]: {
-        normalizer: contentData => serializer.get('rubricSerializer').normalizeRubric (contentData),
+        normalizer: contentData =>
+          serializer.get('rubricSerializer').normalizeRubric(contentData),
         type: 'rubrics'
       },
       [CONTENT_TYPES.COURSE]: {
-        normalizer: contentData => serializer.get('courseSerializer').normalizeCourse (contentData),
+        normalizer: contentData =>
+          serializer.get('courseSerializer').normalizeCourse(contentData),
         type: 'courses'
       }
     };
@@ -118,10 +156,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
 
     let contentArray = payload.library_contents[contentDataObject.type];
     if (contentArray) {
-      let content = contentArray.map(function (contentData) {
+      let content = contentArray.map(function(contentData) {
         return contentDataObject.normalizer(contentData);
       });
-      libraryContent = Ember.Object.create({ [contentDataObject.type]: content, ownerDetails: owner });
+      libraryContent = Ember.Object.create({
+        [contentDataObject.type]: content,
+        ownerDetails: owner
+      });
     }
 
     return LibraryContentModel.create({

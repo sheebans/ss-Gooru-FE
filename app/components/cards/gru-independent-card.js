@@ -1,5 +1,10 @@
 import Ember from 'ember';
-import { ROLES, CONTENT_TYPES, PLAYER_EVENT_SOURCE, TIME_SPENT_CHART_COLOR } from 'gooru-web/config/config';
+import {
+  ROLES,
+  CONTENT_TYPES,
+  PLAYER_EVENT_SOURCE,
+  TIME_SPENT_CHART_COLOR
+} from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -24,7 +29,7 @@ export default Ember.Component.extend({
     /**
      * When opening the player for current activity
      */
-    playCurrent: function () {
+    playCurrent: function() {
       let collectionId = this.get('location.currentId');
       let type = this.get('location.currentType');
       let unitId = this.get('location.unitId');
@@ -42,7 +47,11 @@ export default Ember.Component.extend({
 
       this.get('navigateMapService')
         .startCollection(courseId, unitId, lessonId, collectionId, type)
-        .then(() => this.get('router').transitionTo('study-player', courseId, { queryParams }));
+        .then(() =>
+          this.get('router').transitionTo('study-player', courseId, {
+            queryParams
+          })
+        );
     },
 
     /**
@@ -57,10 +66,13 @@ export default Ember.Component.extend({
         type: location.get('type'),
         role: ROLES.STUDENT
       };
-      const reportController = Ember.getOwner(this)
-        .lookup('controller:reports.student-collection-analytics');
+      const reportController = Ember.getOwner(this).lookup(
+        'controller:reports.student-collection-analytics'
+      );
       reportController.set('backUrl', router.get('currentPath'));
-      router.transitionTo('reports.student-collection-analytics', { queryParams });
+      router.transitionTo('reports.student-collection-analytics', {
+        queryParams
+      });
     }
   },
 
@@ -79,7 +91,10 @@ export default Ember.Component.extend({
   /**
    * @property {Boolean} if the current activity is of type assessment
    */
-  isCurrentAssessment: Ember.computed.equal('location.currentType', CONTENT_TYPES.ASSESSMENT),
+  isCurrentAssessment: Ember.computed.equal(
+    'location.currentType',
+    CONTENT_TYPES.ASSESSMENT
+  ),
 
   /**
    * @property {LearnerLocation} location information
@@ -95,10 +110,10 @@ export default Ember.Component.extend({
   * Percentage value for the score chart
   * @property {String}
   */
- percentageToShow: Ember.computed('performance.scoreInPercentage', function() {
-   const score = this.get('performance.scoreInPercentage');
-   return score || score === 0 ? `${score}%` : '--';
- }),
+  percentageToShow: Ember.computed('performance.scoreInPercentage', function() {
+    const score = this.get('performance.scoreInPercentage');
+    return score || score === 0 ? `${score}%` : '--';
+  }),
 
   /**
    * @property {String} source value when playing a collection/assessment

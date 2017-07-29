@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Object.extend({
-
   /**
    * @property {string} End-point URI
    */
@@ -9,7 +8,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   },
 
@@ -22,17 +21,16 @@ export default Ember.Object.extend({
    */
   updateCollaborators: function(id, type, userIds) {
     const options = {
-        type: 'PUT',
-        dataType: 'json',
-        headers: this.get('headers'),
-        data: JSON.stringify({
-          collaborators: userIds
-        })
-      };
+      type: 'PUT',
+      dataType: 'json',
+      headers: this.get('headers'),
+      data: JSON.stringify({
+        collaborators: userIds
+      })
+    };
     const namespace = this.get('namespace');
     const url = `${namespace}/${type}/${id}/collaborators`;
 
     return Ember.$.ajax(url, options);
   }
-
 });

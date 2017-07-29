@@ -14,18 +14,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-vimeo-resource'],
+  classNames: ['gru-vimeo-resource'],
 
   // -------------------------------------------------------------------------
   // Actions
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -37,11 +35,11 @@ export default Ember.Component.extend({
   /**
    * @property {string} full resource vimeo url
    */
-  vimeoUrl: Ember.computed("resource.url", function(){
+  vimeoUrl: Ember.computed('resource.url', function() {
     const component = this;
-    var vimeoPlayerUrl = Env['player'].vimeoPlayerUrl;
+    var vimeoPlayerUrl = Env.player.vimeoPlayerUrl;
 
-    return vimeoPlayerUrl+ component.getVimeoID(this.get("resource.url"));
+    return vimeoPlayerUrl + component.getVimeoID(this.get('resource.url'));
   }),
 
   // -------------------------------------------------------------------------
@@ -52,13 +50,13 @@ export default Ember.Component.extend({
    * @param {string} text
    * @returns {{id: number}} id
    */
-  getVimeoID: function (text) {
-      const regex = /([^/.]+)$/gm;
+  getVimeoID: function(text) {
+    const regex = /([^/.]+)$/gm;
 
     var match = regex.exec(text);
-    var id ="";
+    var id = '';
     if (match !== null) {
-     id = match[0];
+      id = match[0];
     }
     return id;
   }

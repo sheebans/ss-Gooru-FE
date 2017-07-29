@@ -5,7 +5,6 @@ import Class from 'gooru-web/models/content/class';
  * typedef {Object} ClassContentVisibility
  */
 const ClassContentVisibility = Ember.Object.extend({
-
   /**
    * @property {string}
    */
@@ -78,7 +77,7 @@ const ClassContentVisibility = Ember.Object.extend({
    * Indicates if all content within this class is visible
    * @property {boolean}
    */
-  isAllContentVisible: Ember.computed('contentVisibility', function(){
+  isAllContentVisible: Ember.computed('contentVisibility', function() {
     return this.get('contentVisibility') === Class.VISIBLE_ALL;
   }),
 
@@ -87,11 +86,14 @@ const ClassContentVisibility = Ember.Object.extend({
    * @property {boolean}
    */
   areCollectionsVisible: Ember.computed('contentVisibility', function() {
-    return this.get('contentVisibility') === Class.VISIBLE_COLLECTIONS || this.get('isAllContentVisible');
+    return (
+      this.get('contentVisibility') === Class.VISIBLE_COLLECTIONS ||
+      this.get('isAllContentVisible')
+    );
   }),
 
   // Events
-  onInit: Ember.on('init', function(){
+  onInit: Ember.on('init', function() {
     this.set('totals', this.getTotals());
     this.set('assessments', this.getAssessments());
   }),
@@ -100,14 +102,14 @@ const ClassContentVisibility = Ember.Object.extend({
   /**
    * Return a list of visible or non visible assessments
    */
-  getAssessments: function(){
+  getAssessments: function() {
     let units = this.get('course.units') || Ember.A([]);
     let assessments = Ember.A([]);
     let lessons = Ember.A([]);
-    units.forEach(function(unit){
+    units.forEach(function(unit) {
       lessons.addObjects(unit.lessons);
-      lessons.forEach(function(lesson){
-        if (lesson.assessments){
+      lessons.forEach(function(lesson) {
+        if (lesson.assessments) {
           assessments.addObjects(lesson.assessments);
         }
       });
@@ -117,17 +119,17 @@ const ClassContentVisibility = Ember.Object.extend({
   /**
    * Find assessment visibility by assessment id
    */
-  findAssessmentVisibilityById: function(assessmentId){
+  findAssessmentVisibilityById: function(assessmentId) {
     let assessments = this.get('assessments');
     return assessments.findBy('id', assessmentId);
   },
   /**
    * Set assessment visibility
    */
-  setAssessmentVisibility: function(assessmentId,visibility){
+  setAssessmentVisibility: function(assessmentId, visibility) {
     let assessments = this.get('assessments');
     let assessment = assessments.findBy('id', assessmentId);
-    if(assessment){
+    if (assessment) {
       assessment.visible = visibility;
     }
     return assessment;
@@ -135,7 +137,7 @@ const ClassContentVisibility = Ember.Object.extend({
   /**
    * Return true if the content is visible
    */
-  isVisible:function(contentId){
+  isVisible: function(contentId) {
     let isAllVisible = this.get('isAllContentVisible');
     let assessment = this.findAssessmentVisibilityById(contentId);
     if (!assessment) {
@@ -144,22 +146,24 @@ const ClassContentVisibility = Ember.Object.extend({
     let enabled = assessment && assessment.visible === 'on';
     let disabled = !assessment || assessment.visible === 'off';
 
-    return (isAllVisible && !disabled) ||
+    return (
+      (isAllVisible && !disabled) ||
       (isAllVisible && !assessment) ||
-      (!isAllVisible && enabled)||
-      (!isAllVisible && !disabled);
+      (!isAllVisible && enabled) ||
+      (!isAllVisible && !disabled)
+    );
   },
 
   /**
    * Return the content total counts
    * @returns {*}
      */
-  getTotals: function () {
+  getTotals: function() {
     const units = this.get('course.units') || [];
     const totals = Ember.Object.create({
       units: Ember.Object.create()
     });
-    units.forEach(function(unit){
+    units.forEach(function(unit) {
       const unitId = unit.id;
       const unitTotals = Ember.Object.create({
         assessments: 0,
@@ -169,16 +173,25 @@ const ClassContentVisibility = Ember.Object.extend({
       totals.get('units').set(unitId, unitTotals);
 
       const lessons = unit.lessons || [];
-      lessons.forEach(function(lesson){
+      lessons.forEach(function(lesson) {
         const lessonId = lesson.id;
         const assessments = (lesson.assessments || []).length;
         const collections = (lesson.collections || []).length;
-        unitTotals.get('lessons').set(lessonId, Ember.Object.create({
-          assessments: assessments,
-          collections: collections
-        }));
-        unitTotals.set('assessments', (unitTotals.get('assessments') + assessments));
-        unitTotals.set('collections', (unitTotals.get('collections') + collections));
+        unitTotals.get('lessons').set(
+          lessonId,
+          Ember.Object.create({
+            assessments: assessments,
+            collections: collections
+          })
+        );
+        unitTotals.set(
+          'assessments',
+          unitTotals.get('assessments') + assessments
+        );
+        unitTotals.set(
+          'collections',
+          unitTotals.get('collections') + collections
+        );
       });
     });
     return totals;
@@ -190,7 +203,9 @@ const ClassContentVisibility = Ember.Object.extend({
    * @param lessonId
    */
   getTotalAssessmentsByUnitAndLesson: function(unitId, lessonId) {
-    return this.get(`totals.units.${unitId}.lessons.${lessonId}.assessments`) || 0;
+    return (
+      this.get(`totals.units.${unitId}.lessons.${lessonId}.assessments`) || 0
+    );
   },
   /**
    * Retrieves the total assessments per unit
@@ -206,7 +221,9 @@ const ClassContentVisibility = Ember.Object.extend({
    * @param lessonId
    */
   getTotalCollectionsByUnitAndLesson: function(unitId, lessonId) {
-    return this.get(`totals.units.${unitId}.lessons.${lessonId}.collections`) || 0;
+    return (
+      this.get(`totals.units.${unitId}.lessons.${lessonId}.collections`) || 0
+    );
   },
   /**
    * Retrieves the total collections per unit

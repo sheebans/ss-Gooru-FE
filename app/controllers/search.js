@@ -23,19 +23,19 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @requires service:taxonomy
    */
-  taxonomyService: Ember.inject.service("taxonomy"),
+  taxonomyService: Ember.inject.service('taxonomy'),
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    setCategory: function(category){
+    setCategory: function(category) {
       this.set('selectedCategory', category);
       this.filterSubjects(category);
       this.set('disableSubjects', false);
     },
-    setSubject: function(subject){
+    setSubject: function(subject) {
       const controller = this;
-      controller.get('taxonomyService').getCourses(subject).then(function(){
+      controller.get('taxonomyService').getCourses(subject).then(function() {
         controller.openTaxonomyModal(subject);
       });
     }
@@ -122,13 +122,16 @@ export default Ember.Controller.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-  openTaxonomyModal: function(subject){
+  openTaxonomyModal: function(subject) {
     var controller = this;
-    var standards = controller.get("selectedTags").map(function(selectedTag) {
+    var standards = controller.get('selectedTags').map(function(selectedTag) {
       return selectedTag.get('data');
     });
     var subjectStandards = TaxonomyTagData.filterBySubject(subject, standards);
-    var notInSubjectStandards = TaxonomyTagData.filterByNotInSubject(subject, standards);
+    var notInSubjectStandards = TaxonomyTagData.filterByNotInSubject(
+      subject,
+      standards
+    );
     var model = {
       selected: subjectStandards,
       subject: subject,
@@ -146,41 +149,55 @@ export default Ember.Controller.extend(ModalMixin, {
           var selectTaxonomyTags = Ember.A([]);
 
           standards.forEach(function(taxonomyTagData) {
-            taxonomies.push(taxonomyTagData.get("id"));
-            selectTaxonomyTags.push(controller.createTaxonomyTag(taxonomyTagData));
+            taxonomies.push(taxonomyTagData.get('id'));
+            selectTaxonomyTags.push(
+              controller.createTaxonomyTag(taxonomyTagData)
+            );
           });
 
           controller.set('taxonomies', taxonomies);
           controller.set('selectedTags', selectTaxonomyTags);
-         }
+        }
       }
     };
 
-    this.actions.showModal.call(this, 'taxonomy.modals.gru-standard-picker', model, null, 'gru-standard-picker');
+    this.actions.showModal.call(
+      this,
+      'taxonomy.modals.gru-standard-picker',
+      model,
+      null,
+      'gru-standard-picker'
+    );
   },
 
-  filterSubjects: function(category){
-    this.get('taxonomyService').getSubjects(category.value).then(function(subjects){
-      this.set('subjects', subjects);
-    }.bind(this));
+  filterSubjects: function(category) {
+    this.get('taxonomyService').getSubjects(category.value).then(
+      function(subjects) {
+        this.set('subjects', subjects);
+      }.bind(this)
+    );
   },
 
-  reloadTaxonomyTags: function(){
-    const selectedTags = this.taxonomyCodes.map(function(taxonomyCode){
-      const framework = this.extractFramework(taxonomyCode);
-      return this.createTaxonomyTag(TaxonomyTagData.create({
-        id: taxonomyCode.id,
-        code: taxonomyCode.code,
-        frameworkCode: framework ? framework.get('frameworkId') : '',
-        parentTitle: framework ? framework.get('subjectTitle') : '',
-        title: taxonomyCode.title
-      }));
-    }.bind(this));
-    this.set("selectedTags", selectedTags);
+  reloadTaxonomyTags: function() {
+    const selectedTags = this.taxonomyCodes.map(
+      function(taxonomyCode) {
+        const framework = this.extractFramework(taxonomyCode);
+        return this.createTaxonomyTag(
+          TaxonomyTagData.create({
+            id: taxonomyCode.id,
+            code: taxonomyCode.code,
+            frameworkCode: framework ? framework.get('frameworkId') : '',
+            parentTitle: framework ? framework.get('subjectTitle') : '',
+            title: taxonomyCode.title
+          })
+        );
+      }.bind(this)
+    );
+    this.set('selectedTags', selectedTags);
     this.resetCategory();
   },
 
-  extractFramework: function(taxonomyCode){
+  extractFramework: function(taxonomyCode) {
     const frameworkId = taxonomyCode.id.split('-')[0];
     let framework;
     this.subjects.forEach(function(subject) {
@@ -203,7 +220,7 @@ export default Ember.Controller.extend(ModalMixin, {
     });
   },
 
-  resetCategory: function(){
+  resetCategory: function() {
     const category = this.get('selectedCategory');
     if (category) {
       this.send('setCategory', category);

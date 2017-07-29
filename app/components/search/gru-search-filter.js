@@ -25,10 +25,10 @@ export default Ember.Component.extend({
     /**
      * Set Category
      */
-    setCategory(category){
+    setCategory(category) {
       this.set('selectedCategory', category);
-      if (this.get("onCategorySelected")) {
-        this.sendAction("onCategorySelected", category);
+      if (this.get('onCategorySelected')) {
+        this.sendAction('onCategorySelected', category);
       }
     },
     /**
@@ -36,8 +36,8 @@ export default Ember.Component.extend({
      */
     setSubject(subject) {
       this.set('selectedSubject', subject);
-      if (this.get("onSubjectSelected")) {
-        this.sendAction("onSubjectSelected", subject);
+      if (this.get('onSubjectSelected')) {
+        this.sendAction('onSubjectSelected', subject);
       }
     }
   },
@@ -95,9 +95,9 @@ export default Ember.Component.extend({
   /**
    * @type {Array} List of subjects
    */
-  subjectsWithStandards: Ember.computed("subjects", ()=>{
-    return this.get("subjects").filter((subject)=>{
-      return subject.get("hasStandards");
+  subjectsWithStandards: Ember.computed('subjects', () => {
+    return this.get('subjects').filter(subject => {
+      return subject.get('hasStandards');
     });
   }),
 
@@ -115,5 +115,4 @@ export default Ember.Component.extend({
    * @property {boolean} indicates if subjects are disabled
    */
   disableSubjects: true
-
 });

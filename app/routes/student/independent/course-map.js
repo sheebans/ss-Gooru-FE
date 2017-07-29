@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -29,7 +28,7 @@ export default Ember.Route.extend({
      * @param {string} lessonId - Identifier for lesson
      * @param {string} item - collection, assessment, lesson or resource
      */
-    studyPlayer: function (type, unitId, lessonId, item) {
+    studyPlayer: function(type, unitId, lessonId, item) {
       const route = this;
       const currentCourse = route.modelFor('student.independent').course;
       const courseId = currentCourse.get('id');
@@ -40,7 +39,6 @@ export default Ember.Route.extend({
         route.startCollectionStudyPlayer(courseId, unitId, lessonId, item);
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -50,7 +48,9 @@ export default Ember.Route.extend({
     const userId = route.get('session.userId');
     const course = this.modelFor('student.independent').course;
     const units = course.get('children') || [];
-    let userLocation = route.get('learnerService').fetchLocationCourse(course.get('id'), userId);
+    let userLocation = route
+      .get('learnerService')
+      .fetchLocationCourse(course.get('id'), userId);
     return Ember.RSVP.hash({
       course,
       units,
@@ -63,9 +63,9 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     let userLocation = '';
-    if(model.userLocation) {
+    if (model.userLocation) {
       let unitId = model.userLocation.get('unitId');
       let lessonId = model.userLocation.get('lessonId');
       let collectionId = model.userLocation.get('collectionId');
@@ -84,7 +84,7 @@ export default Ember.Route.extend({
    * @param {string} lessonId
    * @param {Collection} collection
      */
-  startCollectionStudyPlayer:function(courseId, unitId, lessonId, collection) {
+  startCollectionStudyPlayer: function(courseId, unitId, lessonId, collection) {
     let role = ROLES.STUDENT;
     let source = PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY;
     let collectionId = collection.get('id');

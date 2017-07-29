@@ -1,11 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['header', 'content','gru-header'],
+  classNames: ['header', 'content', 'gru-header'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -19,7 +18,7 @@ export default Ember.Component.extend({
     /**
      * Click button action
      */
-    clickAction:function(action){
+    clickAction: function(action) {
       action();
     }
   },
@@ -49,6 +48,5 @@ export default Ember.Component.extend({
   /**
    * @property {Boolean} Indicate if this header work with scroll to an specific section
    */
-  useScroll:false
-
+  useScroll: false
 });

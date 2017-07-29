@@ -1,5 +1,8 @@
 import Ember from 'ember';
-import { ANONYMOUS_COLOR, STUDY_PLAYER_BAR_COLOR } from 'gooru-web/config/config';
+import {
+  ANONYMOUS_COLOR,
+  STUDY_PLAYER_BAR_COLOR
+} from 'gooru-web/config/config';
 
 /**
  * Study Player header
@@ -12,7 +15,6 @@ import { ANONYMOUS_COLOR, STUDY_PLAYER_BAR_COLOR } from 'gooru-web/config/config
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -39,8 +41,11 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-study-header'],
-  classNameBindings: ['toggleState:expanded:collapsed', 'showConfirmation:hidden'],
+  classNames: ['gru-study-header'],
+  classNameBindings: [
+    'toggleState:expanded:collapsed',
+    'showConfirmation:hidden'
+  ],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -50,10 +55,18 @@ export default Ember.Component.extend({
      * Redirect to course map
      */
     redirectCourseMap() {
-      if(this.get('classId')) {
-        this.get('router').transitionTo('student.class.course-map', this.get('classId'), { queryParams: { refresh: true } });
+      if (this.get('classId')) {
+        this.get('router').transitionTo(
+          'student.class.course-map',
+          this.get('classId'),
+          { queryParams: { refresh: true } }
+        );
       } else {
-        this.get('router').transitionTo('student.independent.course-map', this.get('courseId'), { queryParams: { refresh: true } });
+        this.get(
+          'router'
+        ).transitionTo('student.independent.course-map', this.get('courseId'), {
+          queryParams: { refresh: true }
+        });
       }
     },
 
@@ -76,7 +89,8 @@ export default Ember.Component.extend({
      */
     playSuggested(resource) {
       let queryParams = { collectionUrl: window.location.href };
-      this.get('router').transitionTo('resource-player',
+      this.get('router').transitionTo(
+        'resource-player',
         this.get('classId'),
         this.get('courseId'),
         resource.id,
@@ -89,8 +103,8 @@ export default Ember.Component.extend({
   // Events
 
   init() {
-    this._super( ...arguments );
-    if(!this.get('collectionUrl')) {
+    this._super(...arguments);
+    if (!this.get('collectionUrl')) {
       this.loadContent();
     }
   },
@@ -128,9 +142,11 @@ export default Ember.Component.extend({
   /**
    * @property {Resource} nextResource - Return the next resource
    */
-  nextResource:Ember.computed('actualResource','collection',function(){
+  nextResource: Ember.computed('actualResource', 'collection', function() {
     const collection = this.get('collection');
-    return collection && collection.nextResource ? this.get('collection').nextResource(this.get('actualResource')) : null;
+    return collection && collection.nextResource
+      ? this.get('collection').nextResource(this.get('actualResource'))
+      : null;
   }),
 
   /**
@@ -190,10 +206,10 @@ export default Ember.Component.extend({
   /**
    * @property {Number} barChartData
    */
-  barChartData: Ember.computed('class.performanceSummary', function () {
+  barChartData: Ember.computed('class.performanceSummary', function() {
     const completed = this.get('class.performanceSummary.totalCompleted');
     const total = this.get('class.performanceSummary.total');
-    const percentage = (completed) ? (completed/total)*100 : 0;
+    const percentage = completed ? completed / total * 100 : 0;
 
     return [
       {
@@ -206,7 +222,7 @@ export default Ember.Component.extend({
   /**
    * @property {String} lessonTitle
    */
-  lessonTitle: Ember.computed('breadcrumbs', function () {
+  lessonTitle: Ember.computed('breadcrumbs', function() {
     const breadcrumbs = this.get('breadcrumbs');
     return breadcrumbs[1] || '';
   }),
@@ -218,34 +234,42 @@ export default Ember.Component.extend({
    * Load Header Content
    */
 
-  loadContent: function(){
+  loadContent: function() {
     const component = this;
     const myId = component.get('session.userId');
     const classId = component.get('classId');
     const collectionId = component.get('collection.id');
-    const totalResources = (component.get('collection.resources')) ?
-      component.get('collection.resources').length : null;
+    const totalResources = component.get('collection.resources')
+      ? component.get('collection.resources').length
+      : null;
 
     component.set('totalResources', totalResources);
     if (classId) {
-      Ember.RSVP.hash({
-        aClass: component.get('classService').readClassInfo(classId),
-        classPerformanceSummaryItems:
-          component.get('performanceService')
-            .findClassPerformanceSummaryByStudentAndClassIds(myId, [ classId ])
-      })
-      .then(({ aClass, classPerformanceSummaryItems }) => {
-        aClass.set(
-          'performanceSummary',
-          classPerformanceSummaryItems.findBy('classId', classId)
-        );
-        component.set('class', aClass);
-      });
+      Ember.RSVP
+        .hash({
+          aClass: component.get('classService').readClassInfo(classId),
+          classPerformanceSummaryItems: component
+            .get('performanceService')
+            .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId])
+        })
+        .then(({ aClass, classPerformanceSummaryItems }) => {
+          aClass.set(
+            'performanceSummary',
+            classPerformanceSummaryItems.findBy('classId', classId)
+          );
+          component.set('class', aClass);
+        });
     }
     if (collectionId) {
-      component.get('suggestService')
-        .suggestResourcesForCollection(component.get('session.userId'), collectionId)
-        .then(suggestedResources => component.set('suggestedResources', suggestedResources));
+      component
+        .get('suggestService')
+        .suggestResourcesForCollection(
+          component.get('session.userId'),
+          collectionId
+        )
+        .then(suggestedResources =>
+          component.set('suggestedResources', suggestedResources)
+        );
     }
   }
 });

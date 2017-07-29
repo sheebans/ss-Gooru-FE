@@ -7,7 +7,6 @@ import QuizzesPlayerController from 'quizzes-addon/controllers/player';
  * @augments Ember/Controller
  */
 export default QuizzesPlayerController.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 

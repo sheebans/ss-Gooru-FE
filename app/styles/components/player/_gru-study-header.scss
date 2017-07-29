@@ -72,7 +72,7 @@
             max-width: 215px;
           }
         }
-        &.introjs-showElement{
+        &.introjs-showElement {
           color: $dark-400;
         }
       }
@@ -142,7 +142,7 @@
           width: 60px;
           height: 60px;
         }
-        &.introjs-showElement{
+        &.introjs-showElement {
           color: $dark-400;
         }
       }
@@ -217,7 +217,8 @@
       .navigation {
         color: $light-300;
         font-weight: bold;
-        span, i {
+        span,
+        i {
           vertical-align: middle;
           display: inline-block;
         }
@@ -358,8 +359,10 @@
         }
       }
     }
-    .next-resource, .resource-title {
-      i, span.title {
+    .next-resource,
+    .resource-title {
+      i,
+      span.title {
         vertical-align: middle;
       }
       i {

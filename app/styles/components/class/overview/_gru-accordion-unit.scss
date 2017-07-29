@@ -39,18 +39,20 @@
     }
   }
 
-  .item-disabled{
-    .icon-container,.panel-title,.gru-user-icons{
+  .item-disabled {
+    .icon-container,
+    .panel-title,
+    .gru-user-icons {
       opacity: 0.5;
     }
-    .panel-title{
-      .title{
+    .panel-title {
+      .title {
         cursor: default;
       }
     }
-    .icon-container{
-      .score{
-        button{
+    .icon-container {
+      .score {
+        button {
           cursor: default;
         }
       }
@@ -62,4 +64,3 @@
     }
   }
 }
-

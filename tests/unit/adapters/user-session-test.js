@@ -28,19 +28,26 @@ test('queryRecord method for user session', function(assert) {
   };
 
   this.pretender.map(function() {
-    this.get('/api/nucleus-insights/v2/collectionType/contentId/sessions', function(request) {
-      assert.equal('userId', request.queryParams.userUid);
-      assert.equal('classId', request.queryParams.classGooruId);
-      assert.equal('courseId', request.queryParams.courseGooruId);
-      assert.equal('unitId', request.queryParams.unitGooruId);
-      assert.equal('lessonId', request.queryParams.lessonGooruId);
-      assert.equal('openSession', request.queryParams.openSession);
-      return [200, {'Content-Type': 'application/json'}, JSON.stringify({})];
-    }, false);
+    this.get(
+      '/api/nucleus-insights/v2/collectionType/contentId/sessions',
+      function(request) {
+        assert.equal('userId', request.queryParams.userUid);
+        assert.equal('classId', request.queryParams.classGooruId);
+        assert.equal('courseId', request.queryParams.courseGooruId);
+        assert.equal('unitId', request.queryParams.unitGooruId);
+        assert.equal('lessonId', request.queryParams.lessonGooruId);
+        assert.equal('openSession', request.queryParams.openSession);
+        return [
+          200,
+          { 'Content-Type': 'application/json' },
+          JSON.stringify({})
+        ];
+      },
+      false
+    );
   });
 
-  adapter.queryRecord(query)
-    .then(function(response) {
-      assert.deepEqual({}, response, 'Wrong response');
-    });
+  adapter.queryRecord(query).then(function(response) {
+    assert.deepEqual({}, response, 'Wrong response');
+  });
 });

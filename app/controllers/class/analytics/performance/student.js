@@ -21,21 +21,21 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     /**
     * Triggered when a filter option is selected
     * @param {string} option
     */
     selectFilterBy: function(option) {
-      this.set("filterBy", option);
+      this.set('filterBy', option);
       this.set('selectedFilterBy', option);
     },
 
-    optionsChange:function(options){
-      this.set('selectedOption',options[0].get("value"));
+    optionsChange: function(options) {
+      this.set('selectedOption', options[0].get('value'));
     },
 
-    updateLocation:function(newLocation, type){
+    updateLocation: function(newLocation, type) {
       const location = !newLocation ? null : newLocation;
       if (type === 'lesson') {
         this.set('lessonId', location);
@@ -48,13 +48,12 @@ export default Ember.Controller.extend({
     /**
      * Triggered when the user toggles between normal and full screen mode
      */
-    toggleFullScreen: function () {
-      return this.get("classController").toggleFullScreen();
+    toggleFullScreen: function() {
+      return this.get('classController').toggleFullScreen();
     }
   },
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -63,7 +62,7 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class'),
+  class: Ember.computed.reads('classController.class'),
 
   /**
    * A link to the computed property isStudent in class controller
@@ -76,7 +75,7 @@ export default Ember.Controller.extend({
    * The performances for the units that will be shown to the user
    * @property {Ember.Array}
    */
-  "performances": null,
+  performances: null,
 
   /**
    * The selected option from the data picker.
@@ -88,23 +87,23 @@ export default Ember.Controller.extend({
    * The current selected class model for the student
    * @property {Class}
    */
-  "classModel":null,
+  classModel: null,
   /**
    * The userId for the student
    * @property {String}
    */
-  userId:null,
+  userId: null,
   /**
    * The unitId for the current unit
    * @property {String}
    */
-  unitId:null,
+  unitId: null,
 
   /**
    * The lessonId for the current lesson
    * @property {String}
    */
-  lessonId:null,
+  lessonId: null,
 
   /**
    * The filterBy selected
@@ -128,7 +127,7 @@ export default Ember.Controller.extend({
    * If analytics is fullscreen
    * @property {Boolean}
    */
-  isFullScreen:  Ember.computed.alias('classController.isFullScreen'),
+  isFullScreen: Ember.computed.alias('classController.isFullScreen'),
 
   /**
    * Boolean that determines whether the route model has not finished loading.
@@ -142,7 +141,6 @@ export default Ember.Controller.extend({
    */
   contentVisibility: Ember.computed.alias('classController.contentVisibility'),
 
-
   // -------------------------------------------------------------------------
   // Observers
 
@@ -153,14 +151,17 @@ export default Ember.Controller.extend({
     const units = controller.get('units');
     const userId = controller.get('userId');
     const classModel = controller.get('classModel');
-    const classId= classModel.get('id');
+    const classId = classModel.get('id');
     const courseId = classModel.get('courseId');
-    controller.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units, {collectionType: filterBy})
+    controller
+      .get('performanceService')
+      .findStudentPerformanceByCourse(userId, classId, courseId, units, {
+        collectionType: filterBy
+      })
       .then(function(unitPerformances) {
         controller.fixTotalCounts(unitPerformances, filterBy);
         controller.set('performances', unitPerformances);
       });
-
   }),
 
   // -------------------------------------------------------------------------
@@ -168,13 +169,18 @@ export default Ember.Controller.extend({
 
   fixTotalCounts: function(performances, filterBy) {
     const controller = this;
-    const contentVisibility = controller.get("contentVisibility");
-    performances.forEach(function(performance){ //overriding totals from core
-      const totals = filterBy === "assessment" ?
-        contentVisibility.getTotalAssessmentsByUnit(performance.get("realId")) :
-        contentVisibility.getTotalCollectionsByUnit(performance.get("realId"));
-      performance.set("completionTotal", totals);
+    const contentVisibility = controller.get('contentVisibility');
+    performances.forEach(function(performance) {
+      //overriding totals from core
+      const totals =
+        filterBy === 'assessment'
+          ? contentVisibility.getTotalAssessmentsByUnit(
+            performance.get('realId')
+          )
+          : contentVisibility.getTotalCollectionsByUnit(
+            performance.get('realId')
+          );
+      performance.set('completionTotal', totals);
     });
   }
-
 });

@@ -28,15 +28,16 @@ export default Ember.Component.extend({
       const component = this;
       if (component.get('onUpdate')) {
         let tmpGoal = component.get('tmpGoal');
-        component.get("onUpdate")(tmpGoal, areDatesOk).then(function (saved) {
+        component.get('onUpdate')(tmpGoal, areDatesOk).then(function(saved) {
           if (saved) {
-            const originalGoal = component.get("goal");
-            var properties = originalGoal.modelProperties().concat(['startDate', 'endDate']);
+            const originalGoal = component.get('goal');
+            var properties = originalGoal
+              .modelProperties()
+              .concat(['startDate', 'endDate']);
             originalGoal.merge(tmpGoal, properties);
           }
           component.set('isEdition', !saved);
         });
-
       }
     },
 
@@ -45,11 +46,10 @@ export default Ember.Component.extend({
     },
 
     delete: function() {
-      if (this.get("onDelete")) {
-        this.sendAction("onDelete", this.get("goal"));
+      if (this.get('onDelete')) {
+        this.sendAction('onDelete', this.get('goal'));
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -86,5 +86,4 @@ export default Ember.Component.extend({
    * @property {string} name of the update action
    */
   onUpdate: null
-
 });

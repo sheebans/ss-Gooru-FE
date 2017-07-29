@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -56,8 +55,10 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showMoreResultsButton: Ember.computed('resources.[]', function() {
-    return this.get('resources.length') &&
-      (this.get('resources.length') % this.get('pagination.pageSize') === 0);
+    return (
+      this.get('resources.length') &&
+      this.get('resources.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
   // -------------------------------------------------------------------------
@@ -73,10 +74,22 @@ export default Ember.Controller.extend({
     pagination.page = pagination.page + 1;
     pagination.offset = pagination.page * pagination.pageSize;
 
-    controller.get('libraryService')
-    .fetchLibraryContent(libraryId, 'resource', pagination)
-    .then(resources => controller.set('resources', controller.get('resources')
-    .concat(controller.mapOwners(resources.libraryContent.resources, resources.libraryContent.ownerDetails))));
+    controller
+      .get('libraryService')
+      .fetchLibraryContent(libraryId, 'resource', pagination)
+      .then(resources =>
+        controller.set(
+          'resources',
+          controller
+            .get('resources')
+            .concat(
+              controller.mapOwners(
+                resources.libraryContent.resources,
+                resources.libraryContent.ownerDetails
+              )
+            )
+        )
+      );
   },
 
   resetValues: function() {
@@ -92,16 +105,15 @@ export default Ember.Controller.extend({
    * @param {Resource[]} resource list
    * @param {Owner[]} owner list
    */
-  mapOwners: function (resources, owners) {
+  mapOwners: function(resources, owners) {
     let ownerMap = {};
-    owners.forEach(function (owner) {
+    owners.forEach(function(owner) {
       ownerMap[owner.id] = owner;
     });
-    let mappedResources = resources.map(function (resource) {
+    let mappedResources = resources.map(function(resource) {
       resource.owner = ownerMap[resource.owner];
       return resource;
     });
     return mappedResources;
   }
-
 });

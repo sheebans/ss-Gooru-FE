@@ -1,13 +1,14 @@
-.gru-metrics-table{
-  .sub-header{
-    a, i {
+.gru-metrics-table {
+  .sub-header {
+    a,
+    i {
       cursor: pointer;
-      color:$white;
+      color: $white;
       opacity: 0.6;
       &:hover,
       &:visited {
         text-decoration: none;
-        color:$white;
+        color: $white;
         opacity: 0.6;
       }
     }
@@ -16,7 +17,7 @@
         font-size: 13px;
       }
     }
-    .report{
+    .report {
       opacity: 0.6;
       text-align: center;
     }

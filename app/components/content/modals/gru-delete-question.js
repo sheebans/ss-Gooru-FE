@@ -30,19 +30,19 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * Delete Content
      */
-    deleteQuestion: function (model) {
+    deleteQuestion: function(model) {
       let component = this;
 
       component.set('isLoading', true);
 
       // This deleteMethod will be a wrapper around the actual delete method that is particular to
       // each question type.
-      model.deleteMethod()
-        .then(function () {
+      model
+        .deleteMethod()
+        .then(function() {
           if (model.callback) {
             model.callback.success();
           }
@@ -50,12 +50,20 @@ export default Ember.Component.extend({
           component.triggerAction({ action: 'closeModal' });
 
           if (model.redirect) {
-            component.get('router').transitionTo(model.redirect.route, model.redirect.params.id);
+            component
+              .get('router')
+              .transitionTo(model.redirect.route, model.redirect.params.id);
           }
         })
-        .catch(function (error) {
-          var message = component.get('i18n').t('content.modals.delete-content.delete-error',
-            { type: component.get('i18n').t(`common.'${model.type}`).string.toLowerCase() }).string;
+        .catch(function(error) {
+          var message = component
+            .get('i18n')
+            .t('content.modals.delete-content.delete-error', {
+              type: component
+                .get('i18n')
+                .t(`common.'${model.type}`)
+                .string.toLowerCase()
+            }).string;
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });
@@ -75,5 +83,4 @@ export default Ember.Component.extend({
    * Indicate if it's waiting for deleteMethod callback
    */
   isLoading: false
-
 });

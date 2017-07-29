@@ -7,7 +7,6 @@ import ApplicationAdapter from 'gooru-web/adapters/application';
  * @typedef {Object} CollectionPerformanceSummaryAdapter
  */
 export default ApplicationAdapter.extend({
-
   session: Ember.inject.service(),
 
   namespace: '/api/nucleus-insights/v2',
@@ -20,10 +19,12 @@ export default ApplicationAdapter.extend({
    * @param {{ courseId: number, unitId: string, lessonId: string, collectionType: string }} criteria
    * @returns {Promise}
    */
-  searchStudentCollectionPerformanceSummary: function (studentId, criteria) {
+  searchStudentCollectionPerformanceSummary: function(studentId, criteria) {
     let adapter = this;
     const collectionType = criteria.collectionType || 'assessment';
-    const url = `${adapter.get('namespace')}/study/${collectionType}/performance`;
+    const url = `${adapter.get(
+      'namespace'
+    )}/study/${collectionType}/performance`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -37,17 +38,24 @@ export default ApplicationAdapter.extend({
         userId: studentId
       }
     };
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
-          resolve(responseData);
-        }, reject);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(function(responseData) {
+        resolve(responseData);
+      }, reject);
     });
   },
 
-  findMyPerformance: function (userId, courseId, lessonId, unitId, collectionType = 'assessment') {
+  findMyPerformance: function(
+    userId,
+    courseId,
+    lessonId,
+    unitId,
+    collectionType = 'assessment'
+  ) {
     let adapter = this;
-    const url = `${adapter.get('namespace')}/learner/course/${collectionType}s/performance`;
+    const url = `${adapter.get(
+      'namespace'
+    )}/learner/course/${collectionType}s/performance`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -60,11 +68,10 @@ export default ApplicationAdapter.extend({
         userId
       }
     };
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
-          resolve(responseData);
-        }, reject);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(function(responseData) {
+        resolve(responseData);
+      }, reject);
     });
   },
 
@@ -77,8 +84,13 @@ export default ApplicationAdapter.extend({
    * @param {string} timePeriod optional time period filter
    * @returns {Ember.RSVP.Promise}
      */
-  findCollectionPerformanceSummaryByIds: function (userId, collectionIds, collectionType, classId = undefined,
-                                                   timePeriod = undefined) {
+  findCollectionPerformanceSummaryByIds: function(
+    userId,
+    collectionIds,
+    collectionType,
+    classId = undefined,
+    timePeriod = undefined
+  ) {
     let adapter = this;
     const url = `${adapter.get('namespace')}/${collectionType}/performance`;
     const options = {
@@ -93,12 +105,10 @@ export default ApplicationAdapter.extend({
         collectionIds: collectionIds
       })
     };
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
-          resolve(responseData);
-        }, reject);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(function(responseData) {
+        resolve(responseData);
+      }, reject);
     });
   }
-
 });

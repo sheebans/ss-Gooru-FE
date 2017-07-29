@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} CenturySkill
  */
 var CenturySkill = Ember.Object.extend({
-
   /**
    * @property {String} id
    */
@@ -41,7 +40,6 @@ var CenturySkill = Ember.Object.extend({
    * @property {String} Century Skills group
    */
   group: null
-
 });
 
 export default CenturySkill;

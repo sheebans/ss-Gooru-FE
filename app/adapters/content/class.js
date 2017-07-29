@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} ClassAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus/v1/classes',
@@ -103,7 +102,7 @@ export default Ember.Object.extend({
    * @param userId user id to be deleted
    * @returns {Promise}
    */
-  removeStudentFromClass: function(classId,userId) {
+  removeStudentFromClass: function(classId, userId) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/members/${userId}`;
@@ -209,7 +208,7 @@ export default Ember.Object.extend({
    * @param []
    * @returns {Promise}
    */
-  updateContentVisibility:function(classId,content){
+  updateContentVisibility: function(classId, content) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${classId}/courses`;
@@ -274,7 +273,7 @@ export default Ember.Object.extend({
    */
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
 });

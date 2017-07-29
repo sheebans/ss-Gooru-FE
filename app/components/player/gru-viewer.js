@@ -1,5 +1,8 @@
-import Ember from "ember";
-import { ASSESSMENT_SHOW_VALUES, RESOURCE_COMPONENT_MAP } from 'gooru-web/config/config';
+import Ember from 'ember';
+import {
+  ASSESSMENT_SHOW_VALUES,
+  RESOURCE_COMPONENT_MAP
+} from 'gooru-web/config/config';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Player viewer
@@ -11,11 +14,9 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @see controllers/player.js
  * @augments ember/Component
  */
-export default Ember.Component.extend( ConfigurationMixin, {
-
+export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -31,13 +32,12 @@ export default Ember.Component.extend( ConfigurationMixin, {
      * @param {QuestionResult} questionResult
      * @returns {boolean}
      */
-    submitQuestion: function (question, questionResult) {
+    submitQuestion: function(question, questionResult) {
       const component = this;
       component.$('.content').scrollTop(0);
-      component.sendAction("onSubmitQuestion", question, questionResult);
+      component.sendAction('onSubmitQuestion', question, questionResult);
     }
   },
-
 
   // -------------------------------------------------------------------------
   // Events
@@ -56,7 +56,7 @@ export default Ember.Component.extend( ConfigurationMixin, {
    * Indicates if collection has an author
    * @property {string}
    */
-   collectionHasAuthor: Ember.computed.notEmpty('collection.author'),
+  collectionHasAuthor: Ember.computed.notEmpty('collection.author'),
 
   /**
    * Indicates if the collection author is visible
@@ -68,13 +68,13 @@ export default Ember.Component.extend( ConfigurationMixin, {
    * Indicates if the student is playing the collection
    * @property {boolean}
    */
-  isStudent: Ember.computed.equal("role", "student"),
+  isStudent: Ember.computed.equal('role', 'student'),
 
   /**
    * Indicates if the teacher is playing this collection
    * @property {boolean}
    */
-  isTeacher: Ember.computed.not("isStudent"),
+  isTeacher: Ember.computed.not('isStudent'),
 
   /**
    * The resource playing
@@ -103,7 +103,7 @@ export default Ember.Component.extend( ConfigurationMixin, {
   /**
    * @property {string} on submit question action
    */
-  onSubmitQuestion: "submitQuestion",
+  onSubmitQuestion: 'submitQuestion',
 
   /** Calculated height designated for the content area of a resource
    * @see components/player/resources/gru-url-resource.js
@@ -122,12 +122,16 @@ export default Ember.Component.extend( ConfigurationMixin, {
    * The resource component selected
    * @property {string}
    */
-  resourceComponentSelected: Ember.computed('resource.id', function () {
-    const resourceType = (this.get('resource.isImageResource') ? 'image' : this.get('resource.resourceType'));
+  resourceComponentSelected: Ember.computed('resource.id', function() {
+    const resourceType = this.get('resource.isImageResource')
+      ? 'image'
+      : this.get('resource.resourceType');
     var component = RESOURCE_COMPONENT_MAP[resourceType];
 
     if (!component) {
-      Ember.Logger.error(`Resources of type ${resourceType} are currently not supported`);
+      Ember.Logger.error(
+        `Resources of type ${resourceType} are currently not supported`
+      );
     } else {
       Ember.Logger.debug('Resources component selected: ', component);
       return component;
@@ -140,47 +144,63 @@ export default Ember.Component.extend( ConfigurationMixin, {
    */
   resourceObserver: function() {
     this.calculateResourceContentHeight();
-  }.observes("resource.id"),
+  }.observes('resource.id'),
 
   /**
    * The text for the submit button
    * @property {string}
    */
-  buttonTextKey: Ember.computed('collection', 'resource.id', 'resourceResult.submittedAnswer', function() {
-    let i18nKey = 'common.save-next';
-    let showFeedback = this.get('showFeedback');
-    if(!showFeedback || this.get('isTeacher')) {
-      if (this.get('collection').isLastResource(this.get('resource'))) {
-        i18nKey = (this.get('collection').get('isAssessment') && this.get('showReportLink')) ? 'common.save-submit' : 'common.save-finish';
-      }
-    } else {
-      if(this.get('resourceResult.submittedAnswer')) {
-        i18nKey = this.get('collection').isLastResource(this.get('resource')) ?
-          'common.finish' : 'common.next';
+  buttonTextKey: Ember.computed(
+    'collection',
+    'resource.id',
+    'resourceResult.submittedAnswer',
+    function() {
+      let i18nKey = 'common.save-next';
+      let showFeedback = this.get('showFeedback');
+      if (!showFeedback || this.get('isTeacher')) {
+        if (this.get('collection').isLastResource(this.get('resource'))) {
+          i18nKey =
+            this.get('collection').get('isAssessment') &&
+            this.get('showReportLink')
+              ? 'common.save-submit'
+              : 'common.save-finish';
+        }
       } else {
-        i18nKey = 'common.submit';
+        if (this.get('resourceResult.submittedAnswer')) {
+          i18nKey = this.get('collection').isLastResource(this.get('resource'))
+            ? 'common.finish'
+            : 'common.next';
+        } else {
+          i18nKey = 'common.submit';
+        }
       }
+      return i18nKey;
     }
-    return i18nKey;
-  }),
+  ),
 
   /**
    * The text for the action in the instructions
    * @property {string}
    */
-  instructionsActionTextKey: Ember.computed('collection', 'resource.id', 'showFeedback', function() {
-    let i18nKey = 'common.save-next';
-    let showFeedback = this.get('showFeedback');
-    if(!showFeedback || this.get('isTeacher')) {
-      if (this.get('collection').isLastResource(this.get('resource'))) {
-        return (this.get('collection').get('isAssessment')) ? 'common.save-submit' : 'common.save-finish';
+  instructionsActionTextKey: Ember.computed(
+    'collection',
+    'resource.id',
+    'showFeedback',
+    function() {
+      let i18nKey = 'common.save-next';
+      let showFeedback = this.get('showFeedback');
+      if (!showFeedback || this.get('isTeacher')) {
+        if (this.get('collection').isLastResource(this.get('resource'))) {
+          return this.get('collection').get('isAssessment')
+            ? 'common.save-submit'
+            : 'common.save-finish';
+        }
+      } else {
+        i18nKey = 'common.submit';
       }
-    } else {
-      i18nKey = 'common.submit';
+      return i18nKey;
     }
-    return i18nKey;
-  }),
-
+  ),
 
   /**
    * @property {boolean}
@@ -203,11 +223,18 @@ export default Ember.Component.extend( ConfigurationMixin, {
    * Indicates if feedback should be shown
    * @property {boolean}
    */
-  showFeedback: Ember.computed('collection.showFeedback', 'showQuestionFeedback', function() {
-    let isShowQuestionFeedbackSet = this.get("showQuestionFeedback") !== undefined;
-    return isShowQuestionFeedbackSet ? this.get("showQuestionFeedback") :
-      (this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE);
-  }),
+  showFeedback: Ember.computed(
+    'collection.showFeedback',
+    'showQuestionFeedback',
+    function() {
+      let isShowQuestionFeedbackSet =
+        this.get('showQuestionFeedback') !== undefined;
+      return isShowQuestionFeedbackSet
+        ? this.get('showQuestionFeedback')
+        : this.get('collection.showFeedback') ===
+          ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+    }
+  ),
 
   /**
    * it forces to show the question feedback, no matter what configuration is set for the collection,
@@ -223,26 +250,35 @@ export default Ember.Component.extend( ConfigurationMixin, {
    * of the narration -if there is one)
    */
   calculateResourceContentHeight: function() {
-    if (this.get('resource.isUrlResource') ||
-        this.get("resource.isPDFResource") ||
-        this.get("resource.isImageResource") &&
-        this.get("isNotIframeUrl")===false) {
-
-      var heightOffset = (this.get('heightOffset')) ? this.get('heightOffset'): 0;
-      var narrationHeight = this.$(".narration").innerHeight();
+    if (
+      this.get('resource.isUrlResource') ||
+      this.get('resource.isPDFResource') ||
+      (this.get('resource.isImageResource') &&
+        this.get('isNotIframeUrl') === false)
+    ) {
+      var heightOffset = this.get('heightOffset')
+        ? this.get('heightOffset')
+        : 0;
+      var narrationHeight = this.$('.narration').innerHeight();
       var contentHeight = this.$('.content').height();
 
       // The 4 pixels subtracted are to make sure no scroll bar will appear for the content
       // (Users should rely on the iframe scroll bar instead)
-      this.set('calculatedResourceContentHeight', contentHeight - narrationHeight - heightOffset - 4);
+      this.set(
+        'calculatedResourceContentHeight',
+        contentHeight - narrationHeight - heightOffset - 4
+      );
     }
   },
   /**
    * Set jquery effect to narration
    * */
-  setNarrationEffect: function () {
-    var themeId = this.get("configuration.themeId");
-    var highlightColor = this.get(`configuration.themes.${themeId}.player.narration.highlightColor`) || "#84B7DD";
-    $( ".narration" ).effect( "highlight",{ color: highlightColor}, 2000);
+  setNarrationEffect: function() {
+    var themeId = this.get('configuration.themeId');
+    var highlightColor =
+      this.get(
+        `configuration.themes.${themeId}.player.narration.highlightColor`
+      ) || '#84B7DD';
+    $('.narration').effect('highlight', { color: highlightColor }, 2000);
   }
 });

@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    editing:{},
-    editingContent:{
+    editing: {},
+    editingContent: {
       refreshModel: true
     }
   },
@@ -14,7 +14,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @property {Session} current session
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
@@ -23,22 +23,25 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @requires service:century-skill/century-skill
    */
-  centurySkillService: Ember.inject.service("century-skill"),
+  centurySkillService: Ember.inject.service('century-skill'),
 
   // -------------------------------------------------------------------------
   // Events
 
-
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (params) {
+  model: function(params) {
     const route = this;
-    return route.get('assessmentService').readAssessment(params.assessmentId)
+    return route
+      .get('assessmentService')
+      .readAssessment(params.assessmentId)
       .then(function(assessment) {
         const courseId = assessment.get('courseId');
         const isEditing = params.editing;
-        const editingContent = params.editingContent ? params.editingContent : null;
+        const editingContent = params.editingContent
+          ? params.editingContent
+          : null;
         var course = null;
 
         if (courseId) {
@@ -65,12 +68,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('editingContent', model.editingContent);
     controller.set('isAssessment', true);
 
-    route.get('centurySkillService').findCenturySkills()
+    route
+      .get('centurySkillService')
+      .findCenturySkills()
       .then(function(centurySkillsArray) {
         controller.set('centurySkills', centurySkillsArray.toArray());
       });
 
-    if(model.isEditing || model.editingContent ) {
+    if (model.isEditing || model.editingContent) {
       controller.set('tempCollection', model.assessment.copy());
     }
   }

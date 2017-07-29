@@ -1,10 +1,8 @@
 .player .gru-hs-image {
-
   .answer-choices {
     max-width: 400px;
 
     ul {
-
       li.answer {
         float: left;
         padding: 0;
@@ -25,16 +23,16 @@
           max-height: 100%;
         }
 
-        &.disabled{
+        &.disabled {
           cursor: $cursor-disabled;
         }
 
-        &:not(.disabled):hover{
-          border-color:$dark-300;
+        &:not(.disabled):hover {
+          border-color: $dark-300;
         }
-        &.selected{
-          border-color:$blue-400;
-          div{
+        &.selected {
+          border-color: $blue-400;
+          div {
             display: block;
           }
         }
@@ -42,16 +40,16 @@
           padding: 0px;
           border-radius: 0px;
         }
-        div{
+        div {
           display: none;
           position: absolute;
-          top:35%;
-          left:35%;
+          top: 35%;
+          left: 35%;
           width: 30px;
           height: 30px;
           border-radius: 50%;
           background-color: $white;
-          i{
+          i {
             font-size: 42px;
             margin: -5px 0px 0px -5px;
             color: $dark-300;

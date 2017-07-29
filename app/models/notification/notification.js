@@ -5,7 +5,6 @@ import Ember from 'ember';
  * @typedef {Object} Notification
  */
 export default Ember.Object.extend({
-
   /**
    * @property {string}
    */
@@ -19,12 +18,12 @@ export default Ember.Object.extend({
   /**
    * @property {Date} Date in which the rubric was created
    */
-  createdDate:null,
+  createdDate: null,
 
   /**
    * @property {Date} Date in which the rubric was updated
    */
-  updatedDate:null,
+  updatedDate: null,
 
   /**
    * Many values identifying the event type.

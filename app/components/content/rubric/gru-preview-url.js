@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
-  classNames:['content','rubric','gru-preview-url'],
+  classNames: ['content', 'rubric', 'gru-preview-url'],
 
   // -------------------------------------------------------------------------
   // Properties
@@ -25,8 +25,7 @@ export default Ember.Component.extend({
   /**
    * @property {string} Resource URL
    */
-  url:Ember.computed.alias('resource.url'),
+  url: Ember.computed.alias('resource.url'),
 
-  resource:null
+  resource: null
 });
-

@@ -21,13 +21,13 @@ export default Ember.Component.extend({
    *
    * @attribute {Array}
    */
-  classNames:['gru-lesson-performance-container'],
+  classNames: ['gru-lesson-performance-container'],
   /**
    * Attribute that computes the element to the specified string.
    *
    * @attribute {String}
    */
-  tagName:'div',
+  tagName: 'div',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -38,12 +38,11 @@ export default Ember.Component.extend({
      *
      * @function actions:selectUnit
      */
-    selectLesson: function (lesson) {
+    selectLesson: function(lesson) {
       const component = this;
-      if (component.isSelected()){
+      if (component.isSelected()) {
         this.get('onSelectLesson')();
-      }
-      else{
+      } else {
         this.get('onSelectLesson')(lesson.get('id'));
       }
     },
@@ -52,8 +51,8 @@ export default Ember.Component.extend({
      * @function actions:selectResource
      * @param {string} collection - (collection/assessment)
      */
-    selectResource: function (collection) {
-      let lessonId = this.get("lesson.id");
+    selectResource: function(collection) {
+      let lessonId = this.get('lesson.id');
       this.get('onSelectResource')(lessonId, collection);
     },
 
@@ -61,8 +60,8 @@ export default Ember.Component.extend({
      * @function actions:viewReport
      * @param {string} collection - Identifier for a resource (collection/assessment)
      */
-    viewReport: function (collection) {
-      let lessonId = this.get("lesson.id");
+    viewReport: function(collection) {
+      let lessonId = this.get('lesson.id');
       this.get('onViewReport')(lessonId, collection);
     }
   },
@@ -70,7 +69,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  didInsertElement:function(){
+  didInsertElement: function() {
     this.toggleCollapse();
   },
   // -------------------------------------------------------------------------
@@ -78,7 +77,7 @@ export default Ember.Component.extend({
   /**
    * Observes if the selection has changed
    */
-  expandCollapse: Ember.observer("selectedLessonId", "lesson.id", function(){
+  expandCollapse: Ember.observer('selectedLessonId', 'lesson.id', function() {
     this.toggleCollapse();
   }),
 
@@ -95,19 +94,19 @@ export default Ember.Component.extend({
    *
    * @property {LessonPerformance}
    */
-  lesson:null,
+  lesson: null,
   /**
    * Number of the index of this lesson
    *
    * @property {Number}
    */
-  localIndex:null,
+  localIndex: null,
   /**
    * Number of the index of this lessons data parent.
    *
    * @property {Number}
    */
-  index:null,
+  index: null,
   /**
    * UserID this user belongs to
    *
@@ -126,7 +125,7 @@ export default Ember.Component.extend({
    * Indicates if the current lesson is the selected one
    * @property {boolean} selected
    */
-  selected: Ember.computed("selectedLessonId", "lesson.id", function(){
+  selected: Ember.computed('selectedLessonId', 'lesson.id', function() {
     return this.isSelected(); //calling the method because the property was not refreshed before events
   }),
 
@@ -145,7 +144,10 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} indicates if the data is filtered by collection
    */
-  isFilteredByCollection: Ember.computed.equal("selectedFilterBy", "collection"),
+  isFilteredByCollection: Ember.computed.equal(
+    'selectedFilterBy',
+    'collection'
+  ),
 
   /**
    * @property {Class}
@@ -162,16 +164,17 @@ export default Ember.Component.extend({
    */
   loading: false,
 
-
   // -------------------------------------------------------------------------
   // Methods
   /**
    * Toggles the collapse/expand
    */
-  toggleCollapse: function(){
+  toggleCollapse: function() {
     let selected = this.isSelected();
-    let collapsibleElement = Ember.$(this.element).find(".collections-container");
-    collapsibleElement.collapse(selected ? "show" : "hide");
+    let collapsibleElement = Ember.$(this.element).find(
+      '.collections-container'
+    );
+    collapsibleElement.collapse(selected ? 'show' : 'hide');
     if (selected) {
       this.loadData();
     }
@@ -182,8 +185,8 @@ export default Ember.Component.extend({
    * This method was necessary because the ember computed was not refreshed before the event was trigger
    * @returns {boolean}
    */
-  isSelected: function(){
-    return this.get("selectedLessonId") === this.get("lesson.id");
+  isSelected: function() {
+    return this.get('selectedLessonId') === this.get('lesson.id');
   },
 
   /**
@@ -191,24 +194,36 @@ export default Ember.Component.extend({
    */
   loadData: function() {
     const component = this;
-    const lessonPerformance = component.get("lesson");
+    const lessonPerformance = component.get('lesson');
     const lessonId = lessonPerformance.get('id');
-    const unitId = component.get("unit.id");
-    const courseId = component.get("class.courseId");
-    const filterBy = component.get("selectedFilterBy");
-    const classId = component.get("class.id");
-    const userId = component.get("userId");
+    const unitId = component.get('unit.id');
+    const courseId = component.get('class.courseId');
+    const filterBy = component.get('selectedFilterBy');
+    const classId = component.get('class.id');
+    const userId = component.get('userId');
 
-    component.set("loading", true);
-    return component.get('lessonService').fetchById(courseId, unitId, lessonId)
+    component.set('loading', true);
+    return component
+      .get('lessonService')
+      .fetchById(courseId, unitId, lessonId)
       .then(function(lesson) {
         const collections = lesson.get('children').filter(function(collection) {
           return component.isCollectionFilterable(collection, filterBy);
         });
-        return component.get('performanceService').findStudentPerformanceByLesson(userId, classId, courseId, unitId, lessonId, collections, {collectionType: filterBy})
+        return component
+          .get('performanceService')
+          .findStudentPerformanceByLesson(
+            userId,
+            classId,
+            courseId,
+            unitId,
+            lessonId,
+            collections,
+            { collectionType: filterBy }
+          )
           .then(function(collectionPerformances) {
             lessonPerformance.set('collections', collectionPerformances);
-            component.set("loading", false);
+            component.set('loading', false);
           });
       });
   },
@@ -222,6 +237,8 @@ export default Ember.Component.extend({
    * @returns {boolean} Returns true is the collection is filterable.
    */
   isCollectionFilterable: function(collection, filterBy) {
-    return (filterBy === 'both') || (collection.get('format').indexOf(filterBy) !== -1);
+    return (
+      filterBy === 'both' || collection.get('format').indexOf(filterBy) !== -1
+    );
   }
 });

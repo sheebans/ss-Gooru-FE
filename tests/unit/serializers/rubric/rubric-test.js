@@ -8,14 +8,17 @@ moduleFor('serializer:rubric/rubric', 'Unit | Serializer | rubric/rubric');
 test('serializeCreateRubric', function(assert) {
   const serializer = this.subject();
 
-  serializer.set('taxonomySerializer', Ember.Object.create({
-    serializeTaxonomy: function(taxonomy) {
-      assert.equal(taxonomy, 'fake-taxonomy', 'Wrong taxonomy');
-      return 'taxonomy-serialized';
-    }
-  }));
+  serializer.set(
+    'taxonomySerializer',
+    Ember.Object.create({
+      serializeTaxonomy: function(taxonomy) {
+        assert.equal(taxonomy, 'fake-taxonomy', 'Wrong taxonomy');
+        return 'taxonomy-serialized';
+      }
+    })
+  );
 
-  const rubric = Rubric.create(Ember.getOwner(this).ownerInjection(),{
+  const rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
     title: 'rubric-title',
     description: 'rubric-description',
     type: 'rubric-type',
@@ -26,12 +29,15 @@ test('serializeCreateRubric', function(assert) {
 
   const rubricObject = serializer.serializeCreateRubric(rubric);
   assert.equal(rubricObject.title, 'rubric-title', 'Wrong title');
-  assert.equal(rubricObject.description, 'rubric-description', 'Wrong description');
+  assert.equal(
+    rubricObject.description,
+    'rubric-description',
+    'Wrong description'
+  );
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
   assert.deepEqual(rubricObject.metadata.audience, [1], 'Wrong audience');
-
 });
 
 test('serializeCreateRubricOff', function(assert) {
@@ -48,22 +54,31 @@ test('serializeCreateRubricOff', function(assert) {
   const response = serializer.serializeCreateRubricOff(rubricOffObject);
   assert.equal(response.is_rubric, false, 'Should be false');
   assert.equal(response.overall_feedback_required, true, 'Should be true');
-  assert.equal(response.feedback_guidance, 'any-feedback', 'Wrong feedback guidance');
+  assert.equal(
+    response.feedback_guidance,
+    'any-feedback',
+    'Wrong feedback guidance'
+  );
   assert.equal(response.scoring, true, 'Should be true');
   assert.equal(response.max_score, 10, 'Wrong max score');
   assert.equal(response.increment, 1.25, 'Wrong increment');
   assert.equal(response.grader, 'Teacher', 'Wrong grader');
 });
 
-test('serializeUpdateRubric uploaded and no feedback required', function(assert) {
+test('serializeUpdateRubric uploaded and no feedback required', function(
+  assert
+) {
   const serializer = this.subject();
 
-  serializer.set('taxonomySerializer', Ember.Object.create({
-    serializeTaxonomy: function(taxonomy) {
-      assert.equal(taxonomy, 'fake-taxonomy', 'Wrong taxonomy');
-      return 'taxonomy-serialized';
-    }
-  }));
+  serializer.set(
+    'taxonomySerializer',
+    Ember.Object.create({
+      serializeTaxonomy: function(taxonomy) {
+        assert.equal(taxonomy, 'fake-taxonomy', 'Wrong taxonomy');
+        return 'taxonomy-serialized';
+      }
+    })
+  );
 
   const rubric = Rubric.create({
     title: 'rubric-title',
@@ -86,27 +101,44 @@ test('serializeUpdateRubric uploaded and no feedback required', function(assert)
 
   const rubricObject = serializer.serializeUpdateRubric(rubric);
   assert.equal(rubricObject.title, 'rubric-title', 'Wrong title');
-  assert.equal(rubricObject.description, 'rubric-description', 'Wrong description');
+  assert.equal(
+    rubricObject.description,
+    'rubric-description',
+    'Wrong description'
+  );
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
   assert.deepEqual(rubricObject.metadata.audience, [1], 'Wrong audience');
   assert.equal(rubricObject.url, 'any-url', 'Wrong url');
   assert.equal(rubricObject.is_remote, true, 'Wrong is remote');
-  assert.equal(rubricObject.feedback_guidance, 'any-feedback', 'Wrong feedback_guidance');
-  assert.equal(rubricObject.overall_feedback_required, false, 'Wrong overall_feedback_required');
+  assert.equal(
+    rubricObject.feedback_guidance,
+    'any-feedback',
+    'Wrong feedback_guidance'
+  );
+  assert.equal(
+    rubricObject.overall_feedback_required,
+    false,
+    'Wrong overall_feedback_required'
+  );
   assert.equal(rubricObject.categories.length, 3, 'Wrong categories length');
 });
 
-test('serializeUpdateRubric not uploaded and feedback required', function(assert) {
+test('serializeUpdateRubric not uploaded and feedback required', function(
+  assert
+) {
   const serializer = this.subject();
 
-  serializer.set('taxonomySerializer', Ember.Object.create({
-    serializeTaxonomy: function(taxonomy) {
-      assert.equal(taxonomy, 'fake-taxonomy', 'Wrong taxonomy');
-      return 'taxonomy-serialized';
-    }
-  }));
+  serializer.set(
+    'taxonomySerializer',
+    Ember.Object.create({
+      serializeTaxonomy: function(taxonomy) {
+        assert.equal(taxonomy, 'fake-taxonomy', 'Wrong taxonomy');
+        return 'taxonomy-serialized';
+      }
+    })
+  );
 
   const rubric = Rubric.create({
     title: 'rubric-title',
@@ -124,7 +156,11 @@ test('serializeUpdateRubric not uploaded and feedback required', function(assert
 
   const rubricObject = serializer.serializeUpdateRubric(rubric);
   assert.equal(rubricObject.title, 'rubric-title', 'Wrong title');
-  assert.equal(rubricObject.description, 'rubric-description', 'Wrong description');
+  assert.equal(
+    rubricObject.description,
+    'rubric-description',
+    'Wrong description'
+  );
   assert.equal(rubricObject.thumbnail, 'image-id.png', 'Wrong thumbnail');
   assert.equal(rubricObject.taxonomy, 'taxonomy-serialized', 'Wrong taxonomy');
   assert.ok(rubricObject.metadata, 'Missing metadata');
@@ -132,19 +168,25 @@ test('serializeUpdateRubric not uploaded and feedback required', function(assert
   assert.equal(rubricObject.url, null, 'Wrong url');
   assert.equal(rubricObject.is_remote, false, 'Wrong is remote');
   assert.equal(rubricObject.feedback_guidance, null, 'Wrong feedback_guidance');
-  assert.equal(rubricObject.overall_feedback_required, true, 'Wrong overall_feedback_required');
-
+  assert.equal(
+    rubricObject.overall_feedback_required,
+    true,
+    'Wrong overall_feedback_required'
+  );
 });
 
 test('serializeUpdateRubric with empty strings', function(assert) {
   const serializer = this.subject();
 
-  serializer.set('taxonomySerializer', Ember.Object.create({
-    serializeTaxonomy: function(taxonomy) {
-      assert.equal(taxonomy, 'fake-taxonomy', 'Wrong taxonomy');
-      return 'taxonomy-serialized';
-    }
-  }));
+  serializer.set(
+    'taxonomySerializer',
+    Ember.Object.create({
+      serializeTaxonomy: function(taxonomy) {
+        assert.equal(taxonomy, 'fake-taxonomy', 'Wrong taxonomy');
+        return 'taxonomy-serialized';
+      }
+    })
+  );
 
   const rubric = Rubric.create({
     title: '',
@@ -170,8 +212,11 @@ test('serializeUpdateRubric with empty strings', function(assert) {
   assert.equal(rubricObject.url, null, 'Wrong url');
   assert.equal(rubricObject.is_remote, false, 'Wrong is remote');
   assert.equal(rubricObject.feedback_guidance, null, 'Wrong feedback_guidance');
-  assert.equal(rubricObject.overall_feedback_required, true, 'Wrong overall_feedback_required');
-
+  assert.equal(
+    rubricObject.overall_feedback_required,
+    true,
+    'Wrong overall_feedback_required'
+  );
 });
 
 test('serializedUpdateRubricCategory', function(assert) {
@@ -183,22 +228,36 @@ test('serializedUpdateRubricCategory', function(assert) {
     requiresFeedback: true,
     allowsLevels: true,
     allowsScoring: false,
-    levels: [
-      { name: 'level-1', score: 10},
-      { name: 'level-2', score: 11}
-    ]
+    levels: [{ name: 'level-1', score: 10 }, { name: 'level-2', score: 11 }]
   });
 
-  const categoryObject = serializer.serializedUpdateRubricCategory(rubricCategory);
-  assert.equal(categoryObject.category_title, 'any-title', 'Wrong category_title');
-  assert.equal(categoryObject.feedback_guidance, 'any-feedback', 'Wrong feedback_guidance');
-  assert.equal(categoryObject.required_feedback, true, 'Wrong required_feedback');
+  const categoryObject = serializer.serializedUpdateRubricCategory(
+    rubricCategory
+  );
+  assert.equal(
+    categoryObject.category_title,
+    'any-title',
+    'Wrong category_title'
+  );
+  assert.equal(
+    categoryObject.feedback_guidance,
+    'any-feedback',
+    'Wrong feedback_guidance'
+  );
+  assert.equal(
+    categoryObject.required_feedback,
+    true,
+    'Wrong required_feedback'
+  );
   assert.equal(categoryObject.level, true, 'Wrong level');
   assert.equal(categoryObject.scoring, false, 'Wrong scoring');
   assert.equal(categoryObject.levels.length, 2, 'Wrong levels length');
-  assert.equal(categoryObject.levels[0].level_name, 'level-1', 'Wrong level name');
+  assert.equal(
+    categoryObject.levels[0].level_name,
+    'level-1',
+    'Wrong level name'
+  );
   assert.equal(categoryObject.levels[0].level_score, 10, 'Wrong level score');
-
 });
 
 test('serializedUpdateRubricCategory empty properties', function(assert) {
@@ -207,13 +266,19 @@ test('serializedUpdateRubricCategory empty properties', function(assert) {
   const rubricCategory = RubricCategory.create({
     title: '',
     feedbackGuidance: '',
-    categories:[]
+    categories: []
   });
 
-  const categoryObject = serializer.serializedUpdateRubricCategory(rubricCategory);
+  const categoryObject = serializer.serializedUpdateRubricCategory(
+    rubricCategory
+  );
   assert.equal(categoryObject.categories, null, 'Wrong categories');
   assert.equal(categoryObject.category_title, null, 'Wrong category_title');
-  assert.equal(categoryObject.feedback_guidance, null, 'Wrong feedback_guidance');
+  assert.equal(
+    categoryObject.feedback_guidance,
+    null,
+    'Wrong feedback_guidance'
+  );
 });
 
 test('serializedUpdateRubricCategory with null levels', function(assert) {
@@ -226,13 +291,15 @@ test('serializedUpdateRubricCategory with null levels', function(assert) {
     allowsLevels: true,
     allowsScoring: false,
     levels: [
-      { name: 'level-1', score: null},
-      { name: '', score: 11},
-      { name: '', score: null}
+      { name: 'level-1', score: null },
+      { name: '', score: 11 },
+      { name: '', score: null }
     ]
   });
 
-  const categoryObject = serializer.serializedUpdateRubricCategory(rubricCategory);
+  const categoryObject = serializer.serializedUpdateRubricCategory(
+    rubricCategory
+  );
   assert.equal(categoryObject.levels.length, 2, 'Wrong category levels');
 });
 
@@ -266,24 +333,47 @@ test('normalizeRubricCategory', function(assert) {
   };
 
   const rubricCategory = serializer.normalizeRubricCategory(category);
-  assert.equal(rubricCategory.get('title'), 'Thesis and Sub-claims', 'Wrong title');
-  assert.equal(rubricCategory.get('feedbackGuidance'), 'any feedback', 'Wrong feedback');
-  assert.equal(rubricCategory.get('requiresFeedback'), true, 'Wrong requiresFeedback');
+  assert.equal(
+    rubricCategory.get('title'),
+    'Thesis and Sub-claims',
+    'Wrong title'
+  );
+  assert.equal(
+    rubricCategory.get('feedbackGuidance'),
+    'any feedback',
+    'Wrong feedback'
+  );
+  assert.equal(
+    rubricCategory.get('requiresFeedback'),
+    true,
+    'Wrong requiresFeedback'
+  );
   assert.equal(rubricCategory.get('allowsLevels'), true, 'Wrong allowsLevels');
-  assert.equal(rubricCategory.get('allowsScoring'), false, 'Wrong allowsScoring');
+  assert.equal(
+    rubricCategory.get('allowsScoring'),
+    false,
+    'Wrong allowsScoring'
+  );
   assert.equal(rubricCategory.get('levels.length'), 4, 'Wrong allowsScoring');
-  assert.equal(rubricCategory.get('levels')[0].name, 'Exemplary', 'Wrong level name');
+  assert.equal(
+    rubricCategory.get('levels')[0].name,
+    'Exemplary',
+    'Wrong level name'
+  );
   assert.equal(rubricCategory.get('levels')[0].score, 4, 'Wrong level score');
 });
 
 test('normalizeRubric', function(assert) {
   const serializer = this.subject();
   const contentCdnUrl = 'content-url/';
-  serializer.set('session', Ember.Object.create({
-    'cdnUrls': {
-      content: contentCdnUrl
-    }
-  }));
+  serializer.set(
+    'session',
+    Ember.Object.create({
+      cdnUrls: {
+        content: contentCdnUrl
+      }
+    })
+  );
 
   const rubricData = {
     id: '2c185398-d0e6-42d8-9926-572939fc0784',
@@ -291,18 +381,19 @@ test('normalizeRubric', function(assert) {
     description: 'This is the example question for the rubrics association',
     thumbnail: '2c185398-d0e6-42d8-9926-572939fc0784.png',
     publish_date: '2017-02-24T05:55:42Z',
-    publishStatus:'published',
+    publishStatus: 'published',
     metadata: {
       audience: [12, 45]
     },
     taxonomy: {},
     url: 'https://en.wikipedia.org/wiki/Rubric_(academic)',
     is_remote: true,
-    is_rubric:false,
+    is_rubric: false,
     feedback_guidance: 'Summarize your feedback on the essay as a whole',
-    creator_id:'852f9814-0eb4-461d-bd3b-aca9c2500595',
+    creator_id: '852f9814-0eb4-461d-bd3b-aca9c2500595',
     overall_feedback_required: true,
-    categories: [{
+    categories: [
+      {
         category_title: 'Thesis and Sub-claims'
       },
       {
@@ -316,20 +407,48 @@ test('normalizeRubric', function(assert) {
 
   const rubric = serializer.normalizeRubric(rubricData);
 
-  assert.equal(rubric.get('id'), '2c185398-d0e6-42d8-9926-572939fc0784', 'Wrong id');
+  assert.equal(
+    rubric.get('id'),
+    '2c185398-d0e6-42d8-9926-572939fc0784',
+    'Wrong id'
+  );
   assert.equal(rubric.get('title'), 'Rubric - 1', 'Wrong title');
-  assert.equal(rubric.get('description'), 'This is the example question for the rubrics association', 'Wrong description');
-  assert.equal(rubric.get('thumbnail'), contentCdnUrl + '2c185398-d0e6-42d8-9926-572939fc0784.png', 'Wrong thumbnail');
+  assert.equal(
+    rubric.get('description'),
+    'This is the example question for the rubrics association',
+    'Wrong description'
+  );
+  assert.equal(
+    rubric.get('thumbnail'),
+    `${contentCdnUrl}2c185398-d0e6-42d8-9926-572939fc0784.png`,
+    'Wrong thumbnail'
+  );
   assert.deepEqual(rubric.get('audience'), [12, 45], 'Wrong audience');
   assert.equal(rubric.get('standards.length'), 0, 'Wrong taxonomy');
-  assert.equal(rubric.get('url'), 'https://en.wikipedia.org/wiki/Rubric_(academic)', 'Wrong url');
+  assert.equal(
+    rubric.get('url'),
+    'https://en.wikipedia.org/wiki/Rubric_(academic)',
+    'Wrong url'
+  );
   assert.equal(rubric.get('uploaded'), true, 'Wrong url');
-  assert.equal(rubric.get('feedback'), 'Summarize your feedback on the essay as a whole', 'Wrong feedback');
+  assert.equal(
+    rubric.get('feedback'),
+    'Summarize your feedback on the essay as a whole',
+    'Wrong feedback'
+  );
   assert.equal(rubric.get('isPublished'), true, 'Should be published');
-  assert.equal(rubric.get('publishDate'), '2017-02-24T05:55:42Z', 'Incorrect publish date');
+  assert.equal(
+    rubric.get('publishDate'),
+    '2017-02-24T05:55:42Z',
+    'Incorrect publish date'
+  );
   assert.equal(rubric.get('requiresFeedback'), true, 'Wrong requires feedback');
   assert.equal(rubric.get('categories.length'), 2, 'Wrong categories length');
-  assert.equal(rubric.get('owner'), '852f9814-0eb4-461d-bd3b-aca9c2500595', 'Wrong owner id');
+  assert.equal(
+    rubric.get('owner'),
+    '852f9814-0eb4-461d-bd3b-aca9c2500595',
+    'Wrong owner id'
+  );
   assert.equal(rubric.get('rubricOn'), false, 'Rubric should be off');
 });
 
@@ -379,8 +498,16 @@ test('normalizeGradeQuestion', function(assert) {
   const gradeQuestionItem = serializer.normalizeGradeQuestion(gradeItem);
   assert.equal(gradeQuestionItem.get('unitId'), 'unit-2', 'Wrong unitId');
   assert.equal(gradeQuestionItem.get('lessonId'), 'lesson-2', 'Wrong lessonId');
-  assert.equal(gradeQuestionItem.get('collectionId'), 'collection-2', 'Wrong collectionId');
-  assert.equal(gradeQuestionItem.get('resourceId'), 'resource-2', 'Wrong resourceId');
+  assert.equal(
+    gradeQuestionItem.get('collectionId'),
+    'collection-2',
+    'Wrong collectionId'
+  );
+  assert.equal(
+    gradeQuestionItem.get('resourceId'),
+    'resource-2',
+    'Wrong resourceId'
+  );
   assert.equal(gradeQuestionItem.get('studentCount'), 10, 'Wrong studentCount');
 });
 
@@ -388,16 +515,30 @@ test('normalizeStudentsForQuestion', function(assert) {
   const serializer = this.subject();
 
   const students = {
-    students: [
-      'student-1',
-      'student-2',
-      'student-3']
+    students: ['student-1', 'student-2', 'student-3']
   };
 
-  const gradeQuestionStudents = serializer.normalizeStudentsForQuestion(students);
-  assert.equal(gradeQuestionStudents.get('students').length, 3, 'Wrong studentCount');
-  assert.equal(gradeQuestionStudents.get('students')[0], 'student-1', 'Wrong student id');
-  assert.equal(gradeQuestionStudents.get('students')[1], 'student-2', 'Wrong student id');
-  assert.equal(gradeQuestionStudents.get('students')[2], 'student-3', 'Wrong student id');
-
+  const gradeQuestionStudents = serializer.normalizeStudentsForQuestion(
+    students
+  );
+  assert.equal(
+    gradeQuestionStudents.get('students').length,
+    3,
+    'Wrong studentCount'
+  );
+  assert.equal(
+    gradeQuestionStudents.get('students')[0],
+    'student-1',
+    'Wrong student id'
+  );
+  assert.equal(
+    gradeQuestionStudents.get('students')[1],
+    'student-2',
+    'Wrong student id'
+  );
+  assert.equal(
+    gradeQuestionStudents.get('students')[2],
+    'student-3',
+    'Wrong student id'
+  );
 });

@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
 moduleForAcceptance('Acceptance | SignUp', {
-  beforeEach: function () {
+  beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: true,
       token: 'player-token',
@@ -138,31 +138,45 @@ moduleForAcceptance('Acceptance | SignUp', {
 //  });
 //});
 
-test('it shows error messages if username or email are taken', function (assert) {
+test('it shows error messages if username or email are taken', function(
+  assert
+) {
   visit('/sign-up');
 
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
 
-    const $signUpContainer = find(".sign-up");
-    const $emailField = $signUpContainer.find(".gru-input.email");
-    const $usernameField = $signUpContainer.find(".gru-input.username");
+    const $signUpContainer = find('.sign-up');
+    const $emailField = $signUpContainer.find('.gru-input.email');
+    const $usernameField = $signUpContainer.find('.gru-input.username');
 
-    assert.ok(!find(".validation.error.email-error").length, 'Email error message not visible');
-    assert.ok(!find(".validation.error.username-error").length, 'Username error message not visible');
+    assert.ok(
+      !find('.validation.error.email-error').length,
+      'Email error message not visible'
+    );
+    assert.ok(
+      !find('.validation.error.username-error').length,
+      'Username error message not visible'
+    );
 
     // Fill inputs to go through validations
-    $signUpContainer.find(".gru-input input").val('testtest');
-    $emailField.find("input").val('test@gooru.org');
-    $usernameField.find("input").val('testtest');
-    $signUpContainer.find(".selectpicker.months").val('01').change();
-    $signUpContainer.find(".selectpicker.days").val('01').change();
-    $signUpContainer.find(".selectpicker.years").val('2000').change();
-    $signUpContainer.find("div.sign-up-button button").click();
+    $signUpContainer.find('.gru-input input').val('testtest');
+    $emailField.find('input').val('test@gooru.org');
+    $usernameField.find('input').val('testtest');
+    $signUpContainer.find('.selectpicker.months').val('01').change();
+    $signUpContainer.find('.selectpicker.days').val('01').change();
+    $signUpContainer.find('.selectpicker.years').val('2000').change();
+    $signUpContainer.find('div.sign-up-button button').click();
 
-    return wait().then(function () {
-      assert.ok(find(".validation.error.email-error").length, 'Email error message should be visible');
-      assert.ok(find(".validation.error.username-error").length, 'Username error message should be visible');
+    return wait().then(function() {
+      assert.ok(
+        find('.validation.error.email-error').length,
+        'Email error message should be visible'
+      );
+      assert.ok(
+        find('.validation.error.username-error').length,
+        'Username error message should be visible'
+      );
     });
   });
 });

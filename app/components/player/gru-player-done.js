@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['player','gru-player-done'],
+  classNames: ['player', 'gru-player-done'],
   // -------------------------------------------------------------------------
   // Properties
 
@@ -9,5 +9,5 @@ export default Ember.Component.extend({
    * The class id to transition to
    * @property {String}
    */
-   classId: null
+  classId: null
 });

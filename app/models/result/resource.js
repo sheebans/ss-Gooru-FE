@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import Serializable from 'gooru-web/mixins/serializable';
 
 /**
@@ -8,7 +8,6 @@ import Serializable from 'gooru-web/mixins/serializable';
  *
  */
 export default Ember.Object.extend(Serializable, {
-
   /**
    * @property {number} reaction - Value of the reaction the user had towards the question
    */
@@ -61,39 +60,39 @@ export default Ember.Object.extend(Serializable, {
    * A result is started when it has time spent
    * @property {boolean} indicates when it has been started
    */
-  started: Ember.computed.bool("timeSpent"),
+  started: Ember.computed.bool('timeSpent'),
 
   /**
    * Indicates if it is submitted
    * @return {boolean}
    */
-  submitted: Ember.computed.bool("submittedAt"),
+  submitted: Ember.computed.bool('submittedAt'),
 
   /**
    * Indicates if the result is pending, it means it has started but not submitted
    * @property {boolean}
    */
-  pending: Ember.computed("startedAt", "submitted", function(){
-    return this.get("startedAt") && !this.get("submitted");
+  pending: Ember.computed('startedAt', 'submitted', function() {
+    return this.get('startedAt') && !this.get('submitted');
   }),
 
   /**
    * Indicates if the resource was skipped, a result is skipped
    * @property {boolean}
    */
-  skipped: Ember.computed.not("startedAt"),
+  skipped: Ember.computed.not('startedAt'),
 
   /**
    * Indicates if it is completed
    * All started question are treated as completed
    * @return {boolean}
    */
-  completed: Ember.computed.bool("started"),
+  completed: Ember.computed.bool('started'),
 
   /**
    * @property {String}
    */
-  attemptStatus: Ember.computed("started", function () {
+  attemptStatus: Ember.computed('started', function() {
     return this.get('started') ? 'started' : 'skipped';
   }),
 
@@ -110,19 +109,20 @@ export default Ember.Object.extend(Serializable, {
   /**
    * When the start at changes it resets some properties
    */
-  onStartAtChange: Ember.observer("startedAt", function(){
+  onStartAtChange: Ember.observer('startedAt', function() {
     this.set('submittedAt', null);
   }),
 
   /**
    * When the submitted at changes it resets some properties
    */
-  onSubmittedAtChange: Ember.observer("submittedAt", function () {
+  onSubmittedAtChange: Ember.observer('submittedAt', function() {
     let timeSpent = 0;
-    let submittedAt = this.get("submittedAt");
+    let submittedAt = this.get('submittedAt');
     if (submittedAt) {
-      let startedAt = this.get("startedAt");
-      if (startedAt) { //updating time spent when submitted at is changed
+      let startedAt = this.get('startedAt');
+      if (startedAt) {
+        //updating time spent when submitted at is changed
         timeSpent = submittedAt.getTime() - startedAt.getTime();
       }
     }
@@ -138,5 +138,4 @@ export default Ember.Object.extend(Serializable, {
       resourceType: 'resource'
     };
   }
-
 });

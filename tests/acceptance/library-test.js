@@ -15,27 +15,47 @@ moduleForAcceptance('Acceptance | library', {
   }
 });
 
-test('Library Controller Layout', function (assert) {
+test('Library Controller Layout', function(assert) {
   assert.expect(9);
   visit('/library');
 
-  andThen(function () {
+  andThen(function() {
     assert.equal(currentURL(), '/library');
 
     const $libraries = find('.libraries');
-    assert.ok($libraries.length,'Missing libraries controller');
-    assert.ok($libraries.find('.content.gru-header'),'Missing library header');
+    assert.ok($libraries.length, 'Missing libraries controller');
+    assert.ok($libraries.find('.content.gru-header'), 'Missing library header');
 
     let $options = $libraries.find('.tab');
-    assert.ok($options.filter('.featured-courses').length, 'Featured Courses tab is missing');
-    assert.ok($options.filter('.partner-libraries').length, 'Partner Libraries tab should appear');
-    assert.ok($libraries.find('#featured-courses'),'Missing Featured Courses Section');
-    assert.equal($libraries.find('#featured-courses .gru-collection-card').length, 2, 'It should show 2 cards');
+    assert.ok(
+      $options.filter('.featured-courses').length,
+      'Featured Courses tab is missing'
+    );
+    assert.ok(
+      $options.filter('.partner-libraries').length,
+      'Partner Libraries tab should appear'
+    );
+    assert.ok(
+      $libraries.find('#featured-courses'),
+      'Missing Featured Courses Section'
+    );
+    assert.equal(
+      $libraries.find('#featured-courses .gru-collection-card').length,
+      2,
+      'It should show 2 cards'
+    );
 
     $libraries.find('a.partner-libraries').click();
     andThen(function() {
-      assert.ok($libraries.find('#partner-libraries'),'Missing Partner Libraries Section');
-      assert.equal($libraries.find('#partner-libraries .gru-partner-library-card').length, 4, "It should show 4 cards");
+      assert.ok(
+        $libraries.find('#partner-libraries'),
+        'Missing Partner Libraries Section'
+      );
+      assert.equal(
+        $libraries.find('#partner-libraries .gru-partner-library-card').length,
+        4,
+        'It should show 4 cards'
+      );
     });
   });
 });
@@ -46,12 +66,19 @@ test('Clicking card title should open the player', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/library');
     const $libraries = find('.libraries ');
-    const $firstResult = $libraries.find('#featured-courses .gru-collection-card:eq(0)');
+    const $firstResult = $libraries.find(
+      '#featured-courses .gru-collection-card:eq(0)'
+    );
     const $cardHeader = $firstResult.find('.panel .panel-heading');
-    const $cardTitle = $cardHeader.find('.collection-info .title-section .play-content');
+    const $cardTitle = $cardHeader.find(
+      '.collection-info .title-section .play-content'
+    );
     click($cardTitle);
     andThen(function() {
-      assert.equal(currentURL(), '/content/courses/play/b8336353-08c1-42ce-add9-3454227902c8');
+      assert.equal(
+        currentURL(),
+        '/content/courses/play/b8336353-08c1-42ce-add9-3454227902c8'
+      );
     });
   });
 });
@@ -62,12 +89,17 @@ test('Clicking card image should open the player', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/library');
     const $libraries = find('.libraries ');
-    const $firstResult = $libraries.find('#featured-courses .gru-collection-card:eq(0)');
+    const $firstResult = $libraries.find(
+      '#featured-courses .gru-collection-card:eq(0)'
+    );
     const $cardHeader = $firstResult.find('.panel .panel-heading');
     const $cardImage = $cardHeader.find('.image .play-content');
     click($cardImage);
     andThen(function() {
-      assert.equal(currentURL(), '/content/courses/play/b8336353-08c1-42ce-add9-3454227902c8');
+      assert.equal(
+        currentURL(),
+        '/content/courses/play/b8336353-08c1-42ce-add9-3454227902c8'
+      );
     });
   });
 });
@@ -77,12 +109,20 @@ test('Take A Tour', function(assert) {
   visit('/library');
   andThen(function() {
     let $tooltip;
-    click(".app-container .gru-take-tour button.start-tour");
+    click('.app-container .gru-take-tour button.start-tour');
     andThen(function() {
-      $tooltip = $("div.introjs-tooltip");
+      $tooltip = $('div.introjs-tooltip');
 
-      T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
-      assert.equal(T.text($tooltip.find('.tour-header h2')), 'Welcome!', 'First step title should be "Welcome!"');
+      T.exists(
+        assert,
+        $tooltip,
+        'First step of the tour should display a tooltip'
+      );
+      assert.equal(
+        T.text($tooltip.find('.tour-header h2')),
+        'Welcome!',
+        'First step title should be "Welcome!"'
+      );
     });
   });
 });

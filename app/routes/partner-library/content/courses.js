@@ -4,7 +4,6 @@ import Bookmark from 'gooru-web/models/content/bookmark';
 import { DEFAULT_PAGE_SIZE, CONTENT_TYPES } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -22,7 +21,6 @@ export default Ember.Route.extend(ModalMixin, {
   // Actions
 
   actions: {
-
     /**
      * Edit course action, when clicking Play at the course card
      * @param {Course}
@@ -66,24 +64,26 @@ export default Ember.Route.extend(ModalMixin, {
     const pagination = {
       pageSize: DEFAULT_PAGE_SIZE
     };
-    return this.get('libraryService').fetchLibraryContent(libraryId,
-      'course', pagination).then(function(courses) {
+    return this.get('libraryService')
+      .fetchLibraryContent(libraryId, 'course', pagination)
+      .then(function(courses) {
         return Ember.RSVP.hash({
           libraryId,
           courses: courses.libraryContent.courses,
           owners: courses.libraryContent.ownerDetails
         });
-    });
+      });
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('libraryId', model.libraryId);
-    controller.set('courses', controller.mapOwners(model.courses,
-      model.owners));
+    controller.set(
+      'courses',
+      controller.mapOwners(model.courses, model.owners)
+    );
   },
 
   deactivate: function() {
     this.get('controller').resetValues();
   }
-
 });

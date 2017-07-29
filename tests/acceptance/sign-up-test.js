@@ -25,29 +25,88 @@ test('Layout', function(assert) {
     var $modal = $signUpContainer.find('.modal');
     T.exists(assert, $modal, 'Missing sign-up modal');
     T.exists(assert, $modal.find('.modal-content'), 'Missing modal-content');
-    T.notExists(assert, $modal.find('.modal-content.child-layout'), 'modal-content child-layout should not be visible');
+    T.notExists(
+      assert,
+      $modal.find('.modal-content.child-layout'),
+      'modal-content child-layout should not be visible'
+    );
     const $signUpHeader = $modal.find('.modal-header');
     T.exists(assert, $signUpHeader, 'Missing sign-up-header');
-    T.exists(assert, $signUpHeader.find('.progress-dots'), 'Missing progress-dots');
+    T.exists(
+      assert,
+      $signUpHeader.find('.progress-dots'),
+      'Missing progress-dots'
+    );
     T.exists(assert, $signUpHeader.find('h1'), 'Missing sign-up title');
-    assert.equal(T.text($signUpHeader.find('h1')), 'Hello!', 'Incorrect sign-up title text');
-    T.exists(assert, $signUpHeader.find('.description'), 'Missing sign-up description');
-    assert.equal(T.text($signUpHeader.find('.description')), 'We’re glad you’ve decided to join us.', 'Incorrect sign-up description text');
-    T.exists(assert, $signUpHeader.find('.sign-in-description'), 'Missing sign-in description');
-    T.exists(assert, $signUpHeader.find('.google-button'), 'Missing sign-up google button');
+    assert.equal(
+      T.text($signUpHeader.find('h1')),
+      'Hello!',
+      'Incorrect sign-up title text'
+    );
+    T.exists(
+      assert,
+      $signUpHeader.find('.description'),
+      'Missing sign-up description'
+    );
+    assert.equal(
+      T.text($signUpHeader.find('.description')),
+      'We’re glad you’ve decided to join us.',
+      'Incorrect sign-up description text'
+    );
+    T.exists(
+      assert,
+      $signUpHeader.find('.sign-in-description'),
+      'Missing sign-in description'
+    );
+    T.exists(
+      assert,
+      $signUpHeader.find('.google-button'),
+      'Missing sign-up google button'
+    );
 
     const $signUpBody = $modal.find('.modal-body');
     var $signUpForm = $signUpBody.find('.sign-up-form form');
     T.exists(assert, $signUpForm, 'Missing sign up form');
-    T.exists(assert, $signUpForm.find('.gru-input.username'), 'Missing username field');
-    T.exists(assert, $signUpForm.find('.gru-select-date-picker'), 'Missing gru-select-date-picker component');
-    T.exists(assert, $signUpForm.find('.gru-input.firstName'), 'Missing firstName field');
-    T.exists(assert, $signUpForm.find('.gru-input.lastName'), 'Missing lastName field');
-    T.exists(assert, $signUpForm.find('.gru-input.email'), 'Missing email field');
-    T.exists(assert, $signUpForm.find('.gru-input.password'), 'Missing password field');
-    T.exists(assert, $signUpForm.find('.gru-input.rePassword'), 'Missing rePassword field');
-    T.exists(assert, $signUpForm.find('div.sign-up-button button'), 'Missing sign in button');
-
+    T.exists(
+      assert,
+      $signUpForm.find('.gru-input.username'),
+      'Missing username field'
+    );
+    T.exists(
+      assert,
+      $signUpForm.find('.gru-select-date-picker'),
+      'Missing gru-select-date-picker component'
+    );
+    T.exists(
+      assert,
+      $signUpForm.find('.gru-input.firstName'),
+      'Missing firstName field'
+    );
+    T.exists(
+      assert,
+      $signUpForm.find('.gru-input.lastName'),
+      'Missing lastName field'
+    );
+    T.exists(
+      assert,
+      $signUpForm.find('.gru-input.email'),
+      'Missing email field'
+    );
+    T.exists(
+      assert,
+      $signUpForm.find('.gru-input.password'),
+      'Missing password field'
+    );
+    T.exists(
+      assert,
+      $signUpForm.find('.gru-input.rePassword'),
+      'Missing rePassword field'
+    );
+    T.exists(
+      assert,
+      $signUpForm.find('div.sign-up-button button'),
+      'Missing sign in button'
+    );
   });
 });
 
@@ -64,7 +123,11 @@ test('Layout for Accessibility', function(assert) {
 
     const $googleButtonContainer = $modal.find('.google-button');
     const $linkGoogleButton = $googleButtonContainer.parent('a');
-    assert.equal($linkGoogleButton.attr('role'), 'button', 'Google button does not have the role needed');
+    assert.equal(
+      $linkGoogleButton.attr('role'),
+      'button',
+      'Google button does not have the role needed'
+    );
 
     var $label;
     var $input;
@@ -72,90 +135,180 @@ test('Layout for Accessibility', function(assert) {
     var $usernameField = $modal.find('.username');
     $label = $usernameField.find('label');
     $input = $label.find('input');
-    assert.equal($label.attr('for'), $input.attr('id'), 'The username input does not have a related label');
-    assert.equal($input.attr('aria-required'), 'true', 'The username input does not have the aria required attribute');
+    assert.equal(
+      $label.attr('for'),
+      $input.attr('id'),
+      'The username input does not have a related label'
+    );
+    assert.equal(
+      $input.attr('aria-required'),
+      'true',
+      'The username input does not have the aria required attribute'
+    );
 
     var $firstNameField = $modal.find('.firstName');
     $label = $firstNameField.find('label');
     $input = $label.find('input');
-    assert.equal($label.attr('for'), $input.attr('id'), 'The first name input does not have a related label');
-    assert.equal($input.attr('aria-required'), 'true', 'The first name input does not have the aria required attribute');
+    assert.equal(
+      $label.attr('for'),
+      $input.attr('id'),
+      'The first name input does not have a related label'
+    );
+    assert.equal(
+      $input.attr('aria-required'),
+      'true',
+      'The first name input does not have the aria required attribute'
+    );
 
     var $lastNameField = $modal.find('.lastName');
     $label = $lastNameField.find('label');
     $input = $label.find('input');
-    assert.equal($label.attr('for'), $input.attr('id'), 'The last name input does not have a related label');
-    assert.equal($input.attr('aria-required'), 'true', 'The last name input does not have the aria required attribute');
+    assert.equal(
+      $label.attr('for'),
+      $input.attr('id'),
+      'The last name input does not have a related label'
+    );
+    assert.equal(
+      $input.attr('aria-required'),
+      'true',
+      'The last name input does not have the aria required attribute'
+    );
 
     var $emailField = $modal.find('.email');
     $label = $emailField.find('label');
     $input = $label.find('input');
-    assert.equal($label.attr('for'), $input.attr('id'), 'The email input does not have a related label');
-    assert.equal($input.attr('aria-required'), 'true', 'The email input does not have the aria required attribute');
+    assert.equal(
+      $label.attr('for'),
+      $input.attr('id'),
+      'The email input does not have a related label'
+    );
+    assert.equal(
+      $input.attr('aria-required'),
+      'true',
+      'The email input does not have the aria required attribute'
+    );
 
     var $passwordField = $modal.find('.password');
     $label = $passwordField.find('label');
     $input = $label.find('input');
-    assert.equal($label.attr('for'), $input.attr('id'), 'The password input does not have a related label');
-    assert.equal($input.attr('aria-required'), 'true', 'The password input does not have the aria required attribute');
+    assert.equal(
+      $label.attr('for'),
+      $input.attr('id'),
+      'The password input does not have a related label'
+    );
+    assert.equal(
+      $input.attr('aria-required'),
+      'true',
+      'The password input does not have the aria required attribute'
+    );
 
     var $rePasswordField = $modal.find('.rePassword');
     $label = $rePasswordField.find('label');
     $input = $label.find('input');
-    assert.equal($label.attr('for'), $input.attr('id'), 'The re password input does not have a related label');
-    assert.equal($input.attr('aria-required'), 'true', 'The re password input does not have the aria required attribute');
-
+    assert.equal(
+      $label.attr('for'),
+      $input.attr('id'),
+      'The re password input does not have a related label'
+    );
+    assert.equal(
+      $input.attr('aria-required'),
+      'true',
+      'The re password input does not have the aria required attribute'
+    );
   });
-
 });
 
-test('it shows error messages if the all fields are left blank', function (assert) {
+test('it shows error messages if the all fields are left blank', function(
+  assert
+) {
   visit('/sign-up');
 
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
 
-
     const $signUpContainer = find('.sign-up');
     const $usernameField = $signUpContainer.find('.gru-input.username');
-    const $birthDayField = $signUpContainer.find('.gru-select-date-picker .birth-day-date');
+    const $birthDayField = $signUpContainer.find(
+      '.gru-select-date-picker .birth-day-date'
+    );
     const $firstNameField = $signUpContainer.find('.gru-input.firstName');
     const $lastNameField = $signUpContainer.find('.gru-input.lastName');
     const $emailField = $signUpContainer.find('.gru-input.email');
     const $passwordField = $signUpContainer.find('.gru-input.password');
     const $rePasswordField = $signUpContainer.find('.gru-input.rePassword');
 
-    assert.ok(!$usernameField.find('.error-messages .error').length, 'Username error message not visible');
-    assert.ok(!$birthDayField.find('.error-messages .error').length, 'Birth day error message not visible');
-    assert.ok(!$firstNameField.find('.error-messages .error').length, 'First name error message not visible');
-    assert.ok(!$lastNameField.find('.error-messages .error').length, 'Last name error message not visible');
-    assert.ok(!$emailField.find('.error-messages .error').length, 'Email error message not visible');
-    assert.ok(!$passwordField.find('.error-messages .error').length, 'Password error message not visible');
-    assert.ok(!$rePasswordField.find('.error-messages .error').length, 'Repassword error message not visible');
+    assert.ok(
+      !$usernameField.find('.error-messages .error').length,
+      'Username error message not visible'
+    );
+    assert.ok(
+      !$birthDayField.find('.error-messages .error').length,
+      'Birth day error message not visible'
+    );
+    assert.ok(
+      !$firstNameField.find('.error-messages .error').length,
+      'First name error message not visible'
+    );
+    assert.ok(
+      !$lastNameField.find('.error-messages .error').length,
+      'Last name error message not visible'
+    );
+    assert.ok(
+      !$emailField.find('.error-messages .error').length,
+      'Email error message not visible'
+    );
+    assert.ok(
+      !$passwordField.find('.error-messages .error').length,
+      'Password error message not visible'
+    );
+    assert.ok(
+      !$rePasswordField.find('.error-messages .error').length,
+      'Repassword error message not visible'
+    );
 
     // Try submitting without filling in data
     $signUpContainer.find('button.submit-sign-up').click();
 
-    return wait().then(function () {
-
-      assert.ok($usernameField.find('.error-messages .error').length, 'Username error message visible');
-      assert.ok($birthDayField.find('.error-messages .error').length, 'Birth day error message visible');
-      assert.ok($firstNameField.find('.error-messages .error').length, 'First name error message visible');
-      assert.ok($lastNameField.find('.error-messages .error').length, 'Last name error message visible');
-      assert.ok($emailField.find('.error-messages .error').length, 'Email error message visible');
-      assert.ok($passwordField.find('.error-messages .error').length, 'Password error message visible');
-      assert.ok($rePasswordField.find('.error-messages .error').length, 'Repassword error message visible');
-
+    return wait().then(function() {
+      assert.ok(
+        $usernameField.find('.error-messages .error').length,
+        'Username error message visible'
+      );
+      assert.ok(
+        $birthDayField.find('.error-messages .error').length,
+        'Birth day error message visible'
+      );
+      assert.ok(
+        $firstNameField.find('.error-messages .error').length,
+        'First name error message visible'
+      );
+      assert.ok(
+        $lastNameField.find('.error-messages .error').length,
+        'Last name error message visible'
+      );
+      assert.ok(
+        $emailField.find('.error-messages .error').length,
+        'Email error message visible'
+      );
+      assert.ok(
+        $passwordField.find('.error-messages .error').length,
+        'Password error message visible'
+      );
+      assert.ok(
+        $rePasswordField.find('.error-messages .error').length,
+        'Repassword error message visible'
+      );
     });
   });
 });
 
-test('it shows an error message if the first name field is left blank', function (assert) {
+test('it shows an error message if the first name field is left blank', function(
+  assert
+) {
   visit('/sign-up');
 
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
-
 
     const $signUpContainer = find('.sign-up');
     const $firstNameField = $signUpContainer.find('.gru-input.firstName');
@@ -163,25 +316,31 @@ test('it shows an error message if the first name field is left blank', function
     // Invalid
     $firstNameField.find('input').val('');
     $firstNameField.find('input').blur();
-    return wait().then(function () {
-
-      assert.ok($firstNameField.find('.error-messages .error').length, 'firstName error message visible');
+    return wait().then(function() {
+      assert.ok(
+        $firstNameField.find('.error-messages .error').length,
+        'firstName error message visible'
+      );
       // Valid
       $firstNameField.find('input').val('firstName');
       $firstNameField.find('input').blur();
-      return wait().then(function () {
-        assert.ok(!$firstNameField.find('.error-messages .error').length, 'firstName error message was hidden');
+      return wait().then(function() {
+        assert.ok(
+          !$firstNameField.find('.error-messages .error').length,
+          'firstName error message was hidden'
+        );
       });
     });
   });
 });
 
-test('it shows an error message if the last name field has less than 2 characters', function (assert) {
+test('it shows an error message if the last name field has less than 2 characters', function(
+  assert
+) {
   visit('/sign-up');
 
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
-
 
     const $signUpContainer = find('.sign-up');
     const $lastNameField = $signUpContainer.find('.gru-input.lastName');
@@ -189,25 +348,31 @@ test('it shows an error message if the last name field has less than 2 character
     // Invalid
     $lastNameField.find('input').val('l');
     $lastNameField.find('input').blur();
-    return wait().then(function () {
-
-      assert.ok($lastNameField.find('.error-messages .error').length, 'lastName error message visible');
+    return wait().then(function() {
+      assert.ok(
+        $lastNameField.find('.error-messages .error').length,
+        'lastName error message visible'
+      );
       // Valid
       $lastNameField.find('input').val('lastName');
       $lastNameField.find('input').blur();
-      return wait().then(function () {
-        assert.ok(!$lastNameField.find('.error-messages .error').length, 'lastName error message was hidden');
+      return wait().then(function() {
+        assert.ok(
+          !$lastNameField.find('.error-messages .error').length,
+          'lastName error message was hidden'
+        );
       });
     });
   });
 });
 
-test('it shows an error message if the email has incorrect format', function (assert) {
+test('it shows an error message if the email has incorrect format', function(
+  assert
+) {
   visit('/sign-up');
 
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
-
 
     const $signUpContainer = find('.sign-up');
     const $emailField = $signUpContainer.find('.gru-input.email');
@@ -216,30 +381,40 @@ test('it shows an error message if the email has incorrect format', function (as
     $emailField.find('input').val('notAnEmail.com');
     $emailField.find('input').blur();
 
-    return wait().then(function () {
-      assert.ok($emailField.find('.error-messages .error').length, 'email error message visible');
+    return wait().then(function() {
+      assert.ok(
+        $emailField.find('.error-messages .error').length,
+        'email error message visible'
+      );
       // Valid format
       $emailField.find('input').val('jennifer@gooru.org');
       $emailField.find('input').blur();
-      return wait().then(function () {
-        assert.ok(!$emailField.find('.error-messages .error').length, 'email error message was hidden');
+      return wait().then(function() {
+        assert.ok(
+          !$emailField.find('.error-messages .error').length,
+          'email error message was hidden'
+        );
       });
-     });
+    });
   });
 });
 
-test('it shows an error message if the password and rePassword fields do not match', function (assert) {
+test('it shows an error message if the password and rePassword fields do not match', function(
+  assert
+) {
   visit('/sign-up');
 
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
 
-
     const $signUpContainer = find('.sign-up');
     const $passwordField = $signUpContainer.find('.gru-input.password');
     const $rePasswordField = $signUpContainer.find('.gru-input.rePassword');
 
-    assert.ok(!$rePasswordField.find('.error-messages .error').length, 'rePassword error message not visible');
+    assert.ok(
+      !$rePasswordField.find('.error-messages .error').length,
+      'rePassword error message not visible'
+    );
 
     // Invalid format
     $passwordField.find('input').val('password');
@@ -248,19 +423,22 @@ test('it shows an error message if the password and rePassword fields do not mat
     // Try submitting without filling in data
     $signUpContainer.find('button.submit-sign-up').click();
 
-    return wait().then(function () {
-      assert.ok($rePasswordField.find('.error-messages .error').length, 'passwords do not match');
-
+    return wait().then(function() {
+      assert.ok(
+        $rePasswordField.find('.error-messages .error').length,
+        'passwords do not match'
+      );
     });
   });
 });
 
-test('it shows an error message if the first name field has blanks', function (assert) {
+test('it shows an error message if the first name field has blanks', function(
+  assert
+) {
   visit('/sign-up');
 
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
-
 
     const $signUpContainer = find('.sign-up');
     const $firstNameField = $signUpContainer.find('.gru-input.firstName');
@@ -268,26 +446,31 @@ test('it shows an error message if the first name field has blanks', function (a
     // Invalid
     $firstNameField.find('input').val('one first name');
     $firstNameField.find('input').blur();
-    return wait().then(function () {
-
-      assert.ok($firstNameField.find('.error-messages .error').length, 'firstName error message visible');
+    return wait().then(function() {
+      assert.ok(
+        $firstNameField.find('.error-messages .error').length,
+        'firstName error message visible'
+      );
       // Valid
       $firstNameField.find('input').val('one-first-name');
       $firstNameField.find('input').blur();
-      return wait().then(function () {
-        assert.ok(!$firstNameField.find('.error-messages .error').length, 'firstName error message was hidden');
+      return wait().then(function() {
+        assert.ok(
+          !$firstNameField.find('.error-messages .error').length,
+          'firstName error message was hidden'
+        );
       });
     });
   });
 });
 
-
-test('it shows an error message if the last name field has invalid characters', function (assert) {
+test('it shows an error message if the last name field has invalid characters', function(
+  assert
+) {
   visit('/sign-up');
 
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
-
 
     const $signUpContainer = find('.sign-up');
     const $lastNameField = $signUpContainer.find('.gru-input.lastName');
@@ -295,25 +478,31 @@ test('it shows an error message if the last name field has invalid characters', 
     // Invalid
     $lastNameField.find('input').val('lastname#%');
     $lastNameField.find('input').blur();
-    return wait().then(function () {
-
-      assert.ok($lastNameField.find('.error-messages .error').length, 'lastName error message visible');
+    return wait().then(function() {
+      assert.ok(
+        $lastNameField.find('.error-messages .error').length,
+        'lastName error message visible'
+      );
       // Valid
       $lastNameField.find('input').val('lastname');
       $lastNameField.find('input').blur();
-      return wait().then(function () {
-        assert.ok(!$lastNameField.find('.error-messages .error').length, 'lastName error message was hidden');
+      return wait().then(function() {
+        assert.ok(
+          !$lastNameField.find('.error-messages .error').length,
+          'lastName error message was hidden'
+        );
       });
     });
   });
 });
 
-test('it shows an error message if the username has reserved words', function (assert) {
+test('it shows an error message if the username has reserved words', function(
+  assert
+) {
   visit('/sign-up');
 
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
-
 
     const $signUpContainer = find('.sign-up');
     const $usernameField = $signUpContainer.find('.gru-input.username');
@@ -322,19 +511,27 @@ test('it shows an error message if the username has reserved words', function (a
     $usernameField.find('input').val('home');
     $usernameField.find('input').blur();
 
-    return wait().then(function () {
-      assert.ok($usernameField.find('.error-messages .error').length, 'Username error message visible');
+    return wait().then(function() {
+      assert.ok(
+        $usernameField.find('.error-messages .error').length,
+        'Username error message visible'
+      );
       // Valid format
       $usernameField.find('input').val('test');
       $usernameField.find('input').blur();
-      return wait().then(function () {
-        assert.ok(!$usernameField.find('.error-messages .error').length, 'Username error message was hidden');
+      return wait().then(function() {
+        assert.ok(
+          !$usernameField.find('.error-messages .error').length,
+          'Username error message was hidden'
+        );
       });
     });
   });
 });
 
-test('it finishes the sign up correctly and can navigate to home without issues', function (assert) {
+test('it finishes the sign up correctly and can navigate to home without issues', function(
+  assert
+) {
   visit('/sign-up');
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
@@ -345,7 +542,9 @@ test('it finishes the sign up correctly and can navigate to home without issues'
     const $lastNameField = $signUpContainer.find('.gru-input.lastName');
     const $emailField = $signUpContainer.find('.gru-input.email');
     const $passwordField = $signUpContainer.find('.gru-input.password');
-    const $confirmPasswordField = $signUpContainer.find('.gru-input.rePassword');
+    const $confirmPasswordField = $signUpContainer.find(
+      '.gru-input.rePassword'
+    );
     // Invalid format
     $usernameField.find('input').val('anyusername');
     $firstNameField.find('input').val('javier');
@@ -353,9 +552,15 @@ test('it finishes the sign up correctly and can navigate to home without issues'
     $emailField.find('input').val('anyusername@gooru.org');
     $passwordField.find('input').val('test1234@');
     $confirmPasswordField.find('input').val('test1234@');
-    var $birthMonthsField = $signUpContainer.find('select#months.selectpicker.months');
-    var $birthDaysField = $signUpContainer.find('select#days.selectpicker.days');
-    var $birthYearsField = $signUpContainer.find('select#years.selectpicker.years');
+    var $birthMonthsField = $signUpContainer.find(
+      'select#months.selectpicker.months'
+    );
+    var $birthDaysField = $signUpContainer.find(
+      'select#days.selectpicker.days'
+    );
+    var $birthYearsField = $signUpContainer.find(
+      'select#years.selectpicker.years'
+    );
 
     //Filling inputs
     $birthMonthsField.val('09');
@@ -365,16 +570,16 @@ test('it finishes the sign up correctly and can navigate to home without issues'
     // Try submitting without filling in data
     click($signUpContainer.find('button.submit-sign-up'));
 
-    andThen(function () {
+    andThen(function() {
       assert.equal(currentURL(), '/sign-up-finish');
       visit('/home');
-      andThen(function () {
+      andThen(function() {
         assert.equal(currentURL(), '/home');
       });
     });
   });
 });
-test('Sign up as student', function (assert) {
+test('Sign up as student', function(assert) {
   authenticateSession(this.application, {
     isAnonymous: true,
     token: 'student-token',
@@ -392,7 +597,9 @@ test('Sign up as student', function (assert) {
     const $lastNameField = $signUpContainer.find('.gru-input.lastName');
     const $emailField = $signUpContainer.find('.gru-input.email');
     const $passwordField = $signUpContainer.find('.gru-input.password');
-    const $confirmPasswordField = $signUpContainer.find('.gru-input.rePassword');
+    const $confirmPasswordField = $signUpContainer.find(
+      '.gru-input.rePassword'
+    );
     // Invalid format
     $usernameField.find('input').val('anyusername');
     $firstNameField.find('input').val('javier');
@@ -400,9 +607,15 @@ test('Sign up as student', function (assert) {
     $emailField.find('input').val('anyusername@gooru.org');
     $passwordField.find('input').val('test1234@');
     $confirmPasswordField.find('input').val('test1234@');
-    var $birthMonthsField = $signUpContainer.find('select#months.selectpicker.months');
-    var $birthDaysField = $signUpContainer.find('select#days.selectpicker.days');
-    var $birthYearsField = $signUpContainer.find('select#years.selectpicker.years');
+    var $birthMonthsField = $signUpContainer.find(
+      'select#months.selectpicker.months'
+    );
+    var $birthDaysField = $signUpContainer.find(
+      'select#days.selectpicker.days'
+    );
+    var $birthYearsField = $signUpContainer.find(
+      'select#years.selectpicker.years'
+    );
 
     //Filling inputs
     $birthMonthsField.val('09');
@@ -411,28 +624,36 @@ test('Sign up as student', function (assert) {
 
     // Try submitting without filling in data
     click($signUpContainer.find('button.submit-sign-up'));
-    andThen(function () {
+    andThen(function() {
       assert.equal(currentURL(), '/sign-up-finish');
       const $signUpContainer = find('.sign-up .sign-up-finish-form');
       var $country = $signUpContainer.find('.gru-select select');
       fillIn($country, '2794ea94-d478-11e4-bfe7-22000abfab1d');
-      triggerEvent($country,'loaded.bs.select');
+      triggerEvent($country, 'loaded.bs.select');
       triggerEvent($country, 'change');
       const $role = $signUpContainer.find('.roles .gru-radio:eq(1) input');
       click($role);
-      andThen(function () {
+      andThen(function() {
         click($signUpContainer.find('button.submit-sign-up'));
-        andThen(function () {
+        andThen(function() {
           visit('/search/courses?term=water');
-          andThen(function () {
-          assert.equal(currentURL(), '/search/courses?term=water');
+          andThen(function() {
+            assert.equal(currentURL(), '/search/courses?term=water');
             const $courseCard = find('.new-cards.gru-collection-card');
-            assert.ok($courseCard.find('.bookmark-btn').length, 'Missing bookmark on card');
-            const $previewButton =  find('.new-cards.gru-collection-card:first-child .preview-btn');
+            assert.ok(
+              $courseCard.find('.bookmark-btn').length,
+              'Missing bookmark on card'
+            );
+            const $previewButton = find(
+              '.new-cards.gru-collection-card:first-child .preview-btn'
+            );
             click($previewButton);
-            andThen(function () {
+            andThen(function() {
               const $previewModal = find('.gru-preview-course');
-              assert.ok($previewModal.find('.bookmark-btn').length, 'Missing bookmark on preview on modal');
+              assert.ok(
+                $previewModal.find('.bookmark-btn').length,
+                'Missing bookmark on preview on modal'
+              );
             });
           });
         });

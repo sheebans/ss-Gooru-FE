@@ -1,11 +1,12 @@
 .controller.content.questions.edit {
-
-  textarea{
+  textarea {
     resize: none;
   }
 
   label {
-    .title, b,.btn-empty {
+    .title,
+    b,
+    .btn-empty {
       display: block;
     }
     b {
@@ -14,7 +15,8 @@
     }
   }
 
-  .missing-correct-answer,.missing-images {
+  .missing-correct-answer,
+  .missing-images {
     color: $brand-danger;
   }
 
@@ -26,25 +28,25 @@
 
   #information {
     .title-section {
-      display:flex;
-      .title{
+      display: flex;
+      .title {
         width: 60%;
-        label{
+        label {
           width: 100%;
-          .gru-input.title{
+          .gru-input.title {
             width: 92%;
           }
         }
       }
-      .question-types{
+      .question-types {
         width: 40%;
       }
       .question-types {
         .btn-group {
           display: block;
           margin-top: 10px;
-          .dropdown-toggle{
-            background-color:$blue-300;
+          .dropdown-toggle {
+            background-color: $blue-300;
           }
         }
       }
@@ -77,7 +79,7 @@
             color: $light-500;
           }
         }
-        div.border-bottom{
+        div.border-bottom {
           padding-bottom: 15px;
           border-bottom: 1px solid $gray-lighter;
           margin-bottom: 0;
@@ -88,13 +90,13 @@
         }
       }
       .panel-body {
-        .text-empty{
+        .text-empty {
           font-size: $font-size-large;
         }
-        .add-image{
-          margin-top:20px;
+        .add-image {
+          margin-top: 20px;
         }
-        textarea{
+        textarea {
           line-height: 1;
         }
       }
@@ -106,8 +108,8 @@
           word-wrap: break-word;
         }
       }
-      .panel-footer{
-        background-color:$white;
+      .panel-footer {
+        background-color: $white;
       }
     }
   }

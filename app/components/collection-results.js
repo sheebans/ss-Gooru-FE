@@ -2,7 +2,6 @@ import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Component.extend(ModalMixin, {
-
   /**
    * @property {array} Collection results for the search
    */
@@ -33,11 +32,10 @@ export default Ember.Component.extend(ModalMixin, {
    */
   didInsertElement: function() {
     var component = this;
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   },
 
-  actions:{
-
+  actions: {
     /**
      * Action triggered to bookmark a collection or assessment
      * @param {Collection} collection
@@ -67,14 +65,22 @@ export default Ember.Component.extend(ModalMixin, {
      * On card remix collection button click
      * @param {Collection} collection
      */
-    remixCollection: function (collection) {
+    remixCollection: function(collection) {
       var remixModel = {
         content: collection
       };
-      if(collection.get('isCollection')) {
-        this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
+      if (collection.get('isCollection')) {
+        this.send(
+          'showModal',
+          'content.modals.gru-collection-remix',
+          remixModel
+        );
       } else {
-        this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
+        this.send(
+          'showModal',
+          'content.modals.gru-assessment-remix',
+          remixModel
+        );
       }
     }
   }

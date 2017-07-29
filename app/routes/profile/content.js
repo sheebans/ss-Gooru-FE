@@ -1,17 +1,20 @@
 import Ember from 'ember';
 import Bookmark from 'gooru-web/models/content/bookmark';
-import { CONTENT_TYPES, ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
+import {
+  CONTENT_TYPES,
+  ROLES,
+  PLAYER_EVENT_SOURCE
+} from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
-
   queryParams: {
     term: {
       refreshModel: true
     },
-    sortOn:{
+    sortOn: {
       refreshModel: true
     },
-    order:{
+    order: {
       refreshModel: true
     }
   },
@@ -61,11 +64,14 @@ export default Ember.Route.extend({
       toastClass: 'gooru-toast',
       timeOut: 10000
     });
-    const successMsg = showType ? this.get('i18n').t(
-      'common.bookmarked-content-success',
-      { contentType: bookmark.get('contentType') }
-    ) : this.get('i18n').t('common.bookmarked-success');
-    const independentLearningURL = this.get('router').generate('student-independent-learning');
+    const successMsg = showType
+      ? this.get('i18n').t('common.bookmarked-content-success', {
+        contentType: bookmark.get('contentType')
+      })
+      : this.get('i18n').t('common.bookmarked-success');
+    const independentLearningURL = this.get('router').generate(
+      'student-independent-learning'
+    );
     const buttonText = this.get('i18n').t('common.take-me-there');
     this.get('notifications').success(
       `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`
@@ -76,7 +82,6 @@ export default Ember.Route.extend({
   // Actions
 
   actions: {
-
     /**
      * Edit course action, when clicking Play at the course card
      * @param {Content/Course}
@@ -111,8 +116,9 @@ export default Ember.Route.extend({
         contentId: id,
         contentType: collectionType
       });
-      this.createBookmark(bookmark)
-        .then(() => this.notifyBookmarkSuccess(bookmark, showType));
+      this.createBookmark(bookmark).then(() =>
+        this.notifyBookmarkSuccess(bookmark, showType)
+      );
     },
 
     /**
@@ -125,8 +131,9 @@ export default Ember.Route.extend({
         contentId: id,
         contentType: CONTENT_TYPES.COURSE
       });
-      this.createBookmark(bookmark)
-        .then(() => this.notifyBookmarkSuccess(bookmark, showType));
+      this.createBookmark(bookmark).then(() =>
+        this.notifyBookmarkSuccess(bookmark, showType)
+      );
     }
   },
 
@@ -135,15 +142,14 @@ export default Ember.Route.extend({
 
   resetController(controller) {
     var queryParams = controller.get('queryParams');
-    queryParams.forEach(function (param) {
-      if(param === 'sortOn') {
+    queryParams.forEach(function(param) {
+      if (param === 'sortOn') {
         controller.set(param, 'updated_at');
-      } else if(param === 'order'){
+      } else if (param === 'order') {
         controller.set(param, 'desc');
       } else {
         controller.set(param, null);
       }
     });
   }
-
 });

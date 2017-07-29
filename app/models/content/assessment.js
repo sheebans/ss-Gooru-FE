@@ -15,17 +15,15 @@ const Validations = buildValidations({
   }
 });
 
-
 /**
  * Assessment model
  * typedef {Object} Assessment
  */
 export default Ember.Object.extend(Validations, CollectionBase, {
-
   /**
    * @property {string} indicates it is an assessment
    */
-  collectionType: "assessment",
+  collectionType: 'assessment',
 
   /**
    * @property {string}
@@ -35,7 +33,10 @@ export default Ember.Object.extend(Validations, CollectionBase, {
   /**
    * @property {boolean}
    */
-  isExternalAssessment: Ember.computed.equal("format", CONTENT_TYPES.EXTERNAL_ASSESSMENT),
+  isExternalAssessment: Ember.computed.equal(
+    'format',
+    CONTENT_TYPES.EXTERNAL_ASSESSMENT
+  ),
 
   /**
    * @property {integer}
@@ -70,5 +71,4 @@ export default Ember.Object.extend(Validations, CollectionBase, {
     collection.set('showKey', this.showKey);
     return collection;
   }
-
 });

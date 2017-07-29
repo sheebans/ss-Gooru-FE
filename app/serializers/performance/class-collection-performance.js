@@ -6,13 +6,14 @@ import ClassPerformanceSerializer from './class-performance';
  * @typedef {Object} classCollectionPerformanceSerializer
  */
 export default ClassPerformanceSerializer.extend({
-
   isCollection: function(payload) {
     return !!payload.collectionId;
   },
 
   getModelId: function(payload) {
-    return this.isCollection(payload) ? payload.collectionId : payload.assessmentId;
+    return this.isCollection(payload)
+      ? payload.collectionId
+      : payload.assessmentId;
   },
 
   getModelType: function() {
@@ -22,5 +23,4 @@ export default ClassPerformanceSerializer.extend({
   getObjectType: function(payload) {
     return this.isCollection(payload) ? 'collection' : 'assessment';
   }
-
 });

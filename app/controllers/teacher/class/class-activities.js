@@ -9,7 +9,6 @@ import SessionMixin from 'gooru-web/mixins/session';
  */
 
 export default Ember.Controller.extend(SessionMixin, ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -37,43 +36,53 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       const currentClass = controller.get('classController.class');
       const classId = currentClass.get('id');
       const date = new Date();
-      controller.get('classActivityService').enableClassActivity(classId, classActivityId, date).then(function() {
-        const classActivity = controller.get('classActivities')[0].classActivities.findBy('id', classActivityId);
-        classActivity.set('date', date);
-      });
+      controller
+        .get('classActivityService')
+        .enableClassActivity(classId, classActivityId, date)
+        .then(function() {
+          const classActivity = controller
+            .get('classActivities')[0]
+            .classActivities.findBy('id', classActivityId);
+          classActivity.set('date', date);
+        });
     },
 
     /**
      *
      * @function actions:viewMore
      */
-    viewMore: function () {
+    viewMore: function() {
       const controller = this;
       const currentClass = controller.get('classController.class');
       const year = controller.get('year');
       const month = controller.get('month');
       const startDate = new Date(year, month, 1);
       const endDate = new Date(year, month + 1, 0);
-      if(!this.get('loadingMore')) {
+      if (!this.get('loadingMore')) {
         this.set('loadingMore', true);
-        controller.get('classActivityService').findClassActivities(
-          currentClass.get('id'),
-          undefined,
-          toUtc(startDate).format('YYYY-MM-DD'),
-          toUtc(endDate).format('YYYY-MM-DD')
-        ).then(classActivities => {
-          controller.get('classActivities').pushObject(Ember.Object.create({
-            classActivities: classActivities,
-            date: formatDate(startDate, 'MMMM, YYYY')
-          }));
-          if((month - 1) >= 0) {
-            controller.set('month', month - 1);
-          } else {
-            controller.set('month', 11);
-            controller.set('year', year - 1);
-          }
-          controller.set('loadingMore', false);
-        });
+        controller
+          .get('classActivityService')
+          .findClassActivities(
+            currentClass.get('id'),
+            undefined,
+            toUtc(startDate).format('YYYY-MM-DD'),
+            toUtc(endDate).format('YYYY-MM-DD')
+          )
+          .then(classActivities => {
+            controller.get('classActivities').pushObject(
+              Ember.Object.create({
+                classActivities: classActivities,
+                date: formatDate(startDate, 'MMMM, YYYY')
+              })
+            );
+            if (month - 1 >= 0) {
+              controller.set('month', month - 1);
+            } else {
+              controller.set('month', 11);
+              controller.set('year', year - 1);
+            }
+            controller.set('loadingMore', false);
+          });
       }
     },
 
@@ -81,15 +90,17 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
      *
      * @function actions:removeClassActivity
      */
-    removeClassActivity: function (classActivity) {
+    removeClassActivity: function(classActivity) {
       let controller = this;
       let currentClassId = controller.get('classController.class.id');
       let classActivityId = classActivity.get('id');
       let classActivityType = classActivity.get('collection.collectionType');
       var model = {
         type: classActivityType,
-        deleteMethod: function () {
-          return controller.get('classActivityService').removeClassActivity(currentClassId, classActivityId);
+        deleteMethod: function() {
+          return controller
+            .get('classActivityService')
+            .removeClassActivity(currentClassId, classActivityId);
         },
         callback: {
           success: function() {
@@ -97,7 +108,11 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
           }
         }
       };
-      this.actions.showModal.call(this, 'content.modals.gru-remove-class-activity', model);
+      this.actions.showModal.call(
+        this,
+        'content.modals.gru-remove-class-activity',
+        model
+      );
     }
   },
 
@@ -141,10 +156,13 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * Removes a class activity from a list of classActivities
    * @param {classActivity} classActivity
    */
-  removeClassActivity: function (classActivity) {
+  removeClassActivity: function(classActivity) {
     let allClassActivities = this.get('classActivities');
-    allClassActivities.forEach((classActivities) => {
-      let activityToDelete = classActivities.classActivities.findBy('id',classActivity.get('id'));
+    allClassActivities.forEach(classActivities => {
+      let activityToDelete = classActivities.classActivities.findBy(
+        'id',
+        classActivity.get('id')
+      );
       classActivities.classActivities.removeObject(activityToDelete);
     });
   }

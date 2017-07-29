@@ -4,7 +4,6 @@ import Ember from 'ember';
  * Library Content model
  */
 const LibraryContentModel = Ember.Object.extend({
-
   /**
    * @property {Library} library
    */
@@ -14,7 +13,6 @@ const LibraryContentModel = Ember.Object.extend({
    * @property {courses: [], collections: [], assessments: [], resources: [], questions: [], rubrics: []} - libraryContent
    */
   libraryContent: null
-
 });
 
 export default LibraryContentModel;

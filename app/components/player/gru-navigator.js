@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
@@ -14,63 +14,63 @@ import ModalMixin from 'gooru-web/mixins/modal';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Attributes
-  classNames:['gru-navigator'],
+  classNames: ['gru-navigator'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      *
      * Triggered when an item is selected
      * @param item
      */
-    selectItem: function(item){
-        this.selectItem(item.resource);
+    selectItem: function(item) {
+      this.selectItem(item.resource);
     },
     /**
      * Action triggered when the user close the content player
      */
-    closePlayer:function(){
-      this.sendAction("onClosePlayer");
+    closePlayer: function() {
+      this.sendAction('onClosePlayer');
     },
     /**
      * Action triggered when the user close de navigator panel
      */
-    closeNavigator:function(){
-      this.sendAction("onCloseNavigator");
+    closeNavigator: function() {
+      this.sendAction('onCloseNavigator');
     },
 
     /**
      * Action triggered when the user clicks at see usage report
      */
-    seeUsageReport:function(){
-      this.sendAction("onFinishCollection");
+    seeUsageReport: function() {
+      this.sendAction('onFinishCollection');
     },
 
     /**
      * Action triggered to remix a collection
      */
-    remixCollection: function(){
+    remixCollection: function() {
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
-        let collection = this.get("originalCollection") ? this.get("originalCollection") : this.get("collection");
-        this.sendAction("onRemixCollection", collection);
+        let collection = this.get('originalCollection')
+          ? this.get('originalCollection')
+          : this.get('collection');
+        this.sendAction('onRemixCollection', collection);
       }
     },
     /**
      * Action triggered when the user wants to finish the collection
      */
-    finishCollection:function(){
-      this.sendAction("onFinishCollection");
+    finishCollection: function() {
+      this.sendAction('onFinishCollection');
     }
   },
 
@@ -87,7 +87,6 @@ export default Ember.Component.extend(ModalMixin, {
 
      If a mousedown event occurs, Ember will look at the target of the event and start walking up the DOM node tree, finding corresponding views and invoking their mouseDown method as it goes.
      */
-
     /* TODO: Remove due to conflicts when there's an input in a question?
     this.$(document).on('keyup', { _self: this }, this.navigateOnKeyUp);
     */
@@ -121,7 +120,7 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {String} selectedResourceId - resource Id selected
    */
 
-  selectedResourceId:null,
+  selectedResourceId: null,
 
   /**
    * Resource result for the selected resource
@@ -133,28 +132,41 @@ export default Ember.Component.extend(ModalMixin, {
    * A convenient structure to render the menu
    * @property
    */
-  resourceItems: Ember.computed("collection", "resourceResults.[]", "selectedResourceId", function(){
-    let component = this;
-    let collection = component.get("collection");
-    let resourceResults = component.get("resourceResults");
-    let items = resourceResults.map(function(resourceResult){
-      let resourceId = resourceResult.get("resource.id");
-      return {
-        resource: collection.getResourceById(resourceId),
-        started: resourceResult.get("started"),
-        selected: resourceId === component.get("selectedResourceId")
-      };
-    });
-    return items;
-  }),
+  resourceItems: Ember.computed(
+    'collection',
+    'resourceResults.[]',
+    'selectedResourceId',
+    function() {
+      let component = this;
+      let collection = component.get('collection');
+      let resourceResults = component.get('resourceResults');
+      let items = resourceResults.map(function(resourceResult) {
+        let resourceId = resourceResult.get('resource.id');
+        return {
+          resource: collection.getResourceById(resourceId),
+          started: resourceResult.get('started'),
+          selected: resourceId === component.get('selectedResourceId')
+        };
+      });
+      return items;
+    }
+  ),
 
   /**
    * Indicates if the remix button is shown or not
    * @property {boolean}
    */
-  showRemixButton: Ember.computed("hasContext", "isTeacher", "showRemix", function(){
-    return ((this.get('hasContext') && this.get('isTeacher')) || (!this.get('hasContext')) && this.get('showRemix'));
-  }),
+  showRemixButton: Ember.computed(
+    'hasContext',
+    'isTeacher',
+    'showRemix',
+    function() {
+      return (
+        (this.get('hasContext') && this.get('isTeacher')) ||
+        (!this.get('hasContext') && this.get('showRemix'))
+      );
+    }
+  ),
 
   /**
    * Contains the lesson title for this navigation, it is passed as a parameter
@@ -218,7 +230,6 @@ export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
 
   // Methods
@@ -255,10 +266,10 @@ export default Ember.Component.extend(ModalMixin, {
    */
   selectItem: function(resource) {
     if (resource && !this.get('isNavigationDisabled')) {
-      if (this.get("onItemSelected")){
-        this.sendAction("onItemSelected", resource);
+      if (this.get('onItemSelected')) {
+        this.sendAction('onItemSelected', resource);
       }
-      this.sendAction("onCloseNavigator");
+      this.sendAction('onCloseNavigator');
     }
   }
 });

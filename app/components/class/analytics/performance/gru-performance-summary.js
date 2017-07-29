@@ -7,7 +7,7 @@ export default Ember.Component.extend({
   /**
    * @requires service:api-sdk/assessment
    */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -22,7 +22,7 @@ export default Ember.Component.extend({
    *
    * @attribute {Array}
    */
-  classNames:['gru-performance-summary'],
+  classNames: ['gru-performance-summary'],
   /**
    * Selected option to show when on extra small
    *
@@ -30,11 +30,11 @@ export default Ember.Component.extend({
    */
   selectedOption: null,
 
-  isSelected:false,
+  isSelected: false,
 
   click() {
     let component = this;
-    component.set("isSelected", !component.get("isSelected"));
+    component.set('isSelected', !component.get('isSelected'));
     return true;
   },
   /**
@@ -42,13 +42,13 @@ export default Ember.Component.extend({
    *
    * @property {performance/performance}
    */
-  performance:null,
+  performance: null,
   /**
    * Number of the index
    *
    * @property {Number}
    */
-  index:null,
+  index: null,
 
   /**
    * @property {boolean} indicates if it should show the score
@@ -57,12 +57,12 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     /**
      * @function actions:selectResource
      * @param {string} collection -  (collection/assessment)
      */
-    selectResource: function (collection) {
+    selectResource: function(collection) {
       this.get('onSelectResource')(collection);
     },
 
@@ -70,7 +70,7 @@ export default Ember.Component.extend({
      * @function actions:viewReport
      * @param {string} collection - (collection/assessment)
      */
-    viewReport: function (collection) {
+    viewReport: function(collection) {
       this.get('onViewReport')(collection);
     }
   },
@@ -78,27 +78,37 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  didRender: function(){
+  didRender: function() {
     this.$('[data-toggle="tooltip"]').tooltip();
   },
 
-  didInsertElement:function(){
+  didInsertElement: function() {
     var component = this;
     var isAssessment = this.get('performance.isAssessment');
     var isExternalAssessment = this.get('performance.isExternalAssessment');
     var performanceId = this.get('performance.id');
     var attempts = this.get('performance.attempts');
-    if(isAssessment) {
-      component.get('assessmentService').readAssessment(performanceId).then(function (performanceData) {
-        var attemptsSetting = performanceData.get('attempts');
-        if(attemptsSetting){
-          component.set('noMoreAttempts', isAssessment && attemptsSetting > 0 && attempts && attempts >= attemptsSetting);
-        }
-      });
+    if (isAssessment) {
+      component
+        .get('assessmentService')
+        .readAssessment(performanceId)
+        .then(function(performanceData) {
+          var attemptsSetting = performanceData.get('attempts');
+          if (attemptsSetting) {
+            component.set(
+              'noMoreAttempts',
+              isAssessment &&
+                attemptsSetting > 0 &&
+                attempts &&
+                attempts >= attemptsSetting
+            );
+          }
+        });
     }
-    if(isAssessment || isExternalAssessment ){
-      const contentVisibility = component.get("contentVisibility");
-      const isVisible = contentVisibility && contentVisibility.isVisible(performanceId);
+    if (isAssessment || isExternalAssessment) {
+      const contentVisibility = component.get('contentVisibility');
+      const isVisible =
+        contentVisibility && contentVisibility.isVisible(performanceId);
       component.set('isDisabled', !isVisible);
     }
   },
@@ -148,13 +158,9 @@ export default Ember.Component.extend({
    */
   contentVisibility: null
 
-
   // -------------------------------------------------------------------------
   // Observers
 
   // -------------------------------------------------------------------------
   // Methods
-
-
-
 });

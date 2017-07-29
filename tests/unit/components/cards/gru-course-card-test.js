@@ -1,16 +1,19 @@
-import Ember from "ember";
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import Course from 'gooru-web/models/content/course';
 
-moduleForComponent('cards/gru-course-card', 'Unit | Component | cards/gru course card', {
-  integration: false
-});
+moduleForComponent(
+  'cards/gru-course-card',
+  'Unit | Component | cards/gru course card',
+  {
+    integration: false
+  }
+);
 
 test('previewCourse', function(assert) {
-
-  let course = Course.create(Ember.getOwner(this).ownerInjection(),{
-    id:'123',
-    title: "Course Title",
+  let course = Course.create(Ember.getOwner(this).ownerInjection(), {
+    id: '123',
+    title: 'Course Title',
     subject: 'CCSS.K12.Math',
     category: 'k_12',
     owner: Ember.Object.create({
@@ -18,17 +21,24 @@ test('previewCourse', function(assert) {
       username: 'dara.weiner',
       avatarUrl: 'avatar-url'
     }),
-    useCase: "Use Case",
-    taxonomy:Ember.A([Ember.Object.create({
-      description:'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
-      code:'CCSS.Math.Content.7.RP.A.3'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
-    }),Ember.Object.create({
-      description:'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
-      code:'CCSS.Math.Content.5.NBT.A.2'
-    })]),
+    useCase: 'Use Case',
+    taxonomy: Ember.A([
+      Ember.Object.create({
+        description:
+          'Use proportional relationships to solve multistep ratio and percent problems. Examples: simple interest, tax, markups and markdowns, gratuities and commissions, fees, percent increase and decrease, percent error.',
+        code: 'CCSS.Math.Content.7.RP.A.3'
+      }),
+      Ember.Object.create({
+        description:
+          'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+        code: 'CCSS.Math.Content.5.NBT.A.2'
+      }),
+      Ember.Object.create({
+        description:
+          'Explain patterns in the number of zeros of the product when multiplying a number by powers of 10, and explain patterns in the placement of the decimal point when a decimal is multiplied or divided by a power of 10. Use whole-number exponents to denote powers of 10.',
+        code: 'CCSS.Math.Content.5.NBT.A.2'
+      })
+    ]),
     children: [
       Ember.Object.create({
         id: 'unit-123',
@@ -45,7 +55,7 @@ test('previewCourse', function(assert) {
 
   let component = this.subject({
     course: course,
-    remixCourse:function(){
+    remixCourse: function() {
       return true;
     }
   });
@@ -59,9 +69,21 @@ test('previewCourse', function(assert) {
 
   let done = assert.async();
   component.set('actions.showModal', function(componentName, model) {
-    assert.deepEqual(model.remixCourse(), expectedModel.remixCourse(), 'Model function should match');
-    assert.deepEqual(model.content, expectedModel.content, 'Model content  should match');
-    assert.equal(componentName, 'gru-preview-course', 'Component name should match');
+    assert.deepEqual(
+      model.remixCourse(),
+      expectedModel.remixCourse(),
+      'Model function should match'
+    );
+    assert.deepEqual(
+      model.content,
+      expectedModel.content,
+      'Model content  should match'
+    );
+    assert.equal(
+      componentName,
+      'gru-preview-course',
+      'Component name should match'
+    );
     done();
   });
   component.send('previewCourse', course);

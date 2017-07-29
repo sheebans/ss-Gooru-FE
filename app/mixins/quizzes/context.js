@@ -7,7 +7,6 @@ import QuizzesContext from 'quizzes-addon/models/context/context';
  * @typedef {Object} ConfigurationMixin
  */
 export default Ember.Mixin.create({
-
   /**
    * @property {Ember.Service} Service to create/get quizzes contexts
    */
@@ -25,7 +24,7 @@ export default Ember.Mixin.create({
       title: collection.get('title'),
       isCollection: collection.get('isCollection')
     });
-    if(hasContext) {
+    if (hasContext) {
       context.setProperties({
         classId: params.classId,
         contextMapping: {
@@ -37,5 +36,4 @@ export default Ember.Mixin.create({
     }
     return this.get('quizzesContextService').createContext(context);
   }
-
 });

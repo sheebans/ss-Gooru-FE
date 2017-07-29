@@ -5,15 +5,13 @@ import AssessmentModel from 'gooru-web/models/content/assessment';
 import LessonModel from 'gooru-web/models/content/lesson';
 import Ember from 'ember';
 import wait from 'ember-test-helpers/wait';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
-
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 const profileServiceStub = Ember.Service.extend({
-
   readCollections(userId) {
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       if (!userId) {
-        reject({status: 500});
+        reject({ status: 500 });
       } else {
         resolve(
           Ember.A([
@@ -24,23 +22,27 @@ const profileServiceStub = Ember.Service.extend({
             {
               id: 'some-id-2',
               title: 'some-title-2'
-            }]));
+            }
+          ])
+        );
       }
     });
   },
-  readAssessments(userId,filter) {
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+  readAssessments(userId, filter) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       if (!userId) {
-        reject({status: 500});
+        reject({ status: 500 });
       } else {
-        if(filter.searchText === 'Water'){
+        if (filter.searchText === 'Water') {
           resolve(
             Ember.A([
               {
                 id: 'some-id',
                 title: 'Water'
-              }]));
-        }else{
+              }
+            ])
+          );
+        } else {
           resolve(
             Ember.A([
               {
@@ -50,31 +52,37 @@ const profileServiceStub = Ember.Service.extend({
               {
                 id: 'some-id-2',
                 title: 'Wine'
-              }]));
+              }
+            ])
+          );
         }
       }
     });
   }
 });
 const sessionServiceStub = Ember.Service.extend({
-  userId:'12345'
+  userId: '12345'
 });
 
-moduleForComponent('content/modals/gru-add-to-lesson', 'Integration | Component | content/modals/gru add to lesson', {
-  integration: true,
-  beforeEach: function () {
-    this.register('service:api-sdk/profile', profileServiceStub);
-    this.inject.service('api-sdk/profile');
-    this.register('service:session', sessionServiceStub);
-    this.inject.service('session');
+moduleForComponent(
+  'content/modals/gru-add-to-lesson',
+  'Integration | Component | content/modals/gru add to lesson',
+  {
+    integration: true,
+    beforeEach: function() {
+      this.register('service:api-sdk/profile', profileServiceStub);
+      this.inject.service('api-sdk/profile');
+      this.register('service:session', sessionServiceStub);
+      this.inject.service('session');
+    }
   }
-});
+);
 
 test('Layout', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
   this.set('model', {
-    "collections": Ember.A([
+    collections: Ember.A([
       CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
         id: 'some-id',
         title: 'some-title'
@@ -84,7 +92,7 @@ test('Layout', function(assert) {
         title: 'some-title-2'
       })
     ]),
-    "content": LessonModel.create(Ember.getOwner(this).ownerInjection(), {
+    content: LessonModel.create(Ember.getOwner(this).ownerInjection(), {
       id: 'lesson-id',
       title: 'lesson-title'
     })
@@ -99,7 +107,6 @@ test('Layout', function(assert) {
   assert.ok($header.length, 'Header');
   assert.ok($header.find('.modal-title').length, 'Header title');
 
-
   const $body = $component.find('.modal-body');
   assert.ok($body.length, 'Body');
   assert.equal($body.find('.list >div').length, 2, 'Number of cards');
@@ -108,23 +115,28 @@ test('Layout', function(assert) {
 
   const $footer = $component.find('.modal-footer');
 
-  assert.equal($footer.find('.btn-group button').length, 2, 'Number of action buttons');
+  assert.equal(
+    $footer.find('.btn-group button').length,
+    2,
+    'Number of action buttons'
+  );
   assert.ok($footer.find('.btn-group .cancel').length, 'Cancel button');
   assert.ok($footer.find('.btn-group .add-to').length, 'Add to lesson button');
-
 });
 
 test('Show more result Collections', function(assert) {
   var collections = Ember.A([]);
 
   for (var i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
-    collections.pushObject(CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: 'some-id',
-      title: 'some-title'
-    }));
+    collections.pushObject(
+      CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
+        id: 'some-id',
+        title: 'some-title'
+      })
+    );
   }
 
-  var content = {content:null, collections:collections,isCollection: true};
+  var content = { content: null, collections: collections, isCollection: true };
   this.set('model', content);
 
   this.render(hbs`{{content/modals/gru-add-to-lesson model=model}}`);
@@ -138,24 +150,38 @@ test('Show more result Collections', function(assert) {
   const $showMoreResultButton = $component.find('.show-more-results');
   assert.ok($showMoreResultButton);
 
-  assert.equal($body.find('.collection').length,DEFAULT_PAGE_SIZE, 'Number of cards');
+  assert.equal(
+    $body.find('.collection').length,
+    DEFAULT_PAGE_SIZE,
+    'Number of cards'
+  );
 
   $showMoreResultButton.click();
-  return wait().then(function () {
-    assert.equal($body.find('.collection').length, DEFAULT_PAGE_SIZE + 2, 'Number of cards');
+  return wait().then(function() {
+    assert.equal(
+      $body.find('.collection').length,
+      DEFAULT_PAGE_SIZE + 2,
+      'Number of cards'
+    );
   });
 });
 test('Show more result Assessments', function(assert) {
   var assessments = Ember.A([]);
 
   for (var i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
-    assessments.pushObject(AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: 'some-id',
-      title: 'some-title'
-    }));
+    assessments.pushObject(
+      AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+        id: 'some-id',
+        title: 'some-title'
+      })
+    );
   }
 
-  var content = {content:null, collections:assessments,isCollection: false};
+  var content = {
+    content: null,
+    collections: assessments,
+    isCollection: false
+  };
   this.set('model', content);
 
   this.render(hbs`{{content/modals/gru-add-to-lesson model=model}}`);
@@ -169,11 +195,19 @@ test('Show more result Assessments', function(assert) {
   const $showMoreResultButton = $component.find('.show-more-results');
   assert.ok($showMoreResultButton);
 
-  assert.equal($body.find('.collection').length,DEFAULT_PAGE_SIZE, 'Number of cards');
+  assert.equal(
+    $body.find('.collection').length,
+    DEFAULT_PAGE_SIZE,
+    'Number of cards'
+  );
 
   $showMoreResultButton.click();
-  return wait().then(function () {
-    assert.equal($body.find('.collection').length, DEFAULT_PAGE_SIZE + 2, 'Number of cards');
+  return wait().then(function() {
+    assert.equal(
+      $body.find('.collection').length,
+      DEFAULT_PAGE_SIZE + 2,
+      'Number of cards'
+    );
   });
 });
 
@@ -181,13 +215,19 @@ test('Show more result Assessments', function(assert) {
   var assessments = Ember.A([]);
 
   for (var i = 0; i <= DEFAULT_PAGE_SIZE - 1; i++) {
-    assessments.pushObject(AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: 'some-id',
-      title: 'some-title'
-    }));
+    assessments.pushObject(
+      AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
+        id: 'some-id',
+        title: 'some-title'
+      })
+    );
   }
 
-  var content = {content:null, collections:assessments,isCollection: false};
+  var content = {
+    content: null,
+    collections: assessments,
+    isCollection: false
+  };
   this.set('model', content);
 
   this.render(hbs`{{content/modals/gru-add-to-lesson model=model}}`);
@@ -201,11 +241,19 @@ test('Show more result Assessments', function(assert) {
   const $showMoreResultButton = $component.find('.show-more-results');
   assert.ok($showMoreResultButton);
 
-  assert.equal($body.find('.collection').length,DEFAULT_PAGE_SIZE, 'Number of cards');
+  assert.equal(
+    $body.find('.collection').length,
+    DEFAULT_PAGE_SIZE,
+    'Number of cards'
+  );
 
   $showMoreResultButton.click();
-  return wait().then(function () {
-    assert.equal($body.find('.collection').length, DEFAULT_PAGE_SIZE + 2, 'Number of cards');
+  return wait().then(function() {
+    assert.equal(
+      $body.find('.collection').length,
+      DEFAULT_PAGE_SIZE + 2,
+      'Number of cards'
+    );
   });
 });
 

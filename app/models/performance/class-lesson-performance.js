@@ -6,10 +6,8 @@ import ClassPerformance from './class-performance';
  * @typedef {Object} LessonTeacherPerformance
  */
 export default ClassPerformance.extend({
-
   /**
    * @property {Performance[]} List of Performance items for collections/assessments
    */
   collections: DS.hasMany('performance/collection-performance')
-
 });

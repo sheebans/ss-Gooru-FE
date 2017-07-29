@@ -2,28 +2,26 @@ import Ember from 'ember';
 import { formatDate, toUtc } from 'gooru-web/utils/utils';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   /**
    * @requires service:api-sdk/class-activity
    */
-  classActivityService: Ember.inject.service("api-sdk/class-activity"),
+  classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
   // -------------------------------------------------------------------------
   // Attributes
 
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
-  },
+  actions: {},
 
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function () {
+  model: function() {
     const route = this;
     const currentClass = route.modelFor('student.class').class;
     const userId = route.get('session.userId');
@@ -32,9 +30,15 @@ export default Ember.Route.extend({
     const utcToday = toUtc(today).format('YYYY-MM-DD');
 
     return Ember.RSVP.hash({
-      classActivities: route.get('classActivityService').findStudentClassActivities(
-        userId, currentClass.get('id'), undefined, formattedToday, utcToday
-      )
+      classActivities: route
+        .get('classActivityService')
+        .findStudentClassActivities(
+          userId,
+          currentClass.get('id'),
+          undefined,
+          formattedToday,
+          utcToday
+        )
     });
   },
 
@@ -43,8 +47,8 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.get('classController').selectMenuItem('class-activities');
-    controller.set("classActivities", model.classActivities);
+    controller.set('classActivities', model.classActivities);
   }
 });

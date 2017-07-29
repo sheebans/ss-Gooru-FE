@@ -1,6 +1,10 @@
 import Ember from 'ember';
-import {download} from 'gooru-web/utils/csv';
-import {prepareFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
+import { download } from 'gooru-web/utils/csv';
+import {
+  prepareFileDataToDownload,
+  formatDate,
+  createFileNameToDownload
+} from 'gooru-web/utils/utils';
 
 /**
  * Teacher Performance Controller
@@ -25,20 +29,23 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     /**
      * navigateToUnits
      */
-    navigateTo: function(id){
+    navigateTo: function(id) {
       if (this.get('isAtCourseLevel')) {
         this.set('unitId', id);
-      }
-      else if (this.get('isAtUnitLevel')) {
+      } else if (this.get('isAtUnitLevel')) {
         this.set('lessonId', id);
-      }
-      else if (this.get('isAtLessonLevel')) {
+      } else if (this.get('isAtLessonLevel')) {
         this.set('collectionId', id);
-        this.transitionToRoute('teacher.class.collection', this.get('unitId'), this.get('lessonId'), this.get('collectionId'));
+        this.transitionToRoute(
+          'teacher.class.collection',
+          this.get('unitId'),
+          this.get('lessonId'),
+          this.get('collectionId')
+        );
       }
     },
 
@@ -46,7 +53,7 @@ export default Ember.Controller.extend({
      * Triggered when a filter option is selected
      * @param {string} option
      */
-    optionsChange:function(options){
+    optionsChange: function(options) {
       this.set('selectedOptions', options.mapBy('value'));
     },
 
@@ -54,15 +61,15 @@ export default Ember.Controller.extend({
      * Triggered when a filter option is selected
      * @param {string} option
      */
-    selectFilterBy: function(option){
-      this.set("filterBy", option);
+    selectFilterBy: function(option) {
+      this.set('filterBy', option);
     },
 
     /**
      * Triggered when the breadcrumb item is selected
      * @param {*} item
      */
-    selectBreadcrumbItem: function(item){
+    selectBreadcrumbItem: function(item) {
       const type = item.get('value').type;
       const itemId = item.get('value').id;
 
@@ -72,15 +79,13 @@ export default Ember.Controller.extend({
           lessonId: null,
           collectionId: null
         });
-      }
-      else if (type === 'unit') {
+      } else if (type === 'unit') {
         this.setProperties({
           unitId: itemId,
           lessonId: null,
           collectionId: null
         });
-      }
-      else {
+      } else {
         this.setProperties({
           lessonId: itemId,
           collectionId: null
@@ -91,11 +96,11 @@ export default Ember.Controller.extend({
     /**
      * When clicking at the download button
      */
-    download: function(){
+    download: function() {
       const controller = this;
       const performanceDataHeaders = controller.get('performanceDataHeaders');
       const performanceDataMatrix = controller.get('performanceDataMatrix');
-      const date = formatDate(new Date(),'MM-DD-YY');
+      const date = formatDate(new Date(), 'MM-DD-YY');
       const classTitle = controller.get('class.title');
       const courseTitle = controller.get('course.title');
       var fileNameString = `${classTitle}_${courseTitle}`;
@@ -103,23 +108,35 @@ export default Ember.Controller.extend({
       var lessonIndex;
       var level = 'course';
 
-      if (controller.get('isAtUnitLevel')){
-        unitIndex = controller.get('course').getChildUnitIndex(controller.get('unit'));
-        fileNameString = `${fileNameString}_unit${unitIndex+1}`;
-        level='unit';
+      if (controller.get('isAtUnitLevel')) {
+        unitIndex = controller
+          .get('course')
+          .getChildUnitIndex(controller.get('unit'));
+        fileNameString = `${fileNameString}_unit${unitIndex + 1}`;
+        level = 'unit';
       }
 
-      if (controller.get('isAtLessonLevel')){
-        level='lesson';
-        unitIndex = controller.get('course').getChildUnitIndex(controller.get('unit'));
-        lessonIndex =  controller.get('unit').getChildLessonIndex(controller.get('lesson'));
-        fileNameString = `${fileNameString}_unit${unitIndex+1}_lesson${lessonIndex+1}`;
+      if (controller.get('isAtLessonLevel')) {
+        level = 'lesson';
+        unitIndex = controller
+          .get('course')
+          .getChildUnitIndex(controller.get('unit'));
+        lessonIndex = controller
+          .get('unit')
+          .getChildLessonIndex(controller.get('lesson'));
+        fileNameString = `${fileNameString}_unit${unitIndex +
+          1}_lesson${lessonIndex + 1}`;
       }
 
       fileNameString = `${fileNameString}_${date}`;
 
       const fileName = createFileNameToDownload(fileNameString);
-      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, controller.get('filterBy'),level);
+      const fileData = prepareFileDataToDownload(
+        performanceDataHeaders,
+        performanceDataMatrix,
+        controller.get('filterBy'),
+        level
+      );
 
       download(fileName, fileData);
     }
@@ -135,7 +152,7 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class'),
+  class: Ember.computed.reads('classController.class'),
 
   /**
    * A link to the parent class controller
@@ -239,9 +256,16 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showPerformanceData: Ember.computed('performanceDataMatrix', 'class.courseId', function() {
-    return this.get('performanceDataMatrix').length > 1 && this.get('class.courseId') !== '';
-  }),
+  showPerformanceData: Ember.computed(
+    'performanceDataMatrix',
+    'class.courseId',
+    function() {
+      return (
+        this.get('performanceDataMatrix').length > 1 &&
+        this.get('class.courseId') !== ''
+      );
+    }
+  ),
 
   /**
    * @property {string} indicates the header type unit/lesson/assessment
@@ -276,44 +300,52 @@ export default Ember.Controller.extend({
    * Default data picker options for assessments
    * @constant {Array}
    */
-  defaultAssessmentOptions : Ember.A([Ember.Object.create({
-    'value': 'score',
-    'selected':true,
-    'readOnly':true,
-    'isDisabled':false
-  }),Ember.Object.create({
-    'value': 'completion',
-    'selected':false,
-    'readOnly':false,
-    'isDisabled':true
-  }),Ember.Object.create({
-    'value': 'time-spent',
-    'selected':false,
-    'readOnly':false,
-    'isDisabled':false
-  })]),
+  defaultAssessmentOptions: Ember.A([
+    Ember.Object.create({
+      value: 'score',
+      selected: true,
+      readOnly: true,
+      isDisabled: false
+    }),
+    Ember.Object.create({
+      value: 'completion',
+      selected: false,
+      readOnly: false,
+      isDisabled: true
+    }),
+    Ember.Object.create({
+      value: 'time-spent',
+      selected: false,
+      readOnly: false,
+      isDisabled: false
+    })
+  ]),
 
   /**
    * Default data picker options for collections
    *
    * @constant {Array}
    */
-  defaultCollectionOptions : Ember.A([Ember.Object.create({
-    'value': 'score',
-    'selected':false,
-    'readOnly':false,
-    'isDisabled':false
-  }),Ember.Object.create({
-    'value': 'completion',
-    'selected':false,
-    'readOnly':false,
-    'isDisabled':true
-  }),Ember.Object.create({
-    'value': 'time-spent',
-    'selected':true,
-    'readOnly':true,
-    'isDisabled':false
-  })]),
+  defaultCollectionOptions: Ember.A([
+    Ember.Object.create({
+      value: 'score',
+      selected: false,
+      readOnly: false,
+      isDisabled: false
+    }),
+    Ember.Object.create({
+      value: 'completion',
+      selected: false,
+      readOnly: false,
+      isDisabled: true
+    }),
+    Ember.Object.create({
+      value: 'time-spent',
+      selected: true,
+      readOnly: true,
+      isDisabled: false
+    })
+  ]),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -324,26 +356,26 @@ export default Ember.Controller.extend({
    * @param {item} item
    * @param {type} course, unit, lesson, assessment
    */
-  updateBreadcrumb: function(item, type){
+  updateBreadcrumb: function(item, type) {
     const controller = this;
     let breadcrumb = controller.get('breadcrumb');
     let prefix;
 
-    if(type !== "course") {
-      prefix = type[0].toUpperCase() + item.get('sequence') + ": ";
+    if (type !== 'course') {
+      prefix = `${type[0].toUpperCase() + item.get('sequence')}: `;
     }
 
-    const value = Ember.Object.create({id: item.get("id"), type: type});
+    const value = Ember.Object.create({ id: item.get('id'), type: type });
     const breadcrumbObject = Ember.Object.create({
-      label: item.get("title"),
+      label: item.get('title'),
       value,
       prefix
     });
 
     //removes all items
-    const levels = ["course", "unit", "lesson"];
+    const levels = ['course', 'unit', 'lesson'];
     const index = levels.indexOf(type);
-    const toRemove = breadcrumb.slice(index, breadcrumb.get("length"));
+    const toRemove = breadcrumb.slice(index, breadcrumb.get('length'));
     breadcrumb.removeObjects(toRemove.toArray());
 
     //add new breadcrumb item
@@ -354,14 +386,14 @@ export default Ember.Controller.extend({
   /**
    * willDestroyElement event
    */
-  willDestroyElement: function(){
+  willDestroyElement: function() {
     this.resetValues();
   },
 
   /**
    * Reset controller values and breadcrumb list
    */
-  resetValues: function(){
+  resetValues: function() {
     const controller = this;
     let breadcrumb = controller.get('breadcrumb');
     this.set('unit', null);
@@ -381,8 +413,13 @@ export default Ember.Controller.extend({
   restoreSelectedOptions: function() {
     const controller = this;
     const assessment = controller.get('filteredByAssessment');
-    const options = assessment ? controller.get('defaultAssessmentOptions') : controller.get('defaultCollectionOptions');
-    controller.set('selectedOptions', options.filterBy('selected', true).mapBy('value'));
+    const options = assessment
+      ? controller.get('defaultAssessmentOptions')
+      : controller.get('defaultCollectionOptions');
+    controller.set(
+      'selectedOptions',
+      options.filterBy('selected', true).mapBy('value')
+    );
   }
   // -------------------------------------------------------------------------
   // Observers

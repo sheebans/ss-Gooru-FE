@@ -1,5 +1,4 @@
 .controller.content.courses.edit {
-
   .gru-accordion {
     ol .panel {
       position: initial;
@@ -10,10 +9,10 @@
     > .header > .detail > .drag-options {
       display: inline-block;
 
-      button{
+      button {
         font-size: 12px;
         padding-top: 8px;
-        padding-bottom:8px;
+        padding-bottom: 8px;
       }
     }
   }
@@ -31,15 +30,12 @@
   }
 
   .accordion-course {
-
     // Start with the styles in common,
     // then continue with a hierarchy of styles
     .gru-accordion-lesson > .view > .panel-heading,
     .gru-accordion-lesson-item .panel-heading {
-
       > .detail {
         > div:first-of-type {
-
           &.mixed {
             @media (max-width: $screen-lg-min) {
               vertical-align: top;
@@ -113,7 +109,6 @@
     }
 
     .gru-accordion {
-
       &.view {
         > .edit {
           display: none;
@@ -125,7 +120,7 @@
             margin-bottom: 0;
 
             .drag-icon {
-              color:$light-500;
+              color: $light-500;
               display: inline-block;
               vertical-align: middle;
             }
@@ -157,21 +152,21 @@
               .actions {
                 margin-left: 5px;
 
-                >div:last-of-type {
+                > div:last-of-type {
                   border-left: 1px solid $gray-light;
                   margin-left: 5px;
                   padding-left: 10px;
                 }
 
-                .drag-options{
+                .drag-options {
                   display: inline-block;
 
-                  .cancel.btn-info{
+                  .cancel.btn-info {
                     padding: 10px 15px;
                     font-size: 12px;
                     background-color: $brand-info;
                   }
-                  .save.btn-success{
+                  .save.btn-success {
                     padding: 10px 15px;
                     font-size: 12px;
                     background-color: $brand-success;
@@ -221,7 +216,6 @@
     }
 
     .gru-accordion-unit {
-
       .panel-body {
         padding: 10px 15px 15px;
 
@@ -264,7 +258,8 @@
             }
           }
 
-          &.domain, &.standards {
+          &.domain,
+          &.standards {
             ul {
               margin-left: 5px;
               list-style: none;
@@ -282,7 +277,6 @@
 
       &.view {
         > .view > .panel-heading {
-
           > strong {
             display: inline-block;
             vertical-align: middle;
@@ -308,10 +302,8 @@
     }
 
     .gru-accordion-lesson {
-
       &.view {
         > .view > .panel-heading {
-
           > strong {
             display: inline-block;
             vertical-align: middle;
@@ -360,14 +352,15 @@
         }
         .accordion-lesson {
           > li.gru-accordion-lesson-item {
-
             .panel-heading {
               border-bottom: 0 none;
               border-bottom-left-radius: 3px;
               border-bottom-right-radius: 3px;
               padding-bottom: 8px;
 
-              .drag-icon { vertical-align: text-bottom; }
+              .drag-icon {
+                vertical-align: text-bottom;
+              }
 
               > h3 {
                 border-right: 0 none;
@@ -377,7 +370,8 @@
               }
 
               > .title {
-                > img, > .image-placeholder {
+                > img,
+                > .image-placeholder {
                   display: inline-block;
                   width: 50px;
                   height: 40px;

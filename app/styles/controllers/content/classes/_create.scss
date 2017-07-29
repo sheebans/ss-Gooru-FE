@@ -5,7 +5,7 @@
     .conditions {
       @include flexbox;
 
-      &>:last-child {
+      & > :last-child {
         margin-left: 15px;
       }
     }

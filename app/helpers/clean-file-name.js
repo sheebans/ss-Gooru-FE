@@ -1,7 +1,10 @@
 import Ember from 'ember';
 import { getFileNameFromInvalidUrl } from 'gooru-web/utils/utils';
 
-export function cleanFileName(value/*, hash*/) {
+/**
+ * Clean a file name
+ */
+export function cleanFileName(value /*, hash*/) {
   return getFileNameFromInvalidUrl(value);
 }
 

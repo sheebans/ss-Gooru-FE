@@ -25,24 +25,24 @@ export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  answers: Ember.computed("question", function () {
+  answers: Ember.computed('question', function() {
     let component = this;
-    let question = component.get("question");
+    let question = component.get('question');
     let questionUtil = component.getQuestionUtil(question);
-    let userAnswers = component.get("userAnswer");
+    let userAnswers = component.get('userAnswer');
     let correctAnswers = questionUtil.getCorrectAnswer();
-    if (component.get("showCorrect")){
+    if (component.get('showCorrect')) {
       userAnswers = correctAnswers;
     }
 
     //answer in the correct order
-    let answers = question.get("answers").sortBy("order");
-    return answers.map(function(answer, index){
+    let answers = question.get('answers').sortBy('order');
+    return answers.map(function(answer, index) {
       let userAnswerAtIndex = userAnswers.objectAt(index);
       let correctAnswerAtIndex = correctAnswers.objectAt(index);
       return {
         selectedOrder: userAnswers.indexOf(correctAnswerAtIndex) + 1,
-        text: answer.get("text"),
+        text: answer.get('text'),
         correct: questionUtil.isAnswerChoiceCorrect(userAnswerAtIndex, index)
       };
     });

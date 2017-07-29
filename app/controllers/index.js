@@ -1,10 +1,9 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 /**
  * @typedef {object} Index Controller
  */
 export default Ember.Controller.extend({
-
   /**
    * Selected grades items
    * @property {array}
@@ -27,7 +26,7 @@ export default Ember.Controller.extend({
    * Error message displayed when click Browse Content button
    * @property {}
    */
-  errorMessage:null,
+  errorMessage: null,
 
   /**
    * @property {[]} subjects
@@ -51,64 +50,74 @@ export default Ember.Controller.extend({
    * Validate if selectedGrades is null or empty
    * @property
    */
-  isEmptyGrades : Ember.computed.empty("selectedGrades"),
+  isEmptyGrades: Ember.computed.empty('selectedGrades'),
   /**
    * Validate if selectedSubject is null or empty
    * @property
    */
-  isEmptySubjects : Ember.computed.empty("selectedSubjects"),
+  isEmptySubjects: Ember.computed.empty('selectedSubjects'),
 
   actions: {
-
     /**
      * Triggered when a subject selection changes
      * @param {DropdownItem[]} items
      */
-    onSubjectChange: function(items){
-      this.set("selectedSubjects",items);
+    onSubjectChange: function(items) {
+      this.set('selectedSubjects', items);
     },
 
     /**
      * Triggered when a standard selection changes
      * @param {DropdownItem} item
      */
-    onStandardSelected: function(item){
-      this.set("selectedStandard", item);
+    onStandardSelected: function(item) {
+      this.set('selectedStandard', item);
     },
 
     /**
      * Triggered when grade selection changes
      * @param {DropdownItem[]} items
      */
-    onGradeSelected: function(items){
-      this.set("selectedGrades",items);
+    onGradeSelected: function(items) {
+      this.set('selectedGrades', items);
     },
     /**
      * Triggered when click browseContent button
      */
-    onBrowseContentClick:function(){
+    onBrowseContentClick: function() {
       const controller = this;
       const i18n = this.get('i18n');
 
-      if (controller.get("isEmptyGrades")) {
-        controller.set("errorMessage", i18n.t("index.browseContent.grades_missing_message"));
+      if (controller.get('isEmptyGrades')) {
+        controller.set(
+          'errorMessage',
+          i18n.t('index.browseContent.grades_missing_message')
+        );
       } else {
-        controller.set("errorMessage", null);
-        if (controller.get("isEmptySubjects")) {
-          controller.set("errorMessage", i18n.t("index.browseContent.subjects_missing_message"));
+        controller.set('errorMessage', null);
+        if (controller.get('isEmptySubjects')) {
+          controller.set(
+            'errorMessage',
+            i18n.t('index.browseContent.subjects_missing_message')
+          );
         } else {
-          controller.set("errorMessage", null);
-          var selectedGrades = controller.get("selectedGrades").map(function (item) {
-            return item.get("id");
-          });
-          var selectedSubjects = controller.get("selectedSubjects").map(function (item) {
-            return item.get("id");
-          });
+          controller.set('errorMessage', null);
+          var selectedGrades = controller
+            .get('selectedGrades')
+            .map(function(item) {
+              return item.get('id');
+            });
+          var selectedSubjects = controller
+            .get('selectedSubjects')
+            .map(function(item) {
+              return item.get('id');
+            });
 
-          controller.transitionToRoute('/search/courses?gradeIds=' + selectedGrades + '&subjectIds=' + selectedSubjects);
+          controller.transitionToRoute(
+            `/search/courses?gradeIds=${selectedGrades}&subjectIds=${selectedSubjects}`
+          );
         }
       }
     }
   }
-
 });

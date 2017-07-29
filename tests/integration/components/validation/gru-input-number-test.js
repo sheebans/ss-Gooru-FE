@@ -5,17 +5,26 @@ import T from 'gooru-web/tests/helpers/assert';
 import wait from 'ember-test-helpers/wait';
 import ClassModel from 'gooru-web/models/content/class';
 
-moduleForComponent('gru-input-number', 'Integration | Component | gru input number', {
-  integration: true
-});
+moduleForComponent(
+  'gru-input-number',
+  'Integration | Component | gru input number',
+  {
+    integration: true
+  }
+);
 
 test('number input invalid', function(assert) {
   assert.expect(5); // making sure all asserts are called
 
-  this.set('model', ClassModel.create(Ember.getOwner(this).ownerInjection(), {
-    minScore: null
-  }));
-  this.render(hbs`{{validation.gru-input-number model=model valuePath='minScore' min=1 max=100 step=1}}`); // render the component
+  this.set(
+    'model',
+    ClassModel.create(Ember.getOwner(this).ownerInjection(), {
+      minScore: null
+    })
+  );
+  this.render(
+    hbs`{{validation.gru-input-number model=model valuePath='minScore' min=1 max=100 step=1}}`
+  ); // render the component
   var $component = this.$(); // component dom element
   var $input = $component.find('input[type=number]');
 
@@ -25,19 +34,28 @@ test('number input invalid', function(assert) {
   $input.val('1.1');
   $input.blur();
 
-  return wait().then(function () {
-    assert.ok($component.find('.error-messages .error').length, 'Input error message should not be hidden');
+  return wait().then(function() {
+    assert.ok(
+      $component.find('.error-messages .error').length,
+      'Input error message should not be hidden'
+    );
 
     $input.val('10');
     $input.blur();
-    return wait().then(function () {
-      assert.ok(!$component.find('.error-messages .error').length, 'Input error message should be hidden');
+    return wait().then(function() {
+      assert.ok(
+        !$component.find('.error-messages .error').length,
+        'Input error message should be hidden'
+      );
 
       $input.val('11e20');
       $input.blur();
 
-      return wait().then(function () {
-        assert.ok($component.find('.error-messages .error').length, 'Input error message should not be hidden');
+      return wait().then(function() {
+        assert.ok(
+          $component.find('.error-messages .error').length,
+          'Input error message should not be hidden'
+        );
       });
     });
   });
@@ -46,10 +64,15 @@ test('number input invalid', function(assert) {
 test('number input range', function(assert) {
   assert.expect(7); // making sure all asserts are called
 
-  this.set('model', ClassModel.create(Ember.getOwner(this).ownerInjection(), {
-    minScore: null
-  }));
-  this.render(hbs`{{validation.gru-input-number model=model valuePath='minScore' min=1 max=9 step=1}}`); // render the component
+  this.set(
+    'model',
+    ClassModel.create(Ember.getOwner(this).ownerInjection(), {
+      minScore: null
+    })
+  );
+  this.render(
+    hbs`{{validation.gru-input-number model=model valuePath='minScore' min=1 max=9 step=1}}`
+  ); // render the component
   var $component = this.$(); // component dom element
   var $input = $component.find('input[type=number]');
 
@@ -57,30 +80,45 @@ test('number input range', function(assert) {
   assert.equal($input.val(), '', 'Wrong value');
   $input.blur();
 
-  return wait().then(function () {
-    assert.ok($component.find('.error-messages .error').length, 'Input error message should not be hidden');
+  return wait().then(function() {
+    assert.ok(
+      $component.find('.error-messages .error').length,
+      'Input error message should not be hidden'
+    );
 
     $input.val('10');
     $input.blur();
-    return wait().then(function () {
-      assert.ok(!$component.find('.error-messages .error').length, 'Input error message should be hidden');
+    return wait().then(function() {
+      assert.ok(
+        !$component.find('.error-messages .error').length,
+        'Input error message should be hidden'
+      );
 
       $input.val('1');
       $input.blur();
 
-      return wait().then(function () {
-        assert.ok(!$component.find('.error-messages .error').length, 'Input error message should be hidden');
+      return wait().then(function() {
+        assert.ok(
+          !$component.find('.error-messages .error').length,
+          'Input error message should be hidden'
+        );
 
         $input.val('-11');
         $input.blur();
 
-        return wait().then(function () {
-          assert.ok($component.find('.error-messages .error').length, 'Input error message should be hidden');
+        return wait().then(function() {
+          assert.ok(
+            $component.find('.error-messages .error').length,
+            'Input error message should be hidden'
+          );
           $input.val('8');
           $input.blur();
 
-          return wait().then(function () {
-            assert.ok(!$component.find('.error-messages .error').length, 'Input error message should be hidden');
+          return wait().then(function() {
+            assert.ok(
+              !$component.find('.error-messages .error').length,
+              'Input error message should be hidden'
+            );
           });
         });
       });

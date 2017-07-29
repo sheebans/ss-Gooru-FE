@@ -1,43 +1,42 @@
 .collection-results {
-
   .search-results {
     height: 35px;
   }
-  .label a{
+  .label a {
     text-decoration: none;
-    color:$white;
+    color: $white;
   }
-  .results{
+  .results {
     margin: 18px auto;
     float: none;
   }
-  .gru-collection-card{
-    display:inline-block;
+  .gru-collection-card {
+    display: inline-block;
     margin: 10px;
-    text-align:left;
+    text-align: left;
   }
-  .no-results-found{
-    width:292px;
-    height:362px;
+  .no-results-found {
+    width: 292px;
+    height: 362px;
     display: inline-block;
     border-radius: 6px;
-    .panel-body{
-      height:inherit;
+    .panel-body {
+      height: inherit;
       @include flexbox;
       @include align-items(center);
     }
-    .no-results-content{
+    .no-results-content {
       margin: 0 auto;
       vertical-align: middle;
-      > *{
+      > * {
         display: block;
       }
-      i{
+      i {
         font-size: 86px;
-        color:$gray-dark;
+        color: $gray-dark;
         margin: 25px 0;
       }
-      .title{
+      .title {
         font-size: 18px;
       }
     }

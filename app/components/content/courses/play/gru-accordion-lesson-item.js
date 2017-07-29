@@ -10,15 +10,12 @@ import Ember from 'ember';
  * @augments Ember/Component
  */
 export default Ember.Component.extend({
-
-
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['content', 'courses', 'gru-accordion-lesson-item', 'view'],
 
   tagName: 'li',
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -42,5 +39,4 @@ export default Ember.Component.extend({
    * @prop {Content/Collection-Assessment} model
    */
   model: null
-
 });

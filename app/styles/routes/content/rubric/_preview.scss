@@ -1,5 +1,5 @@
-.content.rubric.preview{
-  > article{
+.content.rubric.preview {
+  > article {
     min-width: 0;
     $content-md-width: 90%;
 
@@ -8,7 +8,7 @@
       margin-bottom: 20px;
       padding: 0;
       @media (min-width: $screen-md) {
-        padding-bottom: 0!important;
+        padding-bottom: 0 !important;
       }
 
       * {
@@ -88,16 +88,16 @@
                 @include align-items(stretch);
                 margin-left: 10px;
                 padding-left: 10px;
-                border-left : 2px solid $dark-300;
+                border-left: 2px solid $dark-300;
 
                 .taxonomy.gru-taxonomy-tag {
                   border-color: $dark-300;
                   background-color: $dark-300;
                   color: $white;
                 }
-                .taxonomy.gru-taxonomy-tag-list{
+                .taxonomy.gru-taxonomy-tag-list {
                   @include flexbox();
-                  @include align-items(flex-end)
+                  @include align-items(flex-end);
                 }
               }
             }
@@ -164,7 +164,6 @@
         font-size: $font-size-large;
       }
       .preview-panel {
-
         .header {
           margin: 0 0 10px 24px;
         }
@@ -173,7 +172,7 @@
           .gru-preview-url {
             width: 96%;
             height: 90%;
-            .preview.show-url{
+            .preview.show-url {
               margin: 0 24px;
             }
           }
@@ -192,7 +191,7 @@
           padding-top: 10px;
 
           h3 {
-            color:$gray;
+            color: $gray;
             display: inline-block;
           }
           div.border-bottom {
@@ -203,14 +202,14 @@
         }
       }
       .category-panel {
-        .panel{
+        .panel {
           margin-bottom: 0;
         }
         .gru-category {
           padding: 5px 0;
-          margin:0;
+          margin: 0;
           .title {
-            cursor:default;
+            cursor: default;
           }
         }
       }

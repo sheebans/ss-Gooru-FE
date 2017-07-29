@@ -7,7 +7,6 @@ import { getReactionIcon } from 'gooru-web/utils/utils';
  * @param {[]} params
  * @returns {String} - html string
  */
-
 export function reactionIcon(params) {
   const reactionValue = params[0];
   const basePath = params.length > 1 ? params[1] : undefined;

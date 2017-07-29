@@ -6,42 +6,54 @@ import wait from 'ember-test-helpers/wait';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import CollectionPerformanceSummary from 'gooru-web/models/performance/collection-performance-summary';
 
-moduleForComponent('student/class/analytics/gru-performance-table', 'Integration | Component | student/class/analytics/gru-performance-table', {
-  integration: true,
-  beforeEach: function () {
-    this.container.lookup('service:i18n').set('locale','en');
+moduleForComponent(
+  'student/class/analytics/gru-performance-table',
+  'Integration | Component | student/class/analytics/gru-performance-table',
+  {
+    integration: true,
+    beforeEach: function() {
+      this.container.lookup('service:i18n').set('locale', 'en');
+    }
   }
-});
+);
 
 test('Performance Table Layout', function(assert) {
-
   const assessmentsMock = [
-    AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
-    AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
-    AssessmentModel.create({id: '3', title: 'Pre Assessment Human Impact on Earth'}),
-    AssessmentModel.create({id: '4', title: 'Assessment having no performance'}) //assessment without performance
+    AssessmentModel.create({ id: '1', title: 'What is a Fish?' }),
+    AssessmentModel.create({ id: '2', title: 'Global Warming Quiz' }),
+    AssessmentModel.create({
+      id: '3',
+      title: 'Pre Assessment Human Impact on Earth'
+    }),
+    AssessmentModel.create({
+      id: '4',
+      title: 'Assessment having no performance'
+    }) //assessment without performance
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
     CollectionPerformanceSummary.create({
       id: '1',
-      score : 100,
+      score: 100,
       timeSpent: 5000000
     }),
     CollectionPerformanceSummary.create({
       id: '2',
-      score : 90,
+      score: 90,
       timeSpent: 5100000
     }),
     CollectionPerformanceSummary.create({
       id: '3',
-      score : 80,
+      score: 80,
       timeSpent: 5300000
     })
   ]);
 
   this.set('contentTitle', 'Any content title');
-  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
+  this.set(
+    'collectionPerformanceSummaryItems',
+    collectionPerformanceSummaryItems
+  );
   this.set('assessmentsMock', assessmentsMock);
 
   this.render(hbs`{{student/class/analytics/gru-performance-table
@@ -82,98 +94,151 @@ test('Performance Table Layout', function(assert) {
   T.exists(assert, $studyTime, 'Missing completion header');
 
   //1 for the summary, 3 assessments, the assessment with no performance should not be included
-  assert.equal($tbody.find('th.assessment-title').length, 4, 'The tbody should have only 4 assessment headers, 1 for the summary, 3 for the assessments');
+  assert.equal(
+    $tbody.find('th.assessment-title').length,
+    4,
+    'The tbody should have only 4 assessment headers, 1 for the summary, 3 for the assessments'
+  );
 
   const $performanceScore = $tbody.find('.performance-score');
-  assert.equal($performanceScore.length, 4, 'The tbody should have only 4 assessment performance scores');
+  assert.equal(
+    $performanceScore.length,
+    4,
+    'The tbody should have only 4 assessment performance scores'
+  );
 
   const $performanceCompletion = $tbody.find('.performance-completion');
-  assert.equal($performanceCompletion.length, 4, 'The tbody should have only 4 assessment performance completions');
+  assert.equal(
+    $performanceCompletion.length,
+    4,
+    'The tbody should have only 4 assessment performance completions'
+  );
 
   const $performanceStudyTime = $tbody.find('.performance-time');
-  assert.equal($performanceStudyTime.length, 4, 'The tbody should have only 4 assessment performance study times');
+  assert.equal(
+    $performanceStudyTime.length,
+    4,
+    'The tbody should have only 4 assessment performance study times'
+  );
 
   //Summary row
   const $summaryRow = $table.find('.summary');
-  assert.equal(T.text($summaryRow.find('.assessment-title')), 'Any content title', 'Wrong summary title');
-  assert.equal(T.text($summaryRow.find('.performance-score')), '90%', 'Wrong summary score');
-  assert.equal(T.text($summaryRow.find('.performance-time')), '4h 16m', 'Wrong summary time spent');
-  assert.notOk($summaryRow.find('.performance-report').length,'Report column should not appear');
-  assert.notOk($summaryRow.find('.performance-report .report-icon').length,'Report icon should not appear');
+  assert.equal(
+    T.text($summaryRow.find('.assessment-title')),
+    'Any content title',
+    'Wrong summary title'
+  );
+  assert.equal(
+    T.text($summaryRow.find('.performance-score')),
+    '90%',
+    'Wrong summary score'
+  );
+  assert.equal(
+    T.text($summaryRow.find('.performance-time')),
+    '4h 16m',
+    'Wrong summary time spent'
+  );
+  assert.notOk(
+    $summaryRow.find('.performance-report').length,
+    'Report column should not appear'
+  );
+  assert.notOk(
+    $summaryRow.find('.performance-report .report-icon').length,
+    'Report icon should not appear'
+  );
 
   const $columns = $table.find('tbody');
-  assert.notOk($columns.find('.performance-report').length,'Report column should not appear');
-  assert.notOk($columns.find('.performance-report a span.report-icon').length,'Report icon should not appear');
-
+  assert.notOk(
+    $columns.find('.performance-report').length,
+    'Report column should not appear'
+  );
+  assert.notOk(
+    $columns.find('.performance-report a span.report-icon').length,
+    'Report icon should not appear'
+  );
 });
 test('Performance Table Layout with Report Column', function(assert) {
-
   const assessmentsMock = [
-    AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
-    AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
-    AssessmentModel.create({id: '3', title: 'Pre Assessment Human Impact on Earth'}),
-    AssessmentModel.create({id: '4', title: 'Assessment having no performance'}) //assessment without performance
+    AssessmentModel.create({ id: '1', title: 'What is a Fish?' }),
+    AssessmentModel.create({ id: '2', title: 'Global Warming Quiz' }),
+    AssessmentModel.create({
+      id: '3',
+      title: 'Pre Assessment Human Impact on Earth'
+    }),
+    AssessmentModel.create({
+      id: '4',
+      title: 'Assessment having no performance'
+    }) //assessment without performance
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
     CollectionPerformanceSummary.create({
       id: '1',
-      score : 100,
+      score: 100,
       timeSpent: 5000000
     }),
     CollectionPerformanceSummary.create({
       id: '2',
-      score : 90,
+      score: 90,
       timeSpent: 5100000
     }),
     CollectionPerformanceSummary.create({
       id: '3',
-      score : 80,
+      score: 80,
       timeSpent: 5300000
     })
   ]);
 
-  let metrics =  Ember.A([Ember.Object.create({
-    'value': 'assessment',
-    'sorted': false,
-    'isAsc': false,
-    'hasSorting': true,
-    'visible': true,
-    'index': -1
-  }),Ember.Object.create({
-    'value': 'score',
-    'sorted': false,
-    'isAsc': false,
-    'hasSorting': true,
-    'visible': false,
-    'index':0
-  }),Ember.Object.create({
-    'value': 'report',
-    'sorted': false,
-    'isAsc': false,
-    'hasSorting': false,
-    'visible': false,
-    'index':1
-  }),Ember.Object.create({
-    'value': 'completion',
-    'sorted': false,
-    'isAsc': false,
-    'hasSorting': true,
-    'visible': false,
-    'index':2
-  }),Ember.Object.create({
-    'value': 'study-time',
-    'sorted': false,
-    'isAsc': false,
-    'hasSorting': true,
-    'visible': false,
-    'index':3
-  })]);
+  let metrics = Ember.A([
+    Ember.Object.create({
+      value: 'assessment',
+      sorted: false,
+      isAsc: false,
+      hasSorting: true,
+      visible: true,
+      index: -1
+    }),
+    Ember.Object.create({
+      value: 'score',
+      sorted: false,
+      isAsc: false,
+      hasSorting: true,
+      visible: false,
+      index: 0
+    }),
+    Ember.Object.create({
+      value: 'report',
+      sorted: false,
+      isAsc: false,
+      hasSorting: false,
+      visible: false,
+      index: 1
+    }),
+    Ember.Object.create({
+      value: 'completion',
+      sorted: false,
+      isAsc: false,
+      hasSorting: true,
+      visible: false,
+      index: 2
+    }),
+    Ember.Object.create({
+      value: 'study-time',
+      sorted: false,
+      isAsc: false,
+      hasSorting: true,
+      visible: false,
+      index: 3
+    })
+  ]);
 
   this.set('contentTitle', 'Any content title');
   this.set('showReportColumn', true);
   this.set('metrics', metrics);
-  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
+  this.set(
+    'collectionPerformanceSummaryItems',
+    collectionPerformanceSummaryItems
+  );
   this.set('assessmentsMock', assessmentsMock);
 
   this.render(hbs`{{student/class/analytics/gru-performance-table
@@ -195,91 +260,119 @@ test('Performance Table Layout with Report Column', function(assert) {
   T.exists(assert, $report, 'Missing report header');
 
   const $columns = $table.find('tbody');
-  assert.ok($columns.find('.performance-report').length,'Missing report column');
-  assert.ok($columns.find('.performance-report a span.report-icon').length,'Missing report icon');
-
+  assert.ok(
+    $columns.find('.performance-report').length,
+    'Missing report column'
+  );
+  assert.ok(
+    $columns.find('.performance-report a span.report-icon').length,
+    'Missing report icon'
+  );
 });
 
 test('Sort by assessment sequence', function(assert) {
-
   const assessmentsMock = [
-    AssessmentModel.create({id: '1', sequence: 1, title: 'What is a Fish?'}),
-    AssessmentModel.create({id: '2', sequence: 2, title: 'Global Warming Quiz'}),
-    AssessmentModel.create({id: '3', sequence: 3, title: 'Assessment Human Impact on Earth'})
+    AssessmentModel.create({ id: '1', sequence: 1, title: 'What is a Fish?' }),
+    AssessmentModel.create({
+      id: '2',
+      sequence: 2,
+      title: 'Global Warming Quiz'
+    }),
+    AssessmentModel.create({
+      id: '3',
+      sequence: 3,
+      title: 'Assessment Human Impact on Earth'
+    })
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
     CollectionPerformanceSummary.create({
       id: '1',
-      score : 1,
+      score: 1,
       completionDone: 1,
       completionTotal: 50,
       timeSpent: 5000000
     }),
     CollectionPerformanceSummary.create({
       id: '2',
-      score : 2,
+      score: 2,
       completionDone: 14,
       completionTotal: 50,
       timeSpent: 5100000
     }),
     CollectionPerformanceSummary.create({
       id: '3',
-      score : 3,
+      score: 3,
       completionDone: 23,
       completionTotal: 50,
       timeSpent: 5300000
     })
   ]);
 
-  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
+  this.set(
+    'collectionPerformanceSummaryItems',
+    collectionPerformanceSummaryItems
+  );
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
+  this.render(
+    hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`
+  );
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table .table');
   const $tbody = $performanceTable.find('tbody');
 
-  assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'What is a Fish?', 'First assessment should be What is a Fish?');
+  assert.equal(
+    T.text($tbody.find('tr:eq(1) th.header span')),
+    'What is a Fish?',
+    'First assessment should be What is a Fish?'
+  );
 });
 
 test('Sort by assessment title', function(assert) {
-
   const assessmentsMock = [
-    AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
-    AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
-    AssessmentModel.create({id: '3', title: 'Assessment Human Impact on Earth'})
+    AssessmentModel.create({ id: '1', title: 'What is a Fish?' }),
+    AssessmentModel.create({ id: '2', title: 'Global Warming Quiz' }),
+    AssessmentModel.create({
+      id: '3',
+      title: 'Assessment Human Impact on Earth'
+    })
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
     CollectionPerformanceSummary.create({
       id: '1',
-      score : 1,
+      score: 1,
       completionDone: 1,
       completionTotal: 50,
       timeSpent: 5000000
     }),
     CollectionPerformanceSummary.create({
       id: '2',
-      score : 2,
+      score: 2,
       completionDone: 14,
       completionTotal: 50,
       timeSpent: 5100000
     }),
     CollectionPerformanceSummary.create({
       id: '3',
-      score : 3,
+      score: 3,
       completionDone: 23,
       completionTotal: 50,
       timeSpent: 5300000
     })
   ]);
 
-  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
+  this.set(
+    'collectionPerformanceSummaryItems',
+    collectionPerformanceSummaryItems
+  );
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
+  this.render(
+    hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`
+  );
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table .table');
@@ -289,51 +382,67 @@ test('Sort by assessment title', function(assert) {
 
   $assessmentHeader.find('a').click(); //ascending assessment sort, because it is  sorted by sequence by default
 
-  return wait().then(function () {
-    assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'Assessment Human Impact on Earth', 'First assessment should be Assessment Human Impact on Earth');
+  return wait().then(function() {
+    assert.equal(
+      T.text($tbody.find('tr:eq(1) th.header span')),
+      'Assessment Human Impact on Earth',
+      'First assessment should be Assessment Human Impact on Earth'
+    );
     $assessmentHeader.find('a').click(); //descending assessment sort
 
-    return wait().then(function () {
-      assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'What is a Fish?', 'First assessment should be What is a Fish?');
+    return wait().then(function() {
+      assert.equal(
+        T.text($tbody.find('tr:eq(1) th.header span')),
+        'What is a Fish?',
+        'First assessment should be What is a Fish?'
+      );
     });
   });
 });
 
 test('Sort by score Metric', function(assert) {
   const assessmentsMock = [
-    AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
-    AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
-    AssessmentModel.create({id: '3', title: 'Assessment Human Impact on Earth'})
+    AssessmentModel.create({ id: '1', title: 'What is a Fish?' }),
+    AssessmentModel.create({ id: '2', title: 'Global Warming Quiz' }),
+    AssessmentModel.create({
+      id: '3',
+      title: 'Assessment Human Impact on Earth'
+    })
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
     CollectionPerformanceSummary.create({
       id: '1',
-      score : 100,
+      score: 100,
       completionDone: 1,
       completionTotal: 50,
       timeSpent: 5000000
     }),
     CollectionPerformanceSummary.create({
       id: '2',
-      score : 22,
+      score: 22,
       completionDone: 14,
       completionTotal: 50,
       timeSpent: 5100000
     }),
     CollectionPerformanceSummary.create({
       id: '3',
-      score : 35,
+      score: 35,
       completionDone: 23,
       completionTotal: 50,
       timeSpent: 5300000
     })
   ]);
 
-  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
+  this.set(
+    'collectionPerformanceSummaryItems',
+    collectionPerformanceSummaryItems
+  );
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
+  this.render(
+    hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`
+  );
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table .table');
@@ -343,53 +452,67 @@ test('Sort by score Metric', function(assert) {
 
   $scoreHeader.find('a').click(); //descending score sort, because is sort ascending by default
 
-  return wait().then(function () {
-    assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'Global Warming Quiz', 'First assessment should be Global Warming Quiz');
+  return wait().then(function() {
+    assert.equal(
+      T.text($tbody.find('tr:eq(1) th.header span')),
+      'Global Warming Quiz',
+      'First assessment should be Global Warming Quiz'
+    );
     $scoreHeader.find('a').click(); //ascending score sort
 
-    return wait().then(function () {
-      assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'What is a Fish?', 'First assessment should be What is a Fish?');
+    return wait().then(function() {
+      assert.equal(
+        T.text($tbody.find('tr:eq(1) th.header span')),
+        'What is a Fish?',
+        'First assessment should be What is a Fish?'
+      );
     });
   });
 });
 
 test('Sort by Completion Metric', function(assert) {
-
   const assessmentsMock = [
-    AssessmentModel.create({id: '1', title: 'What is a Fish?'}),
-    AssessmentModel.create({id: '2', title: 'Global Warming Quiz'}),
-    AssessmentModel.create({id: '3', title: 'Assessment Human Impact on Earth'})
+    AssessmentModel.create({ id: '1', title: 'What is a Fish?' }),
+    AssessmentModel.create({ id: '2', title: 'Global Warming Quiz' }),
+    AssessmentModel.create({
+      id: '3',
+      title: 'Assessment Human Impact on Earth'
+    })
   ];
 
   var collectionPerformanceSummaryItems = Ember.A([
     CollectionPerformanceSummary.create({
       id: '1',
-      score : 1,
+      score: 1,
       completionDone: 1,
       completionTotal: 50,
       timeSpent: 5000000
     }),
     CollectionPerformanceSummary.create({
       id: '2',
-      score : 2,
+      score: 2,
       completionDone: 14,
       completionTotal: 50,
       timeSpent: 5100000
     }),
     CollectionPerformanceSummary.create({
       id: '3',
-      score : 3,
+      score: 3,
       completionDone: 23,
       completionTotal: 50,
       timeSpent: 5300000
     })
   ]);
 
-  this.set('collectionPerformanceSummaryItems', collectionPerformanceSummaryItems);
+  this.set(
+    'collectionPerformanceSummaryItems',
+    collectionPerformanceSummaryItems
+  );
   this.set('assessmentsMock', assessmentsMock);
 
-  this.render(hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`);
-
+  this.render(
+    hbs`{{student/class/analytics/gru-performance-table assessments=assessmentsMock collectionPerformanceSummaryItems=collectionPerformanceSummaryItems}}`
+  );
 
   const $component = this.$(); //component dom element
   const $performanceTable = $component.find('.gru-performance-table .table');
@@ -399,12 +522,20 @@ test('Sort by Completion Metric', function(assert) {
 
   $completionHeader.find('a').click(); //descending completion sort, because is sort ascending by default
 
-  return wait().then(function () {
-    assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'What is a Fish?', 'First assessment should be What is a Fish?');
+  return wait().then(function() {
+    assert.equal(
+      T.text($tbody.find('tr:eq(1) th.header span')),
+      'What is a Fish?',
+      'First assessment should be What is a Fish?'
+    );
     $completionHeader.find('a').click(); //ascending completion sort
 
-    return wait().then(function () {
-      assert.equal(T.text($tbody.find('tr:eq(1) th.header span')), 'Assessment Human Impact on Earth', 'First assessment should be Assessment Human Impact on Earth');
+    return wait().then(function() {
+      assert.equal(
+        T.text($tbody.find('tr:eq(1) th.header span')),
+        'Assessment Human Impact on Earth',
+        'First assessment should be Assessment Human Impact on Earth'
+      );
     });
   });
 });

@@ -2,7 +2,6 @@ import DS from 'ember-data';
 import SessionMixin from '../../mixins/session';
 
 export default DS.JSONAPISerializer.extend(SessionMixin, {
-
   /**
    * Serialize the Rating record into a JSON object to be sent to the api endpoint
    * @param snapshot is the record snapshot
@@ -11,8 +10,8 @@ export default DS.JSONAPISerializer.extend(SessionMixin, {
   serialize: function(snapshot) {
     var ratingJsonObj = snapshot.record.toJSON();
     var data = {
-      target: {value: ratingJsonObj.target},
-      type: {value: ratingJsonObj.type},
+      target: { value: ratingJsonObj.target },
+      type: { value: ratingJsonObj.type },
       score: ratingJsonObj.score
     };
 
@@ -33,15 +32,18 @@ export default DS.JSONAPISerializer.extend(SessionMixin, {
    * @returns {Rating} return the Rating Model using the JSONAPI standard
    */
   normalizeCreateRecordResponse: function(store, primaryModelClass, payload) {
-    var ratingModel =  {
+    var ratingModel = {
       data: {
         id: payload.gooruOid,
-        type: "rating/rating",
+        type: 'rating/rating',
         attributes: {
           target: payload.target.value,
           type: payload.type.value,
           score: payload.ratings.average,
-          associatedId: (payload.target.value === 'user' ? payload.assocUserUid : payload.assocGooruOid)
+          associatedId:
+            payload.target.value === 'user'
+              ? payload.assocUserUid
+              : payload.assocGooruOid
         }
       }
     };
@@ -62,7 +64,10 @@ export default DS.JSONAPISerializer.extend(SessionMixin, {
     var sessionUserId = this.get('session.userId');
     // TODO: This is a very expensive solution. We should have an endpoint that returns only one record for the
     // resource and the user that has rated it
-    var ratingPayload = payload.searchResults.filterBy('creator.gooruUId', sessionUserId);
+    var ratingPayload = payload.searchResults.filterBy(
+      'creator.gooruUId',
+      sessionUserId
+    );
     if (ratingPayload.length > 0) {
       ratingScore = ratingPayload[0].score;
     }
@@ -70,12 +75,11 @@ export default DS.JSONAPISerializer.extend(SessionMixin, {
     return {
       data: {
         id: id,
-        type: "rating/rating",
+        type: 'rating/rating',
         attributes: {
-          score: (ratingScore)
+          score: ratingScore
         }
       }
     };
   }
-
 });

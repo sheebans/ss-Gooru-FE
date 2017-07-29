@@ -7,7 +7,6 @@ import CollectionPerformanceSummary from 'gooru-web/models/performance/collectio
  * @typedef {Object} CollectionPerformanceSummary
  */
 export default Ember.Object.extend({
-
   /**
    * Normalize an array of CollectionPerformanceSummary
    *
@@ -18,7 +17,9 @@ export default Ember.Object.extend({
     const serializer = this;
     if (payload && Ember.isArray(payload.usageData)) {
       return payload.usageData.map(function(collectionPerformanceSummary) {
-        return serializer.normalizeCollectionPerformanceSummary(collectionPerformanceSummary);
+        return serializer.normalizeCollectionPerformanceSummary(
+          collectionPerformanceSummary
+        );
       });
     } else {
       return [];
@@ -30,7 +31,7 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {CollectionPerformanceSummary}
    */
-  normalizeCollectionPerformanceSummary: function (data) {
+  normalizeCollectionPerformanceSummary: function(data) {
     return CollectionPerformanceSummary.create({
       id: data.collectionId || data.collection_id,
       collectionId: data.collectionId || data.collection_id,
@@ -41,5 +42,4 @@ export default Ember.Object.extend({
       status: data.status
     });
   }
-
 });

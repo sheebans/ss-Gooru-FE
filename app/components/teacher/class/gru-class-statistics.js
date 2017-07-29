@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Teacher class statistics
@@ -9,25 +9,20 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-class-statistics', 'teacher'],
+  classNames: ['gru-class-statistics', 'teacher'],
 
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
-
-  },
+  actions: {},
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -36,8 +31,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   class: null
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 });

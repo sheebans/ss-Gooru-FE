@@ -1,5 +1,4 @@
 .controller.content.resources.play {
-
   > article {
     $content-md-width: 90%;
     $content-lg-width: 1100px;
@@ -12,7 +11,7 @@
       margin-bottom: 20px;
 
       @media (min-width: $screen-md) {
-        padding-bottom: 0!important;
+        padding-bottom: 0 !important;
       }
 
       * {
@@ -134,7 +133,7 @@
                 @include align-items(stretch);
                 margin-left: 10px;
                 padding-left: 10px;
-                border-left : 2px solid $dark-300;
+                border-left: 2px solid $dark-300;
 
                 .taxonomy.gru-taxonomy-tag {
                   border-color: $dark-300;
@@ -168,7 +167,8 @@
               min-width: 125px;
               max-width: 115px;
 
-              span.owner, span.publisher-name {
+              span.owner,
+              span.publisher-name {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -216,7 +216,8 @@
         p.description {
           line-height: $font-size-base;
         }
-        p.title, .view-resource-button {
+        p.title,
+        .view-resource-button {
           font-size: $font-size-large;
           font-weight: 300;
           margin: 0 0 7px 0;
@@ -226,7 +227,7 @@
           background-color: $white;
           margin: 15px 0 0 0;
         }
-        .panel-body{
+        .panel-body {
           display: flex;
           justify-content: center;
           $line-height: 1.2;
@@ -234,29 +235,29 @@
           color: $text-color;
 
           .cards.gru-resource-card {
-            margin:0 auto;
+            margin: 0 auto;
 
-            .panel-heading{
+            .panel-heading {
               padding: 12px 15px 0 15px;
 
-              .header{
-                padding:0;
-                margin:0;
-                border:0;
+              .header {
+                padding: 0;
+                margin: 0;
+                border: 0;
               }
             }
-            .panel-body{
+            .panel-body {
               padding: 12px 15px 0 15px;
               display: block;
 
-              .publisher{
-                a{
-                  color:$blue-400;
+              .publisher {
+                a {
+                  color: $blue-400;
                 }
               }
             }
-            .panel-footer{
-              margin:0;
+            .panel-footer {
+              margin: 0;
               text-align: left;
             }
           }

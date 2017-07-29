@@ -1,16 +1,20 @@
 import { moduleFor, test } from 'ember-qunit';
 import Pretender from 'pretender';
 
-moduleFor('adapter:events/collection-play', 'Unit | Adapter | events/collection-play', {
-  // Specify the other units that are required for this test.
-  // needs: ['serializer:foo']
-  beforeEach: function() {
-    this.pretender = new Pretender();
-  },
-  afterEach: function() {
-    this.pretender.shutdown();
+moduleFor(
+  'adapter:events/collection-play',
+  'Unit | Adapter | events/collection-play',
+  {
+    // Specify the other units that are required for this test.
+    // needs: ['serializer:foo']
+    beforeEach: function() {
+      this.pretender = new Pretender();
+    },
+    afterEach: function() {
+      this.pretender.shutdown();
+    }
   }
-});
+);
 
 test('postData', function(assert) {
   const adapter = this.subject();
@@ -22,13 +26,17 @@ test('postData', function(assert) {
     }
   };
   const routes = function() {
-    this.post('/api/nucleus-insights/v2/event', function(request) {
-      let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal('api-key-1', request.queryParams.apiKey);
-      assert.equal('event-name', requestBodyJson.eventName);
-      assert.deepEqual({}, requestBodyJson.context);
-      return [200, {'Content-Type': 'application/json'}, ''];
-    }, false);
+    this.post(
+      '/api/nucleus-insights/v2/event',
+      function(request) {
+        let requestBodyJson = JSON.parse(request.requestBody);
+        assert.equal('api-key-1', request.queryParams.apiKey);
+        assert.equal('event-name', requestBodyJson.eventName);
+        assert.deepEqual({}, requestBodyJson.context);
+        return [200, { 'Content-Type': 'application/json' }, ''];
+      },
+      false
+    );
   };
 
   this.pretender.map(routes);
@@ -36,8 +44,7 @@ test('postData', function(assert) {
     assert.ok(false, `Wrong request [${verb}] url: ${path}`);
   };
 
-  adapter.postData(data)
-    .then(function(response) {
-      assert.deepEqual('', response, 'Wrong response');
-    });
+  adapter.postData(data).then(function(response) {
+    assert.deepEqual('', response, 'Wrong response');
+  });
 });

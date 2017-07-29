@@ -8,7 +8,6 @@ import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
  * @typedef {Object} MapNavigation
  */
 const MapLocationModel = Ember.Object.extend({
-
   /**
    * @property {MapContext} context
    */
@@ -32,35 +31,35 @@ const MapLocationModel = Ember.Object.extend({
   /**
    * @property {boolean}
    */
-  hasPreTestSuggestions: Ember.computed('suggestions.[]', function(){
+  hasPreTestSuggestions: Ember.computed('suggestions.[]', function() {
     return this.get('suggestions').filterBy('isPreTest').get('length');
   }),
 
   /**
    * @property {boolean}
    */
-  hasPostTestSuggestions: Ember.computed('suggestions.[]', function(){
+  hasPostTestSuggestions: Ember.computed('suggestions.[]', function() {
     return this.get('suggestions').filterBy('isPostTest').get('length');
   }),
 
   /**
    * @property {boolean}
    */
-  hasBackFillSuggestions: Ember.computed('suggestions.[]', function(){
+  hasBackFillSuggestions: Ember.computed('suggestions.[]', function() {
     return this.get('suggestions').filterBy('isBackFill').get('length');
   }),
 
   /**
    * @property {boolean}
    */
-  hasBenchmarkSuggestions: Ember.computed('suggestions.[]', function(){
+  hasBenchmarkSuggestions: Ember.computed('suggestions.[]', function() {
     return this.get('suggestions').filterBy('isBenchmark').get('length');
   }),
 
   /**
    * @property {boolean}
    */
-  hasResourceSuggestions: Ember.computed('suggestions.[]', function(){
+  hasResourceSuggestions: Ember.computed('suggestions.[]', function() {
     return this.get('suggestions').filterBy('isResource').get('length');
   }),
 
@@ -68,40 +67,50 @@ const MapLocationModel = Ember.Object.extend({
    * Returns the post test suggestion for this location
    * @property {MapSuggestion}
    */
-  postTestSuggestion: Ember.computed('hasPostTestSuggestions', function(){
-    return this.get('hasPostTestSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.POST_TEST) : undefined;
+  postTestSuggestion: Ember.computed('hasPostTestSuggestions', function() {
+    return this.get('hasPostTestSuggestions')
+      ? this.getSuggestion(ASSESSMENT_SUB_TYPES.POST_TEST)
+      : undefined;
   }),
 
   /**
    * Returns the pre test suggestion for this location
    * @property {MapSuggestion}
    */
-  preTestSuggestion: Ember.computed('hasPreTestSuggestions', function(){
-    return this.get('hasPreTestSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.PRE_TEST) : undefined;
+  preTestSuggestion: Ember.computed('hasPreTestSuggestions', function() {
+    return this.get('hasPreTestSuggestions')
+      ? this.getSuggestion(ASSESSMENT_SUB_TYPES.PRE_TEST)
+      : undefined;
   }),
 
   /**
    * Returns the backfill test suggestion for this location
    * @property {MapSuggestion}
    */
-  backFillSuggestion: Ember.computed('hasBackFillSuggestions', function(){
-    return this.get('hasBackFillSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.BACKFILL) : undefined;
+  backFillSuggestion: Ember.computed('hasBackFillSuggestions', function() {
+    return this.get('hasBackFillSuggestions')
+      ? this.getSuggestion(ASSESSMENT_SUB_TYPES.BACKFILL)
+      : undefined;
   }),
 
   /**
    * Returns the benchmark suggestion for this location
    * @property {MapSuggestion}
    */
-  benchmarkSuggestion: Ember.computed('hasBenchmarkSuggestions', function(){
-    return this.get('hasBenchmarkSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.BENCHMARK) : undefined;
+  benchmarkSuggestion: Ember.computed('hasBenchmarkSuggestions', function() {
+    return this.get('hasBenchmarkSuggestions')
+      ? this.getSuggestion(ASSESSMENT_SUB_TYPES.BENCHMARK)
+      : undefined;
   }),
 
   /**
    * Returns the resource suggestion for this location
    * @property {MapSuggestion}
    */
-  resourceSuggestion: Ember.computed('hasResourceSuggestions', function(){
-    return this.get('hasResourceSuggestions') ? this.getSuggestion(ASSESSMENT_SUB_TYPES.RESOURCE) : undefined;
+  resourceSuggestion: Ember.computed('hasResourceSuggestions', function() {
+    return this.get('hasResourceSuggestions')
+      ? this.getSuggestion(ASSESSMENT_SUB_TYPES.RESOURCE)
+      : undefined;
   }),
 
   /**

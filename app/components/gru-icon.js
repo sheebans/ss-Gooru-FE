@@ -11,9 +11,6 @@ import Ember from 'ember';
  * @typedef {object} GruIcon
  */
 export default Ember.Component.extend({
-
-
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -24,11 +21,11 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Attributes
-  attributeBindings: ['tooltipData:title','dataToggle:data-toggle'],
+  attributeBindings: ['tooltipData:title', 'dataToggle:data-toggle'],
 
-  classNames:['gru-icon', 'material-icons'],
+  classNames: ['gru-icon', 'material-icons'],
 
-  classNameBindings: [ 'name' ],
+  classNameBindings: ['name'],
 
   tagName: 'i',
 
@@ -37,7 +34,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -50,21 +46,18 @@ export default Ember.Component.extend({
 
   tooltipTitle: null,
 
-  tooltipData: Ember.computed('tooltipTitle', function(){
-    return this.get('tooltipTitle') ? this.get('i18n').t( this.get('tooltipTitle') ) : undefined;
+  tooltipData: Ember.computed('tooltipTitle', function() {
+    return this.get('tooltipTitle')
+      ? this.get('i18n').t(this.get('tooltipTitle'))
+      : undefined;
   }),
 
-  dataToggle: Ember.computed('tooltipTitle', function(){
+  dataToggle: Ember.computed('tooltipTitle', function() {
     return this.get('tooltipTitle') ? 'tooltip' : undefined;
   })
 
-
-
-
-
   // -------------------------------------------------------------------------
   // Observers
-
 
   // -------------------------------------------------------------------------
   // Methods

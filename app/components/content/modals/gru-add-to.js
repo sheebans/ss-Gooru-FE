@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -25,14 +24,12 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
   actions: {
-
     /**
      * Action triggered when a collection/assessment is selected
      */
-    selectCollection:function(collection){
-      this.set("selectedCollection", collection);
+    selectCollection: function(collection) {
+      this.set('selectedCollection', collection);
       $('.gru-add-to .selected').removeClass('selected');
       $(`.${collection.id}`).addClass('selected');
     },
@@ -42,7 +39,8 @@ export default Ember.Component.extend({
      */
     addTo: function() {
       this.$('.modal-footer button.add-to').prop('disabled', true);
-      this.get('copyContent').call(this)
+      this.get('copyContent')
+        .call(this)
         .then(this.get('addContent').bind(this))
         .then(this.get('successMessage').bind(this))
         .catch(this.get('errorMessage').bind(this));
@@ -96,8 +94,8 @@ export default Ember.Component.extend({
    * @type {String} name of the collection type
    */
   collectionType: Ember.computed('selectedCollection', function() {
-    return this.get('selectedCollection.isCollection') ?
-      this.get('i18n').t('common.collection').string :
-      this.get('i18n').t('common.assessment').string;
+    return this.get('selectedCollection.isCollection')
+      ? this.get('i18n').t('common.collection').string
+      : this.get('i18n').t('common.assessment').string;
   })
 });

@@ -3,7 +3,6 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -15,12 +14,11 @@ export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * On card edit collection button click
      * @param {Collection} collection
      */
-    editCollection: function (collection) {
+    editCollection: function(collection) {
       this.transitionTo('content.collections.edit', collection.get('id'));
     },
 
@@ -28,7 +26,7 @@ export default Ember.Route.extend(ModalMixin, {
      * On card remix collection button click
      * @param {Collection} collection
      */
-    remixCollection: function (collection) {
+    remixCollection: function(collection) {
       var remixModel = {
         content: collection
       };
@@ -39,7 +37,7 @@ export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (){
+  model: function() {
     const profile = this.modelFor('profile').profile;
 
     const params = {
@@ -48,15 +46,17 @@ export default Ember.Route.extend(ModalMixin, {
       sortOn: this.paramsFor('profile.content').sortOn,
       order: this.paramsFor('profile.content').order
     };
-    return this.get('profileService').readCollections(profile.get('id'), params);
+    return this.get('profileService').readCollections(
+      profile.get('id'),
+      params
+    );
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('collections', model);
   },
 
   deactivate: function() {
     this.get('controller').resetValues();
   }
-
 });

@@ -4,7 +4,6 @@ import Ember from 'ember';
  * @typedef {Object} Answer
  */
 export default Ember.Object.extend({
-
   /**
    * @property {string}
    */

@@ -19,20 +19,21 @@ export default Ember.Route.extend({
 
   //controllerName: 'unit',
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      * navigateToLessons
      */
-    navigateToLessons: function (lessonId) {
-
+    navigateToLessons: function(lessonId) {
       const unitId = this.get('controller.unit').get('id');
 
-      this.transitionTo('class.analytics.performance.teacher.lesson', unitId, lessonId);
+      this.transitionTo(
+        'class.analytics.performance.teacher.lesson',
+        unitId,
+        lessonId
+      );
     }
   },
 
@@ -46,15 +47,21 @@ export default Ember.Route.extend({
   model: function(params) {
     const route = this;
     const unitId = params.unitId;
-    const filterBy = route.paramsFor('class.analytics.performance.teacher').filterBy;
+    const filterBy = route.paramsFor('class.analytics.performance.teacher')
+      .filterBy;
     const classModel = route.modelFor('class').class;
     const classId = classModel.get('id');
     const courseId = classModel.get('courseId');
     const members = classModel.get('members');
 
-    return this.get('unitService').fetchById(courseId, unitId)
+    return this.get('unitService')
+      .fetchById(courseId, unitId)
       .then(function(unit) {
-        const classPerformanceData = route.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy});
+        const classPerformanceData = route
+          .get('performanceService')
+          .findClassPerformanceByUnit(classId, courseId, unitId, members, {
+            collectionType: filterBy
+          });
         return Ember.RSVP.hash({
           unit: unit,
           lessons: unit.get('children'),
@@ -74,8 +81,16 @@ export default Ember.Route.extend({
     this.setupDataPickerOptions(controller);
 
     const classPerformanceData = model.classPerformanceData;
-    controller.fixTotalCounts(model.unit.get('id'), classPerformanceData, model.filterBy);
-    const performanceData = createDataMatrix(model.lessons, classPerformanceData, 'unit');
+    controller.fixTotalCounts(
+      model.unit.get('id'),
+      classPerformanceData,
+      model.filterBy
+    );
+    const performanceData = createDataMatrix(
+      model.lessons,
+      classPerformanceData,
+      'unit'
+    );
     controller.get('teacherController').updateBreadcrumb(model.unit, 'unit');
     controller.set('performanceDataMatrix', performanceData);
     controller.set('lessons', model.lessons);
@@ -97,39 +112,53 @@ export default Ember.Route.extend({
    * Setups data picker options for lesson
    * @param controller
    */
-  setupDataPickerOptions: function(controller){
-    controller.set('optionsCollectionsTeacher', Ember.A([Ember.Object.create({
-      'value': 'score',
-      'selected':false,
-      'readOnly':true,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'completion',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'time-spent',
-      'selected':true,
-      'readOnly':false,
-      'isDisabled':true
-    })]));
-    controller.set('mobileOptionsCollectionsTeacher', Ember.A([Ember.Object.create({
-      'value': 'score',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'completion',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'time-spent',
-      'selected':true,
-      'readOnly':false,
-      'isDisabled':true
-    })]));
+  setupDataPickerOptions: function(controller) {
+    controller.set(
+      'optionsCollectionsTeacher',
+      Ember.A([
+        Ember.Object.create({
+          value: 'score',
+          selected: false,
+          readOnly: true,
+          isDisabled: true
+        }),
+        Ember.Object.create({
+          value: 'completion',
+          selected: false,
+          readOnly: false,
+          isDisabled: true
+        }),
+        Ember.Object.create({
+          value: 'time-spent',
+          selected: true,
+          readOnly: false,
+          isDisabled: true
+        })
+      ])
+    );
+    controller.set(
+      'mobileOptionsCollectionsTeacher',
+      Ember.A([
+        Ember.Object.create({
+          value: 'score',
+          selected: false,
+          readOnly: false,
+          isDisabled: true
+        }),
+        Ember.Object.create({
+          value: 'completion',
+          selected: false,
+          readOnly: false,
+          isDisabled: true
+        }),
+        Ember.Object.create({
+          value: 'time-spent',
+          selected: true,
+          readOnly: false,
+          isDisabled: true
+        })
+      ])
+    );
     controller.get('teacherController').restoreSelectedOptions();
   },
 

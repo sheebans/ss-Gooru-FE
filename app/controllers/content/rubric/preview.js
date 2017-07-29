@@ -2,10 +2,9 @@ import Ember from 'ember';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Actions
-  actions:  {
+  actions: {
     /**
      * Performs a back action in the browser history
      */
@@ -28,6 +27,6 @@ export default Ember.Controller.extend({
    * Resource to show on preview
    */
   resource: Ember.computed('rubric.url', function() {
-   return Ember.Object.create({url: this.get('rubric.url')});
+    return Ember.Object.create({ url: this.get('rubric.url') });
   })
 });

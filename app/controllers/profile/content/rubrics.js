@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Actions
 
@@ -10,14 +9,14 @@ export default Ember.Controller.extend({
     /**
      * Show more rubrics results
      */
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     },
     /**
      * Edit rubric
      */
-    editRubric:function(resource){
-      this.transitionToRoute('content.rubric.edit',resource.get('id'));
+    editRubric: function(resource) {
+      this.transitionToRoute('content.rubric.edit', resource.get('id'));
     }
   },
 
@@ -62,31 +61,33 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed('rubrics.[]', function(){
-    return this.get('rubrics.length') &&
-      (this.get('rubrics.length') % this.get('pagination.pageSize') === 0);
+  showMoreResultsButton: Ember.computed('rubrics.[]', function() {
+    return (
+      this.get('rubrics.length') &&
+      this.get('rubrics.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
   // Methods
-  showMoreResults: function(){
+  showMoreResults: function() {
     const controller = this;
     const profile = this.get('profile');
     const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
     pagination.pageSize = pagination.pageSize;
 
-    controller.get('profileService')
+    controller
+      .get('profileService')
       .readRubrics(profile.get('id'), pagination)
-      .then(function(rubrics){
+      .then(function(rubrics) {
         controller.get('rubrics').pushObjects(rubrics.toArray());
       });
   },
 
-  resetValues: function(){
+  resetValues: function() {
     this.set('pagination', {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
   }
-
 });

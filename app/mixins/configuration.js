@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} ConfigurationMixin
  */
 export default Ember.Mixin.create({
-
   /**
    * @property {Ember.Service} Service to configuration properties
    */
@@ -15,24 +14,23 @@ export default Ember.Mixin.create({
   /**
    * @property {*} application configuration properties
    */
-  configuration: Ember.computed.alias("configurationService.configuration"),
+  configuration: Ember.computed.alias('configurationService.configuration'),
 
   /**
    * @property {*} application feature properties
    */
-  features: Ember.computed.alias("configuration.features"),
+  features: Ember.computed.alias('configuration.features'),
 
   /**
    * @property {string}
    */
-  appRootPath: Ember.computed.alias("configuration.appRootPath"),
+  appRootPath: Ember.computed.alias('configuration.appRootPath'),
 
   /**
    * Returns the local storage
    * @returns {Storage}
    */
-  getLocalStorage: function(){
+  getLocalStorage: function() {
     return window.localStorage;
   }
-
 });

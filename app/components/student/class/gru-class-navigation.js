@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Student class navigation
@@ -10,38 +10,36 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-class-navigation', 'student'],
+  classNames: ['gru-class-navigation', 'student'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      *
      * Triggered when an menu item is selected
      * @param item
      */
-    selectItem: function(item){
-      if (this.get("onItemSelected")){
+    selectItem: function(item) {
+      if (this.get('onItemSelected')) {
         this.selectItem(item);
-        this.sendAction("onItemSelected", item);
+        this.sendAction('onItemSelected', item);
       }
     },
 
     /**
      * Triggered when a menu item is selected. Set the class icon for the item selected showing in the mobiles dropdown menu.
      */
-    toggleHeader: function(){
+    toggleHeader: function() {
       this.set('toggleState', !this.get('toggleState'));
       if (this.onCollapseExpandClicked) {
-          this.sendAction('onCollapseExpandClicked', this.get('toggleState'));
+        this.sendAction('onCollapseExpandClicked', this.get('toggleState'));
       }
     }
   },
@@ -53,7 +51,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * DidInsertElement ember event
    */
   didInsertElement: function() {
-    var item = this.get("selectedMenuItem");
+    var item = this.get('selectedMenuItem');
     this.selectItem(item);
   },
 
@@ -77,7 +75,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @property {String} selectedMenuItem - menu Item selected
    */
-  selectedMenuItem:null,
+  selectedMenuItem: null,
 
   /**
    * @property {boolean|Function} onCollapseExpandClicked - event handler for when the toggle button is clicked
@@ -95,9 +93,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Refreshes the left navigation with the selected menu item
    */
   refreshSelectedMenuItem: function() {
-    var item = this.get("selectedMenuItem");
+    var item = this.get('selectedMenuItem');
     this.selectItem(item);
-  }.observes("selectedMenuItem"),
+  }.observes('selectedMenuItem'),
 
   // -------------------------------------------------------------------------
 
@@ -107,8 +105,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @param {string} item
    */
   selectItem: function(item) {
-    if(item) {
-      var itemElement = "."+item;
+    if (item) {
+      var itemElement = `.${item}`;
       this.$('.tab').removeClass('active');
       this.$(itemElement).addClass('active');
     }

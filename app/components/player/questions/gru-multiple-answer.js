@@ -13,26 +13,23 @@ import QuestionComponent from './gru-question';
  * @augments Ember/Component
  */
 export default QuestionComponent.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-multiple-answer'],
+  classNames: ['gru-multiple-answer'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * When the user changes the answer choice selection
      * @param {string} answerId
      * @param {boolean} onLoad if this was called when loading the component
      */
-    selectAnswerChoice: function(answerId){
+    selectAnswerChoice: function(answerId) {
       const component = this;
       component.setUserAnswerChoice(answerId);
       component.notify(false);
@@ -43,14 +40,13 @@ export default QuestionComponent.extend({
   // Events
 
   init() {
-    this._super( ...arguments );
+    this._super(...arguments);
     const userSelection = this.get('userAnswer') || Ember.A([]);
     this.set('userSelection', userSelection);
-    if(this.get('hasUserAnswer')) {
+    if (this.get('hasUserAnswer')) {
       this.notify(true);
     }
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -58,17 +54,21 @@ export default QuestionComponent.extend({
    * Convenient structure to render options
    * @property {[]}
    */
-  answers: Ember.computed("question.answers", "userAnswer", function(){
+  answers: Ember.computed('question.answers', 'userAnswer', function() {
     const component = this;
-    let answers = this.get("question.answers");
-    let userAnswer = this.get("userAnswer");
-    return answers.map(function(answer){
-      var answerId = answer.get("id");
-      let userSelectionItem = userAnswer ? userAnswer.findBy("id", answerId) : null;
+    let answers = this.get('question.answers');
+    let userAnswer = this.get('userAnswer');
+    return answers.map(function(answer) {
+      var answerId = answer.get('id');
+      let userSelectionItem = userAnswer
+        ? userAnswer.findBy('id', answerId)
+        : null;
       return {
         id: answerId,
-        text: answer.get("text"),
-        groupValue: userSelectionItem ? component.userSelectionItemToChoice(userSelectionItem) : null
+        text: answer.get('text'),
+        groupValue: userSelectionItem
+          ? component.userSelectionItemToChoice(userSelectionItem)
+          : null
       };
     });
   }),
@@ -79,7 +79,6 @@ export default QuestionComponent.extend({
   resetUserSelection: Ember.observer('question', function() {
     this.set('userSelection', Ember.A());
   }),
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -96,8 +95,8 @@ export default QuestionComponent.extend({
 
     component.notifyAnswerChanged(userSelection, correct);
 
-    if (component.isAnswerCompleted()){
-      if(onLoad) {
+    if (component.isAnswerCompleted()) {
+      if (onLoad) {
         component.notifyAnswerLoaded(userSelection, correct);
       } else {
         component.notifyAnswerCompleted(userSelection, correct);
@@ -109,27 +108,26 @@ export default QuestionComponent.extend({
    * Indicates when the answer is completed
    * @return {boolean}
    */
-  isAnswerCompleted: function(){
+  isAnswerCompleted: function() {
     const component = this,
-      userSelection = component.get("userSelection"),
-      totalAnswerChoices = component.get("question.answers.length");
-    return userSelection.get("length") === totalAnswerChoices;
+      userSelection = component.get('userSelection'),
+      totalAnswerChoices = component.get('question.answers.length');
+    return userSelection.get('length') === totalAnswerChoices;
   },
 
   /**
    * Sets the user answer choice
    * @param {string} answerChoice containing the user selection yes|120202 or no|20200392
    */
-  setUserAnswerChoice: function(answerChoice){
-    let userSelection = this.get("userSelection");
+  setUserAnswerChoice: function(answerChoice) {
+    let userSelection = this.get('userSelection');
     let userSelectionItem = this.choiceToUserSelectionItem(answerChoice);
     let id = userSelectionItem.id;
     let selection = userSelectionItem.selection;
-    let found = userSelection.findBy("id", id);
-    if (found){
+    let found = userSelection.findBy('id', id);
+    if (found) {
       found.selection = selection;
-    }
-    else{
+    } else {
       userSelection.addObject(userSelectionItem);
     }
   },
@@ -140,12 +138,12 @@ export default QuestionComponent.extend({
    * @returns {{id: *, selection: boolean}}
      */
   choiceToUserSelectionItem: function(answerChoice) {
-    let values = answerChoice.split("|");
+    let values = answerChoice.split('|');
     let id = values[1];
-    let selection = values[0] === "yes";
+    let selection = values[0] === 'yes';
     return {
-        id: id,
-        selection: selection
+      id: id,
+      selection: selection
     };
   },
 
@@ -155,9 +153,8 @@ export default QuestionComponent.extend({
    *
    * @return {string} in the format value|id, i.e yes|answer_1
    */
-  userSelectionItemToChoice: function (userSelectionItem){
+  userSelectionItemToChoice: function(userSelectionItem) {
     const selection = userSelectionItem.selection ? 'yes' : 'no';
     return `${selection}|${userSelectionItem.id}`;
   }
-
 });

@@ -9,14 +9,14 @@
       overflow: visible;
       transform: translate3d(125%, 0, 0);
       width: 310px;
-      @media(min-width: $screen-sm-min) {
+      @media (min-width: $screen-sm-min) {
         width: 353px;
       }
-      @media(min-width: $screen-md-min) {
+      @media (min-width: $screen-md-min) {
         float: right;
         width: 400px;
       }
-      @media(min-width: $screen-lg-min) {
+      @media (min-width: $screen-lg-min) {
         width: 520px;
       }
     }
@@ -38,8 +38,7 @@
 
 .gru-quick-course-search {
   height: 100%;
-  margin: 10px auto;;
-
+  margin: 10px auto;
 
   .modal-header {
     @include flex-basis(40px);
@@ -82,10 +81,10 @@
       margin: 5px 0;
       padding: 0;
       width: 300px;
-      @media(min-width: $screen-sm) {
+      @media (min-width: $screen-sm) {
         width: 336px;
       }
-      @media(min-width: $screen-lg) {
+      @media (min-width: $screen-lg) {
         width: 463px;
       }
     }
@@ -104,7 +103,6 @@
         border: 3px solid $blue-400;
         border-radius: 6px;
       }
-
     }
   }
 
@@ -125,12 +123,10 @@
     .btn-group {
       height: 100%;
 
-      >* {
+      > * {
         height: 100%;
         width: 50%;
       }
     }
-
-
   }
 }

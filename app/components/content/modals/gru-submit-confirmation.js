@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -13,18 +12,14 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     confirm: function() {
-      this.set("isLoading", true);
-      this.get('model').onConfirm().then(
-        this.get('closeModal').bind(this)
-      );
+      this.set('isLoading', true);
+      this.get('model').onConfirm().then(this.get('closeModal').bind(this));
     },
 
     cancel: function() {
       this.get('closeModal').call(this);
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -34,7 +29,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  closeModal: function () {
+  closeModal: function() {
     const component = this;
     component.triggerAction({
       action: component.get('onCloseModal')

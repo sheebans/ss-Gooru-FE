@@ -9,7 +9,6 @@ import { DEFAULT_IMAGES } from 'gooru-web/config/config';
  * @typedef {Object} NotificationSerializer
  */
 export default Ember.Object.extend(ConfigurationMixin, {
-
   session: Ember.inject.service('session'),
 
   /**
@@ -23,7 +22,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const notifications = payload.notifications;
     if (Ember.isArray(notifications)) {
-      result = notifications.map(notification => serializer.normalizeNotification(notification));
+      result = notifications.map(notification =>
+        serializer.normalizeNotification(notification)
+      );
     }
     return result;
   },
@@ -35,8 +36,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   normalizeNotification: function(notificationData) {
     const serializer = this;
-    const actors = serializer.normalizeActors((notificationData.actors || []));
-    return NotificationModel.create(Ember.getOwner(this).ownerInjection(),{
+    const actors = serializer.normalizeActors(notificationData.actors || []);
+    return NotificationModel.create(Ember.getOwner(this).ownerInjection(), {
       id: notificationData.id,
       status: notificationData.status,
       createdAt: notificationData.created_at,
@@ -57,15 +58,15 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param ActorsData
    * @returns {Array}
    */
-  normalizeActors: function(actorsData){
+  normalizeActors: function(actorsData) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
 
-    return actorsData.map(function(actorData){
-
-      const thumbnailUrl = actorData['thumbnail'] ?
-        basePath + actorData['thumbnail'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    return actorsData.map(function(actorData) {
+      const thumbnailUrl = actorData.thumbnail
+        ? basePath + actorData.thumbnail
+        : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
       return {
         id: actorData.user_id,

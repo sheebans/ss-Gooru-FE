@@ -1,5 +1,4 @@
 .partner-library {
-
   @include flexbox;
   @include flex-direction(row);
   height: 100%;
@@ -58,7 +57,7 @@
         }
 
         &.selected {
-          background-color: rgba(255,255,255,0.1);
+          background-color: rgba(255, 255, 255, 0.1);
         }
 
         .gru-icon {
@@ -66,7 +65,8 @@
           height: 24px;
 
           &.content {
-            background: url(/assets/gooru/images/icon-content-light.svg) no-repeat center center;
+            background: url(/assets/gooru/images/icon-content-light.svg)
+              no-repeat center center;
             width: 24px;
           }
         }

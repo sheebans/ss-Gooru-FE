@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -21,10 +20,12 @@ export default Ember.Controller.extend({
 
   actions: {
     openContentPlayer: function(collection) {
-      this.transitionToRoute('player', collection.id, { queryParams: { type: collection.get('collectionType')}});
+      this.transitionToRoute('player', collection.id, {
+        queryParams: { type: collection.get('collectionType') }
+      });
     },
 
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     }
   },
@@ -60,8 +61,10 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showMoreResultsButton: Ember.computed('collections.[]', function() {
-    return this.get('collections.length') &&
-      (this.get('collections.length') % this.get('pagination.pageSize') === 0);
+    return (
+      this.get('collections.length') &&
+      this.get('collections.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
   // -------------------------------------------------------------------------
@@ -77,10 +80,22 @@ export default Ember.Controller.extend({
     pagination.page = pagination.page + 1;
     pagination.offset = pagination.page * pagination.pageSize;
 
-    controller.get('libraryService')
-    .fetchLibraryContent(libraryId, 'collection', pagination)
-    .then(collections => controller.set('collections', controller.get('collections')
-    .concat(controller.mapOwners(collections.libraryContent.collections, collections.libraryContent.ownerDetails))));
+    controller
+      .get('libraryService')
+      .fetchLibraryContent(libraryId, 'collection', pagination)
+      .then(collections =>
+        controller.set(
+          'collections',
+          controller
+            .get('collections')
+            .concat(
+              controller.mapOwners(
+                collections.libraryContent.collections,
+                collections.libraryContent.ownerDetails
+              )
+            )
+        )
+      );
   },
 
   resetValues: function() {
@@ -96,16 +111,15 @@ export default Ember.Controller.extend({
    * @param {Collection[]} collection list
    * @param {Owner[]} owner list
    */
-  mapOwners: function (collections, owners) {
+  mapOwners: function(collections, owners) {
     let ownerMap = {};
-    owners.forEach(function (owner) {
+    owners.forEach(function(owner) {
       ownerMap[owner.id] = owner;
     });
-    let mappedCollections = collections.map(function (collection) {
+    let mappedCollections = collections.map(function(collection) {
       collection.owner = ownerMap[collection.ownerId];
       return collection;
     });
     return mappedCollections;
   }
-
 });

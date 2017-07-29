@@ -1,7 +1,7 @@
 .controller.search {
   display: block;
   padding: 0;
-  div.content-navigation{
+  div.content-navigation {
     background-color: $dark-400;
     height: 51px;
     padding: 0;
@@ -12,9 +12,9 @@
       ul.category-options {
         @include flexbox;
         @include justify-content(space-between);
-        li{
-          a{
-            span{
+        li {
+          a {
+            span {
               font-size: 12px;
               @media (min-width: $screen-md) {
                 font-size: 14px;
@@ -27,9 +27,10 @@
               padding: 0 20px;
             }
           }
-          &.rubrics .btn-category{
+          &.rubrics .btn-category {
             i {
-              background: url("gooru/images/add_rubric_white.svg") no-repeat center;
+              background: url("gooru/images/add_rubric_white.svg") no-repeat
+                center;
               height: 25px;
               width: 25px;
               @media (max-width: $screen-xs-max) {
@@ -53,7 +54,7 @@
     .standards {
       @include flexbox;
       @include justify-content(flex-end);
-      padding:0;
+      padding: 0;
 
       @media (min-width: $screen-sm-min) {
         width: 36%;
@@ -64,13 +65,13 @@
       @media (min-width: $screen-md-max) {
         width: 45%;
       }
-      div{
+      div {
         display: inherit;
         align-self: center;
       }
-      .taxonomy{
+      .taxonomy {
         button.selected-category,
-        button.selected-subject{
+        button.selected-subject {
           max-width: 80px;
           white-space: nowrap;
           overflow: hidden;
@@ -79,17 +80,17 @@
             max-width: 105px;
           }
         }
-       .btn-group{
-         margin-right: 5px;
-         button{
-           font-size:$font-size-base;
-         }
+        .btn-group {
+          margin-right: 5px;
+          button {
+            font-size: $font-size-base;
+          }
         }
       }
     }
 
     .gru-category-picker .btn,
-    .gru-subject-picker .btn{
+    .gru-subject-picker .btn {
       background-color: $green-300;
 
       &.dropdown-toggle {
@@ -99,7 +100,7 @@
   }
 
   .content {
-   width: 100%;
+    width: 100%;
 
     .standards-list {
       margin: 20px;

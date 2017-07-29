@@ -11,7 +11,7 @@ import { ANONYMOUS_COLOR } from 'gooru-web/config/config';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-// -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
   // Dependencies
 
   // -------------------------------------------------------------------------
@@ -40,7 +40,7 @@ export default Ember.Component.extend({
   /**
    * @property {Number} completedPercentage
    */
-  completedPercentage: Ember.computed('completed', 'total', function () {
+  completedPercentage: Ember.computed('completed', 'total', function() {
     var total = this.get('total');
     var percentage = 0;
 
@@ -53,7 +53,7 @@ export default Ember.Component.extend({
   /**
    * @property {Number} barChartData
    */
-  barChartData: Ember.computed('completedPercentage', function () {
+  barChartData: Ember.computed('completedPercentage', function() {
     return [
       {
         color: this.get('color'),
@@ -61,5 +61,4 @@ export default Ember.Component.extend({
       }
     ];
   })
-
 });

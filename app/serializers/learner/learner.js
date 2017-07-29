@@ -12,7 +12,6 @@ import PerformanceModel from 'gooru-web/models/learner/performance';
  * @typedef {Object} LearnerSerializer
  */
 export default Ember.Object.extend(ConfigurationMixin, {
-
   session: Ember.inject.service('session'),
 
   /**
@@ -26,7 +25,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const locations = payload.usageData;
     if (Ember.isArray(locations)) {
-      result = locations.map(location => serializer.normalizeLocation(location));
+      result = locations.map(location =>
+        serializer.normalizeLocation(location)
+      );
     }
     return result;
   },
@@ -40,7 +41,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
   normalizeLocation: function(payload) {
     var serializer = this;
     var date;
-    if(payload.lastAccessed) {
+    if (payload.lastAccessed) {
       date = toLocal(payload.lastAccessed);
     }
     return LocationModel.create(Ember.getOwner(serializer).ownerInjection(), {
@@ -69,7 +70,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const performances = payload.usageData;
     if (Ember.isArray(performances)) {
-      result = performances.map(performance => serializer.normalizePerformance(performance));
+      result = performances.map(performance =>
+        serializer.normalizePerformance(performance)
+      );
     }
     return result;
   },
@@ -82,17 +85,20 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   normalizePerformance: function(payload) {
     var serializer = this;
-    return PerformanceModel.create(Ember.getOwner(serializer).ownerInjection(), {
-      courseId: payload.courseId,
-      courseTitle: payload.courseTitle,
-      timeSpent: payload.timeSpent,
-      completedCount: payload.completedCount,
-      scoreInPercentage: roundFloat(payload.scoreInPercentage),
-      totalCount: payload.totalCount,
-      collectionId: payload.collectionId,
-      collectionTitle: payload.collectionTitle,
-      attempts: payload.attempts
-    });
+    return PerformanceModel.create(
+      Ember.getOwner(serializer).ownerInjection(),
+      {
+        courseId: payload.courseId,
+        courseTitle: payload.courseTitle,
+        timeSpent: payload.timeSpent,
+        completedCount: payload.completedCount,
+        scoreInPercentage: roundFloat(payload.scoreInPercentage),
+        totalCount: payload.totalCount,
+        collectionId: payload.collectionId,
+        collectionTitle: payload.collectionTitle,
+        attempts: payload.attempts
+      }
+    );
   },
   /**
    * Normalize the Fetch Performances in Lesson endpoint's response
@@ -105,10 +111,12 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const content = payload.content;
     if (Ember.isArray(content)) {
-      content.map(function (content) {
+      content.map(function(content) {
         const performances = content.usageData;
         if (Ember.isArray(performances)) {
-          result = performances.map(performance => serializer.normalizePerformanceLesson(performance));
+          result = performances.map(performance =>
+            serializer.normalizePerformanceLesson(performance)
+          );
         }
       });
     }
@@ -123,16 +131,19 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   normalizePerformanceLesson: function(payload) {
     var serializer = this;
-    return PerformanceModel.create(Ember.getOwner(serializer).ownerInjection(), {
-      reaction:payload.reaction,
-      attemptStatus:payload.attemptStatus,
-      timeSpent: payload.timeSpent,
-      completedCount: payload.completedCount,
-      scoreInPercentage: roundFloat(payload.scoreInPercentage),
-      totalCount: payload.totalCount,
-      collectionId: payload.collectionId || payload.assessmentId,
-      attempts: payload.attempts
-    });
+    return PerformanceModel.create(
+      Ember.getOwner(serializer).ownerInjection(),
+      {
+        reaction: payload.reaction,
+        attemptStatus: payload.attemptStatus,
+        timeSpent: payload.timeSpent,
+        completedCount: payload.completedCount,
+        scoreInPercentage: roundFloat(payload.scoreInPercentage),
+        totalCount: payload.totalCount,
+        collectionId: payload.collectionId || payload.assessmentId,
+        attempts: payload.attempts
+      }
+    );
   },
   /**
    * Normalize the Fetch Performances in Unit endpoint's response
@@ -145,10 +156,12 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const content = payload.content;
     if (Ember.isArray(content)) {
-      content.map(function (content) {
+      content.map(function(content) {
         const performances = content.usageData;
         if (Ember.isArray(performances)) {
-          result = performances.map(performance => serializer.normalizePerformanceUnit(performance));
+          result = performances.map(performance =>
+            serializer.normalizePerformanceUnit(performance)
+          );
         }
       });
     }
@@ -163,17 +176,22 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   normalizePerformanceUnit: function(payload) {
     var serializer = this;
-    return PerformanceModel.create(Ember.getOwner(serializer).ownerInjection(), {
-      reaction: payload.reaction,
-      attemptStatus: payload.attemptStatus,
-      timeSpent: payload.timeSpent,
-      completedCount: payload.completedCount,
-      scoreInPercentage: roundFloat(payload.scoreInPercentage),
-      totalCount: payload.totalCount,
-      lessonId: payload.lessonId,
-      attempts: payload.attempts,
-      sourceList: payload.sourceList.map(source => serializer.normalizePerformanceLesson(source))
-    });
+    return PerformanceModel.create(
+      Ember.getOwner(serializer).ownerInjection(),
+      {
+        reaction: payload.reaction,
+        attemptStatus: payload.attemptStatus,
+        timeSpent: payload.timeSpent,
+        completedCount: payload.completedCount,
+        scoreInPercentage: roundFloat(payload.scoreInPercentage),
+        totalCount: payload.totalCount,
+        lessonId: payload.lessonId,
+        attempts: payload.attempts,
+        sourceList: payload.sourceList.map(source =>
+          serializer.normalizePerformanceLesson(source)
+        )
+      }
+    );
   },
   /**
    * Normalize the Fetch Location in Course endpoint's response

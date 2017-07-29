@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -17,5 +16,5 @@ export default Ember.Component.extend({
    * A user's profile information
    * @property {Profile}
    */
-  "profile": null
+  profile: null
 });

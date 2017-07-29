@@ -7,7 +7,6 @@ import Ember from 'ember';
  * @typedef {object} GruTheme
  */
 export default Ember.Object.extend({
-
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -19,9 +18,8 @@ export default Ember.Object.extend({
    * css url
    * @property {string}
    */
-  cssUrl: Ember.computed('id', function(){
-    const id = this.get("id");
+  cssUrl: Ember.computed('id', function() {
+    const id = this.get('id');
     return `assets/themes/${id}/styles.css`;
   })
 });
-

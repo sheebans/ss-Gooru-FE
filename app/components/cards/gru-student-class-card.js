@@ -31,5 +31,7 @@ export default Ember.Component.extend({
    * @property {Number} totalCompleted
    * Computed property for performance total completed to add a default value
    */
-  totalCompleted: Ember.computed.alias('class.performanceSummary.totalCompleted')
+  totalCompleted: Ember.computed.alias(
+    'class.performanceSummary.totalCompleted'
+  )
 });

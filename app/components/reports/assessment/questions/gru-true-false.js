@@ -20,5 +20,4 @@ export default MultipleChoiceComponent.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

@@ -1,5 +1,5 @@
 .controller.about.edit {
-  @media(max-width: $screen-xs-max) {
+  @media (max-width: $screen-xs-max) {
     $component-height: 210px;
     .avatar {
       width: 100%;
@@ -48,7 +48,7 @@
           margin-right: 30px;
         }
       }
-      &>:last-child {
+      & > :last-child {
         margin-right: 0;
       }
     }
@@ -67,9 +67,9 @@
         content: ' *';
       }
     }
-    .existing-user-error{
+    .existing-user-error {
       position: relative;
-      top:-16px;
+      top: -16px;
     }
   }
   @media (min-width: $screen-sm-min) {

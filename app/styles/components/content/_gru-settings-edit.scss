@@ -8,13 +8,14 @@
     margin-right: 10px;
   }
   &:not(.attempts, .publish-to) {
-    >span {
+    > span {
       @include flex-shrink(0);
       width: 40%;
     }
   }
-  &.attempts, &.publish-to {
-    >span {
+  &.attempts,
+  &.publish-to {
+    > span {
       padding-right: 10px;
     }
     .gru-select .form-group {
@@ -39,7 +40,7 @@
 }
 .gru-settings-edit {
   .header {
-    >div {
+    > div {
       display: inline-block;
     }
   }

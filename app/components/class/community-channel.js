@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Class navigation
@@ -10,18 +10,17 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
-    /**
+  /**
    * @requires service:session
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
-  firebase: Ember.inject.service("firebase"),
+  firebase: Ember.inject.service('firebase'),
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['community-channel'],
+  classNames: ['community-channel'],
 
   // Properties
   /**
@@ -42,11 +41,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   units: null,
 
-   /**
+  /**
    * The menuItem selected
    * @property {String}
    */
-   menuItem: null,
+  menuItem: null,
 
   /**
    * If analytics is fullScreen
@@ -74,47 +73,56 @@ export default Ember.Component.extend(ConfigurationMixin, {
       channels = this.get('channels');
       currentUser = this.get('currentUser');
       message = this.get('message');
-      this.get('firebase').submitMessage(currentUser,channels,message);
-      Ember.run.later((function() {
-      $('.message-row-container').scrollTop($('.message-row-container-inner').height());
-      }), 100);
-      this.set("message", '');
-      },
+      this.get('firebase').submitMessage(currentUser, channels, message);
+      Ember.run.later(function() {
+        $('.message-row-container').scrollTop(
+          $('.message-row-container-inner').height()
+        );
+      }, 100);
+      this.set('message', '');
+    },
 
     //remove a message from firebase
-    removeMessage: function(message){
-      this.get('firebase').removeMessage(message,this.channels);
+    removeMessage: function(message) {
+      this.get('firebase').removeMessage(message, this.channels);
     },
 
     //submit a file to firebase storage
-    submitFile: function(currentUser, channels, fileToSend){
-        channels = this.get('channels');
-        currentUser = this.get('currentUser');
-        fileToSend = document.getElementById('mediaCapture');
-        this.get('firebase').submitFile(currentUser,channels,fileToSend);
-          //Move the location in message pane to the bottom
-          Ember.run.later((function() {
-          $('.message-row-container').scrollTop($('.message-row-container-inner').height());
-          }), 100);
-          this.set("message", '');
+    submitFile: function(currentUser, channels, fileToSend) {
+      channels = this.get('channels');
+      currentUser = this.get('currentUser');
+      fileToSend = document.getElementById('mediaCapture');
+      this.get('firebase').submitFile(currentUser, channels, fileToSend);
+      //Move the location in message pane to the bottom
+      Ember.run.later(function() {
+        $('.message-row-container').scrollTop(
+          $('.message-row-container-inner').height()
+        );
+      }, 100);
+      this.set('message', '');
     },
 
-    hideChannels: function(){
+    hideChannels: function() {
       this.toggleProperty('showChannels');
       Ember.$('#channel').hide();
     },
 
     //Allow the creator of the message the ability to edit their particular messages.
-    editMessage: function(message){
-      this.sendAction("oldMessage", message);
-      this.get('firebase').editMessage(message,this.get('currentUser'));
+    editMessage: function(message) {
+      this.sendAction('oldMessage', message);
+      this.get('firebase').editMessage(message, this.get('currentUser'));
     },
 
     //Allows the creator of a message the ability to edit their own messages
-    submitEditedMessage: function(item){
+    submitEditedMessage: function(item) {
       let channels = this.get('channels');
       let message = this.get('editedMessage');
-      this.get('firebase').submitEditedMessage(message,this.get('currentUser'),item,channels);
+      this.get('firebase').submitEditedMessage(
+        message,
+        this.get('currentUser'),
+        item,
+        channels
+      );
     }
   }
 });

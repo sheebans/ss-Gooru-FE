@@ -19,7 +19,6 @@ const Validations = buildValidations({
  * typedef {Object} Collection
  */
 export default Ember.Object.extend(Validations, CollectionBase, {
-
   /**
    * @property {string} indicates it is an collection
    */

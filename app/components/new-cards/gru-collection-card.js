@@ -10,7 +10,7 @@ import { CONTENT_TYPES } from 'gooru-web/config/config';
  * Component responsible of showing the collection assessment or rubric information in cards, so that most useful information is summarized there.
  * @module
  */
-export default Ember.Component.extend(ModalMixin,{
+export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -35,7 +35,7 @@ export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['new-cards','gru-collection-card'],
+  classNames: ['new-cards', 'gru-collection-card'],
 
   // -------------------------------------------------------------------------
   // Events
@@ -56,31 +56,37 @@ export default Ember.Component.extend(ModalMixin,{
     /**
      * Action triggered to add to classroom or daily class activities
      */
-    addToClassroom: function(){
+    addToClassroom: function() {
       const component = this;
 
       component.addStudentCountToClasses();
 
       let model = Ember.Object.create({
-        classroomList:this.get('classroomList'),
-        classActivity:!this.get('isCourse'),
-        content:this.get('content')
+        classroomList: this.get('classroomList'),
+        classActivity: !this.get('isCourse'),
+        content: this.get('content')
       });
 
-      if (this.get('isCourse')){
-        model.set('callback',{
-          success:function(){
+      if (this.get('isCourse')) {
+        model.set('callback', {
+          success: function() {
             component.sendAction('onUpdateUserClasses');
           }
         });
       }
-      component.send('showModal', 'content.modals.gru-add-to-classroom', model, null, 'add-to');
+      component.send(
+        'showModal',
+        'content.modals.gru-add-to-classroom',
+        model,
+        null,
+        'add-to'
+      );
     },
 
     /**
      * Action triggered to edit content
      */
-    editContent: function(){
+    editContent: function() {
       this.sendAction('onEditContent', this.get('content'));
     },
 
@@ -120,30 +126,43 @@ export default Ember.Component.extend(ModalMixin,{
       });
 
       if (isCourse) {
-        component.get('courseService').fetchById(contentId).then(function (course) {
-          model.set('content.children', course.children);
-          model.set('remixCourse',() => component.remixCourse());
-          model.set('bookmarkCourse', () => component.send('bookmarkContent', content, false));
-          model.set('playCourse', () => component.send('playIndependent', content, false));
-        }).then(function () {
-          component.send('showModal', 'gru-preview-course', model);
-        });
-      }
-      else {
-        model.set('remixCollection',() => component.remixCollection());
-        model.set('bookmarkCollection', () => component.send('bookmarkContent', content, false));
-        model.set('playCollection', () => component.send('playIndependent', content, false));
-        component.loadCollection(contentId, isCollection, model).then(function() {
-          component.send('showModal', 'gru-preview-collection', model);
-        });
+        component
+          .get('courseService')
+          .fetchById(contentId)
+          .then(function(course) {
+            model.set('content.children', course.children);
+            model.set('remixCourse', () => component.remixCourse());
+            model.set('bookmarkCourse', () =>
+              component.send('bookmarkContent', content, false)
+            );
+            model.set('playCourse', () =>
+              component.send('playIndependent', content, false)
+            );
+          })
+          .then(function() {
+            component.send('showModal', 'gru-preview-course', model);
+          });
+      } else {
+        model.set('remixCollection', () => component.remixCollection());
+        model.set('bookmarkCollection', () =>
+          component.send('bookmarkContent', content, false)
+        );
+        model.set('playCollection', () =>
+          component.send('playIndependent', content, false)
+        );
+        component
+          .loadCollection(contentId, isCollection, model)
+          .then(function() {
+            component.send('showModal', 'gru-preview-collection', model);
+          });
       }
     }
   },
   // -------------------------------------------------------------------------
   // Events
-  didRender(){
+  didRender() {
     var component = this;
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   },
 
   // -------------------------------------------------------------------------
@@ -169,16 +188,22 @@ export default Ember.Component.extend(ModalMixin,{
    * @property {contentType} content type
    */
   contentType: Ember.computed('content', function() {
-    return this.get('content.isCollection') ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT;
+    return this.get('content.isCollection')
+      ? CONTENT_TYPES.COLLECTION
+      : CONTENT_TYPES.ASSESSMENT;
   }),
 
   /**
    * Indicates if bookmark action is disabled
    * @property {boolean}
    */
-  disabledBookmark: Ember.computed('isTeacher', 'session.isAnonymous', function() {
-    return this.get('session.isAnonymous') || this.get('isTeacher');
-  }),
+  disabledBookmark: Ember.computed(
+    'isTeacher',
+    'session.isAnonymous',
+    function() {
+      return this.get('session.isAnonymous') || this.get('isTeacher');
+    }
+  ),
 
   /**
    * Indicates if is on the user Profile in order to enable edit functions
@@ -226,7 +251,7 @@ export default Ember.Component.extend(ModalMixin,{
   /**
    * @property {boolean} isCourse indicate if the card is showing a course
    */
-  isCourse:false,
+  isCourse: false,
 
   /**
    * Indicates if the teacher is seeing the card
@@ -268,23 +293,28 @@ export default Ember.Component.extend(ModalMixin,{
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
-  tags: Ember.computed('content.standards.[]','isCourse','course.taxonomy.[]', function() {
-    if(!this.get('isCourse')){
-      var standards = this.get('content.standards');
-      standards = standards.filter(function(standard) {
-        // Filter out learning targets (they're too long for the card)
-        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
-      });
-      return TaxonomyTag.getTaxonomyTags(standards);
-    } else {
-      return TaxonomyTag.getTaxonomyTags(this.get('content.taxonomy'));
+  tags: Ember.computed(
+    'content.standards.[]',
+    'isCourse',
+    'course.taxonomy.[]',
+    function() {
+      if (!this.get('isCourse')) {
+        var standards = this.get('content.standards');
+        standards = standards.filter(function(standard) {
+          // Filter out learning targets (they're too long for the card)
+          return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+        });
+        return TaxonomyTag.getTaxonomyTags(standards);
+      } else {
+        return TaxonomyTag.getTaxonomyTags(this.get('content.taxonomy'));
+      }
     }
-  }),
+  ),
 
   // -------------------------------------------------------------------------
   // Methods
 
-  remixCourse:function(){
+  remixCourse: function() {
     if (this.get('session.isAnonymous')) {
       this.send('showModal', 'content.modals.gru-login-prompt');
     } else {
@@ -295,17 +325,25 @@ export default Ember.Component.extend(ModalMixin,{
     }
   },
 
-  remixCollection:function(){
+  remixCollection: function() {
     if (this.get('session.isAnonymous')) {
       this.send('showModal', 'content.modals.gru-login-prompt');
     } else {
       var remixModel = {
         content: this.get('content')
       };
-      if(this.get('content.isCollection')) {
-        this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
+      if (this.get('content.isCollection')) {
+        this.send(
+          'showModal',
+          'content.modals.gru-collection-remix',
+          remixModel
+        );
       } else {
-        this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
+        this.send(
+          'showModal',
+          'content.modals.gru-assessment-remix',
+          remixModel
+        );
       }
     }
   },
@@ -321,24 +359,30 @@ export default Ember.Component.extend(ModalMixin,{
     const component = this;
 
     if (isCollection) {
-      return component.get('collectionService').readCollection(contentId).then(function (collection) {
+      return component
+        .get('collectionService')
+        .readCollection(contentId)
+        .then(function(collection) {
+          model.set('content.children', collection.children);
+        });
+    }
+    return component
+      .get('assessmentService')
+      .readAssessment(contentId)
+      .then(function(collection) {
         model.set('content.children', collection.children);
       });
-    }
-    return component.get('assessmentService').readAssessment(contentId).then(function (collection) {
-      model.set('content.children', collection.children);
-    });
   },
 
   /**
    * Add student count to classes
    */
   addStudentCountToClasses: function() {
-    let component=this;
+    let component = this;
     let classStudentCount = component.get('classStudentCount');
     let classRoomList = component.get('classroomList');
     if (classRoomList) {
-      classRoomList.forEach(function (classroom) {
+      classRoomList.forEach(function(classroom) {
         let studentCount = component.studentCount(classStudentCount, classroom);
         classroom.set('studentCount', studentCount);
       });
@@ -348,9 +392,12 @@ export default Ember.Component.extend(ModalMixin,{
   /**
    * @property {Number} Count of students in the class
    */
-  studentCount: function(studentCount,classroom) {
+  studentCount: function(studentCount, classroom) {
     let classStudentCount = studentCount;
-    return (classStudentCount && Ember.keys(classStudentCount).length) ?
-      (classStudentCount[classroom.get('id')] ? classStudentCount[classroom.get('id')] : 0) : 0;
+    return classStudentCount && Ember.keys(classStudentCount).length
+      ? classStudentCount[classroom.get('id')]
+        ? classStudentCount[classroom.get('id')]
+        : 0
+      : 0;
   }
 });

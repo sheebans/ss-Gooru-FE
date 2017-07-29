@@ -1,4 +1,4 @@
-import { moduleForComponent/*, test*/ } from 'ember-qunit';
+import { moduleForComponent /*, test*/ } from 'ember-qunit';
 //import hbs from 'htmlbars-inline-precompile';
 //import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
@@ -6,34 +6,35 @@ import DS from 'ember-data';
 
 // Stub unit service
 const lessonServiceStub = Ember.Service.extend({
-
   findByClassAndCourseAndUnit(classId, courseId, unitId) {
     var response;
     var promiseResponse;
 
-    if (classId === '111-333-555' &&
-          courseId === '222-444-666' &&
-            unitId === '777-999') {
+    if (
+      classId === '111-333-555' &&
+      courseId === '222-444-666' &&
+      unitId === '777-999'
+    ) {
       response = [
         Ember.Object.create({
-          id: "lesson-1",
-          title: "Lesson 1",
+          id: 'lesson-1',
+          title: 'Lesson 1',
           visibility: true,
 
           completed: 5,
           total: 10
         }),
         Ember.Object.create({
-          id: "lesson-2",
-          title: "Lesson 2",
+          id: 'lesson-2',
+          title: 'Lesson 2',
           visibility: false,
 
           completed: 5,
           total: 10
         }),
         Ember.Object.create({
-          id: "lesson-3",
-          title: "Lesson 3",
+          id: 'lesson-3',
+          title: 'Lesson 3',
           visibility: true,
 
           completed: 5,
@@ -55,12 +56,10 @@ const lessonServiceStub = Ember.Service.extend({
       promise: promiseResponse
     });
   }
-
 });
 
 // Stub performance service
 const performanceServiceStub = Ember.Service.extend({
-
   findStudentPerformanceByUnit(userId, classId, courseId, unitId, lessons) {
     var response;
     var promiseResponse;
@@ -68,27 +67,29 @@ const performanceServiceStub = Ember.Service.extend({
     if (Ember.isArray(lessons)) {
       response = lessons;
     } else {
-      if (classId === '111-333-555' &&
+      if (
+        classId === '111-333-555' &&
         courseId === '222-444-666' &&
-        unitId === '777-999') {
+        unitId === '777-999'
+      ) {
         response = [
           Ember.Object.create({
-            id: "lesson-1",
-            title: "Lesson 1",
+            id: 'lesson-1',
+            title: 'Lesson 1',
             visibility: true,
             completed: 5,
             total: 10
           }),
           Ember.Object.create({
-            id: "lesson-2",
-            title: "Lesson 2",
+            id: 'lesson-2',
+            title: 'Lesson 2',
             visibility: false,
             completed: 5,
             total: 10
           }),
           Ember.Object.create({
-            id: "lesson-3",
-            title: "Lesson 3",
+            id: 'lesson-3',
+            title: 'Lesson 3',
             visibility: true,
             completed: 5,
             total: 10
@@ -110,11 +111,9 @@ const performanceServiceStub = Ember.Service.extend({
       promise: promiseResponse
     });
   }
-
 });
 
 const courseLocationStub = Ember.Service.extend({
-
   findByCourseAndUnit(courseId, unitId) {
     var response;
     const users = [
@@ -122,9 +121,9 @@ const courseLocationStub = Ember.Service.extend({
         isActive: false,
         user: Ember.Object.create({
           id: 1,
-          firstName: "John",
-          lastName: "Fitzgerald",
-          fullName: "Fitzgerald, John"
+          firstName: 'John',
+          lastName: 'Fitzgerald',
+          fullName: 'Fitzgerald, John'
         })
       })
     ];
@@ -151,13 +150,12 @@ const courseLocationStub = Ember.Service.extend({
 
 const unitServiceStub = Ember.Service.extend({
   fetchById: function(courseId, unitId) {
-
     let lessons = [];
     if (unitId === 'unit-with-lessons') {
       lessons = [
-        Ember.Object.create({id: 'lesson-id-1', title: 'Lesson 1'}),
-        Ember.Object.create({id: 'lesson-id-2', title: 'Lesson 2'}),
-        Ember.Object.create({id: 'lesson-id-3', title: 'Lesson 3'})
+        Ember.Object.create({ id: 'lesson-id-1', title: 'Lesson 1' }),
+        Ember.Object.create({ id: 'lesson-id-2', title: 'Lesson 2' }),
+        Ember.Object.create({ id: 'lesson-id-3', title: 'Lesson 3' })
       ];
     }
     var unit = Ember.Object.create({
@@ -172,25 +170,30 @@ const unitServiceStub = Ember.Service.extend({
   }
 });
 
+moduleForComponent(
+  'class/overview/gru-accordion-unit',
+  'Integration | Component | class/overview/gru accordion unit',
+  {
+    integration: true,
 
-moduleForComponent('class/overview/gru-accordion-unit', 'Integration | Component | class/overview/gru accordion unit', {
-  integration: true,
+    beforeEach: function() {
+      this.register('service:api-sdk/lesson', lessonServiceStub);
+      this.inject.service('api-sdk/lesson', { as: 'lessonService' });
 
-  beforeEach: function() {
-    this.register('service:api-sdk/lesson', lessonServiceStub);
-    this.inject.service('api-sdk/lesson', { as: 'lessonService' });
+      this.register('service:api-sdk/course-location', courseLocationStub);
+      this.inject.service('api-sdk/course-location', {
+        as: 'courseLocationService'
+      });
 
-    this.register('service:api-sdk/course-location', courseLocationStub);
-    this.inject.service('api-sdk/course-location', { as: 'courseLocationService' });
+      this.register('service:api-sdk/performance', performanceServiceStub);
+      this.inject.service('api-sdk/performance', { as: 'performanceService' });
 
-    this.register('service:api-sdk/performance', performanceServiceStub);
-    this.inject.service('api-sdk/performance', { as: 'performanceService' });
+      this.register('service:api-sdk/unit', unitServiceStub);
 
-    this.register('service:api-sdk/unit', unitServiceStub);
-
-    this.inject.service('i18n');
+      this.inject.service('i18n');
+    }
   }
-});
+);
 
 // TODO JBP Fix this!!
 /*

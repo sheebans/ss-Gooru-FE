@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
-import {DEFAULT_BOOKMARK_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_BOOKMARK_PAGE_SIZE } from 'gooru-web/config/config';
 
 /**
  * Student independent learning route
@@ -10,7 +10,6 @@ import {DEFAULT_BOOKMARK_PAGE_SIZE} from 'gooru-web/config/config';
  * @augments Ember.Route
  */
 export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -31,12 +30,11 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   // Actions
 
   actions: {
-
     /**
      * Triggered when a class menu item is selected
      * @param {string} item
      */
-    selectMenuItem: function (item) {
+    selectMenuItem: function(item) {
       const route = this;
       const controller = route.get('controller');
       const currentItem = controller.get('menuItem');
@@ -58,17 +56,22 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function () {
+  model: function() {
     let route = this;
     const configuration = this.get('configurationService.configuration');
 
-    let myClasses = route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
-      route.controllerFor("application").get("myClasses"); //after login the variable is refreshed at the controller
-    const myId = route.get("session.userId");
+    let myClasses =
+      route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
+      route.controllerFor('application').get('myClasses'); //after login the variable is refreshed at the controller
+    const myId = route.get('session.userId');
     let firstCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     let secondCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
-    const firstCourseId = configuration.get("exploreFeaturedCourses.firstCourseId");
-    const secondCourseId = configuration.get("exploreFeaturedCourses.secondCourseId");
+    const firstCourseId = configuration.get(
+      'exploreFeaturedCourses.firstCourseId'
+    );
+    const secondCourseId = configuration.get(
+      'exploreFeaturedCourses.secondCourseId'
+    );
     var featuredCourses = Ember.A([]);
     const pagination = {
       offset: 0,
@@ -76,35 +79,41 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     };
 
     const activeClasses = myClasses.getStudentActiveClasses(myId);
-    const bookmarksPromise = route.get('bookmarkService').fetchBookmarks(pagination, true);
+    const bookmarksPromise = route
+      .get('bookmarkService')
+      .fetchBookmarks(pagination, true);
 
     if (firstCourseId) {
       firstCoursePromise = route.get('courseService').fetchById(firstCourseId);
     }
     if (secondCourseId) {
-      secondCoursePromise = route.get('courseService').fetchById(secondCourseId);
+      secondCoursePromise = route
+        .get('courseService')
+        .fetchById(secondCourseId);
     }
-    return Ember.RSVP.hash({
-      firstCourse: firstCoursePromise,
-      secondCourse: secondCoursePromise,
-      bookmarks: bookmarksPromise,
-      pagination
-    }).then(function (hash) {
-      const firstFeaturedCourse = hash.firstCourse;
-      const secondFeaturedCourse = hash.secondCourse;
-      const bookmarks = hash.bookmarks;
-      const pagination = hash.pagination;
-
-      featuredCourses.push(firstFeaturedCourse);
-      featuredCourses.push(secondFeaturedCourse);
-
-      return {
-        activeClasses,
-        featuredCourses,
-        bookmarks,
+    return Ember.RSVP
+      .hash({
+        firstCourse: firstCoursePromise,
+        secondCourse: secondCoursePromise,
+        bookmarks: bookmarksPromise,
         pagination
-      };
-    });
+      })
+      .then(function(hash) {
+        const firstFeaturedCourse = hash.firstCourse;
+        const secondFeaturedCourse = hash.secondCourse;
+        const bookmarks = hash.bookmarks;
+        const pagination = hash.pagination;
+
+        featuredCourses.push(firstFeaturedCourse);
+        featuredCourses.push(secondFeaturedCourse);
+
+        return {
+          activeClasses,
+          featuredCourses,
+          bookmarks,
+          pagination
+        };
+      });
   },
 
   setupController: function(controller, model) {
@@ -113,5 +122,4 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     controller.set('pagination', model.pagination);
     controller.set('toggleState', false);
   }
-
 });

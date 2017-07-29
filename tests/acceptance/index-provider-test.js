@@ -14,19 +14,20 @@ moduleForAcceptance('Acceptance | index-provider', {
   }
 });
 
-test('logged in as a provider and home-link button navigation', function (assert) {
-
+test('logged in as a provider and home-link button navigation', function(
+  assert
+) {
   visit('/');
 
   andThen(function() {
     assert.equal(currentURL(), '/other-123/content/courses');
-    const $contentNav = find(".content-navigation");
-    click($contentNav.find(".collections a"));
+    const $contentNav = find('.content-navigation');
+    click($contentNav.find('.collections a'));
 
     andThen(function() {
       assert.equal(currentURL(), '/other-123/content/collections');
-      const $navHeader = find(".gru-header .navbar-header");
-      click($navHeader.find(".home-link"));
+      const $navHeader = find('.gru-header .navbar-header');
+      click($navHeader.find('.home-link'));
 
       andThen(function() {
         assert.equal(currentURL(), '/other-123/content/courses');

@@ -3,7 +3,6 @@ import Profile from 'gooru-web/models/profile/profile';
 import { COUNTRY_CODES } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -36,7 +35,6 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-
     next: function() {
       var controller = this;
       var userId = controller.get('session.userId');
@@ -56,21 +54,27 @@ export default Ember.Controller.extend({
       profile.set('id', userId);
       controller.set('otherSchoolDistrict', otherSchoolDistrict);
 
-      if(!role){
+      if (!role) {
         showRoleErrorMessage = true;
         isValid = false;
       }
-      if(!countrySelected){
+      if (!countrySelected) {
         showCountryErrorMessage = true;
         isValid = false;
       }
 
-      if(!stateSelected && showStates){
+      if (!stateSelected && showStates) {
         showStateErrorMessage = true;
         isValid = false;
       }
 
-      if(otherSchoolDistrict === '' && stateSelected && !districtSelected && districts && districts.length > 0) {
+      if (
+        otherSchoolDistrict === '' &&
+        stateSelected &&
+        !districtSelected &&
+        districts &&
+        districts.length > 0
+      ) {
         showDistrictErrorMessage = true;
         isValid = false;
       }
@@ -80,22 +84,24 @@ export default Ember.Controller.extend({
       controller.set('showStateErrorMessage', showStateErrorMessage);
       controller.set('showDistrictErrorMessage', showDistrictErrorMessage);
 
-      if(isValid) {
-        if(otherSchoolDistrict) {
+      if (isValid) {
+        if (otherSchoolDistrict) {
           profile.set('schoolDistrictId', null);
           profile.set('schoolDistrict', otherSchoolDistrict);
         }
-        controller.get('profileService').updateMyProfile(profile)
-          .then(()  => {
+        controller.get('profileService').updateMyProfile(profile).then(
+          () => {
             let session = controller.get('session');
             controller.get('applicationController').loadSessionProfile(profile);
             session.set('userData.isNew', false);
             controller.send('signUpFinish', role);
-          }, () => Ember.Logger.error('Error updating user'));
+          },
+          () => Ember.Logger.error('Error updating user')
+        );
       }
-   },
+    },
 
-    countrySelect: function(id){
+    countrySelect: function(id) {
       var controller = this;
       var countries = this.get('countries');
       var country = countries.findBy('id', id);
@@ -118,7 +124,7 @@ export default Ember.Controller.extend({
       }
     },
 
-    stateSelect: function(id){
+    stateSelect: function(id) {
       var controller = this;
       var states = controller.get('states');
       controller.set('showStateErrorMessage', false);
@@ -126,11 +132,13 @@ export default Ember.Controller.extend({
       controller.set('districts', null);
       controller.set('stateSelected', id);
       controller.set('state', states.findBy('id', id).name);
-      controller.get('lookupService').readDistricts(id)
+      controller
+        .get('lookupService')
+        .readDistricts(id)
         .then(districts => controller.set('districts', districts));
     },
 
-    districtSelect: function(id){
+    districtSelect: function(id) {
       var controller = this;
 
       controller.set('showDistrictErrorMessage', false);
@@ -217,7 +225,7 @@ export default Ember.Controller.extend({
   /**
    * @type {String} teacher, student or other, tells the component which radio is checked.
    */
-  currentRole:  Ember.computed.alias('profile.role'),
+  currentRole: Ember.computed.alias('profile.role'),
 
   /**
    * showRoleErrorMessage
@@ -244,7 +252,7 @@ export default Ember.Controller.extend({
    * init and reset all the properties for the validations
    */
 
-  resetProperties(){
+  resetProperties() {
     var controller = this;
     var profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
       role: null,

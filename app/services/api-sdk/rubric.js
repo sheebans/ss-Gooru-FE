@@ -11,16 +11,20 @@ import RubricAdapter from 'gooru-web/adapters/rubric/rubric';
  * @augments Ember/Service
  */
 export default Ember.Service.extend({
-
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('serializer', RubricSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('adapter', RubricAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'serializer',
+      RubricSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'adapter',
+      RubricAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -35,7 +39,6 @@ export default Ember.Service.extend({
    */
   adapter: null,
 
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -44,10 +47,10 @@ export default Ember.Service.extend({
    * @param {Rubric} rubric
    * @returns {Promise|Rubric} returns the rubric model with the newly assigned ID
    */
-  createRubric: function (rubric) {
+  createRubric: function(rubric) {
     var data = this.get('serializer').serializeCreateRubric(rubric);
 
-    return this.get('adapter').createRubric(data).then(function (rubricId) {
+    return this.get('adapter').createRubric(data).then(function(rubricId) {
       rubric.set('id', rubricId);
       return rubricId;
     });
@@ -62,26 +65,33 @@ export default Ember.Service.extend({
   createRubricOff: function(rubricOffData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedRubricOffData = service.get('serializer').serializeCreateRubricOff(rubricOffData);
-      service.get('adapter').createRubricOff({
-        body: serializedRubricOffData
-      }).then(function(responseData, textStatus, request) {
-        let rubricOffId = request.getResponseHeader('location');
-        rubricOffData.set('id', rubricOffId);
-        resolve(rubricOffData);
-      }, function(error) {
-        reject(error);
-      });
+      let serializedRubricOffData = service
+        .get('serializer')
+        .serializeCreateRubricOff(rubricOffData);
+      service
+        .get('adapter')
+        .createRubricOff({
+          body: serializedRubricOffData
+        })
+        .then(
+          function(responseData, textStatus, request) {
+            let rubricOffId = request.getResponseHeader('location');
+            rubricOffData.set('id', rubricOffId);
+            resolve(rubricOffData);
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
-
 
   /**
    * Updates a rubric
    * @param {Rubric} rubric
    * @returns {Promise|Rubric} returns the rubric model with the newly assigned ID
    */
-  updateRubric: function (rubric) {
+  updateRubric: function(rubric) {
     var data = this.get('serializer').serializeUpdateRubric(rubric);
     return this.get('adapter').updateRubric(data, rubric.get('id'));
   },
@@ -91,7 +101,7 @@ export default Ember.Service.extend({
    * @param {String} rubricId
    * @returns {Promise|boolean} returns true if deleted
    */
-  deleteRubric: function (rubricId) {
+  deleteRubric: function(rubricId) {
     return this.get('adapter').deleteRubric(rubricId);
   },
 
@@ -100,12 +110,11 @@ export default Ember.Service.extend({
    * @param {string} rubricId
    * @returns {Promise|Rubric}
    */
-  getRubric: function (rubricId) {
+  getRubric: function(rubricId) {
     const service = this;
-    return service.get('adapter').getRubric(rubricId)
-      .then(function (data) {
-        return service.get('serializer').normalizeRubric(data);
-      });
+    return service.get('adapter').getRubric(rubricId).then(function(data) {
+      return service.get('serializer').normalizeRubric(data);
+    });
   },
 
   /**
@@ -113,12 +122,11 @@ export default Ember.Service.extend({
    * @param {string} userId
    * @returns {Promise|Rubric[]}
    */
-  getUserRubrics: function (userId) {
+  getUserRubrics: function(userId) {
     const service = this;
-    return service.get('adapter').getUserRubrics(userId)
-      .then(function (data) {
-        return service.get('serializer').normalizeGetRubrics(data);
-      });
+    return service.get('adapter').getUserRubrics(userId).then(function(data) {
+      return service.get('serializer').normalizeGetRubrics(data);
+    });
   },
 
   /**
@@ -126,7 +134,7 @@ export default Ember.Service.extend({
    * @param {String} rubricId
    * @returns {Promise|string} returns the copied id
    */
-  copyRubric: function (rubricId) {
+  copyRubric: function(rubricId) {
     return this.get('adapter').copyRubric(rubricId);
   },
 
@@ -136,7 +144,7 @@ export default Ember.Service.extend({
    * @param {String} questionId
    * @returns {Promise|boolean} true when successful
    */
-  associateRubricToQuestion: function (rubricId, questionId) {
+  associateRubricToQuestion: function(rubricId, questionId) {
     return this.get('adapter').associateRubricToQuestion(rubricId, questionId);
   },
 
@@ -147,9 +155,11 @@ export default Ember.Service.extend({
    * @param {string} courseId
    * @returns {Promise|GradeQuestion}
    */
-  getQuestionsToGrade: function (userId, classId, courseId) {
+  getQuestionsToGrade: function(userId, classId, courseId) {
     const service = this;
-    return service.get('adapter').getQuestionsToGrade(userId, classId, courseId)
+    return service
+      .get('adapter')
+      .getQuestionsToGrade(userId, classId, courseId)
       .then(data => service.get('serializer').normalizeQuestionsToGrade(data));
   },
 
@@ -161,9 +171,18 @@ export default Ember.Service.extend({
    * @param {string} collectionId
    * @returns {Promise|GradeQuestionStudents}
    */
-  getStudentsForQuestion: function (questionId, classId, courseId, collectionId) {
+  getStudentsForQuestion: function(
+    questionId,
+    classId,
+    courseId,
+    collectionId
+  ) {
     const service = this;
-    return service.get('adapter').getStudentsForQuestion(questionId, classId, courseId, collectionId)
-      .then(data => service.get('serializer').normalizeStudentsForQuestion(data));
+    return service
+      .get('adapter')
+      .getStudentsForQuestion(questionId, classId, courseId, collectionId)
+      .then(data =>
+        service.get('serializer').normalizeStudentsForQuestion(data)
+      );
   }
 });

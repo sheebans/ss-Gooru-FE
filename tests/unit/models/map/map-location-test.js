@@ -6,7 +6,7 @@ moduleFor('model:map/map-location', 'Unit | Model | map/map-location', {
   unit: true
 });
 
-test('hasPreTestSuggestions', function (assert) {
+test('hasPreTestSuggestions', function(assert) {
   const suggestions = [
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.PRE_TEST }),
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -15,10 +15,13 @@ test('hasPreTestSuggestions', function (assert) {
     suggestions
   });
 
-  assert.ok(model.get('hasPreTestSuggestions'), 'Should have pre test suggestions');
+  assert.ok(
+    model.get('hasPreTestSuggestions'),
+    'Should have pre test suggestions'
+  );
 });
 
-test('hasPreTestSuggestions not so', function (assert) {
+test('hasPreTestSuggestions not so', function(assert) {
   const suggestions = [
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.POST_TEST }),
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.BENCHMARK })
@@ -27,10 +30,13 @@ test('hasPreTestSuggestions not so', function (assert) {
     suggestions
   });
 
-  assert.ok(!model.get('hasPreTestSuggestions'), 'Should not have pre test suggestions');
+  assert.ok(
+    !model.get('hasPreTestSuggestions'),
+    'Should not have pre test suggestions'
+  );
 });
 
-test('hasPostTestSuggestions', function (assert) {
+test('hasPostTestSuggestions', function(assert) {
   const suggestions = [
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.PRE_TEST }),
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -39,10 +45,13 @@ test('hasPostTestSuggestions', function (assert) {
     suggestions
   });
 
-  assert.ok(model.get('hasPostTestSuggestions'), 'Should have post test suggestions');
+  assert.ok(
+    model.get('hasPostTestSuggestions'),
+    'Should have post test suggestions'
+  );
 });
 
-test('hasPostTestSuggestions not so', function (assert) {
+test('hasPostTestSuggestions not so', function(assert) {
   const suggestions = [
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.PRE_TEST }),
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.BENCHMARK })
@@ -51,10 +60,13 @@ test('hasPostTestSuggestions not so', function (assert) {
     suggestions
   });
 
-  assert.ok(!model.get('hasPostTestSuggestions'), 'Should not have post test suggestions');
+  assert.ok(
+    !model.get('hasPostTestSuggestions'),
+    'Should not have post test suggestions'
+  );
 });
 
-test('hasBenchmarkSuggestions', function (assert) {
+test('hasBenchmarkSuggestions', function(assert) {
   const suggestions = [
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.BENCHMARK }),
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -63,10 +75,13 @@ test('hasBenchmarkSuggestions', function (assert) {
     suggestions
   });
 
-  assert.ok(model.get('hasBenchmarkSuggestions'), 'Should have benchmark suggestions');
+  assert.ok(
+    model.get('hasBenchmarkSuggestions'),
+    'Should have benchmark suggestions'
+  );
 });
 
-test('hasBenchmarkSuggestions not so', function (assert) {
+test('hasBenchmarkSuggestions not so', function(assert) {
   const suggestions = [
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.PRE_TEST }),
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -75,10 +90,13 @@ test('hasBenchmarkSuggestions not so', function (assert) {
     suggestions
   });
 
-  assert.ok(!model.get('hasBenchmarkSuggestions'), 'Should not have benchmark suggestions');
+  assert.ok(
+    !model.get('hasBenchmarkSuggestions'),
+    'Should not have benchmark suggestions'
+  );
 });
 
-test('hasResourceSuggestions', function (assert) {
+test('hasResourceSuggestions', function(assert) {
   const suggestions = [
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.RESOURCE }),
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -87,10 +105,13 @@ test('hasResourceSuggestions', function (assert) {
     suggestions
   });
 
-  assert.ok(model.get('hasResourceSuggestions'), 'Should have resource suggestions');
+  assert.ok(
+    model.get('hasResourceSuggestions'),
+    'Should have resource suggestions'
+  );
 });
 
-test('hasResourceSuggestions not so', function (assert) {
+test('hasResourceSuggestions not so', function(assert) {
   const suggestions = [
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.PRE_TEST }),
     MapSuggestion.create({ subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -99,10 +120,13 @@ test('hasResourceSuggestions not so', function (assert) {
     suggestions
   });
 
-  assert.ok(!model.get('hasResourceSuggestions'), 'Should not have resource suggestions');
+  assert.ok(
+    !model.get('hasResourceSuggestions'),
+    'Should not have resource suggestions'
+  );
 });
 
-test('preTestSuggestion', function (assert) {
+test('preTestSuggestion', function(assert) {
   const suggestions = [
     MapSuggestion.create({ id: 1, subType: ASSESSMENT_SUB_TYPES.PRE_TEST }),
     MapSuggestion.create({ id: 2, subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -114,7 +138,7 @@ test('preTestSuggestion', function (assert) {
   assert.equal(model.get('preTestSuggestion.id'), 1, 'Wrong id');
 });
 
-test('postTestSuggestion', function (assert) {
+test('postTestSuggestion', function(assert) {
   const suggestions = [
     MapSuggestion.create({ id: 1, subType: ASSESSMENT_SUB_TYPES.PRE_TEST }),
     MapSuggestion.create({ id: 2, subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -126,7 +150,7 @@ test('postTestSuggestion', function (assert) {
   assert.equal(model.get('postTestSuggestion.id'), 2, 'Wrong id');
 });
 
-test('backFillSuggestion', function (assert) {
+test('backFillSuggestion', function(assert) {
   const suggestions = [
     MapSuggestion.create({ id: 1, subType: ASSESSMENT_SUB_TYPES.BACKFILL }),
     MapSuggestion.create({ id: 2, subType: ASSESSMENT_SUB_TYPES.BENCHMARK })
@@ -138,7 +162,7 @@ test('backFillSuggestion', function (assert) {
   assert.equal(model.get('backFillSuggestion.id'), 1, 'Wrong id');
 });
 
-test('benchmarkSuggestion', function (assert) {
+test('benchmarkSuggestion', function(assert) {
   const suggestions = [
     MapSuggestion.create({ id: 1, subType: ASSESSMENT_SUB_TYPES.PRE_TEST }),
     MapSuggestion.create({ id: 2, subType: ASSESSMENT_SUB_TYPES.BENCHMARK })
@@ -150,7 +174,7 @@ test('benchmarkSuggestion', function (assert) {
   assert.equal(model.get('benchmarkSuggestion.id'), 2, 'Wrong id');
 });
 
-test('resourceSuggestion', function (assert) {
+test('resourceSuggestion', function(assert) {
   const suggestions = [
     MapSuggestion.create({ id: 1, subType: ASSESSMENT_SUB_TYPES.RESOURCE }),
     MapSuggestion.create({ id: 2, subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -162,7 +186,7 @@ test('resourceSuggestion', function (assert) {
   assert.equal(model.get('resourceSuggestion.id'), 1, 'Wrong id');
 });
 
-test('getSuggestion', function (assert) {
+test('getSuggestion', function(assert) {
   const suggestions = [
     MapSuggestion.create({ id: 1, subType: ASSESSMENT_SUB_TYPES.PRE_TEST }),
     MapSuggestion.create({ id: 2, subType: ASSESSMENT_SUB_TYPES.POST_TEST })
@@ -171,6 +195,13 @@ test('getSuggestion', function (assert) {
     suggestions
   });
 
-  assert.ok(!model.getSuggestion(ASSESSMENT_SUB_TYPES.BENCHMARK), 'Benchmark should not be found');
-  assert.equal(model.getSuggestion(ASSESSMENT_SUB_TYPES.PRE_TEST).get('id'), 1, 'Wrong id');
+  assert.ok(
+    !model.getSuggestion(ASSESSMENT_SUB_TYPES.BENCHMARK),
+    'Benchmark should not be found'
+  );
+  assert.equal(
+    model.getSuggestion(ASSESSMENT_SUB_TYPES.PRE_TEST).get('id'),
+    1,
+    'Wrong id'
+  );
 });

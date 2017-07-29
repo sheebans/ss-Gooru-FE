@@ -9,7 +9,6 @@ import Ember from 'ember';
  * @typedef {object} DatepickerField
  */
 export default Ember.Component.extend({
-
   /**
    * @property {string} placeholder
    */
@@ -18,7 +17,7 @@ export default Ember.Component.extend({
   /**
    * @property {string} on select date action
    */
-  onSelectDateAction: "onSelectDate",
+  onSelectDateAction: 'onSelectDate',
 
   /**
    * @property {string} selected date,  format: 'mm/DD/YYYY'

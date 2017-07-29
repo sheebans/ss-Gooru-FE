@@ -5,11 +5,12 @@ import {
   getAnswerResultIcon,
   getScoreString,
   getReactionIcon
-  } from 'gooru-web/utils/utils';
+} from 'gooru-web/utils/utils';
 import {
   averageReaction,
   correctPercentage,
-  totalTimeSpent } from 'gooru-web/utils/question-result';
+  totalTimeSpent
+} from 'gooru-web/utils/question-result';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
@@ -22,7 +23,6 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -30,7 +30,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @requires service:i18n
    */
   i18n: Ember.inject.service(),
-
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -41,12 +40,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // Actions
 
   actions: {
-
     /**
      * @function actions:selectQuestion
      * @param {Number} questionId
      */
-    selectQuestion: function (questionId) {
+    selectQuestion: function(questionId) {
       this.get('onSelectQuestion')(questionId);
     },
 
@@ -54,24 +52,22 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * @function actions:selectStudent
      * @param {string} studentId
      */
-    selectStudent: function (studentId) {
+    selectStudent: function(studentId) {
       this.get('onSelectStudent')(studentId);
     }
-
   },
-
 
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
 
     this.set('questionProperties', this.initQuestionProperties());
     this.set('studentsHeader', this.initStudentsHeader());
   },
 
-  willDestroyElement: function () {
+  willDestroyElement: function() {
     this.set('questionProperties', null);
     this.set('studentsHeader', null);
   },
@@ -93,14 +89,16 @@ export default Ember.Component.extend(ConfigurationMixin, {
    *
    * The questions will be ordered in the array in ascending order per the order value
    */
-  assessmentQuestions: Ember.computed('assessment.resources.[]', function () {
-    const labelPrefix = this.get('i18n').t('reports.gru-table-view.first-tier-header-prefix').string;
+  assessmentQuestions: Ember.computed('assessment.resources.[]', function() {
+    const labelPrefix = this.get('i18n').t(
+      'reports.gru-table-view.first-tier-header-prefix'
+    ).string;
 
     var questions = this.get('assessment.resources')
       .sortBy('order')
-      .map(function (question, index) {
+      .map(function(question, index) {
         return {
-          value: question.get("id"),
+          value: question.get('id'),
           label: labelPrefix + (index + 1)
         };
       });
@@ -117,8 +115,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @prop { String[] } assessmentQuestionsIds - An array with the ids of all the questions in the assessment
    */
-  assessmentQuestionsIds: Ember.computed('assessmentQuestions.[]', function () {
-    return this.get('assessmentQuestions').map(function (question) {
+  assessmentQuestionsIds: Ember.computed('assessmentQuestions.[]', function() {
+    return this.get('assessmentQuestions').map(function(question) {
       return question.value;
     });
   }),
@@ -143,8 +141,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @prop { String[] } questionPropertiesIds - An array with the ids of all the question properties
    */
-  questionPropertiesIds: Ember.computed('questionProperties', function () {
-    return this.get('questionProperties').map(function (questionProperty) {
+  questionPropertiesIds: Ember.computed('questionProperties', function() {
+    return this.get('questionProperties').map(function(questionProperty) {
       return questionProperty.value;
     });
   }),
@@ -173,8 +171,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @prop { String[] } studentsIds - An array with the ids of all the students taking the assessment
    */
-  studentsIds: Ember.computed('students.[]', function () {
-    return this.get('students').map(function (student) {
+  studentsIds: Ember.computed('students.[]', function() {
+    return this.get('students').map(function(student) {
       return student.id;
     });
   }),
@@ -191,89 +189,99 @@ export default Ember.Component.extend(ConfigurationMixin, {
    *   - output: table cell content formatted for output (the formatting is done by
    *             the question property's render function)
    */
-  tableData: Ember.computed("anonymous", 'tableFrame', 'reportData.data', function () {
-    const studentsIds = this.get('studentsIds');
-    const studentsIdsLen = studentsIds.length;
-    const questionsIds = this.get('assessmentQuestionsIds');
-    const questionsIdsLen = questionsIds.length;
-    const questionProperties = this.get('questionProperties');
-    const questionPropertiesIds = this.get('questionPropertiesIds');
-    const questionPropertiesIdsLen = questionPropertiesIds.length;
-    const reportData = this.get('reportData.data');
+  tableData: Ember.computed(
+    'anonymous',
+    'tableFrame',
+    'reportData.data',
+    function() {
+      const studentsIds = this.get('studentsIds');
+      const studentsIdsLen = studentsIds.length;
+      const questionsIds = this.get('assessmentQuestionsIds');
+      const questionsIdsLen = questionsIds.length;
+      const questionProperties = this.get('questionProperties');
+      const questionPropertiesIds = this.get('questionPropertiesIds');
+      const questionPropertiesIdsLen = questionPropertiesIds.length;
+      const reportData = this.get('reportData.data');
 
-    // Copy the table frame contents
-    var data = this.get('tableFrame').slice(0);
-    var totalIndex, propertyValues;
+      // Copy the table frame contents
+      var data = this.get('tableFrame').slice(0);
+      var totalIndex, propertyValues;
 
-    // Get the value of each question property, for each question, for each student
-    for (let i = 0; i < studentsIdsLen; i++) {
+      // Get the value of each question property, for each question, for each student
+      for (let i = 0; i < studentsIdsLen; i++) {
+        // Array for storing all values of the same question property
+        propertyValues = [];
 
-      // Array for storing all values of the same question property
-      propertyValues = [];
-
-      for (let k = 0; k < questionPropertiesIdsLen; k++) {
-        // Put all values for the same property into an array
-        propertyValues[k] = [];
-      }
-
-      for (let j = 0; j < questionsIdsLen; j++) {
-        const labelPrefix = this.get('i18n').t('reports.gru-table-view.first-tier-header-prefix').string;
-
-        if (questionsIds[j] === -1) {
-          // Save this position to fill it in last (cells with propertyValues)
-          totalIndex = j;
-          continue;
-        }
         for (let k = 0; k < questionPropertiesIdsLen; k++) {
-          let renderFunction = questionProperties[k].renderFunction;
-          let questionResult = reportData[studentsIds[i]][questionsIds[j]];
-          let value = questionResult[questionPropertiesIds[k]];
-          let label;
+          // Put all values for the same property into an array
+          propertyValues[k] = [];
+        }
 
-          //label used for the score tooltip
-          if (k===0) {
-            label= labelPrefix + j;
+        for (let j = 0; j < questionsIdsLen; j++) {
+          const labelPrefix = this.get('i18n').t(
+            'reports.gru-table-view.first-tier-header-prefix'
+          ).string;
+
+          if (questionsIds[j] === -1) {
+            // Save this position to fill it in last (cells with propertyValues)
+            totalIndex = j;
+            continue;
           }
+          for (let k = 0; k < questionPropertiesIdsLen; k++) {
+            let renderFunction = questionProperties[k].renderFunction;
+            let questionResult = reportData[studentsIds[i]][questionsIds[j]];
+            let value = questionResult[questionPropertiesIds[k]];
+            let label;
 
-          data[i].content[j * questionPropertiesIdsLen + k] = {
-            label: label,
+            //label used for the score tooltip
+            if (k === 0) {
+              label = labelPrefix + j;
+            }
+
+            data[i].content[j * questionPropertiesIdsLen + k] = {
+              label: label,
+              value: value,
+              output: !renderFunction ? value : renderFunction(value)
+            };
+
+            propertyValues[k].push(questionResult);
+          }
+        }
+
+        // Compute the aggregate values
+        for (let k = 0; k < questionPropertiesIdsLen; k++) {
+          // Set the value in the aggregate (totals) column;
+          let value = questionProperties[k].aggregateFunction(
+            propertyValues[k]
+          );
+          let aggregateRenderFunction =
+            questionProperties[k].aggregateRenderFunction;
+
+          // For displaying the aggregate value, use the question property's aggregateRenderFunction.
+          // If there's no aggregateRenderFunction, use the property's renderFunction by default.
+          data[i].content[totalIndex * questionPropertiesIdsLen + k] = {
             value: value,
-            output: (!renderFunction) ? value : renderFunction(value)
+            output: aggregateRenderFunction
+              ? aggregateRenderFunction(value)
+              : questionProperties[k].renderFunction(value)
           };
-
-          propertyValues[k].push(questionResult);
         }
       }
 
-      // Compute the aggregate values
-      for (let k = 0; k < questionPropertiesIdsLen; k++) {
-        // Set the value in the aggregate (totals) column;
-        let value = questionProperties[k].aggregateFunction(propertyValues[k]);
-        let aggregateRenderFunction = questionProperties[k].aggregateRenderFunction;
-
-        // For displaying the aggregate value, use the question property's aggregateRenderFunction.
-        // If there's no aggregateRenderFunction, use the property's renderFunction by default.
-        data[i].content[totalIndex * questionPropertiesIdsLen + k] = {
-          value: value,
-          output: (aggregateRenderFunction) ? aggregateRenderFunction(value) :
-            questionProperties[k].renderFunction(value)
-        };
-      }
+      return data;
     }
-
-    return data;
-  }),
+  ),
 
   /**
    * @prop {Object[]} tableFrame - The table frame that encloses the table data
    * @return {Object[]}
    */
-  tableFrame: Ember.computed('anonymous', 'students.[]', function () {
-    let anonymous = this.get("anonymous");
-    return this.get('students').map(function (student) {
+  tableFrame: Ember.computed('anonymous', 'students.[]', function() {
+    let anonymous = this.get('anonymous');
+    return this.get('students').map(function(student) {
       return {
-        id: student.get("id"),
-        header: anonymous ? student.get("code") : student.get("fullName"),
+        id: student.get('id'),
+        header: anonymous ? student.get('code') : student.get('fullName'),
         content: []
       };
     });
@@ -286,7 +294,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Initialize the question properties array with values -including i18n labels
    * @return {Object[]}
    */
-  initQuestionProperties: function () {
+  initQuestionProperties: function() {
     const component = this;
 
     return [
@@ -317,9 +325,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
         },
         label: this.get('i18n').t('reports.gru-table-view.reaction').string,
         value: 'reaction',
-        renderFunction: function (value) {
+        renderFunction: function(value) {
           const appRootPath = component.get('appRootPath');
-          return getReactionIcon (value, appRootPath);
+          return getReactionIcon(value, appRootPath);
         },
         aggregateFunction: averageReaction
       })
@@ -330,12 +338,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Initialize the students header object with values including an i18n label
    * @return {Object[]}
    */
-  initStudentsHeader: function () {
+  initStudentsHeader: function() {
     return {
       label: this.get('i18n').t('reports.gru-table-view.student').string,
       value: 'fullName',
       sortFunction: alphabeticalStringSort
     };
   }
-
 });

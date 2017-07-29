@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 /**
@@ -8,7 +8,6 @@ import EndPointsConfig from 'gooru-web/utils/endpoint-config';
  * @typedef {Object} ProfileAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus/v1/profiles',
@@ -85,7 +84,7 @@ export default Ember.Object.extend({
    * @param userId
    * @returns {*|Promise}
    */
-  followUserProfile: function (userId) {
+  followUserProfile: function(userId) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/follow`;
@@ -95,7 +94,7 @@ export default Ember.Object.extend({
       dataType: 'text',
       processData: false,
       headers: adapter.defineHeaders(),
-      data: JSON.stringify({"user_id": userId})
+      data: JSON.stringify({ user_id: userId })
     };
 
     return Ember.$.ajax(url, options);
@@ -106,7 +105,7 @@ export default Ember.Object.extend({
    * @param userId
    * @returns {*|Promise}
    */
-  unfollowUserProfile: function (userId) {
+  unfollowUserProfile: function(userId) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${userId}/unfollow`;
@@ -137,13 +136,13 @@ export default Ember.Object.extend({
       limit: pageSize,
       offset: offset
     };
-    if(params.searchText) {
+    if (params.searchText) {
       data.searchText = params.searchText;
     }
-    if(params.sortOn) {
+    if (params.sortOn) {
       data.sortOn = params.sortOn;
     }
-    if(params.order) {
+    if (params.order) {
       data.order = params.order;
     }
     const options = {
@@ -174,13 +173,13 @@ export default Ember.Object.extend({
       limit: pageSize,
       offset: offset
     };
-    if(params.searchText) {
+    if (params.searchText) {
       data.searchText = params.searchText;
     }
-    if(params.sortOn) {
+    if (params.sortOn) {
       data.sortOn = params.sortOn;
     }
-    if(params.order) {
+    if (params.order) {
       data.order = params.order;
     }
 
@@ -201,7 +200,6 @@ export default Ember.Object.extend({
    * @returns {Promise}
    */
   readCollections: function(userId, params = {}) {
-
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${userId}/collections`;
@@ -213,16 +211,16 @@ export default Ember.Object.extend({
       limit: pageSize,
       offset: offset
     };
-    if(params.filterBy) {
+    if (params.filterBy) {
       data.filterBy = params.filterBy;
     }
-    if(params.searchText) {
+    if (params.searchText) {
       data.searchText = params.searchText;
     }
-    if(params.sortOn) {
+    if (params.sortOn) {
       data.sortOn = params.sortOn;
     }
-    if(params.order) {
+    if (params.order) {
       data.order = params.order;
     }
     const options = {
@@ -253,16 +251,16 @@ export default Ember.Object.extend({
       limit: pageSize,
       offset: offset
     };
-    if(params.filterBy) {
+    if (params.filterBy) {
       data.filterBy = params.filterBy;
     }
-    if(params.searchText) {
+    if (params.searchText) {
       data.searchText = params.searchText;
     }
-    if(params.sortOn) {
+    if (params.sortOn) {
       data.sortOn = params.sortOn;
     }
-    if(params.order) {
+    if (params.order) {
       data.order = params.order;
     }
     const options = {
@@ -292,16 +290,16 @@ export default Ember.Object.extend({
       limit: pageSize,
       offset: offset
     };
-    if(params.filterBy) {
+    if (params.filterBy) {
       data.filterBy = params.filterBy;
     }
-    if(params.searchText) {
+    if (params.searchText) {
       data.searchText = params.searchText;
     }
-    if(params.sortOn) {
+    if (params.sortOn) {
       data.sortOn = params.sortOn;
     }
-    if(params.order) {
+    if (params.order) {
       data.order = params.order;
     }
     const options = {
@@ -318,10 +316,10 @@ export default Ember.Object.extend({
    * @param username
    * @returns {*|Promise}
    */
-  forgotPassword: function (email) {
+  forgotPassword: function(email) {
     const adapter = this;
     const namespace = adapter.get('authNamespace');
-    const tenantId = this.get("session.tenantId");
+    const tenantId = this.get('session.tenantId');
     const url = `${namespace}/users/reset-password`;
     const options = {
       type: 'POST',
@@ -330,8 +328,8 @@ export default Ember.Object.extend({
       processData: false,
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
-        "email": email,
-        "tenant_id": tenantId
+        email: email,
+        tenant_id: tenantId
       })
     };
 
@@ -343,7 +341,7 @@ export default Ember.Object.extend({
    * @param token
    * @returns {*|Promise}
    */
-  resetPassword: function (password, token) {
+  resetPassword: function(password, token) {
     const adapter = this;
     const endpointUrl = EndPointsConfig.getEndpointSecureUrl();
     const namespace = adapter.get('authNamespace');
@@ -408,8 +406,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

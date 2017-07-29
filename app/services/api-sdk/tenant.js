@@ -10,7 +10,6 @@ import TenantAdapter from 'gooru-web/adapters/tenant/tenant';
  * @typedef {Object} LookupService
  */
 export default Ember.Service.extend({
-
   /**
    * @type {SessionService} Service to retrieve session information
    */
@@ -20,26 +19,33 @@ export default Ember.Service.extend({
 
   lookupAdapter: null,
 
-
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('tenantSerializer', TenantSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('tenantAdapter', TenantAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'tenantSerializer',
+      TenantSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'tenantAdapter',
+      TenantAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
    * Gets tenant information by id
    * @returns {Promise.<Tenant>}
    */
-  findTenantById: function (id) {
+  findTenantById: function(id) {
     const service = this;
-    return new Ember.RSVP.Promise(function (resolve) {
-      service.get('tenantAdapter').findTenantById(id)
-        .then(function (response) {
+    return new Ember.RSVP.Promise(function(resolve) {
+      service.get('tenantAdapter').findTenantById(id).then(
+        function(response) {
           resolve(service.get('tenantSerializer').normalizeTenant(response));
-        }, function() {
+        },
+        function() {
           resolve(undefined); //ignore if the api call fails
-        });
+        }
+      );
     });
   },
 
@@ -47,8 +53,8 @@ export default Ember.Service.extend({
    * Gets tenant information from current session
    * @returns {Promise.<Tenant>}
    */
-  findTenantFromCurrentSession: function () {
-    const tenantId = this.get("session.tenantId");
+  findTenantFromCurrentSession: function() {
+    const tenantId = this.get('session.tenantId');
     return this.findTenantById(tenantId);
   }
 });

@@ -10,7 +10,6 @@ import { alphabeticalStringSort, numberSort } from 'gooru-web/utils/utils';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -21,57 +20,56 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-    actions:{
-      sortChange:function(metric){
-        var metricsIndex = metric.get('index');
-        var sortCriteria = this.get('sortCriteria');
-        var newSortCriteria = {
-          metricsIndex: metricsIndex
-        };
+  actions: {
+    sortChange: function(metric) {
+      var metricsIndex = metric.get('index');
+      var sortCriteria = this.get('sortCriteria');
+      var newSortCriteria = {
+        metricsIndex: metricsIndex
+      };
 
-        this.set('sortByMetric', metric.get('value'));
+      this.set('sortByMetric', metric.get('value'));
 
-        if (sortCriteria.metricsIndex === metricsIndex) {
-          // Reverse the sort order if the same column has been selected
-          newSortCriteria.order = sortCriteria.order * -1;
-          this.set('sortCriteria', newSortCriteria);
-
-        } else {
-          newSortCriteria.order = this.get('defaultSortOrder');
-          this.set('sortCriteria', newSortCriteria);
-        }
-      },
-
-      /**
-       * navigate to units/lessons
-       */
-      navigate:function(headerId){
-        this.sendAction('onNavigation', headerId);
-      },
-
-      /**
-       * When the user clicks at the report
-       */
-      clickReport: function (performance, userPerformance) {
-        if (this.get('onClickReport')){
-          this.sendAction('onClickReport', performance, userPerformance);
-        }
+      if (sortCriteria.metricsIndex === metricsIndex) {
+        // Reverse the sort order if the same column has been selected
+        newSortCriteria.order = sortCriteria.order * -1;
+        this.set('sortCriteria', newSortCriteria);
+      } else {
+        newSortCriteria.order = this.get('defaultSortOrder');
+        this.set('sortCriteria', newSortCriteria);
       }
     },
+
+    /**
+       * navigate to units/lessons
+       */
+    navigate: function(headerId) {
+      this.sendAction('onNavigation', headerId);
+    },
+
+    /**
+       * When the user clicks at the report
+       */
+    clickReport: function(performance, userPerformance) {
+      if (this.get('onClickReport')) {
+        this.sendAction('onClickReport', performance, userPerformance);
+      }
+    }
+  },
   // -------------------------------------------------------------------------
   // Events
 
   didInsertElement() {
     this._super(...arguments);
 
-    Ember.run.scheduleOnce('afterRender', this, function () {
+    Ember.run.scheduleOnce('afterRender', this, function() {
       this.set('sortCriteria', this.initSortCriteria());
     });
   },
 
   didRender() {
     this._super(...arguments);
-    this.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   },
 
   // -------------------------------------------------------------------------
@@ -116,36 +114,55 @@ export default Ember.Component.extend({
    * The user performanceData
    * @property {performanceData[]}
    */
-  performanceData: Ember.computed('performanceDataMatrix.length','sortCriteria', function() {
-    const performanceData = this.get('performanceDataMatrix').slice(1);
-    const sortCriteria = this.get('sortCriteria');
+  performanceData: Ember.computed(
+    'performanceDataMatrix.length',
+    'sortCriteria',
+    function() {
+      const performanceData = this.get('performanceDataMatrix').slice(1);
+      const sortCriteria = this.get('sortCriteria');
 
-    if (sortCriteria) {
-      let metricsIndex = sortCriteria.metricsIndex;
-      let sortedData = performanceData;
+      if (sortCriteria) {
+        let metricsIndex = sortCriteria.metricsIndex;
+        let sortedData = performanceData;
 
-      //alphabeticalStringSort
-      if (metricsIndex === -1) {
-        sortedData.sort(function (a, b) {
-          return alphabeticalStringSort(a.user, b.user) * sortCriteria.order;
-        });
-      } else if (metricsIndex >= 0) {
-        let sortByMetric = this.get('sortByMetric');
-        sortedData.sort(function (a, b) {
-          if (sortByMetric === 'score') {
-            return numberSort(a.performanceData[0].score, b.performanceData[0].score) * sortCriteria.order;
-          } else if (sortByMetric === 'completion') {
-            return numberSort(a.performanceData[0].completionDone, b.performanceData[0].completionDone) * sortCriteria.order;
-          } else {
-            return numberSort(a.performanceData[0].studyTime, b.performanceData[0].studyTime) * sortCriteria.order;
-          }
-        });
+        //alphabeticalStringSort
+        if (metricsIndex === -1) {
+          sortedData.sort(function(a, b) {
+            return alphabeticalStringSort(a.user, b.user) * sortCriteria.order;
+          });
+        } else if (metricsIndex >= 0) {
+          let sortByMetric = this.get('sortByMetric');
+          sortedData.sort(function(a, b) {
+            if (sortByMetric === 'score') {
+              return (
+                numberSort(
+                  a.performanceData[0].score,
+                  b.performanceData[0].score
+                ) * sortCriteria.order
+              );
+            } else if (sortByMetric === 'completion') {
+              return (
+                numberSort(
+                  a.performanceData[0].completionDone,
+                  b.performanceData[0].completionDone
+                ) * sortCriteria.order
+              );
+            } else {
+              return (
+                numberSort(
+                  a.performanceData[0].studyTime,
+                  b.performanceData[0].studyTime
+                ) * sortCriteria.order
+              );
+            }
+          });
+        }
+        return sortedData;
+      } else {
+        return performanceData;
       }
-      return sortedData;
-    } else {
-      return performanceData;
     }
-  }),
+  ),
 
   /**
    * List of  metrics to be displayed by the sub-header component for the average
@@ -153,13 +170,15 @@ export default Ember.Component.extend({
    * @isAsc {Boolean}
    * @constant {Array}
    */
-  averageMetrics: Ember.A([Ember.Object.create({
-    'value': 'student',
-    'sorted':false,
-    'isAsc':false,
-    'visible': true,
-    'index': -1
-  })]),
+  averageMetrics: Ember.A([
+    Ember.Object.create({
+      value: 'student',
+      sorted: false,
+      isAsc: false,
+      visible: true,
+      index: -1
+    })
+  ]),
 
   /**
    * List of selected options from the data picker.
@@ -171,7 +190,7 @@ export default Ember.Component.extend({
    * Indicate if the table is on collection level
    * @property {Boolean}
    */
-  isCollection:Ember.computed.equal('headerType', 'collection'),
+  isCollection: Ember.computed.equal('headerType', 'collection'),
 
   /*
    * @prop { Number } defaultSortOrder - Default sort order for values in columns (1 = ascending; -1 = descending)
@@ -196,7 +215,7 @@ export default Ember.Component.extend({
    * Initialize the table's sort criteria
    * @return {Object}
    */
-  initSortCriteria: function () {
+  initSortCriteria: function() {
     return {
       metricsIndex: -1,
       order: this.get('defaultSortOrder')

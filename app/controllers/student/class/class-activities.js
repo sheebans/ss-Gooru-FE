@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import { formatDate } from 'gooru-web/utils/utils';
 /**
  * Class activities controller
@@ -7,7 +7,6 @@ import { formatDate } from 'gooru-web/utils/utils';
  */
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -16,15 +15,14 @@ export default Ember.Controller.extend({
   /**
    * @requires service:api-sdk/class-activity
    */
-  classActivityService: Ember.inject.service("api-sdk/class-activity"),
+  classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
   // -------------------------------------------------------------------------
   // Attributes
 
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
-  },
+  actions: {},
 
   // -------------------------------------------------------------------------
   // Events
@@ -43,12 +41,11 @@ export default Ember.Controller.extend({
   /**
    * @property {Class}
    */
-  'class': Ember.computed.alias('classController.class')
+  class: Ember.computed.alias('classController.class')
 
   // -------------------------------------------------------------------------
   // Observers
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

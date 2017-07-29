@@ -19,11 +19,9 @@ const Validations = buildValidations({
  *
  * @typedef {Object} ProfileModel
  */
-export default Ember.Object.extend(Validations,{
-
+export default Ember.Object.extend(Validations, {
   /**
    * @property {string} email - The profile email
    */
   email: null
-
 });

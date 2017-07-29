@@ -26,6 +26,5 @@ test('Layout', function(assert) {
 
     const cards = $questionsContainer.find('.questions .card');
     assert.equal(cards.length, 1, 'Missing cards');
-
   });
 });

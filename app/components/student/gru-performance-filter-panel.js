@@ -8,14 +8,18 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-performance-filter-panel', 'col-md-2', 'col-sm-4', 'col-xs-12'],
+  classNames: [
+    'gru-performance-filter-panel',
+    'col-md-2',
+    'col-sm-4',
+    'col-xs-12'
+  ],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -23,40 +27,40 @@ export default Ember.Component.extend(ConfigurationMixin, {
     /**
      * Expand filter panel
      */
-    expandPanel: function (filterType) {
-      switch (filterType){
-        case 'activity':
-          this.toggleProperty('isActivityFiltersExpanded');
-          break;
-        case 'course':
-          this.toggleProperty('isCourseFiltersExpanded');
-          break;
-        case 'lesson':
-          this.toggleProperty('isLessonFiltersExpanded');
-          break;
-        case 'subject':
-          this.toggleProperty('isSubjectFiltersExpanded');
-          break;
-        case 'time-period':
-          this.toggleProperty('isTimePeriodFiltersExpanded');
-          break;
-        case 'unit':
-          this.toggleProperty('isUnitFiltersExpanded');
-          break;
+    expandPanel: function(filterType) {
+      switch (filterType) {
+      case 'activity':
+        this.toggleProperty('isActivityFiltersExpanded');
+        break;
+      case 'course':
+        this.toggleProperty('isCourseFiltersExpanded');
+        break;
+      case 'lesson':
+        this.toggleProperty('isLessonFiltersExpanded');
+        break;
+      case 'subject':
+        this.toggleProperty('isSubjectFiltersExpanded');
+        break;
+      case 'time-period':
+        this.toggleProperty('isTimePeriodFiltersExpanded');
+        break;
+      case 'unit':
+        this.toggleProperty('isUnitFiltersExpanded');
+        break;
       }
     },
     /**
      * Select Activity
      * @param activity option
      */
-    selectActivity: function (activity) {
-      this.set('activityFilter',activity);
+    selectActivity: function(activity) {
+      this.set('activityFilter', activity);
     },
     /**
      * Selects the course
      * @param courseId
      */
-    selectCourse: function (courseId) {
+    selectCourse: function(courseId) {
       this.set('courseId', courseId);
       this.set('unitId', null);
       this.set('lessonId', null);
@@ -66,7 +70,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * Selects the lesson
      * @param lessonId
      */
-    selectLesson: function (lessonId) {
+    selectLesson: function(lessonId) {
       this.set('lessonId', lessonId);
       this.sendAction('onSelectLesson', lessonId);
     },
@@ -74,7 +78,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * Selects the unit
      * @param unitId
      */
-    selectUnit: function (unitId) {
+    selectUnit: function(unitId) {
       this.set('unitId', unitId);
       this.set('lessonId', null);
       this.sendAction('onSelectUnit', unitId);
@@ -83,7 +87,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
     /**
      * Loads report data
      */
-    updateReport: function () {
+    updateReport: function() {
       this.sendAction('onUpdateReport');
     }
   },
@@ -96,7 +100,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   init: function() {
     let component = this;
-    component._super( ...arguments );
+    component._super(...arguments);
 
     if (component.get('filterCriteria')) {
       component.setProperties({
@@ -112,13 +116,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * Activities filter options
    */
-  activities: [
-    'study'
-  ],
+  activities: ['study'],
   /**
    * Activity Filter selected
    */
-  activityFilter:'study',
+  activityFilter: 'study',
 
   /**
    * @property {string}
@@ -190,9 +192,15 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * Computed property that indicates if show the activity option selected
    */
-  showActivitySubcategory : Ember.computed('activityFilter','isActivityFiltersExpanded', function(){
-    return this.get('activityFilter') && !this.get('isActivityFiltersExpanded');
-  }),
+  showActivitySubcategory: Ember.computed(
+    'activityFilter',
+    'isActivityFiltersExpanded',
+    function() {
+      return (
+        this.get('activityFilter') && !this.get('isActivityFiltersExpanded')
+      );
+    }
+  ),
 
   /**
    * Selected unit
@@ -215,8 +223,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   unitId: null
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 });

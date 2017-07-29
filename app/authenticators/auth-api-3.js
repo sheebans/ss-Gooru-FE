@@ -7,10 +7,9 @@ import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
  * @typedef {Object} AuthApi30
  */
 export default BaseAuthenticator.extend({
-
   authenticationService: Ember.inject.service('api-sdk/authentication'),
 
-  restore: function (data) {
+  restore: function(data) {
     return Ember.RSVP.resolve(data);
   },
 
@@ -18,18 +17,25 @@ export default BaseAuthenticator.extend({
     let promise;
     if (options.isAnonymous) {
       return this.get('authenticationService').authenticateAsAnonymous();
-    } else if(options.hasAccessToken) {
-      promise = this.get('authenticationService').authenticateWithToken(options.accessToken);
-    } else if(options.hasUserData) {
-      promise = new Ember.RSVP.Promise(function(resolve) {resolve(options.user);});
+    } else if (options.hasAccessToken) {
+      promise = this.get('authenticationService').authenticateWithToken(
+        options.accessToken
+      );
+    } else if (options.hasUserData) {
+      promise = new Ember.RSVP.Promise(function(resolve) {
+        resolve(options.user);
+      });
     } else {
-      promise = this.get('authenticationService').authenticateWithCredentials(options.username, options.password);
+      promise = this.get('authenticationService').authenticateWithCredentials(
+        options.username,
+        options.password
+      );
     }
     return promise.then(response => {
       let localStorage = window.localStorage;
-      let itemId = response.user.gooruUId + '_logins';
+      let itemId = `${response.user.gooruUId}_logins`;
       let localStorageItem = localStorage.getItem(itemId);
-      if(!localStorageItem) {
+      if (!localStorageItem) {
         localStorage.setItem(itemId, 1);
       } else {
         localStorage.setItem(itemId, +localStorageItem + 1);
@@ -37,5 +43,4 @@ export default BaseAuthenticator.extend({
       return response;
     });
   }
-
 });

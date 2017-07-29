@@ -1,11 +1,11 @@
-.gru-preview-course{
+.gru-preview-course {
   width: 100%;
   background-color: $light-100;
   padding: 10px;
   border-radius: 4px;
   @include flexbox();
   @include flex-direction(column);
-  .header-action{
+  .header-action {
     @include flexbox;
     @include justify-content(flex-end);
     .btn {
@@ -37,34 +37,34 @@
       vertical-align: top;
       margin-left: 15px;
       width: 65%;
-      .title-section{
+      .title-section {
         margin: 0 0 5px;
-        .title{
+        .title {
           display: inline-block;
-          color:$blue-400;
+          color: $blue-400;
           font-size: $font-title;
-          margin:0;
+          margin: 0;
         }
       }
-      .remixed-by{
-        img{
+      .remixed-by {
+        img {
           width: 20px;
           height: 20px;
           border-radius: 50px;
           cursor: pointer;
         }
-        div > *{
+        div > * {
           display: inline-block;
         }
         span {
           cursor: pointer;
         }
         span.title {
-          margin:2px 5px 10px 0;
+          margin: 2px 5px 10px 0;
           cursor: auto;
         }
-        .owner{
-          color:$blue-400;
+        .owner {
+          color: $blue-400;
           max-width: 160px;
           @include text-overflow;
           vertical-align: middle;
@@ -77,7 +77,7 @@
       line-height: $font-size-h6;
     }
   }
-  .taxonomy.gru-taxonomy-tag-list.in-card{
+  .taxonomy.gru-taxonomy-tag-list.in-card {
     .popover {
       .arrow:after {
         border-top-color: $gray-lighter;
@@ -87,24 +87,24 @@
       }
     }
   }
-  .units{
-    .panel-body{
+  .units {
+    .panel-body {
       max-height: 277px;
       overflow-y: auto;
       padding: 5px;
-      .unit{
+      .unit {
         @include flexbox();
         @include align-items(center);
         padding: 5px 10px;
         border-bottom: 1px solid $gray-lighter;
-        .prefix{
+        .prefix {
           padding: 5px 5px 5px 0;
           margin: 0 5px;
           border-right: 1px solid $dark-100;
-          color:$gray-base;
+          color: $gray-base;
           min-width: 50px;
         }
-        .unit-title{
+        .unit-title {
           width: 75%;
           padding: 0 5px 0 10px;
           line-height: $font-size-h6;
@@ -115,14 +115,14 @@
       }
     }
   }
-  .actions{
+  .actions {
     @include flexbox();
     margin-bottom: 20px;
     @include align-self(flex-end);
     button {
       margin: 0 5px;
     }
-    .cancel{
+    .cancel {
       border: 1px solid $gray-light;
     }
   }

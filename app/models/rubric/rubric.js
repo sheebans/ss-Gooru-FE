@@ -17,8 +17,7 @@ const Validations = buildValidations({
  *
  * @typedef {Object} Rubric
  */
-export default Ember.Object.extend(Validations,{
-
+export default Ember.Object.extend(Validations, {
   /**
    * @property {String} id
    */
@@ -47,7 +46,7 @@ export default Ember.Object.extend(Validations,{
   /**
    * @property {Number[]} Array with the audience ids
    */
-  audience:Ember.A([]),
+  audience: Ember.A([]),
 
   /**
    * @property {boolean}
@@ -62,7 +61,7 @@ export default Ember.Object.extend(Validations,{
   /**
    * @property {Date} Date in which the rubric was published
    */
-  publishDate:null,
+  publishDate: null,
 
   /**
    * @property {RubricCategory[]}
@@ -94,7 +93,7 @@ export default Ember.Object.extend(Validations,{
    */
   standards: Ember.A([]),
 
- /**
+  /**
    * @property {number} total points
    */
   totalPoints: null,
@@ -107,27 +106,27 @@ export default Ember.Object.extend(Validations,{
   /**
    * @property {boolean} Indicate if a Rubric at question level is ON or not
    */
-  rubricOn:false,
+  rubricOn: false,
 
   /**
    * @property {string} mimeType
    */
-  mimeType:'application/pdf,image/*',
+  mimeType: 'application/pdf,image/*',
 
   /**
    * @property {String} owner id
    */
-  owner:null,
+  owner: null,
 
   /**
    * @property {Date} Date in which the rubric was created
    */
-  createdDate:null,
+  createdDate: null,
 
   /**
    * @property {Date} Date in which the rubric was updated
    */
-  updatedDate:null,
+  updatedDate: null,
 
   /**
    * @property {String} Rubric tenant id
@@ -162,12 +161,17 @@ export default Ember.Object.extend(Validations,{
    */
   copy: function() {
     var properties = this.getProperties(this.modelProperties());
-    properties.categories = this.get('categories') ? this.get('categories').map(category => category.copy()) :  null;
+    properties.categories = this.get('categories')
+      ? this.get('categories').map(category => category.copy())
+      : null;
     var audience = this.get('audience');
     var standards = this.get('standards');
     properties.audience = audience ? audience.slice(0) : null;
     properties.standards = standards.slice(0);
-    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(),properties);
+    return this.get('constructor').create(
+      Ember.getOwner(this).ownerInjection(),
+      properties
+    );
   },
 
   /**
@@ -200,5 +204,4 @@ export default Ember.Object.extend(Validations,{
     }
     return properties;
   }
-
 });

@@ -8,15 +8,13 @@ import Goal from 'gooru-web/models/goal/goal';
  * @typedef {Object} GoalSerializer
  */
 export default Ember.Object.extend({
-
-
   /**
    * Serialize a Goal/Goal object into a JSON representation required by the Create goal endpoint
    *
    * @param model - The goal model to be serialized
    * @returns {Object} JSON Object representation of the goal model
    */
-  serializeCreateGoal: function (model) {
+  serializeCreateGoal: function(model) {
     return this.serializeGoal(model);
   },
 
@@ -26,14 +24,14 @@ export default Ember.Object.extend({
    * @param {Goal} model - The goal model to be serialized
    * @returns {Object} JSON Object representation of the unit model
    */
-  serializeGoal: function (model) {
+  serializeGoal: function(model) {
     return {
-      "title": model.get('title'),
-      "description": model.get('description'),
-      "start_date": momentToTimestamp(toUtc(model.get("startDate"))),
-      "end_date": momentToTimestamp(toUtc(model.get("endDate"))),
-      "status": model.get("status"),
-      "reflection" : model.get("reflection")
+      title: model.get('title'),
+      description: model.get('description'),
+      start_date: momentToTimestamp(toUtc(model.get('startDate'))),
+      end_date: momentToTimestamp(toUtc(model.get('endDate'))),
+      status: model.get('status'),
+      reflection: model.get('reflection')
     };
   },
 
@@ -59,7 +57,7 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {Goal}
      */
-  normalizeGoal: function (data) {
+  normalizeGoal: function(data) {
     return Goal.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
       title: data.title,
@@ -71,5 +69,4 @@ export default Ember.Object.extend({
       order: data.sequence_id
     });
   }
-
 });

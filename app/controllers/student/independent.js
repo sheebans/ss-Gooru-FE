@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service('session'),
@@ -13,11 +12,11 @@ export default Ember.Controller.extend({
     * Collapses the header section
     * @param {boolean} state
     */
-    toggleHeader: function(state){
+    toggleHeader: function(state) {
       var $panels = $('.header .panel');
       if (state) {
         $panels.slideUp();
-      }else{
+      } else {
         $panels.slideDown();
       }
     }
@@ -54,7 +53,7 @@ export default Ember.Controller.extend({
    */
   units: null,
 
-   /**
+  /**
    * The menuItem selected
    * @property {String}
    */
@@ -64,10 +63,10 @@ export default Ember.Controller.extend({
   * Percentage value for the score chart
   * @property {Boolean}
   */
- percentageToShow: Ember.computed('performance.scoreInPercentage', function() {
-   const score = this.get('performance.scoreInPercentage');
-   return score || score === 0 ? `${score}%` : '--';
- }),
+  percentageToShow: Ember.computed('performance.scoreInPercentage', function() {
+    const score = this.get('performance.scoreInPercentage');
+    return score || score === 0 ? `${score}%` : '--';
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -75,7 +74,7 @@ export default Ember.Controller.extend({
    * Selected the menu item
    * @param {string} item
    */
-  selectMenuItem: function(item){
+  selectMenuItem: function(item) {
     this.set('menuItem', item);
   }
 });

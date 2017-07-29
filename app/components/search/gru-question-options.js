@@ -1,33 +1,29 @@
 import Ember from 'ember';
-import {QUESTION_TYPES} from 'gooru-web/config/question';
-
+import { QUESTION_TYPES } from 'gooru-web/config/question';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-question-options'],
+  classNames: ['gru-question-options'],
 
   // -------------------------------------------------------------------------
   // Actions
 
-  actions:{
-
+  actions: {
     /**
      * selectOption selects menu option
      */
-    selectOption: function(option){
-      this.sendAction("onSelectedOption", option);
+    selectOption: function(option) {
+      this.sendAction('onSelectedOption', option);
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -117,7 +113,7 @@ export default Ember.Component.extend({
    */
 
   htReorderSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get("selectedOptionTypes");
+    const selectedOptions = this.get('selectedOptionTypes');
     return selectedOptions.includes(QUESTION_TYPES.hotTextReorder);
   }),
 
@@ -146,8 +142,6 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 });

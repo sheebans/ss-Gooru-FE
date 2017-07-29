@@ -4,25 +4,22 @@ import Ember from 'ember';
  * Taxonomy tag list
  */
 export default Ember.Component.extend({
-
-
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['taxonomy', 'gru-taxonomy-tag-list'],
 
-  classNameBindings: ['isInCard:in-card','showDescription:show-description'],
+  classNameBindings: ['isInCard:in-card', 'showDescription:show-description'],
 
   // --------------------------------------------
   // Actions
   actions: {
-    removeTag: function (tag) {
-      if(this.get("onRemove")) {
-        this.get("onRemove")(tag);
+    removeTag: function(tag) {
+      if (this.get('onRemove')) {
+        this.get('onRemove')(tag);
       }
     }
   },
-
 
   // -------------------------------------------------------------------------
   // Events
@@ -60,7 +57,7 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} Indicate if show taxonomy description in the popover
    */
-  showDescription:false,
+  showDescription: false,
 
   /**
    * @property {TaxonomyTag[]} taxonomy tag
@@ -73,13 +70,12 @@ export default Ember.Component.extend({
    */
   tagsVisible: null,
 
-
   /**
    * @property {TaxonomyTag[]} taxonomy tag
    */
-  visibleTags: Ember.computed("tags.[]", function(){
-    const tagsVisible = this.get("tagsVisible") || 999999; //long number so it show all when no provided
-    return this.get("tags").filter(function(tag, index){
+  visibleTags: Ember.computed('tags.[]', function() {
+    const tagsVisible = this.get('tagsVisible') || 999999; //long number so it show all when no provided
+    return this.get('tags').filter(function(tag, index) {
       return index < tagsVisible;
     });
   }),
@@ -87,16 +83,16 @@ export default Ember.Component.extend({
   /**
    * @property {number}
    */
-  totalTags: Ember.computed.alias("tags.length"),
+  totalTags: Ember.computed.alias('tags.length'),
 
   /**
    * Indicates how many tags are not visible
    * @property {number}
    */
-  nonVisibleTags: Ember.computed("totalTags", function(){
-    const totalTags = this.get("totalTags");
-    const tagsVisible = this.get("tagsVisible") || totalTags;
-    const nonVisibleTags = (totalTags - tagsVisible);
+  nonVisibleTags: Ember.computed('totalTags', function() {
+    const totalTags = this.get('totalTags');
+    const tagsVisible = this.get('tagsVisible') || totalTags;
+    const nonVisibleTags = totalTags - tagsVisible;
     return nonVisibleTags > 0 ? nonVisibleTags : 0;
   }),
 
@@ -104,7 +100,6 @@ export default Ember.Component.extend({
    * @property {string}
    */
   onRemove: null,
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -114,7 +109,10 @@ export default Ember.Component.extend({
 
     if ($anchor.length) {
       let component = this;
-      let placement = (this.get('isInCard') || this.get('isInSearch')) ? 'bottom' : 'auto right';
+      let placement =
+        this.get('isInCard') || this.get('isInSearch')
+          ? 'bottom'
+          : 'auto right';
 
       $anchor.addClass('clickable');
       $anchor.attr('data-html', 'true');
@@ -138,5 +136,4 @@ export default Ember.Component.extend({
       });
     }
   }
-
 });

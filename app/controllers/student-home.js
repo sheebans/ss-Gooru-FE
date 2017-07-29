@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import {arrayChunks} from 'gooru-web/utils/utils';
+import { arrayChunks } from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Controller.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -17,20 +16,19 @@ export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Actions
 
-
   // -------------------------------------------------------------------------
   // Events
-  init: function () {
+  init: function() {
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
-    const localStorageItem = userId + '_dontShowWelcomeModal';
-    const localStorageLogins = userId + '_logins';
+    const localStorageItem = `${userId}_dontShowWelcomeModal`;
+    const localStorageLogins = `${userId}_logins`;
 
-    if(!localStorage.getItem(localStorageItem)) {
+    if (!localStorage.getItem(localStorageItem)) {
       this.send('showModal', 'content.modals.gru-welcome-message');
     }
     let loginCount = localStorage.getItem(localStorageLogins);
-    if(loginCount) {
+    if (loginCount) {
       this.set('loginCount', +loginCount);
     }
   },
@@ -46,14 +44,19 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @property {Class[]}
    */
-  activeClasses: Ember.computed('applicationController.myClasses.classes.[]', function(){
-    return this.get('applicationController.myClasses').getStudentActiveClasses(this.get('profile.id'));
-  }),
+  activeClasses: Ember.computed(
+    'applicationController.myClasses.classes.[]',
+    function() {
+      return this.get(
+        'applicationController.myClasses'
+      ).getStudentActiveClasses(this.get('profile.id'));
+    }
+  ),
 
   /**
    * @property {Array[]}
    */
-  activeClassesChunks: Ember.computed('activeClasses', function(){
+  activeClassesChunks: Ember.computed('activeClasses', function() {
     return arrayChunks(this.get('activeClasses'), 2);
   }),
 
@@ -65,7 +68,7 @@ export default Ember.Controller.extend(ModalMixin, {
   /**
    * @property {Boolean} Indicate if the student has classes
    */
-  hasClasses:Ember.computed('totalJoinedClasses',function(){
+  hasClasses: Ember.computed('totalJoinedClasses', function() {
     return this.get('totalJoinedClasses') > 0;
   }),
 

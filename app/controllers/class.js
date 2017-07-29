@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import {KEY_CODES} from 'gooru-web/config/config';
+import { KEY_CODES } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service('session'),
@@ -33,11 +32,11 @@ export default Ember.Controller.extend({
    */
   units: null,
 
-   /**
+  /**
    * The menuItem selected
    * @property {String}
    */
-   menuItem: null,
+  menuItem: null,
 
   /**
    * If analytics is fullScreen
@@ -51,7 +50,7 @@ export default Ember.Controller.extend({
   */
   showChannels: true,
 
- /**
+  /**
    * Indicates if a user is a teacher of this class
    * @property {isTeacher}
    * @see {Class} class
@@ -74,19 +73,17 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Observers
 
-  setupSubscriptions: Ember.on('init', function () {
+  setupSubscriptions: Ember.on('init', function() {
     var controller = this;
-    Ember.$(window).on('keyup.exitFullScreen', function (e) {
-
+    Ember.$(window).on('keyup.exitFullScreen', function(e) {
       if (e.keyCode === KEY_CODES.ESCAPE && controller.get('isFullScreen')) {
         // Exit full screen mode
         controller.set('isFullScreen', false);
       }
     });
-
   }),
 
-  removeSubscriptions: Ember.on('willDestroy', function () {
+  removeSubscriptions: Ember.on('willDestroy', function() {
     Ember.$(window).off('keyup.exitFullScreen');
   }),
 
@@ -95,7 +92,7 @@ export default Ember.Controller.extend({
   /**
    * Toggles the full screen mode for all class children pages
    */
-  toggleFullScreen: function(){
+  toggleFullScreen: function() {
     var isFullScreen = this.get('isFullScreen');
     this.set('isFullScreen', !isFullScreen);
   },
@@ -103,7 +100,7 @@ export default Ember.Controller.extend({
   /**
    * Exits the full screen mode for all class children pages
    */
-  exitFullScreen: function(){
+  exitFullScreen: function() {
     this.set('isFullScreen', false);
   },
 
@@ -111,7 +108,7 @@ export default Ember.Controller.extend({
    * Selected the menu item
    * @param {string} item
    */
-  selectMenuItem: function(item){
+  selectMenuItem: function(item) {
     this.set('menuItem', item);
   },
 
@@ -119,8 +116,8 @@ export default Ember.Controller.extend({
   * Hide channels in the class page
   * @param empty
   */
-  hideChannels: function(){
-      this.toggleProperty('showChannels');
-      //Ember.$('#channel').hide();
-    }
+  hideChannels: function() {
+    this.toggleProperty('showChannels');
+    //Ember.$('#channel').hide();
+  }
 });

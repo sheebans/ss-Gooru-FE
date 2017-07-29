@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} Grade Question
  */
 export default Ember.Object.extend({
-
   /**
    * @property {String} classId
    */
@@ -26,5 +25,4 @@ export default Ember.Object.extend({
    * @property {gradeQuestionItem[]}
    */
   gradeItems: []
-
 });

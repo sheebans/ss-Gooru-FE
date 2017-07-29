@@ -1,8 +1,13 @@
 import Ember from 'ember';
 
+/**
+ * Initialize session service
+ */
 export function initialize(application) {
   const sessionService = application.lookup('service:session');
-  const quizzesConfigurationService = application.lookup('service:quizzes/configuration');
+  const quizzesConfigurationService = application.lookup(
+    'service:quizzes/configuration'
+  );
 
   sessionService.reopen({
     /**
@@ -30,20 +35,20 @@ export function initialize(application) {
      * @property {string} Session user id
      */
     userId: Ember.computed('userData', function() {
-      return this.get('userData')['gooruUId'];
+      return this.get('userData').gooruUId;
     }),
 
     /**
      * @property {boolean} Indicates if the session is for an anonymous user
      */
-    isAnonymous:  Ember.computed('data.authenticated', function() {
-      return this.get('data.authenticated')['isAnonymous'];
+    isAnonymous: Ember.computed('data.authenticated', function() {
+      return this.get('data.authenticated').isAnonymous;
     }),
 
     /**
      * @property {string} session tenant id
      */
-    tenantId: Ember.computed.alias("data.authenticated.tenant.tenantId"),
+    tenantId: Ember.computed.alias('data.authenticated.tenant.tenantId'),
 
     /**
      * @property {string} session partner id
@@ -55,7 +60,9 @@ export function initialize(application) {
      * @returns {*|Ember.RSVP.Promise}
      */
     authenticateAsAnonymous: function() {
-      return this.authenticate('authenticator:auth-api-3', { isAnonymous: true });
+      return this.authenticate('authenticator:auth-api-3', {
+        isAnonymous: true
+      });
     },
 
     /**

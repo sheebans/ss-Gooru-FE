@@ -11,16 +11,20 @@ import GoalAdapter from 'gooru-web/adapters/goal/goal';
  * @augments Ember/Service
  */
 export default Ember.Service.extend({
-
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('serializer', GoalSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('adapter', GoalAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'serializer',
+      GoalSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'adapter',
+      GoalAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -37,7 +41,6 @@ export default Ember.Service.extend({
    */
   adapter: null,
 
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -46,10 +49,10 @@ export default Ember.Service.extend({
    * @param {Goal} goal
    * @returns {Promise|Goal} returns the goal model with the newly assigned ID
    */
-  createGoal: function (goal) {
+  createGoal: function(goal) {
     var data = this.get('serializer').serializeCreateGoal(goal);
 
-    return this.get('adapter').createGoal(data).then(function (goalId) {
+    return this.get('adapter').createGoal(data).then(function(goalId) {
       goal.set('id', goalId);
       return goalId;
     });
@@ -60,10 +63,10 @@ export default Ember.Service.extend({
    * @param {Goal} goal
    * @returns {Promise|Goal} returns the goal model
    */
-  updateGoal: function (goal, goalId) {
+  updateGoal: function(goal, goalId) {
     var data = this.get('serializer').serializeGoal(goal);
 
-    return this.get('adapter').updateGoal(data, goalId).then(function () {
+    return this.get('adapter').updateGoal(data, goalId).then(function() {
       return goal;
     });
   },
@@ -73,7 +76,7 @@ export default Ember.Service.extend({
    * @param {String} goalId
    * @returns {Promise|boolean} returns true if deleted
    */
-  deleteGoal: function (goalId) {
+  deleteGoal: function(goalId) {
     return this.get('adapter').deleteGoal(goalId);
   },
 
@@ -82,28 +85,38 @@ export default Ember.Service.extend({
    * @param {string} userId
    * @returns {Promise|Goal[]}
    */
-  getGoalsByUser: function (userId) {
+  getGoalsByUser: function(userId) {
     const service = this;
-    return service.get('adapter').getGoalsByUser(userId)
-      .then(function (goalsData) {
+    return service
+      .get('adapter')
+      .getGoalsByUser(userId)
+      .then(function(goalsData) {
         return service.get('serializer').normalizeGetGoals(goalsData);
-    });
+      });
   },
 
   /**
    * Get Status Options
    * @returns {Array} returns the list of possible status for a goal
    */
-  getGoalStatusOptions: function () {
+  getGoalStatusOptions: function() {
     let options = [
-      {id: 'not_started',
-        name: this.get('i18n').t('goals.manage.not_started').string},
-      {id: 'activated',
-        name: this.get('i18n').t('goals.manage.activated').string},
-      {id: 'completed',
-        name: this.get('i18n').t('goals.manage.completed').string},
-      {id: 'dropped',
-        name: this.get('i18n').t('goals.manage.dropped').string}
+      {
+        id: 'not_started',
+        name: this.get('i18n').t('goals.manage.not_started').string
+      },
+      {
+        id: 'activated',
+        name: this.get('i18n').t('goals.manage.activated').string
+      },
+      {
+        id: 'completed',
+        name: this.get('i18n').t('goals.manage.completed').string
+      },
+      {
+        id: 'dropped',
+        name: this.get('i18n').t('goals.manage.dropped').string
+      }
     ];
     return options;
   },
@@ -113,12 +126,11 @@ export default Ember.Service.extend({
    * @param {Goal} goal
    * @returns Boolean
    */
-  checkBothDates: function (startDate, endDate) {
+  checkBothDates: function(startDate, endDate) {
     let areOk = true;
-    if(startDate > endDate){
+    if (startDate > endDate) {
       areOk = false;
     }
     return areOk;
   }
-
 });

@@ -5,7 +5,6 @@ import Ember from 'ember';
  * Controller responsible of the logic for the course map page
  */
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -49,7 +48,7 @@ export default Ember.Controller.extend({
      */
     locateMe: function(location) {
       this.set('location', location);
-      this.set('showLocation',true);
+      this.set('showLocation', true);
     }
   },
 
@@ -75,7 +74,7 @@ export default Ember.Controller.extend({
   /**
    *Show the current location
    */
-  showLocation:true,
+  showLocation: true,
 
   openingLocation: Ember.computed('location', function() {
     if (this.get('isFirstLoad')) {
@@ -93,5 +92,4 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

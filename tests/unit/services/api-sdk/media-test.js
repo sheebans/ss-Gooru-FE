@@ -13,29 +13,38 @@ test('Upload content file', function(assert) {
   let expected = {
     filename: 'image-id.png'
   };
-  service.set('session', Ember.Object.create({
-    'cdnUrls': {
-      content: 'http://test-bucket01.s3.amazonaws.com/'
-    }
-  }));
+  service.set(
+    'session',
+    Ember.Object.create({
+      cdnUrls: {
+        content: 'http://test-bucket01.s3.amazonaws.com/'
+      }
+    })
+  );
   let entityType = ENTITY_TYPE.CONTENT;
 
   assert.expect(3);
 
-  service.set('mediaAdapter', Ember.Object.create({
-    uploadFile: function(fileData, type) {
-      assert.deepEqual(type, entityType, 'Wrong type');
-      assert.deepEqual(fileData, file, 'Wrong file object');
-      return Ember.RSVP.resolve(expected);
-    }
-  }));
+  service.set(
+    'mediaAdapter',
+    Ember.Object.create({
+      uploadFile: function(fileData, type) {
+        assert.deepEqual(type, entityType, 'Wrong type');
+        assert.deepEqual(fileData, file, 'Wrong file object');
+        return Ember.RSVP.resolve(expected);
+      }
+    })
+  );
 
   var done = assert.async();
-  service.uploadContentFile(file)
-    .then(function(response) {
-      assert.equal(response, 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image id');
-      done();
-    });
+  service.uploadContentFile(file).then(function(response) {
+    assert.equal(
+      response,
+      'http://test-bucket01.s3.amazonaws.com/image-id.png',
+      'Wrong image id'
+    );
+    done();
+  });
 });
 
 test('Upload user file', function(assert) {
@@ -44,27 +53,36 @@ test('Upload user file', function(assert) {
   let expected = {
     filename: 'image-id.png'
   };
-  service.set('session', Ember.Object.create({
-    'cdnUrls': {
-      user: 'http://test-bucket01.s3.amazonaws.com/'
-    }
-  }));
+  service.set(
+    'session',
+    Ember.Object.create({
+      cdnUrls: {
+        user: 'http://test-bucket01.s3.amazonaws.com/'
+      }
+    })
+  );
   let entityType = ENTITY_TYPE.USER;
 
   assert.expect(3);
 
-  service.set('mediaAdapter', Ember.Object.create({
-    uploadFile: function(fileData, type) {
-      assert.deepEqual(type, entityType, 'Wrong type');
-      assert.deepEqual(fileData, file, 'Wrong file object');
-      return Ember.RSVP.resolve(expected);
-    }
-  }));
+  service.set(
+    'mediaAdapter',
+    Ember.Object.create({
+      uploadFile: function(fileData, type) {
+        assert.deepEqual(type, entityType, 'Wrong type');
+        assert.deepEqual(fileData, file, 'Wrong file object');
+        return Ember.RSVP.resolve(expected);
+      }
+    })
+  );
 
   var done = assert.async();
-  service.uploadUserFile(file)
-    .then(function(response) {
-      assert.equal(response, 'http://test-bucket01.s3.amazonaws.com/image-id.png', 'Wrong image id');
-      done();
-    });
+  service.uploadUserFile(file).then(function(response) {
+    assert.equal(
+      response,
+      'http://test-bucket01.s3.amazonaws.com/image-id.png',
+      'Wrong image id'
+    );
+    done();
+  });
 });

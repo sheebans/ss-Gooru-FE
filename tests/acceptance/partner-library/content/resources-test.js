@@ -21,10 +21,10 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/library/1/content/resources');
 
-    const $resourcesContainer = find(".content-resources");
-    T.exists(assert, $resourcesContainer, "Missing resources container");
+    const $resourcesContainer = find('.content-resources');
+    T.exists(assert, $resourcesContainer, 'Missing resources container');
 
-    const cards = $resourcesContainer.find(".resources .card");
-    assert.equal(cards.length, 1, "Missing cards");
+    const cards = $resourcesContainer.find('.resources .card');
+    assert.equal(cards.length, 1, 'Missing cards');
   });
 });

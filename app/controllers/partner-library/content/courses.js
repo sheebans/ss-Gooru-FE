@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -47,8 +46,10 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showMoreResultsButton: Ember.computed('courses.[]', function() {
-    return this.get('courses.length') &&
-      (this.get('courses.length') % this.get('pagination.pageSize') === 0);
+    return (
+      this.get('courses.length') &&
+      this.get('courses.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
   // -------------------------------------------------------------------------
@@ -72,10 +73,22 @@ export default Ember.Controller.extend({
     pagination.page = pagination.page + 1;
     pagination.offset = pagination.page * pagination.pageSize;
 
-    controller.get('libraryService')
-    .fetchLibraryContent(libraryId, 'course', pagination)
-    .then(courses => controller.set('courses', controller.get('courses')
-    .concat(controller.mapOwners(courses.libraryContent.courses, courses.libraryContent.ownerDetails))));
+    controller
+      .get('libraryService')
+      .fetchLibraryContent(libraryId, 'course', pagination)
+      .then(courses =>
+        controller.set(
+          'courses',
+          controller
+            .get('courses')
+            .concat(
+              controller.mapOwners(
+                courses.libraryContent.courses,
+                courses.libraryContent.ownerDetails
+              )
+            )
+        )
+      );
   },
 
   resetValues: function() {
@@ -91,16 +104,15 @@ export default Ember.Controller.extend({
    * @param {Course[]} course list
    * @param {Owner[]} owner list
    */
-  mapOwners: function (courses, owners) {
+  mapOwners: function(courses, owners) {
     let ownerMap = {};
-    owners.forEach(function (owner) {
+    owners.forEach(function(owner) {
       ownerMap[owner.id] = owner;
     });
-    let mappedCourses = courses.map(function (course) {
+    let mappedCourses = courses.map(function(course) {
       course.owner = ownerMap[course.ownerId];
       return course;
     });
     return mappedCourses;
   }
-
 });

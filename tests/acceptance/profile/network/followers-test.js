@@ -21,10 +21,14 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/network/followers');
 
-    const $contentCourseContainer = find(".controller.network-followers");
-    T.exists(assert, $contentCourseContainer, "Missing network followers container");
+    const $contentCourseContainer = find('.controller.network-followers');
+    T.exists(
+      assert,
+      $contentCourseContainer,
+      'Missing network followers container'
+    );
 
-    const cards = $contentCourseContainer.find(".followers .card");
-    assert.equal(cards.length, 6, "Missing cards");
+    const cards = $contentCourseContainer.find('.followers .card');
+    assert.equal(cards.length, 6, 'Missing cards');
   });
 });

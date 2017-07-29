@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   /**
    * @property {object} Collection item
    */
@@ -31,5 +30,4 @@ export default Ember.Component.extend({
    * @property {boolean} Indicates if collection has more than 1 question
    */
   hasSeveralQuestions: Ember.computed.gt('collection.questionCount', 1)
-
 });

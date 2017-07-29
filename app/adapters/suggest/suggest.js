@@ -2,7 +2,6 @@ import Ember from 'ember';
 import ApplicationAdapter from '../application';
 
 export default ApplicationAdapter.extend({
-
   session: Ember.inject.service('session'),
   /**
    * @property {string} End-point URI
@@ -25,12 +24,12 @@ export default ApplicationAdapter.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        'searchTerm': term,
-        'event': 'collection-edit',
-        'contentGooruOid': contentGOid,
+        searchTerm: term,
+        event: 'collection-edit',
+        contentGooruOid: contentGOid,
         'flt.publishStatus': 'published',
-        'start': page + 1,
-        'pageSize': pageSize
+        start: page + 1,
+        pageSize: pageSize
       }
     };
     return Ember.$.ajax(url, options);
@@ -55,13 +54,15 @@ export default ApplicationAdapter.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        "contextType": "resource-study-suggest",
-        "resourceId": resourceId,
-        "userId": context.get("userId"),
-        "containerId": context.get('containerId') ? context.get('containerId') : undefined,
-        "courseId": context.get("courseId") ? context.get("courseId") : undefined,
-        "unitId": context.get("unitId") ? context.get("unitId") : undefined,
-        "lessonId": context.get("lessonId") ? context.get("lessonId") : undefined
+        contextType: 'resource-study-suggest',
+        resourceId: resourceId,
+        userId: context.get('userId'),
+        containerId: context.get('containerId')
+          ? context.get('containerId')
+          : undefined,
+        courseId: context.get('courseId') ? context.get('courseId') : undefined,
+        unitId: context.get('unitId') ? context.get('unitId') : undefined,
+        lessonId: context.get('lessonId') ? context.get('lessonId') : undefined
       }
     };
     return Ember.$.ajax(url, options);
@@ -84,18 +85,23 @@ export default ApplicationAdapter.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
-        "context":{
-          "context_type": "collection-study",
-          "context_area":"study-player",
-          "collection_id": context.get("collectionId"),
-          "user_id": context.get("userId"),
-          "course_id": context.get("courseId") ? context.get("courseId") : undefined,
-          "unit_id": context.get("unitId") ? context.get("unitId") : undefined,
-          "lesson_id": context.get("lessonId") ? context.get("lessonId") : undefined
+        context: {
+          context_type: 'collection-study',
+          context_area: 'study-player',
+          collection_id: context.get('collectionId'),
+          user_id: context.get('userId'),
+          course_id: context.get('courseId')
+            ? context.get('courseId')
+            : undefined,
+          unit_id: context.get('unitId') ? context.get('unitId') : undefined,
+          lesson_id: context.get('lessonId')
+            ? context.get('lessonId')
+            : undefined
         },
-        "metrics":{
-          "score": context.get("score") >= 0 ? context.get("score") : undefined,
-          "timespent": context.get("timeSpent") >= 0 ? context.get("timeSpent") : undefined
+        metrics: {
+          score: context.get('score') >= 0 ? context.get('score') : undefined,
+          timespent:
+            context.get('timeSpent') >= 0 ? context.get('timeSpent') : undefined
         }
       })
     };
@@ -104,8 +110,7 @@ export default ApplicationAdapter.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

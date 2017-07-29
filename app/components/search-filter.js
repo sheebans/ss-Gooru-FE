@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   /**
    * Type of collection filter selected
    *  @property {string} selectedFilterType
@@ -18,7 +17,7 @@ export default Ember.Component.extend({
   collectionFilterSelected: Ember.computed('selectedFilterType', function() {
     var selectedFilterType = this.get('selectedFilterType');
 
-    return (!selectedFilterType || selectedFilterType === 'collection');
+    return !selectedFilterType || selectedFilterType === 'collection';
   }),
 
   /**
@@ -30,7 +29,7 @@ export default Ember.Component.extend({
   assessmentFilterSelected: Ember.computed('selectedFilterType', function() {
     var selectedFilterType = this.get('selectedFilterType');
 
-    return (selectedFilterType && selectedFilterType === 'assessment');
+    return selectedFilterType && selectedFilterType === 'assessment';
   }),
 
   /**
@@ -42,7 +41,7 @@ export default Ember.Component.extend({
   resourcesFilterSelected: Ember.computed('selectedFilterType', function() {
     var selectedFilterType = this.get('selectedFilterType');
 
-    return (selectedFilterType && selectedFilterType === 'resources');
+    return selectedFilterType && selectedFilterType === 'resources';
   }),
 
   /**
@@ -54,19 +53,17 @@ export default Ember.Component.extend({
   questionsFilterSelected: Ember.computed('selectedFilterType', function() {
     var selectedFilterType = this.get('selectedFilterType');
 
-    return (selectedFilterType && selectedFilterType === 'questions');
+    return selectedFilterType && selectedFilterType === 'questions';
   }),
 
   actions: {
-
     /**
      * Triggered when search filter is selected
      * @param {String} filterType
      */
-    searchFilter: function(filterType){
-      this.set('selectedFilterType',filterType);
-      this.sendAction("onFilterType", this.get("term"),filterType);
+    searchFilter: function(filterType) {
+      this.set('selectedFilterType', filterType);
+      this.sendAction('onFilterType', this.get('term'), filterType);
     }
   }
-
 });

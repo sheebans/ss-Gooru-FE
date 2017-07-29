@@ -1,16 +1,15 @@
 /* jshint node: true */
 
-module.exports = function (environment) {
-
+module.exports = function(environment) {
   var isEmbedded = process.env.GOORU_EMBEDDED === 'true';
 
   var ENV = {
     modulePrefix: 'gooru-web',
-    rootElement: "#gooru-application-container",
+    rootElement: '#gooru-application-container',
     environment: environment,
     rootURL: isEmbedded ? undefined : '/',
     locationType: isEmbedded ? 'none' : 'auto',
-    exportApplicationGlobal: "GooruWebApp",
+    exportApplicationGlobal: 'GooruWebApp',
     firebase: {
       apiKey: 'AIzaSyBK9u8tQun9rL9erEEkIq9HULSpdjHBLL8',
       authDomain: 'nile-2d108.firebaseapp.com',
@@ -26,7 +25,7 @@ module.exports = function (environment) {
         // Prevent Ember Data from overriding Date.parse.
         Date: false
       }
-},
+    },
 
     APP: {
       // Here you can pass flags/options to your application instance
@@ -37,10 +36,10 @@ module.exports = function (environment) {
       //Add anything you want as default values
     },
 
-    marketingSiteUrl: "/welcome",
-    supportSiteUrl: "http://support.gooru.org",
-    toolkitSiteUrl:"http://about.gooru.org/toolkit",
-    termsConditionsUrl:"http://about.gooru.org/terms-and-conditions"
+    marketingSiteUrl: '/welcome',
+    supportSiteUrl: 'http://support.gooru.org',
+    toolkitSiteUrl: 'http://about.gooru.org/toolkit',
+    termsConditionsUrl: 'http://about.gooru.org/terms-and-conditions'
   };
 
   ENV.embedded = isEmbedded;
@@ -56,16 +55,16 @@ module.exports = function (environment) {
   /**
    * Application themes configuration
    */
-  ENV['themes'] = {
-    'default': null /* when present it is not necessary to pass a query param */
+  ENV.themes = {
+    default: null /* when present it is not necessary to pass a query param */
   };
 
-  ENV['player'] = {
-    vimeoPlayerUrl:'//player.vimeo.com/video/',
-    youtubePlayerUrl:'https://www.youtube.com/embed/'
+  ENV.player = {
+    vimeoPlayerUrl: '//player.vimeo.com/video/',
+    youtubePlayerUrl: 'https://www.youtube.com/embed/'
   };
 
-  ENV['events'] = {
+  ENV.events = {
     apiVersion: '3.0',
     playerEventEndpoint: '/api/log/event',
     eventAPIKey: '33b9ad34-1a0c-43ba-bb9c-4784abe07110'
@@ -78,8 +77,8 @@ module.exports = function (environment) {
   };
 
   ENV['API-3.0'] = {
-    clientKey : "c2hlZWJhbkBnb29ydWxlYXJuaW5nLm9yZw==",
-    clientId: "ba956a97-ae15-11e5-a302-f8a963065976",
+    clientKey: 'c2hlZWJhbkBnb29ydWxlYXJuaW5nLm9yZw==',
+    clientId: 'ba956a97-ae15-11e5-a302-f8a963065976',
     'user-token-api-2.0': '0e22e273-e2aa-4a6e-9e4f-c4d376c5317b',
     'anonymous-token-api-2.0': '00ed3b76-bffa-4372-90b0-00f886ce2584'
   };
@@ -88,7 +87,6 @@ module.exports = function (environment) {
     url: '/api/nucleus-auth-idp/v1/google'
   };
 
-
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -96,13 +94,13 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     ENV.contentSecurityPolicy = {
-      'default-src': "*",
-      'script-src': "*",
-      'font-src': "*",
-      'connect-src': "*",
-      'img-src': "*",
-      'style-src': "* 'unsafe-inline'",
-      'media-src': "*"
+      'default-src': '*',
+      'script-src': '*',
+      'font-src': '*',
+      'connect-src': '*',
+      'img-src': '*',
+      'style-src': '* \'unsafe-inline\'',
+      'media-src': '*'
     };
   }
 
@@ -124,9 +122,9 @@ module.exports = function (environment) {
   if (environment === 'production' && !isEmbedded) {
     ENV.googleAnalytics = {
       webPropertyId: 'UA-79540131-1',
-      tracker: "analytics.js",
-      globalVariable: "hewlettOERTracker",
-      cookieName: "hewlettOERCookie"
+      tracker: 'analytics.js',
+      globalVariable: 'hewlettOERTracker',
+      cookieName: 'hewlettOERCookie'
     };
   }
 

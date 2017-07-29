@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -24,12 +23,10 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     studyNow: function() {
       const route = this;
       const currentClass = route.modelFor('student.class').class;
@@ -47,7 +44,7 @@ export default Ember.Route.extend({
      * @param {string} lessonId - Identifier for lesson
      * @param {string} item - collection, assessment, lesson or resource
      */
-    studyPlayer: function (type, unitId, lessonId, item) {
+    studyPlayer: function(type, unitId, lessonId, item) {
       const route = this;
       const currentClass = route.modelFor('student.class').class;
       const classId = currentClass.get('id');
@@ -57,12 +54,16 @@ export default Ember.Route.extend({
         route.startLessonStudyPlayer(classId, courseId, unitId, lessonId);
       } else if (type === 'resource') {
         route.startResourceStudyPlayer(classId, courseId, item);
-      }
-      else {
-        route.startCollectionStudyPlayer(classId, courseId, unitId, lessonId, item);
+      } else {
+        route.startCollectionStudyPlayer(
+          classId,
+          courseId,
+          unitId,
+          lessonId,
+          item
+        );
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -74,8 +75,9 @@ export default Ember.Route.extend({
     const units = route.modelFor('student.class').units;
     const userId = route.get('session.userId');
     const classMembers = currentClass.get('members');
-    const userLocation = route.get('analyticsService').
-      getUserCurrentLocation(currentClass.get('id'), userId);
+    const userLocation = route
+      .get('analyticsService')
+      .getUserCurrentLocation(currentClass.get('id'), userId);
 
     return Ember.RSVP.hash({
       userLocation: userLocation,
@@ -91,9 +93,9 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     let userLocation = '';
-    if(model.userLocation) {
+    if (model.userLocation) {
       let unitId = model.userLocation.get('unitId');
       let lessonId = model.userLocation.get('lessonId');
       let collectionId = model.userLocation.get('collectionId');
@@ -115,7 +117,13 @@ export default Ember.Route.extend({
    * @param {string} lessonId
    * @param {Collection} collection
      */
-  startCollectionStudyPlayer:function(classId, courseId, unitId, lessonId, collection) {
+  startCollectionStudyPlayer: function(
+    classId,
+    courseId,
+    unitId,
+    lessonId,
+    collection
+  ) {
     let route = this;
     let role = ROLES.STUDENT;
     let source = PLAYER_EVENT_SOURCE.COURSE_MAP;
@@ -138,14 +146,34 @@ export default Ember.Route.extend({
     let suggestionPromise = null;
     // Verifies if it is a suggested Collection/Assessment
     if (collectionSubType) {
-      suggestionPromise = route.get('navigateMapService').startSuggestion(courseId, unitId, lessonId, collectionId,
-        collectionType, collectionSubType, pathId, classId);
+      suggestionPromise = route
+        .get('navigateMapService')
+        .startSuggestion(
+          courseId,
+          unitId,
+          lessonId,
+          collectionId,
+          collectionType,
+          collectionSubType,
+          pathId,
+          classId
+        );
     } else {
-      suggestionPromise = route.get('navigateMapService').startCollection(courseId, unitId, lessonId, collectionId,
-        collectionType, classId);
+      suggestionPromise = route
+        .get('navigateMapService')
+        .startCollection(
+          courseId,
+          unitId,
+          lessonId,
+          collectionId,
+          collectionType,
+          classId
+        );
     }
 
-    suggestionPromise.then(() => route.transitionTo('study-player', courseId, { queryParams }));
+    suggestionPromise.then(() =>
+      route.transitionTo('study-player', courseId, { queryParams })
+    );
   },
 
   /**
@@ -155,7 +183,7 @@ export default Ember.Route.extend({
    * @param {string} unitId
    * @param {string} lessonId
      */
-  startLessonStudyPlayer:function(classId, courseId, unitId, lessonId) {
+  startLessonStudyPlayer: function(classId, courseId, unitId, lessonId) {
     const route = this;
     const role = ROLES.STUDENT;
     const queryParams = {
@@ -165,8 +193,12 @@ export default Ember.Route.extend({
       role,
       source: PLAYER_EVENT_SOURCE.COURSE_MAP
     };
-    route.get('navigateMapService').startLesson(courseId, unitId, lessonId, classId)
-      .then(() => route.transitionTo('study-player', courseId, { queryParams }));
+    route
+      .get('navigateMapService')
+      .startLesson(courseId, unitId, lessonId, classId)
+      .then(() =>
+        route.transitionTo('study-player', courseId, { queryParams })
+      );
   },
 
   /**
@@ -174,15 +206,19 @@ export default Ember.Route.extend({
    * @param {string} classId
    * @param {string} courseId
      */
-  continueCourseStudyPlayer: function (classId, courseId) {
+  continueCourseStudyPlayer: function(classId, courseId) {
     const route = this;
     const queryParams = {
       role: ROLES.STUDENT,
       source: PLAYER_EVENT_SOURCE.COURSE_MAP,
       classId
     };
-    route.get('navigateMapService').continueCourse(courseId, classId)
-      .then(() => route.transitionTo('study-player', courseId, { queryParams }));
+    route
+      .get('navigateMapService')
+      .continueCourse(courseId, classId)
+      .then(() =>
+        route.transitionTo('study-player', courseId, { queryParams })
+      );
   },
 
   /**
@@ -191,7 +227,7 @@ export default Ember.Route.extend({
    * @param {string} courseId
    * @param {Resource} resource
    */
-  startResourceStudyPlayer:function(classId, courseId, resource) {
+  startResourceStudyPlayer: function(classId, courseId, resource) {
     const route = this;
     let queryParams = {
       unitId: resource.get('unitId'),
@@ -200,10 +236,21 @@ export default Ember.Route.extend({
       source: PLAYER_EVENT_SOURCE.COURSE_MAP,
       pathId: resource.get('pathId')
     };
-    route.get('navigateMapService').startResource(courseId, queryParams.unitId, queryParams.lessonId,
-      queryParams.collectionId, resource.get('id'), queryParams.pathId, classId)
-      .then(function () {
-        route.transitionTo('resource-player', classId, courseId, resource.id, { queryParams });
+    route
+      .get('navigateMapService')
+      .startResource(
+        courseId,
+        queryParams.unitId,
+        queryParams.lessonId,
+        queryParams.collectionId,
+        resource.get('id'),
+        queryParams.pathId,
+        classId
+      )
+      .then(function() {
+        route.transitionTo('resource-player', classId, courseId, resource.id, {
+          queryParams
+        });
       });
   }
 });

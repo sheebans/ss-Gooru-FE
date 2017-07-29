@@ -1,9 +1,12 @@
 import Ember from 'ember';
-import { addProtocolIfNecessary, checkIfIsGoogleDoc, checkDomains } from 'gooru-web/utils/utils';
+import {
+  addProtocolIfNecessary,
+  checkIfIsGoogleDoc,
+  checkDomains
+} from 'gooru-web/utils/utils';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service('session'),
@@ -11,14 +14,13 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-pdf-resource'],
+  classNames: ['gru-pdf-resource'],
 
   // -------------------------------------------------------------------------
   // Actions
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -27,18 +29,22 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   resource: null,
 
-  pdfURL:Ember.computed('resource.assetUrl',function(){
-
+  pdfURL: Ember.computed('resource.assetUrl', function() {
     const configuration = this.get('configurationService.configuration');
     const cdnUrl = this.get('session.cdnUrls.content');
-    const resourceUrl = this.get("resource.assetUrl");
-    const assetUrl = addProtocolIfNecessary(resourceUrl, checkDomains (resourceUrl, cdnUrl));
+    const resourceUrl = this.get('resource.assetUrl');
+    const assetUrl = addProtocolIfNecessary(
+      resourceUrl,
+      checkDomains(resourceUrl, cdnUrl)
+    );
 
-    if(configuration.get("player.resources.pdf.googleDriveEnable") && !checkIfIsGoogleDoc(assetUrl))
-    {
-      return configuration.get("player.resources.pdf.googleDriveUrl") + assetUrl + '&embedded=true';
-    }
-    else {
+    if (
+      configuration.get('player.resources.pdf.googleDriveEnable') &&
+      !checkIfIsGoogleDoc(assetUrl)
+    ) {
+      return `${configuration.get('player.resources.pdf.googleDriveUrl') +
+        assetUrl}&embedded=true`;
+    } else {
       return assetUrl;
     }
   }),
@@ -52,18 +58,15 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @property {string} bind the height css style for the component
    */
-  resourceHeight: Ember.computed("calculatedResourceContentHeight", function(){
+  resourceHeight: Ember.computed('calculatedResourceContentHeight', function() {
     var height = this.get('calculatedResourceContentHeight');
     const heightString = height > 0 ? `${height}px` : '100%';
     return Ember.String.htmlSafe(`height: ${heightString}`);
   })
 
-
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 });

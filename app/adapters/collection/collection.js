@@ -1,7 +1,6 @@
- import ApplicationAdapter from '../application';
+import ApplicationAdapter from '../application';
 
 export default ApplicationAdapter.extend({
-
   /**
    * @property {string} End-point URI
    */
@@ -14,7 +13,7 @@ export default ApplicationAdapter.extend({
    * @param snapshot
    * @returns {string}
    */
-  urlForFindRecord: function(id){
+  urlForFindRecord: function(id) {
     let namespace = this.get('namespace');
     let includeItemParam = 'includeItems=true';
     let includeLastModifiedUserParam = 'includeLastModifiedUser=true';
@@ -39,7 +38,5 @@ export default ApplicationAdapter.extend({
     delete query.lessonId;
 
     return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}`;
-
   }
-
 });

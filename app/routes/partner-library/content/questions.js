@@ -3,7 +3,6 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -16,12 +15,11 @@ export default Ember.Route.extend(ModalMixin, {
   // Actions
 
   actions: {
-
     /**
      * On card play question button click
      * @param {Question} question
      */
-    playQuestion: function (question) {
+    playQuestion: function(question) {
       this.transitionTo('content.questions.play', question.get('id'));
     },
 
@@ -35,7 +33,6 @@ export default Ember.Route.extend(ModalMixin, {
       };
       this.send('showModal', 'content.modals.gru-question-remix', remixModel);
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -46,24 +43,26 @@ export default Ember.Route.extend(ModalMixin, {
     const pagination = {
       pageSize: DEFAULT_PAGE_SIZE
     };
-    return this.get('libraryService').fetchLibraryContent(libraryId,
-      'question', pagination).then(function(questions) {
+    return this.get('libraryService')
+      .fetchLibraryContent(libraryId, 'question', pagination)
+      .then(function(questions) {
         return Ember.RSVP.hash({
           libraryId,
           questions: questions.libraryContent.questions,
           owners: questions.libraryContent.ownerDetails
         });
-    });
+      });
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('libraryId', model.libraryId);
-    controller.set('questions', controller.mapOwners(model.questions,
-      model.owners));
+    controller.set(
+      'questions',
+      controller.mapOwners(model.questions, model.owners)
+    );
   },
 
   deactivate: function() {
     this.get('controller').resetValues();
   }
-
 });

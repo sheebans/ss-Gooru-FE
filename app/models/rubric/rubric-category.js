@@ -18,32 +18,36 @@ const Validations = buildValidations({
  *
  * @typedef {Object} RubricCategory
  */
-export default Ember.Object.extend(Validations,{
-
+export default Ember.Object.extend(Validations, {
   /**
    *Init the scoring levels default on each category
    */
   initLevels: function() {
-    this.set('levels',Ember.A([
-      {
-        name:'',
-        score:null
-      },
-      {
-        name:'',
-        score:null
-      },
-      {
-        name:'',
-        score:null
-      },
-      {
-        name:'',
-        score:null
-      },{
-        name:'',
-        score:null
-      }]));
+    this.set(
+      'levels',
+      Ember.A([
+        {
+          name: '',
+          score: null
+        },
+        {
+          name: '',
+          score: null
+        },
+        {
+          name: '',
+          score: null
+        },
+        {
+          name: '',
+          score: null
+        },
+        {
+          name: '',
+          score: null
+        }
+      ])
+    );
     return this;
   },
 
@@ -84,7 +88,7 @@ export default Ember.Object.extend(Validations,{
   /**
    * @property {Boolean} isNew
    */
-  isNew:false,
+  isNew: false,
   /**
    * Return a copy of the category
    *
@@ -94,8 +98,13 @@ export default Ember.Object.extend(Validations,{
   copy: function() {
     var properties = this.getProperties(this.modelProperties());
     // Copy array values
-    properties.levels = this.get('levels').map(level => JSON.parse(JSON.stringify(level)));
-    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(),properties);
+    properties.levels = this.get('levels').map(level =>
+      JSON.parse(JSON.stringify(level))
+    );
+    return this.get('constructor').create(
+      Ember.getOwner(this).ownerInjection(),
+      properties
+    );
   },
 
   /**
@@ -128,5 +137,4 @@ export default Ember.Object.extend(Validations,{
     }
     return properties;
   }
-
 });

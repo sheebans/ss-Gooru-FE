@@ -21,10 +21,14 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/class/class-10');
 
-    const $classContainer = find(".controller.class");
-    T.exists(assert, $classContainer, "Missing class container");
-    T.exists(assert, $classContainer.find(".navigation"), "Missing class navigation");
-    T.exists(assert, $classContainer.find(".content"), "Missing class content");
+    const $classContainer = find('.controller.class');
+    T.exists(assert, $classContainer, 'Missing class container');
+    T.exists(
+      assert,
+      $classContainer.find('.navigation'),
+      'Missing class navigation'
+    );
+    T.exists(assert, $classContainer.find('.content'), 'Missing class content');
   });
 });
 
@@ -34,49 +38,50 @@ test('When info page is selected', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/class/class-10');
 
-    const $overviewMenuItem = find(".navigation .class-menu .info");
+    const $overviewMenuItem = find('.navigation .class-menu .info');
 
     click($overviewMenuItem);
 
     andThen(function() {
       assert.equal(currentURL(), '/class/class-10/info');
-
     });
-   });
+  });
 });
 
 test('When overview page is selected', function(assert) {
-
   visit('/class/class-10');
 
   andThen(function() {
     assert.equal(currentURL(), '/class/class-10');
 
-    const $overviewMenuItem = find(".navigation .class-menu .overview");
+    const $overviewMenuItem = find('.navigation .class-menu .overview');
 
     click($overviewMenuItem);
 
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-10/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id');
-
+      assert.equal(
+        currentURL(),
+        '/class/class-10/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id'
+      );
     });
   });
 });
 
 test('When data analytics page is selected as student', function(assert) {
-
   visit('/class/class-10');
 
   andThen(function() {
     assert.equal(currentURL(), '/class/class-10');
 
-    const $analyticsMenuItem = find(".navigation .class-menu .analytics");
+    const $analyticsMenuItem = find('.navigation .class-menu .analytics');
 
     click($analyticsMenuItem);
 
     andThen(function() {
-      assert.equal(currentURL(), '/class/class-10/analytics/performance/student');
-
+      assert.equal(
+        currentURL(),
+        '/class/class-10/analytics/performance/student'
+      );
     });
   });
 });

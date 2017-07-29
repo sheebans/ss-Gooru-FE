@@ -15,16 +15,24 @@ moduleForAcceptance('Acceptance | student/class/class-activities', {
   }
 });
 
-test('Layout', function (assert) {
+test('Layout', function(assert) {
   visit('/student/class/class-for-pochita-as-student/class-activities');
   andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/student/class/class-for-pochita-as-student/class-activities'
+    );
 
-    assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/class-activities');
-
-    const $container = find('.student.class .controller.student.class.class-activities');
+    const $container = find(
+      '.student.class .controller.student.class.class-activities'
+    );
     assert.ok($container.length, 'Missing class activities tab container');
 
     T.exists(assert, $container.find('.today'), 'Missing today title');
-    T.exists(assert, $container.find('.collections'), 'Missing activities collections');
+    T.exists(
+      assert,
+      $container.find('.collections'),
+      'Missing activities collections'
+    );
   });
 });

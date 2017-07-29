@@ -2,14 +2,12 @@ import Ember from 'ember';
 import SessionMixin from 'gooru-web/mixins/session';
 
 export default Ember.Object.extend(SessionMixin, {
-
   namespace: '/api/nucleus-insights/v2',
   //namespace: '/api/events/nucleus-insights/v2',
 
-
   headers: Ember.computed('session.token-api3', function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }),
 
@@ -27,5 +25,4 @@ export default Ember.Object.extend(SessionMixin, {
 
     return Ember.$.ajax(this.get('namespace') + path, options);
   }
-
 });

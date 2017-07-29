@@ -10,31 +10,32 @@ import T from 'gooru-web/tests/helpers/assert';
 import Answer from 'gooru-web/models/content/answer';
 
 const questionServiceStub = Ember.Service.extend({
-
-  updateQuestion(questionID, editedQuestion,collection) {
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+  updateQuestion(questionID, editedQuestion, collection) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       if (questionID === 'question-id-fail' || !editedQuestion || !collection) {
-        reject({status: 500});
+        reject({ status: 500 });
       } else {
         resolve(editedQuestion);
       }
     });
   }
-
 });
 
-moduleForComponent('content/collections/gru-collection-list-item', 'Integration | Component | content/collections/gru collection list item', {
-  integration: true,
-  beforeEach: function () {
-    this.container.lookup('service:i18n').set('locale', 'en');
-    this.inject.service('i18n');
-    this.register('service:api-sdk/question', questionServiceStub);
-    this.inject.service('api-sdk/question');
+moduleForComponent(
+  'content/collections/gru-collection-list-item',
+  'Integration | Component | content/collections/gru collection list item',
+  {
+    integration: true,
+    beforeEach: function() {
+      this.container.lookup('service:i18n').set('locale', 'en');
+      this.inject.service('i18n');
+      this.register('service:api-sdk/question', questionServiceStub);
+      this.inject.service('api-sdk/question');
+    }
   }
-});
+);
 
-test('it renders resources correctly', function (assert) {
-
+test('it renders resources correctly', function(assert) {
   const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Resource Title',
     format: 'interactive'
@@ -43,49 +44,92 @@ test('it renders resources correctly', function (assert) {
   this.set('resource', resource);
   this.set('index', 0);
   this.set('isSorting', false);
-  this.render(hbs`{{content/collections/gru-collection-list-item model=resource index=index isSorting=isSorting}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=resource index=index isSorting=isSorting}}`
+  );
 
   const $component = this.$('li.content.collections.gru-collection-list-item');
   assert.ok($component.length, 'Component');
 
   const $container = $component.find('.panel-heading');
   assert.ok($container.find('> h3').text(), 1, 'Index');
-  assert.ok($container.find('> a strong').text(), this.get('resource.title'), 'Resource title');
-  assert.notOk($container.find('.drag-icon .drag_handle').length, 'Drag icon should be hidden');
+  assert.ok(
+    $container.find('> a strong').text(),
+    this.get('resource.title'),
+    'Resource title'
+  );
+  assert.notOk(
+    $container.find('.drag-icon .drag_handle').length,
+    'Drag icon should be hidden'
+  );
 
   //TODO: check when there are standards
-  assert.ok($container.find('> .detail > span').text(), this.get('i18n').t('common.add-standard').string, 'No standards text');
+  assert.ok(
+    $container.find('> .detail > span').text(),
+    this.get('i18n').t('common.add-standard').string,
+    'No standards text'
+  );
 
   const $actions = $container.find('> .detail > .actions');
   assert.ok($actions.length, 'Actions container');
 
-  assert.ok($actions.find('button:eq(0)').hasClass('add-item'), 'First action button');
-  assert.ok($actions.find('button:eq(1)').hasClass('narration'), 'Second action button');
-  assert.ok($actions.find('button:eq(2)').hasClass('delete-item'), 'Third action button');
-  assert.ok($actions.find('button:eq(3)').hasClass('copy-to'), 'Fourth action button');
-  assert.ok($actions.find('button:eq(4)').hasClass('move-item'), 'Fifth action button');
-  assert.ok($actions.find('button:eq(5)').hasClass('copy-item'), 'Sixth action button');
-  assert.ok($actions.find('button:eq(6)').hasClass('edit-item'), 'Seventh action button');
+  assert.ok(
+    $actions.find('button:eq(0)').hasClass('add-item'),
+    'First action button'
+  );
+  assert.ok(
+    $actions.find('button:eq(1)').hasClass('narration'),
+    'Second action button'
+  );
+  assert.ok(
+    $actions.find('button:eq(2)').hasClass('delete-item'),
+    'Third action button'
+  );
+  assert.ok(
+    $actions.find('button:eq(3)').hasClass('copy-to'),
+    'Fourth action button'
+  );
+  assert.ok(
+    $actions.find('button:eq(4)').hasClass('move-item'),
+    'Fifth action button'
+  );
+  assert.ok(
+    $actions.find('button:eq(5)').hasClass('copy-item'),
+    'Sixth action button'
+  );
+  assert.ok(
+    $actions.find('button:eq(6)').hasClass('edit-item'),
+    'Seventh action button'
+  );
 
-  RESOURCE_TYPES.forEach(function(type_string) {
-
-    // Check icons and subtitles specific to each resource type
-    Ember.run(() => {
-      this.set('resource.format', type_string);
-    });
-    assert.ok($container.find('> a > i').hasClass(type_string + '-icon'), 'Resource icon');
-    assert.ok($container.find('> a span').text(),
-      this.get('i18n').t('common.resource').string + ' | ' + this.get('i18n').t('common.resource-format.' + type_string).string, 'Resource subtitle');
-
-  }.bind(this));
+  RESOURCE_TYPES.forEach(
+    function(type_string) {
+      // Check icons and subtitles specific to each resource type
+      Ember.run(() => {
+        this.set('resource.format', type_string);
+      });
+      assert.ok(
+        $container.find('> a > i').hasClass(`${type_string}-icon`),
+        'Resource icon'
+      );
+      assert.ok(
+        $container.find('> a span').text(),
+        `${this.get('i18n').t('common.resource').string} | ${this.get('i18n').t(
+          `common.resource-format.${type_string}`
+        ).string}`,
+        'Resource subtitle'
+      );
+    }.bind(this)
+  );
 
   this.set('isSorting', true);
-  assert.ok($container.find('.drag-icon .drag_handle').length, 'Drag icon should be appear');
-
+  assert.ok(
+    $container.find('.drag-icon .drag_handle').length,
+    'Drag icon should be appear'
+  );
 });
 
-test('it renders questions correctly', function (assert) {
-
+test('it renders questions correctly', function(assert) {
   const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question Title',
     format: 'question'
@@ -93,44 +137,68 @@ test('it renders questions correctly', function (assert) {
 
   this.set('question', question);
   this.set('index', 0);
-  this.render(hbs`{{content/collections/gru-collection-list-item model=question index=index}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question index=index}}`
+  );
 
   const $component = this.$('li.content.collections.gru-collection-list-item');
   assert.ok($component.length, 'Component');
 
   const $container = $component.find('.panel-heading');
   assert.ok($container.find('> h3').text(), 1, 'Index');
-  assert.ok($container.find('> a > i').hasClass('question-icon'), 'Question icon');
-  assert.ok($container.find('> a strong').text(), this.get('question.title'), 'Question title');
+  assert.ok(
+    $container.find('> a > i').hasClass('question-icon'),
+    'Question icon'
+  );
+  assert.ok(
+    $container.find('> a strong').text(),
+    this.get('question.title'),
+    'Question title'
+  );
 
   //TODO: check when there are standards
-  assert.ok($container.find('> .detail > span').text(), this.get('i18n').t('common.add-standard').string, 'No standards text');
+  assert.ok(
+    $container.find('> .detail > span').text(),
+    this.get('i18n').t('common.add-standard').string,
+    'No standards text'
+  );
 
   const $actions = $container.find('> .detail.collapsed > .actions');
   assert.ok($actions.length, 'Actions container');
 
   assert.ok($actions.find('button.add-item').length, 'Missing add button');
-  assert.ok(!$actions.find('button.narration').length, 'Narration button should not be visible for questions');
-  assert.ok($actions.find('button.delete-item').length, 'Missing delete button');
+  assert.ok(
+    !$actions.find('button.narration').length,
+    'Narration button should not be visible for questions'
+  );
+  assert.ok(
+    $actions.find('button.delete-item').length,
+    'Missing delete button'
+  );
   assert.ok($actions.find('button.copy-to').length, 'Missing copy button');
   assert.ok($actions.find('button.move-item').length, 'Missing move button');
   assert.ok($actions.find('button.copy-item').length, 'Missing copy button');
   assert.ok($actions.find('button.edit-item').length, 'Missing edit button');
 
-  Object.keys(QUESTION_CONFIG).forEach(function(question_type) {
-    // Check subtitle specific to each question type
-    Ember.run(() => {
-      this.set('question.type', question_type);
-    });
+  Object.keys(QUESTION_CONFIG).forEach(
+    function(question_type) {
+      // Check subtitle specific to each question type
+      Ember.run(() => {
+        this.set('question.type', question_type);
+      });
 
-    assert.ok($container.find('> a span').text(),
-      this.get('i18n').t('common.question').string + ' | ' + this.get('i18n').t('common.question-type.' + question_type).string, 'Question subtitle');
-  }.bind(this));
-
+      assert.ok(
+        $container.find('> a span').text(),
+        `${this.get('i18n').t('common.question').string} | ${this.get('i18n').t(
+          `common.question-type.${question_type}`
+        ).string}`,
+        'Question subtitle'
+      );
+    }.bind(this)
+  );
 });
 
-test('it expands/collapses the narration panel', function (assert) {
-
+test('it expands/collapses the narration panel', function(assert) {
   const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Resource Title',
     format: 'interactive'
@@ -138,27 +206,38 @@ test('it expands/collapses the narration panel', function (assert) {
 
   this.set('question', question);
   this.set('index', 0);
-  this.render(hbs`{{content/collections/gru-collection-list-item model=question index=index}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question index=index}}`
+  );
 
-  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
   assert.ok($panel.length, 'Panel');
   assert.ok($panel.hasClass('collapsed'), 'Panel collapsed');
 
   $panel.find('.detail.visible .actions button.narration i').click();
 
-  assert.ok($panel.hasClass('expanded'), 'Narration Panel expanded after clicking narration button');
+  assert.ok(
+    $panel.hasClass('expanded'),
+    'Narration Panel expanded after clicking narration button'
+  );
 
   assert.ok($panel.find('> .panel-body').length, 'panel body');
 
-  assert.ok($panel.find('> .panel-body .narration .gru-textarea').length, 'Narration Field');
+  assert.ok(
+    $panel.find('> .panel-body .narration .gru-textarea').length,
+    'Narration Field'
+  );
 
   $panel.find('.detail .actions .narration').click();
-  assert.ok($panel.hasClass('collapsed'), 'Narration Panel collapsed after clicking narration button');
-
+  assert.ok(
+    $panel.hasClass('collapsed'),
+    'Narration Panel collapsed after clicking narration button'
+  );
 });
 
-test('it expands/collapses the edit question inline panel', function (assert) {
-
+test('it expands/collapses the edit question inline panel', function(assert) {
   const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question Title',
     format: 'question'
@@ -166,15 +245,22 @@ test('it expands/collapses the edit question inline panel', function (assert) {
 
   this.set('question', question);
   this.set('index', 0);
-  this.render(hbs`{{content/collections/gru-collection-list-item model=question index=index}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question index=index}}`
+  );
 
-  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
   assert.ok($panel.length, 'Panel');
   assert.ok($panel.hasClass('collapsed'), 'Panel collapsed');
 
   $panel.find('.detail.visible .actions button.edit-item i').click();
 
-  assert.ok($panel.hasClass('expanded'), 'Edit Question Panel expanded after clicking edit button');
+  assert.ok(
+    $panel.hasClass('expanded'),
+    'Edit Question Panel expanded after clicking edit button'
+  );
 
   const $panelBody = $panel.find('> .panel-body');
 
@@ -182,23 +268,36 @@ test('it expands/collapses the edit question inline panel', function (assert) {
 
   assert.ok($panelBody.find('.question h3').length, 'Missing Question label');
   assert.ok($panelBody.find('.question textarea').length, 'Missing text area');
-  assert.ok($panelBody.find('.question .add-image').length, 'Missing add image button');
+  assert.ok(
+    $panelBody.find('.question .add-image').length,
+    'Missing add image button'
+  );
   assert.ok($panelBody.find('.answers h3').length, 'Missing Answer label');
-  assert.ok($panelBody.find('.answers .instructions').length, 'Missing Answer Instructions');
+  assert.ok(
+    $panelBody.find('.answers .instructions').length,
+    'Missing Answer Instructions'
+  );
 
   const $actions = $panelBody.find('.actions');
   assert.ok($actions.length, 'Actions container');
 
-  assert.ok($actions.find('button:eq(0)').hasClass('cancel'), 'First action button');
-  assert.ok($actions.find('button:eq(1)').hasClass('save'), 'Second action button');
+  assert.ok(
+    $actions.find('button:eq(0)').hasClass('cancel'),
+    'First action button'
+  );
+  assert.ok(
+    $actions.find('button:eq(1)').hasClass('save'),
+    'Second action button'
+  );
 
   $panel.find('.detail .actions .cancel').click();
-  assert.ok($panel.hasClass('collapsed'), 'Edit Question Panel collapsed after clicking cancel button');
-
+  assert.ok(
+    $panel.hasClass('collapsed'),
+    'Edit Question Panel collapsed after clicking cancel button'
+  );
 });
 
-test('Question inline panel for FIB has no answers', function (assert) {
-
+test('Question inline panel for FIB has no answers', function(assert) {
   const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question Title',
     format: 'question',
@@ -207,17 +306,23 @@ test('Question inline panel for FIB has no answers', function (assert) {
 
   this.set('question', question);
   this.set('index', 0);
-  this.render(hbs`{{content/collections/gru-collection-list-item model=question index=index}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question index=index}}`
+  );
 
-  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
   $panel.find('.detail.visible .actions button.edit-item i').click();
   const $panelBody = $panel.find('> .panel-body');
   assert.ok($panelBody.length, 'panel body');
-  assert.ok(!$panelBody.find('.answers').length, 'Answers section should not be visible');
+  assert.ok(
+    !$panelBody.find('.answers').length,
+    'Answers section should not be visible'
+  );
 });
 
-test('it expands/collapses the edit resource inline panel', function (assert) {
-
+test('it expands/collapses the edit resource inline panel', function(assert) {
   const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Resource Title',
     format: 'resource'
@@ -225,35 +330,54 @@ test('it expands/collapses the edit resource inline panel', function (assert) {
 
   this.set('resource', resource);
   this.set('index', 0);
-  this.render(hbs`{{content/collections/gru-collection-list-item model=resource index=index}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=resource index=index}}`
+  );
 
-  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
   assert.ok($panel.length, 'Panel');
   assert.ok($panel.hasClass('collapsed'), 'Panel collapsed');
 
   $panel.find('.detail.visible .actions button.edit-item i').click();
 
-  assert.ok($panel.hasClass('expanded'), 'Edit Resource Panel expanded after clicking edit button');
+  assert.ok(
+    $panel.hasClass('expanded'),
+    'Edit Resource Panel expanded after clicking edit button'
+  );
 
   const $panelBody = $panel.find('> .panel-body');
 
   assert.ok($panelBody.length, 'panel body');
 
-  assert.ok($panelBody.find('.narration .gru-textarea').length, 'Narration Field');
+  assert.ok(
+    $panelBody.find('.narration .gru-textarea').length,
+    'Narration Field'
+  );
 
   const $actions = $panelBody.find('.actions');
   assert.ok($actions.length, 'Actions container');
 
-  assert.ok($actions.find('button:eq(0)').hasClass('cancel'), 'First action button');
-  assert.ok($actions.find('button:eq(1)').hasClass('save'), 'Second action button');
+  assert.ok(
+    $actions.find('button:eq(0)').hasClass('cancel'),
+    'First action button'
+  );
+  assert.ok(
+    $actions.find('button:eq(1)').hasClass('save'),
+    'Second action button'
+  );
 
   $panel.find('.detail .actions .cancel').click();
-  assert.ok($panel.hasClass('collapsed'), 'Edit Resource Panel collapsed after clicking cancel button');
-
+  assert.ok(
+    $panel.hasClass('collapsed'),
+    'Edit Resource Panel collapsed after clicking cancel button'
+  );
 });
 
-test('show the edit inline panel when a content is added from the content builder', function (assert) {
-
+test('show the edit inline panel when a content is added from the content builder', function(
+  assert
+) {
   const resource = Resource.create(Ember.getOwner(this).ownerInjection(), {
     id: 'e7460e72-7708-4892-afcc-63756ffa410f',
     title: 'Resource Title',
@@ -266,9 +390,13 @@ test('show the edit inline panel when a content is added from the content builde
 
   this.set('editingContent', editingContent);
 
-  this.render(hbs`{{content/collections/gru-collection-list-item model=resource index=index editingContent=editingContent}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=resource index=index editingContent=editingContent}}`
+  );
 
-  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
   assert.ok($panel.length, 'Panel');
   assert.ok($panel.hasClass('expanded'), 'Edit Resource Panel expanded');
 
@@ -276,20 +404,30 @@ test('show the edit inline panel when a content is added from the content builde
 
   assert.ok($panelBody.length, 'panel body');
 
-  assert.ok($panelBody.find('.narration .gru-textarea').length, 'Narration Field');
+  assert.ok(
+    $panelBody.find('.narration .gru-textarea').length,
+    'Narration Field'
+  );
 
   const $actions = $panelBody.find('.actions');
   assert.ok($actions.length, 'Actions container');
 
-  assert.ok($actions.find('button:eq(0)').hasClass('cancel'), 'First action button');
-  assert.ok($actions.find('button:eq(1)').hasClass('save'), 'Second action button');
+  assert.ok(
+    $actions.find('button:eq(0)').hasClass('cancel'),
+    'First action button'
+  );
+  assert.ok(
+    $actions.find('button:eq(1)').hasClass('save'),
+    'Second action button'
+  );
 
   $panel.find('.detail .actions .cancel').click();
-  assert.ok($panel.hasClass('collapsed'), 'Edit Resource Panel collapsed after clicking cancel button');
-
+  assert.ok(
+    $panel.hasClass('collapsed'),
+    'Edit Resource Panel collapsed after clicking cancel button'
+  );
 });
-test('Save on edit inline panel with description empty', function (assert) {
-
+test('Save on edit inline panel with description empty', function(assert) {
   const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     id: 'e7460e72-7708-4892-afcc-63756ffa410f',
     title: 'Question Title',
@@ -298,95 +436,118 @@ test('Save on edit inline panel with description empty', function (assert) {
 
   this.set('question', question);
 
-  this.render(hbs`{{content/collections/gru-collection-list-item model=question}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question}}`
+  );
 
-  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
   assert.ok($panel.length, 'Panel');
 
-  const $actions= $panel.find('.actions .item-actions');
+  const $actions = $panel.find('.actions .item-actions');
 
   $actions.find('.edit-item').click();
 
-  return wait().then(function () {
-    assert.ok($panel.find('.question').length,'Missing question section');
-    const $saveButton= $panel.find('.detail .actions .item-actions .save');
+  return wait().then(function() {
+    assert.ok($panel.find('.question').length, 'Missing question section');
+    const $saveButton = $panel.find('.detail .actions .item-actions .save');
     assert.ok($saveButton.length, 'Panel');
     $saveButton.click();
-    return wait().then(function () {
-      T.exists(assert, $panel.find('.question .validation .error'), 'error message should be visible');
+    return wait().then(function() {
+      T.exists(
+        assert,
+        $panel.find('.question .validation .error'),
+        'error message should be visible'
+      );
     });
   });
 });
 
-test('Save on edit inline panel with HL text question', function (assert) {
-
+test('Save on edit inline panel with HL text question', function(assert) {
   const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     id: 'e7460e72-7708-4892-afcc-63756ffa410f',
     title: 'Question Title',
     format: 'question',
-    description:'decription',
-    type:'HT_HL',
-    answers:Ember.A([Answer.create(Ember.getOwner(this).ownerInjection(), {
-      'text': 'Option A',
-      'isCorrect': true
-    })])
+    description: 'decription',
+    type: 'HT_HL',
+    answers: Ember.A([
+      Answer.create(Ember.getOwner(this).ownerInjection(), {
+        text: 'Option A',
+        isCorrect: true
+      })
+    ])
   });
 
   this.set('question', question);
 
-  this.render(hbs`{{content/collections/gru-collection-list-item model=question editingContent=question}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question editingContent=question}}`
+  );
 
-  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
   assert.ok($panel.length, 'Panel');
 
-  const $actions= $panel.find('.actions .item-actions');
+  const $actions = $panel.find('.actions .item-actions');
 
   $actions.find('.edit-item').click();
 
-  return wait().then(function () {
-    assert.ok($panel.find('.question').length,'Missing question section');
-    const $saveButton= $panel.find('.detail .actions .item-actions .save');
+  return wait().then(function() {
+    assert.ok($panel.find('.question').length, 'Missing question section');
+    const $saveButton = $panel.find('.detail .actions .item-actions .save');
     assert.ok($saveButton.length, 'Panel');
     $saveButton.click();
-    return wait().then(function () {
-      T.notExists(assert, $panel.find('.question .validation .error'), 'error message should be visible');
+    return wait().then(function() {
+      T.notExists(
+        assert,
+        $panel.find('.question .validation .error'),
+        'error message should be visible'
+      );
     });
   });
 });
 
-test('Update on edit inline panel ', function (assert) {
-
+test('Update on edit inline panel ', function(assert) {
   const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     id: 'e7460e72-7708-4892-afcc-63756ffa410f',
     title: 'Question Title',
     format: 'question',
-    description:'description',
-    type:'T/F'
+    description: 'description',
+    type: 'T/F'
   });
 
   this.set('question', question);
 
-  this.render(hbs`{{content/collections/gru-collection-list-item model=question}}`);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question}}`
+  );
 
-  const $panel = this.$('li.content.collections.gru-collection-list-item > .panel');
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
   assert.ok($panel.length, 'Panel');
 
-  const $actions= $panel.find('.actions .item-actions');
+  const $actions = $panel.find('.actions .item-actions');
 
   $actions.find('.edit-item').click();
 
-  return wait().then(function () {
-    assert.ok($panel.find('.question').length,'Missing question section');
+  return wait().then(function() {
+    assert.ok($panel.find('.question').length, 'Missing question section');
 
     let $mathEditor = $panel.find('.rich-editor');
-    $mathEditor.text("<span class='gru-math-expression'>testing</span>");
-    const $saveButton= $panel.find('.detail .actions .item-actions .save');
+    $mathEditor.text('<span class=\'gru-math-expression\'>testing</span>');
+    const $saveButton = $panel.find('.detail .actions .item-actions .save');
     assert.ok($saveButton.length, 'Panel');
     $saveButton.click();
-    return wait().then(function () {
+    return wait().then(function() {
       $actions.find('.edit-item').click();
-      return wait().then(function () {
-        assert.ok($panel.find('.rich-editor .gru-math-expression'),'Missing math');
+      return wait().then(function() {
+        assert.ok(
+          $panel.find('.rich-editor .gru-math-expression'),
+          'Missing math'
+        );
       });
     });
   });

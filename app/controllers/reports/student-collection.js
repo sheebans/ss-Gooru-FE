@@ -9,8 +9,18 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  */
 
 export default Ember.Controller.extend(ConfigurationMixin, {
-
-  queryParams: ['classId', 'courseId', 'unitId', 'lessonId', 'collectionId', 'userId', 'type', 'role', 'contextId', 'source'],
+  queryParams: [
+    'classId',
+    'courseId',
+    'unitId',
+    'lessonId',
+    'collectionId',
+    'userId',
+    'type',
+    'role',
+    'contextId',
+    'source'
+  ],
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -18,7 +28,6 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * @requires service:api-sdk/taxonomy
    */
   taxonomyService: Ember.inject.service('api-sdk/taxonomy'),
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -52,19 +61,26 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * Fill standards info when the report data changes
    */
   quizzesAttemptDataObserver: Ember.observer('attemptData', function() {
-    let learningTargets = this.get('attemptData.mastery') ? this.get('attemptData.mastery') : [];
+    let learningTargets = this.get('attemptData.mastery')
+      ? this.get('attemptData.mastery')
+      : [];
     if (learningTargets.length) {
       let taxonomyIds = learningTargets.mapBy('id');
       let taxonomyService = this.get('taxonomyService');
-      taxonomyService.fetchCodesByIds(taxonomyIds).then(function (taxonomyStandards) {
-        learningTargets.forEach(function(learningTarget) {
-          let learningTargetInfo = taxonomyStandards.findBy('id',learningTarget.id);
-          learningTarget.setProperties({
-            displayCode:learningTargetInfo.code,
-            description:learningTargetInfo.title
+      taxonomyService
+        .fetchCodesByIds(taxonomyIds)
+        .then(function(taxonomyStandards) {
+          learningTargets.forEach(function(learningTarget) {
+            let learningTargetInfo = taxonomyStandards.findBy(
+              'id',
+              learningTarget.id
+            );
+            learningTarget.setProperties({
+              displayCode: learningTargetInfo.code,
+              description: learningTargetInfo.title
+            });
           });
         });
-      });
     }
   })
 });

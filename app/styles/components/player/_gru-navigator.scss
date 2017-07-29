@@ -13,10 +13,10 @@
     @include align-items(center);
     line-height: 28px;
     @media (max-width: $screen-md) {
-      display: table!important;
+      display: table !important;
     }
     span {
-      color:$white;
+      color: $white;
       -webkit-flex-direction: row;
       flex-direction: row;
       -webkit-flex-wrap: nowrap;
@@ -33,7 +33,7 @@
       cursor: pointer;
     }
     p {
-      color:$white;
+      color: $white;
       margin: 0 0 0 25px;
     }
     .lead {
@@ -56,7 +56,8 @@
         vertical-align: top;
         background-color: $dark-500;
         height: 25px;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           background-color: $dark-500;
         }
       }
@@ -89,10 +90,10 @@
       list-style: none;
       border-radius: 0;
       border: 0;
-      background: rgba(0,0,0,0.17);
+      background: rgba(0, 0, 0, 0.17);
       min-height: 65px;
       overflow: hidden;
-      padding:10px 5px;
+      padding: 10px 5px;
       display: block;
       width: 100%;
       cursor: pointer;
@@ -112,9 +113,8 @@
       /*
         This class is for when we have data on whether a resource is completed or not, for now, all resources will look as though they have not been completed.
       */
-      &.completed{
-        background: rgba(0,95,189,0.49);
-
+      &.completed {
+        background: rgba(0, 95, 189, 0.49);
       }
       .resources-info {
         position: relative;
@@ -130,7 +130,7 @@
         align-content: stretch;
         display: -webkit-flex;
         display: flex;
-        width:100%;
+        width: 100%;
         padding: 0 5px;
 
         span.number {
@@ -139,7 +139,7 @@
           color: $white;
         }
 
-        i{
+        i {
           -webkit-order: 0;
           order: 0;
           -webkit-flex-grow: 0;
@@ -152,7 +152,8 @@
           align-self: auto;
         }
         .bubble-type {
-          background: url("gooru/resource-collection-icons.png") no-repeat scroll 0 0;
+          background: url("gooru/resource-collection-icons.png") no-repeat
+            scroll 0 0;
           background-size: 300px 228px;
           height: 29px;
           width: 30px;
@@ -163,7 +164,7 @@
           background: url("gooru/images/video-resource.svg");
           -webkit-background-size: 31px 30px;
           background-size: 31px 30px;
-          height:30px;
+          height: 30px;
           width: 31px;
         }
         .webpage {
@@ -209,27 +210,43 @@
           width: 34px;
         }
         .title {
-          margin:0 0 0 18px;
-          color:$white;
-          overflow:hidden;
+          margin: 0 0 0 18px;
+          color: $white;
+          overflow: hidden;
           max-width: 60%;
-          p{
+          p {
             margin: 0;
           }
           max-width: 136px;
         }
       }
       &.started {
-        background: #00458A; /* Old browsers */
-        background: -moz-linear-gradient(left, $blue-600 0%, $blue-500 100%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(left, $blue-600 0%,$blue-500 100%); /* Chrome10-25,Safari5.1-6 */
+        background: #00458a; /* Old browsers */
+        background: -moz-linear-gradient(
+          left,
+          $blue-600 0%,
+          $blue-500 100%
+        ); /* FF3.6-15 */
+        background: -webkit-linear-gradient(
+          left,
+          $blue-600 0%,
+          $blue-500 100%
+        ); /* Chrome10-25,Safari5.1-6 */
         background: linear-gradient(-90deg, $blue-600 0%, $blue-500 100%);
         color: $white;
       }
       &.selected {
-        background: #0050A2; /* Old browsers */
-        background: -moz-linear-gradient(left, $blue-500 0%, $blue-400 100%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(left, $blue-500 0%,$blue-400 100%); /* Chrome10-25,Safari5.1-6 */
+        background: #0050a2; /* Old browsers */
+        background: -moz-linear-gradient(
+          left,
+          $blue-500 0%,
+          $blue-400 100%
+        ); /* FF3.6-15 */
+        background: -webkit-linear-gradient(
+          left,
+          $blue-500 0%,
+          $blue-400 100%
+        ); /* Chrome10-25,Safari5.1-6 */
         background: linear-gradient(-90deg, $blue-500 0%, $blue-400 100%);
         color: $white;
       }

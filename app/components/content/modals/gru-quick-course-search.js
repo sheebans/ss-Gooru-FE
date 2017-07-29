@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { sortCoursesBySubject } from 'gooru-web/utils/sort-featured-courses';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -30,35 +29,44 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
   actions: {
-    selectCourse:function(id){
+    selectCourse: function(id) {
       this.set('selectedCourse', id);
       $('.gru-quick-course-search .selected').removeClass('selected');
-      $('.'+id).addClass('selected');
+      $(`.${id}`).addClass('selected');
     },
-    assignCourse:function(){
+    assignCourse: function() {
       const component = this;
       const courseId = component.get('selectedCourse');
       const classId = component.get('model.classId');
       var courseIdPromise = Ember.RSVP.resolve(courseId);
-      if(component.get('model').get('areFeatured')) {
+      if (component.get('model').get('areFeatured')) {
         courseIdPromise = component.get('courseService').copyCourse(courseId);
       }
-      courseIdPromise.then(function(courseIdToAssign) {
-        return component.get('classService')
-          .associateCourseToClass(courseIdToAssign,classId);
-      }).then(function(){
-          component.triggerAction({ action: 'closeModal' });
-          component.get('router').transitionTo('teacher.class.course-map', classId, { queryParams: { refresh: true } });
-        },
-        function () {
-          const message = component.get('i18n').t('common.errors.course-not-associated').string;
-          component.get('notifications').error(message);
-      });
-      }
+      courseIdPromise
+        .then(function(courseIdToAssign) {
+          return component
+            .get('classService')
+            .associateCourseToClass(courseIdToAssign, classId);
+        })
+        .then(
+          function() {
+            component.triggerAction({ action: 'closeModal' });
+            component
+              .get('router')
+              .transitionTo('teacher.class.course-map', classId, {
+                queryParams: { refresh: true }
+              });
+          },
+          function() {
+            const message = component
+              .get('i18n')
+              .t('common.errors.course-not-associated').string;
+            component.get('notifications').error(message);
+          }
+        );
+    }
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -74,14 +82,13 @@ export default Ember.Component.extend({
   /**
    * @type {String} selected Course's ID
    */
-   selectedCourse: null,
-   /**
+  selectedCourse: null,
+  /**
     * @type {String} selected Course's ID
     */
-   hasSelectedCourse: Ember.computed.notEmpty('selectedCourse'),
+  hasSelectedCourse: Ember.computed.notEmpty('selectedCourse'),
 
-   orderedCourses: Ember.computed( 'model.courses', function(){
-     return sortCoursesBySubject(this.get('model.courses'));
-   })
-
+  orderedCourses: Ember.computed('model.courses', function() {
+    return sortCoursesBySubject(this.get('model.courses'));
+  })
 });

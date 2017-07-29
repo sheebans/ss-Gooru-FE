@@ -8,13 +8,13 @@
     position: relative;
   }
 
-  ol, .panel-group {
+  ol,
+  .panel-group {
     list-style: none;
     margin: 0;
     padding: 0;
 
     .panel {
-
       & + .panel {
         margin-top: 0;
       }
@@ -32,13 +32,13 @@
         border: 0 none;
 
         .panel-title {
-          > a:link, a:active {
+          > a:link,
+          a:active {
             text-decoration: none;
           }
         }
       }
       .panel-collapse {
-
         .panel-body {
           border-top: 0 none;
           padding: 0;

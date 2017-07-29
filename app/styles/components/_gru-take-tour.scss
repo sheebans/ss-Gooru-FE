@@ -1,4 +1,4 @@
-.gru-take-tour{
+.gru-take-tour {
   height: 28px;
   overflow: hidden;
   position: fixed;
@@ -11,7 +11,7 @@
     height: 28px;
     padding: 0;
     width: 32px;
-    i{
+    i {
       @include transition(all 0.7s ease);
       color: $white;
       font-size: $font-size-tour-icon;
@@ -25,17 +25,17 @@
       position: absolute;
       top: 0;
       width: 72px;
-      p{
+      p {
         color: $white;
         margin: 2px 0 0;
         font-weight: bold;
       }
     }
 
-    &:hover{
+    &:hover {
       width: 76px;
       i {
-        margin-left:70px;
+        margin-left: 70px;
       }
       .descriptive-text {
         margin-left: 1px;

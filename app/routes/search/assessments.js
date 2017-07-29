@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   /**
    * @property {Ember.Service} Service to do the search
    */
@@ -14,15 +13,20 @@ export default Ember.Route.extend({
       taxonomies: taxonomies
     };
 
-    var assessmentResults = this.get('searchService').searchAssessments(term,
-      options, true);
-    return Ember.RSVP.hash({
-      assessmentResults: assessmentResults
-    }).catch(function(err){
-       if(err.status === 400){
-         return { msg: 'Recovered from rejected promise', error: err };
-       }
-    });
+    var assessmentResults = this.get('searchService').searchAssessments(
+      term,
+      options,
+      true
+    );
+    return Ember.RSVP
+      .hash({
+        assessmentResults: assessmentResults
+      })
+      .catch(function(err) {
+        if (err.status === 400) {
+          return { msg: 'Recovered from rejected promise', error: err };
+        }
+      });
   },
 
   /**
@@ -34,7 +38,7 @@ export default Ember.Route.extend({
     this._super(controller, model);
     controller.set('assessmentResults', model.assessmentResults);
     controller.resetValues();
-    if(model.error) {
+    if (model.error) {
       controller.setInvalidSearchTerm(true);
     }
   },
@@ -42,6 +46,4 @@ export default Ember.Route.extend({
   deactivate: function() {
     this.get('controller').resetValues();
   }
-
-
 });

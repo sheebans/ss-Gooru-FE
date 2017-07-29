@@ -14,17 +14,15 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-url-resource'],
+  classNames: ['gru-url-resource'],
   // -------------------------------------------------------------------------
   // Actions
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -42,7 +40,7 @@ export default Ember.Component.extend({
   /**
    * @property {string} bind the height css style for the component
    */
-  resourceHeight: Ember.computed("calculatedResourceContentHeight", function(){
+  resourceHeight: Ember.computed('calculatedResourceContentHeight', function() {
     var height = this.get('calculatedResourceContentHeight');
     const heightString = height > 0 ? `${height}px` : '100%';
     return Ember.String.htmlSafe(`height: ${heightString}`);
@@ -50,8 +48,6 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 });

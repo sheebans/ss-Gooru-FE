@@ -20,12 +20,13 @@
     }
   }
   .panel {
-    margin-bottom: 15px!important;
+    margin-bottom: 15px !important;
     .answer-content {
       @include flexbox();
       @include justify-content(space-between);
       @include align-items(center);
-      > div, button {
+      > div,
+      button {
         display: inline-block;
       }
       .letter-container {
@@ -79,7 +80,7 @@
             }
           }
         }
-        p{
+        p {
           margin: 10px 0 10px 10px;
         }
       }
@@ -164,7 +165,7 @@
   .add-answer {
     margin-bottom: 10px;
     a {
-      cursor:pointer;
+      cursor: pointer;
       border: 2px dashed $gray-light;
       border-radius: 6px;
       margin-top: 10px;

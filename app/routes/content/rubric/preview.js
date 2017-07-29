@@ -14,18 +14,22 @@ export default Ember.Route.extend({
    */
   profileService: Ember.inject.service('api-sdk/profile'),
 
-
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (params) {
+  model: function(params) {
     var route = this;
-    var rubric = this.get('rubricService').getRubric(params.rubricId).then(function(rubric) {
-      return route.get('profileService').readUserProfile(rubric.owner).then(function(owner){
-        rubric.set('owner', owner);
-        return Ember.RSVP.resolve(rubric);
+    var rubric = this.get('rubricService')
+      .getRubric(params.rubricId)
+      .then(function(rubric) {
+        return route
+          .get('profileService')
+          .readUserProfile(rubric.owner)
+          .then(function(owner) {
+            rubric.set('owner', owner);
+            return Ember.RSVP.resolve(rubric);
+          });
       });
-    });
     return Ember.RSVP.hash({
       rubric
     });

@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -56,8 +55,10 @@ export default Ember.Controller.extend({
    * @property {boolean}
    */
   showMoreResultsButton: Ember.computed('questions.[]', function() {
-    return this.get('questions.length') &&
-      (this.get('questions.length') % this.get('pagination.pageSize') === 0);
+    return (
+      this.get('questions.length') &&
+      this.get('questions.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
   // -------------------------------------------------------------------------
@@ -73,10 +74,22 @@ export default Ember.Controller.extend({
     pagination.page = pagination.page + 1;
     pagination.offset = pagination.page * pagination.pageSize;
 
-    controller.get('libraryService')
-    .fetchLibraryContent(libraryId, 'question', pagination)
-    .then(questions => controller.set('questions', controller.get('questions')
-    .concat(controller.mapOwners(questions.libraryContent.questions, questions.libraryContent.ownerDetails))));
+    controller
+      .get('libraryService')
+      .fetchLibraryContent(libraryId, 'question', pagination)
+      .then(questions =>
+        controller.set(
+          'questions',
+          controller
+            .get('questions')
+            .concat(
+              controller.mapOwners(
+                questions.libraryContent.questions,
+                questions.libraryContent.ownerDetails
+              )
+            )
+        )
+      );
   },
 
   resetValues: function() {
@@ -92,16 +105,15 @@ export default Ember.Controller.extend({
    * @param {Question[]} question list
    * @param {Owner[]} owner list
    */
-  mapOwners: function (questions, owners) {
+  mapOwners: function(questions, owners) {
     let ownerMap = {};
-    owners.forEach(function (owner) {
+    owners.forEach(function(owner) {
       ownerMap[owner.id] = owner;
     });
-    let mappedQuestions = questions.map(function (question) {
+    let mappedQuestions = questions.map(function(question) {
       question.owner = ownerMap[question.owner];
       return question;
     });
     return mappedQuestions;
   }
-
 });

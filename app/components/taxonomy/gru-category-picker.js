@@ -26,10 +26,10 @@ export default Ember.Component.extend({
     /**
      * Set Category
      */
-    setCategory(category){
+    setCategory(category) {
       this.set('selectedCategory', category);
-      if (this.get("onCategorySelected")) {
-        this.sendAction("onCategorySelected", category);
+      if (this.get('onCategorySelected')) {
+        this.sendAction('onCategorySelected', category);
       }
     }
   },
@@ -66,5 +66,4 @@ export default Ember.Component.extend({
    * @property {string} dropdown alignment, right | left
    */
   alignment: null
-
 });

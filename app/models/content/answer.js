@@ -22,8 +22,7 @@ const Validations = buildValidations({
  * Answer model
  * typedef {Object} Answer
  */
-const Answer = Ember.Object.extend(Validations,{
-
+const Answer = Ember.Object.extend(Validations, {
   /**
    * @property {Number} sequence - The order sequence of the answer
    */
@@ -56,7 +55,6 @@ const Answer = Ember.Object.extend(Validations,{
    * @return {Answer}
    */
   copy: function() {
-
     var properties = [];
     var enumerableKeys = Object.keys(this);
 
@@ -71,7 +69,6 @@ const Answer = Ember.Object.extend(Validations,{
     // Copy the question data
     properties = this.getProperties(properties);
 
-
     return Answer.create(Ember.getOwner(this).ownerInjection(), properties);
   },
 
@@ -79,19 +76,17 @@ const Answer = Ember.Object.extend(Validations,{
    * Returns a player answer object.
    * @returns {Answer}
    */
-  toPlayerAnswer: function(){
+  toPlayerAnswer: function() {
     const answer = this;
     return ResourceAnswer.create({
-      id: answer.get("id"),
-      text: answer.get("text"),
-      answerType: answer.get("type"),
-      order: answer.get("sequence"),
-      isCorrect: answer.get("isCorrect"),
-      highlightType: answer.get("highlightType")
+      id: answer.get('id'),
+      text: answer.get('text'),
+      answerType: answer.get('type'),
+      order: answer.get('sequence'),
+      isCorrect: answer.get('isCorrect'),
+      highlightType: answer.get('highlightType')
     });
   }
-
-
 });
 
 export default Answer;

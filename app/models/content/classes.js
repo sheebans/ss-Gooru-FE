@@ -38,11 +38,13 @@ export default Ember.Object.extend({
    * @param {string}
    * @return {Class[]}
    */
-  getStudentActiveClasses: function (userId) {
+  getStudentActiveClasses: function(userId) {
     const totalClasses = this.get('classes.length');
-    return totalClasses ? this.get('classes').filter(function(aClass){
-      return !aClass.get('isArchived') && !aClass.isTeacher(userId);
-    }) : [];
+    return totalClasses
+      ? this.get('classes').filter(function(aClass) {
+        return !aClass.get('isArchived') && !aClass.isTeacher(userId);
+      })
+      : [];
   },
 
   /**
@@ -50,10 +52,12 @@ export default Ember.Object.extend({
    * @param {string}
    * @return {Class[]}
    */
-  getTeacherActiveClasses: function (userId) {
+  getTeacherActiveClasses: function(userId) {
     const totalClasses = this.get('classes.length');
-    return totalClasses ? this.get('classes').filter(function(aClass){
-      return !aClass.get('isArchived') && aClass.isTeacher(userId);
-    }) : [];
+    return totalClasses
+      ? this.get('classes').filter(function(aClass) {
+        return !aClass.get('isArchived') && aClass.isTeacher(userId);
+      })
+      : [];
   }
 });

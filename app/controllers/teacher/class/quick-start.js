@@ -5,8 +5,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
  *
  * Controller responsible of the logic for the class quick start page
  */
-export default Ember.Controller.extend(ModalMixin,{
-
+export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -33,18 +32,24 @@ export default Ember.Controller.extend(ModalMixin,{
   actions: {
     loadFeaturedCourses: function() {
       var controller = this;
-      controller.get('searchService').searchFeaturedCourses('*')
+      controller
+        .get('searchService')
+        .searchFeaturedCourses('*')
         .then(function(featuredCourses) {
           controller.set('featuredCourses', featuredCourses);
-          controller.send('showModal', 'content.modals.gru-quick-course-search',
-            controller.get('modelForFeaturedCoursesModal'), null, 'quick-course-search');
+          controller.send(
+            'showModal',
+            'content.modals.gru-quick-course-search',
+            controller.get('modelForFeaturedCoursesModal'),
+            null,
+            'quick-course-search'
+          );
         });
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -53,26 +58,32 @@ export default Ember.Controller.extend(ModalMixin,{
   courses: null,
   messages: null,
   featuredCourses: null,
-  modelForCoursesModal: Ember.computed('class', 'courses','messages', function() {
-    return Ember.Object.create({
-      'classId': this.get('class.class.id'),
-      'courses': this.get('courses')
-    });
-  }),
-  modelForFeaturedCoursesModal: Ember.computed('class', 'featuredCourses', function(){
-    return Ember.Object.create({
-      'classId': this.get('class.class.id'),
-      'courses': this.get('featuredCourses'),
-      'areFeatured':true
-    });
-  })
+  modelForCoursesModal: Ember.computed(
+    'class',
+    'courses',
+    'messages',
+    function() {
+      return Ember.Object.create({
+        classId: this.get('class.class.id'),
+        courses: this.get('courses')
+      });
+    }
+  ),
+  modelForFeaturedCoursesModal: Ember.computed(
+    'class',
+    'featuredCourses',
+    function() {
+      return Ember.Object.create({
+        classId: this.get('class.class.id'),
+        courses: this.get('featuredCourses'),
+        areFeatured: true
+      });
+    }
+  )
 
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
-
 });

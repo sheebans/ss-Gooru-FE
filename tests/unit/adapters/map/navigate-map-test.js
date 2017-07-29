@@ -6,28 +6,37 @@ const sessionStub = Ember.Service.extend({
   'token-api3': 'token-api-3'
 });
 
-moduleForAdapter('adapter:map/navigate-map', 'Unit | Adapter | map/navigate-map', {
-  unit: true,
-  beforeEach: function () {
-    this.register('service:session', sessionStub);
-    this.inject.service('session');
+moduleForAdapter(
+  'adapter:map/navigate-map',
+  'Unit | Adapter | map/navigate-map',
+  {
+    unit: true,
+    beforeEach: function() {
+      this.register('service:session', sessionStub);
+      this.inject.service('session');
+    }
   }
-});
+);
 
-test('next', function (assert) {
+test('next', function(assert) {
   assert.expect(3);
   // Mock backend response
-  this.pretender.map(function () {
-    this.post('/api/navigate-map/v1/next', function (request) {
+  this.pretender.map(function() {
+    this.post('/api/navigate-map/v1/next', function(request) {
       let requestBodyJson = JSON.parse(request.requestBody);
       assert.equal(requestBodyJson, 'fake-map-context', 'Wrong body');
-      assert.equal(request.requestHeaders['Authorization'], 'Token token-api-3', 'Wrong token');
+      assert.equal(
+        request.requestHeaders.Authorization,
+        'Token token-api-3',
+        'Wrong token'
+      );
       return [
         200,
         {
           'Content-Type': 'application/json'
         },
-        JSON.stringify({})];
+        JSON.stringify({})
+      ];
     });
   });
   this.pretender.unhandledRequest = function(verb, path) {
@@ -36,25 +45,30 @@ test('next', function (assert) {
 
   const adapter = this.subject();
 
-  adapter.next('fake-map-context').then(function () {
+  adapter.next('fake-map-context').then(function() {
     assert.ok(true, 'This should be called once');
   });
 });
 
-test('getCurrentMapContext', function (assert) {
+test('getCurrentMapContext', function(assert) {
   assert.expect(4);
   // Mock backend response
-  this.pretender.map(function () {
-    this.get('/api/navigate-map/v1/context', function (request) {
+  this.pretender.map(function() {
+    this.get('/api/navigate-map/v1/context', function(request) {
       assert.equal(request.queryParams.course_id, 123, 'Wrong course id');
       assert.equal(request.queryParams.class_id, 321, 'Wrong class id');
-      assert.equal(request.requestHeaders['Authorization'], 'Token token-api-3', 'Wrong token');
+      assert.equal(
+        request.requestHeaders.Authorization,
+        'Token token-api-3',
+        'Wrong token'
+      );
       return [
         200,
         {
           'Content-Type': 'application/json'
         },
-        JSON.stringify({})];
+        JSON.stringify({})
+      ];
     });
   });
   this.pretender.unhandledRequest = function(verb, path) {
@@ -63,8 +77,7 @@ test('getCurrentMapContext', function (assert) {
 
   const adapter = this.subject();
 
-  adapter.getCurrentMapContext(123, 321).then(function () {
+  adapter.getCurrentMapContext(123, 321).then(function() {
     assert.ok(true, 'This should be called once');
   });
 });
-

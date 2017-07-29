@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -26,31 +25,29 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
-    remix: function () {
+    remix: function() {
       const component = this;
       const contentModel = this.get('contentModel');
-      contentModel.validate().then(function ({ validations }) {
+      contentModel.validate().then(function({ validations }) {
         if (validations.get('isValid')) {
           component.beforeCopy();
-          component.get('copyContent').call(component, contentModel)
+          component
+            .get('copyContent')
+            .call(component, contentModel)
             .then(function(contentId) {
               contentModel.set('id', contentId);
-              return component.get('updateContent').call(component, contentModel);
+              return component
+                .get('updateContent')
+                .call(component, contentModel);
             })
             .then(function() {
               component.afterCopy(contentModel);
-            },
-              component.get('showFailureNotification').bind(component)
-            );
+            }, component.get('showFailureNotification').bind(component));
         }
         component.set('didValidate', true);
       });
     }
-
   },
-
-
 
   // -------------------------------------------------------------------------
   // Events
@@ -63,17 +60,17 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-  beforeCopy: function(){
+  beforeCopy: function() {
     Ember.Logger.warn('This function can be overwrite');
   },
 
-  afterCopy: function (contentModel) {
+  afterCopy: function(contentModel) {
     const component = this;
     component.closeModal();
     component.notifyCopy(contentModel);
   },
 
-  closeModal: function () {
+  closeModal: function() {
     const component = this;
     component.triggerAction({
       action: component.get('onCloseModal')
@@ -87,12 +84,11 @@ export default Ember.Component.extend({
       toastClass: 'gooru-toast',
       timeOut: 10000
     });
-    if(component.get('onRemix')) {
+    if (component.get('onRemix')) {
       component.get('onRemix')(contentModel);
     }
     component.get('showSuccessNotification').call(component, contentModel);
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -122,5 +118,4 @@ export default Ember.Component.extend({
   target: null,
 
   onCloseModal: 'closeModal'
-
 });

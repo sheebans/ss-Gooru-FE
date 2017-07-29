@@ -5,7 +5,7 @@ import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import Lesson from 'gooru-web/models/content/lesson';
 import PlayerAccordionUnit from 'gooru-web/components/content/courses/play/gru-accordion-unit';
 import ModalMixin from 'gooru-web/mixins/modal';
-import {CONTENT_TYPES} from 'gooru-web/config/config';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Content Builder: Accordion Unit
@@ -18,29 +18,28 @@ import {CONTENT_TYPES} from 'gooru-web/config/config';
  *
  */
 export default PlayerAccordionUnit.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @requires service:api-sdk/unit
    */
-  unitService: Ember.inject.service("api-sdk/unit"),
-
+  unitService: Ember.inject.service('api-sdk/unit'),
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
-    add: function () {
-      this.loadData().then(function() {
-        this.actions.addLesson.call(this);
-        this.get('onExpandUnit')(this.get("unit.id"), true);
-        this.set('model.isExpanded', true);
-      }.bind(this));
+    add: function() {
+      this.loadData().then(
+        function() {
+          this.actions.addLesson.call(this);
+          this.get('onExpandUnit')(this.get('unit.id'), true);
+          this.set('model.isExpanded', true);
+        }.bind(this)
+      );
     },
 
-    addLesson: function () {
+    addLesson: function() {
       var lesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
         title: null
       });
@@ -52,7 +51,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
       this.refreshOrderList();
     },
 
-    cancelAddLesson: function (builderItem) {
+    cancelAddLesson: function(builderItem) {
       this.get('items').removeObject(builderItem);
       builderItem.destroy();
       this.refreshOrderList();
@@ -63,7 +62,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
      *
      * @function actions:selectUnit
      */
-    cancelEdit: function () {
+    cancelEdit: function() {
       if (this.get('model.isNew')) {
         this.get('onCancelAddUnit')(this.get('model'));
       } else {
@@ -84,40 +83,55 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
      * Delete selected unit
      *
      */
-    deleteItem: function (builderItem) {
+    deleteItem: function(builderItem) {
       let component = this;
       var model = {
         content: this.get('unit'),
-        index:this.get('index'),
-        parentName:this.get('course.title'),
-        deleteMethod: function () {
-          return this.get('unitService').deleteUnit(this.get('course.id'), this.get('unit.id'));
+        index: this.get('index'),
+        parentName: this.get('course.title'),
+        deleteMethod: function() {
+          return this.get('unitService').deleteUnit(
+            this.get('course.id'),
+            this.get('unit.id')
+          );
         }.bind(this),
         type: CONTENT_TYPES.UNIT,
         callback: {
-          success:function(){
+          success: function() {
             component.get('onDeleteUnit')(builderItem);
           }
         }
       };
-      this.actions.showModal.call(this, 'content.modals.gru-delete-content', model);
+      this.actions.showModal.call(
+        this,
+        'content.modals.gru-delete-content',
+        model
+      );
     },
 
-    edit: function () {
-      this.loadData().then(function() {
-        var unitForEditing = this.get('unit').copy();
-        this.set('tempUnit', unitForEditing);
-        this.set('model.isEditing', true);
-      }.bind(this));
+    edit: function() {
+      this.loadData().then(
+        function() {
+          var unitForEditing = this.get('unit').copy();
+          this.set('tempUnit', unitForEditing);
+          this.set('model.isEditing', true);
+        }.bind(this)
+      );
     },
 
-    openDomainPicker: function () {
+    openDomainPicker: function() {
       var component = this;
       var domains = this.get('tempUnit.taxonomy').slice(0);
       var subject = this.get('course.mainSubject');
       var subjectDomains = TaxonomyTagData.filterBySubject(subject, domains);
-      var notInSubjectDomains = TaxonomyTagData.filterByNotInSubject(subject, domains);
-      var shortcuts = TaxonomyTagData.filterBySubject(subject, this.get('course.taxonomy'));
+      var notInSubjectDomains = TaxonomyTagData.filterByNotInSubject(
+        subject,
+        domains
+      );
+      var shortcuts = TaxonomyTagData.filterBySubject(
+        subject,
+        this.get('course.taxonomy')
+      );
 
       var model = {
         selected: subjectDomains,
@@ -139,13 +153,19 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
         }
       };
 
-      this.actions.showModal.call(this, 'taxonomy.modals.gru-domain-picker', model, null, 'gru-domain-picker');
+      this.actions.showModal.call(
+        this,
+        'taxonomy.modals.gru-domain-picker',
+        model,
+        null,
+        'gru-domain-picker'
+      );
     },
 
     /**
      * Remove Lesson from a list of lessons
      */
-    removeLesson: function (builderItem) {
+    removeLesson: function(builderItem) {
       this.get('items').removeObject(builderItem);
       this.refreshOrderList();
     },
@@ -153,7 +173,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
     /**
      * Remove tag data from the taxonomy list in tempUnit
      */
-    removeTag: function (taxonomyTag) {
+    removeTag: function(taxonomyTag) {
       var tagData = taxonomyTag.get('data');
       this.get('tempUnit.taxonomy').removeObject(tagData);
     },
@@ -161,7 +181,7 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
     /**
      * Remix Lesson from a list of lessons
      */
-    remixLesson: function (lesson) {
+    remixLesson: function(lesson) {
       var builderItem = BuilderItem.create({
         isEditing: false,
         data: lesson
@@ -170,29 +190,39 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
       this.refreshOrderList();
     },
 
-    saveUnit: function () {
+    saveUnit: function() {
       var courseId = this.get('course.id');
       var editedUnit = this.get('tempUnit');
       var unitService = this.get('unitService');
 
       // Saving an existing unit or a new unit (falsey id)?
-      var savePromise = editedUnit.get('id') ?
-                          unitService.updateUnit(courseId, editedUnit) :
-                            unitService.createUnit(courseId, editedUnit);
+      var savePromise = editedUnit.get('id')
+        ? unitService.updateUnit(courseId, editedUnit)
+        : unitService.createUnit(courseId, editedUnit);
 
-      savePromise.then(function () {
-          Ember.beginPropertyChanges();
-          this.get('unit').merge(editedUnit, ['id', 'title', 'bigIdeas', 'essentialQuestions']);
-          this.set('unit.taxonomy', editedUnit.get('taxonomy').toArray());
-          this.set('model.isEditing', false);
-          Ember.endPropertyChanges();
-        }.bind(this))
-
-        .catch(function (error) {
-          var message = this.get('i18n').t('common.errors.unit-not-created').string;
-          this.get('notifications').error(message);
-          Ember.Logger.error(error);
-        }.bind(this));
+      savePromise
+        .then(
+          function() {
+            Ember.beginPropertyChanges();
+            this.get('unit').merge(editedUnit, [
+              'id',
+              'title',
+              'bigIdeas',
+              'essentialQuestions'
+            ]);
+            this.set('unit.taxonomy', editedUnit.get('taxonomy').toArray());
+            this.set('model.isEditing', false);
+            Ember.endPropertyChanges();
+          }.bind(this)
+        )
+        .catch(
+          function(error) {
+            var message = this.get('i18n').t('common.errors.unit-not-created')
+              .string;
+            this.get('notifications').error(message);
+            Ember.Logger.error(error);
+          }.bind(this)
+        );
     },
 
     sortLessons: function() {
@@ -210,15 +240,15 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
       var orderList = this.get('orderList');
 
       if (orderList && orderList.length > 1) {
-        this.get('unitService').reorderUnit(courseId, unitId, orderList)
-          .then(function(){
+        this.get('unitService').reorderUnit(courseId, unitId, orderList).then(
+          function() {
             this.actions.finishSort.call(this);
-          }.bind(this));
+          }.bind(this)
+        );
       } else {
         this.actions.finishSort.call(this);
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -241,7 +271,6 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
 
   'data-id': Ember.computed.alias('unit.id'),
 
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -263,5 +292,4 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
    * @prop {Content/Unit} tempUnit - Temporary unit model used for editing
    */
   tempUnit: null
-
 });

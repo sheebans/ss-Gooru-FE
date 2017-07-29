@@ -2,7 +2,6 @@ import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -16,17 +15,17 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     /**
      * Check if 'Dont show again' checkbox is selected and create variable on localStorage
      */
-    close: function () {
+    close: function() {
       const $checkboxShowAgain = this.$('#dontShowAgain');
 
-      if($checkboxShowAgain.prop('checked')){
+      if ($checkboxShowAgain.prop('checked')) {
         let localStorage = this.getLocalStorage();
         const userId = this.get('session.userId');
-        const localStorageItem = userId+'_dontShowWelcomeModal';
+        const localStorageItem = `${userId}_dontShowWelcomeModal`;
         localStorage.setItem(localStorageItem, true);
       }
     }
@@ -34,5 +33,4 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

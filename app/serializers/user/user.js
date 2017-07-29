@@ -1,25 +1,24 @@
-import DS from "ember-data";
-import { DEFAULT_IMAGES } from "gooru-web/config/config";
+import DS from 'ember-data';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default DS.JSONAPISerializer.extend(ConfigurationMixin, {
-
   serialize: function(snapshot) {
     var signUpObject = snapshot.record.toJSON();
     var data = {
-      user : {
+      user: {
         firstName: signUpObject.firstName,
         lastName: signUpObject.lastName,
         username: signUpObject.username,
         emailId: signUpObject.email,
         organization: {
-          organizationCode: "gooru"
+          organizationCode: 'gooru'
         }
       },
-      gender: "male",
+      gender: 'male',
       dateOfBirth: signUpObject.dateOfBirth,
       role: signUpObject.role,
-      password : signUpObject.password
+      password: signUpObject.password
     };
     return data;
   },
@@ -32,7 +31,7 @@ export default DS.JSONAPISerializer.extend(ConfigurationMixin, {
    * @returns {Object}
    */
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
-    return  {
+    return {
       data: this.normalizeUser(payload)
     };
   },
@@ -67,7 +66,7 @@ export default DS.JSONAPISerializer.extend(ConfigurationMixin, {
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
     return {
       id: payload.gooruUId,
-      type: "user/user",
+      type: 'user/user',
       attributes: {
         accountCreatedType: payload.accountCreatedType,
         accountTypeId: payload.accountTypeId,
@@ -80,7 +79,9 @@ export default DS.JSONAPISerializer.extend(ConfigurationMixin, {
         lastName: payload.lastName ? payload.lastName : payload.lastname,
         organizationName: payload.organizationName,
         partyUid: payload.partyUid,
-        avatarUrl: payload.profileImageUrl ? payload.profileImageUrl : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
+        avatarUrl: payload.profileImageUrl
+          ? payload.profileImageUrl
+          : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
         userRoleSetString: payload.userRoleSetString,
         username: payload.username,
         usernameDisplay: payload.usernameDisplay,
@@ -88,5 +89,4 @@ export default DS.JSONAPISerializer.extend(ConfigurationMixin, {
       }
     };
   }
-
 });

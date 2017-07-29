@@ -25,7 +25,10 @@
       padding: 0;
     }
 
-    .title, .score, .content-count, .icon-container{
+    .title,
+    .score,
+    .content-count,
+    .icon-container {
       display: inline-block;
       vertical-align: middle;
       padding: 0;
@@ -134,5 +137,3 @@
     }
   }
 }
-
-

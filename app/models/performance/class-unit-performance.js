@@ -1,6 +1,3 @@
 import ClassPerformance from './class-performance';
 
-
-export default ClassPerformance.extend({
-
-});
+export default ClassPerformance.extend({});

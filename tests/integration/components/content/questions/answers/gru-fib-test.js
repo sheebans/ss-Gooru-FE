@@ -1,9 +1,13 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('content/questions/answers/gru-fib', 'Integration | Component | content/questions/answers/gru fib', {
-  integration: true
-});
+moduleForComponent(
+  'content/questions/answers/gru-fib',
+  'Integration | Component | content/questions/answers/gru fib',
+  {
+    integration: true
+  }
+);
 
 test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');

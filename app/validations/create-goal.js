@@ -53,5 +53,4 @@ export default buildValidations({
       validator('reserved-words')
     ]
   }
-
 });

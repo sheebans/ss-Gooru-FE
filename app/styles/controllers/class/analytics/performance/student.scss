@@ -33,7 +33,6 @@
             display: block;
             margin: 0;
             padding: 0 25px 10px;
-
           }
           .active & span {
             opacity: 1;
@@ -46,7 +45,6 @@
         }
       }
     }
-
   }
   .student-actions {
     padding: 0 56px;
@@ -68,7 +66,8 @@
       color: $gray;
       margin-bottom: 15px;
       margin-top: 20px;
-      span.not-started, span.no-content {
+      span.not-started,
+      span.no-content {
         text-align: start;
         white-space: nowrap;
         overflow: hidden;
@@ -85,12 +84,11 @@
         padding-left: 50px;
       }
     }
-
   }
-  .performance-picker{
-    .gru-data-picker{
+  .performance-picker {
+    .gru-data-picker {
       margin-top: 15px;
-      .option-picker{
+      .option-picker {
         background-color: $white;
       }
     }

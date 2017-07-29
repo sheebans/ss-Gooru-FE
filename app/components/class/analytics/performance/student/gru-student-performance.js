@@ -17,13 +17,13 @@ export default Ember.Component.extend({
    *
    * @attribute {Array}
    */
-  classNames:['gru-student-performance-container','panel-group'],
+  classNames: ['gru-student-performance-container', 'panel-group'],
   /**
    * Attribute that tells the component that it will contain these attributes.
    *
    * @attribute {Array}
    */
-  attributeBindings: ['role','aria-multiselectable'],
+  attributeBindings: ['role', 'aria-multiselectable'],
   /**
    * Attribute that computes the elements 'role' attribute to the specified string.
    *
@@ -35,15 +35,13 @@ export default Ember.Component.extend({
    *
    * @attribute {String}
    */
-  'aria-multiselectable':'true',
+  'aria-multiselectable': 'true',
 
   /**
    * The class content visibility
    * @property {ClassContentVisibility}
    */
   contentVisibility: null,
-
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -53,7 +51,7 @@ export default Ember.Component.extend({
      * @function actions:selectResource
      * @param {string} collection - (collection/assessment)
      */
-    selectResource: function (unitId, lessonId, collection) {
+    selectResource: function(unitId, lessonId, collection) {
       // Send the action so that it bubbles up to the route
       this.sendAction('onSelectResource', unitId, lessonId, collection);
     },
@@ -62,7 +60,7 @@ export default Ember.Component.extend({
      * @function actions:viewReport
      * @param {string} collection - Identifier for a resource (collection/assessment)
      */
-    viewReport: function (unitId, lessonId, collection) {
+    viewReport: function(unitId, lessonId, collection) {
       // Send the action so that it bubbles up to the route
       this.sendAction('onViewReport', unitId, lessonId, collection);
     },
@@ -74,8 +72,8 @@ export default Ember.Component.extend({
      * @param {string} newLocation - String that contains the id of the change
      * @param {string} type - String that says whether its a unit or a lesson
      */
-    updateLocation: function (newLocation,type) {
-      this.get('onLocationUpdate')(newLocation,type);
+    updateLocation: function(newLocation, type) {
+      this.get('onLocationUpdate')(newLocation, type);
     }
   },
 
@@ -102,13 +100,13 @@ export default Ember.Component.extend({
    *
    * @property {Ember.Array}
    */
-  performances:null,
+  performances: null,
   /**
    * Model of the class this unit belongs to
    *
    * @property {Class}
    */
-  classModel:null,
+  classModel: null,
   /**
    * UserID this user belongs to
    *
@@ -131,7 +129,4 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
 
   // Methods
-
-
-
 });

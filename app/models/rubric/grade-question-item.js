@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} Grade Question Item
  */
 export default Ember.Object.extend({
-
   /**
    * @property {String} unitId
    */
@@ -31,5 +30,4 @@ export default Ember.Object.extend({
   * @property {number} studentCount
   */
   studentCount: null
-
 });

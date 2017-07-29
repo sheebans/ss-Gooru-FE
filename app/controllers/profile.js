@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -20,17 +19,25 @@ export default Ember.Controller.extend({
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
         if (controller.get('profile.isFollowing')) {
-          controller.get('profileService').unfollowUserProfile(controller.get('profile.id'))
+          controller
+            .get('profileService')
+            .unfollowUserProfile(controller.get('profile.id'))
             .then(function() {
-              controller.get('profileService').readUserProfile(controller.get('profile.id'))
+              controller
+                .get('profileService')
+                .readUserProfile(controller.get('profile.id'))
                 .then(function(updatedProfile) {
                   controller.set('profile', updatedProfile);
                 });
             });
         } else {
-          controller.get('profileService').followUserProfile(controller.get('profile.id'))
+          controller
+            .get('profileService')
+            .followUserProfile(controller.get('profile.id'))
             .then(function() {
-              controller.get('profileService').readUserProfile(controller.get('profile.id'))
+              controller
+                .get('profileService')
+                .readUserProfile(controller.get('profile.id'))
                 .then(function(updatedProfile) {
                   controller.set('profile', updatedProfile);
                 });
@@ -53,13 +60,13 @@ export default Ember.Controller.extend({
    * @returns {bool}
    */
   isMyProfile: Ember.computed('profile', function() {
-    return this.get('profile').get('id') === this.get("currentUserId");
+    return this.get('profile').get('id') === this.get('currentUserId');
   }),
 
   /**
    * Current user id
    */
-  currentUserId: Ember.computed.alias("session.userId"),
+  currentUserId: Ember.computed.alias('session.userId'),
 
   /**
    * The profile presented to the user
@@ -76,7 +83,6 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -84,8 +90,7 @@ export default Ember.Controller.extend({
    * Selected the menu item
    * @param {string} item
    */
-  selectMenuItem: function(item){
-    this.set("menuItem", item);
+  selectMenuItem: function(item) {
+    this.set('menuItem', item);
   }
-
 });

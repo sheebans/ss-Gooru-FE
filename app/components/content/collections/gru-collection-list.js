@@ -19,12 +19,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   /**
    * @requires service:api-sdk/assessment
    */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   /**
    * @requires service:api-sdk/collection
    */
-  collectionService: Ember.inject.service("api-sdk/collection"),
+  collectionService: Ember.inject.service('api-sdk/collection'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -33,12 +33,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Actions
 
-  actions:{
-
+  actions: {
     /**
      * Remove collection item
      */
-    removeCollectionItem: function (builderItem) {
+    removeCollectionItem: function(builderItem) {
       this.get('items').removeObject(builderItem);
       this.refreshOrderList();
     },
@@ -46,7 +45,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     /**
      * Remix collection item
      */
-    remixCollectionItem: function (builderItem) {
+    remixCollectionItem: function(builderItem) {
       this.get('items').addObject(builderItem);
       this.refreshOrderList();
     },
@@ -54,23 +53,32 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     /**
      * Save reorder collection items
      */
-    saveCollectionItemsOrder: function(){
+    saveCollectionItemsOrder: function() {
       var component = this;
       const orderList = component.get('orderList');
-      if (orderList){
-        if(this.get('isCollection')){
-          component.get('collectionService').reorderCollection(component.get('model.id'),component.get('orderList'))
-            .then(function(){
+      if (orderList) {
+        if (this.get('isCollection')) {
+          component
+            .get('collectionService')
+            .reorderCollection(
+              component.get('model.id'),
+              component.get('orderList')
+            )
+            .then(function() {
               component.actions.finishSort.call(component);
             });
         } else {
-          component.get('assessmentService').reorderAssessment(component.get('model.id'),component.get('orderList'))
-            .then(function(){
+          component
+            .get('assessmentService')
+            .reorderAssessment(
+              component.get('model.id'),
+              component.get('orderList')
+            )
+            .then(function() {
               component.actions.finishSort.call(component);
             });
         }
-      }
-      else {
+      } else {
         component.actions.finishSort.call(component);
       }
     }
@@ -82,7 +90,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   /**
    * WillDestroyElement ember event
    */
-  didRender(){
+  didRender() {
     $('[data-toggle="tooltip"]').tooltip();
   },
 
@@ -95,5 +103,4 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   isCollection: Ember.computed('model', function() {
     return this.get('model') instanceof Collection;
   })
-
 });

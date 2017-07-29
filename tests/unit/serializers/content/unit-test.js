@@ -5,7 +5,7 @@ import Unit from 'gooru-web/models/content/unit';
 
 moduleFor('serializer:content/unit', 'Unit | Serializer | content/unit');
 
-test('serializeCreateUnit', function (assert) {
+test('serializeCreateUnit', function(assert) {
   const serializer = this.subject();
   const modelInstance = Unit.create({
     bigIdeas: 'Big ideas text',
@@ -27,7 +27,7 @@ test('serializeCreateUnit', function (assert) {
   assert.deepEqual(modelObject, expected, 'Serializer response');
 });
 
-test('serializeUpdateUnit', function (assert) {
+test('serializeUpdateUnit', function(assert) {
   const serializer = this.subject();
   const modelInstance = Unit.create({
     bigIdeas: 'Big ideas text',
@@ -49,40 +49,40 @@ test('serializeUpdateUnit', function (assert) {
   assert.deepEqual(modelObject, expected, 'Serializer response');
 });
 
-test('normalizeUnit', function (assert) {
+test('normalizeUnit', function(assert) {
   const serializer = this.subject();
   const payload = {
-    "unit_id": "unit-id",
-    "course_id": "course-id",
-    "title": "Unit title",
-    "created_at": "2016-03-10T08:08:02Z",
-    "updated_at": "2016-03-10T08:09:44Z",
-    "owner_id": "owner-id",
-    "creator_id": "owner-id",
-    "modifier_id": "owner-id",
-    "original_creator_id": null,
-    "original_unit_id": null,
-    "big_ideas": "Big ideas text",
-    "essential_questions": "Essential questions text",
-    "metadata": null,
-    "taxonomy": {},
-    "sequence_id": 4,
-    "is_deleted": false,
-    "creator_system": "gooru",
-    "lesson_summary": [
+    unit_id: 'unit-id',
+    course_id: 'course-id',
+    title: 'Unit title',
+    created_at: '2016-03-10T08:08:02Z',
+    updated_at: '2016-03-10T08:09:44Z',
+    owner_id: 'owner-id',
+    creator_id: 'owner-id',
+    modifier_id: 'owner-id',
+    original_creator_id: null,
+    original_unit_id: null,
+    big_ideas: 'Big ideas text',
+    essential_questions: 'Essential questions text',
+    metadata: null,
+    taxonomy: {},
+    sequence_id: 4,
+    is_deleted: false,
+    creator_system: 'gooru',
+    lesson_summary: [
       {
-        "lesson_id": "lesson-id-123",
-        "title": "my lesson",
-        "sequence_id": 1,
-        "collection_count": null,
-        "assessment_count": null
+        lesson_id: 'lesson-id-123',
+        title: 'my lesson',
+        sequence_id: 1,
+        collection_count: null,
+        assessment_count: null
       },
       {
-        "lesson_id": "lesson-id-456",
-        "title": "Lesson 1",
-        "sequence_id": 2,
-        "collection_count": 2,
-        "assessment_count": 2
+        lesson_id: 'lesson-id-456',
+        title: 'Lesson 1',
+        sequence_id: 2,
+        collection_count: 2,
+        assessment_count: 2
       }
     ]
   };
@@ -117,10 +117,10 @@ test('normalizeUnit', function (assert) {
 
 test('serializeReorderUnit', function(assert) {
   const serializer = this.subject();
-  const ids = ["a", "b", "c"];
+  const ids = ['a', 'b', 'c'];
   const data = serializer.serializeReorderUnit(ids);
   assert.ok(data.order, 'Missing order');
   assert.equal(data.order.length, 3, 'Wrong order total');
-  assert.equal(data.order[0].id, "a", 'Wrong id');
+  assert.equal(data.order[0].id, 'a', 'Wrong id');
   assert.equal(data.order[0].sequence_id, 1, 'Wrong sequence id');
 });

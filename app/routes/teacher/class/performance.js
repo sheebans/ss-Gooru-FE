@@ -11,7 +11,6 @@ import ReportData from 'gooru-web/models/result/report-data';
  * @augments ember/Controller
  */
 export default Ember.Route.extend({
-
   queryParams: {
     filterBy: {
       refreshModel: true
@@ -64,8 +63,6 @@ export default Ember.Route.extend({
    */
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
-
-
   // -------------------------------------------------------------------------
   // Actions
 
@@ -73,7 +70,7 @@ export default Ember.Route.extend({
     /**
      * Navigates to the assessment report
      */
-    navigateToReport: function (performance, userPerformance){
+    navigateToReport: function(performance, userPerformance) {
       if (!performance.get('isAverage')) {
         const route = this;
 
@@ -88,20 +85,23 @@ export default Ember.Route.extend({
           courseId: route.get('controller.course.id')
         };
 
-        const reportController = route.controllerFor('reports.student-collection-analytics');
+        const reportController = route.controllerFor(
+          'reports.student-collection-analytics'
+        );
 
         var currentUrl = route.router.get('url');
-        reportController.set('backUrl',currentUrl);
-        route.transitionTo('reports.student-collection-analytics', { queryParams: queryParams});
+        reportController.set('backUrl', currentUrl);
+        route.transitionTo('reports.student-collection-analytics', {
+          queryParams: queryParams
+        });
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (params) {
+  model: function(params) {
     const route = this;
 
     const courseId = route.modelFor('teacher.class').course.get('id');
@@ -111,13 +111,20 @@ export default Ember.Route.extend({
     const filterBy = params.filterBy;
     const isAssessment = !filterBy || filterBy === 'assessment';
     return Ember.RSVP.hash({
-      course: courseId ? route.get('courseService').fetchById(courseId) : undefined,
-      unit: unitId ? route.get('unitService').fetchById(courseId, unitId) : undefined,
-      lesson: lessonId ? route.get('lessonService').fetchById(courseId, unitId, lessonId) : undefined,
-      collection: collectionId ?
-        (isAssessment ?
-          route.get('assessmentService').readAssessment(collectionId) :
-          route.get('collectionService').readCollection(collectionId)) : undefined
+      course: courseId
+        ? route.get('courseService').fetchById(courseId)
+        : undefined,
+      unit: unitId
+        ? route.get('unitService').fetchById(courseId, unitId)
+        : undefined,
+      lesson: lessonId
+        ? route.get('lessonService').fetchById(courseId, unitId, lessonId)
+        : undefined,
+      collection: collectionId
+        ? isAssessment
+          ? route.get('assessmentService').readAssessment(collectionId)
+          : route.get('collectionService').readCollection(collectionId)
+        : undefined
     });
   },
   /**
@@ -129,7 +136,10 @@ export default Ember.Route.extend({
     const route = this;
     controller.set('unit', model.unit);
     controller.set('lesson', model.lesson);
-    controller.set('collection', model.collection ? model.collection.toPlayerCollection() : undefined);
+    controller.set(
+      'collection',
+      model.collection ? model.collection.toPlayerCollection() : undefined
+    );
 
     const course = controller.get('course');
     const unit = controller.get('unit');
@@ -142,7 +152,7 @@ export default Ember.Route.extend({
     controller.updateBreadcrumb(course, 'course');
     if (unit) {
       course.children.find((child, index) => {
-        if(unit.id === child.id) {
+        if (unit.id === child.id) {
           unit.set('sequence', index + 1);
           return true;
         }
@@ -151,7 +161,7 @@ export default Ember.Route.extend({
     }
     if (lesson) {
       unit.children.find((child, index) => {
-        if(lesson.id === child.id) {
+        if (lesson.id === child.id) {
           lesson.set('sequence', index + 1);
           return true;
         }
@@ -162,21 +172,18 @@ export default Ember.Route.extend({
     controller.get('classController').selectMenuItem('performance');
   },
 
-  loadData: function (controller) {
+  loadData: function(controller) {
     const route = this;
     controller.set('performanceDataMatrix', []);
     controller.set('reportData', null);
     let promise = Ember.RSVP.resolve();
     if (controller.get('isAtCourseLevel')) {
       promise = route.loadCourseData(controller);
-    }
-    else if (controller.get('isAtUnitLevel')) {
+    } else if (controller.get('isAtUnitLevel')) {
       promise = route.loadUnitData(controller);
-    }
-    else if (controller.get('isAtLessonLevel')) {
+    } else if (controller.get('isAtLessonLevel')) {
       promise = route.loadLessonData(controller);
-    }
-    else if (controller.get('isAtCollectionLevel')) {
+    } else if (controller.get('isAtCollectionLevel')) {
       promise = route.loadCollectionData(controller);
     }
     controller.restoreSelectedOptions();
@@ -194,11 +201,23 @@ export default Ember.Route.extend({
     const members = controller.get('class.members');
     const units = controller.get('course.children') || [];
 
-    if(courseId) {
-      return controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
+    if (courseId) {
+      return controller
+        .get('performanceService')
+        .findClassPerformance(classId, courseId, members, {
+          collectionType: filterBy
+        })
         .then(function(classPerformanceData) {
-          route.fixUnitsTotalCounts(controller, classPerformanceData, controller.get('filteredByAssessment'));
-          const performanceData = createDataMatrix(units, classPerformanceData, 'course');
+          route.fixUnitsTotalCounts(
+            controller,
+            classPerformanceData,
+            controller.get('filteredByAssessment')
+          );
+          const performanceData = createDataMatrix(
+            units,
+            classPerformanceData,
+            'course'
+          );
           controller.set('performanceDataMatrix', performanceData);
           controller.set('performanceDataHeaders', units);
           controller.set('headerType', 'unit');
@@ -220,10 +239,23 @@ export default Ember.Route.extend({
     const unitId = controller.get('unit.id');
     const lessons = controller.get('unit.children') || [];
 
-    return controller.get('performanceService').findClassPerformanceByUnit(classId, courseId, unitId, members, {collectionType: filterBy})
+    return controller
+      .get('performanceService')
+      .findClassPerformanceByUnit(classId, courseId, unitId, members, {
+        collectionType: filterBy
+      })
       .then(function(classPerformanceData) {
-        route.fixLessonTotalCounts(controller, unitId, classPerformanceData, controller.get('filteredByAssessment'));
-        const performanceData = createDataMatrix(lessons, classPerformanceData, 'unit');
+        route.fixLessonTotalCounts(
+          controller,
+          unitId,
+          classPerformanceData,
+          controller.get('filteredByAssessment')
+        );
+        const performanceData = createDataMatrix(
+          lessons,
+          classPerformanceData,
+          'unit'
+        );
         controller.set('performanceDataMatrix', performanceData);
         controller.set('performanceDataHeaders', lessons);
         controller.set('headerType', 'lesson');
@@ -242,12 +274,25 @@ export default Ember.Route.extend({
     const unitId = controller.get('unit.id');
     const lessonId = controller.get('lesson.id');
     const collections = controller.get('lesson.children') || [];
-    return controller.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy})
+    return controller
+      .get('performanceService')
+      .findClassPerformanceByUnitAndLesson(
+        classId,
+        courseId,
+        unitId,
+        lessonId,
+        members,
+        { collectionType: filterBy }
+      )
       .then(function(classPerformanceData) {
         const filteredCollections = collections.filter(function(collection) {
-          return (filterBy === 'both') || (collection.get('format') === filterBy);
+          return filterBy === 'both' || collection.get('format') === filterBy;
         });
-        const performanceData = createDataMatrix(filteredCollections, classPerformanceData, 'lesson');
+        const performanceData = createDataMatrix(
+          filteredCollections,
+          classPerformanceData,
+          'lesson'
+        );
         controller.set('performanceDataMatrix', performanceData);
         controller.set('performanceDataHeaders', filteredCollections);
         controller.set('headerType', 'collection');
@@ -267,8 +312,16 @@ export default Ember.Route.extend({
     const lessonId = controller.get('lesson.id');
     const collectionId = controller.get('collection.id');
     const collectionType = controller.get('collection.collectionType');
-    return route.get('analyticsService')
-      .findResourcesByCollection(classId, courseId, unitId, lessonId, collectionId, collectionType)
+    return route
+      .get('analyticsService')
+      .findResourcesByCollection(
+        classId,
+        courseId,
+        unitId,
+        lessonId,
+        collectionId,
+        collectionType
+      )
       .then(function(userResourcesResults) {
         const reportData = ReportData.create({
           students: members,
@@ -283,15 +336,25 @@ export default Ember.Route.extend({
    * @param classPerformanceData
    * @param filteredByAssessment
    */
-  fixUnitsTotalCounts: function(controller, classPerformanceData, filteredByAssessment) {
+  fixUnitsTotalCounts: function(
+    controller,
+    classPerformanceData,
+    filteredByAssessment
+  ) {
     const contentVisibility = controller.get('contentVisibility');
-    const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
+    const studentPerformanceData = classPerformanceData.get(
+      'studentPerformanceData'
+    );
     studentPerformanceData.forEach(function(studentPerformance) {
       const performanceData = studentPerformance.get('performanceData');
       performanceData.forEach(function(performance) {
-        const totals = filteredByAssessment ?
-          contentVisibility.getTotalAssessmentsByUnit(performance.get('realId')) :
-          contentVisibility.getTotalCollectionsByUnit(performance.get('realId'));
+        const totals = filteredByAssessment
+          ? contentVisibility.getTotalAssessmentsByUnit(
+            performance.get('realId')
+          )
+          : contentVisibility.getTotalCollectionsByUnit(
+            performance.get('realId')
+          );
         performance.set('completionTotal', totals);
       });
     });
@@ -303,25 +366,37 @@ export default Ember.Route.extend({
    * @param classPerformanceData
    * @param filterBy
    */
-  fixLessonTotalCounts: function(controller, unitId, classPerformanceData, filteredByAssessment) {
+  fixLessonTotalCounts: function(
+    controller,
+    unitId,
+    classPerformanceData,
+    filteredByAssessment
+  ) {
     const contentVisibility = controller.get('contentVisibility');
-    const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
+    const studentPerformanceData = classPerformanceData.get(
+      'studentPerformanceData'
+    );
     studentPerformanceData.forEach(function(studentPerformance) {
       const performanceData = studentPerformance.get('performanceData');
       performanceData.forEach(function(performance) {
-        const totals = filteredByAssessment ?
-          contentVisibility.getTotalAssessmentsByUnitAndLesson(unitId, performance.get('realId')) :
-          contentVisibility.getTotalCollectionsByUnitAndLesson(unitId, performance.get('realId'));
+        const totals = filteredByAssessment
+          ? contentVisibility.getTotalAssessmentsByUnitAndLesson(
+            unitId,
+            performance.get('realId')
+          )
+          : contentVisibility.getTotalCollectionsByUnitAndLesson(
+            unitId,
+            performance.get('realId')
+          );
         performance.set('completionTotal', totals);
       });
     });
   },
 
-
   /**
    * Cleanse the controller values
    */
-  deactivate: function(){
+  deactivate: function() {
     this.get('controller').resetValues();
   }
 });

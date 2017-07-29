@@ -1,5 +1,4 @@
 .player .gru-question-viewer {
-
   padding: 15px;
 
   @media (min-width: $screen-sm) {
@@ -36,7 +35,8 @@
       width: 47%;
       float: left;
     }
-    .hints, .explanation{
+    .hints,
+    .explanation {
       display: block;
     }
     .panel-body {
@@ -57,9 +57,9 @@
     .actions {
       margin-top: 30px;
       text-align: center;
-      .save{
+      .save {
         @media (min-width: $screen-sm) {
-          float:right;
+          float: right;
         }
       }
     }
@@ -92,7 +92,7 @@
     .feedback-emotion {
       height: 50px;
       width: 50px;
-      float:left;
+      float: left;
     }
     .correct {
       margin-top: -14px;
@@ -120,16 +120,15 @@
         }
       }
     }
-    .btn-group{
-      button{
-        span i{
+    .btn-group {
+      button {
+        span i {
           vertical-align: middle;
         }
       }
-      & .explanation{
+      & .explanation {
         margin-left: 1px;
       }
-
     }
 
     > .hints {

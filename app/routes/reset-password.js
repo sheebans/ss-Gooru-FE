@@ -1,7 +1,6 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   queryParams: {
     token: '',
     user_id: ''

@@ -4,7 +4,7 @@ import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 //import T from 'gooru-web/tests/helpers/assert';
 
 moduleForAcceptance('Acceptance | Edit Question', {
-  beforeEach: function () {
+  beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
       token: 'profile-token',
@@ -34,17 +34,17 @@ test('Click share button and check clipboard functionality', function (assert) {
   });
 });
 */
-test('Delete Question', function (assert) {
+test('Delete Question', function(assert) {
   visit('/content/questions/edit/1');
-  andThen(function () {
+  andThen(function() {
     assert.equal(currentURL(), '/content/questions/edit/1');
-    var $deleteButton = find("header .actions .delete");
+    var $deleteButton = find('header .actions .delete');
     click($deleteButton);
-    andThen(function () {
-      var $deleteContentModal = find(".gru-modal .gru-delete-question");
-      var $deleteButton = $deleteContentModal.find("button.delete");
+    andThen(function() {
+      var $deleteContentModal = find('.gru-modal .gru-delete-question');
+      var $deleteButton = $deleteContentModal.find('button.delete');
       click($deleteButton);
-      andThen(function () {
+      andThen(function() {
         assert.equal(currentURL(), '/id-for-pochita/content/courses');
       });
     });

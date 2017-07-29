@@ -28,10 +28,8 @@ import Ember from 'ember';
  * @typedef {Object} FillInTheBlankUtil
  */
 const FillInTheBlankUtil = QuestionUtil.extend({
-
   // -------------------------------------------------------------------------
   // Observers
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -42,20 +40,22 @@ const FillInTheBlankUtil = QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  isAnswerChoiceCorrect: function (answerChoice, index) {
+  isAnswerChoiceCorrect: function(answerChoice, index) {
     let correctAnswer = this.getCorrectAnswer();
-    return correctAnswer[index] &&
-      correctAnswer[index].toUpperCase() === answerChoice.toUpperCase();
+    return (
+      correctAnswer[index] &&
+      correctAnswer[index].toUpperCase() === answerChoice.toUpperCase()
+    );
   },
 
   /**
    * Gets the correct answer
    * @return {string[]} the correct answer for this question type
    */
-  getCorrectAnswer: function () {
+  getCorrectAnswer: function() {
     const answers = this.getQuestionAnswers();
-    return answers.map(function (answer) {
-      return answer.get("text");
+    return answers.map(function(answer) {
+      return answer.get('text');
     });
   },
 
@@ -68,7 +68,7 @@ const FillInTheBlankUtil = QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  answerKey: function (answer) {
+  answerKey: function(answer) {
     return answer.join();
   },
 
@@ -81,16 +81,16 @@ const FillInTheBlankUtil = QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toAnswerObjects: function (userAnswer) {
+  toAnswerObjects: function(userAnswer) {
     let util = this;
-    return userAnswer.map(function (text, index) {
+    return userAnswer.map(function(text, index) {
       let answer = util.getAnswerByText(text);
       return AnswerObject.create({
-        "text": text,
-        "correct": util.isAnswerChoiceCorrect(text, index),
-        "order": index + 1,
-        "answerId": answer ? answer.get("id") : 0,
-        "skip": false
+        text: text,
+        correct: util.isAnswerChoiceCorrect(text, index),
+        order: index + 1,
+        answerId: answer ? answer.get('id') : 0,
+        skip: false
       });
     });
   },
@@ -104,12 +104,12 @@ const FillInTheBlankUtil = QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toUserAnswer: function (answerObjects) {
-    answerObjects = answerObjects.sortBy("order");
-    return (!answerObjects || !answerObjects.length) ?
-      null : //if not respond is provided
-      answerObjects.map(function (answerObject) {
-        return answerObject.get("text");
+  toUserAnswer: function(answerObjects) {
+    answerObjects = answerObjects.sortBy('order');
+    return !answerObjects || !answerObjects.length
+      ? null //if not respond is provided
+      : answerObjects.map(function(answerObject) {
+        return answerObject.get('text');
       });
   },
 
@@ -120,26 +120,25 @@ const FillInTheBlankUtil = QuestionUtil.extend({
    * @returns {Answer[]}
    */
   getQuestionAnswers: function() {
-    const answersFromText = FillInTheBlankUtil.getQuestionAnswers(this.get("question"));
-    const answers = this.get("question.answers");
-    return (answers.get("length") !== answersFromText.get("length")) ?
-      answersFromText :
-      answers;
+    const answersFromText = FillInTheBlankUtil.getQuestionAnswers(
+      this.get('question')
+    );
+    const answers = this.get('question.answers');
+    return answers.get('length') !== answersFromText.get('length')
+      ? answersFromText
+      : answers;
   }
-
-
 });
 
 FillInTheBlankUtil.reopenClass({
-
   /**
    * Regular expression used to parse the question text,
    * it ignores sqrt math expression
    */
-  FIB_REGEX : {
+  FIB_REGEX: {
     //this regex looks for all text in [], it has 2 groups, the first one to get the 4 letters before if any,
     // the second one the word in [], @see getCorrectAnswers
-    global: /(.{4})?(\[[^[\]]+])/gi  /* negative look behind is not supported in js :( /(?<!sqrt)(\[[^\[\]]+\])+/gi */
+    global: /(.{4})?(\[[^[\]]+])/gi /* negative look behind is not supported in js :( /(?<!sqrt)(\[[^\[\]]+\])+/gi */
   },
 
   /**
@@ -156,15 +155,13 @@ FillInTheBlankUtil.reopenClass({
    * @param text
    * @returns {String[]}
      */
-  getCorrectAnswers: function (text) {
+  getCorrectAnswers: function(text) {
     const regExp = FillInTheBlankUtil.FIB_REGEX.global;
     let matches = regExp.exec(text);
     let answers = [];
     while (matches) {
-      let include =
-        matches[1] === undefined || //when it is at the beginning of the line there is no group 1
-        (matches[1] !== 'sqrt'); //check it is not a sqrt expression, i.e sqrt[2]
-      if (include){
+      let include = matches[1] === undefined || matches[1] !== 'sqrt'; //when it is at the beginning of the line there is no group 1 //check it is not a sqrt expression, i.e sqrt[2]
+      if (include) {
         answers.push(matches[2]); // return second group
       }
 
@@ -179,11 +176,11 @@ FillInTheBlankUtil.reopenClass({
    * @param text
    * @returns {*}
      */
-  toFibText: function (text){
+  toFibText: function(text) {
     if (text) {
       const inputText = FillInTheBlankUtil.LEGACY_REGEX.text;
       const regExp = FillInTheBlankUtil.FIB_REGEX.global;
-      const replacer = function(match, p1/*, p2, offset, text*/) {
+      const replacer = function(match, p1 /*, p2, offset, text*/) {
         const replace = p1 === undefined || p1 !== 'sqrt';
         const newText = p1 === undefined ? inputText : `${p1}${inputText}`;
         return replace ? newText : match;
@@ -199,7 +196,7 @@ FillInTheBlankUtil.reopenClass({
    * @return {Answer[]}
    */
   getQuestionAnswers: function(question) {
-    const text = question.get("text");
+    const text = question.get('text');
     const owner = Ember.getOwner(question);
     const matchedAnswers = FillInTheBlankUtil.getCorrectAnswers(text);
     return matchedAnswers.map(function(answer, index) {
@@ -211,7 +208,6 @@ FillInTheBlankUtil.reopenClass({
       });
     });
   }
-
 });
 
 export default FillInTheBlankUtil;

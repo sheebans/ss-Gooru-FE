@@ -19,11 +19,23 @@ test('createContext without context', function(assert) {
     lessonId: 'lesson-id'
   });
   subject.set('quizzesContextService', {
-    createContext: (context) => {
-      assert.equal(context.get('collectionId'), 'collection-id', 'Collection id should match');
-      assert.equal(context.get('title'), 'collection-title', 'Collection title should match');
+    createContext: context => {
+      assert.equal(
+        context.get('collectionId'),
+        'collection-id',
+        'Collection id should match'
+      );
+      assert.equal(
+        context.get('title'),
+        'collection-title',
+        'Collection title should match'
+      );
       assert.ok(context.get('isCollection'), 'Should show as collection');
-      assert.deepEqual(context.get('contextMapping'), {}, 'Context should not have mapping');
+      assert.deepEqual(
+        context.get('contextMapping'),
+        {},
+        'Context should not have mapping'
+      );
       return Ember.RSVP.resolve();
     }
   });
@@ -45,14 +57,34 @@ test('createContext with context', function(assert) {
     lessonId: 'lesson-id'
   });
   subject.set('quizzesContextService', {
-    createContext: (context) => {
-      assert.equal(context.get('collectionId'), 'collection-id', 'Collection id should match');
-      assert.equal(context.get('title'), 'collection-title', 'Collection title should match');
+    createContext: context => {
+      assert.equal(
+        context.get('collectionId'),
+        'collection-id',
+        'Collection id should match'
+      );
+      assert.equal(
+        context.get('title'),
+        'collection-title',
+        'Collection title should match'
+      );
       assert.notOk(context.get('isCollection'), 'Should show as collection');
       assert.equal(context.get('classId'), 'class-id', 'Class id should match');
-      assert.equal(context.get('contextMapping.courseId'), 'course-id', 'Course id should match');
-      assert.equal(context.get('contextMapping.unitId'), 'unit-id', 'Unit id should match');
-      assert.equal(context.get('contextMapping.lessonId'), 'lesson-id', 'Lesson id should match');
+      assert.equal(
+        context.get('contextMapping.courseId'),
+        'course-id',
+        'Course id should match'
+      );
+      assert.equal(
+        context.get('contextMapping.unitId'),
+        'unit-id',
+        'Unit id should match'
+      );
+      assert.equal(
+        context.get('contextMapping.lessonId'),
+        'lesson-id',
+        'Lesson id should match'
+      );
       return Ember.RSVP.resolve();
     }
   });

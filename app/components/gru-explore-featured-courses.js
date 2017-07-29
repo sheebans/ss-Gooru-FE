@@ -10,7 +10,7 @@ import { CONTENT_TYPES } from 'gooru-web/config/config';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-// -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @requires service:api-sdk/bookmark
@@ -49,11 +49,14 @@ export default Ember.Component.extend({
       toastClass: 'gooru-toast',
       timeOut: 10000
     });
-    const successMsg = showType ? this.get('i18n').t(
-      'common.bookmarked-content-success',
-      { contentType: bookmark.get('contentType') }
-    ) : this.get('i18n').t('common.bookmarked-success');
-    const independentLearningURL = this.get('router').generate('student-independent-learning');
+    const successMsg = showType
+      ? this.get('i18n').t('common.bookmarked-content-success', {
+        contentType: bookmark.get('contentType')
+      })
+      : this.get('i18n').t('common.bookmarked-success');
+    const independentLearningURL = this.get('router').generate(
+      'student-independent-learning'
+    );
     const buttonText = this.get('i18n').t('common.take-me-there');
     this.get('notifications').success(
       `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`
@@ -73,8 +76,9 @@ export default Ember.Component.extend({
         contentId: id,
         contentType: CONTENT_TYPES.COURSE
       });
-      this.createBookmark(bookmark)
-        .then(() => this.notifyBookmarkSuccess(bookmark, showType));
+      this.createBookmark(bookmark).then(() =>
+        this.notifyBookmarkSuccess(bookmark, showType)
+      );
     },
 
     /**
@@ -86,8 +90,9 @@ export default Ember.Component.extend({
         contentId: id,
         contentType: CONTENT_TYPES.COURSE
       });
-      return this.createBookmark(bookmark)
-        .then(() => this.get('router').transitionTo('student.independent', id));
+      return this.createBookmark(bookmark).then(() =>
+        this.get('router').transitionTo('student.independent', id)
+      );
     }
   },
 
@@ -102,5 +107,4 @@ export default Ember.Component.extend({
    * @property {Profile} user profile
    */
   profile: null
-
 });
