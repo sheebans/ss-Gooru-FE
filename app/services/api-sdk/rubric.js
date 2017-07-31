@@ -184,5 +184,40 @@ export default Ember.Service.extend({
       .then(data =>
         service.get('serializer').normalizeStudentsForQuestion(data)
       );
+  },
+
+  /**
+   * Returns Answer for Rubric Grading
+   * @param {string} studentId
+   * @param {string} classId
+   * @param {string} courseId
+   * @param {string} collectionId
+   * @param {string} questionId
+   * @param {string} unitId
+   * @param {string} lessonId
+   * @returns {Promise|GradeQuestionAnswer}
+   */
+  getAnswerToGrade: function(
+    studentId,
+    classId,
+    courseId,
+    collectionId,
+    questionId,
+    unitId = null,
+    lessonId = null
+  ) {
+    const service = this;
+    return service
+      .get('adapter')
+      .getAnswerToGrade(
+        studentId,
+        classId,
+        courseId,
+        collectionId,
+        questionId,
+        unitId,
+        lessonId
+      )
+      .then(data => service.get('serializer').normalizeAnswerToGrade(data));
   }
 });

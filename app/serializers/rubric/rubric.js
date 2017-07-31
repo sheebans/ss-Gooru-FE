@@ -6,6 +6,7 @@ import RubricCategory from 'gooru-web/models/rubric/rubric-category';
 import GradeQuestion from 'gooru-web/models/rubric/grade-question';
 import GradeQuestionItem from 'gooru-web/models/rubric/grade-question-item';
 import GradeQuestionStudents from 'gooru-web/models/rubric/grade-question-students';
+import GradeQuestionAnswer from 'gooru-web/models/rubric/grade-question-answer';
 import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from 'gooru-web/config/config';
 
 /**
@@ -262,6 +263,27 @@ export default Ember.Object.extend({
 
     return GradeQuestionStudents.create(Ember.getOwner(this).ownerInjection(), {
       students: students ? students : null
+    });
+  },
+
+  /**
+   * Normalizes Answer for Rubric Grading
+   * @param {*} payload
+   * @return {GradeQuestionAnswer}
+   */
+  normalizeAnswerToGrade: function(payload) {
+    return GradeQuestionAnswer.create(Ember.getOwner(this).ownerInjection(), {
+      courseId: payload.courseId,
+      unitId: payload.unitId,
+      lessonId: payload.lessonId,
+      collectionId: payload.collectionId,
+      questionId: payload.questionId,
+      sessionId: payload.sessionId,
+      questionText: payload.questionText,
+      answerText: payload.answerText,
+      submittedAt: payload.submittedAt,
+      timeSpent: payload.timeSpent,
+      userId: payload.userId
     });
   }
 });

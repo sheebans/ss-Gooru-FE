@@ -542,3 +542,54 @@ test('normalizeStudentsForQuestion', function(assert) {
     'Wrong student id'
   );
 });
+
+test('normalizeAnswerToGrade', function(assert) {
+  const serializer = this.subject();
+
+  const payload = {
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    lessonId: 'lesson-id',
+    collectionId: 'collection-id',
+    questionId: 'question-id',
+    sessionId: 'session-id',
+    questionText: 'NA',
+    answerText: 'TBD - How will it be obtained and displayed',
+    submittedAt: '2017-03-05 18:44:04.798',
+    timeSpent: 500,
+    userId: 'user-id'
+  };
+
+  const answerToGrade = serializer.normalizeAnswerToGrade(payload);
+  assert.equal(answerToGrade.get('courseId'), 'course-id', 'Wrong course id');
+  assert.equal(answerToGrade.get('unitId'), 'unit-id', 'Wrong unit id');
+  assert.equal(answerToGrade.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+  assert.equal(
+    answerToGrade.get('collectionId'),
+    'collection-id',
+    'Wrong collection id'
+  );
+  assert.equal(
+    answerToGrade.get('questionId'),
+    'question-id',
+    'Wrong question id'
+  );
+  assert.equal(
+    answerToGrade.get('sessionId'),
+    'session-id',
+    'Wrong session id'
+  );
+  assert.equal(answerToGrade.get('questionText'), 'NA', 'Wrong question text');
+  assert.equal(
+    answerToGrade.get('answerText'),
+    'TBD - How will it be obtained and displayed',
+    'Wrong answer text'
+  );
+  assert.equal(
+    answerToGrade.get('submittedAt'),
+    '2017-03-05 18:44:04.798',
+    'Wrong submitted date'
+  );
+  assert.equal(answerToGrade.get('timeSpent'), 500, 'Wrong time spent');
+  assert.equal(answerToGrade.get('userId'), 'user-id', 'Wrong user id');
+});
