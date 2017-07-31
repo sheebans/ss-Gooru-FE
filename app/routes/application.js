@@ -115,6 +115,7 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
 
   afterModel: function() {
     const route = this;
+    this.set('i18n.locale', 'en');
     if (Env.embedded) {
       return route.afterModelEmbeddedApplication();
     } else {
@@ -188,7 +189,7 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
    * @param event
    * @param jqXHR
    * @param settings
-     */
+   */
   trackEndPointError: function(event, jqXHR, settings) {
     const route = this;
 

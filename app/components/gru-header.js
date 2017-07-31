@@ -15,11 +15,25 @@ import Env from 'gooru-web/config/environment';
 export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['gru-header', 'navbar-fixed-top'],
+
+  locales: Ember.computed('i18n.locale', 'i18n.locales', function() {
+    const i18n = this.get('i18n');
+
+    var arr = Ember.A();
+    this.get('i18n.locales').map(function(loc) {
+      if (loc !== 'en/quizzes') {
+        arr.addObject({ id: loc, text: i18n.t(loc) });
+      }
+    });
+
+    return arr;
+  }),
 
   tagName: 'header',
 
@@ -29,6 +43,18 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   actions: {
     logout: function() {
       this.sendAction('onLogout');
+    },
+    setLocale(selVal) {
+      this.set('i18n.locale', selVal);
+      if (selVal === 'ar') {
+        const rootElement = Ember.$(Env.rootElement);
+        rootElement.addClass('changeDir');
+        rootElement.removeClass('changeDirDefault');
+      } else {
+        const rootElement = Ember.$(Env.rootElement);
+        rootElement.removeClass('changeDir');
+        rootElement.addClass('changeDirDefault');
+      }
     },
 
     searchTerm: function() {

@@ -1,6 +1,7 @@
-import quizzesTranslations from './quizzes/translations';
-
-export default Object.assign(quizzesTranslations, {
+export default {
+  en: 'English',
+  sp: 'Spanish',
+  ar: 'Arabic',
   errors: {
     tooShort: '{{description}} قصير جدا (الحد الأدنى هو {{min}} حرفا)',
     date: 'يجب أن يكون {{description}} تاريخا صالحا',
@@ -37,6 +38,7 @@ export default Object.assign(quizzesTranslations, {
     present: 'يجب أن يكون {{description}} فارغا'
   },
   common: {
+    'choose-lang': 'اختر اللغة',
     'assessment-pl': {
       zero: 'تقييم',
       other: 'تقييم',
@@ -2114,4 +2116,4 @@ export default Object.assign(quizzesTranslations, {
     'benchmark-lead':
       'أنت الآن جاهز لإثبات تفهمك من خلال إجراء تقييم معياري. سوف تكسب شارة لإكمال المعيار بنجاح. لن يؤثر المعيار على درجة أداء الدورة.'
   }
-});
+};

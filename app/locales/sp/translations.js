@@ -1,6 +1,7 @@
-import quizzesTranslations from './quizzes/translations';
-
-export default Object.assign(quizzesTranslations, {
+export default {
+  en: 'English',
+  sp: 'Spanish',
+  ar: 'Arabic',
   errors: {
     tooShort:
       '{{description}} es demasiado corta (el mínimo es {{min}} caracteres)',
@@ -40,6 +41,7 @@ export default Object.assign(quizzesTranslations, {
     present: '{{description}} debe estar en blanco'
   },
   common: {
+    'choose-lang': 'Elige Lengua',
     'assessment-pl': {
       zero: 'Evaluaciones',
       other: 'Evaluaciones',
@@ -2180,4 +2182,4 @@ export default Object.assign(quizzesTranslations, {
     'benchmark-lead':
       'Ahora está listo para demostrar su comprensión tomando una evaluación de referencia. Obtendrá una insignia para completar satisfactoriamente el punto de referencia. El punto de referencia no afectará la puntuación de rendimiento del curso.'
   }
-});
+};

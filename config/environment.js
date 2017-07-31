@@ -45,7 +45,8 @@ module.exports = function(environment) {
   ENV.embedded = isEmbedded;
 
   ENV.i18n = {
-    defaultLocale: 'en'
+    defaultLocale: 'en',
+    allowedLocales: ['en', 'sp', 'ar']
   };
 
   ENV['ember-simple-auth'] = {

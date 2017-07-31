@@ -51,6 +51,22 @@ span.validation.error {
   margin-top: 4px;
 }
 
+.changeDir {
+  direction: rtl;
+}
+
+.dropMenuLabelWidth {
+  width: 8%;
+}
+
+.dropMenuWidth {
+  width: 18%;
+}
+
+.changeDirDefault {
+  direction: ltr;
+}
+
 .validation span.warning,
 span.validation.warning {
   color: $orange-400;

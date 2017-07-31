@@ -1,6 +1,9 @@
 import quizzesTranslations from './quizzes/translations';
 
 export default Object.assign(quizzesTranslations, {
+  en: 'English',
+  sp: 'Spanish',
+  ar: 'Arabic',
   errors: {
     description: 'This field',
     inclusion: '{{description}} is not included in the list',
