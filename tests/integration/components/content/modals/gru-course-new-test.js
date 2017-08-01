@@ -186,6 +186,7 @@ test('it displays a notification if the course cannot be created', function(
     $component.find('.actions .create').click();
   });
 });
+
 test('Validate if the Course Title field has only whitespaces', function(
   assert
 ) {

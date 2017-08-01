@@ -19,4 +19,10 @@
     -o-user-select: none;
     user-select: none;
   }
+
+  .empty-message {
+    display: inline-block;
+    font-size: $font-size-small;
+    margin-top: 4px;
+  }
 }
