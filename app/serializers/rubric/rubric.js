@@ -8,7 +8,7 @@ import GradeQuestion from 'gooru-web/models/rubric/grade-question';
 import GradeQuestionItem from 'gooru-web/models/rubric/grade-question-item';
 import GradeQuestionStudents from 'gooru-web/models/rubric/grade-question-students';
 import GradeQuestionAnswer from 'gooru-web/models/rubric/grade-question-answer';
-import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from 'gooru-web/config/config';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Rubric CRUD operations
@@ -176,7 +176,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       thumbnail: thumbnail,
       standards: serializer
         .get('taxonomySerializer')
-        .normalizeTaxonomyObject(data.taxonomy, TAXONOMY_LEVELS.COURSE),
+        .normalizeTaxonomyObject(data.taxonomy),
       audience: metadata.audience,
       url: data.url,
       isPublished: data.publishStatus === 'published',
