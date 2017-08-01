@@ -100,6 +100,7 @@ export default Ember.Component.extend({
    * @type {Course} course
    */
   course: null,
+
   /**
    * Indicate if it's waiting for createCourse callback
    */

@@ -78,17 +78,12 @@ test('it renders', function(assert) {
 test('it shows an error message if the course title field is left blank', function(
   assert
 ) {
-  assert.expect(3);
+  assert.expect(2);
 
   this.render(hbs`{{content/modals/gru-course-new}}`);
 
   const $component = this.$('.content.modals.gru-course-new');
   const $titleField = $component.find('.gru-input.title');
-
-  assert.ok(
-    !$titleField.find('.error-messages .error').length,
-    'Title error message not visible'
-  );
 
   // Try submitting without filling in data
   $component.find('.actions .create').click();
@@ -96,16 +91,16 @@ test('it shows an error message if the course title field is left blank', functi
   return wait().then(function() {
     assert.ok(
       $titleField.find('.error-messages .error').length,
-      'Title error message visible'
+      'Title error message should be visible'
     );
     // Fill in the input field
     $titleField.find('input').val('Course Name');
     $titleField.find('input').blur();
 
     return wait().then(function() {
-      assert.ok(
-        !$titleField.find('.error-messages .error').length,
-        'Title error message was hidden'
+      assert.notOk(
+        $titleField.find('.error-messages .error').length,
+        'Title error message should not be visible'
       );
     });
   });
@@ -186,20 +181,16 @@ test('it displays a notification if the course cannot be created', function(
     $component.find('.actions .create').click();
   });
 });
+
 test('Validate if the Course Title field has only whitespaces', function(
   assert
 ) {
-  assert.expect(3);
+  assert.expect(2);
 
   this.render(hbs`{{content/modals/gru-course-new}}`);
 
   const $component = this.$('.gru-course-new');
   const $titleField = $component.find('.gru-input.title');
-
-  assert.ok(
-    !$titleField.find('.error-messages .error').length,
-    'Course Title error message not visible'
-  );
 
   // Try submitting without filling in data
   $component.find('.create').click();

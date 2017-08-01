@@ -13,9 +13,6 @@ const { computed, defineProperty } = Ember;
  */
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
-  // Dependencies
-
-  // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['gru-input', 'validation'],
@@ -32,6 +29,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     focusOut: function() {
       this.set('rawInputValue', this.get('value'));
@@ -98,46 +96,57 @@ export default Ember.Component.extend({
    * @property {string} inputId - Id for input
    */
   inputId: null,
+
   /**
    * @param {Object} model - Model that will be attached to the component
    */
   model: null,
+
   /**
    * @param {String} value - formatted value of the input field.
    */
   value: null,
+
   /**
    * @param {String} rawInputValue - unformatted value of the input field
    */
   rawInputValue: null,
+
   /**
    * @param {String} type - type of the input field.
    */
   type: 'text',
+
   /**
    * @param {String} valuePath - value used to set the rawInputValue
    */
   valuePath: '',
+
   /**
    * @param {Number} type - max length of the input field.
    */
   maxLength: 1000,
+
   /**
    * @property {Boolean} isRequired - value used to add the aria-required attr when needed
    */
   isRequired: null,
+
   /**
    * @param {Object} attributeValidation - value used to set the rawInputValue
    */
   attributeValidation: null,
+
   /**
    * @param {Boolean} isTyping - Flag for when user is typing
    */
   isTyping: false,
+
   /**
    * @param {Boolean} hasClearButton - Flag for when we want to show a clear button
    */
   hasClearButton: false,
+
   /**
    * @param {Computed} showClearButton - Flag that determines when the button should be shown when flag is true
    */
@@ -189,14 +198,17 @@ export default Ember.Component.extend({
    * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.
    */
   hasContent: computed.notEmpty('rawInputValue'),
+
   /**
    * @param {Computed } isValid -  A computed property that says whether the value is valid
    */
   isValid: computed.readOnly('attributeValidation.isValid'),
+
   /**
    * @param {Computed } isInvalid - A computed property that says whether the value is invalid
    */
   isInvalid: computed.oneWay('attributeValidation.isInvalid'),
+
   /**
    * @param {Computed } hasContent - computed property that defines what message to show
    */
@@ -224,6 +236,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   /*
   * Remove white spaces from input
   */
