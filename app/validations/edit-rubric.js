@@ -21,8 +21,7 @@ export default buildValidations({
         type: 'url',
         message: '{{description}}',
         descriptionKey: 'common.errors.resource-invalid-url'
-      }),
-      validator('host')
+      })
     ]
   }
 });

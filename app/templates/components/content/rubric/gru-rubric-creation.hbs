@@ -14,7 +14,7 @@
   <div role="tabpanel" class="tab-pane {{if showFromWeb 'active'}}" id="from-web">
     <div class="add-from-web">
       <label class="url-label">
-        {{validation.gru-input model=rubric valuePath='url' placeholder=(t 'gru-rubric-creation.url')}}
+        {{validation.gru-input model=rubric valuePath='url' placeholder=(t 'gru-rubric-creation.url') didValidate=didValidate}}
       </label>
       <button class="btn btn-default btn-primary add-btn" title={{t 'common.add'}} {{action 'addURL' rubric.url}}>{{t 'common.add'}}</button>
       {{content.rubric.gru-preview-url resource=resource isRubric=true}}

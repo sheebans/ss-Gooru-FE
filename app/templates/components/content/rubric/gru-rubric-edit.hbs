@@ -6,13 +6,13 @@
       {{partial 'content/partials/information-actions'}}
     </div>
     <div class="content">
-      {{content.gru-image isEditing=true}}
+      {{content.gru-image isEditing=true srcImage=rubric.thumbnail editImage=tempRubric.thumbnail}}
       <div class="panel panel-default information">
         <div class="panel-body">
           <div class="title">
             <label>
               <span class="required">{{t "common.rubric-title"}}</span>
-              {{validation.gru-input model=tempRubric valuePath='title' maxLength=50}}
+              {{validation.gru-input model=tempRubric valuePath='title' maxLength=50  didValidate=didValidate}}
             </label>
           </div>
           {{taxonomy.gru-taxonomy-selector
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="panel-body">
-        {{content.rubric.gru-rubric-creation rubric=tempRubric}}
+        {{content.rubric.gru-rubric-creation rubric=tempRubric didValidate=didValidate}}
       </div>
     </div>
     <div class="panel panel-default overall-score out-of-scope">
