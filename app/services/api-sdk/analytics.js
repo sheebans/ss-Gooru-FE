@@ -181,7 +181,15 @@ export default Ember.Service.extend({
         currentLocation.set("lesson", hash.lesson);
         currentLocation.set("collection", hash.collection);
         resolve(currentLocation);
-      }, reject);
+      },function (error) { //handling server errors
+        const status = error.status;
+        if (status === 404) {
+          resolve(undefined);
+        }
+        else {
+          reject(error);
+        }
+      });
     });
   },
 

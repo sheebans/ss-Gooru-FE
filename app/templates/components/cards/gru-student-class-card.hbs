@@ -28,7 +28,7 @@
     <div class="information col-md-7">
       <span>{{t "student-landing.current-activity"}}</span>
       <div class="current-activity ellipsis">
-        {{#if class.currentLocation}}
+        {{#if showCurrentLocation}}
           <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
           {{class.currentLocation.collection.title}}, {{t "student-landing.class.unit"}} {{plus-one class.currentLocation.unitIndex}}, {{t "student-landing.class.lesson" }} {{plus-one class.currentLocation.lessonIndex}}
         {{else}}
