@@ -184,7 +184,7 @@ export default Ember.Service.extend({
       },function (error) { //handling server errors
         const status = error.status;
         if (status === 404) {
-          resolve(undefined);
+          resolve();
         }
         else {
           reject(error);

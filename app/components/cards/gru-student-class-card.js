@@ -24,8 +24,6 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} Show or not the current location
    */
-  showCurrentLocation: Ember.computed('class.currentLocation', function() {
-    let currentLocation = this.get('class.currentLocation');
-    return (currentLocation && currentLocation.get('course') && currentLocation.get('unit') && currentLocation.get('lesson') && currentLocation.get('collection'));
-  })
+  showCurrentLocation: Ember.computed.and('class.currentLocation','class.currentLocation.course','class.currentLocation.unit','class.currentLocation.lesson','class.currentLocation.collection')
+
 });
