@@ -58,6 +58,10 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
         params.type = collection.get('collectionType');
         params.contextId = id;
         params.anonymous = anonymous;
+        return route.get('classService').readClassMembers(classId);
+      })
+      .then(classMembers => {
+        params.students = classMembers.members;
         return route
           .quizzesModel(params)
           .then(model => Object.assign(model, { classId }));
