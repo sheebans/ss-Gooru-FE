@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 import { cleanFilename, nullIfEmpty } from 'gooru-web/utils/utils';
 import Rubric from 'gooru-web/models/rubric/rubric';
@@ -14,7 +15,7 @@ import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from 'gooru-web/config/config';
  *
  * @typedef {Object} RubricSerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin, {
   session: Ember.inject.service('session'),
 
   /**

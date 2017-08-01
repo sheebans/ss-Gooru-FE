@@ -847,3 +847,23 @@ export function arrayChunks(array, chunkSize) {
   }
   return chunks;
 }
+
+/**
+ * Determine the upload type object (@see gooru-web/config/config#UPLOAD_TYPES) based on a file name extension.
+ * @param {String} filename -Complete file name (including the extension)
+ * @param {Object[]} uploadTypes
+ * @return {Object}
+ */
+export function inferUploadType(filename, uploadTypes) {
+  var extension = filename.substr(filename.lastIndexOf('.'));
+  var selectedType = null;
+
+  for (let i = uploadTypes.length - 1; i >= 0; i--) {
+    let type = uploadTypes[i];
+    if (type.validExtensions.indexOf(extension) >= 0) {
+      selectedType = type;
+      break;
+    }
+  }
+  return selectedType;
+}

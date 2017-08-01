@@ -78,5 +78,9 @@ test('Rubric creation Layout', function(assert) {
       ).length,
       'Missing file picker component'
     );
+    assert.ok(
+      $component.find('.gru-preview-url').length,
+      'Missing preview component'
+    );
   });
 });

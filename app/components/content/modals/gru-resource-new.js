@@ -6,7 +6,7 @@ import {
   VIDEO_RESOURCE_TYPE
 } from 'gooru-web/config/config';
 import ResourceValidations from 'gooru-web/validations/resource';
-import { isVideoURL } from 'gooru-web/utils/utils';
+import { isVideoURL, inferUploadType } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -190,7 +190,7 @@ export default Ember.Component.extend({
       this.set('resource.file', file);
 
       if (file) {
-        let uploadType = this.inferUploadType(file.name, UPLOADABLE_TYPES);
+        let uploadType = inferUploadType(file.name, UPLOADABLE_TYPES);
         this.actions.selectUploadType.call(this, uploadType);
       }
     },
@@ -343,26 +343,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
-  /**
-   * Determine the upload type object (@see gooru-web/config/config#UPLOAD_TYPES) based on a file name extension.
-   * @param {String} filename -Complete file name (including the extension)
-   * @param {Object[]} uploadTypes
-   * @return {Object}
-   */
-  inferUploadType: function(filename, uploadTypes) {
-    var extension = filename.substr(filename.lastIndexOf('.'));
-    var selectedType = null;
-
-    for (let i = uploadTypes.length - 1; i >= 0; i--) {
-      let type = uploadTypes[i];
-      if (type.validExtensions.indexOf(extension) >= 0) {
-        selectedType = type;
-        break;
-      }
-    }
-    return selectedType;
-  },
 
   /**
    * Create a resource (url/upload)

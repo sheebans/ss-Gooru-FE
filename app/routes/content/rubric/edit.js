@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import Rubric from 'gooru-web/models/rubric/rubric';
+import EditRubricValidations from 'gooru-web/validations/edit-rubric';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
@@ -21,6 +23,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   model: function(params) {
     const route = this;
+    const RurbicValidation = Rubric.extend(EditRubricValidations);
     return route
       .get('rubricService')
       .getRubric(params.rubricId)
@@ -30,7 +33,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           ? params.editingContent
           : null;
         return Ember.RSVP.hash({
-          rubric: rubric,
+          rubric: RurbicValidation.create(rubric),
           isEditing: !!isEditing,
           editingContent: editingContent
         });
