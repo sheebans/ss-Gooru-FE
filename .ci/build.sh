@@ -48,8 +48,8 @@ info "Building..."
 silent grunt build:prod-bamboo
 echo $VERSION > gooru-web/version.html
 
-#info "Extracting welcome site into gooru-web"
-#silent tar xvzf welcome.tar.gz -C gooru-web/
+info "Extracting welcome site into gooru-web"
+silent tar xvzf welcome.tar.gz -C gooru-web/
 
 info "Creating artifact with version ${VERSION}..."
 tar czf gooru-web-${VERSION}.tar.gz gooru-web/ appspec.yml .deploy/
