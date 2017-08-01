@@ -94,7 +94,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
      */
     removeTag: function(taxonomyTag) {
       var tagData = taxonomyTag.get('data');
-      this.get('rubric.standards').removeObject(tagData);
+      this.get('tempRubric.standards').removeObject(tagData);
     },
     /**
      * Open taxonomy modal
