@@ -86,7 +86,35 @@
               <button class="add-image btn btn-sm btn-primary" {{action "toggleImagePicker"}}>{{t "common.add-question-image"}}</button>
           {{/if}}
         </div>
-        {{#unless model.isFIB}}
+        {{#if model.isOpenEnded}}
+          <div class="submission-format">
+            <div class="border-bottom">
+              <h3>Student Submission Format</h3>
+            </div>
+            <div class="answer-types">
+              <div class="panel panel-default">
+                <div class="panel-body">{{gru-icon name='input'}}</div>
+                <div class="panel-footer">Text Box</div>
+              </div>
+            </div>
+          </div>
+          <div class="feedback-grading">
+            <div class="border-bottom">
+              <h3>Feedback and Grading</h3>
+            </div>
+            <div class="content">
+              <div class="switch">
+                <label class="switch-label">Rubric</label>
+                {{gru-switch switchOptions=switchOptions}}
+              </div>
+              <div class="switch">
+                <label class="switch-label">Scoring</label>
+                {{gru-switch switchOptions=switchOptions}}
+              </div>
+            </div>
+          </div>
+        {{/if}}
+        {{#unless (or model.isOpenEnded model.isFIB)}}
           <div class="answers">
             <div class="{{unless model.isHotTextHighlight 'border-bottom'}}">
               <h3>{{t "content.questions.edit.builder.answer"}}</h3>
