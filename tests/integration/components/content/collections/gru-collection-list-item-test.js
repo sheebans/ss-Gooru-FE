@@ -552,3 +552,45 @@ test('Update on edit inline panel ', function(assert) {
     });
   });
 });
+
+test('Layout for OpenEnded Question', function(assert) {
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'question',
+    questionType: 'OE'
+  });
+
+  this.set('question', question);
+  this.set('index', 0);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question index=index}}`
+  );
+
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+
+  const $panelBody = $panel.find('> .panel-body');
+  assert.ok($panelBody.length, 'panel body');
+
+  const $answersContainer = $panelBody.find('.answers');
+  assert.ok(!$answersContainer.length, 'Answers section should not be visible');
+
+  const $submissionFormatContainer = $panelBody.find('.submission-format');
+  assert.ok(
+    $submissionFormatContainer.length,
+    'Student Submission format section should be visible'
+  );
+
+  const $feedbackGradingContainer = $panelBody.find('.feedback-grading');
+  assert.ok(
+    $feedbackGradingContainer.length,
+    'Feedback and Grading section should be visible'
+  );
+  assert.equal(
+    $feedbackGradingContainer.find('.gru-switch').length,
+    2,
+    '2 gru-switch displayed'
+  );
+});
