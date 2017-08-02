@@ -622,12 +622,7 @@ function assessmentFileData(
   const performanceAverageHeaders = performanceDataMatrix.objectAt(0)
     .performanceData;
   const performanceData = performanceDataMatrix.slice(1);
-  var dataHeaders = Ember.A([
-    'Student',
-    'Average score',
-    'Average completion',
-    'Average time'
-  ]);
+  var dataHeaders = Ember.A(['Student', 'Average score', 'Average time']);
   var dataMatrix = Ember.A([]);
   var averageHeaders = Ember.A(['Class average']);
 
@@ -645,11 +640,7 @@ function assessmentFileData(
         : level === 'unit' ? `L${index + 1} ` : `A${index + 1} `;
     const scoreHeader = `${prefixHeader}${headerItem.get('title')} score`;
     const timeHeader = `${prefixHeader}${headerItem.get('title')} time`;
-    const completionHeader = `${prefixHeader}${headerItem.get(
-      'title'
-    )} completion`;
     dataHeaders.push(scoreHeader);
-    dataHeaders.push(completionHeader);
     dataHeaders.push(timeHeader);
   });
   performanceAverageHeaders.forEach(function(avHeaderItem) {
@@ -659,11 +650,7 @@ function assessmentFileData(
         ? `${avHeaderItem.score}%`
         : '--%';
     const time = `${avHeaderItem.get('timeSpent')}`;
-    const completion = avHeaderItem.completionDone
-      ? `"${avHeaderItem.completionDone}/${avHeaderItem.completionTotal}"`
-      : '--';
     averageHeaders.push(score);
-    averageHeaders.push(completion);
     averageHeaders.push(time);
   });
   dataMatrix.push(averageHeaders);
@@ -681,15 +668,10 @@ function assessmentFileData(
             ? `${dataContentItem.score}%`
             : '--%';
         const time = `${dataContentItem.get('timeSpent')}`;
-        const completion = dataContentItem.completionDone
-          ? `"${dataContentItem.completionDone}/${dataContentItem.completionTotal}"`
-          : '--';
         data.push(score);
-        data.push(completion);
         data.push(time);
       } else {
         //this is to fill the table with blanks when there isn't dataContentItem
-        data.push('');
         data.push('');
         data.push('');
       }
