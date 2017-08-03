@@ -860,7 +860,9 @@ export default Object.assign(quizzesTranslations, {
           },
           'feedback-grading': {
             title: 'Feedback and Grading',
-            scoring: 'Scoring'
+            scoring: 'Scoring',
+            'maximum-points': 'Maximum Points',
+            increment: 'Increment'
           }
         }
       }

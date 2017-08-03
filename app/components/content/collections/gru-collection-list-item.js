@@ -249,6 +249,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
     focusQuestionTextEditor: function() {
       this.scrollToFirstEditor();
+    },
+
+    showScoringFields: function() {
+      this.set('showScoringSettings', !this.get('showScoringSettings'));
     }
   },
 
@@ -384,6 +388,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   showAdvancedEditor: false,
 
   /**
+   * If the advanced editor should be shown
+   * @property {Boolean}
+   */
+  showScoringSettings: false,
+
+  /**
    * If the advanced edit button should be shown
    @property {Boolean}
    */
@@ -411,6 +421,29 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       value: false
     })
   ]),
+
+  /**
+   * Options for maximum points
+   * @property {Array}
+   */
+  maximumOptions: Ember.computed(function() {
+    let options = [];
+    for (let i = 1; i <= 200; i += 1) {
+      options.push({
+        id: i,
+        name: i
+      });
+    }
+    return options;
+  }),
+
+  /**
+   * Options for increment
+   * @property {Array}
+   */
+  incrementOptions: Ember.computed(function() {
+    return [{ id: 0.5, name: 0.5 }, { id: 1, name: 1 }];
+  }),
 
   // ----------------------------
   // Methods
