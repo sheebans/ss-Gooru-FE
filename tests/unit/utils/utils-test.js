@@ -457,8 +457,6 @@ test('prepare csv file data to download filter by assessment in the course level
     Ember.Object.create({
       performanceData: Ember.A([
         Ember.Object.create({
-          completionDone: 12,
-          completionTotal: 16,
           hideScore: false,
           hasScore: true,
           hasStarted: true,
@@ -466,8 +464,6 @@ test('prepare csv file data to download filter by assessment in the course level
           timeSpent: '4m 35s'
         }),
         Ember.Object.create({
-          completionDone: 12,
-          completionTotal: 16,
           hideScore: false,
           hasScore: true,
           hasStarted: true,
@@ -475,8 +471,6 @@ test('prepare csv file data to download filter by assessment in the course level
           timeSpent: '4m 35s'
         }),
         Ember.Object.create({
-          completionDone: 11,
-          completionTotal: 16,
           hideScore: false,
           hasScore: false,
           hasStarted: true,
@@ -489,8 +483,6 @@ test('prepare csv file data to download filter by assessment in the course level
       user: 'testUser1',
       performanceData: Ember.A([
         Ember.Object.create({
-          completionDone: 12,
-          completionTotal: 16,
           hideScore: false,
           hasScore: true,
           hasStarted: true,
@@ -498,8 +490,6 @@ test('prepare csv file data to download filter by assessment in the course level
           timeSpent: '4m 35s'
         }),
         Ember.Object.create({
-          completionDone: 12,
-          completionTotal: 16,
           hideScore: false,
           hasScore: true,
           hasStarted: true,
@@ -507,8 +497,6 @@ test('prepare csv file data to download filter by assessment in the course level
           timeSpent: '4m 35s'
         }),
         Ember.Object.create({
-          completionDone: 10,
-          completionTotal: 16,
           hideScore: false,
           hasScore: false,
           hasStarted: true,
@@ -521,8 +509,6 @@ test('prepare csv file data to download filter by assessment in the course level
       user: 'testUser2',
       performanceData: Ember.A([
         Ember.Object.create({
-          completionDone: 12,
-          completionTotal: 16,
           hideScore: false,
           hasScore: true,
           hasStarted: true,
@@ -530,8 +516,6 @@ test('prepare csv file data to download filter by assessment in the course level
           timeSpent: '4m 35s'
         }),
         Ember.Object.create({
-          completionDone: 14,
-          completionTotal: 16,
           hideScore: false,
           hasScore: true,
           hasStarted: true,
@@ -539,8 +523,6 @@ test('prepare csv file data to download filter by assessment in the course level
           timeSpent: '4m 35s'
         }),
         Ember.Object.create({
-          completionDone: 16,
-          completionTotal: 16,
           hideScore: false,
           hasScore: false,
           hasStarted: true,
@@ -554,13 +536,10 @@ test('prepare csv file data to download filter by assessment in the course level
   let expectedDataHeaders = Ember.A([
     'Student',
     'Average score',
-    'Average completion',
     'Average time',
     'U1 Unit#1 score',
-    'U1 Unit#1 completion',
     'U1 Unit#1 time',
     'U2 Unit#2 score',
-    'U2 Unit#2 completion',
     'U2 Unit#2 time'
   ]);
 
@@ -568,39 +547,14 @@ test('prepare csv file data to download filter by assessment in the course level
     Ember.A([
       'Class average',
       '38%',
-      '"12/16"',
       '4m 35s',
       '38%',
-      '"12/16"',
       '4m 35s',
       '--%',
-      '"11/16"',
       '4m 35s'
     ]),
-    Ember.A([
-      'testUser1',
-      '18%',
-      '"12/16"',
-      '4m 35s',
-      '18%',
-      '"12/16"',
-      '4m 35s',
-      '--%',
-      '"10/16"',
-      '4m 35s'
-    ]),
-    Ember.A([
-      'testUser2',
-      '18%',
-      '"12/16"',
-      '4m 35s',
-      '80%',
-      '"14/16"',
-      '4m 35s',
-      '--%',
-      '"16/16"',
-      '4m 35s'
-    ])
+    Ember.A(['testUser1', '18%', '4m 35s', '18%', '4m 35s', '--%', '4m 35s']),
+    Ember.A(['testUser2', '18%', '4m 35s', '80%', '4m 35s', '--%', '4m 35s'])
   ]);
 
   const fileData = prepareFileDataToDownload(
@@ -646,21 +600,6 @@ test('prepare csv file data to download filter by assessment in the course level
     expectedDataHeaders[6],
     'Wrong header field.'
   );
-  assert.equal(
-    fileData.fields[7],
-    expectedDataHeaders[7],
-    'Wrong header field.'
-  );
-  assert.equal(
-    fileData.fields[8],
-    expectedDataHeaders[8],
-    'Wrong header field.'
-  );
-  assert.equal(
-    fileData.fields[9],
-    expectedDataHeaders[9],
-    'Wrong header field.'
-  );
 
   //data table fields
   assert.equal(
@@ -696,21 +635,6 @@ test('prepare csv file data to download filter by assessment in the course level
   assert.equal(
     fileData.data[0][6],
     expectedPerformanceDataMatrix[0][6],
-    'Wrong data table field.'
-  );
-  assert.equal(
-    fileData.data[0][7],
-    expectedPerformanceDataMatrix[0][7],
-    'Wrong data table field.'
-  );
-  assert.equal(
-    fileData.data[0][8],
-    expectedPerformanceDataMatrix[0][8],
-    'Wrong data table field.'
-  );
-  assert.equal(
-    fileData.data[0][9],
-    expectedPerformanceDataMatrix[0][9],
     'Wrong data table field.'
   );
 
@@ -749,21 +673,6 @@ test('prepare csv file data to download filter by assessment in the course level
     expectedPerformanceDataMatrix[1][6],
     'Wrong data table field.'
   );
-  assert.equal(
-    fileData.data[1][7],
-    expectedPerformanceDataMatrix[1][7],
-    'Wrong data table field.'
-  );
-  assert.equal(
-    fileData.data[1][8],
-    expectedPerformanceDataMatrix[1][8],
-    'Wrong data table field.'
-  );
-  assert.equal(
-    fileData.data[1][9],
-    expectedPerformanceDataMatrix[1][9],
-    'Wrong data table field.'
-  );
 
   assert.equal(
     fileData.data[2][0],
@@ -798,21 +707,6 @@ test('prepare csv file data to download filter by assessment in the course level
   assert.equal(
     fileData.data[2][6],
     expectedPerformanceDataMatrix[2][6],
-    'Wrong data table field.'
-  );
-  assert.equal(
-    fileData.data[2][7],
-    expectedPerformanceDataMatrix[2][7],
-    'Wrong data table field.'
-  );
-  assert.equal(
-    fileData.data[2][8],
-    expectedPerformanceDataMatrix[2][8],
-    'Wrong data table field.'
-  );
-  assert.equal(
-    fileData.data[2][9],
-    expectedPerformanceDataMatrix[2][9],
     'Wrong data table field.'
   );
 });
