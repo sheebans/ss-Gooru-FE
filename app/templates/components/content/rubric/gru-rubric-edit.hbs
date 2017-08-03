@@ -50,7 +50,11 @@
         </div>
       </div>
       <div class="panel-body">
-        {{content.rubric.gru-rubric-creation rubric=tempRubric didValidate=didValidate}}
+        {{content.rubric.gru-rubric-creation
+          rubric=tempRubric
+          didValidate=didValidate
+          emptyFileError=emptyFileError
+        }}
       </div>
     </div>
     <div class="panel panel-default overall-score out-of-scope">

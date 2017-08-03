@@ -131,6 +131,13 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       true
     );
   }),
+
+  /**
+   * If the file upload should show an error
+   * @property {Boolean}
+   */
+  emptyFileError: false,
+
   /**
    *
    * @property {Object[]} headerActions List of action buttons to show
@@ -251,6 +258,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       component.get('categories').filter(category => category.get('title'))
     );
     let rubric = component.get('rubric');
+    this.set('emptyFileError', !tempRubric.get('url'));
     tempRubric.validate().then(function({ validations }) {
       if (validations.get('isValid')) {
         let imageIdPromise = new Ember.RSVP.resolve(
