@@ -415,6 +415,10 @@ export default Object.assign(quizzesTranslations, {
     'no-results-message':
       'Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.',
     'no-more-attempts': 'No more attempts',
+    'no-dca-student':
+      'Your teacher has not yet assigned any collections or assessments to the daily class activities.',
+    'no-dca-teacher':
+      'You have not yet assigned any collections or assessments to your daily class activities.',
     notStarted: 'Not started',
     'not-added': 'Not Added',
     'not-applicable': 'N/A',
