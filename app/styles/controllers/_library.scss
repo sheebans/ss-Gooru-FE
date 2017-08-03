@@ -35,6 +35,7 @@
     .libraries-container {
       @include flexbox;
       @include flex-wrap(wrap);
+      @include justify-content(center);
       margin: 100px 0 30px;
       padding: 0 25px;
     }

@@ -10,6 +10,7 @@ export default Ember.Component.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      * Action triggered to remix the course
@@ -50,10 +51,12 @@ export default Ember.Component.extend(SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @property {Course} course
    */
   course: null,
+
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */

@@ -5,6 +5,7 @@ import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @type {ProfileService} Profile service object
    */
@@ -12,6 +13,7 @@ export default Ember.Route.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      * Edit course action, when clicking Edit at the course card

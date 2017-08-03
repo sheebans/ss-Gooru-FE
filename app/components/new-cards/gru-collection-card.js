@@ -13,6 +13,7 @@ import { CONTENT_TYPES } from 'gooru-web/config/config';
 export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @requires service:api-sdk/session
    */
@@ -21,6 +22,7 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @property {Ember.Service} Service to retrieve an assessment
    */
+
   assessmentService: Ember.inject.service('api-sdk/assessment'),
   /**
    * @property {Ember.Service} Service to retrieve a collection
@@ -36,9 +38,6 @@ export default Ember.Component.extend(ModalMixin, {
   // Attributes
 
   classNames: ['new-cards', 'gru-collection-card'],
-
-  // -------------------------------------------------------------------------
-  // Events
 
   // -------------------------------------------------------------------------
   // Actions
@@ -158,6 +157,7 @@ export default Ember.Component.extend(ModalMixin, {
       }
     }
   },
+
   // -------------------------------------------------------------------------
   // Events
   didRender() {
