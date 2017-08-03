@@ -9,7 +9,7 @@
     width: 45%;
   }
   @media (min-width: $screen-lg) {
-    width: 32%;
+    width: 30%;
   }
   .panel-body,
   .panel-footer {
@@ -24,6 +24,7 @@
       background-color: $white;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
+      margin-bottom: 8px;
       padding: 10px 8px 0 15px;
       .image {
         display: inline-block;

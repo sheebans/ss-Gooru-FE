@@ -4,6 +4,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
 export default Ember.Route.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @type {ProfileService} Search service object
    */
@@ -24,6 +25,7 @@ export default Ember.Route.extend(ModalMixin, {
       this.send('showModal', 'content.modals.gru-course-remix', remixModel);
     }
   },
+
   // -------------------------------------------------------------------------
   // Methods
 
