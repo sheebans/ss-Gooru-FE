@@ -27,6 +27,13 @@
       "lastName": "Number 2",
       "username": "Prof2",
       "avatarUrl": ""
+    },
+    {
+      "id": "other-student-id",
+      "firstName": "Profile",
+      "lastName": "",
+      "username": "Prof",
+      "avatarUrl": ""
     }
   ]
 }

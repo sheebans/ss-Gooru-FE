@@ -8,7 +8,6 @@ import GradeQuestion from 'gooru-web/models/rubric/grade-question';
 import GradeQuestionItem from 'gooru-web/models/rubric/grade-question-item';
 import GradeQuestionStudents from 'gooru-web/models/rubric/grade-question-students';
 import GradeQuestionAnswer from 'gooru-web/models/rubric/grade-question-answer';
-import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Rubric CRUD operations
@@ -164,10 +163,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
     const categories = data.categories;
     const basePath = serializer.get('session.cdnUrls.content');
-    const appRootPath = serializer.get('appRootPath'); //configuration appRootPath
-    const thumbnail = data.thumbnail
-      ? basePath + data.thumbnail
-      : appRootPath + DEFAULT_IMAGES.RUBRIC;
+    const thumbnail = data.thumbnail ? basePath + data.thumbnail : null;
 
     return Rubric.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,

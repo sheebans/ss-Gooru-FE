@@ -15,8 +15,14 @@ export default Ember.Component.extend({
   mediaService: Ember.inject.service('api-sdk/media'),
 
   // -------------------------------------------------------------------------
-  // Actions
+  // Events
+  init: function() {
+    this._super(...arguments);
+    this.set('resource.url', this.get('rubric.url'));
+  },
 
+  // -------------------------------------------------------------------------
+  // Actions
   actions: {
     /***
      * Select tab option

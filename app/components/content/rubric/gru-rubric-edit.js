@@ -16,6 +16,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   i18n: Ember.inject.service(),
 
   /**
+   * @property {MediaService} Media service API SDK
+   */
+  mediaService: Ember.inject.service('api-sdk/media'),
+
+  /**
    /**
    * @property {RubricService} Rubric service API SDK
    */
@@ -250,10 +255,23 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     let rubric = component.get('rubric');
     tempRubric.validate().then(function({ validations }) {
       if (validations.get('isValid')) {
-        component
-          .get('rubricService')
-          .updateRubric(tempRubric)
-          .then(function() {
+        let imageIdPromise = new Ember.RSVP.resolve(
+          tempRubric.get('thumbnail')
+        );
+        if (
+          tempRubric.get('thumbnail') &&
+          tempRubric.get('thumbnail') !== rubric.get('thumbnail')
+        ) {
+          imageIdPromise = component
+            .get('mediaService')
+            .uploadContentFile(tempRubric.get('thumbnail'));
+        }
+        imageIdPromise
+          .then(imageId => {
+            tempRubric.set('thumbnail', imageId);
+            return component.get('rubricService').updateRubric(tempRubric);
+          })
+          .then(() => {
             rubric.merge(tempRubric, [
               'title',
               'description',
@@ -274,6 +292,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
               );
           });
       }
+      component.set('didValidate', true);
     });
   },
   /**
