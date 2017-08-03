@@ -101,3 +101,39 @@ test('Preview edit', function(assert) {
     });
   });
 });
+
+test('Add a category and go to preview before save', function(assert) {
+  visit('/content/rubric/edit/123');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/content/rubric/edit/123');
+
+    var $container = find('.rubric.edit');
+    assert.equal(
+      $container.find('.category-panel .content.rubric.gru-category').length,
+      1,
+      'Should have 1 category'
+    );
+    var $addCategory = $container.find('.category-panel a.add-category');
+    click($addCategory);
+    andThen(function() {
+      assert.equal(
+        $container.find('.category-panel .content.rubric.gru-category').length,
+        2,
+        'Should have 2 category'
+      );
+      var $preview = $container.find('.header .actions .preview');
+      click($preview);
+      andThen(function() {
+        assert.equal(currentURL(), '/content/rubric/preview/123');
+        var $preview = find('.rubric.preview');
+        assert.equal(
+          $preview.find('.preview .category-panel .content.rubric.gru-category')
+            .length,
+          1,
+          'Should have only 1 category'
+        );
+      });
+    });
+  });
+});
