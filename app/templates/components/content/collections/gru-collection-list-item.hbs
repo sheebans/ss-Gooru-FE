@@ -89,26 +89,26 @@
         {{#if model.isOpenEnded}}
           <div class="submission-format">
             <div class="border-bottom">
-              <h3>Student Submission Format</h3>
+              <h3>{{t 'content.questions.edit.builder.submission-format.title'}}</h3>
             </div>
             <div class="answer-types">
               <div class="panel panel-default">
                 <div class="panel-body">{{gru-icon name='input'}}</div>
-                <div class="panel-footer">Text Box</div>
+                <div class="panel-footer">{{t 'content.questions.edit.builder.submission-format.answer-type.text-box'}}</div>
               </div>
             </div>
           </div>
           <div class="feedback-grading">
             <div class="border-bottom">
-              <h3>Feedback and Grading</h3>
+              <h3>{{t 'content.questions.edit.builder.feedback-grading.title'}}</h3>
             </div>
             <div class="content">
               <div class="switch">
-                <label class="switch-label">Rubric</label>
+                <label class="switch-label">{{t 'common.rubric'}}</label>
                 {{gru-switch switchOptions=switchOptions}}
               </div>
               <div class="switch">
-                <label class="switch-label">Scoring</label>
+                <label class="switch-label">{{t 'content.questions.edit.builder.feedback-grading.scoring'}}</label>
                 {{gru-switch switchOptions=switchOptions}}
               </div>
             </div>

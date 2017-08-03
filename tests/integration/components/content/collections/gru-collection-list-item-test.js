@@ -591,6 +591,6 @@ test('Layout for OpenEnded Question', function(assert) {
   assert.equal(
     $feedbackGradingContainer.find('.gru-switch').length,
     2,
-    '2 gru-switch displayed'
+    'Two gru-switch inputs should be displayed'
   );
 });
