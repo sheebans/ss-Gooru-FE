@@ -246,7 +246,10 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   save: function() {
     let component = this;
     let tempRubric = component.get('tempRubric');
-    tempRubric.set('categories', component.get('categories'));
+    tempRubric.set(
+      'categories',
+      component.get('categories').filter(category => category.get('title'))
+    );
     let rubric = component.get('rubric');
     tempRubric.validate().then(function({ validations }) {
       if (validations.get('isValid')) {
