@@ -135,6 +135,54 @@ export default Ember.Object.extend(ConfigurationMixin, {
   },
 
   /**
+   * Serializes a RubricGrade/RubricGrade object into a JSON representation required by the endpoint
+   *
+   * @param {RubricGrade} model - The rubric grade model to be serialized
+   * @returns {Object} JSON Object representation of the rubric grade model
+   *
+   */
+  serializeStudentRubricGrades: function(model) {
+    const serializer = this;
+    return {
+      event_name: model.get('eventName'),
+      rubric_id: model.get('id'),
+      title: nullIfEmpty(model.get('title')),
+      description: nullIfEmpty(model.get('description')),
+      student_id: nullIfEmpty(model.get('studentId')),
+      class_id: nullIfEmpty(model.get('classId')),
+      course_id: nullIfEmpty(model.get('courseId')),
+      unit_id: nullIfEmpty(model.get('unitId')),
+      lesson_id: nullIfEmpty(model.get('lessonId')),
+      collection_id: nullIfEmpty(model.get('collectionId')),
+      session_id: nullIfEmpty(model.get('sessionId')),
+      resource_id: nullIfEmpty(model.get('resourceId')),
+      learner_score: model.get('learnerScore'),
+      max_score: model.get('maxScore'),
+      overall_comment: model.get('comment'),
+      category_score: model.get('categoriesScore').length
+        ? model.get('categoriesScore').map(function(category) {
+          return serializer.serializedStudentGradeCategoryScore(category);
+        })
+        : null
+    };
+  },
+
+  /**
+   * Serializes a student grade category score
+   * @param {GradeCategoryScore} model
+   * @returns {*} serialized category score
+   */
+  serializedStudentGradeCategoryScore: function(model) {
+    return {
+      category_title: nullIfEmpty(model.get('title')),
+      level_obtained: nullIfEmpty(model.get('levelObtained')),
+      level_score: model.get('levelScore'),
+      level_max_score: model.get('levelMaxScore'),
+      level_comment: nullIfEmpty(model.get('levelComment'))
+    };
+  },
+
+  /**
    * Normalizes an array of rubrics
    *
    * @param payload endpoint response format in JSON format

@@ -187,5 +187,22 @@
       "body": "File not found!",
       "file": "get-question-answer-to-grade-200-response.json"
     }
+  },
+  {
+    "description": "Set student rubric grades",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/grades",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/plain",
+        "Location": "2384AB6C-10ee-4578-b89a-6b41c87dc9fc"
+      }
+    }
   }
 ]
