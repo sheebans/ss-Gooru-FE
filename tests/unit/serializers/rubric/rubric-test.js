@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import Rubric from 'gooru-web/models/rubric/rubric';
+import RubricGrade from 'gooru-web/models/rubric/rubric-grade';
+import GradeCategoryScore from 'gooru-web/models/rubric/grade-category-score';
 import RubricCategory from 'gooru-web/models/rubric/rubric-category';
 
 moduleFor('serializer:rubric/rubric', 'Unit | Serializer | rubric/rubric');
@@ -592,4 +594,88 @@ test('normalizeAnswerToGrade', function(assert) {
   );
   assert.equal(answerToGrade.get('timeSpent'), 500, 'Wrong time spent');
   assert.equal(answerToGrade.get('userId'), 'user-id', 'Wrong user id');
+});
+
+test('serializeStudentRubricGrades', function(assert) {
+  const serializer = this.subject();
+
+  const rubric = RubricGrade.create({
+    eventName: 'resource.rubric.grade',
+    id: 'rubric-id',
+    title: 'Rubric - 1',
+    description: 'Rubric description',
+    studentId: 'student-id',
+    classId: 'class-id',
+    courseId: 'course-id',
+    unitId: 'unit-id',
+    lessonId: 'lesson-id',
+    collectionId: 'collection-id',
+    resourceId: 'resource-id',
+    sessionId: 'session-id',
+    learnerScore: 10,
+    maxScore: 100,
+    comment: 'overall comment',
+    categoriesScore: [GradeCategoryScore.create(), GradeCategoryScore.create()]
+  });
+
+  const rubricObject = serializer.serializeStudentRubricGrades(rubric);
+  assert.equal(rubricObject.event_name, 'resource.rubric.grade', 'Wrong title');
+  assert.equal(rubricObject.rubric_id, 'rubric-id', 'Wrong id');
+  assert.equal(rubricObject.title, 'Rubric - 1', 'Wrong title');
+  assert.equal(
+    rubricObject.description,
+    'Rubric description',
+    'Wrong description'
+  );
+  assert.equal(rubricObject.student_id, 'student-id', 'Wrong student_id');
+  assert.equal(rubricObject.class_id, 'class-id', 'Wrong class_id');
+  assert.equal(rubricObject.course_id, 'course-id', 'Wrong course_id');
+  assert.equal(rubricObject.class_id, 'class-id', 'Wrong class_id');
+  assert.equal(rubricObject.unit_id, 'unit-id', 'Wrong unit_id');
+  assert.equal(rubricObject.lesson_id, 'lesson-id', 'Wrong lesson_id');
+  assert.equal(
+    rubricObject.collection_id,
+    'collection-id',
+    'Wrong collection_id'
+  );
+  assert.equal(rubricObject.session_id, 'session-id', 'Wrong session_id');
+  assert.equal(
+    rubricObject.category_score.length,
+    2,
+    'Wrong category scores length'
+  );
+});
+
+test('serializedStudentGradeCategoryScore', function(assert) {
+  const serializer = this.subject();
+
+  const gradeCategory = GradeCategoryScore.create({
+    title: 'any-title',
+    levelObtained: 'level-obtained',
+    levelScore: 10,
+    levelMaxScore: 80,
+    levelComment: 'level-comment'
+  });
+
+  const categoryObject = serializer.serializedStudentGradeCategoryScore(
+    gradeCategory
+  );
+
+  assert.equal(
+    categoryObject.category_title,
+    'any-title',
+    'Wrong category title'
+  );
+  assert.equal(
+    categoryObject.level_obtained,
+    'level-obtained',
+    'Wrong level obtained'
+  );
+  assert.equal(categoryObject.level_score, 10, 'Wrong level score');
+  assert.equal(categoryObject.level_max_score, 80, 'Wrong level max score');
+  assert.equal(
+    categoryObject.level_comment,
+    'level-comment',
+    'Wrong level comment'
+  );
 });

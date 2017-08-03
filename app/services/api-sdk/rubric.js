@@ -219,5 +219,15 @@ export default Ember.Service.extend({
         lessonId
       )
       .then(data => service.get('serializer').normalizeAnswerToGrade(data));
+  },
+
+  /**
+   * Set student rubric grades
+   * @param {RubricGrade} rubricGrade
+   * @returns {Promise|RubricGrade} returns the rubric model with the newly assigned ID
+   */
+  setStudentRubricGrades: function(rubricGrade) {
+    var data = this.get('serializer').serializeStudentRubricGrades(rubricGrade);
+    return this.get('adapter').setStudentRubricGrades(data);
   }
 });

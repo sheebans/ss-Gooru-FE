@@ -316,6 +316,27 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Posts a student rubric grade
+   *
+   * @param data - rubric grade data to be sent in the request body
+   * @returns {Promise}
+   */
+  setStudentRubricGrades: function(data) {
+    const adapter = this;
+    const namespace = adapter.get('gradingNamespace');
+    const url = `${namespace}/grades`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(data.body)
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       Authorization: `Token ${this.get('session.token-api3')}`
