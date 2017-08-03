@@ -851,6 +851,16 @@ export default Object.assign(quizzesTranslations, {
             MA: 'Write your question.',
             OE: 'Write your question.',
             'T/F': 'Write your question.'
+          },
+          'submission-format': {
+            title: 'Student Submission Format',
+            'answer-type': {
+              'text-box': 'Text Box'
+            }
+          },
+          'feedback-grading': {
+            title: 'Feedback and Grading',
+            scoring: 'Scoring'
           }
         }
       }

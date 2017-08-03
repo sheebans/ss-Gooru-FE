@@ -24,6 +24,53 @@
           }
         }
         > .panel-body {
+          .submission-format {
+            .answer-types {
+              margin-top: 10px;
+              @include flexbox;
+              @include flex-direction(row);
+              @include flex-wrap(wrap);
+              .panel {
+                border-radius: 4px;
+                cursor: pointer;
+                float: left;
+                height: 120px;
+                text-align: center;
+                width: 160px;
+                .panel-body {
+                  border-top-left-radius: 4px;
+                  border-top-right-radius: 4px;
+                  background-color: $blue-400;
+                  padding: 22px 15px 13px;
+                  i {
+                    color: $white;
+                    font-size: $font-size-h2;
+                  }
+                }
+                .panel-footer {
+                  border-bottom-left-radius: 4px;
+                  border-bottom-right-radius: 4px;
+                  background-color: $blue-500;
+                  color: $white;
+                  padding: 5px 15px;
+                }
+              }
+            }
+          }
+
+          .feedback-grading {
+            margin: 40px 0 0;
+            .content {
+              .switch {
+                margin: 10px 0;
+                .switch-label {
+                  margin: 10px 0 0;
+                  min-width: 50px;
+                }
+              }
+            }
+          }
+
           .answers {
             h3 {
               display: inline-block;
