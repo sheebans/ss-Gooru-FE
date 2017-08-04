@@ -51,6 +51,13 @@
             text-align: center;
           }
         }
+        .gru-input-number {
+          width: 100%;
+          .form-group {
+            width: 100%;
+            min-height: 60px;
+          }
+        }
       }
     }
   }

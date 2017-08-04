@@ -27,7 +27,7 @@
           <div>
               <div class="score-input">
                 {{#if showScore}}
-                  {{validation.gru-input model=level valuePath='score' placeholder=(if (lt index 5) (sub 4 index))}}
+                  {{validation.gru-input-number model=level valuePath='score' min=0 max=200 step='0.5' didValidate=didValidate placeholder=(if (lt index 5) (sub 4 index))}}
                 {{/if}}
               </div>
             {{#if showLevel}}

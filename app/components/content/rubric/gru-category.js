@@ -22,7 +22,7 @@ export default Ember.Component.extend({
     cancel: function() {
       let component = this;
       let category = component.get('category');
-      if (category.get('isNew')) {
+      if (category.get('isNew') && !category.get('title')) {
         component.sendAction('onCancelNewCategory', category);
       }
       this.setProperties({
@@ -55,14 +55,14 @@ export default Ember.Component.extend({
      *Save category
      */
     saveCategory: function() {
-      const $component = this;
-      let tempCategory = $component.get('tempCategory');
+      const component = this;
+      let tempCategory = component.get('tempCategory');
       tempCategory.validate().then(function({ validations }) {
         if (validations.get('isValid')) {
-          let category = $component.get('category');
+          let category = component.get('category');
           category.setProperties(tempCategory);
 
-          $component.setProperties({
+          component.setProperties({
             isPanelExpanded: false,
             isEditingInline: false
           });
