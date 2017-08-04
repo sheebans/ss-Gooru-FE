@@ -73,3 +73,17 @@ test('Open ended Layout when no answer provided', function(assert) {
   T.exists(assert, $answer, 'Missing answer');
   assert.equal(T.text($answer), '', 'Wrong answer text');
 });
+
+test('Open ended Layout supporting math', function(assert) {
+  this.set('question', 'fake');
+  this.set('answer', 'My Answer');
+
+  this.render(
+    hbs`{{reports/assessment/questions/gru-open-ended question=question userAnswer=answer}}`
+  );
+
+  const $component = this.$();
+  const $math = $component.find('.gru-math-text');
+
+  T.exists(assert, $math, 'Missing math support');
+});
