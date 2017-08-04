@@ -1,23 +1,28 @@
 <div class="teacher grading">
-  <div class="header clearfix">
-    <div class="go-back-container">
-      {{#link-to 'teacher-home' class="back-to"}}
-        {{gru-icon name='arrow_back'}}
-        {{t 'grading-player.back-to'}}
-      {{/link-to}}
+  <div class="response-panel {{if hideResponse 'hide-response'}}">
+    <div class="header clearfix">
+      <div class="go-back-container">
+        {{#link-to 'teacher-home' class="back-to"}}
+          {{gru-icon name='arrow_back'}}
+          {{t 'grading-player.back-to'}}
+        {{/link-to}}
+      </div>
+      {{grading.gru-roster-header
+        currentResponse='response'
+        timeSpent='123'
+        submittedAt='123'
+      }}
+      {{grading.gru-task-header promptText='test'}}
     </div>
-    {{grading.gru-roster-header
-      currentResponse='response'
-      timeSpent='123'
-      submittedAt='123'
-    }}
-    {{grading.gru-task-header promptText='test'}}
-  </div>
-  <div class="panel panel-default question-response">
-    <div class="panel-body">
-      <div class="inner-text">
-        {{gru-math-text text='sadfasdf'}}
+    <div class="panel panel-default question-response">
+      <div class="panel-body">
+        <div class="inner-text">
+          {{gru-math-text text='sadfasdf'}}
+        </div>
       </div>
     </div>
   </div>
+  {{grading.gru-rubric-panel
+    showFullRubric=hideResponse
+  }}
 </div>

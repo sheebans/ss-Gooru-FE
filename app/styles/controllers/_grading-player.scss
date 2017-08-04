@@ -1,5 +1,15 @@
 .teacher.grading {
-  padding: 10px;
+  @include flexbox;
+  height: 100%;
+  .response-panel {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    &.hide-response {
+      display: none;
+    }
+  }
   @media (min-width: $screen-sm) {
     padding: 20px 40px;
   }
@@ -21,7 +31,7 @@
     margin-bottom: 0;
     .inner-text {
       padding: 20px;
-      border: 1px solid $gray-lighter;
+      border: 1px solid $gray-light;
     }
   }
 }
