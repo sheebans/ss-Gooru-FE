@@ -48,7 +48,12 @@
         }
 
         .gru-input {
+          margin-bottom: 25px;
           width: 80%;
+
+          .error {
+            position: absolute;
+          }
         }
       }
 
