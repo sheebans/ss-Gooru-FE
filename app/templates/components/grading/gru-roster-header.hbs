@@ -8,19 +8,19 @@
         </button>
       </div>
       <div class="legend">
-        <div>
+        <div class="current-response">
           {{t 'grading-player.current-response'}}:
           {{gru-math-text text=currentResponse}}
         </div>
-        <div>
+        <div class="time-spent">
           {{t 'grading-player.time-spent'}}:
-          {{gru-math-text text=timeSpent}}
+          {{format-time timeSpent}}
         </div>
       </div>
     </div>
     <div class="pull-right submitted-at">
       {{t 'grading-player.submitted-time'}}:
-      {{gru-math-text text=submittedAt}}
+      {{format-date submittedAt 'h:mma MM/DD/YY'}}
     </div>
   </div>
 </div>

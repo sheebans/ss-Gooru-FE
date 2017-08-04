@@ -9,11 +9,23 @@ moduleForComponent(
   }
 );
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('Show full rubric', function(assert) {
+  this.set('showFullRubric', false);
+  this.render(hbs`{{grading/gru-rubric-panel showFullRubric=showFullRubric}}`);
 
-  this.render(hbs`{{grading/gru-rubric-panel}}`);
+  let $component = this.$();
+  let $panel = $component.find('.gru-rubric-panel');
+  let $header = $component.find('.rubric-information .header');
 
-  assert.equal(this.$().text().trim(), '');
+  assert.notOk(this.get('showFullRubric'), 'Wrong value of showFullRubric');
+  assert.notOk(
+    $panel.hasClass('full-rubric'),
+    'The component must not have the class full-rubric'
+  );
+  $header.click();
+  assert.ok(this.get('showFullRubric'), 'Wrong value of showFullRubric');
+  assert.ok(
+    $panel.hasClass('full-rubric'),
+    'The component must have the class full-rubric'
+  );
 });

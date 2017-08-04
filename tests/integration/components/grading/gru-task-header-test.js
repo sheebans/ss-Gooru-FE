@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent(
   'grading/gru-task-header',
@@ -9,11 +10,20 @@ moduleForComponent(
   }
 );
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('Layout', function(assert) {
+  this.render(hbs`{{grading/gru-task-header promptText='prompt text'}}`);
 
-  this.render(hbs`{{grading/gru-task-header}}`);
+  let $component = this.$();
+  let $questionText = $component.find('.question-text');
+  let $promptTitle = $questionText.find('.title');
+  let $promptText = $questionText.find('.prompt-text');
 
-  assert.equal(this.$().text().trim(), '');
+  T.exists(assert, $component.find('.icon'), 'Missing icon');
+  T.exists(assert, $questionText, 'Missing question text');
+  T.exists(assert, $promptTitle, 'Missing prompt title');
+  T.exists(assert, $promptText, 'Missing prompt text');
+  assert.ok(
+    T.text($promptText).includes('prompt text'),
+    'Wrong text in prompt text'
+  );
 });

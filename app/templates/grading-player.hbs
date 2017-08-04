@@ -8,16 +8,16 @@
         {{/link-to}}
       </div>
       {{grading.gru-roster-header
-        currentResponse='response'
-        timeSpent='123'
-        submittedAt='123'
+        currentResponse=currentUser.fullNameInformal
+        timeSpent=answer.timeSpent
+        submittedAt=answer.submittedAt
       }}
-      {{grading.gru-task-header promptText='test'}}
+      {{grading.gru-task-header promptText=answer.questionText}}
     </div>
     <div class="panel panel-default question-response">
       <div class="panel-body">
         <div class="inner-text">
-          {{gru-math-text text='sadfasdf'}}
+          {{gru-math-text text=answer.answerText}}
         </div>
       </div>
     </div>
