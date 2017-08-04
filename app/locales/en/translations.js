@@ -1546,6 +1546,15 @@ export default Object.assign(quizzesTranslations, {
     }
   },
 
+  'grading-player': {
+    'back-to': 'Back to Classroom',
+    'current-response': 'Current Response',
+    roster: 'Roster',
+    'submitted-time': 'Submitted Time',
+    prompt: 'Task Prompt',
+    'time-spent': 'Time Spent'
+  },
+
   profile: {
     'gru-navigation': {
       about: 'About',

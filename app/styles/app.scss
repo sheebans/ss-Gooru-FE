@@ -62,6 +62,7 @@
 @import 'controllers/reset-password';
 @import 'controllers/featured';
 @import 'controllers/account-settings';
+@import 'controllers/grading-player';
 @import 'controllers/study-player';
 @import 'controllers/study-player-external';
 @import 'controllers/resource-player';
@@ -209,6 +210,9 @@
 @import 'components/content/rubric/gru-scoring-levels';
 
 @import 'components/goal/gru-goal-form';
+
+@import 'components/grading/gru-roster-header';
+@import 'components/grading/gru-task-header';
 
 @import 'components/library/gru-browse-library';
 @import 'components/library/gru-library-card';
