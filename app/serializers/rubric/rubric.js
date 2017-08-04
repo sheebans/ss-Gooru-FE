@@ -74,7 +74,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       scoring: rubricOffModel.get('scoring'),
       max_score: rubricOffModel.get('maxScore'),
       increment: rubricOffModel.get('increment'),
-      grader: rubricOffModel.get('grader')
+      grader: rubricOffModel.get('grader') ? rubricOffModel.get('grader') : ''
     };
     return serializedRubricOff;
   },
@@ -157,42 +157,49 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @return {Rubric}
    */
   normalizeRubric: function(data, owners) {
-    const serializer = this;
-    const metadata = data.metadata || {};
-    const ownerId = data.creator_id;
-    const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
-    const categories = data.categories;
-    const basePath = serializer.get('session.cdnUrls.content');
-    const thumbnail = data.thumbnail ? basePath + data.thumbnail : null;
+    if (data) {
+      const serializer = this;
+      const metadata = data.metadata || {};
+      const ownerId = data.creator_id;
+      const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
+      const categories = data.categories;
+      const basePath = serializer.get('session.cdnUrls.content');
+      const thumbnail = data.thumbnail ? basePath + data.thumbnail : null;
 
-    return Rubric.create(Ember.getOwner(this).ownerInjection(), {
-      id: data.id,
-      title: data.title,
-      description: data.description,
-      thumbnail: thumbnail,
-      standards: serializer
-        .get('taxonomySerializer')
-        .normalizeTaxonomyObject(data.taxonomy),
-      audience: metadata.audience,
-      url: data.url,
-      isPublished: data.publishStatus === 'published',
-      publishDate: data.publish_date,
-      rubricOn: data.is_rubric,
-      uploaded: data.is_remote,
-      feedback: data.feedback_guidance,
-      requiresFeedback: data.overall_feedback_required,
-      categories: categories
-        ? categories.map(category =>
-          serializer.normalizeRubricCategory(category)
-        )
-        : null,
-      owner: filteredOwners.get('length')
-        ? filteredOwners.get('firstObject')
-        : ownerId,
-      createdDate: data.created_at,
-      updatedDate: data.updated_at,
-      tenant: data.tenant
-    });
+      return Rubric.create(Ember.getOwner(this).ownerInjection(), {
+        id: data.id,
+        title: data.title,
+        description: data.description,
+        thumbnail: thumbnail,
+        standards: serializer
+          .get('taxonomySerializer')
+          .normalizeTaxonomyObject(data.taxonomy),
+        audience: metadata.audience,
+        url: data.url,
+        isPublished: data.publishStatus === 'published',
+        publishDate: data.publish_date,
+        rubricOn: data.is_rubric,
+        uploaded: data.is_remote,
+        feedback: data.feedback_guidance,
+        requiresFeedback: data.overall_feedback_required,
+        categories: categories
+          ? categories.map(category =>
+            serializer.normalizeRubricCategory(category)
+          )
+          : null,
+        owner: filteredOwners.get('length')
+          ? filteredOwners.get('firstObject')
+          : ownerId,
+        createdDate: data.created_at,
+        updatedDate: data.updated_at,
+        tenant: data.tenant
+      });
+    } else {
+      return Rubric.create(Ember.getOwner(this).ownerInjection(), {
+        is_rubric: false,
+        scoring: false
+      });
+    }
   },
 
   /**

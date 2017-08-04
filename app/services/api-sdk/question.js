@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
 import QuestionAdapter from 'gooru-web/adapters/content/question';
+import Rubric from 'gooru-web/models/rubric/rubric';
 
 /**
  * @typedef {Object} QuestionService
@@ -20,6 +21,11 @@ export default Ember.Service.extend({
    * @property {AssessmentService}
    */
   assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
+   * @property {RubricService}
+   */
+  rubricService: Ember.inject.service('api-sdk/rubric'),
 
   /**
    * @property {AssessmentService}
@@ -46,7 +52,16 @@ export default Ember.Service.extend({
    */
   createQuestion: function(questionData) {
     const service = this;
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
+      if (questionData.get('isOpenEnded')) {
+        let rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
+          is_rubric: false,
+          scoring: false
+        });
+        questionData.set('rubric', rubric);
+        questionData.set('rubric.grader', 'Teacher');
+      }
       let serializedClassData = service
         .get('questionSerializer')
         .serializeCreateQuestion(questionData);
@@ -58,8 +73,22 @@ export default Ember.Service.extend({
         .then(function(responseData, textStatus, request) {
           let questionId = request.getResponseHeader('location');
           questionData.set('id', questionId);
-          resolve(questionData);
-        }, reject);
+          if (questionData.get('isOpenEnded')) {
+            return service
+              .get('rubricService')
+              .createRubricOff(questionData.get('rubric'))
+              .then(function(newRubric) {
+                let rubricId = newRubric.get('id');
+                questionData.get('rubric').set('id', rubricId);
+                return service
+                  .get('rubricService')
+                  .associateRubricToQuestion(rubricId, questionData.get('id'));
+              });
+          } else {
+            return Ember.RSVP.resolve();
+          }
+        })
+        .then(() => resolve(questionData), reject);
     });
   },
 
@@ -98,6 +127,31 @@ export default Ember.Service.extend({
       service
         .get('questionAdapter')
         .updateQuestion(questionId, serializedData)
+        .then(function() {
+          if (questionModel.get('isOpenEnded')) {
+            if (questionModel.get('rubric.id')) {
+              return service
+                .get('rubricService')
+                .updateRubric(questionModel.get('rubric'));
+            } else {
+              return service
+                .get('rubricService')
+                .createRubricOff(questionModel.get('rubric'))
+                .then(function(newRubric) {
+                  let rubricId = newRubric.get('id');
+                  questionModel.get('rubric').set('id', rubricId);
+                  return service
+                    .get('rubricService')
+                    .associateRubricToQuestion(
+                      rubricId,
+                      questionModel.get('id')
+                    );
+                });
+            }
+          } else {
+            return Ember.RSVP.resolve();
+          }
+        })
         .then(function() {
           service.notifyQuizzesCollectionChange(collection);
           resolve();

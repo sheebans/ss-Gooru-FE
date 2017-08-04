@@ -251,7 +251,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       this.scrollToFirstEditor();
     },
 
-    showScoringFields: function() {
+    /**
+     * Action to show or hide the scoring settings section
+     */
+    scoringToggle: function() {
       this.set('showScoringSettings', !this.get('showScoringSettings'));
     }
   },
@@ -388,7 +391,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   showAdvancedEditor: false,
 
   /**
-   * If the advanced editor should be shown
+   * If the scoring settings section should be displayed
    * @property {Boolean}
    */
   showScoringSettings: false,
