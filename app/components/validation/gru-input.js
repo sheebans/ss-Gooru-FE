@@ -194,6 +194,7 @@ export default Ember.Component.extend({
       );
     }
   ),
+
   /**
    * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.
    */
