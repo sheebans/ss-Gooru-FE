@@ -110,17 +110,17 @@
 
               <div class="switch scoring">
                 <label class="switch-label">{{t 'content.questions.edit.builder.feedback-grading.scoring'}}</label>
-                {{gru-switch switchOptions=switchOptions onOptionSwitch='showScoringFields'}}
+                {{gru-switch switchOptions=switchOptions onOptionSwitch='scoringToggle'}}
               </div>
               {{#if showScoringSettings}}
                 <div class="scoring-settings">
                   <div class="setting maximum-points">
                     <span class="title">{{t 'content.questions.edit.builder.feedback-grading.maximum-points'}}</span>
-                    {{validation.gru-select options=maximumOptions search="true"}}
+                    {{validation.gru-select options=maximumOptions search="true" optionSelected=model.rubric.maxScore}}
                   </div>
                   <div class="setting increment">
                     <span class="title">{{t 'content.questions.edit.builder.feedback-grading.increment'}}</span>
-                    {{validation.gru-select options=incrementOptions search="true"}}
+                    {{validation.gru-select options=incrementOptions search="true" optionSelected=model.rubric.increment}}
                   </div>
                 </div>
               {{/if}}

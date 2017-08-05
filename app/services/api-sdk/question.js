@@ -55,12 +55,8 @@ export default Ember.Service.extend({
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
       if (questionData.get('isOpenEnded')) {
-        let rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
-          is_rubric: false,
-          scoring: false
-        });
+        const rubric = Rubric.create({ is_rubric: false, grader: 'Teacher' });
         questionData.set('rubric', rubric);
-        questionData.set('rubric.grader', 'Teacher');
       }
       let serializedClassData = service
         .get('questionSerializer')

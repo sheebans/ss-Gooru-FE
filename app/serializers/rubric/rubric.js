@@ -74,7 +74,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       scoring: rubricOffModel.get('scoring'),
       max_score: rubricOffModel.get('maxScore'),
       increment: rubricOffModel.get('increment'),
-      grader: rubricOffModel.get('grader') ? rubricOffModel.get('grader') : ''
+      grader: rubricOffModel.get('grader')
     };
     return serializedRubricOff;
   },
@@ -197,7 +197,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     } else {
       return Rubric.create(Ember.getOwner(this).ownerInjection(), {
         is_rubric: false,
-        scoring: false
+        grader: 'Teacher'
       });
     }
   },

@@ -322,7 +322,9 @@ const Question = Ember.Object.extend(Validations, {
     properties.standards = standards.slice(0);
     properties.audience = audience.slice(0);
     properties.depthOfknowledge = depthOfknowledge.slice(0);
-    properties.rubric = rubric.copy();
+    if (rubric) {
+      properties.rubric = rubric.copy();
+    }
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);
   },

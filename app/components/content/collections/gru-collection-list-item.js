@@ -288,7 +288,8 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     component.setProperties({
       isPanelExpanded: false,
       isEditingInline: false,
-      isEditingNarration: false
+      isEditingNarration: false,
+      showScoringSettings: false
     });
 
     if (component.get('model')) {
@@ -556,7 +557,8 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
                 isPanelExpanded: false,
                 isEditingInline: false,
                 isEditingNarration: false,
-                editImagePicker: false
+                editImagePicker: false,
+                showScoringSettings: false
               });
 
               if (component.get('editingContent')) {
