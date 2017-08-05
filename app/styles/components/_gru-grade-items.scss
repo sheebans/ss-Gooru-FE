@@ -1,0 +1,23 @@
+.gru-grade-items {
+  max-height: 100px;
+  overflow-y: auto;
+  .item {
+    width: 100%;
+    line-height: $font-size-large;
+    .context {
+      max-width: 48%;
+      display: inline-block;
+    }
+    .question {
+      max-width: 51%;
+      display: inline-block;
+    }
+    .greater-than {
+      i {
+        font-size: $font-navigator;
+        line-height: $font-size-base;
+        vertical-align: middle;
+      }
+    }
+  }
+}
