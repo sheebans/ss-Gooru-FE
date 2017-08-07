@@ -98,7 +98,7 @@
             @include flex-direction(column);
           }
           b {
-            font-size: 17px;
+            font-size: $font-size-large;
             font-weight: 400;
           }
         }
@@ -129,7 +129,7 @@
         .content {
           @include flex-direction(column);
           b {
-            font-size: 17px;
+            font-size: $font-size-large;
             font-weight: $headings-font-weight;
           }
         }
@@ -156,7 +156,7 @@
           @include flexbox;
           @include flex-direction(column);
           textarea {
-            font-size: $font-size-base;
+            font-size: $font-size-large;
             height: 150px;
           }
         }
@@ -168,7 +168,7 @@
       border: 2px dashed #bbb;
       padding: 20px;
       border-radius: 6px;
-      font-size: 17px;
+      font-size: $font-size-large;
       color: #666;
       text-align: center;
     }
