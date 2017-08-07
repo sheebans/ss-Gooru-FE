@@ -2,7 +2,7 @@
   {
     "description": "API 3.0 Endpoint to update a question info",
     "request": {
-      "url": "^/api/nucleus/v1/questions/(.+)$",
+      "url": "^/api/nucleus/v2/questions/(.+)$",
       "method": "PUT",
       "headers": {
         "authorization": "Token (.+)"
@@ -19,7 +19,7 @@
   {
     "description": "Delete question",
     "request": {
-      "url": "^/api/nucleus/v1/questions/(.+)$",
+      "url": "^/api/nucleus/v2/questions/(.+)$",
       "method": "DELETE",
       "headers": {
         "authorization": "Token (.+)"
@@ -35,7 +35,7 @@
   {
     "description": "Get a question",
     "request": {
-      "url": "^/api/nucleus/v1/questions/(.+)",
+      "url": "^/api/nucleus/v2/questions/(.+)",
       "method": "GET",
       "headers": {
         "Authorization": "Token (.+)"
@@ -53,7 +53,7 @@
   {
     "description": "Save a question",
     "request": {
-      "url": "^/api/nucleus/v1/questions",
+      "url": "^/api/nucleus/v2/questions",
       "method": "POST",
       "headers": {
         "Authorization": "Token (.+)"
