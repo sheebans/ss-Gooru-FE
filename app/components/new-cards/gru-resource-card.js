@@ -30,6 +30,7 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      * Action triggered to edit the resource/question
@@ -37,6 +38,7 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
     editResource: function() {
       this.sendAction('onEditResource', this.get('resource'));
     },
+
     /**
      * Action triggered to play the resource/question
      */
@@ -82,6 +84,7 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
           );
       }
     },
+
     /**
      * Action triggered to remix the question
      */
@@ -101,8 +104,10 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
     var component = this;
     component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   },
+
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * Profile information
    * @property {Profile} profile
@@ -114,6 +119,7 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
    * @property {boolean} allowProfileNavigation
    */
   allowProfileNavigation: true,
+
   /**
    * Indicates if the edit functionality is enabled
    * @property {boolean}
@@ -131,6 +137,7 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
    * @property {boolean}
    */
   isRubric: false,
+
   /**
    * @property {string} edit action
    */
@@ -148,6 +155,7 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
   showPublisher: Ember.computed('resource', function() {
     return this.get('resource').isPublished && this.get('resource').publisher;
   }),
+
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */

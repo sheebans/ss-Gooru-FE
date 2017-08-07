@@ -4,9 +4,6 @@ import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
-  // Dependencies
-
-  // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['gru-resource-results'],
@@ -66,10 +63,4 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {array} Term used to search
    */
   term: ''
-
-  // -------------------------------------------------------------------------
-  // Observers
-
-  // -------------------------------------------------------------------------
-  // Methods
 });

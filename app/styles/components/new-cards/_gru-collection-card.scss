@@ -45,7 +45,7 @@
             display: inline-block;
             color: $blue-400;
             cursor: pointer;
-            font-size: $font-title;
+            font-size: $font-size-h6;
             line-height: $font-size-h5;
             margin: 0;
           }
@@ -128,7 +128,7 @@
         height: 51px;
         $line-height: 1.3;
         $lines-to-show: 3;
-        margin: 0 0 10px;
+        margin: 0 0 14px;
         p.truncate {
           @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
