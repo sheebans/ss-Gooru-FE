@@ -155,7 +155,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
   /**
    *
-   * @property {Object[]} headerActions List of action buttons to show
+   * @property {Object[]} footerActions List of action buttons to show
    */
   footerActions: Ember.computed(function() {
     return [
@@ -178,12 +178,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   headerActions: Ember.computed(function() {
     return [
-      // TO DO: This actions will be add
-      //  {
-      //  name: 'delete',
-      //  text: this.get('i18n').t('common.delete'),
-      //  icon: 'delete'
-      // }, {
+      {
+        name: 'delete',
+        icon: 'delete',
+        action: () => this.delete()
+      },
       //  name: 'copy',
       //  text: this.get('i18n').t('common.copy'),
       //  icon: 'content_copy'
@@ -259,6 +258,33 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   cancel: function() {
     this.set('isEditing', false);
   },
+
+  delete: function() {
+    const myId = this.get('session.userId');
+    var model = {
+      content: this.get('rubric'),
+      deleteMethod: function() {
+        return this.get('rubricService').deleteRubric(this.get('rubric.id'));
+      }.bind(this),
+      redirect: {
+        route: 'profile.content.courses',
+        params: {
+          id: myId
+        }
+      }
+    };
+
+    this.actions.showModal.call(
+      this,
+      'content.modals.gru-delete-rubric',
+      model,
+      null,
+      null,
+      null,
+      false
+    );
+  },
+
   /**
    * Save function for rubric edition
    */
@@ -308,6 +334,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       component.set('didValidate', true);
     });
   },
+
   /**
    * Preview rubric on header action
    */
@@ -316,6 +343,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     let rubric = component.get('rubric');
     component.get('router').transitionTo('content.rubric.preview', rubric.id);
   },
+
   /**
    * Open Taxonomy Modal
    */
