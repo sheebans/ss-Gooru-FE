@@ -732,7 +732,8 @@ export default Object.assign(quizzesTranslations, {
             average: 'Average',
             'class-average': 'Class Average'
           }
-        }
+        },
+        'grade-items': 'Items to Grade'
       },
       mastery: {
         title: 'View Mastery'
