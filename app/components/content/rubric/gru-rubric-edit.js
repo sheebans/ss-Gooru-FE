@@ -57,6 +57,14 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       this.save();
     },
     /**
+     * Edit Content
+     */
+    editContent: function() {
+      var rubricForEditing = this.get('rubric').copy();
+      this.set('tempRubric', rubricForEditing);
+      this.set('isEditing', true);
+    },
+    /**
      * Triggered by gru-category
      *Copy category
      */
@@ -130,6 +138,13 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       false,
       true
     );
+  }),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('rubric.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get('rubric.standards'), false);
   }),
 
   /**
@@ -239,16 +254,13 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Methods
   /**
-   * Cancel function for footer
+   * Cancel function for rubric edition
    */
   cancel: function() {
-    this.get('router').transitionTo(
-      'profile.content.rubrics',
-      this.get('session.userData.gooruUId')
-    );
+    this.set('isEditing', false);
   },
   /**
-   * Save function for footer
+   * Save function for rubric edition
    */
   save: function() {
     let component = this;
@@ -290,12 +302,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
               'feedback',
               'standards'
             ]);
-            component
-              .get('router')
-              .transitionTo(
-                'profile.content.rubrics',
-                component.get('session.userData.gooruUId')
-              );
+            component.set('isEditing', false);
           });
       }
       component.set('didValidate', true);
