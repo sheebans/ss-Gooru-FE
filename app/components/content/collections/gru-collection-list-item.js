@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
-import { CONTENT_TYPES } from 'gooru-web/config/config';
+import { CONTENT_TYPES, RUBRIC_OFF_OPTIONS } from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
 import { replaceMathExpression, removeHtmlTags } from 'gooru-web/utils/utils';
+import Rubric from 'gooru-web/models/rubric/rubric';
 
 /**
  * Collection List
@@ -251,20 +252,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       this.scrollToFirstEditor();
     },
 
-    /**
-     * Action to show or hide the scoring settings section
-     */
-    scoringToggle: function() {
-      this.set('showScoringSettings', !this.get('showScoringSettings'));
-      this.set('model.rubric.scoring', !this.get('model.rubric.scoring'));
-    },
-
     onMaxScoreChange: function(newValue) {
-      this.set('model.rubric.maxScore', newValue);
+      this.set('tempModel.rubric.maxScore', parseInt(newValue));
     },
 
     onIncrementChange: function(newValue) {
-      this.set('model.rubric.increment', newValue);
+      this.set('tempModel.rubric.increment', parseFloat(newValue));
     }
   },
 
@@ -297,8 +290,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     component.setProperties({
       isPanelExpanded: false,
       isEditingInline: false,
-      isEditingNarration: false,
-      showScoringSettings: false
+      isEditingNarration: false
     });
 
     if (component.get('model')) {
@@ -401,12 +393,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   showAdvancedEditor: false,
 
   /**
-   * If the scoring settings section should be displayed
-   * @property {Boolean}
-   */
-  showScoringSettings: false,
-
-  /**
    * If the advanced edit button should be shown
    @property {Boolean}
    */
@@ -441,7 +427,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    */
   maximumOptions: Ember.computed(function() {
     let options = [];
-    for (let i = 1; i <= 200; i += 1) {
+    for (let i = 1; i <= RUBRIC_OFF_OPTIONS.MAX_SCORE; i += 1) {
       options.push({
         id: i,
         name: i
@@ -455,7 +441,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    * @property {Array}
    */
   incrementOptions: Ember.computed(function() {
-    return [{ id: 0.5, name: 0.5 }, { id: 1, name: 1 }];
+    return RUBRIC_OFF_OPTIONS.INCREMENT;
   }),
 
   // ----------------------------
@@ -566,8 +552,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
                 isPanelExpanded: false,
                 isEditingInline: false,
                 isEditingNarration: false,
-                editImagePicker: false,
-                showScoringSettings: false
+                editImagePicker: false
               });
 
               if (component.get('editingContent')) {
@@ -580,6 +565,19 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
                 'thumbnail',
                 'text'
               ]);
+
+              if (!question.get('rubric')) {
+                question.set('rubric', editedQuestion.get('rubric'));
+              } else {
+                question
+                  .get('rubric')
+                  .merge(editedQuestion.get('rubric'), [
+                    'maxScore',
+                    'increment',
+                    'scoring',
+                    'rubricOn'
+                  ]);
+              }
             })
             .catch(function(error) {
               var message = component
@@ -674,6 +672,13 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   showInlinePanel: function() {
     var modelForEditing = this.get('model').copy();
 
+    if (modelForEditing.get('isOpenEnded') && !modelForEditing.get('rubric')) {
+      let rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
+        increment: 0.5,
+        maxScore: 1
+      });
+      modelForEditing.set('rubric', rubric);
+    }
     this.setProperties({
       tempModel: modelForEditing,
       isPanelExpanded: true,

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import QuestionSerializer from 'gooru-web/serializers/content/question';
 import QuestionAdapter from 'gooru-web/adapters/content/question';
-import Rubric from 'gooru-web/models/rubric/rubric';
 
 /**
  * @typedef {Object} QuestionService
@@ -54,10 +53,6 @@ export default Ember.Service.extend({
     const service = this;
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      if (questionData.get('isOpenEnded')) {
-        const rubric = Rubric.create();
-        questionData.set('rubric', rubric);
-      }
       let serializedClassData = service
         .get('questionSerializer')
         .serializeCreateQuestion(questionData);
@@ -69,22 +64,8 @@ export default Ember.Service.extend({
         .then(function(responseData, textStatus, request) {
           let questionId = request.getResponseHeader('location');
           questionData.set('id', questionId);
-          if (questionData.get('isOpenEnded')) {
-            return service
-              .get('rubricService')
-              .createRubricOff(questionData.get('rubric'))
-              .then(function(newRubric) {
-                let rubricId = newRubric.get('id');
-                questionData.get('rubric').set('id', rubricId);
-                return service
-                  .get('rubricService')
-                  .associateRubricToQuestion(rubricId, questionData.get('id'));
-              });
-          } else {
-            return Ember.RSVP.resolve();
-          }
-        })
-        .then(() => resolve(questionData), reject);
+          resolve(questionData);
+        }, reject);
     });
   },
 
@@ -124,7 +105,7 @@ export default Ember.Service.extend({
         .get('questionAdapter')
         .updateQuestion(questionId, serializedData)
         .then(function() {
-          if (questionModel.get('isOpenEnded')) {
+          if (questionModel.get('rubric')) {
             if (questionModel.get('rubric.id')) {
               return service
                 .get('rubricService')

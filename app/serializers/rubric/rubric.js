@@ -90,29 +90,40 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   serializeUpdateRubric: function(model) {
     const serializer = this;
-    return {
-      title: nullIfEmpty(model.get('title')),
-      description: nullIfEmpty(model.get('description')),
-      thumbnail: cleanFilename(
-        model.get('thumbnail'),
-        this.get('session.cdnUrls')
-      ),
-      metadata: model.get('hasAudience')
-        ? { audience: model.get('audience') }
-        : null,
-      taxonomy: serializer
-        .get('taxonomySerializer')
-        .serializeTaxonomy(model.get('standards')),
-      url: nullIfEmpty(model.get('url')),
-      is_remote: model.get('uploaded') === true,
-      feedback_guidance: nullIfEmpty(model.get('feedback')),
-      overall_feedback_required: model.get('requiresFeedback') === true,
-      categories: model.get('categories').length
-        ? model.get('categories').map(function(category) {
-          return serializer.serializedUpdateRubricCategory(category);
-        })
-        : null
-    };
+
+    if (model.get('rubricOn')) {
+      return {
+        title: nullIfEmpty(model.get('title')),
+        description: nullIfEmpty(model.get('description')),
+        thumbnail: cleanFilename(
+          model.get('thumbnail'),
+          this.get('session.cdnUrls')
+        ),
+        metadata: model.get('hasAudience')
+          ? { audience: model.get('audience') }
+          : null,
+        taxonomy: serializer
+          .get('taxonomySerializer')
+          .serializeTaxonomy(model.get('standards')),
+        url: nullIfEmpty(model.get('url')),
+        is_remote: model.get('uploaded') === true,
+        feedback_guidance: nullIfEmpty(model.get('feedback')),
+        overall_feedback_required: model.get('requiresFeedback') === true,
+        categories: model.get('categories').length
+          ? model.get('categories').map(function(category) {
+            return serializer.serializedUpdateRubricCategory(category);
+          })
+          : null
+      };
+    } else {
+      return {
+        feedback_guidance: nullIfEmpty(model.get('feedback')),
+        overall_feedback_required: model.get('requiresFeedback') === true,
+        scoring: model.get('scoring'),
+        max_score: model.get('maxScore'),
+        increment: model.get('increment')
+      };
+    }
   },
 
   /**
@@ -184,6 +195,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
         uploaded: data.is_remote,
         feedback: data.feedback_guidance,
         requiresFeedback: data.overall_feedback_required,
+        maxScore: data.max_score,
+        increment: data.increment,
+        scoring: data.scoring,
         categories: categories
           ? categories.map(category =>
             serializer.normalizeRubricCategory(category)
@@ -196,8 +210,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
         updatedDate: data.updated_at,
         tenant: data.tenant
       });
-    } else {
-      return Rubric.create(Ember.getOwner(this).ownerInjection());
     }
   },
 

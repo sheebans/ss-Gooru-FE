@@ -53,12 +53,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           course = route.get('courseService').fetchById(courseId);
         }
 
-        let questionPromiseList = [];
-        assessment.get('children').map(function(question) {
-          questionPromiseList.push(
+        let questionPromiseList = assessment
+          .get('children')
+          .map(question =>
             route.get('questionService').readQuestion(question.get('id'))
           );
-        });
 
         return Ember.RSVP.hash({
           questions: Ember.RSVP.all(questionPromiseList),
