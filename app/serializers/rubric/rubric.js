@@ -68,13 +68,15 @@ export default Ember.Object.extend(ConfigurationMixin, {
 
   serializeRubricOff: function(rubricOffModel) {
     let serializedRubricOff = {
-      is_rubric: rubricOffModel.get('rubricOn'),
+      is_rubric: false,
       overall_feedback_required: rubricOffModel.get('requiresFeedback'),
       feedback_guidance: rubricOffModel.get('feedback'),
       scoring: rubricOffModel.get('scoring'),
       max_score: rubricOffModel.get('maxScore'),
       increment: rubricOffModel.get('increment'),
       grader: rubricOffModel.get('grader')
+        ? rubricOffModel.get('grader')
+        : 'Teacher'
     };
     return serializedRubricOff;
   },
@@ -195,10 +197,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         tenant: data.tenant
       });
     } else {
-      return Rubric.create(Ember.getOwner(this).ownerInjection(), {
-        is_rubric: false,
-        grader: 'Teacher'
-      });
+      return Rubric.create(Ember.getOwner(this).ownerInjection());
     }
   },
 

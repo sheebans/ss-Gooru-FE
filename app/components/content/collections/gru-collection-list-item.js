@@ -256,6 +256,15 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     scoringToggle: function() {
       this.set('showScoringSettings', !this.get('showScoringSettings'));
+      this.set('model.rubric.scoring', !this.get('model.rubric.scoring'));
+    },
+
+    onMaxScoreChange: function(newValue) {
+      this.set('model.rubric.maxScore', newValue);
+    },
+
+    onIncrementChange: function(newValue) {
+      this.set('model.rubric.increment', newValue);
     }
   },
 

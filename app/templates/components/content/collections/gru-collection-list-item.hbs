@@ -116,11 +116,11 @@
                 <div class="scoring-settings">
                   <div class="setting maximum-points">
                     <span class="title">{{t 'content.questions.edit.builder.feedback-grading.maximum-points'}}</span>
-                    {{validation.gru-select options=maximumOptions search="true" optionSelected=model.rubric.maxScore}}
+                    {{validation.gru-select options=maximumOptions search="true" optionSelected=model.rubric.maxScore onOptionSelect="onMaxScoreChange"}}
                   </div>
                   <div class="setting increment">
                     <span class="title">{{t 'content.questions.edit.builder.feedback-grading.increment'}}</span>
-                    {{validation.gru-select options=incrementOptions search="true" optionSelected=model.rubric.increment}}
+                    {{validation.gru-select options=incrementOptions search="true" optionSelected=model.rubric.increment onOptionSelect="onIncrementChange"}}
                   </div>
                 </div>
               {{/if}}
