@@ -2,16 +2,17 @@ import Ember from 'ember';
 import { formatDate } from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from 'gooru-web/mixins/session';
+
 /**
  * Class activities controller
  *
  * Controller responsible of the logic for the teacher class activities tab
  */
-
 export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * Class controller
    */
@@ -23,11 +24,10 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
   // -------------------------------------------------------------------------
-  // Attributes
-
-  // -------------------------------------------------------------------------
   // Actions
+
   actions: {
+
     /**
      *
      * @function actions:changeVisibility
@@ -55,7 +55,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       const startDate = new Date(year, month, 1);
       const endDate = new Date(year, month + 1, 0);
       controller.get('classActivityService').findClassActivities(
-        currentClass.get('id'), undefined, moment.utc(startDate).format('YYYY-MM-DD'), moment.utc(endDate).format('YYYY-MM-DD')).then(function(classActivities) {
+        currentClass.get('id'), undefined, startDate, endDate).then(function(classActivities) {
         controller.get('classActivities').pushObject(Ember.Object.create({
           classActivities: classActivities,
           date: formatDate(startDate, 'MMMM, YYYY')
@@ -94,9 +94,6 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   },
 
   // -------------------------------------------------------------------------
-  // Events
-
-  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -116,9 +113,6 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @property {int} year
    */
   year: null,
-
-  // -------------------------------------------------------------------------
-  // Observers
 
   // -------------------------------------------------------------------------
   // Methods
