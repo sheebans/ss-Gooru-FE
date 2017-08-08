@@ -2,7 +2,7 @@
   overflow: hidden;
 }
 .rubric.edit {
-  height: 90vh;
+  height: 100%;
   > .ember-view,
   .quizzes {
     height: 100%;
@@ -79,7 +79,7 @@
   }
   #information {
     height: auto;
-    .content {
+    > .content {
       @include flexbox;
       .gru-image {
         float: left;
