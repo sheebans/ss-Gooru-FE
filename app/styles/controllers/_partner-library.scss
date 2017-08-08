@@ -1,7 +1,7 @@
 .partner-library {
   @include flexbox;
   @include flex-direction(row);
-  height: 100%;
+  min-height: 100%;
   width: 100vw;
 
   .side-panel {
