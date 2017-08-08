@@ -4,9 +4,9 @@
 export default {
   appRootPath: '/', //default is root
   endpoint: {
-    url: 'http://nile-qa.gooru.org',
-    secureUrl: 'https://nile-qa.gooru.org',
-    tenantUrl: 'http://s3-us-west-1.amazonaws.com/nile-tenants/qa'
+    url: 'http://nile-dev.gooru.org',
+    secureUrl: 'https://nile-dev.gooru.org',
+    tenantUrl: 'http://s3-us-west-1.amazonaws.com/nile-tenants/dev'
   },
 
   realTime: {
@@ -41,9 +41,9 @@ export default {
 
   'quizzes-addon': {
     endpoint: {
-      url: 'http://nile-qa.gooru.org',
-      secureUrl: 'https://nile-qa.gooru.org',
-      providerUrl: 'http://nile-qa.gooru.org'
+      url: 'http://nile-dev.gooru.org',
+      secureUrl: 'https://nile-dev.gooru.org',
+      providerUrl: 'http://nile-dev.gooru.org'
     },
 
     realTime: {
