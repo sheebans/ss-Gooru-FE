@@ -20,6 +20,17 @@ export default Ember.Route.extend({
   // Actions
 
   actions: {
+
+          /**
+     * Launch an assessment on-air
+     *
+     * @function actions:goLive
+     */
+    goLive: function(collectionId) {
+      const currentClass = this.modelFor('teacher.class').class;
+      const classId = currentClass.get('id');
+      this.transitionTo('reports.collection', classId, collectionId);
+    },
     /**
      * Launch an assessment on-air
      *

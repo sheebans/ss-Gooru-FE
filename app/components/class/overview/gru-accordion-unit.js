@@ -68,6 +68,8 @@ export default Ember.Component.extend(AccordionMixin, {
   // Actions
   actions: {
 
+
+
     /**
      * Launch an assessment on-air
      *
@@ -75,6 +77,14 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     launchOnAir: function (collectionId) {
       this.get('onLaunchOnAir')(collectionId);
+    },
+
+            /**
+     * @function goLive
+     */
+    goLive: function (collectionId) {
+
+      this.sendAction('onGoLive', collectionId);
     },
 
     /**
@@ -132,6 +142,7 @@ export default Ember.Component.extend(AccordionMixin, {
     }
   },
 
+
   // -------------------------------------------------------------------------
   // Events
   setupComponent: Ember.on('didInsertElement', function () {
@@ -170,6 +181,11 @@ export default Ember.Component.extend(AccordionMixin, {
    * parsedLocation[2] - resourceId
    */
   parsedLocation: [],
+
+      /**
+   * @property {string} go live action name
+   */
+  onGoLive: 'goLive',
 
   /**
    * Contains only visible units

@@ -130,6 +130,7 @@
               {{/if}}
 
               <div class="panel-heading {{if isTeacher 'teacher' 'student'}}">
+
                 {{#if isTeacher}}
                   <div class="controls">
                     {{#if item.isAddedToClassActivities}}
@@ -138,13 +139,20 @@
                         <br>
                         <span>{{t 'common.added'}}</span>
                       </a>
-                    {{else}}
+                    {{else}} 
                       <a href="#" class="add-to" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
                         {{gru-icon name='add'}}
                         <br>
                         <span>{{t 'common.add'}}</span>
                       </a>
                     {{/if}}
+                          {{#if item.isAssessment}}
+        <button {{action 'goLive' item.id}}
+          data-toggle="tooltip" data-html="true" data-placement="bottom"
+          title="{{t "common.launch-on-air"}}"
+          class="on-air hidden-xs enabled">{{t "common.launch-on-air"}}
+        </button>
+      {{/if}}
                   </div>
                 {{/if}}
                 <div class="panel-title">
