@@ -89,8 +89,8 @@ export default Ember.Object.extend({
         headers: adapter.defineHeaders(),
         data: {
           content_type : contentType,
-          date_from: startDate,
-          date_to: endDate
+          date_from: formatDate(startDate, 'YYYY-MM-DD'),
+          date_to: formatDate(endDate, 'YYYY-MM-DD')
         }
       };
     return Ember.$.ajax(url, options);

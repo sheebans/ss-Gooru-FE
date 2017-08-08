@@ -55,7 +55,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       const startDate = new Date(year, month, 1);
       const endDate = new Date(year, month + 1, 0);
       controller.get('classActivityService').findClassActivities(
-        currentClass.get('id'), undefined, moment(startDate).format('YYYY-MM-DD'), moment(endDate).format('YYYY-MM-DD')).then(function(classActivities) {
+        currentClass.get('id'), undefined, startDate, endDate).then(function(classActivities) {
         controller.get('classActivities').pushObject(Ember.Object.create({
           classActivities: classActivities,
           date: formatDate(startDate, 'MMMM, YYYY')
