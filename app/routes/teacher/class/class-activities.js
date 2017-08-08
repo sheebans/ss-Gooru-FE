@@ -5,20 +5,20 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @type {Service} session service
    */
   session: Ember.inject.service('session'),
+
   /**
    * @requires service:api-sdk/class-activity
    */
   classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
   // -------------------------------------------------------------------------
-  // Attributes
-
-  // -------------------------------------------------------------------------
   // Actions
+
   actions: {
 
     /**
@@ -36,16 +36,15 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-
   model: function() {
     const route = this;
     const currentClass = route.modelFor('teacher.class').class;
     const today = new Date();
-    const yesterday = (d => new Date(d.setDate(d.getDate()-1)))(new Date);
+    const yesterday = (d => new Date(d.setDate(d.getDate() - 1)))(new Date);
 
     return Ember.RSVP.hash({
       todayActivities: route.get('classActivityService').findClassActivities(currentClass.get('id'),
-      undefined, moment(today).format('YYYY-MM-DD'), moment.utc(today).format('YYYY-MM-DD')),
+      undefined, moment(today).format('YYYY-MM-DD'), moment(today).format('YYYY-MM-DD')),
       yesterdayActivities: route.get('classActivityService').findClassActivities(currentClass.get('id'),
       undefined, moment(yesterday).format('YYYY-MM-DD'), moment(yesterday).format('YYYY-MM-DD'))
     }).then(function(hash) {

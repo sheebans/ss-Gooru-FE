@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { formatDate } from 'gooru-web/utils/utils';
 
 /**
  * Adapter to support the class activity CRUD operations
@@ -17,10 +18,11 @@ export default Ember.Object.extend({
    * @param {string} classId
    * @param {string} contentId
    * @param {string} contentType
+   * @param {Date} addedDate
    * @param { { courseId: string, unitId: string, lessonId: string } } context
    * @returns {Promise}
    */
-  addActivityToClass: function (classId, contentId, contentType, context = {}) {
+  addActivityToClass: function (classId, contentId, contentType, addedDate = new Date(), context = {}) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents`;
@@ -34,6 +36,7 @@ export default Ember.Object.extend({
         class_id: classId,
         content_id: contentId,
         content_type: contentType,
+        dca_added_date: formatDate(addedDate,'YYYY-MM-DD'),
         ctx_course_id: context ? context.courseId : null,
         ctx_unit_id: context ? context.unitId : null,
         ctx_lesson_id: context ? context.lessonId: null,

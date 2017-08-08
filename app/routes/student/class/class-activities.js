@@ -4,20 +4,13 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
-  session: Ember.inject.service("session"),
+
+  session: Ember.inject.service('session'),
 
   /**
    * @requires service:api-sdk/class-activity
    */
-  classActivityService: Ember.inject.service("api-sdk/class-activity"),
-
-  // -------------------------------------------------------------------------
-  // Attributes
-
-  // -------------------------------------------------------------------------
-  // Actions
-  actions: {
-  },
+  classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -28,7 +21,7 @@ export default Ember.Route.extend({
     const userId = route.get('session.userId');
     const today = new Date();
     const formattedToday = moment(today).format('YYYY-MM-DD');
-    const utcToday = moment.utc(today).format('YYYY-MM-DD');
+    const utcToday = moment(today).format('YYYY-MM-DD');
 
     return Ember.RSVP.hash({
       classActivities: route.get('classActivityService').findStudentClassActivities(
@@ -44,6 +37,6 @@ export default Ember.Route.extend({
    */
   setupController: function (controller, model) {
     controller.get('classController').selectMenuItem('class-activities');
-    controller.set("classActivities", model.classActivities);
+    controller.set('classActivities', model.classActivities);
   }
 });
