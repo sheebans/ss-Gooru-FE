@@ -61,7 +61,7 @@ export default Ember.Component.extend({
         if (validations.get('isValid')) {
           let category = component.get('category');
           category.setProperties(tempCategory);
-
+          component.sendAction('onUpdateCategory', category);
           component.setProperties({
             isPanelExpanded: false,
             isEditingInline: false
@@ -118,6 +118,13 @@ export default Ember.Component.extend({
    * @property {Category}
    */
   tempCategory: null,
+
+  /**
+   * Action to send when save is clicked
+   * @property {String}
+   */
+  onUpdateCategory: null,
+
   // -------------------------------------------------------------------------
   // Methods
   /**

@@ -80,6 +80,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     deleteCategory: function(category) {
       let categories = this.get('categories');
       categories.removeObject(category);
+      this.saveCategory(category);
     },
     /**
      *Set if feedback is required
@@ -101,6 +102,14 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     selectCategory: function(category) {
       var standardLabel = category === EDUCATION_CATEGORY.value;
       this.set('standardLabel', !standardLabel);
+    },
+
+    /**
+     * SelectCategory
+     * @param {String} category
+     */
+    updateCategory: function(category) {
+      this.saveCategory(category);
     },
     /**
      * Remove tag data from the taxonomy list in tempUnit
@@ -333,6 +342,27 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       }
       component.set('didValidate', true);
     });
+  },
+
+  /**
+   * Save function for categories
+   */
+  saveCategory(category) {
+    let component = this;
+    let tempRubric = component.get('rubric');
+    let categories = tempRubric.get('categories');
+    tempRubric.set(
+      'categories',
+      component
+        .get('categories')
+        .filter(
+          cat =>
+            cat.get('title') &&
+            (categories.findBy('title', cat.get('title')) ||
+              category.get('title') === cat.get('title'))
+        )
+    );
+    return component.get('rubricService').updateRubric(tempRubric);
   },
 
   /**
