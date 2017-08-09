@@ -53,11 +53,10 @@ export default Ember.Component.extend(AccordionMixin, {
   actions: {
 
 
-            /**
+    /**
      * @function goLive
      */
     goLive: function (collectionId) {
-
       this.sendAction('onGoLive', collectionId);
     },
 

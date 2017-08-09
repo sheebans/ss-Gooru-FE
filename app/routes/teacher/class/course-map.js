@@ -21,8 +21,8 @@ export default Ember.Route.extend({
 
   actions: {
 
-          /**
-     * Launch an assessment on-air
+    /**
+     * Launch an assessment goLive
      *
      * @function actions:goLive
      */
