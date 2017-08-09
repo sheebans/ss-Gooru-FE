@@ -32,7 +32,7 @@
               @include flex-wrap(wrap);
               .panel {
                 border-radius: 4px;
-                cursor: pointer;
+                cursor: default;
                 float: left;
                 height: 120px;
                 text-align: center;
@@ -84,7 +84,6 @@
                       border-bottom: 1px solid $gray;
                       width: 50px;
                       span {
-                        color: $gray;
                         right: 0;
                         text-align: center;
                       }
