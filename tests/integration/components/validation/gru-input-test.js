@@ -10,7 +10,7 @@ moduleForComponent('gru-input', 'Integration | Component | gru input', {
 });
 
 test('Layout and clear functionality', function(assert) {
-  assert.expect(10); // making sure all asserts are called
+  assert.expect(8); // making sure all asserts are called
 
   this.set(
     'model',
@@ -28,7 +28,6 @@ test('Layout and clear functionality', function(assert) {
   assert.equal($input.val(), '', 'Wrong value');
   assert.equal($input.attr('id'), 'any-id', 'Missing id');
   assert.equal($input.attr('aria-required'), 'true', 'Missing aria required');
-  assert.ok($component.find('.empty-message').length, 'Empty div is missing');
 
   $input.val('So');
   $input.blur();
@@ -37,10 +36,6 @@ test('Layout and clear functionality', function(assert) {
     assert.ok(
       $component.find('.error-messages .error').length,
       'Input error message was hidden'
-    );
-    assert.notOk(
-      $component.find('.empty-message').length,
-      'Empty div should not show up'
     );
 
     $input.val('Sol');

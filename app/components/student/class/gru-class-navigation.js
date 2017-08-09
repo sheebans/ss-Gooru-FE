@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+
 /**
  * Student class navigation
  *
@@ -11,15 +12,13 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  */
 export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
-  // Dependencies
-
-  // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['gru-class-navigation', 'student'],
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      *
@@ -62,6 +61,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @property {Class} class
    */
@@ -89,6 +89,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Observers
+
   /**
    * Refreshes the left navigation with the selected menu item
    */
@@ -98,8 +99,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
   }.observes('selectedMenuItem'),
 
   // -------------------------------------------------------------------------
-
   // Methods
+
   /**
    * Triggered when a menu item is selected. Set the class icon for the item selected showing in the mobiles dropdown menu.
    * @param {string} item

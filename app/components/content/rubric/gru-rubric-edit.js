@@ -57,6 +57,14 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       this.save();
     },
     /**
+     * Edit Content
+     */
+    editContent: function() {
+      var rubricForEditing = this.get('rubric').copy();
+      this.set('tempRubric', rubricForEditing);
+      this.set('isEditing', true);
+    },
+    /**
      * Triggered by gru-category
      *Copy category
      */
@@ -131,9 +139,23 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       true
     );
   }),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('rubric.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get('rubric.standards'), false);
+  }),
+
+  /**
+   * If the file upload should show an error
+   * @property {Boolean}
+   */
+  emptyFileError: false,
+
   /**
    *
-   * @property {Object[]} headerActions List of action buttons to show
+   * @property {Object[]} footerActions List of action buttons to show
    */
   footerActions: Ember.computed(function() {
     return [
@@ -156,12 +178,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   headerActions: Ember.computed(function() {
     return [
-      // TO DO: This actions will be add
-      //  {
-      //  name: 'delete',
-      //  text: this.get('i18n').t('common.delete'),
-      //  icon: 'delete'
-      // }, {
+      {
+        name: 'delete',
+        icon: 'delete',
+        action: () => this.delete()
+      },
       //  name: 'copy',
       //  text: this.get('i18n').t('common.copy'),
       //  icon: 'content_copy'
@@ -232,16 +253,40 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Methods
   /**
-   * Cancel function for footer
+   * Cancel function for rubric edition
    */
   cancel: function() {
-    this.get('router').transitionTo(
-      'profile.content.rubrics',
-      this.get('session.userData.gooruUId')
+    this.set('isEditing', false);
+  },
+
+  delete: function() {
+    const myId = this.get('session.userId');
+    var model = {
+      content: this.get('rubric'),
+      deleteMethod: function() {
+        return this.get('rubricService').deleteRubric(this.get('rubric.id'));
+      }.bind(this),
+      redirect: {
+        route: 'profile.content.courses',
+        params: {
+          id: myId
+        }
+      }
+    };
+
+    this.actions.showModal.call(
+      this,
+      'content.modals.gru-delete-rubric',
+      model,
+      null,
+      null,
+      null,
+      false
     );
   },
+
   /**
-   * Save function for footer
+   * Save function for rubric edition
    */
   save: function() {
     let component = this;
@@ -251,6 +296,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       component.get('categories').filter(category => category.get('title'))
     );
     let rubric = component.get('rubric');
+    this.set('emptyFileError', !tempRubric.get('url'));
     tempRubric.validate().then(function({ validations }) {
       if (validations.get('isValid')) {
         let imageIdPromise = new Ember.RSVP.resolve(
@@ -282,17 +328,13 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
               'feedback',
               'standards'
             ]);
-            component
-              .get('router')
-              .transitionTo(
-                'profile.content.rubrics',
-                component.get('session.userData.gooruUId')
-              );
+            component.set('isEditing', false);
           });
       }
       component.set('didValidate', true);
     });
   },
+
   /**
    * Preview rubric on header action
    */
@@ -301,6 +343,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     let rubric = component.get('rubric');
     component.get('router').transitionTo('content.rubric.preview', rubric.id);
   },
+
   /**
    * Open Taxonomy Modal
    */

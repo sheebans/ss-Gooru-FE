@@ -30,16 +30,40 @@ test('Layout', function(assert) {
 });
 
 test('Cancel edit', function(assert) {
-  visit('/content/rubric/edit/123');
+  visit('/content/rubric/edit/123?editing=true');
 
   andThen(function() {
-    assert.equal(currentURL(), '/content/rubric/edit/123');
+    assert.equal(currentURL(), '/content/rubric/edit/123?editing=true');
 
     var $container = find('.rubric.edit');
     var $cancel = $container.find('.header button.cancel');
     click($cancel);
     andThen(function() {
-      assert.equal(currentURL(), '/id-for-pochita/content/rubrics');
+      assert.ok($container.find('.title b').length, 'Missing rubric title');
+    });
+  });
+});
+
+test('Rubric edit', function(assert) {
+  visit('/content/rubric/edit/123?editing=true');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/content/rubric/edit/123?editing=true');
+    var $container = find('.rubric.edit');
+    assert.equal(currentURL(), '/content/rubric/edit/123?editing=true');
+    var $cancel = $container.find('.header button.cancel');
+    click($cancel);
+    andThen(function() {
+      var $editRubric = $container.find('.gru-rubric-edit');
+      assert.ok($editRubric.find('.title b').length, 'Missing rubric title');
+      assert.ok(
+        $editRubric.find('.gru-preview-url').length,
+        'Missing preview rubric'
+      );
+      assert.ok(
+        $editRubric.find('.category-panel.non-edit').length,
+        'Missing categories preview'
+      );
     });
   });
 });
@@ -103,10 +127,10 @@ test('Preview edit', function(assert) {
 });
 
 test('Add a category and go to preview before save', function(assert) {
-  visit('/content/rubric/edit/123');
+  visit('/content/rubric/edit/123?editing=true');
 
   andThen(function() {
-    assert.equal(currentURL(), '/content/rubric/edit/123');
+    assert.equal(currentURL(), '/content/rubric/edit/123?editing=true');
 
     var $container = find('.rubric.edit');
     assert.equal(

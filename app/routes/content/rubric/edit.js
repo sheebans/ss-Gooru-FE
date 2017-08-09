@@ -23,17 +23,17 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   model: function(params) {
     const route = this;
-    const RurbicValidation = Rubric.extend(EditRubricValidations);
+    const RubricValidation = Rubric.extend(EditRubricValidations);
     return route
       .get('rubricService')
       .getRubric(params.rubricId)
       .then(function(rubric) {
-        const isEditing = params.editing;
+        const isEditing = params.editing === 'true';
         const editingContent = params.editingContent
           ? params.editingContent
           : null;
         return Ember.RSVP.hash({
-          rubric: RurbicValidation.create(rubric),
+          rubric: RubricValidation.create(rubric),
           isEditing: !!isEditing,
           editingContent: editingContent
         });

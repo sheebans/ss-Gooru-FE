@@ -31,6 +31,11 @@
         <span class="formats">{{t 'common.valid-extensions' extensions=validExtensions}}</span>
       </label>
       {{content.gru-file-picker validMimeType=rubric.mimeType onSelectFile=(action 'selectFile')}}
+      {{#if emptyFileError}}
+        <div class="validation">
+          <span class="error">{{t 'common.errors.file-upload-missing' extensions=validExtensions}}</span>
+        </div>
+      {{/if}}
       {{content.rubric.gru-preview-url resource=resource isRubric=true}}
     </div>
   </div>

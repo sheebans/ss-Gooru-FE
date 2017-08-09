@@ -6,6 +6,7 @@
     @include justify-content(center);
     .card {
       margin: 0 12px;
+      margin-bottom: 2em;
       float: left;
       .gru-resource-card {
         .panel-heading {

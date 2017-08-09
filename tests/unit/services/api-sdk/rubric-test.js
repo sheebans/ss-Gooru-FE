@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 import RubricModel from 'gooru-web/models/rubric/rubric';
+import RubricGradeModel from 'gooru-web/models/rubric/rubric-grade';
 
 moduleForService(
   'service:api-sdk/rubric',
@@ -336,4 +337,48 @@ test('getAnswerToGrade', function(assert) {
       'unit-id'
     )
     .then(done);
+});
+
+test('setStudentRubricGrades', function(assert) {
+  const service = this.subject();
+  let rubricGrade = RubricGradeModel.create({
+    id: 'rubric-grade-id',
+    title: 'any rubric'
+  });
+
+  assert.expect(3);
+
+  service.set(
+    'serializer',
+    Ember.Object.create({
+      serializeStudentRubricGrades: function(rubricParam) {
+        assert.deepEqual(
+          rubricParam,
+          rubricGrade,
+          'Wrong rubric grade parameter'
+        );
+        return { id: 'grade-id' };
+      }
+    })
+  );
+
+  service.set(
+    'adapter',
+    Ember.Object.create({
+      setStudentRubricGrades: function(data) {
+        assert.deepEqual(data, { id: 'grade-id' }, 'Wrong data id');
+        return Ember.RSVP.resolve(true);
+      }
+    })
+  );
+
+  var done = assert.async();
+  service.setStudentRubricGrades(rubricGrade).then(function() {
+    assert.equal(
+      rubricGrade.get('id'),
+      'rubric-grade-id',
+      'Wrong rubric grade id'
+    );
+    done();
+  });
 });

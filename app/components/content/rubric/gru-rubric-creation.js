@@ -28,14 +28,13 @@ export default Ember.Component.extend({
      * Select tab option
      */
     selectOption: function(type) {
+      // Clean inputs and properties
+      let savedUrl = this.get('rubric.url');
+      this.set('rubric.url', this.get('savedUrl'));
+      this.set('resource.url', this.get('savedUrl'));
       this.set('showFromWeb', type === 'fromWeb');
       this.set('showFromComputer', type === 'fromComputer');
-      // Clean inputs and properties
-      this.set('rubric.url', null);
-      this.set('rubric.file', null);
-      this.set('resource.url', null);
-      this.$('.gru-file-picker input').val(null);
-      this.$('.gru-input.url input').val(null);
+      this.set('savedUrl', savedUrl);
     },
 
     /***
@@ -48,6 +47,7 @@ export default Ember.Component.extend({
           this.set('rubric', rubric);
           let resource = this.get('resource');
           resource.set('url', rubric.get('url'));
+          this.set('emptyFileError', false);
         });
       }
     },
@@ -55,6 +55,7 @@ export default Ember.Component.extend({
      * Add URL
      */
     addURL: function(url) {
+      this.set('emptyFileError', false);
       this.get('rubric').validate().then(({ validations }) => {
         if (validations.get('isValid') && this.get('showFromWeb')) {
           // For preview to work
@@ -67,6 +68,13 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * If the file upload should show an error
+   * @property {Boolean}
+   */
+  emptyFileError: false,
+
   /**
    * Resource used for the preview url component
    * @property {Object}
@@ -78,6 +86,12 @@ export default Ember.Component.extend({
    * @property {Rubric}
    */
   rubric: null,
+
+  /**
+   * Input value from URL tab
+   * @property {String}
+   */
+  savedUrl: null,
 
   /**
    * Indicates when then show from web option is visible

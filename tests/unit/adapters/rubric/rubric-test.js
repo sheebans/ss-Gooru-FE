@@ -361,3 +361,28 @@ test('getAnswerToGrade', function(assert) {
     )
     .then(response => assert.deepEqual({}, response, 'Wrong response'));
 });
+
+test('setStudentRubricGrades', function(assert) {
+  const adapter = this.subject();
+  adapter.set(
+    'session',
+    Ember.Object.create({
+      'token-api3': 'token-api-3'
+    })
+  );
+  const data = {
+    body: {}
+  };
+  this.pretender.map(function() {
+    this.post(
+      '/api/nucleus-insights/v2/rubrics/grades',
+      function() {
+        return [200, { 'Content-Type': 'text/plain' }, ''];
+      },
+      false
+    );
+  });
+  adapter.setStudentRubricGrades(data).then(function(response) {
+    assert.equal('', response, 'Wrong response');
+  });
+});

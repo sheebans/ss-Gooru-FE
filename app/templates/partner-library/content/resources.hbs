@@ -2,9 +2,11 @@
     <div class="resources clearfix">
       {{#each resources as |resource|}}
           <div class="card">
-            {{cards.gru-resource-card
+            {{new-cards.gru-resource-card
               resource=resource
-              onPlayResource="playResource"}}
+              onRemixQuestion="remixQuestion"
+              onPlayResource="playQuestion"
+              profile=sessionProfile}}
           </div>
       {{else}}
         <div class="no-content panel add-content panel-default">
