@@ -14,10 +14,7 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint",
-      "git add"
-    ]
+    "*.js": ["eslint", "git add"]
   },
   "repository": "",
   "engines": {
@@ -80,10 +77,9 @@
     "ember-radio-button": "^1.0.7",
     "ember-resolver": "^2.1.0",
     "ember-welcome-page": "^1.0.3",
-    "eslint": "^4.4.1",
     "firebase": "^3.6.2",
     "grunt-exec": "^1.0.0",
     "loader.js": "^4.0.11",
-    "quizzes-addon": "file:../Quizzes/quizzes-addon-1.0.0.tgz"
+    "quizzes-addon": "1.0.0"
   }
 }
