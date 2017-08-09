@@ -249,11 +249,11 @@ test('Go Live', function(assert) {
   });
 
 
-    this.on('newexternalAction', function (collection) {
+    this.on('newExternalAction', function (collection) {
     assert.ok(collection, 'This should be called');
   });
 
-    this.on('otherexternalAction', function (collectionId) {
+    this.on('otherExternalAction', function (collectionId) {
     assert.ok(collectionId, 'This should be called');
   });
 
@@ -286,8 +286,8 @@ test('Go Live', function(assert) {
                     isLessonSelected=isLessonSelected
                     onGoLive=(action 'parentAction')
                     onSelectLesson=(action 'externalAction')
-                    onLaunchOnAir=(action 'otherexternalAction')
-                    onSelectResource=(action 'newexternalAction')}}`);
+                    onLaunchOnAir=(action 'otherExternalAction')
+                    onSelectResource=(action 'newExternalAction')}}`);
 
   var $component = this.$();
   const $lessonTitleAnchor = $component.find('.panel-heading a.title');
@@ -300,7 +300,7 @@ test('Go Live', function(assert) {
     assert.ok($collapsePanel.find('li'), 'Missing item');
     return wait().then(function() {
       var $goLiveButton = $component.find('.on-air');
-      assert.ok($goLiveButton.length,'Missing study now button');
+      assert.ok($goLiveButton.length,'Missing Go Live button');
       $goLiveButton.click();
     });
   });
