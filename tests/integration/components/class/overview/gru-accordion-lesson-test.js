@@ -230,7 +230,6 @@ test('Go Live', function(assert) {
 
   this.on('parentAction', function(collectionId){
     assert.ok(collectionId, 'collectionId is passed');
-    //assert.ok(item, 'Should have item');
   });
 
   const currentClass = Ember.Object.create({
@@ -301,10 +300,7 @@ test('Go Live', function(assert) {
     assert.ok($collapsePanel.find('li'), 'Missing item');
     return wait().then(function() {
       var $goLiveButton = $component.find('.on-air');
-      //var $score = $component.find('.left-info .score');
       assert.ok($goLiveButton.length,'Missing study now button');
-      //assert.ok($score.length,'Missing study now button');
-     // assert.notOk($component.find('li.assessment:last-child .trophy').length, 'Trophy should not appear when the study button appear');
       $goLiveButton.click();
     });
   });

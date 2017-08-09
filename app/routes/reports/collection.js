@@ -35,11 +35,6 @@ export default QuizzesReport.extend(PrivateRouteMixin, ContextMixin, {
     navigateBack: function () {
        var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
       this.transitionTo(route);
-      // let classId = this.controller.get('classId');
-      // this.transitionTo(
-      //   'teacher.class.class-activities',
-      //   classId
-      // );
     }
   },
 
