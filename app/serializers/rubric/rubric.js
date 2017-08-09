@@ -254,7 +254,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
           ? categories.map(category =>
             serializer.normalizeRubricCategory(category)
           )
-          : null,
+          : Ember.A(),
         owner: filteredOwners.get('length')
           ? filteredOwners.get('firstObject')
           : ownerId,
