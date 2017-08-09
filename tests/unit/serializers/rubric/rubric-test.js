@@ -89,6 +89,7 @@ test('serializeUpdateRubric uploaded and no feedback required', function(
     audience: [1],
     url: 'any-url',
     uploaded: true,
+    rubricOn: true,
     feedback: 'any-feedback',
     totalPoints: 10,
     requiresFeedback: false,
@@ -149,6 +150,7 @@ test('serializeUpdateRubric not uploaded and feedback required', function(
     audience: [1],
     url: null,
     uploaded: false,
+    rubricOn: true,
     feedback: null,
     totalPoints: 10,
     requiresFeedback: true
@@ -197,6 +199,7 @@ test('serializeUpdateRubric with empty strings', function(assert) {
     audience: [1],
     url: '',
     uploaded: false,
+    rubricOn: true,
     feedback: '',
     totalPoints: 10,
     requiresFeedback: true
@@ -216,6 +219,34 @@ test('serializeUpdateRubric with empty strings', function(assert) {
     rubricObject.overall_feedback_required,
     true,
     'Wrong overall_feedback_required'
+  );
+});
+
+test('serializeUpdateRubric OFF scenario', function(assert) {
+  const serializer = this.subject();
+
+  const rubric = Rubric.create({
+    rubricOn: false,
+    scoring: true,
+    maxScore: 100,
+    increment: 1,
+    feedback: 'Feedback guidance',
+    requiresFeedback: true
+  });
+
+  const rubricObject = serializer.serializeUpdateRubric(rubric);
+  assert.equal(rubricObject.scoring, true, 'Wrong scoring');
+  assert.equal(rubricObject.max_score, 100, 'Wrong max score');
+  assert.equal(rubricObject.increment, 1, 'Wrong increment');
+  assert.equal(
+    rubricObject.feedback_guidance,
+    'Feedback guidance',
+    'Wrong feedback guidance'
+  );
+  assert.equal(
+    rubricObject.overall_feedback_required,
+    true,
+    'Wrong overall feedback required'
   );
 });
 

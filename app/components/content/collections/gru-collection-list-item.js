@@ -252,10 +252,16 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       this.scrollToFirstEditor();
     },
 
+    /**
+     * Action after selecting an option for maximum points
+     */
     onMaxScoreChange: function(newValue) {
       this.set('tempModel.rubric.maxScore', parseInt(newValue));
     },
 
+    /**
+     * Action after selecting an option for increment
+     */
     onIncrementChange: function(newValue) {
       this.set('tempModel.rubric.increment', parseFloat(newValue));
     }
