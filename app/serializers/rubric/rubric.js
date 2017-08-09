@@ -90,8 +90,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   serializeUpdateRubric: function(model) {
     const serializer = this;
-
     if (model.get('rubricOn')) {
+      const url = model.get('uploaded')
+        ? cleanFilename(model.get('url'), this.get('session.cdnUrls'))
+        : model.get('url');
       return {
         title: nullIfEmpty(model.get('title')),
         description: nullIfEmpty(model.get('description')),
@@ -105,10 +107,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
         taxonomy: serializer
           .get('taxonomySerializer')
           .serializeTaxonomy(model.get('standards')),
-        url: nullIfEmpty(model.get('url')),
-        is_remote: model.get('uploaded') === true,
+        url: nullIfEmpty(url),
+        is_remote: !!model.get('uploaded'),
         feedback_guidance: nullIfEmpty(model.get('feedback')),
-        overall_feedback_required: model.get('requiresFeedback') === true,
+        overall_feedback_required: !!model.get('requiresFeedback'),
         categories: model.get('categories').length
           ? model.get('categories').map(function(category) {
             return serializer.serializedUpdateRubricCategory(category);
@@ -118,7 +120,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
     } else {
       return {
         feedback_guidance: nullIfEmpty(model.get('feedback')),
-        overall_feedback_required: model.get('requiresFeedback') === true,
+        overall_feedback_required: !!model.get('requiresFeedback'),
         scoring: model.get('scoring'),
         max_score: model.get('maxScore'),
         increment: model.get('increment')
@@ -226,6 +228,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       const categories = data.categories;
       const basePath = serializer.get('session.cdnUrls.content');
       const thumbnail = data.thumbnail ? basePath + data.thumbnail : null;
+      const url =
+        data.url && data.is_remote ? basePath + data.url : data.url || null;
 
       return Rubric.create(Ember.getOwner(this).ownerInjection(), {
         id: data.id,
@@ -236,7 +240,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
           .get('taxonomySerializer')
           .normalizeTaxonomyObject(data.taxonomy),
         audience: metadata.audience,
-        url: data.url,
+        url: url,
         isPublished: data.publishStatus === 'published',
         publishDate: data.publish_date,
         rubricOn: data.is_rubric,
