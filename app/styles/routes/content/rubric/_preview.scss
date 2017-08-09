@@ -70,10 +70,9 @@
                   width: 30px;
                   vertical-align: top;
                   &.rubric-icon {
-                    background: url("gooru/images/rubric-white.svg");
-                    -webkit-background-size: 30px 49px;
-                    background-size: 30px 49px;
-                    height: 49px;
+                    background: url("gooru/images/rubric-white.svg") no-repeat;
+                    background-size: contain;
+                    height: 20px;
                     width: 30px;
                   }
                 }
