@@ -69,7 +69,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
       /**
      * Action triggered to remix the collection
      * @param content
-     */ 
+     */
     onRemixCollection:function(){
     let collection = this.get('collectionObj');
     if (this.get('session.isAnonymous')) {
