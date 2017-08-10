@@ -336,8 +336,14 @@
           float: left;
           border-right: solid 2px $light-200;
           min-height: 55px;
+          .go-live-cnt{
+            width:50%;
+          }
+          .adca-cnt{
+            width:50%;
+          }
           .go-live{
-            margin-top:10px;
+            margin-top:2px;
           }
           .add-to {
             color: $gray;
