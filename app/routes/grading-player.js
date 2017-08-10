@@ -15,6 +15,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   profileService: Ember.inject.service('api-sdk/profile'),
 
   /**
+   * @type {ProfileService} Service to retrieve question information
+   */
+  questionService: Ember.inject.service('api-sdk/question'),
+
+  /**
    * @type {Session} Session information
    */
   session: Ember.inject.service(),
@@ -43,6 +48,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         unitId,
         lessonId
       ),
+      question: this.get('questionService').readQuestion(questionId),
       users: this.get('rubricService')
         .getStudentsForQuestion(questionId, classId, courseId, collectionId)
         .then(users =>
@@ -58,6 +64,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
+    model.answer.set(
+      'questionText',
+      model.question.get('description') || model.question.get('title')
+    );
     controller.set('answer', model.answer);
     controller.set(
       'currentUser',
