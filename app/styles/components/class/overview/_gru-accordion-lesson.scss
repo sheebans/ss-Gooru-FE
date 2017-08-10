@@ -336,6 +336,9 @@
           float: left;
           border-right: solid 2px $light-200;
           min-height: 55px;
+          .go-live{
+            margin-top:10px;
+          }
           .add-to {
             color: $gray;
             display: inline-block;
@@ -463,12 +466,12 @@
           float: left;
           height: inherit;
           @media (min-width: $screen-sm) {
-            width: 50%;
+            width: 45%;
             float: right;
             text-align: right;
           }
           @media (min-width: $screen-lg) {
-            width: 45%;
+            width: 41%;
           }
           .content-count {
             font-size: $font-size-large;
