@@ -74,14 +74,14 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     if (this.get('session.isAnonymous')) {
       this.send('showModal', 'content.modals.gru-login-prompt');
     } else {
-    var remixModel = {
-      content: collection
-    };
-    if(collection.isCollection) {
-      this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
-    } else {
-      this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
-    }
+      var remixModel = {
+        content: collection
+      };
+      if(collection.isCollection) {
+        this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
+      } else {
+        this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
+      }
     }
   },
 
@@ -196,7 +196,6 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
 
     return route.loadCollection(collectionId, type).then(function(collection) {
       route.set('collectionObj',collection);
-      params.collection = collection;
       params.type = collection.get('collectionType');
       return route.createContext(params, collection, role === ROLES.STUDENT);
     }).then(function({ id }) {
