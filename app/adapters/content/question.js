@@ -8,7 +8,7 @@ import Ember from 'ember';
 export default Ember.Object.extend({
   session: Ember.inject.service('session'),
 
-  namespace: '/api/nucleus/v1/questions',
+  namespace: '/api/nucleus/v2/questions',
 
   copierNamespace: '/api/nucleus/v1/copier/questions',
 

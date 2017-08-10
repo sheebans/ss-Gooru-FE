@@ -29,11 +29,18 @@ export default Ember.Component.extend({
      */
     selectOption: function(type) {
       // Clean inputs and properties
-      let savedUrl = this.get('rubric.url');
-      this.set('rubric.url', this.get('savedUrl'));
-      this.set('resource.url', this.get('savedUrl'));
-      this.set('showFromWeb', type === 'fromWeb');
-      this.set('showFromComputer', type === 'fromComputer');
+      const component = this;
+      const tempSavedUrl = this.get('savedUrl');
+      const savedUrl = this.get('rubric.url');
+      this.set('rubric.url', tempSavedUrl || null);
+      this.get('rubric').validate().then(({ validations }) => {
+        component.set(
+          'resource.url',
+          validations.get('isValid') ? tempSavedUrl : null
+        );
+      });
+      this.set('rubric.uploaded', type === 'fromComputer');
+      this.$('.gru-input.url input').val(tempSavedUrl);
       this.set('savedUrl', savedUrl);
     },
 
@@ -44,10 +51,14 @@ export default Ember.Component.extend({
       this.set('rubric.file', file);
       if (file) {
         this.handleResourceUpload(this.get('rubric')).then(rubric => {
-          this.set('rubric', rubric);
-          let resource = this.get('resource');
-          resource.set('url', rubric.get('url'));
-          this.set('emptyFileError', false);
+          if (this.get('rubric.uploaded')) {
+            this.set('rubric', rubric);
+            let resource = this.get('resource');
+            resource.set('url', rubric.get('url'));
+            this.set('emptyFileError', false);
+          } else {
+            this.set('savedUrl', rubric.get('url'));
+          }
         });
       }
     },
@@ -57,7 +68,7 @@ export default Ember.Component.extend({
     addURL: function(url) {
       this.set('emptyFileError', false);
       this.get('rubric').validate().then(({ validations }) => {
-        if (validations.get('isValid') && this.get('showFromWeb')) {
+        if (validations.get('isValid') && !this.get('rubric.uploaded')) {
           // For preview to work
           let resource = this.get('resource');
           resource.set('url', url);
@@ -91,19 +102,7 @@ export default Ember.Component.extend({
    * Input value from URL tab
    * @property {String}
    */
-  savedUrl: null,
-
-  /**
-   * Indicates when then show from web option is visible
-   * @property {boolean}
-   */
-  showFromWeb: true,
-
-  /**
-   * Indicates when show from computer is visible
-   * @property {boolean}
-   */
-  showFromComputer: false,
+  savedUrl: '',
 
   /**
    * @type {String} list of all valid extension per gooru-web/config/config#UPLOAD_TYPES

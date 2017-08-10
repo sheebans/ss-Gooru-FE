@@ -23,7 +23,7 @@ test('createQuestion', function(assert) {
   };
   this.pretender.map(function() {
     this.post(
-      '/api/nucleus/v1/questions',
+      '/api/nucleus/v2/questions',
       function() {
         return [201, { 'Content-Type': 'text/plain' }, ''];
       },
@@ -45,7 +45,7 @@ test('readQuestion', function(assert) {
   );
   this.pretender.map(function() {
     this.get(
-      '/api/nucleus/v1/questions/12345',
+      '/api/nucleus/v2/questions/12345',
       function() {
         return [
           200,
@@ -74,7 +74,7 @@ test('updateQuestion', function(assert) {
   );
   this.pretender.map(function() {
     this.put(
-      '/api/nucleus/v1/questions/question-id',
+      '/api/nucleus/v2/questions/question-id',
       function(request) {
         let requestBodyJson = JSON.parse(request.requestBody);
         assert.deepEqual(
@@ -107,7 +107,7 @@ test('deleteQuestion', function(assert) {
   );
   this.pretender.map(function() {
     this.delete(
-      '/api/nucleus/v1/questions/question-id',
+      '/api/nucleus/v2/questions/question-id',
       function() {
         return [204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
       },

@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
+import Rubric from 'gooru-web/models/rubric/rubric';
 
 moduleForComponent(
   'content/rubric/gru-rubric-creation',
@@ -83,4 +84,30 @@ test('Rubric creation Layout', function(assert) {
       'Missing preview component'
     );
   });
+});
+
+test('Rubric creation Layout with file uploaded', function(assert) {
+  this.set(
+    'rubric',
+    Rubric.create({
+      uploaded: true
+    })
+  );
+  this.render(hbs`{{content/rubric/gru-rubric-creation}}`);
+  const $component = this.$();
+  assert.ok(
+    $component.find('.gru-rubric-creation #from-computer .add-from-computer')
+      .length,
+    'Should switch to From Your Computer Tab'
+  );
+  assert.ok(
+    $component.find(
+      '.gru-rubric-creation #from-computer .add-from-computer .gru-file-picker'
+    ).length,
+    'Missing file picker component'
+  );
+  assert.ok(
+    $component.find('.gru-preview-url').length,
+    'Missing preview component'
+  );
 });

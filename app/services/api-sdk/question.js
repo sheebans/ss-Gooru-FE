@@ -22,6 +22,11 @@ export default Ember.Service.extend({
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   /**
+   * @property {RubricService}
+   */
+  rubricService: Ember.inject.service('api-sdk/rubric'),
+
+  /**
    * @property {AssessmentService}
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
@@ -46,6 +51,7 @@ export default Ember.Service.extend({
    */
   createQuestion: function(questionData) {
     const service = this;
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
       let serializedClassData = service
         .get('questionSerializer')
@@ -98,6 +104,31 @@ export default Ember.Service.extend({
       service
         .get('questionAdapter')
         .updateQuestion(questionId, serializedData)
+        .then(function() {
+          if (questionModel.get('rubric')) {
+            if (questionModel.get('rubric.id')) {
+              return service
+                .get('rubricService')
+                .updateRubric(questionModel.get('rubric'));
+            } else {
+              return service
+                .get('rubricService')
+                .createRubricOff(questionModel.get('rubric'))
+                .then(function(newRubric) {
+                  let rubricId = newRubric.get('id');
+                  questionModel.get('rubric').set('id', rubricId);
+                  return service
+                    .get('rubricService')
+                    .associateRubricToQuestion(
+                      rubricId,
+                      questionModel.get('id')
+                    );
+                });
+            }
+          } else {
+            return Ember.RSVP.resolve();
+          }
+        })
         .then(function() {
           service.notifyQuizzesCollectionChange(collection);
           resolve();

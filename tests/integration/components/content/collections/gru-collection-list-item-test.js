@@ -594,3 +594,73 @@ test('Layout for OpenEnded Question', function(assert) {
     'Two gru-switch inputs should be displayed'
   );
 });
+
+test('Display fields when scoring is clicked', function(assert) {
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'question',
+    questionType: 'OE'
+  });
+
+  this.set('question', question);
+  this.set('index', 0);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question index=index}}`
+  );
+
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  const $feedbackGradingContainer = $panelBody.find('.feedback-grading');
+  assert.ok(
+    $feedbackGradingContainer.length,
+    'Feedback and Grading section should be visible'
+  );
+
+  let $scoringSettingsContainer = $feedbackGradingContainer.find(
+    '.scoring-settings'
+  );
+  assert.ok(
+    !$scoringSettingsContainer.length,
+    'Scoring settings section should not be visible'
+  );
+
+  const $switchScoring = $feedbackGradingContainer.find(
+    '.switch.scoring .gru-switch .toggle'
+  );
+  Ember.run(() => {
+    $switchScoring.click();
+  });
+
+  $scoringSettingsContainer = $feedbackGradingContainer.find(
+    '.scoring-settings'
+  );
+  assert.ok(
+    $scoringSettingsContainer.length,
+    'Scoring settings section should now be visible'
+  );
+
+  const $maxScoreContainer = $scoringSettingsContainer.find(
+    '.setting.maximum-points'
+  );
+  assert.ok($maxScoreContainer.length, 'Max Score field should be visible');
+  assert.equal(
+    $maxScoreContainer.find('.gru-select .dropdown-toggle').text(),
+    1,
+    'Default value for maximum score is wrong'
+  );
+
+  const $incrementContainer = $scoringSettingsContainer.find(
+    '.setting.increment'
+  );
+  assert.ok($incrementContainer.length, 'Increment field should be visible');
+  assert.equal(
+    $incrementContainer.find('.gru-select .dropdown-toggle').text(),
+    0.5,
+    'Default value for increment is wrong'
+  );
+});

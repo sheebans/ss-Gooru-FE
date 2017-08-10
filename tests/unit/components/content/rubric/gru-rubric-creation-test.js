@@ -25,7 +25,9 @@ test('addURL', function(assert) {
 
 test('selectFile', function(assert) {
   let component = this.subject({
-    rubric: Ember.Object.create()
+    rubric: Ember.Object.create({
+      uploaded: true
+    })
   });
   component.set('mediaService', {
     uploadContentFile: file => {

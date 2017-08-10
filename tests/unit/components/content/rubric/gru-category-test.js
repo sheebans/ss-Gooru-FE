@@ -104,6 +104,14 @@ test('saveCategory', function(assert) {
       title: 'copy category'
     })
   });
+  component.set('sendAction', function(actionName, category) {
+    assert.equal(actionName, 'onUpdateCategory', 'Action sent should match');
+    assert.equal(
+      category.get('title'),
+      component.get('tempCategory').get('title'),
+      'Incorrect value in update action'
+    );
+  });
   component.send('saveCategory');
   return wait().then(function() {
     assert.equal(

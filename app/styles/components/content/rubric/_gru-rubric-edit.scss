@@ -2,7 +2,7 @@
   overflow: hidden;
 }
 .rubric.edit {
-  height: 90vh;
+  height: 100%;
   > .ember-view,
   .quizzes {
     height: 100%;
@@ -79,7 +79,7 @@
   }
   #information {
     height: auto;
-    .content {
+    > .content {
       @include flexbox;
       .gru-image {
         float: left;
@@ -92,6 +92,14 @@
         .title {
           .form-group {
             width: 300px;
+          }
+          label {
+            @include flexbox();
+            @include flex-direction(column);
+          }
+          b {
+            font-size: $font-size-large;
+            font-weight: 400;
           }
         }
         .standards {
@@ -121,10 +129,17 @@
         .content {
           @include flex-direction(column);
           b {
-            font-size: 17px;
+            font-size: $font-size-large;
             font-weight: $headings-font-weight;
           }
         }
+      }
+    }
+    .gru-audience {
+      .btn-empty {
+        border: 1px solid $gray-light;
+        margin-top: 5px;
+        cursor: auto;
       }
     }
   }
@@ -141,7 +156,7 @@
           @include flexbox;
           @include flex-direction(column);
           textarea {
-            font-size: $font-size-base;
+            font-size: $font-size-large;
             height: 150px;
           }
         }
@@ -153,7 +168,7 @@
       border: 2px dashed #bbb;
       padding: 20px;
       border-radius: 6px;
-      font-size: 17px;
+      font-size: $font-size-large;
       color: #666;
       text-align: center;
     }
@@ -162,6 +177,9 @@
       .check_box {
         color: $blue-500;
       }
+    }
+    .gru-preview-url {
+      margin-bottom: 10px;
     }
   }
   .add-prefix:before {
