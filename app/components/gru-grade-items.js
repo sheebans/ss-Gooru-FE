@@ -28,10 +28,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * The grade items
+   * The Questions needs to grade
    * @property {GradeQuestionItem[]} items
    */
-  items: Ember.A()
+  questionItems: Ember.A()
 
   // -------------------------------------------------------------------------
   // Observers

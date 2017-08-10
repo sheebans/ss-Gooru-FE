@@ -1,16 +1,20 @@
 .gru-grade-items {
-  max-height: 100px;
+  max-height: 90px;
   overflow-y: auto;
   .item {
     width: 100%;
     line-height: $font-size-large;
+    .context,
+    .question,
+    .students {
+      display: inline-block;
+      vertical-align: middle;
+    }
     .context {
       max-width: 48%;
-      display: inline-block;
     }
     .question {
-      max-width: 51%;
-      display: inline-block;
+      max-width: 50%;
     }
     .greater-than {
       i {

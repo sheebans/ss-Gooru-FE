@@ -266,7 +266,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
   /**
    * Normalizes Questions To Grade
    * @param {*} data
-   * @return {GradeQuestion}
+   * @return {GradeQuestion}normalizeQuestionsToGrade
    */
   normalizeQuestionsToGrade: function(data) {
     const serializer = this;
@@ -275,7 +275,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
     return GradeQuestion.create(Ember.getOwner(this).ownerInjection(), {
       classId: data.classId,
       courseId: data.courseId,
-      userId: data.userId,
       gradeItems: gradeItems
         ? gradeItems.map(item => serializer.normalizeGradeQuestion(item))
         : null
@@ -293,6 +292,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       unitId: data.unitId,
       lessonId: data.lessonId,
       collectionId: data.collectionId,
+      collectionType: data.collectionType,
       resourceId: data.resourceId,
       studentCount: data.studentCount
     });

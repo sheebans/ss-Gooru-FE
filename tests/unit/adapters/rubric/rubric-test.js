@@ -297,7 +297,7 @@ test('getQuestionsToGrade', function(assert) {
   });
 
   adapter
-    .getQuestionsToGrade('123', '456', '789')
+    .getQuestionsToGrade('456', '789')
     .then(response => assert.deepEqual({}, response, 'Wrong response'));
 });
 

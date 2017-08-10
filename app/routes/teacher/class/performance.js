@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { createDataMatrix } from 'gooru-web/utils/performance-data';
 import ReportData from 'gooru-web/models/result/report-data';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Teacher Performance Route
@@ -63,6 +64,11 @@ export default Ember.Route.extend({
    */
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
+  /**
+   * @type RubricService
+   */
+  rubricService: Ember.inject.service('api-sdk/rubric'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -103,7 +109,7 @@ export default Ember.Route.extend({
 
   model: function(params) {
     const route = this;
-
+    const classId = route.modelFor('teacher.class').class.get('id');
     const courseId = route.modelFor('teacher.class').course.get('id');
     const unitId = params.unitId;
     const lessonId = params.lessonId;
@@ -124,9 +130,33 @@ export default Ember.Route.extend({
         ? isAssessment
           ? route.get('assessmentService').readAssessment(collectionId)
           : route.get('collectionService').readCollection(collectionId)
-        : undefined
+        : undefined,
+      gradeQuestions:
+        courseId && classId
+          ? route.get('rubricService').getQuestionsToGrade(classId, courseId)
+          : undefined
     });
   },
+
+  /**
+   * Set courseStructure
+   * @param model
+   */
+  afterModel: function(model) {
+    const route = this;
+    const gradeQuestions = model.gradeQuestions;
+    const course = model.course;
+
+    if (gradeQuestions && course) {
+      const courseService = route.get('courseService');
+      return courseService
+        .getCourseStructure(course.get('id'), CONTENT_TYPES.ASSESSMENT)
+        .then(function(courseStructure) {
+          model.courseStructure = courseStructure;
+        });
+    }
+  },
+
   /**
    * Set all controller properties from the model
    * @param controller
@@ -136,9 +166,14 @@ export default Ember.Route.extend({
     const route = this;
     controller.set('unit', model.unit);
     controller.set('lesson', model.lesson);
+    controller.set('gradeQuestions', model.gradeQuestions);
     controller.set(
       'collection',
       model.collection ? model.collection.toPlayerCollection() : undefined
+    );
+    controller.set(
+      'courseStructure',
+      model.courseStructure ? model.courseStructure : undefined
     );
 
     const course = controller.get('course');

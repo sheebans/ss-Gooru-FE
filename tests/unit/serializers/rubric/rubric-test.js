@@ -475,14 +475,12 @@ test('normalizeQuestionsToGrade', function(assert) {
       }
     ],
     classId: 'class-1',
-    courseId: 'course-2',
-    userId: 'user-1'
+    courseId: 'course-2'
   };
 
   const gradeQuestion = serializer.normalizeQuestionsToGrade(question);
   assert.equal(gradeQuestion.get('classId'), 'class-1', 'Wrong classId');
   assert.equal(gradeQuestion.get('courseId'), 'course-2', 'Wrong courseId');
-  assert.equal(gradeQuestion.get('userId'), 'user-1', 'Wrong userId');
   assert.equal(gradeQuestion.get('gradeItems').length, 2, 'Wrong gradeItems');
 });
 
