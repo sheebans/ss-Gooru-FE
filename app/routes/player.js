@@ -28,7 +28,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
   /**
-   * @property collectionObj carries a  new collection Object called from the service.
+   * @property {Collection} carries a  new collection Object called from the service.
    */
   collectionObj: null,
 
@@ -55,36 +55,35 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
   // -------------------------------------------------------------------------
   // Actions
   actions:{
-    /**
-     * When closing the player
-     */
-    onClosePlayer: function() {
-      const $appContainer = Ember.$( '.app-container' );
-      if ($appContainer.hasClass( 'navigator-on' )){
-        $appContainer.removeClass( 'navigator-on' );
-      }
-      var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
-      this.transitionTo(route);
-    },
-      /**
-     * Action triggered to remix the collection
-     * @param content
-     */
-    onRemixCollection:function(){
+  /**
+   * When closing the player
+   */
+  onClosePlayer: function() {
+    const $appContainer = Ember.$( '.app-container' );
+    if ($appContainer.hasClass( 'navigator-on' )){
+      $appContainer.removeClass( 'navigator-on' );
+    }
+    var route = !this.get('history.lastRoute.name') ? 'index' : this.get('history.lastRoute.url');
+    this.transitionTo(route);
+  },
+  /**
+   * Action triggered to remix the collection
+   */
+  onRemixCollection:function(){
     let collection = this.get('collectionObj');
     if (this.get('session.isAnonymous')) {
       this.send('showModal', 'content.modals.gru-login-prompt');
     } else {
-      var remixModel = {
-        content: collection
-      };
-      if(collection.isCollection) {
-        this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
-      } else {
-        this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
-      }
+    var remixModel = {
+      content: collection
+    };
+    if(collection.isCollection) {
+      this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
+    } else {
+      this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
     }
-    },
+    }
+  },
 
     /**
      * When the submission is complete
