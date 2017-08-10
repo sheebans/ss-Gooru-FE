@@ -58,7 +58,9 @@ test('Layout', function(assert) {
     );
     T.exists(assert, $taskHeader, 'Missing task header');
     assert.ok(
-      T.text($taskHeader.find('.prompt-text')).includes('NA'),
+      T.text($taskHeader.find('.prompt-text')).includes(
+        'Enter question text here'
+      ),
       'Wrong text prompt text'
     );
     T.exists(assert, $response, 'Missing question response');

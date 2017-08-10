@@ -556,7 +556,7 @@ test('normalizeAnswerToGrade', function(assert) {
     questionId: 'question-id',
     sessionId: 'session-id',
     questionText: 'NA',
-    answerText: 'TBD - How will it be obtained and displayed',
+    answerText: '[{ "text": "TBD - How will it be obtained and displayed" }]',
     submittedAt: '2017-03-05 18:44:04.798',
     timeSpent: 500,
     userId: 'user-id'
