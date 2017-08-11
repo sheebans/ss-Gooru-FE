@@ -5,6 +5,7 @@ import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @requires service:api-sdk/resource
    */
@@ -19,6 +20,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      * Performs a back action in the browser history
@@ -30,18 +32,35 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
+
   didInsertElement: function() {
     this.calculateResourceContentHeight();
   },
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * Resource model as instantiated by the route. This is the model used when not editing
    * or after any resource changes have been saved.
    * @property {Resource}
    */
   resource: null,
+
+  /**
+   * The protocol the user is using to access the page (http or https)
+   * @property {String}
+   */
+  currentProtocol: window.location.protocol,
+
+  /**
+   * The protocol for the resource url
+   * @property {String}
+   */
+  resourceProtocol: Ember.computed('resource.url', function() {
+    const httpsPattern = /^(https:\/\/)/;
+    return httpsPattern.test(this.get('resource.url')) ? 'https:' : 'http:';
+  }),
 
   /**
    * @property {Resource}
@@ -74,6 +93,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Observers
+
   /**
    * Observes for the resource change
    */
@@ -105,6 +125,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   /**
    * Calculates the height of the content area (it will change depending on height
    * of the narration -if there is one)

@@ -49,10 +49,8 @@ export default Ember.Controller.extend({
   },
 
   // -------------------------------------------------------------------------
-  // Events
-
-  // -------------------------------------------------------------------------
   // Properties
+
   /**
    * A link to the parent class controller
    * @see controllers/class.js
@@ -70,8 +68,6 @@ export default Ember.Controller.extend({
    * @param {Boolean } didValidate - value used to check if input has been validated or not
    */
   didValidate: false,
-  // -------------------------------------------------------------------------
-  // Observers
 
   // -------------------------------------------------------------------------
   // Methods

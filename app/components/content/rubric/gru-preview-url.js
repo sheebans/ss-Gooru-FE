@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
+
   classNames: ['content', 'rubric', 'gru-preview-url'],
 
   // -------------------------------------------------------------------------
@@ -27,5 +28,23 @@ export default Ember.Component.extend({
    */
   url: Ember.computed.alias('resource.url'),
 
-  resource: null
+  /**
+   * @property {Resource} resource
+   */
+  resource: null,
+
+  /**
+   * The protocol the user is using to access the page (http or https)
+   * @property {String}
+   */
+  currentProtocol: window.location.protocol,
+
+  /**
+   * The protocol for the resource url
+   * @property {String}
+   */
+  resourceProtocol: Ember.computed('resource.url', function() {
+    const httpsPattern = /^(https:\/\/)/;
+    return httpsPattern.test(this.get('resource.url')) ? 'https:' : 'http:';
+  })
 });

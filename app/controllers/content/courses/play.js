@@ -3,12 +3,12 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+
   queryParams: ['unitId', 'lessonId'],
 
   // -------------------------------------------------------------------------
   // Actions
-  // -------------------------------------------------------------------------
-  // Actions
+
   actions: {
     /**
      * Sets the current course builder location
@@ -51,6 +51,7 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   resetValues: function() {
     this.set('unitId', null);
     this.set('lessonId', null);

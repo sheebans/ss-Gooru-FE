@@ -29,6 +29,7 @@ export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      * Action triggered to edit the resource/question
@@ -103,6 +104,7 @@ export default Ember.Component.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @property {Resource|Question} resource
    */

@@ -14,6 +14,7 @@ import { isVideoURL } from 'gooru-web/utils/utils';
 export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+
   session: Ember.inject.service('session'),
 
   /**
@@ -45,6 +46,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      * Edit Content
@@ -78,6 +80,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       this.set('tempResource', resourceForEditing);
       this.saveContent();
     },
+
     /**
      * Delete resource
      */
@@ -186,6 +189,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * Resource model as instantiated by the route. This is the model used when not editing
    * or after any resource changes have been saved.
@@ -271,6 +275,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       value: false
     })
   ]),
+
   /**
    * Indicates if the current resource type is resource
    * @property {boolean}
@@ -279,6 +284,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     const resource = this.get('resource');
     return resource && resource.displayGuide;
   }),
+
   /**
    * Indicates is the resource type edit option should be disabled
    * @property {boolean}
@@ -312,14 +318,16 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       return this.selectedCenturySkillsData(selectedCenturySkillsIds);
     }
   ),
+
   /**
    * List of Century Skills
    * @prop {CenturySkill[]}
    */
   centurySkills: Ember.A([]),
 
-  // ----------------------------
+  // -------------------------------------------------------------------------
   // Methods
+
   openTaxonomyModal: function() {
     var component = this;
     var standards = component.get('tempResource.standards') || [];
