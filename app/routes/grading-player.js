@@ -59,6 +59,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   setupController: function(controller, model) {
     controller.set('answer', model.answer);
+    controller.set('users', model.users);
     controller.set(
       'currentUser',
       model.users.findBy('id', model.currentUserId)

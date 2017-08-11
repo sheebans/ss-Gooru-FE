@@ -3,20 +3,20 @@
   height: 100%;
   width: 100%;
   .header {
-    padding: 10px 10px 10px 20px;
+    padding: 10px;
     color: $white;
     @include justify-content(space-between);
     i {
       font-size: $font-unBookmark;
       &.clear {
         margin: -10px -10px 0;
+        cursor: pointer;
       }
     }
     .title {
       font-size: $font-size-large;
     }
     .lead {
-      color: $gray-light;
       line-height: 0;
       margin-top: 5px;
     }

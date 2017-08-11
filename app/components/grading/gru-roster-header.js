@@ -7,6 +7,18 @@ export default Ember.Component.extend({
   classNames: ['gru-roster-header'],
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Open student roster
+     */
+    openRoster: function() {
+      this.sendAction('onOpenRoster');
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Properties
 
   /**

@@ -14,6 +14,7 @@ export default Ember.Component.extend({
      * Select student
      */
     selectStudent: function(student) {
+      student.set('checked', true);
       this.set('selectedStudent', student);
     },
     /**
@@ -33,7 +34,7 @@ export default Ember.Component.extend({
       this.set(
         'students',
         this.get('students').map(student =>
-          Ember.Object.create({ name: student, checked: false })
+          Ember.Object.create({ name: student.get('fullName'), checked: false })
         )
       );
     }
