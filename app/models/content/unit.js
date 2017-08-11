@@ -126,6 +126,8 @@ export default Ember.Object.extend(Validations, {
    * @return {Number}
    */
   getChildLessonIndex: function(lesson) {
-    return this.get('children').mapBy('id').indexOf(lesson.get('id'));
+    return this.get('sortedLessonResults')
+      .mapBy('id')
+      .indexOf(lesson.get('id'));
   }
 });

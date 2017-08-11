@@ -316,11 +316,15 @@ const Question = Ember.Object.extend(Validations, {
     var standards = this.get('standards');
     var audience = this.get('audience');
     var depthOfknowledge = this.get('depthOfknowledge');
+    var rubric = this.get('rubric');
 
     // Copy standards and metadata values
     properties.standards = standards.slice(0);
     properties.audience = audience.slice(0);
     properties.depthOfknowledge = depthOfknowledge.slice(0);
+    if (rubric) {
+      properties.rubric = rubric.copy();
+    }
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);
   },

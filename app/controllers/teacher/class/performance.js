@@ -23,6 +23,26 @@ export default Ember.Controller.extend({
   classController: Ember.inject.controller('teacher.class'),
 
   /**
+   * @type {UnitService}
+   */
+  unitService: Ember.inject.service('api-sdk/unit'),
+
+  /**
+   * @type {LessonService}
+   */
+  lessonService: Ember.inject.service('api-sdk/lesson'),
+
+  /**
+   * @type CollectionService
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
+  /**
+   * @type AssessmentService
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
    * @type {PerformanceService}
    */
   performanceService: Ember.inject.service('api-sdk/performance'),
@@ -224,14 +244,12 @@ export default Ember.Controller.extend({
    * The performance data header titles of the course, unit, lesson. This is setting in each setupController
    * @property {Headers[]}
    */
-
   performanceDataHeaders: null,
 
   /**
    * The performanceDataMatrix of the course, unit, lesson. This is setting in each setupController
    * @property {performanceData[]}
    */
-
   performanceDataMatrix: null,
 
   /**
@@ -347,8 +365,76 @@ export default Ember.Controller.extend({
     })
   ]),
 
+  /**
+   * The Questions needs to grade
+   * @property {GradeQuestionItem[]}
+   */
+  gradeQuestions: null,
+
+  /**
+   * @property {Course} courseStructure
+   */
+  courseStructure: null,
+
+  /**
+   * @property {Array} list of grade questions information
+   */
+  questionItems: null,
+
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * Creates the grade item information
+   * @param {[]} grade item
+   * @param {item} item
+   */
+  createGradeItemObject: function(item) {
+    const controller = this;
+    const itemObject = Ember.Object.create();
+
+    const courseStructure = controller.get('courseStructure');
+    const unitId = item.get('unitId');
+    const lessonId = item.get('lessonId');
+    const collectionId = item.get('collectionId');
+    const collectionType = item.get('collectionType');
+    const isAssessment = !collectionType || collectionType === 'assessment';
+    const resourceId = item.get('resourceId');
+    const studentCount = item.get('studentCount');
+    const unit = courseStructure.get('children').findBy('id', unitId);
+    const lesson = unit.get('children').findBy('id', lessonId);
+
+    const unitIndex = courseStructure.getChildUnitIndex(unit) + 1;
+    const lessonIndex = unit.getChildLessonIndex(lesson) + 1;
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      return Ember.RSVP
+        .hash({
+          collection: collectionId
+            ? isAssessment
+              ? controller.get('assessmentService').readAssessment(collectionId)
+              : controller.get('collectionService').readCollection(collectionId)
+            : undefined
+        })
+        .then(function(hash) {
+          const collection = hash.collection;
+          const question = collection.get('children').findBy('id', resourceId);
+          itemObject.setProperties({
+            unitPrefix: `U${unitIndex}`,
+            lessonPrefix: `L${lessonIndex}`,
+            classId: controller.get('class.id'),
+            courseId: controller.get('course.id'),
+            unitId: unit.get('id'),
+            lessonId: lesson.get('id'),
+            collection,
+            question,
+            studentCount: studentCount
+          });
+
+          resolve(itemObject);
+        }, reject);
+    });
+  },
 
   /**
    * Updates the breadcrumb based on the provided item
@@ -420,7 +506,23 @@ export default Ember.Controller.extend({
       'selectedOptions',
       options.filterBy('selected', true).mapBy('value')
     );
-  }
+  },
+
   // -------------------------------------------------------------------------
   // Observers
+
+  setQuestionItems: Ember.observer('courseStructure', function() {
+    const controller = this;
+    const gradeItems = controller.get('gradeQuestions.gradeItems');
+    const courseStructure = controller.get('courseStructure');
+
+    if (gradeItems && courseStructure) {
+      const items = gradeItems.map(function(item) {
+        return controller.createGradeItemObject(item);
+      });
+      Ember.RSVP.all(items).then(function(questionItems) {
+        controller.set('questionItems', questionItems);
+      });
+    }
+  })
 });

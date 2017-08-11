@@ -5,10 +5,18 @@
         {{#if isRubric}}
           {{#if editEnabled}}
             {{#link-to 'content.rubric.edit' resource.id}}
-              <i class="rubric-icon"></i>
+              {{#if resource.thumbnail}}
+                <img class="img-responsive" src="{{resource.thumbnail}}">
+              {{else}}
+                <i class="rubric-icon"></i>
+              {{/if}}
             {{/link-to}}
           {{else}}
-            <i class="rubric-icon"></i>
+            {{#if resource.thumbnail}}
+              <img class="img-responsive" src="{{resource.thumbnail}}">
+            {{else}}
+              <i class="rubric-icon"></i>
+            {{/if}}
           {{/if}}
         {{else}}
           {{#if editEnabled}}

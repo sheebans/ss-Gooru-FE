@@ -21,6 +21,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   courseService: Ember.inject.service('api-sdk/course'),
 
   /**
+   * @requires service:api-sdk/question
+   */
+  questionService: Ember.inject.service('api-sdk/question'),
+
+  /**
    * @requires service:century-skill/century-skill
    */
   centurySkillService: Ember.inject.service('century-skill'),
@@ -48,7 +53,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           course = route.get('courseService').fetchById(courseId);
         }
 
+        let questionPromiseList = assessment
+          .get('children')
+          .map(question =>
+            route.get('questionService').readQuestion(question.get('id'))
+          );
+
         return Ember.RSVP.hash({
+          questions: Ember.RSVP.all(questionPromiseList),
           assessment: assessment,
           course: course,
           isEditing: !!isEditing,
@@ -62,6 +74,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     // Since assessment is a collection with only questions, we'll reuse the same components
     // for collections (for example, see: /app/components/content/assessments/gru-assessment-edit.js)
     // and that is why the property 'collection' is being reused here, too.
+    model.assessment.set('children', model.questions);
     controller.set('collection', model.assessment);
     controller.set('course', model.course);
     controller.set('isEditing', model.isEditing);

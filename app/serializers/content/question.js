@@ -3,6 +3,7 @@ import { cleanFilename } from 'gooru-web/utils/utils';
 import QuestionModel from 'gooru-web/models/content/question';
 import AnswerModel from 'gooru-web/models/content/answer';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+import RubricSerializer from 'gooru-web/serializers/rubric/rubric';
 
 /**
  * Serializer to support the Question CRUD operations for API 3.0
@@ -17,11 +18,20 @@ export default Ember.Object.extend({
    */
   taxonomySerializer: null,
 
+  /**
+   * @property {RubricSerializer} rubricSerializer
+   */
+  rubricSerializer: null,
+
   init: function() {
     this._super(...arguments);
     this.set(
       'taxonomySerializer',
       TaxonomySerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'rubricSerializer',
+      RubricSerializer.create(Ember.getOwner(this).ownerInjection())
     );
   },
 
@@ -218,6 +228,15 @@ export default Ember.Object.extend({
     if (question.get('isLegacyFIB')) {
       //this logic support old FIB question format, it is necessary only for the editor
       question.updateLegacyFIBText();
+    }
+
+    if (question.get('isOpenEnded')) {
+      question.set(
+        'rubric',
+        serializer
+          .get('rubricSerializer')
+          .normalizeRubric(questionData.rubric, [])
+      );
     }
 
     return question;

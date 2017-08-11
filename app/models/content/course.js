@@ -223,7 +223,7 @@ export default Ember.Object.extend(Validations, {
    * @return {Number}
    */
   getChildUnitIndex: function(unit) {
-    return this.get('children').mapBy('id').indexOf(unit.get('id'));
+    return this.get('sortedUnitResults').mapBy('id').indexOf(unit.get('id'));
   },
 
   /**

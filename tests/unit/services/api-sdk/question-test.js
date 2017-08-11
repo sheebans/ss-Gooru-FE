@@ -19,7 +19,7 @@ test('createQuestion', function(assert) {
   // Pretender was included because it is needed to simulate the response Headers including the Location value
   this.pretender.map(function() {
     this.post(
-      '/api/nucleus/v1/questions',
+      '/api/nucleus/v2/questions',
       function() {
         return [
           201,

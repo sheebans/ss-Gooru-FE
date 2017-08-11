@@ -17,11 +17,6 @@ export default Ember.Object.extend({
   courseId: null,
 
   /**
-   * @property {String} userId
-   */
-  userId: null,
-
-  /**
    * @property {gradeQuestionItem[]}
    */
   gradeItems: []

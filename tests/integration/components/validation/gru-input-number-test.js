@@ -5,6 +5,23 @@ import T from 'gooru-web/tests/helpers/assert';
 import wait from 'ember-test-helpers/wait';
 import ClassModel from 'gooru-web/models/content/class';
 
+import { validator, buildValidations } from 'ember-cp-validations';
+
+const FloatValidation = buildValidations({
+  minScore: {
+    validators: [
+      validator('number', {
+        allowBlank: true,
+        integer: false,
+        gte: 0,
+        lte: 100,
+        message: '{{description}}',
+        descriptionKey: 'common.errors.class-min-score'
+      })
+    ]
+  }
+});
+
 moduleForComponent(
   'gru-input-number',
   'Integration | Component | gru input number',
@@ -122,6 +139,43 @@ test('number input range', function(assert) {
           });
         });
       });
+    });
+  });
+});
+test('Accept float numbers with increment of 0.5', function(assert) {
+  assert.expect(4);
+
+  var validation = ClassModel.extend(FloatValidation);
+
+  this.set(
+    'model',
+    validation.create(Ember.getOwner(this).ownerInjection(), {
+      minScore: -1
+    })
+  );
+  this.render(
+    hbs`{{validation.gru-input-number model=model valuePath='minScore' min=0 max=10 step='0.5'}}`
+  ); // render the component
+  var $component = this.$(); // component dom element
+  var $input = $component.find('input[type=number]');
+
+  T.exists(assert, $input, 'Input number element not found');
+  assert.equal($input.val(), '-1', 'Wrong value');
+  $input.blur();
+
+  return wait().then(function() {
+    assert.ok(
+      $component.find('.error-messages .error').length,
+      'Input error message should not be hidden'
+    );
+
+    $input.val('0.5');
+    $input.blur();
+    return wait().then(function() {
+      assert.ok(
+        !$component.find('.error-messages .error').length,
+        'Input error message should be hidden'
+      );
     });
   });
 });
