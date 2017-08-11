@@ -419,11 +419,17 @@ export default Ember.Controller.extend({
         .then(function(hash) {
           const collection = hash.collection;
           const question = collection.get('children').findBy('id', resourceId);
-          itemObject.set('unitPrefix', `U${unitIndex}`);
-          itemObject.set('lessonPrefix', `L${lessonIndex}`);
-          itemObject.set('collectionName', collection.get('title'));
-          itemObject.set('questionName', question.get('title'));
-          itemObject.set('studentCount', studentCount);
+          itemObject.setProperties({
+            unitPrefix: `U${unitIndex}`,
+            lessonPrefix: `L${lessonIndex}`,
+            classId: controller.get('class.id'),
+            courseId: controller.get('course.id'),
+            unitId: unit.get('id'),
+            lessonId: lesson.get('id'),
+            collection,
+            question,
+            studentCount
+          });
 
           resolve(itemObject);
         }, reject);

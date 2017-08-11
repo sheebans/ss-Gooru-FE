@@ -16,8 +16,12 @@ test('Layout', function(assert) {
     {
       unitPrefix: 'U1',
       lessonPrefix: 'L1',
-      collectionName: 'First Assessment',
-      questionName: 'Rubric OP Question',
+      collection: Ember.Object.create({
+        title: 'First Assessment'
+      }),
+      question: Ember.Object.create({
+        title: 'Rubric OP Question'
+      }),
       studentCount: 10
     },
     {
