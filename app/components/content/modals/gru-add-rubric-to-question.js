@@ -45,5 +45,9 @@ export default Ember.Component.extend({
   /**
    * Question id of question to add the rubric
    */
-  questionId: null
+  questionId: null,
+
+  filteredRubrics: Ember.computed('model.rubrics', function() {
+    return this.get('model.rubrics').filter(rubric => rubric.title);
+  })
 });

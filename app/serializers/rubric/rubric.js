@@ -8,6 +8,7 @@ import GradeQuestion from 'gooru-web/models/rubric/grade-question';
 import GradeQuestionItem from 'gooru-web/models/rubric/grade-question-item';
 import GradeQuestionStudents from 'gooru-web/models/rubric/grade-question-students';
 import GradeQuestionAnswer from 'gooru-web/models/rubric/grade-question-answer';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Rubric CRUD operations
@@ -205,8 +206,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   normalizeGetRubrics: function(payload) {
     const serializer = this;
-    if (payload && Ember.isArray(payload)) {
-      return payload.map(function(rubric) {
+    if (payload && Ember.isArray(payload.rubrics)) {
+      return payload.rubrics.map(function(rubric) {
         return serializer.normalizeRubric(rubric);
       });
     } else {
@@ -227,7 +228,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
       const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
       const categories = data.categories;
       const basePath = serializer.get('session.cdnUrls.content');
-      const thumbnail = data.thumbnail ? basePath + data.thumbnail : null;
+      const appRootPath = this.get('appRootPath'); //configuration appRootPath
+      const thumbnailUrl = data.thumbnail
+        ? basePath + data.thumbnail
+        : appRootPath + DEFAULT_IMAGES.RUBRIC;
       const url =
         data.url && data.is_remote ? basePath + data.url : data.url || null;
 
@@ -235,7 +239,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         id: data.id,
         title: data.title,
         description: data.description,
-        thumbnail: thumbnail,
+        thumbnail: thumbnailUrl,
         standards: serializer
           .get('taxonomySerializer')
           .normalizeTaxonomyObject(data.taxonomy),

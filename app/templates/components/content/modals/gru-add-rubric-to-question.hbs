@@ -10,9 +10,9 @@
     </span>
   </div>
   <div class="list">
-    {{#each rubricsList as |rubric|}}
-      <div class="{{rubric.id}} rubric" {{action "selectRubric" null}}>
-        {{cards.gru-rubric-card}}
+    {{#each filteredRubrics as |rubric|}}
+      <div class="{{rubric.id}} rubric" {{action "selectRubric" rubric}}>
+        {{cards.gru-rubric-card rubric=rubric}}
       </div>
     {{/each}}
   </div>

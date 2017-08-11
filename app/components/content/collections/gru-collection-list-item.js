@@ -18,6 +18,7 @@ import Rubric from 'gooru-web/models/rubric/rubric';
 export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @requires service:api-sdk/resource
    */
@@ -37,6 +38,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    * @property {Service} profile service
    */
   profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
+   * @property {Service} rubric service
+   */
+  rubricService: Ember.inject.service('api-sdk/rubric'),
 
   /**
    * @requires service:notifications
@@ -269,13 +275,24 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     showAddRubricModal: function() {
       let component = this;
 
-      component.send(
-        'showModal',
-        'content.modals.gru-add-rubric-to-question',
-        null,
-        null,
-        null
-      );
+      return component
+        .get('rubricService')
+        .getUserRubrics(component.get('session.userId'))
+        .then(function(rubrics) {
+          return {
+            questionId: component.get('tempModel.id'),
+            rubrics
+          };
+        })
+        .then(model =>
+          component.send(
+            'showModal',
+            'content.modals.gru-add-rubric-to-question',
+            model,
+            null,
+            null
+          )
+        );
     }
   },
 
