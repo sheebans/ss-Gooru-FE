@@ -68,6 +68,12 @@
                   min-width: 50px;
                 }
               }
+              .add-rubric-container {
+                border: 2px dashed $gray-light;
+                height: 80px;
+                margin: 0 0 30px;
+                padding: 10px 0 0 14px;
+              }
               .scoring-settings {
                 margin-top: 10px;
                 .setting {

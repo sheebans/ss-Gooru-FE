@@ -105,24 +105,31 @@
             <div class="content">
               <div class="switch">
                 <label class="switch-label">{{t 'common.rubric'}}</label>
-                {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.rubricOn disabled=true}}
+                {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.rubricOn}}
               </div>
-
-              <div class="switch scoring">
-                <label class="switch-label">{{t 'content.questions.edit.builder.feedback-grading.scoring'}}</label>
-                {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.scoring}}
-              </div>
-              {{#if tempModel.rubric.scoring}}
-                <div class="scoring-settings">
-                  <div class="setting maximum-points">
-                    <span class="title">{{t 'content.questions.edit.builder.feedback-grading.maximum-points'}}</span>
-                    {{validation.gru-select options=maximumOptions search="true" optionSelected=tempModel.rubric.maxScore onOptionSelect="onMaxScoreChange"}}
-                  </div>
-                  <div class="setting increment">
-                    <span class="title">{{t 'content.questions.edit.builder.feedback-grading.increment'}}</span>
-                    {{validation.gru-select options=incrementOptions search="true" optionSelected=tempModel.rubric.increment onOptionSelect="onIncrementChange"}}
-                  </div>
+              {{#if tempModel.rubric.rubricOn}}
+                <div class="add-rubric-container">
+                  <button class="btn btn-success add-prefix" {{action 'showAddRubricModal'}}>
+                    {{t 'content.questions.edit.builder.feedback-grading.from-existing-rubric'}}
+                  </button>
                 </div>
+              {{else}}
+                <div class="switch scoring">
+                  <label class="switch-label">{{t 'content.questions.edit.builder.feedback-grading.scoring'}}</label>
+                  {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.scoring}}
+                </div>
+                {{#if tempModel.rubric.scoring}}
+                  <div class="scoring-settings">
+                    <div class="setting maximum-points">
+                      <span class="title">{{t 'content.questions.edit.builder.feedback-grading.maximum-points'}}</span>
+                      {{validation.gru-select options=maximumOptions search="true" optionSelected=tempModel.rubric.maxScore onOptionSelect="onMaxScoreChange"}}
+                    </div>
+                    <div class="setting increment">
+                      <span class="title">{{t 'content.questions.edit.builder.feedback-grading.increment'}}</span>
+                      {{validation.gru-select options=incrementOptions search="true" optionSelected=tempModel.rubric.increment onOptionSelect="onIncrementChange"}}
+                    </div>
+                  </div>
+                {{/if}}
               {{/if}}
             </div>
           </div>

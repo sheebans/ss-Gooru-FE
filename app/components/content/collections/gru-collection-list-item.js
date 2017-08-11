@@ -264,6 +264,18 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     onIncrementChange: function(newValue) {
       this.set('tempModel.rubric.increment', parseFloat(newValue));
+    },
+
+    showAddRubricModal: function() {
+      let component = this;
+
+      component.send(
+        'showModal',
+        'content.modals.gru-add-rubric-to-question',
+        null,
+        null,
+        null
+      );
     }
   },
 
