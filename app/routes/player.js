@@ -193,7 +193,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     params.sourceUrl = location.host;
     params.partnerId = this.get('session.partnerId');
     params.tenantId = this.get('session.tenantId');
-    params.checkAttempts = params.source !== PLAYER_EVENT_SOURCE.COURSE_MAP;
+    params.notCheckAttempts = params.source !== PLAYER_EVENT_SOURCE.COURSE_MAP;
 
     return route.loadCollection(collectionId, type).then(function(collection) {
       route.set('collectionObj',collection);
