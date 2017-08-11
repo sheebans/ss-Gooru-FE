@@ -215,18 +215,16 @@ export default Ember.Object.extend({
   /**
    * Gets Questions pending grading
    *
-   * @param {string} userId
    * @param {string} classId
    * @param {string} courseId
    * @returns {Promise/Object}
    */
-  getQuestionsToGrade: function(userId, classId, courseId) {
+  getQuestionsToGrade: function(classId, courseId) {
     const adapter = this;
     const namespace = adapter.get('gradingNamespace');
     const url = `${namespace}/questions`;
 
     var data = {
-      userId,
       classId,
       courseId
     };

@@ -32,7 +32,7 @@
               @include flex-wrap(wrap);
               .panel {
                 border-radius: 4px;
-                cursor: pointer;
+                cursor: default;
                 float: left;
                 height: 120px;
                 text-align: center;
@@ -66,6 +66,32 @@
                 .switch-label {
                   margin: 10px 0 0;
                   min-width: 50px;
+                }
+              }
+              .scoring-settings {
+                margin-top: 10px;
+                .setting {
+                  @include flexbox;
+                  float: left;
+                  width: 25%;
+                  .title {
+                    margin: 0 15px 0 0;
+                    width: auto;
+                  }
+                  .gru-select {
+                    padding: 8px 0 0;
+                    .bootstrap-select {
+                      border-bottom: 1px solid $gray;
+                      width: 50px;
+                      span {
+                        right: 0;
+                        text-align: center;
+                      }
+                      .dropdown-toggle {
+                        font-size: $font-size-h6;
+                      }
+                    }
+                  }
                 }
               }
             }

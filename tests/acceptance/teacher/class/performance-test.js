@@ -26,6 +26,13 @@ test('Layout at course level', function(assert) {
     );
 
     const $performanceContainer = find('.controller.teacher.class.performance');
+
+    T.exists(
+      assert,
+      $performanceContainer.find('.gru-grade-items'),
+      'Missing gru-grade-items component'
+    );
+
     T.exists(
       assert,
       $performanceContainer.find('.gru-metrics-table'),

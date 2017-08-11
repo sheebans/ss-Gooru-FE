@@ -368,6 +368,7 @@ test('Delete resource', function(assert) {
     });
   });
 });
+
 test('Delete question from collection', function(assert) {
   visit(
     '/content/collections/edit/all-resource-types-collection-id?courseId=course-123'

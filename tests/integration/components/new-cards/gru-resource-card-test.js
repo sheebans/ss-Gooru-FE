@@ -361,8 +361,8 @@ test('Rubric Layout', function(assert) {
     'Missing Title'
   );
   assert.ok(
-    $resourceCard.find('.panel-heading i.rubric-icon').length,
-    'Missing Rubric Icon'
+    $resourceCard.find('.panel-heading .image .img-responsive').length,
+    'Missing Rubric Thumbnail'
   );
   assert.notOk(
     $resourceCard.find('.panel-heading .question-type span').length,

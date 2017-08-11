@@ -57,6 +57,14 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       this.save();
     },
     /**
+     * Edit Content
+     */
+    editContent: function() {
+      var rubricForEditing = this.get('rubric').copy();
+      this.set('tempRubric', rubricForEditing);
+      this.set('isEditing', true);
+    },
+    /**
      * Triggered by gru-category
      *Copy category
      */
@@ -72,6 +80,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     deleteCategory: function(category) {
       let categories = this.get('categories');
       categories.removeObject(category);
+      this.saveCategory(category);
     },
     /**
      *Set if feedback is required
@@ -93,6 +102,14 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     selectCategory: function(category) {
       var standardLabel = category === EDUCATION_CATEGORY.value;
       this.set('standardLabel', !standardLabel);
+    },
+
+    /**
+     * SelectCategory
+     * @param {String} category
+     */
+    updateCategory: function(category) {
+      this.saveCategory(category);
     },
     /**
      * Remove tag data from the taxonomy list in tempUnit
@@ -133,6 +150,13 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   }),
 
   /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('rubric.standards.[]', function() {
+    return TaxonomyTag.getTaxonomyTags(this.get('rubric.standards'), false);
+  }),
+
+  /**
    * If the file upload should show an error
    * @property {Boolean}
    */
@@ -140,7 +164,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
   /**
    *
-   * @property {Object[]} headerActions List of action buttons to show
+   * @property {Object[]} footerActions List of action buttons to show
    */
   footerActions: Ember.computed(function() {
     return [
@@ -163,12 +187,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   headerActions: Ember.computed(function() {
     return [
-      // TO DO: This actions will be add
-      //  {
-      //  name: 'delete',
-      //  text: this.get('i18n').t('common.delete'),
-      //  icon: 'delete'
-      // }, {
+      {
+        name: 'delete',
+        icon: 'delete',
+        action: () => this.delete()
+      },
       //  name: 'copy',
       //  text: this.get('i18n').t('common.copy'),
       //  icon: 'content_copy'
@@ -239,16 +262,40 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Methods
   /**
-   * Cancel function for footer
+   * Cancel function for rubric edition
    */
   cancel: function() {
-    this.get('router').transitionTo(
-      'profile.content.rubrics',
-      this.get('session.userData.gooruUId')
+    this.set('isEditing', false);
+  },
+
+  delete: function() {
+    const myId = this.get('session.userId');
+    var model = {
+      content: this.get('rubric'),
+      deleteMethod: function() {
+        return this.get('rubricService').deleteRubric(this.get('rubric.id'));
+      }.bind(this),
+      redirect: {
+        route: 'profile.content.courses',
+        params: {
+          id: myId
+        }
+      }
+    };
+
+    this.actions.showModal.call(
+      this,
+      'content.modals.gru-delete-rubric',
+      model,
+      null,
+      null,
+      null,
+      false
     );
   },
+
   /**
-   * Save function for footer
+   * Save function for rubric edition
    */
   save: function() {
     let component = this;
@@ -290,17 +337,34 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
               'feedback',
               'standards'
             ]);
-            component
-              .get('router')
-              .transitionTo(
-                'profile.content.rubrics',
-                component.get('session.userData.gooruUId')
-              );
+            component.set('isEditing', false);
           });
       }
       component.set('didValidate', true);
     });
   },
+
+  /**
+   * Save function for categories
+   */
+  saveCategory(category) {
+    let component = this;
+    let tempRubric = component.get('rubric');
+    let categories = tempRubric.get('categories');
+    tempRubric.set(
+      'categories',
+      component
+        .get('categories')
+        .filter(
+          cat =>
+            cat.get('title') &&
+            (categories.findBy('title', cat.get('title')) ||
+              category.get('title') === cat.get('title'))
+        )
+    );
+    return component.get('rubricService').updateRubric(tempRubric);
+  },
+
   /**
    * Preview rubric on header action
    */
@@ -309,6 +373,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     let rubric = component.get('rubric');
     component.get('router').transitionTo('content.rubric.preview', rubric.id);
   },
+
   /**
    * Open Taxonomy Modal
    */

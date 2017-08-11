@@ -49,12 +49,20 @@ const taxonomyServiceStub = Ember.Service.extend({
   }
 });
 
+const rubricServiceStub = Ember.Service.extend({
+  updateRubric(rubric) {
+    return new Ember.RSVP.resolve(rubric);
+  }
+});
+
 moduleForComponent(
   'content/rubric/gru-rubric-edit',
   'Integration | Component | content/rubric/gru rubric edit',
   {
     integration: true,
     beforeEach: function() {
+      this.register('service:api-sdk/rubric', rubricServiceStub);
+      this.inject.service('api-sdk/rubric');
       this.register('service:api-sdk/taxonomy', taxonomyServiceStub);
       this.inject.service('api-sdk/taxonomy');
       this.register('service:api-sdk/lookup', lookupServiceStub);
@@ -75,7 +83,9 @@ test('it renders', function(assert) {
   });
   this.set('rubric', rubric);
 
-  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  this.render(
+    hbs`{{content/rubric/gru-rubric-edit rubric=rubric isEditing=true}}`
+  );
   const $component = this.$();
   assert.ok(
     $component.find('.gru-rubric-edit').length,
@@ -171,7 +181,9 @@ test('Add Category', function(assert) {
     ]
   });
   this.set('rubric', rubric);
-  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  this.render(
+    hbs`{{content/rubric/gru-rubric-edit rubric=rubric isEditing=true}}`
+  );
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();
@@ -205,7 +217,9 @@ test('Copy Category', function(assert) {
   });
   this.set('tempRubric', rubric);
 
-  this.render(hbs`{{content/rubric/gru-rubric-edit tempRubric=tempRubric}}`);
+  this.render(
+    hbs`{{content/rubric/gru-rubric-edit tempRubric=tempRubric isEditing=true}}`
+  );
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();
@@ -240,7 +254,9 @@ test('Delete Category', function(assert) {
   });
   this.set('tempRubric', rubric);
 
-  this.render(hbs`{{content/rubric/gru-rubric-edit tempRubric=tempRubric}}`);
+  this.render(
+    hbs`{{content/rubric/gru-rubric-edit rubric=tempRubric tempRubric=tempRubric isEditing=true}}`
+  );
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();
@@ -272,7 +288,9 @@ test('Add two categories, change the content of one category and it doesnt chang
     title: 'Rubric for testing'
   });
   this.set('rubric', rubric);
-  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  this.render(
+    hbs`{{content/rubric/gru-rubric-edit rubric=tempRubric rubric=rubric isEditing=true}}`
+  );
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();
@@ -347,7 +365,9 @@ test('Add Category and cancel before save', function(assert) {
     categories: []
   });
   this.set('rubric', rubric);
-  this.render(hbs`{{content/rubric/gru-rubric-edit rubric=rubric}}`);
+  this.render(
+    hbs`{{content/rubric/gru-rubric-edit rubric=rubric isEditing=true}}`
+  );
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();
@@ -394,7 +414,9 @@ test('Edit Category', function(assert) {
   });
   this.set('tempRubric', rubric);
 
-  this.render(hbs`{{content/rubric/gru-rubric-edit tempRubric=tempRubric}}`);
+  this.render(
+    hbs`{{content/rubric/gru-rubric-edit rubric=tempRubric tempRubric=tempRubric isEditing=true}}`
+  );
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();
@@ -439,7 +461,9 @@ test('Edit Existing Category And Cancel', function(assert) {
   });
   this.set('tempRubric', rubric);
 
-  this.render(hbs`{{content/rubric/gru-rubric-edit tempRubric=tempRubric}}`);
+  this.render(
+    hbs`{{content/rubric/gru-rubric-edit rubric=tempRubric tempRubric=tempRubric isEditing=true}}`
+  );
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();

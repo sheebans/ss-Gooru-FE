@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import BuilderMixin from 'gooru-web/mixins/content/builder';
-import { CONTENT_TYPES } from 'gooru-web/config/config';
+import { CONTENT_TYPES, RUBRIC_OFF_OPTIONS } from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
 import { replaceMathExpression, removeHtmlTags } from 'gooru-web/utils/utils';
+import Rubric from 'gooru-web/models/rubric/rubric';
 
 /**
  * Collection List
@@ -249,6 +250,20 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
     focusQuestionTextEditor: function() {
       this.scrollToFirstEditor();
+    },
+
+    /**
+     * Action after selecting an option for maximum points
+     */
+    onMaxScoreChange: function(newValue) {
+      this.set('tempModel.rubric.maxScore', parseInt(newValue));
+    },
+
+    /**
+     * Action after selecting an option for increment
+     */
+    onIncrementChange: function(newValue) {
+      this.set('tempModel.rubric.increment', parseFloat(newValue));
     }
   },
 
@@ -412,6 +427,29 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     })
   ]),
 
+  /**
+   * Options for maximum points
+   * @property {Array}
+   */
+  maximumOptions: Ember.computed(function() {
+    let options = [];
+    for (let i = 1; i <= RUBRIC_OFF_OPTIONS.MAX_SCORE; i += 1) {
+      options.push({
+        id: i,
+        name: i
+      });
+    }
+    return options;
+  }),
+
+  /**
+   * Options for increment
+   * @property {Array}
+   */
+  incrementOptions: Ember.computed(function() {
+    return RUBRIC_OFF_OPTIONS.INCREMENT;
+  }),
+
   // ----------------------------
   // Methods
 
@@ -533,6 +571,19 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
                 'thumbnail',
                 'text'
               ]);
+
+              if (!question.get('rubric')) {
+                question.set('rubric', editedQuestion.get('rubric'));
+              } else {
+                question
+                  .get('rubric')
+                  .merge(editedQuestion.get('rubric'), [
+                    'maxScore',
+                    'increment',
+                    'scoring',
+                    'rubricOn'
+                  ]);
+              }
             })
             .catch(function(error) {
               var message = component
@@ -627,6 +678,13 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   showInlinePanel: function() {
     var modelForEditing = this.get('model').copy();
 
+    if (modelForEditing.get('isOpenEnded') && !modelForEditing.get('rubric')) {
+      let rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
+        increment: 0.5,
+        maxScore: 1
+      });
+      modelForEditing.set('rubric', rubric);
+    }
     this.setProperties({
       tempModel: modelForEditing,
       isPanelExpanded: true,

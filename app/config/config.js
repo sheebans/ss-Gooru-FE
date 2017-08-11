@@ -255,6 +255,11 @@ export const RUBRIC_TYPE = {
   NxN: 'NxN'
 };
 
+export const RUBRIC_OFF_OPTIONS = {
+  MAX_SCORE: 200,
+  INCREMENT: [{ id: 0.5, name: 0.5 }, { id: 1, name: 1 }]
+};
+
 export const PLAYER_EVENT_SOURCE = {
   COURSE_MAP: 'coursemap',
   DAILY_CLASS: 'dailyclassactivity',

@@ -28,6 +28,12 @@
                 "title":"Assessment 1 attempt",
                 "format":"assessment",
                 "subformat":null
+              },
+              {
+                "id":"all-question-types-assessment-id",
+                "title":"Assessment 4",
+                "format":"assessment",
+                "subformat":null
               }
             ]
           }

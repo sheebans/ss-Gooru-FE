@@ -93,7 +93,7 @@
             </div>
             <div class="answer-types">
               <div class="panel panel-default">
-                <div class="panel-body">{{gru-icon name='input'}}</div>
+                <div class="panel-body">{{gru-icon name='text_fields'}}</div>
                 <div class="panel-footer">{{t 'content.questions.edit.builder.submission-format.answer-type.text-box'}}</div>
               </div>
             </div>
@@ -105,12 +105,25 @@
             <div class="content">
               <div class="switch">
                 <label class="switch-label">{{t 'common.rubric'}}</label>
-                {{gru-switch switchOptions=switchOptions}}
+                {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.rubricOn disabled=true}}
               </div>
-              <div class="switch">
+
+              <div class="switch scoring">
                 <label class="switch-label">{{t 'content.questions.edit.builder.feedback-grading.scoring'}}</label>
-                {{gru-switch switchOptions=switchOptions}}
+                {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.scoring}}
               </div>
+              {{#if tempModel.rubric.scoring}}
+                <div class="scoring-settings">
+                  <div class="setting maximum-points">
+                    <span class="title">{{t 'content.questions.edit.builder.feedback-grading.maximum-points'}}</span>
+                    {{validation.gru-select options=maximumOptions search="true" optionSelected=tempModel.rubric.maxScore onOptionSelect="onMaxScoreChange"}}
+                  </div>
+                  <div class="setting increment">
+                    <span class="title">{{t 'content.questions.edit.builder.feedback-grading.increment'}}</span>
+                    {{validation.gru-select options=incrementOptions search="true" optionSelected=tempModel.rubric.increment onOptionSelect="onIncrementChange"}}
+                  </div>
+                </div>
+              {{/if}}
             </div>
           </div>
         {{/if}}

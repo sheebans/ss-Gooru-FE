@@ -126,7 +126,7 @@ test('Copy Category', function(assert) {
 });
 
 test('Edit Category', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   var category = Category.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Category for test',
@@ -155,7 +155,12 @@ test('Edit Category', function(assert) {
   });
 
   this.set('category', category);
-  this.render(hbs`{{content/rubric/gru-category category=category}}`);
+  this.on('parentAction', function(categoryParam) {
+    assert.ok(category, categoryParam, 'Category on action does not match');
+  });
+  this.render(
+    hbs`{{content/rubric/gru-category category=category onUpdateCategory='parentAction'}}`
+  );
 
   var $component = this.$();
   var $edit = $component.find('.btn.edit');
