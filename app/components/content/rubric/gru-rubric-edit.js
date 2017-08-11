@@ -334,6 +334,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
               'isPublished',
               'categories',
               'url',
+              'uploaded',
               'feedback',
               'standards'
             ]);
