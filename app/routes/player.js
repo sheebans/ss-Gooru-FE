@@ -77,7 +77,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
       var remixModel = {
         content: collection
       };
-      if(collection.isCollection) {
+      if(collection.get('isCollection')) {
         this.send('showModal', 'content.modals.gru-collection-remix', remixModel);
       } else {
         this.send('showModal', 'content.modals.gru-assessment-remix', remixModel);
