@@ -1,8 +1,11 @@
 <div class="teacher grading">
   <div class="roster {{if showRoster 'visible' 'hidden'}}">
     {{grading.gru-student-roster
-    students=users
-    onClose=closeRoster
+    users=users
+    onClose='closeRoster'
+    fullRubric=hideResponse
+    currentUser=currentUser
+    onChangeUser='changeUser'
     }}
   </div>
   <div class="response-panel {{if hideResponse 'hide-response'}}">

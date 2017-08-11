@@ -15,7 +15,11 @@ export default Ember.Component.extend({
      */
     selectStudent: function(student) {
       student.set('checked', true);
-      this.set('selectedStudent', student);
+      this.set(
+        'currentUser',
+        this.get('users').findBy('id', student.get('id'))
+      );
+      this.sendAction('onChangeUser');
     },
     /**
      * Close student roster
@@ -30,11 +34,15 @@ export default Ember.Component.extend({
 
   init: function() {
     this._super(...arguments);
-    if (this.get('students').length) {
+    if (this.get('users').length) {
       this.set(
         'students',
-        this.get('students').map(student =>
-          Ember.Object.create({ name: student.get('fullName'), checked: false })
+        this.get('users').map(student =>
+          Ember.Object.create({
+            id: student.get('id'),
+            name: student.get('fullNameInformal'),
+            checked: false
+          })
         )
       );
     }
@@ -43,11 +51,25 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {EmberObject} Selected Student
+   * @property {Student} Current user on review
    */
-  selectedStudent: null,
+  currentUser: null,
+  /**
+   * @property {Boolean} If grading player is showing a full rubric
+   * @see controllers/grading-player
+   */
+  fullRubric: false,
   /**
    * @property {[]} List of student
    */
-  students: null
+  students: null,
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  closeStudentRoster: Ember.observer('fullRubric', function() {
+    if (this.get('fullRubric')) {
+      this.sendAction('onClose');
+    }
+  })
 });

@@ -8,7 +8,7 @@
 </div>
 <div class="student-roster">
   {{#each students as |student|}}
-    <div class="student {{if student.checked 'checked'}} {{if (eq selectedStudent student) 'selected'}}" {{action 'selectStudent' student}}>
+    <div class="student {{if student.checked 'checked'}} {{if (eq currentUser.id student.id) 'selected'}}" {{action 'selectStudent' student}}>
       <span class="name"> {{truncate text=student.name maxLength=15}}</span>
       <span class="student-answer">{{gru-icon name='insert_drive_file'}}</span>
     </div>

@@ -142,6 +142,6 @@ test('Close Student Roster', function(assert) {
 
   const $component = this.$('.grading.gru-student-roster');
 
-  let $close = $component.find('.header .close');
+  let $close = $component.find('.header .close-roster');
   $close.click();
 });

@@ -78,5 +78,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       'currentUser',
       model.users.findBy('id', model.currentUserId)
     );
+    let answers = new Map();
+    answers.set(model.currentUserId, model.answer);
+    controller.set('answers', answers);
   }
 });
