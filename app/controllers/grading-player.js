@@ -5,7 +5,6 @@ import Ember from 'ember';
  */
 export default Ember.Controller.extend({
   queryParams: [
-    'studentId',
     'classId',
     'courseId',
     'unitId',
@@ -16,6 +15,48 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * The class id
+   * @property {String} classId
+   */
+  classId: null,
+
+  /**
+   * The course id
+   * @property {String} courseId
+   */
+  courseId: null,
+
+  /**
+   * The unit id
+   * @property {String} unitId
+   */
+  unitId: null,
+
+  /**
+   * The lesson id
+   * @property {String} lessonId
+   */
+  lessonId: null,
+
+  /**
+   * The collection id
+   * @property {String} collectionId
+   */
+  collectionId: null,
+
+  /**
+   * The question id
+   * @property {String} questionId
+   */
+  questionId: null,
+
+  /**
+   * Current student id
+   * @property {String} studentId
+   */
+  studentId: null,
 
   /**
    * If the response should be hidden

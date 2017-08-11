@@ -31,31 +31,35 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * Get model for the controller
    */
   model: function(params) {
-    const studentId = params.studentId;
     const classId = params.classId;
     const courseId = params.courseId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
     const collectionId = params.collectionId;
     const questionId = params.questionId;
-    return Ember.RSVP.hash({
-      answer: this.get('rubricService').getAnswerToGrade(
-        studentId,
-        classId,
-        courseId,
-        collectionId,
-        questionId,
-        unitId,
-        lessonId
-      ),
-      question: this.get('questionService').readQuestion(questionId),
-      users: this.get('rubricService')
-        .getStudentsForQuestion(questionId, classId, courseId, collectionId)
-        .then(users =>
-          this.get('profileService').readMultipleProfiles(users.students)
-        ),
-      currentUserId: studentId
-    });
+    return this.get('rubricService')
+      .getStudentsForQuestion(questionId, classId, courseId, collectionId)
+      .then(users => {
+        if (users.get('students') && users.get('students').length) {
+          const studentId = users.get('students')[0];
+          return Ember.RSVP.hash({
+            answer: this.get('rubricService').getAnswerToGrade(
+              studentId,
+              classId,
+              courseId,
+              collectionId,
+              questionId,
+              unitId,
+              lessonId
+            ),
+            question: this.get('questionService').readQuestion(questionId),
+            users: this.get('profileService').readMultipleProfiles(
+              users.students
+            ),
+            currentUserId: studentId
+          });
+        }
+      });
   },
 
   /**
