@@ -3,7 +3,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import ContextMixin from 'gooru-web/mixins/quizzes/context';
 import QuizzesPlayer from 'quizzes-addon/routes/player';
-import { ROLES } from 'gooru-web/config/config';
+import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -193,6 +193,7 @@ export default QuizzesPlayer.extend(ModalMixin, ConfigurationMixin, ContextMixin
     params.sourceUrl = location.host;
     params.partnerId = this.get('session.partnerId');
     params.tenantId = this.get('session.tenantId');
+    params.checkAttempts = params.source !== PLAYER_EVENT_SOURCE.COURSE_MAP;
 
     return route.loadCollection(collectionId, type).then(function(collection) {
       route.set('collectionObj',collection);
