@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -23,6 +24,7 @@ export default Ember.Component.extend({
   // Actions
 
   actions:{
+
     /**
      * Select classroom
      */
@@ -41,7 +43,7 @@ export default Ember.Component.extend({
       let classId = selectedClassroom.get('id');
 
       if (isClassActivity) {
-        component.get('classActivityService').addActivityToClass(classId, content.get('id'), content.get('collectionType'), null).then(function(){
+        component.get('classActivityService').addActivityToClass(classId, content.get('id'), content.get('collectionType')).then(function(){
           component.triggerAction({ action: 'closeModal' });
         });
       } else {
@@ -56,6 +58,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * Model with the values to use in the modal
    */
