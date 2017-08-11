@@ -39,7 +39,7 @@
 </header>
 
 <section>
-  {{#if (not (eq currentProtocol resourceProtocol))}}
+  {{#if (and (not isVideo) (not sameProtocol))}}
     <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
       <div class="panel-body">
         <div class="external-https">

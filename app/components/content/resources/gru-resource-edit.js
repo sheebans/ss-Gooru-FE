@@ -198,6 +198,37 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   resource: null,
 
   /**
+   * The protocol the user is using to access the page (http or https)
+   * @property {String}
+   */
+  currentProtocol: window.location.protocol,
+
+  /**
+   * The protocol for the resource url
+   * @property {String}
+   */
+  resourceProtocol: Ember.computed('resource.url', function() {
+    const httpsPattern = /^(https:\/\/)/;
+    return httpsPattern.test(this.get('resource.url')) ? 'https:' : 'http:';
+  }),
+
+  /**
+   * Indicates if the current protocol matches the resource protocol
+   * @property {boolean}
+   */
+  sameProtocol: Ember.computed(function() {
+    return this.get('currentProtocol') === this.get('resourceProtocol');
+  }),
+
+  /**
+   * Indicates if the url is a video url
+   * @property {boolean}
+   */
+  isVideo: Ember.computed('resource.url', function() {
+    return isVideoURL(this.get('resource.url'));
+  }),
+
+  /**
    * Copy of the resource model used for editing.
    * @property {Resource}
    */

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { RESOURCE_COMPONENT_MAP } from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import { isVideoURL } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -60,6 +61,22 @@ export default Ember.Component.extend({
   resourceProtocol: Ember.computed('resource.url', function() {
     const httpsPattern = /^(https:\/\/)/;
     return httpsPattern.test(this.get('resource.url')) ? 'https:' : 'http:';
+  }),
+
+  /**
+   * Indicates if the current protocol matches the resource protocol
+   * @property {boolean}
+   */
+  sameProtocol: Ember.computed(function() {
+    return this.get('currentProtocol') === this.get('resourceProtocol');
+  }),
+
+  /**
+   * Indicates if the url is a video url
+   * @property {boolean}
+   */
+  isVideo: Ember.computed('resource.url', function() {
+    return isVideoURL(this.get('resource.url'));
   }),
 
   /**
