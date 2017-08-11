@@ -41,7 +41,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       .getStudentsForQuestion(questionId, classId, courseId, collectionId)
       .then(users => {
         if (users.get('students') && users.get('students').length) {
-          const studentId = users.get('students')[0];
+          const studentId = users.get('students.firstObject');
           return Ember.RSVP.hash({
             answer: this.get('rubricService').getAnswerToGrade(
               studentId,
@@ -54,7 +54,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
             ),
             question: this.get('questionService').readQuestion(questionId),
             users: this.get('profileService').readMultipleProfiles(
-              users.students
+              users.get('students')
             ),
             currentUserId: studentId
           });
