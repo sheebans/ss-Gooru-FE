@@ -19,7 +19,7 @@ export default Ember.Route.extend({
    */
   session: Ember.inject.service('session'),
 
-  // -------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
   // Methods
 
   beforeModel: function() {

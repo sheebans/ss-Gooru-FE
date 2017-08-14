@@ -93,6 +93,7 @@ export default Ember.Object.extend({
     };
     return serialized;
   },
+
   /**
    * Normalize the resource data into a Resource object
    * @param resourceData

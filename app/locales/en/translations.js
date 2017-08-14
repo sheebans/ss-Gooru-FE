@@ -1555,6 +1555,8 @@ export default Object.assign(quizzesTranslations, {
           'This assessment cannot be viewed within Gooru.',
         header_2: 'Click the button below to open the resource in a new tab.',
         'view-resource': 'View Resource',
+        https_external: 'This link cannot be viewed within Gooru.',
+        https_new_tab: 'Click the link below to open it in a new tab.',
         footer_1: 'Why am I seeing this blank page?',
         footer_2:
           'Resources added in Gooru come from thousands of different publishers who',

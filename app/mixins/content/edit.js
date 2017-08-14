@@ -17,6 +17,7 @@ export default Ember.Mixin.create({
 
   // -------------------------------------------------------------------------
   // Events
+
   addSubscriptions: Ember.on('didInsertElement', function() {
     this._super(...arguments);
 

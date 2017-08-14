@@ -39,6 +39,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Events
+
   resetController(controller, isExiting) {
     if (isExiting) {
       controller.set('collectionId', undefined);
