@@ -272,13 +272,6 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
     this.set('isEditing', false);
   },
 
-  /**
-   * Cancel function for rubric edition
-   */
-  copy: function() {
-    this.set('isEditing', false);
-  },
-
   delete: function() {
     const myId = this.get('session.userId');
     var model = {
