@@ -1,4 +1,13 @@
 <div class="teacher grading">
+  <div class="roster {{if showRoster 'visible' 'hidden'}}">
+    {{grading.gru-student-roster
+    users=users
+    onClose='closeRoster'
+    fullRubric=hideResponse
+    currentUser=currentUser
+    onChangeUser='changeUser'
+    }}
+  </div>
   <div class="response-panel {{if hideResponse 'hide-response'}}">
     <div class="header clearfix">
       <div class="go-back-container">
@@ -11,6 +20,7 @@
         currentResponse=currentUser.fullNameInformal
         timeSpent=answer.timeSpent
         submittedAt=answer.submittedAt
+        onOpenRoster='openStudentRoster'
       }}
       {{grading.gru-task-header promptText=answer.questionText}}
     </div>

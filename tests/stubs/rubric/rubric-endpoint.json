@@ -171,6 +171,24 @@
     }
   },
   {
+    "description": "Get Answer for Rubric Specific Student",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/questions/(.+)/students/profile-id-2/answers$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-question-profile2-answer-to-grade-200-response.json"
+    }
+  },
+  {
     "description": "Get Answer for Rubric Grading",
     "request": {
       "url": "^/api/nucleus-insights/v2/rubrics/questions/(.+)/students/(.+)/answers$",

@@ -19,7 +19,6 @@ test('Layout', function(assert) {
   visit(
     '/grading?classId=class-id&courseId=course-id&collectionId=collection-id&questionId=question-id'
   );
-
   andThen(function() {
     assert.equal(
       currentURL(),
@@ -73,5 +72,40 @@ test('Layout', function(assert) {
       $gradingContainer.find('.gru-rubric-panel'),
       'Missing rubric panel'
     );
+  });
+});
+
+test('Student prompt', function(assert) {
+  visit(
+    '/grading?classId=class-id&courseId=course-id&collectionId=collection-id&questionId=question-id'
+  );
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/grading?classId=class-id&courseId=course-id&collectionId=collection-id&questionId=question-id'
+    );
+    const $rosterHeader = find('.header .gru-roster-header');
+    const $rosterButton = $rosterHeader.find('.btn-roster');
+    click($rosterButton);
+    andThen(function() {
+      const $studentRoster = find('.grading.gru-student-roster');
+      T.exists(assert, $studentRoster, 'Missing student roster');
+      assert.ok(
+        T.text($rosterHeader.find('.current-response')).includes(
+          'Profile Number 1'
+        ),
+        'Wrong text in current response'
+      );
+      const $student = $studentRoster.find('.student:nth-child(4)');
+      click($student);
+      andThen(function() {
+        assert.ok(
+          T.text($rosterHeader.find('.current-response')).includes(
+            'Profile Number 2'
+          ),
+          'Wrong text in current response'
+        );
+      });
+    });
   });
 });

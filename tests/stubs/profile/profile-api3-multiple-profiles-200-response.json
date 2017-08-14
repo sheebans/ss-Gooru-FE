@@ -23,7 +23,7 @@
     },
     {
       "id": "profile-id-2",
-      "firstName": "Profile",
+      "first_name": "Profile",
       "last_name": "Number 2",
       "username": "Prof2",
       "thumbnail": ""
