@@ -192,14 +192,18 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
         icon: 'delete',
         action: () => this.delete()
       },
+      //{
       //  name: 'copy',
       //  text: this.get('i18n').t('common.copy'),
-      //  icon: 'content_copy'
-      // },{
-      //  name: 'link',
-      //  text: this.get('i18n').t('common.link'),
-      //  icon: 'insert_link'
+      //  icon: 'content_copy',
       // },
+      {
+        name: 'link',
+        text: this.get('i18n').t('common.link'),
+        icon: 'insert_link',
+        isShare: true,
+        type: 'rubric'
+      },
       {
         name: 'preview',
         text: this.get('i18n').t('common.preview'),
