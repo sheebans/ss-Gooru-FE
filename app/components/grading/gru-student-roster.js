@@ -41,7 +41,7 @@ export default Ember.Component.extend({
           Ember.Object.create({
             id: student.get('id'),
             name: student.get('fullNameInformal'),
-            checked: false
+            checked: this.get('currentUser.id') === student.get('id')
           })
         )
       );
