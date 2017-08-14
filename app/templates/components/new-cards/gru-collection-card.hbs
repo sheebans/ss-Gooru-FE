@@ -135,7 +135,7 @@
             </div>
           {{/unless}}
           {{#unless isStudent}}
-            <button class="btn add-btn no-bgd" {{action 'addToClassroom'}}title="{{if isCourse (t 'common.add-to-classroom') (t 'common.add-to-daily-class') }}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+            <button class="btn add-btn no-bgd out-of-scope" {{action 'addToClassroom'}}title="{{if isCourse (t 'common.add-to-classroom') (t 'common.add-to-daily-class') }}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
               {{gru-icon name="add"}}
             </button>
           {{/unless}}
