@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ProtocolMixin from 'gooru-web/mixins/content/protocol';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ProtocolMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -26,25 +27,5 @@ export default Ember.Component.extend({
   /**
    * @property {string} Resource URL
    */
-  url: Ember.computed.alias('resource.url'),
-
-  /**
-   * @property {Resource} resource
-   */
-  resource: null,
-
-  /**
-   * The protocol the user is using to access the page (http or https)
-   * @property {String}
-   */
-  currentProtocol: window.location.protocol,
-
-  /**
-   * The protocol for the resource url
-   * @property {String}
-   */
-  resourceProtocol: Ember.computed('resource.url', function() {
-    const httpsPattern = /^(https:\/\/)/;
-    return httpsPattern.test(this.get('resource.url')) ? 'https:' : 'http:';
-  })
+  url: Ember.computed.alias('resource.url')
 });

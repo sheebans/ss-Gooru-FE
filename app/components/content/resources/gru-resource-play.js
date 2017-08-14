@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import { RESOURCE_COMPONENT_MAP } from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import ProtocolMixin from 'gooru-web/mixins/content/protocol';
 import { isVideoURL } from 'gooru-web/utils/utils';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ProtocolMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -40,36 +41,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
-  /**
-   * Resource model as instantiated by the route. This is the model used when not editing
-   * or after any resource changes have been saved.
-   * @property {Resource}
-   */
-  resource: null,
-
-  /**
-   * The protocol the user is using to access the page (http or https)
-   * @property {String}
-   */
-  currentProtocol: window.location.protocol,
-
-  /**
-   * The protocol for the resource url
-   * @property {String}
-   */
-  resourceProtocol: Ember.computed('resource.url', function() {
-    const httpsPattern = /^(https:\/\/)/;
-    return httpsPattern.test(this.get('resource.url')) ? 'https:' : 'http:';
-  }),
-
-  /**
-   * Indicates if the current protocol matches the resource protocol
-   * @property {boolean}
-   */
-  sameProtocol: Ember.computed(function() {
-    return this.get('currentProtocol') === this.get('resourceProtocol');
-  }),
 
   /**
    * Indicates if the url is a video url
