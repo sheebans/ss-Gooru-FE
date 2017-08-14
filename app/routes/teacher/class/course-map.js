@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
 
@@ -29,7 +30,8 @@ export default Ember.Route.extend({
     goLive: function(collectionId) {
       const currentClass = this.modelFor('teacher.class').class;
       const classId = currentClass.get('id');
-      this.transitionTo('reports.collection', classId, collectionId);
+      const queryParams = { queryParams: { source: PLAYER_EVENT_SOURCE.COURSE_MAP } };
+      this.transitionTo('reports.collection', classId, collectionId, queryParams);
     },
     /**
      * Launch an assessment on-air

@@ -10,5 +10,5 @@ import QuizzesReport from 'quizzes-addon/controllers/reports/context';
  * @augments ember/Route
  */
 export default QuizzesReport.extend({
-  queryParams: ['anonymous']
+  queryParams: ['anonymous', 'source']
 });
