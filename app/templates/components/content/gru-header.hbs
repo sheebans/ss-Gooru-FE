@@ -13,7 +13,13 @@
 
     <div class="actions">
       {{#each headerActions as |option|}}
+        {{#if option.isShare}}
+          {{#gru-share-pop-over tagName="button" type=option.type}}
+            {{gru-icon name=option.icon}}
+          {{/gru-share-pop-over}}
+        {{else}}
           <button class="btn btn-default btn-icon {{option.name}}" title="{{option.text}}"{{action 'clickAction' option.action}}>{{gru-icon name=option.icon}} {{option.text}}</button>
+        {{/if}}
       {{/each}}
     </div>
 </header>

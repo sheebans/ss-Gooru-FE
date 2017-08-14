@@ -1210,6 +1210,7 @@ export default Object.assign(quizzesTranslations, {
     'share-question': 'Share your question with link',
     'share-resource': 'Share your resource with link',
     'share-assessment': 'Share your assessment with link',
+    'share-rubric': 'Share your rubric with link',
     'share-collection': 'Share your collection with link'
   },
   'gru-category-panel': {
