@@ -53,7 +53,7 @@ export default Ember.Object.extend({
    * @param {string} classActivityId
    * @returns {Promise}
    */
-  enableClassActivity: function (classId, classActivityId/*, activationDate = new Date()*/) {
+  enableClassActivity: function (classId, classActivityId, activationDate = new Date()) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents/${classActivityId}`;
@@ -64,7 +64,7 @@ export default Ember.Object.extend({
       processData: false,
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
-        //activation_date: formatDate(activationDate,'YYYY-MM-DD') TODO: BE is throwing 400
+        activation_date: formatDate(activationDate,'YYYY-MM-DD')
       })
     };
     return Ember.$.ajax(url, options);
