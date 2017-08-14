@@ -38,7 +38,9 @@ export default Ember.Controller.extend({
      * Triggered when current user has been changed
      */
     changeUser: function() {
-      this.get('changeAnswer')(this);
+      Ember.run.bind(this, function() {
+        this.get('changeAnswer')(this);
+      });
     }
   },
 
@@ -49,6 +51,7 @@ export default Ember.Controller.extend({
    * @property {Map} answers
    */
   answers: null,
+
   /**
    * The class id
    * @property {String} classId
@@ -98,6 +101,7 @@ export default Ember.Controller.extend({
   showRoster: false,
 
   /**
+
    * Current student id
    * @property {String} studentId
    */
@@ -107,6 +111,7 @@ export default Ember.Controller.extend({
    * If the response should be hidden
    * @property {Boolean} hideResponse
    */
+
   hideResponse: false,
 
   // -------------------------------------------------------------------------

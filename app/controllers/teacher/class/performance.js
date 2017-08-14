@@ -428,7 +428,7 @@ export default Ember.Controller.extend({
             lessonId: lesson.get('id'),
             collection,
             question,
-            studentCount: studentCount
+            studentCount
           });
 
           resolve(itemObject);

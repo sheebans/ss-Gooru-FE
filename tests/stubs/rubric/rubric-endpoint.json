@@ -189,7 +189,6 @@
     }
   },
   {
-  {
     "description": "Get Answer for Rubric Grading",
     "request": {
       "url": "^/api/nucleus-insights/v2/rubrics/questions/(.+)/students/(.+)/answers$",
