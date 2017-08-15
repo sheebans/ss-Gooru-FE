@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import RubricGrade from 'gooru-web/models/rubric/rubric-grade';
+
 export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
@@ -56,7 +58,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
             users: this.get('profileService').readMultipleProfiles(
               users.get('students')
             ),
-            currentUserId: studentId
+            currentUserId: studentId,
+            classId,
+            questionId
           });
         }
       });
@@ -72,14 +76,20 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       'questionText',
       model.question.get('description') || model.question.get('title')
     );
-    controller.set('answer', model.answer);
     controller.set('users', model.users);
-    controller.set(
-      'currentUser',
-      model.users.findBy('id', model.currentUserId)
-    );
-    let answers = new Map();
-    answers.set(model.currentUserId, model.answer);
-    controller.set('answers', answers);
+    let userMappings = model.users.reduce((mappings, user) => {
+      mappings[user.id] = {
+        user,
+        answer: model.currentUserId === user.id ? model.answer : null,
+        grade: RubricGrade.create(Ember.getOwner(this).ownerInjection(), {
+          studentId: user.id,
+          classId: model.classId,
+          resourceId: model.questionId
+        })
+      };
+      return mappings;
+    }, {});
+    controller.set('currentUserId', model.currentUserId);
+    controller.set('userMappings', userMappings);
   }
 });

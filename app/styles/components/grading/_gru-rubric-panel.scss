@@ -3,15 +3,34 @@
   background-color: $dark-400;
   height: auto;
   .header {
-    cursor: pointer;
     background-color: $dark-500;
     color: $white;
-    padding: 14px;
-    i {
-      font-size: $emotion-icon-size;
+    padding: 0;
+    .icon {
+      display: inherit;
+      cursor: pointer;
+      padding: 10px 0;
+      border-bottom: 1px solid $dark-300;
+    }
+    .separator {
+      cursor: pointer;
+      width: 100%;
+      border-bottom: 1px solid $dark-300;
+    }
+    .tab {
+      cursor: pointer;
+      padding: 10px 23px;
+      border-bottom: 1px solid $dark-300;
+      &.active {
+        background-color: $dark-400;
+        border: 1px solid $dark-300;
+        border-bottom: 0;
+      }
     }
     @include flexbox();
-    font-size: $font-size-large;
+  }
+  .content {
+    color: $white;
   }
   &.full-rubric {
     width: 100%;

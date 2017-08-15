@@ -15,10 +15,7 @@ export default Ember.Component.extend({
      */
     selectStudent: function(student) {
       student.set('checked', true);
-      this.set(
-        'currentUser',
-        this.get('users').findBy('id', student.get('id'))
-      );
+      this.set('currentUserId', student.get('id'));
       this.sendAction('onChangeUser');
     },
     /**
@@ -41,7 +38,7 @@ export default Ember.Component.extend({
           Ember.Object.create({
             id: student.get('id'),
             name: student.get('fullNameInformal'),
-            checked: this.get('currentUser.id') === student.get('id')
+            checked: this.get('currentUserId') === student.get('id')
           })
         )
       );

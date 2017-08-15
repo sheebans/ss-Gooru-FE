@@ -13,6 +13,12 @@ export default Ember.Component.extend({
 
   actions: {
     /**
+     * Change tabs to grading or rubric
+     */
+    selectTab: function(tabName) {
+      this.set('tab', tabName);
+    },
+    /**
      * Hide/show full rubric
      */
     showFullRubric: function() {
@@ -24,7 +30,25 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * If grading is selected
+   * @property {Boolean} isGrading
+   */
+  isGrading: Ember.computed.equal('tab', 'grading'),
+
+  /**
+   * If rubric is selected
+   * @property {Boolean} isRubric
+   */
+  isRubric: Ember.computed.equal('tab', 'rubric'),
+
+  /**
    * @property {Boolean} showFullRubric
    */
-  showFullRubric: false
+  showFullRubric: false,
+
+  /**
+   * Current tab name selected
+   * @property {String} tab
+   */
+  tab: 'grading'
 });
