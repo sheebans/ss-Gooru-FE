@@ -31,7 +31,18 @@ export default Ember.Component.extend({
      * Add to question
      */
     addTo: function() {
-      //let component = this;
+      let component = this;
+      const model = component.get('model');
+      const rubricId = component.get('selectedRubric.id');
+      return component
+        .get('rubricService')
+        .associateRubricToQuestion(rubricId, model.questionId)
+        .then(function() {
+          if (model.callback) {
+            model.callback.success(component.get('selectedRubric'));
+          }
+          component.triggerAction({ action: 'closeModal' });
+        });
     }
   },
 
@@ -43,10 +54,8 @@ export default Ember.Component.extend({
   model: null,
 
   /**
-   * Question id of question to add the rubric
+   * Filter only rubrics ON
    */
-  questionId: null,
-
   filteredRubrics: Ember.computed('model.rubrics', function() {
     return this.get('model.rubrics').filter(rubric => rubric.title);
   })

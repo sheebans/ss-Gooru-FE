@@ -272,6 +272,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       this.set('tempModel.rubric.increment', parseFloat(newValue));
     },
 
+    updateAssociatedRubric: function(rubricAssociated) {
+      let question = this.get('tempModel');
+      rubricAssociated.set('rubricOn', true);
+      question.set('rubric', rubricAssociated);
+    },
+
     showAddRubricModal: function() {
       let component = this;
 
@@ -281,7 +287,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
         .then(function(rubrics) {
           return {
             questionId: component.get('tempModel.id'),
-            rubrics
+            rubrics,
+            callback: {
+              success: function(rubricAssociated) {
+                component.send('updateAssociatedRubric', rubricAssociated);
+              }
+            }
           };
         })
         .then(model =>
