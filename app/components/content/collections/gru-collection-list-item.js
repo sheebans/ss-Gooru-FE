@@ -272,12 +272,18 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       this.set('tempModel.rubric.increment', parseFloat(newValue));
     },
 
+    /**
+     * Updates rubric to display the information of the associated rubric
+     */
     updateAssociatedRubric: function(rubricAssociated) {
       let question = this.get('tempModel');
       rubricAssociated.set('rubricOn', true);
       question.set('rubric', rubricAssociated);
     },
 
+    /**
+     * Show modal with rubrics to choose one and associate it to the question
+     */
     showAddRubricModal: function() {
       let component = this;
 
