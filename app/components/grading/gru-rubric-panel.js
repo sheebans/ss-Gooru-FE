@@ -30,6 +30,12 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * Grade values
+   * @property {Grade} grade
+   */
+  grade: null,
+
+  /**
    * If grading is selected
    * @property {Boolean} isGrading
    */
@@ -40,6 +46,12 @@ export default Ember.Component.extend({
    * @property {Boolean} isRubric
    */
   isRubric: Ember.computed.equal('tab', 'rubric'),
+
+  /**
+   * Rubric to grade
+   * @property {Rubric} rubric
+   */
+  rubric: null,
 
   /**
    * @property {Boolean} showFullRubric

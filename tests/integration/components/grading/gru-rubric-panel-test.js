@@ -15,14 +15,14 @@ test('Show full rubric', function(assert) {
 
   let $component = this.$();
   let $panel = $component.find('.gru-rubric-panel');
-  let $header = $component.find('.rubric-information .header');
+  let $icon = $component.find('.rubric-information .header .icon');
 
   assert.notOk(this.get('showFullRubric'), 'Wrong value of showFullRubric');
   assert.notOk(
     $panel.hasClass('full-rubric'),
     'The component must not have the class full-rubric'
   );
-  $header.click();
+  $icon.click();
   assert.ok(this.get('showFullRubric'), 'Wrong value of showFullRubric');
   assert.ok(
     $panel.hasClass('full-rubric'),

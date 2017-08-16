@@ -17,7 +17,11 @@
   </div>
   <div class="content">
     {{#if isGrading}}
-      {{grading.gru-scoring-on}}
+      {{#if rubric.rubricOn}}
+        {{grading.gru-scoring-on rubric=rubric grade=grade}}
+      {{else}}
+        {{grading.gru-scoring-off rubric=rubric grade=grade}}
+      {{/if}}
     {{/if}}
   </div>
 </div>

@@ -76,6 +76,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       'questionText',
       model.question.get('description') || model.question.get('title')
     );
+    controller.set('rubric', model.question.get('rubric'));
+    this.get('rubricService').getRubric(model.question.get('rubric.id'));
     controller.set('users', model.users);
     let userMappings = model.users.reduce((mappings, user) => {
       mappings[user.id] = {

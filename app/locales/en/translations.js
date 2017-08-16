@@ -1584,6 +1584,7 @@ export default Object.assign(quizzesTranslations, {
     'submitted-time': 'Submitted Time',
     prompt: 'Task Prompt',
     'time-spent': 'Time Spent',
+    'total-score': 'Total Score',
     'student-roster': {
       title: 'Students List',
       lead: 'Have answered this question'
