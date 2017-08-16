@@ -161,3 +161,26 @@ test('Add a category and go to preview before save', function(assert) {
     });
   });
 });
+
+test('Share rubric', function(assert) {
+  visit('/content/rubric/edit/123');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/content/rubric/edit/123');
+
+    var $container = find('.rubric.edit');
+    var $share = $container.find('.header .actions .gru-share-pop-over');
+    assert.notOk(
+      $container.find('.gru-share-pop-over-window').length,
+      'Missing rubric title'
+    );
+    click($share);
+    andThen(function() {
+      assert.equal(currentURL(), '/content/rubric/edit/123');
+      assert.ok(
+        $container.find('.gru-share-pop-over-window').length,
+        'Missing rubric title'
+      );
+    });
+  });
+});

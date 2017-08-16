@@ -2,38 +2,38 @@
   "users": [
     {
       "id": "id-for-pochita",
-      "firstName": "Russell",
-      "lastName": "Collaborator1",
+      "first_name": "Russell",
+      "last_name": "Collaborator1",
       "username": "russell",
-      "avatarUrl": ""
+      "thumbnail": ""
     },
     {
       "id": "id-for-pochita",
-      "firstName": "Shawn",
-      "lastName": "Collaborator2",
+      "first_name": "Shawn",
+      "last_name": "Collaborator2",
       "username": "shawn",
-      "avatarUrl": ""
+      "thumbnail": ""
     },
     {
       "id": "profile-id-1",
-      "firstName": "Profile",
-      "lastName": "Number 1",
+      "first_name": "Profile",
+      "last_name": "Number 1",
       "username": "Prof1",
-      "avatarUrl": ""
+      "thumbnail": ""
     },
     {
       "id": "profile-id-2",
-      "firstName": "Profile",
-      "lastName": "Number 2",
+      "first_name": "Profile",
+      "last_name": "Number 2",
       "username": "Prof2",
-      "avatarUrl": ""
+      "thumbnail": ""
     },
     {
       "id": "other-student-id",
       "firstName": "Profile",
-      "lastName": "",
+      "last_name": "",
       "username": "Prof",
-      "avatarUrl": ""
+      "thumbnail": ""
     }
   ]
 }

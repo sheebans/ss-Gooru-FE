@@ -148,6 +148,13 @@ export default Ember.Object.extend({
   }),
 
   /**
+   * @property {string}
+   */
+  fullNameInformal: Ember.computed('firstName', 'lastName', function() {
+    return `${this.get('firstName')} ${this.get('lastName')}`;
+  }),
+
+  /**
    * @property {number} followers - The followers count of the profile
    */
   followers: 0,

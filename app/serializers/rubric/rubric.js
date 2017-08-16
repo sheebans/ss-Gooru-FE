@@ -292,7 +292,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
   /**
    * Normalizes Questions To Grade
    * @param {*} data
-   * @return {GradeQuestion}
+   * @return {GradeQuestion}normalizeQuestionsToGrade
    */
   normalizeQuestionsToGrade: function(data) {
     const serializer = this;
@@ -301,7 +301,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
     return GradeQuestion.create(Ember.getOwner(this).ownerInjection(), {
       classId: data.classId,
       courseId: data.courseId,
-      userId: data.userId,
       gradeItems: gradeItems
         ? gradeItems.map(item => serializer.normalizeGradeQuestion(item))
         : null
@@ -319,6 +318,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       unitId: data.unitId,
       lessonId: data.lessonId,
       collectionId: data.collectionId,
+      collectionType: data.collectionType,
       resourceId: data.resourceId,
       studentCount: data.studentCount
     });
@@ -343,6 +343,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @return {GradeQuestionAnswer}
    */
   normalizeAnswerToGrade: function(payload) {
+    const answerObject = payload.answerText
+      ? JSON.parse(payload.answerText)
+      : [];
+    const answer = answerObject.length ? answerObject[0].text : {};
     return GradeQuestionAnswer.create(Ember.getOwner(this).ownerInjection(), {
       courseId: payload.courseId,
       unitId: payload.unitId,
@@ -351,7 +355,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       questionId: payload.questionId,
       sessionId: payload.sessionId,
       questionText: payload.questionText,
-      answerText: payload.answerText,
+      answerText: answer,
       submittedAt: payload.submittedAt,
       timeSpent: payload.timeSpent,
       userId: payload.userId

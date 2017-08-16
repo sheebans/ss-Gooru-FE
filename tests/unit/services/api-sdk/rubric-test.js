@@ -254,13 +254,12 @@ test('associateRubricToQuestion', function(assert) {
 
 test('getQuestionsToGrade', function(assert) {
   const service = this.subject();
-  assert.expect(3);
+  assert.expect(2);
 
   service.set(
     'adapter',
     Ember.Object.create({
-      getQuestionsToGrade: function(userId, classId, courseId) {
-        assert.equal(userId, '123', 'Wrong user id');
+      getQuestionsToGrade: function(classId, courseId) {
         assert.equal(classId, '345', 'Wrong class id');
         assert.equal(courseId, '678', 'Wrong course id');
         return Ember.RSVP.resolve(true);
@@ -269,7 +268,7 @@ test('getQuestionsToGrade', function(assert) {
   );
 
   var done = assert.async();
-  service.getQuestionsToGrade('123', '345', '678').then(done);
+  service.getQuestionsToGrade('345', '678').then(done);
 });
 
 test('getStudentsForQuestion', function(assert) {

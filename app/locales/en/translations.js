@@ -733,7 +733,15 @@ export default Object.assign(quizzesTranslations, {
             'class-average': 'Class Average'
           }
         },
-        'grade-items': 'Items to Grade'
+        'grade-items': 'Items to Grade',
+        'gru-grade-items': {
+          students: {
+            zero: '{{count}} students',
+            one: '{{count}} student',
+            other: '{{count}} students',
+            'not-started': 'not started'
+          }
+        }
       },
       mastery: {
         title: 'View Mastery'
@@ -1207,6 +1215,7 @@ export default Object.assign(quizzesTranslations, {
     'share-question': 'Share your question with link',
     'share-resource': 'Share your resource with link',
     'share-assessment': 'Share your assessment with link',
+    'share-rubric': 'Share your rubric with link',
     'share-collection': 'Share your collection with link'
   },
   'gru-category-panel': {
@@ -1552,6 +1561,8 @@ export default Object.assign(quizzesTranslations, {
           'This assessment cannot be viewed within Gooru.',
         header_2: 'Click the button below to open the resource in a new tab.',
         'view-resource': 'View Resource',
+        https_external: 'This link cannot be viewed within Gooru.',
+        https_new_tab: 'Click the link below to open it in a new tab.',
         footer_1: 'Why am I seeing this blank page?',
         footer_2:
           'Resources added in Gooru come from thousands of different publishers who',
@@ -1560,6 +1571,20 @@ export default Object.assign(quizzesTranslations, {
         footer_4:
           'requirements that take you to another page to view the content.'
       }
+    }
+  },
+
+  'grading-player': {
+    'back-to': 'Back to Classroom',
+    'current-response': 'Current Response',
+    'full-rubric': 'Full Rubric',
+    roster: 'Roster',
+    'submitted-time': 'Submitted Time',
+    prompt: 'Task Prompt',
+    'time-spent': 'Time Spent',
+    'student-roster': {
+      title: 'Students List',
+      lead: 'Have answered this question'
     }
   },
 

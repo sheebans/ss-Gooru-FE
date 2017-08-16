@@ -60,6 +60,8 @@ Router.map(function() {
     });
   });
 
+  this.route('grading-player', { path: '/grading' });
+
   this.route('player', { path: '/player/:collectionId' });
 
   this.route('study-player-external');

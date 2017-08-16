@@ -1,8 +1,10 @@
 import Ember from 'ember';
+import ProtocolMixin from 'gooru-web/mixins/content/protocol';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ProtocolMixin, {
   // -------------------------------------------------------------------------
   // Attributes
+
   classNames: ['content', 'rubric', 'gru-preview-url'],
 
   // -------------------------------------------------------------------------
@@ -25,7 +27,5 @@ export default Ember.Component.extend({
   /**
    * @property {string} Resource URL
    */
-  url: Ember.computed.alias('resource.url'),
-
-  resource: null
+  url: Ember.computed.alias('resource.url')
 });

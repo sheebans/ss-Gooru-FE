@@ -79,6 +79,7 @@ export default Ember.Component.extend({
     let courseId = params ? params.courseId : this.get('contentId');
     let resourceId = params ? params.resourceId : this.get('contentId');
     let questionId = params ? params.questionId : this.get('contentId');
+    let rubricId = params ? params.rubricId : this.get('contentId');
     switch (type) {
     case 'course':
       return `${window
@@ -95,6 +96,9 @@ export default Ember.Component.extend({
     case 'question':
       return `${window
         .location.protocol}//${window.location.host}/content/questions/play/${questionId}`;
+    case 'rubric':
+      return `${window
+        .location.protocol}//${window.location.host}/content/rubric/preview/${rubricId}`;
     default:
       break;
     }

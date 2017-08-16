@@ -605,14 +605,12 @@ test('normalizeQuestionsToGrade', function(assert) {
       }
     ],
     classId: 'class-1',
-    courseId: 'course-2',
-    userId: 'user-1'
+    courseId: 'course-2'
   };
 
   const gradeQuestion = serializer.normalizeQuestionsToGrade(question);
   assert.equal(gradeQuestion.get('classId'), 'class-1', 'Wrong classId');
   assert.equal(gradeQuestion.get('courseId'), 'course-2', 'Wrong courseId');
-  assert.equal(gradeQuestion.get('userId'), 'user-1', 'Wrong userId');
   assert.equal(gradeQuestion.get('gradeItems').length, 2, 'Wrong gradeItems');
 });
 
@@ -686,7 +684,7 @@ test('normalizeAnswerToGrade', function(assert) {
     questionId: 'question-id',
     sessionId: 'session-id',
     questionText: 'NA',
-    answerText: 'TBD - How will it be obtained and displayed',
+    answerText: '[{ "text": "TBD - How will it be obtained and displayed" }]',
     submittedAt: '2017-03-05 18:44:04.798',
     timeSpent: 500,
     userId: 'user-id'

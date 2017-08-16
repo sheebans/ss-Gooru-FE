@@ -22,6 +22,11 @@ export default Ember.Object.extend({
   collectionId: null,
 
   /**
+   * @property {String} collectionType
+   */
+  collectionType: null,
+
+  /**
    * @property {String} resourceId
    */
   resourceId: null,

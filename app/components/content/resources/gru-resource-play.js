@@ -1,10 +1,13 @@
 import Ember from 'ember';
 import { RESOURCE_COMPONENT_MAP } from 'gooru-web/config/config';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import ProtocolMixin from 'gooru-web/mixins/content/protocol';
+import { isVideoURL } from 'gooru-web/utils/utils';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ProtocolMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @requires service:api-sdk/resource
    */
@@ -19,6 +22,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      * Performs a back action in the browser history
@@ -30,18 +34,21 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
+
   didInsertElement: function() {
     this.calculateResourceContentHeight();
   },
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
-   * Resource model as instantiated by the route. This is the model used when not editing
-   * or after any resource changes have been saved.
-   * @property {Resource}
+   * Indicates if the url is a video url
+   * @property {boolean}
    */
-  resource: null,
+  isVideo: Ember.computed('resource.url', function() {
+    return isVideoURL(this.get('resource.url'));
+  }),
 
   /**
    * @property {Resource}
@@ -74,6 +81,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Observers
+
   /**
    * Observes for the resource change
    */
@@ -105,6 +113,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   /**
    * Calculates the height of the content area (it will change depending on height
    * of the narration -if there is one)

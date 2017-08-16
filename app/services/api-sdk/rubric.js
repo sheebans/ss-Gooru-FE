@@ -149,17 +149,16 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Returns grade question
-   * @param {string} userId
+   * Returns the list of Questions that the teacher needs to grade.
    * @param {string} classId
    * @param {string} courseId
    * @returns {Promise|GradeQuestion}
    */
-  getQuestionsToGrade: function(userId, classId, courseId) {
+  getQuestionsToGrade: function(classId, courseId) {
     const service = this;
     return service
       .get('adapter')
-      .getQuestionsToGrade(userId, classId, courseId)
+      .getQuestionsToGrade(classId, courseId)
       .then(data => service.get('serializer').normalizeQuestionsToGrade(data));
   },
 

@@ -83,3 +83,14 @@ test('it renders for assessments', function(assert) {
   T.exists(assert, $button, 'Missing the button');
   T.exists(assert, $button.find('.gru-icon'), 'Missing the button');
 });
+
+test('it renders for rubric', function(assert) {
+  this.render(hbs`{{#gru-share-pop-over tagName="button" type="rubric"}}
+    {{gru-icon name="insert_link"}}
+  {{/gru-share-pop-over}}`);
+
+  let $component = this.$();
+  let $button = $component.find('.gru-share-pop-over');
+  T.exists(assert, $button, 'Missing the button');
+  T.exists(assert, $button.find('.gru-icon'), 'Missing the button');
+});
