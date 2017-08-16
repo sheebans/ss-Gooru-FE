@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
-import Question from 'gooru-web/models/content/question';
 
 moduleForComponent(
   'content/modals/gru-add-rubric-to-question',
@@ -26,10 +25,6 @@ test('selectRubric', function(assert) {
 });
 
 test('addTo', function(assert) {
-  let question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    id: 'question-id',
-    title: 'Course Title'
-  });
   var done = assert.async();
   let component = this.subject({
     rubricService: {
@@ -40,7 +35,7 @@ test('addTo', function(assert) {
       }
     },
     model: {
-      questionId: question.id,
+      questionId: 'question-id',
       callback: {
         success: () => {
           assert.ok(true, 'Callback should be call');
