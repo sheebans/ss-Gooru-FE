@@ -331,8 +331,8 @@
         border-radius: 0;
 
         .controls {
-          width: 4%;
-          max-width: 4%;
+          width: 8%;
+          max-width: 8%;
           float: left;
           border-right: solid 2px $light-200;
           min-height: 55px;
@@ -343,7 +343,7 @@
             width:50%;
           }
           .go-live{
-            margin-top:10px;
+            margin-top:2px;
           }
           .add-to {
             color: $gray;
