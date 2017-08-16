@@ -69,7 +69,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
 
   normalizeLibrary: function(libraryPayload) {
     const serializer = this;
-    const basePath = serializer.get('session.cdnUrls.content');
+    const basePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
     const thumbnailUrl = libraryPayload.thumbnail
       ? basePath + libraryPayload.thumbnail
