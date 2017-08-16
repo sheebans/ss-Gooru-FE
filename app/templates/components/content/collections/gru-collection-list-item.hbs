@@ -111,13 +111,17 @@
                 {{#if tempModel.rubric.title}}
                   <div class="associated-rubric">
                     <div class="image">
-                      <img class="img-responsive" src="{{tempModel.rubric.thumbnail}}"/>
+                      {{#if tempModel.rubric.thumbnail}}
+                        <img class="img-responsive" src="{{tempModel.rubric.thumbnail}}"/>
+                      {{else}}
+                        <i class="rubric-icon"></i>
+                      {{/if}}
                     </div>
                     <div class="info">
                       <h3>{{tempModel.rubric.title}}</h3>
                     </div>
                     <div class="actions">
-                      <button title="{{t 'common.edit'}}" class="btn no-bgd delete-item" data-toggle="tooltip" data-placement="auto" data-trigger="hover">{{gru-icon name="edit"}}</button>
+                      {{#link-to 'content.rubric.edit' tempModel.rubric.id class="btn no-bgd edit-item" tagName="button"}}{{gru-icon name="edit"}}{{/link-to}}
                     </div>
                   </div>
                 {{else}}

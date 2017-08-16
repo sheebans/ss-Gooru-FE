@@ -87,6 +87,16 @@
                     height: 35px;
                     width: 35px;
                   }
+                  .rubric-icon {
+                    background: url("gooru/images/rubric-green.svg");
+                    -webkit-background-size: 31px 30px;
+                    background-size: 31px 30px;
+                    border-radius: 4px;
+                    display: block;
+                    height: 30px;
+                    margin: 0 0 5px;
+                    width: 31px;
+                  }
                 }
                 .info {
                   display: inline-block;

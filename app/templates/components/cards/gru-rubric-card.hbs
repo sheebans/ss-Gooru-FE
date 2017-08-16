@@ -1,7 +1,11 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="image">
-      <img class="img-responsive" src="{{rubric.thumbnail}}"/>
+      {{#if rubric.thumbnail}}
+        <img class="img-responsive" src="{{rubric.thumbnail}}"/>
+      {{else}}
+        <i class="rubric-icon"></i>
+      {{/if}}
     </div>
     <div class="rubric-info">
       <div class="title-section">
