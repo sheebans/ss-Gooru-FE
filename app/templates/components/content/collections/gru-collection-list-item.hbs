@@ -103,7 +103,7 @@
               <h3>{{t 'content.questions.edit.builder.feedback-grading.title'}}</h3>
             </div>
             <div class="content">
-              <div class="switch">
+              <div class="switch rubric">
                 <label class="switch-label">{{t 'common.rubric'}}</label>
                 {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.rubricOn}}
               </div>
@@ -126,7 +126,7 @@
                   </div>
                 {{else}}
                   <div class="add-rubric-container">
-                    <button class="btn btn-success add-prefix" {{action 'showAddRubricModal'}}>
+                    <button class="btn btn-success add-prefix add-rubric" {{action 'showAddRubricModal'}}>
                       {{t 'content.questions.edit.builder.feedback-grading.from-existing-rubric'}}
                     </button>
                   </div>

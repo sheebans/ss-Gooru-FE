@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 import Question from 'gooru-web/models/content/question';
+import Rubric from 'gooru-web/models/rubric/rubric';
 import Resource from 'gooru-web/models/content/resource';
 import { RESOURCE_TYPES } from 'gooru-web/config/config';
 import { QUESTION_CONFIG } from 'gooru-web/config/question';
@@ -662,5 +663,186 @@ test('Display fields when scoring is clicked', function(assert) {
     $incrementContainer.find('.gru-select .dropdown-toggle').text(),
     0.5,
     'Default value for increment is wrong'
+  );
+});
+
+test('Display fields when rubric is clicked', function(assert) {
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'question',
+    questionType: 'OE'
+  });
+
+  this.set('question', question);
+  this.set('index', 0);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question index=index}}`
+  );
+
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  const $feedbackGradingContainer = $panelBody.find('.feedback-grading');
+  assert.ok(
+    $feedbackGradingContainer.length,
+    'Feedback and Grading section should be visible'
+  );
+
+  let $addRubricContainer = $feedbackGradingContainer.find(
+    '.add-rubric-container'
+  );
+  assert.ok(
+    !$addRubricContainer.length,
+    'Add rubric section should not be visible'
+  );
+
+  const $switchRubric = $feedbackGradingContainer.find(
+    '.switch.rubric .gru-switch .toggle'
+  );
+  Ember.run(() => {
+    $switchRubric.click();
+  });
+
+  $addRubricContainer = $feedbackGradingContainer.find('.add-rubric-container');
+  assert.ok(
+    $addRubricContainer.length,
+    'Add rubric section should now be visible'
+  );
+
+  assert.ok(
+    $addRubricContainer.find('.btn.add-rubric').length,
+    'Add rubric button should be visible'
+  );
+});
+
+test('Layout when rubric ON is already associated - without thumbnail', function(
+  assert
+) {
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'question',
+    questionType: 'OE',
+    rubric: Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      title: 'Rubric Title',
+      thumbnail: null,
+      rubricOn: true
+    })
+  });
+
+  this.set('question', question);
+  this.set('index', 0);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question index=index}}`
+  );
+
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  const $feedbackGradingContainer = $panelBody.find('.feedback-grading');
+  assert.ok(
+    $feedbackGradingContainer.length,
+    'Feedback and Grading section should be visible'
+  );
+
+  const $addRubricContainer = $feedbackGradingContainer.find(
+    '.add-rubric-container'
+  );
+  assert.ok(
+    !$addRubricContainer.length,
+    'Add rubric section should not be visible'
+  );
+
+  const $associatedRubricContainer = $feedbackGradingContainer.find(
+    '.associated-rubric'
+  );
+  assert.ok(
+    $associatedRubricContainer.length,
+    'Associated rubric should be visible'
+  );
+
+  assert.ok(
+    $associatedRubricContainer.find('.image i.rubric-icon').length,
+    'Default rubric icon should be displayed'
+  );
+
+  assert.equal(
+    $associatedRubricContainer.find('.info h3').text(),
+    'Rubric Title',
+    'Wrong Rubric title'
+  );
+});
+
+test('Layout when rubric ON is already associated - with thumbnail', function(
+  assert
+) {
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    format: 'question',
+    questionType: 'OE',
+    rubric: Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      title: 'Rubric Title',
+      thumbnail: 'rubric-icon',
+      rubricOn: true
+    })
+  });
+
+  this.set('question', question);
+  this.set('index', 0);
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question index=index}}`
+  );
+
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
+  $panel.find('.detail.visible .actions button.edit-item i').click();
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  const $feedbackGradingContainer = $panelBody.find('.feedback-grading');
+  assert.ok(
+    $feedbackGradingContainer.length,
+    'Feedback and Grading section should be visible'
+  );
+
+  const $addRubricContainer = $feedbackGradingContainer.find(
+    '.add-rubric-container'
+  );
+  assert.ok(
+    !$addRubricContainer.length,
+    'Add rubric section should not be visible'
+  );
+
+  const $associatedRubricContainer = $feedbackGradingContainer.find(
+    '.associated-rubric'
+  );
+  assert.ok(
+    $associatedRubricContainer.length,
+    'Associated rubric should be visible'
+  );
+
+  assert.ok(
+    $associatedRubricContainer.find('.image img').length,
+    'Uploaded rubric icon should be displayed'
+  );
+
+  assert.equal(
+    $associatedRubricContainer.find('.image img').attr('src'),
+    'rubric-icon',
+    'Wrong uploaded rubric icon displayed'
+  );
+
+  assert.equal(
+    $associatedRubricContainer.find('.info h3').text(),
+    'Rubric Title',
+    'Wrong Rubric title'
   );
 });
