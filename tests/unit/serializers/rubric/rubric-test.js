@@ -103,7 +103,6 @@ test('serializeUpdateRubric uploaded and no feedback required', function(
     uploaded: true,
     rubricOn: true,
     feedback: 'any-feedback',
-    totalPoints: 10,
     requiresFeedback: false,
     categories: [
       RubricCategory.create(),
@@ -164,7 +163,6 @@ test('serializeUpdateRubric not uploaded and feedback required', function(
     uploaded: false,
     rubricOn: true,
     feedback: null,
-    totalPoints: 10,
     requiresFeedback: true
   });
 
@@ -213,7 +211,6 @@ test('serializeUpdateRubric with empty strings', function(assert) {
     uploaded: false,
     rubricOn: true,
     feedback: '',
-    totalPoints: 10,
     requiresFeedback: true
   });
 
@@ -684,7 +681,7 @@ test('normalizeAnswerToGrade', function(assert) {
     questionId: 'question-id',
     sessionId: 'session-id',
     questionText: 'NA',
-    answerText: '[{ "text": "TBD - How will it be obtained and displayed" }]',
+    answerText: [{ text: 'TBD - How will it be obtained and displayed' }],
     submittedAt: '2017-03-05 18:44:04.798',
     timeSpent: 500,
     userId: 'user-id'
