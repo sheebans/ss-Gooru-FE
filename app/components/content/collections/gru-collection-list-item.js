@@ -18,6 +18,7 @@ import Rubric from 'gooru-web/models/rubric/rubric';
 export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @requires service:api-sdk/resource
    */
@@ -37,6 +38,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    * @property {Service} profile service
    */
   profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
+   * @property {Service} rubric service
+   */
+  rubricService: Ember.inject.service('api-sdk/rubric'),
 
   /**
    * @requires service:notifications
@@ -264,6 +270,46 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     onIncrementChange: function(newValue) {
       this.set('tempModel.rubric.increment', parseFloat(newValue));
+    },
+
+    /**
+     * Updates rubric to display the information of the associated rubric
+     */
+    updateAssociatedRubric: function(rubricAssociated) {
+      let question = this.get('tempModel');
+      rubricAssociated.set('rubricOn', true);
+      question.set('rubric', rubricAssociated);
+    },
+
+    /**
+     * Show modal with rubrics to choose one and associate it to the question
+     */
+    showAddRubricModal: function() {
+      let component = this;
+
+      return component
+        .get('rubricService')
+        .getUserRubrics(component.get('session.userId'))
+        .then(function(rubrics) {
+          return {
+            questionId: component.get('tempModel.id'),
+            rubrics,
+            callback: {
+              success: function(rubricAssociated) {
+                component.send('updateAssociatedRubric', rubricAssociated);
+              }
+            }
+          };
+        })
+        .then(model =>
+          component.send(
+            'showModal',
+            'content.modals.gru-add-rubric-to-question',
+            model,
+            null,
+            null
+          )
+        );
     }
   },
 

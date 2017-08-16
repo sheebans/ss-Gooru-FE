@@ -10,7 +10,7 @@ test('normalizeFetchLibraries', function(assert) {
     'session',
     Ember.Object.create({
       cdnUrls: {
-        content: contentCdnUrl
+        user: contentCdnUrl
       }
     })
   );

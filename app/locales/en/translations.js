@@ -873,6 +873,7 @@ export default Object.assign(quizzesTranslations, {
           },
           'feedback-grading': {
             title: 'Feedback and Grading',
+            'from-existing-rubric': 'From Existing Rubric',
             scoring: 'Scoring',
             'maximum-points': 'Maximum Points',
             increment: 'Increment'
@@ -1170,6 +1171,10 @@ export default Object.assign(quizzesTranslations, {
       'The assessments listed here <b>do not</b> belong to another lesson or course',
     'collections-info':
       'The collections listed here <b>do not</b> belong to another lesson or course'
+  },
+  'gru-add-rubric-to-question': {
+    title: 'Add from my Rubrics',
+    lead: 'Select a rubric to add to this question.'
   },
   'gru-assessment-confirmation': {
     title: 'You are about to start an assessment...',

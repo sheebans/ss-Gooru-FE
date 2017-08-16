@@ -103,26 +103,51 @@
               <h3>{{t 'content.questions.edit.builder.feedback-grading.title'}}</h3>
             </div>
             <div class="content">
-              <div class="switch">
+              <div class="switch rubric">
                 <label class="switch-label">{{t 'common.rubric'}}</label>
-                {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.rubricOn disabled=true}}
+                {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.rubricOn}}
               </div>
-
-              <div class="switch scoring">
-                <label class="switch-label">{{t 'content.questions.edit.builder.feedback-grading.scoring'}}</label>
-                {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.scoring}}
-              </div>
-              {{#if tempModel.rubric.scoring}}
-                <div class="scoring-settings">
-                  <div class="setting maximum-points">
-                    <span class="title">{{t 'content.questions.edit.builder.feedback-grading.maximum-points'}}</span>
-                    {{validation.gru-select options=maximumOptions search="true" optionSelected=tempModel.rubric.maxScore onOptionSelect="onMaxScoreChange"}}
+              {{#if tempModel.rubric.rubricOn}}
+                {{#if tempModel.rubric.title}}
+                  <div class="associated-rubric">
+                    <div class="image">
+                      {{#if tempModel.rubric.thumbnail}}
+                        <img class="img-responsive" src="{{tempModel.rubric.thumbnail}}"/>
+                      {{else}}
+                        <i class="rubric-icon"></i>
+                      {{/if}}
+                    </div>
+                    <div class="info">
+                      <h3>{{tempModel.rubric.title}}</h3>
+                    </div>
+                    <div class="actions">
+                      {{#link-to 'content.rubric.edit' tempModel.rubric.id class="btn no-bgd edit-item" tagName="button"}}{{gru-icon name="edit"}}{{/link-to}}
+                    </div>
                   </div>
-                  <div class="setting increment">
-                    <span class="title">{{t 'content.questions.edit.builder.feedback-grading.increment'}}</span>
-                    {{validation.gru-select options=incrementOptions search="true" optionSelected=tempModel.rubric.increment onOptionSelect="onIncrementChange"}}
+                {{else}}
+                  <div class="add-rubric-container">
+                    <button class="btn btn-success add-prefix add-rubric" {{action 'showAddRubricModal'}}>
+                      {{t 'content.questions.edit.builder.feedback-grading.from-existing-rubric'}}
+                    </button>
                   </div>
+                {{/if}}
+              {{else}}
+                <div class="switch scoring">
+                  <label class="switch-label">{{t 'content.questions.edit.builder.feedback-grading.scoring'}}</label>
+                  {{gru-switch switchOptions=switchOptions isChecked=tempModel.rubric.scoring}}
                 </div>
+                {{#if tempModel.rubric.scoring}}
+                  <div class="scoring-settings">
+                    <div class="setting maximum-points">
+                      <span class="title">{{t 'content.questions.edit.builder.feedback-grading.maximum-points'}}</span>
+                      {{validation.gru-select options=maximumOptions search="true" optionSelected=tempModel.rubric.maxScore onOptionSelect="onMaxScoreChange"}}
+                    </div>
+                    <div class="setting increment">
+                      <span class="title">{{t 'content.questions.edit.builder.feedback-grading.increment'}}</span>
+                      {{validation.gru-select options=incrementOptions search="true" optionSelected=tempModel.rubric.increment onOptionSelect="onIncrementChange"}}
+                    </div>
+                  </div>
+                {{/if}}
               {{/if}}
             </div>
           </div>

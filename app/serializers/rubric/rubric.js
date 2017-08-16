@@ -205,8 +205,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   normalizeGetRubrics: function(payload) {
     const serializer = this;
-    if (payload && Ember.isArray(payload)) {
-      return payload.map(function(rubric) {
+    if (payload && Ember.isArray(payload.rubrics)) {
+      return payload.rubrics.map(function(rubric) {
         return serializer.normalizeRubric(rubric);
       });
     } else {
