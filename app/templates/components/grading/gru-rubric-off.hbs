@@ -2,7 +2,7 @@
   {{#if rubric.scoring}}
     <div class="total-score">
       {{t 'grading-player.total-score'}}
-      {{validation.gru-input-number model=grade valuePath='studentCount' min=0 max=rubric.maxScore step='0.5' }}
+      {{validation.gru-input-number model=grade valuePath='studentCount' min=0 max=rubric.maxScore step=rubric.increment }}
       / {{rubric.maxScore}}
     </div>
   {{/if}}

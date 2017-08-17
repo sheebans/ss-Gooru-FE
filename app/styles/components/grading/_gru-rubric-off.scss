@@ -8,7 +8,7 @@
       @include align-items(baseline);
       .gru-input-number {
         width: 40%;
-        margin-left: 10px;
+        margin: 0 10px;
         color: $white;
 
         input {
@@ -19,6 +19,7 @@
     }
     .comment-lead {
       font-size: $font-size-xsmall;
+      color: $light-500;
     }
     textarea {
       height: 105px;

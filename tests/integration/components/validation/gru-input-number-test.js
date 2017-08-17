@@ -179,3 +179,47 @@ test('Accept float numbers with increment of 0.5', function(assert) {
     });
   });
 });
+
+test('Not allow float numbers with increment of 1', function(assert) {
+  assert.expect(3);
+
+  const IntValidation = buildValidations({
+    minScore: {
+      validators: [
+        validator('number', {
+          allowBlank: true,
+          integer: true,
+          gte: 0,
+          lte: 100,
+          message: '{{description}}',
+          descriptionKey: 'common.errors.class-min-score'
+        })
+      ]
+    }
+  });
+
+  var validation = ClassModel.extend(IntValidation);
+
+  this.set(
+    'model',
+    validation.create(Ember.getOwner(this).ownerInjection(), {
+      minScore: 0.5
+    })
+  );
+  this.render(
+    hbs`{{validation.gru-input-number model=model valuePath='minScore' min=0 max=10 step='1'}}`
+  );
+  var $component = this.$();
+  var $input = $component.find('input[type=number]');
+
+  T.exists(assert, $input, 'Input number element not found');
+  assert.equal($input.val(), '0.5', 'Wrong value');
+  $input.blur();
+
+  return wait().then(function() {
+    assert.ok(
+      $component.find('.error-messages .error').length,
+      'Input error message should not be hidden'
+    );
+  });
+});
