@@ -2052,7 +2052,7 @@ export default Object.assign(quizzesTranslations, {
       stepTwo: {
         title: 'Daily Class Activities',
         description:
-          'Access a list of activities assigned by your teacher. Select the activities you want to study.'
+          'Assign collections or assessments to your students. If you want to use our live assessment feature, you must also place those assessments here.'
       },
       stepThree: {
         title: 'Course Map',
@@ -2273,7 +2273,11 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   'gru-rubric-edit': {
-    'upload-rubric': 'Upload Rubric'
+    'upload-rubric': 'Upload Rubric',
+    copy: {
+      'success-message':
+        'You\'ve copied rubric {{title}}. Do you want to edit that Rubric?'
+    }
   },
   'gru-rubric-creation': {
     url: 'URL',

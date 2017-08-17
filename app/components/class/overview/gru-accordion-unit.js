@@ -76,6 +76,13 @@ export default Ember.Component.extend(AccordionMixin, {
     },
 
     /**
+     * @function goLive
+     */
+    goLive: function(collectionId) {
+      this.sendAction('onGoLive', collectionId);
+    },
+
+    /**
      * Load the data for this unit (data should only be loaded once) and trigger
      * the 'onLocationUpdate' event handler with the unit information
      *
@@ -171,6 +178,11 @@ export default Ember.Component.extend(AccordionMixin, {
    * parsedLocation[2] - resourceId
    */
   parsedLocation: [],
+
+  /**
+   * @property {string} go live action name
+   */
+  onGoLive: 'goLive',
 
   /**
    * Contains only visible units

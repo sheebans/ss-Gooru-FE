@@ -290,7 +290,87 @@ test('Study now', function(assert) {
     });
   });
 });
+test('Go Live', function(assert) {
+  assert.expect(7);
 
+  this.on('parentAction', function(collectionId) {
+    assert.ok(collectionId, 'collectionId is passed');
+  });
+
+  const currentClass = Ember.Object.create({
+    id: '111-111-111',
+    courseId: '999-999-999'
+  });
+
+  const lesson = Ember.Object.create({
+    id: 'lesson-with-out-collections-id',
+    title: 'Lesson Title',
+    completed: 5,
+    total: 10
+  });
+
+  this.on('externalAction', function() {
+    assert.ok(true, 'This should be called');
+  });
+
+  this.on('newExternalAction', function(collection) {
+    assert.ok(collection, 'This should be called');
+  });
+
+  this.on('otherExternalAction', function(collectionId) {
+    assert.ok(collectionId, 'This should be called');
+  });
+
+  this.set('currentClass', currentClass);
+  this.set('unitId', '777-999');
+  this.set('lesson', lesson);
+  this.set('index', 0);
+  this.set('currentResource', '123');
+
+  this.set(
+    'items',
+    Ember.A([
+      Ember.Object.create({
+        id: '123',
+        title: 'Equations',
+        visible: true,
+        performance: Ember.Object.create({
+          hasTrophy: true
+        }),
+        isAssessment: true
+      })
+    ])
+  );
+  this.render(hbs`{{class/overview/gru-accordion-lesson
+                    currentClass=currentClass
+                    unitId=unitId
+                    model=lesson
+                    index=index
+                    showLocation=false
+                    isTeacher=true
+                    items=items
+                    isLessonSelected=isLessonSelected
+                    onGoLive=(action 'parentAction')
+                    onSelectLesson=(action 'externalAction')
+                    onLaunchOnAir=(action 'otherExternalAction')
+                    onSelectResource=(action 'newExternalAction')}}`);
+
+  var $component = this.$();
+  const $lessonTitleAnchor = $component.find('.panel-heading a.title');
+  const $collapsePanel = $component.find('.panel-collapse');
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
+  return wait().then(function() {
+    assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
+    assert.ok($collapsePanel.find('li'), 'Missing item');
+    return wait().then(function() {
+      var $goLiveButton = $component.find('.on-air');
+      assert.ok($goLiveButton.length, 'Missing Go Live button');
+      $goLiveButton.click();
+    });
+  });
+});
 test('Show trophy', function(assert) {
   assert.expect(4);
 

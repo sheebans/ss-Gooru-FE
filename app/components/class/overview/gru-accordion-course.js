@@ -50,6 +50,13 @@ export default Ember.Component.extend(AccordionMixin, {
   // Actions
   actions: {
     /**
+     * @function goLive
+     */
+    goLive: function(collectionId) {
+      this.sendAction('onGoLive', collectionId);
+    },
+
+    /**
      * Launch an assessment on-air
      *
      * @function actions:launchOnAir
@@ -162,6 +169,11 @@ export default Ember.Component.extend(AccordionMixin, {
   parsedLocation: Ember.computed('location', function() {
     return this.get('location') ? this.get('location').split('+') : [];
   }),
+
+  /**
+   * @property {string} go live action name
+   */
+  onGoLive: 'goLive',
 
   /**
    * @prop {String} userLocation - Location of a user in a course
