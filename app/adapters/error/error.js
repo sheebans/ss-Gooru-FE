@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} ErrorAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus-utils/v1/user-error',
@@ -32,9 +31,7 @@ export default Ember.Object.extend({
    */
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });
-

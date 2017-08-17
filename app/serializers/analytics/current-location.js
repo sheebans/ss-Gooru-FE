@@ -7,7 +7,6 @@ import CurrentLocationModel from 'gooru-web/models/analytics/current-location';
  * @typedef {Object} CurrentLocationSerializer
  */
 export default Ember.Object.extend({
-
   /**
    * Normalize the response from CurrentLocation for all classes
    * @param payload is the endpoint response in JSON format
@@ -16,7 +15,7 @@ export default Ember.Object.extend({
   normalizeForGetUserClassesLocation: function(payload) {
     let serializer = this;
     if (Ember.isArray(payload.usageData) && payload.usageData.length > 0) {
-      return payload.usageData.map(function(locationPayload){
+      return payload.usageData.map(function(locationPayload) {
         return serializer.normalizeCurrentLocation(locationPayload);
       });
     }
@@ -49,12 +48,14 @@ export default Ember.Object.extend({
       courseId: locationPayload.courseId,
       unitId: locationPayload.unitId,
       lessonId: locationPayload.lessonId,
-      collectionId: locationPayload.collectionId ? locationPayload.collectionId : locationPayload.assessmentId,
-      collectionType: locationPayload.collectionType ? locationPayload.collectionType :
-        (locationPayload.collectionId ? "collection" : "assessment"),
+      collectionId: locationPayload.collectionId
+        ? locationPayload.collectionId
+        : locationPayload.assessmentId,
+      collectionType: locationPayload.collectionType
+        ? locationPayload.collectionType
+        : locationPayload.collectionId ? 'collection' : 'assessment',
       status: locationPayload.status
     });
     return currentLocation;
   }
-
 });

@@ -1,11 +1,10 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
-
   queryParams: {
-    editing:{},
-    editingContent:{
+    editing: {},
+    editingContent: {
       refreshModel: true
     }
   },
@@ -15,7 +14,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @property {Session} current session
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   collectionService: Ember.inject.service('api-sdk/collection'),
 
@@ -24,23 +23,27 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @requires service:century-skill/century-skill
    */
-  centurySkillService: Ember.inject.service("century-skill"),
+  centurySkillService: Ember.inject.service('century-skill'),
 
   // -------------------------------------------------------------------------
   // Events
 
-
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (params) {
+  model: function(params) {
     const route = this;
 
-    return route.get('collectionService').readCollection(params.collectionId)
+    return route
+      .get('collectionService')
+      .readCollection(params.collectionId)
       .then(function(collection) {
         const courseId = collection.get('courseId');
         const isEditing = params.editing;
-        var editingContent = (params.editingContent && params.editingContent !=='null') ? params.editingContent : undefined;
+        var editingContent =
+          params.editingContent && params.editingContent !== 'null'
+            ? params.editingContent
+            : undefined;
         var course = null;
 
         params.editingContent = editingContent;
@@ -61,12 +64,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   setupController(controller, model) {
     const route = this;
 
-    controller.set('collection',  model.collection);
+    controller.set('collection', model.collection);
     controller.set('course', model.course);
     controller.set('isEditing', model.isEditing);
     controller.set('editingContent', model.editingContent);
 
-    route.get('centurySkillService').findCenturySkills()
+    route
+      .get('centurySkillService')
+      .findCenturySkills()
       .then(function(centurySkillsArray) {
         controller.set('centurySkills', centurySkillsArray.toArray());
       });

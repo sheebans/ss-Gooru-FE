@@ -14,44 +14,80 @@ moduleForAcceptance('Acceptance | class/overview', {
   }
 });
 
-test('Layout as a student', function (assert) {
+test('Layout as a student', function(assert) {
   visit('/class/class-for-pochita-as-student/overview');
   andThen(function() {
-
-    assert.equal(currentURL(), '/class/class-for-pochita-as-student/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id');
+    assert.equal(
+      currentURL(),
+      '/class/class-for-pochita-as-student/overview?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id'
+    );
 
     const $overviewContainer = find('.controller.class .controller.overview');
     assert.ok($overviewContainer.length, 'Missing overview container');
 
     const $overviewOption = find('.class-menu');
-    assert.ok($overviewOption.find('.list-group .list-group-item.class-menu-item.overview.selected'), 'Overview option should be selected');
+    assert.ok(
+      $overviewOption.find(
+        '.list-group .list-group-item.class-menu-item.overview.selected'
+      ),
+      'Overview option should be selected'
+    );
 
     const $overviewHeader = find('.overview-header', $overviewContainer);
     assert.ok($overviewHeader.length, 'Missing overview header');
 
     assert.ok($overviewHeader.find('h3').length, 'Missing title');
-    assert.ok($overviewHeader.find('button.locate').length, 'Missing locate button');
-    assert.ok(!$overviewHeader.find('button.edit-content').length, 'Edit Content button should not be present');
+    assert.ok(
+      $overviewHeader.find('button.locate').length,
+      'Missing locate button'
+    );
+    assert.ok(
+      !$overviewHeader.find('button.edit-content').length,
+      'Edit Content button should not be present'
+    );
     // The course map should be expanded all the way to the resource of the user's current location
     // Per /app/services/api-sdk/course-location#findOneByUser,
     // the user current location is: second unit, first lesson, second resource
-    const $expandedUnits = find('.gru-accordion-unit.expanded', $overviewContainer);
-    assert.equal($expandedUnits.length, 1, 'Wrong number of unit accordions expanded');
+    const $expandedUnits = find(
+      '.gru-accordion-unit.expanded',
+      $overviewContainer
+    );
+    assert.equal(
+      $expandedUnits.length,
+      1,
+      'Wrong number of unit accordions expanded'
+    );
 
-    const $expandedLessons = find('.gru-accordion-lesson.expanded', $overviewContainer);
-    assert.equal($expandedLessons.length, 1, 'Wrong number of lesson accordions expanded');
+    const $expandedLessons = find(
+      '.gru-accordion-lesson.expanded',
+      $overviewContainer
+    );
+    assert.equal(
+      $expandedLessons.length,
+      1,
+      'Wrong number of lesson accordions expanded'
+    );
 
     var $accordion = find('.gru-accordion-unit:eq(0)', $overviewContainer);
     assert.ok($accordion.hasClass('expanded'), 'First unit should be expanded');
 
     $accordion = find('.gru-accordion-lesson:eq(2)', $accordion);
-    assert.ok($accordion.hasClass('expanded'), '3rd lesson in the second unit should be expanded');
+    assert.ok(
+      $accordion.hasClass('expanded'),
+      '3rd lesson in the second unit should be expanded'
+    );
 
     var $resource = find('.collections .panel:eq(0)', $accordion);
-    assert.ok($resource.hasClass('selected'), 'First collection should be marked as selected');
+    assert.ok(
+      $resource.hasClass('selected'),
+      'First collection should be marked as selected'
+    );
 
     var $resourceTitle = $resource.find('.panel-title .title');
-    assert.notOk($resourceTitle.hasClass('disabled'),'Second resource should not be disabled');
+    assert.notOk(
+      $resourceTitle.hasClass('disabled'),
+      'Second resource should not be disabled'
+    );
   });
 });
 

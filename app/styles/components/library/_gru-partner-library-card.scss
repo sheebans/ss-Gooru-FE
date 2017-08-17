@@ -9,18 +9,23 @@
     width: 45%;
   }
   @media (min-width: $screen-lg) {
-    width: 32%;
+    width: 30%;
   }
-  .panel-body, .panel-footer{
+  .panel-body,
+  .panel-footer {
     @include flexbox;
   }
   .panel {
     border-radius: 6px;
+    min-height: 200px;
     .panel-heading {
+      @include flexbox;
+      @include align-items(center);
       background-color: $white;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
-      padding: 10px 15px 0;
+      margin-bottom: 8px;
+      padding: 10px 8px 0 15px;
       .image {
         display: inline-block;
         img {
@@ -32,11 +37,12 @@
       .library-info {
         color: $text-color;
         display: inline-block;
-        margin-left: 15px;
+        margin-left: 8px;
         vertical-align: top;
         width: 75%;
         .title-section {
-          h3.title {
+          padding-left: 8px;
+          .title {
             display: inline-block;
             font-size: $font-title;
             margin: 0;
@@ -49,28 +55,35 @@
         }
         .counts-info {
           @include flexbox;
+          @include flex-wrap(wrap);
           font-size: $font-size-small;
-          height: 16px;
-          margin: 0 0 5px;
-          width: 25vw;
+          margin: 0;
+          width: 100%;
+          height: 66px;
           .item {
-            width: 112px;
+            height: 19px;
+            margin: 3px 0 0;
+            min-width: 50%;
+            padding: 0 8px;
+            &:nth-child(2),
+            &:nth-child(4),
+            &:nth-child(6) {
+              border-left: 2px solid $gray-dark;
+            }
           }
-        }
-        .bar {
-          color:$gray-dark;
-          font-weight:bolder;
-          margin: 0 5px;
         }
       }
     }
-    .panel-body{
+    .panel-body {
       @include flex-direction(column);
       @include justify-content(space-between);
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
-      height: 60px;
-      padding-bottom: 2px;
+      height: 70px;
+      padding: 5px 15px 1px;
+      .description {
+        line-height: $line-height-large;
+      }
     }
     .panel-footer {
       background-color: $white;

@@ -1,8 +1,7 @@
-import Ember from "ember";
-import PublicRouteMixin from "gooru-web/mixins/public-route-mixin";
+import Ember from 'ember';
+import PublicRouteMixin from 'gooru-web/mixins/public-route-mixin';
 
 export default Ember.Route.extend(PublicRouteMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -24,5 +23,4 @@ export default Ember.Route.extend(PublicRouteMixin, {
     this.get('notifications').remove();
     controller.resetProperties();
   }
-
 });

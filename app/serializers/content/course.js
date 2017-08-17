@@ -8,7 +8,7 @@ import Unit from 'gooru-web/models/content/unit';
 import UnitSerializer from 'gooru-web/serializers/content/unit';
 import ProfileSerializer from 'gooru-web/serializers/profile/profile';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
-import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from "gooru-web/config/config";
+import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from 'gooru-web/config/config';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
@@ -17,7 +17,6 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @typedef {Object} CourseSerializer
  */
 export default Ember.Object.extend(ConfigurationMixin, {
-
   session: Ember.inject.service('session'),
 
   unitSerializer: null,
@@ -27,11 +26,20 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   taxonomySerializer: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('unitSerializer', UnitSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('profileSerializer', ProfileSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'unitSerializer',
+      UnitSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'profileSerializer',
+      ProfileSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'taxonomySerializer',
+      TaxonomySerializer.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -51,7 +59,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param courseModel The Course model to be serialized
    * @returns {Object} returns a JSON Object
    */
-  serializeUpdateCourse: function (courseModel) {
+  serializeUpdateCourse: function(courseModel) {
     var courseData = this.serializeCourse(courseModel);
     return courseData;
   },
@@ -74,15 +82,22 @@ export default Ember.Object.extend(ConfigurationMixin, {
     let serializedCourse = {
       title: courseModel.get('title'),
       description: courseModel.get('description'),
-      thumbnail: cleanFilename(courseModel.get('thumbnailUrl'), this.get('session.cdnUrls')),
-      'visible_on_profile': courseModel.get('isVisibleOnProfile'),
-      taxonomy: serializer.get('taxonomySerializer').serializeTaxonomy(courseModel.get('taxonomy')),
-      'subject_bucket': courseModel.get('subject'),
-      'metadata': courseModel.get('metadata') || {},
-      'use_case': courseModel.get('useCase')
+      thumbnail: cleanFilename(
+        courseModel.get('thumbnailUrl'),
+        this.get('session.cdnUrls')
+      ),
+      visible_on_profile: courseModel.get('isVisibleOnProfile'),
+      taxonomy: serializer
+        .get('taxonomySerializer')
+        .serializeTaxonomy(courseModel.get('taxonomy')),
+      subject_bucket: courseModel.get('subject'),
+      metadata: courseModel.get('metadata') || {},
+      use_case: courseModel.get('useCase')
     };
 
-    serializedCourse.metadata['audience']= (courseModel.get("audience")) ? courseModel.get("audience") : [];
+    serializedCourse.metadata.audience = courseModel.get('audience')
+      ? courseModel.get('audience')
+      : [];
     return serializedCourse;
   },
 
@@ -115,8 +130,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const thumbnailUrl = payload.thumbnail ? basePath + payload.thumbnail : appRootPath + DEFAULT_IMAGES.COURSE;
-    const owner = owners ? owners.findBy("id", payload.owner_id) : null;
+    const thumbnailUrl = payload.thumbnail
+      ? basePath + payload.thumbnail
+      : appRootPath + DEFAULT_IMAGES.COURSE;
+    const owner = owners ? owners.findBy('id', payload.owner_id) : null;
     const metadata = payload.metadata || {};
 
     return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
@@ -125,18 +142,34 @@ export default Ember.Object.extend(ConfigurationMixin, {
       creatorId: payload.creator_id,
       originalCourseId: payload.original_course_id,
       originalCreatorId: payload.original_creator_id,
-      children: serializer.get('unitSerializer').normalizeUnits(payload.unit_summary),
+      children: serializer
+        .get('unitSerializer')
+        .normalizeUnits(payload.unit_summary),
       description: payload.description,
-      isPublished: payload['publish_status'] && payload['publish_status'] === 'published',
-      isVisibleOnProfile: typeof payload['visible_on_profile'] !== 'undefined' ? payload['visible_on_profile'] : true,
-      owner: owner ? serializer.get("profileSerializer").normalizeReadProfile(owner): null,
+      isPublished:
+        payload.publish_status && payload.publish_status === 'published',
+      isVisibleOnProfile:
+        typeof payload.visible_on_profile !== 'undefined'
+          ? payload.visible_on_profile
+          : true,
+      owner: owner
+        ? serializer.get('profileSerializer').normalizeReadProfile(owner)
+        : null,
+      ownerId: payload.owner_id,
       subject: payload.subject_bucket,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
+      taxonomy: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyObject(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
       thumbnailUrl: thumbnailUrl,
       title: payload.title,
-      unitCount: payload.unit_count ? payload.unit_count : payload.unit_summary ? payload.unit_summary.length : 0,
+      unitCount: payload.unit_count
+        ? payload.unit_count
+        : payload.unit_summary ? payload.unit_summary.length : 0,
       metadata: metadata,
-      audience: metadata["audience"] && metadata["audience"].length > 0 ? metadata["audience"] : [],
+      audience:
+        metadata.audience && metadata.audience.length > 0
+          ? metadata.audience
+          : [],
       useCase: payload.use_case
       // TODO More properties will be added here...
     });
@@ -155,7 +188,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const course = CourseModel.create({
       id: coursePayload.id,
       title: coursePayload.title,
-      children: serializer.normalizeCourseStructureUnits(coursePayload.units || [], collectionType)
+      children: serializer.normalizeCourseStructureUnits(
+        coursePayload.units || [],
+        collectionType
+      )
     });
     return course;
   },
@@ -174,7 +210,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
         id: unitPayload.id,
         title: unitPayload.title,
         sequence: unitPayload.sequence_id,
-        children: serializer.normalizeCourseStructureLessons(unitPayload.lessons || [], collectionType)
+        children: serializer.normalizeCourseStructureLessons(
+          unitPayload.lessons || [],
+          collectionType
+        )
       });
     });
   },
@@ -190,7 +229,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const isAssessment = collectionType === 'assessment';
     return payload.map(function(lessonPayload) {
-      const items = isAssessment ? lessonPayload.assessments : lessonPayload.collections;
+      const items = isAssessment
+        ? lessonPayload.assessments
+        : lessonPayload.collections;
       return Lesson.create({
         id: lessonPayload.id,
         title: lessonPayload.title,
@@ -221,15 +262,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * Serialize reorder course
    * @param {string[]} unitIds
    */
-  serializeReorderCourse: function (unitIds) {
+  serializeReorderCourse: function(unitIds) {
     const values = unitIds.map(function(id, index) {
-      return { "id" : id, "sequence_id" : index + 1 };
+      return { id: id, sequence_id: index + 1 };
     });
 
     return {
-      "order": values
+      order: values
     };
   }
-
-
 });

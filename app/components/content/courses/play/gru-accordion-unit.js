@@ -14,7 +14,6 @@ import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
  * @mixes mixins/content/builder
  */
 export default Ember.Component.extend(BuilderMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -33,7 +32,6 @@ export default Ember.Component.extend(BuilderMixin, {
    */
   unitService: Ember.inject.service('api-sdk/unit'),
 
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -47,8 +45,7 @@ export default Ember.Component.extend(BuilderMixin, {
   // Actions
 
   actions: {
-
-    toggle: function () {
+    toggle: function() {
       var toggleValue = !this.get('model.isExpanded');
       const id = this.get('model.data.id');
 
@@ -58,17 +55,15 @@ export default Ember.Component.extend(BuilderMixin, {
       this.set('model.isExpanded', toggleValue);
     },
 
-    expandLesson: function (lessonId, expanded) {
+    expandLesson: function(lessonId, expanded) {
       const id = this.get('model.data.id');
       this.get('onExpandLesson')(id, lessonId, expanded);
     }
-
   },
-
 
   // -------------------------------------------------------------------------
   // Events
-  onDidInsertElement: Ember.on('didInsertElement', function(){
+  onDidInsertElement: Ember.on('didInsertElement', function() {
     const expanded = this.get('model.isExpanded');
     if (expanded) {
       this.scrollHere();
@@ -121,7 +116,6 @@ export default Ember.Component.extend(BuilderMixin, {
    */
   viewUnitDetails: false,
 
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -131,19 +125,20 @@ export default Ember.Component.extend(BuilderMixin, {
    * @function actions:loadData
    * @returns {undefined}
    */
-  loadData: function () {
+  loadData: function() {
     const component = this;
     if (!component.get('isLoaded')) {
       let courseId = component.get('course.id');
       let unitId = component.get('unit.id');
       let lessonId = component.get('selectedLessonId');
-      return component.get('unitService')
+      return component
+        .get('unitService')
         .fetchById(courseId, unitId)
-        .then(function (unit) {
+        .then(function(unit) {
           component.set('model.data', unit);
 
           // Wrap every lesson inside of a builder item
-          var children = unit.get('children').map(function (lesson) {
+          var children = unit.get('children').map(function(lesson) {
             return BuilderItem.create({
               data: lesson,
               isExpanded: lessonId === lesson.get('id')
@@ -152,9 +147,9 @@ export default Ember.Component.extend(BuilderMixin, {
           component.set('items', children);
           component.set('isLoaded', true);
         })
-
-        .catch(function (error) {
-          var message = component.get('i18n').t('common.errors.unit-not-loaded').string;
+        .catch(function(error) {
+          var message = component.get('i18n').t('common.errors.unit-not-loaded')
+            .string;
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });
@@ -165,8 +160,11 @@ export default Ember.Component.extend(BuilderMixin, {
 
   scrollHere: function() {
     const $component = Ember.$(this.get('element'));
-    Ember.$('html, body').animate({
-      scrollTop: $component.offset().top - 200
-    }, 100);
+    Ember.$('html, body').animate(
+      {
+        scrollTop: $component.offset().top - 200
+      },
+      100
+    );
   }
 });

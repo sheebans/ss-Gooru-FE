@@ -7,7 +7,6 @@ import { getQuestionUtil } from 'gooru-web/config/question';
  * @see reports/assessment/questions/gru-multiple-choice.js
  */
 export default Ember.Mixin.create({
-
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -37,9 +36,9 @@ export default Ember.Mixin.create({
    * Returns the question util for the question
    * @param question
    */
-  getQuestionUtil: function(question){
-    return getQuestionUtil(question.get("questionType")).create({ question: question });
+  getQuestionUtil: function(question) {
+    return getQuestionUtil(question.get('questionType')).create({
+      question: question
+    });
   }
-
-
 });

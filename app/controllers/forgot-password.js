@@ -2,13 +2,12 @@ import Ember from 'ember';
 import User from 'gooru-web/models/forgot-password';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @property {Service} Session service
    */
-  profileService: Ember.inject.service("api-sdk/profile"),
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   /**
    * @property {Service} Notifications service
@@ -26,34 +25,42 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-
     resetPassword: function() {
       const controller = this;
       const user = controller.get('user');
-      const errorMessage = controller.get('i18n').t('forgot-password.error-email-not-exists').string;
+      const errorMessage = controller
+        .get('i18n')
+        .t('forgot-password.error-email-not-exists').string;
 
-      if(controller.get('didValidate') === false) {
+      if (controller.get('didValidate') === false) {
         var email = Ember.$('.gru-input.email input').val();
-        user.set('email',email);
+        user.set('email', email);
       }
 
-      user.validate().then(function ({ validations }) {
-        if (validations.get('isValid')) {
-          controller.get("profileService")
-            .forgotPassword(user.get('email'))
-            .then(function() {
-              controller.set('didValidate', true);
-              controller.set('showSecondStep', true);
-            }, function(error) {
-              controller.set('emailError', error.email_id || errorMessage);
-              controller.keydownEvents();
-            });
+      user.validate().then(
+        function({ validations }) {
+          if (validations.get('isValid')) {
+            controller
+              .get('profileService')
+              .forgotPassword(user.get('email'))
+              .then(
+                function() {
+                  controller.set('didValidate', true);
+                  controller.set('showSecondStep', true);
+                },
+                function(error) {
+                  controller.set('emailError', error.email_id || errorMessage);
+                  controller.keydownEvents();
+                }
+              );
+          }
+        },
+        function(error) {
+          // This error handler was added because PhantomJS is not handling the validation as Chrome does
+          controller.set('emailError', error.email_id || errorMessage);
+          controller.keydownEvents();
         }
-      }, function(error) {
-        // This error handler was added because PhantomJS is not handling the validation as Chrome does
-        controller.set('emailError', error.email_id || errorMessage);
-        controller.keydownEvents();
-      });
+      );
     }
   },
 
@@ -64,12 +71,14 @@ export default Ember.Controller.extend({
    * init and reset all the properties for the validations
    */
 
-  resetProperties(){
+  resetProperties() {
     var controller = this;
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {email: null});
+    var user = User.create(Ember.getOwner(this).ownerInjection(), {
+      email: null
+    });
 
     controller.set('user', user);
-    controller.set("showSecondStep", false);
+    controller.set('showSecondStep', false);
     controller.set('didValidate', false);
     controller.set('emailError', false);
   },
@@ -109,9 +118,12 @@ export default Ember.Controller.extend({
    */
   showSecondStep: false,
 
-  isGoogleAccountError: Ember.computed("user.validations.attrs.email.isValid", function(){
-    const valid = this.get("user.validations.attrs.email.isValid");
-    const message = this.get("user.validations.attrs.email.error.message");
-    return !valid && message && message.indexOf("Google") >= 0;
-  })
+  isGoogleAccountError: Ember.computed(
+    'user.validations.attrs.email.isValid',
+    function() {
+      const valid = this.get('user.validations.attrs.email.isValid');
+      const message = this.get('user.validations.attrs.email.error.message');
+      return !valid && message && message.indexOf('Google') >= 0;
+    }
+  )
 });

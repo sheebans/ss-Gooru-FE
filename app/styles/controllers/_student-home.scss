@@ -2,7 +2,7 @@
   .container-fluid {
     .student-landing {
       padding-top: 30px;
-      >* {
+      > * {
         margin: 0 auto;
         width: 97%;
 
@@ -14,7 +14,7 @@
         }
       }
       .title {
-        >* {
+        > * {
           display: inline-block;
         }
       }
@@ -22,7 +22,7 @@
   }
   .student-landing {
     .student-left-panel {
-      float:left;
+      float: left;
       .greetings {
         span {
           color: $gray-base;

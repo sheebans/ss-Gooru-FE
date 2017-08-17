@@ -4,16 +4,16 @@ import Ember from 'ember';
  * @typedef {Object} ScrollableMixin
  */
 export default Ember.Mixin.create({
-
   bindScrolling: function(opts) {
     opts = opts || { delay: 100 };
 
     const onScroll = function() {
-      const bottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
-      if (bottom && opts.onScrollToBottom){
+      const bottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight;
+      if (bottom && opts.onScrollToBottom) {
         opts.onScrollToBottom();
       }
-      if (opts.onScroll){
+      if (opts.onScroll) {
         opts.onScroll();
       }
     };
@@ -26,5 +26,4 @@ export default Ember.Mixin.create({
     $(window).unbind('scroll');
     $(document).unbind('touchmove');
   }
-
 });

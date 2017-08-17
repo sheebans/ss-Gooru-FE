@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} Bookmark
  */
 export default Ember.Object.extend({
-
   /**
    * @property {String} id - The bookmark id
    */
@@ -26,5 +25,4 @@ export default Ember.Object.extend({
    * @property {String} content type
    */
   contentType: null
-
 });

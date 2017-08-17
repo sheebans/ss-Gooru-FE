@@ -6,7 +6,6 @@ import Ember from 'ember';
  *
  */
 export default Ember.Object.extend({
-
   /**
    * @property {string}
    */
@@ -20,6 +19,5 @@ export default Ember.Object.extend({
   /**
    * @property {*} theme settings
    */
-  theme: Ember.computed.alias("settings.theme")
-
+  theme: Ember.computed.alias('settings.theme')
 });

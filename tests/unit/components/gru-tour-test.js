@@ -4,17 +4,20 @@ moduleForComponent('gru-tour', 'Unit | Component | gru-tour', {
   integration: false
 });
 
-
 test('generateTemplate', function(assert) {
   const component = this.subject();
   const title = 'some-title';
   const description = 'some-description';
   const image = 'some-image-class';
   const containerClass = 'test-class';
-  const result = component.constructModal(title, description, image, containerClass);
+  const result = component.constructModal(
+    title,
+    description,
+    image,
+    containerClass
+  );
 
-  let template =
-  `<div class="tour-header test-class">
+  let template = `<div class="tour-header test-class">
         <h2>some-title</h2>
         <i class="material-icons exit-button">clear</i>
       </div>

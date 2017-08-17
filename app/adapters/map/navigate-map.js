@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} NavigateMapAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service(),
 
   namespace: '/api/navigate-map/v1',
@@ -17,18 +16,18 @@ export default Ember.Object.extend({
    * @param {*} userId
    * @returns {Promise|Object}
    */
-  next: function (context) {
+  next: function(context) {
     const namespace = this.get('namespace');
     const url = `${namespace}/next`;
     const options = {
-      type: "POST",
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
       headers: this.defineHeaders(),
       data: JSON.stringify(context)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax(url, options).then(resolve, reject);
     });
   },
@@ -40,12 +39,12 @@ export default Ember.Object.extend({
    * @param {string} classId
    * @returns {Promise|Object}
    */
-  getCurrentMapContext: function (courseId, classId = undefined) {
+  getCurrentMapContext: function(courseId, classId = undefined) {
     const namespace = this.get('namespace');
     const url = `${namespace}/context`;
     const options = {
-      type: "GET",
-      contentType: "application/json; charset=utf-8",
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
       headers: this.defineHeaders(),
       data: {
         course_id: courseId,
@@ -53,15 +52,14 @@ export default Ember.Object.extend({
       }
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax(url, options).then(resolve, reject);
     });
   },
 
-  defineHeaders: function () {
+  defineHeaders: function() {
     return {
-      'Authorization': `Token ${this.get('session.token-api3')}`
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

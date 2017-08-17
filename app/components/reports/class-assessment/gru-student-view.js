@@ -2,18 +2,17 @@ import Ember from 'ember';
 import { correctPercentage } from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['reports', 'class-assessment', 'gru-student-view'],
 
-  actions:{
+  actions: {
     /**
      * @function actions:selectQuestion
      * @param {Number} questionId
      */
-    selectQuestion: function (questionId) {
+    selectQuestion: function(questionId) {
       this.get('onSelectQuestion')(questionId);
     },
 
@@ -21,23 +20,25 @@ export default Ember.Component.extend({
      * When clicking at the student header
      * @param {string} studentId
      */
-    selectStudent: function(studentId){
-      this.get("onSelectStudent")(studentId);
+    selectStudent: function(studentId) {
+      this.get('onSelectStudent')(studentId);
     },
     /**
      * Sort students view
      * @function actions:sort
      */
-    sortStudentView:function(sort) {
+    sortStudentView: function(sort) {
       this.set('sortAlphabetically', sort);
-      if(this.get('sortAlphabetically')){
-        this.set('studentPerformanceListSorting',['student.fullName']);
-      }else{
-        this.set('studentPerformanceListSorting',['score:desc','student.fullName']);
+      if (this.get('sortAlphabetically')) {
+        this.set('studentPerformanceListSorting', ['student.fullName']);
+      } else {
+        this.set('studentPerformanceListSorting', [
+          'score:desc',
+          'student.fullName'
+        ]);
       }
     }
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -90,20 +91,26 @@ export default Ember.Component.extend({
    *
    * @return [] students performance info
    */
-  studentPerformanceList: Ember.computed("students.[]", "reportData.data", function(){
-    const component = this;
-    const students = component.get("students");
-    const reportData = component.get("reportData.data");
-    return students.map(function(student){
-      let studentReportData = reportData[student.get("id")] || {};
-      let studentResourceResults = component.getReportDataResults(studentReportData);
-      return Ember.Object.create({
-        student: student,
-        reportData: studentResourceResults,
-        score: correctPercentage(studentResourceResults)
+  studentPerformanceList: Ember.computed(
+    'students.[]',
+    'reportData.data',
+    function() {
+      const component = this;
+      const students = component.get('students');
+      const reportData = component.get('reportData.data');
+      return students.map(function(student) {
+        let studentReportData = reportData[student.get('id')] || {};
+        let studentResourceResults = component.getReportDataResults(
+          studentReportData
+        );
+        return Ember.Object.create({
+          student: student,
+          reportData: studentResourceResults,
+          score: correctPercentage(studentResourceResults)
+        });
       });
-    });
-  }),
+    }
+  ),
 
   /**
    * Indicate if the table is to be sorted alphabetically using the students full name, if not, sort by average of score.
@@ -117,13 +124,16 @@ export default Ember.Component.extend({
    *
    * @property {Array}
    */
-  studentPerformanceListSorting: ['score:desc','student.fullName'],
+  studentPerformanceListSorting: ['score:desc', 'student.fullName'],
   /**
    * Property containing t he sorted list
    *
    * @property {Ember.computed}
    */
-  sortedStudentPerformance: Ember.computed.sort('studentPerformanceList', 'studentPerformanceListSorting'),
+  sortedStudentPerformance: Ember.computed.sort(
+    'studentPerformanceList',
+    'studentPerformanceListSorting'
+  ),
   // -------------------------------------------------------------------------
   // Methods
 
@@ -142,13 +152,12 @@ export default Ember.Component.extend({
    * @param {Object} studentReportData
    * @returns {QuestionResult[]}
    */
-  getReportDataResults: function(studentReportData){
+  getReportDataResults: function(studentReportData) {
     const component = this;
-    const questions = component.get("assessment.resources");
+    const questions = component.get('assessment.resources');
 
-    return questions.map(function(question){
-      return studentReportData[question.get("id")];
+    return questions.map(function(question) {
+      return studentReportData[question.get('id')];
     });
   }
-
 });

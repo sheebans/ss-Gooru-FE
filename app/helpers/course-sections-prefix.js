@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import { courseSectionsPrefix } from 'gooru-web/utils/utils';
 
-/**Show the Unit, Lesson, Assessment and Collection label correctly,
- *  this is showing the letter and number prior the name.
+/**
+ * Show the Unit, Lesson, Assessment and Collection label correctly,
+ * this is showing the letter and number prior the name.
  *
  * @example
  *
@@ -17,9 +18,8 @@ import { courseSectionsPrefix } from 'gooru-web/utils/utils';
 export default Ember.Helper.extend({
   i18n: Ember.inject.service('i18n'),
 
-  compute(params,{index, type,longName}) {
+  compute(params, { index, type, longName }) {
     let i18n = this.get('i18n');
-    return courseSectionsPrefix(index,type,i18n,longName);
+    return courseSectionsPrefix(index, type, i18n, longName);
   }
-
 });

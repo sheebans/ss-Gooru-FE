@@ -13,7 +13,6 @@ import { NETWORK_TYPE } from 'gooru-web/config/config';
  * @typedef {Object} ProfileService
  */
 export default Ember.Service.extend({
-
   session: Ember.inject.service(),
 
   store: Ember.inject.service(),
@@ -28,15 +27,32 @@ export default Ember.Service.extend({
 
   i18n: Ember.inject.service(),
 
-
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('profileSerializer', ProfileSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('courseSerializer', CourseSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('authenticationSerializer', AuthenticationSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('profileCoursesAdapter', ProfileCoursesAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('availabilityAdapter', AvailabilityAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'profileSerializer',
+      ProfileSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'courseSerializer',
+      CourseSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'authenticationSerializer',
+      AuthenticationSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'profileAdapter',
+      ProfileAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'profileCoursesAdapter',
+      ProfileCoursesAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'availabilityAdapter',
+      AvailabilityAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -49,14 +65,30 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       profileData.set('tenantId', service.get('session.tenantId'));
-      let serializedProfileData = service.get('profileSerializer').serializeCreateProfile(profileData);
-      service.get('profileAdapter').createProfile({
-        body: serializedProfileData
-      }).then(function(response) {
-        resolve(service.get('authenticationSerializer').normalizeResponse(response, false, undefined));
-      }, function(error) {
-        reject(error && error.responseText ? JSON.parse(error.responseText) : error);
-      });
+      let serializedProfileData = service
+        .get('profileSerializer')
+        .serializeCreateProfile(profileData);
+      service
+        .get('profileAdapter')
+        .createProfile({
+          body: serializedProfileData
+        })
+        .then(
+          function(response) {
+            resolve(
+              service
+                .get('authenticationSerializer')
+                .normalizeResponse(response, false, undefined)
+            );
+          },
+          function(error) {
+            reject(
+              error && error.responseText
+                ? JSON.parse(error.responseText)
+                : error
+            );
+          }
+        );
     });
   },
 
@@ -69,14 +101,26 @@ export default Ember.Service.extend({
   updateMyProfile: function(profile) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedProfile = service.get('profileSerializer').serializeUpdateProfile(profile);
-      service.get('profileAdapter').updateMyProfile({
-        body: serializedProfile
-      }).then(function() {
-        resolve();
-      }, function(error) {
-        reject(error && error.responseText ? JSON.parse(error.responseText) : error);
-      });
+      let serializedProfile = service
+        .get('profileSerializer')
+        .serializeUpdateProfile(profile);
+      service
+        .get('profileAdapter')
+        .updateMyProfile({
+          body: serializedProfile
+        })
+        .then(
+          function() {
+            resolve();
+          },
+          function(error) {
+            reject(
+              error && error.responseText
+                ? JSON.parse(error.responseText)
+                : error
+            );
+          }
+        );
     });
   },
 
@@ -89,8 +133,8 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.readMultipleProfiles([userId]).then(function(profiles) {
-          resolve(profiles.length ? profiles[0] : undefined);
-        }, reject);
+        resolve(profiles.length ? profiles[0] : undefined);
+      }, reject);
     });
   },
 
@@ -102,12 +146,16 @@ export default Ember.Service.extend({
   readUserProfileByUsername: function(username) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readUserProfileByUsername(username)
-        .then(function(response) {
-          resolve(service.get('profileSerializer').normalizeReadProfile(response));
-        }, function(error) {
+      service.get('profileAdapter').readUserProfileByUsername(username).then(
+        function(response) {
+          resolve(
+            service.get('profileSerializer').normalizeReadProfile(response)
+          );
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -119,12 +167,14 @@ export default Ember.Service.extend({
   followUserProfile: function(userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').followUserProfile(userId)
-        .then(function() {
+      service.get('profileAdapter').followUserProfile(userId).then(
+        function() {
           resolve();
-        }, function(error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -136,12 +186,14 @@ export default Ember.Service.extend({
   unfollowUserProfile: function(userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').unfollowUserProfile(userId)
-        .then(function() {
+      service.get('profileAdapter').unfollowUserProfile(userId).then(
+        function() {
           resolve();
-        }, function(error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -154,17 +206,22 @@ export default Ember.Service.extend({
     const service = this;
     const i18n = service.get('i18n');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('availabilityAdapter').verifyUsername(username)
-        .then(function() {
-          reject(i18n.t("sign-up.error-username-taken").string);
-        }, function(error) {
-           if(error.status===404 || error.status===500 || error.status===200){
+      service.get('availabilityAdapter').verifyUsername(username).then(
+        function() {
+          reject(i18n.t('sign-up.error-username-taken').string);
+        },
+        function(error) {
+          if (
+            error.status === 404 ||
+            error.status === 500 ||
+            error.status === 200
+          ) {
             resolve();
-          }
-          else {
+          } else {
             reject(error);
           }
-        });
+        }
+      );
     });
   },
 
@@ -177,18 +234,22 @@ export default Ember.Service.extend({
     const service = this;
     const i18n = service.get('i18n');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('availabilityAdapter').verifyEmail(email)
-        .then(function() {
-          reject(i18n.t("sign-up.error-email-taken").string);
-        }, function(error) {
-
-          if(error.status===404 || error.status===500 || error.status===200){
+      service.get('availabilityAdapter').verifyEmail(email).then(
+        function() {
+          reject(i18n.t('sign-up.error-email-taken').string);
+        },
+        function(error) {
+          if (
+            error.status === 404 ||
+            error.status === 500 ||
+            error.status === 200
+          ) {
             resolve();
-          }
-          else {
+          } else {
             reject(error);
           }
-        });
+        }
+      );
     });
   },
 
@@ -201,12 +262,14 @@ export default Ember.Service.extend({
     const service = this;
     const i18n = service.get('i18n');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('availabilityAdapter').verifyEmail(email)
-        .then(function() {
+      service.get('availabilityAdapter').verifyEmail(email).then(
+        function() {
           resolve();
-        }, function() {
-          reject(i18n.t("forgot-password.error-email-not-exists").string);
-        });
+        },
+        function() {
+          reject(i18n.t('forgot-password.error-email-not-exists').string);
+        }
+      );
     });
   },
 
@@ -219,22 +282,22 @@ export default Ember.Service.extend({
     const service = this;
     const i18n = service.get('i18n');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('availabilityAdapter').verifyEmail(email)
-        .then(function(user) {
-          if(user.login_type === "google") {
-            reject(i18n.t("common.errors.reset-google-account-exists").string);
+      service.get('availabilityAdapter').verifyEmail(email).then(
+        function(user) {
+          if (user.login_type === 'google') {
+            reject(i18n.t('common.errors.reset-google-account-exists').string);
           } else {
             resolve();
           }
-        }, function(error) {
-
-          if(error.status===404 || error.status===200){
+        },
+        function(error) {
+          if (error.status === 404 || error.status === 200) {
             resolve();
-          }
-          else {
+          } else {
             reject(error);
           }
-        });
+        }
+      );
     });
   },
 
@@ -247,21 +310,24 @@ export default Ember.Service.extend({
     const service = this;
     const i18n = service.get('i18n');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('availabilityAdapter').verifyUsername(username)
-        .then(function(user) {
-          if(user.login_type === "google") {
-            reject(i18n.t("common.errors.sign-in-google-account-exists").string);
+      service.get('availabilityAdapter').verifyUsername(username).then(
+        function(user) {
+          if (user.login_type === 'google') {
+            reject(
+              i18n.t('common.errors.sign-in-google-account-exists').string
+            );
           } else {
             resolve();
           }
-        }, function(error) {
-          if(error.status===404 || error.status===200){
+        },
+        function(error) {
+          if (error.status === 404 || error.status === 200) {
             resolve();
-          }
-          else {
+          } else {
             reject(error);
           }
-        });
+        }
+      );
     });
   },
 
@@ -275,12 +341,19 @@ export default Ember.Service.extend({
   getCourses: function(profile, subject, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileCoursesAdapter').getCourses(profile.get('id'), subject, params)
-        .then(function(response) {
-          resolve(service.get('courseSerializer').normalizeGetCourses(response));
-        }, function(error) {
-          reject(error);
-        });
+      service
+        .get('profileCoursesAdapter')
+        .getCourses(profile.get('id'), subject, params)
+        .then(
+          function(response) {
+            resolve(
+              service.get('courseSerializer').normalizeGetCourses(response)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -305,12 +378,14 @@ export default Ember.Service.extend({
   readResources: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readResources(userId, params).then(
-        function(response) {
-          resolve(service.get('profileSerializer').normalizeReadResources(response));
-        },
-        reject
-      );
+      service
+        .get('profileAdapter')
+        .readResources(userId, params)
+        .then(function(response) {
+          resolve(
+            service.get('profileSerializer').normalizeReadResources(response)
+          );
+        }, reject);
     });
   },
 
@@ -323,12 +398,14 @@ export default Ember.Service.extend({
   readQuestions: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readQuestions(userId, params).then(
-        function(response) {
-          resolve(service.get('profileSerializer').normalizeReadQuestions(response));
-        },
-        reject
-      );
+      service
+        .get('profileAdapter')
+        .readQuestions(userId, params)
+        .then(function(response) {
+          resolve(
+            service.get('profileSerializer').normalizeReadQuestions(response)
+          );
+        }, reject);
     });
   },
 
@@ -341,12 +418,14 @@ export default Ember.Service.extend({
   readCollections: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readCollections(userId, params).then(
-        function(response) {
-          resolve(service.get('profileSerializer').normalizeReadCollections(response));
-        },
-        reject
-      );
+      service
+        .get('profileAdapter')
+        .readCollections(userId, params)
+        .then(function(response) {
+          resolve(
+            service.get('profileSerializer').normalizeReadCollections(response)
+          );
+        }, reject);
     });
   },
 
@@ -359,12 +438,14 @@ export default Ember.Service.extend({
   readAssessments: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readAssessments(userId, params).then(
-        function(response) {
-          resolve(service.get('profileSerializer').normalizeReadAssessments(response));
-        },
-        reject
-      );
+      service
+        .get('profileAdapter')
+        .readAssessments(userId, params)
+        .then(function(response) {
+          resolve(
+            service.get('profileSerializer').normalizeReadAssessments(response)
+          );
+        }, reject);
     });
   },
   /**
@@ -376,12 +457,14 @@ export default Ember.Service.extend({
   readRubrics: function(userId, params) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readRubrics(userId, params).then(
-        function(response) {
-          resolve(service.get('profileSerializer').normalizeReadRubrics(response));
-        },
-        reject
-      );
+      service
+        .get('profileAdapter')
+        .readRubrics(userId, params)
+        .then(function(response) {
+          resolve(
+            service.get('profileSerializer').normalizeReadRubrics(response)
+          );
+        }, reject);
     });
   },
 
@@ -393,12 +476,16 @@ export default Ember.Service.extend({
   forgotPassword: function(email) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').forgotPassword(email)
-        .then(function() {
+      service.get('profileAdapter').forgotPassword(email).then(
+        function() {
           resolve();
-        }, function(error) {
-          reject(error && error.responseText ? JSON.parse(error.responseText) : error);
-        });
+        },
+        function(error) {
+          reject(
+            error && error.responseText ? JSON.parse(error.responseText) : error
+          );
+        }
+      );
     });
   },
 
@@ -411,11 +498,14 @@ export default Ember.Service.extend({
   resetPassword: function(password, token) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').resetPassword(password, token).then(function() {
-        resolve(token);
-      }, function(error) {
-        reject(error);
-      });
+      service.get('profileAdapter').resetPassword(password, token).then(
+        function() {
+          resolve(token);
+        },
+        function(error) {
+          reject(error);
+        }
+      );
     });
   },
 
@@ -427,12 +517,21 @@ export default Ember.Service.extend({
   readFollowing: function(userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readNetwork(userId, NETWORK_TYPE.FOLLOWING)
-        .then(function(response) {
-          resolve(service.get('profileSerializer').normalizeReadNetwork(response, NETWORK_TYPE.FOLLOWING));
-        }, function(error) {
-          reject(error);
-        });
+      service
+        .get('profileAdapter')
+        .readNetwork(userId, NETWORK_TYPE.FOLLOWING)
+        .then(
+          function(response) {
+            resolve(
+              service
+                .get('profileSerializer')
+                .normalizeReadNetwork(response, NETWORK_TYPE.FOLLOWING)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -444,38 +543,54 @@ export default Ember.Service.extend({
   readFollowers: function(userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('profileAdapter').readNetwork(userId, NETWORK_TYPE.FOLLOWERS)
-        .then(function(response) {
-          resolve(service.get('profileSerializer').normalizeReadNetwork(response, NETWORK_TYPE.FOLLOWERS));
-        }, function(error) {
-          reject(error);
-        });
+      service
+        .get('profileAdapter')
+        .readNetwork(userId, NETWORK_TYPE.FOLLOWERS)
+        .then(
+          function(response) {
+            resolve(
+              service
+                .get('profileSerializer')
+                .normalizeReadNetwork(response, NETWORK_TYPE.FOLLOWERS)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
   readMultipleProfiles: function(profileIds, max = 30) {
     const service = this;
-    var chunk=(profileIds.length > max) ? max : profileIds.length ;
+    var chunk = profileIds.length > max ? max : profileIds.length;
     const promises = [];
     var usersProfile = Ember.A([]);
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-
-      for (let i=0, j=profileIds.length; i<j; i+=chunk) {
-        let temparray = profileIds.slice(i,i+chunk);
-        const promise = service.get('profileAdapter').readMultipleProfiles(temparray);
+      for (let i = 0, j = profileIds.length; i < j; i += chunk) {
+        let temparray = profileIds.slice(i, i + chunk);
+        const promise = service
+          .get('profileAdapter')
+          .readMultipleProfiles(temparray);
         promises.push(promise);
       }
-      Ember.RSVP.all(promises).then(function(values) {
-        values.forEach(function(value) {
-          usersProfile.addObjects(service.get('profileSerializer').normalizeReadMultipleProfiles(value));
-        });
+      Ember.RSVP.all(promises).then(
+        function(values) {
+          values.forEach(function(value) {
+            usersProfile.addObjects(
+              service
+                .get('profileSerializer')
+                .normalizeReadMultipleProfiles(value)
+            );
+          });
 
-        resolve(usersProfile);
-
-      }, function(error) {
+          resolve(usersProfile);
+        },
+        function(error) {
           reject(error);
-      });
+        }
+      );
     });
   },
 
@@ -486,6 +601,4 @@ export default Ember.Service.extend({
   newUser: function() {
     return this.get('store').createRecord('user/user');
   }
-
-
 });

@@ -11,16 +11,20 @@ import SuggestContext from 'gooru-web/models/suggest/suggest-context';
  * @typedef {Object} SuggestService
  */
 export default Ember.Service.extend({
-
   suggestSerializer: null,
 
   suggestAdapter: null,
 
-
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('suggestAdapter', SuggestAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('suggestSerializer', SuggestSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'suggestAdapter',
+      SuggestAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'suggestSerializer',
+      SuggestSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -34,9 +38,17 @@ export default Ember.Service.extend({
    * @param {number} timeSpent
    * @returns {Promise.<Resource[]>}
    */
-  suggestResourcesForCollectionInCourse: function (userId, courseId, unitId, lessonId, collectionId, score = undefined, timeSpent = undefined) {
+  suggestResourcesForCollectionInCourse: function(
+    userId,
+    courseId,
+    unitId,
+    lessonId,
+    collectionId,
+    score = undefined,
+    timeSpent = undefined
+  ) {
     const service = this;
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       const context = SuggestContext.create({
         collectionId: collectionId,
         userId: userId,
@@ -46,8 +58,13 @@ export default Ember.Service.extend({
         score: score,
         timeSpent: timeSpent
       });
-      service.get('suggestAdapter').suggestResourcesForCollection(context).then(function (response) {
-          resolve(service.get('suggestSerializer').normalizeSuggestResources(response));
+      service
+        .get('suggestAdapter')
+        .suggestResourcesForCollection(context)
+        .then(function(response) {
+          resolve(
+            service.get('suggestSerializer').normalizeSuggestResources(response)
+          );
         }, reject);
     });
   },
@@ -60,17 +77,27 @@ export default Ember.Service.extend({
    * @param {number} timeSpent
    * @returns {Promise.<Resource[]>}
    */
-  suggestResourcesForCollection: function (userId, collectionId, score = undefined, timeSpent = undefined) {
+  suggestResourcesForCollection: function(
+    userId,
+    collectionId,
+    score = undefined,
+    timeSpent = undefined
+  ) {
     const service = this;
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       const context = SuggestContext.create({
         collectionId: collectionId,
         userId: userId,
         score: score,
         timeSpent: timeSpent
       });
-      service.get('suggestAdapter').suggestResourcesForCollection(context).then(function (response) {
-          resolve(service.get('suggestSerializer').normalizeSuggestResources(response));
+      service
+        .get('suggestAdapter')
+        .suggestResourcesForCollection(context)
+        .then(function(response) {
+          resolve(
+            service.get('suggestSerializer').normalizeSuggestResources(response)
+          );
         }, reject);
     });
   },
@@ -85,9 +112,16 @@ export default Ember.Service.extend({
    * @param {string} resourceId
    * @returns {Promise.<Resource[]>}
    */
-  suggestResourcesForResourceInCourse: function (userId, courseId, unitId, lessonId, collectionId, resourceId) {
+  suggestResourcesForResourceInCourse: function(
+    userId,
+    courseId,
+    unitId,
+    lessonId,
+    collectionId,
+    resourceId
+  ) {
     const service = this;
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       const context = SuggestContext.create({
         containerId: collectionId,
         userId: userId,
@@ -95,8 +129,13 @@ export default Ember.Service.extend({
         unitId: unitId,
         lessonId: lessonId
       });
-      service.get('suggestAdapter').suggestResourcesForResource(resourceId, context).then(function (response) {
-          resolve(service.get('suggestSerializer').normalizeSuggestResources(response));
+      service
+        .get('suggestAdapter')
+        .suggestResourcesForResource(resourceId, context)
+        .then(function(response) {
+          resolve(
+            service.get('suggestSerializer').normalizeSuggestResources(response)
+          );
         }, reject);
     });
   },
@@ -107,16 +146,20 @@ export default Ember.Service.extend({
    * @param {string} resourceId
    * @returns {Promise.<Resource[]>}
    */
-  suggestResourcesForResource: function (userId, resourceId) {
+  suggestResourcesForResource: function(userId, resourceId) {
     const service = this;
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
       const context = SuggestContext.create({
         userId: userId
       });
-      service.get('suggestAdapter').suggestResourcesForResource(resourceId, context).then(function (response) {
-          resolve(service.get('suggestSerializer').normalizeSuggestResources(response));
+      service
+        .get('suggestAdapter')
+        .suggestResourcesForResource(resourceId, context)
+        .then(function(response) {
+          resolve(
+            service.get('suggestSerializer').normalizeSuggestResources(response)
+          );
         }, reject);
     });
   }
-
 });

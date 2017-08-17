@@ -2,12 +2,10 @@ import Ember from 'ember';
 import ResourceSerializer from 'gooru-web/serializers/content/resource';
 import ResourceAdapter from 'gooru-web/adapters/content/resource';
 
-
 /**
  * @typedef {Object} ResourceService
  */
 export default Ember.Service.extend({
-
   /**
    * @property {ResourceSerializer} resourceSerializer
    */
@@ -28,12 +26,17 @@ export default Ember.Service.extend({
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('resourceSerializer', ResourceSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('resourceAdapter', ResourceAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'resourceSerializer',
+      ResourceSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'resourceAdapter',
+      ResourceAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
-
 
   /**
    * Creates a new resource
@@ -44,25 +47,34 @@ export default Ember.Service.extend({
   createResource: function(resourceData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedClassData = service.get('resourceSerializer').serializeCreateResource(resourceData);
-      service.get('resourceAdapter').createResource({
-        body: serializedClassData
-      }).then(function(responseData, textStatus, request) {
-        let resourceId = request.getResponseHeader('location');
-        resourceData.set('id', resourceId);
-        resolve(resourceData);
-      }, function(error) {
-        if (error.status === 400){ //when the resource already exists
-          let data = JSON.parse(error.responseText);
-          let alreadyExists = data && data.duplicate_ids && data.duplicate_ids.length;
-          if (alreadyExists){
-            reject({ status: 400, resourceId: data.duplicate_ids[0] });
+      let serializedClassData = service
+        .get('resourceSerializer')
+        .serializeCreateResource(resourceData);
+      service
+        .get('resourceAdapter')
+        .createResource({
+          body: serializedClassData
+        })
+        .then(
+          function(responseData, textStatus, request) {
+            let resourceId = request.getResponseHeader('location');
+            resourceData.set('id', resourceId);
+            resolve(resourceData);
+          },
+          function(error) {
+            if (error.status === 400) {
+              //when the resource already exists
+              let data = JSON.parse(error.responseText);
+              let alreadyExists =
+                data && data.duplicate_ids && data.duplicate_ids.length;
+              if (alreadyExists) {
+                reject({ status: 400, resourceId: data.duplicate_ids[0] });
+              }
+            } else {
+              reject(error);
+            }
           }
-        }
-        else{
-          reject(error);
-        }
-      });
+        );
     });
   },
 
@@ -75,10 +87,12 @@ export default Ember.Service.extend({
     const service = this;
     const serializer = service.get('resourceSerializer');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('resourceAdapter').readResource(resourceId)
+      service
+        .get('resourceAdapter')
+        .readResource(resourceId)
         .then(function(responseData /*, textStatus, request */) {
-        resolve(serializer.normalizeReadResource(responseData));
-      }, reject );
+          resolve(serializer.normalizeReadResource(responseData));
+        }, reject);
     });
   },
 
@@ -92,12 +106,17 @@ export default Ember.Service.extend({
    */
   updateResource: function(resourceId, resourceModel, collection = null) {
     const service = this;
-    let serializedData = service.get('resourceSerializer').serializeUpdateResource(resourceModel);
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      service.get('resourceAdapter').updateResource(resourceId, serializedData).then(function() {
-        service.notifyQuizzesCollectionChange(collection);
-        resolve();
-      }, reject);
+    let serializedData = service
+      .get('resourceSerializer')
+      .serializeUpdateResource(resourceModel);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('resourceAdapter')
+        .updateResource(resourceId, serializedData)
+        .then(function() {
+          service.notifyQuizzesCollectionChange(collection);
+          resolve();
+        }, reject);
     });
   },
 
@@ -111,12 +130,17 @@ export default Ember.Service.extend({
    */
   updateResourceTitle: function(resourceId, title, collection = null) {
     const service = this;
-    let serializedData = service.get('resourceSerializer').serializeUpdateResourceTitle(title);
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      service.get('resourceAdapter').updateResource(resourceId, serializedData).then(function() {
-        service.notifyQuizzesCollectionChange(collection);
-        resolve();
-      }, reject);
+    let serializedData = service
+      .get('resourceSerializer')
+      .serializeUpdateResourceTitle(title);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('resourceAdapter')
+        .updateResource(resourceId, serializedData)
+        .then(function() {
+          service.notifyQuizzesCollectionChange(collection);
+          resolve();
+        }, reject);
     });
   },
 
@@ -126,13 +150,15 @@ export default Ember.Service.extend({
    * @param {string} title
    * @returns {Ember.RSVP.Promise}
    */
-  copyResource: function(resourceId, title = null){
+  copyResource: function(resourceId, title = null) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('resourceAdapter').copyResource(resourceId, title)
+      service
+        .get('resourceAdapter')
+        .copyResource(resourceId, title)
         .then(function(responseData, textStatus, request) {
           resolve(request.getResponseHeader('location'));
-        }, reject );
+        }, reject);
     });
   },
 
@@ -143,10 +169,12 @@ export default Ember.Service.extend({
    * @param {content/Collection|content/Assessment} collection provided when the resource belongs to a collection
    * @returns {Ember.RSVP.Promise}
    */
-  deleteResource: function (resourceId, collection = null) {
+  deleteResource: function(resourceId, collection = null) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('resourceAdapter').deleteResource(resourceId)
+      service
+        .get('resourceAdapter')
+        .deleteResource(resourceId)
         .then(function() {
           service.notifyQuizzesCollectionChange(collection);
           resolve();
@@ -158,14 +186,17 @@ export default Ember.Service.extend({
    * Notifies a change at quizzes for the provided collection
    * @param {content/Collection|content/Assessment} collection
    */
-  notifyQuizzesCollectionChange: function(collection){
+  notifyQuizzesCollectionChange: function(collection) {
     if (collection) {
       const collectionId = collection.get('id');
-      return (collection.get("isAssessment")) ?
-          this.get("assessmentService").notifyQuizzesAssessmentChange(collectionId) :
-          this.get("collectionService").notifyQuizzesCollectionChange(collectionId);
+      return collection.get('isAssessment')
+        ? this.get('assessmentService').notifyQuizzesAssessmentChange(
+          collectionId
+        )
+        : this.get('collectionService').notifyQuizzesCollectionChange(
+          collectionId
+        );
     }
     return Ember.RSVP.resolve(false);
   }
-
 });

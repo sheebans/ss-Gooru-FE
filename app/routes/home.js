@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ClassesModel from 'gooru-web/models/content/classes';
 
 /**
@@ -9,14 +9,13 @@ import ClassesModel from 'gooru-web/models/content/classes';
  * @augments Ember.Route
  */
 export default Ember.Route.extend(PrivateRouteMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   /**
    * @type {ClassService} Service to retrieve user information
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   /**
    * @type {ProfileService} Service to retrieve profile information
@@ -26,8 +25,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @type {SessionService} Service to retrieve session information
    */
-  session: Ember.inject.service("session"),
-
+  session: Ember.inject.service('session'),
 
   /**
    * @type {I18nService} Service to retrieve translations information
@@ -35,8 +33,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   i18n: Ember.inject.service(),
   // -------------------------------------------------------------------------
   // Actions
-
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -46,9 +42,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model: function() {
     let route = this;
-    const myId = route.get("session.userId");
+    const myId = route.get('session.userId');
     let profilePromise = route.get('profileService').readUserProfile(myId);
-    const classesStatus = this.get("classService").getReportClassesStatusFromStore(myId);
+    const classesStatus = this.get(
+      'classService'
+    ).getReportClassesStatusFromStore(myId);
 
     const tourSteps = Ember.A([
       {
@@ -78,35 +76,40 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       }
     ]);
 
-    return profilePromise.then(function(profile){
+    return profilePromise.then(function(profile) {
       return Ember.RSVP.hash({
         applicationModel: route.modelFor('application'),
         applicationController: route.controllerFor('application'),
         classesStatus: classesStatus,
         profile: profile,
-        tourSteps:tourSteps
+        tourSteps: tourSteps
       });
     });
   },
 
-  afterModel: function(model){
-    const loadedClasses = model.applicationController.myClasses || model.applicationModel.myClasses;
-    const myClasses = loadedClasses || ClassesModel.create(Ember.getOwner(this).ownerInjection());
+  afterModel: function(model) {
+    const loadedClasses =
+      model.applicationController.myClasses || model.applicationModel.myClasses;
+    const myClasses =
+      loadedClasses ||
+      ClassesModel.create(Ember.getOwner(this).ownerInjection());
 
     const classes = myClasses.classes || Ember.A([]);
-    const archivedClasses = classes.filterBy("isArchived", true);
+    const archivedClasses = classes.filterBy('isArchived', true);
     const classesStatus = model.classesStatus;
-    const classService = this.get("classService");
+    const classService = this.get('classService');
     const promises = [];
 
-    archivedClasses.forEach(function(aClass){
-      aClass.set("reportStatus", classesStatus[aClass.get("id")]);
-      if (aClass.get("isReportInProgress")){ //checking if the report is ready for those classes having the report in progress
-        const promise = classService.readClassReportStatus(aClass.get("id"), aClass.get("courseId"))
-          .then(function(status){
-            aClass.set("reportStatus", status);
+    archivedClasses.forEach(function(aClass) {
+      aClass.set('reportStatus', classesStatus[aClass.get('id')]);
+      if (aClass.get('isReportInProgress')) {
+        //checking if the report is ready for those classes having the report in progress
+        const promise = classService
+          .readClassReportStatus(aClass.get('id'), aClass.get('courseId'))
+          .then(function(status) {
+            aClass.set('reportStatus', status);
             return status;
-        });
+          });
         promises.push(promise);
       }
     });
@@ -123,5 +126,4 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('profile', model.profile);
     controller.set('steps', model.tourSteps);
   }
-
 });

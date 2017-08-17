@@ -21,11 +21,14 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/questions');
 
-    const $contentCourseContainer = find(".controller.content-questions");
-    T.exists(assert, $contentCourseContainer, "Missing content questions container");
+    const $contentCourseContainer = find('.controller.content-questions');
+    T.exists(
+      assert,
+      $contentCourseContainer,
+      'Missing content questions container'
+    );
 
-    const cards = $contentCourseContainer.find(".questions .card");
-    assert.equal(cards.length, 5, "Missing cards");
-
+    const cards = $contentCourseContainer.find('.questions .card');
+    assert.equal(cards.length, 5, 'Missing cards');
   });
 });

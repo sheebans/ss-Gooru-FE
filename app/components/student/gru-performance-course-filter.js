@@ -8,11 +8,10 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-performance-course-filter'],
+  classNames: ['gru-performance-course-filter'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -20,24 +19,24 @@ export default Ember.Component.extend(ConfigurationMixin, {
     /**
      * Expand filter panel
      */
-    expandPanel: function (filterType) {
-      switch (filterType){
-        case 'course':
-          this.toggleProperty('isCourseFiltersExpanded');
-          break;
-        case 'lesson':
-          this.toggleProperty('isLessonFiltersExpanded');
-          break;
-        case 'unit':
-          this.toggleProperty('isUnitFiltersExpanded');
-          break;
+    expandPanel: function(filterType) {
+      switch (filterType) {
+      case 'course':
+        this.toggleProperty('isCourseFiltersExpanded');
+        break;
+      case 'lesson':
+        this.toggleProperty('isLessonFiltersExpanded');
+        break;
+      case 'unit':
+        this.toggleProperty('isUnitFiltersExpanded');
+        break;
       }
     },
     /**
      * Selects the lesson
      * @param lessonId
      */
-    selectLesson: function (lessonId) {
+    selectLesson: function(lessonId) {
       this.set('lessonId', lessonId);
       this.sendAction('onSelectLesson', lessonId);
     },
@@ -45,7 +44,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * Selects the unit
      * @param unitId
      */
-    selectUnit: function (unitId) {
+    selectUnit: function(unitId) {
       this.set('unitId', unitId);
       this.set('lessonId', null);
       this.sendAction('onSelectUnit', unitId);
@@ -54,7 +53,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
     /**
      * Loads report data
      */
-    updateReport: function () {
+    updateReport: function() {
       this.sendAction('onUpdateReport');
     }
   },
@@ -67,7 +66,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   init: function() {
     let component = this;
-    component._super( ...arguments );
+    component._super(...arguments);
 
     if (component.get('filterCriteria')) {
       component.setProperties({
@@ -116,9 +115,13 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @property {Lesson[]}
    */
-  lessons: Ember.computed('unit.sortedLessonResults.[]', 'lessonId', function() {
-    return this.get('unit.sortedLessonResults');
-  }),
+  lessons: Ember.computed(
+    'unit.sortedLessonResults.[]',
+    'lessonId',
+    function() {
+      return this.get('unit.sortedLessonResults');
+    }
+  ),
 
   /**
    * @property {string}
@@ -137,16 +140,20 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Indicate if show course tab
    * @property {Boolean}
    */
-  showCourse:true,
+  showCourse: true,
 
   /**
    * Selected unit
    * @property {Unit}
    */
-  unit: Ember.computed('selectedCourse.sortedUnitResults.[]', 'unitId', function() {
-    const units = this.get('selectedCourse.sortedUnitResults') || [];
-    return units.findBy('id', this.get('unitId'));
-  }),
+  unit: Ember.computed(
+    'selectedCourse.sortedUnitResults.[]',
+    'unitId',
+    function() {
+      const units = this.get('selectedCourse.sortedUnitResults') || [];
+      return units.findBy('id', this.get('unitId'));
+    }
+  ),
 
   /**
    * @property {Unit[]}

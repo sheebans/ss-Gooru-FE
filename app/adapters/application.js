@@ -7,10 +7,9 @@ import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 const Config = Env['simple-auth-custom'] || {};
 
 export default DS.RESTAdapter.extend(SessionMixin, {
-
   headers: Ember.computed('session.token-api3', function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }),
 
@@ -38,6 +37,4 @@ export default DS.RESTAdapter.extend(SessionMixin, {
     const endpointUrl = EndPointsConfig.getEndpointUrl();
     return this._super(`${endpointUrl}${url}`, method, hash);
   }
-
 });
-

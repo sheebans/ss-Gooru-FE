@@ -1,10 +1,13 @@
 import Ember from 'ember';
-import { correctPercentage, totalCompleted,totalNotStarted } from 'gooru-web/utils/question-result';
+import {
+  correctPercentage,
+  totalCompleted,
+  totalNotStarted
+} from 'gooru-web/utils/question-result';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -17,18 +20,18 @@ export default Ember.Component.extend({
     /**
      * When the user clicks at the box
      */
-    selectStudent: function(){
+    selectStudent: function() {
       const component = this;
-      component.get('onSelectStudent')(component.get("student.id"));
-      Ember.Logger.debug('Clicking at student: ' + component.get("student.id"));
+      component.get('onSelectStudent')(component.get('student.id'));
+      Ember.Logger.debug(`Clicking at student: ${component.get('student.id')}`);
     },
 
     /**
      * @function actions:selectQuestion
      * @param {Number} questionId
      */
-    selectQuestion: function (questionId) {
-      if(questionId) {
+    selectQuestion: function(questionId) {
+      if (questionId) {
         this.get('onSelectQuestion')(questionId);
       }
     }
@@ -36,7 +39,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -59,15 +61,14 @@ export default Ember.Component.extend({
    */
   anonymous: false,
 
-
   /**
    * It returns an object representing the status for each question
    * @property {[]} questions
    */
-  questions: Ember.computed("reportData.[]", function(){
+  questions: Ember.computed('reportData.[]', function() {
     let component = this;
-    let reportData = component.get("reportData");
-    return reportData.map(function(item){
+    let reportData = component.get('reportData');
+    return reportData.map(function(item) {
       return component.getQuestionStatus(item);
     });
   }),
@@ -75,7 +76,7 @@ export default Ember.Component.extend({
   /**
    * @property {number} user assessment score
    */
-  score: Ember.computed("reportData.[]", function(){
+  score: Ember.computed('reportData.[]', function() {
     return correctPercentage(this.get('reportData'));
   }),
 
@@ -83,7 +84,7 @@ export default Ember.Component.extend({
    * Indicates if the assessment has been started
    * @property {number} started
    */
-  started: Ember.computed("reportData.[]", function(){
+  started: Ember.computed('reportData.[]', function() {
     return totalCompleted(this.get('reportData'));
   }),
 
@@ -91,7 +92,7 @@ export default Ember.Component.extend({
    * Indicates if the assessment has not started questions
    * @property {number} notStarted
    */
-  totalNotStarted:Ember.computed("reportData.[]", function(){
+  totalNotStarted: Ember.computed('reportData.[]', function() {
     return totalNotStarted(this.get('reportData'));
   }),
   /**
@@ -106,13 +107,14 @@ export default Ember.Component.extend({
    * Gets the question status
    * @param {QuestionResult} questionResult
    */
-  getQuestionStatus: function(questionResult){
+  getQuestionStatus: function(questionResult) {
     let status = 'not-started';
     let questionId;
-    if (questionResult.get('started')) { //if it has been started
+    if (questionResult.get('started')) {
+      //if it has been started
       let correct = questionResult.get('correct');
       let skipped = questionResult.get('skipped');
-      status = (correct ? 'correct' : (skipped ? 'skipped' : 'incorrect'));
+      status = correct ? 'correct' : skipped ? 'skipped' : 'incorrect';
       questionId = questionResult.get('questionId');
     }
     return Ember.Object.create({
@@ -120,6 +122,4 @@ export default Ember.Component.extend({
       id: questionId
     });
   }
-
-
 });

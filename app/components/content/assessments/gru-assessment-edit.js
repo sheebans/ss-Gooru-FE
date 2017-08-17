@@ -3,14 +3,13 @@ import CollectionEdit from 'gooru-web/components/content/collections/gru-collect
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 export default CollectionEdit.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   /**
    * @requires service:api-sdk/course
    */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   /**
    * @property {Service} I18N service
@@ -20,41 +19,60 @@ export default CollectionEdit.extend({
   /**
    * @type {SessionService} Service to retrieve session information
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['content', 'assessments', 'gru-assessment-edit'],
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      * Save Content
      */
-    updateContent: function () {
+    updateContent: function() {
       let component = this;
       let editedAssessment = component.get('tempCollection');
       let assessment = component.get('collection');
-      editedAssessment.validate().then(function ({validations }) {
+      editedAssessment.validate().then(function({ validations }) {
         if (validations.get('isValid')) {
-          let imageIdPromise = new Ember.RSVP.resolve(editedAssessment.get('thumbnailUrl'));
-          if(editedAssessment.get('thumbnailUrl') && editedAssessment.get('thumbnailUrl') !== assessment.get('thumbnailUrl')) {
-            imageIdPromise = component.get('mediaService').uploadContentFile(editedAssessment.get('thumbnailUrl'));
+          let imageIdPromise = new Ember.RSVP.resolve(
+            editedAssessment.get('thumbnailUrl')
+          );
+          if (
+            editedAssessment.get('thumbnailUrl') &&
+            editedAssessment.get('thumbnailUrl') !==
+              assessment.get('thumbnailUrl')
+          ) {
+            imageIdPromise = component
+              .get('mediaService')
+              .uploadContentFile(editedAssessment.get('thumbnailUrl'));
           }
           imageIdPromise.then(function(imageId) {
             editedAssessment.set('thumbnailUrl', imageId);
-            component.get('assessmentService').updateAssessment(editedAssessment.get('id'), editedAssessment)
-              .then(function () {
-                assessment.merge(editedAssessment, ['title', 'learningObjectives', 'isVisibleOnProfile', 'thumbnailUrl', 'standards', 'audience', 'depthOfknowledge', 'centurySkills']);
+            component
+              .get('assessmentService')
+              .updateAssessment(editedAssessment.get('id'), editedAssessment)
+              .then(function() {
+                assessment.merge(editedAssessment, [
+                  'title',
+                  'learningObjectives',
+                  'isVisibleOnProfile',
+                  'thumbnailUrl',
+                  'standards',
+                  'audience',
+                  'depthOfknowledge',
+                  'centurySkills'
+                ]);
                 component.set('isEditing', false);
               })
-              .catch(function (error) {
-                var message = component.get('i18n').t('common.errors.assessment-not-updated').string;
+              .catch(function(error) {
+                var message = component
+                  .get('i18n')
+                  .t('common.errors.assessment-not-updated').string;
                 component.get('notifications').error(message);
                 Ember.Logger.error(error);
               });
@@ -76,14 +94,16 @@ export default CollectionEdit.extend({
     /**
      * Delete assessment
      */
-    deleteItem: function () {
-      const myId = this.get("session.userId");
+    deleteItem: function() {
+      const myId = this.get('session.userId');
       var model = {
         content: this.get('collection'),
-        isHeaderDelete:true,
-        parentName:this.get('course.title'),
-        deleteMethod: function () {
-          return this.get('assessmentService').deleteAssessment(this.get('collection'));
+        isHeaderDelete: true,
+        parentName: this.get('course.title'),
+        deleteMethod: function() {
+          return this.get('assessmentService').deleteAssessment(
+            this.get('collection')
+          );
         }.bind(this),
         type: CONTENT_TYPES.ASSESSMENT,
         redirect: {
@@ -94,9 +114,15 @@ export default CollectionEdit.extend({
         }
       };
 
-      this.actions.showModal.call(this,
+      this.actions.showModal.call(
+        this,
         'content.modals.gru-delete-content',
-        model, null, null, null, false);
+        model,
+        null,
+        null,
+        null,
+        false
+      );
     }
   }
 });

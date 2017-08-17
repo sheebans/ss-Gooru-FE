@@ -1,25 +1,25 @@
 .gru-student-class-card {
   padding: 12px;
-  .panel{
+  .panel {
     @include border-top-radius(4px);
     @include border-bottom-radius(4px);
     @include box-shadow(0 0 7px #ddd);
     margin: 0;
-    .panel-heading{
+    .panel-heading {
       @include flexbox;
       @include align-items(center);
       @include justify-content(space-between);
       @include border-top-radius(4px);
       background-color: $sky-300;
-      .title{
-        h5{
+      .title {
+        h5 {
           color: $white;
           line-height: $font-size-h4;
           margin: 0;
         }
       }
       .code {
-        span{
+        span {
           @include border-top-radius(4px);
           @include border-bottom-radius(4px);
           @include flex-shrink(0);
@@ -56,12 +56,16 @@
             background-repeat: no-repeat;
             background-position: center center;
             display: inline-block;
-            &.collection { background-image: url("gooru/images/add_collection.svg"); }
-            &.assessment { background-image: url("gooru/images/add_assessment.svg"); }
+            &.collection {
+              background-image: url("gooru/images/add_collection.svg");
+            }
+            &.assessment {
+              background-image: url("gooru/images/add_assessment.svg");
+            }
           }
         }
       }
-      .charts{
+      .charts {
         text-align: center;
         margin: 10px 0 0;
         .row {
@@ -71,7 +75,7 @@
             padding: 0;
           }
           .charts.gru-radial-chart,
-          .charts.gru-bubble-chart{
+          .charts.gru-bubble-chart {
             width: 75px;
             height: 75px;
             margin: 0 auto 5px;

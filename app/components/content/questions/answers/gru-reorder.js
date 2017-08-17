@@ -16,27 +16,25 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'questions','answers', 'gru-reorder'],
+  classNames: ['content', 'questions', 'answers', 'gru-reorder'],
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
-
+  actions: {
     //Add new answer choice
-    addNewChoice:function(){
+    addNewChoice: function() {
       var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(), {
-        'text': null,
-        'isCorrect': true,
-        'type':"text"
+        text: null,
+        isCorrect: true,
+        type: 'text'
       });
       this.get('answers').pushObject(newChoice);
     },
 
     // Remove existing answer
-    removeChoice:function(answer) {
+    removeChoice: function(answer) {
       this.get('answers').removeObject(answer);
     }
-
   },
   // -------------------------------------------------------------------------
   // Events
@@ -47,7 +45,7 @@ export default Ember.Component.extend({
   /**
    * Question answers
    */
-  answers:null,
+  answers: null,
 
   /**
    * Max number of answers
@@ -57,16 +55,15 @@ export default Ember.Component.extend({
   /**
    * @property {boolean}
    */
-  disableEditorButtons: Ember.computed.not("showAdvancedEditor"),
+  disableEditorButtons: Ember.computed.not('showAdvancedEditor'),
 
   /**
    * Max number of answers
    * */
-  hasReachedAnswersLimit: Ember.computed('answers.[]', function () {
-    return (this.get('answers').length >= this.get('maxAnswers'));
+  hasReachedAnswersLimit: Ember.computed('answers.[]', function() {
+    return this.get('answers').length >= this.get('maxAnswers');
   })
 
   // -------------------------------------------------------------------------
   // Method
-
 });

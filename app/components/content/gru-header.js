@@ -1,17 +1,25 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['header', 'content','gru-header'],
+  classNames: ['header', 'content', 'gru-header'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+    /**
+     * Select menu tab
+     */
     select: function(value) {
       this.set('selected', value);
+    },
+    /**
+     * Click button action
+     */
+    clickAction: function(action) {
+      action();
     }
   },
 
@@ -36,6 +44,9 @@ export default Ember.Component.extend({
   /**
    * @property {String} title Header title
    */
-  title: ''
-
+  title: '',
+  /**
+   * @property {Boolean} Indicate if this header work with scroll to an specific section
+   */
+  useScroll: false
 });

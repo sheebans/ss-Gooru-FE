@@ -5,7 +5,6 @@ import Ember from 'ember';
  * typedef {Object} AlternatePath
  */
 export default Ember.Object.extend({
-
   /**
    * @property {number}
    */
@@ -95,5 +94,4 @@ export default Ember.Object.extend({
    * @property {number}
    */
   resourceCount: 0
-
 });

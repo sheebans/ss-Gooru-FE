@@ -19,7 +19,7 @@
     width: auto;
     font-size: $font-size-h6;
     background: $white;
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.07);
     border-top: 3px solid $dark-400;
     border-radius: 0 5px 5px 0;
     border-collapse: inherit;
@@ -27,7 +27,8 @@
 
     thead {
       tr {
-        th, td {
+        th,
+        td {
           background-color: $dark-300;
           color: $white;
           border-right: 1px solid $light-300;
@@ -37,14 +38,15 @@
         }
       }
       .headers {
-        td, th {
+        td,
+        th {
           background-color: $dark-400;
         }
         > td {
-          border-top: 15px solid $dark-400!important;
+          border-top: 15px solid $dark-400 !important;
           border-radius: 5px 0 0 0;
           top: 10px;
-          height: 54px!important;
+          height: 54px !important;
         }
         .header-title {
           @include flexbox;
@@ -72,7 +74,8 @@
       }
       .headers,
       .sub-header {
-        th, td {
+        th,
+        td {
           height: 26px;
           padding: 0 0 0 2px;
         }
@@ -83,7 +86,7 @@
           border-bottom: 2px solid $light-300;
           color: $gray;
           height: 50px;
-          .class-average{
+          .class-average {
             font-weight: bold;
           }
         }
@@ -98,17 +101,19 @@
       tr {
         &:last-child {
           th.fixed {
-            box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.07)
+            box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.07);
           }
         }
       }
       .even {
-        td, th {
+        td,
+        th {
           background-color: $gray-lighter;
         }
       }
       .odd {
-        td, th {
+        td,
+        th {
           background-color: $white;
         }
       }
@@ -125,7 +130,8 @@
         }
       }
     }
-    td, th {
+    td,
+    th {
       width: 57px;
       min-width: 57px;
       height: 32px;
@@ -185,12 +191,12 @@
           line-height: 25px;
         }
         .charts.gru-x-bar-chart {
-          height:inherit;
+          height: inherit;
         }
       }
-      .report{
+      .report {
         text-align: center;
-        i{
+        i {
           vertical-align: bottom;
         }
       }

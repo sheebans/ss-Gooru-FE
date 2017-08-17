@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 /**
  * Profile navigation
@@ -9,10 +9,8 @@ import Ember from "ember";
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -22,16 +20,15 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      *
      * Triggered when an menu item is selected
      * @param item
      */
-    selectItem: function (item) {
+    selectItem: function(item) {
       this.highlightMenuItem(item);
-      if (this.get("onItemSelected")) {
-        this.sendAction("onItemSelected", item);
+      if (this.get('onItemSelected')) {
+        this.sendAction('onItemSelected', item);
       }
     },
 
@@ -40,11 +37,10 @@ export default Ember.Component.extend({
      * Triggered when the user clicks follow/unfollow button
      */
     toggleFollowingStatus: function() {
-      if (this.get("onFollowChanged")) {
-        this.sendAction("onFollowChanged");
+      if (this.get('onFollowChanged')) {
+        this.sendAction('onFollowChanged');
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -53,11 +49,10 @@ export default Ember.Component.extend({
   /**
    * DidInsertElement ember event
    */
-  didInsertElement: function () {
-    var item = this.get("selectedMenuItem");
+  didInsertElement: function() {
+    var item = this.get('selectedMenuItem');
     this.highlightMenuItem(item);
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -73,24 +68,21 @@ export default Ember.Component.extend({
 
   selectedMenuItem: null,
 
-
   // -------------------------------------------------------------------------
   // Observers
   /**
    * Refreshes the left navigation with the selected menu item
    */
-  refreshSelectedMenuItem: function () {
-    var item = this.get("selectedMenuItem");
+  refreshSelectedMenuItem: function() {
+    var item = this.get('selectedMenuItem');
     this.highlightMenuItem(item);
-  }.observes("selectedMenuItem"),
-
+  }.observes('selectedMenuItem'),
 
   // -------------------------------------------------------------------------
   // Methods
 
-  highlightMenuItem: function (item) {
-    this.$(".profile-menu-item").removeClass("selected");
-    this.$(".profile-menu-item." + item).addClass("selected");
+  highlightMenuItem: function(item) {
+    this.$('.profile-menu-item').removeClass('selected');
+    this.$(`.profile-menu-item.${item}`).addClass('selected');
   }
-
 });

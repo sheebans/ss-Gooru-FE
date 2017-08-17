@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -14,13 +13,12 @@ export default Ember.Controller.extend({
    * @see controllers/profile.js
    * @property {Class}
    */
-  "profile": Ember.computed.reads('parentController.profile'),
+  profile: Ember.computed.reads('parentController.profile'),
 
   /**
    * A link to the computed property isMyProfile in profile controller
    * @see controllers/profile.js
    * @property {isMyProfile}
    */
-  "isMyProfile": Ember.computed.reads('parentController.isMyProfile')
-
+  isMyProfile: Ember.computed.reads('parentController.isMyProfile')
 });

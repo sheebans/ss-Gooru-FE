@@ -42,7 +42,7 @@
             height: $optionsHeightXS;
             background-color: $light-100;
             display: table-cell;
-              span {
+            span {
               vertical-align: middle;
               display: inline-block;
               font-size: $font-size-h6;
@@ -53,7 +53,7 @@
               &.icon-container {
                 height: 30px;
                 margin: 3px 2px 0 0;
-                .icon{
+                .icon {
                   background-size: 25px 20px;
                   height: 20px;
                 }
@@ -82,13 +82,15 @@
           }
           .web-page {
             .icon {
-              background: url("gooru/images/website-resource-green.svg") no-repeat;
+              background: url("gooru/images/website-resource-green.svg")
+                no-repeat;
               width: 25px;
             }
           }
           .interactive {
             .icon {
-              background: url("gooru/images/interactive-resource-green.svg") no-repeat;
+              background: url("gooru/images/interactive-resource-green.svg")
+                no-repeat;
               width: 26px;
             }
           }
@@ -111,13 +113,13 @@
               width: 26px;
             }
           }
-          &.web-page{
+          &.web-page {
             margin-left: 5px;
           }
-          &.interactive{
+          &.interactive {
             margin-right: 35px;
             @media (max-width: $screen-xs-max) {
-              margin-right: 5px
+              margin-right: 5px;
             }
           }
         }

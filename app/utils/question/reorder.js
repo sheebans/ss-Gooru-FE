@@ -27,10 +27,8 @@ import AnswerObject from 'gooru-web/utils/question/answer-object';
  * @typedef {Object} ReorderUtil
  */
 export default QuestionUtil.extend({
-
   // -------------------------------------------------------------------------
   // Observers
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -41,10 +39,12 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  isAnswerChoiceCorrect: function (answerChoice, index) {
+  isAnswerChoiceCorrect: function(answerChoice, index) {
     let correctAnswer = this.getCorrectAnswer();
-    return correctAnswer.includes(answerChoice) &&
-      correctAnswer.indexOf(answerChoice) === index;
+    return (
+      correctAnswer.includes(answerChoice) &&
+      correctAnswer.indexOf(answerChoice) === index
+    );
   },
 
   /**
@@ -54,10 +54,10 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  getCorrectAnswer: function () {
-    const answers = this.get("question.answers").sortBy("order");
-    return answers.map(function (answer) {
-      return answer.get("id");
+  getCorrectAnswer: function() {
+    const answers = this.get('question.answers').sortBy('order');
+    return answers.map(function(answer) {
+      return answer.get('id');
     });
   },
 
@@ -70,7 +70,7 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  answerKey: function (answer) {
+  answerKey: function(answer) {
     return answer.join();
   },
 
@@ -83,16 +83,16 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toAnswerObjects: function (userAnswer) {
+  toAnswerObjects: function(userAnswer) {
     let util = this;
-    return userAnswer.map(function (answerId, index) {
+    return userAnswer.map(function(answerId, index) {
       let answer = util.getAnswerById(answerId);
       return AnswerObject.create({
-        "text": answer.get("text"),
-        "correct": util.isAnswerChoiceCorrect(answerId, index),
-        "order": index + 1,
-        "answerId": answerId,
-        "skip": false
+        text: answer.get('text'),
+        correct: util.isAnswerChoiceCorrect(answerId, index),
+        order: index + 1,
+        answerId: answerId,
+        skip: false
       });
     });
   },
@@ -106,13 +106,12 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toUserAnswer: function (answerObjects) {
-    answerObjects = answerObjects.sortBy("order");
-    return (!answerObjects || !answerObjects.length) ?
-      null : //if not respond is provided
-      answerObjects.map(function (answerObject) {
-        return answerObject.get("answerId");
+  toUserAnswer: function(answerObjects) {
+    answerObjects = answerObjects.sortBy('order');
+    return !answerObjects || !answerObjects.length
+      ? null //if not respond is provided
+      : answerObjects.map(function(answerObject) {
+        return answerObject.get('answerId');
       });
   }
-
 });

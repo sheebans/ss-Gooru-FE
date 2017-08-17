@@ -18,7 +18,7 @@
 
   border-top: 1px solid $gray-light;
   border-bottom: 1px solid $gray-light;
-  > div{
+  > div {
     float: left;
     height: 100%;
     display: block;
@@ -92,7 +92,7 @@
             font-size: $expand-arrow-size;
           }
         }
-        .actions{
+        .actions {
           float: right;
           button {
             background-color: $white;
@@ -106,7 +106,7 @@
         }
       }
     }
-    &.status{
+    &.status {
       background-color: $yellow-400;
       width: 2%;
     }

@@ -8,16 +8,20 @@ import SearchAdapter from 'gooru-web/adapters/search/search';
  * @typedef {Object} SearchService
  */
 export default Ember.Service.extend({
-
   searchSerializer: null,
 
   searchAdapter: null,
 
-
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('searchSerializer', SearchSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('searchAdapter', SearchAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'searchSerializer',
+      SearchSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'searchAdapter',
+      SearchAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -31,9 +35,13 @@ export default Ember.Service.extend({
   searchCollections: function(term, params, resetPagination = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchCollections(term, params, resetPagination)
+      service
+        .get('searchAdapter')
+        .searchCollections(term, params, resetPagination)
         .then(function(response) {
-          resolve(service.get('searchSerializer').normalizeSearchCollections(response));
+          resolve(
+            service.get('searchSerializer').normalizeSearchCollections(response)
+          );
         }, reject);
     });
   },
@@ -49,9 +57,13 @@ export default Ember.Service.extend({
   searchAssessments: function(term, params, resetPagination = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchAssessments(term, params, resetPagination)
+      service
+        .get('searchAdapter')
+        .searchAssessments(term, params, resetPagination)
         .then(function(response) {
-          resolve(service.get('searchSerializer').normalizeSearchAssessments(response));
+          resolve(
+            service.get('searchSerializer').normalizeSearchAssessments(response)
+          );
         }, reject);
     });
   },
@@ -67,12 +79,19 @@ export default Ember.Service.extend({
   searchResources: function(term, params, resetPagination = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchResources(term, params, resetPagination)
-        .then(function(response) {
-          resolve(service.get('searchSerializer').normalizeSearchResources(response));
-        }, function(error) {
-          reject(error);
-      });
+      service
+        .get('searchAdapter')
+        .searchResources(term, params, resetPagination)
+        .then(
+          function(response) {
+            resolve(
+              service.get('searchSerializer').normalizeSearchResources(response)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -87,12 +106,19 @@ export default Ember.Service.extend({
   searchQuestions: function(term, params, resetPagination = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchQuestions(term, params, resetPagination)
-        .then(function(response) {
-          resolve(service.get('searchSerializer').normalizeSearchQuestions(response));
-        }, function(error) {
-          reject(error);
-      });
+      service
+        .get('searchAdapter')
+        .searchQuestions(term, params, resetPagination)
+        .then(
+          function(response) {
+            resolve(
+              service.get('searchSerializer').normalizeSearchQuestions(response)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -105,12 +131,16 @@ export default Ember.Service.extend({
   searchFeaturedCourses: function(term) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchFeaturedCourses(term)
-        .then(function(response) {
-          resolve(service.get('searchSerializer').normalizeSearchCourses(response));
-        }, function(error) {
+      service.get('searchAdapter').searchFeaturedCourses(term).then(
+        function(response) {
+          resolve(
+            service.get('searchSerializer').normalizeSearchCourses(response)
+          );
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -123,12 +153,16 @@ export default Ember.Service.extend({
   searchCourses: function(term) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('searchAdapter').searchCourses(term)
-        .then(function(response) {
-          resolve(service.get('searchSerializer').normalizeSearchCourses(response));
-        }, function(error) {
+      service.get('searchAdapter').searchCourses(term).then(
+        function(response) {
+          resolve(
+            service.get('searchSerializer').normalizeSearchCourses(response)
+          );
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   }
 });

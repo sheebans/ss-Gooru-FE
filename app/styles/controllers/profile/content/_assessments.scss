@@ -11,4 +11,18 @@
       }
     }
   }
+
+  .no-content {
+    margin-top: 25px;
+
+    .panel-body {
+      @include flexbox;
+      @include flex-direction(row);
+      @include justify-content(space-between);
+
+      p {
+        margin-left: 5px;
+      }
+    }
+  }
 }

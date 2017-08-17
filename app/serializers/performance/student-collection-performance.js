@@ -3,13 +3,12 @@ import AnalyticsSerializer from '../analytics/analytics';
 import { toLocal } from 'gooru-web/utils/utils';
 
 export default AnalyticsSerializer.extend({
-
   /**
    * Normalizes the result for student collection performance
    * @param payload
    * @returns {AssessmentResult}
    */
-  normalizeStudentCollection: function (payload) {
+  normalizeStudentCollection: function(payload) {
     const serializer = this;
     const found = payload && payload.content && payload.content.length;
 
@@ -25,7 +24,11 @@ export default AnalyticsSerializer.extend({
         views: collection.views,
         totalAttempts: collection.attempts,
         resourceResults: serializer.normalizeResourceResults(resources),
-        startedAt: payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime()), /* TODO this should come from server */
+        startedAt: payload.startTime
+          ? toLocal(payload.startTime)
+          : toLocal(
+            new Date().getTime()
+          ) /* TODO this should come from server */,
         submittedAt: collection.eventTime ? toLocal(collection.eventTime) : null
       });
     }

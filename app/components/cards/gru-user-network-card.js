@@ -8,30 +8,29 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['cards','gru-user-network-card'],
+  classNames: ['cards', 'gru-user-network-card'],
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
-    unFollow:function(){
+    unFollow: function() {
       var component = this;
       var user = component.get('user');
       component.set('isFollowing', false);
-      component.sendAction("onUnFollowUser", user);
+      component.sendAction('onUnFollowUser', user);
     },
 
-    setFollow:function(){
+    setFollow: function() {
       var component = this;
       var user = component.get('user');
       component.set('isFollowing', true);
-      component.sendAction("onFollowUser", user);
+      component.sendAction('onFollowUser', user);
     }
   },
 
@@ -49,25 +48,24 @@ export default Ember.Component.extend({
   /**
    * @property {Number} counter of user followers
    */
-  countFollowers: Ember.computed.alias("user.followers"),
+  countFollowers: Ember.computed.alias('user.followers'),
   /**
    * @property {Array} list of followings
    */
-  myFollowings:null,
+  myFollowings: null,
 
   /**
    * @property {Boolean} check if the session user follow the user in the card
    */
-  isFollowing: Ember.computed('user',function(){
+  isFollowing: Ember.computed('user', function() {
     let user = this.get('user');
-    return this.get('myFollowings').findBy('id',user.id);
+    return this.get('myFollowings').findBy('id', user.id);
   }),
   /**
    * @property {Boolean} check if the session user is the same user in the card
    */
-  isMyProfile:Ember.computed('user',function(){
-      let user = this.get('user');
-      return user.id === this.get('session.userId');
-    }
-  )
+  isMyProfile: Ember.computed('user', function() {
+    let user = this.get('user');
+    return user.id === this.get('session.userId');
+  })
 });

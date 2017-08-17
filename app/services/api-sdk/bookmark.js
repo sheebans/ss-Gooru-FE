@@ -6,7 +6,6 @@ import BookmarkAdapter from 'gooru-web/adapters/content/bookmark';
  * @typedef {Object} BookmarkService
  */
 export default Ember.Service.extend({
-
   /**
    * @property {BookmarkSerializer} bookmarkSerializer
    */
@@ -17,10 +16,16 @@ export default Ember.Service.extend({
    */
   bookmarkAdapter: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('bookmarkSerializer', BookmarkSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('bookmarkAdapter', BookmarkAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'bookmarkSerializer',
+      BookmarkSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'bookmarkAdapter',
+      BookmarkAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -32,16 +37,24 @@ export default Ember.Service.extend({
   createBookmark: function(bookmarkData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedBookmarkData = service.get('bookmarkSerializer').serializeCreateBookmark(bookmarkData);
-      service.get('bookmarkAdapter').createBookmark({
-        body: serializedBookmarkData
-      }).then(function(responseData, textStatus, request) {
-        let bookmarkId = request.getResponseHeader('location');
-        bookmarkData.set('id', bookmarkId);
-        resolve(bookmarkData);
-      }, function(error) {
-        reject(error);
-      });
+      let serializedBookmarkData = service
+        .get('bookmarkSerializer')
+        .serializeCreateBookmark(bookmarkData);
+      service
+        .get('bookmarkAdapter')
+        .createBookmark({
+          body: serializedBookmarkData
+        })
+        .then(
+          function(responseData, textStatus, request) {
+            let bookmarkId = request.getResponseHeader('location');
+            bookmarkData.set('id', bookmarkId);
+            resolve(bookmarkData);
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -55,11 +68,18 @@ export default Ember.Service.extend({
     const service = this;
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('bookmarkAdapter').fetchBookmarks(pagination, resetPagination)
-      .then(
-        response => resolve(service.get('bookmarkSerializer').normalizeFetchBookmarks(response)),
-        reject
-      );
+      service
+        .get('bookmarkAdapter')
+        .fetchBookmarks(pagination, resetPagination)
+        .then(
+          response =>
+            resolve(
+              service
+                .get('bookmarkSerializer')
+                .normalizeFetchBookmarks(response)
+            ),
+          reject
+        );
     });
   },
 
@@ -68,10 +88,12 @@ export default Ember.Service.extend({
    * @param {String} bookmarkId
    * @returns {Promise|boolean} returns true if deleted
    */
-  deleteBookmark: function (bookmarkId) {
+  deleteBookmark: function(bookmarkId) {
     const service = this;
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      service.get('bookmarkAdapter').deleteBookmark(bookmarkId)
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('bookmarkAdapter')
+        .deleteBookmark(bookmarkId)
         .then(resolve, reject);
     });
   }

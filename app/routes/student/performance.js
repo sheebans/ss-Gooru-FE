@@ -17,34 +17,54 @@ export default Ember.Route.extend({
     //Steps for Take a Tour functionality
     const tourSteps = Ember.A([
       {
-        title: route.get('i18n').t('gru-take-tour.student-performance.stepOne.title'),
-        description: route.get('i18n').t('gru-take-tour.student-performance.stepOne.description')
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepOne.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepOne.description')
       },
       {
         elementSelector: '.gru-performance-filter-panel .header .title',
-        title: route.get('i18n').t('gru-take-tour.student-performance.stepTwo.title'),
-        description: route.get('i18n').t('gru-take-tour.student-performance.stepTwo.description')
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepTwo.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepTwo.description')
       },
       {
-        elementSelector: '.gru-performance-filter-panel .body .actions .update-report',
-        title: route.get('i18n').t('gru-take-tour.student-performance.stepThree.title'),
-        description: route.get('i18n').t('gru-take-tour.student-performance.stepThree.description')
+        elementSelector:
+          '.gru-performance-filter-panel .body .actions .update-report',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepThree.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepThree.description')
       },
       {
         elementSelector: '.performance-content .panel-header .download',
-        title: route.get('i18n').t('gru-take-tour.student-performance.stepFour.title'),
-        description: route.get('i18n').t('gru-take-tour.student-performance.stepFour.description')
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepFour.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepFour.description')
       },
       {
-        title: route.get('i18n').t('gru-take-tour.student-performance.stepFive.title'),
-        description: route.get('i18n').t('gru-take-tour.student-performance.stepFive.description')
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepFive.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-performance.stepFive.description')
       }
     ]);
 
     return {
       tourSteps
     };
-
   },
 
   /**
@@ -57,7 +77,7 @@ export default Ember.Route.extend({
     controller.loadData();
   },
 
-  deactivate: function () {
+  deactivate: function() {
     this.get('controller').resetValues();
   }
 });

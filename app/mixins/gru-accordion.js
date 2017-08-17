@@ -6,16 +6,6 @@ import Ember from 'ember';
  * @mixin
  */
 export default Ember.Mixin.create({
-
-
-  // -------------------------------------------------------------------------
-  // Actions
-
-
-  // -------------------------------------------------------------------------
-  // Events
-
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -56,7 +46,6 @@ export default Ember.Mixin.create({
    */
   visibleItems: Ember.computed.filterBy('items.content', 'visibility', true),
 
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -68,8 +57,7 @@ export default Ember.Mixin.create({
    * @param {String} accordionId
    * @return undefined
    */
-  updateAccordionById: function (accordionId) {
-
+  updateAccordionById: function(accordionId) {
     if (accordionId === this.get('model.id')) {
       if (!this.get('isExpanded')) {
         // If not expanded, open the accordion by simulating a click on the anchor in the heading

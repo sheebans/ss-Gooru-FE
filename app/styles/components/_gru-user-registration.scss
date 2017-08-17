@@ -1,9 +1,6 @@
 .gru-user-registration {
-
   .wrapper {
-
     > .main {
-
       h3 {
         margin-top: 0;
         color: $brand-primary;
@@ -32,12 +29,21 @@
           border: 1px solid $brand-primary;
           margin-bottom: 15px;
           cursor: pointer;
-          background: url("gooru/login-g.png") no-repeat scroll left center, -webkit-linear-gradient(top , $brand-primary, $brand-primary); /* For Safari 5.1 to 6.0 */
-          background: url("gooru/login-g.png") no-repeat scroll left center, -o-linear-gradient(top , $brand-primary, $brand-primary); /* For Opera 11.1 to 12.0 */
-          background: url("gooru/login-g.png") no-repeat scroll left center, -moz-linear-gradient(top , $brand-primary, $brand-primary); /* For Firefox 3.6 to 15 */
-          background: url("gooru/login-g.png") no-repeat scroll left center, linear-gradient(to top , $brand-primary, $brand-primary); /* Standard syntax */
+          background: url("gooru/login-g.png") no-repeat scroll left center,
+            -webkit-linear-gradient(top, $brand-primary, $brand-primary); /* For Safari 5.1 to 6.0 */
+          background: url("gooru/login-g.png") no-repeat scroll left center,
+            -o-linear-gradient(top, $brand-primary, $brand-primary); /* For Opera 11.1 to 12.0 */
+          background: url("gooru/login-g.png") no-repeat scroll left center,
+            -moz-linear-gradient(top, $brand-primary, $brand-primary); /* For Firefox 3.6 to 15 */
+          background: url("gooru/login-g.png") no-repeat scroll left center,
+            linear-gradient(
+              to top,
+              $brand-primary,
+              $brand-primary
+            ); /* Standard syntax */
           &:hover {
-            background: url("gooru/login-g.png") no-repeat scroll left center $brand-primary;
+            background: url("gooru/login-g.png") no-repeat scroll left center
+              $brand-primary;
           }
         }
         .why-google {
@@ -66,7 +72,7 @@
         }
         .email-sign-up {
           .no-google-account {
-            color:  $gray-light;
+            color: $gray-light;
             font-size: $font-size-small;
           }
         }
@@ -75,7 +81,7 @@
       .log-in-here {
         margin-top: 10px;
         font-size: $font-size-small;
-        color:  $gray-light;
+        color: $gray-light;
         display: block;
         text-align: center;
       }
@@ -87,4 +93,3 @@
     }
   }
 }
-

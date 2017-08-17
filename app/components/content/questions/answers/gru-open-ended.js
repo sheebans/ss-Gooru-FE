@@ -11,25 +11,22 @@ import Answer from 'gooru-web/models/content/answer';
  */
 
 export default Ember.Component.extend({
-
-
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['content', 'questions', 'answers', 'gru-open-ended'],
 
-
   // -------------------------------------------------------------------------
   // Events
 
   init() {
-    this._super( ...arguments );
+    this._super(...arguments);
     var answers = this.get('answers');
     if (!answers || !answers.length) {
-      let answer = Answer.create(Ember.getOwner(this).ownerInjection(),{
-        'text': null,
-        'isCorrect': true,
-        'type':"text"
+      let answer = Answer.create(Ember.getOwner(this).ownerInjection(), {
+        text: null,
+        isCorrect: true,
+        type: 'text'
       });
       this.get('answers').pushObject(answer);
     }
@@ -46,5 +43,4 @@ export default Ember.Component.extend({
    * Question answer
    */
   answers: null
-
 });

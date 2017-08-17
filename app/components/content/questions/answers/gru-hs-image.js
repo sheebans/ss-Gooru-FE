@@ -8,26 +8,26 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content', 'questions','answers', 'gru-hs-image'],
+  classNames: ['content', 'questions', 'answers', 'gru-hs-image'],
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     //Add new answer choice
-    addNewChoice:function(){
-      var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(),{
-        'text': null,
-        'isCorrect': false,
-        'type':"text"
+    addNewChoice: function() {
+      var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(), {
+        text: null,
+        isCorrect: false,
+        type: 'text'
       });
       this.get('answers').pushObject(newChoice);
     },
     //Remove existing answer
-    removeChoice:function(answer){
+    removeChoice: function(answer) {
       this.get('answers').removeObject(answer);
     },
     //Select correct answer
-    setCorrect:function(answer){
-      Ember.set(answer,'isCorrect',true);
+    setCorrect: function(answer) {
+      Ember.set(answer, 'isCorrect', true);
     }
   },
   // -------------------------------------------------------------------------
@@ -37,11 +37,11 @@ export default Ember.Component.extend({
    * Hotspot Image Question Answers
    * */
 
-  answers:null,
+  answers: null,
   /**
    *  Hotspot Image  max answers
    * */
-  maxAnswers:10,
+  maxAnswers: 10,
 
   /**
    * Is in edit mode
@@ -51,8 +51,7 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A}
    */
-  hasLimitAnswers: Ember.computed('answers.[]', function () {
-    return (this.get('answers').length >= this.get('maxAnswers'));
+  hasLimitAnswers: Ember.computed('answers.[]', function() {
+    return this.get('answers').length >= this.get('maxAnswers');
   })
-
 });

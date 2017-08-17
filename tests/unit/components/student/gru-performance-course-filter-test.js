@@ -1,28 +1,49 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import Ember from 'ember';
 
-moduleForComponent('student/gru-performance-course-filter', 'Unit | Component | student/gru performance course filter', {
-  unit: true
-});
-
+moduleForComponent(
+  'student/gru-performance-course-filter',
+  'Unit | Component | student/gru performance course filter',
+  {
+    unit: true
+  }
+);
 
 test('expandPanel', function(assert) {
   let component = this.subject();
 
   component.send('expandPanel', 'course');
-  assert.notOk(component.get('isCourseFiltersExpanded'),'Incorrect value of isCourseFiltersExpanded');
+  assert.notOk(
+    component.get('isCourseFiltersExpanded'),
+    'Incorrect value of isCourseFiltersExpanded'
+  );
   component.send('expandPanel', 'course');
-  assert.ok(component.get('isCourseFiltersExpanded'),'Incorrect value of isCourseFiltersExpanded');
+  assert.ok(
+    component.get('isCourseFiltersExpanded'),
+    'Incorrect value of isCourseFiltersExpanded'
+  );
 
   component.send('expandPanel', 'unit');
-  assert.notOk(component.get('isUnitFiltersExpanded'),'Incorrect value of isUnitFiltersExpanded');
+  assert.notOk(
+    component.get('isUnitFiltersExpanded'),
+    'Incorrect value of isUnitFiltersExpanded'
+  );
   component.send('expandPanel', 'unit');
-  assert.ok(component.get('isUnitFiltersExpanded'),'Incorrect value of isUnitFiltersExpanded');
+  assert.ok(
+    component.get('isUnitFiltersExpanded'),
+    'Incorrect value of isUnitFiltersExpanded'
+  );
 
   component.send('expandPanel', 'lesson');
-  assert.notOk(component.get('isLessonFiltersExpanded'),'Incorrect value of isLessonFiltersExpanded');
+  assert.notOk(
+    component.get('isLessonFiltersExpanded'),
+    'Incorrect value of isLessonFiltersExpanded'
+  );
   component.send('expandPanel', 'lesson');
-  assert.ok(component.get('isLessonFiltersExpanded'),'Incorrect value of isLessonFiltersExpanded');
+  assert.ok(
+    component.get('isLessonFiltersExpanded'),
+    'Incorrect value of isLessonFiltersExpanded'
+  );
 });
 
 test('unit', function(assert) {
@@ -60,7 +81,7 @@ test('unit', function(assert) {
 
   component.set('selectedCourse', selectedCourse);
   component.set('unitId', '0102');
-  assert.equal(component.get('unit.id'), '0102' , 'Incorrect unit');
+  assert.equal(component.get('unit.id'), '0102', 'Incorrect unit');
 });
 
 test('lesson', function(assert) {
@@ -80,7 +101,7 @@ test('lesson', function(assert) {
 
   component.set('unit', selectedUnit);
   component.set('lessonId', '0103');
-  assert.equal(component.get('lesson.id'), '0103' , 'Incorrect lesson');
+  assert.equal(component.get('lesson.id'), '0103', 'Incorrect lesson');
 });
 
 test('units', function(assert) {
@@ -100,7 +121,7 @@ test('units', function(assert) {
 
   component.set('unit', selectedUnit);
   component.set('lessonId', '0103');
-  assert.equal(component.get('lesson.id'), '0103' , 'Incorrect lesson');
+  assert.equal(component.get('lesson.id'), '0103', 'Incorrect lesson');
 });
 
 test('units', function(assert) {
@@ -139,7 +160,7 @@ test('units', function(assert) {
 
   component.set('selectedCourse', selectedCourse);
 
-  assert.equal(component.get('units').length, 2 , 'Incorrect number of units');
+  assert.equal(component.get('units').length, 2, 'Incorrect number of units');
 });
 
 test('lessons', function(assert) {
@@ -157,7 +178,11 @@ test('lessons', function(assert) {
   });
 
   component.set('unit', selectedUnit);
-  assert.equal(component.get('lessons').length, 1 , 'Incorrect number of lessons');
+  assert.equal(
+    component.get('lessons').length,
+    1,
+    'Incorrect number of lessons'
+  );
 });
 
 test('lessonId', function(assert) {

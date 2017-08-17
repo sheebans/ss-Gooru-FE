@@ -3,7 +3,7 @@ import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 
 moduleForAcceptance('Acceptance | Content Classes Join Class', {
-  beforeEach: function () {
+  beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
       token: 'profile-token',
@@ -14,10 +14,10 @@ moduleForAcceptance('Acceptance | Content Classes Join Class', {
   }
 });
 
-test('Layout', function (assert) {
+test('Layout', function(assert) {
   visit('/content/classes/join');
 
-  andThen(function () {
+  andThen(function() {
     assert.equal(currentURL(), '/content/classes/join');
 
     let $container = find('.controller.join-class');
@@ -25,10 +25,10 @@ test('Layout', function (assert) {
   });
 });
 
-test('Join class', function (assert) {
+test('Join class', function(assert) {
   visit('/content/classes/join');
 
-  andThen(function () {
+  andThen(function() {
     assert.equal(currentURL(), '/content/classes/join');
 
     let $container = find('.controller.join-class');
@@ -36,7 +36,7 @@ test('Join class', function (assert) {
     $container.find('.gru-input.code input').blur();
 
     click($container.find('button.join-class-btn'));
-    andThen(function(){
+    andThen(function() {
       assert.equal(currentRouteName(), 'student.class.course-map');
     });
   });

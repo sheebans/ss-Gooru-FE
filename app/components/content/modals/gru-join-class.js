@@ -1,8 +1,5 @@
 import Ember from 'ember';
-import {
-  validator, buildValidations
-}
-from 'ember-cp-validations';
+import { validator, buildValidations } from 'ember-cp-validations';
 
 const Validations = buildValidations({
   code: {
@@ -35,8 +32,7 @@ const Validations = buildValidations({
   notMember: validator('presence', true)
 });
 
-export default Ember.Component.extend(Validations,{
-
+export default Ember.Component.extend(Validations, {
   // -------------------------------------------------------------------------
   // Dependencies
   // -------------------------------------------------------------------------
@@ -47,29 +43,25 @@ export default Ember.Component.extend(Validations,{
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
-    joinClass: function () {
+    joinClass: function() {
       const component = this;
-      component.validate().then(function ({validations }) {
+      component.validate().then(function({ validations }) {
         if (validations.get('isValid')) {
           component.set('isLoading', true);
-          component.sendAction("onJoinClass", component.get("code"));
+          component.sendAction('onJoinClass', component.get('code'));
         }
         component.set('didValidate', true);
       });
     },
 
-    onCodeFocusOut: function (){
+    onCodeFocusOut: function() {
       this.clearValidations();
     },
 
-    onCodeTyping: function (){
+    onCodeTyping: function() {
       this.clearValidations();
     }
-
-
   },
-
 
   // -------------------------------------------------------------------------
   // Events
@@ -77,7 +69,7 @@ export default Ember.Component.extend(Validations,{
   didRender() {
     const component = this;
     component.$().on('keyup', '.modal-body', function(e) {
-      var keyCode = (event.keyCode ? event.keyCode : event.which);
+      var keyCode = event.keyCode ? event.keyCode : event.which;
       if (keyCode === 13) {
         $(e.target).blur().focus();
         component.$('.join-class-btn').trigger('click');
@@ -90,20 +82,19 @@ export default Ember.Component.extend(Validations,{
   /**
    * Clear validation messages
    */
-  clearValidations: function(){
+  clearValidations: function() {
     const component = this;
-    component.set("allowedCode", true);
-    component.set("validCode", true);
-    component.set("notMember", true);
+    component.set('allowedCode', true);
+    component.set('validCode', true);
+    component.set('notMember', true);
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {string}
    */
-  code:null,
+  code: null,
 
   /**
    * @property {string}
@@ -132,6 +123,4 @@ export default Ember.Component.extend(Validations,{
    * Indicate if it's waiting for join class callback
    */
   isLoading: false
-
-
 });

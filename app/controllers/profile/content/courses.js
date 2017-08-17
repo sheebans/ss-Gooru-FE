@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
@@ -16,19 +16,23 @@ export default Ember.Controller.extend({
    */
   appController: Ember.inject.controller('application'),
 
-
   // -------------------------------------------------------------------------
   // Properties
 
   /**
    * @property {Class[]} Active class without course
    */
-  activeClasses: Ember.computed('appController.myClasses.classes.[]', function(){
-    const classes = this.get('appController.myClasses');
-    return classes ?
-      classes.getTeacherActiveClasses(this.get('sessionProfile.id'))
-        .filterBy('courseId',null) : [];
-  }),
+  activeClasses: Ember.computed(
+    'appController.myClasses.classes.[]',
+    function() {
+      const classes = this.get('appController.myClasses');
+      return classes
+        ? classes
+          .getTeacherActiveClasses(this.get('sessionProfile.id'))
+          .filterBy('courseId', null)
+        : [];
+    }
+  ),
   /**
    * @property {Content/Course[]} courses
    */
@@ -50,6 +54,13 @@ export default Ember.Controller.extend({
   sessionProfile: Ember.computed.alias('appController.profile'),
 
   /**
+   * A link to the parent application controller
+   * @see controllers/application.js
+   * @property {ClassesModel}
+   */
+  myClasses: Ember.computed.alias('appController.myClasses'),
+
+  /**
    * @property {*}
    */
   pagination: {
@@ -60,40 +71,43 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed('courses.[]', function(){
-    return this.get('courses.length') &&
-      (this.get('courses.length') % this.get('pagination.pageSize') === 0);
+  showMoreResultsButton: Ember.computed('courses.[]', function() {
+    return (
+      this.get('courses.length') &&
+      this.get('courses.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     }
   },
 
   // -------------------------------------------------------------------------
   // Methods
-  showMoreResults: function(){
+  showMoreResults: function() {
     const controller = this;
     const profile = this.get('profile');
     const pagination = this.get('pagination');
     pagination.page = pagination.page + 1;
     pagination.pageSize = pagination.pageSize;
 
-    controller.get('profileService')
+    controller
+      .get('profileService')
       .getCourses(profile, null, pagination)
-      .then(function(courses){
+      .then(function(courses) {
         controller.get('courses').pushObjects(courses.toArray());
-    });
+      });
   },
 
-  resetValues: function(){
+  resetValues: function() {
     this.set('pagination', {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
-    this.set('disableSearch',false);
+    this.set('disableSearch', false);
   }
 });

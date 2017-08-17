@@ -6,7 +6,6 @@ import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
  */
 
 export default Ember.Object.extend({
-
   /**
    * @property {string}
    */
@@ -99,7 +98,7 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} hasResources
    */
-  hasResources: Ember.computed.bool("resources.length"),
+  hasResources: Ember.computed.bool('resources.length'),
 
   /**
    * @property {boolean} Returnn true is the collection is an assessment
@@ -111,8 +110,10 @@ export default Ember.Object.extend({
    */
   isCollection: Ember.computed.not('isAssessment'),
 
-  isExternalAssessment: Ember.computed("isAssessment", function(){
-    return this.get("isAssessment") && this.get("format") === "assessment-external";
+  isExternalAssessment: Ember.computed('isAssessment', function() {
+    return (
+      this.get('isAssessment') && this.get('format') === 'assessment-external'
+    );
   }),
 
   /**
@@ -125,7 +126,7 @@ export default Ember.Object.extend({
    * Indicates if the number of attempts for an assessment is unlimited
    * @property {boolean}
    */
-  hasUnlimitedAttempts: Ember.computed.equal("attempts", -1),
+  hasUnlimitedAttempts: Ember.computed.equal('attempts', -1),
 
   /**
    * Is bidirectional navigation enabled for collection/assessment
@@ -139,7 +140,7 @@ export default Ember.Object.extend({
    */
   showFeedback: null,
 
-  immediateFeedback: Ember.computed("showFeedback", function(){
+  immediateFeedback: Ember.computed('showFeedback', function() {
     return this.get('showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE;
   }),
 
@@ -154,10 +155,10 @@ export default Ember.Object.extend({
    * @param {Resource} resource
    * @returns {Resource|undefined} next resource
    */
-  nextResource: function(resource){
+  nextResource: function(resource) {
     var next;
-    if (this.get("hasResources")){
-      const resources = this.get("resources"),
+    if (this.get('hasResources')) {
+      const resources = this.get('resources'),
         index = resources.indexOf(resource);
       next = resources.objectAt(index + 1);
     }
@@ -169,10 +170,10 @@ export default Ember.Object.extend({
    * @param {Resource} resource
    * @returns {Resource|undefined} previous resource
    */
-  prevResource: function(resource){
+  prevResource: function(resource) {
     var next;
-    if (this.get("hasResources")){
-      const resources = this.get("resources"),
+    if (this.get('hasResources')) {
+      const resources = this.get('resources'),
         index = resources.indexOf(resource);
       next = resources.objectAt(index - 1);
     }
@@ -184,12 +185,12 @@ export default Ember.Object.extend({
    * @param {string }resourceId
    * @returns {Resource|undefined}
    */
-  getResourceById: function(resourceId){
+  getResourceById: function(resourceId) {
     var resource;
-    if (this.get("hasResources")){
-      const resources = this.get("resources").filterBy("id", resourceId);
-      if (resources.get("length")){
-        resource = resources.get("firstObject");
+    if (this.get('hasResources')) {
+      const resources = this.get('resources').filterBy('id', resourceId);
+      if (resources.get('length')) {
+        resource = resources.get('firstObject');
       }
     }
     return resource;
@@ -201,10 +202,9 @@ export default Ember.Object.extend({
    * @returns {Resource|undefined}
    */
   isLastResource: function(resource) {
-    const resources = this.get("resources");
+    const resources = this.get('resources');
     var index = resources.indexOf(resource);
     var collectionLength = resources.get('length');
-    return ((index + 1) === collectionLength);
+    return index + 1 === collectionLength;
   }
-
 });

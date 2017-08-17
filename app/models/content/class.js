@@ -131,16 +131,19 @@ const Class = Ember.Object.extend(Validations, {
    * Indicates if all content within this class is visible
    * @property {boolean}
    */
-  isAllContentVisible: Ember.computed("contentVisibility", function(){
-    return this.get("contentVisibility") === Class.VISIBLE_ALL;
+  isAllContentVisible: Ember.computed('contentVisibility', function() {
+    return this.get('contentVisibility') === Class.VISIBLE_ALL;
   }),
 
   /**
    * Indicates if all collections within this class is visible
    * @property {boolean}
    */
-  areCollectionsVisible: Ember.computed("contentVisibility", function() {
-    return this.get("contentVisibility") === Class.VISIBLE_COLLECTIONS || this.get("isAllContentVisible");
+  areCollectionsVisible: Ember.computed('contentVisibility', function() {
+    return (
+      this.get('contentVisibility') === Class.VISIBLE_COLLECTIONS ||
+      this.get('isAllContentVisible')
+    );
   }),
 
   /**
@@ -180,31 +183,38 @@ const Class = Ember.Object.extend(Validations, {
   /**
    * @property {boolean}
    */
-  isReportAvailable: Ember.computed.equal("reportStatus", "available"),
+  isReportAvailable: Ember.computed.equal('reportStatus', 'available'),
 
   /**
    * @property {boolean}
    */
-  hasCourse: Ember.computed.bool("courseId"),
+  hasCourse: Ember.computed.bool('courseId'),
 
   /**
    * @property {boolean}
    */
-  isReportRequested: Ember.computed.equal("reportStatus", "queued"),
+  isReportRequested: Ember.computed.equal('reportStatus', 'queued'),
 
   /**
    * @property {boolean}
    */
-  isReportInProgress: Ember.computed("reportStatus", function(){
-    return this.get("isReportRequested") || this.get("reportStatus") === "in-progress";
+  isReportInProgress: Ember.computed('reportStatus', function() {
+    return (
+      this.get('isReportRequested') ||
+      this.get('reportStatus') === 'in-progress'
+    );
   }),
 
   /**
    * @property {boolean}
    */
-  canRequestReport: Ember.computed("reportStatus", function(){
-    const hasCourse = this.get("hasCourse");
-    return hasCourse && !this.get("isReportInProgress") && !this.get("isReportAvailable");
+  canRequestReport: Ember.computed('reportStatus', function() {
+    const hasCourse = this.get('hasCourse');
+    return (
+      hasCourse &&
+      !this.get('isReportInProgress') &&
+      !this.get('isReportAvailable')
+    );
   }),
 
   /**
@@ -241,7 +251,10 @@ const Class = Ember.Object.extend(Validations, {
    * @returns {Boolean} returns true if is a teacher, otherwise undefined
    */
   isTeacher: function(teacherId) {
-    return (this.get('owner.id') === teacherId || this.get('collaborators').findBy('id', teacherId));
+    return (
+      this.get('owner.id') === teacherId ||
+      this.get('collaborators').findBy('id', teacherId)
+    );
   },
 
   /**
@@ -250,8 +263,7 @@ const Class = Ember.Object.extend(Validations, {
    * @function
    * @return {Class}
    */
-  copy: function () {
-
+  copy: function() {
     var properties = [];
     var enumerableKeys = Object.keys(this);
 
@@ -265,7 +277,10 @@ const Class = Ember.Object.extend(Validations, {
 
     properties = this.getProperties(properties);
 
-    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+    return this.get('constructor').create(
+      Ember.getOwner(this).ownerInjection(),
+      properties
+    );
   },
 
   /**
@@ -280,11 +295,9 @@ const Class = Ember.Object.extend(Validations, {
     var properties = model.getProperties(propertyList);
     this.setProperties(properties);
   }
-
 });
 
 Class.reopenClass({
-
   // visiblity options
   VISIBLE_COLLECTIONS: 'visible_collections',
   VISIBLE_ALL: 'visible_all',

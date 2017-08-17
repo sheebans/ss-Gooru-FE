@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ResourceModel from 'gooru-web/models/content/resource';
 import QuestionModel from 'gooru-web/models/content/question';
-import {DEFAULT_SEARCH_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_SEARCH_PAGE_SIZE } from 'gooru-web/config/config';
 
 /**
  * Adapter to support the Search for Collections, Assessments, Resources and Questions
@@ -9,7 +9,6 @@ import {DEFAULT_SEARCH_PAGE_SIZE} from 'gooru-web/config/config';
  * @typedef {Object} SearchAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/gooru-search/rest/v2/search',
@@ -25,7 +24,7 @@ export default Ember.Object.extend({
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/scollection`;
-    const page = (!params.page || resetPagination) ? 0 : params.page;
+    const page = !params.page || resetPagination ? 0 : params.page;
     const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     const options = {
       type: 'GET',
@@ -60,7 +59,7 @@ export default Ember.Object.extend({
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/scollection`;
-    const page = (!params.page || resetPagination) ? 0 : params.page;
+    const page = !params.page || resetPagination ? 0 : params.page;
     const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     const options = {
       type: 'GET',
@@ -94,7 +93,7 @@ export default Ember.Object.extend({
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
-    const page = (!params.page || resetPagination) ? 0 : params.page ;
+    const page = !params.page || resetPagination ? 0 : params.page;
     const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     let options = {
       type: 'GET',
@@ -102,10 +101,10 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        "q": term || '*',
-        "start": page + 1,
-        "length": pageSize,
-        "flt.contentFormat": "resource",
+        q: term || '*',
+        start: page + 1,
+        length: pageSize,
+        'flt.contentFormat': 'resource',
         'flt.publishStatus': 'published'
       }
     };
@@ -141,7 +140,7 @@ export default Ember.Object.extend({
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/resource`;
-    const page = (!params.page || resetPagination) ? 0 : params.page ;
+    const page = !params.page || resetPagination ? 0 : params.page;
     const pageSize = params.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     let options = {
       type: 'GET',
@@ -149,10 +148,10 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        "q": term || '*',
-        "start": page + 1,
-        "length": pageSize,
-        "flt.resourceFormat": "question",
+        q: term || '*',
+        start: page + 1,
+        length: pageSize,
+        'flt.resourceFormat': 'question',
         'flt.publishStatus': 'published'
       }
     };
@@ -185,10 +184,10 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        "q": term || '*',
-        "start": 1,
-        "length": 50,
-        "flt.courseType": "featured"
+        q: term || '*',
+        start: 1,
+        length: 50,
+        'flt.courseType': 'featured'
       }
     };
     return Ember.$.ajax(url, options);
@@ -210,9 +209,9 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: adapter.defineHeaders(),
       data: {
-        "q": term || '*',
-        "start": 1,
-        "length": 20
+        q: term || '*',
+        start: 1,
+        length: 20
       }
     };
     return Ember.$.ajax(url, options);
@@ -220,8 +219,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

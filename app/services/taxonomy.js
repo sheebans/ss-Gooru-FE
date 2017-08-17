@@ -10,7 +10,6 @@ import { getCategoryFromSubjectId } from 'gooru-web/utils/taxonomy';
  * @typedef {Object} TaxonomyService
  */
 export default Ember.Service.extend({
-
   /**
    * @private {Number} - Starting taxonomy item level for the standards
    */
@@ -31,7 +30,10 @@ export default Ember.Service.extend({
   init() {
     this._super(...arguments);
     this.set('taxonomyContainer', {});
-    this.set('apiTaxonomyService', APITaxonomyService.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'apiTaxonomyService',
+      APITaxonomyService.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -50,9 +52,11 @@ export default Ember.Service.extend({
         resolve(taxonomyContainer[category]);
       } else {
         let promises = TAXONOMY_CATEGORIES.map(function(taxonomyCategory) {
-          return apiTaxonomyService.fetchSubjects(taxonomyCategory.value).then(function(subjects) {
-            taxonomyContainer[taxonomyCategory.value] = subjects;
-          });
+          return apiTaxonomyService
+            .fetchSubjects(taxonomyCategory.value)
+            .then(function(subjects) {
+              taxonomyContainer[taxonomyCategory.value] = subjects;
+            });
         });
         Ember.RSVP.all(promises).then(function() {
           resolve(taxonomyContainer[category]);
@@ -76,7 +80,8 @@ export default Ember.Service.extend({
         if (subject.get('courses') && subject.get('courses.length') > 0) {
           resolve(subject.get('courses'));
         } else {
-          apiTaxonomyService.fetchCourses(subject.get('frameworkId'), subject.get('id'))
+          apiTaxonomyService
+            .fetchCourses(subject.get('frameworkId'), subject.get('id'))
             .then(function(courses) {
               subject.set('courses', courses);
               resolve(courses);
@@ -116,7 +121,6 @@ export default Ember.Service.extend({
             });
             resolve(domains);
           });
-
       } else {
         resolve(course.get('children'));
       }
@@ -137,16 +141,23 @@ export default Ember.Service.extend({
     const apiTaxonomyService = this.get('apiTaxonomyService');
     var domain;
 
-    for(let i = subject.get('courses').length - 1; i >= 0; --i) {
+    for (let i = subject.get('courses').length - 1; i >= 0; --i) {
       domain = subject.get('courses')[i].find([courseId, domainId]);
-      if (domain) { break; }
+      if (domain) {
+        break;
+      }
     }
 
     return new Ember.RSVP.Promise(function(resolve) {
       if (!domain || !domain.get('children').length) {
         // No standards found ... ask for them
         apiTaxonomyService
-          .fetchCodes(subject.get('frameworkId'), subject.get('id'), courseId, domainId)
+          .fetchCodes(
+            subject.get('frameworkId'),
+            subject.get('id'),
+            courseId,
+            domainId
+          )
           .then(function(codes) {
             var standards = service.createStandardsHierarchy(codes);
             domain.set('children', standards);
@@ -156,7 +167,6 @@ export default Ember.Service.extend({
             });
             resolve(standards);
           });
-
       } else {
         resolve(domain.get('children'));
       }
@@ -175,18 +185,17 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve) {
       const category = getCategoryFromSubjectId(subjectId);
       if (category) {
-        service.getSubjects(category).then(function(){
+        service.getSubjects(category).then(function() {
           var result = service.findSubject(category, subjectId);
           if (result && loadCourses) {
-            service.getCourses(result).then(function(){
+            service.getCourses(result).then(function() {
               resolve(result);
             });
-          }
-          else{
+          } else {
             resolve(result);
           }
         });
-      }else {
+      } else {
         resolve(null);
       }
     });
@@ -199,14 +208,15 @@ export default Ember.Service.extend({
     if (taxonomyContainer) {
       const categorySubjects = taxonomyContainer[categoryId];
       if (categorySubjects) {
-        result = categorySubjects.find(function(subject){
+        result = categorySubjects.find(function(subject) {
           if (subjectId.includes(subject.id)) {
             return subject;
           }
         });
         if (!result) {
-          categorySubjects.forEach(function (subject) {
-            if (!result) {   // Array forEach function does not have a short circuit, so we are testing is the value has not been found, otherwise just jump to the next element
+          categorySubjects.forEach(function(subject) {
+            if (!result) {
+              // Array forEach function does not have a short circuit, so we are testing is the value has not been found, otherwise just jump to the next element
               result = subject.get('frameworks').findBy('id', subjectId);
             }
           });
@@ -221,16 +231,33 @@ export default Ember.Service.extend({
     var standardsWithoutCategory;
     var standardsCategories;
 
-    this.attachChildren(sortedTaxonomyItems[3], 3, sortedTaxonomyItems[2], sortedTaxonomyItems[1]);
-    this.attachChildren(sortedTaxonomyItems[2], 2, sortedTaxonomyItems[1], sortedTaxonomyItems[0]);
-    standardsWithoutCategory = this.attachStandards(sortedTaxonomyItems[1], sortedTaxonomyItems[0], []);
+    this.attachChildren(
+      sortedTaxonomyItems[3],
+      3,
+      sortedTaxonomyItems[2],
+      sortedTaxonomyItems[1]
+    );
+    this.attachChildren(
+      sortedTaxonomyItems[2],
+      2,
+      sortedTaxonomyItems[1],
+      sortedTaxonomyItems[0]
+    );
+    standardsWithoutCategory = this.attachStandards(
+      sortedTaxonomyItems[1],
+      sortedTaxonomyItems[0],
+      []
+    );
 
-    standardsCategories = this.attachStandardsWithoutCategory(standardsWithoutCategory, sortedTaxonomyItems[0]);
+    standardsCategories = this.attachStandardsWithoutCategory(
+      standardsWithoutCategory,
+      sortedTaxonomyItems[0]
+    );
     return standardsCategories;
   },
 
   sortCodes(codes) {
-    const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL');  // standards base level
+    const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL'); // standards base level
     const NUM_BUCKETS = 4;
     var codesLen = codes.length;
     var buckets = [];
@@ -252,39 +279,40 @@ export default Ember.Service.extend({
         parent: code.parentTaxonomyCodeId
       });
 
-      switch(code.codeType) {
-        case CODE_TYPES.STANDARD_CATEGORY:
-          taxonomyItem.set('level', BASE_LEVEL);
-          buckets[0].push(taxonomyItem);
-          break;
-        case CODE_TYPES.STANDARD:
-          taxonomyItem.set('level', BASE_LEVEL + 1);
-          buckets[1].push(taxonomyItem);
-          break;
-        case CODE_TYPES.SUB_STANDARD:
-          taxonomyItem.set('level', BASE_LEVEL + 2);
-          buckets[2].push(taxonomyItem);
-          break;
-        case CODE_TYPES.LEARNING_TARGET_L0:
-        case CODE_TYPES.LEARNING_TARGET_L1:
-        case CODE_TYPES.LEARNING_TARGET_L2:
-          taxonomyItem.set('level', BASE_LEVEL + 3);
-          buckets[3].push(taxonomyItem);
-          break;
-        default:
-          Ember.Logger.error('Unknown code_type: ' + code.codeType);
+      switch (code.codeType) {
+      case CODE_TYPES.STANDARD_CATEGORY:
+        taxonomyItem.set('level', BASE_LEVEL);
+        buckets[0].push(taxonomyItem);
+        break;
+      case CODE_TYPES.STANDARD:
+        taxonomyItem.set('level', BASE_LEVEL + 1);
+        buckets[1].push(taxonomyItem);
+        break;
+      case CODE_TYPES.SUB_STANDARD:
+        taxonomyItem.set('level', BASE_LEVEL + 2);
+        buckets[2].push(taxonomyItem);
+        break;
+      case CODE_TYPES.LEARNING_TARGET_L0:
+      case CODE_TYPES.LEARNING_TARGET_L1:
+      case CODE_TYPES.LEARNING_TARGET_L2:
+        taxonomyItem.set('level', BASE_LEVEL + 3);
+        buckets[3].push(taxonomyItem);
+        break;
+      default:
+        Ember.Logger.error(`Unknown code_type: ${code.codeType}`);
       }
     }
     return buckets;
   },
 
   attachChildren(children, levelOffset, firstLevelParents, secondLevelParents) {
-    const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL');  // standards base level
+    const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL'); // standards base level
 
     if (children.length) {
-      let siblings = [], remaining = [];
+      let siblings = [],
+        remaining = [];
       let lead = children.pop();
-      let parentId = lead.get('parent');  // parentTaxonomyCodeId
+      let parentId = lead.get('parent'); // parentTaxonomyCodeId
       let parent = firstLevelParents.findBy('id', parentId);
 
       children.forEach(function(taxonomyItem) {
@@ -302,13 +330,23 @@ export default Ember.Service.extend({
           // Use a "fake" parent to close any gaps in the hierarchy
           parent = TaxonomyItem.create({
             id: `empty-${parentId}`,
-            level: BASE_LEVEL + (levelOffset - 1),    // Level for fake parent
-            parent: grandparent                       // Save reference to standard
+            level: BASE_LEVEL + (levelOffset - 1), // Level for fake parent
+            parent: grandparent // Save reference to standard
           });
-          grandparent.set('children', [parent].concat(grandparent.get('children')));
+          grandparent.set(
+            'children',
+            [parent].concat(grandparent.get('children'))
+          );
         } else {
-          Ember.Logger.warn(`Parent with ID ${parentId} not found for items at level: ${levelOffset}`);
-          this.attachChildren(remaining, levelOffset, firstLevelParents, secondLevelParents);
+          Ember.Logger.warn(
+            `Parent with ID ${parentId} not found for items at level: ${levelOffset}`
+          );
+          this.attachChildren(
+            remaining,
+            levelOffset,
+            firstLevelParents,
+            secondLevelParents
+          );
         }
       }
 
@@ -320,7 +358,12 @@ export default Ember.Service.extend({
 
       // Concat the list of children with any existing children the parent may already have
       parent.set('children', siblings.concat(parent.get('children')));
-      this.attachChildren(remaining, levelOffset, firstLevelParents, secondLevelParents);
+      this.attachChildren(
+        remaining,
+        levelOffset,
+        firstLevelParents,
+        secondLevelParents
+      );
     }
   },
 
@@ -333,7 +376,8 @@ export default Ember.Service.extend({
         listWithoutCategory.unshift(lead);
         return this.attachStandards(standards, categories, listWithoutCategory);
       } else {
-        let siblings = [], remaining = [];
+        let siblings = [],
+          remaining = [];
         let parentId = lead.get('parent');
         let parent = categories.findBy('id', parentId);
 
@@ -347,7 +391,11 @@ export default Ember.Service.extend({
 
         if (!parent) {
           Ember.Logger.warn(`Category with ID ${parentId} not found standards`);
-          return this.attachStandards(remaining, categories, listWithoutCategory);
+          return this.attachStandards(
+            remaining,
+            categories,
+            listWithoutCategory
+          );
         }
 
         // Add the lead in with its siblings
@@ -364,7 +412,7 @@ export default Ember.Service.extend({
   },
 
   attachStandardsWithoutCategory(standards, categories) {
-    const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL');  // standards base level
+    const BASE_LEVEL = this.get('STANDARDS_BASE_LEVEL'); // standards base level
 
     var defaultCategory = TaxonomyItem.create({
       id: 'empty-category',
@@ -380,17 +428,16 @@ export default Ember.Service.extend({
     return categories;
   },
 
-  fetchSubjectsByIds(taxonomyIds){
+  fetchSubjectsByIds(taxonomyIds) {
     const chain = Ember.A([]);
     let codes = Ember.A([]);
-    taxonomyIds.forEach((taxonomyId)=>{
+    taxonomyIds.forEach(taxonomyId => {
       codes.push(taxonomyId.substring(0, taxonomyId.indexOf('-')));
     });
     codes = codes.uniq();
-    codes.forEach((code)=>{
+    codes.forEach(code => {
       chain.push(this.findSubjectById(code, false));
     });
     return Ember.RSVP.all(chain);
   }
-
 });

@@ -1,6 +1,9 @@
+/**
+ * Initialize session events
+ */
 export function initialize(instance) {
   const applicationRoute = instance.container.lookup('route:application');
-  const session          = instance.container.lookup('service:session');
+  const session = instance.container.lookup('service:session');
 
   session.on('authenticationSucceeded', function() {
     // It does nothing because the event is triggered when authenticating as anonymous
@@ -8,7 +11,7 @@ export function initialize(instance) {
   });
   session.on('invalidationSucceeded', function() {
     // Transition only when it comes from logout
-    if (window.location.pathname === '/logout'){
+    if (window.location.pathname === '/logout') {
       applicationRoute.transitionTo('index');
     } else {
       window.location.reload();
@@ -18,6 +21,6 @@ export function initialize(instance) {
 
 export default {
   initialize,
-  name:  'gooru-session-events',
+  name: 'gooru-session-events',
   after: 'ember-simple-auth'
 };

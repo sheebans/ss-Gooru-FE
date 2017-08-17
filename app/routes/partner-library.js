@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import PublicRouteMixin from 'gooru-web/mixins/public-route-mixin';
 
 /**
  * Partner library route
@@ -8,8 +8,7 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
  * @augments Ember.Route
  */
 
-export default Ember.Route.extend(PrivateRouteMixin, {
-
+export default Ember.Route.extend(PublicRouteMixin, {
   queryParams: {
     refresh: {
       refreshModel: true
@@ -34,7 +33,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     });
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('library', model.library);
   }
 });

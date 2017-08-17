@@ -1,17 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-
-
 
   /**
    * @property {Service} I18N service
    */
   i18n: Ember.inject.service(),
-
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -22,7 +18,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-
 
   actions: {
     signIn: function() {
@@ -40,7 +35,6 @@ export default Ember.Component.extend({
     this._super(...arguments);
   },
 
-
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -49,8 +43,4 @@ export default Ember.Component.extend({
   'component-class': null
 
   //Methods
-
-
-
-
 });

@@ -1,7 +1,6 @@
 import ApplicationAdapter from './application';
 
 export default ApplicationAdapter.extend({
-
   /**
    * @property {string} End-point URI
    */
@@ -17,9 +16,13 @@ export default ApplicationAdapter.extend({
    * @returns {string}
    */
   buildURL: function(modelName, id, snapshot, requestType, query) {
-    var apiKeyParam = 'apiKey='+ this.get('apiKey');
-    return this._super(modelName, id, snapshot, requestType, query) + '?' + apiKeyParam;
+    var apiKeyParam = `apiKey=${this.get('apiKey')}`;
+    return `${this._super(
+      modelName,
+      id,
+      snapshot,
+      requestType,
+      query
+    )}?${apiKeyParam}`;
   }
-
 });
-

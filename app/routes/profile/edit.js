@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { COUNTRY_CODES } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -28,7 +27,9 @@ export default Ember.Route.extend({
       let route = this;
       let model = route.controller.get('profile');
       if (model.get('hasDirtyAttributes')) {
-        let confirmation = confirm(route.get('i18n').t('validations.unsavedChanges').string);
+        let confirmation = confirm(
+          route.get('i18n').t('validations.unsavedChanges').string
+        );
         if (confirmation) {
           model.rollbackAttributes();
         } else {
@@ -54,23 +55,22 @@ export default Ember.Route.extend({
     const profile = this.modelFor('profile').profile;
     var profileStateId = profile.stateId;
 
-    return route.get("lookupService").readCountries()
-      .then(function(countries) {
-        var usCountryId = countries.findBy('code', COUNTRY_CODES.US).id;
-        var usStates = route.get('lookupService').readStates(usCountryId);
-        var usDistricts = null;
+    return route.get('lookupService').readCountries().then(function(countries) {
+      var usCountryId = countries.findBy('code', COUNTRY_CODES.US).id;
+      var usStates = route.get('lookupService').readStates(usCountryId);
+      var usDistricts = null;
 
-        if(profileStateId && profileStateId !=='') {
-          usDistricts = route.get('lookupService').readDistricts(profileStateId);
-        }
+      if (profileStateId && profileStateId !== '') {
+        usDistricts = route.get('lookupService').readDistricts(profileStateId);
+      }
 
-        return Ember.RSVP.hash({
-          countries: countries,
-          states: usStates,
-          districts: usDistricts,
-          profile: profile
-        });
+      return Ember.RSVP.hash({
+        countries: countries,
+        states: usStates,
+        districts: usDistricts,
+        profile: profile
       });
+    });
   },
 
   /**
@@ -91,5 +91,4 @@ export default Ember.Route.extend({
     controller.set('states', model.states);
     controller.set('districts', model.districts);
   }
-
 });

@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import {DEFAULT_SEARCH_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_SEARCH_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -21,25 +20,24 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * show more bookmark results
      */
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     },
 
     /**
      * Remove a bookmark from a list of bookmarks
      */
-    removeBookmark: function (bookmark) {
+    removeBookmark: function(bookmark) {
       this.get('bookmarks').removeObject(bookmark);
     },
 
     /**
      * Triggered when the expand/collapse arrows are selected.
      */
-    togglePanel: function () {
+    togglePanel: function() {
       this.set('toggleState', !this.get('toggleState'));
     }
   },
@@ -47,12 +45,12 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
+  init: function() {
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
     const localStorageLogins = `${userId}_logins`;
     let loginCount = localStorage.getItem(localStorageLogins);
-    if(loginCount) {
+    if (loginCount) {
       this.set('loginCount', +loginCount);
     }
   },
@@ -71,9 +69,14 @@ export default Ember.Controller.extend({
   /**
    * @property {Class[]}
    */
-  activeClasses: Ember.computed('applicationController.myClasses.classes.[]', function(){
-    return this.get('applicationController.myClasses').getStudentActiveClasses(this.get('profile.id'));
-  }),
+  activeClasses: Ember.computed(
+    'applicationController.myClasses.classes.[]',
+    function() {
+      return this.get(
+        'applicationController.myClasses'
+      ).getStudentActiveClasses(this.get('profile.id'));
+    }
+  ),
 
   /**
    * @property {Profile}
@@ -85,7 +88,7 @@ export default Ember.Controller.extend({
    */
   totalJoinedClasses: Ember.computed.alias('activeClasses.length'),
 
-   /*
+  /*
    * @property {Array[]} - featuredCourses
    */
   featuredCourses: null,
@@ -108,8 +111,11 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showExpandIcon: Ember.computed('bookmarks.[]', function(){
-    return this.get('bookmarks.length') && this.get('bookmarks.length') > this.get('firstRowLimit');
+  showExpandIcon: Ember.computed('bookmarks.[]', function() {
+    return (
+      this.get('bookmarks.length') &&
+      this.get('bookmarks.length') > this.get('firstRowLimit')
+    );
   }),
 
   /**
@@ -136,22 +142,25 @@ export default Ember.Controller.extend({
    * Selected the menu item
    * @param {string} item
    */
-  selectMenuItem: function(item){
+  selectMenuItem: function(item) {
     this.set('menuItem', item);
   },
 
   /**
    * show more bookmark results
    */
-  showMoreResults: function(){
+  showMoreResults: function() {
     const controller = this;
     const pagination = this.get('pagination');
 
     pagination.offset = pagination.offset + pagination.pageSize;
     pagination.pageSize = DEFAULT_SEARCH_PAGE_SIZE;
     this.set('pagination', pagination);
-    controller.get('bookmarkService').fetchBookmarks(pagination, false).then(function(bookmarkResults){
-      controller.get('bookmarks').pushObjects(bookmarkResults);
-    });
+    controller
+      .get('bookmarkService')
+      .fetchBookmarks(pagination, false)
+      .then(function(bookmarkResults) {
+        controller.get('bookmarks').pushObjects(bookmarkResults);
+      });
   }
 });

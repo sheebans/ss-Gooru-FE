@@ -1,12 +1,11 @@
 import Ember from 'ember';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
   contentController: Ember.inject.controller('profile.content'),
-
 
   profileController: Ember.inject.controller('profile'),
 
@@ -25,10 +24,12 @@ export default Ember.Controller.extend({
 
   actions: {
     openContentPlayer: function(collection) {
-      this.transitionToRoute('player', collection.id, { queryParams: { type: collection.get('collectionType')}});
+      this.transitionToRoute('player', collection.id, {
+        queryParams: { type: collection.get('collectionType') }
+      });
     },
 
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     }
   },
@@ -36,14 +37,18 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Properties
 
-
   /**
    * @property {Class[]}
    */
-  activeClasses: Ember.computed('appController.myClasses.classes.[]', function(){
-    const classes = this.get('appController.myClasses');
-    return classes ? classes.getTeacherActiveClasses(this.get('sessionProfile.id')) : [];
-  }),
+  activeClasses: Ember.computed(
+    'appController.myClasses.classes.[]',
+    function() {
+      const classes = this.get('appController.myClasses');
+      return classes
+        ? classes.getTeacherActiveClasses(this.get('sessionProfile.id'))
+        : [];
+    }
+  ),
 
   /**
    * A link to the parent application controller
@@ -98,13 +103,15 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed('collections.[]', function(){
-    return this.get('collections.length') &&
-      (this.get('collections.length') % this.get('pagination.pageSize') === 0);
+  showMoreResultsButton: Ember.computed('collections.[]', function() {
+    return (
+      this.get('collections.length') &&
+      this.get('collections.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
   // Methods
-  showMoreResults: function(){
+  showMoreResults: function() {
     const controller = this;
     const profile = this.get('profile');
     const pagination = this.get('pagination');
@@ -114,19 +121,18 @@ export default Ember.Controller.extend({
     pagination.sortOn = this.get('sortOn');
     pagination.order = this.get('order');
 
-    controller.get('profileService')
+    controller
+      .get('profileService')
       .readCollections(profile.get('id'), pagination)
-      .then(function(collections){
+      .then(function(collections) {
         controller.get('collections').pushObjects(collections.toArray());
       });
   },
 
-  resetValues: function(){
+  resetValues: function() {
     this.set('pagination', {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
   }
-
-
 });

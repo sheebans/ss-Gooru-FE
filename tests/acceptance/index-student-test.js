@@ -14,37 +14,37 @@ moduleForAcceptance('Acceptance | index-student', {
   }
 });
 
-test('logged in as a student and home-link button navigation', function (assert) {
-
+test('logged in as a student and home-link button navigation', function(
+  assert
+) {
   visit('/');
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    const $navMenu = find(".gru-header .menu-navbar");
-    click($navMenu.find(".profile-link a.profile"));
+    const $navMenu = find('.gru-header .menu-navbar');
+    click($navMenu.find('.profile-link a.profile'));
 
-    andThen(function () {
+    andThen(function() {
       assert.equal(currentURL(), '/param-123/content/courses');
-      const $navHeader = find(".gru-header .navbar-header");
-      click($navHeader.find(".home-link"));
+      const $navHeader = find('.gru-header .navbar-header');
+      click($navHeader.find('.home-link'));
 
-      andThen(function () {
+      andThen(function() {
         assert.equal(currentURL(), '/student-home');
       });
     });
   });
 });
 
-test('logged in as a student and go to my performance', function (assert) {
-
+test('logged in as a student and go to my performance', function(assert) {
   visit('/');
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    const $navMenu = find(".gru-header .menu-navbar");
-    click($navMenu.find(".performance-link a"));
+    const $navMenu = find('.gru-header .menu-navbar');
+    click($navMenu.find('.performance-link a'));
 
-    andThen(function () {
+    andThen(function() {
       assert.equal(currentURL(), '/student/performance');
     });
   });

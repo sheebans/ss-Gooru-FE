@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -17,5 +16,4 @@ export default Ember.Route.extend({
     controller.get('parentController').selectMenuItem('about');
     controller.set('profile', model.profile);
   }
-
 });

@@ -4,16 +4,20 @@ import T from 'gooru-web/tests/helpers/assert';
 import Ember from 'ember';
 import wait from 'ember-test-helpers/wait';
 
-moduleForComponent('/class/analytics/performance/teacher/gru-metrics-performance-information', 'Integration | Component | /class/analytics/performance/teacher/gru-metrics-performance-information', {
-  integration: true,
-  beforeEach: function () {
-    this.container.lookup('service:i18n').set('locale','en');
+moduleForComponent(
+  '/class/analytics/performance/teacher/gru-metrics-performance-information',
+  'Integration | Component | /class/analytics/performance/teacher/gru-metrics-performance-information',
+  {
+    integration: true,
+    beforeEach: function() {
+      this.container.lookup('service:i18n').set('locale', 'en');
+    }
   }
-});
+);
 test('Metrics performance information Layout', function(assert) {
   assert.expect(4);
 
-  const dataPickerOptionsMock = Ember.A(['score','completion']);
+  const dataPickerOptionsMock = Ember.A(['score', 'completion']);
   const performanceDataMock = Ember.Object.create({
     score: 50,
     timeSpent: 3600,
@@ -26,7 +30,9 @@ test('Metrics performance information Layout', function(assert) {
   this.set('dataPickerOptions', dataPickerOptionsMock);
   this.set('performanceData', performanceDataMock);
 
-  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-performance-information performanceData=performanceData dataPickerOptions=dataPickerOptions}}`);
+  this.render(
+    hbs`{{class/analytics/performance/teacher/gru-metrics-performance-information performanceData=performanceData dataPickerOptions=dataPickerOptions}}`
+  );
 
   const $component = this.$(); //component dom element
 
@@ -41,13 +47,12 @@ test('Metrics performance information Layout', function(assert) {
 
   var $report = $component.find('.report');
   T.notExists(assert, $report, 'report cell should not be visible');
-
 });
 
 test('When hiding the score', function(assert) {
   assert.expect(4);
 
-  const dataPickerOptionsMock = Ember.A(['score','completion']);
+  const dataPickerOptionsMock = Ember.A(['score', 'completion']);
   const performanceDataMock = Ember.Object.create({
     score: 50,
     timeSpent: 3600,
@@ -60,7 +65,8 @@ test('When hiding the score', function(assert) {
   this.set('dataPickerOptions', dataPickerOptionsMock);
   this.set('performanceData', performanceDataMock);
 
-  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-performance-information
+  this
+    .render(hbs`{{class/analytics/performance/teacher/gru-metrics-performance-information
   performanceData=performanceData
   userPerformance='fakeUserPerformance'
   dataPickerOptions=dataPickerOptions}}`);
@@ -83,7 +89,7 @@ test('When hiding the score', function(assert) {
 test('When clicking the report', function(assert) {
   assert.expect(3);
 
-  const dataPickerOptionsMock = Ember.A(['score','completion']);
+  const dataPickerOptionsMock = Ember.A(['score', 'completion']);
   const performanceDataMock = Ember.Object.create({
     score: 50,
     timeSpent: 3600,
@@ -97,12 +103,17 @@ test('When clicking the report', function(assert) {
   this.set('showReport', true);
   this.set('performanceData', performanceDataMock);
 
-  this.on('clickReport', function (performance, userPerformance) {
+  this.on('clickReport', function(performance, userPerformance) {
     assert.equal(performance.get('score'), 50, 'Wrong score');
-    assert.equal(userPerformance, 'fakeUserPerformance', 'Wrong user performance');
+    assert.equal(
+      userPerformance,
+      'fakeUserPerformance',
+      'Wrong user performance'
+    );
   });
 
-  this.render(hbs`{{class/analytics/performance/teacher/gru-metrics-performance-information
+  this
+    .render(hbs`{{class/analytics/performance/teacher/gru-metrics-performance-information
       onClickReport='clickReport'
       userPerformance='fakeUserPerformance'
       performanceData=performanceData

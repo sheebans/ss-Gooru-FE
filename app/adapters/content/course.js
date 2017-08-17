@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} CourseAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus/v1/courses',
@@ -30,14 +29,16 @@ export default Ember.Object.extend({
       data: JSON.stringify(data.body)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData, textStatus, request) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function(responseData, textStatus, request) {
           var courseId = request.getResponseHeader('location');
           resolve(courseId);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -47,9 +48,9 @@ export default Ember.Object.extend({
    * @param data - course data to be sent in the request body
    * @returns {Promise|String} ID of the newly created course
    */
-  updateCourse: function (data) {
+  updateCourse: function(data) {
     const courseId = data.courseId;
-    const url = this.get('namespace') + `/${courseId}`;
+    const url = `${this.get('namespace')}/${courseId}`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',
@@ -59,13 +60,15 @@ export default Ember.Object.extend({
       data: JSON.stringify(data.course)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function () {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function() {
           resolve('');
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -75,21 +78,23 @@ export default Ember.Object.extend({
    * @param courseId - course ID to search for
    * @returns {Promise|Object}
    */
-  getCourseById: function (courseId) {
-    const url = this.get('namespace') + `/${courseId}`;
+  getCourseById: function(courseId) {
+    const url = `${this.get('namespace')}/${courseId}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: this.defineHeaders()
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function(responseData) {
           resolve(responseData);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -100,7 +105,7 @@ export default Ember.Object.extend({
    * @param {string} collectionType assessment|collection
    * @returns {Promise|Object}
    */
-  getCourseStructure: function (courseId, collectionType) {
+  getCourseStructure: function(courseId, collectionType) {
     const namespace = this.get('namespace');
     const url = `${namespace}/${courseId}/${collectionType}s`;
     const options = {
@@ -133,7 +138,7 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
- /**
+  /**
   * Copies a course by id
   *
   * @param data course data to be sent in the request body
@@ -151,7 +156,7 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: JSON.stringify({})
     };
-   return Ember.$.ajax(url, options);
+    return Ember.$.ajax(url, options);
   },
 
   /**
@@ -179,8 +184,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

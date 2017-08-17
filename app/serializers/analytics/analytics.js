@@ -9,7 +9,6 @@ import { getQuestionUtil } from 'gooru-web/config/question';
 import { toLocal } from 'gooru-web/utils/utils';
 
 export default Ember.Object.extend({
-
   normalizeResponse: function(payload) {
     var realTimeModel = [];
     this.normalizeUserResults(realTimeModel, payload.content);
@@ -27,7 +26,7 @@ export default Ember.Object.extend({
     const serializer = this;
     return UserResourcesResult.create({
       user: payload.userUid,
-      isAttemptFinished: !!payload.isCompleteAttempt,   // This value is used only by the RealTime dashboard
+      isAttemptFinished: !!payload.isCompleteAttempt, // This value is used only by the RealTime dashboard
       resourceResults: serializer.normalizeResourceResults(payload.usageData)
     });
   },
@@ -35,16 +34,21 @@ export default Ember.Object.extend({
   normalizeResourceResults: function(payload) {
     const serializer = this;
     var resourceResults = [];
-    payload.forEach(function (resourceResult) {
+    payload.forEach(function(resourceResult) {
       this.push(serializer.normalizeResourceResult(resourceResult));
     }, resourceResults);
     return resourceResults;
   },
 
   normalizeResourceResult: function(payload) {
-    let answerObjects = this.normalizeAnswerObjects(payload.answerObject, payload.questionType);
+    let answerObjects = this.normalizeAnswerObjects(
+      payload.answerObject,
+      payload.questionType
+    );
     let eventTime = payload.eventTime ? toLocal(payload.eventTime) : null;
-    let startedAt = payload.startTime ? toLocal(payload.startTime) : toLocal(new Date().getTime());
+    let startedAt = payload.startTime
+      ? toLocal(payload.startTime)
+      : toLocal(new Date().getTime());
     let submittedAt = payload.endTime ? toLocal(payload.endTime) : startedAt;
 
     if (payload.resourceType && payload.resourceType === 'question') {
@@ -97,18 +101,23 @@ export default Ember.Object.extend({
    * @param {string|[]} answerObjects
    * @returns {AnswerObject[]}
    */
-  normalizeAnswerObjects: function(answerObjects, questionType){
-    answerObjects = (!answerObjects || answerObjects === 'N/A' ||  answerObjects === 'NA') ? [] : answerObjects;
-    if (typeof answerObjects === 'string'){
+  normalizeAnswerObjects: function(answerObjects, questionType) {
+    answerObjects =
+      !answerObjects || answerObjects === 'N/A' || answerObjects === 'NA'
+        ? []
+        : answerObjects;
+    if (typeof answerObjects === 'string') {
       answerObjects = JSON.parse(answerObjects);
     }
 
-    if (!Ember.$.isArray(answerObjects)){
+    if (!Ember.$.isArray(answerObjects)) {
       answerObjects = [];
     }
-    return answerObjects.map(function(answerObject){
-      if(questionType!=='MA' && answerObject.text){
-        answerObject.answerId = window.btoa(encodeURIComponent(answerObject.text));
+    return answerObjects.map(function(answerObject) {
+      if (questionType !== 'MA' && answerObject.text) {
+        answerObject.answerId = window.btoa(
+          encodeURIComponent(answerObject.text)
+        );
       }
       return AnswerObject.create(answerObject);
     });
@@ -140,5 +149,4 @@ export default Ember.Object.extend({
     }
     return result;
   }
-
 });

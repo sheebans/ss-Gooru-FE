@@ -1,6 +1,6 @@
 .controller.analytics-performance-teacher {
   .better-experience {
-    margin-bottom:0;
+    margin-bottom: 0;
   }
 
   .row {
@@ -60,7 +60,7 @@
         width: 100vw;
         padding: 0;
         height: auto;
-        .list-inline{
+        .list-inline {
           background: $white;
         }
       }
@@ -78,7 +78,7 @@
         vertical-align: middle;
         display: table-cell;
         .grading-scale {
-            float: right;
+          float: right;
           @media (max-width: $screen-xs-max) {
             float: left;
           }

@@ -1,14 +1,14 @@
 .gru-unit-performance-container {
-  border-radius: 0!important;
+  border-radius: 0 !important;
   margin-bottom: 17px;
-  &.selected a{
+  &.selected a {
     border-left: 4px solid $green-400;
-    border-bottom-left-radius:0;
+    border-bottom-left-radius: 0;
     border-top-left-radius: 0;
   }
-  >a{
-    color:$gray;
-    height:105px;
+  > a {
+    color: $gray;
+    height: 105px;
     -webkit-flex-direction: row;
     flex-direction: row;
     -webkit-flex-wrap: wrap;
@@ -22,11 +22,11 @@
     display: -webkit-flex;
     display: flex;
     text-decoration: none;
-    margin:0;
-    @include respond-to(xs){
-      height:50px;
+    margin: 0;
+    @include respond-to(xs) {
+      height: 50px;
     }
-    >ul{
+    > ul {
       margin: 0;
       padding: 0;
       -webkit-order: 0;
@@ -39,13 +39,13 @@
       flex-basis: auto;
       -webkit-align-self: auto;
       align-self: auto;
-      height:100%;
+      height: 100%;
     }
   }
-  ul{
-    li{
-      &.performance-unit-content{
-        height:100%;
+  ul {
+    li {
+      &.performance-unit-content {
+        height: 100%;
         -webkit-flex-direction: column;
         flex-direction: column;
         -webkit-flex-wrap: nowrap;
@@ -58,10 +58,10 @@
         align-content: center;
         display: -webkit-flex;
         display: flex;
-        @include respond-to(xs){
+        @include respond-to(xs) {
           border-left: 1px solid $gray-lighter;
         }
-        >*{
+        > * {
           width: 100%;
           -webkit-order: 0;
           order: 0;
@@ -74,10 +74,9 @@
           -webkit-align-self: auto;
           align-self: auto;
           height: 100%;
-
         }
       }
-      span i{
+      span i {
         margin-right: 10px;
       }
     }

@@ -19,7 +19,6 @@ const Validations = buildValidations({
  * typedef {Object} Course
  */
 export default Ember.Object.extend(Validations, {
-
   /**
    * @property {String} id - The Course Id
    */
@@ -58,7 +57,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Number[]} Array with the audience ids
    */
-  audience:[],
+  audience: [],
 
   /**
    * @property {String} id of the course's owner
@@ -94,7 +93,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {boolean}
    */
-  hasSubject: Ember.computed.bool("subject"),
+  hasSubject: Ember.computed.bool('subject'),
 
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
@@ -103,8 +102,11 @@ export default Ember.Object.extend(Validations, {
     return this.getTaxonomyTags(false);
   }),
 
-  isRemixed: Ember.computed('owner','originalCreatorId', function() {
-    return this.get('originalCreatorId') !==null && this.get('owner.id')!==this.get('originalCreatorId');
+  isRemixed: Ember.computed('owner', 'originalCreatorId', function() {
+    return (
+      this.get('originalCreatorId') !== null &&
+      this.get('owner.id') !== this.get('originalCreatorId')
+    );
   }),
 
   /**
@@ -120,14 +122,14 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {Profile[]}
    */
-  remixedBy: Ember.computed('owner', function(){
+  remixedBy: Ember.computed('owner', function() {
     return Ember.A([this.get('owner')]); //TODO add also collaborators
   }),
 
   /**
    * @property {sortedUnitResults[]} Units sorted by sequence
    */
-  sortedUnitResults: Ember.computed('children.[]', function(){
+  sortedUnitResults: Ember.computed('children.[]', function() {
     return this.get('children').sortBy('sequence');
   }),
 
@@ -138,7 +140,6 @@ export default Ember.Object.extend(Validations, {
    * @return {Course}
    */
   copy: function() {
-
     var properties = [];
     var enumerableKeys = Object.keys(this);
 
@@ -163,7 +164,10 @@ export default Ember.Object.extend(Validations, {
     // Copy subject reference
     properties.mainSubject = this.get('mainSubject');
 
-    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+    return this.get('constructor').create(
+      Ember.getOwner(this).ownerInjection(),
+      properties
+    );
   },
 
   /**
@@ -184,7 +188,7 @@ export default Ember.Object.extend(Validations, {
    * @param editable
    * @returns {Array}
    */
-  getTaxonomyTags: function (editable = false) {
+  getTaxonomyTags: function(editable = false) {
     return this.get('taxonomy').map(function(tagData) {
       return TaxonomyTag.create({
         isActive: false,
@@ -198,15 +202,17 @@ export default Ember.Object.extend(Validations, {
   isOwner: function(id) {
     const owner = this.get('owner');
     const creatorId = this.get('creatorId');
-    return (owner && owner.get('id') === id) || (creatorId === id);
+    return (owner && owner.get('id') === id) || creatorId === id;
   },
 
   /**
    * When the owner and the creator are the same
    * @property {boolean}
    */
-  sameOwnerAndCreator: Ember.computed('owner.id', 'creatorId', function(){
-    return !this.get('creatorId') || this.get('owner.id') === this.get('creatorId');
+  sameOwnerAndCreator: Ember.computed('owner.id', 'creatorId', function() {
+    return (
+      !this.get('creatorId') || this.get('owner.id') === this.get('creatorId')
+    );
   }),
 
   /**
@@ -217,7 +223,7 @@ export default Ember.Object.extend(Validations, {
    * @return {Number}
    */
   getChildUnitIndex: function(unit) {
-    return this.get('children').mapBy('id').indexOf(unit.get('id'));
+    return this.get('sortedUnitResults').mapBy('id').indexOf(unit.get('id'));
   },
 
   /**
@@ -227,12 +233,21 @@ export default Ember.Object.extend(Validations, {
    * @param {string} lessonId
    * @return {LessonItem[]} lesson items
      */
-  getCollectionsByType: function (collectionType, unitId = undefined, lessonId = undefined) {
+  getCollectionsByType: function(
+    collectionType,
+    unitId = undefined,
+    lessonId = undefined
+  ) {
     const units = this.get('children');
-    return units.filter(unit => !unitId || unit.get('id') === unitId)
+    return units
+      .filter(unit => !unitId || unit.get('id') === unitId)
       .reduce((lessons, unit) => lessons.concat(unit.get('children')), [])
       .filter(lesson => !lessonId || lesson.get('id') === lessonId)
-      .reduce((collections, lesson) => collections.concat(lesson.get('sortedCollectionResults')), [])
+      .reduce(
+        (collections, lesson) =>
+          collections.concat(lesson.get('sortedCollectionResults')),
+        []
+      )
       .filter(collection => collection.get('format') === collectionType);
   },
 

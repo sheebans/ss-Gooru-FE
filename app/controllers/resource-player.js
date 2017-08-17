@@ -7,14 +7,21 @@ import Ember from 'ember';
  * @augments ember/PlayerController
  */
 export default Ember.Controller.extend({
-
-  queryParams: ['collectionUrl', 'unitId', 'lessonId', 'collectionId', 'pathId', 'source', 'collectionType'],
+  queryParams: [
+    'collectionUrl',
+    'unitId',
+    'lessonId',
+    'collectionId',
+    'pathId',
+    'source',
+    'collectionType'
+  ],
 
   actions: {
     /**
      * Action triggered when the performance information panel is expanded/collapsed
      */
-    toggleHeader: function (toggleState) {
+    toggleHeader: function(toggleState) {
       this.set('toggleState', toggleState);
     }
   },
@@ -60,5 +67,4 @@ export default Ember.Controller.extend({
    * @property {Boolean} sendEvents
    */
   sendEvents: Ember.computed.not('collectionUrl')
-
 });

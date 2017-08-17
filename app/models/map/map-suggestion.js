@@ -1,12 +1,11 @@
 import Ember from 'ember';
-import {ASSESSMENT_SUB_TYPES} from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 /**
  * MapSuggestion model
  *
  * @typedef {Object} MapSuggestion
  */
 const MapSuggestionModel = Ember.Object.extend({
-
   /**
    * @property {String} id - Suggestion id
    */
@@ -27,7 +26,7 @@ const MapSuggestionModel = Ember.Object.extend({
    */
   subType: null,
 
-   /**
+  /**
     * @property {String} resource subformat
     */
   resourceFormat: null,
@@ -56,7 +55,6 @@ const MapSuggestionModel = Ember.Object.extend({
    * @property {boolean}
    */
   isResource: Ember.computed.equal('subType', ASSESSMENT_SUB_TYPES.RESOURCE)
-
 });
 
 export default MapSuggestionModel;

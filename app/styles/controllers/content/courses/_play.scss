@@ -1,6 +1,14 @@
 .controller.content.courses.play {
-
   > article {
+    > section {
+      margin-top: 150px;
+      @media (min-width: $screen-sm) {
+        margin-top: 120px;
+      }
+      @media (min-width: $screen-md) {
+        margin-top: 100px;
+      }
+    }
     > header {
       padding: 20px 20px 8px 70px;
       position: fixed;
@@ -72,7 +80,7 @@
 
           .item {
             margin-right: 10px;
-            .img-circle{
+            .img-circle {
               height: 30px;
               width: 30px;
               margin-bottom: 5px;
@@ -131,7 +139,7 @@
           .user-name {
             font-size: $font-size-base;
           }
-          .img-circle{
+          .img-circle {
             height: 30px;
             width: 30px;
             margin-bottom: 5px;
@@ -163,10 +171,8 @@
     // then continue with a hierarchy of styles
     .gru-accordion-lesson > .view > .panel-heading,
     .gru-accordion-lesson-item .panel-heading {
-
       > .detail {
         > div:first-of-type {
-
           > span {
             display: block;
             line-height: 3.5;
@@ -206,7 +212,8 @@
       position: relative;
       border-bottom: 1px solid $gray-light;
 
-      h3 > a, strong > a {
+      h3 > a,
+      strong > a {
         color: $text-color;
       }
 
@@ -263,7 +270,6 @@
     }
 
     .gru-accordion-unit {
-
       .panel-body {
         padding: 10px 15px 15px;
 
@@ -275,7 +281,8 @@
           .essential-questions {
             line-height: 1.4;
 
-            span, p {
+            span,
+            p {
               color: $white;
             }
             p {
@@ -331,7 +338,6 @@
 
       &.view {
         > .view > .panel-heading {
-
           > strong {
             display: inline-block;
             vertical-align: middle;
@@ -359,10 +365,8 @@
     }
 
     .gru-accordion-lesson {
-
       &.view {
         > .view > .panel-heading {
-
           > strong {
             display: inline-block;
             vertical-align: middle;
@@ -381,7 +385,6 @@
         }
 
         .accordion-lesson {
-
           > li.gru-accordion-lesson-item .panel-heading {
             border-bottom: 0 none;
             border-bottom-left-radius: 3px;
@@ -396,7 +399,8 @@
             }
 
             > .title {
-              > img, > .image-placeholder {
+              > img,
+              > .image-placeholder {
                 display: inline-block;
                 width: 50px;
                 height: 40px;
@@ -451,7 +455,8 @@
     width: 330px;
     padding: 0;
     border-bottom: 2px solid $light-300;
-    i, span {
+    i,
+    span {
       vertical-align: middle;
     }
   }

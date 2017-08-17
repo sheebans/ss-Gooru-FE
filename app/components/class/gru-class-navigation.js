@@ -10,10 +10,8 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   /**
    * @requires service:session
@@ -23,19 +21,18 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-class-navigation'],
+  classNames: ['gru-class-navigation'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      *
      * Triggered when an menu item is selected
      * @param item
      */
-    selectItem: function(item){
-      if (this.get('onItemSelected')){
+    selectItem: function(item) {
+      if (this.get('onItemSelected')) {
         this.selectItem(item);
         this.sendAction('onItemSelected', item);
       }
@@ -46,8 +43,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * Triggered when the Info icon is selected for sm and xs
      * @param item
      */
-    showDescription: function(){
-      this.$( '.greetings' ).toggleClass( 'in' );
+    showDescription: function() {
+      this.$('.greetings').toggleClass('in');
     }
   },
 
@@ -62,10 +59,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
     this.selectItem(item);
   },
 
-
   // -------------------------------------------------------------------------
   // Properties
-  teamsURL: Ember.computed('teamsURLs', function(){
+  teamsURL: Ember.computed('teamsURLs', function() {
     const mappedHost = this.get('configurationService.configuration.teams.url');
     const sessionToken = this.get('session.token-api3');
     const classId = this.get('class.id');
@@ -85,8 +81,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @property {String} selectedMenuItem - menu Item selected
    */
 
-  selectedMenuItem:null,
-
+  selectedMenuItem: null,
 
   // -------------------------------------------------------------------------
   // Observers
@@ -98,7 +93,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
     this.selectItem(item);
   }.observes('selectedMenuItem'),
 
-
   // -------------------------------------------------------------------------
 
   // Methods
@@ -109,25 +103,25 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   selectItem: function(item) {
     var classIconItem = 'info';
-    if (item){
-      var itemElement = '.'+item;
-      this.$( '.class-menu-item' ).removeClass( 'selected' );
-      this.$(itemElement).addClass( 'selected' );
+    if (item) {
+      var itemElement = `.${item}`;
+      this.$('.class-menu-item').removeClass('selected');
+      this.$(itemElement).addClass('selected');
     }
-    switch (item){
-      case 'overview':
-        classIconItem = 'dashboard';
-        break;
-      case 'analytics.performance':
-        classIconItem = 'graphic_eq';
-        break;
-      case 'teams':
-        classIconItem = 'group';
-        break;
-      case 'info':
-        classIconItem = 'info';
-        break;
+    switch (item) {
+    case 'overview':
+      classIconItem = 'dashboard';
+      break;
+    case 'analytics.performance':
+      classIconItem = 'graphic_eq';
+      break;
+    case 'teams':
+      classIconItem = 'group';
+      break;
+    case 'info':
+      classIconItem = 'info';
+      break;
     }
-    this.set('iconClassMenuItem',classIconItem );
+    this.set('iconClassMenuItem', classIconItem);
   }
 });

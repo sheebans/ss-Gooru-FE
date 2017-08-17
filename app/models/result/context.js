@@ -6,7 +6,6 @@ import Ember from 'ember';
  *
  */
 export default Ember.Object.extend({
-
   /**
    * @property {string} collectionId - Playing collection / assessment UUID
    */
@@ -56,7 +55,5 @@ export default Ember.Object.extend({
   /**
    * @property  {boolean}
    */
-  isInContext: Ember.computed.bool("classId")
-
+  isInContext: Ember.computed.bool('classId')
 });
-

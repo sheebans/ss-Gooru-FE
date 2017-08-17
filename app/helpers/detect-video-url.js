@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { isVideoURL  } from 'gooru-web/utils/utils';
+import { isVideoURL } from 'gooru-web/utils/utils';
 
 /**
  * Returns true if url belongs to youtube or vimeo

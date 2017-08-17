@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {DEFAULT_SEARCH_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_SEARCH_PAGE_SIZE } from 'gooru-web/config/config';
 
 /**
  * Adapter to support the Bookmark CRUD operations in the API 3.0
@@ -7,7 +7,6 @@ import {DEFAULT_SEARCH_PAGE_SIZE} from 'gooru-web/config/config';
  * @typedef {Object} BookmarkAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus/v2/bookmarks',
@@ -41,7 +40,8 @@ export default Ember.Object.extend({
   fetchBookmarks: function(pagination = {}, resetPagination = false) {
     const adapter = this;
     const url = adapter.get('namespace');
-    const offset = (!pagination.offset || resetPagination) ? 0 : pagination.offset;
+    const offset =
+      !pagination.offset || resetPagination ? 0 : pagination.offset;
     const pageSize = pagination.pageSize || DEFAULT_SEARCH_PAGE_SIZE;
     const options = {
       type: 'GET',
@@ -78,8 +78,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

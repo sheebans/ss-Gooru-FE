@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { TOKEN_EXPIRATION_TIME } from 'gooru-web/config/config';
 
 export default Ember.Service.extend({
-
   session: Ember.inject.service('session'),
 
   /**
@@ -12,13 +11,16 @@ export default Ember.Service.extend({
    */
   // TODO The useApi3 param is just a temporal solution that will allow us to use API 2.0 or API 3.0 to authenticate
   signInWithUser: function(credentials, useApi3) {
-    return this.get('session').authenticate(useApi3 ? 'authenticator:auth-api-3' : 'authenticator:custom', {
-      isAnonymous: false,
-      hasAccessToken: false,
-      hasUserData: false,
-      username: credentials.get('username'),
-      password: credentials.get('password')
-    });
+    return this.get('session').authenticate(
+      useApi3 ? 'authenticator:auth-api-3' : 'authenticator:custom',
+      {
+        isAnonymous: false,
+        hasAccessToken: false,
+        hasUserData: false,
+        username: credentials.get('username'),
+        password: credentials.get('password')
+      }
+    );
   },
 
   /**
@@ -58,7 +60,7 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('session').authorize('authorizer:auth-api-3', function(err) {
-        if(err) {
+        if (err) {
           return reject(err);
         }
         resolve();
@@ -85,5 +87,4 @@ export default Ember.Service.extend({
     var time = now - (providedAt || 0);
     return time >= TOKEN_EXPIRATION_TIME;
   }
-
 });

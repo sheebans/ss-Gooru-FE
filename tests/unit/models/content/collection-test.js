@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import Resource from 'gooru-web/models/content/resource';
 import Question from 'gooru-web/models/content/question';
 import { moduleFor, test } from 'ember-qunit';
@@ -8,8 +8,7 @@ moduleFor('model:content/collection', 'Unit | Model | content/collection', {
   needs: ['validator:presence']
 });
 
-test('number of resources is computed correctly', function (assert) {
-
+test('number of resources is computed correctly', function(assert) {
   var model = this.subject({
     children: Ember.A([
       Resource.create({
@@ -24,11 +23,14 @@ test('number of resources is computed correctly', function (assert) {
     ])
   });
 
-  assert.equal(model.get("computedResourceCount"), 2, "Computed resource count");
+  assert.equal(
+    model.get('computedResourceCount'),
+    2,
+    'Computed resource count'
+  );
 });
 
-test('number of questions is computed correctly', function (assert) {
-
+test('number of questions is computed correctly', function(assert) {
   var model = this.subject({
     children: Ember.A([
       Question.create({
@@ -43,5 +45,9 @@ test('number of questions is computed correctly', function (assert) {
     ])
   });
 
-  assert.equal(model.get("computedQuestionCount"), 2, "Computed question count");
+  assert.equal(
+    model.get('computedQuestionCount'),
+    2,
+    'Computed question count'
+  );
 });

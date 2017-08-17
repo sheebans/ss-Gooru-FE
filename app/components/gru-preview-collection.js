@@ -3,20 +3,20 @@ import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import SessionMixin from 'gooru-web/mixins/session';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
-export default Ember.Component.extend(SessionMixin,{
+export default Ember.Component.extend(SessionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-preview-collection'],
+  classNames: ['gru-preview-collection'],
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     /**
      * Action triggered to remix the collection
      * @param content
      */
-    remixCollection:function(){
+    remixCollection: function() {
       this.get('model').remixCollection();
     },
 
@@ -24,7 +24,7 @@ export default Ember.Component.extend(SessionMixin,{
      * Action triggered to bookmark the collection
      * @param content
      */
-    bookmarkCollection:function(){
+    bookmarkCollection: function() {
       this.get('model').bookmarkCollection();
     },
 
@@ -44,9 +44,9 @@ export default Ember.Component.extend(SessionMixin,{
   init() {
     var component = this;
     component._super(...arguments);
-    component.set('collection',component.get('model.content'));
-    component.set('isTeacher',component.get('model.isTeacher'));
-    component.set('isStudent',component.get('model.isStudent'));
+    component.set('collection', component.get('model.content'));
+    component.set('isTeacher', component.get('model.isTeacher'));
+    component.set('isStudent', component.get('model.isStudent'));
   },
 
   // -------------------------------------------------------------------------
@@ -88,5 +88,4 @@ export default Ember.Component.extend(SessionMixin,{
    * @property {boolean} Indicates if collection has 1 or more questions
    */
   hasQuestions: Ember.computed.gt('collection.questionCount', 0)
-
 });

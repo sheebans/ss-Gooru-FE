@@ -2,9 +2,9 @@ import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Route.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @type {ProfileService} Search service object
    */
@@ -14,18 +14,18 @@ export default Ember.Route.extend(ModalMixin, {
   // Actions
 
   actions: {
-
     /**
      * Remix course action, when clicking remix at the course card
      * @param {Content/Course}
      */
-    remixCourse: function(course){
+    remixCourse: function(course) {
       var remixModel = {
         content: course
       };
       this.send('showModal', 'content.modals.gru-course-remix', remixModel);
     }
   },
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -37,13 +37,13 @@ export default Ember.Route.extend(ModalMixin, {
     });
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     const route = this;
     route.controllerFor('search').set('standardFilterEnabled', false);
     controller.set('courses', model.courses);
   },
 
-  deactivate: function () {
+  deactivate: function() {
     const route = this;
     route.controllerFor('search').set('standardFilterEnabled', true);
   }

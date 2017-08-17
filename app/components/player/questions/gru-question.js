@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { getQuestionUtil } from  'gooru-web/config/question';
+import { getQuestionUtil } from 'gooru-web/config/question';
 
 /**
  * Gooru question base component
@@ -13,8 +13,7 @@ import { getQuestionUtil } from  'gooru-web/config/question';
  * @typedef {Object} QuestionComponent
  */
 export default Ember.Component.extend({
-
-// -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
   // Dependencies
 
   // -------------------------------------------------------------------------
@@ -65,9 +64,9 @@ export default Ember.Component.extend({
    * Question Util based on the question type
    * @property {QuestionUtil}
    */
-  questionUtil: Ember.computed("question", function(){
-    let question = this.get("question");
-    let type = question.get("questionType");
+  questionUtil: Ember.computed('question', function() {
+    let question = this.get('question');
+    let type = question.get('questionType');
     return getQuestionUtil(type).create({ question: question });
   }),
 
@@ -86,10 +85,9 @@ export default Ember.Component.extend({
    * Indicate if the question has a user answer
    * @property {Boolean}
    */
-  hasUserAnswer:Ember.computed("userAnswer", function () {
-    return this.get("userAnswer") && this.get("userAnswer.length");
+  hasUserAnswer: Ember.computed('userAnswer', function() {
+    return this.get('userAnswer') && this.get('userAnswer.length');
   }),
-
 
   // -------------------------------------------------------------------------
   // Observers
@@ -114,7 +112,7 @@ export default Ember.Component.extend({
    * @param {*} answer question answer
    * @param {boolean} correct
    */
-  notifyAnswerCompleted: function(answer, correct){
+  notifyAnswerCompleted: function(answer, correct) {
     const question = this.get('question');
     this.sendAction('onAnswerCompleted', question, {
       answer: answer,
@@ -126,7 +124,7 @@ export default Ember.Component.extend({
    * Notifies answer completion
    * @param {*} answer question answer
    */
-  notifyAnswerCleared: function(answer){
+  notifyAnswerCleared: function(answer) {
     const question = this.get('question');
     this.sendAction('onAnswerCleared', question, {
       answer: answer,
@@ -139,7 +137,7 @@ export default Ember.Component.extend({
    * @param {*} answer question answer
    * @param {boolean} correct
    */
-  notifyAnswerChanged: function(answer, correct){
+  notifyAnswerChanged: function(answer, correct) {
     const question = this.get('question');
     this.sendAction('onAnswerChanged', question, {
       answer: answer,
@@ -150,12 +148,11 @@ export default Ember.Component.extend({
   /**
    * Notifies answer was loaded from BE
    */
-  notifyAnswerLoaded: function(answer, correct){
+  notifyAnswerLoaded: function(answer, correct) {
     const question = this.get('question');
     this.sendAction('onAnswerLoaded', question, {
       answer: answer,
       correct: correct
     });
   }
-
 });

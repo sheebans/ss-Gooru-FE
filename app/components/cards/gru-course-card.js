@@ -10,7 +10,6 @@ import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
  * @see controllers/profile/about.js
  */
 export default Ember.Component.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   session: Ember.inject.service('session'),
@@ -18,7 +17,7 @@ export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['cards','gru-course-card'],
+  classNames: ['cards', 'gru-course-card'],
 
   classNameBindings: ['isSmall:small'],
 
@@ -26,25 +25,24 @@ export default Ember.Component.extend(ModalMixin, {
   // Actions
 
   actions: {
-
     /**
      *Action triggered when select edit the course
      */
-    editCourse:function(){
+    editCourse: function() {
       this.sendAction('onEditCourse', this.get('course'));
     },
 
     /**
      *Action triggered when select play the course
      */
-    playCourse:function(){
+    playCourse: function() {
       this.playCourse();
     },
 
     /**
      *Action triggered when select remix the course
      */
-    remixCourse:function(){
+    remixCourse: function() {
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
@@ -65,9 +63,9 @@ export default Ember.Component.extend(ModalMixin, {
         isTeacher
       });
 
-      model.set('remixCourse',() => component.remixCourse());
-      model.set('playCourse',() => component.playCourse());
-      model.set('bookmarkCourse',() => component.bookmarkCourse());
+      model.set('remixCourse', () => component.remixCourse());
+      model.set('playCourse', () => component.playCourse());
+      model.set('bookmarkCourse', () => component.bookmarkCourse());
       component.send('showModal', 'gru-preview-course', model);
     }
   },
@@ -106,7 +104,7 @@ export default Ember.Component.extend(ModalMixin, {
    * flag that tells if you are owner of card or not.
    * @property {Boolean}
    */
-  isOwner : false,
+  isOwner: false,
   /**
    * Edit enabled is a flag for whether the edit button is enabled or not.
    * @property {Boolean}
@@ -116,12 +114,12 @@ export default Ember.Component.extend(ModalMixin, {
    * Edit enabled is a flag for whether the remix button is enabled or not.
    * @property {Boolean} course
    */
-  isRemixEnabled:true,
+  isRemixEnabled: true,
   /**
    * Edit enabled is a flag for whether the preview button is enabled or not.
    * @property {Boolean} course
    */
-  isPreviewEnabled:false,
+  isPreviewEnabled: false,
 
   /**
    * Show if the visibility icon is visible or not.
@@ -150,13 +148,13 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @property {Array} users
    */
-  users:Ember.computed('course', function() {
+  users: Ember.computed('course', function() {
     return this.get('course.remixedBy');
   }),
   /**
    * @property {String} subjects
    */
-  subjects:Ember.computed('course', function() {
+  subjects: Ember.computed('course', function() {
     // TODO Verify if this method is required
     /*
     var subjectsList = this.get("course.subjects");
@@ -190,7 +188,7 @@ export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Events
 
-  didRender(){
+  didRender() {
     $('[data-toggle="tooltip"]').tooltip();
   },
 
@@ -199,21 +197,21 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * Selecting to bookmark a course
    */
-  bookmarkCourse: function () {
+  bookmarkCourse: function() {
     this.sendAction('onBookmarkCourse', this.get('course'));
   },
 
   /**
    * Selecting to play a course
    */
-  playCourse:function(){
+  playCourse: function() {
     this.sendAction('onPlayCourse', this.get('course'));
   },
 
   /**
    * Selecting to remix a course
    */
-  remixCourse:function(){
+  remixCourse: function() {
     if (this.get('session.isAnonymous')) {
       this.send('showModal', 'content.modals.gru-login-prompt');
     } else {
@@ -223,5 +221,4 @@ export default Ember.Component.extend(ModalMixin, {
       this.send('showModal', 'content.modals.gru-course-remix', remixModel);
     }
   }
-
 });

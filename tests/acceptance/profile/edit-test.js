@@ -21,94 +21,126 @@ test('Layout', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/edit');
 
-    const $editContainer = find(".controller.about.edit");
-    T.exists(assert, $editContainer, "Missing edit container");
-    T.exists(assert, $editContainer.find(".cancel"), "Missing cancel button");
-    T.exists(assert, $editContainer.find(".save"), "Missing save button");
-    T.exists(assert, $editContainer.find("#username"), "Missing username");
+    const $editContainer = find('.controller.about.edit');
+    T.exists(assert, $editContainer, 'Missing edit container');
+    T.exists(assert, $editContainer.find('.cancel'), 'Missing cancel button');
+    T.exists(assert, $editContainer.find('.save'), 'Missing save button');
+    T.exists(assert, $editContainer.find('#username'), 'Missing username');
 
-    const usernameMaxLenValue = $editContainer.find('#username input').prop('maxlength');
-    assert.equal(usernameMaxLenValue, 20, "Incorrect username max length");
+    const usernameMaxLenValue = $editContainer
+      .find('#username input')
+      .prop('maxlength');
+    assert.equal(usernameMaxLenValue, 20, 'Incorrect username max length');
 
-    T.exists(assert, $editContainer.find("#first-name"), "Missing user first name");
-    T.exists(assert, $editContainer.find("#last-name"), "Missing user last name");
-    T.exists(assert, $editContainer.find("#bio"), "Missing user biography");
-    T.exists(assert, $editContainer.find(".roles"), "Missing roles radios");
-    T.exists(assert, $editContainer.find("#studentId"), "Missing username");
-    assert.equal(find(".roles .gru-radio").length, 3, "Missing roles gru-radio components");
-    T.exists(assert, $editContainer.find(".gru-select"), "Missing gru-select component of countries");
+    T.exists(
+      assert,
+      $editContainer.find('#first-name'),
+      'Missing user first name'
+    );
+    T.exists(
+      assert,
+      $editContainer.find('#last-name'),
+      'Missing user last name'
+    );
+    T.exists(assert, $editContainer.find('#bio'), 'Missing user biography');
+    T.exists(assert, $editContainer.find('.roles'), 'Missing roles radios');
+    T.exists(assert, $editContainer.find('#studentId'), 'Missing username');
+    assert.equal(
+      find('.roles .gru-radio').length,
+      3,
+      'Missing roles gru-radio components'
+    );
+    T.exists(
+      assert,
+      $editContainer.find('.gru-select'),
+      'Missing gru-select component of countries'
+    );
 
-    const studentIDMaxLenValue = $editContainer.find('#studentId input').prop('maxlength');
-    assert.equal(studentIDMaxLenValue, 25, "Incorrect student id max length");
+    const studentIDMaxLenValue = $editContainer
+      .find('#studentId input')
+      .prop('maxlength');
+    assert.equal(studentIDMaxLenValue, 25, 'Incorrect student id max length');
   });
 });
 
-test('no menu option is selected when entering to edit mode', function (assert) {
+test('no menu option is selected when entering to edit mode', function(assert) {
   visit('/id-for-pochita/edit');
 
-  andThen(function () {
-      var $menu = find('.controller.profile > .navigation .profile-menu');
-      assert.equal(currentURL(), '/id-for-pochita/edit');
-      assert.notOk(!!$menu.find('.selected').length, 'A menu option is selected');
+  andThen(function() {
+    var $menu = find('.controller.profile > .navigation .profile-menu');
+    assert.equal(currentURL(), '/id-for-pochita/edit');
+    assert.notOk(!!$menu.find('.selected').length, 'A menu option is selected');
   });
 });
 
-test('Validate Student ID field Special Characters', function (assert) {
+test('Validate Student ID field Special Characters', function(assert) {
   visit('/id-for-pochita/edit');
 
-  andThen(function () {
-    const $studentId = find("#studentId");
-    $studentId.find("input").val('!Value');
-    $studentId.find("input").blur();
+  andThen(function() {
+    const $studentId = find('#studentId');
+    $studentId.find('input').val('!Value');
+    $studentId.find('input').blur();
 
-    return wait().then(function () {
-      assert.ok($studentId.find(".error-messages .error").length, 'Student ID speacial chars error message should be appear');
+    return wait().then(function() {
+      assert.ok(
+        $studentId.find('.error-messages .error').length,
+        'Student ID speacial chars error message should be appear'
+      );
     });
   });
 });
 
-test('Validate Username field Special Characters', function (assert) {
+test('Validate Username field Special Characters', function(assert) {
   visit('/id-for-pochita/edit');
 
-  andThen(function () {
-    const $studentId = find("#username");
-    $studentId.find("input").val('!Value');
-    $studentId.find("input").blur();
+  andThen(function() {
+    const $studentId = find('#username');
+    $studentId.find('input').val('!Value');
+    $studentId.find('input').blur();
 
-    return wait().then(function () {
-      assert.ok($studentId.find(".error-messages .error").length, 'Username special chars error message should be appear');
+    return wait().then(function() {
+      assert.ok(
+        $studentId.find('.error-messages .error').length,
+        'Username special chars error message should be appear'
+      );
     });
   });
 });
-test('Validate Username field Blank Spaces', function (assert) {
+test('Validate Username field Blank Spaces', function(assert) {
   visit('/id-for-pochita/edit');
 
-  andThen(function () {
-    const $studentId = find("#username");
-    $studentId.find("input").val('');
-    $studentId.find("input").blur();
+  andThen(function() {
+    const $studentId = find('#username');
+    $studentId.find('input').val('');
+    $studentId.find('input').blur();
 
-    return wait().then(function () {
-      assert.ok($studentId.find(".error-messages .error").length, 'Username blanck spaces error message should be appear');
-    });
-  });
-});
-
-test('Validate Username field Minimum Chars', function (assert) {
-  visit('/id-for-pochita/edit');
-
-  andThen(function () {
-    const $studentId = find("#username");
-    $studentId.find("input").val('abc');
-    $studentId.find("input").blur();
-
-    return wait().then(function () {
-      assert.ok($studentId.find(".error-messages .error").length, 'Username min length error message should be appear');
+    return wait().then(function() {
+      assert.ok(
+        $studentId.find('.error-messages .error').length,
+        'Username blanck spaces error message should be appear'
+      );
     });
   });
 });
 
-test('it shows an error message if the username exists', function (assert) {
+test('Validate Username field Minimum Chars', function(assert) {
+  visit('/id-for-pochita/edit');
+
+  andThen(function() {
+    const $studentId = find('#username');
+    $studentId.find('input').val('abc');
+    $studentId.find('input').blur();
+
+    return wait().then(function() {
+      assert.ok(
+        $studentId.find('.error-messages .error').length,
+        'Username min length error message should be appear'
+      );
+    });
+  });
+});
+
+test('it shows an error message if the username exists', function(assert) {
   visit('/pochita/edit');
 
   authenticateSession(this.application, {
@@ -121,38 +153,54 @@ test('it shows an error message if the username exists', function (assert) {
 
   andThen(function() {
     const $studentId = find('#username');
-    const $editContainer = find(".controller.about.edit");
-    assert.ok(!find('.validation.error.existing-user-error').length, 'Username error message not visible');
+    const $editContainer = find('.controller.about.edit');
+    assert.ok(
+      !find('.validation.error.existing-user-error').length,
+      'Username error message not visible'
+    );
     $studentId.find('input').val('abc');
-    $editContainer.find(".selectpicker").val('27945fac-d478-11e4-bfe7-22000abfab1d').change();
+    $editContainer
+      .find('.selectpicker')
+      .val('27945fac-d478-11e4-bfe7-22000abfab1d')
+      .change();
 
-      $editContainer.find(".save").click();
+    $editContainer.find('.save').click();
 
-      return wait().then(function () {
-        assert.ok(find('.validation.error.existing-user-error').length, 'Username error message should be visible');
-      });
-
+    return wait().then(function() {
+      assert.ok(
+        find('.validation.error.existing-user-error').length,
+        'Username error message should be visible'
+      );
+    });
   });
 });
 
-test('it shows an error message if the username has reserved words', function (assert) {
+test('it shows an error message if the username has reserved words', function(
+  assert
+) {
   visit('/id-for-pochita/edit');
 
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/edit');
-    const $usernameField = find(".gru-input.username");
+    const $usernameField = find('.gru-input.username');
 
     // Invalid format
-    $usernameField.find("input").val('home');
-    $usernameField.find("input").blur();
+    $usernameField.find('input').val('home');
+    $usernameField.find('input').blur();
 
-    return wait().then(function () {
-      assert.ok($usernameField.find(".error-messages .error").length, 'Username error message visible');
+    return wait().then(function() {
+      assert.ok(
+        $usernameField.find('.error-messages .error').length,
+        'Username error message visible'
+      );
       // Valid format
-      $usernameField.find("input").val('test');
-      $usernameField.find("input").blur();
-      return wait().then(function () {
-        assert.ok(!$usernameField.find(".error-messages .error").length, 'Username error message was hidden');
+      $usernameField.find('input').val('test');
+      $usernameField.find('input').blur();
+      return wait().then(function() {
+        assert.ok(
+          !$usernameField.find('.error-messages .error').length,
+          'Username error message was hidden'
+        );
       });
     });
   });

@@ -9,18 +9,26 @@ import ProfileAdapter from 'gooru-web/adapters/profile/profile';
  * @typedef {Object} AuthenticationService
  */
 export default Ember.Service.extend({
-
   authenticationSerializer: null,
 
   authenticationAdapter: null,
 
   profileAdapter: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('authenticationSerializer', AuthenticationSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('authenticationAdapter', AuthenticationAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('profileAdapter', ProfileAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'authenticationSerializer',
+      AuthenticationSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'authenticationAdapter',
+      AuthenticationAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'profileAdapter',
+      ProfileAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -31,13 +39,23 @@ export default Ember.Service.extend({
   authenticateAsAnonymous: function() {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('authenticationAdapter').postAuthentication({
-        isAnonymous: true
-      }).then(function(response) {
-          resolve(service.get('authenticationSerializer').normalizeResponse(response, true));
-        }, function(error) {
-          reject(error);
-        });
+      service
+        .get('authenticationAdapter')
+        .postAuthentication({
+          isAnonymous: true
+        })
+        .then(
+          function(response) {
+            resolve(
+              service
+                .get('authenticationSerializer')
+                .normalizeResponse(response, true)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -50,13 +68,20 @@ export default Ember.Service.extend({
   authenticateWithCredentials: function(username, password) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('authenticationAdapter').postAuthentication({
-        isAnonymous: false,
-        username: username,
-        password: password
-      }).then(function(response) {
-        resolve(service.get('authenticationSerializer').normalizeResponse(response, false));
-      }, reject);
+      service
+        .get('authenticationAdapter')
+        .postAuthentication({
+          isAnonymous: false,
+          username: username,
+          password: password
+        })
+        .then(function(response) {
+          resolve(
+            service
+              .get('authenticationSerializer')
+              .normalizeResponse(response, false)
+          );
+        }, reject);
     });
   },
 
@@ -68,11 +93,18 @@ export default Ember.Service.extend({
   authenticateWithToken: function(accessToken) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('authenticationAdapter').postAuthenticationWithToken({
-        accessToken
-      }).then(function(response) {
-        resolve(service.get('authenticationSerializer').normalizeResponse(response, false, accessToken));
-      }, reject);
+      service
+        .get('authenticationAdapter')
+        .postAuthenticationWithToken({
+          accessToken
+        })
+        .then(function(response) {
+          resolve(
+            service
+              .get('authenticationSerializer')
+              .normalizeResponse(response, false, accessToken)
+          );
+        }, reject);
     });
   },
 
@@ -83,9 +115,12 @@ export default Ember.Service.extend({
   checkToken: function(accessToken) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('authenticationAdapter').checkToken({
-        accessToken
-      }).then(resolve, reject);
+      service
+        .get('authenticationAdapter')
+        .checkToken({
+          accessToken
+        })
+        .then(resolve, reject);
     });
   },
 
@@ -98,5 +133,4 @@ export default Ember.Service.extend({
       service.get('authenticationAdapter').signOut().then(resolve, reject);
     });
   }
-
 });

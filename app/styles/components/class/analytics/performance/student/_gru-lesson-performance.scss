@@ -1,10 +1,10 @@
-.lessons-container{
+.lessons-container {
   margin: 17px 0 0 0;
 
-  .panel{
+  .panel {
     box-shadow: none;
   }
-  >div{
+  > div {
     -webkit-flex-direction: column;
     flex-direction: column;
     -webkit-flex-wrap: nowrap;
@@ -17,19 +17,19 @@
     align-content: center;
     display: -webkit-flex;
     display: flex;
-    > .gru-lesson-performance-container{
-      width:100%;
+    > .gru-lesson-performance-container {
+      width: 100%;
       min-height: 70px;
-      border:0;
-      border-radius:0!important;
+      border: 0;
+      border-radius: 0 !important;
       padding: 0;
       @include respond-to(xs) {
-        min-height:50px;
+        min-height: 50px;
       }
-      >a{
-        border-bottom-left-radius:0;
+      > a {
+        border-bottom-left-radius: 0;
         border-top-left-radius: 0;
-        color:$gray;
+        color: $gray;
         height: 70px;
         -webkit-flex-direction: row;
         flex-direction: row;
@@ -44,10 +44,10 @@
         display: -webkit-flex;
         display: flex;
         text-decoration: none;
-        @include respond-to(xs){
-          height:50px;
+        @include respond-to(xs) {
+          height: 50px;
         }
-        >*{
+        > * {
           -webkit-order: 0;
           order: 0;
           -webkit-flex-grow: 1;
@@ -59,13 +59,13 @@
           -webkit-align-self: auto;
           align-self: auto;
           height: 100%;
-          width:100%;
-          padding:0;
+          width: 100%;
+          padding: 0;
         }
-        >ul{
-          border-bottom:1px solid $gray-lighter;
-          >li{
-            &.lesson-performance-content{
+        > ul {
+          border-bottom: 1px solid $gray-lighter;
+          > li {
+            &.lesson-performance-content {
               -webkit-flex-direction: row;
               flex-direction: row;
               -webkit-flex-wrap: nowrap;
@@ -78,13 +78,13 @@
               align-content: center;
               display: -webkit-flex;
               display: flex;
-              height:100%;
-              width:100%;
-              @include respond-to(xs){
+              height: 100%;
+              width: 100%;
+              @include respond-to(xs) {
                 -webkit-justify-content: center;
                 justify-content: center;
               }
-              >*{
+              > * {
                 -webkit-order: 0;
                 order: 0;
                 -webkit-flex-grow: 0;
@@ -98,23 +98,23 @@
                 margin: 0;
               }
             }
-            &:last-child{
+            &:last-child {
               @include respond-to(xs) {
-                border-left:1px solid $gray-lighter;
+                border-left: 1px solid $gray-lighter;
               }
             }
           }
         }
       }
-      div.collections-container{
-        >ul {
+      div.collections-container {
+        > ul {
           @include flexbox;
           @include flex-direction(column);
           list-style: none;
           padding: 0;
-          li ul{
+          li ul {
             padding-bottom: 20px;
-            height:100px;
+            height: 100px;
             @include align-items(flex-end);
             &:after {
               border-top: 1px solid $gray-lighter;
@@ -132,8 +132,8 @@
                 border: none;
               }
             }
-            li{
-              &.title{
+            li {
+              &.title {
                 @include flex-direction(column);
                 @include align-items(flex-start);
                 .section-title {
@@ -144,20 +144,20 @@
                   }
                 }
               }
-              >span{
-                i{
+              > span {
+                i {
                   display: none;
                 }
               }
-              p{
-                margin:0 0 5px;
+              p {
+                margin: 0 0 5px;
               }
             }
           }
         }
       }
     }
-    >*{
+    > * {
       width: 100%;
     }
   }

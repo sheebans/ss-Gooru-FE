@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} GoalAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service(),
 
   namespace: '/api/nucleus-insights/v2',
@@ -18,7 +17,10 @@ export default Ember.Object.extend({
    * @param {string[]} classIds
    * @returns {Promise}
    */
-  findClassPerformanceSummaryByStudentAndClassIds: function (studentId, classIds) {
+  findClassPerformanceSummaryByStudentAndClassIds: function(
+    studentId,
+    classIds
+  ) {
     const namespace = this.get('namespace');
     const url = `${namespace}/classes/performance?userId=${studentId}`;
     const options = {
@@ -28,14 +30,13 @@ export default Ember.Object.extend({
       processData: false,
       headers: this.defineHeaders(),
       data: JSON.stringify({
-        "classIds" : classIds
+        classIds: classIds
       })
     };
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
-          resolve(responseData);
-        }, reject);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(function(responseData) {
+        resolve(responseData);
+      }, reject);
     });
   },
 
@@ -45,7 +46,7 @@ export default Ember.Object.extend({
    * @param {string[]} classIds
    * @returns {Promise}
    */
-  findClassPerformanceSummaryByClassIds: function (classIds) {
+  findClassPerformanceSummaryByClassIds: function(classIds) {
     const namespace = this.get('namespace');
     const url = `${namespace}/classes/performance`;
     const options = {
@@ -55,21 +56,19 @@ export default Ember.Object.extend({
       processData: false,
       headers: this.defineHeaders(),
       data: JSON.stringify({
-        "classIds" : classIds
+        classIds: classIds
       })
     };
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
-          resolve(responseData);
-        }, reject);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(function(responseData) {
+        resolve(responseData);
+      }, reject);
     });
   },
 
-  defineHeaders: function () {
+  defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

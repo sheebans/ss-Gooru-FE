@@ -7,7 +7,6 @@ import DS from 'ember-data';
  * @typedef {Object} PerformanceSerializer
  */
 export default DS.JSONAPISerializer.extend({
-
   /**
    * Normalizes the response for the QueryRecord method
    * @param store
@@ -32,16 +31,18 @@ export default DS.JSONAPISerializer.extend({
    * @param payload
    * @returns {Performance|Performance[]} returns a Performance object or Performance array
    */
-  getSingleRecord: function(payload){
+  getSingleRecord: function(payload) {
     const serializer = this;
     var results = payload.usageData;
 
     if (payload.alternatePath) {
-      Ember.$.each(payload.alternatePath, (index, alternatePath) => results.push(alternatePath));
+      Ember.$.each(payload.alternatePath, (index, alternatePath) =>
+        results.push(alternatePath)
+      );
     }
 
     var model = { data: [] };
-    Ember.$.each(results, function(index, result){
+    Ember.$.each(results, function(index, result) {
       model.data.push(serializer.normalizePerformanceAttributes(result));
     });
     return model;
@@ -60,14 +61,14 @@ export default DS.JSONAPISerializer.extend({
      *  Use the format 'userId@model-id' for class performance to differentiate student units
      *  If it's student performance we use only the model-id
      */
-    var id = (userId) ? `${userId}@` : '';
+    var id = userId ? `${userId}@` : '';
     return {
-      id: id+serializer.getModelId(result),
+      id: id + serializer.getModelId(result),
       type: serializer.getModelType(),
       attributes: {
         type: serializer.getObjectType(result),
         score: result.scoreInPercentage,
-        completionDone:  result.completedCount,
+        completionDone: result.completedCount,
         completionTotal: result.totalCount,
         timeSpent: result.timeSpent,
         attempts: result.attempts,
@@ -88,11 +89,10 @@ export default DS.JSONAPISerializer.extend({
      *  Use the format 'userId@model-id' for class performance to differentiate student units
      *  If it's student performance we use only the model-id
      */
-    var id = (userId) ? `${userId}@` : '';
+    var id = userId ? `${userId}@` : '';
     return {
-      id: id+serializer.getModelId(result),
+      id: id + serializer.getModelId(result),
       type: serializer.getModelType()
     };
   }
-
 });

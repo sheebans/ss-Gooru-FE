@@ -1,33 +1,34 @@
 import Ember from 'ember';
-import {DEFAULT_PAGE_SIZE} from 'gooru-web/config/config';
+import { DEFAULT_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
     openContentPlayer: function(assessment) {
-      if (assessment.get('isExternalAssessment')){
+      if (assessment.get('isExternalAssessment')) {
         window.open(assessment.get('url')); //TODO url?
-      }
-      else{
-        this.transitionToRoute('player', assessment.get('id'), { queryParams: { type: assessment.get('collectionType')}});
+      } else {
+        this.transitionToRoute('player', assessment.get('id'), {
+          queryParams: { type: assessment.get('collectionType') }
+        });
       }
     },
 
-    showMoreResults: function(){
+    showMoreResults: function() {
       this.showMoreResults();
     }
-
   },
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @type {ProfileService} Service to retrieve content controller
    */
   contentController: Ember.inject.controller('profile.content'),
+
   /**
    * @type {ProfileService} Service to retrieve profile controller
    */
@@ -49,10 +50,15 @@ export default Ember.Controller.extend({
   /**
    * @property {Class[]}
    */
-  activeClasses: Ember.computed('appController.myClasses.classes.[]', function(){
-    const classes = this.get('appController.myClasses');
-    return classes ? classes.getTeacherActiveClasses(this.get('sessionProfile.id')) : [];
-  }),
+  activeClasses: Ember.computed(
+    'appController.myClasses.classes.[]',
+    function() {
+      const classes = this.get('appController.myClasses');
+      return classes
+        ? classes.getTeacherActiveClasses(this.get('sessionProfile.id'))
+        : [];
+    }
+  ),
 
   /**
    * A link to the parent application controller
@@ -60,6 +66,7 @@ export default Ember.Controller.extend({
    * @property {ClassesModel}
    */
   myClasses: Ember.computed.alias('appController.myClasses'),
+
   /**
    * @property {string} term filter
    */
@@ -106,13 +113,15 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean}
    */
-  showMoreResultsButton: Ember.computed('assessments.[]', function(){
-    return this.get('assessments.length') &&
-      (this.get('assessments.length') % this.get('pagination.pageSize') === 0);
+  showMoreResultsButton: Ember.computed('assessments.[]', function() {
+    return (
+      this.get('assessments.length') &&
+      this.get('assessments.length') % this.get('pagination.pageSize') === 0
+    );
   }),
 
   // Methods
-  showMoreResults: function(){
+  showMoreResults: function() {
     const controller = this;
     const profile = this.get('profile');
     const pagination = this.get('pagination');
@@ -122,18 +131,18 @@ export default Ember.Controller.extend({
     pagination.sortOn = this.get('sortOn');
     pagination.order = this.get('order');
 
-    controller.get('profileService')
+    controller
+      .get('profileService')
       .readAssessments(profile.get('id'), pagination)
-      .then(function(assessments){
+      .then(function(assessments) {
         controller.get('assessments').pushObjects(assessments.toArray());
       });
   },
 
-  resetValues: function(){
+  resetValues: function() {
     this.set('pagination', {
       page: 0,
       pageSize: DEFAULT_PAGE_SIZE
     });
   }
-
 });

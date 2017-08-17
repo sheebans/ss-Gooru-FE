@@ -22,17 +22,17 @@
       border-right-color: $dark-200;
     }
   }
-  &.show-description{
-    .popover-content{
+  &.show-description {
+    .popover-content {
       max-height: 230px;
       overflow-y: auto;
-      .gru-taxonomy-tag{
+      .gru-taxonomy-tag {
         max-width: 100%;
       }
     }
-    .description-tag{
+    .description-tag {
       margin: 5px 0;
-      .panel-body{
+      .panel-body {
         padding: 5px 10px;
         min-height: inherit;
         height: auto;

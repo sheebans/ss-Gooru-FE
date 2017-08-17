@@ -1,4 +1,4 @@
-.library.gru-browse-library{
+.library.gru-browse-library {
   @include flexbox;
   @include flex-wrap(wrap);
   height: 100%;
@@ -29,10 +29,10 @@
       &::after {
         content: "";
         @include flex-basis(0);
-        @media(min-width: $screen-sm-min) {
+        @media (min-width: $screen-sm-min) {
           @include flex-basis(49%);
         }
-        @media(min-width: $screen-sm-max) {
+        @media (min-width: $screen-sm-max) {
           @include flex-basis(32%);
         }
       }
@@ -40,10 +40,10 @@
         width: 100%;
         margin: 0;
 
-        @media(min-width: $screen-sm-min) {
+        @media (min-width: $screen-sm-min) {
           width: 49%;
         }
-        @media(min-width: $screen-sm-max) {
+        @media (min-width: $screen-sm-max) {
           width: 32%;
         }
       }
@@ -63,10 +63,9 @@
       background-color: $dark-400;
       left: 0;
       top: 55px;
-      @media(min-width: $screen-md-min) {
+      @media (min-width: $screen-md-min) {
         top: 63px;
       }
-
     }
   }
 
@@ -76,7 +75,7 @@
     padding: 0 20px 0 5%;
     min-height: 50px;
     width: 95%;
-    @media(min-width: $screen-sm-min) {
+    @media (min-width: $screen-sm-min) {
       width: 75%;
     }
 
@@ -99,8 +98,7 @@
   }
 
   .subject-menu-option {
-
-    @media(min-width: $screen-sm-min) {
+    @media (min-width: $screen-sm-min) {
       margin-right: 40px;
     }
 

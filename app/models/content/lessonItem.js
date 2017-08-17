@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { CONTENT_TYPES } from "gooru-web/config/config";
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Builder lesson item
@@ -7,7 +7,6 @@ import { CONTENT_TYPES } from "gooru-web/config/config";
  * @typedef {Object} Content/LessonItem
  */
 export default Ember.Object.extend({
-
   /**
    * @property {String} id - Gooru id for the lesson item
    */
@@ -26,7 +25,7 @@ export default Ember.Object.extend({
     return this.get('format') === CONTENT_TYPES.EXTERNAL_ASSESSMENT;
   }),
 
-  isAssessment: Ember.computed.not("isCollection"),
+  isAssessment: Ember.computed.not('isCollection'),
 
   /**
    * @property {String} format - Type of lesson item
@@ -38,7 +37,7 @@ export default Ember.Object.extend({
    */
   url: null,
 
-  collectionType: Ember.computed.alias("format"),
+  collectionType: Ember.computed.alias('format'),
 
   /**
    * @property {Number} questionCount - total number of questions in the lesson
@@ -85,8 +84,11 @@ export default Ember.Object.extend({
   /**
    * @propery {boolean} indicates if the lesson item has non open ended questions
    */
-  hasNonOpenEndedQuestions: Ember.computed("questionCount", "openEndedQuestionCount", function(){
-    return (this.get("questionCount") !== this.get("openEndedQuestionCount"));
-  })
-
+  hasNonOpenEndedQuestions: Ember.computed(
+    'questionCount',
+    'openEndedQuestionCount',
+    function() {
+      return this.get('questionCount') !== this.get('openEndedQuestionCount');
+    }
+  )
 });

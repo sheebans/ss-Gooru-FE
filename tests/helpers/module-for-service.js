@@ -1,4 +1,5 @@
-import Ember from "ember";
+/* eslint require-jsdoc: 0 */
+import Ember from 'ember';
 import { moduleFor } from 'ember-qunit';
 import Pretender from 'pretender';
 

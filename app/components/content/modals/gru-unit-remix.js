@@ -2,14 +2,13 @@ import Ember from 'ember';
 import RemixBaseModal from 'gooru-web/components/content/modals/gru-base-remix';
 
 export default RemixBaseModal.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   /**
    * @property {Service} Unit service API SDK
    */
-  unitService: Ember.inject.service("api-sdk/unit"),
+  unitService: Ember.inject.service('api-sdk/unit'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -20,7 +19,10 @@ export default RemixBaseModal.extend({
   // Actions
 
   copyContent: function(unit) {
-    return this.get("unitService").copyUnit(this.get('courseId'), unit.get('id'));
+    return this.get('unitService').copyUnit(
+      this.get('courseId'),
+      unit.get('id')
+    );
   },
 
   updateContent: function(unit) {
@@ -29,7 +31,9 @@ export default RemixBaseModal.extend({
 
   showSuccessNotification: function(unit) {
     var component = this;
-    var successMsg = component.get('i18n').t('common.remix-unit-success', {unitTitle: unit.get('title')});
+    var successMsg = component
+      .get('i18n')
+      .t('common.remix-unit-success', { unitTitle: unit.get('title') });
     component.get('notifications').success(`${successMsg}`);
   },
 
@@ -44,5 +48,4 @@ export default RemixBaseModal.extend({
   },
 
   courseId: null
-
 });

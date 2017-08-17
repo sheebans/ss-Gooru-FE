@@ -1,0 +1,19 @@
+.gru-rubric-panel {
+  width: 30%;
+  background-color: $dark-400;
+  height: auto;
+  .header {
+    cursor: pointer;
+    background-color: $dark-500;
+    color: $white;
+    padding: 14px;
+    i {
+      font-size: $emotion-icon-size;
+    }
+    @include flexbox();
+    font-size: $font-size-large;
+  }
+  &.full-rubric {
+    width: 100%;
+  }
+}

@@ -28,7 +28,11 @@ test('Layout', function(assert) {
     const $teacherContainer = find('.controller.teacher-landing');
     T.exists(assert, $teacherContainer, 'Missing teacher container');
     const $teacherPanel = $teacherContainer.find('.teacher-panel');
-    T.exists(assert, $teacherPanel.find('.greetings'), 'Missing teacher greetings');
+    T.exists(
+      assert,
+      $teacherPanel.find('.greetings'),
+      'Missing teacher greetings'
+    );
 
     const $panelsContainer = $teacherPanel.find('.panels');
     T.exists(assert, $panelsContainer, 'Missing panels container');
@@ -39,24 +43,63 @@ test('Layout', function(assert) {
     const $createClass = $panelsContainer.find('.create-class');
     T.exists(assert, $createClass, 'Missing create class panel');
 
-    T.exists(assert, $createClass.find('.panel-heading'), 'Missing create class panel-heading');
-    T.exists(assert, $createClass.find('.panel-body'), 'Missing create class panel-body');
+    T.exists(
+      assert,
+      $createClass.find('.panel-heading'),
+      'Missing create class panel-heading'
+    );
+    T.exists(
+      assert,
+      $createClass.find('.panel-body'),
+      'Missing create class panel-body'
+    );
 
-    T.exists(assert, $createClass.find('.panel-body .legend'), 'Missing panel body legend');
-    T.exists(assert, $createClass.find('.panel-body .actions .create'), 'Missing create class button');
-    T.exists(assert, $createClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
-    assert.equal($createClass.find('.panel-body .will-disappear').text().trim(), 'This will disappear after 3 logins', 'Incorrect login count for will disappear text');
+    T.exists(
+      assert,
+      $createClass.find('.panel-body .legend'),
+      'Missing panel body legend'
+    );
+    T.exists(
+      assert,
+      $createClass.find('.panel-body .actions .create'),
+      'Missing create class button'
+    );
+    T.exists(
+      assert,
+      $createClass.find('.panel-body .will-disappear'),
+      'Missing will-disappear legend'
+    );
+    assert.equal(
+      $createClass.find('.panel-body .will-disappear').text().trim(),
+      'This will disappear after 3 logins',
+      'Incorrect login count for will disappear text'
+    );
 
     const $navigatorContainer = $teacherPanel.find('.teacher-navigator');
     T.exists(assert, $navigatorContainer, 'Missing teacher navigator');
-    T.exists(assert, $teacherPanel.find('.actions .create-class-cta'), 'Missing create class button');
-    assert.ok($('#active-classes').hasClass('active'), 'Active classes should be visible');
+    T.exists(
+      assert,
+      $teacherPanel.find('.actions .create-class-cta'),
+      'Missing create class button'
+    );
+    assert.ok(
+      $('#active-classes').hasClass('active'),
+      'Active classes should be visible'
+    );
     const $tabContent = $teacherPanel.find('.tab-content');
-    assert.equal($tabContent.find('#active-classes .gru-teacher-class-card').length, 13 ,'Wrong number of current class cards');
+    assert.equal(
+      $tabContent.find('#active-classes .gru-teacher-class-card').length,
+      13,
+      'Wrong number of current class cards'
+    );
     click('#archived-classes');
     andThen(function() {
       assert.ok($('span.no-archived'), 'Missing no archived available lead');
-      assert.equal($tabContent.find('#archived-classes .gru-class-card').length, 2 ,'Wrong number of archived class cards');
+      assert.equal(
+        $tabContent.find('#archived-classes .gru-class-card').length,
+        2,
+        'Wrong number of archived class cards'
+      );
     });
   });
 });
@@ -76,9 +119,21 @@ test('Will disappear next login', function(assert) {
 
     const $createClass = $panelsContainer.find('.create-class');
     T.exists(assert, $createClass, 'Missing create class panel');
-    T.exists(assert, $createClass.find('.panel-body .actions .create'), 'Missing create class button');
-    T.exists(assert, $createClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
-    assert.equal($createClass.find('.panel-body .will-disappear').text().trim(), 'This will not appear on the next login', 'Incorrect message for will disappear text');
+    T.exists(
+      assert,
+      $createClass.find('.panel-body .actions .create'),
+      'Missing create class button'
+    );
+    T.exists(
+      assert,
+      $createClass.find('.panel-body .will-disappear'),
+      'Missing will-disappear legend'
+    );
+    assert.equal(
+      $createClass.find('.panel-body .will-disappear').text().trim(),
+      'This will not appear on the next login',
+      'Incorrect message for will disappear text'
+    );
   });
 });
 
@@ -117,7 +172,9 @@ test('Go to library from featured-courses panel', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/teacher-home');
     const $featuredCourses = find('.panel.featured-courses');
-    const $featuredCoursesButton = $featuredCourses.find('.actions button.library');
+    const $featuredCoursesButton = $featuredCourses.find(
+      '.actions button.library'
+    );
 
     click($featuredCoursesButton);
     andThen(function() {
@@ -126,7 +183,7 @@ test('Go to library from featured-courses panel', function(assert) {
   });
 });
 
-test('Take A Tour', function(assert){
+test('Take A Tour', function(assert) {
   assert.expect(2);
   visit('/teacher-home');
   andThen(function() {
@@ -135,20 +192,36 @@ test('Take A Tour', function(assert){
     andThen(function() {
       $tooltip = $('div.introjs-tooltip');
 
-      T.exists(assert, $tooltip, 'First step of the tour should display a tooltip');
-      assert.equal(T.text($tooltip.find('.tour-header h2')), 'Take a Tour', 'First step title should be "Take a Tour"');
+      T.exists(
+        assert,
+        $tooltip,
+        'First step of the tour should display a tooltip'
+      );
+      assert.equal(
+        T.text($tooltip.find('.tour-header h2')),
+        'Take a Tour',
+        'First step title should be "Take a Tour"'
+      );
     });
   });
 });
 
-test('Valid bubble chart when the class does not has performance', function(assert) {
+test('Valid bubble chart when the class does not has performance', function(
+  assert
+) {
   visit('/teacher-home');
 
   andThen(function() {
     assert.equal(currentURL(), '/teacher-home');
-    let $chart = find('.gru-teacher-class-card:nth-child(2) .gru-bubble-chart .bubble-circle');
-    assert.equal($chart.attr('style'),'background-color:#949A9F','Incorrect chart color');
-    assert.equal($chart.find('span').text(),'--','Incorrect score');
+    let $chart = find(
+      '.gru-teacher-class-card:nth-child(2) .gru-bubble-chart .bubble-circle'
+    );
+    assert.equal(
+      $chart.attr('style'),
+      'background-color:#949A9F',
+      'Incorrect chart color'
+    );
+    assert.equal($chart.find('span').text(), '--', 'Incorrect score');
   });
 });
 
@@ -158,7 +231,11 @@ test('Class order', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/teacher-home');
     let $title = find('.gru-teacher-class-card:nth-child(1) h5');
-    assert.equal($title.text().trim(),'Last Class Pochita as Teacher','Incorrect first class');
+    assert.equal(
+      $title.text().trim(),
+      'Last Class Pochita as Teacher',
+      'Incorrect first class'
+    );
   });
 });
 
@@ -177,15 +254,31 @@ test('Sort Archive Classes by Date Asc and Desc', function(assert) {
         click($sortByDate);
         andThen(function() {
           let $class1 = find('.gru-class-card:first-child h5');
-          assert.equal($class1.text().trim(),'Archive Class-2','Incorrect first class');
+          assert.equal(
+            $class1.text().trim(),
+            'Archive Class-2',
+            'Incorrect first class'
+          );
           let $class2 = find('.gru-class-card:last-child h5');
-          assert.equal($class2.text().trim(),'1-Archive Class','Incorrect last class');
+          assert.equal(
+            $class2.text().trim(),
+            '1-Archive Class',
+            'Incorrect last class'
+          );
           click($sortByDate);
           andThen(function() {
             let $class1 = find('.gru-class-card:first-child h5');
-            assert.equal($class1.text().trim(),'1-Archive Class','Incorrect first class');
+            assert.equal(
+              $class1.text().trim(),
+              '1-Archive Class',
+              'Incorrect first class'
+            );
             let $class2 = find('.gru-class-card:last-child h5');
-            assert.equal($class2.text().trim(),'Archive Class-2','Incorrect last class');
+            assert.equal(
+              $class2.text().trim(),
+              'Archive Class-2',
+              'Incorrect last class'
+            );
           });
         });
       });
@@ -208,15 +301,31 @@ test('Sort Archive Classes by Title Asc and Desc', function(assert) {
         click($sortByTitle);
         andThen(function() {
           let $class1 = find('.gru-class-card:first-child h5');
-          assert.equal($class1.text().trim(),'1-Archive Class','Incorrect first class');
+          assert.equal(
+            $class1.text().trim(),
+            '1-Archive Class',
+            'Incorrect first class'
+          );
           let $class2 = find('.gru-class-card:last-child h5');
-          assert.equal($class2.text().trim(),'Archive Class-2','Incorrect last class');
+          assert.equal(
+            $class2.text().trim(),
+            'Archive Class-2',
+            'Incorrect last class'
+          );
           click($sortByTitle);
           andThen(function() {
             let $class1 = find('.gru-class-card:first-child h5');
-            assert.equal($class1.text().trim(),'Archive Class-2','Incorrect first class');
+            assert.equal(
+              $class1.text().trim(),
+              'Archive Class-2',
+              'Incorrect first class'
+            );
             let $class2 = find('.gru-class-card:last-child h5');
-            assert.equal($class2.text().trim(),'1-Archive Class','Incorrect last class');
+            assert.equal(
+              $class2.text().trim(),
+              '1-Archive Class',
+              'Incorrect last class'
+            );
           });
         });
       });

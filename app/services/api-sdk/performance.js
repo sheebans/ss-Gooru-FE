@@ -11,7 +11,6 @@ import { aggregateClassActivityPerformanceSummaryItems } from 'gooru-web/utils/p
  * @typedef {Object} PerformanceService
  */
 export default Ember.Service.extend({
-
   store: Ember.inject.service(),
 
   /**
@@ -59,18 +58,47 @@ export default Ember.Service.extend({
    */
   activityPerformanceSummaryAdapter: null,
 
-
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('classPerformanceSummarySerializer', ClassPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('classPerformanceSummaryAdapter', ClassPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('collectionPerformanceSummarySerializer', CollectionPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('collectionPerformanceSummaryAdapter', CollectionPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('activityPerformanceSummarySerializer', ActivityPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('activityPerformanceSummaryAdapter', ActivityPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'classPerformanceSummarySerializer',
+      ClassPerformanceSummarySerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'classPerformanceSummaryAdapter',
+      ClassPerformanceSummaryAdapter.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'collectionPerformanceSummarySerializer',
+      CollectionPerformanceSummarySerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'collectionPerformanceSummaryAdapter',
+      CollectionPerformanceSummaryAdapter.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'activityPerformanceSummarySerializer',
+      ActivityPerformanceSummarySerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'activityPerformanceSummaryAdapter',
+      ActivityPerformanceSummaryAdapter.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
   },
 
   /**
@@ -79,7 +107,7 @@ export default Ember.Service.extend({
    * @param loadStandards
    * @returns {Promise.<AssessmentResult>}
    */
-  findAssessmentResultByCollectionAndStudent: function (context, loadStandards) {
+  findAssessmentResultByCollectionAndStudent: function(context, loadStandards) {
     const service = this;
 
     const params = {
@@ -95,66 +123,83 @@ export default Ember.Service.extend({
       params.lessonId = context.lessonId;
     }
     return new Ember.RSVP.Promise(function(resolve) {
-        return service.get('studentCollectionAdapter').queryRecord(params).then(function (payload) {
-          const assessmentResult = service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
+      return service.get('studentCollectionAdapter').queryRecord(params).then(
+        function(payload) {
+          const assessmentResult = service
+            .get('studentCollectionPerformanceSerializer')
+            .normalizeStudentCollection(payload);
           if (loadStandards) {
-            service.loadStandardsSummary(assessmentResult, context).then(function () {
-              resolve(assessmentResult);
-            });
-          }
-          else {
+            service
+              .loadStandardsSummary(assessmentResult, context)
+              .then(function() {
+                resolve(assessmentResult);
+              });
+          } else {
             resolve(assessmentResult);
           }
-        }, function() {
+        },
+        function() {
           resolve(undefined);
-        });
+        }
+      );
     });
   },
 
-  loadStandardsSummary: function(assessmentResult, context){
+  loadStandardsSummary: function(assessmentResult, context) {
     const service = this;
     const analyticsService = service.get('analyticsService');
     const taxonomyService = service.get('taxonomyService');
     const searchService = service.get('searchService');
     const courseId = context.courseId;
     return new Ember.RSVP.Promise(function(resolve) {
-      analyticsService.getStandardsSummary(context.get('sessionId'), context.get('userId'))
-        .then(function (standardsSummary) {
+      analyticsService
+        .getStandardsSummary(context.get('sessionId'), context.get('userId'))
+        .then(function(standardsSummary) {
           assessmentResult.set('mastery', standardsSummary);
-          let standardsIds = standardsSummary.map(function (standardSummary) {
+          let standardsIds = standardsSummary.map(function(standardSummary) {
             return standardSummary.get('id');
           });
-          if (standardsIds.length){ //if it has standards
-            taxonomyService.fetchCodesByIds(standardsIds)
-              .then(function (taxonomyStandards) {
+          if (standardsIds.length) {
+            //if it has standards
+            taxonomyService
+              .fetchCodesByIds(standardsIds)
+              .then(function(taxonomyStandards) {
                 const promises = [];
-                standardsSummary.forEach(function (standardSummary) {
-                  const taxonomyStandard = taxonomyStandards.findBy('id', standardSummary.get('id'));
+                standardsSummary.forEach(function(standardSummary) {
+                  const taxonomyStandard = taxonomyStandards.findBy(
+                    'id',
+                    standardSummary.get('id')
+                  );
                   if (taxonomyStandard) {
                     standardSummary.set('description', taxonomyStandard.title);
                   }
                   const filters = {
                     courseId: courseId,
                     taxonomies: [standardSummary.get('id')],
-                    publishStatus: 'unpublished'  // TODO this parameter needs to be removed once we go to Production
+                    publishStatus: 'unpublished' // TODO this parameter needs to be removed once we go to Production
                   };
-                  const searchResourcePromise = searchService.searchResources('*', filters)
-                    .then(function (resources) {
-                      const suggestedResources = resources.map(function (resource) {
+                  const searchResourcePromise = searchService
+                    .searchResources('*', filters)
+                    .then(function(resources) {
+                      const suggestedResources = resources.map(function(
+                        resource
+                      ) {
                         return {
                           resource: resource.toPlayerResource()
                         };
                       });
-                      standardSummary.set('suggestedResources', suggestedResources);
+                      standardSummary.set(
+                        'suggestedResources',
+                        suggestedResources
+                      );
                     });
                   promises.push(searchResourcePromise);
                 });
-                Ember.RSVP.all(promises).then(function(){
+                Ember.RSVP.all(promises).then(function() {
                   resolve(assessmentResult);
                 });
               });
-          }
-          else {
+          } else {
             resolve(assessmentResult);
           }
         });
@@ -170,17 +215,30 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<UnitPerformance[]>}
    */
-  findStudentPerformanceByCourse: function(userId, classId, courseId, units, options = {collectionType: 'assessment'}) {
+  findStudentPerformanceByCourse: function(
+    userId,
+    classId,
+    courseId,
+    units,
+    options = { collectionType: 'assessment' }
+  ) {
     const service = this;
     service.get('store').unloadAll('performance/unit-performance');
-    return service.get('store').query('performance/unit-performance', {
-      userUid: userId,
-      collectionType: options.collectionType,
-      classId: classId,
-      courseId: courseId
-    }).then(function (unitPerformances) {
-      return service.matchCourseMapWithPerformances(units, unitPerformances, 'unit');
-    });
+    return service
+      .get('store')
+      .query('performance/unit-performance', {
+        userUid: userId,
+        collectionType: options.collectionType,
+        classId: classId,
+        courseId: courseId
+      })
+      .then(function(unitPerformances) {
+        return service.matchCourseMapWithPerformances(
+          units,
+          unitPerformances,
+          'unit'
+        );
+      });
   },
 
   /**
@@ -193,18 +251,32 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<LessonPerformance[]>}
    */
-  findStudentPerformanceByUnit: function (userId, classId, courseId, unitId, lessons, options = {collectionType: 'assessment'}) {
+  findStudentPerformanceByUnit: function(
+    userId,
+    classId,
+    courseId,
+    unitId,
+    lessons,
+    options = { collectionType: 'assessment' }
+  ) {
     const service = this;
     service.get('store').unloadAll('performance/lesson-performance');
-    return service.get('store').query('performance/lesson-performance', {
-      userUid: userId,
-      collectionType: options.collectionType,
-      classId: classId,
-      courseId: courseId,
-      unitId: unitId
-    }).then(function (lessonPerformances) {
-      return service.matchCourseMapWithPerformances(lessons, lessonPerformances, 'lesson');
-    });
+    return service
+      .get('store')
+      .query('performance/lesson-performance', {
+        userUid: userId,
+        collectionType: options.collectionType,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId
+      })
+      .then(function(lessonPerformances) {
+        return service.matchCourseMapWithPerformances(
+          lessons,
+          lessonPerformances,
+          'lesson'
+        );
+      });
   },
 
   /**
@@ -218,19 +290,34 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<CollectionPerformance[]>}
    */
-  findStudentPerformanceByLesson: function (userId, classId, courseId, unitId, lessonId, collections, options = { collectionType: 'assessment' }) {
+  findStudentPerformanceByLesson: function(
+    userId,
+    classId,
+    courseId,
+    unitId,
+    lessonId,
+    collections,
+    options = { collectionType: 'assessment' }
+  ) {
     const service = this;
     service.get('store').unloadAll('performance/collection-performance');
-    return service.get('store').query('performance/collection-performance', {
-      userUid: userId,
-      collectionType: options.collectionType,
-      classId: classId,
-      courseId: courseId,
-      unitId: unitId,
-      lessonId: lessonId
-    }).then(function (collectionPerformances) {
-      return service.matchCourseMapWithPerformances(collections, collectionPerformances, 'collection');
-    });
+    return service
+      .get('store')
+      .query('performance/collection-performance', {
+        userUid: userId,
+        collectionType: options.collectionType,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId
+      })
+      .then(function(collectionPerformances) {
+        return service.matchCourseMapWithPerformances(
+          collections,
+          collectionPerformances,
+          'collection'
+        );
+      });
   },
 
   /**
@@ -239,9 +326,12 @@ export default Ember.Service.extend({
    * @param performances
    * @returns {Promise.<CollectionPerformance[]>}
    */
-  matchTitlesWithPerformances: function (objectsWithTitle, performances) {
-    return performances.map(function (performance) {
-      const objectWithTitle = objectsWithTitle.findBy('id', performance.get('id'));
+  matchTitlesWithPerformances: function(objectsWithTitle, performances) {
+    return performances.map(function(performance) {
+      const objectWithTitle = objectsWithTitle.findBy(
+        'id',
+        performance.get('id')
+      );
       if (objectWithTitle) {
         performance.set('title', objectWithTitle.get('title'));
       }
@@ -255,14 +345,18 @@ export default Ember.Service.extend({
    * @param performances
    * @returns {Promise.<CollectionPerformance[]>}
    */
-  matchCourseMapWithPerformances: function(objectsWithTitle, performances, type) {
+  matchCourseMapWithPerformances: function(
+    objectsWithTitle,
+    performances,
+    type
+  ) {
     const service = this;
-    return objectsWithTitle.map(function (object) {
+    return objectsWithTitle.map(function(object) {
       let objectWithTitle = performances.findBy('id', object.get('id'));
-      if(objectWithTitle) {
+      if (objectWithTitle) {
         objectWithTitle.set('title', object.get('title'));
         objectWithTitle.set('model', object);
-      }else{
+      } else {
         objectWithTitle = service.getPerformanceRecordByType(type, object);
         objectWithTitle.set('model', object);
       }
@@ -276,19 +370,17 @@ export default Ember.Service.extend({
    * @param object
    * @returns {Promise.<performance[]>}
    */
-  getPerformanceRecordByType: function(type, object){
+  getPerformanceRecordByType: function(type, object) {
     const id = object.get('id');
     const store = this.get('store');
     let modelName = null;
     let record = this.getPerformanceRecord(type, object);
 
-    if(type === 'unit') {
+    if (type === 'unit') {
       modelName = 'performance/unit-performance';
-    }
-    else if(type === 'lesson'){
+    } else if (type === 'lesson') {
       modelName = 'performance/lesson-performance';
-    }
-    else {
+    } else {
       modelName = 'performance/collection-performance';
     }
 
@@ -323,8 +415,6 @@ export default Ember.Service.extend({
     };
   },
 
-
-
   /**
    * Gets the unit teacher performance data for a specific class and course.
    * @param classId
@@ -333,17 +423,25 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<UnitPerformance[]>}
    */
-  findClassPerformance: function (classId, courseId, students, options = {collectionType: 'assessment'}) {
+  findClassPerformance: function(
+    classId,
+    courseId,
+    students,
+    options = { collectionType: 'assessment' }
+  ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
     service.get('store').unloadAll('performance/class-unit-performance');
-    return service.get('store').queryRecord('performance/class-unit-performance', {
-      collectionType: options.collectionType,
-      classId: classId,
-      courseId: courseId
-    }).then(function (unitPerformance) {
-      return service.matchStudentsWithPerformances(students, unitPerformance);
-    });
+    return service
+      .get('store')
+      .queryRecord('performance/class-unit-performance', {
+        collectionType: options.collectionType,
+        classId: classId,
+        courseId: courseId
+      })
+      .then(function(unitPerformance) {
+        return service.matchStudentsWithPerformances(students, unitPerformance);
+      });
   },
 
   /**
@@ -355,18 +453,30 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<LessonPerformance[]>}
    */
-  findClassPerformanceByUnit: function (classId, courseId, unitId, students, options = {collectionType: 'assessment'}) {
+  findClassPerformanceByUnit: function(
+    classId,
+    courseId,
+    unitId,
+    students,
+    options = { collectionType: 'assessment' }
+  ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
     service.get('store').unloadAll('performance/class-lesson-performance');
-    return service.get('store').queryRecord('performance/class-lesson-performance', {
-      collectionType: options.collectionType,
-      classId: classId,
-      courseId: courseId,
-      unitId: unitId
-    }).then(function (lessonPerformances) {
-      return service.matchStudentsWithPerformances(students, lessonPerformances);
-    });
+    return service
+      .get('store')
+      .queryRecord('performance/class-lesson-performance', {
+        collectionType: options.collectionType,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId
+      })
+      .then(function(lessonPerformances) {
+        return service.matchStudentsWithPerformances(
+          students,
+          lessonPerformances
+        );
+      });
   },
   /**
    * Gets the lesson teacher performance data for a specific class, course and unit.
@@ -377,18 +487,26 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<ClassLessonPerformance[]>}
    */
-  findCourseMapPerformanceByUnit: function(classId, courseId, unitId, options = { collectionType: 'assessment' }) {
+  findCourseMapPerformanceByUnit: function(
+    classId,
+    courseId,
+    unitId,
+    options = { collectionType: 'assessment' }
+  ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
     service.get('store').unloadAll('performance/class-lesson-performance');
-    return service.get('store').query('performance/class-lesson-performance', {
-      collectionType: options.collectionType,
-      classId: classId,
-      courseId: courseId,
-      unitId: unitId
-    }).then(function(lessonPerformances) {
-      return lessonPerformances;
-    });
+    return service
+      .get('store')
+      .query('performance/class-lesson-performance', {
+        collectionType: options.collectionType,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId
+      })
+      .then(function(lessonPerformances) {
+        return lessonPerformances;
+      });
   },
 
   /**
@@ -401,19 +519,32 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<CollectionPerformance[]>}
    */
-  findClassPerformanceByUnitAndLesson: function (classId, courseId, unitId, lessonId, students, options = {collectionType: 'assessment'}) {
+  findClassPerformanceByUnitAndLesson: function(
+    classId,
+    courseId,
+    unitId,
+    lessonId,
+    students,
+    options = { collectionType: 'assessment' }
+  ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
     service.get('store').unloadAll('performance/class-collection-performance');
-    return service.get('store').queryRecord('performance/class-collection-performance', {
-      collectionType: options.collectionType,
-      classId: classId,
-      courseId: courseId,
-      unitId: unitId,
-      lessonId: lessonId
-    }).then(function (collectionPerformances) {
-      return service.matchStudentsWithPerformances(students, collectionPerformances);
-    });
+    return service
+      .get('store')
+      .queryRecord('performance/class-collection-performance', {
+        collectionType: options.collectionType,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId
+      })
+      .then(function(collectionPerformances) {
+        return service.matchStudentsWithPerformances(
+          students,
+          collectionPerformances
+        );
+      });
   },
 
   /**
@@ -425,19 +556,28 @@ export default Ember.Service.extend({
    * @param options
    * @returns {Promise.<ClassCollectionPerformance[]>}
    */
-  findCourseMapPerformanceByUnitAndLesson: function(classId, courseId, unitId, lessonId, options = { collectionType: 'assessment' }) {
+  findCourseMapPerformanceByUnitAndLesson: function(
+    classId,
+    courseId,
+    unitId,
+    lessonId,
+    options = { collectionType: 'assessment' }
+  ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
     service.get('store').unloadAll('performance/class-collection-performance');
-    return service.get('store').query('performance/class-collection-performance', {
-      collectionType: options.collectionType,
-      classId: classId,
-      courseId: courseId,
-      unitId: unitId,
-      lessonId: lessonId
-    }).then(function(collectionPerformances) {
-      return collectionPerformances;
-    });
+    return service
+      .get('store')
+      .query('performance/class-collection-performance', {
+        collectionType: options.collectionType,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId
+      })
+      .then(function(collectionPerformances) {
+        return collectionPerformances;
+      });
   },
 
   /**
@@ -445,15 +585,21 @@ export default Ember.Service.extend({
    * @param studentId
    * @param classIds
      */
-  findClassPerformanceSummaryByStudentAndClassIds: function(studentId, classIds) {
+  findClassPerformanceSummaryByStudentAndClassIds: function(
+    studentId,
+    classIds
+  ) {
     const service = this;
     if (classIds && classIds.length) {
-      return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByStudentAndClassIds(studentId, classIds)
-        .then(function (data) {
-          return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
+      return service
+        .get('classPerformanceSummaryAdapter')
+        .findClassPerformanceSummaryByStudentAndClassIds(studentId, classIds)
+        .then(function(data) {
+          return service
+            .get('classPerformanceSummarySerializer')
+            .normalizeAllClassPerformanceSummary(data);
         });
-    }
-    else {
+    } else {
       return Ember.RSVP.resolve([]);
     }
   },
@@ -466,21 +612,29 @@ export default Ember.Service.extend({
   findClassPerformanceSummaryByClassIds: function(classIds) {
     const service = this;
     if (classIds && classIds.length) {
-      return service.get('classPerformanceSummaryAdapter').findClassPerformanceSummaryByClassIds(classIds)
-        .then(function (data) {
-          return service.get('classPerformanceSummarySerializer').normalizeAllClassPerformanceSummary(data);
+      return service
+        .get('classPerformanceSummaryAdapter')
+        .findClassPerformanceSummaryByClassIds(classIds)
+        .then(function(data) {
+          return service
+            .get('classPerformanceSummarySerializer')
+            .normalizeAllClassPerformanceSummary(data);
         });
-    }
-    else {
-        return Ember.RSVP.resolve([]);
+    } else {
+      return Ember.RSVP.resolve([]);
     }
   },
 
   matchStudentsWithPerformances: function(students, classPerformance) {
     const service = this;
-    const studentPerformanceData = classPerformance.get('studentPerformanceData');
+    const studentPerformanceData = classPerformance.get(
+      'studentPerformanceData'
+    );
     let matchedStudentPerformanceData = students.map(function(student) {
-      let studentPerformance = studentPerformanceData.findBy('user.id', student.get('id'));
+      let studentPerformance = studentPerformanceData.findBy(
+        'user.id',
+        student.get('id')
+      );
       if (studentPerformance) {
         studentPerformance.set('user', service.getUserRecord(student));
       } else {
@@ -488,13 +642,19 @@ export default Ember.Service.extend({
       }
       return studentPerformance;
     });
-    classPerformance.set('studentPerformanceData', matchedStudentPerformanceData);
+    classPerformance.set(
+      'studentPerformanceData',
+      matchedStudentPerformanceData
+    );
     return classPerformance;
   },
 
   getStudentPerformanceRecord: function(student) {
     const service = this;
-    let studentPerformance = service.getRecord('performance/student-performance', student.get('id'));
+    let studentPerformance = service.getRecord(
+      'performance/student-performance',
+      student.get('id')
+    );
     studentPerformance.set('user', service.getUserRecord(student));
     return studentPerformance;
   },
@@ -511,7 +671,9 @@ export default Ember.Service.extend({
   getRecord: function(modelName, id) {
     const store = this.get('store');
     const found = store.recordIsLoaded(modelName, id);
-    return (found) ? store.recordForId(modelName, id) : store.createRecord(modelName, { id: id });
+    return found
+      ? store.recordForId(modelName, id)
+      : store.createRecord(modelName, { id: id });
   },
 
   /**
@@ -522,12 +684,16 @@ export default Ember.Service.extend({
    * @param {{ courseId: string, classId: string, unitId: string, lessonId: string, collectionType: string }} criteria
    * @returns {Promise}
    */
-  searchStudentCollectionPerformanceSummary: function (studentId, criteria) {
+  searchStudentCollectionPerformanceSummary: function(studentId, criteria) {
     const service = this;
-    return service.get('collectionPerformanceSummaryAdapter').searchStudentCollectionPerformanceSummary(studentId, criteria)
-        .then(function (data) {
-          return service.get('collectionPerformanceSummarySerializer').normalizeAllCollectionPerformanceSummary(data);
-        });
+    return service
+      .get('collectionPerformanceSummaryAdapter')
+      .searchStudentCollectionPerformanceSummary(studentId, criteria)
+      .then(function(data) {
+        return service
+          .get('collectionPerformanceSummarySerializer')
+          .normalizeAllCollectionPerformanceSummary(data);
+      });
   },
 
   /**
@@ -539,12 +705,21 @@ export default Ember.Service.extend({
    * @param {string} unitId
    * @param {string} collectionType
    */
-  findMyPerformance: function (userId, courseId, lessonId, unitId, collectionType = 'assessment') {
+  findMyPerformance: function(
+    userId,
+    courseId,
+    lessonId,
+    unitId,
+    collectionType = 'assessment'
+  ) {
     let service = this;
-    return service.get('collectionPerformanceSummaryAdapter').findMyPerformance(userId, courseId, lessonId, unitId,
-      collectionType)
-      .then(function (data) {
-        return service.get('collectionPerformanceSummarySerializer').normalizeAllCollectionPerformanceSummary(data);
+    return service
+      .get('collectionPerformanceSummaryAdapter')
+      .findMyPerformance(userId, courseId, lessonId, unitId, collectionType)
+      .then(function(data) {
+        return service
+          .get('collectionPerformanceSummarySerializer')
+          .normalizeAllCollectionPerformanceSummary(data);
       });
   },
 
@@ -557,12 +732,28 @@ export default Ember.Service.extend({
    * @param {string} timePeriod optional time period filter
    * @returns {Ember.RSVP.Promise.<CollectionPerformanceSummary[]>}
    */
-  findCollectionPerformanceSummaryByIds: function (userId, collectionIds, collectionType, classId = undefined, timePeriod = undefined) {
+  findCollectionPerformanceSummaryByIds: function(
+    userId,
+    collectionIds,
+    collectionType,
+    classId = undefined,
+    timePeriod = undefined
+  ) {
     const service = this;
-    return service.get('collectionPerformanceSummaryAdapter').findCollectionPerformanceSummaryByIds(userId, collectionIds, collectionType, classId, timePeriod)
-        .then(function (data) {
-          return service.get('collectionPerformanceSummarySerializer').normalizeAllCollectionPerformanceSummary(data);
-        });
+    return service
+      .get('collectionPerformanceSummaryAdapter')
+      .findCollectionPerformanceSummaryByIds(
+        userId,
+        collectionIds,
+        collectionType,
+        classId,
+        timePeriod
+      )
+      .then(function(data) {
+        return service
+          .get('collectionPerformanceSummarySerializer')
+          .normalizeAllCollectionPerformanceSummary(data);
+      });
   },
 
   /**
@@ -574,13 +765,30 @@ export default Ember.Service.extend({
    * @param {Date} endDate optional end date, default is now
    * @returns {Ember.RSVP.Promise.<ActivityPerformanceSummary[]>}
    */
-  findClassActivityPerformanceSummaryByIds: function (classId, activityIds, activityType, startDate = new Date(), endDate = new Date()) {
+  findClassActivityPerformanceSummaryByIds: function(
+    classId,
+    activityIds,
+    activityType,
+    startDate = new Date(),
+    endDate = new Date()
+  ) {
     const service = this;
-    return service.get('activityPerformanceSummaryAdapter').findClassActivityPerformanceSummaryByIds(undefined, classId, activityIds, activityType, startDate, endDate)
-        .then(function (data) {
-          const activities = service.get('activityPerformanceSummarySerializer').normalizeAllActivityPerformanceSummary(data);
-          return aggregateClassActivityPerformanceSummaryItems(activities);
-        });
+    return service
+      .get('activityPerformanceSummaryAdapter')
+      .findClassActivityPerformanceSummaryByIds(
+        undefined,
+        classId,
+        activityIds,
+        activityType,
+        startDate,
+        endDate
+      )
+      .then(function(data) {
+        const activities = service
+          .get('activityPerformanceSummarySerializer')
+          .normalizeAllActivityPerformanceSummary(data);
+        return aggregateClassActivityPerformanceSummaryItems(activities);
+      });
   },
 
   /**
@@ -593,11 +801,29 @@ export default Ember.Service.extend({
    * @param {Date} endDate optional end date, default is now
    * @returns {Ember.RSVP.Promise.<ActivityPerformanceSummary[]>}
    */
-  findStudentActivityPerformanceSummaryByIds: function (userId, classId, activityIds, activityType, startDate = new Date(), endDate = new Date()) {
+  findStudentActivityPerformanceSummaryByIds: function(
+    userId,
+    classId,
+    activityIds,
+    activityType,
+    startDate = new Date(),
+    endDate = new Date()
+  ) {
     const service = this;
-    return service.get('activityPerformanceSummaryAdapter').findClassActivityPerformanceSummaryByIds(userId, classId, activityIds, activityType, startDate, endDate)
-        .then(function (data) {
-          return service.get('activityPerformanceSummarySerializer').normalizeAllActivityPerformanceSummary(data);
-        });
+    return service
+      .get('activityPerformanceSummaryAdapter')
+      .findClassActivityPerformanceSummaryByIds(
+        userId,
+        classId,
+        activityIds,
+        activityType,
+        startDate,
+        endDate
+      )
+      .then(function(data) {
+        return service
+          .get('activityPerformanceSummarySerializer')
+          .normalizeAllActivityPerformanceSummary(data);
+      });
   }
 });

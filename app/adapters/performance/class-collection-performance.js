@@ -1,7 +1,6 @@
 import ApplicationAdapter from '../application';
 
 export default ApplicationAdapter.extend({
-
   /**
    * @property {string} End-point URI
    */
@@ -20,7 +19,6 @@ export default ApplicationAdapter.extend({
     const unitId = query.unitId;
     const lessonId = query.lessonId;
 
-
     delete query.classId;
     delete query.courseId;
     delete query.unitId;
@@ -28,5 +26,4 @@ export default ApplicationAdapter.extend({
 
     return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/performance`;
   }
-
 });

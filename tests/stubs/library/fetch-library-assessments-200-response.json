@@ -6,21 +6,20 @@
     "thumbnail": null
   },
   "library_contents": {
-    "courses": [
+    "assessments": [
       {
-        "id": "2a121dd9-2acd-4db7-8d15-a8e694a95c5a",
-        "title": "Test Course - 1",
-        "description": null,
-        "publish_status": "unpublished",
-        "thumbnail": null,
-        "owner_id": "fa38c4a1-acb5-4d6a-a1cc-5a0cea2dc379",
-        "original_creator_id": null,
         "collaborator": null,
-        "original_course_id": null,
+        "course_id": null,
+        "id": "802a82f3-054e-4245-867e-7e5485fd17eb",
+        "learning_objective": null,
+        "original_creator_id": null,
+        "owner_id": "416922ac-7404-400b-883a-4993e23d1c8f",
+        "publish_status": "unpublished",
+        "question_count": 10,
         "taxonomy": null,
-        "sequence_id": null,
-        "visible_on_profile": null,
-        "unit_count": 7
+        "thumbnail": null,
+        "title": "Test Assessment",
+        "visible_on_profile": null
       }
     ],
     "owner_details": [

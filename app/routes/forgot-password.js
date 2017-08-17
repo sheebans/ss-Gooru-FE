@@ -1,7 +1,6 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -18,12 +17,11 @@ export default Ember.Route.extend({
   // Actions
 
   actions: {
-
     /**
      * Action triggered when the Forgot Password Confirmation page is closed
      */
-    close: function () {
-      this.transitionTo("sign-in");
+    close: function() {
+      this.transitionTo('sign-in');
     }
   }
 });

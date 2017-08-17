@@ -11,7 +11,6 @@ import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
  * @typedef {Object} CourseMapSerializer
  */
 export default Ember.Object.extend({
-
   /**
    * @property {LessonSerializer} lessonSerializer
    */
@@ -27,12 +26,24 @@ export default Ember.Object.extend({
    */
   collectionSerializer: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('lessonSerializer', LessonSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('assessmentSerializer', AssessmentSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('alternatePathSerializer', AlternatePathSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'lessonSerializer',
+      LessonSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'assessmentSerializer',
+      AssessmentSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'collectionSerializer',
+      CollectionSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'alternatePathSerializer',
+      AlternatePathSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -40,38 +51,56 @@ export default Ember.Object.extend({
    * @param data - The endpoint response in JSON format
    * @returns {Object} lesson and alternate paths
    */
-  normalizeLessonInfo: function (data) {
+  normalizeLessonInfo: function(data) {
     var serializer = this;
     let alternatePaths = this.normalizeAlternatePaths(data.alternate_paths);
     let lesson = this.get('lessonSerializer').normalizeLesson(data.course_path);
-    let alternatePathsMap = alternatePaths.reduce((mapping, path) => {
-      var subType= path.get('collectionSubType') || path.get('targetContentType');
-      if (subType) {
-        mapping[subType].push(path);
+    let alternatePathsMap = alternatePaths.reduce(
+      (mapping, path) => {
+        var subType =
+          path.get('collectionSubType') || path.get('targetContentType');
+        if (subType) {
+          mapping[subType].push(path);
+        }
+        return mapping;
+      },
+      {
+        [ASSESSMENT_SUB_TYPES.BACKFILL]: [],
+        [ASSESSMENT_SUB_TYPES.BENCHMARK]: [],
+        [ASSESSMENT_SUB_TYPES.PRE_TEST]: [],
+        [ASSESSMENT_SUB_TYPES.POST_TEST]: [],
+        [ASSESSMENT_SUB_TYPES.RESOURCE]: []
       }
-      return mapping;
-    }, {
-      [ASSESSMENT_SUB_TYPES.BACKFILL]: [],
-      [ASSESSMENT_SUB_TYPES.BENCHMARK]: [],
-      [ASSESSMENT_SUB_TYPES.PRE_TEST]: [],
-      [ASSESSMENT_SUB_TYPES.POST_TEST]: [],
-      [ASSESSMENT_SUB_TYPES.RESOURCE]: []
-    });
+    );
 
-    alternatePathsMap[ASSESSMENT_SUB_TYPES.RESOURCE].forEach(function(resourceData) {
+    alternatePathsMap[ASSESSMENT_SUB_TYPES.RESOURCE].forEach(function(
+      resourceData
+    ) {
       var assessmentId = resourceData.contextCollectionId;
       var lessonChildren = lesson.get('children');
       if (assessmentId) {
-        var assessmentIndex = lessonChildren.findIndex(child => child.id === assessmentId);
-        var resource = serializer.get('alternatePathSerializer').normalizeReadResource(resourceData);
-        lessonChildren.splice(assessmentIndex+1, 0, resource);
+        var assessmentIndex = lessonChildren.findIndex(
+          child => child.id === assessmentId
+        );
+        var resource = serializer
+          .get('alternatePathSerializer')
+          .normalizeReadResource(resourceData);
+        lessonChildren.splice(assessmentIndex + 1, 0, resource);
       }
     });
 
-    lesson.get('children').unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BACKFILL]);
-    lesson.get('children').unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.PRE_TEST]);
-    lesson.get('children').push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.POST_TEST]);
-    lesson.get('children').push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BENCHMARK]);
+    lesson
+      .get('children')
+      .unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BACKFILL]);
+    lesson
+      .get('children')
+      .unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.PRE_TEST]);
+    lesson
+      .get('children')
+      .push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.POST_TEST]);
+    lesson
+      .get('children')
+      .push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BENCHMARK]);
     return lesson;
   },
 
@@ -80,19 +109,29 @@ export default Ember.Object.extend({
    * @param data - The alternate paths in JSON format
    * @returns {Collection[]} alternate paths list
    */
-  normalizeAlternatePaths: function (data) {
-    return Ember.isArray(data) ? data.map(path => {
-      if (path.target_content_type === 'resource') {
-        return this.get('alternatePathSerializer').normalizeAlternatePath(path);
-      } else {
-        let normalizedPath = path.target_content_type === 'collection' ?
-          this.get('collectionSerializer').normalizeReadCollection(path) :
-          this.get('assessmentSerializer').normalizeReadAssessment(path);
-        if (!normalizedPath.get('collectionSubType')) {
-          normalizedPath.set('collectionSubType', ASSESSMENT_SUB_TYPES.BACKFILL);
+  normalizeAlternatePaths: function(data) {
+    return Ember.isArray(data)
+      ? data.map(path => {
+        if (path.target_content_type === 'resource') {
+          return this.get('alternatePathSerializer').normalizeAlternatePath(
+            path
+          );
+        } else {
+          let normalizedPath =
+              path.target_content_type === 'collection'
+                ? this.get('collectionSerializer').normalizeReadCollection(path)
+                : this.get('assessmentSerializer').normalizeReadAssessment(
+                  path
+                );
+          if (!normalizedPath.get('collectionSubType')) {
+            normalizedPath.set(
+              'collectionSubType',
+              ASSESSMENT_SUB_TYPES.BACKFILL
+            );
+          }
+          return normalizedPath;
         }
-        return normalizedPath;
-      }
-    }) : [];
+      })
+      : [];
   }
 });

@@ -33,26 +33,32 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * remove ClassActivity
      */
-    removeClassActivity: function (model) {
+    removeClassActivity: function(model) {
       let component = this;
 
       component.set('isLoading', true);
 
-      model.deleteMethod()
-        .then(function () {
+      model
+        .deleteMethod()
+        .then(function() {
           if (model.callback) {
             model.callback.success();
           }
           component.set('isLoading', false);
-          component.triggerAction({action: 'closeModal'});
+          component.triggerAction({ action: 'closeModal' });
         })
-        .catch(function (error) {
-          var message = component.get('i18n').t('content.modals.remove-class-activity.delete-error',
-            { type: component.get('i18n').t('common.' + model.type).string.toLowerCase() }).string;
+        .catch(function(error) {
+          var message = component
+            .get('i18n')
+            .t('content.modals.remove-class-activity.delete-error', {
+              type: component
+                .get('i18n')
+                .t(`common.${model.type}`)
+                .string.toLowerCase()
+            }).string;
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });

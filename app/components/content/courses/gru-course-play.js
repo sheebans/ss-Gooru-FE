@@ -18,7 +18,7 @@ export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Actions
 
-  actions:  {
+  actions: {
     view: function(viewName) {
       this.set('view', viewName);
     },
@@ -39,14 +39,13 @@ export default Ember.Component.extend(ModalMixin, {
      * @param unitId
      * @param lessonId
      */
-    setLocation: function (unitId, lessonId = undefined) {
-      this.sendAction("onLocationChange", unitId, lessonId);
+    setLocation: function(unitId, lessonId = undefined) {
+      this.sendAction('onLocationChange', unitId, lessonId);
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -71,7 +70,7 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
   tags: Ember.computed('course.taxonomy.[]', function() {
-    return TaxonomyTag.getTaxonomyTags(this.get("course.taxonomy"), false);
+    return TaxonomyTag.getTaxonomyTags(this.get('course.taxonomy'), false);
   }),
 
   /**
@@ -87,6 +86,5 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @property {string} selected lesson id
    */
-  selectedLessonId:null
-
+  selectedLessonId: null
 });

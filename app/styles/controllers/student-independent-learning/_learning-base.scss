@@ -6,7 +6,7 @@
   margin: 15px 0;
   .gru-independent-card {
     @include flex-basis(100%);
-    @media(min-width: $screen-sm-max) {
+    @media (min-width: $screen-sm-max) {
       @include flex-basis(50%);
     }
   }
@@ -19,7 +19,7 @@
   &::after {
     content: "";
     @include flex-basis(0);
-    @media(min-width: $screen-sm-max) {
+    @media (min-width: $screen-sm-max) {
       @include flex-basis(50%);
     }
   }

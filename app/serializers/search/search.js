@@ -16,7 +16,6 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @typedef {Object} SearchSerializer
  */
 export default Ember.Object.extend(ConfigurationMixin, {
-
   session: Ember.inject.service('session'),
 
   /**
@@ -24,9 +23,12 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   taxonomySerializer: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'taxonomySerializer',
+      TaxonomySerializer.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -49,24 +51,34 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param {*} collectionData
    * @returns {Collection}
    */
-  normalizeCollection: function (collectionData){
+  normalizeCollection: function(collectionData) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const userBasePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const thumbnailUrl = collectionData.thumbnail ? basePath + collectionData.thumbnail : appRootPath + DEFAULT_IMAGES.COLLECTION;
-    const userThumbnailUrl = collectionData.userProfileImage ? userBasePath + collectionData.userProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
-    const creatorThumbnailUrl = collectionData.creatorProfileImage ? userBasePath + collectionData.creatorProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
-    const taxonomyInfo = collectionData.taxonomySet &&
-                          collectionData.taxonomySet.curriculum &&
-                            collectionData.taxonomySet.curriculum.curriculumInfo || [];
+    const thumbnailUrl = collectionData.thumbnail
+      ? basePath + collectionData.thumbnail
+      : appRootPath + DEFAULT_IMAGES.COLLECTION;
+    const userThumbnailUrl = collectionData.userProfileImage
+      ? userBasePath + collectionData.userProfileImage
+      : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = collectionData.creatorProfileImage
+      ? userBasePath + collectionData.creatorProfileImage
+      : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const taxonomyInfo =
+      (collectionData.taxonomySet &&
+        collectionData.taxonomySet.curriculum &&
+        collectionData.taxonomySet.curriculum.curriculumInfo) ||
+      [];
 
     const course = collectionData.course || {};
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: collectionData.id,
       title: collectionData.title,
       thumbnailUrl: thumbnailUrl,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo),
+      standards: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyArray(taxonomyInfo),
       publishStatus: collectionData.publishStatus,
       learningObjectives: collectionData.languageObjective,
       resourceCount: collectionData.resourceCount || 0,
@@ -76,18 +88,18 @@ export default Ember.Object.extend(ConfigurationMixin, {
       courseId: course.id,
       isVisibleOnProfile: collectionData.profileUserVisibility,
       owner: ProfileModel.create({
-        "id": collectionData.gooruUId,
-        "firstName": collectionData.userFirstName,
-        "lastName": collectionData.userLastName,
-        "avatarUrl": userThumbnailUrl,
-        "username": collectionData.usernameDisplay
+        id: collectionData.gooruUId,
+        firstName: collectionData.userFirstName,
+        lastName: collectionData.userLastName,
+        avatarUrl: userThumbnailUrl,
+        username: collectionData.usernameDisplay
       }),
       creator: ProfileModel.create({
-        "id": collectionData.creatorId,
-        "firstName": collectionData.creatorFirstname,
-        "lastName": collectionData.creatorLastname,
-        "avatarUrl": creatorThumbnailUrl,
-        "username": collectionData.creatornameDisplay
+        id: collectionData.creatorId,
+        firstName: collectionData.creatorFirstname,
+        lastName: collectionData.creatorLastname,
+        avatarUrl: creatorThumbnailUrl,
+        username: collectionData.creatornameDisplay
       })
     });
   },
@@ -97,45 +109,59 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param {*} assessmentData
    * @returns {Assessment}
    */
-  normalizeAssessment: function (assessmentData){
+  normalizeAssessment: function(assessmentData) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const userBasePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const thumbnailUrl = assessmentData.thumbnail ? basePath + assessmentData.thumbnail : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
-    const ownerThumbnailUrl = assessmentData.userProfileImage ? userBasePath + assessmentData.userProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
-    const creatorThumbnailUrl = assessmentData.creatorProfileImage ? userBasePath + assessmentData.creatorProfileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
-    const taxonomyInfo = assessmentData.taxonomySet &&
-                          assessmentData.taxonomySet.curriculum &&
-                            assessmentData.taxonomySet.curriculum.curriculumInfo || [];
+    const thumbnailUrl = assessmentData.thumbnail
+      ? basePath + assessmentData.thumbnail
+      : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+    const ownerThumbnailUrl = assessmentData.userProfileImage
+      ? userBasePath + assessmentData.userProfileImage
+      : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const creatorThumbnailUrl = assessmentData.creatorProfileImage
+      ? userBasePath + assessmentData.creatorProfileImage
+      : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const taxonomyInfo =
+      (assessmentData.taxonomySet &&
+        assessmentData.taxonomySet.curriculum &&
+        assessmentData.taxonomySet.curriculum.curriculumInfo) ||
+      [];
 
     const course = assessmentData.course || {};
     return AssessmentModel.create(Ember.getOwner(this).ownerInjection(), {
       id: assessmentData.id,
       title: assessmentData.title,
       thumbnailUrl: thumbnailUrl,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo),
+      standards: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyArray(taxonomyInfo),
       publishStatus: assessmentData.publishStatus,
       learningObjectives: assessmentData.languageObjective,
-      resourceCount: assessmentData.resourceCount ? Number(assessmentData.resourceCount) : 0,
-      questionCount: assessmentData.questionCount ? Number(assessmentData.questionCount) : 0,
+      resourceCount: assessmentData.resourceCount
+        ? Number(assessmentData.resourceCount)
+        : 0,
+      questionCount: assessmentData.questionCount
+        ? Number(assessmentData.questionCount)
+        : 0,
       remixCount: assessmentData.scollectionRemixCount || 0,
       course: course.title,
       courseId: course.id,
       isVisibleOnProfile: assessmentData.profileUserVisibility,
       owner: ProfileModel.create({
-        "id": assessmentData.gooruUId,
-        "firstName": assessmentData.userFirstName,
-        "lastName": assessmentData.userLastName,
-        "avatarUrl": ownerThumbnailUrl,
-        "username": assessmentData.usernameDisplay
+        id: assessmentData.gooruUId,
+        firstName: assessmentData.userFirstName,
+        lastName: assessmentData.userLastName,
+        avatarUrl: ownerThumbnailUrl,
+        username: assessmentData.usernameDisplay
       }),
       creator: ProfileModel.create({
-        "id": assessmentData.creatorId,
-        "firstName": assessmentData.creatorFirstname,
-        "lastName": assessmentData.creatorLastname,
-        "avatarUrl": creatorThumbnailUrl,
-        "username": assessmentData.creatornameDisplay
+        id: assessmentData.creatorId,
+        firstName: assessmentData.creatorFirstname,
+        lastName: assessmentData.creatorLastname,
+        avatarUrl: creatorThumbnailUrl,
+        username: assessmentData.creatornameDisplay
       })
     });
   },
@@ -190,13 +216,15 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param {*} result
    * @returns {Question}
    */
-  normalizeQuestion: function(result){
+  normalizeQuestion: function(result) {
     const serializer = this;
     const format = result.resourceFormat.value; //value should be 'question'
     const type = QuestionModel.normalizeQuestionType(result.typeName);
-    const taxonomyInfo = result.taxonomySet &&
-                          result.taxonomySet.curriculum &&
-                            result.taxonomySet.curriculum.curriculumInfo || [];
+    const taxonomyInfo =
+      (result.taxonomySet &&
+        result.taxonomySet.curriculum &&
+        result.taxonomySet.curriculum.curriculumInfo) ||
+      [];
 
     return QuestionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.gooruOid,
@@ -207,7 +235,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
       thumbnailUrl: result.thumbnail,
       type: type,
       owner: result.user ? serializer.normalizeOwner(result.user) : null,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo)
+      standards: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyArray(taxonomyInfo)
     });
   },
 
@@ -216,12 +246,16 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param {*} result
    * @returns {Resource}
    */
-  normalizeResource: function(result){
+  normalizeResource: function(result) {
     const serializer = this;
-    const format = ResourceModel.normalizeResourceFormat(result.contentSubFormat);
-    const taxonomyInfo = result.taxonomySet &&
-                          result.taxonomySet.curriculum &&
-                            result.taxonomySet.curriculum.curriculumInfo || [];
+    const format = ResourceModel.normalizeResourceFormat(
+      result.contentSubFormat
+    );
+    const taxonomyInfo =
+      (result.taxonomySet &&
+        result.taxonomySet.curriculum &&
+        result.taxonomySet.curriculum.curriculumInfo) ||
+      [];
 
     return ResourceModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.gooruOid,
@@ -229,11 +263,15 @@ export default Ember.Object.extend(ConfigurationMixin, {
       description: result.description,
       format: format,
       url: result.url,
-      creator: result.creator ? serializer.normalizeOwner(result.creator) : null,
+      creator: result.creator
+        ? serializer.normalizeOwner(result.creator)
+        : null,
       owner: result.user ? serializer.normalizeOwner(result.user) : null,
-      standards: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo),
+      standards: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyArray(taxonomyInfo),
       publishStatus: result.publishStatus,
-      publisher:result.publisher ? result.publisher[0] : null
+      publisher: result.publisher ? result.publisher[0] : null
     });
   },
 
@@ -242,11 +280,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param ownerData
    * @returns {Profile}
    */
-  normalizeOwner: function (ownerData) {
+  normalizeOwner: function(ownerData) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.user');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const thumbnailUrl =  ownerData.profileImage ? basePath +  ownerData.profileImage : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
+    const thumbnailUrl = ownerData.profileImage
+      ? basePath + ownerData.profileImage
+      : appRootPath + DEFAULT_IMAGES.USER_PROFILE;
 
     return ProfileModel.create(Ember.getOwner(this).ownerInjection(), {
       id: ownerData.gooruUId || ownerData.id,
@@ -277,29 +317,37 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @param {*} result
    * @returns {Course}
    */
-  normalizeCourse: function(result){
+  normalizeCourse: function(result) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const thumbnailUrl = result.thumbnail ? basePath + result.thumbnail : appRootPath + DEFAULT_IMAGES.COURSE;
-    const taxonomyInfo = result.taxonomy &&
-                          result.taxonomy.curriculum &&
-                            result.taxonomy.curriculum.curriculumInfo || [];
+    const thumbnailUrl = result.thumbnail
+      ? basePath + result.thumbnail
+      : appRootPath + DEFAULT_IMAGES.COURSE;
+    const taxonomyInfo =
+      (result.taxonomy &&
+        result.taxonomy.curriculum &&
+        result.taxonomy.curriculum.curriculumInfo) ||
+      [];
     return CourseModel.create(Ember.getOwner(this).ownerInjection(), {
       id: result.id,
       title: result.title,
       description: result.description,
       thumbnailUrl: thumbnailUrl,
       subject: result.subjectBucket,
-      subjectName: result.taxonomy && result.taxonomy.subject ? result.taxonomy.subject[0] : null,
+      subjectName:
+        result.taxonomy && result.taxonomy.subject
+          ? result.taxonomy.subject[0]
+          : null,
       subjectSequence: result.subjectSequence,
       isVisibleOnProfile: result.visibleOnProfile,
       isPublished: result.publishStatus === 'published',
       unitCount: result.unitCount,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyArray(taxonomyInfo, TAXONOMY_LEVELS.COURSE),
+      taxonomy: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyArray(taxonomyInfo, TAXONOMY_LEVELS.COURSE),
       owner: result.owner ? serializer.normalizeOwner(result.owner) : null,
       sequence: result.sequence
     });
   }
-
 });

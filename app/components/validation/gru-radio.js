@@ -1,9 +1,5 @@
 import Ember from 'ember';
-const {
-  computed,
-  defineProperty
-  } = Ember;
-
+const { computed, defineProperty } = Ember;
 
 /**
  * Input radio button from role-radio-button component with validation
@@ -16,10 +12,8 @@ const {
  * @see ember-cp-validations
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -38,8 +32,8 @@ export default Ember.Component.extend({
    * Update user birth date
    * @param {String} dateValue - birth date as a string
    */
-  actions:{
-    setValue:function(value){
+  actions: {
+    setValue: function(value) {
       this.set(`model.${this.valuePath}`, value);
     },
 
@@ -57,7 +51,11 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     var valuePath = this.get('valuePath');
-    defineProperty(this, 'attributeValidation', computed.oneWay(`model.validations.attrs.${valuePath}`));
+    defineProperty(
+      this,
+      'attributeValidation',
+      computed.oneWay(`model.validations.attrs.${valuePath}`)
+    );
     this.set('rawInputValue', this.get(`model.${valuePath}`));
     defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
   },
@@ -101,9 +99,20 @@ export default Ember.Component.extend({
   /**
    * @param {Computed } showErrorClass - computed property that defines the
    */
-  showErrorClass: computed('isTyping', 'showMessage', 'hasContent', 'attributeValidation', function() {
-    return this.get('attributeValidation') && !this.get('isTyping') && this.get('showMessage') && this.get('hasContent');
-  }),
+  showErrorClass: computed(
+    'isTyping',
+    'showMessage',
+    'hasContent',
+    'attributeValidation',
+    function() {
+      return (
+        this.get('attributeValidation') &&
+        !this.get('isTyping') &&
+        this.get('showMessage') &&
+        this.get('hasContent')
+      );
+    }
+  ),
   /**
    * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.
    */
@@ -119,15 +128,20 @@ export default Ember.Component.extend({
   /**
    * @param {Computed } hasContent - computed property that defines what message to show
    */
-  showMessage: computed('attributeValidation.isDirty', 'isInvalid', 'didValidate', function() {
-    return (this.get('attributeValidation.isDirty') || this.get('didValidate')) && this.get('isInvalid');
-  })
+  showMessage: computed(
+    'attributeValidation.isDirty',
+    'isInvalid',
+    'didValidate',
+    function() {
+      return (
+        (this.get('attributeValidation.isDirty') || this.get('didValidate')) &&
+        this.get('isInvalid')
+      );
+    }
+  )
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
-
 });

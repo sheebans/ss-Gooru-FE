@@ -6,10 +6,9 @@ import Ember from 'ember';
  * @typedef {Object} QuestionAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
-  namespace: '/api/nucleus/v1/questions',
+  namespace: '/api/nucleus/v2/questions',
 
   copierNamespace: '/api/nucleus/v1/copier/questions',
 
@@ -117,8 +116,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

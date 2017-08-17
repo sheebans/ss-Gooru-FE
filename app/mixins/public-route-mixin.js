@@ -22,22 +22,26 @@ export default Ember.Mixin.create({
   /**
    * @property {Ember.Service} Session service
    */
-  sessionService: Ember.inject.service("api-sdk/session"),
+  sessionService: Ember.inject.service('api-sdk/session'),
 
   beforeModel() {
     const mixin = this;
     var session = mixin.get('session');
     var sessionService = mixin.get('sessionService');
-    if(!sessionService.hasTokenExpired()) {
+    if (!sessionService.hasTokenExpired()) {
       return Ember.RSVP.resolve(mixin._super(...arguments));
     }
-    return mixin.get('authenticationService').checkToken(mixin.get('session.token-api3'))
-      .then(function() {
-        session.set('userData.providedAt', Date.now());
-        return sessionService.updateUserData(session.get('userData'));
-      },
-      function() {
-        return session.authenticateAsAnonymous();
-      });
+    return mixin
+      .get('authenticationService')
+      .checkToken(mixin.get('session.token-api3'))
+      .then(
+        function() {
+          session.set('userData.providedAt', Date.now());
+          return sessionService.updateUserData(session.get('userData'));
+        },
+        function() {
+          return session.authenticateAsAnonymous();
+        }
+      );
   }
 });

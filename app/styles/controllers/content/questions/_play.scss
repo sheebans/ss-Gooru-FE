@@ -1,8 +1,7 @@
 .controller.content.questions.play {
-
-  > article{
+  > article {
     min-width: 0;
-    $content-md-width: 890px;
+    $content-md-width: 90%;
 
     > header {
       padding: 0;
@@ -10,7 +9,7 @@
       margin-bottom: 20px;
 
       @media (min-width: $screen-md) {
-        padding-bottom: 0!important;
+        padding-bottom: 0 !important;
       }
 
       * {
@@ -141,7 +140,7 @@
                 @include align-items(stretch);
                 margin-left: 10px;
                 padding-left: 10px;
-                border-left : 2px solid $dark-300;
+                border-left: 2px solid $dark-300;
 
                 .taxonomy.gru-taxonomy-tag {
                   border-color: $dark-300;

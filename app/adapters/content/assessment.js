@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} AssessmentAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus/v1/assessments',
@@ -183,11 +182,9 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
-
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

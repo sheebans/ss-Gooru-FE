@@ -10,7 +10,6 @@ import { parseDate } from 'gooru-web/utils/utils';
  * @typedef {Object} ClassActivitySerializer
  */
 export default Ember.Object.extend({
-
   /**
    * Normalizes class activities/contents
    *
@@ -19,7 +18,11 @@ export default Ember.Object.extend({
    */
   normalizeFindClassActivities: function(payload) {
     const serializer = this;
-    if (payload && payload.class_contents && Ember.isArray(payload.class_contents)) {
+    if (
+      payload &&
+      payload.class_contents &&
+      Ember.isArray(payload.class_contents)
+    ) {
       return payload.class_contents.map(function(classActivity) {
         return serializer.normalizeClassActivity(classActivity);
       });
@@ -33,12 +36,14 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {Goal}
    */
-  normalizeClassActivity: function (data) {
+  normalizeClassActivity: function(data) {
     const serializer = this;
-    const content =  serializer.normalizeClassActivityContent(data);
+    const content = serializer.normalizeClassActivityContent(data);
     return ClassActivity.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
-      date: data.activation_date ? parseDate(data.activation_date, 'YYYY-MM-DD') : null,
+      date: data.activation_date
+        ? parseDate(data.activation_date, 'YYYY-MM-DD')
+        : null,
       context: {
         courseId: data.ctx_course_id,
         unitId: data.ctx_unit_id,
@@ -54,7 +59,7 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {Goal}
    */
-  normalizeClassActivityContent: function (data) {
+  normalizeClassActivityContent: function(data) {
     const contentType = data.content_type;
     let content = null;
     if (contentType === 'assessment') {
@@ -78,6 +83,4 @@ export default Ember.Object.extend({
     //TODO normalize resources and questions
     return content;
   }
-
-
 });

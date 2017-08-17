@@ -1,5 +1,5 @@
 .gru-icon-popover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .gru-icon-popover-window {
@@ -7,7 +7,7 @@
   &.popover {
     .arrow {
       &:after {
-        border-top-color:$pre-border-color;
+        border-top-color: $pre-border-color;
       }
     }
   }

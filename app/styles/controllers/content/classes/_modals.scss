@@ -26,20 +26,17 @@
     }
   }
 
-
-
   .modal-content {
     border: 0;
     text-align: center;
 
-    >* {
+    > * {
       padding: 0 10px 15px;
       @media (min-width: $screen-sm) {
         padding: 0 15px;
       }
     }
   }
-
 
   .form-group {
     text-align: initial;
@@ -62,8 +59,9 @@
       padding-left: 35px;
       padding-right: 0;
     }
-    .join-class-btn, .get-started-btn{
-      width:100% ;
+    .join-class-btn,
+    .get-started-btn {
+      width: 100%;
     }
 
     i {

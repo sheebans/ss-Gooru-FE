@@ -6,7 +6,6 @@ import PerformanceSerializer from './performance';
  * @typedef {Object} UnitPerformanceSerializer
  */
 export default PerformanceSerializer.extend({
-
   getModelId: function(payload) {
     return payload.unitId;
   },
@@ -18,5 +17,4 @@ export default PerformanceSerializer.extend({
   getObjectType: function() {
     return 'unit';
   }
-
 });

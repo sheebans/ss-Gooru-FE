@@ -32,7 +32,6 @@ export default Ember.Route.extend({
    */
   analyticsService: Ember.inject.service('api-sdk/analytics'),
 
-
   // -------------------------------------------------------------------------
   // Actions
 
@@ -53,28 +52,44 @@ export default Ember.Route.extend({
     const courseId = classModel.get('courseId');
     const members = classModel.get('members');
     const unit = this.get('unitService').fetchById(courseId, unitId);
-    const lesson = this.get('lessonService').fetchById(courseId, unitId, lessonId);
+    const lesson = this.get('lessonService').fetchById(
+      courseId,
+      unitId,
+      lessonId
+    );
 
-    return Ember.RSVP.hashSettled({
-      collection: route.get('collectionService').readCollection(collectionId),
-      assessment: route.get('assessmentService').readAssessment(collectionId)
-    }).then(function(hash) {
-      const collectionFound = hash.assessment.state === 'rejected';
-      const collection = collectionFound ? hash.collection.value : hash.assessment.value;
-      const collectionType = collection.get('collectionType');
+    return Ember.RSVP
+      .hashSettled({
+        collection: route.get('collectionService').readCollection(collectionId),
+        assessment: route.get('assessmentService').readAssessment(collectionId)
+      })
+      .then(function(hash) {
+        const collectionFound = hash.assessment.state === 'rejected';
+        const collection = collectionFound
+          ? hash.collection.value
+          : hash.assessment.value;
+        const collectionType = collection.get('collectionType');
 
-      return route.get('analyticsService')
-        .findResourcesByCollection(classId, courseId, unitId, lessonId, collectionId, collectionType)
-        .then(function(userResourcesResults) {
-          return Ember.RSVP.hash({
-            unit: unit,
-            lesson: lesson,
-            collection: collection.toPlayerCollection(),
-            members: members,
-            userResults: userResourcesResults
+        return route
+          .get('analyticsService')
+          .findResourcesByCollection(
+            classId,
+            courseId,
+            unitId,
+            lessonId,
+            collectionId,
+            collectionType
+          )
+          .then(function(userResourcesResults) {
+            return Ember.RSVP.hash({
+              unit: unit,
+              lesson: lesson,
+              collection: collection.toPlayerCollection(),
+              members: members,
+              userResults: userResourcesResults
+            });
           });
-        });
-    });
+      });
   },
 
   /**
@@ -99,5 +114,4 @@ export default Ember.Route.extend({
 
     controller.get('classController').selectMenuItem('performance');
   }
-
 });

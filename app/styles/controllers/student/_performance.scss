@@ -8,9 +8,9 @@
 
   .performance-content {
     padding: 20px;
-    .panel-header{
+    .panel-header {
       height: 115px;
-      h1{
+      h1 {
         float: left;
         font-size: $font-size-h4;
         margin: 2px 0 0 0;
@@ -27,7 +27,7 @@
           }
         }
       }
-      p{
+      p {
         float: left;
         font-size: 18px;
         margin: 15px 0 0 0;
@@ -48,10 +48,10 @@
           height: 25px;
           margin-left: 20px;
         }
-        label{
+        label {
           padding-left: 0;
         }
-        &>:last-child {
+        & > :last-child {
           margin-right: 0;
         }
       }

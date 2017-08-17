@@ -26,10 +26,8 @@ import AnswerObject from 'gooru-web/utils/question/answer-object';
  * @typedef {Object} TrueFalseUtil
  */
 export default MultipleChoiceUtil.extend({
-
   // -------------------------------------------------------------------------
   // Observers
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -42,14 +40,14 @@ export default MultipleChoiceUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toAnswerObjects: function (userAnswer) {
+  toAnswerObjects: function(userAnswer) {
     let util = this;
     let answer = util.getAnswerById(userAnswer);
 
     /*
      When no answer is found the userAnswer brings true or false indicating the user selection
      */
-    let text = answer ? answer.get("text") : ( (userAnswer) ? "True" : "False" );
+    let text = answer ? answer.get('text') : userAnswer ? 'True' : 'False';
 
     /*
      When no answer if found the answerId should be 0
@@ -57,11 +55,11 @@ export default MultipleChoiceUtil.extend({
     let answerId = answer ? userAnswer : 0;
 
     let answerObject = AnswerObject.create({
-      "text": text,
-      "correct": util.isCorrect(userAnswer),
-      "order": 1,
-      "answerId": answerId,
-      "skip": false
+      text: text,
+      correct: util.isCorrect(userAnswer),
+      order: 1,
+      answerId: answerId,
+      skip: false
     });
     return Ember.A([answerObject]);
   },
@@ -75,17 +73,17 @@ export default MultipleChoiceUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toUserAnswer: function (answerObjects) {
+  toUserAnswer: function(answerObjects) {
     let userAnswer = null;
-    if (answerObjects.get("length")) {
-      let answerObject = answerObjects.get("firstObject");
-      let text = answerObject.get("text");
-      let answerId = answerObject.get("answerId");
+    if (answerObjects.get('length')) {
+      let answerObject = answerObjects.get('firstObject');
+      let text = answerObject.get('text');
+      let answerId = answerObject.get('answerId');
 
       /*
        When answerId = 0, we need to use the text to know the answer selected
        */
-      userAnswer = !answerId ? text === "True" : answerId;
+      userAnswer = !answerId ? text === 'True' : answerId;
     }
 
     return userAnswer;

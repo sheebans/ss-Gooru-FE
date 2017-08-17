@@ -16,6 +16,8 @@ export default BaseValidator.extend({
   validate(value, options) {
     const validator = this;
     let cleanValue = Ember.$('<div>').html(value).text().trim();
-    return cleanValue ? true : validator.get('i18n').t(options.messageKey).string;
+    return cleanValue
+      ? true
+      : validator.get('i18n').t(options.messageKey).string;
   }
 });

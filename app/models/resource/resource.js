@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {QUESTION_TYPES} from 'gooru-web/config/question';
+import { QUESTION_TYPES } from 'gooru-web/config/question';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
 /**
  * Resource Model
@@ -7,7 +7,6 @@ import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
  * @typedef {Object} Resource
  */
 export default Ember.Object.extend({
-
   id: null,
 
   /**
@@ -88,8 +87,8 @@ export default Ember.Object.extend({
    * Returns the FIB text
    * @property {string}
    */
-  fibText: Ember.computed("text", function(){
-    return FillInTheBlank.toFibText(this.get("text"));
+  fibText: Ember.computed('text', function() {
+    return FillInTheBlank.toFibText(this.get('text'));
   }),
 
   /**
@@ -111,7 +110,7 @@ export default Ember.Object.extend({
    * Indicates if the question has answers
    * @property {boolean}
    */
-  hasAnswers: Ember.computed.bool("answers.length"),
+  hasAnswers: Ember.computed.bool('answers.length'),
 
   /**
    * @property {*} resource options
@@ -127,8 +126,10 @@ export default Ember.Object.extend({
    * @property {string} thumbnail url
    */
   thumbnailUrl: Ember.computed('thumbnail', function() {
-    const defaultThumbnailUrl = '/assets/gooru/default-' + this.get('resourceFormat') + '.png';
-    return (this.get('thumbnail') ? this.get('thumbnail') : defaultThumbnailUrl);
+    const defaultThumbnailUrl = `/assets/gooru/default-${this.get(
+      'resourceFormat'
+    )}.png`;
+    return this.get('thumbnail') ? this.get('thumbnail') : defaultThumbnailUrl;
   }),
 
   /**
@@ -140,13 +141,19 @@ export default Ember.Object.extend({
    * @property {boolean} indicates if the question is multiple choice type
    * @see components/player/gru-multiple-choice.js
    */
-  isMultipleChoice: Ember.computed.equal('questionType', QUESTION_TYPES.multipleChoice),
+  isMultipleChoice: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.multipleChoice
+  ),
 
   /**
    * @property {boolean} indicates if the question is multiple answer type
    * @see components/player/gru-multiple-answer.js
    */
-  isMultipleAnswer: Ember.computed.equal('questionType', QUESTION_TYPES.multipleAnswer),
+  isMultipleAnswer: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.multipleAnswer
+  ),
 
   /**
    * @property {boolean} indicates if the question is true false type
@@ -170,46 +177,64 @@ export default Ember.Object.extend({
    * @property {boolean} indicates if the question is hot spot text type
    * @see components/player/gru-hot-spot-text.js
    */
-  isHotSpotText: Ember.computed.equal('questionType', QUESTION_TYPES.hotSpotText),
+  isHotSpotText: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.hotSpotText
+  ),
 
   /**
    * @property {boolean} indicates if the question is hot spot image type
    * @see components/player/gru-hot-spot-image.js
    */
-  isHotSpotImage: Ember.computed.equal('questionType', QUESTION_TYPES.hotSpotImage),
+  isHotSpotImage: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.hotSpotImage
+  ),
 
   /**
    * @property {boolean} indicates if the question is reorder
    * @see components/player/gru-reorder.js
    */
-  isHotTextReorder: Ember.computed.equal('questionType', QUESTION_TYPES.hotTextReorder),
+  isHotTextReorder: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.hotTextReorder
+  ),
 
   /**
    * @property {boolean} indicates if the question is hot spot text
    * @see components/player/gru-hot-text-highlight.js
    */
-  isHotTextHighlight: Ember.computed.equal('questionType', QUESTION_TYPES.hotTextHighlight),
+  isHotTextHighlight: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.hotTextHighlight
+  ),
 
   /**
    * @property {boolean} indicates if the question is hot text word type
    */
-  isHotTextHighlightWord: Ember.computed.equal('answers.firstObject.highlightType', 'word'),
+  isHotTextHighlightWord: Ember.computed.equal(
+    'answers.firstObject.highlightType',
+    'word'
+  ),
 
   /**
    * @property {boolean} indicates if the question is hot text sentence type
    */
-  isHotTextHighlightSentence: Ember.computed.equal('answers.firstObject.highlightType', 'sentence'),
+  isHotTextHighlightSentence: Ember.computed.equal(
+    'answers.firstObject.highlightType',
+    'sentence'
+  ),
 
   /**
    * The start time for video/youtube
    * @property {string} start
    */
-  start: Ember.computed.alias("options.start"),
+  start: Ember.computed.alias('options.start'),
   /**
    * The end time for video/youtube
    * @property {string} start
    */
-  stop: Ember.computed.alias("options.stop"),
+  stop: Ember.computed.alias('options.stop'),
 
   hasMedia: Ember.computed.bool('mediaUrl'),
   hasNarration: Ember.computed.bool('narration'),
@@ -219,35 +244,34 @@ export default Ember.Object.extend({
    * Indicates if it is an image resource
    * @property {boolean}
    */
-  isImageResource: Ember.computed("resourceType", function(){
-    var resourceType = this.get("resourceType");
-    return resourceType && resourceType.indexOf("image") >= 0;
+  isImageResource: Ember.computed('resourceType', function() {
+    var resourceType = this.get('resourceType');
+    return resourceType && resourceType.indexOf('image') >= 0;
   }),
 
   /**
    * Indicates if it is an youtube resource
    * @property {boolean}
    */
-  isYoutubeResource: Ember.computed.equal("resourceType", "video/youtube"),
+  isYoutubeResource: Ember.computed.equal('resourceType', 'video/youtube'),
 
   /**
    * Indicates if it is an pdf resource
    * @property {boolean}
    */
-  isPDFResource: Ember.computed.equal("resourceType", "handouts"),
+  isPDFResource: Ember.computed.equal('resourceType', 'handouts'),
 
   /**
    * Indicates if it is an url resource
    * @property {boolean}
    */
-  isUrlResource: Ember.computed.equal("resourceType", "resource/url"),
+  isUrlResource: Ember.computed.equal('resourceType', 'resource/url'),
 
   /**
    * Indicates if it is an vimeo resource
    * @property {boolean}
    */
-  isVimeoResource: Ember.computed.equal("resourceType", "vimeo/video"),
-
+  isVimeoResource: Ember.computed.equal('resourceType', 'vimeo/video'),
 
   /**
    * Indicates if the resources is a 3rd party/remote url

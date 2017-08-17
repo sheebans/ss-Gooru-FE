@@ -1,18 +1,18 @@
-.content.rubric.gru-scoring-levels{
+.content.rubric.gru-scoring-levels {
   @include flexbox;
   width: 100%;
-  .level{
+  .level {
     width: 69%;
-    .levels{
+    .levels {
       @include flexbox;
       .scale {
         margin: 10px 0 0 0;
-        .line{
+        .line {
           border-left: 1px solid $gray-light;
-          min-height: 134px;
+          min-height: 193px;
           margin: 0 0 0 15px;
         }
-        .arrow-down{
+        .arrow-down {
           margin: 0 0 0 10px;
           width: 0;
           height: 0;
@@ -21,48 +21,55 @@
           border-top: 5px solid $gray-light;
         }
       }
-      .level-list{
+      .level-list {
         width: 100%;
         margin: 0 0 0 16px;
       }
     }
   }
-  .points{
+  .points {
     margin: 0 0 0 30px;
-    .point-list{
+    .point-list {
       padding: 0 0 0 45px;
       width: 215px;
-      div{
+      div {
         @include flexbox;
       }
-      .btn{
+      .btn {
         display: block;
         background-color: transparent;
         font-size: 24px;
         line-height: 1;
         padding: 7px 5px;
       }
-      .score-input{
+      .score-input {
         width: 135px;
         height: 52px;
 
-        .gru-input{
-          input{
+        .gru-input {
+          input {
             text-align: center;
+          }
+        }
+        .gru-input-number {
+          width: 100%;
+          .form-group {
+            width: 100%;
+            min-height: 60px;
           }
         }
       }
     }
   }
-  .btn-new-level{
+  .btn-new-level {
     margin: 0 0 0 65px;
     font-size: $font-size-base;
-    i{
+    i {
       font-size: $font-size-h4;
       vertical-align: bottom;
     }
   }
-  input{
+  input {
     font-size: $font-size-base;
   }
 }

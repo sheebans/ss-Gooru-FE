@@ -10,7 +10,6 @@ import StudentCollection from 'gooru-web/routes/reports/student-collection';
  * @augments ember/Route
  */
 export default StudentCollection.extend({
-
   templateName: 'reports/study-student-collection',
 
   // -------------------------------------------------------------------------
@@ -49,37 +48,42 @@ export default StudentCollection.extend({
     let lessonId = params.lessonId;
     let navigateMapService = route.get('navigateMapService');
     let studentCollectionModel;
-    return route.studentCollectionModel(params).then(collectionModel => {
-      studentCollectionModel = collectionModel;
-      return Ember.RSVP.hash({
-        course: route.get('courseService').fetchById(courseId),
-        unit: route.get('unitService').fetchById(courseId, unitId),
-        lesson: route.get('lessonService').fetchById(courseId, unitId, lessonId),
-        mapLocation: navigateMapService.getStoredNext()
-      });
-    }).then(function (hash) {
-      // Set the correct unit sequence number
-      hash.course.children.find((child, index) => {
-        let found = false;
-        if (child.get('id') === hash.unit.get('id')) {
-          found = true;
-          hash.unit.set('sequence', index + 1);
-        }
-        return found;
-      });
+    return route
+      .studentCollectionModel(params)
+      .then(collectionModel => {
+        studentCollectionModel = collectionModel;
+        return Ember.RSVP.hash({
+          course: route.get('courseService').fetchById(courseId),
+          unit: route.get('unitService').fetchById(courseId, unitId),
+          lesson: route
+            .get('lessonService')
+            .fetchById(courseId, unitId, lessonId),
+          mapLocation: navigateMapService.getStoredNext()
+        });
+      })
+      .then(function(hash) {
+        // Set the correct unit sequence number
+        hash.course.children.find((child, index) => {
+          let found = false;
+          if (child.get('id') === hash.unit.get('id')) {
+            found = true;
+            hash.unit.set('sequence', index + 1);
+          }
+          return found;
+        });
 
-      // Set the correct lesson sequence number
-      hash.unit.children.find((child, index) => {
-        let found = false;
-        if (child.get('id') === hash.lesson.get('id')) {
-          found = true;
-          hash.lesson.set('sequence', index + 1);
-        }
-        return found;
-      });
+        // Set the correct lesson sequence number
+        hash.unit.children.find((child, index) => {
+          let found = false;
+          if (child.get('id') === hash.lesson.get('id')) {
+            found = true;
+            hash.lesson.set('sequence', index + 1);
+          }
+          return found;
+        });
 
-      return Object.assign(studentCollectionModel, hash);
-    });
+        return Object.assign(studentCollectionModel, hash);
+      });
   },
 
   setupController(controller, model) {

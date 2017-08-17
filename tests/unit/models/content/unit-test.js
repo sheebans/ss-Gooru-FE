@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import Lesson from 'gooru-web/models/content/lesson';
 import { moduleFor, test } from 'ember-qunit';
 
@@ -7,8 +7,7 @@ moduleFor('model:content/unit', 'Unit | Model | content/unit', {
   needs: ['validator:presence']
 });
 
-test('get a child lesson index', function (assert) {
-
+test('get a child lesson index', function(assert) {
   var model = this.subject({
     children: Ember.A([
       Lesson.create({
@@ -31,10 +30,10 @@ test('get a child lesson index', function (assert) {
     title: 'Lesson#3'
   });
 
-  assert.equal(model.getChildLessonIndex(lesson), 2, "wrong lesson index");
+  assert.equal(model.getChildLessonIndex(lesson), 2, 'wrong lesson index');
 });
 
-test('sortedLessonResults', function (assert) {
+test('sortedLessonResults', function(assert) {
   var model = this.subject({
     children: Ember.A([
       Lesson.create({
@@ -55,7 +54,19 @@ test('sortedLessonResults', function (assert) {
     ])
   });
 
-  assert.equal(model.get('sortedLessonResults')[0].title, 'Lesson#1', "Wrong sorted lessons");
-  assert.equal(model.get('sortedLessonResults')[1].title, 'Lesson#2', "Wrong sorted lessons");
-  assert.equal(model.get('sortedLessonResults')[2].title, 'Lesson#3', "Wrong sorted lessons");
+  assert.equal(
+    model.get('sortedLessonResults')[0].title,
+    'Lesson#1',
+    'Wrong sorted lessons'
+  );
+  assert.equal(
+    model.get('sortedLessonResults')[1].title,
+    'Lesson#2',
+    'Wrong sorted lessons'
+  );
+  assert.equal(
+    model.get('sortedLessonResults')[2].title,
+    'Lesson#3',
+    'Wrong sorted lessons'
+  );
 });

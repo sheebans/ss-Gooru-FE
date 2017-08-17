@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/question';
 
 /**
@@ -9,14 +9,13 @@ import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/questio
  *
  */
 export default Ember.Component.extend(QuestionMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'assessment', 'questions','gru-open-ended'],
+  classNames: ['reports', 'assessment', 'questions', 'gru-open-ended'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -27,9 +26,10 @@ export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  answer: Ember.computed("question", "showCorrect", function () {
-    const correctAnswer = this.get("question.answers.firstObject.text") || "N/A";
-    return (this.get("showCorrect")) ? correctAnswer : this.get("userAnswer");
+  answer: Ember.computed('question', 'showCorrect', function() {
+    const correctAnswer =
+      this.get('question.answers.firstObject.text') || 'N/A';
+    return this.get('showCorrect') ? correctAnswer : this.get('userAnswer');
   })
 
   // -------------------------------------------------------------------------
@@ -37,5 +37,4 @@ export default Ember.Component.extend(QuestionMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

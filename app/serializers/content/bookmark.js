@@ -8,7 +8,6 @@ import BookmarkModel from 'gooru-web/models/content/bookmark';
  * @typedef {Object} BookmarkSerializer
  */
 export default Ember.Object.extend(ConfigurationMixin, {
-
   session: Ember.inject.service('session'),
 
   /**
@@ -24,7 +23,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
   serializeBookmark: function(bookmarkModel) {
     let serializedBookmark = {
       title: bookmarkModel.get('title'),
-      content_id: bookmarkModel.get("contentId"),
+      content_id: bookmarkModel.get('contentId'),
       content_type: bookmarkModel.get('contentType')
     };
     return serializedBookmark;
@@ -41,7 +40,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const serializer = this;
     const bookmarks = payload.bookmarks;
     if (Ember.isArray(bookmarks)) {
-      result = bookmarks.map(bookmark => serializer.normalizeBookmark(bookmark));
+      result = bookmarks.map(bookmark =>
+        serializer.normalizeBookmark(bookmark)
+      );
     }
     return result;
   },

@@ -6,11 +6,10 @@ import DS from 'ember-data';
  * @typedef {Object} StudentPerformance
  */
 export default DS.Model.extend({
-
   /**
    * @property {User} user
    */
-  user: DS.belongsTo("user/user", { async: false }),
+  user: DS.belongsTo('user/user', { async: false }),
 
   /**
    * @property {Performance[]} List of Performance items.
@@ -20,10 +19,10 @@ export default DS.Model.extend({
   /**
    * @property {Performance[]} List of Performance items, excluding the provided ids
    */
-  filteredPerformanceData: Ember.computed("excludedIds.[]", function(){
-    const excludedIds = this.get("excludedIds");
-    return this.get('performanceData').filter(function(performance){
-      return excludedIds.indexOf(performance.get("realId")) < 0;
+  filteredPerformanceData: Ember.computed('excludedIds.[]', function() {
+    const excludedIds = this.get('excludedIds');
+    return this.get('performanceData').filter(function(performance) {
+      return excludedIds.indexOf(performance.get('realId')) < 0;
     });
   }),
 
@@ -38,28 +37,28 @@ export default DS.Model.extend({
    * @property {Number} Computed property with the average score for all student data.
    */
   averageScore: Ember.computed('filteredPerformanceData', function() {
-    return this.calculateAverage('score', this.get("performanceData"));
+    return this.calculateAverage('score', this.get('performanceData'));
   }),
 
   /**
    * @property {Number} Computed property with the average time spent for all student data.
    */
   averageTimeSpent: Ember.computed('performanceData', function() {
-    return this.calculateAverage('timeSpent', this.get("performanceData"));
+    return this.calculateAverage('timeSpent', this.get('performanceData'));
   }),
 
   /**
    * @property {Number} Computed property with the summatory of completion done for all student data.
    */
   sumCompletionDone: Ember.computed('performanceData', function() {
-    return this.calculateSum('completionDone', this.get("performanceData"));
+    return this.calculateSum('completionDone', this.get('performanceData'));
   }),
 
   /**
    * @property {Number} Computed property with the summatory of completion total for all student data.
    */
   sumCompletionTotal: Ember.computed('performanceData', function() {
-    return this.calculateSum('completionTotal', this.get("performanceData"));
+    return this.calculateSum('completionTotal', this.get('performanceData'));
   }),
 
   /**
@@ -90,5 +89,4 @@ export default DS.Model.extend({
     }
     return sumValue;
   }
-
 });

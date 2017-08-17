@@ -333,6 +333,25 @@
       "sequence_id": 8,
       "visible_on_profile": true,
       "description": "<p>Cuales de los siguientes paises han sido campeones mundiales de futbol?</p>"
+    },
+    {
+      "id": "c1f03fa0-ad45-4181-96e1-c85f14e791b4",
+      "title": "<p>Open_ended_question</p>",
+      "creator_id": "ff90e7e2-7788-48fb-9ce2-7b6d7a828840",
+      "original_creator_id": null,
+      "publish_date": null,
+      "content_subformat": "open_ended_question",
+      "description": "Enter question text here",
+      "metadata": null,
+      "taxonomy": null,
+      "narration": null,
+      "hint_explanation_detail": {
+        "hint": []
+      },
+      "sequence_id": 9,
+      "thumbnail": null,
+      "answer": null,
+      "visible_on_profile": true
     }
   ],
   "collaborator": []

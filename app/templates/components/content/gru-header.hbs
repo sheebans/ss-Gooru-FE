@@ -1,15 +1,25 @@
 <header xmlns="http://www.w3.org/1999/html">
     <h1>{{title}}</h1>
 
-    <nav>
+    <nav class="{{if useScroll 'scrolling-tabs'}}">
       {{#each options as |option|}}
+        {{#if useScroll}}
+          {{#gru-scroll class=(if (eq selected option.name) 'selected') to=(concat '#' option.name) offset='.content.gru-header' scrollSection=scrollSection}}{{option.text}}{{/gru-scroll}}
+        {{else}}
           <a href="#" class="tab {{option.name}} {{if (eq selected option.name) 'selected'}}" {{action 'select' option.name}}>{{option.text}}</a>
+        {{/if}}
       {{/each}}
     </nav>
 
-    <div class="actions out-of-scope">
+    <div class="actions">
       {{#each headerActions as |option|}}
-          <button class="btn btn-default btn-icon {{option.name}}" title="{{option.text}}">{{gru-icon name=option.icon}} {{option.text}}</button>
+        {{#if option.isShare}}
+          {{#gru-share-pop-over tagName="button" type=option.type}}
+            {{gru-icon name=option.icon}}
+          {{/gru-share-pop-over}}
+        {{else}}
+          <button class="btn btn-default btn-icon {{option.name}}" title="{{option.text}}"{{action 'clickAction' option.action}}>{{gru-icon name=option.icon}} {{option.text}}</button>
+        {{/if}}
       {{/each}}
     </div>
 </header>

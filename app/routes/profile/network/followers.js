@@ -14,20 +14,21 @@ export default Ember.Route.extend({
    */
   session: Ember.inject.service('session'),
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (){
+  model: function() {
     const profile = this.modelFor('profile').profile;
 
-    var myFollowings = this.get('profileService').readFollowing(this.get('session.userId'));
+    var myFollowings = this.get('profileService').readFollowing(
+      this.get('session.userId')
+    );
 
     //followers
-    var followers =this.get('profileService').readFollowers(profile.get('id'));
+    var followers = this.get('profileService').readFollowers(profile.get('id'));
 
     return Ember.RSVP.hash({
       followers: followers,
@@ -35,9 +36,8 @@ export default Ember.Route.extend({
     });
   },
 
-  setupController: function (controller , model) {
+  setupController: function(controller, model) {
     controller.set('followers', model.followers);
     controller.set('myFollowings', model.myFollowings);
   }
-
 });

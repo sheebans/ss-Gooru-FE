@@ -1,63 +1,57 @@
 import Ember from 'ember';
 import utils from 'gooru-web/utils/utils';
 import Env from '../config/environment';
-const ConfigEvent = Env['events'] || {};
+const ConfigEvent = Env.events || {};
 
 /**
- * Start Question event
- * Sets some necessary data that the server requires for this specific event
- * @param question
- * @param session
- */
-export function startQuestion(question, session) {
-  var event = {
-    "eventName": "resource.play",
-    "startTime": moment().unix(),
-    "endTime": null,
-    "contentGooruId": question.id,
-    "questionType": question.questionType,
-    "attemptStatus": null,
-    "answerObject": []
-  };
-  startPlayerEvent(event, session);
-}
-
-/**
- * Stop Question event
- * Sets some necessary data that the server requires for this specific event
- * @param question
- * @param isAnswerCorrect
- * @param answer
- * @param session
- */
-export function stopQuestion(question, isAnswerCorrect ,answer, session) {
-  var event = {
-    "eventName": "resource.play",
-    "startTime": null,
-    "endTime": moment().unix(),
-    "contentGooruId": question.id,
-    "questionType": question.questionType,
-    "attemptStatus": isAnswerCorrect ? 'correct' : 'incorrect',
-    "answerObject": [convertAnswer(answer)]
-  };
-  stopPlayerEvent(event, session);
-}
-
-/**
- * Converts the answer in the correct format
+ * Create the array of objects necessary for the API call
  * @param event
- * @param session
  */
-// TODO - We need to modify this method once we have the correct object for the answers
-function convertAnswer(answer){
-  return {
-    "text": answer.text,
-    "status": answer.status,
-    "order": answer.order,
-    "answerId": answer.answerId,
-    "timeStamp": moment().unix(),
-    "skip": answer.skip
-  };
+export function savePlayerEvent(event, session) {
+  const apiKey = ConfigEvent.eventAPIKey;
+
+  var url = `${ConfigEvent.playerEventEndpoint}?apiKey=${apiKey}`;
+  var eventData = [
+    {
+      eventId: utils.generateUUID(),
+      eventName: event.eventName,
+      session: {
+        apiKey: apiKey,
+        sessionToken: session.get('token')
+      },
+      startTime: event.startTime,
+      endTime: event.endTime,
+      user: {
+        gooruUId: session.get('userId')
+      },
+      context: {
+        contentGooruId: event.contentGooruId,
+        type: event.type
+      },
+      version: {
+        logApi: ConfigEvent.apiVersion
+      },
+      metrics: '{}',
+      payLoadObject: event.payLoadObject
+    }
+  ];
+
+  return Ember.$
+    .ajax({
+      url: url,
+      type: 'POST',
+      data: JSON.stringify(eventData),
+      contentType: 'application/json;charset=utf-8',
+      dataType: 'json'
+    })
+    .then(
+      function(response) {
+        return response;
+      },
+      function(error) {
+        return error.responseText;
+      }
+    );
 }
 
 /**
@@ -66,12 +60,12 @@ function convertAnswer(answer){
  * @param session
  */
 function startPlayerEvent(event, session) {
-  if(event !== undefined){
+  if (event !== undefined) {
     event.type = 'start';
     event.payLoadObject = {
-      "questionType": event.questionType,
-      "attemptStatus": event.attemptStatus,
-      "answerObject": []
+      questionType: event.questionType,
+      attemptStatus: event.attemptStatus,
+      answerObject: []
     };
   }
   savePlayerEvent(event, session);
@@ -83,61 +77,69 @@ function startPlayerEvent(event, session) {
  * @param session
  */
 function stopPlayerEvent(event, session) {
-  if(event !== undefined){
+  if (event !== undefined) {
     event.type = 'stop';
     event.payLoadObject = {
-      "questionType": event.questionType,
-      "attemptStatus": event.attemptStatus,
-      "answerObject": event.answerObject
+      questionType: event.questionType,
+      attemptStatus: event.attemptStatus,
+      answerObject: event.answerObject
     };
   }
   savePlayerEvent(event, session);
 }
 
 /**
- * Create the array of objects necessary for the API call
- * @param event
+ * Start Question event
+ * Sets some necessary data that the server requires for this specific event
+ * @param question
+ * @param session
  */
-export function savePlayerEvent(event, session) {
-  const apiKey = ConfigEvent.eventAPIKey;
-
-  var url = ConfigEvent.playerEventEndpoint + '?apiKey=' + apiKey;
-  var eventData = [{
-    "eventId": utils.generateUUID(),
-    "eventName": event.eventName,
-    "session": {
-      "apiKey": apiKey,
-      "sessionToken": session.get('token')
-    },
-    "startTime": event.startTime,
-    "endTime": event.endTime,
-    "user": {
-      "gooruUId": session.get('userId')
-    },
-    "context": {
-      "contentGooruId": event.contentGooruId,
-      "type": event.type
-    },
-    "version": {
-      "logApi": ConfigEvent.apiVersion
-    },
-    "metrics": "{}",
-    "payLoadObject": event.payLoadObject
-  }];
-
-  return Ember.$.ajax({
-    url: url,
-    type: 'POST',
-    data: JSON.stringify(eventData),
-    contentType: 'application/json;charset=utf-8',
-    dataType: 'json'
-  }).then(
-    function (response) {
-      return response;
-    },
-    function (error) {
-      return error.responseText;
-    });
+export function startQuestion(question, session) {
+  var event = {
+    eventName: 'resource.play',
+    startTime: moment().unix(),
+    endTime: null,
+    contentGooruId: question.id,
+    questionType: question.questionType,
+    attemptStatus: null,
+    answerObject: []
+  };
+  startPlayerEvent(event, session);
 }
 
+/**
+ * Converts the answer in the correct format
+ * @param event
+ * @param session
+ */
+function convertAnswer(answer) {
+  return {
+    text: answer.text,
+    status: answer.status,
+    order: answer.order,
+    answerId: answer.answerId,
+    timeStamp: moment().unix(),
+    skip: answer.skip
+  };
+}
 
+/**
+ * Stop Question event
+ * Sets some necessary data that the server requires for this specific event
+ * @param question
+ * @param isAnswerCorrect
+ * @param answer
+ * @param session
+ */
+export function stopQuestion(question, isAnswerCorrect, answer, session) {
+  var event = {
+    eventName: 'resource.play',
+    startTime: null,
+    endTime: moment().unix(),
+    contentGooruId: question.id,
+    questionType: question.questionType,
+    attemptStatus: isAnswerCorrect ? 'correct' : 'incorrect',
+    answerObject: [convertAnswer(answer)]
+  };
+  stopPlayerEvent(event, session);
+}

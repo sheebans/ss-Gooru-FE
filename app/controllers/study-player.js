@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
 
-
 /**
  * Study Player Controller
  *
@@ -10,8 +9,19 @@ import PlayerController from 'gooru-web/controllers/player';
  * @augments ember/PlayerController
  */
 export default PlayerController.extend({
-
-  queryParams: ['resourceId', 'role', 'type', 'subtype', 'sourceId', 'classId', 'unitId', 'lessonId', 'collectionId', 'source', 'pathId'],
+  queryParams: [
+    'resourceId',
+    'role',
+    'type',
+    'subtype',
+    'sourceId',
+    'classId',
+    'unitId',
+    'lessonId',
+    'collectionId',
+    'source',
+    'pathId'
+  ],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -31,7 +41,7 @@ export default PlayerController.extend({
     /**
      * Action triggered when the performance information panel is expanded/collapsed
      */
-    toggleHeader: function (toggleState) {
+    toggleHeader: function(toggleState) {
       this.set('toggleState', toggleState);
     },
 
@@ -40,7 +50,8 @@ export default PlayerController.extend({
      */
     playActualCollection: function() {
       const navigateMapService = this.get('navigateMapService');
-      navigateMapService.getStoredNext()
+      navigateMapService
+        .getStoredNext()
         .then(mapLocation => navigateMapService.next(mapLocation.context))
         .then(() => this.set('showSuggestion', false));
     },
@@ -48,12 +59,12 @@ export default PlayerController.extend({
     /**
      * If the user want to continue playing the suggestion
      */
-    playSuggestion:function(){
+    playSuggestion: function() {
       const controller = this;
       const courseMapService = controller.get('courseMapService');
       const suggestion = controller.get('mapLocation.preTestSuggestion');
       const context = controller.get('mapLocation.context');
-      courseMapService.createNewPath(context, suggestion).then(function(){
+      courseMapService.createNewPath(context, suggestion).then(function() {
         Ember.run(() =>
           controller.setProperties({
             resourceId: null,
@@ -68,7 +79,9 @@ export default PlayerController.extend({
       });
     },
 
-    loadPreTest: () => { return true; }
+    loadPreTest: () => {
+      return true;
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -125,7 +138,9 @@ export default PlayerController.extend({
   /**
    * @property {boolean}
    */
-  hasPreTestSuggestions: Ember.computed.alias('mapLocation.hasPreTestSuggestions'),
+  hasPreTestSuggestions: Ember.computed.alias(
+    'mapLocation.hasPreTestSuggestions'
+  ),
 
   /**
    * Pre test suggestion
@@ -144,7 +159,7 @@ export default PlayerController.extend({
     let lessonChildren = lesson.children;
     let titles = Ember.A([]);
 
-    let isChild = lessonChildren.findBy("id", collection.id);
+    let isChild = lessonChildren.findBy('id', collection.id);
 
     if (unit) {
       titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
@@ -154,7 +169,9 @@ export default PlayerController.extend({
     }
     if (collection && isChild) {
       if (collection.isCollection) {
-        let collections = lessonChildren.filter(collection => collection.format === 'collection');
+        let collections = lessonChildren.filter(
+          collection => collection.format === 'collection'
+        );
         collections.forEach((child, index) => {
           if (child.id === collection.id) {
             let collectionSequence = index + 1;
@@ -162,7 +179,9 @@ export default PlayerController.extend({
           }
         });
       } else {
-        let assessments = lessonChildren.filter(assessment => assessment.format === 'assessment');
+        let assessments = lessonChildren.filter(
+          assessment => assessment.format === 'assessment'
+        );
         assessments.forEach((child, index) => {
           if (child.id === collection.id) {
             let assessmentSequence = index + 1;

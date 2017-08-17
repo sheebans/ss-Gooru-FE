@@ -3,29 +3,32 @@ import { moduleFor, test } from 'ember-qunit';
 import Env from 'gooru-web/config/environment';
 import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
-var configurationService = Ember.Object.create ({
+var configurationService = Ember.Object.create({
   configuration: {
     appRootPath: '/'
   }
 });
 
-moduleFor('serializer:authentication/authentication', 'Unit | Serializer | authentication/authentication');
+moduleFor(
+  'serializer:authentication/authentication',
+  'Unit | Serializer | authentication/authentication'
+);
 
 test('normalizeResponse for anonymous account', function(assert) {
   const serializer = this.subject();
   const appRootPath = '/'; //default appRootPath
   serializer.set('configurationService', configurationService);
   const payload = {
-    'access_token': 'token-api-3.0',
+    access_token: 'token-api-3.0',
     username: 'username',
-    'user_id': 'user-id',
-    'cdn_urls': {
-      'user_cdn_url': 'user-url',
-      'content_cdn_url': 'content-url'
+    user_id: 'user-id',
+    cdn_urls: {
+      user_cdn_url: 'user-url',
+      content_cdn_url: 'content-url'
     },
-    'provided_at': 0,
-    'tenant' : {
-      'tenant_id': 1
+    provided_at: 0,
+    tenant: {
+      tenant_id: 1
     },
     partner_id: 2
   };
@@ -39,9 +42,9 @@ test('normalizeResponse for anonymous account', function(assert) {
       isNew: true,
       providedAt: 0
     },
-    'cdnUrls': {
-      'user': 'user-url',
-      'content': 'content-url'
+    cdnUrls: {
+      user: 'user-url',
+      content: 'content-url'
     },
     isAnonymous: true,
     tenant: {
@@ -56,17 +59,17 @@ test('normalizeResponse for anonymous account', function(assert) {
 test('normalizeResponse for normal account', function(assert) {
   const serializer = this.subject();
   const payload = {
-    'access_token': 'token-api-3.0',
+    access_token: 'token-api-3.0',
     username: 'username',
     thumbnail: 'image-id',
-    'user_id': 'user-id',
-    'cdn_urls': {
-      'user_cdn_url': 'user-url/',
-      'content_cdn_url': 'content-url/'
+    user_id: 'user-id',
+    cdn_urls: {
+      user_cdn_url: 'user-url/',
+      content_cdn_url: 'content-url/'
     },
-    'provided_at': 1,
-    'tenant' : {
-      'tenant_id': 1
+    provided_at: 1,
+    tenant: {
+      tenant_id: 1
     },
     partner_id: 2
   };
@@ -80,9 +83,9 @@ test('normalizeResponse for normal account', function(assert) {
       isNew: true,
       providedAt: 1
     },
-    'cdnUrls': {
-      'user': 'user-url/',
-      'content': 'content-url/'
+    cdnUrls: {
+      user: 'user-url/',
+      content: 'content-url/'
     },
     isAnonymous: false,
     tenant: {
@@ -100,14 +103,14 @@ test('normalizeResponse for google account', function(assert) {
   serializer.set('configurationService', configurationService);
   const payload = {
     username: 'username',
-    'user_id': 'user-id',
-    'cdn_urls': {
-      'user_cdn_url': 'user-url',
-      'content_cdn_url': 'content-url'
+    user_id: 'user-id',
+    cdn_urls: {
+      user_cdn_url: 'user-url',
+      content_cdn_url: 'content-url'
     },
-    'provided_at': 2,
-    'tenant' : {
-      'tenant_id': 1
+    provided_at: 2,
+    tenant: {
+      tenant_id: 1
     },
     partner_id: 2
   };
@@ -121,9 +124,9 @@ test('normalizeResponse for google account', function(assert) {
       isNew: true,
       providedAt: 2
     },
-    'cdnUrls': {
-      'user': 'user-url',
-      'content': 'content-url'
+    cdnUrls: {
+      user: 'user-url',
+      content: 'content-url'
     },
     isAnonymous: false,
     tenant: {
@@ -131,25 +134,31 @@ test('normalizeResponse for google account', function(assert) {
     },
     partnerId: 2
   };
-  const response = serializer.normalizeResponse(payload, false, 'token-api-3.0');
+  const response = serializer.normalizeResponse(
+    payload,
+    false,
+    'token-api-3.0'
+  );
   assert.deepEqual(expected, response, 'Wrong normalized response');
 });
 
-test('normalizeResponse for google account containing user category', function(assert) {
+test('normalizeResponse for google account containing user category', function(
+  assert
+) {
   const serializer = this.subject();
   const appRootPath = '/'; //default appRootPath
   serializer.set('configurationService', configurationService);
   const payload = {
     username: 'username',
-    'user_id': 'user-id',
+    user_id: 'user-id',
     user_category: 'user-cateogory',
-    'cdn_urls': {
-      'user_cdn_url': 'user-url',
-      'content_cdn_url': 'content-url'
+    cdn_urls: {
+      user_cdn_url: 'user-url',
+      content_cdn_url: 'content-url'
     },
-    'provided_at': 3,
-    'tenant' : {
-      'tenant_id': 1
+    provided_at: 3,
+    tenant: {
+      tenant_id: 1
     },
     partner_id: 2
   };
@@ -163,9 +172,9 @@ test('normalizeResponse for google account containing user category', function(a
       isNew: false,
       providedAt: 3
     },
-    'cdnUrls': {
-      'user': 'user-url',
-      'content': 'content-url'
+    cdnUrls: {
+      user: 'user-url',
+      content: 'content-url'
     },
     isAnonymous: false,
     tenant: {
@@ -173,6 +182,10 @@ test('normalizeResponse for google account containing user category', function(a
     },
     partnerId: 2
   };
-  const response = serializer.normalizeResponse(payload, false, 'token-api-3.0');
+  const response = serializer.normalizeResponse(
+    payload,
+    false,
+    'token-api-3.0'
+  );
   assert.deepEqual(expected, response, 'Wrong normalized response');
 });

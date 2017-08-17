@@ -5,7 +5,6 @@ import Ember from 'ember';
  * typedef {Object} ClassActivity
  */
 export default Ember.Object.extend({
-
   /**
    * @property {String} id - The class activity id
    */

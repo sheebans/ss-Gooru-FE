@@ -2,7 +2,6 @@ import Ember from 'ember';
 import Rubric from 'gooru-web/models/rubric/rubric';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -21,7 +20,6 @@ export default Ember.Component.extend({
    */
   notifications: Ember.inject.service(),
 
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -30,27 +28,34 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
   actions: {
     /**
      * Create Rubric
      */
-    create: function () {
+    create: function() {
       const component = this;
       const rubric = component.get('rubric');
-      component.get('validate').call(component).then(function ({ validations }) {
-        if (validations.get('isValid')) {
-          component.set('isLoading',true);
-          component.get('rubricService').createRubric(rubric).then(function (rubricId) {
-            component.closeModal(rubricId);
-          }).catch(function (error) {
-            var message = component.get('i18n').t('common.errors.rubric-not-created').string;
-            component.get('notifications').error(message);
-            Ember.Logger.error(error);
-          });
-        }
-        this.set('didValidate', true);
-      }.bind(this));
+      component.get('validate').call(component).then(
+        function({ validations }) {
+          if (validations.get('isValid')) {
+            component.set('isLoading', true);
+            component
+              .get('rubricService')
+              .createRubric(rubric)
+              .then(function(rubricId) {
+                component.closeModal(rubricId);
+              })
+              .catch(function(error) {
+                var message = component
+                  .get('i18n')
+                  .t('common.errors.rubric-not-created').string;
+                component.get('notifications').error(message);
+                Ember.Logger.error(error);
+              });
+          }
+          this.set('didValidate', true);
+        }.bind(this)
+      );
     }
   },
   // -------------------------------------------------------------------------
@@ -58,7 +63,7 @@ export default Ember.Component.extend({
   /**
    * Validate rubric element
    */
-  validate: function(){
+  validate: function() {
     const rubric = this.get('rubric');
     return rubric.validate();
   },
@@ -69,14 +74,19 @@ export default Ember.Component.extend({
     this.set('isLoading', false);
     this.triggerAction({ action: 'closeModal' });
     const queryParams = { queryParams: { editing: true } };
-    this.get('router').transitionTo('content.rubric.edit', rubricId, queryParams);
+    this.get('router').transitionTo(
+      'content.rubric.edit',
+      rubricId,
+      queryParams
+    );
   },
   /**
    * Show error message
    */
-  showErrorMessage: function(error){
+  showErrorMessage: function(error) {
     Ember.Logger.error(error);
-    const message = this.get('i18n').t('common.errors.collection-not-created').string;
+    const message = this.get('i18n').t('common.errors.collection-not-created')
+      .string;
     this.get('notifications').error(message);
   },
 
@@ -85,7 +95,9 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {title: null});
+    var rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      title: null
+    });
     this.set('rubric', rubric);
   },
 
@@ -101,5 +113,4 @@ export default Ember.Component.extend({
    * Indicate if it's waiting for createRubric callback
    */
   isLoading: false
-
 });

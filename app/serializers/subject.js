@@ -1,13 +1,12 @@
-import DS from "ember-data";
+import DS from 'ember-data';
 
 export default DS.JSONAPISerializer.extend({
-
   normalizeFindAllResponse(store, primaryModelClass, payload) {
     var subjectModel = {
       data: payload.map(attrs => {
         return {
           id: attrs.libraryId,
-          type: "subject",
+          type: 'subject',
           attributes: attrs
         };
       })
@@ -16,5 +15,4 @@ export default DS.JSONAPISerializer.extend({
 
     return subjectModel;
   }
-
 });

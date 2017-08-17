@@ -49,7 +49,7 @@
       @include align-items(flex-end);
       @include justify-content(space-between);
       height: 39px;
-      .manage-goals-cta{
+      .manage-goals-cta {
         margin-right: 10px;
       }
     }
@@ -63,19 +63,19 @@
       }
     }
   }
-  .extra-buttons{
-    .collapse-expand{
+  .extra-buttons {
+    .collapse-expand {
       color: $gray;
-      i{
+      i {
         float: left;
         clear: left;
-        display:inline-block;
-        -webkit-transform:scale(2,1);
-        -moz-transform:scale(2,1);
-        -ms-transform:scale(2,1);
-        -o-transform:scale(2,1);
-        transform:scale(2,1);
-        &:nth-child(2){
+        display: inline-block;
+        -webkit-transform: scale(2, 1);
+        -moz-transform: scale(2, 1);
+        -ms-transform: scale(2, 1);
+        -o-transform: scale(2, 1);
+        transform: scale(2, 1);
+        &:nth-child(2) {
           position: relative;
           top: -18px;
         }

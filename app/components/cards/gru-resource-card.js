@@ -9,7 +9,7 @@ import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
  * Component responsible of showing the resource or question information in cards, so that most useful information is summarized there.
  * @module
  */
-export default Ember.Component.extend(ModalMixin,{
+export default Ember.Component.extend(ModalMixin, {
   // Dependencies
 
   /**
@@ -25,56 +25,71 @@ export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['cards','gru-resource-card'],
+  classNames: ['cards', 'gru-resource-card'],
 
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
 
+  actions: {
     /**
      * Action triggered to edit the resource/question
      */
-    editResource: function(){
-      this.sendAction("onEditResource", this.get("resource"));
+    editResource: function() {
+      this.sendAction('onEditResource', this.get('resource'));
     },
     /**
      * Action triggered to play the resource/question
      */
-    playResource:function(){
-      this.sendAction("onPlayResource", this.get("resource"));
+    playResource: function() {
+      this.sendAction('onPlayResource', this.get('resource'));
     },
     /**
      * Action triggered to remix the question
      */
-    remixQuestion: function(){
+    remixQuestion: function() {
       if (this.get('session.isAnonymous')) {
         this.send('showModal', 'content.modals.gru-login-prompt');
       } else {
-        this.sendAction("onRemixQuestion", this.get("resource"));
+        this.sendAction('onRemixQuestion', this.get('resource'));
       }
     },
 
     /**
      * Action triggered to add to collection
      */
-    addToCollection: function(){
+    addToCollection: function() {
       const component = this;
-      if(component.get('session.isAnonymous')) {
+      if (component.get('session.isAnonymous')) {
         component.send('showModal', 'content.modals.gru-login-prompt');
-      }
-      else{
+      } else {
         let assessmentsPromise = Ember.RSVP.resolve(null);
-        if(component.get('isQuestion')) {
-          assessmentsPromise = component.get('profileService').readAssessments(component.get('session.userId'));
+        if (component.get('isQuestion')) {
+          assessmentsPromise = component
+            .get('profileService')
+            .readAssessments(component.get('session.userId'));
         }
-        assessmentsPromise.then(function(assessments) {
-          return component.get('profileService').readCollections(component.get('session.userId'))
-            .then(function(collections) {
-              return { content: component.get('resource'), collections, assessments };
-            });
-        }).then(
-          model => component.send('showModal', 'content.modals.gru-add-to-collection', model, null, "add-to")
-        );
+        assessmentsPromise
+          .then(function(assessments) {
+            return component
+              .get('profileService')
+              .readCollections(component.get('session.userId'))
+              .then(function(collections) {
+                return {
+                  content: component.get('resource'),
+                  collections,
+                  assessments
+                };
+              });
+          })
+          .then(model =>
+            component.send(
+              'showModal',
+              'content.modals.gru-add-to-collection',
+              model,
+              null,
+              'add-to'
+            )
+          );
       }
     }
   },
@@ -82,13 +97,14 @@ export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Events
 
-  didRender(){
+  didRender() {
     var component = this;
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   },
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * @property {Resource|Question} resource
    */
@@ -139,7 +155,7 @@ export default Ember.Component.extend(ModalMixin,{
    */
   tags: Ember.computed('resource.standards.[]', function() {
     var standards = this.get('resource.standards');
-    if(standards){
+    if (standards) {
       standards = standards.filter(function(standard) {
         // Filter out learning targets (they're too long for the card)
         return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
@@ -151,8 +167,10 @@ export default Ember.Component.extend(ModalMixin,{
    * Show the publisher if the resource has publisher and is publish
    * @property {boolean}
    */
-  showPublisher:Ember.computed('resource', function(){
-    return this.get('resource') ? this.get('resource').isPublished && this.get('resource').publisher : false;
+  showPublisher: Ember.computed('resource', function() {
+    return this.get('resource')
+      ? this.get('resource').isPublished && this.get('resource').publisher
+      : false;
   }),
 
   /**

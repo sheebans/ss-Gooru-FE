@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -12,15 +11,13 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * Edit Account
      */
-    editAccount: function () {
+    editAccount: function() {
       //TODO: prepares the layout to edit the information
       //this.set('isEditing', true);
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -42,7 +39,10 @@ export default Ember.Controller.extend({
     var gender = this.get('profile.gender');
 
     if (gender) {
-      return (gender.toLowerCase() === 'female' || gender.toLowerCase() === 'male') ? gender : '';
+      return gender.toLowerCase() === 'female' ||
+      gender.toLowerCase() === 'male'
+        ? gender
+        : '';
     }
 
     return '';
@@ -51,8 +51,6 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 });

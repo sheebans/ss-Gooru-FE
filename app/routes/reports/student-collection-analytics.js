@@ -11,7 +11,6 @@ import { CONTENT_TYPES } from 'gooru-web/config/config';
  * @augments ember/Route
  */
 export default Ember.Route.extend(PrivateRouteMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -47,7 +46,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   learnerService: Ember.inject.service('api-sdk/learner'),
 
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -80,26 +78,34 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const context = route.getContext(params);
     const type = params.type || 'collection';
 
-    const lessonPromise = context.get('courseId') ?
-      route.get('lessonService').fetchById(context.get('courseId'), context.get('unitId'), context.get('lessonId')) :
-      null;
+    const lessonPromise = context.get('courseId')
+      ? route
+        .get('lessonService')
+        .fetchById(
+          context.get('courseId'),
+          context.get('unitId'),
+          context.get('lessonId')
+        )
+      : null;
 
-    const isCollection = (type === 'collection');
-    const collectionPromise = (isCollection) ?
-      route.get('collectionService').readCollection(params.collectionId) :
-      route.get('assessmentService').readAssessment(params.collectionId);
-    const completedSessionsPromise = (isCollection) ? [] :
-      (context.get('classId')) ?  route.get('userSessionService').getCompletedSessions(context) :
-        route.get('learnerService').fetchLearnerSessions(context);
+    const isCollection = type === 'collection';
+    const collectionPromise = isCollection
+      ? route.get('collectionService').readCollection(params.collectionId)
+      : route.get('assessmentService').readAssessment(params.collectionId);
+    const completedSessionsPromise = isCollection
+      ? []
+      : context.get('classId')
+        ? route.get('userSessionService').getCompletedSessions(context)
+        : route.get('learnerService').fetchLearnerSessions(context);
     return Ember.RSVP.hash({
       collection: collectionPromise,
-      completedSessions : completedSessionsPromise,
+      completedSessions: completedSessionsPromise,
       lesson: lessonPromise,
       context: context
     });
   },
 
-  afterModel: function (model){
+  afterModel: function(model) {
     const controller = this;
     const context = model.context;
     var completedSessions = model.completedSessions;
@@ -107,20 +113,22 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const session = totalSessions ? completedSessions[totalSessions - 1] : null;
     const loadStandards = session;
 
-    if (session) { //collections has no session
+    if (session) {
+      //collections has no session
       context.set('sessionId', session.sessionId);
     }
 
     if (context.get('classId')) {
       const performanceService = controller.get('performanceService');
-      return performanceService.findAssessmentResultByCollectionAndStudent(context, loadStandards)
+      return performanceService
+        .findAssessmentResultByCollectionAndStudent(context, loadStandards)
         .then(function(assessmentResult) {
           model.assessmentResult = assessmentResult;
         });
-    }
-    else {
+    } else {
       const learnerService = controller.get('learnerService');
-      return learnerService.fetchCollectionPerformance(context, loadStandards)
+      return learnerService
+        .fetchCollectionPerformance(context, loadStandards)
         .then(function(assessmentResult) {
           model.assessmentResult = assessmentResult;
         });
@@ -133,7 +141,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param model
    * @returns {Promise.<T>}
    */
-  setupController: function(controller, model){
+  setupController: function(controller, model) {
     controller.set('collection', model.collection.toPlayerCollection());
     controller.set('lesson', model.lesson);
     controller.set('completedSessions', model.completedSessions);
@@ -148,11 +156,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param params
    * @returns {Context}
    */
-  getContext: function(params){
+  getContext: function(params) {
     const route = this;
     let userId = route.get('session.userId');
     const role = params.role;
-    if (role === 'teacher'){
+    if (role === 'teacher') {
       /*
         for teachers, it could be the teacher playing a collection or a teacher seeing its students report
         for student should use always the session id
@@ -178,47 +186,47 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * Take the user back to data page
    */
-  backToData: function () {
+  backToData: function() {
     const route = this;
     const controller = route.get('controller');
     const context = controller.get('context');
 
     if (context.get('classId')) {
-      route.transitionTo('student.class.performance', context.get('classId'),
-      {
+      route.transitionTo('student.class.performance', context.get('classId'), {
         queryParams: {
           filterBy: CONTENT_TYPES.ASSESSMENT
         }
       });
-    }
-    else {
-      route.transitionTo('student.independent.performance', context.get('courseId'),
+    } else {
+      route.transitionTo(
+        'student.independent.performance',
+        context.get('courseId'),
         {
           queryParams: {
             filterBy: CONTENT_TYPES.ASSESSMENT
           }
-        });
+        }
+      );
     }
   },
 
   /**
    * Take the user back to course map page
    */
-  backToCourseMap: function () {
+  backToCourseMap: function() {
     const route = this;
     const controller = route.get('controller');
     const context = controller.get('context');
     const unitId = context.get('unitId');
     const lessonId = context.get('lessonId');
-    route.transitionTo('class.overview', context.get('classId'),
-    {
+    route.transitionTo('class.overview', context.get('classId'), {
       queryParams: {
         location: `${unitId}+${lessonId}`
       }
     });
   },
 
-  deactivate: function(){
+  deactivate: function() {
     this.get('controller').resetValues();
   }
 });

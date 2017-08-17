@@ -13,7 +13,6 @@ import { average } from 'gooru-web/utils/math';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -23,12 +22,11 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * @function actions:toggleView
      * @param {boolean} isQuestionView - Should all the questions be visible or not?
      */
-    toggleView: function (isQuestionView) {
+    toggleView: function(isQuestionView) {
       this.set('isQuestionView', isQuestionView);
     },
 
@@ -36,12 +34,10 @@ export default Ember.Component.extend({
      * @function actions:selectQuestion
      * @param {Number} questionId
      */
-    selectQuestion: function (questionId) {
+    selectQuestion: function(questionId) {
       this.get('onSelectQuestion')(questionId);
     }
-
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -54,23 +50,29 @@ export default Ember.Component.extend({
    * - correct: number of questions that the student has answered correctly
    * - incorrect: number of questions that the student has answered incorrectly
    */
-  answersData: Ember.computed('reportData.data', function () {
+  answersData: Ember.computed('reportData.data', function() {
     const studentsIds = this.get('studentsIds');
     const questionsIds = this.get('assessmentQuestionsIds');
     const reportData = this.get('reportData.data');
 
     var answers = [];
 
-    studentsIds.forEach(function (student) {
+    studentsIds.forEach(function(student) {
       var answerCounter = {
         correct: 0,
         incorrect: 0
       };
       answers.push(answerCounter);
 
-      questionsIds.forEach(function (question) {
-        answerCounter.correct += reportData[student][question].get("correct") ? 1 : 0;
-        answerCounter.incorrect += reportData[student][question].get("incorrect") ? 1 : 0;
+      questionsIds.forEach(function(question) {
+        answerCounter.correct += reportData[student][question].get('correct')
+          ? 1
+          : 0;
+        answerCounter.incorrect += reportData[student][question].get(
+          'incorrect'
+        )
+          ? 1
+          : 0;
         //TODO: it would be useful to move this to question-result util
       });
     });
@@ -87,9 +89,8 @@ export default Ember.Component.extend({
    * @prop { String[] } assessmentQuestionsIds - An array with the ids of all the questions in the assessment
    * ordered in ascending order per each question's order value.
    */
-  assessmentQuestionsIds: Ember.computed('assessment.resources.[]', function () {
-
-    var questions = this.get('assessment.resources').map(function (question) {
+  assessmentQuestionsIds: Ember.computed('assessment.resources.[]', function() {
+    var questions = this.get('assessment.resources').map(function(question) {
       // Copy only the most important properties of the resources array
       return {
         id: question.id,
@@ -97,24 +98,26 @@ export default Ember.Component.extend({
       };
     });
 
-    return questions.sort(function (a, b) {
-      // Sort by order value
-      return a.order - b.order;
-    }).map(function (question) {
-      // Return an array with only the question ids
-      return question.id;
-    });
+    return questions
+      .sort(function(a, b) {
+        // Sort by order value
+        return a.order - b.order;
+      })
+      .map(function(question) {
+        // Return an array with only the question ids
+        return question.id;
+      });
   }),
 
   /**
    * @prop { number } averageScore - average score in the assessment
    * for the entire group of students (per scoresData)
    */
-  averageScore: Ember.computed('scoresData', function () {
-    var scores = this.get('scoresData').map(function (result) {
+  averageScore: Ember.computed('scoresData', function() {
+    var scores = this.get('scoresData').map(function(result) {
       return result.score;
     });
-    return (scores.length) ? Math.round(average(scores)) : 0;
+    return scores.length ? Math.round(average(scores)) : 0;
   }),
 
   /**
@@ -125,15 +128,15 @@ export default Ember.Component.extend({
    * - color: color corresponding to a grade bracket in the grading scale (@see /app/config/config.js)
    * - value: percentage of students in the class with a score within said grade bracket
    */
-  classScores: Ember.computed('scoresData', function () {
+  classScores: Ember.computed('scoresData', function() {
     const scoresData = this.get('scoresData');
 
-    const scoresColors = scoresData.map(function (result) {
+    const scoresColors = scoresData.map(function(result) {
       // Map a score to its color
       return getGradeColor(result.score);
     });
 
-    const colors = GRADING_SCALE.map(function (item) {
+    const colors = GRADING_SCALE.map(function(item) {
       return item.COLOR;
     });
 
@@ -142,9 +145,9 @@ export default Ember.Component.extend({
     if (scoresColors.length) {
       let scoreColorsLen = scoresColors.length;
 
-      colors.forEach(function (color) {
+      colors.forEach(function(color) {
         // Count the number of appearances of a certain color
-        var numColor = scoresColors.filter(function (scoreColor) {
+        var numColor = scoresColors.filter(function(scoreColor) {
           return scoreColor === color;
         }).length;
 
@@ -175,7 +178,7 @@ export default Ember.Component.extend({
    * - incorrect: number of students that did not answer the question correctly
    * - total: total number of students
    */
-  questionsData: Ember.computed('reportData.data', function () {
+  questionsData: Ember.computed('reportData.data', function() {
     const studentsIds = this.get('studentsIds');
     const totalStudents = studentsIds.length;
     const questionsIds = this.get('assessmentQuestionsIds');
@@ -183,7 +186,7 @@ export default Ember.Component.extend({
 
     var questions = [];
 
-    questionsIds.forEach(function (question) {
+    questionsIds.forEach(function(question) {
       var questionCounter = {
         id: question,
         correct: 0,
@@ -192,9 +195,15 @@ export default Ember.Component.extend({
       };
       questions.push(questionCounter);
 
-      studentsIds.forEach(function (student) {
-        questionCounter.correct += reportData[student][question].get("correct") ? 1 : 0;
-        questionCounter.incorrect += reportData[student][question].get("incorrect") ? 1 : 0;
+      studentsIds.forEach(function(student) {
+        questionCounter.correct += reportData[student][question].get('correct')
+          ? 1
+          : 0;
+        questionCounter.incorrect += reportData[student][question].get(
+          'incorrect'
+        )
+          ? 1
+          : 0;
         //TODO: it would be useful to move this to question-result util
       });
     });
@@ -209,7 +218,7 @@ export default Ember.Component.extend({
    * - score: number of questions answered correctly vs. total number of questions
    * - completed: have all the questions in the assessment been answered?
    */
-  scoresData: Ember.computed('answersData', function () {
+  scoresData: Ember.computed('answersData', function() {
     const answersData = this.get('answersData');
     const totalQuestions = this.get('assessmentQuestionsIds').length;
 
@@ -240,8 +249,8 @@ export default Ember.Component.extend({
   /**
    * @prop { String[] } studentsIds - An array with the ids of all the students taking the assessment
    */
-  studentsIds: Ember.computed('students.[]', function () {
-    return this.get('students').map(function (student) {
+  studentsIds: Ember.computed('students.[]', function() {
+    return this.get('students').map(function(student) {
       return student.id;
     });
   }),
@@ -249,15 +258,16 @@ export default Ember.Component.extend({
   /**
    * @prop { Number } totalCompleted - Number of students that have completed the assessment
    */
-  totalCompleted: Ember.computed('scoresData.@each.completed', function () {
+  totalCompleted: Ember.computed('scoresData.@each.completed', function() {
     const scoresData = this.get('scoresData');
     var total = 0;
 
     if (scoresData.length) {
-      total = scoresData.map(function (result) {
+      total = scoresData
+        .map(function(result) {
           return result.completed ? 1 : 0;
         })
-        .reduce(function (a, b) {
+        .reduce(function(a, b) {
           return a + b;
         });
     }
@@ -273,5 +283,4 @@ export default Ember.Component.extend({
    * @prop { boolean } isFullScreen - Should the overview be visible or not?
    */
   isFullScreen: false
-
 });

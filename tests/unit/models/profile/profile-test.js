@@ -7,26 +7,26 @@ moduleFor('model:profile/profile', 'Unit | Model | profile/profile', {
 test('isStudent', function(assert) {
   assert.expect(1);
   let model = this.subject({
-    "role": "student"
+    role: 'student'
   });
 
-  assert.ok(model.get("isStudent"), "It should be student");
+  assert.ok(model.get('isStudent'), 'It should be student');
 });
 
 test('isTeacher', function(assert) {
   assert.expect(1);
   let model = this.subject({
-    "role": "teacher"
+    role: 'teacher'
   });
 
-  assert.ok(model.get("isTeacher"), "It should be teacher");
+  assert.ok(model.get('isTeacher'), 'It should be teacher');
 });
 
 test('isProvider', function(assert) {
   assert.expect(1);
   let model = this.subject({
-    "role": "other"
+    role: 'other'
   });
 
-  assert.ok(model.get("isProvider"), "It should be provider");
+  assert.ok(model.get('isProvider'), 'It should be provider');
 });

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import StoreMixin from '../../mixins/store';
 import LessonSerializer from 'gooru-web/serializers/content/lesson';
 import LessonAdapter from 'gooru-web/adapters/content/lesson';
-import { CONTENT_TYPES } from "gooru-web/config/config";
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Lesson Service
@@ -17,16 +17,20 @@ import { CONTENT_TYPES } from "gooru-web/config/config";
  * @augments Ember/Service
  */
 export default Ember.Service.extend(StoreMixin, {
-
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('serializer', LessonSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('adapter', LessonAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'serializer',
+      LessonSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'adapter',
+      LessonAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -41,7 +45,6 @@ export default Ember.Service.extend(StoreMixin, {
    */
   adapter: null,
 
-
   // -------------------------------------------------------------------------
   // Methods
   /**
@@ -51,18 +54,21 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {Content/Lesson} lesson - Lesson model
    * @returns {Promise|String} returns the lesson model with the newly assigned ID
    */
-  createLesson: function (courseId, unitId, lesson) {
+  createLesson: function(courseId, unitId, lesson) {
     var lessonData = this.get('serializer').serializeCreateLesson(lesson);
-    return this.get('adapter').createLesson({
-      courseId: courseId,
-      unitId: unitId,
-      lesson: lessonData
-    }).then(function (lessonId) {
-      lesson.set('id', lessonId);
-      return lesson;
-    }).catch(function (error) {
-      return error;
-    });
+    return this.get('adapter')
+      .createLesson({
+        courseId: courseId,
+        unitId: unitId,
+        lesson: lessonData
+      })
+      .then(function(lessonId) {
+        lesson.set('id', lessonId);
+        return lesson;
+      })
+      .catch(function(error) {
+        return error;
+      });
   },
 
   /**
@@ -72,19 +78,22 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {Content/Lesson} lesson - Lesson model
    * @returns {Promise|String} returns the lesson model
    */
-  updateLesson: function (courseId, unitId, lesson) {
+  updateLesson: function(courseId, unitId, lesson) {
     var lessonData = this.get('serializer').serializeUpdateLesson(lesson);
 
-    return this.get('adapter').updateLesson({
-      lessonId: lesson.get('id'),
-      unitId: unitId,
-      courseId: courseId,
-      lesson: lessonData
-    }).then(function () {
-      return lesson;
-    }).catch(function (error) {
-      return error;
-    });
+    return this.get('adapter')
+      .updateLesson({
+        lessonId: lesson.get('id'),
+        unitId: unitId,
+        courseId: courseId,
+        lesson: lessonData
+      })
+      .then(function() {
+        return lesson;
+      })
+      .catch(function(error) {
+        return error;
+      });
   },
 
   /**
@@ -94,15 +103,19 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {string} lessonId - lesson ID to search for
    * @returns {Promise|Content/Lesson}
    */
-  fetchById: function (courseId, unitId, lessonId) {
+  fetchById: function(courseId, unitId, lessonId) {
     const service = this;
-    return service.get('adapter').getLessonById({
-      courseId: courseId,
-      unitId: unitId,
-      lessonId: lessonId
-    }).then(function(lessonData) {
+    return service
+      .get('adapter')
+      .getLessonById({
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId
+      })
+      .then(function(lessonData) {
         return service.get('serializer').normalizeLesson(lessonData);
-    }).catch(function(error) {
+      })
+      .catch(function(error) {
         return error;
       });
   },
@@ -114,16 +127,27 @@ export default Ember.Service.extend(StoreMixin, {
    * @param collectionId the collection/assesment id
    * @returns {Promise}
    */
-  associateAssessmentOrCollectionToLesson: function(courseId,unitId, lessonId, collectionId, isCollection) {
+  associateAssessmentOrCollectionToLesson: function(
+    courseId,
+    unitId,
+    lessonId,
+    collectionId,
+    isCollection
+  ) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').associateAssessmentOrCollectionToLesson({
-        courseId,
-        unitId,
-        lessonId,
-        collectionId,
-        type: isCollection ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT
-      }).then(resolve, reject);
+      service
+        .get('adapter')
+        .associateAssessmentOrCollectionToLesson({
+          courseId,
+          unitId,
+          lessonId,
+          collectionId,
+          type: isCollection
+            ? CONTENT_TYPES.COLLECTION
+            : CONTENT_TYPES.ASSESSMENT
+        })
+        .then(resolve, reject);
     });
   },
 
@@ -134,16 +158,27 @@ export default Ember.Service.extend(StoreMixin, {
    * @param collectionId the collection/assesment id
    * @returns {Promise}
    */
-  disassociateAssessmentOrCollectionToLesson: function(courseId,unitId, lessonId, collectionId, isCollection) {
+  disassociateAssessmentOrCollectionToLesson: function(
+    courseId,
+    unitId,
+    lessonId,
+    collectionId,
+    isCollection
+  ) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').disassociateAssessmentOrCollectionToLesson({
-        courseId,
-        unitId,
-        lessonId,
-        collectionId,
-        type: isCollection ? CONTENT_TYPES.COLLECTION : CONTENT_TYPES.ASSESSMENT
-      }).then(resolve, reject);
+      service
+        .get('adapter')
+        .disassociateAssessmentOrCollectionToLesson({
+          courseId,
+          unitId,
+          lessonId,
+          collectionId,
+          type: isCollection
+            ? CONTENT_TYPES.COLLECTION
+            : CONTENT_TYPES.ASSESSMENT
+        })
+        .then(resolve, reject);
     });
   },
   /**
@@ -154,10 +189,12 @@ export default Ember.Service.extend(StoreMixin, {
    * @param lessonId the lesson id
    * @returns {Ember.RSVP.Promise}
    */
-  deleteLesson: function (courseId, unitId, lessonId) {
+  deleteLesson: function(courseId, unitId, lessonId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').deleteLesson({ courseId, unitId, lessonId })
+      service
+        .get('adapter')
+        .deleteLesson({ courseId, unitId, lessonId })
         .then(resolve, reject);
     });
   },
@@ -167,16 +204,19 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {string} lessonId
    * @returns {Ember.RSVP.Promise}
    */
-  copyLesson: function(courseId, unitId, lessonId){
+  copyLesson: function(courseId, unitId, lessonId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').copyLesson({
-        courseId,
-        unitId,
-        lessonId
-      }).then(function(responseData, textStatus, request) {
+      service
+        .get('adapter')
+        .copyLesson({
+          courseId,
+          unitId,
+          lessonId
+        })
+        .then(function(responseData, textStatus, request) {
           resolve(request.getResponseHeader('location'));
-        }, reject );
+        }, reject);
     });
   },
 
@@ -191,11 +231,14 @@ export default Ember.Service.extend(StoreMixin, {
    */
   reorderLesson: function(courseId, unitId, lessonId, collectionIds) {
     const service = this;
-    let serializedData = service.get('serializer').serializeReorderLesson(collectionIds);
+    let serializedData = service
+      .get('serializer')
+      .serializeReorderLesson(collectionIds);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').reorderLesson(courseId, unitId, lessonId, serializedData).then(resolve, reject);
+      service
+        .get('adapter')
+        .reorderLesson(courseId, unitId, lessonId, serializedData)
+        .then(resolve, reject);
     });
   }
-
-
 });

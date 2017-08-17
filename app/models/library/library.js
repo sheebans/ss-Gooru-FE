@@ -4,7 +4,6 @@ import Ember from 'ember';
  * Library model
  */
 const LibraryModel = Ember.Object.extend({
-
   /**
    * @property {String} id - Gooru id for the library
    */

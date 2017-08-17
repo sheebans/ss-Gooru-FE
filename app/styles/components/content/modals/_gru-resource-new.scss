@@ -21,13 +21,17 @@
       }
 
       &.active {
-        opacity:0.7;
+        opacity: 0.7;
 
-        .panel-body { border-color: $blue-600; }
-        .panel-footer { border-color: $blue-600; }
+        .panel-body {
+          border-color: $blue-600;
+        }
+        .panel-footer {
+          border-color: $blue-600;
+        }
       }
-      &.disabled {        
-        opacity:0.3;
+      &.disabled {
+        opacity: 0.3;
       }
     }
   }
@@ -52,14 +56,16 @@
   span.title {
     font-size: $font-size-large;
   }
-  .icon{
+  .icon {
     margin-right: 5px;
     color: $light-300;
     i {
       vertical-align: -6px;
     }
   }
-  .url-label,.title-label, .type{
+  .url-label,
+  .title-label,
+  .type {
     margin-left: 10px;
     .gru-input {
       width: 100%;
@@ -114,16 +120,16 @@
     font-weight: bold;
     margin-bottom: 15px;
   }
-  .actions.resource-new{
+  .actions.resource-new {
     margin-top: 10px;
   }
 
-  .existing-resource-message{
+  .existing-resource-message {
     height: 285px;
     border: 1px solid $light-200;
     border-radius: 6px;
     background-color: $light-100;
-    .gru-resource-card{
+    .gru-resource-card {
       margin: 14px auto;
     }
   }

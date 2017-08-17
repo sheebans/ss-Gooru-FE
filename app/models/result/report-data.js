@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import QuestionResult from 'gooru-web/models/result/question';
 import { getQuestionUtil } from 'gooru-web/config/question';
 
@@ -9,14 +9,13 @@ import { getQuestionUtil } from 'gooru-web/config/question';
  *
  */
 export default Ember.Object.extend({
-
   // -------------------------------------------------------------------------
   // Events
 
   /**
    *  Initializes the report data
    */
-  init: function () {
+  init: function() {
     const studentIds = this.get('studentIds');
     const resourceIds = this.get('resourceIds');
 
@@ -27,13 +26,12 @@ export default Ember.Object.extend({
       Ember.Logger.error('Report data cannot be initialized without resources');
     }
 
-    this.set("data", this.getEmptyMatrix(studentIds, resourceIds));
+    this.set('data', this.getEmptyMatrix(studentIds, resourceIds));
   },
 
-  willDestroy: function () {
-    this.set("data", null);
+  willDestroy: function() {
+    this.set('data', null);
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -71,9 +69,9 @@ export default Ember.Object.extend({
   /**
    * @property {string[]} studentIds - List of student ids
    */
-  studentIds: Ember.computed('students', function () {
-    return this.get('students').map(function (student) {
-      return student.get("id");
+  studentIds: Ember.computed('students', function() {
+    return this.get('students').map(function(student) {
+      return student.get('id');
     });
   }),
 
@@ -85,12 +83,11 @@ export default Ember.Object.extend({
   /**
    * @property {string[]} studentIds - List of student ids
    */
-  resourceIds: Ember.computed('resources', function () {
-    return this.get('resources').map(function (resource) {
-      return resource.get("id");
+  resourceIds: Ember.computed('resources', function() {
+    return this.get('resources').map(function(resource) {
+      return resource.get('id');
     });
   }),
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -104,10 +101,10 @@ export default Ember.Object.extend({
    * @param resourceIds - An array of resource IDs
    * @return {Object}
    */
-  autoCompleteRow: function (QuestionResultMap, resourceIds) {
-    resourceIds.forEach(function (resourceId) {
+  autoCompleteRow: function(QuestionResultMap, resourceIds) {
+    resourceIds.forEach(function(resourceId) {
       var questionResult = QuestionResultMap[resourceId];
-      if (!questionResult.get("started")) {
+      if (!questionResult.get('started')) {
         questionResult.set('correct', false);
       }
     });
@@ -120,7 +117,7 @@ export default Ember.Object.extend({
    * @param {String[]} idsX - An array of ids used for the second dimension of the matrix
    * @return {Object}
    */
-  getEmptyMatrix: function (idsY, idsX) {
+  getEmptyMatrix: function(idsY, idsX) {
     var matrix = {};
     var yLen = idsY.length;
 
@@ -135,7 +132,7 @@ export default Ember.Object.extend({
    * @param {String[]} columnIds - An array of ids of all the items in the row
    * @return { QuestionResult[] }
    */
-  getEmptyRow: function (columnIds) {
+  getEmptyRow: function(columnIds) {
     var row = {};
     var rowLen = columnIds.length;
 
@@ -152,7 +149,7 @@ export default Ember.Object.extend({
    * @param {UserResourcesResult[]} userResults
    * @returns {merge}
    */
-  merge: function(userResults){
+  merge: function(userResults) {
     let reportData;
     let data = this.get('data');
     let resourceIds = this.get('resourceIds');
@@ -160,35 +157,37 @@ export default Ember.Object.extend({
     userResults
       // Filter in case a student has been removed from the course
       .filter(result => data.hasOwnProperty(result.get('user')))
-      .forEach(function (userResult) {
-      var userId = userResult.get('user');
-      var doReset = userResult.get('isAttemptStarted');
-      var doAutoComplete = userResult.get('isAttemptFinished');
-      var resourceResults = userResult.get('resourceResults');
+      .forEach(function(userResult) {
+        var userId = userResult.get('user');
+        var doReset = userResult.get('isAttemptStarted');
+        var doAutoComplete = userResult.get('isAttemptFinished');
+        var resourceResults = userResult.get('resourceResults');
 
-      if (doReset) {
-        data[userId] = this.getEmptyRow(resourceIds);
-      }
-
-      resourceResults
-        // Filter in case a resource/question has been removed from the collection/assessment
-        .filter(result => resourceIds.indexOf(result.get('resourceId')) > -1)
-        .forEach(function (resourceResult) {
-        if (data[userId]) {
-          const questionId = resourceResult.get('resourceId');
-          if (data[userId][questionId]) {
-            //if there are several attempts for the same resource the time spent should be added
-            const totalTimeSpent = resourceResult.get("timeSpent") + data[userId][questionId].get("timeSpent");
-            resourceResult.set("timeSpent", totalTimeSpent);
-          }
-          data[userId][questionId] = resourceResult;
+        if (doReset) {
+          data[userId] = this.getEmptyRow(resourceIds);
         }
-      });
 
-      if (doAutoComplete) {
-        this.autoCompleteRow(data[userId], resourceIds);
-      }
-    }, this);
+        resourceResults
+          // Filter in case a resource/question has been removed from the collection/assessment
+          .filter(result => resourceIds.indexOf(result.get('resourceId')) > -1)
+          .forEach(function(resourceResult) {
+            if (data[userId]) {
+              const questionId = resourceResult.get('resourceId');
+              if (data[userId][questionId]) {
+                //if there are several attempts for the same resource the time spent should be added
+                const totalTimeSpent =
+                  resourceResult.get('timeSpent') +
+                  data[userId][questionId].get('timeSpent');
+                resourceResult.set('timeSpent', totalTimeSpent);
+              }
+              data[userId][questionId] = resourceResult;
+            }
+          });
+
+        if (doAutoComplete) {
+          this.autoCompleteRow(data[userId], resourceIds);
+        }
+      }, this);
 
     // Generate a new object so any computed properties listening on reportData are fired
     if (Object.assign) {
@@ -200,7 +199,7 @@ export default Ember.Object.extend({
       reportData = Ember.merge({}, data);
     }
 
-    this.set("data", reportData);
+    this.set('data', reportData);
 
     return this;
   },
@@ -211,11 +210,11 @@ export default Ember.Object.extend({
    * @param {string} questionId
    * @returns { QuestionResult[] }
    */
-  getResultsByQuestion: function(questionId){
-    const reportData = this.get("data");
+  getResultsByQuestion: function(questionId) {
+    const reportData = this.get('data');
     let questionResults = Ember.A([]);
 
-    this.get('studentIds').forEach(function (studentId) {
+    this.get('studentIds').forEach(function(studentId) {
       const userQuestionResults = reportData[studentId];
       if (userQuestionResults) {
         const questionResult = userQuestionResults[questionId];
@@ -223,7 +222,9 @@ export default Ember.Object.extend({
         if (questionResult) {
           questionResults.addObject(questionResult);
         } else {
-          Ember.Logger.warn(`Missing question data ${studentId} question ${questionId}`);
+          Ember.Logger.warn(
+            `Missing question data ${studentId} question ${questionId}`
+          );
         }
       } else {
         Ember.Logger.warn(`Missing student data ${studentId}`);
@@ -239,14 +240,14 @@ export default Ember.Object.extend({
    * @param {string} studentId
    * @returns { QuestionResult[] }
    */
-  getResultsByStudent: function(studentId){
-    const reportData = this.get("data");
+  getResultsByStudent: function(studentId) {
+    const reportData = this.get('data');
     let questionResults = Ember.A([]);
 
     const userQuestionResults = reportData[studentId];
-    if (userQuestionResults){
-      for (let key in userQuestionResults){
-        if (userQuestionResults.hasOwnProperty(key)){
+    if (userQuestionResults) {
+      for (let key in userQuestionResults) {
+        if (userQuestionResults.hasOwnProperty(key)) {
           questionResults.addObject(userQuestionResults[key]);
         }
       }
@@ -261,11 +262,11 @@ export default Ember.Object.extend({
    *
    * @returns { QuestionResult[] }
    */
-  getAllResults: function(){
+  getAllResults: function() {
     const self = this;
     let questionResults = Ember.A([]);
 
-    this.get('studentIds').forEach(function (studentId) {
+    this.get('studentIds').forEach(function(studentId) {
       let studentResults = self.getResultsByStudent(studentId);
       questionResults.addObjects(studentResults.toArray());
     });
@@ -279,31 +280,33 @@ export default Ember.Object.extend({
    * @param {*} answer user answer
    * @returns {User[]}
    */
-  getStudentsByQuestionAndUserAnswer: function(question, answer){
-    const reportData = this.get("data");
-    const questionId = question.get("id");
-    const util = getQuestionUtil(question.get("questionType")).create({ question: question });
+  getStudentsByQuestionAndUserAnswer: function(question, answer) {
+    const reportData = this.get('data');
+    const questionId = question.get('id');
+    const util = getQuestionUtil(question.get('questionType')).create({
+      question: question
+    });
     let found = Ember.A([]);
 
-    this.get('students').forEach(function (student) {
-      const studentId = student.get("id");
+    this.get('students').forEach(function(student) {
+      const studentId = student.get('id');
       const userQuestionResults = reportData[studentId];
-      if (userQuestionResults){
+      if (userQuestionResults) {
         const questionResult = userQuestionResults[questionId];
-        const answered = questionResult && questionResult.get("answered");
-        if (answered){
-          const sameAnswer = util.sameAnswer(answer, questionResult.get("userAnswer"));
+        const answered = questionResult && questionResult.get('answered');
+        if (answered) {
+          const sameAnswer = util.sameAnswer(
+            answer,
+            questionResult.get('userAnswer')
+          );
           if (sameAnswer) {
             found.addObject(student);
           }
         }
-      }
-      else{
+      } else {
         Ember.Logger.warning(`Missing student data ${studentId}`);
       }
     });
     return found;
   }
-
-
 });

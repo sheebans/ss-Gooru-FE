@@ -20,40 +20,67 @@ test('Verifying header.enable feature default value', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/home');
 
-    const $gruHeader = find(".gru-header");
-    T.exists(assert, $gruHeader, "Missing header");
+    const $gruHeader = find('.gru-header');
+    T.exists(assert, $gruHeader, 'Missing header');
   });
 });
 
-test('Verifying collections.player.reactions feature default value', function(assert) {
+test('Verifying collections.player.reactions feature default value', function(
+  assert
+) {
   visit('/player/all-resource-types-collection-id?type=collection');
 
-  andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+    );
 
-    const $playerContainer = find(".qz-player");
-    T.exists(assert, $playerContainer.find(".qz-main .qz-navigation .reaction-bar"), "Missing reaction bar");
+    const $playerContainer = find('.qz-player');
+    T.exists(
+      assert,
+      $playerContainer.find('.qz-main .qz-navigation .reaction-bar'),
+      'Missing reaction bar'
+    );
   });
 });
 
-test('Verifying collections.player.showReportLink feature default value', function(assert) {
+test('Verifying collections.player.showReportLink feature default value', function(
+  assert
+) {
   visit('/player/all-resource-types-collection-id?type=collection');
 
-  andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+    );
 
-    const $playerContainer = find(".qz-player");
-    T.exists(assert, $playerContainer.find(".qz-aside .qz-navigator .see-usage-report"), "Missing see report link");
+    const $playerContainer = find('.qz-player');
+    T.exists(
+      assert,
+      $playerContainer.find('.qz-aside .qz-navigator .see-usage-report'),
+      'Missing see report link'
+    );
   });
 });
 
-test('Verifying collections.player.showCollectionName feature default value', function(assert) {
+test('Verifying collections.player.showCollectionName feature default value', function(
+  assert
+) {
   visit('/player/all-resource-types-collection-id?type=collection');
 
-  andThen(function () {
-    assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+    );
 
-    const $playerContainer = find(".qz-player");
-    T.exists(assert, $playerContainer.find(".qz-aside .qz-navigator .navigator-subheader"), "Missing see collection name");
+    const $playerContainer = find('.qz-player');
+    T.exists(
+      assert,
+      $playerContainer.find('.qz-aside .qz-navigator .navigator-subheader'),
+      'Missing see collection name'
+    );
   });
 });

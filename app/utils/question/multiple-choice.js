@@ -26,10 +26,8 @@ import AnswerObject from 'gooru-web/utils/question/answer-object';
  * @typedef {Object} MultipleChoiceUtil
  */
 export default QuestionUtil.extend({
-
   // -------------------------------------------------------------------------
   // Observers
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -42,7 +40,7 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  isCorrect: function (answer) {
+  isCorrect: function(answer) {
     return this.isAnswerChoiceCorrect(answer);
   },
 
@@ -50,7 +48,7 @@ export default QuestionUtil.extend({
    * Indicates if the answer choice is correct
    * @param { boolean } answerChoice
    */
-  isAnswerChoiceCorrect: function (answerChoice) {
+  isAnswerChoiceCorrect: function(answerChoice) {
     return this.getCorrectAnswer() === answerChoice;
   },
 
@@ -61,10 +59,12 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  getCorrectAnswer: function () {
-    const answers = this.get("question.answers");
-    const correctAnswer = answers.filterBy("isCorrect", true);
-    return correctAnswer.get("length") ? correctAnswer.get("firstObject.id") : undefined;
+  getCorrectAnswer: function() {
+    const answers = this.get('question.answers');
+    const correctAnswer = answers.filterBy('isCorrect', true);
+    return correctAnswer.get('length')
+      ? correctAnswer.get('firstObject.id')
+      : undefined;
   },
 
   /**
@@ -75,7 +75,7 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  answerKey: function (answer) {
+  answerKey: function(answer) {
     return answer;
   },
 
@@ -88,15 +88,15 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toAnswerObjects: function (userAnswer) {
+  toAnswerObjects: function(userAnswer) {
     let util = this;
     let answer = util.getAnswerById(userAnswer);
     let answerObject = AnswerObject.create({
-      "text": answer.get("text"),
-      "correct": util.isCorrect(userAnswer),
-      "order": 1,
-      "answerId": userAnswer,
-      "skip": false
+      text: answer.get('text'),
+      correct: util.isCorrect(userAnswer),
+      order: 1,
+      answerId: userAnswer,
+      skip: false
     });
     return Ember.A([answerObject]);
   },
@@ -110,15 +110,13 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toUserAnswer: function (answerObjects) {
+  toUserAnswer: function(answerObjects) {
     let userAnswer = null;
-    if (answerObjects.get("length")) {
-      let answerObject = answerObjects.get("firstObject");
-      userAnswer = answerObject.get("answerId");
+    if (answerObjects.get('length')) {
+      let answerObject = answerObjects.get('firstObject');
+      userAnswer = answerObject.get('answerId');
     }
 
     return userAnswer;
   }
-
-
 });

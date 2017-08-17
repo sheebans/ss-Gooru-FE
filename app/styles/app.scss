@@ -62,6 +62,7 @@
 @import 'controllers/reset-password';
 @import 'controllers/featured';
 @import 'controllers/account-settings';
+@import 'controllers/grading-player';
 @import 'controllers/study-player';
 @import 'controllers/study-player-external';
 @import 'controllers/resource-player';
@@ -122,6 +123,7 @@
 @import 'components/gru-preview-course';
 @import 'components/gru-preview-collection';
 @import 'components/gru-explore-featured-courses';
+@import 'components/gru-grade-items';
 
 @import 'components/cards/gru-class-card';
 @import 'components/cards/gru-student-class-card';
@@ -130,6 +132,7 @@
 @import 'components/cards/gru-course-card';
 @import 'components/cards/gru-profile-card';
 @import 'components/cards/gru-resource-card';
+@import 'components/cards/gru-rubric-card';
 @import 'components/cards/gru-user-card';
 @import 'components/cards/gru-user-network-card';
 @import 'components/cards/gru-resource-result-card';
@@ -170,6 +173,7 @@
 @import 'components/content/modals';
 @import 'components/content/modals/gru-add-to';
 @import 'components/content/modals/gru-add-to-classroom';
+@import 'components/content/modals/gru-add-rubric-to-question';
 @import 'components/content/modals/gru-assessment-confirmation';
 @import 'components/content/modals/gru-base-remix';
 @import 'components/content/modals/gru-delete-class';
@@ -177,6 +181,7 @@
 @import 'components/content/modals/gru-delete-content';
 @import 'components/content/modals/gru-delete-bookmark';
 @import 'components/content/modals/gru-delete-resource';
+@import 'components/content/modals/gru-delete-rubric';
 @import 'components/content/modals/gru-delete-question';
 @import 'components/content/modals/gru-login-prompt';
 @import 'components/content/modals/gru-question-new';
@@ -201,6 +206,7 @@
 @import 'components/content/questions/gru-question-edit';
 @import 'components/content/questions/gru-question-play';
 @import 'components/content/resources/gru-resource-edit';
+@import 'components/content/resources/gru-resource-play';
 @import 'components/content/rubric/gru-rubric-edit';
 @import 'components/content/rubric/gru-rubric-creation';
 @import 'components/content/rubric/gru-preview-url';
@@ -209,6 +215,11 @@
 @import 'components/content/rubric/gru-scoring-levels';
 
 @import 'components/goal/gru-goal-form';
+
+@import 'components/grading/gru-roster-header';
+@import 'components/grading/gru-student-roster';
+@import 'components/grading/gru-task-header';
+@import 'components/grading/gru-rubric-panel';
 
 @import 'components/library/gru-browse-library';
 @import 'components/library/gru-library-card';
@@ -293,3 +304,4 @@
 @import 'components/validation/gru-input';
 
 @import 'routes/student/class/performance';
+@import 'routes/content/rubric/preview';

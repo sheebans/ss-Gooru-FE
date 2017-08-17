@@ -1,14 +1,11 @@
-import Ember from "ember";
+import Ember from 'ember';
 /**
  * Class Overview controller
  *
  * Controller responsible of the logic for the class overview page
  */
 
-
-
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -47,8 +44,8 @@ export default Ember.Controller.extend({
     /**
      * Trigger action to update content visibility list
      */
-    updateContentVisibility:function(contentId, visible){
-      this.send('updateContentVisible',contentId, visible);
+    updateContentVisibility: function(contentId, visible) {
+      this.send('updateContentVisible', contentId, visible);
     }
   },
 
@@ -76,7 +73,7 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.alias('classController.class'),
+  class: Ember.computed.alias('classController.class'),
 
   /**
    * A link to the content visibility from class controller
@@ -88,7 +85,9 @@ export default Ember.Controller.extend({
   openingLocation: Ember.computed('location', function() {
     if (this.get('isFirstLoad')) {
       this.set('isFirstLoad', false);
-      var location = this.get('location') ? this.get('location') : this.get('userLocation');
+      var location = this.get('location')
+        ? this.get('location')
+        : this.get('userLocation');
       this.set('location', location);
       return location;
     } else {
@@ -101,6 +100,4 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
-
 });

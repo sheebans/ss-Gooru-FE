@@ -2,7 +2,6 @@ import Ember from 'ember';
 import CollectionSerializer from 'gooru-web/serializers/content/collection';
 import CollectionAdapter from 'gooru-web/adapters/content/collection';
 
-
 /**
  * @typedef {Object} CollectionService
  */
@@ -31,12 +30,17 @@ export default Ember.Service.extend({
    */
   quizzesCollectionService: Ember.inject.service('quizzes/collection'),
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('collectionSerializer', CollectionSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('collectionAdapter', CollectionAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'collectionSerializer',
+      CollectionSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'collectionAdapter',
+      CollectionAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
-
 
   /**
    * Creates a new collection
@@ -47,16 +51,24 @@ export default Ember.Service.extend({
   createCollection: function(collectionData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedClassData = service.get('collectionSerializer').serializeCreateCollection(collectionData);
-      service.get('collectionAdapter').createCollection({
-        body: serializedClassData
-      }).then(function(responseData, textStatus, request) {
-        let collectionId = request.getResponseHeader('location');
-        collectionData.set('id', collectionId);
-        resolve(collectionData);
-      }, function(error) {
-        reject(error);
-      });
+      let serializedClassData = service
+        .get('collectionSerializer')
+        .serializeCreateCollection(collectionData);
+      service
+        .get('collectionAdapter')
+        .createCollection({
+          body: serializedClassData
+        })
+        .then(
+          function(responseData, textStatus, request) {
+            let collectionId = request.getResponseHeader('location');
+            collectionData.set('id', collectionId);
+            resolve(collectionData);
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -65,18 +77,24 @@ export default Ember.Service.extend({
    * @param {string} collectionId
    * @returns {Promise}
    */
-  readCollection: function(collectionId){
+  readCollection: function(collectionId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').readCollection(collectionId)
+      service
+        .get('collectionAdapter')
+        .readCollection(collectionId)
         .then(function(responseData) {
-          let collection = service.get('collectionSerializer').normalizeReadCollection(responseData);
+          let collection = service
+            .get('collectionSerializer')
+            .normalizeReadCollection(responseData);
           let profileService = service.get('profileService');
-          profileService.readUserProfile(collection.get('ownerId')).then(function(profile){
-            collection.set('owner',profile);
+          profileService
+            .readUserProfile(collection.get('ownerId'))
+            .then(function(profile) {
+              collection.set('owner', profile);
               resolve(collection);
             });
-        }, reject );
+        }, reject);
     });
   },
 
@@ -89,12 +107,17 @@ export default Ember.Service.extend({
    */
   updateCollection: function(collectionId, collectionModel) {
     const service = this;
-    let serializedData = service.get('collectionSerializer').serializeUpdateCollection(collectionModel);
+    let serializedData = service
+      .get('collectionSerializer')
+      .serializeUpdateCollection(collectionModel);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(function(){
-        service.notifyQuizzesCollectionChange(collectionId);
-        resolve();
-      }, reject);
+      service
+        .get('collectionAdapter')
+        .updateCollection(collectionId, serializedData)
+        .then(function() {
+          service.notifyQuizzesCollectionChange(collectionId);
+          resolve();
+        }, reject);
     });
   },
 
@@ -107,12 +130,17 @@ export default Ember.Service.extend({
    */
   updateCollectionTitle: function(collectionId, title) {
     const service = this;
-    let serializedData = service.get('collectionSerializer').serializeUpdateCollectionTitle(title);
+    let serializedData = service
+      .get('collectionSerializer')
+      .serializeUpdateCollectionTitle(title);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').updateCollection(collectionId, serializedData).then(function(){
-        service.notifyQuizzesCollectionChange(collectionId);
-        resolve();
-      }, reject);
+      service
+        .get('collectionAdapter')
+        .updateCollection(collectionId, serializedData)
+        .then(function() {
+          service.notifyQuizzesCollectionChange(collectionId);
+          resolve();
+        }, reject);
     });
   },
 
@@ -125,12 +153,17 @@ export default Ember.Service.extend({
    */
   reorderCollection: function(collectionId, resourceIds) {
     const service = this;
-    let serializedData = service.get('collectionSerializer').serializeReorderCollection(resourceIds);
+    let serializedData = service
+      .get('collectionSerializer')
+      .serializeReorderCollection(resourceIds);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').reorderCollection(collectionId, serializedData).then(function(){
-        service.notifyQuizzesCollectionChange(collectionId);
-        resolve();
-      }, reject);
+      service
+        .get('collectionAdapter')
+        .reorderCollection(collectionId, serializedData)
+        .then(function() {
+          service.notifyQuizzesCollectionChange(collectionId);
+          resolve();
+        }, reject);
     });
   },
 
@@ -140,7 +173,9 @@ export default Ember.Service.extend({
    * @returns {Collection}
    */
   findById: function(collectionId) {
-    return this.get('store').findRecord('collection/collection', collectionId, { reload: true });
+    return this.get('store').findRecord('collection/collection', collectionId, {
+      reload: true
+    });
   },
 
   /**
@@ -151,12 +186,17 @@ export default Ember.Service.extend({
    * @param lessonId
    * @returns {Collection[]}
    */
-  findByClassAndCourseAndUnitAndLesson: function(classId, courseId, unitId, lessonId){
-    return this.get('store').queryRecord('collection/collection',{
-      classId : classId,
-      courseId : courseId,
-      unitId : unitId,
-      lessonId : lessonId
+  findByClassAndCourseAndUnitAndLesson: function(
+    classId,
+    courseId,
+    unitId,
+    lessonId
+  ) {
+    return this.get('store').queryRecord('collection/collection', {
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId,
+      lessonId: lessonId
     });
   },
 
@@ -166,11 +206,13 @@ export default Ember.Service.extend({
    * @param resourceId
    * @returns {Promise}
    */
-  addResource: function(collectionId, resourceId){
+  addResource: function(collectionId, resourceId) {
     var service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').addResource(collectionId, resourceId)
-        .then(function(){
+      service
+        .get('collectionAdapter')
+        .addResource(collectionId, resourceId)
+        .then(function() {
           service.notifyQuizzesCollectionChange(collectionId);
           resolve();
         }, reject);
@@ -183,11 +225,13 @@ export default Ember.Service.extend({
    * @param questionId
    * @returns {Promise}
    */
-  addQuestion: function(collectionId, questionId){
+  addQuestion: function(collectionId, questionId) {
     var service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').addQuestion(collectionId, questionId)
-        .then(function(){
+      service
+        .get('collectionAdapter')
+        .addQuestion(collectionId, questionId)
+        .then(function() {
           service.notifyQuizzesCollectionChange(collectionId);
           resolve();
         }, reject);
@@ -200,11 +244,13 @@ export default Ember.Service.extend({
    * @param collectionId The collection id to delete
    * @returns {Promise}
    */
-  deleteCollection: function (collectionId) {
+  deleteCollection: function(collectionId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').deleteCollection(collectionId)
-        .then(function(){
+      service
+        .get('collectionAdapter')
+        .deleteCollection(collectionId)
+        .then(function() {
           service.notifyQuizzesCollectionChange(collectionId);
           resolve();
         }, reject);
@@ -216,13 +262,15 @@ export default Ember.Service.extend({
    * @param {string} collectionId
    * @returns {Ember.RSVP.Promise}
    */
-  copyCollection: function(collectionId){
+  copyCollection: function(collectionId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('collectionAdapter').copyCollection(collectionId)
+      service
+        .get('collectionAdapter')
+        .copyCollection(collectionId)
         .then(function(responseData, textStatus, request) {
           resolve(request.getResponseHeader('location'));
-        }, reject );
+        }, reject);
     });
   },
 
@@ -230,10 +278,12 @@ export default Ember.Service.extend({
    * Notify a collection change at quizzes
    * @param {string} collectionId
    */
-  notifyQuizzesCollectionChange: function (collectionId) {
+  notifyQuizzesCollectionChange: function(collectionId) {
     const quizzesCollectionService = this.get('quizzesCollectionService');
     Ember.Logger.info('Notifying collection change');
-    return quizzesCollectionService.notifyCollectionChange(collectionId, 'collection');
+    return quizzesCollectionService.notifyCollectionChange(
+      collectionId,
+      'collection'
+    );
   }
-
 });

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -20,7 +19,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  init(){
+  init() {
     var component = this;
     component._super(...arguments);
 
@@ -29,7 +28,7 @@ export default Ember.Component.extend({
 
     if (courseId) {
       component.get('courseService').fetchById(courseId).then(function(course) {
-        if(!component.isDestroyed) {
+        if (!component.isDestroyed) {
           component.set('course', course);
         }
       });
@@ -59,7 +58,10 @@ export default Ember.Component.extend({
    */
   studentCount: Ember.computed('class.id', 'classStudentCount', function() {
     let classStudentCount = this.get('classStudentCount');
-    return (classStudentCount && Ember.keys(classStudentCount).length) ?
-      (classStudentCount[this.get('class.id')] ? classStudentCount[this.get('class.id')] : 0) : 0;
+    return classStudentCount && Ember.keys(classStudentCount).length
+      ? classStudentCount[this.get('class.id')]
+        ? classStudentCount[this.get('class.id')]
+        : 0
+      : 0;
   })
 });

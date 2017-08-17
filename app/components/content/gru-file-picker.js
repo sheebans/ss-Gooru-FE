@@ -11,10 +11,8 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -25,7 +23,6 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * @function actions:enableButtons
      */
@@ -79,8 +76,7 @@ export default Ember.Component.extend({
    * List of valid file extensions.
    * @prop {String}
    */
-  validMimeType: "",
-
+  validMimeType: '',
 
   // -------------------------------------------------------------------------
   // Observers
@@ -89,5 +85,4 @@ export default Ember.Component.extend({
     // Clear any previous errors
     this.get('filePickerErrors').clear();
   })
-
 });

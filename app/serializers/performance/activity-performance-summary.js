@@ -9,21 +9,23 @@ import CollectionPerformanceSummarySerializer from 'gooru-web/serializers/perfor
  * @typedef {Object} CollectionPerformanceSummary
  */
 export default Ember.Object.extend({
-
   /**
    * @property {CollectionPerformanceSummarySerializer}
    */
   collectionPerformanceSummarySerializer: null,
 
-
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('collectionPerformanceSummarySerializer', CollectionPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'collectionPerformanceSummarySerializer',
+      CollectionPerformanceSummarySerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
   },
-
 
   /**
    * Normalize an array of ActivityPerformanceSummary
@@ -38,9 +40,14 @@ export default Ember.Object.extend({
       payload.usageData.forEach(function(activityPerformanceSummaryData) {
         const userId = activityPerformanceSummaryData.userId; //process the data for each user
         const activitiesData = activityPerformanceSummaryData.activity || [];
-        activitiesData.forEach(function(activityData){
-          const activityPerformanceSummary = serializer.normalizeActivityPerformanceSummary(userId, activityData);
-          activityPerformanceSummaryItems.pushObject(activityPerformanceSummary);
+        activitiesData.forEach(function(activityData) {
+          const activityPerformanceSummary = serializer.normalizeActivityPerformanceSummary(
+            userId,
+            activityData
+          );
+          activityPerformanceSummaryItems.pushObject(
+            activityPerformanceSummary
+          );
         });
       });
     }
@@ -53,13 +60,14 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {ActivityPerformanceSummary}
    */
-  normalizeActivityPerformanceSummary: function (userId, data) {
+  normalizeActivityPerformanceSummary: function(userId, data) {
     const serializer = this;
     return ActivityPerformanceSummary.create({
       userId: userId,
       date: parseDate(data.date, 'YYYY-MM-DD'),
-      collectionPerformanceSummary: serializer.get('collectionPerformanceSummarySerializer').normalizeCollectionPerformanceSummary(data)
+      collectionPerformanceSummary: serializer
+        .get('collectionPerformanceSummarySerializer')
+        .normalizeCollectionPerformanceSummary(data)
     });
   }
-
 });

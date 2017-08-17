@@ -5,7 +5,7 @@
   border-radius: 4px;
   @include flexbox();
   @include flex-direction(column);
-  .header-action{
+  .header-action {
     @include flexbox;
     @include justify-content(flex-end);
     .btn {
@@ -46,14 +46,18 @@
           background-repeat: no-repeat;
           background-position: center center;
           display: inline-block;
-          &.collection { background-image: url("gooru/images/add_collection.svg"); }
-          &.assessment { background-image: url("gooru/images/add_assessment.svg"); }
+          &.collection {
+            background-image: url("gooru/images/add_collection.svg");
+          }
+          &.assessment {
+            background-image: url("gooru/images/add_assessment.svg");
+          }
         }
         .title {
           display: inline-block;
-          color:$blue-400;
+          color: $blue-400;
           font-size: $font-title;
-          margin:0;
+          margin: 0;
           vertical-align: middle;
         }
       }
@@ -67,24 +71,24 @@
         }
       }
       .remixed-by {
-        img{
+        img {
           width: 20px;
           height: 20px;
           border-radius: 50px;
           cursor: pointer;
         }
-        div > *{
+        div > * {
           display: inline-block;
         }
         span {
           cursor: pointer;
         }
         span.title {
-          margin:2px 5px 10px 0;
+          margin: 2px 5px 10px 0;
           cursor: auto;
         }
         .owner {
-          color:$blue-400;
+          color: $blue-400;
           max-width: 160px;
           @include text-overflow;
           vertical-align: middle;
@@ -187,7 +191,7 @@
           line-height: $font-size-h6;
           border-left: 1px solid $gray-light;
           .gru-math-text {
-            >* {
+            > * {
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;

@@ -25,20 +25,20 @@
         vertical-align: top;
         margin-left: 15px;
         width: 65%;
-        .title-section{
-          h6.title{
+        .title-section {
+          h6.title {
             display: inline-block;
             width: 88%;
-            color:$blue-400;
+            color: $blue-400;
           }
           $line-height: 1.3;
           $lines-to-show: 2;
-          .truncate{
+          .truncate {
             @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
           }
-          .publish-icon{
+          .publish-icon {
             display: inline-block;
-            float:right;
+            float: right;
             vertical-align: top;
             margin-top: 5px;
             background: url("gooru/badge-01.png");
@@ -52,19 +52,19 @@
           display: block;
           height: 16px;
         }
-        .bar{
-          font-weight:bold;
-          color:$gray-dark;
+        .bar {
+          font-weight: bold;
+          color: $gray-dark;
         }
-        h6{
+        h6 {
           margin: 5px 0 5px 0;
         }
-        p{
+        p {
           display: inline;
         }
       }
     }
-    .panel-body{
+    .panel-body {
       display: table;
       padding: 15px 15px 5px 15px;
       position: relative;
@@ -77,45 +77,47 @@
             max-width: 225px;
           }
         }
-        .author,.remixed-by{
-          img{
+        .author,
+        .remixed-by {
+          img {
             width: 30px;
             height: 30px;
             border-radius: 50px;
             cursor: pointer;
           }
-          div > *{
+          div > * {
             display: inline-block;
           }
           span {
             cursor: pointer;
           }
           span.title {
-            margin:2px 5px 10px 0;
+            margin: 2px 5px 10px 0;
             cursor: auto;
           }
-          .owner{
-            color:$blue-400;
+          .owner {
+            color: $blue-400;
             max-width: 160px;
             @include text-overflow;
             vertical-align: middle;
           }
         }
-        .course{
+        .course {
           height: 36px;
-          i{
-            color:$gray-light;
+          i {
+            color: $gray-light;
             vertical-align: middle;
           }
-          p,a{
+          p,
+          a {
             margin-left: 4px;
             vertical-align: bottom;
           }
-          p{
+          p {
             display: inline;
           }
         }
-        .description{
+        .description {
           height: 51px;
           $line-height: 1.3;
           $lines-to-show: 3;
@@ -123,13 +125,12 @@
             @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
           }
         }
-
       }
     }
-    .panel-footer{
+    .panel-footer {
       background-color: $white;
       padding: 10px 15px 10px 15px;
-      .buttons{
+      .buttons {
         display: inline-block;
       }
       .visibility {

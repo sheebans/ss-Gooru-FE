@@ -2,7 +2,6 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.JSONAPISerializer.extend({
-
   /**
    * Normalize the response of a query request
    * @param store store
@@ -43,14 +42,16 @@ export default DS.JSONAPISerializer.extend({
   normalizeClass: function(payload) {
     return {
       id: payload.classUid,
-      type: "class/class",
+      type: 'class/class',
       attributes: {
         name: payload.name,
         code: payload.classCode,
-        subject:"Math",
+        subject: 'Math',
         // TODO: These four properties have harcoded values until endpoint is ready to provide us this data.
-        greetings: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        greetings:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         startDate: '9.2.2015',
         endDate: '12.15.2015',
         grades: payload.grades,
@@ -78,5 +79,4 @@ export default DS.JSONAPISerializer.extend({
     }, result);
     return result;
   }
-
 });

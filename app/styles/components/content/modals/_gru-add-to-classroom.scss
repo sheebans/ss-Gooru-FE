@@ -1,11 +1,11 @@
 .content.modals.gru-add-to-classroom {
-  .modal-header{
+  .modal-header {
     text-align: left;
   }
-  .modal-body{
+  .modal-body {
     padding: 30px;
   }
-  .list{
+  .list {
     @include flexbox;
     @include flex-wrap(wrap);
     @include justify-content(flex-start);
@@ -14,16 +14,16 @@
     max-height: 460px;
     overflow-y: auto;
 
-    .panel{
+    .panel {
       width: 46%;
-      border-radius:6px;
+      border-radius: 6px;
       margin-right: 16px;
-      .panel-heading{
+      .panel-heading {
         padding: 5px 15px;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
         background-color: $sky-300;
-        color:$white;
+        color: $white;
       }
       &.active {
         border: 3px solid $blue-400;
@@ -38,7 +38,7 @@
       }
     }
   }
-  .lead{
+  .lead {
     font-size: $font-size-large;
   }
 }

@@ -1,18 +1,14 @@
-import Ember from "ember";
-import DS from "ember-data";
-import { validator, buildValidations } from "ember-cp-validations";
+import Ember from 'ember';
+import DS from 'ember-data';
+import { validator, buildValidations } from 'ember-cp-validations';
 
 // constants
-import { DEFAULT_IMAGES } from "../../config/config";
+import { DEFAULT_IMAGES } from '../../config/config';
 
 const UserValidations = buildValidations({
-  firstName: [
-    validator('presence', true)
-  ],
+  firstName: [validator('presence', true)],
 
-  lastName: [
-    validator('presence', true)
-  ],
+  lastName: [validator('presence', true)],
 
   username: {
     description: 'Username',
@@ -40,7 +36,7 @@ const UserValidations = buildValidations({
       message: '{description} cannot use special characters'
     })
   ],
-  rePassword:[
+  rePassword: [
     validator('presence', true),
     validator('length', {
       min: 5,
@@ -51,8 +47,8 @@ const UserValidations = buildValidations({
       message: '{description} cannot use special characters'
     }),
 
-    validator(function(value,options,model/* ,attribute*/) {
-      return value !== model.get('password') ? `Passwords don't match` : true ;
+    validator(function(value, options, model /* ,attribute*/) {
+      return value !== model.get('password') ? 'Passwords don\'t match' : true;
     })
   ],
   email: [
@@ -63,119 +59,114 @@ const UserValidations = buildValidations({
     }),
     validator('email')
   ],
-  dateOfBirth: [
-    validator('presence', true)
-  ],
-  role: [
-    validator('presence', true)
-  ]
+  dateOfBirth: [validator('presence', true)],
+  role: [validator('presence', true)]
 });
 /**
  * Model to represent the Users obtained from the end-point
  */
 export default DS.Model.extend(UserValidations, {
-
   // Values used to capture and to read data to/from SignUp end-point
   /**
    * @property {string} firstName
    */
-  firstName: DS.attr("string"),
+  firstName: DS.attr('string'),
   /**
    * @property {string} lastName
    */
-  lastName: DS.attr("string"),
+  lastName: DS.attr('string'),
   /**
    * @property {string} username
    */
-  username: DS.attr("string"),
+  username: DS.attr('string'),
   /**
    * @property {string} email
    */
-  email: DS.attr("string"),
+  email: DS.attr('string'),
   /**
    * @property {string} organization
    */
-  organization: DS.attr("string"),
+  organization: DS.attr('string'),
   /**
    * @property {string} school
    */
-  school: DS.attr("string"),
+  school: DS.attr('string'),
   /**
    * @property {string} country
    */
-  country: DS.attr("string"),
+  country: DS.attr('string'),
 
   // Values only used to read data from SignUp end-point
   /**
    * @property {string} gooruId
    */
-  gooruUId: DS.attr("string"),
+  gooruUId: DS.attr('string'),
   /**
    * @property {string} usernameDispaly
    */
-  usernameDisplay: DS.attr("string"),
+  usernameDisplay: DS.attr('string'),
   /**
    * @property {string} avatarUrl
    */
-  avatarUrl: DS.attr("string", { defaultValue: DEFAULT_IMAGES.USER_PROFILE }),
+  avatarUrl: DS.attr('string', { defaultValue: DEFAULT_IMAGES.USER_PROFILE }),
   /**
    * @property {string} userRoleSetString
    */
-  userRoleSetString: DS.attr("string"),
+  userRoleSetString: DS.attr('string'),
   /**
    * @property {string} accountCreatedType
    */
-  accountCreatedType: DS.attr("string"),
+  accountCreatedType: DS.attr('string'),
   /**
    * @property {number} accountTypeId
    */
-  accountTypeId: DS.attr("number"),
+  accountTypeId: DS.attr('number'),
   /**
    * @property {number} active
    */
-  active: DS.attr("number"),
+  active: DS.attr('number'),
   /**
    * @property {number} confirmStatus
    */
-  confirmStatus: DS.attr("number"),
+  confirmStatus: DS.attr('number'),
   /**
    * @property {string} createdOn
    */
-  createdOn: DS.attr("string"),
+  createdOn: DS.attr('string'),
   /**
    * @property {string} partyUid
    */
-  partyUid: DS.attr("string"),
+  partyUid: DS.attr('string'),
   /**
    * @property {number} viewFlag
    */
-  viewFlag: DS.attr("number"),
+  viewFlag: DS.attr('number'),
 
   // Values only used to capture data to be sent to SignUp end-point
   /**
    * @property {string} gender
    */
-  gender: DS.attr("string"),
+  gender: DS.attr('string'),
   /**
    * @property {string} dateOfBirth
    */
-  dateOfBirth: DS.attr("string"),
+  dateOfBirth: DS.attr('string'),
   /**
    * @property {string} password
    */
-  password: DS.attr("string"),
+  password: DS.attr('string'),
   /**
    * @property {string} role
    */
-  role: DS.attr("string"),
+  role: DS.attr('string'),
   /**
    * @property {Meta} metadata
    */
-  metadata: DS.belongsTo("meta", { async: true }),
+  metadata: DS.belongsTo('meta', { async: true }),
   /**
    * @property {string} districtName
    */
-  districtName: DS.attr("string"),
+  districtName: DS.attr('string'),
   /**
    * @property {number}totalFollowers
    */
@@ -187,19 +178,18 @@ export default DS.Model.extend(UserValidations, {
   totalFollowing: DS.attr('number'),
 
   fullName: Ember.computed('firstName', 'lastName', function() {
-    return this.get('lastName') + ', ' + this.get('firstName');
+    return `${this.get('lastName')}, ${this.get('firstName')}`;
   }),
 
-  fullNameInformal: Ember.computed('firstName', 'lastName', function () {
-    return this.get('firstName') + ' ' + this.get('lastName');
+  fullNameInformal: Ember.computed('firstName', 'lastName', function() {
+    return `${this.get('firstName')} ${this.get('lastName')}`;
   }),
 
   /**
    * @property {string} internal code used for anonymous reports
    */
-  code: Ember.computed(function(){
+  code: Ember.computed(function() {
     //return parseInt(Math.random() * 10000); //TODO this should come from BE, it is not defined yet
-    return this.get("username");
+    return this.get('username');
   })
-
 });

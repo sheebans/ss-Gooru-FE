@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ModalMixin from '../mixins/modal';
 
 /**
@@ -11,11 +11,10 @@ import ModalMixin from '../mixins/modal';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-user-registration'],
+  classNames: ['gru-user-registration'],
 
   classNameBindings: ['component-class'],
 
@@ -24,7 +23,7 @@ export default Ember.Component.extend(ModalMixin, {
 
   didInsertElement: function() {
     var component = this;
-    component.$("[data-toggle='tooltip']").tooltip({trigger: "hover"});
+    component.$('[data-toggle=\'tooltip\']').tooltip({ trigger: 'hover' });
   },
 
   // -------------------------------------------------------------------------
@@ -33,6 +32,5 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @type {?String} specific class
    */
-  'component-class':null
-
+  'component-class': null
 });

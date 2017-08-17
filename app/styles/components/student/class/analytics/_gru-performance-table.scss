@@ -10,9 +10,9 @@
     margin: 0;
     font-size: $font-size-h6;
     background: $white;
-    -webkit-box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
-    -moz-box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
-    box-shadow: 0 3px 6px 1px rgba(203,204,208,1);
+    -webkit-box-shadow: 0 3px 6px 1px rgba(203, 204, 208, 1);
+    -moz-box-shadow: 0 3px 6px 1px rgba(203, 204, 208, 1);
+    box-shadow: 0 3px 6px 1px rgba(203, 204, 208, 1);
     border-top: 2px solid $white;
     thead {
       background-color: $dark-400;
@@ -24,7 +24,8 @@
           height: 32px;
           text-align: center;
           width: 180px;
-          a, i {
+          a,
+          i {
             color: $white;
             vertical-align: top;
             font-weight: normal;
@@ -53,7 +54,8 @@
     }
     tbody {
       tr {
-        td, th {
+        td,
+        th {
           border: 0;
           height: 35px;
           padding: 0 10px;
@@ -72,7 +74,8 @@
         &:first-child {
           border-bottom: 2px solid $light-300;
           background-color: $white;
-          td, th {
+          td,
+          th {
             height: 40px;
           }
           th {
@@ -113,9 +116,9 @@
               }
             }
           }
-          &.performance-report{
+          &.performance-report {
             a {
-              color:$gray-icon;
+              color: $gray-icon;
             }
           }
         }

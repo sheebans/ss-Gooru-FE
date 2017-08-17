@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} ProfileModel
  */
 export default Ember.Object.extend({
-
   /**
    * @property {string} id - The profile id
    */
@@ -30,13 +29,12 @@ export default Ember.Object.extend({
   /**
    * @property {string} code - The profile code
    */
-  code: Ember.computed("studentId", function(){
-    const studentId = this.get("studentId");
+  code: Ember.computed('studentId', function() {
+    const studentId = this.get('studentId');
     if (studentId) {
       return studentId;
-    }
-    else {
-      const uuid = this.get("id").split("-");
+    } else {
+      const uuid = this.get('id').split('-');
       return uuid.length >= 3 ? uuid[3] : uuid;
     }
   }),
@@ -138,15 +136,22 @@ export default Ember.Object.extend({
   /**
    * @property {string} displayName
    */
-  displayName: Ember.computed('username', 'fullName', function () {
-    return this.get("username") ? this.get("username") : this.get("fullName");
+  displayName: Ember.computed('username', 'fullName', function() {
+    return this.get('username') ? this.get('username') : this.get('fullName');
   }),
 
   /**
    * @property {string}
    */
-  fullName: Ember.computed("firstName", "lastName", function(){
-    return this.get('lastName') + ', ' + this.get('firstName');
+  fullName: Ember.computed('firstName', 'lastName', function() {
+    return `${this.get('lastName')}, ${this.get('firstName')}`;
+  }),
+
+  /**
+   * @property {string}
+   */
+  fullNameInformal: Ember.computed('firstName', 'lastName', function() {
+    return `${this.get('firstName')} ${this.get('lastName')}`;
   }),
 
   /**
@@ -182,18 +187,18 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} - Indicates if current user is a student
    */
-  isStudent: Ember.computed.equal("role", "student"),
+  isStudent: Ember.computed.equal('role', 'student'),
 
   /**
    * @property {boolean} - Indicates if current user is a teacher
    */
-  isTeacher: Ember.computed.equal("role", "teacher"),
+  isTeacher: Ember.computed.equal('role', 'teacher'),
 
   /**
    * @property {boolean} - Indicates if current user is a provider
    */
-  isProvider: Ember.computed("isTeacher", "isStudent", function(){
-    return !this.get("isTeacher") && !this.get("isStudent");
+  isProvider: Ember.computed('isTeacher', 'isStudent', function() {
+    return !this.get('isTeacher') && !this.get('isStudent');
   }),
 
   /**
@@ -202,9 +207,12 @@ export default Ember.Object.extend({
    * @function
    * @return {Profile}
    */
-  copy: function () {
+  copy: function() {
     var properties = this.getProperties(this.modelProperties());
-    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+    return this.get('constructor').create(
+      Ember.getOwner(this).ownerInjection(),
+      properties
+    );
   },
 
   /**
@@ -237,5 +245,4 @@ export default Ember.Object.extend({
     }
     return properties;
   }
-
 });

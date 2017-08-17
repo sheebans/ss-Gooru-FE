@@ -2,7 +2,6 @@ import ApplicationAdapter from './application';
 import Ember from 'ember';
 
 export default ApplicationAdapter.extend({
-
   /**
    * @property {string} End-point URI
    */
@@ -10,7 +9,7 @@ export default ApplicationAdapter.extend({
 
   headers: Ember.computed('session.token-api3', function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }),
 
@@ -37,9 +36,9 @@ export default ApplicationAdapter.extend({
     const courseId = query.courseId;
     const openSession = query.openSession;
 
-    const queryParams = (classId) ?
-      `userUid=${userId}&classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}` :
-      `userUid=${userId}&openSession=${openSession}`;
+    const queryParams = classId
+      ? `userUid=${userId}&classGooruId=${classId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}`
+      : `userUid=${userId}&openSession=${openSession}`;
 
     const url = `${namespace}/${collectionType}/${contentId}/sessions?${queryParams}`;
 
@@ -54,5 +53,4 @@ export default ApplicationAdapter.extend({
 
     return Ember.$.ajax(url, options);
   }
-
 });

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   /**
@@ -17,8 +16,8 @@ export default Ember.Object.extend({
    */
   uploadFile: function(fileData, type) {
     var formData = new FormData();
-    formData.append("file", fileData);
-    formData.append("entity_type", type);
+    formData.append('file', fileData);
+    formData.append('entity_type', type);
 
     const adapter = this;
     const url = adapter.get('namespace');
@@ -39,9 +38,7 @@ export default Ember.Object.extend({
    */
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });
-

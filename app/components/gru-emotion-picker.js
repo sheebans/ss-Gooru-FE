@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { EMOTION_VALUES } from "gooru-web/config/config";
+import { EMOTION_VALUES } from 'gooru-web/config/config';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
@@ -12,7 +12,6 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -25,7 +24,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // Actions
 
   actions: {
-
     /**
      * Set a new emotion as selected and update the component appearance accordingly
      *
@@ -33,12 +31,18 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * @param {string} newEmotionValue - newly selected emotion
      * @returns {undefined}
      */
-    setEmotion: function (newEmotionValue) {
+    setEmotion: function(newEmotionValue) {
       let component = this;
-      if (!component.get("readOnly")){
-        if (!component.get('selectedEmotion') || component.get('selectedEmotion') !== newEmotionValue) {
+      if (!component.get('readOnly')) {
+        if (
+          !component.get('selectedEmotion') ||
+          component.get('selectedEmotion') !== newEmotionValue
+        ) {
           component.selectEmotion(newEmotionValue);
-          component.sendAction("onChangeEmotion", component.get('selectedEmotion'));
+          component.sendAction(
+            'onChangeEmotion',
+            component.get('selectedEmotion')
+          );
         }
       }
     }
@@ -56,10 +60,10 @@ export default Ember.Component.extend(ConfigurationMixin, {
     const startEmotion = this.get('startEmotion');
 
     // Adds tooltip to UI elements (elements with attribute 'data-toggle')
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
     // Sets the emotion icon if there is a score for this resource
     if (startEmotion) {
-      Ember.run.scheduleOnce('afterRender', this, function () {
+      Ember.run.scheduleOnce('afterRender', this, function() {
         component.selectEmotion(startEmotion);
       });
     }
@@ -106,13 +110,12 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // Methods
 
   selectEmotion: function(emotionValue) {
-    this.$(".emotions-list li").find(".active").removeClass("active");
+    this.$('.emotions-list li').find('.active').removeClass('active');
     this.set('selectedEmotion', 0);
 
     if (emotionValue) {
       this.set('selectedEmotion', emotionValue);
-      this.$(".emotion-" + emotionValue).toggleClass("active");
+      this.$(`.emotion-${emotionValue}`).toggleClass('active');
     }
   }
-
 });

@@ -1,5 +1,4 @@
 .player .gru-viewer {
-
   .narration {
     margin-top: 0;
     margin-bottom: 15px;
@@ -30,7 +29,7 @@
     p.description {
       line-height: $font-size-base;
     }
-    p.title{
+    p.title {
       font-size: $font-size-large;
       font-weight: 300;
       margin: 0 0 7px 0;
@@ -42,7 +41,7 @@
         margin: 15px 0 0 0;
       }
     }
-    .panel-body{
+    .panel-body {
       display: flex;
       justify-content: center;
       $line-height: 1.2;
@@ -50,28 +49,28 @@
       color: $text-color;
 
       .cards.gru-resource-card {
-        margin:0 auto;
+        margin: 0 auto;
 
-        .panel-heading{
+        .panel-heading {
           padding: 12px 15px 0 15px;
-          .header{
-            padding:0;
-            margin:0;
-            border:0;
-            }
+          .header {
+            padding: 0;
+            margin: 0;
+            border: 0;
+          }
         }
-        .panel-body{
+        .panel-body {
           padding: 12px 15px 0 15px;
           display: block;
 
-          .publisher{
-            a{
-              color:$blue-400;
+          .publisher {
+            a {
+              color: $blue-400;
             }
           }
         }
-        .panel-footer{
-          margin:0;
+        .panel-footer {
+          margin: 0;
           text-align: left;
         }
       }

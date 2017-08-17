@@ -6,7 +6,6 @@ import PerformanceSerializer from './performance';
  * @typedef {Object} LessonPerformanceSerializer
  */
 export default PerformanceSerializer.extend({
-
   getModelId: function(payload) {
     return payload.lessonId;
   },
@@ -18,5 +17,4 @@ export default PerformanceSerializer.extend({
   getObjectType: function() {
     return 'lesson';
   }
-
 });

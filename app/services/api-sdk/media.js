@@ -6,15 +6,16 @@ import MediaAdapter from 'gooru-web/adapters/media';
  * @typedef {Object} MediaService
  */
 export default Ember.Service.extend({
-
   session: Ember.inject.service('session'),
 
   mediaAdapter: null,
 
-
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('mediaAdapter', MediaAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'mediaAdapter',
+      MediaAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -26,12 +27,17 @@ export default Ember.Service.extend({
   uploadContentFile: function(fileData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('mediaAdapter').uploadFile(fileData, ENTITY_TYPE.CONTENT)
-        .then(function(response) {
-          resolve(service.get('session.cdnUrls.content') + response.filename);
-        }, function(error) {
-          reject(error);
-        });
+      service
+        .get('mediaAdapter')
+        .uploadFile(fileData, ENTITY_TYPE.CONTENT)
+        .then(
+          function(response) {
+            resolve(service.get('session.cdnUrls.content') + response.filename);
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -44,13 +50,14 @@ export default Ember.Service.extend({
   uploadUserFile: function(fileData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('mediaAdapter').uploadFile(fileData, ENTITY_TYPE.USER)
-        .then(function(response) {
+      service.get('mediaAdapter').uploadFile(fileData, ENTITY_TYPE.USER).then(
+        function(response) {
           resolve(service.get('session.cdnUrls.user') + response.filename);
-        }, function(error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   }
-
 });

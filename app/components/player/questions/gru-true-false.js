@@ -13,28 +13,26 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-true-false'],
+  classNames: ['gru-true-false'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * When the user changes the answer choice selection
      * @param {number} answerId
      * @param {boolean} onLoad if this was called when loading the component
      */
-    selectAnswerChoice: function(answerId, onLoad){
+    selectAnswerChoice: function(answerId, onLoad) {
       const component = this;
       const questionUtil = this.get('questionUtil');
       const correct = questionUtil.isCorrect(answerId);
 
       component.notifyAnswerChanged(answerId, correct);
-      if(onLoad) {
+      if (onLoad) {
         component.notifyAnswerLoaded(answerId, correct);
       } else {
         component.notifyAnswerCompleted(answerId, correct);
@@ -46,7 +44,7 @@ export default QuestionComponent.extend({
   // Events
   init: function() {
     this._super(...arguments);
-    if(this.get('hasUserAnswer')) {
+    if (this.get('hasUserAnswer')) {
       this.actions.selectAnswerChoice.call(this, this.get('userAnswer'), true);
     }
   },
@@ -56,25 +54,23 @@ export default QuestionComponent.extend({
   /**
    * Returns the "true" answer id
    */
-  trueAnswerId: Ember.computed("question.answers", function(){
-    let answers = this.get("question.answers");
-    let found = answers.filterBy("text", "True");
-    return found ? found.get("firstObject.id") : "true"; //TODO, is this a data problem?
+  trueAnswerId: Ember.computed('question.answers', function() {
+    let answers = this.get('question.answers');
+    let found = answers.filterBy('text', 'True');
+    return found ? found.get('firstObject.id') : 'true'; //TODO, is this a data problem?
   }),
 
   /**
    * Returns the "false" answer id
    */
-  falseAnswerId: Ember.computed("question.answers", function(){
-    let answers = this.get("question.answers");
-    let found = answers.filterBy("text", "False");
-    return found ? found.get("firstObject.id") : "true"; //TODO, is this a data problem?
+  falseAnswerId: Ember.computed('question.answers', function() {
+    let answers = this.get('question.answers');
+    let found = answers.filterBy('text', 'False');
+    return found ? found.get('firstObject.id') : 'true'; //TODO, is this a data problem?
   })
-
 
   // -------------------------------------------------------------------------
   // Observers
-
 
   // -------------------------------------------------------------------------
   // Methods

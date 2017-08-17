@@ -1,21 +1,19 @@
 import Ember from 'ember';
-import {CENTURY_SKILLS_GROUPS} from 'gooru-web/config/config';
+import { CENTURY_SKILLS_GROUPS } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: [ 'gru-century-skills-content'],
+  classNames: ['gru-century-skills-content'],
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      * select or not the skill item.
      * @function actions:selectSkillItem
@@ -26,15 +24,14 @@ export default Ember.Component.extend({
       var selectedCenturySkills = component.get('tempSelectedCenturySkills');
       var skillItemId = skillItem.get('id');
 
-      if (component.isSelected(skillItemId)){
+      if (component.isSelected(skillItemId)) {
         selectedCenturySkills.removeObject(skillItemId);
-      }
-      else {
+      } else {
         selectedCenturySkills.pushObject(skillItemId);
       }
     },
 
-    saveSelectedSkills () {
+    saveSelectedSkills() {
       var selectedCenturySkills = this.get('tempSelectedCenturySkills');
       this.get('onSave')(selectedCenturySkills);
     }
@@ -45,9 +42,11 @@ export default Ember.Component.extend({
 
   init() {
     let component = this;
-    component._super( ...arguments );
+    component._super(...arguments);
 
-    var tempSelectedCenturySkills = component.get('selectedCenturySkills').copy();
+    var tempSelectedCenturySkills = component
+      .get('selectedCenturySkills')
+      .copy();
 
     if (tempSelectedCenturySkills) {
       this.set('tempSelectedCenturySkills', tempSelectedCenturySkills);
@@ -79,38 +78,68 @@ export default Ember.Component.extend({
   /**
    * @property {centurySkill[]} cognitive group of century skills
    */
-  cognitiveSkillsGroup: Ember.computed("centurySkills.[]", "tempSelectedCenturySkills.[]", function(){
-    let component = this;
+  cognitiveSkillsGroup: Ember.computed(
+    'centurySkills.[]',
+    'tempSelectedCenturySkills.[]',
+    function() {
+      let component = this;
 
-    return this.get("centurySkills").filter(function(centurySkill){
-      centurySkill.set('isSelected',component.isSelected(centurySkill.get("id")));
-      return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES;
-    });
-  }),
+      return this.get('centurySkills').filter(function(centurySkill) {
+        centurySkill.set(
+          'isSelected',
+          component.isSelected(centurySkill.get('id'))
+        );
+        return (
+          centurySkill.get('group') ===
+          CENTURY_SKILLS_GROUPS.KEY_COGNITIVE_SKILLS_AND_STRATEGIES
+        );
+      });
+    }
+  ),
 
   /**
    * @property {centurySkill[]} content group of century skills
    */
-  contentSkillsGroup: Ember.computed("centurySkills.[]", "tempSelectedCenturySkills.[]", function(){
-    let component = this;
+  contentSkillsGroup: Ember.computed(
+    'centurySkills.[]',
+    'tempSelectedCenturySkills.[]',
+    function() {
+      let component = this;
 
-    return this.get("centurySkills").filter(function(centurySkill){
-      centurySkill.set('isSelected',component.isSelected(centurySkill.get("id")));
-      return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE;
-    });
-  }),
+      return this.get('centurySkills').filter(function(centurySkill) {
+        centurySkill.set(
+          'isSelected',
+          component.isSelected(centurySkill.get('id'))
+        );
+        return (
+          centurySkill.get('group') ===
+          CENTURY_SKILLS_GROUPS.KEY_CONTENT_KNOWLEDGE
+        );
+      });
+    }
+  ),
 
   /**
    * @property {centurySkill[]} learning group of century skills
    */
-  learningSkillsGroup: Ember.computed("centurySkills.[]", "tempSelectedCenturySkills.[]", function(){
-    let component = this;
+  learningSkillsGroup: Ember.computed(
+    'centurySkills.[]',
+    'tempSelectedCenturySkills.[]',
+    function() {
+      let component = this;
 
-    return this.get("centurySkills").filter(function(centurySkill){
-      centurySkill.set('isSelected',component.isSelected(centurySkill.get("id")));
-      return centurySkill.get("group") === CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES;
-    });
-  }),
+      return this.get('centurySkills').filter(function(centurySkill) {
+        centurySkill.set(
+          'isSelected',
+          component.isSelected(centurySkill.get('id'))
+        );
+        return (
+          centurySkill.get('group') ===
+          CENTURY_SKILLS_GROUPS.KEY_LEARNING_SKILLS_AND_TECHNIQUES
+        );
+      });
+    }
+  ),
 
   // ----------------------------
   // Methods

@@ -9,7 +9,6 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -18,12 +17,10 @@ export default Ember.Component.extend({
 
   classNames: ['century-skills', 'modals', 'gru-century-skills'],
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     updateSelectedSkills(selectedCenturySkills) {
       this.get('model.callback').success(selectedCenturySkills);
       this.triggerAction({ action: 'closeModal' });
@@ -35,7 +32,7 @@ export default Ember.Component.extend({
 
   init() {
     let component = this;
-    component._super( ...arguments );
+    component._super(...arguments);
 
     var selectedCenturySkills = component.get('model.selectedCenturySkills');
     var centurySkills = component.get('model.centurySkills');
@@ -68,5 +65,4 @@ export default Ember.Component.extend({
    * @prop {Number[]}
    */
   selectedCenturySkills: Ember.A([])
-
 });

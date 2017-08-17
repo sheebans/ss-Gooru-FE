@@ -2,7 +2,6 @@ import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
-
   queryParams: {
     refresh: {
       refreshModel: true
@@ -39,7 +38,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
      * Triggered when a class menu item is selected
      * @param {string} item
      */
-    selectMenuItem: function (item) {
+    selectMenuItem: function(item) {
       const route = this;
       const controller = route.get('controller');
       const currentItem = controller.get('menuItem');
@@ -74,25 +73,29 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const courseId = params.courseId;
     const userId = this.get('session.userId');
     let coursePromise = route.get('courseService').fetchById(courseId);
-    let performancePromise = route.get('learnerService').fetchCoursesPerformance(userId, [courseId]);
+    let performancePromise = route
+      .get('learnerService')
+      .fetchCoursesPerformance(userId, [courseId]);
 
-    return Ember.RSVP.hash({
-      course: coursePromise,
-      performance: performancePromise
-    }).then(function (hash) {
-      const course = hash.course;
-      const performance=  hash.performance;
-      return Ember.RSVP.hash({
-        course,
-        performance
+    return Ember.RSVP
+      .hash({
+        course: coursePromise,
+        performance: performancePromise
+      })
+      .then(function(hash) {
+        const course = hash.course;
+        const performance = hash.performance;
+        return Ember.RSVP.hash({
+          course,
+          performance
+        });
       });
-    });
   },
   /**
    * Run after model is set
    */
   afterModel: function(user, transition) {
-    if(transition.targetName === `${this.routeName}.index`) {
+    if (transition.targetName === `${this.routeName}.index`) {
       this.transitionTo('student.independent.course-map');
     }
   },

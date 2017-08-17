@@ -16,7 +16,6 @@ import { GRADING_SCALE } from 'gooru-web/config/config';
  * @returns {String}
  */
 export function gradingScaleLegend(params, hash) {
-
   const notStarted = hash && hash.notStarted;
 
   const $el = $('<div><ul class="grading-scale-legend"></ul></div>');
@@ -25,22 +24,28 @@ export function gradingScaleLegend(params, hash) {
   var gradingScaleLen = GRADING_SCALE.length;
 
   if (notStarted) {
-    $legend.append('<li class="not-started"> \
+    $legend.append(
+      `<li class="not-started"> \
                       <i></i> \
-                      <span>' + notStarted + '</span>\
-                   </li>');
+                      <span>${notStarted}</span>\
+                   </li>`
+    );
   }
 
   for (let i = 0; i < gradingScaleLen; i++) {
     let bracket = GRADING_SCALE[i];
 
     // The upper limit of the grading scale will be 100
-    let upperLimit = GRADING_SCALE[i + 1] ? GRADING_SCALE[i + 1].LOWER_LIMIT - 1 : 100;
+    let upperLimit = GRADING_SCALE[i + 1]
+      ? GRADING_SCALE[i + 1].LOWER_LIMIT - 1
+      : 100;
 
-    $legend.append('<li> \
-                      <i style="background-color: ' + bracket.COLOR + ';"></i> \
-                      <span>' + bracket.LOWER_LIMIT + ' - ' + upperLimit + '%</span>\
-                   </li>');
+    $legend.append(
+      `<li> \
+                      <i style="background-color: ${bracket.COLOR};"></i> \
+                      <span>${bracket.LOWER_LIMIT} - ${upperLimit}%</span>\
+                   </li>`
+    );
   }
 
   return Ember.String.htmlSafe($el.html());
