@@ -16,6 +16,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   i18n: Ember.inject.service(),
 
   /**
+   * @property {Service} Notifications
+   */
+  notifications: Ember.inject.service(),
+
+  /**
    * @property {MediaService} Media service API SDK
    */
   mediaService: Ember.inject.service('api-sdk/media'),
@@ -192,17 +197,17 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
         icon: 'delete',
         action: () => this.delete()
       },
-      //{
-      //  name: 'copy',
-      //  text: this.get('i18n').t('common.copy'),
-      //  icon: 'content_copy',
-      // },
       {
         name: 'link',
         text: this.get('i18n').t('common.link'),
         icon: 'insert_link',
         isShare: true,
         type: 'rubric'
+      },
+      {
+        name: 'copy',
+        icon: 'content_copy',
+        action: () => this.copy()
       },
       {
         name: 'preview',
@@ -296,6 +301,34 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       null,
       false
     );
+  },
+
+  /**
+   * Copy function for rubric edition
+   */
+  copy: function() {
+    let component = this;
+    const rubricId = component.get('rubric.id');
+    const rubricTitle = component.get('rubric.title');
+
+    component
+      .get('rubricService')
+      .copyRubric(rubricId)
+      .then(function(newRubricId) {
+        let successMsg = component
+          .get('i18n')
+          .t('gru-rubric-edit.copy.success-message', { title: rubricTitle })
+          .string;
+        let editLabel = component.get('i18n').t('common.edit');
+        let editRubricUrl = component
+          .get('router')
+          .generate('content.rubric.edit', newRubricId);
+        component
+          .get('notifications')
+          .success(
+            `${successMsg} <a class="btn btn-success" href="${editRubricUrl}">${editLabel}</a>`
+          );
+      });
   },
 
   /**

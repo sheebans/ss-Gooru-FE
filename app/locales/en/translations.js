@@ -2268,7 +2268,11 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   'gru-rubric-edit': {
-    'upload-rubric': 'Upload Rubric'
+    'upload-rubric': 'Upload Rubric',
+    copy: {
+      'success-message':
+        'You\'ve copied rubric {{title}}. Do you want to edit that Rubric?'
+    }
   },
   'gru-rubric-creation': {
     url: 'URL',
