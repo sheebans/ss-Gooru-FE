@@ -30,14 +30,15 @@ export default Ember.Service.extend({
    * @param {string} classId
    * @param {string} contentId
    * @param {string} contentType
+   * @param {Date} addedDate
    * @param { { courseId: string, unitId: string, lessonId: string } } context
    * @returns {boolean}
    */
-  addActivityToClass: function (classId, contentId, contentType, context = {}) {
+  addActivityToClass: function (classId, contentId, contentType, addedDate = new Date(), context = {}) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service.get('classActivityAdapter').addActivityToClass(classId, contentId,
-        contentType, context).then(function() {
+        contentType, addedDate, context).then(function() {
         resolve(true);
       }, reject);
     });

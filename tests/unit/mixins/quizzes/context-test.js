@@ -34,7 +34,8 @@ test('createContext without context', function(assert) {
 test('createContext with context', function(assert) {
   let subject = Ember.Object.extend(ContextMixin).create();
   const params = {
-    classId: 'class-id'
+    classId: 'class-id',
+    source: 'source-test'
   };
   const collection = CollectionModel.create({
     id: 'collection-id',
@@ -53,6 +54,7 @@ test('createContext with context', function(assert) {
       assert.equal(context.get('contextMapping.courseId'), 'course-id', 'Course id should match');
       assert.equal(context.get('contextMapping.unitId'), 'unit-id', 'Unit id should match');
       assert.equal(context.get('contextMapping.lessonId'), 'lesson-id', 'Lesson id should match');
+      assert.equal(context.get('contextMapping.eventSource'), 'source-test', 'event source should match');
       return Ember.RSVP.resolve();
     }
   });
