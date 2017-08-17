@@ -23,8 +23,16 @@
         </span>
       </div>
       {{#if category.selected}}
-        <div class="category-level">
-        </div>
+        {{#if category.info.levels}}
+          <div class="category-level">
+            {{validation.gru-select
+              options=category.levels
+              search="true"
+              optionSelected=category.grade.levelObtained
+              onOptionSelect="updateLevel"
+            }}
+          </div>
+        {{/if}}
         <div class="category-comment">
           {{validation.gru-textarea
             model=category.grade

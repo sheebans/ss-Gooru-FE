@@ -37,7 +37,18 @@ export default Ember.Component.extend({
    * Categories from grade
    * @property {Map} gradeCategories
    */
-  gradeCategories: Ember.computed.mapBy('grade.categoriesScore', 'title'),
+  gradeCategories: Ember.computed(
+    'grade.categoriesScore.[]',
+    'title',
+    function() {
+      return this.get(
+        'grade.categoriesScore'
+      ).reduce((categoriesMap, category) => {
+        categoriesMap[category.get('title')] = category;
+        return categoriesMap;
+      }, {});
+    }
+  ),
 
   /**
    * Categories from rubric
@@ -70,11 +81,18 @@ export default Ember.Component.extend({
             levelMaxScore: rubricCategory.get('totalPoints')
           });
           gradeCategories[rubricCategory.get('title')] = gradeCategory;
+          this.set('grade.categoriesScore', Object.values(gradeCategories));
         }
+        let levels = rubricCategory.get('levels').map(level => ({
+          id: `${level.name};${level.score};${rubricCategory.get('title')}`,
+          name: level.name
+        }));
+        levels = [{ id: '', name: '' }].concat(levels);
         return Ember.Object.create({
           info: rubricCategory,
           grade: gradeCategory,
-          selected: false
+          selected: false,
+          levels
         });
       })
     );

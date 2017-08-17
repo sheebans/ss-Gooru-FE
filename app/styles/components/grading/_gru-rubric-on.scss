@@ -13,6 +13,9 @@
       border: 1px solid $dark-300;
       &.selected {
         background-color: $dark-500;
+        .chat {
+          color: $white;
+        }
       }
     }
     .category-level {
@@ -24,7 +27,6 @@
     .chat,
     .show-arrow {
       float: right;
-      cursor: pointer;
     }
     .gru-icon {
       &.chat {
@@ -36,6 +38,7 @@
       &.keyboard_arrow_up {
         font-size: $font-size-rubric-arrow-icon;
         margin-top: -2px;
+        cursor: pointer;
       }
     }
   }
@@ -46,6 +49,9 @@
       font-size: $font-size-small;
       margin-bottom: 5px;
     }
+  }
+  .gru-select {
+    font-size: $font-size-base;
   }
   textarea {
     background-color: $white;
