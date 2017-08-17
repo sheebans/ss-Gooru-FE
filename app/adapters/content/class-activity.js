@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { formatDate } from 'gooru-web/utils/utils';
 
 /**
  * Adapter to support the class activity CRUD operations
@@ -16,10 +17,17 @@ export default Ember.Object.extend({
    * @param {string} classId
    * @param {string} contentId
    * @param {string} contentType
+   * @param {Date} addedDate
    * @param { { courseId: string, unitId: string, lessonId: string } } context
    * @returns {Promise}
    */
-  addActivityToClass: function(classId, contentId, contentType, context = {}) {
+  addActivityToClass: function(
+    classId,
+    contentId,
+    contentType,
+    addedDate = new Date(),
+    context = {}
+  ) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/${classId}/contents`;
@@ -33,6 +41,7 @@ export default Ember.Object.extend({
         class_id: classId,
         content_id: contentId,
         content_type: contentType,
+        dca_added_date: formatDate(addedDate, 'YYYY-MM-DD'),
         ctx_course_id: context ? context.courseId : null,
         ctx_unit_id: context ? context.unitId : null,
         ctx_lesson_id: context ? context.lessonId : null,
@@ -51,7 +60,8 @@ export default Ember.Object.extend({
    */
   enableClassActivity: function(
     classId,
-    classActivityId /*, activationDate = new Date()*/
+    classActivityId,
+    activationDate = new Date()
   ) {
     const adapter = this;
     const namespace = this.get('namespace');
@@ -62,11 +72,9 @@ export default Ember.Object.extend({
       dataType: 'text',
       processData: false,
       headers: adapter.defineHeaders(),
-      data: JSON.stringify(
-        {
-          //activation_date: formatDate(activationDate,'YYYY-MM-DD') TODO: BE is throwing 400
-        }
-      )
+      data: JSON.stringify({
+        activation_date: formatDate(activationDate, 'YYYY-MM-DD')
+      })
     };
     return Ember.$.ajax(url, options);
   },
@@ -95,8 +103,8 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: {
         content_type: contentType,
-        date_from: startDate,
-        date_to: endDate
+        date_from: formatDate(startDate, 'YYYY-MM-DD'),
+        date_to: formatDate(endDate, 'YYYY-MM-DD')
       }
     };
     return Ember.$.ajax(url, options);
