@@ -7,7 +7,7 @@ moduleForAdapter('adapter:content/class-activity', 'Unit | Adapter | content/cla
 });
 
 test('addActivityToClass with no context', function(assert) {
-  assert.expect(9);
+  assert.expect(10);
 
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -19,22 +19,23 @@ test('addActivityToClass with no context', function(assert) {
       assert.equal(requestBodyJson.class_id, 123, 'Wrong class id');
       assert.equal(requestBodyJson.content_id, 321, 'Wrong content id');
       assert.equal(requestBodyJson.content_type, 'assessment', 'Wrong content type');
-      assert.ok(!requestBodyJson.ctx_course_id, 'ctx_course_id should be undefined');
-      assert.ok(!requestBodyJson.ctx_unit_id, 'ctx_unit_id should be undefined');
-      assert.ok(!requestBodyJson.ctx_lesson_id, 'ctx_lesson_id should be undefined');
-      assert.ok(!requestBodyJson.ctx_collection_id, 'ctx_collection_id should be undefined');
+      assert.equal(moment(requestBodyJson.dca_added_date).format('YYYY-MM-DD'), '2013-01-20', 'Wrong added date');
+      assert.notOk(requestBodyJson.ctx_course_id, 'ctx_course_id should be undefined');
+      assert.notOk(requestBodyJson.ctx_unit_id, 'ctx_unit_id should be undefined');
+      assert.notOk(requestBodyJson.ctx_lesson_id, 'ctx_lesson_id should be undefined');
+      assert.notOk(requestBodyJson.ctx_collection_id, 'ctx_collection_id should be undefined');
       assert.equal(request.requestHeaders['Authorization'], 'Token token-api-3', 'Wrong token');
       return [201, {'Content-Type': 'text/plain'}, ''];
     }, false);
   });
-  adapter.addActivityToClass(123, 321, 'assessment')
+  adapter.addActivityToClass(123, 321, 'assessment', new Date(2013, 0, 20))
     .then(function(response) {
       assert.equal('', response, 'Wrong response');
     });
 });
 
 test('addActivityToClass with context', function(assert) {
-  assert.expect(9);
+  assert.expect(10);
 
   const adapter = this.subject();
   adapter.set('session', Ember.Object.create({
@@ -46,6 +47,7 @@ test('addActivityToClass with context', function(assert) {
       assert.equal(requestBodyJson.class_id, 123, 'Wrong class id');
       assert.equal(requestBodyJson.content_id, 321, 'Wrong content id');
       assert.equal(requestBodyJson.content_type, 'assessment', 'Wrong content type');
+      assert.equal(moment(requestBodyJson.dca_added_date).format('YYYY-MM-DD'), '2013-01-20', 'Wrong added date');
       assert.equal(requestBodyJson.ctx_course_id, 10, 'ctx_course_id should be 10');
       assert.equal(requestBodyJson.ctx_unit_id, 20, 'ctx_unit_id should be 20');
       assert.equal(requestBodyJson.ctx_lesson_id, 30, 'ctx_lesson_id should be 30');
@@ -54,7 +56,7 @@ test('addActivityToClass with context', function(assert) {
       return [201, {'Content-Type': 'text/plain'}, ''];
     }, false);
   });
-  adapter.addActivityToClass(123, 321, 'assessment', {
+  adapter.addActivityToClass(123, 321, 'assessment', new Date(2013, 0, 20), {
     courseId: 10,
     unitId: 20,
     lessonId: 30,

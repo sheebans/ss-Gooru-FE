@@ -106,6 +106,14 @@ export default Ember.Component.extend(AccordionMixin, {
       }
     },
 
+
+    /**
+     * @function goLive
+     */
+    goLive: function (collectionId) {
+      this.sendAction('onGoLive', collectionId);
+    },
+
     /**
      * @function actions:selectResource
      * @param {string} collection - (collection/assessment)
@@ -210,6 +218,11 @@ export default Ember.Component.extend(AccordionMixin, {
    * parsedLocation[2] - resourceId
    */
   parsedLocation: [],
+
+        /**
+   * @property {string} go live action name
+   */
+  onGoLive: 'goLive',
 
   /**
    * @prop {String} - Id of the unit this lesson belongs to

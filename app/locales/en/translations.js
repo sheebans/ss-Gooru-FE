@@ -1814,7 +1814,7 @@ export default Object.assign(quizzesTranslations, {
       },
       "stepTwo":{
         "title": "Daily Class Activities",
-        "description": 'Access a list of activities assigned by your teacher. Select the activities you want to study.'
+        "description": 'Assign collections or assessments to your students. If you want to use our live assessment feature, you must also place those assessments here.'
       },
       "stepThree":{
         "title": "Course Map",
