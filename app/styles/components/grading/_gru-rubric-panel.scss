@@ -29,10 +29,40 @@
     }
     @include flexbox();
   }
-  .content {
-    color: $white;
-  }
   &.full-rubric {
     width: 100%;
+  }
+  .rubric-information {
+    height: 100%;
+    @include flexbox();
+    @include flex-direction(column);
+    .content {
+      color: $white;
+      height: 80%;
+    }
+  }
+  .footer {
+    color: $white;
+    @include flexbox();
+    margin-bottom: 15px;
+
+    .navigation,
+    .previous,
+    .next {
+      @include flexbox();
+    }
+    .previous {
+      border-right: 1px solid $white;
+      margin-right: 4px;
+    }
+    .previous,
+    .next {
+      width: 42%;
+      @include align-items(center);
+    }
+    .btn-submit {
+      @include align-self(center);
+      margin-right: 10px;
+    }
   }
 }

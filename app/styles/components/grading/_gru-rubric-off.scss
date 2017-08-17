@@ -1,0 +1,29 @@
+.grading.gru-rubric-off {
+  margin: 30px 20px;
+  .overall-comment {
+    @include flexbox();
+    @include flex-direction(column);
+    .total-score {
+      @include flexbox();
+      @include align-items(baseline);
+      .gru-input-number {
+        width: 40%;
+        margin-left: 10px;
+        color: $white;
+
+        input {
+          height: 30px;
+          background-color: $white;
+        }
+      }
+    }
+    .comment-lead {
+      font-size: $font-size-xsmall;
+    }
+    textarea {
+      height: 105px;
+      margin: 10px 0;
+      color: $text-color;
+    }
+  }
+}

@@ -1588,6 +1588,12 @@ export default Object.assign(quizzesTranslations, {
     'student-roster': {
       title: 'Students List',
       lead: 'Have answered this question'
+    },
+    'rubric-panel': {
+      'overall-comment': 'Overall Comment',
+      'overall-comment-lead': 'Summarize your feedback on the essay as a whole',
+      previous: 'Previous Student',
+      next: 'Next Student'
     }
   },
 
