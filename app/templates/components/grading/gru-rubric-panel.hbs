@@ -8,20 +8,22 @@
       {{/if}}
     </span>
     <span class="separator" {{action 'showFullRubric'}}/>
-    <span class="tab {{if isGrading 'active'}}" {{action 'selectTab' 'grading'}}>
+    <span class="tab grading-tab {{if isGrading 'active'}}" {{action 'selectTab' 'grading'}}>
       {{t 'grading-player.grading'}}
     </span>
-    <span class="tab {{if isRubric 'active'}}" {{action 'selectTab' 'rubric'}}>
+    <span class="tab rubric-tab {{if isRubric 'active'}}" {{action 'selectTab' 'rubric'}}>
       {{t 'grading-player.rubric'}}
     </span>
   </div>
   <div class="content">
-    {{#if isGrading}}
+    <div class="grading {{if isGrading 'active'}}">
       {{#if rubric.rubricOn}}
         {{grading.gru-rubric-on rubric=rubric grade=grade}}
       {{else}}
         {{grading.gru-scoring-off rubric=rubric grade=grade}}
       {{/if}}
-    {{/if}}
+    </div>
+    <div class="rubric {{if isRubric 'active'}}">
+    </div>
   </div>
 </div>

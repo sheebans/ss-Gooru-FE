@@ -48,9 +48,9 @@ export default Rubric.extend({
 
   /**
    * All grades scores
-   * @property {Array} allScores
+   * @property {Array} scores
    */
-  allScores: Ember.computed.map('categoriesScore.@each.levelScore', function(
+  scores: Ember.computed.map('categoriesScore.@each.levelScore', function(
     item
   ) {
     return +(item.get('levelScore') || 0);
@@ -60,16 +60,16 @@ export default Rubric.extend({
    * Sum of all scores
    * @property {Integer} currentScore
    */
-  currentScore: Ember.computed.sum('allScores'),
+  currentScore: Ember.computed.sum('scores'),
 
   /**
    * If any category has scores
    * @property {Boolean}
    */
-  hasScore: Ember.computed('categoriesScore.@each.hasScore', function() {
+  hasScore: Ember.computed('categoriesScore.@each.levelScore', function() {
     return this.get('categoriesScore').reduce(
-      (hasScore, score) => hasScore && score.get('hasScore'),
-      true
+      (hasScore, score) => hasScore || score.get('hasScore'),
+      false
     );
   })
 });
