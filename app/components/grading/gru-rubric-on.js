@@ -81,12 +81,15 @@ export default Ember.Component.extend({
         let gradeCategory = gradeCategories[rubricCategory.get('title')];
         // If the grade doesn't exist for the category, create one
         if (!gradeCategory) {
-          gradeCategory = GradeCategoryScore.create({
-            title: rubricCategory.get('title'),
-            levelObtained: null,
-            levelScore: null,
-            levelMaxScore: rubricCategory.get('totalPoints')
-          });
+          gradeCategory = GradeCategoryScore.create(
+            Ember.getOwner(this).ownerInjection(),
+            {
+              title: rubricCategory.get('title'),
+              levelObtained: null,
+              levelScore: null,
+              levelMaxScore: rubricCategory.get('totalPoints')
+            }
+          );
           gradeCategories[rubricCategory.get('title')] = gradeCategory;
           this.set('grade.categoriesScore', Object.values(gradeCategories));
         }
@@ -111,7 +114,7 @@ export default Ember.Component.extend({
             }
           )
         });
-        return CategoryInfo.create({
+        return CategoryInfo.create(Ember.getOwner(this).ownerInjection(), {
           info: rubricCategory,
           grade: gradeCategory,
           selected: false,

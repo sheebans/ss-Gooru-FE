@@ -23,7 +23,7 @@
         </span>
       </div>
       {{#if category.selected}}
-        {{#if category.info.levels}}
+        {{#if category.info.levels.length}}
           <div class="category-level">
             {{validation.gru-select
               options=category.levels
