@@ -11,10 +11,10 @@
   <div class="response-panel {{if hideResponse 'hide-response'}}">
     <div class="header clearfix">
       <div class="go-back-container">
-        {{#link-to 'teacher-home' class="back-to"}}
+        <a class="back-to" {{action 'navigateBack'}}>
           {{gru-icon name='arrow_back'}}
           {{t 'grading-player.back-to'}}
-        {{/link-to}}
+        </a>
       </div>
       {{grading.gru-roster-header
         currentResponse=currentUser.fullNameInformal

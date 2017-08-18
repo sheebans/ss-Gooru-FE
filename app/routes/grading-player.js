@@ -27,6 +27,21 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   session: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Navigate to the previous route
+     */
+    navigateBack: function() {
+      var route = !this.get('history.lastRoute.name')
+        ? 'index'
+        : this.get('history.lastRoute.url');
+      this.transitionTo(route);
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Methods
 
   /**
