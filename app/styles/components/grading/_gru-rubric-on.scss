@@ -19,7 +19,12 @@
       }
     }
     .category-level {
+      @include flexbox;
       padding: 0 14px;
+      .level-label {
+        font-weight: $headings-font-weight;
+        margin-left: 5px;
+      }
     }
     .category-comment {
       padding: 0 14px;
@@ -51,7 +56,18 @@
     }
   }
   .gru-select {
+    width: 100%;
     font-size: $font-size-base;
+    .form-group .bootstrap-select {
+      width: 100%;
+      .dropdown-toggle {
+        font-size: $font-size-base;
+        span {
+          font-weight: $headings-font-weight;
+          color: $dark-500;
+        }
+      }
+    }
   }
   textarea {
     background-color: $white;

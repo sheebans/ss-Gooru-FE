@@ -1,6 +1,6 @@
 <div class="total-score">
   <span class="title">{{t 'grading-player.total-score'}}</span>
-  <span class="score">( - / {{rubric.totalPoints}} )</span>
+  <span class="score">( {{if grade.hasScore grade.currentScore '-'}} / {{rubric.totalPoints}} )</span>
 </div>
 
 <div class="rubric-categories">
@@ -9,7 +9,7 @@
       <div class="category-title {{if category.selected 'selected'}}">
         <span class="title">{{category.info.title}}</span>
         {{#if category.info.totalPoints}}
-          <span class="score">( - / {{category.info.totalPoints}} )</span>
+          <span class="score">( {{or category.grade.levelScore '-'}} / {{category.info.totalPoints}} )</span>
         {{/if}}
         <span class='show-arrow' {{action 'showCategory' category}}>
           {{#if category.selected}}
@@ -27,10 +27,10 @@
           <div class="category-level">
             {{validation.gru-select
               options=category.levels
-              search="true"
+              search="false"
               optionSelected=category.grade.levelObtained
-              onOptionSelect="updateLevel"
             }}
+            <span class="level-label">{{t 'grading-player.level'}}</span>
           </div>
         {{/if}}
         <div class="category-comment">

@@ -11,6 +11,10 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+    /**
+     * @function showCategory
+     * Expand/collapse a category
+     */
     showCategory: function(category) {
       category.set('selected', !category.get('selected'));
     }
@@ -66,7 +70,7 @@ export default Ember.Component.extend({
   // Methods
 
   /**
-   * Update categories to show
+   * Update categories to show, create object from rubric and student's grade
    */
   updateCategories: function() {
     let rubricCategories = this.get('rubricCategories');
@@ -75,20 +79,39 @@ export default Ember.Component.extend({
       'categories',
       rubricCategories.map(rubricCategory => {
         let gradeCategory = gradeCategories[rubricCategory.get('title')];
+        // If the grade doesn't exist for the category, create one
         if (!gradeCategory) {
           gradeCategory = GradeCategoryScore.create({
             title: rubricCategory.get('title'),
+            levelObtained: null,
+            levelScore: null,
             levelMaxScore: rubricCategory.get('totalPoints')
           });
           gradeCategories[rubricCategory.get('title')] = gradeCategory;
           this.set('grade.categoriesScore', Object.values(gradeCategories));
         }
+        // Create list of levels to show in dropdown
         let levels = rubricCategory.get('levels').map(level => ({
-          id: `${level.name};${level.score};${rubricCategory.get('title')}`,
+          id: level.name,
           name: level.name
         }));
-        levels = [{ id: '', name: '' }].concat(levels);
-        return Ember.Object.create({
+        levels = [{ id: null, name: '' }].concat(levels);
+        // Create Object class for showing grading/category info
+        let CategoryInfo = Ember.Object.extend({
+          levelSelectedOberver: Ember.observer(
+            'grade.levelObtained',
+            function() {
+              let grade = this.get('grade');
+              let info = this.get('info');
+              let levelName = this.get('grade.levelObtained');
+              grade.set(
+                'levelScore',
+                info.get('levels').findBy('name', levelName).score
+              );
+            }
+          )
+        });
+        return CategoryInfo.create({
           info: rubricCategory,
           grade: gradeCategory,
           selected: false,

@@ -1579,6 +1579,7 @@ export default Object.assign(quizzesTranslations, {
     'current-response': 'Current Response',
     'full-rubric': 'Full Rubric',
     grading: 'Grading',
+    level: 'Level',
     roster: 'Roster',
     rubric: 'Rubric',
     'submitted-time': 'Submitted Time',
