@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import { formatDate, toUtc } from 'gooru-web/utils/utils';
 
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
+
   session: Ember.inject.service('session'),
 
   /**
@@ -12,33 +12,17 @@ export default Ember.Route.extend({
   classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
   // -------------------------------------------------------------------------
-  // Attributes
-
-  // -------------------------------------------------------------------------
-  // Actions
-  actions: {},
-
-  // -------------------------------------------------------------------------
   // Methods
 
   model: function() {
     const route = this;
     const currentClass = route.modelFor('student.class').class;
     const userId = route.get('session.userId');
-    const today = new Date();
-    const formattedToday = formatDate(today, 'YYYY-MM-DD');
-    const utcToday = toUtc(today).format('YYYY-MM-DD');
 
     return Ember.RSVP.hash({
       classActivities: route
         .get('classActivityService')
-        .findStudentClassActivities(
-          userId,
-          currentClass.get('id'),
-          undefined,
-          formattedToday,
-          utcToday
-        )
+        .findStudentClassActivities(userId, currentClass.get('id'))
     });
   },
 

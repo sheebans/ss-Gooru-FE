@@ -1,8 +1,15 @@
 .gru-rubric-panel {
-  width: 30%;
+  @include flexbox;
+  @include flex-direction(column);
+  width: 40%;
   background-color: $dark-400;
   height: auto;
+  .rubric-information {
+    @include flexbox;
+    @include flex-direction(column);
+  }
   .header {
+    @include flex-shrink(0);
     background-color: $dark-500;
     color: $white;
     padding: 0;
@@ -26,8 +33,23 @@
         border: 1px solid $dark-300;
         border-bottom: 0;
       }
+      &.rubric {
+        padding-right: 26px;
+      }
     }
     @include flexbox();
+  }
+  .content {
+    color: $white;
+    overflow: auto;
+    height: auto;
+    .grading,
+    .rubric {
+      display: none;
+      &.active {
+        display: inherit;
+      }
+    }
   }
   &.full-rubric {
     width: 100%;

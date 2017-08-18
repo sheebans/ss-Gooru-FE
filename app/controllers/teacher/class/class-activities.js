@@ -1,16 +1,17 @@
 import Ember from 'ember';
-import { formatDate, toUtc } from 'gooru-web/utils/utils';
+import { formatDate } from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from 'gooru-web/mixins/session';
+
 /**
  * Class activities controller
  *
  * Controller responsible of the logic for the teacher class activities tab
  */
-
 export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * Class controller
    */
@@ -22,10 +23,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   classActivityService: Ember.inject.service('api-sdk/class-activity'),
 
   // -------------------------------------------------------------------------
-  // Attributes
-
-  // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      *
@@ -65,10 +64,10 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
           .findClassActivities(
             currentClass.get('id'),
             undefined,
-            toUtc(startDate).format('YYYY-MM-DD'),
-            toUtc(endDate).format('YYYY-MM-DD')
+            startDate,
+            endDate
           )
-          .then(classActivities => {
+          .then(function(classActivities) {
             controller.get('classActivities').pushObject(
               Ember.Object.create({
                 classActivities: classActivities,
@@ -117,9 +116,6 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   },
 
   // -------------------------------------------------------------------------
-  // Events
-
-  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -145,9 +141,6 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @property {int} year
    */
   year: null,
-
-  // -------------------------------------------------------------------------
-  // Observers
 
   // -------------------------------------------------------------------------
   // Methods

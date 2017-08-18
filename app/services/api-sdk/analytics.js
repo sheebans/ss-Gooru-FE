@@ -229,13 +229,24 @@ export default Ember.Service.extend({
             : undefined,
           collection: collection
         })
-        .then(function(hash) {
-          currentLocation.set('course', hash.course);
-          currentLocation.set('unit', hash.unit);
-          currentLocation.set('lesson', hash.lesson);
-          currentLocation.set('collection', hash.collection);
-          resolve(currentLocation);
-        }, reject);
+        .then(
+          function(hash) {
+            currentLocation.set('course', hash.course);
+            currentLocation.set('unit', hash.unit);
+            currentLocation.set('lesson', hash.lesson);
+            currentLocation.set('collection', hash.collection);
+            resolve(currentLocation);
+          },
+          function(error) {
+            //handling server errors
+            const status = error.status;
+            if (status === 404) {
+              resolve();
+            } else {
+              reject(error);
+            }
+          }
+        );
     });
   },
 

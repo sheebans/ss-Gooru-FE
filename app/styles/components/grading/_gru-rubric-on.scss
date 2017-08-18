@@ -13,10 +13,18 @@
       border: 1px solid $dark-300;
       &.selected {
         background-color: $dark-500;
+        .chat {
+          color: $white;
+        }
       }
     }
     .category-level {
+      @include flexbox;
       padding: 0 14px;
+      .level-label {
+        font-weight: $headings-font-weight;
+        margin-left: 5px;
+      }
     }
     .category-comment {
       padding: 0 14px;
@@ -24,7 +32,6 @@
     .chat,
     .show-arrow {
       float: right;
-      cursor: pointer;
     }
     .gru-icon {
       &.chat {
@@ -36,6 +43,7 @@
       &.keyboard_arrow_up {
         font-size: $font-size-rubric-arrow-icon;
         margin-top: -2px;
+        cursor: pointer;
       }
     }
   }
@@ -45,6 +53,20 @@
       color: $light-500;
       font-size: $font-size-small;
       margin-bottom: 5px;
+    }
+  }
+  .gru-select {
+    width: 100%;
+    font-size: $font-size-base;
+    .form-group .bootstrap-select {
+      width: 100%;
+      .dropdown-toggle {
+        font-size: $font-size-base;
+        span {
+          font-weight: $headings-font-weight;
+          color: $dark-500;
+        }
+      }
     }
   }
   textarea {

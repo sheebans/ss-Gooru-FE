@@ -11,6 +11,10 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+    /**
+     * @function showCategory
+     * Expand/collapse a category
+     */
     showCategory: function(category) {
       category.set('selected', !category.get('selected'));
     }
@@ -37,7 +41,18 @@ export default Ember.Component.extend({
    * Categories from grade
    * @property {Map} gradeCategories
    */
-  gradeCategories: Ember.computed.mapBy('grade.categoriesScore', 'title'),
+  gradeCategories: Ember.computed(
+    'grade.categoriesScore.[]',
+    'title',
+    function() {
+      return this.get(
+        'grade.categoriesScore'
+      ).reduce((categoriesMap, category) => {
+        categoriesMap[category.get('title')] = category;
+        return categoriesMap;
+      }, {});
+    }
+  ),
 
   /**
    * Categories from rubric
@@ -55,7 +70,7 @@ export default Ember.Component.extend({
   // Methods
 
   /**
-   * Update categories to show
+   * Update categories to show, create object from rubric and student's grade
    */
   updateCategories: function() {
     let rubricCategories = this.get('rubricCategories');
@@ -64,17 +79,46 @@ export default Ember.Component.extend({
       'categories',
       rubricCategories.map(rubricCategory => {
         let gradeCategory = gradeCategories[rubricCategory.get('title')];
+        // If the grade doesn't exist for the category, create one
         if (!gradeCategory) {
-          gradeCategory = GradeCategoryScore.create({
-            title: rubricCategory.get('title'),
-            levelMaxScore: rubricCategory.get('totalPoints')
-          });
+          gradeCategory = GradeCategoryScore.create(
+            Ember.getOwner(this).ownerInjection(),
+            {
+              title: rubricCategory.get('title'),
+              levelObtained: null,
+              levelScore: null,
+              levelMaxScore: rubricCategory.get('totalPoints')
+            }
+          );
           gradeCategories[rubricCategory.get('title')] = gradeCategory;
+          this.set('grade.categoriesScore', Object.values(gradeCategories));
         }
-        return Ember.Object.create({
+        // Create list of levels to show in dropdown
+        let levels = rubricCategory.get('levels').map(level => ({
+          id: level.name,
+          name: level.name
+        }));
+        levels = [{ id: null, name: '' }].concat(levels);
+        // Create Object class for showing grading/category info
+        let CategoryInfo = Ember.Object.extend({
+          // Observer to update levelScore when levelObtained is changed
+          levelSelectedOberver: Ember.observer(
+            'grade.levelObtained',
+            function() {
+              let grade = this.get('grade');
+              let levelName = this.get('grade.levelObtained');
+              let info = this.get('info')
+                .get('levels')
+                .findBy('name', levelName);
+              grade.set('levelScore', info ? info.score : null);
+            }
+          )
+        });
+        return CategoryInfo.create(Ember.getOwner(this).ownerInjection(), {
           info: rubricCategory,
           grade: gradeCategory,
-          selected: false
+          selected: false,
+          levels
         });
       })
     );

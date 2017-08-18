@@ -99,7 +99,9 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {number} total points
    */
-  totalPoints: Ember.computed.max('scores'),
+  totalPoints: Ember.computed('scores', function() {
+    return Math.max(0, ...this.get('scores'));
+  }),
 
   /**
    * Return a copy of the category
