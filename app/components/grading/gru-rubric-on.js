@@ -98,16 +98,16 @@ export default Ember.Component.extend({
         levels = [{ id: null, name: '' }].concat(levels);
         // Create Object class for showing grading/category info
         let CategoryInfo = Ember.Object.extend({
+          // Observer to update levelScore when levelObtained is changed
           levelSelectedOberver: Ember.observer(
             'grade.levelObtained',
             function() {
               let grade = this.get('grade');
-              let info = this.get('info');
               let levelName = this.get('grade.levelObtained');
-              grade.set(
-                'levelScore',
-                info.get('levels').findBy('name', levelName).score
-              );
+              let info = this.get('info')
+                .get('levels')
+                .findBy('name', levelName);
+              grade.set('levelScore', info ? info.score : null);
             }
           )
         });
