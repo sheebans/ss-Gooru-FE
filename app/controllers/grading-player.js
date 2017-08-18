@@ -46,11 +46,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-  /**
-   * Rubric answers
-   * @property {Map} answers
-   */
-  answers: null,
 
   /**
    * The class id
@@ -65,10 +60,34 @@ export default Ember.Controller.extend({
   courseId: null,
 
   /**
+   * Current answer
+   * @property {RubricAnswer} currentAnswer
+   */
+  currentAnswer: Ember.computed('currentUserId', 'userMappings', function() {
+    return this.get('userMappings')[this.get('currentUserId')].answer;
+  }),
+
+  /**
+   * Current grade
+   * @property {RubricGrade} currentGrade
+   */
+  currentGrade: Ember.computed('currentUserId', 'userMappings', function() {
+    return this.get('userMappings')[this.get('currentUserId')].grade;
+  }),
+
+  /**
    * Current user
    * @property {User} currentUser
    */
-  currentUser: null,
+  currentUser: Ember.computed('currentUserId', 'userMappings', function() {
+    return this.get('userMappings')[this.get('currentUserId')].user;
+  }),
+
+  /**
+   * Current user
+   * @property {String} currentUserId
+   */
+  currentUserId: null,
 
   /**
    * The unit id
@@ -114,6 +133,12 @@ export default Ember.Controller.extend({
 
   hideResponse: false,
 
+  /**
+   * Mappings for users, answers and grades
+   * @property {Map} userMappings
+   */
+  userMappings: null,
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -147,9 +172,9 @@ export default Ember.Controller.extend({
    */
   changeAnswer: function(controller) {
     const user = controller.get('currentUser');
-    if (controller.get('answers').has(user.get('id'))) {
-      controller.set('answer', controller.get('answers').get(user.get('id')));
-    } else {
+    const userId = user.get('id');
+    let { answer } = controller.get('userMappings')[userId];
+    if (!answer) {
       controller
         .getAnswerToGrade(
           user.get('id'),
@@ -160,10 +185,9 @@ export default Ember.Controller.extend({
           controller.get('unitId'),
           controller.get('lessonId')
         )
-        .then(function(answer) {
-          let answers = controller.get('answers');
-          answers.set(user.get('id'), answer);
-          controller.set('answer', answer);
+        .then(newAnswer => {
+          let mappings = controller.get('userMappings');
+          mappings[userId].answer = newAnswer;
         });
     }
   }

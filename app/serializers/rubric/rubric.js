@@ -339,10 +339,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @return {GradeQuestionAnswer}
    */
   normalizeAnswerToGrade: function(payload) {
-    const answerObject = payload.answerText
-      ? JSON.parse(payload.answerText)
-      : [];
-    const answer = answerObject.length ? answerObject[0].text : {};
+    const answer = payload.answerText.length ? payload.answerText[0].text : '';
     return GradeQuestionAnswer.create(Ember.getOwner(this).ownerInjection(), {
       courseId: payload.courseId,
       unitId: payload.unitId,

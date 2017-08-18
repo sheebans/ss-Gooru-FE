@@ -94,11 +94,6 @@ export default Ember.Object.extend(Validations, {
   standards: Ember.A([]),
 
   /**
-   * @property {number} total points
-   */
-  totalPoints: null,
-
-  /**
    * @property {boolean} true when the rubric requires feedback
    */
   requiresFeedback: true,
@@ -152,6 +147,16 @@ export default Ember.Object.extend(Validations, {
    * @property {String} Self or Teacher
    */
   grader: null,
+
+  /**
+   * @property {Array} Categories total points
+   */
+  categoriesPoints: Ember.computed.mapBy('categories', 'totalPoints'),
+
+  /**
+   * @property {number} total points
+   */
+  totalPoints: Ember.computed.sum('categoriesPoints'),
 
   /**
    * Return a copy of the category

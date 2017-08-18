@@ -1578,10 +1578,16 @@ export default Object.assign(quizzesTranslations, {
     'back-to': 'Back to Classroom',
     'current-response': 'Current Response',
     'full-rubric': 'Full Rubric',
+    grading: 'Grading',
+    level: 'Level',
     roster: 'Roster',
+    rubric: 'Rubric',
     'submitted-time': 'Submitted Time',
     prompt: 'Task Prompt',
+    'overall-comment': 'Overall Comment',
+    'overall-lead': 'Summarize your feedback on the essay as a whole.',
     'time-spent': 'Time Spent',
+    'total-score': 'Total Score',
     'student-roster': {
       title: 'Students List',
       lead: 'Have answered this question'
