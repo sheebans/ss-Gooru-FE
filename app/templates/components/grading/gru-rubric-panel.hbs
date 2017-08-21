@@ -1,10 +1,44 @@
 <div class="rubric-information">
-  <div class="header" {{action 'showFullRubric'}}>
-    {{#if showFullRubric}}
-      {{gru-icon name="keyboard_arrow_right"}}
-    {{else}}
-      {{gru-icon name="keyboard_arrow_left"}}
-    {{/if}}
-    <span>{{t 'grading-player.full-rubric'}}</span>
+  <div class="header">
+    <span class='icon' {{action 'showFullRubric'}}>
+      {{#if showFullRubric}}
+        {{gru-icon name="keyboard_arrow_right"}}
+      {{else}}
+        {{gru-icon name="keyboard_arrow_left"}}
+      {{/if}}
+    </span>
+    <span class="separator" {{action 'showFullRubric'}}/>
+    <span class="tab grading-tab {{if isGrading 'active'}}" {{action 'selectTab' 'grading'}}>
+      {{t 'grading-player.grading'}}
+    </span>
+    <span class="tab rubric-tab {{if isRubric 'active'}}" {{action 'selectTab' 'rubric'}}>
+      {{t 'grading-player.rubric'}}
+    </span>
+  </div>
+  <div class="content">
+    <div class="grading {{if isGrading 'active'}}">
+      {{#if rubric.rubricOn}}
+        {{grading.gru-rubric-on rubric=rubric grade=grade}}
+      {{else}}
+        {{grading.gru-rubric-off rubric=rubric grade=grade}}
+      {{/if}}
+    </div>
+    <div class="rubric {{if isRubric 'active'}}">
+    </div>
+  </div>
+  <div class="footer">
+    <div class="navigation">
+      <div class="previous">
+        {{gru-icon name='keyboard_arrow_left'}}
+        <span>{{t 'grading-player.rubric-panel.previous'}}</span>
+      </div>
+      <div class="next">
+        <span>{{t 'grading-player.rubric-panel.next'}}</span>
+        {{gru-icon name='keyboard_arrow_right'}}
+      </div>
+    </div>
+    <button type="button" class='btn btn-primary btn-submit'>
+      {{t 'common.submit'}}
+    </button>
   </div>
 </div>

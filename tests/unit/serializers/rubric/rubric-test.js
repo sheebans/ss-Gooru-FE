@@ -103,7 +103,6 @@ test('serializeUpdateRubric uploaded and no feedback required', function(
     uploaded: true,
     rubricOn: true,
     feedback: 'any-feedback',
-    totalPoints: 10,
     requiresFeedback: false,
     categories: [
       RubricCategory.create(),
@@ -164,7 +163,6 @@ test('serializeUpdateRubric not uploaded and feedback required', function(
     uploaded: false,
     rubricOn: true,
     feedback: null,
-    totalPoints: 10,
     requiresFeedback: true
   });
 
@@ -213,7 +211,6 @@ test('serializeUpdateRubric with empty strings', function(assert) {
     uploaded: false,
     rubricOn: true,
     feedback: '',
-    totalPoints: 10,
     requiresFeedback: true
   });
 
@@ -684,7 +681,7 @@ test('normalizeAnswerToGrade', function(assert) {
     questionId: 'question-id',
     sessionId: 'session-id',
     questionText: 'NA',
-    answerText: '[{ "text": "TBD - How will it be obtained and displayed" }]',
+    answerText: [{ text: 'TBD - How will it be obtained and displayed' }],
     submittedAt: '2017-03-05 18:44:04.798',
     timeSpent: 500,
     userId: 'user-id'
@@ -724,6 +721,80 @@ test('normalizeAnswerToGrade', function(assert) {
   assert.equal(answerToGrade.get('userId'), 'user-id', 'Wrong user id');
 });
 
+test('normalizeRubricQuestionSummary', function(assert) {
+  const serializer = this.subject();
+
+  const payload = {
+    queRubrics: [
+      {
+        studentId: 'student-id',
+        studentScore: 20,
+        maxScore: 24,
+        overallComment: 'Good Job!',
+        categoryScore: [
+          {
+            level_score: 2,
+            level_comment: 'Be more creative',
+            category_title: 'Idea in Body Paragraph',
+            level_obtained: 'Basic',
+            level_max_score: 4
+          }
+        ]
+      }
+    ]
+  };
+
+  const questionSummary = serializer.normalizeRubricQuestionSummary(payload);
+  assert.equal(
+    questionSummary.get('studentId'),
+    'student-id',
+    'Wrong student id'
+  );
+  assert.equal(questionSummary.get('learnerScore'), 20, 'Wrong learner score');
+  assert.equal(questionSummary.get('maxScore'), 24, 'Wrong max score');
+  assert.equal(questionSummary.get('comment'), 'Good Job!', 'Wrong comment');
+  assert.equal(
+    questionSummary.categoriesScore.length,
+    1,
+    'Wrong categories score length'
+  );
+});
+
+test('normalizeCategoryScore', function(assert) {
+  const serializer = this.subject();
+
+  const categoryScore = {
+    level_score: 2,
+    level_comment: 'Be more creative',
+    category_title: 'Idea in Body Paragraph',
+    level_obtained: 'Basic',
+    level_max_score: 4
+  };
+
+  const categoryScoreItem = serializer.normalizeCategoryScore(categoryScore);
+  assert.equal(
+    categoryScoreItem.get('title'),
+    'Idea in Body Paragraph',
+    'Wrong title'
+  );
+  assert.equal(
+    categoryScoreItem.get('levelObtained'),
+    'Basic',
+    'Wrong levelObtained'
+  );
+  assert.equal(
+    categoryScoreItem.get('levelMaxScore'),
+    4,
+    'Wrong levelMaxScore'
+  );
+  assert.equal(categoryScoreItem.get('levelScore'), 2, 'Wrong levelScore');
+  assert.equal(
+    categoryScoreItem.get('levelComment'),
+    'Be more creative',
+    'Wrong levelComment'
+  );
+});
+
 test('serializeStudentRubricGrades', function(assert) {
   const serializer = this.subject();
 
@@ -740,8 +811,10 @@ test('serializeStudentRubricGrades', function(assert) {
     collectionId: 'collection-id',
     resourceId: 'resource-id',
     sessionId: 'session-id',
-    learnerScore: 10,
+    studentScore: 10,
     maxScore: 100,
+    createdDate: 1500396887,
+    updatedDate: 1500396887,
     comment: 'overall comment',
     categoriesScore: [GradeCategoryScore.create(), GradeCategoryScore.create()]
   });
@@ -767,6 +840,10 @@ test('serializeStudentRubricGrades', function(assert) {
     'Wrong collection_id'
   );
   assert.equal(rubricObject.session_id, 'session-id', 'Wrong session_id');
+  assert.equal(rubricObject.student_score, 10, 'Wrong student_score');
+  assert.equal(rubricObject.max_score, 100, 'Wrong max_score');
+  assert.equal(rubricObject.created_at, 1500396887, 'Wrong created_at');
+  assert.equal(rubricObject.updated_at, 1500396887, 'Wrong updated_at');
   assert.equal(
     rubricObject.category_score.length,
     2,

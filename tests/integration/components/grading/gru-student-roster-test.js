@@ -71,9 +71,9 @@ test('Checked student', function(assert) {
   ]);
 
   this.set('users', students);
-  this.set('currentUser', Ember.Object.create({ id: '1' }));
+  this.set('currentUserId', '1');
   this.render(
-    hbs`{{grading/gru-student-roster users=users currentUser=currentUser}}`
+    hbs`{{grading/gru-student-roster users=users currentUserId=currentUserId}}`
   );
 
   const $component = this.$('.grading.gru-student-roster');
@@ -101,7 +101,10 @@ test('Select Student', function(assert) {
   ]);
 
   this.set('users', students);
-  this.render(hbs`{{grading/gru-student-roster users=users}}`);
+  this.set('currentUserId', '1');
+  this.render(
+    hbs`{{grading/gru-student-roster users=users currentUserId=currentUserId}}`
+  );
 
   const $component = this.$('.grading.gru-student-roster');
 

@@ -1,38 +1,40 @@
 <div class="teacher grading">
   <div class="roster {{if showRoster 'visible' 'hidden'}}">
     {{grading.gru-student-roster
-    users=users
-    onClose='closeRoster'
-    fullRubric=hideResponse
-    currentUser=currentUser
-    onChangeUser='changeUser'
+      users=users
+      onClose='closeRoster'
+      fullRubric=hideResponse
+      currentUserId=currentUserId
+      onChangeUser='changeUser'
     }}
   </div>
   <div class="response-panel {{if hideResponse 'hide-response'}}">
     <div class="header clearfix">
       <div class="go-back-container">
-        {{#link-to 'teacher-home' class="back-to"}}
+        <a class="back-to" {{action 'navigateBack'}}>
           {{gru-icon name='arrow_back'}}
           {{t 'grading-player.back-to'}}
-        {{/link-to}}
+        </a>
       </div>
       {{grading.gru-roster-header
         currentResponse=currentUser.fullNameInformal
-        timeSpent=answer.timeSpent
-        submittedAt=answer.submittedAt
+        timeSpent=currentAnswer.timeSpent
+        submittedAt=currentAnswer.submittedAt
         onOpenRoster='openStudentRoster'
       }}
-      {{grading.gru-task-header promptText=answer.questionText}}
+      {{grading.gru-task-header promptText=currentAnswer.questionText}}
     </div>
     <div class="panel panel-default question-response">
       <div class="panel-body">
         <div class="inner-text">
-          {{gru-math-text text=answer.answerText}}
+          {{gru-math-text text=currentAnswer.answerText}}
         </div>
       </div>
     </div>
   </div>
   {{grading.gru-rubric-panel
+    rubric=rubric
+    grade=currentGrade
     showFullRubric=hideResponse
   }}
 </div>

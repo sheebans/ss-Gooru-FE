@@ -1,5 +1,6 @@
 import GruInput from 'gooru-web/components/validation/gru-input';
 import Ember from 'ember';
+import { isDecimal } from 'gooru-web/utils/math';
 
 /**
  * Number field with validation (It only accepts integers)
@@ -64,6 +65,10 @@ export default GruInput.extend({
     this._super(...arguments);
     const component = this;
 
+    const min = component.get('min');
+    const max = component.get('max');
+    const step = component.get('step');
+
     if (component.get('autofocus')) {
       component.$('input[type=number]').focus();
     }
@@ -72,22 +77,26 @@ export default GruInput.extend({
       // 0 means key without character input, 8 is backspace, 48-57 are numbers
       let keyCode =
         typeof event.which === 'number' ? event.which : event.keyCode;
-      return (
-        keyCode === 0 ||
-        keyCode === 8 ||
-        keyCode === 46 ||
-        (keyCode >= 48 && keyCode <= 57)
-      );
+
+      if (!isDecimal(step)) {
+        return (
+          keyCode === 0 ||
+          keyCode === 8 ||
+          keyCode === 46 ||
+          (keyCode >= 48 && keyCode <= 57)
+        );
+      } else {
+        return (
+          keyCode === 0 || keyCode === 8 || (keyCode >= 48 && keyCode <= 57)
+        );
+      }
     });
     // check that it is between min and max
     component.$('input[type=number]').on('input', function() {
       // accept the empty value
       if (this.value) {
         var tempValue = +this.value;
-        if (
-          tempValue < component.get('min') ||
-          tempValue > component.get('max')
-        ) {
+        if (tempValue < min || tempValue > max) {
           this.value = component.get('oldValue');
         }
       }

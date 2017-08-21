@@ -228,5 +228,39 @@ export default Ember.Service.extend({
   setStudentRubricGrades: function(rubricGrade) {
     var data = this.get('serializer').serializeStudentRubricGrades(rubricGrade);
     return this.get('adapter').setStudentRubricGrades(data);
+  },
+
+  /**
+   * Gets report of Rubric Grading for a Question
+   * @param {string} studentId
+   * @param {string} classId
+   * @param {string} courseId
+   * @param {string} collectionId
+   * @param {string} questionId
+   * @param {string} sessionId
+   * @returns {Promise|RubricGrade}
+   */
+  getRubricQuestionSummary: function(
+    studentId,
+    classId,
+    courseId,
+    collectionId,
+    questionId,
+    sessionId
+  ) {
+    const service = this;
+    return service
+      .get('adapter')
+      .getRubricQuestionSummary(
+        studentId,
+        classId,
+        courseId,
+        collectionId,
+        questionId,
+        sessionId
+      )
+      .then(data =>
+        service.get('serializer').normalizeRubricQuestionSummary(data)
+      );
   }
 });

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import Rubric from 'gooru-web/models/rubric/rubric';
 
 /**
@@ -31,9 +32,9 @@ export default Rubric.extend({
   resourceId: null,
 
   /**
-   * @property {Integer} Learner score for the grade
+   * @property {Integer} Student score for the grade
    */
-  learnerScore: null,
+  studentScore: null,
 
   /**
    * @property {String} comment
@@ -43,5 +44,42 @@ export default Rubric.extend({
   /**
    * @property {gradeCategoryScore[]}
    */
-  categoriesScore: []
+  categoriesScore: [],
+
+  /**
+   * All grades scores
+   * @property {Array} scores
+   */
+  scores: Ember.computed.map('categoriesScore.@each.levelScore', function(
+    item
+  ) {
+    return +(item.get('levelScore') || 0);
+  }),
+
+  /**
+   * Sum of all scores
+   * @property {Integer} currentScore
+   */
+  currentScore: Ember.computed.sum('scores'),
+
+  /**
+   * @property {Date} Date in which the rubric-grade was created
+   */
+  createdDate: null,
+
+  /**
+   * @property {Date} Date in which the rubric-grade was updated
+   */
+  updatedDate: null,
+
+  /**
+   * If any category has scores
+   * @property {Boolean}
+   */
+  hasScore: Ember.computed('categoriesScore.@each.levelScore', function() {
+    return this.get('categoriesScore').reduce(
+      (hasScore, score) => hasScore || score.get('hasScore'),
+      false
+    );
+  })
 });
