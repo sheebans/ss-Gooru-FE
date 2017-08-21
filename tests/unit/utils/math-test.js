@@ -1,7 +1,12 @@
-import { isNumeric, average, sumAll } from '../../../utils/math';
+import { isNumeric, average, sumAll, isDecimal } from '../../../utils/math';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | math');
+
+test('isDecimal', function(assert) {
+  assert.notOk(isDecimal(1.6), 'Not a decimal');
+  assert.ok(isDecimal(9), 'Should be a decimal');
+});
 
 test('isNumeric with integer literals', function(assert) {
   assert.ok(isNumeric('-10'), 'Negative integer string');

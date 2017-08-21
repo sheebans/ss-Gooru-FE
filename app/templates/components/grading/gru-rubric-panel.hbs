@@ -20,10 +20,25 @@
       {{#if rubric.rubricOn}}
         {{grading.gru-rubric-on rubric=rubric grade=grade}}
       {{else}}
-        {{grading.gru-scoring-off rubric=rubric grade=grade}}
+        {{grading.gru-rubric-off rubric=rubric grade=grade}}
       {{/if}}
     </div>
     <div class="rubric {{if isRubric 'active'}}">
     </div>
+  </div>
+  <div class="footer">
+    <div class="navigation">
+      <div class="previous">
+        {{gru-icon name='keyboard_arrow_left'}}
+        <span>{{t 'grading-player.rubric-panel.previous'}}</span>
+      </div>
+      <div class="next">
+        <span>{{t 'grading-player.rubric-panel.next'}}</span>
+        {{gru-icon name='keyboard_arrow_right'}}
+      </div>
+    </div>
+    <button type="button" class='btn btn-primary btn-submit'>
+      {{t 'common.submit'}}
+    </button>
   </div>
 </div>

@@ -54,4 +54,43 @@
   &.full-rubric {
     width: 100%;
   }
+  .rubric-information {
+    height: 100%;
+    @include flexbox();
+    @include flex-direction(column);
+    .content {
+      color: $white;
+      height: 85%;
+    }
+  }
+  .footer {
+    @include flexbox();
+    @include justify-content(space-between);
+    color: $white;
+    margin: 15px 0;
+    font-size: $font-size-base;
+    line-height: $font-size-large;
+
+    .navigation,
+    .previous,
+    .next {
+      @include flexbox();
+    }
+    .next {
+      border-left: 1px solid $white;
+      padding-left: 10px;
+    }
+    .previous {
+      margin-right: 5px;
+    }
+    .previous,
+    .next {
+      @include align-items(center);
+      width: 80px;
+    }
+    .btn-submit {
+      @include align-self(center);
+      margin-right: 14px;
+    }
+  }
 }

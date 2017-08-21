@@ -22,6 +22,15 @@ export function isNumeric(n) {
 }
 
 /**
+ * Determines if a parameter is of a decimal number
+ * @param n
+ * @returns {bool}
+ */
+export function isDecimal(n) {
+  return roundFloat(n) === n;
+}
+
+/**
  * Sums all values
  * @param {number[]} values
  * @returns {number}

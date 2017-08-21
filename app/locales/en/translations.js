@@ -1591,6 +1591,10 @@ export default Object.assign(quizzesTranslations, {
     'student-roster': {
       title: 'Students List',
       lead: 'Have answered this question'
+    },
+    'rubric-panel': {
+      previous: 'Previous Student',
+      next: 'Next Student'
     }
   },
 
