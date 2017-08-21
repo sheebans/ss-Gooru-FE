@@ -222,5 +222,23 @@
         "Location": "2384AB6C-10ee-4578-b89a-6b41c87dc9fc"
       }
     }
+  },
+  {
+    "description": "Get rubric question summary",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/class/(.+)/course/(.+)/collection/(.+)/question/(.+)/summary",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-rubric-question-summary-200-response.json"
+    }
   }
 ]

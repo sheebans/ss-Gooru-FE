@@ -386,3 +386,37 @@ test('setStudentRubricGrades', function(assert) {
     assert.equal('', response, 'Wrong response');
   });
 });
+
+test('getRubricQuestionSummary', function(assert) {
+  const adapter = this.subject();
+  adapter.set(
+    'session',
+    Ember.Object.create({
+      'token-api3': 'token-api-3'
+    })
+  );
+  this.pretender.map(function() {
+    this.get(
+      '/api/nucleus-insights/v2/rubrics/class/class-id/course/course-id/collection/collection-id/question/question-id/summary',
+      function() {
+        return [
+          200,
+          { 'Content-Type': 'application/json' },
+          JSON.stringify({})
+        ];
+      },
+      false
+    );
+  });
+
+  adapter
+    .getRubricQuestionSummary(
+      'student-id',
+      'class-id',
+      'course-id',
+      'collection-id',
+      'question-id',
+      'session-id'
+    )
+    .then(response => assert.deepEqual({}, response, 'Wrong response'));
+});

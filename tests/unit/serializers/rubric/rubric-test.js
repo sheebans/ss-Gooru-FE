@@ -724,6 +724,80 @@ test('normalizeAnswerToGrade', function(assert) {
   assert.equal(answerToGrade.get('userId'), 'user-id', 'Wrong user id');
 });
 
+test('normalizeRubricQuestionSummary', function(assert) {
+  const serializer = this.subject();
+
+  const payload = {
+    queRubrics: [
+      {
+        studentId: 'student-id',
+        studentScore: 20,
+        maxScore: 24,
+        overallComment: 'Good Job!',
+        categoryScore: [
+          {
+            level_score: 2,
+            level_comment: 'Be more creative',
+            category_title: 'Idea in Body Paragraph',
+            level_obtained: 'Basic',
+            level_max_score: 4
+          }
+        ]
+      }
+    ]
+  };
+
+  const questionSummary = serializer.normalizeRubricQuestionSummary(payload);
+  assert.equal(
+    questionSummary.get('studentId'),
+    'student-id',
+    'Wrong student id'
+  );
+  assert.equal(questionSummary.get('learnerScore'), 20, 'Wrong learner score');
+  assert.equal(questionSummary.get('maxScore'), 24, 'Wrong max score');
+  assert.equal(questionSummary.get('comment'), 'Good Job!', 'Wrong comment');
+  assert.equal(
+    questionSummary.categoriesScore.length,
+    1,
+    'Wrong categories score length'
+  );
+});
+
+test('normalizeCategoryScore', function(assert) {
+  const serializer = this.subject();
+
+  const categoryScore = {
+    level_score: 2,
+    level_comment: 'Be more creative',
+    category_title: 'Idea in Body Paragraph',
+    level_obtained: 'Basic',
+    level_max_score: 4
+  };
+
+  const categoryScoreItem = serializer.normalizeCategoryScore(categoryScore);
+  assert.equal(
+    categoryScoreItem.get('title'),
+    'Idea in Body Paragraph',
+    'Wrong title'
+  );
+  assert.equal(
+    categoryScoreItem.get('levelObtained'),
+    'Basic',
+    'Wrong levelObtained'
+  );
+  assert.equal(
+    categoryScoreItem.get('levelMaxScore'),
+    4,
+    'Wrong levelMaxScore'
+  );
+  assert.equal(categoryScoreItem.get('levelScore'), 2, 'Wrong levelScore');
+  assert.equal(
+    categoryScoreItem.get('levelComment'),
+    'Be more creative',
+    'Wrong levelComment'
+  );
+});
+
 test('serializeStudentRubricGrades', function(assert) {
   const serializer = this.subject();
 

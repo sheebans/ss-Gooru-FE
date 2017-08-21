@@ -3,6 +3,8 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 import { cleanFilename, nullIfEmpty } from 'gooru-web/utils/utils';
 import Rubric from 'gooru-web/models/rubric/rubric';
+import RubricGrade from 'gooru-web/models/rubric/rubric-grade';
+import RubricCategoryScore from 'gooru-web/models/rubric/grade-category-score';
 import RubricCategory from 'gooru-web/models/rubric/rubric-category';
 import GradeQuestion from 'gooru-web/models/rubric/grade-question';
 import GradeQuestionItem from 'gooru-web/models/rubric/grade-question-item';
@@ -355,6 +357,48 @@ export default Ember.Object.extend(ConfigurationMixin, {
       submittedAt: payload.submittedAt,
       timeSpent: payload.timeSpent,
       userId: payload.userId
+    });
+  },
+
+  /**
+   * Normalizes Rubric Question Summary
+   * @param {*} data
+   * @return {GradeQuestion}normalizeRubricQuestionSummary
+   */
+  normalizeRubricQuestionSummary: function(data) {
+    const serializer = this;
+    const rubricQuestionSummary = data.queRubrics.length
+      ? data.queRubrics[0]
+      : null;
+
+    if (rubricQuestionSummary) {
+      const categoryScore = rubricQuestionSummary.categoryScore;
+
+      return RubricGrade.create(Ember.getOwner(this).ownerInjection(), {
+        studentId: rubricQuestionSummary.studentId,
+        learnerScore: rubricQuestionSummary.studentScore,
+        maxScore: rubricQuestionSummary.maxScore,
+        comment: rubricQuestionSummary.overallComment,
+        categoriesScore: categoryScore
+          ? categoryScore.map(item => serializer.normalizeCategoryScore(item))
+          : null
+      });
+    }
+  },
+
+  /**
+   * Normalizes a category score
+   * @param {*} data
+   * @return {RubricCategoryScore}
+   *
+   */
+  normalizeCategoryScore(data) {
+    return RubricCategoryScore.create(Ember.getOwner(this).ownerInjection(), {
+      title: data.category_title,
+      levelObtained: data.level_obtained,
+      levelMaxScore: data.level_max_score,
+      levelScore: data.level_score,
+      levelComment: data.level_comment
     });
   }
 });
