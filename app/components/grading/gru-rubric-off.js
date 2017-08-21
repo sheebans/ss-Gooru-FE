@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['grading', 'gru-rubric-off'],
+  classNames: ['gru-rubric-off'],
 
   // -------------------------------------------------------------------------
   // Actions

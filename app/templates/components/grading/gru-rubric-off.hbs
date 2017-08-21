@@ -6,7 +6,12 @@
       / {{rubric.maxScore}}
     </div>
   {{/if}}
-  <span class="title">{{t 'grading-player.rubric-panel.overall-comment'}}</span>
-  <span class="comment-lead">{{t 'grading-player.rubric-panel.overall-comment-lead'}}</span>
-  {{textarea}}
+  <span class="overall-title">{{t 'grading-player.overall-comment'}}</span>
+  <span class="overall-lead">{{t 'grading-player.overall-lead'}}</span>
+  {{validation.gru-textarea
+    model=grade
+    valuePath='comment'
+    maxLength=500
+    rows=5
+  }}
 </div>

@@ -64,27 +64,33 @@
     }
   }
   .footer {
-    color: $white;
     @include flexbox();
-    margin-bottom: 15px;
+    @include justify-content(space-between);
+    color: $white;
+    margin: 15px 0;
+    font-size: $font-size-base;
+    line-height: $font-size-large;
 
     .navigation,
     .previous,
     .next {
       @include flexbox();
     }
+    .next {
+      border-left: 1px solid $white;
+      padding-left: 10px;
+    }
     .previous {
-      border-right: 1px solid $white;
-      margin-right: 10px;
+      margin-right: 5px;
     }
     .previous,
     .next {
-      width: 42%;
       @include align-items(center);
+      width: 80px;
     }
     .btn-submit {
       @include align-self(center);
-      margin-right: 10px;
+      margin-right: 14px;
     }
   }
 }

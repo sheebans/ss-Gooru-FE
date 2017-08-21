@@ -1,6 +1,8 @@
 <div class="total-score">
-  <span class="title">{{t 'grading-player.total-score'}}</span>
-  <span class="score">( {{if grade.hasScore grade.currentScore '-'}} / {{rubric.totalPoints}} )</span>
+  {{#if rubric.totalPoints}}
+    <span class="title">{{t 'grading-player.total-score'}}</span>
+    <span class="score">( {{if grade.hasScore grade.currentScore '-'}} / {{rubric.totalPoints}} )</span>
+  {{/if}}
 </div>
 
 <div class="rubric-categories">
