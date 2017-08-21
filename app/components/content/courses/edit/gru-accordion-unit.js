@@ -191,38 +191,51 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
     },
 
     saveUnit: function() {
-      var courseId = this.get('course.id');
-      var editedUnit = this.get('tempUnit');
-      var unitService = this.get('unitService');
+      let component = this;
 
-      // Saving an existing unit or a new unit (falsey id)?
-      var savePromise = editedUnit.get('id')
-        ? unitService.updateUnit(courseId, editedUnit)
-        : unitService.createUnit(courseId, editedUnit);
+      var courseId = component.get('course.id');
+      var editedUnit = component.get('tempUnit');
+      var unitService = component.get('unitService');
 
-      savePromise
-        .then(
-          function() {
-            Ember.beginPropertyChanges();
-            this.get('unit').merge(editedUnit, [
-              'id',
-              'title',
-              'bigIdeas',
-              'essentialQuestions'
-            ]);
-            this.set('unit.taxonomy', editedUnit.get('taxonomy').toArray());
-            this.set('model.isEditing', false);
-            Ember.endPropertyChanges();
-          }.bind(this)
-        )
-        .catch(
-          function(error) {
-            var message = this.get('i18n').t('common.errors.unit-not-created')
-              .string;
-            this.get('notifications').error(message);
-            Ember.Logger.error(error);
-          }.bind(this)
-        );
+      editedUnit.validate().then(function({ validations }) {
+        if (validations.get('isValid')) {
+          // Saving an existing unit or a new unit (false id)?
+          var savePromise = editedUnit.get('id')
+            ? unitService.updateUnit(courseId, editedUnit)
+            : unitService.createUnit(courseId, editedUnit);
+
+          savePromise
+            .then(
+              function() {
+                Ember.beginPropertyChanges();
+                component
+                  .get('unit')
+                  .merge(editedUnit, [
+                    'id',
+                    'title',
+                    'bigIdeas',
+                    'essentialQuestions'
+                  ]);
+                component.set(
+                  'unit.taxonomy',
+                  editedUnit.get('taxonomy').toArray()
+                );
+                component.set('model.isEditing', false);
+                Ember.endPropertyChanges();
+              }
+            )
+            .catch(
+              function(error) {
+                var message = component
+                  .get('i18n')
+                  .t('common.errors.unit-not-created').string;
+                component.get('notifications').error(message);
+                Ember.Logger.error(error);
+              }
+            );
+          component.set('didValidate', true);
+        }
+      });
     },
 
     sortLessons: function() {
