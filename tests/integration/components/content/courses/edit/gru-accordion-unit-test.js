@@ -292,10 +292,45 @@ test('it can edit an existing unit', function (assert) {
 });
 */
 
+test('it shows an error message when there is no title for a new unit', function(
+  assert
+) {
+  const unit = BuilderItem.create({
+    data: Unit.create(Ember.getOwner(this).ownerInjection(), {
+      id: ''
+    }),
+    isEditing: true
+  });
+
+  this.set('unit', unit);
+  this.render(hbs`{{content/courses/edit/gru-accordion-unit model=unit}}`);
+
+  const $component = this.$(
+    '.content.courses.gru-accordion.gru-accordion-unit'
+  );
+  assert.ok($component.length, 'Component displayed');
+  assert.ok($component.hasClass('edit'), 'Edit class');
+
+  const $heading = $component.find('.edit .panel-heading');
+  assert.ok($heading.find('.title').text(), '', 'Empty title');
+
+  const $saveButton = $heading.find('.actions .save.btn');
+  assert.ok($saveButton.length, 'Save button is displayed');
+
+  Ember.run(() => {
+    $saveButton.click();
+  });
+
+  assert.ok(
+    $heading.find('.title .error-messages .error').length,
+    'Show message error for title'
+  );
+});
+
 test('it shows an error message if it fails to create a new unit', function(
   assert
 ) {
-  assert.expect(2);
+  assert.expect(1);
 
   const context = this;
 
