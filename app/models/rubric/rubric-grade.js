@@ -32,9 +32,9 @@ export default Rubric.extend({
   resourceId: null,
 
   /**
-   * @property {Integer} Learner score for the grade
+   * @property {Integer} Student score for the grade
    */
-  learnerScore: null,
+  studentScore: null,
 
   /**
    * @property {String} comment
@@ -61,6 +61,16 @@ export default Rubric.extend({
    * @property {Integer} currentScore
    */
   currentScore: Ember.computed.sum('scores'),
+
+  /**
+   * @property {Date} Date in which the rubric-grade was created
+   */
+  createdDate: null,
+
+  /**
+   * @property {Date} Date in which the rubric-grade was updated
+   */
+  updatedDate: null,
 
   /**
    * If any category has scores

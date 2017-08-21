@@ -173,9 +173,11 @@ export default Ember.Object.extend(ConfigurationMixin, {
       collection_id: nullIfEmpty(model.get('collectionId')),
       session_id: nullIfEmpty(model.get('sessionId')),
       resource_id: nullIfEmpty(model.get('resourceId')),
-      learner_score: model.get('learnerScore'),
+      student_score: model.get('studentScore'),
       max_score: model.get('maxScore'),
       overall_comment: model.get('comment'),
+      created_at: model.get('createdDate'),
+      updated_at: model.get('updatedDate'),
       category_score: model.get('categoriesScore').length
         ? model.get('categoriesScore').map(function(category) {
           return serializer.serializedStudentGradeCategoryScore(category);
