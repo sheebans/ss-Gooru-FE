@@ -85,10 +85,24 @@ export default Ember.Object.extend(Validations, {
    * @property {Ember.A} levels { name: string, score: number }
    */
   levels: [],
+
   /**
    * @property {Boolean} isNew
    */
   isNew: false,
+
+  /**
+   * @property {Array} level scores
+   */
+  scores: Ember.computed.mapBy('levels', 'score'),
+
+  /**
+   * @property {number} total points
+   */
+  totalPoints: Ember.computed('scores', function() {
+    return Math.max(0, ...this.get('scores'));
+  }),
+
   /**
    * Return a copy of the category
    *

@@ -130,23 +130,35 @@
               {{/if}}
 
               <div class="panel-heading {{if isTeacher 'teacher' 'student'}}">
+
                 {{#if isTeacher}}
                   <div class="controls">
+                     <div class="go-live-cnt pull-left">
+                   {{#if item.isAssessment}}
+                   <button {{action 'goLive' item.id}}
+                     data-toggle="tooltip" data-html="true" data-placement="bottom"
+                     title="{{t "common.launch-on-air"}}"
+                     class="on-air go-live hidden-xs enabled">{{t "common.launch-on-air"}}
+                   </button>
+                   {{/if}}
+                     </div>
+                     <div class="adca-cnt pull-right">
                     {{#if item.isAddedToClassActivities}}
                       <a href="#" class="added add-to">
                         {{gru-icon name='check'}}
                         <br>
                         <span>{{t 'common.added'}}</span>
                       </a>
-                    {{else}}
+                    {{else}} 
                       <a href="#" class="add-to" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
                         {{gru-icon name='add'}}
                         <br>
                         <span>{{t 'common.add'}}</span>
                       </a>
                     {{/if}}
+                     </div>
                   </div>
-                {{/if}}
+                {{/if}}    
                 <div class="panel-title">
                   <div class="icon-container">
                     {{#if item.isAssessment}}

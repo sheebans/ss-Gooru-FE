@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import Rubric from 'gooru-web/models/rubric/rubric';
 
 /**
@@ -43,5 +44,32 @@ export default Rubric.extend({
   /**
    * @property {gradeCategoryScore[]}
    */
-  categoriesScore: []
+  categoriesScore: [],
+
+  /**
+   * All grades scores
+   * @property {Array} scores
+   */
+  scores: Ember.computed.map('categoriesScore.@each.levelScore', function(
+    item
+  ) {
+    return +(item.get('levelScore') || 0);
+  }),
+
+  /**
+   * Sum of all scores
+   * @property {Integer} currentScore
+   */
+  currentScore: Ember.computed.sum('scores'),
+
+  /**
+   * If any category has scores
+   * @property {Boolean}
+   */
+  hasScore: Ember.computed('categoriesScore.@each.levelScore', function() {
+    return this.get('categoriesScore').reduce(
+      (hasScore, score) => hasScore || score.get('hasScore'),
+      false
+    );
+  })
 });

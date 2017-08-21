@@ -27,8 +27,8 @@ test('selectStudent', function(assert) {
 
   component.send('selectStudent', student);
   assert.deepEqual(
-    component.get('currentUser'),
-    Ember.Object.create({ id: 'id-for-test', name: 'User for test' }),
+    component.get('currentUserId'),
+    'id-for-test',
     'Selected user incorrect'
   );
   assert.equal(student.get('checked'), true, 'Student should be checked');

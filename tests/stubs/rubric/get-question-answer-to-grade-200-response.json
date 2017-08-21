@@ -6,7 +6,7 @@
   "questionId": "19e7462f-6fd3-4fce-c992-b9e63f194a5e",
   "sessionId": "q237462f-6fd3-4fce-c992-b9e63f194a5e",
   "questionText": "NA",
-  "answerText": "[{ \"text\": \"TBD - How will it be obtained and displayed\" }]",
+  "answerText": [{ "text": "TBD - How will it be obtained and displayed" }],
   "submittedAt": "2017-03-05 18:44:04.798",
   "timeSpent": 5000,
   "userId": "409e31a6-a989-4aff-b6a5-7222542863a4"

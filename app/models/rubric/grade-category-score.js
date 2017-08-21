@@ -28,5 +28,14 @@ export default Ember.Object.extend({
   /**
    * @property {String} level comment
    */
-  levelComment: null
+  levelComment: null,
+
+  /**
+   * If the category has scores
+   * @property {Boolean}
+   */
+  hasScore: Ember.computed('levelScore', function() {
+    const score = this.get('levelScore');
+    return !!score || score === 0;
+  })
 });

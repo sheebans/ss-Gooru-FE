@@ -46,8 +46,7 @@ export default Ember.Component.extend({
           .addActivityToClass(
             classId,
             content.get('id'),
-            content.get('collectionType'),
-            null
+            content.get('collectionType')
           )
           .then(function() {
             component.triggerAction({ action: 'closeModal' });
@@ -67,6 +66,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * Model with the values to use in the modal
    */

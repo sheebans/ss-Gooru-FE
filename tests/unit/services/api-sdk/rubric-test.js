@@ -299,7 +299,7 @@ test('getStudentsForQuestion', function(assert) {
 
 test('getAnswerToGrade', function(assert) {
   const service = this.subject();
-  assert.expect(7);
+  assert.expect(8);
 
   service.set(
     'adapter',
@@ -320,7 +320,17 @@ test('getAnswerToGrade', function(assert) {
         assert.equal(questionId, 'question-id', 'Wrong question id');
         assert.equal(unitId, 'unit-id', 'Wrong unit id');
         assert.equal(lessonId, null, 'Wrong default lesson id');
-        return Ember.RSVP.resolve(true);
+        return Ember.RSVP.resolve('answer-object');
+      }
+    })
+  );
+
+  service.set(
+    'serializer',
+    Ember.Object.create({
+      normalizeAnswerToGrade: function(param) {
+        assert.deepEqual(param, 'answer-object', 'Wrong normalizer parameter');
+        return true;
       }
     })
   );

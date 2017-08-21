@@ -165,27 +165,17 @@
             top: 4px;
           }
         }
-        > button.on-air {
-          display: none;
-          position: absolute;
-          top: 9px;
-
-          margin: 0 5px 0 15px;
+        button.on-air {
+          display: inline-block;
+          margin: 0 5px;
           width: $on-air-icon;
           height: $on-air-icon;
           vertical-align: middle;
           background-image: url('gooru/images/on-air-icon.svg');
           background-size: $on-air-icon $on-air-icon;
-          @include text-hide();
+          background-color: $white;
           cursor: pointer;
-          @media (min-width: $screen-sm) {
-            left: -27px;
-            top: 6px;
-          }
-          @media (min-width: $screen-md) {
-            left: -40px;
-            top: 5px;
-          }
+          @include text-hide();
         }
 
         &.collection {
@@ -351,11 +341,20 @@
         border-radius: 0;
 
         .controls {
-          width: 45px;
-          max-width: 5%;
+          width: 8%;
+          max-width: 8%;
           float: left;
           border-right: solid 2px $light-200;
           min-height: 55px;
+          .go-live-cnt {
+            width: 50%;
+          }
+          .adca-cnt {
+            width: 50%;
+          }
+          .go-live {
+            margin-top: 2px;
+          }
           .add-to {
             color: $gray;
             display: inline-block;
@@ -490,12 +489,12 @@
           float: left;
           height: inherit;
           @media (min-width: $screen-sm) {
-            width: 50%;
+            width: 45%;
             float: right;
             text-align: right;
           }
           @media (min-width: $screen-lg) {
-            width: 45%;
+            width: 41%;
           }
           .content-count {
             font-size: $font-size-large;

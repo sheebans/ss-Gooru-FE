@@ -3,7 +3,7 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import ContextMixin from 'gooru-web/mixins/quizzes/context';
 import QuizzesPlayer from 'quizzes-addon/routes/player';
-import { ROLES } from 'gooru-web/config/config';
+import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 /**
  * @typedef { Ember.Route } PlayerRoute
@@ -30,6 +30,10 @@ export default QuizzesPlayer.extend(
    * @property {Ember.Service} Service to retrieve a collection
    */
     collectionService: Ember.inject.service('api-sdk/collection'),
+    /**
+   * @property {Collection} carries a  new collection Object called from the service.
+   */
+    collectionObj: null,
 
     /**
    * @type {UnitService} Service to retrieve course information
@@ -55,8 +59,8 @@ export default QuizzesPlayer.extend(
     // Actions
     actions: {
       /**
-     * When closing the player
-     */
+   * When closing the player
+   */
       onClosePlayer: function() {
         const $appContainer = Ember.$('.app-container');
         if ($appContainer.hasClass('navigator-on')) {
@@ -66,6 +70,32 @@ export default QuizzesPlayer.extend(
           ? 'index'
           : this.get('history.lastRoute.url');
         this.transitionTo(route);
+      },
+      /**
+   * Action triggered to remix the collection
+   */
+      onRemixCollection: function() {
+        let collection = this.get('collectionObj');
+        if (this.get('session.isAnonymous')) {
+          this.send('showModal', 'content.modals.gru-login-prompt');
+        } else {
+          var remixModel = {
+            content: collection
+          };
+          if (collection.get('isCollection')) {
+            this.send(
+              'showModal',
+              'content.modals.gru-collection-remix',
+              remixModel
+            );
+          } else {
+            this.send(
+              'showModal',
+              'content.modals.gru-assessment-remix',
+              remixModel
+            );
+          }
+        }
       },
 
       /**
@@ -169,7 +199,6 @@ export default QuizzesPlayer.extend(
       this._super(...arguments);
       const isAnonymous = model.isAnonymous;
       const isTeacher = model.role === ROLES.TEACHER;
-
       controller.set('isTeacher', isTeacher);
       controller.set('isAnonymous', isAnonymous);
     },
@@ -187,10 +216,13 @@ export default QuizzesPlayer.extend(
       params.sourceUrl = location.host;
       params.partnerId = this.get('session.partnerId');
       params.tenantId = this.get('session.tenantId');
+      params.notCheckAttempts =
+        params.source !== PLAYER_EVENT_SOURCE.COURSE_MAP;
 
       return route
         .loadCollection(collectionId, type)
         .then(function(collection) {
+          route.set('collectionObj', collection);
           params.type = collection.get('collectionType');
           return route.createContext(
             params,
