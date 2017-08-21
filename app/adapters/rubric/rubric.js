@@ -335,6 +335,43 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Gets report of Rubric Grading for a Question
+   *
+   * @param {string} studentId
+   * @param {string} classId
+   * @param {string} courseId
+   * @param {string} collectionId
+   * @param {string} questionId
+   * @param {string} sessionId
+   * @returns {Promise/Object}
+   */
+  getRubricQuestionSummary: function(
+    studentId,
+    classId,
+    courseId,
+    collectionId,
+    questionId,
+    sessionId
+  ) {
+    const adapter = this;
+    const namespace = adapter.get('gradingNamespace');
+    const url = `${namespace}/class/${classId}/course/${courseId}/collection/${collectionId}/question/${questionId}/summary`;
+
+    var data = {
+      studentId,
+      sessionId
+    };
+
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      data,
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       Authorization: `Token ${this.get('session.token-api3')}`

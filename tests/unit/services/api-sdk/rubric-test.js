@@ -391,3 +391,52 @@ test('setStudentRubricGrades', function(assert) {
     done();
   });
 });
+
+test('getRubricQuestionSummary', function(assert) {
+  const service = this.subject();
+  assert.expect(7);
+
+  service.set(
+    'adapter',
+    Ember.Object.create({
+      getRubricQuestionSummary: function(
+        studentId,
+        classId,
+        courseId,
+        collectionId,
+        questionId,
+        sessionId
+      ) {
+        assert.equal(studentId, 'student-id', 'Wrong student id');
+        assert.equal(classId, 'class-id', 'Wrong class id');
+        assert.equal(courseId, 'course-id', 'Wrong course id');
+        assert.equal(collectionId, 'collection-id', 'Wrong collection id');
+        assert.equal(questionId, 'question-id', 'Wrong question id');
+        assert.equal(sessionId, 'session-id', 'Wrong session id');
+        return Ember.RSVP.resolve('fake-data');
+      }
+    })
+  );
+
+  service.set(
+    'serializer',
+    Ember.Object.create({
+      normalizeRubricQuestionSummary: function(data) {
+        assert.equal(data, 'fake-data', 'Wrong data');
+        return 'fake-response';
+      }
+    })
+  );
+
+  var done = assert.async();
+  service
+    .getRubricQuestionSummary(
+      'student-id',
+      'class-id',
+      'course-id',
+      'collection-id',
+      'question-id',
+      'session-id'
+    )
+    .then(done);
+});
