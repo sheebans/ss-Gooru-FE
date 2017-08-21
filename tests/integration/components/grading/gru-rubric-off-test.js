@@ -13,7 +13,7 @@ moduleForComponent(
 
 test('Layout Rubric Off Scoring Off', function(assert) {
   this.render(hbs`{{grading/gru-rubric-off}}`);
-  const $component = this.$('.grading.gru-rubric-off');
+  const $component = this.$('.gru-rubric-off');
 
   assert.ok($component.length, 'Missing component');
 
@@ -22,11 +22,11 @@ test('Layout Rubric Off Scoring Off', function(assert) {
     'Total score should not appear'
   );
   assert.ok(
-    $component.find('.overall-comment .title').length,
+    $component.find('.overall-comment .overall-title').length,
     'Missing overall title'
   );
   assert.ok(
-    $component.find('.overall-comment .comment-lead').length,
+    $component.find('.overall-comment .overall-lead').length,
     'Missing overall lead'
   );
   assert.ok(
@@ -44,7 +44,7 @@ test('Layout Rubric Off Scoring On', function(assert) {
   this.set('rubric', rubric);
 
   this.render(hbs`{{grading/gru-rubric-off rubric=rubric}}`);
-  const $component = this.$('.grading.gru-rubric-off');
+  const $component = this.$('.gru-rubric-off');
 
   assert.ok($component.length, 'Missing component');
   assert.ok(
@@ -63,11 +63,11 @@ test('Layout Rubric Off Scoring On', function(assert) {
     'Wrong max score'
   );
   assert.ok(
-    $component.find('.overall-comment .title').length,
+    $component.find('.overall-comment .overall-title').length,
     'Missing overall title'
   );
   assert.ok(
-    $component.find('.overall-comment .comment-lead').length,
+    $component.find('.overall-comment .overall-lead').length,
     'Missing overall lead'
   );
   assert.ok(
