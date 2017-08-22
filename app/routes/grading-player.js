@@ -70,9 +70,17 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               lessonId
             ),
             question: this.get('questionService').readQuestion(questionId),
-            users: this.get('profileService').readMultipleProfiles(
-              users.get('students')
-            ),
+            users: this.get('profileService')
+              .readMultipleProfiles(users.get('students'))
+              .then(profiles =>
+                profiles.map(student =>
+                  Ember.Object.create({
+                    id: student.get('id'),
+                    name: student.get('fullNameInformal'),
+                    checked: false
+                  })
+                )
+              ),
             currentUserId: studentId,
             classId,
             questionId
@@ -87,7 +95,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    model.answer.set(
+    controller.set(
       'questionText',
       model.question.get('description') || model.question.get('title')
     );
@@ -100,12 +108,13 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         grade: RubricGrade.create(Ember.getOwner(this).ownerInjection(), {
           studentId: user.id,
           classId: model.classId,
-          resourceId: model.questionId
+          resourceId: model.questionId,
+          createdDate: new Date()
         })
       };
       return mappings;
     }, {});
     controller.set('currentUserId', model.currentUserId);
-    controller.set('userMappings', userMappings);
+    controller.set('userMappings', Ember.Object.create(userMappings));
   }
 });

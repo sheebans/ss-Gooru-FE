@@ -12,6 +12,7 @@ moduleForComponent(
 );
 
 test('selectStudent', function(assert) {
+  assert.expect(2);
   let users = Ember.A([
     Ember.Object.create({ id: 'id-for-test', name: 'User for test' })
   ]);
@@ -21,15 +22,10 @@ test('selectStudent', function(assert) {
     users: users
   });
 
-  component.set('sendAction', function(actionName) {
+  component.set('sendAction', function(actionName, userId) {
     assert.equal(actionName, 'onChangeUser', 'Action sent should match');
+    assert.equal(userId, 'id-for-test', 'Action sent should match');
   });
 
   component.send('selectStudent', student);
-  assert.deepEqual(
-    component.get('currentUserId'),
-    'id-for-test',
-    'Selected user incorrect'
-  );
-  assert.equal(student.get('checked'), true, 'Student should be checked');
 });

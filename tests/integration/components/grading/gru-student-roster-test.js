@@ -13,20 +13,20 @@ moduleForComponent(
 
 test('Layout', function(assert) {
   let students = Ember.A([
-    Ember.Object.create({ id: '1', fullNameInformal: 'Melany Delgado' }),
-    Ember.Object.create({ id: '2', fullNameInformal: 'Javier Camacho' }),
-    Ember.Object.create({ id: '3', fullNameInformal: 'Jennifer Ajoy' }),
-    Ember.Object.create({ id: '4', fullNameInformal: 'Martin Mendez' }),
-    Ember.Object.create({ id: '5', fullNameInformal: 'Anai Arroyo' }),
-    Ember.Object.create({ id: '6', fullNameInformal: 'Alejandro Rodriguez' }),
-    Ember.Object.create({ id: '7', fullNameInformal: 'David Artavia' }),
-    Ember.Object.create({ id: '8', fullNameInformal: 'June Wang' }),
-    Ember.Object.create({ id: '9', fullNameInformal: 'Diana Cespedez' }),
-    Ember.Object.create({ id: '10', fullNameInformal: 'Luis Ugalde' })
+    Ember.Object.create({ id: '1', name: 'Melany Delgado' }),
+    Ember.Object.create({ id: '2', name: 'Javier Camacho' }),
+    Ember.Object.create({ id: '3', name: 'Jennifer Ajoy' }),
+    Ember.Object.create({ id: '4', name: 'Martin Mendez' }),
+    Ember.Object.create({ id: '5', name: 'Anai Arroyo' }),
+    Ember.Object.create({ id: '6', name: 'Alejandro Rodriguez' }),
+    Ember.Object.create({ id: '7', name: 'David Artavia' }),
+    Ember.Object.create({ id: '8', name: 'June Wang' }),
+    Ember.Object.create({ id: '9', name: 'Diana Cespedez' }),
+    Ember.Object.create({ id: '10', name: 'Luis Ugalde' })
   ]);
 
   this.set('users', students);
-  this.render(hbs`{{grading/gru-student-roster users=users}}`);
+  this.render(hbs`{{grading/gru-student-roster students=users}}`);
 
   const $component = this.$('.grading.gru-student-roster');
 
@@ -60,12 +60,12 @@ test('Checked student', function(assert) {
   let students = Ember.A([
     Ember.Object.create({
       id: '1',
-      fullNameInformal: 'Melany Delgado',
+      name: 'Melany Delgado',
       checked: true
     }),
     Ember.Object.create({
       id: '2',
-      fullNameInformal: 'Javier Camacho',
+      name: 'Javier Camacho',
       checked: false
     })
   ]);
@@ -73,7 +73,7 @@ test('Checked student', function(assert) {
   this.set('users', students);
   this.set('currentUserId', '1');
   this.render(
-    hbs`{{grading/gru-student-roster users=users currentUserId=currentUserId}}`
+    hbs`{{grading/gru-student-roster students=users currentUserId=currentUserId}}`
   );
 
   const $component = this.$('.grading.gru-student-roster');
@@ -88,22 +88,22 @@ test('Checked student', function(assert) {
 
 test('Select Student', function(assert) {
   let students = Ember.A([
-    Ember.Object.create({ id: '1', fullNameInformal: 'Melany Delgado' }),
-    Ember.Object.create({ id: '2', fullNameInformal: 'Javier Camacho' }),
-    Ember.Object.create({ id: '3', fullNameInformal: 'Jennifer Ajoy' }),
-    Ember.Object.create({ id: '4', fullNameInformal: 'Martin Mendez' }),
-    Ember.Object.create({ id: '5', fullNameInformal: 'Anai Arroyo' }),
-    Ember.Object.create({ id: '6', fullNameInformal: 'Alejandro Rodriguez' }),
-    Ember.Object.create({ id: '7', fullNameInformal: 'David Artavia' }),
-    Ember.Object.create({ id: '8', fullNameInformal: 'June Wang' }),
-    Ember.Object.create({ id: '9', fullNameInformal: 'Diana Cespedez' }),
-    Ember.Object.create({ id: '10', fullNameInformal: 'Luis Ugalde' })
+    Ember.Object.create({ id: '1', name: 'Melany Delgado' }),
+    Ember.Object.create({ id: '2', name: 'Javier Camacho' }),
+    Ember.Object.create({ id: '3', name: 'Jennifer Ajoy' }),
+    Ember.Object.create({ id: '4', name: 'Martin Mendez' }),
+    Ember.Object.create({ id: '5', name: 'Anai Arroyo' }),
+    Ember.Object.create({ id: '6', name: 'Alejandro Rodriguez' }),
+    Ember.Object.create({ id: '7', name: 'David Artavia' }),
+    Ember.Object.create({ id: '8', name: 'June Wang' }),
+    Ember.Object.create({ id: '9', name: 'Diana Cespedez' }),
+    Ember.Object.create({ id: '10', name: 'Luis Ugalde' })
   ]);
 
   this.set('users', students);
   this.set('currentUserId', '1');
   this.render(
-    hbs`{{grading/gru-student-roster users=users currentUserId=currentUserId}}`
+    hbs`{{grading/gru-student-roster students=users currentUserId=currentUserId}}`
   );
 
   const $component = this.$('.grading.gru-student-roster');
@@ -122,16 +122,16 @@ test('Close Student Roster', function(assert) {
   assert.expect(1);
 
   let students = Ember.A([
-    Ember.Object.create({ id: '1', fullNameInformal: 'Melany Delgado' }),
-    Ember.Object.create({ id: '2', fullNameInformal: 'Javier Camacho' }),
-    Ember.Object.create({ id: '3', fullNameInformal: 'Jennifer Ajoy' }),
-    Ember.Object.create({ id: '4', fullNameInformal: 'Martin Mendez' }),
-    Ember.Object.create({ id: '5', fullNameInformal: 'Anai Arroyo' }),
-    Ember.Object.create({ id: '6', fullNameInformal: 'Alejandro Rodriguez' }),
-    Ember.Object.create({ id: '7', fullNameInformal: 'David Artavia' }),
-    Ember.Object.create({ id: '8', fullNameInformal: 'June Wang' }),
-    Ember.Object.create({ id: '9', fullNameInformal: 'Diana Cespedez' }),
-    Ember.Object.create({ id: '10', fullNameInformal: 'Luis Ugalde' })
+    Ember.Object.create({ id: '1', name: 'Melany Delgado' }),
+    Ember.Object.create({ id: '2', name: 'Javier Camacho' }),
+    Ember.Object.create({ id: '3', name: 'Jennifer Ajoy' }),
+    Ember.Object.create({ id: '4', name: 'Martin Mendez' }),
+    Ember.Object.create({ id: '5', name: 'Anai Arroyo' }),
+    Ember.Object.create({ id: '6', name: 'Alejandro Rodriguez' }),
+    Ember.Object.create({ id: '7', name: 'David Artavia' }),
+    Ember.Object.create({ id: '8', name: 'June Wang' }),
+    Ember.Object.create({ id: '9', name: 'Diana Cespedez' }),
+    Ember.Object.create({ id: '10', name: 'Luis Ugalde' })
   ]);
 
   this.set('users', students);
@@ -141,7 +141,7 @@ test('Close Student Roster', function(assert) {
   });
 
   this.render(
-    hbs`{{grading/gru-student-roster users=users onClose='parentAction'}}`
+    hbs`{{grading/gru-student-roster students=users onClose='parentAction'}}`
   );
 
   const $component = this.$('.grading.gru-student-roster');

@@ -28,19 +28,40 @@ export default Ember.Controller.extend({
     openStudentRoster: function() {
       this.set('showRoster', true);
     },
+
     /**
      * Close student roster
      */
     closeRoster: function() {
       this.set('showRoster', false);
     },
+
     /**
      * Triggered when current user has been changed
      */
-    changeUser: function() {
-      Ember.run.bind(this, function() {
-        this.get('changeAnswer')(this);
-      });
+    changeUser: function(userId) {
+      this.changeAnswer(userId);
+    },
+
+    /**
+     * Load next student
+     */
+    onLoadNext: function() {
+      this.loadStudent(true);
+    },
+
+    /**
+     * Load previous student
+     */
+    onLoadPrevious: function() {
+      this.loadStudent(false);
+    },
+
+    /**
+     * Submit a grade
+     */
+    onSubmitGrade: function() {
+      this.submitGrade();
     }
   },
 
@@ -120,7 +141,6 @@ export default Ember.Controller.extend({
   showRoster: false,
 
   /**
-
    * Current student id
    * @property {String} studentId
    */
@@ -138,6 +158,35 @@ export default Ember.Controller.extend({
    * @property {Map} userMappings
    */
   userMappings: null,
+
+  /**
+   * Index of the current user
+   * @property {Integer} currentUserIndex
+   */
+  currentUserIndex: Ember.computed('currentUserId', 'users.[]', function() {
+    const user = this.get('currentUser');
+    const users = this.get('users');
+    return users.indexOf(user);
+  }),
+
+  /**
+   * If the next button should be disabled
+   * @property {boolean} isNextDisabled
+   */
+  isNextDisabled: Ember.computed('currentUserIndex', 'users.[]', function() {
+    const currentIndex = this.get('currentUserIndex');
+    const users = this.get('users');
+    return currentIndex === users.length - 1;
+  }),
+
+  /**
+   * If the previous button should be disabled
+   * @property {boolean} isPreviousDisabled
+   */
+  isPreviousDisabled: Ember.computed('currentUserIndex', function() {
+    const currentIndex = this.get('currentUserIndex');
+    return currentIndex === 0;
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -170,14 +219,15 @@ export default Ember.Controller.extend({
   /**
    * Change user answer
    */
-  changeAnswer: function(controller) {
-    const user = controller.get('currentUser');
-    const userId = user.get('id');
+  changeAnswer: function(userId) {
+    const controller = this;
     let { answer } = controller.get('userMappings')[userId];
-    if (!answer) {
+    if (answer) {
+      controller.set('currentUserId', userId);
+    } else {
       controller
         .getAnswerToGrade(
-          user.get('id'),
+          userId,
           controller.get('classId'),
           controller.get('courseId'),
           controller.get('collectionId'),
@@ -188,7 +238,32 @@ export default Ember.Controller.extend({
         .then(newAnswer => {
           let mappings = controller.get('userMappings');
           mappings[userId].answer = newAnswer;
+          controller.set('currentUserId', userId);
         });
     }
+  },
+
+  /**
+   * Load the next student information
+   * @param loadNext if it should load the next or previous student
+   */
+  loadStudent: function(loadNext) {
+    const diff = loadNext ? 1 : -1;
+    const users = this.get('users');
+    const currentUserIndex = this.get('currentUserIndex');
+    const nextIndex = currentUserIndex + diff;
+    if (nextIndex < users.length && nextIndex > -1) {
+      this.changeAnswer(users.get(nextIndex).get('id'));
+    }
+  },
+
+  /**
+   * Submit a graded answer
+   */
+  submitGrade: function() {
+    this.get('currentGrade').set('updatedDate', new Date());
+    this.get('rubricService')
+      .setStudentRubricGrades(this.get('currentGrade'))
+      .then(() => this.get('currentUser').set('checked', true));
   }
 });

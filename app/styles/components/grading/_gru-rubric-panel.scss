@@ -87,6 +87,11 @@
     .next {
       @include align-items(center);
       width: 80px;
+      cursor: pointer;
+      &.disabled {
+        cursor: default;
+        color: $light-500;
+      }
     }
     .btn-submit {
       @include align-self(center);
