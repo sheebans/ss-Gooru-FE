@@ -813,8 +813,8 @@ test('serializeStudentRubricGrades', function(assert) {
     sessionId: 'session-id',
     studentScore: 10,
     maxScore: 100,
-    createdDate: 1500396887,
-    updatedDate: 1500396887,
+    createdDate: new Date('October 13, 2014 11:40:00'),
+    updatedDate: new Date('October 14, 2014 11:40:00'),
     comment: 'overall comment',
     categoriesScore: [GradeCategoryScore.create(), GradeCategoryScore.create()]
   });
@@ -842,8 +842,16 @@ test('serializeStudentRubricGrades', function(assert) {
   assert.equal(rubricObject.session_id, 'session-id', 'Wrong session_id');
   assert.equal(rubricObject.student_score, 10, 'Wrong student_score');
   assert.equal(rubricObject.max_score, 100, 'Wrong max_score');
-  assert.equal(rubricObject.created_at, 1500396887, 'Wrong created_at');
-  assert.equal(rubricObject.updated_at, 1500396887, 'Wrong updated_at');
+  assert.equal(
+    rubricObject.created_at,
+    '2014-10-13 11:40:00',
+    'Wrong created_at'
+  );
+  assert.equal(
+    rubricObject.updated_at,
+    '2014-10-14 11:40:00',
+    'Wrong updated_at'
+  );
   assert.equal(
     rubricObject.category_score.length,
     2,

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
-import { cleanFilename, nullIfEmpty } from 'gooru-web/utils/utils';
+import { cleanFilename, nullIfEmpty, formatDate } from 'gooru-web/utils/utils';
 import Rubric from 'gooru-web/models/rubric/rubric';
 import RubricGrade from 'gooru-web/models/rubric/rubric-grade';
 import RubricCategoryScore from 'gooru-web/models/rubric/grade-category-score';
@@ -176,8 +176,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       student_score: model.get('studentScore'),
       max_score: model.get('maxScore'),
       overall_comment: model.get('comment'),
-      created_at: model.get('createdDate'),
-      updated_at: model.get('updatedDate'),
+      created_at: formatDate(model.get('createdDate'), 'YYYY-MM-DD HH:mm:SS'),
+      updated_at: formatDate(model.get('updatedDate'), 'YYYY-MM-DD HH:mm:SS'),
       category_score: model.get('categoriesScore').length
         ? model.get('categoriesScore').map(function(category) {
           return serializer.serializedStudentGradeCategoryScore(category);

@@ -42,7 +42,7 @@ export default Ember.Component.extend({
    * @property {Map} gradeCategories
    */
   gradeCategories: Ember.computed(
-    'grade.categoriesScore.[]',
+    'grade.categoriesScore.@each.levelObtained',
     'title',
     function() {
       return this.get(
@@ -66,6 +66,15 @@ export default Ember.Component.extend({
    */
   grade: null,
 
+  // -------------------------------------------------------------------------
+  // Observers
+
+  /**
+   * Mantain categories updated when changing students
+   */
+  observeGrade: Ember.observer('grade', function() {
+    this.updateCategories();
+  }),
   // -------------------------------------------------------------------------
   // Methods
 

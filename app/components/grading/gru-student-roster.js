@@ -14,34 +14,13 @@ export default Ember.Component.extend({
      * Select student
      */
     selectStudent: function(student) {
-      student.set('checked', true);
-      this.set('currentUserId', student.get('id'));
-      this.sendAction('onChangeUser');
+      this.sendAction('onChangeUser', student.get('id'));
     },
     /**
      * Close student roster
      */
     close: function() {
       this.sendAction('onClose');
-    }
-  },
-
-  // -------------------------------------------------------------------------
-  // Events
-
-  init: function() {
-    this._super(...arguments);
-    if (this.get('users').length) {
-      this.set(
-        'students',
-        this.get('users').map(student =>
-          Ember.Object.create({
-            id: student.get('id'),
-            name: student.get('fullNameInformal'),
-            checked: this.get('currentUserId') === student.get('id')
-          })
-        )
-      );
     }
   },
 

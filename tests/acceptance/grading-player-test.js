@@ -96,16 +96,6 @@ test('Student prompt', function(assert) {
         ),
         'Wrong text in current response'
       );
-      const $student = $studentRoster.find('.student:nth-child(4)');
-      click($student);
-      andThen(function() {
-        assert.ok(
-          T.text($rosterHeader.find('.current-response')).includes(
-            'Profile Number 2'
-          ),
-          'Wrong text in current response'
-        );
-      });
     });
   });
 });

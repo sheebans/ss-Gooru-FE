@@ -195,34 +195,43 @@ export default PlayerAccordionUnit.extend(ModalMixin, {
       var editedUnit = this.get('tempUnit');
       var unitService = this.get('unitService');
 
-      // Saving an existing unit or a new unit (falsey id)?
-      var savePromise = editedUnit.get('id')
-        ? unitService.updateUnit(courseId, editedUnit)
-        : unitService.createUnit(courseId, editedUnit);
+      editedUnit.validate().then(
+        function({ validations }) {
+          if (validations.get('isValid')) {
+            // Saving an existing unit or a new unit (false id)?
+            let savePromise = editedUnit.get('id')
+              ? unitService.updateUnit(courseId, editedUnit)
+              : unitService.createUnit(courseId, editedUnit);
 
-      savePromise
-        .then(
-          function() {
-            Ember.beginPropertyChanges();
-            this.get('unit').merge(editedUnit, [
-              'id',
-              'title',
-              'bigIdeas',
-              'essentialQuestions'
-            ]);
-            this.set('unit.taxonomy', editedUnit.get('taxonomy').toArray());
-            this.set('model.isEditing', false);
-            Ember.endPropertyChanges();
-          }.bind(this)
-        )
-        .catch(
-          function(error) {
-            var message = this.get('i18n').t('common.errors.unit-not-created')
-              .string;
-            this.get('notifications').error(message);
-            Ember.Logger.error(error);
-          }.bind(this)
-        );
+            savePromise
+              .then(
+                function() {
+                  this.get('unit').merge(editedUnit, [
+                    'id',
+                    'title',
+                    'bigIdeas',
+                    'essentialQuestions'
+                  ]);
+                  this.set(
+                    'unit.taxonomy',
+                    editedUnit.get('taxonomy').toArray()
+                  );
+                  this.set('model.isEditing', false);
+                }.bind(this)
+              )
+              .catch(
+                function(error) {
+                  var message = this.get('i18n').t(
+                    'common.errors.unit-not-created'
+                  ).string;
+                  this.get('notifications').error(message);
+                  Ember.Logger.error(error);
+                }.bind(this)
+              );
+          }
+          this.set('didValidate', true);
+        }.bind(this)
+      );
     },
 
     sortLessons: function() {
