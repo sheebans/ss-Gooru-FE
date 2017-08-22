@@ -99,6 +99,11 @@ test('Questions Layout-non open ended', function(assert) {
     $component.find('table thead th.header.reaction'),
     'Missing reaction header'
   );
+  T.notExists(
+    assert,
+    $component.find('table th.header.report'),
+    'report header should not be visible'
+  );
   T.exists(
     assert,
     $component.find('table tbody td.number-question'),
@@ -152,6 +157,11 @@ test('Questions Layout-non open ended', function(assert) {
     assert,
     $component.find('table tbody td.question-reaction'),
     'Missing reaction column'
+  );
+  T.notExists(
+    assert,
+    $component.find('table tbody td.question-report'),
+    'question report column should no be visible'
   );
   T.exists(
     assert,
@@ -218,6 +228,11 @@ test('Questions Layout-open ended', function(assert) {
   );
   T.exists(
     assert,
+    $component.find('table th.header.report'),
+    'report header should be visible'
+  );
+  T.exists(
+    assert,
     $component.find('table tbody td.question-answer:eq(0) .gru-open-ended'),
     'Missing gru-open-ended component'
   );
@@ -230,6 +245,11 @@ test('Questions Layout-open ended', function(assert) {
     assert,
     $component.find('table tbody td.question-score'),
     'score column should not be visible'
+  );
+  T.exists(
+    assert,
+    $component.find('table tbody td.question-report'),
+    'Missing question report column'
   );
   assert.equal(
     $component.find('table tbody tr').length,

@@ -64,6 +64,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         toRoute = toRoute || 'index'; //index when refreshing the page, TODO fix
         route.transitionTo(toRoute);
       }
+    },
+
+    /**
+     * Open the Open ended question summary report
+     *
+     * @function actions:viewOEReport
+     */
+    viewOEReport: function() {
+      this.transitionTo('reports.student-open-ended-summary');
     }
   },
 

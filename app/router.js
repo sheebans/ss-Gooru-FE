@@ -105,6 +105,7 @@ Router.map(function() {
     this.route('student-collection');
     this.route('study-student-collection');
     this.route('student-collection-analytics');
+    this.route('student-open-ended-summary');
   });
 
   this.route('goals', function() {

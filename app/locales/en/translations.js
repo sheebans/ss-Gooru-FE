@@ -509,6 +509,7 @@ export default Object.assign(quizzesTranslations, {
     'remix-warning':
       'Heads up! There’s a lot of awesome content in this course and making a copy will take time. Confirm you want to start the process and in 15 minutes you will find your copy of this course on your <b>Profile.</b>',
     remove: 'Remove',
+    report: 'Report',
     'report-in-progress': 'Report in progress',
     'request-to': 'Request to be reviewed for a badge',
     'request-report': 'Request Report',

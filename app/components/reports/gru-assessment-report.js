@@ -70,6 +70,13 @@ export default Ember.Component.extend({
 
     selectAttempt: function(attempt) {
       this.sendAction('onSelectAttempt', attempt);
+    },
+
+    /**
+     * View Open Ended report
+     */
+    viewOEReport: function() {
+      this.sendAction('onViewOEReport');
     }
   },
 

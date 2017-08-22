@@ -14,6 +14,13 @@ export default Ember.Component.extend(ConfigurationMixin, {
       if (!this.get('isAnswerKeyHidden')) {
         this.set('showPerformance', showPerformance);
       }
+    },
+
+    /**
+     * View Open Ended report
+     */
+    viewOEReport: function() {
+      this.sendAction('onViewOEReport');
     }
   },
   // -------------------------------------------------------------------------

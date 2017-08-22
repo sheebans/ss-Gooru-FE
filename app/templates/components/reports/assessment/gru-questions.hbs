@@ -2,14 +2,16 @@
   <div class="title">
     <h4>{{if isOpenEnded (t "common.questions-OE") (t "common.questions")}}</h4>
   </div>
-  {{#if isAnswerKeyHidden}}
-    <em>{{t "common.answer-key-was-hidden"}}</em>
-  {{else}}
-    <div class="btn-group" role="group">
-      <button type="button" {{action 'selectPerformanceOption' true}} class="performance btn {{if showPerformance 'btn-primary' 'btn-info'}}">{{t "common.performance"}}</button>
-      <button type="button" {{action 'selectPerformanceOption' false}} class="correct-answer btn {{unless showPerformance 'btn-primary' 'btn-info' }}">{{t "common.show-correct-answer"}}</button>
-    </div>
-  {{/if}}
+  {{#unless isOpenEnded}}
+    {{#if isAnswerKeyHidden}}
+      <em>{{t "common.answer-key-was-hidden"}}</em>
+    {{else}}
+      <div class="btn-group" role="group">
+        <button type="button" {{action 'selectPerformanceOption' true}} class="performance btn {{if showPerformance 'btn-primary' 'btn-info'}}">{{t "common.performance"}}</button>
+        <button type="button" {{action 'selectPerformanceOption' false}} class="correct-answer btn {{unless showPerformance 'btn-primary' 'btn-info' }}">{{t "common.show-correct-answer"}}</button>
+      </div>
+    {{/if}}
+  {{/unless}}
 </div>
 <table class="hidden-xs">
   <thead>
@@ -34,6 +36,11 @@
     {{#if showReactionBar}}
       <th class="header reaction {{if showPerformance 'visible' 'hide'}}">
         {{t "common.reaction"}}
+      </th>
+    {{/if}}
+    {{#if isOpenEnded}}
+      <th class="header report">
+        {{t "common.report"}}
       </th>
     {{/if}}
     {{#unless isAnswerKeyHidden}}
@@ -75,6 +82,13 @@
       {{#if showReactionBar}}
         <td class="question-reaction {{if showPerformance 'visible' 'hide'}}">
           {{reaction-icon result.reaction appRootPath}}
+        </td>
+      {{/if}}
+      {{#if result.question.isOpenEnded}}
+        <td class="question-report">
+          <a {{action 'viewOEReport'}}>
+            <span class="report-icon">{{gru-icon name='library_books'}}</span>
+          </a>
         </td>
       {{/if}}
       {{#unless isAnswerKeyHidden}}
