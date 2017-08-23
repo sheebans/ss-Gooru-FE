@@ -54,9 +54,17 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const lessonId = params.lessonId;
     const collectionId = params.collectionId;
     const questionId = params.questionId;
-    return this.get('rubricService')
-      .getStudentsForQuestion(questionId, classId, courseId, collectionId)
-      .then(users => {
+    return Ember.RSVP
+      .hash({
+        question: this.get('questionService').readQuestion(questionId),
+        users: this.get('rubricService').getStudentsForQuestion(
+          questionId,
+          classId,
+          courseId,
+          collectionId
+        )
+      })
+      .then(({ users, question }) => {
         if (users.get('students') && users.get('students').length) {
           const studentId = users.get('students.firstObject');
           return Ember.RSVP.hash({
@@ -69,7 +77,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               unitId,
               lessonId
             ),
-            question: this.get('questionService').readQuestion(questionId),
+            question,
+            rubric: this.get('rubricService').getRubric(
+              question.get('rubric.id')
+            ),
             users: this.get('profileService')
               .readMultipleProfiles(users.get('students'))
               .then(profiles =>
@@ -99,18 +110,23 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       'questionText',
       model.question.get('description') || model.question.get('title')
     );
-    controller.set('rubric', model.question.get('rubric'));
+    controller.set('rubric', model.rubric);
     controller.set('users', model.users);
     let userMappings = model.users.reduce((mappings, user) => {
       mappings[user.id] = {
         user,
         answer: model.currentUserId === user.id ? model.answer : null,
-        grade: RubricGrade.create(Ember.getOwner(this).ownerInjection(), {
-          studentId: user.id,
-          classId: model.classId,
-          resourceId: model.questionId,
-          createdDate: new Date()
-        })
+        grade: RubricGrade.create(
+          Ember.getOwner(this).ownerInjection(),
+          model.rubric,
+          {
+            studentId: user.id,
+            classId: model.classId,
+            resourceId: model.questionId,
+            sessionId: model.answer.get('sessionId'),
+            createdDate: new Date()
+          }
+        )
       };
       return mappings;
     }, {});

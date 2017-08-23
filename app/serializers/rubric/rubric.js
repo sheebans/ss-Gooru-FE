@@ -160,7 +160,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   serializeStudentRubricGrades: function(model) {
     const serializer = this;
-    return {
+    let grade = this.serializeUpdateRubric(model);
+    return Object.assign(grade, {
       event_name: model.get('eventName'),
       rubric_id: model.get('id'),
       title: nullIfEmpty(model.get('title')),
@@ -183,7 +184,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
           return serializer.serializedStudentGradeCategoryScore(category);
         })
         : null
-    };
+    });
   },
 
   /**
@@ -350,7 +351,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       lessonId: payload.lessonId,
       collectionId: payload.collectionId,
       questionId: payload.questionId,
-      sessionId: payload.sessionId,
+      sessionId: payload.session_id,
       questionText: payload.questionText,
       answerText: answer,
       submittedAt: payload.submittedAt,
