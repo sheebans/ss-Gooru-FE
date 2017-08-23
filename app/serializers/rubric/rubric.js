@@ -152,6 +152,28 @@ export default Ember.Object.extend(ConfigurationMixin, {
   },
 
   /**
+   * Serializes extra properties from Rubric for RubricGrade
+   *
+   * @param {RubricGrade} model - The rubric grade model to be serialized
+   * @returns {Object} JSON Object representation of the extra props
+   *
+   */
+  serializeStudentRubricGradesExtra: function(model) {
+    return {
+      tenant_root: model.get('tenantRoot'),
+      gut_codes: model.get('gutCodes'),
+      creator_id: model.get('owner'),
+      modifier_id: model.get('modifierId'),
+      original_creator_id: model.get('originalCreatorId'),
+      original_rubric_id: model.get('originalRubricId'),
+      parent_rubric_id: model.get('parentRubricId'),
+      publish_date: model.get('publishDate'),
+      rubric_created_at: model.get('rubricCreatedDate'),
+      rubric_updated_at: model.get('rubricUpdatedDate')
+    };
+  },
+
+  /**
    * Serializes a RubricGrade/RubricGrade object into a JSON representation required by the endpoint
    *
    * @param {RubricGrade} model - The rubric grade model to be serialized
@@ -161,7 +183,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
   serializeStudentRubricGrades: function(model) {
     const serializer = this;
     let grade = this.serializeUpdateRubric(model);
-    return Object.assign(grade, {
+    let extraProps = this.serializeStudentRubricGradesExtra(model);
+    return Object.assign(grade, extraProps, {
       event_name: model.get('eventName'),
       rubric_id: model.get('id'),
       title: nullIfEmpty(model.get('title')),
@@ -265,7 +288,13 @@ export default Ember.Object.extend(ConfigurationMixin, {
           : ownerId,
         createdDate: data.created_at,
         updatedDate: data.updated_at,
-        tenant: data.tenant
+        tenant: data.tenant,
+        gutCodes: data.gut_codes,
+        modifierId: data.modifier_id,
+        originalCreatorId: data.original_creator_id,
+        originalRubricId: data.original_rubric_id,
+        parentRubricId: data.parent_rubric_id,
+        tenantRoor: data.tenant_root
       });
     }
   },

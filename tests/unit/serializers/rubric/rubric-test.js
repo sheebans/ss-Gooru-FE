@@ -679,7 +679,7 @@ test('normalizeAnswerToGrade', function(assert) {
     lessonId: 'lesson-id',
     collectionId: 'collection-id',
     questionId: 'question-id',
-    sessionId: 'session-id',
+    session_id: 'session-id',
     questionText: 'NA',
     answerText: [{ text: 'TBD - How will it be obtained and displayed' }],
     submittedAt: '2017-03-05 18:44:04.798',
@@ -796,6 +796,7 @@ test('normalizeCategoryScore', function(assert) {
 });
 
 test('serializeStudentRubricGrades', function(assert) {
+  assert.expect(21);
   const serializer = this.subject();
 
   const rubric = RubricGrade.create({
@@ -817,6 +818,27 @@ test('serializeStudentRubricGrades', function(assert) {
     updatedDate: new Date('October 14, 2014 11:40:00'),
     comment: 'overall comment',
     categoriesScore: [GradeCategoryScore.create(), GradeCategoryScore.create()]
+  });
+
+  serializer.setProperties({
+    serializeUpdateRubric: function(model) {
+      assert.deepEqual(
+        model,
+        rubric,
+        'Model in rubric serializer does not match'
+      );
+      assert.ok('Serialize update rubric called');
+      return {};
+    },
+    serializeStudentRubricGradesExtra: function(model) {
+      assert.deepEqual(
+        model,
+        rubric,
+        'Model in extra serializer does not match'
+      );
+      assert.ok('Serialize grade extra rubric called');
+      return {};
+    }
   });
 
   const rubricObject = serializer.serializeStudentRubricGrades(rubric);
@@ -856,6 +878,55 @@ test('serializeStudentRubricGrades', function(assert) {
     rubricObject.category_score.length,
     2,
     'Wrong category scores length'
+  );
+});
+
+test('serializeStudentRubricGradesExtra', function(assert) {
+  const serializer = this.subject();
+
+  const rubric = RubricGrade.create({
+    tenantRoot: 'tenant-root',
+    gutCodes: 'gut-codes',
+    owner: 'owner-id',
+    modifierId: 'modifier-id',
+    originalCreatorId: 'original-creator',
+    originalRubricId: 'original-rubric',
+    parentRubricId: 'parent-rubric',
+    publishDate: 'publish-date',
+    rubricCreatedDate: 'created-date',
+    rubricUpdatedDate: 'updated-date'
+  });
+
+  const rubricObject = serializer.serializeStudentRubricGradesExtra(rubric);
+  assert.equal(rubricObject.tenant_root, 'tenant-root', 'Wrong tenant root');
+  assert.equal(rubricObject.gut_codes, 'gut-codes', 'Wrong gut codes');
+  assert.equal(rubricObject.creator_id, 'owner-id', 'Wrong creator id');
+  assert.equal(rubricObject.modifier_id, 'modifier-id', 'Wrong modifier id');
+  assert.equal(
+    rubricObject.original_creator_id,
+    'original-creator',
+    'Wrong original creator id'
+  );
+  assert.equal(
+    rubricObject.original_rubric_id,
+    'original-rubric',
+    'Wrong original rubric id'
+  );
+  assert.equal(
+    rubricObject.parent_rubric_id,
+    'parent-rubric',
+    'Wrong parent rubric id'
+  );
+  assert.equal(rubricObject.publish_date, 'publish-date', 'Wrong publish date');
+  assert.equal(
+    rubricObject.rubric_created_at,
+    'created-date',
+    'Wrong created at'
+  );
+  assert.equal(
+    rubricObject.rubric_updated_at,
+    'updated-date',
+    'Wrong updated at'
   );
 });
 

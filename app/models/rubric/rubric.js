@@ -159,6 +159,36 @@ export default Ember.Object.extend(Validations, {
   totalPoints: Ember.computed.sum('categoriesPoints'),
 
   /**
+   * @property {Object} gutCodes
+   */
+  gutCodes: null,
+
+  /**
+   * @property {String} originalCreatorId
+   */
+  originalCreatorId: null,
+
+  /**
+   * @property {String} modifierId
+   */
+  modifierId: null,
+
+  /**
+   * @property {String} originalRubricId
+   */
+  originalRubricId: null,
+
+  /**
+   * @property {String} parentRubricId
+   */
+  parentRubricId: null,
+
+  /**
+   * @property {String} tenantRoot
+   */
+  tenantRoot: null,
+
+  /**
    * Return a copy of the category
    *
    * @function

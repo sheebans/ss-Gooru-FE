@@ -122,9 +122,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           {
             studentId: user.id,
             classId: model.classId,
+            courseId: model.question.get('courseId'),
+            unitId: model.question.get('unitId'),
+            lessonId: model.question.get('lessonId'),
+            collectionId: model.question.get('collectionId'),
             resourceId: model.questionId,
             sessionId: model.answer.get('sessionId'),
-            createdDate: new Date()
+            createdDate: new Date(),
+            rubricCreatedDate: model.rubric.get('createdDate'),
+            rubricUpdatedDate: model.rubric.get('updatedDate')
           }
         )
       };
