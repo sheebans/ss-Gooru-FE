@@ -3,7 +3,7 @@
     <ul>
       {{#if rubric.totalPoints}}
         <li class="total">
-          <span><b>{{t 'grading-player.rubric-panel.total-score'}} {{t 'grading-player.rubric-panel.points' total=rubric.totalPoints}}</b></span>
+          <span>{{t 'grading-player.rubric-panel.total-score'}} {{t 'grading-player.rubric-panel.points' total=rubric.totalPoints}}</span>
         </li>
       {{/if}}
       {{#each rubric.categories as |category|}}

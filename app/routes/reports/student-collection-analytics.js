@@ -228,7 +228,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const context = controller.get('context');
     const unitId = context.get('unitId');
     const lessonId = context.get('lessonId');
-    route.transitionTo('class.overview', context.get('classId'), {
+    route.transitionTo('teacher.class.course-map', context.get('classId'), {
       queryParams: {
         location: `${unitId}+${lessonId}`
       }

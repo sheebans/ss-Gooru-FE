@@ -22,6 +22,26 @@ export default Rubric.extend({
   classId: null,
 
   /**
+   * @property {String} courseId
+   */
+  courseId: null,
+
+  /**
+   * @property {String} unitId
+   */
+  unitId: null,
+
+  /**
+   * @property {String} lessonId
+   */
+  lessonId: null,
+
+  /**
+   * @property {String} collectionId
+   */
+  collectionId: null,
+
+  /**
    * @property {String} sessionId
    */
   sessionId: null,
@@ -71,6 +91,16 @@ export default Rubric.extend({
    * @property {Date} Date in which the rubric-grade was updated
    */
   updatedDate: null,
+
+  /**
+   * @property {Date} Date in which the rubric was created
+   */
+  rubricCreatedDate: null,
+
+  /**
+   * @property {Date} Date in which the rubric was updated
+   */
+  rubricUpdatedDate: null,
 
   /**
    * If any category has scores
