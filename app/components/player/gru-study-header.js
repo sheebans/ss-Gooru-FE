@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { ANONYMOUS_COLOR, STUDY_PLAYER_BAR_COLOR } from 'gooru-web/config/config';
+import { ANONYMOUS_COLOR, STUDY_PLAYER_BAR_COLOR, NU_COURSE_VERSION } from 'gooru-web/config/config';
 
 /**
  * Study Player header
@@ -190,9 +190,10 @@ export default Ember.Component.extend({
   /**
    * @property {Number} barChartData
    */
-  barChartData: Ember.computed('class.performanceSummary', function () {
-    const completed = this.get('class.performanceSummary.totalCompleted');
-    const total = this.get('class.performanceSummary.total');
+  barChartData: Ember.computed('class.performanceSummary', 'class.courseCompetencyCompletion', function () {
+    const isNUCourse = this.get('isNUCourse');
+    const completed = isNUCourse ? this.get('class.courseCompetencyCompletion.completedCount') : this.get('class.performanceSummary.totalCompleted');
+    const total = isNUCourse ? this.get('class.courseCompetencyCompletion.totalCount') : this.get('class.performanceSummary.total');
     const percentage = (completed) ? (completed/total)*100 : 0;
 
     return [
@@ -211,6 +212,18 @@ export default Ember.Component.extend({
     return breadcrumbs[1] || '';
   }),
 
+  /**
+   * Course version name
+   * @type {String}
+   */
+  courseVersion: null,
+
+  /**
+   * Check it's nu course version or not
+   * @type {Boolean}
+   */
+  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -224,9 +237,9 @@ export default Ember.Component.extend({
     const classId = component.get('classId');
     const collectionId = component.get('collection.id');
     const totalResources = (component.get('collection.resources')) ?
-      component.get('collection.resources').length : null;
-
+    component.get('collection.resources').length : null;
     component.set('totalResources', totalResources);
+    const courseId = component.get('courseId');
     if (classId) {
       Ember.RSVP.hash({
         aClass: component.get('classService').readClassInfo(classId),
@@ -239,6 +252,15 @@ export default Ember.Component.extend({
           'performanceSummary',
           classPerformanceSummaryItems.findBy('classId', classId)
         );
+        const isNUCourse = this.get('isNUCourse');
+        if (isNUCourse) {
+            Ember.RSVP.hash({
+              courseCompetencyCompletion:component.get('performanceService')
+                .findCourseCompetencyCompletionByCourseIds(myId, [ courseId ])
+            }).then(({courseCompetencyCompletion}) =>{
+              aClass.set('courseCompetencyCompletion', courseCompetencyCompletion.findBy('courseId', courseId));
+            });
+        }
         component.set('class', aClass);
       });
     }
@@ -248,4 +270,5 @@ export default Ember.Component.extend({
         .then(suggestedResources => component.set('suggestedResources', suggestedResources));
     }
   }
+
 });
