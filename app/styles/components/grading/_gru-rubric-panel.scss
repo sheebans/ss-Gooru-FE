@@ -43,8 +43,8 @@
     color: $white;
     overflow: auto;
     height: auto;
-    .grading,
-    .rubric {
+    > .grading,
+    > .rubric {
       display: none;
       &.active {
         display: inherit;

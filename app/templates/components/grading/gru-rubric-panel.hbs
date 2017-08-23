@@ -11,9 +11,11 @@
     <span class="tab grading-tab {{if isGrading 'active'}}" {{action 'selectTab' 'grading'}}>
       {{t 'grading-player.grading'}}
     </span>
-    <span class="tab rubric-tab {{if isRubric 'active'}}" {{action 'selectTab' 'rubric'}}>
-      {{t 'grading-player.rubric'}}
-    </span>
+    {{#if rubric.rubricOn}}
+      <span class="tab rubric-tab {{if isRubric 'active'}}" {{action 'selectTab' 'rubric'}}>
+        {{t 'grading-player.rubric'}}
+      </span>
+    {{/if}}
   </div>
   <div class="content">
     <div class="grading {{if isGrading 'active'}}">
@@ -23,8 +25,11 @@
         {{grading.gru-rubric-off rubric=rubric grade=grade}}
       {{/if}}
     </div>
-    <div class="rubric {{if isRubric 'active'}}">
-    </div>
+    {{#if rubric.rubricOn}}
+      <div class="rubric {{if isRubric 'active'}}">
+        {{grading/gru-rubric-info rubric=rubric}}
+      </div>
+    {{/if}}
   </div>
   <div class="footer">
     <div class="navigation">

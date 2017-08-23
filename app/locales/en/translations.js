@@ -1584,6 +1584,7 @@ export default Object.assign(quizzesTranslations, {
     roster: 'Roster',
     rubric: 'Rubric',
     'submitted-time': 'Submitted Time',
+    points: 'Points',
     prompt: 'Task Prompt',
     'overall-comment': 'Overall Comment',
     'overall-lead': 'Summarize your feedback on the essay as a whole.',
@@ -1595,7 +1596,9 @@ export default Object.assign(quizzesTranslations, {
     },
     'rubric-panel': {
       previous: 'Previous Student',
-      next: 'Next Student'
+      next: 'Next Student',
+      'total-score': 'Total Score',
+      points: '({{total}}pts)'
     }
   },
 

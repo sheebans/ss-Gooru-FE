@@ -1,0 +1,28 @@
+.gru-rubric-info {
+  .categories {
+    color: $white;
+    font-size: $font-size-h6;
+    ul {
+      list-style: none;
+      padding: 0;
+      max-height: 325px;
+      overflow: auto;
+      li {
+        padding: 10px 30px;
+        border-bottom: 1px solid $gray;
+        &.total {
+          border-bottom: 2px solid $gray;
+        }
+      }
+    }
+  }
+  .rubric-preview {
+    padding: 10px;
+    height: 100%;
+    .gru-preview-url {
+      iframe {
+        height: 100%;
+      }
+    }
+  }
+}
