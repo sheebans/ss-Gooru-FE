@@ -209,7 +209,11 @@ export default Ember.Object.extend({
         depthOfknowledge:
           metadata.depth_of_knowledge && metadata.depth_of_knowledge.length > 0
             ? metadata.depth_of_knowledge
-            : []
+            : [],
+        courseId: questionData.course_id,
+        unitId: questionData.unit_id,
+        lessonId: questionData.lesson_id,
+        collectionId: questionData.collection_id
       }
     );
 

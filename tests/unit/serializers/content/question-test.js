@@ -232,7 +232,11 @@ test('normalizeReadQuestion', function(assert) {
     metadata: {
       audience: [1],
       depth_of_knowledge: [4]
-    }
+    },
+    course_id: 'course-id',
+    unit_id: 'unit-id',
+    lesson_id: 'lesson-id',
+    collection_id: 'collection-id'
   };
 
   const question = serializer.normalizeReadQuestion(questionData);
@@ -253,6 +257,14 @@ test('normalizeReadQuestion', function(assert) {
   assert.equal(question.get('order'), 3, 'Wrong order');
   assert.equal(question.get('audience'), 1, 'Wrong audience');
   assert.equal(question.get('depthOfknowledge'), 4, 'Wrong depthOfknowledge');
+  assert.equal(question.get('courseId'), 'course-id', 'Wrong course id');
+  assert.equal(question.get('unitId'), 'unit-id', 'Wrong unit id');
+  assert.equal(question.get('lessonId'), 'lesson-id', 'Wrong lesson id');
+  assert.equal(
+    question.get('collectionId'),
+    'collection-id',
+    'Wrong collection id'
+  );
 });
 
 test('normalizeAnswer', function(assert) {

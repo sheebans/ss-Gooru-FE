@@ -236,8 +236,9 @@ export default Ember.Controller.extend({
           controller.get('lessonId')
         )
         .then(newAnswer => {
-          let mappings = controller.get('userMappings');
-          mappings[userId].answer = newAnswer;
+          let userMapping = controller.get('userMappings')[userId];
+          userMapping.answer = newAnswer;
+          userMapping.grade.set('sessionId', newAnswer.get('sessionId'));
           controller.set('currentUserId', userId);
         });
     }

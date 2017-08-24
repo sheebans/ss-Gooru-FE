@@ -796,7 +796,7 @@ test('normalizeCategoryScore', function(assert) {
 });
 
 test('serializeStudentRubricGrades', function(assert) {
-  assert.expect(21);
+  assert.expect(27);
   const serializer = this.subject();
 
   const rubric = RubricGrade.create({
@@ -814,10 +814,20 @@ test('serializeStudentRubricGrades', function(assert) {
     sessionId: 'session-id',
     studentScore: 10,
     maxScore: 100,
-    createdDate: new Date('October 13, 2014 11:40:00'),
-    updatedDate: new Date('October 14, 2014 11:40:00'),
+    createdDate: new Date(1413222000000),
+    updatedDate: new Date(1413308400000),
     comment: 'overall comment',
-    categoriesScore: [GradeCategoryScore.create(), GradeCategoryScore.create()]
+    categoriesScore: [GradeCategoryScore.create(), GradeCategoryScore.create()],
+    tenantRoot: 'tenant-root',
+    gutCodes: 'gut-codes',
+    owner: 'owner-id',
+    modifierId: 'modifier-id',
+    originalCreatorId: 'original-creator',
+    originalRubricId: 'original-rubric',
+    parentRubricId: 'parent-rubric',
+    publishDate: 'publish-date',
+    rubricCreatedDate: 'created-date',
+    rubricUpdatedDate: 'updated-date'
   });
 
   serializer.setProperties({
@@ -864,40 +874,13 @@ test('serializeStudentRubricGrades', function(assert) {
   assert.equal(rubricObject.session_id, 'session-id', 'Wrong session_id');
   assert.equal(rubricObject.student_score, 10, 'Wrong student_score');
   assert.equal(rubricObject.max_score, 100, 'Wrong max_score');
-  assert.equal(
-    rubricObject.created_at,
-    '2014-10-13 11:40:00',
-    'Wrong created_at'
-  );
-  assert.equal(
-    rubricObject.updated_at,
-    '2014-10-14 11:40:00',
-    'Wrong updated_at'
-  );
+  assert.equal(rubricObject.created_at, 1413222000000, 'Wrong created_at');
+  assert.equal(rubricObject.updated_at, 1413308400000, 'Wrong updated_at');
   assert.equal(
     rubricObject.category_score.length,
     2,
     'Wrong category scores length'
   );
-});
-
-test('serializeStudentRubricGradesExtra', function(assert) {
-  const serializer = this.subject();
-
-  const rubric = RubricGrade.create({
-    tenantRoot: 'tenant-root',
-    gutCodes: 'gut-codes',
-    owner: 'owner-id',
-    modifierId: 'modifier-id',
-    originalCreatorId: 'original-creator',
-    originalRubricId: 'original-rubric',
-    parentRubricId: 'parent-rubric',
-    publishDate: 'publish-date',
-    rubricCreatedDate: 'created-date',
-    rubricUpdatedDate: 'updated-date'
-  });
-
-  const rubricObject = serializer.serializeStudentRubricGradesExtra(rubric);
   assert.equal(rubricObject.tenant_root, 'tenant-root', 'Wrong tenant root');
   assert.equal(rubricObject.gut_codes, 'gut-codes', 'Wrong gut codes');
   assert.equal(rubricObject.creator_id, 'owner-id', 'Wrong creator id');

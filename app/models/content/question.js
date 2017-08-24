@@ -172,6 +172,26 @@ const Question = Ember.Object.extend(Validations, {
   subject: '',
 
   /**
+   * @property {String} courseId
+   */
+  courseId: null,
+
+  /**
+   * @property {String} unitId
+   */
+  unitId: null,
+
+  /**
+   * @property {String} lessonId
+   */
+  lessonId: null,
+
+  /**
+   * @property {String} collectionId
+   */
+  collectionId: null,
+
+  /**
    * @property {boolean} indicates if the question is multiple choice type
    * @see components/player/gru-multiple-choice.js
    */

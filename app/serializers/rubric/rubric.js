@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
-import { cleanFilename, nullIfEmpty, formatDate } from 'gooru-web/utils/utils';
+import { cleanFilename, nullIfEmpty, toTimestamp } from 'gooru-web/utils/utils';
 import Rubric from 'gooru-web/models/rubric/rubric';
 import RubricGrade from 'gooru-web/models/rubric/rubric-grade';
 import RubricCategoryScore from 'gooru-web/models/rubric/grade-category-score';
@@ -152,28 +152,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
   },
 
   /**
-   * Serializes extra properties from Rubric for RubricGrade
-   *
-   * @param {RubricGrade} model - The rubric grade model to be serialized
-   * @returns {Object} JSON Object representation of the extra props
-   *
-   */
-  serializeStudentRubricGradesExtra: function(model) {
-    return {
-      tenant_root: model.get('tenantRoot'),
-      gut_codes: model.get('gutCodes'),
-      creator_id: model.get('owner'),
-      modifier_id: model.get('modifierId'),
-      original_creator_id: model.get('originalCreatorId'),
-      original_rubric_id: model.get('originalRubricId'),
-      parent_rubric_id: model.get('parentRubricId'),
-      publish_date: model.get('publishDate'),
-      rubric_created_at: model.get('rubricCreatedDate'),
-      rubric_updated_at: model.get('rubricUpdatedDate')
-    };
-  },
-
-  /**
    * Serializes a RubricGrade/RubricGrade object into a JSON representation required by the endpoint
    *
    * @param {RubricGrade} model - The rubric grade model to be serialized
@@ -181,10 +159,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    *
    */
   serializeStudentRubricGrades: function(model) {
-    const serializer = this;
-    let grade = this.serializeUpdateRubric(model);
-    let extraProps = this.serializeStudentRubricGradesExtra(model);
-    return Object.assign(grade, extraProps, {
+    return {
       event_name: model.get('eventName'),
       rubric_id: model.get('id'),
       title: nullIfEmpty(model.get('title')),
@@ -200,14 +175,32 @@ export default Ember.Object.extend(ConfigurationMixin, {
       student_score: model.get('studentScore'),
       max_score: model.get('maxScore'),
       overall_comment: model.get('comment'),
-      created_at: formatDate(model.get('createdDate'), 'YYYY-MM-DD HH:mm:SS'),
-      updated_at: formatDate(model.get('updatedDate'), 'YYYY-MM-DD HH:mm:SS'),
+      created_at: toTimestamp(model.get('createdDate')),
+      updated_at: toTimestamp(model.get('updatedDate')),
       category_score: model.get('categoriesScore').length
-        ? model.get('categoriesScore').map(function(category) {
-          return serializer.serializedStudentGradeCategoryScore(category);
-        })
-        : null
-    });
+        ? model
+          .get('categoriesScore')
+          .map(category => this.serializedStudentGradeCategoryScore(category))
+        : null,
+      taxonomy: this.get('taxonomySerializer').serializeTaxonomy(
+        model.get('standards')
+      ),
+      metadata: model.get('hasAudience')
+        ? { audience: model.get('audience') }
+        : null,
+      tenant_root: model.get('tenantRoot'),
+      tenant: model.get('tenant'),
+      gut_codes: model.get('gutCodes'),
+      url: model.get('url'),
+      creator_id: model.get('owner'),
+      modifier_id: model.get('modifierId'),
+      original_creator_id: model.get('originalCreatorId'),
+      original_rubric_id: model.get('originalRubricId'),
+      parent_rubric_id: model.get('parentRubricId'),
+      publish_date: model.get('publishDate'),
+      rubric_created_at: model.get('rubricCreatedDate'),
+      rubric_updated_at: model.get('rubricUpdatedDate')
+    };
   },
 
   /**
