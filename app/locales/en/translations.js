@@ -202,6 +202,7 @@ export default Object.assign(quizzesTranslations, {
     },
     "enter-url": "Enter URL",
     "enrolled-students": "Enrolled Students",
+    "competencies-mastered": "Competencies Mastered",
     "errors": {
       "join-class-code": "Please enter the classroom code.",
       "answer-has-no-image": "Please upload an answer image.",

@@ -31,12 +31,13 @@
             {{#if class.courseCompetencyCompletion.completedCount}}
                {{class.courseCompetencyCompletion.completedCount}}/{{class.courseCompetencyCompletion.totalCount}}
             {{/if}}
+            {{t 'common.competencies-mastered'}}
         {{else}}
             {{#if class.performanceSummary.totalCompleted}}
                {{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}
             {{/if}}
+            {{t 'common.completion'}}
         {{/if}}
-        {{t 'common.completion'}}
         </span>
        </div>
     </div>
