@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
+import T from 'gooru-web/tests/helpers/assert';
 import wait from 'ember-test-helpers/wait';
 import hbs from 'htmlbars-inline-precompile';
 import RubricModel from 'gooru-web/models/rubric/rubric';
@@ -90,4 +91,48 @@ test('Change tabs', function(assert) {
     assert.ok($grading.hasClass('active'), 'Grading must be active');
     assert.notOk($rubric.hasClass('active'), 'Rubric must not be active');
   });
+});
+
+test('Show answer tab', function(assert) {
+  this.set(
+    'rubric',
+    RubricModel.create(Ember.getOwner(this).ownerInjection(), {
+      rubricOn: true,
+      categories: Ember.A()
+    })
+  );
+  this.set('answer', 'This is my answer.');
+  this.render(hbs`{{grading/gru-rubric-panel rubric=rubric answer=answer}}`);
+
+  let $component = this.$();
+  let $header = $component.find('.rubric-information .header');
+  let $answerTab = $header.find('.answer-tab');
+  let $response = $component.find('.content .answer');
+  assert.ok(
+    $answerTab.hasClass('active'),
+    'Answer tab must be active by default'
+  );
+  assert.ok($response.hasClass('active'), 'Answer must be active by default');
+});
+
+test('Show navigation', function(assert) {
+  this.render(hbs`{{grading/gru-rubric-panel showNavigation=true}}`);
+
+  let $component = this.$();
+  T.exists(
+    assert,
+    $component.find('.rubric-information .footer'),
+    'Navigation is not being shown'
+  );
+});
+
+test('Do not show navigation', function(assert) {
+  this.render(hbs`{{grading/gru-rubric-panel showNavigation=false}}`);
+
+  let $component = this.$();
+  T.notExists(
+    assert,
+    $component.find('.rubric-information .footer'),
+    'Navigation is being shown'
+  );
 });

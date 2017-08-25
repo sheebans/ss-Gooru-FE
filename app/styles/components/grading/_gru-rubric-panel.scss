@@ -1,7 +1,9 @@
 .gru-rubric-panel {
   @include flexbox;
   @include flex-direction(column);
-  width: 40%;
+  @include flex-shrink(0);
+  @include flex-grow(0);
+  width: 30%;
   background-color: $dark-400;
   height: auto;
   .rubric-information {
@@ -26,6 +28,7 @@
     }
     .tab {
       cursor: pointer;
+      white-space: nowrap;
       padding: 10px 23px;
       border-bottom: 1px solid $dark-300;
       &.active {
@@ -44,10 +47,23 @@
     overflow: auto;
     height: auto;
     > .grading,
-    > .rubric {
+    > .rubric,
+    > .answer {
       display: none;
       &.active {
         display: inherit;
+      }
+    }
+    > .answer {
+      margin: 20px 14px 10px;
+      color: $gray;
+      .question-response {
+        margin-bottom: 0;
+        .inner-text {
+          word-wrap: break-word;
+          padding: 20px;
+          border: 1px solid $gray-light;
+        }
       }
     }
   }

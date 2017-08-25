@@ -47,15 +47,39 @@ export default Ember.Component.extend({
       this.sendAction('onSubmitGrade');
     }
   },
+  // -------------------------------------------------------------------------
+  // Events
+  init: function() {
+    this._super(...arguments);
+    if (this.get('grade')) {
+      this.set('tab', 'grading');
+    } else if (this.get('answer')) {
+      this.set('tab', 'answer');
+    } else {
+      this.set('tab', 'rubric');
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Answer values
+   * @property {String} answer
+   */
+  answer: null,
 
   /**
    * Grade values
    * @property {Grade} grade
    */
   grade: null,
+
+  /**
+   * If answer is selected
+   * @property {Boolean} isAnswer
+   */
+  isAnswer: Ember.computed.equal('tab', 'answer'),
 
   /**
    * If grading is selected
@@ -85,6 +109,11 @@ export default Ember.Component.extend({
    * @property {Boolean} showFullRubric
    */
   showFullRubric: false,
+
+  /**
+   * @property {Boolean} showNavigation
+   */
+  showNavigation: true,
 
   /**
    * Current tab name selected
