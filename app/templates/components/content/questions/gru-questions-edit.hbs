@@ -66,9 +66,92 @@
           {{content.gru-image isEditing=false srcImage=question.thumbnail editImage=tempQuestion.thumbnail}}
         {{/if}}
       {{/if}}
+      {{#if question.isOpenEnded}}
+        <div class="submission-format">
+          <div class="border-bottom">
+            <h3>{{t 'content.questions.edit.builder.submission-format.title'}}</h3>
+          </div>
+          <div class="answer-types">
+            <div class="panel panel-default">
+              <div class="panel-body">{{gru-icon name='text_fields'}}</div>
+              <div class="panel-footer">{{t 'content.questions.edit.builder.submission-format.answer-type.text-box'}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="feedback-grading">
+          <div class="border-bottom">
+            <h3>{{t 'content.questions.edit.builder.feedback-grading.title'}}</h3>
+          </div>
+          <div class="content">
+            <div class="switch rubric">
+              <label class="switch-label">{{t 'common.rubric'}}</label>
+              {{#if isBuilderEditing}}
+                {{gru-switch switchOptions=switchOptions isChecked=rubric.rubricOn}}
+              {{else}}
+                {{gru-switch switchOptions=switchOptions isChecked=rubric.rubricOn disabled=true}}
+              {{/if}}
+            </div>
+            {{#if rubric.rubricOn}}
+              {{#if rubric.title}}
+                <div class="associated-rubric">
+                  <div class="image">
+                    {{#if rubric.thumbnail}}
+                      <img class="img-responsive" src="{{rubric.thumbnail}}"/>
+                    {{else}}
+                      <i class="rubric-icon"></i>
+                    {{/if}}
+                  </div>
+                  <div class="info">
+                    <h3>{{rubric.title}}</h3>
+                  </div>
+                  <div class="actions">
+                    {{#link-to 'content.rubric.edit' rubric.id class="btn no-bgd edit-item" tagName="button"}}{{gru-icon name="edit"}}{{/link-to}}
+                  </div>
+                </div>
+              {{else}}
+                <div class="add-rubric-container">
+                  <button class="btn btn-success add-prefix add-rubric" {{action 'showAddRubricModal'}}>
+                    {{t 'content.questions.edit.builder.feedback-grading.from-existing-rubric'}}
+                  </button>
+                </div>
+              {{/if}}
+            {{else}}
+              <div class="switch scoring">
+                <label class="switch-label">{{t 'content.questions.edit.builder.feedback-grading.scoring'}}</label>
+                {{#if isBuilderEditing}}
+                  {{gru-switch switchOptions=switchOptions isChecked=rubric.scoring}}
+                {{else}}
+                  {{gru-switch switchOptions=switchOptions isChecked=rubric.scoring disabled=true}}
+                {{/if}}
+              </div>
+              {{#if rubric.scoring}}
+                <div class="scoring-settings">
+                  <div class="setting maximum-points">
+                    <span class="title">{{t 'content.questions.edit.builder.feedback-grading.maximum-points'}}</span>
+                    {{#if isBuilderEditing}}
+                      {{validation.gru-select options=maximumOptions search="true" optionSelected=tempQuestion.rubric.maxScore onOptionSelect="onMaxScoreChange"}}
+                    {{else}}
+                      {{rubric.maxScore}}
+                    {{/if}}
+                  </div>
+                  <div class="setting increment">
+                    <span class="title">{{t 'content.questions.edit.builder.feedback-grading.increment'}}</span>
+                    {{#if isBuilderEditing}}
+                      {{validation.gru-select options=incrementOptions search="true" optionSelected=tempQuestion.rubric.increment onOptionSelect="onIncrementChange"}}
+                    {{else}}
+                      {{rubric.increment}}
+                    {{/if}}
+                  </div>
+                </div>
+              {{/if}}
+            {{/if}}
+          </div>
+        </div>
+      {{/if}}
     </div>
   </div>
-  {{#unless question.isFIB}}
+
+  {{#unless (or question.isOpenEnded question.isFIB)}}
   <div class="panel panel-default question-answer">
     <div class="panel-heading">
       <div class="{{unless question.isHotTextHighlight 'border-bottom'}}">
