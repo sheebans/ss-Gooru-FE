@@ -40,12 +40,7 @@
       <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
         <div class="panel-body">
           <div class="external-https">
-            <p class="title">
-              {{t 'player.gru-viewer.not-iframe-url.https_external'}}
-              <br>
-              {{t 'player.gru-viewer.not-iframe-url.https_new_tab'}}
-            </p>
-            <a href="{{resource.url}}" target="_blank">{{resource.url}}</a>
+            {{cards.gru-resource-card resource=resource addEnabled=false}}
           </div>
         </div>
       </div>
