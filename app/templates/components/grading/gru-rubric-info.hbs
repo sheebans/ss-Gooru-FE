@@ -14,6 +14,8 @@
     </ul>
   </div>
 {{/if}}
-<div class="rubric-preview">
-  {{content.rubric.gru-preview-url resource=rubric isRubric=true}}
-</div>
+{{#if rubric.url}}
+  <div class="rubric-preview">
+    {{content.rubric.gru-preview-url resource=rubric isRubric=true}}
+  </div>
+{{/if}}

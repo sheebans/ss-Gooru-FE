@@ -16,6 +16,7 @@ test('Rubric Information', function(assert) {
   const rubric = RubricModel.create({
     id: '1234',
     title: 'TitleRubric',
+    url: 'url',
     categories: Ember.A([
       RubricCategoryModel.create({
         id: 'category-1',

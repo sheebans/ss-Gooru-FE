@@ -1576,6 +1576,7 @@ export default Object.assign(quizzesTranslations, {
   },
 
   'grading-player': {
+    answer: 'Submitted Work',
     'back-to': 'Back',
     'current-response': 'Current Response',
     'full-rubric': 'Full Rubric',
