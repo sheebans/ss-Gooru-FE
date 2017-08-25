@@ -99,7 +99,7 @@
         }
       }
       .resource-info {
-        width: 58%;
+        width: 80%;
         padding-left: 5px;
         > * {
           display: block;
@@ -113,11 +113,12 @@
         }
         .title-section {
           h3.title {
-            display: inline-block;
+            display: block !important;
             color: $blue-400;
             cursor: pointer;
-            font-size: $font-size-h6;
-            margin: 0 0 5px 5px;
+            margin: 0 0 5px 2px;
+            $lines-to-show: 2;
+            @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
           }
           .publish-icon {
             display: inline-block;
