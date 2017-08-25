@@ -265,6 +265,15 @@ export default Ember.Controller.extend({
     this.get('currentGrade').set('updatedDate', new Date());
     this.get('rubricService')
       .setStudentRubricGrades(this.get('currentGrade'))
-      .then(() => this.get('currentUser').set('checked', true));
+      .then(() => {
+        this.get('currentUser').set('checked', true);
+        this.loadStudent(true);
+        if (this.get('isNextDisabled')) {
+          this.transitionToRoute(
+            'teacher.class.performance',
+            this.get('classId')
+          );
+        }
+      });
   }
 });
