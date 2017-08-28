@@ -27,14 +27,13 @@
             }}
           </div>
           <div class="graphic completed">
+            <span class="legend">{{t "common.completion"}}</span>
             {{#if isNUCourse}}
-              <span class="legend">{{t 'common.competencies-mastered'}}</span>
               {{charts.gru-radial-chart
               value=class.courseCompetencyCompletion.completedCount
               minValue=0
               maxValue=class.courseCompetencyCompletion.totalCount}}
             {{else}}
-              <span class="legend">{{t "common.completion"}}</span>
               {{charts.gru-radial-chart
               value=class.performanceSummary.totalCompleted
               minValue=0

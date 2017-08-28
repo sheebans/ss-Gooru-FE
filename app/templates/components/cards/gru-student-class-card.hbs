@@ -22,14 +22,13 @@
             value=class.courseCompetencyCompletion.completedCount
             minValue=0
             maxValue=class.courseCompetencyCompletion.totalCount}}
-            <span>{{t 'common.competencies-mastered'}}</span>
           {{else}}
             {{charts.gru-radial-chart
             value=class.performanceSummary.totalCompleted
             minValue=0
             maxValue=class.performanceSummary.total}}
-            <span>{{t "common.completed"}}</span>
           {{/if}}
+          <span>{{t "common.completed"}}</span>
         </div>
       </div>
     </div>
