@@ -245,6 +245,54 @@ test('Layout of the information section', function(assert) {
   });
 });
 
+test('Layout of submission format and grading', function(assert) {
+  var self = this;
+  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Question Title',
+    type: QUESTION_TYPES.openEnded,
+    standards: []
+  });
+
+  this.set('question', question);
+  this.render(
+    hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question}}`
+  );
+
+  return wait().then(function() {
+    let $questionSection = self.$('.question-text');
+    let $submissionFormat = $questionSection.find('.submission-format');
+    let $grading = $questionSection.find('.feedback-grading');
+    assert.ok($submissionFormat.length, 'Submission format should show');
+    assert.ok($grading.length, 'Grading section should show');
+    let $rubricOnToggle = $grading.find('.switch.rubric .toggle.btn');
+    let $scoringToggle = $grading.find('.switch.scoring .toggle.btn');
+    assert.ok($rubricOnToggle.length, 'Toggle rubric should show');
+    assert.ok($scoringToggle.length, 'Toggle scoring should show');
+    $scoringToggle.click();
+    return wait().then(function() {
+      assert.ok(
+        $grading.find('.setting.maximum-points').length,
+        'Maximum points should show'
+      );
+      assert.ok(
+        $grading.find('.setting.increment').length,
+        'Increment should show'
+      );
+      $rubricOnToggle.click();
+      return wait().then(function() {
+        assert.ok(
+          $grading.find('.add-rubric-container').length,
+          'Add rubric container should show'
+        );
+        assert.notOk(
+          $grading.find('.scoring').length,
+          'Scoring should not show'
+        );
+      });
+    });
+  });
+});
+
 test('Information section - Competency Label', function(assert) {
   var question = Ember.Object.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question Title',
@@ -919,99 +967,6 @@ test('Remove answer and cancel - (drag/drop) Reorder', function(assert) {
   });
 });
 
-test('Update answer text - Open Ended', function(assert) {
-  const newText = 'Answer text updated';
-
-  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Question for testing',
-    text: 'Question description',
-    type: QUESTION_TYPES.openEnded,
-    answers: Ember.A([
-      Answer.create(Ember.getOwner(this).ownerInjection(), {
-        text: 'Answer text',
-        isCorrect: true,
-        type: 'text',
-        standards: []
-      })
-    ])
-  });
-  this.set('question', question);
-
-  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
-  const $component = this.$('.gru-questions-edit');
-
-  var $options = $component.find('.gru-open-ended .answer-text');
-  assert.equal($options.length, 1, 'Number of answer options');
-  assert.ok($options.find('> textarea'), 'View textarea');
-  assert.equal(
-    $options.eq(0).find('textarea').val(),
-    question.get('answers')[0].get('text'),
-    'Answer text'
-  );
-
-  const $edit = $component.find('#builder .actions .edit');
-  $edit.click();
-  return wait().then(function() {
-    var $optionInput = $component.find(
-      '.gru-open-ended .text-area-container .gru-textarea textarea'
-    );
-    $optionInput.val(newText);
-    $optionInput.trigger('blur');
-
-    const $save = $component.find('#builder .actions .save');
-    $save.click();
-    return wait().then(function() {
-      $options = $component.find('.gru-open-ended .answer-text');
-      assert.equal(
-        $options.eq(0).find('textarea').val(),
-        newText,
-        'Answer text after edit'
-      );
-    });
-  });
-});
-
-test('Update answer and cancel - Open Ended', function(assert) {
-  const newText = 'Answer text';
-
-  var question = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Question for testing',
-    text: '',
-    type: QUESTION_TYPES.openEnded,
-    answers: Ember.A([]),
-    standards: []
-  });
-  this.set('question', question);
-
-  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
-  const $component = this.$('.gru-questions-edit');
-
-  var $options = $component.find('.gru-open-ended .answer-text');
-  assert.equal($options.length, 1, 'Number of answer options');
-
-  const $edit = $component.find('#builder .actions .edit');
-  $edit.click();
-  return wait().then(function() {
-    var $optionInput = $component.find(
-      '.gru-open-ended .text-area-container .gru-textarea textarea'
-    );
-    assert.equal($optionInput.val(), '', 'Empty text for default option');
-    $optionInput.val(newText);
-    $optionInput.trigger('blur');
-
-    const $cancel = $component.find('#builder .actions .cancel');
-    $cancel.click();
-    return wait().then(function() {
-      $options = $component.find('.gru-open-ended .answer-text');
-      assert.equal(
-        $options.eq(0).find('textarea').val(),
-        '',
-        'Answer text after cancel'
-      );
-    });
-  });
-});
-
 test('Select one correct answer at least', function(assert) {
   var question = Question.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Question for testing',
@@ -1058,36 +1013,26 @@ test('Update HS-Image', function(assert) {
     type: QUESTION_TYPES.hotSpotImage,
     standards: []
   });
-  var tempQuestion = Question.create(Ember.getOwner(this).ownerInjection(), {
-    title: 'Question for testing',
-    text: '',
-    type: QUESTION_TYPES.hotSpotImage,
-    answers: Ember.A([
-      Answer.create(Ember.getOwner(this).ownerInjection(), {
-        text: 'Answer text',
-        isCorrect: true,
-        type: 'text'
-      })
-    ]),
-    subject: 'CCSS.K12.Math',
-    category: 'k_12'
-  });
   this.set('question', question);
-  this.set('tempQuestion', tempQuestion);
 
   this.render(
-    hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=tempQuestion}}`
+    hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question}}`
   );
   const $component = this.$('.gru-questions-edit');
-  const $save = $component.find('#builder .actions .save');
-  $save.click();
+  const $addAnswer = $component.find('.add-answer a');
+  $addAnswer.click();
   return wait().then(function() {
-    const $option = $component.find('.gru-hs-image .hs-container');
-    assert.ok($option.length, 'The answer should be saved');
-    assert.ok(
-      $option.find('.panel-footer .correct .check'),
-      'New answer should be correct'
-    );
+    $component.find('.hs-container .check').click();
+    const $save = $component.find('#builder .actions .save');
+    $save.click();
+    return wait().then(function() {
+      const $option = $component.find('.gru-hs-image .hs-container');
+      assert.ok($option.length, 'The answer should be saved');
+      assert.ok(
+        $option.find('.panel-footer .correct .check'),
+        'New answer should be correct'
+      );
+    });
   });
 });
 test('Change HS-Image and Cancel', function(assert) {

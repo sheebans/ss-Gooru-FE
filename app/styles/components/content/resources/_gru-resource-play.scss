@@ -1,3 +1,12 @@
+.controller.content.resources.play {
+  > article > section {
+    .header {
+      border-bottom: none;
+      padding: 0;
+    }
+  }
+}
+
 .panel-body {
   .external-https {
     @include flexbox;
@@ -5,18 +14,5 @@
     @include align-items(center);
     @include justify-content(center);
     padding: 2em;
-
-    p {
-      line-height: 2em;
-      text-align: center;
-    }
-
-    a {
-      font-size: $font-size-h4;
-      margin-top: 1em;
-      text-align: center;
-      width: 90%;
-      word-wrap: break-word;
-    }
   }
 }

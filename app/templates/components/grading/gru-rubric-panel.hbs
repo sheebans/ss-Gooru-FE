@@ -64,7 +64,11 @@
         </div>
       </div>
       <button type="button" class='btn btn-primary btn-submit' {{action 'submitGrade'}}>
-        {{t 'common.submit'}}
+        {{#if isNextDisabled}}
+          {{t 'common.submit-finish'}}
+        {{else}}
+          {{t 'common.submit'}}
+        {{/if}}
       </button>
     </div>
   {{/if}}

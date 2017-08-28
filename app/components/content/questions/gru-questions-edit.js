@@ -1,12 +1,17 @@
 import Ember from 'ember';
 import ContentEditMixin from 'gooru-web/mixins/content/edit';
 import { QUESTION_CONFIG } from 'gooru-web/config/question';
-import { CONTENT_TYPES, EDUCATION_CATEGORY } from 'gooru-web/config/config';
+import {
+  CONTENT_TYPES,
+  EDUCATION_CATEGORY,
+  RUBRIC_OFF_OPTIONS
+} from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
 import { replaceMathExpression, removeHtmlTags } from 'gooru-web/utils/utils';
+import Rubric from 'gooru-web/models/rubric/rubric';
 
 export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   // -------------------------------------------------------------------------
@@ -40,6 +45,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
    * @requires service:i18n
    */
   i18n: Ember.inject.service(),
+
+  /**
+   * @property {Service} rubric service
+   */
+  rubricService: Ember.inject.service('api-sdk/rubric'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -84,6 +94,16 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
      */
     editBuilderContent: function() {
       var questionForEditing = this.get('question').copy();
+      if (
+        questionForEditing.get('isOpenEnded') &&
+        !questionForEditing.get('rubric')
+      ) {
+        let rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
+          increment: 0.5,
+          maxScore: 1
+        });
+        questionForEditing.set('rubric', rubric);
+      }
       this.set('tempQuestion', questionForEditing);
       this.set('isBuilderEditing', true);
       this.set('editImagePicker', false);
@@ -204,11 +224,83 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
 
     focusQuestionTextEditor: function() {
       this.scrollToFirstEditor();
+    },
+
+    /**
+     * Action after selecting an option for maximum points
+     */
+    onMaxScoreChange: function(newValue) {
+      this.set('tempQuestion.rubric.maxScore', parseInt(newValue));
+    },
+
+    /**
+     * Action after selecting an option for increment
+     */
+    onIncrementChange: function(newValue) {
+      this.set('tempQuestion.rubric.increment', parseFloat(newValue));
+    },
+
+    /**
+     * Updates rubric to display the information of the associated rubric
+     */
+    updateAssociatedRubric: function(rubricAssociated) {
+      let question = this.get('tempQuestion');
+      rubricAssociated.set('rubricOn', true);
+      question.set('rubric', rubricAssociated);
+    },
+
+    /**
+     * Show modal with rubrics to choose one and associate it to the question
+     */
+    showAddRubricModal: function() {
+      let component = this;
+
+      return component
+        .get('rubricService')
+        .getUserRubrics(component.get('session.userId'))
+        .then(function(rubrics) {
+          return {
+            questionId: component.get('tempQuestion.id'),
+            rubrics,
+            callback: {
+              success: function(rubricAssociated) {
+                component.send('updateAssociatedRubric', rubricAssociated);
+              }
+            }
+          };
+        })
+        .then(model =>
+          component.send(
+            'showModal',
+            'content.modals.gru-add-rubric-to-question',
+            model,
+            null,
+            null
+          )
+        );
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
+
+  init: function() {
+    this._super(...arguments);
+    if (this.get('isBuilderEditing')) {
+      let questionForEditing = this.get('question').copy();
+      if (
+        questionForEditing.get('isOpenEnded') &&
+        !questionForEditing.get('rubric')
+      ) {
+        let rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
+          increment: 0.5,
+          maxScore: 1
+        });
+        questionForEditing.set('rubric', rubric);
+      }
+      this.set('tempQuestion', questionForEditing);
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -253,12 +345,36 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
   ]),
 
   /**
+   * Options for maximum points
+   * @property {Array}
+   */
+  maximumOptions: Ember.computed(function() {
+    let options = [];
+    for (let i = 1; i <= RUBRIC_OFF_OPTIONS.MAX_SCORE; i += 1) {
+      options.push({
+        id: i,
+        name: i
+      });
+    }
+    return options;
+  }),
+
+  /**
+   * Options for increment
+   * @property {Array}
+   */
+  incrementOptions: Ember.computed(function() {
+    return RUBRIC_OFF_OPTIONS.INCREMENT;
+  }),
+
+  /**
    * @property{Array{}} questionTypes
    */
   questionTypes: Ember.computed(function() {
     let array = Ember.A(Object.keys(QUESTION_CONFIG));
     return array;
   }),
+
   /**
    * @property {Boolean} isBuilderEditing
    */
@@ -278,6 +394,20 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
    * @property {Boolean} Indicates if a Hot spot answer has images
    */
   hasNoImages: false,
+
+  /**
+   * @property {Boolean} Rubric info to use
+   */
+  rubric: Ember.computed(
+    'isBuilderEditing',
+    'question.rubric',
+    'tempQuestion.rubric',
+    function() {
+      return this.get('isBuilderEditing')
+        ? this.get('tempQuestion.rubric')
+        : this.get('question.rubric');
+    }
+  ),
 
   /**
    *
@@ -503,6 +633,18 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
                 'depthOfknowledge',
                 'thumbnail'
               ]);
+              if (!question.get('rubric')) {
+                question.set('rubric', editedQuestion.get('rubric'));
+              } else {
+                question
+                  .get('rubric')
+                  .merge(editedQuestion.get('rubric'), [
+                    'maxScore',
+                    'increment',
+                    'scoring',
+                    'rubricOn'
+                  ]);
+              }
             })
             .catch(function(error) {
               var message = component

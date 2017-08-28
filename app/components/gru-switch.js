@@ -38,6 +38,7 @@ export default Ember.Component.extend({
       }
     });
     this.changeStatus(this.get('isChecked'));
+    this.set('inputDisabled', this.get('disabled'));
   },
 
   stateObserver: Ember.observer('isChecked', function() {
@@ -52,12 +53,20 @@ export default Ember.Component.extend({
   },
 
   // -------------------------------------------------------------------------
+  // Properties
+
   /**
    * Disabled the switch
    * @property {Boolean} disabled
    */
   disabled: false,
-  // Properties
+
+  /**
+   * If the switch is now disabled
+   * @property {Boolean} disabled
+   */
+  inputDisabled: false,
+
   /**
    * List of options to show in the switch
    *

@@ -81,6 +81,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
             rubric: this.get('rubricService').getRubric(
               question.get('rubric.id')
             ),
+            userIds: users.get('students'),
             users: this.get('profileService')
               .readMultipleProfiles(users.get('students'))
               .then(profiles =>
@@ -114,8 +115,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       'questionText',
       model.question.get('description') || model.question.get('title')
     );
+    controller.set('classId', model.classId);
     controller.set('rubric', model.rubric);
-    controller.set('users', model.users);
+    controller.set(
+      'users',
+      model.userIds.map(userId => model.users.findBy('id', userId))
+    );
     let userMappings = model.users.reduce((mappings, user) => {
       mappings[user.id] = {
         user,
@@ -124,6 +129,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           Ember.getOwner(this).ownerInjection(),
           model.rubric,
           {
+            comment: '',
             studentId: user.id,
             classId: model.classId,
             courseId: model.courseId,
