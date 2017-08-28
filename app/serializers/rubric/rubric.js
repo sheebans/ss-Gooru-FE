@@ -172,8 +172,12 @@ export default Ember.Object.extend(ConfigurationMixin, {
       collection_id: nullIfEmpty(model.get('collectionId')),
       session_id: nullIfEmpty(model.get('sessionId')),
       resource_id: nullIfEmpty(model.get('resourceId')),
-      student_score: model.get('studentScore'),
-      max_score: model.get('maxScore'),
+      student_score: model.get('studentScore')
+        ? model.get('studentScore')
+        : model.get('currentScore'),
+      max_score: model.get('maxScore')
+        ? model.get('maxScore')
+        : model.get('totalPoints'),
       overall_comment: model.get('comment'),
       created_at: toTimestamp(model.get('createdDate')),
       updated_at: toTimestamp(model.get('updatedDate')),

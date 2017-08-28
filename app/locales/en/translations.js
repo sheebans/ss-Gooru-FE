@@ -2400,5 +2400,11 @@ export default Object.assign(quizzesTranslations, {
     'take-backfill-pretest': 'Study Suggested Collection',
     'take-resource': 'Study Resource',
     'end-of-course': 'You have reached the end of the course.'
+  },
+
+  'student-open-ended-summary': {
+    'overall-comment': 'Overall Comment',
+    'overall-score': 'Overall score',
+    prompt: 'Question Prompt'
   }
 });

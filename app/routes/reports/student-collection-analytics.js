@@ -68,11 +68,29 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
     /**
      * Open the Open ended question summary report
-     *
      * @function actions:viewOEReport
+     * @param questionId {String}
      */
-    viewOEReport: function() {
-      this.transitionTo('reports.student-open-ended-summary');
+    viewOEReport: function(questionId) {
+      const route = this;
+      const controller = route.get('controller');
+      const context = controller.get('context');
+
+      const queryParams = {
+        collectionId: context.get('collectionId'),
+        collectionType: context.get('collectionType'),
+        studentId: context.get('userId'),
+        classId: context.get('classId'),
+        sessionId: context.get('sessionId'),
+        courseId: context.get('courseId'),
+        unitId: context.get('unitId'),
+        lessonId: context.get('lessonId'),
+        questionId
+      };
+
+      route.transitionTo('reports.student-open-ended-summary', {
+        queryParams: queryParams
+      });
     }
   },
 

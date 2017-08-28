@@ -10,6 +10,12 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   * Title to show on the header
+   * @property {String} promptTitle
+   */
+  promptTitle: null,
+
+  /**
    * Text to show on the header
    * @property {String} promptText
    */

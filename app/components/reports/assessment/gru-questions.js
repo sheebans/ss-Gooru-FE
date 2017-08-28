@@ -18,9 +18,10 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
     /**
      * View Open Ended report
+     * @param questionId {String}
      */
-    viewOEReport: function() {
-      this.sendAction('onViewOEReport');
+    viewOEReport: function(questionId) {
+      this.sendAction('onViewOEReport', questionId);
     }
   },
   // -------------------------------------------------------------------------

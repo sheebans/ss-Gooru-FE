@@ -86,7 +86,7 @@
       {{/if}}
       {{#if result.question.isOpenEnded}}
         <td class="question-report">
-          <a {{action 'viewOEReport'}}>
+          <a {{action 'viewOEReport' result.question.id}}>
             <span class="report-icon">{{gru-icon name='library_books'}}</span>
           </a>
         </td>
