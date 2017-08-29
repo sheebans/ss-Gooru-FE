@@ -5,6 +5,8 @@ import CollectionPerformanceSummarySerializer from 'gooru-web/serializers/perfor
 import CollectionPerformanceSummaryAdapter from 'gooru-web/adapters/performance/collection-performance-summary';
 import ActivityPerformanceSummarySerializer from 'gooru-web/serializers/performance/activity-performance-summary';
 import ActivityPerformanceSummaryAdapter from 'gooru-web/adapters/performance/activity-performance-summary';
+import CourseCompetencyCompletionAdapter from 'gooru-web/adapters/performance/course-competency-completion';
+import CourseCompetencyCompletionSerializer from 'gooru-web/serializers/performance/course-competency-completion';
 import { aggregateClassActivityPerformanceSummaryItems } from 'gooru-web/utils/performance-summary';
 
 /**
@@ -59,6 +61,10 @@ export default Ember.Service.extend({
    */
   activityPerformanceSummaryAdapter: null,
 
+  /**
+   * @property {courseCompetencyCompletionAdapter}
+   */
+  courseCompetencyCompletionAdapter: null,
 
   // -------------------------------------------------------------------------
   // Events
@@ -71,6 +77,8 @@ export default Ember.Service.extend({
     this.set('collectionPerformanceSummaryAdapter', CollectionPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
     this.set('activityPerformanceSummarySerializer', ActivityPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
     this.set('activityPerformanceSummaryAdapter', ActivityPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('courseCompetencyCompletionAdapter', CourseCompetencyCompletionAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set('courseCompetencyCompletionSerializer', CourseCompetencyCompletionSerializer.create(Ember.getOwner(this).ownerInjection()));
   },
 
   /**
@@ -599,5 +607,22 @@ export default Ember.Service.extend({
         .then(function (data) {
           return service.get('activityPerformanceSummarySerializer').normalizeAllActivityPerformanceSummary(data);
         });
+  },
+
+  /**
+   * Find the course competency completion data
+   * @param  {String} studentId   Logged in student id
+   * @param  {String} courseIds Course id's to find the competency completion
+   * @return {Object} It returns the serialized course competency completion data
+   */
+  findCourseCompetencyCompletionByCourseIds: function(studentId, courseIds) {
+    const service = this;
+    if (courseIds && courseIds.length) {
+      return service.get('courseCompetencyCompletionAdapter').findCourseCompetencyCompletionByCourseIds(studentId, courseIds).then(function (data) {
+                return service.get('courseCompetencyCompletionSerializer').normalizeAllCourseCompetencyCompletion(data);
+            });
+    } else {
+      return Ember.RSVP.resolve([]);
+    }
   }
 });

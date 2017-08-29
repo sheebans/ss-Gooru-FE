@@ -65,6 +65,12 @@ export default Ember.Controller.extend({
    */
   contentVisibility: null,
 
+  /**
+   * Check it's nu course version or not
+   * @property {Boolean}
+   */
+  isNUCourse: null,
+
   // -------------------------------------------------------------------------
   // Methods
 

@@ -128,6 +128,12 @@ const Class = Ember.Object.extend(Validations, {
   contentVisibility: null,
 
   /**
+   * Course version Id
+   * @property {String}
+   */
+  courseVersion: null,
+
+  /**
    * Indicates if all content within this class is visible
    * @property {boolean}
    */

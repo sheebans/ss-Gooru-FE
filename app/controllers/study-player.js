@@ -177,6 +177,12 @@ export default PlayerController.extend({
   }),
 
   /**
+   * Course version Name
+   * @property {String}
+   */
+  courseVersion: Ember.computed.alias('course.version'),
+
+  /**
    * Resets to default values
    */
   resetValues: function() {

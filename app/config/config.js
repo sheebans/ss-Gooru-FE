@@ -253,3 +253,5 @@ export const PLAYER_EVENT_SOURCE = {
   DAILY_CLASS: 'dailyclassactivity',
   INDEPENDENT_ACTIVITY: 'ILActivity'
 };
+
+export const NU_COURSE_VERSION = '3.0-nu';

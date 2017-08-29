@@ -99,7 +99,8 @@ export default Ember.Object.extend({
       isArchived: payload['is_archived'],
       collaborators: collaborators.map(function(collaboratorId){
         return ProfileModel.create({ id: collaboratorId }) ;
-      })
+      }),
+      courseVersion: payload['course_version']
     });
   },
 

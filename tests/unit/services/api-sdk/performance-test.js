@@ -621,3 +621,56 @@ test('findStudentActivityPerformanceSummaryByIds', function(assert) {
         done();
       });
 });
+
+test('findCourseCompetencyCompletionByCourseIds', function(assert) {
+  const service = this.subject();
+  assert.expect(4);
+
+  service.set('courseCompetencyCompletionSerializer', Ember.Object.create({
+    normalizeAllCourseCompetencyCompletion: function(data) {
+      assert.equal(data, "dummy-data", 'Wrong data');
+      return [1,2,3,4,5]; //dummy response
+    }
+  }));
+
+  service.set('courseCompetencyCompletionAdapter', Ember.Object.create({
+    findCourseCompetencyCompletionByCourseIds: function(userId, courseIds) {
+      assert.deepEqual(userId, 123, 'Wrong id');
+      assert.deepEqual(courseIds, [1,2,3], 'Wrong ids');
+      return Ember.RSVP.resolve("dummy-data");
+    }
+  }));
+
+  var done = assert.async();
+  service.findCourseCompetencyCompletionByCourseIds(123, [1,2,3])
+    .then(function(response) {
+      assert.deepEqual(response, [1,2,3,4,5], 'Wrong response');
+      done();
+    });
+});
+
+test('findCourseCompetencyCompletionByCourseIds with empty course ids', function(assert) {
+  const service = this.subject();
+  assert.expect(1);
+
+  service.set('courseCompetencyCompletionSerializer', Ember.Object.create({
+    normalizeAllCourseCompetencyCompletion: function() {
+      assert.ok(false, "this should not be called");
+      return '';
+    }
+  }));
+
+  service.set('courseCompetencyCompletionAdapter', Ember.Object.create({
+    findCourseCompetencyCompletionByCourseIds: function() {
+      assert.ok(false, "this should not be called");
+      return Ember.RSVP.resolve("dummy-data");
+    }
+  }));
+
+  var done = assert.async();
+  service.findCourseCompetencyCompletionByCourseIds(123, [])
+    .then(function(response) {
+      assert.deepEqual(response, [], 'Wrong response');
+      done();
+    });
+});
