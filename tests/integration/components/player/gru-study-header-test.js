@@ -596,26 +596,28 @@ test('Layout - External Assessment', function(assert) {
 });
 
 test('Study player | NU Course : Completion metrics', function(assert) {
-  let classObj =  Ember.Object.create({
-        courseCompetencyCompletion: Ember.Object.create({
-                                  completedCount: 2,
-                                  totalCount: 5 })
-                    });
+  let classObj = Ember.Object.create({
+    courseCompetencyCompletion: Ember.Object.create({
+      completedCount: 2,
+      totalCount: 5
+    })
+  });
   this.set('courseVersion', NU_COURSE_VERSION);
   this.set('class', classObj);
-  this.render(hbs`{{player/gru-study-header  courseVersion=courseVersion class=class}}`);
+  this.render(hbs `{{player/gru-study-header  courseVersion=courseVersion class=class}}`);
   var $component = this.$(); //component dom element
-  assert.equal(T.text($component.find('.performance-info .completion-chart .legend')).replace(/\s/g,''), '2/5Completion', 'Wrong completion count!!');
+  assert.equal(T.text($component.find('.performance-info .completion-chart .legend')).replace(/\s/g, ''), '2/5Completion', 'Wrong completion count!!');
 });
 
 test('Study player | Non NU Course : Completion metrics', function(assert) {
-  let classObj =  Ember.Object.create({
-        performanceSummary: Ember.Object.create({
-                                  totalCompleted: 4,
-                                  total: 5 })
-                    });
+  let classObj = Ember.Object.create({
+    performanceSummary: Ember.Object.create({
+      totalCompleted: 4,
+      total: 5
+    })
+  });
   this.set('class', classObj);
-  this.render(hbs`{{player/gru-study-header  class=class}}`);
+  this.render(hbs `{{player/gru-study-header  class=class}}`);
   var $component = this.$(); //component dom element
-  assert.equal(T.text($component.find('.performance-info .completion-chart .legend')).replace(/\s/g,''), '4/5Completion', 'Wrong completion count!!');
+  assert.equal(T.text($component.find('.performance-info .completion-chart .legend')).replace(/\s/g, ''), '4/5Completion', 'Wrong completion count!!');
 });

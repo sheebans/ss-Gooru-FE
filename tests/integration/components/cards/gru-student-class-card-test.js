@@ -82,15 +82,16 @@ test('Class Card Layout', function(assert) {
 });
 
 test('Student Class Card | NU Course : Completion metrics', function(assert) {
-  let classObj =  Ember.Object.create({
-        isNUCourse: true,
-        courseCompetencyCompletion: Ember.Object.create({
-                                  completedCount: 2,
-                                  totalCount: 5 })
-                    });
+  let classObj = Ember.Object.create({
+    isNUCourse: true,
+    courseCompetencyCompletion: Ember.Object.create({
+      completedCount: 2,
+      totalCount: 5
+    })
+  });
   this.set('courseVersion', NU_COURSE_VERSION);
   this.set('class', classObj);
-  this.render(hbs`{{cards/gru-student-class-card class=class}}`);
+  this.render(hbs `{{cards/gru-student-class-card class=class}}`);
   var $component = this.$(); //component dom element
   const $classCard = $component.find('.gru-student-class-card');
   const $panel = $classCard.find('.panel');
@@ -99,14 +100,15 @@ test('Student Class Card | NU Course : Completion metrics', function(assert) {
 });
 
 test('Student Class Card | Non NU Course : Completion metrics', function(assert) {
-  let classObj =  Ember.Object.create({
-        isNUCourse: false,
-        performanceSummary: Ember.Object.create({
-                                  totalCompleted: 4,
-                                  total: 5 })
-                    });
+  let classObj = Ember.Object.create({
+    isNUCourse: false,
+    performanceSummary: Ember.Object.create({
+      totalCompleted: 4,
+      total: 5
+    })
+  });
   this.set('class', classObj);
-  this.render(hbs`{{cards/gru-student-class-card class=class}}`);
+  this.render(hbs `{{cards/gru-student-class-card class=class}}`);
   var $component = this.$(); //component dom element
   const $classCard = $component.find('.gru-student-class-card');
   const $panel = $classCard.find('.panel');
