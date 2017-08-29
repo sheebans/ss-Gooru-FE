@@ -513,10 +513,13 @@ export default Ember.Controller.extend({
 
   setQuestionItems: Ember.observer('courseStructure', function() {
     const controller = this;
-    const gradeItems = controller.get('gradeQuestions.gradeItems');
+    const filterBy = controller.get('filterBy');
     const courseStructure = controller.get('courseStructure');
+    let gradeItems = controller.get('gradeQuestions.gradeItems');
 
     if (gradeItems && courseStructure) {
+      gradeItems = gradeItems.filterBy('collectionType', filterBy);
+
       const items = gradeItems.map(function(item) {
         return controller.createGradeItemObject(item);
       });
