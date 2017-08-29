@@ -110,7 +110,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
           .get('taxonomySerializer')
           .serializeTaxonomy(model.get('standards')),
         url: nullIfEmpty(url),
-        is_remote: !!model.get('uploaded'),
+        is_remote: !model.get('uploaded'),
         feedback_guidance: nullIfEmpty(model.get('feedback')),
         overall_feedback_required: !!model.get('requiresFeedback'),
         categories: model.get('categories').length
@@ -254,7 +254,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       const basePath = serializer.get('session.cdnUrls.content');
       const thumbnail = data.thumbnail ? basePath + data.thumbnail : null;
       const url =
-        data.url && data.is_remote ? basePath + data.url : data.url || null;
+        data.url && !data.is_remote ? basePath + data.url : data.url || null;
 
       return Rubric.create(Ember.getOwner(this).ownerInjection(), {
         id: data.id,
@@ -269,7 +269,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         isPublished: data.publishStatus === 'published',
         publishDate: data.publish_date,
         rubricOn: data.is_rubric,
-        uploaded: data.is_remote,
+        uploaded: !data.is_remote,
         feedback: data.feedback_guidance,
         requiresFeedback: data.overall_feedback_required,
         maxScore: data.max_score,

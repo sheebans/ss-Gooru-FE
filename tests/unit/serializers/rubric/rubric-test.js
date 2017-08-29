@@ -123,7 +123,7 @@ test('serializeUpdateRubric uploaded and no feedback required', function(
   assert.ok(rubricObject.metadata, 'Missing metadata');
   assert.deepEqual(rubricObject.metadata.audience, [1], 'Wrong audience');
   assert.equal(rubricObject.url, 'any-url', 'Wrong url');
-  assert.equal(rubricObject.is_remote, true, 'Wrong is remote');
+  assert.equal(rubricObject.is_remote, false, 'Wrong is remote');
   assert.equal(
     rubricObject.feedback_guidance,
     'any-feedback',
@@ -178,7 +178,7 @@ test('serializeUpdateRubric not uploaded and feedback required', function(
   assert.ok(rubricObject.metadata, 'Missing metadata');
   assert.deepEqual(rubricObject.metadata.audience, [1], 'Wrong audience');
   assert.equal(rubricObject.url, 'any-url', 'Wrong url');
-  assert.equal(rubricObject.is_remote, false, 'Wrong is remote');
+  assert.equal(rubricObject.is_remote, true, 'Wrong is remote');
   assert.equal(rubricObject.feedback_guidance, null, 'Wrong feedback_guidance');
   assert.equal(
     rubricObject.overall_feedback_required,
@@ -222,7 +222,7 @@ test('serializeUpdateRubric with empty strings', function(assert) {
   assert.ok(rubricObject.metadata, 'Missing metadata');
   assert.deepEqual(rubricObject.metadata.audience, [1], 'Wrong audience');
   assert.equal(rubricObject.url, null, 'Wrong url');
-  assert.equal(rubricObject.is_remote, false, 'Wrong is remote');
+  assert.equal(rubricObject.is_remote, true, 'Wrong is remote');
   assert.equal(rubricObject.feedback_guidance, null, 'Wrong feedback_guidance');
   assert.equal(
     rubricObject.overall_feedback_required,
@@ -427,7 +427,7 @@ test('normalizeRubric', function(assert) {
     },
     taxonomy: {},
     url: 'https://en.wikipedia.org/wiki/Rubric_(academic)',
-    is_remote: false,
+    is_remote: true,
     is_rubric: false,
     feedback_guidance: 'Summarize your feedback on the essay as a whole',
     creator_id: '852f9814-0eb4-461d-bd3b-aca9c2500595',
@@ -516,7 +516,7 @@ test('normalizeRubric with uploaded file', function(assert) {
     },
     taxonomy: {},
     url: '2c185398-d0e6-42d8-9926-572939fc0784.png',
-    is_remote: true,
+    is_remote: false,
     is_rubric: false,
     feedback_guidance: 'Summarize your feedback on the essay as a whole',
     creator_id: '852f9814-0eb4-461d-bd3b-aca9c2500595',
