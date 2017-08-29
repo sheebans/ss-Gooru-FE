@@ -5,8 +5,10 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['content', 'rubric', 'gru-scoring-levels'],
+
   //// -------------------------------------------------------------------------
   // Actions
+
   actions: {
     /**
      * Delete Level
@@ -39,8 +41,10 @@ export default Ember.Component.extend({
       }
     }
   },
+
   //// -------------------------------------------------------------------------
   // Properties
+
   /**
    *Disabled Score Switch
    *
@@ -85,6 +89,10 @@ export default Ember.Component.extend({
    * @property {Boolean}
    */
   showLevel: true,
+  /**
+   * @property {Boolean} preview
+   */
+  preview: false,
   /**
    * List of options to show in the switch
    *

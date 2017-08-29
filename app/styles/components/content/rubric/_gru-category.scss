@@ -19,6 +19,9 @@
         line-height: 2.5;
         vertical-align: top;
       }
+      .title {
+        cursor: default;
+      }
     }
     &.expanded {
       > .panel-heading {

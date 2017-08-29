@@ -246,3 +246,70 @@ test('Disabled level', function(assert) {
     });
   });
 });
+
+test('Layout-Preview Mode', function(assert) {
+  let levels = Ember.A([
+    {
+      name: 'Level 1',
+      score: null
+    },
+    {
+      name: 'Level 2',
+      score: null
+    }
+  ]);
+  this.set('scoringLevels', levels);
+
+  this.render(
+    hbs`{{content/rubric/gru-scoring-levels scoringLevels=scoringLevels preview=true}}`
+  );
+  var $component = this.$();
+  assert.ok(
+    $component.find('.content.rubric.gru-scoring-levels').length,
+    'Missing scoring levels component'
+  );
+  assert.ok(
+    $component.find('.content.rubric.gru-scoring-levels .preview.level .legend')
+      .length,
+    'Missing levels title'
+  );
+
+  assert.ok(
+    $component.find(
+      '.content.rubric.gru-scoring-levels .preview.level .levels .level-list'
+    ).length,
+    'Missing level list'
+  );
+  assert.equal(
+    $component.find(
+      '.content.rubric.gru-scoring-levels .preview.level .levels .level-list .value'
+    ).length,
+    2,
+    'Should have 2 levels'
+  );
+
+  assert.ok(
+    $component.find('.content.rubric.gru-scoring-levels .preview.points')
+      .length,
+    'Missing points section'
+  );
+  assert.ok(
+    $component.find(
+      '.content.rubric.gru-scoring-levels .preview.points .legend'
+    ).length,
+    'Missing points title'
+  );
+  assert.ok(
+    $component.find(
+      '.content.rubric.gru-scoring-levels .preview.points .point-list'
+    ).length,
+    'Missing points list'
+  );
+  assert.equal(
+    $component.find(
+      '.content.rubric.gru-scoring-levels .preview.points .point-list .value'
+    ).length,
+    2,
+    'Should have 2 point values'
+  );
+});

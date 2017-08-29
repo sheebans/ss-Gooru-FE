@@ -16,6 +16,14 @@ export default Ember.Component.extend({
     editInline: function() {
       this.showInlinePanel();
     },
+
+    /**
+     * show category information
+     */
+    showInfo: function() {
+      this.toggleProperty('isPanelExpanded');
+    },
+
     /**
      * Cancel edit inline
      */
@@ -124,6 +132,13 @@ export default Ember.Component.extend({
    * @property {String}
    */
   onUpdateCategory: null,
+
+  /**
+   * @property {boolean} Show if the category has levels
+   */
+  hasLevels: Ember.computed('category.levels[]', function() {
+    return this.get('category.levels.length') > 0 || false;
+  }),
 
   // -------------------------------------------------------------------------
   // Methods

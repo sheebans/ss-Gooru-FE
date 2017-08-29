@@ -72,4 +72,39 @@
   input {
     font-size: $font-size-base;
   }
+  .score-section.preview {
+    margin: 0 0 0 45px;
+    width: 40%;
+    .levels {
+      .scale {
+        margin: 5px 0 0 40px;
+        .line {
+          margin: 10px 0 0 10px;
+          min-height: 120px;
+        }
+        .arrow-down {
+          margin: 0 0 0 5px;
+        }
+        .worst {
+          margin: 0 0 0 -10px;
+        }
+      }
+      .level-list {
+        margin: 5px 0 0 28px;
+      }
+    }
+    .scores {
+      @include flexbox;
+      margin: 5px 0 0;
+      .point-list {
+        margin: 0 0 0 30px;
+      }
+    }
+    .legend {
+      color: $gray-base;
+    }
+    .value {
+      height: 55px;
+    }
+  }
 }

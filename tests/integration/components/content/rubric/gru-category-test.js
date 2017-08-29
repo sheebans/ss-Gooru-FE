@@ -394,3 +394,38 @@ test('Category on preview', function(assert) {
     'Copy category button should not appear'
   );
 });
+
+test('Category on preview-show information', function(assert) {
+  var category = Category.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Category for test',
+    levels: Ember.A([
+      {
+        name: 'Level 1',
+        score: null
+      },
+      {
+        name: 'Level 2',
+        score: null
+      },
+      {
+        name: 'Level 3',
+        score: null
+      }
+    ])
+  });
+
+  this.set('category', category);
+  this.set('preview', true);
+
+  this.render(
+    hbs`{{content/rubric/gru-category category=category preview=preview}}`
+  );
+
+  const $component = this.$();
+  var $showInfo = $component.find('.panel-heading a.title');
+  $showInfo.click();
+  return wait().then(function() {
+    var $scoringLevels = $component.find('.gru-scoring-levels');
+    assert.ok($scoringLevels.length, 'Missing scoring levels');
+  });
+});

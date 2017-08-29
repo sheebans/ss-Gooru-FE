@@ -59,6 +59,21 @@ test('editInline', function(assert) {
   assert.equal(component.get('isEditingInline'), true, 'Should edit inline');
 });
 
+test('showInfo', function(assert) {
+  let component = this.subject();
+  assert.equal(
+    component.get('isPanelExpanded'),
+    false,
+    'Panel should not expanded'
+  );
+  component.send('showInfo');
+  assert.equal(
+    component.get('isPanelExpanded'),
+    true,
+    'Panel should be expanded'
+  );
+});
+
 test('cancel', function(assert) {
   let component = this.subject({
     category: Category.create(Ember.getOwner(this).ownerInjection(), {
