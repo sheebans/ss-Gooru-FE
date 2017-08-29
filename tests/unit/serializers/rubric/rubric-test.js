@@ -712,11 +712,6 @@ test('normalizeAnswerToGrade', function(assert) {
     'TBD - How will it be obtained and displayed',
     'Wrong answer text'
   );
-  assert.equal(
-    answerToGrade.get('submittedAt'),
-    '2017-03-05 18:44:04.798',
-    'Wrong submitted date'
-  );
   assert.equal(answerToGrade.get('timeSpent'), 500, 'Wrong time spent');
   assert.equal(answerToGrade.get('userId'), 'user-id', 'Wrong user id');
 });
