@@ -1,7 +1,12 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
-import { cleanFilename, nullIfEmpty, toTimestamp } from 'gooru-web/utils/utils';
+import {
+  cleanFilename,
+  nullIfEmpty,
+  toTimestamp,
+  toLocal
+} from 'gooru-web/utils/utils';
 import Rubric from 'gooru-web/models/rubric/rubric';
 import RubricGrade from 'gooru-web/models/rubric/rubric-grade';
 import RubricCategoryScore from 'gooru-web/models/rubric/grade-category-score';
@@ -380,7 +385,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       sessionId: payload.session_id,
       questionText: payload.questionText,
       answerText: answer,
-      submittedAt: payload.submittedAt,
+      submittedAt: toLocal(payload.submittedAt),
       timeSpent: payload.timeSpent,
       userId: payload.userId
     });
