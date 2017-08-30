@@ -192,13 +192,9 @@ export default AddToModal.extend({
   /**
    * @type {Boolean} if the option to add to assessments should be shown
    */
-  showAssessments: Ember.computed(
-    'isQuestion',
-    'content.isOpenEnded',
-    function() {
-      return this.get('isQuestion') && !this.get('content.isOpenEnded');
-    }
-  ),
+  showAssessments: Ember.computed('isQuestion', function() {
+    return this.get('isQuestion');
+  }),
 
   /**
     * @type {List} collections/assessments to be rendered
