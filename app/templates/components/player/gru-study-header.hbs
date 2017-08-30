@@ -28,11 +28,11 @@
         {{charts/gru-x-bar-chart data=barChartData }}
         <span class="legend">
         {{#if isNUCourse}}
-            {{#if class.courseCompetencyCompletion.completedCount}}
+            {{#if class.courseCompetencyCompletion}}
                {{class.courseCompetencyCompletion.completedCount}}/{{class.courseCompetencyCompletion.totalCount}}
             {{/if}}
         {{else}}
-            {{#if class.performanceSummary.totalCompleted}}
+            {{#if class.performanceSummary}}
                {{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}
             {{/if}}
         {{/if}}
