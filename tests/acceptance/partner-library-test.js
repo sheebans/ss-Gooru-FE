@@ -62,3 +62,51 @@ test('Partner Library Layout', function(assert) {
     );
   });
 });
+
+test('Partner Library Layout - with short name', function(assert) {
+  assert.expect(7);
+  visit('/library/defaultLib');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/library/defaultLib');
+
+    const $partnerLibraryContainer = find('.partner-library');
+    T.exists(
+      assert,
+      $partnerLibraryContainer,
+      'Missing partner library container'
+    );
+    T.exists(
+      assert,
+      $partnerLibraryContainer.find('.side-panel'),
+      'Missing partner library side panel'
+    );
+
+    const $partnerLibraryInfo = $partnerLibraryContainer.find(
+      '.side-panel .partner-library-info'
+    );
+    T.exists(
+      assert,
+      $partnerLibraryInfo.find('.partner-library-img'),
+      'Missing partner library image'
+    );
+    T.exists(
+      assert,
+      $partnerLibraryInfo.find('.partner-library-name'),
+      'Missing partner library title'
+    );
+
+    const $partnerLibraryMenu = $partnerLibraryContainer.find(
+      '.partner-library-menu'
+    );
+    T.exists(
+      assert,
+      $partnerLibraryMenu.find('.content'),
+      'Missing content option in partner library menu'
+    );
+    assert.ok(
+      $partnerLibraryMenu.find('.content').hasClass('selected'),
+      'Menu option \'content\' should be selected by default'
+    );
+  });
+});

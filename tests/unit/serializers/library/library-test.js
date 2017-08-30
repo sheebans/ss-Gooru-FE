@@ -19,6 +19,7 @@ test('normalizeFetchLibraries', function(assert) {
       {
         id: 'library-id-1',
         name: 'name-1',
+        short_name: 'name1',
         description: 'description-1',
         thumbnail: 'thumbnail-1',
         tenant: 'tenant-1',
@@ -35,6 +36,7 @@ test('normalizeFetchLibraries', function(assert) {
       {
         id: 'library-id-2',
         name: 'name-2',
+        short_name: 'name2',
         description: 'description-2',
         thumbnail: 'thumbnail-2',
         tenant: 'tenant-2',
@@ -59,6 +61,7 @@ test('normalizeFetchLibraries', function(assert) {
 
   assert.equal(library1.get('id'), 'library-id-1', 'Wrong library id');
   assert.equal(library1.get('name'), 'name-1', 'Wrong library name');
+  assert.equal(library1.get('shortName'), 'name1', 'Wrong library short name');
   assert.equal(
     library1.get('description'),
     'description-1',

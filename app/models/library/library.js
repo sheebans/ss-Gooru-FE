@@ -35,6 +35,11 @@ const LibraryModel = Ember.Object.extend({
   tenantRoot: null,
 
   /**
+   * @property {String} shortName - The short name
+   */
+  shortName: null,
+
+  /**
    * @property {Number} courseCount - Count of courses
    */
   courseCount: null,

@@ -87,7 +87,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       resourceCount: libraryPayload.resource_count,
       questionCount: libraryPayload.question_count,
       rubricCount: libraryPayload.rubric_count,
-      sequence: libraryPayload.sequence_id
+      sequence: libraryPayload.sequence_id,
+      shortName: libraryPayload.short_name
     });
   },
 
