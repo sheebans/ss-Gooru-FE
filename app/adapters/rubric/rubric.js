@@ -213,6 +213,28 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Disassociates a rubric from a question
+   *
+   * @param {string} rubricId
+   * @param {string} questionId
+   * @returns {Promise}
+   */
+  disassociateRubricFromQuestion: function(rubricId, questionId) {
+    const adapter = this;
+    const questionsNamespace = adapter.get('questionsNamespace');
+    const url = `${questionsNamespace}/${questionId}/rubrics/${rubricId}`;
+    const options = {
+      type: 'DELETE',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({})
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Gets Questions pending grading
    *
    * @param {string} classId
