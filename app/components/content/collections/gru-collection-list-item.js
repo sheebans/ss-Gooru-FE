@@ -293,6 +293,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
         .disassociateRubricFromQuestion(associatedRubricId, questionId)
         .then(function() {
           //TODO: After disassociate rubric is done
+          alert('Success');
         });
     },
 

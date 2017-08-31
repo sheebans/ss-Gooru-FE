@@ -778,6 +778,22 @@ test('Layout when rubric ON is already associated - without thumbnail', function
     'Rubric Title',
     'Wrong Rubric title'
   );
+
+  assert.equal(
+    $associatedRubricContainer.find('.actions button').length,
+    2,
+    'Some button is missing'
+  );
+
+  assert.ok(
+    $associatedRubricContainer.find('.actions button.remove-item').length,
+    'Remove button is missing'
+  );
+
+  assert.ok(
+    $associatedRubricContainer.find('.actions button.edit-item').length,
+    'Edit button is missing'
+  );
 });
 
 test('Layout when rubric ON is already associated - with thumbnail', function(
