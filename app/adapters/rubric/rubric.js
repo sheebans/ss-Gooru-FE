@@ -228,8 +228,7 @@ export default Ember.Object.extend({
       contentType: 'application/json; charset=utf-8',
       dataType: 'text',
       processData: false,
-      headers: adapter.defineHeaders(),
-      data: JSON.stringify({})
+      headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
   },

@@ -282,6 +282,21 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     },
 
     /**
+     * Disassociates the rubric from the question
+     */
+    removeRubric: function(associatedRubricId) {
+      let component = this;
+      const questionId = this.get('tempModel.id');
+
+      component
+        .get('rubricService')
+        .disassociateRubricFromQuestion(associatedRubricId, questionId)
+        .then(function() {
+          //TODO: After disassociate rubric is done
+        });
+    },
+
+    /**
      * Show modal with rubrics to choose one and associate it to the question
      */
     showAddRubricModal: function() {

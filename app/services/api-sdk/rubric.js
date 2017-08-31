@@ -158,7 +158,7 @@ export default Ember.Service.extend({
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
-        .get('rubricAdapter')
+        .get('adapter')
         .disassociateRubricFromQuestion(rubricId, questionId)
         .then(resolve, reject);
     });
