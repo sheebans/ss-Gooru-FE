@@ -6,20 +6,19 @@ import Ember from 'ember';
  * @mixin
  */
 export default Ember.Mixin.create({
-
   actions: {
-
     /**
      * Cancel Edit Content
      */
-    cancelEdit: function () {
+    cancelEdit: function() {
       this.set('isEditing', false);
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-  addSubscriptions: Ember.on('didInsertElement', function () {
+
+  addSubscriptions: Ember.on('didInsertElement', function() {
     this._super(...arguments);
 
     const $container = this.$();
@@ -28,11 +27,11 @@ export default Ember.Mixin.create({
     const headerTopOffset = $header.offset().top;
 
     // Add fix header behaviour
-    Ember.$(window).on('scroll.edit', function () {
+    Ember.$(window).on('scroll.edit', function() {
       var scrollTop = $window.scrollTop();
       var headerWidth = $header.css('width');
       var headerPaddingLeft = $header.css('paddingLeft');
-      headerWidth = headerWidth && headerWidth.split('px')[0] || '100%';
+      headerWidth = (headerWidth && headerWidth.split('px')[0]) || '100%';
 
       if (scrollTop >= headerTopOffset) {
         if (!$container.hasClass('fixed-header')) {
@@ -57,7 +56,6 @@ export default Ember.Mixin.create({
     Ember.$(window).off('scroll.edit');
   }),
 
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -66,5 +64,4 @@ export default Ember.Mixin.create({
    * @property {Boolean}
    */
   isEditing: false
-
 });

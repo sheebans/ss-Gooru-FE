@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
@@ -9,7 +9,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @type {ProfileService} Service to retrieve profile information
    */
   profileService: Ember.inject.service('api-sdk/profile'),
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -45,5 +44,4 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-
 });

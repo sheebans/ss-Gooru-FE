@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} MapContext
  */
 const MapContentModel = Ember.Object.extend({
-
   /**
    * @property {string} contentId
    */
@@ -31,7 +30,6 @@ const MapContentModel = Ember.Object.extend({
    * @property {string} thumbnail
    */
   thumbnail: null
-
 });
 
 export default MapContentModel;

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -12,8 +11,8 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
-    sort: function (metric) {
+  actions: {
+    sort: function(metric) {
       this.sortByMetric(metric);
       this.sendAction('onSortChange', metric);
     }
@@ -24,7 +23,7 @@ export default Ember.Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    Ember.run.scheduleOnce('afterRender', this, function () {
+    Ember.run.scheduleOnce('afterRender', this, function() {
       this.resetSortByMetrics();
     });
   },
@@ -43,25 +42,29 @@ export default Ember.Component.extend({
    * @visible {Boolean}
    * @constant {Array}
    */
-  metrics: Ember.A([Ember.Object.create({
-    'value': 'score',
-    'sorted':false,
-    'isAsc':false,
-    'visible': false,
-    'index':0
-  }),Ember.Object.create({
-    'value': 'completion',
-    'sorted':false,
-    'isAsc':false,
-    'visible': false,
-    'index':2
-  }),Ember.Object.create({
-    'value': 'time-spent',
-    'sorted':false,
-    'isAsc':false,
-    'visible': false,
-    'index':3
-  })]),
+  metrics: Ember.A([
+    Ember.Object.create({
+      value: 'score',
+      sorted: false,
+      isAsc: false,
+      visible: false,
+      index: 0
+    }),
+    Ember.Object.create({
+      value: 'completion',
+      sorted: false,
+      isAsc: false,
+      visible: false,
+      index: 2
+    }),
+    Ember.Object.create({
+      value: 'time-spent',
+      sorted: false,
+      isAsc: false,
+      visible: false,
+      index: 3
+    })
+  ]),
 
   /**
    * List of selected options from the data picker.
@@ -73,7 +76,7 @@ export default Ember.Component.extend({
    * Indicate if show Report column
    * @property {Boolean}
    */
-  showReport:false,
+  showReport: false,
 
   /**
    * List of  visible metrics to be displayed
@@ -85,7 +88,7 @@ export default Ember.Component.extend({
     var metrics = this.get('metrics');
 
     metrics.forEach(function(metric) {
-      if(metric.get('value')!== 'student'){
+      if (metric.get('value') !== 'student') {
         metric.set('visible', false);
       }
     });
@@ -95,12 +98,13 @@ export default Ember.Component.extend({
       if (metric) {
         metric.set('visible', true);
       } else {
-        Ember.Logger.warn('Option in data picker: ' + option + ' does not appear to be a valid metric');
+        Ember.Logger.warn(
+          `Option in data picker: ${option} does not appear to be a valid metric`
+        );
       }
     });
 
     return this.get('metrics');
-
   }),
 
   // -------------------------------------------------------------------------
@@ -111,14 +115,14 @@ export default Ember.Component.extend({
    * @metric {Ember Object}
    *
    */
-  sortByMetric(metric){
-    var component =this;
+  sortByMetric(metric) {
+    var component = this;
     var metrics = component.get('metrics');
-    metrics.forEach(function(option){
-      if (option.get('value') === metric.get('value')){
+    metrics.forEach(function(option) {
+      if (option.get('value') === metric.get('value')) {
         metric.set('sorted', true);
         component.changeTypeSort(metric);
-      }else{
+      } else {
         option.set('isAsc', null);
         option.set('sorted', false);
       }
@@ -130,14 +134,14 @@ export default Ember.Component.extend({
    * @metric {Ember Object}
    *
    */
-  changeTypeSort(metric){
-    metric.set('isAsc',!metric.get('isAsc'));
+  changeTypeSort(metric) {
+    metric.set('isAsc', !metric.get('isAsc'));
   },
 
-  resetSortByMetrics(){
-    var component =this;
+  resetSortByMetrics() {
+    var component = this;
     var metrics = component.get('metrics');
-    metrics.forEach(function(option){
+    metrics.forEach(function(option) {
       option.set('isAsc', null);
       option.set('sorted', false);
     });

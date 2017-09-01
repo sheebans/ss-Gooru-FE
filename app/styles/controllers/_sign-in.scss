@@ -1,6 +1,6 @@
 .controller.sign-in {
   .sign-in-wrapper {
-    box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.50);
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.50);
     border-radius: 5px;
     background-color: $white;
     width: 100%;
@@ -54,7 +54,7 @@
               width: 18px;
               height: 18px;
               display: block;
-              background: url("gooru/images/google-icon.svg")
+              background: url("gooru/images/google-icon.svg");
             }
           }
           .google-button-content {
@@ -129,7 +129,7 @@
   }
   > div.toast-error {
     width: inherit;
-    background-image: none!important;
+    background-image: none !important;
     background-color: $red-400;
     opacity: 1;
     @media (max-width: $screen-xs-min) {

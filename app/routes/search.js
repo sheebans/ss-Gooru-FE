@@ -1,13 +1,16 @@
 import Ember from 'ember';
 import PublicRouteMixin from 'gooru-web/mixins/public-route-mixin';
 import Bookmark from 'gooru-web/models/content/bookmark';
-import { CONTENT_TYPES, ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
+import {
+  CONTENT_TYPES,
+  ROLES,
+  PLAYER_EVENT_SOURCE
+} from 'gooru-web/config/config';
 
 /**
  * @typedef {object} SearchCollectionsController
  */
 export default Ember.Route.extend(PublicRouteMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -61,7 +64,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
     let subjects = [];
 
     if (taxonomyIds.length > 0) {
-      taxonomyCodes = this.get('taxonomySdkService').fetchCodesByIds(taxonomyIds);
+      taxonomyCodes = this.get('taxonomySdkService').fetchCodesByIds(
+        taxonomyIds
+      );
       subjects = this.get('taxonomyService').fetchSubjectsByIds(taxonomyIds);
     }
 
@@ -102,11 +107,14 @@ export default Ember.Route.extend(PublicRouteMixin, {
       toastClass: 'gooru-toast',
       timeOut: 10000
     });
-    const successMsg = showType ? this.get('i18n').t(
-      'common.bookmarked-content-success',
-      { contentType:  type}
-    ) : this.get('i18n').t('common.bookmarked-success');
-    const independentLearningURL = this.get('router').generate(`student-independent-learning.${type}s`);
+    const successMsg = showType
+      ? this.get('i18n').t('common.bookmarked-content-success', {
+        contentType: type
+      })
+      : this.get('i18n').t('common.bookmarked-success');
+    const independentLearningURL = this.get('router').generate(
+      `student-independent-learning.${type}s`
+    );
     const buttonText = this.get('i18n').t('common.take-me-there');
     this.get('notifications').success(
       `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`
@@ -121,18 +129,19 @@ export default Ember.Route.extend(PublicRouteMixin, {
      * @param {string} collection collection identifier
      */
     onOpenContentPlayer: function(collection) {
-      if (collection.get('isExternalAssessment')){
+      if (collection.get('isExternalAssessment')) {
         window.open(collection.get('url')); //TODO url?
-      }
-      else {
-        this.transitionTo('player', collection.get('id'), { queryParams: { type: collection.get('collectionType') } });
+      } else {
+        this.transitionTo('player', collection.get('id'), {
+          queryParams: { type: collection.get('collectionType') }
+        });
       }
     },
     /**
      * Edit course action, when clicking Play at the course card
      * @param {Content/Course}
      */
-    playCourse: function(course){
+    playCourse: function(course) {
       this.transitionTo('content.courses.play', course.get('id'));
     },
 
@@ -170,8 +179,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
         contentId: id,
         contentType: collectionType
       });
-      this.createBookmark(bookmark)
-        .then(() => this.notifyBookmarkSuccess(bookmark, showType));
+      this.createBookmark(bookmark).then(() =>
+        this.notifyBookmarkSuccess(bookmark, showType)
+      );
     },
 
     /**
@@ -184,9 +194,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
         contentId: id,
         contentType: CONTENT_TYPES.COURSE
       });
-      this.createBookmark(bookmark)
-        .then(() => this.notifyBookmarkSuccess(bookmark, showType));
+      this.createBookmark(bookmark).then(() =>
+        this.notifyBookmarkSuccess(bookmark, showType)
+      );
     }
   }
-
 });

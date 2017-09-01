@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} MapContext
  */
 const MapContextModel = Ember.Object.extend({
-
   /**
    * @property {string} courseId
    */
@@ -66,8 +65,6 @@ const MapContextModel = Ember.Object.extend({
    * @property {number} score
    */
   score: null
-
 });
 
 export default MapContextModel;
-

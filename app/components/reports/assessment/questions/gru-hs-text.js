@@ -25,30 +25,34 @@ export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  answers: Ember.computed("question", "anonymous", function () {
+  answers: Ember.computed('question', 'anonymous', function() {
     let component = this;
-    let question = component.get("question");
+    let question = component.get('question');
     let questionUtil = component.getQuestionUtil(question);
-    let userAnswers = component.get("userAnswer");
-    let anonymous = component.get("anonymous");
-    if (component.get("showCorrect")){
+    let userAnswers = component.get('userAnswer');
+    let anonymous = component.get('anonymous');
+    if (component.get('showCorrect')) {
       userAnswers = questionUtil.getCorrectAnswer();
     }
 
-    let answers = question.get("answers");
-    return answers.map(function(answer){
+    let answers = question.get('answers');
+    return answers.map(function(answer) {
       let userAnswerCorrect = false;
       let selected = false;
-      if (userAnswers.includes(answer.get("id"))){
-        userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(answer.get("id"));
+      if (userAnswers.includes(answer.get('id'))) {
+        userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(
+          answer.get('id')
+        );
         selected = true;
       }
 
-      let elementClass = (anonymous) ? 'anonymous' : ((userAnswerCorrect) ? 'correct' : 'incorrect');
+      let elementClass = anonymous
+        ? 'anonymous'
+        : userAnswerCorrect ? 'correct' : 'incorrect';
       return {
         text: answer.get('text'),
         selected: selected,
-        "class": elementClass
+        class: elementClass
       };
     });
   })

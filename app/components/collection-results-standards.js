@@ -2,7 +2,6 @@ import Ember from 'ember';
 import ModalMixin from '../mixins/modal';
 
 export default Ember.Component.extend(ModalMixin, {
-
   /**
    * @property {object} Collection item
    */
@@ -28,20 +27,19 @@ export default Ember.Component.extend(ModalMixin, {
    * Selected collection results fillStandardsTooltipSection
    * @property {array}
    */
-  fillStandardsTooltipSection: function () {
-    var standards = this.get("standards");
+  fillStandardsTooltipSection: function() {
+    var standards = this.get('standards');
     var itemsStandards = Ember.A();
     var tooltipsStand = '';
     var count = 0;
     var itemName = '';
 
     if (standards) {
-      standards.forEach(function (item, index) {
+      standards.forEach(function(item, index) {
         if (index < 2) {
           itemsStandards.addObject(item);
-        }
-        else {
-          itemName = '<p>' + item.get('code') + '</p>';
+        } else {
+          itemName = `<p>${item.get('code')}</p>`;
           count += 1;
           tooltipsStand = tooltipsStand + itemName;
         }
@@ -54,7 +52,5 @@ export default Ember.Component.extend(ModalMixin, {
     }
 
     return itemsStandards;
-
   }.property()
-
 });

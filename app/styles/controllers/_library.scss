@@ -1,21 +1,21 @@
-.application.library{
-  .gru-take-tour{
+.application.library {
+  .gru-take-tour {
     z-index: 1005;
   }
   > .ember-view,
-  .gooru{
+  .gooru {
     height: 100%;
   }
 }
-.libraries{
+.libraries {
   @include flexbox;
   @include flex-direction(column);
   height: 100%;
-  .header.content.gru-header{
-    position: fixed !important;
+  .header.content.gru-header {
+    position: fixed;
     margin: 55px 0 0;
     z-index: 1000;
-    header{
+    header {
       padding: 0 20px 0 5%;
       nav {
         border-bottom: 3px solid $dark-400;
@@ -25,16 +25,17 @@
       margin: 63px 0 0;
     }
   }
-  #featured-courses{
+  #featured-courses {
     height: 100%;
     width: 100%;
   }
-  #partner-libraries{
+  #partner-libraries {
     height: 100%;
     width: 100%;
-    .libraries-container{
+    .libraries-container {
       @include flexbox;
       @include flex-wrap(wrap);
+      @include justify-content(center);
       margin: 100px 0 30px;
       padding: 0 25px;
     }

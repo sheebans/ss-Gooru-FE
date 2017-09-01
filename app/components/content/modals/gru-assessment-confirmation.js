@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -15,15 +14,14 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    start(){
+    start() {
       this.get('model').onStart();
-      this.triggerAction({ action: 'closeModal'});
+      this.triggerAction({ action: 'closeModal' });
     },
-    cancel(){
+    cancel() {
       this.get('model').onCancel();
     }
   },
-
 
   // -------------------------------------------------------------------------
   // Events
@@ -37,12 +35,12 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} flag for determining unlimited behaviour
    */
-   unlimited: Ember.computed.equal('model.attempts', -1),
+  unlimited: Ember.computed.equal('model.attempts', -1),
 
-   /**
+  /**
     * @property {boolean} flag for determining button behaviour
     */
-   disableStart: Ember.computed('unlimited', 'noAttempts', function(){
-     return !this.get('unlimited') && this.get('noAttempts');
-   })
+  disableStart: Ember.computed('unlimited', 'noAttempts', function() {
+    return !this.get('unlimited') && this.get('noAttempts');
+  })
 });

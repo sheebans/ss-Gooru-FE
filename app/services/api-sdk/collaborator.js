@@ -2,11 +2,12 @@ import Ember from 'ember';
 import CollaboratorAdapter from 'gooru-web/adapters/collaborator/collaborator';
 
 export default Ember.Service.extend({
-
-
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('collaboratorAdapter', CollaboratorAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'collaboratorAdapter',
+      CollaboratorAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -16,17 +17,17 @@ export default Ember.Service.extend({
    * @param {number[]} userIds
    * @returns {Promise.<boolean>}
    */
-  updateCollaborators: function (id, type, userIds) {
+  updateCollaborators: function(id, type, userIds) {
     var service = this;
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      service.get('collaboratorAdapter')
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('collaboratorAdapter')
         .updateCollaborators(id, type, userIds)
-        .then(function () {
+        .then(function() {
           return resolve(true);
         }, reject);
     });
   },
-
 
   /**
    * Updates collaborators for courses
@@ -34,8 +35,8 @@ export default Ember.Service.extend({
    * @param {number[]} userIds
    * @returns {Promise.<boolean>}
    */
-  updateCourseCollaborators: function (id, userIds) {
-    return this.updateCollaborators(id, "courses", userIds);
+  updateCourseCollaborators: function(id, userIds) {
+    return this.updateCollaborators(id, 'courses', userIds);
   },
 
   /**
@@ -44,8 +45,8 @@ export default Ember.Service.extend({
    * @param {number[]} userIds
    * @returns {Promise.<boolean>}
    */
-  updateCollectionCollaborators: function (id, userIds) {
-    return this.updateCollaborators(id, "collections", userIds);
+  updateCollectionCollaborators: function(id, userIds) {
+    return this.updateCollaborators(id, 'collections', userIds);
   },
   /**
    * Updates collaborators for assessments
@@ -53,7 +54,7 @@ export default Ember.Service.extend({
    * @param {number[]} userIds
    * @returns {Promise.<boolean>}
    */
-  updateAssessmentCollaborators: function (id, userIds) {
-    return this.updateCollaborators(id, "assessments", userIds);
+  updateAssessmentCollaborators: function(id, userIds) {
+    return this.updateCollaborators(id, 'assessments', userIds);
   }
 });

@@ -7,8 +7,6 @@ import SearchSerializer from 'gooru-web/serializers/search/search';
  * @typedef {Object} SuggestSerializer
  */
 export default SearchSerializer.extend({
-
-
   /**
    * Normalize the suggest resources response
    *
@@ -23,5 +21,4 @@ export default SearchSerializer.extend({
       });
     }
   }
-
 });

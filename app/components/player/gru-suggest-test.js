@@ -4,14 +4,14 @@ import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
-  classNames: ['player','gru-suggest-test'],
+  classNames: ['player', 'gru-suggest-test'],
 
-  actions:{
-    playCollection:function(){
+  actions: {
+    playCollection: function() {
       this.set('disabledButtons', true);
       this.sendAction('onPlayCollection');
     },
-    playSuggestion:function(){
+    playSuggestion: function() {
       this.set('disabledButtons', true);
       this.sendAction('onPlaySuggestion');
     }
@@ -22,7 +22,7 @@ export default Ember.Component.extend({
    * Suggestion type
    * @param {String} (pre-test/post-test/backfill-pretest)
    */
-  type:'',
+  type: '',
 
   /**
    * Indicate if the suggestion is a back fill after a pre test
@@ -45,7 +45,7 @@ export default Ember.Component.extend({
   /**
    * @param {Assessment} assessment
    */
-  assessment:null,
+  assessment: null,
 
   /**
    * Disables next and no thanks buttons
@@ -57,7 +57,9 @@ export default Ember.Component.extend({
    * @property {Number} Resource count
    */
   resourceCount: Ember.computed('assessment.resources', function() {
-    return this.get('assessment.resources').filter(item => item.get('isResource')).length;
+    return this.get('assessment.resources').filter(item =>
+      item.get('isResource')
+    ).length;
   }),
   /**
    * Suggested assessment
@@ -69,6 +71,8 @@ export default Ember.Component.extend({
    * @property {Number} Question count
    */
   questionCount: Ember.computed('assessment.resources', function() {
-    return this.get('assessment.resources').filter(item => !item.get('isResource')).length;
+    return this.get('assessment.resources').filter(
+      item => !item.get('isResource')
+    ).length;
   })
 });

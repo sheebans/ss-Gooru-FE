@@ -4,7 +4,7 @@
 .rubric.edit {
   height: 100%;
   > .ember-view,
-  .quizzes{
+  .quizzes {
     height: 100%;
   }
 }
@@ -14,6 +14,12 @@
   padding: 0;
   @include flexbox();
   @include flex-direction(column);
+  .gru-header {
+    z-index: 0;
+    header {
+      padding: 20px 20px 0 5%;
+    }
+  }
   > section {
     padding-left: 5%;
     padding-right: 5%;
@@ -26,7 +32,7 @@
         border-top-right-radius: 6px;
         border-top-left-radius: 6px;
         h3 {
-          color:$gray;
+          color: $gray;
           display: inline-block;
         }
         div.border-bottom {
@@ -53,11 +59,13 @@
       border-bottom: 1px solid $gray-light;
       margin-bottom: 25px;
       padding: 40px 0 20px;
+      @include flexbox();
+      @include justify-content(space-between);
     }
 
     .panel {
-
-      .panel-heading, .panel-body {
+      .panel-heading,
+      .panel-body {
         padding-left: 50px;
         padding-right: 50px;
       }
@@ -67,16 +75,11 @@
         padding-top: 10px;
         padding-bottom: 0;
       }
-
     }
   }
   #information {
-    height: 100%;
-    padding-bottom: 40px;
-    margin-bottom:40px;
-
-    .content {
-
+    height: auto;
+    > .content {
       @include flexbox;
       .gru-image {
         float: left;
@@ -88,8 +91,15 @@
         border-radius: 6px;
         .title {
           .form-group {
-
             width: 300px;
+          }
+          label {
+            @include flexbox();
+            @include flex-direction(column);
+          }
+          b {
+            font-size: $font-size-large;
+            font-weight: 400;
           }
         }
         .standards {
@@ -118,15 +128,25 @@
       .gru-taxonomy-tag {
         .content {
           @include flex-direction(column);
-          b{
-            font-size: 17px;
+          b {
+            font-size: $font-size-large;
             font-weight: $headings-font-weight;
           }
         }
       }
     }
+    .gru-audience {
+      .btn-empty {
+        border: 1px solid $gray-light;
+        margin-top: 5px;
+        cursor: auto;
+      }
+    }
   }
   #rubric {
+    .header {
+      padding: 0;
+    }
     .overall-score {
       .panel-body {
         padding: 0 50px;
@@ -135,28 +155,34 @@
         label {
           @include flexbox;
           @include flex-direction(column);
-          textarea{
-            font-size: $font-size-base;
+          textarea {
+            font-size: $font-size-large;
             height: 150px;
           }
         }
       }
     }
     .add-category {
-      margin-bottom: 15px;
+      margin: 20px 0;
       display: block;
       border: 2px dashed #bbb;
       padding: 20px;
       border-radius: 6px;
-      font-size: 17px;
+      font-size: $font-size-large;
       color: #666;
       text-align: center;
     }
     .required-feedback {
       @include flexbox;
-      .check_box{
-        color:$blue-500;
+      .check_box {
+        color: $blue-500;
       }
+    }
+    .gru-preview-url {
+      margin-bottom: 10px;
+    }
+    .category-panel {
+      margin-top: 4em;
     }
   }
   .add-prefix:before {

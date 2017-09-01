@@ -16,7 +16,6 @@ moduleForAcceptance('Acceptance | Student Home Landing page', {
   }
 });
 
-
 test('Layout', function(assert) {
   window.localStorage.setItem('param-123_logins', 3);
   visit('/student-home');
@@ -30,11 +29,31 @@ test('Layout', function(assert) {
     T.exists(assert, $userContainer, 'Missing student container');
 
     const $leftUserContainer = $userContainer.find('.student-left-panel');
-    T.exists(assert, $leftUserContainer.find('.greetings'), 'Missing student greetings');
-    T.exists(assert, $leftUserContainer.find('.greetings .title'), 'Missing student name');
-    assert.equal( $leftUserContainer.find('.greetings .title span').text(), 'Hello, Student!', 'Incorrect student name text');
-    T.exists(assert, $leftUserContainer.find('.greetings p'), 'Missing count classrooms');
-    assert.equal($leftUserContainer.find('.greetings p').text(), "You're currently enrolled in 7 classrooms", 'Incorrect count classrooms text');
+    T.exists(
+      assert,
+      $leftUserContainer.find('.greetings'),
+      'Missing student greetings'
+    );
+    T.exists(
+      assert,
+      $leftUserContainer.find('.greetings .title'),
+      'Missing student name'
+    );
+    assert.equal(
+      $leftUserContainer.find('.greetings .title span').text(),
+      'Hello, Student!',
+      'Incorrect student name text'
+    );
+    T.exists(
+      assert,
+      $leftUserContainer.find('.greetings p'),
+      'Missing count classrooms'
+    );
+    assert.equal(
+      $leftUserContainer.find('.greetings p').text(),
+      'You\'re currently enrolled in 7 classrooms',
+      'Incorrect count classrooms text'
+    );
 
     const $panelsContainer = $leftUserContainer.find('.panels');
     T.exists(assert, $panelsContainer, 'Missing panels container');
@@ -45,22 +64,57 @@ test('Layout', function(assert) {
     const $joinClass = $panelsContainer.find('.join-class');
     T.exists(assert, $joinClass, 'Missing join class panel');
 
-    T.exists(assert, $joinClass.find('.panel-heading'), 'Missing join class panel-heading');
-    T.exists(assert, $joinClass.find('.panel-body'), 'Missing join class panel-body');
+    T.exists(
+      assert,
+      $joinClass.find('.panel-heading'),
+      'Missing join class panel-heading'
+    );
+    T.exists(
+      assert,
+      $joinClass.find('.panel-body'),
+      'Missing join class panel-body'
+    );
 
-    T.exists(assert, $joinClass.find('.panel-body .legend'), 'Missing panel body legend');
-    T.exists(assert, $joinClass.find('.panel-body .actions .join'), 'Missing join class button');
-    T.exists(assert, $joinClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
-    assert.equal($joinClass.find('.panel-body .will-disappear').text().trim(), 'This will disappear after 3 logins', 'Incorrect login count for will disappear text');
+    T.exists(
+      assert,
+      $joinClass.find('.panel-body .legend'),
+      'Missing panel body legend'
+    );
+    T.exists(
+      assert,
+      $joinClass.find('.panel-body .actions .join'),
+      'Missing join class button'
+    );
+    T.exists(
+      assert,
+      $joinClass.find('.panel-body .will-disappear'),
+      'Missing will-disappear legend'
+    );
+    assert.equal(
+      $joinClass.find('.panel-body .will-disappear').text().trim(),
+      'This will disappear after 3 logins',
+      'Incorrect login count for will disappear text'
+    );
 
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
-    T.exists(assert, $navigatorContainer.find('.actions .join-class-cta'), 'Missing join class button');
+    T.exists(
+      assert,
+      $navigatorContainer.find('.actions .join-class-cta'),
+      'Missing join class button'
+    );
 
-    assert.ok($('.active-classes').hasClass('active'), 'Active classes should be visible');
+    assert.ok(
+      $('.active-classes').hasClass('active'),
+      'Active classes should be visible'
+    );
 
     const $tabContent = $leftUserContainer.find('.tab-content');
-    assert.equal($tabContent.find('.gru-student-class-card').length, 7 ,'Wrong number of class cards');
+    assert.equal(
+      $tabContent.find('.gru-student-class-card').length,
+      7,
+      'Wrong number of class cards'
+    );
   });
 });
 
@@ -79,9 +133,21 @@ test('Will disappear next login', function(assert) {
 
     const $joinClass = $panelsContainer.find('.join-class');
     T.exists(assert, $joinClass, 'Missing join class panel');
-    T.exists(assert, $joinClass.find('.panel-body .actions .join'), 'Missing join class button');
-    T.exists(assert, $joinClass.find('.panel-body .will-disappear'), 'Missing will-disappear legend');
-    assert.equal($joinClass.find('.panel-body .will-disappear').text().trim(), 'This will not appear on the next login', 'Incorrect message for will disappear text');
+    T.exists(
+      assert,
+      $joinClass.find('.panel-body .actions .join'),
+      'Missing join class button'
+    );
+    T.exists(
+      assert,
+      $joinClass.find('.panel-body .will-disappear'),
+      'Missing will-disappear legend'
+    );
+    assert.equal(
+      $joinClass.find('.panel-body .will-disappear').text().trim(),
+      'This will not appear on the next login',
+      'Incorrect message for will disappear text'
+    );
   });
 });
 
@@ -103,7 +169,9 @@ test('Go to library from featured-courses panel', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
     const $featuredCourses = find('.panel.featured-courses');
-    const $featuredCoursesButton = $featuredCourses.find('.actions button.library');
+    const $featuredCoursesButton = $featuredCourses.find(
+      '.actions button.library'
+    );
 
     click($featuredCoursesButton);
     andThen(function() {
@@ -129,17 +197,25 @@ test('Go to join from join class panel', function(assert) {
   });
 });
 
-test('Take A Tour', function(assert){
+test('Take A Tour', function(assert) {
   assert.expect(2);
   visit('/student-home');
   andThen(function() {
     let $tooltip;
-    click(".app-container .gru-take-tour button.start-tour");
+    click('.app-container .gru-take-tour button.start-tour');
     andThen(function() {
-      $tooltip = $("div.introjs-tooltip");
+      $tooltip = $('div.introjs-tooltip');
 
-      T.exists(assert, $tooltip, "First step of the tour should display a tooltip");
-      assert.equal(T.text($tooltip.find('.tour-header h2')), 'Take a Tour', 'First step title should be "Take a Tour"');
+      T.exists(
+        assert,
+        $tooltip,
+        'First step of the tour should display a tooltip'
+      );
+      assert.equal(
+        T.text($tooltip.find('.tour-header h2')),
+        'Take a Tour',
+        'First step title should be "Take a Tour"'
+      );
     });
   });
 });
@@ -152,19 +228,31 @@ test('Go to course map from class card', function(assert) {
     const $card = find('.gru-student-class-card:eq(0)  a');
     click($card);
     andThen(function() {
-      assert.equal(currentURL(), '/student/class/class-for-pochita-as-student/course-map?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id', 'Wrong route');
+      assert.equal(
+        currentURL(),
+        '/student/class/class-for-pochita-as-student/course-map?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id',
+        'Wrong route'
+      );
     });
   });
 });
 
-test('Valid bubble chart when the class does not has performance', function(assert) {
+test('Valid bubble chart when the class does not has performance', function(
+  assert
+) {
   visit('/student-home');
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    let $chart = find('.gru-student-class-card:eq(1) .gru-bubble-chart .bubble-circle');
-    assert.equal($chart.attr('style'),'background-color:#949A9F','Incorrect chart color');
-    assert.equal($chart.find('span').text(),'--','Incorrect score');
+    let $chart = find(
+      '.gru-student-class-card:eq(1) .gru-bubble-chart .bubble-circle'
+    );
+    assert.equal(
+      $chart.attr('style'),
+      'background-color:#949A9F',
+      'Incorrect chart color'
+    );
+    assert.equal($chart.find('span').text(), '--', 'Incorrect score');
   });
 });
 
@@ -173,9 +261,15 @@ test('Valid bubble chart when the class has performance', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    let $chart = find('.gru-student-class-card:eq(0) .gru-bubble-chart .bubble-circle');
-    assert.equal($chart.attr('style'),'background-color:#F46360','Incorrect chart color');
-    assert.equal($chart.find('span').text(),'0%','Incorrect score');
+    let $chart = find(
+      '.gru-student-class-card:eq(0) .gru-bubble-chart .bubble-circle'
+    );
+    assert.equal(
+      $chart.attr('style'),
+      'background-color:#F46360',
+      'Incorrect chart color'
+    );
+    assert.equal($chart.find('span').text(), '0%', 'Incorrect score');
   });
 });
 
@@ -184,19 +278,22 @@ test('Valid completed chart when the class has started', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    let $chart = find('.gru-student-class-card:eq(0) .gru-radial-chart .radial-svg .labels');
-    assert.equal($chart.text(),'33%','Incorrect label');
+    let $chart = find(
+      '.gru-student-class-card:eq(0) .gru-radial-chart .radial-svg .labels'
+    );
+    assert.equal($chart.text(), '33%', 'Incorrect label');
   });
 });
-
 
 test('Valid completed chart when the class has not started', function(assert) {
   visit('/student-home');
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    let $chart = find('.gru-student-class-card:eq(1) .gru-radial-chart .radial-svg .labels');
-    assert.equal($chart.text(),'--','Incorrect label');
+    let $chart = find(
+      '.gru-student-class-card:eq(1) .gru-radial-chart .radial-svg .labels'
+    );
+    assert.equal($chart.text(), '--', 'Incorrect label');
   });
 });
 
@@ -206,6 +303,10 @@ test('Class order', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
     let $title = find('.gru-student-class-card:eq(0) h5');
-    assert.equal($title.text().trim(),'First Class Pochita as Student','Incorrect first class');
+    assert.equal(
+      $title.text().trim(),
+      'First Class Pochita as Student',
+      'Incorrect first class'
+    );
   });
 });

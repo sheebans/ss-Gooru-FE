@@ -7,17 +7,15 @@ export default Ember.Component.extend({
   /**
    * @dependency service:goal
    */
-  goalService: Ember.inject.service("api-sdk/goal"),
+  goalService: Ember.inject.service('api-sdk/goal'),
 
   // -------------------------------------------------------------------------
   // Attributes
   classNames: ['gru-goal-form'],
 
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     onStatusChange: function(newValue) {
       this.set('showStatusErrorMessage', false);
       const goal = this.get('goal');
@@ -35,49 +33,52 @@ export default Ember.Component.extend({
       const endDate = goal.get('endDate');
       let areDatesOk = false;
 
-      if (component.get("onCreate")) {
-        let statusSelected =  component.get('statusSelected');
-        let showStatusErrorMessage = (!statusSelected);
+      if (component.get('onCreate')) {
+        let statusSelected = component.get('statusSelected');
+        let showStatusErrorMessage = !statusSelected;
         component.set('showStatusErrorMessage', showStatusErrorMessage);
 
-        if(startDate != null && endDate != null){
-          areDatesOk = component.get('goalService').checkBothDates(startDate, endDate);
+        if (startDate != null && endDate != null) {
+          areDatesOk = component
+            .get('goalService')
+            .checkBothDates(startDate, endDate);
           component.set('showDatesError', !areDatesOk);
         }
 
-        this.sendAction("onCreate", goal, areDatesOk);
+        this.sendAction('onCreate', goal, areDatesOk);
       }
     },
 
     update: function() {
-      if (this.get("onUpdate")) {
+      if (this.get('onUpdate')) {
         const component = this;
         const goal = component.get('goal');
         const startDate = goal.get('startDate');
         const endDate = goal.get('endDate');
         let areDatesOk = false;
 
-        if(startDate != null && endDate != null){
-          areDatesOk = component.get('goalService').checkBothDates(startDate, endDate);
+        if (startDate != null && endDate != null) {
+          areDatesOk = component
+            .get('goalService')
+            .checkBothDates(startDate, endDate);
           component.set('showDatesError', !areDatesOk);
         }
 
-        this.sendAction("onUpdate", areDatesOk);
+        this.sendAction('onUpdate', areDatesOk);
       }
     },
 
     cancelEdit: function() {
-      if (this.get("onCancelEdit")) {
-        this.sendAction("onCancelEdit");
+      if (this.get('onCancelEdit')) {
+        this.sendAction('onCancelEdit');
       }
     },
 
     cancel: function() {
-      if (this.get("onCancel")) {
-        this.sendAction("onCancel");
+      if (this.get('onCancel')) {
+        this.sendAction('onCancel');
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -85,7 +86,6 @@ export default Ember.Component.extend({
   didInsertElement: function() {
     this.$('.form-group .title input').focus();
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -135,28 +135,43 @@ export default Ember.Component.extend({
   /**
    * @property {String} Goal type
    */
-  type: "",
+  type: '',
 
   typeOptions: Ember.computed(function() {
     let options = [
-      {id: 'Completion',
-        name: 'Completion'},
-      {id: 'Performance',
-        name: 'Performance'},
-      {id: 'Improvement',
-        name: 'Improvement'},
-      {id: 'Teamwork',
-        name: 'Teamwork'},
-      {id: 'Growth',
-        name: 'Growth'},
-      {id: 'Mindset',
-        name: 'Mindset'},
-      {id: 'Seek help',
-        name: 'Seek help'},
-      {id: 'Help another',
-        name: 'Help another'}
+      {
+        id: 'Completion',
+        name: 'Completion'
+      },
+      {
+        id: 'Performance',
+        name: 'Performance'
+      },
+      {
+        id: 'Improvement',
+        name: 'Improvement'
+      },
+      {
+        id: 'Teamwork',
+        name: 'Teamwork'
+      },
+      {
+        id: 'Growth',
+        name: 'Growth'
+      },
+      {
+        id: 'Mindset',
+        name: 'Mindset'
+      },
+      {
+        id: 'Seek help',
+        name: 'Seek help'
+      },
+      {
+        id: 'Help another',
+        name: 'Help another'
+      }
     ];
     return options;
   })
-
 });

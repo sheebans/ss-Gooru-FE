@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -16,10 +15,10 @@ export default Ember.Component.extend({
     this._super(...arguments);
     const component = this;
     // Adds tooltip to UI elements (elements with attribute 'data-toggle')
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
 
     //Determinate if the device where the component is showing is a touch device in order to deactivate the tooltips
-    var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+    var isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
     if (isTouch) {
       component.$('.actions .item-actions button').tooltip('disable');
     }
@@ -30,9 +29,9 @@ export default Ember.Component.extend({
   /**
    * @property {Boolean} indicate if disabled card buttons
    */
-  disabledActions:true,
+  disabledActions: true,
   /**
    * Object to show in the library card
    */
-  model:null
+  model: null
 });

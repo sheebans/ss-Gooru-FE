@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { CONTENT_TYPES, ROLES} from 'gooru-web/config/config';
+import { CONTENT_TYPES, ROLES } from 'gooru-web/config/config';
 
 /**
  * Study Player External Controller
@@ -7,8 +7,16 @@ import { CONTENT_TYPES, ROLES} from 'gooru-web/config/config';
  * @module
  */
 export default Ember.Controller.extend({
-
-  queryParams: ['resourceId', 'role', 'type', 'sourceId', 'classId','courseId','collectionId', 'source'],
+  queryParams: [
+    'resourceId',
+    'role',
+    'type',
+    'sourceId',
+    'classId',
+    'courseId',
+    'collectionId',
+    'source'
+  ],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -28,13 +36,13 @@ export default Ember.Controller.extend({
     /**
      * Action triggered for the next button
      */
-    next: function () {
+    next: function() {
       this.playNextContent();
     },
     /**
      * Action triggered when the performance information panel is expanded/collapsed
      */
-    toggleHeader: function (toggleState) {
+    toggleHeader: function(toggleState) {
       this.set('toggleState', toggleState);
     }
   },
@@ -68,7 +76,6 @@ export default Ember.Controller.extend({
    */
   showBackButton: false,
 
-
   /**
    * Current map location
    * @property {MapLocation}
@@ -83,7 +90,9 @@ export default Ember.Controller.extend({
     let unit = this.get('unit');
     let lesson = this.get('lesson');
     let collection = this.get('collection');
-    let collectionId = collection ? collection.get('id') : this.get('collectionId');
+    let collectionId = collection
+      ? collection.get('id')
+      : this.get('collectionId');
     let lessonChildren = lesson.children;
     let titles = Ember.A([]);
 
@@ -97,7 +106,9 @@ export default Ember.Controller.extend({
     }
     if (collection && isChild) {
       if (collection.isCollection) {
-        let collections = lessonChildren.filter(collection => collection.format === CONTENT_TYPES.collection);
+        let collections = lessonChildren.filter(
+          collection => collection.format === CONTENT_TYPES.collection
+        );
         collections.forEach((child, index) => {
           if (child.id === collection.id) {
             let collectionSequence = index + 1;
@@ -105,7 +116,9 @@ export default Ember.Controller.extend({
           }
         });
       } else {
-        let assessments = lessonChildren.filter(assessment => assessment.format === CONTENT_TYPES.assessment);
+        let assessments = lessonChildren.filter(
+          assessment => assessment.format === CONTENT_TYPES.assessment
+        );
         assessments.forEach((child, index) => {
           if (child.id === collection.id) {
             let assessmentSequence = index + 1;
@@ -154,19 +167,20 @@ export default Ember.Controller.extend({
     if (classId) {
       queryParams.classId = classId;
     }
-    this.transitionToRoute('study-player',
-      context.get('courseId'),
-      { queryParams }
-    );
+    this.transitionToRoute('study-player', context.get('courseId'), {
+      queryParams
+    });
   },
 
   playNextContent: function() {
     const navigateMapService = this.get('navigateMapService');
     const context = this.get('mapLocation.context');
-    navigateMapService.getStoredNext().then(() => navigateMapService.next(context))
-      .then((mapLocation) => {
+    navigateMapService
+      .getStoredNext()
+      .then(() => navigateMapService.next(context))
+      .then(mapLocation => {
         let status = (mapLocation.get('context.status') || '').toLowerCase();
-        if(status === 'done') {
+        if (status === 'done') {
           this.setProperties({
             isDone: true,
             hasAnySuggestion: false

@@ -19,7 +19,6 @@ const Validations = buildValidations({
       descriptionKey: 'common.errors.password-required'
     })
   ]
-
 });
 
 /**
@@ -27,8 +26,7 @@ const Validations = buildValidations({
  *
  * @typedef {Object} ProfileModel
  */
-export default Ember.Object.extend(Validations,{
-
+export default Ember.Object.extend(Validations, {
   /**
    * @property {string} username - The profile username
    */
@@ -38,5 +36,4 @@ export default Ember.Object.extend(Validations,{
    * @property {string} password  - The profile password
    */
   password: null
-
 });

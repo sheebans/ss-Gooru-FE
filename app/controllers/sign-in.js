@@ -3,7 +3,6 @@ import User from 'gooru-web/models/sign-in/sign-in';
 import Env from 'gooru-web/config/environment';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -17,7 +16,7 @@ export default Ember.Controller.extend({
   /**
    * @property {Service} Session service
    */
-  sessionService: Ember.inject.service("api-sdk/session"),
+  sessionService: Ember.inject.service('api-sdk/session'),
 
   /**
    * @property {Service} Notifications service
@@ -35,38 +34,40 @@ export default Ember.Controller.extend({
   // Actions
 
   actions: {
-
     authenticate: function() {
       const controller = this;
       const user = controller.get('user');
-      const errorMessage = controller.get('i18n').t('common.errors.sign-in-credentials-not-valid').string;
+      const errorMessage = controller
+        .get('i18n')
+        .t('common.errors.sign-in-credentials-not-valid').string;
 
-      controller.get("notifications").clear();
-      controller.get("notifications").setOptions({
+      controller.get('notifications').clear();
+      controller.get('notifications').setOptions({
         positionClass: 'toast-top-full-width sign-in'
       });
 
       // TODO needs to be revisited, this is a quick fix
-      controller.get('sessionService').authorize().then(function(){
-        if(controller.get('didValidate') === false) {
+      controller.get('sessionService').authorize().then(function() {
+        if (controller.get('didValidate') === false) {
           var username = Ember.$('.gru-input.username input').val();
           var password = Ember.$('.gru-input.password input').val();
-          user.set('username',username);
-          user.set('password',password);
+          user.set('username', username);
+          user.set('password', password);
         }
-        user.validate().then(function ({ validations }) {
+        user.validate().then(function({ validations }) {
           if (validations.get('isValid')) {
-            controller.get("sessionService")
-              .signInWithUser(user, true)
-              .then(function() {
+            controller.get('sessionService').signInWithUser(user, true).then(
+              function() {
                 controller.set('didValidate', true);
                 // Trigger action in parent
                 controller.send('signIn');
-              }, function(){
-                controller.get("notifications").warning(errorMessage);
+              },
+              function() {
+                controller.get('notifications').warning(errorMessage);
                 // Authenticate as anonymous if it fails to mantain session
                 controller.get('session').authenticateAsAnonymous();
-              });
+              }
+            );
           }
         });
       });
@@ -80,16 +81,20 @@ export default Ember.Controller.extend({
    * init and reset all the properties for the validations
    */
 
-  resetProperties(){
+  resetProperties() {
     var controller = this;
-    var user = User.create(Ember.getOwner(this).ownerInjection(), {username: null, password: null});
+    var user = User.create(Ember.getOwner(this).ownerInjection(), {
+      username: null,
+      password: null
+    });
 
     controller.set('user', user);
-    const url = `${window.location.protocol}//${window.location.host}${Env['google-sign-in'].url}`;
+    const url = `${window.location.protocol}//${window.location.host}${Env[
+      'google-sign-in'
+    ].url}`;
     controller.set('googleSignInUrl', url);
     controller.set('didValidate', false);
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -111,5 +116,4 @@ export default Ember.Controller.extend({
    * @property {Boolean} sessionEnds
    */
   sessionEnds: false
-
 });

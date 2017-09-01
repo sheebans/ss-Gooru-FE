@@ -32,10 +32,8 @@ import AnswerObject from 'gooru-web/utils/question/answer-object';
  * @typedef {Object} MultipleAnswerUtil
  */
 export default QuestionUtil.extend({
-
   // -------------------------------------------------------------------------
   // Observers
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -45,10 +43,13 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  isAnswerChoiceCorrect: function (answerChoice) {
+  isAnswerChoiceCorrect: function(answerChoice) {
     let correctAnswer = this.getCorrectAnswer();
-    let found = correctAnswer.filterBy("id", answerChoice.id);
-    return found.get("length") && found.get("firstObject.selection") === answerChoice.selection;
+    let found = correctAnswer.filterBy('id', answerChoice.id);
+    return (
+      found.get('length') &&
+      found.get('firstObject.selection') === answerChoice.selection
+    );
   },
 
   /**
@@ -58,10 +59,10 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  getCorrectAnswer: function () {
-    const answers = this.get("question.answers");
-    return answers.map(function (answer) {
-      return {id: answer.get("id"), selection: answer.get("isCorrect")};
+  getCorrectAnswer: function() {
+    const answers = this.get('question.answers');
+    return answers.map(function(answer) {
+      return { id: answer.get('id'), selection: answer.get('isCorrect') };
     });
   },
 
@@ -73,8 +74,8 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  answerKey: function (answer) {
-    let keys = Ember.A(answer).sortBy('id').map(function (item) {
+  answerKey: function(answer) {
+    let keys = Ember.A(answer).sortBy('id').map(function(item) {
       return `${item.id}_${item.selection}`;
     });
     return keys.toArray().join();
@@ -89,17 +90,17 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toAnswerObjects: function (userAnswer) {
+  toAnswerObjects: function(userAnswer) {
     let util = this;
-    return userAnswer.map(function (item, index) {
+    return userAnswer.map(function(item, index) {
       let answer = util.getAnswerById(item.id);
-      let text = item.selection ? "Yes" : "No";
+      let text = item.selection ? 'Yes' : 'No';
       return AnswerObject.create({
-        "text": text,
-        "correct": util.isAnswerChoiceCorrect(item),
-        "order": index + 1,
-        "answerId": answer.get("id"),
-        "skip": false
+        text: text,
+        correct: util.isAnswerChoiceCorrect(item),
+        order: index + 1,
+        answerId: answer.get('id'),
+        skip: false
       });
     });
   },
@@ -113,14 +114,14 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toUserAnswer: function (answerObjects) {
-    return (!answerObjects || !answerObjects.length) ?
-      null : //if not respond is provided
-      answerObjects.map(function (answerObject) {
-        return {id: answerObject.get("answerId"), selection: answerObject.get("text") === "Yes"};
+  toUserAnswer: function(answerObjects) {
+    return !answerObjects || !answerObjects.length
+      ? null //if not respond is provided
+      : answerObjects.map(function(answerObject) {
+        return {
+          id: answerObject.get('answerId'),
+          selection: answerObject.get('text') === 'Yes'
+        };
       });
   }
-
-
 });
-

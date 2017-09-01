@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { ROLES} from 'gooru-web/config/config';
+import { ROLES } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
@@ -14,12 +14,12 @@ export default Ember.Route.extend({
    */
   courseService: Ember.inject.service('api-sdk/course'),
 
-  actions:{
+  actions: {
     /**
      * View Analytics Report
      * Triggered by gru-performance-table
      */
-    viewReport:function(assessmentId){
+    viewReport: function(assessmentId) {
       const route = this;
       let controller = route.get('controller');
       const courseId = controller.get('course.id');
@@ -27,15 +27,17 @@ export default Ember.Route.extend({
       const lessonId = controller.get('lessonId');
       const userId = controller.get('profile.id');
       const collectionType = controller.get('collectionType');
-      route.transitionTo('reports.student-collection-analytics', { queryParams: {
-        courseId,
-        unitId,
-        lessonId,
-        collectionId: assessmentId,
-        userId,
-        type: collectionType,
-        role: ROLES.STUDENT
-      }});
+      route.transitionTo('reports.student-collection-analytics', {
+        queryParams: {
+          courseId,
+          unitId,
+          lessonId,
+          collectionId: assessmentId,
+          userId,
+          type: collectionType,
+          role: ROLES.STUDENT
+        }
+      });
     }
   },
 
@@ -59,7 +61,7 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function(controller,model) {
+  setupController: function(controller, model) {
     controller.set('course', model.course);
     controller.set('courseId', model.course.get('id'));
     controller.set('unitId', model.unitId);
@@ -67,7 +69,7 @@ export default Ember.Route.extend({
     controller.loadData();
   },
 
-  deactivate: function () {
+  deactivate: function() {
     this.get('controller').resetValues();
   }
 });

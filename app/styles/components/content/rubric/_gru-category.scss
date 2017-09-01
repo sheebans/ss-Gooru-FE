@@ -1,5 +1,4 @@
-.content.rubric.gru-category{
-  padding: 10px 0;
+.content.rubric.gru-category {
   margin: 0 0 10px 0;
 
   .required {
@@ -9,7 +8,7 @@
   }
 
   > .panel {
-    margin:0;
+    margin: 0;
     > .panel-heading {
       padding: 12px 10px 10px 25px;
       border-radius: 6px;
@@ -19,6 +18,9 @@
         padding: 0 10px 0 10px;
         line-height: 2.5;
         vertical-align: top;
+      }
+      .title {
+        cursor: default;
       }
     }
     &.expanded {
@@ -39,7 +41,6 @@
 
   .title,
   .edit-title {
-
     > div {
       border-left: 1px solid $gray-light;
       display: inline-block;
@@ -54,7 +55,7 @@
         line-height: 2.5;
         font-size: 16px;
         vertical-align: text-top;
-        color:  $dark-300;
+        color: $dark-300;
       }
 
       @media (min-width: $screen-lg) {
@@ -85,7 +86,7 @@
           max-width: 100%;
           border: 0;
           margin-bottom: 10px;
-          input{
+          input {
             color: $gray-light;
           }
         }
@@ -127,18 +128,17 @@
 
     .actions {
       margin-left: 5px;
-      .item-actions.border{
+      .item-actions.border {
         border-left: 1px solid $gray-light;
       }
     }
   }
-  .feedback{
-    label{
+  .feedback {
+    label {
       width: 100%;
-      textarea{
+      textarea {
         font-size: $font-size-base;
       }
     }
   }
 }
-

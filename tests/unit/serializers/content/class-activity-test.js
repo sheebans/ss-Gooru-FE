@@ -1,8 +1,11 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('serializer:content/class-activity', 'Unit | Serializer | content/class activity');
+moduleFor(
+  'serializer:content/class-activity',
+  'Unit | Serializer | content/class activity'
+);
 
-test('normalizeClassActivityContent for collection', function (assert) {
+test('normalizeClassActivityContent for collection', function(assert) {
   const serializer = this.subject();
   const data = {
     id: 10,
@@ -13,14 +16,14 @@ test('normalizeClassActivityContent for collection', function (assert) {
     question_count: 5
   };
   const modelObject = serializer.normalizeClassActivityContent(data);
-  assert.equal(modelObject.get("id"), 123, 'Wrong id');
-  assert.equal(modelObject.get("title"), 'Any title', 'Wrong title');
-  assert.equal(modelObject.get("resourceCount"), 10, 'Wrong resource count');
-  assert.equal(modelObject.get("questionCount"), 5, 'Wrong question count');
-  assert.equal(modelObject.get("isCollection"), true, 'Wrong type');
+  assert.equal(modelObject.get('id'), 123, 'Wrong id');
+  assert.equal(modelObject.get('title'), 'Any title', 'Wrong title');
+  assert.equal(modelObject.get('resourceCount'), 10, 'Wrong resource count');
+  assert.equal(modelObject.get('questionCount'), 5, 'Wrong question count');
+  assert.equal(modelObject.get('isCollection'), true, 'Wrong type');
 });
 
-test('normalizeClassActivityContent for assessment', function (assert) {
+test('normalizeClassActivityContent for assessment', function(assert) {
   const serializer = this.subject();
   const data = {
     id: 10,
@@ -31,14 +34,16 @@ test('normalizeClassActivityContent for assessment', function (assert) {
     question_count: 5
   };
   const modelObject = serializer.normalizeClassActivityContent(data);
-  assert.equal(modelObject.get("id"), 123, 'Wrong id');
-  assert.equal(modelObject.get("title"), 'Any title', 'Wrong title');
-  assert.equal(modelObject.get("resourceCount"), 10, 'Wrong resource count');
-  assert.equal(modelObject.get("questionCount"), 5, 'Wrong question count');
-  assert.equal(modelObject.get("isAssessment"), true, 'Wrong type');
+  assert.equal(modelObject.get('id'), 123, 'Wrong id');
+  assert.equal(modelObject.get('title'), 'Any title', 'Wrong title');
+  assert.equal(modelObject.get('resourceCount'), 10, 'Wrong resource count');
+  assert.equal(modelObject.get('questionCount'), 5, 'Wrong question count');
+  assert.equal(modelObject.get('isAssessment'), true, 'Wrong type');
 });
 
-test('normalizeClassActivity with context and activation date', function (assert) {
+test('normalizeClassActivity with context and activation date', function(
+  assert
+) {
   const serializer = this.subject();
   const data = {
     id: 10,
@@ -54,12 +59,19 @@ test('normalizeClassActivity with context and activation date', function (assert
     ctx_collection_id: 40
   };
   const modelObject = serializer.normalizeClassActivity(data);
-  assert.equal(modelObject.get("id"), 10, 'Wrong id');
-  assert.equal(modelObject.get("context.courseId"), 10, 'Wrong course id');
-  assert.equal(modelObject.get("context.unitId"), 20, 'Wrong unit id');
-  assert.equal(modelObject.get("context.lessonId"), 30, 'Wrong lesson id');
-  assert.equal(modelObject.get("context.collectionId"), 40, 'Wrong collection id');
-  assert.ok(modelObject.get("date"), 'Missing date');
-  assert.ok(modelObject.get("collection"), 'Missing collection');
-  assert.ok(modelObject.get("collection.isAssessment"), 'Missing collection type');
+  assert.equal(modelObject.get('id'), 10, 'Wrong id');
+  assert.equal(modelObject.get('context.courseId'), 10, 'Wrong course id');
+  assert.equal(modelObject.get('context.unitId'), 20, 'Wrong unit id');
+  assert.equal(modelObject.get('context.lessonId'), 30, 'Wrong lesson id');
+  assert.equal(
+    modelObject.get('context.collectionId'),
+    40,
+    'Wrong collection id'
+  );
+  assert.ok(modelObject.get('date'), 'Missing date');
+  assert.ok(modelObject.get('collection'), 'Missing collection');
+  assert.ok(
+    modelObject.get('collection.isAssessment'),
+    'Missing collection type'
+  );
 });

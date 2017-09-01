@@ -3,115 +3,116 @@ import { module, test } from 'qunit';
 
 module('Unit | Model | result/question');
 
-
 test('question', function(assert) {
   let questionResult = QuestionResult.create({
-    "resource": "fakeResult"
+    resource: 'fakeResult'
   });
 
-  assert.equal(questionResult.get("question"), "fakeResult", "Wrong question");
+  assert.equal(questionResult.get('question'), 'fakeResult', 'Wrong question');
 });
 
 test('questionId', function(assert) {
   let questionResult = QuestionResult.create({
-    "resourceId": "fakeResultId"
+    resourceId: 'fakeResultId'
   });
 
-  assert.equal(questionResult.get("questionId"), "fakeResultId", "Wrong question id");
+  assert.equal(
+    questionResult.get('questionId'),
+    'fakeResultId',
+    'Wrong question id'
+  );
 });
-
 
 test('skipped', function(assert) {
   let questionResult = QuestionResult.create({
-    "correct": false,
-    "userAnswer": null
+    correct: false,
+    userAnswer: null
   });
 
   //when is not correct and has no user answer
-  assert.ok(questionResult.get("skipped"), "It should be skipped");
+  assert.ok(questionResult.get('skipped'), 'It should be skipped');
 
   //when correct is false but has userAnswer
-  questionResult.set("userAnswer", "1");
-  assert.ok(!questionResult.get("skipped"), "It should not be skipped");
+  questionResult.set('userAnswer', '1');
+  assert.ok(!questionResult.get('skipped'), 'It should not be skipped');
 
   //when is correct but no userAnswer
-  questionResult.set("userAnswer", null);
-  questionResult.set("correct", true);
-  assert.ok(!questionResult.get("skipped"), "It should not be skipped");
+  questionResult.set('userAnswer', null);
+  questionResult.set('correct', true);
+  assert.ok(!questionResult.get('skipped'), 'It should not be skipped');
 });
 
 test('incorrect', function(assert) {
   let questionResult = QuestionResult.create({
-    "correct": false
+    correct: false
   });
 
   //when correct is false
-  assert.ok(questionResult.get("incorrect"), "It should be incorrect");
+  assert.ok(questionResult.get('incorrect'), 'It should be incorrect');
 
   //when correct is null
-  questionResult.set("correct", null);
-  assert.ok(!questionResult.get("incorrect"), "It should not be incorrect");
+  questionResult.set('correct', null);
+  assert.ok(!questionResult.get('incorrect'), 'It should not be incorrect');
 });
 
 test('started', function(assert) {
   let questionResult = QuestionResult.create({
-    "correct": false
+    correct: false
   });
 
   //when correct is false
-  assert.ok(questionResult.get("started"), "It should be started");
+  assert.ok(questionResult.get('started'), 'It should be started');
 
   //when correct is true
-  questionResult.set("correct", true);
-  assert.ok(questionResult.get("started"), "It should be started");
+  questionResult.set('correct', true);
+  assert.ok(questionResult.get('started'), 'It should be started');
 
   //when correct is null
-  questionResult.set("correct", null);
-  assert.ok(!questionResult.get("started"), "It should not be started");
+  questionResult.set('correct', null);
+  assert.ok(!questionResult.get('started'), 'It should not be started');
 });
 
 test('completed', function(assert) {
   let questionResult = QuestionResult.create({
-    "correct": false
+    correct: false
   });
 
   //when correct is false
-  assert.ok(questionResult.get("completed"), "It should be completed");
+  assert.ok(questionResult.get('completed'), 'It should be completed');
 
   //when correct is true
-  questionResult.set("correct", true);
-  assert.ok(questionResult.get("completed"), "It should be completed");
+  questionResult.set('correct', true);
+  assert.ok(questionResult.get('completed'), 'It should be completed');
 
   //when correct is null
-  questionResult.set("correct", null);
-  assert.ok(!questionResult.get("completed"), "It should not be completed");
+  questionResult.set('correct', null);
+  assert.ok(!questionResult.get('completed'), 'It should not be completed');
 });
 
 test('answered', function(assert) {
   let questionResult = QuestionResult.create({
-    "userAnswer": 1
+    userAnswer: 1
   });
 
   //when userAnswer is set
-  assert.ok(questionResult.get("answered"), "It should be answered");
+  assert.ok(questionResult.get('answered'), 'It should be answered');
 
   //when userAnswer is an empty array
-  questionResult.set("userAnswer", []);
-  assert.ok(questionResult.get("answered"), "It should be answered");
+  questionResult.set('userAnswer', []);
+  assert.ok(questionResult.get('answered'), 'It should be answered');
 
   //when userAnswer is false
-  questionResult.set("userAnswer", false);
-  assert.ok(questionResult.get("answered"), "It should be answered");
+  questionResult.set('userAnswer', false);
+  assert.ok(questionResult.get('answered'), 'It should be answered');
 
   //when correct is null
-  questionResult.set("userAnswer", null);
-  assert.ok(!questionResult.get("answered"), "It should not be answered");
+  questionResult.set('userAnswer', null);
+  assert.ok(!questionResult.get('answered'), 'It should not be answered');
 
   //when correct is undefined
-  questionResult.set("userAnswer", undefined);
-  assert.ok(!questionResult.get("answered"), "It should not be answered");
+  questionResult.set('userAnswer', undefined);
+  assert.ok(!questionResult.get('answered'), 'It should not be answered');
 });
-
 
 test('attemptStatus, correct', function(assert) {
   let questionResult = QuestionResult.create({
@@ -119,7 +120,7 @@ test('attemptStatus, correct', function(assert) {
     skipped: false,
     pending: false
   });
-  assert.equal(questionResult.get("attemptStatus"), 'correct', "wrong status");
+  assert.equal(questionResult.get('attemptStatus'), 'correct', 'wrong status');
 });
 
 test('attemptStatus, skipped', function(assert) {
@@ -128,7 +129,7 @@ test('attemptStatus, skipped', function(assert) {
     skipped: true,
     pending: false
   });
-  assert.equal(questionResult.get("attemptStatus"), 'skipped', "wrong status");
+  assert.equal(questionResult.get('attemptStatus'), 'skipped', 'wrong status');
 });
 
 test('attemptStatus, pending', function(assert) {
@@ -137,7 +138,7 @@ test('attemptStatus, pending', function(assert) {
     skipped: false,
     pending: true
   });
-  assert.equal(questionResult.get("attemptStatus"), 'skipped', "wrong status");
+  assert.equal(questionResult.get('attemptStatus'), 'skipped', 'wrong status');
 });
 
 test('attemptStatus, incorrect', function(assert) {
@@ -146,7 +147,11 @@ test('attemptStatus, incorrect', function(assert) {
     skipped: false,
     pending: false
   });
-  assert.equal(questionResult.get("attemptStatus"), 'incorrect', "wrong status");
+  assert.equal(
+    questionResult.get('attemptStatus'),
+    'incorrect',
+    'wrong status'
+  );
 });
 
 test('attemptStatus, open ended - pending', function(assert) {
@@ -158,7 +163,7 @@ test('attemptStatus, open ended - pending', function(assert) {
       isOpenEnded: true
     }
   });
-  assert.equal(questionResult.get("attemptStatus"), 'skipped', "wrong status");
+  assert.equal(questionResult.get('attemptStatus'), 'skipped', 'wrong status');
 });
 
 test('attemptStatus, open ended - skipped', function(assert) {
@@ -170,7 +175,7 @@ test('attemptStatus, open ended - skipped', function(assert) {
       isOpenEnded: true
     }
   });
-  assert.equal(questionResult.get("attemptStatus"), 'skipped', "wrong status");
+  assert.equal(questionResult.get('attemptStatus'), 'skipped', 'wrong status');
 });
 
 test('attemptStatus, open ended - started', function(assert) {
@@ -182,5 +187,5 @@ test('attemptStatus, open ended - started', function(assert) {
       isOpenEnded: true
     }
   });
-  assert.equal(questionResult.get("attemptStatus"), 'started', "wrong status");
+  assert.equal(questionResult.get('attemptStatus'), 'started', 'wrong status');
 });

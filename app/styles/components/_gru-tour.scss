@@ -35,7 +35,6 @@
   }
 }
 
-
 .introjs-tooltiptext {
   .tour-header {
     h2 {
@@ -53,7 +52,7 @@
   .tour-description-real-time-tour {
     @include flexbox;
     p {
-      min-width:185px;
+      min-width: 185px;
     }
     .real-time-tour-image {
       @include flex-shrink(0);

@@ -4,19 +4,22 @@ import MapContent from 'gooru-web/models/map/content';
 import MapSuggestion from 'gooru-web/models/map/map-suggestion';
 import ResourceModel from 'gooru-web/models/content/resource';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
-import { ASSESSMENT_SUB_TYPES, CONTENT_TYPES, DEFAULT_IMAGES } from 'gooru-web/config/config';
+import {
+  ASSESSMENT_SUB_TYPES,
+  CONTENT_TYPES,
+  DEFAULT_IMAGES
+} from 'gooru-web/config/config';
 
 /**
  * Serializer to support the navigate map operations
  *
  * @typedef {Object} NavigateMapSerializer
  */
-export default Ember.Object.extend(ConfigurationMixin,{
+export default Ember.Object.extend(ConfigurationMixin, {
   /**
    * @property {Service} session
    */
   session: Ember.inject.service('session'),
-
 
   /**
    * Serialize a MapContext object into a JSON representation
@@ -24,7 +27,7 @@ export default Ember.Object.extend(ConfigurationMixin,{
    * @param {MapContext} model The model to be serialized
    * @returns {Object} JSON Object representation of the model
    */
-  serializeMapContext:function (model) {
+  serializeMapContext: function(model) {
     return {
       course_id: model.get('courseId'),
       class_id: model.get('classId'),
@@ -52,8 +55,8 @@ export default Ember.Object.extend(ConfigurationMixin,{
     const serializer = this;
     let suggestions = [];
     if (payload && Ember.isArray(payload)) {
-      suggestions = payload.map(
-        suggestion => serializer.normalizeMapSuggestion(suggestion)
+      suggestions = payload.map(suggestion =>
+        serializer.normalizeMapSuggestion(suggestion)
       );
     }
 
@@ -65,7 +68,7 @@ export default Ember.Object.extend(ConfigurationMixin,{
    * @param {*} data
    * @return {MapContext}
    */
-  normalizeMapContext: function (data) {
+  normalizeMapContext: function(data) {
     return MapContext.create(Ember.getOwner(this).ownerInjection(), {
       courseId: data.course_id,
       classId: data.class_id,
@@ -88,16 +91,18 @@ export default Ember.Object.extend(ConfigurationMixin,{
    * @param {*} data
    * @return {MapContext}
    */
-  normalizeMapContent: function (data) {
+  normalizeMapContent: function(data) {
     const basePath = this.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    const thumbnailUrl = data.thumbnail ? basePath + data.thumbnail : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+    const thumbnailUrl = data.thumbnail
+      ? basePath + data.thumbnail
+      : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
     return MapContent.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
       title: data.title,
       description: data.learning_objective,
-      url:data.url,
-      thumbnail:thumbnailUrl
+      url: data.url,
+      thumbnail: thumbnailUrl
     });
   },
 
@@ -106,21 +111,25 @@ export default Ember.Object.extend(ConfigurationMixin,{
    * @param {*} data
    * @return {MapSuggestion}
    */
-  normalizeMapSuggestion: function (data) {
+  normalizeMapSuggestion: function(data) {
     const serializer = this;
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
-    let subType = data.format === CONTENT_TYPES.RESOURCE ? ASSESSMENT_SUB_TYPES.RESOURCE : (data.subformat || ASSESSMENT_SUB_TYPES.BACKFILL);
+    let subType =
+      data.format === CONTENT_TYPES.RESOURCE
+        ? ASSESSMENT_SUB_TYPES.RESOURCE
+        : data.subformat || ASSESSMENT_SUB_TYPES.BACKFILL;
     return MapSuggestion.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
       title: data.title,
       type: data.format,
       questionCount: data.questionCount,
       resourceCount: data.resourceCount,
-      thumbnail:data.thumbnail ? basePath + data.thumbnail :  appRootPath + DEFAULT_IMAGES.COLLECTION,
+      thumbnail: data.thumbnail
+        ? basePath + data.thumbnail
+        : appRootPath + DEFAULT_IMAGES.COLLECTION,
       resourceFormat: ResourceModel.normalizeResourceFormat(data.subformat),
       subType
     });
   }
-
 });

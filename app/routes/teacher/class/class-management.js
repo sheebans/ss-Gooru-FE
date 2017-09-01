@@ -1,10 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
   i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
@@ -20,10 +19,9 @@ export default Ember.Route.extend({
    * Set all controller properties from the model
    * @param controller
    */
-  setupController: function (controller) {
+  setupController: function(controller) {
     controller.resetValues();
     controller.set('tempClass', controller.get('class').copy());
     controller.get('classController').selectMenuItem('class-management');
   }
-
 });

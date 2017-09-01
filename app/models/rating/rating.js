@@ -6,7 +6,6 @@ import DS from 'ember-data';
  * @typedef {Object} Rate
  */
 export default DS.Model.extend({
-
   /**
    * Indicates the rate target. Values for this fields could be 'content' and 'user'.
    * @property {string} target
@@ -27,5 +26,4 @@ export default DS.Model.extend({
    * @property {string} associatedId
    */
   associatedId: DS.attr('string')
-
 });

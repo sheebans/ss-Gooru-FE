@@ -3,15 +3,10 @@ import ModalMixin from 'gooru-web/mixins/modal';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend(ModalMixin, {
-
-  // -------------------------------------------------------------------------
-  // Dependencies
-
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-resource-results'],
+  classNames: ['gru-resource-results'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -21,8 +16,10 @@ export default Ember.Component.extend(ModalMixin, {
      * Action triggered to play the resource/question
      */
     playQuestion: function(question) {
-      const transitionRoute = question.get('format') === CONTENT_TYPES.QUESTION ?
-        'content.questions.play' : 'content.resources.play';
+      const transitionRoute =
+        question.get('format') === CONTENT_TYPES.QUESTION
+          ? 'content.questions.play'
+          : 'content.resources.play';
       this.get('router').transitionTo(transitionRoute, question.get('id'));
     },
 
@@ -45,9 +42,8 @@ export default Ember.Component.extend(ModalMixin, {
    */
   didInsertElement: function() {
     var component = this;
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -67,11 +63,4 @@ export default Ember.Component.extend(ModalMixin, {
    * @property {array} Term used to search
    */
   term: ''
-
-  // -------------------------------------------------------------------------
-  // Observers
-
-
-  // -------------------------------------------------------------------------
-  // Methods
 });

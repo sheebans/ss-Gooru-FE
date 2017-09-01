@@ -14,7 +14,6 @@ moduleForAcceptance('Acceptance | Search page', {
   }
 });
 
-
 test('Layout', function(assert) {
   visit('/search');
 
@@ -29,11 +28,25 @@ test('Layout', function(assert) {
     const $categoryOptions = $searchContainer.find('.category-options');
     assert.ok($categoryOptions.length, 'Missing category options');
 
-    assert.ok($categoryOptions.find('.courses').length, 'Missing Courses category');
-    assert.ok($categoryOptions.find('.collections').length, 'Missing Collections category');
-    assert.ok($categoryOptions.find('.assessments').length, 'Missing Assessments category');
-    assert.ok($categoryOptions.find('.resources').length, 'Missing Resources category');
-    assert.ok($categoryOptions.find('.rubrics').length, 'Missing Rubrics category');
+    assert.ok(
+      $categoryOptions.find('.courses').length,
+      'Missing Courses category'
+    );
+    assert.ok(
+      $categoryOptions.find('.collections').length,
+      'Missing Collections category'
+    );
+    assert.ok(
+      $categoryOptions.find('.assessments').length,
+      'Missing Assessments category'
+    );
+    assert.ok(
+      $categoryOptions.find('.resources').length,
+      'Missing Resources category'
+    );
+    assert.ok(
+      $categoryOptions.find('.rubrics').length,
+      'Missing Rubrics category'
+    );
   });
-
 });

@@ -8,13 +8,10 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['reports', 'class-assessment', 'gru-question-information'],
-
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -26,14 +23,14 @@ export default Ember.Component.extend({
   /**
    * @prop { String[]} hints - Question hints
    */
-  hints: Ember.computed('question.hints',function(){
+  hints: Ember.computed('question.hints', function() {
     return this.get('question.hints');
   }),
 
   /**
    * @prop { String[]} explanation - Question explanation
    */
-  explanation: Ember.computed('question.explanation',function(){
+  explanation: Ember.computed('question.explanation', function() {
     return this.get('question.explanation');
   }),
   /**
@@ -41,5 +38,4 @@ export default Ember.Component.extend({
    * @property {boolean} anonymous
    */
   anonymous: null
-
 });

@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import QuestionResult from 'gooru-web/models/result/question';
 
 /**
@@ -8,8 +8,6 @@ import QuestionResult from 'gooru-web/models/result/question';
  *
  */
 export default Ember.Object.extend({
-
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -26,8 +24,8 @@ export default Ember.Object.extend({
   /**
    * @property {QuestionResult[]} questionResults
    */
-  questionResults: Ember.computed("resourceResults.[]", function () {
-    return this.get("resourceResults").filter(function (resourceResult) {
+  questionResults: Ember.computed('resourceResults.[]', function() {
+    return this.get('resourceResults').filter(function(resourceResult) {
       return resourceResult instanceof QuestionResult;
     });
   }),
@@ -42,8 +40,6 @@ export default Ember.Object.extend({
    */
   user: null
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 });

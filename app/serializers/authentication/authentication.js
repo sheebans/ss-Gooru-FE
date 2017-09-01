@@ -9,7 +9,6 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @typedef {Object} AuthenticationSerializer
  */
 export default Ember.Object.extend(ConfigurationMixin, {
-
   /**
    *
    * @param payload is the response coming from the endpoint
@@ -23,13 +22,16 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
 
     return {
-      token: (isAnonymous ? Env['API-3.0']['anonymous-token-api-2.0'] : Env['API-3.0']['user-token-api-2.0']),
-      'token-api3': (accessToken ? accessToken : payload['access_token']),
+      token: isAnonymous
+        ? Env['API-3.0']['anonymous-token-api-2.0']
+        : Env['API-3.0']['user-token-api-2.0'],
+      'token-api3': accessToken ? accessToken : payload.access_token,
       user: {
         username: payload.username,
-        gooruUId: payload['user_id'],
-        avatarUrl: payload['thumbnail'] ?
-          basePath + payload['thumbnail'] : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
+        gooruUId: payload.user_id,
+        avatarUrl: payload.thumbnail
+          ? basePath + payload.thumbnail
+          : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
         isNew: !payload.user_category,
         providedAt: payload.provided_at
       },

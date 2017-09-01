@@ -7,7 +7,6 @@ import PeerModel from 'gooru-web/models/analytics/peer';
  * @typedef {Object} PeerSerializer
  */
 export default Ember.Object.extend({
-
   /**
    * Normalize the response from Peers endpoint
    * @param payload is the endpoint response in JSON format
@@ -30,13 +29,15 @@ export default Ember.Object.extend({
 
   normalizePeerCount: function(payload) {
     return PeerModel.create({
-      id: (payload.unitId) ? payload.unitId : payload.lessonId,
-      peerCount: (payload.peerCount) ? payload.peerCount : 0
+      id: payload.unitId ? payload.unitId : payload.lessonId,
+      peerCount: payload.peerCount ? payload.peerCount : 0
     });
   },
 
   normalizePeerIds: function(payload, peers) {
-    const id = (payload.collectionId) ? payload.collectionId : payload.assessmentId;
+    const id = payload.collectionId
+      ? payload.collectionId
+      : payload.assessmentId;
     let peer = peers.findBy('id', id);
     if (peer) {
       peer.set('peerCount', peer.get('peerCount') + 1);
@@ -50,5 +51,4 @@ export default Ember.Object.extend({
     }
     return peer;
   }
-
 });

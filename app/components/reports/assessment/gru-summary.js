@@ -2,25 +2,23 @@ import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      * Handle event triggered by gru-bubbles
      */
-    bubbleSelect:function(bubbleOption) {
-      this.sendAction("onBubbleSelect", bubbleOption);
+    bubbleSelect: function(bubbleOption) {
+      this.sendAction('onBubbleSelect', bubbleOption);
     },
 
     /**
      * Handle event triggered by gru-bubbles
      */
-    selectAttempt:function(attempt) {
-      this.set("selectedAttempt", attempt);
-      this.sendAction("onSelectAttempt", attempt);
+    selectAttempt: function(attempt) {
+      this.set('selectedAttempt', attempt);
+      this.sendAction('onSelectAttempt', attempt);
     }
   },
 
@@ -31,9 +29,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('selectedAttempt', this.get("assessmentResult.totalAttempts"));
+    this.set('selectedAttempt', this.get('assessmentResult.totalAttempts'));
   },
 
   // -------------------------------------------------------------------------
@@ -52,7 +50,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @property {Collection}
    */
-  collection: Ember.computed.alias("assessmentResult.collection"),
+  collection: Ember.computed.alias('assessmentResult.collection'),
 
   /**
    * @property {number} selected attempt
@@ -62,26 +60,31 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * @property {boolean} is real time report
    */
-  isRealTime:false,
+  isRealTime: false,
 
   /**
    * @property {[]}
    */
-  resourceLinks: Ember.computed("assessmentResult.sortedResourceResults", function(){
-    return this.getResourceLinks(this.get('assessmentResult.sortedResourceResults'));
-  }),
+  resourceLinks: Ember.computed(
+    'assessmentResult.sortedResourceResults',
+    function() {
+      return this.getResourceLinks(
+        this.get('assessmentResult.sortedResourceResults')
+      );
+    }
+  ),
 
   /**
    * @property {[]}
    */
-  attempts: Ember.computed("assessmentResult.totalAttempts", function(){
+  attempts: Ember.computed('assessmentResult.totalAttempts', function() {
     return this.getAttemptList();
   }),
 
   /**
    * @property {boolean}showAttempts
    */
-  showAttempts:true,
+  showAttempts: true,
 
   /**
    * Indicates if the reaction bar is visible
@@ -91,7 +94,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-  getAttemptList: function () {
+  getAttemptList: function() {
     var attempts = [];
     var totalAttempts = this.get('assessmentResult.totalAttempts');
 
@@ -109,8 +112,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @param resourceResults
    * @returns {Array}
    */
-  getResourceLinks: function (resourceResults) {
-    return resourceResults.map(function (resourceResult, index) {
+  getResourceLinks: function(resourceResults) {
+    return resourceResults.map(function(resourceResult, index) {
       return Ember.Object.create({
         label: index + 1, //using index here because the resource.order could have gaps
         status: resourceResult.get('attemptStatus'),
@@ -118,5 +121,4 @@ export default Ember.Component.extend(ConfigurationMixin, {
       });
     });
   }
-
 });

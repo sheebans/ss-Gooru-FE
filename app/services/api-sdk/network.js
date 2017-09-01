@@ -8,18 +8,22 @@ import NetworkAdapter from 'gooru-web/adapters/network/network';
  * @typedef {Object} ProfileService
  */
 export default Ember.Service.extend({
-
   session: Ember.inject.service(),
 
   networkSerializer: null,
 
   networkAdapter: null,
 
-
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('networkSerializer', NetworkSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('networkAdapter', NetworkAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'networkSerializer',
+      NetworkSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'networkAdapter',
+      NetworkAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -30,12 +34,16 @@ export default Ember.Service.extend({
   readMyNetwork: function() {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('networkAdapter').readMyNetwork()
-        .then(function(response) {
-          resolve(service.get('networkSerializer').normalizeReadNetwork(response));
-        }, function(error) {
+      service.get('networkAdapter').readMyNetwork().then(
+        function(response) {
+          resolve(
+            service.get('networkSerializer').normalizeReadNetwork(response)
+          );
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -47,13 +55,16 @@ export default Ember.Service.extend({
   readUserNetwork: function(userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('networkAdapter').readUserNetwork(userId)
-        .then(function(response) {
-          resolve(service.get('networkSerializer').normalizeReadNetwork(response));
-        }, function(error) {
+      service.get('networkAdapter').readUserNetwork(userId).then(
+        function(response) {
+          resolve(
+            service.get('networkSerializer').normalizeReadNetwork(response)
+          );
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   }
-
 });

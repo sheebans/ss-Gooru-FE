@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -16,12 +15,10 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      * Launch an assessment goLive
      *
@@ -30,15 +27,22 @@ export default Ember.Route.extend({
     goLive: function(collectionId) {
       const currentClass = this.modelFor('teacher.class').class;
       const classId = currentClass.get('id');
-      const queryParams = { queryParams: { source: PLAYER_EVENT_SOURCE.COURSE_MAP } };
-      this.transitionTo('reports.collection', classId, collectionId, queryParams);
+      const queryParams = {
+        queryParams: { source: PLAYER_EVENT_SOURCE.COURSE_MAP }
+      };
+      this.transitionTo(
+        'reports.collection',
+        classId,
+        collectionId,
+        queryParams
+      );
     },
     /**
      * Launch an assessment on-air
      *
      * @function actions:launchOnAir
      */
-    launchOnAir: function (collectionId) {
+    launchOnAir: function(collectionId) {
       const currentClass = this.modelFor('teacher.class').class;
       const classId = currentClass.get('id');
       this.transitionTo('reports.collection', classId, collectionId);
@@ -52,17 +56,25 @@ export default Ember.Route.extend({
      * @param {string} lessonId - Identifier for lesson
      * @param {string} collection - collection or assessment
      */
-    playResource: function (unitId, lessonId, collection) {
-      if (collection.get('isExternalAssessment')){
+    playResource: function(unitId, lessonId, collection) {
+      if (collection.get('isExternalAssessment')) {
         window.open(collection.get('url'));
-      }
-      else{
+      } else {
         const currentClass = this.modelFor('teacher.class').class;
         const classId = currentClass.get('id');
         const courseId = currentClass.get('courseId');
         const role = 'teacher';
-        this.transitionTo('context-player', classId, courseId, unitId,
-          lessonId, collection.get('id'), { queryParams: { role: role, type: collection.get('collectionType') }});
+        this.transitionTo(
+          'context-player',
+          classId,
+          courseId,
+          unitId,
+          lessonId,
+          collection.get('id'),
+          {
+            queryParams: { role: role, type: collection.get('collectionType') }
+          }
+        );
       }
     },
 
@@ -70,8 +82,8 @@ export default Ember.Route.extend({
      * Edit content action, when clicking Edit content on Class Overview
      * @param {Content/Course}
      */
-    editContent: function(id){
-      this.transitionTo('content.courses.edit',id);
+    editContent: function(id) {
+      this.transitionTo('content.courses.edit', id);
     }
   },
 
@@ -105,11 +117,10 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('units', model.units);
     controller.set('course', model.course);
     controller.set('classMembers', model.classMembers);
     controller.get('classController').selectMenuItem('course-map');
   }
-
 });

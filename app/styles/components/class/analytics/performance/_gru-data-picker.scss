@@ -1,7 +1,7 @@
 .gru-data-picker {
   margin: 0 auto;
   text-align: center;
-  .list-inline{
+  .list-inline {
     @include flexbox;
     @include flex-direction(row);
     @include flex-wrap(nowrap);
@@ -9,8 +9,8 @@
     @include align-items(center);
     @include align-content(stretch);
   }
-  li.disabled{
-   opacity: 0.5;
+  li.disabled {
+    opacity: 0.5;
   }
   .checkbox {
     @include flexbox;
@@ -35,30 +35,30 @@
       border-radius: 3px;
       background-color: transparent;
       @media (max-width: $screen-xs-max) {
-        border-radius:50%;
-        border-color:$gray-light;
+        border-radius: 50%;
+        border-color: $gray-light;
         background-color: $gray-light;
       }
     }
     input[type="checkbox"]:disabled:checked:after {
-      background-color: $blue-400!important;
-      border-color: $blue-400!important;
-      color: $white!important;
+      background-color: $blue-400 !important;
+      border-color: $blue-400 !important;
+      color: $white !important;
     }
     label {
       padding: 0;
     }
   }
 }
-.analytics-performance-student{
+.analytics-performance-student {
   .gru-data-picker .checkbox {
     input[type="checkbox"]:checked:before {
-      top:3px;
-      content:none;
+      top: 3px;
+      content: none;
     }
-    input[type="checkbox"]:after{
-      margin:0;
-      width:15px;
+    input[type="checkbox"]:after {
+      margin: 0;
+      width: 15px;
       height: 15px;
     }
   }

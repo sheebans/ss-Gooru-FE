@@ -5,33 +5,32 @@ import Unit from 'gooru-web/models/content/unit';
 import Course from 'gooru-web/models/content/course';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @property {ClassService} Class service API SDK
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   /**
    * @property {CourseService} Course service API SDK
    */
-  courseService: Ember.inject.service("api-sdk/course"),
+  courseService: Ember.inject.service('api-sdk/course'),
 
   /**
    * @property {UnitService} Unit service API SDK
    */
-  unitService: Ember.inject.service("api-sdk/unit"),
+  unitService: Ember.inject.service('api-sdk/unit'),
 
   /**
    * @property {LessonService} Lesson service API SDK
    */
-  lessonService: Ember.inject.service("api-sdk/lesson"),
+  lessonService: Ember.inject.service('api-sdk/lesson'),
 
   /**
    * @property {CollectionService} Collection service API SDK
    */
-  collectionService: Ember.inject.service("api-sdk/collection"),
+  collectionService: Ember.inject.service('api-sdk/collection'),
 
   /**
    * @property {Service} I18N service
@@ -43,7 +42,6 @@ export default Ember.Component.extend({
    */
   notifications: Ember.inject.service(),
 
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -54,17 +52,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
-    actions: {
-
-      create: function () {
-        const component = this;
-        const modelValue = component.get('model');
-        component.get('validate').call(component).then(function ({ validations }) {
+  actions: {
+    create: function() {
+      const component = this;
+      const modelValue = component.get('model');
+      component.get('validate').call(component).then(
+        function({ validations }) {
           if (validations.get('isValid')) {
             component.set('isLoading', true);
             let assessmentOrCollectionId;
-            if(modelValue && modelValue.isQuickstart) {
+            if (modelValue && modelValue.isQuickstart) {
               const course = this.get('course');
               const unit = this.get('unit');
               const lesson = this.get('lesson');
@@ -73,66 +70,88 @@ export default Ember.Component.extend({
               let unitId;
               let lessonId;
 
-              component.get('courseService').createCourse(course)
+              component
+                .get('courseService')
+                .createCourse(course)
+                .then(function(newCourse) {
+                  courseId = newCourse.get('id');
+                  return component
+                    .get('classService')
+                    .associateCourseToClass(courseId, classId);
+                })
+                .then(function() {
+                  return component
+                    .get('unitService')
+                    .createUnit(courseId, unit);
+                })
+                .then(function(newUnit) {
+                  unitId = newUnit.get('id');
+                  return component
+                    .get('lessonService')
+                    .createLesson(courseId, unitId, lesson);
+                })
+                .then(function(newLesson) {
+                  lessonId = newLesson.get('id');
+                  return component
+                    .get('createAssessmentOrCollection')
+                    .call(component);
+                })
+                .then(function(newAssessmentOrCollection) {
+                  assessmentOrCollectionId = newAssessmentOrCollection.get(
+                    'id'
+                  );
+                  return component
+                    .get('associateToLesson')
+                    .call(
+                      component,
+                      courseId,
+                      unitId,
+                      lessonId,
+                      assessmentOrCollectionId
+                    );
+                })
                 .then(
-                  function (newCourse) {
-                    courseId = newCourse.get('id');
-                    return component.get('classService')
-                      .associateCourseToClass(courseId, classId);
-                  })
-                .then(
-                  function () {
-                    return component.get('unitService')
-                      .createUnit(courseId, unit);
-                  })
-                .then(
-                  function (newUnit) {
-                    unitId = newUnit.get('id');
-                    return component.get('lessonService')
-                      .createLesson(courseId, unitId, lesson);
-                  })
-                .then(
-                  function (newLesson) {
-                    lessonId = newLesson.get('id');
-                    return component.get('createAssessmentOrCollection').call(component);
-                  })
-                .then(
-                  function (newAssessmentOrCollection) {
-                    assessmentOrCollectionId = newAssessmentOrCollection.get('id');
-                    return component.get('associateToLesson')
-                      .call(component, courseId, unitId, lessonId, assessmentOrCollectionId);
-                  })
-                .then(
-                  function () {
+                  function() {
                     component.set('isLoading', false);
-                    component.get('closeModal').call(component, assessmentOrCollectionId);
+                    component
+                      .get('closeModal')
+                      .call(component, assessmentOrCollectionId);
                   },
-                  function () {
+                  function() {
                     component.set('isLoading', false);
                     component.get('showErrorMessage').bind(component)();
                   }
                 );
             } else {
-              component.get('createAssessmentOrCollection').call(component)
-                .then(function(newAssessmentOrCollection){
-                    assessmentOrCollectionId = newAssessmentOrCollection.get('id');
-                    if(modelValue && modelValue.associateLesson) {
-                      return component.get('associateToLesson').call(
+              component
+                .get('createAssessmentOrCollection')
+                .call(component)
+                .then(function(newAssessmentOrCollection) {
+                  assessmentOrCollectionId = newAssessmentOrCollection.get(
+                    'id'
+                  );
+                  if (modelValue && modelValue.associateLesson) {
+                    return component
+                      .get('associateToLesson')
+                      .call(
                         component,
                         modelValue.courseId,
                         modelValue.unitId,
                         modelValue.lessonId,
-                        assessmentOrCollectionId);
-                    } else {
-                      return Ember.RSVP.resolve(true);
-                    }
-                  })
+                        assessmentOrCollectionId
+                      );
+                  } else {
+                    return Ember.RSVP.resolve(true);
+                  }
+                })
                 .then(
-                  function () {
+                  function() {
                     component.set('isLoading', false);
-                    component.get('closeModal').call(component, assessmentOrCollectionId);
+                    component
+                      .get('closeModal')
+                      .call(component, assessmentOrCollectionId);
                   },
-                  function () {
+                  function() {
                     component.set('isLoading', false);
                     component.get('showErrorMessage')();
                   }
@@ -140,35 +159,52 @@ export default Ember.Component.extend({
             }
           }
           this.set('didValidate', true);
-        }.bind(this));
-      }
+        }.bind(this)
+      );
+    }
+  },
 
-    },
-
-  validate: function(){
+  validate: function() {
     const collection = this.get('collection');
     return collection.validate();
   },
 
   createAssessmentOrCollection: function() {
-    return this.get('collectionService').createCollection(this.get('collection'));
+    return this.get('collectionService').createCollection(
+      this.get('collection')
+    );
   },
 
-  associateToLesson: function(courseId, unitId, lessonId, assessmentOrCollectionId) {
-    return this.get('lessonService')
-      .associateAssessmentOrCollectionToLesson(courseId, unitId, lessonId, assessmentOrCollectionId, true);
+  associateToLesson: function(
+    courseId,
+    unitId,
+    lessonId,
+    assessmentOrCollectionId
+  ) {
+    return this.get('lessonService').associateAssessmentOrCollectionToLesson(
+      courseId,
+      unitId,
+      lessonId,
+      assessmentOrCollectionId,
+      true
+    );
   },
 
   closeModal: function(collectionId) {
     this.set('isLoading', false);
     this.triggerAction({ action: 'closeModal' });
     const queryParams = { queryParams: { editing: true } };
-    this.get('router').transitionTo('content.collections.edit', collectionId, queryParams);
+    this.get('router').transitionTo(
+      'content.collections.edit',
+      collectionId,
+      queryParams
+    );
   },
 
-  showErrorMessage: function(error){
+  showErrorMessage: function(error) {
     Ember.Logger.error(error);
-    const message = this.get('i18n').t('common.errors.collection-not-created').string;
+    const message = this.get('i18n').t('common.errors.collection-not-created')
+      .string;
     this.get('notifications').error(message);
   },
 
@@ -177,23 +213,30 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    if(this.get('model') && this.get('model').isQuickstart) {
+    if (this.get('model') && this.get('model').isQuickstart) {
       let className = this.get('model').class.title;
       let courseTitle = this.get('i18n').t('common.untitled-course').string;
       let courseName = `${className} - ${courseTitle}`;
       let unitName = this.get('i18n').t('common.untitled-unit').string;
       let lessonName = this.get('i18n').t('common.untitled-lesson').string;
-      var course = Course.create(Ember.getOwner(this).ownerInjection(), {title: courseName});
+      var course = Course.create(Ember.getOwner(this).ownerInjection(), {
+        title: courseName
+      });
       this.set('course', course);
-      var unit = Unit.create(Ember.getOwner(this).ownerInjection(), {title: unitName});
+      var unit = Unit.create(Ember.getOwner(this).ownerInjection(), {
+        title: unitName
+      });
       this.set('unit', unit);
-      var lesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {title: lessonName});
+      var lesson = Lesson.create(Ember.getOwner(this).ownerInjection(), {
+        title: lessonName
+      });
       this.set('lesson', lesson);
     }
-    var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {title: null});
+    var collection = Collection.create(Ember.getOwner(this).ownerInjection(), {
+      title: null
+    });
     this.set('collection', collection);
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -226,5 +269,4 @@ export default Ember.Component.extend({
    * Indicate if it's waiting for createCollection callback
    */
   isLoading: false
-
 });

@@ -15,7 +15,6 @@ import { getGradeColor } from 'gooru-web/utils/utils';
  * @param value - score within the grading scale
  * @returns {String} - hex color string
  */
-
 export function gradeColor(value /*, hash*/) {
   return Ember.String.htmlSafe(getGradeColor(value[0]));
 }

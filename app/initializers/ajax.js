@@ -11,7 +11,10 @@ export default {
       beforeSend: function(jqXHR, settings) {
         const url = settings.url;
         if (url.startsWith('/')) {
-          if (url.startsWith(EndPointsConfig.getRealTimeWebServiceUri()) || url.startsWith(EndPointsConfig.getRealTimeWebSocketUri())) {
+          if (
+            url.startsWith(EndPointsConfig.getRealTimeWebServiceUri()) ||
+            url.startsWith(EndPointsConfig.getRealTimeWebSocketUri())
+          ) {
             const realTimeUrl = EndPointsConfig.getRealTimeWebServiceUrl();
             settings.url = `${realTimeUrl}${url}`;
           } else {

@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} GoalAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service(),
 
   namespace: '/api/nucleus/v1/goals',
@@ -17,7 +16,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Ember.Promise|String} ID of the newly created goal
    */
-  createGoal: function (params) {
+  createGoal: function(params) {
     const namespace = this.get('namespace');
     const url = `${namespace}`;
     const options = {
@@ -29,14 +28,16 @@ export default Ember.Object.extend({
       data: JSON.stringify(params)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData, textStatus, request) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function(responseData, textStatus, request) {
           var goalId = request.getResponseHeader('location');
           resolve(goalId);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -46,7 +47,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Ember.Promise|Boolean} true when updated
    */
-  updateGoal: function (params, goalId) {
+  updateGoal: function(params, goalId) {
     const namespace = this.get('namespace');
     const url = `${namespace}/${goalId}`;
     const options = {
@@ -58,13 +59,15 @@ export default Ember.Object.extend({
       data: JSON.stringify(params)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function () {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function() {
           resolve(true);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -74,7 +77,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Ember.Promise|boolean} true when deleted
    */
-  deleteGoal: function (goalId) {
+  deleteGoal: function(goalId) {
     const namespace = this.get('namespace');
     const url = `${namespace}/${goalId}`;
     const options = {
@@ -85,13 +88,15 @@ export default Ember.Object.extend({
       headers: this.defineHeaders()
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function () {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function() {
           resolve(true);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -101,7 +106,7 @@ export default Ember.Object.extend({
    * @param {string} userId
    * @returns {Promise|Object}
    */
-  getGoalsByUser: function (userId) {
+  getGoalsByUser: function(userId) {
     const namespace = this.get('namespace');
     const url = `${namespace}/user/${userId}`;
     const options = {
@@ -110,20 +115,21 @@ export default Ember.Object.extend({
       headers: this.defineHeaders()
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function(responseData) {
           resolve(responseData);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
-  defineHeaders: function () {
+  defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

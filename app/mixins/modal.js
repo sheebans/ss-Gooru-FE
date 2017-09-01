@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-
   modal: Ember.Object.create({
     isVisible: false,
     showHeader: false,
@@ -9,25 +8,36 @@ export default Ember.Mixin.create({
     model: null,
     target: null,
     activeChannel: null,
-    'component-class':null
+    'component-class': null
   }),
 
   actions: {
-    showModal: function(componentName, componentModel, activeChannel, componentClass, showHeader) {
+    showModal: function(
+      componentName,
+      componentModel,
+      activeChannel,
+      componentClass,
+      showHeader
+    ) {
       this.get('modal').setProperties({
-          isVisible: true,
-          showHeader: showHeader,
-          name: componentName,
-          model: componentModel,
-          activeChannel: activeChannel,
-          'component-class': componentClass
+        isVisible: true,
+        showHeader: showHeader,
+        name: componentName,
+        model: componentModel,
+        activeChannel: activeChannel,
+        'component-class': componentClass
       });
     }
   },
 
   didRender() {
     const context = this;
-    if (context && context.$() && context.$().length && context.$().hasClass('modal')) {
+    if (
+      context &&
+      context.$() &&
+      context.$().length &&
+      context.$().hasClass('modal')
+    ) {
       setTimeout(function() {
         if (context && context.$() && context.$().length) {
           context.$('input:first').focus();
@@ -35,12 +45,11 @@ export default Ember.Mixin.create({
       }, 400);
       // Handles enter key press
       context.$().on('keyup', '.modal-body', function(e) {
-        var keyCode = (event.keyCode ? event.keyCode : event.which);
+        var keyCode = event.keyCode ? event.keyCode : event.which;
         if (keyCode === 13) {
           $(e.target).blur().focus();
         }
       });
     }
   }
-
 });

@@ -20,19 +20,18 @@ export default Ember.Controller.extend({
   /**
    * @property {*} teacher performance controller
    */
-  teacherController: Ember.inject.controller('class.analytics.performance.teacher'),
+  teacherController: Ember.inject.controller(
+    'class.analytics.performance.teacher'
+  ),
 
   /**
    * @type {PerformanceService}
    */
   performanceService: Ember.inject.service('api-sdk/performance'),
 
-
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
-
-  },
+  actions: {},
 
   // -------------------------------------------------------------------------
   // Events
@@ -44,7 +43,7 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class'),
+  class: Ember.computed.reads('classController.class'),
 
   /**
    * A link to the parent class controller
@@ -82,13 +81,17 @@ export default Ember.Controller.extend({
    * List of selected options from the data picker.
    * @property {Array}
    */
-  optionsCollectionsTeacher: Ember.computed.alias('teacherController.optionsCollectionsTeacher'),
+  optionsCollectionsTeacher: Ember.computed.alias(
+    'teacherController.optionsCollectionsTeacher'
+  ),
 
   /**
    * List of selected options from the data picker for mobile.
    * @property {Array}
    */
-  mobileOptionsCollectionsTeacher: Ember.computed.alias('teacherController.mobileOptionsCollectionsTeacher'),
+  mobileOptionsCollectionsTeacher: Ember.computed.alias(
+    'teacherController.mobileOptionsCollectionsTeacher'
+  ),
 
   /**
    * Indicates if the filters are visible
@@ -108,39 +111,56 @@ export default Ember.Controller.extend({
 
   filterByObserver: Ember.observer('filterBy', function() {
     const controller = this;
-    if (controller.get("active")) {
-      controller.get("teacherController").restoreSelectedOptions();
+    if (controller.get('active')) {
+      controller.get('teacherController').restoreSelectedOptions();
       controller.set('performanceDataMatrix', []);
-      controller.set("teacherController.performanceDataMatrix", []);
+      controller.set('teacherController.performanceDataMatrix', []);
       const filterBy = controller.get('filterBy');
       const classId = controller.get('class.id');
       const courseId = controller.get('class.courseId');
       const members = controller.get('class.members');
       const units = controller.get('units');
-      controller.get('performanceService').findClassPerformance(classId, courseId, members, {collectionType: filterBy})
+      controller
+        .get('performanceService')
+        .findClassPerformance(classId, courseId, members, {
+          collectionType: filterBy
+        })
         .then(function(classPerformanceData) {
           controller.fixTotalCounts(classPerformanceData, filterBy);
-          const performanceData = createDataMatrix(units, classPerformanceData, 'course');
+          const performanceData = createDataMatrix(
+            units,
+            classPerformanceData,
+            'course'
+          );
           controller.set('performanceDataMatrix', performanceData);
-          controller.set("teacherController.performanceDataMatrix", performanceData);
+          controller.set(
+            'teacherController.performanceDataMatrix',
+            performanceData
+          );
         });
     }
   }),
-
 
   // -------------------------------------------------------------------------
   // Methods
   fixTotalCounts: function(classPerformanceData, filterBy) {
     const controller = this;
-    const contentVisibility = controller.get("contentVisibility");
-    const studentPerformanceData = classPerformanceData.get('studentPerformanceData');
+    const contentVisibility = controller.get('contentVisibility');
+    const studentPerformanceData = classPerformanceData.get(
+      'studentPerformanceData'
+    );
     studentPerformanceData.forEach(function(studentPerformance) {
-      const performanceData = studentPerformance.get("performanceData");
+      const performanceData = studentPerformance.get('performanceData');
       performanceData.forEach(function(performance) {
-        const totals = filterBy === "assessment" ?
-          contentVisibility.getTotalAssessmentsByUnit(performance.get("realId")) :
-          contentVisibility.getTotalCollectionsByUnit(performance.get("realId"));
-        performance.set("completionTotal", totals);
+        const totals =
+          filterBy === 'assessment'
+            ? contentVisibility.getTotalAssessmentsByUnit(
+              performance.get('realId')
+            )
+            : contentVisibility.getTotalCollectionsByUnit(
+              performance.get('realId')
+            );
+        performance.set('completionTotal', totals);
       });
     });
   }

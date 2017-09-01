@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ResourceResult from 'gooru-web/models/result/resource';
 import { getQuestionUtil } from 'gooru-web/config/question';
 
@@ -9,7 +9,6 @@ import { getQuestionUtil } from 'gooru-web/config/question';
  *
  */
 export default ResourceResult.extend({
-
   /**
    * @property {boolean} correct - Was the answer provided for this question correct?
    */
@@ -54,11 +53,11 @@ export default ResourceResult.extend({
    *
    * @property {String}
    */
-  attemptStatus: Ember.computed('correct', 'skipped', 'pending', function () {
-    const isOpenEnded = this.get("question.isOpenEnded");
-    const skipped = (this.get('skipped') || this.get('pending'));
+  attemptStatus: Ember.computed('correct', 'skipped', 'pending', function() {
+    const isOpenEnded = this.get('question.isOpenEnded');
+    const skipped = this.get('skipped') || this.get('pending');
     const correct = this.get('correct');
-    let status = correct ? 'correct' : (skipped) ? 'skipped' : 'incorrect';
+    let status = correct ? 'correct' : skipped ? 'skipped' : 'incorrect';
     if (isOpenEnded) {
       status = skipped ? 'skipped' : 'started';
     }
@@ -70,7 +69,7 @@ export default ResourceResult.extend({
    * if it has no answer and correct === false
    * @property {boolean}
    */
-  skipped: Ember.computed('correct', 'userAnswer', function () {
+  skipped: Ember.computed('correct', 'userAnswer', function() {
     return !this.get('correct') && !this.get('answered');
   }),
 
@@ -80,8 +79,8 @@ export default ResourceResult.extend({
    * Important! Skipped results are treated as incorrect as well
    * @property {boolean}
    */
-  incorrect: Ember.computed('correct', function(){
-    return (this.get('correct') === false);
+  incorrect: Ember.computed('correct', function() {
+    return this.get('correct') === false;
   }),
 
   /**
@@ -89,7 +88,7 @@ export default ResourceResult.extend({
    * Not started results are only used by real time and they has not correct value
    * @property {boolean} indicates when it has been started
    */
-  started: Ember.computed('correct', function(){
+  started: Ember.computed('correct', function() {
     return this.get('correct') !== null;
   }),
 
@@ -97,8 +96,10 @@ export default ResourceResult.extend({
    * Indicates if it is answered
    * @return {boolean}
    */
-  answered: Ember.computed('userAnswer', function(){
-    return this.get('userAnswer') !== null && this.get('userAnswer') !== undefined;
+  answered: Ember.computed('userAnswer', function() {
+    return (
+      this.get('userAnswer') !== null && this.get('userAnswer') !== undefined
+    );
   }),
 
   /**
@@ -119,8 +120,7 @@ export default ResourceResult.extend({
       timeSpent: this.get('timeSpent'),
       resourceType: 'question',
       questionType: questionType,
-      answerObject: util.toJSONAnswerObjects(this.get("userAnswer"))
+      answerObject: util.toJSONAnswerObjects(this.get('userAnswer'))
     };
   }
-
 });

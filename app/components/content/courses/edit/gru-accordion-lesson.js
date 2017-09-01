@@ -14,13 +14,12 @@ import { CONTENT_TYPES } from 'gooru-web/config/config';
  * @mixes mixins/modal
  */
 export default PlayerAccordionLesson.extend(ModalMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @requires service:api-sdk/lesson
    */
-  lessonService: Ember.inject.service("api-sdk/lesson"),
+  lessonService: Ember.inject.service('api-sdk/lesson'),
 
   /**
    * @property {Service} session
@@ -36,8 +35,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
   // Actions
 
   actions: {
-
-    cancelEdit: function () {
+    cancelEdit: function() {
       if (this.get('model.isNew')) {
         this.get('onCancelAddLesson')(this.get('model'));
       } else {
@@ -45,50 +43,59 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       }
     },
 
-    edit: function () {
+    edit: function() {
       var lessonForEditing = this.get('lesson').copy();
       this.set('tempLesson', lessonForEditing);
       this.set('model.isEditing', true);
     },
 
-    saveLesson: function () {
+    saveLesson: function() {
       var courseId = this.get('course.id');
       var unitId = this.get('unitId');
       var editedLesson = this.get('tempLesson');
       var lessonService = this.get('lessonService');
 
-      editedLesson.validate().then(function ({ validations }) {
-        if (validations.get('isValid')) {
-          // Saving an existing lesson or a new lesson (falsey id)?
-          let savePromise = editedLesson.get('id') ?
-                              lessonService.updateLesson(courseId, unitId, editedLesson) :
-                                lessonService.createLesson(courseId, unitId, editedLesson);
+      editedLesson.validate().then(
+        function({ validations }) {
+          if (validations.get('isValid')) {
+            // Saving an existing lesson or a new lesson (falsey id)?
+            let savePromise = editedLesson.get('id')
+              ? lessonService.updateLesson(courseId, unitId, editedLesson)
+              : lessonService.createLesson(courseId, unitId, editedLesson);
 
-          savePromise
-            .then(function () {
-              this.get('lesson').merge(editedLesson, ['id', 'title']);
-              this.set('newCollectionModel.lessonId', this.get("lesson.id"));
-              this.set('model.isEditing', false);
-            }.bind(this))
-
-            .catch(function (error) {
-              var message = this.get('i18n').t('common.errors.lesson-not-created').string;
-              this.get('notifications').error(message);
-              Ember.Logger.error(error);
-            }.bind(this));
-
-        }
-        this.set('didValidate', true);
-      }.bind(this));
+            savePromise
+              .then(
+                function() {
+                  this.get('lesson').merge(editedLesson, ['id', 'title']);
+                  this.set(
+                    'newCollectionModel.lessonId',
+                    this.get('lesson.id')
+                  );
+                  this.set('model.isEditing', false);
+                }.bind(this)
+              )
+              .catch(
+                function(error) {
+                  var message = this.get('i18n').t(
+                    'common.errors.lesson-not-created'
+                  ).string;
+                  this.get('notifications').error(message);
+                  Ember.Logger.error(error);
+                }.bind(this)
+              );
+          }
+          this.set('didValidate', true);
+        }.bind(this)
+      );
     },
     /**
      * Remove lesson item
      */
-    removeLessonItem: function (builderItem) {
+    removeLessonItem: function(builderItem) {
       this.get('items').removeObject(builderItem);
       this.refreshOrderList();
     },
-    remixLessonItem: function (builderItem) {
+    remixLessonItem: function(builderItem) {
       this.get('items').addObject(builderItem);
       this.refreshOrderList();
     },
@@ -96,23 +103,31 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
      * Delete selected lesson
      *
      */
-    deleteItem: function (builderItem) {
+    deleteItem: function(builderItem) {
       let component = this;
       var model = {
         content: this.get('lesson'),
-        index:this.get('index'),
-        parentName:this.get('course.title'),
-        deleteMethod: function () {
-          return this.get('lessonService').deleteLesson(this.get('course.id'),this.get('unitId'),this.get('lesson.id'));
+        index: this.get('index'),
+        parentName: this.get('course.title'),
+        deleteMethod: function() {
+          return this.get('lessonService').deleteLesson(
+            this.get('course.id'),
+            this.get('unitId'),
+            this.get('lesson.id')
+          );
         }.bind(this),
         type: CONTENT_TYPES.LESSON,
-        callback:{
-          success:function(){
+        callback: {
+          success: function() {
             component.get('onDeleteLesson')(builderItem);
           }
         }
       };
-      this.actions.showModal.call(this, 'content.modals.gru-delete-content', model);
+      this.actions.showModal.call(
+        this,
+        'content.modals.gru-delete-content',
+        model
+      );
     },
 
     copy: function() {
@@ -130,19 +145,27 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
      */
     fromMyCollections: function() {
       var component = this;
-      component.get('profileService').readCollections(
-        component.get('session.userId'), { 'filterBy': 'notInCourse' }
-      ).then(
-        function(collections) {
-          component.send('showModal', 'content.modals.gru-add-to-lesson', {
+      component
+        .get('profileService')
+        .readCollections(component.get('session.userId'), {
+          filterBy: 'notInCourse'
+        })
+        .then(function(collections) {
+          component.send(
+            'showModal',
+            'content.modals.gru-add-to-lesson',
+            {
               collections,
               content: component.get('lesson'),
               courseId: component.get('course.id'),
               unitId: component.get('unitId'),
               isCollection: true,
               onAdd: component.get('onAddItem').bind(component)
-            }, null, "add-to");
-      });
+            },
+            null,
+            'add-to'
+          );
+        });
     },
 
     /**
@@ -150,19 +173,27 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
      */
     fromMyAssessments: function() {
       var component = this;
-      component.get('profileService').readAssessments(
-        component.get('session.userId'), { 'filterBy': 'notInCourse' }
-      ).then(
-        function(assessments) {
-          component.send('showModal', 'content.modals.gru-add-to-lesson', {
+      component
+        .get('profileService')
+        .readAssessments(component.get('session.userId'), {
+          filterBy: 'notInCourse'
+        })
+        .then(function(assessments) {
+          component.send(
+            'showModal',
+            'content.modals.gru-add-to-lesson',
+            {
               collections: assessments,
               content: component.get('lesson'),
               courseId: component.get('course.id'),
               unitId: component.get('unitId'),
               isCollection: false,
               onAdd: component.get('onAddItem').bind(component)
-            }, null, "add-to");
-      });
+            },
+            null,
+            'add-to'
+          );
+        });
     },
 
     sortLessonItems: function() {
@@ -177,15 +208,17 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
       var orderList = this.get('orderList');
 
       if (orderList && orderList.length > 1) {
-        this.get('lessonService').reorderLesson(courseId, unitId, lessonId, orderList)
-          .then(function () {
-            this.actions.finishSort.call(this);
-          }.bind(this));
+        this.get('lessonService')
+          .reorderLesson(courseId, unitId, lessonId, orderList)
+          .then(
+            function() {
+              this.actions.finishSort.call(this);
+            }.bind(this)
+          );
       } else {
         this.actions.finishSort.call(this);
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -217,7 +250,7 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
     }
   },
 
-  didRender(){
+  didRender() {
     $('[data-toggle="tooltip"]').tooltip();
   },
 
@@ -241,5 +274,4 @@ export default PlayerAccordionLesson.extend(ModalMixin, {
    * @prop {Content/Lesson} tempLesson - Temporary lesson model used for editing
    */
   tempLesson: null
-
 });

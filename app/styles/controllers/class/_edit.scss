@@ -1,8 +1,8 @@
 .controller.class .controller.edit {
   .edit-panel {
-    >.panel {
+    > .panel {
       margin: 10px 60px 30px;
-      >.panel-body {
+      > .panel-body {
         padding: 30px;
         label {
           width: 100%;
@@ -28,11 +28,11 @@
     }
   }
   .description-legend {
-    font-size: $font-size-large!important;
+    font-size: $font-size-large !important;
   }
   .description,
   .description * {
-    color: $dark-100!important;
+    color: $dark-100 !important;
     font-size: 16px;
     line-height: $font-size-large * 1.44;
   }
@@ -44,7 +44,8 @@
     }
     .class-edit {
       padding: 24px 15px 20px 60px;
-      @media (max-width: $screen-xs-max) { /* only for phone */
+      @media (max-width: $screen-xs-max) {
+        /* only for phone */
         padding: 24px 0 0 10px;
       }
     }
@@ -56,13 +57,15 @@
       .edit-save-section {
         margin: 10px 0 40px 0;
         text-align: center;
-        @media (max-width: $screen-xs-max) { /* only for phone */
+        @media (max-width: $screen-xs-max) {
+          /* only for phone */
           text-align: right;
           margin: 0 0 24px 0;
         }
         a.cancel {
           margin: 0 20px 0 0;
-          @media (max-width: $screen-xs-max) { /* only for phone */
+          @media (max-width: $screen-xs-max) {
+            /* only for phone */
             margin: 0 10px 0 0;
           }
         }

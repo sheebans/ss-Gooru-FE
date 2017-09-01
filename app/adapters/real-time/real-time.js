@@ -2,13 +2,12 @@ import Ember from 'ember';
 import SessionMixin from 'gooru-web/mixins/session';
 
 export default Ember.Object.extend(SessionMixin, {
-
   namespace: '/nucleus/realtime',
 
   headers: Ember.computed('session.token', function() {
     return {
       'gooru-session-token': this.get('session.token'), //TODO change RT BE to support authorization token
-      'Authorization': 'Token ' + this.get('session.token')
+      Authorization: `Token ${this.get('session.token')}`
     };
   }),
 
@@ -106,5 +105,4 @@ export default Ember.Object.extend(SessionMixin, {
     const collectionId = query.collectionId;
     return `${namespace}/class/${classId}/collection/${collectionId}/onair`;
   }
-
 });

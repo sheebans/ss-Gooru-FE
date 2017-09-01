@@ -9,7 +9,6 @@ import Utils from 'gooru-web/utils/utils';
  * @typedef {Object} ClassPerformanceSerializer
  */
 export default PerformanceSerializer.extend({
-
   /**
    * Normalizes the response for the QueryRecord method
    * @param store
@@ -33,8 +32,14 @@ export default PerformanceSerializer.extend({
     if (hasResults) {
       const results = payload.content;
       Ember.$.each(results, function(index, result) {
-        model.data.relationships.studentPerformanceData.data.push(serializer.normalizeStudentPerformanceId(result.userUid));
-        serializer.normalizeStudentPerformanceAttributes(result.usageData, result.userUid, model);
+        model.data.relationships.studentPerformanceData.data.push(
+          serializer.normalizeStudentPerformanceId(result.userUid)
+        );
+        serializer.normalizeStudentPerformanceAttributes(
+          result.usageData,
+          result.userUid,
+          model
+        );
       });
     }
 
@@ -72,26 +77,36 @@ export default PerformanceSerializer.extend({
    * @param classPerformanceModel
    * @returns
    */
-  normalizeStudentPerformanceAttributes: function(payload, userId, classPerformanceModel) {
+  normalizeStudentPerformanceAttributes: function(
+    payload,
+    userId,
+    classPerformanceModel
+  ) {
     var serializer = this;
     var studentPerformanceModel = {
       id: userId,
       type: 'performance/student-performance',
       relationships: {
-        user: {data: {}},
-        performanceData: {data: []}
+        user: { data: {} },
+        performanceData: { data: [] }
       }
     };
     Ember.$.each(payload, function(index, performance) {
       //Adding performance id and type in performanceData of studentPerformanceModel
-      studentPerformanceModel.relationships.performanceData.data.push(serializer.normalizePerformanceId(performance, userId));
+      studentPerformanceModel.relationships.performanceData.data.push(
+        serializer.normalizePerformanceId(performance, userId)
+      );
 
       //Adding performance model in included, it could be more than one for each user
-      classPerformanceModel.included.push(serializer.normalizePerformanceAttributes(performance, userId));
+      classPerformanceModel.included.push(
+        serializer.normalizePerformanceAttributes(performance, userId)
+      );
     });
 
     //Adding user id and type in relationships - user -data
-    studentPerformanceModel.relationships.user.data = serializer.normalizeUserId(userId);
+    studentPerformanceModel.relationships.user.data = serializer.normalizeUserId(
+      userId
+    );
 
     //Adding studentPerformance in included
     classPerformanceModel.included.push(studentPerformanceModel);
@@ -99,6 +114,4 @@ export default PerformanceSerializer.extend({
     //Adding the user model in included
     classPerformanceModel.included.push(serializer.normalizeUserId(userId));
   }
-
-
 });

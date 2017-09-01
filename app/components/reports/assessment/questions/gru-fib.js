@@ -20,38 +20,45 @@ export default Ember.Component.extend(QuestionMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  answer: Ember.computed("question", "anonymous", function () {
+  answer: Ember.computed('question', 'anonymous', function() {
     let component = this;
-    let question = component.get("question");
+    let question = component.get('question');
     let questionUtil = this.getQuestionUtil(question);
-    let questionText = question.get("fibText");
-    let questionTextParts = questionText.split(FillInTheBlank.LEGACY_REGEX.text);
-    let userAnswers = component.get("userAnswer");
-    let anonymous = component.get("anonymous");
+    let questionText = question.get('fibText');
+    let questionTextParts = questionText.split(
+      FillInTheBlank.LEGACY_REGEX.text
+    );
+    let userAnswers = component.get('userAnswer');
+    let anonymous = component.get('anonymous');
 
-    if (component.get("showCorrect")){
+    if (component.get('showCorrect')) {
       userAnswers = questionUtil.getCorrectAnswer();
     }
 
-    let answers = userAnswers.map(function(userAnswer, index){
-      let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(userAnswer, index);
-      let elementClass = (anonymous) ? 'anonymous' : ((userAnswerCorrect) ?'correct':'incorrect');
+    let answers = userAnswers.map(function(userAnswer, index) {
+      let userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(
+        userAnswer,
+        index
+      );
+      let elementClass = anonymous
+        ? 'anonymous'
+        : userAnswerCorrect ? 'correct' : 'incorrect';
       return {
         text: userAnswer,
-        'class': `answer ${elementClass}`
+        class: `answer ${elementClass}`
       };
     });
 
-    let sentences= questionTextParts.map(function(questionTextPart){
+    let sentences = questionTextParts.map(function(questionTextPart) {
       return {
         text: questionTextPart,
-        'class': 'sentence'
+        class: 'sentence'
       };
     });
 
-    sentences = (userAnswers && userAnswers.length) ? sentences : [];
+    sentences = userAnswers && userAnswers.length ? sentences : [];
 
-    return this.mergeArrays (sentences, answers);
+    return this.mergeArrays(sentences, answers);
   }),
 
   // -------------------------------------------------------------------------
@@ -60,9 +67,10 @@ export default Ember.Component.extend(QuestionMixin, {
    * Merge sentences and answers arrays
    * @return {Array}
    */
-  mergeArrays: function(sentences, answers){
-    answers.forEach(function(item, index){ sentences.insertAt((index*2)+1, item); });
+  mergeArrays: function(sentences, answers) {
+    answers.forEach(function(item, index) {
+      sentences.insertAt(index * 2 + 1, item);
+    });
     return sentences;
   }
-
 });

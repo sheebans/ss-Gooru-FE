@@ -7,7 +7,6 @@ import { formatTime } from '../../utils/utils';
  * @typedef {Object} Performance
  */
 export default DS.Model.extend({
-
   /**
    * @property {String} Title for the performance
    */
@@ -20,37 +19,41 @@ export default DS.Model.extend({
    * This will fix the change in gru-accordion-lesson because classPerformance uses collectionType instead of type, this would be only for collection and assessmet
    * @property {String} Student performance type (e.g. collection, assessment)
    */
-  collectionType : Ember.computed.alias('type'),
+  collectionType: Ember.computed.alias('type'),
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to an assessment
    */
-  isAssessment : Ember.computed.equal('type', 'assessment'),
+  isAssessment: Ember.computed.equal('type', 'assessment'),
 
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to an assessment
    */
-  isExternalAssessment : Ember.computed.equal('type', 'assessment-external'),
+  isExternalAssessment: Ember.computed.equal('type', 'assessment-external'),
 
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to a collection
    */
-  isCollection : Ember.computed.equal('type', 'collection'),
+  isCollection: Ember.computed.equal('type', 'collection'),
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to a collection
    */
-  isCollectionOrAssessment: Ember.computed.or('isCollection','isAssessment', 'isExternalAssessment'),
+  isCollectionOrAssessment: Ember.computed.or(
+    'isCollection',
+    'isAssessment',
+    'isExternalAssessment'
+  ),
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to an Unit
    */
-  isUnit : Ember.computed.equal('type', 'unit'),
+  isUnit: Ember.computed.equal('type', 'unit'),
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to a Lesson
    */
-  isLesson : Ember.computed.equal('type', 'lesson'),
+  isLesson: Ember.computed.equal('type', 'lesson'),
   /**
    * @property {Boolean} Value that tells whether the performance data belongs to a unit or a lesson
    */
-  isUnitOrLesson : Ember.computed.or('isUnit','isLesson'),
+  isUnitOrLesson: Ember.computed.or('isUnit', 'isLesson'),
   /**
    * @property {Number} The performance score (in percentages e.g. 80%, 100%, 95%, etc)
    */
@@ -58,7 +61,7 @@ export default DS.Model.extend({
   /**
    * @property {Number} The completion done in the unit, class or collection/assessment, e.g. It is the top number of the fraction 5/10
    */
-  completionDone:  DS.attr('number'),
+  completionDone: DS.attr('number'),
   /**
    * @property {Number} The total of completionin the unit, class or collection/assessment, e.g. It is the bottom number of the fraction 5/10
    */
@@ -85,15 +88,20 @@ export default DS.Model.extend({
     return completionDone > 0 && completionDone >= completionTotal; //TODO sometimes completion total is 0
   }),
 
-  completionValue: Ember.computed('completionDone', 'completionTotal', function() {
-    const completionTotal = this.get('completionTotal');
-    const completionDone = this.get('completionDone');
-    return (completionTotal > 0) ? (completionDone * 100 / completionTotal) :
-      (completionDone > 0) ? 100 : null;
-  }),
+  completionValue: Ember.computed(
+    'completionDone',
+    'completionTotal',
+    function() {
+      const completionTotal = this.get('completionTotal');
+      const completionDone = this.get('completionDone');
+      return completionTotal > 0
+        ? completionDone * 100 / completionTotal
+        : completionDone > 0 ? 100 : null;
+    }
+  ),
 
-  hasStarted: Ember.computed('timeSpent', 'score', function () {
-    return (Math.floor(this.get('timeSpent')) > 0) || this.get("score") > 0;
+  hasStarted: Ember.computed('timeSpent', 'score', function() {
+    return Math.floor(this.get('timeSpent')) > 0 || this.get('score') > 0;
   }),
 
   displayableTimeSpent: Ember.computed('timeSpent', function() {
@@ -112,5 +120,4 @@ export default DS.Model.extend({
       return id;
     }
   })
-
 });

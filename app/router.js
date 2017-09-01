@@ -8,7 +8,7 @@ var Router = Ember.Router.extend(googlePageview, {
 });
 
 Router.map(function() {
-  this.route('index', { path: '/'});
+  this.route('index', { path: '/' });
 
   this.route('search', function() {
     this.route('courses');
@@ -25,18 +25,18 @@ Router.map(function() {
   this.route('sign-up-finish');
   this.route('logout');
 
-  this.route('content', function () {
-    this.route('assessments', function () {
-      this.route('edit', { path: '/edit/:assessmentId'});
+  this.route('content', function() {
+    this.route('assessments', function() {
+      this.route('edit', { path: '/edit/:assessmentId' });
     });
 
-    this.route('collections', function () {
-      this.route('edit', { path: '/edit/:collectionId'});
+    this.route('collections', function() {
+      this.route('edit', { path: '/edit/:collectionId' });
     });
 
-    this.route('courses', function () {
-      this.route('edit', { path: '/edit/:courseId'});
-      this.route('play', { path: '/play/:courseId'});
+    this.route('courses', function() {
+      this.route('edit', { path: '/edit/:courseId' });
+      this.route('play', { path: '/play/:courseId' });
     });
 
     this.route('classes', function() {
@@ -44,28 +44,36 @@ Router.map(function() {
       this.route('join');
     });
 
-    this.route('resources', function () {
-      this.route('edit', { path: '/edit/:resourceId'});
-      this.route('play', { path: '/play/:resourceId'});
+    this.route('resources', function() {
+      this.route('edit', { path: '/edit/:resourceId' });
+      this.route('play', { path: '/play/:resourceId' });
     });
 
-    this.route('questions', function () {
-      this.route('edit', { path: '/edit/:questionId'});
-      this.route('play', { path: '/play/:questionId'});
+    this.route('questions', function() {
+      this.route('edit', { path: '/edit/:questionId' });
+      this.route('play', { path: '/play/:questionId' });
     });
 
     this.route('rubric', function() {
-      this.route('edit',{ path:'edit/:rubricId'});
+      this.route('edit', { path: 'edit/:rubricId' });
+      this.route('preview', { path: 'preview/:rubricId' });
     });
   });
 
-  this.route('player', { path: '/player/:collectionId'});
+  this.route('grading-player', { path: '/grading' });
+
+  this.route('player', { path: '/player/:collectionId' });
 
   this.route('study-player-external');
-  this.route('study-player', { path: '/study-player/course/:courseId'});
-  this.route('resource-player', { path: '/study-player/class/:classId/course/:courseId/resource/:resourceId'});
+  this.route('study-player', { path: '/study-player/course/:courseId' });
+  this.route('resource-player', {
+    path: '/study-player/class/:classId/course/:courseId/resource/:resourceId'
+  });
 
-  this.route('context-player', { path: '/player/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
+  this.route('context-player', {
+    path:
+      '/player/class/:classId/course/:courseId/unit/:unitId/lesson/:lessonId/collection/:collectionId'
+  });
 
   this.route('classes');
 
@@ -73,27 +81,31 @@ Router.map(function() {
     this.route('overview');
     this.route('info');
     this.route('edit');
-    this.route('channel', { path: '/channel/:channelId'});
+    this.route('channel', { path: '/channel/:channelId' });
 
     this.route('analytics', function() {
       this.route('performance', function() {
         this.route('student');
         this.route('teacher', function() {
           this.route('course');
-          this.route('unit', { path: '/unit/:unitId'});
-          this.route('lesson', { path: '/unit/:unitId/lesson/:lessonId'});
-          this.route('collection', { path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
+          this.route('unit', { path: '/unit/:unitId' });
+          this.route('lesson', { path: '/unit/:unitId/lesson/:lessonId' });
+          this.route('collection', {
+            path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'
+          });
         });
       });
     });
   });
 
-
-  this.route('reports', function () {
-    this.route('collection', { path: '/class/:classId/collection/:collectionId'});
+  this.route('reports', function() {
+    this.route('collection', {
+      path: '/class/:classId/collection/:collectionId'
+    });
     this.route('student-collection');
     this.route('study-student-collection');
     this.route('student-collection-analytics');
+    this.route('student-open-ended-summary');
   });
 
   this.route('goals', function() {
@@ -112,7 +124,7 @@ Router.map(function() {
 
   this.route('student', function() {
     this.route('performance');
-    this.route('class', { path: '/class/:classId'}, function() {
+    this.route('class', { path: '/class/:classId' }, function() {
       this.route('analytics', function() {
         this.route('performance');
       });
@@ -120,7 +132,7 @@ Router.map(function() {
       this.route('class-activities');
       this.route('performance');
     });
-    this.route('independent', { path: '/course/:courseId'}, function() {
+    this.route('independent', { path: '/course/:courseId' }, function() {
       this.route('course-map');
       this.route('performance');
     });
@@ -129,20 +141,22 @@ Router.map(function() {
   this.route('teacher-home');
 
   this.route('teacher', function() {
-    this.route('class', { path: '/class/:classId'}, function(){
+    this.route('class', { path: '/class/:classId' }, function() {
       this.route('class-activities');
       this.route('class-management');
       this.route('course-map');
       this.route('quick-start');
       this.route('performance');
-      this.route('collection',{ path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'});
+      this.route('collection', {
+        path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'
+      });
     });
   });
 
   this.route('featured');
 
   this.route('library');
-  this.route('partner-library', { path: '/library/:id'}, function() {
+  this.route('partner-library', { path: '/library/:id' }, function() {
     this.route('content', function() {
       this.route('courses');
       this.route('resources');
@@ -152,11 +166,11 @@ Router.map(function() {
     });
   });
 
-  this.route('account-settings', { path: '/account-settings/:userId'});
+  this.route('account-settings', { path: '/account-settings/:userId' });
 
-  this.route('integration', { path: '/integration/:appType'});
+  this.route('integration', { path: '/integration/:appType' });
 
-  this.route('profile', { path: '/:userId'}, function() {
+  this.route('profile', { path: '/:userId' }, function() {
     this.route('about');
     this.route('edit');
     this.route('activity');

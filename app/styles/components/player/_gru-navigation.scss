@@ -1,7 +1,7 @@
 .player .gru-navigation {
   // temporary for GG-92
   height: $player-navigation-height;
-  float:right;
+  float: right;
   width: 100%;
   z-index: 10;
   @media (min-width: $screen-md) {
@@ -28,12 +28,12 @@
         display: none;
       }
     }
-    .navigation-bar{
-      width:100%;
-      height:57px;
+    .navigation-bar {
+      width: 100%;
+      height: 57px;
       background-color: $dark-400;
-      padding:0 30px;
-      span{
+      padding: 0 30px;
+      span {
         width: 100%;
         height: 100%;
         display: inline-block;
@@ -47,16 +47,16 @@
         align-items: center;
         -webkit-align-content: stretch;
         align-content: stretch;
-        display:-webkit-flex;
+        display: -webkit-flex;
         display: flex;
         cursor: pointer;
 
-        >*{
-          color:white;
+        > * {
+          color: white;
         }
       }
     }
-    .reaction-bar{
+    .reaction-bar {
       margin-top: 20px;
       padding-left: 60px;
       padding-right: 60px;
@@ -65,7 +65,7 @@
         padding-right: 15px;
       }
 
-      .indicators{
+      .indicators {
         text-align: right;
         width: 16px;
         display: inline-flex;
@@ -95,7 +95,7 @@
         }
       }
 
-      >div >div{
+      > div > div {
         margin-bottom: 0;
         width: 100%;
         -webkit-flex-direction: column;
@@ -110,32 +110,33 @@
         align-content: stretch;
         display: -webkit-flex;
         display: flex;
-        padding:0;
+        padding: 0;
         @media (min-width: $screen-md) {
-          margin-bottom:16px;
+          margin-bottom: 16px;
           -webkit-flex-direction: row;
           flex-direction: row;
           -webkit-align-items: center;
           align-items: center;
           -webkit-justify-content: space-between;
           justify-content: space-between;
-          padding:15px;
+          padding: 15px;
         }
-        >*{
-          width:100%;
+        > * {
+          width: 100%;
           &.btn {
             border-top-left-radius: 0;
             border-top-right-radius: 0;
           }
         }
         @media (min-width: $screen-md) {
-          button{
+          button {
             width: initial;
           }
         }
       }
     }
-    .hamburger-icon, .x-icon{
+    .hamburger-icon,
+    .x-icon {
       font-size: 2.2rem;
       cursor: pointer;
     }

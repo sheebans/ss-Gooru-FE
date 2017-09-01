@@ -5,7 +5,6 @@ import Ember from 'ember';
  * typedef {Object} CurrectLocation
  */
 const CurrentLocation = Ember.Object.extend({
-
   /**
    * @property {String} classId - The current class ID
    */
@@ -59,13 +58,13 @@ const CurrentLocation = Ember.Object.extend({
   /**
    * @property {Number} unitIndex - The current Unit Index
    */
-  unitIndex: Ember.computed("course", "unit", function(){
-    const course = this.get("course");
-    const unit = this.get("unit");
+  unitIndex: Ember.computed('course', 'unit', function() {
+    const course = this.get('course');
+    const unit = this.get('unit');
     let index = null;
 
-    if(course && unit){
-     index = course.getChildUnitIndex(unit);
+    if (course && unit) {
+      index = course.getChildUnitIndex(unit);
     }
 
     return index;
@@ -74,19 +73,18 @@ const CurrentLocation = Ember.Object.extend({
   /**
    * @property {Number} lessonIndex - The current Lesson Index
    */
-  lessonIndex: Ember.computed("course", "unit", "lesson", function(){
-    const course = this.get("course");
-    const unit = this.get("unit");
-    const lesson = this.get("lesson");
+  lessonIndex: Ember.computed('course', 'unit', 'lesson', function() {
+    const course = this.get('course');
+    const unit = this.get('unit');
+    const lesson = this.get('lesson');
     let index = null;
 
-    if(course && unit && lesson){
+    if (course && unit && lesson) {
       index = unit.getChildLessonIndex(lesson);
     }
 
     return index;
   })
-
 });
 
 export default CurrentLocation;

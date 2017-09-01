@@ -1,19 +1,19 @@
 .gru-independent-card {
   padding: 12px;
-  .panel{
+  .panel {
     @include border-top-radius(4px);
     @include border-bottom-radius(4px);
     @include box-shadow(0 0 7px #ddd);
     margin: 0;
-    .panel-heading{
+    .panel-heading {
       @include flexbox;
       @include align-items(center);
       @include justify-content(flex-start);
       @include border-top-radius(4px);
       background-color: $sky-300;
-      .title{
-        width:100%;
-        h5{
+      .title {
+        width: 100%;
+        h5 {
           color: $white;
           line-height: $font-size-h4;
           margin: 0 0 0 10px;
@@ -27,11 +27,17 @@
         background-repeat: no-repeat;
         background-position: center center;
         display: block;
-        &.collection { background-image: url("gooru/images/navigation_collection_selected.svg"); }
-        &.assessment { background-image: url("gooru/images/navigation_assessment_selected.svg"); }
-        &.course { background-image: url("gooru/images/navigation_course_selected.svg"); }
+        &.collection {
+          background-image: url("gooru/images/navigation_collection_selected.svg");
+        }
+        &.assessment {
+          background-image: url("gooru/images/navigation_assessment_selected.svg");
+        }
+        &.course {
+          background-image: url("gooru/images/navigation_course_selected.svg");
+        }
       }
-      span.check{
+      span.check {
         @include flexbox();
         @include align-items(baseline);
         color: $white;
@@ -44,8 +50,7 @@
       .information {
         @include flexbox;
         @include flex-direction(column);
-        @include justify-content(space-between)
-        width: 60%;
+        @include justify-content(space-between) width: 60%;
         padding: 0 15px;
         border-left: 1px solid $light-400;
         height: 125px;
@@ -67,15 +72,19 @@
             background-repeat: no-repeat;
             background-position: center center;
             display: inline-block;
-            &.collection { background-image: url("gooru/images/add_collection.svg"); }
-            &.assessment { background-image: url("gooru/images/add_assessment.svg"); }
+            &.collection {
+              background-image: url("gooru/images/add_collection.svg");
+            }
+            &.assessment {
+              background-image: url("gooru/images/add_assessment.svg");
+            }
           }
         }
         .last-access {
           margin: 0 0 0 auto;
         }
       }
-      .charts{
+      .charts {
         @include flexbox;
         width: 40%;
         text-align: center;
@@ -89,11 +98,12 @@
           width: 50%;
           padding: 0;
         }
-        .time-spent, .assessment-performance {
+        .time-spent,
+        .assessment-performance {
           width: 100%;
         }
         .charts.gru-radial-chart,
-        .charts.gru-bubble-chart{
+        .charts.gru-bubble-chart {
           width: 75px;
           height: 75px;
           margin: 0 auto 5px;

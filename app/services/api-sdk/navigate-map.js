@@ -14,7 +14,6 @@ import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
  * @augments Ember/Service
  */
 export default Ember.Service.extend({
-
   /**
    * @type {SessionService} Service to retrieve session information
    */
@@ -23,13 +22,18 @@ export default Ember.Service.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('serializer', NavigateMapSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('adapter', NavigateMapAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'serializer',
+      NavigateMapSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'adapter',
+      NavigateMapAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
     this.set('router', Ember.getOwner(this).lookup('router:main'));
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -58,19 +62,21 @@ export default Ember.Service.extend({
    * @param {MapContext} mapContext the current map context returned by the API
    * @returns {Promise.<MapLocation>}
    */
-  next: function (mapContext) {
+  next: function(mapContext) {
     const service = this;
     const mapSerializer = service.get('serializer');
     const serializedMap = mapSerializer.serializeMapContext(mapContext);
-    return service.get('adapter').next(serializedMap)
-      .then(payload => {
-        this.getLocalStorage().setItem(this.generateKey(), JSON.stringify(payload));
-        return MapLocation.create({
-          context: mapSerializer.normalizeMapContext(payload.context),
-          suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions),
-          hasContent: payload.content && !!Object.keys(payload.content).length
-        });
+    return service.get('adapter').next(serializedMap).then(payload => {
+      this.getLocalStorage().setItem(
+        this.generateKey(),
+        JSON.stringify(payload)
+      );
+      return MapLocation.create({
+        context: mapSerializer.normalizeMapContext(payload.context),
+        suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions),
+        hasContent: payload.content && !!Object.keys(payload.content).length
       });
+    });
   },
 
   /**
@@ -80,7 +86,7 @@ export default Ember.Service.extend({
    * @param {string} classId optional
    * @returns {Promise.<MapLocation>}
    */
-  continueCourse: function (courseId, classId = undefined) {
+  continueCourse: function(courseId, classId = undefined) {
     const service = this;
     const mapContext = MapContext.create({
       courseId,
@@ -101,7 +107,14 @@ export default Ember.Service.extend({
    * @param {string} classId
    * @returns {Promise.<MapLocation>}
    */
-  startCollection: function (courseId, unitId, lessonId, collectionId, collectionType, classId=undefined) {
+  startCollection: function(
+    courseId,
+    unitId,
+    lessonId,
+    collectionId,
+    collectionType,
+    classId = undefined
+  ) {
     const service = this;
     const mapContext = MapContext.create({
       courseId,
@@ -130,9 +143,19 @@ export default Ember.Service.extend({
    * @param {string} classId
    * @returns {Promise.<MapLocation>}
    */
-  startSuggestion: function (courseId, unitId, lessonId, collectionId, collectionType, collectionSubType, pathId, classId) {
+  startSuggestion: function(
+    courseId,
+    unitId,
+    lessonId,
+    collectionId,
+    collectionType,
+    collectionSubType,
+    pathId,
+    classId
+  ) {
     const service = this;
-    let isBackfillOrResource = collectionSubType === ASSESSMENT_SUB_TYPES.BACKFILL ||
+    let isBackfillOrResource =
+      collectionSubType === ASSESSMENT_SUB_TYPES.BACKFILL ||
       collectionSubType === ASSESSMENT_SUB_TYPES.RESOURCE;
     let subType = isBackfillOrResource ? null : collectionSubType;
     const mapContext = MapContext.create({
@@ -164,7 +187,15 @@ export default Ember.Service.extend({
    * @param {string} classId
    * @returns {Promise.<MapLocation>}
    */
-  startResource: function (courseId, unitId, lessonId, collectionId, resourceId, pathId, classId) {
+  startResource: function(
+    courseId,
+    unitId,
+    lessonId,
+    collectionId,
+    resourceId,
+    pathId,
+    classId
+  ) {
     const service = this;
     const mapContext = MapContext.create({
       courseId,
@@ -189,7 +220,7 @@ export default Ember.Service.extend({
    * @param {string} classId
    * @returns {Promise.<MapLocation>}
    */
-  startLesson: function (courseId, unitId, lessonId, classId = undefined) {
+  startLesson: function(courseId, unitId, lessonId, classId = undefined) {
     const service = this;
     const mapContext = MapContext.create({
       courseId,
@@ -207,12 +238,13 @@ export default Ember.Service.extend({
    * @param {string} classId optional
    * @returns {Promise.<MapLocation>}
    */
-  getCurrentMapContext: function (courseId, classId = undefined) {
+  getCurrentMapContext: function(courseId, classId = undefined) {
     const service = this;
     const mapSerializer = service.get('serializer');
-    return service.get('adapter').getCurrentMapContext(courseId, classId).then(
-      payload => mapSerializer.normalizeMapContext(payload)
-    );
+    return service
+      .get('adapter')
+      .getCurrentMapContext(courseId, classId)
+      .then(payload => mapSerializer.normalizeMapContext(payload));
   },
 
   /**
@@ -226,13 +258,20 @@ export default Ember.Service.extend({
     if (storedResponse) {
       parsedResponse = JSON.parse(storedResponse);
     }
-    let  hasContent = parsedResponse.content && !!Object.keys(parsedResponse.content).length;
-    return Ember.RSVP.resolve(MapLocation.create({
-      context: mapSerializer.normalizeMapContext(parsedResponse.context),
-      suggestions: mapSerializer.normalizeMapSuggestions(parsedResponse.suggestions),
-      hasContent,
-      content : hasContent ?  mapSerializer.normalizeMapContent(parsedResponse.content) : null
-    }));
+    let hasContent =
+      parsedResponse.content && !!Object.keys(parsedResponse.content).length;
+    return Ember.RSVP.resolve(
+      MapLocation.create({
+        context: mapSerializer.normalizeMapContext(parsedResponse.context),
+        suggestions: mapSerializer.normalizeMapSuggestions(
+          parsedResponse.suggestions
+        ),
+        hasContent,
+        content: hasContent
+          ? mapSerializer.normalizeMapContent(parsedResponse.content)
+          : null
+      })
+    );
   },
 
   /**
@@ -248,7 +287,7 @@ export default Ember.Service.extend({
    * Returns the local storage
    * @returns {Storage}
    */
-  getLocalStorage: function(){
+  getLocalStorage: function() {
     return window.localStorage;
   }
 });

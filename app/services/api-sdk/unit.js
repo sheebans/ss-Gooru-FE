@@ -12,16 +12,20 @@ import UnitAdapter from 'gooru-web/adapters/content/unit';
  * @augments Ember/Service
  */
 export default Ember.Service.extend(StoreMixin, {
-
   // -------------------------------------------------------------------------
   // Events
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('serializer', UnitSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('adapter', UnitAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'serializer',
+      UnitSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'adapter',
+      UnitAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -36,7 +40,6 @@ export default Ember.Service.extend(StoreMixin, {
    */
   adapter: null,
 
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -46,18 +49,21 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {Content/Unit} unit - Unit model
    * @returns {Promise|String} returns the unit model with the newly assigned ID
    */
-  createUnit: function (courseId, unit) {
+  createUnit: function(courseId, unit) {
     var unitData = this.get('serializer').serializeCreateUnit(unit);
 
-    return this.get('adapter').createUnit({
-      courseId: courseId,
-      unit: unitData
-    }).then(function (unitId) {
-      unit.set('id', unitId);
-      return unit;
-    }).catch(function (error) {
-      return error;
-    });
+    return this.get('adapter')
+      .createUnit({
+        courseId: courseId,
+        unit: unitData
+      })
+      .then(function(unitId) {
+        unit.set('id', unitId);
+        return unit;
+      })
+      .catch(function(error) {
+        return error;
+      });
   },
 
   /**
@@ -66,18 +72,21 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {Content/Unit} unit - Unit model
    * @returns {Promise|String} returns the unit model
    */
-  updateUnit: function (courseId, unit) {
+  updateUnit: function(courseId, unit) {
     var unitData = this.get('serializer').serializeUpdateUnit(unit);
 
-    return this.get('adapter').updateUnit({
-      unitId: unit.get('id'),
-      courseId: courseId,
-      unit: unitData
-    }).then(function () {
-      return unit;
-    }).catch(function (error) {
-      return error;
-    });
+    return this.get('adapter')
+      .updateUnit({
+        unitId: unit.get('id'),
+        courseId: courseId,
+        unit: unitData
+      })
+      .then(function() {
+        return unit;
+      })
+      .catch(function(error) {
+        return error;
+      });
   },
 
   /**
@@ -86,14 +95,18 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {string} unitId - unit ID to search for
    * @returns {Promise|Content/Unit}
    */
-  fetchById: function (courseId, unitId) {
-    return this.get('adapter').getUnitById({
-      courseId: courseId,
-      unitId: unitId
-    }).then(function (unitData) {
-        return this.get('serializer').normalizeUnit(unitData);
-      }.bind(this))
-      .catch(function (error) {
+  fetchById: function(courseId, unitId) {
+    return this.get('adapter')
+      .getUnitById({
+        courseId: courseId,
+        unitId: unitId
+      })
+      .then(
+        function(unitData) {
+          return this.get('serializer').normalizeUnit(unitData);
+        }.bind(this)
+      )
+      .catch(function(error) {
         return error;
       });
   },
@@ -105,10 +118,12 @@ export default Ember.Service.extend(StoreMixin, {
    * @param unitId The Unit id to delete
    * @returns {Promise}
    */
-  deleteUnit: function (courseId, unitId) {
+  deleteUnit: function(courseId, unitId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').deleteUnit({ courseId, unitId })
+      service
+        .get('adapter')
+        .deleteUnit({ courseId, unitId })
         .then(resolve, reject);
     });
   },
@@ -118,15 +133,18 @@ export default Ember.Service.extend(StoreMixin, {
    * @param {string} unitId
    * @returns {Ember.RSVP.Promise}
    */
-  copyUnit: function(courseId, unitId){
+  copyUnit: function(courseId, unitId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').copyUnit({
-        courseId,
-        unitId
-      }).then(function(responseData, textStatus, request) {
+      service
+        .get('adapter')
+        .copyUnit({
+          courseId,
+          unitId
+        })
+        .then(function(responseData, textStatus, request) {
           resolve(request.getResponseHeader('location'));
-        }, reject );
+        }, reject);
     });
   },
 
@@ -140,11 +158,14 @@ export default Ember.Service.extend(StoreMixin, {
    */
   reorderUnit: function(courseId, unitId, lessonIds) {
     const service = this;
-    let serializedData = service.get('serializer').serializeReorderUnit(lessonIds);
+    let serializedData = service
+      .get('serializer')
+      .serializeReorderUnit(lessonIds);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').reorderUnit(courseId, unitId, serializedData).then(resolve, reject);
+      service
+        .get('adapter')
+        .reorderUnit(courseId, unitId, serializedData)
+        .then(resolve, reject);
     });
   }
-
-
 });

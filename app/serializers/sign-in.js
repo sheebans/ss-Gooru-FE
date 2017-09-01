@@ -1,16 +1,15 @@
-import DS from "ember-data";
+import DS from 'ember-data';
 
 export default DS.JSONAPISerializer.extend({
-
   serialize: function(snapshot) {
     return snapshot.record.toJSON();
   },
 
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
-    var sessionModel =  {
+    var sessionModel = {
       data: {
         id: payload.gooruUId,
-        type: "session",
+        type: 'session',
         attributes: {
           gooruUId: payload.gooruUId,
           token: payload.token,
@@ -25,5 +24,4 @@ export default DS.JSONAPISerializer.extend({
 
     return sessionModel;
   }
-
 });

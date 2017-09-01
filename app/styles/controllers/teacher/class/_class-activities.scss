@@ -16,14 +16,14 @@
     @include align-items(center);
 
     &:before {
-      border: 1px solid #C6C7CC;
+      border: 1px solid $light-300;
       content: "";
       height: 1px;
       width: 35vw;
     }
 
     &:after {
-      border: 1px solid #C6C7CC;
+      border: 1px solid $light-300;
       content: "";
       height: 1px;
       width: 35vw;
@@ -36,7 +36,7 @@
 
   .collections {
     padding: 0;
-    .gru-class-activity-panel{
+    .gru-class-activity-panel {
       margin: 10px 0 0 0;
     }
     li.no-content {

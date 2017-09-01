@@ -1,10 +1,9 @@
-import DS from "ember-data";
+import DS from 'ember-data';
 
 /**
  * Model to represent the TaxonomyPrefences in a Metadata object
  */
 export default DS.Model.extend({
-
   /**
    * @property {Array} codeId
    */
@@ -13,5 +12,4 @@ export default DS.Model.extend({
    * @property {Array} code
    */
   code: DS.attr()
-
 });

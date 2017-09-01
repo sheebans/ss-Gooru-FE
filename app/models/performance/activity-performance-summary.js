@@ -5,7 +5,6 @@ import Ember from 'ember';
  * @typedef {Object} ActivityPerformanceSummary
  */
 export default Ember.Object.extend({
-
   /**
    * @property {string} user id for the student
    */

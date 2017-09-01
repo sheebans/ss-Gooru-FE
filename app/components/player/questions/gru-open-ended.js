@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import QuestionComponent from './gru-question';
 
 /**
@@ -13,15 +13,13 @@ import QuestionComponent from './gru-question';
  * @augments Ember/Component
  */
 export default QuestionComponent.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-open-ended'],
+  classNames: ['gru-open-ended'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -31,11 +29,10 @@ export default QuestionComponent.extend({
   /**
    * When loading the user answer
    */
-  updateUserAnswer: Ember.on('init', function(){
-   const component = this;
-   component.setAnswers();
+  updateUserAnswer: Ember.on('init', function() {
+    const component = this;
+    component.setAnswers();
   }),
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -44,7 +41,7 @@ export default QuestionComponent.extend({
    * Indicates when the answer is completed
    * @return {bool}
    */
-  isAnswerCompleted: Ember.computed.bool("answer.length"),
+  isAnswerCompleted: Ember.computed.bool('answer.length'),
 
   /**
    * @property {number} max answer length
@@ -54,21 +51,21 @@ export default QuestionComponent.extend({
   /**
    * @property {number} characters left
    */
-  charactersLeft: function (){
-    return this.get("maxLength") - this.get("answer").length;
-  }.property("answer"),
+  charactersLeft: function() {
+    return this.get('maxLength') - this.get('answer').length;
+  }.property('answer'),
 
   /**
    * @property {string} the user answer
    */
-  answer: "",
+  answer: '',
 
   // -------------------------------------------------------------------------
   // Observers
   /**
    * When the user changes the response
    */
-  updateAnswerObserver: function(){
+  updateAnswerObserver: function() {
     this.notify(false);
   },
 
@@ -78,8 +75,8 @@ export default QuestionComponent.extend({
   /**
    * Set answer
    * */
-  setAnswers: function (){
-    if (this.get('hasUserAnswer')){
+  setAnswers: function() {
+    if (this.get('hasUserAnswer')) {
       let userAnswer = this.get('userAnswer');
       this.set('answer', userAnswer);
       this.notify(true);
@@ -98,14 +95,13 @@ export default QuestionComponent.extend({
     let correct = component.get('isAnswerCompleted');
     component.notifyAnswerChanged(answer, correct);
 
-    if (component.get('isAnswerCompleted')){
-      if(onLoad) {
+    if (component.get('isAnswerCompleted')) {
+      if (onLoad) {
         component.notifyAnswerLoaded(answer, correct);
       } else {
         component.notifyAnswerCompleted(answer, correct);
       }
-    }
-    else{
+    } else {
       component.notifyAnswerCleared(answer);
     }
   }

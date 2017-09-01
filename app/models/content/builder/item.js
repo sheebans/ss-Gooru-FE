@@ -7,7 +7,6 @@ import Ember from 'ember';
  * @typedef {Object} BuilderItem
  */
 export default Ember.Object.extend({
-
   /**
    * @property {Boolean} isExpanded - Is the builder item expanded or collapsed?
    */
@@ -27,5 +26,4 @@ export default Ember.Object.extend({
    * @property {Content/Unit|Content/Lesson} model - Builder item content
    */
   data: null
-
 });

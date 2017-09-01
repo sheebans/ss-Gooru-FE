@@ -13,21 +13,18 @@ import PlayerAccordionCourse from 'gooru-web/components/content/courses/play/gru
  *
  */
 export default PlayerAccordionCourse.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @requires service:api-sdk/unit
    */
-  courseService: Ember.inject.service("api-sdk/course"),
-
+  courseService: Ember.inject.service('api-sdk/course'),
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
-    addUnit: function () {
+    addUnit: function() {
       var unit = Unit.create(Ember.getOwner(this).ownerInjection(), {
         title: null
       });
@@ -41,18 +38,18 @@ export default PlayerAccordionCourse.extend({
       this.refreshOrderList();
     },
 
-    cancelAddUnit: function (builderItem) {
+    cancelAddUnit: function(builderItem) {
       this.get('items').removeObject(builderItem);
       builderItem.destroy();
       this.refreshOrderList();
     },
 
-    removeUnit: function (builderItem) {
+    removeUnit: function(builderItem) {
       this.get('items').removeObject(builderItem);
       this.refreshOrderList();
     },
 
-    remixUnit: function (unit) {
+    remixUnit: function(unit) {
       var builderItem = BuilderItem.create({
         isEditing: false,
         data: unit
@@ -75,22 +72,21 @@ export default PlayerAccordionCourse.extend({
       var orderList = this.get('orderList');
 
       if (orderList && orderList.length > 1) {
-        this.get('courseService').reorderCourse(courseId, orderList)
-          .then(function(){
+        this.get('courseService').reorderCourse(courseId, orderList).then(
+          function() {
             this.actions.finishSort.call(this);
-          }.bind(this));
+          }.bind(this)
+        );
       } else {
         this.actions.finishSort.call(this);
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
   // Events
 
-  didRender(){
+  didRender() {
     $('[data-toggle="tooltip"]').tooltip();
   }
-
 });

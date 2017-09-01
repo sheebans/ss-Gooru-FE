@@ -8,7 +8,6 @@ import EditResourceValidations from 'gooru-web/validations/edit-resource';
  * @typedef {Object} Resource
  */
 const ResourceModel = Ember.Object.extend({
-
   /**
    * @property {Number} id
    */
@@ -80,12 +79,12 @@ const ResourceModel = Ember.Object.extend({
    * When the owner and the creator are the same
    * @property {boolean}
    */
-  sameOwnerAndCreator: Ember.computed.equal("owner.id", "creator.id"),
+  sameOwnerAndCreator: Ember.computed.equal('owner.id', 'creator.id'),
 
   /**
    * @property {Boolean} isPublic
    */
-  isPublished: Ember.computed.equal("publishStatus", "published"),
+  isPublished: Ember.computed.equal('publishStatus', 'published'),
 
   /**
    * @property {Boolean} isVisibleOnProfile - Indicates if the Question is visible on Profile. By default it is false
@@ -129,7 +128,6 @@ const ResourceModel = Ember.Object.extend({
    */
   displayGuide: null,
 
-
   /**
    * @property {String} category - Category the course belongs to
    */
@@ -167,28 +165,28 @@ const ResourceModel = Ember.Object.extend({
     let resourceType = 'resource/url'; // Default type
     if (resourceUrl) {
       switch (format) {
-        case 'audio':
-        case 'interactive':
-        case 'webpage':
-          resourceType = 'resource/url'; // Default type
-          break;
-        case 'image':
-          resourceType = pdfPattern.test(resourceUrl) ? 'handouts' : 'image';
-          break;
-        case 'text':
-          resourceType = 'handouts';
-          break;
-        case 'video':
-          if (youtubePattern.test(resourceUrl)) {
-            resourceType = 'video/youtube';
-          } else if (vimeoPattern.test(resourceUrl)) {
-            resourceType = 'vimeo/video';
-          } else {
-            resourceType = 'resource/url';
-          }
-          break;
-        default:
-          resourceType = 'resource/url'; // Default type
+      case 'audio':
+      case 'interactive':
+      case 'webpage':
+        resourceType = 'resource/url'; // Default type
+        break;
+      case 'image':
+        resourceType = pdfPattern.test(resourceUrl) ? 'handouts' : 'image';
+        break;
+      case 'text':
+        resourceType = 'handouts';
+        break;
+      case 'video':
+        if (youtubePattern.test(resourceUrl)) {
+          resourceType = 'video/youtube';
+        } else if (vimeoPattern.test(resourceUrl)) {
+          resourceType = 'vimeo/video';
+        } else {
+          resourceType = 'resource/url';
+        }
+        break;
+      default:
+        resourceType = 'resource/url'; // Default type
       }
     }
     return resourceType;
@@ -198,34 +196,34 @@ const ResourceModel = Ember.Object.extend({
    * Indicates if it is an image resource
    * @property {boolean}
    */
-  isImageResource: Ember.computed("resourceType", function(){
-    var resourceType = this.get("resourceType");
-    return resourceType && resourceType.indexOf("image") >= 0;
+  isImageResource: Ember.computed('resourceType', function() {
+    var resourceType = this.get('resourceType');
+    return resourceType && resourceType.indexOf('image') >= 0;
   }),
 
   /**
    * Indicates if it is an youtube resource
    * @property {boolean}
    */
-  isYoutubeResource: Ember.computed.equal("resourceType", "video/youtube"),
+  isYoutubeResource: Ember.computed.equal('resourceType', 'video/youtube'),
 
   /**
    * Indicates if it is an pdf resource
    * @property {boolean}
    */
-  isPDFResource: Ember.computed.equal("resourceType", "handouts"),
+  isPDFResource: Ember.computed.equal('resourceType', 'handouts'),
 
   /**
    * Indicates if it is an url resource
    * @property {boolean}
    */
-  isUrlResource: Ember.computed.equal("resourceType", "resource/url"),
+  isUrlResource: Ember.computed.equal('resourceType', 'resource/url'),
 
   /**
    * Indicates if it is an vimeo resource
    * @property {boolean}
    */
-  isVimeoResource: Ember.computed.equal("resourceType", "vimeo/video"),
+  isVimeoResource: Ember.computed.equal('resourceType', 'vimeo/video'),
 
   /**
    * Indicates if the resources is a 3rd party/remote url
@@ -241,12 +239,11 @@ const ResourceModel = Ember.Object.extend({
    * @return {Resource}
    */
   copy: function() {
-
     var properties = this.getProperties(this.modelProperties());
 
     let standards = this.get('standards');
     let info = this.get('info');
-    let centurySkills = this.get("centurySkills");
+    let centurySkills = this.get('centurySkills');
 
     // Copy standards and info values
     properties.standards = standards.slice(0);
@@ -255,7 +252,10 @@ const ResourceModel = Ember.Object.extend({
 
     var ResourceValidation = ResourceModel.extend(EditResourceValidations);
 
-    return ResourceValidation.create(Ember.getOwner(this).ownerInjection(), properties);
+    return ResourceValidation.create(
+      Ember.getOwner(this).ownerInjection(),
+      properties
+    );
   },
 
   /**
@@ -293,22 +293,22 @@ const ResourceModel = Ember.Object.extend({
    * Returns a player resource
    * @return {Resource}
    */
-  toPlayerResource: function(){
+  toPlayerResource: function() {
     const model = this;
     return PlayerResource.create({
-      id: model.get("id"),
-      order: model.get("order"),
-      owner:model.get("owner"),
-      title: model.get("title"),
-      resourceType: model.get("resourceType"),
-      resourceFormat: model.get("format"),
-      format:model.get("format"),
-      description: model.get("description"),
-      thumbnail: model.get("thumbnailUrl"),
-      assetUrl: model.get("assetUrl"),
-      url: model.get("url"),
-      displayGuide: model.get("displayGuide"),
-      narration: model.get("narration"), //TODO missing
+      id: model.get('id'),
+      order: model.get('order'),
+      owner: model.get('owner'),
+      title: model.get('title'),
+      resourceType: model.get('resourceType'),
+      resourceFormat: model.get('format'),
+      format: model.get('format'),
+      description: model.get('description'),
+      thumbnail: model.get('thumbnailUrl'),
+      assetUrl: model.get('assetUrl'),
+      url: model.get('url'),
+      displayGuide: model.get('displayGuide'),
+      narration: model.get('narration'), //TODO missing
       options: null, //TODO missing
       taxonomy: model.get('standards'),
       isRemote: model.get('isRemote')
@@ -326,18 +326,16 @@ const ResourceModel = Ember.Object.extend({
       this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
     }
   }
-
 });
 
 ResourceModel.reopenClass({
-
   /**
    * Serializes the resource format to be API compliant
    * @param format
    * @returns {string}
    * TODO move to util
    */
-  serializeResourceFormat: function (format) {
+  serializeResourceFormat: function(format) {
     return format ? `${format}_resource` : undefined;
   },
 
@@ -346,13 +344,12 @@ ResourceModel.reopenClass({
    * @param {string[]} values values to format
    * TODO move to util
    */
-  serializeAllResourceFormat: function(values){
+  serializeAllResourceFormat: function(values) {
     const model = this;
-    return values.map(function(format){
+    return values.map(function(format) {
       return model.serializeResourceFormat(format);
     });
   },
-
 
   /**
    * Normalizes the resource format to be App compliant
@@ -360,8 +357,8 @@ ResourceModel.reopenClass({
    * @returns {string}
    * TODO move to util
    */
-  normalizeResourceFormat: function (format) {
-    return format ? format.split("_")[0] : undefined;// i.e video_resource to video
+  normalizeResourceFormat: function(format) {
+    return format ? format.split('_')[0] : undefined; // i.e video_resource to video
   }
 });
 

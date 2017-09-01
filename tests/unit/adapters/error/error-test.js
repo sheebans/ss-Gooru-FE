@@ -15,16 +15,24 @@ moduleFor('adapter:error/error', 'Unit | Adapter | error', {
 test('createError', function(assert) {
   const adapter = this.subject();
   const data = {
-    "body": {
-      "any": 1
+    body: {
+      any: 1
     }
   };
   const routes = function() {
-    this.post('/api/nucleus-utils/v1/user-error', function(request) {
-      let requestBodyJson = JSON.parse(request.requestBody);
-      assert.equal(requestBodyJson.any, 1, 'The body was not serialize correctly');
-      return [200, {'Content-Type': 'application/json'}, ''];
-    }, false);
+    this.post(
+      '/api/nucleus-utils/v1/user-error',
+      function(request) {
+        let requestBodyJson = JSON.parse(request.requestBody);
+        assert.equal(
+          requestBodyJson.any,
+          1,
+          'The body was not serialize correctly'
+        );
+        return [200, { 'Content-Type': 'application/json' }, ''];
+      },
+      false
+    );
   };
 
   this.pretender.map(routes);
@@ -34,7 +42,7 @@ test('createError', function(assert) {
 
   var done = assert.async();
   adapter.createError(data).then(function(response) {
-      assert.deepEqual('', response, 'Wrong response');
-      done();
-    });
+    assert.deepEqual('', response, 'Wrong response');
+    done();
+  });
 });

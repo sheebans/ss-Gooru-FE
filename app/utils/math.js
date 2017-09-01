@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 /**
  * Rounds a float number and fixes the decimals to a specified number of digits.
@@ -22,11 +22,20 @@ export function isNumeric(n) {
 }
 
 /**
+ * Determines if a parameter is of a decimal number
+ * @param n
+ * @returns {bool}
+ */
+export function isDecimal(n) {
+  return roundFloat(n) === n;
+}
+
+/**
  * Sums all values
  * @param {number[]} values
  * @returns {number}
  */
-export function sumAll(values){
+export function sumAll(values) {
   return values.reduce((a, b) => a + b);
 }
 

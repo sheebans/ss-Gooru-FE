@@ -1,6 +1,5 @@
-import Ember from "ember";
+import Ember from 'ember';
 import { formatDate } from 'gooru-web/utils/utils';
-
 
 /**
  * Adapter ActivityPerformanceSummary
@@ -8,10 +7,9 @@ import { formatDate } from 'gooru-web/utils/utils';
  * @typedef {Object} ActivityPerformanceSummaryAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service(),
 
-  namespace: "/api/nucleus-insights/v2",
+  namespace: '/api/nucleus-insights/v2',
 
   /**
    * Finds activity performance summary for the ids provided
@@ -23,13 +21,20 @@ export default Ember.Object.extend({
    * @param {Date} endDate optional end date, default is now
    * @returns {Ember.RSVP.Promise}
    */
-  findClassActivityPerformanceSummaryByIds: function (userId, classId, activityIds, activityType, startDate = new Date(), endDate = new Date()) {
-    const namespace = this.get("namespace");
+  findClassActivityPerformanceSummaryByIds: function(
+    userId,
+    classId,
+    activityIds,
+    activityType,
+    startDate = new Date(),
+    endDate = new Date()
+  ) {
+    const namespace = this.get('namespace');
     const url = `${namespace}/class/${classId}/activity`;
     const options = {
-      type: "POST",
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
       headers: this.defineHeaders(),
       data: JSON.stringify({
         userId: userId,
@@ -39,18 +44,16 @@ export default Ember.Object.extend({
         collectionIds: activityIds
       })
     };
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
-          resolve(responseData);
-        }, reject);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(function(responseData) {
+        resolve(responseData);
+      }, reject);
     });
   },
 
-  defineHeaders: function () {
+  defineHeaders: function() {
     return {
-      "Authorization": "Token " + this.get("session.token-api3")
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

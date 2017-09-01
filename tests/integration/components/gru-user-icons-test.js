@@ -3,25 +3,28 @@ import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 import T from 'gooru-web/tests/helpers/assert';
 
-moduleForComponent('gru-user-icons', 'Integration | Component | gru user icons', {
-  integration: true
-});
+moduleForComponent(
+  'gru-user-icons',
+  'Integration | Component | gru user icons',
+  {
+    integration: true
+  }
+);
 
 test('Layout', function(assert) {
-
   var users = [
     Ember.Object.create({
       user: Ember.Object.create({
         id: 1,
-        firstName: "Bobby",
-        lastName: "Fisher"
+        firstName: 'Bobby',
+        lastName: 'Fisher'
       })
     }),
     Ember.Object.create({
       user: Ember.Object.create({
         id: 2,
-        firstName: "John",
-        lastName: "Doe"
+        firstName: 'John',
+        lastName: 'Doe'
       })
     })
   ];
@@ -34,8 +37,15 @@ test('Layout', function(assert) {
   const $firstView = $component.find('.first-view');
 
   assert.ok($component, 'Component does not have the component class');
-  assert.ok($firstView.find('.item i.group').length, 'Group icon should be present');
-  assert.equal(T.text($firstView.find('.item span')), '2', 'Incorrect number of members at first view');
+  assert.ok(
+    $firstView.find('.item i.group').length,
+    'Group icon should be present'
+  );
+  assert.equal(
+    T.text($firstView.find('.item span')),
+    '2',
+    'Incorrect number of members at first view'
+  );
 });
 
 //test('it opens/closes a modal to view more users', function(assert) {
@@ -95,4 +105,3 @@ test('Layout', function(assert) {
 //    });
 //  });
 //});
-

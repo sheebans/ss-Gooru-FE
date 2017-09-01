@@ -1,8 +1,8 @@
 .content.modals.gru-welcome-message {
-  .modal-header{
+  .modal-header {
     height: 35px;
     position: relative;
-    a{
+    a {
       color: $white;
       cursor: pointer;
       font-size: 30px;
@@ -32,28 +32,28 @@
         vertical-align: bottom;
       }
     }
-    .last-text{
+    .last-text {
       font-size: 14px;
       height: 50px;
-      p{
+      p {
         float: left;
         margin: 0;
-        .logo{
+        .logo {
           background: url('gooru/images/gooru-logo.svg') no-repeat;
           background-size: contain;
           float: right;
           height: 38px;
-          margin: 2px 0  0 6px;
+          margin: 2px 0 0 6px;
           width: 110px;
         }
       }
     }
-    .actions{
+    .actions {
       margin: 25px 0 0;
-      input[type="checkbox"]{
+      input[type="checkbox"] {
         float: left;
       }
-      label{
+      label {
         float: left;
         padding: 0 0 0 2px;
       }

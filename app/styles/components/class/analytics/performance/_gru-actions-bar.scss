@@ -1,6 +1,6 @@
 .gru-actions-bar {
   .drop-menu {
-    button{
+    button {
       -webkit-flex-direction: row;
       flex-direction: row;
       -webkit-flex-wrap: nowrap;
@@ -12,8 +12,10 @@
       -webkit-align-content: stretch;
       align-content: stretch;
       border-right: 1px solid white;
-      &:last-child{border-right:none}
-      i{
+      &:last-child {
+        border-right: none;
+      }
+      i {
         margin-right: 7px;
         font-size: $font-size-base;
       }

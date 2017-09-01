@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 /**
  * Independent Learning Courses controller
@@ -7,13 +7,14 @@ import Ember from "ember";
  */
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @type {Controller} Parent controller
    */
-  studentIndependentController: Ember.inject.controller('student-independent-learning'),
+  studentIndependentController: Ember.inject.controller(
+    'student-independent-learning'
+  ),
 
   /**
    * @type {LearnerService} Service to retrieve learner information
@@ -34,22 +35,31 @@ export default Ember.Controller.extend({
     /**
      * when loading more items from learner locations
      */
-     showMoreResults: function () {
-       const userId = this.get('session.userId');
-       const contentType = this.get('contentType');
-       const offset = this.get('offset');
-       let locations = this.get('locations');
-       let performance = this.get('performance');
-       return Ember.RSVP.hash({
-         locations: this.get('learnerService').fetchLocations(userId, contentType, offset),
-         performance: this.get('learnerService').fetchPerformance(userId, contentType, offset)
-       })
-       .then(hash => {
-         this.set('offset', offset + this.get('pageSize'));
-         this.set('locations', locations.concat(hash.locations));
-         this.set('performance', performance.concat(hash.performance));
-       });
-     }
+    showMoreResults: function() {
+      const userId = this.get('session.userId');
+      const contentType = this.get('contentType');
+      const offset = this.get('offset');
+      let locations = this.get('locations');
+      let performance = this.get('performance');
+      return Ember.RSVP
+        .hash({
+          locations: this.get('learnerService').fetchLocations(
+            userId,
+            contentType,
+            offset
+          ),
+          performance: this.get('learnerService').fetchPerformance(
+            userId,
+            contentType,
+            offset
+          )
+        })
+        .then(hash => {
+          this.set('offset', offset + this.get('pageSize'));
+          this.set('locations', locations.concat(hash.locations));
+          this.set('performance', performance.concat(hash.performance));
+        });
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -60,18 +70,18 @@ export default Ember.Controller.extend({
   /**
    * @property {LearnerLocation[]} list of locations to show
    */
-   items: Ember.computed('locations.[]', 'performance.[]', function() {
-     let locations = this.get('locations');
-     let performance = this.get('performance');
-     let performanceMap = performance.reduce((result, perfItem) => {
-       result[perfItem.courseId || perfItem.collectionId] = perfItem;
-       return result;
-     }, {});
-     return locations.map(location => ({
-       location,
-       performance: performanceMap[location.courseId || location.collectionId]
-     }));
-   }),
+  items: Ember.computed('locations.[]', 'performance.[]', function() {
+    let locations = this.get('locations');
+    let performance = this.get('performance');
+    let performanceMap = performance.reduce((result, perfItem) => {
+      result[perfItem.courseId || perfItem.collectionId] = perfItem;
+      return result;
+    }, {});
+    return locations.map(location => ({
+      location,
+      performance: performanceMap[location.courseId || location.collectionId]
+    }));
+  }),
 
   /**
    * @property {LearnerLocation[]} list of locations to show
@@ -91,9 +101,11 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean} if the show more button should be displayed
    */
-  showMoreResultsButton: Ember.computed('locations.[]', function () {
-    return this.get('locations.length') &&
-      (this.get('locations.length') % this.get('pageSize') === 0);
+  showMoreResultsButton: Ember.computed('locations.[]', function() {
+    return (
+      this.get('locations.length') &&
+      this.get('locations.length') % this.get('pageSize') === 0
+    );
   }),
 
   /**
@@ -111,5 +123,4 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

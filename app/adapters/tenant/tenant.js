@@ -7,15 +7,14 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @typedef {Object} TenantAdapter
  */
 export default Ember.Object.extend(ConfigurationMixin, {
-
   /**
    * Find a tenant by id
    * @param {string} id
    * @returns {Promise.<Tenant>}
    */
-  findTenantById: function (id) {
+  findTenantById: function(id) {
     const adapter = this;
-    const basePath = adapter.get("configuration.endpoint.tenantUrl");
+    const basePath = adapter.get('configuration.endpoint.tenantUrl');
     const url = `${basePath}/${id}/tenant.json`;
     const options = {
       type: 'GET',

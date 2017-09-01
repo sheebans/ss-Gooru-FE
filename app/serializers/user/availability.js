@@ -1,13 +1,11 @@
-import DS from "ember-data";
+import DS from 'ember-data';
 
 export default DS.JSONAPISerializer.extend({
-
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
-
-    var availabilityModel =  {
+    var availabilityModel = {
       data: {
-        id: payload.gooruUId ? payload.gooruUId: '_availability_',
-        type: "user/availability",
+        id: payload.gooruUId ? payload.gooruUId : '_availability_',
+        type: 'user/availability',
         attributes: {
           confirmStatus: payload.confirmStatus,
           collaboratorCheck: payload.collaboratorCheck,
@@ -19,5 +17,4 @@ export default DS.JSONAPISerializer.extend({
 
     return availabilityModel;
   }
-
 });

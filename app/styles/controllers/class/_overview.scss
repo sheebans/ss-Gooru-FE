@@ -37,7 +37,7 @@
     @include justify-content(space-between);
     border-bottom: 1px solid $gray-light;
 
-    >div {
+    > div {
       @include flexbox;
       @include align-items(center);
     }
@@ -168,27 +168,27 @@
           }
         }
       }
-      .item-disabled{
-        .icon-container,.panel-title,.gru-user-icons{
+      .item-disabled {
+        .icon-container,
+        .panel-title,
+        .gru-user-icons {
           opacity: 0.5;
         }
-        .panel-title{
-          .title{
+        .panel-title {
+          .title {
             cursor: default;
           }
         }
-        .icon-container{
-          .score{
-            button{
+        .icon-container {
+          .score {
+            button {
               cursor: default;
             }
           }
         }
-
       }
       .gru-accordion-lesson {
-
-        .img-rounded{
+        .img-rounded {
           display: inline-block;
           width: 47px;
           height: 36px;
@@ -220,40 +220,40 @@
           padding-left: 14%;
 
           > .panel {
-              span.switch.visible-xs{
-                .change-visibility{
-                  color:$dark-300;
-                }
-                .dropdown-menu{
-                  min-width: 80px;
-                  position: absolute;
-                  left:-11px;
-                  .arrow-up {
-                    width: 0;
-                    height: 0;
-                    border-left: 7px solid transparent;
-                    border-right: 7px solid transparent;
-                    border-bottom: 7px solid $white;
-                    position: absolute;
-                    top: -12%;
-                    left: 19%;
-                  }
-                }
+            span.switch.visible-xs {
+              .change-visibility {
+                color: $dark-300;
               }
-              span.switch{
+              .dropdown-menu {
+                min-width: 80px;
                 position: absolute;
-                left: -38px;
-                top: 10px;
-
-                @media (min-width: $screen-sm) {
-                  left: -96px;
-                  top: 4px;
-                }
-                @media (min-width: $screen-md) {
-                  left: -116px;
-                  top: 4px;
+                left: -11px;
+                .arrow-up {
+                  width: 0;
+                  height: 0;
+                  border-left: 7px solid transparent;
+                  border-right: 7px solid transparent;
+                  border-bottom: 7px solid $white;
+                  position: absolute;
+                  top: -12%;
+                  left: 19%;
                 }
               }
+            }
+            span.switch {
+              position: absolute;
+              left: -38px;
+              top: 10px;
+
+              @media (min-width: $screen-sm) {
+                left: -96px;
+                top: 4px;
+              }
+              @media (min-width: $screen-md) {
+                left: -116px;
+                top: 4px;
+              }
+            }
             > button.on-air {
               display: none;
               position: absolute;
@@ -388,7 +388,7 @@
               }
             }
           }
-          .panel-heading.teacher{
+          .panel-heading.teacher {
             @media (min-width: $screen-sm) {
               padding-right: 8px;
               padding-left: 45px;
@@ -400,7 +400,6 @@
           }
         }
       }
-
 
       .gru-accordion-lesson .panel-heading .score,
       .gru-accordion-lesson .panel-heading a.score > button {

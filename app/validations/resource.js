@@ -1,7 +1,6 @@
 import { validator, buildValidations } from 'ember-cp-validations';
 
 export default class {
-
   constructor() {
     this.validations = {
       description: {

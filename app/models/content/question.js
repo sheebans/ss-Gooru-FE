@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import { validator, buildValidations } from 'ember-cp-validations';
-import {getQuestionApiType, getQuestionTypeByApiType, QUESTION_TYPES} from 'gooru-web/config/question';
+import {
+  getQuestionApiType,
+  getQuestionTypeByApiType,
+  QUESTION_TYPES
+} from 'gooru-web/config/question';
 import PlayerResource from 'gooru-web/models/resource/resource';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 import FillInTheBlank from 'gooru-web/utils/question/fill-in-the-blank';
@@ -30,7 +34,6 @@ const Validations = buildValidations({
  * typedef {Object} Question
  */
 const Question = Ember.Object.extend(Validations, {
-
   /**
    * @property {string}
    */
@@ -76,14 +79,14 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property {string}
    */
-  description: Ember.computed.alias("text"),
+  description: Ember.computed.alias('text'),
 
   /**
    * Returns the FIB text without the correct answer
    * @property {string}
    */
-  fibText: Ember.computed("text", function () {
-    return FillInTheBlank.toFibText(this.get("text"));
+  fibText: Ember.computed('text', function() {
+    return FillInTheBlank.toFibText(this.get('text'));
   }),
 
   /**
@@ -99,7 +102,7 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property {Boolean} isPublished
    */
-  isPublished: Ember.computed.equal("publishStatus", "published"),
+  isPublished: Ember.computed.equal('publishStatus', 'published'),
 
   /**
    * @property { Content/User } Owner of the question
@@ -111,7 +114,7 @@ const Question = Ember.Object.extend(Validations, {
    */
   creator: null,
 
-  sameOwnerAndCreator: Ember.computed("owner.id", "creator", function () {
+  sameOwnerAndCreator: Ember.computed('owner.id', 'creator', function() {
     if (!this.get('creator')) {
       return true;
     } else if (this.get('owner.id') === this.get('creator')) {
@@ -146,7 +149,7 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * @property {String} category - Category the course belongs to
    */
-  category: Ember.computed('subject', function () {
+  category: Ember.computed('subject', function() {
     var category = TAXONOMY_CATEGORIES[0].value; // Default to K12 category
     if (this.get('subject')) {
       let keys = this.get('subject').split('.');
@@ -169,16 +172,42 @@ const Question = Ember.Object.extend(Validations, {
   subject: '',
 
   /**
+   * @property {String} courseId
+   */
+  courseId: null,
+
+  /**
+   * @property {String} unitId
+   */
+  unitId: null,
+
+  /**
+   * @property {String} lessonId
+   */
+  lessonId: null,
+
+  /**
+   * @property {String} collectionId
+   */
+  collectionId: null,
+
+  /**
    * @property {boolean} indicates if the question is multiple choice type
    * @see components/player/gru-multiple-choice.js
    */
-  isMultipleChoice: Ember.computed.equal('questionType', QUESTION_TYPES.multipleChoice),
+  isMultipleChoice: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.multipleChoice
+  ),
 
   /**
    * @property {boolean} indicates if the question is multiple answer type
    * @see components/player/gru-multiple-answer.js
    */
-  isMultipleAnswer: Ember.computed.equal('questionType', QUESTION_TYPES.multipleAnswer),
+  isMultipleAnswer: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.multipleAnswer
+  ),
 
   /**
    * @property {boolean} indicates if the question is true false type
@@ -202,54 +231,82 @@ const Question = Ember.Object.extend(Validations, {
    * Indicates when it is a legacy FIB question
    * @property {boolean}
    */
-  isLegacyFIB: Ember.computed("isFIB", "text", function () {
+  isLegacyFIB: Ember.computed('isFIB', 'text', function() {
     const regExp = FillInTheBlank.LEGACY_REGEX.global;
-    const questionText = this.get("text");
-    return questionText && this.get("isFIB") && questionText.match(regExp);
+    const questionText = this.get('text');
+    return questionText && this.get('isFIB') && questionText.match(regExp);
   }),
 
   /**
    * @property {boolean} indicates if the question is hot spot text type
    * @see components/player/gru-hot-spot-text.js
    */
-  isHotSpotText: Ember.computed.equal('questionType', QUESTION_TYPES.hotSpotText),
+  isHotSpotText: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.hotSpotText
+  ),
 
   /**
    * @property {boolean} indicates if the question is hot spot image type
    * @see components/player/gru-hot-spot-image.js
    */
-  isHotSpotImage: Ember.computed.equal('questionType', QUESTION_TYPES.hotSpotImage),
+  isHotSpotImage: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.hotSpotImage
+  ),
 
   /**
    * @property {boolean} indicates if the question is reorder
    * @see components/player/gru-reorder.js
    */
-  isHotTextReorder: Ember.computed.equal('questionType', QUESTION_TYPES.hotTextReorder),
+  isHotTextReorder: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.hotTextReorder
+  ),
 
   /**
    * @property {boolean} indicates if the question is hot spot text
    * @see components/player/gru-hot-text-highlight.js
    */
-  isHotTextHighlight: Ember.computed.equal('questionType', QUESTION_TYPES.hotTextHighlight),
+  isHotTextHighlight: Ember.computed.equal(
+    'questionType',
+    QUESTION_TYPES.hotTextHighlight
+  ),
 
   /**
    * @property {boolean} indicates if the question is hot text word type
    */
-  isHotTextHighlightWord: Ember.computed.equal('answers.firstObject.highlightType', 'word'),
+  isHotTextHighlightWord: Ember.computed.equal(
+    'answers.firstObject.highlightType',
+    'word'
+  ),
 
   /**
    * @property {boolean} indicates if the question is hot text sentence type
    */
-  isHotTextHighlightSentence: Ember.computed.equal('answers.firstObject.highlightType', 'sentence'),
+  isHotTextHighlightSentence: Ember.computed.equal(
+    'answers.firstObject.highlightType',
+    'sentence'
+  ),
 
   /**
    * Indicates if the question supports answer choices
    * @property {boolean}
    */
-  supportAnswerChoices: Ember.computed("isMultipleChoice", "isMultipleAnswer", "isHotTextReorder", "isHotSpotText", function () {
-    return this.get("isMultipleChoice") || this.get("isMultipleAnswer") || this.get("isHotTextReorder") || this.get("isHotSpotText");
-  }),
-
+  supportAnswerChoices: Ember.computed(
+    'isMultipleChoice',
+    'isMultipleAnswer',
+    'isHotTextReorder',
+    'isHotSpotText',
+    function() {
+      return (
+        this.get('isMultipleChoice') ||
+        this.get('isMultipleAnswer') ||
+        this.get('isHotTextReorder') ||
+        this.get('isHotSpotText')
+      );
+    }
+  ),
 
   /**
    * Return a copy of the question
@@ -257,8 +314,7 @@ const Question = Ember.Object.extend(Validations, {
    * @function
    * @return {Question}
    */
-  copy: function () {
-
+  copy: function() {
     var properties = [];
     var enumerableKeys = Object.keys(this);
 
@@ -273,19 +329,22 @@ const Question = Ember.Object.extend(Validations, {
     // Copy the question data
     properties = this.getProperties(properties);
 
-    var answersForEditing = this.get('answers').map(function (answer) {
+    var answersForEditing = this.get('answers').map(function(answer) {
       return answer.copy();
     });
     properties.answers = answersForEditing;
     var standards = this.get('standards');
     var audience = this.get('audience');
     var depthOfknowledge = this.get('depthOfknowledge');
+    var rubric = this.get('rubric');
 
     // Copy standards and metadata values
     properties.standards = standards.slice(0);
     properties.audience = audience.slice(0);
     properties.depthOfknowledge = depthOfknowledge.slice(0);
-
+    if (rubric) {
+      properties.rubric = rubric.copy();
+    }
 
     return Question.create(Ember.getOwner(this).ownerInjection(), properties);
   },
@@ -298,7 +357,7 @@ const Question = Ember.Object.extend(Validations, {
    * @param {String[]} propertyList
    * @return {null}
    */
-  merge: function (model, propertyList = []) {
+  merge: function(model, propertyList = []) {
     var properties = model.getProperties(propertyList);
     this.setProperties(properties);
   },
@@ -307,19 +366,19 @@ const Question = Ember.Object.extend(Validations, {
    * Returns a player resource
    * @return {Resource}
    */
-  toPlayerResource: function () {
+  toPlayerResource: function() {
     const model = this;
     return PlayerResource.create({
-      id: model.get("id"),
-      order: model.get("order"),
-      title: model.get("title"),
-      resourceFormat: model.get("format"),
-      questionType: model.get("type"),
-      text: model.get("text"),
-      mediaUrl: model.get("thumbnail"),
+      id: model.get('id'),
+      order: model.get('order'),
+      title: model.get('title'),
+      resourceFormat: model.get('format'),
+      questionType: model.get('type'),
+      text: model.get('text'),
+      mediaUrl: model.get('thumbnail'),
       hints: null, //TODO
       explanation: null, //TODO
-      answers: model.get("answers").map(function (answer) {
+      answers: model.get('answers').map(function(answer) {
         return answer.toPlayerAnswer();
       }),
       taxonomy: model.get('standards')
@@ -332,7 +391,7 @@ const Question = Ember.Object.extend(Validations, {
    * @function
    * @param {TaxonomyRoot} taxonomySubject
    */
-  setTaxonomySubject: function (taxonomySubject) {
+  setTaxonomySubject: function(taxonomySubject) {
     if (!(this.get('isDestroyed') || this.get('isDestroying'))) {
       this.set('subject', taxonomySubject ? taxonomySubject.get('id') : null);
     }
@@ -341,28 +400,27 @@ const Question = Ember.Object.extend(Validations, {
   /**
    * Updates the question from legacy FIB format to new format
    */
-  updateLegacyFIBText: function () {
-    let text = this.get("text");
+  updateLegacyFIBText: function() {
+    let text = this.get('text');
     if (text) {
-      const answers = this.get("answers") || [];
-      answers.forEach(function (answer) {
+      const answers = this.get('answers') || [];
+      answers.forEach(function(answer) {
         let newFormat = `[${answer.text}]`;
         text = text.replace(FillInTheBlank.LEGACY_REGEX.single, newFormat);
       });
-      this.set("text", text);
+      this.set('text', text);
     }
   }
 });
 
 Question.reopenClass({
-
   /**
    * Serializes the question type to be API compliant
    * @param type
    * @returns {string}
    * TODO move to util
    */
-  serializeQuestionType: function (type) {
+  serializeQuestionType: function(type) {
     return getQuestionApiType(type);
   },
 
@@ -371,9 +429,9 @@ Question.reopenClass({
    * @param {string[]} values values to format
    * TODO move to util
    */
-  serializeAllQuestionType: function(values){
+  serializeAllQuestionType: function(values) {
     const model = this;
-    return values.map(function(type){
+    return values.map(function(type) {
       return model.serializeQuestionType(type);
     });
   },
@@ -384,7 +442,7 @@ Question.reopenClass({
    * @returns {string}
    * TODO move to util
    */
-  normalizeQuestionType: function (apiType) {
+  normalizeQuestionType: function(apiType) {
     return getQuestionTypeByApiType(apiType);
   }
 });

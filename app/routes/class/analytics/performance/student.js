@@ -11,7 +11,6 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
  * @augments ember/Controller
  */
 export default Ember.Route.extend(ApplicationRouteMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -28,14 +27,22 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     const classModel = this.modelFor('class').class;
     const units = this.modelFor('class').units;
     const userId = this.get('session.userId');
-    const classId= classModel.get('id');
+    const classId = classModel.get('id');
     const courseId = classModel.get('courseId');
     const filterBy = params.filterBy || 'assessment';
-    const collectionType = {collectionType: filterBy};
-    const unitPerformances = this.get('performanceService').findStudentPerformanceByCourse(userId, classId, courseId, units, collectionType);
+    const collectionType = { collectionType: filterBy };
+    const unitPerformances = this.get(
+      'performanceService'
+    ).findStudentPerformanceByCourse(
+      userId,
+      classId,
+      courseId,
+      units,
+      collectionType
+    );
     return Ember.RSVP.hash({
-      userId:userId,
-      classModel:classModel,
+      userId: userId,
+      classModel: classModel,
       units: units,
       unitPerformances: unitPerformances,
       filterBy: filterBy
@@ -80,17 +87,25 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @param {string} lessonId - Identifier for a lesson
      * @param {string} collection - collection or assessment
      */
-    playResource: function (unitId, lessonId, collection) {
+    playResource: function(unitId, lessonId, collection) {
       const currentClass = this.modelFor('class').class;
-      const classId = currentClass.get("id");
-      const courseId = currentClass.get("courseId");
-      const role = this.get("controller.isStudent") ? "student" : "teacher";
-      if (collection.get("isExternalAssessment")){
-        window.open(collection.get("url")); //todo url?
-      }
-      else {
-        this.transitionTo('context-player', classId, courseId, unitId,
-          lessonId, collection.get("id"), { queryParams: { role: role, type: collection.get("collectionType") }});
+      const classId = currentClass.get('id');
+      const courseId = currentClass.get('courseId');
+      const role = this.get('controller.isStudent') ? 'student' : 'teacher';
+      if (collection.get('isExternalAssessment')) {
+        window.open(collection.get('url')); //todo url?
+      } else {
+        this.transitionTo(
+          'context-player',
+          classId,
+          courseId,
+          unitId,
+          lessonId,
+          collection.get('id'),
+          {
+            queryParams: { role: role, type: collection.get('collectionType') }
+          }
+        );
       }
     },
     /**
@@ -101,22 +116,23 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
      * @param {string} lessonId - Identifier for a lesson
      * @param {string} collection - collection or assessment
      */
-    viewReport: function (unitId, lessonId, collection) {
+    viewReport: function(unitId, lessonId, collection) {
       const currentClass = this.modelFor('class').class;
       const userId = this.get('session.userId');
-      const classId = currentClass.get("id");
-      const courseId = currentClass.get("courseId");
-      this.transitionTo('reports.student-collection', { queryParams: {
+      const classId = currentClass.get('id');
+      const courseId = currentClass.get('courseId');
+      this.transitionTo('reports.student-collection', {
+        queryParams: {
           classId: classId,
           courseId: courseId,
           unitId: unitId,
           lessonId: lessonId,
-          collectionId: collection.get("id"),
+          collectionId: collection.get('id'),
           userId: userId,
-          type: collection.get("type"),
-          role: "student"
-        }});
+          type: collection.get('type'),
+          role: 'student'
+        }
+      });
     }
   }
-
 });

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {truncate as truncateString } from 'gooru-web/utils/utils';
+import { truncate as truncateString } from 'gooru-web/utils/utils';
 /**
  * Convenience helper to truncate texts
  *

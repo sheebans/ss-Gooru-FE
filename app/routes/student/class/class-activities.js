@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -15,14 +14,15 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function () {
+  model: function() {
     const route = this;
     const currentClass = route.modelFor('student.class').class;
     const userId = route.get('session.userId');
 
     return Ember.RSVP.hash({
-      classActivities: route.get('classActivityService')
-      .findStudentClassActivities(userId, currentClass.get('id'))
+      classActivities: route
+        .get('classActivityService')
+        .findStudentClassActivities(userId, currentClass.get('id'))
     });
   },
 
@@ -31,7 +31,7 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.get('classController').selectMenuItem('class-activities');
     controller.set('classActivities', model.classActivities);
   }

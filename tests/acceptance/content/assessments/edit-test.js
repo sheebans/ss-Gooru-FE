@@ -2,10 +2,10 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
-import {KEY_CODES} from "gooru-web/config/config";
+import { KEY_CODES } from 'gooru-web/config/config';
 
 moduleForAcceptance('Acceptance | Edit Assessment', {
-  beforeEach: function () {
+  beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
       token: 'profile-token',
@@ -65,67 +65,87 @@ moduleForAcceptance('Acceptance | Edit Assessment', {
   });
 });*/
 
-test('Click share button and check clipboard functionality', function (assert) {
+test('Click share button and check clipboard functionality', function(assert) {
   visit('/content/assessments/edit/all-question-types-assessment-id');
 
-  andThen(function () {
+  andThen(function() {
     //editing all-question-types-assessment-id assessment, see assessment-endpoint.json
-    assert.equal(currentURL(), '/content/assessments/edit/all-question-types-assessment-id');
-    var $shareButton = find(".gru-share-pop-over");
+    assert.equal(
+      currentURL(),
+      '/content/assessments/edit/all-question-types-assessment-id'
+    );
+    var $shareButton = find('.gru-share-pop-over');
 
     click($shareButton);
-    andThen(function () {
-      var $popOverContent = find(".gru-share-pop-over-content");
+    andThen(function() {
+      var $popOverContent = find('.gru-share-pop-over-content');
 
-      T.exists(assert, $popOverContent.find('p'), "Missing share description");
-      const $input = $popOverContent.find('.share-actions #assessment-popover-input');
-      T.exists(assert, $input, "Missing readonly input");
-      assert.ok($input.val().indexOf("/player/all-question-types-assessment-id?type=assessment"), "Wrong share url");
+      T.exists(assert, $popOverContent.find('p'), 'Missing share description');
+      const $input = $popOverContent.find(
+        '.share-actions #assessment-popover-input'
+      );
+      T.exists(assert, $input, 'Missing readonly input');
+      assert.ok(
+        $input
+          .val()
+          .indexOf('/player/all-question-types-assessment-id?type=assessment'),
+        'Wrong share url'
+      );
       var $copyBtn = $popOverContent.find('.share-actions .copy-btn');
-      T.exists(assert, $copyBtn, "Missing copy button");
+      T.exists(assert, $copyBtn, 'Missing copy button');
     });
   });
 });
 
-test('Click preview button', function (assert) {
+test('Click preview button', function(assert) {
   visit('/content/assessments/edit/all-question-types-assessment-id');
 
-  andThen(function () {
-    assert.equal(currentURL(), '/content/assessments/edit/all-question-types-assessment-id');
-    var $previewButton = find(".actions .preview");
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/content/assessments/edit/all-question-types-assessment-id'
+    );
+    var $previewButton = find('.actions .preview');
 
     click($previewButton);
-    andThen(function () {
-      assert.equal(currentURL(), '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment', "Wrong url");
+    andThen(function() {
+      assert.equal(
+        currentURL(),
+        '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment',
+        'Wrong url'
+      );
     });
   });
 });
 
-test('Delete Assessment', function (assert) {
+test('Delete Assessment', function(assert) {
   visit('/content/assessments/edit/all-question-types-assessment-id');
-  andThen(function () {
-    assert.equal(currentURL(), '/content/assessments/edit/all-question-types-assessment-id');
-    var $deleteButton = find("header .actions .delete");
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/content/assessments/edit/all-question-types-assessment-id'
+    );
+    var $deleteButton = find('header .actions .delete');
     click($deleteButton);
-    andThen(function () {
-      var $deleteContentModal = find(".gru-modal .gru-delete-content");
-      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+    andThen(function() {
+      var $deleteContentModal = find('.gru-modal .gru-delete-content');
+      var $check1 = $deleteContentModal.find('ul li:eq(0) input');
       click($check1);
-      andThen(function () {
-        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+      andThen(function() {
+        var $check2 = $deleteContentModal.find('ul li:eq(1) input');
         click($check2);
-        andThen(function () {
-          var $check3 = $deleteContentModal.find("ul li:eq(2) input");
+        andThen(function() {
+          var $check3 = $deleteContentModal.find('ul li:eq(2) input');
           click($check3);
-          andThen(function () {
-            var $input = $deleteContentModal.find(".delete-input");
+          andThen(function() {
+            var $input = $deleteContentModal.find('.delete-input');
             $input.val('delete');
             $input.blur();
             keyEvent($input, 'keyup', KEY_CODES.ENTER);
-            andThen(function () {
-              var $deleteButton = $deleteContentModal.find("button.delete");
+            andThen(function() {
+              var $deleteButton = $deleteContentModal.find('button.delete');
               click($deleteButton);
-              andThen(function () {
+              andThen(function() {
                 assert.equal(currentURL(), '/id-for-pochita/content/courses');
               });
             });
@@ -135,28 +155,33 @@ test('Delete Assessment', function (assert) {
     });
   });
 });
-test('Add new question', function (assert) {
+test('Add new question', function(assert) {
   visit('/content/assessments/edit/all-question-types-assessment-id');
-  andThen(function () {
-    assert.equal(currentURL(), '/content/assessments/edit/all-question-types-assessment-id');
-    var $settings = find("#settings");
-    assert.ok($settings.length,'Missing settings section');
-    var $addNewQuestionButton= find('#builder .gru-collection-list .add-resource-question .add-new-question');
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/content/assessments/edit/all-question-types-assessment-id'
+    );
+    var $settings = find('#settings');
+    assert.ok($settings.length, 'Missing settings section');
+    var $addNewQuestionButton = find(
+      '#builder .gru-collection-list .add-resource-question .add-new-question'
+    );
     assert.ok($addNewQuestionButton.length, 'Missing add new question button');
     click($addNewQuestionButton);
-    andThen(function () {
+    andThen(function() {
       var $newQuestionModal = find('.modal .gru-question-new');
       assert.ok($newQuestionModal.length, 'Missing question new modal');
       var $trueFalseType = $newQuestionModal.find('.question-type-T_F');
       assert.ok($trueFalseType.length, 'Missing true false question type');
       click($trueFalseType);
-      andThen(function () {
+      andThen(function() {
         var $create = $newQuestionModal.find('.actions.question-new .add');
         assert.ok($create.length, 'Missing create button');
         click($create);
-        andThen(function () {
+        andThen(function() {
           var $assessmentSettings = find('.nav-score-settings');
-          assert.ok($assessmentSettings.length,'Missing assessment settings');
+          assert.ok($assessmentSettings.length, 'Missing assessment settings');
         });
       });
     });

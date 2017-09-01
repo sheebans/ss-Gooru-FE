@@ -11,18 +11,15 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-navigation'],
+  classNames: ['gru-navigation'],
 
   classNameBindings: ['showReactionBar:with-reaction-bar:without-reaction-bar'],
-
 
   // -------------------------------------------------------------------------
   // Actions
@@ -38,14 +35,13 @@ export default Ember.Component.extend({
     /**
      * Action triggered when the user open de navigator panel
      */
-    openNavigator:function(){
-      this.sendAction("onOpenNavigator");
+    openNavigator: function() {
+      this.sendAction('onOpenNavigator');
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -70,7 +66,7 @@ export default Ember.Component.extend({
    * Indicates if changes can be made
    * @property {boolean} readOnly
    */
-  readOnly: Ember.computed.alias("submitted"),
+  readOnly: Ember.computed.alias('submitted'),
 
   /**
    * @property {Collection
@@ -91,5 +87,4 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-
 });

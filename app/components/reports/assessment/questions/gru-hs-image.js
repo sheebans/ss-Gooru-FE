@@ -3,7 +3,7 @@ import QuestionMixin from 'gooru-web/mixins/reports/assessment/questions/questio
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 // constants
-import {DEFAULT_IMAGES} from 'gooru-web/config/config';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 
 /**
  * Hot spot image
@@ -29,33 +29,38 @@ export default Ember.Component.extend(QuestionMixin, ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Properties
 
-  answers: Ember.computed("question", "anonymous", function () {
+  answers: Ember.computed('question', 'anonymous', function() {
     let component = this;
-    let question = component.get("question");
+    let question = component.get('question');
     let questionUtil = component.getQuestionUtil(question);
-    let userAnswers = component.get("userAnswer");
+    let userAnswers = component.get('userAnswer');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
 
-    if (component.get("showCorrect")){
+    if (component.get('showCorrect')) {
       userAnswers = questionUtil.getCorrectAnswer();
     }
 
-    let answers = question.get("answers");
-    let anonymous = this.get("anonymous");
-    return answers.map(function(answer){
+    let answers = question.get('answers');
+    let anonymous = this.get('anonymous');
+    return answers.map(function(answer) {
       let userAnswerCorrect = false;
       let selected = false;
 
-      if (userAnswers.includes(answer.get("id"))){
-        userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(answer.get("id"));
+      if (userAnswers.includes(answer.get('id'))) {
+        userAnswerCorrect = questionUtil.isAnswerChoiceCorrect(
+          answer.get('id')
+        );
         selected = true;
       }
-      let elementClass = (anonymous) ? 'anonymous' :
-        ((userAnswerCorrect) ? 'correct' : 'incorrect');
+      let elementClass = anonymous
+        ? 'anonymous'
+        : userAnswerCorrect ? 'correct' : 'incorrect';
       return {
-        image: answer.get('text') ? answer.get('text') : appRootPath + DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
+        image: answer.get('text')
+          ? answer.get('text')
+          : appRootPath + DEFAULT_IMAGES.QUESTION_PLACEHOLDER_IMAGE,
         selected: selected,
-        "class": elementClass
+        class: elementClass
       };
     });
   })

@@ -7,15 +7,13 @@ import BuilderItem from 'gooru-web/models/content/builder/item';
  * @mixin
  */
 export default Ember.Mixin.create({
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * Reorder child items
      */
-    sortItems:function() {
+    sortItems: function() {
       var $sortable = this.$(this.get('sortableSelector'));
       this.set('model.isExpanded', true);
       this.set('model.isSorting', true);
@@ -28,7 +26,7 @@ export default Ember.Mixin.create({
     /**
      * Cancel sorting of child items
      */
-    cancelSort:function() {
+    cancelSort: function() {
       var $sortable = this.$(this.get('sortableSelector'));
       this.set('model.isSorting', false);
       this.cancelSort();
@@ -38,14 +36,13 @@ export default Ember.Mixin.create({
     /**
      * Save sorting of child items
      */
-    finishSort:function() {
+    finishSort: function() {
       var $sortable = this.$(this.get('sortableSelector'));
       this.set('model.isSorting', false);
       $sortable.removeClass('sorting').sortable('disable');
       this.refreshList();
     }
   },
-
 
   // -------------------------------------------------------------------------
   // Events
@@ -61,7 +58,7 @@ export default Ember.Mixin.create({
     });
   }),
 
-  destroySortable: Ember.on('willDestroyElement', function(){
+  destroySortable: Ember.on('willDestroyElement', function() {
     var $sortable = this.$(this.get('sortableSelector'));
 
     // Test if the element had a sortable widget instantiated
@@ -69,7 +66,6 @@ export default Ember.Mixin.create({
       $sortable.sortable('destroy');
     }
   }),
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -82,7 +78,7 @@ export default Ember.Mixin.create({
   /**
    * @property {Boolean} isAddingItem - Is a new item being added or not?
    */
-  isAddingItem: Ember.computed('items.@each.isNew', function () {
+  isAddingItem: Ember.computed('items.@each.isNew', function() {
     var items = this.get('items');
     return !!items.filterBy('isNew').length;
   }),
@@ -96,7 +92,7 @@ export default Ember.Mixin.create({
    * @property {Boolean} isEditingItem - Is an item being edited or not?
    * New items (i.e. not yet saved) are also considered as being edited.
    */
-  isEditingItem: Ember.computed('items.@each.isEditing', function () {
+  isEditingItem: Ember.computed('items.@each.isEditing', function() {
     var items = this.get('items');
     return items.filterBy('isEditing', true).length;
   }),
@@ -126,7 +122,7 @@ export default Ember.Mixin.create({
   /**
    * @property {Boolean} totalSavedItems - Number of items that have been saved at least once?
    */
-  totalSavedItems: Ember.computed('items.@each.isNew', function () {
+  totalSavedItems: Ember.computed('items.@each.isNew', function() {
     var items = this.get('items');
     return items.filterBy('isNew', false).length;
   }),
@@ -166,15 +162,14 @@ export default Ember.Mixin.create({
   refreshList: function() {
     var orderList = this.get('orderList');
     var items = this.get('items');
-    if (orderList){
+    if (orderList) {
       let filterFunc;
 
       if (items.length && items[0] instanceof BuilderItem) {
         filterFunc = function(item, index, items) {
           return items.findBy('data.id', orderList[index]);
         };
-      }
-      else {
+      } else {
         filterFunc = function(item, index, items) {
           return items.findBy('id', orderList[index]);
         };
@@ -207,7 +202,7 @@ export default Ember.Mixin.create({
     }
     // Send an update event to move every element to its original position
     items.map(item => itemsMap[getId(item)]).forEach((item, index) => {
-      $sortable.sortable('option','update')(null, {
+      $sortable.sortable('option', 'update')(null, {
         item: $sortable.find(`> li:eq(${index})`).after($(item))
       });
     });

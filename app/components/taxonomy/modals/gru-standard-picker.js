@@ -10,7 +10,6 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -22,42 +21,45 @@ export default Ember.Component.extend({
   /**
    * @requires service:api-sdk/taxonomy
    */
-  taxonomyService: Ember.inject.service("taxonomy"),
-
+  taxonomyService: Ember.inject.service('taxonomy'),
 
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['taxonomy', 'modals', 'gru-standard-picker'],
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     loadTaxonomyData(path) {
-      return new Ember.RSVP.Promise(function(resolve) {
-        var subject = this.get('model.subject');
-        var taxonomyService = this.get('taxonomyService');
+      return new Ember.RSVP.Promise(
+        function(resolve) {
+          var subject = this.get('model.subject');
+          var taxonomyService = this.get('taxonomyService');
 
-        if (path.length > 1) {
-          let courseId = path[0];
-          let domainId = path[1];
-          taxonomyService.getCourseDomains(subject, courseId).then(function() {
-            taxonomyService.getDomainCodes(subject, courseId, domainId)
-              .then(function(standards) {
-                resolve(standards);
+          if (path.length > 1) {
+            let courseId = path[0];
+            let domainId = path[1];
+            taxonomyService
+              .getCourseDomains(subject, courseId)
+              .then(function() {
+                taxonomyService
+                  .getDomainCodes(subject, courseId, domainId)
+                  .then(function(standards) {
+                    resolve(standards);
+                  });
               });
-          });
-        } else {
-          let courseId = path[0];
-          taxonomyService.getCourseDomains(subject, courseId)
-            .then(function(domains) {
-              resolve(domains);
-            });
-        }
-      }.bind(this));
+          } else {
+            let courseId = path[0];
+            taxonomyService
+              .getCourseDomains(subject, courseId)
+              .then(function(domains) {
+                resolve(domains);
+              });
+          }
+        }.bind(this)
+      );
     },
 
     updateSelectedTags(selectedTags) {
@@ -66,13 +68,14 @@ export default Ember.Component.extend({
     }
   },
 
-
   // -------------------------------------------------------------------------
   // Events
 
   init() {
-    this._super( ...arguments );
-    const standardLabel = this.get('model.standardLabel') ? 'common.standard' : 'common.competency';
+    this._super(...arguments);
+    const standardLabel = this.get('model.standardLabel')
+      ? 'common.standard'
+      : 'common.competency';
 
     this.set('panelHeaders', [
       this.get('i18n').t('common.course').string,
@@ -105,20 +108,19 @@ export default Ember.Component.extend({
    * i18n key for the modal title label
    * @property {string}
    */
-  titleLabelKey: Ember.computed('model.standardLabel', function(){
+  titleLabelKey: Ember.computed('model.standardLabel', function() {
     const standardLabel = this.get('model.standardLabel');
     const fromSearch = this.get('model.fromSearch');
-    var label = "common.add-competency";
+    var label = 'common.add-competency';
 
     if (standardLabel) {
-      label = "common.add-standards";
+      label = 'common.add-standards';
       if (fromSearch) {
-        label = "common.search-standards";
+        label = 'common.search-standards';
       }
-    }
-    else {
+    } else {
       if (fromSearch) {
-        label = "common.search-competency";
+        label = 'common.search-competency';
       }
     }
     return label;
@@ -128,19 +130,23 @@ export default Ember.Component.extend({
    * i18n key for the browse selector text
    * @property {string}
    */
-  browseSelectorText: Ember.computed('model.standardLabel', function(){
+  browseSelectorText: Ember.computed('model.standardLabel', function() {
     const standardLabel = this.get('model.standardLabel');
 
-    return standardLabel ? "taxonomy.modals.gru-standard-picker.browseSelectorText" : "taxonomy.modals.gru-standard-picker.browseCompetencySelectorText";
+    return standardLabel
+      ? 'taxonomy.modals.gru-standard-picker.browseSelectorText'
+      : 'taxonomy.modals.gru-standard-picker.browseCompetencySelectorText';
   }),
 
   /**
    * i18n key for the selected text key
    * @property {string}
    */
-  selectedTextKey: Ember.computed('model.standardLabel', function(){
+  selectedTextKey: Ember.computed('model.standardLabel', function() {
     const standardLabel = this.get('model.standardLabel');
 
-    return standardLabel ? "taxonomy.modals.gru-standard-picker.selectedText" : "taxonomy.modals.gru-standard-picker.selectedCompetencyText";
+    return standardLabel
+      ? 'taxonomy.modals.gru-standard-picker.selectedText'
+      : 'taxonomy.modals.gru-standard-picker.selectedCompetencyText';
   })
 });

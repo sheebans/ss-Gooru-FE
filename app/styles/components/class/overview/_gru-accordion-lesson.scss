@@ -9,8 +9,7 @@
     border-radius: 5px;
   }
 
-  > .panel-heading
-  {
+  > .panel-heading {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
     border-radius: 5px;
     min-height: 40px;
@@ -19,7 +18,12 @@
     width: 100%;
     height: auto;
 
-    .title, .score, .gru-user-icons, .gru-completion-chart, .content-count, .time-spent {
+    .title,
+    .score,
+    .gru-user-icons,
+    .gru-completion-chart,
+    .content-count,
+    .time-spent {
       display: inline-block;
       vertical-align: middle;
       padding: 0;
@@ -161,18 +165,18 @@
             top: 4px;
           }
         }
-      button.on-air {
-        display: inline-block;
-        margin: 0 5px;
-        width: $on-air-icon;
-        height: $on-air-icon;
-        vertical-align: middle;
-        background-image: url('gooru/images/on-air-icon.svg');
-        background-size: $on-air-icon $on-air-icon;
-        background-color: $white;
-        cursor: pointer;
-        @include text-hide();
-      }
+        button.on-air {
+          display: inline-block;
+          margin: 0 5px;
+          width: $on-air-icon;
+          height: $on-air-icon;
+          vertical-align: middle;
+          background-image: url('gooru/images/on-air-icon.svg');
+          background-size: $on-air-icon $on-air-icon;
+          background-color: $white;
+          cursor: pointer;
+          @include text-hide();
+        }
 
         &.collection {
           &.submitted {
@@ -249,7 +253,8 @@
               }
               &.webpage {
                 .icon {
-                  background: url("gooru/images/website-resource-green.svg") no-repeat;
+                  background: url("gooru/images/website-resource-green.svg")
+                    no-repeat;
                   width: 30px;
                   height: 30px;
                   background-size: 30px;
@@ -260,7 +265,8 @@
 
               &.video {
                 .icon {
-                  background: url(gooru/images/video-resource-green.svg) no-repeat;
+                  background: url(gooru/images/video-resource-green.svg)
+                    no-repeat;
                   width: 30px;
                   height: 30px;
                   background-size: 30px;
@@ -270,7 +276,8 @@
               }
               &.interactive {
                 .icon {
-                  background: url("gooru/images/interactive-resource-green.svg") no-repeat;
+                  background: url("gooru/images/interactive-resource-green.svg")
+                    no-repeat;
                   width: 30px;
                   height: 30px;
                   background-size: 30px;
@@ -280,7 +287,8 @@
               }
               &.image {
                 .icon {
-                  background: url("gooru/images/image-resource-green.svg") no-repeat;
+                  background: url("gooru/images/image-resource-green.svg")
+                    no-repeat;
                   width: 30px;
                   height: 30px;
                   background-size: 30px;
@@ -291,7 +299,8 @@
 
               &.text {
                 .icon {
-                  background: url("gooru/images/text-resource-green.svg") no-repeat;
+                  background: url("gooru/images/text-resource-green.svg")
+                    no-repeat;
                   width: 30px;
                   height: 30px;
                   background-size: 30px;
@@ -301,7 +310,8 @@
               }
               &.audio {
                 .icon {
-                  background: url("gooru/images/audio-resource-green.svg") no-repeat;
+                  background: url("gooru/images/audio-resource-green.svg")
+                    no-repeat;
                   width: 30px;
                   height: 30px;
                   background-size: 30px;
@@ -336,20 +346,21 @@
           float: left;
           border-right: solid 2px $light-200;
           min-height: 55px;
-          .go-live-cnt{
-            width:50%;
+          .go-live-cnt {
+            width: 50%;
           }
-          .adca-cnt{
-            width:50%;
+          .adca-cnt {
+            width: 50%;
           }
-          .go-live{
-            margin-top:2px;
+          .go-live {
+            margin-top: 2px;
           }
           .add-to {
             color: $gray;
             display: inline-block;
             text-align: center;
-            i, span {
+            i,
+            span {
               float: left;
               clear: left;
               width: 100%;
@@ -371,7 +382,7 @@
             display: none;
           }
         }
-        .panel-title{
+        .panel-title {
           padding-left: 10px;
           height: inherit;
         }
@@ -399,7 +410,13 @@
           }
         }
 
-        .title, .score, .gru-user-icons, .state, .content-count, .icon-container, .time-spent {
+        .title,
+        .score,
+        .gru-user-icons,
+        .state,
+        .content-count,
+        .icon-container,
+        .time-spent {
           display: inline-block;
           vertical-align: middle;
           padding: 0;
@@ -423,11 +440,11 @@
             .row {
               display: table-cell;
               height: 100%;
-              & > [class*='col-']{
+              & > [class*='col-'] {
                 display: table-cell;
                 height: 100%;
                 padding: 0;
-                .gru-switch{
+                .gru-switch {
                   position: relative;
                   top: 50%;
                   -webkit-transform: translateY(-50%);
@@ -539,8 +556,8 @@
               color: $white;
               text-align: center;
               vertical-align: middle;
-              margin-left:20px;
-              i{
+              margin-left: 20px;
+              i {
                 background: url("gooru/images/trophy.svg");
                 background-size: 20px 20px;
                 height: 20px;
@@ -576,16 +593,15 @@
         font-size: $font-size-h6;
         margin: 10px 0;
         padding: 5px 10px 5px 2px;
-        display: inline-block!important;
+        display: inline-block !important;
         i {
           font-size: $font-size-h4;
-          vertical-align: bottom
+          vertical-align: bottom;
         }
       }
       .state {
-        display: none!important;
+        display: none !important;
       }
     }
   }
 }
-

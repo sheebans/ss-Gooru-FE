@@ -2,14 +2,14 @@
   .app-container {
     padding-top: 0;
   }
-  .player, .context-player {
+  .player,
+  .context-player {
     .gru-navigation {
       &.without-reaction-bar {
         height: 77px;
         @media (min-width: $screen-md) {
           height: 20px;
         }
-
       }
     }
     .reports.gru-assessment-report {

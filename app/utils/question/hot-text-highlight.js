@@ -31,10 +31,8 @@ import AnswerObject from 'gooru-web/utils/question/answer-object';
  * @typedef {Object} HotTextHighlightUtil
  */
 export default QuestionUtil.extend({
-
   // -------------------------------------------------------------------------
   // Observers
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -44,9 +42,9 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  isAnswerChoiceCorrect: function (answerChoice) {
+  isAnswerChoiceCorrect: function(answerChoice) {
     let correctAnswer = this.getCorrectAnswer();
-    let found = correctAnswer.findBy("index", answerChoice.index);
+    let found = correctAnswer.findBy('index', answerChoice.index);
     return found !== null && found !== undefined; //if found
   },
 
@@ -58,10 +56,10 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  getCorrectAnswer: function () {
+  getCorrectAnswer: function() {
     const items = this.getItems();
-    return items.filterBy("correct", true).map(function (item) {
-      return {index: item.get("index"), text: item.get("text")};
+    return items.filterBy('correct', true).map(function(item) {
+      return { index: item.get('index'), text: item.get('text') };
     });
   },
 
@@ -72,9 +70,9 @@ export default QuestionUtil.extend({
    * @param {string} text
    * @returns {{index: number, text: string, selected: boolean}} items
    */
-  getWordItems: function (text) {
+  getWordItems: function(text) {
     const util = this,
-      words = Ember.A(text.split(" "));
+      words = Ember.A(text.split(' '));
 
     return util.toItems(words);
   },
@@ -86,17 +84,17 @@ export default QuestionUtil.extend({
    *
    * @returns {{index: number, text: string, selected: boolean}} items
    */
-  getSentenceItems: function (text) {
+  getSentenceItems: function(text) {
     const util = this,
       regex = /(\[.*?\.])/gm,
       items = text.split(regex);
 
     let result = [];
-    items.forEach(function(item){
-      if (!regex.exec(item)){ // split consecutive non correct sentences
-        result = result.concat(item.replace(/\. /gm, ".@").split("@"));
-      }
-      else {
+    items.forEach(function(item) {
+      if (!regex.exec(item)) {
+        // split consecutive non correct sentences
+        result = result.concat(item.replace(/\. /gm, '.@').split('@'));
+      } else {
         result.push(item);
       }
     });
@@ -109,10 +107,10 @@ export default QuestionUtil.extend({
    * @param {string} text
    * @returns {string}
    */
-  transformText: function (text) {
+  transformText: function(text) {
     const regex = /^<p>(.*)<\/p>$/gm,
       match = regex.exec(text);
-    return (match) ? match[1].trim() : text;
+    return match ? match[1].trim() : text;
   },
 
   /**
@@ -121,17 +119,17 @@ export default QuestionUtil.extend({
    *
    * @returns {{index: number, text: string, selected: boolean, correct: boolean}} items
    */
-  toItems: function (textList) {
-    textList = textList.filter(function (text) {
+  toItems: function(textList) {
+    textList = textList.filter(function(text) {
       let trimmed = text.trim();
       return trimmed || trimmed.length;
     });
 
-    return textList.map(function (text, index) {
-      let correct = text.indexOf("[") >= 0 && text.indexOf("]") > 0;
+    return textList.map(function(text, index) {
+      let correct = text.indexOf('[') >= 0 && text.indexOf(']') > 0;
       return Ember.Object.create({
         index: index,
-        text: text.replace("[", "").replace("]", "").trim(),
+        text: text.replace('[', '').replace(']', '').trim(),
         selected: false,
         correct: correct
       });
@@ -142,20 +140,19 @@ export default QuestionUtil.extend({
    * Generate phrase items from the first question answer text
    * It handle word and sentence variants, and it sets the 'items' component property accordingly
    */
-  getItems: function () {
+  getItems: function() {
     const util = this,
-      question = util.get("question"),
-      answers = question.get("answers");
+      question = util.get('question'),
+      answers = question.get('answers');
 
     var items = Ember.A();
-    if (question.get("hasAnswers")) {
-      const answer = answers.get("firstObject"),
-        text = util.transformText(answer.get("text"));
+    if (question.get('hasAnswers')) {
+      const answer = answers.get('firstObject'),
+        text = util.transformText(answer.get('text'));
 
-      if (question.get("isHotTextHighlightWord")) {
+      if (question.get('isHotTextHighlightWord')) {
         items = util.getWordItems(text);
-      }
-      else {
+      } else {
         items = util.getSentenceItems(text);
       }
     }
@@ -171,8 +168,8 @@ export default QuestionUtil.extend({
    *
    * @see '# User Answer' section at class comment
    */
-  answerKey: function (answer) {
-    let indexes = answer.map(function (item) {
+  answerKey: function(answer) {
+    let indexes = answer.map(function(item) {
       return item.index;
     });
     return indexes.sort().join();
@@ -187,16 +184,16 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toAnswerObjects: function (userAnswer) {
+  toAnswerObjects: function(userAnswer) {
     let util = this;
-    return userAnswer.map(function (selection) {
+    return userAnswer.map(function(selection) {
       let index = selection.index;
       return AnswerObject.create({
-        "text": selection.text,
-        "correct": util.isAnswerChoiceCorrect(selection),
-        "order": index + 1,
-        "answerId": 0,
-        "skip": false
+        text: selection.text,
+        correct: util.isAnswerChoiceCorrect(selection),
+        order: index + 1,
+        answerId: 0,
+        skip: false
       });
     });
   },
@@ -210,12 +207,14 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    * @see '# Answer Object' section at class comment
    */
-  toUserAnswer: function (answerObjects) {
-    return (!answerObjects || !answerObjects.length) ?
-      null : //if not respond is provided
-      answerObjects.map(function (answerObject) {
-        return {index: (answerObject.get("order") - 1), text: answerObject.get("text")};
+  toUserAnswer: function(answerObjects) {
+    return !answerObjects || !answerObjects.length
+      ? null //if not respond is provided
+      : answerObjects.map(function(answerObject) {
+        return {
+          index: answerObject.get('order') - 1,
+          text: answerObject.get('text')
+        };
       });
   }
-
 });

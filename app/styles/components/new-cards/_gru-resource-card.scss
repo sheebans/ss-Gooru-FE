@@ -2,7 +2,12 @@
   $line-height: 1.2;
   width: 220px;
   height: 270px;
-  .panel-body, .information, .panel-footer,.actions, .options, .share-box{
+  .panel-body,
+  .information,
+  .panel-footer,
+  .actions,
+  .options,
+  .share-box {
     @include flexbox;
   }
   .panel {
@@ -15,12 +20,18 @@
 
       .header {
         width: 100%;
-        > *{
+        > * {
           display: inline-block;
         }
         .image {
           display: inline-block;
           vertical-align: top;
+
+          img {
+            border-radius: 4px;
+            height: 74px;
+            width: 74px;
+          }
         }
         i {
           display: block;
@@ -88,26 +99,28 @@
         }
       }
       .resource-info {
-        width: 77%;
+        width: 80%;
         padding-left: 5px;
-        > *{
+        > * {
           display: block;
         }
-        .resource-type, .question-type {
+        .resource-type,
+        .question-type {
           margin: 0 5px;
           span {
             color: $text-color;
           }
         }
-        .title-section{
-          h3.title{
-            display: inline-block;
-            color:$blue-400;
+        .title-section {
+          h3.title {
+            display: block !important;
+            color: $blue-400;
             cursor: pointer;
-            font-size: $font-title;
-            margin: 0 0 5px 5px;
+            margin: 0 0 5px 2px;
+            $lines-to-show: 2;
+            @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
           }
-          .publish-icon{
+          .publish-icon {
             display: inline-block;
             float: right;
             vertical-align: top;
@@ -130,14 +143,14 @@
       .gru-taxonomy-tag-list {
         .gru-taxonomy-tag {
           max-width: 88%;
-          .content{
-            margin:0;
+          .content {
+            margin: 0;
           }
         }
       }
-      .popover-content{
+      .popover-content {
         .gru-taxonomy-tag {
-          max-width:100%;
+          max-width: 100%;
         }
       }
 
@@ -152,7 +165,7 @@
         > * {
           display: inline-block;
         }
-        .publisher-name{
+        .publisher-name {
           max-width: 165px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -160,7 +173,7 @@
           vertical-align: middle;
           > a {
             margin-left: 5px;
-            color:$blue-400;
+            color: $blue-400;
           }
         }
       }
@@ -172,7 +185,7 @@
         }
       }
     }
-    .panel-footer{
+    .panel-footer {
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
       background-color: $white;
@@ -208,15 +221,15 @@
             color: $gray;
           }
         }
-        .share-btn.gru-share-pop-over{
+        .share-btn.gru-share-pop-over {
           cursor: pointer;
           background-color: transparent;
         }
         .gru-share-pop-over-window {
-          .gru-share-pop-over-content{
+          .gru-share-pop-over-content {
             .share-actions {
               .btn-primary.btn.copy-btn {
-                border:none;
+                border: none;
                 padding: 6px 16px;
               }
             }

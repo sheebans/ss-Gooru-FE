@@ -154,7 +154,7 @@
             @include align-self(baseline); // Until we have the resources and question count
             .title {
               font-size: $font-size-large;
-              color:$gray-base;
+              color: $gray-base;
             }
             .resource {
               font-size: $font-size-h6;
@@ -172,7 +172,8 @@
           .btn-no {
             border: 2px solid $light-300;
           }
-          .btn-suggestion, .btn-backfill {
+          .btn-suggestion,
+          .btn-backfill {
             height: 37px;
           }
         }

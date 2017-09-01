@@ -3,9 +3,13 @@ import { module, test } from 'qunit';
 
 module('Unit | Utility | gru theme');
 
-test('cssUrl', function (assert) {
+test('cssUrl', function(assert) {
   const theme = GruTheme.create({
-    id : "bergen"
+    id: 'bergen'
   });
-  assert.equal(theme.get("cssUrl"), 'assets/themes/bergen/styles.css', "Wrong css url");
+  assert.equal(
+    theme.get('cssUrl'),
+    'assets/themes/bergen/styles.css',
+    'Wrong css url'
+  );
 });

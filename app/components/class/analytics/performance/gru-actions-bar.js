@@ -10,7 +10,6 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -22,40 +21,39 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * Action triggered when the user selects the Download option
      */
-    download: function () {
-      this.sendAction("onDownload");
+    download: function() {
+      this.sendAction('onDownload');
     },
     /**
      * Action triggered when the user selects the Share option
      */
-    share: function () {
-      Ember.Logger.log("share");
+    share: function() {
+      Ember.Logger.log('share');
     },
     /**
      * Action triggered when the user selects the Full Screen option
      */
-    toggleFullScreen: function () {
-      this.get("onToggleFullScreen")();
+    toggleFullScreen: function() {
+      this.get('onToggleFullScreen')();
     },
 
     /**
      * Action triggered when the user selects the Edit Content option
      */
-    editContent: function () {
-      this.get("onEditContent")();
+    editContent: function() {
+      this.get('onEditContent')();
     },
 
     /**
      * Action triggered when the user selects the view filter option
      * @param {string} filterBy - view filter option
      */
-    filter: function (filterBy) {
-      if (this.get("onFilterSelected")) {
-        this.sendAction("onFilterSelected", filterBy);
+    filter: function(filterBy) {
+      if (this.get('onFilterSelected')) {
+        this.sendAction('onFilterSelected', filterBy);
       }
     }
   },
@@ -84,13 +82,12 @@ export default Ember.Component.extend({
   /**
    * @property {String} isStudent - shows if the is student mode.
    */
-  isStudent: Ember.computed.equal("mode", "student"),
+  isStudent: Ember.computed.equal('mode', 'student'),
 
   /**
    * @property {Boolean} collectionLevel - shows if the collection level.
    */
   collectionLevel: false,
-
 
   /**
    * @property {String|Function} onFilterSelected - event handler when a  filter option is selected in the view dropdown.
@@ -126,22 +123,22 @@ export default Ember.Component.extend({
   /**
    * @property {String} isFilterByAssessment - shows if the filter option selected is by Assessment.
    */
-  isFilterByAssessment: Ember.computed.equal("selectedFilterBy", "assessment"),
+  isFilterByAssessment: Ember.computed.equal('selectedFilterBy', 'assessment'),
 
   /**
    * @property {String} isFilterByCollection - shows if the filter option selected is by Collection.
    */
-  isFilterByCollection: Ember.computed.equal("selectedFilterBy", "collection"),
+  isFilterByCollection: Ember.computed.equal('selectedFilterBy', 'collection'),
 
   /**
    * @property {String} isFilterByBoth - shows if the filter option selected is by Both.
    */
-  isFilterByBoth: Ember.computed.equal("selectedFilterBy", "both"),
+  isFilterByBoth: Ember.computed.equal('selectedFilterBy', 'both'),
 
   /**
    * @property {String} dropdownFilterText - shows the text for the filter option selected in the view dropdown.
    */
-  dropdownFilterText: Ember.computed('selectedFilterBy', function () {
+  dropdownFilterText: Ember.computed('selectedFilterBy', function() {
     const selectedFilter = this.get('selectedFilterBy');
     return `class.analytics.performance.actions.${selectedFilter}`;
   })
@@ -149,5 +146,4 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
 
   // Methods
-
 });

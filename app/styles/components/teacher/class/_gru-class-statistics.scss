@@ -19,34 +19,34 @@
   @media (min-width: $screen-lg) {
     width: 45%;
   }
-  div{
+  div {
     margin: 0 1% 0 2%;
     text-align: center;
     @media (min-width: $screen-md) {
       margin: 0 4% 0 6%;
     }
-    p{
+    p {
       color: $text-color;
       font-size: 15px;
       margin: -6px 0 10px 0;
     }
-    span{
+    span {
       color: $gray-base;
       font-size: 18px;
       font-weight: bold;
     }
 
-    &.title-statistics{
+    &.title-statistics {
       border-right: 2px solid $gray-base;
       margin: 0;
       text-align: initial;
-      p{
+      p {
         color: $gray-base;
         margin: 5px 20px 0 0;
         font-size: 16px;
         font-weight: bold;
       }
-      span{
+      span {
         color: $text-color;
         font-size: 12px;
       }

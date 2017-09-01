@@ -5,16 +5,18 @@ import T from 'gooru-web/tests/helpers/assert';
 
 moduleForComponent(
   'class/analytics/performance/student/gru-unit-performance',
-  'Integration | Component | class/analytics/performance/student/gru unit performance', {
+  'Integration | Component | class/analytics/performance/student/gru unit performance',
+  {
     integration: true,
     beforeEach: function() {
-      this.container.lookup('service:i18n').set('locale','en');
+      this.container.lookup('service:i18n').set('locale', 'en');
     }
-  });
+  }
+);
 
 test('Test for unit performance for assessment', function(assert) {
   const unitPerformance = Ember.Object.create({
-    id:'unit-id-1',
+    id: 'unit-id-1',
     title: 'Unit 1',
     type: 'unit',
     score: 75,
@@ -29,14 +31,14 @@ test('Test for unit performance for assessment', function(assert) {
     isUnitOrLesson: true
   });
   const classModel = Ember.Object.create({
-    id:'class-id-1',
-    course:'course-id-1'
+    id: 'class-id-1',
+    course: 'course-id-1'
   });
 
   this.set('userId', 'user-id-1');
   this.set('classModel', classModel);
   this.set('unit', unitPerformance);
-  this.set('index',0);
+  this.set('index', 0);
   this.set('selectedLessonId', 'non-selected-lesson');
   this.set('selectedUnitId', 'non-selected-unit');
 
@@ -59,26 +61,35 @@ test('Test for unit performance for assessment', function(assert) {
   const $titleElement = $component.find('.unit-lesson .section-title');
   assert.ok($titleElement.length, 'Missing unit title');
 
-  const $scoreElement = $component.find('.gru-performance-summary .score .score-box');
+  const $scoreElement = $component.find(
+    '.gru-performance-summary .score .score-box'
+  );
   assert.equal(T.text($scoreElement), '75%', 'Wrong unit score');
 
-  const $completionElement = $component.find('.gru-performance-summary .completion .gru-completion-chart span');
+  const $completionElement = $component.find(
+    '.gru-performance-summary .completion .gru-completion-chart span'
+  );
   assert.equal(T.text($completionElement), '5/10', 'Wrong unit completion');
 
-  const $timeSpentElement = $component.find('.gru-performance-summary .timeSpent p');
+  const $timeSpentElement = $component.find(
+    '.gru-performance-summary .timeSpent p'
+  );
   assert.equal(T.text($timeSpentElement), '1h', 'Wrong unit timeSpent');
 
-  const $reactionElement = $component.find('.gru-performance-summary .reaction p');
+  const $reactionElement = $component.find(
+    '.gru-performance-summary .reaction p'
+  );
   assert.equal(T.text($reactionElement), '', 'Wrong unit reaction');
 
-  const $attemptsElement = $component.find('.gru-performance-summary .attempts p');
+  const $attemptsElement = $component.find(
+    '.gru-performance-summary .attempts p'
+  );
   assert.equal(T.text($attemptsElement), '2', 'Wrong unit attempts');
-
 });
 
 test('Test for unit performance filtering by collection', function(assert) {
   const unitPerformance = Ember.Object.create({
-    id:'unit-id-1',
+    id: 'unit-id-1',
     title: 'Unit 1',
     type: 'unit',
     score: 75,
@@ -93,14 +104,14 @@ test('Test for unit performance filtering by collection', function(assert) {
     isUnitOrLesson: true
   });
   const classModel = Ember.Object.create({
-    id:'class-id-1',
-    course:'course-id-1'
+    id: 'class-id-1',
+    course: 'course-id-1'
   });
 
   this.set('userId', 'user-id-1');
   this.set('classModel', classModel);
   this.set('unit', unitPerformance);
-  this.set('index',0);
+  this.set('index', 0);
   this.set('selectedLessonId', 'non-selected-lesson');
   this.set('selectedUnitId', 'non-selected-unit');
 
@@ -124,19 +135,31 @@ test('Test for unit performance filtering by collection', function(assert) {
   const $titleElement = $component.find('.unit-lesson .section-title');
   assert.ok($titleElement.length, 'Missing unit title');
 
-  const $scoreElement = $component.find('.gru-performance-summary .score .score-box');
-  assert.ok(!$scoreElement.length, 'Score should not be visible when filtering by collection');
+  const $scoreElement = $component.find(
+    '.gru-performance-summary .score .score-box'
+  );
+  assert.ok(
+    !$scoreElement.length,
+    'Score should not be visible when filtering by collection'
+  );
 
-  const $completionElement = $component.find('.gru-performance-summary .completion .gru-completion-chart span');
+  const $completionElement = $component.find(
+    '.gru-performance-summary .completion .gru-completion-chart span'
+  );
   assert.equal(T.text($completionElement), '5/10', 'Wrong unit completion');
 
-  const $timeSpentElement = $component.find('.gru-performance-summary .timeSpent p');
+  const $timeSpentElement = $component.find(
+    '.gru-performance-summary .timeSpent p'
+  );
   assert.equal(T.text($timeSpentElement), '1h', 'Wrong unit timeSpent');
 
-  const $reactionElement = $component.find('.gru-performance-summary .reaction p');
+  const $reactionElement = $component.find(
+    '.gru-performance-summary .reaction p'
+  );
   assert.equal(T.text($reactionElement), '', 'Wrong unit reaction');
 
-  const $attemptsElement = $component.find('.gru-performance-summary .attempts p');
+  const $attemptsElement = $component.find(
+    '.gru-performance-summary .attempts p'
+  );
   assert.equal(T.text($attemptsElement), '2', 'Wrong unit attempts');
-
 });

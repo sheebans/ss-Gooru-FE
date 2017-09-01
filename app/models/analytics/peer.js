@@ -5,7 +5,6 @@ import Ember from 'ember';
  * typedef {Object} Peers
  */
 const Peers = Ember.Object.extend({
-
   /**
    * @property {String} id - The unit|lesson|collection ID
    */
@@ -20,7 +19,6 @@ const Peers = Ember.Object.extend({
    * @property {String[]} peerIds - A list of peer IDs (member IDs) in the unit|lesson|collection
    */
   peerIds: []
-
 });
 
 export default Peers;

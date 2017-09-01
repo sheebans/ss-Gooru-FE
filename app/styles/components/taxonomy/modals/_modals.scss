@@ -18,7 +18,8 @@
       }
     }
 
-    .shortcut-list, .selected-list {
+    .shortcut-list,
+    .selected-list {
       ul {
         display: inline-block;
         list-style: none;
@@ -37,12 +38,12 @@
     }
 
     .browse-selector {
-
       .gru-browse-selector {
         margin-top: 10px;
         margin-bottom: 20px;
 
-        ol, ul {
+        ol,
+        ul {
           list-style: none;
           padding: 0;
           margin: 0;
@@ -87,7 +88,9 @@
                 &.active {
                   background-color: $blue-400;
 
-                  a { color: $white; }
+                  a {
+                    color: $white;
+                  }
                 }
               }
             }
@@ -119,7 +122,8 @@
                     > div {
                       @include flex();
 
-                      > strong, > span {
+                      > strong,
+                      > span {
                         display: block;
                         line-height: 1.2;
                       }
@@ -137,11 +141,17 @@
                     top: 5px;
                     right: 5px;
 
-                    i.keyboard_arrow_up { display: none; }
+                    i.keyboard_arrow_up {
+                      display: none;
+                    }
 
                     &.collapsed {
-                      i.keyboard_arrow_up { display: inline-block; }
-                      i.keyboard_arrow_down { display: none; }
+                      i.keyboard_arrow_up {
+                        display: inline-block;
+                      }
+                      i.keyboard_arrow_down {
+                        display: none;
+                      }
                     }
 
                     &:active,
@@ -171,7 +181,8 @@
                       > label {
                         @include flexbox();
 
-                        strong, span {
+                        strong,
+                        span {
                           display: block;
                           line-height: 1.2;
                         }
@@ -251,5 +262,3 @@
     width: 86%;
   }
 }
-
-

@@ -1,6 +1,9 @@
 import Ember from 'ember';
 import { formatTime as formatMilliseconds } from 'gooru-web/utils/utils';
 
+/**
+ * Give format to a time value
+ */
 export function formatTime(value /*, hash*/) {
   var time = value[0];
   return formatMilliseconds(time);

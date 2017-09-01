@@ -12,7 +12,6 @@ import QuestionComponent from './gru-question';
  * @augments Ember/Component
  */
 export default QuestionComponent.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   i18n: Ember.inject.service(),
@@ -25,25 +24,24 @@ export default QuestionComponent.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
   // -------------------------------------------------------------------------
   // Events
-  setupInstanceProperties: Ember.on('init', function () {
+  setupInstanceProperties: Ember.on('init', function() {
     const component = this;
     component.setAnswers();
   }),
 
-  setupSubscriptions: Ember.on('didInsertElement', function () {
+  setupSubscriptions: Ember.on('didInsertElement', function() {
     const component = this;
     const readOnly = component.get('readOnly');
 
     component.setUserAnswer();
 
-    if (!readOnly){
-      if(component.get('userAnswer')) {
+    if (!readOnly) {
+      if (component.get('userAnswer')) {
         component.notify(true);
       }
-      this.$('li.answer').on('click', function () {
+      this.$('li.answer').on('click', function() {
         const $this = $(this);
         const answerId = $this.data('id');
 
@@ -61,10 +59,9 @@ export default QuestionComponent.extend({
         component.notify(false);
       });
     }
-
   }),
 
-  removeSubscriptions: Ember.on('willDestroyElement', function () {
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
     this.$('li.answer').off('click');
   }),
 
@@ -79,9 +76,10 @@ export default QuestionComponent.extend({
   /*
    * @prop {String} instructions - Question instructions
    */
-  instructions: Ember.computed(function () {
-    var action = this.get('i18n').t(this.get('instructionsActionTextKey')).string;
-    return this.get('i18n').t('gru-hs-text.instructions', {action});
+  instructions: Ember.computed(function() {
+    var action = this.get('i18n').t(this.get('instructionsActionTextKey'))
+      .string;
+    return this.get('i18n').t('gru-hs-text.instructions', { action });
   }),
 
   /*
@@ -89,7 +87,7 @@ export default QuestionComponent.extend({
    * @prop {String} id - answer id
    * @prop {String} content - markup string containing the answer text
    */
-  answers: Ember.computed.map('question.answers', function (answer) {
+  answers: Ember.computed.map('question.answers', function(answer) {
     return {
       id: answer.get('id'),
       content: answer.get('text')
@@ -116,9 +114,8 @@ export default QuestionComponent.extend({
     component.notifyAnswerChanged(selected, correct);
     if (cleared) {
       component.notifyAnswerCleared(selected);
-    }
-    else {
-      if(onLoad) {
+    } else {
+      if (onLoad) {
         component.notifyAnswerLoaded(selected, correct);
       } else {
         component.notifyAnswerCompleted(selected, correct);
@@ -128,10 +125,10 @@ export default QuestionComponent.extend({
   /**
    * Set the user answer
    */
-  setUserAnswer: function(){
+  setUserAnswer: function() {
     if (this.get('hasUserAnswer')) {
       const userAnswer = this.get('userAnswer');
-      userAnswer.forEach(function(answerId){
+      userAnswer.forEach(function(answerId) {
         let selector = `li.answer[data-id='${answerId}']`;
         let $answer = Ember.$(selector);
         $answer.toggleClass('selected');
@@ -141,7 +138,7 @@ export default QuestionComponent.extend({
   /**
    * Set answers
    */
-  setAnswers: function(){
+  setAnswers: function() {
     let userAnswer = this.get('userAnswer');
     this.set('selectedAnswers', userAnswer || []);
   }

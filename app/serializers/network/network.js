@@ -7,7 +7,6 @@ import NetworkModel from 'gooru-web/models/network/network';
  * @typedef {Object} ProfileSerializer
  */
 export default Ember.Object.extend({
-
   /**
    * Normalize the Read Network endpoint response
    * @param payload is the endpoint response in JSON format
@@ -20,5 +19,4 @@ export default Ember.Object.extend({
       details: payload.details
     });
   }
-
 });

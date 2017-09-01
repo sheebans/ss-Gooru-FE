@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import {SCORES} from 'gooru-web/config/config';
+import { SCORES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -13,13 +12,17 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     /**
      * When the user clicks at the score
      */
-    clickReport: function (performance) {
-      if (this.get('onClickReport')){
-        this.sendAction('onClickReport', performance, this.get('userPerformance'));
+    clickReport: function(performance) {
+      if (this.get('onClickReport')) {
+        this.sendAction(
+          'onClickReport',
+          performance,
+          this.get('userPerformance')
+        );
       }
     }
   },
@@ -28,7 +31,7 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     var component = this;
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   },
 
   // -------------------------------------------------------------------------
@@ -59,21 +62,24 @@ export default Ember.Component.extend({
    */
   scoreClass: Ember.computed('performanceData', function() {
     var performanceDataScore = this.get('performanceData').score;
-    var classScore= 'excellent';
+    var classScore = 'excellent';
 
-    switch(true) {
-      case (performanceDataScore < SCORES.REGULAR):
-        classScore = 'bad';
-        break;
-      case (performanceDataScore >= SCORES.REGULAR && performanceDataScore < SCORES.GOOD):
-        classScore = 'regular';
-        break;
-      case (performanceDataScore >= SCORES.GOOD && performanceDataScore < SCORES.VERY_GOOD):
-        classScore = 'good';
-        break;
-      case (performanceDataScore >= SCORES.VERY_GOOD && performanceDataScore < SCORES.EXCELLENT):
-        classScore = 'very-good';
-        break;
+    switch (true) {
+    case performanceDataScore < SCORES.REGULAR:
+      classScore = 'bad';
+      break;
+    case performanceDataScore >= SCORES.REGULAR &&
+        performanceDataScore < SCORES.GOOD:
+      classScore = 'regular';
+      break;
+    case performanceDataScore >= SCORES.GOOD &&
+        performanceDataScore < SCORES.VERY_GOOD:
+      classScore = 'good';
+      break;
+    case performanceDataScore >= SCORES.VERY_GOOD &&
+        performanceDataScore < SCORES.EXCELLENT:
+      classScore = 'very-good';
+      break;
     }
     return classScore;
   }),
@@ -113,5 +119,4 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
 
   // Methods
-
 });

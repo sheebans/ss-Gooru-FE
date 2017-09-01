@@ -4,28 +4,25 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-resource-options'],
+  classNames: ['gru-resource-options'],
 
   // -------------------------------------------------------------------------
   // Actions
 
-  actions:{
-
+  actions: {
     /**
      * selectOption selects menu option
      */
-    selectOption: function(option){
-      this.sendAction("onSelectedOption", option);
+    selectOption: function(option) {
+      this.sendAction('onSelectedOption', option);
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -45,7 +42,7 @@ export default Ember.Component.extend({
 
   videoSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.includes("video");
+    return selectedOptions.includes('video');
   }),
 
   /**
@@ -56,7 +53,7 @@ export default Ember.Component.extend({
 
   webPageSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.includes("webpage");
+    return selectedOptions.includes('webpage');
   }),
 
   /**
@@ -67,7 +64,7 @@ export default Ember.Component.extend({
 
   interactiveSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.includes("interactive");
+    return selectedOptions.includes('interactive');
   }),
 
   /**
@@ -78,7 +75,7 @@ export default Ember.Component.extend({
 
   imageSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.includes("image");
+    return selectedOptions.includes('image');
   }),
 
   /**
@@ -89,7 +86,7 @@ export default Ember.Component.extend({
 
   textSelected: Ember.computed('selectedOptionTypes.[]', function() {
     const selectedOptions = this.get('selectedOptionTypes');
-    return selectedOptions.includes("text");
+    return selectedOptions.includes('text');
   }),
 
   /**
@@ -99,14 +96,12 @@ export default Ember.Component.extend({
    */
 
   audioSelected: Ember.computed('selectedOptionTypes.[]', function() {
-    const selectedOptions = this.get("selectedOptionTypes");
+    const selectedOptions = this.get('selectedOptionTypes');
     return selectedOptions.includes('audio');
   })
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
 });

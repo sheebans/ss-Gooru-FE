@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} CurrentLocationAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus-insights/v2',
@@ -39,8 +38,8 @@ export default Ember.Object.extend({
       dataType: 'json',
       headers: this.defineHeaders(),
       data: JSON.stringify({
-        "classIds" : classIds,
-        "userId": userId
+        classIds: classIds,
+        userId: userId
       })
     };
     return Ember.$.ajax(url, options);
@@ -48,8 +47,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

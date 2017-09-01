@@ -145,7 +145,7 @@
 
   .students-panel {
     min-height: 0;
-    padding:0;
+    padding: 0;
     p {
       color: $gray-base;
     }
@@ -153,10 +153,10 @@
       border: 1px solid $table-border-color;
       padding: 6px 20px;
     }
-    .panel-heading{
+    .panel-heading {
       @include flexbox();
       background-color: $dark-200;
-      color:$white;
+      color: $white;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
       div {
@@ -166,39 +166,39 @@
         @media (max-width: $screen-xs) {
           width: 25%;
         }
-        &.sortable{
-          cursor:pointer;
+        &.sortable {
+          cursor: pointer;
         }
       }
     }
-    .panel-body{
+    .panel-body {
       padding: 0;
       max-height: 322px;
       overflow-y: auto;
-      table{
+      table {
         width: 100%;
         margin-bottom: 0;
-        td{
+        td {
           padding: 10px;
           border-top: none;
           border-bottom: 2px solid $table-border-color;
         }
-        .student-id{
+        .student-id {
           width: 63%;
         }
-        .student{
-          span{
+        .student {
+          span {
             font-size: 16px;
             color: $gray-base;
           }
         }
-        tr:last-child{
-          td{
+        tr:last-child {
+          td {
             border-bottom: none;
           }
         }
       }
-      .border-right{
+      .border-right {
         width: 12%;
         border-right: 1px solid $table-border-color;
         @media (max-width: $screen-xs) {
@@ -207,9 +207,9 @@
       }
     }
   }
-  .assessment-min-score{
-    .gru-input-number{
-      .error-messages{
+  .assessment-min-score {
+    .gru-input-number {
+      .error-messages {
         position: absolute;
         width: 211px;
       }

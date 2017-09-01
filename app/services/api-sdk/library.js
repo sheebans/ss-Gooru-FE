@@ -6,7 +6,6 @@ import LibraryAdapter from 'gooru-web/adapters/library/library';
  * @typedef {Object} LibraryService
  */
 export default Ember.Service.extend({
-
   /**
    * @property {LibrarySerializer} librarySerializer
    */
@@ -17,10 +16,16 @@ export default Ember.Service.extend({
    */
   libraryAdapter: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('librarySerializer', LibrarySerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('libraryAdapter', LibraryAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'librarySerializer',
+      LibrarySerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'libraryAdapter',
+      LibraryAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -32,11 +37,16 @@ export default Ember.Service.extend({
     const service = this;
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('libraryAdapter').fetchLibraries()
-      .then(
-        response => resolve(service.get('librarySerializer').normalizeFetchLibraries(response)),
-        reject
-      );
+      service
+        .get('libraryAdapter')
+        .fetchLibraries()
+        .then(
+          response =>
+            resolve(
+              service.get('librarySerializer').normalizeFetchLibraries(response)
+            ),
+          reject
+        );
     });
   },
 
@@ -49,11 +59,16 @@ export default Ember.Service.extend({
     const service = this;
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('libraryAdapter').getLibraryById(libraryId)
-      .then(
-        response => resolve(service.get('librarySerializer').normalizeLibrary(response)),
-        reject
-      );
+      service
+        .get('libraryAdapter')
+        .getLibraryById(libraryId)
+        .then(
+          response =>
+            resolve(
+              service.get('librarySerializer').normalizeLibrary(response)
+            ),
+          reject
+        );
     });
   },
 
@@ -64,13 +79,20 @@ export default Ember.Service.extend({
    * @param pagination - pagination values to list library content
    * @returns {Promise}
    */
-  fetchLibraryContent: function(libraryId, contentType='course', pagination) {
+  fetchLibraryContent: function(libraryId, contentType = 'course', pagination) {
     const service = this;
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('libraryAdapter').fetchLibraryContent(libraryId, contentType, pagination)
+      service
+        .get('libraryAdapter')
+        .fetchLibraryContent(libraryId, contentType, pagination)
         .then(
-          response => resolve(service.get('librarySerializer').normalizeFetchLibraryContent(contentType, response)),
+          response =>
+            resolve(
+              service
+                .get('librarySerializer')
+                .normalizeFetchLibraryContent(contentType, response)
+            ),
           reject
         );
     });

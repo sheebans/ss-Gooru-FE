@@ -54,10 +54,10 @@ export default Ember.Component.extend({
       let profile = this.get('profile');
       let editedProfile = this.get('tempProfile');
       var role = component.get('tempProfile.role');
-      var countrySelected =  component.get('countrySelected');
-      var stateSelected =  component.get('stateSelected');
-      var districtSelected =  component.get('districtSelected');
-      var otherSchoolDistrict =  $.trim(component.get('otherSchoolDistrict'));
+      var countrySelected = component.get('countrySelected');
+      var stateSelected = component.get('stateSelected');
+      var districtSelected = component.get('districtSelected');
+      var otherSchoolDistrict = $.trim(component.get('otherSchoolDistrict'));
       var districts = component.get('districts');
       var showStates = component.get('showStates');
       var showRoleErrorMessage = false;
@@ -68,21 +68,28 @@ export default Ember.Component.extend({
 
       component.set('otherSchoolDistrict', otherSchoolDistrict);
 
-      if(!role){
+      if (!role) {
         showRoleErrorMessage = true;
         isValid = false;
       }
-      if(!countrySelected){
+      if (!countrySelected) {
         showCountryErrorMessage = true;
         isValid = false;
       }
 
-      if(!stateSelected && showStates){
+      if (!stateSelected && showStates) {
         showStateErrorMessage = true;
         isValid = false;
       }
 
-      if((!otherSchoolDistrict && otherSchoolDistrict=== '') && stateSelected && !districtSelected && districts && districts.length>0){
+      if (
+        !otherSchoolDistrict &&
+        otherSchoolDistrict === '' &&
+        stateSelected &&
+        !districtSelected &&
+        districts &&
+        districts.length > 0
+      ) {
         showDistrictErrorMessage = true;
         isValid = false;
       }
@@ -92,47 +99,88 @@ export default Ember.Component.extend({
       component.set('showStateErrorMessage', showStateErrorMessage);
       component.set('showDistrictErrorMessage', showDistrictErrorMessage);
 
-      if(isValid){
-        editedProfile.validate().then(function ({ validations }) {
-
+      if (isValid) {
+        editedProfile.validate().then(function({ validations }) {
           if (validations.get('isValid')) {
-            let imageIdPromise = new Ember.RSVP.resolve(editedProfile.get('avatarUrl'));
-            if(editedProfile.get('avatarUrl') && editedProfile.get('avatarUrl') !== profile.get('avatarUrl')) {
-              imageIdPromise =  component.get('mediaService').uploadUserFile(editedProfile.get('avatarUrl'));
+            let imageIdPromise = new Ember.RSVP.resolve(
+              editedProfile.get('avatarUrl')
+            );
+            if (
+              editedProfile.get('avatarUrl') &&
+              editedProfile.get('avatarUrl') !== profile.get('avatarUrl')
+            ) {
+              imageIdPromise = component
+                .get('mediaService')
+                .uploadUserFile(editedProfile.get('avatarUrl'));
             }
-            imageIdPromise.then(function(imageId) {
-              editedProfile.set('avatarUrl', imageId);
-              if(otherSchoolDistrict) {
-                editedProfile.set('schoolDistrictId', '');
-                editedProfile.set('schoolDistrict', otherSchoolDistrict);
-              }
-              return component.saveProfile(editedProfile);
-            }).then(function() {
-              component.get('profile').merge(editedProfile, ['username','firstName', 'lastName', 'aboutMe', 'role', 'countryId', 'stateId', 'state', 'schoolDistrictId', 'schoolDistrict', 'country', 'studentId', 'avatarUrl']);
-              component.get('router').transitionTo('profile.about', editedProfile.get('id'));
-            }, function(error) {
-              if(error.username) {
-                component.set('usernameError', error ? error.username : false);
-              } else {
-                var message = component.get('i18n').t('common.errors.profile-not-updated').string;
-                component.get('notifications').error(message);
-                Ember.Logger.error(error);
-              }
-            });
+            imageIdPromise
+              .then(function(imageId) {
+                editedProfile.set('avatarUrl', imageId);
+                if (otherSchoolDistrict) {
+                  editedProfile.set('schoolDistrictId', '');
+                  editedProfile.set('schoolDistrict', otherSchoolDistrict);
+                }
+                return component.saveProfile(editedProfile);
+              })
+              .then(
+                function() {
+                  component
+                    .get('profile')
+                    .merge(editedProfile, [
+                      'username',
+                      'firstName',
+                      'lastName',
+                      'aboutMe',
+                      'role',
+                      'countryId',
+                      'stateId',
+                      'state',
+                      'schoolDistrictId',
+                      'schoolDistrict',
+                      'country',
+                      'studentId',
+                      'avatarUrl'
+                    ]);
+                  component
+                    .get('router')
+                    .transitionTo('profile.about', editedProfile.get('id'));
+                },
+                function(error) {
+                  if (error.username) {
+                    component.set(
+                      'usernameError',
+                      error ? error.username : false
+                    );
+                  } else {
+                    var message = component
+                      .get('i18n')
+                      .t('common.errors.profile-not-updated').string;
+                    component.get('notifications').error(message);
+                    Ember.Logger.error(error);
+                  }
+                }
+              );
           }
         });
       } else if (showCountryErrorMessage) {
-        $('html, body').animate({
-          scrollTop: $('.gru-edit-profile .country .error-messages').offset().top
-        }, 1000);
-      }else {
-        $('html, body').animate({
-          scrollTop: $('.gru-edit-profile .role .error-messages').offset().top
-        }, 1000);
+        $('html, body').animate(
+          {
+            scrollTop: $('.gru-edit-profile .country .error-messages').offset()
+              .top
+          },
+          1000
+        );
+      } else {
+        $('html, body').animate(
+          {
+            scrollTop: $('.gru-edit-profile .role .error-messages').offset().top
+          },
+          1000
+        );
       }
     },
 
-    countrySelect: function(id){
+    countrySelect: function(id) {
       var component = this;
       var countries = this.get('countries');
       var country = countries.findBy('id', id);
@@ -155,7 +203,7 @@ export default Ember.Component.extend({
       }
     },
 
-    stateSelect: function(id){
+    stateSelect: function(id) {
       var component = this;
       var states = component.get('states');
       component.set('showStateErrorMessage', false);
@@ -163,11 +211,13 @@ export default Ember.Component.extend({
       component.set('districts', null);
       component.set('stateSelected', id);
       component.set('state', states.findBy('id', id).name);
-      component.get('lookupService').readDistricts(id)
+      component
+        .get('lookupService')
+        .readDistricts(id)
         .then(districts => component.set('districts', districts));
     },
 
-    districtSelect: function(id){
+    districtSelect: function(id) {
       var component = this;
 
       component.set('showDistrictErrorMessage', false);
@@ -181,18 +231,18 @@ export default Ember.Component.extend({
   init: function() {
     this._super(...arguments);
     this.set('tempProfile', this.get('profile').copy());
-    if(this.get('tempProfile.avatarUrl') === DEFAULT_IMAGES.USER_PROFILE) {
+    if (this.get('tempProfile.avatarUrl') === DEFAULT_IMAGES.USER_PROFILE) {
       this.get('tempProfile').set('avatarUrl', null);
     }
   },
   /**
    * DidInsertElement ember event
    */
-  didInsertElement: function(){
+  didInsertElement: function() {
     const component = this;
     var $username = component.$('#username input');
-    $username.on('keydown', function () {
-      component.set('usernameError',false);
+    $username.on('keydown', function() {
+      component.set('usernameError', false);
     });
   },
   // -------------------------------------------------------------------------
@@ -233,7 +283,6 @@ export default Ember.Component.extend({
    * @property {String}
    */
   country: Ember.computed.alias('tempProfile.country'),
-
 
   /**
    * countrySelected
@@ -288,7 +337,7 @@ export default Ember.Component.extend({
   /**
    * @type {String} teacher, student or other, tells the component which radio is checked.
    */
-  currentRole:  Ember.computed.alias('tempProfile.role'),
+  currentRole: Ember.computed.alias('tempProfile.role'),
 
   /**
    * showRoleErrorMessage
@@ -313,20 +362,25 @@ export default Ember.Component.extend({
    */
   usernameError: false,
 
-// -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
   // Methods
 
   saveProfile(profile) {
     const component = this;
-    return component.get('profileService').updateMyProfile(profile).then(function() {
-      let session = component.get('session');
-      if(!profile.get('avatarUrl')) {
-        profile.set('avatarUrl', DEFAULT_IMAGES.USER_PROFILE);
-      }
-      session.set('userData.avatarUrl', profile.get('avatarUrl'));
-      session.set('userData.isNew', false);
-      session.set('userData.username', profile.username);
-      return component.get('sessionService').updateUserData(session.get('userData'));
-    });
+    return component
+      .get('profileService')
+      .updateMyProfile(profile)
+      .then(function() {
+        let session = component.get('session');
+        if (!profile.get('avatarUrl')) {
+          profile.set('avatarUrl', DEFAULT_IMAGES.USER_PROFILE);
+        }
+        session.set('userData.avatarUrl', profile.get('avatarUrl'));
+        session.set('userData.isNew', false);
+        session.set('userData.username', profile.username);
+        return component
+          .get('sessionService')
+          .updateUserData(session.get('userData'));
+      });
   }
 });

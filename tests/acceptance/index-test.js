@@ -25,6 +25,6 @@ test('load: Layout', function(assert) {
 
     //hero
     var $landingPage = find('.controller.index');
-    T.exists(assert, $landingPage, "Missing landing page");
+    T.exists(assert, $landingPage, 'Missing landing page');
   });
 });

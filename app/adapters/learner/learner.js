@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} LearnerAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus-insights/v2',
@@ -20,7 +19,7 @@ export default Ember.Object.extend({
    * @param {number} limit - number of locations to fetch
    * @returns {Promise}
    */
-  fetchLocations: function(userId, contentType, offset=0, limit=20) {
+  fetchLocations: function(userId, contentType, offset = 0, limit = 20) {
     const adapter = this;
     const url = `${adapter.get('namespace')}/learner/location`;
     const options = {
@@ -41,7 +40,7 @@ export default Ember.Object.extend({
    * @param {number} limit - number of performance to fetch
    * @returns {Promise}
    */
-  fetchPerformance: function(userId, contentType, offset=0, limit=20) {
+  fetchPerformance: function(userId, contentType, offset = 0, limit = 20) {
     const adapter = this;
     const url = `${adapter.get('namespace')}/learner/performance`;
     const options = {
@@ -63,10 +62,13 @@ export default Ember.Object.extend({
   fetchPerformanceUnit: function(courseId, unitId, collectionType) {
     const adapter = this;
 
-    const queryParams = (collectionType) ?
-      `collectionType=${collectionType}` : '';
+    const queryParams = collectionType
+      ? `collectionType=${collectionType}`
+      : '';
 
-    const url = `${adapter.get('namespace')}/course/${courseId}/unit/${unitId}/learner/performance?${queryParams}`;
+    const url = `${adapter.get(
+      'namespace'
+    )}/course/${courseId}/unit/${unitId}/learner/performance?${queryParams}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -86,10 +88,13 @@ export default Ember.Object.extend({
   fetchPerformanceLesson: function(courseId, unitId, lessonId, collectionType) {
     const adapter = this;
 
-    const queryParams = (collectionType) ?
-      `collectionType=${collectionType}` : '';
+    const queryParams = collectionType
+      ? `collectionType=${collectionType}`
+      : '';
 
-    const url = `${adapter.get('namespace')}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/learner/performance?${queryParams}`;
+    const url = `${adapter.get(
+      'namespace'
+    )}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/learner/performance?${queryParams}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -119,7 +124,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': `Token ${this.get('session.token-api3')}`
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   },
 
@@ -133,7 +138,9 @@ export default Ember.Object.extend({
   fetchLocationCourse: function(courseId, userId) {
     const adapter = this;
 
-    const url = `${adapter.get('namespace')}/course/${courseId}/user/${userId}/learner/current/location`;
+    const url = `${adapter.get(
+      'namespace'
+    )}/course/${courseId}/user/${userId}/learner/current/location`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -157,10 +164,15 @@ export default Ember.Object.extend({
     const courseId = params.courseId;
     const sessionId = params.sessionId;
 
-    let queryParams = sessionId ? `sessionId=${sessionId}` :
-      ((courseId) ? `courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}`: '');
+    let queryParams = sessionId
+      ? `sessionId=${sessionId}`
+      : courseId
+        ? `courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}`
+        : '';
 
-    const url = `${adapter.get('namespace')}/${collectionType}/${contentId}/learner/${userId}?${queryParams}`;
+    const url = `${adapter.get(
+      'namespace'
+    )}/${collectionType}/${contentId}/learner/${userId}?${queryParams}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
@@ -184,11 +196,13 @@ export default Ember.Object.extend({
     const courseId = params.courseId;
     const openSession = params.openSession;
 
-    const queryParams = (courseId) ?
-      `userUid=${userId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}` :
-      `userUid=${userId}&openSession=${openSession}`;
+    const queryParams = courseId
+      ? `userUid=${userId}&courseGooruId=${courseId}&unitGooruId=${unitId}&lessonGooruId=${lessonId}&openSession=${openSession}`
+      : `userUid=${userId}&openSession=${openSession}`;
 
-    const url = `${adapter.get('namespace')}/learner/${collectionType}/${contentId}/sessions?${queryParams}`;
+    const url = `${adapter.get(
+      'namespace'
+    )}/learner/${collectionType}/${contentId}/sessions?${queryParams}`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',

@@ -10,16 +10,14 @@ import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      * Set Category
      */
-    setCategory: function (categoryValue) {
+    setCategory: function(categoryValue) {
       this.set('editCategory', categoryValue);
     }
   },
@@ -28,7 +26,6 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['content', 'gru-category'],
-
 
   // -------------------------------------------------------------------------
   // Events
@@ -64,5 +61,4 @@ export default Ember.Component.extend({
    * @type {String} Initial category value
    */
   srcCategory: null
-
 });

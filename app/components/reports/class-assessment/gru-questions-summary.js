@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { GRADING_SCALE } from 'gooru-web/config/config';
-import {roundFloat} from 'gooru-web/utils/math';
+import { roundFloat } from 'gooru-web/utils/math';
 
 /**
  * Questions summary component
@@ -15,7 +15,6 @@ import {roundFloat} from 'gooru-web/utils/math';
  */
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -25,40 +24,40 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * @function actions:selectQuestion
      * @param {Number} questionId
      */
-    selectQuestion: function (questionId) {
+    selectQuestion: function(questionId) {
       this.get('onSelectQuestion')(questionId);
     },
 
     /**
      * @function actions:toggleView
      */
-    toggleView: function () {
+    toggleView: function() {
       var newExpandedValue = !this.get('isExpanded');
       this.get('onToggleView')(newExpandedValue);
     }
-
   },
 
   // -------------------------------------------------------------------------
   // Events
 
-  didInsertElement: function () {
-    const delay = 600;  // milliseconds
+  didInsertElement: function() {
+    const delay = 600; // milliseconds
     var timer = null;
 
     // Get the component dimensions from the css
     Ember.run.scheduleOnce('afterRender', this, 'updateWidth');
 
-    $(window).resize(function () {
-      clearTimeout(timer);
-      // The resize callback won't be processed until the resizing has stopped
-      timer = setTimeout(this.updateWidth.bind(this), delay);
-    }.bind(this));
+    $(window).resize(
+      function() {
+        clearTimeout(timer);
+        // The resize callback won't be processed until the resizing has stopped
+        timer = setTimeout(this.updateWidth.bind(this), delay);
+      }.bind(this)
+    );
   },
 
   // -------------------------------------------------------------------------
@@ -67,7 +66,7 @@ export default Ember.Component.extend({
   /**
    * @prop { Number } visibleColumns - Number of columns of charts visible
    */
-  allColumns: Ember.computed('data', 'itemsPerColumn', function () {
+  allColumns: Ember.computed('data', 'itemsPerColumn', function() {
     return Math.ceil(this.get('data').length / this.get('itemsPerColumn'));
   }),
 
@@ -102,17 +101,17 @@ export default Ember.Component.extend({
    * @prop { Object[] } processedData - Transform the data objects in 'data' into objects that can be consumed
    * by the template
    */
-  processedData: Ember.computed('data', 'visibleColumns', function () {
+  processedData: Ember.computed('data', 'visibleColumns', function() {
     const data = this.get('data');
     const dataLen = data.length;
-    const visibleIndex = this.get('visibleColumns') * this.get('itemsPerColumn');
+    const visibleIndex =
+      this.get('visibleColumns') * this.get('itemsPerColumn');
     const correctColor = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR;
     const failColor = GRADING_SCALE[0].COLOR;
 
     var processedData = [];
 
     for (let i = 0; i < dataLen; i++) {
-
       if (i < visibleIndex) {
         // Process only the data that will be seen; otherwise, there's no need to process the data
         let dataObj = data[i];
@@ -139,18 +138,22 @@ export default Ember.Component.extend({
     return processedData;
   }),
 
-  showMore: Ember.computed('width', function () {
-    return Math.floor(this.get('width') / this.get('itemMinWidth')) < this.get('allColumns');
+  showMore: Ember.computed('width', function() {
+    return (
+      Math.floor(this.get('width') / this.get('itemMinWidth')) <
+      this.get('allColumns')
+    );
   }),
 
   /**
    * @prop { Number } visibleColumns - Number of columns of charts visible
    */
-  visibleColumns: Ember.computed('width', 'isExpanded', function () {
+  visibleColumns: Ember.computed('width', 'isExpanded', function() {
     // If expanded, all columns should be visible; otherwise,
     // restrict the visible columns to only those allowed by the component width
-    return this.get('isExpanded') ? this.get('allColumns') :
-      (Math.floor(this.get('width') / this.get('itemMinWidth')) || 1);
+    return this.get('isExpanded')
+      ? this.get('allColumns')
+      : Math.floor(this.get('width') / this.get('itemMinWidth')) || 1;
   }),
 
   /**
@@ -159,20 +162,18 @@ export default Ember.Component.extend({
    */
   width: 0,
 
-
   // -------------------------------------------------------------------------
   // Methods
 
   /**
    * Update the width value of the component per the css width value
    */
-  updateWidth: function () {
+  updateWidth: function() {
     const component = this;
     const $element = Ember.$(component.element);
     const width = $element.css('width');
-    if(width) {
+    if (width) {
       this.set('width', parseInt(width.split('px')[0]));
     }
   }
-
 });

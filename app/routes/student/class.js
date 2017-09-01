@@ -3,7 +3,6 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import { NU_COURSE_VERSION } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
-
   queryParams: {
     refresh: {
       refreshModel: true
@@ -45,7 +44,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
      * Triggered when a class menu item is selected
      * @param {string} item
      */
-    selectMenuItem: function (item) {
+    selectMenuItem: function(item) {
       const route = this;
       const controller = route.get('controller');
       const currentItem = controller.get('menuItem');
@@ -59,13 +58,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         };
 
         if (item === 'performance') {
-          route.transitionTo('student.class.performance',queryParams);
+          route.transitionTo('student.class.performance', queryParams);
         } else if (item === 'course-map') {
           route.transitionTo('student.class.course-map');
         } else if (item === 'class-activities') {
           route.transitionTo('student.class.class-activities');
-        }
-        else {
+        } else {
           route.transitionTo('student.class');
         }
       }
@@ -80,32 +78,48 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model: function(params) {
     const route = this;
-    const myId = route.get("session.userId");
+    const myId = route.get('session.userId');
 
     //Steps for Take a Tour functionality
     let tourSteps = Ember.A([
       {
         title: route.get('i18n').t('gru-take-tour.student-class.stepOne.title'),
-        description: route.get('i18n').t('gru-take-tour.student-class.stepOne.description')
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepOne.description')
       },
       {
         elementSelector: '.gru-class-navigation .nav-tabs .class-activities',
         title: route.get('i18n').t('gru-take-tour.student-class.stepTwo.title'),
-        description: route.get('i18n').t('gru-take-tour.student-class.stepTwo.description')
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepTwo.description')
       },
       {
         elementSelector: '.gru-class-navigation .nav-tabs .course-map',
-        title: route.get('i18n').t('gru-take-tour.student-class.stepThree.title'),
-        description: route.get('i18n').t('gru-take-tour.student-class.stepThree.description')
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepThree.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepThree.description')
       },
       {
         elementSelector: '.gru-class-navigation .nav-tabs .performance',
-        title: route.get('i18n').t('gru-take-tour.student-class.stepFour.title'),
-        description: route.get('i18n').t('gru-take-tour.student-class.stepFour.description')
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepFour.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepFour.description')
       },
       {
-        title: route.get('i18n').t('gru-take-tour.student-class.stepFive.title'),
-        description: route.get('i18n').t('gru-take-tour.student-class.stepFive.description')
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepFive.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepFive.description')
       }
     ]);
 

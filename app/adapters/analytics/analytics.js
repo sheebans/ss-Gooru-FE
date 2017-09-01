@@ -1,11 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus-insights/v2',
-
 
   queryRecord: function(query) {
     const namespace = this.get('namespace');
@@ -41,8 +39,7 @@ export default Ember.Object.extend({
 
   defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

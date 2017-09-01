@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import PerformanceSummary from './performance-summary';
-import {roundFloat} from 'gooru-web/utils/math';
+import { roundFloat } from 'gooru-web/utils/math';
 
 /**
  * Class performance summary model
@@ -8,7 +8,6 @@ import {roundFloat} from 'gooru-web/utils/math';
  * @typedef {Object} ClassPerformanceSummary
  */
 export default PerformanceSummary.extend({
-
   /**
    * @property {String} classId
    */
@@ -27,10 +26,10 @@ export default PerformanceSummary.extend({
   /**
    * @property {number} completed percentage
    */
-  completedPercentage : Ember.computed("totalCompleted", "total", function(){
-    const total = this.get("total");
-    return total ? roundFloat(this.get("totalCompleted") / this.get("total") * 100) : 0;
+  completedPercentage: Ember.computed('totalCompleted', 'total', function() {
+    const total = this.get('total');
+    return total
+      ? roundFloat(this.get('totalCompleted') / this.get('total') * 100)
+      : 0;
   })
-
-
 });

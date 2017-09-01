@@ -6,7 +6,6 @@ import Ember from 'ember';
  * @typedef {Object} LessonAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service(),
 
   namespace: '/api/nucleus/v1/courses',
@@ -19,7 +18,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Ember.Promise|String} ID of the newly created lesson
    */
-  createLesson: function (params) {
+  createLesson: function(params) {
     const courseId = params.courseId;
     const unitId = params.unitId;
     const namespace = this.get('namespace');
@@ -33,14 +32,16 @@ export default Ember.Object.extend({
       data: JSON.stringify(params.lesson)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData, textStatus, request) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function(responseData, textStatus, request) {
           var lessonId = request.getResponseHeader('location');
           resolve(lessonId);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -50,7 +51,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Ember.Promise|String}
    */
-  updateLesson: function (params) {
+  updateLesson: function(params) {
     const courseId = params.courseId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
@@ -65,13 +66,15 @@ export default Ember.Object.extend({
       data: JSON.stringify(params.lesson)
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function () {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function() {
           resolve('');
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -81,7 +84,7 @@ export default Ember.Object.extend({
    * @param params - data to send in the request
    * @returns {Promise|Object}
    */
-  getLessonById: function (params) {
+  getLessonById: function(params) {
     const courseId = params.courseId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
@@ -93,13 +96,15 @@ export default Ember.Object.extend({
       headers: this.defineHeaders()
     };
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      Ember.$.ajax(url, options)
-        .then(function (responseData) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function(responseData) {
           resolve(responseData);
-        }, function (error) {
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -225,10 +230,9 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
-  defineHeaders: function () {
+  defineHeaders: function() {
     return {
-      'Authorization': 'Token ' + this.get('session.token-api3')
+      Authorization: `Token ${this.get('session.token-api3')}`
     };
   }
-
 });

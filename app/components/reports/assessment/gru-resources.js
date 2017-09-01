@@ -2,7 +2,6 @@ import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -15,7 +14,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // Attributes
 
   classNames: ['reports', 'assessment', 'gru-resources'],
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -32,6 +30,4 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @property {boolean}
    */
   showReactionBar: true
-
 });
-

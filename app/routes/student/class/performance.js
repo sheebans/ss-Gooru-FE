@@ -1,33 +1,34 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   // -------------------------------------------------------------------------
 
-  actions:{
+  actions: {
     /**
      * View Analytics Report
      * Triggered by gru-performance-table
      */
-    viewReport:function(assessmentId){
+    viewReport: function(assessmentId) {
       const route = this;
       let controller = route.get('controller');
       const courseId = controller.get('course.id');
       const unitId = controller.get('unitId');
       const lessonId = controller.get('lessonId');
       const userId = controller.get('profile.id');
-      const classId =  controller.get('classId');
+      const classId = controller.get('classId');
       const collectionType = controller.get('collectionType');
-      route.transitionTo('reports.student-collection-analytics', { queryParams: {
-        classId,
-        courseId,
-        unitId,
-        lessonId,
-        collectionId: assessmentId,
-        userId,
-        type: collectionType,
-        role: 'student'
-      }});
+      route.transitionTo('reports.student-collection-analytics', {
+        queryParams: {
+          classId,
+          courseId,
+          unitId,
+          lessonId,
+          collectionId: assessmentId,
+          userId,
+          type: collectionType,
+          role: 'student'
+        }
+      });
     }
   },
 
@@ -51,7 +52,7 @@ export default Ember.Route.extend({
    * @param controller
    * @param model
    */
-  setupController: function(controller,model) {
+  setupController: function(controller, model) {
     controller.set('course', model.course);
     controller.set('unitId', model.unitId);
     controller.set('lessonId', model.lessonId);
@@ -59,7 +60,7 @@ export default Ember.Route.extend({
     controller.loadData();
   },
 
-  deactivate: function () {
+  deactivate: function() {
     this.get('controller').resetValues();
   }
 });

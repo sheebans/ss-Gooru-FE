@@ -1,11 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['student','gru-performance-courses'],
+  classNames: ['student', 'gru-performance-courses'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -14,7 +13,7 @@ export default Ember.Component.extend({
      * Select the course
      * @param courseId
      */
-    selectCourse: function (courseId) {
+    selectCourse: function(courseId) {
       this.sendAction('onSelectCourse', courseId);
     }
   },
@@ -32,7 +31,7 @@ export default Ember.Component.extend({
   /**
    *  * @property {[Course]} courses
    */
-  courses:null,
+  courses: null,
 
   /**
    * @property {String} selected course id
@@ -43,11 +42,14 @@ export default Ember.Component.extend({
   /**
    * Filter course list by course name
    */
-  searchCourse:function(){
+  searchCourse: function() {
     var searchTerm = $('.search-box').val().toLowerCase();
 
-    $('.gru-performance-courses .item').each(function(){
-      if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
+    $('.gru-performance-courses .item').each(function() {
+      if (
+        $(this).filter(`[data-search-term *= ${searchTerm}]`).length > 0 ||
+        searchTerm.length < 1
+      ) {
         $(this).show();
       } else {
         $(this).hide();
@@ -57,12 +59,12 @@ export default Ember.Component.extend({
   /**
    * Set data search terms
    */
-  setDataSearchTerms: function(){
+  setDataSearchTerms: function() {
     const component = this;
-    $('.gru-performance-courses .item').each(function(){
+    $('.gru-performance-courses .item').each(function() {
       $(this).attr('data-search-term', $(this).text().toLowerCase());
     });
-    $('.search-box').on('keyup', function(){
+    $('.search-box').on('keyup', function() {
       component.searchCourse();
     });
   }

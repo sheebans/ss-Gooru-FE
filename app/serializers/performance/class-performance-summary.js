@@ -7,7 +7,6 @@ import ClassPerformanceSummary from 'gooru-web/models/performance/class-performa
  * @typedef {Object} ClassPerformanceSummary
  */
 export default Ember.Object.extend({
-
   /**
    * Normalize an array of ClassPerformanceSummary
    *
@@ -18,7 +17,9 @@ export default Ember.Object.extend({
     const serializer = this;
     if (payload && Ember.isArray(payload.usageData)) {
       return payload.usageData.map(function(classPerformanceSummary) {
-        return serializer.normalizeClassPerformanceSummary(classPerformanceSummary);
+        return serializer.normalizeClassPerformanceSummary(
+          classPerformanceSummary
+        );
       });
     } else {
       return [];
@@ -30,15 +31,16 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {Goal}
    */
-  normalizeClassPerformanceSummary: function (data) {
+  normalizeClassPerformanceSummary: function(data) {
     return ClassPerformanceSummary.create({
       id: data.classId,
       classId: data.classId,
       timeSpent: data.timeSpent,
       score: data.scoreInPercentage,
       totalCompleted: data.completedCount,
-      total: data.totalCount || data.completedCount /* using completedCount when no total count found, tmp fix */
+      total:
+        data.totalCount ||
+        data.completedCount /* using completedCount when no total count found, tmp fix */
     });
   }
-
 });

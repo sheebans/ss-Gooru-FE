@@ -9,7 +9,6 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -19,7 +18,8 @@ export default Ember.Component.extend({
     'visible:visibility_on:visibility_off',
     'item.isAssessment:assessment:collection',
     'item.visible:item-enabled:item-disabled',
-    'item.isOnAir:on-air'],
+    'item.isOnAir:on-air'
+  ],
 
   tagName: 'li',
 
@@ -27,25 +27,24 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * @function changeVisibility
      */
-    changeVisibility:function (classActivity){
+    changeVisibility: function(classActivity) {
       this.sendAction('onChangeVisibility', classActivity);
     },
 
     /**
      * @function goLive
      */
-    goLive: function (collectionId) {
+    goLive: function(collectionId) {
       this.sendAction('onGoLive', collectionId);
     },
 
     /**
      * @function removeClassActivity
      */
-    removeClassActivity: function (classActivity) {
+    removeClassActivity: function(classActivity) {
       this.sendAction('onRemoveClassActivity', classActivity);
     }
   },
@@ -73,7 +72,9 @@ export default Ember.Component.extend({
   /**
    * @property {CollectionPerformanceSummary}
    */
-  collectionPerformanceSummary: Ember.computed.alias('classActivity.activityPerformanceSummary.collectionPerformanceSummary'),
+  collectionPerformanceSummary: Ember.computed.alias(
+    'classActivity.activityPerformanceSummary.collectionPerformanceSummary'
+  ),
 
   /**
    * @property {boolean}
@@ -89,5 +90,4 @@ export default Ember.Component.extend({
    * @property {string} changeVisibility action name
    */
   onChangeVisibility: 'changeVisibility'
-
 });

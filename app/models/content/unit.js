@@ -19,7 +19,6 @@ const Validations = buildValidations({
  * @typedef {Object} Content/Unit
  */
 export default Ember.Object.extend(Validations, {
-
   /**
    * @property {String} id - Gooru id for the unit
    */
@@ -68,7 +67,7 @@ export default Ember.Object.extend(Validations, {
   /**
    * @property {sortedLessonResults[]} Lessons sorted by sequence
    */
-  sortedLessonResults: Ember.computed('children.[]', function(){
+  sortedLessonResults: Ember.computed('children.[]', function() {
     return this.get('children').sortBy('sequence');
   }),
 
@@ -79,7 +78,6 @@ export default Ember.Object.extend(Validations, {
    * @return {Content/Unit}
    */
   copy: function() {
-
     var properties = [];
     var enumerableKeys = Object.keys(this);
 
@@ -88,7 +86,12 @@ export default Ember.Object.extend(Validations, {
       let value = Ember.typeOf(this.get(key));
 
       // Copy null values as well to avoid triggering the validation on empty input fields
-      if (value === 'string' || value === 'number' || value === 'boolean' || value === 'null') {
+      if (
+        value === 'string' ||
+        value === 'number' ||
+        value === 'boolean' ||
+        value === 'null'
+      ) {
         properties.push(key);
       }
     }
@@ -96,7 +99,10 @@ export default Ember.Object.extend(Validations, {
     // Copy the unit data
     properties = this.getProperties(properties);
     properties.taxonomy = Ember.A(this.get('taxonomy').slice(0));
-    return this.get('constructor').create(Ember.getOwner(this).ownerInjection(), properties);
+    return this.get('constructor').create(
+      Ember.getOwner(this).ownerInjection(),
+      properties
+    );
   },
 
   /**
@@ -120,7 +126,8 @@ export default Ember.Object.extend(Validations, {
    * @return {Number}
    */
   getChildLessonIndex: function(lesson) {
-    return this.get("children").mapBy("id").indexOf(lesson.get("id"));
+    return this.get('sortedLessonResults')
+      .mapBy('id')
+      .indexOf(lesson.get('id'));
   }
-
 });

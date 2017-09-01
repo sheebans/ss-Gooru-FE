@@ -28,15 +28,18 @@ export default Ember.Component.extend({
   classNames: ['content', 'modals', 'gru-delete-resource'],
   // -------------------------------------------------------------------------
   // Events
-  init(){
+  init() {
     this._super(...arguments);
     // 'validator' should never be set as a param except for testing
     var validator = this.get('validator');
     if (!validator) {
-      this.set('validator',Ember.Object.create({
-        check1:false,
-        check2:false
-      }));
+      this.set(
+        'validator',
+        Ember.Object.create({
+          check1: false,
+          check2: false
+        })
+      );
     } else {
       this.set('validator', validator);
     }
@@ -45,19 +48,19 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * Delete Content
      */
-    deleteContent: function (model) {
+    deleteContent: function(model) {
       let component = this;
 
       component.set('isLoading', true);
 
       // This deleteMethod will be a wrapper around the actual delete method that is particular to
       // each question type.
-      model.deleteMethod()
-        .then(function () {
+      model
+        .deleteMethod()
+        .then(function() {
           if (model.callback) {
             model.callback.success();
           }
@@ -65,12 +68,20 @@ export default Ember.Component.extend({
           component.triggerAction({ action: 'closeModal' });
 
           if (model.redirect) {
-            component.get('router').transitionTo(model.redirect.route, model.redirect.params.id);
+            component
+              .get('router')
+              .transitionTo(model.redirect.route, model.redirect.params.id);
           }
         })
-        .catch(function (error) {
-          var message = component.get('i18n').t('content.modals.delete-content.delete-error',
-            { type: component.get('i18n').t(`common.'${model.type}`).string.toLowerCase() }).string;
+        .catch(function(error) {
+          var message = component
+            .get('i18n')
+            .t('content.modals.delete-content.delete-error', {
+              type: component
+                .get('i18n')
+                .t(`common.'${model.type}`)
+                .string.toLowerCase()
+            }).string;
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });
@@ -105,8 +116,9 @@ export default Ember.Component.extend({
   /**
    * Indicate if delete button is disabled
    */
-  isDisabled: Ember.computed('validator.{check1,check2}',function(){
-    var areChecked = this.get('validator.check1') && this.get('validator.check2');
-    return !(areChecked);
+  isDisabled: Ember.computed('validator.{check1,check2}', function() {
+    var areChecked =
+      this.get('validator.check1') && this.get('validator.check2');
+    return !areChecked;
   })
 });

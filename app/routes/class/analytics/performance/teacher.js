@@ -12,7 +12,6 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -20,20 +19,18 @@ export default Ember.Route.extend({
      * Triggered when the breadcrumb item is selected
      * @param {*} item
      */
-    selectBreadcrumbItem: function(item){
+    selectBreadcrumbItem: function(item) {
       const type = item.get('value').type;
       const itemId = item.get('value').id;
       const breadcrumbLink = `class.analytics.performance.teacher.${type}`;
 
       if (type === 'course') {
         this.transitionTo(breadcrumbLink);
-      }
-      else if (type === 'unit') {
+      } else if (type === 'unit') {
         this.transitionTo(breadcrumbLink, itemId);
-      }
-      else {
-        const unitId = this.get("controller.unit").get('id');
-        this.transitionTo(breadcrumbLink, unitId , itemId);
+      } else {
+        const unitId = this.get('controller.unit').get('id');
+        this.transitionTo(breadcrumbLink, unitId, itemId);
       }
     }
   },
@@ -46,8 +43,8 @@ export default Ember.Route.extend({
    * @param controller
    */
   setupController: function(controller) {
-    if (controller.get("class.hasCourse")){
-      controller.updateBreadcrumb(controller.get("course"), "course");
+    if (controller.get('class.hasCourse')) {
+      controller.updateBreadcrumb(controller.get('course'), 'course');
     }
     controller.get('classController').selectMenuItem('analytics.performance');
   },
@@ -55,7 +52,7 @@ export default Ember.Route.extend({
   /**
    * Cleanse the controller values
    */
-  deactivate: function(){
-    this.get("controller").resetValues();
+  deactivate: function() {
+    this.get('controller').resetValues();
   }
 });

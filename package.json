@@ -14,7 +14,15 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": ["eslint", "git add"]
+    "*.js": [
+      "node_modules/.bin/prettier --single-quote --write",
+      "node_modules/.bin/eslint --fix",
+      "git add"
+    ],
+    "*.scss": [
+      "node_modules/.bin/prettier --write",
+      "git add"
+    ]
   },
   "repository": "",
   "engines": {
@@ -46,7 +54,7 @@
     "ember-cli-release": "^0.2.9",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-test-loader": "^1.1.0",
-    "ember-cli-uglify": "^1.2.0",
+    "ember-cli-uglify": "^2.0.0-beta.1",
     "ember-composable-helpers": "1.1.2",
     "ember-cp-validations": "3.2.0",
     "ember-exam": "0.6.0",
@@ -56,12 +64,14 @@
     "ember-simple-auth": "^1.1.0",
     "ember-truth-helpers": "1.2.0",
     "emberfire": "2.0.5",
+    "eslint": "^4.3.0",
     "grunt": "^0.4.5",
-    "grunt-eslint": "^19.0.0",
+    "grunt-eslint": "^20.0.0",
     "grunt-stubby": "0.2.1",
     "grunt-svgstore": "^1.0.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.0.1"
+    "lint-staged": "^4.0.1",
+    "prettier": "^1.5.3"
   },
   "dependencies": {
     "broccoli-sass": "^0.7.0",
@@ -80,6 +90,6 @@
     "firebase": "^3.6.2",
     "grunt-exec": "^1.0.0",
     "loader.js": "^4.0.11",
-    "quizzes-addon": "1.0.0"
+    "quizzes-addon": "0.13.0"
   }
 }

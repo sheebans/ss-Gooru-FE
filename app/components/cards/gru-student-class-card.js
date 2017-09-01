@@ -24,6 +24,25 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} Show or not the current location
    */
-  showCurrentLocation: Ember.computed.and('class.currentLocation','class.currentLocation.course','class.currentLocation.unit','class.currentLocation.lesson','class.currentLocation.collection')
+  showCurrentLocation: Ember.computed.and(
+    'class.currentLocation',
+    'class.currentLocation.course',
+    'class.currentLocation.unit',
+    'class.currentLocation.lesson',
+    'class.currentLocation.collection'
+  ),
 
+  /**
+   * @property {Number} total
+   * Computed property for performance total to add a default value
+   */
+  total: Ember.computed.alias('class.performanceSummary.total'),
+
+  /**
+   * @property {Number} totalCompleted
+   * Computed property for performance total completed to add a default value
+   */
+  totalCompleted: Ember.computed.alias(
+    'class.performanceSummary.totalCompleted'
+  )
 });

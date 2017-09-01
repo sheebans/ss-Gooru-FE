@@ -1,12 +1,11 @@
 import Ember from 'ember';
 import Answer from 'gooru-web/models/content/answer';
-import {QUESTION_CONFIG, QUESTION_TYPES} from 'gooru-web/config/question';
+import { QUESTION_CONFIG, QUESTION_TYPES } from 'gooru-web/config/question';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
-  classNames: ['content', 'questions','answers', 'gru-hot-text-highlight'],
+  classNames: ['content', 'questions', 'answers', 'gru-hot-text-highlight'],
 
   // -------------------------------------------------------------------------
   // Events
@@ -22,7 +21,7 @@ export default Ember.Component.extend({
       component.set('answers.firstObject.highlightType', type);
       Ember.run(function() {
         var $textarea = component.$().find('.gru-textarea textarea');
-        $textarea.focus().val($textarea.val() + " ").trigger('blur'); // Forces the validation of the textarea
+        $textarea.focus().val(`${$textarea.val()} `).trigger('blur'); // Forces the validation of the textarea
       });
     }
   },
@@ -42,16 +41,22 @@ export default Ember.Component.extend({
   /**
    * Indicates if the answer is for word selections
    */
-  isHotTextHighlightWord: Ember.computed('answers.firstObject.highlightType', function() {
-    return this.get('answers.firstObject.highlightType') === 'word';
-  }),
+  isHotTextHighlightWord: Ember.computed(
+    'answers.firstObject.highlightType',
+    function() {
+      return this.get('answers.firstObject.highlightType') === 'word';
+    }
+  ),
 
   /**
    * Indicates if the answer is for sentence selections
    */
-  isHotTextHighlightSentence: Ember.computed('answers.firstObject.highlightType', function() {
-    return this.get('answers.firstObject.highlightType') === 'sentence';
-  }),
+  isHotTextHighlightSentence: Ember.computed(
+    'answers.firstObject.highlightType',
+    function() {
+      return this.get('answers.firstObject.highlightType') === 'sentence';
+    }
+  ),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -60,14 +65,16 @@ export default Ember.Component.extend({
     if (component.get('editMode')) {
       let answers = component.get('answers');
       if (answers.length === 0) {
-        answers.pushObject(Answer.create(Ember.getOwner(component).ownerInjection(), {
-          isCorrect: true,
-          type: 'text',
-          text: '',
-          highlightType: QUESTION_CONFIG[QUESTION_TYPES.hotTextHighlight].defaultType
-        }));
+        answers.pushObject(
+          Answer.create(Ember.getOwner(component).ownerInjection(), {
+            isCorrect: true,
+            type: 'text',
+            text: '',
+            highlightType:
+              QUESTION_CONFIG[QUESTION_TYPES.hotTextHighlight].defaultType
+          })
+        );
       }
     }
   }
-
 });

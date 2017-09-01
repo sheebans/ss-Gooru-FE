@@ -34,7 +34,9 @@ export default Ember.Component.extend({
    * @property {boolean} Indicates if the class path
    */
   classPath: Ember.computed('profile', function() {
-    return (this.get('profile').get('role') === 'student') ? 'student.class' : 'class.overview';
+    return this.get('profile').get('role') === 'student'
+      ? 'student.class'
+      : 'class.overview';
   }),
 
   /**
@@ -42,7 +44,9 @@ export default Ember.Component.extend({
    */
   collaboratorsCount: Ember.computed('class.collaborators', function() {
     const collaborators = this.get('class.collaborators');
-    return (collaborators && collaborators.length > 1) ? collaborators.length - 1 : 0;
+    return collaborators && collaborators.length > 1
+      ? collaborators.length - 1
+      : 0;
   }),
 
   /**
@@ -50,8 +54,10 @@ export default Ember.Component.extend({
    */
   studentCount: Ember.computed('class.id', 'classStudentCount', function() {
     let classStudentCount = this.get('classStudentCount');
-    return (classStudentCount && Ember.keys(classStudentCount).length) ?
-        (classStudentCount[this.get('class.id')] ? classStudentCount[this.get('class.id')] : 0) :
-        0;
+    return classStudentCount && Ember.keys(classStudentCount).length
+      ? classStudentCount[this.get('class.id')]
+        ? classStudentCount[this.get('class.id')]
+        : 0
+      : 0;
   })
 });

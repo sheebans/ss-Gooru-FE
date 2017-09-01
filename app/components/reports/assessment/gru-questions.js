@@ -2,20 +2,26 @@ import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      * Selects Performance Option or not
      * @function actions:selectPerformanceOption
      */
-    selectPerformanceOption:function(showPerformance) {
+    selectPerformanceOption: function(showPerformance) {
       if (!this.get('isAnswerKeyHidden')) {
         this.set('showPerformance', showPerformance);
       }
+    },
+
+    /**
+     * View Open Ended report
+     * @param questionId {String}
+     */
+    viewOEReport: function(questionId) {
+      this.sendAction('onViewOEReport', questionId);
     }
   },
   // -------------------------------------------------------------------------
@@ -31,7 +37,10 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   classNames: ['reports', 'assessment', 'gru-questions'],
 
-  classNameBindings: ['isAnswerKeyHidden:key-hidden', 'showPerformance:performance-view'],
+  classNameBindings: [
+    'isAnswerKeyHidden:key-hidden',
+    'showPerformance:performance-view'
+  ],
 
   // -------------------------------------------------------------------------
   // Properties
@@ -65,7 +74,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Indicates if the view is open ended
    * @property {boolean}
    */
-  isOpenEnded: Ember.computed("viewMode", function(){
-    return this.get('viewMode')==='open-ended';
+  isOpenEnded: Ember.computed('viewMode', function() {
+    return this.get('viewMode') === 'open-ended';
   })
 });

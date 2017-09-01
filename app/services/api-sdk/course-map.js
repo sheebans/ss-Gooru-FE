@@ -6,7 +6,6 @@ import CourseMapAdapter from 'gooru-web/adapters/map/course-map';
  * @typedef {Object} CourseMapService
  */
 export default Ember.Service.extend({
-
   /**
    * @property {CourseMapSerializer} courseMapSerializer
    */
@@ -17,10 +16,16 @@ export default Ember.Service.extend({
    */
   courseMapAdapter: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('courseMapSerializer', CourseMapSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('courseMapAdapter', CourseMapAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'courseMapSerializer',
+      CourseMapSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'courseMapAdapter',
+      CourseMapAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -30,14 +35,17 @@ export default Ember.Service.extend({
    * @param {string} lessonId - lesson ID to search for
    * @returns {Promise}
    */
-  getLessonInfo: function (classId, courseId, unitId, lessonId){
+  getLessonInfo: function(classId, courseId, unitId, lessonId) {
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('courseMapAdapter').getLessonInfo(classId, courseId, unitId, lessonId)
+      service
+        .get('courseMapAdapter')
+        .getLessonInfo(classId, courseId, unitId, lessonId)
         .then(
-          response => resolve(
-            service.get('courseMapSerializer').normalizeLessonInfo(response)
-          ),
+          response =>
+            resolve(
+              service.get('courseMapSerializer').normalizeLessonInfo(response)
+            ),
           reject
         );
     });
@@ -49,8 +57,7 @@ export default Ember.Service.extend({
    * @param {MapSuggestion} suggestion - the suggestion. The suggested path
    * @returns {Ember.RSVP.Promise}
    */
-  createNewPath: function (context, suggestion) {
+  createNewPath: function(context, suggestion) {
     return this.get('courseMapAdapter').createNewPath(context, suggestion);
   }
-
 });

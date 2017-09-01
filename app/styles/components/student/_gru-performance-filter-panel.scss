@@ -67,15 +67,15 @@
         height: 190px;
         overflow-x: hidden;
         overflow-y: auto;
-        .activity-option{
+        .activity-option {
           @include flexbox;
           @include align-items(flex-end);
-          cursor:pointer;
-          span{
+          cursor: pointer;
+          span {
             margin: 0 0 0 10px;
           }
         }
-        .activity-option.active{
+        .activity-option.active {
           color: $white;
         }
       }

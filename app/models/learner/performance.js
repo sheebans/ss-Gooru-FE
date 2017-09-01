@@ -4,7 +4,6 @@ import Ember from 'ember';
  * Learner performance model
  */
 const LearnerPerformanceModel = Ember.Object.extend({
-
   /**
    *  @property {Number} attempts - The number of attempts
    */
@@ -43,7 +42,7 @@ const LearnerPerformanceModel = Ember.Object.extend({
   /**
    * @property {Boolean} isCompleted - Indicate if the completed count is the same total count
    */
-  isCompleted:Ember.computed('totalCount','completedCount',function(){
+  isCompleted: Ember.computed('totalCount', 'completedCount', function() {
     return this.get('totalCount') === this.get('completedCount');
   }),
 
@@ -55,12 +54,12 @@ const LearnerPerformanceModel = Ember.Object.extend({
   /**
    * @property {Number} reaction
    */
-  reaction:null,
+  reaction: null,
 
   /**
    * @property {Number} score - score in percentage
    */
-  score:Ember.computed.alias('scoreInPercentage'),
+  score: Ember.computed.alias('scoreInPercentage'),
 
   /**
    * @property {Number} scoreInPercentage - score in percentage

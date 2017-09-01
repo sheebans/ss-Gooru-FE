@@ -3,36 +3,43 @@ import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 import Course from 'gooru-web/models/content/course';
 
-moduleForComponent('content/courses/gru-course-play', 'Integration | Component | content/courses/gru course play', {
-  integration: true
-});
+moduleForComponent(
+  'content/courses/gru-course-play',
+  'Integration | Component | content/courses/gru course play',
+  {
+    integration: true
+  }
+);
 
-test('layout', function (assert) {
-
+test('layout', function(assert) {
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Course Title'
   });
 
   this.set('course', course);
   this.set('isOwner', true);
-  this.render(hbs`{{content/courses/gru-course-play course=course isOwner=isOwner}}`);
+  this.render(
+    hbs`{{content/courses/gru-course-play course=course isOwner=isOwner}}`
+  );
 
-  var $container = this.$("article.content.courses.gru-course-play");
-  assert.ok($container.length, "Component");
+  var $container = this.$('article.content.courses.gru-course-play');
+  assert.ok($container.length, 'Component');
 
-  assert.equal($container.find('> section').length, 2, "Number of sections");
-  assert.ok($container.find('> section#information').length, "Information section");
-  assert.ok($container.find('> section#content').length, "Content section");
+  assert.equal($container.find('> section').length, 2, 'Number of sections');
+  assert.ok(
+    $container.find('> section#information').length,
+    'Information section'
+  );
+  assert.ok($container.find('> section#content').length, 'Content section');
 });
 
-test('it renders the course information in the side panel', function (assert) {
-
+test('it renders the course information in the side panel', function(assert) {
   var course = Course.create(Ember.getOwner(this).ownerInjection(), {
     license: 'License text',
     useCase: 'Use case text'
   });
 
-  var remixedUsers= [
+  var remixedUsers = [
     {
       id: 'remix-1',
       firstName: 'Russell',
@@ -41,7 +48,7 @@ test('it renders the course information in the side panel', function (assert) {
     }
   ];
 
-  var createdUsers= [
+  var createdUsers = [
     {
       id: 'owner-1',
       firstName: 'Shawn',
@@ -53,12 +60,14 @@ test('it renders the course information in the side panel', function (assert) {
   this.set('course', course);
   this.set('remixedUsers', remixedUsers);
   this.set('createdUsers', createdUsers);
-  this.render(hbs`{{content/courses/gru-course-play course=course remixedUsers=remixedUsers createdUsers=createdUsers}}`);
+  this.render(
+    hbs`{{content/courses/gru-course-play course=course remixedUsers=remixedUsers createdUsers=createdUsers}}`
+  );
 
-  var $container = this.$("article.content.courses.gru-course-play");
+  var $container = this.$('article.content.courses.gru-course-play');
 
   const $sidePanel = $container.find('#information .panel.aside > .panel-body');
-  assert.ok($sidePanel.length, "Side panel");
+  assert.ok($sidePanel.length, 'Side panel');
 
   const $rows = $sidePanel.find('> .row');
   assert.equal($rows.length, 2, 'Number of rows');
@@ -66,13 +75,13 @@ test('it renders the course information in the side panel', function (assert) {
   var $row = $rows.eq(0);
   assert.equal($row.find('> div').length, 3, 'Number of columns -first row');
 
-  $column = $row.find('> div:eq(0)');
+  let $column = $row.find('> div:eq(0)');
   assert.ok($column.hasClass('remixed-by'), 'Class 1 -column 2');
   assert.ok($column.hasClass('gru-user-icons'), 'Class 2 -column 2');
   assert.ok($column.find('> strong').length, 'Title -column 2');
   assert.ok($column.find('li.item.user').length, 1, 'Remixes');
 
-  var $column = $row.find('> div:eq(1)');
+  $column = $row.find('> div:eq(1)');
   assert.ok($column.hasClass('created-by'), 'Class 1 -column 1');
   assert.ok($column.hasClass('gru-user-icons'), 'Class 2 -column 1');
   assert.ok($column.find('> strong').length, 'Title -column 1');

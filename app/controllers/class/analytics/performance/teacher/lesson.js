@@ -20,7 +20,9 @@ export default Ember.Controller.extend({
   /**
    * @property {*} teacher performance controller
    */
-  teacherController: Ember.inject.controller('class.analytics.performance.teacher'),
+  teacherController: Ember.inject.controller(
+    'class.analytics.performance.teacher'
+  ),
 
   /**
    * @type CollectionService
@@ -32,12 +34,9 @@ export default Ember.Controller.extend({
    */
   performanceService: Ember.inject.service('api-sdk/performance'),
 
-
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
-
-  },
+  actions: {},
 
   // -------------------------------------------------------------------------
   // Events
@@ -49,7 +48,7 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class'),
+  class: Ember.computed.reads('classController.class'),
 
   /**
    * @property {User[]} class students
@@ -85,13 +84,17 @@ export default Ember.Controller.extend({
    * List of selected options from the data picker.
    * @property {Array}
    */
-  optionsCollectionsTeacher: Ember.computed.alias('teacherController.optionsCollectionsTeacher'),
+  optionsCollectionsTeacher: Ember.computed.alias(
+    'teacherController.optionsCollectionsTeacher'
+  ),
 
   /**
    * List of selected options from the data picker for mobile.
    * @property {Array}
    */
-  mobileOptionsCollectionsTeacher: Ember.computed.alias('teacherController.mobileOptionsCollectionsTeacher'),
+  mobileOptionsCollectionsTeacher: Ember.computed.alias(
+    'teacherController.mobileOptionsCollectionsTeacher'
+  ),
 
   /**
    * @property {Unit} unit
@@ -123,8 +126,7 @@ export default Ember.Controller.extend({
    * Indicates if the filters are visible
    * @property {boolean}
    */
-  showFilters: Ember.computed.alias("teacherController.showFilters"),
-
+  showFilters: Ember.computed.alias('teacherController.showFilters'),
 
   // -------------------------------------------------------------------------
   // Observers
@@ -132,11 +134,11 @@ export default Ember.Controller.extend({
   filterByObserver: Ember.observer('filterBy', function() {
     const controller = this;
 
-    if (controller.get("active")){
+    if (controller.get('active')) {
       controller.set('performanceDataMatrix', []);
-      controller.set("teacherController.performanceDataMatrix", []);
+      controller.set('teacherController.performanceDataMatrix', []);
       controller.set('collections', []);
-      controller.get("teacherController").restoreSelectedOptions(true);
+      controller.get('teacherController').restoreSelectedOptions(true);
       const filterBy = controller.get('filterBy');
       const classId = controller.get('class.id');
       const courseId = controller.get('class.courseId');
@@ -144,15 +146,31 @@ export default Ember.Controller.extend({
       const unitId = controller.get('unit.id');
       const lessonId = controller.get('lesson.id');
       const collections = controller.get('lesson.children');
-      controller.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseId, unitId, lessonId, members, {collectionType: filterBy})
+      controller
+        .get('performanceService')
+        .findClassPerformanceByUnitAndLesson(
+          classId,
+          courseId,
+          unitId,
+          lessonId,
+          members,
+          { collectionType: filterBy }
+        )
         .then(function(classPerformanceData) {
           const filteredCollections = collections.filter(function(collection) {
-            return (filterBy === 'both') || (collection.get('format') === filterBy);
+            return filterBy === 'both' || collection.get('format') === filterBy;
           });
           controller.set('collections', filteredCollections);
-          const performanceData = createDataMatrix(filteredCollections, classPerformanceData, 'lesson');
+          const performanceData = createDataMatrix(
+            filteredCollections,
+            classPerformanceData,
+            'lesson'
+          );
           controller.set('performanceDataMatrix', performanceData);
-          controller.set("teacherController.performanceDataMatrix", performanceData);
+          controller.set(
+            'teacherController.performanceDataMatrix',
+            performanceData
+          );
         });
     }
   })

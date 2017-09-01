@@ -6,7 +6,6 @@ import ClassAdapter from 'gooru-web/adapters/content/class';
  * @typedef {Object} ClassService
  */
 export default Ember.Service.extend({
-
   store: Ember.inject.service(),
 
   session: Ember.inject.service('session'),
@@ -15,11 +14,16 @@ export default Ember.Service.extend({
 
   classAdapter: null,
 
-
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('classSerializer', ClassSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('classAdapter', ClassAdapter.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'classSerializer',
+      ClassSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'classAdapter',
+      ClassAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -28,14 +32,17 @@ export default Ember.Service.extend({
    * @param classId The Class id to archive
    * @returns {Promise}
    */
-  archiveClass: function (classId) {
+  archiveClass: function(classId) {
     var service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').archiveClass(classId).then(function () {
-        resolve(classId);
-      }, function(error) {
-        reject(error);
-      });
+      service.get('classAdapter').archiveClass(classId).then(
+        function() {
+          resolve(classId);
+        },
+        function(error) {
+          reject(error);
+        }
+      );
     });
   },
 
@@ -48,16 +55,24 @@ export default Ember.Service.extend({
   createClass: function(classData) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedClassData = service.get('classSerializer').serializeCreateClass(classData);
-      service.get('classAdapter').createClass({
-        body: serializedClassData
-      }).then(function(responseData, textStatus, request) {
-        let classId = request.getResponseHeader('location');
-        classData.set('id', classId);
-        resolve(classData);
-      }, function(error) {
-        reject(error);
-      });
+      let serializedClassData = service
+        .get('classSerializer')
+        .serializeCreateClass(classData);
+      service
+        .get('classAdapter')
+        .createClass({
+          body: serializedClassData
+        })
+        .then(
+          function(responseData, textStatus, request) {
+            let classId = request.getResponseHeader('location');
+            classData.set('id', classId);
+            resolve(classData);
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -67,18 +82,26 @@ export default Ember.Service.extend({
    * @param classModel The Class model to update
    * @returns {Promise|Content/Class} Class model updated
    */
-  updateClass: function (classModel) {
+  updateClass: function(classModel) {
     var service = this;
-    var classData = service.get('classSerializer').serializeUpdateClass(classModel);
+    var classData = service
+      .get('classSerializer')
+      .serializeUpdateClass(classModel);
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').updateClass({
-        classId: classModel.get('id'),
-        'class': classData
-      }).then(function () {
-        resolve(classModel);
-      }, function(error) {
-        reject(error);
-      });
+      service
+        .get('classAdapter')
+        .updateClass({
+          classId: classModel.get('id'),
+          class: classData
+        })
+        .then(
+          function() {
+            resolve(classModel);
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -88,11 +111,10 @@ export default Ember.Service.extend({
    * @param classId The class id to delete
    * @returns {Promise}
    */
-  deleteClass: function (classId) {
+  deleteClass: function(classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').deleteClass(classId)
-        .then(resolve, reject);
+      service.get('classAdapter').deleteClass(classId).then(resolve, reject);
     });
   },
   /**
@@ -101,10 +123,12 @@ export default Ember.Service.extend({
    * @param userId the user id to delete
    * @returns {Promise}
    */
-  removeStudentFromClass:function(classId,userId){
+  removeStudentFromClass: function(classId, userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').removeStudentFromClass(classId,userId)
+      service
+        .get('classAdapter')
+        .removeStudentFromClass(classId, userId)
         .then(resolve, reject);
     });
   },
@@ -115,26 +139,26 @@ export default Ember.Service.extend({
    * @param {string} code class code
    * @returns {Promise}
    */
-  joinClass: function (code) {
+  joinClass: function(code) {
     const service = this;
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      service.get('classAdapter').joinClass(code)
-        .then(function (responseData, textStatus, request) {
-            let classId = request.getResponseHeader('location');
-            resolve(classId);
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service.get('classAdapter').joinClass(code).then(
+        function(responseData, textStatus, request) {
+          let classId = request.getResponseHeader('location');
+          resolve(classId);
         },
-        function (error) { //handling server errors
+        function(error) {
+          //handling server errors
           const status = error.status;
           if (status === 400) {
-              reject({status: status, code: 'restricted'});
-          }
-          else if (status === 404) {
-              reject({status: status, code: 'not-found'});
-          }
-          else {
+            reject({ status: status, code: 'restricted' });
+          } else if (status === 404) {
+            reject({ status: status, code: 'not-found' });
+          } else {
             reject(error);
           }
-        });
+        }
+      );
     });
   },
 
@@ -146,26 +170,42 @@ export default Ember.Service.extend({
   findMyClasses: function(profile) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').getMyClasses()
-          .then(function(response) {
-            var classesModel = service.get('classSerializer').normalizeClasses(response);
-            if (profile) {
-              Ember.$.each(classesModel.get('classes'), function(index, aClass){
-                //when it has no owner we asume is the provided profile
-                if (!aClass.get('owner')){
-                  aClass.set('owner', profile);
-                }
-              });
-              if(profile.get('isTeacher')){
-                classesModel.set('classes',service.sortClasses(classesModel.get('classes'),classesModel.get('ownerList')));
-              }else{
-                classesModel.set('classes',service.sortClasses(classesModel.get('classes'),classesModel.get('memberList')));
+      service.get('classAdapter').getMyClasses().then(
+        function(response) {
+          var classesModel = service
+            .get('classSerializer')
+            .normalizeClasses(response);
+          if (profile) {
+            Ember.$.each(classesModel.get('classes'), function(index, aClass) {
+              //when it has no owner we asume is the provided profile
+              if (!aClass.get('owner')) {
+                aClass.set('owner', profile);
               }
+            });
+            if (profile.get('isTeacher')) {
+              classesModel.set(
+                'classes',
+                service.sortClasses(
+                  classesModel.get('classes'),
+                  classesModel.get('ownerList')
+                )
+              );
+            } else {
+              classesModel.set(
+                'classes',
+                service.sortClasses(
+                  classesModel.get('classes'),
+                  classesModel.get('memberList')
+                )
+              );
             }
-            resolve(classesModel);
-          }, function(error) {
-            reject(error);
-          });
+          }
+          resolve(classesModel);
+        },
+        function(error) {
+          reject(error);
+        }
+      );
     });
   },
 
@@ -177,12 +217,16 @@ export default Ember.Service.extend({
   readClassInfo: function(classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').readClassInfo(classId)
-        .then(function(response) {
-          resolve(service.get('classSerializer').normalizeReadClassInfo(response));
-        }, function(error) {
+      service.get('classAdapter').readClassInfo(classId).then(
+        function(response) {
+          resolve(
+            service.get('classSerializer').normalizeReadClassInfo(response)
+          );
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -194,12 +238,16 @@ export default Ember.Service.extend({
   readClassMembers: function(classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').readClassMembers(classId)
-        .then(function(response) {
-          resolve(service.get('classSerializer').normalizeReadClassMembers(response));
-        }, function(error) {
+      service.get('classAdapter').readClassMembers(classId).then(
+        function(response) {
+          resolve(
+            service.get('classSerializer').normalizeReadClassMembers(response)
+          );
+        },
+        function(error) {
           reject(error);
-        });
+        }
+      );
     });
   },
 
@@ -211,9 +259,15 @@ export default Ember.Service.extend({
   readClassContentVisibility: function(classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').readClassContentVisibility(classId)
+      service
+        .get('classAdapter')
+        .readClassContentVisibility(classId)
         .then(function(response) {
-          resolve(service.get('classSerializer').normalizeReadClassContentVisibility(response));
+          resolve(
+            service
+              .get('classSerializer')
+              .normalizeReadClassContentVisibility(response)
+          );
         }, reject);
     });
   },
@@ -223,16 +277,23 @@ export default Ember.Service.extend({
    * @param classId the class id
    * @returns {Promise}
    */
-  updateContentVisibility: function(classId,id,visibility,type) {
+  updateContentVisibility: function(classId, id, visibility, type) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedUpdateContentVisibility = service.get('classSerializer').serializeUpdateContentVisibility(id,visibility,type);
-      service.get('classAdapter').updateContentVisibility(classId,serializedUpdateContentVisibility)
-        .then(function () {
-          resolve(serializedUpdateContentVisibility);
-        }, function(error) {
-          reject(error);
-        });
+      let serializedUpdateContentVisibility = service
+        .get('classSerializer')
+        .serializeUpdateContentVisibility(id, visibility, type);
+      service
+        .get('classAdapter')
+        .updateContentVisibility(classId, serializedUpdateContentVisibility)
+        .then(
+          function() {
+            resolve(serializedUpdateContentVisibility);
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -245,12 +306,17 @@ export default Ember.Service.extend({
   readClassReportStatus: function(classId, courseId, userId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').readClassReportStatus(classId, courseId, userId)
-        .then(function(response) {
-          resolve(response.status);
-        }, function(error) {
-          reject(error);
-        });
+      service
+        .get('classAdapter')
+        .readClassReportStatus(classId, courseId, userId)
+        .then(
+          function(response) {
+            resolve(response.status);
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -263,10 +329,12 @@ export default Ember.Service.extend({
    */
   requestClassReport: function(classId, courseId, userId) {
     const service = this;
-    return service.readClassReportStatus(classId, courseId, userId).then(function(response){
-      service.storeClassReportStatus(classId, response);
-      return response;
-    }); //same end point as reading the status
+    return service
+      .readClassReportStatus(classId, courseId, userId)
+      .then(function(response) {
+        service.storeClassReportStatus(classId, response);
+        return response;
+      }); //same end point as reading the status
   },
 
   /**
@@ -278,7 +346,9 @@ export default Ember.Service.extend({
     const localStorage = this.getLocalStorage();
     const userId = this.get('session.userId');
     if (localStorage) {
-      const reportInfo = JSON.parse(localStorage.getItem('report-info') || '{}');
+      const reportInfo = JSON.parse(
+        localStorage.getItem('report-info') || '{}'
+      );
       const userInfo = reportInfo[userId] || { classes: {} };
       userInfo.classes[classId] = status;
 
@@ -292,10 +362,12 @@ export default Ember.Service.extend({
    * @param userId
    * @returns { * } { 'abcd-1234' : 'available', 'adfc-1223': 'queued' }
    */
-  getReportClassesStatusFromStore: function (userId) {
+  getReportClassesStatusFromStore: function(userId) {
     const localStorage = this.getLocalStorage();
     if (localStorage) {
-      const reportInfo = JSON.parse(localStorage.getItem('report-info') || '{}');
+      const reportInfo = JSON.parse(
+        localStorage.getItem('report-info') || '{}'
+      );
       const userInfo = reportInfo[userId] || { classes: {} };
       return userInfo.classes;
     }
@@ -306,7 +378,7 @@ export default Ember.Service.extend({
    * Returns the local storage
    * @returns {Storage}
    */
-  getLocalStorage: function(){
+  getLocalStorage: function() {
     return window.localStorage;
   },
 
@@ -320,7 +392,9 @@ export default Ember.Service.extend({
   associateCourseToClass: function(courseId, classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').associateCourseToClass(courseId, classId)
+      service
+        .get('classAdapter')
+        .associateCourseToClass(courseId, classId)
         .then(resolve, reject);
     });
   },
@@ -332,11 +406,11 @@ export default Ember.Service.extend({
    * @param {Object} options request options, like limit, offset, etc
    * @returns {Promise.<Class[]>}
    */
-  findClassesIJoined: function (options = {}) {
+  findClassesIJoined: function(options = {}) {
     return this.get('store').query('class/class', {
       isStudent: true,
-      limit: (options.limit ? options.limit : -1),
-      offset: (options.offset ? options.offset : 0)
+      limit: options.limit ? options.limit : -1,
+      offset: options.offset ? options.offset : 0
     });
   },
 
@@ -345,11 +419,13 @@ export default Ember.Service.extend({
    * @param {Object} options request options, like limit, offset, etc
    * @returns {Promise.<Class[]>}
    */
-  findClassesITeach: function (options = {}) {
+  findClassesITeach: function(options = {}) {
     return this.get('store').query('class/class', {
-      limit: (options.limit ? options.limit : -1),
-      offset: (options.offset ? options.offset : 0),
-      'flt.exclude.empty.course': (options['flt.exclude.empty.course'] ? options['flt.exclude.empty.course'] : false)
+      limit: options.limit ? options.limit : -1,
+      offset: options.offset ? options.offset : 0,
+      'flt.exclude.empty.course': options['flt.exclude.empty.course']
+        ? options['flt.exclude.empty.course']
+        : false
     });
   },
 
@@ -358,7 +434,7 @@ export default Ember.Service.extend({
    * @param {string} id
    * @returns {Promise.<Class>}
    */
-  findById: function (id) {
+  findById: function(id) {
     return this.get('store').findRecord('class/class', id);
   },
   /**
@@ -367,10 +443,9 @@ export default Ember.Service.extend({
    * @param {[String]} orderArray
    * @returns {[Classes]}
    */
-  sortClasses:function(classes,orderArray){
-    return classes.sort(function(class1,class2){
+  sortClasses: function(classes, orderArray) {
+    return classes.sort(function(class1, class2) {
       return orderArray.indexOf(class1.id) - orderArray.indexOf(class2.id);
     });
   }
-
 });

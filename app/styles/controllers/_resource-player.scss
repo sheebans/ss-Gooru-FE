@@ -19,7 +19,8 @@
     .gru-player-done {
       padding: 20px 50px;
     }
-    .qz-resource-viewer, .gru-player-done {
+    .qz-resource-viewer,
+    .gru-player-done {
       padding-top: 300px;
       @media (min-width: $screen-sm) {
         padding-top: 170px;
@@ -30,7 +31,8 @@
     }
   }
   &.collapsed {
-    .qz-resource-viewer, .gru-player-done {
+    .qz-resource-viewer,
+    .gru-player-done {
       padding-top: 55px;
     }
   }

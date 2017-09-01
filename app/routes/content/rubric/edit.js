@@ -1,10 +1,12 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import Rubric from 'gooru-web/models/rubric/rubric';
+import EditRubricValidations from 'gooru-web/validations/edit-rubric';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    editing:{},
-    editingContent:{
+    editing: {},
+    editingContent: {
       refreshModel: true
     }
   },
@@ -19,14 +21,19 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (params) {
+  model: function(params) {
     const route = this;
-    return route.get('rubricService').getRubric(params.rubricId)
+    const RubricValidation = Rubric.extend(EditRubricValidations);
+    return route
+      .get('rubricService')
+      .getRubric(params.rubricId)
       .then(function(rubric) {
-        const isEditing = params.editing;
-        const editingContent = params.editingContent ? params.editingContent : null;
+        const isEditing = params.editing === 'true';
+        const editingContent = params.editingContent
+          ? params.editingContent
+          : null;
         return Ember.RSVP.hash({
-          rubric:rubric,
+          rubric: RubricValidation.create(rubric),
           isEditing: !!isEditing,
           editingContent: editingContent
         });
@@ -37,5 +44,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('rubric', model.rubric);
     controller.set('isEditing', model.isEditing);
     controller.set('editingContent', model.editingContent);
+    controller.set('tempRubric', model.rubric.copy());
   }
 });

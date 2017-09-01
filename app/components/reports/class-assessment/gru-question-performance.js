@@ -1,7 +1,11 @@
 import Ember from 'ember';
 import { getQuestionUtil } from 'gooru-web/config/question';
 import { stats, userAnswers } from 'gooru-web/utils/question-result';
-import { CORRECT_COLOR, INCORRECT_COLOR, ANONYMOUS_COLOR } from 'gooru-web/config/config';
+import {
+  CORRECT_COLOR,
+  INCORRECT_COLOR,
+  ANONYMOUS_COLOR
+} from 'gooru-web/config/config';
 
 /**
  * Question Performance Component
@@ -12,7 +16,6 @@ import { CORRECT_COLOR, INCORRECT_COLOR, ANONYMOUS_COLOR } from 'gooru-web/confi
  * @augments Ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -50,85 +53,106 @@ export default Ember.Component.extend({
    */
   showResult: null,
 
-/**
+  /**
  * Indicates if is anonymous and show the performance Results
  * @property {boolean} anonymousAndShowResult
  */
-  anonymousAndShowResult : Ember.computed.and('anonymous','showResult'),
+  anonymousAndShowResult: Ember.computed.and('anonymous', 'showResult'),
 
-/**
+  /**
  * Indicates if is anonymous and show the performance Results
  * @property {boolean} anonymousAndShowResult
  */
-  anonymousAndNotShowResult : Ember.computed('anonymous','showResult', function(){
-    return this.get("anonymous") && !this.get("showResult");
-  }),
+  anonymousAndNotShowResult: Ember.computed(
+    'anonymous',
+    'showResult',
+    function() {
+      return this.get('anonymous') && !this.get('showResult');
+    }
+  ),
 
   /**
    * Question results for this question, all students
    *
    * @property {QuestionResult[]}
    */
-  questionResults: Ember.computed("question", "reportData.data", function(){
-    const reportData = this.get("reportData");
-    return reportData.getResultsByQuestion(this.get("question.id"));
+  questionResults: Ember.computed('question', 'reportData.data', function() {
+    const reportData = this.get('reportData');
+    return reportData.getResultsByQuestion(this.get('question.id'));
   }),
 
   /**
    * Returns a convenient structure to display the x-bar-chart
    */
-  questionBarChartData: Ember.computed("questionResults.[]", "anonymousAndNotShowResult", function(){
-    const questionResults = this.get("questionResults");
+  questionBarChartData: Ember.computed(
+    'questionResults.[]',
+    'anonymousAndNotShowResult',
+    function() {
+      const questionResults = this.get('questionResults');
 
-    const totals = stats(questionResults);
-    const total = totals.get("total");
-    const anonymousAndNotShowResult = this.get("anonymousAndNotShowResult");
+      const totals = stats(questionResults);
+      const total = totals.get('total');
+      const anonymousAndNotShowResult = this.get('anonymousAndNotShowResult');
 
-    return Ember.Object.create({
-      data: [
-        {
-          color: anonymousAndNotShowResult ? ANONYMOUS_COLOR : INCORRECT_COLOR,
-          percentage: totals.get("incorrectPercentageFromTotal")
-        },
-        {
-          color: anonymousAndNotShowResult ? ANONYMOUS_COLOR : CORRECT_COLOR,
-          percentage: totals.get("correctPercentageFromTotal")
-        }
-      ],
-      completed: totals.get("totalCompleted"),
-      total: total
-    });
-  }),
+      return Ember.Object.create({
+        data: [
+          {
+            color: anonymousAndNotShowResult
+              ? ANONYMOUS_COLOR
+              : INCORRECT_COLOR,
+            percentage: totals.get('incorrectPercentageFromTotal')
+          },
+          {
+            color: anonymousAndNotShowResult ? ANONYMOUS_COLOR : CORRECT_COLOR,
+            percentage: totals.get('correctPercentageFromTotal')
+          }
+        ],
+        completed: totals.get('totalCompleted'),
+        total: total
+      });
+    }
+  ),
 
   /**
    * Convenience structure to display the answers distribution
    * @property {*} answer distributions
    */
-  answersData: Ember.computed("questionResults.[]", function(){
+  answersData: Ember.computed('questionResults.[]', function() {
     const component = this;
-    const reportData = component.get("reportData");
-    const question = component.get("question");
-    const questionUtil = getQuestionUtil(question.get("questionType")).create({ question: question });
+    const reportData = component.get('reportData');
+    const question = component.get('question');
+    const questionUtil = getQuestionUtil(question.get('questionType')).create({
+      question: question
+    });
 
-    const answers = userAnswers(this.get("questionResults"));
+    const answers = userAnswers(this.get('questionResults'));
     const distribution = questionUtil.distribution(answers);
 
     const answersData = Ember.A([]);
-    distribution.forEach(function(answerDistribution){
-      let userAnswer = answerDistribution.get("answer");
-      let students = reportData.getStudentsByQuestionAndUserAnswer(question, userAnswer);
+    distribution.forEach(function(answerDistribution) {
+      let userAnswer = answerDistribution.get('answer');
+      let students = reportData.getStudentsByQuestionAndUserAnswer(
+        question,
+        userAnswer
+      );
       let correct = questionUtil.isCorrect(userAnswer);
-      let percentage = answerDistribution ? answerDistribution.get("percentage") : 0;
-      answersData.addObject(Ember.Object.create({
-        correct: correct,
-        userAnswer: userAnswer,
-        percentage: percentage,
-        students: students,
-        charData: Ember.A([Ember.Object.create({
-          color: correct ? CORRECT_COLOR : INCORRECT_COLOR,
-          percentage: percentage
-        })])
-      }));
+      let percentage = answerDistribution
+        ? answerDistribution.get('percentage')
+        : 0;
+      answersData.addObject(
+        Ember.Object.create({
+          correct: correct,
+          userAnswer: userAnswer,
+          percentage: percentage,
+          students: students,
+          charData: Ember.A([
+            Ember.Object.create({
+              color: correct ? CORRECT_COLOR : INCORRECT_COLOR,
+              percentage: percentage
+            })
+          ])
+        })
+      );
     });
 
     return answersData;
@@ -138,10 +162,9 @@ export default Ember.Component.extend({
   /**
    * willDestroyElement event
    */
-  willDestroyElement: function(){
+  willDestroyElement: function() {
     const component = this;
-    component.set("showResult", false);
-    component.set("anonymous", false);
+    component.set('showResult', false);
+    component.set('anonymous', false);
   }
-
 });

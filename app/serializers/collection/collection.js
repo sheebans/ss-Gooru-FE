@@ -2,18 +2,21 @@ import DS from 'ember-data';
 import ResourceSerializer from '../resource/resource';
 
 export default DS.JSONAPISerializer.extend({
-
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
     var serializer = this;
     var collectionModel = {
       data: serializer.normalizeCollectionData(payload),
       included: []
     };
-    this.normalizeResources(payload.collectionItems, collectionModel.data.relationships.resources.data, collectionModel);
+    this.normalizeResources(
+      payload.collectionItems,
+      collectionModel.data.relationships.resources.data,
+      collectionModel
+    );
     return collectionModel;
   },
 
-  normalizeQueryRecordResponse: function(store, primaryModelClass, payload){
+  normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
     var serializer = this;
     var collectionModel = { data: [] };
 
@@ -41,9 +44,13 @@ export default DS.JSONAPISerializer.extend({
       }
     };
   },
-  normalizeResources: function(collectionItems, resourceRelationships, collectionModel) {
+  normalizeResources: function(
+    collectionItems,
+    resourceRelationships,
+    collectionModel
+  ) {
     const resourceSerializer = ResourceSerializer.create();
-    for(var i = 0; i < collectionItems.length; i++) {
+    for (var i = 0; i < collectionItems.length; i++) {
       var collectionItem = collectionItems[i];
       var resource = resourceSerializer.normalizeResource(collectionItem);
       collectionModel.included.push(resource);
@@ -55,9 +62,12 @@ export default DS.JSONAPISerializer.extend({
       resourceRelationships.push(resourceRelationship);
 
       if (collectionItem.resourceFormat.value === 'question') {
-        resourceSerializer.normalizeQuestionAnswers(collectionItem.answers, resource, collectionModel);
+        resourceSerializer.normalizeQuestionAnswers(
+          collectionItem.answers,
+          resource,
+          collectionModel
+        );
       }
-
     }
   }
 });

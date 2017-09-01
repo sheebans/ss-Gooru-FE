@@ -1,8 +1,8 @@
 .reports.class-assessment.gru-student-view {
-  .sort-section{
+  .sort-section {
     margin-top: -5px;
 
-    .btn-group button{
+    .btn-group button {
       -webkit-flex-direction: row;
       flex-direction: row;
       -webkit-flex-wrap: nowrap;
@@ -15,7 +15,7 @@
       align-content: stretch;
       display: -webkit-flex;
       display: flex;
-      i{
+      i {
         vertical-align: middle;
         padding: 0 10px 0 0;
         font-size: $font-size-h4;

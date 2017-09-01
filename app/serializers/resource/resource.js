@@ -2,7 +2,6 @@ import DS from 'ember-data';
 import Ember from 'ember';
 
 export default DS.JSONAPISerializer.extend({
-
   getBaseResourceModel: function() {
     return {
       type: 'resource/resource',
@@ -52,11 +51,13 @@ export default DS.JSONAPISerializer.extend({
     model.attributes.thumbnail = null;
     model.attributes.assetUri = payload.assetURI;
     model.attributes.folder = payload.folder;
-    model.attributes.mediaUrl = (payload.thumbnails ? payload.thumbnails.url : null);
+    model.attributes.mediaUrl = payload.thumbnails
+      ? payload.thumbnails.url
+      : null;
     model.attributes.url = payload.url;
     model.attributes.narration = payload.narration;
     model.attributes.order = payload.itemSequence;
-    model.attributes.owner =  {
+    model.attributes.owner = {
       username: payload.user.username,
       userId: payload.user.gooruUId,
       avatarUrl: payload.user.profileImageUrl
@@ -64,8 +65,8 @@ export default DS.JSONAPISerializer.extend({
     //some extra resource options here
     model.attributes.options = {
       hotTextType: payload.hlType,
-      start: (payload.start ? payload.start : '00:00:00'),
-      stop: (payload.stop ? payload.stop : '00:00:00')
+      start: payload.start ? payload.start : '00:00:00',
+      stop: payload.stop ? payload.stop : '00:00:00'
     };
     return model;
   },
@@ -77,7 +78,9 @@ export default DS.JSONAPISerializer.extend({
     model.attributes.resourceFormat = payload.resource.resourceFormat.value;
     model.attributes.title = payload.resource.title;
     model.attributes.description = payload.resource.title;
-    model.attributes.thumbnail = (payload.resource.thumbnails ? payload.resource.thumbnails.url : null);
+    model.attributes.thumbnail = payload.resource.thumbnails
+      ? payload.resource.thumbnails.url
+      : null;
     model.attributes.assetUri = payload.resource.assetURI;
     model.attributes.folder = payload.resource.folder;
     model.attributes.url = payload.resource.url;
@@ -88,8 +91,8 @@ export default DS.JSONAPISerializer.extend({
     //some extra resource options here
     model.attributes.options = {
       hotTextType: payload.resource.hlType,
-      start: (payload.resource.start ? payload.resource.start : '00:00:00'),
-      stop: (payload.resource.stop ? payload.resource.stop : '00:00:00')
+      start: payload.resource.start ? payload.resource.start : '00:00:00',
+      stop: payload.resource.stop ? payload.resource.stop : '00:00:00'
     };
     return model;
   },
@@ -108,7 +111,7 @@ export default DS.JSONAPISerializer.extend({
       var answerItem = answerItems[i];
       var answerModel = {
         type: 'resource/answer',
-        id: resource.id + '_' + answerItem.sequence,
+        id: `${resource.id}_${answerItem.sequence}`,
         attributes: {
           text: answerItem.answerText,
           answerType: answerItem.answerType,
@@ -127,10 +130,12 @@ export default DS.JSONAPISerializer.extend({
   },
 
   isSearchResultResource: function(payload) {
-    return (payload.resource);
+    return payload.resource;
   },
 
   isQuestionResource: function(payload) {
-    return (payload.resourceFormat && payload.resourceFormat.value === 'question');
+    return (
+      payload.resourceFormat && payload.resourceFormat.value === 'question'
+    );
   }
 });

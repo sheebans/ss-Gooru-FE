@@ -4,20 +4,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-
   // -------------------------------------------------------------------------
   // Attributes
   classNames: ['gru-tenant-theme'],
 
-
   // -------------------------------------------------------------------------
   // Actions
-  actions: {
-  },
+  actions: {},
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Method
@@ -32,5 +28,4 @@ export default Ember.Component.extend({
    * @property {*} theme settings
    */
   theme: Ember.computed.alias('tenant.theme')
-
 });

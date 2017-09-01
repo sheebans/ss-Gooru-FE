@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 /**
  * Copy value
@@ -6,7 +6,6 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * Component responsible for copying a value to the clipboard
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -18,28 +17,26 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // Attributes
 
   tagName: 'span',
-  classNames:['gru-copy-value'],
+  classNames: ['gru-copy-value'],
 
   // -------------------------------------------------------------------------
   // Actions
 
-
   // -------------------------------------------------------------------------
   // Events
 
-  didInsertElement: function () {
+  didInsertElement: function() {
     let clipboard = new Clipboard('.copy-btn', {
-      text: function () {
+      text: function() {
         return $('#valueToCopy').val();
       }
     });
 
-    $('.copy-btn').tooltip({placement:'bottom'});
+    $('.copy-btn').tooltip({ placement: 'bottom' });
 
     clipboard.on('success', function() {
       $('.copy-btn').tooltip('hide');
     });
-
   },
 
   // -------------------------------------------------------------------------
@@ -58,15 +55,12 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Return the respective text to be displayed as a tooltip
    */
   tooltip: Ember.computed('tooltipCode', function() {
-    if(this.get('tooltipCode')){
+    if (this.get('tooltipCode')) {
       return this.get('i18n').t(this.get('tooltipCode')).string;
+    } else {
+      return '';
     }
-    else{
-      return "";
-    }
-
   })
   // -------------------------------------------------------------------------
   // Methods
-
 });

@@ -33,31 +33,39 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * Remove Content
      */
-    removeContent: function (model) {
+    removeContent: function(model) {
       let component = this;
 
       component.set('isLoading', true);
 
       // This removeMethod will be a wrapper around the actual remove method that is particular to
       // each content type.
-      model.removeMethod()
-        .then(function () {
+      model
+        .removeMethod()
+        .then(function() {
           if (model.callback) {
             model.callback.success();
           }
           component.set('isLoading', false);
           component.triggerAction({ action: 'closeModal' });
           if (model.redirect) {
-            component.get('router').transitionTo(model.redirect.route, model.redirect.params.id);
+            component
+              .get('router')
+              .transitionTo(model.redirect.route, model.redirect.params.id);
           }
         })
-        .catch(function (error) {
-          var message = component.get('i18n').t('content.modals.remove-content.remove-error',
-            { type: component.get('i18n').t(`common.${model.type}`).string.toLowerCase() }).string;
+        .catch(function(error) {
+          var message = component
+            .get('i18n')
+            .t('content.modals.remove-content.remove-error', {
+              type: component
+                .get('i18n')
+                .t(`common.${model.type}`)
+                .string.toLowerCase()
+            }).string;
           component.get('notifications').error(message);
           Ember.Logger.error(error);
         });

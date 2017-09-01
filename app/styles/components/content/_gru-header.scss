@@ -1,9 +1,8 @@
 .header.content.gru-header {
-  margin-bottom:48px;
+  margin-bottom: 48px;
   header {
     display: block;
     background-color: $dark-400;
-    padding: 20px 20px 0 5%;
     h1 {
       font-size: 34px;
       margin: 0;
@@ -14,7 +13,6 @@
   .actions {
     float: right;
     display: inline-block;
-    padding-top: 10px;
     font-size: 14px;
     button {
       padding: 6px 8px;
@@ -28,7 +26,7 @@
     padding-top: 15px;
     white-space: nowrap;
     display: inline-block;
-    .tab {
+    a {
       display: inline-block;
       vertical-align: middle;
       opacity: 0.6;
@@ -41,6 +39,9 @@
       @media (min-width: 768px) {
         padding: 5px 10px;
         margin-right: 20px;
+      }
+      &.introjs-showElement {
+        color: $dark-400;
       }
     }
     .selected {

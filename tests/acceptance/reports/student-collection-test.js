@@ -4,7 +4,7 @@ import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
 
 moduleForAcceptance('Acceptance | reports/student-collection', {
-  beforeEach: function () {
+  beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
       token: 'player-token',
@@ -15,13 +15,18 @@ moduleForAcceptance('Acceptance | reports/student-collection', {
   }
 });
 
-test('Layout', function (assert) {
+test('Layout', function(assert) {
   assert.expect(2);
-  visit('/reports/student-collection?classId=just-a-class&collectionId=all-question-types-assessment-id&role=student&type=assessment');
+  visit(
+    '/reports/student-collection?classId=just-a-class&collectionId=all-question-types-assessment-id&role=student&type=assessment'
+  );
 
   let done = assert.async();
-  andThen(function () {
-    assert.equal(currentURL(), '/reports/student-collection?classId=just-a-class&collectionId=all-question-types-assessment-id&role=student&type=assessment');
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/reports/student-collection?classId=just-a-class&collectionId=all-question-types-assessment-id&role=student&type=assessment'
+    );
     const $reportContainer = find('.reports.qz-student-report');
     T.exists(assert, $reportContainer, 'Missing quizzes reports component');
     done();

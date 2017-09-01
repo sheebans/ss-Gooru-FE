@@ -4,7 +4,6 @@ import Ember from 'ember';
  * Library model
  */
 const LibraryModel = Ember.Object.extend({
-
   /**
    * @property {String} id - Gooru id for the library
    */
@@ -34,6 +33,11 @@ const LibraryModel = Ember.Object.extend({
    * @property {String} tenantRoot - The tenant root
    */
   tenantRoot: null,
+
+  /**
+   * @property {String} shortName - The short name
+   */
+  shortName: null,
 
   /**
    * @property {Number} courseCount - Count of courses

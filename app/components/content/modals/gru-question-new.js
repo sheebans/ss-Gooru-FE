@@ -1,26 +1,25 @@
 import Ember from 'ember';
 import Question from 'gooru-web/models/content/question';
 import Collection from 'gooru-web/models/content/collection';
-import {QUESTION_CONFIG, QUESTION_TYPES} from 'gooru-web/config/question';
+import { QUESTION_CONFIG, QUESTION_TYPES } from 'gooru-web/config/question';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
    * @property {QuestionService} Question service API SDK
    */
-  questionService: Ember.inject.service("api-sdk/question"),
+  questionService: Ember.inject.service('api-sdk/question'),
 
   /**
    * @property {CollectionService} Collection service API SDK
    */
-  collectionService: Ember.inject.service("api-sdk/collection"),
+  collectionService: Ember.inject.service('api-sdk/collection'),
 
   /**
    * @property {AssessmentService} Assessment service API SDK
    */
-  assessmentService: Ember.inject.service("api-sdk/assessment"),
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   /**
    * @property {Service} I18N service
@@ -42,36 +41,49 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-
   actions: {
-
-    createQuestion: function () {
+    createQuestion: function() {
       const component = this;
       const question = component.get('question');
-      question.set("title", component.get('i18n').t('common.new-question').string); //Default title
-      question.set("description", component.get('i18n').t('common.new-question-text').string); //TODO temporal fix
-      question.validate().then(function ({ validations }) {
+      question.set(
+        'title',
+        component.get('i18n').t('common.new-question').string
+      ); //Default title
+      question.set(
+        'description',
+        component.get('i18n').t('common.new-question-text').string
+      ); //TODO temporal fix
+      question.validate().then(function({ validations }) {
         if (validations.get('isValid')) {
-          component.set('isLoading',true);
+          component.set('isLoading', true);
           let questionId;
-          component.get('questionService')
+          component
+            .get('questionService')
             .createQuestion(question)
-            .then(function(newQuestion){
+            .then(function(newQuestion) {
               questionId = newQuestion.get('id');
-              if(component.get('model')) {
-                let service = component.get('model') instanceof Collection ?
-                  component.get('collectionService') : component.get('assessmentService');
-                return service.addQuestion(component.get('model').get('id'), questionId);
+              if (component.get('model')) {
+                let service =
+                  component.get('model') instanceof Collection
+                    ? component.get('collectionService')
+                    : component.get('assessmentService');
+                return service.addQuestion(
+                  component.get('model').get('id'),
+                  questionId
+                );
               } else {
                 return Ember.RSVP.resolve(true);
               }
             })
-            .then(function() {
+            .then(
+              function() {
                 component.closeModal(questionId);
               },
               function() {
-                component.set('isLoading',false);
-                const message = component.get('i18n').t('common.errors.question-not-created').string;
+                component.set('isLoading', false);
+                const message = component
+                  .get('i18n')
+                  .t('common.errors.question-not-created').string;
                 component.get('notifications').error(message);
               }
             );
@@ -80,9 +92,9 @@ export default Ember.Component.extend({
       });
     },
 
-    selectType:function(type){
-      this.set('selectedType',type);
-      this.set('question.type',this.get('selectedType'));
+    selectType: function(type) {
+      this.set('selectedType', type);
+      this.set('question.type', this.get('selectedType'));
     }
   },
 
@@ -91,7 +103,10 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var question = Question.create(Ember.getOwner(this).ownerInjection(), {title: null,type: QUESTION_TYPES.multipleChoice});
+    var question = Question.create(Ember.getOwner(this).ownerInjection(), {
+      title: null,
+      type: QUESTION_TYPES.multipleChoice
+    });
     this.set('question', question);
   },
 
@@ -104,14 +119,13 @@ export default Ember.Component.extend({
         }
       }, 400);
       component.$().off('keyup').on('keyup', function() {
-        var keyCode = (event.keyCode ? event.keyCode : event.which);
+        var keyCode = event.keyCode ? event.keyCode : event.which;
         if (keyCode === 13) {
           component.$('button[type=submit]').trigger('click');
         }
       });
     }
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -128,7 +142,7 @@ export default Ember.Component.extend({
   /**
    * @type {String} selectedType
    */
-  selectedType: Ember.computed('question.type',function(){
+  selectedType: Ember.computed('question.type', function() {
     return this.get('question.type');
   }),
 
@@ -136,13 +150,7 @@ export default Ember.Component.extend({
    * @type {Array[]} questionTypes
    */
   questionTypes: Ember.computed(function() {
-    const component = this;
-    const isCollection = component.get('model.isCollection');
-    let questionTypes =  Ember.A(Object.keys(QUESTION_CONFIG));
-    if (!isCollection){
-      questionTypes = questionTypes.removeObject('OE');
-    }
-    return questionTypes;
+    return Ember.A(Object.keys(QUESTION_CONFIG));
   }),
 
   /**
@@ -150,11 +158,10 @@ export default Ember.Component.extend({
    */
   isLoading: false,
 
-
   //Methods
-  closeModal : function(questionId){
+  closeModal: function(questionId) {
     const component = this;
-    component.set('isLoading',false);
+    component.set('isLoading', false);
     component.triggerAction({ action: 'closeModal' });
 
     const collectionId = component.get('model.id');
@@ -162,19 +169,22 @@ export default Ember.Component.extend({
 
     if (collectionId) {
       const queryParams = { queryParams: { editingContent: questionId } };
-      if (isCollection){
-        component.get('router').transitionTo('content.collections.edit', collectionId, queryParams);
+      if (isCollection) {
+        component
+          .get('router')
+          .transitionTo('content.collections.edit', collectionId, queryParams);
+      } else {
+        component
+          .get('router')
+          .transitionTo('content.assessments.edit', collectionId, queryParams);
       }
-      else {
-        component.get('router').transitionTo('content.assessments.edit', collectionId, queryParams);
-      }
-
     } else {
       const queryParams = { queryParams: { editing: true } };
-      component.get('router').transitionTo('content.questions.edit', questionId, queryParams);
+      component
+        .get('router')
+        .transitionTo('content.questions.edit', questionId, queryParams);
     }
   },
-
 
   /*
    * Move array object into array
@@ -184,5 +194,4 @@ export default Ember.Component.extend({
     arr.splice(fromIndex, 1);
     arr.splice(toIndex, 0, element);
   }
-
 });

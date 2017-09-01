@@ -8,7 +8,6 @@ import EndPointsConfig from 'gooru-web/utils/endpoint-config';
  * @typedef {Object} AuthenticationAdapter
  */
 export default Ember.Object.extend({
-
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus-auth/v2',
@@ -32,9 +31,9 @@ export default Ember.Object.extend({
       processData: false,
       headers: adapter.defineHeaders(data),
       data: JSON.stringify({
-        'client_key': Env['API-3.0'].clientKey,
-        'client_id': Env['API-3.0'].clientId,
-        'grant_type': (data.isAnonymous ? 'anonymous' : 'credential')
+        client_key: Env['API-3.0'].clientKey,
+        client_id: Env['API-3.0'].clientId,
+        grant_type: data.isAnonymous ? 'anonymous' : 'credential'
       }),
       global: false /* Stop global ajaxError event from triggering */
     };
@@ -46,7 +45,7 @@ export default Ember.Object.extend({
       return {};
     } else {
       return {
-        'Authorization': 'Basic ' + btoa(data.username + ':' + data.password)
+        Authorization: `Basic ${btoa(`${data.username}:${data.password}`)}`
       };
     }
   },
@@ -62,7 +61,7 @@ export default Ember.Object.extend({
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: {
-        'Authorization' : 'Token ' + data.accessToken
+        Authorization: `Token ${data.accessToken}`
       }
     };
     return Ember.$.ajax(url, options);
@@ -79,7 +78,7 @@ export default Ember.Object.extend({
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: {
-        'Authorization' : 'Token ' + data.accessToken
+        Authorization: `Token ${data.accessToken}`
       },
       global: false /* Stop global ajaxError event from triggering */
     };
@@ -98,7 +97,7 @@ export default Ember.Object.extend({
       type: 'DELETE',
       contentType: 'application/json; charset=utf-8',
       headers: {
-        'Authorization' : `Token ${token}`
+        Authorization: `Token ${token}`
       }
     };
     return Ember.$.ajax(url, options);

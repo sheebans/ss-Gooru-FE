@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 
-export default Ember.Component.extend(ModalMixin,{
-
+export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -18,7 +17,6 @@ export default Ember.Component.extend(ModalMixin,{
   // -------------------------------------------------------------------------
   // Actions
 
-
   // -------------------------------------------------------------------------
   // Properties
   /**
@@ -28,7 +26,7 @@ export default Ember.Component.extend(ModalMixin,{
   /**
    * @property {number} Ammount of attempts left on the assessment
    */
-  attempts:null,
+  attempts: null,
 
   didInsertElement() {
     this._super(...arguments);
@@ -42,12 +40,13 @@ export default Ember.Component.extend(ModalMixin,{
       onCancel: function() {
         return this.sendAction('onCancel');
       }.bind(this),
-      isAssessmentStarted:this.get('isAssessmentStarted')
+      isAssessmentStarted: this.get('isAssessmentStarted')
     };
 
-    this.actions.showModal.call(this,
+    this.actions.showModal.call(
+      this,
       'content.modals.gru-assessment-confirmation',
-      model);
+      model
+    );
   }
-
 });

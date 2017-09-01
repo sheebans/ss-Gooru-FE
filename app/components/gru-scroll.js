@@ -11,13 +11,12 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   tagName: 'a',
 
   // -------------------------------------------------------------------------
   // Events
 
-  setupOffset: Ember.on('didInsertElement', function () {
+  setupOffset: Ember.on('didInsertElement', function() {
     const offset = this.get('offset');
 
     if (offset) {
@@ -25,13 +24,15 @@ export default Ember.Component.extend({
         this.set('offsetVal', offset);
       } else {
         let $offsetEl = Ember.$(offset);
-        let offsetVal = ($offsetEl.length) ? $offsetEl.offset().top + $offsetEl.height() : 0;
+        let offsetVal = $offsetEl.length
+          ? $offsetEl.offset().top + $offsetEl.height()
+          : 0;
         this.set('offsetVal', offsetVal);
       }
     }
   }),
 
-  scrollTo: Ember.on('click', function () {
+  scrollTo: Ember.on('click', function() {
     var $el = Ember.$(this.get('to'));
     var offsetVal = this.get('offsetVal');
     var $this = this.$();
@@ -43,9 +44,12 @@ export default Ember.Component.extend({
     }
 
     if ($el) {
-      Ember.$('html, body').animate({
-        scrollTop: $el.offset().top - offsetVal
-      }, this.get('speed'));
+      Ember.$(this.get('scrollSection')).animate(
+        {
+          scrollTop: $el.offset().top - offsetVal
+        },
+        this.get('speed')
+      );
     }
   }),
 
@@ -71,6 +75,11 @@ export default Ember.Component.extend({
   offsetVal: 0,
 
   /**
+   * @prop { String } scrollSection - section where the component  will scroll
+   */
+  scrollSection: 'html, body',
+
+  /**
    * @prop { Number } speed - animation length in seconds
    */
   speed: 1000,
@@ -79,5 +88,4 @@ export default Ember.Component.extend({
    * @prop { String } to - target element on the page to scroll to
    */
   to: ''
-
 });

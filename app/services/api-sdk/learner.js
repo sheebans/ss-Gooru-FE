@@ -9,7 +9,6 @@ import PerformanceService from 'gooru-web/services/api-sdk/performance';
  * @typedef {Object} LearnerService
  */
 export default Ember.Service.extend({
-
   /**
    * @property {LearnerSerializer} learnerSerializer
    */
@@ -20,13 +19,30 @@ export default Ember.Service.extend({
    */
   learnerAdapter: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('learnerSerializer', LearnerSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('learnerAdapter', LearnerAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('studentCollectionPerformanceSerializer', StudentCollectionPerformanceSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('userSessionSerializer', UserSessionSerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('performanceService', PerformanceService.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'learnerSerializer',
+      LearnerSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'learnerAdapter',
+      LearnerAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'studentCollectionPerformanceSerializer',
+      StudentCollectionPerformanceSerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'userSessionSerializer',
+      UserSessionSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'performanceService',
+      PerformanceService.create(Ember.getOwner(this).ownerInjection())
+    );
   },
   /**
    * Fetches the learner locations
@@ -40,9 +56,14 @@ export default Ember.Service.extend({
   fetchLocations: function(userId, contentType, offset = 0, limit = 20) {
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('learnerAdapter').fetchLocations(userId, contentType, offset, limit)
+      service
+        .get('learnerAdapter')
+        .fetchLocations(userId, contentType, offset, limit)
         .then(
-          response => resolve(service.get('learnerSerializer').normalizeLocations(response)),
+          response =>
+            resolve(
+              service.get('learnerSerializer').normalizeLocations(response)
+            ),
           reject
         );
     });
@@ -60,9 +81,14 @@ export default Ember.Service.extend({
   fetchPerformance: function(userId, contentType, offset = 0, limit = 20) {
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('learnerAdapter').fetchPerformance(userId, contentType, offset, limit)
+      service
+        .get('learnerAdapter')
+        .fetchPerformance(userId, contentType, offset, limit)
         .then(
-          response => resolve(service.get('learnerSerializer').normalizePerformances(response)),
+          response =>
+            resolve(
+              service.get('learnerSerializer').normalizePerformances(response)
+            ),
           reject
         );
     });
@@ -79,9 +105,16 @@ export default Ember.Service.extend({
   fetchPerformanceLesson: function(courseId, unitId, lessonId, collectionType) {
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('learnerAdapter').fetchPerformanceLesson(courseId, unitId, lessonId, collectionType)
+      service
+        .get('learnerAdapter')
+        .fetchPerformanceLesson(courseId, unitId, lessonId, collectionType)
         .then(
-          response => resolve(service.get('learnerSerializer').normalizePerformancesLesson(response)),
+          response =>
+            resolve(
+              service
+                .get('learnerSerializer')
+                .normalizePerformancesLesson(response)
+            ),
           reject
         );
     });
@@ -96,9 +129,16 @@ export default Ember.Service.extend({
   fetchPerformanceUnit: function(courseId, unitId, collectionType) {
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('learnerAdapter').fetchPerformanceUnit(courseId, unitId, collectionType)
+      service
+        .get('learnerAdapter')
+        .fetchPerformanceUnit(courseId, unitId, collectionType)
         .then(
-          response => resolve(service.get('learnerSerializer').normalizePerformancesUnit(response)),
+          response =>
+            resolve(
+              service
+                .get('learnerSerializer')
+                .normalizePerformancesUnit(response)
+            ),
           reject
         );
     });
@@ -114,9 +154,14 @@ export default Ember.Service.extend({
   fetchCoursesPerformance: function(userId, courseIds) {
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('learnerAdapter').fetchCoursesPerformance(userId, courseIds)
+      service
+        .get('learnerAdapter')
+        .fetchCoursesPerformance(userId, courseIds)
         .then(
-          response => resolve(service.get('learnerSerializer').normalizePerformances(response)),
+          response =>
+            resolve(
+              service.get('learnerSerializer').normalizePerformances(response)
+            ),
           reject
         );
     });
@@ -131,9 +176,16 @@ export default Ember.Service.extend({
   fetchLocationCourse: function(courseId, userId) {
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('learnerAdapter').fetchLocationCourse(courseId, userId)
+      service
+        .get('learnerAdapter')
+        .fetchLocationCourse(courseId, userId)
         .then(
-          response => resolve(service.get('learnerSerializer').normalizeFetchLocationCourse(response)),
+          response =>
+            resolve(
+              service
+                .get('learnerSerializer')
+                .normalizeFetchLocationCourse(response)
+            ),
           reject
         );
     });
@@ -145,7 +197,7 @@ export default Ember.Service.extend({
    * @param loadStandards
    * @returns {Promise.<AssessmentResult>}
    */
-  fetchCollectionPerformance: function (context, loadStandards) {
+  fetchCollectionPerformance: function(context, loadStandards) {
     const service = this;
 
     const params = {
@@ -161,19 +213,29 @@ export default Ember.Service.extend({
     }
 
     return new Ember.RSVP.Promise(function(resolve) {
-      return service.get('learnerAdapter').fetchCollectionPerformance(params).then(function (payload) {
-        const assessmentResult = service.get('studentCollectionPerformanceSerializer').normalizeStudentCollection(payload);
-        if (loadStandards) {
-          service.get('performanceService').loadStandardsSummary(assessmentResult, context).then(function () {
-            resolve(assessmentResult);
-          });
-        }
-        else {
-          resolve(assessmentResult);
-        }
-      }, function() {
-        resolve();
-      });
+      return service
+        .get('learnerAdapter')
+        .fetchCollectionPerformance(params)
+        .then(
+          function(payload) {
+            const assessmentResult = service
+              .get('studentCollectionPerformanceSerializer')
+              .normalizeStudentCollection(payload);
+            if (loadStandards) {
+              service
+                .get('performanceService')
+                .loadStandardsSummary(assessmentResult, context)
+                .then(function() {
+                  resolve(assessmentResult);
+                });
+            } else {
+              resolve(assessmentResult);
+            }
+          },
+          function() {
+            resolve();
+          }
+        );
     });
   },
 
@@ -202,9 +264,16 @@ export default Ember.Service.extend({
     }
 
     return new Ember.RSVP.Promise((resolve, reject) => {
-      service.get('learnerAdapter').fetchLearnerSessions(params)
+      service
+        .get('learnerAdapter')
+        .fetchLearnerSessions(params)
         .then(
-          response => resolve(service.get('userSessionSerializer').serializeSessionAssessments(response)),
+          response =>
+            resolve(
+              service
+                .get('userSessionSerializer')
+                .serializeSessionAssessments(response)
+            ),
           reject
         );
     });

@@ -9,7 +9,6 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -27,11 +26,10 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-
     /**
      * Remove audience from active audience
      */
-    removeAudience: function (audience) {
+    removeAudience: function(audience) {
       audience.set('checked', false);
     }
   },
@@ -40,26 +38,30 @@ export default Ember.Component.extend({
   // Events
   init: function() {
     var component = this;
-    component._super( ...arguments );
+    component._super(...arguments);
 
-    component.get('lookupService').readAudiences()
-      .then(function(audiences) {
-        if(!component.isDestroyed) {
-          component.set('audiences', audiences);
-          component.set('editAudiences', component.getOptionsArray(audiences, component.get('srcSelectedAudiences')));
-        }
-      });
+    component.get('lookupService').readAudiences().then(function(audiences) {
+      if (!component.isDestroyed) {
+        component.set('audiences', audiences);
+        component.set(
+          'editAudiences',
+          component.getOptionsArray(
+            audiences,
+            component.get('srcSelectedAudiences')
+          )
+        );
+      }
+    });
   },
 
   /**
    * Overwrites didUpdate hook
    */
   didUpdate: function() {
-    this.$('.dropdown-menu.audience li label').on('click', function (e) {
+    this.$('.dropdown-menu.audience li label').on('click', function(e) {
       e.stopPropagation();
     });
   },
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -83,8 +85,11 @@ export default Ember.Component.extend({
   /**
    * @type {Ember.A}
    */
-  srcAudiences: Ember.computed('srcSelectedAudiences', 'audiences', function () {
-    return this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences'));
+  srcAudiences: Ember.computed('srcSelectedAudiences', 'audiences', function() {
+    return this.getOptionsArray(
+      this.get('audiences'),
+      this.get('srcSelectedAudiences')
+    );
   }),
 
   /**
@@ -97,24 +102,34 @@ export default Ember.Component.extend({
    */
   audiences: Ember.A(),
 
-
   // -------------------------------------------------------------------------
   // Observers
 
   /**
    * Observes if the selection has changed
    */
-  updateSelectedAudiences: Ember.observer('editAudiences.@each.checked', function () {
-    var selectedAudiences = this.get('editAudiences').filterBy('checked').map(function (audience) {
-      return (audience.get('checked')===true)? audience.get('id') : null;
-    });
+  updateSelectedAudiences: Ember.observer(
+    'editAudiences.@each.checked',
+    function() {
+      var selectedAudiences = this.get('editAudiences')
+        .filterBy('checked')
+        .map(function(audience) {
+          return audience.get('checked') === true ? audience.get('id') : null;
+        });
 
-    this.set('editSelectedAudiences', selectedAudiences);
-  }),
+      this.set('editSelectedAudiences', selectedAudiences);
+    }
+  ),
 
-  resetSelectedAudiences: Ember.observer('isEditing', function () {
+  resetSelectedAudiences: Ember.observer('isEditing', function() {
     if (this.get('isEditing')) {
-      this.set('editAudiences', this.getOptionsArray(this.get('audiences'), this.get('srcSelectedAudiences')));
+      this.set(
+        'editAudiences',
+        this.getOptionsArray(
+          this.get('audiences'),
+          this.get('srcSelectedAudiences')
+        )
+      );
     }
   }),
 
@@ -129,10 +144,10 @@ export default Ember.Component.extend({
    * @param {Number[]} selectedOptions - Array of values
    */
   getOptionsArray: function(allOptions, selectedOptions) {
-    return allOptions.slice(0).map(function (object) {
-      object.checked = selectedOptions && selectedOptions.indexOf(object.id) > -1;
+    return allOptions.slice(0).map(function(object) {
+      object.checked =
+        selectedOptions && selectedOptions.indexOf(object.id) > -1;
       return Ember.Object.create(object);
     });
   }
-
 });

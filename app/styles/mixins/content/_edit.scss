@@ -24,7 +24,8 @@
 .controller.content.questions.play,
 .controller.content.resources.edit,
 .controller.content.resources.play,
-.controller.account-settings {
+.controller.account-settings,
+.content.rubric.preview {
   $aside-padding: 25px;
 
   @include flexbox();
@@ -39,7 +40,8 @@
       background-color: $dark-400;
       padding: 20px 20px 0 5%;
 
-      h1, nav > a {
+      h1,
+      nav > a {
         color: $white;
         display: inline-block;
       }
@@ -104,12 +106,12 @@
           }
         }
       }
-      .back-to{
-        color:$white;
+      .back-to {
+        color: $white;
         font-size: $font-size-large;
-        div{
+        div {
           margin-left: -12px;
-          i{
+          i {
             vertical-align: text-top;
           }
         }
@@ -119,13 +121,6 @@
     > section {
       padding-left: 5%;
       padding-right: 5%;
-      margin-top: 150px;
-      @media (min-width: $screen-sm) {
-        margin-top: 120px;
-      }
-      @media (min-width: $screen-md) {
-        margin-top: 100px;
-      }
 
       h2 {
         display: inline-block;
@@ -169,7 +164,8 @@
       .panel {
         margin-bottom: 0;
 
-        .panel-heading, .panel-body {
+        .panel-heading,
+        .panel-body {
           padding-left: 25px;
           padding-right: 25px;
         }
@@ -185,7 +181,7 @@
         }
 
         label span.required:after,
-        span.label.required:after{
+        span.label.required:after {
           content: ' *';
         }
       }
@@ -242,7 +238,6 @@
   #information,
   #accountInformation,
   #privateInformation {
-
     > .header {
       .actions {
         float: right;
@@ -250,7 +245,6 @@
     }
 
     > .content {
-
       @include flexbox();
 
       .gru-image {
@@ -273,7 +267,8 @@
 
             > label {
               margin: 0;
-              input, b {
+              input,
+              b {
                 display: block;
               }
               input {
@@ -306,10 +301,10 @@
               cursor: auto;
             }
           }
-          .learning-objectives{
-            label{
+          .learning-objectives {
+            label {
               width: 100%;
-              textarea{
+              textarea {
                 width: 100%;
                 outline: none;
                 resize: none;
@@ -322,7 +317,7 @@
   }
 
   #settings {
-    .panel{
+    .panel {
       border-radius: 6px;
       margin-bottom: 30px;
 
@@ -341,7 +336,8 @@
         .setting {
           margin-top: 10px;
 
-          > i, > span {
+          > i,
+          > span {
             margin-right: 10px;
           }
 
@@ -362,11 +358,12 @@
 .controller.content.collections.edit,
 .controller.content.courses.edit,
 .controller.content.courses.play,
-.content.rubric {
+.content.rubric,
+.content.rubric.preview {
   #information .title > label {
     display: block;
 
-    @media(min-width: $screen-lg) {
+    @media (min-width: $screen-lg) {
       max-width: 500px;
     }
   }

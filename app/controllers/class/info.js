@@ -1,12 +1,11 @@
-import Ember from "ember";
+import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
 /**
  * Class Information controller
  *
  * Controller responsible of the logic for the class information page
  */
-export default Ember.Controller.extend(ModalMixin,{
-
+export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
   classController: Ember.inject.controller('class'),
@@ -14,46 +13,52 @@ export default Ember.Controller.extend(ModalMixin,{
   /**
    * @requires service:api-sdk/class
    */
-  classService: Ember.inject.service("api-sdk/class"),
+  classService: Ember.inject.service('api-sdk/class'),
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     /**
      *
      * Triggered when a delete class option is selected
      */
-    deleteClass: function(){
+    deleteClass: function() {
       let controller = this;
       var model = {
         content: controller.get('class'),
-        deleteMethod: function () {
-          return controller.get('classService').deleteClass(controller.get('class.id'));
+        deleteMethod: function() {
+          return controller
+            .get('classService')
+            .deleteClass(controller.get('class.id'));
         },
-        callback:{
-          success:function(){
+        callback: {
+          success: function() {
             controller.send('updateUserClasses');
           }
         }
       };
 
-      this.actions.showModal.call(controller,
+      this.actions.showModal.call(
+        controller,
         'content.modals.gru-delete-class',
-        model, null, null, null, false);
+        model,
+        null,
+        null,
+        null,
+        false
+      );
     },
     /**
      * Remove student
      */
-    removeStudent:function(student){
+    removeStudent: function(student) {
       this.get('class.members').removeObject(student);
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
-
 
   // -------------------------------------------------------------------------
   // Properties
@@ -62,7 +67,7 @@ export default Ember.Controller.extend(ModalMixin,{
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.alias('classController.class'),
+  class: Ember.computed.alias('classController.class'),
 
   /**
    * @property {User[]} class students
@@ -74,13 +79,10 @@ export default Ember.Controller.extend(ModalMixin,{
    * @see controllers/class.js
    * @property {isStudent}
    */
-  "isStudent": Ember.computed.reads('classController.isStudent')
+  isStudent: Ember.computed.reads('classController.isStudent')
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
-
 });

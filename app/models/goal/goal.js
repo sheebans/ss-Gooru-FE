@@ -11,7 +11,6 @@ const Validations = buildValidations({});
  * @typedef {Object} Goal
  */
 const GoalModel = Ember.Object.extend(Validations, {
-
   /**
    * @property {String} id - Gooru id for the goal
    */
@@ -56,23 +55,22 @@ const GoalModel = Ember.Object.extend(Validations, {
   /**
    * @property {boolean} dropped
    */
-  dropped: Ember.computed.equal("status", GOAL_STATUS.DROPPED),
+  dropped: Ember.computed.equal('status', GOAL_STATUS.DROPPED),
 
   /**
    * @property {boolean} active
    */
-  active: Ember.computed.equal("status", GOAL_STATUS.ACTIVE),
+  active: Ember.computed.equal('status', GOAL_STATUS.ACTIVE),
 
   /**
    * @property {boolean} notStarted
    */
-  notStarted: Ember.computed.equal("status", GOAL_STATUS.NOT_STARTED),
+  notStarted: Ember.computed.equal('status', GOAL_STATUS.NOT_STARTED),
 
   /**
    * @property {boolean} completed
    */
-  completed: Ember.computed.equal("status", GOAL_STATUS.COMPLETED),
-
+  completed: Ember.computed.equal('status', GOAL_STATUS.COMPLETED),
 
   /**
    * Return a copy of the goal
@@ -81,7 +79,6 @@ const GoalModel = Ember.Object.extend(Validations, {
    * @return {Goal}
    */
   copy: function() {
-
     var properties = this.getProperties(this.modelProperties());
 
     let title = this.get('title');
@@ -134,7 +131,6 @@ const GoalModel = Ember.Object.extend(Validations, {
     }
     return properties;
   }
-
 });
 
 export default GoalModel;

@@ -85,6 +85,22 @@
     }
   },
   {
+    "description": "Disassociate rubric from question",
+    "request": {
+      "url": "^/api/nucleus/v2/questions/(.+)/rubrics/(.+)$",
+      "method": "DELETE",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  },
+  {
     "description": "update any rubric",
     "request": {
       "url": "^/api/nucleus/v2/rubrics/(.+)$",
@@ -132,6 +148,113 @@
         "Content-Type": "text/plain",
         "Location": "10262da0-c1f6-4b4c-a589-b8b5f75c8852"
       }
+    }
+  },
+  {
+    "description": "Get Questions To Grade",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/questions$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-questions-to-grade-200-response.json"
+    }
+  },
+  {
+    "description": "Get list of Students for a Question to be graded",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/questions/(.+)/students$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-question-students-to-grade-200-response.json"
+    }
+  },
+  {
+    "description": "Get Answer for Rubric Specific Student",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/questions/(.+)/students/profile-id-2/answers$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-question-profile2-answer-to-grade-200-response.json"
+    }
+  },
+  {
+    "description": "Get Answer for Rubric Grading",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/questions/(.+)/students/(.+)/answers$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-question-answer-to-grade-200-response.json"
+    }
+  },
+  {
+    "description": "Set student rubric grades",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/grades",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/plain",
+        "Location": "2384AB6C-10ee-4578-b89a-6b41c87dc9fc"
+      }
+    }
+  },
+  {
+    "description": "Get rubric question summary",
+    "request": {
+      "url": "^/api/nucleus-insights/v2/rubrics/class/(.+)/course/(.+)/collection/(.+)/question/(.+)/summary",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-rubric-question-summary-200-response.json"
     }
   }
 ]

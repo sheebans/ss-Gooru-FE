@@ -1,13 +1,12 @@
 .player .gru-hs-text {
-
   .answer-choices {
     ul {
       li.answer {
         &.selected {
           border-color: $green-400;
         }
-        div{
-          i{
+        div {
+          i {
             color: $green-400;
           }
         }

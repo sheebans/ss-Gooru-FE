@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
-
   templateName: 'student-independent-learning/learning-base',
 
   // -------------------------------------------------------------------------
@@ -39,21 +38,26 @@ export default Ember.Route.extend({
 
   // -------------------------------------------------------------------------
   // Methods
-  model: function () {
+  model: function() {
     const userId = this.get('session.userId');
     const contentType = this.get('contentType');
     return Ember.RSVP.hash({
       locations: this.get('learnerService').fetchLocations(userId, contentType),
-      performance: this.get('learnerService').fetchPerformance(userId, contentType)
+      performance: this.get('learnerService').fetchPerformance(
+        userId,
+        contentType
+      )
     });
   },
 
-  setupController: function (controller, model) {
+  setupController: function(controller, model) {
     controller.set('locations', model.locations);
     controller.set('performance', model.performance);
     controller.set('contentType', this.get('contentType'));
     controller.set('pageSize', this.get('PAGE_SIZE'));
     controller.set('offset', this.get('PAGE_SIZE'));
-    controller.get('studentIndependentController').selectMenuItem(this.get('item'));
+    controller
+      .get('studentIndependentController')
+      .selectMenuItem(this.get('item'));
   }
 });

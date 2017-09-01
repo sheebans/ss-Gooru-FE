@@ -1,11 +1,11 @@
 import Ember from 'ember';
-import PrivateRouteMixin from "gooru-web/mixins/private-route-mixin";
+import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    collectionId:{},
-    isCollection:{},
-    editing:{}
+    collectionId: {},
+    isCollection: {},
+    editing: {}
   },
   // -------------------------------------------------------------------------
   // Dependencies
@@ -13,7 +13,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @requires service:api-sdk/question
    */
-  questionService: Ember.inject.service("api-sdk/question"),
+  questionService: Ember.inject.service('api-sdk/question'),
 
   /**
   * @requires service:api-sdk/assessment
@@ -28,7 +28,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   /**
    * @requires service:session
    */
-  session: Ember.inject.service("session"),
+  session: Ember.inject.service('session'),
 
   // -------------------------------------------------------------------------
   // Events
@@ -39,12 +39,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     }
   },
 
-
-
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function (params) {
+  model: function(params) {
     const route = this;
     const questionId = params.questionId;
     const collectionId = params.collectionId;
@@ -60,9 +58,13 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
     if (collectionId) {
       if (isCollection) {
-        collection = route.get('collectionService').readCollection(collectionId);
+        collection = route
+          .get('collectionService')
+          .readCollection(collectionId);
       } else {
-        collection = route.get('assessmentService').readAssessment(collectionId);
+        collection = route
+          .get('assessmentService')
+          .readAssessment(collectionId);
       }
     }
 
@@ -79,9 +81,5 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('collection', model.collection);
     controller.set('isCollection', model.isCollection);
     controller.set('isEditing', model.isEditing);
-
-    if (model.isEditing) {
-      controller.set('tempQuestion', model.question.copy());
-    }
   }
 });

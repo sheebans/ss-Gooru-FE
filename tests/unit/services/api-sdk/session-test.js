@@ -3,9 +3,13 @@ import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 import UserModel from 'gooru-web/models/profile/profile';
 
-moduleForService('service:api-sdk/session', 'Unit | Service | api-sdk/session', {});
+moduleForService(
+  'service:api-sdk/session',
+  'Unit | Service | api-sdk/session',
+  {}
+);
 
-test('signInWithUser', function (assert) {
+test('signInWithUser', function(assert) {
   const service = this.subject();
   const response = {};
   const credentials = UserModel.create({
@@ -20,21 +24,23 @@ test('signInWithUser', function (assert) {
     password: 'password'
   };
 
-  service.set('session', Ember.Object.create({
-    authenticate: function(useApi3, data) {
-      assert.deepEqual(expectedData, data, 'Wrong data');
-      return Ember.RSVP.resolve(response);
-    }
-  }));
+  service.set(
+    'session',
+    Ember.Object.create({
+      authenticate: function(useApi3, data) {
+        assert.deepEqual(expectedData, data, 'Wrong data');
+        return Ember.RSVP.resolve(response);
+      }
+    })
+  );
 
   var done = assert.async();
-  service.signInWithUser(credentials, true)
-    .then(function() {
-      done();
-    });
+  service.signInWithUser(credentials, true).then(function() {
+    done();
+  });
 });
 
-test('signInWithToken', function (assert) {
+test('signInWithToken', function(assert) {
   const service = this.subject();
   const response = {};
   const token = 'access_token';
@@ -45,21 +51,23 @@ test('signInWithToken', function (assert) {
     accessToken: 'access_token'
   };
 
-  service.set('session', Ember.Object.create({
-    authenticate: function(useApi3, data) {
-      assert.deepEqual(expectedData, data, 'Wrong data');
-      return Ember.RSVP.resolve(response);
-    }
-  }));
+  service.set(
+    'session',
+    Ember.Object.create({
+      authenticate: function(useApi3, data) {
+        assert.deepEqual(expectedData, data, 'Wrong data');
+        return Ember.RSVP.resolve(response);
+      }
+    })
+  );
 
   var done = assert.async();
-  service.signInWithToken(token)
-    .then(function() {
-      done();
-    });
+  service.signInWithToken(token).then(function() {
+    done();
+  });
 });
 
-test('signUp', function (assert) {
+test('signUp', function(assert) {
   const service = this.subject();
   const response = {};
   const user = {
@@ -76,52 +84,62 @@ test('signUp', function (assert) {
     }
   };
 
-  service.set('session', Ember.Object.create({
-    authenticate: function(useApi3, data) {
-      assert.deepEqual(expectedData, data, 'Wrong data');
-      return Ember.RSVP.resolve(response);
-    }
-  }));
+  service.set(
+    'session',
+    Ember.Object.create({
+      authenticate: function(useApi3, data) {
+        assert.deepEqual(expectedData, data, 'Wrong data');
+        return Ember.RSVP.resolve(response);
+      }
+    })
+  );
 
   var done = assert.async();
-  service.signUp(user)
-    .then(function() {
-      done();
-    });
+  service.signUp(user).then(function() {
+    done();
+  });
 });
 
-test('updateUserData', function (assert) {
+test('updateUserData', function(assert) {
   const service = this.subject();
-  service.set('session', Ember.Object.create({
-    userData: {},
-    data: {},
-    store: {
-      persist: function() {
-        assert.ok(true);
+  service.set(
+    'session',
+    Ember.Object.create({
+      userData: {},
+      data: {},
+      store: {
+        persist: function() {
+          assert.ok(true);
+        }
       }
-    }
-  }));
+    })
+  );
   const expectedData = {
     isNew: false
   };
   service.updateUserData(expectedData);
-  assert.deepEqual(service.get('session.userData'), expectedData, 'Wrong userData');
+  assert.deepEqual(
+    service.get('session.userData'),
+    expectedData,
+    'Wrong userData'
+  );
 });
 
-
-test('authorize', function (assert) {
+test('authorize', function(assert) {
   const service = this.subject();
 
-  service.set('session', Ember.Object.create({
-    authorize: function(useApi3, block) {
-      assert.ok(true, 'authorize() function was called' );
-      block(null);
-    }
-  }));
+  service.set(
+    'session',
+    Ember.Object.create({
+      authorize: function(useApi3, block) {
+        assert.ok(true, 'authorize() function was called');
+        block(null);
+      }
+    })
+  );
 
   var done = assert.async();
-  service.authorize()
-    .then(function() {
-      done();
-    });
+  service.authorize().then(function() {
+    done();
+  });
 });

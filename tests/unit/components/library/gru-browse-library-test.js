@@ -1,15 +1,25 @@
 import { moduleForComponent, test } from 'ember-qunit';
 
-moduleForComponent('library/gru-browse-library', 'Unit | Component | library/gru browse library', {
-  unit: true
-});
+moduleForComponent(
+  'library/gru-browse-library',
+  'Unit | Component | library/gru browse library',
+  {
+    unit: true
+  }
+);
 
 test('options', function(assert) {
   let component = this.subject();
-  component.set('options',[{
-    name: 'featured-courses',
-    text: 'Featured Courses'
-  }]);
+  component.set('options', [
+    {
+      name: 'featured-courses',
+      text: 'Featured Courses'
+    }
+  ]);
 
-  assert.equal(component.get('options')[0].name, 'featured-courses', 'First option incorrect');
+  assert.equal(
+    component.get('options')[0].name,
+    'featured-courses',
+    'First option incorrect'
+  );
 });

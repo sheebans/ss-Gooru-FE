@@ -40,9 +40,9 @@ export default buildValidations({
       validator('reserved-words')
     ]
   },
-  studentId:[
+  studentId: [
     validator('format', {
-      allowBlank:true,
+      allowBlank: true,
       regex: /^\w+$/,
       message: '{{description}}',
       descriptionKey: 'common.errors.special-characters'

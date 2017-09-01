@@ -32,27 +32,41 @@ export default Ember.Component.extend({
     $toggle.bootstrapToggle();
     $toggle.change(function() {
       const checked = $toggle.prop('checked');
-      if (checked !== component.get('isChecked')){
+      if (checked !== component.get('isChecked')) {
         component.set('isChecked', checked);
         component.sendAction('onOptionSwitch', checked, component.get('item'));
       }
     });
     this.changeStatus(this.get('isChecked'));
+    this.set('inputDisabled', this.get('disabled'));
   },
 
-  stateObserver: Ember.observer('isChecked', function(){
+  stateObserver: Ember.observer('isChecked', function() {
     this.changeStatus(this.get('isChecked'));
   }),
 
   // -------------------------------------------------------------------------
   // Methods
-  changeStatus: function(isChecked){
+  changeStatus: function(isChecked) {
     const $toggle = this.$('input[type=checkbox][data-toggle^=toggle]');
     $toggle.prop('checked', isChecked).change();
   },
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Disabled the switch
+   * @property {Boolean} disabled
+   */
+  disabled: false,
+
+  /**
+   * If the switch is now disabled
+   * @property {Boolean} disabled
+   */
+  inputDisabled: false,
+
   /**
    * List of options to show in the switch
    *
@@ -63,20 +77,20 @@ export default Ember.Component.extend({
    * Item to change
    *
    */
-  item:null,
+  item: null,
 
   /**
    * Option in the left side of the switch
    * @property {Array} Option A
    */
-  optionA:Ember.computed('switchOptions.[]', function() {
+  optionA: Ember.computed('switchOptions.[]', function() {
     return this.get('switchOptions')[0];
   }),
   /**
    * Option in the right side of the switch
    * @property {Array} Option B
    */
-  optionB:Ember.computed('switchOptions.[]', function() {
+  optionB: Ember.computed('switchOptions.[]', function() {
     return this.get('switchOptions')[1];
   }),
   /**
@@ -84,7 +98,4 @@ export default Ember.Component.extend({
    * @property {Boolean} isChecked
    */
   isChecked: false
-
 });
-
-

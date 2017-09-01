@@ -3,14 +3,13 @@ import createGoalValidations from 'gooru-web/validations/create-goal';
 import Goal from 'gooru-web/models/goal/goal';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   /**
    * @dependency service:goal
    */
-  goalService: Ember.inject.service("api-sdk/goal"),
+  goalService: Ember.inject.service('api-sdk/goal'),
 
   /**
    * @dependency service:notifications
@@ -40,32 +39,33 @@ export default Ember.Controller.extend({
    */
   showForm: false,
 
-
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
-
     showNewGoalForm: function() {
       this.resetProperties();
       this.set('showForm', true);
     },
 
-    cancelCreation: function () {
+    cancelCreation: function() {
       this.closeCreateGoalForm();
       this.resetProperties();
     },
 
-    createGoal: function (goal, areDatesOk) {
+    createGoal: function(goal, areDatesOk) {
       const controller = this;
-      goal.validate().then(function ({ validations }) {
-        controller.set("didValidate", true);
+      goal.validate().then(function({ validations }) {
+        controller.set('didValidate', true);
         if (validations.get('isValid') && areDatesOk) {
           const goals = controller.get('goals');
-          controller.get('goalService').createGoal(goal)
-          .then(function () {
+          controller.get('goalService').createGoal(goal).then(function() {
             controller.closeCreateGoalForm();
-            let message = controller.get('i18n').t('goals.create.created-success-msg', {goalTitle: goal.get('title')}).string;
+            let message = controller
+              .get('i18n')
+              .t('goals.create.created-success-msg', {
+                goalTitle: goal.get('title')
+              }).string;
             controller.get('notifications').success(message);
             goals.pushObject(goal);
           });
@@ -73,21 +73,24 @@ export default Ember.Controller.extend({
       });
     },
 
-    updateGoal: function (editedGoal, areDatesOk) {
+    updateGoal: function(editedGoal, areDatesOk) {
       const controller = this;
-      return new Ember.RSVP.Promise(function (resolve) {
-        editedGoal.validate().then(function ({ validations }) {
-          controller.set("didValidate", true);
+      return new Ember.RSVP.Promise(function(resolve) {
+        editedGoal.validate().then(function({ validations }) {
+          controller.set('didValidate', true);
           if (validations.get('isValid') && areDatesOk) {
             const goalId = editedGoal.get('id');
-            controller.get('goalService').updateGoal(editedGoal, goalId)
-              .then(function () {
+            controller
+              .get('goalService')
+              .updateGoal(editedGoal, goalId)
+              .then(function() {
                 resolve(true);
-                let message = controller.get('i18n').t('goals.update.updated-success-msg').string;
+                let message = controller
+                  .get('i18n')
+                  .t('goals.update.updated-success-msg').string;
                 controller.get('notifications').success(message);
               });
-          }
-          else {
+          } else {
             resolve(false);
           }
         });
@@ -96,8 +99,10 @@ export default Ember.Controller.extend({
 
     deleteGoal: function(goal) {
       const controller = this;
-      controller.get('goalService').deleteGoal(goal.get("id")).then(function(){
-        let message = controller.get('i18n').t('goals.delete.deleted-success-msg').string;
+      controller.get('goalService').deleteGoal(goal.get('id')).then(function() {
+        let message = controller
+          .get('i18n')
+          .t('goals.delete.deleted-success-msg').string;
         controller.get('notifications').success(message);
         const goals = controller.get('goals');
         goals.removeObject(goal);
@@ -111,17 +116,16 @@ export default Ember.Controller.extend({
   /**
    * init and reset all the properties for the validations
    */
-  resetProperties(){
+  resetProperties() {
     var controller = this;
     var newGoal = Goal.extend(createGoalValidations);
     var goal = newGoal.create(Ember.getOwner(this).ownerInjection(), {});
     controller.set('goal', goal);
-    controller.set("didValidate", false);
+    controller.set('didValidate', false);
   },
 
-  closeCreateGoalForm(){
+  closeCreateGoalForm() {
     $('#createGoalForm')[0].reset();
     this.set('showForm', false);
   }
-
 });

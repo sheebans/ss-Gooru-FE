@@ -3,47 +3,52 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import Tenant from 'gooru-web/models/tenant/tenant';
 
-moduleForComponent('tenant/gru-tenant-theme', 'Integration | Component | tenant/gru tenant theme', {
-  integration: true
-});
+moduleForComponent(
+  'tenant/gru-tenant-theme',
+  'Integration | Component | tenant/gru tenant theme',
+  {
+    integration: true
+  }
+);
 
 test('Layout', function(assert) {
-
-  this.set('tenant', Tenant.create({
-      "id": "ba956a97-ae15-11e5-a302-f8a963065976",
-      "theme": {
-        "buttons": {
-          "primary": {
-            "color": "gray"
+  this.set(
+    'tenant',
+    Tenant.create({
+      id: 'ba956a97-ae15-11e5-a302-f8a963065976',
+      theme: {
+        buttons: {
+          primary: {
+            color: 'gray'
           },
-          "info": {
-            "color": "blue"
+          info: {
+            color: 'blue'
           },
-          "success": {
-            "color": "green"
+          success: {
+            color: 'green'
           },
-          "warning": {
-            "color": "orange"
+          warning: {
+            color: 'orange'
           },
-          "danger": {
-            "color": "red"
+          danger: {
+            color: 'red'
           }
         },
-        "header": {
-          "logo": {
-            "url": "http://www.edify.cr/images/logo-EDIFY.png"
+        header: {
+          logo: {
+            url: 'http://www.edify.cr/images/logo-EDIFY.png'
           }
         }
       }
-    }
-  ));
+    })
+  );
 
   this.render(hbs`{{tenant.gru-tenant-theme tenant=tenant}}`);
 
   var $component = this.$(); //component dom element
 
-  const $style = $component.find("style");
-  T.exists(assert, $style, "Missing  style component");
+  const $style = $component.find('style');
+  T.exists(assert, $style, 'Missing  style component');
 
   const expedtedStyle = `
     .btn-primary, .btn-primary:active {
@@ -71,5 +76,5 @@ test('Layout', function(assert) {
         background-size: contain;
     }
 `;
-  assert.equal($style.text(), expedtedStyle, "Wrong style body");
+  assert.equal($style.text(), expedtedStyle, 'Wrong style body');
 });

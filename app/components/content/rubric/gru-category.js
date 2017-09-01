@@ -4,56 +4,77 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['content','rubric','gru-category'],
+  classNames: ['content', 'rubric', 'gru-category'],
 
   // -------------------------------------------------------------------------
   // Actions
 
-  actions:{
+  actions: {
     /**
      * Enable edit inline
      */
-    editInline: function () {
+    editInline: function() {
       this.showInlinePanel();
     },
+
+    /**
+     * show category information
+     */
+    showInfo: function() {
+      this.toggleProperty('isPanelExpanded');
+    },
+
     /**
      * Cancel edit inline
      */
-    cancel: function (){
+    cancel: function() {
+      let component = this;
+      let category = component.get('category');
+      if (category.get('isNew') && !category.get('title')) {
+        component.sendAction('onCancelNewCategory', category);
+      }
       this.setProperties({
-        'isPanelExpanded': false,
-        'isEditingInline': false
+        isPanelExpanded: false,
+        isEditingInline: false
       });
     },
     /**
      *Copy category
      */
-    copyCategory: function (category,index) {
-      this.sendAction('onCopyCategory',category,index);
+    copyCategory: function(category, index) {
+      this.sendAction('onCopyCategory', category, index);
     },
     /**
      *Delete a category
      */
-    deleteCategory: function(category){
-      this.sendAction('onDeleteCategory',category);
+    deleteCategory: function(category) {
+      this.sendAction('onDeleteCategory', category);
     },
     /**
      *Set if feedback is required
      */
-    setFeedBack: function(){
-      this.set('category.requiresFeedback',!this.get('category.requiresFeedback'));
+    setFeedBack: function() {
+      this.set(
+        'category.requiresFeedback',
+        !this.get('category.requiresFeedback')
+      );
     },
     /**
      *Save category
      */
-    saveCategory: function () {
-      let tempCategory = this.get('tempCategory');
-      let category = this.get('category');
-      category.setProperties(tempCategory);
-
-      this.setProperties({
-        'isPanelExpanded': false,
-        'isEditingInline': false
+    saveCategory: function() {
+      const component = this;
+      let tempCategory = component.get('tempCategory');
+      tempCategory.validate().then(function({ validations }) {
+        if (validations.get('isValid')) {
+          let category = component.get('category');
+          category.setProperties(tempCategory);
+          component.sendAction('onUpdateCategory', category);
+          component.setProperties({
+            isPanelExpanded: false,
+            isEditingInline: false
+          });
+        }
       });
     }
   },
@@ -67,15 +88,15 @@ export default Ember.Component.extend({
     this._super(...arguments);
     const component = this;
     // Adds tooltip to UI elements (elements with attribute 'data-toggle')
-    component.$('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
 
     //Determinate if the device where the component is showing is a touch device in order to deactivate the tooltips
-    var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+    var isTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
     if (isTouch) {
       component.$('.actions .item-actions button').tooltip('disable');
     }
 
-    if(!this.get('category.title')){
+    if (!this.get('category.title')) {
       component.showInlinePanel();
     }
   },
@@ -96,21 +117,40 @@ export default Ember.Component.extend({
   isPanelExpanded: false,
 
   /**
+   * @property {Boolean} preview
+   */
+  preview: false,
+
+  /**
    * Copy of the category used for editing.
    * @property {Category}
    */
   tempCategory: null,
+
+  /**
+   * Action to send when save is clicked
+   * @property {String}
+   */
+  onUpdateCategory: null,
+
+  /**
+   * @property {boolean} Show if the category has levels
+   */
+  hasLevels: Ember.computed('category.levels[]', function() {
+    return this.get('category.levels.length') > 0 || false;
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
   /**
    * Show Inline Edit Panel
    */
-  showInlinePanel: function () {
+  showInlinePanel: function() {
     var modelForEditing = this.get('category').copy();
     this.setProperties({
-      'tempCategory': modelForEditing,
-      'isPanelExpanded': true,
-      'isEditingInline': true
+      tempCategory: modelForEditing,
+      isPanelExpanded: true,
+      isEditingInline: true
     });
   }
 });

@@ -2,10 +2,10 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
 import T from 'gooru-web/tests/helpers/assert';
-import {KEY_CODES} from "gooru-web/config/config";
+import { KEY_CODES } from 'gooru-web/config/config';
 
 moduleForAcceptance('Acceptance | Edit Collection', {
-  beforeEach: function () {
+  beforeEach: function() {
     authenticateSession(this.application, {
       isAnonymous: false,
       token: 'profile-token',
@@ -64,67 +64,86 @@ moduleForAcceptance('Acceptance | Edit Collection', {
   });
 });*/
 
-test('Click share button and check clipboard functionality', function (assert) {
+test('Click share button and check clipboard functionality', function(assert) {
   visit('/content/collections/edit/all-resource-types-collection-id');
 
-  andThen(function () {
-    assert.equal(currentURL(), '/content/collections/edit/all-resource-types-collection-id');
-    var $shareButton = find(".gru-share-pop-over");
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/content/collections/edit/all-resource-types-collection-id'
+    );
+    var $shareButton = find('.gru-share-pop-over');
 
     click($shareButton);
-    andThen(function () {
-      var $popOverContent = find(".gru-share-pop-over-content");
+    andThen(function() {
+      var $popOverContent = find('.gru-share-pop-over-content');
 
-      T.exists(assert, $popOverContent.find('p'), "Missing share description");
-      const $input = $popOverContent.find('.share-actions #collection-popover-input');
-      T.exists(assert, $input, "Missing readonly input");
-      assert.ok($input.val().indexOf("/player/all-question-types-assessment-id?type=collection"), "Missing input url");
+      T.exists(assert, $popOverContent.find('p'), 'Missing share description');
+      const $input = $popOverContent.find(
+        '.share-actions #collection-popover-input'
+      );
+      T.exists(assert, $input, 'Missing readonly input');
+      assert.ok(
+        $input
+          .val()
+          .indexOf('/player/all-question-types-assessment-id?type=collection'),
+        'Missing input url'
+      );
 
       var $copyBtn = $popOverContent.find('.share-actions .copy-btn');
-      T.exists(assert, $copyBtn, "Missing copy button");
+      T.exists(assert, $copyBtn, 'Missing copy button');
     });
   });
 });
 
-test('Click preview button', function (assert) {
+test('Click preview button', function(assert) {
   visit('/content/collections/edit/all-resource-types-collection-id');
 
-  andThen(function () {
-    assert.equal(currentURL(), '/content/collections/edit/all-resource-types-collection-id');
-    var $previewButton = find(".actions .preview");
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/content/collections/edit/all-resource-types-collection-id'
+    );
+    var $previewButton = find('.actions .preview');
 
     click($previewButton);
-    andThen(function () {
-      assert.equal(currentURL(), '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection');
+    andThen(function() {
+      assert.equal(
+        currentURL(),
+        '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+      );
     });
   });
 });
 
-test('Delete Collection', function (assert) {
+test('Delete Collection', function(assert) {
   visit('/content/collections/edit/all-resource-types-collection-id');
-  andThen(function () {
-    assert.equal(currentURL(), '/content/collections/edit/all-resource-types-collection-id');
-    var $deleteButton = find("header .actions .delete");
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/content/collections/edit/all-resource-types-collection-id'
+    );
+    var $deleteButton = find('header .actions .delete');
     click($deleteButton);
-    andThen(function () {
-      var $deleteContentModal = find(".gru-modal .gru-delete-content");
-      var $check1 = $deleteContentModal.find("ul li:eq(0) input");
+    andThen(function() {
+      var $deleteContentModal = find('.gru-modal .gru-delete-content');
+      var $check1 = $deleteContentModal.find('ul li:eq(0) input');
       click($check1);
-      andThen(function () {
-        var $check2 = $deleteContentModal.find("ul li:eq(1) input");
+      andThen(function() {
+        var $check2 = $deleteContentModal.find('ul li:eq(1) input');
         click($check2);
-        andThen(function () {
-          var $check3 = $deleteContentModal.find("ul li:eq(2) input");
+        andThen(function() {
+          var $check3 = $deleteContentModal.find('ul li:eq(2) input');
           click($check3);
-          andThen(function () {
-            var $input = $deleteContentModal.find(".delete-input");
+          andThen(function() {
+            var $input = $deleteContentModal.find('.delete-input');
             $input.val('delete');
             $input.blur();
             keyEvent($input, 'keyup', KEY_CODES.ENTER);
-            andThen(function () {
-              var $deleteButton = $deleteContentModal.find("button.delete");
+            andThen(function() {
+              var $deleteButton = $deleteContentModal.find('button.delete');
               click($deleteButton);
-              andThen(function () {
+              andThen(function() {
                 assert.equal(currentURL(), '/id-for-pochita/content/courses');
               });
             });

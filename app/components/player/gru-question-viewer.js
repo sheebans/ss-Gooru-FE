@@ -1,5 +1,9 @@
-import Ember from "ember";
-import { KEY_CODES, ASSESSMENT_SHOW_VALUES, FEEDBACK_EMOTION_VALUES } from 'gooru-web/config/config';
+import Ember from 'ember';
+import {
+  KEY_CODES,
+  ASSESSMENT_SHOW_VALUES,
+  FEEDBACK_EMOTION_VALUES
+} from 'gooru-web/config/config';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
@@ -14,7 +18,6 @@ import ConfigurationMixin from 'gooru-web/mixins/configuration';
  * @augments ember/Component
  */
 export default Ember.Component.extend(ConfigurationMixin, {
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -25,41 +28,42 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames:['gru-question-viewer'],
+  classNames: ['gru-question-viewer'],
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * Action triggered when the user see a hint
      */
-    showHint: function(){
+    showHint: function() {
       var actualHint = this.get('actualHint');
 
-      this.get('hintsToDisplay').pushObject(this.get('question.hints').objectAt(actualHint));
+      this.get('hintsToDisplay').pushObject(
+        this.get('question.hints').objectAt(actualHint)
+      );
       actualHint += 1;
       this.set('actualHint', actualHint);
     },
 
-    showExplanation: function(){
+    showExplanation: function() {
       this.set('isExplanationShown', true);
     },
 
     /**
      * When the question is submitted
      */
-    submitQuestion: function () {
+    submitQuestion: function() {
       this.submitQuestion();
     },
     /**
      * When the question answer has been changed
      * @param {Resource} question the question
      */
-    changeAnswer: function(question){
-      if (!this.get("submitted")) {
+    changeAnswer: function(question) {
+      if (!this.get('submitted')) {
         //todo track analytics
-        this.set("question", question);
+        this.set('question', question);
       }
     },
 
@@ -68,25 +72,25 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * @param {Resource} question the question
      * @param { { answer: Object, correct: boolean } } stats
      */
-    completeAnswer: function(question, stats){
-      if (!this.get("submitted")) {
-        let questionResult = this.get("questionResult");
-        questionResult.set("userAnswer", stats.answer);
-        questionResult.set("correct", stats.correct);
+    completeAnswer: function(question, stats) {
+      if (!this.get('submitted')) {
+        let questionResult = this.get('questionResult');
+        questionResult.set('userAnswer', stats.answer);
+        questionResult.set('correct', stats.correct);
 
-        this.set("question", question);
-        this.set("answerCompleted", true);
+        this.set('question', question);
+        this.set('answerCompleted', true);
       }
     },
     /**
      * When the question answer has been cleared
      * @param {Resource} question the question
      */
-    clearAnswer: function(question){
-      if (!this.get("submitted")) {
+    clearAnswer: function(question) {
+      if (!this.get('submitted')) {
         //todo track analytics
-        this.set("question", question);
-        this.set("answerCompleted", false);
+        this.set('question', question);
+        this.set('answerCompleted', false);
       }
     },
     /**
@@ -94,14 +98,14 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * @param {Resource} question the question
      * @param { { answer: Object, correct: boolean } } stats
      */
-    loadedAnswer: function(question, stats){
-      if (!this.get("submitted")) {
-        let questionResult = this.get("questionResult");
-        questionResult.set("userAnswer", stats.answer);
-        questionResult.set("correct", stats.correct);
+    loadedAnswer: function(question, stats) {
+      if (!this.get('submitted')) {
+        let questionResult = this.get('questionResult');
+        questionResult.set('userAnswer', stats.answer);
+        questionResult.set('correct', stats.correct);
 
-        this.set("question", question);
-        this.set("answerCompleted", false);
+        this.set('question', question);
+        this.set('answerCompleted', false);
       }
     }
   },
@@ -114,8 +118,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
     let component = this;
     $(document).on('keyup', function(e) {
       if (e.which === KEY_CODES.ENTER) {
-        if(!component.get('isSubmitDisabled')){
-          if(!component.get('question.isOpenEnded')){
+        if (!component.get('isSubmitDisabled')) {
+          if (!component.get('question.isOpenEnded')) {
             component.submitQuestion();
           }
         }
@@ -126,7 +130,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
   /**
    * Removed keyup handler when the component will destroy
    */
-  disableListenToEnter: Ember.on('willDestroyElement',function(){
+  disableListenToEnter: Ember.on('willDestroyElement', function() {
     $(document).off('keyup');
   }),
 
@@ -175,7 +179,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @property {boolean}
    */
   feedbackUnicode: Ember.computed('questionResult.correct', function() {
-    return this.get('questionResult.correct') ? FEEDBACK_EMOTION_VALUES.CORRECT : FEEDBACK_EMOTION_VALUES.INCORRECT;
+    return this.get('questionResult.correct')
+      ? FEEDBACK_EMOTION_VALUES.CORRECT
+      : FEEDBACK_EMOTION_VALUES.INCORRECT;
   }),
 
   /**
@@ -195,7 +201,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @property {String} isCorrectMessageKey
    */
   isCorrectMessageKey: Ember.computed('questionResult.correct', function() {
-    return this.get('questionResult.correct') ? "common.answer-correct" : "common.answer-incorrect";
+    return this.get('questionResult.correct')
+      ? 'common.answer-correct'
+      : 'common.answer-incorrect';
   }),
 
   /**
@@ -208,16 +216,27 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Is the explanation button disabled?
    * @property {boolean} disableHint
    */
-  isExplanationButtonDisabled: Ember.computed.or('isExplanationShown', 'doesNotHaveExplanation'),
-
+  isExplanationButtonDisabled: Ember.computed.or(
+    'isExplanationShown',
+    'doesNotHaveExplanation'
+  ),
 
   /**
    * @property {boolean} indicates when the inputs are enabled
    */
-  isInputDisabled: Ember.computed("questionResult.submittedAnswer", "showFeedback", function(){
-    let showFeedback = this.get('showFeedback');
-    return (showFeedback && this.get('isStudent') && this.get("questionResult.submittedAnswer")) || this.get('submitted');
-  }),
+  isInputDisabled: Ember.computed(
+    'questionResult.submittedAnswer',
+    'showFeedback',
+    function() {
+      let showFeedback = this.get('showFeedback');
+      return (
+        (showFeedback &&
+          this.get('isStudent') &&
+          this.get('questionResult.submittedAnswer')) ||
+        this.get('submitted')
+      );
+    }
+  ),
 
   /**
    * Is the hints button disabled?
@@ -229,24 +248,34 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Indicates if the student is playing the collection
    * @property {boolean}
    */
-  isStudent: Ember.computed.equal("role", "student"),
+  isStudent: Ember.computed.equal('role', 'student'),
 
   /**
    * @property {boolean} indicates when the submit functionality is enabled
    */
-  isSubmitDisabled: Ember.computed("answerCompleted", "submitted", "questionResult.submittedAnswer", "showFeedback", function() {
-    let showFeedback = this.get('showFeedback');
-    if(!showFeedback || this.get('isTeacher') || !this.get("questionResult.submittedAnswer")) {
-      return this.get("submitted") || !this.get("answerCompleted");
+  isSubmitDisabled: Ember.computed(
+    'answerCompleted',
+    'submitted',
+    'questionResult.submittedAnswer',
+    'showFeedback',
+    function() {
+      let showFeedback = this.get('showFeedback');
+      if (
+        !showFeedback ||
+        this.get('isTeacher') ||
+        !this.get('questionResult.submittedAnswer')
+      ) {
+        return this.get('submitted') || !this.get('answerCompleted');
+      }
+      return false;
     }
-    return false;
-  }),
+  ),
 
   /**
    * Indicates if the teacher is playing this collection
    * @property {boolean}
    */
-  isTeacher: Ember.computed.not("isStudent"),
+  isTeacher: Ember.computed.not('isStudent'),
 
   /**
    * @property {string} on submit question action
@@ -269,13 +298,24 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Indicates if feedback should be shown
    * @property {boolean}
    */
-  showFeedback: Ember.computed('collection.showFeedback', 'questionResult.submittedAnswer', 'showQuestionFeedback', function() {
-    let isShowQuestionFeedbackSet = this.get("showQuestionFeedback") !== undefined;
-    let feedback = isShowQuestionFeedbackSet ?
-      this.get("showQuestionFeedback") :
-      (this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.IMMEDIATE);
-    return feedback && this.get('isStudent') && this.get("questionResult.submittedAnswer");
-  }),
+  showFeedback: Ember.computed(
+    'collection.showFeedback',
+    'questionResult.submittedAnswer',
+    'showQuestionFeedback',
+    function() {
+      let isShowQuestionFeedbackSet =
+        this.get('showQuestionFeedback') !== undefined;
+      let feedback = isShowQuestionFeedbackSet
+        ? this.get('showQuestionFeedback')
+        : this.get('collection.showFeedback') ===
+          ASSESSMENT_SHOW_VALUES.IMMEDIATE;
+      return (
+        feedback &&
+        this.get('isStudent') &&
+        this.get('questionResult.submittedAnswer')
+      );
+    }
+  ),
 
   /**
    * it forces to show the question feedback, no matter what configuration is set for the collection,
@@ -309,12 +349,12 @@ export default Ember.Component.extend(ConfigurationMixin, {
       hintsToDisplay: Ember.A(),
       isExplanationShown: false
     });
-  }.observes("question"),
+  }.observes('question'),
 
   // -------------------------------------------------------------------------
   // Methods
 
-  submitQuestion: function(){
+  submitQuestion: function() {
     if (!this.get('submitted')) {
       let questionResult = this.get('questionResult');
       this.sendAction('onSubmitQuestion', this.get('question'), questionResult);

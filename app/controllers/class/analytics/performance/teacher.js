@@ -1,6 +1,10 @@
 import Ember from 'ember';
-import {download} from 'gooru-web/utils/csv';
-import {prepareFileDataToDownload, formatDate, createFileNameToDownload} from 'gooru-web/utils/utils';
+import { download } from 'gooru-web/utils/csv';
+import {
+  prepareFileDataToDownload,
+  formatDate,
+  createFileNameToDownload
+} from 'gooru-web/utils/utils';
 
 /**
  * Teacher Analytics Performance Controller
@@ -23,73 +27,84 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
+  actions: {
     /**
      * Triggered when a filter option is selected
      * @param {string} option
      */
-    optionsChange:function(options){
-      this.set('selectedOptions', options.map(function(option){
-        return option.get("value");
-      }));
+    optionsChange: function(options) {
+      this.set(
+        'selectedOptions',
+        options.map(function(option) {
+          return option.get('value');
+        })
+      );
     },
 
     /**
      * Edit content action, when clicking Edit content on Class Overview
      * @param {Content/Course}
      */
-    editContent: function(){
-      this.transitionToRoute("content.courses.edit", this.get("course.id"));
+    editContent: function() {
+      this.transitionToRoute('content.courses.edit', this.get('course.id'));
     },
 
     /**
      * Triggered when a filter option is selected
      * @param {string} option
      */
-    selectFilterBy: function(option){
-      this.set("filterBy", option);
+    selectFilterBy: function(option) {
+      this.set('filterBy', option);
     },
 
     /**
      * Triggered when the user toggles between normal and full screen mode
      */
-    toggleFullScreen: function () {
-      this.get("classController").hideChannels();
-      return this.get("classController").toggleFullScreen();
+    toggleFullScreen: function() {
+      this.get('classController').hideChannels();
+      return this.get('classController').toggleFullScreen();
     },
 
     /**
      * When clicking at the download button
      */
-    download: function(){
+    download: function() {
       const performanceDataHeaders = this.get('performanceDataHeaders');
       const performanceDataMatrix = this.get('performanceDataMatrix');
-      const date=formatDate(new Date(),'MM-DD-YY');
+      const date = formatDate(new Date(), 'MM-DD-YY');
       const classTitle = this.get('class.title');
       const courseTitle = this.get('course.title');
-      const currentRouteName = this.get('applicationController.currentRouteName');
+      const currentRouteName = this.get(
+        'applicationController.currentRouteName'
+      );
       var fileNameString = `${classTitle}_${courseTitle}`;
       var unitIndex;
       var lessonIndex;
       var level = 'course';
 
-      if (currentRouteName === 'class.analytics.performance.teacher.unit'){
+      if (currentRouteName === 'class.analytics.performance.teacher.unit') {
         unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
-        fileNameString = `${fileNameString}_unit${unitIndex+1}`;
-        level='unit';
+        fileNameString = `${fileNameString}_unit${unitIndex + 1}`;
+        level = 'unit';
       }
 
-      if (currentRouteName === 'class.analytics.performance.teacher.lesson'){
-        level='lesson';
+      if (currentRouteName === 'class.analytics.performance.teacher.lesson') {
+        level = 'lesson';
         unitIndex = this.get('course').getChildUnitIndex(this.get('unit'));
-        lessonIndex =  this.get('unit').getChildLessonIndex(this.get('lesson'));
-        fileNameString = `${fileNameString}_unit${unitIndex+1}_lesson${lessonIndex+1}`;
+        lessonIndex = this.get('unit').getChildLessonIndex(this.get('lesson'));
+        fileNameString = `${fileNameString}_unit${unitIndex +
+          1}_lesson${lessonIndex + 1}`;
       }
 
       fileNameString = `${fileNameString}_${date}`;
 
       const fileName = createFileNameToDownload(fileNameString);
-      const fileData = prepareFileDataToDownload(performanceDataHeaders, performanceDataMatrix, this.get('filterBy'),level);
+      const fileData = prepareFileDataToDownload(
+        performanceDataHeaders,
+        performanceDataMatrix,
+        this.get('filterBy'),
+        level
+      );
 
       download(fileName, fileData);
     }
@@ -105,7 +120,7 @@ export default Ember.Controller.extend({
    * @see controllers/class.js
    * @property {Class}
    */
-  "class": Ember.computed.reads('classController.class'),
+  class: Ember.computed.reads('classController.class'),
 
   /**
    * A link to the parent class controller
@@ -163,15 +178,17 @@ export default Ember.Controller.extend({
    * List of selected options from the data picker.
    * @property {Array}
    */
-  selectedOptions: Ember.computed(function(){
-    return this.get('filterBy') === 'assessment' ? Ember.A(["score"]) : Ember.A(["study-time"]);
+  selectedOptions: Ember.computed(function() {
+    return this.get('filterBy') === 'assessment'
+      ? Ember.A(['score'])
+      : Ember.A(['study-time']);
   }),
 
   /**
    * If analytics is fullscreen
    * @property {Boolean}
    */
-  isFullScreen:  Ember.computed.alias('classController.isFullScreen'),
+  isFullScreen: Ember.computed.alias('classController.isFullScreen'),
 
   /**
    * List of breadcrumbs.
@@ -192,92 +209,108 @@ export default Ember.Controller.extend({
    *
    * @constant {Array}
    */
-  optionsTeacher : Ember.A([Ember.Object.create({
-      'value': 'score',
-      'selected':true,
-      'readOnly':true,
-      'isDisabled':false
-    }),Ember.Object.create({
-      'value': 'completion',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':false
-    }),Ember.Object.create({
-      'value': 'study-time',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':false
-    })]),
+  optionsTeacher: Ember.A([
+    Ember.Object.create({
+      value: 'score',
+      selected: true,
+      readOnly: true,
+      isDisabled: false
+    }),
+    Ember.Object.create({
+      value: 'completion',
+      selected: false,
+      readOnly: false,
+      isDisabled: false
+    }),
+    Ember.Object.create({
+      value: 'study-time',
+      selected: false,
+      readOnly: false,
+      isDisabled: false
+    })
+  ]),
 
   /**
    * List of  options specific to teacher to be displayed by the component Data picker when filter by collection
    *
    * @constant {Array}
    */
-    optionsCollectionsTeacher : Ember.A([Ember.Object.create({
-      'value': 'score',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'completion',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':true
-    }),Ember.Object.create({
-      'value': 'study-time',
-      'selected':true,
-      'readOnly':false,
-      'isDisabled':true
-    })]),
+  optionsCollectionsTeacher: Ember.A([
+    Ember.Object.create({
+      value: 'score',
+      selected: false,
+      readOnly: false,
+      isDisabled: true
+    }),
+    Ember.Object.create({
+      value: 'completion',
+      selected: false,
+      readOnly: false,
+      isDisabled: true
+    }),
+    Ember.Object.create({
+      value: 'study-time',
+      selected: true,
+      readOnly: false,
+      isDisabled: true
+    })
+  ]),
   /**
    * List of  options specific to teacher to be displayed by the component Data picker when filter by collection
    *
    * @constant {Array}
    */
-  mobileOptionsCollectionsTeacher : Ember.A([Ember.Object.create({
-    'value': 'score',
-    'selected':false,
-    'readOnly':false,
-    'isDisabled':true
-  }),Ember.Object.create({
-    'value': 'completion',
-    'selected':false,
-    'readOnly':false,
-    'isDisabled':true
-  }),Ember.Object.create({
-    'value': 'study-time',
-    'selected':true,
-    'readOnly':false,
-    'isDisabled':true
-  })]),
+  mobileOptionsCollectionsTeacher: Ember.A([
+    Ember.Object.create({
+      value: 'score',
+      selected: false,
+      readOnly: false,
+      isDisabled: true
+    }),
+    Ember.Object.create({
+      value: 'completion',
+      selected: false,
+      readOnly: false,
+      isDisabled: true
+    }),
+    Ember.Object.create({
+      value: 'study-time',
+      selected: true,
+      readOnly: false,
+      isDisabled: true
+    })
+  ]),
 
   /**
    * List of  options specific to teacher to be displayed by the component Data picker for mobiles
    * @constant {Array}
    */
-    mobileOptionsTeacher : Ember.A([Ember.Object.create({
-      'value': 'score',
-      'selected':true,
-      'readOnly':false,
-      'isDisabled':false
-    }),Ember.Object.create({
-      'value': 'completion',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':false
-    }),Ember.Object.create({
-      'value': 'study-time',
-      'selected':false,
-      'readOnly':false,
-      'isDisabled':false
-    })]),
+  mobileOptionsTeacher: Ember.A([
+    Ember.Object.create({
+      value: 'score',
+      selected: true,
+      readOnly: false,
+      isDisabled: false
+    }),
+    Ember.Object.create({
+      value: 'completion',
+      selected: false,
+      readOnly: false,
+      isDisabled: false
+    }),
+    Ember.Object.create({
+      value: 'study-time',
+      selected: false,
+      readOnly: false,
+      isDisabled: false
+    })
+  ]),
 
   /**
    * If analytics is fullscreen
    * @property {Boolean}
    */
-  enableEdit:  Ember.computed.alias('class.hasCourse'),
+  enableEdit: Ember.computed.alias('class.hasCourse'),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -288,20 +321,20 @@ export default Ember.Controller.extend({
    * @param {item} item
    * @param {type} course, unit, lesson, assessment
    */
-  updateBreadcrumb: function(item, type){
+  updateBreadcrumb: function(item, type) {
     const controller = this;
     let breadcrumb = controller.get('breadcrumb');
 
-    const value = Ember.Object.create({id: item.get("id"), type: type});
+    const value = Ember.Object.create({ id: item.get('id'), type: type });
     const breadcrumbObject = Ember.Object.create({
-      label: item.get("title"),
+      label: item.get('title'),
       value: value
     });
 
     //removes all items
-    const levels = ["course", "unit", "lesson"];
+    const levels = ['course', 'unit', 'lesson'];
     const index = levels.indexOf(type);
-    const toRemove = breadcrumb.slice(index, breadcrumb.get("length"));
+    const toRemove = breadcrumb.slice(index, breadcrumb.get('length'));
     breadcrumb.removeObjects(toRemove.toArray());
 
     //add new breadcrumb item
@@ -312,14 +345,14 @@ export default Ember.Controller.extend({
   /**
    * willDestroyElement event
    */
-  willDestroyElement: function(){
+  willDestroyElement: function() {
     this.resetValues();
   },
 
   /**
    * Reset controller values and breadcrumb list
    */
-  resetValues: function(){
+  resetValues: function() {
     const controller = this;
     let breadcrumb = controller.get('breadcrumb');
     this.set('unit', null);
@@ -332,20 +365,28 @@ export default Ember.Controller.extend({
   // Observers
   restoreSelectedOptions: function(lessonLevel = false) {
     var component = this;
-    if(component.get('filterBy') === 'assessment') {
-      component.set('showFilters',true);
-      let options = component.get('optionsTeacher').filterBy('selected',true);
-      component.set('selectedOptions', options.map(function(option){
-          return option.get("value");
-      }));
-    }
-    else {
-      lessonLevel ? component.set('showFilters',true) : component.set('showFilters',false);
-      let options = component.get('optionsCollectionsTeacher').filterBy('selected',true);
-      component.set('selectedOptions', options.map(function(option){
-          return option.get("value");
-      }));
+    if (component.get('filterBy') === 'assessment') {
+      component.set('showFilters', true);
+      let options = component.get('optionsTeacher').filterBy('selected', true);
+      component.set(
+        'selectedOptions',
+        options.map(function(option) {
+          return option.get('value');
+        })
+      );
+    } else {
+      lessonLevel
+        ? component.set('showFilters', true)
+        : component.set('showFilters', false);
+      let options = component
+        .get('optionsCollectionsTeacher')
+        .filterBy('selected', true);
+      component.set(
+        'selectedOptions',
+        options.map(function(option) {
+          return option.get('value');
+        })
+      );
     }
   }
-
 });

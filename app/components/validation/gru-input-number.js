@@ -1,5 +1,6 @@
 import GruInput from 'gooru-web/components/validation/gru-input';
 import Ember from 'ember';
+import { isDecimal } from 'gooru-web/utils/math';
 
 /**
  * Number field with validation (It only accepts integers)
@@ -12,25 +13,26 @@ import Ember from 'ember';
  * @see ember-cp-validations
  */
 export default GruInput.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
 
   // -------------------------------------------------------------------------
   // Actions
-  actions:{
-
+  actions: {
     inputValueChange: function() {
-      this.set('rawInputValue', this.get('rawInputValue') ? +this.get('rawInputValue') : null);
+      this.set(
+        'rawInputValue',
+        this.get('rawInputValue') ? +this.get('rawInputValue') : null
+      );
       this.set('value', this.get('rawInputValue'));
       this.set('isTyping', false);
-      if (this.get('onFocusOut')){
+      if (this.get('onFocusOut')) {
         this.sendAction('onFocusOut');
       }
     },
 
     focusIn: function() {
-      if (this.get('onFocusIn')){
+      if (this.get('onFocusIn')) {
         this.sendAction('onFocusIn');
       }
     },
@@ -44,8 +46,12 @@ export default GruInput.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['gru-input-number','validation'],
-  classNameBindings: ['showErrorClass:has-error', 'isValid:has-success','valuePath'],
+  classNames: ['gru-input-number', 'validation'],
+  classNameBindings: [
+    'showErrorClass:has-error',
+    'isValid:has-success',
+    'valuePath'
+  ],
 
   // -------------------------------------------------------------------------
   // Events
@@ -59,21 +65,38 @@ export default GruInput.extend({
     this._super(...arguments);
     const component = this;
 
-    if(component.get('autofocus')){
+    const min = component.get('min');
+    const max = component.get('max');
+    const step = component.get('step');
+
+    if (component.get('autofocus')) {
       component.$('input[type=number]').focus();
     }
     // only accept numbers
     component.$('input[type=number]').keypress(function(event) {
       // 0 means key without character input, 8 is backspace, 48-57 are numbers
-      let keyCode = (typeof event.which === 'number') ? event.which : event.keyCode;
-      return keyCode === 0 || keyCode === 8 || (keyCode >= 48 && keyCode <= 57);
+      let keyCode =
+        typeof event.which === 'number' ? event.which : event.keyCode;
+
+      if (!isDecimal(step)) {
+        return (
+          keyCode === 0 ||
+          keyCode === 8 ||
+          keyCode === 46 ||
+          (keyCode >= 48 && keyCode <= 57)
+        );
+      } else {
+        return (
+          keyCode === 0 || keyCode === 8 || (keyCode >= 48 && keyCode <= 57)
+        );
+      }
     });
     // check that it is between min and max
     component.$('input[type=number]').on('input', function() {
       // accept the empty value
-      if(this.value) {
+      if (this.value) {
         var tempValue = +this.value;
-        if(tempValue < component.get('min') || tempValue > component.get('max')) {
+        if (tempValue < min || tempValue > max) {
           this.value = component.get('oldValue');
         }
       }
@@ -111,9 +134,8 @@ export default GruInput.extend({
   /**
    * Check every time the score change in order to convert the value to number.
    */
-  modelChange:  Ember.observer('model.minScore', function() {
+  modelChange: Ember.observer('model.minScore', function() {
     var component = this;
-    component.set('model.minScore',+this.get('model.minScore'));
+    component.set('model.minScore', +this.get('model.minScore'));
   })
-
 });

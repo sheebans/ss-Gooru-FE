@@ -4,7 +4,7 @@ import Answer from 'gooru-web/models/content/answer';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
-  classNames: ['content', 'questions','answers', 'gru-multiple-answer'],
+  classNames: ['content', 'questions', 'answers', 'gru-multiple-answer'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -13,10 +13,10 @@ export default Ember.Component.extend({
      * Add new answer choice
      */
     addNewChoice: function() {
-     var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(), {
-        'text': null,
-        'isCorrect': false,
-        'type': 'text'
+      var newChoice = Answer.create(Ember.getOwner(this).ownerInjection(), {
+        text: null,
+        isCorrect: false,
+        type: 'text'
       });
       this.get('answers').pushObject(newChoice);
     },
@@ -52,5 +52,5 @@ export default Ember.Component.extend({
   /**
    * @property {boolean}
    */
-  disableEditorButtons: Ember.computed.not("showAdvancedEditor")
+  disableEditorButtons: Ember.computed.not('showAdvancedEditor')
 });

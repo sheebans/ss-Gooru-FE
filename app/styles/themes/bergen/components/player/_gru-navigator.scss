@@ -3,10 +3,10 @@
   .navigator-header {
     background-color: $light-300;
     span {
-      color:$dark-100;
+      color: $dark-100;
     }
     p {
-      color:$dark-100;
+      color: $dark-100;
     }
     .hamburger-icon {
       color: $dark-100;
@@ -29,15 +29,14 @@
       .resources-info {
         span.number,
         .bubble-type,
-        .title
-        {
+        .title {
           color: $dark-100;
         }
         .video {
           background: url("../../themes/bergen/video-resource.svg");
           -webkit-background-size: 30px 30px;
           background-size: 30px 30px;
-          height:30px;
+          height: 30px;
           width: 30px;
         }
         .webpage {
@@ -93,8 +92,7 @@
         .resources-info {
           span.number,
           .bubble-type,
-          .title
-          {
+          .title {
             color: $dark-200;
             font-weight: bold;
           }

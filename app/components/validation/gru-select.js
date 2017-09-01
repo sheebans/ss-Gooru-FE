@@ -9,10 +9,8 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
-
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -28,22 +26,22 @@ export default Ember.Component.extend({
   /**
    * DidInsertElement ember event
    */
-  didInsertElement: function(){
+  didInsertElement: function() {
     const component = this;
     let selectpicker = component.$('.selectpicker');
     component.set('showMessage', false);
     selectpicker.selectpicker();
-    selectpicker.on('loaded.bs.select', function () {
+    selectpicker.on('loaded.bs.select', function() {
       // Update model when the user selects
       selectpicker.on('change', function(e) {
         e.stopPropagation();
         var optionSelected = selectpicker.find('option:selected').val();
         component.set('optionSelected', optionSelected);
-        component.sendAction("onOptionSelect", optionSelected);
+        component.sendAction('onOptionSelect', optionSelected);
       });
       // Change value shown in UI when model changes
-      component.addObserver('optionSelected', function(){
-        if (component.get('optionSelected') !== selectpicker.val()){
+      component.addObserver('optionSelected', function() {
+        if (component.get('optionSelected') !== selectpicker.val()) {
           selectpicker.selectpicker('val', component.get('optionSelected'));
         }
       });
@@ -83,13 +81,9 @@ export default Ember.Component.extend({
    */
   optionSelected: null
 
-
   // -------------------------------------------------------------------------
   // Observers
 
-
   // -------------------------------------------------------------------------
   // Methods
-
-
 });

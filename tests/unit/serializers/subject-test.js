@@ -12,5 +12,4 @@ test('it normalize findAll response', function(assert) {
   var serializedRecord = record.serialize();
 
   assert.ok(serializedRecord);
-
 });

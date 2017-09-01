@@ -1,18 +1,27 @@
 import Ember from 'ember';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
-import { cleanFilename, nullIfEmpty } from 'gooru-web/utils/utils';
+import {
+  cleanFilename,
+  nullIfEmpty,
+  toTimestamp,
+  toLocal
+} from 'gooru-web/utils/utils';
 import Rubric from 'gooru-web/models/rubric/rubric';
+import RubricGrade from 'gooru-web/models/rubric/rubric-grade';
+import RubricCategoryScore from 'gooru-web/models/rubric/grade-category-score';
 import RubricCategory from 'gooru-web/models/rubric/rubric-category';
-import { DEFAULT_IMAGES, TAXONOMY_LEVELS } from "gooru-web/config/config";
+import GradeQuestion from 'gooru-web/models/rubric/grade-question';
+import GradeQuestionItem from 'gooru-web/models/rubric/grade-question-item';
+import GradeQuestionStudents from 'gooru-web/models/rubric/grade-question-students';
+import GradeQuestionAnswer from 'gooru-web/models/rubric/grade-question-answer';
 
 /**
  * Serializer to support the Rubric CRUD operations
  *
  * @typedef {Object} RubricSerializer
  */
-export default Ember.Object.extend({
-
-
+export default Ember.Object.extend(ConfigurationMixin, {
   session: Ember.inject.service('session'),
 
   /**
@@ -20,9 +29,12 @@ export default Ember.Object.extend({
    */
   taxonomySerializer: null,
 
-  init: function () {
+  init: function() {
     this._super(...arguments);
-    this.set('taxonomySerializer', TaxonomySerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'taxonomySerializer',
+      TaxonomySerializer.create(Ember.getOwner(this).ownerInjection())
+    );
   },
 
   /**
@@ -31,18 +43,23 @@ export default Ember.Object.extend({
    * @param {Rubric} model - The rubric model to be serialized
    * @returns {Object} JSON Object representation of the rubric model
    */
-  serializeCreateRubric: function (model) {
+  serializeCreateRubric: function(model) {
     const serializer = this;
     return {
-      'title': model.get('title'),
-      'description': model.get('description'),
-      'type': model.get('type'),
-      'is_rubric':true,
-      'thumbnail': cleanFilename(model.get('thumbnail'), this.get('session.cdnUrls')),
-      'metadata': {
-        'audience': model.get('hasAudience') ? model.get('audience') : []
-      },
-      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(model.get('taxonomy'))
+      title: model.get('title'),
+      description: model.get('description'),
+      type: model.get('type'),
+      is_rubric: true,
+      thumbnail: cleanFilename(
+        model.get('thumbnail'),
+        this.get('session.cdnUrls')
+      ),
+      metadata: model.get('hasAudience')
+        ? { audience: model.get('audience') }
+        : null,
+      taxonomy: serializer
+        .get('taxonomySerializer')
+        .serializeTaxonomy(model.get('standards'))
     };
   },
 
@@ -58,13 +75,19 @@ export default Ember.Object.extend({
 
   serializeRubricOff: function(rubricOffModel) {
     let serializedRubricOff = {
-      is_rubric: rubricOffModel.get('rubricOn'),
+      is_rubric: false,
       overall_feedback_required: rubricOffModel.get('requiresFeedback'),
       feedback_guidance: rubricOffModel.get('feedback'),
       scoring: rubricOffModel.get('scoring'),
-      max_score: rubricOffModel.get('maxScore'),
-      increment: rubricOffModel.get('increment'),
+      max_score: rubricOffModel.get('scoring')
+        ? rubricOffModel.get('maxScore')
+        : null,
+      increment: rubricOffModel.get('scoring')
+        ? rubricOffModel.get('increment')
+        : null,
       grader: rubricOffModel.get('grader')
+        ? rubricOffModel.get('grader')
+        : 'Teacher'
     };
     return serializedRubricOff;
   },
@@ -76,25 +99,44 @@ export default Ember.Object.extend({
    * @returns {Object} JSON Object representation of the rubric model
    *
    */
-  serializeUpdateRubric: function (model) {
+  serializeUpdateRubric: function(model) {
     const serializer = this;
-    return {
-      'title': nullIfEmpty(model.get('title')),
-      'description': nullIfEmpty(model.get('description')),
-      'thumbnail': cleanFilename(model.get('thumbnail'), this.get('session.cdnUrls')),
-      'metadata': {
-        'audience': model.get('hasAudience') ? model.get('audience') : undefined
-      },
-      'taxonomy': serializer.get('taxonomySerializer').serializeTaxonomy(model.get('taxonomy')),
-      'url': nullIfEmpty(model.get('url')),
-      'is_remote': model.get('uploaded') === true,
-      'feedback_guidance': nullIfEmpty(model.get('feedback')),
-      'overall_feedback_required': model.get('requiresFeedback') === true,
-      'total_points': model.get('totalPoints'),
-      'categories': model.get('categories').map(function(category){
-        return serializer.serializedUpdateRubricCategory(category);
-      })
-    };
+    if (model.get('rubricOn')) {
+      const url = model.get('uploaded')
+        ? cleanFilename(model.get('url'), this.get('session.cdnUrls'))
+        : model.get('url');
+      return {
+        title: nullIfEmpty(model.get('title')),
+        description: nullIfEmpty(model.get('description')),
+        thumbnail: cleanFilename(
+          model.get('thumbnail'),
+          this.get('session.cdnUrls')
+        ),
+        metadata: model.get('hasAudience')
+          ? { audience: model.get('audience') }
+          : null,
+        taxonomy: serializer
+          .get('taxonomySerializer')
+          .serializeTaxonomy(model.get('standards')),
+        url: nullIfEmpty(url),
+        is_remote: !model.get('uploaded'),
+        feedback_guidance: nullIfEmpty(model.get('feedback')),
+        overall_feedback_required: !!model.get('requiresFeedback'),
+        categories: model.get('categories').length
+          ? model.get('categories').map(function(category) {
+            return serializer.serializedUpdateRubricCategory(category);
+          })
+          : null
+      };
+    } else {
+      return {
+        feedback_guidance: nullIfEmpty(model.get('feedback')),
+        overall_feedback_required: !!model.get('requiresFeedback'),
+        scoring: model.get('scoring'),
+        max_score: model.get('maxScore'),
+        increment: model.get('increment')
+      };
+    }
   },
 
   /**
@@ -102,16 +144,90 @@ export default Ember.Object.extend({
    * @param {RubricCategory} model
    * @returns {*} serialized category
    */
-  serializedUpdateRubricCategory: function (model) {
+  serializedUpdateRubricCategory: function(model) {
+    let levels = model.get('levels').filter(level => level.name || level.score);
+
     return {
-      'category_title': nullIfEmpty(model.get('title')),
-      'feedback_guidance': nullIfEmpty(model.get('feedbackGuidance')),
-      'required_feedback': model.get('requiresFeedback') === true,
-      'level': model.get('allowsLevels') === true,
-      'scoring': model.get('allowsScoring') === true,
-      'levels': model.get('levels').map(function(level) {
-        return { 'level_name': level.name, 'level_score': level.score };
-      })
+      category_title: nullIfEmpty(model.get('title')),
+      feedback_guidance: nullIfEmpty(model.get('feedbackGuidance')),
+      required_feedback: model.get('requiresFeedback') === true,
+      level: model.get('allowsLevels') === true,
+      scoring: model.get('allowsScoring') === true,
+      levels: levels.map(level => ({
+        level_name: level.name,
+        level_score: level.score
+      }))
+    };
+  },
+
+  /**
+   * Serializes a RubricGrade/RubricGrade object into a JSON representation required by the endpoint
+   *
+   * @param {RubricGrade} model - The rubric grade model to be serialized
+   * @returns {Object} JSON Object representation of the rubric grade model
+   *
+   */
+  serializeStudentRubricGrades: function(model) {
+    return {
+      event_name: model.get('eventName'),
+      rubric_id: model.get('id'),
+      title: nullIfEmpty(model.get('title')),
+      description: nullIfEmpty(model.get('description')),
+      student_id: nullIfEmpty(model.get('studentId')),
+      class_id: nullIfEmpty(model.get('classId')),
+      course_id: nullIfEmpty(model.get('courseId')),
+      unit_id: nullIfEmpty(model.get('unitId')),
+      lesson_id: nullIfEmpty(model.get('lessonId')),
+      collection_id: nullIfEmpty(model.get('collectionId')),
+      session_id: nullIfEmpty(model.get('sessionId')),
+      resource_id: nullIfEmpty(model.get('resourceId')),
+      student_score: model.get('studentScore')
+        ? model.get('studentScore')
+        : model.get('currentScore'),
+      max_score: model.get('maxScore')
+        ? model.get('maxScore')
+        : model.get('totalPoints'),
+      overall_comment: model.get('comment'),
+      created_at: toTimestamp(model.get('createdDate')),
+      updated_at: toTimestamp(model.get('updatedDate')),
+      category_score: model.get('categoriesScore').length
+        ? model
+          .get('categoriesScore')
+          .map(category => this.serializedStudentGradeCategoryScore(category))
+        : null,
+      taxonomy: this.get('taxonomySerializer').serializeTaxonomy(
+        model.get('standards')
+      ),
+      metadata: model.get('hasAudience')
+        ? { audience: model.get('audience') }
+        : null,
+      tenant_root: model.get('tenantRoot'),
+      tenant: model.get('tenant'),
+      gut_codes: model.get('gutCodes'),
+      url: model.get('url'),
+      creator_id: model.get('owner'),
+      modifier_id: model.get('modifierId'),
+      original_creator_id: model.get('originalCreatorId'),
+      original_rubric_id: model.get('originalRubricId'),
+      parent_rubric_id: model.get('parentRubricId'),
+      publish_date: model.get('publishDate'),
+      rubric_created_at: model.get('rubricCreatedDate'),
+      rubric_updated_at: model.get('rubricUpdatedDate')
+    };
+  },
+
+  /**
+   * Serializes a student grade category score
+   * @param {GradeCategoryScore} model
+   * @returns {*} serialized category score
+   */
+  serializedStudentGradeCategoryScore: function(model) {
+    return {
+      category_title: nullIfEmpty(model.get('title')),
+      level_obtained: nullIfEmpty(model.get('levelObtained')),
+      level_score: model.get('levelScore'),
+      level_max_score: model.get('levelMaxScore'),
+      level_comment: nullIfEmpty(model.get('levelComment'))
     };
   },
 
@@ -123,8 +239,8 @@ export default Ember.Object.extend({
    */
   normalizeGetRubrics: function(payload) {
     const serializer = this;
-    if (payload && Ember.isArray(payload)) {
-      return payload.map(function(rubric) {
+    if (payload && Ember.isArray(payload.rubrics)) {
+      return payload.rubrics.map(function(rubric) {
         return serializer.normalizeRubric(rubric);
       });
     } else {
@@ -137,39 +253,56 @@ export default Ember.Object.extend({
    * @param {*} data
    * @return {Rubric}
    */
-  normalizeRubric: function (data,owners) {
-    const serializer = this;
-    const metadata = data.metadata || {};
-    const ownerId = data.creator_id;
-    const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
-    const categories = data.categories || [];
-    const basePath = serializer.get('session.cdnUrls.content');
-    const appRootPath = serializer.get('appRootPath'); //configuration appRootPath
-    const thumbnail = data.thumbnail ? basePath + data.thumbnail : appRootPath + DEFAULT_IMAGES.RUBRIC;
+  normalizeRubric: function(data, owners) {
+    if (data) {
+      const serializer = this;
+      const metadata = data.metadata || {};
+      const ownerId = data.creator_id;
+      const filteredOwners = Ember.A(owners).filterBy('id', ownerId);
+      const categories = data.categories;
+      const basePath = serializer.get('session.cdnUrls.content');
+      const thumbnail = data.thumbnail ? basePath + data.thumbnail : null;
+      const url =
+        data.url && !data.is_remote ? basePath + data.url : data.url || null;
 
-    return Rubric.create(Ember.getOwner(this).ownerInjection(),{
-      id: data.id,
-      title: data.title,
-      description: data.description,
-      thumbnail: thumbnail,
-      taxonomy: serializer.get('taxonomySerializer').normalizeTaxonomyObject(data.taxonomy, TAXONOMY_LEVELS.COURSE),
-      audience: metadata.audience,
-      url: data.url,
-      isPublished: data.publishStatus === 'published',
-      publishDate: data.publish_date,
-      rubricOn:data.is_rubric,
-      uploaded: data.is_remote,
-      feedback: data.feedback_guidance,
-      totalPoints: data.total_points,
-      requiresFeedback: data.overall_feedback_required,
-      categories: categories.map(function(category){
-        return serializer.normalizeRubricCategory(category);
-      }),
-      owner: filteredOwners.get('length') ? filteredOwners.get('firstObject') : ownerId,
-      createdDate:data.created_at,
-      updatedDate:data.updated_at,
-      tenant:data.tenant
-    });
+      return Rubric.create(Ember.getOwner(this).ownerInjection(), {
+        id: data.id,
+        title: data.title,
+        description: data.description,
+        thumbnail: thumbnail,
+        standards: serializer
+          .get('taxonomySerializer')
+          .normalizeTaxonomyObject(data.taxonomy),
+        audience: metadata.audience,
+        url: url,
+        isPublished: data.publishStatus === 'published',
+        publishDate: data.publish_date,
+        rubricOn: data.is_rubric,
+        uploaded: !data.is_remote,
+        feedback: data.feedback_guidance,
+        requiresFeedback: data.overall_feedback_required,
+        maxScore: data.max_score,
+        increment: data.increment,
+        scoring: data.scoring,
+        categories: categories
+          ? categories.map(category =>
+            serializer.normalizeRubricCategory(category)
+          )
+          : Ember.A(),
+        owner: filteredOwners.get('length')
+          ? filteredOwners.get('firstObject')
+          : ownerId,
+        createdDate: data.created_at,
+        updatedDate: data.updated_at,
+        tenant: data.tenant,
+        gutCodes: data.gut_codes,
+        modifierId: data.modifier_id,
+        originalCreatorId: data.original_creator_id,
+        originalRubricId: data.original_rubric_id,
+        parentRubricId: data.parent_rubric_id,
+        tenantRoor: data.tenant_root
+      });
+    }
   },
 
   /**
@@ -180,15 +313,127 @@ export default Ember.Object.extend({
    */
   normalizeRubricCategory(data) {
     const levels = data.levels || [];
-    return RubricCategory.create({
+    return RubricCategory.create(Ember.getOwner(this).ownerInjection(), {
       title: data.category_title,
       feedbackGuidance: data.feedback_guidance,
       requiresFeedback: data.required_feedback,
       allowsLevels: data.level === true,
       allowsScoring: data.scoring === true,
-      levels: levels.map(function(level){
+      levels: levels.map(function(level) {
         return { name: level.level_name, score: level.level_score };
       })
+    });
+  },
+
+  /**
+   * Normalizes Questions To Grade
+   * @param {*} data
+   * @return {GradeQuestion}normalizeQuestionsToGrade
+   */
+  normalizeQuestionsToGrade: function(data) {
+    const serializer = this;
+    const gradeItems = data.gradeItems;
+
+    return GradeQuestion.create(Ember.getOwner(this).ownerInjection(), {
+      classId: data.classId,
+      courseId: data.courseId,
+      gradeItems: gradeItems
+        ? gradeItems.map(item => serializer.normalizeGradeQuestion(item))
+        : null
+    });
+  },
+
+  /**
+   * Normalizes a grade question
+   * @param {*} data
+   * @return {GradeQuestionItem}
+   *
+   */
+  normalizeGradeQuestion(data) {
+    return GradeQuestionItem.create(Ember.getOwner(this).ownerInjection(), {
+      unitId: data.unitId,
+      lessonId: data.lessonId,
+      collectionId: data.collectionId,
+      collectionType: data.collectionType,
+      resourceId: data.resourceId,
+      studentCount: data.studentCount
+    });
+  },
+
+  /**
+   * Normalizes Students for a Question to be graded
+   * @param {*} data
+   * @return {GradeQuestionStudents}
+   */
+  normalizeStudentsForQuestion: function(data) {
+    const students = data.students;
+
+    return GradeQuestionStudents.create(Ember.getOwner(this).ownerInjection(), {
+      students: students ? students : null
+    });
+  },
+
+  /**
+   * Normalizes Answer for Rubric Grading
+   * @param {*} payload
+   * @return {GradeQuestionAnswer}
+   */
+  normalizeAnswerToGrade: function(payload) {
+    const answer = payload.answerText.length ? payload.answerText[0].text : '';
+    return GradeQuestionAnswer.create(Ember.getOwner(this).ownerInjection(), {
+      courseId: payload.courseId,
+      unitId: payload.unitId,
+      lessonId: payload.lessonId,
+      collectionId: payload.collectionId,
+      questionId: payload.questionId,
+      sessionId: payload.session_id,
+      questionText: payload.questionText,
+      answerText: answer,
+      submittedAt: toLocal(payload.submittedAt),
+      timeSpent: payload.timeSpent,
+      userId: payload.userId
+    });
+  },
+
+  /**
+   * Normalizes Rubric Question Summary
+   * @param {*} data
+   * @return {GradeQuestion}normalizeRubricQuestionSummary
+   */
+  normalizeRubricQuestionSummary: function(data) {
+    const serializer = this;
+    const rubricQuestionSummary = data.queRubrics.length
+      ? data.queRubrics[0]
+      : null;
+
+    if (rubricQuestionSummary) {
+      const categoryScore = rubricQuestionSummary.categoryScore;
+
+      return RubricGrade.create(Ember.getOwner(this).ownerInjection(), {
+        studentId: rubricQuestionSummary.studentId,
+        learnerScore: rubricQuestionSummary.studentScore,
+        maxScore: rubricQuestionSummary.maxScore,
+        comment: rubricQuestionSummary.overallComment,
+        categoriesScore: categoryScore
+          ? categoryScore.map(item => serializer.normalizeCategoryScore(item))
+          : null
+      });
+    }
+  },
+
+  /**
+   * Normalizes a category score
+   * @param {*} data
+   * @return {RubricCategoryScore}
+   *
+   */
+  normalizeCategoryScore(data) {
+    return RubricCategoryScore.create(Ember.getOwner(this).ownerInjection(), {
+      title: data.category_title,
+      levelObtained: data.level_obtained,
+      levelMaxScore: data.level_max_score,
+      levelScore: data.level_score,
+      levelComment: data.level_comment
     });
   }
 });

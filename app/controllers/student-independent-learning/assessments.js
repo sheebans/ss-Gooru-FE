@@ -11,5 +11,5 @@ export default LearningBaseController.extend({
   /**
    * @property {String} translation name to use in no results text
    */
-   contentTypeTranslation: 'common.assessments'
+  contentTypeTranslation: 'common.assessments'
 });
