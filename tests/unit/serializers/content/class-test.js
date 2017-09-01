@@ -204,7 +204,8 @@ test('normalizeReadClassInfo', function(assert) {
     collaborator: ['1', '2'],
     gooru_version: 3,
     content_visibility: null,
-    is_archived: false
+    is_archived: false,
+    course_version: '3.0-nu'
   };
 
   const normalizedClassInfo = serializer.normalizeReadClassInfo(classPayload);
@@ -261,41 +262,14 @@ test('normalizeReadClassInfo', function(assert) {
     'Wrong coverImage'
   );
   assert.equal(normalizedClassInfo.get('minScore'), null, 'Wrong minScore');
-  assert.equal(
-    normalizedClassInfo.get('startDate'),
-    '2016-01-01',
-    'Wrong startDate'
-  );
-  assert.equal(
-    normalizedClassInfo.get('endDate'),
-    '2016-01-01',
-    'Wrong endDate'
-  );
-  assert.equal(
-    normalizedClassInfo.get('creatorSystem'),
-    '',
-    'Wrong creator system'
-  );
-  assert.equal(
-    normalizedClassInfo.get('contentVisibility'),
-    ClassModel.VISIBLE_NONE,
-    'Wrong visibility when receiving null'
-  );
-  assert.equal(
-    normalizedClassInfo.get('isArchived'),
-    false,
-    'Wrong creator is archived'
-  );
-  assert.equal(
-    normalizedClassInfo.get('collaborators.length'),
-    2,
-    'Wrong collaborators'
-  );
-  assert.equal(
-    normalizedClassInfo.get('collaborators')[0].get('id'),
-    '1',
-    'Wrong collaborator id'
-  );
+  assert.equal(normalizedClassInfo.get('startDate'), '2016-01-01', 'Wrong startDate');
+  assert.equal(normalizedClassInfo.get('endDate'), '2016-01-01', 'Wrong endDate');
+  assert.equal(normalizedClassInfo.get('creatorSystem'), '', 'Wrong creator system');
+  assert.equal(normalizedClassInfo.get('contentVisibility'), ClassModel.VISIBLE_NONE, 'Wrong visibility when receiving null');
+  assert.equal(normalizedClassInfo.get('isArchived'), false, 'Wrong creator is archived');
+  assert.equal(normalizedClassInfo.get('collaborators.length'), 2, 'Wrong collaborators');
+  assert.equal(normalizedClassInfo.get('collaborators')[0].get('id'), '1', 'Wrong collaborator id');
+  assert.equal(normalizedClassInfo.get('courseVersion'), '3.0-nu', 'Wrong course version id');
 });
 
 test('normalizeReadClassMembers', function(assert) {

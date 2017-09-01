@@ -28,10 +28,17 @@
           </div>
           <div class="graphic completed">
             <span class="legend">{{t "common.completion"}}</span>
-            {{charts.gru-radial-chart
-            value=class.performanceSummary.totalCompleted
-            minValue=0
-            maxValue=class.performanceSummary.total}}
+            {{#if isNUCourse}}
+              {{charts.gru-radial-chart
+              value=class.courseCompetencyCompletion.completedCount
+              minValue=0
+              maxValue=class.courseCompetencyCompletion.totalCount}}
+            {{else}}
+              {{charts.gru-radial-chart
+              value=class.performanceSummary.totalCompleted
+              minValue=0
+              maxValue=class.performanceSummary.total}}
+            {{/if}}
           </div>
         </div>
         <div class="students">

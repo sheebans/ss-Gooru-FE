@@ -66,5 +66,12 @@ export default Ember.Controller.extend({
    * Show the next button and send events
    * @property {Boolean} sendEvents
    */
-  sendEvents: Ember.computed.not('collectionUrl')
+  sendEvents: Ember.computed.not('collectionUrl'),
+
+  /**
+   * Extracted the course version from course object
+   * @property {String}
+   */
+  courseVersion: Ember.computed.alias('course.version')
+
 });

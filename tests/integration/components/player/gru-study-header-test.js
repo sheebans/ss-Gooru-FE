@@ -6,6 +6,7 @@ import wait from 'ember-test-helpers/wait';
 import Class from 'gooru-web/models/content/class';
 import Resource from 'gooru-web/models/content/resource';
 import Collection from 'gooru-web/models/collection/collection';
+import { NU_COURSE_VERSION } from 'gooru-web/config/config';
 
 const classServiceStub = Ember.Service.extend({
   readClassInfo: function() {
@@ -912,4 +913,31 @@ test('Layout - External Assessment', function(assert) {
     $performanceInfo.find('.resources .navigation'),
     'Resources navigation should not be visible'
   );
+});
+
+test('Study player | NU Course : Completion metrics', function(assert) {
+  let classObj = Ember.Object.create({
+    courseCompetencyCompletion: Ember.Object.create({
+      completedCount: 2,
+      totalCount: 5
+    })
+  });
+  this.set('courseVersion', NU_COURSE_VERSION);
+  this.set('class', classObj);
+  this.render(hbs `{{player/gru-study-header  courseVersion=courseVersion class=class}}`);
+  var $component = this.$(); //component dom element
+  assert.equal(T.text($component.find('.performance-info .completion-chart .legend')).replace(/\s/g, ''), '2/5Completion', 'Wrong completion count!!');
+});
+
+test('Study player | Non NU Course : Completion metrics', function(assert) {
+  let classObj = Ember.Object.create({
+    performanceSummary: Ember.Object.create({
+      totalCompleted: 4,
+      total: 5
+    })
+  });
+  this.set('class', classObj);
+  this.render(hbs `{{player/gru-study-header  class=class}}`);
+  var $component = this.$(); //component dom element
+  assert.equal(T.text($component.find('.performance-info .completion-chart .legend')).replace(/\s/g, ''), '4/5Completion', 'Wrong completion count!!');
 });

@@ -120,6 +120,12 @@ export default Ember.Object.extend(Validations, {
   unitCount: 0,
 
   /**
+   * Course version name
+   * @property {String}
+   */
+  version: null,
+
+  /**
    * @property {Profile[]}
    */
   remixedBy: Ember.computed('owner', function() {
