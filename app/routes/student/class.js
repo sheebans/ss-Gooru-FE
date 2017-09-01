@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import { NU_COURSE_VERSION } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
 
@@ -135,6 +136,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       }).then(function (hash) {
         const contentVisibility = hash.contentVisibility;
         const course = hash.course;
+        const isNUCourse = (course.version === NU_COURSE_VERSION);
+        if (isNUCourse) {
+            Ember.RSVP.hash({
+              courseCompetencyCompletion:route.get('performanceService')
+                .findCourseCompetencyCompletionByCourseIds(myId, [ courseId ])
+            }).then(({courseCompetencyCompletion}) =>{
+              aClass.set('courseCompetencyCompletion', courseCompetencyCompletion.findBy('courseId', courseId));
+            });
+        }
         aClass.set('owner', members.get('owner'));
         aClass.set('collaborators', members.get('collaborators'));
         aClass.set('members', members.get('members'));
@@ -144,6 +154,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           members: members,
           units: course.get('children') || [],
           contentVisibility: contentVisibility,
+          isNUCourse: isNUCourse,
           tourSteps: tourSteps
         });
       });
@@ -160,6 +171,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('course', model.course);
     controller.set('units', model.units);
     controller.set('contentVisibility', model.contentVisibility);
+    controller.set('isNUCourse', model.isNUCourse);
     controller.set('steps', model.tourSteps);
   }
 });

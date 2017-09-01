@@ -122,7 +122,8 @@ test('normalizeCourse', function (assert) {
         "title": "Unit 2",
         "sequence_id": 2
       }
-    ]
+    ],
+    "version": "3.0-nu"
   };
   const normalizedCourse = serializer.normalizeCourse(payload, Ember.A([owner]));
   assert.equal(normalizedCourse.get("id"), 'course-id', 'Wrong id');
@@ -139,6 +140,7 @@ test('normalizeCourse', function (assert) {
   assert.equal(normalizedCourse.get("children")[0].get("id"), 'unit-id-1', 'Wrong first children id');
   assert.equal(normalizedCourse.get("thumbnailUrl"), contentCdnUrl + 'thumbnail.png', 'Wrong thumbnailUrl');
   assert.equal(normalizedCourse.get("audience"), 1, 'Wrong audience');
+  assert.equal(normalizedCourse.get("version"), '3.0-nu', 'Wrong course version');
 });
 
 test('normalizeGetCourses', function(assert) {

@@ -137,7 +137,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       unitCount: payload.unit_count ? payload.unit_count : payload.unit_summary ? payload.unit_summary.length : 0,
       metadata: metadata,
       audience: metadata["audience"] && metadata["audience"].length > 0 ? metadata["audience"] : [],
-      useCase: payload.use_case
+      useCase: payload.use_case,
+      version: payload.version
       // TODO More properties will be added here...
     });
   },

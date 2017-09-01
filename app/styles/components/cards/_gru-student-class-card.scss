@@ -37,10 +37,16 @@
     }
     .panel-body {
       padding: 10px;
-      height: 140px;
-      &.border-between > [class*='col-']:before {
-        background: $light-400;
-        width: 1px;
+      @media (min-width: $screen-md) {
+        &.border-between > [class*='col-']:before {
+          background: $light-400;
+          width: 1px;
+        }
+      }
+      @media (max-width: $screen-md) {
+        &.border-between > [class*='col-']:before {
+          width: 0px;
+        }
       }
       .information {
         height: 125px;
@@ -64,6 +70,13 @@
       .charts{
         text-align: center;
         margin: 10px 0 0;
+        @media (max-width: $screen-md) {
+          > [class*='row']:after {
+            width: 100%;
+            background: $light-400;
+            height: 1px;
+          }
+        }
         .row {
           margin: 0;
           .performance,

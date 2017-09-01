@@ -3,6 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import ClassModel from 'gooru-web/models/content/resource';
 import Ember from 'ember';
+import { NU_COURSE_VERSION } from 'gooru-web/config/config';
 
 moduleForComponent('cards/gru-student-class-card', 'Integration | Component | cards/gru student class card', {
   integration: true,
@@ -78,4 +79,39 @@ test('Class Card Layout', function(assert) {
   T.exists(assert, $panelBody.find('.information'), 'Missing class information');
   assert.equal(T.text($panelBody.find('.information span:eq(0)')), this.get('i18n').t('student-landing.current-activity').string, 'Wrong legend of the current activity');
   assert.equal(T.text($panelBody.find('.information .current-activity')), this.get('i18n').t('common.not-applicable').string, 'Wrong legend of the current activity');
+});
+
+test('Student Class Card | NU Course : Completion metrics', function(assert) {
+  let classObj = Ember.Object.create({
+    isNUCourse: true,
+    courseCompetencyCompletion: Ember.Object.create({
+      completedCount: 2,
+      totalCount: 5
+    })
+  });
+  this.set('courseVersion', NU_COURSE_VERSION);
+  this.set('class', classObj);
+  this.render(hbs `{{cards/gru-student-class-card class=class}}`);
+  var $component = this.$(); //component dom element
+  const $classCard = $component.find('.gru-student-class-card');
+  const $panel = $classCard.find('.panel');
+  const $panelBody = $panel.find('.panel-body');
+  assert.equal(T.text($panelBody.find('.charts .charts.gru-radial-chart text')), '40%', 'Wrong completed score of the chart');
+});
+
+test('Student Class Card | Non NU Course : Completion metrics', function(assert) {
+  let classObj = Ember.Object.create({
+    isNUCourse: false,
+    performanceSummary: Ember.Object.create({
+      totalCompleted: 4,
+      total: 5
+    })
+  });
+  this.set('class', classObj);
+  this.render(hbs `{{cards/gru-student-class-card class=class}}`);
+  var $component = this.$(); //component dom element
+  const $classCard = $component.find('.gru-student-class-card');
+  const $panel = $classCard.find('.panel');
+  const $panelBody = $panel.find('.panel-body');
+  assert.equal(T.text($panelBody.find('.charts .charts.gru-radial-chart text')), '80%', 'Wrong completed score of the chart');
 });
