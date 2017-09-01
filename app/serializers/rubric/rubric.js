@@ -79,8 +79,12 @@ export default Ember.Object.extend(ConfigurationMixin, {
       overall_feedback_required: rubricOffModel.get('requiresFeedback'),
       feedback_guidance: rubricOffModel.get('feedback'),
       scoring: rubricOffModel.get('scoring'),
-      max_score: rubricOffModel.get('maxScore'),
-      increment: rubricOffModel.get('increment'),
+      max_score: rubricOffModel.get('scoring')
+        ? rubricOffModel.get('maxScore')
+        : null,
+      increment: rubricOffModel.get('scoring')
+        ? rubricOffModel.get('increment')
+        : null,
       grader: rubricOffModel.get('grader')
         ? rubricOffModel.get('grader')
         : 'Teacher'

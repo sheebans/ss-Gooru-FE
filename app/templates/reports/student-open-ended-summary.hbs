@@ -20,7 +20,7 @@
                 <div class="category">
                   <span class="title ellipsis">{{category.title}}</span>
                   {{#unless (eq category.levelMaxScore 0)}}
-                    <span class="score">({{category.levelScore}}/{{category.levelMaxScore}})</span>
+                    <span class="score">({{#if category.levelScore}}{{category.levelScore}}{{else}}0{{/if}}/{{category.levelMaxScore}})</span>
                   {{/unless}}
                 </div>
               {{/each}}
@@ -39,10 +39,10 @@
               <div class="content">
                 <span class="title ellipsis">{{category.title}}</span>
                 {{#unless (eq category.levelMaxScore 0)}}
-                  <span class="score">({{category.levelScore}}/{{category.levelMaxScore}})</span>
+                  <span class="score">({{#if category.levelScore}}{{category.levelScore}}{{else}}0{{/if}}/{{category.levelMaxScore}})</span>
                 {{/unless}}
               </div>
-              <div class="comment">{{category.levelcomment}}</div>
+              <div class="comment">{{category.levelComment}}</div>
             </div>
           {{/each}}
           <div class="category">
