@@ -24,7 +24,23 @@
     border-radius: 0 5px 5px 0;
     border-collapse: inherit;
     display: table-cell;
-
+    .lt-cell{
+    border: 1px solid $light-300;
+    }
+  .lt-head{
+    min-width:132px;
+    max-width:150px;
+  }
+   .widthmaxi{
+    max-width:61px;
+  }
+    .subsubwidthmax{
+    min-width:125px !important;
+    width:125px;
+  }
+  .subsubwidthmax1{
+    width:143px;
+  }
     thead {
       tr {
         th, td {
@@ -35,6 +51,7 @@
             border-right: 0;
           }
         }
+
       }
       .headers {
         td, th {
@@ -164,7 +181,12 @@
         }
       }
     }
+    .width-information {
+      min-width:150px;
+      max-width:150px;
+    }
     .performance-information {
+      max-width:61px !important;
       .box {
         border-radius: 4px;
         width: 42px;
@@ -200,6 +222,10 @@
       left: 10px;
       min-height: 25px;
       width: 111px;
+     
+    }
+    .htFixed{
+       height:85px !important;
     }
   }
 }
